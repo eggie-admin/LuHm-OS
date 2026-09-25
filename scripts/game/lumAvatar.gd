@@ -1,9 +1,12 @@
 extends Node3D
 
 const ASSET_PATH := "res://assets/lum/luhm.glb"
+const RUN_ASSET_PATH := "res://assets/lum/luhmRunning.glb"
 
 var model_root: Node3D
 var animation_player: AnimationPlayer
+var skeleton: Skeleton3D
+var external_model_loaded := false
 var _home_scale := Vector3.ONE
 var _home_y := 0.0
 var _pulse_tween: Tween
@@ -19,6 +22,7 @@ func _process(delta: float) -> void:
     position.y = _home_y + sin(_idle_clock * 1.15) * 0.035
 
 func _load_model_or_fallback() -> void:
+    external_model_loaded = false
     if ResourceLoader.exists(ASSET_PATH):
         var packed := load(ASSET_PATH)
         if packed is PackedScene:
@@ -26,8 +30,9 @@ func _load_model_or_fallback() -> void:
             model_root.name = "LumModel"
             add_child(model_root)
             _normalize_imported_model()
-            animation_player = model_root.find_child("AnimationPlayer", true, false) as AnimationPlayer
-            _play_idle_if_available()
+            _bind_imported_runtime()
+            external_model_loaded = true
+            _apply_neutral_pose_if_available()
             return
     _build_procedural_lum()
 
@@ -37,16 +42,59 @@ func _normalize_imported_model() -> void:
     model_root.scale = Vector3.ONE
     model_root.position = Vector3.ZERO
 
-func _play_idle_if_available() -> void:
+func _bind_imported_runtime() -> void:
+    animation_player = model_root.find_child("AnimationPlayer", true, false) as AnimationPlayer
+    if animation_player == null:
+        var players := model_root.find_children("*", "AnimationPlayer", true, false)
+        if not players.is_empty():
+            animation_player = players[0] as AnimationPlayer
+
+    var skeletons := model_root.find_children("*", "Skeleton3D", true, false)
+    if not skeletons.is_empty():
+        skeleton = skeletons[0] as Skeleton3D
+
+func _apply_neutral_pose_if_available() -> void:
     if animation_player == null:
         return
-    for candidate in ["idleBreath", "Idle", "idle", "RESET"]:
-        if animation_player.has_animation(candidate):
-            if candidate != "RESET":
-                animation_player.play(candidate)
+    var names := animation_player.get_animation_list()
+    for name in names:
+        var lowered := String(name).to_lower()
+        if lowered.contains("clip0") or lowered.contains("idle") or lowered == "reset":
+            animation_player.play(name)
+            animation_player.seek(0.0, true)
+            animation_player.pause()
             return
 
+func uses_external_model() -> bool:
+    return external_model_loaded
+
+func get_rig_summary() -> Dictionary:
+    var names: Array[String] = []
+    if animation_player != null:
+        for animation_name in animation_player.get_animation_list():
+            names.append(String(animation_name))
+    return {
+        "external": external_model_loaded,
+        "skeleton_bones": skeleton.get_bone_count() if skeleton != null else 0,
+        "animations": names.size(),
+        "animation_names": names,
+        "running_asset_present": ResourceLoader.exists(RUN_ASSET_PATH)
+    }
+
+func play_motion_hint(token: String) -> bool:
+    if animation_player == null:
+        return false
+    var needle := token.to_lower()
+    for animation_name in animation_player.get_animation_list():
+        if String(animation_name).to_lower().contains(needle):
+            animation_player.play(animation_name)
+            return true
+    return false
+
 func _build_procedural_lum() -> void:
+    external_model_loaded = false
+    animation_player = null
+    skeleton = null
     model_root = Node3D.new()
     model_root.name = "LumFallback"
     add_child(model_root)
@@ -116,6 +164,7 @@ func restore_visual_state() -> void:
     _kill_pulse_tween()
     scale = _home_scale
     set_expression("neutral", 0.0)
+    _apply_neutral_pose_if_available()
 
 func set_expression(expression_name: String, weight: float = 1.0) -> void:
     if model_root == null:
