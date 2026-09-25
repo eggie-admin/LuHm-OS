@@ -1,0 +1,91 @@
+name: KAI9000 Cathedral CI
+
+on:
+  pull_request:
+    paths:
+      - "project/hydra/**"
+      - "lumh-os/kai9000/**"
+      - "ultima/ollama-ffmpeg-antenna-v3/**"
+      - "docs/LUHM_CROWN_GATE.md"
+      - "AGENTS.md"
+      - "tools/kai9000_ci_guard.py"
+      - "tools/project_hydra_structure_guard.py"
+      - ".github/workflows/kai9000-ci.yml"
+  push:
+    branches: [luhmos-main]
+    paths:
+      - "project/hydra/**"
+      - "lumh-os/kai9000/**"
+      - "ultima/ollama-ffmpeg-antenna-v3/**"
+      - "docs/LUHM_CROWN_GATE.md"
+      - "AGENTS.md"
+      - "tools/kai9000_ci_guard.py"
+      - "tools/project_hydra_structure_guard.py"
+      - ".github/workflows/kai9000-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  kai9000-ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Install KAI9000 Python runtime and test gate
+        working-directory: ultima/ollama-ffmpeg-antenna-v3
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e . pytest
+
+      - name: Project Hydra structure guard
+        run: python tools/project_hydra_structure_guard.py
+
+      - name: Architecture and secret guard
+        run: python tools/kai9000_ci_guard.py
+
+      - name: Python compile gate
+        run: |
+          python -m compileall -q ultima/ollama-ffmpeg-antenna-v3
+          python -m py_compile tools/kai9000_ci_guard.py tools/project_hydra_structure_guard.py
+
+      - name: Lum Crown authority contract
+        working-directory: ultima/ollama-ffmpeg-antenna-v3
+        run: python -m pytest -q tests/test_lum_agent.py
+
+      - name: Locked jQuery vendor gate
+        working-directory: ultima/ollama-ffmpeg-antenna-v3
+        run: |
+          npm ci
+          npm run vendor:jquery
+          test -s static/vendor/jquery.min.js
+
+      - name: npm metadata gate
+        working-directory: ultima/ollama-ffmpeg-antenna-v3
+        run: npm pkg get name version scripts dependencies
+
+      - name: Runtime doctor
+        working-directory: ultima/ollama-ffmpeg-antenna-v3
+        run: npm run doctor
+
+      - name: No-network smoke tests
+        working-directory: ultima/ollama-ffmpeg-antenna-v3
+        run: python -m unittest discover -s tests -p "test_ci_*.py" -v

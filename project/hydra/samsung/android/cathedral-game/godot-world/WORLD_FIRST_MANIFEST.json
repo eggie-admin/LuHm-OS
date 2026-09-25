@@ -1,0 +1,105 @@
+{
+  "schema": "luhmos.godot.world_first.v2",
+  "mutation": "LUHM_OS_WINDOWS_VN_CATHEDRAL_1.0.8",
+  "reconciliation": "CATHEDRAL_VN_PLUS_PHYSICAL_PROOF",
+  "status": "SOURCE_CANDIDATE_BUILD_PENDING",
+  "engine": "Godot 4.7.2",
+  "main_layer": "native Godot 3D world",
+  "hud": "CanvasLayer minimal floating HUD + explicit lightweight desktop windows",
+  "dialogue": "bottom visual-novel dock over live 3D stage",
+  "cockpit": "CathedralAndroid WebView opened only by explicit CROWN action",
+  "frontend": {
+    "world": "Godot 4 native 3D",
+    "windowing": "LuHmWindowManager",
+    "desktop_shell": "LuHmDesktopShell",
+    "settings": "LuHmSettingsStore user:// JSON",
+    "intent_rule": "typed UI intents only",
+    "physical_proof_harness": "LuHmDesktopShell local ConfigFile proof window"
+  },
+  "backend": {
+    "role": "existing local control plane",
+    "presentation_boundary": "no direct shell or hidden network execution from Godot UI",
+    "offline_fallback": true,
+    "game_remains_usable_when_backend_unavailable": true
+  },
+  "physical_proof": {
+    "save_path": "user://luhmos_physical_proof.cfg",
+    "modes": ["SPRITE_BUBBLE", "WIDGET_DECK", "FULL_COCKPIT"],
+    "realms": ["GAME", "ADMIN", "SYSTEM"],
+    "session_receipt": true,
+    "savepoint_counter": true,
+    "restored_session_receipt": true,
+    "realm_changes_authority": false,
+    "shell_bridge": false,
+    "network_bridge": false,
+    "privilege_bridge": false
+  },
+  "world": {
+    "zone": "Corktown Switchyard",
+    "style": "original Detroit-ish cathedral-tech procedural diorama",
+    "runtime_assets": "LuHm-authored SVG + generated Godot primitive geometry"
+  },
+  "persistent_hud": [
+    "quest sigil",
+    "map ping",
+    "context action",
+    "Lum floating icon",
+    "tiny status line"
+  ],
+  "lum_micro_menu": ["PET", "QUEST", "DESK", "CROWN"],
+  "desktop_windows": ["QUEST", "CODEX", "SETTINGS", "FRONT / BACK", "PHYSICAL PROOF"],
+  "settings_groups": ["display", "hud", "dialogue", "controls", "accessibility", "backend", "admin"],
+  "authority": {
+    "human_final_authority": "Professor",
+    "game_to_admin_escalation": false,
+    "cockpit_auto_open": false,
+    "crown_action": "explicit user gesture only",
+    "silent_install": false,
+    "public_publish": "OFF"
+  },
+  "rights": {
+    "lum_world_sprite.svg": "LUHM_ORIGINAL",
+    "lum_hud_icon.svg": "LUHM_ORIGINAL",
+    "procedural_geometry": "LUHM_ORIGINAL",
+    "desktop_shell_code": "LUHM_ORIGINAL",
+    "physical_proof_code": "LUHM_ORIGINAL",
+    "third_party_private_reference_bundled": false
+  },
+  "previous_green_baseline": {
+    "version_name": "1.0.7",
+    "version_code": 107,
+    "canonical_commit": "c00ab4fe2f270de741a26be9f57f95d81425c0ea",
+    "workflow_run_id": 35084621350,
+    "artifact_id": 10441118619,
+    "apk_sha256": "d121085106f361f4caeefadc5774cd125d2e0cdd8d139c81eeef9a0d3e7b2004",
+    "signer_sha256": "598d7272d62dbebb71972d6164822636ad1439cd35631d0cd43321d003c92142"
+  },
+  "candidate": {
+    "version_name": "1.0.8",
+    "version_code": 108,
+    "build_host_branch": "luhmos/cathedral-windows-vn-1.0.8-20260916",
+    "reconciliation_target_branch": "luhmos/reconcile-1.0.8-vn-physical-proof-20260916",
+    "build_green": false,
+    "signed_artifact_green": false,
+    "device_green": false
+  },
+  "remaining_gates": [
+    "source contract tests",
+    "Godot headless import/runtime smoke",
+    "signed 1.0.8 Android forge",
+    "same-signer APK verification",
+    "reviewable reconciliation PR",
+    "explicit Professor promotion",
+    "canonical merge",
+    "main-branch build receipt",
+    "private Drive stable handoff",
+    "Samsung S24 FE install/update",
+    "native world + VN desktop visual proof",
+    "Lum -> DESK window interaction",
+    "physical proof mode/realm receipt",
+    "Lum -> CROWN cockpit summon",
+    "save/reload",
+    "Secure Folder behavior where intended",
+    "reboot/return persistence"
+  ]
+}
