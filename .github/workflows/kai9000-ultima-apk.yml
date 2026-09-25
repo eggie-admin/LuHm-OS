@@ -1,0 +1,16 @@
+name: Historical KAI 9000 APK Workflow Disabled
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  historical-only:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: |
+          echo 'HISTORICAL_NON_CANONICAL'
+          echo 'Active Android forge: .github/workflows/luhm-os-sm-x400-api37.yml'
+          echo 'No APK is built by this historical workflow.'

@@ -1,0 +1,354 @@
+{
+  "schema": "luhm-os.crown-source-of-truth.v4",
+  "id": "CROWN_SOURCE_OF_TRUTH_20260920",
+  "date": "2026-09-20",
+  "updated": "2026-09-21",
+  "status": "CROWNED_GODOT3D_GUI_SOURCE_TRUTH_SIGNED_DEVICE_UPDATE_PENDING",
+  "scope": "LuHm OS SM-X400 self-contained Godot 3D Cathedral cockpit, persistent APK update lane, and evidence-gated device validation doctrine",
+  "supersedes": "docs/CROWN_SOURCE_OF_TRUTH_20260919.json",
+  "authority": {
+    "human_final_authority": "Professor",
+    "boss_ai": "Lum",
+    "operating_system_permissions_final": true,
+    "ai_may_self_approve_consequential_actions": false
+  },
+  "agent_mesh": {
+    "version": "LUHM Agent Mesh v1",
+    "boss": "Lum",
+    "default_blades": ["Context", "Build", "Research"],
+    "conditional_blade": "Critic",
+    "deterministic_edge": "Tool Executor",
+    "helpers_report_only_to_boss": true,
+    "helpers_may_recursively_recruit": false,
+    "task_budget_required": true,
+    "evidence_moves_by_reference": true,
+    "max_parallelism": 3,
+    "direct_questions_bypass_mesh": true,
+    "consequential_actions_crown_gated": true
+  },
+  "doctrine": {
+    "local_first": true,
+    "automatic_publishing": false,
+    "automatic_destructive_operations": false,
+    "automatic_privileged_operations": false,
+    "secrets_in_repo_logs_screenshots_frontend_artifacts": false,
+    "untrusted_output_becomes_shell_authority": false,
+    "evidence_before_green": true,
+    "prefer_mature_open_source_with_provenance": true,
+    "prefer_explicit_json_yaml_manifests": true,
+    "prefer_deterministic_auditable_tools": true
+  },
+  "roleplay_systems": {
+    "coding_roleplay": {
+      "system": "ENGINEERING_DSL",
+      "canonical_doctrine": "lumh-os/kai9000/CODING_ROLEPLAY_DOCTRINE.md",
+      "may_compile_to_engineering_intent": true,
+      "normal_risk_approval_and_evidence_gates_required": true,
+      "vowel_ripped_artifact_naming": true
+    },
+    "questforge": {
+      "system": "FICTIONAL_TABLETOP",
+      "canonical_doctrine": "docs/QUESTFORGE_ROLEPLAY_DOCTRINE.md",
+      "active_campaign_canon": "docs/QUESTFORGE_IRON_SAINT_CANON_20260919.json",
+      "engineering_authority": false,
+      "fictional_actions_may_compile_to_real_tools": false
+    },
+    "hard_separation": true,
+    "shared_mythology_does_not_imply_shared_authority": true
+  },
+  "android": {
+    "product_name": "LuHm OS",
+    "package_id": "art.eggiebagelface.kai9000.dev",
+    "current_candidate_version_name": "0.10.0-base",
+    "current_candidate_version_code": 1000,
+    "hardware_target": {
+      "manufacturer": "Samsung",
+      "model": "SM-X400",
+      "abi": "arm64-v8a",
+      "root_assumed": false
+    },
+    "platform_target": {
+      "android": 17,
+      "api": 37,
+      "compile_sdk": 37,
+      "target_sdk": 37,
+      "min_sdk": 31
+    },
+    "install_model": "single_standard_android_apk_with_same_signer_monotonic_update_lane",
+    "runtime_architecture": "embedded_godot_android_library_plus_bundled_godot_project_and_cathedral_assets",
+    "godot": {
+      "version": "4.7.2.stable",
+      "renderer": "gl_compatibility",
+      "primary_scene": "res://main.tscn",
+      "real_node3d_runtime": true
+    },
+    "verified_installed_baseline": {
+      "version_name": "0.9.0-dev",
+      "version_code": 9,
+      "runtime_architecture": "app_owned_native_service_plus_bundled_webview_assets",
+      "physical_sm_x400_install_seen": true,
+      "launch_seen": true,
+      "cathedral_ui_seen": true,
+      "bundled_visual_assets_seen": true,
+      "engine_self_test_seen": false,
+      "godot3d_playtest_seen": false
+    },
+    "termux_runtime_dependency": false,
+    "termux_install_required": false,
+    "bash_install_required": false,
+    "shell_execution_surface": false,
+    "external_localhost_daemon_required": false,
+    "cross_profile_loopback_supported": false,
+    "same_profile_loopback_default": false,
+    "secure_folder_role": "optional_isolation_only_not_runtime_transport",
+    "active_source": {
+      "repository": "eggie-admin/hydra-shell-android",
+      "baseline_branch": "testing/luhm-os-android",
+      "game_candidate_branch": "build/iron-saint-playable-20260921",
+      "update_lane_branch": "build/luhm-update-lane-20260921",
+      "native_project": "samsung-sm-x400/luhm-os"
+    }
+  },
+  "gui_contract": {
+    "status": "SOURCE_AND_FORGE_GREEN_DEVICE_VISUAL_PENDING",
+    "shell": "LuHm OS Cathedral cockpit",
+    "canonical_information_architecture": [
+      "Evidence Board",
+      "Authority",
+      "Art & Assets",
+      "3D",
+      "Roleplay Wall",
+      "Questforge",
+      "Self Audit",
+      "Truth Receipt"
+    ],
+    "evidence_board_first": true,
+    "truth_receipt_persistent": true,
+    "authority_contains": ["Crown", "Boss", "Device contract", "Runtime truth"],
+    "roleplay_wall_hard_separation": true,
+    "questforge_contains_iron_saint": true,
+    "questforge_launches_3d_game": true,
+    "gameplay_hud_is_child_mode_not_primary_information_architecture": true,
+    "three_d_runtime_state_separate_from_questforge_fiction": true,
+    "art_assets_rights_wall_required": true,
+    "self_audit_exposes_green_pending_receipts": true,
+    "safe_area_aware": true,
+    "adaptive_container_layout": true,
+    "absolute_pixel_cockpit_layout_allowed": false,
+    "sm_x400_visual_validation": "PENDING"
+  },
+  "forge": {
+    "environment": "github_actions_ubuntu_24_04",
+    "gradle": "9.3.1",
+    "android_gradle_plugin": "9.1.1",
+    "jdk": 17,
+    "android_sdk": 37,
+    "android_build_tools": "37.0.0",
+    "node": 24,
+    "npm": "build_time_only",
+    "python": "3.14",
+    "pip": "build_time_only_if_pinned_requirements_exist",
+    "device_toolchain_install": false,
+    "debug_signing_allowed_for_isolated_testing": true,
+    "persistent_update_lane_public_ci_output": "unsigned_release_only",
+    "persistent_update_lane_private_signing_required": true,
+    "persistent_private_signer_created_outside_public_ci": true,
+    "private_signing_material_in_repo": false,
+    "private_signing_material_in_public_ci": false
+  },
+  "update_lane": {
+    "status": "SIGNED_BASE_AND_UPDATE_READY_DEVICE_TEST_PENDING",
+    "package_id_stable": true,
+    "base": {
+      "version_name": "0.10.0-base",
+      "version_code": 1000,
+      "public_forge_output": "unsigned",
+      "private_signed_apk_sha256": "bc0adbed8e9c5088512a4cb5ce76b9e9fcd84330819886cc094897ba251f7552",
+      "drive_file_id": "1wG9YEE0NDSpHTlZMSygquADppy-LPRj3"
+    },
+    "first_update": {
+      "version_name": "0.10.1-update",
+      "version_code": 1001,
+      "public_forge_output": "unsigned",
+      "private_signed_apk_sha256": "4f2f2d71eef7f71403aa43cd72e98bece8fb115e7e476ad0a815488e1753a0a3",
+      "drive_file_id": "18vspwVKGOtzinAjH60-_7J0b48ySwxV5"
+    },
+    "same_signing_certificate_required": true,
+    "same_signing_certificate_verified": true,
+    "signing_certificate_sha256": "bd90bc9e0d725476f7936ecb7ef8a71f3d2ac502cd3071022cf66864fd0c0a7f",
+    "signing_key_algorithm": "RSA-4096",
+    "monotonic_version_code_required": true,
+    "persistent_private_signer_created": true,
+    "persistent_private_signer_backup_verified": true,
+    "private_signer_backup_hash_reverified_after_drive_download": true,
+    "base_to_update_device_install_verified": false,
+    "signature_conflict_uninstall_cycle_expected_after_base": false,
+    "android_or_samsung_install_confirmation_can_be_bypassed_by_apk_signature_alone": false,
+    "auto_blocker_bypass_claimed": false
+  },
+  "validation_state": {
+    "legacy_cathedral_apk_build_green": {
+      "status": "GREEN",
+      "testing_branch_run_id": 35560945301,
+      "candidate_run_id": 35560737127,
+      "source_commit": "1353dd9be9b9983e0dd500ec0c8f106837e024b1",
+      "package_id": "art.eggiebagelface.kai9000.dev",
+      "version_name": "0.9.0-dev",
+      "version_code": 9,
+      "target_sdk": 37,
+      "apk_sha256": "1c8f1b3364eef0e7c420e465e09104b033398e16d5878bf57c2b8668ae2da31c",
+      "signature_scheme_v2_verified": true,
+      "zipalign_16k_verified": true,
+      "termux_dependency": false,
+      "bash_installer": false,
+      "external_daemon_dependency": false
+    },
+    "godot3d_package_green": {
+      "status": "GREEN",
+      "forge_run_id": 35563595262,
+      "source_commit": "a354e9ec52f637b4d0125ef2756d879bc825e59e",
+      "version_name": "0.10.0-dev",
+      "version_code": 10,
+      "godot_version": "4.7.2.stable",
+      "libgodot_android_present": true,
+      "project_godot_present": true,
+      "node3d_scene_present": true,
+      "canonical_apk_assets_verified": 9,
+      "sm_x400_3d_playtest": "PENDING"
+    },
+    "cathedral_gui_source_truth_green": {
+      "status": "GREEN",
+      "forge_run_id": 35596600603,
+      "forge_run_number": 32,
+      "source_commit": "166c0934535ba56c2a2ac93c8b9c57a8cd26b42e",
+      "artifact_id": 10636827994,
+      "artifact_zip_sha256": "dee01ea750b774859f2ef291b90fd4da67422be91fd8e0ab6da557666fe1252d",
+      "canonical_section_order_audited": true,
+      "safe_area_contract_audited": true,
+      "adaptive_container_contract_audited": true,
+      "questforge_game_launch_separation_audited": true,
+      "sm_x400_visual_validation": "PENDING"
+    },
+    "persistent_update_lane_forge_green": {
+      "status": "GREEN",
+      "forge_run_id": 35596600603,
+      "forge_run_number": 32,
+      "source_commit": "166c0934535ba56c2a2ac93c8b9c57a8cd26b42e",
+      "artifact_id": 10636827994,
+      "artifact_name": "luhm-os-persistent-update-lane-32",
+      "artifact_zip_sha256": "dee01ea750b774859f2ef291b90fd4da67422be91fd8e0ab6da557666fe1252d",
+      "unsigned_base_build": "GREEN",
+      "unsigned_update_build": "GREEN",
+      "version_lineage": "GREEN",
+      "canonical_assets_both_apks": "GREEN",
+      "portable_signing_toolkit": "GREEN",
+      "portable_signing_toolkit_libcxx_included": true,
+      "public_ci_secret_firewall": "GREEN",
+      "private_persistent_signer": "GREEN",
+      "private_signer_backup": "GREEN",
+      "signed_base": "GREEN",
+      "signed_update": "GREEN",
+      "base_to_update_device_test": "PENDING"
+    },
+    "cathedral_canonical_assets_green": {
+      "status": "GREEN",
+      "canonical_apk_assets_verified": 9,
+      "drive_assets_verified": 6,
+      "public_brand_assets_verified": 3,
+      "asset_hashes_verified_inside_finished_apk": true
+    },
+    "local_handoff_green": {
+      "status": "GREEN",
+      "legacy_apk_sha256": "1c8f1b3364eef0e7c420e465e09104b033398e16d5878bf57c2b8668ae2da31c",
+      "current_signed_base_apk_sha256": "bc0adbed8e9c5088512a4cb5ce76b9e9fcd84330819886cc094897ba251f7552",
+      "current_signed_update_apk_sha256": "4f2f2d71eef7f71403aa43cd72e98bece8fb115e7e476ad0a815488e1753a0a3",
+      "canonical_asset_count": 9
+    },
+    "sm_x400_device_validation": {
+      "status": "PARTIAL",
+      "legacy_baseline_install_launch_ui": "GREEN",
+      "source_truth_gui_device_visual": "PENDING",
+      "godot3d_playtest": "PENDING",
+      "persistent_base_to_update_test": "PENDING",
+      "green_claimed": false
+    },
+    "android17_runtime_validation": {
+      "status": "PENDING",
+      "green_claimed": false
+    }
+  },
+  "supporting_doctrine_alignment": {
+    "agents_md_current_crown": "docs/CROWN_SOURCE_OF_TRUTH_20260920.json",
+    "agents_md_sm_x400_api37_contract": true,
+    "coding_roleplay_current_crown": "docs/CROWN_SOURCE_OF_TRUTH_20260920.json",
+    "coding_roleplay_convergence_artifact": "thwtchnghr",
+    "coding_roleplay_convergence_phrase": "the witching hour",
+    "retired_convergence_name_active_authority": false,
+    "questforge_engineering_authority": false
+  },
+  "green_semantics": {
+    "source_crowned_does_not_imply_runtime_green": true,
+    "ci_build_green_does_not_imply_device_green": true,
+    "gui_source_green_does_not_imply_sm_x400_visual_green": true,
+    "update_lane_forge_green_does_not_imply_same_signer_device_update_green": true,
+    "godot3d_package_green_does_not_imply_godot3d_device_playtest_green": true,
+    "persistent_update_lane_green_requires": [
+      "private_persistent_signer_created_outside_public_git_and_ci",
+      "private_signer_backup_verified",
+      "base_1000_signed_with_persistent_certificate",
+      "update_1001_signed_with_same_certificate",
+      "base_1000_installed_on_physical_sm_x400",
+      "update_1001_installed_over_base_without_uninstall",
+      "post_update_launch_and_save_state_validation"
+    ],
+    "gui_device_green_requires": [
+      "physical_sm_x400_launch",
+      "canonical_cathedral_information_architecture_visible",
+      "safe_area_not_clipped",
+      "authority_assets_3d_roleplay_questforge_audit_navigation_usable",
+      "truth_receipt_visible",
+      "questforge_launches_3d_game",
+      "cathedral_return_path_works"
+    ],
+    "sm_x400_device_green_requires": [
+      "physical_sm_x400_install",
+      "launch",
+      "godot3d_world_load",
+      "player_movement",
+      "interaction_loop",
+      "persistent_save",
+      "no_external_daemon_dependency"
+    ],
+    "android17_green_requires": [
+      "api37_runtime_or_emulator_validation",
+      "large_screen_behavior_validation",
+      "android17_background_and_security_behavior_validation"
+    ]
+  },
+  "repository": {
+    "canonical_repository": "eggie-admin/hydra-shell-android",
+    "baseline_branch": "testing/luhm-os-android",
+    "game_candidate_branch": "build/iron-saint-playable-20260921",
+    "active_update_lane_branch": "build/luhm-update-lane-20260921",
+    "promotion_target": "main",
+    "automatic_promotion": false,
+    "main_touched_by_update_lane": false,
+    "legacy_s24_builds": "HISTORICAL_NON_CANONICAL",
+    "vercel_active_architecture": false
+  },
+  "precedence": [
+    "docs/CROWN_SOURCE_OF_TRUTH_20260920.json",
+    "AGENTS.md",
+    "samsung-sm-x400/luhm-os/package.manifest.json",
+    "project/hydra/samsung/android/apk/testing-ingest.manifest.json",
+    "project/hydra/samsung/android/apk/app.reference.json",
+    "lumh-os/kai9000/CODING_ROLEPLAY_DOCTRINE.md",
+    "docs/QUESTFORGE_ROLEPLAY_DOCTRINE.md",
+    "docs/QUESTFORGE_IRON_SAINT_CANON_20260919.json",
+    "other repository documentation and historical artifacts"
+  ],
+  "runtime_truth": {
+    "rule": "Repository doctrine describes intended state. Current device state must be rechecked live before GREEN.",
+    "recheck_live": true
+  }
+}

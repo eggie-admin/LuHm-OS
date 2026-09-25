@@ -1,0 +1,165 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+CROWN = ROOT / 'docs/CROWN_SOURCE_OF_TRUTH_20260920.json'
+PKG = ROOT / 'samsung-sm-x400/luhm-os/package.manifest.json'
+APP = ROOT / 'samsung-sm-x400/luhm-os/app/build.gradle.kts'
+MANIFEST = ROOT / 'samsung-sm-x400/luhm-os/app/src/main/AndroidManifest.xml'
+MAIN = ROOT / 'samsung-sm-x400/luhm-os/app/src/main/java/art/eggiebagelface/kai9000/dev/MainActivity.java'
+ASSETS = ROOT / 'samsung-sm-x400/luhm-os/app/src/main/assets/cathedral-assets.json'
+INDEX = ROOT / 'samsung-sm-x400/luhm-os/app/src/main/assets/index.html'
+GODOT_PROJECT = ROOT / 'samsung-sm-x400/luhm-os/app/src/main/assets/project.godot'
+GODOT_SCENE = ROOT / 'samsung-sm-x400/luhm-os/app/src/main/assets/main.tscn'
+GODOT_SCRIPT = ROOT / 'samsung-sm-x400/luhm-os/app/src/main/assets/main.gd'
+WORKFLOW = ROOT / '.github/workflows/luhm-os-sm-x400-api37.yml'
+
+EXPECTED = {
+    'CURRENT_LUM_MIDNIGHT_1996_MODEL_SHEET.png': '60a84012d60965c3cfb02c2f94aaeca11401f0965c85595fc9ebcc79a0961ce0',
+    'CURRENT_KAI9000_GAME_WORLD_BIBLE.png': 'fe6cbd614e5078c21b7de4896eaff2c600329ab1cb969694d45669ad8b1c7175',
+    'CURRENT_KAI9000_CATHEDRAL_POSTER.png': '02a7b16dd88c6574d9f230c45335736fdebe9098002ea1fb42c7001497aaf794',
+    'CURRENT_LUM_ANIMATED_REEL.mp4': '1a20bd7bf495ee930d2cc9dab9342d7cb29d326ce0c7f433c206581ebdddad97',
+    'KAI9000_LUM_AVATAR_ACTUAL_ANIMATED.gif': 'a9df1d2b5c63d5740be8c476b59f389171b99609a14cd02fc8ae7568d27b2aba',
+    'KAI9000_LUM_AVATAR_ACTUAL_ANIMATED.manifest.json': '6b95f05e2532464022fa363c1d067755c3358600cfced0d791fd9fd7b95e2742'
+}
+
+
+def need(value, message):
+    if not value:
+        raise SystemExit('LUHM_AUDIT_RED: ' + message)
+
+
+def main():
+    c = json.loads(CROWN.read_text())
+    p = json.loads(PKG.read_text())
+    a = json.loads(ASSETS.read_text())
+    g = APP.read_text()
+    m = MANIFEST.read_text()
+    j = MAIN.read_text()
+    h = INDEX.read_text()
+    project = GODOT_PROJECT.read_text()
+    scene = GODOT_SCENE.read_text()
+    script = GODOT_SCRIPT.read_text()
+    wf = WORKFLOW.read_text()
+
+    need(c['android']['hardware_target']['model'] == 'SM-X400', 'device target')
+    need(c['android']['platform_target']['api'] == 37, 'api37 crown baseline')
+    need(c['android']['termux_runtime_dependency'] is False, 'termux crown baseline')
+
+    need(p['app']['base_version_code'] == 1000, 'base versionCode')
+    need(p['app']['first_update_version_code'] == 1001, 'first update versionCode')
+    need(p['app']['first_update_version_code'] > p['app']['base_version_code'], 'versionCode monotonicity')
+    need(p['update_lane']['package_id_stable'] is True, 'stable package id')
+    need(p['update_lane']['signer_continuity_required'] is True, 'signer continuity')
+    need(p['update_lane']['public_forge_output_unsigned'] is True, 'public forge must remain unsigned')
+    need(p['update_lane']['private_key_in_git'] is False, 'private signer leaked to git policy')
+    need(p['update_lane']['private_key_in_public_ci'] is False, 'private signer leaked to public CI policy')
+    need(p['signing']['ephemeral_debug_signing_allowed_for_update_lane'] is False, 'ephemeral debug signer allowed')
+    need(p['game']['engine'] == 'Godot 4.7.2 stable', 'Godot version')
+    need(p['game']['questforge_engineering_authority'] is False, 'Questforge authority boundary')
+    need(p['runtime']['termux'] is False and p['runtime']['bash_installer'] is False, 'package termux/bash')
+    need(p['runtime']['webview_primary_runtime'] is False, 'WebView still primary runtime')
+
+    for token in [
+        'compileSdk = 37',
+        'targetSdk = 37',
+        'minSdk = 31',
+        'providers.gradleProperty("luhmVersionCode")',
+        'providers.gradleProperty("luhmVersionName")',
+        'orElse("1000")',
+        'orElse("0.10.0-base")'
+    ]:
+        need(token in g, 'gradle update-lane token ' + token)
+    need('implementation("org.godotengine:godot:4.7.2.stable")' in g, 'Godot Android AAR dependency')
+    need('signingConfigs' not in g, 'signing secret/config must not live in public gradle source')
+
+    need('android:label="LuHm OS"' in m, 'app label')
+    need('android.permission.INTERNET' not in m, 'internet permission present')
+    need('android:usesCleartextTraffic="false"' in m, 'cleartext not disabled')
+    need('android:glEsVersion="0x00030000"' in m, 'GLES3 requirement missing')
+    need('extends GodotActivity' in j, 'MainActivity is not GodotActivity')
+    need('WebView' not in j, 'WebView remains in primary activity')
+
+    joined = (j + '\n' + script).lower()
+    for forbidden in ['com.termux', 'termux-api', 'processbuilder', 'runtime.getruntime', '127.0.0.1', 'httpurlconnection', '/bin/bash', '/system/bin/sh']:
+        need(forbidden not in joined, 'forbidden runtime dependency ' + forbidden)
+
+    need('run/main_scene="res://main.tscn"' in project, 'Godot main scene')
+    need('renderer/rendering_method="gl_compatibility"' in project, 'mobile compatibility renderer')
+    need('type="Node3D"' in scene, 'main scene is not Node3D')
+    for token in ['CharacterBody3D', 'Camera3D', 'CollisionShape3D', '_physics_process', '_interact', 'user://iron_saint_save.json', 'WITNESS ACKNOWLEDGED']:
+        need(token in script, '3D gameplay token missing: ' + token)
+    need('CURRENT_KAI9000_CATHEDRAL_POSTER.png' in script, 'canonical Cathedral poster not used in 3D world')
+    need('CURRENT_LUM_MIDNIGHT_1996_MODEL_SHEET.png' in script, 'canonical Lum model sheet not used in 3D world')
+
+    gui_order = [
+        'nav.add_child(_label("Evidence Board"',
+        'nav.add_child(_nav_button("Authority", "authority"))',
+        'nav.add_child(_nav_button("Art & Assets", "assets"))',
+        'nav.add_child(_nav_button("3D", "models"))',
+        'nav.add_child(_nav_button("Roleplay Wall", "roleplay"))',
+        'nav.add_child(_nav_button("Questforge", "questforge"))',
+        'nav.add_child(_nav_button("Self Audit", "audit"))',
+        'receipt.add_child(_label("Truth Receipt"'
+    ]
+    gui_positions = [script.find(token) for token in gui_order]
+    need(all(pos >= 0 for pos in gui_positions), 'Cathedral source-of-truth GUI section missing')
+    need(gui_positions == sorted(gui_positions), 'Cathedral source-of-truth GUI section order drifted')
+    for token in [
+        'DisplayServer.get_display_safe_area()',
+        'MarginContainer.new()',
+        'VBoxContainer.new()',
+        'HBoxContainer.new()',
+        'Questforge · The Iron Saint',
+        'ENGINEERING_DSL',
+        'FICTIONAL_TABLETOP',
+        'SM-X400 3D PLAYTEST',
+        'Evidence before GREEN',
+        'ENTER 3D · THE IRON SAINT'
+    ]:
+        need(token in script, 'Cathedral GUI contract missing: ' + token)
+    need('cockpit.visible = false' in script and 'game_hud.visible = true' in script, 'Questforge game launch separation missing')
+    need('game_hud.visible = false' in script and 'cockpit.visible = true' in script, 'Cathedral return path missing')
+
+    need(a['id'] == 'LUHM_OS_CATHEDRAL_CANONICAL_ASSETS_20260921', 'canonical asset manifest id')
+    got = {x['name']: x['sha256'] for x in a['drive_assets']}
+    need(got == EXPECTED, 'canonical Drive cargo or hashes drifted')
+    need(len(a['repo_assets']) == 3, 'LuHm brand cargo count')
+    need(all(x['class'] in {'CURRENT_PRODUCTION_ANCHOR', 'SEALED_LUHM_ORIGINAL', 'SEALED_LUHM_ORIGINAL_MANIFEST'} for x in a['drive_assets']), 'uncleared Drive asset class')
+    excluded = {x.get('name', x.get('pattern')): x['reason'] for x in a['explicit_exclusions']}
+    need('00000000.txt' in excluded and 'c246_10.pck.bin' in excluded, 'third-party quarantine exclusions missing')
+    need('AI_GENERATED_DEMO_ONLY' in excluded['luhm_*_demo.png'], 'prototype demo exclusion missing')
+    need('http://' not in h and 'https://' not in h, 'external URL in legacy Cathedral UI')
+
+    for token in [
+        'build/luhm-update-lane-20260921',
+        ':app:assembleRelease',
+        '-PluhmVersionCode="$BASE_VERSION_CODE"',
+        '-PluhmVersionCode="$UPDATE_VERSION_CODE"',
+        'app-release-unsigned.apk',
+        'luhm-os-base-unsigned.apk',
+        'luhm-os-update-unsigned.apk',
+        'lib/apksigner.jar'
+    ]:
+        need(token in wf, 'update forge token missing: ' + token)
+    need(':app:assembleDebug' not in wf, 'debug signing must not be used by update lane')
+    need('SIGNING_KEY' not in wf and 'KEYSTORE_B64' not in wf, 'private signing material referenced by public CI')
+
+    print('LUHM_SM_X400_SOURCE_TRUTH_GREEN')
+    print('LUHM_API37_HEADLESS_PACKAGE_GREEN')
+    print('LUHM_GODOT3D_SOURCE_GREEN')
+    print('IRON_SAINT_PLAYABLE_SOURCE_GREEN')
+    print('LUHM_CATHEDRAL_GUI_SOURCE_TRUTH_GREEN')
+    print('LUHM_UPDATE_LANE_SOURCE_GREEN')
+    print('PUBLIC_FORGE_SIGNING=UNSIGNED_ONLY')
+    print('BASE_VERSION_CODE=1000')
+    print('FIRST_UPDATE_VERSION_CODE=1001')
+    print('PRIVATE_SIGNER_REQUIRED_AFTER_FORGE=true')
+    print('TERMUX_DEPENDENCY=false')
+    print('BASH_INSTALLER=false')
+    print('EXTERNAL_DAEMON=false')
+
+
+if __name__ == '__main__':
+    main()
