@@ -57,8 +57,8 @@ func _build_city() -> void:
         var side := -1.0 if i % 2 == 0 else 1.0
         var lane := float(i % 3)
         var h: float = heights[i]
-        var z := 10.0 - floor(float(i) / 2.0) * 7.2
-        var x := side * (16.0 + lane * 3.8)
+        var z: float = 10.0 - floor(float(i) / 2.0) * 7.2
+        var x: float = side * (16.0 + lane * 3.8)
         _box(
             "CityBlock_%02d" % i,
             Vector3(x, h * 0.5, z),
@@ -158,6 +158,6 @@ func _window_stack(base: Vector3, height: float, color: Color, side: float) -> v
 
 func _arch(pos: Vector3) -> void:
     var pink := Color("ff3c9d")
-    _box("ArchLeft_%s" % int(pos.z), pos + Vector3(-3.2, 2.4, 0.0), Vector3(0.25, 4.8, 0.25), false, pink, 2.6)
-    _box("ArchRight_%s" % int(pos.z), pos + Vector3(3.2, 2.4, 0.0), Vector3(0.25, 4.8, 0.25), false, pink, 2.6)
-    _box("ArchTop_%s" % int(pos.z), pos + Vector3(0.0, 4.8, 0.0), Vector3(6.65, 0.25, 0.25), false, pink, 2.6)
+    _box("ArchLeft_%s" % int(pos.z), pos + Vector3(-3.2, 2.4, 0.0), Vector3(0.25, 4.8, 0.25), Color("111018"), false, pink, 2.6)
+    _box("ArchRight_%s" % int(pos.z), pos + Vector3(3.2, 2.4, 0.0), Vector3(0.25, 4.8, 0.25), Color("111018"), false, pink, 2.6)
+    _box("ArchTop_%s" % int(pos.z), pos + Vector3(0.0, 4.8, 0.0), Vector3(6.65, 0.25, 0.25), Color("111018"), false, pink, 2.6)
