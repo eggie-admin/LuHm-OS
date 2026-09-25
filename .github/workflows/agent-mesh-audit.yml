@@ -1,0 +1,42 @@
+name: LuHm Agent Mesh Audit
+
+on:
+  pull_request:
+    paths:
+      - 'agents/luhm-agent-mesh/**'
+      - 'skills/luhm-agent-mesh/**'
+      - 'doctrine/agentMesh-20260925.json'
+      - 'doctrine/lumCodingRoleplay-20260925.json'
+      - 'scripts/auditAgentMesh.py'
+      - '.github/workflows/agent-mesh-audit.yml'
+  push:
+    branches:
+      - main
+      - 'candidate/**'
+    paths:
+      - 'agents/luhm-agent-mesh/**'
+      - 'skills/luhm-agent-mesh/**'
+      - 'doctrine/agentMesh-20260925.json'
+      - 'doctrine/lumCodingRoleplay-20260925.json'
+      - 'scripts/auditAgentMesh.py'
+      - '.github/workflows/agent-mesh-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Python syntax
+        run: python3 -m py_compile scripts/auditAgentMesh.py
+      - name: Contract audit
+        run: python3 scripts/auditAgentMesh.py
+      - name: Secret-pattern guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' \
+            agents/luhm-agent-mesh skills/luhm-agent-mesh doctrine/agentMesh-20260925.json doctrine/lumCodingRoleplay-20260925.json scripts/auditAgentMesh.py
