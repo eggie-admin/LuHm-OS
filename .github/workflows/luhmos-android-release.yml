@@ -1,0 +1,63 @@
+name: LuHm OS Android Release Contract
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - luhmos-main
+      - luhmos/testing
+    paths:
+      - 'project/hydra/**'
+      - 'platforms/android/**'
+      - 'fdroid/**'
+      - '.github/workflows/luhmos-android-release.yml'
+      - '.github/workflows/luhmos-fdroid-public-release.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: luhmos-android-contract-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DONOR_REPO: eggie-admin/vue-headless-cms
+  DONOR_REF: 96c23c87713800fc17c80b6a972ee2e93f1bb4b1
+  PACKAGE_ID: art.eggiebagelface.luhmos
+
+jobs:
+  validate-contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+
+      - name: Checkout hardened Samsung donor
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: ${{ env.DONOR_REPO }}
+          ref: ${{ env.DONOR_REF }}
+          path: _forge/luhmos-android
+          persist-credentials: false
+
+      - name: Validate LuHm OS release contract without private secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m json.tool project/hydra/LUHMOS_REPO_CONVERGENCE_20260910.json >/dev/null
+          python -m json.tool project/hydra/samsung/android/apk/app.reference.json >/dev/null
+          python -m json.tool fdroid/final-goal.manifest.json >/dev/null
+          grep -q '"android_application_id": "art.eggiebagelface.luhmos"' project/hydra/LUHMOS_REPO_CONVERGENCE_20260910.json
+          grep -q '"keystore_alias": "luhmos-release"' project/hydra/LUHMOS_REPO_CONVERGENCE_20260910.json
+          grep -q '"commit": "96c23c87713800fc17c80b6a972ee2e93f1bb4b1"' project/hydra/samsung/android/apk/app.reference.json
+          test -f .github/workflows/luhmos-fdroid-public-release.yml
+          ! grep -R -nE 'com\.termux\.permission\.RUN_COMMAND|com\.termux\.RUN_COMMAND|RunCommandService' _forge/luhmos-android/godot/android-plugin
+          ! grep -R -n 'http://127.0.0.1' _forge/luhmos-android/godot/android-plugin/plugin/src/main/java
+          grep -q 'MIXED_CONTENT_NEVER_ALLOW' _forge/luhmos-android/godot/android-plugin/plugin/src/main/java/art/eggiebagelface/cathedral/CathedralAndroidPlugin.kt
+          if git ls-files | grep -E '\.(jks|keystore|p12|pfx|pkcs12|key|pem)$'; then
+            echo 'Private signing material must not be tracked' >&2
+            exit 1
+          fi
+          echo 'LUHMOS_ANDROID_RELEASE_CONTRACT_GREEN'
+          echo 'Production signing/export/publishing is intentionally isolated in luhmos-fdroid-public-release.yml.'
