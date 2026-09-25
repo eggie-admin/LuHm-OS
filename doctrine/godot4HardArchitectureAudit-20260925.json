@@ -1,0 +1,34 @@
+{
+  "schema": "luhm.godot4.hardArchitectureAudit.v1",
+  "status": "DRY_RUN_CANDIDATE",
+  "repository": "eggie-admin/LuHm-OS",
+  "base_branch": "testing/apk-current-milestones-20260925",
+  "base_commit": "eef20dbfc066d3696c12c9424f286e0cbcf730fd",
+  "dryrun_branch": "dryrun/godot4-hard-architecture-20260925",
+  "rollback_checkpoint": "snapshot/pre-godot4-hard-architecture-20260925",
+  "renderer": "GL Compatibility retained for this pass",
+  "goal": "make the native Godot 4 game runtime modular, collidable, camera-safe, mobile-friendly, cutscene-safe, and ready for the Lum GLB without destabilizing the proven APK lane",
+  "passes": [
+    {"pass": 1, "name": "source boundary", "before": "GREEN", "finding": "testing work is isolated from canonical main", "mutation": "retain branch isolation and rollback snapshot", "gate": "non-main dry-run branch"},
+    {"pass": 2, "name": "scene composition", "before": "RED", "finding": "Main.tscn is a thin root but main.gd owns nearly every subsystem", "mutation": "thin orchestrator plus dedicated world/player/HUD/cutscene bridge modules", "gate": "main.gd <= 120 lines"},
+    {"pass": 3, "name": "player physics", "before": "RED", "finding": "player capsule exists but the visible ground lacks a StaticBody3D collision surface", "mutation": "collidable WalkFloor, boundaries and rail collision", "gate": "runtime smoke verifies player remains supported"},
+    {"pass": 4, "name": "camera architecture", "before": "YELLOW", "finding": "camera is directly parented to the player and cutscene tweens compete with player view", "mutation": "yaw/pitch/SpringArm3D rig with owned cutscene tween lifecycle", "gate": "camera rig path asserted at runtime"},
+    {"pass": 5, "name": "world composition", "before": "YELLOW", "finding": "Riverwalk and city are mostly decorative primitive meshes", "mutation": "separate NeonWorld with colliders, emissive rails, arches, city blocks and Lum stage", "gate": "NeonWorld and WalkFloor asserted"},
+    {"pass": 6, "name": "mobile input", "before": "YELLOW", "finding": "D-pad used fixed screen coordinates and no orbit camera", "mutation": "anchored HUD plus right-side screen-drag orbit", "gate": "GameHud and PlayerController separated"},
+    {"pass": 7, "name": "cutscene safety", "before": "YELLOW", "finding": "cancel checks occur only between beats and tweens are not centrally owned", "mutation": "50 ms interruptible waits plus CutsceneBridge-owned restore boundary", "gate": "donor control-plane terms prohibited"},
+    {"pass": 8, "name": "mobile rendering", "before": "YELLOW", "finding": "prototype relies on multiple real-time point lights for visual interest", "mutation": "shift most neon detail to emissive materials and keep a small light budget", "gate": "GL Compatibility remains unchanged"},
+    {"pass": 9, "name": "Lum 3D asset lane", "before": "YELLOW", "finding": "current external luhm.glb is a static mesh with no skin or animations", "mutation": "stable res://assets/lum/luhm.glb socket with procedural fallback and future animation/blend-shape discovery", "gate": "asset socket path asserted in CI"},
+    {"pass": 10, "name": "runtime proof", "before": "YELLOW", "finding": "CI proves parse/export/APK integrity but did not instantiate and exercise the game scene", "mutation": "headless runtime smoke before APK export", "gate": "runtime smoke + aapt + apksigner + zipalign + SHA-256"}
+  ],
+  "crown_green_requires": [
+    "10-pass static architecture gate",
+    "Godot 4.7.2 import/parse",
+    "headless runtime smoke",
+    "Android debug export",
+    "aapt package/version verification",
+    "apksigner verification",
+    "zipalign verification",
+    "artifact receipt"
+  ],
+  "promotion": "Crown green means candidate evidence is green; canonical main promotion remains a separate human Crown action"
+}

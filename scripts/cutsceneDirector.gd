@@ -6,6 +6,7 @@ signal cutscene_finished(cutscene_id: String)
 signal cutscene_cancelled(cutscene_id: String)
 signal cutscene_failed(reason: String)
 
+const CANCEL_POLL_SECONDS := 0.05
 const ALLOWED_TYPES := {
     "lock_player": true,
     "camera_move": true,
@@ -50,12 +51,11 @@ func play_cutscene(document: Dictionary) -> void:
         beat_started.emit(beat)
         var duration := maxf(float(beat.get("duration", 0.0)), 0.0)
         if duration > 0.0:
-            await get_tree().create_timer(duration).timeout
+            await _wait_interruptible(duration)
+        if _cancelled:
+            _finish_cancelled()
+            return
         beat_finished.emit(str(beat.get("id", "beat")))
-
-    if _cancelled:
-        _finish_cancelled()
-        return
 
     var finished_id := _active_cutscene_id
     _running = false
@@ -65,6 +65,13 @@ func play_cutscene(document: Dictionary) -> void:
 func cancel() -> void:
     if _running:
         _cancelled = true
+
+func _wait_interruptible(duration: float) -> void:
+    var remaining := duration
+    while remaining > 0.0 and not _cancelled:
+        var slice := minf(remaining, CANCEL_POLL_SECONDS)
+        await get_tree().create_timer(slice).timeout
+        remaining -= slice
 
 func _finish_cancelled() -> void:
     var cancelled_id := _active_cutscene_id
