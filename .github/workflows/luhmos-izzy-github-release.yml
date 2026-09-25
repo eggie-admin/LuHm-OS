@@ -1,0 +1,32 @@
+name: LuHm OS IzzyOnDroid Release Guard
+
+on:
+  workflow_dispatch:
+    inputs:
+      acknowledge_public_release_locked:
+        description: Acknowledge that IzzyOnDroid publication remains locked
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: IzzyOnDroid publication remains OFF
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Enforce publication lock
+        shell: bash
+        env:
+          ACK: ${{ inputs.acknowledge_public_release_locked }}
+        run: |
+          set -euo pipefail
+          echo 'LUHMOS_IZZY_PUBLICATION=OFF'
+          echo 'This guard creates no tag, GitHub release, or public artifact.'
+          echo 'A future IzzyOnDroid release requires separate review and explicit Crown authorization.'
+          if [ "$ACK" = "true" ]; then
+            echo 'Acknowledged: publication remains locked.'
+          fi
+          echo 'LUHMOS_IZZY_RELEASE_GUARD_GREEN'
