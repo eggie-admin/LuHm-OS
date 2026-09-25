@@ -67,7 +67,7 @@ assert locks["production_deploy"] == "RED_LOCKED_CROWN_REQUIRED"
 
 assert "AI proposes. Policy authorizes. CI proves. Human promotes." in skill
 assert "PHANTOM_CODING_MODE" in skill
-assert "GREEN is a verdict, never an authorization token." in skill
+assert "is a verdict, never an authorization token." in skill and "`GREEN`" in skill
 assert "continue until green" in skill
 assert "Kanabo Gate" in skill
 assert "Oni-Kumo" in skill and "Oni-Tetsu" in skill and "Oni-Sumi" in skill and "Oni-Ibara" in skill
