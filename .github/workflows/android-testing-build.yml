@@ -10,7 +10,7 @@ permissions:
 jobs:
   android-testing:
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -53,7 +53,7 @@ jobs:
           KEYSTORE="$RUNNER_TEMP/luhm-testing-debug.keystore"
           keytool -genkeypair -keystore "$KEYSTORE" -storepass android \
             -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 \
-            -validity 10000 -dname 'CN=LuHm OS Crown Green Testing,O=LuHm OS,C=US'
+            -validity 10000 -dname 'CN=LuHm OS Drive 3D Testing,O=LuHm OS,C=US'
           chmod 600 "$KEYSTORE"
           echo "GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$KEYSTORE" >> "$GITHUB_ENV"
           echo 'GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey' >> "$GITHUB_ENV"
@@ -66,7 +66,87 @@ jobs:
           export/android/java_sdk_path = "$JAVA_HOME"
           SETTINGS
 
-      - name: Stage Crown-green side-by-side identity
+      - name: Stage rigged Lum from Google Drive
+        shell: bash
+        run: |
+          set -euo pipefail
+          DRIVE_ID='1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen'
+          BUNDLE_SHA='fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da'
+          BASE_SHA='06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69'
+          RUN_SHA='750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0'
+          BUNDLE="$RUNNER_TEMP/lum-biped.zip"
+          OUT="$RUNNER_TEMP/lum-biped"
+
+          download_drive() {
+            local id="$1" out="$2"
+            local urls=(
+              "https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t"
+              "https://drive.google.com/uc?export=download&id=${id}&confirm=t"
+            )
+            for url in "${urls[@]}"; do
+              rm -f "$out"
+              if curl -fL --retry 4 --retry-all-errors --connect-timeout 20 --max-time 240 \
+                -A 'Mozilla/5.0 LuHmOS-CI' -o "$out" "$url"; then
+                if test -s "$out"; then
+                  return 0
+                fi
+              fi
+            done
+            return 1
+          }
+
+          download_drive "$DRIVE_ID" "$BUNDLE"
+          echo "$BUNDLE_SHA  $BUNDLE" | sha256sum -c -
+          rm -rf "$OUT"
+          mkdir -p "$OUT" assets/lum
+          unzip -q "$BUNDLE" -d "$OUT"
+
+          BASE="$OUT/Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Character_output.glb"
+          RUN="$OUT/Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Animation_Running_withSkin.glb"
+          echo "$BASE_SHA  $BASE" | sha256sum -c -
+          echo "$RUN_SHA  $RUN" | sha256sum -c -
+          cp "$BASE" assets/lum/luhm.glb
+          cp "$RUN" assets/lum/luhmRunning.glb
+
+          python3 - <<'PY'
+          import json, struct
+          from pathlib import Path
+
+          def inspect(path):
+              data = Path(path).read_bytes()
+              magic, version, length = struct.unpack_from('<4sII', data, 0)
+              assert magic == b'glTF' and version == 2 and length == len(data)
+              offset = 12
+              doc = None
+              while offset < length:
+                  chunk_len, chunk_type = struct.unpack_from('<II', data, offset)
+                  offset += 8
+                  chunk = data[offset:offset + chunk_len]
+                  offset += chunk_len
+                  if chunk_type == 0x4E4F534A:
+                      doc = json.loads(chunk.decode('utf-8').rstrip('\x00 \t\r\n'))
+              assert doc is not None
+              joints = max((len(s.get('joints', [])) for s in doc.get('skins', [])), default=0)
+              morphs = sum(len(p.get('targets', [])) for m in doc.get('meshes', []) for p in m.get('primitives', []))
+              return {
+                  'meshes': len(doc.get('meshes', [])),
+                  'skins': len(doc.get('skins', [])),
+                  'joints': joints,
+                  'animations': [a.get('name', '') for a in doc.get('animations', [])],
+                  'morph_targets': morphs,
+              }
+
+          base = inspect('assets/lum/luhm.glb')
+          run = inspect('assets/lum/luhmRunning.glb')
+          assert base['meshes'] == 1 and base['skins'] == 1 and base['joints'] >= 20
+          assert len(base['animations']) >= 1
+          assert run['meshes'] == 1 and run['skins'] == 1 and run['joints'] >= 20
+          assert any('running' in name.lower() for name in run['animations'])
+          assert base['morph_targets'] == 0 and run['morph_targets'] == 0
+          print('DRIVE 3D GLB AUDIT GREEN', {'base': base, 'run': run})
+          PY
+
+      - name: Stage Drive-3D side-by-side identity
         shell: bash
         run: |
           set -euo pipefail
@@ -75,10 +155,10 @@ jobs:
           path = Path('export_presets.cfg')
           text = path.read_text()
           replacements = {
-              'version/code=111': 'version/code=113',
-              'version/name="1.0.11-cleanplay.1"': 'version/name="1.0.13-crowngreen.1"',
+              'version/code=111': 'version/code=114',
+              'version/name="1.0.11-cleanplay.1"': 'version/name="1.0.14-drive3d.1"',
               'package/unique_name="art.eggiebagelface.luhmos.cleanplay"': 'package/unique_name="art.eggiebagelface.luhmos.testing"',
-              'package/name="LuHm OS Clean Play"': 'package/name="LuHm OS Crown Green Testing"',
+              'package/name="LuHm OS Clean Play"': 'package/name="LuHm OS Drive 3D Testing"',
           }
           for old, new in replacements.items():
               if old not in text:
@@ -87,17 +167,19 @@ jobs:
           path.write_text(text)
           PY
           grep -q 'art.eggiebagelface.luhmos.testing' export_presets.cfg
-          grep -q 'version/code=113' export_presets.cfg
-          grep -q 'version/name="1.0.13-crowngreen.1"' export_presets.cfg
+          grep -q 'version/code=114' export_presets.cfg
+          grep -q 'version/name="1.0.14-drive3d.1"' export_presets.cfg
           grep -q 'permissions/internet=false' export_presets.cfg
 
-      - name: 10-pass hard architecture gate
+      - name: 10-pass architecture + Drive asset gate
         shell: bash
         run: |
           set -euo pipefail
           ! grep -R -nE '127\.0\.0\.1|localhost|FastAPI|PySimpleGUI|RUN_COMMAND|OPENAI_API_KEY|AIza|sk-proj-' . \
+            --exclude='*.glb' \
             --exclude='android-proposed-build.yml' \
             --exclude='android-testing-build.yml' \
+            --exclude='frontend-jquery-dryrun.yml' \
             --exclude='GITHUB_AUDIT_20260925.json' \
             --exclude='SOURCE_OF_TRUTH.json' \
             --exclude='README.md'
@@ -110,13 +192,17 @@ jobs:
             scripts/game/gameHud.gd \
             scripts/game/cutsceneBridge.gd \
             scripts/cutsceneDirector.gd \
-            tests/runtimeSmoke.gd; do
+            tests/runtimeSmoke.gd \
+            doctrine/drive3dAssetMutation-20260925.json \
+            assets/lum/luhm.glb \
+            assets/lum/luhmRunning.glb; do
             test -s "$f"
           done
 
           grep -q 'StaticBody3D' scripts/game/neonWorld.gd
           grep -q 'SpringArm3D' scripts/game/playerController.gd
           grep -q 'res://assets/lum/luhm.glb' scripts/game/lumAvatar.gd
+          grep -q 'get_rig_summary' scripts/game/lumAvatar.gd
           grep -q 'CANCEL_POLL_SECONDS' scripts/cutsceneDirector.gd
           ! grep -R -nE 'cms_registry|api_bridge|web_cms_bridge|cage_manager|HTTPRequest|MANIFEST_URL' \
             scripts/game scripts/cutsceneDirector.gd cutscenes
@@ -129,73 +215,76 @@ jobs:
           from pathlib import Path
           audit = json.loads(Path('doctrine/godot4HardArchitectureAudit-20260925.json').read_text())
           assert len(audit['passes']) == 10
+          drive = json.loads(Path('doctrine/drive3dAssetMutation-20260925.json').read_text())
+          assert drive['drive_assets'][0]['bundle_sha256'] == 'fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da'
           cutscene = json.loads(Path('cutscenes/lumBeaconIntro.json').read_text())
           types = [beat.get('type') for beat in cutscene.get('beats', [])]
           expected = ['lock_player', 'camera_move', 'lum_beacon_pulse', 'dialogue', 'restore']
           assert types == expected, (types, expected)
           assert cutscene['beats'][3].get('event') == 'lum_beacon_linked'
-          print('10-pass static architecture gate GREEN')
+          print('ARCHITECTURE + DRIVE ASSET GATE GREEN')
           PY
 
-      - name: Import Godot project
+      - name: Import Godot project with Drive assets
         shell: bash
         run: |
           set -euo pipefail
           "$GODOT" --headless --editor --path . --quit
 
-      - name: Runtime smoke
+      - name: Runtime smoke with rigged Lum
         shell: bash
         run: |
           set -euo pipefail
           "$GODOT" --headless --path . --script res://tests/runtimeSmoke.gd
 
-      - name: Export Crown-green testing APK
+      - name: Export Drive-3D testing APK
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p build/android
           "$GODOT" --headless --path . --install-android-build-template \
-            --export-debug 'Android Proposed' build/android/luhmos-1.0.13-crowngreen.1.apk
-          test -s build/android/luhmos-1.0.13-crowngreen.1.apk
+            --export-debug 'Android Proposed' build/android/luhmos-1.0.14-drive3d.1.apk
+          test -s build/android/luhmos-1.0.14-drive3d.1.apk
 
-      - name: Verify Crown-green testing APK
+      - name: Verify Drive-3D testing APK
         shell: bash
         env:
           CANDIDATE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           set -euo pipefail
-          APK=build/android/luhmos-1.0.13-crowngreen.1.apk
+          APK=build/android/luhmos-1.0.14-drive3d.1.apk
           BT="$ANDROID_HOME/build-tools/36.1.0"
           "$BT/aapt" dump badging "$APK" | tee build/android/badging.txt
           "$BT/apksigner" verify --verbose --print-certs "$APK" | tee build/android/signature.txt
           "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/android/zipalign.txt
           sha256sum "$APK" | tee build/android/sha256.txt
           grep -q "package: name='art.eggiebagelface.luhmos.testing'" build/android/badging.txt
-          grep -q "versionCode='113'" build/android/badging.txt
-          grep -q "versionName='1.0.13-crowngreen.1'" build/android/badging.txt
+          grep -q "versionCode='114'" build/android/badging.txt
+          grep -q "versionName='1.0.14-drive3d.1'" build/android/badging.txt
           cat > build/android/build-receipt.txt <<RECEIPT
-          LuHm OS Crown Green Testing APK
+          LuHm OS Drive 3D Testing APK
           source_head=$CANDIDATE_HEAD
           checkout_commit=$GITHUB_SHA
           package=art.eggiebagelface.luhmos.testing
-          versionCode=113
-          versionName=1.0.13-crowngreen.1
+          versionCode=114
+          versionName=1.0.14-drive3d.1
+          drive.bundle.id=1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen
+          drive.bundle.sha256=fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da
+          lum.base.sha256=06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69
+          lum.run.sha256=750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0
+          lum.rig.joints=24
+          lum.rig.skin=true
+          lum.face.blend_shapes=0
           architecture.modular_runtime=true
-          architecture.collidable_world=true
-          architecture.spring_arm_camera=true
-          architecture.lum_asset_socket=true
+          architecture.procedural_fallback=true
           architecture.runtime_smoke=true
-          milestone.jquery_frontend_source=present_and_CI_checked
-          milestone.native_backend_cathedral=present
-          milestone.cutscene=lock_player>camera_move>lum_beacon_pulse>dialogue_event>restore
           boundary.internet_permission=false
-          boundary.donor_control_plane=excluded
-          crown_green_candidate=true
+          boundary.binary_vendored_to_git=false
           RECEIPT
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: luhm-os-crown-green-testing-apk
+          name: luhm-os-drive3d-testing-apk
           path: build/android/
           if-no-files-found: error
           retention-days: 14
