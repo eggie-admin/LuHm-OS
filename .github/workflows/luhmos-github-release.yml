@@ -1,0 +1,32 @@
+name: LuHm OS GitHub Release Publisher Guard
+
+on:
+  workflow_dispatch:
+    inputs:
+      acknowledge_public_release_locked:
+        description: Acknowledge that GitHub publication remains locked
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: GitHub release publishing remains OFF
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Enforce publication lock
+        shell: bash
+        env:
+          ACK: ${{ inputs.acknowledge_public_release_locked }}
+        run: |
+          set -euo pipefail
+          echo 'LUHMOS_GITHUB_RELEASE_PUBLISH=OFF'
+          echo 'This workflow has no contents:write permission and creates or uploads no release.'
+          echo 'A future GitHub release requires a separately reviewed and explicitly Crown-authorized publisher workflow.'
+          if [ "$ACK" = "true" ]; then
+            echo 'Acknowledged: publication remains locked.'
+          fi
+          echo 'LUHMOS_GITHUB_RELEASE_GUARD_GREEN'

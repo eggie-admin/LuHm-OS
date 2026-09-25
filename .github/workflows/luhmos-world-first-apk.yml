@@ -1,0 +1,35 @@
+name: LuHm Godot World First APK (Release Signing Locked)
+
+on:
+  workflow_dispatch:
+    inputs:
+      acknowledge_release_signing_locked:
+        description: Confirm this workflow is a guard only and must not sign or publish
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: Release signing remains locked
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Enforce manual-only signing boundary
+        shell: bash
+        env:
+          ACK: ${{ inputs.acknowledge_release_signing_locked }}
+        run: |
+          set -euo pipefail
+          echo 'LUHMOS_RELEASE_SIGNING=LOCKED'
+          echo 'LUHMOS_AUTOMATIC_SIGNING=DISABLED'
+          echo 'LUHMOS_PUBLIC_PUBLISH=OFF'
+          echo 'Normal pushes and merges must never restore production keystore material or export a release-signed APK.'
+          if [ "$ACK" = "true" ]; then
+            echo 'Acknowledged: this is a no-sign, no-publish guard only.'
+          else
+            echo 'No release-signing authorization supplied. Guard exits without side effects.'
+          fi
+          echo 'LUHMOS_WORLD_FIRST_SIGNING_LOCK_GREEN'
