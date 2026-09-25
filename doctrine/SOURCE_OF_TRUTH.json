@@ -1,0 +1,26 @@
+{
+  "schema": "luhm-os.clean-source.v2",
+  "status": "CANONICAL_MAIN_CANDIDATE",
+  "product": "LuHm OS",
+  "canonical_repository": "eggie-admin/LuHm-OS",
+  "created": "2026-09-25",
+  "authority": "Professor",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "milestone": "Cathedral -> World Mode -> native Godot 3D -> movement -> Cathedral",
+  "android": {
+    "package": "art.eggiebagelface.luhmos.cleanplay",
+    "version_name": "1.0.11-cleanplay.1",
+    "version_code": 111,
+    "production_signer": false,
+    "publication_authority": false
+  },
+  "legacy_policy": "selective transplant only; no wholesale history merge",
+  "excluded": [
+    "FastAPI loopback control plane from Android runtime",
+    "PySimpleGUI operator lane",
+    "Termux execution bridge",
+    "Vue donor runtime",
+    "production signing secrets",
+    "private third-party reference assets"
+  ]
+}

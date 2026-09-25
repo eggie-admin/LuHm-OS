@@ -1,40 +1,9 @@
-# Security Policy
+# Security
 
-## Scope
-This policy covers LuHm OS / KAI 9000 Samsung Android testing code, local services, build workflows, manifests, and generated APK artifacts.
+LuHm OS keeps production credentials, signing material, private media, and private reference assets out of Git.
 
-## Supported security lane
-Current supported development lane:
-`testing/luhm-os-android`
+Do not commit API keys, OAuth tokens, keystores, private keys, `.env` files, voice recordings, private model weights, or proprietary extracted runtime assets.
 
-Testing artifacts are debug-signed and are not production releases.
+The playable Android lane is debug-only until separately Crown-authorized. Current builds use a disposable CI debug signer and a side-by-side package identity.
 
-## Report privately
-Do not open a public issue containing:
-- API keys or tokens;
-- signing material;
-- private user data;
-- exploitable device details;
-- credentials or recovery secrets.
-
-Use GitHub's private security-reporting feature when available for the repository. If it is not available, contact the repository owner through a private channel rather than publishing secrets.
-
-## Hard invariants
-- local AI/control services bind to loopback by default;
-- Secure Folder is a client/cockpit, not daemon owner;
-- no automatic root;
-- no arbitrary model-authored shell execution;
-- privilege actions are typed and scoped;
-- OpenAI credentials stay server-side;
-- Base64 is never treated as encryption;
-- release signing material is never committed;
-- proprietary extracted game runtime assets are not bundled;
-- external hosting statuses have no Android security/build authority.
-
-## Build security
-The testing workflow uses an ephemeral debug keystore created inside CI. Production signing requires a separate reviewed release process.
-
-APK GREEN requires signature verification, package identity, SHA-256, 16 KiB alignment, architecture evidence, and executed CI.
-
-## Dependency changes
-Toolchain, donor, model, or third-party library upgrades are security-sensitive dependency promotions. Pin versions/revisions and record provenance.
+Security-sensitive reports should avoid posting secrets or private data in public issues.

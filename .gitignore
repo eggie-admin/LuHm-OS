@@ -1,54 +1,11 @@
-# Gradle files
-.gradle/
+.godot/
+android/build/
 build/
-
-# Local configuration file (sdk path, etc)
-local.properties
-
-# Local environment / provider credentials
-.env
-.env.*
-!.env.example
-.secrets/
-private/
-gha-creds-*.json
-credentials*.json
-service-account*.json
-.cloudflared/
-
-# Private keys / signing containers
-*.key
-*.pem
+*.keystore
+*.jks
 *.p12
 *.pfx
-*.pkcs12
-*.jks
-*.keystore
-id_rsa
-id_rsa.*
-id_ed25519
-id_ed25519.*
-
-# Log/OS Files
-*.log
-
-# Android Studio generated files and folders
-captures/
-.externalNativeBuild/
-.cxx/
-*.aab
-*.apk
-output-metadata.json
-
-# IntelliJ
-*.iml
-.idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
-
-# Google Services (e.g. APIs or Firebase)
-google-services.json
-
-# Android Profiling
-*.hprof
+*.pem
+*.key
+.env
+.env.*
