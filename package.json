@@ -1,0 +1,27 @@
+{
+  "name": "@eggie-admin/luhm-os-forge",
+  "version": "1.0.10",
+  "private": true,
+  "description": "Crown-gated LuHm OS compile wizard for audit, dry-run, remote candidate build and explicit device install.",
+  "scripts": {
+    "start": "node tools/luhm-compile-wizard.mjs start",
+    "options": "node tools/luhm-compile-wizard.mjs options",
+    "test": "node tools/luhm-compile-wizard.mjs test",
+    "dryrun": "node tools/luhm-compile-wizard.mjs dryrun",
+    "audit": "node tools/luhm-compile-wizard.mjs audit",
+    "build": "node tools/luhm-compile-wizard.mjs build",
+    "install": "node tools/luhm-compile-wizard.mjs install",
+    "install:apply": "node tools/luhm-compile-wizard.mjs install --apply",
+    "wizard": "node tools/luhm-compile-wizard.mjs start",
+    "doctor": "python3 tools/cathedral.py doctor",
+    "cms:install": "python3 tools/cathedral.py cms-install",
+    "cms:build": "python3 tools/cathedral.py cms-build",
+    "fdroid:check": "python3 tools/cathedral.py fdroid-check",
+    "cathedral:build": "python3 tools/cathedral.py build"
+  },
+  "engines": {
+    "node": ">=24 <25",
+    "npm": ">=11 <12",
+    "python": ">=3.14 <3.15"
+  }
+}

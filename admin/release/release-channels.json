@@ -1,0 +1,91 @@
+{
+  "schema_version": 2,
+  "project": "LuHm OS",
+  "platform_scope": "samsung-android-only",
+  "package": "art.eggiebagelface.luhmos",
+  "canonical_product_branch": "luhmos-main",
+  "promotion_order": [
+    "testing",
+    "proposed",
+    "beta",
+    "stable"
+  ],
+  "semantics": {
+    "source_lane_is_not_publication": true,
+    "source_green_is_not_signed_apk_green": true,
+    "signed_apk_green_is_not_physical_device_green": true,
+    "public_release_requires_separate_human_authority": true,
+    "build_once_promote_by_digest": true
+  },
+  "channels": {
+    "testing": {
+      "branch": "luhmos/testing",
+      "tag_pattern": "vX.Y.Z-testing.N",
+      "github_release": "none",
+      "source_requires": [
+        "source_gate",
+        "secret_scan",
+        "ci_smoke",
+        "exact_tree_promotion"
+      ]
+    },
+    "proposed": {
+      "branch": "luhmos/proposed",
+      "tag_pattern": "vX.Y.Z-proposed.N",
+      "github_release": "none",
+      "source_requires": [
+        "testing_receipt",
+        "fresh_ci",
+        "exact_tree_promotion"
+      ]
+    },
+    "beta": {
+      "branch": "luhmos/beta",
+      "tag_pattern": "vX.Y.Z-beta.N",
+      "github_release": "prerelease_after_artifact_gate",
+      "source_requires": [
+        "proposed_receipt",
+        "fresh_ci",
+        "exact_tree_promotion"
+      ],
+      "publication_requires": [
+        "non_debug_release_apk",
+        "persistent_signer_fingerprint",
+        "artifact_sha256",
+        "artifact_bound_sbom",
+        "artifact_bound_provenance",
+        "physical_samsung_install_launch_proof",
+        "professor_release_approval"
+      ]
+    },
+    "stable": {
+      "branch": "luhmos/stable",
+      "tag_pattern": "vX.Y.Z",
+      "github_release": "normal_release_after_artifact_gate",
+      "source_requires": [
+        "beta_source_receipt",
+        "fresh_ci",
+        "exact_tree_promotion"
+      ],
+      "publication_requires": [
+        "beta_publication_receipt",
+        "physical_samsung_proof",
+        "artifact_sha256",
+        "persistent_signer_fingerprint",
+        "same_signer_upgrade_proof",
+        "professor_release_approval"
+      ]
+    }
+  },
+  "authority": {
+    "ci_success_grants_release_authority": false,
+    "paid_service_status_grants_release_authority": false,
+    "stable_publish_requires_human_approval": true,
+    "source_lane_promotion_grants_publication_authority": false
+  },
+  "security": {
+    "secrets_in_repo": false,
+    "signing_keys_in_repo": false,
+    "payment_credentials_in_repo": false
+  }
+}
