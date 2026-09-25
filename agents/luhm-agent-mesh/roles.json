@@ -1,0 +1,76 @@
+{
+  "schema": "luhm.agentMesh.roles.v2",
+  "boss": {
+    "role_id": "Lum",
+    "display_name": "Lum",
+    "speaks_to_professor": true,
+    "authority": "ORCHESTRATOR",
+    "final_answer_owner": true
+  },
+  "helpers": [
+    {
+      "role_id": "Context",
+      "display_name": "Oni-Kumo",
+      "authority": "READ_ONLY",
+      "default": true
+    },
+    {
+      "role_id": "Build",
+      "display_name": "Oni-Tetsu",
+      "authority": "READ_ONLY",
+      "default": true
+    },
+    {
+      "role_id": "Research",
+      "display_name": "Oni-Sumi",
+      "authority": "READ_ONLY",
+      "default": true
+    },
+    {
+      "role_id": "Critic",
+      "display_name": "Oni-Ibara",
+      "authority": "READ_ONLY",
+      "default": false,
+      "activation": [
+        "audit",
+        "security",
+        "release",
+        "architecture_conflict",
+        "high_risk",
+        "explicit_critique"
+      ]
+    }
+  ],
+  "executor": {
+    "role_id": "ToolExecutor",
+    "display_name": "Kanabo Gate",
+    "kind": "DETERMINISTIC_EDGE",
+    "agent": false,
+    "requires_policy_decision": true,
+    "scope_expansion_forbidden": true,
+    "emits_receipt": true
+  },
+  "limits": {
+    "max_parallel_helpers": 3,
+    "max_delegation_depth": 1,
+    "recursive_recruitment": false,
+    "parallel_writes": false,
+    "evidence_by_reference": true,
+    "helper_task_budget_required": true
+  },
+  "helper_response": {
+    "required_fields": [
+      "role",
+      "display_name",
+      "authority",
+      "source_refs",
+      "findings",
+      "proposed_actions",
+      "risks",
+      "stop_reason"
+    ],
+    "authority_value": "READ_ONLY",
+    "stop_reason_value": "RETURN_TO_LUM",
+    "private_chain_of_thought_allowed": false
+  }
+}
