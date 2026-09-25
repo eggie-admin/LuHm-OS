@@ -1,0 +1,57 @@
+{
+  "schema": "luhm.agentMesh.doctrine.v2",
+  "status": "CANDIDATE_NOT_PROMOTED",
+  "date": "2026-09-25",
+  "authority": "Professor",
+  "canonical_repository": "eggie-admin/LuHm-OS",
+  "candidate_branch": "candidate/luhm-agent-mesh-integrations-20260925",
+  "base_commit": "1afde8af380f7bd698e99dc1db5fa643e07111c9",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "migration": {
+    "legacy_reference_repository": "eggie-admin/hydra-shell-android",
+    "legacy_runtime_imported_wholesale": false,
+    "transplant": [
+      "stable helper role IDs",
+      "bounded parallel helper pattern",
+      "single Lum boss pattern",
+      "conditional critic pattern",
+      "evidence-by-reference doctrine"
+    ],
+    "retired_from_new_runtime_authority": [
+      "legacy FastAPI control-plane ownership",
+      "Termux execution authority",
+      "recursive helper recruitment",
+      "parallel helper writes",
+      "provider output treated as execution proof"
+    ]
+  },
+  "roles": {
+    "boss": "Lum",
+    "default_helpers": ["Context", "Build", "Research"],
+    "conditional_helper": "Critic",
+    "deterministic_executor": "ToolExecutor"
+  },
+  "display_names": {
+    "Context": "Oni-Kumo",
+    "Build": "Oni-Tetsu",
+    "Research": "Oni-Sumi",
+    "Critic": "Oni-Ibara",
+    "ToolExecutor": "Kanabo Gate"
+  },
+  "limits": {
+    "max_parallel_helpers": 3,
+    "max_delegation_depth": 1,
+    "recursive_recruitment": false,
+    "parallel_writes": false,
+    "helper_authority": "READ_ONLY",
+    "direct_questions_bypass_mesh": true
+  },
+  "promotion_gates": [
+    "agent mesh audit script GREEN",
+    "GitHub Actions GREEN on exact candidate SHA",
+    "no secret-bearing artifacts",
+    "no Android runtime authority regression",
+    "human review before main merge"
+  ],
+  "production_actions_authorized_by_this_manifest": false
+}
