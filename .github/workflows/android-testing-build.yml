@@ -1,0 +1,162 @@
+name: LuHm OS Testing APK
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  android-testing:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android SDK 36
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
+
+      - name: Install Godot 4.7.2 + templates
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 5 -o /tmp/godot.zip \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          curl -fL --retry 5 -o /tmp/templates.tpz \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
+          echo 'cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip' | sha256sum -c -
+          echo 'f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011  /tmp/templates.tpz' | sha256sum -c -
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable"
+          unzip -q /tmp/templates.tpz -d /tmp/tpl
+          cp -a /tmp/tpl/templates/. "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+          echo 'GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64' >> "$GITHUB_ENV"
+
+      - name: Configure disposable testing signer
+        shell: bash
+        run: |
+          set -euo pipefail
+          KEYSTORE="$RUNNER_TEMP/luhm-testing-debug.keystore"
+          keytool -genkeypair -keystore "$KEYSTORE" -storepass android \
+            -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 \
+            -validity 10000 -dname 'CN=LuHm OS Testing Debug,O=LuHm OS,C=US'
+          chmod 600 "$KEYSTORE"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$KEYSTORE" >> "$GITHUB_ENV"
+          echo 'GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey' >> "$GITHUB_ENV"
+          echo 'GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android' >> "$GITHUB_ENV"
+          mkdir -p "$HOME/.config/godot"
+          cat > "$HOME/.config/godot/editor_settings-4.tres" <<SETTINGS
+          [gd_resource type="EditorSettings" format=3]
+          [resource]
+          export/android/android_sdk_path = "$ANDROID_HOME"
+          export/android/java_sdk_path = "$JAVA_HOME"
+          SETTINGS
+
+      - name: Stage side-by-side testing identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('export_presets.cfg')
+          text = path.read_text()
+          replacements = {
+              'version/code=111': 'version/code=112',
+              'version/name="1.0.11-cleanplay.1"': 'version/name="1.0.12-testing.1"',
+              'package/unique_name="art.eggiebagelface.luhmos.cleanplay"': 'package/unique_name="art.eggiebagelface.luhmos.testing"',
+              'package/name="LuHm OS Clean Play"': 'package/name="LuHm OS Testing"',
+          }
+          for old, new in replacements.items():
+              if old not in text:
+                  raise SystemExit(f'missing expected export identity: {old}')
+              text = text.replace(old, new, 1)
+          path.write_text(text)
+          PY
+          grep -q 'art.eggiebagelface.luhmos.testing' export_presets.cfg
+          grep -q 'version/code=112' export_presets.cfg
+          grep -q 'version/name="1.0.12-testing.1"' export_presets.cfg
+
+      - name: Current milestone boundary check
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -R -nE '127\.0\.0\.1|localhost|FastAPI|PySimpleGUI|RUN_COMMAND|OPENAI_API_KEY|AIza|sk-proj-' . \
+            --exclude='android-proposed-build.yml' \
+            --exclude='android-testing-build.yml' \
+            --exclude='GITHUB_AUDIT_20260925.json' \
+            --exclude='SOURCE_OF_TRUTH.json' \
+            --exclude='README.md'
+          test -s frontEnd/jquery/luhm.cockpit.js
+          grep -q 'luhmCockpit' frontEnd/jquery/luhm.cockpit.js
+          grep -q 'BACKEND CATHEDRAL' scripts/main.gd
+          test -s scripts/cutsceneDirector.gd
+          test -s cutscenes/lumBeaconIntro.json
+          ! grep -R -nE 'cms_registry|api_bridge|web_cms_bridge|cage_manager|HTTPRequest|MANIFEST_URL' scripts/cutsceneDirector.gd cutscenes
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('cutscenes/lumBeaconIntro.json').read_text())
+          types = [beat.get('type') for beat in data.get('beats', [])]
+          expected = ['lock_player', 'camera_move', 'lum_beacon_pulse', 'dialogue', 'restore']
+          assert types == expected, (types, expected)
+          assert data['beats'][3].get('event') == 'lum_beacon_linked'
+          print('current milestones GREEN')
+          print('cutscene:', ' -> '.join(types))
+          PY
+
+      - name: Export testing APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/android
+          "$GODOT" --headless --editor --path . --quit
+          "$GODOT" --headless --path . --install-android-build-template \
+            --export-debug 'Android Proposed' build/android/luhmos-1.0.12-testing.1.apk
+          test -s build/android/luhmos-1.0.12-testing.1.apk
+
+      - name: Verify testing APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK=build/android/luhmos-1.0.12-testing.1.apk
+          BT="$ANDROID_HOME/build-tools/36.1.0"
+          "$BT/aapt" dump badging "$APK" | tee build/android/badging.txt
+          "$BT/apksigner" verify --verbose --print-certs "$APK" | tee build/android/signature.txt
+          "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/android/zipalign.txt
+          sha256sum "$APK" | tee build/android/sha256.txt
+          grep -q "package: name='art.eggiebagelface.luhmos.testing'" build/android/badging.txt
+          grep -q "versionCode='112'" build/android/badging.txt
+          grep -q "versionName='1.0.12-testing.1'" build/android/badging.txt
+          cat > build/android/build-receipt.txt <<RECEIPT
+          LuHm OS Testing APK
+          source_commit=fdff3ace078f91649b2fa22403f64d46ca2d6342
+          package=art.eggiebagelface.luhmos.testing
+          versionCode=112
+          versionName=1.0.12-testing.1
+          milestone.jquery_frontend_source=present_and_CI_checked
+          milestone.native_backend_cathedral=present
+          milestone.cutscene=lock_player>camera_move>lum_beacon_pulse>dialogue_event>restore
+          boundary.internet_permission=false
+          boundary.donor_control_plane=excluded
+          RECEIPT
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-os-testing-apk
+          path: build/android/
+          if-no-files-found: error
+          retention-days: 14
