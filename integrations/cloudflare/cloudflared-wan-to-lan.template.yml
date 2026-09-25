@@ -1,0 +1,27 @@
+# Template only. Do not commit a real tunnel credential or certificate path.
+# Canonical v2 role: admin/private WAN-to-LAN only.
+# Public site uses Workers Static Assets; public F-Droid uses proxied AAAA to the IPv6-only GCP origin.
+
+tunnel: ${CF_TUNNEL_ID}
+credentials-file: ${CF_TUNNEL_CREDENTIALS_FILE}
+
+protocol: quic
+
+ingress:
+  # Private admin surface. Cloudflare Access policy MUST protect this hostname.
+  # The Cloudflare<->cloudflared transport is encrypted; loopback HTTP is acceptable here.
+  - hostname: admin.eggiebagelface.art
+    service: http://127.0.0.1:8787
+
+  # Catch-all is mandatory so undeclared public hostnames never fall through to a service.
+  - service: http_status:404
+
+# DO NOT add eggiebagelface.art or www here: the public coming-soon site belongs to
+# Cloudflare Workers Static Assets custom-domain routing.
+#
+# DO NOT add fdroid.eggiebagelface.art here: the signed repository belongs on the
+# proxied IPv6-only GCP/Nginx origin so large APK delivery is not coupled to the admin tunnel.
+#
+# Private .lan routing is configured in Cloudflare Zero Trust private-network/private-hostname
+# routes plus private DNS, never by publishing .lan records in authoritative public DNS.
+# Keep AcodeX/VNC/WebSocket loopback-only unless a separately reviewed private route is declared.
