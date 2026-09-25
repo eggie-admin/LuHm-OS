@@ -1,0 +1,33 @@
+{
+  "id": "lum_beacon_intro",
+  "title": "Lum Beacon Intro Dry Run",
+  "beats": [
+    {
+      "id": "lock_player",
+      "type": "lock_player",
+      "duration": 0.15
+    },
+    {
+      "id": "camera_move",
+      "type": "camera_move",
+      "duration": 1.2
+    },
+    {
+      "id": "lum_beacon_pulse",
+      "type": "lum_beacon_pulse",
+      "duration": 0.9
+    },
+    {
+      "id": "dialogue_event",
+      "type": "dialogue",
+      "duration": 1.8,
+      "dialogue": "LuHm link established. Riverwalk signal acquired.",
+      "event": "lum_beacon_linked"
+    },
+    {
+      "id": "restore",
+      "type": "restore",
+      "duration": 0.75
+    }
+  ]
+}

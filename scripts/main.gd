@@ -1,22 +1,46 @@
 extends Node3D
 
+signal cutscene_event(event_name: String)
+
 const MOVE_SPEED := 5.5
 const TURN_SPEED := 1.8
+const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
+const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
 
 var player: CharacterBody3D
 var camera: Camera3D
 var cathedral: Control
 var world_hud: Control
+var dialogue_label: Label
+var lum_beacon: MeshInstance3D
+var lum_beacon_light: OmniLight3D
+var cutscene_director
 var move_axis := Vector2.ZERO
+var controls_locked := false
+var intro_cutscene_played := false
+var camera_home_transform := Transform3D.IDENTITY
+var lum_beacon_home_scale := Vector3.ONE
+var lum_beacon_home_energy := 4.5
 
 func _ready() -> void:
     _build_world()
     _build_ui()
+    _build_cutscene_runtime()
     _show_cathedral()
 
 func _process(delta: float) -> void:
     if cathedral.visible:
         return
+
+    if controls_locked:
+        move_axis = Vector2.ZERO
+        player.velocity.x = move_toward(player.velocity.x, 0.0, MOVE_SPEED * delta * 5.0)
+        player.velocity.z = move_toward(player.velocity.z, 0.0, MOVE_SPEED * delta * 5.0)
+        if not player.is_on_floor():
+            player.velocity.y -= 18.0 * delta
+        player.move_and_slide()
+        return
+
     var key_axis := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
     var axis := key_axis if key_axis.length() > move_axis.length() else move_axis
     if axis.length() > 0.05:
@@ -139,26 +163,28 @@ func _add_city_blocks() -> void:
         add_child(crown)
 
 func _add_lum_beacon() -> void:
-    var lum := MeshInstance3D.new()
+    lum_beacon = MeshInstance3D.new()
+    lum_beacon.name = "LumBeacon"
     var mesh := SphereMesh.new()
     mesh.radius = 0.75
     mesh.height = 1.5
-    lum.mesh = mesh
-    lum.position = Vector3(0.0, 1.6, -7.0)
+    lum_beacon.mesh = mesh
+    lum_beacon.position = Vector3(0.0, 1.6, -7.0)
     var mat := StandardMaterial3D.new()
     mat.albedo_color = Color("ff4b88")
     mat.emission_enabled = true
     mat.emission = Color("ff4b88")
     mat.emission_energy_multiplier = 3.4
-    lum.material_override = mat
-    add_child(lum)
+    lum_beacon.material_override = mat
+    add_child(lum_beacon)
 
-    var light := OmniLight3D.new()
-    light.position = lum.position
-    light.light_color = Color("ff4b88")
-    light.light_energy = 4.5
-    light.omni_range = 8.0
-    add_child(light)
+    lum_beacon_light = OmniLight3D.new()
+    lum_beacon_light.name = "LumBeaconLight"
+    lum_beacon_light.position = lum_beacon.position
+    lum_beacon_light.light_color = Color("ff4b88")
+    lum_beacon_light.light_energy = lum_beacon_home_energy
+    lum_beacon_light.omni_range = 8.0
+    add_child(lum_beacon_light)
 
 func _build_ui() -> void:
     cathedral = Control.new()
@@ -224,6 +250,19 @@ func _build_ui() -> void:
     hud_label.add_theme_font_size_override("font_size", 25)
     top_bar.add_child(hud_label)
 
+    dialogue_label = Label.new()
+    dialogue_label.position = Vector2(90.0, 1500.0)
+    dialogue_label.custom_minimum_size = Vector2(900.0, 150.0)
+    dialogue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    dialogue_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+    dialogue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    dialogue_label.add_theme_font_size_override("font_size", 32)
+    dialogue_label.add_theme_color_override("font_color", Color("f8eff8"))
+    dialogue_label.add_theme_color_override("font_outline_color", Color("120914"))
+    dialogue_label.add_theme_constant_override("outline_size", 10)
+    dialogue_label.visible = false
+    world_hud.add_child(dialogue_label)
+
     var dpad := GridContainer.new()
     dpad.columns = 3
     dpad.position = Vector2(44.0, 1810.0)
@@ -237,6 +276,15 @@ func _build_ui() -> void:
     _dpad_button(dpad, "▼", Vector2(0, 1))
     _dpad_button(dpad, "▶", Vector2(1, 0))
 
+func _build_cutscene_runtime() -> void:
+    cutscene_director = CutsceneDirectorScript.new()
+    cutscene_director.name = "CutsceneDirector"
+    add_child(cutscene_director)
+    cutscene_director.beat_started.connect(_on_cutscene_beat_started)
+    cutscene_director.cutscene_finished.connect(_on_cutscene_finished)
+    cutscene_director.cutscene_cancelled.connect(_on_cutscene_cancelled)
+    cutscene_director.cutscene_failed.connect(_on_cutscene_failed)
+
 func _dpad_blank(parent: Control) -> void:
     var spacer := Control.new()
     spacer.custom_minimum_size = Vector2(150.0, 150.0)
@@ -247,15 +295,129 @@ func _dpad_button(parent: Control, glyph: String, axis: Vector2) -> void:
     button.text = glyph
     button.custom_minimum_size = Vector2(150.0, 150.0)
     button.add_theme_font_size_override("font_size", 42)
-    button.button_down.connect(func(): move_axis = axis)
-    button.button_up.connect(func(): move_axis = Vector2.ZERO)
+    button.button_down.connect(func(): _set_move_axis(axis))
+    button.button_up.connect(func(): _set_move_axis(Vector2.ZERO))
     parent.add_child(button)
+
+func _set_move_axis(axis: Vector2) -> void:
+    move_axis = Vector2.ZERO if controls_locked else axis
 
 func _show_world() -> void:
     cathedral.visible = false
     world_hud.visible = true
+    if not intro_cutscene_played:
+        intro_cutscene_played = true
+        call_deferred("_play_intro_cutscene")
 
 func _show_cathedral() -> void:
+    if cutscene_director != null and cutscene_director.is_running():
+        cutscene_director.cancel()
+    _restore_cutscene_state(0.0)
+    _unlock_player()
     cathedral.visible = true
     world_hud.visible = false
     move_axis = Vector2.ZERO
+
+func _play_intro_cutscene() -> void:
+    var document := _load_cutscene_document(INTRO_CUTSCENE_PATH)
+    if document.is_empty():
+        push_warning("LuHm cutscene document unavailable")
+        return
+    camera_home_transform = camera.transform
+    lum_beacon_home_scale = lum_beacon.scale
+    lum_beacon_home_energy = lum_beacon_light.light_energy
+    await cutscene_director.play_cutscene(document)
+
+func _load_cutscene_document(path: String) -> Dictionary:
+    if not FileAccess.file_exists(path):
+        return {}
+    var decoded = JSON.parse_string(FileAccess.get_file_as_string(path))
+    if decoded is Dictionary:
+        return decoded
+    return {}
+
+func _on_cutscene_beat_started(beat: Dictionary) -> void:
+    var beat_type := str(beat.get("type", ""))
+    var duration := maxf(float(beat.get("duration", 0.0)), 0.0)
+    match beat_type:
+        "lock_player":
+            _lock_player()
+        "camera_move":
+            _camera_cutscene_move(duration)
+        "lum_beacon_pulse":
+            _pulse_lum_beacon(duration)
+        "dialogue":
+            _show_cutscene_dialogue(beat)
+        "restore":
+            _restore_cutscene_state(duration)
+
+func _lock_player() -> void:
+    controls_locked = true
+    move_axis = Vector2.ZERO
+    if player != null:
+        player.velocity.x = 0.0
+        player.velocity.z = 0.0
+
+func _unlock_player() -> void:
+    controls_locked = false
+    move_axis = Vector2.ZERO
+
+func _camera_cutscene_move(duration: float) -> void:
+    if camera == null:
+        return
+    var tween := create_tween()
+    tween.set_trans(Tween.TRANS_SINE)
+    tween.set_ease(Tween.EASE_IN_OUT)
+    tween.set_parallel(true)
+    tween.tween_property(camera, "position", Vector3(0.0, 2.35, 2.8), duration)
+    tween.tween_property(camera, "rotation_degrees", Vector3(-4.0, 0.0, 0.0), duration)
+
+func _pulse_lum_beacon(duration: float) -> void:
+    if lum_beacon == null or lum_beacon_light == null:
+        return
+    var half := maxf(duration * 0.5, 0.05)
+    var tween := create_tween()
+    tween.set_trans(Tween.TRANS_SINE)
+    tween.set_ease(Tween.EASE_IN_OUT)
+    tween.tween_property(lum_beacon, "scale", lum_beacon_home_scale * 1.35, half)
+    tween.parallel().tween_property(lum_beacon_light, "light_energy", lum_beacon_home_energy * 1.7, half)
+    tween.tween_property(lum_beacon, "scale", lum_beacon_home_scale, half)
+    tween.parallel().tween_property(lum_beacon_light, "light_energy", lum_beacon_home_energy, half)
+
+func _show_cutscene_dialogue(beat: Dictionary) -> void:
+    if dialogue_label != null:
+        dialogue_label.text = str(beat.get("dialogue", ""))
+        dialogue_label.visible = not dialogue_label.text.is_empty()
+    var event_name := str(beat.get("event", ""))
+    if not event_name.is_empty():
+        cutscene_event.emit(event_name)
+
+func _restore_cutscene_state(duration: float) -> void:
+    if dialogue_label != null:
+        dialogue_label.visible = false
+    if lum_beacon != null:
+        lum_beacon.scale = lum_beacon_home_scale
+    if lum_beacon_light != null:
+        lum_beacon_light.light_energy = lum_beacon_home_energy
+    if camera == null:
+        return
+    if duration <= 0.0:
+        camera.transform = camera_home_transform
+        return
+    var tween := create_tween()
+    tween.set_trans(Tween.TRANS_SINE)
+    tween.set_ease(Tween.EASE_IN_OUT)
+    tween.tween_property(camera, "transform", camera_home_transform, duration)
+
+func _on_cutscene_finished(_cutscene_id: String) -> void:
+    _restore_cutscene_state(0.0)
+    _unlock_player()
+
+func _on_cutscene_cancelled(_cutscene_id: String) -> void:
+    _restore_cutscene_state(0.0)
+    _unlock_player()
+
+func _on_cutscene_failed(reason: String) -> void:
+    push_warning("LuHm cutscene failed: %s" % reason)
+    _restore_cutscene_state(0.0)
+    _unlock_player()

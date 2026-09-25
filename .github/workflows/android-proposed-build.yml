@@ -79,6 +79,19 @@ jobs:
             --exclude='README.md'
           grep -q 'art.eggiebagelface.luhmos.cleanplay' export_presets.cfg
           grep -q 'version/code=111' export_presets.cfg
+          test -s scripts/cutsceneDirector.gd
+          test -s cutscenes/lumBeaconIntro.json
+          ! grep -R -nE 'cms_registry|api_bridge|web_cms_bridge|cage_manager|HTTPRequest|MANIFEST_URL' scripts/cutsceneDirector.gd cutscenes
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('cutscenes/lumBeaconIntro.json').read_text())
+          types = [beat.get('type') for beat in data.get('beats', [])]
+          expected = ['lock_player', 'camera_move', 'lum_beacon_pulse', 'dialogue', 'restore']
+          assert types == expected, (types, expected)
+          assert data['beats'][3].get('event') == 'lum_beacon_linked'
+          print('cutscene sequence GREEN:', ' -> '.join(types))
+          PY
 
       - name: Export debug APK
         shell: bash
