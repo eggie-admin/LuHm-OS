@@ -1,0 +1,20 @@
+name: LEGACY KAI 9000 ULTIMA APK — BLOCKED
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  legacy-block:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Refuse superseded dev package forge
+        shell: bash
+        run: |
+          echo 'BLOCKED: art.eggiebagelface.kai9000.dev is a historical package lineage.' >&2
+          echo 'Canonical production package: art.eggiebagelface.luhmos' >&2
+          echo 'Canonical testing forge: .github/workflows/luhmos-ultima-debug-apk.yml' >&2
+          echo 'Canonical public release: .github/workflows/luhmos-fdroid-public-release.yml' >&2
+          exit 1
