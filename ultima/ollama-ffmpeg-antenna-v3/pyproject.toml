@@ -1,0 +1,33 @@
+[project]
+name = "kai9000-ultima-ollama-ffmpeg-antenna"
+version = "3.5.0"
+description = "LuHm OS remote assistance cockpit with bounded OpenAI, Google, GitHub-context, Hugging Face, local Ollama, FFmpeg, and FastAPI lanes"
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "pydantic",
+  "httpx[http2]",
+  "google-genai>=2.24.0,<3",
+  "openai-agents==0.22.0",
+]
+
+[tool.setuptools]
+packages = ["ai_feed", "lum_agent"]
+py-modules = [
+  "antenna",
+  "assistance",
+  "comfy_batch",
+  "doctor",
+  "drive_backup",
+  "gateway",
+  "google_assist",
+  "magic_chat",
+  "magic_server",
+  "main",
+  "remote_ai",
+  "remote_pull",
+]
+
+[tool.setuptools.package-data]
+lum_agent = ["skills/*/SKILL.md"]
