@@ -1,0 +1,23 @@
+{
+  "schema": "luhm.asset.glbAudit.v1",
+  "status": "STATIC_MODEL_ONLY",
+  "source": "conversation-uploaded luhm.glb",
+  "file_size_bytes": 56240120,
+  "sha256": "fa757ceb86358d6489f217c7d2624ac1d1d3e1d7e9c91601095d509131e9ec04",
+  "gltf_asset_version": "2.0",
+  "generator": "meshy-scene",
+  "nodes": 1,
+  "meshes": 1,
+  "skins": 0,
+  "animations": 0,
+  "runtime_contract": "When a reviewed luhm.glb is placed at res://assets/lum/luhm.glb, LumAvatar loads it. Without it, the runtime uses the procedural fallback.",
+  "next_asset_mutation": [
+    "humanoid armature and skin weights",
+    "face blend shapes",
+    "blink and eye-look expressions",
+    "A E I O U and consonant visemes",
+    "idle/talk/greet animation clips",
+    "secondary hair/accessory motion"
+  ],
+  "note": "This audit does not claim the current uploaded GLB is rigged."
+}
