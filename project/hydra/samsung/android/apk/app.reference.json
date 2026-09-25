@@ -1,0 +1,43 @@
+{
+  "schema": "project-hydra.samsung-android-apk-reference.v4",
+  "role": "LuHm OS SM-X400 Android APK forge",
+  "source_of_truth": "docs/CROWN_SOURCE_OF_TRUTH_20260920.json",
+  "source": {
+    "repository": "eggie-admin/hydra-shell-android",
+    "branch": "testing/luhm-os-android",
+    "native_project": "samsung-sm-x400/luhm-os",
+    "manifest": "samsung-sm-x400/luhm-os/package.manifest.json",
+    "ownership": "luhm_os_owned"
+  },
+  "current_device": {
+    "manufacturer": "Samsung",
+    "model": "SM-X400",
+    "abi": "arm64-v8a"
+  },
+  "platform_target": {"android":17,"api":37,"min_sdk":31},
+  "runtime": {
+    "install":"single_standard_android_apk",
+    "termux_required":false,
+    "bash_install_required":false,
+    "external_localhost_daemon_required":false,
+    "app_owned_service":true,
+    "cross_profile_loopback":false,
+    "secure_folder":"optional_isolation_only"
+  },
+  "requirements": {
+    "installable_apk_required_for_apk_build_green": true,
+    "package_identity_evidence_required": true,
+    "signature_evidence_required": true,
+    "sha256_evidence_required": true,
+    "zipalign_16k_evidence_required": true,
+    "physical_sm_x400_validation_required_for_device_green": true,
+    "api37_runtime_validation_required_for_android17_green": true,
+    "automatic_root": false,
+    "arbitrary_model_shell": false,
+    "secrets_in_apk_or_repo": false
+  },
+  "historical_s24_source": {
+    "status":"HISTORICAL_NON_CANONICAL",
+    "path":"luhmos/samsung-android-s24/native-cathedral"
+  }
+}
