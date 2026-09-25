@@ -178,26 +178,26 @@ func _build_ui() -> void:
     cathedral.add_child(panel)
 
     var title := Label.new()
-    title.text = "LUHM OS // CATHEDRAL"
+    title.text = "LUHM OS // BACKEND CATHEDRAL"
     title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     title.add_theme_font_size_override("font_size", 44)
     panel.add_child(title)
 
     var sub := Label.new()
-    sub.text = "CLEAN PLAY SPINE · NATIVE GODOT · HUMAN CROWN GATE"
+    sub.text = "NATIVE GODOT SYSTEM COCKPIT · HUMAN CROWN GATE"
     sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     sub.add_theme_font_size_override("font_size", 20)
     panel.add_child(sub)
 
     var line := Label.new()
-    line.text = "Detroit riverwalk prototype online.\nNo legacy control plane. No cloud required."
+    line.text = "jQuery front end dry run active.\nNative Cathedral retained as backend authority."
     line.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     line.add_theme_font_size_override("font_size", 27)
     panel.add_child(line)
 
     var enter := Button.new()
-    enter.text = "WORLD MODE"
+    enter.text = "3D WORLD / DIAGNOSTIC"
     enter.custom_minimum_size = Vector2(0.0, 110.0)
     enter.add_theme_font_size_override("font_size", 32)
     enter.pressed.connect(_show_world)
@@ -213,14 +213,14 @@ func _build_ui() -> void:
     world_hud.add_child(top_bar)
 
     var back := Button.new()
-    back.text = "CATHEDRAL"
+    back.text = "BACKEND CATHEDRAL"
     back.custom_minimum_size = Vector2(270.0, 80.0)
     back.add_theme_font_size_override("font_size", 24)
     back.pressed.connect(_show_cathedral)
     top_bar.add_child(back)
 
     var hud_label := Label.new()
-    hud_label.text = "  RIVERWALK // CLEANPLAY 01"
+    hud_label.text = "  RIVERWALK // BACKEND NATIVE 01"
     hud_label.add_theme_font_size_override("font_size", 25)
     top_bar.add_child(hud_label)
 

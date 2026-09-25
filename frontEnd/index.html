@@ -10,55 +10,30 @@
 <body>
   <main class="cockpit" data-luhm-cockpit>
     <header class="topPanel" aria-label="LuHm OS desktop panel">
-      <button class="appButton" type="button" aria-label="Open LuHm menu" data-luhm-menu-button>
-        <span aria-hidden="true">⠿</span>
-      </button>
-      <div class="brand" aria-label="LuHm OS">
-        <span class="brandMark" aria-hidden="true">◇</span>
-        <strong>LuHm OS</strong>
-      </div>
+      <button class="appButton" type="button" aria-label="Open LuHm menu" data-luhm-menu-button><span aria-hidden="true">⠿</span></button>
+      <div class="brand" aria-label="LuHm OS"><span class="brandMark" aria-hidden="true">◇</span><strong>LuHm OS</strong></div>
       <nav class="nav" aria-label="Front end navigation">
         <button class="navItem isActive" type="button" data-view="chat">Chat</button>
         <button class="navItem" type="button" data-view="library">Library</button>
         <button class="navItem" type="button" data-view="memories">Memories</button>
       </nav>
       <div class="systemTray" aria-label="System indicators">
-        <span title="local-first">⌂</span>
-        <span title="audio">◖))</span>
-        <time data-luhm-clock>--:--</time>
+        <span title="local-first">⌂</span><span title="audio">◖))</span><time data-luhm-clock>--:--</time>
         <button class="systemButton" type="button" title="Open backend" aria-label="Open backend" data-luhm-backend-button>⬡</button>
       </div>
     </header>
 
     <section class="scene" aria-label="Lum companion scene">
-      <div class="lumViewport" data-luhm-lum-viewport aria-label="3D Lum renderer mount">
-        <span class="viewportLabel">3D LUM VIEWPORT</span>
-      </div>
+      <div class="lumViewport" data-luhm-lum-viewport aria-label="3D Lum renderer mount"><span class="viewportLabel">3D LUM VIEWPORT</span></div>
       <div class="sceneShade" aria-hidden="true"></div>
-      <div class="sceneStatus" aria-live="polite">
-        <span class="onlineDot" aria-hidden="true"></span>
-        <span>LuHm front end</span>
-      </div>
+      <div class="sceneStatus" aria-live="polite"><span class="onlineDot" aria-hidden="true"></span><span>LuHm jQuery front end · dry run</span></div>
     </section>
 
     <section class="chatDock" aria-label="Chat with Lum" data-luhm-chat>
       <div class="messageStream" data-luhm-message-stream>
-        <article class="message messageLum">
-          <div class="avatar" aria-hidden="true">L</div>
-          <div>
-            <div class="messageMeta"><strong>Lum</strong><time>10:24 PM</time></div>
-            <p>Welcome to LuHm OS. I’m here with you. ♡</p>
-          </div>
-        </article>
-        <article class="message messageLum">
-          <div class="avatar" aria-hidden="true">L</div>
-          <div>
-            <div class="messageMeta"><strong>Lum</strong><time>10:26 PM</time></div>
-            <p>Chat stays simple up front. The heavier machinery lives behind the system layer.</p>
-          </div>
-        </article>
+        <article class="message messageLum"><div class="avatar" aria-hidden="true">L</div><div><div class="messageMeta"><strong>Lum</strong><time>10:24 PM</time></div><p>Welcome to LuHm OS. I’m here with you. ♡</p></div></article>
+        <article class="message messageLum"><div class="avatar" aria-hidden="true">L</div><div><div class="messageMeta"><strong>Lum</strong><time>10:26 PM</time></div><p>Front end is jQuery now. The native Cathedral is the backend cockpit.</p></div></article>
       </div>
-
       <form class="composer" data-luhm-composer>
         <button class="iconButton" type="button" aria-label="Attach file">⌕</button>
         <label class="srOnly" for="messageInput">Message Lum</label>
@@ -68,25 +43,16 @@
     </section>
 
     <aside class="systemLayer" hidden data-luhm-system-layer aria-label="Backend system layer">
-      <div class="systemLayerCard">
-        <div>
-          <small>LUHM OS</small>
-          <h2>Backend</h2>
-          <p>System tools, agents, services, plugins, logs and settings live here. This front-end prototype only exposes the boundary.</p>
-        </div>
-        <button type="button" data-luhm-backend-close>Close</button>
-      </div>
+      <div class="systemLayerCard"><div><small>NATIVE SYSTEM LAYER</small><h2>Backend Cathedral</h2><p>The existing Godot cockpit is now the backend/system GUI in this dry run. This panel proves the front-end boundary only; native launch wiring is not simulated.</p></div><button type="button" data-luhm-backend-close>Close</button></div>
     </aside>
 
     <div class="appMenu" hidden data-luhm-menu>
-      <button type="button" data-view="chat">Chat</button>
-      <button type="button" data-view="library">Library</button>
-      <button type="button" data-view="memories">Memories</button>
-      <hr>
-      <button type="button" data-luhm-backend-button>Backend</button>
+      <button type="button" data-view="chat">Chat</button><button type="button" data-view="library">Library</button><button type="button" data-view="memories">Memories</button><hr><button type="button" data-luhm-backend-button>Backend Cathedral</button>
     </div>
   </main>
 
-  <script src="./app.js" defer></script>
+  <script src="./vendor/jquery-3.7.1.min.js"></script>
+  <script src="./jquery/luhm.cockpit.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>

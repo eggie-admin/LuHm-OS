@@ -1,0 +1,51 @@
+name: Frontend jQuery Dry Run
+
+on:
+  pull_request:
+    paths:
+      - 'frontEnd/**'
+      - 'backEndGui/**'
+      - 'scripts/main.gd'
+      - 'doctrine/guiSplitDryRun-20260925.json'
+      - '.github/workflows/frontend-jquery-dryrun.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frontend-dryrun:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontEnd/package.json
+      - name: Install exact front-end dependency
+        working-directory: frontEnd
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Static plugin checks
+        working-directory: frontEnd
+        run: npm run check
+      - name: Stage local jQuery runtime
+        working-directory: frontEnd
+        run: npm run stage:jquery
+      - name: Confirm staged runtime
+        run: |
+          test -s frontEnd/vendor/jquery-3.7.1.min.js
+          test -s frontEnd/vendor/jquery-LICENSE.txt
+          test -f scenes/Main.tscn
+          test -f scripts/main.gd
+          grep -q 'BACKEND CATHEDRAL' scripts/main.gd
+      - name: HTTP smoke test
+        run: |
+          python3 -m http.server 8765 --directory frontEnd >/tmp/luhm-front.log 2>&1 &
+          server_pid=$!
+          trap 'kill $server_pid' EXIT
+          sleep 1
+          curl --fail --silent --show-error http://127.0.0.1:8765/ | grep -q 'jquery-3.7.1.min.js'
+          curl --fail --silent --show-error http://127.0.0.1:8765/jquery/luhm.cockpit.js | grep -q 'luhmCockpit'
+          curl --fail --silent --show-error http://127.0.0.1:8765/vendor/jquery-3.7.1.min.js >/dev/null

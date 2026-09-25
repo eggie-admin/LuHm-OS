@@ -1,0 +1,34 @@
+{
+  "schema": "luhm.guiSplit.dryRun.v1",
+  "status": "DRY_RUN_CANDIDATE",
+  "milestone": "jQuery GUI front-end implementation with current native GUI separated as backend",
+  "base_main_commit": "1c45aa2e74620500ae98cdbebbcdce64a1bb76cb",
+  "branch": "dryrun/jquery-gui-backend-split-20260925",
+  "front_end": {
+    "authority": "frontEnd/",
+    "runtime": "HTML/CSS/jQuery",
+    "jquery": "3.7.1 exact pin",
+    "plugin": "$.fn.luhmCockpit",
+    "role": "user-facing chat-first GUI",
+    "privileged": false
+  },
+  "back_end_gui": {
+    "authority": ["scenes/Main.tscn", "scripts/main.gd"],
+    "marker": "backEndGui/README.md",
+    "role": "native Godot Backend Cathedral/system cockpit",
+    "duplicated": false
+  },
+  "bridge": {
+    "front_event": "luhm:backend:open",
+    "native_launch": "NOT_IMPLEMENTED_IN_DRY_RUN",
+    "arbitrary_shell": false
+  },
+  "promotion_gate": [
+    "npm dependency install succeeds",
+    "jQuery stages locally from exact package",
+    "static checks pass",
+    "front-end HTTP smoke test passes",
+    "Godot source remains present",
+    "human review before merge"
+  ]
+}
