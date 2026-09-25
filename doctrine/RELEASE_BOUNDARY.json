@@ -1,0 +1,18 @@
+{
+  "schema": "luhm-os.release-boundary.v1",
+  "status": "PROPOSED_NOT_CROWNED",
+  "allow": [
+    "native Godot 3D",
+    "local touch controls",
+    "primitive generated geometry",
+    "side-by-side debug install"
+  ],
+  "deny": [
+    "production signing",
+    "publishing",
+    "stable promotion",
+    "remote shell execution",
+    "loopback control plane in Android runtime",
+    "embedded provider secrets"
+  ]
+}
