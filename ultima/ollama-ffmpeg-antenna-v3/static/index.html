@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KAI9000 Magic Cockpit</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#0d1117;color:#e6edf3;margin:20px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:14px}input,textarea,select,button{box-sizing:border-box;width:100%;margin:5px 0;padding:9px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:8px}button{cursor:pointer}button:hover{border-color:#4dd0e1}img,video{width:100%;background:#000;border-radius:8px}pre{white-space:pre-wrap;overflow:auto;background:#0d1117;padding:10px;border-radius:8px;max-height:55vh}.small{font-size:.9rem;color:#9da7b3}.rune{color:#4dd0e1}.warn{color:#ffcf66}.status{padding:6px;border:1px solid #30363d;border-radius:8px;margin:6px 0}.fatal{background:#4a1111;color:#ffd8d8;padding:10px;border-radius:8px;margin-bottom:12px}
+</style>
+</head>
+<body>
+<h1>🔷 KAI9000 Magic Cockpit</h1>
+<p class="small">jQuery cockpit → Python 3/FastAPI policy kernel → doctrine-driven Lum Agents SDK + local KAI workers. Browser code never owns credentials, filesystem policy, approval, or rollback.</p>
+
+<div class="grid">
+  <div class="card">
+    <h2>Lum Python Coding Agent</h2>
+    <div id="lumStatus" class="status">loading Lum status…</div>
+    <textarea id="magicPrompt" rows="8" placeholder="Ask Lum to inspect Python, explain a class, debug a failure, propose a patch, or load a doctrine skill"></textarea>
+    <button id="askOpenAI">Ask Lum</button>
+    <p class="small">Server-side OpenAI Agents SDK. Default model: GPT-5.6 Luna, reasoning none, low verbosity. Existing <code>OPENAI_API_KEY</code> stays server-side. Lum can inspect and propose; mutation remains behind the human-approved spell gateway.</p>
+  </div>
+
+  <div class="card">
+    <h2>Spell Compiler</h2>
+    <div class="small">Code root: <span id="codeRoot" class="rune">loading…</span></div>
+    <select id="spellList"></select>
+    <textarea id="spellArgs" rows="7" placeholder='{"path":"ultima/ollama-ffmpeg-antenna-v3/main.py"}'></textarea>
+    <button id="prepareCast">Prepare Cast</button>
+    <input id="castId" placeholder="Cast / checkpoint ID" readonly>
+    <div id="approvalState" class="status warn">NOT PREPARED</div>
+    <button id="approveCast">Human Approve</button>
+    <button id="executeCast">Execute Cast</button>
+    <button id="rollbackCast">Rollback Checkpoint</button>
+    <p class="small">WRITE_FILE is checkpointed and SHA-guarded. ULTIMA remains disabled in-app.</p>
+  </div>
+
+  <div class="card">
+    <h2>Local Ollama</h2>
+    <textarea id="ollamaPrompt" rows="5" placeholder="Ask the local KAI antenna"></textarea>
+    <button id="askOllama">Ask Ollama</button>
+    <h2>ComfyUI Batch</h2>
+    <input id="start" placeholder="Start frame, optional">
+    <input id="end" placeholder="End frame, optional">
+    <input id="step" value="1">
+    <button id="regen">Run ComfyUI Regen</button>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <h2>Demux</h2>
+    <input id="src" placeholder="Absolute MP4 path on host">
+    <input id="label" value="ultima-test">
+    <button id="demux">Demux MP4</button>
+  </div>
+  <div class="card">
+    <h2>Media Job</h2>
+    <input id="job" placeholder="Job ID">
+    <button class="apng" data-ai="false">Source APNG</button>
+    <button class="apng" data-ai="true">AI APNG</button>
+    <button id="remux">Remux AI MP4</button>
+    <button id="seal">Seal Artifacts</button>
+    <button id="backup">Backup to Drive</button>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card"><h2>APNG</h2><img id="apngImage" alt="APNG preview"></div>
+  <div class="card"><h2>MP4</h2><video id="mp4" controls></video></div>
+</div>
+<div class="card"><h2>Response / Cast Evidence</h2><pre id="out">Ready.</pre></div>
+
+<script src="/static/vendor/jquery.min.js"></script>
+<script>
+if (!window.jQuery) {
+  document.body.insertAdjacentHTML("afterbegin", '<div class="fatal">Local jQuery is missing. Run <code>npm run bootstrap</code> or <code>npm ci && npm run vendor:jquery</code>, then reload.</div>');
+} else {
+  var cockpit = document.createElement("script");
+  cockpit.src = "/static/app.jquery.js";
+  document.body.appendChild(cockpit);
+}
+</script>
+</body>
+</html>
