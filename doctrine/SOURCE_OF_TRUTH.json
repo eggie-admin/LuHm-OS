@@ -14,6 +14,12 @@
     "production_signer": false,
     "publication_authority": false
   },
+  "manual": {
+    "path": "manual/LUHM_OS_PROJECT_HYDRA_FIELD_MANUAL.md",
+    "status": "WORKING_DRAFT",
+    "purpose": "Illustrated AI builder field manual, doctrine, comic tutorials, agent supervision, security architecture, and compute-tier guidance",
+    "publication_authority": false
+  },
   "legacy_policy": "selective transplant only; no wholesale history merge",
   "excluded": [
     "FastAPI loopback control plane from Android runtime",
