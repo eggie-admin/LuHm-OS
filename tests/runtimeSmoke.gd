@@ -31,12 +31,20 @@ func _run() -> void:
         _check(world.get_node_or_null("WalkFloor") is StaticBody3D, "WalkFloor is collidable StaticBody3D")
         var lum: Node = world.get_node_or_null("LumAvatarSocket")
         _check(lum != null, "Lum avatar socket exists")
-        if lum != null and ResourceLoader.exists("res://assets/lum/luhm.glb"):
-            _check(bool(lum.call("uses_external_model")), "Drive Lum external model loaded")
-            var rig := lum.call("get_rig_summary") as Dictionary
-            _check(int(rig.get("skeleton_bones", 0)) >= 20, "Drive Lum has humanoid skin skeleton")
-            _check(int(rig.get("animations", 0)) >= 1, "Drive Lum exposes imported animation tracks")
-            _check(bool(rig.get("running_asset_present", false)), "Drive Lum running animation donor imported")
+        if lum != null:
+            _check(lum.get_node_or_null("AnimationTree") is AnimationTree, "Lum stable wrapper exposes AnimationTree")
+            _check(lum.get_node_or_null("LookTarget") is Node3D, "Lum stable wrapper exposes LookTarget")
+
+            if ResourceLoader.exists("res://assets/lum/luhm.glb"):
+                _check(bool(lum.call("uses_external_model")), "Drive Lum external model loaded")
+                var summary := lum.call("get_rig_summary") as Dictionary
+                _check(int(summary.get("skeleton_bones", 0)) >= 20, "Drive Lum exposes humanoid skeleton")
+                _check(int(summary.get("animations", 0)) >= 1, "Drive Lum exposes animation tracks")
+                _check(int(summary.get("canonical_mapped", 0)) == int(summary.get("canonical_required", -1)), "Lum canonical body map resolves")
+                _check(bool(summary.get("animation_tree_active", false)), "Lum AnimationTree active")
+                _check(bool(summary.get("head_tracking", false)), "Lum head tracking active")
+                var eye_mode := String(summary.get("eye_tracking_mode", ""))
+                _check(eye_mode == "bone_pair" or eye_mode == "head_fallback", "Lum eye tracking capability explicit")
 
     if player != null:
         _check(player.get_node_or_null("CameraYaw/CameraPitch/SpringArm3D/Camera3D") is Camera3D, "collision-aware camera rig exists")
