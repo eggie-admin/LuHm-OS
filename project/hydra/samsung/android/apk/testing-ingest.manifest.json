@@ -1,0 +1,145 @@
+{
+  "schema": "kai9000.android-testing-ingest.v5",
+  "date": "2026-09-07",
+  "project": {
+    "os": "LuHm OS",
+    "working_title": "KAI 9000",
+    "android_app_name": "KAI 9000 Dev",
+    "android_package_id": "art.eggiebagelface.kai9000.dev",
+    "version": "0.7.0-dev",
+    "version_code": 7
+  },
+  "repository": "eggie-admin/hydra-shell-android",
+  "branch": "main",
+  "base_before_audit": "f4ef83e83355fa55fbec093719b7262bb39c45cc",
+  "consolidated_donor_commit": "70eafa7bcaa62786593922bdcc7e1706cba0bf04",
+  "device_contract": {
+    "manufacturer": "Samsung",
+    "model": "Samsung Android 16 arm64 family",
+    "reference_models": ["SM-S721U1", "SM-X400"],
+    "android": 16,
+    "abi": "arm64-v8a",
+    "secure_folder_role": "cockpit_client",
+    "daemon_owner": "ordinary_termux",
+    "root": false
+  },
+  "loopback": {
+    "axs": "127.0.0.1:8767",
+    "vnc": "127.0.0.1:5901",
+    "websocket": "127.0.0.1:6080",
+    "cockpit": "127.0.0.1:8787",
+    "ollama": "127.0.0.1:11434"
+  },
+  "compile_bot": {
+    "implementation_assistant": "github_copilot",
+    "build_oracle": "github_actions",
+    "setup_workflow": ".github/workflows/copilot-setup-steps.yml",
+    "apk_workflow": ".github/workflows/kai9000-ultima-apk.yml",
+    "artifact_name": "kai9000-dev.apk",
+    "release_template": "release/TESTING_APK_DEBUG_TEMPLATE.md",
+    "cancel_superseded_runs": true,
+    "parallel_preflight_and_apk_build": true
+  },
+  "donors": [
+    {"branch": "audit/full-mutation-2026-08-05", "mode": "selected_transplant"},
+    {"branch": "experiment/knox-termux-mutation-001", "mode": "manual_tool_only"},
+    {"branch": "hydra-ollama-local-001", "mode": "selected_transplant"},
+    {"branch": "kai9000-media-forge", "mode": "selected_transplant"},
+    {"branch": "kai9000-samsung-agent-rss-merge-010", "mode": "selected_transplant_after_divergence"},
+    {"branch": "video-forge-cathedral-npm-fdroid", "mode": "selected_transplant"}
+  ],
+  "external_references": {
+    "samsung_frontend": {
+      "repository": "eggie-admin/vue-headless-cms",
+      "branch": "kai9000/jquery-avatar-cockpit-20260907",
+      "commit": "7c06bb76d4890c64202b438dd7fab2122db8d4ec",
+      "integration": "pinned_checkout_at_build_time",
+      "hardening_doctrine": "docs/KAI9000_ANDROID_HARDENING_10PASS_20260907.md",
+      "control_receiver_exported": false,
+      "npm_lock_sha256": "7929d5c53793563492ff0f5b39278904ecfa5508b10071d5b6d4b0b268fe653c",
+      "ui_stack": {
+        "render_owner": "jquery_plugin",
+        "plugin": "$.fn.kai9000Cockpit",
+        "jquery": "4.0.0",
+        "jquery_ui": "1.14.2",
+        "bootstrap": "5.3.8",
+        "bootstrap_mode": "verified_build_time_vendor_offline_runtime",
+        "avatar_mode": "embedded_local_webp_from_operator_supplied_reference",
+        "legacy_vue_render_owner": false,
+        "runtime_cdn_dependencies": false
+      }
+    },
+    "godot_ai_forge": {
+      "repository": "eggie-admin/amplify-godot-engine-template",
+      "branch": "testing/jrpg-dating-sim",
+      "commit": "c77465fb2884cbf33061b98a9fb08f4a03cccf20",
+      "mode": "reference_not_runtime_copy",
+      "features": ["godot_android_export", "lum_spell_doctrine", "jquery_bridge"]
+    }
+  },
+  "testing_toolchain": {
+    "godot": "4.7.2",
+    "android_api": 36,
+    "android_build_tools": "36.1.0",
+    "android_gradle_plugin": "8.13.2",
+    "gradle": "8.13",
+    "kotlin_android": "2.2.21",
+    "jdk": 17,
+    "python": "3.14",
+    "node": "24.18.0",
+    "npm": "12.0.2",
+    "npm_lock_sha256": "7929d5c53793563492ff0f5b39278904ecfa5508b10071d5b6d4b0b268fe653c"
+  },
+  "visual_reference": {
+    "manifest": "project/hydra/samsung/android/apk/lum-mona-outfit.reference.json",
+    "file_id": "1eWOk-VvYjwbheKwKLHe6waW54RJQPMnx",
+    "seal_manifest_file_id": "1UGms41h4DwfRIzrXHj2E-_INdb6-XcR9",
+    "sha256": "420c2c749a0ab19231a5850b33c4432c7705e0b91cc0764c4ee88bb60bc849da",
+    "bundle_mode": "reference_not_copy"
+  },
+  "quarantine": [
+    "backups/lum-dungeon-dev/v0.1.0/mirror/bundle.part*.b64",
+    "automatic_root",
+    "secure_folder_sui",
+    "arbitrary_model_shell",
+    "openai_api_keys_in_source_or_apk",
+    "private_keys_in_source_or_apk",
+    "proprietary_game_runtime_assets",
+    "exported_control_receivers"
+  ],
+  "ci_authority": {
+    "external_hosting_status_is_authoritative": false,
+    "private_release_repository_visibility": "private_or_equivalent_restricted_source_of_truth",
+    "authoritative_evidence": [
+      "repository_ci",
+      "reproducible_android_build",
+      "installable_apk_evidence",
+      "package_identity_evidence",
+      "apk_signature_evidence",
+      "apk_sha256_evidence",
+      "zipalign_16k_evidence",
+      "device_or_emulator_validation"
+    ]
+  },
+  "promotion_gate": {
+    "status": "testing_only",
+    "automatic_promotion": false,
+    "requires": [
+      "ci_guards_green",
+      "python_tests_green",
+      "jquery_cockpit_build_green",
+      "avatar_asset_bundled_offline",
+      "android_apk_build_green",
+      "installable_apk_evidence",
+      "package_identity_evidence",
+      "loopback_binding_verified",
+      "secret_scan_green",
+      "proprietary_asset_scan_green",
+      "secure_folder_client_boundary_verified",
+      "non_exported_control_receiver_verified",
+      "immutable_action_pins_green",
+      "persistent_release_signing_for_release_only",
+      "private_or_restricted_source_of_truth_for_release"
+    ]
+  }
+}
