@@ -1,0 +1,20 @@
+name: LEGACY ULTIMA Final Form — BLOCKED
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  legacy-block:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Refuse superseded Video Forge publication
+        shell: bash
+        run: |
+          echo 'BLOCKED: this workflow publishes the historical art.eggiebagelface.videoforge.dev lineage.' >&2
+          echo 'Do not reuse its v6/v7 signed bundles as LuHm OS production evidence.' >&2
+          echo 'Canonical package: art.eggiebagelface.luhmos' >&2
+          echo 'Use .github/workflows/luhmos-fdroid-public-release.yml for the new signed repository lane.' >&2
+          exit 1
