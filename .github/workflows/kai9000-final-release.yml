@@ -1,0 +1,19 @@
+name: LEGACY KAI 9000 Final Release — BLOCKED
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  legacy-block:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Refuse superseded package publication
+        shell: bash
+        run: |
+          echo 'BLOCKED: this workflow belongs to the retired art.eggiebagelface.kai9000 release lineage.' >&2
+          echo 'Canonical production package: art.eggiebagelface.luhmos' >&2
+          echo 'Use .github/workflows/luhmos-fdroid-public-release.yml after the LuHm signing gates are configured.' >&2
+          exit 1
