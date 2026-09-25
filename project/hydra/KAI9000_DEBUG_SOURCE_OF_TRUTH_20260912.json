@@ -1,0 +1,117 @@
+{
+  "schema": "luhmos.kai9000.debug-source-of-truth.v3",
+  "milestone": "KAI9000_FINAL_WIDGET_TERMUX_OLLAMA_GREEN_20260912",
+  "date": "2026-09-12",
+  "status": "FINAL_WIDGET_DEBUG_APK_GREEN",
+  "authority": {
+    "human_final_authority": "Professor",
+    "canonical_repository": "eggie-admin/hydra-shell-android",
+    "canonical_branch": "luhmos-main",
+    "build_evidence_authority": "GitHub Actions",
+    "promotion_is_automatic": false
+  },
+  "target": {
+    "device": "Samsung SM-S721U1",
+    "android": 16,
+    "abi": "arm64-v8a",
+    "application_id": "art.eggiebagelface.luhmos",
+    "version_name": "1.0.1",
+    "version_code": 101,
+    "target_sdk": 36,
+    "application_label": "LuHm OS"
+  },
+  "preferred_debug_artifact": {
+    "purpose": "final KAI 9000 Samsung home-screen widget plus LuHm OS debug APK",
+    "testing_branch": "luhmos/testing",
+    "testing_commit": "5531863561a6882a51735de78c06e18576b913c0",
+    "workflow": ".github/workflows/kai9000-final-widget-debug.yml",
+    "workflow_run_id": 34722181734,
+    "workflow_run_number": 1,
+    "workflow_result": "success",
+    "apk": "kai9000-final-widget-debug.apk",
+    "apk_sha256": "433a748619dd479f5ad15779b6fcfb9ed4f83f1918e625ae7dcfe3f391c9d886",
+    "apk_signature_scheme_v2": true,
+    "debug_signer_certificate_sha256": "ff39e34ee77ee06d2b139bc522e00a476fa58c577df0e0f6b9d064fca370b89b",
+    "zipalign_16k_verified": true,
+    "godot_headless_smoke": "green",
+    "widget_resources_verified_in_apk": true,
+    "artifact": {
+      "id": 10306866131,
+      "name": "kai9000-final-widget-1",
+      "archive_size_bytes": 29653912,
+      "archive_digest": "sha256:505bf3b00396920406197a0808b20df392e8ff422b2b169de1556c49f85442f5",
+      "expires_at": "2026-09-26T22:16:18Z"
+    },
+    "publish": false,
+    "promotable_release": false
+  },
+  "widget_contract": {
+    "identity": "KAI 9000",
+    "category": "home_screen",
+    "controls": ["ON", "OFF", "CHAT", "SMOKE", "GUARD", "BENCH"],
+    "title_tap": "open LuHm OS",
+    "status": "live widget status text",
+    "chat_target": "foreground Termux terminal session",
+    "chat_command": "ollama run qwen2.5:3b",
+    "ollama_endpoint": "http://127.0.0.1:11434",
+    "receiver_exported": false,
+    "termux_permission": "com.termux.permission.RUN_COMMAND",
+    "termux_allow_external_apps_required": true,
+    "android_10_plus_draw_over_apps_recommended_for_auto_foreground": true,
+    "network_policy": "loopback_first"
+  },
+  "temporary_build_bridge": {
+    "repository": "eggie-admin/vue-headless-cms",
+    "branch": "luhmos/inapp-updater-v1",
+    "ref": "cb5625aaa9e450be6268668cac176da812ce34f9",
+    "purpose": "pinned transitional Android body for the final widget debug cast only",
+    "canonical_source": false,
+    "runtime_dependency_authorized": false,
+    "release_promotion_authorized": false,
+    "sunset_condition": "remove when the complete Android/Godot application body is KAI-owned inside hydra-shell-android"
+  },
+  "future_apk_covenant": {
+    "kai_owned": true,
+    "donor_purged": true,
+    "chrome_dev": "behavior_and_test_harness_only",
+    "chrome_canary": "behavior_and_test_harness_only",
+    "chrome_source_ingest": false,
+    "chrome_runtime_dependency": false
+  },
+  "runtime_handoff": {
+    "owner": "ordinary Termux outside Samsung Secure Folder",
+    "secure_folder_role": "protected cockpit/client",
+    "root_required": false,
+    "ollama": "http://127.0.0.1:11434",
+    "ollama_model": "qwen2.5:3b",
+    "terminal_chat_mode": "native_ollama_cli",
+    "terminal_chat": "ollama run qwen2.5:3b",
+    "widget_chat_button": "foreground Termux RUN_COMMAND session",
+    "kai_runtime": "ultima/ollama-ffmpeg-antenna-v3",
+    "runtime_bootstrap": "npm run bootstrap",
+    "runtime_doctor": "npm run doctor",
+    "runtime_server": "npm start",
+    "magic_chat_py_role": "FastAPI_router_not_terminal_REPL",
+    "handoff_status": "READY_AFTER_APK_INSTALL_AND_WIDGET_ADD"
+  },
+  "architecture": {
+    "control_plane": "Python 3 + FastAPI + SQLite",
+    "android_shell": "Godot 4",
+    "cockpit": "bundled local web UI",
+    "android_bridge": "Kotlin only where required",
+    "npm_first": true,
+    "python_venv_first": true,
+    "local_ai_first": true,
+    "local_models": ["Ollama mini-class model", "Gemma mini-class model when available"],
+    "remote_agents": "explicit escalation only"
+  },
+  "guardrails": {
+    "automatic_root": false,
+    "secrets_in_repo_or_apk": false,
+    "proprietary_runtime_assets_in_repo_or_apk": false,
+    "debug_signature_only_for_debug_cast": true,
+    "physical_device_validation_required_before_release": true,
+    "debug_apk_may_be_installed_for_local_testing": true
+  },
+  "operator_intent": "Install the final widget debug APK, add the KAI 9000 home-screen widget, and enter local Termux/Ollama chat with one tap."
+}
