@@ -1,0 +1,142 @@
+:root {
+  color-scheme: dark;
+  --panel: rgba(12, 11, 18, 0.86);
+  --panelSoft: rgba(17, 14, 25, 0.70);
+  --ink: #f5f1f7;
+  --muted: #a99fb5;
+  --pink: #ff2c91;
+  --cyan: #72d9ff;
+  --line: rgba(255, 255, 255, 0.12);
+  --topPanelH: 44px;
+  --chatRatio: 30%;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #0a0810; color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+button, input { font: inherit; }
+button { color: inherit; }
+
+.cockpit {
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 540px;
+  overflow: hidden;
+  background: #0a0810;
+}
+
+.topPanel {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 30;
+  height: var(--topPanelH);
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  background: rgba(8, 7, 13, 0.88);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(18px) saturate(130%);
+}
+
+.appButton, .systemButton, .navItem, .iconButton, .sendButton, .appMenu button, .systemLayer button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.appButton { width: 30px; height: 30px; border-radius: 7px; font-size: 20px; }
+.appButton:hover, .systemButton:hover, .navItem:hover { background: rgba(255,255,255,.08); }
+
+.brand { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.brandMark { color: var(--pink); font-size: 23px; text-shadow: 0 0 14px rgba(255,44,145,.6); }
+
+.nav { display: flex; align-items: center; gap: 4px; }
+.navItem { padding: 8px 12px; border-radius: 7px; color: var(--muted); }
+.navItem.isActive { color: var(--ink); background: rgba(255,255,255,.06); }
+
+.systemTray { display: flex; align-items: center; gap: 13px; color: #ded8e5; font-size: 14px; }
+.systemButton { width: 30px; height: 30px; border-radius: 7px; color: var(--pink); font-size: 18px; }
+
+.scene {
+  position: absolute;
+  top: var(--topPanelH);
+  left: 0;
+  right: 0;
+  bottom: var(--chatRatio);
+  overflow: hidden;
+  background: radial-gradient(circle at 60% 35%, #32162b 0, #130d18 38%, #08070d 100%);
+}
+.lumViewport {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 55% 35%, rgba(255,44,145,.20), transparent 26%),
+    radial-gradient(circle at 78% 20%, rgba(114,217,255,.14), transparent 22%),
+    linear-gradient(145deg, #0a0810 0%, #1a0c1b 48%, #07121a 100%);
+}
+.viewportLabel {
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  color: rgba(255,255,255,.38);
+  letter-spacing: .14em;
+  font-size: 11px;
+}
+.sceneShade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,4,8,.03), rgba(4,4,8,.08) 60%, rgba(4,4,8,.42)); pointer-events: none; }
+.sceneStatus { position: absolute; left: 20px; bottom: 16px; display: inline-flex; align-items: center; gap: 8px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; background: rgba(8,7,13,.46); backdrop-filter: blur(12px); font-size: 12px; color: var(--muted); }
+.onlineDot { width: 7px; height: 7px; border-radius: 50%; background: #55e59b; box-shadow: 0 0 10px rgba(85,229,155,.7); }
+
+.chatDock {
+  position: absolute;
+  z-index: 20;
+  inset: auto 0 0 0;
+  height: var(--chatRatio);
+  min-height: 180px;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 10px;
+  padding: 14px clamp(16px, 5vw, 76px) 14px;
+  background: linear-gradient(180deg, rgba(17,13,24,.78), rgba(10,9,15,.92));
+  border-top: 1px solid rgba(255,44,145,.56);
+  backdrop-filter: blur(20px) saturate(120%);
+}
+
+.messageStream { min-height: 0; overflow: auto; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; scrollbar-width: thin; }
+.message { display: grid; grid-template-columns: 38px minmax(0, 760px); gap: 10px; align-items: start; }
+.avatar { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: linear-gradient(145deg, rgba(255,44,145,.35), rgba(114,217,255,.18)); border: 1px solid rgba(255,255,255,.16); font-weight: 700; }
+.messageMeta { display: flex; align-items: baseline; gap: 10px; }
+.messageMeta time { color: var(--muted); font-size: 12px; }
+.message p { margin: 3px 0 0; color: #e8e2ed; line-height: 1.35; }
+
+.composer { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; min-height: 50px; padding: 5px 6px 5px 12px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: rgba(9,9,15,.72); }
+.composer input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); }
+.composer input::placeholder { color: #847b90; }
+.iconButton { color: #dfe8ee; font-size: 20px; }
+.sendButton { width: 40px; height: 40px; border-radius: 50%; background: var(--pink); color: white; box-shadow: 0 0 18px rgba(255,44,145,.28); }
+
+.appMenu { position: absolute; z-index: 50; top: calc(var(--topPanelH) + 7px); left: 8px; width: 190px; padding: 8px; border: 1px solid var(--line); border-radius: 12px; background: rgba(11,10,17,.96); box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+.appMenu button { display: block; width: 100%; text-align: left; padding: 9px 10px; border-radius: 7px; }
+.appMenu button:hover { background: rgba(255,255,255,.08); }
+.appMenu hr { border: 0; border-top: 1px solid var(--line); }
+
+.systemLayer { position: absolute; z-index: 60; inset: var(--topPanelH) 0 0; display: grid; place-items: center; padding: 24px; background: rgba(4,4,8,.62); backdrop-filter: blur(16px); }
+.systemLayer[hidden] { display: none; }
+.systemLayerCard { width: min(560px, 92vw); display: flex; justify-content: space-between; gap: 24px; align-items: end; padding: 24px; border: 1px solid rgba(255,44,145,.42); border-radius: 16px; background: rgba(13,11,19,.96); box-shadow: 0 24px 80px rgba(0,0,0,.5); }
+.systemLayerCard h2 { margin: 3px 0 8px; }
+.systemLayerCard p { margin: 0; color: var(--muted); line-height: 1.5; }
+.systemLayerCard button { padding: 9px 14px; border: 1px solid var(--line); border-radius: 8px; }
+
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+@media (max-width: 720px) {
+  :root { --chatRatio: 34%; }
+  .topPanel { gap: 7px; padding-inline: 8px; }
+  .nav .navItem:not(.isActive) { display: none; }
+  .systemTray > span { display: none; }
+  .chatDock { padding-inline: 12px; }
+  .message { grid-template-columns: 32px 1fr; }
+  .avatar { width: 32px; height: 32px; }
+}
