@@ -19,7 +19,7 @@ const app = await readFile(resolve(root, "app.js"), "utf8");
 const checks = [
   [html.includes("vendor/jquery-3.7.1.min.js"), "index loads pinned staged jQuery"],
   [html.includes("jquery/luhm.cockpit.js"), "index loads LuHm cockpit plugin"],
-  [plugin.includes("$.fn.luhmCockpit"), "single cockpit plugin entry exists"],
+  [plugin.includes('const PLUGIN = "luhmCockpit"') && plugin.includes("$.fn[PLUGIN] ="), "single cockpit plugin entry exists"],
   [plugin.includes("luhm:backend:open"), "backend-open boundary exists"],
   [plugin.includes("return this.each"), "plugin preserves chainability"],
   [app.includes(".luhmCockpit("), "app initializes cockpit plugin"]
