@@ -1,0 +1,108 @@
+{
+  "schema": "luhmos.vendor-apis.v6",
+  "date": "2026-09-16",
+  "project": "LuHm OS / Project Hydra / KAI 9000",
+  "airship": "KAI9000",
+  "warp": "git",
+  "crown": "Professor",
+  "orchestrator": {
+    "name": "Lum",
+    "agent_name": "KAI9000-Lum",
+    "role": "crown_planner_typed_tool_orchestrator",
+    "style_role": "SUPREME_WITCH",
+    "self_authorizing": false
+  },
+  "canonical_paths": {
+    "project_root": "project/hydra",
+    "openai_index": "project/hydra/openai",
+    "adapter_root": "integrations"
+  },
+  "provider_naming": {
+    "filesystem_slugs": ["openai", "huggingface", "google-cloud", "cloudflare"],
+    "provider_ids": ["openai", "huggingface", "google_cloud", "cloudflare"]
+  },
+  "public_identity": {
+    "domain": "eggiebagelface.art",
+    "fdroid_host": "fdroid.eggiebagelface.art",
+    "fdroid_repo_url": "https://fdroid.eggiebagelface.art/fdroid/repo/"
+  },
+  "remote_ai_router": {
+    "endpoint": "/api/remote-ai/chat",
+    "status_endpoint": "/api/remote-ai/status",
+    "provider_mode": "auto|openai|huggingface",
+    "auto_order": ["openai", "huggingface", "deterministic_mock"],
+    "silent_cross_provider_failover": false,
+    "provider_output_is_untrusted": true,
+    "input_secret_guard": true,
+    "output_secret_guard": true,
+    "requested_models_must_be_allowlisted": true,
+    "empty_provider_output_fails_closed": true
+  },
+  "providers": {
+    "openai": {
+      "filesystem_slug": "openai",
+      "role": "primary_remote_reasoning_agent_and_typed_tool_request_lane",
+      "api": "responses",
+      "endpoint": "https://api.openai.com/v1/responses",
+      "agent_name": "KAI9000-Lum",
+      "fast_model": "gpt-5.6-luna",
+      "deep_model": "gpt-5.6-sol",
+      "default_model": "gpt-5.6-sol",
+      "credential_env": "OPENAI_API_KEY",
+      "allowed_models_env": "KAI_OPENAI_ALLOWED_MODELS",
+      "credential_location": "server_or_protected_ci_only",
+      "store_default": false,
+      "tool_policy": "typed_allowlist_only",
+      "unrestricted_shell": false,
+      "credentials_visible_to_model": false
+    },
+    "huggingface": {
+      "filesystem_slug": "huggingface",
+      "role": "open_model_forge_catalog_and_remote_inference_provider_lane",
+      "api": "responses_beta",
+      "endpoint": "https://router.huggingface.co/v1/responses",
+      "chat_endpoint": "https://router.huggingface.co/v1/chat/completions",
+      "default_model": "openai/gpt-oss-120b:fastest",
+      "lower_latency_candidate": "openai/gpt-oss-20b:fastest",
+      "credential_env": "HF_TOKEN",
+      "allowed_models_env": "KAI_HF_ALLOWED_MODELS",
+      "credential_strategy": "fine_grained_inference_permission",
+      "routing_policies": ["fastest", "cheapest", "preferred", "specific_provider"],
+      "auto_download_models": false,
+      "auto_execute_remote_code": false,
+      "revision_pin_required_for_downloaded_artifacts": true,
+      "unrestricted_shell": false,
+      "credentials_visible_to_model": false
+    },
+    "google_cloud": {
+      "filesystem_slug": "google-cloud",
+      "role": "approved_google_cloud_service_lane",
+      "credential_strategy": "workload_identity_federation_for_github_actions",
+      "github_auth": "oidc_to_workload_identity_pool_provider",
+      "long_lived_service_account_json_in_repo": false,
+      "iam_policy": "resource_specific_least_privilege",
+      "credentials_visible_to_model": false
+    },
+    "cloudflare": {
+      "filesystem_slug": "cloudflare",
+      "role": "public_dns_https_tunnel_and_distribution_gate_not_policy_authority",
+      "credential_strategy": "least_privilege_api_tokens",
+      "global_api_key_automation": false,
+      "credentials_visible_to_model": false
+    }
+  },
+  "shared_policy": {
+    "typed_actions_only": true,
+    "server_side_risk_resolution": true,
+    "risk_axis": "R0-R4",
+    "approval_binds_exact_plan": true,
+    "secrets_in_git": false,
+    "secrets_in_apk": false,
+    "secrets_in_rss": false,
+    "secrets_in_base64": false,
+    "secrets_in_model_context": false,
+    "provider_response_is_untrusted_data": true,
+    "execution_evidence_required_for_green": true,
+    "remote_provider_failure_does_not_grant_fallback_authority": true
+  }
+}
