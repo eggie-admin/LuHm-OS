@@ -1,6 +1,6 @@
 {
   "schema": "luhm-os.clean-source.v2",
-  "status": "PROPOSED_UNIVERSAL_SAMSUNG_CANDIDATE",
+  "status": "AMBER_PROPOSED_SEAL_OF_TRUTH",
   "product": "LuHm OS",
   "canonical_repository": "eggie-admin/LuHm-OS",
   "created": "2026-09-25",
@@ -22,5 +22,7 @@
     "private third-party reference assets"
   ],
   "prior_audit_seal": "c9eb83f79cedb0039ae87e21d0656a6f815e6e83",
-  "promotion": false
+  "promotion": false,
+  "testedSourceCommit": "972a31e041904bf2791ead44b3ef3851599ad47a",
+  "currentProposedSeal": "doctrine/universalSamsungAmberSeal-20260925.json"
 }
