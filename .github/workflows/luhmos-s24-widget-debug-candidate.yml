@@ -1,0 +1,152 @@
+name: LuHm OS S24 Native Cathedral Debug Candidate
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - testing/luhm-os-android
+    paths:
+      - '.github/workflows/luhmos-s24-widget-debug-candidate.yml'
+      - 'luhmos/samsung-android-s24/live2d-chat/**'
+      - 'luhmos/samsung-android-s24/native-cathedral/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: luhmos-s24-native-cathedral-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PACKAGE_ID: art.eggiebagelface.kai9000.dev
+  VERSION_NAME: 0.8.0-dev
+  VERSION_CODE: '8'
+  APK_NAME: luhmos-s24-cathedral-native-debug.apk
+  APP_LABEL: LuHm Cathedral
+
+jobs:
+  build:
+    name: Build native Samsung Cathedral APK
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout testing branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.18.0'
+
+      - uses: gradle/actions/setup-gradle@ed408507eac070d1f99cc633dbcf757c94c7933a
+        with:
+          gradle-version: '8.13'
+          cache-cleanup: on-success
+
+      - name: Install Android SDK 36
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
+
+      - name: Stage offline Cathedral web UI
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC='luhmos/samsung-android-s24/live2d-chat'
+          DST='luhmos/samsung-android-s24/native-cathedral/app/src/main/assets/cathedral'
+          rm -rf "$DST"
+          mkdir -p "$DST/vendor"
+          cp "$SRC/index.html" "$SRC/style.css" "$SRC/app.js" "$SRC/jquery.cathedral.js" "$DST/"
+          npm install --prefix "$RUNNER_TEMP/luhm-webdeps" jquery@3.7.1 --ignore-scripts --no-audit --no-fund
+          cp "$RUNNER_TEMP/luhm-webdeps/node_modules/jquery/dist/jquery.min.js" "$DST/vendor/jquery.min.js"
+          test -s "$DST/vendor/jquery.min.js"
+          grep -q 'KAI9000' "$DST/app.js"
+          grep -q 'jquery.cathedral.js' "$DST/index.html"
+          ! grep -R -nE 'https?://(?!appassets\.androidplatform\.net)' "$DST" --include='*.html' --include='*.js' --include='*.css' -P || true
+
+      - name: Build native Android WebView APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          gradle -p luhmos/samsung-android-s24/native-cathedral :app:assembleDebug --no-daemon
+          mkdir -p build/android
+          cp luhmos/samsung-android-s24/native-cathedral/app/build/outputs/apk/debug/app-debug.apk "build/android/$APK_NAME"
+          test -s "build/android/$APK_NAME"
+
+      - name: Verify native candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="build/android/$APK_NAME"
+          TOOLS="$ANDROID_HOME/build-tools/36.1.0"
+          "$TOOLS/apksigner" verify --verbose --print-certs "$APK" | tee build/android/signature.txt
+          "$TOOLS/zipalign" -c -P 16 -v 4 "$APK" | tee build/android/zipalign.txt
+          "$TOOLS/aapt" dump badging "$APK" | tee build/android/badging.txt
+          "$TOOLS/aapt" dump xmltree "$APK" AndroidManifest.xml | tee build/android/manifest.txt
+          unzip -l "$APK" | tee build/android/contents.txt
+          sha256sum "$APK" | tee build/android/sha256.txt
+          grep -q "package: name='${PACKAGE_ID}'" build/android/badging.txt
+          grep -q "versionCode='${VERSION_CODE}'" build/android/badging.txt
+          grep -q "versionName='${VERSION_NAME}'" build/android/badging.txt
+          grep -q "application-label:'${APP_LABEL}'" build/android/badging.txt
+          grep -q 'assets/cathedral/index.html' build/android/contents.txt
+          grep -q 'assets/cathedral/vendor/jquery.min.js' build/android/contents.txt
+          grep -q 'CathedralWidgetProvider' build/android/manifest.txt
+          grep -q 'MainActivity' build/android/manifest.txt
+          if grep -qi 'godot' build/android/contents.txt; then echo 'Godot payload found in native candidate' >&2; exit 1; fi
+          unzip -p "$APK" assets/cathedral/index.html | grep -q 'CATHEDRAL GIRL'
+          unzip -p "$APK" assets/cathedral/app.js | grep -q 'gemma3:1b'
+          echo 'LUHMOS_S24_NATIVE_CATHEDRAL_DEBUG_GREEN'
+
+      - name: Write install note
+        shell: bash
+        run: |
+          cat > build/android/INSTALL.txt <<'EOF'
+          LuHm Cathedral native Android debug candidate
+          Private local learning/test build only.
+
+          Package: art.eggiebagelface.kai9000.dev
+          App: LuHm Cathedral
+          Runtime: native Android Activity + Android System WebView
+          Browser shell: none. Firefox/Chrome are not required to run the UI.
+          UI: bundled HTML/CSS/jQuery 2D Cathedral stage
+          Local AI: native Kotlin bridge to Ollama at 127.0.0.1:11434 using gemma3:1b
+          Edge: detects and launches Google AI Edge Gallery; direct LiteRT-LM inference is not yet bundled.
+          Widget: KAI 9000 CATHEDRAL GIRL home-screen launcher widget.
+          Godot: purged from this candidate build path.
+
+          Install on Samsung:
+          1. Download the APK artifact to the phone.
+          2. Open it from My Files and allow Install unknown apps if prompted.
+          3. Install LuHm Cathedral.
+          4. Launch LuHm Cathedral directly from the launcher. Do not open Firefox.
+          5. Optional: add KAI 9000 CATHEDRAL GIRL from the Samsung widget picker.
+
+          ADB alternative:
+          adb install -r luhmos-s24-cathedral-native-debug.apk
+          EOF
+
+      - name: Upload native debug candidate
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhmos-s24-native-cathedral-${{ github.run_number }}
+          path: |
+            build/android/${{ env.APK_NAME }}
+            build/android/INSTALL.txt
+            build/android/sha256.txt
+            build/android/signature.txt
+            build/android/zipalign.txt
+            build/android/badging.txt
+            build/android/manifest.txt
+          if-no-files-found: error
+          retention-days: 1
