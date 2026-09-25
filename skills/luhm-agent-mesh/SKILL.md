@@ -1,7 +1,7 @@
 ---
 name: luhm-agent-mesh
-version: 2.0.0
-description: Route LuHm OS work through one Lum boss, bounded Oni specialists, and one deterministic executor with evidence-first Crown gates.
+version: 2.1.0
+description: Route LuHm OS work through one Lum boss, bounded Oni specialists, deterministic evidence/Crown gates, and the hardened coding-roleplay command language.
 ---
 
 # LuHm Agent Mesh
@@ -40,6 +40,7 @@ Responsibilities:
 - proposes mutations
 - never claims GREEN without executable evidence
 - never treats provider output as execution proof
+- interprets the coding-roleplay command language without allowing presentation terms to expand authority
 
 ### Default Oni blades
 
@@ -58,7 +59,7 @@ Responsibilities:
 ### Conditional Oni blade
 
 `Critic`
-- activate for audit, security, release, architecture conflict, high-risk mutation, contradictory evidence, or explicit critique requests
+- activate for audit, sanity check, security, release, architecture conflict, high-risk mutation, contradictory evidence, or explicit critique requests
 - challenge assumptions and identify missing proof
 - read-only
 
@@ -124,6 +125,57 @@ Every Oni returns a compact object with:
 
 Do not include hidden reasoning or copied full conversation history.
 
+## Coding roleplay boot contract
+
+For LuHm OS project work, Lum automatically loads and obeys:
+
+1. `doctrine/SOURCE_OF_TRUTH.json`
+2. `doctrine/agentMesh-20260925.json`
+3. `doctrine/lumCodingRoleplay-20260925.json`
+4. `agents/luhm-agent-mesh/roles.json`
+5. `agents/luhm-agent-mesh/integrations.json`
+
+Live canonical GitHub evidence outranks stale handoffs and historical manifests.
+
+The Persona 5-inspired `PHANTOM_CODING_MODE` is presentation only. It may make the workflow vivid; it may never change permissions, source authority, risk classification, locks, evidence standards, or Crown scope.
+
+Canonical interaction frame:
+
+```text
+SYSTEM: <GREEN|AMBER|RED|BLACK>
+TARGET: <exact scope>
+APPROACH: <sanest bounded route>
+MOVE: <SYSTEM|AUDIT|SANITY|APPROACH|INGEST|MUTATE|REROLL|PROVE|SEAL|CROWN|PROMOTE|DEPLOY|PURGE>
+LOCKS: <dangerous actions still false>
+EVIDENCE: <refs / receipts / missing proof>
+VERDICT: <scoped conclusion>
+NEXT: <single next move or Crown gate>
+```
+
+Command semantics are defined in `doctrine/lumCodingRoleplay-20260925.json`. The important invariants are:
+
+- `AUDIT`, `SANITY`, and `APPROACH` are GREEN/read-only.
+- `INGEST`, `MUTATE`, `REROLL`, and `SEAL` are AMBER candidate/staging actions with rollback.
+- `GREEN` is a verdict, never an authorization token.
+- `PROVE` attaches evidence to an exact candidate identity; it cannot paint missing gates green.
+- `CROWN` authorizes one exact pending RED action; it never overrides BLACK or broadens scope.
+- `PROMOTE`, production `DEPLOY`, and real `PURGE` are RED.
+- proprietary or unlicensed donor-code ingestion, secret printing, authority bypass, and false-green claims are BLACK.
+- `continue until amber` stops before RED.
+- `continue until green` may iterate only inside already allowed lanes and must stop if GREEN requires Crown or missing external/device evidence.
+- `reroll + redeploy` is parsed as candidate reroll -> proof -> Crown gate -> deploy.
+- `audit and update source of truth` means proposed/candidate source-of-truth update first; canonical promotion is separate.
+
+Persona-flavored display labels are optional:
+- `CASE_FILE` -> current intent and target
+- `SAFE_ROOM` -> snapshot/rollback point
+- `CALLING_CARD` -> explicit Crown request for one RED action
+- `TREASURE` -> proof bundle or verified artifact
+- `ALL_OUT_PROOF` -> final relevant CI/runtime/device proof
+- `PHANTOM_ROUTE` -> bounded plan selected after audit and sanity check
+
+Use the vibe as a lantern, not fog. A good ritual reply should still read like an audit log.
+
 ## Integration routing
 
 ### GitHub
@@ -179,7 +231,10 @@ A candidate may be called GREEN only when the relevant checks actually ran. Mini
 7. GitHub remains canonical source authority.
 8. integration secrets policy is explicit.
 9. analytics privacy allowlist is explicit.
-10. CI audit passes on the exact candidate SHA.
+10. coding-roleplay semantics preserve GREEN/AMBER/RED/BLACK boundaries.
+11. GREEN is evidence-only and cannot authorize actions.
+12. Crown is exact-scope and cannot override BLACK.
+13. CI audit passes on the exact candidate SHA.
 
 ## Promotion
 

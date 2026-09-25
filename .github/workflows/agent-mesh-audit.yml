@@ -6,6 +6,7 @@ on:
       - 'agents/luhm-agent-mesh/**'
       - 'skills/luhm-agent-mesh/**'
       - 'doctrine/agentMesh-20260925.json'
+      - 'doctrine/lumCodingRoleplay-20260925.json'
       - 'scripts/auditAgentMesh.py'
       - '.github/workflows/agent-mesh-audit.yml'
   push:
@@ -16,6 +17,7 @@ on:
       - 'agents/luhm-agent-mesh/**'
       - 'skills/luhm-agent-mesh/**'
       - 'doctrine/agentMesh-20260925.json'
+      - 'doctrine/lumCodingRoleplay-20260925.json'
       - 'scripts/auditAgentMesh.py'
       - '.github/workflows/agent-mesh-audit.yml'
 
@@ -37,4 +39,4 @@ jobs:
         run: |
           set -euo pipefail
           ! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' \
-            agents/luhm-agent-mesh skills/luhm-agent-mesh doctrine/agentMesh-20260925.json scripts/auditAgentMesh.py
+            agents/luhm-agent-mesh skills/luhm-agent-mesh doctrine/agentMesh-20260925.json doctrine/lumCodingRoleplay-20260925.json scripts/auditAgentMesh.py
