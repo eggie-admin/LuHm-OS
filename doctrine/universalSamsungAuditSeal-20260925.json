@@ -1,0 +1,178 @@
+{
+  "schema": "luhmOs.universalSamsungAudit.v1",
+  "date": "2026-09-25",
+  "status": "PROPOSED_SEAL_WITH_BLOCKERS",
+  "scope": "Ten-pass source, build-receipt and installation-readiness audit. This is a proposed source-of-truth update, not a release seal or device certification.",
+  "authority": {
+    "canonicalRepository": "eggie-admin/LuHm-OS",
+    "canonicalBranch": "main",
+    "observedMain": "1afde8af380f7bd698e99dc1db5fa643e07111c9",
+    "auditedCandidate": "6b733f07389253e4451f645a3253848d8ed30bc4",
+    "candidateBranch": "dryrun/device-layout-fix-20260925",
+    "candidatePr": 7,
+    "priorProposedSeal": "0c03e7008334f8cc8eef99da63c21296d231811a",
+    "actualCiCheckout": "a889ce09cd482b447f6ab334af33cf550d244f80",
+    "legacyRepositories": "Reference/donor only. September 16 seals do not supersede this repository.",
+    "promotion": false
+  },
+  "preservation": {
+    "method": "Additive proposal branch from exact candidate. Main, prior seals and runtime untouched.",
+    "fullLocalDriveGitHubSnapshot": "NOT_PERFORMED; required before cleanup/migration/deletion; no cleanup performed."
+  },
+  "existingBuild": {
+    "kind": "Previously compiled debug candidate, not newly built during this audit",
+    "package": "art.eggiebagelface.luhmos.testing",
+    "versionName": "1.0.14-drive3d.1",
+    "versionCode": 114,
+    "minSdk": 24,
+    "targetSdk": 36,
+    "abi": "arm64-v8a",
+    "workflowRun": 36108008073,
+    "job": 107984856377,
+    "artifactId": 10852341455,
+    "artifactName": "luhm-os-drive3d-testing-apk",
+    "artifactUrl": "https://github.com/eggie-admin/LuHm-OS/actions/runs/36108008073/artifacts/10852341455",
+    "artifactExpires": "2026-10-09T07:32:44Z",
+    "artifactArchiveDigest": "sha256:a9241d703f444e54f1ee0e0cfe87eb19b5a906c4385a69b5b5ac891d5c8a858d",
+    "apkSha256": "06f4fe6d924f5659f813861425adea8d0bf5a348f4fe8acda3dedcace298a1f4",
+    "certificateSha256": "06d37cd371354652cd2219c94da982d34010593017bc260162777153d772f551",
+    "evidenceLevel": "GitHub artifact metadata and build logs inspected; binary not independently downloaded/rehashed in this audit",
+    "signer": "Disposable per-run CI debug key",
+    "runs": [
+      {
+        "id": 36108008080,
+        "name": "LumRigV2 Phase 1",
+        "result": "success"
+      },
+      {
+        "id": 36108008049,
+        "name": "Frontend jQuery Dry Run",
+        "result": "success"
+      },
+      {
+        "id": 36108008073,
+        "name": "LuHm OS Testing APK",
+        "result": "success"
+      },
+      {
+        "id": 36108008106,
+        "name": "LuHm OS Clean Play APK",
+        "result": "success"
+      }
+    ]
+  },
+  "passes": [
+    {
+      "id": 1,
+      "area": "Source authority and lineage",
+      "result": "VERIFIED",
+      "finding": "Main and draft PR #7 resolve to the exact commits above; prior proposals remain proposals. Complete recursive candidate tree contains no AGENTS.md."
+    },
+    {
+      "id": 2,
+      "area": "Source-to-artifact provenance",
+      "result": "VERIFIED_WITH_SCOPE",
+      "finding": "Workflow run metadata names candidate head, but logs prove checkout of PR synthetic merge a889ce09. Preserve both identities; do not describe this as a fresh exact-head build."
+    },
+    {
+      "id": 3,
+      "area": "Godot and rig runtime",
+      "result": "CI_VERIFIED",
+      "finding": "Godot import and headless smoke succeeded: model, skeleton, mappings, AnimationTree, head tracking, collision and world HUD. Prior seal records 24 joints/22 roles/head_fallback; no face morph/lip-sync claim. Physical rendering remains untested here."
+    },
+    {
+      "id": 4,
+      "area": "One Android build contract",
+      "result": "BLOCKED",
+      "finding": "Clean Play exports package cleanplay/code111 without Drive staging; Testing stages Drive models then rewrites package testing/code114. README and SOURCE_OF_TRUTH describe cleanplay, not actual testing APK. Green status across both is not payload equivalence."
+    },
+    {
+      "id": 5,
+      "area": "Signing and updates",
+      "result": "BLOCKED",
+      "finding": "Both workflows generate a fresh key each run. Same-package normal updates from other runs will fail certificate compatibility. Fixed versionCode114 also fails monotonic release planning. Existing APK is debug."
+    },
+    {
+      "id": 6,
+      "area": "Boundary gate enforcement",
+      "result": "BLOCKED",
+      "finding": "Standalone negated grep commands under set -e do not enforce rejection. Actual successful job logs show matches in doctrine/cutsceneDonorExtraction-20260925.json and doctrine/testingBuild-20260925.json, followed by GREEN. These observed matches are documentation, not proof of a runtime secret; scan scope and failure semantics both need repair."
+    },
+    {
+      "id": 7,
+      "area": "ABI, SDK and native alignment",
+      "result": "PARTIAL",
+      "finding": "Badging logs confirm arm64-v8a, min24,target36. Signature and zipalign verification step succeeded. ZIP alignment is not ELF PT_LOAD alignment or 16KB runtime evidence. Device OS, ABI and page size not read."
+    },
+    {
+      "id": 8,
+      "area": "Phone/tablet layout and input",
+      "result": "PENDING_DEVICE_PROOF",
+      "finding": "1920x1080 landscape and responsive D-pad anchors present; hidden capsule present. No safe-area handling/minimum physical hit-target enforcement in inspected HUD. Percentage anchors alone do not prove S24 FE/SM-X400 usability. Test two-finger move+camera, cutout/navigation overlap, pause/resume, rotation and return to Cathedral."
+    },
+    {
+      "id": 9,
+      "area": "Google/Samsung install path",
+      "result": "PROPOSAL_ONLY",
+      "finding": "No device warning text, install error or developer-account state observed. Separate signature mismatch, Play Protect verdict, unknown-source permission, Samsung Auto Blocker and developer verification. A valid signature does not imply Google approval."
+    },
+    {
+      "id": 10,
+      "area": "Seal and promotion evidence",
+      "result": "HOLD",
+      "finding": "No new compile, installed-device proof, persistent-key update test or independent artifact rehash this turn. Local checkout blocked by approval-service infrastructure failure. Save this bounded audit as proposed evidence; main and stable release remain unpromoted."
+    }
+  ],
+  "proposedBuild": {
+    "name": "LuHm OS Universal Samsung Candidate",
+    "state": "SPECIFIED_NOT_COMPILED",
+    "baseSource": "6b733f07389253e4451f645a3253848d8ed30bc4",
+    "devices": [
+      {
+        "model": "Samsung Galaxy S24 FE",
+        "liveOsAbiPageSize": "UNKNOWN"
+      },
+      {
+        "model": "Samsung SM-X400 (Galaxy Tab S10 Lite Wi-Fi)",
+        "liveOsAbiPageSize": "UNKNOWN"
+      }
+    ],
+    "approach": "One native Godot project, one pinned asset set, one ARM64 APK and one candidate identity/signing lineage for both devices. Universal means shared Samsung target, not every Android ABI.",
+    "runtime": "Preserve native Cathedral -> Riverwalk -> Cathedral, LumRigV2 and explicit head_fallback. Browser frontend remains a separate prototype until implemented/tested.",
+    "package": "art.eggiebagelface.luhmos.testing",
+    "nextVersionCodeProposed": 115,
+    "minSdkProposed": 24,
+    "targetSdkProposed": 36,
+    "renderer": "gl_compatibility",
+    "signing": "Persist one protected candidate signing key; verify expected certificate fingerprint before upload. No fallback to random signer. Release signing remains separately authorized. Never expose signing material to pull-request code.",
+    "migration": "Compare installed certificate first. If old disposable signer differs, in-place replacement is not supported without the old key/signing lineage. Preserve/export app data before a user-authorized candidate reinstall; never uninstall automatically. Golden package stays untouched.",
+    "pipeline": [
+      "Pin exact source checkout and dependency/asset hashes.",
+      "Replace duplicate build identity rewriting with one checked build contract and one asset-ingest path.",
+      "Use explicit fail-closed runtime/manifest scans; scan errors must fail too. Keep policy text outside runtime scans.",
+      "Add a negative control proving a forbidden runtime fixture fails; do not count JSON list length as security proof.",
+      "Inspect final APK manifest permissions, SDKs, ABI, debuggable state, package/version and certificate.",
+      "Verify ZIP and all native ELF alignment; run on 16KB environment before claiming compatibility.",
+      "Run meaningful import/runtime, HUD/input and candidate upgrade tests.",
+      "Produce receipt tying source checkout, assets, signer, APK hash and run together."
+    ],
+    "install": "For private development, use authorized ADB installation of the same exact APK on each device, after installed-package/certificate checks. No APK self-installer or security-disabling shim.",
+    "googlePath": "For ongoing personal distribution, assess Android Developer Console limited distribution (up to 20 devices) and register the persistent package/certificate as applicable. This does not guarantee Play Protect acceptance or supersede Samsung device controls.",
+    "requiredReceipts": [
+      "Exact new source commit + workflow run + APK hash + certificate fingerprint",
+      "S24 FE install/launch/movement/rig/input/pause-resume/upgrade proof",
+      "SM-X400 same-APK install/launch/layout/input/pause-resume/upgrade proof",
+      "Actual warning screenshot or installer error if blocked",
+      "Persistent signing custody and recovery established privately"
+    ]
+  },
+  "references": [
+    "https://github.com/eggie-admin/LuHm-OS/pull/7",
+    "https://github.com/eggie-admin/LuHm-OS/actions/runs/36108008073",
+    "https://developer.android.com/studio/publish/app-signing",
+    "https://developer.android.com/guide/practices/page-sizes",
+    "https://developer.android.com/developer-verification/guides/faq",
+    "https://support.google.com/android-developer-console/answer/17131204",
+    "https://www.samsung.com/nz/support/model/SM-X400NZAAXNZ/"
+  ]
+}
