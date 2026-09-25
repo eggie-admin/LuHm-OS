@@ -1,0 +1,32 @@
+name: LuHm OS Main Release Launch Guard
+
+on:
+  workflow_dispatch:
+    inputs:
+      acknowledge_public_release_locked:
+        description: Acknowledge that public release remains locked
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: Public release launcher remains OFF
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Enforce manual public-release authority
+        shell: bash
+        env:
+          ACK: ${{ inputs.acknowledge_public_release_locked }}
+        run: |
+          set -euo pipefail
+          echo 'LUHMOS_PUBLIC_RELEASE_LAUNCH=OFF'
+          echo 'Normal pushes and merges cannot dispatch a public release.'
+          echo 'This guard has no actions:write permission and dispatches no workflow.'
+          if [ "$ACK" = "true" ]; then
+            echo 'Acknowledged: public release is still a separate Crown-gated authority step.'
+          fi
+          echo 'LUHMOS_MAIN_RELEASE_LAUNCH_GUARD_GREEN'
