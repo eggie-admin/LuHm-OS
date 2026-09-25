@@ -1,0 +1,41 @@
+{
+  "schema": "luhm.drive3d.assetMutation.v1",
+  "status": "DRYRUN_CANDIDATE",
+  "date": "2026-09-25",
+  "source": "Google Drive",
+  "goal": "Replace the procedural Lum placeholder in the testing APK with the rigged Lum biped asset while preserving the procedural fallback and existing Crown-green architecture.",
+  "drive_assets": [
+    {
+      "role": "lum_biped_character",
+      "file_id": "1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen",
+      "name": "Meshy_AI_Lum_Midnight_1996_biped.zip",
+      "bundle_sha256": "pending_provider_bundle_hash",
+      "payloads": [
+        {
+          "name": "Meshy_AI_Lum_Midnight_1996_biped_Character_output.glb",
+          "target": "assets/lum/luhm.glb",
+          "sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
+          "bytes": 9223892,
+          "audit": {"meshes": 1, "skins": 1, "joints": 24, "animations": 1, "animation": "Armature|clip0|baselayer", "blend_shapes": 0}
+        },
+        {
+          "name": "Meshy_AI_Lum_Midnight_1996_biped_Animation_Running_withSkin.glb",
+          "target": "assets/lum/luhmRunning.glb",
+          "sha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0",
+          "bytes": 9232024,
+          "audit": {"meshes": 1, "skins": 1, "joints": 24, "animations": 1, "animation": "Armature|running|baselayer", "blend_shapes": 0}
+        }
+      ]
+    }
+  ],
+  "policy": {
+    "git_binary_vendor": false,
+    "procedural_fallback_required": true,
+    "drive_hash_pin_required": true,
+    "godot_import_required": true,
+    "runtime_skin_check_required": true,
+    "face_animation_claim": false,
+    "note": "The current Meshy biped has a real skin and animation tracks but no blend shapes. Face animation remains a later mutation."
+  },
+  "promotion": "Only promote after the testing workflow proves Drive download, exact hashes, Godot import, runtime skin discovery, APK export, signature and alignment."
+}
