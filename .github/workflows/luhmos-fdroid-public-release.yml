@@ -1,0 +1,34 @@
+name: LuHm OS Public F-Droid Gate (Manual Only)
+
+on:
+  workflow_dispatch:
+    inputs:
+      acknowledge_public_release_is_separate:
+        description: Confirm this is only the public-release gate, not a publisher
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: Public publishing remains OFF
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Crown gate
+        shell: bash
+        env:
+          ACK: ${{ inputs.acknowledge_public_release_is_separate }}
+        run: |
+          set -euo pipefail
+          echo 'LUHMOS_PUBLIC_PUBLISH=OFF'
+          echo 'Normal pushes and merges never publish a public APK or F-Droid mirror.'
+          echo 'This workflow intentionally contains no signing material, write token, branch push, release upload, or public publication step.'
+          if [ "$ACK" = "true" ]; then
+            echo 'Acknowledged: a future public release requires a separately reviewed and explicitly authorized publisher workflow.'
+          else
+            echo 'No public release authorization was supplied. Guard exits successfully without side effects.'
+          fi
+          echo 'KAI9000_PUBLIC_RELEASE_GUARD_GREEN'
