@@ -160,6 +160,8 @@ jobs:
 
       - name: Verify Crown-green testing APK
         shell: bash
+        env:
+          CANDIDATE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           set -euo pipefail
           APK=build/android/luhmos-1.0.13-crowngreen.1.apk
@@ -173,7 +175,8 @@ jobs:
           grep -q "versionName='1.0.13-crowngreen.1'" build/android/badging.txt
           cat > build/android/build-receipt.txt <<RECEIPT
           LuHm OS Crown Green Testing APK
-          source_commit=$GITHUB_SHA
+          source_head=$CANDIDATE_HEAD
+          checkout_commit=$GITHUB_SHA
           package=art.eggiebagelface.luhmos.testing
           versionCode=113
           versionName=1.0.13-crowngreen.1

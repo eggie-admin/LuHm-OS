@@ -1,6 +1,6 @@
 {
   "schema": "luhm.godot4.hardArchitectureAudit.v1",
-  "status": "DRY_RUN_CANDIDATE",
+  "status": "CROWN_GREEN_CANDIDATE",
   "repository": "eggie-admin/LuHm-OS",
   "base_branch": "testing/apk-current-milestones-20260925",
   "base_commit": "eef20dbfc066d3696c12c9424f286e0cbcf730fd",
@@ -30,5 +30,20 @@
     "zipalign verification",
     "artifact receipt"
   ],
-  "promotion": "Crown green means candidate evidence is green; canonical main promotion remains a separate human Crown action"
+  "promotion": "Crown green means candidate evidence is green; canonical main promotion remains a separate human Crown action",
+  "evidence": {
+    "preseal_head": "deaef63964d63ee32174faf4aee330761fe0bcd3",
+    "jquery_run": {"id": 36100647188, "conclusion": "success"},
+    "testing_apk_run": {"id": 36100647107, "conclusion": "success"},
+    "clean_play_run": {"id": 36100647152, "conclusion": "success"},
+    "testing_artifact_id": 10848834746,
+    "testing_artifact_digest": "sha256:db465da0e5c59428802eb27bebfd2b0ca0050a7d09387b136dc8b880e89c2f82",
+    "apk_sha256": "d69e726379d94e6fa970bd1d3720243ccdcd5d657fa6f541286c3e04ef26d0ef",
+    "note": "These runs prove the runtime mutation before the bookkeeping-only Crown seal commit. The seal commit must pass the same current-head CI gates."
+  },
+  "seal_policy": {
+    "current_head_ci_required": true,
+    "canonical_main_mutated": false,
+    "promotion_requires_human_crown": true
+  }
 }
