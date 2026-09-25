@@ -48,6 +48,19 @@ Legacy repositories are selectively transplanted by evidence, not merged wholesa
 
 The pre-unification LuHm-OS main is preserved at `snapshot/pre-unification-20260925`.
 
+## Agent mesh candidate
+
+The bounded OpenAI/LuHm orchestration contract lives under `agents/luhm-agent-mesh/` and `skills/luhm-agent-mesh/`.
+
+- Lum is the single conversational boss.
+- Context, Build, and Research are the default read-only Oni helpers.
+- Critic is conditional for audit/security/release/architecture risk.
+- Kanabo Gate is the deterministic executor for approved side effects.
+- helper parallelism is capped at 3 and delegation depth at 1.
+- GitHub remains canonical source history; cloud providers are replaceable worker lanes.
+
+The contract is audited by `scripts/auditAgentMesh.py` and `.github/workflows/agent-mesh-audit.yml`.
+
 ## Run locally
 
 Open the repository in Godot 4.7.2 and run `scenes/Main.tscn`.
