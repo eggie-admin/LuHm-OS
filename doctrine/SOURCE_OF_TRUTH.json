@@ -27,5 +27,7 @@
   "currentProposedSeal": "doctrine/universalSamsungAmberSeal-20260925.json",
   "uploadAudit": "doctrine/uploadAudit-20260925.json",
   "uploadIntegrationStatus": "PARTIAL_UPLOAD_DONOR_REVIEW_ONLY",
-  "missingUploadCount": 9
+  "missingUploadCount": 9,
+  "deliveryWorkflowProposal": "doctrine/fastDeliveryWorkflow-20260925.json",
+  "enterpriseReady": false
 }
