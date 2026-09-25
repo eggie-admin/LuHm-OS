@@ -1,0 +1,90 @@
+{
+  "schema": "luhm.agentMesh.integrations.v1",
+  "source_commit_base": "1afde8af380f7bd698e99dc1db5fa643e07111c9",
+  "integrations": {
+    "github": {
+      "role": "CANONICAL_CODE_SOURCE",
+      "writes": "CANDIDATE_BRANCH_FIRST",
+      "promotion": "HUMAN_CROWN_GATE",
+      "secrets": false
+    },
+    "google_drive": {
+      "role": "RECOVERY_AND_LARGE_ASSET_MIRROR",
+      "canonical_code": false,
+      "hash_pin_required": true,
+      "secrets": false
+    },
+    "fastapi_cloud": {
+      "role": "REMOTE_API_DEPLOYMENT",
+      "android_runtime_authority": false,
+      "replaceable_behind_contract": true,
+      "runtime_secrets_provider_managed": true
+    },
+    "modal": {
+      "role": "BURST_COMPUTE_GPU_BATCH",
+      "source_authority": false,
+      "policy_authority": false,
+      "paid_job_launch_requires_explicit_scope": true
+    },
+    "hugging_face": {
+      "role": "MODEL_DATASET_EVAL_JOBS_TRACKING",
+      "revision_pin_for_promotion": true,
+      "token_transport": "SECRET_ONLY",
+      "provider_output_is_execution_evidence": false
+    },
+    "mixpanel": {
+      "role": "PRODUCT_TELEMETRY",
+      "allow_event_fields": [
+        "event_name",
+        "anonymous_session_id",
+        "route",
+        "helper_roles",
+        "latency_ms",
+        "gate_state",
+        "result_state",
+        "build_status",
+        "source_commit"
+      ],
+      "deny_payloads": [
+        "chat_content",
+        "secrets",
+        "credentials",
+        "email_addresses",
+        "file_contents",
+        "health_data",
+        "precise_location"
+      ]
+    },
+    "clickup": {
+      "role": "TASK_AND_APPROVAL_LEDGER",
+      "project_surface": "Project Hydra Control Deck",
+      "source_authority": false,
+      "ci_override": false
+    },
+    "gmail": {
+      "role": "OUTBOUND_HANDOFF",
+      "default_action": "DRAFT",
+      "send_requires_explicit_action": true,
+      "source_authority": false
+    },
+    "documents_pdf_template_creator": {
+      "role": "DERIVED_HUMAN_ARTIFACTS",
+      "must_reference_source_commit": true,
+      "source_authority": false
+    },
+    "visualize": {
+      "role": "DERIVED_ARCHITECTURE_DIAGRAM",
+      "must_reference_source_commit": true,
+      "may_redefine_contracts": false
+    }
+  },
+  "events": [
+    "luhm_agent_turn",
+    "luhm_helper_route",
+    "luhm_tool_request",
+    "luhm_gate_decision",
+    "luhm_build_gate",
+    "luhm_android_smoke",
+    "luhm_plugin_audit"
+  ]
+}
