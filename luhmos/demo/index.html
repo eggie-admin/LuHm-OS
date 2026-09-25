@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090b10">
+<title>LuHm OS Source-of-Truth Demo</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="app" data-crown-id="CROWN_SOURCE_OF_TRUTH_20260919" data-roleplay-hard-separation="true" data-device="SM-S721U1">
+<header class="top">
+  <div class="brand"><img src="./assets/logo-dark.svg" alt="LuHm / Hydra mark"><div><h1>LuHm OS // Source-of-Truth Demo</h1><div class="subtitle">Local cockpit. Canon, art, rights, and runtime claims stay separate.</div></div></div>
+  <div class="badges"><span class="badge crown">CROWNED SOURCE</span><span class="badge good">APK BUILD GREEN</span><span class="badge warn">DEVICE PENDING</span><span class="badge">LOCAL ONLY</span></div>
+</header>
+<section class="grid">
+<main class="panel">
+  <div class="head"><h2>Evidence Board</h2><span class="small">asset-aware forge</span></div>
+  <div class="status-grid">
+    <div class="status"><strong>Source doctrine</strong><span class="state green">CROWNED ✓</span><div class="small">Professor final authority · Lum Boss</div></div>
+    <div class="status"><strong>Roleplay systems</strong><span class="state green">SEPARATED ✓</span><div class="small">Engineering DSL ≠ Questforge</div></div>
+    <div class="status"><strong>Public art</strong><span class="state green">3 HASHED ASSETS</span><div class="small">Bundled by the forge</div></div>
+    <div class="status"><strong>Private original art</strong><span class="state green">22 INDEXED</span><div class="small">Local mount only · never auto-uploaded</div></div>
+    <div class="status"><strong>3D registry</strong><span class="state green">20 SOURCES</span><div class="small">Rights/source registry verified</div></div>
+    <div class="status"><strong>3D runtime</strong><span class="state pending">PENDING</span><div class="small">0 approved model binaries in Git</div></div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" data-tab="authority">Authority</button><button class="tab" data-tab="assets">Art & Assets</button><button class="tab" data-tab="models">3D</button><button class="tab" data-tab="roleplay">Roleplay Wall</button><button class="tab" data-tab="questforge">Questforge</button><button class="tab" data-tab="audit">Self Audit</button>
+  </div>
+  <section id="authority" class="view active">
+    <div class="card-grid">
+      <article class="card"><h3>👑 Crown</h3><p><b>Professor</b> remains final human authority. No AI self-approval.</p></article>
+      <article class="card"><h3>🧠 Boss</h3><p><b>Lum</b> coordinates Context, Build, Research, conditional Critic, and deterministic Tool Executor.</p></article>
+      <article class="card"><h3>📱 Device contract</h3><p>Samsung <code>SM-S721U1</code> · Android 16 · aarch64 · no root assumed.</p></article>
+      <article class="card"><h3>🔒 Runtime truth</h3><p>Source and asset registries describe intended state. Device/runtime state still requires live evidence.</p></article>
+    </div>
+  </section>
+  <section id="assets" class="view">
+    <div class="asset-hero"><img src="./assets/icon.svg" alt="Public LuHm icon"><div><h3>Public-safe forge bundle</h3><div class="small">These three repo assets are copied into the compiled artifact and verified by SHA-256.</div></div></div>
+    <div class="previews"><div class="preview"><img src="./assets/icon.svg" alt="icon"><small>icon.svg</small></div><div class="preview"><img src="./assets/logo-dark.svg" alt="dark logo"><small>logo-dark.svg</small></div><div class="preview"><img src="./assets/logo-light.svg" alt="light logo"><small>logo-light.svg</small></div></div>
+    <h3>Canonical private/original art index</h3><div id="privateArtList" class="asset-list"></div>
+    <div class="rights">Private art stays off public Git. Select your local files to preview and verify against the indexed filename/hash. Files never leave this page.</div>
+    <div class="actions"><label class="file-label primary">MOUNT LOCAL ART<input id="artFiles" type="file" accept="image/*" multiple></label></div><div id="artMountResults" class="previews"></div>
+  </section>
+  <section id="models" class="view">
+    <div class="card-grid"><article class="card"><h3>3D source registry</h3><p><b>20</b> rights-tracked Godot-compatible source matches are registered.</p></article><article class="card"><h3>Approved model binaries in Git</h3><p><b>0</b>. Runtime import is intentionally not claimed.</p></article></div>
+    <h3>Registered 3D lanes</h3><div id="modelSources" class="asset-list"></div>
+    <div class="rights">Local model mount accepts GLB/GLTF/VRM/OBJ/FBX/BLEND for inspection only. Selecting a file does not promote it, publish it, or make runtime GREEN.</div>
+    <div class="actions"><label class="file-label primary">MOUNT LOCAL 3D FILES<input id="modelFiles" type="file" accept=".glb,.gltf,.vrm,.obj,.fbx,.blend" multiple></label></div><div id="modelMountResults" class="asset-list"></div>
+  </section>
+  <section id="roleplay" class="view"><div class="wall"><section class="mode"><h3>⚙ Coding Roleplay</h3><b>ENGINEERING_DSL</b><ul><li>Compiles only explicit engineering context.</li><li>Still passes normal Crown, OS, risk, and evidence gates.</li></ul></section><div class="wall-center">║</div><section class="mode"><h3>🎲 Questforge</h3><b>FICTIONAL_TABLETOP</b><ul><li>Changes fictional campaign state only.</li><li>Zero shell, Git, Android, CI, account, or publishing authority.</li></ul></section></div></section>
+  <section id="questforge" class="view"><div class="card-grid"><article class="card"><h3>The Iron Saint</h3><p>Professor Eggie · Level 1 Tinker · HP 11/11 · AC 14.</p></article><article class="card"><h3>Checkpoint</h3><p><code>Before the Cathedral Door</code></p></article><article class="card"><h3>Awakening</h3><p>■■■■□□ 4/6</p></article><article class="card"><h3>Visual canon</h3><p>3 generation references registered. Image binaries are not falsely claimed to be in Git.</p></article></div><div id="questVisuals" class="asset-list" style="margin-top:12px"></div></section>
+  <section id="audit" class="view"><div id="console" class="console">SELF AUDIT READY
+Browser checks have not run yet.</div><div class="actions"><button id="runAudit" class="primary">RUN LOCAL SELF AUDIT</button><button id="showReceipt">SHOW SOURCE RECEIPT</button></div></section>
+</main>
+<aside class="panel"><div class="head"><h2>Truth Receipt</h2><span class="small">no inflated claims</span></div><div style="padding:14px"><div id="receipt" class="console">PUBLIC ART = 3 BUNDLED
+PRIVATE ART = 22 INDEXED / LOCAL MOUNT
+QUESTFORGE VISUALS = 3 REFERENCES / BINARIES NOT STORED
+3D SOURCES = 20 REGISTERED
+3D BINARIES IN GIT = 0
+3D RUNTIME = NOT CLAIMED
+
+APK_BUILD_GREEN = VERIFIED
+ANDROID_GREEN = PENDING_DEVICE_VALIDATION</div><div class="actions"><button data-jump="assets">ART LANES</button><button data-jump="models">3D LANES</button><button data-jump="audit">VERIFY DEMO</button></div></div></aside>
+</section>
+<div class="footer">LuHm OS asset-aware source-of-truth demo · local artifact · private files remain local</div>
+</div>
+<script id="demo-manifest" type="application/json">{
+  "schema": "luhm-os.demo-manifest.v3",
+  "id": "LUHM_OS_SOURCE_OF_TRUTH_DEMO_20260920",
+  "date": "2026-09-20",
+  "mode": "LOCAL_STATIC_DEMO",
+  "network_calls": false,
+  "source_of_truth": {
+    "crown_path": "docs/CROWN_SOURCE_OF_TRUTH_20260919.json",
+    "crown_id": "CROWN_SOURCE_OF_TRUTH_20260919",
+    "crown_status": "CROWNED",
+    "canonical_repository": "eggie-admin/hydra-shell-android",
+    "active_branch": "testing/luhm-os-android",
+    "human_final_authority": "Professor",
+    "boss_ai": "Lum",
+    "agent_mesh_version": "LUHM Agent Mesh v1",
+    "max_parallelism": 3,
+    "coding_roleplay_system": "ENGINEERING_DSL",
+    "questforge_system": "FICTIONAL_TABLETOP",
+    "roleplay_hard_separation": true,
+    "questforge_engineering_authority": false,
+    "runtime_recheck_required": true,
+    "vercel_active_architecture": false,
+    "device": {"model": "SM-S721U1", "android": 16, "abi": "aarch64", "root_assumed": false}
+  },
+  "assets": {
+    "registry_path": "luhmos/demo/asset.registry.json",
+    "registry_id": "LUHM_OS_DEMO_ASSET_REGISTRY_20260920",
+    "public_forge_bundle_count": 3,
+    "private_original_art_index_count": 22,
+    "private_art_binary_status": "LOCAL_ONLY_NOT_IN_PUBLIC_GIT",
+    "local_private_mount_enabled": true,
+    "three_d_source_registry_count": 20,
+    "repo_model_binary_count": 0,
+    "three_d_runtime_status": "REGISTRY_ONLY_NO_APPROVED_BINARY_IN_GIT",
+    "rights_wall_enforced": true
+  },
+  "questforge": {
+    "canon_path": "docs/QUESTFORGE_IRON_SAINT_CANON_20260919.json",
+    "canon_id": "QUESTFORGE_IRON_SAINT_CANON_20260919",
+    "title": "The Iron Saint",
+    "hero": "Professor Eggie",
+    "checkpoint": "Before the Cathedral Door",
+    "cathedral_awakening": "4/6",
+    "visual_reference_count": 3,
+    "visual_binaries_in_repo": false
+  },
+  "evidence": {
+    "source_doctrine": "CROWNED",
+    "roleplay_systems": "SEPARATED",
+    "doctrine_ci": {"status": "GREEN", "run_id": 35464067296, "job": "Donor purge + doctrine gate"},
+    "apk_build": {
+      "status": "GREEN",
+      "run_id": 35464067296,
+      "artifact_id": 10590876988,
+      "artifact_name": "kai9000-native-cathedral-158",
+      "artifact_zip_sha256": "4209f4bdc76c81ffe4ded7135c79e37b37d9da02f2e0da95447f18eec286be35",
+      "package_id": "art.eggiebagelface.kai9000.dev",
+      "version": "0.8.0-dev",
+      "apk_sha256": "3a0bb62e71657cc61a292f1cc8811436112da047fe1a5d09d875e66bf1a85dda",
+      "signature_scheme": "v2",
+      "zipalign_16k": true,
+      "donor_purged": true
+    },
+    "android_green": "PENDING_DEVICE_VALIDATION",
+    "final_goal": "PENDING_DEVICE_VALIDATION"
+  },
+  "demo_contract": {
+    "self_contained_html": false,
+    "self_contained_artifact": true,
+    "local_only": true,
+    "no_external_dependencies": true,
+    "no_real_tool_execution": true,
+    "engineering_and_questforge_modes_do_not_cross": true,
+    "legacy_convergence_terms_hidden": true,
+    "evidence_before_green": true,
+    "private_assets_never_auto_uploaded": true
+  }
+}
+</script>
+<script src="./asset-data.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
