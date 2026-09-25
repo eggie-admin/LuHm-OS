@@ -1,0 +1,36 @@
+name: LuHm Crown Gate APK (Release Signing Locked)
+
+on:
+  workflow_dispatch:
+    inputs:
+      acknowledge_release_signing_locked:
+        description: Confirm this workflow is a guard only and must not sign or publish
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: Crown does not imply release signing
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Enforce Crown/signing separation
+        shell: bash
+        env:
+          ACK: ${{ inputs.acknowledge_release_signing_locked }}
+        run: |
+          set -euo pipefail
+          echo 'LUHMOS_CROWN_AUTHORITY=SEPARATE_FROM_SIGNING'
+          echo 'LUHMOS_RELEASE_SIGNING=LOCKED'
+          echo 'LUHMOS_AUTOMATIC_SIGNING=DISABLED'
+          echo 'LUHMOS_DEPLOY=OFF'
+          echo 'LUHMOS_PUBLIC_PUBLISH=OFF'
+          if [ "$ACK" = "true" ]; then
+            echo 'Acknowledged: Crown does not authorize release signing or publication.'
+          else
+            echo 'No release-signing authorization supplied. Guard exits without side effects.'
+          fi
+          echo 'LUHMOS_CROWN_SIGNING_BOUNDARY_GREEN'
