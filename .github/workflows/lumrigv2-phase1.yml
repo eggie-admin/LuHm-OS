@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Install Godot 4.7.2
         shell: bash
@@ -100,8 +101,7 @@ jobs:
           grep -q 'LookAtModifier3D' scripts/game/lumAvatar.gd
           grep -q 'lumBoneMap.json' scripts/game/lumAvatar.gd
           grep -q 'LumAvatar.tscn' scripts/game/neonWorld.gd
-          ! grep -R -nE 'SpringBoneSimulator3D|FaceController|LipSyncController' \
-            scenes/LumAvatar.tscn scripts/game/lumAvatar.gd assets/lum/lumBoneMap.json
+          python3 tools/candidateGate.py
 
       - name: Godot import
         shell: bash

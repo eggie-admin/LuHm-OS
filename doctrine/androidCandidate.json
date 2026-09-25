@@ -1,0 +1,18 @@
+{
+  "schema": "luhmOs.androidCandidate.v1",
+  "status": "PROPOSED_AMBER_TARGET",
+  "package": "art.eggiebagelface.luhmos.testing",
+  "versionCode": 115,
+  "versionName": "1.0.15-samsungamber.1",
+  "minSdk": 24,
+  "targetSdk": 36,
+  "abi": "arm64-v8a",
+  "devices": [
+    "S24 FE",
+    "SM-X400"
+  ],
+  "signing": "disposable-debug-only",
+  "persistentSigner": false,
+  "installScope": "same exact APK on both devices; certificate check required before replacement",
+  "promotion": false
+}

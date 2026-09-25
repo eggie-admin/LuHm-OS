@@ -9,3 +9,4 @@ build/
 *.key
 .env
 .env.*
+__pycache__/
