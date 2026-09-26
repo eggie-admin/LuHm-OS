@@ -9,6 +9,7 @@ const GameHudScript := preload("res://scripts/game/gameHud.gd")
 const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
 const CutsceneBridgeScript := preload("res://scripts/game/cutsceneBridge.gd")
 const KaiWebViewBridgeScript := preload("res://scripts/platform/kaiWebViewBridge.gd")
+const CharacterCreatorRuntimeScript := preload("res://scripts/game/characterCreatorRuntime.gd")
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
 
 var neon_world: Node3D
@@ -17,6 +18,7 @@ var game_hud: CanvasLayer
 var cutscene_director: Node
 var cutscene_bridge: Node
 var kai_webview_bridge: Node
+var character_creator: Node
 var intro_played := false
 
 func _ready() -> void:
@@ -55,6 +57,11 @@ func _build_runtime() -> void:
     kai_webview_bridge = KaiWebViewBridgeScript.new()
     kai_webview_bridge.name = "KaiWebViewBridge"
     add_child(kai_webview_bridge)
+
+    character_creator = CharacterCreatorRuntimeScript.new()
+    character_creator.name = "CharacterCreatorRuntime"
+    add_child(character_creator)
+    character_creator.configure(neon_world, kai_webview_bridge)
 
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)

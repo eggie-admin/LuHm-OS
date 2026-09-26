@@ -1,7 +1,7 @@
 (function($){
   'use strict';
   const NS='luhmDeck';
-  const allowed=new Set(['chat.send','panel.set','status.request','model.select','cms.select','world.show','toy.action','input.axis','camera.delta','window.mode','app.background','app.quit']);
+  const allowed=new Set(['chat.send','panel.set','status.request','model.select','cms.select','world.show','toy.action','input.axis','camera.delta','window.mode','app.background','app.quit','avatar.tune','avatar.reset','avatar.inspect']);
   const modes=new Set(['bubble','compact','panel','fullscreen','hidden']);
 
   function nativeSend(type,payload){

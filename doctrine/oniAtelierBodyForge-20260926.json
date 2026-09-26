@@ -1,0 +1,51 @@
+{
+  "schema": "luhm-os.oni-atelier-bodyforge.v1",
+  "date": "2026-09-26",
+  "authority": "Professor",
+  "status": "GREEN_CANDIDATE_CI_REQUIRED",
+  "goal": "Original anime-inspired runtime character creator for LuHm Cathedral, influenced by deep character-creator workflows without copying proprietary Code Vein assets or interface.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "runtime": {
+    "worldOwner": "Godot 4.7.2",
+    "uiOwner": "caged local Android WebView WebGlass",
+    "creatorName": "Oni Atelier / BodyForge",
+    "mutationMode": "runtime_non_destructive",
+    "persistence": "none_in_phase_1",
+    "network": "none"
+  },
+  "currentDonor": {
+    "asset": "LumRigV2",
+    "canonicalBones": 22,
+    "observedSkeletonJoints": 24,
+    "observedMorphTargets": 0,
+    "consequence": "Body proportions use a SkeletonModifier3D post-animation lane; mesh morph sliders remain optional future capability when a donor actually provides blend shapes."
+  },
+  "sliders": {
+    "normalizedInput": [0.0, 1.0],
+    "keys": ["height", "head", "shoulders", "torso", "arms", "legs", "hips", "frame"],
+    "bounds": "clamped and intentionally conservative",
+    "bridge": "typed avatar.tune only"
+  },
+  "security": {
+    "genericShell": false,
+    "arbitraryFilesystemBridge": false,
+    "runtimeDownloads": false,
+    "webNetwork": false,
+    "restPoseMutation": false,
+    "sourceAssetMutation": false,
+    "secretAccess": false
+  },
+  "tests": [
+    "candidate gate ignores build tooling while still scanning actual runtime files",
+    "unknown slider keys fail closed",
+    "head/shoulder/torso modifier smoke",
+    "WebGlass typed bridge allowlist",
+    "APK offline/package/signature/zipalign checks",
+    "physical Samsung proof remains separate"
+  ],
+  "promotion": {
+    "mergeToMain": false,
+    "productionSigning": false,
+    "physicalDeviceProof": "PENDING"
+  }
+}
