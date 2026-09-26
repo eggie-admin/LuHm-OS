@@ -1,4 +1,5 @@
 extends Node3D
+# Crown Cathedral Toy candidate 1.0.23 · exact-head CI stamp
 
 const NeonWorldScript := preload("res://scripts/game/neonWorld.gd")
 const PlayerControllerScript := preload("res://scripts/game/playerController.gd")
