@@ -17,6 +17,14 @@
     return item&&item.versionName?String(item.versionName):'not installed';
   }
 
+  function shizukuText(system){
+    const item=system?.shizuku||{};
+    if(!item.binderAlive)return 'unavailable';
+    const identity=String(item.identity||'unknown');
+    const permission=String(item.permission||'unknown');
+    return identity+' · '+permission;
+  }
+
   function setDelivery(update){
     const setter=$('[data-delivery-widget]').data('luhmDeliverySet');
     if(typeof setter==='function')setter(update);
@@ -36,14 +44,17 @@
         : 'WebView unavailable';
       const deviceText=[system.model||'Android',system.sdk?'SDK '+system.sdk:''].filter(Boolean).join(' · ');
       const adminText=String(system.adminMode||'standard_app');
+      const shizuku=shizukuText(system);
       $('[data-device-status]').text(deviceText);
       $('[data-webview-status]').text(providerText);
       $('[data-admin-status]').text(adminText);
+      $('[data-shizuku-status]').text('Shizuku '+shizuku);
       $('[data-system-device]').text(deviceText+' · Android '+String(system.androidRelease||'?'));
       $('[data-system-webview]').text(providerText);
       $('[data-system-chrome]').text(packageVersion(system,'com.chrome.canary'));
       $('[data-system-profile]').text(system.managedProfile?'managed/profile-isolated':'primary/standard');
       $('[data-system-admin]').text(adminText);
+      $('[data-system-shizuku]').text(shizuku+' · native explicit grant only');
       setDelivery({deviceStatus:'device probe received · install smoke still human-gated'});
       return;
     }
@@ -76,6 +87,7 @@
       $('[data-ollama-status]').text('Ollama · unprobed');
       $('[data-webview-status]').text('WebView · device probe required');
       $('[data-admin-status]').text('Admin · device probe required');
+      $('[data-shizuku-status]').text('Shizuku · device probe required');
     }
   });
 
