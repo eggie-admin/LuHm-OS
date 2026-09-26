@@ -24,8 +24,10 @@ cp -a /tmp/tpl/templates/. "$TEMPLATE_DIR/"
 mkdir -p "$HOME/.config/godot"
 printf '[gd_resource type="EditorSettings" format=3]\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_HOME" "$JAVA_HOME" > "$HOME/.config/godot/editor_settings-4.tres"
 
-KEYSTORE="$RUNNER_TEMP/luhm-cathedral-debug.keystore"
-keytool -genkeypair -keystore "$KEYSTORE" -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname 'CN=LuHm OS Cathedral Native Debug,O=LuHm OS,C=US'
+# Disposable signer is safe because the toy uses a side-by-side package identity.
+# It never collides with the earlier Cathedral debug package on Professor's phone.
+KEYSTORE="$RUNNER_TEMP/luhm-cathedral-toy-debug.keystore"
+keytool -genkeypair -keystore "$KEYSTORE" -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname 'CN=LuHm OS Cathedral Toy Debug,O=LuHm OS,C=US'
 chmod 600 "$KEYSTORE"
 export GODOT_ANDROID_KEYSTORE_DEBUG_PATH="$KEYSTORE"
 export GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey
@@ -55,8 +57,6 @@ unzip -q "$ANDROID_SOURCE" -d android/build
 chmod +x android/build/gradlew
 test -x android/build/gradlew
 test -s android/build/settings.gradle || test -s android/build/settings.gradle.kts
-# Godot's installer writes this identifier one directory above android/build.
-# The exporter refuses a Gradle template without the exact source-template ID.
 printf '%s\n' "$GODOT_TEMPLATE_ID" > android/.build_version
 
 android/build/gradlew -p native/kaiwebview :kaiwebview:assembleDebug :kaiwebview:assembleRelease --no-daemon
@@ -71,24 +71,24 @@ from pathlib import Path
 p=Path('export_presets.cfg')
 s=p.read_text()
 for old,new in {
-  'version/code=111':'version/code=120',
-  'version/name="1.0.11-cleanplay.1"':'version/name="1.0.20-cathedral.native.1"',
-  'package/unique_name="art.eggiebagelface.luhmos.cleanplay"':'package/unique_name="art.eggiebagelface.luhmos.cathedral"',
-  'package/name="LuHm OS Clean Play"':'package/name="LuHm OS Cathedral"'}.items():
+  'version/code=111':'version/code=121',
+  'version/name="1.0.11-cleanplay.1"':'version/name="1.0.21-cathedral.toy.1"',
+  'package/unique_name="art.eggiebagelface.luhmos.cleanplay"':'package/unique_name="art.eggiebagelface.luhmos.cathedraltoy"',
+  'package/name="LuHm OS Clean Play"':'package/name="LuHm OS Cathedral Toy"'}.items():
     if old not in s:
         raise SystemExit(f'missing export identity: {old}')
     s=s.replace(old,new,1)
 p.write_text(s)
 PY
-grep -q 'art.eggiebagelface.luhmos.cathedral' export_presets.cfg
+grep -q 'art.eggiebagelface.luhmos.cathedraltoy' export_presets.cfg
 grep -q 'gradle_build/use_gradle_build=true' export_presets.cfg
 grep -q 'permissions/internet=false' export_presets.cfg
 
 mkdir -p build/android
-"$GODOT" --headless --path . --export-debug 'Android Proposed' build/android/luhmos-cathedral-native.apk
-test -s build/android/luhmos-cathedral-native.apk
+"$GODOT" --headless --path . --export-debug 'Android Proposed' build/android/luhmos-cathedral-toy.apk
+test -s build/android/luhmos-cathedral-toy.apk
 
-APK=build/android/luhmos-cathedral-native.apk
+APK=build/android/luhmos-cathedral-toy.apk
 BT="$ANDROID_HOME/build-tools/36.1.0"
 "$BT/aapt" dump badging "$APK" | tee build/android/badging.txt
 "$BT/aapt" dump xmltree "$APK" AndroidManifest.xml | tee build/android/manifest.txt
@@ -96,8 +96,8 @@ BT="$ANDROID_HOME/build-tools/36.1.0"
 "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/android/zipalign.txt
 unzip -l "$APK" | tee build/android/ziplist.txt
 sha256sum "$APK" | tee build/android/sha256.txt
-grep -q "package: name='art.eggiebagelface.luhmos.cathedral'" build/android/badging.txt
-grep -q "versionCode='120'" build/android/badging.txt
+grep -q "package: name='art.eggiebagelface.luhmos.cathedraltoy'" build/android/badging.txt
+grep -q "versionCode='121'" build/android/badging.txt
 grep -q 'org.godotengine.plugin.v2.KAIWebView' build/android/manifest.txt
 grep -q 'assets/cockpit/index.html' build/android/ziplist.txt
 grep -q 'assets/cockpit/vendor/jquery/jquery.min.js' build/android/ziplist.txt
@@ -108,8 +108,8 @@ grep -q 'WebViewAssetLoader' native/kaiwebview/kaiwebview/src/main/java/art/eggi
 grep -q 'WEB_MESSAGE_LISTENER' native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/KAIWebView.kt
 ! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' native/kaiwebview cockpit scripts/platform/kaiWebViewBridge.gd
 
-printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=NATIVE_CATHEDRAL_APK_CI_PROOF\n' "${GITHUB_SHA:-unknown}" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/cathedral-receipt.txt
+printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=NATIVE_CATHEDRAL_TOY_APK_CI_PROOF\npackage=art.eggiebagelface.luhmos.cathedraltoy\nversion=1.0.21-cathedral.toy.1\n' "${GITHUB_SHA:-unknown}" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/cathedral-receipt.txt
 cp cockpit/package-lock.json build/android/package-lock.json
 sha256sum addons/kai_webview/bin/kaiwebview-debug.aar cockpit/package-lock.json >> build/android/source-components-sha256.txt
 
-echo 'NATIVE CATHEDRAL APK BUILD GREEN'
+echo 'NATIVE CATHEDRAL TOY APK BUILD GREEN'
