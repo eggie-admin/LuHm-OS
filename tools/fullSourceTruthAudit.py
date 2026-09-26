@@ -37,8 +37,43 @@ def normalized_good(value: object) -> bool:
         return True
     if isinstance(value, str):
         upper = value.upper()
-        return upper in GOOD or upper.startswith("GREEN_") or upper.endswith("_GREEN")
+        return upper in GOOD
     return False
+
+
+def receipt_errors(source: dict, cockpit: dict, portal: dict) -> list[str]:
+    """Bind summary claims to the loaded seal identity; never infer device proof from CI."""
+    errors = []
+    contracts = (
+        ("cockpitSwitch", cockpit, "doctrine/s24FeCockpitAuditSwitchSeal-20260926.json",
+         {"testedSourceCommit": cockpit.get("testedSourceCommit"),
+          "workflowRun": cockpit.get("ci", {}).get("workflowRun"),
+          "artifactId": cockpit.get("ci", {}).get("artifactId"),
+          "apkSha256": cockpit.get("ci", {}).get("apkSha256")}),
+        ("installPortal", portal, "doctrine/fqdnInstallPortalSeal-20260926.json",
+         {"testedSourceCommit": portal.get("testedSourceCommit"),
+          "workflowRun": portal.get("ci", {}).get("workflowRun"),
+          "artifactId": portal.get("artifacts", {}).get("lanInstallBundle", {}).get("id"),
+          "artifactArchiveSha256": portal.get("artifacts", {}).get("lanInstallBundle", {}).get("archiveSha256"),
+          "embeddedApkSha256": portal.get("artifacts", {}).get("lanInstallBundle", {}).get("embeddedApkSha256")}),
+    )
+    for section, receipt, expected_path, bindings in contracts:
+        summary = source.get(section, {})
+        if summary.get("seal") != expected_path:
+            errors.append(f"{section}: unexpected seal pointer")
+        if receipt.get("authority") != "Professor" or receipt.get("canonical_repository") != "eggie-admin/LuHm-OS":
+            errors.append(f"{section}: receipt authority mismatch")
+        for key, expected in bindings.items():
+            if expected is None or summary.get(key) != expected:
+                errors.append(f"{section}.{key}: receipt identity mismatch")
+    if normalized_good(source.get("cockpitSwitch", {}).get("physicalS24FeProof")):
+        errors.append("cockpitSwitch: device proof requires a dedicated validated device receipt")
+    for field in ("lanDnsActivation", "apacheActivation", "physicalS24FeInstall", "fdroidRepositorySigning"):
+        if normalized_good(source.get("installPortal", {}).get(field)):
+            errors.append(f"installPortal.{field}: operational proof requires a dedicated validated receipt")
+    if source.get("enterpriseReady") is True:
+        errors.append("enterprise readiness requires dedicated validated control evidence")
+    return errors
 
 
 def git_head() -> str:
@@ -60,6 +95,7 @@ def main() -> int:
 
     errors: list[str] = []
     blockers: list[dict[str, str]] = []
+    errors.extend(receipt_errors(source, cockpit, portal))
 
     if source.get("canonical_repository") != "eggie-admin/LuHm-OS":
         errors.append("canonical repository drift")
@@ -122,20 +158,29 @@ def main() -> int:
     if source.get("status", "").startswith("GREEN_FULL_SOURCE") and blockers:
         errors.append("SOURCE_OF_TRUTH claims full GREEN while readiness blockers remain")
 
+    # This checker validates machine contracts, not visual, device or human review.
     audit_passes = []
     source_passes = doc_workflow.get("ten_pass_hard_audit", [])
     for entry in source_passes:
         name = entry.get("name", "UNKNOWN")
-        if name == "Evidence":
-            state = "AMBER" if blockers else "GREEN"
-        elif name in {"Render and Hash", "Seal and Save"}:
-            state = "AMBER" if blockers else "GREEN"
-        else:
-            state = "GREEN"
-        audit_passes.append({"pass": entry.get("pass"), "name": name, "status": state})
+        state = "UNKNOWN"
+        reason = "Requires dedicated evidence; not established by this checker."
+        if name == "Machine Readability":
+            state = "RED" if errors else "GREEN"
+            reason = "Required JSON inputs parsed; configured contract assertions evaluated."
+        elif name == "Evidence" and blockers:
+            state = "AMBER"
+            reason = "Required runtime or operational evidence remains pending."
+        audit_passes.append({"pass": entry.get("pass"), "name": name,
+                             "status": state, "reason": reason})
 
-    readiness = "GREEN_FULL_SOURCE_TRUTH_READY" if not blockers else "AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING"
-    milestone_complete = not blockers
+    incomplete = [p["name"] for p in audit_passes if p["status"] != "GREEN"]
+    if incomplete:
+        blockers.append({"gate": "ten_pass_evidence", "reason": "; ".join(incomplete)})
+    milestone_complete = not errors and not blockers
+    readiness = ("RED_CONTRACT_ERROR" if errors else
+                 "GREEN_FULL_SOURCE_TRUTH_READY" if milestone_complete else
+                 "AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING")
 
     report = {
         "schema": "luhm-os.full-source-truth-audit-report.v1",
