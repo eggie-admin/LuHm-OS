@@ -33,10 +33,19 @@ jobs:
   hard-audit:
     runs-on: ubuntu-24.04
     timeout-minutes: 8
+    env:
+      SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ env.SOURCE_SHA }}
+
+      - name: Verify exact source checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
 
       - name: Syntax
         run: |
@@ -69,8 +78,8 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p build/cathedral-proof
-          printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\n' \
-            "$GITHUB_SHA" "$GITHUB_WORKFLOW" "$GITHUB_RUN_ID" | tee build/cathedral-proof/receipt.txt
+          printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nevent=%s\n' \
+            "$SOURCE_SHA" "$GITHUB_WORKFLOW" "$GITHUB_RUN_ID" "$GITHUB_EVENT_NAME" | tee build/cathedral-proof/receipt.txt
           sha256sum \
             cathedral/sidecar/kai9000_headless.py \
             cathedral/termux/kai-cathedral \
@@ -81,7 +90,7 @@ jobs:
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: kai9000-cathedral-hard-audit-${{ github.sha }}
+          name: kai9000-cathedral-hard-audit-${{ env.SOURCE_SHA }}
           path: build/cathedral-proof/
           if-no-files-found: error
           retention-days: 14
