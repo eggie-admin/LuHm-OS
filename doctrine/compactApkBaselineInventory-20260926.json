@@ -1,0 +1,752 @@
+[
+  {
+    "path": "lib/arm64-v8a/libgodot_android.so",
+    "stored": 24023949,
+    "raw": 71114944
+  },
+  {
+    "path": "assets/.godot/imported/luhmRunning_texture_0.png-57ba288d430098bebba40ef22b0368da.ctex",
+    "stored": 6096508,
+    "raw": 6095592
+  },
+  {
+    "path": "assets/.godot/imported/luhm_texture_0.png-74877ded43fd5aec4dfbe1aab93f416a.ctex",
+    "stored": 6096508,
+    "raw": 6095592
+  },
+  {
+    "path": "classes.dex",
+    "stored": 1785421,
+    "raw": 5135880
+  },
+  {
+    "path": "assets/.godot/imported/luhmRunning.glb-50d1b4829d80501355348eadeda76c00.scn",
+    "stored": 1225636,
+    "raw": 1257987
+  },
+  {
+    "path": "assets/.godot/imported/luhm.glb-35a403ecab38dc886ca86e189661b015.scn",
+    "stored": 1219223,
+    "raw": 1249488
+  },
+  {
+    "path": "lib/arm64-v8a/libc++_shared.so",
+    "stored": 454850,
+    "raw": 1374336
+  },
+  {
+    "path": "resources.arsc",
+    "stored": 32948,
+    "raw": 32948
+  },
+  {
+    "path": "assets/scripts/game/lumAvatar.gdc",
+    "stored": 10895,
+    "raw": 10905
+  },
+  {
+    "path": "res/0B.webp",
+    "stored": 8178,
+    "raw": 8178
+  },
+  {
+    "path": "res/p9.webp",
+    "stored": 8178,
+    "raw": 8178
+  },
+  {
+    "path": "assets/scripts/game/gameHud.gdc",
+    "stored": 7692,
+    "raw": 7728
+  },
+  {
+    "path": "res/4l.webp",
+    "stored": 6698,
+    "raw": 6698
+  },
+  {
+    "path": "res/SF.webp",
+    "stored": 6698,
+    "raw": 6698
+  },
+  {
+    "path": "assets/scripts/game/neonWorld.gdc",
+    "stored": 5973,
+    "raw": 5968
+  },
+  {
+    "path": "assets/scripts/game/playerController.gdc",
+    "stored": 5848,
+    "raw": 5843
+  },
+  {
+    "path": "res/AF.webp",
+    "stored": 5790,
+    "raw": 5790
+  },
+  {
+    "path": "kotlin/kotlin.kotlin_builtins",
+    "stored": 5129,
+    "raw": 18653
+  },
+  {
+    "path": "res/M1.webp",
+    "stored": 4782,
+    "raw": 4782
+  },
+  {
+    "path": "res/II.webp",
+    "stored": 3782,
+    "raw": 3782
+  },
+  {
+    "path": "res/5n.webp",
+    "stored": 3024,
+    "raw": 3024
+  },
+  {
+    "path": "res/q9.webp",
+    "stored": 2966,
+    "raw": 2966
+  },
+  {
+    "path": "res/B1.webp",
+    "stored": 2812,
+    "raw": 2812
+  },
+  {
+    "path": "assets/scripts/game/cutsceneBridge.gdc",
+    "stored": 2378,
+    "raw": 2373
+  },
+  {
+    "path": "AndroidManifest.xml",
+    "stored": 2248,
+    "raw": 7724
+  },
+  {
+    "path": "res/YU.webp",
+    "stored": 2242,
+    "raw": 2242
+  },
+  {
+    "path": "res/_i.webp",
+    "stored": 2102,
+    "raw": 2102
+  },
+  {
+    "path": "res/2D.webp",
+    "stored": 2080,
+    "raw": 2080
+  },
+  {
+    "path": "assets/scripts/cutsceneDirector.gdc",
+    "stored": 2063,
+    "raw": 2058
+  },
+  {
+    "path": "assets/scripts/main.gdc",
+    "stored": 1836,
+    "raw": 1831
+  },
+  {
+    "path": "res/tg.webp",
+    "stored": 1516,
+    "raw": 1516
+  },
+  {
+    "path": "kotlin/collections/collections.kotlin_builtins",
+    "stored": 1489,
+    "raw": 3635
+  },
+  {
+    "path": "res/0W.webp",
+    "stored": 1394,
+    "raw": 1394
+  },
+  {
+    "path": "res/eu.webp",
+    "stored": 1394,
+    "raw": 1394
+  },
+  {
+    "path": "assets/assets.sparsepck",
+    "stored": 1387,
+    "raw": 2692
+  },
+  {
+    "path": "kotlin/ranges/ranges.kotlin_builtins",
+    "stored": 1256,
+    "raw": 3349
+  },
+  {
+    "path": "kotlin/reflect/reflect.kotlin_builtins",
+    "stored": 1246,
+    "raw": 2370
+  },
+  {
+    "path": "assets/dexopt/baseline.prof",
+    "stored": 1180,
+    "raw": 1180
+  },
+  {
+    "path": "res/o1.webp",
+    "stored": 1122,
+    "raw": 1122
+  },
+  {
+    "path": "kotlin/concurrent/atomics/atomics.kotlin_builtins",
+    "stored": 1020,
+    "raw": 2471
+  },
+  {
+    "path": "res/xN.xml",
+    "stored": 786,
+    "raw": 2456
+  },
+  {
+    "path": "DebugProbesKt.bin",
+    "stored": 782,
+    "raw": 1738
+  },
+  {
+    "path": "res/RF.webp",
+    "stored": 736,
+    "raw": 736
+  },
+  {
+    "path": "res/oR.webp",
+    "stored": 736,
+    "raw": 736
+  },
+  {
+    "path": "assets/assets/lum/lumBoneMap.json",
+    "stored": 608,
+    "raw": 1365
+  },
+  {
+    "path": "assets/updates/public-beta-channel.json",
+    "stored": 558,
+    "raw": 1104
+  },
+  {
+    "path": "res/a0.xml",
+    "stored": 537,
+    "raw": 1228
+  },
+  {
+    "path": "res/lu.xml",
+    "stored": 527,
+    "raw": 1132
+  },
+  {
+    "path": "kotlin/annotation/annotation.kotlin_builtins",
+    "stored": 523,
+    "raw": 865
+  },
+  {
+    "path": "res/S8.xml",
+    "stored": 486,
+    "raw": 1052
+  },
+  {
+    "path": "res/Ws.xml",
+    "stored": 467,
+    "raw": 1180
+  },
+  {
+    "path": "assets/.godot/exported/133200997/export-ca34f04f7b94617d8be95737e34d02f0-LumAvatar.scn",
+    "stored": 420,
+    "raw": 903
+  },
+  {
+    "path": "res/iQ.xml",
+    "stored": 418,
+    "raw": 988
+  },
+  {
+    "path": "res/hQ.xml",
+    "stored": 411,
+    "raw": 1216
+  },
+  {
+    "path": "res/5z.xml",
+    "stored": 395,
+    "raw": 1128
+  },
+  {
+    "path": "res/q6.xml",
+    "stored": 395,
+    "raw": 1128
+  },
+  {
+    "path": "res/II.xml",
+    "stored": 394,
+    "raw": 1076
+  },
+  {
+    "path": "res/BJ.xml",
+    "stored": 392,
+    "raw": 1128
+  },
+  {
+    "path": "res/Sc.xml",
+    "stored": 388,
+    "raw": 1128
+  },
+  {
+    "path": "assets/project.binary",
+    "stored": 376,
+    "raw": 843
+  },
+  {
+    "path": "kotlin/internal/internal.kotlin_builtins",
+    "stored": 355,
+    "raw": 583
+  },
+  {
+    "path": "assets/.godot/exported/133200997/export-4a24720ee5e787dbe30abc634fa3679d-Main.scn",
+    "stored": 321,
+    "raw": 686
+  },
+  {
+    "path": "assets/build/remote-assets/stage-report.json",
+    "stored": 321,
+    "raw": 563
+  },
+  {
+    "path": "res/Bb.xml",
+    "stored": 309,
+    "raw": 616
+  },
+  {
+    "path": "res/_y.xml",
+    "stored": 309,
+    "raw": 612
+  },
+  {
+    "path": "kotlin-tooling-metadata.json",
+    "stored": 284,
+    "raw": 627
+  },
+  {
+    "path": "res/ZD.xml",
+    "stored": 283,
+    "raw": 668
+  },
+  {
+    "path": "assets/.godot/uid_cache.bin",
+    "stored": 270,
+    "raw": 489
+  },
+  {
+    "path": "res/4B.xml",
+    "stored": 265,
+    "raw": 452
+  },
+  {
+    "path": "res/qA.xml",
+    "stored": 265,
+    "raw": 452
+  },
+  {
+    "path": "res/cV.xml",
+    "stored": 260,
+    "raw": 440
+  },
+  {
+    "path": "res/lR.xml",
+    "stored": 259,
+    "raw": 440
+  },
+  {
+    "path": "res/nz.xml",
+    "stored": 252,
+    "raw": 532
+  },
+  {
+    "path": "res/o_.9.png",
+    "stored": 252,
+    "raw": 252
+  },
+  {
+    "path": "res/df.xml",
+    "stored": 251,
+    "raw": 532
+  },
+  {
+    "path": "res/Ma.9.png",
+    "stored": 247,
+    "raw": 247
+  },
+  {
+    "path": "assets/cutscenes/lumBeaconIntro.json",
+    "stored": 242,
+    "raw": 653
+  },
+  {
+    "path": "res/ai.xml",
+    "stored": 241,
+    "raw": 472
+  },
+  {
+    "path": "res/3Z.xml",
+    "stored": 240,
+    "raw": 548
+  },
+  {
+    "path": "res/2K.9.png",
+    "stored": 225,
+    "raw": 225
+  },
+  {
+    "path": "res/wN.9.png",
+    "stored": 225,
+    "raw": 225
+  },
+  {
+    "path": "res/U-.9.png",
+    "stored": 223,
+    "raw": 223
+  },
+  {
+    "path": "res/vL.9.png",
+    "stored": 223,
+    "raw": 223
+  },
+  {
+    "path": "res/xa.9.png",
+    "stored": 221,
+    "raw": 221
+  },
+  {
+    "path": "res/z-.9.png",
+    "stored": 221,
+    "raw": 221
+  },
+  {
+    "path": "res/2r.xml",
+    "stored": 220,
+    "raw": 448
+  },
+  {
+    "path": "res/pU.xml",
+    "stored": 218,
+    "raw": 364
+  },
+  {
+    "path": "res/C_.9.png",
+    "stored": 215,
+    "raw": 215
+  },
+  {
+    "path": "res/gK.9.png",
+    "stored": 215,
+    "raw": 215
+  },
+  {
+    "path": "assets/assets/lum/luhmRunning_texture_0.png.import",
+    "stored": 213,
+    "raw": 277
+  },
+  {
+    "path": "res/je.9.png",
+    "stored": 212,
+    "raw": 212
+  },
+  {
+    "path": "res/sA.9.png",
+    "stored": 212,
+    "raw": 212
+  },
+  {
+    "path": "assets/assets/lum/luhm_texture_0.png.import",
+    "stored": 205,
+    "raw": 269
+  },
+  {
+    "path": "res/KS.xml",
+    "stored": 199,
+    "raw": 356
+  },
+  {
+    "path": "res/c6.xml",
+    "stored": 184,
+    "raw": 372
+  },
+  {
+    "path": "res/jB.xml",
+    "stored": 182,
+    "raw": 372
+  },
+  {
+    "path": "res/9m.xml",
+    "stored": 173,
+    "raw": 304
+  },
+  {
+    "path": "assets/assets/lum/luhmRunning.glb.import",
+    "stored": 143,
+    "raw": 172
+  },
+  {
+    "path": "assets/dexopt/baseline.profm",
+    "stored": 142,
+    "raw": 142
+  },
+  {
+    "path": "assets/assets/lum/luhm.glb.import",
+    "stored": 139,
+    "raw": 166
+  },
+  {
+    "path": "res/5c.png",
+    "stored": 138,
+    "raw": 138
+  },
+  {
+    "path": "META-INF/versions/9/OSGI-INF/MANIFEST.MF",
+    "stored": 129,
+    "raw": 145
+  },
+  {
+    "path": "kotlin/coroutines/coroutines.kotlin_builtins",
+    "stored": 116,
+    "raw": 137
+  },
+  {
+    "path": "res/pY.png",
+    "stored": 107,
+    "raw": 107
+  },
+  {
+    "path": "res/zt.webp",
+    "stored": 102,
+    "raw": 102
+  },
+  {
+    "path": "assets/scenes/LumAvatar.tscn.remap",
+    "stored": 98,
+    "raw": 102
+  },
+  {
+    "path": "res/s4.png",
+    "stored": 98,
+    "raw": 98
+  },
+  {
+    "path": "assets/scenes/Main.tscn.remap",
+    "stored": 92,
+    "raw": 97
+  },
+  {
+    "path": "assets/_cl_",
+    "stored": 75,
+    "raw": 94
+  },
+  {
+    "path": "META-INF/androidx.lifecycle_lifecycle-viewmodel-savedstate.version",
+    "stored": 74,
+    "raw": 85
+  },
+  {
+    "path": "META-INF/androidx.lifecycle_lifecycle-livedata-core.version",
+    "stored": 67,
+    "raw": 78
+  },
+  {
+    "path": "META-INF/androidx.lifecycle_lifecycle-viewmodel.version",
+    "stored": 63,
+    "raw": 74
+  },
+  {
+    "path": "META-INF/androidx.lifecycle_lifecycle-livedata.version",
+    "stored": 62,
+    "raw": 73
+  },
+  {
+    "path": "META-INF/androidx.arch.core_core-runtime.version",
+    "stored": 61,
+    "raw": 67
+  },
+  {
+    "path": "META-INF/androidx.lifecycle_lifecycle-runtime.version",
+    "stored": 61,
+    "raw": 72
+  },
+  {
+    "path": "assets/scripts/game/playerController.gd.remap",
+    "stored": 58,
+    "raw": 56
+  },
+  {
+    "path": "assets/scripts/game/cutsceneBridge.gd.remap",
+    "stored": 56,
+    "raw": 54
+  },
+  {
+    "path": "assets/scripts/cutsceneDirector.gd.remap",
+    "stored": 53,
+    "raw": 51
+  },
+  {
+    "path": "res/3E.webp",
+    "stored": 52,
+    "raw": 52
+  },
+  {
+    "path": "res/pO.webp",
+    "stored": 52,
+    "raw": 52
+  },
+  {
+    "path": "META-INF/com/android/build/gradle/app-metadata.properties",
+    "stored": 51,
+    "raw": 56
+  },
+  {
+    "path": "assets/scripts/game/lumAvatar.gd.remap",
+    "stored": 51,
+    "raw": 49
+  },
+  {
+    "path": "assets/scripts/game/neonWorld.gd.remap",
+    "stored": 51,
+    "raw": 49
+  },
+  {
+    "path": "META-INF/services/kotlinx.coroutines.CoroutineExceptionHandler",
+    "stored": 50,
+    "raw": 54
+  },
+  {
+    "path": "META-INF/services/kotlinx.coroutines.internal.MainDispatcherFactory",
+    "stored": 49,
+    "raw": 52
+  },
+  {
+    "path": "META-INF/version-control-info.textproto",
+    "stored": 48,
+    "raw": 46
+  },
+  {
+    "path": "res/V8.webp",
+    "stored": 46,
+    "raw": 46
+  },
+  {
+    "path": "assets/scripts/game/gameHud.gd.remap",
+    "stored": 45,
+    "raw": 47
+  },
+  {
+    "path": "res/CC.webp",
+    "stored": 44,
+    "raw": 44
+  },
+  {
+    "path": "res/kC.webp",
+    "stored": 44,
+    "raw": 44
+  },
+  {
+    "path": "res/u6.webp",
+    "stored": 44,
+    "raw": 44
+  },
+  {
+    "path": "assets/scripts/main.gd.remap",
+    "stored": 41,
+    "raw": 39
+  },
+  {
+    "path": "assets/.godot/global_script_class_cache.cfg",
+    "stored": 10,
+    "raw": 8
+  },
+  {
+    "path": "META-INF/androidx.activity_activity.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.annotation_annotation-experimental.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.core_core-ktx.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.core_core-splashscreen.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.core_core.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.customview_customview.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.documentfile_documentfile.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.fragment_fragment.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.loader_loader.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.profileinstaller_profileinstaller.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.savedstate_savedstate.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.startup_startup-runtime.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.tracing_tracing.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.versionedparcelable_versionedparcelable.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/androidx.viewpager_viewpager.version",
+    "stored": 6,
+    "raw": 6
+  },
+  {
+    "path": "META-INF/kotlinx_coroutines_android.version",
+    "stored": 5,
+    "raw": 5
+  },
+  {
+    "path": "META-INF/kotlinx_coroutines_core.version",
+    "stored": 5,
+    "raw": 5
+  }
+]

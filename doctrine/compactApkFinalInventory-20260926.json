@@ -1,0 +1,1091 @@
+{
+  "apkBytes": 29868823,
+  "apkSha256": "6d4bdede72dc0b8d9e0a30481da8a8d5a08e1dc3ad59a7db371581defbfa0cd7",
+  "entries": [
+    {
+      "path": "lib/arm64-v8a/libgodot_android.so",
+      "apkEntryBytes": 24023949,
+      "uncompressedBytes": 71114944,
+      "sha256": "6b1cbfa830c7f6addec89bb5a4a444be53b3527472668fede03ca8637e040198",
+      "elfLoadAlignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "path": "assets/.godot/imported/lumShared.png-871b30a1ccd67f3104bb9e2fcf921a5a.ctex",
+      "apkEntryBytes": 2136185,
+      "uncompressedBytes": 2135608,
+      "sha256": "9d6de277d2838861e95ad351ff22869dd3742e004179abf7628b7143595f5795"
+    },
+    {
+      "path": "classes.dex",
+      "apkEntryBytes": 1785421,
+      "uncompressedBytes": 5135880,
+      "sha256": "e21ee3e4069423d43d6546c0c4bd656422ce0fad57377cb6d852aa0718d539a1"
+    },
+    {
+      "path": "assets/assets/lum/lumSharedMesh.res",
+      "apkEntryBytes": 1211789,
+      "uncompressedBytes": 1244880,
+      "sha256": "ca86c25e534b11f90f467543f3a48f43a0a972b7bbebb40e90a1fd5972b0316e"
+    },
+    {
+      "path": "lib/arm64-v8a/libc++_shared.so",
+      "apkEntryBytes": 454850,
+      "uncompressedBytes": 1374336,
+      "sha256": "c4c2fe5cbcb1fba0003a31fc7ab29a9bb12df6cc187ec45a806462540e83d93b",
+      "elfLoadAlignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "path": "resources.arsc",
+      "apkEntryBytes": 32948,
+      "uncompressedBytes": 32948,
+      "sha256": "5b2b5ffb936ed6424bf30272076d9a25fd4f512f610c97c0aafdd00d39ae7b0e"
+    },
+    {
+      "path": "assets/.godot/imported/luhmRunning.glb-50d1b4829d80501355348eadeda76c00.scn",
+      "apkEntryBytes": 14641,
+      "uncompressedBytes": 14729,
+      "sha256": "2b4dbbe1c75bd69a49064ac6978772f9f0bb9d2035d28a3953fee0aced7d243a"
+    },
+    {
+      "path": "assets/scripts/game/lumAvatar.gdc",
+      "apkEntryBytes": 10895,
+      "uncompressedBytes": 10905,
+      "sha256": "5ffbfec2c77cf8221c76cbd50b728f2d1ca8a9c09593edbb01c6de8edb4ecaea"
+    },
+    {
+      "path": "res/0B.webp",
+      "apkEntryBytes": 8178,
+      "uncompressedBytes": 8178,
+      "sha256": "76e80f80e1eb3ebb21dc7915e7971c0d73dc2b7ed4bae8d79957e8916caf4e3d"
+    },
+    {
+      "path": "res/p9.webp",
+      "apkEntryBytes": 8178,
+      "uncompressedBytes": 8178,
+      "sha256": "76e80f80e1eb3ebb21dc7915e7971c0d73dc2b7ed4bae8d79957e8916caf4e3d"
+    },
+    {
+      "path": "assets/scripts/game/gameHud.gdc",
+      "apkEntryBytes": 7692,
+      "uncompressedBytes": 7728,
+      "sha256": "7f306c271b8b19f44a636260845ec76dc1f39fe0823af7b8b779c93aef71b10d"
+    },
+    {
+      "path": "res/4l.webp",
+      "apkEntryBytes": 6698,
+      "uncompressedBytes": 6698,
+      "sha256": "a3413089be7f7440b8503212724c708e285b0af0c408bc60d7e78d5ba44dfbed"
+    },
+    {
+      "path": "res/SF.webp",
+      "apkEntryBytes": 6698,
+      "uncompressedBytes": 6698,
+      "sha256": "a3413089be7f7440b8503212724c708e285b0af0c408bc60d7e78d5ba44dfbed"
+    },
+    {
+      "path": "assets/scripts/game/neonWorld.gdc",
+      "apkEntryBytes": 5973,
+      "uncompressedBytes": 5968,
+      "sha256": "94c23c828a52b684a86558d492b6d3c598e2a173793f98e847d9a7bccdd4e97e"
+    },
+    {
+      "path": "assets/scripts/game/playerController.gdc",
+      "apkEntryBytes": 5848,
+      "uncompressedBytes": 5843,
+      "sha256": "bbe5f0dc13ca7989a19fc0d3363fe8e44fe64aa1e73d626180968db365801380"
+    },
+    {
+      "path": "res/AF.webp",
+      "apkEntryBytes": 5790,
+      "uncompressedBytes": 5790,
+      "sha256": "27058a37977d1efe5c8a1c086239fc618470d2426a053e32678a99d1b388f6b9"
+    },
+    {
+      "path": "assets/.godot/imported/luhm.glb-35a403ecab38dc886ca86e189661b015.scn",
+      "apkEntryBytes": 5738,
+      "uncompressedBytes": 5733,
+      "sha256": "427b4ad42ed354e9109aa62a31259c5fe744ae822b951f2d014c2f0eedbaf85d"
+    },
+    {
+      "path": "kotlin/kotlin.kotlin_builtins",
+      "apkEntryBytes": 5129,
+      "uncompressedBytes": 18653,
+      "sha256": "d03111a486daaa503eb6c17aa6770daf744a9b668f54a75b419d1de3deb868a0"
+    },
+    {
+      "path": "res/M1.webp",
+      "apkEntryBytes": 4782,
+      "uncompressedBytes": 4782,
+      "sha256": "7b13cb93a5ff14dbc0bc2a1a84a635567c69193710526febea6f14a0e952d856"
+    },
+    {
+      "path": "assets/doctrine/universalSamsungAuditSeal-20260925.json",
+      "apkEntryBytes": 4292,
+      "uncompressedBytes": 10048,
+      "sha256": "b4f52940aae53c97117269b206f9e983e7ccf1c60acfb935433acfa74e48ae5d"
+    },
+    {
+      "path": "res/II.webp",
+      "apkEntryBytes": 3782,
+      "uncompressedBytes": 3782,
+      "sha256": "f8b9ef683d34628ccf2b9dfa621f0b2a0aaf5bb18b97c6052b09b8ab1dde17fb"
+    },
+    {
+      "path": "res/5n.webp",
+      "apkEntryBytes": 3024,
+      "uncompressedBytes": 3024,
+      "sha256": "e4270d123ecf438003aef72283533040ca85aa55bca16cf76b14638761667558"
+    },
+    {
+      "path": "res/q9.webp",
+      "apkEntryBytes": 2966,
+      "uncompressedBytes": 2966,
+      "sha256": "e7b5f1d1ebdd6516fbecf471f65983a5283c31abb8b8cf83ae1dd7f7c14395bd"
+    },
+    {
+      "path": "res/B1.webp",
+      "apkEntryBytes": 2812,
+      "uncompressedBytes": 2812,
+      "sha256": "12a5719d619ce255a0e0659fb84e27542b879906889d1b31ba54fbaa141335a6"
+    },
+    {
+      "path": "assets/assets.sparsepck",
+      "apkEntryBytes": 2476,
+      "uncompressedBytes": 5036,
+      "sha256": "14a35e471f3a7b05f2992f0dc669e0e97a22ef5c3bb31db48d2f58e44348e122"
+    },
+    {
+      "path": "assets/scripts/game/cutsceneBridge.gdc",
+      "apkEntryBytes": 2378,
+      "uncompressedBytes": 2373,
+      "sha256": "522e5c138d75e9a76f8e5b960442585614defcac529ba6ad4ac599657746ba33"
+    },
+    {
+      "path": "assets/doctrine/uploadAudit-20260925.json",
+      "apkEntryBytes": 2262,
+      "uncompressedBytes": 5420,
+      "sha256": "a3479b646bab5f37c3b67e088b61365c143f4ca3590585b9a59b4b53f2295310"
+    },
+    {
+      "path": "assets/doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json",
+      "apkEntryBytes": 2255,
+      "uncompressedBytes": 5903,
+      "sha256": "dd70af17234de37ee805288603b83ad8a5889818943ab8989f84caac5ad0323c"
+    },
+    {
+      "path": "AndroidManifest.xml",
+      "apkEntryBytes": 2248,
+      "uncompressedBytes": 7724,
+      "sha256": "13aee691b9455309b4b94e21ddf43a6919f13b39454e59983e34d0b0e7696d59"
+    },
+    {
+      "path": "res/YU.webp",
+      "apkEntryBytes": 2242,
+      "uncompressedBytes": 2242,
+      "sha256": "ea9a08d7e3d1639a39879fb04498d0d4d0a58111b78dab5ee7916827cb234643"
+    },
+    {
+      "path": "res/_i.webp",
+      "apkEntryBytes": 2102,
+      "uncompressedBytes": 2102,
+      "sha256": "90dd122a3d56fa613bc94a2197888d8e94c179c183ebb95595d6170f8cbe0a16"
+    },
+    {
+      "path": "res/2D.webp",
+      "apkEntryBytes": 2080,
+      "uncompressedBytes": 2080,
+      "sha256": "6e7e188ef76a5a71a2b6b47e779067a7158d92e0882a6f94a971394710fbf78a"
+    },
+    {
+      "path": "assets/scripts/cutsceneDirector.gdc",
+      "apkEntryBytes": 2063,
+      "uncompressedBytes": 2058,
+      "sha256": "b8d7b3ac9d191c8343007153c274b62ae04465f2422729bfa535cadbcc498277"
+    },
+    {
+      "path": "assets/doctrine/universalSamsungAmberSeal-20260925.json",
+      "apkEntryBytes": 2042,
+      "uncompressedBytes": 4538,
+      "sha256": "84db6d2eba8863b37d1c272941c53e16380c42f163d3b7f7a3bd981a31acfaed"
+    },
+    {
+      "path": "assets/doctrine/godot4HardArchitectureAudit-20260925.json",
+      "apkEntryBytes": 2036,
+      "uncompressedBytes": 4638,
+      "sha256": "55926cbac5a3c90efa7bc1d7f7fe7c288556d4c2ba93748760d21fee90ef14ad"
+    },
+    {
+      "path": "assets/doctrine/SOURCE_OF_TRUTH.json",
+      "apkEntryBytes": 1950,
+      "uncompressedBytes": 4494,
+      "sha256": "4fa6fd7cece2877abe0210a793bbe8c57932b0bc16926c3cb7c80b468a1304d8"
+    },
+    {
+      "path": "assets/scripts/main.gdc",
+      "apkEntryBytes": 1836,
+      "uncompressedBytes": 1831,
+      "sha256": "3d66f0990501f7bd919f4e6d1ecf22df3971bfb1b7ffebd2184b1f3f042c8dbb"
+    },
+    {
+      "path": "res/tg.webp",
+      "apkEntryBytes": 1516,
+      "uncompressedBytes": 1516,
+      "sha256": "14aefd3617d501e840790bf24547b9f8ce1c9a12e68e13e0f1dc94b446e81083"
+    },
+    {
+      "path": "kotlin/collections/collections.kotlin_builtins",
+      "apkEntryBytes": 1489,
+      "uncompressedBytes": 3635,
+      "sha256": "91d6cd4138e850c100a2dec88a965453b0042bf7f6f51202fe4b1efba38e96c0"
+    },
+    {
+      "path": "assets/doctrine/fqdnInstallPortal-20260926.json",
+      "apkEntryBytes": 1458,
+      "uncompressedBytes": 3003,
+      "sha256": "d54f247fc7965dd0f205d4846c54af1191224d8cdb7af4a624ad3bd8174203f3"
+    },
+    {
+      "path": "assets/doctrine/s24FeCockpitAuditSwitch-20260926.json",
+      "apkEntryBytes": 1424,
+      "uncompressedBytes": 2896,
+      "sha256": "8689003a51d02bef5e99dbd9609381e64a05dabf4cb9be8cf5898b199a84e08b"
+    },
+    {
+      "path": "res/0W.webp",
+      "apkEntryBytes": 1394,
+      "uncompressedBytes": 1394,
+      "sha256": "689c0e799efc2173a7cac0adb7b1da5212aff2faad97504d02a66caf9d11097c"
+    },
+    {
+      "path": "res/eu.webp",
+      "apkEntryBytes": 1394,
+      "uncompressedBytes": 1394,
+      "sha256": "689c0e799efc2173a7cac0adb7b1da5212aff2faad97504d02a66caf9d11097c"
+    },
+    {
+      "path": "kotlin/ranges/ranges.kotlin_builtins",
+      "apkEntryBytes": 1256,
+      "uncompressedBytes": 3349,
+      "sha256": "ecf5a840ebf529fd9d1fa8216febc191b8559412a1068554266f64bc3b6f8428"
+    },
+    {
+      "path": "kotlin/reflect/reflect.kotlin_builtins",
+      "apkEntryBytes": 1246,
+      "uncompressedBytes": 2370,
+      "sha256": "b549fbaa2455d8bd417f44e3df1af2ff6802693a5aa0bb6a740848467b53b69a"
+    },
+    {
+      "path": "assets/doctrine/fastDeliveryWorkflow-20260925.json",
+      "apkEntryBytes": 1237,
+      "uncompressedBytes": 2353,
+      "sha256": "c7d184edfd15baa6537315c84a7a625b8f4616d101a9111153b68f26793a83d8"
+    },
+    {
+      "path": "assets/doctrine/fqdnInstallPortalSeal-20260926.json",
+      "apkEntryBytes": 1181,
+      "uncompressedBytes": 2412,
+      "sha256": "aeec1fb456b1005ed6c8313dc248f8205dd46b1dd0272421fb49d2e10dbe66da"
+    },
+    {
+      "path": "assets/dexopt/baseline.prof",
+      "apkEntryBytes": 1180,
+      "uncompressedBytes": 1180,
+      "sha256": "7c090e24106e9d8a7f222d1be79b237435ef2738618b90d2459ba147eec2df61"
+    },
+    {
+      "path": "assets/doctrine/publicBetaCompactInstall-20260926.json",
+      "apkEntryBytes": 1135,
+      "uncompressedBytes": 2372,
+      "sha256": "c0e0ee3a67c8fd2e8ba4518d94a0b5508215ece933c9a6b95c7e3f0928e79c02"
+    },
+    {
+      "path": "res/o1.webp",
+      "apkEntryBytes": 1122,
+      "uncompressedBytes": 1122,
+      "sha256": "43a3427af7742391b686c01e3cf6930adb41f4e299b2e4f59209e528d9a093a9"
+    },
+    {
+      "path": "assets/doctrine/samsungLayoutSeal-20260926.json",
+      "apkEntryBytes": 1086,
+      "uncompressedBytes": 2098,
+      "sha256": "a8011bf1d64ef1160fd95c969e3dd490aa64c710fed121b74249017dd8a53b6d"
+    },
+    {
+      "path": "assets/doctrine/lumRigV2Phase1Seal-20260925.json",
+      "apkEntryBytes": 1039,
+      "uncompressedBytes": 2157,
+      "sha256": "f677963f7bb4d1edbe55e738563fd587f23585e7e94bd0306805832db2b2c901"
+    },
+    {
+      "path": "kotlin/concurrent/atomics/atomics.kotlin_builtins",
+      "apkEntryBytes": 1020,
+      "uncompressedBytes": 2471,
+      "sha256": "ef8b50112968a5e1be21c9c03d68ce6a7a939a057b9bc5d3fab72c95470561bf"
+    },
+    {
+      "path": "assets/doctrine/s24FeCockpitAuditSwitchSeal-20260926.json",
+      "apkEntryBytes": 966,
+      "uncompressedBytes": 1796,
+      "sha256": "2ac0dc5d4f8e07491f74887e42ea1481ee140cff481a5250b2ff6c22288a7fd7"
+    },
+    {
+      "path": "assets/doctrine/drive3dAssetMutation-20260925.json",
+      "apkEntryBytes": 911,
+      "uncompressedBytes": 1964,
+      "sha256": "e7baee075c943f578c2ab526ae624d5e35a68911880b72727bf4fc52177739d3"
+    },
+    {
+      "path": "assets/doctrine/frontEndGuiSeal-20260924.json",
+      "apkEntryBytes": 909,
+      "uncompressedBytes": 1646,
+      "sha256": "ea10f08c1c366ab656c688a30319e84a89750baaa12ea1e9a0da7726201c17b1"
+    },
+    {
+      "path": "assets/doctrine/lumRigV2Phase1-20260925.json",
+      "apkEntryBytes": 884,
+      "uncompressedBytes": 1684,
+      "sha256": "91777077118bf5f9c6173b448366e7df5b8eb96234c5efa5cf06311202548ec5"
+    },
+    {
+      "path": "assets/doctrine/cathedralRecoverySeal-20260926.json",
+      "apkEntryBytes": 858,
+      "uncompressedBytes": 1562,
+      "sha256": "43701827533ece5dc825e0fc029cc5fa3449428c8feed133b68638b101a30d50"
+    },
+    {
+      "path": "assets/doctrine/DOCUMENT_MUTATION_AUDIT_RECEIPT_20260925.json",
+      "apkEntryBytes": 818,
+      "uncompressedBytes": 1710,
+      "sha256": "273ab5175e57090365f930b2cb7c11df718a0007f3a6147d9d88373fa3f34eff"
+    },
+    {
+      "path": "assets/doctrine/DOCUMENT_MUTATION_AUDIT_SEAL_20260926.json",
+      "apkEntryBytes": 806,
+      "uncompressedBytes": 1710,
+      "sha256": "90c2ab65baaff2ab04360adb41fc0b04607f6902d379235e1d9c55f2ffecd1a8"
+    },
+    {
+      "path": "res/xN.xml",
+      "apkEntryBytes": 786,
+      "uncompressedBytes": 2456,
+      "sha256": "7ade85d04c2310cec688294c0d1b03b81d8a955960e71a1444078da0af3de492"
+    },
+    {
+      "path": "DebugProbesKt.bin",
+      "apkEntryBytes": 782,
+      "uncompressedBytes": 1738,
+      "sha256": "158a19eb94aa2f3e2f459db69ee10276c73b945dd6c5f8fc223cf2d85e2b5e33"
+    },
+    {
+      "path": "assets/doctrine/crownedCandidate-20260926.json",
+      "apkEntryBytes": 744,
+      "uncompressedBytes": 1318,
+      "sha256": "0b5aed5681a07fa8f143bdf4e272b60e263328999ac79f7a29e3f1a969215ef6"
+    },
+    {
+      "path": "res/RF.webp",
+      "apkEntryBytes": 736,
+      "uncompressedBytes": 736,
+      "sha256": "519566b5d108e7cd4b67b4233e24f7702978e449a786ad25b826b460bf656241"
+    },
+    {
+      "path": "res/oR.webp",
+      "apkEntryBytes": 736,
+      "uncompressedBytes": 736,
+      "sha256": "519566b5d108e7cd4b67b4233e24f7702978e449a786ad25b826b460bf656241"
+    },
+    {
+      "path": "assets/doctrine/fastDeliveryVerification-20260926.json",
+      "apkEntryBytes": 729,
+      "uncompressedBytes": 1349,
+      "sha256": "207e316343edcf933b00cc02946a5513a4d43905204278a9b1efc336917f3c06"
+    },
+    {
+      "path": "assets/doctrine/testingBuild-20260925.json",
+      "apkEntryBytes": 714,
+      "uncompressedBytes": 1306,
+      "sha256": "304d2f8234692e5a5727c901673f0be0202178955e126160ecbf0ae8d7305e7b"
+    },
+    {
+      "path": "assets/doctrine/REPO_MIGRATION.json",
+      "apkEntryBytes": 657,
+      "uncompressedBytes": 1319,
+      "sha256": "b6eded47a7c5a65fd9ec62baa5ccae2ec8cc858b5eb908f762b12d8b7241374c"
+    },
+    {
+      "path": "assets/doctrine/cutsceneDonorExtraction-20260925.json",
+      "apkEntryBytes": 640,
+      "uncompressedBytes": 1197,
+      "sha256": "5ddda5698e070b670a0d7b8436fc134bed7840309b5fe906b8aabba6324eb280"
+    },
+    {
+      "path": "assets/doctrine/guiSplitDryRun-20260925.json",
+      "apkEntryBytes": 627,
+      "uncompressedBytes": 1108,
+      "sha256": "dd17e670f9edf84cfffa9e1ea9074618b65658d35ec0200fd772c56a2a61ae2a"
+    },
+    {
+      "path": "assets/assets/lum/lumBoneMap.json",
+      "apkEntryBytes": 608,
+      "uncompressedBytes": 1365,
+      "sha256": "1d243c760525186418b52360ea4da822d2f539906d8c6e6bba3dbe1031308fbe"
+    },
+    {
+      "path": "assets/updates/public-beta-channel.json",
+      "apkEntryBytes": 558,
+      "uncompressedBytes": 1104,
+      "sha256": "ce09c485fffb986f6f2c179df87765fd5338e25f505a2e0b3525296ef8b0d3f5"
+    },
+    {
+      "path": "assets/doctrine/GITHUB_AUDIT_20260925.json",
+      "apkEntryBytes": 556,
+      "uncompressedBytes": 1050,
+      "sha256": "47407ca6abd3d11d4867a22448dbc076d6ef44f28a17fbb779231f10482e6f7b"
+    },
+    {
+      "path": "res/a0.xml",
+      "apkEntryBytes": 537,
+      "uncompressedBytes": 1228,
+      "sha256": "2ffae1270ebe3387e38916c2a6b659517d6475267a0add4e294b44d1f17ad147"
+    },
+    {
+      "path": "res/lu.xml",
+      "apkEntryBytes": 527,
+      "uncompressedBytes": 1132,
+      "sha256": "e6cb9ae38177dfef27358d5a6e5e037bba69e61a213be1a424612672e88b0f3d"
+    },
+    {
+      "path": "kotlin/annotation/annotation.kotlin_builtins",
+      "apkEntryBytes": 523,
+      "uncompressedBytes": 865,
+      "sha256": "f6bf68d4798ece5071900772a4a87150314aed3788e042d9e30ab60a0857b211"
+    },
+    {
+      "path": "assets/doctrine/luhmGlbAudit-20260925.json",
+      "apkEntryBytes": 509,
+      "uncompressedBytes": 846,
+      "sha256": "e88cbf73cf2cd92328c8e4b17b4e1be342bda5754110013868b64a332550a295"
+    },
+    {
+      "path": "res/S8.xml",
+      "apkEntryBytes": 486,
+      "uncompressedBytes": 1052,
+      "sha256": "7d6a2af7dd73b6883f99caeb3e586157ec10ee3a81bb00ea32c2987fa4463a52"
+    },
+    {
+      "path": "res/Ws.xml",
+      "apkEntryBytes": 467,
+      "uncompressedBytes": 1180,
+      "sha256": "2c62853bcd23e3f5ddce57f55a4f5dc66aa9269140a2bd1deadbcf9071cb4483"
+    },
+    {
+      "path": "res/iQ.xml",
+      "apkEntryBytes": 418,
+      "uncompressedBytes": 988,
+      "sha256": "48f2ab78448d4a41233d289c2d90dabf648c2ea49ba1e649b2e996f7edcb9a9a"
+    },
+    {
+      "path": "assets/.godot/exported/133200997/export-ca34f04f7b94617d8be95737e34d02f0-LumAvatar.scn",
+      "apkEntryBytes": 417,
+      "uncompressedBytes": 903,
+      "sha256": "129b956cf37463eb075600e5596b2386f97d4e22de60e06eb5de0e410a9ae664"
+    },
+    {
+      "path": "res/hQ.xml",
+      "apkEntryBytes": 411,
+      "uncompressedBytes": 1216,
+      "sha256": "3e174c23afa799c6c9aecb9abaff8c3d84adbdb5a564549aee1f5f9294adf6e9"
+    },
+    {
+      "path": "res/5z.xml",
+      "apkEntryBytes": 395,
+      "uncompressedBytes": 1128,
+      "sha256": "64fb930830d5e318935eeb6412bdaea39b0adc6e5a74f0bcc72fe35bc6629e51"
+    },
+    {
+      "path": "res/q6.xml",
+      "apkEntryBytes": 395,
+      "uncompressedBytes": 1128,
+      "sha256": "69e40dba6a95b3a53721b0f6b44df60478cd5a6fc6136c8eb62c0f24a9afcfbe"
+    },
+    {
+      "path": "res/II.xml",
+      "apkEntryBytes": 394,
+      "uncompressedBytes": 1076,
+      "sha256": "566786e9c0b91e6abf62d1d9505ced6d4cc17f21d86df061fd0566d2f552f25e"
+    },
+    {
+      "path": "res/BJ.xml",
+      "apkEntryBytes": 392,
+      "uncompressedBytes": 1128,
+      "sha256": "9a0bb56e3f3365aeeb29817fd0a6d1b6360b32751ddf52573364c54eef6187b9"
+    },
+    {
+      "path": "res/Sc.xml",
+      "apkEntryBytes": 388,
+      "uncompressedBytes": 1128,
+      "sha256": "26aadd07b2900770e39a732b38f778a445cf6ae7127934ade550ed36612345b6"
+    },
+    {
+      "path": "assets/project.binary",
+      "apkEntryBytes": 376,
+      "uncompressedBytes": 843,
+      "sha256": "a6019a8c7f4b54d2fe8d1bad4dde928042cb0998e89f4fe5b517dc89c5db13c1"
+    },
+    {
+      "path": "kotlin/internal/internal.kotlin_builtins",
+      "apkEntryBytes": 355,
+      "uncompressedBytes": 583,
+      "sha256": "7489c6bcec13d048a4ce9d9f3bafa1a11bfa08021bfa0e07166978d0bc5e450a"
+    },
+    {
+      "path": "assets/doctrine/androidCandidate.json",
+      "apkEntryBytes": 350,
+      "uncompressedBytes": 540,
+      "sha256": "1c466571a8fc272855f5c7a02ae798163bd193926589a1021bee3e98a7439276"
+    },
+    {
+      "path": "assets/.godot/exported/133200997/export-4a24720ee5e787dbe30abc634fa3679d-Main.scn",
+      "apkEntryBytes": 322,
+      "uncompressedBytes": 686,
+      "sha256": "5b79878abe701d80e6979046d64de177c0f467016cec9b9010eac5052ee83388"
+    },
+    {
+      "path": "res/Bb.xml",
+      "apkEntryBytes": 309,
+      "uncompressedBytes": 616,
+      "sha256": "0b0fbf262db72ca6d6fb7ae4e89d79079618586d92d70b7d18ba3da48abe22f8"
+    },
+    {
+      "path": "res/_y.xml",
+      "apkEntryBytes": 309,
+      "uncompressedBytes": 612,
+      "sha256": "bdbaa748c79baab14e6631f52041f176f0ebd3c4711179790214a77b38b47bac"
+    },
+    {
+      "path": "kotlin-tooling-metadata.json",
+      "apkEntryBytes": 284,
+      "uncompressedBytes": 627,
+      "sha256": "46d648430448ee797dcb192c84d59d67d719a59ce2d1afdaae663a96779d38a5"
+    },
+    {
+      "path": "res/ZD.xml",
+      "apkEntryBytes": 283,
+      "uncompressedBytes": 668,
+      "sha256": "2e5ebadeb03eb61bf77608927ec943aea25c5570f45592083e5f96060899f8a1"
+    },
+    {
+      "path": "assets/.godot/uid_cache.bin",
+      "apkEntryBytes": 273,
+      "uncompressedBytes": 476,
+      "sha256": "e74fba34f0fddf0010a555cd4141dec66283845d432049f65688368961fd8176"
+    },
+    {
+      "path": "res/4B.xml",
+      "apkEntryBytes": 265,
+      "uncompressedBytes": 452,
+      "sha256": "440c234ca8a09188ec558b13771cb29c2da228956bfb58bdade5c1770384acbe"
+    },
+    {
+      "path": "res/qA.xml",
+      "apkEntryBytes": 265,
+      "uncompressedBytes": 452,
+      "sha256": "0b51013fc0f5e916a727b75512c1ee9206178bd134509b7b4be6a397fa4d9a6b"
+    },
+    {
+      "path": "assets/doctrine/RELEASE_BOUNDARY.json",
+      "apkEntryBytes": 261,
+      "uncompressedBytes": 416,
+      "sha256": "7ab36867e9570ece664bd188f4cdc09d28b9b38082f78cca5f9c65b0798427b7"
+    },
+    {
+      "path": "res/cV.xml",
+      "apkEntryBytes": 260,
+      "uncompressedBytes": 440,
+      "sha256": "8836b5640b668a64c712b912082b1233ccafb4958c2b1a269b6f047458096b50"
+    },
+    {
+      "path": "res/lR.xml",
+      "apkEntryBytes": 259,
+      "uncompressedBytes": 440,
+      "sha256": "efd013f279055436c11267047dc88a0f701f2a5997bc6f59662fbb28738a6841"
+    },
+    {
+      "path": "res/nz.xml",
+      "apkEntryBytes": 252,
+      "uncompressedBytes": 532,
+      "sha256": "252556929d929f4ed8aac0722b1462d86f087d3658e186cd597f68b53230440f"
+    },
+    {
+      "path": "res/o_.9.png",
+      "apkEntryBytes": 252,
+      "uncompressedBytes": 252,
+      "sha256": "20343222f9f79dd565c3a2248494d452e70820ac1c437173c38badd45f962afd"
+    },
+    {
+      "path": "res/df.xml",
+      "apkEntryBytes": 251,
+      "uncompressedBytes": 532,
+      "sha256": "20aab76889f1fc49bfd5e51539fbb204064546aab10603ffee37c2158c2de80d"
+    },
+    {
+      "path": "res/Ma.9.png",
+      "apkEntryBytes": 247,
+      "uncompressedBytes": 247,
+      "sha256": "d27af435101ca4cbec0c840bd30687918cd39eb83aab1487420855623a45998b"
+    },
+    {
+      "path": "assets/cutscenes/lumBeaconIntro.json",
+      "apkEntryBytes": 242,
+      "uncompressedBytes": 653,
+      "sha256": "a8f214f6e1ccab3fcca5ab84243bbc2eb91ef5642997c25e8faec1be088ffb11"
+    },
+    {
+      "path": "res/ai.xml",
+      "apkEntryBytes": 241,
+      "uncompressedBytes": 472,
+      "sha256": "8e5257c5c17c6e497dd813b3668caf16f7bd3962491f14b760f842114217df82"
+    },
+    {
+      "path": "res/3Z.xml",
+      "apkEntryBytes": 240,
+      "uncompressedBytes": 548,
+      "sha256": "645458bb3f04e0aa02e5cc2d763904a67a625ac00aba107fe47e0f4ce10c9b8c"
+    },
+    {
+      "path": "res/2K.9.png",
+      "apkEntryBytes": 225,
+      "uncompressedBytes": 225,
+      "sha256": "42aee0b03883e94df5e543348a397d1302c1b8221895871a83b81899f5a9647b"
+    },
+    {
+      "path": "res/wN.9.png",
+      "apkEntryBytes": 225,
+      "uncompressedBytes": 225,
+      "sha256": "18b328d8017e677d5aad3dbd66bae356b5cac978c6f0670938ea648e51d0eb66"
+    },
+    {
+      "path": "res/U-.9.png",
+      "apkEntryBytes": 223,
+      "uncompressedBytes": 223,
+      "sha256": "e17761ed280edd93d7141bd504b70f9e9e15a8652288d9e6333bf4ce964ef844"
+    },
+    {
+      "path": "res/vL.9.png",
+      "apkEntryBytes": 223,
+      "uncompressedBytes": 223,
+      "sha256": "99c14d6855b8be296d58017d3751b8dc849c47b6d1d80ab614ff9075080e461b"
+    },
+    {
+      "path": "res/xa.9.png",
+      "apkEntryBytes": 221,
+      "uncompressedBytes": 221,
+      "sha256": "3e09afa21c45372c035598c017c8fb405a6d678e6cb84dc857581cb3b40e482d"
+    },
+    {
+      "path": "res/z-.9.png",
+      "apkEntryBytes": 221,
+      "uncompressedBytes": 221,
+      "sha256": "559bf783d765c02338e97952bdc9c6689c7ff99090b8c9813369118da8b080f0"
+    },
+    {
+      "path": "res/2r.xml",
+      "apkEntryBytes": 220,
+      "uncompressedBytes": 448,
+      "sha256": "2c269406bae9fd707ffc32d8f1af8233c9352f1239c3ce92a0b903146cd0544e"
+    },
+    {
+      "path": "res/pU.xml",
+      "apkEntryBytes": 218,
+      "uncompressedBytes": 364,
+      "sha256": "650c54c5eff734092ee09354ffa1d833931b7706f2797e801f825604c47c2dd3"
+    },
+    {
+      "path": "res/C_.9.png",
+      "apkEntryBytes": 215,
+      "uncompressedBytes": 215,
+      "sha256": "a8676a1793ac8310ffb12986232df66df092d29c242aeedc2b73556c010d38dc"
+    },
+    {
+      "path": "res/gK.9.png",
+      "apkEntryBytes": 215,
+      "uncompressedBytes": 215,
+      "sha256": "2f7fbda0ba6e53e9a47e2fc0e24e32c447c613a5808c2d6285dc651e83a07ad7"
+    },
+    {
+      "path": "res/je.9.png",
+      "apkEntryBytes": 212,
+      "uncompressedBytes": 212,
+      "sha256": "21f0b55280be10b187ceff8edef4a5a7047683e6e9fcf47de410aa3839f41094"
+    },
+    {
+      "path": "res/sA.9.png",
+      "apkEntryBytes": 212,
+      "uncompressedBytes": 212,
+      "sha256": "0c6328c7b2420570a7ec38b3beb3bac9a29d895ac1ab7239315aba7266418593"
+    },
+    {
+      "path": "res/KS.xml",
+      "apkEntryBytes": 199,
+      "uncompressedBytes": 356,
+      "sha256": "7d7460b4b1257016f44fcd3b7aff1ee87e5e5e6255000ed210c1a1ea603dfe39"
+    },
+    {
+      "path": "res/c6.xml",
+      "apkEntryBytes": 184,
+      "uncompressedBytes": 372,
+      "sha256": "8699421aea54e00254e09546f18947659f355eae6a1268b2ba8b7f4854328f15"
+    },
+    {
+      "path": "res/jB.xml",
+      "apkEntryBytes": 182,
+      "uncompressedBytes": 372,
+      "sha256": "dd98c3bf1da2fefa399e920fe0bc7deb8bab9c855a3fa7857d9e4832b648c20b"
+    },
+    {
+      "path": "res/9m.xml",
+      "apkEntryBytes": 173,
+      "uncompressedBytes": 304,
+      "sha256": "5a8c35d74fdf2ba866f6552354ba2afb6d5ce7541b9de4e01372921675cc1e67"
+    },
+    {
+      "path": "assets/doctrine/drive3dAssetMutationRollback-20260925.json",
+      "apkEntryBytes": 171,
+      "uncompressedBytes": 218,
+      "sha256": "4af983465f40cceb5fcff25ae7cc5ade4a10040d5dd47ab4015236c6e7a8c441"
+    },
+    {
+      "path": "assets/assets/lum/lumShared.png.import",
+      "apkEntryBytes": 162,
+      "uncompressedBytes": 198,
+      "sha256": "379423efc243bebbed2a0890395acd9257d9710cf87bd1f74d64eb48b95758f0"
+    },
+    {
+      "path": "assets/assets/lum/luhmRunning.glb.import",
+      "apkEntryBytes": 145,
+      "uncompressedBytes": 173,
+      "sha256": "f2234c00877f80eb262522cc291ec96c42f911a192f825eac1366933e6bb9d32"
+    },
+    {
+      "path": "assets/dexopt/baseline.profm",
+      "apkEntryBytes": 142,
+      "uncompressedBytes": 142,
+      "sha256": "8f76705332563f652f6685ea76640d30c384fef2fab3b646af96a9064e6128a7"
+    },
+    {
+      "path": "assets/assets/lum/luhm.glb.import",
+      "apkEntryBytes": 139,
+      "uncompressedBytes": 166,
+      "sha256": "9e8b63171e9e442e9fb2ee572b92a8124b871288c9f142c7f67eb111cc1fd02c"
+    },
+    {
+      "path": "res/5c.png",
+      "apkEntryBytes": 138,
+      "uncompressedBytes": 138,
+      "sha256": "b44eeda34d7a529c2fe55719eb098fa29707caa91d18de06a7a775d6e6bcf973"
+    },
+    {
+      "path": "META-INF/versions/9/OSGI-INF/MANIFEST.MF",
+      "apkEntryBytes": 129,
+      "uncompressedBytes": 145,
+      "sha256": "a844d62b02a9eefd9d112e74fd660843d91cd8b81dce6ce60a9eaba605fa939c"
+    },
+    {
+      "path": "kotlin/coroutines/coroutines.kotlin_builtins",
+      "apkEntryBytes": 116,
+      "uncompressedBytes": 137,
+      "sha256": "98ab3a3c18fcb237528dd63fa489815c583e1d6c13debd2a27ac6d74ccf8717b"
+    },
+    {
+      "path": "res/pY.png",
+      "apkEntryBytes": 107,
+      "uncompressedBytes": 107,
+      "sha256": "8430ec003e003f3f2ba2f78d48fd150e25407667e530e82e87a7d4841c0fd676"
+    },
+    {
+      "path": "res/zt.webp",
+      "apkEntryBytes": 102,
+      "uncompressedBytes": 102,
+      "sha256": "3ea4732213b320cb0ec18ce49c7f4f40dc5445492d72e0382d3cb850a02a387b"
+    },
+    {
+      "path": "assets/scenes/LumAvatar.tscn.remap",
+      "apkEntryBytes": 98,
+      "uncompressedBytes": 102,
+      "sha256": "2c80e70a742a16517abd0a19dea70a44b324587c0e9ef867bae1da5b2a9ae224"
+    },
+    {
+      "path": "res/s4.png",
+      "apkEntryBytes": 98,
+      "uncompressedBytes": 98,
+      "sha256": "0d773e62c756422313262846c787e58f67e0ee87e45e1ae9942002e816c4cb9e"
+    },
+    {
+      "path": "assets/scenes/Main.tscn.remap",
+      "apkEntryBytes": 92,
+      "uncompressedBytes": 97,
+      "sha256": "a77a0e82de4db9af1d56883f711ffdb02a570ffc8bb98eb5ee4f9d995508c64f"
+    },
+    {
+      "path": "assets/_cl_",
+      "apkEntryBytes": 75,
+      "uncompressedBytes": 94,
+      "sha256": "d1074de3d76a1aa6a8b2635cb2b6c9856870a46ff0a995dc71ecf483f721cd6f"
+    },
+    {
+      "path": "META-INF/androidx.lifecycle_lifecycle-viewmodel-savedstate.version",
+      "apkEntryBytes": 74,
+      "uncompressedBytes": 85,
+      "sha256": "421fc63528b574159fbab9883b3767b85c6f073415e4f58a166acd93706db90c"
+    },
+    {
+      "path": "META-INF/androidx.lifecycle_lifecycle-livedata-core.version",
+      "apkEntryBytes": 67,
+      "uncompressedBytes": 78,
+      "sha256": "474006d0cc8100f8dfc68d9269f233a347c29eb4a36d859c20a4953aa41d4dfc"
+    },
+    {
+      "path": "META-INF/androidx.lifecycle_lifecycle-viewmodel.version",
+      "apkEntryBytes": 63,
+      "uncompressedBytes": 74,
+      "sha256": "405e9f0f83651ca097dac96b53a9d149a9b6f1c890d232e1f3e86bc03fcc62b1"
+    },
+    {
+      "path": "META-INF/androidx.lifecycle_lifecycle-livedata.version",
+      "apkEntryBytes": 62,
+      "uncompressedBytes": 73,
+      "sha256": "8fb16c24c98902ba99917588dbfd038df0d9bf8693c9256e2ba9952c78b44b33"
+    },
+    {
+      "path": "META-INF/androidx.arch.core_core-runtime.version",
+      "apkEntryBytes": 61,
+      "uncompressedBytes": 67,
+      "sha256": "1b7c606370188534dac5561fba2b2988093829697fce9e6e8832e9291d24ed00"
+    },
+    {
+      "path": "META-INF/androidx.lifecycle_lifecycle-runtime.version",
+      "apkEntryBytes": 61,
+      "uncompressedBytes": 72,
+      "sha256": "4257cccbba3f7aea521a40937d1bfdd5949f5f3e1ed689c402a4f2977109030b"
+    },
+    {
+      "path": "assets/scripts/game/playerController.gd.remap",
+      "apkEntryBytes": 58,
+      "uncompressedBytes": 56,
+      "sha256": "5547d200736215c00691a4975ec458c6066171f58de2b7e822f36fcd82b7643e"
+    },
+    {
+      "path": "assets/scripts/game/cutsceneBridge.gd.remap",
+      "apkEntryBytes": 56,
+      "uncompressedBytes": 54,
+      "sha256": "8d8273055fb1db849cd949c4fafc131d3207a14e9439c54cce2967f791c86451"
+    },
+    {
+      "path": "assets/scripts/cutsceneDirector.gd.remap",
+      "apkEntryBytes": 53,
+      "uncompressedBytes": 51,
+      "sha256": "4655935880570545d58c8d55cf399bdddef654e068c64f35557fdfb6e5af2828"
+    },
+    {
+      "path": "res/3E.webp",
+      "apkEntryBytes": 52,
+      "uncompressedBytes": 52,
+      "sha256": "86c54d06f5a150812d36ceb5ac74ed2d8a36026fcf8abc235c76a9da06628e21"
+    },
+    {
+      "path": "res/pO.webp",
+      "apkEntryBytes": 52,
+      "uncompressedBytes": 52,
+      "sha256": "089e95514fe3af79b4a45e3d7b2178266b9478bffca1ec6b687a8906ab3b3cf4"
+    },
+    {
+      "path": "META-INF/com/android/build/gradle/app-metadata.properties",
+      "apkEntryBytes": 51,
+      "uncompressedBytes": 56,
+      "sha256": "e5becd9ca5472dedb2578fddbefc65281c4543ab63a001827f7ad7ebb873d005"
+    },
+    {
+      "path": "assets/scripts/game/lumAvatar.gd.remap",
+      "apkEntryBytes": 51,
+      "uncompressedBytes": 49,
+      "sha256": "41b9c1c46e0fc04fd1327f6a0935df02d12865b2cccc78081e2f7e133ad40d9e"
+    },
+    {
+      "path": "assets/scripts/game/neonWorld.gd.remap",
+      "apkEntryBytes": 51,
+      "uncompressedBytes": 49,
+      "sha256": "f448741c987cd917b22f2b0fccea0cae93402dc6a306fb9c49564ccbf164b09f"
+    },
+    {
+      "path": "META-INF/services/kotlinx.coroutines.CoroutineExceptionHandler",
+      "apkEntryBytes": 50,
+      "uncompressedBytes": 54,
+      "sha256": "3129b8edf6db07de6f8ff47695e2177c8bba4eed2962d3085c719e5acbb58a33"
+    },
+    {
+      "path": "META-INF/services/kotlinx.coroutines.internal.MainDispatcherFactory",
+      "apkEntryBytes": 49,
+      "uncompressedBytes": 52,
+      "sha256": "a1ea77ea8f93f419256b6e66f29713f950d8d6e90442b608d880a48003b5eb72"
+    },
+    {
+      "path": "META-INF/version-control-info.textproto",
+      "apkEntryBytes": 48,
+      "uncompressedBytes": 46,
+      "sha256": "38d377afa76b6364e5bf551cf4ffec1a881a46102a0047f523fbf148e0df6928"
+    },
+    {
+      "path": "res/V8.webp",
+      "apkEntryBytes": 46,
+      "uncompressedBytes": 46,
+      "sha256": "be94c13828d49be3c5e06192d4c4a4cd2fe58b92a65b7aaaaca14c383479bb94"
+    },
+    {
+      "path": "assets/scripts/game/gameHud.gd.remap",
+      "apkEntryBytes": 45,
+      "uncompressedBytes": 47,
+      "sha256": "453c11dcdc340f2abb885153a01574f3416006748e590196ce980cb5a38ec1c5"
+    },
+    {
+      "path": "res/CC.webp",
+      "apkEntryBytes": 44,
+      "uncompressedBytes": 44,
+      "sha256": "4d1fced148d9620379143e9247b9a9f2cc231586179f879baeefd43966633b9f"
+    },
+    {
+      "path": "res/kC.webp",
+      "apkEntryBytes": 44,
+      "uncompressedBytes": 44,
+      "sha256": "4d1fced148d9620379143e9247b9a9f2cc231586179f879baeefd43966633b9f"
+    },
+    {
+      "path": "res/u6.webp",
+      "apkEntryBytes": 44,
+      "uncompressedBytes": 44,
+      "sha256": "de7b50cddfb88fe3f9c828fc675b2fab39105f90ea35b64280718b2fd0642aab"
+    },
+    {
+      "path": "assets/scripts/main.gd.remap",
+      "apkEntryBytes": 41,
+      "uncompressedBytes": 39,
+      "sha256": "49fa76d6d4c786bc0ffa6e2674ce7fadcd33649ece61eadbd4c2784a6d2e75c9"
+    },
+    {
+      "path": "assets/.godot/global_script_class_cache.cfg",
+      "apkEntryBytes": 10,
+      "uncompressedBytes": 8,
+      "sha256": "f61aa7ad3097022d6a9d110ca3f73fa7bb348ec2cf9a6e7c9523574dc75f5a16"
+    },
+    {
+      "path": "META-INF/androidx.activity_activity.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "25cec9739d3218e48acc5d8c3d4333e1d624121c5b7ab3bcddc71d0fa0134b83"
+    },
+    {
+      "path": "META-INF/androidx.annotation_annotation-experimental.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "78b591400c56b7b67b8cb3b2b8a8e65e9093897f02ce0878e6b5405c68620fa7"
+    },
+    {
+      "path": "META-INF/androidx.core_core-ktx.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "1e5b51cde515396a9fa762909cf8ca6584ccc564b325d2eebeea76175fe95c4d"
+    },
+    {
+      "path": "META-INF/androidx.core_core-splashscreen.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "44e161e4495cac2cf7858043e9e6418e9579f0ddcfae826f9a372622968ce066"
+    },
+    {
+      "path": "META-INF/androidx.core_core.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "3eb1ef94b5890ca727158b106142685c8733b0ace5bcb4cf3f0ac14f9f0643f4"
+    },
+    {
+      "path": "META-INF/androidx.customview_customview.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+    },
+    {
+      "path": "META-INF/androidx.documentfile_documentfile.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "1575e1af4a95f12f70b4ee6a6adce8160953d93ea17dc2611b90883ccc3ad3b8"
+    },
+    {
+      "path": "META-INF/androidx.fragment_fragment.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "86d19675747db39b3d18a2ce6972ae1be294424b8ad8d967a7731a5b948fe41b"
+    },
+    {
+      "path": "META-INF/androidx.loader_loader.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+    },
+    {
+      "path": "META-INF/androidx.profileinstaller_profileinstaller.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "10e2e117b01523891ca271a615ae36e9d5e52348fd7d642f66727602c1b8dcbe"
+    },
+    {
+      "path": "META-INF/androidx.savedstate_savedstate.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "6cf4e084b47f33c9b02ef79279d157833868f8f70514169a768be353ee328fea"
+    },
+    {
+      "path": "META-INF/androidx.startup_startup-runtime.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "cc52f678848b814373757b460383bf61960e4943c203735adde0a350b3e50989"
+    },
+    {
+      "path": "META-INF/androidx.tracing_tracing.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+    },
+    {
+      "path": "META-INF/androidx.versionedparcelable_versionedparcelable.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "cc52f678848b814373757b460383bf61960e4943c203735adde0a350b3e50989"
+    },
+    {
+      "path": "META-INF/androidx.viewpager_viewpager.version",
+      "apkEntryBytes": 6,
+      "uncompressedBytes": 6,
+      "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+    },
+    {
+      "path": "META-INF/kotlinx_coroutines_android.version",
+      "apkEntryBytes": 5,
+      "uncompressedBytes": 5,
+      "sha256": "4f232ffa4f33d6227b6f492a7857a3fb3ea8ea0f8ab1d89fe667211326262a4a"
+    },
+    {
+      "path": "META-INF/kotlinx_coroutines_core.version",
+      "apkEntryBytes": 5,
+      "uncompressedBytes": 5,
+      "sha256": "4f232ffa4f33d6227b6f492a7857a3fb3ea8ea0f8ab1d89fe667211326262a4a"
+    }
+  ],
+  "largeDuplicateGroups": []
+}

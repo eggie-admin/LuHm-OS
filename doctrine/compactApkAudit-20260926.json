@@ -1,0 +1,219 @@
+{
+  "schema": "luhm.compact-apk-audit.v1",
+  "date": "2026-09-26",
+  "repository": "eggie-admin/LuHm-OS",
+  "pullRequest": 24,
+  "candidateState": "PROVED_NOT_PROMOTED",
+  "overall": "AMBER_REQUIRED_FEATURE_AND_DEVICE_LIMITATIONS",
+  "compactBuildVerdict": "GREEN",
+  "testedSourceCommit": "b914da214a11573676496d220b4746649e00a32b",
+  "baselineSourceCommit": "361c51aa960480ca296b96f0c3555964425e4a44",
+  "observedMain": "37f20bbca7fc80e5f1e2ec1c170f96b6d8840e24",
+  "before_apk_bytes": 41097425,
+  "after_apk_bytes": 29868823,
+  "bytes_saved": 11228602,
+  "size_gate_bytes": 30000000,
+  "headroom_bytes": 131177,
+  "artifact_sha256": "6d4bdede72dc0b8d9e0a30481da8a8d5a08e1dc3ad59a7db371581defbfa0cd7",
+  "baseline_apk_sha256": "00b045d8c40beff8d124eaab03a335cfbae1cf88cdb5db1536eb3b9c663d054d",
+  "artifactUrl": "https://github.com/eggie-admin/LuHm-OS/actions/runs/36223163902/artifacts/10899234439",
+  "archiveDigest": "sha256:c2a2ab3a2e55b6dedb66f1e7c61a315529d17b0340dd5710242962390cc6ddb2",
+  "certificateSha256": "b24c4d257957ccf883f02b463e39860c4ec9220f1e3fe74f828bef8c4b53b367",
+  "largest_remaining_entries": [
+    {
+      "path": "lib/arm64-v8a/libgodot_android.so",
+      "apkEntryBytes": 24023949,
+      "uncompressedBytes": 71114944,
+      "sha256": "6b1cbfa830c7f6addec89bb5a4a444be53b3527472668fede03ca8637e040198",
+      "elfLoadAlignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "path": "assets/.godot/imported/lumShared.png-871b30a1ccd67f3104bb9e2fcf921a5a.ctex",
+      "apkEntryBytes": 2136185,
+      "uncompressedBytes": 2135608,
+      "sha256": "9d6de277d2838861e95ad351ff22869dd3742e004179abf7628b7143595f5795"
+    },
+    {
+      "path": "classes.dex",
+      "apkEntryBytes": 1785421,
+      "uncompressedBytes": 5135880,
+      "sha256": "e21ee3e4069423d43d6546c0c4bd656422ce0fad57377cb6d852aa0718d539a1"
+    },
+    {
+      "path": "assets/assets/lum/lumSharedMesh.res",
+      "apkEntryBytes": 1211789,
+      "uncompressedBytes": 1244880,
+      "sha256": "ca86c25e534b11f90f467543f3a48f43a0a972b7bbebb40e90a1fd5972b0316e"
+    },
+    {
+      "path": "lib/arm64-v8a/libc++_shared.so",
+      "apkEntryBytes": 454850,
+      "uncompressedBytes": 1374336,
+      "sha256": "c4c2fe5cbcb1fba0003a31fc7ab29a9bb12df6cc187ec45a806462540e83d93b",
+      "elfLoadAlignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "path": "resources.arsc",
+      "apkEntryBytes": 32948,
+      "uncompressedBytes": 32948,
+      "sha256": "5b2b5ffb936ed6424bf30272076d9a25fd4f512f610c97c0aafdd00d39ae7b0e"
+    },
+    {
+      "path": "assets/.godot/imported/luhmRunning.glb-50d1b4829d80501355348eadeda76c00.scn",
+      "apkEntryBytes": 14641,
+      "uncompressedBytes": 14729,
+      "sha256": "2b4dbbe1c75bd69a49064ac6978772f9f0bb9d2035d28a3953fee0aced7d243a"
+    },
+    {
+      "path": "assets/scripts/game/lumAvatar.gdc",
+      "apkEntryBytes": 10895,
+      "uncompressedBytes": 10905,
+      "sha256": "5ffbfec2c77cf8221c76cbd50b728f2d1ca8a9c09593edbb01c6de8edb4ecaea"
+    }
+  ],
+  "changes_made": [
+    "Externalized identical embedded textures into one shared atlas",
+    "Shared byte-equivalent imported mesh across both scenes; both skeletons and animation clips retained",
+    "Quality-95 lossy storage compression at original 2048x2048 resolution with mipmaps",
+    "Preserved original hash-pinned GLBs in build-only JAR; no binaries committed",
+    "Excluded build cache from APK",
+    "Restored packaged Cathedral audit JSON",
+    "Added final APK inventory, native ELF16KB, SDK and ABI checks"
+  ],
+  "textureFidelity": {
+    "resolution": [
+      2048,
+      2048
+    ],
+    "quality": 0.95,
+    "peakSnrDb": 42.37808946451,
+    "requiredPeakSnrDb": 40,
+    "lossless": false,
+    "visualReview": "Atlas comparison inspected; physical-device rendering remains pending"
+  },
+  "unchangedRuntimeEntries": [
+    "classes.dex",
+    "lib/arm64-v8a/libc++_shared.so",
+    "lib/arm64-v8a/libgodot_android.so",
+    "assets/scripts/cutsceneDirector.gd.remap",
+    "assets/scripts/cutsceneDirector.gdc",
+    "assets/scripts/game/cutsceneBridge.gd.remap",
+    "assets/scripts/game/cutsceneBridge.gdc",
+    "assets/scripts/game/gameHud.gd.remap",
+    "assets/scripts/game/gameHud.gdc",
+    "assets/scripts/game/lumAvatar.gd.remap",
+    "assets/scripts/game/lumAvatar.gdc",
+    "assets/scripts/game/neonWorld.gd.remap",
+    "assets/scripts/game/neonWorld.gdc",
+    "assets/scripts/game/playerController.gd.remap",
+    "assets/scripts/game/playerController.gdc",
+    "assets/scripts/main.gd.remap",
+    "assets/scripts/main.gdc"
+  ],
+  "tests_run": [
+    {
+      "run": 36223163902,
+      "name": "Compact beta export, size, identity, SDK, ABI, permissions, signature, ZIP and ELF alignment, remote asset hashes, derivative negatives, runtime/layout/rig/fidelity",
+      "result": "PASS"
+    },
+    {
+      "run": 36223163887,
+      "name": "Universal Samsung candidate",
+      "result": "PASS"
+    },
+    {
+      "run": 36223163899,
+      "name": "Security contract",
+      "result": "PASS"
+    },
+    {
+      "run": 36223163892,
+      "name": "Frontend",
+      "result": "PASS"
+    },
+    {
+      "run": 36223163904,
+      "name": "LumRigV2",
+      "result": "PASS"
+    }
+  ],
+  "tenPassAudit": [
+    {
+      "pass": 1,
+      "scope": "Authority",
+      "result": "PASS",
+      "evidence": "PR24 scoped candidate only; unmerged; main untouched by this pass"
+    },
+    {
+      "pass": 2,
+      "scope": "Freshness",
+      "result": "PASS",
+      "evidence": "Historical cf5ffbd and 1afde8 manifests are ancestor checkpoints; live main and PR24 resolved"
+    },
+    {
+      "pass": 3,
+      "scope": "APK inventory",
+      "result": "PASS",
+      "evidence": "150 baseline entries audited; no packaged audio, raw GLBs, JARs, Python or GDScript source; required imported resources distinguished from disposable caches"
+    },
+    {
+      "pass": 4,
+      "scope": "Duplicates",
+      "result": "PASS",
+      "evidence": "Two identical 6096508-byte texture entries replaced; final large duplicate groups empty"
+    },
+    {
+      "pass": 5,
+      "scope": "Asset preservation",
+      "result": "PASS",
+      "evidence": "Source hashes verified; non-image GLB document and binary bytes preserved; mesh arrays checked before sharing; both rigs/animations retained"
+    },
+    {
+      "pass": 6,
+      "scope": "Runtime and layout",
+      "result": "PASS_CI",
+      "evidence": "Existing layout/runtime/rig tests pass; seven simulated sizes; 24 bones,22 mapped roles,AnimationTree,head tracking"
+    },
+    {
+      "pass": 7,
+      "scope": "Security and identity",
+      "result": "PASS_CI",
+      "evidence": "Existing gates retained plus final ABI/SDK/ELF checks; engine,Dex and runtime-script bytes unchanged"
+    },
+    {
+      "pass": 8,
+      "scope": "Required feature reconciliation",
+      "result": "AMBER",
+      "evidence": "Native Godot Cathedral implemented; requested Android WebView shell absent in baseline inspected source, not added or removed here"
+    },
+    {
+      "pass": 9,
+      "scope": "Compact artifact",
+      "result": "PASS",
+      "evidence": "Downloaded APK independently matches exact size and SHA256; gate unchanged"
+    },
+    {
+      "pass": 10,
+      "scope": "Promotion and device proof",
+      "result": "AMBER",
+      "evidence": "No merge/release/deploy; disposable signer; physical S24FE/SM-X400 and 16KB runtime proof pending"
+    }
+  ],
+  "blockers": [
+    "Requested WebView shell is not implemented in the inspected baseline; cannot claim its preservation",
+    "Physical Samsung install/render/input/performance and real16KB runtime unverified",
+    "Persistent beta signer and asset redistribution approval remain outstanding"
+  ],
+  "mainMutated": false,
+  "merged": false,
+  "publicReleasePublished": false,
+  "productionDeployed": false
+}

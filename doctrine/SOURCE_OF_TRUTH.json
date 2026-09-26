@@ -90,5 +90,8 @@
     "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b",
     "status": "DOC_WORKFLOW_COCKPIT_AND_INSTALL_PORTAL_PROMOTED_HOST_DEVICE_PROOF_PENDING",
     "preserved": "Field manual and documentation workflow retained; broader Android and release state remain AMBER; S24 FE cockpit switch and LAN install bundle are CI-proven and canonical while physical device, LAN DNS, Apache serving, F-Droid signing, and public exposure remain separate gates"
-  }
+  },
+  "compactCandidateReceipt": "doctrine/compactApkAudit-20260926.json",
+  "compactCandidateTestedSource": "b914da214a11573676496d220b4746649e00a32b",
+  "compactCandidateState": "PROVED_NOT_PROMOTED"
 }
