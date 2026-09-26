@@ -1,0 +1,49 @@
+{
+  "schema": "luhm-os.cathedral-webglass-final.v1",
+  "date": "2026-09-26",
+  "authority": "Professor",
+  "status": "GREEN_CANDIDATE_CI_REQUIRED",
+  "correction": {
+    "wrong": "literal 3D performance stage/plinth as the Cathedral UI metaphor",
+    "right": "Godot 4 owns the full-screen native world; HTML/CSS is the viewer/control glass floating above it"
+  },
+  "runtime": {
+    "world_owner": "Godot 4 native Android renderer",
+    "ui_owner": "caged local Android WebView",
+    "web_stack": ["jQuery", "jQuery UI", "Bootstrap", "Vue CMS island"],
+    "webview_network": "blocked",
+    "asset_origin": "https://appassets.androidplatform.net",
+    "bridge": "origin-scoped typed messages only",
+    "generic_shell": false,
+    "arbitrary_filesystem": false,
+    "addJavascriptInterface": false
+  },
+  "window_ladder": [
+    "fullscreen",
+    "panel",
+    "compact_winamp_style",
+    "lum_chat_head_bubble",
+    "android_background_task",
+    "quit"
+  ],
+  "input": {
+    "movement": "typed input.axis bridge",
+    "camera": "typed camera.delta bridge",
+    "toy_actions": ["pet_lum", "oni_pop", "crown_pulse"]
+  },
+  "fallback": "desktop/headless/native HUD remains deterministic when Android WebView plugin is unavailable",
+  "android": {
+    "target_sdk": 36,
+    "min_sdk": 24,
+    "abi": "arm64-v8a",
+    "internet_permission": false,
+    "package": "art.eggiebagelface.luhmos.cathedraltoy.webglass",
+    "version": "1.0.24-cathedral.webglass.1"
+  },
+  "release": {
+    "production_signing": false,
+    "merge_to_main": false,
+    "physical_device_proof": "PENDING",
+    "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes."
+  }
+}

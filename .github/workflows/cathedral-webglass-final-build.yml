@@ -1,4 +1,4 @@
-name: LuHm Cathedral Toy Community Final Candidate
+name: LuHm Cathedral WebGlass Final Candidate
 
 on:
   workflow_dispatch:
@@ -14,19 +14,18 @@ on:
       - 'assets/community/**'
       - 'tests/**'
       - 'tools/**'
-      - 'doctrine/communityAssetMutation-20260926.json'
       - 'doctrine/cathedralWebglassFinal-20260926.json'
-      - '.github/workflows/cathedral-community-final-build.yml'
+      - '.github/workflows/cathedral-webglass-final-build.yml'
 
 permissions:
   contents: read
 
 concurrency:
-  group: cathedral-community-${{ github.event.pull_request.number || github.ref }}
+  group: cathedral-webglass-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  cathedral-webglass-apk:
+  webglass-apk:
     runs-on: ubuntu-24.04
     timeout-minutes: 50
     steps:
@@ -47,10 +46,12 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Build + 10-pass Cathedral WebGlass candidate
+      - name: Build and hard-audit WebGlass APK
         env:
           SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: scripts/buildCathedralWebglass.sh
+        run: |
+          chmod +x scripts/buildCathedralWebglass.sh
+          scripts/buildCathedralWebglass.sh
 
       - name: Upload exact APK evidence bundle
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
