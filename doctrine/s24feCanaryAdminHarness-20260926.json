@@ -1,0 +1,112 @@
+{
+  "schema": "luhm-os.samsung-canary-admin-harness.v1",
+  "date": "2026-09-26",
+  "authority": "Professor",
+  "status": "GREEN_SOURCE_CANDIDATE_DEVICE_PROOF_PENDING",
+  "target": {
+    "baseline": "Samsung S24 FE class / Android 16 / arm64-v8a",
+    "package": "art.eggiebagelface.luhmos.s24feharness",
+    "versionCode": 122,
+    "versionName": "1.0.22-s24fe.harness.1",
+    "sideBySide": true
+  },
+  "donor_policy": {
+    "strategy": "selective transplant only; no unrelated history merge",
+    "sources": [
+      {
+        "repository": "eggie-admin/hydra-shell-android",
+        "ref": "85389880d6d0e9c304817444298195ea48106587",
+        "use": "thin Android shell, typed boundary, localhost-first and audit workflow doctrine"
+      },
+      {
+        "repository": "eggie-admin/vue-headless-cms",
+        "ref": "86507ed7c72650ff508eb9a1a9e52842eb50e821",
+        "use": "CMS presentation donor only; no runtime authority"
+      },
+      {
+        "repository": "eggie-admin/amplify-godot-engine-template",
+        "ref": "abcc991107ad9d6b3ef413083e6906029337c94c",
+        "use": "Godot reference/testing donor only"
+      }
+    ]
+  },
+  "webview_chrome_canary": {
+    "webviewPackage": "com.google.android.webview.canary",
+    "chromePackage": "com.chrome.canary",
+    "selection": "system/user chooses WebView provider; APK detects and reports only",
+    "stockUserBuildRule": "do not replace WebView with a locally signed provider",
+    "chromeCanaryIsWebViewProviderOnAndroid10Plus": false,
+    "webviewCanaryMayBeProviderOnGmsAndroid10Plus": true,
+    "remoteContentInCockpit": false,
+    "webviewAssetOrigin": "https://appassets.androidplatform.net",
+    "nativeBridge": "typed WebMessage listener only"
+  },
+  "capability_ladder": [
+    {
+      "lane": "standard_no_root",
+      "priority": 1,
+      "mode": "DEFAULT",
+      "description": "ordinary Android sandbox, Godot + caged WebView, read-only system profile probe",
+      "termuxRole": "separate KAI 9000 operator/control-plane app UID",
+      "adminLogin": false
+    },
+    {
+      "lane": "secure_folder_or_managed_profile",
+      "priority": 2,
+      "mode": "SUPPORTED_WITH_PROFILE_ISOLATION",
+      "description": "install the APK and desired WebView channel inside the profile; no cross-profile bypass",
+      "adminLogin": false
+    },
+    {
+      "lane": "profile_owner_or_device_owner",
+      "priority": 3,
+      "mode": "ANDROID_ENTERPRISE_ONLY",
+      "description": "preferred administrative lane; provision a dedicated DPC/profile through standard Android/Samsung management flows",
+      "silentProvisioning": false,
+      "gameApkSelfPromotesToOwner": false
+    },
+    {
+      "lane": "rooted_lab",
+      "priority": 4,
+      "mode": "LAB_ONLY_DISABLED_BY_DEFAULT",
+      "description": "root is a separate trust boundary; this APK never executes su, disables SELinux, patches WebView signature checks, or exposes a root shell",
+      "webviewBridgeToRoot": false
+    }
+  ],
+  "termux_admin_model": {
+    "androidAppUidSandbox": true,
+    "termuxCannotBecomeAndroidAdminByLogin": true,
+    "preferredEscalation": [
+      "normal app permissions",
+      "managed profile/profile owner",
+      "device owner on dedicated managed device",
+      "rooted lab only when explicitly isolated"
+    ],
+    "arbitraryShellFromWebView": false
+  },
+  "hardening": {
+    "internetPermission": false,
+    "fileAccess": false,
+    "contentAccess": false,
+    "mixedContent": "never",
+    "genericJavascriptInterface": false,
+    "genericExecBridge": false,
+    "requestInstallPackages": false,
+    "manageExternalStorage": false,
+    "rootShell": false,
+    "selinuxDisable": false,
+    "publicListener": false
+  },
+  "green_gate": {
+    "sourceAudit": "REQUIRED",
+    "apkBuild": "REQUIRED",
+    "apkSignature": "REQUIRED",
+    "zipalign": "REQUIRED",
+    "providerPackageQueries": "REQUIRED",
+    "webviewProviderDeviceProof": "REQUIRED_FOR_RUNTIME_GREEN",
+    "secureFolderProof": "OPTIONAL_PROFILE_LANE",
+    "adminOwnerProof": "ONLY_IF_ADMIN_LANE_IS_EXPLICITLY_PROVISIONED",
+    "rootProof": "NOT_REQUIRED_FOR_BASELINE"
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. CI or deterministic probes prove. Human promotes."
+}
