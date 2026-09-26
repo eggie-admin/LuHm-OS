@@ -1,0 +1,150 @@
+{
+  "schema": "luhm-os.document-mutation-audit-workflow.v1",
+  "status": "GREEN_DOCUMENTATION_WORKFLOW",
+  "product": "LuHm OS",
+  "authority": "Professor",
+  "canonical_repository": "eggie-admin/LuHm-OS",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Reusable workflow for document, manual, template, manifest, HTML companion, receipt, and source-of-truth mutations.",
+  "scope": {
+    "allowed": [
+      "inspect current doctrine and sources of truth",
+      "draft or revise documentation",
+      "create reusable documentation templates",
+      "create AI-readable JSON manifests",
+      "create single-column HTML companions",
+      "render and inspect output",
+      "hash artifacts",
+      "write documentation receipts",
+      "stage documentation changes on a non-release branch",
+      "save verified documentation copies to designated documentation storage"
+    ],
+    "forbidden_without_separate_crown_action": [
+      "production signing",
+      "publishing",
+      "stable promotion",
+      "release promotion",
+      "remote shell execution",
+      "runtime architecture mutation",
+      "loopback control plane in Android runtime",
+      "embedded provider secrets",
+      "claiming software GREEN from documentation evidence"
+    ]
+  },
+  "hydra_learning_loop": [
+    {
+      "step": 1,
+      "name": "Quest",
+      "rule": "Define the objective before touching the machine."
+    },
+    {
+      "step": 2,
+      "name": "Scout",
+      "rule": "Inspect current state, source, dependencies, and real artifacts. Do not mutate yet."
+    },
+    {
+      "step": 3,
+      "name": "Plan",
+      "rule": "Choose the smallest safe change. Identify rollback and required evidence."
+    },
+    {
+      "step": 4,
+      "name": "Mutate",
+      "rule": "Make one intentional, reviewable change."
+    },
+    {
+      "step": 5,
+      "name": "Test",
+      "rule": "Run the test that matches the claim."
+    },
+    {
+      "step": 6,
+      "name": "Collect Receipts",
+      "rule": "Collect hashes, renders, parse results, links, logs, source references, or other evidence matching the claim."
+    },
+    {
+      "step": 7,
+      "name": "Gate",
+      "rule": "Use GREEN, AMBER, RED, or UNKNOWN. Never promote UNKNOWN or AMBER by enthusiasm."
+    },
+    {
+      "step": 8,
+      "name": "Seal",
+      "rule": "Update the source of truth, preserve receipts, record the mutation, list blockers, and identify the next safe state."
+    }
+  ],
+  "ten_pass_hard_audit": [
+    {
+      "pass": 1,
+      "name": "Authority",
+      "gate": "Resolve the current canonical repository, branch, doctrine, and human authority before editing."
+    },
+    {
+      "pass": 2,
+      "name": "Scope",
+      "gate": "State exactly what may change and what remains outside this mutation."
+    },
+    {
+      "pass": 3,
+      "name": "Freshness",
+      "gate": "Prefer current source-of-truth records over legacy Hydra, KAI, Vue, Termux, or historical receipts."
+    },
+    {
+      "pass": 4,
+      "name": "Voice",
+      "gate": "Use short sentences. Use complete thoughts. Keep the Professor and Lum voice where useful."
+    },
+    {
+      "pass": 5,
+      "name": "Evidence",
+      "gate": "Each claim must match its receipt. A file existing proves only that the file exists."
+    },
+    {
+      "pass": 6,
+      "name": "Security",
+      "gate": "No secrets, private keys, bearer tokens, production signing material, or private control-plane details in public-facing documentation."
+    },
+    {
+      "pass": 7,
+      "name": "Structure",
+      "gate": "Check table of contents, headings, links, appendices, page flow, and cross-references."
+    },
+    {
+      "pass": 8,
+      "name": "Machine Readability",
+      "gate": "Validate the AI JSON manifest and HTML companion. Keep schema, authority, status, and provenance explicit."
+    },
+    {
+      "pass": 9,
+      "name": "Render and Hash",
+      "gate": "Render the human artifact, inspect every page or view, then calculate SHA-256 receipts for final files."
+    },
+    {
+      "pass": 10,
+      "name": "Seal and Save",
+      "gate": "Write a documentation seal. Save only verified outputs to the designated documentation source. Keep software promotion separate."
+    }
+  ],
+  "status_semantics": {
+    "GREEN": "Verified by evidence matching the claim.",
+    "AMBER": "Promising or partial. Proof is still missing.",
+    "RED": "Failed, blocked, unsafe, or contradicted.",
+    "UNKNOWN": "Not checked. Unknown is acceptable. Fake GREEN is not."
+  },
+  "artifact_contract": {
+    "human_master": "Document or print artifact appropriate to the request.",
+    "html_companion": "Single-column, readable, scriptless companion when requested or useful for in-app reference.",
+    "ai_manifest": "Plain JSON is canonical machine-readable metadata. Base64 may wrap transport only and is not security.",
+    "documentation_seal": "Records source authority, scope, hashes, checks, unresolved items, and exact gate state.",
+    "hash_ledger": "SHA-256 hashes for sealed output files.",
+    "receipt": "One receipt per claim where practical."
+  },
+  "save_contract": {
+    "repository": "Stage documentation mutations in the canonical repository. Keep release promotion separate.",
+    "drive": "Save verified copies only to a designated documentation folder. A convenience copy does not become source of truth unless explicitly crowned.",
+    "legacy": "Reference selectively. Do not overwrite current doctrine with older architecture merely because an older document is more detailed."
+  },
+  "rollback_rule": "Unify first. Delete last. Prefer reversible documentation mutations and preserve the previous canonical state.",
+  "voice_rule": "A joke may introduce the lesson. The technical meaning must immediately follow.",
+  "final_rule": "Build weird things. Keep receipts. Pet the demon. Do not lie to the status board."
+}
