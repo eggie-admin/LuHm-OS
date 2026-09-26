@@ -1,0 +1,92 @@
+name: LuHm OS Public Beta Security Contract Audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 11 * * 1'
+  pull_request:
+    paths:
+      - 'export_presets.cfg'
+      - 'SECURITY.md'
+      - 'remoteAssets/**'
+      - 'updates/**'
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+
+jobs:
+  contract-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Validate compact beta security contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, re
+          from pathlib import Path
+
+          preset = Path('export_presets.cfg').read_text(encoding='utf-8')
+          required = [
+              'name="Android Public Beta Preflight"',
+              'architectures/armeabi-v7a=false',
+              'architectures/arm64-v8a=true',
+              'architectures/x86=false',
+              'architectures/x86_64=false',
+              'gradle_build/target_sdk="36"',
+              'gradle_build/compress_native_libraries=true',
+              'package/unique_name="art.eggiebagelface.luhmos.beta"',
+              'permissions/internet=false',
+          ]
+          missing = [item for item in required if item not in preset]
+          if missing:
+              raise SystemExit(f'missing beta export contract entries: {missing}')
+
+          assets = json.loads(Path('remoteAssets/lum-full-pack.json').read_text(encoding='utf-8'))
+          if assets.get('schema') != 'luhm-os.remote-asset-pack.v1':
+              raise SystemExit('unexpected remote asset schema')
+          hex64 = re.compile(r'^[0-9a-f]{64}$')
+          if not hex64.fullmatch(assets.get('archiveSha256', '')):
+              raise SystemExit('invalid archive SHA-256')
+          for member in assets.get('members', []):
+              if not hex64.fullmatch(member.get('sha256', '')):
+                  raise SystemExit(f'invalid member SHA-256: {member.get("output")}')
+              if not member.get('output', '').startswith('assets/'):
+                  raise SystemExit('remote member output escaped assets/')
+
+          channel = json.loads(Path('updates/public-beta-channel.json').read_text(encoding='utf-8'))
+          if channel['package'] != 'art.eggiebagelface.luhmos.beta':
+              raise SystemExit('update package identity drift')
+          if not channel['signing']['persistentCertificateRequired']:
+              raise SystemExit('persistent signer requirement disabled')
+          if channel['signing']['keystoreInRepository']:
+              raise SystemExit('keystore must never be stored in repository')
+          if channel['distribution']['selfUpdater']:
+              raise SystemExit('self-updater unexpectedly enabled')
+          if channel['distribution']['runtimeInternetPermission']:
+              raise SystemExit('runtime internet unexpectedly enabled')
+
+          security = Path('SECURITY.md').read_text(encoding='utf-8')
+          for phrase in ('persistent signing certificate', 'does not implement an in-app self-updater', 'SHA-256'):
+              if phrase not in security:
+                  raise SystemExit(f'SECURITY.md contract missing phrase: {phrase}')
+
+          action_ref = re.compile(r'^\s*-?\s*uses:\s*[^@\s]+@([^\s]+)', re.M)
+          bad = []
+          for workflow in Path('.github/workflows').glob('*.yml'):
+              text = workflow.read_text(encoding='utf-8')
+              for ref in action_ref.findall(text):
+                  if not re.fullmatch(r'[0-9a-f]{40}', ref):
+                      bad.append(f'{workflow}:{ref}')
+          if bad:
+              raise SystemExit(f'unpinned GitHub Action refs: {bad}')
+
+          print('PUBLIC_BETA_SECURITY_CONTRACT=PASS')
+          PY
