@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
+GODOT_TEMPLATE_ID="4.7.2.stable"
 SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
 yes | "$SDKMANAGER" --licenses >/dev/null || true
 "$SDKMANAGER" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
@@ -16,7 +17,7 @@ rm -rf /tmp/godot /tmp/tpl
 unzip -q /tmp/godot.zip -d /tmp/godot
 GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
 chmod +x "$GODOT"
-TEMPLATE_DIR="$HOME/.local/share/godot/export_templates/4.7.2.stable"
+TEMPLATE_DIR="$HOME/.local/share/godot/export_templates/$GODOT_TEMPLATE_ID"
 mkdir -p "$TEMPLATE_DIR"
 unzip -q /tmp/templates.tpz -d /tmp/tpl
 cp -a /tmp/tpl/templates/. "$TEMPLATE_DIR/"
@@ -54,6 +55,9 @@ unzip -q "$ANDROID_SOURCE" -d android/build
 chmod +x android/build/gradlew
 test -x android/build/gradlew
 test -s android/build/settings.gradle || test -s android/build/settings.gradle.kts
+# Godot's installer writes this identifier one directory above android/build.
+# The exporter refuses a Gradle template without the exact source-template ID.
+printf '%s\n' "$GODOT_TEMPLATE_ID" > android/.build_version
 
 android/build/gradlew -p native/kaiwebview :kaiwebview:assembleDebug :kaiwebview:assembleRelease --no-daemon
 mkdir -p addons/kai_webview/bin
