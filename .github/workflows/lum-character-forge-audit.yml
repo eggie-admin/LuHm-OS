@@ -34,8 +34,20 @@ jobs:
           scripts/stageLumCharacterDonor.sh
       - name: Verify generated rig map
         run: |
-          python3 -m json.tool assets/lum/forge/vroidFemaleBoneMap.json >/dev/null
-          test -s build/character-forge/vroidFemaleBase-receipt.json
+          python3 -m json.tool assets/lum/forge/mpfbFemaleBoneMap.json >/dev/null
+          test -s build/character-forge/mpfbFemaleBase-receipt.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('build/character-forge/mpfbFemaleBase-receipt.json').read_text())
+          assert r['status']=='GREEN_DONOR_STATIC_AUDIT'
+          assert r['license']=='CC0'
+          assert r['counts']['materials'] > 0
+          assert r['counts']['textures'] > 0
+          assert r['counts']['skins'] > 0
+          assert r['counts']['morphTargets'] >= 15
+          print('LUM_CHARACTER_FORGE_DONOR=GREEN')
+          PY
       - name: Upload donor audit receipt
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
