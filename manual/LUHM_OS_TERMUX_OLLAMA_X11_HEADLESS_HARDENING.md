@@ -1,162 +1,144 @@
-# LuHm OS Termux + Ollama + X11 Headless Hardening
+# KAI 9000 Termux + Ollama + X11 Headless Hardening
 
-Status: **GREEN policy candidate / runtime proof pending**
+Status: **GREEN source policy / runtime proof pending**
 
 Authority: **Professor**
 
-Source law: **AI proposes. Policy authorizes. CI proves. Human promotes.**
+Source law: **AI proposes. Policy authorizes. CI or deterministic probes prove. Human promotes.**
+
+> Correction: this hardening lane belongs to **KAI 9000**, not the LuHm OS native Android runtime. The branch `hardening/termux-ollama-x11-headless-20260926` is quarantined and must **not** be merged into LuHm OS by implication.
 
 ## 1. Boundary
 
-Termux is a separate operator/service plane. It is **not** an execution bridge inside the LuHm OS Android APK. The Android runtime remains native Godot and keeps its current release boundary.
+Termux is the KAI 9000 control plane. Ollama is its local inference lane. TigerVNC/X11 is an optional operator console. LuHm OS native Android remains a separate Godot runtime and receives no Termux execution bridge from this work.
 
 Hard rules:
 
 - no root login
 - no `root-repo`
 - no SELinux disabling
-- no public service bind
+- no public Ollama, VNC or websockify bind
 - no remote shell execution
-- no secrets in source, logs, screenshots, CI artifacts, or doctrine
-- no AI-initiated package upgrades or service enablement
-- no hidden background GUI dependency
+- no secrets in source, logs, screenshots, CI artifacts or doctrine
+- no AI-initiated package upgrades, source migration, model pulls or service enablement
+- no hidden GUI dependency
 - consequential mutations require Professor Crown approval
 
 ## 2. Headless first
 
-The enterprise baseline is headless.
+The KAI baseline is headless.
 
-1. Run the read-only operator doctor.
-2. Start Ollama on `127.0.0.1:11434` only.
-3. Start optional Crown-approved user services only when needed.
-4. Start VNC only when a visual operator console is explicitly requested.
+1. Run the read-only Witching Hour doctor.
+2. Take a local rollback snapshot after the first probe.
+3. Start Ollama on `127.0.0.1:11434` only when requested.
+4. Start optional Crown-approved KAI services.
+5. Start TigerVNC only when a visual operator console is explicitly requested.
+6. Re-run the doctor and seal evidence.
 
-The system must continue functioning with VNC stopped.
+KAI core services must not depend on VNC.
 
 ## 3. Ollama
-
-Ollama's local API does not provide local authentication. Therefore the security control is the trust boundary itself: loopback only.
 
 Required baseline:
 
 - `OLLAMA_HOST=127.0.0.1:11434`
+- headless operation without GUI
 - local models by default
-- cloud models disabled by policy unless separately approved
-- API keys never stored in repository files
-- model pulls require human approval because they are large mutable downloads
-- no reverse proxy, tunnel, wildcard bind, or LAN exposure in this lane
-- default model keep-alive is short to reduce mobile memory pressure
+- no reverse proxy, tunnel, wildcard or LAN bind in this lane
+- model pulls remain human-approved
+- short default keep-alive for mobile memory pressure
+- API/model inventory included in the runtime receipt
 
-## 4. X11 and VNC
+## 4. TigerVNC / X11
 
-Preferred enterprise baseline: TigerVNC from the Termux X11 repository.
+Preferred operator lane: TigerVNC from the Termux X11 repository.
 
 Required baseline:
 
 - display `:1`
 - TCP endpoint `127.0.0.1:5901`
 - `-localhost yes`
-- authentication required
-- password file private to the Termux user
-- VNC starts on demand and stops when the operator is finished
+- private VNC password material
+- starts on demand and stops when finished
+- GUI failure must not break KAI headless services
 
-Termux:X11 nightly may be useful for development, but it is not the enterprise baseline here. Any procedure requiring SELinux to be disabled is rejected by LuHm OS doctrine.
+Any path requiring SELinux to be disabled is rejected.
 
-## 5. Termux app source
+## 5. Termux source
 
-Never mix Termux app/plugin sources or signatures.
+Never mix Termux app/plugin signing sources.
 
 Preferred enterprise baseline:
 
 - stable F-Droid source, or
 - stable GitHub source
 
-The Google Play branch is treated as **experimental**. If it is already installed, do not rip it out automatically. Probe it, inventory it, snapshot state, then migrate only through a separate Professor-approved change.
+An already-installed Google Play build is probed first and treated as experimental. No automatic removal or migration is authorized.
 
 ## 6. Security updates
 
-No blind unattended `pkg upgrade`.
+No blind unattended package upgrades.
 
-The sane update path is:
+Sequence:
 
-1. **Inventory**
-   - `termux-info`
-   - package manifest
-   - configured apt repositories
-   - Ollama version
-   - active listeners
-   - runit service state
-2. **Snapshot**
-   - package manifest
-   - `$PREFIX/etc`
-   - LuHm operator configs
-   - service definitions
-3. **Refresh metadata**
-   - update repository metadata only
-4. **Review**
-   - list upgradable packages
-   - review security-sensitive packages first
-   - inspect upstream release notes when a daemon or runtime changes
-5. **Crown gate**
-   - Professor approves the upgrade set
-6. **Apply**
-   - perform package upgrade
-7. **Verify**
-   - operator doctor
-   - Ollama loopback API smoke test
-   - listener audit
-   - VNC localhost audit if GUI is active
-   - runit service check
-8. **Seal**
-   - record exact versions and hashes
-   - preserve the receipt in doctrine
+1. inventory
+2. snapshot
+3. refresh metadata only after Crown approval
+4. review proposed upgrades
+5. Crown gate
+6. apply approved updates manually
+7. restart only affected services
+8. verify Ollama/VNC loopback boundaries and KAI health
+9. record hashes and versions
+10. seal
 
-Automatic activity may check health and inventory. Automatic activity may **not** apply upgrades, change package repositories, enable services, migrate Termux sources, pull models, or expose ports.
+The Witching Hour update-plan tool never applies package upgrades.
 
-## 7. Service supervision
+## 7. Agent mesh
 
-`termux-services` / runit is the preferred supervisor when a persistent headless service is intentionally enabled.
+- **Lum**: boss/orchestrator
+- **Kiri**: context and doctrine
+- **Tetsu**: build and service contracts
+- **Momo**: research and dependency freshness
+- **Shiori**: conditional sanity/drift critic
+- **Kugi**: deterministic executor only, never reinterprets scope
 
-Rules:
+Max helper parallelism is 3. Recursive recruitment is off.
 
-- service definitions live in the Termux operator plane, not the APK
-- services default disabled
-- enabling a service is a Crown-gated mutation
-- no permanent wake lock by default
-- logs remain local and private
-- a sleeping Android process is not treated as proof of service failure
+## 8. Ten-pass hard audit
 
-## 8. Runtime evidence gate
+1. source authority
+2. project scope
+3. runtime separation
+4. Termux package/source identity
+5. network binding
+6. privilege boundary
+7. headless service health
+8. update and rollback
+9. receipts and hashes
+10. seal and save
 
-The hardening policy is not runtime GREEN until device evidence proves:
+Runtime GREEN requires no remaining unknowns, loopback Ollama proof, loopback VNC proof when active, non-root operation, rollback snapshot, KAI health receipts and sealed hashes.
 
-- Termux source/version
-- exact package manifest
-- no enabled root repository
-- Ollama version
-- Ollama listener is loopback only
-- Ollama local API responds
-- no unexpected public listener
-- TigerVNC listener is loopback only when active
-- VNC auth material exists with private permissions
-- SELinux remains enforcing when observable
-- service state is documented
-- upgrade delta is documented
-- post-update smoke tests pass
+## 9. Witching Hour local forge
 
-## 9. Operator scripts
+The forge is under `kai9000/witching-hour/`.
 
-- `operator/termux/luhm-termux-doctor.sh` - read-only health and listener audit
-- `operator/termux/luhm-headless-ollama.sh` - foreground loopback-only Ollama launcher
-- `operator/termux/luhm-vnc-start.sh` - on-demand localhost-only TigerVNC launcher
-- `operator/termux/luhm-update-plan.sh` - inventory and update-plan generator; never upgrades packages
+```bash
+bash forge.sh audit
+bash forge.sh snapshot --crown
+bash forge.sh ollama --crown
+bash forge.sh vnc --crown
+bash forge.sh update-plan
+bash forge.sh play
+```
+
+The GitHub workflow may package and statically audit this forge. It cannot prove the phone's live Termux state.
 
 ## 10. Status law
 
-Policy GREEN does not mean runtime GREEN.
-
-- **GREEN policy**: static doctrine and CI contract pass.
+- **GREEN source**: doctrine, scripts and GitHub forge build pass.
 - **AMBER runtime**: device evidence is missing or incomplete.
-- **GREEN runtime**: listeners, versions, service state, update receipt, and post-update smoke tests are all proven.
+- **GREEN runtime**: deterministic Termux probes prove all ten runtime gates.
 
-No policy file can self-promote the full LuHm OS release.
+A GREEN runtime receipt still does not merge, publish or promote anything. Human promotion remains separate.
