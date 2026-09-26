@@ -1,15 +1,19 @@
 {
   "schema": "luhm-os.s24fe-cockpit-audit-switch.v1",
   "date": "2026-09-26",
-  "status": "AMBER_CI_AND_DEVICE_PROOF_PENDING",
+  "status": "GREEN_CI_COCKPIT_SWITCH_DEVICE_PROOF_PENDING",
+  "overallCandidateGate": "AMBER_CI_CANDIDATE_DEVICE_PROOF_PENDING",
   "authority": "Professor",
   "canonical_repository": "eggie-admin/LuHm-OS",
   "target": {
     "device": "Samsung Galaxy S24 FE",
     "display_profile": "1080x2340 portrait and 2340x1080 landscape",
     "abi": "arm64-v8a",
+    "min_sdk": 24,
     "target_sdk": 36,
-    "package": "art.eggiebagelface.luhmos.testing"
+    "package": "art.eggiebagelface.luhmos.testing",
+    "versionCode": 116,
+    "versionName": "1.0.16-samsunglayout.1"
   },
   "mutation": {
     "surface": "native Godot Cathedral cockpit",
@@ -30,17 +34,51 @@
     "missing_seal": "UNKNOWN",
     "fake_green_allowed": false
   },
-  "proof_required": [
-    "Godot 4.7.2 import and parse",
-    "layoutSmoke includes 1080x2340 and 2340x1080",
-    "runtime smoke",
-    "Android debug export",
-    "aapt package verification",
-    "apksigner verification",
-    "zipalign verification",
-    "SHA-256 APK receipt",
-    "physical S24 FE launch and switch interaction proof"
-  ],
+  "ciProof": {
+    "testedSourceCommit": "a37e926b64ba2fbfb4526f1f7673b0d982694064",
+    "workflowRun": 36214881077,
+    "workflowName": "LuHm OS Universal Samsung Candidate",
+    "runNumber": 32,
+    "result": "SUCCESS",
+    "godot": "4.7.2",
+    "sourceContract": "PASS",
+    "godotImport": "PASS",
+    "runtimeSmoke": "PASS",
+    "layoutSmoke": {
+      "result": "PASS",
+      "profiles": [
+        "720x1560",
+        "1560x720",
+        "720x1152",
+        "1152x720",
+        "720x720",
+        "1080x2340",
+        "2340x1080"
+      ],
+      "s24FePortrait": "PASS",
+      "s24FeLandscape": "PASS"
+    },
+    "androidExport": "PASS",
+    "aapt": "PASS",
+    "apksigner": "PASS",
+    "signatureScheme": "v2",
+    "zipalign16k": "PASS",
+    "apkSha256": "cfb4fdb729f0a85b85556634bc1148656dea69c667daa524b6c7581e85cb2f19",
+    "certificateSha256": "5286dd00f03cc500313d5a0fabe3451fed0c0c3596c518cf75e3f3e35895c473",
+    "artifact": {
+      "id": 10896958326,
+      "name": "luhm-os-universal-samsung-amber-apk",
+      "sizeBytes": 44259801,
+      "archiveSha256": "41cb96d0ed632ec215155c6eba1e29df2e6a01c1f5048a2dd5c3c511f0ecbd1d",
+      "expires": "2026-10-26T03:30:08Z"
+    }
+  },
+  "deviceProof": {
+    "S24FE": "PENDING_PHYSICAL_LAUNCH_AND_TOUCH_INTERACTION",
+    "SM-X400": "PENDING",
+    "pageSizeRuntimeProof": "PENDING_ON_DEVICE"
+  },
   "promotion": false,
+  "note": "CI proves the native cockpit switch, doctrine readback, S24 FE layout profiles, Android package contract, signature, alignment, and APK artifact. It does not prove physical S24 FE launch or touch interaction until the APK is installed and exercised on-device.",
   "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes."
 }
