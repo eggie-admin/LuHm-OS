@@ -1,0 +1,89 @@
+{
+  "schema": "luhm-os.hard-system-audit.v1",
+  "status": "AMBER_PROPOSED",
+  "date": "2026-09-26",
+  "observedMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+  "compactTestedSource": "b914da214a11573676496d220b4746649e00a32b",
+  "priorCompactSeal": "639e7c4da48c9d3755bcac5a826eaa63b046de77",
+  "tenPassAudit": [
+    {
+      "pass": 1,
+      "name": "Authority",
+      "status": "PASS",
+      "evidence": "Main and PR24 freshly resolved; consequential promotion remains locked."
+    },
+    {
+      "pass": 2,
+      "name": "Scope",
+      "status": "AMBER",
+      "evidence": "Compact candidate proof is separate from current main and full-system readiness."
+    },
+    {
+      "pass": 3,
+      "name": "Freshness",
+      "status": "AMBER",
+      "evidence": "Orchestrator current_evaluation still names 37f20bb; observed main is 506e486cb142f6c81f7df71d007fdf05e47e82ed"
+    },
+    {
+      "pass": 4,
+      "name": "Voice",
+      "status": "AMBER",
+      "evidence": "Personality is documentation, not deployed behavior or authority; proposed contract added."
+    },
+    {
+      "pass": 5,
+      "name": "Evidence",
+      "status": "AMBER",
+      "evidence": "Five PR24 workflows successful; physical S24 FE and SM-X400 proof absent."
+    },
+    {
+      "pass": 6,
+      "name": "Security",
+      "status": "AMBER",
+      "evidence": "Main reports protected=false; rulesets empty. Auditor accepts broad GREEN labels and report readiness ignores contract errors."
+    },
+    {
+      "pass": 7,
+      "name": "Structure",
+      "status": "AMBER",
+      "evidence": "Several passes default GREEN without dedicated checks; cockpit/portal receipts loaded but readiness uses source summary fields."
+    },
+    {
+      "pass": 8,
+      "name": "Machine Readability",
+      "status": "PASS",
+      "evidence": "Retrieved doctrine parsed as JSON; no executable tests run in this pass."
+    },
+    {
+      "pass": 9,
+      "name": "Render and Hash",
+      "status": "AMBER",
+      "evidence": "Prior exact APK hash retained; no fresh device render or source runtime test."
+    },
+    {
+      "pass": 10,
+      "name": "Seal and Save",
+      "status": "AMBER",
+      "evidence": "Additive proposal saved; main, installed skills and runtime unchanged. Implementation validation blocked."
+    }
+  ],
+  "apk": {
+    "bytes": 29868823,
+    "gate": 30000000,
+    "sha256": "6d4bdede72dc0b8d9e0a30481da8a8d5a08e1dc3ad59a7db371581defbfa0cd7",
+    "workflowRun": 36223163902,
+    "evidenceBasis": "Prior downloaded artifact audit; workflow success freshly rechecked"
+  },
+  "requiredRepairs": [
+    "Readiness and milestone complete must require no contract errors AND no blockers.",
+    "Replace prefix/suffix GREEN acceptance with exact scoped states backed by matching receipts.",
+    "Each audit pass requires specific evidence; missing checks remain UNKNOWN.",
+    "Cross-check source summary against immutable receipt identity, target and hashes.",
+    "Add negative tests for GREEN_PENDING labels, contract-error-only scenarios and mismatched receipts.",
+    "Expand audit workflow path coverage to every readiness input and test."
+  ],
+  "executionBlocker": "Automatic approval review failed with Habitat thread-store HTTP 500 before local command execution; not a safety rejection. Local mutation/test/skill sync not performed.",
+  "promotion": false,
+  "productionDeployed": false,
+  "enterpriseReady": false
+}

@@ -111,5 +111,12 @@
     "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b",
     "status": "FULL_SOURCE_TRUTH_ORCHESTRATOR_PROMOTED_FULL_DEMO_AMBER",
     "preserved": "Lum/Oni fail-closed orchestration is canonical on main; documentation workflow, S24 FE cockpit switch, and LAN install bundle remain preserved; broader Android and release state remain AMBER; physical device proof, LAN DNS, Apache serving, persistent update signing, enterprise readiness, and public exposure remain separate evidence or Crown gates"
+  },
+  "hardSystemAuditProposal": {
+    "receipt": "doctrine/hardSystemAudit-20260926.json",
+    "agentContract": "doctrine/agentOperatingProposal-20260926.json",
+    "observedMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+    "status": "AMBER_PROPOSED_NOT_PROMOTED",
+    "installedSkillUpdated": false
   }
 }
