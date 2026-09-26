@@ -7,11 +7,15 @@ on:
       - 'doctrine/petRuntimeHardening-20260926.json'
       - 'doctrine/SOURCE_OF_TRUTH.json'
       - 'doctrine/RELEASE_BOUNDARY.json'
+      - 'scripts/main.gd'
       - 'scripts/game/petWindowController.gd'
+      - 'scripts/game/petHudOverlay.gd'
+      - 'scripts/game/pixelSitter.gd'
       - 'tools/petRuntimeAudit.py'
       - '.github/workflows/pet-runtime-audit.yml'
       - 'manual/LUHM_OS_PET_RUNTIME_HARDENING.md'
       - 'assets/pet/**'
+      - 'assets/community/**'
 
 permissions:
   contents: read
@@ -38,6 +42,8 @@ jobs:
           python3 -m json.tool doctrine/petRuntimeHardening-20260926.json >/dev/null
           python3 -m json.tool doctrine/SOURCE_OF_TRUTH.json >/dev/null
           python3 -m json.tool doctrine/RELEASE_BOUNDARY.json >/dev/null
+          python3 -m json.tool assets/community/community-assets.json >/dev/null
+          test -s assets/community/THIRD_PARTY_NOTICES.md
 
       - name: Run deterministic pet-runtime contract audit
         shell: bash
