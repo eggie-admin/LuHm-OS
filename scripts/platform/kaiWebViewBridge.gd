@@ -2,6 +2,7 @@ extends Node
 
 signal world_requested
 signal toy_action_requested(action: String)
+signal ritual_requested(ritual_id: String)
 signal move_axis_changed(axis: Vector2)
 signal camera_delta_requested(delta: Vector2)
 signal quit_requested
@@ -11,6 +12,7 @@ signal avatar_inspect_requested
 
 const WINDOW_MODES := ["bubble", "compact", "panel", "fullscreen", "hidden"]
 const TOY_ACTIONS := ["pet_lum", "oni_pop", "crown_pulse"]
+const RITUALS := ["crown_wake", "oni_trinity", "witching_hour"]
 const AVATAR_SLIDERS := ["height", "head", "shoulders", "torso", "arms", "legs", "hips", "frame"]
 var _plugin = null
 
@@ -63,6 +65,10 @@ func _on_bridge_message(raw: String) -> void:
             var action := String(payload.get("action", ""))
             if action in TOY_ACTIONS:
                 toy_action_requested.emit(action)
+        "ritual.start":
+            var ritual_id := String(payload.get("ritual", ""))
+            if ritual_id in RITUALS:
+                ritual_requested.emit(ritual_id)
         "input.axis":
             var axis := Vector2(
                 clampf(float(payload.get("x", 0.0)), -1.0, 1.0),
