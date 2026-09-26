@@ -15,7 +15,14 @@ ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "doctrine" / "petRuntimeHardening-20260926.json"
 SOURCE = ROOT / "doctrine" / "SOURCE_OF_TRUTH.json"
 RELEASE = ROOT / "doctrine" / "RELEASE_BOUNDARY.json"
+ANDROID = ROOT / "doctrine" / "androidCandidate.json"
+COMMUNITY = ROOT / "assets" / "community" / "community-assets.json"
+NOTICES = ROOT / "assets" / "community" / "THIRD_PARTY_NOTICES.md"
 CONTROLLER = ROOT / "scripts" / "game" / "petWindowController.gd"
+OVERLAY = ROOT / "scripts" / "game" / "petHudOverlay.gd"
+SITTER = ROOT / "scripts" / "game" / "pixelSitter.gd"
+MAIN = ROOT / "scripts" / "main.gd"
+PRESET = ROOT / "export_presets.cfg"
 
 EXPECTED_MODES = {
     "FULLSCREEN",
@@ -38,7 +45,13 @@ def audit() -> dict:
     manifest = load_json(MANIFEST)
     source = load_json(SOURCE)
     release = load_json(RELEASE)
+    android = load_json(ANDROID)
+    community = load_json(COMMUNITY)
     controller = CONTROLLER.read_text(encoding="utf-8")
+    overlay = OVERLAY.read_text(encoding="utf-8")
+    sitter = SITTER.read_text(encoding="utf-8")
+    main = MAIN.read_text(encoding="utf-8")
+    preset = PRESET.read_text(encoding="utf-8")
 
     if manifest.get("authority") != "Professor":
         errors.append("pet manifest must keep Professor as authority")
@@ -101,17 +114,71 @@ def audit() -> dict:
         if token not in controller:
             errors.append(f"petWindowController missing contract token: {token}")
 
-    forbidden_controller_tokens = (
+    forbidden_runtime_tokens = (
         "OS.execute(",
         "setenforce",
         "sudo ",
         "su ",
         "127.0.0.1:11434",
         "0.0.0.0:11434",
+        "OPENAI_API_KEY",
+        "sk-proj-",
     )
-    for token in forbidden_controller_tokens:
-        if token in controller:
-            errors.append(f"petWindowController contains forbidden integration token: {token}")
+    runtime_text = "\n".join((controller, overlay, sitter, main))
+    for token in forbidden_runtime_tokens:
+        if token in runtime_text:
+            errors.append(f"pet runtime contains forbidden integration token: {token}")
+
+    for token in ("FULL", "MINI", "PET", "CHAT", "BG", "X", "PixelSitterScript"):
+        if token not in overlay:
+            errors.append(f"pet HUD missing mode/control token: {token}")
+    for token in ("horn", "hair", "skin", "eye", "suit", "accent"):
+        if token not in sitter:
+            errors.append(f"pixel sitter contract missing visual token: {token}")
+    for token in ("PetWindowControllerScript", "PetHudOverlayScript", "pet_hud_overlay.configure"):
+        if token not in main:
+            errors.append(f"main runtime missing pet shell wiring: {token}")
+
+    expected_package = android.get("package")
+    expected_version_code = android.get("versionCode")
+    expected_version_name = android.get("versionName")
+    for token in (
+        f'package/unique_name="{expected_package}"',
+        f'version/code={expected_version_code}',
+        f'version/name="{expected_version_name}"',
+        'permissions/internet=false',
+    ):
+        if preset.splitlines().count(token) != 1:
+            errors.append(f"Android export drift: {token}")
+
+    vendored = community.get("vendored", [])
+    if len(vendored) < 2:
+        errors.append("expected at least two provenance-audited community donor sources")
+    for donor in vendored:
+        if donor.get("license") != "MIT":
+            errors.append(f"vendored donor is not approved MIT text lane: {donor.get('id')}")
+        for rel in donor.get("files", []):
+            path = ROOT / "assets" / "community" / rel
+            if not path.is_file():
+                errors.append(f"missing vendored community file: {rel}")
+    if not NOTICES.is_file() or "MIT" not in NOTICES.read_text(encoding="utf-8"):
+        errors.append("community third-party notices missing or incomplete")
+
+    external = {item.get("id"): item for item in community.get("vetted_external_packs", [])}
+    for required in (
+        "kenney-pixel-ui-pack",
+        "kenney-game-icons",
+        "polyhaven",
+        "quaternius-cyberpunk-game-kit",
+    ):
+        if required not in external:
+            errors.append(f"missing vetted external asset registry entry: {required}")
+    for item in external.values():
+        if str(item.get("status", "")).startswith("VENDORED"):
+            errors.append(f"external binary pack incorrectly claimed vendored: {item.get('id')}")
+    for item_id, item in external.items():
+        if item_id.startswith("quaternius-") and not str(item.get("repo_mirror", "")).startswith("DO_NOT_REDISTRIBUTE"):
+            errors.append(f"Quaternius current-license mirror restriction lost: {item_id}")
 
     if "CROWN_AMBER_CANDIDATE" != manifest.get("status"):
         warnings.append("candidate status changed; inspect before promotion")
@@ -121,6 +188,9 @@ def audit() -> dict:
         "schema": "luhm-os.pet-runtime-audit-report.v1",
         "status": status,
         "scope": "repository_contract_only",
+        "passes": 10,
+        "vendoredCommunitySources": len(vendored),
+        "vettedExternalPacks": len(external),
         "errors": errors,
         "warnings": warnings,
         "runtimeProof": False,
