@@ -1,0 +1,46 @@
+{
+  "schema": "luhm-os.s24fe-cockpit-audit-switch-seal.v1",
+  "date": "2026-09-26",
+  "status": "GREEN_CI_DEVICE_PROOF_PENDING",
+  "authority": "Professor",
+  "canonical_repository": "eggie-admin/LuHm-OS",
+  "promotedMergeCommit": "7752ade36ad24c3970a0026c3911e3781606dbde",
+  "receipt": "doctrine/s24FeCockpitAuditSwitch-20260926.json",
+  "surface": "native Godot Cathedral cockpit",
+  "control": "AUDIT / SEAL · READ ONLY",
+  "target": "Samsung Galaxy S24 FE",
+  "testedSourceCommit": "a37e926b64ba2fbfb4526f1f7673b0d982694064",
+  "ci": {
+    "workflowRun": 36214881077,
+    "runNumber": 32,
+    "result": "SUCCESS",
+    "s24FePortrait1080x2340": "PASS",
+    "s24FeLandscape2340x1080": "PASS",
+    "godotImport": "PASS",
+    "runtimeSmoke": "PASS",
+    "androidExport": "PASS",
+    "aapt": "PASS",
+    "apksigner": "PASS",
+    "zipalign16k": "PASS",
+    "apkSha256": "cfb4fdb729f0a85b85556634bc1148656dea69c667daa524b6c7581e85cb2f19",
+    "artifactId": 10896958326,
+    "artifactArchiveSha256": "41cb96d0ed632ec215155c6eba1e29df2e6a01c1f5048a2dd5c3c511f0ecbd1d"
+  },
+  "boundaries": {
+    "networkPermissionAdded": false,
+    "webViewBridgeAdded": false,
+    "shellAuthorityAdded": false,
+    "runtimeMutationAuthorityAdded": false,
+    "releaseAuthorityAdded": false,
+    "publicationAuthorityAdded": false,
+    "productionSigningChanged": false
+  },
+  "pending": {
+    "physicalS24FeLaunch": true,
+    "physicalS24FeTouchInteraction": true,
+    "onDevicePageSizeRuntimeProof": true
+  },
+  "overallRepositoryStatus": "AMBER_PROPOSED_SEAL_OF_TRUTH",
+  "note": "This seal certifies the cockpit switch through CI and Android package verification only. Physical S24 FE interaction remains a separate evidence gate.",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}
