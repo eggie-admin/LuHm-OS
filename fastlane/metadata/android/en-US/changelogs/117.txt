@@ -1,0 +1,8 @@
+First compact public-beta preflight.
+
+- Separate beta package identity
+- ARM64-only Android build
+- Native library compression enabled
+- Local/offline runtime after install
+- Remote assets staged and verified at build time
+- 30 MB distribution-size gate
