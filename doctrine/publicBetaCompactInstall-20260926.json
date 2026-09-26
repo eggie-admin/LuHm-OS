@@ -1,0 +1,62 @@
+{
+  "schema": "luhm-os.public-beta-compact-install.v1",
+  "date": "2026-09-26",
+  "status": "AMBER_PREFLIGHT",
+  "authority": "Professor",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "package": "art.eggiebagelface.luhmos.beta",
+  "versionName": "1.0.17-beta.1",
+  "versionCode": 117,
+  "target": {
+    "abi": "arm64-v8a",
+    "minSdk": 24,
+    "targetSdk": 36,
+    "apkMaxBytes": 30000000,
+    "runtimeInternetPermission": false
+  },
+  "assetPipeline": {
+    "manifest": "remoteAssets/lum-full-pack.json",
+    "stager": "tools/stageRemoteAssets.py",
+    "remoteFetchPhase": "build_time_only",
+    "normalizedContainer": "DEFLATE_JAR",
+    "jarPurpose": "verified build cache and transport container only",
+    "finalContainer": "APK",
+    "remoteRuntimeFetch": false,
+    "fullAssetSizeGateRequired": true,
+    "mobileDerivativeRequiredIfOverBudget": true
+  },
+  "updates": {
+    "mechanism": "external_package_manager_or_signed_release",
+    "selfUpdater": false,
+    "persistentSignerRequired": true,
+    "signingSecretInRepository": false,
+    "sameCertificateRequiredForUpgrade": true,
+    "fastlaneMetadata": "fastlane/metadata/android/en-US",
+    "releaseArtifactRequired": true,
+    "releaseSha256Required": true
+  },
+  "securityGates": [
+    "remote archive SHA-256 verified before extraction",
+    "selected asset SHA-256 verified before staging",
+    "archive member traversal and symlink rejection",
+    "remote download byte ceiling",
+    "selected uncompressed asset byte ceiling",
+    "release APK must not be debuggable",
+    "APK signature verified with apksigner",
+    "16KB ZIP alignment verified",
+    "package/version identity verified with aapt",
+    "runtime INTERNET permission forbidden",
+    "30MB APK ceiling enforced",
+    "publication requires persistent beta signer"
+  ],
+  "knownBlockers": [
+    "current documented standalone Lum GLB is 56240120 bytes before engine/runtime packaging",
+    "full remote rigged asset build has not yet proven <=30MB",
+    "persistent beta signing custody is not configured in repository-visible state",
+    "remote asset provenance/license must be approved for public redistribution",
+    "IzzyOnDroid policy eligibility requires external maintainer review"
+  ],
+  "publicationAuthority": false,
+  "releasePromotion": false,
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}
