@@ -1,7 +1,6 @@
 extends Node3D
 
-# Crowned Cathedral toy runtime: native Godot world first, optional WebView chat glass second.
-# Android toy identity: art.eggiebagelface.luhmos.cathedraltoy / v121.
+# Crowned S24 FE kiosk runtime: caged WebView shell first, native Godot toy always underneath.
 const NeonWorldScript := preload("res://scripts/game/neonWorld.gd")
 const PlayerControllerScript := preload("res://scripts/game/playerController.gd")
 const GameHudScript := preload("res://scripts/game/gameHud.gd")
@@ -21,44 +20,42 @@ var intro_played := false
 func _ready() -> void:
     _build_runtime()
     _wire_runtime()
-    _enter_world()
-    game_hud.set_status("♛ CROWNED CATHEDRAL // KAI 9000 TOY MODE")
+    _enter_backend("full")
+    game_hud.set_status("♛ S24 FE KIOSK // CAGED WEBVIEW // GODOT UNDERLAY")
 
 func _build_runtime() -> void:
     neon_world = NeonWorldScript.new()
     neon_world.name = "NeonWorld"
     add_child(neon_world)
-
     player_controller = PlayerControllerScript.new()
     player_controller.name = "PlayerController"
     player_controller.position = neon_world.player_spawn
     add_child(player_controller)
-
     game_hud = GameHudScript.new()
     game_hud.name = "GameHud"
     add_child(game_hud)
-
     cutscene_director = CutsceneDirectorScript.new()
     cutscene_director.name = "CutsceneDirector"
     add_child(cutscene_director)
-
     cutscene_bridge = CutsceneBridgeScript.new()
     cutscene_bridge.name = "CutsceneBridge"
     add_child(cutscene_bridge)
     cutscene_bridge.configure(cutscene_director, player_controller, neon_world, game_hud)
-
     kai_webview_bridge = KaiWebViewBridgeScript.new()
     kai_webview_bridge.name = "KaiWebViewBridge"
     add_child(kai_webview_bridge)
 
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(_enter_world)
-    game_hud.backend_requested.connect(_enter_backend)
+    game_hud.backend_requested.connect(func(): _enter_backend("full"))
     game_hud.move_axis_changed.connect(player_controller.set_touch_axis)
     game_hud.toy_action_requested.connect(_on_toy_action)
     if kai_webview_bridge != null:
         kai_webview_bridge.world_requested.connect(_enter_world)
         kai_webview_bridge.toy_action_requested.connect(_on_toy_action)
+        kai_webview_bridge.ui_mode_requested.connect(_set_shell_mode)
+        kai_webview_bridge.background_requested.connect(_background_app)
+        kai_webview_bridge.exit_requested.connect(_exit_app)
 
 func _enter_world() -> void:
     if kai_webview_bridge != null:
@@ -69,7 +66,7 @@ func _enter_world() -> void:
         intro_played = true
         call_deferred("_play_intro")
 
-func _enter_backend() -> void:
+func _enter_backend(mode := "full") -> void:
     if cutscene_bridge != null:
         cutscene_bridge.cancel()
         cutscene_bridge.restore_now()
@@ -78,7 +75,31 @@ func _enter_backend() -> void:
     if game_hud != null:
         game_hud.show_backend()
     if kai_webview_bridge != null:
+        kai_webview_bridge.set_cockpit_mode(mode)
         kai_webview_bridge.show_cockpit()
+
+func _set_shell_mode(mode: String) -> void:
+    if mode not in ["full", "mini", "pet", "bubble"]:
+        return
+    if kai_webview_bridge != null:
+        kai_webview_bridge.set_cockpit_mode(mode)
+    if mode == "full":
+        player_controller.set_world_active(false)
+        game_hud.show_backend()
+    else:
+        game_hud.show_world()
+        player_controller.set_world_active(true)
+    game_hud.set_status("KAI 9000 SHELL // " + mode.to_upper())
+
+func _background_app() -> void:
+    if kai_webview_bridge != null:
+        kai_webview_bridge.set_cockpit_mode("bubble")
+        kai_webview_bridge.background_app()
+    game_hud.set_status("KAI 9000 // TASK BACKGROUNDED · NO PERSISTENT SERVICE CLAIM")
+
+func _exit_app() -> void:
+    if kai_webview_bridge != null:
+        kai_webview_bridge.exit_app()
 
 func _on_toy_action(action: String) -> void:
     match action:
@@ -92,7 +113,7 @@ func _on_toy_action(action: String) -> void:
             neon_world.crown_pulse()
             game_hud.set_status("♛ CROWN PULSE // PROFESSOR AUTHORITY CONFIRMED")
         "chat_glass":
-            _enter_backend()
+            _enter_backend("full")
         _:
             game_hud.set_status("KAI 9000 // UNKNOWN TOY ACTION BLOCKED")
 
