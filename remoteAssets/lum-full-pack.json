@@ -1,0 +1,26 @@
+{
+  "schema": "luhm-os.remote-asset-pack.v1",
+  "name": "lum-full-rigged-pack",
+  "transport": "google_drive",
+  "driveId": "1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen",
+  "archiveSha256": "fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da",
+  "maxDownloadBytes": 134217728,
+  "maxSelectedUncompressedBytes": 134217728,
+  "jarOutput": "build/remote-assets/luhm-runtime-assets.jar",
+  "members": [
+    {
+      "archivePath": "Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Character_output.glb",
+      "output": "assets/lum/luhm.glb",
+      "sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69"
+    },
+    {
+      "archivePath": "Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Animation_Running_withSkin.glb",
+      "output": "assets/lum/luhmRunning.glb",
+      "sha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0"
+    }
+  ],
+  "buildOnly": true,
+  "runtimeNetworkRequired": false,
+  "distributionAuthority": false,
+  "notes": "Pinned existing LuHm Drive donor. CI verifies bytes before staging. Public distribution still requires provenance/license review and a persistent beta signer."
+}
