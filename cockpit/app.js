@@ -3,10 +3,23 @@
   const $cockpit=$('#luhmCockpit');
   $cockpit.luhmDeck();
   $cockpit.luhmSite({home:'cathedral'});
+  $('[data-delivery-widget]').luhmDelivery({
+    channel:'KAI 9000 Proposed · 1.0.23',
+    drivePath:'LuHm OS / builds / KAI9000 / proposed / 2026-09-26',
+    sourceStatus:'exact-head candidate',
+    ciStatus:'device-independent build receipt required',
+    driveStatus:'connector receipt required',
+    deviceStatus:'Professor install + smoke required'
+  });
 
   function packageVersion(system,name){
     const item=system?.packages?.[name];
     return item&&item.versionName?String(item.versionName):'not installed';
+  }
+
+  function setDelivery(update){
+    const setter=$('[data-delivery-widget]').data('luhmDeliverySet');
+    if(typeof setter==='function')setter(update);
   }
 
   function handleReply(data){
@@ -31,6 +44,18 @@
       $('[data-system-chrome]').text(packageVersion(system,'com.chrome.canary'));
       $('[data-system-profile]').text(system.managedProfile?'managed/profile-isolated':'primary/standard');
       $('[data-system-admin]').text(adminText);
+      setDelivery({deviceStatus:'device probe received · install smoke still human-gated'});
+      return;
+    }
+    if(msg.type==='delivery.status'){
+      const payload=msg.payload||{};
+      setDelivery({
+        sourceStatus:String(payload.source||'candidate'),
+        ciStatus:String(payload.ci||'unknown'),
+        driveStatus:String(payload.drive||'unknown'),
+        deviceStatus:String(payload.device||'human install required')
+      });
+      $('[data-delivery-badge]').text('Delivery '+String(payload.ci||'candidate'));
       return;
     }
     if(msg.type==='chat.reply'){
