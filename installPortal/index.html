@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#08121a">
+  <title>Get LuHm OS</title>
+  <style>
+    :root{color-scheme:dark;--bg:#08121a;--panel:#0f2029;--ink:#e8fbff;--muted:#91aeb7;--cyan:#57f3ff;--amber:#ffd166;--green:#7cff9b;--line:#24414b}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 50% -10%,#17394a 0,var(--bg) 46%);color:var(--ink);font-family:system-ui,-apple-system,sans-serif;min-height:100dvh}
+    main{max-width:760px;margin:auto;padding:max(24px,env(safe-area-inset-top)) 20px max(28px,env(safe-area-inset-bottom))}
+    .crown{text-align:center;font-size:42px;margin-top:8px}.eyebrow{text-align:center;color:var(--cyan);font-weight:800;letter-spacing:.16em;font-size:.78rem}
+    h1{text-align:center;font-size:clamp(2.4rem,10vw,4.4rem);line-height:.9;margin:.3rem 0 .8rem} .tag{text-align:center;color:var(--muted);margin:0 auto 26px;max-width:34rem}
+    .card{background:color-mix(in srgb,var(--panel) 92%,transparent);border:1px solid var(--line);border-radius:24px;padding:18px;margin:14px 0;box-shadow:0 18px 50px #0007}
+    .install{display:block;text-decoration:none;text-align:center;background:linear-gradient(180deg,#8ff8ff,#45d8e8);color:#041114;font-weight:950;font-size:1.4rem;padding:22px;border-radius:18px;min-height:72px;box-shadow:0 0 28px #57f3ff35}
+    .install:active{transform:translateY(1px)} .status{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0 0}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 10px;font-size:.8rem;color:var(--muted)}
+    .green{color:var(--green)} .amber{color:var(--amber)} h2{font-size:1rem;letter-spacing:.08em;margin:0 0 12px;color:var(--cyan)}
+    code{font-family:ui-monospace,SFMono-Regular,monospace;color:#fff;overflow-wrap:anywhere}.chord{font-size:1.18rem;font-weight:850;margin:.4rem 0}.muted{color:var(--muted)}
+    .repo{display:block;border:1px solid var(--line);border-radius:16px;padding:15px;text-decoration:none;color:var(--muted);text-align:center;font-weight:800}.repo.ready{color:var(--ink);border-color:var(--cyan)}
+    footer{text-align:center;color:#66858f;font-size:.78rem;padding:18px 0} .tiny{font-size:.8rem}
+  </style>
+</head>
+<body>
+<main>
+  <div class="crown">👑</div>
+  <div class="eyebrow">LUHM OS · PRIVATE INSTALL LANE</div>
+  <h1>GET LUHM</h1>
+  <p class="tag">One portal. One APK. One very unnecessary Crown Chord.</p>
+
+  <section class="card">
+    <a class="install" href="./apk/current.apk" download>INSTALL LUHM</a>
+    <div class="status">
+      <span class="pill green" id="bundleState">● LAN BUNDLE</span>
+      <span class="pill" id="version">version loading…</span>
+      <span class="pill">S24 FE · ARM64</span>
+    </div>
+    <p class="tiny muted">Android may ask once which app is allowed to install packages. After that, this is the short lane.</p>
+  </section>
+
+  <section class="card">
+    <h2>CROWN CHORD</h2>
+    <div class="chord">🎮 START + SELECT → LuHm OS</div>
+    <p class="muted">In Key Mapper, create a parallel button combination, choose <b>Open app</b>, then select LuHm OS.</p>
+    <code id="packageName">art.eggiebagelface.luhmos.testing</code>
+  </section>
+
+  <section class="card">
+    <h2>LUHM REPO</h2>
+    <a id="repoLink" class="repo" aria-disabled="true">F-DROID UPDATE LANE · NOT ACTIVATED</a>
+    <p class="tiny muted">Reserved endpoint: <code>https://get.lum.eggiebagelface.lan/fdroid/repo/</code></p>
+  </section>
+
+  <section class="card">
+    <h2>RECEIPT</h2>
+    <div class="tiny muted">APK SHA-256</div>
+    <code id="sha">loading…</code>
+  </section>
+
+  <footer>AI proposes · Policy authorizes · CI proves · Human promotes</footer>
+</main>
+<script>
+fetch('./manifest.json',{cache:'no-store'}).then(r=>r.json()).then(m=>{
+  document.getElementById('version').textContent=m.versionName || 'candidate';
+  document.getElementById('packageName').textContent=m.packageName || 'unknown';
+  document.getElementById('sha').textContent=m.apkSha256 || 'UNKNOWN';
+  if(m.fdroidReady===true){
+    const a=document.getElementById('repoLink');
+    a.href='./fdroid/repo/'; a.classList.add('ready'); a.removeAttribute('aria-disabled'); a.textContent='ADD LUHM REPO';
+  }
+}).catch(()=>{
+  document.getElementById('bundleState').textContent='● MANIFEST UNKNOWN';
+  document.getElementById('bundleState').classList.remove('green');
+  document.getElementById('bundleState').classList.add('amber');
+});
+</script>
+</body>
+</html>
