@@ -10,6 +10,7 @@ const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
 const CutsceneBridgeScript := preload("res://scripts/game/cutsceneBridge.gd")
 const KaiWebViewBridgeScript := preload("res://scripts/platform/kaiWebViewBridge.gd")
 const CharacterCreatorRuntimeScript := preload("res://scripts/game/characterCreatorRuntime.gd")
+const RitualDirectorScript := preload("res://scripts/game/ritualDirector.gd")
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
 
 var neon_world: Node3D
@@ -19,6 +20,7 @@ var cutscene_director: Node
 var cutscene_bridge: Node
 var kai_webview_bridge: Node
 var character_creator: Node
+var ritual_director: Node
 var intro_played := false
 
 func _ready() -> void:
@@ -63,6 +65,11 @@ func _build_runtime() -> void:
     add_child(character_creator)
     character_creator.configure(neon_world, kai_webview_bridge)
 
+    ritual_director = RitualDirectorScript.new()
+    ritual_director.name = "WitchingHourRitualDirector"
+    add_child(ritual_director)
+    ritual_director.configure(neon_world, kai_webview_bridge, game_hud)
+
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
     game_hud.backend_requested.connect(_enter_backend)
@@ -102,11 +109,9 @@ func _enter_backend() -> void:
     if player_controller != null:
         player_controller.set_world_active(false)
     if _webglass_available():
-        # Android: Cathedral is HTML/CSS/jQuery/Vue glass over the still-rendered Godot world.
         _hide_native_hud_for_webglass()
         kai_webview_bridge.show_cockpit("fullscreen")
     elif game_hud != null:
-        # CI/headless/desktop fallback preserves deterministic audit coverage.
         game_hud.show_backend()
 
 func _on_web_camera_delta(delta: Vector2) -> void:
@@ -133,6 +138,8 @@ func _on_toy_action(action: String) -> void:
             game_hud.set_status("KAI 9000 // UNKNOWN TOY ACTION BLOCKED")
 
 func _on_quit_requested() -> void:
+    if ritual_director != null and ritual_director.has_method("cancel"):
+        ritual_director.cancel()
     get_tree().quit()
 
 func _play_intro() -> void:
