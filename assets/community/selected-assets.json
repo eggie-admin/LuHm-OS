@@ -18,10 +18,10 @@
   "groups": {
     "city-industrial": [
       "building-a.glb", "building-b.glb", "building-c.glb", "building-d.glb", "building-e.glb",
-      "platform.glb",
-      "roof-a.glb", "roof-b.glb", "roof-c.glb", "roof-d.glb", "roof-e.glb", "roof-f.glb", "roof-g.glb", "roof-h.glb", "roof-i.glb", "roof-j.glb",
-      "smokestack.glb", "smokestack-detailed.glb", "smokestack-tall.glb",
-      "tank-a.glb", "tank-b.glb", "tank-c.glb", "tank-d.glb", "tank-large-a.glb", "tank-large-b.glb"
+      "building-f.glb", "building-g.glb", "building-h.glb", "building-i.glb", "building-j.glb",
+      "building-k.glb", "building-l.glb", "building-m.glb", "building-n.glb", "building-o.glb",
+      "building-p.glb", "building-q.glb", "building-r.glb", "building-s.glb", "building-t.glb",
+      "chimney-basic.glb", "chimney-large.glb", "chimney-medium.glb", "chimney-small.glb", "detail-tank.glb"
     ],
     "factory": [
       "catwalk-corner.glb", "catwalk-cross.glb", "catwalk-junction.glb", "catwalk-stairs-loop.glb", "catwalk-stairs.glb", "catwalk-straight.glb",
