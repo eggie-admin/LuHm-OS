@@ -1,0 +1,58 @@
+name: KAI 9000 Final Install Route
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['proposed/kai9000-final-install-route-20260926']
+    paths:
+      - 'agents/luhm-agent-mesh/finalInstallWorkflow.json'
+      - 'doctrine/finalInstallRoute-20260926.json'
+      - 'doctrine/s24feCanaryAdminHarness-20260926.json'
+      - 'cockpit/**'
+      - 'native/kaiwebview/**'
+      - 'addons/kai_webview/**'
+      - 'scripts/buildFinalInstallCandidate.sh'
+      - 'tools/auditFinalInstallRoute.py'
+      - 'tools/auditSamsungHarness.py'
+      - 'project.godot'
+      - 'export_presets.cfg'
+      - '.github/workflows/final-install-route.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kai9000-final-install-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-final-install-candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact head
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+
+      - name: Build and hard-audit final proposed APK
+        shell: bash
+        run: bash scripts/buildFinalInstallCandidate.sh
+
+      - name: Upload exact-head install bundle
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-kai9000-final-install-${{ github.sha }}
+          path: build/android/
+          if-no-files-found: error
+          retention-days: 14
