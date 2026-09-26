@@ -10,17 +10,20 @@
     "conditional Critic and deterministic Tool Executor",
     "ten-pass hard audit integration",
     "fail-closed full source truth readiness evaluation",
-    "SOURCE_OF_TRUTH registration of the orchestration workflow"
+    "canonical SOURCE_OF_TRUTH registration of the orchestration workflow"
   ],
-  "testedSourceCommit": "612f332c8466af27febddf9a55c4a056dcd6f76a",
+  "canonicalOnMain": true,
+  "promotedByMergeCommit": "f54a3ece00dc4bdfe40c61d7fde218367443d0e2",
+  "testedSourceCommit": "a2e9b2c3388f2b4a5435d952d15d1c945e8a6317",
   "workflow": "LuHm OS Full Source Truth Audit",
-  "workflowRun": 36222798646,
+  "workflowRun": 36223273084,
   "workflowConclusion": "success",
-  "artifactId": 10899517864,
-  "artifactDigest": "sha256:b258d08ce0a09568e3a15286e8ba3b3f5f04f8d55182a29cc3d4e25eeb1b7ad6",
-  "sourceOfTruthSha256": "f3459017909957b31a260445c8de72076eb25c34c6637f3fd2c41ee240ebba87",
+  "artifactId": 10898784813,
+  "artifactDigest": "sha256:731c3b589f164897e826024afaa75eeecb5495b9964aeee7fb6308f91d54e82f",
+  "sourceOfTruthSha256": "9aba895bbc20e73e6e21a581b2c91066efcbe41e829ad7b1ccb60f8b1a65cd4f",
   "readiness": "AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING",
   "milestoneMutationComplete": false,
+  "contractErrors": [],
   "tenPassSummary": {
     "GREEN": 7,
     "AMBER": 3,
@@ -41,7 +44,7 @@
   ],
   "nextState": "ENTER_LUM_ONI_REPAIR_LOOP",
   "grants": {
-    "orchestrationWorkflowCanonicalCandidate": true,
+    "orchestrationWorkflowCanonical": true,
     "fullDemoGreen": false,
     "runtimeAuthority": false,
     "releaseAuthority": false,
@@ -52,9 +55,10 @@
   "promotion": {
     "scope": "doctrine and source-of-truth orchestration only",
     "professorApproved": true,
-    "mergeRequired": true,
+    "workflowCanonicalizationMergeRequired": false,
+    "postMergeMetadataMergeRequired": true,
     "releasePromotion": false,
     "publication": false
   },
-  "sealRule": "The workflow is GREEN because it reports the unresolved system state accurately. Full source truth remains AMBER until every required evidence gate is resolved."
+  "sealRule": "The orchestration workflow is canonical GREEN because it reports the unresolved system state accurately. Full source truth remains AMBER until every required evidence gate is resolved."
 }

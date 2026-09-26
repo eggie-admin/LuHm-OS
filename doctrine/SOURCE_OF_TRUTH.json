@@ -92,11 +92,12 @@
     "manual": "manual/LUHM_OS_LUM_ONI_FULL_SOURCE_TRUTH_WORKFLOW.md",
     "receipt": "doctrine/fullSourceTruthAudit-20260926.json",
     "seal": "doctrine/fullSourceTruthOrchestratorSeal-20260926.json",
-    "status": "GREEN_ORCHESTRATOR_AMBER_FULL_SEAL_PENDING",
-    "testedSourceCommit": "930323d465210854c000fda0b8618f96ca282872",
-    "workflowRun": 36222605871,
-    "artifactId": 10899143908,
-    "artifactDigest": "sha256:7b52558f83f4ca2ebe527a24c0aa8325674e1eff1780db29ebf5882171e5be3d",
+    "status": "GREEN_ORCHESTRATOR_CANONICAL_FULL_SOURCE_TRUTH_AMBER",
+    "promotedByMergeCommit": "f54a3ece00dc4bdfe40c61d7fde218367443d0e2",
+    "testedSourceCommit": "f46b023954d0ea75306ff11bf4b23a2055cf1d86",
+    "workflowRun": 36222975020,
+    "artifactId": 10899084241,
+    "artifactDigest": "sha256:cbf0c214bf2e20d29015cda308f7075a6d0481a4ecae3f45acf9c0b7dadeeed3",
     "milestoneMutationComplete": false,
     "readiness": "AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING",
     "contractErrors": 0,
@@ -106,9 +107,9 @@
     "productionSigningAuthority": false
   },
   "reconciliation": {
-    "observedMain": "37f20bbca7fc80e5f1e2ec1c170f96b6d8840e24",
+    "observedMain": "f54a3ece00dc4bdfe40c61d7fde218367443d0e2",
     "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b",
-    "status": "DOC_WORKFLOW_COCKPIT_INSTALL_PORTAL_AND_FULL_SOURCE_TRUTH_ORCHESTRATOR_RECONCILED_FULL_DEMO_AMBER",
-    "preserved": "Field manual and documentation workflow retained; broader Android and release state remain AMBER; S24 FE cockpit switch and LAN install bundle are CI-proven and canonical; Lum/Oni full-source-truth orchestration is CI-proven as a fail-closed audit workflow; physical device proof, LAN DNS, Apache serving, persistent update signing, enterprise readiness, and public exposure remain separate evidence or Crown gates"
+    "status": "FULL_SOURCE_TRUTH_ORCHESTRATOR_PROMOTED_FULL_DEMO_AMBER",
+    "preserved": "Lum/Oni fail-closed orchestration is canonical on main; documentation workflow, S24 FE cockpit switch, and LAN install bundle remain preserved; broader Android and release state remain AMBER; physical device proof, LAN DNS, Apache serving, persistent update signing, enterprise readiness, and public exposure remain separate evidence or Crown gates"
   }
 }
