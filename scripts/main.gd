@@ -43,11 +43,11 @@ func _build_runtime() -> void:
     cutscene_bridge.configure(cutscene_director, player_controller, neon_world, game_hud)
 
 func _wire_runtime() -> void:
-    game_hud.world_requested.connect(_enter_world)
+    game_hud.world_requested.connect(enterWorldMode)
     game_hud.backend_requested.connect(_enter_backend)
     game_hud.move_axis_changed.connect(player_controller.set_touch_axis)
 
-func _enter_world() -> void:
+func enterWorldMode() -> void:
     game_hud.show_world()
     player_controller.set_world_active(true)
     if not intro_played:

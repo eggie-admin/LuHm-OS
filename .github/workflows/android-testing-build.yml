@@ -12,6 +12,7 @@ on:
       - 'cutscenes/**'
       - 'tests/**'
       - 'tools/candidateGate.py'
+      - 'tools/runGodotSmoke.py'
       - 'doctrine/androidCandidate.json'
       - 'frontEnd/**'
       - '.github/workflows/android-testing-build.yml'
@@ -167,6 +168,7 @@ jobs:
       - name: Fail-closed source contract and negative controls
         run: |
           python3 tests/testCandidateGate.py
+          python3 tests/testSmokeRunner.py
           python3 tools/candidateGate.py
 
       - name: Import Godot project with Drive assets
@@ -179,8 +181,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          "$GODOT" --headless --path . --script res://tests/runtimeSmoke.gd
-          "$GODOT" --headless --path . --script res://tests/lumRigV2Phase1Smoke.gd
+          python3 tools/runGodotSmoke.py "$GODOT" layoutSmoke
+          python3 tools/runGodotSmoke.py "$GODOT" runtimeSmoke
+          python3 tools/runGodotSmoke.py "$GODOT" lumRigV2Phase1Smoke
 
       - name: Export Drive-3D testing APK
         shell: bash
@@ -188,8 +191,8 @@ jobs:
           set -euo pipefail
           mkdir -p build/android
           "$GODOT" --headless --path . --install-android-build-template \
-            --export-debug 'Android Proposed' build/android/luhmos-1.0.15-samsungamber.1.apk
-          test -s build/android/luhmos-1.0.15-samsungamber.1.apk
+            --export-debug 'Android Proposed' build/android/luhmos-1.0.16-samsunglayout.1.apk
+          test -s build/android/luhmos-1.0.16-samsunglayout.1.apk
 
       - name: Verify Drive-3D testing APK
         shell: bash
@@ -197,7 +200,7 @@ jobs:
           CANDIDATE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           set -euo pipefail
-          APK=build/android/luhmos-1.0.15-samsungamber.1.apk
+          APK=build/android/luhmos-1.0.16-samsunglayout.1.apk
           BT="$ANDROID_HOME/build-tools/36.1.0"
           "$BT/aapt" dump badging "$APK" | tee build/android/badging.txt
           "$BT/apksigner" verify --verbose --print-certs "$APK" | tee build/android/signature.txt

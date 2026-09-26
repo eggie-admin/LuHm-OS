@@ -54,8 +54,8 @@ func _run() -> void:
         var player3d := player as Node3D
         _check(player3d != null and player3d.global_position.y > -2.0, "player remains supported by world collision")
 
-    if game.has_method("_enter_world") and hud != null:
-        game.call("_enter_world")
+    if game.has_method("enterWorldMode") and hud != null:
+        game.call("enterWorldMode")
         await process_frame
         var world_root := hud.get("world_root") as Control
         var backend_root := hud.get("backend_root") as Control
