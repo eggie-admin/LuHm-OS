@@ -1,0 +1,137 @@
+{
+  "schema": "luhm-os.full-source-truth-orchestrator.v1",
+  "status": "GREEN_WORKFLOW_CANDIDATE_FULL_SOURCE_TRUTH_SEAL_PENDING",
+  "product": "LuHm OS",
+  "authority": "Professor",
+  "canonical_repository": "eggie-admin/LuHm-OS",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Fail-closed orchestration for reaching a fully working demo and sealing the canonical source of truth without allowing agents to self-promote evidence.",
+  "current_evaluation": {
+    "observed_main": "37f20bbca7fc80e5f1e2ec1c170f96b6d8840e24",
+    "source_status": "AMBER_PROPOSED_SEAL_OF_TRUTH",
+    "release_boundary": "PROPOSED_NOT_CROWNED",
+    "milestoneMutationComplete": false,
+    "next_state": "ENTER_LUM_ONI_REPAIR_LOOP"
+  },
+  "predicate": {
+    "name": "milestoneMutationComplete",
+    "true_when": [
+      "all required goal gates have evidence-backed GREEN state",
+      "the ten-pass hard audit contains no AMBER, RED, or UNKNOWN gate for the claimed scope",
+      "the proposed SOURCE_OF_TRUTH mutation is internally consistent",
+      "no proposed action violates RELEASE_BOUNDARY.json",
+      "the final seal points to exact receipts and tested commits"
+    ],
+    "on_false": "Lum coordinates bounded Oni workers to identify and repair the smallest evidence gap, then re-runs the audit.",
+    "on_true": "Stop autonomous mutation. Prepare the final source-of-truth seal and require human promotion for consequential release or publication actions."
+  },
+  "agent_mesh": {
+    "boss": {
+      "name": "Lum",
+      "role": "orchestrator",
+      "speaks_to": "Professor",
+      "may": [
+        "read current doctrine",
+        "plan bounded work",
+        "delegate to Oni workers",
+        "integrate evidence by reference",
+        "propose patches",
+        "run audits",
+        "prepare receipts"
+      ],
+      "may_not": [
+        "self-approve consequential mutations",
+        "claim GREEN without matching evidence",
+        "publish, production-sign, expose public services, or bypass Crown gates"
+      ]
+    },
+    "default_oni": [
+      {
+        "name": "Kiri",
+        "blade": "Context",
+        "job": "Resolve current source authority, dependencies, prior receipts, and blockers."
+      },
+      {
+        "name": "Tetsu",
+        "blade": "Build",
+        "job": "Draft the smallest reversible patch and matching tests."
+      },
+      {
+        "name": "Momo",
+        "blade": "Research",
+        "job": "Verify external or technical facts needed by the patch and return evidence references."
+      }
+    ],
+    "conditional_oni": {
+      "name": "Shiori",
+      "blade": "Critic",
+      "job": "Challenge unsupported GREEN, scope drift, doctrine conflicts, stale evidence, and unsafe promotion."
+    },
+    "deterministic_edge": {
+      "name": "Kugi",
+      "blade": "Tool Executor",
+      "job": "Perform only the exact approved file/tool mutation and return the resulting receipt."
+    },
+    "rules": [
+      "Helpers speak only to Lum.",
+      "Helpers do not recursively recruit.",
+      "Every helper has a bounded task and evidence budget.",
+      "Evidence moves by reference instead of copied full history.",
+      "Parallelism is capped at 3.",
+      "Direct questions bypass the mesh.",
+      "Consequential actions remain Crown-gated.",
+      "Tool Executor is deterministic and does not reinterpret scope."
+    ]
+  },
+  "repair_loop": [
+    "Sanity check current main, SOURCE_OF_TRUTH.json, RELEASE_BOUNDARY.json, and active canonical seals.",
+    "Run the ten-pass hard audit against the exact claimed scope.",
+    "If any required gate is AMBER, RED, or UNKNOWN, identify the smallest evidence gap.",
+    "Dispatch at most three Oni workers for context, build, and research. Summon Critic when evidence or scope is contested.",
+    "Lum integrates a proposed patch. No worker may self-approve it.",
+    "Tool Executor stages the exact mutation on a non-release branch.",
+    "Run tests that directly match the claim and collect receipts.",
+    "Re-run the ten-pass audit.",
+    "Audit the proposed SOURCE_OF_TRUTH mutation before promotion.",
+    "Patch SOURCE_OF_TRUTH only with evidence-backed status and exact receipt pointers.",
+    "Write a seal that explicitly lists remaining blockers and forbidden authority.",
+    "After CI and diff audit are GREEN, human promotion may merge the doctrine/source-of-truth update.",
+    "Post-merge, re-read canonical main and verify the seal points at the promoted state."
+  ],
+  "ten_pass_source": "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json#ten_pass_hard_audit",
+  "required_goal_gates": [
+    {
+      "id": "core_demo",
+      "evidence": "doctrine/samsungLayoutSeal-20260926.json",
+      "ready_when": "status is evidence-backed GREEN and physical device blockers are resolved"
+    },
+    {
+      "id": "s24fe_cockpit",
+      "evidence": "doctrine/s24FeCockpitAuditSwitchSeal-20260926.json",
+      "ready_when": "physicalS24FeProof is GREEN or VERIFIED"
+    },
+    {
+      "id": "install_portal",
+      "evidence": "doctrine/fqdnInstallPortalSeal-20260926.json",
+      "ready_when": "LAN DNS, Apache serving, and physical S24 FE install are GREEN or VERIFIED"
+    },
+    {
+      "id": "secure_update_identity",
+      "evidence": "canonical release/update receipt",
+      "ready_when": "persistent signing/update identity is verified for the claimed beta/update lane"
+    },
+    {
+      "id": "enterprise_readiness",
+      "evidence": "doctrine/SOURCE_OF_TRUTH.json",
+      "ready_when": "enterpriseReady is true only after its supporting controls are separately evidenced"
+    }
+  ],
+  "promotion_boundaries": {
+    "workflow_green_does_not_mean_full_demo_green": true,
+    "full_demo_green_does_not_mean_publication_authorized": true,
+    "release_boundary_file_remains_authoritative": true,
+    "production_signing_requires_separate_crown_action": true,
+    "public_exposure_requires_separate_crown_action": true
+  },
+  "final_rule": "Audit the claim, patch the gap, collect the receipt, then seal exactly what was proved."
+}
