@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-shell-mode="full">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
@@ -11,82 +11,113 @@
 </head>
 <body>
   <main id="luhmCockpit" class="cockpit" data-luhm-cockpit>
-    <header class="topGlass">
-      <strong>♛ LuHm OS</strong>
-      <span class="badge text-bg-dark">Godot toy world below</span>
-      <span class="badge text-bg-dark">WebView chat glass above</span>
-      <span class="badge text-bg-dark" data-kai-status>KAI 9000</span>
-      <span class="badge text-bg-dark" data-ollama-status>Ollama probe</span>
-      <span class="badge text-bg-dark" data-device-status>Samsung profile</span>
-      <span class="badge text-bg-dark" data-webview-status>WebView provider</span>
-      <span class="badge text-bg-dark" data-admin-status>standard app</span>
-      <span class="badge text-bg-dark" data-shizuku-status>Shizuku optional</span>
-      <span class="badge text-bg-dark" data-delivery-badge>Delivery candidate</span>
-      <span class="badge text-bg-dark" data-site-status>Crowned Cathedral</span>
-    </header>
+    <section class="fullShell" data-shell="full">
+      <header class="topGlass">
+        <strong>♛ LuHm OS</strong>
+        <span class="badge text-bg-dark">S24 FE kiosk harness</span>
+        <span class="badge text-bg-dark">Godot world below</span>
+        <span class="badge text-bg-dark" data-kai-status>KAI 9000</span>
+        <span class="badge text-bg-dark" data-ollama-status>Ollama external</span>
+        <span class="badge text-bg-dark" data-webview-status>WebView provider</span>
+        <span class="badge text-bg-dark" data-shizuku-status>Shizuku optional</span>
+      </header>
 
-    <section class="floatingPanel" id="chatPanel" data-luhm-panel>
-      <div class="panelTitle">Lum / Chat Glass</div>
-      <div class="panelBody">
-        <div class="messageStream" data-message-stream>
-          <p><b>Lum:</b> Native Godot owns the toy. The glass only reports what Android actually grants. 👹</p>
-        </div>
-        <form class="input-group" data-chat-form>
-          <input class="form-control" name="message" autocomplete="off" placeholder="Message Lum…">
-          <button class="btn btn-outline-light" type="submit">Send</button>
-        </form>
-      </div>
-    </section>
-
-    <section class="floatingPanel" id="agentPanel" data-luhm-panel>
-      <div class="panelTitle">Mini Oni Mesh</div>
-      <div class="panelBody small">
-        <div>Kiri · Context / doctrine · read only</div>
-        <div>Tetsu · Build / receipts · read only</div>
-        <div>Momo · Freshness / delivery · read only</div>
-        <div>Shiori · Critic · conditional</div>
-        <div>Kugi · deterministic executor</div>
-      </div>
-    </section>
-
-    <section class="floatingPanel" id="cmsPanel" data-luhm-panel hidden>
-      <div class="panelTitle">CMS Island · Vue</div>
-      <div class="panelBody" id="vueCmsApp">
-        <div class="row g-2">
-          <div class="col-6" v-for="card in cards" :key="card.id">
-            <button class="cmsCard" type="button" @click="select(card.id)">
-              <strong>{{ card.title }}</strong><small>{{ card.note }}</small>
-            </button>
+      <section class="floatingPanel" id="chatPanel" data-luhm-panel>
+        <div class="panelTitle">Lum / Chat Glass</div>
+        <div class="panelBody">
+          <div class="messageStream" data-message-stream>
+            <p><b>Lum:</b> Full glass, Winamp mini, pet inspector, bubble head, background, exit. Godot stays underneath. 👹</p>
           </div>
+          <form class="input-group" data-chat-form>
+            <input class="form-control" name="message" autocomplete="off" placeholder="Message Lum…">
+            <button class="btn btn-outline-light" type="submit">Send</button>
+          </form>
         </div>
+      </section>
+
+      <section class="floatingPanel" id="agentPanel" data-luhm-panel>
+        <div class="panelTitle">Mini Oni Mesh</div>
+        <div class="panelBody small">
+          <div>Kiri · context / doctrine</div>
+          <div>Tetsu · build / receipts</div>
+          <div>Momo · freshness / delivery</div>
+          <div>Shiori · critic</div>
+          <div>Kugi · deterministic executor</div>
+        </div>
+      </section>
+
+      <section class="floatingPanel" id="systemPanel" data-luhm-panel hidden>
+        <div class="panelTitle">Samsung System Harness · Read Only</div>
+        <div class="panelBody small">
+          <div><b>Device:</b> <span data-system-device>unprobed</span></div>
+          <div><b>WebView:</b> <span data-system-webview>unprobed</span></div>
+          <div><b>Chrome Canary:</b> <span data-system-chrome>unprobed</span></div>
+          <div><b>Profile:</b> <span data-system-profile>unprobed</span></div>
+          <div><b>Admin:</b> <span data-system-admin>unprobed</span></div>
+          <div><b>Shizuku:</b> <span data-system-shizuku>unprobed</span></div>
+          <div><b>Network:</b> packaged WebView payload, no INTERNET permission</div>
+          <div><b>Kiosk:</b> immersive soft-kiosk; lock-task not assumed</div>
+        </div>
+      </section>
+
+      <section class="floatingPanel" id="deliveryPanel" data-luhm-panel hidden data-delivery-widget>
+        <div class="panelTitle">♛ Final Install Route · Receipt Widget</div>
+        <div class="panelBody small">
+          <div><b>Channel:</b> <span data-delivery-channel>loading</span></div>
+          <div><b>Source:</b> <span data-delivery-source>candidate</span></div>
+          <div><b>GitHub CI:</b> <span data-delivery-ci>pending</span></div>
+          <div><b>Drive:</b> <span data-delivery-drive>pending</span></div>
+          <div><b>Build path:</b> <span data-delivery-drive-path>unresolved</span></div>
+          <div><b>Device:</b> <span data-delivery-device>human install required</span></div>
+        </div>
+      </section>
+
+      <nav class="bottomDock" aria-label="Cockpit modes">
+        <button class="btn btn-sm btn-outline-light" data-native-world>♛ World</button>
+        <button class="btn btn-sm btn-outline-light" data-ui-mode="full">Full</button>
+        <button class="btn btn-sm btn-outline-light" data-ui-mode="mini">Winamp</button>
+        <button class="btn btn-sm btn-outline-light" data-ui-mode="pet">Pet Inspect</button>
+        <button class="btn btn-sm btn-outline-light" data-ui-mode="bubble">Bubble</button>
+        <button class="btn btn-sm btn-outline-light" data-toggle-panel="systemPanel" data-request-status>System</button>
+        <button class="btn btn-sm btn-outline-light" data-toggle-panel="deliveryPanel">Build</button>
+        <button class="btn btn-sm btn-outline-light" data-app-background>Background</button>
+        <button class="btn btn-sm btn-outline-danger" data-app-exit>Exit</button>
+      </nav>
+    </section>
+
+    <section class="miniShell" data-shell="mini" aria-label="Winamp style minimal shell">
+      <div class="miniTitle">♛ LUHM 9000 <span data-mini-state>CANARY CAGE</span></div>
+      <div class="miniMeter"><span data-mini-lum>♥ LUM READY</span><span data-mini-kai>KAI LOCAL</span></div>
+      <div class="miniControls">
+        <button data-ui-mode="full">▣</button>
+        <button data-ui-mode="pet">♥</button>
+        <button data-ui-mode="bubble">●</button>
+        <button data-native-world>▶</button>
+        <button data-app-background>_</button>
+        <button data-app-exit>×</button>
       </div>
     </section>
 
-    <section class="floatingPanel" id="systemPanel" data-luhm-panel hidden>
-      <div class="panelTitle">Samsung System Harness · Read Only</div>
-      <div class="panelBody small">
-        <div><b>Device:</b> <span data-system-device>unprobed</span></div>
-        <div><b>WebView:</b> <span data-system-webview>unprobed</span></div>
-        <div><b>Chrome Canary:</b> <span data-system-chrome>unprobed</span></div>
-        <div><b>Profile:</b> <span data-system-profile>unprobed</span></div>
-        <div><b>Admin:</b> <span data-system-admin>unprobed</span></div>
-        <div><b>Shizuku:</b> <span data-system-shizuku>unprobed · optional native grant only</span></div>
-        <div><b>Root bridge:</b> disabled by doctrine</div>
-        <div><b>Termux admin login:</b> unsupported; separate Android app UID</div>
+    <section class="petShell" data-shell="pet" aria-label="Lum pet inspector">
+      <div class="petHead">👹</div>
+      <strong>LUM PET INSPECTOR</strong>
+      <small>local toy state · no privilege bridge</small>
+      <div class="petStats">
+        <span>mood <b>sparkly</b></span>
+        <span>KAI <b>local</b></span>
+        <span>WebView <b data-pet-webview>probe</b></span>
+      </div>
+      <div class="petActions">
+        <button data-toy-action="pet_lum">♥ PET</button>
+        <button data-toy-action="oni_pop">👹 ONI</button>
+        <button data-ui-mode="mini">MINI</button>
+        <button data-ui-mode="bubble">BUBBLE</button>
+        <button data-ui-mode="full">FULL</button>
       </div>
     </section>
 
-    <section class="floatingPanel" id="deliveryPanel" data-luhm-panel hidden data-delivery-widget>
-      <div class="panelTitle">♛ Final Install Route · Receipt Widget</div>
-      <div class="panelBody small">
-        <div><b>Channel:</b> <span data-delivery-channel>loading</span></div>
-        <div><b>Source:</b> <span data-delivery-source>candidate</span></div>
-        <div><b>GitHub CI:</b> <span data-delivery-ci>pending</span></div>
-        <div><b>Drive:</b> <span data-delivery-drive>pending</span></div>
-        <div><b>Build path:</b> <span data-delivery-drive-path>unresolved</span></div>
-        <div><b>Device:</b> <span data-delivery-device>human install required</span></div>
-        <div><b>Silent install:</b> forbidden</div>
-      </div>
+    <section class="bubbleShell" data-shell="bubble" aria-label="Lum chat head bubble">
+      <button class="bubbleHead" data-ui-mode="pet" aria-label="Open Lum pet inspector">👹</button>
     </section>
 
     <section hidden data-luhm-site-view="cathedral"></section>
@@ -94,19 +125,6 @@
     <section hidden data-luhm-site-view="cms"></section>
     <section hidden data-luhm-site-view="memory"></section>
     <section hidden data-luhm-site-view="system"></section>
-
-    <nav class="bottomDock" aria-label="Cockpit panels">
-      <button class="btn btn-sm btn-outline-light" data-native-world>♛ Toy World</button>
-      <button class="btn btn-sm btn-outline-light" data-toggle-panel="chatPanel">Chat</button>
-      <button class="btn btn-sm btn-outline-light" data-toggle-panel="agentPanel">Onis</button>
-      <button class="btn btn-sm btn-outline-light" data-toggle-panel="cmsPanel">CMS</button>
-      <button class="btn btn-sm btn-outline-light" data-toggle-panel="systemPanel" data-request-status>System</button>
-      <button class="btn btn-sm btn-outline-light" data-toggle-panel="deliveryPanel">Build Route</button>
-      <button class="btn btn-sm btn-outline-light" data-toy-action="pet_lum">♥ Pet Lum</button>
-      <button class="btn btn-sm btn-outline-light" data-toy-action="oni_pop">👹 Oni Pop</button>
-      <button class="btn btn-sm btn-outline-light" data-toy-action="crown_pulse">♛ Pulse</button>
-      <button class="btn btn-sm btn-outline-light" data-request-status>Status</button>
-    </nav>
   </main>
 
   <script src="./vendor/jquery/jquery.min.js"></script>
