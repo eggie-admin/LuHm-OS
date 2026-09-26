@@ -11,7 +11,9 @@ on:
       - 'assets/**'
       - 'cutscenes/**'
       - 'fastlane/**'
-      - 'doctrine/izzyOnDroidBetaEligibility-20260926.json'
+      - 'remoteAssets/**'
+      - 'tools/stageRemoteAssets.py'
+      - 'doctrine/publicBetaCompactInstall-20260926.json'
       - '.github/workflows/public-beta-izzy-preflight.yml'
 
 concurrency:
@@ -24,7 +26,7 @@ permissions:
 jobs:
   public-beta-preflight:
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -81,21 +83,25 @@ jobs:
           export/android/java_sdk_path = "$JAVA_HOME"
           SETTINGS
 
-      - name: Assert source-only Lum fallback lane
+      - name: Stage pinned remote runtime assets through JAR cache
         shell: bash
         run: |
           set -euo pipefail
-          test ! -e assets/lum/luhm.glb
-          test ! -e assets/lum/luhmRunning.glb
-          grep -q 'lightweight procedural Lum fallback' assets/lum/README.md
+          python3 tools/stageRemoteAssets.py --manifest remoteAssets/lum-full-pack.json
+          test -s build/remote-assets/luhm-runtime-assets.jar
+          test -s build/remote-assets/stage-report.json
+          test -s assets/lum/luhm.glb
+          test -s assets/lum/luhmRunning.glb
+          python3 -m json.tool build/remote-assets/stage-report.json >/dev/null
+          stat -c 'REMOTE_ASSET_JAR_BYTES=%s' build/remote-assets/luhm-runtime-assets.jar | tee build/remote-assets/jar-size.txt
 
-      - name: Import source-only Godot project
+      - name: Import Godot project with verified remote assets
         shell: bash
         run: |
           set -euo pipefail
           "$GODOT" --headless --editor --path . --quit
 
-      - name: Runtime smoke source-only fallback
+      - name: Runtime smoke with staged assets
         shell: bash
         run: |
           set -euo pipefail
@@ -112,13 +118,14 @@ jobs:
             build/public-beta/LuHm-OS-1.0.17-beta.1-arm64.apk
           test -s build/public-beta/LuHm-OS-1.0.17-beta.1-arm64.apk
 
-      - name: Verify beta APK metadata and signature
+      - name: Verify beta APK identity security and signature
         shell: bash
         run: |
           set -euo pipefail
           APK=build/public-beta/LuHm-OS-1.0.17-beta.1-arm64.apk
           BT="$ANDROID_HOME/build-tools/36.1.0"
           "$BT/aapt" dump badging "$APK" | tee build/public-beta/badging.txt
+          "$BT/aapt" dump permissions "$APK" | tee build/public-beta/permissions.txt
           "$BT/apksigner" verify --verbose --print-certs "$APK" | tee build/public-beta/signature.txt
           "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/public-beta/zipalign.txt
           sha256sum "$APK" | tee build/public-beta/sha256.txt
@@ -127,8 +134,12 @@ jobs:
             echo 'ERROR: release preflight APK is debuggable' >&2
             exit 1
           fi
+          if grep -q 'android.permission.INTERNET' build/public-beta/permissions.txt; then
+            echo 'ERROR: compact local beta unexpectedly requests INTERNET permission' >&2
+            exit 1
+          fi
 
-      - name: Enforce IzzyOnDroid 30 MB APK ceiling
+      - name: Enforce 30 MB final APK ceiling
         shell: bash
         run: |
           set -euo pipefail
@@ -141,19 +152,21 @@ jobs:
           limit=$LIMIT
           print(f'APK bytes: {size}')
           print(f'APK MiB: {size / 1024 / 1024:.2f}')
-          print(f'Izzy preflight limit bytes: {limit}')
-          print('IZZY_SIZE_GATE=' + ('PASS' if size <= limit else 'FAIL'))
+          print(f'Compact beta limit bytes: {limit}')
+          print('COMPACT_SIZE_GATE=' + ('PASS' if size <= limit else 'FAIL'))
           PY
           if [ "$SIZE" -gt "$LIMIT" ]; then
-            echo "ERROR: APK exceeds IzzyOnDroid preflight ceiling: $SIZE > $LIMIT bytes" >&2
+            echo "ERROR: full-asset APK exceeds compact beta ceiling: $SIZE > $LIMIT bytes" >&2
             exit 1
           fi
 
-      - name: Upload public beta preflight artifact
+      - name: Upload public beta preflight evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: luhm-os-public-beta-izzy-preflight
-          path: build/public-beta/
+          path: |
+            build/public-beta/
+            build/remote-assets/
           if-no-files-found: warn
           retention-days: 14
