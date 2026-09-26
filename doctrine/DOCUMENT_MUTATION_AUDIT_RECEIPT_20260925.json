@@ -1,0 +1,44 @@
+{
+  "schema": "luhm-os.document-mutation-audit-receipt.v1",
+  "date": "2026-09-25",
+  "status": "GREEN_DOCUMENTATION_CANDIDATE",
+  "repository": "eggie-admin/LuHm-OS",
+  "base_main_sha": "57e954116bdb8df9280b7149b7b8f38040df1f76",
+  "branch": "docs/mutation-audit-workflow-20260925",
+  "mutation_commits": [
+    "d8f03f4ef7ee4a71c8fdf141e76cf12d6f9c20d8",
+    "f6075e8f74b503a8eb07f1bb8b86fea0b2e36871"
+  ],
+  "artifacts": [
+    "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json",
+    "manual/LUHM_OS_MUTATION_AUDIT_SEAL_WORKFLOW.md"
+  ],
+  "audit": {
+    "authority_resolved": true,
+    "canonical_repository_confirmed": true,
+    "current_source_law_preserved": true,
+    "hydra_learning_loop_preserved": true,
+    "release_boundary_preserved": true,
+    "legacy_runtime_authority_reintroduced": false,
+    "secrets_added": false,
+    "production_signing_authority_added": false,
+    "publication_authority_added": false,
+    "software_green_claimed": false
+  },
+  "scope": "Documentation doctrine and reusable workflow only.",
+  "proved": [
+    "The new doctrine file exists on the review branch.",
+    "The new manual workflow file exists on the review branch.",
+    "The workflow mirrors Quest, Scout, Plan, Mutate, Test, Collect Receipts, Gate, and Seal.",
+    "The workflow explicitly separates documentation GREEN from software or release GREEN."
+  ],
+  "not_proved": [
+    "No software release was promoted.",
+    "No runtime architecture was changed.",
+    "No production signer was configured.",
+    "No publication occurred.",
+    "No device compatibility claim was made."
+  ],
+  "promotion": "Human review and merge remain separate Crown actions.",
+  "final_gate": "GREEN_DOCUMENTATION_CANDIDATE"
+}
