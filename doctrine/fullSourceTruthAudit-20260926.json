@@ -4,12 +4,12 @@
   "authority": "Professor",
   "canonical_repository": "eggie-admin/LuHm-OS",
   "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
-  "testedSourceCommit": "930323d465210854c000fda0b8618f96ca282872",
+  "testedSourceCommit": "612f332c8466af27febddf9a55c4a056dcd6f76a",
   "workflow": "LuHm OS Full Source Truth Audit",
-  "workflowRun": 36222605871,
+  "workflowRun": 36222798646,
   "workflowConclusion": "success",
-  "artifactId": 10899143908,
-  "artifactDigest": "sha256:7b52558f83f4ca2ebe527a24c0aa8325674e1eff1780db29ebf5882171e5be3d",
+  "artifactId": 10899517864,
+  "artifactDigest": "sha256:b258d08ce0a09568e3a15286e8ba3b3f5f04f8d55182a29cc3d4e25eeb1b7ad6",
   "readiness": "AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING",
   "milestoneMutationComplete": false,
   "nextState": "ENTER_LUM_ONI_REPAIR_LOOP",
@@ -39,7 +39,7 @@
     {"gate": "enterprise_readiness", "reason": "enterpriseReady=false"}
   ],
   "inputHashes": {
-    "doctrine/SOURCE_OF_TRUTH.json": "4fa6fd7cece2877abe0210a793bbe8c57932b0bc16926c3cb7c80b468a1304d8",
+    "doctrine/SOURCE_OF_TRUTH.json": "f3459017909957b31a260445c8de72076eb25c34c6637f3fd2c41ee240ebba87",
     "doctrine/RELEASE_BOUNDARY.json": "7ab36867e9570ece664bd188f4cdc09d28b9b38082f78cca5f9c65b0798427b7",
     "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json": "dd70af17234de37ee805288603b83ad8a5889818943ab8989f84caac5ad0323c",
     "doctrine/fullSourceTruthOrchestrator-20260926.json": "633962eb2c39b714050fd71bf8e83fff8397326101a7bd7ba3e543efa0160ac9",
@@ -52,5 +52,5 @@
   "releaseAuthority": false,
   "publicationAuthority": false,
   "productionSigningAuthority": false,
-  "note": "The orchestration/audit contract is CI-proven GREEN. Full-demo/source-of-truth readiness remains AMBER until the listed evidence gates are resolved."
+  "note": "The orchestration/audit contract is CI-proven GREEN after the proposed SOURCE_OF_TRUTH mutation. Full-demo/source-of-truth readiness remains AMBER until the listed evidence gates are resolved."
 }
