@@ -1,9 +1,9 @@
 {
   "schema": "luhmOs.androidCandidate.v1",
-  "status": "PROPOSED_AMBER_CATHEDRAL_TOY_COMMUNITY",
-  "package": "art.eggiebagelface.luhmos.cathedraltoy.community",
-  "versionCode": 123,
-  "versionName": "1.0.23-cathedral.community.1",
+  "status": "PROPOSED_AMBER_ONI_ATELIER_BODYFORGE",
+  "package": "art.eggiebagelface.luhmos.cathedraltoy.atelier",
+  "versionCode": 125,
+  "versionName": "1.0.25-cathedral.atelier.1",
   "minSdk": 24,
   "targetSdk": 36,
   "abi": "arm64-v8a",
@@ -13,13 +13,30 @@
   ],
   "signing": "disposable-debug-only",
   "persistentSigner": false,
-  "installScope": "side-by-side Cathedral toy community candidate; exact APK certificate and hash check required before replacement",
+  "installScope": "side-by-side Oni Atelier character-creator candidate; exact APK certificate and hash check required before replacement",
   "assetLane": {
     "manifest": "assets/community/selected-assets.json",
     "count": 77,
     "license": "CC0",
     "fetch": "build-time-only-at-immutable-source-commit",
     "runtimeNetwork": false
+  },
+  "characterCreator": {
+    "mode": "runtime_non_destructive",
+    "engine": "SkeletonModifier3D post-animation proportion lane",
+    "sliders": [
+      "height",
+      "head",
+      "shoulders",
+      "torso",
+      "arms",
+      "legs",
+      "hips",
+      "frame"
+    ],
+    "meshMorphTargetsObserved": 0,
+    "persistence": false,
+    "typedBridgeOnly": true
   },
   "promotion": false,
   "orientation": "sensor-portrait-and-landscape",
