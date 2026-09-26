@@ -118,5 +118,13 @@
     "observedMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
     "status": "AMBER_PROPOSED_NOT_PROMOTED",
     "installedSkillUpdated": false
+  },
+  "witchingHour": {
+    "status": "AMBER_SEALED_CANDIDATE",
+    "testedSourceCommit": "1f2da744ab843d1f710727d0a27c61264b84d235",
+    "receipt": "doctrine/witchingHourSeal-20260926.json",
+    "report": "doctrine/witchingHourReadiness-20260926.json",
+    "pullRequest": 28,
+    "promotionAuthorized": false
   }
 }
