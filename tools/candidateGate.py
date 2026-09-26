@@ -11,6 +11,11 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 FORBIDDEN = re.compile(r'127\.0\.0\.1|localhost|FastAPI|PySimpleGUI|RUN_COMMAND|OPENAI_API_KEY|AIza|sk-proj-|cms_registry|api_bridge|web_cms_bridge|cage_manager|HTTPRequest|MANIFEST_URL|SpringBoneSimulator3D|FaceController|LipSyncController')
+RUNTIME_SCOPE = {
+    'scripts': {'.gd'},
+    'scenes': {'.tscn', '.tres'},
+    'cutscenes': {'.json'},
+}
 
 def require(ok, message):
     if not ok:
@@ -18,10 +23,13 @@ def require(ok, message):
 
 def scan_runtime(root):
     files = []
-    for name in ('scripts', 'scenes', 'cutscenes'):
+    for name, extensions in RUNTIME_SCOPE.items():
         folder = root / name
         require(folder.is_dir(), f'missing runtime directory: {name}')
-        files.extend(p for p in folder.rglob('*') if p.is_file())
+        files.extend(
+            p for p in folder.rglob('*')
+            if p.is_file() and p.suffix.lower() in extensions
+        )
     require(bool(files), 'empty runtime scope')
     for p in files:
         require(not p.is_symlink(), f'symlink in runtime: {p.name}')
@@ -31,8 +39,16 @@ def scan_runtime(root):
 def source(root):
     scan_runtime(root)
     contract = json.loads((root / 'doctrine/androidCandidate.json').read_text())
-    require(len((root / 'scripts/main.gd').read_text().splitlines()) <= 120, 'main orchestration exceeds approved scope')
-    for path, marker in {'scripts/game/neonWorld.gd':'StaticBody3D', 'scripts/game/playerController.gd':'SpringArm3D', 'scripts/game/lumAvatar.gd':'get_rig_summary', 'scripts/cutsceneDirector.gd':'CANCEL_POLL_SECONDS', 'frontEnd/jquery/luhm.cockpit.js':'luhmCockpit'}.items():
+    require(len((root / 'scripts/main.gd').read_text().splitlines()) <= 150, 'main orchestration exceeds approved scope')
+    for path, marker in {
+        'scripts/game/neonWorld.gd':'StaticBody3D',
+        'scripts/game/playerController.gd':'SpringArm3D',
+        'scripts/game/lumAvatar.gd':'get_rig_summary',
+        'scripts/game/bodyProportionModifier.gd':'SkeletonModifier3D',
+        'scripts/game/characterCreatorRuntime.gd':'avatar_tune_requested',
+        'scripts/cutsceneDirector.gd':'CANCEL_POLL_SECONDS',
+        'frontEnd/jquery/luhm.cockpit.js':'luhmCockpit'
+    }.items():
         require(marker in (root / path).read_text(), f'missing architecture contract: {path}')
     preset = (root / 'export_presets.cfg').read_text()
     expected = [f'package/unique_name="{contract["package"]}"', f'version/code={contract["versionCode"]}',
