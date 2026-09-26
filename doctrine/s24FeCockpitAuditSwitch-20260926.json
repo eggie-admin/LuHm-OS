@@ -1,0 +1,46 @@
+{
+  "schema": "luhm-os.s24fe-cockpit-audit-switch.v1",
+  "date": "2026-09-26",
+  "status": "AMBER_CI_AND_DEVICE_PROOF_PENDING",
+  "authority": "Professor",
+  "canonical_repository": "eggie-admin/LuHm-OS",
+  "target": {
+    "device": "Samsung Galaxy S24 FE",
+    "display_profile": "1080x2340 portrait and 2340x1080 landscape",
+    "abi": "arm64-v8a",
+    "target_sdk": 36,
+    "package": "art.eggiebagelface.luhmos.testing"
+  },
+  "mutation": {
+    "surface": "native Godot Cathedral cockpit",
+    "control": "AUDIT / SEAL · READ ONLY",
+    "touch_target_minimum_px": 88,
+    "reads": [
+      "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json",
+      "doctrine/DOCUMENT_MUTATION_AUDIT_SEAL_20260926.json"
+    ],
+    "network_required": false,
+    "shell_authority": false,
+    "runtime_mutation_authority": false,
+    "release_authority": false,
+    "publication_authority": false
+  },
+  "fail_closed": {
+    "missing_workflow": "UNKNOWN",
+    "missing_seal": "UNKNOWN",
+    "fake_green_allowed": false
+  },
+  "proof_required": [
+    "Godot 4.7.2 import and parse",
+    "layoutSmoke includes 1080x2340 and 2340x1080",
+    "runtime smoke",
+    "Android debug export",
+    "aapt package verification",
+    "apksigner verification",
+    "zipalign verification",
+    "SHA-256 APK receipt",
+    "physical S24 FE launch and switch interaction proof"
+  ],
+  "promotion": false,
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}
