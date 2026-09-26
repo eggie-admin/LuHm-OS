@@ -3,6 +3,7 @@ extends CanvasLayer
 signal world_requested
 signal backend_requested
 signal move_axis_changed(axis: Vector2)
+signal toy_action_requested(action: String)
 
 var backend_root: Control
 var world_root: Control
@@ -35,26 +36,26 @@ func _build_backend() -> void:
     backend_root.add_child(panel)
 
     var title := Label.new()
-    title.text = "LUHM OS // BACKEND CATHEDRAL"
+    title.text = "♛ LUHM OS // CROWNED CATHEDRAL"
     title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     title.add_theme_font_size_override("font_size", 42)
     panel.add_child(title)
 
     var sub := Label.new()
-    sub.text = "NATIVE GODOT SYSTEM COCKPIT · HUMAN CROWN GATE"
+    sub.text = "KAI 9000 TOY COCKPIT · GODOT OWNS THE WORLD · HUMAN CROWN GATE"
     sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     sub.add_theme_font_size_override("font_size", 19)
     panel.add_child(sub)
 
     var line := Label.new()
-    line.text = "Godot 4 hard-architecture dry run\nNeon Riverwalk game runtime isolated behind the Crown."
+    line.text = "Chat glass is optional. The native world is the toy.\nTap back into the Cathedral whenever you want to play."
     line.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     line.add_theme_font_size_override("font_size", 25)
     panel.add_child(line)
 
     var enter := Button.new()
-    enter.text = "ENTER NEON RIVERWALK"
+    enter.text = "BACK TO THE TOY WORLD"
     enter.custom_minimum_size = Vector2(0.0, 104.0)
     enter.add_theme_font_size_override("font_size", 30)
     enter.pressed.connect(func(): world_requested.emit())
@@ -66,24 +67,35 @@ func _build_world_hud() -> void:
     world_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     add_child(world_root)
 
+    var crown := Label.new()
+    crown.text = "♛ KAI 9000 CROWN TOY"
+    crown.anchor_left = 0.32
+    crown.anchor_right = 0.68
+    crown.anchor_top = 0.015
+    crown.anchor_bottom = 0.07
+    crown.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    crown.add_theme_font_size_override("font_size", 24)
+    crown.add_theme_color_override("font_color", Color("ffe178"))
+    world_root.add_child(crown)
+
     var backend := Button.new()
-    backend.text = "⬡ BACKEND"
+    backend.text = "💬 CHAT GLASS"
     backend.anchor_left = 0.02
-    backend.anchor_right = 0.25
+    backend.anchor_right = 0.22
     backend.anchor_top = 0.02
-    backend.anchor_bottom = 0.07
-    backend.add_theme_font_size_override("font_size", 22)
+    backend.anchor_bottom = 0.08
+    backend.add_theme_font_size_override("font_size", 20)
     backend.pressed.connect(func(): backend_requested.emit())
     world_root.add_child(backend)
 
     status_label = Label.new()
-    status_label.text = "NEON RIVERWALK // CROWN GREEN DRY RUN"
-    status_label.anchor_left = 0.28
-    status_label.anchor_right = 0.96
+    status_label.text = "♛ CROWNED CATHEDRAL // KAI 9000 TOY MODE"
+    status_label.anchor_left = 0.56
+    status_label.anchor_right = 0.98
     status_label.anchor_top = 0.02
-    status_label.anchor_bottom = 0.07
+    status_label.anchor_bottom = 0.08
     status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-    status_label.add_theme_font_size_override("font_size", 21)
+    status_label.add_theme_font_size_override("font_size", 18)
     world_root.add_child(status_label)
 
     dialogue_label = Label.new()
@@ -106,16 +118,37 @@ func _build_world_hud() -> void:
     _dpad_button("▼", Vector2(0.0, 1.0), 0.12, -0.14)
     _dpad_button("▶", Vector2(1.0, 0.0), 0.21, -0.14)
 
+    var toy_belt := HBoxContainer.new()
+    toy_belt.name = "ToyBelt"
+    toy_belt.anchor_left = 0.37
+    toy_belt.anchor_right = 0.98
+    toy_belt.anchor_top = 0.84
+    toy_belt.anchor_bottom = 0.97
+    toy_belt.add_theme_constant_override("separation", 12)
+    world_root.add_child(toy_belt)
+    _toy_button(toy_belt, "♥ PET LUM", "pet_lum")
+    _toy_button(toy_belt, "👹 ONI POP", "oni_pop")
+    _toy_button(toy_belt, "♛ CROWN PULSE", "crown_pulse")
+
     var camera_hint := Label.new()
-    camera_hint.text = "DRAG RIGHT SIDE · CAMERA"
-    camera_hint.anchor_left = 0.55
-    camera_hint.anchor_right = 0.95
-    camera_hint.anchor_top = 0.90
-    camera_hint.anchor_bottom = 0.95
+    camera_hint.text = "LEFT PAD = WALK · DRAG RIGHT SIDE = CAMERA · TOY BELT = FUN"
+    camera_hint.anchor_left = 0.34
+    camera_hint.anchor_right = 0.96
+    camera_hint.anchor_top = 0.77
+    camera_hint.anchor_bottom = 0.82
     camera_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-    camera_hint.add_theme_font_size_override("font_size", 18)
+    camera_hint.add_theme_font_size_override("font_size", 16)
     camera_hint.modulate = Color(1, 1, 1, 0.66)
     world_root.add_child(camera_hint)
+
+func _toy_button(parent: HBoxContainer, text_value: String, action: String) -> void:
+    var button := Button.new()
+    button.text = text_value
+    button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    button.custom_minimum_size = Vector2(170.0, 74.0)
+    button.add_theme_font_size_override("font_size", 20)
+    button.pressed.connect(func(): toy_action_requested.emit(action))
+    parent.add_child(button)
 
 func _dpad_button(glyph: String, axis: Vector2, left_anchor: float, top_offset_fraction: float) -> void:
     var button := Button.new()
