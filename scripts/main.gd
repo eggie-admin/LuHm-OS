@@ -1,6 +1,7 @@
 extends Node3D
 
 # Crowned Cathedral toy runtime: native Godot world first, optional WebView chat glass second.
+# Android toy identity: art.eggiebagelface.luhmos.cathedraltoy / v121.
 const NeonWorldScript := preload("res://scripts/game/neonWorld.gd")
 const PlayerControllerScript := preload("res://scripts/game/playerController.gd")
 const GameHudScript := preload("res://scripts/game/gameHud.gd")
