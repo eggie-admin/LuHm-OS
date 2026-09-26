@@ -36,7 +36,7 @@ func _build_backend() -> void:
     backend_root.add_child(panel)
 
     var title := Label.new()
-    title.text = "♛ LUHM OS // CROWNED CATHEDRAL"
+    title.text = "♛ LUHM OS // BACKEND CATHEDRAL // CROWNED"
     title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     title.add_theme_font_size_override("font_size", 42)
     panel.add_child(title)
