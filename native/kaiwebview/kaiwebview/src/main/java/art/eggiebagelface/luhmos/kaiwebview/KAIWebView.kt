@@ -60,6 +60,13 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
     }
 
     @UsedByGodot
+    fun getShizukuCapability(): String = ShizukuCapability.snapshot().toString()
+
+    @UsedByGodot
+    fun requestShizukuPermissionFromNativeUserAction(): Boolean =
+        ShizukuCapability.requestPermissionFromExplicitNativeAction()
+
+    @UsedByGodot
     fun postToCockpit(json: String) {
         runOnHostThread {
             val quoted = JSONObject.quote(json)
