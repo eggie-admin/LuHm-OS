@@ -1,0 +1,84 @@
+{
+  "schema": "luhm-os.s24fe-kiosk-harness.v1",
+  "date": "2026-09-26",
+  "authority": {"crown":"Professor","human_final_authority":true},
+  "target": "Samsung S24 FE family / Android 16 candidate lane",
+  "launch_mode": "full",
+  "modes": {
+    "full": "full-screen immersive caged WebView over native Godot",
+    "mini": "Winamp-style compact in-app WebView floating over Godot",
+    "pet": "Lum pet inspection card floating over Godot",
+    "bubble": "in-app Lum chat-head bubble floating over Godot",
+    "background": "ordinary Android moveTaskToBack; no persistent-service claim",
+    "exit": "explicit finishAndRemoveTask/finish from user action"
+  },
+  "kiosk": {
+    "soft_immersive": true,
+    "hide_system_bars": true,
+    "transient_bars_by_swipe": true,
+    "lock_task_device_owner_assumed": false,
+    "system_alert_window": false,
+    "draw_over_other_apps": false
+  },
+  "webview": {
+    "content_origin": "https://appassets.androidplatform.net",
+    "network": "dark",
+    "internet_permission": false,
+    "provider_selection": "Android system controlled",
+    "canary_supported_when_selected_by_android": true,
+    "chrome_canary_is_browser_not_forced_webview_provider": true,
+    "file_access": false,
+    "content_access": false,
+    "dom_storage": false,
+    "mixed_content": false,
+    "multiple_windows": false,
+    "zoom": false,
+    "external_navigation": false
+  },
+  "backend": {
+    "android_runtime": "native Godot + caged WebView only",
+    "kai9000_control_plane": "external Termux when separately running",
+    "ollama": "external loopback companion when separately running",
+    "webview_to_termux_exec": false,
+    "persistent_background_service_in_apk": false
+  },
+  "privilege": {
+    "shizuku": "optional explicit native grant; no WebView permission request",
+    "root": false,
+    "generic_shell": false,
+    "secure_folder_bypass": false,
+    "silent_install": false
+  },
+  "install": {
+    "package": "art.eggiebagelface.luhmos.kai9000kiosk",
+    "version_code": 124,
+    "version_name": "1.0.24-kai9000.kiosk.1",
+    "abi": ["arm64-v8a"],
+    "target_sdk": 36,
+    "candidate_signer": "disposable_debug",
+    "persistent_release_signer_required_for_update_lane": true
+  },
+  "green_requires": [
+    "exact_head_ci_success",
+    "enterprise_security_source_audit_green",
+    "kiosk_state_machine_audit_green",
+    "apk_signature_verified",
+    "16k_zipalign_verified",
+    "no_internet_permission",
+    "no_overlay_permission",
+    "no_install_packages_permission",
+    "packaged_cockpit_payload_present",
+    "drive_delivery_receipt"
+  ],
+  "runtime_green_requires": [
+    "physical_install",
+    "full_shell_launch",
+    "mini_transition",
+    "pet_transition",
+    "bubble_transition",
+    "background_and_resume",
+    "explicit_exit",
+    "actual_webview_provider_receipt"
+  ],
+  "source_law": "AI proposes. Policy authorizes. CI or deterministic probes prove. Human promotes."
+}
