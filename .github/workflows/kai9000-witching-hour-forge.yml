@@ -1,0 +1,59 @@
+name: KAI 9000 Witching Hour Forge
+
+on:
+  push:
+    branches:
+      - hardening/termux-ollama-x11-headless-20260926
+    paths:
+      - 'kai9000/witching-hour/**'
+      - '.github/workflows/kai9000-witching-hour-forge.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-forge:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout exact head
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+
+      - name: Run deterministic 10-pass source audit
+        run: |
+          set -euo pipefail
+          python3 kai9000/witching-hour/static-audit.py
+
+      - name: Hard boundary scan
+        run: |
+          set -euo pipefail
+          ! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' kai9000/witching-hour
+          ! grep -R -nE 'setenforce[[:space:]]+0|(^|[[:space:]])(sudo|tsu)[[:space:]]|0\.0\.0\.0:(11434|5901|6080)' kai9000/witching-hour
+          grep -q 'target_project.*KAI 9000' kai9000/witching-hour/manifest.json
+          grep -q 'merge_into_luhm_os.*false' kai9000/witching-hour/manifest.json
+          grep -q '127.0.0.1:11434' kai9000/witching-hour/manifest.json
+          grep -q '127.0.0.1:5901' kai9000/witching-hour/manifest.json
+
+      - name: Assemble local forge artifact
+        run: |
+          set -euo pipefail
+          mkdir -p dist/KAI9000_WITCHING_HOUR_FORGE
+          cp -a kai9000/witching-hour/. dist/KAI9000_WITCHING_HOUR_FORGE/
+          chmod +x dist/KAI9000_WITCHING_HOUR_FORGE/forge.sh dist/KAI9000_WITCHING_HOUR_FORGE/bin/*.sh
+          tar -C dist -czf dist/KAI9000_WITCHING_HOUR_FORGE.tar.gz KAI9000_WITCHING_HOUR_FORGE
+          sha256sum dist/KAI9000_WITCHING_HOUR_FORGE.tar.gz | tee dist/KAI9000_WITCHING_HOUR_FORGE.tar.gz.sha256
+          printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=GREEN_SOURCE_CANDIDATE_RUNTIME_PROOF_REQUIRED\n' "$GITHUB_SHA" "$GITHUB_WORKFLOW" "$GITHUB_RUN_ID" > dist/forge-receipt.txt
+
+      - name: Upload Witching Hour forge
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: kai9000-witching-hour-forge-${{ github.sha }}
+          path: |
+            dist/KAI9000_WITCHING_HOUR_FORGE.tar.gz
+            dist/KAI9000_WITCHING_HOUR_FORGE.tar.gz.sha256
+            dist/forge-receipt.txt
+            kai9000/witching-hour/witching-hour-static-receipt.json
+          if-no-files-found: error
+          retention-days: 14
