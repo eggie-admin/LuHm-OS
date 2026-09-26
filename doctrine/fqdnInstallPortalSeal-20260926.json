@@ -1,0 +1,75 @@
+{
+  "schema": "luhm-os.fqdn-install-portal-seal.v1",
+  "date": "2026-09-26",
+  "status": "GREEN_CI_BUNDLE_HOST_ACTIVATION_PENDING",
+  "authority": "Professor",
+  "canonical_repository": "eggie-admin/LuHm-OS",
+  "fqdn": "get.lum.eggiebagelface.lan",
+  "privateEndpoint": "http://get.lum.eggiebagelface.lan/",
+  "receipt": "doctrine/fqdnInstallPortal-20260926.json",
+  "promotedMergeCommit": "9dc6b8f26d51755d8e214b52ae2b7b7d5731c222",
+  "testedSourceCommit": "ac67e256e2b19e3a7ea800450e32d93ad948420c",
+  "ci": {
+    "workflowRun": 36217214612,
+    "workflowName": "LuHm OS Universal Samsung Candidate",
+    "runNumber": 34,
+    "result": "SUCCESS",
+    "sourceContract": "PASS",
+    "godotImport": "PASS",
+    "runtimeSmoke": "PASS",
+    "androidExport": "PASS",
+    "apkVerification": "PASS",
+    "portalStage": "PASS",
+    "normalArtifactUpload": "PASS",
+    "installBundleUpload": "PASS"
+  },
+  "artifacts": {
+    "samsungCandidate": {
+      "id": 10898156939,
+      "name": "luhm-os-universal-samsung-amber-apk",
+      "archiveSha256": "c63f69294f8fba463b84c48b40654b31753354a0d2f525a37d311c45d0c6241c"
+    },
+    "lanInstallBundle": {
+      "id": 10897932932,
+      "name": "luhm-os-s24fe-lan-install-bundle",
+      "sizeBytes": 44259170,
+      "archiveSha256": "dc16aea16ed55ee9a6cda9104e091b5b30ef7eb63787a442a7d2205c95d7e53c",
+      "embeddedApkSha256": "b920e112f9994d3cc8508196cc5c937141abce775286d609e76bee5aedc8f03f",
+      "expires": "2026-10-26T04:16:33Z"
+    }
+  },
+  "verifiedBundleMembers": [
+    "README-FIRST.txt",
+    "SHA256SUMS.txt",
+    "apk/current.apk",
+    "index.html",
+    "manifest.json"
+  ],
+  "android": {
+    "package": "art.eggiebagelface.luhmos.testing",
+    "versionName": "1.0.16-samsunglayout.1",
+    "versionCode": 116,
+    "abi": "arm64-v8a",
+    "targetSdk": 36
+  },
+  "pending": {
+    "lanDnsActivation": true,
+    "apacheActivation": true,
+    "physicalS24FeInstall": true,
+    "physicalCrownChordTest": true,
+    "fdroidRepositorySigning": true,
+    "publicHttps": true
+  },
+  "boundaries": {
+    "dnsMutated": false,
+    "apacheMutated": false,
+    "tlsMutated": false,
+    "publicExposure": false,
+    "releasePromotion": false,
+    "publication": false,
+    "productionSigning": false,
+    "runtimeAuthorityAdded": false
+  },
+  "overallRepositoryStatus": "AMBER_PROPOSED_SEAL_OF_TRUTH",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}
