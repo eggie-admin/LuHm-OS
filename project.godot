@@ -13,6 +13,9 @@ window/size/window_width_override=540
 window/size/window_height_override=1170
 window/stretch/mode="canvas_items"
 
+[editor_plugins]
+enabled=PackedStringArray("res://addons/kai_webview/plugin.cfg")
+
 [rendering]
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

@@ -4,6 +4,10 @@ const LumAvatarScript := preload("res://scripts/game/lumAvatar.gd")
 
 var player_spawn := Vector3(0.0, 1.15, 8.0)
 var lum_avatar: Node3D
+var lum_plinth: Node3D
+var lum_halo: OmniLight3D
+var crown_core: Node3D
+var _crown_tween: Tween
 var _neon_materials: Array[StandardMaterial3D] = []
 
 func _ready() -> void:
@@ -11,6 +15,10 @@ func _ready() -> void:
     _build_riverwalk()
     _build_city()
     _build_lum_stage()
+
+func _process(delta: float) -> void:
+    if crown_core != null:
+        crown_core.rotate_y(delta * 0.72)
 
 func _build_environment() -> void:
     var env_node := WorldEnvironment.new()
@@ -80,21 +88,143 @@ func _build_city() -> void:
     add_child(accent)
 
 func _build_lum_stage() -> void:
-    var plinth := _box("LumPlinth", Vector3(0.0, 0.3, -8.0), Vector3(3.8, 0.6, 3.8), Color("16101d"), true)
-    plinth.rotation.y = PI * 0.25
+    lum_plinth = _box("LumPlinth", Vector3(0.0, 0.3, -8.0), Vector3(3.8, 0.6, 3.8), Color("16101d"), true)
+    lum_plinth.rotation.y = PI * 0.25
 
     lum_avatar = LumAvatarScript.new()
     lum_avatar.name = "LumAvatarSocket"
     lum_avatar.position = Vector3(0.0, 0.65, -8.0)
     add_child(lum_avatar)
 
-    var halo := OmniLight3D.new()
-    halo.name = "LumHalo"
-    halo.position = Vector3(0.0, 3.0, -8.0)
-    halo.light_color = Color("ff4f9f")
-    halo.light_energy = 3.0
-    halo.omni_range = 8.0
-    add_child(halo)
+    lum_halo = OmniLight3D.new()
+    lum_halo.name = "LumHalo"
+    lum_halo.position = Vector3(0.0, 3.0, -8.0)
+    lum_halo.light_color = Color("ff4f9f")
+    lum_halo.light_energy = 3.0
+    lum_halo.omni_range = 8.0
+    add_child(lum_halo)
+
+    _build_crown_core()
+
+func _build_crown_core() -> void:
+    crown_core = Node3D.new()
+    crown_core.name = "ProfessorCrownCore"
+    crown_core.position = Vector3(0.0, 4.15, -8.0)
+    add_child(crown_core)
+
+    var gold := _material(Color("6b5317"), 0.5, 0.26, Color("ffd85f"), 4.6)
+    var pink := _material(Color("4b1737"), 0.35, 0.3, Color("ff4f9f"), 3.8)
+
+    var orb := MeshInstance3D.new()
+    orb.name = "CrownOrb"
+    var orb_mesh := SphereMesh.new()
+    orb_mesh.radius = 0.30
+    orb_mesh.height = 0.60
+    orb.mesh = orb_mesh
+    orb.material_override = pink
+    crown_core.add_child(orb)
+
+    for i in range(5):
+        var angle := TAU * float(i) / 5.0
+        var jewel := MeshInstance3D.new()
+        jewel.name = "CrownJewel_%02d" % i
+        var jewel_mesh := SphereMesh.new()
+        jewel_mesh.radius = 0.09
+        jewel_mesh.height = 0.18
+        jewel.mesh = jewel_mesh
+        jewel.position = Vector3(cos(angle) * 0.48, 0.06, sin(angle) * 0.48)
+        jewel.material_override = gold
+        crown_core.add_child(jewel)
+
+        var spike := MeshInstance3D.new()
+        spike.name = "CrownSpike_%02d" % i
+        var spike_mesh := CylinderMesh.new()
+        spike_mesh.top_radius = 0.025
+        spike_mesh.bottom_radius = 0.075
+        spike_mesh.height = 0.46
+        spike.mesh = spike_mesh
+        spike.position = Vector3(cos(angle) * 0.42, 0.34, sin(angle) * 0.42)
+        spike.material_override = gold
+        crown_core.add_child(spike)
+
+func pet_lum() -> void:
+    if lum_avatar == null:
+        return
+    lum_avatar.pulse(0.46)
+    lum_avatar.set_expression("smile", 1.0)
+    var home_rotation := lum_avatar.rotation_degrees
+    var tween := create_tween()
+    tween.set_trans(Tween.TRANS_BACK)
+    tween.set_ease(Tween.EASE_OUT)
+    tween.tween_property(lum_avatar, "rotation_degrees", home_rotation + Vector3(0.0, 18.0, -4.0), 0.14)
+    tween.tween_property(lum_avatar, "rotation_degrees", home_rotation + Vector3(0.0, -12.0, 4.0), 0.14)
+    tween.tween_property(lum_avatar, "rotation_degrees", home_rotation, 0.14)
+    tween.tween_callback(func(): lum_avatar.set_expression("neutral", 0.0))
+
+func crown_pulse() -> void:
+    if crown_core == null or lum_halo == null:
+        return
+    if _crown_tween != null and _crown_tween.is_valid():
+        _crown_tween.kill()
+    crown_core.scale = Vector3.ONE
+    lum_halo.light_energy = 3.0
+    _crown_tween = create_tween()
+    _crown_tween.set_trans(Tween.TRANS_SINE)
+    _crown_tween.set_ease(Tween.EASE_IN_OUT)
+    _crown_tween.tween_property(crown_core, "scale", Vector3.ONE * 1.72, 0.18)
+    _crown_tween.parallel().tween_property(lum_halo, "light_energy", 8.0, 0.18)
+    _crown_tween.tween_property(crown_core, "scale", Vector3.ONE, 0.34)
+    _crown_tween.parallel().tween_property(lum_halo, "light_energy", 3.0, 0.34)
+    if lum_avatar != null:
+        lum_avatar.pulse(0.52)
+
+func oni_pop() -> void:
+    for i in range(3):
+        _spawn_oni_orb(i)
+
+func _spawn_oni_orb(index: int) -> void:
+    var oni := Node3D.new()
+    oni.name = "MiniOni_%02d" % index
+    var angle := -0.8 + float(index) * 0.8
+    oni.position = Vector3(sin(angle) * 2.2, 0.72, -8.0 + cos(angle) * 1.8)
+    oni.scale = Vector3.ONE * 0.12
+    add_child(oni)
+
+    var body_material := _material(Color("241229"), 0.3, 0.34, Color("ff4f9f") if index % 2 == 0 else Color("55dfff"), 4.0)
+    var horn_material := _material(Color("15111d"), 0.55, 0.28, Color("ffd85f"), 2.0)
+
+    var head := MeshInstance3D.new()
+    var head_mesh := SphereMesh.new()
+    head_mesh.radius = 0.32
+    head_mesh.height = 0.64
+    head.mesh = head_mesh
+    head.material_override = body_material
+    oni.add_child(head)
+
+    for side in [-1.0, 1.0]:
+        var horn := MeshInstance3D.new()
+        var horn_mesh := CylinderMesh.new()
+        horn_mesh.top_radius = 0.02
+        horn_mesh.bottom_radius = 0.07
+        horn_mesh.height = 0.28
+        horn.mesh = horn_mesh
+        horn.position = Vector3(0.16 * side, 0.32, 0.0)
+        horn.rotation_degrees.z = -18.0 * side
+        horn.material_override = horn_material
+        oni.add_child(horn)
+
+    var start := oni.position
+    var tween := create_tween()
+    tween.set_trans(Tween.TRANS_BACK)
+    tween.set_ease(Tween.EASE_OUT)
+    tween.tween_property(oni, "scale", Vector3.ONE, 0.20 + float(index) * 0.04)
+    tween.parallel().tween_property(oni, "position", start + Vector3(0.0, 1.1 + float(index) * 0.18, 0.0), 0.24)
+    tween.tween_interval(0.52)
+    tween.set_trans(Tween.TRANS_SINE)
+    tween.set_ease(Tween.EASE_IN)
+    tween.tween_property(oni, "scale", Vector3.ZERO, 0.24)
+    tween.parallel().tween_property(oni, "position", start + Vector3(0.0, 2.2, 0.0), 0.24)
+    tween.tween_callback(oni.queue_free)
 
 func get_lum_focus_position() -> Vector3:
     return lum_avatar.global_position + Vector3(0.0, 1.65, 0.0)
@@ -144,6 +274,18 @@ func _box(name_value: String, pos: Vector3, size: Vector3, color: Color, collida
     mesh_instance.material_override = material
     root_node.add_child(mesh_instance)
     return root_node
+
+func _material(color: Color, metallic: float, roughness: float, emission: Color = Color(0, 0, 0, 1), emission_energy: float = 0.0) -> StandardMaterial3D:
+    var material := StandardMaterial3D.new()
+    material.albedo_color = color
+    material.metallic = metallic
+    material.roughness = roughness
+    if emission_energy > 0.0:
+        material.emission_enabled = true
+        material.emission = emission
+        material.emission_energy_multiplier = emission_energy
+        _neon_materials.append(material)
+    return material
 
 func _neon_strip(pos: Vector3, size: Vector3, color: Color) -> void:
     _box("NeonStrip_%s_%s" % [int(pos.x * 10.0), int(pos.z * 10.0)], pos, size, Color("111018"), false, color, 4.0)
