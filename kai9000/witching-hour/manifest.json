@@ -1,0 +1,67 @@
+{
+  "manifest": "KAI9000_WITCHING_HOUR_FORGE",
+  "version": "1.0",
+  "date": "2026-09-26",
+  "status": "GREEN_SOURCE_CANDIDATE_RUNTIME_PROOF_REQUIRED",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true,
+    "consequential_actions_require_approval": true,
+    "auto_promote": false,
+    "auto_publish": false
+  },
+  "project_boundary": {
+    "target_project": "KAI 9000",
+    "not_target_project": "LuHm OS native Android runtime",
+    "termux_execution_bridge_in_android_runtime": false,
+    "branch": "hardening/termux-ollama-x11-headless-20260926",
+    "merge_into_luhm_os": false
+  },
+  "runtime": {
+    "control_plane": "Termux",
+    "local_inference": "Ollama",
+    "default_mode": "headless_first",
+    "optional_gui": "TigerVNC/X11",
+    "ollama_bind": "127.0.0.1:11434",
+    "vnc_bind": "127.0.0.1:5901",
+    "public_bind_allowed": false,
+    "root_login": false,
+    "selinux_disable": false,
+    "embedded_secrets": false
+  },
+  "agent_mesh": {
+    "boss": "Lum",
+    "default_oni": [
+      {"name": "Kiri", "role": "context_and_doctrine"},
+      {"name": "Tetsu", "role": "build_and_service_contracts"},
+      {"name": "Momo", "role": "research_and_dependency_freshness"}
+    ],
+    "conditional_critic": {"name": "Shiori", "role": "sanity_check_and_drift_detection"},
+    "tool_executor": {"name": "Kugi", "role": "deterministic_execution_only", "may_reinterpret_scope": false},
+    "parallelism_max": 3,
+    "recursive_recruitment": false
+  },
+  "ten_passes": [
+    "source_authority",
+    "project_scope",
+    "runtime_separation",
+    "termux_package_source",
+    "network_binding",
+    "privilege_boundary",
+    "headless_service_health",
+    "update_and_rollback",
+    "receipts_and_hashes",
+    "seal_and_save"
+  ],
+  "green_requires": {
+    "static_forge_green": true,
+    "runtime_green_only_after_device_receipt": true,
+    "ollama_loopback_verified": true,
+    "vnc_loopback_verified_when_active": true,
+    "root_login_disabled": true,
+    "rollback_snapshot_present": true,
+    "health_receipts_present": true,
+    "unknowns_remaining": false
+  },
+  "source_law": "AI proposes. Policy authorizes. CI or deterministic probes prove. Human promotes."
+}
