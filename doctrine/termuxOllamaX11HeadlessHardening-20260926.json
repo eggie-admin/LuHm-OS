@@ -1,0 +1,145 @@
+{
+  "schema": "luhm-os.termux-ollama-x11-hardening.v1",
+  "status": "GREEN_POLICY_CANDIDATE_RUNTIME_PROOF_PENDING",
+  "authority": "Professor",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "baseSourceCommit": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+  "scope": "separate local-first Termux operator and service plane; not Android runtime authority",
+  "trustBoundary": {
+    "androidRuntimeIntegration": false,
+    "termuxExecutionBridgeIntoApk": false,
+    "publicExposure": false,
+    "remoteShellExecution": false,
+    "rootRequired": false,
+    "selinuxMutationAllowed": false,
+    "arbitraryShellFromAI": false,
+    "consequentialMutationsCrownGated": true,
+    "secretsInRepository": false
+  },
+  "termux": {
+    "runtime": "native Android user-space",
+    "sourcePolicy": {
+      "preferredEnterpriseBaseline": [
+        "Termux stable F-Droid source",
+        "Termux stable GitHub source"
+      ],
+      "googlePlay": "EXPERIMENTAL_ALLOWED_IF_ALREADY_INSTALLED_AND_PROBED",
+      "silentSourceMigration": false,
+      "mixAppAndPluginSigningSources": false,
+      "probeBeforeMigration": true
+    },
+    "repositories": {
+      "main": true,
+      "x11": true,
+      "root": false
+    },
+    "serviceManager": {
+      "preferred": "termux-services/runit",
+      "defaultEnable": false,
+      "activationRequiresCrown": true
+    },
+    "wakeLock": {
+      "permanent": false,
+      "onDemandOnly": true
+    }
+  },
+  "ollama": {
+    "installLane": "Termux main repository package when available",
+    "headlessDefault": true,
+    "bind": "127.0.0.1:11434",
+    "localApiAuthentication": "NONE_UPSTREAM_LOCAL_API",
+    "networkExposure": false,
+    "cloudModelsDefault": false,
+    "apiKeysInRepository": false,
+    "modelPullsHumanApproved": true,
+    "keepAliveDefault": "2m",
+    "serviceAutoEnable": false
+  },
+  "x11": {
+    "defaultState": "OFF",
+    "preferredServer": "TigerVNC from Termux X11 repository",
+    "display": ":1",
+    "bind": "127.0.0.1:5901",
+    "localhostOnly": true,
+    "authenticationRequired": true,
+    "onDemandOnly": true,
+    "remoteDesktopExposure": false,
+    "termuxX11Nightly": "OPTIONAL_DEBUG_ONLY_NOT_ENTERPRISE_BASELINE",
+    "sharedUidVariant": "NOT_BASELINE",
+    "selinuxDisableProcedure": "FORBIDDEN"
+  },
+  "headless": {
+    "default": true,
+    "guiDependency": false,
+    "startupOrder": [
+      "doctor read-only probes",
+      "Ollama loopback service",
+      "optional Crown-approved user services",
+      "VNC only when operator explicitly requests GUI"
+    ],
+    "failurePolicy": "fail closed; no public fallback bind"
+  },
+  "securityUpdates": {
+    "mode": "STAGED_MANUAL_PROMOTION",
+    "unattendedPackageUpgrade": false,
+    "sequence": [
+      "inventory exact app/package state",
+      "snapshot configs and package manifest",
+      "refresh repository metadata",
+      "review upgrade delta and upstream advisories",
+      "Professor Crown approval",
+      "apply package upgrades",
+      "run operator doctor and service smoke tests",
+      "record versions, listeners and hashes",
+      "seal evidence receipt"
+    ],
+    "automaticActionAllowed": [
+      "read-only inventory",
+      "read-only health probes",
+      "CI static policy audit"
+    ],
+    "automaticActionDenied": [
+      "pkg upgrade",
+      "app-source migration",
+      "repository switching",
+      "service enablement",
+      "model download",
+      "public bind",
+      "root escalation"
+    ],
+    "rollback": "restore known-good configuration and package manifest from human-created snapshot; never blind downgrade"
+  },
+  "logging": {
+    "debugDefault": false,
+    "localOnly": true,
+    "minimumFileMode": "0600",
+    "secretLogging": false,
+    "promptLogging": false
+  },
+  "runtimeEvidenceRequired": [
+    "termux-info output",
+    "installed package manifest",
+    "configured apt repository list",
+    "ollama version",
+    "Ollama listener proven as 127.0.0.1:11434 only",
+    "Ollama local API smoke test",
+    "TigerVNC listener proven as localhost only when GUI is active",
+    "TigerVNC authentication file present with private permissions",
+    "root repository absent or disabled",
+    "SELinux remains enforcing where platform exposes status",
+    "termux-services state if runit is activated",
+    "upgrade delta receipt",
+    "post-update smoke test"
+  ],
+  "runtimeProof": "PENDING",
+  "securityUpdateReceipt": "PENDING",
+  "grants": {
+    "operatorHardeningPolicy": true,
+    "runtimeAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false,
+    "publicExposureAuthority": false
+  }
+}
