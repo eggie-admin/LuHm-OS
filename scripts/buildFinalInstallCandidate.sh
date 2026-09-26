@@ -11,6 +11,7 @@ yes | "$SDKMANAGER" --licenses >/dev/null || true
 
 python3 tools/auditSamsungHarness.py
 python3 tools/auditFinalInstallRoute.py
+python3 tools/auditS24FeKiosk.py
 
 curl -fL --retry 5 -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
 curl -fL --retry 5 -o /tmp/templates.tpz https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
@@ -27,8 +28,8 @@ cp -a /tmp/tpl/templates/. "$TEMPLATE_DIR/"
 mkdir -p "$HOME/.config/godot"
 printf '[gd_resource type="EditorSettings" format=3]\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_HOME" "$JAVA_HOME" > "$HOME/.config/godot/editor_settings-4.tres"
 
-KEYSTORE="$RUNNER_TEMP/luhm-kai9000-proposed-debug.keystore"
-keytool -genkeypair -keystore "$KEYSTORE" -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname 'CN=LuHm KAI9000 Proposed Debug,O=LuHm OS,C=US'
+KEYSTORE="$RUNNER_TEMP/luhm-kai9000-kiosk-debug.keystore"
+keytool -genkeypair -keystore "$KEYSTORE" -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname 'CN=LuHm KAI9000 Kiosk Debug,O=LuHm OS,C=US'
 chmod 600 "$KEYSTORE"
 export GODOT_ANDROID_KEYSTORE_DEBUG_PATH="$KEYSTORE"
 export GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey
@@ -70,25 +71,25 @@ from pathlib import Path
 p=Path('export_presets.cfg')
 s=p.read_text()
 for old,new in {
-  'version/code=111':'version/code=123',
-  'version/name="1.0.11-cleanplay.1"':'version/name="1.0.23-kai9000.proposed.1"',
-  'package/unique_name="art.eggiebagelface.luhmos.cleanplay"':'package/unique_name="art.eggiebagelface.luhmos.kai9000proposed"',
-  'package/name="LuHm OS Clean Play"':'package/name="LuHm OS KAI 9000 Proposed"'}.items():
+  'version/code=111':'version/code=124',
+  'version/name="1.0.11-cleanplay.1"':'version/name="1.0.24-kai9000.kiosk.1"',
+  'package/unique_name="art.eggiebagelface.luhmos.cleanplay"':'package/unique_name="art.eggiebagelface.luhmos.kai9000kiosk"',
+  'package/name="LuHm OS Clean Play"':'package/name="LuHm OS KAI 9000 Kiosk"'}.items():
     if old not in s:
         raise SystemExit(f'missing export identity: {old}')
     s=s.replace(old,new,1)
 p.write_text(s)
 PY
 
-grep -q 'art.eggiebagelface.luhmos.kai9000proposed' export_presets.cfg
+grep -q 'art.eggiebagelface.luhmos.kai9000kiosk' export_presets.cfg
 grep -q 'architectures/arm64-v8a=true' export_presets.cfg
 grep -q 'permissions/internet=false' export_presets.cfg
 
 mkdir -p build/android
-"$GODOT" --headless --path . --export-debug 'Android Proposed' build/android/luhmos-kai9000-proposed.apk
-test -s build/android/luhmos-kai9000-proposed.apk
+"$GODOT" --headless --path . --export-debug 'Android Proposed' build/android/luhmos-kai9000-kiosk.apk
+test -s build/android/luhmos-kai9000-kiosk.apk
 
-APK=build/android/luhmos-kai9000-proposed.apk
+APK=build/android/luhmos-kai9000-kiosk.apk
 BT="$ANDROID_HOME/build-tools/36.1.0"
 "$BT/aapt" dump badging "$APK" | tee build/android/badging.txt
 "$BT/aapt" dump xmltree "$APK" AndroidManifest.xml | tee build/android/manifest.txt
@@ -98,8 +99,8 @@ BT="$ANDROID_HOME/build-tools/36.1.0"
 unzip -l "$APK" | tee build/android/ziplist.txt
 sha256sum "$APK" | tee build/android/sha256.txt
 
-grep -q "package: name='art.eggiebagelface.luhmos.kai9000proposed'" build/android/badging.txt
-grep -q "versionCode='123'" build/android/badging.txt
+grep -q "package: name='art.eggiebagelface.luhmos.kai9000kiosk'" build/android/badging.txt
+grep -q "versionCode='124'" build/android/badging.txt
 grep -q 'org.godotengine.plugin.v2.KAIWebView' build/android/manifest.txt
 grep -q 'com.google.android.webview.canary' build/android/manifest.txt
 grep -q 'com.chrome.canary' build/android/manifest.txt
@@ -107,12 +108,16 @@ grep -q 'assets/cockpit/index.html' build/android/ziplist.txt
 grep -q 'assets/cockpit/jquery/luhm.delivery.js' build/android/ziplist.txt
 grep -q 'lib/arm64-v8a/' build/android/ziplist.txt
 ! grep -q 'android.permission.INTERNET' build/android/permissions.txt
+! grep -q 'android.permission.SYSTEM_ALERT_WINDOW' build/android/permissions.txt
 ! grep -q 'android.permission.REQUEST_INSTALL_PACKAGES' build/android/permissions.txt
 ! grep -q 'android.permission.MANAGE_EXTERNAL_STORAGE' build/android/permissions.txt
 ! grep -R -nE 'addJavascriptInterface|Runtime\.getRuntime\(\)\.exec|ProcessBuilder\(|setenforce 0|allowUniversalAccessFromFileURLs|MIXED_CONTENT_ALWAYS_ALLOW' native/kaiwebview cockpit
 
-grep -q 'WebView.getCurrentWebViewPackage' native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/SamsungSystemProfile.kt
-grep -q 'WebViewAssetLoader' native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/KAIWebView.kt
+grep -q 'moveTaskToBack(true)' native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/KAIWebView.kt
+grep -q 'finishAndRemoveTask()' native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/KAIWebView.kt
+grep -q 'data-shell="mini"' cockpit/index.html
+grep -q 'data-shell="pet"' cockpit/index.html
+grep -q 'data-shell="bubble"' cockpit/index.html
 
 cat > build/android/drive-delivery-manifest.json <<HYDRA_AI_JSON
 {
@@ -122,19 +127,21 @@ cat > build/android/drive-delivery-manifest.json <<HYDRA_AI_JSON
   "run_id": "${GITHUB_RUN_ID:-local}",
   "drive_root": "LuHm OS • NEW REPO SOURCE OF TRUTH • 2026-09-24",
   "drive_path": "builds/KAI9000/proposed/2026-09-26",
-  "package": "art.eggiebagelface.luhmos.kai9000proposed",
-  "version": "1.0.23-kai9000.proposed.1",
+  "package": "art.eggiebagelface.luhmos.kai9000kiosk",
+  "version": "1.0.24-kai9000.kiosk.1",
+  "shell_modes": ["full", "mini", "pet", "bubble", "background", "exit"],
   "upload_state": "PENDING_LUM_CONNECTOR_RECEIPT",
   "physical_install": "HUMAN_ONLY"
 }
 HYDRA_AI_JSON
 
-printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=GREEN_SOURCE_BUILD_CANDIDATE\npackage=art.eggiebagelface.luhmos.kai9000proposed\nversion=1.0.23-kai9000.proposed.1\ndrive_route=builds/KAI9000/proposed/2026-09-26\nphysical_install=HUMAN_ONLY\n' "${GITHUB_SHA:-unknown}" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/final-install-receipt.txt
+printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=GREEN_SOURCE_BUILD_CANDIDATE\npackage=art.eggiebagelface.luhmos.kai9000kiosk\nversion=1.0.24-kai9000.kiosk.1\ndrive_route=builds/KAI9000/proposed/2026-09-26\nphysical_install=HUMAN_ONLY\n' "${GITHUB_SHA:-unknown}" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/final-install-receipt.txt
 
 cp doctrine/finalInstallRoute-20260926.json build/android/
+cp doctrine/s24feKioskHarness-20260926.json build/android/
 cp agents/luhm-agent-mesh/finalInstallWorkflow.json build/android/
 cp doctrine/s24feCanaryAdminHarness-20260926.json build/android/
 cp cockpit/package-lock.json build/android/package-lock.json
-sha256sum addons/kai_webview/bin/kaiwebview-debug.aar cockpit/package-lock.json doctrine/finalInstallRoute-20260926.json agents/luhm-agent-mesh/finalInstallWorkflow.json >> build/android/source-components-sha256.txt
+sha256sum addons/kai_webview/bin/kaiwebview-debug.aar cockpit/package-lock.json doctrine/s24feKioskHarness-20260926.json agents/luhm-agent-mesh/finalInstallWorkflow.json >> build/android/source-components-sha256.txt
 
-echo 'KAI 9000 FINAL PROPOSED INSTALL CANDIDATE BUILD GREEN'
+echo 'KAI 9000 S24 FE KIOSK CANDIDATE BUILD GREEN'
