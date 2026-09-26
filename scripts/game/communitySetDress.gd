@@ -10,10 +10,10 @@ const PLACEMENTS := [
     {"path":"res://assets/community/runtime/city-industrial/building-a.glb", "pos":Vector3(-19.0,0.0,-4.0), "rot":18.0, "scale":3.0},
     {"path":"res://assets/community/runtime/city-industrial/building-c.glb", "pos":Vector3(20.0,0.0,-11.0), "rot":-20.0, "scale":3.2},
     {"path":"res://assets/community/runtime/city-industrial/building-e.glb", "pos":Vector3(-21.0,0.0,13.0), "rot":30.0, "scale":2.8},
-    {"path":"res://assets/community/runtime/city-industrial/smokestack-detailed.glb", "pos":Vector3(-17.0,0.0,-20.0), "rot":0.0, "scale":3.2},
-    {"path":"res://assets/community/runtime/city-industrial/smokestack-tall.glb", "pos":Vector3(18.0,0.0,-22.0), "rot":0.0, "scale":3.0},
-    {"path":"res://assets/community/runtime/city-industrial/tank-large-a.glb", "pos":Vector3(15.5,0.0,-14.0), "rot":14.0, "scale":2.2},
-    {"path":"res://assets/community/runtime/city-industrial/tank-b.glb", "pos":Vector3(-15.5,0.0,-13.0), "rot":-12.0, "scale":2.4},
+    {"path":"res://assets/community/runtime/city-industrial/chimney-large.glb", "pos":Vector3(-17.0,0.0,-20.0), "rot":0.0, "scale":3.2},
+    {"path":"res://assets/community/runtime/city-industrial/chimney-medium.glb", "pos":Vector3(18.0,0.0,-22.0), "rot":0.0, "scale":3.0},
+    {"path":"res://assets/community/runtime/city-industrial/detail-tank.glb", "pos":Vector3(15.5,0.0,-14.0), "rot":14.0, "scale":2.2},
+    {"path":"res://assets/community/runtime/city-industrial/building-h.glb", "pos":Vector3(-15.5,0.0,-13.0), "rot":-12.0, "scale":2.4},
 
     # Factory machinery framing the walk
     {"path":"res://assets/community/runtime/factory/catwalk-straight.glb", "pos":Vector3(-8.5,1.0,-1.0), "rot":90.0, "scale":1.7},
