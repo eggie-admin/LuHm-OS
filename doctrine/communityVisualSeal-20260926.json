@@ -1,0 +1,42 @@
+{
+  "schema": "luhm-os.community-visual-build.v1",
+  "status": "GREEN_CI_VISUAL_REVIEW_PENDING",
+  "testedSource": "b26f20a55e214ebd8b9cadb404cb1d36f8816b4a",
+  "pr": 29,
+  "apkBytes": 94901832,
+  "apkSha256": "1d0076c2418981bafe321d121ae6634817558cbe3a17dce26703eb5510488d2c",
+  "certificateSha256": "5e959e555cd4b2b0fe7c32608abba01222e290e954f3b77b41969bd70da7eb48",
+  "artifactId": 10901246003,
+  "run": 36226063448,
+  "ciRuns": [
+    36226063475,
+    36226063428,
+    36226063424,
+    36226063448
+  ],
+  "allCi": "success",
+  "localChecks": [
+    "7 layout profiles",
+    "runtime smoke",
+    "community mesh import smoke",
+    "tampered archive rejected before writes"
+  ],
+  "provenance": "doctrine/communityAssets-20260926.json",
+  "changes": [
+    "Teal Cathedral controls and typography",
+    "Closer initial framing and Lum key light",
+    "Procedural skyline, stage signage and riverfront furniture",
+    "Three selected Kenney CC0 meshes staged via hash-pinned build download"
+  ],
+  "pending": [
+    "Physical visual review and performance measurement",
+    "Skybox selection",
+    "Animation licensing and retargeting",
+    "Meaning of Godot Gabe app unidentified",
+    "Termux/Ollama live service integration not performed"
+  ],
+  "compactSizeClaim": false,
+  "productionSigner": false,
+  "mainMutated": false,
+  "promotionAuthorized": false
+}
