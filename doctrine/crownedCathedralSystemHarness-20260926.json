@@ -1,7 +1,7 @@
 {
   "schema": "luhm-os.crowned-cathedral-system-harness.v1",
   "date": "2026-09-26",
-  "status": "GREEN_EXACT_HEAD_CI_CANDIDATE_DEVICE_PROOF_PENDING",
+  "status": "CANDIDATE_PARENT_CI_GREEN_CURRENT_HEAD_REQUIRES_EXACT_HEAD_CI",
   "authority": {
     "crown": "Professor",
     "human_final_authority": true
@@ -10,7 +10,6 @@
     "repository": "eggie-admin/LuHm-OS",
     "canonical_branch": "main",
     "candidate_branch": "candidate/crowned-cathedral-system-harness-20260926",
-    "tested_head": "2c2d7ca7bd85910062d714c2232bcec2a28ceae8",
     "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes."
   },
   "architecture": {
@@ -62,7 +61,7 @@
     "recursive_recruitment": false,
     "copilot_mode": "PAIR_PROGRAMMER_NOT_AUTHORITY"
   },
-  "ci_evidence": {
+  "proven_parent_ci_evidence": {
     "source_head": "2c2d7ca7bd85910062d714c2232bcec2a28ceae8",
     "runs": {
       "pet_runtime": 36269294497,
@@ -75,34 +74,7 @@
       "webglass": 36269294528,
       "character_forge": 36269294426
     },
-    "agent_forge_artifact": {
-      "id": 10915515232,
-      "digest": "sha256:4e9ed064443ef72d291bbd5112ac3318b5a10ab3d61b75d3cc552368db00ab15"
-    },
-    "universal_samsung_artifacts": [
-      {
-        "id": 10915415532,
-        "name": "luhm-os-s24fe-lan-install-bundle",
-        "digest": "sha256:521023326580a63571128e67d2aedac52d731fa73b20d20144a758f241520170"
-      },
-      {
-        "id": 10915245843,
-        "name": "luhm-os-universal-samsung-amber-apk",
-        "digest": "sha256:476ee072bbed910a336f82fbfdad54ad9a5f871304aebfbf03371c439d64c6a7"
-      }
-    ],
-    "webglass_artifacts": [
-      {
-        "id": 10914594607,
-        "name": "luhm-cathedral-webglass-apk",
-        "digest": "sha256:c095dffd903884bdb30ff1035d53950bfbb3cd066bd796f684bed2bee3d826b8"
-      },
-      {
-        "id": 10914589467,
-        "name": "luhm-cathedral-webglass-install",
-        "digest": "sha256:ba265f18a0ca2b4ba20b9ccb5350cbf7d1caaff6bcdcb97d6e0b351038d851d4"
-      }
-    ]
+    "note": "Historical proof for the named parent only. Current candidate GREEN is always decided from GitHub Actions receipts that bind the exact current commit, never from this embedded parent record."
   },
   "green_law": {
     "source_green": "exact-head static and contract audit",
