@@ -30,5 +30,17 @@
   "missingUploadCount": 9,
   "deliveryWorkflowProposal": "doctrine/fastDeliveryWorkflow-20260925.json",
   "enterpriseReady": false,
-  "deliveryWorkflowVerification": "doctrine/fastDeliveryVerification-20260926.json"
+  "deliveryWorkflowVerification": "doctrine/fastDeliveryVerification-20260926.json",
+  "manual": {
+    "path": "manual/LUHM_OS_PROJECT_HYDRA_FIELD_MANUAL.md",
+    "status": "WORKING_DRAFT",
+    "purpose": "Illustrated AI builder field manual, doctrine, comic tutorials, agent supervision, security architecture, and compute-tier guidance",
+    "publication_authority": false
+  },
+  "reconciliation": {
+    "observedMain": "57e954116bdb8df9280b7149b7b8f38040df1f76",
+    "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b",
+    "status": "PROPOSED_NOT_PROMOTED",
+    "preserved": "Field manual and manual pointer from observed main; amber Android contract retained"
+  }
 }
