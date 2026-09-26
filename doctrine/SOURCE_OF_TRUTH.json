@@ -29,5 +29,6 @@
   "uploadIntegrationStatus": "PARTIAL_UPLOAD_DONOR_REVIEW_ONLY",
   "missingUploadCount": 9,
   "deliveryWorkflowProposal": "doctrine/fastDeliveryWorkflow-20260925.json",
-  "enterpriseReady": false
+  "enterpriseReady": false,
+  "deliveryWorkflowVerification": "doctrine/fastDeliveryVerification-20260926.json"
 }
