@@ -77,7 +77,7 @@ func _build_world_hud() -> void:
     world_root.add_child(backend)
 
     status_label = Label.new()
-    status_label.text = "NEON RIVERWALK // CROWN GREEN DRY RUN"
+    status_label.text = "NEON RIVERWALK // CROWN AMBER CANDIDATE"
     status_label.anchor_left = 0.28
     status_label.anchor_right = 0.96
     status_label.anchor_top = 0.02
@@ -101,10 +101,10 @@ func _build_world_hud() -> void:
     dialogue_label.visible = false
     world_root.add_child(dialogue_label)
 
-    _dpad_button("▲", Vector2(0.0, -1.0), 0.12, -0.22)
-    _dpad_button("◀", Vector2(-1.0, 0.0), 0.03, -0.14)
-    _dpad_button("▼", Vector2(0.0, 1.0), 0.12, -0.14)
-    _dpad_button("▶", Vector2(1.0, 0.0), 0.21, -0.14)
+    _dpad_button("▲", Vector2(0.0, -1.0), 0.08, 0.78)
+    _dpad_button("◀", Vector2(-1.0, 0.0), 0.03, 0.86)
+    _dpad_button("▼", Vector2(0.0, 1.0), 0.08, 0.86)
+    _dpad_button("▶", Vector2(1.0, 0.0), 0.13, 0.86)
 
     var camera_hint := Label.new()
     camera_hint.text = "DRAG RIGHT SIDE · CAMERA"
@@ -117,15 +117,17 @@ func _build_world_hud() -> void:
     camera_hint.modulate = Color(1, 1, 1, 0.66)
     world_root.add_child(camera_hint)
 
-func _dpad_button(glyph: String, axis: Vector2, left_anchor: float, top_offset_fraction: float) -> void:
+func _dpad_button(glyph: String, axis: Vector2, left_anchor: float, top_anchor: float) -> void:
     var button := Button.new()
     button.text = glyph
     button.anchor_left = left_anchor
-    button.anchor_right = left_anchor + 0.08
-    button.anchor_top = 1.0
-    button.anchor_bottom = 1.0
-    button.offset_top = top_offset_fraction * 1000.0
-    button.offset_bottom = button.offset_top + 92.0
+    button.anchor_right = left_anchor + 0.045
+    button.anchor_top = top_anchor
+    button.anchor_bottom = top_anchor + 0.08
+    button.offset_left = 0.0
+    button.offset_right = 0.0
+    button.offset_top = 0.0
+    button.offset_bottom = 0.0
     button.add_theme_font_size_override("font_size", 36)
     button.button_down.connect(func(): _set_touch_axis(axis))
     button.button_up.connect(func(): _set_touch_axis(Vector2.ZERO))

@@ -1,0 +1,133 @@
+name: LumRigV2 Phase 1
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'project.godot'
+      - 'export_presets.cfg'
+      - 'scripts/**'
+      - 'scenes/**'
+      - 'assets/**'
+      - 'cutscenes/**'
+      - 'tests/**'
+      - 'tools/candidateGate.py'
+      - 'doctrine/androidCandidate.json'
+      - 'frontEnd/**'
+      - '.github/workflows/android-testing-build.yml'
+      - '.github/workflows/lumrigv2-phase1.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  rig-phase1:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Install Godot 4.7.2
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 5 -o /tmp/godot.zip \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          echo 'cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip' | sha256sum -c -
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          echo 'GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64' >> "$GITHUB_ENV"
+
+      - name: Stage pinned Drive Lum rig
+        shell: bash
+        run: |
+          set -euo pipefail
+          DRIVE_ID='1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen'
+          BUNDLE_SHA='fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da'
+          BASE_SHA='06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69'
+          BUNDLE="$RUNNER_TEMP/lum-biped.zip"
+          OUT="$RUNNER_TEMP/lum-biped"
+
+          curl -fL --retry 4 --retry-all-errors --connect-timeout 20 --max-time 240 \
+            -A 'Mozilla/5.0 LuHmOS-CI' \
+            -o "$BUNDLE" \
+            "https://drive.usercontent.google.com/download?id=${DRIVE_ID}&export=download&confirm=t"
+          echo "$BUNDLE_SHA  $BUNDLE" | sha256sum -c -
+
+          mkdir -p "$OUT" assets/lum
+          unzip -q "$BUNDLE" -d "$OUT"
+          BASE="$OUT/Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Character_output.glb"
+          echo "$BASE_SHA  $BASE" | sha256sum -c -
+          cp "$BASE" assets/lum/luhm.glb
+
+      - name: Canonical bone-map audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, struct
+          from pathlib import Path
+
+          mapping = json.loads(Path('assets/lum/lumBoneMap.json').read_text())
+          data = Path('assets/lum/luhm.glb').read_bytes()
+          magic, version, length = struct.unpack_from('<4sII', data, 0)
+          assert magic == b'glTF' and version == 2 and length == len(data)
+
+          offset = 12
+          doc = None
+          while offset < length:
+              chunk_len, chunk_type = struct.unpack_from('<II', data, offset)
+              offset += 8
+              chunk = data[offset:offset + chunk_len]
+              offset += chunk_len
+              if chunk_type == 0x4E4F534A:
+                  doc = json.loads(chunk.decode('utf-8').rstrip('\x00 \t\r\n'))
+          assert doc is not None
+          assert len(doc.get('skins', [])) == 1
+          joints = doc['skins'][0]['joints']
+          names = {doc['nodes'][i].get('name', '') for i in joints}
+          required = mapping['required']
+          missing = {semantic: bone for semantic, bone in required.items() if bone not in names}
+          assert not missing, missing
+          assert len(required) == 22
+          assert len(joints) == 24
+
+          left_eye = any(name in names for name in mapping['optional_aliases']['left_eye'])
+          right_eye = any(name in names for name in mapping['optional_aliases']['right_eye'])
+          assert not (left_eye and right_eye), 'current donor unexpectedly gained eye bones; update Phase 1 receipt'
+          print('LUM RIG V2 CANONICAL MAP GREEN', {'joints': len(joints), 'required': len(required), 'eye_pair': left_eye and right_eye})
+          PY
+
+      - name: Static Phase 1 boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s scenes/LumAvatar.tscn
+          test -s scripts/game/lumAvatar.gd
+          test -s tests/lumRigV2Phase1Smoke.gd
+          test -s doctrine/lumRigV2Phase1-20260925.json
+          grep -q 'AnimationTree' scenes/LumAvatar.tscn
+          grep -q 'LookTarget' scenes/LumAvatar.tscn
+          grep -q 'LookAtModifier3D' scripts/game/lumAvatar.gd
+          grep -q 'lumBoneMap.json' scripts/game/lumAvatar.gd
+          grep -q 'LumAvatar.tscn' scripts/game/neonWorld.gd
+          python3 tools/candidateGate.py
+
+      - name: Godot import
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT" --headless --editor --path . --quit
+
+      - name: LumRigV2 Phase 1 runtime smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT" --headless --path . --script res://tests/lumRigV2Phase1Smoke.gd

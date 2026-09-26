@@ -1,6 +1,6 @@
 {
   "schema": "luhm-os.clean-source.v2",
-  "status": "CANONICAL_MAIN_CANDIDATE",
+  "status": "AMBER_PROPOSED_SEAL_OF_TRUTH",
   "product": "LuHm OS",
   "canonical_repository": "eggie-admin/LuHm-OS",
   "created": "2026-09-25",
@@ -8,16 +8,8 @@
   "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "milestone": "Cathedral -> World Mode -> native Godot 3D -> movement -> Cathedral",
   "android": {
-    "package": "art.eggiebagelface.luhmos.cleanplay",
-    "version_name": "1.0.11-cleanplay.1",
-    "version_code": 111,
+    "contract": "doctrine/androidCandidate.json",
     "production_signer": false,
-    "publication_authority": false
-  },
-  "manual": {
-    "path": "manual/LUHM_OS_PROJECT_HYDRA_FIELD_MANUAL.md",
-    "status": "WORKING_DRAFT",
-    "purpose": "Illustrated AI builder field manual, doctrine, comic tutorials, agent supervision, security architecture, and compute-tier guidance",
     "publication_authority": false
   },
   "legacy_policy": "selective transplant only; no wholesale history merge",
@@ -28,5 +20,27 @@
     "Vue donor runtime",
     "production signing secrets",
     "private third-party reference assets"
-  ]
+  ],
+  "prior_audit_seal": "c9eb83f79cedb0039ae87e21d0656a6f815e6e83",
+  "promotion": false,
+  "testedSourceCommit": "ca20b087f1a354a1660ca515aedbc53685f14b67",
+  "currentProposedSeal": "doctrine/cathedralRecoverySeal-20260926.json",
+  "uploadAudit": "doctrine/uploadAudit-20260925.json",
+  "uploadIntegrationStatus": "PARTIAL_UPLOAD_DONOR_REVIEW_ONLY",
+  "missingUploadCount": 9,
+  "deliveryWorkflowProposal": "doctrine/fastDeliveryWorkflow-20260925.json",
+  "enterpriseReady": false,
+  "deliveryWorkflowVerification": "doctrine/fastDeliveryVerification-20260926.json",
+  "manual": {
+    "path": "manual/LUHM_OS_PROJECT_HYDRA_FIELD_MANUAL.md",
+    "status": "WORKING_DRAFT",
+    "purpose": "Illustrated AI builder field manual, doctrine, comic tutorials, agent supervision, security architecture, and compute-tier guidance",
+    "publication_authority": false
+  },
+  "reconciliation": {
+    "observedMain": "57e954116bdb8df9280b7149b7b8f38040df1f76",
+    "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b",
+    "status": "PROPOSED_NOT_PROMOTED",
+    "preserved": "Field manual and manual pointer from observed main; amber Android contract retained"
+  }
 }

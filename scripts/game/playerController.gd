@@ -92,6 +92,7 @@ func _build_body() -> void:
     mat.metallic = 0.28
     mat.roughness = 0.48
     body.material_override = mat
+    body.visible = false # collision/camera proxy only; Lum is the visible character authority
     visual.add_child(body)
 
 func _build_camera() -> void:

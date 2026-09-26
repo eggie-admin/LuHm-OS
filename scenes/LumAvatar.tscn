@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/game/lumAvatar.gd" id="1_lum"]
+
+[node name="LumAvatar" type="Node3D"]
+script = ExtResource("1_lum")
+
+[node name="LookTarget" type="Marker3D" parent="."]
+position = Vector3(0, 1.8, -4)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+active = false

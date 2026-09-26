@@ -1,8 +1,25 @@
-name: LuHm OS Testing APK
+name: LuHm OS Universal Samsung Candidate
 
 on:
   workflow_dispatch:
   pull_request:
+    paths:
+      - 'project.godot'
+      - 'export_presets.cfg'
+      - 'scripts/**'
+      - 'scenes/**'
+      - 'assets/**'
+      - 'cutscenes/**'
+      - 'tests/**'
+      - 'tools/candidateGate.py'
+      - 'doctrine/androidCandidate.json'
+      - 'frontEnd/**'
+      - '.github/workflows/android-testing-build.yml'
+      - '.github/workflows/lumrigv2-phase1.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -15,6 +32,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
         with:
@@ -146,84 +164,10 @@ jobs:
           print('DRIVE 3D GLB AUDIT GREEN', {'base': base, 'run': run})
           PY
 
-      - name: Stage Drive-3D side-by-side identity
-        shell: bash
+      - name: Fail-closed source contract and negative controls
         run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-          path = Path('export_presets.cfg')
-          text = path.read_text()
-          replacements = {
-              'version/code=111': 'version/code=114',
-              'version/name="1.0.11-cleanplay.1"': 'version/name="1.0.14-drive3d.1"',
-              'package/unique_name="art.eggiebagelface.luhmos.cleanplay"': 'package/unique_name="art.eggiebagelface.luhmos.testing"',
-              'package/name="LuHm OS Clean Play"': 'package/name="LuHm OS Drive 3D Testing"',
-          }
-          for old, new in replacements.items():
-              if old not in text:
-                  raise SystemExit(f'missing expected export identity: {old}')
-              text = text.replace(old, new, 1)
-          path.write_text(text)
-          PY
-          grep -q 'art.eggiebagelface.luhmos.testing' export_presets.cfg
-          grep -q 'version/code=114' export_presets.cfg
-          grep -q 'version/name="1.0.14-drive3d.1"' export_presets.cfg
-          grep -q 'permissions/internet=false' export_presets.cfg
-
-      - name: 10-pass architecture + Drive asset gate
-        shell: bash
-        run: |
-          set -euo pipefail
-          ! grep -R -nE '127\.0\.0\.1|localhost|FastAPI|PySimpleGUI|RUN_COMMAND|OPENAI_API_KEY|AIza|sk-proj-' . \
-            --exclude='*.glb' \
-            --exclude='android-proposed-build.yml' \
-            --exclude='android-testing-build.yml' \
-            --exclude='frontend-jquery-dryrun.yml' \
-            --exclude='GITHUB_AUDIT_20260925.json' \
-            --exclude='SOURCE_OF_TRUTH.json' \
-            --exclude='README.md'
-
-          test "$(wc -l < scripts/main.gd)" -le 120
-          for f in \
-            scripts/game/playerController.gd \
-            scripts/game/neonWorld.gd \
-            scripts/game/lumAvatar.gd \
-            scripts/game/gameHud.gd \
-            scripts/game/cutsceneBridge.gd \
-            scripts/cutsceneDirector.gd \
-            tests/runtimeSmoke.gd \
-            doctrine/drive3dAssetMutation-20260925.json \
-            assets/lum/luhm.glb \
-            assets/lum/luhmRunning.glb; do
-            test -s "$f"
-          done
-
-          grep -q 'StaticBody3D' scripts/game/neonWorld.gd
-          grep -q 'SpringArm3D' scripts/game/playerController.gd
-          grep -q 'res://assets/lum/luhm.glb' scripts/game/lumAvatar.gd
-          grep -q 'get_rig_summary' scripts/game/lumAvatar.gd
-          grep -q 'CANCEL_POLL_SECONDS' scripts/cutsceneDirector.gd
-          ! grep -R -nE 'cms_registry|api_bridge|web_cms_bridge|cage_manager|HTTPRequest|MANIFEST_URL' \
-            scripts/game scripts/cutsceneDirector.gd cutscenes
-
-          test -s frontEnd/jquery/luhm.cockpit.js
-          grep -q 'luhmCockpit' frontEnd/jquery/luhm.cockpit.js
-
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
-          audit = json.loads(Path('doctrine/godot4HardArchitectureAudit-20260925.json').read_text())
-          assert len(audit['passes']) == 10
-          drive = json.loads(Path('doctrine/drive3dAssetMutation-20260925.json').read_text())
-          assert drive['drive_assets'][0]['bundle_sha256'] == 'fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da'
-          cutscene = json.loads(Path('cutscenes/lumBeaconIntro.json').read_text())
-          types = [beat.get('type') for beat in cutscene.get('beats', [])]
-          expected = ['lock_player', 'camera_move', 'lum_beacon_pulse', 'dialogue', 'restore']
-          assert types == expected, (types, expected)
-          assert cutscene['beats'][3].get('event') == 'lum_beacon_linked'
-          print('ARCHITECTURE + DRIVE ASSET GATE GREEN')
-          PY
+          python3 tests/testCandidateGate.py
+          python3 tools/candidateGate.py
 
       - name: Import Godot project with Drive assets
         shell: bash
@@ -236,6 +180,7 @@ jobs:
         run: |
           set -euo pipefail
           "$GODOT" --headless --path . --script res://tests/runtimeSmoke.gd
+          "$GODOT" --headless --path . --script res://tests/lumRigV2Phase1Smoke.gd
 
       - name: Export Drive-3D testing APK
         shell: bash
@@ -243,8 +188,8 @@ jobs:
           set -euo pipefail
           mkdir -p build/android
           "$GODOT" --headless --path . --install-android-build-template \
-            --export-debug 'Android Proposed' build/android/luhmos-1.0.14-drive3d.1.apk
-          test -s build/android/luhmos-1.0.14-drive3d.1.apk
+            --export-debug 'Android Proposed' build/android/luhmos-1.0.15-samsungamber.1.apk
+          test -s build/android/luhmos-1.0.15-samsungamber.1.apk
 
       - name: Verify Drive-3D testing APK
         shell: bash
@@ -252,39 +197,18 @@ jobs:
           CANDIDATE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           set -euo pipefail
-          APK=build/android/luhmos-1.0.14-drive3d.1.apk
+          APK=build/android/luhmos-1.0.15-samsungamber.1.apk
           BT="$ANDROID_HOME/build-tools/36.1.0"
           "$BT/aapt" dump badging "$APK" | tee build/android/badging.txt
           "$BT/apksigner" verify --verbose --print-certs "$APK" | tee build/android/signature.txt
           "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/android/zipalign.txt
           sha256sum "$APK" | tee build/android/sha256.txt
-          grep -q "package: name='art.eggiebagelface.luhmos.testing'" build/android/badging.txt
-          grep -q "versionCode='114'" build/android/badging.txt
-          grep -q "versionName='1.0.14-drive3d.1'" build/android/badging.txt
-          cat > build/android/build-receipt.txt <<RECEIPT
-          LuHm OS Drive 3D Testing APK
-          source_head=$CANDIDATE_HEAD
-          checkout_commit=$GITHUB_SHA
-          package=art.eggiebagelface.luhmos.testing
-          versionCode=114
-          versionName=1.0.14-drive3d.1
-          drive.bundle.id=1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen
-          drive.bundle.sha256=fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da
-          lum.base.sha256=06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69
-          lum.run.sha256=750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0
-          lum.rig.joints=24
-          lum.rig.skin=true
-          lum.face.blend_shapes=0
-          architecture.modular_runtime=true
-          architecture.procedural_fallback=true
-          architecture.runtime_smoke=true
-          boundary.internet_permission=false
-          boundary.binary_vendored_to_git=false
-          RECEIPT
+          "$BT/aapt" dump xmltree "$APK" AndroidManifest.xml > build/android/manifest.txt
+          python3 tools/candidateGate.py --apk "$APK"
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: luhm-os-drive3d-testing-apk
+          name: luhm-os-universal-samsung-amber-apk
           path: build/android/
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 30

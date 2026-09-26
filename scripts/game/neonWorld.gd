@@ -1,6 +1,6 @@
 extends Node3D
 
-const LumAvatarScript := preload("res://scripts/game/lumAvatar.gd")
+const LumAvatarScene := preload("res://scenes/LumAvatar.tscn")
 
 var player_spawn := Vector3(0.0, 1.15, 8.0)
 var lum_avatar: Node3D
@@ -83,7 +83,7 @@ func _build_lum_stage() -> void:
     var plinth := _box("LumPlinth", Vector3(0.0, 0.3, -8.0), Vector3(3.8, 0.6, 3.8), Color("16101d"), true)
     plinth.rotation.y = PI * 0.25
 
-    lum_avatar = LumAvatarScript.new()
+    lum_avatar = LumAvatarScene.instantiate() as Node3D
     lum_avatar.name = "LumAvatarSocket"
     lum_avatar.position = Vector3(0.0, 0.65, -8.0)
     add_child(lum_avatar)
@@ -110,6 +110,10 @@ func restore_lum() -> void:
 func set_lum_expression(expression_name: String, weight: float = 1.0) -> void:
     if lum_avatar != null:
         lum_avatar.set_expression(expression_name, weight)
+
+func set_lum_look_target(world_position: Vector3) -> void:
+    if lum_avatar != null and lum_avatar.has_method("set_look_target_world"):
+        lum_avatar.call("set_look_target_world", world_position)
 
 func _box(name_value: String, pos: Vector3, size: Vector3, color: Color, collidable: bool, emission: Color = Color(0, 0, 0, 1), emission_energy: float = 0.0) -> Node3D:
     var root_node: Node3D
