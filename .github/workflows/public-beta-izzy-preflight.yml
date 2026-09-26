@@ -13,6 +13,10 @@ on:
       - 'fastlane/**'
       - 'remoteAssets/**'
       - 'tools/stageRemoteAssets.py'
+      - 'tools/compact*'
+      - 'tools/auditCompactApk.py'
+      - 'tools/runGodotSmoke.py'
+      - 'tests/**'
       - 'doctrine/publicBetaCompactInstall-20260926.json'
       - '.github/workflows/public-beta-izzy-preflight.yml'
 
@@ -95,6 +99,11 @@ jobs:
           python3 -m json.tool build/remote-assets/stage-report.json >/dev/null
           stat -c 'REMOTE_ASSET_JAR_BYTES=%s' build/remote-assets/luhm-runtime-assets.jar | tee build/remote-assets/jar-size.txt
 
+      - name: Generate audited compact mobile derivatives
+        run: |
+          python3 tests/testCompactMobileAssets.py
+          python3 tools/compactMobileAssets.py
+
       - name: Import Godot project with verified remote assets
         shell: bash
         run: |
@@ -107,6 +116,8 @@ jobs:
           set -euo pipefail
           python3 tools/runGodotSmoke.py "$GODOT" layoutSmoke
           python3 tools/runGodotSmoke.py "$GODOT" runtimeSmoke
+          python3 tools/runGodotSmoke.py "$GODOT" lumRigV2Phase1Smoke
+          python3 tools/runGodotSmoke.py "$GODOT" compactAssetsSmoke
 
       - name: Export ARM64 public beta release preflight
         shell: bash
@@ -129,6 +140,10 @@ jobs:
           "$BT/apksigner" verify --verbose --print-certs "$APK" | tee build/public-beta/signature.txt
           "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/public-beta/zipalign.txt
           sha256sum "$APK" | tee build/public-beta/sha256.txt
+          python3 tools/auditCompactApk.py "$APK"
+          grep -Fxq "native-code: 'arm64-v8a'" build/public-beta/badging.txt
+          grep -Fxq "sdkVersion:'24'" build/public-beta/badging.txt
+          grep -Fxq "targetSdkVersion:'36'" build/public-beta/badging.txt
           grep -Fq "package: name='art.eggiebagelface.luhmos.beta' versionCode='117' versionName='1.0.17-beta.1'" build/public-beta/badging.txt
           if grep -q '^application-debuggable' build/public-beta/badging.txt; then
             echo 'ERROR: release preflight APK is debuggable' >&2
