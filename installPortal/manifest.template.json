@@ -2,7 +2,7 @@
   "schema": "luhm-os.install-portal-manifest.v1",
   "fqdn": "get.lum.eggiebagelface.lan",
   "scope": "private-lan",
-  "packageName": "art.eggiebagelface.luhmos.testing",
+  "packageName": "__PACKAGE_NAME__",
   "versionName": "__VERSION_NAME__",
   "versionCode": __VERSION_CODE__,
   "abi": "arm64-v8a",
