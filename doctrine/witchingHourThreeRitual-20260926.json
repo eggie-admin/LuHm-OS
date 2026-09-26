@@ -1,0 +1,62 @@
+{
+  "schema": "luhm-os.witching-hour-three-ritual.v1",
+  "date": "2026-09-26",
+  "status": "AMBER_CANDIDATE_CI_AND_DEVICE_PROOF_PENDING",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true
+  },
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "base": {
+    "repository": "eggie-admin/LuHm-OS",
+    "parent": "bcaa750465790785170ee6b6cbbdda5c320785d1",
+    "branch": "candidate/witching-hour-three-ritual-cathedral-20260926",
+    "legacy_policy": "selective transplant only; old Witching Hour branches are reference, not authority"
+  },
+  "runtime": {
+    "world_owner": "Godot 4",
+    "ui_owner": "caged local Android WebView WebGlass",
+    "network": "none",
+    "termux_exec": false,
+    "generic_shell": false,
+    "filesystem_bridge": false,
+    "secrets": false
+  },
+  "rituals": [
+    {
+      "id": "crown_wake",
+      "label": "I · Crown Wake",
+      "effects": ["crown_pulse", "pet_lum"],
+      "persistent_mutation": false
+    },
+    {
+      "id": "oni_trinity",
+      "label": "II · Oni Trinity",
+      "effects": ["oni_pop", "lum_pulse", "crown_pulse"],
+      "persistent_mutation": false
+    },
+    {
+      "id": "witching_hour",
+      "label": "III · Witching Hour",
+      "effects": ["oni_pop", "temporary_lum_expression", "crown_pulse", "lum_pulse", "restore"],
+      "persistent_mutation": false
+    }
+  ],
+  "safety": {
+    "allowlist_only": true,
+    "one_ritual_at_a_time": true,
+    "unknown_ids_fail_closed": true,
+    "explicit_cancel_on_quit": true,
+    "runtime_downloads": false,
+    "privilege_escalation": false
+  },
+  "delivery": {
+    "target": "private Google Drive LuHm OS builds folder",
+    "standalone_apk": true,
+    "zip_required_for_install": false,
+    "public_release": false,
+    "production_signing": false,
+    "physical_samsung_proof": "PENDING"
+  },
+  "promotion": false
+}
