@@ -48,7 +48,7 @@ func _build_backend() -> void:
     add_child(backend_root)
     var shade := ColorRect.new()
     shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-    shade.color = Color(0.018, 0.035, 0.055, 0.78)
+    shade.color = Color(0.018, 0.035, 0.055, 0.58)
     shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
     backend_root.add_child(shade)
     _scroll = ScrollContainer.new()
@@ -57,7 +57,20 @@ func _build_backend() -> void:
     _panel = VBoxContainer.new()
     _panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     _panel.add_theme_constant_override("separation", 24)
-    _scroll.add_child(_panel)
+    var card := PanelContainer.new()
+    card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    var surface := StyleBoxFlat.new()
+    surface.bg_color = Color("08151ff2")
+    surface.border_color = Color("31545e")
+    surface.set_border_width_all(1)
+    surface.set_corner_radius_all(20)
+    surface.content_margin_left = 24
+    surface.content_margin_right = 24
+    surface.content_margin_top = 24
+    surface.content_margin_bottom = 24
+    card.add_theme_stylebox_override("panel", surface)
+    _scroll.add_child(card)
+    card.add_child(_panel)
     _panel.add_child(_label("L U H M   /   O S", 48))
     _panel.add_child(_label("C A T H E D R A L   •   0 1", 22))
     _panel.add_child(_label("DETROIT AFTER DARK\nThe river remembers. Lum is waiting.", 26))
@@ -199,7 +212,9 @@ func apply_layout(view_size: Vector2, safe: Rect2) -> void:
         _safe = bounds
     var area := _safe.grow(-24.0)
     _scroll.position = area.position
-    _scroll.size = area.size
+    var card_width := minf(area.size.x, 720.0)
+    _scroll.position.x += (area.size.x - card_width) * 0.5
+    _scroll.size = Vector2(card_width, area.size.y)
     _back.position = area.position
     _back.size = Vector2(190, 72)
     status_label.position = area.position + Vector2(206, 0)

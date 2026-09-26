@@ -13,6 +13,7 @@ var game_hud: CanvasLayer
 var cutscene_director: Node
 var cutscene_bridge: Node
 var intro_played := false
+var cathedral_camera: Camera3D
 
 func _ready() -> void:
     _build_runtime()
@@ -28,6 +29,14 @@ func _build_runtime() -> void:
     player_controller.name = "PlayerController"
     player_controller.position = neon_world.player_spawn
     add_child(player_controller)
+
+    # Dedicated entrance composition cannot inherit a player's last orbit.
+    cathedral_camera = Camera3D.new()
+    cathedral_camera.name = "CathedralCamera"
+    cathedral_camera.position = Vector3(0.0, 3.0, 2.0)
+    cathedral_camera.fov = 58.0
+    add_child(cathedral_camera)
+    cathedral_camera.look_at(Vector3(0.0, 1.8, -8.0))
 
     game_hud = GameHudScript.new()
     game_hud.name = "GameHud"
@@ -48,6 +57,7 @@ func _wire_runtime() -> void:
     game_hud.move_axis_changed.connect(player_controller.set_touch_axis)
 
 func enterWorldMode() -> void:
+    player_controller.camera.make_current()
     game_hud.show_world()
     player_controller.set_world_active(true)
     if not intro_played:
@@ -55,6 +65,8 @@ func enterWorldMode() -> void:
         call_deferred("_play_intro")
 
 func _enter_backend() -> void:
+    if cathedral_camera != null:
+        cathedral_camera.make_current()
     if cutscene_bridge != null:
         cutscene_bridge.cancel()
         cutscene_bridge.restore_now()
