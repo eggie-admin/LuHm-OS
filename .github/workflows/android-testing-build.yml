@@ -12,6 +12,7 @@ on:
       - 'cutscenes/**'
       - 'tests/**'
       - 'tools/candidateGate.py'
+      - 'tools/runGodotSmoke.py'
       - 'doctrine/androidCandidate.json'
       - 'frontEnd/**'
       - '.github/workflows/android-testing-build.yml'
