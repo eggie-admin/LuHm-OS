@@ -13,8 +13,11 @@ on:
       - 'tests/**'
       - 'tools/candidateGate.py'
       - 'tools/runGodotSmoke.py'
+      - 'tools/stageInstallPortal.py'
       - 'doctrine/androidCandidate.json'
+      - 'doctrine/fqdnInstallPortal-20260926.json'
       - 'frontEnd/**'
+      - 'installPortal/**'
       - '.github/workflows/android-testing-build.yml'
       - '.github/workflows/lumrigv2-phase1.yml'
 
@@ -209,9 +212,32 @@ jobs:
           "$BT/aapt" dump xmltree "$APK" AndroidManifest.xml > build/android/manifest.txt
           python3 tools/candidateGate.py --apk "$APK"
 
+      - name: Stage private LAN install bundle
+        shell: bash
+        env:
+          CANDIDATE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          python3 tools/stageInstallPortal.py \
+            --apk build/android/luhmos-1.0.16-samsunglayout.1.apk \
+            --out build/installPortal \
+            --commit "$CANDIDATE_HEAD"
+          test -s build/installPortal/index.html
+          test -s build/installPortal/manifest.json
+          test -s build/installPortal/apk/current.apk
+          python3 -m json.tool build/installPortal/manifest.json >/dev/null
+          (cd build/installPortal && sha256sum -c SHA256SUMS.txt)
+
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: luhm-os-universal-samsung-amber-apk
           path: build/android/
+          if-no-files-found: error
+          retention-days: 30
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-os-s24fe-lan-install-bundle
+          path: build/installPortal/
           if-no-files-found: error
           retention-days: 30
