@@ -1,0 +1,78 @@
+name: LuHm OS Full Source Truth Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'doctrine/SOURCE_OF_TRUTH.json'
+      - 'doctrine/RELEASE_BOUNDARY.json'
+      - 'doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json'
+      - 'doctrine/fullSourceTruthOrchestrator-20260926.json'
+      - 'doctrine/samsungLayoutSeal-20260926.json'
+      - 'doctrine/s24FeCockpitAuditSwitchSeal-20260926.json'
+      - 'doctrine/fqdnInstallPortalSeal-20260926.json'
+      - 'tools/fullSourceTruthAudit.py'
+      - '.github/workflows/full-source-truth-audit.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Validate doctrine JSON
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/SOURCE_OF_TRUTH.json >/dev/null
+          python3 -m json.tool doctrine/RELEASE_BOUNDARY.json >/dev/null
+          python3 -m json.tool doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json >/dev/null
+          python3 -m json.tool doctrine/fullSourceTruthOrchestrator-20260926.json >/dev/null
+
+      - name: Run deterministic full source truth audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/fullSourceTruthAudit.py --output build/full-source-truth/readiness.json
+          python3 -m json.tool build/full-source-truth/readiness.json >/dev/null
+
+      - name: Assert honest current gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('build/full-source-truth/readiness.json').read_text())
+          assert report['contractErrors'] == [], report['contractErrors']
+          assert report['status'] in {'AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING', 'GREEN_FULL_SOURCE_TRUTH_READY'}
+          if report['status'].startswith('GREEN_'):
+              assert report['blockers'] == []
+              assert report['milestoneMutationComplete'] is True
+          else:
+              assert report['blockers']
+              assert report['milestoneMutationComplete'] is False
+          print('FULL_SOURCE_TRUTH_AUDIT_CONTRACT=PASS')
+          print('READINESS=' + report['status'])
+          PY
+
+      - name: Upload audit receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-os-full-source-truth-audit
+          path: build/full-source-truth/
+          if-no-files-found: error
+          retention-days: 30
