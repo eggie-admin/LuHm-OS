@@ -1,0 +1,36 @@
+{
+  "schema": "luhm-os.update-channel.v1",
+  "channel": "public-beta",
+  "package": "art.eggiebagelface.luhmos.beta",
+  "currentVersionName": "1.0.17-beta.1",
+  "currentVersionCode": 117,
+  "minimumSdk": 24,
+  "targetSdk": 36,
+  "abi": "arm64-v8a",
+  "distribution": {
+    "preferred": "IzzyOnDroid_or_F-Droid_compatible_external_package_manager",
+    "fallback": "human_promoted_signed_release",
+    "selfUpdater": false,
+    "runtimeInternetPermission": false
+  },
+  "signing": {
+    "persistentCertificateRequired": true,
+    "certificateSha256": "PENDING_CROWN_SIGNER_SETUP",
+    "keystoreInRepository": false,
+    "publicationAllowed": false
+  },
+  "release": {
+    "apkUrl": "PENDING_RELEASE_PROMOTION",
+    "apkSha256": "PENDING_RELEASE_PROMOTION",
+    "maxApkBytes": 30000000,
+    "fastlaneMetadata": "fastlane/metadata/android/en-US"
+  },
+  "security": {
+    "nonDebuggableRequired": true,
+    "zipalign16kRequired": true,
+    "aaptIdentityVerificationRequired": true,
+    "apksignerVerificationRequired": true,
+    "remoteAssetSha256Required": true
+  },
+  "status": "PREP_ONLY_NOT_PUBLISHED"
+}
