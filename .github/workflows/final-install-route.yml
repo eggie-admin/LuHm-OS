@@ -5,14 +5,18 @@ on:
   push:
     branches: ['proposed/kai9000-final-install-route-20260926']
     paths:
+      - 'SECURITY.md'
       - 'agents/luhm-agent-mesh/finalInstallWorkflow.json'
       - 'doctrine/finalInstallRoute-20260926.json'
+      - 'doctrine/enterpriseSecurity-20260926.json'
       - 'doctrine/s24feCanaryAdminHarness-20260926.json'
       - 'cockpit/**'
       - 'native/kaiwebview/**'
       - 'addons/kai_webview/**'
       - 'scripts/buildFinalInstallCandidate.sh'
+      - 'scripts/buildFinalInstallSecure.sh'
       - 'tools/auditFinalInstallRoute.py'
+      - 'tools/auditEnterpriseSecurity.py'
       - 'tools/auditSamsungHarness.py'
       - 'project.godot'
       - 'export_presets.cfg'
@@ -45,9 +49,9 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Build and hard-audit final proposed APK
+      - name: Build with enterprise security and Shizuku gates
         shell: bash
-        run: bash scripts/buildFinalInstallCandidate.sh
+        run: bash scripts/buildFinalInstallSecure.sh
 
       - name: Upload exact-head install bundle
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
