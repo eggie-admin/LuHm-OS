@@ -17,7 +17,15 @@ func _run() -> void:
     var hud = load("res://scripts/game/gameHud.gd").new()
     viewport.add_child(hud)
     await process_frame
-    var profiles := [Vector2i(720, 1560), Vector2i(1560, 720), Vector2i(720, 1152), Vector2i(1152, 720), Vector2i(720, 720)]
+    var profiles := [
+        Vector2i(720, 1560),
+        Vector2i(1560, 720),
+        Vector2i(720, 1152),
+        Vector2i(1152, 720),
+        Vector2i(720, 720),
+        Vector2i(1080, 2340),
+        Vector2i(2340, 1080)
+    ]
     for dimensions in profiles:
         viewport.size = dimensions
         await process_frame
@@ -54,6 +62,16 @@ func _run() -> void:
         hud.show_backend()
         check(hud._touch_axis == Vector2.ZERO and hud.backend_root.visible and not hud.world_root.visible, "Cathedral return clears held movement")
         check(safe.encloses(hud._scroll.get_global_rect()), "Cathedral scroll stays in safe area")
+        check(hud._audit_switch != null, "audit seal switch exists")
+        check(hud._audit_switch.custom_minimum_size.y >= 88, "audit seal switch touch target minimum")
+        hud._set_audit_panel(true)
+        check(hud._audit_panel.visible, "audit seal panel opens")
+        check(hud._audit_panel.text.contains("GREEN_DOCUMENTATION_WORKFLOW"), "audit workflow status loads from doctrine")
+        check(hud._audit_panel.text.contains("GREEN_DOCUMENTATION_SEAL"), "audit seal status loads from doctrine")
+        check(hud._audit_panel.text.contains("RUNTIME · UNCHANGED"), "audit panel preserves runtime boundary")
+        check(hud._audit_panel.text.contains("RELEASE · UNCHANGED"), "audit panel preserves release boundary")
+        hud._set_audit_panel(false)
+        check(not hud._audit_panel.visible, "audit seal panel closes")
         print("LAYOUT PROFILE VERIFIED ", dimensions)
     viewport.queue_free()
     await process_frame

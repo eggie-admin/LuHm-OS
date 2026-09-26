@@ -4,6 +4,9 @@ signal world_requested
 signal backend_requested
 signal move_axis_changed(axis: Vector2)
 
+const AUDIT_WORKFLOW_PATH := "res://doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json"
+const AUDIT_SEAL_PATH := "res://doctrine/DOCUMENT_MUTATION_AUDIT_SEAL_20260926.json"
+
 var backend_root: Control
 var world_root: Control
 var dialogue_label: Label
@@ -13,6 +16,8 @@ var _scroll: ScrollContainer
 var _panel: VBoxContainer
 var _back: Button
 var _hint: Label
+var _audit_switch: CheckButton
+var _audit_panel: Label
 var _pads: Array[Button] = []
 var _axes: Array[Vector2] = [Vector2.UP, Vector2.LEFT, Vector2.DOWN, Vector2.RIGHT]
 var _touch_owner := -1
@@ -55,6 +60,7 @@ func _build_backend() -> void:
     _panel.add_child(_label("LUHM OS // CATHEDRAL", 34))
     _panel.add_child(_label("PROFESSOR HOLDS THE CROWN", 22))
     _panel.add_child(_label("Lum · Neon Riverwalk\nSamsung candidate · AMBER", 26))
+
     var enter := Button.new()
     enter.name = "EnterWorld"
     enter.text = "ENTER NEON RIVERWALK"
@@ -62,6 +68,21 @@ func _build_backend() -> void:
     enter.add_theme_font_size_override("font_size", 24)
     enter.pressed.connect(func(): world_requested.emit())
     _panel.add_child(enter)
+
+    _audit_switch = CheckButton.new()
+    _audit_switch.name = "AuditSealSwitch"
+    _audit_switch.text = "AUDIT / SEAL · READ ONLY"
+    _audit_switch.custom_minimum_size = Vector2(0, 88)
+    _audit_switch.add_theme_font_size_override("font_size", 22)
+    _audit_switch.focus_mode = Control.FOCUS_NONE
+    _audit_switch.toggled.connect(_set_audit_panel)
+    _panel.add_child(_audit_switch)
+
+    _audit_panel = _label("", 19)
+    _audit_panel.name = "AuditSealStatus"
+    _audit_panel.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+    _audit_panel.visible = false
+    _panel.add_child(_audit_panel)
 
 func _build_world_hud() -> void:
     world_root = Control.new()
@@ -94,6 +115,38 @@ func _build_world_hud() -> void:
         _pads.append(button)
     _hint = _label("DRAG RIGHT\nCAMERA", 20)
     world_root.add_child(_hint)
+
+func _load_json(path: String) -> Dictionary:
+    if not FileAccess.file_exists(path):
+        return {}
+    var file := FileAccess.open(path, FileAccess.READ)
+    if file == null:
+        return {}
+    var parsed = JSON.parse_string(file.get_as_text())
+    if parsed is Dictionary:
+        return parsed
+    return {}
+
+func _audit_summary() -> String:
+    var workflow := _load_json(AUDIT_WORKFLOW_PATH)
+    var seal := _load_json(AUDIT_SEAL_PATH)
+    var workflow_status := str(workflow.get("status", "UNKNOWN"))
+    var seal_status := str(seal.get("status", "UNKNOWN"))
+    var source_law := str(workflow.get("source_law", "SOURCE LAW UNKNOWN"))
+    var runtime_status := "UNKNOWN"
+    var release_status := "UNKNOWN"
+    var gate_scope = seal.get("gate_scope", {})
+    if gate_scope is Dictionary:
+        runtime_status = str(gate_scope.get("runtime", "UNKNOWN"))
+        release_status = str(gate_scope.get("release", "UNKNOWN"))
+    return "DOC WORKFLOW · %s\nSEAL · %s\nRUNTIME · %s\nRELEASE · %s\nREAD-ONLY COCKPIT VIEW\n%s" % [workflow_status, seal_status, runtime_status, release_status, source_law]
+
+func _set_audit_panel(enabled: bool) -> void:
+    if _audit_panel == null:
+        return
+    if enabled:
+        _audit_panel.text = _audit_summary()
+    _audit_panel.visible = enabled
 
 func _notification(what: int) -> void:
     if what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_APPLICATION_PAUSED:
