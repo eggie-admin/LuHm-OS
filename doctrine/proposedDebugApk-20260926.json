@@ -1,0 +1,26 @@
+{
+  "schema": "luhm-os.proposed-debug-apk.v1",
+  "status": "GREEN_CI_DEBUG_APK_DEVICE_PENDING",
+  "sourceCommit": "7d85fa5713bc4e75dab0e1f064e7e1e475177749",
+  "pullRequest": 28,
+  "workflowRun": 36224644645,
+  "artifactId": 10900331382,
+  "download": "https://github.com/eggie-admin/LuHm-OS/actions/runs/36224644645/artifacts/10900331382",
+  "artifactArchiveSha256": "c7f024ace967a91d25e680d24085c52c010acec1367bbdd4cdcf3fe7b44a3faf",
+  "expiresAt": "2026-10-26T06:46:17Z",
+  "apkFile": "luhmos-1.0.16-samsunglayout.1.apk",
+  "apkSha256": "922491a5fbdede29e58389862714b615acff8486dfeb1e104a733cd71b64984d",
+  "certificateSha256": "21553644f02eef02f61de866ba122639ec8b427adeb84e63d9651d18a644bb4b",
+  "package": "art.eggiebagelface.luhmos.testing",
+  "lane": "standard Samsung debugging; not compact PR24",
+  "signer": "disposable testing signer",
+  "ci": "PASS",
+  "physicalDevice": "PENDING",
+  "productionSigning": false,
+  "promotionAuthorized": false,
+  "notes": [
+    "Artifact already uploaded by successful CI; reused without rebuilding or duplicating binaries into source.",
+    "Full proposed doctrine retained by additive receipt and source-of-truth pointer.",
+    "Check installed certificate before replacement; no automatic uninstall or data removal."
+  ]
+}

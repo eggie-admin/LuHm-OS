@@ -143,5 +143,12 @@
     "testedCandidate": "7d85fa5713bc4e75dab0e1f064e7e1e475177749",
     "personalSkillUpdated": true,
     "promotionAuthorized": false
+  },
+  "proposedDebugApk": {
+    "receipt": "doctrine/proposedDebugApk-20260926.json",
+    "sourceCommit": "7d85fa5713bc4e75dab0e1f064e7e1e475177749",
+    "artifactId": 10900331382,
+    "apkSha256": "922491a5fbdede29e58389862714b615acff8486dfeb1e104a733cd71b64984d",
+    "status": "GREEN_CI_DEBUG_APK_DEVICE_PENDING"
   }
 }
