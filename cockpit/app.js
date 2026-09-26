@@ -8,6 +8,7 @@
     let msg=data;
     try{if(typeof msg==='string')msg=JSON.parse(msg)}catch{return}
     if(!msg||msg.schema!=='luhm.bridge.reply.v1')return;
+    $(document).trigger('luhm:bridge:reply',[msg]);
     if(msg.type==='status'){
       const p=msg.payload||{};
       $('[data-webview-status]').text(String(p.webviewPackage||'unknown').replace('com.google.android.webview.','wv:')+' '+String(p.webviewVersion||''));
@@ -26,6 +27,13 @@
   });
   $(document).on('luhm:bridge:preview',function(_e,msg){
     if(msg.type==='status.request')$('[data-webview-status]').text('desktop preview');
+    if(msg.type==='avatar.inspect'){
+      $(document).trigger('luhm:bridge:reply',[{
+        schema:'luhm.bridge.reply.v1',
+        type:'avatar.summary',
+        payload:{mode:'desktop_preview',mesh_morph_targets:0,skeleton_bones:0,canonical_mapped:0,canonical_required:22}
+      }]);
+    }
   });
   if(window.LuHmNative&&typeof window.LuHmNative.postMessage==='function'){
     window.LuHmNative.onmessage=function(event){handleReply(event.data)};
