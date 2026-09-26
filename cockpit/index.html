@@ -17,6 +17,9 @@
       <span class="badge text-bg-dark">WebView chat glass above</span>
       <span class="badge text-bg-dark" data-kai-status>KAI 9000</span>
       <span class="badge text-bg-dark" data-ollama-status>Ollama probe</span>
+      <span class="badge text-bg-dark" data-device-status>Samsung profile</span>
+      <span class="badge text-bg-dark" data-webview-status>WebView provider</span>
+      <span class="badge text-bg-dark" data-admin-status>standard app</span>
       <span class="badge text-bg-dark" data-site-status>Crowned Cathedral</span>
     </header>
 
@@ -24,7 +27,7 @@
       <div class="panelTitle">Lum / Chat Glass</div>
       <div class="panelBody">
         <div class="messageStream" data-message-stream>
-          <p><b>Lum:</b> This is the glass, not the whole toy. Hit <b>Toy World</b> whenever you want back into Godot. 👹</p>
+          <p><b>Lum:</b> Native Godot owns the toy. The glass only reports what Android actually grants. 👹</p>
         </div>
         <form class="input-group" data-chat-form>
           <input class="form-control" name="message" autocomplete="off" placeholder="Message Lum…">
@@ -57,6 +60,19 @@
       </div>
     </section>
 
+    <section class="floatingPanel" id="systemPanel" data-luhm-panel hidden>
+      <div class="panelTitle">Samsung System Harness · Read Only</div>
+      <div class="panelBody small">
+        <div><b>Device:</b> <span data-system-device>unprobed</span></div>
+        <div><b>WebView:</b> <span data-system-webview>unprobed</span></div>
+        <div><b>Chrome Canary:</b> <span data-system-chrome>unprobed</span></div>
+        <div><b>Profile:</b> <span data-system-profile>unprobed</span></div>
+        <div><b>Admin:</b> <span data-system-admin>unprobed</span></div>
+        <div><b>Root bridge:</b> disabled by doctrine</div>
+        <div><b>Termux admin login:</b> unsupported; separate Android app UID</div>
+      </div>
+    </section>
+
     <section hidden data-luhm-site-view="cathedral"></section>
     <section hidden data-luhm-site-view="agents"></section>
     <section hidden data-luhm-site-view="cms"></section>
@@ -68,6 +84,7 @@
       <button class="btn btn-sm btn-outline-light" data-toggle-panel="chatPanel">Chat</button>
       <button class="btn btn-sm btn-outline-light" data-toggle-panel="agentPanel">Onis</button>
       <button class="btn btn-sm btn-outline-light" data-toggle-panel="cmsPanel">CMS</button>
+      <button class="btn btn-sm btn-outline-light" data-toggle-panel="systemPanel" data-request-status>System</button>
       <button class="btn btn-sm btn-outline-light" data-toy-action="pet_lum">♥ Pet Lum</button>
       <button class="btn btn-sm btn-outline-light" data-toy-action="oni_pop">👹 Oni Pop</button>
       <button class="btn btn-sm btn-outline-light" data-toy-action="crown_pulse">♛ Pulse</button>

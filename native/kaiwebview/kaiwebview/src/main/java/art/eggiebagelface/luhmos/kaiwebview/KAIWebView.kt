@@ -51,6 +51,15 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
     fun isCockpitReady(): Boolean = webView != null
 
     @UsedByGodot
+    fun getSystemProfile(): String {
+        val host = activity ?: return JSONObject()
+            .put("schema", "luhm.samsung.system-profile.v1")
+            .put("available", false)
+            .toString()
+        return SamsungSystemProfile.snapshot(host).toString()
+    }
+
+    @UsedByGodot
     fun postToCockpit(json: String) {
         runOnHostThread {
             val quoted = JSONObject.quote(json)
@@ -131,13 +140,29 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
         if (parsed.optString("schema") != "luhm.bridge.v1") return
 
         when (parsed.optString("type")) {
-            "status.request" -> replyProxy.postMessage(
-                JSONObject()
-                    .put("schema", "luhm.bridge.reply.v1")
-                    .put("type", "status")
-                    .put("payload", JSONObject().put("kai", "native").put("ollama", "external"))
-                    .toString()
-            )
+            "status.request" -> {
+                val host = activity
+                val systemProfile = if (host == null) {
+                    JSONObject()
+                        .put("schema", "luhm.samsung.system-profile.v1")
+                        .put("available", false)
+                } else {
+                    SamsungSystemProfile.snapshot(host)
+                }
+                replyProxy.postMessage(
+                    JSONObject()
+                        .put("schema", "luhm.bridge.reply.v1")
+                        .put("type", "status")
+                        .put(
+                            "payload",
+                            JSONObject()
+                                .put("kai", "native")
+                                .put("ollama", "external")
+                                .put("system", systemProfile)
+                        )
+                        .toString()
+                )
+            }
             "chat.send", "panel.set", "model.select", "cms.select" ->
                 emitSignal(BRIDGE_SIGNAL.name, raw)
             else -> Unit

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <queries>
+        <package android:name="com.android.chrome" />
+        <package android:name="com.chrome.beta" />
+        <package android:name="com.chrome.dev" />
+        <package android:name="com.chrome.canary" />
+        <package android:name="com.google.android.webview" />
+        <package android:name="com.google.android.webview.beta" />
+        <package android:name="com.google.android.webview.dev" />
+        <package android:name="com.google.android.webview.canary" />
+    </queries>
+
     <application>
         <meta-data
             android:name="org.godotengine.plugin.v2.${godotPluginName}"
