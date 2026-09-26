@@ -37,10 +37,21 @@
     "purpose": "Illustrated AI builder field manual, doctrine, comic tutorials, agent supervision, security architecture, and compute-tier guidance",
     "publication_authority": false
   },
+  "documentationWorkflow": {
+    "path": "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json",
+    "manual": "manual/LUHM_OS_MUTATION_AUDIT_SEAL_WORKFLOW.md",
+    "receipt": "doctrine/DOCUMENT_MUTATION_AUDIT_RECEIPT_20260925.json",
+    "seal": "doctrine/DOCUMENT_MUTATION_AUDIT_SEAL_20260926.json",
+    "status": "GREEN_DOCUMENTATION_WORKFLOW",
+    "promotedByMergeCommit": "cbc41872d7fc610f529856f4b30236edaf2f1f5d",
+    "runtimeAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false
+  },
   "reconciliation": {
-    "observedMain": "57e954116bdb8df9280b7149b7b8f38040df1f76",
+    "observedMain": "cbc41872d7fc610f529856f4b30236edaf2f1f5d",
     "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b",
-    "status": "PROPOSED_NOT_PROMOTED",
-    "preserved": "Field manual and manual pointer from observed main; amber Android contract retained"
+    "status": "DOC_WORKFLOW_PROMOTED_RUNTIME_NOT_PROMOTED",
+    "preserved": "Field manual and manual pointer retained; amber Android and broader release state unchanged; documentation mutation workflow promoted independently"
   }
 }
