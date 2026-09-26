@@ -1,14 +1,19 @@
 {
-  "schema": "luhm-os.termux-ollama-x11-hardening.v1",
-  "status": "GREEN_POLICY_CANDIDATE_RUNTIME_PROOF_PENDING",
+  "schema": "kai9000.termux-ollama-x11-hardening.v2",
+  "status": "GREEN_SOURCE_POLICY_RUNTIME_PROOF_PENDING",
   "authority": "Professor",
-  "canonicalRepository": "eggie-admin/LuHm-OS",
-  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
-  "baseSourceCommit": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
-  "scope": "separate local-first Termux operator and service plane; not Android runtime authority",
+  "sourceLaw": "AI proposes. Policy authorizes. CI or deterministic probes prove. Human promotes.",
+  "projectBoundary": {
+    "targetProject": "KAI 9000",
+    "notTargetProject": "LuHm OS native Android runtime",
+    "correctionStatus": "GREEN",
+    "canonicalRepository": "eggie-admin/LuHm-OS",
+    "quarantinedBranch": "hardening/termux-ollama-x11-headless-20260926",
+    "quarantinedBranchAction": "DO_NOT_MERGE_INTO_LUHM_OS",
+    "termuxExecutionBridgeInAndroidRuntime": false,
+    "kaiHardeningMergeAuthorized": false
+  },
   "trustBoundary": {
-    "androidRuntimeIntegration": false,
-    "termuxExecutionBridgeIntoApk": false,
     "publicExposure": false,
     "remoteShellExecution": false,
     "rootRequired": false,
@@ -18,33 +23,21 @@
     "secretsInRepository": false
   },
   "termux": {
+    "role": "KAI 9000 control plane",
     "runtime": "native Android user-space",
     "sourcePolicy": {
-      "preferredEnterpriseBaseline": [
-        "Termux stable F-Droid source",
-        "Termux stable GitHub source"
-      ],
+      "preferredEnterpriseBaseline": ["Termux stable F-Droid source", "Termux stable GitHub source"],
       "googlePlay": "EXPERIMENTAL_ALLOWED_IF_ALREADY_INSTALLED_AND_PROBED",
       "silentSourceMigration": false,
       "mixAppAndPluginSigningSources": false,
       "probeBeforeMigration": true
     },
-    "repositories": {
-      "main": true,
-      "x11": true,
-      "root": false
-    },
-    "serviceManager": {
-      "preferred": "termux-services/runit",
-      "defaultEnable": false,
-      "activationRequiresCrown": true
-    },
-    "wakeLock": {
-      "permanent": false,
-      "onDemandOnly": true
-    }
+    "repositories": {"main": true, "x11": true, "root": false},
+    "serviceManager": {"preferred": "termux-services/runit", "defaultEnable": false, "activationRequiresCrown": true},
+    "wakeLock": {"permanent": false, "onDemandOnly": true}
   },
   "ollama": {
+    "role": "KAI 9000 local inference",
     "installLane": "Termux main repository package when available",
     "headlessDefault": true,
     "bind": "127.0.0.1:11434",
@@ -57,6 +50,7 @@
     "serviceAutoEnable": false
   },
   "x11": {
+    "role": "optional KAI 9000 operator console",
     "defaultState": "OFF",
     "preferredServer": "TigerVNC from Termux X11 repository",
     "display": ":1",
@@ -66,73 +60,39 @@
     "onDemandOnly": true,
     "remoteDesktopExposure": false,
     "termuxX11Nightly": "OPTIONAL_DEBUG_ONLY_NOT_ENTERPRISE_BASELINE",
-    "sharedUidVariant": "NOT_BASELINE",
     "selinuxDisableProcedure": "FORBIDDEN"
   },
   "headless": {
     "default": true,
     "guiDependency": false,
-    "startupOrder": [
-      "doctor read-only probes",
-      "Ollama loopback service",
-      "optional Crown-approved user services",
-      "VNC only when operator explicitly requests GUI"
-    ],
+    "startupOrder": ["doctor read-only probes", "Ollama loopback service", "optional Crown-approved KAI services", "VNC only when explicitly requested"],
     "failurePolicy": "fail closed; no public fallback bind"
   },
   "securityUpdates": {
-    "mode": "STAGED_MANUAL_PROMOTION",
+    "mode": "STAGED_FAIL_CLOSED",
     "unattendedPackageUpgrade": false,
-    "sequence": [
-      "inventory exact app/package state",
-      "snapshot configs and package manifest",
-      "refresh repository metadata",
-      "review upgrade delta and upstream advisories",
-      "Professor Crown approval",
-      "apply package upgrades",
-      "run operator doctor and service smoke tests",
-      "record versions, listeners and hashes",
-      "seal evidence receipt"
-    ],
-    "automaticActionAllowed": [
-      "read-only inventory",
-      "read-only health probes",
-      "CI static policy audit"
-    ],
-    "automaticActionDenied": [
-      "pkg upgrade",
-      "app-source migration",
-      "repository switching",
-      "service enablement",
-      "model download",
-      "public bind",
-      "root escalation"
-    ],
-    "rollback": "restore known-good configuration and package manifest from human-created snapshot; never blind downgrade"
+    "automaticSourceMigration": false,
+    "sequence": ["inventory exact app/package state", "snapshot configs and package manifest", "refresh repository metadata", "review upgrade delta and advisories", "Professor Crown approval", "apply approved package upgrades", "run KAI doctor and service smoke tests", "record versions/listeners/hashes", "seal evidence receipt"],
+    "automaticActionAllowed": ["read-only inventory", "read-only health probes", "CI static policy audit"],
+    "automaticActionDenied": ["pkg upgrade", "app-source migration", "repository switching", "service enablement", "model download", "public bind", "root escalation"],
+    "rollback": "restore known-good local snapshot after human review; never blind downgrade"
   },
-  "logging": {
-    "debugDefault": false,
-    "localOnly": true,
-    "minimumFileMode": "0600",
-    "secretLogging": false,
-    "promptLogging": false
+  "agentMesh": {
+    "boss": "Lum",
+    "defaultOni": [
+      {"name": "Kiri", "role": "context_and_doctrine"},
+      {"name": "Tetsu", "role": "build_and_service_contracts"},
+      {"name": "Momo", "role": "research_and_dependency_freshness"}
+    ],
+    "conditionalCritic": {"name": "Shiori", "role": "sanity_check_and_drift_detection"},
+    "toolExecutor": {"name": "Kugi", "role": "deterministic_execution_only", "mayReinterpretScope": false},
+    "parallelismMax": 3,
+    "recursiveRecruitment": false
   },
-  "runtimeEvidenceRequired": [
-    "termux-info output",
-    "installed package manifest",
-    "configured apt repository list",
-    "ollama version",
-    "Ollama listener proven as 127.0.0.1:11434 only",
-    "Ollama local API smoke test",
-    "TigerVNC listener proven as localhost only when GUI is active",
-    "TigerVNC authentication file present with private permissions",
-    "root repository absent or disabled",
-    "SELinux remains enforcing where platform exposes status",
-    "termux-services state if runit is activated",
-    "upgrade delta receipt",
-    "post-update smoke test"
-  ],
-  "runtimeProof": "PENDING",
+  "tenPassHardAudit": ["source_authority", "project_scope", "runtime_separation", "termux_package_source", "network_binding", "privilege_boundary", "headless_service_health", "update_and_rollback", "receipts_and_hashes", "seal_and_save"],
+  "runtimeEvidenceRequired": ["termux-info output", "installed package manifest", "configured apt repository list", "ollama version", "Ollama listener proven loopback-only", "Ollama local API smoke test", "Ollama model inventory", "TigerVNC status and loopback proof when active", "websockify status if retained", "KAI service health", "storage/runtime path reconciliation", "root repository absent", "SELinux remains enforcing when observable", "snapshot receipt", "post-update smoke test"],
+  "witchingHourForge": "kai9000/witching-hour",
+  "runtimeProof": "PENDING_LOCAL_TERMUX_PROBE",
   "securityUpdateReceipt": "PENDING",
   "grants": {
     "operatorHardeningPolicy": true,
