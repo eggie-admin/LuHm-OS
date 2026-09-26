@@ -16,9 +16,10 @@ rm -rf /tmp/godot /tmp/tpl
 unzip -q /tmp/godot.zip -d /tmp/godot
 GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
 chmod +x "$GODOT"
-mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable"
+TEMPLATE_DIR="$HOME/.local/share/godot/export_templates/4.7.2.stable"
+mkdir -p "$TEMPLATE_DIR"
 unzip -q /tmp/templates.tpz -d /tmp/tpl
-cp -a /tmp/tpl/templates/. "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+cp -a /tmp/tpl/templates/. "$TEMPLATE_DIR/"
 mkdir -p "$HOME/.config/godot"
 printf '[gd_resource type="EditorSettings" format=3]\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_HOME" "$JAVA_HOME" > "$HOME/.config/godot/editor_settings-4.tres"
 
@@ -43,9 +44,16 @@ cp -a cockpit/jquery cockpit/cms cockpit/vendor "$ASSETS/"
 test -s "$ASSETS/vendor/jquery/jquery.min.js"
 test -s "$ASSETS/vendor/vue/vue.global.prod.js"
 
-# Install the Gradle template in editor mode so Godot does not launch Main.tscn.
-"$GODOT" --headless --editor --path . --install-android-build-template --quit
+# CI has no attached Android device. Extract Godot's verified Gradle source template
+# directly rather than invoking the editor installer, which probes adb:5037.
+ANDROID_SOURCE="$(find "$TEMPLATE_DIR" -type f -name 'android_source.zip' -print -quit)"
+test -n "$ANDROID_SOURCE"
+rm -rf android/build
+mkdir -p android/build
+unzip -q "$ANDROID_SOURCE" -d android/build
+chmod +x android/build/gradlew
 test -x android/build/gradlew
+test -s android/build/settings.gradle || test -s android/build/settings.gradle.kts
 
 android/build/gradlew -p native/kaiwebview :kaiwebview:assembleDebug :kaiwebview:assembleRelease --no-daemon
 mkdir -p addons/kai_webview/bin
