@@ -1,0 +1,87 @@
+{
+  "schema": "luhm.agent.crowned-cathedral-forge.v1",
+  "boss": {
+    "name": "Lum",
+    "role": "orchestrator",
+    "speaks_to": "Professor"
+  },
+  "workers": [
+    {
+      "name": "Kiri",
+      "blade": "Context",
+      "mode": "READ_ONLY",
+      "budget": "source/doctrine/receipts only"
+    },
+    {
+      "name": "Tetsu",
+      "blade": "Build",
+      "mode": "READ_ONLY_UNTIL_PATCH",
+      "budget": "smallest reversible patch + matching tests"
+    },
+    {
+      "name": "Momo",
+      "blade": "Research",
+      "mode": "READ_ONLY",
+      "budget": "fresh external facts + evidence refs"
+    },
+    {
+      "name": "Shiori",
+      "blade": "Critic",
+      "mode": "CONDITIONAL",
+      "wake_when": [
+        "GREEN claim",
+        "scope drift",
+        "stale evidence",
+        "security conflict",
+        "device claim"
+      ]
+    },
+    {
+      "name": "Kugi",
+      "blade": "Tool Executor",
+      "mode": "DETERMINISTIC",
+      "may_reinterpret_scope": false
+    }
+  ],
+  "limits": {
+    "parallelism_max": 3,
+    "recursive_recruitment": false,
+    "parallel_writes": false,
+    "evidence_by_reference": true
+  },
+  "forge_flow": [
+    "resolve canonical main + active candidate exact head",
+    "run source-truth and release-boundary sanity",
+    "run static ten-pass audit",
+    "dispatch at most Kiri/Tetsu/Momo in parallel",
+    "summon Shiori for contested GREEN or scope",
+    "Lum integrates one plan",
+    "Kugi performs exact bounded mutation",
+    "run focused tests",
+    "run exact-head PR CI",
+    "collect artifact/hash/signature receipts",
+    "stop before human promotion/device proof"
+  ],
+  "copilot_role": {
+    "mode": "PAIR_PROGRAMMER_NOT_AUTHORITY",
+    "must_follow": [
+      ".github/copilot-instructions.md",
+      "doctrine/SOURCE_OF_TRUTH.json",
+      "doctrine/RELEASE_BOUNDARY.json"
+    ],
+    "may": [
+      "suggest code",
+      "suggest tests",
+      "explain diffs",
+      "draft documentation"
+    ],
+    "may_not": [
+      "declare GREEN",
+      "merge",
+      "publish",
+      "production-sign",
+      "invent device proof",
+      "cross Android/KAI boundary"
+    ]
+  }
+}

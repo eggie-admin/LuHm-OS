@@ -1,0 +1,73 @@
+{
+  "schema": "luhm-os.crowned-cathedral-system-harness.v1",
+  "date": "2026-09-26",
+  "status": "PROPOSED_EXACT_HEAD_CI_PENDING",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true
+  },
+  "source": {
+    "repository": "eggie-admin/LuHm-OS",
+    "canonical_branch": "main",
+    "candidate_branch": "candidate/crowned-cathedral-system-harness-20260926",
+    "candidate_parent": "67e16b088349cc4ab0cf918ab7bc2507ae4deaf1",
+    "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes."
+  },
+  "architecture": {
+    "godot_world_owner": "Godot 4",
+    "ui_owner": "caged local Android WebView WebGlass",
+    "web_stack": [
+      "jQuery",
+      "jQuery UI",
+      "Bootstrap",
+      "Vue CMS island"
+    ],
+    "webview_origin": "https://appassets.androidplatform.net",
+    "webview_network": "dark",
+    "android_to_termux_exec": false,
+    "generic_shell_bridge": false,
+    "arbitrary_filesystem_bridge": false,
+    "embedded_secrets": false
+  },
+  "samsung": {
+    "target": "Samsung S24 FE class / Android 16",
+    "abi": "arm64-v8a",
+    "target_sdk": 36,
+    "shizuku": {
+      "mode": "optional_explicit_user_grant",
+      "detect_only_baseline": true,
+      "generic_shell": false,
+      "secure_folder_bypass": false
+    },
+    "root": false,
+    "silent_install": false
+  },
+  "kai9000": {
+    "boundary": "separate external control plane",
+    "termux": "external",
+    "ollama": "external loopback companion",
+    "x11_vnc": "optional external operator lane",
+    "apk_lifecycle_authority": false
+  },
+  "agent_mesh": {
+    "boss": "Lum",
+    "default_oni": {
+      "Kiri": "Context",
+      "Tetsu": "Build",
+      "Momo": "Research"
+    },
+    "conditional_critic": "Shiori",
+    "deterministic_executor": "Kugi",
+    "parallelism_max": 3,
+    "recursive_recruitment": false
+  },
+  "green_law": {
+    "source_green": "exact-head static and contract audit",
+    "ci_green": "required PR workflows successful on exact head",
+    "apk_green": "package+signature+16K alignment+payload+SHA256",
+    "device_green": "physical Samsung install/runtime receipt",
+    "enterprise_green": "persistent signer+branch controls+supporting live evidence",
+    "unknown_is_not_green": true
+  },
+  "promotion": false
+}
