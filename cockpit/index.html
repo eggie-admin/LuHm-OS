@@ -40,6 +40,7 @@
         <button type="button" data-toy-action="pet_lum">♥ PET</button>
         <button type="button" data-toy-action="oni_pop">👹 ONI</button>
         <button type="button" data-toy-action="crown_pulse">♛ PULSE</button>
+        <button type="button" data-toggle-panel="ritualPanel">☾ RITUAL</button>
         <button type="button" data-request-status>STATUS</button>
       </div>
 
@@ -91,6 +92,19 @@
       </div>
     </section>
 
+    <section class="floatingPanel ritualPanel" id="ritualPanel" data-luhm-panel hidden>
+      <div class="panelTitle"><span>Witching Hour // Three Rituals</span><button type="button" data-toggle-panel="ritualPanel">×</button></div>
+      <div class="panelBody">
+        <div class="ritualState" data-ritual-state>IDLE · CROWN-GATED TOY EFFECTS</div>
+        <div class="ritualGrid">
+          <button type="button" data-ritual-start="crown_wake"><strong>I · CROWN WAKE</strong><small>neon pulse + Lum wake</small></button>
+          <button type="button" data-ritual-start="oni_trinity"><strong>II · ONI TRINITY</strong><small>three oni lights + Crown echo</small></button>
+          <button type="button" data-ritual-start="witching_hour"><strong>III · WITCHING HOUR</strong><small>full reversible toy sequence</small></button>
+        </div>
+        <p class="ritualNote">Local effects only. No shell, network, privilege, files, or persistent world mutation.</p>
+      </div>
+    </section>
+
     <section class="floatingPanel atelierPanel" id="atelierPanel" data-luhm-panel hidden>
       <div class="panelTitle"><span>Oni Atelier // BodyForge</span><button type="button" data-toggle-panel="atelierPanel">×</button></div>
       <div class="panelBody">
@@ -124,6 +138,7 @@
       <button data-toggle-panel="chatPanel">CHAT</button>
       <button data-toggle-panel="agentPanel">ONI</button>
       <button data-toggle-panel="cmsPanel">CMS</button>
+      <button data-toggle-panel="ritualPanel">RITUAL</button>
       <button data-toggle-panel="atelierPanel">ATELIER</button>
       <button data-native-world>WORLD</button>
     </nav>
@@ -136,6 +151,7 @@
   <script src="./jquery/luhm.deck.js"></script>
   <script src="./jquery/luhm.site.js"></script>
   <script src="./jquery/luhm.atelier.js"></script>
+  <script src="./jquery/luhm.ritual.js"></script>
   <script src="./cms/vueCms.js"></script>
   <script src="./app.js"></script>
 </body>
