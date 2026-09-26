@@ -336,6 +336,9 @@ func set_expression(expression_name: String, weight: float = 1.0) -> void:
     if model_root == null:
         return
     var aliases := _expression_aliases(expression_name)
+    if expression_name.to_lower() == "neutral":
+        weight = 0.0
+        aliases = ["neutral", "smile", "happy", "joy", "blink", "blink_l", "blink_r", "eye_blink", "aa", "a", "mouth_open", "jawopen"]
     for node in model_root.find_children("*", "MeshInstance3D", true, false):
         var mesh_instance := node as MeshInstance3D
         var array_mesh := mesh_instance.mesh as ArrayMesh

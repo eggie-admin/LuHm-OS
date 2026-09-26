@@ -62,7 +62,40 @@ func _run() -> void:
         _check(world_root != null and world_root.visible, "world HUD becomes visible")
         _check(backend_root != null and not backend_root.visible, "backend overlay hides in world mode")
 
+        game.call("_enter_backend")
+        await process_frame
+        _check(backend_root.visible and not world_root.visible, "return to Cathedral restores HUD")
+        _check(not bool(player.get("world_active")), "Cathedral disables world movement")
+        _check(not bool(player.get("controls_locked")), "Cathedral releases cutscene control lock")
+        _check(not bool(hud.get("dialogue_label").visible), "Cathedral clears dialogue")
+        _check(player.get("touch_axis") == Vector2.ZERO, "Cathedral clears held touch input")
+
+    _check_expression_restore()
     _finish()
+
+func _check_expression_restore() -> void:
+    var avatar = load("res://scripts/game/lumAvatar.gd").new()
+    var model := Node3D.new()
+    avatar.add_child(model)
+    avatar.model_root = model
+    var mesh := ArrayMesh.new()
+    mesh.add_blend_shape("mouth_open")
+    mesh.add_blend_shape("custom")
+    var arrays: Array = []
+    arrays.resize(Mesh.ARRAY_MAX)
+    arrays[Mesh.ARRAY_VERTEX] = PackedVector3Array([Vector3.ZERO, Vector3.RIGHT, Vector3.UP])
+    var shapes: Array[Array] = [arrays.duplicate(true), arrays.duplicate(true)]
+    mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays, shapes)
+    var instance := MeshInstance3D.new()
+    instance.mesh = mesh
+    model.add_child(instance)
+    instance.set_blend_shape_value(1, 0.25)
+    avatar.set_expression("talk", 0.55)
+    _check(is_equal_approx(instance.get_blend_shape_value(0), 0.55), "talk activates mouth fixture")
+    avatar.restore_visual_state()
+    _check(is_zero_approx(instance.get_blend_shape_value(0)), "neutral clears talking expression")
+    _check(is_equal_approx(instance.get_blend_shape_value(1), 0.25), "neutral preserves unrelated shape")
+    avatar.free()
 
 func _check(condition: bool, label: String) -> void:
     if condition:

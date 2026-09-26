@@ -77,7 +77,7 @@ func _build_world_hud() -> void:
     world_root.add_child(backend)
 
     status_label = Label.new()
-    status_label.text = "NEON RIVERWALK // CROWN GREEN DRY RUN"
+    status_label.text = "NEON RIVERWALK // CROWN AMBER CANDIDATE"
     status_label.anchor_left = 0.28
     status_label.anchor_right = 0.96
     status_label.anchor_top = 0.02
