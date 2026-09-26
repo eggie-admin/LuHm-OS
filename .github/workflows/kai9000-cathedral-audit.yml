@@ -1,0 +1,96 @@
+name: KAI 9000 Cathedral Hard Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'cathedral/**'
+      - 'cockpit/**'
+      - 'agents/luhm-agent-mesh/**'
+      - 'skills/kai9000-cathedral/**'
+      - 'doctrine/kai9000CathedralHardAudit-20260925.json'
+      - 'doctrine/kai9000CathedralSeal-20260925.json'
+      - 'scripts/auditKai9000Cathedral.py'
+      - '.github/workflows/kai9000-cathedral-audit.yml'
+  push:
+    branches:
+      - 'dryrun/**'
+      - 'proposed/**'
+    paths:
+      - 'cathedral/**'
+      - 'cockpit/**'
+      - 'agents/luhm-agent-mesh/**'
+      - 'skills/kai9000-cathedral/**'
+      - 'doctrine/kai9000CathedralHardAudit-20260925.json'
+      - 'doctrine/kai9000CathedralSeal-20260925.json'
+      - 'scripts/auditKai9000Cathedral.py'
+      - '.github/workflows/kai9000-cathedral-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  hard-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    env:
+      SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ env.SOURCE_SHA }}
+
+      - name: Verify exact source checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+
+      - name: Syntax
+        run: |
+          set -euo pipefail
+          python3 -m py_compile cathedral/sidecar/kai9000_headless.py scripts/auditKai9000Cathedral.py
+          bash -n cathedral/termux/kai-cathedral
+          node --check cockpit/app.js
+          node --check cockpit/jquery/luhm.deck.js
+          node --check cockpit/jquery/luhm.site.js
+          node --check cockpit/cms/vueCms.js
+
+      - name: Headless Ollama contract tests
+        run: python3 -m unittest discover -s cathedral/sidecar/tests -v
+
+      - name: Ten-pass deterministic audit
+        run: python3 scripts/auditKai9000Cathedral.py
+
+      - name: Secret-pattern guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' \
+            cathedral cockpit agents/luhm-agent-mesh skills/kai9000-cathedral \
+            doctrine/kai9000CathedralHardAudit-20260925.json \
+            doctrine/kai9000CathedralSeal-20260925.json \
+            scripts/auditKai9000Cathedral.py
+
+      - name: Exact-head receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/cathedral-proof
+          printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nevent=%s\n' \
+            "$SOURCE_SHA" "$GITHUB_WORKFLOW" "$GITHUB_RUN_ID" "$GITHUB_EVENT_NAME" | tee build/cathedral-proof/receipt.txt
+          sha256sum \
+            cathedral/sidecar/kai9000_headless.py \
+            cathedral/termux/kai-cathedral \
+            cockpit/jquery/luhm.site.js \
+            doctrine/kai9000CathedralHardAudit-20260925.json \
+            doctrine/kai9000CathedralSeal-20260925.json \
+            > build/cathedral-proof/source-sha256.txt
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: kai9000-cathedral-hard-audit-${{ env.SOURCE_SHA }}
+          path: build/cathedral-proof/
+          if-no-files-found: error
+          retention-days: 14

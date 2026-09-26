@@ -1,0 +1,19 @@
+{
+  "schema": "luhm.cathedral.agentRuntime.v1",
+  "boss": "Lum",
+  "routing": {
+    "direct_question": "Lum only",
+    "normal_complex": ["Context/Oni-Kumo", "Build/Oni-Tetsu", "Research/Oni-Sumi"],
+    "critical": ["Context/Oni-Kumo", "Research or Build", "Critic/Oni-Ibara"],
+    "writer": "Kanabo Gate after policy decision"
+  },
+  "limits": {
+    "max_parallel_helpers": 3,
+    "max_delegation_depth": 1,
+    "recursive_recruitment": false,
+    "parallel_writes": false
+  },
+  "background_learning": "candidate-only local distillation; never instruction/source mutation",
+  "evidence": "by reference; exact SHA/run/artifact for build claims",
+  "stop_rule": "stop at RED, BLACK, missing external proof, or scope expansion"
+}
