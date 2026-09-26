@@ -1,0 +1,191 @@
+{
+  "schema": "luhm-os.final-system-audit.v1",
+  "date": "2026-09-26",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "status": "AMBER_FINAL_AUDIT_CHECKPOINT",
+  "canonical": {
+    "repository": "eggie-admin/LuHm-OS",
+    "main": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+    "verifiedSigned": true,
+    "branchProtected": false,
+    "rulesets": [],
+    "releaseBoundary": "PROPOSED_NOT_CROWNED"
+  },
+  "candidate": {
+    "pullRequest": 28,
+    "head": "7d85fa5713bc4e75dab0e1f064e7e1e475177749",
+    "merged": false,
+    "priorSeal": "198ce9f974019094afb72130d0111bb4c550127c",
+    "scope": "GREEN_AUDIT_HARDENING_CANDIDATE",
+    "workflowRuns": [
+      {
+        "id": 36224644647,
+        "scope": "audit",
+        "result": "success"
+      },
+      {
+        "id": 36224644642,
+        "scope": "rig",
+        "result": "success"
+      },
+      {
+        "id": 36224644645,
+        "scope": "standard Samsung testing APK",
+        "result": "success"
+      }
+    ],
+    "localNegativeControlsPassed": 5
+  },
+  "manifestReconciliation": {
+    "inputSchema": "luhm-os.project-hydra.artifact-pass.v1",
+    "accepted": [
+      "Product identity and source law",
+      "Canonical main SHA",
+      "Main signed but unprotected",
+      "No release authority",
+      "Full demo and enterprise readiness remain AMBER"
+    ],
+    "corrected": [
+      "7 GREEN / 3 AMBER is historical, not the current hardened checker result.",
+      "Canonical orchestrator configuration is not evidence of a deployed Lum/Oni backend.",
+      "Field manual PDF/HTML/ZIP and named template skill were not fetched or validated in this pass; their claimed GREEN is not independently recertified."
+    ],
+    "notRead": [
+      "Listed generated field manual artifacts",
+      "Named artifact-template-luhm-os-mutation-audit-seal installed skill"
+    ],
+    "noHistoricalGreenInheritance": true
+  },
+  "machineAudit": {
+    "summary": {
+      "GREEN": 1,
+      "AMBER": 1,
+      "RED": 0,
+      "UNKNOWN": 8
+    },
+    "passes": [
+      {
+        "pass": 1,
+        "name": "Authority",
+        "status": "UNKNOWN",
+        "reason": "Requires dedicated evidence; not established by this checker."
+      },
+      {
+        "pass": 2,
+        "name": "Scope",
+        "status": "UNKNOWN",
+        "reason": "Requires dedicated evidence; not established by this checker."
+      },
+      {
+        "pass": 3,
+        "name": "Freshness",
+        "status": "UNKNOWN",
+        "reason": "Requires dedicated evidence; not established by this checker."
+      },
+      {
+        "pass": 4,
+        "name": "Voice",
+        "status": "UNKNOWN",
+        "reason": "Requires dedicated evidence; not established by this checker."
+      },
+      {
+        "pass": 5,
+        "name": "Evidence",
+        "status": "AMBER",
+        "reason": "Required runtime or operational evidence remains pending."
+      },
+      {
+        "pass": 6,
+        "name": "Security",
+        "status": "UNKNOWN",
+        "reason": "Requires dedicated evidence; not established by this checker."
+      },
+      {
+        "pass": 7,
+        "name": "Structure",
+        "status": "UNKNOWN",
+        "reason": "Requires dedicated evidence; not established by this checker."
+      },
+      {
+        "pass": 8,
+        "name": "Machine Readability",
+        "status": "GREEN",
+        "reason": "Required JSON inputs parsed; configured contract assertions evaluated."
+      },
+      {
+        "pass": 9,
+        "name": "Render and Hash",
+        "status": "UNKNOWN",
+        "reason": "Requires dedicated evidence; not established by this checker."
+      },
+      {
+        "pass": 10,
+        "name": "Seal and Save",
+        "status": "UNKNOWN",
+        "reason": "Requires dedicated evidence; not established by this checker."
+      }
+    ],
+    "contractErrors": [],
+    "receipt": "doctrine/witchingHourReadiness-20260926.json"
+  },
+  "remainingBlockers": [
+    {
+      "gate": "core_demo",
+      "reason": "AMBER_PHYSICAL_DEVICE_PROOF_PENDING"
+    },
+    {
+      "gate": "core_demo_remaining",
+      "reason": "Physical S24 FE/SM-X400 rotation, cutout and touch testing; Persistent signing and installed certificate compatibility; Real 16KB runtime proof"
+    },
+    {
+      "gate": "s24fe_cockpit",
+      "reason": "physicalS24FeProof=PENDING"
+    },
+    {
+      "gate": "install_portal.lanDnsActivation",
+      "reason": "PENDING"
+    },
+    {
+      "gate": "install_portal.apacheActivation",
+      "reason": "PENDING"
+    },
+    {
+      "gate": "install_portal.physicalS24FeInstall",
+      "reason": "PENDING"
+    },
+    {
+      "gate": "secure_update_identity",
+      "reason": "fdroidRepositorySigning=PENDING"
+    },
+    {
+      "gate": "enterprise_readiness",
+      "reason": "enterpriseReady=false"
+    },
+    {
+      "gate": "ten_pass_evidence",
+      "reason": "Authority; Scope; Freshness; Voice; Evidence; Security; Structure; Render and Hash; Seal and Save"
+    }
+  ],
+  "additionalGaps": [
+    "Branch protection and required status enforcement absent.",
+    "Dedicated per-pass evidence ingestion remains unimplemented.",
+    "Device/operational receipt schema and validation must be implemented before corresponding readiness promotion.",
+    "Installed personal skill and live backend agent state were not modified or certified."
+  ],
+  "evidenceHashes": {
+    "doctrine/SOURCE_OF_TRUTH.json": "1bb7f479ea72531129c7ca7feaa8232bc6ba1b6ddcaa6eb102391b4f42f7a52a",
+    "doctrine/RELEASE_BOUNDARY.json": "7ab36867e9570ece664bd188f4cdc09d28b9b38082f78cca5f9c65b0798427b7",
+    "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json": "dd70af17234de37ee805288603b83ad8a5889818943ab8989f84caac5ad0323c",
+    "doctrine/fullSourceTruthOrchestrator-20260926.json": "633962eb2c39b714050fd71bf8e83fff8397326101a7bd7ba3e543efa0160ac9",
+    "doctrine/samsungLayoutSeal-20260926.json": "a8011bf1d64ef1160fd95c969e3dd490aa64c710fed121b74249017dd8a53b6d",
+    "doctrine/s24FeCockpitAuditSwitchSeal-20260926.json": "2ac0dc5d4f8e07491f74887e42ea1481ee140cff481a5250b2ff6c22288a7fd7",
+    "doctrine/fqdnInstallPortalSeal-20260926.json": "aeec1fb456b1005ed6c8313dc248f8205dd46b1dd0272421fb49d2e10dbe66da"
+  },
+  "proofScope": "Repository doctrine, candidate diff, CI metadata and prior CI receipt. No physical-device, live-provider, generated-document or full repository security certification.",
+  "nextSafeAction": "Keep tested candidate frozen; collect missing device and operational receipts and implement bounded validators. Exact Crown is required for main promotion or consequential deployment.",
+  "mainMutated": false,
+  "promotionAuthorized": false,
+  "publicationAuthorized": false,
+  "productionSigningAuthorized": false
+}
