@@ -2,8 +2,8 @@ extends SceneTree
 
 const REQUIRED := [
     "res://assets/community/runtime/city-industrial/building-a.glb",
-    "res://assets/community/runtime/city-industrial/smokestack-detailed.glb",
-    "res://assets/community/runtime/city-industrial/tank-large-a.glb",
+    "res://assets/community/runtime/city-industrial/chimney-large.glb",
+    "res://assets/community/runtime/city-industrial/detail-tank.glb",
     "res://assets/community/runtime/factory/catwalk-straight.glb",
     "res://assets/community/runtime/factory/crane.glb",
     "res://assets/community/runtime/factory/pipe-large-valve.glb",
