@@ -1,5 +1,8 @@
 extends Node
 
+signal world_requested
+signal toy_action_requested(action: String)
+
 var _plugin = null
 
 func _ready() -> void:
@@ -25,6 +28,15 @@ func _on_bridge_message(raw: String) -> void:
     if typeof(parsed) != TYPE_DICTIONARY:
         return
     var message_type := String(parsed.get("type", ""))
+    if message_type == "world.show":
+        world_requested.emit()
+        return
+    if message_type == "toy.action":
+        var toy_payload = parsed.get("payload", {})
+        var action := String(toy_payload.get("action", ""))
+        if action in ["pet_lum", "oni_pop", "crown_pulse"]:
+            toy_action_requested.emit(action)
+        return
     if message_type == "chat.send":
         var payload = parsed.get("payload", {})
         var professor_message := String(payload.get("message", ""))
@@ -33,7 +45,7 @@ func _on_bridge_message(raw: String) -> void:
             "type": "chat.reply",
             "payload": {
                 "speaker": "Lum",
-                "message": "Native Cathedral bridge online. Ollama handoff remains external until paired. Received: " + professor_message.left(160)
+                "message": "Crowned Cathedral bridge online. Tap Toy World when you want back into Godot. Received: " + professor_message.left(160)
             }
         }
         _plugin.postToCockpit(JSON.stringify(reply))
