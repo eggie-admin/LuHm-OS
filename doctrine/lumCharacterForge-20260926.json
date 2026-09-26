@@ -1,0 +1,111 @@
+{
+  "schema": "luhm-os.lum-character-forge.v2",
+  "date": "2026-09-26",
+  "authority": "Professor",
+  "status": "GREEN_CANDIDATE_CI_REQUIRED",
+  "goal": "Build an original Lum demon character base with real textures, full humanoid rig, facial expressions and bounded secondary motion while keeping the Samsung runtime offline and provenance-safe.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "referenceStyle": {
+    "character": "adult original demon woman",
+    "skin": "deep warm crimson/red",
+    "hair": "long warm blonde/auburn-blonde",
+    "eyes": "dark dramatic anime styling",
+    "silhouette": "curvy adult feminine proportions",
+    "features": ["horns", "pointed ears", "bat wings", "long pointed tail", "dark leather/industrial gothic wardrobe", "tattoo/marking layer"],
+    "copyrightRule": "Professor reference informs an original Lum design only; no franchise character cloning"
+  },
+  "technicalBaseDonor": {
+    "name": "TalkingHead MPFB Female",
+    "repository": "met4citizen/TalkingHead",
+    "commit": "b3e277b3b46f88e557bf28a2c5612a5b04e075c3",
+    "path": "avatars/mpfb.glb",
+    "gitBlobSha1": "cd2ebbe1fe8bcbf3d5b2dfbf1262a7f76814e68f",
+    "license": "CC0 model; TalkingHead integration code is MIT",
+    "role": "primary technical donor because it is textured, skinned and designed for ARKit/Oculus facial shape workflows",
+    "runtimeNetwork": false
+  },
+  "animeAestheticReference": {
+    "name": "VRoid Base Female",
+    "repository": "CambrianTech/continuum",
+    "commit": "d053bc241c6e6d8f2bc41fc12bb2fe42272d6791",
+    "catalogLicense": "CC0",
+    "role": "anime proportion/material/VRM semantic reference only until a non-pointer immutable binary source is proven",
+    "reasonNotPrimary": "the Continuum GLB repository path resolves to a 21-byte pointer in clean CI rather than the binary payload"
+  },
+  "faceRigReference": {
+    "repository": "met4citizen/TalkingHead",
+    "commit": "b3e277b3b46f88e557bf28a2c5612a5b04e075c3",
+    "license": "MIT code",
+    "use": ["ARKit-style facial units", "Oculus 15-viseme naming", "Mixamo-compatible body rig workflow", "MPFB export recipe"],
+    "copyPolicy": "reuse permissively licensed concepts/code with attribution; never treat unrelated example avatars as automatically redistributable"
+  },
+  "godotDonors": [
+    {
+      "repository": "V-Sekai/godot-vrm",
+      "commit": "e15199f980064028bfa4fbee5e70dddb82dd55c3",
+      "license": "MIT",
+      "use": ["VRM humanoid semantics", "expression binds", "VRM spring-bone interoperability", "MToon import reference"]
+    },
+    {
+      "repository": "detomon/wigglebone",
+      "commit": "d45042dd05680149b4c1174771f1f666f262057d",
+      "license": "MIT",
+      "use": ["secondary-motion comparison", "bounded bone-spring tuning", "editor test methodology"]
+    }
+  ],
+  "falloutCommunityReferences": [
+    {
+      "repository": "ousnius/BodySlide-and-Outfit-Studio",
+      "commit": "ee2684962a70713a52b5f21f2fd5390d8ab2b533",
+      "license": "GPL-3.0",
+      "mode": "REFERENCE_ONLY",
+      "use": ["slider-set UX concepts", "preset architecture", "outfit/body preview workflow", "physics preview concepts"],
+      "restriction": "do not copy GPL implementation into the Android runtime without an explicit compatible licensing decision"
+    },
+    {
+      "repository": "BadDogSkyrim/PyNifly",
+      "license": "GPL-3.0",
+      "mode": "OFFLINE_TOOL_REFERENCE_ONLY",
+      "use": ["NIF skeleton/material conversion vocabulary", "Blender modding workflow reference"],
+      "restriction": "no Bethesda game data or third-party mod meshes/textures are redistributed"
+    }
+  ],
+  "runtimePhysics": {
+    "hair": "dedicated hair bone chains using Godot SpringBoneSimulator3D first; MIT WiggleBone is comparison/fallback",
+    "chestSecondaryMotion": "Breast_L and Breast_R helper bones with bounded spring motion only; no whole-torso soft body",
+    "tail": "six-plus bone spring chain with angle/collision constraints",
+    "wings": "skeletal spring frame; optional SoftBody3D membrane experiment behind mobile quality gate",
+    "cloth": "SoftBody3D only for isolated cloth/membrane meshes and only after Samsung performance proof",
+    "engine": "Godot 4.7/Jolt",
+    "androidDefault": "spring-bone first, soft-body conservative"
+  },
+  "targetRig": {
+    "humanoid": "SkeletonProfileHumanoid-compatible full body including fingers and eye control",
+    "spine": ["hips", "spine", "chest", "upper_chest", "neck", "head"],
+    "tail": ["Tail_01", "Tail_02", "Tail_03", "Tail_04", "Tail_05", "Tail_06"],
+    "leftWing": ["Wing_L_Root", "Wing_L_01", "Wing_L_02", "Wing_L_03"],
+    "rightWing": ["Wing_R_Root", "Wing_R_01", "Wing_R_02", "Wing_R_03"],
+    "secondary": ["Breast_L", "Breast_R"],
+    "face": "ARKit-style face units plus Oculus 15 visemes, blink/eyes/jaw/mouth required",
+    "accessories": ["Horn_L", "Horn_R", "Ear_L", "Ear_R"]
+  },
+  "textureMutation": {
+    "skin": "author original warm crimson skin material/texture from Professor reference palette",
+    "hair": "author original warm blonde/auburn-blonde palette",
+    "eyes": "author original dark dramatic eye palette",
+    "markings": "author original tattoo/marking overlay; do not trace third-party symbols",
+    "wardrobe": "original dark leather/industrial gothic materials"
+  },
+  "hardGates": {
+    "baseMustHaveSkin": true,
+    "baseMustHaveMaterials": true,
+    "baseMustHaveTextures": true,
+    "baseMustHaveHumanoidMap": true,
+    "baseMustHaveExpressions": true,
+    "baseMustHaveVisemes": true,
+    "runtimeDownloads": false,
+    "bethesdaAssetsBundled": false,
+    "unknownLicenseAssetsBundled": false,
+    "physicalSamsungProof": "PENDING"
+  }
+}

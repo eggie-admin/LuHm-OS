@@ -1,0 +1,57 @@
+name: LuHm Lum Character Forge Donor Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'doctrine/lumCharacterForge-20260926.json'
+      - 'tools/auditCharacterDonor.py'
+      - 'scripts/stageLumCharacterDonor.sh'
+      - '.github/workflows/lum-character-forge-audit.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lum-character-forge-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  donor-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact candidate source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Validate doctrine
+        run: python3 -m json.tool doctrine/lumCharacterForge-20260926.json >/dev/null
+      - name: Stage and audit pinned CC0 donor
+        run: |
+          chmod +x scripts/stageLumCharacterDonor.sh
+          scripts/stageLumCharacterDonor.sh
+      - name: Verify generated rig map
+        run: |
+          python3 -m json.tool assets/lum/forge/mpfbFemaleBoneMap.json >/dev/null
+          test -s build/character-forge/mpfbFemaleBase-receipt.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('build/character-forge/mpfbFemaleBase-receipt.json').read_text())
+          assert r['status']=='GREEN_DONOR_STATIC_AUDIT'
+          assert r['license']=='CC0'
+          assert r['counts']['materials'] > 0
+          assert r['counts']['textures'] > 0
+          assert r['counts']['skins'] > 0
+          assert r['counts']['morphTargets'] >= 15
+          print('LUM_CHARACTER_FORGE_DONOR=GREEN')
+          PY
+      - name: Upload donor audit receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lum-character-forge-donor-receipt
+          path: build/character-forge/
+          if-no-files-found: error
+          retention-days: 30
