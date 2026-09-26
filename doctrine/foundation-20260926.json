@@ -1,0 +1,106 @@
+{
+  "schema": "luhm-os.foundation.v1",
+  "status": "AMBER_ESTABLISHED_CANDIDATE_FOUNDATION",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonical": {
+    "repo": "eggie-admin/LuHm-OS",
+    "observedMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+    "sourceOfTruth": "doctrine/SOURCE_OF_TRUTH.json",
+    "boundary": "doctrine/RELEASE_BOUNDARY.json"
+  },
+  "implementation": {
+    "pr": 28,
+    "testedHead": "7d85fa5713bc4e75dab0e1f064e7e1e475177749",
+    "scope": "audit hardening",
+    "state": "GREEN_CI_NOT_PROMOTED",
+    "runs": [
+      36224644647,
+      36224644642,
+      36224644645
+    ]
+  },
+  "compactLane": {
+    "pr": 24,
+    "testedHead": "b914da214a11573676496d220b4746649e00a32b",
+    "apkBytes": 29868823,
+    "maxBytes": 30000000,
+    "apkSha256": "6d4bdede72dc0b8d9e0a30481da8a8d5a08e1dc3ad59a7db371581defbfa0cd7",
+    "run": 36223163902,
+    "interchangeableWithStandardLane": false
+  },
+  "foundationFiles": {
+    "audit": "tools/fullSourceTruthAudit.py",
+    "tests": "tests/testFullSourceTruthAudit.py",
+    "workflow": ".github/workflows/full-source-truth-audit.yml",
+    "agentProposal": "doctrine/agentOperatingProposal-20260926.json",
+    "finalAudit": "doctrine/finalSystemAudit-20260926.json"
+  },
+  "guidance": {
+    "personalSkill": "luhm-fast-delivery",
+    "updatedAndVerified": true,
+    "validation": "PASS",
+    "independentScenario": "PASS",
+    "changes": [
+      "Evidence-bound statuses and receipt identities",
+      "Separate canonical, candidate and artifact lanes",
+      "Concise Lum voice; presentation does not grant authority",
+      "Continue reversible authorized work; Crown gates remain exact"
+    ],
+    "backendDeployed": false,
+    "petChanged": false
+  },
+  "workQueue": [
+    {
+      "gate": "physicalDevice",
+      "owner": "Professor with Lum reviewing receipts",
+      "needs": "Exact APK hash, model/firmware, certificate, launch, rotation/cutouts, touch, Lum render, camera, cutscene, BACK and crash evidence",
+      "state": "PENDING"
+    },
+    {
+      "gate": "signing",
+      "owner": "Professor / protected signing environment",
+      "needs": "Persistent signer and installed certificate compatibility, without exposing private keys",
+      "state": "PENDING"
+    },
+    {
+      "gate": "16kbRuntime",
+      "owner": "Device tester",
+      "needs": "Actual page-size runtime evidence, separate from ELF/ZIP alignment",
+      "state": "PENDING"
+    },
+    {
+      "gate": "lanPortal",
+      "owner": "Authorized LAN administrator",
+      "needs": "DNS and Apache activation plus install test on exact private target",
+      "state": "PENDING"
+    },
+    {
+      "gate": "governance",
+      "owner": "Repository administrator / Professor",
+      "needs": "Branch protection and required checks; exact scoped approval before changing governance",
+      "state": "PENDING"
+    },
+    {
+      "gate": "tenPassEvidence",
+      "owner": "Lum candidate development",
+      "needs": "Bounded schemas and negative tests for dedicated per-pass/device/operational evidence; no summary-only self-certification",
+      "state": "PENDING"
+    },
+    {
+      "gate": "enterpriseAndLiveAgents",
+      "owner": "Professor and provider administrators",
+      "needs": "Entitlements, budgets, least privilege, live target identity, runtime evaluations and operational measurements",
+      "state": "UNVERIFIED"
+    }
+  ],
+  "guardrails": {
+    "noMainPromotion": true,
+    "noRelease": true,
+    "noProductionSigning": true,
+    "noPublicExposure": true,
+    "noNewCloudDependency": true,
+    "noSecurityGateRelaxation": true
+  },
+  "final": "Repository and assistant guidance foundation organized; full deployed system tuning is not certified."
+}
