@@ -1,9 +1,9 @@
 {
-  "schema": "luhm-os.lum-character-forge.v1",
+  "schema": "luhm-os.lum-character-forge.v2",
   "date": "2026-09-26",
   "authority": "Professor",
   "status": "GREEN_CANDIDATE_CI_REQUIRED",
-  "goal": "Build an original Lum demon character base with real textures, humanoid rig, facial expressions and bounded secondary motion while keeping the Samsung runtime offline and provenance-safe.",
+  "goal": "Build an original Lum demon character base with real textures, full humanoid rig, facial expressions and bounded secondary motion while keeping the Samsung runtime offline and provenance-safe.",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "referenceStyle": {
     "character": "adult original demon woman",
@@ -12,27 +12,32 @@
     "eyes": "dark dramatic anime styling",
     "silhouette": "curvy adult feminine proportions",
     "features": ["horns", "pointed ears", "bat wings", "long pointed tail", "dark leather/industrial gothic wardrobe", "tattoo/marking layer"],
-    "copyrightRule": "reference informs original design only; no franchise character cloning"
+    "copyrightRule": "Professor reference informs an original Lum design only; no franchise character cloning"
   },
-  "baseDonor": {
+  "technicalBaseDonor": {
+    "name": "TalkingHead MPFB Female",
+    "repository": "met4citizen/TalkingHead",
+    "commit": "b3e277b3b46f88e557bf28a2c5612a5b04e075c3",
+    "path": "avatars/mpfb.glb",
+    "gitBlobSha1": "cd2ebbe1fe8bcbf3d5b2dfbf1262a7f76814e68f",
+    "license": "CC0 model; TalkingHead integration code is MIT",
+    "role": "primary technical donor because it is textured, skinned and designed for ARKit/Oculus facial shape workflows",
+    "runtimeNetwork": false
+  },
+  "animeAestheticReference": {
     "name": "VRoid Base Female",
     "repository": "CambrianTech/continuum",
     "commit": "d053bc241c6e6d8f2bc41fc12bb2fe42272d6791",
-    "path": "models/avatars/vroid-female-base.glb",
-    "gitBlobSha1": "e5584a604d926473829e3bac8e22e570b5a165bc",
-    "license": "CC0",
-    "licenseEvidence": "tools/scripts/avatar-catalog.json in donor repository + embedded VRM metadata",
-    "role": "primary textured anime humanoid donor for Atelier preview and retargeting",
-    "runtimeNetwork": false
+    "catalogLicense": "CC0",
+    "role": "anime proportion/material/VRM semantic reference only until a non-pointer immutable binary source is proven",
+    "reasonNotPrimary": "the Continuum GLB repository path resolves to a 21-byte pointer in clean CI rather than the binary payload"
   },
   "faceRigReference": {
     "repository": "met4citizen/TalkingHead",
     "commit": "b3e277b3b46f88e557bf28a2c5612a5b04e075c3",
     "license": "MIT code",
-    "cc0ReferenceModel": "avatars/mpfb.glb",
-    "cc0ReferenceBlob": "cd2ebbe1fe8bcbf3d5b2dfbf1262a7f76814e68f",
-    "use": ["ARKit/Oculus shape-key naming", "viseme mapping", "dynamic-bone design reference"],
-    "copyPolicy": "reimplement LuHm runtime contracts; do not bundle non-CC0 example avatars"
+    "use": ["ARKit-style facial units", "Oculus 15-viseme naming", "Mixamo-compatible body rig workflow", "MPFB export recipe"],
+    "copyPolicy": "reuse permissively licensed concepts/code with attribution; never treat unrelated example avatars as automatically redistributable"
   },
   "godotDonors": [
     {
@@ -45,7 +50,7 @@
       "repository": "detomon/wigglebone",
       "commit": "d45042dd05680149b4c1174771f1f666f262057d",
       "license": "MIT",
-      "use": ["secondary-motion comparison", "bounded jiggle-bone tuning", "editor test methodology"]
+      "use": ["secondary-motion comparison", "bounded bone-spring tuning", "editor test methodology"]
     }
   ],
   "falloutCommunityReferences": [
@@ -66,22 +71,30 @@
     }
   ],
   "runtimePhysics": {
-    "hair": "Godot SpringBoneSimulator3D or vetted MIT wiggle modifier on dedicated hair chains",
-    "chestSecondaryMotion": "dedicated helper bones only; never deform the whole torso skeleton as a soft body",
-    "tail": "spring-bone chain",
-    "wings": "spring-bone skeletal frame; optional SoftBody3D membrane experiment behind mobile quality gate",
+    "hair": "dedicated hair bone chains using Godot SpringBoneSimulator3D first; MIT WiggleBone is comparison/fallback",
+    "chestSecondaryMotion": "Breast_L and Breast_R helper bones with bounded spring motion only; no whole-torso soft body",
+    "tail": "six-plus bone spring chain with angle/collision constraints",
+    "wings": "skeletal spring frame; optional SoftBody3D membrane experiment behind mobile quality gate",
     "cloth": "SoftBody3D only for isolated cloth/membrane meshes and only after Samsung performance proof",
     "engine": "Godot 4.7/Jolt",
     "androidDefault": "spring-bone first, soft-body conservative"
   },
   "targetRig": {
-    "humanoid": "SkeletonProfileHumanoid-compatible full body including fingers/eyes",
+    "humanoid": "SkeletonProfileHumanoid-compatible full body including fingers and eye control",
     "spine": ["hips", "spine", "chest", "upper_chest", "neck", "head"],
     "tail": ["Tail_01", "Tail_02", "Tail_03", "Tail_04", "Tail_05", "Tail_06"],
     "leftWing": ["Wing_L_Root", "Wing_L_01", "Wing_L_02", "Wing_L_03"],
     "rightWing": ["Wing_R_Root", "Wing_R_01", "Wing_R_02", "Wing_R_03"],
     "secondary": ["Breast_L", "Breast_R"],
-    "face": "VRM expressions now; ARKit-52 plus Oculus visemes preferred for authored final base"
+    "face": "ARKit-style face units plus Oculus 15 visemes, blink/eyes/jaw/mouth required",
+    "accessories": ["Horn_L", "Horn_R", "Ear_L", "Ear_R"]
+  },
+  "textureMutation": {
+    "skin": "author original warm crimson skin material/texture from Professor reference palette",
+    "hair": "author original warm blonde/auburn-blonde palette",
+    "eyes": "author original dark dramatic eye palette",
+    "markings": "author original tattoo/marking overlay; do not trace third-party symbols",
+    "wardrobe": "original dark leather/industrial gothic materials"
   },
   "hardGates": {
     "baseMustHaveSkin": true,
@@ -89,6 +102,7 @@
     "baseMustHaveTextures": true,
     "baseMustHaveHumanoidMap": true,
     "baseMustHaveExpressions": true,
+    "baseMustHaveVisemes": true,
     "runtimeDownloads": false,
     "bethesdaAssetsBundled": false,
     "unknownLicenseAssetsBundled": false,
