@@ -37,7 +37,7 @@ def normalized_good(value: object) -> bool:
         return True
     if isinstance(value, str):
         upper = value.upper()
-        return upper in GOOD or upper.startswith("GREEN_") or upper.endswith("_GREEN")
+        return upper in GOOD
     return False
 
 
@@ -122,20 +122,29 @@ def main() -> int:
     if source.get("status", "").startswith("GREEN_FULL_SOURCE") and blockers:
         errors.append("SOURCE_OF_TRUTH claims full GREEN while readiness blockers remain")
 
+    # This checker validates machine contracts, not visual, device or human review.
     audit_passes = []
     source_passes = doc_workflow.get("ten_pass_hard_audit", [])
     for entry in source_passes:
         name = entry.get("name", "UNKNOWN")
-        if name == "Evidence":
-            state = "AMBER" if blockers else "GREEN"
-        elif name in {"Render and Hash", "Seal and Save"}:
-            state = "AMBER" if blockers else "GREEN"
-        else:
-            state = "GREEN"
-        audit_passes.append({"pass": entry.get("pass"), "name": name, "status": state})
+        state = "UNKNOWN"
+        reason = "Requires dedicated evidence; not established by this checker."
+        if name == "Machine Readability":
+            state = "RED" if errors else "GREEN"
+            reason = "Required JSON inputs parsed; configured contract assertions evaluated."
+        elif name == "Evidence" and blockers:
+            state = "AMBER"
+            reason = "Required runtime or operational evidence remains pending."
+        audit_passes.append({"pass": entry.get("pass"), "name": name,
+                             "status": state, "reason": reason})
 
-    readiness = "GREEN_FULL_SOURCE_TRUTH_READY" if not blockers else "AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING"
-    milestone_complete = not blockers
+    incomplete = [p["name"] for p in audit_passes if p["status"] != "GREEN"]
+    if incomplete:
+        blockers.append({"gate": "ten_pass_evidence", "reason": "; ".join(incomplete)})
+    milestone_complete = not errors and not blockers
+    readiness = ("RED_CONTRACT_ERROR" if errors else
+                 "GREEN_FULL_SOURCE_TRUTH_READY" if milestone_complete else
+                 "AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING")
 
     report = {
         "schema": "luhm-os.full-source-truth-audit-report.v1",
