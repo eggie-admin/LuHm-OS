@@ -85,10 +85,30 @@
     "releaseAuthority": false,
     "publicationAuthority": false
   },
+  "fullSourceTruthOrchestrator": {
+    "path": "doctrine/fullSourceTruthOrchestrator-20260926.json",
+    "auditor": "tools/fullSourceTruthAudit.py",
+    "workflow": ".github/workflows/full-source-truth-audit.yml",
+    "manual": "manual/LUHM_OS_LUM_ONI_FULL_SOURCE_TRUTH_WORKFLOW.md",
+    "receipt": "doctrine/fullSourceTruthAudit-20260926.json",
+    "seal": "doctrine/fullSourceTruthOrchestratorSeal-20260926.json",
+    "status": "GREEN_ORCHESTRATOR_AMBER_FULL_SEAL_PENDING",
+    "testedSourceCommit": "930323d465210854c000fda0b8618f96ca282872",
+    "workflowRun": 36222605871,
+    "artifactId": 10899143908,
+    "artifactDigest": "sha256:7b52558f83f4ca2ebe527a24c0aa8325674e1eff1780db29ebf5882171e5be3d",
+    "milestoneMutationComplete": false,
+    "readiness": "AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING",
+    "contractErrors": 0,
+    "runtimeAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false
+  },
   "reconciliation": {
-    "observedMain": "9dc6b8f26d51755d8e214b52ae2b7b7d5731c222",
+    "observedMain": "37f20bbca7fc80e5f1e2ec1c170f96b6d8840e24",
     "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b",
-    "status": "DOC_WORKFLOW_COCKPIT_AND_INSTALL_PORTAL_PROMOTED_HOST_DEVICE_PROOF_PENDING",
-    "preserved": "Field manual and documentation workflow retained; broader Android and release state remain AMBER; S24 FE cockpit switch and LAN install bundle are CI-proven and canonical while physical device, LAN DNS, Apache serving, F-Droid signing, and public exposure remain separate gates"
+    "status": "DOC_WORKFLOW_COCKPIT_INSTALL_PORTAL_AND_FULL_SOURCE_TRUTH_ORCHESTRATOR_RECONCILED_FULL_DEMO_AMBER",
+    "preserved": "Field manual and documentation workflow retained; broader Android and release state remain AMBER; S24 FE cockpit switch and LAN install bundle are CI-proven and canonical; Lum/Oni full-source-truth orchestration is CI-proven as a fail-closed audit workflow; physical device proof, LAN DNS, Apache serving, persistent update signing, enterprise readiness, and public exposure remain separate evidence or Crown gates"
   }
 }
