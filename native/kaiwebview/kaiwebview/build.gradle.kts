@@ -7,6 +7,7 @@ plugins {
 
 val pluginName = "KAIWebView"
 val pluginPackageName = "art.eggiebagelface.luhmos.kaiwebview"
+val shizukuVersion = "13.1.5"
 
 android {
     namespace = pluginPackageName
@@ -39,4 +40,6 @@ android {
 dependencies {
     compileOnly("org.godotengine:godot:4.7.2.stable")
     implementation("androidx.webkit:webkit:1.17.1")
+    implementation("dev.rikka.shizuku:api:$shizukuVersion")
+    implementation("dev.rikka.shizuku:provider:$shizukuVersion")
 }
