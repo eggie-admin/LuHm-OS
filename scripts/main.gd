@@ -19,7 +19,8 @@ var intro_played := false
 func _ready() -> void:
     _build_runtime()
     _wire_runtime()
-    _enter_backend()
+    _enter_world()
+    game_hud.set_status("♛ CROWNED CATHEDRAL // KAI 9000 TOY MODE")
 
 func _build_runtime() -> void:
     neon_world = NeonWorldScript.new()
@@ -52,6 +53,10 @@ func _wire_runtime() -> void:
     game_hud.world_requested.connect(_enter_world)
     game_hud.backend_requested.connect(_enter_backend)
     game_hud.move_axis_changed.connect(player_controller.set_touch_axis)
+    game_hud.toy_action_requested.connect(_on_toy_action)
+    if kai_webview_bridge != null:
+        kai_webview_bridge.world_requested.connect(_enter_world)
+        kai_webview_bridge.toy_action_requested.connect(_on_toy_action)
 
 func _enter_world() -> void:
     if kai_webview_bridge != null:
@@ -72,6 +77,22 @@ func _enter_backend() -> void:
         game_hud.show_backend()
     if kai_webview_bridge != null:
         kai_webview_bridge.show_cockpit()
+
+func _on_toy_action(action: String) -> void:
+    match action:
+        "pet_lum":
+            neon_world.pet_lum()
+            game_hud.set_status("♥ LUM PET // HAPPY CORE PULSE")
+        "oni_pop":
+            neon_world.oni_pop()
+            game_hud.set_status("👹 ONI POP // THREE LITTLE HELPERS DEPLOYED")
+        "crown_pulse":
+            neon_world.crown_pulse()
+            game_hud.set_status("♛ CROWN PULSE // PROFESSOR AUTHORITY CONFIRMED")
+        "chat_glass":
+            _enter_backend()
+        _:
+            game_hud.set_status("KAI 9000 // UNKNOWN TOY ACTION BLOCKED")
 
 func _play_intro() -> void:
     await cutscene_bridge.play_path(INTRO_CUTSCENE_PATH)
