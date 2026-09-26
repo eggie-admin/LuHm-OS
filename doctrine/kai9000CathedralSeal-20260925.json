@@ -1,0 +1,36 @@
+{
+  "schema": "luhm.kai9000.cathedral.seal.v1",
+  "date": "2026-09-25",
+  "status": "SEALED_CANDIDATE_NOT_PROMOTED",
+  "base_head": "f48e43617f23a1486578eccfe05b183dfc6d0534",
+  "dryrun_branch": "dryrun/kai9000-cathedral-enterprise-20260925",
+  "proposed_branch": "proposed/kai9000-cathedral-enterprise-20260925",
+  "components": [
+    "Godot 4 native playable spine",
+    "caged packaged WebView cockpit",
+    "jquery.luhmSite local website plugin",
+    "jQuery UI modular windows",
+    "Vue CMS island",
+    "Termux headless Ollama CLI companion",
+    "bounded Lum/Oni agent mesh",
+    "candidate-memory background-learning contract"
+  ],
+  "proof_policy": "Every GREEN claim must bind the exact source head and matching receipt. Source, build, native integration and physical device proof remain separate.",
+  "authorized_actions": [
+    "candidate branch writes",
+    "draft pull request",
+    "CI dry run",
+    "testing build",
+    "proposal seal"
+  ],
+  "not_authorized": [
+    "merge main",
+    "production signing",
+    "public publish",
+    "silent install",
+    "root or privilege escalation",
+    "public daemon bind",
+    "secret disclosure"
+  ],
+  "promotion_requires_human": true
+}
