@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
 import struct
 
 
@@ -37,10 +38,67 @@ def load_glb(path: Path):
     return data, doc
 
 
+def norm(name: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", name.lower().replace("mixamorig", ""))
+
+
+ALIASES = {
+    "hips": ["hips", "pelvis"],
+    "spine": ["spine"],
+    "chest": ["spine1", "chest"],
+    "upper_chest": ["spine2", "upperchest"],
+    "neck": ["neck"],
+    "head": ["head"],
+    "left_upper_leg": ["leftupleg", "leftthigh"],
+    "left_lower_leg": ["leftleg", "leftcalf"],
+    "left_foot": ["leftfoot"],
+    "right_upper_leg": ["rightupleg", "rightthigh"],
+    "right_lower_leg": ["rightleg", "rightcalf"],
+    "right_foot": ["rightfoot"],
+    "left_shoulder": ["leftshoulder"],
+    "left_upper_arm": ["leftarm", "leftupperarm"],
+    "left_lower_arm": ["leftforearm", "leftlowerarm"],
+    "left_hand": ["lefthand"],
+    "right_shoulder": ["rightshoulder"],
+    "right_upper_arm": ["rightarm", "rightupperarm"],
+    "right_lower_arm": ["rightforearm", "rightlowerarm"],
+    "right_hand": ["righthand"],
+    "left_eye": ["lefteye", "eyeleft"],
+    "right_eye": ["righteye", "eyeright"],
+}
+
+
+def canonical_from_nodes(nodes, joint_indices):
+    names = {}
+    for idx in joint_indices:
+        if 0 <= idx < len(nodes):
+            raw = str(nodes[idx].get("name", ""))
+            if raw:
+                names[norm(raw)] = raw
+    out = {}
+    for semantic, aliases in ALIASES.items():
+        for alias in aliases:
+            if norm(alias) in names:
+                out[semantic] = names[norm(alias)]
+                break
+    return out
+
+
+def collect_target_names(meshes):
+    names = []
+    for mesh in meshes:
+        extras = mesh.get("extras", {})
+        target_names = extras.get("targetNames", []) if isinstance(extras, dict) else []
+        names.extend(str(x) for x in target_names)
+    return names
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("path", type=Path)
     p.add_argument("--expected-git-blob", required=True)
+    p.add_argument("--license", default="CC0")
+    p.add_argument("--profile", choices=("auto", "vrm", "facial-glb"), default="auto")
     p.add_argument("--receipt", type=Path)
     args = p.parse_args()
 
@@ -60,56 +118,79 @@ def main():
         for mesh in meshes
         for primitive in mesh.get("primitives", [])
     )
+    target_names = collect_target_names(meshes)
+    all_joints = sorted({int(j) for skin in skins for j in skin.get("joints", [])})
+
+    print("DONOR_COUNTS", json.dumps({
+        "meshes": len(meshes), "materials": len(materials), "textures": len(textures),
+        "images": len(images), "skins": len(skins), "nodes": len(nodes),
+        "animations": len(animations), "morphTargets": morph_targets,
+        "jointNodes": len(all_joints), "targetNames": len(target_names)
+    }, sort_keys=True))
 
     require(len(meshes) >= 1, "donor has render mesh")
     require(len(materials) >= 1, "donor has materials")
     require(len(textures) >= 1, "donor has textures")
     require(len(images) >= 1, "donor has image payloads")
     require(len(skins) >= 1, "donor has skinned rig")
+    require(str(args.license).upper() == "CC0", "external provenance declares CC0")
 
     vrm = doc.get("extensions", {}).get("VRM", {})
-    require(isinstance(vrm, dict) and bool(vrm), "VRM metadata present")
-    meta = vrm.get("meta", {})
-    license_name = str(meta.get("licenseName", ""))
-    require(license_name.upper() == "CC0", "embedded VRM license is CC0")
+    profile = args.profile
+    if profile == "auto":
+        profile = "vrm" if isinstance(vrm, dict) and bool(vrm) else "facial-glb"
 
-    human_bones = vrm.get("humanoid", {}).get("humanBones", [])
-    require(len(human_bones) >= 20, "VRM humanoid map is substantial")
-    mapped = {str(item.get("bone", "")): int(item.get("node", -1)) for item in human_bones}
-    for key in ("hips", "spine", "chest", "neck", "head", "leftEye", "rightEye", "leftHand", "rightHand", "leftFoot", "rightFoot"):
-        require(key in mapped, f"humanoid semantic present: {key}")
+    canonical = {}
+    expression_names = []
+    spring_groups = []
+    embedded_license = None
 
-    blend_groups = vrm.get("blendShapeMaster", {}).get("blendShapeGroups", [])
-    require(len(blend_groups) >= 5, "VRM expression groups present")
-    spring_groups = vrm.get("secondaryAnimation", {}).get("boneGroups", [])
+    if profile == "vrm":
+        require(isinstance(vrm, dict) and bool(vrm), "VRM metadata present")
+        meta = vrm.get("meta", {})
+        embedded_license = str(meta.get("licenseName", ""))
+        require(embedded_license.upper() == "CC0", "embedded VRM license is CC0")
+        human_bones = vrm.get("humanoid", {}).get("humanBones", [])
+        require(len(human_bones) >= 20, "VRM humanoid map is substantial")
+        mapped = {str(item.get("bone", "")): int(item.get("node", -1)) for item in human_bones}
+        for key in ("hips", "spine", "chest", "neck", "head", "leftEye", "rightEye", "leftHand", "rightHand", "leftFoot", "rightFoot"):
+            require(key in mapped, f"humanoid semantic present: {key}")
+        def node_name(index):
+            return str(nodes[index].get("name", "")) if 0 <= index < len(nodes) else ""
+        canonical = {semantic: node_name(index) for semantic, index in mapped.items() if node_name(index)}
+        blend_groups = vrm.get("blendShapeMaster", {}).get("blendShapeGroups", [])
+        expression_names = [str(x.get("name", "")) for x in blend_groups]
+        spring_groups = vrm.get("secondaryAnimation", {}).get("boneGroups", [])
+        require(len(expression_names) >= 5, "VRM expression groups present")
+    else:
+        require(len(all_joints) >= 20, "facial GLB has substantial skeleton")
+        canonical = canonical_from_nodes(nodes, all_joints)
+        core = ["hips", "spine", "neck", "head", "left_upper_leg", "left_lower_leg", "left_foot", "right_upper_leg", "right_lower_leg", "right_foot", "left_upper_arm", "left_lower_arm", "left_hand", "right_upper_arm", "right_lower_arm", "right_hand"]
+        missing = [x for x in core if x not in canonical]
+        require(not missing, "core humanoid semantics resolve")
+        require(morph_targets >= 15, "facial GLB exposes substantial morph targets")
+        expression_names = target_names
+        lower = {x.lower() for x in target_names}
+        viseme_hits = sum(1 for x in ("viseme_pp", "viseme_ff", "viseme_aa", "viseme_e", "viseme_i", "viseme_o", "viseme_u") if x in lower)
+        arkit_hits = sum(1 for x in ("eyeblinkleft", "eyeblinkright", "jawopen", "mouthsmileleft", "mouthsmileright") if x in lower)
+        require(viseme_hits >= 5, "Oculus-style viseme set detected")
+        require(arkit_hits >= 3, "ARKit-style expression set detected")
 
-    def node_name(index):
-        if 0 <= index < len(nodes):
-            return str(nodes[index].get("name", ""))
-        return ""
-
-    canonical = {semantic: node_name(index) for semantic, index in mapped.items() if node_name(index)}
-    expression_names = [str(x.get("name", "")) for x in blend_groups]
     material_names = [str(x.get("name", "")) for x in materials]
-
     receipt = {
-        "schema": "luhm-os.character-donor-receipt.v1",
+        "schema": "luhm-os.character-donor-receipt.v2",
         "path": str(args.path),
+        "profile": profile,
         "gitBlobSha1": actual_blob,
         "sha256": hashlib.sha256(data).hexdigest(),
         "bytes": len(data),
-        "license": license_name,
+        "license": str(args.license),
+        "embeddedLicense": embedded_license,
         "counts": {
-            "meshes": len(meshes),
-            "materials": len(materials),
-            "textures": len(textures),
-            "images": len(images),
-            "skins": len(skins),
-            "nodes": len(nodes),
-            "animations": len(animations),
-            "morphTargets": morph_targets,
-            "vrmHumanoidBones": len(human_bones),
-            "vrmExpressionGroups": len(blend_groups),
+            "meshes": len(meshes), "materials": len(materials), "textures": len(textures),
+            "images": len(images), "skins": len(skins), "nodes": len(nodes),
+            "animations": len(animations), "morphTargets": morph_targets,
+            "jointNodes": len(all_joints), "expressionNames": len(expression_names),
             "vrmSpringBoneGroups": len(spring_groups),
         },
         "canonicalBoneMap": canonical,
