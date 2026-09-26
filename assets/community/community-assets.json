@@ -1,0 +1,87 @@
+{
+  "schema": "luhm-os.community-assets.v1",
+  "date_local": "2026-09-26",
+  "policy": "Selective transplant only. Vendor only assets whose license, provenance, and checksum are recorded. External packs may be referenced without mirroring raw assets.",
+  "vendored": [
+    {
+      "id": "menacingmecha-godot-psx-style-demo",
+      "upstream": "https://github.com/MenacingMecha/godot-psx-style-demo",
+      "upstream_branch": "master",
+      "license": "MIT",
+      "license_evidence": "LICENSE @ bd5ad4bac86abeecf891b3f6688c3fab68851ae5",
+      "godot": "4.x",
+      "files": [
+        "psx/lcd_post_process.gdshader",
+        "psx/post_process_blur.gdshader",
+        "psx/psx_base.gdshaderinc",
+        "psx/psx_lit.gdshader",
+        "psx/psx_unlit.gdshader"
+      ],
+      "status": "VENDORED_TEXT_ASSETS"
+    },
+    {
+      "id": "eldskald-godot4-cel-shader",
+      "upstream": "https://github.com/eldskald/godot4-cel-shader",
+      "upstream_branch": "main",
+      "license": "MIT",
+      "license_evidence": "LICENSE @ e793d0bf1c8822ec642e558a601c560a0fa2a3a3",
+      "godot": "4.x",
+      "files": ["cel/outline.gdshader"],
+      "status": "VENDORED_TEXT_ASSET"
+    }
+  ],
+  "vetted_external_packs": [
+    {
+      "id": "kenney-pixel-ui-pack",
+      "source": "https://kenney.nl/assets/pixel-ui-pack",
+      "license": "CC0",
+      "use": "compact player chrome, buttons, panels",
+      "repo_mirror": "ALLOWED_BY_LICENSE_BUT_NOT_YET_CHECKSUM_STAGED",
+      "status": "VETTED_NOT_VENDORED"
+    },
+    {
+      "id": "kenney-game-icons",
+      "source": "https://kenney.nl/assets/game-icons",
+      "license": "CC0",
+      "use": "touch/gamepad cockpit icons",
+      "repo_mirror": "ALLOWED_BY_LICENSE_BUT_NOT_YET_CHECKSUM_STAGED",
+      "status": "VETTED_NOT_VENDORED"
+    },
+    {
+      "id": "kenney-pixel-pack",
+      "source": "https://kenney.nl/assets/pixel-pack",
+      "license": "CC0",
+      "use": "pixel decoration and toy props",
+      "repo_mirror": "ALLOWED_BY_LICENSE_BUT_NOT_YET_CHECKSUM_STAGED",
+      "status": "VETTED_NOT_VENDORED"
+    },
+    {
+      "id": "polyhaven",
+      "source": "https://polyhaven.com/",
+      "license": "CC0",
+      "use": "HDRI, textures, environment props",
+      "repo_mirror": "ALLOWED_BY_LICENSE_BUT_LARGE_BINARY_ASSETS_REQUIRE_EXPLICIT_SELECTION_AND_CHECKSUM",
+      "status": "VETTED_NOT_VENDORED"
+    },
+    {
+      "id": "quaternius-cyberpunk-game-kit",
+      "source": "https://quaternius.com/packs/cyberpunkgamekit.html",
+      "license": "QAL_v1_CURRENT_SITE_LICENSE",
+      "use": "cyberpunk props/environment candidates",
+      "repo_mirror": "DO_NOT_REDISTRIBUTE_AS_STANDALONE_ASSET_PACK",
+      "product_embedding": "PERMITTED_SUBJECT_TO_QAL",
+      "status": "VETTED_PRODUCT_ONLY_NOT_VENDORED"
+    },
+    {
+      "id": "quaternius-modular-scifi-megakit",
+      "source": "https://quaternius.com/packs/modularscifimegakit.html",
+      "license": "QAL_v1_CURRENT_SITE_LICENSE",
+      "use": "modular sci-fi/cathedral environment candidates",
+      "repo_mirror": "DO_NOT_REDISTRIBUTE_AS_STANDALONE_ASSET_PACK",
+      "product_embedding": "PERMITTED_SUBJECT_TO_QAL",
+      "status": "VETTED_PRODUCT_ONLY_NOT_VENDORED"
+    }
+  ],
+  "shipping_rule": "Only VENDORED_* entries or external assets copied into a product under their current license may ship. VETTED_NOT_VENDORED is not build proof.",
+  "binary_pull_rule": "Before any new binary asset is committed or CI-staged, record exact upstream URL, current license, byte size, SHA-256, and intended in-product role."
+}
