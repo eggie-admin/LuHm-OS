@@ -1,0 +1,124 @@
+{
+  "schema": "luhm-os.full-source-truth-audit-report.v1",
+  "status": "AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING",
+  "milestoneMutationComplete": false,
+  "nextState": "ENTER_LUM_ONI_REPAIR_LOOP",
+  "sourceCommit": "7d85fa5713bc4e75dab0e1f064e7e1e475177749",
+  "sourceStatus": "AMBER_PROPOSED_SEAL_OF_TRUTH",
+  "releaseBoundary": "PROPOSED_NOT_CROWNED",
+  "workflowStatus": "GREEN_WORKFLOW_CANDIDATE_FULL_SOURCE_TRUTH_SEAL_PENDING",
+  "tenPassAudit": [
+    {
+      "pass": 1,
+      "name": "Authority",
+      "status": "UNKNOWN",
+      "reason": "Requires dedicated evidence; not established by this checker."
+    },
+    {
+      "pass": 2,
+      "name": "Scope",
+      "status": "UNKNOWN",
+      "reason": "Requires dedicated evidence; not established by this checker."
+    },
+    {
+      "pass": 3,
+      "name": "Freshness",
+      "status": "UNKNOWN",
+      "reason": "Requires dedicated evidence; not established by this checker."
+    },
+    {
+      "pass": 4,
+      "name": "Voice",
+      "status": "UNKNOWN",
+      "reason": "Requires dedicated evidence; not established by this checker."
+    },
+    {
+      "pass": 5,
+      "name": "Evidence",
+      "status": "AMBER",
+      "reason": "Required runtime or operational evidence remains pending."
+    },
+    {
+      "pass": 6,
+      "name": "Security",
+      "status": "UNKNOWN",
+      "reason": "Requires dedicated evidence; not established by this checker."
+    },
+    {
+      "pass": 7,
+      "name": "Structure",
+      "status": "UNKNOWN",
+      "reason": "Requires dedicated evidence; not established by this checker."
+    },
+    {
+      "pass": 8,
+      "name": "Machine Readability",
+      "status": "GREEN",
+      "reason": "Required JSON inputs parsed; configured contract assertions evaluated."
+    },
+    {
+      "pass": 9,
+      "name": "Render and Hash",
+      "status": "UNKNOWN",
+      "reason": "Requires dedicated evidence; not established by this checker."
+    },
+    {
+      "pass": 10,
+      "name": "Seal and Save",
+      "status": "UNKNOWN",
+      "reason": "Requires dedicated evidence; not established by this checker."
+    }
+  ],
+  "blockers": [
+    {
+      "gate": "core_demo",
+      "reason": "AMBER_PHYSICAL_DEVICE_PROOF_PENDING"
+    },
+    {
+      "gate": "core_demo_remaining",
+      "reason": "Physical S24 FE/SM-X400 rotation, cutout and touch testing; Persistent signing and installed certificate compatibility; Real 16KB runtime proof"
+    },
+    {
+      "gate": "s24fe_cockpit",
+      "reason": "physicalS24FeProof=PENDING"
+    },
+    {
+      "gate": "install_portal.lanDnsActivation",
+      "reason": "PENDING"
+    },
+    {
+      "gate": "install_portal.apacheActivation",
+      "reason": "PENDING"
+    },
+    {
+      "gate": "install_portal.physicalS24FeInstall",
+      "reason": "PENDING"
+    },
+    {
+      "gate": "secure_update_identity",
+      "reason": "fdroidRepositorySigning=PENDING"
+    },
+    {
+      "gate": "enterprise_readiness",
+      "reason": "enterpriseReady=false"
+    },
+    {
+      "gate": "ten_pass_evidence",
+      "reason": "Authority; Scope; Freshness; Voice; Evidence; Security; Structure; Render and Hash; Seal and Save"
+    }
+  ],
+  "contractErrors": [],
+  "hashes": {
+    "doctrine/SOURCE_OF_TRUTH.json": "1bb7f479ea72531129c7ca7feaa8232bc6ba1b6ddcaa6eb102391b4f42f7a52a",
+    "doctrine/RELEASE_BOUNDARY.json": "7ab36867e9570ece664bd188f4cdc09d28b9b38082f78cca5f9c65b0798427b7",
+    "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json": "dd70af17234de37ee805288603b83ad8a5889818943ab8989f84caac5ad0323c",
+    "doctrine/fullSourceTruthOrchestrator-20260926.json": "633962eb2c39b714050fd71bf8e83fff8397326101a7bd7ba3e543efa0160ac9",
+    "doctrine/samsungLayoutSeal-20260926.json": "a8011bf1d64ef1160fd95c969e3dd490aa64c710fed121b74249017dd8a53b6d",
+    "doctrine/s24FeCockpitAuditSwitchSeal-20260926.json": "2ac0dc5d4f8e07491f74887e42ea1481ee140cff481a5250b2ff6c22288a7fd7",
+    "doctrine/fqdnInstallPortalSeal-20260926.json": "aeec1fb456b1005ed6c8313dc248f8205dd46b1dd0272421fb49d2e10dbe66da"
+  },
+  "authority": "Professor",
+  "promotion": false,
+  "publicationAuthority": false,
+  "productionSigningAuthority": false
+}

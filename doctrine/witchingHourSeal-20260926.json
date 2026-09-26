@@ -1,0 +1,156 @@
+{
+  "schema": "luhm-os.witching-hour-seal.v2",
+  "status": "GREEN_AUDIT_HARDENING_CANDIDATE",
+  "fullSystemStatus": "AMBER",
+  "testedSourceCommit": "7d85fa5713bc4e75dab0e1f064e7e1e475177749",
+  "priorSeal": "20e2b5d48b088b60882df1bf4b9c42a13cfce5c5",
+  "observedMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+  "tests": {
+    "localPassed": 5,
+    "ciNegativeControls": "PASS",
+    "diffScope": "Auditor and tests only since prior tested candidate"
+  },
+  "workflowRuns": [
+    {
+      "id": 36224644642,
+      "name": "LumRigV2 Phase 1",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 23,
+      "jobs_url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/runs/36224644642/jobs",
+      "logs_url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/runs/36224644642/logs",
+      "workflow_id": 366736532
+    },
+    {
+      "id": 36224644647,
+      "name": "LuHm OS Full Source Truth Audit",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 9,
+      "jobs_url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/runs/36224644647/jobs",
+      "logs_url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/runs/36224644647/logs",
+      "workflow_id": 367520403
+    },
+    {
+      "id": 36224644645,
+      "name": "LuHm OS Universal Samsung Candidate",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 58,
+      "jobs_url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/runs/36224644645/jobs",
+      "logs_url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/runs/36224644645/logs",
+      "workflow_id": 366685659
+    }
+  ],
+  "auditArtifact": {
+    "artifacts": [
+      {
+        "id": 10900621323,
+        "name": "luhm-os-full-source-truth-audit",
+        "size_in_bytes": 1577,
+        "url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/artifacts/10900621323",
+        "archive_download_url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/artifacts/10900621323/zip",
+        "expired": false,
+        "created_at": "2026-09-26T06:44:16Z",
+        "expires_at": "2026-10-26T06:44:16Z",
+        "updated_at": "2026-09-26T06:44:16Z",
+        "digest": "sha256:33570377daac11059c3042338f21ff66097ba4ac393d413baff74068f7f424da",
+        "workflow_run": {
+          "id": 36224644647,
+          "repository_id": 1386553994,
+          "head_repository_id": 1386553994,
+          "head_branch": "candidate/witching-hour-hard-audit-20260926",
+          "head_sha": "7d85fa5713bc4e75dab0e1f064e7e1e475177749"
+        }
+      }
+    ]
+  },
+  "samsungArtifacts": {
+    "artifacts": [
+      {
+        "id": 10900331382,
+        "name": "luhm-os-universal-samsung-amber-apk",
+        "size_in_bytes": 44275043,
+        "url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/artifacts/10900331382",
+        "archive_download_url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/artifacts/10900331382/zip",
+        "expired": false,
+        "created_at": "2026-09-26T06:46:19Z",
+        "expires_at": "2026-10-26T06:46:17Z",
+        "updated_at": "2026-09-26T06:46:19Z",
+        "digest": "sha256:c7f024ace967a91d25e680d24085c52c010acec1367bbdd4cdcf3fe7b44a3faf",
+        "workflow_run": {
+          "id": 36224644645,
+          "repository_id": 1386553994,
+          "head_repository_id": 1386553994,
+          "head_branch": "candidate/witching-hour-hard-audit-20260926",
+          "head_sha": "7d85fa5713bc4e75dab0e1f064e7e1e475177749"
+        }
+      },
+      {
+        "id": 10900271483,
+        "name": "luhm-os-s24fe-lan-install-bundle",
+        "size_in_bytes": 44270693,
+        "url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/artifacts/10900271483",
+        "archive_download_url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/artifacts/10900271483/zip",
+        "expired": false,
+        "created_at": "2026-09-26T06:46:22Z",
+        "expires_at": "2026-10-26T06:46:20Z",
+        "updated_at": "2026-09-26T06:46:22Z",
+        "digest": "sha256:07993590192f3170bdc044d3d27850f0c7f22d0930fcc8ee9cafc74a976f94c1",
+        "workflow_run": {
+          "id": 36224644645,
+          "repository_id": 1386553994,
+          "head_repository_id": 1386553994,
+          "head_branch": "candidate/witching-hour-hard-audit-20260926",
+          "head_sha": "7d85fa5713bc4e75dab0e1f064e7e1e475177749"
+        }
+      }
+    ]
+  },
+  "blockers": [
+    {
+      "gate": "core_demo",
+      "reason": "AMBER_PHYSICAL_DEVICE_PROOF_PENDING"
+    },
+    {
+      "gate": "core_demo_remaining",
+      "reason": "Physical S24 FE/SM-X400 rotation, cutout and touch testing; Persistent signing and installed certificate compatibility; Real 16KB runtime proof"
+    },
+    {
+      "gate": "s24fe_cockpit",
+      "reason": "physicalS24FeProof=PENDING"
+    },
+    {
+      "gate": "install_portal.lanDnsActivation",
+      "reason": "PENDING"
+    },
+    {
+      "gate": "install_portal.apacheActivation",
+      "reason": "PENDING"
+    },
+    {
+      "gate": "install_portal.physicalS24FeInstall",
+      "reason": "PENDING"
+    },
+    {
+      "gate": "secure_update_identity",
+      "reason": "fdroidRepositorySigning=PENDING"
+    },
+    {
+      "gate": "enterprise_readiness",
+      "reason": "enterpriseReady=false"
+    },
+    {
+      "gate": "ten_pass_evidence",
+      "reason": "Authority; Scope; Freshness; Voice; Evidence; Security; Structure; Render and Hash; Seal and Save"
+    }
+  ],
+  "limitations": [
+    "Readiness checker fails closed until dedicated per-pass and device/operational evidence validation is implemented.",
+    "Samsung artifact is the standard testing lane; this is not PR24 compact APK size proof.",
+    "Repository personality contract remains proposed; installed skill and backend agents unchanged."
+  ],
+  "promotionAuthorized": false,
+  "mainMutated": false,
+  "productionDeployed": false
+}
