@@ -48,10 +48,25 @@
     "releaseAuthority": false,
     "publicationAuthority": false
   },
+  "cockpitSwitch": {
+    "receipt": "doctrine/s24FeCockpitAuditSwitch-20260926.json",
+    "seal": "doctrine/s24FeCockpitAuditSwitchSeal-20260926.json",
+    "status": "GREEN_CI_COCKPIT_SWITCH_DEVICE_PROOF_PENDING",
+    "target": "Samsung Galaxy S24 FE",
+    "testedSourceCommit": "a37e926b64ba2fbfb4526f1f7673b0d982694064",
+    "promotedByMergeCommit": "7752ade36ad24c3970a0026c3911e3781606dbde",
+    "workflowRun": 36214881077,
+    "artifactId": 10896958326,
+    "apkSha256": "cfb4fdb729f0a85b85556634bc1148656dea69c667daa524b6c7581e85cb2f19",
+    "physicalS24FeProof": "PENDING",
+    "runtimeAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false
+  },
   "reconciliation": {
-    "observedMain": "cbc41872d7fc610f529856f4b30236edaf2f1f5d",
+    "observedMain": "7752ade36ad24c3970a0026c3911e3781606dbde",
     "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b",
-    "status": "DOC_WORKFLOW_PROMOTED_RUNTIME_NOT_PROMOTED",
-    "preserved": "Field manual and manual pointer retained; amber Android and broader release state unchanged; documentation mutation workflow promoted independently"
+    "status": "DOC_WORKFLOW_AND_COCKPIT_SWITCH_PROMOTED_DEVICE_PROOF_PENDING",
+    "preserved": "Field manual and documentation workflow retained; amber Android and broader release state unchanged; S24 FE cockpit switch is CI-proven and canonical while physical device proof remains pending"
   }
 }
