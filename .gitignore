@@ -10,3 +10,6 @@ build/
 .env
 .env.*
 __pycache__/
+
+# Reconstructed from hash-pinned CC0 source in CI.
+assets/community/

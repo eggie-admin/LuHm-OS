@@ -4,6 +4,7 @@ import subprocess
 import sys
 
 MARKERS = {
+    "communityAssetsSmoke": "COMMUNITY ASSETS SMOKE PASS",
     "layoutSmoke": "SAMSUNG ORIENTATION HARNESS PASS",
     "runtimeSmoke": "CROWN RUNTIME SMOKE GREEN",
     "lumRigV2Phase1Smoke": "LUHM RIG V2 PHASE 1 GREEN",

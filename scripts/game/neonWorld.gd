@@ -12,6 +12,7 @@ func _ready() -> void:
     _build_city()
     _build_lum_stage()
     _build_noir_details()
+    _build_community_set()
 
 func _build_environment() -> void:
     var env_node := WorldEnvironment.new()
@@ -205,3 +206,23 @@ func _build_noir_details() -> void:
     key.light_energy = 3.2
     key.omni_range = 9
     add_child(key)
+
+func _build_community_set() -> void:
+    # Optional offline content: CI stages exact licensed sources before import.
+    var placements := [
+        ["building-a", Vector3(-19, 0, -18), Vector3(4, 4, 4)],
+        ["building-a", Vector3(19, 0, -22), Vector3(4, 4, 4)],
+        ["chimney-large", Vector3(-16, 0, -24), Vector3(3, 3, 3)],
+        ["shipping-container-a", Vector3(10, 0, -10), Vector3(2, 2, 2)]
+    ]
+    for placement in placements:
+        var path := "res://assets/community/industrial/%s.glb" % placement[0]
+        if not ResourceLoader.exists(path):
+            continue
+        var packed := load(path) as PackedScene
+        if packed == null:
+            continue
+        var prop := packed.instantiate() as Node3D
+        prop.position = placement[1]
+        prop.scale = placement[2]
+        add_child(prop)

@@ -1,0 +1,32 @@
+{
+  "archiveSha256": "5b381164e5760f3830a2dbee43b972deee38b2a695d091b56e238ab2910c96d2",
+  "license": "CC0-1.0",
+  "creator": "Kenney",
+  "files": {
+    "building-a.glb": {
+      "bytes": 177316,
+      "sha256": "0e6ef8eb1e1bdbb9d06b5496b5daf3066e00eaf74b3fcd61b74072116a1c86cf"
+    },
+    "chimney-large.glb": {
+      "bytes": 20932,
+      "sha256": "fd88d6c971ffb27f5ee5b0df9f7c23ac82f9b6d32e85d3e2066f90a62f92f59f"
+    },
+    "shipping-container-a.glb": {
+      "bytes": 36624,
+      "sha256": "7b2d5ca874c8e659ee6cfd1614f0470b70410b2ddc7620ac83b8954dedeb861d"
+    },
+    "Textures/colormap.png": {
+      "bytes": 11986,
+      "sha256": "950f4f891ebd05a2affac810e6eeb0fea1511bc39039b65a3cbf2e17d17bc6a2"
+    }
+  },
+  "sourceUrl": "https://kenney.nl/assets/city-kit-industrial",
+  "archiveUrl": "https://kenney.nl/media/pages/assets/city-kit-industrial/0ec35b139d-1788171848/kenney_city-kit-industrial_2.0.zip",
+  "runtimeNetworkRequired": false,
+  "pending": [
+    "Skybox selection and Android memory proof",
+    "Animation pack licensing reconciliation and Lum rig retarget validation",
+    "Physical visual/performance review"
+  ],
+  "runtimeBoundary": "Native Godot Android; Termux, Ollama, X11 and legacy control planes remain separate. No app identified as Godot Gabe."
+}

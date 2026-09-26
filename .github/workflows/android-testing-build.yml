@@ -12,6 +12,7 @@ on:
       - 'cutscenes/**'
       - 'tests/**'
       - 'tools/candidateGate.py'
+      - 'tools/stageCommunityAssets.py'
       - 'tools/runGodotSmoke.py'
       - 'tools/stageInstallPortal.py'
       - 'doctrine/androidCandidate.json'
@@ -174,6 +175,11 @@ jobs:
           python3 tests/testSmokeRunner.py
           python3 tools/candidateGate.py
 
+      - name: Stage selected CC0 industrial props
+        run: |
+          curl -fL --retry 3 --max-time 90 -o /tmp/industrial.zip https://kenney.nl/media/pages/assets/city-kit-industrial/0ec35b139d-1788171848/kenney_city-kit-industrial_2.0.zip
+          python3 tools/stageCommunityAssets.py /tmp/industrial.zip
+
       - name: Import Godot project with Drive assets
         shell: bash
         run: |
@@ -187,6 +193,9 @@ jobs:
           python3 tools/runGodotSmoke.py "$GODOT" layoutSmoke
           python3 tools/runGodotSmoke.py "$GODOT" runtimeSmoke
           python3 tools/runGodotSmoke.py "$GODOT" lumRigV2Phase1Smoke
+
+      - name: Verify imported community meshes
+        run: python3 tools/runGodotSmoke.py "$GODOT" communityAssetsSmoke
 
       - name: Export Drive-3D testing APK
         shell: bash
