@@ -18,6 +18,26 @@ class ReadinessTests(unittest.TestCase):
         for value in ('PASS', 'VERIFIED', 'GREEN', True):
             self.assertTrue(audit.normalized_good(value), value)
 
+    def test_receipt_identity_mismatch(self):
+        source = audit.load(audit.SOURCE)
+        cockpit = audit.load(audit.COCKPIT_SEAL)
+        portal = audit.load(audit.PORTAL_SEAL)
+        self.assertEqual(audit.receipt_errors(source, cockpit, portal), [])
+        for field in ('testedSourceCommit', 'workflowRun', 'artifactId', 'apkSha256'):
+            changed = json.loads(json.dumps(source))
+            changed['cockpitSwitch'][field] = 'forged'
+            self.assertTrue(audit.receipt_errors(changed, cockpit, portal), field)
+        source['installPortal']['artifactArchiveSha256'] = '0' * 64
+        self.assertTrue(audit.receipt_errors(source, cockpit, portal))
+
+    def test_summary_cannot_self_certify_device_or_enterprise(self):
+        source = audit.load(audit.SOURCE)
+        source['cockpitSwitch']['physicalS24FeProof'] = 'GREEN'
+        source['enterpriseReady'] = True
+        errors = audit.receipt_errors(source, audit.load(audit.COCKPIT_SEAL), audit.load(audit.PORTAL_SEAL))
+        self.assertTrue(any('device proof' in e for e in errors))
+        self.assertTrue(any('enterprise readiness' in e for e in errors))
+
     def report(self, corrupt=False):
         original = audit.load
         def load(path):

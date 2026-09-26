@@ -41,6 +41,41 @@ def normalized_good(value: object) -> bool:
     return False
 
 
+def receipt_errors(source: dict, cockpit: dict, portal: dict) -> list[str]:
+    """Bind summary claims to the loaded seal identity; never infer device proof from CI."""
+    errors = []
+    contracts = (
+        ("cockpitSwitch", cockpit, "doctrine/s24FeCockpitAuditSwitchSeal-20260926.json",
+         {"testedSourceCommit": cockpit.get("testedSourceCommit"),
+          "workflowRun": cockpit.get("ci", {}).get("workflowRun"),
+          "artifactId": cockpit.get("ci", {}).get("artifactId"),
+          "apkSha256": cockpit.get("ci", {}).get("apkSha256")}),
+        ("installPortal", portal, "doctrine/fqdnInstallPortalSeal-20260926.json",
+         {"testedSourceCommit": portal.get("testedSourceCommit"),
+          "workflowRun": portal.get("ci", {}).get("workflowRun"),
+          "artifactId": portal.get("artifacts", {}).get("lanInstallBundle", {}).get("id"),
+          "artifactArchiveSha256": portal.get("artifacts", {}).get("lanInstallBundle", {}).get("archiveSha256"),
+          "embeddedApkSha256": portal.get("artifacts", {}).get("lanInstallBundle", {}).get("embeddedApkSha256")}),
+    )
+    for section, receipt, expected_path, bindings in contracts:
+        summary = source.get(section, {})
+        if summary.get("seal") != expected_path:
+            errors.append(f"{section}: unexpected seal pointer")
+        if receipt.get("authority") != "Professor" or receipt.get("canonical_repository") != "eggie-admin/LuHm-OS":
+            errors.append(f"{section}: receipt authority mismatch")
+        for key, expected in bindings.items():
+            if expected is None or summary.get(key) != expected:
+                errors.append(f"{section}.{key}: receipt identity mismatch")
+    if normalized_good(source.get("cockpitSwitch", {}).get("physicalS24FeProof")):
+        errors.append("cockpitSwitch: device proof requires a dedicated validated device receipt")
+    for field in ("lanDnsActivation", "apacheActivation", "physicalS24FeInstall", "fdroidRepositorySigning"):
+        if normalized_good(source.get("installPortal", {}).get(field)):
+            errors.append(f"installPortal.{field}: operational proof requires a dedicated validated receipt")
+    if source.get("enterpriseReady") is True:
+        errors.append("enterprise readiness requires dedicated validated control evidence")
+    return errors
+
+
 def git_head() -> str:
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 
@@ -60,6 +95,7 @@ def main() -> int:
 
     errors: list[str] = []
     blockers: list[dict[str, str]] = []
+    errors.extend(receipt_errors(source, cockpit, portal))
 
     if source.get("canonical_repository") != "eggie-admin/LuHm-OS":
         errors.append("canonical repository drift")
