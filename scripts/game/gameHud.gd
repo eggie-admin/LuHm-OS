@@ -9,136 +9,167 @@ var world_root: Control
 var dialogue_label: Label
 var status_label: Label
 var _touch_axis := Vector2.ZERO
+var _scroll: ScrollContainer
+var _panel: VBoxContainer
+var _back: Button
+var _hint: Label
+var _pads: Array[Button] = []
+var _axes: Array[Vector2] = [Vector2.UP, Vector2.LEFT, Vector2.DOWN, Vector2.RIGHT]
+var _touch_owner := -1
+var _touch_button := -1
+var _safe := Rect2()
 
 func _ready() -> void:
     _build_backend()
     _build_world_hud()
+    get_viewport().size_changed.connect(_refresh_layout)
     show_backend()
+    _refresh_layout()
+
+func _label(text: String, font_size: int) -> Label:
+    var item := Label.new()
+    item.text = text
+    item.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    item.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    item.add_theme_font_size_override("font_size", font_size)
+    item.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    return item
 
 func _build_backend() -> void:
     backend_root = Control.new()
     backend_root.name = "BackendCathedral"
     backend_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     add_child(backend_root)
-
     var shade := ColorRect.new()
     shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     shade.color = Color(0.025, 0.02, 0.06, 0.93)
+    shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
     backend_root.add_child(shade)
-
-    var panel := VBoxContainer.new()
-    panel.anchor_left = 0.12
-    panel.anchor_right = 0.88
-    panel.anchor_top = 0.22
-    panel.anchor_bottom = 0.74
-    panel.add_theme_constant_override("separation", 24)
-    backend_root.add_child(panel)
-
-    var title := Label.new()
-    title.text = "LUHM OS // BACKEND CATHEDRAL"
-    title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    title.add_theme_font_size_override("font_size", 42)
-    panel.add_child(title)
-
-    var sub := Label.new()
-    sub.text = "NATIVE GODOT SYSTEM COCKPIT · HUMAN CROWN GATE"
-    sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    sub.add_theme_font_size_override("font_size", 19)
-    panel.add_child(sub)
-
-    var line := Label.new()
-    line.text = "Godot 4 hard-architecture dry run\nNeon Riverwalk game runtime isolated behind the Crown."
-    line.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    line.add_theme_font_size_override("font_size", 25)
-    panel.add_child(line)
-
+    _scroll = ScrollContainer.new()
+    _scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+    backend_root.add_child(_scroll)
+    _panel = VBoxContainer.new()
+    _panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    _panel.add_theme_constant_override("separation", 24)
+    _scroll.add_child(_panel)
+    _panel.add_child(_label("LUHM OS // CATHEDRAL", 34))
+    _panel.add_child(_label("PROFESSOR HOLDS THE CROWN", 22))
+    _panel.add_child(_label("Lum · Neon Riverwalk\nSamsung candidate · AMBER", 26))
     var enter := Button.new()
+    enter.name = "EnterWorld"
     enter.text = "ENTER NEON RIVERWALK"
-    enter.custom_minimum_size = Vector2(0.0, 104.0)
-    enter.add_theme_font_size_override("font_size", 30)
+    enter.custom_minimum_size = Vector2(0, 88)
+    enter.add_theme_font_size_override("font_size", 24)
     enter.pressed.connect(func(): world_requested.emit())
-    panel.add_child(enter)
+    _panel.add_child(enter)
 
 func _build_world_hud() -> void:
     world_root = Control.new()
     world_root.name = "WorldHud"
     world_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    world_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
     add_child(world_root)
-
-    var backend := Button.new()
-    backend.text = "⬡ BACKEND"
-    backend.anchor_left = 0.02
-    backend.anchor_right = 0.25
-    backend.anchor_top = 0.02
-    backend.anchor_bottom = 0.07
-    backend.add_theme_font_size_override("font_size", 22)
-    backend.pressed.connect(func(): backend_requested.emit())
-    world_root.add_child(backend)
-
-    status_label = Label.new()
-    status_label.text = "NEON RIVERWALK // CROWN AMBER CANDIDATE"
-    status_label.anchor_left = 0.28
-    status_label.anchor_right = 0.96
-    status_label.anchor_top = 0.02
-    status_label.anchor_bottom = 0.07
-    status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-    status_label.add_theme_font_size_override("font_size", 21)
+    _back = Button.new()
+    _back.text = "CATHEDRAL"
+    _back.add_theme_font_size_override("font_size", 22)
+    _back.pressed.connect(func(): backend_requested.emit())
+    world_root.add_child(_back)
+    status_label = _label("CROWN · AMBER", 22)
     world_root.add_child(status_label)
-
-    dialogue_label = Label.new()
-    dialogue_label.anchor_left = 0.08
-    dialogue_label.anchor_right = 0.92
-    dialogue_label.anchor_top = 0.64
-    dialogue_label.anchor_bottom = 0.73
-    dialogue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    dialogue_label = _label("", 28)
     dialogue_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-    dialogue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    dialogue_label.add_theme_font_size_override("font_size", 30)
-    dialogue_label.add_theme_color_override("font_color", Color("f8eff8"))
     dialogue_label.add_theme_color_override("font_outline_color", Color("120914"))
-    dialogue_label.add_theme_constant_override("outline_size", 9)
+    dialogue_label.add_theme_constant_override("outline_size", 8)
     dialogue_label.visible = false
     world_root.add_child(dialogue_label)
+    var glyphs := ["▲", "◀", "▼", "▶"]
+    for i in range(4):
+        var button := Button.new()
+        button.text = glyphs[i]
+        button.add_theme_font_size_override("font_size", 30)
+        button.focus_mode = Control.FOCUS_NONE
+        button.button_down.connect(func(): _set_touch_axis(_axes[i]))
+        button.button_up.connect(func(): _set_touch_axis(Vector2.ZERO))
+        world_root.add_child(button)
+        _pads.append(button)
+    _hint = _label("DRAG RIGHT\nCAMERA", 20)
+    world_root.add_child(_hint)
 
-    _dpad_button("▲", Vector2(0.0, -1.0), 0.08, 0.78)
-    _dpad_button("◀", Vector2(-1.0, 0.0), 0.03, 0.86)
-    _dpad_button("▼", Vector2(0.0, 1.0), 0.08, 0.86)
-    _dpad_button("▶", Vector2(1.0, 0.0), 0.13, 0.86)
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_APPLICATION_PAUSED:
+        release_touch()
 
-    var camera_hint := Label.new()
-    camera_hint.text = "DRAG RIGHT SIDE · CAMERA"
-    camera_hint.anchor_left = 0.55
-    camera_hint.anchor_right = 0.95
-    camera_hint.anchor_top = 0.90
-    camera_hint.anchor_bottom = 0.95
-    camera_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-    camera_hint.add_theme_font_size_override("font_size", 18)
-    camera_hint.modulate = Color(1, 1, 1, 0.66)
-    world_root.add_child(camera_hint)
+func _input(event: InputEvent) -> void:
+    if world_root == null or not world_root.visible:
+        return
+    if event is InputEventScreenTouch:
+        if not event.pressed and event.index == _touch_owner:
+            release_touch()
+            get_viewport().set_input_as_handled()
+        elif event.pressed:
+            for i in range(_pads.size()):
+                if _pads[i].get_global_rect().has_point(event.position):
+                    if _touch_owner == -1:
+                        _touch_owner = event.index
+                        _touch_button = i
+                        _set_touch_axis(_axes[i])
+                    get_viewport().set_input_as_handled()
+                    return
+    elif event is InputEventScreenDrag and event.index == _touch_owner:
+        var inside := _pads[_touch_button].get_global_rect().has_point(event.position)
+        _set_touch_axis(_axes[_touch_button] if inside else Vector2.ZERO)
+        get_viewport().set_input_as_handled()
 
-func _dpad_button(glyph: String, axis: Vector2, left_anchor: float, top_anchor: float) -> void:
-    var button := Button.new()
-    button.text = glyph
-    button.anchor_left = left_anchor
-    button.anchor_right = left_anchor + 0.045
-    button.anchor_top = top_anchor
-    button.anchor_bottom = top_anchor + 0.08
-    button.offset_left = 0.0
-    button.offset_right = 0.0
-    button.offset_top = 0.0
-    button.offset_bottom = 0.0
-    button.add_theme_font_size_override("font_size", 36)
-    button.button_down.connect(func(): _set_touch_axis(axis))
-    button.button_up.connect(func(): _set_touch_axis(Vector2.ZERO))
-    world_root.add_child(button)
+func release_touch() -> void:
+    _touch_owner = -1
+    _touch_button = -1
+    _set_touch_axis(Vector2.ZERO)
+
+func _refresh_layout() -> void:
+    var visible := get_viewport().get_visible_rect()
+    var safe := visible
+    if OS.has_feature("android"):
+        var screen_safe := Rect2(DisplayServer.get_display_safe_area())
+        if screen_safe.has_area():
+            safe = (get_viewport().get_screen_transform().affine_inverse() * screen_safe).intersection(visible)
+    apply_layout(visible.size, safe)
+
+func apply_layout(view_size: Vector2, safe: Rect2) -> void:
+    release_touch()
+    var bounds := Rect2(Vector2.ZERO, view_size)
+    _safe = safe.intersection(bounds)
+    if not _safe.has_area():
+        _safe = bounds
+    var area := _safe.grow(-24.0)
+    _scroll.position = area.position
+    _scroll.size = area.size
+    _back.position = area.position
+    _back.size = Vector2(190, 72)
+    status_label.position = area.position + Vector2(206, 0)
+    status_label.size = Vector2(maxf(area.size.x - 206, 1), 72)
+    var step := 88.0
+    var origin := Vector2(area.position.x, area.end.y - step * 2.0)
+    var cells := [Vector2(1, 0), Vector2(0, 1), Vector2(1, 1), Vector2(2, 1)]
+    for i in range(_pads.size()):
+        _pads[i].position = origin + cells[i] * step
+        _pads[i].size = Vector2(80, 80)
+    dialogue_label.position = Vector2(area.position.x, area.end.y - 320)
+    dialogue_label.size = Vector2(area.size.x, 128)
+    _hint.position = Vector2(area.end.x - 210, area.end.y - 96)
+    _hint.size = Vector2(210, 88)
+
+func layout_controls() -> Array[Control]:
+    var result: Array[Control] = [_back, status_label, dialogue_label, _hint]
+    for button in _pads:
+        result.append(button)
+    return result
 
 func _set_touch_axis(axis: Vector2) -> void:
     _touch_axis = axis
-    move_axis_changed.emit(_touch_axis)
+    move_axis_changed.emit(axis)
 
 func show_backend() -> void:
-    _set_touch_axis(Vector2.ZERO)
+    release_touch()
     backend_root.visible = true
     world_root.visible = false
     clear_dialogue()

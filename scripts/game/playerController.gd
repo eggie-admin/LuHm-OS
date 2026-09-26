@@ -28,6 +28,12 @@ func _ready() -> void:
     _build_body()
     _build_camera()
 
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_APPLICATION_PAUSED:
+        touch_axis = Vector2.ZERO
+        velocity = Vector3.ZERO
+        Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
 func _physics_process(delta: float) -> void:
     if not world_active:
         velocity = Vector3.ZERO

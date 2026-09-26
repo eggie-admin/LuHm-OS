@@ -179,6 +179,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          "$GODOT" --headless --path . --script res://tests/layoutSmoke.gd
           "$GODOT" --headless --path . --script res://tests/runtimeSmoke.gd
           "$GODOT" --headless --path . --script res://tests/lumRigV2Phase1Smoke.gd
 
@@ -188,8 +189,8 @@ jobs:
           set -euo pipefail
           mkdir -p build/android
           "$GODOT" --headless --path . --install-android-build-template \
-            --export-debug 'Android Proposed' build/android/luhmos-1.0.15-samsungamber.1.apk
-          test -s build/android/luhmos-1.0.15-samsungamber.1.apk
+            --export-debug 'Android Proposed' build/android/luhmos-1.0.16-samsunglayout.1.apk
+          test -s build/android/luhmos-1.0.16-samsunglayout.1.apk
 
       - name: Verify Drive-3D testing APK
         shell: bash
@@ -197,7 +198,7 @@ jobs:
           CANDIDATE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           set -euo pipefail
-          APK=build/android/luhmos-1.0.15-samsungamber.1.apk
+          APK=build/android/luhmos-1.0.16-samsunglayout.1.apk
           BT="$ANDROID_HOME/build-tools/36.1.0"
           "$BT/aapt" dump badging "$APK" | tee build/android/badging.txt
           "$BT/apksigner" verify --verbose --print-certs "$APK" | tee build/android/signature.txt
