@@ -1,0 +1,70 @@
+name: KAI 9000 Cathedral Testing Bundle
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'cathedral/**'
+      - 'cockpit/**'
+      - 'agents/luhm-agent-mesh/**'
+      - 'skills/luhm-agent-mesh/**'
+      - 'skills/kai9000-cathedral/**'
+      - 'doctrine/**'
+      - 'scripts/auditAgentMesh.py'
+      - 'scripts/auditAndroidWebViewCockpit.py'
+      - 'scripts/auditKai9000Cathedral.py'
+      - '.github/workflows/kai9000-cathedral-testing.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  testing-bundle:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ env.SOURCE_SHA }}
+
+      - name: Verify exact source checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+
+      - name: Combined doctrine and source gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/auditAgentMesh.py
+          python3 scripts/auditAndroidWebViewCockpit.py
+          python3 scripts/auditKai9000Cathedral.py
+          python3 -m unittest discover -s cathedral/sidecar/tests -v
+          bash -n cathedral/termux/kai-cathedral
+          node --check cockpit/jquery/luhm.site.js
+
+      - name: Build source-only testing bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=build/cathedral-testing
+          mkdir -p "$OUT"
+          cp cathedral/README.md "$OUT/"
+          cp cathedral/api/contract.json "$OUT/api-contract.json"
+          cp cathedral/learning/contract.json "$OUT/learning-contract.json"
+          cp cathedral/agents.json "$OUT/agents.json"
+          cp doctrine/kai9000CathedralHardAudit-20260925.json "$OUT/hard-audit.json"
+          cp doctrine/kai9000CathedralSeal-20260925.json "$OUT/seal.json"
+          printf 'source_sha=%s\nstatus=TESTING_CANDIDATE_NOT_DEVICE_PROOF\n' "$SOURCE_SHA" > "$OUT/receipt.txt"
+          sha256sum "$OUT"/* > "$OUT/sha256.txt"
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: kai9000-cathedral-testing-${{ env.SOURCE_SHA }}
+          path: build/cathedral-testing/
+          if-no-files-found: error
+          retention-days: 14

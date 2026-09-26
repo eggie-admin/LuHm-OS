@@ -1,0 +1,25 @@
+{
+  "schema": "luhm.kai9000.apiSpine.v1",
+  "status": "PROPOSED_LOCAL_SIDECAR",
+  "transport": {
+    "bind": "127.0.0.1:9000",
+    "webview_direct_access": false,
+    "native_bridge_required": true,
+    "ollama_upstream": "http://127.0.0.1:11434",
+    "public_bind_forbidden": true,
+    "cors": false
+  },
+  "auth": {
+    "protected_endpoints": "Bearer capability token",
+    "token_source": "Termux private config; never repository/APK/log",
+    "healthz": "generic unauthenticated liveness only"
+  },
+  "endpoints": {
+    "GET /healthz": "generic liveness",
+    "GET /v1/status": "authenticated sidecar/Ollama status",
+    "GET /v1/models": "authenticated current allowed Ollama models",
+    "POST /v1/chat": "authenticated bounded single-turn local chat",
+    "POST /v1/memory/candidate": "append candidate memory only"
+  },
+  "forbidden": ["arbitrary proxy URL", "shell execution", "filesystem browse", "eval", "remote bind", "silent cross-provider failover", "memory auto-promotion"]
+}
