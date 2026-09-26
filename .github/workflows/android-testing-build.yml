@@ -175,6 +175,9 @@ jobs:
           python3 tests/testSmokeRunner.py
           python3 tools/candidateGate.py
 
+      - name: Verify community asset ingress rejection controls
+        run: python3 tests/testCommunityStaging.py
+
       - name: Stage selected CC0 industrial props
         run: |
           curl -fL --retry 3 --max-time 90 -o /tmp/industrial.zip https://kenney.nl/media/pages/assets/city-kit-industrial/0ec35b139d-1788171848/kenney_city-kit-industrial_2.0.zip

@@ -9,10 +9,19 @@ DIGEST = '5b381164e5760f3830a2dbee43b972deee38b2a695d091b56e238ab2910c96d2'
 MEMBERS = ('building-a.glb', 'chimney-large.glb', 'shipping-container-a.glb', 'Textures/colormap.png')
 
 def stage(archive, root):
+    if Path(archive).stat().st_size > 8_000_000:
+        raise ValueError('Archive byte budget exceeded')
     data = Path(archive).read_bytes()
     if hashlib.sha256(data).hexdigest() != DIGEST:
         raise ValueError('Community archive hash mismatch')
     with zipfile.ZipFile(archive) as pack:
+        selected = ['Models/GLB format/' + name for name in MEMBERS] + ['License.txt']
+        names = pack.namelist()
+        for name in selected:
+            if names.count(name) != 1:
+                raise ValueError('Missing or duplicate selected member')
+        if sum(pack.getinfo(name).file_size for name in selected) > 1_000_000:
+            raise ValueError('Expanded member budget exceeded')
         payloads = {name: pack.read('Models/GLB format/' + name) for name in MEMBERS}
         license_text = pack.read('License.txt').decode('utf-8-sig')
     if 'Creative Commons Zero' not in license_text:
@@ -20,6 +29,14 @@ def stage(archive, root):
     if sum(map(len, payloads.values())) > 1000000:
         raise ValueError('Community source budget exceeded')
     output = Path(root) / 'assets/community/industrial'
+    # Validate every destination before writes, including existing symlink ancestors.
+    root = Path(root).resolve()
+    targets = [output / name for name in payloads] + [output / 'LICENSE.txt', root / 'build/communityAssets.json']
+    for target in targets:
+        if not target.resolve().is_relative_to(root):
+            raise ValueError('Output escapes project root')
+        if any(parent.is_symlink() for parent in [target, *target.parents] if parent != root):
+            raise ValueError('Symlink output is forbidden')
     for name, value in payloads.items():
         target = output / name
         target.parent.mkdir(parents=True, exist_ok=True)
