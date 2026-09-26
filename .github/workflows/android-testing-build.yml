@@ -167,6 +167,7 @@ jobs:
       - name: Fail-closed source contract and negative controls
         run: |
           python3 tests/testCandidateGate.py
+          python3 tests/testSmokeRunner.py
           python3 tools/candidateGate.py
 
       - name: Import Godot project with Drive assets
@@ -179,9 +180,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          "$GODOT" --headless --path . --script res://tests/layoutSmoke.gd
-          "$GODOT" --headless --path . --script res://tests/runtimeSmoke.gd
-          "$GODOT" --headless --path . --script res://tests/lumRigV2Phase1Smoke.gd
+          python3 tools/runGodotSmoke.py "$GODOT" layoutSmoke
+          python3 tools/runGodotSmoke.py "$GODOT" runtimeSmoke
+          python3 tools/runGodotSmoke.py "$GODOT" lumRigV2Phase1Smoke
 
       - name: Export Drive-3D testing APK
         shell: bash
