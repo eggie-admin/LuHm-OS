@@ -1,0 +1,41 @@
+{
+  "schema": "luhm.pause-seal.v1",
+  "date": "2026-09-26",
+  "sourceCommit": "643abee51527c873d1c0b21e9525fb87a5ebabf0",
+  "pullRequest": 29,
+  "status": "CI_GREEN_DEVICE_AND_RELEASE_AMBER",
+  "authority": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "ci": [
+    {
+      "run": 36232557042,
+      "result": "success"
+    },
+    {
+      "run": 36232557047,
+      "result": "success"
+    },
+    {
+      "run": 36232557050,
+      "result": "success"
+    },
+    {
+      "run": 36232557057,
+      "result": "success"
+    }
+  ],
+  "localProof": [
+    "Seven orientation profiles passed",
+    "Runtime smoke passed",
+    "Five asset ingress rejection cases passed"
+  ],
+  "pending": [
+    "Physical device visual review of this exact build",
+    "Lum animation/T-pose correction",
+    "Persistent signing and installed certificate compatibility",
+    "Compact 30000000-byte gate for this visual candidate not established",
+    "Asset rights and complete inventory coverage remain unresolved"
+  ],
+  "resume": "Retrieve exact Samsung artifact from run 36232557057, verify hash and signing receipt, then review device framing and animation.",
+  "promotionAuthorized": false,
+  "mainMutated": false
+}
