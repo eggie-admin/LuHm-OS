@@ -1,0 +1,5 @@
+LuHm OS Public Beta is a local-first Godot cockpit for Android. It includes the Cathedral control surface, touch movement, a native 3D world, and the Lum companion runtime.
+
+This beta build is designed for local installation and offline use after installation. Runtime network access is disabled. Public-beta builds use a separate package identity so they can coexist with development candidates.
+
+The beta channel is experimental. Update continuity requires the same signing key across releases. Source, build workflow, and release metadata live in the canonical LuHm OS repository.
