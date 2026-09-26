@@ -20,6 +20,7 @@
       <span class="badge text-bg-dark" data-device-status>Samsung profile</span>
       <span class="badge text-bg-dark" data-webview-status>WebView provider</span>
       <span class="badge text-bg-dark" data-admin-status>standard app</span>
+      <span class="badge text-bg-dark" data-delivery-badge>Delivery candidate</span>
       <span class="badge text-bg-dark" data-site-status>Crowned Cathedral</span>
     </header>
 
@@ -39,11 +40,11 @@
     <section class="floatingPanel" id="agentPanel" data-luhm-panel>
       <div class="panelTitle">Mini Oni Mesh</div>
       <div class="panelBody small">
-        <div>Oni-Kumo · Context · read only</div>
-        <div>Oni-Tetsu · Build · read only</div>
-        <div>Oni-Sumi · Research · read only</div>
-        <div>Oni-Ibara · Critic · conditional</div>
-        <div>Kanabo Gate · deterministic executor</div>
+        <div>Kiri · Context / doctrine · read only</div>
+        <div>Tetsu · Build / receipts · read only</div>
+        <div>Momo · Freshness / delivery · read only</div>
+        <div>Shiori · Critic · conditional</div>
+        <div>Kugi · deterministic executor</div>
       </div>
     </section>
 
@@ -73,6 +74,19 @@
       </div>
     </section>
 
+    <section class="floatingPanel" id="deliveryPanel" data-luhm-panel hidden data-delivery-widget>
+      <div class="panelTitle">♛ Final Install Route · Receipt Widget</div>
+      <div class="panelBody small">
+        <div><b>Channel:</b> <span data-delivery-channel>loading</span></div>
+        <div><b>Source:</b> <span data-delivery-source>candidate</span></div>
+        <div><b>GitHub CI:</b> <span data-delivery-ci>pending</span></div>
+        <div><b>Drive:</b> <span data-delivery-drive>pending</span></div>
+        <div><b>Build path:</b> <span data-delivery-drive-path>unresolved</span></div>
+        <div><b>Device:</b> <span data-delivery-device>human install required</span></div>
+        <div><b>Silent install:</b> forbidden</div>
+      </div>
+    </section>
+
     <section hidden data-luhm-site-view="cathedral"></section>
     <section hidden data-luhm-site-view="agents"></section>
     <section hidden data-luhm-site-view="cms"></section>
@@ -85,6 +99,7 @@
       <button class="btn btn-sm btn-outline-light" data-toggle-panel="agentPanel">Onis</button>
       <button class="btn btn-sm btn-outline-light" data-toggle-panel="cmsPanel">CMS</button>
       <button class="btn btn-sm btn-outline-light" data-toggle-panel="systemPanel" data-request-status>System</button>
+      <button class="btn btn-sm btn-outline-light" data-toggle-panel="deliveryPanel">Build Route</button>
       <button class="btn btn-sm btn-outline-light" data-toy-action="pet_lum">♥ Pet Lum</button>
       <button class="btn btn-sm btn-outline-light" data-toy-action="oni_pop">👹 Oni Pop</button>
       <button class="btn btn-sm btn-outline-light" data-toy-action="crown_pulse">♛ Pulse</button>
@@ -98,6 +113,7 @@
   <script src="./vendor/vue/vue.global.prod.js"></script>
   <script src="./jquery/luhm.deck.js"></script>
   <script src="./jquery/luhm.site.js"></script>
+  <script src="./jquery/luhm.delivery.js"></script>
   <script src="./cms/vueCms.js"></script>
   <script src="./app.js"></script>
 </body>
