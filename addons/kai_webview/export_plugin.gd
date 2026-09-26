@@ -26,7 +26,14 @@ class AndroidExportPlugin extends EditorExportPlugin:
         return PackedStringArray(["kai_webview/bin/kaiwebview-release.aar"])
 
     func _get_android_dependencies(platform, debug) -> PackedStringArray:
-        return PackedStringArray(["androidx.webkit:webkit:1.17.1"])
+        return PackedStringArray([
+            "androidx.webkit:webkit:1.17.1",
+            "dev.rikka.shizuku:api:13.1.5",
+            "dev.rikka.shizuku:provider:13.1.5"
+        ])
 
     func _get_android_dependencies_maven_repos(platform, debug) -> PackedStringArray:
-        return PackedStringArray(["https://maven.google.com"])
+        return PackedStringArray([
+            "https://maven.google.com",
+            "https://repo1.maven.org/maven2"
+        ])
