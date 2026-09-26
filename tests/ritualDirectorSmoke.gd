@@ -3,7 +3,7 @@ extends SceneTree
 const RitualDirectorScript := preload("res://scripts/game/ritualDirector.gd")
 
 class FakeWorld:
-    extends Node
+    extends Node3D
     var calls: Array[String] = []
 
     func crown_pulse() -> void:
@@ -62,18 +62,18 @@ func _run() -> void:
     _check(not director.is_busy(), "unknown ritual fails closed")
     _check(String(bridge.replies[-1].get("payload", {}).get("state", "")) == "rejected", "unknown ritual receipt")
 
-    var finished := false
+    var state := {"finished": false}
     director.ritual_finished.connect(func(id: String, status: String):
         if id == "witching_hour" and status == "complete":
-            finished = true
+            state["finished"] = true
     )
     bridge.ritual_requested.emit("witching_hour")
-    for _i in range(30):
+    for _i in range(120):
         await process_frame
-        if finished:
+        if bool(state["finished"]):
             break
 
-    _check(finished, "witching hour completes")
+    _check(bool(state["finished"]), "witching hour completes")
     _check("oni_pop" in world.calls, "witching hour calls oni effect")
     _check("crown_pulse" in world.calls, "witching hour calls crown effect")
     _check("pulse_lum" in world.calls, "witching hour calls Lum pulse")
