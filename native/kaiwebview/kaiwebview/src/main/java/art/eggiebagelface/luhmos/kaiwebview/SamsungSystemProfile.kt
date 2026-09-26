@@ -71,6 +71,7 @@ internal object SamsungSystemProfile {
             .put("profileOwner", profileOwner)
             .put("rootBridgeEnabled", false)
             .put("termuxAdminLoginSupported", false)
+            .put("shizuku", ShizukuCapability.snapshot())
             .put(
                 "webViewProvider",
                 if (currentWebView == null) {

@@ -1,0 +1,95 @@
+{
+  "schema": "luhm-os.final-install-route.v1",
+  "date": "2026-09-26",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true,
+    "ai_role": ["audit", "draft", "build_assist", "receipt_routing"],
+    "consequential_actions_require_approval": true
+  },
+  "source": {
+    "repository": "eggie-admin/LuHm-OS",
+    "branch": "proposed/kai9000-final-install-route-20260926",
+    "base": "candidate/s24fe-canary-admin-harness-20260926",
+    "base_sha": "e3641fa32d83d0fdf7c24b7e699b35807d42c886",
+    "promotion": "PROPOSED_ONLY"
+  },
+  "install_candidate": {
+    "package": "art.eggiebagelface.luhmos.kai9000proposed",
+    "name": "LuHm OS · KAI 9000 Proposed",
+    "version_code": 123,
+    "version_name": "1.0.23-kai9000.proposed.1",
+    "abi": ["arm64-v8a"],
+    "target_sdk": 36,
+    "signing": "disposable_debug_candidate",
+    "side_by_side": true
+  },
+  "delivery_route": [
+    "github_exact_head_build",
+    "ten_pass_fail_closed_audit",
+    "apk_signature_zipalign_payload_hash_receipt",
+    "github_actions_artifact",
+    "lum_agent_downloads_exact_artifact",
+    "lum_agent_verifies_artifact_identity_and_digest",
+    "google_drive_private_source_of_truth_build_directory",
+    "human_taps_apk_and_installs",
+    "physical_device_smoke_receipt"
+  ],
+  "google_drive": {
+    "root_folder": "LuHm OS • NEW REPO SOURCE OF TRUTH • 2026-09-24",
+    "path": "builds/KAI9000/proposed/2026-09-26",
+    "public_workspace_allowed": false,
+    "source_of_truth_mutation": "artifact_delivery_only",
+    "secrets_allowed": false
+  },
+  "widgets": {
+    "cockpit_delivery_widget": true,
+    "shows": ["source_sha", "ci_status", "artifact_hash", "drive_receipt", "device_gate"],
+    "may_install_apk_silently": false,
+    "may_request_install_packages": false,
+    "may_execute_shell": false
+  },
+  "kai9000_mutation": {
+    "lum_is_boss": true,
+    "mini_oni": ["Kiri", "Tetsu", "Momo"],
+    "critic": "Shiori",
+    "executor": "Kugi",
+    "parallelism_max": 3,
+    "recursive_recruitment": false,
+    "background_learning": "candidate_receipts_only",
+    "termux_control_plane_is_separate": true,
+    "android_runtime_termux_bridge": false,
+    "openai_agent_role": "orchestrate_connectors_and_receipts_without_embedding_api_keys_in_apk"
+  },
+  "hard_boundaries": {
+    "generic_shell_bridge": false,
+    "root_bridge": false,
+    "selinux_disable": false,
+    "public_listener": false,
+    "embedded_api_keys": false,
+    "drive_public_share": false,
+    "silent_install": false,
+    "auto_merge": false,
+    "auto_promote": false
+  },
+  "green_law": {
+    "source_build_delivery_green_requires": [
+      "all_ten_static_build_passes_green",
+      "exact_head_ci_success",
+      "apk_signature_verified",
+      "zipalign_16k_verified",
+      "apk_sha256_recorded",
+      "artifact_uploaded_to_private_drive_path",
+      "drive_file_id_receipted"
+    ],
+    "runtime_green_requires": [
+      "physical_samsung_install",
+      "launch_smoke",
+      "webview_provider_probe",
+      "godot_world_smoke",
+      "cockpit_widget_smoke"
+    ],
+    "source_build_delivery_may_be_green_while_runtime_is_amber": true
+  },
+  "source_law": "AI proposes. Policy authorizes. CI or deterministic probes prove. Human promotes."
+}
