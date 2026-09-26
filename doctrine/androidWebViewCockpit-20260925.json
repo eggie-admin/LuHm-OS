@@ -1,0 +1,38 @@
+{
+  "schema": "luhm.androidWebViewCockpit.candidate.v1",
+  "date": "2026-09-25",
+  "status": "AMBER_DESIGN_CANDIDATE",
+  "repository": "eggie-admin/LuHm-OS",
+  "branch": "candidate/android-webview-cockpit-20260925",
+  "base": "candidate/luhm-agent-mesh-integrations-20260925",
+  "architecture": {
+    "host": "Godot 4 native Android runtime",
+    "bottom_layer": "full-screen Godot 4 canvas",
+    "overlay": "caged Android WebView",
+    "shell": ["jQuery", "jQuery UI", "Bootstrap"],
+    "cms_island": "Vue",
+    "local_ai": ["KAI 9000", "Ollama"],
+    "agent_mesh": ["Lum", "Oni-Kumo", "Oni-Tetsu", "Oni-Sumi", "Oni-Ibara", "Kanabo Gate"]
+  },
+  "bridge_allowlist": ["chat.send", "panel.set", "status.request", "model.select", "cms.select"],
+  "bridge_denied": ["generic exec", "shell", "eval", "arbitrary filesystem paths", "arbitrary privileged remote navigation"],
+  "security": {
+    "webview_asset_loader_required": true,
+    "runtime_cdn": false,
+    "generic_javascript_bridge": false,
+    "release_webview_debugging": false,
+    "secrets_in_frontend": false
+  },
+  "open_gates": [
+    "pin and commit cockpit package-lock.json before release-style npm ci",
+    "pin exact AndroidX WebKit version after dependency/license audit",
+    "implement KAIWebView Kotlin plugin against pinned Godot 4.7.2 Android template",
+    "enable and prove Gradle Android export path without regressing current Godot APK lane",
+    "build ARM64 debug APK containing WebView overlay",
+    "verify package/version/signature/zipalign/SHA-256",
+    "physical-device smoke on target Samsung",
+    "prove Godot touch remains usable through intended transparent WebView zones"
+  ],
+  "production_actions_authorized": false,
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}
