@@ -1,11 +1,11 @@
 {
   "name": "luhm-os-cockpit-webview",
   "private": true,
-  "version": "0.2.0-cathedral.1",
-  "description": "Encapsulated Android WebView cockpit layered over the native Godot 4 runtime",
+  "version": "0.3.0-oni-atelier.1",
+  "description": "Encapsulated Android WebView cockpit with the Oni Atelier runtime character creator over the native Godot 4 world",
   "scripts": {
     "stage:vendor": "node tools/stage-vendor.mjs",
-    "check": "node --check app.js && node --check jquery/luhm.deck.js && node --check jquery/luhm.site.js && node --check cms/vueCms.js && node --check tools/stage-vendor.mjs"
+    "check": "node --check app.js && node --check jquery/luhm.deck.js && node --check jquery/luhm.site.js && node --check jquery/luhm.atelier.js && node --check cms/vueCms.js && node --check tools/stage-vendor.mjs"
   },
   "dependencies": {
     "bootstrap": "5.3.8",
