@@ -1,0 +1,33 @@
+{
+  "schema": "kai9000.witching-hour.source-seal.v1",
+  "date": "2026-09-26",
+  "authority": "Professor",
+  "status": "GREEN_SOURCE",
+  "scope": "KAI 9000 quarantined local forge only",
+  "merge_into_luhm_os": false,
+  "sealed_source_sha": "3dcc9d0ec539149d9b41a99e46c401aa90a01671",
+  "ci": {
+    "workflow": "KAI 9000 Witching Hour Forge",
+    "run_id": 36225495519,
+    "conclusion": "success",
+    "artifact_id": 10900147716,
+    "artifact_digest": "sha256:55ca93241f0f68eff32ff9e54114202ab72e9e0fd593beb4f29badf980610929",
+    "forge_tar_sha256": "d8b126a258b4cfb3410cf9ad44b6172df02c90cba519bd945926195fe329bfaa"
+  },
+  "ten_pass_source_audit": "GREEN",
+  "runtime_status": "AMBER_RUNTIME_PROOF_PENDING",
+  "runtime_green_requires": [
+    "current Termux package/source identity",
+    "Ollama version and loopback API health",
+    "Ollama model inventory",
+    "TigerVNC status and loopback proof when active",
+    "websockify status if retained",
+    "KAI service health",
+    "storage/runtime path reconciliation",
+    "non-root proof",
+    "rollback snapshot receipt",
+    "sealed runtime evidence hashes"
+  ],
+  "promotion": "HUMAN_ONLY",
+  "source_law": "AI proposes. Policy authorizes. CI or deterministic probes prove. Human promotes."
+}
