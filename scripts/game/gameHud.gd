@@ -37,6 +37,7 @@ func _label(text: String, font_size: int) -> Label:
     item.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     item.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     item.add_theme_font_size_override("font_size", font_size)
+    item.add_theme_color_override("font_color", Color("d8eee9"))
     item.mouse_filter = Control.MOUSE_FILTER_IGNORE
     return item
 
@@ -47,7 +48,7 @@ func _build_backend() -> void:
     add_child(backend_root)
     var shade := ColorRect.new()
     shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-    shade.color = Color(0.025, 0.02, 0.06, 0.93)
+    shade.color = Color(0.018, 0.035, 0.055, 0.78)
     shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
     backend_root.add_child(shade)
     _scroll = ScrollContainer.new()
@@ -57,16 +58,17 @@ func _build_backend() -> void:
     _panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     _panel.add_theme_constant_override("separation", 24)
     _scroll.add_child(_panel)
-    _panel.add_child(_label("LUHM OS // CATHEDRAL", 34))
-    _panel.add_child(_label("PROFESSOR HOLDS THE CROWN", 22))
-    _panel.add_child(_label("Lum · Neon Riverwalk\nSamsung candidate · AMBER", 26))
+    _panel.add_child(_label("L U H M   /   O S", 48))
+    _panel.add_child(_label("C A T H E D R A L   •   0 1", 22))
+    _panel.add_child(_label("DETROIT AFTER DARK\nThe river remembers. Lum is waiting.", 26))
 
     var enter := Button.new()
     enter.name = "EnterWorld"
-    enter.text = "ENTER NEON RIVERWALK"
+    enter.text = "ENTER THE RIVERWALK   →"
     enter.custom_minimum_size = Vector2(0, 88)
     enter.add_theme_font_size_override("font_size", 24)
     enter.pressed.connect(func(): world_requested.emit())
+    _skin_button(enter, true)
     _panel.add_child(enter)
 
     _audit_switch = CheckButton.new()
@@ -91,11 +93,12 @@ func _build_world_hud() -> void:
     world_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
     add_child(world_root)
     _back = Button.new()
-    _back.text = "CATHEDRAL"
+    _back.text = "‹  CATHEDRAL"
     _back.add_theme_font_size_override("font_size", 22)
     _back.pressed.connect(func(): backend_requested.emit())
+    _skin_button(_back)
     world_root.add_child(_back)
-    status_label = _label("CROWN · AMBER", 22)
+    status_label = _label("PROFESSOR  /  CROWN · AMBER", 20)
     world_root.add_child(status_label)
     dialogue_label = _label("", 28)
     dialogue_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -111,6 +114,7 @@ func _build_world_hud() -> void:
         button.focus_mode = Control.FOCUS_NONE
         button.button_down.connect(func(): _set_touch_axis(_axes[i]))
         button.button_up.connect(func(): _set_touch_axis(Vector2.ZERO))
+        _skin_button(button)
         world_root.add_child(button)
         _pads.append(button)
     _hint = _label("DRAG RIGHT\nCAMERA", 20)
@@ -243,3 +247,18 @@ func clear_dialogue() -> void:
 func set_status(text: String) -> void:
     if status_label != null:
         status_label.text = text
+
+func _skin_button(button: Button, primary: bool = false) -> void:
+    for state in ["normal", "hover", "pressed", "focus"]:
+        var skin := StyleBoxFlat.new()
+        skin.bg_color = Color("123e46") if primary else Color("10232ee8")
+        if state == "pressed":
+            skin.bg_color = Color("28616a")
+        skin.border_color = Color("73efcf") if primary else Color("487c86")
+        skin.set_border_width_all(2 if primary else 1)
+        skin.set_corner_radius_all(12)
+        skin.content_margin_left = 18
+        skin.content_margin_right = 18
+        button.add_theme_stylebox_override(state, skin)
+    button.add_theme_color_override("font_color", Color("e4fff4"))
+    button.add_theme_color_override("font_pressed_color", Color.WHITE)
