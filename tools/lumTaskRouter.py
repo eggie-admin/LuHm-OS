@@ -17,7 +17,13 @@ ROUTES = {
     "external": ["Lum", "Momo"],
     "monitor": ["Lum", "DrNao"],
     "release": ["Lum", "DrNao", "ProfessorCrown"],
+    "art": ["Lum", "Yume"],
+    "media": ["Lum", "Yume", "Sumi"],
+    "dictation": ["Lum", "Koe"],
+    "asset": ["Lum", "Sumi"],
 }
+
+SUPPORT = {"Kiri", "Momo", "Shiori", "Yume", "Koe", "Sumi"}
 
 
 def unique(items: list[str]) -> list[str]:
@@ -36,6 +42,7 @@ def main() -> int:
     parser.add_argument("--truth-sensitive", action="store_true")
     parser.add_argument("--contested", action="store_true")
     parser.add_argument("--external-fact", action="store_true")
+    parser.add_argument("--asset-review", action="store_true")
     parser.add_argument("--json-out", type=Path)
     args = parser.parse_args()
 
@@ -53,9 +60,12 @@ def main() -> int:
     if args.external_fact and "Momo" not in workers:
         workers.append("Momo")
         reasons.append("external-fact")
+    if args.asset_review and "Sumi" not in workers:
+        workers.append("Sumi")
+        reasons.append("asset-review")
 
     workers = unique(workers)
-    support = [w for w in workers if w in {"Kiri", "Momo", "Shiori"}]
+    support = [w for w in workers if w in SUPPORT]
     if len(support) > 3:
         raise SystemExit("RED_ROUTER_SUPPORT_PARALLELISM_EXCEEDED")
 
@@ -64,10 +74,12 @@ def main() -> int:
         "kind": args.kind,
         "workers": workers,
         "reasons": reasons,
+        "supportWorkers": support,
         "sourceMutationLanes": 1 if "Kugi" in workers else 0,
         "parallelBuilds": 2 if {"Tetsu", "Kaji"}.issubset(workers) else 0,
         "requiresDoctorVerdict": "DrNao" in workers,
         "requiresProfessorCrown": "ProfessorCrown" in workers,
+        "dictationExecutesDirectly": False,
         "greenAuthority": False,
     }
     text = json.dumps(report, indent=2) + "\n"
