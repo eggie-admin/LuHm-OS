@@ -8,6 +8,10 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / "plugins" / "luhm-os"
+RENDER_BLUEPRINT = ROOT / "render.yaml"
+MCP_SERVER = ROOT / "host" / "mcp" / "luhmMcpServer.py"
+EXPECTED_FQDN = "mcp.eggiebagelface.art"
+EXPECTED_REMOTE_URL = f"https://{EXPECTED_FQDN}/mcp"
 
 
 def read(path: Path) -> str:
@@ -35,14 +39,17 @@ def audit() -> None:
     required = [
         PLUGIN / "plugin.json",
         PLUGIN / "mcp.json",
+        PLUGIN / "mcp.local.json",
         PLUGIN / "mcp.remote.example.json",
         PLUGIN / "README.md",
         PLUGIN / "PRIVACY.md",
         PLUGIN / "TERMS.md",
         PLUGIN / "skills" / "luhm-agent-workflow" / "SKILL.md",
+        RENDER_BLUEPRINT,
+        MCP_SERVER,
     ]
     for path in required:
-        require(path.is_file(), f"missing plugin package file: {path.relative_to(ROOT)}")
+        require(path.is_file(), f"missing plugin/deployment file: {path.relative_to(ROOT)}")
 
     manifest = load(PLUGIN / "plugin.json")
     require(manifest.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "plugin schema drift")
@@ -61,19 +68,63 @@ def audit() -> None:
     prompts = interface.get("defaultPrompt", [])
     require(isinstance(prompts, list) and len(prompts) >= 2, "plugin starter prompts missing")
 
-    local_mcp = load(PLUGIN / "mcp.json")
+    production_mcp = load(PLUGIN / "mcp.json")
+    require(production_mcp.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json", "production MCP schema drift")
+    production = production_mcp.get("mcpServers", {}).get("luhm", {})
+    require(production.get("type") == "streamable-http", "production MCP transport drift")
+    production_url = str(production.get("url", ""))
+    require(production_url == EXPECTED_REMOTE_URL, "production MCP FQDN drift")
+    require_https(production_url, "production MCP URL")
+    require(urlparse(production_url).hostname == EXPECTED_FQDN, "production MCP hostname drift")
+
+    local_mcp = load(PLUGIN / "mcp.local.json")
     require(local_mcp.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json", "local MCP schema drift")
     local = local_mcp.get("mcpServers", {}).get("luhm_local", {})
     require(local.get("type") == "streamable-http", "local MCP transport drift")
     require(local.get("url") == "http://127.0.0.1:8788/mcp", "local MCP must remain loopback development only")
 
-    remote_mcp = load(PLUGIN / "mcp.remote.example.json")
-    remote = remote_mcp.get("mcpServers", {}).get("luhm_remote", {})
-    require(remote.get("type") == "streamable-http", "remote MCP transport drift")
-    remote_url = str(remote.get("url", ""))
-    require_https(remote_url, "remote MCP template")
-    require(urlparse(remote_url).hostname == "luhm-mcp.example.invalid", "remote template must remain non-routable until deployed")
-    require("127.0.0.1" not in remote_url and "localhost" not in remote_url, "remote template points at loopback")
+    remote_example = load(PLUGIN / "mcp.remote.example.json")
+    remote_template = remote_example.get("mcpServers", {}).get("luhm_remote", {})
+    require(remote_template.get("type") == "streamable-http", "remote template transport drift")
+    remote_template_url = str(remote_template.get("url", ""))
+    require_https(remote_template_url, "remote MCP template")
+    require(urlparse(remote_template_url).hostname == "luhm-mcp.example.invalid", "remote template must remain non-routable")
+
+    server_source = read(MCP_SERVER)
+    for phrase in (
+        "MCPServer(",
+        "ToolAnnotations(",
+        "readOnlyHint=True",
+        "destructiveHint=False",
+        "openWorldHint=False",
+        "TransportSecuritySettings(",
+        "enable_dns_rebinding_protection=True",
+        "allowed_hosts=[fqdn, f\"{fqdn}:*\"]",
+        "@server.custom_route(\"/healthz\"",
+        "@server.custom_route(\"/.well-known/openai-apps-challenge\"",
+        "OPENAI_APPS_CHALLENGE",
+        "host=\"0.0.0.0\"",
+        "max_request_body_size=1 * 1024 * 1024",
+    ):
+        require(phrase in server_source, f"MCP production hardening missing: {phrase}")
+
+    render = read(RENDER_BLUEPRINT)
+    for phrase in (
+        "name: luhm-mcp",
+        "region: ohio",
+        "autoDeployTrigger: checksPass",
+        "healthCheckPath: /healthz",
+        f"- {EXPECTED_FQDN}",
+        "renderSubdomainPolicy: disabled",
+        "LUHM_MCP_PROFILE",
+        "value: production",
+        "LUHM_MCP_FQDN",
+        "OPENAI_APPS_CHALLENGE",
+        "sync: false",
+        "PYTHON_VERSION",
+        "value: 3.12.11",
+    ):
+        require(phrase in render, f"Render enterprise deployment drift: {phrase}")
 
     skill = read(PLUGIN / "skills" / "luhm-agent-workflow" / "SKILL.md")
     for phrase in (
@@ -94,9 +145,12 @@ def audit() -> None:
     secret_pattern = re.compile(
         r"(sk-proj-[A-Za-z0-9_-]{8,}|BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY|AIza[A-Za-z0-9_-]{20,})"
     )
-    for path in PLUGIN.rglob("*"):
-        if path.is_file() and path.suffix.lower() in {".json", ".md", ".txt"}:
-            require(secret_pattern.search(read(path)) is None, f"secret-like material detected: {path.relative_to(ROOT)}")
+    scan_roots = [PLUGIN, ROOT / "host" / "mcp"]
+    for scan_root in scan_roots:
+        for path in scan_root.rglob("*"):
+            if path.is_file() and path.suffix.lower() in {".json", ".md", ".txt", ".py"}:
+                require(secret_pattern.search(read(path)) is None, f"secret-like material detected: {path.relative_to(ROOT)}")
+    require(secret_pattern.search(render) is None, "secret-like material detected: render.yaml")
 
     print("LUHM_PLUGIN_PACKAGE_GREEN")
 
