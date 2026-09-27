@@ -98,10 +98,7 @@ mkdir -p android/build
 unzip -q "$ANDROID_SOURCE" -d android/build
 chmod +x android/build/gradlew
 printf '%s\n' "$GODOT_TEMPLATE_ID" > android/.build_version
-android/build/gradlew -p native/kaiwebview :kaiwebview:assembleDebug :kaiwebview:assembleRelease --no-daemon
-mkdir -p addons/kai_webview/bin
-cp native/kaiwebview/kaiwebview/build/outputs/aar/kaiwebview-debug.aar addons/kai_webview/bin/kaiwebview-debug.aar
-cp native/kaiwebview/kaiwebview/build/outputs/aar/kaiwebview-release.aar addons/kai_webview/bin/kaiwebview-release.aar
+bash scripts/buildNativeWebglass.sh
 test -s addons/kai_webview/bin/kaiwebview-debug.aar
 
 "$GODOT" --headless --editor --path . --quit

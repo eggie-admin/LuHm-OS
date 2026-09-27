@@ -46,8 +46,7 @@ def main() -> int:
     required_overlay = [
         "TARGET_LUM_HEIGHT := 1.90",
         "CrownCathedralSetDressScript",
-        "Vector2(-PI, -0.04)",
-        "spring.spring_length = 6.4",
+        "LumFocus.apply(player, lum)",
         "_measure_visual_height",
     ]
     for token in required_overlay:

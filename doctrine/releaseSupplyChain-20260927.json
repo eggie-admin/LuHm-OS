@@ -1,0 +1,60 @@
+{
+  "schema": "luhm-os.release-supply-chain.v1",
+  "date": "2026-09-27",
+  "product": "LuHm OS",
+  "scope": "FULL_GAME",
+  "authority": "Professor",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "sbom": {
+    "format": "CycloneDX",
+    "spec_version": "1.7",
+    "deterministic": true,
+    "required_components": [
+      "LuHm OS Crown Cathedral application",
+      "Godot Engine framework",
+      "LuHm WebGlass Android bridge",
+      "rigged Lum base GLB",
+      "rigged Lum running GLB",
+      "77 Kenney CC0 runtime assets",
+      "2 Kenney texture sidecars",
+      "2 rights-cleared LuHm donor derivatives",
+      "packaged cockpit npm dependencies when present"
+    ]
+  },
+  "provenance": {
+    "bind_source_sha": true,
+    "bind_apk_sha256": true,
+    "bind_sbom_sha256": true,
+    "bind_package_version": true,
+    "bind_signing_mode": true,
+    "bind_lum_hashes": true,
+    "bind_community_source_commit": true,
+    "bind_donor_authority_false": true,
+    "bind_kai9000_widget_authority_false": true,
+    "bind_webglass_runtime_identity": "LUHM_WEBGLASS"
+  },
+  "security": {
+    "network_required": false,
+    "provider_secret_required": false,
+    "signing_secret_recorded": false,
+    "private_nexus_payload_required": false,
+    "private_drive_source_fetch_required": false
+  },
+  "green_law": {
+    "generator": "tools/releaseProvenance.py",
+    "auditor": "tools/releaseProvenanceAudit.py",
+    "bom_output": "build/android/bom.cdx.json",
+    "provenance_output": "build/android/release-provenance.json",
+    "audit_output": "build/android/release-provenance-audit.json",
+    "workflow": "exact-head Crown deployment must generate and audit all three before final system receipt"
+  },
+  "not_green_without_evidence": [
+    "source/APK/SBOM identity match",
+    "77 community assets and 2 support files represented",
+    "2 LuHm donor derivatives represented",
+    "LuHm WebGlass represented and KAI authority absent",
+    "rigged Lum hashes represented",
+    "signing mode recorded without signing secret"
+  ],
+  "unknown_is_not_green": true
+}

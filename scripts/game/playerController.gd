@@ -204,3 +204,13 @@ func _kill_camera_tween() -> void:
     if _camera_tween != null and _camera_tween.is_valid():
         _camera_tween.kill()
     _camera_tween = null
+
+func set_camera_home(yaw: float, pitch: float, length: float) -> void:
+    _kill_camera_tween()
+    _camera_home_yaw = yaw
+    _camera_home_pitch = pitch
+    _camera_home_length = length
+    _yaw = yaw
+    _pitch = pitch
+    spring_arm.spring_length = length
+    _apply_orbit()

@@ -1,0 +1,109 @@
+{
+  "schema": "luhm-os.source-layout.v1",
+  "status": "PROPOSED_LOGICAL_LAYOUT",
+  "principle": "Describe stable module boundaries first; do not mass-move proven Godot and Android paths until path-sensitive builds have migration receipts.",
+  "sourceOfTruth": {
+    "doctrine": "doctrine/",
+    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
+    "canonicalStatus": "doctrine/SOURCE_OF_TRUTH.json",
+    "agentContract": "doctrine/AGENT_MESH_V2.json",
+    "orchestratorContract": "doctrine/LUM_ORCHESTRATOR_V2.json",
+    "creativeMediaContract": "doctrine/CREATIVE_MEDIA_PIPELINE_V1.json"
+  },
+  "modules": [
+    {
+      "id": "godotCore",
+      "kind": "runtime",
+      "paths": ["project.godot", "export_presets.cfg", "scenes/", "scripts/game/"],
+      "owner": "Lum",
+      "reusePolicy": "source_fingerprint_required"
+    },
+    {
+      "id": "agentMesh",
+      "kind": "orchestration",
+      "paths": [
+        "agents/",
+        "scripts/agentMeshRuntime.py",
+        "tools/lumTaskRouter.py",
+        "tools/doctorOniAudit.py",
+        "doctrine/AGENT_MESH_V2.json",
+        "doctrine/LUM_ORCHESTRATOR_V2.json",
+        "doctrine/CREATIVE_MEDIA_PIPELINE_V1.json"
+      ],
+      "owner": "Lum",
+      "reviewer": "DrNao",
+      "reusePolicy": "run_agent_contract_tests_for_exact_sha; full_application_build_only_when_runtime_or_artifact_boundary_changes"
+    },
+    {
+      "id": "cockpitWebGlass",
+      "kind": "ui",
+      "paths": ["cockpit/", "frontEnd/", "backEndGui/"],
+      "owner": "Tetsu",
+      "reusePolicy": "lockfile_and_source_fingerprint_required"
+    },
+    {
+      "id": "nativeWebGlass",
+      "kind": "native_plugin",
+      "paths": ["native/kaiwebview/", "addons/kai_webview/", "scripts/buildNativeWebglass.sh", "tools/moduleBuild.py"],
+      "owner": "Tetsu",
+      "reusePolicy": "content_addressed_only"
+    },
+    {
+      "id": "petUiAssets",
+      "kind": "creative_ui_assets",
+      "paths": ["assets/pet/"],
+      "owner": "Yume",
+      "curator": "Sumi",
+      "reviewer": "Professor",
+      "reusePolicy": "exact_asset_hash_plus_provenance; runtime GREEN requires exact import proof"
+    },
+    {
+      "id": "characterAndWorldAssets",
+      "kind": "assets",
+      "paths": ["assets/community/", "assets/donor/", "assets/lum/", "assets/nexus/", "cutscenes/"],
+      "owner": "Lum",
+      "creativeSpecialist": "Yume",
+      "curator": "Sumi",
+      "reusePolicy": "hash_and_license_receipt_required"
+    },
+    {
+      "id": "platformAndroid",
+      "kind": "platform",
+      "paths": ["android/", "scripts/platform/", "scripts/buildCathedralWebglass.sh", "scripts/buildCathedralReleaseCandidate.sh"],
+      "owner": "Kaji",
+      "reusePolicy": "final_apk_never_reused_without_new_export_and_audit"
+    },
+    {
+      "id": "verification",
+      "kind": "quality",
+      "paths": ["tests/", "tools/", ".github/workflows/"],
+      "owner": "DrNao",
+      "reusePolicy": "tests_run_against_exact_claimed_sha"
+    }
+  ],
+  "mutationRules": [
+    "A change begins with an exact base SHA and one claimed module scope.",
+    "Unknown or cross-module paths force broader validation rather than optimistic reuse.",
+    "A module may be reused only when its declared fingerprint and output receipts match.",
+    "Agent skill or doctrine-only changes run targeted agent contract tests first and do not automatically require an Android rebuild unless they alter runtime or artifact boundaries.",
+    "Pet concept/provenance metadata changes do not claim runtime success; changed shipping pet binaries require exact import/runtime proof.",
+    "Final APK export, package audit, alignment audit, permission audit, signing audit, and provenance receipt are never inherited from an older source SHA.",
+    "Source moves are migrations, not cleanup; each move must preserve runtime paths or include explicit compatibility changes and tests.",
+    "Generated build output and receipts stay outside canonical source folders and are never treated as source truth by themselves."
+  ],
+  "futurePhysicalLayout": {
+    "note": "Migration target only; not authorized as a bulk move.",
+    "directories": [
+      "app/",
+      "modules/game/",
+      "modules/cockpit/",
+      "modules/nativeWebGlass/",
+      "platform/android/",
+      "assets/",
+      "agents/",
+      "doctrine/",
+      "tools/",
+      "tests/"
+    ]
+  }
+}

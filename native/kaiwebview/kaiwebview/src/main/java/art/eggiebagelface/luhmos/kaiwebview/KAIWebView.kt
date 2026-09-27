@@ -26,6 +26,8 @@ import org.json.JSONObject
 import kotlin.math.min
 import kotlin.math.roundToInt
 
+// Historical KAIWebView class/package names are binary-compatibility plumbing only.
+// Runtime identity and authority belong exclusively to LuHm OS WebGlass.
 class KAIWebView(godot: Godot) : GodotPlugin(godot) {
     companion object {
         private const val ORIGIN = "https://appassets.androidplatform.net"
@@ -108,9 +110,16 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
         view.evaluateJavascript("window.LuHmUISetMode&&window.LuHmUISetMode($quoted);", null)
     }
 
+    @Suppress("DEPRECATION")
+    private fun disableLegacyFormData(settings: WebSettings) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            settings.saveFormData = false
+        }
+    }
+
     private fun ensureWebView(): WebView {
         webView?.let { return it }
-        val host = activity ?: error("KAIWebView host activity unavailable")
+        val host = activity ?: error("LuHm WebGlass host activity unavailable")
         val loader = WebViewAssetLoader.Builder()
             .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(host))
             .build()
@@ -130,8 +139,8 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
             mediaPlaybackRequiresUserGesture = true
             setSupportMultipleWindows(false)
             javaScriptCanOpenWindowsAutomatically = false
-            saveFormData = false
         }
+        disableLegacyFormData(view.settings)
         CookieManager.getInstance().apply {
             setAcceptCookie(false)
             setAcceptThirdPartyCookies(view, false)
@@ -185,8 +194,8 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
                         .put("schema", "luhm.bridge.reply.v1")
                         .put("type", "status")
                         .put("payload", JSONObject()
-                            .put("kai", "native")
-                            .put("ollama", "external")
+                            .put("bridge", "luhm-webglass")
+                            .put("aiHost", "external")
                             .put("mode", currentMode)
                             .put("webviewPackage", pkg?.packageName ?: "unknown")
                             .put("webviewVersion", pkg?.versionName ?: "unknown"))

@@ -13,3 +13,5 @@ __pycache__/
 assets/nexus/runtime/
 assets/nexus/incoming/
 *.blend1
+
+.luhm-cache/

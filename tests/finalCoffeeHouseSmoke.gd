@@ -12,6 +12,9 @@ func _run() -> void:
     for _frame in range(8):
         await process_frame
 
+    # Let intro/pulse/restore finish; early node existence missed scale regressions.
+    await create_timer(6.0).timeout
+
     var world := game.get_node_or_null("NeonWorld") as Node3D
     assert(world != null)
     assert(world.get_node_or_null("CoffeeHouseSetDress") != null)
@@ -51,13 +54,36 @@ func _run() -> void:
     var lum_height := float(overlay.call("_measure_visual_height", lum))
     assert(lum_height > 1.70 and lum_height < 2.10)
 
-    var player := game.get_node_or_null("PlayerController") as CharacterBody3D
-    assert(player != null)
-    assert(player.position.z < 7.5)
-
     var coffee := world.get_node_or_null("CoffeeHouseSetDress") as Node3D
+    assert(coffee != null)
     assert(coffee.get_node_or_null("KissatenFloor") != null)
     assert(coffee.get_node_or_null("OniCoffeeSign") != null)
+    # Center entrance is a deliberate presentation contract. A post here can
+    # visually occlude Lum even though projection math still passes headless CI.
+    assert(coffee.get_node_or_null("KissatenPost_60") == null)
+
+    var player := game.get_node_or_null("PlayerController") as CharacterBody3D
+    assert(player != null)
+    assert(player.position.z > 10.0)
+    await physics_frame
+    await process_frame
+    var camera := player.get_node("CameraYaw/CameraPitch/SpringArm3D/Camera3D") as Camera3D
+    # The kissaten front beam is at z=9.15. The opening camera must begin outside
+    # that plane so the phone cannot start embedded in interior geometry.
+    assert(camera.global_position.z < 9.0)
+    var size := root.get_visible_rect().size
+    var feet := lum.global_position + Vector3(0, 0.05, 0)
+    var head := feet + Vector3(0, lum_height, 0)
+    assert(not camera.is_position_behind(head))
+    var head_uv := camera.unproject_position(head) / size
+    var feet_uv := camera.unproject_position(feet) / size
+    var fraction := feet_uv.y - head_uv.y
+    # Wider safe portrait framing: Lum remains clearly visible while preserving
+    # enough environment to prove the Cathedral/kissaten scene is actually live.
+    assert(fraction > 0.28 and fraction < 0.68)
+    assert(head_uv.y > 0.02 and feet_uv.y < 0.98)
+    assert(absf(head_uv.x - 0.5) < 0.10)
+    print("LUM_FOCUS_PROJECTION=PASS height_fraction=%.3f camera_z=%.3f" % [fraction, camera.global_position.z])
 
     print("CROWN_CATHEDRAL_SCENE_SMOKE=PASS assets=77 donors=2 lum_height=%.3f" % lum_height)
     game.queue_free()

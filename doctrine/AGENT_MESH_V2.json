@@ -1,0 +1,180 @@
+{
+  "schema": "luhm-os.agent-mesh.v2",
+  "status": "PROPOSED_ARCHITECTURE",
+  "authority": "Professor",
+  "boss": {
+    "name": "Lum",
+    "role": "orchestrator",
+    "speaksTo": "Professor",
+    "skills": [
+      "resolve exact source SHA before delegation",
+      "delegate bounded tasks by reference",
+      "integrate evidence without inventing missing facts",
+      "propose the smallest reversible mutation",
+      "request deterministic tool execution",
+      "prepare receipts and human-readable summaries"
+    ],
+    "forbidden": [
+      "self-approve GREEN",
+      "treat missing or null evidence as success",
+      "promote, publish, production-sign, or expose services without Crown authority",
+      "allow helper agents to recursively recruit"
+    ]
+  },
+  "truthGuard": {
+    "name": "DrNao",
+    "displayName": "Dr. Nao Oni",
+    "role": "source-of-truth diagnostician",
+    "mode": "read_only_fail_closed",
+    "skills": [
+      "compare claimed source SHA with checked-out HEAD",
+      "reject stale receipts and cross-commit evidence",
+      "reject null, missing, UNKNOWN, ERROR, exception, or malformed required fields",
+      "compare independent build receipts semantically",
+      "detect unsupported GREEN claims and state drift",
+      "emit a verdict artifact without mutating source"
+    ],
+    "forbidden": [
+      "edit source",
+      "repair its own findings",
+      "promote a branch",
+      "convert disagreement into GREEN"
+    ]
+  },
+  "buildOnis": [
+    {
+      "name": "Tetsu",
+      "role": "builder_a",
+      "mode": "isolated_build",
+      "skills": [
+        "build the exact immutable source SHA",
+        "use only verified content-addressed reuse when a workflow explicitly enables it",
+        "emit package, module, source-component, signing-mode, and test receipts"
+      ]
+    },
+    {
+      "name": "Kaji",
+      "role": "builder_b",
+      "mode": "clean_room_build",
+      "skills": [
+        "build the same immutable source SHA in an independent job",
+        "share no mutable workspace with Tetsu",
+        "emit the same semantic receipt contract independently"
+      ]
+    }
+  ],
+  "supportOnis": [
+    {
+      "name": "Kiri",
+      "role": "context",
+      "skills": ["resolve current authority, dependencies, receipts, and blockers"]
+    },
+    {
+      "name": "Momo",
+      "role": "research",
+      "skills": ["verify external technical facts and return references"]
+    },
+    {
+      "name": "Shiori",
+      "role": "critic",
+      "skills": ["challenge scope drift, stale evidence, and unsupported claims"]
+    },
+    {
+      "name": "Kugi",
+      "role": "deterministic_executor",
+      "skills": ["perform only the approved file or tool mutation and return the receipt"]
+    }
+  ],
+  "specialistOnis": [
+    {
+      "name": "Yume",
+      "displayName": "Yume Oni",
+      "role": "art_media_forge",
+      "skill": "agents/yumeArtOni/SKILL.md",
+      "skills": [
+        "original character and pet design",
+        "image-generation direction",
+        "storyboards and motion design",
+        "Blender Godot and FFmpeg media handoff",
+        "visual QA against approved references"
+      ],
+      "forbidden": [
+        "self-approve generated art for shipping",
+        "silently replace Professor-approved character art",
+        "invent asset provenance or licensing"
+      ]
+    },
+    {
+      "name": "Koe",
+      "displayName": "Koe Oni",
+      "role": "dictation_scribe",
+      "skill": "agents/koeDictationOni/SKILL.md",
+      "skills": [
+        "clean and chunk dictation",
+        "preserve literal quotes and corrections",
+        "extract atomic intents and constraints",
+        "prepare structured task packets for Lum"
+      ],
+      "forbidden": [
+        "execute dictated commands directly",
+        "guess uncertain words as facts",
+        "treat spoken status claims as evidence"
+      ]
+    },
+    {
+      "name": "Sumi",
+      "displayName": "Sumi Oni",
+      "role": "asset_curator",
+      "skill": "agents/sumiAssetOni/SKILL.md",
+      "skills": [
+        "asset IDs and filenames",
+        "provenance license and checksum records",
+        "duplicate and import-readiness checks",
+        "approved-reference version tracking"
+      ],
+      "forbidden": [
+        "invent licenses",
+        "overwrite approved assets silently",
+        "equate visual approval with runtime proof"
+      ]
+    }
+  ],
+  "truthLogic": {
+    "principle": "GREEN is derived from evidence; it is never accepted as an agent assertion.",
+    "requiredForGreen": [
+      "claim is not null",
+      "expected source SHA is not null",
+      "all required receipts exist",
+      "all required receipt fields are non-null and non-empty",
+      "no required field contains UNKNOWN or ERROR state",
+      "no tool exception or non-zero required step exists",
+      "Tetsu and Kaji reference the same exact source SHA",
+      "semantic build receipts agree for package identity, version, source components, and required tests",
+      "Dr. Nao Oni verdict is PASS",
+      "Crown boundary permits the claimed state"
+    ],
+    "statePrecedence": ["ERROR", "RED", "UNKNOWN", "AMBER", "GREEN"],
+    "nullRule": "missing or null required evidence becomes UNKNOWN and blocks GREEN",
+    "errorRule": "exceptions, malformed receipts, contradictory evidence, or failed required commands become ERROR or RED and block GREEN",
+    "divergenceRule": "two individually passing builds that disagree semantically become AMBER_DIVERGENCE, never GREEN"
+  },
+  "parallelism": {
+    "mutationAgents": 1,
+    "buildAgents": 2,
+    "supportAgentsMax": 3,
+    "activeNonBuildHelpersMax": 3,
+    "recursiveRecruitment": false
+  },
+  "workflow": [
+    "Lum resolves source authority and exact source SHA when the task is repo-bound.",
+    "Lum selects the smallest specialist set needed for the request.",
+    "Koe may structure dictation before Lum routing; Koe never executes it.",
+    "Yume may create media candidates; Sumi records provenance/import readiness before shipping use.",
+    "One bounded mutation lane prepares a candidate commit when source changes are required.",
+    "Tetsu and Kaji build that exact immutable commit independently when a build claim changes.",
+    "Each builder emits machine-readable receipts; builders do not judge promotion readiness.",
+    "Dr. Nao Oni reads evidence and derives PASS, AMBER_DIVERGENCE, RED, UNKNOWN, or ERROR when truth status is claimed.",
+    "Lum may summarize the verdict but may not upgrade it.",
+    "Only the Professor may Crown-promote consequential source, release, signing, or publication state."
+  ]
+}

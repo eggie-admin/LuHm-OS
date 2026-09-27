@@ -1,0 +1,56 @@
+{
+  "schema": "luhm-os.source-recovery.v1",
+  "date": "2026-09-27",
+  "product": "LuHm OS",
+  "scope": "FULL_GAME",
+  "authority": "Professor",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "recovery_scope": "GIT_TRACKED_FULL_GAME_SOURCE",
+  "method": {
+    "source": "exact checked-out Git commit",
+    "archive": "deterministic uncompressed tar with normalized metadata",
+    "restore": "fresh temporary directory",
+    "verification": "SHA256 of every restored tracked regular file plus critical-path presence",
+    "network_required": false
+  },
+  "critical_paths": [
+    "doctrine/SOURCE_OF_TRUTH.json",
+    "doctrine/luhmFullGameSourceTruth-20260927.json",
+    "doctrine/luhmFullGameDoctrine-20260927.json",
+    "doctrine/crownCathedralDeployment-20260927.json",
+    "doctrine/finalSystemSourceTruth-20260927.json",
+    "doctrine/releaseSupplyChain-20260927.json",
+    "assets/donor/luhm-game-donors.json",
+    "assets/donor/runtime/cathedral_hub_archive.svg",
+    "assets/donor/runtime/lum_ps1_float_shrine.svg",
+    "scenes/Main.tscn",
+    "scripts/game/crownCathedralSetDress.gd",
+    "scripts/game/lumAvatar.gd",
+    "scripts/game/communitySetDress.gd",
+    "scripts/game/crownDonorGallery.gd",
+    "export_presets.cfg",
+    "scripts/buildLuhmFullGameRelease.sh",
+    "tools/luhmFullGameAudit.py",
+    "tools/finalSystemAudit.py",
+    "tools/releaseProvenance.py",
+    "tools/releaseProvenanceAudit.py"
+  ],
+  "not_covered_by_this_drill": [
+    "private Google Drive donor source vault bytes",
+    "external Crown signing keystore",
+    "live OpenAI host credential",
+    "physical Samsung app data",
+    "private Nexus sidecar payloads"
+  ],
+  "green_law": {
+    "tool": "tools/sourceRecoveryDrill.py",
+    "receipt": "build/recovery/source-recovery-receipt.json",
+    "archive": "build/recovery/luhm-source-recovery.tar",
+    "require_exact_source_sha": true,
+    "require_all_tracked_regular_files_restored": true,
+    "require_all_critical_paths": true,
+    "require_archive_sha256": true
+  },
+  "canonical_main_promotion": false,
+  "unknown_is_not_green": true
+}

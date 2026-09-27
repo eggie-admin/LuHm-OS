@@ -1,0 +1,123 @@
+{
+  "schema": "luhm-os.lum-orchestrator.v2",
+  "status": "PROPOSED_FAST_ORCHESTRATOR",
+  "authority": "Professor",
+  "boss": "Lum",
+  "goal": "Minimize wall-clock and context waste while preserving exact-source evidence and human Crown authority.",
+  "routing": {
+    "direct": ["Lum"],
+    "read_only_repo": ["Lum", "Kiri"],
+    "truth_sensitive_read": ["Lum", "Kiri", "DrNao"],
+    "tiny_reversible_patch": ["Lum", "Kugi"],
+    "build_affecting_patch": ["Lum", "Kugi", "Tetsu", "Kaji", "DrNao"],
+    "external_fact_needed": ["Lum", "Momo"],
+    "contested_or_ambiguous": ["Lum", "Shiori", "DrNao"],
+    "art_concept": ["Lum", "Yume"],
+    "media_asset_pipeline": ["Lum", "Yume", "Sumi"],
+    "dictation": ["Lum", "Koe"],
+    "asset_review": ["Lum", "Sumi"],
+    "release_or_publication": ["Lum", "DrNao", "ProfessorCrown"],
+    "monitor_only": ["Lum", "DrNao"]
+  },
+  "performance": {
+    "supportParallelismMax": 3,
+    "parallelBuilds": 2,
+    "sourceMutationLanes": 1,
+    "recursiveRecruitment": false,
+    "directQuestionsBypassMesh": true,
+    "reuseEvidenceByReference": true,
+    "copyFullChatToWorkers": false,
+    "earlyStopWhenClaimProven": true,
+    "deduplicateEquivalentTasks": true,
+    "preferTargetedTestsBeforeFullBuild": true,
+    "requireFullBuildWhenArtifactOrPlatformClaimChanges": true,
+    "dictationNeverExecutesDirectly": true,
+    "creativeConceptDoesNotRequireBuildMesh": true,
+    "assetRuntimeClaimRequiresImportProof": true
+  },
+  "contextPacket": {
+    "required": [
+      "repository",
+      "exactBaseSha",
+      "candidateBranch",
+      "claimedScope",
+      "task",
+      "allowedMutations",
+      "requiredEvidence",
+      "knownBlockers"
+    ],
+    "creativeOptional": [
+      "approvedReferenceRefs",
+      "targetDimensions",
+      "targetFormat",
+      "runtimeConsumer",
+      "styleConstraints",
+      "licensingConstraints"
+    ],
+    "rule": "Workers receive the smallest sufficient packet plus evidence references. Unknown material fields remain UNKNOWN."
+  },
+  "verifiedLearning": {
+    "mode": "receipt_backed_lessons_not_model_retraining",
+    "runtimeLedger": "build/lum-memory/verified-lessons.jsonl",
+    "canonicalPromotionTarget": "doctrine/lessons/",
+    "lessonFields": [
+      "symptom",
+      "sourceSha",
+      "scope",
+      "confirmedCause",
+      "repair",
+      "proofRefs",
+      "recordedAtUtc"
+    ],
+    "creativeLedger": "build/lum-memory/approved-visual-decisions.jsonl",
+    "creativeRule": "Approved visual choices may guide future Yume concepts but do not become runtime or source-truth evidence until the exact asset is reviewed, hashed, and tested for the claimed use.",
+    "rules": [
+      "Only evidence-backed causes are recorded as confirmed.",
+      "Inference may be recorded only as a hypothesis and never reused as proof.",
+      "Lessons from another SHA are optimization hints, not current evidence.",
+      "Promoting a runtime lesson into doctrine requires an explicit reviewed source mutation.",
+      "No agent changes its own authority or truth rules from learned history."
+    ]
+  },
+  "monitoring": {
+    "mode": "read_only_alerting",
+    "watch": [
+      "candidate workflow state",
+      "Doctor Oni verdict changes",
+      "dependency and toolchain changes",
+      "Android and WebView compatibility changes",
+      "source-of-truth drift",
+      "release and signing blockers",
+      "approved asset hash drift"
+    ],
+    "may": ["collect evidence", "compare with previous receipt", "emit alert", "prepare proposed task"],
+    "mayNot": ["edit canonical source", "merge", "sign", "publish", "expose services", "promote GREEN"]
+  },
+  "tuning": {
+    "collect": [
+      "worker count",
+      "wallClockSeconds",
+      "buildDurationSeconds",
+      "testDurationSeconds",
+      "cacheHitState",
+      "retries",
+      "failedGate",
+      "reusedEvidenceRefs",
+      "creativeIterations",
+      "assetReviewFailures",
+      "dictationUncertainTokenCount"
+    ],
+    "rule": "Lum may propose routing or build optimizations from measured receipts. Automatic self-modification is forbidden."
+  },
+  "completion": {
+    "complexTaskReport": [
+      "exact source SHA when repo-bound",
+      "claimed scope",
+      "workers actually used",
+      "evidence verdict",
+      "remaining blocker",
+      "next smallest action"
+    ],
+    "greenRule": "Lum may report GREEN only when the deterministic evidence gate is GREEN for the same source SHA and claimed scope."
+  }
+}
