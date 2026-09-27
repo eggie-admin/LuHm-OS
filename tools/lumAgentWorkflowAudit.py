@@ -43,16 +43,19 @@ def audit() -> None:
     require(truth.get("promotion") is False, "source truth gained promotion authority")
     require(truth.get("android", {}).get("internetPermission") is False, "Android runtime network law drift")
 
+    topology = control.get("topology", {})
     require(control.get("sourceLaw") == LAW, "control-plane source law drift")
     require(control.get("boss") == "Lum", "Lum must remain sole boss")
     require(control.get("humanAuthority") == "Professor", "human authority drift")
-    require(control.get("topology", {}).get("helperRecruitment") is False, "recursive recruitment enabled")
-    require(control.get("topology", {}).get("maxParallelSupportWorkers") == 3, "support parallelism drift")
+    require(topology.get("helperRecruitment") is False, "recursive recruitment enabled")
+    require(topology.get("maxParallelSupportWorkers") == 3, "support parallelism drift")
+    require(topology.get("maxMutableSourceLanesPerCandidate") == 1, "mutable source lane drift")
     require(set(control.get("roles", {})) == ROLES, "canonical role roster drift")
 
     require(deploy.get("schema") == "luhm-os.openai-lum-oni-deployment.v2", "OpenAI/Oni doctrine not reconciled")
     require(set(deploy.get("architecture", {}).get("roles", [])) == ROLES, "deployment roster incomplete")
     require(deploy.get("architecture", {}).get("android_provider_secrets") is False, "provider secret entered Android")
+    require(deploy.get("architecture", {}).get("android_runtime_network_default") is False, "Android runtime network drift")
     require(deploy.get("privateMcp", {}).get("mutationAuthority") is False, "MCP gained mutation authority")
     require(deploy.get("privateMcp", {}).get("publicBindAllowed") is False, "MCP public bind authorized")
     require(deploy.get("androidProofVault", {}).get("importVerdict") == "UNKNOWN_UNTIL_ADJUDICATED", "proof import authority drift")
@@ -100,13 +103,15 @@ def audit() -> None:
     ):
         require(token in native, f"Android proof bridge missing: {token}")
     for token in (
-        'MessageDigest.getInstance("SHA-256")', "MAX_PROOF_BYTES", "app-private",
-        '"UNKNOWN"', '"android-saf-local-copy"', "extractDocxBlocks", "raw Office HTML",
+        'MessageDigest.getInstance("SHA-256")', "MAX_PROOF_BYTES", "MAX_INLINE_TEXT_BYTES",
+        '"UNKNOWN"', '"android-saf-local-copy"', "extractDocxBlocks", "DocumentBuilderFactory",
+        "disallow-doctype-decl", "external-general-entities", "rawHtmlTrusted",
     ):
-        require(token in vault, f"proof vault missing: {token}")
+        require(token in vault, f"proof vault missing structural control: {token}")
     require("OPENAI_API_KEY" not in native + vault, "provider credential reference entered APK source")
     require("127.0.0.1" not in native + vault and "localhost" not in native + vault, "Python/loopback control plane entered Android source")
     require("uri.toString()" not in vault, "raw SAF URI must not be serialized into proof metadata")
+    require("innerHTML" not in vault and ".html(" not in vault, "proof vault must not generate raw HTML")
 
     cockpit = text("cockpit/index.html")
     deck = text("cockpit/jquery/luhm.deck.js")
@@ -124,7 +129,7 @@ def audit() -> None:
 
     host = text("host/openai/lumHost.py")
     for name in ROLES:
-        require(name in host or (name == "DrNao" and "DrNao" in host), f"OpenAI host instructions missing role: {name}")
+        require(name in host, f"OpenAI host instructions missing role: {name}")
     require(LAW in host, "OpenAI host instructions missing source law")
 
     secret_pattern = re.compile(r"(sk-proj-[A-Za-z0-9_-]{8,}|BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY|AIza[A-Za-z0-9_-]{20,})")
