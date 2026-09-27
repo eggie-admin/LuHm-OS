@@ -6,9 +6,12 @@ import android.provider.OpenableColumns
 import android.webkit.MimeTypeMap
 import org.json.JSONArray
 import org.json.JSONObject
+import org.w3c.dom.Element
 import java.io.File
 import java.io.FileOutputStream
 import java.security.MessageDigest
+import java.util.zip.ZipFile
+import javax.xml.parsers.DocumentBuilderFactory
 
 /**
  * App-private, content-addressed proof vault for LuHm WebGlass.
@@ -22,6 +25,8 @@ class ProofVault(private val context: Context) {
         const val ORIGIN = "https://appassets.androidplatform.net"
         const val WEB_PATH = "/proof-vault/"
         private const val MAX_PROOF_BYTES = 256L * 1024L * 1024L
+        private const val MAX_INLINE_TEXT_BYTES = 1024L * 1024L
+        private const val MAX_DOCX_BLOCKS = 500
         private val SAFE_EXTENSION = Regex("^[a-z0-9]{1,10}$")
     }
 
@@ -70,21 +75,33 @@ class ProofVault(private val context: Context) {
                 throw IllegalStateException("unable to seal proof into vault")
             }
 
+            val type = viewerType(mimeType, extension)
+            val localUrl = "$ORIGIN$WEB_PATH$fileName"
             val packet = JSONObject()
                 .put("schema", "luhm.proof.vault.v1")
                 .put("id", sha256)
-                .put("status", "IMPORTED_NOT_ADJUDICATED")
-                .put("type", viewerType(mimeType, extension))
+                .put("status", "UNKNOWN")
+                .put("type", type)
                 .put("title", displayName.take(180))
-                .put("mimeType", mimeType)
-                .put("size", bytes)
+                .put("mime", mimeType)
                 .put("sha256", sha256)
-                .put("sourceKind", "android-saf")
-                .put("persistedPermission", persistedPermission)
-                .put("capturedAtEpochMs", System.currentTimeMillis())
-                .put("localUrl", "$ORIGIN$WEB_PATH$fileName")
-                .put("rawHtmlTrusted", false)
+                .put("provenance", "android-saf-local-copy")
+                .put("capturedAt", System.currentTimeMillis().toString())
+                .put("sourceRef", "ANDROID_LOCAL_VAULT")
                 .put("greenAuthority", false)
+                .put("fields", JSONObject()
+                    .put("mimeType", mimeType)
+                    .put("size", bytes)
+                    .put("sourceKind", "android-saf")
+                    .put("persistedPermission", persistedPermission)
+                    .put("importState", "IMPORTED_NOT_ADJUDICATED"))
+
+            when (type) {
+                "pdf", "image", "asset" -> packet.put("url", localUrl)
+                "docx" -> packet.put("blocks", extractDocxBlocks(finalFile))
+                "json" -> packet.put("data", readJson(finalFile))
+                "text" -> packet.put("text", readBoundedText(finalFile))
+            }
 
             writeMeta(sha256, packet)
             return packet
@@ -122,6 +139,64 @@ class ProofVault(private val context: Context) {
             temp.delete()
             throw IllegalStateException("unable to seal proof metadata")
         }
+    }
+
+    private fun readBoundedText(file: File): String {
+        if (file.length() > MAX_INLINE_TEXT_BYTES) return "Text proof retained in vault; inline preview exceeds 1 MiB bound."
+        return file.readText(Charsets.UTF_8).take(200000)
+    }
+
+    private fun readJson(file: File): Any {
+        if (file.length() > MAX_INLINE_TEXT_BYTES) return JSONObject().put("preview", "JSON retained in vault; inline preview exceeds 1 MiB bound.")
+        val text = file.readText(Charsets.UTF_8)
+        return runCatching { JSONObject(text) }.getOrElse {
+            runCatching { JSONArray(text) }.getOrElse {
+                JSONObject().put("parseError", "Selected JSON could not be parsed safely.")
+            }
+        }
+    }
+
+    private fun extractDocxBlocks(file: File): JSONArray {
+        val blocks = JSONArray()
+        runCatching {
+            ZipFile(file).use { zip ->
+                val entry = zip.getEntry("word/document.xml") ?: return@use
+                val factory = DocumentBuilderFactory.newInstance().apply {
+                    isNamespaceAware = true
+                    isExpandEntityReferences = false
+                    runCatching { setFeature("http://apache.org/xml/features/disallow-doctype-decl", true) }
+                    runCatching { setFeature("http://xml.org/sax/features/external-general-entities", false) }
+                    runCatching { setFeature("http://xml.org/sax/features/external-parameter-entities", false) }
+                    runCatching { setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false) }
+                }
+                val document = zip.getInputStream(entry).use { factory.newDocumentBuilder().parse(it) }
+                val paragraphs = document.getElementsByTagNameNS("*", "p")
+                for (index in 0 until paragraphs.length) {
+                    if (blocks.length() >= MAX_DOCX_BLOCKS) break
+                    val paragraph = paragraphs.item(index) as? Element ?: continue
+                    val textNodes = paragraph.getElementsByTagNameNS("*", "t")
+                    val text = buildString {
+                        for (textIndex in 0 until textNodes.length) append(textNodes.item(textIndex).textContent)
+                    }.trim()
+                    if (text.isEmpty()) continue
+                    val styles = paragraph.getElementsByTagNameNS("*", "pStyle")
+                    val style = if (styles.length > 0) {
+                        val node = styles.item(0) as? Element
+                        node?.getAttributeNS("http://schemas.openxmlformats.org/wordprocessingml/2006/main", "val")
+                            ?.ifBlank { node.getAttribute("w:val") }
+                            .orEmpty()
+                    } else ""
+                    val headingLevel = Regex("(?i)heading\\s*([1-3])").find(style)?.groupValues?.getOrNull(1)?.toIntOrNull()
+                    val block = if (headingLevel != null) {
+                        JSONObject().put("type", "heading").put("level", headingLevel).put("text", text.take(20000))
+                    } else {
+                        JSONObject().put("type", "paragraph").put("text", text.take(20000))
+                    }
+                    blocks.put(block)
+                }
+            }
+        }
+        return blocks
     }
 
     private fun queryDisplayName(uri: Uri): String? = context.contentResolver
