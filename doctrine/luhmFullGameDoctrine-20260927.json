@@ -1,0 +1,77 @@
+{
+  "schema": "luhm-os.full-game-doctrine.v1",
+  "date": "2026-09-27",
+  "product": "LuHm OS",
+  "scope": "FULL_GAME",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true,
+    "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+    "auto_promote": false,
+    "auto_merge": false,
+    "production_sign": false
+  },
+  "status": "CROWN_CATHEDRAL_GAME_CANDIDATE_EXACT_HEAD_CI_REQUIRED",
+  "canonical_repository": "eggie-admin/LuHm-OS",
+  "candidate_branch": "candidate/crown-cathedral-deployment-20260927",
+  "game_identity": {
+    "runtime": "Godot 4 native 3D game",
+    "world": "Crown Cathedral over Japanese kissaten core and Detroit industrial neon RiverWalk",
+    "resident": "rigged 3D Lum is the visible character authority",
+    "ui": "caged local WebGlass cockpit layered over the Godot game",
+    "delivery": "private Google Drive Android install workflow"
+  },
+  "required_game_layers": [
+    "Crown Cathedral authored facade",
+    "Japanese kissaten interior",
+    "industrial neon RiverWalk exterior",
+    "77 runtime Kenney CC0 environment assets",
+    "rigged external Lum GLB with visible-height contract",
+    "LuHm-owned donor gallery staged from hash-pinned Drive assets",
+    "movement and camera controls",
+    "pet and oni toy actions",
+    "local WebGlass UI bridge",
+    "optional private Nexus sidecar",
+    "host-only OpenAI adapter outside the APK"
+  ],
+  "donor_policy": {
+    "kai9000": "DONOR_INVENTORY_ONLY_NOT_GAME_AUTHORITY",
+    "allowed": [
+      "owned/generated visual assets with immutable hashes",
+      "generic Godot 4 implementation patterns",
+      "permissive components with required notices"
+    ],
+    "forbidden": [
+      "KAI9000 widget runtime",
+      "KAI9000 cockpit/dashboard authority",
+      "private third-party relic payloads",
+      "legacy PCK binaries",
+      "unknown-rights files",
+      "KAI9000 source-of-truth status overriding LuHm OS doctrine"
+    ]
+  },
+  "network_boundary": {
+    "shared_apk_internet_permission": false,
+    "shared_apk_provider_secrets": false,
+    "donor_fetch": "BUILD_TIME_ONLY",
+    "openai": "HOST_ONLY_SEPARATE_DEPLOYMENT_GATE",
+    "nexus": "LOCAL_PERMISSION_GATED_SIDECAR_NO_AUTODOWNLOAD"
+  },
+  "green_law": {
+    "source": "exact-head CI and static full-game scope audit",
+    "donors": "rights + Drive ID + size + SHA256 + exported-pack smoke",
+    "scene": "Cathedral + kissaten + 77 community assets + donor gallery + external rigged Lum",
+    "apk": "release candidate + non-debuggable + no INTERNET + no shell profiling + signature + package + 16K alignment",
+    "device": "physical Samsung install and runtime recording of the exact build",
+    "canonical": "explicit Professor promotion only after exact device proof",
+    "production": "persistent Crown-owned Android signing identity and update path"
+  },
+  "not_green_without_evidence": [
+    "physical Samsung proof",
+    "persistent production signing",
+    "live OpenAI host receipt",
+    "canonical main promotion",
+    "private Nexus payload unless separately rights-proven"
+  ],
+  "unknown_is_not_green": true
+}
