@@ -1,0 +1,11 @@
+[project]
+name = "luhm-os-readonly-bridge"
+version = "0.1.0"
+description = "Minimal authenticated read-only FastAPI Cloud bridge for LuHm OS"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "fastapi[standard]>=0.115,<1",
+]
+
+[tool.uv]
+package = false
