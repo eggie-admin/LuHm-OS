@@ -5,7 +5,9 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from scripts.agentMeshRuntime import *
 
+# Preserve the proven legacy default trio.
 assert [x.name for x in ONI] == ["Kiri","Tetsu","Momo"]
+assert DEFAULT_ONI == ONI
 assert MAX_PARALLEL == 3
 validate_dispatch(ONI)
 try:
@@ -13,6 +15,23 @@ try:
     raise AssertionError("parallel cap failed")
 except ValueError:
     pass
+
+# V2 lanes are additive and bounded.
+assert [x.name for x in BUILD_ONI] == ["Tetsu", "Kaji"]
+assert MAX_PARALLEL_BUILDS == 2
+validate_builders(BUILD_ONI)
+assert [x.name for x in SPECIALIST_ONI] == ["Yume", "Koe", "Sumi"]
+validate_dispatch(SPECIALIST_ONI)
+validate_truth_guard(TRUTH_GUARD)
+assert TRUTH_GUARD.name == "DrNao"
+assert TRUTH_GUARD.read_only_guard is True
+assert TRUTH_GUARD.may_execute is False
+assert TRUTH_GUARD.may_build is False
+assert KUGI.may_execute is True
+assert YUME.may_execute is False
+assert KOE.may_execute is False
+assert SUMI.may_execute is False
+
 assert authorize("publish") == Verdict.CROWN_REQUIRED
 assert authorize("publish", crown_approved=True) == Verdict.ALLOW
 assert authorize("embed_provider_secret", crown_approved=True) == Verdict.DENY
