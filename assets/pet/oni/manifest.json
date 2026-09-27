@@ -1,0 +1,32 @@
+{
+  "schema": "luhm-os.oni-pet-manifest.v1",
+  "status": "CONCEPT",
+  "logicalCanvas": [128, 128],
+  "format": "transparent RGBA PNG/APNG or sprite sheet",
+  "scale": "integer nearest-neighbor",
+  "requiredStates": ["idle", "blink", "talk", "inspect", "sleep", "alert", "drag", "dismiss"],
+  "roles": [
+    {"id":"lum","displayName":"Lum","role":"orchestrator","accent":["electric-cyan","hot-magenta"],"motif":["twin-horns","lightning-spark"]},
+    {"id":"drNao","displayName":"Dr. Nao Oni","role":"source-truth diagnostician","accent":["mint","white"],"motif":["stethoscope","medical-check"]},
+    {"id":"tetsu","displayName":"Tetsu Oni","role":"builder-a","accent":["steel-blue","silver"],"motif":["hammer","hex-bolt"]},
+    {"id":"kaji","displayName":"Kaji Oni","role":"builder-b clean-room forge","accent":["ember-orange","red"],"motif":["forge-flame","tongs"]},
+    {"id":"kiri","displayName":"Kiri Oni","role":"context scout","accent":["teal","ice-blue"],"motif":["magnifier","map-marker"]},
+    {"id":"momo","displayName":"Momo Oni","role":"research scout","accent":["violet","electric-blue"],"motif":["antenna","book-spark"]},
+    {"id":"shiori","displayName":"Shiori Oni","role":"critic","accent":["amber","warning-red"],"motif":["critic-card","red-pencil"]},
+    {"id":"kugi","displayName":"Kugi Oni","role":"deterministic executor","accent":["graphite","cyan"],"motif":["terminal-cursor","gear"]},
+    {"id":"yume","displayName":"Yume Oni","role":"art-media forge","accent":["violet","hot-magenta"],"motif":["brush","film-frame-star"]},
+    {"id":"koe","displayName":"Koe Oni","role":"dictation scribe","accent":["cyan","acid-lime"],"motif":["microphone","waveform"]},
+    {"id":"sumi","displayName":"Sumi Oni","role":"asset curator","accent":["indigo","white"],"motif":["ink-stamp","hash-receipt"]}
+  ],
+  "stateMapping": {
+    "Scout": "inspect",
+    "Receipt": "verified overlay",
+    "Crown": "crown gate overlay",
+    "Parked": "sleep",
+    "Critic": "shiori inspect/alert",
+    "Victory": "verified check/spark overlay"
+  },
+  "approvalFlow": ["CONCEPT", "AMBER_REVIEW", "APPROVED_ART", "GREEN_IMPORT_PROVEN"],
+  "provenanceRequired": true,
+  "runtimeGreenRequiresExactAssetHashImportProof": true
+}

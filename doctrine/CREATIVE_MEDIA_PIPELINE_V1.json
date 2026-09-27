@@ -1,0 +1,95 @@
+{
+  "schema": "luhm-os.creative-media-pipeline.v1",
+  "status": "PROPOSED_CREATIVE_PIPELINE",
+  "authority": "Professor",
+  "orchestrator": "Lum",
+  "creativeSpecialist": "Yume",
+  "assetCurator": "Sumi",
+  "dictationFrontEnd": "Koe",
+  "purpose": "Create original image, animation, video, character, UI and media assets quickly without confusing concepts, approvals, provenance, runtime proof, or release authority.",
+  "stages": [
+    {
+      "id": "brief",
+      "owner": "Lum",
+      "requires": ["deliverable", "intended use", "constraints"],
+      "output": "bounded creative task packet"
+    },
+    {
+      "id": "reference_audit",
+      "owner": "Yume",
+      "requires": ["approved references by path or evidence reference"],
+      "output": "fixed versus exploratory decisions",
+      "failClosed": "unknown ownership or licensing stays UNKNOWN"
+    },
+    {
+      "id": "concept",
+      "owner": "Yume",
+      "output": "small candidate set or storyboard",
+      "state": "CONCEPT"
+    },
+    {
+      "id": "visual_approval",
+      "owner": "Professor",
+      "output": "approve correct or reject",
+      "stateOnApproval": "APPROVED_ART"
+    },
+    {
+      "id": "production",
+      "owner": "Yume",
+      "imageFlow": ["source/reference", "composition", "generation/drawing", "cleanup", "export"],
+      "videoFlow": ["storyboard", "shot plan", "source assets", "animation/edit", "encode/mux", "inspect", "archive"]
+    },
+    {
+      "id": "provenance",
+      "owner": "Sumi",
+      "requires": ["asset id", "source/generation method", "ownership/license basis", "sha256", "format metadata", "approval state"],
+      "output": "asset receipt"
+    },
+    {
+      "id": "runtime_import",
+      "owner": "target runtime lane",
+      "requires": ["exact approved asset hash"],
+      "output": "import/runtime receipt",
+      "stateOnProof": "GREEN_IMPORT_PROVEN"
+    }
+  ],
+  "imageRequirements": {
+    "recordWhenApplicable": ["width", "height", "alpha", "color space", "bit depth", "frame count"],
+    "petIconDefaults": {
+      "logicalCanvas": [128, 128],
+      "alpha": true,
+      "scaling": "integer nearest-neighbor"
+    }
+  },
+  "videoRequirements": {
+    "recordWhenApplicable": ["width", "height", "fps", "duration", "video codec", "audio codec", "audio streams", "alpha", "container"],
+    "masterPreference": "lossless or high-quality intermediate before delivery encode",
+    "inspection": ["visual playback", "frame/timing check", "audio sync", "container/stream metadata", "final hash"]
+  },
+  "characterConsistency": {
+    "lockAfterApproval": ["silhouette", "face/eye language", "horn design", "signature palette accents", "role motif", "proportion class"],
+    "rule": "Exploration may vary unlocked attributes; production variants preserve locked identity unless Professor explicitly changes the design."
+  },
+  "toolPolicy": {
+    "imageGeneration": "may create or edit original visual candidates from the approved brief",
+    "blender": "use for 3D modeling rigging animation rendering and turntables when available",
+    "godot": "use for runtime staging animation and UI integration when appropriate",
+    "ffmpeg": "use for deterministic transcode mux frame extraction audio/video inspection and delivery packaging",
+    "rule": "A planned tool step is not evidence that the tool ran. Store receipts from actual executions."
+  },
+  "truthBoundaries": [
+    "CONCEPT is not APPROVED_ART.",
+    "APPROVED_ART is not GREEN_IMPORT_PROVEN.",
+    "A still image does not prove animation.",
+    "A successful encode does not prove visual correctness.",
+    "A generated asset does not establish third-party ownership or license claims.",
+    "No creative agent may merge source, production-sign, publish, or self-promote release state."
+  ],
+  "fastPath": {
+    "conceptOnly": ["Lum", "Yume"],
+    "shippingAssetCandidate": ["Lum", "Yume", "Sumi"],
+    "repoOrRuntimeClaim": ["Lum", "Yume", "Sumi", "DrNao"],
+    "externalFactNeeded": "add Momo only for the bounded fact",
+    "ambiguousOrContested": "add Shiori only when needed"
+  }
+}
