@@ -5,8 +5,14 @@ on:
   pull_request:
     paths:
       - 'assets/community/**'
+      - 'blender/**'
+      - 'scripts/main.gd'
+      - 'scripts/game/communitySetDress.gd'
+      - 'scripts/game/finalFormWorld.gd'
+      - 'tests/communityAssetSmoke.gd'
       - 'tools/communityAssetAudit.py'
       - 'doctrine/communityAssetMutation-20260926.json'
+      - 'doctrine/finalFormCoffeehouseMutation-20260927.json'
       - '.github/workflows/community-asset-audit.yml'
 
 permissions:
@@ -22,5 +28,9 @@ jobs:
           persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - run: python3 -m json.tool assets/community/catalog.json >/dev/null
+      - run: python3 -m json.tool assets/community/selected-assets.json >/dev/null
+      - run: python3 -m json.tool assets/community/final-form-layout.json >/dev/null
+      - run: python3 -m json.tool assets/community/nexus-private-donor-manifest.json >/dev/null
       - run: python3 -m json.tool doctrine/communityAssetMutation-20260926.json >/dev/null
+      - run: python3 -m json.tool doctrine/finalFormCoffeehouseMutation-20260927.json >/dev/null
       - run: python3 tools/communityAssetAudit.py
