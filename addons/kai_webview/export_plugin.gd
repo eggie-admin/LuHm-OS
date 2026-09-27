@@ -13,12 +13,26 @@ func _exit_tree() -> void:
 
 class AndroidExportPlugin extends EditorExportPlugin:
     var _plugin_name := "KAIWebView"
+    const HOST_ONLY_PREFIXES := PackedStringArray([
+        "res://agents/",
+        "res://deploy/",
+        "res://tools/",
+        "res://.github/"
+    ])
 
     func _supports_platform(platform) -> bool:
         return platform is EditorExportPlatformAndroid
 
     func _get_name() -> String:
         return _plugin_name
+
+    func _export_file(path: String, _type: String, _features: PackedStringArray) -> void:
+        # Fail closed at export time. Android embeds the bounded Lum/Oni contract,
+        # never the host OpenAI runtime, host deployment machinery, or CI tooling.
+        for prefix in HOST_ONLY_PREFIXES:
+            if path.begins_with(prefix):
+                skip()
+                return
 
     func _library_path(debug: bool) -> String:
         var relative := "kai_webview/bin/kaiwebview-debug.aar" if debug else "kai_webview/bin/kaiwebview-release.aar"
