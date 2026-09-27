@@ -5,6 +5,7 @@ LuHm OS packages reusable agent skills plus a hardened MCP server for source-tru
 ## Endpoint layout
 
 - Production MCP FQDN: `https://mcp.eggiebagelface.art/mcp`
+- Render bootstrap origin: `https://luhm-os-mcp.onrender.com`
 - Health/readiness: `https://mcp.eggiebagelface.art/healthz`
 - OpenAI domain challenge: `https://mcp.eggiebagelface.art/.well-known/openai-apps-challenge`
 - Local workstation MCP: `http://127.0.0.1:8788/mcp`
@@ -24,7 +25,7 @@ Required portable files live here:
 
 ## Render production lane
 
-The repository root `render.yaml` is the deployment contract for the `luhm-mcp` web service.
+The repository root `render.yaml` is the deployment contract for the `luhm-os-mcp` web service.
 
 It requires:
 
@@ -33,18 +34,18 @@ It requires:
 - CI checks passing before automatic deploy.
 - app-level `/healthz` readiness.
 - production profile binding to Render's `PORT` on `0.0.0.0`.
-- exact public Host allowlisting for `mcp.eggiebagelface.art`.
-- DNS-rebinding protection enabled.
+- DNS-rebinding protection with the canonical `mcp.eggiebagelface.art` Host allowlisted.
+- the Render-provided `RENDER_EXTERNAL_HOSTNAME` accepted only when it is a bare `*.onrender.com` hostname, so bootstrap diagnostics work before FQDN cutover.
 - 1 MiB maximum MCP request bodies.
 - stateless HTTP compatibility.
-- Render's default `onrender.com` hostname disabled once the custom domain is active.
+- Render's default `onrender.com` hostname disabled only after the custom domain is proven healthy.
 - `OPENAI_APPS_CHALLENGE` supplied through Render secret configuration, never committed.
 
 Render terminates public TLS and redirects HTTP to HTTPS. The Python MCP process receives proxied HTTP only inside Render's service boundary.
 
 ## Cloudflare DNS
 
-For the custom FQDN, create a Cloudflare CNAME named `mcp` that points to the Render service's generated `*.onrender.com` hostname.
+For the custom FQDN, create a Cloudflare CNAME named `mcp` that points to `luhm-os-mcp.onrender.com`.
 
 During Render domain verification and certificate issuance, use **DNS only**. Remove any `AAAA` record for `mcp`, because Render's custom-domain path currently uses IPv4. After Render reports the certificate valid, Cloudflare proxying is optional. Keep Cloudflare SSL/TLS mode at **Full** if proxying is enabled.
 
