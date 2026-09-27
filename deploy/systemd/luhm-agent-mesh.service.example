@@ -1,0 +1,31 @@
+# Candidate example only. Do not enable until local Crown review and OPENAI_API_KEY provisioning.
+[Unit]
+Description=LuHm Crown-Gated OpenAI Agent Mesh
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=eggie
+Group=eggie
+WorkingDirectory=/mnt/ai/repo/hydraCore
+EnvironmentFile=/home/eggie/.secrets/luhm-agent.env
+Environment=OPENAI_AGENTS_DISABLE_TRACING=1
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/mnt/ai/repo/hydraCore/.venv/bin/python /mnt/ai/repo/hydraCore/agents/luhm_mesh.py --self-test
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/mnt/lum/logs
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target

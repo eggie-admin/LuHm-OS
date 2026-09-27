@@ -1,0 +1,90 @@
+name: LuHm Agent Final System
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'candidate/luhm-agent-final-system-20260927'
+  pull_request:
+    paths:
+      - 'agents/**'
+      - 'assets/system/**'
+      - 'deploy/systemd/**'
+      - 'scripts/game/agentMeshContract.gd'
+      - 'tests/agentMeshContractSmoke.gd'
+      - 'tools/agentMeshAudit.py'
+      - 'doctrine/luhmAgentMeshFinal-20260927.json'
+      - 'export_presets.cfg'
+      - '.github/workflows/luhm-agent-final-system.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: luhm-agent-final-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-apk-hardening:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: OpenAI SDK pin and mesh construction
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check -r agents/requirements.txt
+          python -m py_compile agents/luhm_mesh.py tools/agentMeshAudit.py
+          python agents/luhm_mesh.py --self-test | tee /tmp/luhm-agent-self-test.json
+          python tools/agentMeshAudit.py
+
+      - name: Full Cathedral Android build
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: scripts/buildCathedralWebglass.sh
+
+      - name: Embedded mesh and final scene smoke
+        run: |
+          set -euo pipefail
+          GODOT="$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64"
+          test -x "$GODOT"
+          "$GODOT" --headless --path . --script tests/agentMeshContractSmoke.gd
+          "$GODOT" --headless --path . --script tests/finalCoffeeHouseSmoke.gd
+
+      - name: Final system candidate receipt
+        run: |
+          set -euo pipefail
+          mkdir -p build/final-system
+          cp /tmp/luhm-agent-self-test.json build/final-system/agent-self-test.json
+          printf 'source_sha=%s\nstatus=EXACT_HEAD_CI_PROOF\nhost_runtime=UNPROVED\nphysical_samsung=UNPROVED\ncanonical_main=PRESERVED\n' "${{ github.event.pull_request.head.sha || github.sha }}" > build/final-system/receipt.txt
+          sha256sum agents/luhm_mesh.py assets/system/luhmAgentMesh.json doctrine/luhmAgentMeshFinal-20260927.json > build/final-system/SHA256SUMS.txt
+          test -s build/android/sha256.txt
+          test -s build/android/signature.txt
+          test -s build/android/zipalign.txt
+          grep -q 'Verification successful' build/android/zipalign.txt
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-agent-final-system-evidence
+          path: |
+            build/final-system/
+            build/android/
+          if-no-files-found: error
+          retention-days: 30

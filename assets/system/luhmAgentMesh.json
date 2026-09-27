@@ -1,0 +1,24 @@
+{
+  "schema": "luhm-os.embedded-agent-mesh.v1",
+  "status": "CROWN_GATED_HOST_MESH_CONTRACT",
+  "manager": "Lum",
+  "userFacingAgentCount": 1,
+  "oni": [
+    {"name": "Kiri", "blade": "Context", "mode": "bounded_agent_tool"},
+    {"name": "Tetsu", "blade": "Build", "mode": "bounded_agent_tool"},
+    {"name": "Momo", "blade": "Research", "mode": "bounded_agent_tool"},
+    {"name": "Shiori", "blade": "Critic", "mode": "conditional_agent_tool"}
+  ],
+  "executor": {"name": "Kugi", "mode": "deterministic_external_crown_gated"},
+  "maxParallelHelpersDoctrine": 3,
+  "runtimeParallelToolCalls": false,
+  "android": {
+    "executesOpenAIAgents": false,
+    "containsProviderSecret": false,
+    "containsPythonRuntime": false,
+    "termuxBridge": false,
+    "remoteShell": false,
+    "internetPermission": false
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}

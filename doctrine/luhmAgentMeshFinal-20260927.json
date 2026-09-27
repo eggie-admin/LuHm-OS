@@ -1,0 +1,76 @@
+{
+  "schema": "luhm-os.lum-oni-agent-mesh-final.v1",
+  "date": "2026-09-27",
+  "status": "SOURCE_CANDIDATE_CI_REQUIRED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "parentCandidate": "c1bb0c139f8d539399224f45b6fa6af9dbb77d7d",
+  "scope": "Harden OpenAI Lum manager + Oni specialist source, preserve Android security boundary, embed non-secret mesh contract in final-form APK candidate, and continue until an external evidence gate blocks further GREEN.",
+  "openai": {
+    "sdk": "openai-agents",
+    "version": "0.22.3",
+    "pypiReleaseDate": "2026-09-17",
+    "wheelSha256Observed": "41dec9e2e703db32a627bf0290f3721a6ca37405603a8cb654213356dbb8ee9d",
+    "lumModelDefault": "gpt-5.6-sol",
+    "oniModelDefault": "gpt-5.6-terra",
+    "criticModelDefault": "gpt-5.6-sol",
+    "orchestration": "manager_agents_as_tools",
+    "responsesStored": false,
+    "parallelToolCalls": false,
+    "externalTracingDefault": false,
+    "liveProviderSmokeInCI": false
+  },
+  "mesh": {
+    "boss": "Lum",
+    "userFacingAgentCount": 1,
+    "oni": ["Kiri:Context", "Tetsu:Build", "Momo:Research", "Shiori:Critic"],
+    "deterministicExecutor": "Kugi",
+    "recursiveRecruitment": false,
+    "doctrineParallelismCap": 3,
+    "runtimeParallelism": 1,
+    "consequentialExecutionInsideLLM": false
+  },
+  "androidBoundary": {
+    "openaiRuntimeInsideApk": false,
+    "openaiKeyInsideApk": false,
+    "internetPermission": false,
+    "pythonRuntimeInsideApk": false,
+    "termuxBridge": false,
+    "remoteShell": false,
+    "loopbackControlPlane": false,
+    "embeddedContract": "assets/system/luhmAgentMesh.json"
+  },
+  "hostBoundary": {
+    "providerKeySource": "external environment only",
+    "exampleEnvironmentFile": "/home/eggie/.secrets/luhm-agent.env",
+    "tracing": "disabled by supplied systemd example unless Crown opts in",
+    "systemdExample": "deploy/systemd/luhm-agent-mesh.service.example",
+    "activationClaim": "NONE_UNTIL_PHYSICAL_HOST_RECEIPT"
+  },
+  "ci": {
+    "workflow": ".github/workflows/luhm-agent-final-system.yml",
+    "requires": [
+      "SDK import + construction self-test",
+      "agentMeshAudit.py",
+      "full Cathedral Android build",
+      "Godot embedded contract smoke",
+      "final coffee house scene smoke",
+      "APK package/signature/alignment/hash receipts"
+    ]
+  },
+  "promotion": {
+    "canonicalMainMutated": false,
+    "productionSigningAuthorized": false,
+    "publicationAuthorized": false,
+    "publicExposureAuthorized": false
+  },
+  "greenLaw": {
+    "sourceGreen": "exact-head CI on this mutation",
+    "apkGreen": "existing package + signature + alignment + payload + SHA256 receipts plus embedded contract smoke",
+    "hostRuntimeGreen": "physical Hydra host activation + live provider smoke + local receipt",
+    "deviceGreen": "physical Samsung install + runtime smoke",
+    "enterpriseGreen": "persistent signing + branch controls + supporting live evidence",
+    "unknownIsGreen": false
+  },
+  "expectedFirstHardStop": "PHYSICAL_HOST_AND_SAMSUNG_EVIDENCE"
+}
