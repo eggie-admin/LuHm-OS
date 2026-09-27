@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "luhm-os",
+  "version": "0.1.0",
+  "description": "Evidence-gated LuHm OS workflow, Oni routing, proof inspection, and private local MCP bridge.",
+  "author": {
+    "name": "Eggie Bagelface"
+  },
+  "repository": "https://github.com/eggie-admin/LuHm-OS",
+  "keywords": ["luhm", "agents", "mcp", "proof", "android", "oni"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "LuHm OS",
+        "shortDescription": "Evidence-gated Lum and Oni workflow",
+        "longDescription": "Use Lum as the single orchestrator for bounded Oni workflows, deterministic routing, source-truth inspection, and proof-aware status without granting release or publication authority.",
+        "developerName": "Eggie Bagelface",
+        "category": "Developer Tools",
+        "capabilities": ["Read"],
+        "defaultPrompt": [
+          "Use LuHm OS to inspect the current source truth and route this task through the smallest Oni workflow.",
+          "Use LuHm OS to explain what is actually GREEN and what evidence is still missing."
+        ]
+      }
+    }
+  }
+}
