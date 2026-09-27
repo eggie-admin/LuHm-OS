@@ -4,18 +4,24 @@ import json
 
 ROOT = Path(__file__).resolve().parents[1]
 
+
 def read(path):
     return (ROOT / path).read_text(encoding="utf-8")
+
 
 def require(cond, label):
     if not cond:
         raise SystemExit(f"RED: {label}")
     print(f"GREEN: {label}")
 
+
 doctrine = json.loads(read("doctrine/cathedralWebglassFinal-20260926.json"))
 atelier = json.loads(read("doctrine/oniAtelierBodyForge-20260926.json"))
+agent_mesh = json.loads(read("doctrine/luhmAgentMeshFinal-20260927.json"))
 require(doctrine["authority"] == "Professor", "Crown authority remains human")
 require(atelier["authority"] == "Professor", "Oni Atelier remains Crown-gated")
+require(agent_mesh["authority"] == "Professor", "Lum/Oni agent mesh remains Crown-gated")
+require(agent_mesh["sourceLaw"] == "AI proposes. Policy authorizes. CI proves. Human promotes.", "agent mesh source law preserved")
 require(doctrine["runtime"]["world_owner"].startswith("Godot 4"), "Godot owns world")
 require(doctrine["runtime"]["ui_owner"].startswith("caged local Android WebView"), "WebView owns glass only")
 require(atelier["runtime"]["mutationMode"] == "runtime_non_destructive", "BodyForge is non-destructive")
@@ -67,6 +73,10 @@ for msg in ["input.axis", "camera.delta", "window.mode", "app.background", "app.
 export = read("export_presets.cfg")
 require('permissions/internet=false' in export, "APK internet permission disabled")
 require('art.eggiebagelface.luhmos.cathedraltoy.atelier' in export, "side-by-side Oni Atelier package identity")
-require('version/code=125' in export, "Oni Atelier version code")
+require('version/code=126' in export, "Oni Atelier agent-mesh version code")
+require('version/name="1.0.26-cathedral.agentmesh.1"' in export, "Oni Atelier agent-mesh version name")
+require('doctrine/luhmAgentMeshFinal-20260927.json' in export, "agent mesh doctrine embedded")
+require('assets/system/luhmAgentMesh.json' in export, "agent mesh contract embedded")
+require('exclude_filter="agents/**,deploy/**,tools/**,.github/**"' in export, "host runtime excluded from APK")
 
 print("CATHEDRAL_ONI_ATELIER_10_PASS=GREEN")
