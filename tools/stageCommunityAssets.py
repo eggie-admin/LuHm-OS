@@ -2,6 +2,7 @@
 """Stage a pinned, CC0-only community asset subset for the Android candidate build.
 
 This is a build-time fetcher. It never runs in the APK and never performs runtime downloads.
+Shared texture sidecars referenced by selected GLBs are staged from the same immutable source commit.
 """
 from __future__ import annotations
 
@@ -17,7 +18,14 @@ ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "assets/community/selected-assets.json"
 OUT = ROOT / "assets/community/runtime"
 BUILD = ROOT / "build/community-assets"
-USER_AGENT = "LuHmOS-CommunityAssetForge/1.0"
+USER_AGENT = "LuHmOS-CommunityAssetForge/1.1"
+
+# Kenney kits below use external relative texture URIs from their GLBs.
+# Pinning the repository commit pins these support files to the same immutable source.
+SUPPORT_FILES: dict[str, tuple[str, ...]] = {
+    "city-industrial": ("Textures/colormap.png",),
+    "factory": ("Textures/colormap.png",),
+}
 
 
 def sha256(data: bytes) -> str:
@@ -32,6 +40,11 @@ def validate_glb(data: bytes, label: str) -> None:
         raise RuntimeError(f"{label}: invalid GLB v2 envelope")
 
 
+def validate_png(data: bytes, label: str) -> None:
+    if not data.startswith(b"\x89PNG\r\n\x1a\n"):
+        raise RuntimeError(f"{label}: invalid PNG signature")
+
+
 def fetch(url: str, attempts: int = 4) -> bytes:
     last = None
     for attempt in range(1, attempts + 1):
@@ -41,7 +54,7 @@ def fetch(url: str, attempts: int = 4) -> bytes:
                 if response.status != 200:
                     raise RuntimeError(f"HTTP {response.status}")
                 return response.read()
-        except Exception as exc:  # deterministic retry envelope around transient network failures
+        except Exception as exc:
             last = exc
             if attempt < attempts:
                 time.sleep(attempt * 1.5)
@@ -59,7 +72,7 @@ def main() -> int:
     if source["license"] != "CC0" or source["runtime_network"] is not False:
         raise RuntimeError("license/runtime-network contract failed")
 
-    selected = []
+    selected: list[tuple[str, str]] = []
     for kit, names in manifest["groups"].items():
         for name in names:
             if not name.endswith(".glb") or "/" in name or "\\" in name:
@@ -75,8 +88,10 @@ def main() -> int:
     BUILD.mkdir(parents=True, exist_ok=True)
 
     base = f"https://raw.githubusercontent.com/{source['repository']}/{commit}"
-    receipts = []
+    receipts: list[dict[str, object]] = []
+    support_receipts: list[dict[str, object]] = []
     total = 0
+
     for kit, name in selected:
         source_path = f"3d/{kit}/{name}"
         url = f"{base}/{source_path}"
@@ -100,25 +115,57 @@ def main() -> int:
         })
         print(f"STAGED {kit}/{name} {len(data)} {receipts[-1]['sha256'][:12]}")
 
+    for kit, relative_paths in SUPPORT_FILES.items():
+        if kit not in manifest["groups"]:
+            raise RuntimeError(f"support file kit not selected: {kit}")
+        for relative_path in relative_paths:
+            if relative_path.startswith("/") or ".." in Path(relative_path).parts:
+                raise RuntimeError(f"unsafe support path: {relative_path}")
+            source_path = f"3d/{kit}/{relative_path}"
+            url = f"{base}/{source_path}"
+            data = fetch(url)
+            validate_png(data, source_path)
+            total += len(data)
+            if total > int(budget["max_total_bytes"]):
+                raise RuntimeError("asset + support bytes exceed Android budget")
+            target = OUT / kit / relative_path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(data)
+            support_receipts.append({
+                "kit": kit,
+                "name": relative_path,
+                "source_path": source_path,
+                "source_url": url,
+                "runtime_path": f"res://assets/community/runtime/{kit}/{relative_path}",
+                "bytes": len(data),
+                "sha256": sha256(data),
+            })
+            print(f"STAGED_SUPPORT {kit}/{relative_path} {len(data)} {support_receipts[-1]['sha256'][:12]}")
+
     license_url = f"{base}/{source['license_path']}"
     license_bytes = fetch(license_url)
     (OUT / "KENNEY_LICENSE.txt").write_bytes(license_bytes)
 
     receipt = {
-        "schema": "luhm-os.community-asset-build-receipt.v1",
+        "schema": "luhm-os.community-asset-build-receipt.v2",
         "source_repository": source["repository"],
         "source_commit": commit,
         "license": source["license"],
         "license_url": license_url,
         "asset_count": len(receipts),
+        "support_file_count": len(support_receipts),
         "total_asset_bytes": total,
         "runtime_network": False,
         "assets": receipts,
+        "support_files": support_receipts,
     }
     encoded = json.dumps(receipt, indent=2, sort_keys=True) + "\n"
     (OUT / "PROVENANCE.json").write_text(encoded, encoding="utf-8")
     (BUILD / "receipt.json").write_text(encoded, encoding="utf-8")
-    print(f"COMMUNITY_ASSET_STAGE=PASS count={len(receipts)} bytes={total}")
+    print(
+        f"COMMUNITY_ASSET_STAGE=PASS count={len(receipts)} "
+        f"support={len(support_receipts)} bytes={total}"
+    )
     return 0
 
 
