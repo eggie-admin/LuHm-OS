@@ -1,7 +1,7 @@
 {
   "schema": "luhm-os.full-mutation-seal.v1",
   "date": "2026-09-26",
-  "status": "STAGED_EXACT_HEAD_CI_REQUIRED",
+  "status": "CROWN_GREEN_INSTALL_MILESTONE",
   "authority": {
     "crown": "Professor",
     "human_final_authority": true
@@ -9,8 +9,10 @@
   "source": {
     "repository": "eggie-admin/LuHm-OS",
     "candidate_branch": "candidate/witching-hour-three-ritual-cathedral-20260926",
+    "artifact_source_head": "a7877941cc367098bedb34f13f57e2f60ca2f2d3",
+    "device_receipt_branch": "seal/cathedral-device-proof-20260926",
     "runtime_doctrine": "doctrine/runtimeDoctrine-20260926.json",
-    "source_binding": "GitHub Actions exact pull-request head recorded into build/android/source-commit.txt",
+    "device_receipt": "receipts/device/S24FE_Cathedral_Full_Mutation_20260926.json",
     "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes."
   },
   "mutation": {
@@ -18,7 +20,11 @@
     "godot_native_world_authority": true,
     "webglass_capability_handshake": true,
     "webglass_fail_closed_rejections": true,
-    "three_ritual_system": ["crown_wake", "oni_trinity", "witching_hour"],
+    "three_ritual_system": [
+      "crown_wake",
+      "oni_trinity",
+      "witching_hour"
+    ],
     "canonical_agent_mesh": {
       "boss": "Lum",
       "Context": "Oni-Kumo",
@@ -45,12 +51,23 @@
     "artifact": "luhm-cathedral-full-mutation-apk",
     "install_artifact": "luhm-cathedral-full-mutation-install",
     "target_sdk": 36,
-    "abi": "arm64-v8a"
+    "abi": "arm64-v8a",
+    "apk_sha256": "4bc55b6fcf8edef60c980c05be6824900e1b4d8a73d4f174662b8eff4b09c31a"
+  },
+  "physical_device": {
+    "proof": "Professor-supplied 23.64s screen recording",
+    "video_sha256": "49f9631c09b089b646b4ee731eb1f8aa41a72fbab592f8b63f4c871ac4a05764",
+    "install_launch": "GREEN",
+    "godot_world": "GREEN",
+    "webglass": "GREEN",
+    "webview_canary_observed": "156.0.8073.0",
+    "extended_interaction_qa": "PARTIAL_NOT_REQUIRED_FOR_INSTALL_MILESTONE"
   },
   "promotion": {
+    "install_milestone": "GREEN",
+    "physical_device_green": "GREEN_VISUAL_RUNTIME_PROOF",
     "main_merge": false,
     "public_release": false,
-    "production_signing": false,
-    "physical_device_green": "PENDING"
+    "production_signing": false
   }
 }
