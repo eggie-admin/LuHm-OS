@@ -1,0 +1,46 @@
+{
+  "schema": "luhm-os.final-form-layout.v1",
+  "date": "2026-09-27",
+  "authority": "Professor",
+  "theme": "original late-night Japanese kissaten coffee house embedded in the LuHm Detroit neon RiverWalk",
+  "scene": {
+    "player_spawn": [0.0, 1.15, 5.5],
+    "lum_position": [0.8, 0.05, 12.4],
+    "camera_focus_distance": 3.2,
+    "renderer": "GL Compatibility",
+    "runtime_network": false
+  },
+  "hero_placements": [
+    {"group":"furniture","name":"rugRectangle.glb","pos":[0.0,0.02,14.0],"rot_y":0.0,"scale":2.2},
+    {"group":"furniture","name":"kitchenBar.glb","pos":[0.0,0.0,18.0],"rot_y":180.0,"scale":1.55},
+    {"group":"furniture","name":"kitchenBarEnd.glb","pos":[-2.7,0.0,18.0],"rot_y":180.0,"scale":1.55},
+    {"group":"furniture","name":"stoolBar.glb","pos":[-1.7,0.0,16.0],"rot_y":0.0,"scale":1.35},
+    {"group":"furniture","name":"stoolBarSquare.glb","pos":[0.0,0.0,16.0],"rot_y":10.0,"scale":1.35},
+    {"group":"furniture","name":"bench.glb","pos":[-4.7,0.0,11.4],"rot_y":90.0,"scale":1.35},
+    {"group":"furniture","name":"chair.glb","pos":[3.8,0.0,12.0],"rot_y":-38.0,"scale":1.25},
+    {"group":"furniture","name":"chairCushion.glb","pos":[2.2,0.0,12.0],"rot_y":28.0,"scale":1.25},
+    {"group":"furniture","name":"table.glb","pos":[3.0,0.0,13.7],"rot_y":0.0,"scale":1.2},
+    {"group":"furniture","name":"tableRound.glb","pos":[-3.0,0.0,13.8],"rot_y":0.0,"scale":1.25},
+    {"group":"furniture","name":"loungeSofaLong.glb","pos":[-5.0,0.0,16.4],"rot_y":90.0,"scale":1.25},
+    {"group":"furniture","name":"loungeChair.glb","pos":[4.8,0.0,16.0],"rot_y":-78.0,"scale":1.25},
+    {"group":"furniture","name":"speaker.glb","pos":[-5.4,0.0,18.7],"rot_y":28.0,"scale":1.35},
+    {"group":"furniture","name":"radio.glb","pos":[0.2,1.05,18.0],"rot_y":180.0,"scale":1.1},
+    {"group":"furniture","name":"televisionVintage.glb","pos":[5.0,0.55,10.8],"rot_y":-65.0,"scale":1.25},
+    {"group":"furniture","name":"lampWall.glb","pos":[-5.8,2.25,15.0],"rot_y":90.0,"scale":1.2},
+    {"group":"furniture","name":"lampSquareFloor.glb","pos":[5.4,0.0,14.4],"rot_y":0.0,"scale":1.35},
+    {"group":"furniture","name":"sideTable.glb","pos":[4.7,0.0,10.7],"rot_y":0.0,"scale":1.2},
+    {"group":"furniture","name":"pottedPlant.glb","pos":[-5.2,0.0,10.2],"rot_y":0.0,"scale":1.2},
+    {"group":"furniture","name":"ceilingFan.glb","pos":[0.0,3.65,14.6],"rot_y":0.0,"scale":1.5},
+    {"group":"factory","name":"screen-wide.glb","pos":[-4.8,1.0,19.0],"rot_y":32.0,"scale":1.1},
+    {"group":"factory","name":"warning-traffic.glb","pos":[5.8,0.0,9.1],"rot_y":0.0,"scale":1.15},
+    {"group":"factory","name":"pipe-large-valve.glb","pos":[6.15,1.65,17.6],"rot_y":90.0,"scale":1.2},
+    {"group":"factory","name":"machine.glb","pos":[-7.5,0.0,20.5],"rot_y":18.0,"scale":1.15},
+    {"group":"city-industrial","name":"detail-tank.glb","pos":[8.8,0.0,21.5],"rot_y":10.0,"scale":1.7}
+  ],
+  "auto_dress": {
+    "city-industrial": "outer skyline ring",
+    "factory": "rear service alley",
+    "furniture": "coffee-house hero floor",
+    "rule": "instantiate every immutable selected asset at least once; successful hero placements override auto placement"
+  }
+}
