@@ -6,8 +6,8 @@ cd "$ROOT"
 TMP="${RUNNER_TEMP:-/tmp}"
 SOURCE_SHA="${SOURCE_SHA:-${GITHUB_SHA:-local}}"
 GODOT_TEMPLATE_ID="4.7.2.stable"
-APK="build/android/luhmos-cathedral-atelier-1.0.25.apk"
-PCK="build/android/luhmos-cathedral-atelier-1.0.25.pck"
+APK="build/android/luhmos-cathedral-atelier-1.0.26.apk"
+PCK="build/android/luhmos-cathedral-atelier-1.0.26.pck"
 
 SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
 yes | "$SDKMANAGER" --licenses >/dev/null || true
@@ -59,10 +59,13 @@ cp "$RUN" assets/lum/luhmRunning.glb
 
 python3 -m json.tool doctrine/cathedralWebglassFinal-20260926.json >/dev/null
 python3 -m json.tool doctrine/oniAtelierBodyForge-20260926.json >/dev/null
+python3 -m json.tool doctrine/luhmAgentMeshFinal-20260927.json >/dev/null
+python3 -m json.tool assets/system/luhmAgentMesh.json >/dev/null
 python3 scripts/auditCathedralWebglass.py
 python3 tests/testCandidateGate.py
 python3 tools/candidateGate.py
 python3 tools/communityAssetAudit.py
+python3 tools/agentMeshAudit.py
 python3 tools/stageCommunityAssets.py
 python3 - <<'PY'
 import json
@@ -107,6 +110,7 @@ test -s addons/kai_webview/bin/kaiwebview-debug.aar
 "$GODOT" --headless --editor --path . --quit
 "$GODOT" --headless --path . --script tests/communityAssetSmoke.gd
 "$GODOT" --headless --path . --script tests/characterCreatorSmoke.gd
+"$GODOT" --headless --path . --script tests/agentMeshContractSmoke.gd
 python3 tools/runGodotSmoke.py "$GODOT" runtimeSmoke
 python3 tools/runGodotSmoke.py "$GODOT" lumRigV2Phase1Smoke
 
@@ -116,6 +120,7 @@ mkdir -p build/android
 test -s "$APK" && test -s "$PCK"
 "$GODOT" --headless --main-pack "$PCK" --script res://tests/communityAssetSmoke.gd
 "$GODOT" --headless --main-pack "$PCK" --script res://tests/characterCreatorSmoke.gd
+"$GODOT" --headless --main-pack "$PCK" --script res://tests/agentMeshPackSmoke.gd
 
 BT="$ANDROID_HOME/build-tools/36.1.0"
 "$BT/aapt" dump badging "$APK" | tee build/android/badging.txt
@@ -125,26 +130,29 @@ BT="$ANDROID_HOME/build-tools/36.1.0"
 unzip -l "$APK" | tee build/android/ziplist.txt
 sha256sum "$APK" | tee build/android/sha256.txt
 grep -q "package: name='art.eggiebagelface.luhmos.cathedraltoy.atelier'" build/android/badging.txt
-grep -q "versionCode='125'" build/android/badging.txt
+grep -q "versionCode='126'" build/android/badging.txt
 grep -q 'org.godotengine.plugin.v2.KAIWebView' build/android/manifest.txt
+! grep -q 'android.permission.INTERNET' build/android/manifest.txt
 grep -q 'assets/cockpit/index.html' build/android/ziplist.txt
 grep -q 'assets/cockpit/jquery/luhm.atelier.js' build/android/ziplist.txt
 grep -q 'assets/cockpit/vendor/jquery/jquery.min.js' build/android/ziplist.txt
 grep -q 'assets/cockpit/vendor/vue/vue.global.prod.js' build/android/ziplist.txt
 ! grep -R -nE 'addJavascriptInterface|allowUniversalAccessFromFileURLs|allowFileAccessFromFileURLs|MIXED_CONTENT_ALWAYS_ALLOW' native/kaiwebview
-! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' native/kaiwebview cockpit scripts/platform scripts/game
+! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' native/kaiwebview cockpit scripts/platform scripts/game agents assets/system doctrine/luhmAgentMeshFinal-20260927.json
 
 cp build/community-assets/receipt.json build/android/community-assets-receipt.json
 cp assets/community/selected-assets.json build/android/community-assets-selection.json
 cp doctrine/oniAtelierBodyForge-20260926.json build/android/oni-atelier-doctrine.json
+cp doctrine/luhmAgentMeshFinal-20260927.json build/android/luhm-agent-mesh-doctrine.json
+cp assets/system/luhmAgentMesh.json build/android/luhm-agent-mesh-contract.json
 printf '%s\n' "$SOURCE_SHA" > build/android/source-commit.txt
-printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=CATHEDRAL_ONI_ATELIER_CI_PROOF\npackage=art.eggiebagelface.luhmos.cathedraltoy.atelier\nversion=1.0.25-cathedral.atelier.1\n' "$SOURCE_SHA" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/cathedral-atelier-receipt.txt
+printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=CATHEDRAL_AGENT_MESH_CI_PROOF\npackage=art.eggiebagelface.luhmos.cathedraltoy.atelier\nversion=1.0.26-cathedral.agentmesh.1\nopenai_runtime_in_apk=false\ninternet_permission=false\n' "$SOURCE_SHA" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/cathedral-atelier-receipt.txt
 cp cockpit/package-lock.json build/android/package-lock.json
-sha256sum addons/kai_webview/bin/kaiwebview-debug.aar cockpit/package-lock.json >> build/android/source-components-sha256.txt
+sha256sum addons/kai_webview/bin/kaiwebview-debug.aar cockpit/package-lock.json agents/luhm_mesh.py assets/system/luhmAgentMesh.json doctrine/luhmAgentMeshFinal-20260927.json >> build/android/source-components-sha256.txt
 rm -f "$PCK"
 
 rm -rf build/installPortal
 python3 tools/stageInstallPortal.py --apk "$APK" --out build/installPortal --commit "$SOURCE_SHA"
 (cd build/installPortal && sha256sum -c SHA256SUMS.txt)
 
-echo 'CATHEDRAL ONI ATELIER APK BUILD GREEN'
+echo 'CATHEDRAL AGENT MESH APK BUILD GREEN'
