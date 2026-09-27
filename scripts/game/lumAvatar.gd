@@ -67,6 +67,7 @@ func _load_model_or_fallback() -> void:
             _normalize_imported_model()
             _bind_imported_runtime()
             _validate_canonical_bones()
+            _install_motion_library()
             _build_animation_tree()
             _install_look_tracking()
             external_model_loaded = true
@@ -102,6 +103,68 @@ func _validate_canonical_bones() -> void:
         if skeleton.find_bone(bone_name) < 0:
             _canonical_missing.append(String(semantic))
 
+# The base GLB clip0 is a one-key bind pose, not an idle animation.
+# Import only bone tracks from the pinned, same-rig running donor.
+func _install_motion_library() -> void:
+    if skeleton == null or animation_player == null:
+        return
+    var library := AnimationLibrary.new()
+    var target_root := animation_player.get_node(animation_player.root_node)
+    var target_path := String(target_root.get_path_to(skeleton))
+    if ResourceLoader.exists(RUN_ASSET_PATH):
+        var donor := (load(RUN_ASSET_PATH) as PackedScene).instantiate()
+        var players := donor.find_children("*", "AnimationPlayer", true, false)
+        var rigs := donor.find_children("*", "Skeleton3D", true, false)
+        if not players.is_empty() and not rigs.is_empty():
+            var source_player := players[0] as AnimationPlayer
+            var source_rig := rigs[0] as Skeleton3D
+            var compatible := source_rig.get_bone_count() == skeleton.get_bone_count()
+            for bone in range(skeleton.get_bone_count()):
+                var source_index := source_rig.find_bone(skeleton.get_bone_name(bone))
+                if source_index < 0 or not skeleton.get_bone_rest(bone).is_equal_approx(source_rig.get_bone_rest(source_index)):
+                    compatible = false
+            if compatible:
+                for clip_name in source_player.get_animation_list():
+                    if not String(clip_name).to_lower().contains("running"):
+                        continue
+                    var clip := source_player.get_animation(clip_name).duplicate(true) as Animation
+                    for track in range(clip.get_track_count() - 1, -1, -1):
+                        var path := clip.track_get_path(track)
+                        if path.get_subname_count() != 1 or skeleton.find_bone(String(path.get_subname(0))) < 0:
+                            clip.remove_track(track)
+                            continue
+                        clip.track_set_path(track, NodePath(target_path + ":" + String(path.get_subname(0))))
+                    clip.loop_mode = Animation.LOOP_LINEAR
+                    library.add_animation("Run", clip)
+        donor.free()
+    # Original bounded breathing idle; derive arm lowering in skeleton space
+    # so mirrored bone axes cannot turn one arm upward.
+    var idle := Animation.new()
+    idle.length = 3.2
+    idle.loop_mode = Animation.LOOP_LINEAR
+    for bone in range(skeleton.get_bone_count()):
+        var bone_name := skeleton.get_bone_name(bone)
+        var rotation := skeleton.get_bone_rest(bone).basis.get_rotation_quaternion()
+        if bone_name in ["LeftArm", "RightArm"]:
+            var child_name := "LeftForeArm" if bone_name == "LeftArm" else "RightForeArm"
+            var child := skeleton.find_bone(child_name)
+            var direction := (skeleton.get_bone_global_rest(child).origin - skeleton.get_bone_global_rest(bone).origin).normalized()
+            var side := 1.0 if bone_name == "LeftArm" else -1.0
+            var relaxed := Vector3(0.22 * side, -0.97, 0.06).normalized()
+            var parent_basis := skeleton.get_bone_global_rest(skeleton.get_bone_parent(bone)).basis.orthonormalized()
+            var parent_rotation := parent_basis.get_rotation_quaternion()
+            rotation = parent_rotation.inverse() * Quaternion(direction, relaxed) * parent_rotation * rotation
+        var track := idle.add_track(Animation.TYPE_ROTATION_3D)
+        idle.track_set_path(track, NodePath(target_path + ":" + bone_name))
+        for key in range(5):
+            var sway := sin(float(key) * PI / 2.0) * 0.018 if bone_name in ["Spine", "Spine01"] else 0.0
+            idle.rotation_track_insert_key(track, float(key) * 0.8, rotation * Quaternion(Vector3.FORWARD, sway))
+        var position_track := idle.add_track(Animation.TYPE_POSITION_3D)
+        idle.track_set_path(position_track, NodePath(target_path + ":" + bone_name))
+        idle.position_track_insert_key(position_track, 0.0, skeleton.get_bone_rest(bone).origin)
+    library.add_animation("Idle", idle)
+    animation_player.add_animation_library("LumMotion", library)
+
 func _build_animation_tree() -> void:
     _animation_states.clear()
     if animation_tree == null or animation_player == null:
@@ -111,6 +174,8 @@ func _build_animation_tree() -> void:
     var names := animation_player.get_animation_list()
     var state_index := 0
     for animation_name in names:
+        if not String(animation_name).begins_with("LumMotion/"):
+            continue
         var node := AnimationNodeAnimation.new()
         node.animation = animation_name
         var state_name := _state_name_for_animation(String(animation_name), state_index)
@@ -231,6 +296,8 @@ func get_rig_summary() -> Dictionary:
         "animations": names.size(),
         "animation_names": names,
         "running_asset_present": ResourceLoader.exists(RUN_ASSET_PATH),
+        "running_animation_bound": animation_player != null and animation_player.has_animation("LumMotion/Run"),
+        "idle_source": "original_relaxed_breathing",
         "canonical_required": _canonical_required.size(),
         "canonical_mapped": _canonical_required.size() - _canonical_missing.size(),
         "canonical_missing": _canonical_missing.duplicate(),

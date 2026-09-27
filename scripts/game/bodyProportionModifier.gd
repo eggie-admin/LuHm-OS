@@ -71,7 +71,8 @@ func _process_modification_with_delta(_delta: float) -> void:
         _apply_semantic(target, String(semantic), multipliers[semantic])
 
 func _mapped_scale(key: String, low: float, high: float) -> float:
-    return lerpf(low, high, float(_values.get(key, DEFAULT_VALUE)))
+    var value := float(_values.get(key, DEFAULT_VALUE))
+    return lerpf(low, 1.0, value * 2.0) if value <= 0.5 else lerpf(1.0, high, (value - 0.5) * 2.0)
 
 func _ensure_indices(target: Skeleton3D) -> void:
     if not _indices.is_empty():

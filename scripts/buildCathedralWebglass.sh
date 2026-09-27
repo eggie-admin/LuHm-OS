@@ -6,8 +6,8 @@ cd "$ROOT"
 TMP="${RUNNER_TEMP:-/tmp}"
 SOURCE_SHA="${SOURCE_SHA:-${GITHUB_SHA:-local}}"
 GODOT_TEMPLATE_ID="4.7.2.stable"
-APK="build/android/luhmos-cathedral-full-mutation-1.0.27.apk"
-PCK="build/android/luhmos-cathedral-full-mutation-1.0.27.pck"
+APK="build/android/luhmos-cathedral-full-mutation-1.0.28.apk"
+PCK="build/android/luhmos-cathedral-full-mutation-1.0.28.pck"
 
 SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
 yes | "$SDKMANAGER" --licenses >/dev/null || true
@@ -112,6 +112,7 @@ test -s addons/kai_webview/bin/kaiwebview-debug.aar
 "$GODOT" --headless --editor --path . --quit
 "$GODOT" --headless --path . --script tests/communityAssetSmoke.gd
 "$GODOT" --headless --path . --script tests/characterCreatorSmoke.gd
+"$GODOT" --headless --path . --script tests/lumMotionSmoke.gd
 "$GODOT" --headless --path . --script tests/doctrineGateSmoke.gd
 "$GODOT" --headless --path . --script tests/ritualDirectorSmoke.gd
 python3 tools/runGodotSmoke.py "$GODOT" runtimeSmoke
@@ -123,6 +124,7 @@ mkdir -p build/android
 test -s "$APK" && test -s "$PCK"
 "$GODOT" --headless --main-pack "$PCK" --script res://tests/communityAssetSmoke.gd
 "$GODOT" --headless --main-pack "$PCK" --script res://tests/characterCreatorSmoke.gd
+"$GODOT" --headless --main-pack "$PCK" --script res://tests/lumMotionSmoke.gd
 "$GODOT" --headless --main-pack "$PCK" --script res://tests/doctrineGateSmoke.gd
 "$GODOT" --headless --main-pack "$PCK" --script res://tests/ritualDirectorSmoke.gd
 
@@ -133,9 +135,9 @@ BT="$ANDROID_HOME/build-tools/36.1.0"
 "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/android/zipalign.txt
 unzip -l "$APK" | tee build/android/ziplist.txt
 sha256sum "$APK" | tee build/android/sha256.txt
-grep -q "package: name='art.eggiebagelface.luhmos.cathedraltoy.witchinghour'" build/android/badging.txt
-grep -q "versionCode='127'" build/android/badging.txt
-grep -q "versionName='1.0.27-cathedral.fullmutation.1'" build/android/badging.txt
+grep -q "package: name='art.eggiebagelface.luhmos.cathedraltoy.motionrepair'" build/android/badging.txt
+grep -q "versionCode='128'" build/android/badging.txt
+grep -q "versionName='1.0.28-cathedral.fullmutation.1'" build/android/badging.txt
 grep -q 'org.godotengine.plugin.v2.KAIWebView' build/android/manifest.txt
 grep -q 'assets/cockpit/index.html' build/android/ziplist.txt
 grep -q 'assets/cockpit/jquery/luhm.atelier.js' build/android/ziplist.txt
@@ -152,7 +154,7 @@ cp doctrine/oniAtelierBodyForge-20260926.json build/android/oni-atelier-doctrine
 cp doctrine/witchingHourThreeRitual-20260926.json build/android/witching-hour-doctrine.json
 cp doctrine/runtimeDoctrine-20260926.json build/android/runtime-doctrine.json
 printf '%s\n' "$SOURCE_SHA" > build/android/source-commit.txt
-printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=FULL_MUTATION_CANDIDATE_CI_PROOF\npackage=art.eggiebagelface.luhmos.cathedraltoy.witchinghour\nversion=1.0.27-cathedral.fullmutation.1\nrituals=crown_wake,oni_trinity,witching_hour\nsource_law=AI proposes. Policy authorizes. CI proves. Human promotes.\n' "$SOURCE_SHA" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/full-mutation-receipt.txt
+printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=FULL_MUTATION_CANDIDATE_CI_PROOF\npackage=art.eggiebagelface.luhmos.cathedraltoy.motionrepair\nversion=1.0.28-cathedral.fullmutation.1\nrituals=crown_wake,oni_trinity,witching_hour\nsource_law=AI proposes. Policy authorizes. CI proves. Human promotes.\n' "$SOURCE_SHA" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/full-mutation-receipt.txt
 cp cockpit/package-lock.json build/android/package-lock.json
 sha256sum addons/kai_webview/bin/kaiwebview-debug.aar cockpit/package-lock.json doctrine/runtimeDoctrine-20260926.json >> build/android/source-components-sha256.txt
 rm -f "$PCK"

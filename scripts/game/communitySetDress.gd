@@ -55,6 +55,7 @@ func _ready() -> void:
     name = "CommunityCathedralSetDress"
     for spec in PLACEMENTS:
         _place(spec)
+    _place_remaining_selection()
     print("COMMUNITY_SET_DRESS loaded=%d missing=%d" % [loaded_count, missing_count])
 
 func _place(spec: Dictionary) -> void:
@@ -74,8 +75,39 @@ func _place(spec: Dictionary) -> void:
     var node := instance as Node3D
     node.name = "Community_%s" % path.get_file().get_basename()
     node.position = spec["pos"] as Vector3
+    if path.contains("/furniture/"):
+        node.position.z -= 25.0
     node.rotation_degrees.y = float(spec["rot"])
     var uniform_scale := float(spec["scale"])
     node.scale = Vector3.ONE * uniform_scale
     add_child(node)
     loaded_count += 1
+
+# Every curated donor gets a visible instance; never confuse packaged with displayed.
+func _place_remaining_selection() -> void:
+    var used: Dictionary = {}
+    for spec in PLACEMENTS:
+        used[String(spec["path"])] = true
+    var selection = JSON.parse_string(FileAccess.get_file_as_string("res://assets/community/selected-assets.json"))
+    if not selection is Dictionary:
+        missing_count += 1
+        return
+    for group in selection.get("groups", {}):
+        var index := 0
+        for file in selection["groups"][group]:
+            var path := "res://assets/community/runtime/%s/%s" % [group, file]
+            if used.has(path):
+                continue
+            var side := -1.0 if index % 2 == 0 else 1.0
+            var row := floorf(float(index) / 2.0)
+            var pos := Vector3(side * 23.0, 0.0, 20.0 - row * 7.0)
+            var size := 2.2
+            if group == "factory":
+                pos = Vector3(side * 9.0, 0.0, 22.0 - row * 3.5)
+                size = 1.3
+            elif group == "furniture":
+                # _place applies the common lounge offset.
+                pos = Vector3(side * 4.5, 0.0, 18.0 + row * 2.5)
+                size = 1.3
+            _place({"path":path, "pos":pos, "rot":-side * 30.0, "scale":size})
+            index += 1

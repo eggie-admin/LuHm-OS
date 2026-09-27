@@ -3,7 +3,7 @@ extends Node3D
 const LumAvatarScene := preload("res://scenes/LumAvatar.tscn")
 const CommunitySetDressScript := preload("res://scripts/game/communitySetDress.gd")
 
-var player_spawn := Vector3(0.0, 1.15, 8.0)
+var player_spawn := Vector3(0.0, 1.15, 0.0)
 var lum_avatar: Node3D
 var community_set_dress: Node3D
 var _neon_materials: Array[StandardMaterial3D] = []
@@ -55,16 +55,7 @@ func _build_riverwalk() -> void:
         _neon_strip(Vector3(5.8, 0.04, z - 2.0), Vector3(4.2, 0.04, 0.18), Color("55dfff"))
 
 func _build_city() -> void:
-    var heights := [6.0, 9.0, 13.0, 7.0, 15.0, 10.0, 8.0, 12.0, 6.5, 11.0, 14.0, 8.5]
-    for i in range(heights.size()):
-        var side := -1.0 if i % 2 == 0 else 1.0
-        var lane := float(i % 3)
-        var h: float = heights[i]
-        var z: float = 10.0 - floor(float(i) / 2.0) * 7.2
-        var x: float = side * (16.0 + lane * 3.8)
-        _box("CityBlock_%02d" % i, Vector3(x, h * 0.5, z), Vector3(5.0, h, 5.0), Color("15111f") if i % 2 == 0 else Color("101a24"), true)
-        _window_stack(Vector3(x - side * 2.52, 1.6, z), h, Color("ff3c9d") if i % 2 == 0 else Color("55dfff"), side)
-
+    # Curated industrial GLBs supply the skyline; do not hide them in box towers.
     _arch(Vector3(0.0, 0.0, -6.5))
     _arch(Vector3(0.0, 0.0, 5.0))
 
@@ -98,8 +89,9 @@ func _build_lum_resident() -> void:
 
 func pet_lum() -> void:
     pulse_lum(0.55)
+    lum_avatar.play_motion_hint("run")
     set_lum_expression("talk", 0.35)
-    get_tree().create_timer(0.45).timeout.connect(func(): restore_lum())
+    get_tree().create_timer(2.0).timeout.connect(func(): restore_lum())
 
 func oni_pop() -> void:
     for light in _toy_lights:

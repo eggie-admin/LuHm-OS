@@ -20,7 +20,12 @@ func _initialize() -> void:
 
 func _run() -> void:
     var loaded := 0
-    for path in REQUIRED:
+    var selection = JSON.parse_string(FileAccess.get_file_as_string("res://assets/community/selected-assets.json"))
+    var paths: Array[String] = []
+    for group in selection["groups"]:
+        for file in selection["groups"][group]:
+            paths.append("res://assets/community/runtime/%s/%s" % [group, file])
+    for path in paths:
         if not ResourceLoader.exists(path):
             push_error("COMMUNITY ASSET MISSING: %s" % path)
             quit(1)
@@ -37,5 +42,12 @@ func _run() -> void:
             return
         instance.free()
         loaded += 1
+    var dress := (load("res://scripts/game/communitySetDress.gd") as Script).new() as Node3D
+    root.add_child(dress)
+    if dress.get("missing_count") != 0 or int(dress.get("loaded_count")) < paths.size():
+        push_error("Curated content is packaged but not instantiated")
+        quit(1)
+        return
+    dress.queue_free()
     print("COMMUNITY_ASSET_SMOKE=PASS loaded=%d" % loaded)
     quit(0)
