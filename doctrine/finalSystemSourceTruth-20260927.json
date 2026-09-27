@@ -1,5 +1,5 @@
 {
-  "schema": "luhm-os.final-system-source-truth.v2",
+  "schema": "luhm-os.final-system-source-truth.v3",
   "date": "2026-09-27",
   "product": "LuHm OS",
   "scope": "FULL_GAME",
@@ -28,7 +28,7 @@
     "visual_direction": "Cathedral-first authored spawn and camera; riverwalk is approach/context rather than default focal view",
     "lum_rig": "SHA-pinned Drive donor required by build; runtime visible-height normalization targets 1.90 m; external rig required by scene smoke",
     "community_assets": "all 77 selected Kenney CC0 GLBs from immutable commit 3694c6879e487c108f55677be7dd2ca75b07cc3b are runtime participants with required texture sidecars; build-time fetch only; no runtime network",
-    "game_donors": "two LuHm-owned/generated visual derivatives staged from the Drive donor vault by immutable file ID, byte size and SHA256; KAI9000 is donor inventory only and has no runtime/doctrine authority",
+    "game_donors": "two rights-cleared LuHm runtime derivatives are vendored by immutable byte size and SHA256; full source/provenance stays private in Google Drive; KAI9000 remains donor inventory only and has no runtime/doctrine authority",
     "agent_mesh": "Lum + Kiri/Tetsu/Momo + Shiori + Kugi fail-closed contract",
     "openai": "host-only Responses API adapter; no provider secret or host adapter in APK; live receipt remains a separate host deployment gate",
     "android": "release-mode candidate; non-debuggable; no INTERNET permission; shell profiling disabled; caged local WebGlass; 16K alignment required",
@@ -41,6 +41,9 @@
     "kai9000_authority": false,
     "kai9000_widget_authority": false,
     "private_legacy_relic_payloads": false,
+    "source_vault": "PRIVATE_GOOGLE_DRIVE_PROVENANCE_ONLY",
+    "source_vault_ci_fetch": false,
+    "runtime_delivery": "GIT_VENDORED_RIGHTS_CLEARED_DERIVATIVES",
     "unknown_rights": "FAIL_CLOSED",
     "runtime_network": false
   },
@@ -50,9 +53,9 @@
     "running_sha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0"
   },
   "green_law": {
-    "source": "exact-head CI on candidate/crown-cathedral-deployment-20260927 including LuHm full-game scope audit, Crown static audit, donor hash proof, full 77-asset runtime contract and Drive Lum hash proof",
+    "source": "exact-head CI on candidate/crown-cathedral-deployment-20260927 including LuHm full-game scope audit, Crown static audit, donor derivative hash proof, full 77-asset runtime contract and Drive Lum hash proof",
     "scene": "Crown facade + donor gallery + 77/77 community assets + rigged external Lum visible height between 1.70 m and 2.10 m + Cathedral spawn contract",
-    "export_pack": "hash-pinned donor derivatives and complete scene must survive Godot export-pack smoke",
+    "export_pack": "rights-cleared hash-pinned donor derivatives and complete scene must survive Godot export-pack smoke",
     "apk": "release mode + non-debuggable + no INTERNET + shell profiling disabled + host OpenAI adapter absent + signature + package + 16K alignment + packaged WebGlass + SHA256",
     "openai_live": "authorized host secret + configured model + successful live probe receipt outside APK",
     "device": "physical Samsung install + launch + recording of this exact build showing Cathedral framing, visible rigged Lum, donor gallery, movement/camera and WebGlass",
