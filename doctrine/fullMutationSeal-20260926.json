@@ -1,0 +1,56 @@
+{
+  "schema": "luhm-os.full-mutation-seal.v1",
+  "date": "2026-09-26",
+  "status": "STAGED_EXACT_HEAD_CI_REQUIRED",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true
+  },
+  "source": {
+    "repository": "eggie-admin/LuHm-OS",
+    "candidate_branch": "candidate/witching-hour-three-ritual-cathedral-20260926",
+    "runtime_doctrine": "doctrine/runtimeDoctrine-20260926.json",
+    "source_binding": "GitHub Actions exact pull-request head recorded into build/android/source-commit.txt",
+    "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes."
+  },
+  "mutation": {
+    "runtime_doctrine_gate": true,
+    "godot_native_world_authority": true,
+    "webglass_capability_handshake": true,
+    "webglass_fail_closed_rejections": true,
+    "three_ritual_system": ["crown_wake", "oni_trinity", "witching_hour"],
+    "canonical_agent_mesh": {
+      "boss": "Lum",
+      "Context": "Oni-Kumo",
+      "Build": "Oni-Tetsu",
+      "Research": "Oni-Sumi",
+      "Critic": "Oni-Ibara",
+      "Tool Executor": "Kanabo Gate"
+    },
+    "candidate_memory_only": true,
+    "external_termux_ollama_companion_only": true,
+    "community_asset_receipts": true,
+    "character_forge_smoke": true,
+    "ritual_smoke": true,
+    "doctrine_smoke": true,
+    "apk_signature_receipt": true,
+    "apk_16k_alignment_receipt": true,
+    "apk_sha256_receipt": true,
+    "direct_install_portal": true
+  },
+  "build": {
+    "package": "art.eggiebagelface.luhmos.cathedraltoy.witchinghour",
+    "version_code": 127,
+    "version_name": "1.0.27-cathedral.fullmutation.1",
+    "artifact": "luhm-cathedral-full-mutation-apk",
+    "install_artifact": "luhm-cathedral-full-mutation-install",
+    "target_sdk": 36,
+    "abi": "arm64-v8a"
+  },
+  "promotion": {
+    "main_merge": false,
+    "public_release": false,
+    "production_signing": false,
+    "physical_device_green": "PENDING"
+  }
+}
