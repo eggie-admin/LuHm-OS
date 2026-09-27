@@ -33,9 +33,18 @@
       boundary("luhm:transport:stop", detail);
     });
 
+    $cockpit.on("luhm:proof:pin-request", function (_event, detail) {
+      boundary("luhm:transport:proof-pin", detail);
+    });
+
     function requireWorkbench() {
       if (!window.luhmChatWorkbench) throw new Error("LuHm chat workbench not initialized");
       return window.luhmChatWorkbench;
+    }
+
+    function requireProofViewer() {
+      if (!window.luhmProofViewer) throw new Error("LuHm proof viewer not initialized");
+      return window.luhmProofViewer;
     }
 
     window.LuHmFrontEnd = Object.freeze({
@@ -48,6 +57,9 @@
       setChatState: function (detail) { requireWorkbench().state(detail); },
       appendAssistant: function (detail) { requireWorkbench().assistant(detail); },
       appendReceipt: function (detail) { requireWorkbench().receipt(detail); },
+      openProof: function (detail) { return requireProofViewer().open(detail); },
+      closeProof: function () { return requireProofViewer().close(); },
+      currentProof: function () { return requireProofViewer().current(); },
       setOniActivity: function (detail) {
         if (!window.luhmOniActivity) throw new Error("LuHm Oni activity dock not initialized");
         return window.luhmOniActivity.set(detail);
