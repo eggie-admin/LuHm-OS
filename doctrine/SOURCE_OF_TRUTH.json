@@ -106,10 +106,29 @@
     "publicationAuthority": false,
     "productionSigningAuthority": false
   },
+  "finalFormApkCandidate": {
+    "coffeeHouseParentBranch": "candidate/final-coffeehouse-nexus-scene-20260927",
+    "coffeeHouseParentCommit": "c1bb0c139f8d539399224f45b6fa6af9dbb77d7d",
+    "agentMeshBranch": "candidate/luhm-agent-final-system-20260927",
+    "agentMeshDoctrine": "doctrine/luhmAgentMeshFinal-20260927.json",
+    "embeddedMeshContract": "assets/system/luhmAgentMesh.json",
+    "androidPackage": "art.eggiebagelface.luhmos.cathedraltoy.atelier",
+    "candidateVersion": "1.0.26-cathedral.agentmesh.1",
+    "providerSecretInApk": false,
+    "openaiRuntimeInApk": false,
+    "internetPermission": false,
+    "hostAgentRuntime": "agents/luhm_mesh.py",
+    "hostActivationProof": "PENDING",
+    "physicalS24FeProof": "PENDING",
+    "canonicalMainMutated": false,
+    "productionSigningAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false
+  },
   "reconciliation": {
-    "observedMain": "f54a3ece00dc4bdfe40c61d7fde218367443d0e2",
+    "observedMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
     "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b",
     "status": "FULL_SOURCE_TRUTH_ORCHESTRATOR_PROMOTED_FULL_DEMO_AMBER",
-    "preserved": "Lum/Oni fail-closed orchestration is canonical on main; documentation workflow, S24 FE cockpit switch, and LAN install bundle remain preserved; broader Android and release state remain AMBER; physical device proof, LAN DNS, Apache serving, persistent update signing, enterprise readiness, and public exposure remain separate evidence or Crown gates"
+    "preserved": "Lum/Oni fail-closed orchestration is canonical on main; documentation workflow, S24 FE cockpit switch, and LAN install bundle remain preserved; broader Android and release state remain AMBER; the final coffee-house + OpenAI agent-mesh mutation is still a non-canonical candidate; physical host proof, physical device proof, LAN DNS, Apache serving, persistent update signing, enterprise readiness, and public exposure remain separate evidence or Crown gates"
   }
 }
