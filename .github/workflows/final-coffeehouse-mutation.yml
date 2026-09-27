@@ -7,6 +7,7 @@ on:
       - 'candidate/final-coffeehouse-nexus-scene-20260927'
       - 'candidate/final-coffeehouse-lum-reconciled-20260927'
       - 'candidate/crown-cathedral-deployment-20260927'
+      - 'candidate/crown-cathedral-audit-hardening-20260927'
   pull_request:
     paths:
       - 'scenes/**'
@@ -55,6 +56,7 @@ jobs:
           python3 -m json.tool doctrine/RELEASE_BOUNDARY.json >/dev/null
           python3 -m json.tool doctrine/luhmFullGameDoctrine-20260927.json >/dev/null
           python3 -m json.tool doctrine/luhmFullGameSourceTruth-20260927.json >/dev/null
+          python3 -m json.tool doctrine/releaseSupplyChain-20260927.json >/dev/null
           python3 -m json.tool assets/donor/luhm-game-donors.json >/dev/null
           python3 -m json.tool doctrine/crownCathedralDeployment-20260927.json >/dev/null
           python3 -m json.tool doctrine/reconciledCoffeeHouseLumCandidate-20260927.json >/dev/null
@@ -62,7 +64,7 @@ jobs:
           python3 -m json.tool doctrine/openAiLumOniDeployment-20260927.json >/dev/null
           python3 -m json.tool doctrine/finalSystemSourceTruth-20260927.json >/dev/null
           python3 -m json.tool assets/nexus/manifest.example.json >/dev/null
-          python3 -m py_compile host/openai/lumHost.py scripts/agentMeshRuntime.py tests/agentMeshSmoke.py tests/hostOpenAiAdapterSmoke.py tools/openAiLumOniAudit.py tools/finalMutationAudit.py tools/finalSystemAudit.py tools/fullSourceTruthAudit.py tools/nexusAssetAudit.py tools/stageNexusAssets.py tools/stageLuhmGameDonors.py tools/luhmFullGameAudit.py tools/blender/buildCoffeeHouse.py tools/crownCathedralAudit.py
+          python3 -m py_compile host/openai/lumHost.py scripts/agentMeshRuntime.py tests/agentMeshSmoke.py tests/hostOpenAiAdapterSmoke.py tools/openAiLumOniAudit.py tools/finalMutationAudit.py tools/finalSystemAudit.py tools/fullSourceTruthAudit.py tools/nexusAssetAudit.py tools/stageNexusAssets.py tools/stageLuhmGameDonors.py tools/luhmFullGameAudit.py tools/releaseProvenance.py tools/releaseProvenanceAudit.py tools/blender/buildCoffeeHouse.py tools/crownCathedralAudit.py
           python3 tools/luhmFullGameAudit.py
           python3 tools/fullSourceTruthAudit.py --output build/full-source-truth/readiness.json
           python3 tools/crownCathedralAudit.py
@@ -81,6 +83,23 @@ jobs:
           SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: bash scripts/buildLuhmFullGameRelease.sh
 
+      - name: Generate and audit deterministic release SBOM + provenance
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          python3 tools/releaseProvenance.py \
+            --build-dir build/android \
+            --source-sha "$SOURCE_SHA" \
+            --output-bom build/android/bom.cdx.json \
+            --output-provenance build/android/release-provenance.json
+          python3 tools/releaseProvenanceAudit.py \
+            --build-dir build/android \
+            --source-sha "$SOURCE_SHA" \
+            --bom build/android/bom.cdx.json \
+            --provenance build/android/release-provenance.json \
+            --output build/android/release-provenance-audit.json
+
       - name: Exact LuHm full-game Crown Cathedral scene smoke
         run: |
           set -euo pipefail
@@ -95,13 +114,19 @@ jobs:
           set -euo pipefail
           mkdir -p build/final-mutation build/crown-cathedral
           python3 tools/luhmFullGameAudit.py --with-donor-receipt --output build/final-mutation/luhm-full-game-audit.json
+          python3 tools/releaseProvenanceAudit.py \
+            --build-dir build/android \
+            --source-sha "$SOURCE_SHA" \
+            --bom build/android/bom.cdx.json \
+            --provenance build/android/release-provenance.json \
+            --output build/final-mutation/release-provenance-audit.json
           python3 tools/finalSystemAudit.py \
             --build-dir build/android \
             --source-sha "$SOURCE_SHA" \
             --output build/final-mutation/system-audit.json
-          printf 'source_sha=%s\nstatus=LUHM_FULL_GAME_CROWN_CATHEDRAL_EXACT_HEAD_CI_PROOF\nproduct_scope=LUHM_OS_FULL_GAME_ONLY\nscene=crown-cathedral+japanese-kissaten+industrial-riverwalk+owned-donor-gallery\nlum=RIGGED_EXTERNAL_REQUIRED_VISIBLE_HEIGHT_1.70_TO_2.10M\nlum_target_height_m=1.90\ncommunity_assets_runtime=77_OF_77\ncommunity_license=CC0\nowned_game_donors=2_HASH_PINNED_VENDORED_WITH_PRIVATE_DRIVE_PROVENANCE\nkai9000=DONOR_ONLY_NOT_AUTHORITY\nwidget_authority=false\ncompatibility_bridge_authority=LIMITED_TO_LOCAL_WEBVIEW_PLUMBING\nprivate_relic_payloads=false\nagent_mesh=CI_CONTRACT_PROVEN\nopenai_host_adapter=MOCK_PROVEN_LIVE_RECEIPT_REQUIRED_SEPARATE_HOST_LANE\napk_mode=RELEASE_CANDIDATE_NON_DEBUGGABLE\npersistent_signing_path=IMPLEMENTED_FAIL_CLOSED\nnexus_payload_claim=private-sidecar-only-none-in-shared-candidate\nphone_proof=PENDING_NEW_EXACT_BUILD\ncanonical_promotion=PENDING_CROWN_AFTER_DEVICE_PROOF\nproduction_signing_identity=PENDING_CROWN_OWNED_KEY\n' "$SOURCE_SHA" > build/crown-cathedral/receipt.txt
+          printf 'source_sha=%s\nstatus=LUHM_FULL_GAME_CROWN_CATHEDRAL_EXACT_HEAD_CI_PROOF\nproduct_scope=LUHM_OS_FULL_GAME_ONLY\nscene=crown-cathedral+japanese-kissaten+industrial-riverwalk+owned-donor-gallery\nlum=RIGGED_EXTERNAL_REQUIRED_VISIBLE_HEIGHT_1.70_TO_2.10M\nlum_target_height_m=1.90\ncommunity_assets_runtime=77_OF_77\ncommunity_license=CC0\nowned_game_donors=2_HASH_PINNED_VENDORED_WITH_PRIVATE_DRIVE_PROVENANCE\nkai9000=DONOR_ONLY_NOT_AUTHORITY\nwidget_authority=false\ncompatibility_bridge_authority=LIMITED_TO_LOCAL_WEBVIEW_PLUMBING\nprivate_relic_payloads=false\nagent_mesh=CI_CONTRACT_PROVEN\nrelease_sbom=CYCLONEDX_1.7_GREEN\nrelease_provenance=SOURCE_APK_SBOM_BOUND_GREEN\nopenai_host_adapter=MOCK_PROVEN_LIVE_RECEIPT_REQUIRED_SEPARATE_HOST_LANE\napk_mode=RELEASE_CANDIDATE_NON_DEBUGGABLE\npersistent_signing_path=IMPLEMENTED_FAIL_CLOSED\nnexus_payload_claim=private-sidecar-only-none-in-shared-candidate\nphone_proof=PENDING_NEW_EXACT_BUILD\ncanonical_promotion=PENDING_CROWN_AFTER_DEVICE_PROOF\nproduction_signing_identity=PENDING_CROWN_OWNED_KEY\n' "$SOURCE_SHA" > build/crown-cathedral/receipt.txt
           cp build/crown-cathedral/static-audit.json build/final-mutation/crown-cathedral-static-audit.json
-          sha256sum doctrine/SOURCE_OF_TRUTH.json doctrine/RELEASE_BOUNDARY.json doctrine/luhmFullGameDoctrine-20260927.json doctrine/luhmFullGameSourceTruth-20260927.json assets/donor/luhm-game-donors.json doctrine/crownCathedralDeployment-20260927.json doctrine/finalSystemSourceTruth-20260927.json scripts/buildCathedralReleaseCandidate.sh scripts/game/crownCathedralSetDress.gd scripts/game/crownDonorGallery.gd scripts/game/communitySetDress.gd scripts/game/finalCoffeeHouseOverlay.gd tests/finalCoffeeHouseSmoke.gd > build/crown-cathedral/SHA256SUMS.txt
+          sha256sum doctrine/SOURCE_OF_TRUTH.json doctrine/RELEASE_BOUNDARY.json doctrine/luhmFullGameDoctrine-20260927.json doctrine/luhmFullGameSourceTruth-20260927.json doctrine/releaseSupplyChain-20260927.json assets/donor/luhm-game-donors.json doctrine/crownCathedralDeployment-20260927.json doctrine/finalSystemSourceTruth-20260927.json scripts/buildCathedralReleaseCandidate.sh scripts/game/crownCathedralSetDress.gd scripts/game/crownDonorGallery.gd scripts/game/communitySetDress.gd scripts/game/finalCoffeeHouseOverlay.gd tests/finalCoffeeHouseSmoke.gd tools/releaseProvenance.py tools/releaseProvenanceAudit.py > build/crown-cathedral/SHA256SUMS.txt
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
