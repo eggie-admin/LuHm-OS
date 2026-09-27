@@ -26,7 +26,7 @@ EXPECTED_ROUTES: dict[str, list[str]] = {
     "read": ["Lum", "Kiri"],
     "records": ["Lum", "Fumi"],
     "proof": ["Lum", "Sumi", "DrNao"],
-    "patch": ["Lum", "Kugi"],
+    "patch": ["Lum", "Kugi", "DrNao"],
     "build": ["Lum", "Kugi", "Tetsu", "Kaji", "DrNao"],
     "external": ["Lum", "Momo"],
     "monitor": ["Lum", "DrNao"],
@@ -116,9 +116,15 @@ def smoke_router() -> None:
         assert isinstance(report, dict)
         require(report.get("schema") == "luhm-os.task-route.v2", f"{kind} schema drift")
         require(report.get("workers") == expected_workers, f"{kind} route drift: {report.get('workers')}")
+        require(report.get("workers", [None])[0] == "Lum", f"{kind} bypassed boss")
         require(report.get("greenAuthority") is False, f"{kind} gained GREEN authority")
         require(report.get("dictationExecutesDirectly") is False, f"{kind} direct dictation execution enabled")
         require(len(report.get("supportWorkers", [])) <= 3, f"{kind} exceeded support cap")
+
+    patch = run_router("patch")
+    assert isinstance(patch, dict)
+    require(patch.get("sourceMutationLanes") == 1, "patch mutation lane drift")
+    require(patch.get("requiresDoctorVerdict") is True, "patch lost DrNao adjudication")
 
     build = run_router("build")
     assert isinstance(build, dict)
