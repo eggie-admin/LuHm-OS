@@ -9,13 +9,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "assets/pet/oni/manifest.json"
 EXPECTED_ROLES = {
-    "lum", "drNao", "tetsu", "kaji", "kiri", "momo",
+    "lum", "fumi", "drNao", "tetsu", "kaji", "kiri", "momo",
     "shiori", "kugi", "yume", "koe", "sumi",
 }
 EXPECTED_STATES = {
-    "idle", "blink", "talk", "inspect", "sleep", "alert", "drag", "dismiss",
+    "idle", "thinking", "working", "inspect", "waiting", "success", "alert", "sleep",
 }
-ALLOWED_CONCEPT_STATES = {"CONCEPT", "AMBER_REVIEW", "APPROVED_ART"}
+ALLOWED_CONCEPT_STATES = {"CONCEPT", "AMBER_REVIEW", "APPROVED_ART", "BETA_ACTIVITY_DOCK"}
 
 
 def nonempty(value: object) -> bool:
@@ -46,7 +46,7 @@ def main() -> int:
 
     states = manifest.get("requiredStates")
     if not isinstance(states, list) or set(states) != EXPECTED_STATES or len(states) != len(EXPECTED_STATES):
-        errors.append("required sitter states must be exactly the eight canonical states")
+        errors.append("required sprite states must be exactly the eight canonical activity states")
 
     roles = manifest.get("roles")
     if not isinstance(roles, list):
