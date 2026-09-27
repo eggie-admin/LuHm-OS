@@ -1,4 +1,4 @@
-name: LuHm Final Coffee House Mutation
+name: LuHm Crown Cathedral Deployment
 
 on:
   workflow_dispatch:
@@ -6,6 +6,7 @@ on:
     branches:
       - 'candidate/final-coffeehouse-nexus-scene-20260927'
       - 'candidate/final-coffeehouse-lum-reconciled-20260927'
+      - 'candidate/crown-cathedral-deployment-20260927'
   pull_request:
     paths:
       - 'scenes/**'
@@ -23,11 +24,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: final-coffeehouse-${{ github.event.pull_request.number || github.ref }}
+  group: crown-cathedral-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  final-mutation:
+  crown-cathedral:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     steps:
@@ -45,15 +46,17 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Static Crown, recovery, agent, host-adapter, and asset gates
+      - name: Static Crown, Cathedral, agent and asset gates
         run: |
           set -euo pipefail
+          python3 -m json.tool doctrine/crownCathedralDeployment-20260927.json >/dev/null
           python3 -m json.tool doctrine/reconciledCoffeeHouseLumCandidate-20260927.json >/dev/null
           python3 -m json.tool doctrine/finalCoffeeHouseMutation-20260927.json >/dev/null
           python3 -m json.tool doctrine/openAiLumOniDeployment-20260927.json >/dev/null
           python3 -m json.tool doctrine/finalSystemSourceTruth-20260927.json >/dev/null
           python3 -m json.tool assets/nexus/manifest.example.json >/dev/null
-          python3 -m py_compile host/openai/lumHost.py scripts/agentMeshRuntime.py tests/agentMeshSmoke.py tests/hostOpenAiAdapterSmoke.py tools/openAiLumOniAudit.py tools/finalMutationAudit.py tools/finalSystemAudit.py tools/nexusAssetAudit.py tools/stageNexusAssets.py tools/blender/buildCoffeeHouse.py
+          python3 -m py_compile host/openai/lumHost.py scripts/agentMeshRuntime.py tests/agentMeshSmoke.py tests/hostOpenAiAdapterSmoke.py tools/openAiLumOniAudit.py tools/finalMutationAudit.py tools/finalSystemAudit.py tools/nexusAssetAudit.py tools/stageNexusAssets.py tools/blender/buildCoffeeHouse.py tools/crownCathedralAudit.py
+          python3 tools/crownCathedralAudit.py
           python3 tests/agentMeshSmoke.py
           python3 tests/hostOpenAiAdapterSmoke.py
           python3 tools/openAiLumOniAudit.py
@@ -68,30 +71,32 @@ jobs:
           SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: scripts/buildCathedralReleaseCandidate.sh
 
-      - name: Exact scene smoke
+      - name: Exact Crown Cathedral scene smoke
         run: |
           set -euo pipefail
           GODOT="$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64"
           test -x "$GODOT"
           "$GODOT" --headless --path . --script tests/finalCoffeeHouseSmoke.gd
 
-      - name: Final system audit and recovery receipt
+      - name: Final system audit and Crown deployment receipt
         env:
           SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           set -euo pipefail
-          mkdir -p build/final-mutation
+          mkdir -p build/final-mutation build/crown-cathedral
           python3 tools/finalSystemAudit.py \
             --build-dir build/android \
             --source-sha "$SOURCE_SHA" \
             --output build/final-mutation/system-audit.json
-          printf 'source_sha=%s\nstatus=EXACT_HEAD_CI_PROOF\nrecovery=final-coffeehouse+nexus-sidecar+rigged-drive-lum+77-cc0-assets\nscene=Japanese kissaten + Lum idle intact\nagent_mesh=CI_CONTRACT_PROVEN\nopenai_host_adapter=MOCK_PROVEN_LIVE_RECEIPT_REQUIRED\napk_mode=RELEASE_CANDIDATE_NON_DEBUGGABLE\nlum_bundle_sha256=fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da\nlum_base_sha256=06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69\nlum_running_sha256=750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0\ncommunity_assets=77\ncommunity_license=CC0\nnexus_payload_claim=private-sidecar-only-none-in-shared-candidate\nphone_proof=PENDING_PHYSICAL_SAMSUNG\n' "$SOURCE_SHA" > build/final-mutation/receipt.txt
-          sha256sum doctrine/reconciledCoffeeHouseLumCandidate-20260927.json doctrine/finalCoffeeHouseMutation-20260927.json doctrine/openAiLumOniDeployment-20260927.json doctrine/finalSystemSourceTruth-20260927.json scripts/agentMeshRuntime.py host/openai/lumHost.py scenes/Main.tscn scripts/game/finalCoffeeHouseOverlay.gd > build/final-mutation/SHA256SUMS.txt
+          printf 'source_sha=%s\nstatus=CROWN_CATHEDRAL_EXACT_HEAD_CI_PROOF\nscene=crown-cathedral+japanese-kissaten+industrial-riverwalk\nlum=RIGGED_EXTERNAL_REQUIRED_VISIBLE_HEIGHT_1.70_TO_2.10M\nlum_target_height_m=1.90\ncommunity_assets_runtime=77_OF_77\ncommunity_license=CC0\nagent_mesh=CI_CONTRACT_PROVEN\nopenai_host_adapter=MOCK_PROVEN_LIVE_RECEIPT_REQUIRED\napk_mode=RELEASE_CANDIDATE_NON_DEBUGGABLE\nnexus_payload_claim=private-sidecar-only-none-in-shared-candidate\nphone_proof=PENDING_NEW_EXACT_BUILD\ncanonical_promotion=PENDING_CROWN_AFTER_DEVICE_PROOF\nproduction_signing=PENDING_CROWN_OWNED_KEY\n' "$SOURCE_SHA" > build/crown-cathedral/receipt.txt
+          cp build/crown-cathedral/static-audit.json build/final-mutation/crown-cathedral-static-audit.json
+          sha256sum doctrine/crownCathedralDeployment-20260927.json doctrine/finalSystemSourceTruth-20260927.json scripts/game/crownCathedralSetDress.gd scripts/game/communitySetDress.gd scripts/game/finalCoffeeHouseOverlay.gd tests/finalCoffeeHouseSmoke.gd > build/crown-cathedral/SHA256SUMS.txt
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: luhm-final-coffeehouse-lum-reconciled-evidence
+          name: luhm-crown-cathedral-deployment-evidence
           path: |
+            build/crown-cathedral/
             build/final-mutation/
             build/android/
           if-no-files-found: error
