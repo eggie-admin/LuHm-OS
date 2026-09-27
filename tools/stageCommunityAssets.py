@@ -11,7 +11,7 @@ import shutil
 import struct
 import time
 import urllib.request
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "assets/community/selected-assets.json"
@@ -76,6 +76,7 @@ def main() -> int:
 
     base = f"https://raw.githubusercontent.com/{source['repository']}/{commit}"
     receipts = []
+    dependencies = {}
     total = 0
     for kit, name in selected:
         source_path = f"3d/{kit}/{name}"
@@ -89,6 +90,31 @@ def main() -> int:
         target_dir.mkdir(parents=True, exist_ok=True)
         target = target_dir / name
         target.write_bytes(data)
+        # GLB containers may reference external textures: mesh-only import is not complete.
+        json_size, chunk_type = struct.unpack_from("<II", data, 12)
+        if chunk_type != 0x4E4F534A:
+            raise RuntimeError(f"{source_path}: missing glTF JSON chunk")
+        document = json.loads(data[20:20 + json_size])
+        for image in document.get("images", []) + document.get("buffers", []):
+            uri = image.get("uri", "")
+            if not uri or uri.startswith("data:"):
+                continue
+            relative = PurePosixPath(uri)
+            if relative.is_absolute() or ".." in relative.parts or ":" in uri or "\\" in uri:
+                raise RuntimeError(f"unsafe GLB dependency: {uri}")
+            dependency_path = f"3d/{kit}/{uri}"
+            if dependency_path in dependencies:
+                continue
+            payload = fetch(f"{base}/{dependency_path}")
+            if uri.lower().endswith(".png") and not payload.startswith(b"\x89PNG\r\n\x1a\n"):
+                raise RuntimeError(f"invalid texture PNG: {dependency_path}")
+            total += len(payload)
+            if total > int(budget["max_total_bytes"]):
+                raise RuntimeError("assets plus dependencies exceed Android budget")
+            dependency_target = target_dir / uri
+            dependency_target.parent.mkdir(parents=True, exist_ok=True)
+            dependency_target.write_bytes(payload)
+            dependencies[dependency_path] = {"source_path": dependency_path, "bytes": len(payload), "sha256": sha256(payload)}
         receipts.append({
             "kit": kit,
             "name": name,
@@ -114,6 +140,7 @@ def main() -> int:
         "total_asset_bytes": total,
         "runtime_network": False,
         "assets": receipts,
+        "dependencies": list(dependencies.values()),
     }
     encoded = json.dumps(receipt, indent=2, sort_keys=True) + "\n"
     (OUT / "PROVENANCE.json").write_text(encoded, encoding="utf-8")

@@ -3,14 +3,16 @@
   "date": "2026-09-27",
   "observedMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
   "baseCandidate": "a7877941cc367098bedb34f13f57e2f60ca2f2d3",
-  "status": "IMPLEMENTED_LOCAL_MOTION_PROOF_CI_PENDING",
+  "status": "REPAIR_REVISION_CI_PENDING",
   "findings": [
     "Base clip0 is 0.033333 seconds with single-key tracks; it was incorrectly selected as idle.",
     "Running GLB was staged but its animation library was never bound to the live avatar.",
     "Character Forge facial donor is audited separately; APK build does not stage or activate it.",
     "Community selection has 77 models; old set dresser instantiates 38 placements and leaves other donors unused.",
     "Lounge placement was behind initial camera; primitive city blocks obscured imported skyline.",
-    "Older asset source-of-truth distinguishes catalogs, preview media and configuration from runtime integration."
+    "Older asset source-of-truth distinguishes catalogs, preview media and configuration from runtime integration.",
+    "CI exposed playback resetting to Start when processing mode changes; an explicit automatic Start-to-Idle transition is required.",
+    "Pinned industrial/factory GLBs reference external colormap PNGs, omitted by the original mesh-only staging script."
   ],
   "changes": [
     "same-rig checked running animation transfer",
@@ -19,13 +21,17 @@
     "neutral midpoint preserves body proportions",
     "all curated community models instantiated",
     "lounge moved into opening view",
-    "all-model import and live skeletal motion gates before and after PCK export"
+    "all-model import and live skeletal motion gates before and after PCK export",
+    "automatic Start-to-Idle transition",
+    "fetch and hash safe relative GLB dependencies from the same immutable source",
+    "fail smoke when industrial/factory materials lack textures"
   ],
   "localEvidence": {
     "lumMotionSmoke": "PASS six assertions on actual pinned GLBs",
     "bodyForgeSmoke": "PASS",
     "runtimeBoundary": "PASS",
-    "webglassContract": "PASS"
+    "webglassContract": "PASS",
+    "negativeControl": "Original avatar fails all six new motion assertions"
   },
   "remaining": [
     "exact-head CI and APK receipts",

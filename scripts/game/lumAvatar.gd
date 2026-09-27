@@ -187,9 +187,16 @@ func _build_animation_tree() -> void:
         animation_tree.active = false
         return
 
+    # Callback-mode changes and first activation reset playback to Start.
+    # An explicit entry transition must always resolve to the real idle.
+    var entry := AnimationNodeStateMachineTransition.new()
+    entry.advance_mode = AnimationNodeStateMachineTransition.ADVANCE_MODE_AUTO
+    state_machine.add_transition("Start", "Idle", entry)
     animation_tree.tree_root = state_machine
     animation_tree.anim_player = animation_tree.get_path_to(animation_player)
     animation_tree.active = true
+    # Initialize playback before requesting its initial state (cold CI/device startup).
+    animation_tree.advance(0.0)
 
 func _state_name_for_animation(animation_name: String, index: int) -> StringName:
     var lowered := animation_name.to_lower()
@@ -209,6 +216,7 @@ func _start_neutral_state() -> void:
                 var lowered := String(animation_key)
                 if lowered.contains("idle") or lowered.contains("clip0") or lowered == "reset":
                     playback.start(_animation_states[animation_key], true)
+                    animation_tree.advance(0.0)
                     return
             if not _animation_states.is_empty():
                 playback.start(_animation_states.values()[0], true)
@@ -319,6 +327,7 @@ func play_motion_hint(token: String) -> bool:
             for animation_key in _animation_states:
                 if String(animation_key).contains(needle):
                     playback.start(_animation_states[animation_key], true)
+                    animation_tree.advance(0.0)
                     return true
 
     for animation_name in animation_player.get_animation_list():

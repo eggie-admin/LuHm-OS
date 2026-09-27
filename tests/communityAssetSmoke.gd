@@ -40,6 +40,19 @@ func _run() -> void:
             push_error("COMMUNITY ASSET INSTANTIATE FAILED: %s" % path)
             quit(1)
             return
+        if "/factory/" in path or "/city-industrial/" in path:
+            var textured := false
+            for child in instance.find_children("*", "MeshInstance3D", true, false):
+                var mesh := child as MeshInstance3D
+                for surface in range(mesh.mesh.get_surface_count()):
+                    var material := mesh.get_active_material(surface) as BaseMaterial3D
+                    if material != null and material.albedo_texture != null:
+                        textured = true
+            if not textured:
+                push_error("COMMUNITY TEXTURE MISSING: %s" % path)
+                instance.free()
+                quit(1)
+                return
         instance.free()
         loaded += 1
     var dress := (load("res://scripts/game/communitySetDress.gd") as Script).new() as Node3D
