@@ -1,0 +1,45 @@
+name: LuHm Oni Pet Activity Dock Audit
+
+on:
+  push:
+    paths:
+      - 'assets/pet/oni/**'
+      - 'doctrine/ONI_PET_ACTIVITY_DOCK_V2.json'
+      - 'scripts/oniPetActivityRuntime.py'
+      - 'frontEnd/index.html'
+      - 'frontEnd/oni-activity.css'
+      - 'frontEnd/jquery/luhm.oni.activity.js'
+      - 'tests/testOniPetActivity.py'
+      - '.github/workflows/oni-pet-activity-audit.yml'
+  pull_request:
+    paths:
+      - 'assets/pet/oni/**'
+      - 'doctrine/ONI_PET_ACTIVITY_DOCK_V2.json'
+      - 'scripts/oniPetActivityRuntime.py'
+      - 'frontEnd/index.html'
+      - 'frontEnd/oni-activity.css'
+      - 'frontEnd/jquery/luhm.oni.activity.js'
+      - 'tests/testOniPetActivity.py'
+      - '.github/workflows/oni-pet-activity-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  activity-dock-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Python activity contract
+        run: |
+          python3 -m py_compile scripts/oniPetActivityRuntime.py
+          python3 tests/testOniPetActivity.py
+      - name: Browser activity adapter syntax
+        run: node --check frontEnd/jquery/luhm.oni.activity.js
+      - name: Manifest JSON integrity
+        run: |
+          python3 -m json.tool assets/pet/oni/manifest.json >/dev/null
+          python3 -m json.tool doctrine/ONI_PET_ACTIVITY_DOCK_V2.json >/dev/null
