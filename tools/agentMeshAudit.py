@@ -11,6 +11,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 REQUIRED = [
     "agents/luhm_mesh.py",
     "agents/requirements.txt",
+    "agents/requirements.lock",
     "agents/README.md",
     "assets/system/luhmAgentMesh.json",
     "scripts/game/agentMeshContract.gd",
@@ -46,6 +47,7 @@ def main() -> int:
     installer = text("deploy/installLuhmAgentMesh.sh")
     host_receipt = text("tools/agentHostReceipt.py")
     build = text("scripts/buildCathedralWebglass.sh")
+    lock = text("agents/requirements.lock")
 
     if contract.get("manager") != "Lum":
         fail("manager drift")
@@ -58,8 +60,13 @@ def main() -> int:
         if android.get(key) is not False:
             fail(f"android boundary drift: {key}")
 
-    if "openai-agents==0.22.3" not in text("agents/requirements.txt"):
+    if "openai-agents==0.22.3" not in text("agents/requirements.txt") or "openai-agents==0.22.3" not in lock:
         fail("SDK pin drift")
+    for pin in ("openai==3.19.2", "mcp==2.2.0", "pydantic==2.13.5"):
+        if pin not in lock:
+            fail("transitive dependency lock drift: " + pin)
+    if doctrine.get("openai", {}).get("requirementsLock") != "agents/requirements.lock":
+        fail("dependency lock doctrine drift")
     if doctrine.get("openai", {}).get("wheelSha256Observed") != "41dec9e2e703db32a627bf0290f3721a6ca37405603a8cb654213356dbb8ee9d":
         fail("OpenAI SDK provenance hash drift")
     if doctrine.get("openai", {}).get("externalTracingDefault") is not False or doctrine.get("openai", {}).get("traceSensitiveData") is not False:
@@ -90,17 +97,11 @@ def main() -> int:
         if item not in denied:
             fail("release boundary weakened: " + item)
 
-    for hardening in (
-        "EnvironmentFile=/home/eggie/.secrets/luhm-agent.env",
-        "Environment=OPENAI_AGENTS_DISABLE_TRACING=1",
-        "NoNewPrivileges=true",
-        "ProtectSystem=strict",
-        "CapabilityBoundingSet=",
-    ):
+    for hardening in ("EnvironmentFile=/home/eggie/.secrets/luhm-agent.env", "Environment=OPENAI_AGENTS_DISABLE_TRACING=1", "NoNewPrivileges=true", "ProtectSystem=strict", "CapabilityBoundingSet="):
         if hardening not in service:
             fail("systemd hardening drift: " + hardening)
 
-    for marker in ("--apply", "stat -c '%a'", "sudo systemctl", "--allow-pending-live"):
+    for marker in ("--apply", "stat -c '%a'", "--no-deps", "requirements.lock", "sudo systemctl", "--allow-pending-live"):
         if marker not in installer:
             fail("host installer fail-closed marker missing: " + marker)
     for marker in ("--live-smoke", "providerKeyRecorded", "GREEN_HOST_RUNTIME", "traceSensitiveData"):
@@ -123,6 +124,7 @@ def main() -> int:
         fail("device green law drift")
 
     print("AGENT_MESH_AUDIT=PASS")
+    print("DEPENDENCY_LOCK=PINNED_NO_DEPS")
     print("ANDROID_PROVIDER_SECRET=NONE")
     print("ANDROID_OPENAI_RUNTIME=NONE")
     print("ANDROID_INTERNET_PERMISSION=DENIED")

@@ -11,6 +11,8 @@
     "version": "0.22.3",
     "pypiReleaseDate": "2026-09-17",
     "wheelSha256Observed": "41dec9e2e703db32a627bf0290f3721a6ca37405603a8cb654213356dbb8ee9d",
+    "requirementsLock": "agents/requirements.lock",
+    "dependencyInstallMode": "PINNED_NO_DEPS_THEN_PIP_CHECK",
     "lumModelDefault": "gpt-5.6-sol",
     "oniModelDefault": "gpt-5.6-terra",
     "criticModelDefault": "gpt-5.6-sol",
@@ -56,6 +58,7 @@
   "ci": {
     "workflow": ".github/workflows/luhm-agent-final-system.yml",
     "requires": [
+      "locked dependency install + pip check",
       "SDK import + construction self-test",
       "agentMeshAudit.py",
       "full Cathedral Android build",
