@@ -1,4 +1,4 @@
-name: LuHm Crown Cathedral Deployment
+name: LuHm Full Game Crown Cathedral Deployment
 
 on:
   workflow_dispatch:
@@ -13,7 +13,9 @@ on:
       - 'scripts/**'
       - 'host/**'
       - 'assets/community/**'
+      - 'assets/donor/**'
       - 'assets/nexus/**'
+      - 'native/**'
       - 'tools/**'
       - 'tests/**'
       - 'doctrine/**'
@@ -24,7 +26,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: crown-cathedral-${{ github.event.pull_request.number || github.ref }}
+  group: luhm-full-game-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -32,30 +34,34 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
-      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6
         with:
           distribution: temurin
           java-version: '17'
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: '24'
 
-      - name: Static Crown, Cathedral, agent and asset gates
+      - name: Static LuHm full-game, Crown, agent and asset gates
         run: |
           set -euo pipefail
+          python3 -m json.tool doctrine/luhmFullGameDoctrine-20260927.json >/dev/null
+          python3 -m json.tool doctrine/luhmFullGameSourceTruth-20260927.json >/dev/null
+          python3 -m json.tool assets/donor/luhm-game-donors.json >/dev/null
           python3 -m json.tool doctrine/crownCathedralDeployment-20260927.json >/dev/null
           python3 -m json.tool doctrine/reconciledCoffeeHouseLumCandidate-20260927.json >/dev/null
           python3 -m json.tool doctrine/finalCoffeeHouseMutation-20260927.json >/dev/null
           python3 -m json.tool doctrine/openAiLumOniDeployment-20260927.json >/dev/null
           python3 -m json.tool doctrine/finalSystemSourceTruth-20260927.json >/dev/null
           python3 -m json.tool assets/nexus/manifest.example.json >/dev/null
-          python3 -m py_compile host/openai/lumHost.py scripts/agentMeshRuntime.py tests/agentMeshSmoke.py tests/hostOpenAiAdapterSmoke.py tools/openAiLumOniAudit.py tools/finalMutationAudit.py tools/finalSystemAudit.py tools/nexusAssetAudit.py tools/stageNexusAssets.py tools/blender/buildCoffeeHouse.py tools/crownCathedralAudit.py
+          python3 -m py_compile host/openai/lumHost.py scripts/agentMeshRuntime.py tests/agentMeshSmoke.py tests/hostOpenAiAdapterSmoke.py tools/openAiLumOniAudit.py tools/finalMutationAudit.py tools/finalSystemAudit.py tools/nexusAssetAudit.py tools/stageNexusAssets.py tools/stageLuhmGameDonors.py tools/luhmFullGameAudit.py tools/blender/buildCoffeeHouse.py tools/crownCathedralAudit.py
+          python3 tools/luhmFullGameAudit.py
           python3 tools/crownCathedralAudit.py
           python3 tests/agentMeshSmoke.py
           python3 tests/hostOpenAiAdapterSmoke.py
@@ -65,13 +71,14 @@ jobs:
           python3 tools/communityAssetAudit.py
           python3 host/openai/lumHost.py --status
           grep -q 'exclude_filter="host/\*\*"' export_presets.cfg
+          grep -q 'permissions/internet=false' export_presets.cfg
 
-      - name: Full Cathedral release-candidate Android build
+      - name: Full LuHm game release-candidate Android forge
         env:
           SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: scripts/buildCathedralReleaseCandidate.sh
+        run: bash scripts/buildLuhmFullGameRelease.sh
 
-      - name: Exact Crown Cathedral scene smoke
+      - name: Exact LuHm full-game Crown Cathedral scene smoke
         run: |
           set -euo pipefail
           GODOT="$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64"
@@ -84,19 +91,21 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p build/final-mutation build/crown-cathedral
+          python3 tools/luhmFullGameAudit.py --with-donor-receipt --output build/final-mutation/luhm-full-game-audit.json
           python3 tools/finalSystemAudit.py \
             --build-dir build/android \
             --source-sha "$SOURCE_SHA" \
             --output build/final-mutation/system-audit.json
-          printf 'source_sha=%s\nstatus=CROWN_CATHEDRAL_EXACT_HEAD_CI_PROOF\nscene=crown-cathedral+japanese-kissaten+industrial-riverwalk\nlum=RIGGED_EXTERNAL_REQUIRED_VISIBLE_HEIGHT_1.70_TO_2.10M\nlum_target_height_m=1.90\ncommunity_assets_runtime=77_OF_77\ncommunity_license=CC0\nagent_mesh=CI_CONTRACT_PROVEN\nopenai_host_adapter=MOCK_PROVEN_LIVE_RECEIPT_REQUIRED\napk_mode=RELEASE_CANDIDATE_NON_DEBUGGABLE\nnexus_payload_claim=private-sidecar-only-none-in-shared-candidate\nphone_proof=PENDING_NEW_EXACT_BUILD\ncanonical_promotion=PENDING_CROWN_AFTER_DEVICE_PROOF\nproduction_signing=PENDING_CROWN_OWNED_KEY\n' "$SOURCE_SHA" > build/crown-cathedral/receipt.txt
+          printf 'source_sha=%s\nstatus=LUHM_FULL_GAME_CROWN_CATHEDRAL_EXACT_HEAD_CI_PROOF\nproduct_scope=LUHM_OS_FULL_GAME_ONLY\nscene=crown-cathedral+japanese-kissaten+industrial-riverwalk+owned-donor-gallery\nlum=RIGGED_EXTERNAL_REQUIRED_VISIBLE_HEIGHT_1.70_TO_2.10M\nlum_target_height_m=1.90\ncommunity_assets_runtime=77_OF_77\ncommunity_license=CC0\nowned_game_donors=2_HASH_PINNED_DRIVE_STAGED\nkai9000=DONOR_ONLY_NOT_AUTHORITY\nwidget_authority=false\nprivate_relic_payloads=false\nagent_mesh=CI_CONTRACT_PROVEN\nopenai_host_adapter=MOCK_PROVEN_LIVE_RECEIPT_REQUIRED\napk_mode=RELEASE_CANDIDATE_NON_DEBUGGABLE\nnexus_payload_claim=private-sidecar-only-none-in-shared-candidate\nphone_proof=PENDING_NEW_EXACT_BUILD\ncanonical_promotion=PENDING_CROWN_AFTER_DEVICE_PROOF\nproduction_signing=PENDING_CROWN_OWNED_KEY\n' "$SOURCE_SHA" > build/crown-cathedral/receipt.txt
           cp build/crown-cathedral/static-audit.json build/final-mutation/crown-cathedral-static-audit.json
-          sha256sum doctrine/crownCathedralDeployment-20260927.json doctrine/finalSystemSourceTruth-20260927.json scripts/game/crownCathedralSetDress.gd scripts/game/communitySetDress.gd scripts/game/finalCoffeeHouseOverlay.gd tests/finalCoffeeHouseSmoke.gd > build/crown-cathedral/SHA256SUMS.txt
+          sha256sum doctrine/luhmFullGameDoctrine-20260927.json doctrine/luhmFullGameSourceTruth-20260927.json assets/donor/luhm-game-donors.json doctrine/crownCathedralDeployment-20260927.json doctrine/finalSystemSourceTruth-20260927.json scripts/game/crownCathedralSetDress.gd scripts/game/crownDonorGallery.gd scripts/game/communitySetDress.gd scripts/game/finalCoffeeHouseOverlay.gd tests/finalCoffeeHouseSmoke.gd > build/crown-cathedral/SHA256SUMS.txt
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: luhm-crown-cathedral-deployment-evidence
+          name: luhm-full-game-crown-cathedral-evidence
           path: |
             build/crown-cathedral/
+            build/luhm-game-donors/
             build/final-mutation/
             build/android/
           if-no-files-found: error
