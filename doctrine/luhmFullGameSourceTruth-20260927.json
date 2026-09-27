@@ -1,0 +1,53 @@
+{
+  "schema": "luhm-os.full-game-source-truth.v1",
+  "date": "2026-09-27",
+  "product": "LuHm OS",
+  "scope": "FULL_GAME",
+  "authority": "Professor",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonical_repository": "eggie-admin/LuHm-OS",
+  "canonical_main": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+  "canonical_main_policy": "UNCHANGED_UNTIL_EXACT_DEVICE_PROOF_AND_EXPLICIT_CROWN_PROMOTION",
+  "candidate_branch": "candidate/crown-cathedral-deployment-20260927",
+  "candidate_baseline_green_head": "678e56f913bf96f564cac203082fedf6d6039236",
+  "current_candidate_head": "DERIVED_AT_CI_RUNTIME",
+  "game_doctrine": "doctrine/luhmFullGameDoctrine-20260927.json",
+  "deployment_doctrine": "doctrine/crownCathedralDeployment-20260927.json",
+  "system_truth": "doctrine/finalSystemSourceTruth-20260927.json",
+  "game_layers": {
+    "world": "Crown Cathedral + Japanese kissaten + Detroit industrial neon RiverWalk",
+    "lum": "rigged external Drive GLB, target rendered height 1.90m",
+    "community": "77 Kenney CC0 GLBs plus required texture sidecars from immutable source commit",
+    "owned_donors": "hash-pinned Drive-staged LuHm game art derived from rights-gated KAI9000/Project Hydra donor inventory",
+    "webglass": "local packaged Android WebView cockpit with network loads blocked",
+    "nexus": "optional local private rights-gated sidecar, no shared payload required",
+    "openai": "separate host-only adapter and live receipt; never APK credential authority"
+  },
+  "donor_boundary": {
+    "manifest": "assets/donor/luhm-game-donors.json",
+    "kai9000_authority": false,
+    "widget_project_authority": false,
+    "private_relic_payloads": false,
+    "build_time_network_only": true,
+    "runtime_network": false
+  },
+  "proof_chain": [
+    "static full-game scope audit",
+    "rights-gated donor staging with exact hashes",
+    "77 community asset staging with provenance",
+    "Drive Lum hash verification",
+    "Godot import and runtime smokes",
+    "exported PCK donor scene smoke",
+    "release-candidate Android export",
+    "package/signature/16K/no-INTERNET/no-debuggable checks",
+    "physical Samsung exact-build proof",
+    "explicit Crown canonical promotion"
+  ],
+  "external_hard_stops": [
+    "physical Samsung proof for the current exact candidate head",
+    "persistent Crown-owned Android signing identity",
+    "live OpenAI host receipt",
+    "explicit Professor canonical promotion"
+  ],
+  "unknown_is_not_green": true
+}
