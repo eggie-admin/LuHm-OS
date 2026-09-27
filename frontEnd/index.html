@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./oni-activity.css">
   <link rel="stylesheet" href="./chat-workbench.css">
+  <link rel="stylesheet" href="./proof-viewer.css">
 </head>
 <body>
   <main class="cockpit" data-luhm-cockpit>
@@ -49,6 +50,7 @@
         <button class="chatQuickAction" type="button" data-chat-action="build">Build / test</button>
         <button class="chatQuickAction" type="button" data-chat-action="fix">Fix bug</button>
         <button class="chatQuickAction" type="button" data-chat-action="assets">Assets</button>
+        <button class="chatQuickAction" type="button" data-chat-action="proofs">Proofs</button>
         <button class="chatQuickAction" type="button" data-chat-action="research">Research</button>
         <button class="chatQuickAction" type="button" data-chat-action="drive">Drive install</button>
         <button class="chatQuickAction" type="button" data-tone="pink" data-chat-action="crown">Prepare Crown</button>
@@ -84,6 +86,22 @@
       </div>
     </section>
 
+    <aside class="proofViewer" hidden data-luhm-proof-viewer aria-label="Embedded proof viewer">
+      <div class="proofViewerHeader">
+        <div class="proofViewerTitle"><small data-proof-kind>PROOF</small><strong data-proof-title>Evidence</strong></div>
+        <div class="proofViewerTools">
+          <a class="proofViewerButton" href="#" target="_blank" rel="noopener noreferrer" hidden data-proof-external>Open source</a>
+          <button class="proofViewerButton" type="button" data-proof-pin>Pin receipt</button>
+          <button class="proofViewerButton" type="button" aria-label="Close proof viewer" data-proof-close>×</button>
+        </div>
+      </div>
+      <div class="proofViewerMeta" data-proof-meta>
+        <div class="proofMetaCell"><small>status</small><span class="proofStatus" data-status="UNKNOWN" data-proof-status>UNKNOWN</span></div>
+      </div>
+      <div class="proofViewerBody"><div class="proofStage" data-proof-stage></div></div>
+      <div class="proofViewerFooter"><span><strong>Proof viewer</strong> · evidence display only</span><span>Raw Office HTML/scripts are never executed · live websites are sandboxed opt-in</span></div>
+    </aside>
+
     <aside class="systemLayer" hidden data-luhm-system-layer aria-label="Backend system layer">
       <div class="systemLayerCard"><div><small>NATIVE SYSTEM LAYER</small><h2>Backend Cathedral</h2><p>Godot remains the native system/game cockpit. The chat workbench emits typed events and never pretends a privileged backend action succeeded.</p></div><button type="button" data-luhm-backend-close>Close</button></div>
     </aside>
@@ -96,6 +114,7 @@
   <script src="./vendor/jquery-3.7.1.min.js"></script>
   <script src="./jquery/luhm.cockpit.js"></script>
   <script src="./jquery/luhm.oni.activity.js"></script>
+  <script src="./jquery/luhm.proof.viewer.js"></script>
   <script src="./jquery/luhm.chat.workbench.js"></script>
   <script src="./app.js"></script>
 </body>
