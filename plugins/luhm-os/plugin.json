@@ -1,25 +1,33 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "luhm-os",
-  "version": "0.1.0",
-  "description": "Evidence-gated LuHm OS workflow, Oni routing, proof inspection, and private local MCP bridge.",
+  "version": "0.2.0",
+  "description": "Evidence-gated LuHm OS workflow with Lum/Oni routing, proof inspection, and MCP-backed ChatGPT app support.",
   "author": {
-    "name": "Eggie Bagelface"
+    "name": "Eggie Bagelface",
+    "url": "https://github.com/eggie-admin/LuHm-OS"
   },
+  "homepage": "https://github.com/eggie-admin/LuHm-OS",
   "repository": "https://github.com/eggie-admin/LuHm-OS",
-  "keywords": ["luhm", "agents", "mcp", "proof", "android", "oni"],
+  "license": "GPL-3.0-only",
+  "keywords": ["luhm", "chatgpt", "agents", "mcp", "proof", "android", "oni", "developer-tools"],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "LuHm OS",
-        "shortDescription": "Evidence-gated Lum and Oni workflow",
-        "longDescription": "Use Lum as the single orchestrator for bounded Oni workflows, deterministic routing, source-truth inspection, and proof-aware status without granting release or publication authority.",
+        "shortDescription": "Lum + Oni evidence-gated developer cockpit",
+        "longDescription": "Use Lum as the single orchestrator for bounded Oni workflows, exact-source inspection, proof-aware status, and ChatGPT app tooling without granting release or publication authority.",
         "developerName": "Eggie Bagelface",
         "category": "Developer Tools",
         "capabilities": ["Read"],
+        "websiteURL": "https://github.com/eggie-admin/LuHm-OS",
+        "privacyPolicyURL": "https://github.com/eggie-admin/LuHm-OS/blob/main/plugins/luhm-os/PRIVACY.md",
+        "termsOfServiceURL": "https://github.com/eggie-admin/LuHm-OS/blob/main/plugins/luhm-os/TERMS.md",
+        "brandColor": "#7C3AED",
         "defaultPrompt": [
           "Use LuHm OS to inspect the current source truth and route this task through the smallest Oni workflow.",
-          "Use LuHm OS to explain what is actually GREEN and what evidence is still missing."
+          "Use LuHm OS to explain what is actually GREEN and what evidence is still missing.",
+          "Use LuHm OS to open the current proof/status cockpit for this task."
         ]
       }
     }
