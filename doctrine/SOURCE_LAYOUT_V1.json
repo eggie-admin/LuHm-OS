@@ -7,7 +7,8 @@
     "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
     "canonicalStatus": "doctrine/SOURCE_OF_TRUTH.json",
     "agentContract": "doctrine/AGENT_MESH_V2.json",
-    "orchestratorContract": "doctrine/LUM_ORCHESTRATOR_V2.json"
+    "orchestratorContract": "doctrine/LUM_ORCHESTRATOR_V2.json",
+    "creativeMediaContract": "doctrine/CREATIVE_MEDIA_PIPELINE_V1.json"
   },
   "modules": [
     {
@@ -26,7 +27,8 @@
         "tools/lumTaskRouter.py",
         "tools/doctorOniAudit.py",
         "doctrine/AGENT_MESH_V2.json",
-        "doctrine/LUM_ORCHESTRATOR_V2.json"
+        "doctrine/LUM_ORCHESTRATOR_V2.json",
+        "doctrine/CREATIVE_MEDIA_PIPELINE_V1.json"
       ],
       "owner": "Lum",
       "reviewer": "DrNao",
