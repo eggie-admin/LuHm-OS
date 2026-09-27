@@ -7,7 +7,6 @@ on:
       - 'candidate/final-coffeehouse-nexus-scene-20260927'
       - 'candidate/final-coffeehouse-lum-reconciled-20260927'
       - 'candidate/crown-cathedral-deployment-20260927'
-      - 'candidate/crown-cathedral-audit-hardening-20260927'
   pull_request:
     paths:
       - 'scenes/**'
