@@ -11,6 +11,7 @@ ROLES = {
     "Lum", "Kiri", "Tetsu", "Kaji", "Momo", "Shiori",
     "DrNao", "Kugi", "Fumi", "Sumi", "Koe", "Yume",
 }
+PET_STATES = {"idle", "thinking", "working", "inspect", "waiting", "success", "alert", "sleep"}
 
 
 def text(path: str) -> str:
@@ -36,6 +37,7 @@ def audit() -> None:
     plugin = data("plugins/luhm-os/plugin.json")
     plugin_mcp = data("plugins/luhm-os/mcp.json")
     marketplace = data(".agents/plugins/marketplace.json")
+    pet_manifest = data("assets/pet/oni/manifest.json")
 
     require(truth.get("source_law") == LAW, "source law drift")
     require(truth.get("unknown_is_not_green") is True, "UNKNOWN must not become GREEN")
@@ -60,12 +62,20 @@ def audit() -> None:
     require(topology.get("maxMutableSourceLanesPerCandidate") == 1, "mutable source lane drift")
     require(set(control.get("roles", {})) == ROLES, "canonical role roster drift")
 
+    require(set(pet_manifest.get("requiredStates", [])) == PET_STATES, "pet required-state contract drift")
+    require(set(pet_manifest.get("spriteSheet", {}).get("states", [])) == PET_STATES, "pet sprite-sheet state contract drift")
+    require(pet_manifest.get("runtimeGreenRequiresExactAssetHashImportProof") is True, "pet runtime GREEN evidence law drift")
+
     require(deploy.get("schema") == "luhm-os.openai-lum-oni-deployment.v2", "OpenAI/Oni doctrine not reconciled")
     require(set(deploy.get("architecture", {}).get("roles", [])) == ROLES, "deployment roster incomplete")
     require(deploy.get("architecture", {}).get("android_provider_secrets") is False, "provider secret entered Android")
     require(deploy.get("architecture", {}).get("android_runtime_network_default") is False, "Android runtime network drift")
-    require(deploy.get("privateMcp", {}).get("mutationAuthority") is False, "MCP gained mutation authority")
-    require(deploy.get("privateMcp", {}).get("publicBindAllowed") is False, "MCP public bind authorized")
+    private_mcp = deploy.get("privateMcp", {})
+    require(private_mcp.get("mutationAuthority") is False, "MCP gained mutation authority")
+    require(private_mcp.get("publicBindAllowed") is False, "MCP public bind authorized")
+    require(private_mcp.get("bind") == "127.0.0.1:8788", "MCP doctrine bind drift")
+    require(private_mcp.get("chatgptPrivateDevelopmentPath") == "OpenAI Secure MCP Tunnel or another explicitly approved HTTPS bridge", "private ChatGPT MCP path drift")
+    require(private_mcp.get("directCloudTo127001Claim") is False, "direct cloud-to-loopback claim enabled")
     require(deploy.get("androidProofVault", {}).get("importVerdict") == "UNKNOWN_UNTIL_ADJUDICATED", "proof import authority drift")
 
     skill_paths = [
@@ -102,7 +112,7 @@ def audit() -> None:
     for token in (
         'host="127.0.0.1"', 'port=8788', 'stateless_http=True',
         "luhm_status", "luhm_agent_roster", "luhm_route_task", "luhm_proof_contract",
-        '"records", "proof"', "greenAuthority", "Secure MCP Tunnel",
+        '"records", "proof"', "greenAuthority",
     ):
         require(token in mcp_server, f"MCP source missing contract token: {token}")
     require('host="0.0.0.0"' not in mcp_server, "MCP public bind forbidden")
