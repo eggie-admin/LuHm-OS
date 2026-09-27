@@ -27,7 +27,7 @@ func _ready() -> void:
     enterWorldMode()
     if _webglass_available():
         game_hud.set_status("♛ CROWNED // GODOT WORLD + WEBGLASS")
-        kai_webview_bridge.show_cockpit("compact")
+        kai_webview_bridge.show_cockpit("bubble")
     else:
         game_hud.set_status("CROWN · AMBER // NATIVE FALLBACK")
 
@@ -90,7 +90,7 @@ func enterWorldMode() -> void:
     player_controller.set_world_active(true)
     if _webglass_available():
         _hide_native_hud_for_webglass()
-        kai_webview_bridge.show_cockpit("compact")
+        kai_webview_bridge.show_cockpit("bubble")
     if not intro_played:
         intro_played = true
         call_deferred("_play_intro")

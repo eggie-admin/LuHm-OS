@@ -18,17 +18,32 @@
   "full_game_source_truth": "doctrine/luhmFullGameSourceTruth-20260927.json",
   "goal": "Final LuHm OS Crown Cathedral Android full-game candidate with Cathedral-first presentation, visibly rigged Lum, full curated CC0 scene population, rights-gated LuHm donor art, caged local WebGlass, optional private Nexus sidecar, and evidence-gated human promotion.",
   "visual_mutation": {
-    "cathedral_first_camera": true,
-    "spawn_position": [0.0, 1.15, 6.8],
+    "cathedral_first_camera": false,
+    "spawn_position": [
+      0,
+      1.15,
+      12.0
+    ],
     "home_camera_yaw": "PI via one-time authored orbit",
-    "spring_length": 6.4,
-    "lum_socket": [0.0, 0.05, 13.35],
+    "spring_length": 1.6,
+    "lum_socket": [
+      0.0,
+      0.05,
+      13.35
+    ],
     "lum_target_visual_height_m": 1.9,
     "lum_height_policy": "measure imported MeshInstance3D hierarchy in rendered world coordinates after Godot import and normalize the avatar root",
     "lum_look_target_policy": "world-stable target preserved during avatar motion",
     "crown_facade": "original low-cost Godot geometry over the Japanese kissaten core",
     "riverwalk_role": "approach and exterior context rather than default focal composition",
-    "donor_gallery": "rights-cleared LuHm runtime derivatives vendored by exact size, SHA256 and Git blob identity with private Drive source provenance"
+    "donor_gallery": "rights-cleared LuHm runtime derivatives vendored by exact size, SHA256 and Git blob identity with private Drive source provenance",
+    "lum_first_camera": true,
+    "vertical_fov": 50,
+    "screen_height_fraction_gate": [
+      0.55,
+      0.9
+    ],
+    "opening_webglass_mode": "bubble"
   },
   "community_assets": {
     "selected": 77,
@@ -59,7 +74,10 @@
     "base_glb_sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
     "running_glb_sha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0",
     "external_model_required_by_scene_smoke": true,
-    "visible_height_required_m": {"min": 1.7, "max": 2.1}
+    "visible_height_required_m": {
+      "min": 1.7,
+      "max": 2.1
+    }
   },
   "webglass": {
     "runtime_identity": "LUHM_WEBGLASS",
@@ -88,7 +106,10 @@
     "production_signing_identity": "PENDING_EXTERNAL_CROWN_KEY"
   },
   "proof_gates": {
-    "static": ["tools/luhmFullGameAudit.py", "tools/crownCathedralAudit.py"],
+    "static": [
+      "tools/luhmFullGameAudit.py",
+      "tools/crownCathedralAudit.py"
+    ],
     "donors": "vendored derivative exact SHA256 + Git blob + rights + private Drive provenance ID + exported-PCK scene smoke",
     "scene": "tests/finalCoffeeHouseSmoke.gd",
     "rig": "tests/lumRigV2Phase1Smoke.gd",

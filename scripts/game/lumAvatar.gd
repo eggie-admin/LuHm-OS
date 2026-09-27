@@ -381,3 +381,8 @@ func _kill_pulse_tween() -> void:
     if _pulse_tween != null and _pulse_tween.is_valid():
         _pulse_tween.kill()
     _pulse_tween = null
+
+func commit_presentation_scale() -> void:
+    _kill_pulse_tween()
+    _home_scale = scale
+    _home_y = position.y

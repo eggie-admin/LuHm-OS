@@ -5,6 +5,7 @@ const CrownCathedralSetDressScript := preload("res://scripts/game/crownCathedral
 const CrownDonorGalleryScript := preload("res://scripts/game/crownDonorGallery.gd")
 const PrivateNexusSetDressScript := preload("res://scripts/game/privateNexusSetDress.gd")
 const TARGET_LUM_HEIGHT := 1.90
+const LumFocus := preload("res://scripts/game/lumFocus.gd")
 
 var applied := false
 
@@ -59,17 +60,10 @@ func _apply_final_mutation() -> void:
         halo.light_energy = 1.85
         halo.omni_range = 7.2
 
-    # Author the first readable view toward the +Z Cathedral volume.
-    # The previous neutral yaw restored the camera toward riverwalk scaffolding.
+    # A presentation module owns initial framing; movement and world stay intact.
     var player := runtime_root.get_node_or_null("PlayerController") as CharacterBody3D
-    if player != null:
-        player.position = Vector3(0.0, 1.15, 6.8)
-        player.set("spawn_point", player.position)
-        if player.has_method("orbit_by"):
-            player.call("orbit_by", Vector2(-PI, -0.04))
-        var spring := player.get_node_or_null("CameraYaw/CameraPitch/SpringArm3D") as SpringArm3D
-        if spring != null:
-            spring.spring_length = 6.4
+    if player != null and lum != null:
+        LumFocus.apply(player, lum)
 
     applied = true
     print("CROWN_CATHEDRAL_MUTATION=APPLIED")
@@ -81,6 +75,8 @@ func _normalize_visual_height(root_node: Node3D, target_height: float) -> void:
         return
     var factor: float = clampf(target_height / measured, 0.05, 200.0)
     root_node.scale *= factor
+    if root_node.has_method("commit_presentation_scale"):
+        root_node.call("commit_presentation_scale")
     var final_height: float = _measure_visual_height(root_node)
     print("CROWN_LUM_HEIGHT raw=%.4f factor=%.4f final=%.4f" % [measured, factor, final_height])
 

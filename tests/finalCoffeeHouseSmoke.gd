@@ -12,6 +12,9 @@ func _run() -> void:
     for _frame in range(8):
         await process_frame
 
+    # Let intro/pulse/restore finish; early node existence missed scale regressions.
+    await create_timer(6.0).timeout
+
     var world := game.get_node_or_null("NeonWorld") as Node3D
     assert(world != null)
     assert(world.get_node_or_null("CoffeeHouseSetDress") != null)
@@ -53,7 +56,21 @@ func _run() -> void:
 
     var player := game.get_node_or_null("PlayerController") as CharacterBody3D
     assert(player != null)
-    assert(player.position.z < 7.5)
+    assert(player.position.z > 10.0)
+    await physics_frame
+    await process_frame
+    var camera := player.get_node("CameraYaw/CameraPitch/SpringArm3D/Camera3D") as Camera3D
+    var size := root.get_visible_rect().size
+    var feet := lum.global_position + Vector3(0, 0.05, 0)
+    var head := feet + Vector3(0, lum_height, 0)
+    assert(not camera.is_position_behind(head))
+    var head_uv := camera.unproject_position(head) / size
+    var feet_uv := camera.unproject_position(feet) / size
+    var fraction := feet_uv.y - head_uv.y
+    assert(fraction > 0.55 and fraction < 0.90)
+    assert(head_uv.y > 0.02 and feet_uv.y < 0.98)
+    assert(absf(head_uv.x - 0.5) < 0.10)
+    print("LUM_FOCUS_PROJECTION=PASS height_fraction=%.3f" % fraction)
 
     var coffee := world.get_node_or_null("CoffeeHouseSetDress") as Node3D
     assert(coffee.get_node_or_null("KissatenFloor") != null)
