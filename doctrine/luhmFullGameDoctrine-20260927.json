@@ -1,5 +1,5 @@
 {
-  "schema": "luhm-os.full-game-doctrine.v2",
+  "schema": "luhm-os.full-game-doctrine.v3",
   "date": "2026-09-27",
   "product": "LuHm OS",
   "scope": "FULL_GAME",
@@ -11,9 +11,20 @@
     "auto_merge": false,
     "production_sign": false
   },
-  "status": "CROWN_CATHEDRAL_GAME_CANDIDATE_EXACT_HEAD_CI_REQUIRED",
+  "status": "CROWN_CATHEDRAL_HARDENING_CANDIDATE_EXACT_HEAD_CI_REQUIRED",
   "canonical_repository": "eggie-admin/LuHm-OS",
-  "candidate_branch": "candidate/crown-cathedral-deployment-20260927",
+  "candidate_branch": "candidate/crown-cathedral-audit-hardening-20260927",
+  "baseline_proven_green_head": "93bc11cbc1c09ecf6e18605985beebf4f9a4e8d5",
+  "current_candidate_head": "DERIVED_AT_CI_RUNTIME",
+  "authority_order": [
+    "doctrine/SOURCE_OF_TRUTH.json",
+    "doctrine/luhmFullGameSourceTruth-20260927.json",
+    "doctrine/luhmFullGameDoctrine-20260927.json",
+    "doctrine/crownCathedralDeployment-20260927.json",
+    "subsystem contracts",
+    "historical seals and donor records"
+  ],
+  "historical_seals_override_current_full_game": false,
   "game_identity": {
     "runtime": "Godot 4 native 3D game",
     "world": "Crown Cathedral over Japanese kissaten core and Detroit industrial neon RiverWalk",
@@ -25,7 +36,7 @@
     "Crown Cathedral authored facade",
     "Japanese kissaten interior",
     "industrial neon RiverWalk exterior",
-    "77 runtime Kenney CC0 environment assets",
+    "77 runtime Kenney CC0 environment assets plus required texture sidecars",
     "rigged external Lum GLB with visible-height contract",
     "LuHm-owned donor gallery from rights-cleared vendored derivatives with private Drive source provenance",
     "movement and camera controls",
@@ -55,6 +66,11 @@
       "weakening private Drive sharing to make CI pass"
     ]
   },
+  "compatibility_policy": {
+    "legacy_kai_named_android_paths": "BINARY_COMPATIBILITY_NAMES_ONLY",
+    "runtime_identity": "LUHM_WEBGLASS",
+    "authority_transfer_from_compatibility_names": false
+  },
   "network_boundary": {
     "shared_apk_internet_permission": false,
     "shared_apk_provider_secrets": false,
@@ -64,7 +80,7 @@
   },
   "green_law": {
     "source": "exact-head CI and static full-game scope audit",
-    "donors": "rights + private Drive provenance ID + vendored derivative size + SHA256 + exported-pack smoke",
+    "donors": "rights + private Drive provenance ID + vendored derivative size + SHA256 + Git blob identity + exported-pack smoke",
     "scene": "Cathedral + kissaten + 77 community assets + donor gallery + external rigged Lum",
     "apk": "release candidate + non-debuggable + no INTERNET + no shell profiling + signature + package + 16K alignment",
     "device": "physical Samsung install and runtime recording of the exact build",
@@ -72,8 +88,8 @@
     "production": "persistent Crown-owned Android signing identity and update path"
   },
   "not_green_without_evidence": [
-    "physical Samsung proof",
-    "persistent production signing",
+    "physical Samsung proof for the current exact candidate head",
+    "persistent production signing identity",
     "live OpenAI host receipt",
     "canonical main promotion",
     "private Nexus payload unless separately rights-proven"
