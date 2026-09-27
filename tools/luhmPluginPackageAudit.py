@@ -42,6 +42,7 @@ def audit() -> None:
         PLUGIN / "mcp.local.json",
         PLUGIN / "mcp.remote.example.json",
         PLUGIN / "README.md",
+        PLUGIN / "DEPLOYMENT.md",
         PLUGIN / "PRIVACY.md",
         PLUGIN / "TERMS.md",
         PLUGIN / "skills" / "luhm-agent-workflow" / "SKILL.md",
@@ -115,7 +116,9 @@ def audit() -> None:
         "autoDeployTrigger: checksPass",
         "healthCheckPath: /healthz",
         f"- {EXPECTED_FQDN}",
-        "renderSubdomainPolicy: disabled",
+        "renderSubdomainPolicy: enabled",
+        "python host/mcp/luhmMcpServer.py --check",
+        "python tools/luhmPluginPackageAudit.py",
         "LUHM_MCP_PROFILE",
         "value: production",
         "LUHM_MCP_FQDN",
@@ -125,6 +128,19 @@ def audit() -> None:
         "value: 3.12.11",
     ):
         require(phrase in render, f"Render enterprise deployment drift: {phrase}")
+
+    deployment = read(PLUGIN / "DEPLOYMENT.md")
+    for phrase in (
+        "mcp.eggiebagelface.art",
+        "DNS only",
+        "AAAA",
+        "letsencrypt.org",
+        "pki.goog",
+        "CROWN CUTOVER",
+        "OAuth 2.1",
+        "renderSubdomainPolicy: disabled",
+    ):
+        require(phrase in deployment, f"deployment runbook missing gate: {phrase}")
 
     skill = read(PLUGIN / "skills" / "luhm-agent-workflow" / "SKILL.md")
     for phrase in (
