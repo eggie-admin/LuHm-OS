@@ -19,6 +19,7 @@ BOUNDARY = ROOT / "doctrine/RELEASE_BOUNDARY.json"
 DONORS = ROOT / "assets/donor/luhm-game-donors.json"
 DONOR_RECEIPT = ROOT / "build/luhm-game-donors/receipt.json"
 SIGNING_SCRIPT = ROOT / "scripts/buildCathedralReleaseCandidate.sh"
+WEBVIEW_PATH = ROOT / "native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/KAIWebView.kt"
 
 REQUIRED_PATHS = [
     ROOT / "scenes/Main.tscn",
@@ -29,7 +30,7 @@ REQUIRED_PATHS = [
     ROOT / "scripts/game/crownDonorGallery.gd",
     ROOT / "scripts/game/lumAvatar.gd",
     ROOT / "scripts/game/playerController.gd",
-    ROOT / "native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/KAIWebView.kt",
+    WEBVIEW_PATH,
 ]
 
 
@@ -107,9 +108,13 @@ def main() -> int:
         require(sha256(file_path) == asset["sha256"], "RED_DONOR_RUNTIME_HASH")
         require(git_blob_sha1(file_path) == asset["git_blob_sha1"], "RED_DONOR_RUNTIME_GIT_BLOB")
 
-    webview = (ROOT / "native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/KAIWebView.kt").read_text(encoding="utf-8")
+    webview = WEBVIEW_PATH.read_text(encoding="utf-8")
     require("blockNetworkLoads = true" in webview, "RED_WEBGLASS_NETWORK_CAGE")
     require('private const val ORIGIN = "https://appassets.androidplatform.net"' in webview, "RED_WEBGLASS_ORIGIN_CAGE")
+    require('.put("bridge", "luhm-webglass")' in webview, "RED_WEBGLASS_LUHM_IDENTITY")
+    require('.put("aiHost", "external")' in webview, "RED_WEBGLASS_HOST_BOUNDARY")
+    require('.put("kai",' not in webview.lower(), "RED_KAI_RUNTIME_STATUS_LEAK")
+    require('.put("ollama",' not in webview.lower(), "RED_OLLAMA_RUNTIME_STATUS_LEAK")
 
     export = (ROOT / "export_presets.cfg").read_text(encoding="utf-8")
     require('exclude_filter="host/**"' in export, "RED_HOST_EXPORT_BOUNDARY")
@@ -161,6 +166,7 @@ def main() -> int:
         "kai9000_donor_only": True,
         "widget_authority": False,
         "compatibility_bridge_authority_limited": True,
+        "webglass_luhm_identity_green": True,
         "private_relic_payload_authority": False,
         "donor_manifest_green": True,
         "donor_format_gate_green": donor_format_green,
