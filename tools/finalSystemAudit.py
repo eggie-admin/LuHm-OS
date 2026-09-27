@@ -46,7 +46,8 @@ def main() -> int:
     doctrine = load_json(ROOT / "doctrine/openAiLumOniDeployment-20260927.json")
     if doctrine["authority"] != "Professor":
         fail("authority drift")
-    if doctrine["architecture"]["parallelism_max"] != 3:
+    architecture = doctrine.get("architecture", {})
+    if architecture.get("parallelism_max_support") != 3 or architecture.get("parallelism_max_builds") != 2:
         fail("parallelism drift")
     if doctrine["openai"]["credential_in_apk"] is not False:
         fail("provider secret boundary drift")
@@ -268,87 +269,42 @@ def main() -> int:
     if private_glbs:
         fail("private Nexus GLB present in shared CI candidate workspace")
 
-    live_openai = (ROOT / "build/openai-live/receipt.json").is_file()
-    device = (ROOT / "build/device/samsung-runtime-receipt.json").is_file()
-
-    canonical_hard_stop = (
-        "RED_PHYSICAL_SAMSUNG_RECEIPT_MISSING" if not device
-        else "AMBER_HUMAN_PROMOTION_REQUIRED"
-    )
-    production_distribution_hard_stop = (
-        "GREEN_CROWN_SIGNING_PRESENT" if production_signing
-        else "RED_CROWN_PERSISTENT_SIGNING_PENDING"
-    )
-    host_ai_hard_stop = (
-        "GREEN_OPENAI_LIVE_RECEIPT_PRESENT" if live_openai
-        else "RED_OPENAI_LIVE_RECEIPT_MISSING"
-    )
-
-    receipt = {
-        "schema": "luhm-os.final-system-audit.v4",
-        "product": "LuHm OS",
-        "scope": "FULL_GAME",
+    output = {
+        "schema": "luhm-os.final-system-audit.v3",
+        "status": "GREEN_STATIC_AND_BUILD" if production_signing else "GREEN_CANDIDATE_EPHEMERAL_SIGNING",
         "source_sha": args.source_sha,
-        "source_exact_head_ci": True,
-        "current_candidate_branch": CURRENT_BRANCH,
-        "baseline_proven_green_head": BASELINE_GREEN_HEAD,
-        "current_doctrine_converged": True,
-        "final_system_truth_converged": True,
-        "historical_seals_override_current_full_game": False,
-        "recovery_chain_reconciled": True,
-        "game_deployment_candidate_green": True,
-        "full_game_scope_green": True,
-        "apk_release_candidate_green": True,
-        "apk_debuggable": False,
-        "apk_internet_permission": False,
-        "apk_profileable_shell": False,
-        "host_openai_in_apk": False,
+        "canonical_main": CANONICAL_MAIN,
+        "baseline_green_head": BASELINE_GREEN_HEAD,
+        "current_head_policy": "DERIVED_AT_CI_RUNTIME",
+        "full_game_authority_converged": True,
+        "kai9000_donor_only": True,
+        "widget_authority": False,
         "webglass_runtime_identity": "LUHM_WEBGLASS",
-        "legacy_kai_named_paths_authority": False,
-        "agent_mesh_contract_green": True,
-        "lum_rig_green": True,
-        "lum_bundle_sha256": LUM_BUNDLE_SHA,
+        "android_provider_secrets": False,
+        "android_internet_permission": False,
+        "android_profileable_shell": False,
+        "community_asset_count": EXPECTED_COMMUNITY_COUNT,
+        "luhm_game_donor_count": EXPECTED_DONOR_COUNT,
+        "luhm_game_donor_total_bytes": donor_bytes,
+        "donor_source_vault_private": True,
+        "donor_source_vault_ci_fetch": False,
         "lum_base_sha256": observed_base_sha,
         "lum_running_sha256": observed_running_sha,
-        "community_assets_green": True,
-        "community_asset_count": community["asset_count"],
-        "community_asset_bytes": community["total_asset_bytes"],
-        "community_license": community["license"],
-        "community_source_commit": community["source_commit"],
-        "game_donors_green": True,
-        "game_donor_count": donor_receipt["asset_count"],
-        "game_donor_bytes": donor_bytes,
-        "game_donor_runtime_delivery": donor_receipt["runtime_delivery"],
-        "game_donor_private_source_vault": True,
-        "game_donor_source_vault_ci_fetch": False,
-        "kai9000_donor_only": True,
-        "kai9000_widget_authority": False,
-        "private_legacy_relic_payload_authority": False,
-        "nexus_private_sidecar_policy_green": True,
-        "nexus_private_payload_in_shared_candidate": False,
-        "physical_samsung_green": device,
-        "canonical_main_promoted": False,
+        "package": "art.eggiebagelface.luhmos.cathedraltoy.atelier",
+        "target_sdk": 36,
         "signing_mode": signing_mode,
         "production_signing": production_signing,
-        "openai_live_green": live_openai,
-        "canonical_hard_stop": canonical_hard_stop,
-        "production_distribution_hard_stop": production_distribution_hard_stop,
-        "host_ai_hard_stop": host_ai_hard_stop,
-        "hard_stop": canonical_hard_stop,
-        "enterprise_green": False
+        "publication_authority": False,
+        "promotion": False,
+        "physical_device_proof": "PENDING_CURRENT_EXACT_BUILD",
+        "persistent_signing": "GREEN" if production_signing else "PENDING",
+        "branch_controls": "EXTERNAL_ADMIN_GATE",
+        "live_openai_host": "PENDING_SEPARATE_HOST_LANE",
+        "unknown_is_not_green": True,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
-    print("FINAL_SYSTEM_AUDIT=PASS")
-    print("LUHM_FULL_GAME=PASS")
-    print("AUTHORITY_CONVERGENCE=PASS")
-    print("LUM_RIG=PASS")
-    print(f"COMMUNITY_ASSETS=PASS count={community['asset_count']}")
-    print(f"GAME_DONORS=PASS count={donor_receipt['asset_count']} bytes={donor_bytes}")
-    print("NEXUS_SHARED_PAYLOAD=NONE")
-    print("CANONICAL_HARD_STOP=" + canonical_hard_stop)
-    print("PRODUCTION_SIGNING_GATE=" + production_distribution_hard_stop)
-    print("HOST_AI_GATE=" + host_ai_hard_stop)
+    args.output.write_text(json.dumps(output, indent=2) + "\n", encoding="utf-8")
+    print("LUHM_FINAL_SYSTEM_AUDIT_GREEN", json.dumps(output, sort_keys=True))
     return 0
 
 
