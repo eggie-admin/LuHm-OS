@@ -15,6 +15,9 @@ on:
       - 'native/kaiwebview/**'
       - 'cockpit/**'
       - 'tools/lumAgentWorkflowAudit.py'
+      - 'tools/lumBossOniSmoke.py'
+      - 'tools/lumTaskRouter.py'
+      - 'scripts/agentMeshRuntime.py'
       - '.github/workflows/luhm-agent-workflow-audit.yml'
 
 permissions:
@@ -43,7 +46,7 @@ jobs:
           echo "EXACT_SOURCE=$ACTUAL"
       - name: Python syntax
         run: |
-          python3 -m py_compile host/mcp/luhmMcpServer.py host/openai/lumHost.py tools/lumAgentWorkflowAudit.py tools/lumTaskRouter.py scripts/agentMeshRuntime.py
+          python3 -m py_compile host/mcp/luhmMcpServer.py host/openai/lumHost.py tools/lumAgentWorkflowAudit.py tools/lumBossOniSmoke.py tools/lumTaskRouter.py scripts/agentMeshRuntime.py
       - name: JSON contracts
         run: |
           python3 -m json.tool doctrine/SOURCE_OF_TRUTH.json >/dev/null
@@ -59,6 +62,10 @@ jobs:
           node --check cockpit/app.js
       - name: Deterministic doctrine and security audit
         run: python3 tools/lumAgentWorkflowAudit.py
+      - name: Boss to mini Oni deterministic smoke
+        env:
+          EXPECTED_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: python3 tools/lumBossOniSmoke.py
       - name: Install pinned MCP SDK
         run: python3 -m pip install --disable-pip-version-check -r host/mcp/requirements.txt
       - name: MCP source self-check
