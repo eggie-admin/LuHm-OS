@@ -1,8 +1,4 @@
 extends Node3D
-
-# Cathedral runtime authority:
-# Godot owns the native world. WebGlass is a caged local control surface.
-# Runtime capabilities are loaded from doctrine and fail closed.
 const DoctrineGateScript := preload("res://scripts/core/doctrineGate.gd")
 const NeonWorldScript := preload("res://scripts/game/neonWorld.gd")
 const PlayerControllerScript := preload("res://scripts/game/playerController.gd")
@@ -13,7 +9,6 @@ const KaiWebViewBridgeScript := preload("res://scripts/platform/kaiWebViewBridge
 const CharacterCreatorRuntimeScript := preload("res://scripts/game/characterCreatorRuntime.gd")
 const RitualDirectorScript := preload("res://scripts/game/ritualDirector.gd")
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
-
 var doctrine_gate: Node
 var neon_world: Node3D
 var player_controller: CharacterBody3D
@@ -41,38 +36,30 @@ func _build_runtime() -> void:
     doctrine_gate = DoctrineGateScript.new()
     doctrine_gate.name = "RuntimeDoctrineGate"
     add_child(doctrine_gate)
-
     neon_world = NeonWorldScript.new()
     neon_world.name = "NeonWorld"
     add_child(neon_world)
-
     player_controller = PlayerControllerScript.new()
     player_controller.name = "PlayerController"
     player_controller.position = neon_world.player_spawn
     add_child(player_controller)
-
     game_hud = GameHudScript.new()
     game_hud.name = "GameHud"
     add_child(game_hud)
-
     cutscene_director = CutsceneDirectorScript.new()
     cutscene_director.name = "CutsceneDirector"
     add_child(cutscene_director)
-
     cutscene_bridge = CutsceneBridgeScript.new()
     cutscene_bridge.name = "CutsceneBridge"
     add_child(cutscene_bridge)
     cutscene_bridge.configure(cutscene_director, player_controller, neon_world, game_hud)
-
     kai_webview_bridge = KaiWebViewBridgeScript.new()
     kai_webview_bridge.name = "KaiWebViewBridge"
     add_child(kai_webview_bridge)
-
     character_creator = CharacterCreatorRuntimeScript.new()
     character_creator.name = "CharacterCreatorRuntime"
     add_child(character_creator)
     character_creator.configure(neon_world, kai_webview_bridge)
-
     ritual_director = RitualDirectorScript.new()
     ritual_director.name = "WitchingHourRitualDirector"
     add_child(ritual_director)
