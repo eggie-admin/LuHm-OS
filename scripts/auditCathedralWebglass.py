@@ -15,9 +15,11 @@ def require(cond, label):
 doctrine = json.loads(read("doctrine/cathedralWebglassFinal-20260926.json"))
 atelier = json.loads(read("doctrine/oniAtelierBodyForge-20260926.json"))
 ritual = json.loads(read("doctrine/witchingHourThreeRitual-20260926.json"))
+runtime_doctrine = json.loads(read("doctrine/runtimeDoctrine-20260926.json"))
 require(doctrine["authority"] == "Professor", "Crown authority remains human")
 require(atelier["authority"] == "Professor", "Oni Atelier remains Crown-gated")
 require(ritual["authority"]["crown"] == "Professor", "Witching Hour remains Crown-gated")
+require(runtime_doctrine["authority"]["crown"] == "Professor", "runtime doctrine remains Crown-gated")
 require(doctrine["runtime"]["world_owner"].startswith("Godot 4"), "Godot owns world")
 require(doctrine["runtime"]["ui_owner"].startswith("caged local Android WebView"), "WebView owns glass only")
 require(atelier["runtime"]["mutationMode"] == "runtime_non_destructive", "BodyForge is non-destructive")
@@ -75,9 +77,11 @@ deck = read("cockpit/jquery/luhm.deck.js")
 for msg in ["input.axis", "camera.delta", "window.mode", "app.background", "app.quit", "avatar.tune", "avatar.reset", "avatar.inspect", "ritual.start"]:
     require(msg in deck, f"jQuery deck routes typed action: {msg}")
 
+build = runtime_doctrine["build"]
 export = read("export_presets.cfg")
-require('permissions/internet=false' in export, "APK internet permission disabled")
-require('art.eggiebagelface.luhmos.cathedraltoy.witchinghour' in export, "side-by-side Witching Hour package identity")
-require('version/code=126' in export, "Witching Hour version code")
+require("permissions/internet=false" in export, "APK internet permission disabled")
+require(f'package/unique_name="{build["package"]}"' in export, "runtime-doctrine package identity")
+require(f'version/code={build["version_code"]}' in export, "runtime-doctrine version code")
+require(f'version/name="{build["version_name"]}"' in export, "runtime-doctrine version name")
 
-print("CATHEDRAL_WITCHING_HOUR_10_PASS=GREEN")
+print("CATHEDRAL_FULL_MUTATION_10_PASS=GREEN")
