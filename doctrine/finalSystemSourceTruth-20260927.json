@@ -1,5 +1,5 @@
 {
-  "schema": "luhm-os.final-system-source-truth.v3",
+  "schema": "luhm-os.final-system-source-truth.v4",
   "date": "2026-09-27",
   "product": "LuHm OS",
   "scope": "FULL_GAME",
@@ -11,27 +11,31 @@
     "production_sign": false
   },
   "status_model": "DERIVED_FROM_EXACT_RECEIPTS_NOT_STATIC_GREEN_LABEL",
-  "candidate_branch": "candidate/crown-cathedral-deployment-20260927",
+  "candidate_branch": "candidate/crown-cathedral-audit-hardening-20260927",
   "candidate_lineage": {
     "canonical_main": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
     "rich_scene_source": "candidate/final-coffeehouse-nexus-scene-20260927",
     "reconciled_source": "candidate/final-coffeehouse-lum-reconciled-20260927",
-    "reconciled_exact_head": "6697e9dff382d17c4829abfe36c4d115fb05fd33",
-    "crown_prior_green_head": "678e56f913bf96f564cac203082fedf6d6039236"
+    "crown_deployment_source": "candidate/crown-cathedral-deployment-20260927",
+    "crown_hardening_source": "candidate/crown-cathedral-audit-hardening-20260927",
+    "baseline_proven_green_head": "93bc11cbc1c09ecf6e18605985beebf4f9a4e8d5",
+    "current_candidate_head": "DERIVED_AT_CI_RUNTIME"
   },
   "canonical_main_policy": "UNCHANGED_UNTIL_HUMAN_PROMOTION_AFTER_EXACT_DEVICE_PROOF",
   "full_game_doctrine": "doctrine/luhmFullGameDoctrine-20260927.json",
   "full_game_source_truth": "doctrine/luhmFullGameSourceTruth-20260927.json",
   "deployment_contract": "doctrine/crownCathedralDeployment-20260927.json",
+  "root_source_truth": "doctrine/SOURCE_OF_TRUTH.json",
+  "historical_seals_override_current_full_game": false,
   "layers": {
     "godot_scene": "Crown Cathedral presentation over Japanese kissaten core and Detroit industrial neon RiverWalk",
     "visual_direction": "Cathedral-first authored spawn and camera; riverwalk is approach/context rather than default focal view",
-    "lum_rig": "SHA-pinned Drive donor required by build; runtime visible-height normalization targets 1.90 m; external rig required by scene smoke",
+    "lum_rig": "SHA-pinned Drive donor required by build; runtime visible-height normalization targets 1.90 m; external rig required by scene smoke; look target remains world-stable during avatar motion",
     "community_assets": "all 77 selected Kenney CC0 GLBs from immutable commit 3694c6879e487c108f55677be7dd2ca75b07cc3b are runtime participants with required texture sidecars; build-time fetch only; no runtime network",
-    "game_donors": "two rights-cleared LuHm runtime derivatives are vendored by immutable byte size and SHA256; full source/provenance stays private in Google Drive; KAI9000 remains donor inventory only and has no runtime/doctrine authority",
+    "game_donors": "rights-cleared LuHm runtime derivatives are vendored by immutable byte size, SHA256 and Git blob identity; full source/provenance stays private in Google Drive; KAI9000 remains donor inventory only and has no runtime/doctrine authority",
     "agent_mesh": "Lum + Kiri/Tetsu/Momo + Shiori + Kugi fail-closed contract",
     "openai": "host-only Responses API adapter; no provider secret or host adapter in APK; live receipt remains a separate host deployment gate",
-    "android": "release-mode candidate; non-debuggable; no INTERNET permission; shell profiling disabled; caged local WebGlass; 16K alignment required",
+    "android": "release-mode candidate; non-debuggable; no INTERNET permission; shell profiling disabled; caged local LuHm WebGlass; 16K alignment required",
     "nexus": "optional local permission-gated sidecar; no auto-download; no private Nexus payload required by shared APK",
     "blender": "reproducible generator remains available; binary Blender project is output, not source authority",
     "delivery": "private Google Drive install workflow after exact-head CI artifact proof"
@@ -47,16 +51,21 @@
     "unknown_rights": "FAIL_CLOSED",
     "runtime_network": false
   },
+  "compatibility_boundary": {
+    "legacy_kai_named_android_paths": "BINARY_COMPATIBILITY_NAMES_ONLY",
+    "runtime_identity": "LUHM_WEBGLASS",
+    "authority": false
+  },
   "lum_hashes": {
     "bundle_sha256": "fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da",
     "base_sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
     "running_sha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0"
   },
   "green_law": {
-    "source": "exact-head CI on candidate/crown-cathedral-deployment-20260927 including LuHm full-game scope audit, Crown static audit, donor derivative hash proof, full 77-asset runtime contract and Drive Lum hash proof",
+    "source": "exact-head CI on candidate/crown-cathedral-audit-hardening-20260927 including LuHm full-game authority convergence audit, Crown static audit, donor derivative hash proof, full 77-asset runtime contract and Drive Lum hash proof",
     "scene": "Crown facade + donor gallery + 77/77 community assets + rigged external Lum visible height between 1.70 m and 2.10 m + Cathedral spawn contract",
     "export_pack": "rights-cleared hash-pinned donor derivatives and complete scene must survive Godot export-pack smoke",
-    "apk": "release mode + non-debuggable + no INTERNET + shell profiling disabled + host OpenAI adapter absent + signature + package + 16K alignment + packaged WebGlass + SHA256",
+    "apk": "release mode + non-debuggable + no INTERNET + shell profiling disabled + host OpenAI adapter absent + signature + package + 16K alignment + packaged LuHm WebGlass + SHA256",
     "openai_live": "authorized host secret + configured model + successful live probe receipt outside APK",
     "device": "physical Samsung install + launch + recording of this exact build showing Cathedral framing, visible rigged Lum, donor gallery, movement/camera and WebGlass",
     "canonical": "explicit Professor promotion after exact device proof",
@@ -67,6 +76,7 @@
     "physical Samsung proof is required for the current exact build before canonical promotion",
     "persistent production signing must use Crown-owned signing material generated and stored outside Git",
     "OPENAI live probe requires a private host credential not stored in Git or APK",
+    "server-side branch controls require repository administration",
     "private Nexus payload proof, if used, remains local and permission-gated"
   ],
   "prior_device_observation": "FUNCTIONAL_BASELINE_ONLY_NOT_CURRENT_EXACT_HEAD_PROOF",
