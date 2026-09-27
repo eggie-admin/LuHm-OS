@@ -18,6 +18,7 @@
     "responsesStored": false,
     "parallelToolCalls": false,
     "externalTracingDefault": false,
+    "traceSensitiveData": false,
     "liveProviderSmokeInCI": false
   },
   "mesh": {
@@ -28,7 +29,8 @@
     "recursiveRecruitment": false,
     "doctrineParallelismCap": 3,
     "runtimeParallelism": 1,
-    "consequentialExecutionInsideLLM": false
+    "consequentialExecutionInsideLLM": false,
+    "retrievedContentAuthority": false
   },
   "androidBoundary": {
     "openaiRuntimeInsideApk": false,
@@ -43,8 +45,12 @@
   "hostBoundary": {
     "providerKeySource": "external environment only",
     "exampleEnvironmentFile": "/home/eggie/.secrets/luhm-agent.env",
-    "tracing": "disabled by supplied systemd example unless Crown opts in",
+    "tracing": "disabled by code and supplied systemd example unless Crown explicitly opts in",
     "systemdExample": "deploy/systemd/luhm-agent-mesh.service.example",
+    "installer": "deploy/installLuhmAgentMesh.sh",
+    "receiptVerifier": "tools/agentHostReceipt.py",
+    "installerDefault": "DRY_RUN",
+    "liveSmokeDefault": false,
     "activationClaim": "NONE_UNTIL_PHYSICAL_HOST_RECEIPT"
   },
   "ci": {
@@ -54,6 +60,7 @@
       "agentMeshAudit.py",
       "full Cathedral Android build",
       "Godot embedded contract smoke",
+      "export-pack isolation smoke",
       "final coffee house scene smoke",
       "APK package/signature/alignment/hash receipts"
     ]

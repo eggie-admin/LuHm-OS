@@ -9,7 +9,7 @@ on:
     paths:
       - 'agents/**'
       - 'assets/system/**'
-      - 'deploy/systemd/**'
+      - 'deploy/**'
       - 'scripts/game/agentMeshContract.gd'
       - 'scripts/buildCathedralWebglass.sh'
       - 'scripts/auditCathedralWebglass.py'
@@ -17,7 +17,9 @@ on:
       - 'tests/agentMeshPackSmoke.gd'
       - 'tests/finalCoffeeHouseSmoke.gd'
       - 'tools/agentMeshAudit.py'
+      - 'tools/agentHostReceipt.py'
       - 'doctrine/luhmAgentMeshFinal-20260927.json'
+      - 'doctrine/androidCandidate.json'
       - 'doctrine/SOURCE_OF_TRUTH.json'
       - 'doctrine/RELEASE_BOUNDARY.json'
       - 'export_presets.cfg'
@@ -64,8 +66,10 @@ jobs:
           assert version == '0.22.3', version
           print('OPENAI_AGENTS_VERSION=' + version)
           PY
-          python -m py_compile agents/luhm_mesh.py tools/agentMeshAudit.py scripts/auditCathedralWebglass.py
+          python -m py_compile agents/luhm_mesh.py tools/agentMeshAudit.py tools/agentHostReceipt.py scripts/auditCathedralWebglass.py
+          bash -n deploy/installLuhmAgentMesh.sh
           python -m json.tool doctrine/luhmAgentMeshFinal-20260927.json >/dev/null
+          python -m json.tool doctrine/androidCandidate.json >/dev/null
           python -m json.tool doctrine/SOURCE_OF_TRUTH.json >/dev/null
           python agents/luhm_mesh.py --self-test | tee /tmp/luhm-agent-self-test.json
           python tools/agentMeshAudit.py
@@ -90,7 +94,7 @@ jobs:
           mkdir -p build/final-system
           cp /tmp/luhm-agent-self-test.json build/final-system/agent-self-test.json
           printf 'source_sha=%s\nstatus=EXACT_HEAD_CI_PROOF\nhost_runtime=UNPROVED\nphysical_samsung=UNPROVED\ncanonical_main=PRESERVED\n' "${{ github.event.pull_request.head.sha || github.sha }}" > build/final-system/receipt.txt
-          sha256sum agents/luhm_mesh.py assets/system/luhmAgentMesh.json doctrine/luhmAgentMeshFinal-20260927.json doctrine/SOURCE_OF_TRUTH.json > build/final-system/SHA256SUMS.txt
+          sha256sum agents/luhm_mesh.py assets/system/luhmAgentMesh.json doctrine/luhmAgentMeshFinal-20260927.json doctrine/androidCandidate.json doctrine/SOURCE_OF_TRUTH.json tools/agentHostReceipt.py > build/final-system/SHA256SUMS.txt
           test -s build/android/sha256.txt
           test -s build/android/signature.txt
           test -s build/android/zipalign.txt

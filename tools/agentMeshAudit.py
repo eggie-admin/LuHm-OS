@@ -18,6 +18,8 @@ REQUIRED = [
     "tests/agentMeshPackSmoke.gd",
     "doctrine/luhmAgentMeshFinal-20260927.json",
     "deploy/systemd/luhm-agent-mesh.service.example",
+    "deploy/installLuhmAgentMesh.sh",
+    "tools/agentHostReceipt.py",
 ]
 
 
@@ -41,6 +43,8 @@ def main() -> int:
     export = text("export_presets.cfg")
     runtime = text("agents/luhm_mesh.py")
     service = text("deploy/systemd/luhm-agent-mesh.service.example")
+    installer = text("deploy/installLuhmAgentMesh.sh")
+    host_receipt = text("tools/agentHostReceipt.py")
     build = text("scripts/buildCathedralWebglass.sh")
 
     if contract.get("manager") != "Lum":
@@ -50,26 +54,21 @@ def main() -> int:
     if contract.get("runtimeParallelToolCalls") is not False:
         fail("parallel tool calls must fail closed")
     android = contract.get("android", {})
-    for key in (
-        "executesOpenAIAgents",
-        "containsProviderSecret",
-        "containsPythonRuntime",
-        "termuxBridge",
-        "remoteShell",
-        "internetPermission",
-    ):
+    for key in ("executesOpenAIAgents", "containsProviderSecret", "containsPythonRuntime", "termuxBridge", "remoteShell", "internetPermission"):
         if android.get(key) is not False:
             fail(f"android boundary drift: {key}")
 
-    requirements = text("agents/requirements.txt")
-    if "openai-agents==0.22.3" not in requirements:
+    if "openai-agents==0.22.3" not in text("agents/requirements.txt"):
         fail("SDK pin drift")
     if doctrine.get("openai", {}).get("wheelSha256Observed") != "41dec9e2e703db32a627bf0290f3721a6ca37405603a8cb654213356dbb8ee9d":
         fail("OpenAI SDK provenance hash drift")
+    if doctrine.get("openai", {}).get("externalTracingDefault") is not False or doctrine.get("openai", {}).get("traceSensitiveData") is not False:
+        fail("trace privacy doctrine drift")
     if '"gpt-5.6-sol"' not in runtime or '"gpt-5.6-terra"' not in runtime:
         fail("model defaults missing")
-    if "parallel_tool_calls=False" not in runtime or "store=False" not in runtime:
-        fail("provider hardening settings missing")
+    for marker in ("parallel_tool_calls=False", "store=False", "set_tracing_disabled(not TRACE_OPT_IN)", "trace_include_sensitive_data=False"):
+        if marker not in runtime:
+            fail("provider hardening setting missing: " + marker)
     if ".as_tool(" not in runtime:
         fail("manager-style bounded delegation missing")
     if "handoff(" in runtime or "ShellTool" in runtime or "ApplyPatchTool" in runtime or "ComputerTool" in runtime:
@@ -87,13 +86,7 @@ def main() -> int:
         fail("built manifest internet-deny proof missing")
 
     denied = set(release.get("deny", []))
-    for item in (
-        "production signing",
-        "publishing",
-        "stable promotion",
-        "remote shell execution",
-        "embedded provider secrets",
-    ):
+    for item in ("production signing", "publishing", "stable promotion", "remote shell execution", "embedded provider secrets"):
         if item not in denied:
             fail("release boundary weakened: " + item)
 
@@ -107,15 +100,15 @@ def main() -> int:
         if hardening not in service:
             fail("systemd hardening drift: " + hardening)
 
-    secret_patterns = [
-        r"sk-[A-Za-z0-9_-]{12,}",
-        r"OPENAI_API_KEY\s*=\s*['\"][^$][^'\"]+",
-    ]
-    corpus = "\n".join(
-        text(path)
-        for path in REQUIRED
-        if path.endswith((".py", ".md", ".json", ".example"))
-    )
+    for marker in ("--apply", "stat -c '%a'", "sudo systemctl", "--allow-pending-live"):
+        if marker not in installer:
+            fail("host installer fail-closed marker missing: " + marker)
+    for marker in ("--live-smoke", "providerKeyRecorded", "GREEN_HOST_RUNTIME", "traceSensitiveData"):
+        if marker not in host_receipt:
+            fail("host receipt marker missing: " + marker)
+
+    secret_patterns = [r"sk-[A-Za-z0-9_-]{12,}", r"OPENAI_API_KEY\s*=\s*['\"][^$][^'\"]+"]
+    corpus = "\n".join(text(path) for path in REQUIRED if path.endswith((".py", ".md", ".json", ".example", ".sh")))
     for pattern in secret_patterns:
         if re.search(pattern, corpus):
             fail("possible embedded secret")

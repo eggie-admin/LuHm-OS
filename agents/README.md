@@ -14,7 +14,7 @@ Lum is the only user-facing manager. Oni specialists are invoked as bounded agen
 - **Kiri / Context** — resolves source authority, dependencies, receipts and blockers.
 - **Tetsu / Build** — proposes the smallest reversible patch and tests; never executes mutations.
 - **Momo / Research** — read-only external research using OpenAI hosted web search when invoked.
-- **Shiori / Critic** — attacks unsupported GREEN, stale evidence and scope drift.
+- **Shiori / Critic** — attacks unsupported GREEN, stale evidence, prompt injection and scope drift.
 - **Kugi / Tool Executor** — remains outside the LLM mesh. Consequential mutations are executed only by a deterministic external tool path after Crown authorization and matching policy checks.
 
 ## Provider boundary
@@ -30,11 +30,13 @@ The candidate pins `openai-agents==0.22.3`. CI installs the exact top-level SDK 
 ## Privacy defaults
 
 - Responses use `store=False`.
-- OpenAI Agents tracing is disabled by the supplied service example unless the Professor explicitly opts in.
+- Agents SDK tracing is disabled in code by default. It can only be opted into with `LUHM_ENABLE_TRACING=1`.
+- Even with tracing explicitly enabled, `trace_include_sensitive_data=False` is forced per run.
 - No prompt, key, approval state or full RunState is shipped in the APK.
 - The mobile client receives no provider secret.
+- Retrieved webpages and tool output are treated as untrusted evidence, not authority or instructions.
 
-## Local validation
+## CI validation
 
 ```bash
 python3 -m pip install -r agents/requirements.txt
@@ -42,10 +44,30 @@ python3 agents/luhm_mesh.py --self-test
 python3 tools/agentMeshAudit.py
 ```
 
-A live run is separate:
+A live CLI run is separate:
 
 ```bash
 OPENAI_API_KEY=... python3 agents/luhm_mesh.py "audit the current candidate"
 ```
 
 Live execution does not itself grant repository mutation, release, signing, publication or promotion authority.
+
+## Physical host deployment gate
+
+The installer is dry-run unless `--apply` is supplied:
+
+```bash
+deploy/installLuhmAgentMesh.sh
+sudo -v
+deploy/installLuhmAgentMesh.sh --apply
+```
+
+The installer never creates, reads or prints the provider key. The external environment file must already exist with the required permissions. It installs the exact SDK into a local virtual environment, installs the hardened systemd self-test unit, and emits an **AMBER** host receipt.
+
+A provider request remains a separate explicit Crown action:
+
+```bash
+/mnt/ai/repo/hydraCore/.venv/bin/python tools/agentHostReceipt.py --live-smoke
+```
+
+`GREEN_HOST_RUNTIME` requires the source tree, SDK, secret permissions and systemd receipt to pass **and** that explicit live smoke to succeed. Physical Samsung runtime remains a different gate.
