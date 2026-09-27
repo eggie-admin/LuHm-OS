@@ -32,6 +32,24 @@
     "systemAuditor": "tools/finalSystemAudit.py",
     "fullGameAuditor": "tools/luhmFullGameAudit.py"
   },
+  "agentWorkflowCandidate": {
+    "branch": "feature/oni-pet-activity-dock-v2-20260927",
+    "currentExactHead": "DERIVED_AT_CI_RUNTIME",
+    "status": "CANDIDATE_EXACT_HEAD_CI_REQUIRED",
+    "controlPlane": "doctrine/ONI_MESH_CONTROL_PLANE_V2.json",
+    "openAiDeployment": "doctrine/openAiLumOniDeployment-20260927.json",
+    "canonicalLumSkill": "agents/lum/SKILL.md",
+    "canonicalOniSkills": "agents/*/SKILL.md",
+    "portablePlugin": "plugins/luhm-os/plugin.json",
+    "portablePluginSkill": "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md",
+    "privateMcp": "host/mcp/luhmMcpServer.py",
+    "androidProofVault": "native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/ProofVault.kt",
+    "auditor": "tools/lumAgentWorkflowAudit.py",
+    "publicationAuthority": false,
+    "promotionAuthority": false,
+    "mcpMutationAuthority": false,
+    "proofImportGreenAuthority": false
+  },
   "authorityOrder": [
     "doctrine/SOURCE_OF_TRUTH.json",
     "doctrine/luhmFullGameSourceTruth-20260927.json",
@@ -87,6 +105,7 @@
     "physicalSamsungCurrentExactBuild": "PENDING",
     "persistentCrownOwnedSigning": "PENDING",
     "liveOpenAiHostReceipt": "PENDING_SEPARATE_HOST_LANE",
+    "chatGptPrivateMcpConnection": "PENDING_SECURE_TUNNEL_OR_APPROVED_HTTPS_BRIDGE",
     "branchControls": "EXTERNAL_ADMIN_GATE",
     "explicitCanonicalPromotion": "PENDING_AFTER_DEVICE_PROOF"
   },
