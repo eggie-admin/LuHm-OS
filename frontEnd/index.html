@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#100d17">
   <title>LuHm OS Front End</title>
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./oni-activity.css">
 </head>
 <body>
   <main class="cockpit" data-luhm-cockpit>
@@ -34,6 +35,12 @@
         <article class="message messageLum"><div class="avatar" aria-hidden="true">L</div><div><div class="messageMeta"><strong>Lum</strong><time>10:24 PM</time></div><p>Welcome to LuHm OS. I’m here with you. ♡</p></div></article>
         <article class="message messageLum"><div class="avatar" aria-hidden="true">L</div><div><div class="messageMeta"><strong>Lum</strong><time>10:26 PM</time></div><p>Front end is jQuery now. The native Cathedral is the backend cockpit.</p></div></article>
       </div>
+
+      <div class="oniActivityDock" data-luhm-oni-dock data-phase="REPORT" aria-label="Active LuHm Oni workers" aria-live="polite">
+        <div class="oniActivityLabel"><span>Oni mesh</span><strong data-luhm-oni-phase>REPORT</strong><span data-luhm-oni-status>0 active</span></div>
+        <div class="oniPetRail" data-luhm-oni-pets></div>
+      </div>
+
       <form class="composer" data-luhm-composer>
         <button class="iconButton" type="button" aria-label="Attach file">⌕</button>
         <label class="srOnly" for="messageInput">Message Lum</label>
@@ -53,6 +60,7 @@
 
   <script src="./vendor/jquery-3.7.1.min.js"></script>
   <script src="./jquery/luhm.cockpit.js"></script>
+  <script src="./jquery/luhm.oni.activity.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
