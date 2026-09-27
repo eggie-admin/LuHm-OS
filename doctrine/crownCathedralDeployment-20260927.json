@@ -1,5 +1,5 @@
 {
-  "schema": "luhm-os.crown-cathedral-deployment.v2",
+  "schema": "luhm-os.crown-cathedral-deployment.v3",
   "date": "2026-09-27",
   "product": "LuHm OS",
   "product_scope": "FULL_GAME",
@@ -27,7 +27,7 @@
     "lum_height_policy": "measure imported MeshInstance3D hierarchy in rendered world coordinates after Godot import and normalize the avatar root",
     "crown_facade": "original low-cost Godot geometry over the Japanese kissaten core",
     "riverwalk_role": "approach and exterior context rather than default focal composition",
-    "donor_gallery": "two LuHm-owned/generated archive textures staged from Drive by exact ID, size and SHA256"
+    "donor_gallery": "two rights-cleared LuHm runtime derivatives vendored by exact size and SHA256 with private Drive source provenance"
   },
   "community_assets": {
     "selected": 77,
@@ -43,10 +43,12 @@
     "manifest": "assets/donor/luhm-game-donors.json",
     "selected": 2,
     "source": "rights-gated KAI9000/Project Hydra donor inventory",
+    "source_vault": "PRIVATE_GOOGLE_DRIVE_PROVENANCE_ONLY",
+    "runtime_delivery": "GIT_VENDORED_RIGHTS_CLEARED_DERIVATIVES",
+    "ci_drive_fetch": false,
     "kai9000_authority": false,
     "widget_authority": false,
     "private_legacy_relics": false,
-    "build_time_fetch_only": true,
     "runtime_network": false,
     "android_budget_bytes": 2097152
   },
@@ -77,7 +79,7 @@
   },
   "proof_gates": {
     "static": ["tools/luhmFullGameAudit.py", "tools/crownCathedralAudit.py"],
-    "donors": "tools/stageLuhmGameDonors.py + exact SHA256 + exported-PCK scene smoke",
+    "donors": "vendored derivative exact SHA256 + rights + private Drive provenance ID + exported-PCK scene smoke",
     "scene": "tests/finalCoffeeHouseSmoke.gd",
     "rig": "tests/lumRigV2Phase1Smoke.gd",
     "apk": "signature + package + 16K alignment + payload + SHA256 + release hardening",
