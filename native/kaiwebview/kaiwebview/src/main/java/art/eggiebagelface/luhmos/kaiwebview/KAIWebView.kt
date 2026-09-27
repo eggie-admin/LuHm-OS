@@ -1,5 +1,7 @@
 package art.eggiebagelface.luhmos.kaiwebview
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -32,15 +34,20 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
     companion object {
         private const val ORIGIN = "https://appassets.androidplatform.net"
         private const val START_URL = "$ORIGIN/assets/cockpit/index.html"
+        private const val REQUEST_PROOF_PICKER = 7047
         private val BRIDGE_SIGNAL = SignalInfo("bridge_message", String::class.java)
+        private val PROOF_SIGNAL = SignalInfo("proof_imported", String::class.java)
         private val MODES = setOf("bubble", "compact", "panel", "fullscreen", "hidden")
     }
 
     private var webView: WebView? = null
     private var currentMode = "compact"
+    private val proofVault: ProofVault by lazy {
+        ProofVault(activity ?: error("LuHm proof vault host activity unavailable"))
+    }
 
     override fun getPluginName() = BuildConfig.GODOT_PLUGIN_NAME
-    override fun getPluginSignals() = setOf(BRIDGE_SIGNAL)
+    override fun getPluginSignals() = setOf(BRIDGE_SIGNAL, PROOF_SIGNAL)
 
     @UsedByGodot
     fun showCockpit() {
@@ -71,6 +78,78 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
             val quoted = JSONObject.quote(json)
             webView?.evaluateJavascript(
                 "window.dispatchEvent(new MessageEvent('message',{data:$quoted}));",
+                null
+            )
+        }
+    }
+
+    @UsedByGodot
+    fun openProofPicker(mimeTypesCsv: String = "") {
+        runOnHostThread {
+            val host = activity ?: return@runOnHostThread
+            val mimeTypes = mimeTypesCsv.split(',')
+                .map { it.trim() }
+                .filter { it.isNotEmpty() }
+                .distinct()
+                .take(24)
+                .toTypedArray()
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = if (mimeTypes.size == 1) mimeTypes[0] else "*/*"
+                if (mimeTypes.size > 1) putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+            }
+            host.startActivityForResult(intent, REQUEST_PROOF_PICKER)
+        }
+    }
+
+    @UsedByGodot
+    fun listProofVault(): String = proofVault.listPackets().toString()
+
+    override fun onMainActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onMainActivityResult(requestCode, resultCode, data)
+        if (requestCode != REQUEST_PROOF_PICKER || resultCode != Activity.RESULT_OK) return
+        val uri = data?.data ?: return
+        val host = activity ?: return
+        val takeFlags = (data.flags and Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        var persisted = false
+        if (takeFlags != 0) {
+            persisted = runCatching {
+                host.contentResolver.takePersistableUriPermission(uri, takeFlags)
+                true
+            }.getOrDefault(false)
+        }
+
+        val packet = runCatching { proofVault.importUri(uri, persisted) }
+            .getOrElse { error ->
+                dispatchProofError(error.message ?: "proof import failed")
+                return
+            }
+        val text = packet.toString()
+        emitSignal(PROOF_SIGNAL.name, text)
+        dispatchProofPacket(packet)
+    }
+
+    private fun dispatchProofPacket(packet: JSONObject) {
+        val quoted = JSONObject.quote(packet.toString())
+        runOnHostThread {
+            webView?.evaluateJavascript(
+                "window.dispatchEvent(new CustomEvent('luhm:native:proof-imported',{detail:JSON.parse($quoted)}));",
+                null
+            )
+        }
+    }
+
+    private fun dispatchProofError(message: String) {
+        val packet = JSONObject()
+            .put("schema", "luhm.proof.error.v1")
+            .put("status", "RED")
+            .put("reason", message.take(240))
+        val quoted = JSONObject.quote(packet.toString())
+        runOnHostThread {
+            webView?.evaluateJavascript(
+                "window.dispatchEvent(new CustomEvent('luhm:native:proof-error',{detail:JSON.parse($quoted)}));",
                 null
             )
         }
@@ -122,6 +201,7 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
         val host = activity ?: error("LuHm WebGlass host activity unavailable")
         val loader = WebViewAssetLoader.Builder()
             .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(host))
+            .addPathHandler(ProofVault.WEB_PATH, WebViewAssetLoader.InternalStoragePathHandler(host, proofVault.publicDir))
             .build()
 
         WebView.setWebContentsDebuggingEnabled(false)
@@ -196,9 +276,23 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
                         .put("payload", JSONObject()
                             .put("bridge", "luhm-webglass")
                             .put("aiHost", "external")
+                            .put("proofVault", "app-private")
                             .put("mode", currentMode)
                             .put("webviewPackage", pkg?.packageName ?: "unknown")
                             .put("webviewVersion", pkg?.versionName ?: "unknown"))
+                        .toString()
+                )
+            }
+            "proof.pick" -> {
+                val mimeTypes = parsed.optJSONObject("payload")?.optString("mimeTypes") ?: ""
+                openProofPicker(mimeTypes)
+            }
+            "proof.list" -> {
+                replyProxy.postMessage(
+                    JSONObject()
+                        .put("schema", "luhm.bridge.reply.v1")
+                        .put("type", "proof.list")
+                        .put("payload", JSONObject().put("proofs", proofVault.listPackets()))
                         .toString()
                 )
             }
@@ -209,8 +303,8 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
             }
             "app.background" -> activity?.moveTaskToBack(true)
             "chat.send", "panel.set", "model.select", "cms.select", "world.show", "toy.action",
-            "input.axis", "camera.delta", "app.quit", "avatar.tune", "avatar.reset", "avatar.inspect" ->
-                emitSignal(BRIDGE_SIGNAL.name, raw)
+            "input.axis", "camera.delta", "app.quit", "avatar.tune", "avatar.reset", "avatar.inspect",
+            "proof.pin" -> emitSignal(BRIDGE_SIGNAL.name, raw)
             else -> Unit
         }
     }
