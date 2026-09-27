@@ -1,5 +1,5 @@
 {
-  "schema": "luhm-os.full-game-doctrine.v1",
+  "schema": "luhm-os.full-game-doctrine.v2",
   "date": "2026-09-27",
   "product": "LuHm OS",
   "scope": "FULL_GAME",
@@ -27,7 +27,7 @@
     "industrial neon RiverWalk exterior",
     "77 runtime Kenney CC0 environment assets",
     "rigged external Lum GLB with visible-height contract",
-    "LuHm-owned donor gallery staged from hash-pinned Drive assets",
+    "LuHm-owned donor gallery from rights-cleared vendored derivatives with private Drive source provenance",
     "movement and camera controls",
     "pet and oni toy actions",
     "local WebGlass UI bridge",
@@ -36,10 +36,14 @@
   ],
   "donor_policy": {
     "kai9000": "DONOR_INVENTORY_ONLY_NOT_GAME_AUTHORITY",
+    "source_vault": "PRIVATE_GOOGLE_DRIVE_PROVENANCE_ONLY",
+    "runtime_delivery": "GIT_VENDORED_RIGHTS_CLEARED_DERIVATIVES",
+    "ci_drive_credentials": false,
     "allowed": [
       "owned/generated visual assets with immutable hashes",
       "generic Godot 4 implementation patterns",
-      "permissive components with required notices"
+      "permissive components with required notices",
+      "small rights-cleared runtime derivatives whose exact hashes are committed"
     ],
     "forbidden": [
       "KAI9000 widget runtime",
@@ -47,19 +51,20 @@
       "private third-party relic payloads",
       "legacy PCK binaries",
       "unknown-rights files",
-      "KAI9000 source-of-truth status overriding LuHm OS doctrine"
+      "KAI9000 source-of-truth status overriding LuHm OS doctrine",
+      "weakening private Drive sharing to make CI pass"
     ]
   },
   "network_boundary": {
     "shared_apk_internet_permission": false,
     "shared_apk_provider_secrets": false,
-    "donor_fetch": "BUILD_TIME_ONLY",
+    "donor_source_drive_ci_fetch": false,
     "openai": "HOST_ONLY_SEPARATE_DEPLOYMENT_GATE",
     "nexus": "LOCAL_PERMISSION_GATED_SIDECAR_NO_AUTODOWNLOAD"
   },
   "green_law": {
     "source": "exact-head CI and static full-game scope audit",
-    "donors": "rights + Drive ID + size + SHA256 + exported-pack smoke",
+    "donors": "rights + private Drive provenance ID + vendored derivative size + SHA256 + exported-pack smoke",
     "scene": "Cathedral + kissaten + 77 community assets + donor gallery + external rigged Lum",
     "apk": "release candidate + non-debuggable + no INTERNET + no shell profiling + signature + package + 16K alignment",
     "device": "physical Samsung install and runtime recording of the exact build",
