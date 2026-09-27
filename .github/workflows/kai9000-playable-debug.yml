@@ -1,0 +1,141 @@
+name: KAI9000 Playable Debug APK
+
+on:
+  push:
+    branches:
+      - 'deploy/kai9000-playable-debug-*'
+    paths-ignore:
+      - '**/*.md'
+      - 'doctrine/**'
+  workflow_dispatch:
+
+concurrency:
+  group: kai9000-playable-debug-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  playable-debug-apk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout deploy candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+
+      - name: Verify playable source contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s project.godot
+          test -s export_presets.cfg
+          test -s scenes/Main.tscn
+          test -s scripts/main.gd
+          grep -q 'run/main_scene="res://scenes/Main.tscn"' project.godot
+          grep -q 'name="Android Proposed"' export_presets.cfg
+          grep -q 'version/name="1.0.26-cathedral.agentmesh.1"' export_presets.cfg
+          grep -q 'NATIVE FALLBACK' scripts/main.gd
+          grep -q 'Native-only CI/install lanes intentionally fall back to the Godot HUD' addons/kai_webview/export_plugin.gd
+          printf 'KAI9000 PLAY SOURCE: GREEN\n'
+
+      - name: Set up Java 17
+        uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android SDK 36
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
+
+      - name: Install Godot 4.7.2 and Android export templates
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 5 -o /tmp/godot.zip \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          curl -fL --retry 5 -o /tmp/templates.tpz \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
+          echo 'cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip' | sha256sum -c -
+          echo 'f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011  /tmp/templates.tpz' | sha256sum -c -
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable"
+          unzip -q /tmp/templates.tpz -d /tmp/tpl
+          cp -a /tmp/tpl/templates/. "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+          echo 'GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64' >> "$GITHUB_ENV"
+
+      - name: Configure disposable debug signer
+        shell: bash
+        run: |
+          set -euo pipefail
+          KEYSTORE="$RUNNER_TEMP/kai9000-playable-debug.keystore"
+          keytool -genkeypair -keystore "$KEYSTORE" -storepass android \
+            -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 \
+            -validity 10000 -dname 'CN=KAI9000 Playable Debug,O=LuHm OS,C=US'
+          chmod 600 "$KEYSTORE"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$KEYSTORE" >> "$GITHUB_ENV"
+          echo 'GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey' >> "$GITHUB_ENV"
+          echo 'GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android' >> "$GITHUB_ENV"
+          mkdir -p "$HOME/.config/godot"
+          cat > "$HOME/.config/godot/editor_settings-4.tres" <<SETTINGS
+          [gd_resource type="EditorSettings" format=3]
+          [resource]
+          export/android/android_sdk_path = "$ANDROID_HOME"
+          export/android/java_sdk_path = "$JAVA_HOME"
+          SETTINGS
+
+      - name: Import native fallback project
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT" --headless --editor --path . --quit
+
+      - name: Forge KAI9000 playable debug APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/android
+          "$GODOT" --headless --path . --install-android-build-template \
+            --export-debug 'Android Proposed' build/android/KAI9000_PLAYABLE_DEBUG.apk
+          test -s build/android/KAI9000_PLAYABLE_DEBUG.apk
+
+      - name: Verify APK and write receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK=build/android/KAI9000_PLAYABLE_DEBUG.apk
+          BT="$ANDROID_HOME/build-tools/36.1.0"
+          "$BT/aapt" dump badging "$APK" | tee build/android/KAI9000_PLAYABLE_DEBUG.badging.txt
+          "$BT/apksigner" verify --verbose --print-certs "$APK" | tee build/android/KAI9000_PLAYABLE_DEBUG.signature.txt
+          "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/android/KAI9000_PLAYABLE_DEBUG.zipalign.txt
+          sha256sum "$APK" | tee build/android/KAI9000_PLAYABLE_DEBUG.sha256.txt
+          printf '%s\n' \
+            'artifact=KAI9000_PLAYABLE_DEBUG.apk' \
+            "commit=${GITHUB_SHA}" \
+            'source=candidate/luhm-agent-final-system-20260927@c5c28b520f7be856b599086654f4452e454aa37b' \
+            'lane=native-godot-hud-fallback' \
+            'webglass-aar=not-required-for-playable-debug' \
+            > build/android/KAI9000_PLAYABLE_DEBUG.receipt.txt
+
+      - name: Upload playable toy
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: KAI9000_PLAYABLE_DEBUG
+          path: |
+            build/android/KAI9000_PLAYABLE_DEBUG.apk
+            build/android/KAI9000_PLAYABLE_DEBUG.sha256.txt
+            build/android/KAI9000_PLAYABLE_DEBUG.signature.txt
+            build/android/KAI9000_PLAYABLE_DEBUG.badging.txt
+            build/android/KAI9000_PLAYABLE_DEBUG.zipalign.txt
+            build/android/KAI9000_PLAYABLE_DEBUG.receipt.txt
+          if-no-files-found: error
+          retention-days: 30
