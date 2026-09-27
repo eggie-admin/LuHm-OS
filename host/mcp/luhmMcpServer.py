@@ -144,11 +144,24 @@ def _public_fqdn() -> str:
     return fqdn
 
 
+def _render_external_hostname() -> str:
+    hostname = os.environ.get("RENDER_EXTERNAL_HOSTNAME", "").strip().lower().rstrip(".")
+    if not hostname:
+        return ""
+    if "://" in hostname or "/" in hostname or ":" in hostname or not hostname.endswith(".onrender.com"):
+        raise ValueError("RENDER_EXTERNAL_HOSTNAME must be a bare *.onrender.com hostname")
+    return hostname
+
+
 def _production_security() -> TransportSecuritySettings:
     fqdn = _public_fqdn()
+    allowed_hosts = [fqdn, f"{fqdn}:*"]
+    render_hostname = _render_external_hostname()
+    if render_hostname:
+        allowed_hosts.extend([render_hostname, f"{render_hostname}:*"])
     return TransportSecuritySettings(
         enable_dns_rebinding_protection=True,
-        allowed_hosts=[fqdn, f"{fqdn}:*"],
+        allowed_hosts=allowed_hosts,
         allowed_origins=[],
     )
 
