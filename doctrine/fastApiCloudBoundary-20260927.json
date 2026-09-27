@@ -1,0 +1,73 @@
+{
+  "schema": "luhm-os.fastapi-cloud-boundary.v1",
+  "date": "2026-09-27",
+  "status": "READINESS_ONLY_NOT_DEPLOYED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Optional authenticated HTTPS read-only bridge for LuHm OS when a loopback-only MCP endpoint cannot be reached directly.",
+  "appDirectory": "host/cloud",
+  "runtime": {
+    "framework": "FastAPI",
+    "packagePolicy": "fastapi[standard] via uv project",
+    "stateless": true,
+    "databaseRequired": false,
+    "cacheRequired": false,
+    "assetStorageRequired": false,
+    "androidPayloadHosted": false
+  },
+  "entitlements": {
+    "default": "DENY",
+    "allowed": ["health:read", "status:read", "capabilities:read"],
+    "forbidden": [
+      "repo:write",
+      "branch:write",
+      "merge:write",
+      "release:write",
+      "sign:write",
+      "publish:write",
+      "secret:read",
+      "secret:write",
+      "device:control",
+      "shell:execute"
+    ],
+    "greenAuthority": false,
+    "promotionAuthority": false,
+    "mutationAuthority": false
+  },
+  "authentication": {
+    "scheme": "Bearer",
+    "secretEnvironmentVariable": "LUHM_CLOUD_READ_TOKEN",
+    "secretInGit": false,
+    "anonymousEndpoints": ["/healthz"],
+    "failClosedWhenSecretMissing": true,
+    "constantTimeCompareRequired": true
+  },
+  "network": {
+    "publicHttpsOnly": true,
+    "corsEnabled": false,
+    "interactiveDocsEnabled": false,
+    "localMcpDirectReachabilityClaim": false,
+    "requestMethods": ["GET"]
+  },
+  "fastApiCloud": {
+    "linkedApp": "UNKNOWN",
+    "appId": "UNKNOWN",
+    "liveDeploymentReceipt": "PENDING",
+    "deploymentCommand": "uv run fastapi cloud deploy host/cloud --json",
+    "jsonCliPreferred": true,
+    "deployTokenPolicy": "CI secret only, bounded lifetime, never echoed",
+    "managedIntegrationPolicy": "Use FastAPI Cloud integrations first for supported DB/cache/observability services; none required by this bridge."
+  },
+  "secrets": {
+    "allowedRuntimeSources": ["FastAPI Cloud secret environment variables", "approved CI secret store"],
+    "forbiddenSources": ["repository", "APK", "JavaScript", "proof packets", "logs"]
+  },
+  "promotionGates": [
+    "static boundary audit",
+    "FastAPI Cloud auth/app resolution receipt",
+    "exact deployment terminal-success receipt",
+    "runtime log health receipt",
+    "HTTPS authentication smoke",
+    "Professor approval"
+  ]
+}
