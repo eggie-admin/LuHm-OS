@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: luhm-mcp
+    name: luhm-os-mcp
     runtime: python
     region: ohio
     buildCommand: >-
