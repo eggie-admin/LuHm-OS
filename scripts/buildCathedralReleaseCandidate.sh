@@ -24,7 +24,7 @@ export GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey
 export GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android
 '''
 new_key = '''KEYSTORE="$TMP/luhm-cathedral-atelier-candidate-release.keystore"
-KEYSTORE_PASS='luhmCandidateOnly2026'
+KEYSTORE_PASS="$(openssl rand -hex 24)"
 KEY_ALIAS='luhmcandidate'
 keytool -genkeypair -keystore "$KEYSTORE" -storepass "$KEYSTORE_PASS" -alias "$KEY_ALIAS" -keypass "$KEYSTORE_PASS" -keyalg RSA -keysize 2048 -validity 10000 -dname 'CN=LuHm Cathedral Oni Atelier Candidate Release,O=LuHm OS,C=US'
 chmod 600 "$KEYSTORE"
@@ -48,6 +48,31 @@ if old_aar not in text:
     raise SystemExit("RED_RELEASE_PATCH_AAR_PATTERN_MISSING")
 text = text.replace(old_aar, new_aar, 1)
 
+old_source_unpack = 'unzip -q "$ANDROID_SOURCE" -d android/build'
+new_source_unpack = r'''unzip -q "$ANDROID_SOURCE" -d android/build
+python3 - <<'PY_PROFILE'
+from pathlib import Path
+import re
+
+count = 0
+pattern = re.compile(
+    r'(<profileable\b[^>]*?android:shell=")true("[^>]*?android:enabled=")true("[^>]*/>)',
+    re.S,
+)
+for manifest in Path("android/build").rglob("AndroidManifest.xml"):
+    text = manifest.read_text(encoding="utf-8")
+    updated, n = pattern.subn(r'\1false\2false\3', text)
+    if n:
+        manifest.write_text(updated, encoding="utf-8")
+        count += n
+if count < 1:
+    raise SystemExit("RED_PROFILEABLE_TEMPLATE_PATTERN_MISSING")
+print(f"ANDROID_PROFILEABLE_DISABLED={count}")
+PY_PROFILE'''
+if old_source_unpack not in text:
+    raise SystemExit("RED_PROFILEABLE_SOURCE_UNPACK_PATTERN_MISSING")
+text = text.replace(old_source_unpack, new_source_unpack, 1)
+
 old_manifest = '"$BT/aapt" dump xmltree "$APK" AndroidManifest.xml | tee build/android/manifest.txt'
 new_manifest = '''"$BT/aapt" dump xmltree "$APK" AndroidManifest.xml | tee build/android/manifest.txt
 if grep -q 'android:debuggable.*0xffffffff' build/android/manifest.txt; then
@@ -58,7 +83,11 @@ if grep -q 'android.permission.INTERNET' build/android/manifest.txt; then
   echo 'RED_APK_INTERNET_PERMISSION_PRESENT' >&2
   exit 1
 fi
-printf 'export_mode=release_candidate\\nsigning=phemeral_ci_release_key\\ndebuggable=false\\ninternet_permission=false\\n' > build/android/release-hardening.txt'''
+if grep -q 'android:shell.*0xffffffff' build/android/manifest.txt; then
+  echo 'RED_APK_PROFILEABLE_SHELL_TRUE' >&2
+  exit 1
+fi
+printf 'export_mode=release_candidate\\nsigning=phemeral_ci_release_key\\ndebuggable=false\\ninternet_permission=false\\nprofileable_shell=false\\n' > build/android/release-hardening.txt'''
 if old_manifest not in text:
     raise SystemExit("RED_RELEASE_PATCH_MANIFEST_PATTERN_MISSING")
 text = text.replace(old_manifest, new_manifest, 1)

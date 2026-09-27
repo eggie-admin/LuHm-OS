@@ -27,7 +27,7 @@ def main() -> int:
 
     b = args.build_dir
     required = ["manifest.txt", "badging.txt", "signature.txt", "zipalign.txt",
-                "sha256.txt", "source-commit.txt", "release-hardening.txt"]
+                "sha256.txt", "source-commit.txt", "release-hardening.txt", "ziplist.txt"]
     for name in required:
         if not (b / name).is_file():
             fail(f"missing build receipt {name}")
@@ -38,11 +38,16 @@ def main() -> int:
     zipalign = (b / "zipalign.txt").read_text(errors="replace")
     source = (b / "source-commit.txt").read_text().strip()
     hardening = (b / "release-hardening.txt").read_text(errors="replace")
+    ziplist = (b / "ziplist.txt").read_text(errors="replace")
 
     if re.search(r"android:debuggable.*0xffffffff", manifest):
         fail("APK debuggable=true")
     if "android.permission.INTERNET" in manifest:
         fail("APK INTERNET permission present")
+    if re.search(r"android:shell.*0xffffffff", manifest):
+        fail("APK shell profiling remains enabled")
+    if re.search(r"host/openai|lumHost\.py", ziplist, re.I):
+        fail("host OpenAI adapter leaked into APK payload")
     if "art.eggiebagelface.luhmos.cathedraltoy.atelier" not in badging:
         fail("package mismatch")
     if "targetSdkVersion:'36'" not in badging:
@@ -57,6 +62,8 @@ def main() -> int:
         fail("release-mode receipt missing")
     if "debuggable=false" not in hardening or "internet_permission=false" not in hardening:
         fail("release hardening receipt incomplete")
+    if "profileable_shell=false" not in hardening:
+        fail("profileable-shell receipt missing")
 
     live_openai = (ROOT / "build/openai-live/receipt.json").is_file()
     device = (ROOT / "build/device/samsung-runtime-receipt.json").is_file()
@@ -67,6 +74,8 @@ def main() -> int:
         "apk_release_candidate_green": True,
         "apk_debuggable": False,
         "apk_internet_permission": False,
+        "apk_profileable_shell": False,
+        "host_openai_in_apk": False,
         "agent_mesh_contract_green": True,
         "openai_live_green": live_openai,
         "physical_samsung_green": device,

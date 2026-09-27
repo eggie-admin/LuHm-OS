@@ -16,13 +16,13 @@
     "lum_rig": "existing rig and idle resolver preserved",
     "agent_mesh": "Lum + Kiri/Tetsu/Momo + Shiori + Kugi fail-closed contract",
     "openai": "host-only Responses API adapter; no provider secret in APK",
-    "android": "release-mode candidate; no INTERNET permission; caged WebGlass",
+    "android": "release-mode candidate; non-debuggable; no INTERNET permission; shell profiling disabled; caged WebGlass",
     "nexus": "optional local permission-gated sidecar",
     "blender": "reproducible generator; binary project is output"
   },
   "green_law": {
     "source": "exact-head CI",
-    "apk": "release mode + non-debuggable + no INTERNET + signature + package + 16K alignment + payload + SHA256",
+    "apk": "release mode + non-debuggable + no INTERNET + shell profiling disabled + host OpenAI adapter absent + signature + package + 16K alignment + payload + SHA256",
     "openai_live": "authorized host secret + configured model + successful live probe receipt",
     "device": "physical Samsung install + runtime smoke receipt",
     "canonical": "explicit human promotion",
