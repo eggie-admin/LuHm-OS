@@ -38,7 +38,7 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
     private var currentMode = "compact"
 
     override fun getPluginName() = BuildConfig.GODOT_PLUGIN_NAME
-    override fun getPluginSignals() = setOf(BRIDGE_SIGNAL)
+    override fun getPluginSignals(): MutableSet<SignalInfo> = mutableSetOf(BRIDGE_SIGNAL)
 
     @UsedByGodot
     fun showCockpit() {
