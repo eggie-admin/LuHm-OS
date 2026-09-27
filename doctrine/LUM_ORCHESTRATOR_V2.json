@@ -12,6 +12,10 @@
     "build_affecting_patch": ["Lum", "Kugi", "Tetsu", "Kaji", "DrNao"],
     "external_fact_needed": ["Lum", "Momo"],
     "contested_or_ambiguous": ["Lum", "Shiori", "DrNao"],
+    "art_concept": ["Lum", "Yume"],
+    "media_asset_pipeline": ["Lum", "Yume", "Sumi"],
+    "dictation": ["Lum", "Koe"],
+    "asset_review": ["Lum", "Sumi"],
     "release_or_publication": ["Lum", "DrNao", "ProfessorCrown"],
     "monitor_only": ["Lum", "DrNao"]
   },
@@ -26,7 +30,10 @@
     "earlyStopWhenClaimProven": true,
     "deduplicateEquivalentTasks": true,
     "preferTargetedTestsBeforeFullBuild": true,
-    "requireFullBuildWhenArtifactOrPlatformClaimChanges": true
+    "requireFullBuildWhenArtifactOrPlatformClaimChanges": true,
+    "dictationNeverExecutesDirectly": true,
+    "creativeConceptDoesNotRequireBuildMesh": true,
+    "assetRuntimeClaimRequiresImportProof": true
   },
   "contextPacket": {
     "required": [
@@ -38,6 +45,14 @@
       "allowedMutations",
       "requiredEvidence",
       "knownBlockers"
+    ],
+    "creativeOptional": [
+      "approvedReferenceRefs",
+      "targetDimensions",
+      "targetFormat",
+      "runtimeConsumer",
+      "styleConstraints",
+      "licensingConstraints"
     ],
     "rule": "Workers receive the smallest sufficient packet plus evidence references. Unknown material fields remain UNKNOWN."
   },
@@ -54,6 +69,8 @@
       "proofRefs",
       "recordedAtUtc"
     ],
+    "creativeLedger": "build/lum-memory/approved-visual-decisions.jsonl",
+    "creativeRule": "Approved visual choices may guide future Yume concepts but do not become runtime or source-truth evidence until the exact asset is reviewed, hashed, and tested for the claimed use.",
     "rules": [
       "Only evidence-backed causes are recorded as confirmed.",
       "Inference may be recorded only as a hypothesis and never reused as proof.",
@@ -70,7 +87,8 @@
       "dependency and toolchain changes",
       "Android and WebView compatibility changes",
       "source-of-truth drift",
-      "release and signing blockers"
+      "release and signing blockers",
+      "approved asset hash drift"
     ],
     "may": ["collect evidence", "compare with previous receipt", "emit alert", "prepare proposed task"],
     "mayNot": ["edit canonical source", "merge", "sign", "publish", "expose services", "promote GREEN"]
@@ -84,13 +102,16 @@
       "cacheHitState",
       "retries",
       "failedGate",
-      "reusedEvidenceRefs"
+      "reusedEvidenceRefs",
+      "creativeIterations",
+      "assetReviewFailures",
+      "dictationUncertainTokenCount"
     ],
     "rule": "Lum may propose routing or build optimizations from measured receipts. Automatic self-modification is forbidden."
   },
   "completion": {
     "complexTaskReport": [
-      "exact source SHA",
+      "exact source SHA when repo-bound",
       "claimed scope",
       "workers actually used",
       "evidence verdict",
