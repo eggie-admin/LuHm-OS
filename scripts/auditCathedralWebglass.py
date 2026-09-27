@@ -77,6 +77,12 @@ require('version/code=126' in export, "Oni Atelier agent-mesh version code")
 require('version/name="1.0.26-cathedral.agentmesh.1"' in export, "Oni Atelier agent-mesh version name")
 require('doctrine/luhmAgentMeshFinal-20260927.json' in export, "agent mesh doctrine embedded")
 require('assets/system/luhmAgentMesh.json' in export, "agent mesh contract embedded")
-require('exclude_filter="agents/**,deploy/**,tools/**,.github/**"' in export, "host runtime excluded from APK")
+require('exclude_filter="agents/**,deploy/**,tools/**,.github/**"' in export, "host runtime excluded by preset")
+
+export_plugin = read("addons/kai_webview/export_plugin.gd")
+require("HOST_ONLY_PREFIXES" in export_plugin, "Android export host-only denylist declared")
+for prefix in ["res://agents/", "res://deploy/", "res://tools/", "res://.github/"]:
+    require(prefix in export_plugin, f"Android export denies host path: {prefix}")
+require("func _export_file" in export_plugin and "skip()" in export_plugin, "Android export actively skips denied host paths")
 
 print("CATHEDRAL_ONI_ATELIER_10_PASS=GREEN")
