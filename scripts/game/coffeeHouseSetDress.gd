@@ -64,7 +64,9 @@ func _build_architecture() -> void:
     _box("KissatenCeilingBeam", Vector3(0.0, 4.65, 14.2), Vector3(13.8, 0.28, 0.34), wood)
     _box("KissatenFrontBeam", Vector3(0.0, 3.95, 9.15), Vector3(13.8, 0.34, 0.34), wood)
 
-    for x in [-5.8, -3.0, 0.0, 3.0, 5.8]:
+    # Preserve a clear center entrance/sightline for the opening Lum portrait.
+    # The previous x=0 post sat directly between the camera and Lum on Samsung.
+    for x in [-5.8, -3.0, 3.0, 5.8]:
         _box("KissatenPost_%s" % int((x + 6.0) * 10.0), Vector3(x, 2.05, 9.25), Vector3(0.22, 4.1, 0.22), wood)
 
 func _build_shoji() -> void:
