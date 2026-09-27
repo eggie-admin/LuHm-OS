@@ -14,6 +14,8 @@ var _home_scale := Vector3.ONE
 var _home_y := 0.0
 var _pulse_tween: Tween
 var _idle_clock := 0.0
+var _look_target_world := Vector3.ZERO
+var _look_target_world_valid := false
 
 var _canonical_required: Dictionary = {}
 var _canonical_missing: Array[String] = []
@@ -35,6 +37,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
     _idle_clock += delta
     position.y = _home_y + sin(_idle_clock * 1.15) * 0.035
+    _restore_world_look_target()
 
 func _load_bone_map() -> void:
     _canonical_required.clear()
@@ -197,13 +200,16 @@ func _find_bone_alias(aliases: Array) -> String:
     return ""
 
 func _set_default_look_target() -> void:
-    if look_target == null:
-        return
-    look_target.global_position = global_position + Vector3(0.0, 1.8, -4.0)
+    set_look_target_world(global_position + Vector3(0.0, 1.8, -4.0))
 
 func set_look_target_world(world_position: Vector3) -> void:
-    if look_target != null:
-        look_target.global_position = world_position
+    _look_target_world = world_position
+    _look_target_world_valid = true
+    _restore_world_look_target()
+
+func _restore_world_look_target() -> void:
+    if look_target != null and _look_target_world_valid:
+        look_target.global_position = _look_target_world
 
 func uses_external_model() -> bool:
     return external_model_loaded
