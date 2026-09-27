@@ -23,11 +23,30 @@ export GODOT_ANDROID_KEYSTORE_DEBUG_PATH="$KEYSTORE"
 export GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey
 export GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android
 '''
-new_key = '''KEYSTORE="$TMP/luhm-cathedral-atelier-candidate-release.keystore"
-KEYSTORE_PASS="$(openssl rand -hex 24)"
-KEY_ALIAS='luhmcandidate'
-keytool -genkeypair -keystore "$KEYSTORE" -storepass "$KEYSTORE_PASS" -alias "$KEY_ALIAS" -keypass "$KEYSTORE_PASS" -keyalg RSA -keysize 2048 -validity 10000 -dname 'CN=LuHm Cathedral Oni Atelier Candidate Release,O=LuHm OS,C=US'
-chmod 600 "$KEYSTORE"
+new_key = '''CROWN_KEYSTORE_PATH="${LUHM_CROWN_KEYSTORE_PATH:-}"
+CROWN_KEY_ALIAS="${LUHM_CROWN_KEY_ALIAS:-}"
+CROWN_KEYSTORE_PASSWORD="${LUHM_CROWN_KEYSTORE_PASSWORD:-}"
+if [[ -n "$CROWN_KEYSTORE_PATH" || -n "$CROWN_KEY_ALIAS" || -n "$CROWN_KEYSTORE_PASSWORD" ]]; then
+  if [[ -z "$CROWN_KEYSTORE_PATH" || -z "$CROWN_KEY_ALIAS" || -z "$CROWN_KEYSTORE_PASSWORD" ]]; then
+    echo 'RED_CROWN_SIGNING_INPUTS_INCOMPLETE' >&2
+    exit 1
+  fi
+  if [[ ! -r "$CROWN_KEYSTORE_PATH" ]]; then
+    echo 'RED_CROWN_KEYSTORE_UNREADABLE' >&2
+    exit 1
+  fi
+  KEYSTORE="$CROWN_KEYSTORE_PATH"
+  KEYSTORE_PASS="$CROWN_KEYSTORE_PASSWORD"
+  KEY_ALIAS="$CROWN_KEY_ALIAS"
+  SIGNING_MODE='crown_persistent_external'
+else
+  KEYSTORE="$TMP/luhm-cathedral-atelier-candidate-release.keystore"
+  KEYSTORE_PASS="$(openssl rand -hex 24)"
+  KEY_ALIAS='luhmcandidate'
+  keytool -genkeypair -keystore "$KEYSTORE" -storepass "$KEYSTORE_PASS" -alias "$KEY_ALIAS" -keypass "$KEYSTORE_PASS" -keyalg RSA -keysize 2048 -validity 10000 -dname 'CN=LuHm Cathedral Oni Atelier Candidate Release,O=LuHm OS,C=US'
+  chmod 600 "$KEYSTORE"
+  SIGNING_MODE='ephemeral_ci_release_key'
+fi
 export GODOT_ANDROID_KEYSTORE_RELEASE_PATH="$KEYSTORE"
 export GODOT_ANDROID_KEYSTORE_RELEASE_USER="$KEY_ALIAS"
 export GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD="$KEYSTORE_PASS"
@@ -87,14 +106,14 @@ if grep -q 'android:shell.*0xffffffff' build/android/manifest.txt; then
   echo 'RED_APK_PROFILEABLE_SHELL_TRUE' >&2
   exit 1
 fi
-printf 'export_mode=release_candidate\\nsigning=phemeral_ci_release_key\\ndebuggable=false\\ninternet_permission=false\\nprofileable_shell=false\\n' > build/android/release-hardening.txt'''
+printf 'export_mode=release_candidate\\nsigning=%s\\ndebuggable=false\\ninternet_permission=false\\nprofileable_shell=false\\n' "$SIGNING_MODE" > build/android/release-hardening.txt'''
 if old_manifest not in text:
     raise SystemExit("RED_RELEASE_PATCH_MANIFEST_PATTERN_MISSING")
 text = text.replace(old_manifest, new_manifest, 1)
 
 text = text.replace(
     'status=CATHEDRAL_ONI_ATELIER_CI_PROOF\\n',
-    'status=CATHEDRAL_ONI_ATELIER_RELEASE_CANDIDATE_CI_PROOF\\nsigning=EPHEMERAL_CI_RELEASE_KEY\\n',
+    'status=CATHEDRAL_ONI_ATELIER_RELEASE_CANDIDATE_CI_PROOF\\n',
     1,
 )
 text = text.replace(
