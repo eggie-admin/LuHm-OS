@@ -1,11 +1,12 @@
 extends Node3D
 
 # LuHm OS full-game donor gallery.
-# KAI9000 is provenance/donor inventory only; these two textures are rights-gated,
-# hash-pinned LuHm-owned/generated derivatives staged at build time.
+# KAI9000 is provenance/donor inventory only. These are rights-gated,
+# hash-pinned LuHm-owned/generated archive derivatives. They have no UI,
+# runtime, network, or doctrine authority.
 
-const CATHEDRAL_ARCHIVE := preload("res://assets/donor/runtime/cathedral_hub_archive.webp")
-const LUM_RETRO_SHRINE := preload("res://assets/donor/runtime/lum_ps1_float_shrine.webp")
+const CATHEDRAL_ARCHIVE := preload("res://assets/donor/runtime/cathedral_hub_archive.svg")
+const LUM_RETRO_SHRINE := preload("res://assets/donor/runtime/lum_ps1_float_shrine.svg")
 
 func _ready() -> void:
     name = "CrownDonorGallery"
@@ -14,7 +15,7 @@ func _ready() -> void:
         CATHEDRAL_ARCHIVE,
         Vector3(-5.25, 2.55, 13.55),
         Vector3(0.0, 90.0, 0.0),
-        0.0038,
+        0.066,
         "CATHEDRAL ARCHIVE // LUHM OS"
     )
     _add_holo_panel(
@@ -22,8 +23,8 @@ func _ready() -> void:
         LUM_RETRO_SHRINE,
         Vector3(5.18, 2.20, 13.75),
         Vector3(0.0, -90.0, 0.0),
-        0.0037,
-        "LUM // PROJECT HYDRA RETRO SHRINE"
+        0.064,
+        "LUM // RETRO ARCHIVE SHRINE"
     )
 
 func _add_holo_panel(
@@ -81,5 +82,6 @@ func get_donor_summary() -> Dictionary:
         "expected": 2,
         "loaded": 2 if CATHEDRAL_ARCHIVE != null and LUM_RETRO_SHRINE != null else 0,
         "scope": "LUHM_OS_FULL_GAME_ONLY",
-        "kai9000_authority": false
+        "kai9000_authority": false,
+        "runtime_format": "SVG_VECTOR_MOSAIC"
     }
