@@ -12,11 +12,10 @@ on:
       - 'addons/kai_webview/**'
       - 'native/kaiwebview/**'
       - 'assets/community/**'
+      - 'agents/**'
       - 'tests/**'
       - 'tools/**'
-      - 'doctrine/androidCandidate.json'
-      - 'doctrine/witchingHourThreeRitual-20260926.json'
-      - 'doctrine/runtimeDoctrine-20260926.json'
+      - 'doctrine/**'
       - '.github/workflows/witching-hour-three-ritual-build.yml'
 
 permissions:
