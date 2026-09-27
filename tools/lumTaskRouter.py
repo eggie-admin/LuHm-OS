@@ -14,7 +14,7 @@ ROUTES = {
     "read": ["Lum", "Kiri"],
     "records": ["Lum", "Fumi"],
     "proof": ["Lum", "Sumi", "DrNao"],
-    "patch": ["Lum", "Kugi"],
+    "patch": ["Lum", "Kugi", "DrNao"],
     "build": ["Lum", "Kugi", "Tetsu", "Kaji", "DrNao"],
     "external": ["Lum", "Momo"],
     "monitor": ["Lum", "DrNao"],
