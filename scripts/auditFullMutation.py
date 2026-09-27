@@ -7,6 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCTRINE = ROOT / "doctrine/runtimeDoctrine-20260926.json"
+AGENTS = ROOT / "agents/luhm-agent-mesh/crownedCathedralForgePipeline.json"
 EXPORT = ROOT / "export_presets.cfg"
 BRIDGE = ROOT / "scripts/platform/kaiWebViewBridge.gd"
 RITUAL = ROOT / "scripts/game/ritualDirector.gd"
@@ -49,6 +50,16 @@ require(mesh.get("parallelism_max") == 3, "mesh parallelism max three")
 require(mesh.get("delegation_depth_max") == 1, "delegation depth one")
 require(mesh.get("recursive_recruitment") is False, "recursive recruitment blocked")
 require(mesh.get("parallel_writes") is False, "parallel writes blocked")
+
+agent_cfg = json.loads(AGENTS.read_text())
+workers = {item["blade"]: item["name"] for item in agent_cfg.get("workers", [])}
+require(agent_cfg.get("boss", {}).get("name") == "Lum", "agent config Lum boss")
+require(workers.get("Context") == "Oni-Kumo", "agent config Oni-Kumo")
+require(workers.get("Build") == "Oni-Tetsu", "agent config Oni-Tetsu")
+require(workers.get("Research") == "Oni-Sumi", "agent config Oni-Sumi")
+require(workers.get("Critic") == "Oni-Ibara", "agent config Oni-Ibara")
+require(workers.get("Tool Executor") == "Kanabo Gate", "agent config Kanabo Gate")
+require(agent_cfg.get("limits", {}).get("delegation_depth_max") == 1, "agent config delegation depth one")
 
 learning = doc["learning"]
 require(learning.get("mode") == "candidate_memory_only", "candidate memory only")
