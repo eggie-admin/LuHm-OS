@@ -9,6 +9,7 @@ on:
       - 'plugins/luhm-os/**'
       - 'host/mcp/**'
       - 'tools/luhmPluginPackageAudit.py'
+      - 'render.yaml'
       - '.github/workflows/luhm-plugin-package-audit.yml'
 
 permissions:
@@ -21,7 +22,7 @@ concurrency:
 jobs:
   plugin-package-audit:
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 6
     steps:
       - name: Checkout exact source
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
@@ -39,6 +40,7 @@ jobs:
         run: |
           python3 -m json.tool plugins/luhm-os/plugin.json >/dev/null
           python3 -m json.tool plugins/luhm-os/mcp.json >/dev/null
+          python3 -m json.tool plugins/luhm-os/mcp.local.json >/dev/null
           python3 -m json.tool plugins/luhm-os/mcp.remote.example.json >/dev/null
       - name: Python syntax
         run: python3 -m py_compile tools/luhmPluginPackageAudit.py host/mcp/luhmMcpServer.py
@@ -46,5 +48,10 @@ jobs:
         run: python3 tools/luhmPluginPackageAudit.py
       - name: Install pinned MCP SDK
         run: python3 -m pip install --disable-pip-version-check -r host/mcp/requirements.txt
-      - name: MCP source self-check
+      - name: MCP local source self-check
+        run: python3 host/mcp/luhmMcpServer.py --check
+      - name: MCP production FQDN self-check
+        env:
+          LUHM_MCP_PROFILE: production
+          LUHM_MCP_FQDN: mcp.eggiebagelface.art
         run: python3 host/mcp/luhmMcpServer.py --check
