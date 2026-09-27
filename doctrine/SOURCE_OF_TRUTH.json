@@ -1,5 +1,5 @@
 {
-  "schema": "luhm-os.clean-source.v3",
+  "schema": "luhm-os.clean-source.v4",
   "status": "AMBER_FULL_GAME_EXTERNAL_GATES_PENDING",
   "product": "LuHm OS",
   "scope": "FULL_GAME",
@@ -12,13 +12,18 @@
     "promoted": false
   },
   "currentFullGameCandidate": {
-    "branch": "candidate/crown-cathedral-deployment-20260927",
-    "lastProvenExactHead": "f44b913fade5918e2d3037700e602d0009dc1d25",
-    "workflowRun": 36314171982,
-    "artifactId": 10930211805,
-    "artifactDigest": "sha256:7d49672d06938fd0ffbe29fbfd4f3f5316af5129435dade0ff339e99c4bcb01c",
-    "apkSha256": "20500ab3a348032b601c10c88cd75bc88e49c8c53950bd3fe93cd6c9f75498b1",
-    "status": "GREEN_EXACT_HEAD_CI_PROOF_EXTERNAL_GATES_PENDING",
+    "branch": "candidate/crown-cathedral-audit-hardening-20260927",
+    "baselineProvenExactHead": "93bc11cbc1c09ecf6e18605985beebf4f9a4e8d5",
+    "currentExactHead": "DERIVED_AT_CI_RUNTIME",
+    "baselineProof": {
+      "pullRequest": 42,
+      "lumRigRun": 36315800464,
+      "androidCandidateRun": 36315800467,
+      "communitySceneRun": 36315800469,
+      "webGlassRun": 36315800471,
+      "fullGameDeploymentRun": 36315800455
+    },
+    "status": "BASELINE_GREEN_RECONCILIATION_COMMITS_REQUIRE_NEW_EXACT_HEAD_CI",
     "gameDoctrine": "doctrine/luhmFullGameDoctrine-20260927.json",
     "gameSourceTruth": "doctrine/luhmFullGameSourceTruth-20260927.json",
     "deploymentDoctrine": "doctrine/crownCathedralDeployment-20260927.json",
@@ -27,13 +32,22 @@
     "systemAuditor": "tools/finalSystemAudit.py",
     "fullGameAuditor": "tools/luhmFullGameAudit.py"
   },
+  "authorityOrder": [
+    "doctrine/SOURCE_OF_TRUTH.json",
+    "doctrine/luhmFullGameSourceTruth-20260927.json",
+    "doctrine/luhmFullGameDoctrine-20260927.json",
+    "doctrine/crownCathedralDeployment-20260927.json",
+    "current subsystem contracts",
+    "historical seals and donor records"
+  ],
+  "historicalSealsOverrideCurrentFullGame": false,
   "gameContract": {
     "runtime": "Godot 4 native 3D full game",
     "world": "Crown Cathedral + Japanese kissaten + Detroit industrial neon RiverWalk",
-    "lum": "rigged external Drive model with exact hashes and 1.70m to 2.10m rendered-height gate",
+    "lum": "rigged external Drive model with exact hashes, 1.70m to 2.10m rendered-height gate and world-stable look target",
     "communityAssets": "77 Kenney CC0 runtime assets plus required texture sidecars from immutable source commit",
-    "ownedDonors": "two rights-cleared vendored runtime derivatives with private Google Drive source provenance",
-    "webglass": "local-only caged Android WebView compatibility bridge",
+    "ownedDonors": "rights-cleared vendored runtime derivatives with private Google Drive source provenance, SHA256, Git blob identity and format gate",
+    "webglass": "local-only caged Android WebView compatibility bridge with LuHm WebGlass runtime identity",
     "nexus": "optional local permission-gated private sidecar",
     "openai": "host-only separate deployment lane; never provider credentials in APK"
   },
@@ -44,6 +58,11 @@
     "unknownRights": "FAIL_CLOSED",
     "sourceVault": "PRIVATE_GOOGLE_DRIVE_PROVENANCE_ONLY",
     "ciDriveFetch": false
+  },
+  "compatibilityPolicy": {
+    "legacyKaiNamedAndroidPaths": "BINARY_COMPATIBILITY_NAMES_ONLY",
+    "runtimeIdentity": "LUHM_WEBGLASS",
+    "authority": false
   },
   "android": {
     "contract": "doctrine/crownCathedralDeployment-20260927.json",
@@ -64,38 +83,6 @@
     "unknown-rights donor payloads",
     "private legacy relic binaries"
   ],
-  "documentationWorkflow": {
-    "path": "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json",
-    "status": "GREEN_DOCUMENTATION_WORKFLOW",
-    "runtimeAuthority": false,
-    "releaseAuthority": false,
-    "publicationAuthority": false
-  },
-  "cockpitSwitch": {
-    "target": "Samsung Galaxy S24 FE",
-    "status": "GREEN_CI_BASELINE_DEVICE_PROOF_PENDING",
-    "physicalS24FeProof": "PENDING",
-    "runtimeAuthority": false,
-    "releaseAuthority": false
-  },
-  "installPortal": {
-    "status": "GREEN_CI_BUNDLE_HOST_ACTIVATION_PENDING",
-    "fqdn": "get.lum.eggiebagelface.lan",
-    "lanDnsActivation": "PENDING",
-    "apacheActivation": "PENDING",
-    "physicalS24FeInstall": "PENDING",
-    "fdroidRepositorySigning": "PENDING",
-    "publicExposure": false
-  },
-  "fullSourceTruthOrchestrator": {
-    "path": "doctrine/fullSourceTruthOrchestrator-20260926.json",
-    "auditor": "tools/fullSourceTruthAudit.py",
-    "status": "GREEN_ORCHESTRATOR_CANONICAL_FULL_SOURCE_TRUTH_AMBER",
-    "runtimeAuthority": false,
-    "releaseAuthority": false,
-    "publicationAuthority": false,
-    "productionSigningAuthority": false
-  },
   "remainingExternalGates": {
     "physicalSamsungCurrentExactBuild": "PENDING",
     "persistentCrownOwnedSigning": "PENDING",
@@ -108,7 +95,9 @@
   "promotion": false,
   "reconciliation": {
     "observedMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
-    "status": "FULL_GAME_CANDIDATE_PROVEN_CANONICAL_MAIN_UNCHANGED",
-    "preserved": "Canonical main remains the prior AMBER orchestrator seal; current LuHm OS full-game evidence lives on the Crown Cathedral candidate until physical Samsung proof and explicit Professor promotion."
-  }
+    "baselineGreenCandidate": "93bc11cbc1c09ecf6e18605985beebf4f9a4e8d5",
+    "status": "FULL_GAME_HARDENING_LINEAGE_ACTIVE_CANONICAL_MAIN_UNCHANGED",
+    "preserved": "Canonical main remains unchanged; current LuHm OS full-game evidence lives on the Crown Cathedral hardening candidate until physical Samsung exact-build proof and explicit Professor promotion."
+  },
+  "unknown_is_not_green": true
 }
