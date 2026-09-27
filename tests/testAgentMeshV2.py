@@ -52,6 +52,10 @@ class AgentMeshV2Tests(unittest.TestCase):
             "--output", str(out),
         ], text=True, capture_output=True)
 
+    def run_route(self, *args: str) -> dict:
+        result = subprocess.run(["python3", str(ROUTER), *args], text=True, capture_output=True, check=True)
+        return json.loads(result.stdout)
+
     def test_dual_build_green(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             base = Path(td)
@@ -99,8 +103,7 @@ class AgentMeshV2Tests(unittest.TestCase):
             self.assertTrue(report["status"].startswith("RED_"))
 
     def test_build_route_uses_two_builders_and_doctor(self) -> None:
-        result = subprocess.run(["python3", str(ROUTER), "build"], text=True, capture_output=True, check=True)
-        report = json.loads(result.stdout)
+        report = self.run_route("build")
         self.assertEqual(report["parallelBuilds"], 2)
         self.assertEqual(report["sourceMutationLanes"], 1)
         self.assertIn("Tetsu", report["workers"])
@@ -109,10 +112,34 @@ class AgentMeshV2Tests(unittest.TestCase):
         self.assertFalse(report["greenAuthority"])
 
     def test_direct_route_bypasses_mesh(self) -> None:
-        result = subprocess.run(["python3", str(ROUTER), "direct"], text=True, capture_output=True, check=True)
-        report = json.loads(result.stdout)
+        report = self.run_route("direct")
         self.assertEqual(report["workers"], ["Lum"])
         self.assertEqual(report["parallelBuilds"], 0)
+
+    def test_art_route_is_small_and_does_not_build(self) -> None:
+        report = self.run_route("art")
+        self.assertEqual(report["workers"], ["Lum", "Yume"])
+        self.assertEqual(report["parallelBuilds"], 0)
+        self.assertEqual(report["sourceMutationLanes"], 0)
+
+    def test_media_route_adds_asset_curator(self) -> None:
+        report = self.run_route("media")
+        self.assertEqual(report["workers"], ["Lum", "Yume", "Sumi"])
+        self.assertEqual(report["supportWorkers"], ["Yume", "Sumi"])
+
+    def test_dictation_never_executes_directly(self) -> None:
+        report = self.run_route("dictation")
+        self.assertEqual(report["workers"], ["Lum", "Koe"])
+        self.assertEqual(report["sourceMutationLanes"], 0)
+        self.assertFalse(report["dictationExecutesDirectly"])
+
+    def test_creative_truth_claim_can_add_doctor_without_builders(self) -> None:
+        report = self.run_route("art", "--truth-sensitive", "--asset-review")
+        self.assertIn("Yume", report["workers"])
+        self.assertIn("Sumi", report["workers"])
+        self.assertIn("DrNao", report["workers"])
+        self.assertEqual(report["parallelBuilds"], 0)
+        self.assertTrue(report["requiresDoctorVerdict"])
 
 
 if __name__ == "__main__":
