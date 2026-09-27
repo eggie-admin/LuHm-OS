@@ -12,4 +12,5 @@ build/
 __pycache__/
 assets/nexus/runtime/
 assets/nexus/incoming/
+assets/donor/runtime/
 *.blend1
