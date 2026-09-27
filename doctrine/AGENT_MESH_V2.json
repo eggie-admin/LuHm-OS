@@ -85,6 +85,60 @@
       "skills": ["perform only the approved file or tool mutation and return the receipt"]
     }
   ],
+  "specialistOnis": [
+    {
+      "name": "Yume",
+      "displayName": "Yume Oni",
+      "role": "art_media_forge",
+      "skill": "agents/yumeArtOni/SKILL.md",
+      "skills": [
+        "original character and pet design",
+        "image-generation direction",
+        "storyboards and motion design",
+        "Blender Godot and FFmpeg media handoff",
+        "visual QA against approved references"
+      ],
+      "forbidden": [
+        "self-approve generated art for shipping",
+        "silently replace Professor-approved character art",
+        "invent asset provenance or licensing"
+      ]
+    },
+    {
+      "name": "Koe",
+      "displayName": "Koe Oni",
+      "role": "dictation_scribe",
+      "skill": "agents/koeDictationOni/SKILL.md",
+      "skills": [
+        "clean and chunk dictation",
+        "preserve literal quotes and corrections",
+        "extract atomic intents and constraints",
+        "prepare structured task packets for Lum"
+      ],
+      "forbidden": [
+        "execute dictated commands directly",
+        "guess uncertain words as facts",
+        "treat spoken status claims as evidence"
+      ]
+    },
+    {
+      "name": "Sumi",
+      "displayName": "Sumi Oni",
+      "role": "asset_curator",
+      "skill": "agents/sumiAssetOni/SKILL.md",
+      "skills": [
+        "asset IDs and filenames",
+        "provenance license and checksum records",
+        "duplicate and import-readiness checks",
+        "approved-reference version tracking"
+      ],
+      "forbidden": [
+        "invent licenses",
+        "overwrite approved assets silently",
+        "equate visual approval with runtime proof"
+      ]
+    }
+  ],
   "truthLogic": {
     "principle": "GREEN is derived from evidence; it is never accepted as an agent assertion.",
     "requiredForGreen": [
@@ -108,14 +162,18 @@
     "mutationAgents": 1,
     "buildAgents": 2,
     "supportAgentsMax": 3,
+    "activeNonBuildHelpersMax": 3,
     "recursiveRecruitment": false
   },
   "workflow": [
-    "Lum resolves source authority and exact source SHA.",
-    "One bounded mutation lane prepares a candidate commit.",
-    "Tetsu and Kaji build that exact immutable commit independently.",
+    "Lum resolves source authority and exact source SHA when the task is repo-bound.",
+    "Lum selects the smallest specialist set needed for the request.",
+    "Koe may structure dictation before Lum routing; Koe never executes it.",
+    "Yume may create media candidates; Sumi records provenance/import readiness before shipping use.",
+    "One bounded mutation lane prepares a candidate commit when source changes are required.",
+    "Tetsu and Kaji build that exact immutable commit independently when a build claim changes.",
     "Each builder emits machine-readable receipts; builders do not judge promotion readiness.",
-    "Dr. Nao Oni reads both evidence bundles and derives PASS, AMBER_DIVERGENCE, RED, UNKNOWN, or ERROR.",
+    "Dr. Nao Oni reads evidence and derives PASS, AMBER_DIVERGENCE, RED, UNKNOWN, or ERROR when truth status is claimed.",
     "Lum may summarize the verdict but may not upgrade it.",
     "Only the Professor may Crown-promote consequential source, release, signing, or publication state."
   ]
