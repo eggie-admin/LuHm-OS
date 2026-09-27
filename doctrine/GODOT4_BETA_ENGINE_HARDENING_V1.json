@@ -1,0 +1,65 @@
+{
+  "schema": "luhm-os.godot4-beta-engine-hardening.v1",
+  "status": "BETA_LANE_STAGED",
+  "sourceBase": "52cdb6e948be91dd0939264cdd09ff8284292d85",
+  "authority": {
+    "humanCrownRequiredForPromotion": true,
+    "mainMutation": false,
+    "publicPublish": false
+  },
+  "goals": [
+    "Harden Godot 4 into a real game-engine layer instead of a scene-specific demo.",
+    "Keep owned, permissive, private-reference, and unknown assets in distinct rights lanes.",
+    "Make Android use the Mobile renderer while retaining Compatibility as automatic fallback.",
+    "Provide a Forward+ ultra profile for workstation captures without making it the phone baseline.",
+    "Add PBR material ingest, facial blend-shape inspection, secondary-motion hooks, private mod registry, render profiles, and deterministic audits."
+  ],
+  "renderProfiles": {
+    "samsung_mobile_beta": {
+      "renderingMethod": "mobile",
+      "driverFamily": "RenderingDevice/Vulkan preferred",
+      "features": ["ACES tonemapping", "glow", "depth/height fog", "MSAA", "FXAA", "debanding", "reflection probes", "lightmap-ready", "decals-ready", "particle-trails-ready"],
+      "excludedByRenderer": ["volumetric fog", "SSR", "SSAO", "SSIL", "SDFGI", "subsurface scattering"],
+      "shadowPolicy": "one primary directional shadow caster; hero local lights default shadowless"
+    },
+    "workstation_forward_plus_ultra": {
+      "renderingMethod": "forward_plus",
+      "features": ["ACES", "glow", "TAA/FSR2-ready", "SSAO", "SSIL", "SSR", "SDFGI/VoxelGI-ready", "volumetric fog", "PCSS/contact-shadow-ready", "subsurface-skin-ready"]
+    },
+    "compatibility_fallback": {
+      "renderingMethod": "gl_compatibility",
+      "features": ["ACES", "glow", "fog", "MSAA", "SSAO when supported by driver"],
+      "purpose": "automatic low-end/fallback lane, not visual target"
+    }
+  },
+  "assetPolicy": {
+    "runtimeNetwork": false,
+    "packagedRights": ["OWNED", "PERMISSIVE"],
+    "privateRuntimeRights": ["PRIVATE_REFERENCE"],
+    "quarantineRights": ["UNKNOWN"],
+    "thirdPartyPrivateRule": "May be used only in private mod/source-reference workflows unless redistribution rights are explicitly proven.",
+    "sourcePreservation": "Never overwrite original Drive/Library/source assets; forge derivatives into versioned beta staging paths."
+  },
+  "pbrContract": {
+    "maps": ["base_color", "normal", "roughness", "metallic", "ao", "orm", "height_optional", "emissive_optional"],
+    "normalSpace": "tangent",
+    "mobileTextureMax": 4096,
+    "preferredMobileTexture": 2048,
+    "lodTriangleTargets": {"lod0": 120000, "lod1": 60000, "lod2": 25000}
+  },
+  "characterContract": {
+    "facial": ["blend-shape inventory", "blink", "smile", "jaw/talk", "brow", "viseme aliases"],
+    "animation": ["AnimationPlayer source clips", "AnimationTree blending", "retarget gate", "root-motion policy"],
+    "secondaryMotion": ["hair", "cloth", "tails", "wings", "optional adult bust bones when explicitly present in rig"],
+    "secondaryMotionEngine": "SpringBoneSimulator3D when unscaled compatible bone chains exist",
+    "hardBlock": "Do not enable spring-bone simulation on a scaled Skeleton3D hierarchy; bake/apply character scale first."
+  },
+  "modContract": {
+    "root": "user://mods",
+    "autoNetworkFetch": false,
+    "autoExecuteThirdPartyScripts": false,
+    "nexusStyleAssets": "private ingest only until license/redistribution and file audit pass",
+    "packaging": "mods are never silently promoted into the public APK"
+  },
+  "promotionGates": ["static audit green", "Godot headless beta smoke green", "Android APK build green", "physical Samsung visual proof green", "human Crown decision"]
+}

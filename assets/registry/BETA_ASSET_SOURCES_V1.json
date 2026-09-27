@@ -1,0 +1,73 @@
+{
+  "schema": "luhm-os.beta-asset-sources.v1",
+  "runtimeNetwork": false,
+  "publicLocatorPolicy": "Private Google Drive and ChatGPT Library IDs are intentionally not committed to public GitHub.",
+  "sources": [
+    {
+      "key": "repo-community-cc0",
+      "kind": "repository",
+      "rights": "PERMISSIVE",
+      "package": true,
+      "manifest": "res://assets/community/selected-assets.json",
+      "expectedAssetCount": 77,
+      "notes": "Current deterministic community set-dress lane; preserve per-asset provenance."
+    },
+    {
+      "key": "drive-original-vault",
+      "kind": "google_drive_private",
+      "rights": "OWNED",
+      "package": "AFTER_LOCAL_MATERIALIZATION",
+      "observedAssets": ["kai9000_cathedral_cockpit_interface.png", "lum_gothic_hip_wing_animation_asset_sheet.png"],
+      "notes": "Original/private LuHm art. Pull through local/Drive materialization and hash before staging."
+    },
+    {
+      "key": "drive-community-open-license",
+      "kind": "google_drive_private",
+      "rights": "PERMISSIVE",
+      "package": "AFTER_LICENSE_RECEIPT",
+      "observedAssetCount": 0,
+      "notes": "Vault lane exists but was empty at audit time; never infer license from folder name alone."
+    },
+    {
+      "key": "drive-third-party-private-reference",
+      "kind": "google_drive_private",
+      "rights": "PRIVATE_REFERENCE",
+      "package": false,
+      "observedCollections": ["DESTINY_CHILD_GACHA_REFERENCE_20"],
+      "notes": "Reference/private-mod lane only. Not redistributed."
+    },
+    {
+      "key": "drive-meshy-pipeline",
+      "kind": "google_drive_private",
+      "rights": "MIXED",
+      "package": "PER_ENTRY",
+      "observedArtifacts": ["README_KAI9000_MESHY_PIPELINE_011.md", "KAI9000_GODOT4_MESHY_RSS_JSON_PIPELINE_011.manifest.json", "KAI9000_GODOT4_MESHY_RSS_JSON_PIPELINE_011.zip"],
+      "notes": "Conversion/provenance tooling, not automatic game content."
+    },
+    {
+      "key": "chatgpt-library-asset-dungeon",
+      "kind": "chatgpt_library",
+      "rights": "MIXED",
+      "package": "PER_ENTRY",
+      "manifestName": "KAI9000_MULTIVERSE_ASSET_DUNGEON_MANIFEST_20260914.json",
+      "indexedAssetCount": 28,
+      "ownedGeneratedExamples": ["lum_character_sheet.png", "face_front.png", "face_3q.png", "face_profile.png", "eye_detail.png", "horn_detail.png", "lum_front_000.png", "lum_right_090.png", "Neon Gothic Cathedral Game Hub.png"],
+      "privateReferencePolicy": "Entries marked third_party_private_reference_do_not_publish remain non-packageable."
+    },
+    {
+      "key": "meshy-lum-runtime-donor",
+      "kind": "build_input",
+      "rights": "OWNED_OR_EXPLICITLY_APPROVED",
+      "package": true,
+      "staging": "scripts/buildCathedralWebglass.sh",
+      "notes": "Existing pinned/hash-verified Lum GLB donor remains character authority until replaced by a human-approved forge."
+    }
+  ],
+  "staging": {
+    "externalRoot": "assets/beta_external",
+    "pbrSidecar": "assets/beta_external/pbr/materials.json",
+    "privateMods": "user://mods",
+    "receipts": "build/beta-engine",
+    "acceptedExtensions": [".png", ".jpg", ".jpeg", ".webp", ".exr", ".hdr", ".glb", ".gltf", ".fbx", ".obj", ".ogg", ".wav", ".flac", ".json", ".tres", ".res"]
+  }
+}
