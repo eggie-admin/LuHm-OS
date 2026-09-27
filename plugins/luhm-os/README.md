@@ -1,41 +1,72 @@
 # LuHm OS ChatGPT Plugin
 
-LuHm OS packages reusable agent skills plus an MCP server for source-truth inspection, bounded Lum/Oni routing, and proof-aware status.
+LuHm OS packages reusable agent skills plus a hardened MCP server for source-truth inspection, bounded Lum/Oni routing, and proof-aware status.
+
+## Endpoint layout
+
+- Production MCP FQDN: `https://mcp.eggiebagelface.art/mcp`
+- Health/readiness: `https://mcp.eggiebagelface.art/healthz`
+- OpenAI domain challenge: `https://mcp.eggiebagelface.art/.well-known/openai-apps-challenge`
+- Local workstation MCP: `http://127.0.0.1:8788/mcp`
+
+The production endpoint is intentionally separate from the workstation. Render is the public application edge; the workstation remains local-first.
 
 ## Portable plugin root
 
 Required portable files live here:
 
 - `plugin.json` - Agent Plugins manifest.
-- `mcp.json` - local-development MCP connection.
+- `mcp.json` - production remote HTTPS MCP connection.
+- `mcp.local.json` - explicit loopback-only development connection.
+- `mcp.remote.example.json` - non-routable deployment example.
 - `skills/` - reusable LuHm workflow skills.
 - `PRIVACY.md` and `TERMS.md` - publication-policy candidates.
 
-`mcp.remote.example.json` is a deployment template only. It deliberately uses the reserved `.invalid` domain so it cannot be mistaken for a live backend.
+## Render production lane
 
-## Development connection
+The repository root `render.yaml` is the deployment contract for the `luhm-mcp` web service.
 
-The repository MCP server is `host/mcp/luhmMcpServer.py` and defaults to `http://127.0.0.1:8788/mcp` for workstation-local development.
+It requires:
 
-ChatGPT does not directly reach workstation loopback. Use an approved secure tunnel for development, or deploy the MCP server behind a stable HTTPS endpoint. Do not make the workstation server public merely by changing it to `0.0.0.0`.
+- Python 3.12.11.
+- MCP SDK 2.2.0.
+- CI checks passing before automatic deploy.
+- app-level `/healthz` readiness.
+- production profile binding to Render's `PORT` on `0.0.0.0`.
+- exact public Host allowlisting for `mcp.eggiebagelface.art`.
+- DNS-rebinding protection enabled.
+- 1 MiB maximum MCP request bodies.
+- stateless HTTP compatibility.
+- Render's default `onrender.com` hostname disabled once the custom domain is active.
+- `OPENAI_APPS_CHALLENGE` supplied through Render secret configuration, never committed.
 
-## Production connection
+Render terminates public TLS and redirects HTTP to HTTPS. The Python MCP process receives proxied HTTP only inside Render's service boundary.
 
-A publishable ChatGPT app/plugin requires a tested remote HTTPS MCP endpoint. Before replacing `mcp.json` with that endpoint, verify:
+## Cloudflare DNS
 
-1. exact source SHA and package audit are GREEN;
-2. endpoint is HTTPS and exposes only `/mcp` plus explicitly documented health metadata;
-3. authentication/authorization match the data and actions exposed;
-4. provider secrets remain server-side;
-5. MCP DNS-rebinding/host/origin protections are configured for the deployed hostname;
-6. tool schemas and read/write annotations match actual behavior;
-7. privacy and terms URLs resolve publicly;
-8. ChatGPT developer-mode tool scan succeeds;
-9. a real ChatGPT conversation calls each expected tool;
-10. publication remains a separate Crown decision.
+For the custom FQDN, create a Cloudflare CNAME named `mcp` that points to the Render service's generated `*.onrender.com` hostname.
+
+During Render domain verification and certificate issuance, use **DNS only**. Remove any `AAAA` record for `mcp`, because Render's custom-domain path currently uses IPv4. After Render reports the certificate valid, Cloudflare proxying is optional. Keep Cloudflare SSL/TLS mode at **Full** if proxying is enabled.
+
+Do not expose workstation ports and do not point the public FQDN at a LAN address.
+
+## OpenAI plugin review lane
+
+Before public submission:
+
+1. exact source SHA and package CI are GREEN;
+2. Render deploy is healthy on the production FQDN;
+3. `https://mcp.eggiebagelface.art/mcp` initializes successfully with MCP Inspector;
+4. every tool advertises `readOnlyHint=true`, `openWorldHint=false`, and `destructiveHint=false` accurately;
+5. the OpenAI portal challenge token is placed in Render as `OPENAI_APPS_CHALLENGE` and the well-known endpoint returns only that token;
+6. privacy and terms URLs resolve publicly;
+7. ChatGPT developer-mode tool scan succeeds against the production FQDN;
+8. golden prompts call each expected tool and reject unsupported inputs cleanly;
+9. logs contain no secrets or unnecessary personal data;
+10. public submission remains a separate Crown decision.
 
 ## Current authority boundary
 
-The candidate exposes read-oriented status, roster, routing, and proof-contract tools. It does not gain production signing, release promotion, publication, remote shell, or secret-write authority.
+The candidate exposes read-oriented status, roster, deterministic routing, and proof-contract tools. It does not gain production signing, release promotion, publication, remote shell, secret-write authority, or GREEN authority.
 
 Source law: **AI proposes. Policy authorizes. CI proves. Human promotes.**
