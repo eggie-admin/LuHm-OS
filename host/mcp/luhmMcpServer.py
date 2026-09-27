@@ -22,6 +22,10 @@ SOURCE_TRUTH = ROOT / "doctrine" / "SOURCE_OF_TRUTH.json"
 CONTROL_PLANE = ROOT / "doctrine" / "ONI_MESH_CONTROL_PLANE_V2.json"
 OPENAI_DEPLOYMENT = ROOT / "doctrine" / "openAiLumOniDeployment-20260927.json"
 ROUTER = ROOT / "tools" / "lumTaskRouter.py"
+ROUTE_KINDS = {
+    "direct", "read", "records", "proof", "patch", "build", "external",
+    "monitor", "release", "art", "media", "dictation", "asset",
+}
 
 server = FastMCP(
     "luhm-os",
@@ -76,9 +80,7 @@ def _skill_status() -> list[dict[str, Any]]:
     return out
 
 
-@server.tool()
-def luhm_status() -> dict[str, Any]:
-    """Read current LuHm source-truth and deployment gates without changing anything."""
+def _status_payload() -> dict[str, Any]:
     truth = _load_json(SOURCE_TRUTH)
     deploy = _load_json(OPENAI_DEPLOYMENT)
     return {
@@ -87,6 +89,7 @@ def luhm_status() -> dict[str, Any]:
         "sourceTruthStatus": truth.get("status", "UNKNOWN"),
         "canonicalMain": truth.get("canonicalMain", {}),
         "candidate": truth.get("currentFullGameCandidate", {}),
+        "agentWorkflowCandidate": truth.get("agentWorkflowCandidate", {}),
         "remainingExternalGates": truth.get("remainingExternalGates", {}),
         "openAiDeploymentStatus": deploy.get("status", "UNKNOWN"),
         "publicationAuthority": bool(truth.get("publication_authority", False)),
@@ -95,9 +98,7 @@ def luhm_status() -> dict[str, Any]:
     }
 
 
-@server.tool()
-def luhm_agent_roster() -> dict[str, Any]:
-    """List canonical Lum/Oni roles and whether each canonical SKILL.md is present."""
+def _roster_payload() -> dict[str, Any]:
     control = _load_json(CONTROL_PLANE)
     return {
         "schema": "luhm-os.mcp-roster.v1",
@@ -111,6 +112,18 @@ def luhm_agent_roster() -> dict[str, Any]:
 
 
 @server.tool()
+def luhm_status() -> dict[str, Any]:
+    """Read current LuHm source-truth and deployment gates without changing anything."""
+    return _status_payload()
+
+
+@server.tool()
+def luhm_agent_roster() -> dict[str, Any]:
+    """List canonical Lum/Oni roles and whether each canonical SKILL.md is present."""
+    return _roster_payload()
+
+
+@server.tool()
 def luhm_route_task(
     kind: str,
     truth_sensitive: bool = False,
@@ -119,8 +132,7 @@ def luhm_route_task(
     asset_review: bool = False,
 ) -> dict[str, Any]:
     """Run the deterministic LuHm task router and return its bounded worker plan."""
-    allowed = {"direct", "read", "patch", "build", "external", "monitor", "release", "art", "media", "dictation", "asset"}
-    if kind not in allowed:
+    if kind not in ROUTE_KINDS:
         raise ValueError(f"unsupported task kind: {kind}")
     command = [sys.executable, str(ROUTER), kind]
     if truth_sensitive:
@@ -171,12 +183,15 @@ def main() -> int:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     if args.check:
-        status = luhm_status()
-        roster = luhm_agent_roster()
+        status = _status_payload()
+        roster = _roster_payload()
         if status["sourceLaw"] != "AI proposes. Policy authorizes. CI proves. Human promotes.":
             raise SystemExit("RED_SOURCE_LAW_DRIFT")
         if not roster["roles"] or not all(role["skillPresent"] for role in roster["roles"]):
             raise SystemExit("RED_AGENT_SKILL_MISSING")
+        for kind in ("records", "proof"):
+            if kind not in ROUTE_KINDS:
+                raise SystemExit("RED_ROUTE_KIND_MISSING")
         print("LUHM_MCP_SOURCE_GREEN")
         return 0
     server.run(transport=args.transport)
