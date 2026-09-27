@@ -8,6 +8,7 @@ on:
       - 'doctrine/AGENT_MESH_V2.json'
       - 'doctrine/LUM_ORCHESTRATOR_V2.json'
       - 'doctrine/SOURCE_LAYOUT_V1.json'
+      - 'doctrine/CREATIVE_MEDIA_PIPELINE_V1.json'
       - 'project.godot'
       - 'export_presets.cfg'
       - 'scripts/**'
@@ -45,6 +46,7 @@ jobs:
           python3 -m json.tool doctrine/AGENT_MESH_V2.json >/dev/null
           python3 -m json.tool doctrine/LUM_ORCHESTRATOR_V2.json >/dev/null
           python3 -m json.tool doctrine/SOURCE_LAYOUT_V1.json >/dev/null
+          python3 -m json.tool doctrine/CREATIVE_MEDIA_PIPELINE_V1.json >/dev/null
           python3 -m json.tool assets/pet/oni/manifest.json >/dev/null
           python3 tests/agentMeshSmoke.py
           python3 tests/testAgentMeshV2.py
