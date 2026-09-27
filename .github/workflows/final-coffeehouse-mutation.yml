@@ -8,12 +8,12 @@ on:
   pull_request:
     paths:
       - 'scenes/**'
-      - 'scripts/game/**'
+      - 'scripts/**'
       - 'assets/community/**'
       - 'assets/nexus/**'
       - 'tools/**'
       - 'tests/**'
-      - 'doctrine/finalCoffeeHouseMutation-20260927.json'
+      - 'doctrine/**'
       - '.github/workflows/final-coffeehouse-mutation.yml'
 
 permissions:
@@ -42,12 +42,15 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Static Crown and Nexus gates
+      - name: Static Crown, agent, and asset gates
         run: |
           set -euo pipefail
           python3 -m json.tool doctrine/finalCoffeeHouseMutation-20260927.json >/dev/null
+          python3 -m json.tool doctrine/openAiLumOniDeployment-20260927.json >/dev/null
           python3 -m json.tool assets/nexus/manifest.example.json >/dev/null
-          python3 -m py_compile tools/finalMutationAudit.py tools/nexusAssetAudit.py tools/stageNexusAssets.py tools/blender/buildCoffeeHouse.py
+          python3 -m py_compile scripts/agentMeshRuntime.py tests/agentMeshSmoke.py tools/openAiLumOniAudit.py tools/finalMutationAudit.py tools/nexusAssetAudit.py tools/stageNexusAssets.py tools/blender/buildCoffeeHouse.py
+          python3 tests/agentMeshSmoke.py
+          python3 tools/openAiLumOniAudit.py
           python3 tools/finalMutationAudit.py
           python3 tools/nexusAssetAudit.py
           python3 tools/communityAssetAudit.py
@@ -68,8 +71,8 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p build/final-mutation
-          printf 'source_sha=%s\nstatus=EXACT_HEAD_CI_PROOF\nscene=Japanese kissaten + Lum idle intact\nnexus_payload_claim=none\n' "${{ github.event.pull_request.head.sha || github.sha }}" > build/final-mutation/receipt.txt
-          sha256sum doctrine/finalCoffeeHouseMutation-20260927.json scenes/Main.tscn scripts/game/finalCoffeeHouseOverlay.gd > build/final-mutation/SHA256SUMS.txt
+          printf 'source_sha=%s\nstatus=EXACT_HEAD_CI_PROOF\nscene=Japanese kissaten + Lum idle intact\nagent_mesh=CI_CONTRACT_PROVEN_LIVE_OPENAI_PENDING\nnexus_payload_claim=none\n' "${{ github.event.pull_request.head.sha || github.sha }}" > build/final-mutation/receipt.txt
+          sha256sum doctrine/finalCoffeeHouseMutation-20260927.json doctrine/openAiLumOniDeployment-20260927.json scripts/agentMeshRuntime.py scenes/Main.tscn scripts/game/finalCoffeeHouseOverlay.gd > build/final-mutation/SHA256SUMS.txt
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
