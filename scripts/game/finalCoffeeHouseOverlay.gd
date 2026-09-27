@@ -2,6 +2,7 @@ extends Node3D
 
 const CoffeeHouseSetDressScript := preload("res://scripts/game/coffeeHouseSetDress.gd")
 const CrownCathedralSetDressScript := preload("res://scripts/game/crownCathedralSetDress.gd")
+const CrownDonorGalleryScript := preload("res://scripts/game/crownDonorGallery.gd")
 const PrivateNexusSetDressScript := preload("res://scripts/game/privateNexusSetDress.gd")
 const TARGET_LUM_HEIGHT := 1.90
 
@@ -34,6 +35,11 @@ func _apply_final_mutation() -> void:
         var crown := CrownCathedralSetDressScript.new()
         crown.name = "CrownCathedralSetDress"
         world.add_child(crown)
+
+    if world.get_node_or_null("CrownDonorGallery") == null:
+        var gallery := CrownDonorGalleryScript.new()
+        gallery.name = "CrownDonorGallery"
+        world.add_child(gallery)
 
     if world.get_node_or_null("PrivateNexusSetDress") == null:
         var nexus := PrivateNexusSetDressScript.new()
