@@ -1,5 +1,5 @@
 {
-  "schema": "luhm-os.game-donor-manifest.v2",
+  "schema": "luhm-os.game-donor-manifest.v3",
   "date": "2026-09-27",
   "product": "LuHm OS",
   "product_scope": "LUHM_OS_FULL_GAME_ONLY",
@@ -34,8 +34,9 @@
       "source_provenance": "KAI9000_MULTIVERSE_ASSET_DUNGEON_MANIFEST_20260914",
       "drive_file_id": "1yyEW0JS9icWzG6vBqawHx5m_WDsfiufa",
       "runtime_path": "res://assets/donor/runtime/cathedral_hub_archive.webp",
-      "sha256": "024d07f498398dd0f95ef59b0771920fe3e047a259ca1185e265fb040d56a5bf",
-      "bytes": 14999,
+      "sha256": "f492bce18c782f566b6e26d73ddbb26d22612baec246be567493fa5309a50b4a",
+      "bytes": 12736,
+      "git_blob_sha1": "2fc0e559927b6cb68d4f5bbdf340a3b82529dfab",
       "derivative_state": "GIT_VENDORED_EXACT_BYTES"
     },
     {
@@ -48,8 +49,9 @@
       "source_provenance": "Project Library donor, independently hash-pinned",
       "drive_file_id": "1F5j5nUZr8Qb0IhypezI8lVhsQeWY7mzT",
       "runtime_path": "res://assets/donor/runtime/lum_ps1_float_shrine.webp",
-      "sha256": "f700ebc0e7138585a6620f53194051b0574d693417df285705f8531937a30c6a",
-      "bytes": 14997,
+      "sha256": "8bfc40154dae04281a018881472c6ad14e8dc69add4084004a769e800ff7add1",
+      "bytes": 4254,
+      "git_blob_sha1": "4f9411274c3ac359b920d26762861d7281fcd3ae",
       "derivative_state": "GIT_VENDORED_EXACT_BYTES"
     }
   ],
