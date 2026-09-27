@@ -42,6 +42,14 @@ def audit() -> None:
     require(truth.get("publication_authority") is False, "source truth gained publication authority")
     require(truth.get("promotion") is False, "source truth gained promotion authority")
     require(truth.get("android", {}).get("internetPermission") is False, "Android runtime network law drift")
+    workflow_truth = truth.get("agentWorkflowCandidate", {})
+    require(workflow_truth.get("branch") == "feature/oni-pet-activity-dock-v2-20260927", "agent workflow branch drift")
+    require(workflow_truth.get("status") == "CANDIDATE_EXACT_HEAD_CI_REQUIRED", "agent workflow source-truth status drift")
+    require(workflow_truth.get("publicationAuthority") is False, "agent workflow gained publication authority")
+    require(workflow_truth.get("promotionAuthority") is False, "agent workflow gained promotion authority")
+    require(workflow_truth.get("mcpMutationAuthority") is False, "source truth granted MCP mutation authority")
+    require(workflow_truth.get("proofImportGreenAuthority") is False, "proof import gained GREEN authority")
+    require(truth.get("remainingExternalGates", {}).get("chatGptPrivateMcpConnection") == "PENDING_SECURE_TUNNEL_OR_APPROVED_HTTPS_BRIDGE", "private MCP external gate drift")
 
     topology = control.get("topology", {})
     require(control.get("sourceLaw") == LAW, "control-plane source law drift")
@@ -83,11 +91,18 @@ def audit() -> None:
     require(mcp_entry.get("url") == "http://127.0.0.1:8788/mcp", "plugin MCP must remain loopback-local")
     require(marketplace.get("plugins", [{}])[0].get("source", {}).get("path") == "./plugins/luhm-os", "repo marketplace path drift")
 
+    runtime = text("scripts/agentMeshRuntime.py")
+    router = text("tools/lumTaskRouter.py")
+    for token in ('FUMI = Agent("Fumi"', "RECORDS_ONI", "MAX_PARALLEL = 3", "MAX_PARALLEL_BUILDS = 2"):
+        require(token in runtime, f"agent mesh runtime missing: {token}")
+    for token in ('"records": ["Lum", "Fumi"]', '"proof": ["Lum", "Sumi", "DrNao"]', '"schema": "luhm-os.task-route.v2"'):
+        require(token in router, f"task router missing: {token}")
+
     mcp_server = text("host/mcp/luhmMcpServer.py")
     for token in (
         'host="127.0.0.1"', 'port=8788', 'stateless_http=True',
         "luhm_status", "luhm_agent_roster", "luhm_route_task", "luhm_proof_contract",
-        "greenAuthority", "Secure MCP Tunnel",
+        '"records", "proof"', "greenAuthority", "Secure MCP Tunnel",
     ):
         require(token in mcp_server, f"MCP source missing contract token: {token}")
     require('host="0.0.0.0"' not in mcp_server, "MCP public bind forbidden")
