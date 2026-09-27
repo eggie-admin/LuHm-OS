@@ -9,11 +9,13 @@ on:
     paths:
       - 'scenes/**'
       - 'scripts/**'
+      - 'host/**'
       - 'assets/community/**'
       - 'assets/nexus/**'
       - 'tools/**'
       - 'tests/**'
       - 'doctrine/**'
+      - 'export_presets.cfg'
       - '.github/workflows/final-coffeehouse-mutation.yml'
 
 permissions:
@@ -42,23 +44,27 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Static Crown, agent, and asset gates
+      - name: Static Crown, agent, host-adapter, and asset gates
         run: |
           set -euo pipefail
           python3 -m json.tool doctrine/finalCoffeeHouseMutation-20260927.json >/dev/null
           python3 -m json.tool doctrine/openAiLumOniDeployment-20260927.json >/dev/null
+          python3 -m json.tool doctrine/finalSystemSourceTruth-20260927.json >/dev/null
           python3 -m json.tool assets/nexus/manifest.example.json >/dev/null
-          python3 -m py_compile scripts/agentMeshRuntime.py tests/agentMeshSmoke.py tools/openAiLumOniAudit.py tools/finalMutationAudit.py tools/nexusAssetAudit.py tools/stageNexusAssets.py tools/blender/buildCoffeeHouse.py
+          python3 -m py_compile host/openai/lumHost.py scripts/agentMeshRuntime.py tests/agentMeshSmoke.py tests/hostOpenAiAdapterSmoke.py tools/openAiLumOniAudit.py tools/finalMutationAudit.py tools/finalSystemAudit.py tools/nexusAssetAudit.py tools/stageNexusAssets.py tools/blender/buildCoffeeHouse.py
           python3 tests/agentMeshSmoke.py
+          python3 tests/hostOpenAiAdapterSmoke.py
           python3 tools/openAiLumOniAudit.py
           python3 tools/finalMutationAudit.py
           python3 tools/nexusAssetAudit.py
           python3 tools/communityAssetAudit.py
+          python3 host/openai/lumHost.py --status
+          grep -q 'exclude_filter="host/\*\*"' export_presets.cfg
 
-      - name: Full Cathedral Android build
+      - name: Full Cathedral release-candidate Android build
         env:
           SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: scripts/buildCathedralWebglass.sh
+        run: scripts/buildCathedralReleaseCandidate.sh
 
       - name: Exact scene smoke
         run: |
@@ -67,12 +73,18 @@ jobs:
           test -x "$GODOT"
           "$GODOT" --headless --path . --script tests/finalCoffeeHouseSmoke.gd
 
-      - name: Mutation receipt
+      - name: Final system audit and receipt
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           set -euo pipefail
           mkdir -p build/final-mutation
-          printf 'source_sha=%s\nstatus=EXACT_HEAD_CI_PROOF\nscene=Japanese kissaten + Lum idle intact\nagent_mesh=CI_CONTRACT_PROVEN_LIVE_OPENAI_PENDING\nnexus_payload_claim=none\n' "${{ github.event.pull_request.head.sha || github.sha }}" > build/final-mutation/receipt.txt
-          sha256sum doctrine/finalCoffeeHouseMutation-20260927.json doctrine/openAiLumOniDeployment-20260927.json scripts/agentMeshRuntime.py scenes/Main.tscn scripts/game/finalCoffeeHouseOverlay.gd > build/final-mutation/SHA256SUMS.txt
+          python3 tools/finalSystemAudit.py \
+            --build-dir build/android \
+            --source-sha "$SOURCE_SHA" \
+            --output build/final-mutation/system-audit.json
+          printf 'source_sha=%s\nstatus=EXACT_HEAD_CI_PROOF\nscene=Japanese kissaten + Lum idle intact\nagent_mesh=CI_CONTRACT_PROVEN\nopenai_host_adapter=MOCK_PROVEN_LIVE_RECEIPT_REQUIRED\napk_mode=RELEASE_CANDIDATE_NON_DEBUGGABLE\nnexus_payload_claim=none\n' "$SOURCE_SHA" > build/final-mutation/receipt.txt
+          sha256sum doctrine/finalCoffeeHouseMutation-20260927.json doctrine/openAiLumOniDeployment-20260927.json doctrine/finalSystemSourceTruth-20260927.json scripts/agentMeshRuntime.py host/openai/lumHost.py scenes/Main.tscn scripts/game/finalCoffeeHouseOverlay.gd > build/final-mutation/SHA256SUMS.txt
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:

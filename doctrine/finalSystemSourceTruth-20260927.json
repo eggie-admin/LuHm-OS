@@ -1,0 +1,38 @@
+{
+  "schema": "luhm-os.final-system-source-truth.v1",
+  "date": "2026-09-27",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true,
+    "auto_promote": false,
+    "auto_merge": false,
+    "production_sign": false
+  },
+  "status_model": "DERIVED_FROM_EXACT_RECEIPTS_NOT_STATIC_GREEN_LABEL",
+  "candidate_branch": "candidate/final-coffeehouse-nexus-scene-20260927",
+  "canonical_main_policy": "UNCHANGED_UNTIL_HUMAN_PROMOTION",
+  "layers": {
+    "godot_scene": "Japanese coffee-house final-form candidate",
+    "lum_rig": "existing rig and idle resolver preserved",
+    "agent_mesh": "Lum + Kiri/Tetsu/Momo + Shiori + Kugi fail-closed contract",
+    "openai": "host-only Responses API adapter; no provider secret in APK",
+    "android": "release-mode candidate; no INTERNET permission; caged WebGlass",
+    "nexus": "optional local permission-gated sidecar",
+    "blender": "reproducible generator; binary project is output"
+  },
+  "green_law": {
+    "source": "exact-head CI",
+    "apk": "release mode + non-debuggable + no INTERNET + signature + package + 16K alignment + payload + SHA256",
+    "openai_live": "authorized host secret + configured model + successful live probe receipt",
+    "device": "physical Samsung install + runtime smoke receipt",
+    "canonical": "explicit human promotion",
+    "enterprise": "persistent signing + branch controls + supporting live evidence"
+  },
+  "expected_external_hard_stops": [
+    "OPENAI live probe requires private host credential not stored in Git/APK",
+    "physical Samsung receipt requires the real device",
+    "persistent production signing requires Crown-owned signing material",
+    "canonical main promotion requires explicit Crown action"
+  ],
+  "unknown_is_not_green": true
+}
