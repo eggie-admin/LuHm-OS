@@ -1,16 +1,25 @@
 {
   "schema": "luhm-os.beta-asset-sources.v1",
   "runtimeNetwork": false,
-  "publicLocatorPolicy": "Private Google Drive and ChatGPT Library IDs are intentionally not committed to public GitHub.",
+  "publicLocatorPolicy": "Private Google Drive and ChatGPT Library IDs are intentionally not committed to public GitHub registries.",
   "sources": [
     {
       "key": "repo-community-cc0",
-      "kind": "repository",
+      "kind": "repository_runtime_payload",
       "rights": "PERMISSIVE",
       "package": true,
       "manifest": "res://assets/community/selected-assets.json",
       "expectedAssetCount": 77,
-      "notes": "Current deterministic community set-dress lane; preserve per-asset provenance."
+      "notes": "Pinned/hash-receipted CC0 GLB set staged at build time; this is the current deterministic Cathedral environment payload."
+    },
+    {
+      "key": "godot4-community-capability-cathedral",
+      "kind": "community_source_map",
+      "rights": "MIXED_PER_ENTRY",
+      "package": "SELECTIVE_AFTER_RECEIPT",
+      "manifest": "res://assets/registry/GODOT4_COMMUNITY_CAPABILITY_MAP_V1.json",
+      "referenceCount": 20,
+      "notes": "Character bases/outfits/animations, FACS/face reference, VRM, secondary motion, hair, creatures, environments and props; private-reference archetypes never cross the rights wall."
     },
     {
       "key": "drive-original-vault",
@@ -21,12 +30,12 @@
       "notes": "Original/private LuHm art. Pull through local/Drive materialization and hash before staging."
     },
     {
-      "key": "drive-community-open-license",
-      "kind": "google_drive_private",
-      "rights": "PERMISSIVE",
-      "package": "AFTER_LICENSE_RECEIPT",
-      "observedAssetCount": 0,
-      "notes": "Vault lane exists but was empty at audit time; never infer license from folder name alone."
+      "key": "drive-character-physics-curated",
+      "kind": "google_drive_private_source_receipts",
+      "rights": "MIXED_PER_ENTRY",
+      "package": "LUHM_AUTHORED_ENGINE_NATIVE_PROFILE_ONLY_BY_DEFAULT",
+      "observedCapabilities": ["SpringBoneSimulator3D", "WiggleBone", "JiggleBones", "godot-vrm", "GodotHair", "VitruvianGodot"],
+      "notes": "Curated community snapshots remain reference/provenance inputs unless their runtime files and licenses are explicitly promoted."
     },
     {
       "key": "drive-third-party-private-reference",
@@ -34,15 +43,7 @@
       "rights": "PRIVATE_REFERENCE",
       "package": false,
       "observedCollections": ["DESTINY_CHILD_GACHA_REFERENCE_20"],
-      "notes": "Reference/private-mod lane only. Not redistributed."
-    },
-    {
-      "key": "drive-meshy-pipeline",
-      "kind": "google_drive_private",
-      "rights": "MIXED",
-      "package": "PER_ENTRY",
-      "observedArtifacts": ["README_KAI9000_MESHY_PIPELINE_011.md", "KAI9000_GODOT4_MESHY_RSS_JSON_PIPELINE_011.manifest.json", "KAI9000_GODOT4_MESHY_RSS_JSON_PIPELINE_011.zip"],
-      "notes": "Conversion/provenance tooling, not automatic game content."
+      "notes": "Private comparison/motion-state reference only. No proprietary pixels/code/audio/assets are redistributed."
     },
     {
       "key": "chatgpt-library-asset-dungeon",
@@ -55,12 +56,22 @@
       "privateReferencePolicy": "Entries marked third_party_private_reference_do_not_publish remain non-packageable."
     },
     {
+      "key": "lum-animated-state-contract",
+      "kind": "owned_animation_reference",
+      "rights": "OWNED_OR_GENERATED",
+      "package": "DERIVATIVES_ONLY_AFTER_INGEST",
+      "states": ["idle", "blink", "smile", "wave", "tease", "cast", "victory", "sad"],
+      "godotStates": ["Idle_Breathe", "Blink", "Face_Happy", "Emote_Wave", "Face_Smug", "Cast", "Victory", "Face_Sad"],
+      "notes": "Existing LuHm animated-state lane can drive/author 3D AnimationTree and facial behavior without importing protected reference content."
+    },
+    {
       "key": "meshy-lum-runtime-donor",
       "kind": "build_input",
       "rights": "OWNED_OR_EXPLICITLY_APPROVED",
       "package": true,
-      "staging": "scripts/buildCathedralWebglass.sh",
-      "notes": "Existing pinned/hash-verified Lum GLB donor remains character authority until replaced by a human-approved forge."
+      "staging": "scripts/stageBetaGamePayload.sh",
+      "rigContract": {"joints":24,"requiredHumanoidRoles":22,"externalModel":true,"runningAsset":true},
+      "notes": "Pinned/hash-verified LumRigV2 GLB payload. CI must materialize it before judging rig/runtime capability."
     }
   ],
   "staging": {
