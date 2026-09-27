@@ -1,0 +1,66 @@
+name: Coffee World WebGlass Full Diagnostic
+
+on:
+  push:
+    branches:
+      - mutation/functional-cockpit-webglass-20260927
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  full-forge-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact mutation head
+        uses: actions/checkout@v4
+
+      - name: Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: cockpit/package-lock.json
+
+      - name: Run full Coffee World WebGlass forge with trace
+        id: forge
+        shell: bash
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          set +e
+          mkdir -p build/diagnostics
+          PS4='+ ${BASH_SOURCE}:${LINENO}: '
+          bash -x scripts/buildCathedralWebglass.sh \
+            2>&1 | tee build/diagnostics/coffee-world-webglass-forge.log
+          rc=${PIPESTATUS[0]}
+          {
+            echo '## Coffee World WebGlass full-forge diagnostic'
+            echo
+            echo "exit_code=$rc"
+            echo '```text'
+            tail -n 220 build/diagnostics/coffee-world-webglass-forge.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$rc"
+
+      - name: Preserve forge diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coffee-world-webglass-diagnostic-${{ github.sha }}
+          path: |
+            build/diagnostics/coffee-world-webglass-forge.log
+            build/community-assets/receipt.json
+            build/android/*.txt
+            build/android/*.json
+          if-no-files-found: warn
+          retention-days: 7
