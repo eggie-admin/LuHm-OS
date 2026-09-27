@@ -45,10 +45,24 @@ jobs:
           python3 -m json.tool doctrine/AGENT_MESH_V2.json >/dev/null
           python3 -m json.tool doctrine/LUM_ORCHESTRATOR_V2.json >/dev/null
           python3 -m json.tool doctrine/SOURCE_LAYOUT_V1.json >/dev/null
+          python3 -m json.tool assets/pet/oni/manifest.json >/dev/null
+          python3 tests/agentMeshSmoke.py
           python3 tests/testAgentMeshV2.py
+          python3 tools/petIconManifestAudit.py --output build/pet-icons/manifest-audit.json
           python3 tools/lumTaskRouter.py direct >/dev/null
+          python3 tools/lumTaskRouter.py art >/dev/null
+          python3 tools/lumTaskRouter.py media >/dev/null
+          python3 tools/lumTaskRouter.py dictation >/dev/null
           python3 tools/lumTaskRouter.py build --truth-sensitive >/dev/null
           echo 'LUM_MESH_PREFLIGHT=GREEN'
+
+      - name: Upload pet and agent preflight receipts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lum-mesh-fast-preflight
+          path: build/pet-icons/
+          if-no-files-found: error
+          retention-days: 30
 
   build:
     name: Build Oni ${{ matrix.oni }}
