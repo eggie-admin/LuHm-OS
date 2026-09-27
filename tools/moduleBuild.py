@@ -8,7 +8,7 @@ import shutil
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-NATIVE_INPUTS = ['native/kaiwebview', 'cockpit', 'addons/kai_webview', 'tools/moduleBuild.py', 'scripts/buildNativeWebglass.sh']
+NATIVE_INPUTS = ['native/kaiwebview', 'cockpit', 'addons/kai_webview', 'tools/moduleBuild.py', 'scripts/buildNativeWebglass.sh', 'scripts/buildCathedralWebglass.sh', 'scripts/buildCathedralReleaseCandidate.sh', 'project.godot', 'export_presets.cfg']
 OUTPUTS = ['kaiwebview-debug.aar', 'kaiwebview-release.aar']
 TOOLCHAIN = 'godot=4.7.2;java=17;android=36;build-tools=36.1.0;node=24;cache-format=1'
 
