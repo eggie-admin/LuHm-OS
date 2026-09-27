@@ -1,0 +1,33 @@
+name: LuHm Oni Mesh V2 Control Plane Audit
+
+on:
+  push:
+    paths:
+      - 'agents/**'
+      - 'doctrine/ONI_MESH_CONTROL_PLANE_V2.json'
+      - 'tools/auditOniMeshV2.py'
+      - 'tests/testOniMeshV2.py'
+      - '.github/workflows/oni-mesh-v2-audit.yml'
+  pull_request:
+    paths:
+      - 'agents/**'
+      - 'doctrine/ONI_MESH_CONTROL_PLANE_V2.json'
+      - 'tools/auditOniMeshV2.py'
+      - 'tests/testOniMeshV2.py'
+      - '.github/workflows/oni-mesh-v2-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  control-plane-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Deterministic mesh contract
+        run: python3 tools/auditOniMeshV2.py
+      - name: Negative controls
+        run: python3 tests/testOniMeshV2.py
