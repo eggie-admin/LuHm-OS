@@ -1,0 +1,56 @@
+{
+  "schema": "luhm-os.game-donor-manifest.v1",
+  "date": "2026-09-27",
+  "product": "LuHm OS",
+  "product_scope": "LUHM_OS_FULL_GAME_ONLY",
+  "authority": "Professor",
+  "donor": "KAI9000_GODOT4_ASSET_DUNGEON",
+  "donor_authority": false,
+  "runtime_network": false,
+  "build_time_fetch_only": true,
+  "drive_folder_id": "1dsfWhd2dE_IC2KdeQjiKvj0_t5i5U65-",
+  "policy": {
+    "use": "selective owned/generated or separately-permissive donor assets only",
+    "three_d_lum_authority": "rigged Drive GLB remains authoritative character runtime",
+    "kai_widget_authority": false,
+    "private_legacy_relics": "QUARANTINE_DO_NOT_PACKAGE_OR_PUBLISH",
+    "unknown_rights": "FAIL_CLOSED"
+  },
+  "assets": [
+    {
+      "id": "cathedral_hub_archive",
+      "role": "in-world Cathedral archive hologram",
+      "source_name": "Neon Gothic L.U.M. Cathedral Game Hub.png",
+      "source_sha256": "98e7ac8d5e38e4db182198c27889c0f3d5f15f8924bf1e4583ca81c30141a546",
+      "source_bytes": 3041455,
+      "source_rights": "USER_SUPPLIED_OR_GENERATED",
+      "source_provenance": "KAI9000_MULTIVERSE_ASSET_DUNGEON_MANIFEST_20260914",
+      "drive_file_id": "1yyEW0JS9icWzG6vBqawHx5m_WDsfiufa",
+      "runtime_path": "res://assets/donor/runtime/cathedral_hub_archive.webp",
+      "sha256": "a4d6225307b01da7eeecbff39a293acf3d1ff01ce2924bec213da2f6f0e07fb8",
+      "bytes": 57618
+    },
+    {
+      "id": "lum_ps1_float_shrine",
+      "role": "in-world retro Lum animation shrine",
+      "source_name": "LUM project hydra character animation sheet.png",
+      "source_sha256": "6d24a9f3a695acbf710347281280ad0e09311002d3d52d9a59c7450e0658018c",
+      "source_bytes": 1337754,
+      "source_rights": "USER_SUPPLIED_OR_GENERATED",
+      "source_provenance": "Project Library donor, independently hash-pinned",
+      "drive_file_id": "1F5j5nUZr8Qb0IhypezI8lVhsQeWY7mzT",
+      "runtime_path": "res://assets/donor/runtime/lum_ps1_float_shrine.webp",
+      "sha256": "f6ccea4f435ee2acb0edd987be893ed003bbd01db49e359935c2805ec68930bb",
+      "bytes": 16072
+    }
+  ],
+  "forbidden_payloads": [
+    "KAI9000 local-widget runtime",
+    "kai-widget launcher",
+    "KAI9000 dashboard/cockpit authority",
+    "Destiny Child relic binaries",
+    "legacy PCK payloads",
+    "third-party private-reference art",
+    "unknown-rights donor files"
+  ]
+}
