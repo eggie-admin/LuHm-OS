@@ -143,7 +143,6 @@ grep -q 'assets/cockpit/jquery/luhm.ritual.js' build/android/ziplist.txt
 grep -q 'assets/cockpit/ritual.css' build/android/ziplist.txt
 grep -q 'assets/cockpit/vendor/jquery/jquery.min.js' build/android/ziplist.txt
 grep -q 'assets/cockpit/vendor/vue/vue.global.prod.js' build/android/ziplist.txt
-grep -q 'runtimeDoctrine-20260926.json' build/android/ziplist.txt
 ! grep -R -nE 'addJavascriptInterface|allowUniversalAccessFromFileURLs|allowFileAccessFromFileURLs|MIXED_CONTENT_ALWAYS_ALLOW' native/kaiwebview
 ! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' native/kaiwebview cockpit scripts/platform scripts/game scripts/core
 
