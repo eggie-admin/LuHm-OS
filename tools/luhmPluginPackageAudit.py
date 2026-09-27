@@ -12,6 +12,7 @@ RENDER_BLUEPRINT = ROOT / "render.yaml"
 MCP_SERVER = ROOT / "host" / "mcp" / "luhmMcpServer.py"
 EXPECTED_FQDN = "mcp.eggiebagelface.art"
 EXPECTED_REMOTE_URL = f"https://{EXPECTED_FQDN}/mcp"
+EXPECTED_RENDER_SERVICE = "luhm-os-mcp"
 
 
 def read(path: Path) -> str:
@@ -100,7 +101,9 @@ def audit() -> None:
         "openWorldHint=False",
         "TransportSecuritySettings(",
         "enable_dns_rebinding_protection=True",
-        "allowed_hosts=[fqdn, f\"{fqdn}:*\"]",
+        "allowed_hosts=allowed_hosts",
+        "RENDER_EXTERNAL_HOSTNAME",
+        ".onrender.com",
         "@server.custom_route(\"/healthz\"",
         "@server.custom_route(\"/.well-known/openai-apps-challenge\"",
         "OPENAI_APPS_CHALLENGE",
@@ -111,7 +114,7 @@ def audit() -> None:
 
     render = read(RENDER_BLUEPRINT)
     for phrase in (
-        "name: luhm-mcp",
+        f"name: {EXPECTED_RENDER_SERVICE}",
         "region: ohio",
         "autoDeployTrigger: checksPass",
         "healthCheckPath: /healthz",
