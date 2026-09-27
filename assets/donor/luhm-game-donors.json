@@ -21,7 +21,7 @@
     "kai_widget_authority": false,
     "private_legacy_relics": "QUARANTINE_DO_NOT_PACKAGE_OR_PUBLISH",
     "unknown_rights": "FAIL_CLOSED",
-    "vendored_derivatives": "allowed only when rights-cleared, size-bounded and immutable-hash verified"
+    "vendored_derivatives": "allowed only when rights-cleared, size-bounded, format-valid and immutable-hash verified"
   },
   "assets": [
     {
@@ -33,10 +33,11 @@
       "source_rights": "USER_SUPPLIED_OR_GENERATED",
       "source_provenance": "KAI9000_MULTIVERSE_ASSET_DUNGEON_MANIFEST_20260914",
       "drive_file_id": "1yyEW0JS9icWzG6vBqawHx5m_WDsfiufa",
-      "runtime_path": "res://assets/donor/runtime/cathedral_hub_archive.webp",
-      "sha256": "f492bce18c782f566b6e26d73ddbb26d22612baec246be567493fa5309a50b4a",
-      "bytes": 12736,
-      "git_blob_sha1": "2fc0e559927b6cb68d4f5bbdf340a3b82529dfab",
+      "runtime_path": "res://assets/donor/runtime/cathedral_hub_archive.svg",
+      "runtime_format": "SVG_VECTOR_MOSAIC",
+      "sha256": "69cd6add8d87eebfb64b36e449a12f02daf42bcacba0b451a9a209bf2b48ed33",
+      "bytes": 11274,
+      "git_blob_sha1": "e8098ddd81e9b8b5be5eb0f5ae3a4d204d328cba",
       "derivative_state": "GIT_VENDORED_EXACT_BYTES"
     },
     {
@@ -48,10 +49,11 @@
       "source_rights": "USER_SUPPLIED_OR_GENERATED",
       "source_provenance": "Project Library donor, independently hash-pinned",
       "drive_file_id": "1F5j5nUZr8Qb0IhypezI8lVhsQeWY7mzT",
-      "runtime_path": "res://assets/donor/runtime/lum_ps1_float_shrine.webp",
-      "sha256": "8bfc40154dae04281a018881472c6ad14e8dc69add4084004a769e800ff7add1",
-      "bytes": 4254,
-      "git_blob_sha1": "4f9411274c3ac359b920d26762861d7281fcd3ae",
+      "runtime_path": "res://assets/donor/runtime/lum_ps1_float_shrine.svg",
+      "runtime_format": "SVG_VECTOR_MOSAIC",
+      "sha256": "deda30ccad7c8d313b64dc0ad383f874586e0714e06f642c71a10044fa06ff02",
+      "bytes": 9748,
+      "git_blob_sha1": "f046414e002c027151e67c5ecfdfe551042a7756",
       "derivative_state": "GIT_VENDORED_EXACT_BYTES"
     }
   ],
