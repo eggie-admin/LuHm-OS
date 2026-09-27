@@ -1,0 +1,89 @@
+{
+  "schema": "luhm-os.reconciled-coffee-house-lum-candidate.v1",
+  "date": "2026-09-27",
+  "status": "CANDIDATE_RECONCILED_EXACT_HEAD_CI_PENDING",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true,
+    "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+    "auto_promote": false,
+    "auto_merge": false,
+    "production_sign": false
+  },
+  "lineage": {
+    "canonical_main": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+    "source_candidate_branch": "candidate/final-coffeehouse-nexus-scene-20260927",
+    "source_candidate_head": "685137f3ce905b686f7d627a3e2ca3cb8fdf73c8",
+    "reconciled_candidate_branch": "candidate/final-coffeehouse-lum-reconciled-20260927",
+    "canonical_main_unchanged": true
+  },
+  "recovery_chain": [
+    "final-coffeehouse-nexus-scene",
+    "rigged Drive Lum",
+    "cleared community assets",
+    "private Nexus sidecar",
+    "current doctrine reconciliation",
+    "fresh candidate build",
+    "phone proof"
+  ],
+  "lum_drive": {
+    "file_id": "1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen",
+    "name": "Meshy_AI_Lum_Midnight_1996_biped.zip",
+    "bytes": 16410745,
+    "bundle_sha256": "fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da",
+    "base_target": "assets/lum/luhm.glb",
+    "base_sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
+    "running_target": "assets/lum/luhmRunning.glb",
+    "running_sha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0",
+    "rig_contract": "1 mesh, 1 skin, 24 joints; base and running animation payloads",
+    "reverified_from_current_drive_bytes": true,
+    "reverified_date": "2026-09-27",
+    "build_time_hash_gate": "scripts/buildCathedralWebglass.sh",
+    "git_binary_vendor": false
+  },
+  "community_assets": {
+    "selection": "assets/community/selected-assets.json",
+    "source_repository": "shorepine/kenney",
+    "source_commit": "3694c6879e487c108f55677be7dd2ca75b07cc3b",
+    "license": "CC0",
+    "selected_count": 77,
+    "runtime_network": false,
+    "build_time_fetch_only": true,
+    "provenance_receipt": "assets/community/runtime/PROVENANCE.json"
+  },
+  "nexus": {
+    "mode": "PRIVATE_LOCAL_SIDECAR",
+    "runtime_loader": "scripts/game/privateNexusSetDress.gd",
+    "stager": "tools/stageNexusAssets.py",
+    "runtime_network": false,
+    "autodownload": false,
+    "git_payloads": false,
+    "shared_apk_default": false,
+    "rights_modes": [
+      "PRIVATE_PERSONAL_REFERENCE",
+      "REDISTRIBUTABLE_WITH_EVIDENCE"
+    ],
+    "unknown_rights": "FAIL_CLOSED"
+  },
+  "scene": {
+    "entry": "scenes/Main.tscn",
+    "overlay": "scripts/game/finalCoffeeHouseOverlay.gd",
+    "coffee_house": "scripts/game/coffeeHouseSetDress.gd",
+    "community_set_dress": "scripts/game/communitySetDress.gd",
+    "blender_generator": "tools/blender/buildCoffeeHouse.py",
+    "lum_runtime": "scripts/game/lumAvatar.gd",
+    "world_runtime": "scripts/game/neonWorld.gd"
+  },
+  "proof_gates": {
+    "source_green": "exact-head GitHub Actions success on the reconciled branch",
+    "lum_green": "current Drive ZIP + both GLBs match pinned SHA-256 values and Godot rig smoke passes",
+    "community_green": "77 CC0 assets staged from immutable commit within Android byte budget and smoke passes",
+    "nexus_green": "sidecar mechanism remains permission-gated and no private payload is required by the shared candidate",
+    "apk_green": "release candidate + non-debuggable + no INTERNET + shell profiling disabled + signature + package + 16K alignment + payload + SHA256",
+    "phone_green": "physical Samsung install + launch + visible rigged Lum + visible coffeehouse/community scene + movement/camera smoke",
+    "canonical_green": "explicit Professor promotion only"
+  },
+  "phone_proof": "PENDING",
+  "canonical_promotion": false,
+  "unknown_is_not_green": true
+}
