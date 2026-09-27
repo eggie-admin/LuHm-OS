@@ -13,6 +13,7 @@
     build: { label: 'Build / test', prompt: 'Prepare the smallest build or test needed for the current change. Reuse proven architecture only when receipts match.', lane: 'build' },
     fix: { label: 'Fix bug', prompt: 'Trace the current regression to the smallest source-level cause and propose or stage a surgical fix.', lane: 'debug' },
     assets: { label: 'Assets', prompt: 'Audit and organize the relevant LuHm game/media assets, provenance, duplicates, and runtime readiness.', lane: 'assets' },
+    proofs: { label: 'Proofs', prompt: 'Show the proof/evidence attached to the current task. Preserve exact source SHA, hashes, provenance, and UNKNOWN states.', lane: 'evidence' },
     research: { label: 'Research', prompt: 'Research the current technical question using authoritative current sources and return only findings that affect the build.', lane: 'research' },
     drive: { label: 'Drive install', prompt: 'Continue the Google Drive install workflow using the newest proven artifact. Do not rebuild unless required.', lane: 'distribution' },
     crown: { label: 'Prepare Crown', prompt: 'Prepare the current candidate for Crown review. Summarize exact SHA, evidence, blockers, and authority required. Do not promote.', lane: 'crown' }
@@ -116,6 +117,16 @@
         $('<code>', { text: clean(fields[key], 180) }).appendTo($cell);
       });
     }
+
+    if (detail.proof && typeof detail.proof === 'object') {
+      var proof = $.extend(true, {}, detail.proof);
+      if (!proof.status) proof.status = status;
+      if (!proof.sourceRef && fields.sourceRef) proof.sourceRef = fields.sourceRef;
+      if (!proof.sha256 && fields.sha256) proof.sha256 = fields.sha256;
+      var $button = $('<button>', { 'class':'chatProofButton', type:'button', text:'Open proof', 'data-chat-proof-open':'' });
+      $button.data('luhmProofPacket', proof).appendTo($card);
+    }
+
     $stream().append($card).scrollTop($stream().prop('scrollHeight'));
   }
 
@@ -135,6 +146,12 @@
 
     $r.on('click.luhmChatWorkbench', '[data-chat-action]', function () {
       applyAction(String($(this).data('chat-action') || ''));
+    });
+
+    $r.on('click.luhmChatWorkbench', '[data-chat-proof-open]', function () {
+      var proof = $(this).data('luhmProofPacket');
+      if (!proof || typeof proof !== 'object') return;
+      window.dispatchEvent(new CustomEvent('luhm:proof:open', { detail: $.extend(true, {}, proof) }));
     });
 
     $r.on('input.luhmChatWorkbench', INPUT, function () {
@@ -198,7 +215,7 @@
     });
 
     window.luhmChatWorkbench = Object.freeze({
-      version: '0.1.0-beta',
+      version: '0.2.0-beta',
       actions: Object.freeze(Object.keys(ACTIONS)),
       setContext: function (detail) { window.dispatchEvent(new CustomEvent('luhm:chat:context', { detail: detail || {} })); },
       assistant: function (detail) { window.dispatchEvent(new CustomEvent('luhm:chat:assistant', { detail: detail || {} })); },
