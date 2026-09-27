@@ -1,4 +1,4 @@
-name: LuHm Cathedral Witching Hour Three Ritual
+name: LuHm Cathedral Full Mutation Staged
 
 on:
   workflow_dispatch:
@@ -16,13 +16,14 @@ on:
       - 'tools/**'
       - 'doctrine/androidCandidate.json'
       - 'doctrine/witchingHourThreeRitual-20260926.json'
+      - 'doctrine/runtimeDoctrine-20260926.json'
       - '.github/workflows/witching-hour-three-ritual-build.yml'
 
 permissions:
   contents: read
 
 concurrency:
-  group: witching-hour-three-ritual-${{ github.event.pull_request.number || github.ref }}
+  group: cathedral-full-mutation-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -47,7 +48,7 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Build + ten-pass + three-ritual smoke
+      - name: Full doctrine mutation + smoke + staged APK
         env:
           SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           CANDIDATE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -55,18 +56,18 @@ jobs:
           chmod +x scripts/buildCathedralWebglass.sh
           scripts/buildCathedralWebglass.sh
 
-      - name: Upload exact APK evidence bundle
+      - name: Upload full mutation APK evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: luhm-cathedral-witching-hour-apk
+          name: luhm-cathedral-full-mutation-apk
           path: build/android/
           if-no-files-found: error
           retention-days: 30
 
-      - name: Upload direct install bundle
+      - name: Upload direct install portal
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: luhm-cathedral-witching-hour-install
+          name: luhm-cathedral-full-mutation-install
           path: build/installPortal/
           if-no-files-found: error
           retention-days: 30
