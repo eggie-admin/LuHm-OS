@@ -9,22 +9,45 @@ func _run() -> void:
     var game: Node = scene.instantiate()
     root.add_child(game)
 
-    for _frame in range(4):
+    for _frame in range(8):
         await process_frame
 
     var world := game.get_node_or_null("NeonWorld") as Node3D
     assert(world != null)
     assert(world.get_node_or_null("CoffeeHouseSetDress") != null)
+    assert(world.get_node_or_null("CrownCathedralSetDress") != null)
     assert(world.get_node_or_null("PrivateNexusSetDress") != null)
+
+    var crown := world.get_node_or_null("CrownCathedralSetDress") as Node3D
+    assert(crown.get_node_or_null("CrownCathedralSign") != null)
+    assert(crown.get_node_or_null("CrownGateTop") != null)
+    assert(crown.get_node_or_null("RoofRidge") != null)
+
+    var community := world.get_node_or_null("CommunityCathedralSetDress") as Node3D
+    assert(community != null)
+    var asset_summary: Dictionary = community.call("get_runtime_asset_summary") as Dictionary
+    assert(int(asset_summary.get("expected", 0)) == 77)
+    assert(int(asset_summary.get("loaded", 0)) == 77)
+    assert(int(asset_summary.get("missing", 1)) == 0)
 
     var lum := world.get_node_or_null("LumAvatarSocket") as Node3D
     assert(lum != null)
-    assert(lum.position.z > 10.0)
+    assert(lum.position.z > 13.0)
+    assert(bool(lum.call("uses_external_model")))
 
-    var coffee := world.get_node_or_null("CoffeeHouseSetDress")
+    var overlay := game.get_node_or_null("FinalCoffeeHouseMutation") as Node3D
+    assert(overlay != null)
+    var lum_height := float(overlay.call("_measure_visual_height", lum))
+    assert(lum_height > 1.70 and lum_height < 2.10)
+
+    var player := game.get_node_or_null("PlayerController") as CharacterBody3D
+    assert(player != null)
+    assert(player.position.z < 7.5)
+
+    var coffee := world.get_node_or_null("CoffeeHouseSetDress") as Node3D
     assert(coffee.get_node_or_null("KissatenFloor") != null)
     assert(coffee.get_node_or_null("OniCoffeeSign") != null)
 
-    print("FINAL_COFFEE_HOUSE_SMOKE=PASS")
+    print("CROWN_CATHEDRAL_SCENE_SMOKE=PASS assets=77 lum_height=%.3f" % lum_height)
     game.queue_free()
     quit(0)
