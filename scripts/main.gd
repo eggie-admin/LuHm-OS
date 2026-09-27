@@ -1,8 +1,9 @@
 extends Node3D
 
-# Final Cathedral install architecture:
-# Godot owns the native renderer/world. The Android WebView is movable WebGlass UI,
-# not a literal 3D stage. Headless/desktop keeps the native HUD as a deterministic fallback.
+# Cathedral runtime authority:
+# Godot owns the native world. WebGlass is a caged local control surface.
+# Runtime capabilities are loaded from doctrine and fail closed.
+const DoctrineGateScript := preload("res://scripts/core/doctrineGate.gd")
 const NeonWorldScript := preload("res://scripts/game/neonWorld.gd")
 const PlayerControllerScript := preload("res://scripts/game/playerController.gd")
 const GameHudScript := preload("res://scripts/game/gameHud.gd")
@@ -13,6 +14,7 @@ const CharacterCreatorRuntimeScript := preload("res://scripts/game/characterCrea
 const RitualDirectorScript := preload("res://scripts/game/ritualDirector.gd")
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
 
+var doctrine_gate: Node
 var neon_world: Node3D
 var player_controller: CharacterBody3D
 var game_hud: CanvasLayer
@@ -27,13 +29,19 @@ func _ready() -> void:
     _build_runtime()
     _wire_runtime()
     enterWorldMode()
-    if _webglass_available():
-        game_hud.set_status("♛ CROWNED // GODOT WORLD + WEBGLASS")
+    if doctrine_gate == null or not doctrine_gate.is_valid():
+        game_hud.set_status("CROWN · RED // RUNTIME DOCTRINE BLOCKED")
+    elif _webglass_available():
+        game_hud.set_status("♛ CROWNED // FULL MUTATION + WEBGLASS")
         kai_webview_bridge.show_cockpit("compact")
     else:
         game_hud.set_status("CROWN · AMBER // NATIVE FALLBACK")
 
 func _build_runtime() -> void:
+    doctrine_gate = DoctrineGateScript.new()
+    doctrine_gate.name = "RuntimeDoctrineGate"
+    add_child(doctrine_gate)
+
     neon_world = NeonWorldScript.new()
     neon_world.name = "NeonWorld"
     add_child(neon_world)
@@ -82,7 +90,7 @@ func _wire_runtime() -> void:
         kai_webview_bridge.quit_requested.connect(_on_quit_requested)
 
 func _webglass_available() -> bool:
-    return kai_webview_bridge != null and bool(kai_webview_bridge.call("is_available"))
+    return doctrine_gate != null and doctrine_gate.is_valid() and kai_webview_bridge != null and bool(kai_webview_bridge.call("is_available"))
 
 func _hide_native_hud_for_webglass() -> void:
     if game_hud == null:
@@ -119,6 +127,9 @@ func _on_web_camera_delta(delta: Vector2) -> void:
         player_controller.orbit_by(delta * Vector2(0.0038, 0.0034))
 
 func _on_toy_action(action: String) -> void:
+    if doctrine_gate == null or not doctrine_gate.allows_toy_action(action):
+        game_hud.set_status("KAI 9000 // DOCTRINE BLOCKED TOY ACTION")
+        return
     match action:
         "pet_lum":
             if neon_world.has_method("pet_lum"):
@@ -132,8 +143,6 @@ func _on_toy_action(action: String) -> void:
             if neon_world.has_method("crown_pulse"):
                 neon_world.crown_pulse()
             game_hud.set_status("♛ CROWN PULSE // PROFESSOR AUTHORITY")
-        "chat_glass":
-            _enter_backend()
         _:
             game_hud.set_status("KAI 9000 // UNKNOWN TOY ACTION BLOCKED")
 
