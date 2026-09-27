@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LAW = "AI proposes. Policy authorizes. CI proves. Human promotes."
 ROLES = {"Lum", "Kiri", "Tetsu", "Kaji", "Momo", "Shiori", "DrNao", "Kugi", "Fumi", "Sumi", "Koe", "Yume"}
 PET_STATES = {"idle", "thinking", "working", "inspect", "waiting", "success", "alert", "sleep"}
+PRODUCTION_MCP_FQDN = "mcp.eggiebagelface.art"
 
 
 def text(path: str) -> str:
@@ -33,6 +34,7 @@ def audit() -> None:
     deploy = data("doctrine/openAiLumOniDeployment-20260927.json")
     plugin = data("plugins/luhm-os/plugin.json")
     plugin_mcp = data("plugins/luhm-os/mcp.json")
+    plugin_mcp_local = data("plugins/luhm-os/mcp.local.json")
     marketplace = data(".agents/plugins/marketplace.json")
     pet_manifest = data("assets/pet/oni/manifest.json")
 
@@ -64,8 +66,8 @@ def audit() -> None:
     require(architecture.get("android_provider_secrets") is False, "provider secret entered Android")
     require(architecture.get("android_runtime_network_default") is False, "Android runtime network drift")
     private_mcp = deploy.get("privateMcp", {})
-    require(private_mcp.get("mutationAuthority") is False and private_mcp.get("publicBindAllowed") is False, "MCP authority/bind drift")
-    require(private_mcp.get("bind") == "127.0.0.1:8788", "MCP doctrine bind drift")
+    require(private_mcp.get("mutationAuthority") is False and private_mcp.get("publicBindAllowed") is False, "private MCP authority/bind drift")
+    require(private_mcp.get("bind") == "127.0.0.1:8788", "private MCP doctrine bind drift")
     require(private_mcp.get("directCloudTo127001Claim") is False, "direct cloud-to-loopback claim enabled")
     require(deploy.get("androidProofVault", {}).get("importVerdict") == "UNKNOWN_UNTIL_ADJUDICATED", "proof import authority drift")
 
@@ -87,9 +89,13 @@ def audit() -> None:
     require(plugin.get("name") == "luhm-os", "plugin identity drift")
     capabilities = plugin.get("extensions", {}).get("com.openai", {}).get("interface", {}).get("capabilities", [])
     require(capabilities == ["Read"], "candidate plugin must remain read-only")
-    mcp_entry = plugin_mcp.get("mcpServers", {}).get("luhm_local", {})
-    require(mcp_entry.get("type") == "streamable-http", "plugin MCP transport drift")
-    require(mcp_entry.get("url") == "http://127.0.0.1:8788/mcp", "plugin MCP must remain loopback-local")
+
+    production_mcp = plugin_mcp.get("mcpServers", {}).get("luhm", {})
+    require(production_mcp.get("type") == "streamable-http", "production plugin MCP transport drift")
+    require(production_mcp.get("url") == f"https://{PRODUCTION_MCP_FQDN}/mcp", "production plugin MCP FQDN drift")
+    local_mcp = plugin_mcp_local.get("mcpServers", {}).get("luhm_local", {})
+    require(local_mcp.get("type") == "streamable-http", "local plugin MCP transport drift")
+    require(local_mcp.get("url") == "http://127.0.0.1:8788/mcp", "local plugin MCP must remain loopback-local")
     require(marketplace.get("plugins", [{}])[0].get("source", {}).get("path") == "./plugins/luhm-os", "repo marketplace path drift")
 
     runtime = text("scripts/agentMeshRuntime.py")
@@ -100,12 +106,18 @@ def audit() -> None:
         require(token in router, f"task router missing: {token}")
 
     mcp_server = text("host/mcp/luhmMcpServer.py")
-    for token in ('host="127.0.0.1"', 'port=8788', 'stateless_http=True', "luhm_status", "luhm_agent_roster", "luhm_route_task", "luhm_proof_contract", '"records", "proof"', "greenAuthority"):
+    for token in (
+        'LOCAL_HOST = "127.0.0.1"', "LOCAL_PORT = 8788", 'DEFAULT_PUBLIC_FQDN = "mcp.eggiebagelface.art"',
+        'host="0.0.0.0"', "port=port", "stateless_http=True", "json_response=True",
+        "TransportSecuritySettings", "enable_dns_rebinding_protection=True", "allowed_hosts=[fqdn, f\"{fqdn}:*\"]",
+        "readOnlyHint=True", "destructiveHint=False", "openWorldHint=False",
+        "luhm_status", "luhm_agent_roster", "luhm_route_task", "luhm_proof_contract",
+        '"records", "proof"', "greenAuthority", '"/healthz"', '"/.well-known/openai-apps-challenge"',
+    ):
         require(token in mcp_server, f"MCP source missing contract token: {token}")
-    require(re.search(r"OpenAI\s+Secure\s+MCP\s+Tunnel", mcp_server) is not None, "MCP source missing secure tunnel boundary")
-    require('host="0.0.0.0"' not in mcp_server, "MCP public bind forbidden")
+    require('if profile == "production"' in mcp_server, "MCP public bind not production-gated")
     require("merge_pull_request" not in mcp_server and "production_sign" not in mcp_server, "MCP gained consequential executor")
-    require(text("host/mcp/requirements.txt").strip() == "mcp==1.26.0", "MCP SDK pin drift")
+    require(text("host/mcp/requirements.txt").strip() == "mcp==2.2.0", "MCP SDK pin drift")
 
     native = text("native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/KAIWebView.kt")
     vault = text("native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/ProofVault.kt")
@@ -124,7 +136,14 @@ def audit() -> None:
     require(LAW in host, "OpenAI host instructions missing source law")
 
     secret_pattern = re.compile(r"(sk-proj-[A-Za-z0-9_-]{8,}|BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY|AIza[A-Za-z0-9_-]{20,})")
-    guarded = ["host/mcp/luhmMcpServer.py", "plugins/luhm-os/plugin.json", "plugins/luhm-os/mcp.json", "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md", "doctrine/openAiLumOniDeployment-20260927.json", "native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/KAIWebView.kt", "native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/ProofVault.kt"]
+    guarded = [
+        "host/mcp/luhmMcpServer.py", "plugins/luhm-os/plugin.json", "plugins/luhm-os/mcp.json",
+        "plugins/luhm-os/mcp.local.json", "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md",
+        "doctrine/openAiLumOniDeployment-20260927.json",
+        "native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/KAIWebView.kt",
+        "native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/ProofVault.kt",
+        "render.yaml",
+    ]
     for path in guarded:
         require(secret_pattern.search(text(path)) is None, f"secret-like material detected in {path}")
 
