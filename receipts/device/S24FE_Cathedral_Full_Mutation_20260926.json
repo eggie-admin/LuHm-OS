@@ -1,0 +1,48 @@
+{
+  "schema": "luhm-os.device-proof.v1",
+  "date": "2026-09-26",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true
+  },
+  "artifact": {
+    "source_commit": "a7877941cc367098bedb34f13f57e2f60ca2f2d3",
+    "package": "art.eggiebagelface.luhmos.cathedraltoy.witchinghour",
+    "version_code": 127,
+    "version_name": "1.0.27-cathedral.fullmutation.1",
+    "apk_sha256": "4bc55b6fcf8edef60c980c05be6824900e1b4d8a73d4f174662b8eff4b09c31a",
+    "drive_file_id": "1_wfDlUj2x2HJyh5oHFUn5kYIZAVwpl5N"
+  },
+  "physical_proof": {
+    "source": "Professor-supplied screen recording",
+    "video_sha256": "49f9631c09b089b646b4ee731eb1f8aa41a72fbab592f8b63f4c871ac4a05764",
+    "duration_seconds": 23.638578,
+    "resolution": "1080x2340",
+    "observed": {
+      "android_install_and_launch": "GREEN",
+      "godot_world_render": "GREEN",
+      "webglass_overlay_render": "GREEN",
+      "chat_panel_render": "GREEN",
+      "compact_mode_render": "GREEN",
+      "floating_bottom_dock_render": "GREEN",
+      "jquery_vue_glass_identity": "GREEN",
+      "webview_provider_display": "GREEN",
+      "webview_provider_observed": "com.google.android.webview.canary / 156.0.8073.0"
+    },
+    "not_claimed_from_this_video": {
+      "all_three_rituals_executed": "NOT_OBSERVED",
+      "background_resume_cycle": "NOT_OBSERVED",
+      "explicit_exit": "NOT_OBSERVED",
+      "on_device_apk_hash_remeasurement": "NOT_OBSERVED"
+    }
+  },
+  "milestone": {
+    "install_ready": "GREEN",
+    "physical_install_launch": "GREEN",
+    "cathedral_runtime_visual_smoke": "GREEN",
+    "extended_interaction_qa": "PARTIAL",
+    "production_release": "NOT_AUTHORIZED",
+    "main_merge": "NOT_AUTHORIZED"
+  },
+  "result": "CROWN_GREEN_INSTALL_MILESTONE_WITH_VISUAL_DEVICE_PROOF"
+}
