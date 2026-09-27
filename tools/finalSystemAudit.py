@@ -13,6 +13,9 @@ LUM_RUNNING_SHA = "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c96
 EXPECTED_COMMUNITY_COUNT = 77
 EXPECTED_DONOR_COUNT = 2
 MAX_DONOR_BYTES = 2 * 1024 * 1024
+CURRENT_BRANCH = "candidate/crown-cathedral-audit-hardening-20260927"
+CANONICAL_MAIN = "506e486cb142f6c81f7df71d007fdf05e47e82ed"
+BASELINE_GREEN_HEAD = "93bc11cbc1c09ecf6e18605985beebf4f9a4e8d5"
 
 
 def fail(msg: str) -> None:
@@ -50,14 +53,85 @@ def main() -> int:
 
     game_doctrine = load_json(ROOT / "doctrine/luhmFullGameDoctrine-20260927.json")
     game_truth = load_json(ROOT / "doctrine/luhmFullGameSourceTruth-20260927.json")
+    root_truth = load_json(ROOT / "doctrine/SOURCE_OF_TRUTH.json")
+    final_truth = load_json(ROOT / "doctrine/finalSystemSourceTruth-20260927.json")
+    deployment = load_json(ROOT / "doctrine/crownCathedralDeployment-20260927.json")
+
     if game_doctrine.get("product") != "LuHm OS" or game_doctrine.get("scope") != "FULL_GAME":
         fail("LuHm full-game doctrine scope drift")
     if game_truth.get("product") != "LuHm OS" or game_truth.get("scope") != "FULL_GAME":
         fail("LuHm full-game source-truth scope drift")
+    if root_truth.get("product") != "LuHm OS" or root_truth.get("scope") != "FULL_GAME":
+        fail("root source-truth scope drift")
+    if final_truth.get("product") != "LuHm OS" or final_truth.get("scope") != "FULL_GAME":
+        fail("final-system source-truth scope drift")
+    if deployment.get("product") != "LuHm OS" or deployment.get("product_scope") != "FULL_GAME":
+        fail("Crown deployment scope drift")
+
+    branches = {
+        "game_doctrine": game_doctrine.get("candidate_branch"),
+        "game_truth": game_truth.get("candidate_branch"),
+        "root_truth": root_truth.get("currentFullGameCandidate", {}).get("branch"),
+        "final_truth": final_truth.get("candidate_branch"),
+        "deployment": deployment.get("branch"),
+    }
+    if any(value != CURRENT_BRANCH for value in branches.values()):
+        fail("current full-game authority branch drift: " + json.dumps(branches, sort_keys=True))
+    if root_truth.get("canonicalMain", {}).get("sha") != CANONICAL_MAIN:
+        fail("canonical main pointer drift")
+    if root_truth.get("canonicalMain", {}).get("promoted") is not False:
+        fail("unproven canonical promotion")
+
+    baseline_heads = {
+        game_doctrine.get("baseline_proven_green_head"),
+        game_truth.get("baseline_proven_green_head"),
+        root_truth.get("currentFullGameCandidate", {}).get("baselineProvenExactHead"),
+        final_truth.get("candidate_lineage", {}).get("baseline_proven_green_head"),
+        deployment.get("baseline_proven_green_head"),
+    }
+    if baseline_heads != {BASELINE_GREEN_HEAD}:
+        fail("baseline proof drift")
+    if game_doctrine.get("current_candidate_head") != "DERIVED_AT_CI_RUNTIME":
+        fail("game doctrine self-referential head")
+    if game_truth.get("current_candidate_head") != "DERIVED_AT_CI_RUNTIME":
+        fail("game truth self-referential head")
+    if final_truth.get("candidate_lineage", {}).get("current_candidate_head") != "DERIVED_AT_CI_RUNTIME":
+        fail("final truth self-referential head")
+    if deployment.get("current_candidate_head") != "DERIVED_AT_CI_RUNTIME":
+        fail("deployment self-referential head")
+    if root_truth.get("currentFullGameCandidate", {}).get("currentExactHead") != "DERIVED_AT_CI_RUNTIME":
+        fail("root truth self-referential head")
+
+    if game_doctrine.get("historical_seals_override_current_full_game") is not False:
+        fail("historical doctrine override drift")
+    if game_truth.get("historical_seals_override_current_full_game") is not False:
+        fail("historical source-truth override drift")
+    if root_truth.get("historicalSealsOverrideCurrentFullGame") is not False:
+        fail("historical root override drift")
+    if final_truth.get("historical_seals_override_current_full_game") is not False:
+        fail("historical final-system override drift")
+
     if game_doctrine.get("donor_policy", {}).get("kai9000") != "DONOR_INVENTORY_ONLY_NOT_GAME_AUTHORITY":
         fail("KAI9000 donor authority drift")
     if game_truth.get("donor_boundary", {}).get("widget_project_authority") is not False:
         fail("KAI9000 widget authority drift")
+    if final_truth.get("donor_boundary", {}).get("kai9000_authority") is not False:
+        fail("final-system KAI9000 authority drift")
+    if final_truth.get("donor_boundary", {}).get("kai9000_widget_authority") is not False:
+        fail("final-system widget authority drift")
+    if root_truth.get("donorPolicy", {}).get("kai9000WidgetAuthority") is not False:
+        fail("root widget authority drift")
+
+    if game_doctrine.get("compatibility_policy", {}).get("runtime_identity") != "LUHM_WEBGLASS":
+        fail("game doctrine WebGlass identity drift")
+    if game_truth.get("compatibility_boundary", {}).get("runtime_identity") != "LUHM_WEBGLASS":
+        fail("game truth WebGlass identity drift")
+    if root_truth.get("compatibilityPolicy", {}).get("runtimeIdentity") != "LUHM_WEBGLASS":
+        fail("root WebGlass identity drift")
+    if final_truth.get("compatibility_boundary", {}).get("runtime_identity") != "LUHM_WEBGLASS":
+        fail("final-system WebGlass identity drift")
+    if deployment.get("webglass", {}).get("runtime_identity") != "LUHM_WEBGLASS":
+        fail("deployment WebGlass identity drift")
 
     recovery = load_json(ROOT / "doctrine/reconciledCoffeeHouseLumCandidate-20260927.json")
     if recovery["authority"]["crown"] != "Professor":
@@ -169,6 +243,8 @@ def main() -> int:
         fail("donor Android byte budget drift")
     if game_audit.get("status") != "LUHM_FULL_GAME_SCOPE_GREEN":
         fail("full-game scope audit not GREEN")
+    if game_audit.get("full_game_authority_converged") is not True:
+        fail("full-game authority convergence receipt missing")
     if game_audit.get("kai9000_donor_only") is not True or game_audit.get("widget_authority") is not False:
         fail("full-game KAI/widget boundary drift")
 
@@ -209,12 +285,16 @@ def main() -> int:
     )
 
     receipt = {
-        "schema": "luhm-os.final-system-audit.v3",
+        "schema": "luhm-os.final-system-audit.v4",
         "product": "LuHm OS",
         "scope": "FULL_GAME",
         "source_sha": args.source_sha,
         "source_exact_head_ci": True,
+        "current_candidate_branch": CURRENT_BRANCH,
+        "baseline_proven_green_head": BASELINE_GREEN_HEAD,
         "current_doctrine_converged": True,
+        "final_system_truth_converged": True,
+        "historical_seals_override_current_full_game": False,
         "recovery_chain_reconciled": True,
         "game_deployment_candidate_green": True,
         "full_game_scope_green": True,
@@ -223,6 +303,8 @@ def main() -> int:
         "apk_internet_permission": False,
         "apk_profileable_shell": False,
         "host_openai_in_apk": False,
+        "webglass_runtime_identity": "LUHM_WEBGLASS",
+        "legacy_kai_named_paths_authority": False,
         "agent_mesh_contract_green": True,
         "lum_rig_green": True,
         "lum_bundle_sha256": LUM_BUNDLE_SHA,
@@ -253,12 +335,13 @@ def main() -> int:
         "production_distribution_hard_stop": production_distribution_hard_stop,
         "host_ai_hard_stop": host_ai_hard_stop,
         "hard_stop": canonical_hard_stop,
-        "enterprise_green": False,
+        "enterprise_green": False
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
     print("FINAL_SYSTEM_AUDIT=PASS")
     print("LUHM_FULL_GAME=PASS")
+    print("AUTHORITY_CONVERGENCE=PASS")
     print("LUM_RIG=PASS")
     print(f"COMMUNITY_ASSETS=PASS count={community['asset_count']}")
     print(f"GAME_DONORS=PASS count={donor_receipt['asset_count']} bytes={donor_bytes}")
