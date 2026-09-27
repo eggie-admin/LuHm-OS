@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the Oni pet icon contract without pretending concept art is runtime proof."""
+"""Validate the Oni pet activity contract without pretending concept art is runtime proof."""
 from __future__ import annotations
 
 import argparse
@@ -15,7 +15,7 @@ EXPECTED_ROLES = {
 EXPECTED_STATES = {
     "idle", "thinking", "working", "inspect", "waiting", "success", "alert", "sleep",
 }
-ALLOWED_CONCEPT_STATES = {"CONCEPT", "AMBER_REVIEW", "APPROVED_ART", "BETA_ACTIVITY_DOCK"}
+ALLOWED_STATES = {"CONCEPT", "AMBER_REVIEW", "APPROVED_ART", "BETA_ACTIVITY_DOCK"}
 
 
 def nonempty(value: object) -> bool:
@@ -33,26 +33,20 @@ def main() -> int:
 
     errors: list[str] = []
     unknowns: list[str] = []
-    if not MANIFEST.is_file():
-        raise SystemExit("missing pet icon manifest")
-
-    try:
-        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        raise SystemExit(f"malformed pet icon manifest: {exc}") from exc
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
 
     if manifest.get("logicalCanvas") != [128, 128]:
         errors.append("logical canvas must be exactly 128x128")
 
-    states = manifest.get("requiredStates")
+    sheet = manifest.get("spriteSheet", {})
+    states = sheet.get("states") if isinstance(sheet, dict) else None
     if not isinstance(states, list) or set(states) != EXPECTED_STATES or len(states) != len(EXPECTED_STATES):
-        errors.append("required sprite states must be exactly the eight canonical activity states")
+        errors.append("spriteSheet.states must be exactly the eight canonical activity states")
 
     roles = manifest.get("roles")
     if not isinstance(roles, list):
         errors.append("roles must be a list")
         roles = []
-
     ids = [r.get("id") for r in roles if isinstance(r, dict)]
     if set(ids) != EXPECTED_ROLES or len(ids) != len(EXPECTED_ROLES):
         errors.append("pet role roster drift")
@@ -70,20 +64,18 @@ def main() -> int:
         errors.append("provenanceRequired must be true")
     if manifest.get("runtimeGreenRequiresExactAssetHashImportProof") is not True:
         errors.append("runtime GREEN must require exact asset hash import proof")
+    if manifest.get("status") not in ALLOWED_STATES:
+        errors.append("manifest status escaped the concept/beta lane")
+    if manifest.get("maxVisibleSupportWorkers") != 3:
+        errors.append("pet dock support-worker visibility drift")
 
-    status = manifest.get("status")
-    if status not in ALLOWED_CONCEPT_STATES:
-        errors.append(f"manifest status must remain concept/review state until exact assets exist: {status}")
-
-    # This architecture branch defines identities and states, not shipping sprite files.
-    # Absence of final PNGs is honest UNKNOWN work, not a contract failure.
-    expected_idle_paths = [ROOT / f"assets/pet/oni/{rid}/{rid}_idle_v1.png" for rid in sorted(EXPECTED_ROLES)]
-    missing_idle = [str(p.relative_to(ROOT)) for p in expected_idle_paths if not p.is_file()]
+    expected_idle = [ROOT / f"assets/pet/oni/{rid}/{rid}_idle_v1.png" for rid in sorted(EXPECTED_ROLES)]
+    missing_idle = [str(p.relative_to(ROOT)) for p in expected_idle if not p.is_file()]
     if missing_idle:
         unknowns.append("shipping idle masters not yet present")
 
     report = {
-        "schema": "luhm-os.pet-icon-manifest-audit.v1",
+        "schema": "luhm-os.pet-icon-manifest-audit.v2",
         "status": "GREEN_PET_ICON_CONTRACT" if not errors else "RED_PET_ICON_CONTRACT",
         "assetRuntimeState": "UNKNOWN_ASSETS_NOT_GENERATED" if missing_idle else "AMBER_ASSET_FILES_PRESENT_IMPORT_PROOF_REQUIRED",
         "errors": errors,
