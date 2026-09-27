@@ -1,7 +1,7 @@
 {
   "schema": "luhm-os.openai-lum-oni-deployment.v2",
   "date": "2026-09-27",
-  "status": "CANDIDATE_CI_REQUIRED",
+  "status": "REMOTE_MCP_STAGED_CUSTOM_FQDN_TLS_PENDING",
   "authority": "Professor",
   "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "canonicalControlPlane": "doctrine/ONI_MESH_CONTROL_PLANE_V2.json",
@@ -51,6 +51,7 @@
     "workspacePublicationAuthorized": false
   },
   "privateMcp": {
+    "profile": "local-development",
     "server": "host/mcp/luhmMcpServer.py",
     "requirements": "host/mcp/requirements.txt",
     "bind": "127.0.0.1:8788",
@@ -63,8 +64,32 @@
     ],
     "mutationAuthority": false,
     "publicBindAllowed": false,
-    "chatgptPrivateDevelopmentPath": "OpenAI Secure MCP Tunnel or another explicitly approved HTTPS bridge",
     "directCloudTo127001Claim": false
+  },
+  "remoteMcp": {
+    "profile": "production",
+    "provider": "Render",
+    "serviceName": "luhm-os-mcp",
+    "serviceUrl": "https://luhm-os-mcp.onrender.com",
+    "canonicalFqdn": "mcp.eggiebagelface.art",
+    "canonicalMcpUrl": "https://mcp.eggiebagelface.art/mcp",
+    "transport": "streamable-http",
+    "bind": "0.0.0.0:$PORT behind Render managed HTTPS edge",
+    "dnsRebindingProtection": true,
+    "allowedHost": "mcp.eggiebagelface.art",
+    "requestBodyMaxBytes": 1048576,
+    "healthPath": "/healthz",
+    "openAiDomainVerificationPath": "/.well-known/openai-apps-challenge",
+    "autoDeploy": false,
+    "mutationAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "providerSecretsInSource": false,
+    "renderTlsEdge": "LIVE_ON_RENDER_SUBDOMAIN",
+    "customDomainTls": "PENDING_DNS_AND_RENDER_CUSTOM_DOMAIN_VERIFICATION",
+    "chatGptConnection": "PENDING_CUSTOM_FQDN_TLS_AND_OPENAI_CONNECTION_TEST",
+    "freePlanStagingOnly": true,
+    "enterpriseProductionReady": false
   },
   "androidProofVault": {
     "picker": "Android ACTION_OPEN_DOCUMENT",
@@ -92,19 +117,23 @@
     "source_candidate": "exact-head CI",
     "plugin_package": "manifest + skill + MCP contract audit",
     "mcp_source": "Python syntax + deterministic source audit",
-    "mcp_private_connectivity": "authorized Secure MCP Tunnel or approved HTTPS connection test",
+    "mcp_local": "loopback-only development self-check",
+    "mcp_remote_render": "Render deploy receipt + /healthz + managed HTTPS",
+    "mcp_custom_fqdn": "DNS + Render custom-domain verification + managed TLS",
+    "chatgpt_app_connection": "OpenAI domain verification + approved remote MCP connection test",
     "openai_live": "authorized host secret + live Responses API receipt",
     "apk": "signature + package + 16K alignment + payload + SHA256",
     "device": "physical Samsung install + runtime smoke",
     "canonical": "human promotion",
-    "production": "persistent signing + branch controls + live evidence"
+    "production": "persistent signing + branch controls + paid/non-sleeping host + live evidence"
   },
   "forbidden_claims": [
     "CI proves live OpenAI credentials",
-    "CI proves a ChatGPT private MCP tunnel is connected",
+    "CI proves a ChatGPT remote MCP connection is installed",
     "APK contains provider credentials",
     "Android WebGlass hosts the Python control plane",
     "127.0.0.1 is publicly reachable by ChatGPT",
+    "Render subdomain proves custom FQDN ownership",
     "agent may self-promote",
     "agent may publish or production-sign without Crown",
     "proof import alone makes evidence GREEN"
