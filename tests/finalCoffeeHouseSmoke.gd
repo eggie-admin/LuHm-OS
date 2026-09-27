@@ -16,12 +16,23 @@ func _run() -> void:
     assert(world != null)
     assert(world.get_node_or_null("CoffeeHouseSetDress") != null)
     assert(world.get_node_or_null("CrownCathedralSetDress") != null)
+    assert(world.get_node_or_null("CrownDonorGallery") != null)
     assert(world.get_node_or_null("PrivateNexusSetDress") != null)
 
     var crown := world.get_node_or_null("CrownCathedralSetDress") as Node3D
     assert(crown.get_node_or_null("CrownCathedralSign") != null)
     assert(crown.get_node_or_null("CrownGateTop") != null)
     assert(crown.get_node_or_null("RoofRidge") != null)
+
+    var gallery := world.get_node_or_null("CrownDonorGallery") as Node3D
+    assert(gallery != null)
+    assert(gallery.get_node_or_null("CathedralArchiveHolo/ArchiveTexture") != null)
+    assert(gallery.get_node_or_null("LumRetroShrine/ArchiveTexture") != null)
+    var donor_summary: Dictionary = gallery.call("get_donor_summary") as Dictionary
+    assert(int(donor_summary.get("expected", 0)) == 2)
+    assert(int(donor_summary.get("loaded", 0)) == 2)
+    assert(str(donor_summary.get("scope", "")) == "LUHM_OS_FULL_GAME_ONLY")
+    assert(bool(donor_summary.get("kai9000_authority", true)) == false)
 
     var community := world.get_node_or_null("CommunityCathedralSetDress") as Node3D
     assert(community != null)
@@ -48,6 +59,6 @@ func _run() -> void:
     assert(coffee.get_node_or_null("KissatenFloor") != null)
     assert(coffee.get_node_or_null("OniCoffeeSign") != null)
 
-    print("CROWN_CATHEDRAL_SCENE_SMOKE=PASS assets=77 lum_height=%.3f" % lum_height)
+    print("CROWN_CATHEDRAL_SCENE_SMOKE=PASS assets=77 donors=2 lum_height=%.3f" % lum_height)
     game.queue_free()
     quit(0)
