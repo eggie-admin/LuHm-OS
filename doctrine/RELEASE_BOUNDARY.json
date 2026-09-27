@@ -1,11 +1,22 @@
 {
-  "schema": "luhm-os.release-boundary.v1",
-  "status": "PROPOSED_NOT_CROWNED",
+  "schema": "luhm-os.release-boundary.v2",
+  "date": "2026-09-27",
+  "product": "LuHm OS",
+  "scope": "FULL_GAME",
+  "status": "GREEN_CANDIDATE_BOUNDARY_EXTERNAL_GATES_PENDING",
+  "authority": "Professor",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "allow": [
-    "native Godot 3D",
-    "local touch controls",
-    "primitive generated geometry",
-    "side-by-side debug install"
+    "native Godot 4 full-game runtime",
+    "Crown Cathedral and Japanese kissaten game scene",
+    "Detroit industrial neon RiverWalk game world",
+    "77 rights-proven Kenney CC0 runtime assets",
+    "two rights-cleared LuHm-owned donor derivatives with private source provenance",
+    "rigged external Lum with exact donor hashes",
+    "local touch movement and camera controls",
+    "caged local WebGlass compatibility bridge",
+    "private Google Drive candidate install delivery",
+    "ephemeral CI release signing for candidate proof only"
   ],
   "deny": [
     "production signing",
@@ -13,6 +24,24 @@
     "stable promotion",
     "remote shell execution",
     "loopback control plane in Android runtime",
-    "embedded provider secrets"
-  ]
+    "embedded provider secrets",
+    "canonical main auto-promotion",
+    "KAI9000 widget authority",
+    "private legacy relic payloads",
+    "unknown-rights donor assets",
+    "CI access to private donor source vault",
+    "private Nexus redistribution without explicit rights proof"
+  ],
+  "compatibility_names_not_authority": [
+    "addons/kai_webview",
+    "native/kaiwebview"
+  ],
+  "external_gates": {
+    "physical_samsung_exact_build_proof": "PENDING",
+    "persistent_crown_owned_signing": "PENDING",
+    "live_openai_host_receipt": "PENDING_SEPARATE_HOST_LANE",
+    "explicit_canonical_promotion": "PENDING_AFTER_DEVICE_PROOF",
+    "branch_controls": "EXTERNAL_ADMIN_GATE"
+  },
+  "unknown_is_not_green": true
 }
