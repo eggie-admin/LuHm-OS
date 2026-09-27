@@ -3,15 +3,17 @@ services:
     name: luhm-mcp
     runtime: python
     region: ohio
-    buildCommand: python -m pip install --disable-pip-version-check -r host/mcp/requirements.txt
-    preDeployCommand: python host/mcp/luhmMcpServer.py --check && python tools/luhmPluginPackageAudit.py
+    buildCommand: >-
+      python -m pip install --disable-pip-version-check -r host/mcp/requirements.txt
+      && python host/mcp/luhmMcpServer.py --check
+      && python tools/luhmPluginPackageAudit.py
     startCommand: python host/mcp/luhmMcpServer.py streamable-http
     autoDeployTrigger: checksPass
     healthCheckPath: /healthz
     maxShutdownDelaySeconds: 45
     domains:
       - mcp.eggiebagelface.art
-    renderSubdomainPolicy: disabled
+    renderSubdomainPolicy: enabled
     buildFilter:
       paths:
         - host/mcp/**
