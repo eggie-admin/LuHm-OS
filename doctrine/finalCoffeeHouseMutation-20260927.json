@@ -1,0 +1,77 @@
+{
+  "schema": "luhm-os.final-coffee-house-mutation.v1",
+  "date": "2026-09-27",
+  "status": "CROWN_GREEN_CANDIDATE_EXACT_HEAD_CI_REQUIRED",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true,
+    "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+    "auto_promote": false,
+    "auto_merge": false,
+    "production_sign": false
+  },
+  "base": {
+    "repository": "eggie-admin/LuHm-OS",
+    "parent_candidate": "67e16b088349cc4ab0cf918ab7bc2507ae4deaf1",
+    "parent_exact_head_workflows": "8 completed success runs observed 2026-09-27"
+  },
+  "scene": {
+    "world_owner": "Godot 4",
+    "concept": "industrial night riverwalk mutates into compact Japanese kissaten / oni coffee house",
+    "lum_focus": "resident inside coffee house; existing camera_move beat pushes to Lum focus position",
+    "lum_idle_contract": "preserve existing AnimationTree idle resolver",
+    "renderer": "GL Compatibility",
+    "mobile_light_policy": "emissive-first; two warm coffee-house omni lights plus existing world budget",
+    "fallback": "procedural architecture and existing CC0 props; missing private sidecar fails soft"
+  },
+  "assets": {
+    "community_selected_count": 77,
+    "community_policy": "retain pinned Kenney CC0 selection and provenance receipt",
+    "all_current_selected_assets_retained": true,
+    "nexus": {
+      "policy": "local permission-gated sidecar",
+      "runtime_network": false,
+      "autodownload": false,
+      "git_payloads": false,
+      "shared_apk_default": false,
+      "rights_modes": [
+        "PRIVATE_PERSONAL_REFERENCE",
+        "REDISTRIBUTABLE_WITH_EVIDENCE"
+      ],
+      "payload_claim": "NONE_OBSERVED_IN_REPO_OR_DRIVE"
+    }
+  },
+  "blender": {
+    "authority": "reproducible generator; .blend is output, not source of truth",
+    "script": "tools/blender/buildCoffeeHouse.py",
+    "inputs": [
+      "assets/lum/luhm.glb",
+      "assets/community/runtime/**",
+      "optional assets/nexus/runtime/**"
+    ],
+    "outputs": [
+      "local editable .blend",
+      "normalized GLB"
+    ],
+    "git_policy": "text generator + hashes/provenance in Git; generated binary outputs stay local/build artifacts unless separately approved"
+  },
+  "ten_pass": [
+    "source_and_authority",
+    "exact_head_parent_ci",
+    "godot_scene_composition",
+    "lum_rig_and_idle_preservation",
+    "camera_focus_and_cutscene_restore",
+    "community_asset_provenance_and_budget",
+    "nexus_permissions_and_no_autodownload",
+    "blender_reproducibility_and_normalization",
+    "android_webglass_security_boundary",
+    "apk_and_physical_device_receipts"
+  ],
+  "green_law": {
+    "source_candidate_green_requires": "exact-head CI on this mutation",
+    "nexus_lane_green_means": "import mechanism/policy tested; it does not assert possession or redistribution rights for any Nexus payload",
+    "apk_green_requires": "signature + package + 16K alignment + payload + SHA256",
+    "device_green_requires": "physical Samsung install and runtime smoke",
+    "unknown_is_not_green": true
+  }
+}

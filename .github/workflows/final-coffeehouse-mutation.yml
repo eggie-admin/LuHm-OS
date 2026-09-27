@@ -1,0 +1,81 @@
+name: LuHm Final Coffee House Mutation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'candidate/final-coffeehouse-nexus-scene-20260927'
+  pull_request:
+    paths:
+      - 'scenes/**'
+      - 'scripts/game/**'
+      - 'assets/community/**'
+      - 'assets/nexus/**'
+      - 'tools/**'
+      - 'tests/**'
+      - 'doctrine/finalCoffeeHouseMutation-20260927.json'
+      - '.github/workflows/final-coffeehouse-mutation.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: final-coffeehouse-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  final-mutation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Static Crown and Nexus gates
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/finalCoffeeHouseMutation-20260927.json >/dev/null
+          python3 -m json.tool assets/nexus/manifest.example.json >/dev/null
+          python3 -m py_compile tools/finalMutationAudit.py tools/nexusAssetAudit.py tools/stageNexusAssets.py tools/blender/buildCoffeeHouse.py
+          python3 tools/finalMutationAudit.py
+          python3 tools/nexusAssetAudit.py
+          python3 tools/communityAssetAudit.py
+
+      - name: Full Cathedral Android build
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: scripts/buildCathedralWebglass.sh
+
+      - name: Exact scene smoke
+        run: |
+          set -euo pipefail
+          GODOT="$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64"
+          test -x "$GODOT"
+          "$GODOT" --headless --path . --script tests/finalCoffeeHouseSmoke.gd
+
+      - name: Mutation receipt
+        run: |
+          set -euo pipefail
+          mkdir -p build/final-mutation
+          printf 'source_sha=%s\nstatus=EXACT_HEAD_CI_PROOF\nscene=Japanese kissaten + Lum idle intact\nnexus_payload_claim=none\n' "${{ github.event.pull_request.head.sha || github.sha }}" > build/final-mutation/receipt.txt
+          sha256sum doctrine/finalCoffeeHouseMutation-20260927.json scenes/Main.tscn scripts/game/finalCoffeeHouseOverlay.gd > build/final-mutation/SHA256SUMS.txt
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-final-coffeehouse-mutation-evidence
+          path: |
+            build/final-mutation/
+            build/android/
+          if-no-files-found: error
+          retention-days: 30

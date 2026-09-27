@@ -1,0 +1,33 @@
+{
+  "schema": "luhm-os.nexus-private-assets.v1",
+  "authority": "Professor",
+  "policy": "LOCAL_PERMISSION_GATED_NO_AUTODOWNLOAD",
+  "runtime_network": false,
+  "items": [
+    {
+      "id": "example-prop",
+      "source_file": "ExampleProp.glb",
+      "sha256": "REPLACE_WITH_64_HEX",
+      "nexus": {
+        "game": "REPLACE",
+        "mod_id": "REPLACE",
+        "file_id": "REPLACE",
+        "author": "REPLACE",
+        "source_url": "REPLACE_WITH_NEXUS_FILE_PAGE"
+      },
+      "rights": {
+        "mode": "PRIVATE_PERSONAL_REFERENCE",
+        "permission_evidence": "local-note-or-author-permission-reference",
+        "allow_git": false,
+        "allow_shared_apk": false
+      },
+      "placement": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 14.0,
+        "yaw": 0.0,
+        "scale": 1.0
+      }
+    }
+  ]
+}

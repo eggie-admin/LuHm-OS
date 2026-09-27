@@ -10,3 +10,6 @@ build/
 .env
 .env.*
 __pycache__/
+assets/nexus/runtime/
+assets/nexus/incoming/
+*.blend1
