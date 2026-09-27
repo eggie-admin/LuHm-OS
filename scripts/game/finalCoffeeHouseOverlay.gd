@@ -3,6 +3,7 @@ extends Node3D
 const CoffeeHouseSetDressScript := preload("res://scripts/game/coffeeHouseSetDress.gd")
 const CrownCathedralSetDressScript := preload("res://scripts/game/crownCathedralSetDress.gd")
 const PrivateNexusSetDressScript := preload("res://scripts/game/privateNexusSetDress.gd")
+const TARGET_LUM_HEIGHT := 1.90
 
 var applied := false
 
@@ -43,6 +44,7 @@ func _apply_final_mutation() -> void:
     if lum != null:
         lum.position = Vector3(0.0, 0.05, 13.35)
         lum.rotation_degrees.y = 180.0
+        _normalize_visual_height(lum, TARGET_LUM_HEIGHT)
 
     var halo := world.get_node_or_null("LumHalo") as OmniLight3D
     if halo != null:
@@ -51,8 +53,8 @@ func _apply_final_mutation() -> void:
         halo.light_energy = 1.85
         halo.omni_range = 7.2
 
-    # Author the player's first readable view toward the Cathedral.
-    # The previous default yaw looked away from the +Z coffeehouse volume.
+    # Author the first readable view toward the +Z Cathedral volume.
+    # The previous neutral yaw restored the camera toward riverwalk scaffolding.
     var player := runtime_root.get_node_or_null("PlayerController") as CharacterBody3D
     if player != null:
         player.position = Vector3(0.0, 1.15, 6.8)
@@ -65,3 +67,34 @@ func _apply_final_mutation() -> void:
 
     applied = true
     print("CROWN_CATHEDRAL_MUTATION=APPLIED")
+
+func _normalize_visual_height(root_node: Node3D, target_height: float) -> void:
+    var measured := _measure_visual_height(root_node)
+    if measured <= 0.001:
+        push_warning("CrownCathedral: Lum visual bounds unavailable")
+        return
+    var factor := clampf(target_height / measured, 0.05, 200.0)
+    root_node.scale *= factor
+    var final_height := _measure_visual_height(root_node)
+    print("CROWN_LUM_HEIGHT raw=%.4f factor=%.4f final=%.4f" % [measured, factor, final_height])
+
+func _measure_visual_height(root_node: Node3D) -> float:
+    var min_y := 1.0e20
+    var max_y := -1.0e20
+    var found := false
+    var root_inverse := root_node.global_transform.affine_inverse()
+    for child in root_node.find_children("*", "MeshInstance3D", true, false):
+        var mesh_instance := child as MeshInstance3D
+        if mesh_instance == null or mesh_instance.mesh == null:
+            continue
+        var box := mesh_instance.get_aabb()
+        var relative := root_inverse * mesh_instance.global_transform
+        for xi in [0.0, 1.0]:
+            for yi in [0.0, 1.0]:
+                for zi in [0.0, 1.0]:
+                    var local_corner := box.position + Vector3(box.size.x * xi, box.size.y * yi, box.size.z * zi)
+                    var point := relative * local_corner
+                    min_y = minf(min_y, point.y)
+                    max_y = maxf(max_y, point.y)
+                    found = true
+    return max_y - min_y if found else 0.0
