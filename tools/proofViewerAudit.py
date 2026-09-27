@@ -37,8 +37,15 @@ def audit() -> None:
     require("allow-scripts" not in viewer, "website proof frame must not enable scripts")
     require("allow-same-origin" not in viewer, "website proof frame must not enable same-origin privilege")
     require(".html(" not in viewer and "innerHTML" not in viewer, "raw HTML injection is forbidden")
-    require("javascript:" not in viewer.lower(), "javascript URL literal is forbidden")
-    require("data:" not in viewer.lower(), "data URL literal is forbidden")
+
+    # Reject explicit allow-list branches for executable/inline URL schemes without
+    # confusing ordinary object keys such as `data: detail.data` with a URL scheme.
+    lowered = viewer.lower()
+    for unsafe_scheme in ("javascript:", "data:"):
+        require(f"protocol === '{unsafe_scheme}'" not in lowered,
+                f"unsafe URL scheme must not be allow-listed: {unsafe_scheme}")
+        require(f'protocol === "{unsafe_scheme}"' not in lowered,
+                f"unsafe URL scheme must not be allow-listed: {unsafe_scheme}")
 
     require("detail.proof" in workbench, "chat receipts must accept proof packets")
     require("data-chat-proof-open" in workbench, "chat receipt proof trigger missing")
