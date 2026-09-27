@@ -7,25 +7,25 @@
   },
   "workers": [
     {
-      "name": "Kiri",
+      "name": "Oni-Kumo",
       "blade": "Context",
       "mode": "READ_ONLY",
       "budget": "source/doctrine/receipts only"
     },
     {
-      "name": "Tetsu",
+      "name": "Oni-Tetsu",
       "blade": "Build",
       "mode": "READ_ONLY_UNTIL_PATCH",
       "budget": "smallest reversible patch + matching tests"
     },
     {
-      "name": "Momo",
+      "name": "Oni-Sumi",
       "blade": "Research",
       "mode": "READ_ONLY",
       "budget": "fresh external facts + evidence refs"
     },
     {
-      "name": "Shiori",
+      "name": "Oni-Ibara",
       "blade": "Critic",
       "mode": "CONDITIONAL",
       "wake_when": [
@@ -37,7 +37,7 @@
       ]
     },
     {
-      "name": "Kugi",
+      "name": "Kanabo Gate",
       "blade": "Tool Executor",
       "mode": "DETERMINISTIC",
       "may_reinterpret_scope": false
@@ -45,18 +45,20 @@
   ],
   "limits": {
     "parallelism_max": 3,
+    "delegation_depth_max": 1,
     "recursive_recruitment": false,
     "parallel_writes": false,
-    "evidence_by_reference": true
+    "evidence_by_reference": true,
+    "direct_questions_bypass_mesh": true
   },
   "forge_flow": [
     "resolve canonical main + active candidate exact head",
     "run source-truth and release-boundary sanity",
     "run static ten-pass audit",
-    "dispatch at most Kiri/Tetsu/Momo in parallel",
-    "summon Shiori for contested GREEN or scope",
+    "dispatch at most Oni-Kumo/Oni-Tetsu/Oni-Sumi in parallel",
+    "summon Oni-Ibara for contested GREEN or scope",
     "Lum integrates one plan",
-    "Kugi performs exact bounded mutation",
+    "Kanabo Gate performs exact bounded mutation",
     "run focused tests",
     "run exact-head PR CI",
     "collect artifact/hash/signature receipts",
@@ -67,7 +69,8 @@
     "must_follow": [
       ".github/copilot-instructions.md",
       "doctrine/SOURCE_OF_TRUTH.json",
-      "doctrine/RELEASE_BOUNDARY.json"
+      "doctrine/RELEASE_BOUNDARY.json",
+      "doctrine/runtimeDoctrine-20260926.json"
     ],
     "may": [
       "suggest code",
