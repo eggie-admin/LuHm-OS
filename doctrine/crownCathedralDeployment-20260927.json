@@ -1,0 +1,86 @@
+{
+  "schema": "luhm-os.crown-cathedral-deployment.v1",
+  "date": "2026-09-27",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true,
+    "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+    "auto_promote": false,
+    "production_sign": false
+  },
+  "status": "CROWN_CATHEDRAL_DEPLOYMENT_CANDIDATE_EXACT_HEAD_CI_REQUIRED",
+  "branch": "candidate/crown-cathedral-deployment-20260927",
+  "base_exact_head": "6697e9dff382d17c4829abfe36c4d115fb05fd33",
+  "goal": "Final Crown Cathedral Android deployment candidate with authored Cathedral-first presentation, visibly rigged Lum, full curated CC0 scene population, caged WebGlass cockpit, optional private Nexus sidecar, and evidence-gated promotion.",
+  "device_observation_before_mutation": {
+    "runtime": "WebGlass, chat bridge, movement and native Godot renderer visibly functional",
+    "visual_gap": "camera composition emphasized primitive riverwalk geometry instead of the Cathedral focal volume",
+    "evidence_policy": "private device recording is observation input only and is not committed to the public repository",
+    "authority": "does not prove this new exact head"
+  },
+  "visual_mutation": {
+    "cathedral_first_camera": true,
+    "spawn_position": [0.0, 1.15, 6.8],
+    "home_camera_yaw": "PI via one-time authored orbit",
+    "spring_length": 6.4,
+    "lum_socket": [0.0, 0.05, 13.35],
+    "lum_target_visual_height_m": 1.9,
+    "lum_height_policy": "measure imported MeshInstance3D hierarchy after Godot import and normalize the avatar root, avoiding assumptions about donor unit transforms",
+    "crown_facade": "original low-cost Godot geometry over the Japanese kissaten core",
+    "riverwalk_role": "approach and exterior context rather than default focal composition"
+  },
+  "community_assets": {
+    "selected": 77,
+    "runtime_instantiated": 77,
+    "license": "CC0",
+    "source_repository": "shorepine/kenney",
+    "source_commit": "3694c6879e487c108f55677be7dd2ca75b07cc3b",
+    "build_time_fetch_only": true,
+    "runtime_network": false,
+    "android_budget_bytes": 8388608
+  },
+  "lum": {
+    "drive_bundle_sha256": "fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da",
+    "base_glb_sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
+    "running_glb_sha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0",
+    "external_model_required_by_scene_smoke": true,
+    "visible_height_required_m": {
+      "min": 1.7,
+      "max": 2.1
+    }
+  },
+  "nexus": {
+    "mode": "OPTIONAL_PRIVATE_PERMISSION_GATED_SIDECAR",
+    "shared_apk_payload_required": false,
+    "runtime_network": false,
+    "autodownload": false,
+    "git_payloads": false,
+    "unknown_rights": "FAIL_CLOSED"
+  },
+  "android": {
+    "package": "art.eggiebagelface.luhmos.cathedraltoy.atelier",
+    "renderer": "Godot 4 GL Compatibility",
+    "webglass": "native Android WebView plugin with local packaged cockpit",
+    "internet_permission": false,
+    "debuggable": false,
+    "profileable_shell": false,
+    "alignment": "16K_REQUIRED",
+    "install_delivery": "Google Drive private install workflow"
+  },
+  "proof_gates": {
+    "static": "tools/crownCathedralAudit.py",
+    "scene": "tests/finalCoffeeHouseSmoke.gd",
+    "rig": "tests/lumRigV2Phase1Smoke.gd",
+    "apk": "signature + package + 16K alignment + payload + SHA256 + release hardening",
+    "device": "physical Samsung install and runtime recording of this exact build",
+    "canonical": "explicit Crown promotion after device proof"
+  },
+  "not_claimed": [
+    "private Nexus payload redistribution",
+    "production signing authority",
+    "live OpenAI host receipt",
+    "physical device proof for this new exact head",
+    "canonical main promotion"
+  ],
+  "unknown_is_not_green": true
+}
