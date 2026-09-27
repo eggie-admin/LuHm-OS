@@ -69,31 +69,32 @@ func _apply_final_mutation() -> void:
     print("CROWN_CATHEDRAL_MUTATION=APPLIED")
 
 func _normalize_visual_height(root_node: Node3D, target_height: float) -> void:
-    var measured := _measure_visual_height(root_node)
+    var measured: float = _measure_visual_height(root_node)
     if measured <= 0.001:
         push_warning("CrownCathedral: Lum visual bounds unavailable")
         return
-    var factor := clampf(target_height / measured, 0.05, 200.0)
+    var factor: float = clampf(target_height / measured, 0.05, 200.0)
     root_node.scale *= factor
-    var final_height := _measure_visual_height(root_node)
+    var final_height: float = _measure_visual_height(root_node)
     print("CROWN_LUM_HEIGHT raw=%.4f factor=%.4f final=%.4f" % [measured, factor, final_height])
 
 func _measure_visual_height(root_node: Node3D) -> float:
-    var min_y := 1.0e20
-    var max_y := -1.0e20
-    var found := false
-    var root_inverse := root_node.global_transform.affine_inverse()
+    # Measure what the renderer sees in world coordinates. Do not transform back
+    # into the avatar root, because doing so would cancel the corrective root scale.
+    var min_y: float = 1.0e20
+    var max_y: float = -1.0e20
+    var found: bool = false
+    var axis_values: Array[float] = [0.0, 1.0]
     for child in root_node.find_children("*", "MeshInstance3D", true, false):
         var mesh_instance := child as MeshInstance3D
         if mesh_instance == null or mesh_instance.mesh == null:
             continue
-        var box := mesh_instance.get_aabb()
-        var relative := root_inverse * mesh_instance.global_transform
-        for xi in [0.0, 1.0]:
-            for yi in [0.0, 1.0]:
-                for zi in [0.0, 1.0]:
-                    var local_corner := box.position + Vector3(box.size.x * xi, box.size.y * yi, box.size.z * zi)
-                    var point := relative * local_corner
+        var box: AABB = mesh_instance.get_aabb()
+        for xi in axis_values:
+            for yi in axis_values:
+                for zi in axis_values:
+                    var local_corner: Vector3 = box.position + Vector3(box.size.x * xi, box.size.y * yi, box.size.z * zi)
+                    var point: Vector3 = mesh_instance.global_transform * local_corner
                     min_y = minf(min_y, point.y)
                     max_y = maxf(max_y, point.y)
                     found = true
