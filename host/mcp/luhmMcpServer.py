@@ -1,21 +1,29 @@
 #!/usr/bin/env python3
-"""Private localhost MCP bridge for the LuHm OS agent workflow.
+"""LuHm OS MCP server for local development and hardened Render deployment.
 
-This server exposes read-only, deterministic workflow/status tools. It never embeds
-provider credentials, mutates repository state, executes Crown-gated actions, or binds
-to a public interface. ChatGPT developer-mode access should use OpenAI Secure MCP
-Tunnel or another explicitly approved HTTPS bridge.
+The server exposes a bounded read-only tool surface. It never embeds provider
+credentials, mutates repository state, executes Crown-gated actions, signs builds,
+publishes releases, or grants GREEN authority.
+
+Local profile: loopback only.
+Production profile: Render/public HTTPS edge, explicit FQDN host allowlist,
+health endpoint, and OpenAI domain-verification challenge endpoint.
 """
 from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
 from typing import Any
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server import MCPServer
+from mcp.server.transport_security import TransportSecuritySettings
+from mcp.types import ToolAnnotations
+from starlette.requests import Request
+from starlette.responses import JSONResponse, PlainTextResponse, Response
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_TRUTH = ROOT / "doctrine" / "SOURCE_OF_TRUTH.json"
@@ -27,16 +35,30 @@ ROUTE_KINDS = {
     "monitor", "release", "art", "media", "dictation", "asset",
 }
 
-server = FastMCP(
-    "luhm-os",
-    host="127.0.0.1",
-    port=8788,
-    stateless_http=True,
+SERVER_NAME = "luhm-os"
+SERVER_VERSION = "0.2.0"
+DEFAULT_PUBLIC_FQDN = "mcp.eggiebagelface.art"
+LOCAL_HOST = "127.0.0.1"
+LOCAL_PORT = 8788
+
+server = MCPServer(
+    SERVER_NAME,
+    title="LuHm OS",
+    description="Read-only LuHm source-truth, Oni routing, and proof-contract tools.",
+    version=SERVER_VERSION,
     instructions=(
         "LuHm OS is evidence-gated. AI proposes; policy authorizes; CI proves; human promotes. "
-        "Use read-only status/roster/routing tools to inspect the current workflow. Never infer GREEN, "
-        "promotion, signing, publication, or public exposure from these tools. Professor is final authority."
+        "Use read-only status, roster, routing, and proof-contract tools to inspect the current workflow. "
+        "Never infer GREEN, promotion, signing, publication, or public exposure from these tools. "
+        "Professor remains final authority."
     ),
+)
+
+READ_ONLY_INTERNAL = ToolAnnotations(
+    readOnlyHint=True,
+    destructiveHint=False,
+    openWorldHint=False,
+    idempotentHint=True,
 )
 
 
@@ -111,19 +133,51 @@ def _roster_payload() -> dict[str, Any]:
     }
 
 
-@server.tool()
+def _profile() -> str:
+    return os.environ.get("LUHM_MCP_PROFILE", "local").strip().lower()
+
+
+def _public_fqdn() -> str:
+    fqdn = os.environ.get("LUHM_MCP_FQDN", DEFAULT_PUBLIC_FQDN).strip().lower().rstrip(".")
+    if not fqdn or "://" in fqdn or "/" in fqdn or ":" in fqdn:
+        raise ValueError("LUHM_MCP_FQDN must be a bare DNS hostname")
+    return fqdn
+
+
+def _production_security() -> TransportSecuritySettings:
+    fqdn = _public_fqdn()
+    return TransportSecuritySettings(
+        enable_dns_rebinding_protection=True,
+        allowed_hosts=[fqdn, f"{fqdn}:*"],
+        allowed_origins=[],
+    )
+
+
+def _assert_source_contract() -> None:
+    status = _status_payload()
+    roster = _roster_payload()
+    if status["sourceLaw"] != "AI proposes. Policy authorizes. CI proves. Human promotes.":
+        raise RuntimeError("RED_SOURCE_LAW_DRIFT")
+    if not roster["roles"] or not all(role["skillPresent"] for role in roster["roles"]):
+        raise RuntimeError("RED_AGENT_SKILL_MISSING")
+    for kind in ("records", "proof"):
+        if kind not in ROUTE_KINDS:
+            raise RuntimeError("RED_ROUTE_KIND_MISSING")
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
 def luhm_status() -> dict[str, Any]:
     """Read current LuHm source-truth and deployment gates without changing anything."""
     return _status_payload()
 
 
-@server.tool()
+@server.tool(annotations=READ_ONLY_INTERNAL)
 def luhm_agent_roster() -> dict[str, Any]:
     """List canonical Lum/Oni roles and whether each canonical SKILL.md is present."""
     return _roster_payload()
 
 
-@server.tool()
+@server.tool(annotations=READ_ONLY_INTERNAL)
 def luhm_route_task(
     kind: str,
     truth_sensitive: bool = False,
@@ -131,7 +185,7 @@ def luhm_route_task(
     external_fact: bool = False,
     asset_review: bool = False,
 ) -> dict[str, Any]:
-    """Run the deterministic LuHm task router and return its bounded worker plan."""
+    """Compute the deterministic LuHm task route and bounded worker plan without mutating state."""
     if kind not in ROUTE_KINDS:
         raise ValueError(f"unsupported task kind: {kind}")
     command = [sys.executable, str(ROUTER), kind]
@@ -157,9 +211,9 @@ def luhm_route_task(
     return result
 
 
-@server.tool()
+@server.tool(annotations=READ_ONLY_INTERNAL)
 def luhm_proof_contract() -> dict[str, Any]:
-    """Return the proof-vault and evidence authority boundaries used by LuHm OS."""
+    """Return LuHm proof-vault and evidence authority boundaries without changing anything."""
     truth = _load_json(SOURCE_TRUTH)
     return {
         "schema": "luhm-os.mcp-proof-contract.v1",
@@ -177,24 +231,80 @@ def luhm_proof_contract() -> dict[str, Any]:
     }
 
 
+@server.custom_route("/healthz", methods=["GET"])
+async def healthz(_: Request) -> Response:
+    """Minimal public liveness/readiness probe. Never returns project data or secrets."""
+    try:
+        _assert_source_contract()
+    except Exception:
+        return JSONResponse(
+            {"status": "unhealthy", "service": SERVER_NAME, "version": SERVER_VERSION},
+            status_code=503,
+            headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"},
+        )
+    return JSONResponse(
+        {"status": "ok", "service": SERVER_NAME, "version": SERVER_VERSION},
+        headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"},
+    )
+
+
+@server.custom_route("/.well-known/openai-apps-challenge", methods=["GET"])
+async def openai_apps_challenge(_: Request) -> Response:
+    """Return exactly the OpenAI plugin domain-verification token when configured."""
+    token = os.environ.get("OPENAI_APPS_CHALLENGE", "").strip()
+    if not token:
+        return PlainTextResponse(
+            "not configured",
+            status_code=404,
+            headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"},
+        )
+    return PlainTextResponse(
+        token,
+        headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"},
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("transport", nargs="?", default="streamable-http", choices=("streamable-http", "stdio"))
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
+
     if args.check:
-        status = _status_payload()
-        roster = _roster_payload()
-        if status["sourceLaw"] != "AI proposes. Policy authorizes. CI proves. Human promotes.":
-            raise SystemExit("RED_SOURCE_LAW_DRIFT")
-        if not roster["roles"] or not all(role["skillPresent"] for role in roster["roles"]):
-            raise SystemExit("RED_AGENT_SKILL_MISSING")
-        for kind in ("records", "proof"):
-            if kind not in ROUTE_KINDS:
-                raise SystemExit("RED_ROUTE_KIND_MISSING")
+        _assert_source_contract()
+        if _profile() == "production":
+            _production_security()
         print("LUHM_MCP_SOURCE_GREEN")
         return 0
-    server.run(transport=args.transport)
+
+    if args.transport == "stdio":
+        server.run(transport="stdio")
+        return 0
+
+    profile = _profile()
+    if profile == "production":
+        port = int(os.environ.get("PORT", "10000"))
+        server.run(
+            transport="streamable-http",
+            host="0.0.0.0",
+            port=port,
+            streamable_http_path="/mcp",
+            stateless_http=True,
+            json_response=True,
+            max_request_body_size=1 * 1024 * 1024,
+            transport_security=_production_security(),
+        )
+        return 0
+
+    server.run(
+        transport="streamable-http",
+        host=LOCAL_HOST,
+        port=LOCAL_PORT,
+        streamable_http_path="/mcp",
+        stateless_http=True,
+        json_response=True,
+        max_request_body_size=1 * 1024 * 1024,
+    )
     return 0
 
 
