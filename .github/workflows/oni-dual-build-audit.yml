@@ -6,6 +6,7 @@ on:
     paths:
       - 'agents/**'
       - 'doctrine/AGENT_MESH_V2.json'
+      - 'doctrine/LUM_ORCHESTRATOR_V2.json'
       - 'doctrine/SOURCE_LAYOUT_V1.json'
       - 'project.godot'
       - 'export_presets.cfg'
@@ -27,8 +28,31 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  preflight:
+    name: Lum Mesh Fast Preflight
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Validate agent contracts and negative controls
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/AGENT_MESH_V2.json >/dev/null
+          python3 -m json.tool doctrine/LUM_ORCHESTRATOR_V2.json >/dev/null
+          python3 -m json.tool doctrine/SOURCE_LAYOUT_V1.json >/dev/null
+          python3 tests/testAgentMeshV2.py
+          python3 tools/lumTaskRouter.py direct >/dev/null
+          python3 tools/lumTaskRouter.py build --truth-sensitive >/dev/null
+          echo 'LUM_MESH_PREFLIGHT=GREEN'
+
   build:
     name: Build Oni ${{ matrix.oni }}
+    needs: preflight
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     strategy:
@@ -112,13 +136,13 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Download Tetsu evidence
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:
           name: oni-build-Tetsu
           path: build/doctor-input/Tetsu
 
       - name: Download Kaji evidence
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:
           name: oni-build-Kaji
           path: build/doctor-input/Kaji
