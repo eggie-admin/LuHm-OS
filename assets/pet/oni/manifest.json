@@ -2,6 +2,7 @@
   "schema": "luhm-os.oni-pet-manifest.v2",
   "status": "BETA_ACTIVITY_DOCK",
   "logicalCanvas": [128, 128],
+  "requiredStates": ["idle", "thinking", "working", "inspect", "waiting", "success", "alert", "sleep"],
   "spriteSheet": {
     "frame": [128, 128],
     "columns": 8,
