@@ -10,6 +10,7 @@ LAW = "AI proposes. Policy authorizes. CI proves. Human promotes."
 ROLES = {"Lum", "Kiri", "Tetsu", "Kaji", "Momo", "Shiori", "DrNao", "Kugi", "Fumi", "Sumi", "Koe", "Yume"}
 PET_STATES = {"idle", "thinking", "working", "inspect", "waiting", "success", "alert", "sleep"}
 PRODUCTION_MCP_FQDN = "mcp.eggiebagelface.art"
+RENDER_SERVICE = "luhm-os-mcp"
 
 
 def text(path: str) -> str:
@@ -69,6 +70,14 @@ def audit() -> None:
     require(private_mcp.get("mutationAuthority") is False and private_mcp.get("publicBindAllowed") is False, "private MCP authority/bind drift")
     require(private_mcp.get("bind") == "127.0.0.1:8788", "private MCP doctrine bind drift")
     require(private_mcp.get("directCloudTo127001Claim") is False, "direct cloud-to-loopback claim enabled")
+    remote_mcp = deploy.get("remoteMcp", {})
+    require(remote_mcp.get("provider") == "Render", "remote MCP provider drift")
+    require(remote_mcp.get("serviceName") == RENDER_SERVICE, "Render service identity drift")
+    require(remote_mcp.get("canonicalFqdn") == PRODUCTION_MCP_FQDN, "remote MCP FQDN doctrine drift")
+    require(remote_mcp.get("canonicalMcpUrl") == f"https://{PRODUCTION_MCP_FQDN}/mcp", "remote MCP URL doctrine drift")
+    require(remote_mcp.get("dnsRebindingProtection") is True, "remote MCP DNS-rebinding protection drift")
+    for key in ("mutationAuthority", "releaseAuthority", "publicationAuthority", "providerSecretsInSource"):
+        require(remote_mcp.get(key) is False, f"remote MCP authority/secret drift: {key}")
     require(deploy.get("androidProofVault", {}).get("importVerdict") == "UNKNOWN_UNTIL_ADJUDICATED", "proof import authority drift")
 
     skill_paths = [
@@ -109,7 +118,8 @@ def audit() -> None:
     for token in (
         'LOCAL_HOST = "127.0.0.1"', "LOCAL_PORT = 8788", 'DEFAULT_PUBLIC_FQDN = "mcp.eggiebagelface.art"',
         'host="0.0.0.0"', "port=port", "stateless_http=True", "json_response=True",
-        "TransportSecuritySettings", "enable_dns_rebinding_protection=True", "allowed_hosts=[fqdn, f\"{fqdn}:*\"]",
+        "TransportSecuritySettings", "enable_dns_rebinding_protection=True", "allowed_hosts=allowed_hosts",
+        "RENDER_EXTERNAL_HOSTNAME", ".onrender.com",
         "readOnlyHint=True", "destructiveHint=False", "openWorldHint=False",
         "luhm_status", "luhm_agent_roster", "luhm_route_task", "luhm_proof_contract",
         '"records", "proof"', "greenAuthority", '"/healthz"', '"/.well-known/openai-apps-challenge"',
