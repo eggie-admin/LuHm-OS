@@ -88,6 +88,7 @@ class ProofVault(private val context: Context) {
                 .put("provenance", "android-saf-local-copy")
                 .put("capturedAt", System.currentTimeMillis().toString())
                 .put("sourceRef", "ANDROID_LOCAL_VAULT")
+                .put("rawHtmlTrusted", false)
                 .put("greenAuthority", false)
                 .put("fields", JSONObject()
                     .put("mimeType", mimeType)
@@ -148,9 +149,9 @@ class ProofVault(private val context: Context) {
 
     private fun readJson(file: File): Any {
         if (file.length() > MAX_INLINE_TEXT_BYTES) return JSONObject().put("preview", "JSON retained in vault; inline preview exceeds 1 MiB bound.")
-        val text = file.readText(Charsets.UTF_8)
-        return runCatching { JSONObject(text) }.getOrElse {
-            runCatching { JSONArray(text) }.getOrElse {
+        val value = file.readText(Charsets.UTF_8)
+        return runCatching { JSONObject(value) }.getOrElse {
+            runCatching { JSONArray(value) }.getOrElse {
                 JSONObject().put("parseError", "Selected JSON could not be parsed safely.")
             }
         }
@@ -175,22 +176,22 @@ class ProofVault(private val context: Context) {
                     if (blocks.length() >= MAX_DOCX_BLOCKS) break
                     val paragraph = paragraphs.item(index) as? Element ?: continue
                     val textNodes = paragraph.getElementsByTagNameNS("*", "t")
-                    val text = buildString {
+                    val paragraphText = buildString {
                         for (textIndex in 0 until textNodes.length) append(textNodes.item(textIndex).textContent)
                     }.trim()
-                    if (text.isEmpty()) continue
+                    if (paragraphText.isEmpty()) continue
                     val styles = paragraph.getElementsByTagNameNS("*", "pStyle")
-                    val style = if (styles.length > 0) {
-                        val node = styles.item(0) as? Element
-                        node?.getAttributeNS("http://schemas.openxmlformats.org/wordprocessingml/2006/main", "val")
-                            ?.ifBlank { node.getAttribute("w:val") }
-                            .orEmpty()
-                    } else ""
-                    val headingLevel = Regex("(?i)heading\\s*([1-3])").find(style)?.groupValues?.getOrNull(1)?.toIntOrNull()
+                    val styleNode = if (styles.length > 0) styles.item(0) as? Element else null
+                    val namespaceStyle = styleNode
+                        ?.getAttributeNS("http://schemas.openxmlformats.org/wordprocessingml/2006/main", "val")
+                        .orEmpty()
+                    val style = if (namespaceStyle.isNotBlank()) namespaceStyle else styleNode?.getAttribute("w:val").orEmpty()
+                    val headingLevel = Regex("(?i)heading\\s*([1-3])")
+                        .find(style)?.groupValues?.getOrNull(1)?.toIntOrNull()
                     val block = if (headingLevel != null) {
-                        JSONObject().put("type", "heading").put("level", headingLevel).put("text", text.take(20000))
+                        JSONObject().put("type", "heading").put("level", headingLevel).put("text", paragraphText.take(20000))
                     } else {
-                        JSONObject().put("type", "paragraph").put("text", text.take(20000))
+                        JSONObject().put("type", "paragraph").put("text", paragraphText.take(20000))
                     }
                     blocks.put(block)
                 }
