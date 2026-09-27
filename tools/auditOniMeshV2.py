@@ -77,9 +77,9 @@ def audit_skills(data: dict) -> None:
     require("UNKNOWN_MUTATION_STATE" in kugi, "Kugi ambiguous mutation stop missing")
     require("Never blindly repeat" in kugi, "Kugi blind retry guard missing")
 
-    doctor = SKILLS["DrNao"].read_text(encoding="utf-8")
-    require("physical-device" in doctor.lower(), "Dr Nao device-proof boundary missing")
-    require("policy drift" in doctor.lower(), "Dr Nao policy-drift adjudication missing")
+    doctor = SKILLS["DrNao"].read_text(encoding="utf-8").lower()
+    require("physical-device" in doctor, "Dr Nao device-proof boundary missing")
+    require("policy drift" in doctor or "policy-drift" in doctor, "Dr Nao policy-drift adjudication missing")
 
 
 def main() -> None:
