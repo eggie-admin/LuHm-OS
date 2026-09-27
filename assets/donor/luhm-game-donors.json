@@ -34,8 +34,9 @@
       "source_provenance": "KAI9000_MULTIVERSE_ASSET_DUNGEON_MANIFEST_20260914",
       "drive_file_id": "1yyEW0JS9icWzG6vBqawHx5m_WDsfiufa",
       "runtime_path": "res://assets/donor/runtime/cathedral_hub_archive.webp",
-      "sha256": "a4d6225307b01da7eeecbff39a293acf3d1ff01ce2924bec213da2f6f0e07fb8",
-      "bytes": 57618
+      "sha256": "024d07f498398dd0f95ef59b0771920fe3e047a259ca1185e265fb040d56a5bf",
+      "bytes": 14999,
+      "derivative_state": "GIT_VENDORED_EXACT_BYTES"
     },
     {
       "id": "lum_ps1_float_shrine",
@@ -48,7 +49,8 @@
       "drive_file_id": "1F5j5nUZr8Qb0IhypezI8lVhsQeWY7mzT",
       "runtime_path": "res://assets/donor/runtime/lum_ps1_float_shrine.webp",
       "sha256": "f6ccea4f435ee2acb0edd987be893ed003bbd01db49e359935c2805ec68930bb",
-      "bytes": 16072
+      "bytes": 16072,
+      "derivative_state": "GIT_VENDORED_EXACT_BYTES"
     }
   ],
   "forbidden_payloads": [
