@@ -1,9 +1,9 @@
 {
   "schema": "luhmOs.androidCandidate.v1",
-  "status": "PROPOSED_AMBER_ONI_ATELIER_BODYFORGE",
+  "status": "PROPOSED_AMBER_FINAL_COFFEEHOUSE_AGENT_MESH",
   "package": "art.eggiebagelface.luhmos.cathedraltoy.atelier",
-  "versionCode": 125,
-  "versionName": "1.0.25-cathedral.atelier.1",
+  "versionCode": 126,
+  "versionName": "1.0.26-cathedral.agentmesh.1",
   "minSdk": 24,
   "targetSdk": 36,
   "abi": "arm64-v8a",
@@ -13,13 +13,25 @@
   ],
   "signing": "disposable-debug-only",
   "persistentSigner": false,
-  "installScope": "side-by-side Oni Atelier character-creator candidate; exact APK certificate and hash check required before replacement",
+  "installScope": "side-by-side final coffee-house + Lum/Oni agent-mesh candidate; exact APK certificate and hash check required before replacement",
   "assetLane": {
     "manifest": "assets/community/selected-assets.json",
     "count": 77,
     "license": "CC0",
     "fetch": "build-time-only-at-immutable-source-commit",
     "runtimeNetwork": false
+  },
+  "agentMesh": {
+    "manager": "Lum",
+    "hostRuntime": "agents/luhm_mesh.py",
+    "embeddedContract": "assets/system/luhmAgentMesh.json",
+    "openaiRuntimeInsideApk": false,
+    "providerSecretInsideApk": false,
+    "internetPermission": false,
+    "pythonRuntimeInsideApk": false,
+    "termuxBridge": false,
+    "remoteShell": false,
+    "loopbackControlPlane": false
   },
   "characterCreator": {
     "mode": "runtime_non_destructive",
