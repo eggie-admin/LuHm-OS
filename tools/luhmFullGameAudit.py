@@ -41,6 +41,12 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def git_blob_sha1(path: Path) -> str:
+    data = path.read_bytes()
+    header = b"blob " + str(len(data)).encode("ascii") + b"\0"
+    return hashlib.sha1(header + data).hexdigest()
+
+
 def require(condition: bool, code: str) -> None:
     if not condition:
         raise SystemExit(code)
@@ -68,9 +74,11 @@ def main() -> int:
     require(doctrine.get("donor_policy", {}).get("kai9000") == "DONOR_INVENTORY_ONLY_NOT_GAME_AUTHORITY", "RED_KAI_AUTHORITY_DRIFT")
     require(sot.get("donor_boundary", {}).get("kai9000_authority") is False, "RED_KAI_SOURCE_AUTHORITY_DRIFT")
     require(sot.get("donor_boundary", {}).get("widget_project_authority") is False, "RED_WIDGET_AUTHORITY_DRIFT")
+    require(donors.get("schema") == "luhm-os.game-donor-manifest.v3", "RED_DONOR_MANIFEST_SCHEMA")
     require(donors.get("product_scope") == "LUHM_OS_FULL_GAME_ONLY", "RED_DONOR_PRODUCT_SCOPE")
     require(donors.get("donor_authority") is False, "RED_DONOR_AUTHORITY")
     require(donors.get("runtime_network") is False, "RED_DONOR_RUNTIME_NETWORK")
+    require(donors.get("runtime_delivery") == "GIT_VENDORED_RIGHTS_CLEARED_DERIVATIVES", "RED_DONOR_DELIVERY")
     require(len(donors.get("assets", [])) == 2, "RED_DONOR_COUNT")
 
     compatibility_names = set(boundary.get("compatibility_names_not_authority", []))
@@ -85,11 +93,19 @@ def main() -> int:
     for asset in donors["assets"]:
         runtime_path = str(asset.get("runtime_path", ""))
         require(runtime_path.startswith("res://assets/donor/runtime/"), "RED_DONOR_RUNTIME_PATH")
+        require(runtime_path.endswith(".svg"), "RED_DONOR_RUNTIME_EXTENSION")
+        require(asset.get("runtime_format") == "SVG_VECTOR_MOSAIC", "RED_DONOR_RUNTIME_FORMAT")
         require(str(asset.get("source_rights", "")) in {"USER_SUPPLIED_OR_GENERATED", "PERMISSIVE"}, "RED_DONOR_RIGHTS")
         require(not any(token.lower() in runtime_path.lower() for token in forbidden_runtime_tokens), "RED_PRIVATE_OR_WIDGET_RUNTIME_PATH")
+        require(len(str(asset.get("source_sha256", ""))) == 64, "RED_DONOR_SOURCE_HASH_PIN")
         require(len(str(asset.get("sha256", ""))) == 64, "RED_DONOR_HASH_PIN")
+        require(asset.get("source_sha256") != asset.get("sha256"), "RED_DONOR_SOURCE_DERIVATIVE_COLLAPSE")
         require(bool(str(asset.get("drive_file_id", ""))), "RED_DONOR_DRIVE_PIN")
         require(len(str(asset.get("git_blob_sha1", ""))) == 40, "RED_DONOR_GIT_BLOB_PIN")
+        file_path = ROOT / runtime_path.removeprefix("res://")
+        require(file_path.exists(), "RED_DONOR_RUNTIME_MISSING")
+        require(sha256(file_path) == asset["sha256"], "RED_DONOR_RUNTIME_HASH")
+        require(git_blob_sha1(file_path) == asset["git_blob_sha1"], "RED_DONOR_RUNTIME_GIT_BLOB")
 
     webview = (ROOT / "native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/KAIWebView.kt").read_text(encoding="utf-8")
     require("blockNetworkLoads = true" in webview, "RED_WEBGLASS_NETWORK_CAGE")
@@ -113,23 +129,30 @@ def main() -> int:
 
     receipt_green = False
     donor_bytes = 0
+    donor_format_green = False
     if args.with_donor_receipt:
         require(DONOR_RECEIPT.exists(), "RED_DONOR_RECEIPT_MISSING")
         receipt = load(DONOR_RECEIPT)
+        require(receipt.get("schema") == "luhm-os.game-donor-build-receipt.v3", "RED_DONOR_RECEIPT_SCHEMA")
         require(receipt.get("status") == "LUHM_GAME_DONORS_GREEN", "RED_DONOR_RECEIPT_STATUS")
+        require(receipt.get("format_gate") == "GREEN", "RED_DONOR_FORMAT_GATE")
         require(receipt.get("donor_authority") is False, "RED_DONOR_RECEIPT_AUTHORITY")
         require(receipt.get("runtime_network") is False, "RED_DONOR_RECEIPT_NETWORK")
         require(receipt.get("source_vault_private") is True and receipt.get("source_vault_ci_fetch") is False, "RED_DONOR_RECEIPT_VAULT_BOUNDARY")
         require(int(receipt.get("asset_count", 0)) == 2, "RED_DONOR_RECEIPT_COUNT")
         for item in receipt.get("assets", []):
+            require(item.get("runtime_format") == "SVG_VECTOR_MOSAIC", "RED_DONOR_RECEIPT_RUNTIME_FORMAT")
+            require(item.get("format_validation") == "GREEN", "RED_DONOR_RECEIPT_FORMAT_VALIDATION")
             file_path = ROOT / str(item["runtime_path"]).removeprefix("res://")
             require(file_path.exists(), "RED_DONOR_RUNTIME_MISSING")
             require(sha256(file_path) == item["sha256"], "RED_DONOR_RUNTIME_HASH")
+            require(git_blob_sha1(file_path) == item["git_blob_sha1"], "RED_DONOR_RECEIPT_GIT_BLOB")
         receipt_green = True
+        donor_format_green = True
         donor_bytes = int(receipt.get("total_bytes", 0))
 
     result = {
-        "schema": "luhm-os.full-game-audit.v2",
+        "schema": "luhm-os.full-game-audit.v3",
         "status": "LUHM_FULL_GAME_SCOPE_GREEN",
         "product": "LuHm OS",
         "scope": "FULL_GAME",
@@ -140,6 +163,7 @@ def main() -> int:
         "compatibility_bridge_authority_limited": True,
         "private_relic_payload_authority": False,
         "donor_manifest_green": True,
+        "donor_format_gate_green": donor_format_green,
         "donor_receipt_green": receipt_green,
         "donor_bytes": donor_bytes,
         "webglass_network_cage_green": True,
