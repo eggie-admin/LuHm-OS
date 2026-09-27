@@ -35,6 +35,7 @@ KUGI = Agent("Kugi", "Tool Executor", may_execute=True)
 # Agent Mesh v2 roles. Keep the legacy ONI trio intact for existing callers.
 KAJI = Agent("Kaji", "Build B Clean Room", may_build=True)
 DR_NAO = Agent("DrNao", "Source Truth Doctor", read_only_guard=True)
+FUMI = Agent("Fumi", "Records Secretary")
 YUME = Agent("Yume", "Art Media Forge")
 KOE = Agent("Koe", "Dictation Scribe")
 SUMI = Agent("Sumi", "Asset Curator")
@@ -43,7 +44,9 @@ ONI = (KIRI, TETSU, MOMO)
 DEFAULT_ONI = ONI
 BUILD_ONI = (TETSU, KAJI)
 SPECIALIST_ONI = (YUME, KOE, SUMI)
+RECORDS_ONI = (FUMI,)
 TRUTH_GUARD = DR_NAO
+ALL_ONI = (KIRI, TETSU, KAJI, MOMO, SHIORI, KUGI, DR_NAO, FUMI, YUME, KOE, SUMI)
 MAX_PARALLEL = 3
 MAX_PARALLEL_BUILDS = 2
 
