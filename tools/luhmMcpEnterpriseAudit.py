@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -92,6 +91,16 @@ def audit() -> None:
     ):
         require(phrase in skill, f"portable skill enterprise rule missing: {phrase}")
 
+    skill_lower = skill.lower()
+    for forbidden in (
+        "session owns authority",
+        "session grants authority",
+        "session owns source truth",
+        "session grants source truth",
+        "session state grants authority",
+    ):
+        require(forbidden not in skill_lower, f"skill accidentally grants authority to session state: {forbidden}")
+
     mcp = load(MCP)
     remote = mcp.get("mcpServers", {}).get("luhm", {})
     require(remote.get("type") == "streamable-http", "plugin MCP transport drift")
@@ -110,9 +119,6 @@ def audit() -> None:
         "sync: false",
     ):
         require(phrase in render, f"Render deployment hardening missing: {phrase}")
-
-    forbidden = re.compile(r"(?i)(session.*(?:grant|owns).*authority|session.*(?:grant|owns).*source truth)")
-    require(forbidden.search(skill) is None, "skill accidentally grants authority to session state")
 
     print("LUHM_MCP_ENTERPRISE_GREEN")
 
