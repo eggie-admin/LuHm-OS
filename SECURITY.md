@@ -22,9 +22,9 @@ Enterprise operator accounts should use MFA. Production environments should rest
 
 SHA-256, SBOM hashes, Git object IDs, and APK signatures provide identity, integrity, or authenticity. They are **not encryption** and do not provide confidentiality.
 
-The Android ProofVault is currently app-private and SHA-256 content-addressed. That protects provenance and reduces accidental exposure, but LuHm does not claim app-layer encryption for ProofVault data. Sensitive enterprise proofs remain blocked until authenticated encryption is implemented with Android Keystore-backed keys. The preferred design is AES-256-GCM with hardware-backed StrongBox when supported, with a Keystore-backed fallback when StrongBox is unavailable.
+The security candidate implements ProofVault at-rest encryption using **AES-256-GCM** with a non-exportable **Android Keystore** key. StrongBox is requested when the device supports it, with Android Keystore fallback when StrongBox is unavailable. Proof blobs and proof metadata are encrypted before being sealed to app-private storage, and WebGlass receives decrypted bytes through an in-process streaming path instead of a decrypted disk copy.
 
-The WebView origin `https://appassets.androidplatform.net` is a local virtual origin. It must never be represented as evidence of public network TLS or public certificate trust.
+This source implementation is not yet a physical-device cryptographic proof. Sensitive enterprise proofs remain blocked until exact-head Android CI passes and a real device demonstrates import, reopen/decrypt, and tamper-failure behavior. The WebView origin `https://appassets.androidplatform.net` remains a local virtual origin and must never be represented as evidence of public network TLS or public certificate trust.
 
 ## Authentication and signing
 
