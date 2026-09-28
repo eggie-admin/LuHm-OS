@@ -7,6 +7,7 @@ services:
       python -m pip install --disable-pip-version-check -r host/mcp/requirements.txt
       && python host/mcp/luhmMcpServer.py --check
       && python tools/luhmMcpEnterpriseAudit.py
+      && python tools/enterpriseCryptoAudit.py
       && python tools/luhmPluginPackageAudit.py
     startCommand: python host/mcp/luhmMcpServer.py streamable-http
     autoDeployTrigger: checksPass
@@ -23,7 +24,9 @@ services:
         - doctrine/**
         - tools/lumTaskRouter.py
         - tools/luhmMcpEnterpriseAudit.py
+        - tools/enterpriseCryptoAudit.py
         - tools/luhmPluginPackageAudit.py
+        - SECURITY.md
         - render.yaml
     envVars:
       - key: PYTHON_VERSION

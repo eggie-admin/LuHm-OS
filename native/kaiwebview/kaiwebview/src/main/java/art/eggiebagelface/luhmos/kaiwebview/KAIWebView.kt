@@ -201,7 +201,12 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
         val host = activity ?: error("LuHm WebGlass host activity unavailable")
         val loader = WebViewAssetLoader.Builder()
             .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(host))
-            .addPathHandler(ProofVault.WEB_PATH, WebViewAssetLoader.InternalStoragePathHandler(host, proofVault.publicDir))
+            .addPathHandler(
+                ProofVault.WEB_PATH,
+                object : WebViewAssetLoader.PathHandler {
+                    override fun handle(path: String): WebResourceResponse? = proofVault.openWebResource(path)
+                }
+            )
             .build()
 
         WebView.setWebContentsDebuggingEnabled(false)
@@ -276,7 +281,7 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
                         .put("payload", JSONObject()
                             .put("bridge", "luhm-webglass")
                             .put("aiHost", "external")
-                            .put("proofVault", "app-private")
+                            .put("proofVault", "aes-256-gcm-android-keystore")
                             .put("mode", currentMode)
                             .put("webviewPackage", pkg?.packageName ?: "unknown")
                             .put("webviewVersion", pkg?.versionName ?: "unknown"))

@@ -131,10 +131,22 @@ def audit() -> None:
 
     native = text("native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/KAIWebView.kt")
     vault = text("native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/ProofVault.kt")
-    for token in ("Intent.ACTION_OPEN_DOCUMENT", "Intent.CATEGORY_OPENABLE", "FLAG_GRANT_PERSISTABLE_URI_PERMISSION", "takePersistableUriPermission", "ProofVault.WEB_PATH", "InternalStoragePathHandler", "blockNetworkLoads = true", '"proof.pick"', '"proof.list"', '"proof.pin"'):
+    for token in (
+        "Intent.ACTION_OPEN_DOCUMENT", "Intent.CATEGORY_OPENABLE", "FLAG_GRANT_PERSISTABLE_URI_PERMISSION",
+        "takePersistableUriPermission", "ProofVault.WEB_PATH", "WebViewAssetLoader.PathHandler",
+        "proofVault.openWebResource(path)", "blockNetworkLoads = true", '"proof.pick"', '"proof.list"', '"proof.pin"',
+    ):
         require(token in native, f"Android proof bridge missing: {token}")
-    for token in ('MessageDigest.getInstance("SHA-256")', "MAX_PROOF_BYTES", "MAX_INLINE_TEXT_BYTES", '"UNKNOWN"', '"android-saf-local-copy"', "extractDocxBlocks", "DocumentBuilderFactory", "disallow-doctype-decl", "external-general-entities", "rawHtmlTrusted"):
-        require(token in vault, f"proof vault missing structural control: {token}")
+    for token in (
+        'MessageDigest.getInstance("SHA-256")', "MAX_PROOF_BYTES", "MAX_INLINE_TEXT_BYTES", '"UNKNOWN"',
+        '"android-saf-local-encrypted-copy"', "extractDocxBlocks", "DocumentBuilderFactory",
+        "disallow-doctype-decl", "external-general-entities", "rawHtmlTrusted",
+        'KeyStore.getInstance("AndroidKeyStore")', "KeyGenParameterSpec.Builder", 'Cipher.getInstance("AES/GCM/NoPadding")',
+        "GCMParameterSpec", "CipherOutputStream", "CipherInputStream", "StrongBoxUnavailableException",
+        'put("storageEncryption", "AES-256-GCM")', 'put("plaintextAtRest", false)',
+    ):
+        require(token in vault, f"proof vault missing encrypted structural control: {token}")
+    require("InternalStoragePathHandler" not in native, "plaintext InternalStoragePathHandler must not return for encrypted ProofVault")
     require("OPENAI_API_KEY" not in native + vault, "provider credential reference entered APK source")
     require("127.0.0.1" not in native + vault and "localhost" not in native + vault, "Python/loopback control plane entered Android source")
     require("uri.toString()" not in vault, "raw SAF URI must not be serialized into proof metadata")
