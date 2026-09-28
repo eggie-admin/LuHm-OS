@@ -22,7 +22,7 @@ permissions:
 jobs:
   enterprise-crypto-audit:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - name: Checkout exact source
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
@@ -49,16 +49,48 @@ jobs:
 
           doctrine = json.loads(Path('doctrine/ENTERPRISE_CRYPTO_V1.json').read_text())
           ingress = doctrine['publicIngress']
+          vault = doctrine['androidProofVault']
           assert ingress['preferredCertificateAuthority'] == "Let's Encrypt"
           assert ingress['strictLetsEncryptOnly'] is False
           assert ingress['approvedCertificateAuthorities'] == ["Let's Encrypt", "Google Trust Services"]
           assert ingress['caaPolicy']['requiredWhenCaaExists'] == ['letsencrypt.org', 'pki.goog']
-          assert doctrine['androidProofVault']['appLayerEncryption'] is False
-          assert doctrine['androidProofVault']['sensitiveProofsAllowedForEnterprise'] is False
+          assert vault['appLayerEncryptionSourceImplemented'] is True
+          assert vault['appLayerEncryptionRuntimeProven'] is False
+          assert vault['algorithm'] == 'AES-256-GCM'
+          assert vault['sensitiveProofsAllowedForEnterprise'] is False
           assert doctrine['integrityVsEncryption']['sha256'] == 'integrity-not-encryption'
           assert doctrine['authentication']['oauthImplemented'] is False
           print('LUHM_ENTERPRISE_CRYPTO_NEGATIVE_CONTROLS_GREEN')
           PY
+
+      - name: Set up Java
+        uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android SDK 36
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
+
+      - name: Install pinned Gradle 8.11.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 5 -o /tmp/gradle.zip https://services.gradle.org/distributions/gradle-8.11.1-bin.zip
+          echo 'f397b287023acdba1e9f6fc5ea72d22dd63669d59ed4a289a29b1a76eee151c6  /tmp/gradle.zip' | sha256sum -c -
+          unzip -q /tmp/gradle.zip -d /tmp
+          echo 'GRADLE=/tmp/gradle-8.11.1/bin/gradle' >> "$GITHUB_ENV"
+
+      - name: Compile encrypted Android ProofVault
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GRADLE" -p native/kaiwebview :kaiwebview:assembleRelease --no-daemon --stacktrace
 
       - name: Live TLS remains external evidence
         run: |
@@ -70,5 +102,6 @@ jobs:
           assert gates['customDomainDns'] == 'EXTERNAL_EVIDENCE_REQUIRED'
           assert gates['leafCertificateIssuer'] == 'EXTERNAL_EVIDENCE_REQUIRED'
           assert gates['httpsHealth'] == 'EXTERNAL_EVIDENCE_REQUIRED'
+          assert gates['sensitiveProofVaultEncryption'] == 'SOURCE_IMPLEMENTED_DEVICE_EVIDENCE_REQUIRED'
           print('LUHM_LIVE_TLS_NOT_FALSELY_GREEN')
           PY
