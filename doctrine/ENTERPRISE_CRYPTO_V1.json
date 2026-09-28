@@ -1,0 +1,89 @@
+{
+  "schema": "luhm-os.enterprise-crypto.v1",
+  "status": "BETA_HARDENING",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "publicIngress": {
+    "fqdn": "mcp.eggiebagelface.art",
+    "provider": "Render managed TLS",
+    "minimumTls": "1.2",
+    "httpRedirectToHttps": true,
+    "approvedCertificateAuthorities": [
+      "Let's Encrypt",
+      "Google Trust Services"
+    ],
+    "preferredCertificateAuthority": "Let's Encrypt",
+    "strictLetsEncryptOnly": false,
+    "strictLetsEncryptOnlyReason": "Render managed TLS may issue or renew a custom-domain certificate through Let's Encrypt or Google Trust Services. Pinning issuance to Let's Encrypt alone is not a provider guarantee and can make renewal brittle.",
+    "customDomainRequired": true,
+    "liveCertificateEvidenceRequired": true,
+    "certificateExpiryWarningDays": 30,
+    "certificateExpiryHardFailDays": 14,
+    "certificatePinning": false,
+    "certificatePinningReason": "Do not pin a rotating managed leaf certificate or intermediate for the ChatGPT/MCP public endpoint.",
+    "caaPolicy": {
+      "requiredWhenCaaExists": [
+        "letsencrypt.org",
+        "pki.goog"
+      ],
+      "letsEncryptOnlyCaaAllowed": false
+    }
+  },
+  "renderBoundary": {
+    "publicTlsTermination": "Render load balancer",
+    "edgeToAppProtocol": "http",
+    "edgeToAppPubliclyReachable": false,
+    "acceptedForCurrentAnonymousReadOnlyMcp": true,
+    "privateWriteExpansionRequiresNewThreatReview": true
+  },
+  "localDevelopment": {
+    "loopbackHttpAllowed": true,
+    "loopbackHosts": [
+      "127.0.0.1",
+      "localhost"
+    ],
+    "publicCleartextForbidden": true,
+    "developmentCaForbiddenInProduction": true
+  },
+  "secrets": {
+    "git": false,
+    "androidApk": false,
+    "pluginPackage": false,
+    "renderRuntimeEnvironment": true,
+    "renderSecretPlaceholderRequired": true,
+    "secretLoggingForbidden": true,
+    "environmentProtectionRecommended": true,
+    "operatorMfaRequiredForEnterprise": true
+  },
+  "androidProofVault": {
+    "contentAddressed": true,
+    "sha256Integrity": true,
+    "appPrivateStorage": true,
+    "appLayerEncryption": false,
+    "sensitiveProofsAllowedForEnterprise": false,
+    "requiredBeforeSensitiveProofs": "Authenticated encryption using Android Keystore-backed keys; prefer AES-256-GCM and hardware-backed StrongBox when supported.",
+    "webViewVirtualHttpsOriginIsNetworkTls": false
+  },
+  "integrityVsEncryption": {
+    "sha256": "integrity-not-encryption",
+    "apkSignature": "authenticity-and-integrity-not-encryption",
+    "sbomHash": "integrity-not-encryption",
+    "httpsTls": "transport-confidentiality-integrity-and-server-authentication"
+  },
+  "authentication": {
+    "currentMcpTools": "anonymous-read-only",
+    "oauthImplemented": false,
+    "privateOrWriteToolsBlockedUntilOAuth21": true
+  },
+  "productionGates": {
+    "customDomainDns": "EXTERNAL_EVIDENCE_REQUIRED",
+    "leafCertificateIssuer": "EXTERNAL_EVIDENCE_REQUIRED",
+    "leafCertificateSan": "EXTERNAL_EVIDENCE_REQUIRED",
+    "leafCertificateExpiry": "EXTERNAL_EVIDENCE_REQUIRED",
+    "httpsHealth": "EXTERNAL_EVIDENCE_REQUIRED",
+    "hsts": "REQUIRED_BEFORE_PRODUCTION_CUTOVER",
+    "persistentAndroidSigner": "EXTERNAL_CROWN_GATE",
+    "sensitiveProofVaultEncryption": "BLOCKED_NOT_IMPLEMENTED",
+    "oauthPrivateWrite": "BLOCKED_NOT_IMPLEMENTED"
+  },
+  "unknownIsNotGreen": true
+}
