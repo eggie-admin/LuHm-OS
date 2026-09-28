@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / "plugins" / "luhm-os"
 RENDER_BLUEPRINT = ROOT / "render.yaml"
 MCP_SERVER = ROOT / "host" / "mcp" / "luhmMcpServer.py"
+ENTERPRISE_SCOPE = ROOT / "doctrine" / "MCP_ENTERPRISE_SCOPE_V1.json"
 EXPECTED_FQDN = "mcp.eggiebagelface.art"
 EXPECTED_REMOTE_URL = f"https://{EXPECTED_FQDN}/mcp"
 EXPECTED_RENDER_SERVICE = "luhm-os-mcp"
@@ -49,6 +50,7 @@ def audit() -> None:
         PLUGIN / "skills" / "luhm-agent-workflow" / "SKILL.md",
         RENDER_BLUEPRINT,
         MCP_SERVER,
+        ENTERPRISE_SCOPE,
     ]
     for path in required:
         require(path.is_file(), f"missing plugin/deployment file: {path.relative_to(ROOT)}")
@@ -92,6 +94,16 @@ def audit() -> None:
     require_https(remote_template_url, "remote MCP template")
     require(urlparse(remote_template_url).hostname == "luhm-mcp.example.invalid", "remote template must remain non-routable")
 
+    enterprise = load(ENTERPRISE_SCOPE)
+    transport = enterprise.get("transport", {})
+    auth = enterprise.get("authentication", {})
+    require(enterprise.get("schema") == "luhm-os.mcp-enterprise-scope.v1", "enterprise scope schema drift")
+    require(transport.get("statelessHttp") is True, "MCP enterprise HTTP must remain stateless")
+    require(transport.get("sessionOwnsAuthority") is False, "MCP session must not own authority")
+    require(transport.get("sessionOwnsSourceTruth") is False, "MCP session must not own source truth")
+    require(auth.get("privateOrWriteToolsRequireOAuth21") is True, "private/write MCP tools must require OAuth 2.1")
+    require(auth.get("oauthImplemented") is False, "candidate must not overclaim OAuth implementation")
+
     server_source = read(MCP_SERVER)
     for phrase in (
         "MCPServer(",
@@ -104,10 +116,16 @@ def audit() -> None:
         "allowed_hosts=allowed_hosts",
         "RENDER_EXTERNAL_HOSTNAME",
         ".onrender.com",
+        "ENTERPRISE_SCOPE",
+        "luhm_validate_scope",
+        "luhm_transport_contract",
+        "sessionOwnsAuthority",
+        "sessionOwnsSourceTruth",
         "@server.custom_route(\"/healthz\"",
         "@server.custom_route(\"/.well-known/openai-apps-challenge\"",
         "OPENAI_APPS_CHALLENGE",
         "host=\"0.0.0.0\"",
+        "stateless_http=True",
         "max_request_body_size=1 * 1024 * 1024",
     ):
         require(phrase in server_source, f"MCP production hardening missing: {phrase}")
@@ -121,6 +139,7 @@ def audit() -> None:
         f"- {EXPECTED_FQDN}",
         "renderSubdomainPolicy: enabled",
         "python host/mcp/luhmMcpServer.py --check",
+        "python tools/luhmMcpEnterpriseAudit.py",
         "python tools/luhmPluginPackageAudit.py",
         "LUHM_MCP_PROFILE",
         "value: production",
@@ -151,6 +170,10 @@ def audit() -> None:
         "Lum is the only conversational boss",
         "UNKNOWN",
         "Secure MCP Tunnel",
+        "Transport state is not source truth",
+        "taskId",
+        "sourceRef",
+        "scopeId",
     ):
         require(phrase in skill, f"portable skill missing doctrine: {phrase}")
 
