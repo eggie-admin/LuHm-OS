@@ -1,0 +1,41 @@
+{
+  "schema": "luhm-os.plugin-private-stage.v1",
+  "status": "PRIVATE_STAGING",
+  "authority": "Professor",
+  "sourceBaseSha": "8de57909bb1a2f47e66816b7cdecaa711c7bee6f",
+  "distribution": {
+    "mode": "PRIVATE_PERSONAL",
+    "publicDirectory": false,
+    "publicSubmission": false,
+    "workspacePublishing": false,
+    "requiresExplicitCrownForPublicSubmission": true
+  },
+  "mcp": {
+    "canonicalUrl": "https://mcp.eggiebagelface.art/mcp",
+    "privateFallbackUrl": "https://luhm-os-mcp.onrender.com/mcp",
+    "toolsReadOnly": true,
+    "authentication": "ANONYMOUS_READ_ONLY",
+    "writeToolsAllowed": false,
+    "oauthRequiredBeforePrivateOrWriteTools": true
+  },
+  "reviewReadiness": {
+    "positiveTestsRequired": 5,
+    "negativeTestsRequired": 3,
+    "privacyDraftPresent": true,
+    "termsDraftPresent": true,
+    "publisherIdentity": "EXTERNAL_PENDING",
+    "publicWebsite": "EXTERNAL_PENDING",
+    "supportUrl": "EXTERNAL_PENDING",
+    "customDomainTls": "EXTERNAL_PENDING",
+    "openAiSubmission": "NOT_REQUESTED"
+  },
+  "monetization": {
+    "enabled": false,
+    "checkoutEnabled": false,
+    "digitalSubscriptionSalesInPlugin": false,
+    "digitalServiceUpsellInPlugin": false,
+    "futureBusinessModel": "EXTERNAL_ACCOUNT_ENTITLEMENT_ONLY_IF_ALLOWED_BY_CURRENT_OPENAI_POLICY",
+    "rule": "Private use and public review readiness are separate from monetization. Do not add checkout or upgrade promotion without a fresh policy review."
+  },
+  "releaseLaw": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}
