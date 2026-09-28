@@ -7,13 +7,16 @@ publishes releases, or grants GREEN authority.
 
 Local profile: loopback only.
 Production profile: Render/public HTTPS edge, explicit FQDN host allowlist,
-health endpoint, and OpenAI domain-verification challenge endpoint.
+health endpoint, OpenAI domain-verification challenge endpoint, and explicit
+request scope for truth-sensitive routing. Transport/session state never owns
+LuHm source truth or authority.
 """
 from __future__ import annotations
 
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -29,14 +32,16 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCE_TRUTH = ROOT / "doctrine" / "SOURCE_OF_TRUTH.json"
 CONTROL_PLANE = ROOT / "doctrine" / "ONI_MESH_CONTROL_PLANE_V2.json"
 OPENAI_DEPLOYMENT = ROOT / "doctrine" / "openAiLumOniDeployment-20260927.json"
+ENTERPRISE_SCOPE = ROOT / "doctrine" / "MCP_ENTERPRISE_SCOPE_V1.json"
 ROUTER = ROOT / "tools" / "lumTaskRouter.py"
 ROUTE_KINDS = {
     "direct", "read", "records", "proof", "patch", "build", "external",
     "monitor", "release", "art", "media", "dictation", "asset",
 }
+TRUTH_SCOPE_KINDS = {"patch", "build", "release"}
 
 SERVER_NAME = "luhm-os"
-SERVER_VERSION = "0.2.0"
+SERVER_VERSION = "0.3.0-beta"
 DEFAULT_PUBLIC_FQDN = "mcp.eggiebagelface.art"
 LOCAL_HOST = "127.0.0.1"
 LOCAL_PORT = 8788
@@ -44,11 +49,12 @@ LOCAL_PORT = 8788
 server = MCPServer(
     SERVER_NAME,
     title="LuHm OS",
-    description="Read-only LuHm source-truth, Oni routing, and proof-contract tools.",
+    description="Read-only LuHm source-truth, Oni routing, proof-contract, and transport-contract tools.",
     version=SERVER_VERSION,
     instructions=(
         "LuHm OS is evidence-gated. AI proposes; policy authorizes; CI proves; human promotes. "
-        "Use read-only status, roster, routing, and proof-contract tools to inspect the current workflow. "
+        "Use read-only status, roster, routing, proof-contract, scope, and transport tools to inspect the current workflow. "
+        "Truth-sensitive patch/build/release routing requires explicit taskId, sourceRef, and scopeId. "
         "Never infer GREEN, promotion, signing, publication, or public exposure from these tools. "
         "Professor remains final authority."
     ),
@@ -102,9 +108,47 @@ def _skill_status() -> list[dict[str, Any]]:
     return out
 
 
+def _scope_value(value: Any, max_len: int = 256) -> str:
+    text = str(value if value is not None else "").strip()
+    if len(text) > max_len:
+        raise ValueError("scope value exceeds maximum length")
+    return text or "UNKNOWN"
+
+
+def _scope_payload(
+    taskId: str = "UNKNOWN",
+    sourceRef: str = "UNKNOWN",
+    scopeId: str = "UNKNOWN",
+    candidateSha: str = "",
+    proofContext: str = "",
+) -> dict[str, Any]:
+    candidate = _scope_value(candidateSha, 64) if candidateSha else "UNKNOWN"
+    if candidate != "UNKNOWN" and not re.fullmatch(r"[0-9a-fA-F]{7,64}", candidate):
+        raise ValueError("candidateSha must be a hexadecimal source digest")
+    return {
+        "schema": "luhm-os.mcp-request-scope.v1",
+        "taskId": _scope_value(taskId, 160),
+        "sourceRef": _scope_value(sourceRef, 256),
+        "scopeId": _scope_value(scopeId, 160),
+        "candidateSha": candidate,
+        "proofContext": _scope_value(proofContext, 256) if proofContext else "UNKNOWN",
+        "sessionOwnsAuthority": False,
+        "sessionOwnsSourceTruth": False,
+        "greenAuthority": False,
+    }
+
+
+def _require_explicit_scope(scope: dict[str, Any]) -> None:
+    missing = [name for name in ("taskId", "sourceRef", "scopeId") if scope.get(name) in (None, "", "UNKNOWN")]
+    if missing:
+        raise ValueError("explicit request scope required: " + ", ".join(missing))
+
+
 def _status_payload() -> dict[str, Any]:
     truth = _load_json(SOURCE_TRUTH)
     deploy = _load_json(OPENAI_DEPLOYMENT)
+    enterprise = _load_json(ENTERPRISE_SCOPE)
+    transport = enterprise.get("transport", {})
     return {
         "schema": "luhm-os.mcp-status.v1",
         "sourceLaw": truth.get("source_law", "UNKNOWN"),
@@ -114,6 +158,12 @@ def _status_payload() -> dict[str, Any]:
         "agentWorkflowCandidate": truth.get("agentWorkflowCandidate", {}),
         "remainingExternalGates": truth.get("remainingExternalGates", {}),
         "openAiDeploymentStatus": deploy.get("status", "UNKNOWN"),
+        "mcpTransport": {
+            "productionFqdn": transport.get("productionFqdn", "UNKNOWN"),
+            "statelessHttp": bool(transport.get("statelessHttp", False)),
+            "sessionOwnsAuthority": bool(transport.get("sessionOwnsAuthority", True)),
+            "sessionOwnsSourceTruth": bool(transport.get("sessionOwnsSourceTruth", True)),
+        },
         "publicationAuthority": bool(truth.get("publication_authority", False)),
         "promotion": bool(truth.get("promotion", False)),
         "greenAuthority": False,
@@ -169,6 +219,9 @@ def _production_security() -> TransportSecuritySettings:
 def _assert_source_contract() -> None:
     status = _status_payload()
     roster = _roster_payload()
+    enterprise = _load_json(ENTERPRISE_SCOPE)
+    transport = enterprise.get("transport", {})
+    auth = enterprise.get("authentication", {})
     if status["sourceLaw"] != "AI proposes. Policy authorizes. CI proves. Human promotes.":
         raise RuntimeError("RED_SOURCE_LAW_DRIFT")
     if not roster["roles"] or not all(role["skillPresent"] for role in roster["roles"]):
@@ -176,6 +229,14 @@ def _assert_source_contract() -> None:
     for kind in ("records", "proof"):
         if kind not in ROUTE_KINDS:
             raise RuntimeError("RED_ROUTE_KIND_MISSING")
+    if transport.get("statelessHttp") is not True:
+        raise RuntimeError("RED_MCP_STATEFUL_HTTP_DRIFT")
+    if transport.get("sessionOwnsAuthority") is not False or transport.get("sessionOwnsSourceTruth") is not False:
+        raise RuntimeError("RED_MCP_SESSION_AUTHORITY_DRIFT")
+    if auth.get("privateOrWriteToolsRequireOAuth21") is not True:
+        raise RuntimeError("RED_MCP_AUTH_BOUNDARY_DRIFT")
+    if auth.get("oauthImplemented") is not False:
+        raise RuntimeError("RED_MCP_OAUTH_STATUS_OVERCLAIM")
 
 
 @server.tool(annotations=READ_ONLY_INTERNAL)
@@ -191,16 +252,38 @@ def luhm_agent_roster() -> dict[str, Any]:
 
 
 @server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_validate_scope(
+    taskId: str,
+    sourceRef: str,
+    scopeId: str,
+    candidateSha: str = "",
+    proofContext: str = "",
+) -> dict[str, Any]:
+    """Validate an explicit LuHm request-scope packet without changing state or authority."""
+    scope = _scope_payload(taskId, sourceRef, scopeId, candidateSha, proofContext)
+    _require_explicit_scope(scope)
+    return {"valid": True, "scope": scope, "mutationAuthority": False, "greenAuthority": False}
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
 def luhm_route_task(
     kind: str,
     truth_sensitive: bool = False,
     contested: bool = False,
     external_fact: bool = False,
     asset_review: bool = False,
+    taskId: str = "UNKNOWN",
+    sourceRef: str = "UNKNOWN",
+    scopeId: str = "UNKNOWN",
+    candidateSha: str = "",
+    proofContext: str = "",
 ) -> dict[str, Any]:
     """Compute the deterministic LuHm task route and bounded worker plan without mutating state."""
     if kind not in ROUTE_KINDS:
         raise ValueError(f"unsupported task kind: {kind}")
+    scope = _scope_payload(taskId, sourceRef, scopeId, candidateSha, proofContext)
+    if truth_sensitive or kind in TRUTH_SCOPE_KINDS:
+        _require_explicit_scope(scope)
     command = [sys.executable, str(ROUTER), kind]
     if truth_sensitive:
         command.append("--truth-sensitive")
@@ -220,6 +303,7 @@ def luhm_route_task(
         env={"PATH": ""},
     )
     result = json.loads(completed.stdout)
+    result["requestScope"] = scope
     result["mcpMutationAuthority"] = False
     return result
 
@@ -241,6 +325,21 @@ def luhm_proof_contract() -> dict[str, Any]:
         "unknownIsNotGreen": bool(truth.get("unknown_is_not_green", True)),
         "sourceLaw": truth.get("source_law", "UNKNOWN"),
         "greenAuthority": False,
+    }
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_transport_contract() -> dict[str, Any]:
+    """Return the production/local MCP transport and authentication readiness contract."""
+    enterprise = _load_json(ENTERPRISE_SCOPE)
+    return {
+        "schema": enterprise.get("schema", "UNKNOWN"),
+        "transport": enterprise.get("transport", {}),
+        "requestScope": enterprise.get("requestScope", {}),
+        "authentication": enterprise.get("authentication", {}),
+        "operations": enterprise.get("operations", {}),
+        "greenAuthority": False,
+        "publicationAuthority": False,
     }
 
 
