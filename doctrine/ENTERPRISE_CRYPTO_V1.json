@@ -58,9 +58,15 @@
     "contentAddressed": true,
     "sha256Integrity": true,
     "appPrivateStorage": true,
-    "appLayerEncryption": false,
+    "appLayerEncryptionSourceImplemented": true,
+    "appLayerEncryptionRuntimeProven": false,
+    "algorithm": "AES-256-GCM",
+    "keyStore": "AndroidKeyStore",
+    "strongBoxPreferredWhenSupported": true,
+    "plaintextCopyAtRestByDesign": false,
+    "metadataEncryptedAtRestByDesign": true,
     "sensitiveProofsAllowedForEnterprise": false,
-    "requiredBeforeSensitiveProofs": "Authenticated encryption using Android Keystore-backed keys; prefer AES-256-GCM and hardware-backed StrongBox when supported.",
+    "requiredBeforeSensitiveProofs": "Exact-head Android compile plus physical-device import/reopen/decrypt/tamper test proving AES-256-GCM with Android Keystore-backed key handling.",
     "webViewVirtualHttpsOriginIsNetworkTls": false
   },
   "integrityVsEncryption": {
@@ -82,7 +88,7 @@
     "httpsHealth": "EXTERNAL_EVIDENCE_REQUIRED",
     "hsts": "REQUIRED_BEFORE_PRODUCTION_CUTOVER",
     "persistentAndroidSigner": "EXTERNAL_CROWN_GATE",
-    "sensitiveProofVaultEncryption": "BLOCKED_NOT_IMPLEMENTED",
+    "sensitiveProofVaultEncryption": "SOURCE_IMPLEMENTED_DEVICE_EVIDENCE_REQUIRED",
     "oauthPrivateWrite": "BLOCKED_NOT_IMPLEMENTED"
   },
   "unknownIsNotGreen": true
