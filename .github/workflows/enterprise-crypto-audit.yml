@@ -1,0 +1,74 @@
+name: LuHm Enterprise Crypto Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'host/mcp/**'
+      - 'plugins/luhm-os/**'
+      - 'native/kaiwebview/**'
+      - 'doctrine/ENTERPRISE_CRYPTO_V1.json'
+      - 'doctrine/MCP_ENTERPRISE_SCOPE_V1.json'
+      - 'doctrine/SOURCE_OF_TRUTH.json'
+      - 'doctrine/releaseSupplyChain-20260927.json'
+      - 'tools/enterpriseCryptoAudit.py'
+      - 'SECURITY.md'
+      - 'render.yaml'
+      - '.github/workflows/enterprise-crypto-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  enterprise-crypto-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.11'
+
+      - name: Compile crypto auditor
+        run: python -m py_compile tools/enterpriseCryptoAudit.py
+
+      - name: Static enterprise crypto doctrine
+        run: python tools/enterpriseCryptoAudit.py
+
+      - name: Negative controls
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          doctrine = json.loads(Path('doctrine/ENTERPRISE_CRYPTO_V1.json').read_text())
+          ingress = doctrine['publicIngress']
+          assert ingress['preferredCertificateAuthority'] == "Let's Encrypt"
+          assert ingress['strictLetsEncryptOnly'] is False
+          assert ingress['approvedCertificateAuthorities'] == ["Let's Encrypt", "Google Trust Services"]
+          assert ingress['caaPolicy']['requiredWhenCaaExists'] == ['letsencrypt.org', 'pki.goog']
+          assert doctrine['androidProofVault']['appLayerEncryption'] is False
+          assert doctrine['androidProofVault']['sensitiveProofsAllowedForEnterprise'] is False
+          assert doctrine['integrityVsEncryption']['sha256'] == 'integrity-not-encryption'
+          assert doctrine['authentication']['oauthImplemented'] is False
+          print('LUHM_ENTERPRISE_CRYPTO_NEGATIVE_CONTROLS_GREEN')
+          PY
+
+      - name: Live TLS remains external evidence
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d = json.loads(Path('doctrine/ENTERPRISE_CRYPTO_V1.json').read_text())
+          gates = d['productionGates']
+          assert gates['customDomainDns'] == 'EXTERNAL_EVIDENCE_REQUIRED'
+          assert gates['leafCertificateIssuer'] == 'EXTERNAL_EVIDENCE_REQUIRED'
+          assert gates['httpsHealth'] == 'EXTERNAL_EVIDENCE_REQUIRED'
+          print('LUHM_LIVE_TLS_NOT_FALSELY_GREEN')
+          PY
