@@ -5,8 +5,6 @@ import argparse
 import json
 import socket
 import ssl
-import sys
-import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -19,6 +17,7 @@ SUPPLY_CHAIN = ROOT / "doctrine" / "releaseSupplyChain-20260927.json"
 SERVER = ROOT / "host" / "mcp" / "luhmMcpServer.py"
 PLUGIN_MCP = ROOT / "plugins" / "luhm-os" / "mcp.json"
 PROOF_VAULT = ROOT / "native" / "kaiwebview" / "kaiwebview" / "src" / "main" / "java" / "art" / "eggiebagelface" / "luhmos" / "kaiwebview" / "ProofVault.kt"
+WEBVIEW = ROOT / "native" / "kaiwebview" / "kaiwebview" / "src" / "main" / "java" / "art" / "eggiebagelface" / "luhmos" / "kaiwebview" / "KAIWebView.kt"
 SECURITY = ROOT / "SECURITY.md"
 RENDER = ROOT / "render.yaml"
 
@@ -40,11 +39,7 @@ def require(ok: bool, message: str) -> None:
 
 
 def flatten_name(name: tuple) -> str:
-    parts: list[str] = []
-    for rdn in name:
-        for key, value in rdn:
-            parts.append(f"{key}={value}")
-    return ", ".join(parts)
+    return ", ".join(f"{key}={value}" for rdn in name for key, value in rdn)
 
 
 def issuer_allowed(issuer: str, approved: list[str]) -> bool:
@@ -53,16 +48,16 @@ def issuer_allowed(issuer: str, approved: list[str]) -> bool:
         "Let's Encrypt": ("let's encrypt", "lets encrypt", "letsencrypt"),
         "Google Trust Services": ("google trust services", "gts ca", "google trust"),
     }
-    for ca in approved:
-        if any(token in lower for token in aliases.get(ca, (ca.lower(),))):
-            return True
-    return False
+    return any(
+        any(token in lower for token in aliases.get(ca, (ca.lower(),)))
+        for ca in approved
+    )
 
 
 def static_audit() -> dict:
     for path in (
         DOCTRINE, SOURCE_TRUTH, MCP_DOCTRINE, SUPPLY_CHAIN, SERVER,
-        PLUGIN_MCP, PROOF_VAULT, SECURITY, RENDER,
+        PLUGIN_MCP, PROOF_VAULT, WEBVIEW, SECURITY, RENDER,
     ):
         require(path.is_file(), f"missing crypto audit input: {path.relative_to(ROOT)}")
 
@@ -78,17 +73,17 @@ def static_audit() -> dict:
     approved = ingress.get("approvedCertificateAuthorities", [])
     require(approved == ["Let's Encrypt", "Google Trust Services"], "Render managed CA allowlist drift")
     require(ingress.get("preferredCertificateAuthority") == "Let's Encrypt", "Let's Encrypt preference drift")
-    require(ingress.get("strictLetsEncryptOnly") is False, "strict Let's Encrypt-only claim is not valid for Render managed TLS")
+    require(ingress.get("strictLetsEncryptOnly") is False, "strict Let's Encrypt-only claim is invalid for Render managed TLS")
     require(ingress.get("customDomainRequired") is True, "custom domain gate missing")
     require(ingress.get("liveCertificateEvidenceRequired") is True, "live certificate evidence gate missing")
-    require(ingress.get("certificatePinning") is False, "managed leaf certificate pinning must remain disabled")
+    require(ingress.get("certificatePinning") is False, "managed certificate pinning must remain disabled")
     caa = ingress.get("caaPolicy", {})
-    require(caa.get("requiredWhenCaaExists") == ["letsencrypt.org", "pki.goog"], "CAA policy must permit both Render CAs")
+    require(caa.get("requiredWhenCaaExists") == ["letsencrypt.org", "pki.goog"], "CAA must permit both Render CAs")
     require(caa.get("letsEncryptOnlyCaaAllowed") is False, "Let's Encrypt-only CAA can break Render renewal")
 
     render_boundary = doctrine.get("renderBoundary", {})
     require(render_boundary.get("publicTlsTermination") == "Render load balancer", "Render TLS termination model drift")
-    require(render_boundary.get("edgeToAppProtocol") == "http", "Render edge-to-app protocol must be represented truthfully")
+    require(render_boundary.get("edgeToAppProtocol") == "http", "Render edge-to-app model must be represented truthfully")
     require(render_boundary.get("edgeToAppPubliclyReachable") is False, "Render app port must not be represented as public")
 
     local = doctrine.get("localDevelopment", {})
@@ -105,9 +100,38 @@ def static_audit() -> dict:
     vault_policy = doctrine.get("androidProofVault", {})
     require(vault_policy.get("sha256Integrity") is True, "ProofVault SHA-256 integrity contract missing")
     require(vault_policy.get("appPrivateStorage") is True, "ProofVault app-private storage contract missing")
-    require(vault_policy.get("appLayerEncryption") is False, "ProofVault encryption must not be claimed before implementation")
-    require(vault_policy.get("sensitiveProofsAllowedForEnterprise") is False, "sensitive proofs must remain blocked without app-layer encryption")
-    require(vault_policy.get("webViewVirtualHttpsOriginIsNetworkTls") is False, "WebView virtual HTTPS origin must not be called network TLS")
+    require(vault_policy.get("appLayerEncryptionSourceImplemented") is True, "ProofVault encryption source implementation missing")
+    require(vault_policy.get("appLayerEncryptionRuntimeProven") is False, "ProofVault runtime encryption must not be claimed before device proof")
+    require(vault_policy.get("algorithm") == "AES-256-GCM", "ProofVault AEAD algorithm drift")
+    require(vault_policy.get("keyStore") == "AndroidKeyStore", "ProofVault key storage drift")
+    require(vault_policy.get("strongBoxPreferredWhenSupported") is True, "StrongBox preference missing")
+    require(vault_policy.get("plaintextCopyAtRestByDesign") is False, "plaintext proof copies at rest are forbidden")
+    require(vault_policy.get("metadataEncryptedAtRestByDesign") is True, "proof metadata must be encrypted at rest")
+    require(vault_policy.get("sensitiveProofsAllowedForEnterprise") is False, "sensitive proofs must remain blocked pending runtime proof")
+    require(vault_policy.get("webViewVirtualHttpsOriginIsNetworkTls") is False, "WebView virtual HTTPS must not be called network TLS")
+
+    proof = read(PROOF_VAULT)
+    for phrase in (
+        'MessageDigest.getInstance("SHA-256")',
+        'Cipher.getInstance("AES/GCM/NoPadding")',
+        'KeyStore.getInstance("AndroidKeyStore")',
+        'KeyProperties.KEY_ALGORITHM_AES',
+        '.setKeySize(AES_KEY_BITS)',
+        '.setIsStrongBoxBacked(true)',
+        'CipherOutputStream',
+        'CipherInputStream',
+        'File(context.filesDir, "luhm-proof-vault")',
+        'ORIGIN = "https://appassets.androidplatform.net"',
+        'plaintextAtRest", false',
+    ):
+        require(phrase in proof, f"ProofVault crypto source missing: {phrase}")
+    require('val publicDir = File(rootDir, "public")' not in proof, "plaintext public ProofVault directory must be removed")
+
+    webview = read(WEBVIEW)
+    require("proofVault.openWebResource(path)" in webview, "WebView must stream decrypted proof resources from encrypted vault")
+    require("InternalStoragePathHandler(host, proofVault.publicDir)" not in webview, "WebView must not serve plaintext proof directory")
+    require('blockNetworkLoads = true' in webview, "WebGlass network block drift")
+    require('mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW' in webview, "WebGlass mixed-content block drift")
 
     integrity = doctrine.get("integrityVsEncryption", {})
     require(integrity.get("sha256") == "integrity-not-encryption", "SHA-256 must not be classified as encryption")
@@ -117,6 +141,10 @@ def static_audit() -> dict:
     require(auth.get("currentMcpTools") == "anonymous-read-only", "current MCP auth posture drift")
     require(auth.get("oauthImplemented") is False, "OAuth must not be claimed implemented")
     require(auth.get("privateOrWriteToolsBlockedUntilOAuth21") is True, "private/write OAuth gate missing")
+
+    mcp_doctrine = load(MCP_DOCTRINE)
+    require(mcp_doctrine.get("cryptographyDoctrine") == "doctrine/ENTERPRISE_CRYPTO_V1.json", "MCP crypto-doctrine binding missing")
+    require(mcp_doctrine.get("transport", {}).get("publicTlsPreferredCa") == "Let's Encrypt", "MCP Let's Encrypt preference drift")
 
     plugin = load(PLUGIN_MCP)
     remote = plugin.get("mcpServers", {}).get("luhm", {})
@@ -143,11 +171,6 @@ def static_audit() -> dict:
     ):
         require(phrase in server, f"MCP transport hardening missing: {phrase}")
 
-    proof = read(PROOF_VAULT)
-    require('MessageDigest.getInstance("SHA-256")' in proof, "ProofVault integrity digest missing")
-    require('File(context.filesDir, "luhm-proof-vault")' in proof, "ProofVault must remain app-private")
-    require('ORIGIN = "https://appassets.androidplatform.net"' in proof, "ProofVault virtual origin drift")
-
     security = read(SECURITY).lower()
     for phrase in (
         "private keys",
@@ -157,6 +180,8 @@ def static_audit() -> dict:
         "render-managed tls",
         "let's encrypt",
         "google trust services",
+        "aes-256-gcm",
+        "android keystore",
     ):
         require(phrase in security, f"SECURITY.md crypto boundary missing: {phrase}")
 
@@ -166,19 +191,18 @@ def static_audit() -> dict:
     require(truth.get("android", {}).get("production_signer") is False, "production signer must not be claimed before evidence")
 
     supply = load(SUPPLY_CHAIN)
-    provenance = supply.get("provenance", {})
-    require(provenance.get("bind_apk_sha256") is True, "APK hash provenance missing")
+    require(supply.get("provenance", {}).get("bind_apk_sha256") is True, "APK hash provenance missing")
     require(supply.get("security", {}).get("signing_secret_recorded") is False, "signing secret must never enter provenance")
 
     result = {
-        "status": "GREEN_STATIC",
+        "status": "GREEN_STATIC_SOURCE",
         "schema": doctrine["schema"],
         "fqdn": ingress["fqdn"],
         "preferredCA": ingress["preferredCertificateAuthority"],
         "approvedCAs": approved,
         "strictLetsEncryptOnly": False,
         "liveCertificateEvidence": "PENDING_EXTERNAL",
-        "proofVaultConfidentiality": "BLOCKED_APP_LAYER_ENCRYPTION_NOT_IMPLEMENTED",
+        "proofVaultConfidentiality": "SOURCE_IMPLEMENTED_DEVICE_RUNTIME_PENDING",
         "oauthPrivateWrite": "BLOCKED_NOT_IMPLEMENTED",
     }
     print("LUHM_ENTERPRISE_CRYPTO_STATIC_GREEN", json.dumps(result, sort_keys=True))
