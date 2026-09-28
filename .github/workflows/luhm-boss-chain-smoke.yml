@@ -1,0 +1,119 @@
+name: LuHm Boss AI Tool Chain Smoke
+
+on:
+  push:
+    branches:
+      - 'feature/oni-pet-activity-dock-v2-20260927'
+  pull_request:
+    paths:
+      - 'doctrine/**'
+      - 'agents/**'
+      - 'host/**'
+      - 'plugins/**'
+      - 'scripts/agentMeshRuntime.py'
+      - 'tools/lumTaskRouter.py'
+      - 'tools/lumBossChainSmoke.py'
+      - 'tools/lumAgentWorkflowAudit.py'
+      - 'tools/luhmTenPassAudit.py'
+      - '.github/workflows/luhm-boss-chain-smoke.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: luhm-boss-chain-smoke-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  boss-chain-smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Assert exact source
+        run: |
+          set -euo pipefail
+          EXPECTED='${{ github.event.pull_request.head.sha || github.sha }}'
+          ACTUAL="$(git rev-parse HEAD)"
+          test "$ACTUAL" = "$EXPECTED"
+          echo "EXACT_SOURCE=$ACTUAL"
+
+      - name: Compile deterministic boss chain
+        run: |
+          set -euo pipefail
+          python3 -m py_compile \
+            scripts/agentMeshRuntime.py \
+            tools/lumTaskRouter.py \
+            tools/lumBossChainSmoke.py \
+            tools/lumAgentWorkflowAudit.py \
+            tools/luhmTenPassAudit.py \
+            host/openai/lumHost.py \
+            host/mcp/luhmMcpServer.py
+
+      - name: Smoke Lum boss and minimal Oni routes
+        run: |
+          set -euo pipefail
+          python3 tools/lumBossChainSmoke.py \
+            --source-sha '${{ github.event.pull_request.head.sha || github.sha }}' \
+            --output build/boss-smoke/luhm-boss-chain-smoke.json
+
+      - name: Re-run agent source-truth audit
+        run: python3 tools/lumAgentWorkflowAudit.py
+
+      - name: Re-run ten-pass system truth
+        run: |
+          set -euo pipefail
+          python3 tools/luhmTenPassAudit.py \
+            --source-sha '${{ github.event.pull_request.head.sha || github.sha }}' \
+            --output build/boss-smoke/luhm-ten-pass-audit.json
+
+      - name: Install pinned MCP SDK
+        run: python3 -m pip install --disable-pip-version-check -r host/mcp/requirements.txt
+
+      - name: Smoke local MCP source profile
+        env:
+          LUHM_MCP_PROFILE: local
+        run: python3 host/mcp/luhmMcpServer.py --check
+
+      - name: Smoke production MCP source profile
+        env:
+          LUHM_MCP_PROFILE: production
+          LUHM_MCP_FQDN: mcp.eggiebagelface.art
+          RENDER_EXTERNAL_HOSTNAME: luhm-os-mcp.onrender.com
+          PORT: '10000'
+        run: python3 host/mcp/luhmMcpServer.py --check
+
+      - name: Assert smoke meaning
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          smoke = json.loads(Path('build/boss-smoke/luhm-boss-chain-smoke.json').read_text())
+          system = json.loads(Path('build/boss-smoke/luhm-ten-pass-audit.json').read_text())
+          assert smoke['status'] == 'BOSS_CHAIN_SMOKE_GREEN'
+          assert smoke['boss'] == 'Lum'
+          assert smoke['humanAuthority'] == 'Professor'
+          assert smoke['greenAuthority'] is False
+          assert smoke['crownAuthorized'] is False
+          assert smoke['liveProviderCalled'] is False
+          assert smoke['routes']['direct']['workers'] == ['Lum']
+          assert smoke['routes']['patch']['workers'] == ['Lum', 'Kugi', 'DrNao']
+          assert smoke['routes']['build']['parallelBuilds'] == 2
+          assert smoke['routes']['release']['crown'] is True
+          assert system['overallSystemStatus'] == 'RED_BLOCKED'
+          print('BOSS_CHAIN_SMOKE_TRUTHFUL_GREEN')
+          PY
+
+      - name: Upload smoke receipts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-boss-chain-smoke
+          path: build/boss-smoke/*.json
+          if-no-files-found: error
+          retention-days: 30

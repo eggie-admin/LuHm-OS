@@ -12,7 +12,9 @@ from pathlib import Path
 ROUTES = {
     "direct": ["Lum"],
     "read": ["Lum", "Kiri"],
-    "patch": ["Lum", "Kugi"],
+    "records": ["Lum", "Fumi"],
+    "proof": ["Lum", "Sumi", "DrNao"],
+    "patch": ["Lum", "Kugi", "DrNao"],
     "build": ["Lum", "Kugi", "Tetsu", "Kaji", "DrNao"],
     "external": ["Lum", "Momo"],
     "monitor": ["Lum", "DrNao"],
@@ -23,7 +25,7 @@ ROUTES = {
     "asset": ["Lum", "Sumi"],
 }
 
-SUPPORT = {"Kiri", "Momo", "Shiori", "Yume", "Koe", "Sumi"}
+SUPPORT = {"Kiri", "Momo", "Shiori", "Fumi", "Yume", "Koe", "Sumi"}
 
 
 def unique(items: list[str]) -> list[str]:
@@ -70,7 +72,7 @@ def main() -> int:
         raise SystemExit("RED_ROUTER_SUPPORT_PARALLELISM_EXCEEDED")
 
     report = {
-        "schema": "luhm-os.task-route.v1",
+        "schema": "luhm-os.task-route.v2",
         "kind": args.kind,
         "workers": workers,
         "reasons": reasons,
@@ -82,11 +84,11 @@ def main() -> int:
         "dictationExecutesDirectly": False,
         "greenAuthority": False,
     }
-    text = json.dumps(report, indent=2) + "\n"
-    print(text, end="")
+    output = json.dumps(report, indent=2) + "\n"
+    print(output, end="")
     if args.json_out:
         args.json_out.parent.mkdir(parents=True, exist_ok=True)
-        args.json_out.write_text(text, encoding="utf-8")
+        args.json_out.write_text(output, encoding="utf-8")
     return 0
 
 

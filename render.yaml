@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: luhm-os-mcp
+    runtime: python
+    region: ohio
+    buildCommand: >-
+      python -m pip install --disable-pip-version-check -r host/mcp/requirements.txt
+      && python host/mcp/luhmMcpServer.py --check
+      && python tools/luhmMcpEnterpriseAudit.py
+      && python tools/luhmPluginPackageAudit.py
+    startCommand: python host/mcp/luhmMcpServer.py streamable-http
+    autoDeployTrigger: checksPass
+    healthCheckPath: /healthz
+    maxShutdownDelaySeconds: 45
+    domains:
+      - mcp.eggiebagelface.art
+    renderSubdomainPolicy: enabled
+    buildFilter:
+      paths:
+        - host/mcp/**
+        - plugins/luhm-os/**
+        - agents/**
+        - doctrine/**
+        - tools/lumTaskRouter.py
+        - tools/luhmMcpEnterpriseAudit.py
+        - tools/luhmPluginPackageAudit.py
+        - render.yaml
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.11
+      - key: LUHM_MCP_PROFILE
+        value: production
+      - key: LUHM_MCP_FQDN
+        value: mcp.eggiebagelface.art
+      - key: OPENAI_APPS_CHALLENGE
+        sync: false

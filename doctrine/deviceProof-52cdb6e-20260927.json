@@ -1,0 +1,34 @@
+{
+  "schema": "luhm-os.device-proof.v1",
+  "date": "2026-09-27",
+  "product": "LuHm OS",
+  "authority": "Professor",
+  "candidateBranch": "candidate/crown-cathedral-audit-hardening-20260927",
+  "candidateHead": "52cdb6e948be91dd0939264cdd09ff8284292d85",
+  "ciState": "EXACT_HEAD_GREEN",
+  "ciRuns": {
+    "samsungCandidate": 36345320594,
+    "fullGameDeployment": 36345320655,
+    "communityScene": 36345320652,
+    "oniDualBuild": 36345320602,
+    "webGlass": 36345320633,
+    "lumRig": 36345320599,
+    "fullSourceTruth": 36345320681
+  },
+  "deviceEvidence": {
+    "kind": "physical-samsung-screen-recording",
+    "fileName": "Screen_Recording_20260927_163610_LuHm Cathedral Oni Atelier.mp4",
+    "observedDurationSeconds": 25,
+    "result": "RED_PRESENTATION",
+    "observations": [
+      "Crown Cathedral/game world renders on the physical Samsung device",
+      "WebGlass/viewer overlay is present",
+      "Lum is not visibly rendered anywhere in the observed recording",
+      "physical presentation therefore does not satisfy the Big Lum/Cathedral Crown gate"
+    ]
+  },
+  "promotionBlocked": true,
+  "canonicalMainMutationAuthorized": false,
+  "requiredNextProof": "new exact-build Samsung recording after presentation/runtime correction",
+  "unknownIsNotGreen": true
+}

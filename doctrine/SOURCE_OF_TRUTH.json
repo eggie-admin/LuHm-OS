@@ -1,6 +1,6 @@
 {
   "schema": "luhm-os.clean-source.v4",
-  "status": "AMBER_FULL_GAME_EXTERNAL_GATES_PENDING",
+  "status": "RED_DEVICE_PRESENTATION_BLOCKS_CROWN",
   "product": "LuHm OS",
   "scope": "FULL_GAME",
   "canonical_repository": "eggie-admin/LuHm-OS",
@@ -14,6 +14,7 @@
   "currentFullGameCandidate": {
     "branch": "candidate/crown-cathedral-audit-hardening-20260927",
     "baselineProvenExactHead": "93bc11cbc1c09ecf6e18605985beebf4f9a4e8d5",
+    "latestExactCiGreenHead": "52cdb6e948be91dd0939264cdd09ff8284292d85",
     "currentExactHead": "DERIVED_AT_CI_RUNTIME",
     "baselineProof": {
       "pullRequest": 42,
@@ -23,7 +24,17 @@
       "webGlassRun": 36315800471,
       "fullGameDeploymentRun": 36315800455
     },
-    "status": "BASELINE_GREEN_RECONCILIATION_COMMITS_REQUIRE_NEW_EXACT_HEAD_CI",
+    "latestExactCiProof": {
+      "samsungCandidateRun": 36345320594,
+      "fullGameDeploymentRun": 36345320655,
+      "communitySceneRun": 36345320652,
+      "oniDualBuildRun": 36345320602,
+      "webGlassRun": 36345320633,
+      "lumRigRun": 36345320599,
+      "fullSourceTruthRun": 36345320681
+    },
+    "latestDeviceProof": "doctrine/deviceProof-52cdb6e-20260927.json",
+    "status": "LATEST_EXACT_CI_GREEN_DEVICE_PRESENTATION_RED",
     "gameDoctrine": "doctrine/luhmFullGameDoctrine-20260927.json",
     "gameSourceTruth": "doctrine/luhmFullGameSourceTruth-20260927.json",
     "deploymentDoctrine": "doctrine/crownCathedralDeployment-20260927.json",
@@ -31,6 +42,25 @@
     "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
     "systemAuditor": "tools/finalSystemAudit.py",
     "fullGameAuditor": "tools/luhmFullGameAudit.py"
+  },
+  "agentWorkflowCandidate": {
+    "branch": "feature/oni-pet-activity-dock-v2-20260927",
+    "currentExactHead": "DERIVED_AT_CI_RUNTIME",
+    "status": "CANDIDATE_EXACT_HEAD_CI_REQUIRED",
+    "controlPlane": "doctrine/ONI_MESH_CONTROL_PLANE_V2.json",
+    "openAiDeployment": "doctrine/openAiLumOniDeployment-20260927.json",
+    "canonicalLumSkill": "agents/lum/SKILL.md",
+    "canonicalOniSkills": "agents/*/SKILL.md",
+    "portablePlugin": "plugins/luhm-os/plugin.json",
+    "portablePluginSkill": "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md",
+    "privateMcp": "host/mcp/luhmMcpServer.py",
+    "remoteMcpFqdn": "mcp.eggiebagelface.art",
+    "androidProofVault": "native/kaiwebview/kaiwebview/src/main/java/art/eggiebagelface/luhmos/kaiwebview/ProofVault.kt",
+    "auditor": "tools/lumAgentWorkflowAudit.py",
+    "publicationAuthority": false,
+    "promotionAuthority": false,
+    "mcpMutationAuthority": false,
+    "proofImportGreenAuthority": false
   },
   "authorityOrder": [
     "doctrine/SOURCE_OF_TRUTH.json",
@@ -84,11 +114,12 @@
     "private legacy relic binaries"
   ],
   "remainingExternalGates": {
-    "physicalSamsungCurrentExactBuild": "PENDING",
+    "physicalSamsungCurrentExactBuild": "RED_FOR_52CDB6E_NEW_EXACT_BUILD_PROOF_REQUIRED",
     "persistentCrownOwnedSigning": "PENDING",
     "liveOpenAiHostReceipt": "PENDING_SEPARATE_HOST_LANE",
-    "branchControls": "EXTERNAL_ADMIN_GATE",
-    "explicitCanonicalPromotion": "PENDING_AFTER_DEVICE_PROOF"
+    "chatGptRemoteMcpConnection": "RENDER_HTTPS_LIVE_CUSTOM_FQDN_TLS_AND_OPENAI_CONNECTION_PENDING",
+    "branchControls": "RED_MAIN_UNPROTECTED_EXTERNAL_ADMIN_GATE",
+    "explicitCanonicalPromotion": "BLOCKED_UNTIL_DEVICE_GREEN"
   },
   "enterpriseReady": false,
   "publication_authority": false,
@@ -96,8 +127,10 @@
   "reconciliation": {
     "observedMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
     "baselineGreenCandidate": "93bc11cbc1c09ecf6e18605985beebf4f9a4e8d5",
-    "status": "FULL_GAME_HARDENING_LINEAGE_ACTIVE_CANONICAL_MAIN_UNCHANGED",
-    "preserved": "Canonical main remains unchanged; current LuHm OS full-game evidence lives on the Crown Cathedral hardening candidate until physical Samsung exact-build proof and explicit Professor promotion."
+    "latestExactCiGreenCandidate": "52cdb6e948be91dd0939264cdd09ff8284292d85",
+    "latestDeviceProof": "RED_PRESENTATION",
+    "status": "FULL_GAME_CI_GREEN_DEVICE_RED_CANONICAL_MAIN_UNCHANGED",
+    "preserved": "Canonical main remains unchanged; exact-head CI for 52cdb6e is GREEN but the physical Samsung presentation gate is RED because Lum is not visibly rendered. Crown promotion remains blocked."
   },
   "unknown_is_not_green": true
 }

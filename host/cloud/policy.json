@@ -1,0 +1,14 @@
+{
+  "schema": "luhm-os.cloud-runtime-policy.v1",
+  "service": "LuHm OS Read-Only Bridge",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "unknownIsNotGreen": true,
+  "greenAuthority": false,
+  "mutationAuthority": false,
+  "promotionAuthority": false,
+  "allowedEntitlements": ["health:read", "status:read", "capabilities:read"],
+  "maxResponseBytes": 32768,
+  "providerSecretsAccepted": false,
+  "androidSecretsAccepted": false,
+  "localMcpDirectReachabilityClaim": false
+}

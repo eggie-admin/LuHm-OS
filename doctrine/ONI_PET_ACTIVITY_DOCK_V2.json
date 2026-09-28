@@ -1,0 +1,50 @@
+{
+  "schema": "luhm-os.oni-pet-activity-dock.v2",
+  "boss": "Lum",
+  "purpose": "make the active LuHm/Oni worker set visible in chat without inventing hidden work",
+  "sourceProtocol": "agents/shared/ONI_PROTOCOL_V2.md",
+  "petManifest": "assets/pet/oni/manifest.json",
+  "eventName": "luhm:oni-activity",
+  "snapshotSchema": {
+    "taskId": "string",
+    "sourceRef": "string-or-UNKNOWN",
+    "phase": "INTAKE|RESOLVE|ROUTE|OBSERVE|MUTATE|VERIFY|ADJUDICATE|REPORT|CROWN_STOP",
+    "workers": [
+      {
+        "id": "manifest role id",
+        "state": "IDLE|QUEUED|ACTIVE|WAITING|VERIFYING|SUCCESS|ERROR|PARKED",
+        "label": "short bounded task label",
+        "evidenceRef": "optional reference"
+      }
+    ]
+  },
+  "truthRules": [
+    "Lum is always rendered as boss but is ACTIVE only when the current request is in a non-terminal phase",
+    "support workers appear only from an observed task envelope or verification receipt",
+    "maximum visible support workers is 3",
+    "completed workers may remain visible briefly as SUCCESS then become PARKED/hidden",
+    "no animation or badge may imply a worker is running when no observed activity packet exists",
+    "ERROR and UNKNOWN evidence may never be rendered as success",
+    "CROWN_STOP uses a crown/lock overlay and does not imply promotion"
+  ],
+  "transport": {
+    "preferred": "event-driven snapshot from Lum host/runtime adapter",
+    "fallback": "window.luhmOniActivity.set(snapshot)",
+    "polling": false,
+    "backgroundAutonomy": false,
+    "networkRequiredByWidget": false
+  },
+  "privacy": {
+    "showTaskLabels": "short semantic labels only",
+    "showSecrets": false,
+    "showPrivateDriveIds": false,
+    "showPromptBodies": false,
+    "showRawToolArguments": false
+  },
+  "accessibility": {
+    "ariaLive": "polite",
+    "motionReduced": "honor prefers-reduced-motion",
+    "statusTextRequired": true
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}

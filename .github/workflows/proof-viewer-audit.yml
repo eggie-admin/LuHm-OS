@@ -1,0 +1,43 @@
+name: LuHm Embedded Proof Viewer Audit
+
+on:
+  push:
+    paths:
+      - 'frontEnd/index.html'
+      - 'frontEnd/proof-viewer.css'
+      - 'frontEnd/jquery/luhm.proof.viewer.js'
+      - 'frontEnd/jquery/luhm.chat.workbench.js'
+      - 'frontEnd/app.js'
+      - 'frontEnd/PROOF_VIEWER_CONTRACT.md'
+      - 'tools/proofViewerAudit.py'
+      - '.github/workflows/proof-viewer-audit.yml'
+  pull_request:
+    paths:
+      - 'frontEnd/index.html'
+      - 'frontEnd/proof-viewer.css'
+      - 'frontEnd/jquery/luhm.proof.viewer.js'
+      - 'frontEnd/jquery/luhm.chat.workbench.js'
+      - 'frontEnd/app.js'
+      - 'frontEnd/PROOF_VIEWER_CONTRACT.md'
+      - 'tools/proofViewerAudit.py'
+      - '.github/workflows/proof-viewer-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  proof-viewer-audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Deterministic proof contract
+        run: python3 tools/proofViewerAudit.py
+      - name: Proof viewer JavaScript syntax
+        run: node --check frontEnd/jquery/luhm.proof.viewer.js
+      - name: Chat proof integration syntax
+        run: node --check frontEnd/jquery/luhm.chat.workbench.js
+      - name: Front-end bridge syntax
+        run: node --check frontEnd/app.js

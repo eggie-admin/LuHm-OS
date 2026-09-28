@@ -6,7 +6,7 @@ d=json.loads((ROOT/"doctrine/openAiLumOniDeployment-20260927.json").read_text())
 errors=[]
 if d["authority"]!="Professor": errors.append("authority drift")
 a=d["architecture"]
-if a["boss"]!="Lum" or a["parallelism_max"]!=3: errors.append("mesh drift")
+if a["boss"]!="Lum" or a["parallelism_max_support"]!=3 or a["parallelism_max_builds"]!=2: errors.append("mesh drift")
 if a["android_provider_secrets"] or a["android_remote_shell"]: errors.append("Android boundary violated")
 o=d["openai"]
 if o["credential_in_git"] or o["credential_in_apk"]: errors.append("credential boundary violated")

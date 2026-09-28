@@ -83,13 +83,15 @@ PY
 )
 ASSETS=native/kaiwebview/kaiwebview/src/main/assets/cockpit
 rm -rf "$ASSETS" && mkdir -p "$ASSETS"
-cp cockpit/index.html cockpit/app.js cockpit/styles.css "$ASSETS/"
+cp cockpit/index.html cockpit/app.js cockpit/styles.css cockpit/proof-viewer.css "$ASSETS/"
 cp -a cockpit/jquery cockpit/cms cockpit/vendor "$ASSETS/"
 test -s "$ASSETS/vendor/jquery/jquery.min.js"
 test -s "$ASSETS/vendor/jquery-ui/jquery-ui.min.js"
 test -s "$ASSETS/vendor/bootstrap/bootstrap.bundle.min.js"
 test -s "$ASSETS/vendor/vue/vue.global.prod.js"
 test -s "$ASSETS/jquery/luhm.atelier.js"
+test -s "$ASSETS/jquery/luhm.proof.viewer.js"
+test -s "$ASSETS/proof-viewer.css"
 
 ANDROID_SOURCE="$(find "$TEMPLATE_DIR" -type f -name 'android_source.zip' -print -quit)"
 test -n "$ANDROID_SOURCE"
@@ -126,6 +128,8 @@ grep -q "versionCode='125'" build/android/badging.txt
 grep -q 'org.godotengine.plugin.v2.KAIWebView' build/android/manifest.txt
 grep -q 'assets/cockpit/index.html' build/android/ziplist.txt
 grep -q 'assets/cockpit/jquery/luhm.atelier.js' build/android/ziplist.txt
+grep -q 'assets/cockpit/jquery/luhm.proof.viewer.js' build/android/ziplist.txt
+grep -q 'assets/cockpit/proof-viewer.css' build/android/ziplist.txt
 grep -q 'assets/cockpit/vendor/jquery/jquery.min.js' build/android/ziplist.txt
 grep -q 'assets/cockpit/vendor/vue/vue.global.prod.js' build/android/ziplist.txt
 ! grep -R -nE 'addJavascriptInterface|allowUniversalAccessFromFileURLs|allowFileAccessFromFileURLs|MIXED_CONTENT_ALWAYS_ALLOW' native/kaiwebview

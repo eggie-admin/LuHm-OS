@@ -85,6 +85,18 @@ Stale lessons are hints, not proof for a new SHA.
 ## Monitoring
 Background monitoring is read-only until a new task is explicitly authorized. It may create alerts, evidence notes, or Fumi `PROPOSED` corrections/lessons. It may not mutate canonical source, rename/delete external records, merge, sign, publish, or expose services.
 
+## Oni pet activity dock
+The chat pet dock follows `doctrine/ONI_PET_ACTIVITY_DOCK_V2.json` and is a visibility surface only.
+
+- Lum emits or forwards an activity snapshot whenever the boss state or active worker set materially changes.
+- The dock shows Lum plus only the workers present in the current observed task envelope or verification lane.
+- Worker state is derived from observed orchestration/tool/build receipts, never guessed from personality or likely routing.
+- The dock may show `QUEUED`, `ACTIVE`, `WAITING`, `VERIFYING`, `SUCCESS`, `ERROR`, or `PARKED`; `ERROR`/`UNKNOWN` evidence never maps to `SUCCESS`.
+- No pet animation may imply autonomous background work when no task packet exists.
+- A `CROWN_STOP` renders Lum waiting at a lock/crown gate. It never implies the requested promotion happened.
+- The UI receives short semantic task labels only. Prompts, tool arguments, secrets, private Drive IDs, and raw evidence blobs stay out of the pet surface.
+- Pet sprites are presentation. Missing sprite art falls back to a deterministic badge and does not affect agent execution or evidence state.
+
 ## Failure behavior
 - Null, contradictory, malformed, stale, or failed evidence never becomes GREEN.
 - Deterministic RED beats AI interpretation.
