@@ -1,0 +1,38 @@
+{
+  "schema": "luhm-os.godot4-community-capability-map.v1",
+  "status": "SOURCE_MAP_GREEN_RUNTIME_SELECTION_SEPARATE",
+  "referenceCount": 20,
+  "privateReferenceRule": "Private franchise/reference material never enters the public APK. Community equivalents are independent upstream works selected by capability and rights.",
+  "capabilities": [
+    {"id":1,"source":"Quaternius Universal Base Characters","license":"CC0","role":"character_base","runtime":"candidate"},
+    {"id":2,"source":"Quaternius Modular Character Outfits - Fantasy","license":"CC0","role":"outfit_modular","runtime":"candidate"},
+    {"id":3,"source":"OpenGameArt Character Base Model","license":"CC0","role":"character_base","runtime":"candidate"},
+    {"id":4,"source":"Kenney Blocky Characters","license":"CC0","role":"character_animation","runtime":"candidate"},
+    {"id":5,"source":"ibrews/VitruvianGodot","license":"MIT_CODE_CC0_CHARACTER_ASSETS","role":"character_face_facs_physics_hair_reference","runtime":"reference_first"},
+    {"id":6,"source":"V-Sekai/godot-vrm","license":"UPSTREAM_NOTICE_REQUIRED","role":"avatar_vrm_pipeline","runtime":"reference_first"},
+    {"id":7,"source":"OpenGameArt Base Rigged Stylized Humanoid YW","license":"CC0","role":"character_base_rigged","runtime":"candidate"},
+    {"id":8,"source":"Quaternius Universal Animation Library","license":"CC0","role":"animation_library","runtime":"candidate"},
+    {"id":9,"source":"detomon/wigglebone","license":"MIT","role":"secondary_motion","runtime":"reference_first"},
+    {"id":10,"source":"yaelatletl/godot-jigglebones","license":"MIT","role":"secondary_motion","runtime":"reference_first"},
+    {"id":11,"source":"Quaternius Ultimate Animated Animal Pack","license":"CC0","role":"creature_animation","runtime":"candidate"},
+    {"id":12,"source":"Quaternius RPG Character Pack","license":"CC0","role":"character_fantasy","runtime":"candidate"},
+    {"id":13,"source":"2Retr0/GodotHair","license":"MIXED_HAIR_CARDS_CC_BY_NC_4_0","role":"hair_rendering_reference","runtime":"noncommercial_reference_only"},
+    {"id":14,"source":"Quaternius Bestiary - Dungeon Monsters Kit","license":"CC0_OR_UPSTREAM_FREE_USE","role":"monster_character","runtime":"candidate_after_receipt"},
+    {"id":15,"source":"Quaternius Ultimate Monsters","license":"CC0","role":"monster_animation","runtime":"candidate"},
+    {"id":16,"source":"Quaternius Animated Monster Pack","license":"CC0","role":"monster_animation","runtime":"candidate"},
+    {"id":17,"source":"Quaternius Medieval Village MegaKit","license":"CC0","role":"environment","runtime":"candidate"},
+    {"id":18,"source":"Quaternius Fantasy Props MegaKit","license":"CC0","role":"props","runtime":"candidate"},
+    {"id":19,"source":"Quaternius Universal Animation Library 2","license":"CC0","role":"animation_library","runtime":"candidate"},
+    {"id":20,"source":"OpenGameArt 3D Character Pack","license":"CC0","role":"character_pack","runtime":"candidate"}
+  ],
+  "engineReferences": [
+    {"source":"Godot SpringBoneSimulator3D","role":"engine_native_secondary_motion","policy":"preferred"},
+    {"source":"godotengine/godot-demo-projects","license":"MIT","role":"engine_patterns"},
+    {"source":"Maaack/Godot-Game-Template","license":"MIT","role":"menu_loading_save_shell"},
+    {"source":"gdquest-demos/godot-open-rpg","license":"MIT_CORE_REVIEW_ASSETS","role":"rpg_architecture"},
+    {"source":"dialogic-godot/dialogic","license":"MIT_CORE","role":"dialogue_timeline_events"},
+    {"source":"ramokz/phantom-camera","license":"UPSTREAM_NOTICE_REQUIRED","role":"cinematic_camera_reference"},
+    {"source":"kuryart/godot-jrpg","license":"UPSTREAM_REVIEW_REQUIRED","role":"jrpg_framework_reference"},
+    {"source":"puchik/godot-extras","license":"PER_SUBTREE_REVIEW","role":"shader_effect_reference"}
+  ]
+}
