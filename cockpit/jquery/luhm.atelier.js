@@ -1,6 +1,12 @@
 (function($){
   'use strict';
 
+  if(!$||!$.fn){
+    window.LuHmBootBlocked=true;
+    console.error('LuHm Atelier blocked: jQuery missing');
+    return;
+  }
+
   const sliders=[
     ['height','HEIGHT'],
     ['head','HEAD'],
@@ -112,7 +118,13 @@
   };
 
   $(function(){
+    if(window.LuHmBootBlocked)return;
+    if(typeof $.fn.slider!=='function'){
+      window.LuHmBootBlocked=true;
+      console.error('LuHm Atelier blocked: jQuery UI slider missing');
+      return;
+    }
     $('#luhmCockpit').luhmAtelier();
     setTimeout(function(){send('avatar.inspect',{})},320);
   });
-})(jQuery);
+})(window.jQuery);
