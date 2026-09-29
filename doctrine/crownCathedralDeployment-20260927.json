@@ -1,6 +1,6 @@
 {
-  "schema": "luhm-os.crown-cathedral-deployment.v4",
-  "date": "2026-09-27",
+  "schema": "luhm-os.crown-cathedral-deployment.v5",
+  "date": "2026-09-28",
   "product": "LuHm OS",
   "product_scope": "FULL_GAME",
   "authority": {
@@ -10,27 +10,20 @@
     "auto_promote": false,
     "production_sign": false
   },
-  "status": "LUHM_FULL_GAME_CROWN_CATHEDRAL_HARDENING_EXACT_HEAD_CI_REQUIRED",
+  "status": "LUHM_FULL_GAME_FINAL_MUTATION_EXACT_HEAD_CI_REQUIRED",
   "branch": "candidate/crown-cathedral-audit-hardening-20260927",
   "baseline_proven_green_head": "93bc11cbc1c09ecf6e18605985beebf4f9a4e8d5",
   "current_candidate_head": "DERIVED_AT_CI_RUNTIME",
   "full_game_doctrine": "doctrine/luhmFullGameDoctrine-20260927.json",
   "full_game_source_truth": "doctrine/luhmFullGameSourceTruth-20260927.json",
-  "goal": "Final LuHm OS Crown Cathedral Android full-game candidate with Cathedral-first presentation, visibly rigged Lum, full curated CC0 scene population, rights-gated LuHm donor art, caged local WebGlass, optional private Nexus sidecar, and evidence-gated human promotion.",
+  "final_mutation_milestone": "doctrine/finalMutationMilestone-20260928.json",
+  "goal": "Final LuHm OS Crown Cathedral Android full-game candidate with native Godot 4 3D, Cathedral-first presentation, visibly rigged Lum, full curated CC0 scene population, rights-gated LuHm donor art, caged local WebGlass, optional private Nexus sidecar, canonical Android package identity, persistent signer continuity, and evidence-gated human promotion.",
   "visual_mutation": {
-    "cathedral_first_camera": false,
-    "spawn_position": [
-      0,
-      1.15,
-      12.0
-    ],
+    "cathedral_first_camera": true,
+    "spawn_position": [0, 1.15, 12.0],
     "home_camera_yaw": "PI via one-time authored orbit",
     "spring_length": 1.6,
-    "lum_socket": [
-      0.0,
-      0.05,
-      13.35
-    ],
+    "lum_socket": [0.0, 0.05, 13.35],
     "lum_target_visual_height_m": 1.9,
     "lum_height_policy": "measure imported MeshInstance3D hierarchy in rendered world coordinates after Godot import and normalize the avatar root",
     "lum_look_target_policy": "world-stable target preserved during avatar motion",
@@ -39,10 +32,7 @@
     "donor_gallery": "rights-cleared LuHm runtime derivatives vendored by exact size, SHA256 and Git blob identity with private Drive source provenance",
     "lum_first_camera": true,
     "vertical_fov": 50,
-    "screen_height_fraction_gate": [
-      0.55,
-      0.9
-    ],
+    "screen_height_fraction_gate": [0.28, 0.68],
     "opening_webglass_mode": "bubble"
   },
   "community_assets": {
@@ -74,10 +64,7 @@
     "base_glb_sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
     "running_glb_sha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0",
     "external_model_required_by_scene_smoke": true,
-    "visible_height_required_m": {
-      "min": 1.7,
-      "max": 2.1
-    }
+    "visible_height_required_m": {"min": 1.7, "max": 2.1}
   },
   "webglass": {
     "runtime_identity": "LUHM_WEBGLASS",
@@ -95,33 +82,32 @@
     "unknown_rights": "FAIL_CLOSED"
   },
   "android": {
-    "package": "art.eggiebagelface.luhmos.cathedraltoy.atelier",
+    "package": "art.eggiebagelface.luhmos",
+    "version_code": 102,
+    "version_name": "1.0.2-final.mutation.1",
     "renderer": "Godot 4 GL Compatibility",
     "webglass": "native Android WebView plugin with local packaged cockpit and blocked network loads",
     "internet_permission": false,
     "debuggable": false,
     "profileable_shell": false,
     "alignment": "16K_REQUIRED",
-    "install_delivery": "Google Drive private install workflow",
-    "production_signing_identity": "PENDING_EXTERNAL_CROWN_KEY"
+    "install_delivery": "private exact-artifact workflow",
+    "production_signing_identity": "EXTERNAL_CROWN_SIGNER_REQUIRED",
+    "expected_signer_sha256": "598D7272D62DBEBB71972D6164822636AD1439CD35631D0CD43321D003C92142"
   },
   "proof_gates": {
-    "static": [
-      "tools/luhmFullGameAudit.py",
-      "tools/crownCathedralAudit.py"
-    ],
+    "static": ["tools/luhmFullGameAudit.py", "tools/crownCathedralAudit.py"],
     "donors": "vendored derivative exact SHA256 + Git blob + rights + private Drive provenance ID + exported-PCK scene smoke",
     "scene": "tests/finalCoffeeHouseSmoke.gd",
     "rig": "tests/lumRigV2Phase1Smoke.gd",
-    "apk": "signature + package + 16K alignment + payload + SHA256 + release hardening",
-    "device": "physical Samsung install and runtime recording of this exact build",
+    "apk": "persistent signature + canonical package + version + 16K alignment + payload + SHA256 + release hardening",
+    "device": "physical Samsung install and runtime recording of this exact build showing native 3D Cathedral, visible rigged Lum, movement/camera and WebGlass",
     "canonical": "explicit Crown promotion after exact device proof"
   },
   "not_claimed": [
     "KAI9000 widget or cockpit authority",
     "private legacy relic redistribution",
     "private Nexus payload redistribution",
-    "persistent production signing identity",
     "live OpenAI host receipt",
     "physical device proof for the current exact head",
     "canonical main promotion"

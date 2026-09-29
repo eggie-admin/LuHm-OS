@@ -1,9 +1,11 @@
 {
-  "schema": "luhmOs.androidCandidate.v1",
-  "status": "PROPOSED_AMBER_ONI_ATELIER_BODYFORGE",
-  "package": "art.eggiebagelface.luhmos.cathedraltoy.atelier",
-  "versionCode": 125,
-  "versionName": "1.0.25-cathedral.atelier.1",
+  "schema": "luhmOs.androidCandidate.v2",
+  "status": "FINAL_MUTATION_EXACT_HEAD_CI_REQUIRED",
+  "product": "LuHm OS",
+  "scope": "FULL_GAME",
+  "package": "art.eggiebagelface.luhmos",
+  "versionCode": 102,
+  "versionName": "1.0.2-final.mutation.1",
   "minSdk": 24,
   "targetSdk": 36,
   "abi": "arm64-v8a",
@@ -11,9 +13,17 @@
     "S24 FE",
     "SM-X400"
   ],
-  "signing": "disposable-debug-only",
+  "signing": "persistent-crown-external-required-for-update",
   "persistentSigner": false,
-  "installScope": "side-by-side Oni Atelier character-creator candidate; exact APK certificate and hash check required before replacement",
+  "expectedSignerSha256": "598D7272D62DBEBB71972D6164822636AD1439CD35631D0CD43321D003C92142",
+  "installScope": "LuHm OS canonical-package full-game final-mutation candidate; exact signer, APK hash, 3D runtime and device proof required before promotion",
+  "runtime": {
+    "engine": "Godot 4 native 3D",
+    "world": "Crown Cathedral + Japanese kissaten + Detroit industrial neon RiverWalk",
+    "lum": "rigged external GLB, target visible height 1.90m",
+    "webglass": "local caged overlay only",
+    "runtimeNetwork": false
+  },
   "assetLane": {
     "manifest": "assets/community/selected-assets.json",
     "count": 77,
@@ -40,5 +50,5 @@
   },
   "promotion": false,
   "orientation": "sensor-portrait-and-landscape",
-  "physicalDeviceProof": "PENDING"
+  "physicalDeviceProof": "PENDING_EXACT_BUILD"
 }

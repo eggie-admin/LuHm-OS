@@ -26,10 +26,10 @@ func _ready() -> void:
     _wire_runtime()
     enterWorldMode()
     if _webglass_available():
-        game_hud.set_status("♛ CROWNED // GODOT WORLD + WEBGLASS")
+        game_hud.set_status("LUHM // GODOT 3D + WEBGLASS")
         kai_webview_bridge.show_cockpit("bubble")
     else:
-        game_hud.set_status("CROWN · AMBER // NATIVE FALLBACK")
+        game_hud.set_status("LUHM // NATIVE 3D FALLBACK")
 
 func _build_runtime() -> void:
     neon_world = NeonWorldScript.new()
@@ -130,7 +130,7 @@ func _on_toy_action(action: String) -> void:
         "chat_glass":
             _enter_backend()
         _:
-            game_hud.set_status("KAI 9000 // UNKNOWN TOY ACTION BLOCKED")
+            game_hud.set_status("LUHM OS // UNKNOWN TOY ACTION BLOCKED")
 
 func _on_quit_requested() -> void:
     get_tree().quit()
