@@ -6,8 +6,8 @@ cd "$ROOT"
 TMP="${RUNNER_TEMP:-/tmp}"
 SOURCE_SHA="${SOURCE_SHA:-${GITHUB_SHA:-local}}"
 GODOT_TEMPLATE_ID="4.7.2.stable"
-APK="build/android/luhmos-cathedral-atelier-1.0.25.apk"
-PCK="build/android/luhmos-cathedral-atelier-1.0.25.pck"
+APK="build/android/LuHm-OS-1.0.2-final-mutation.apk"
+PCK="build/android/LuHm-OS-1.0.2-final-mutation.pck"
 
 SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
 yes | "$SDKMANAGER" --licenses >/dev/null || true
@@ -59,6 +59,7 @@ cp "$RUN" assets/lum/luhmRunning.glb
 
 python3 -m json.tool doctrine/cathedralWebglassFinal-20260926.json >/dev/null
 python3 -m json.tool doctrine/oniAtelierBodyForge-20260926.json >/dev/null
+python3 -m json.tool doctrine/finalMutationMilestone-20260928.json >/dev/null
 python3 scripts/auditCathedralWebglass.py
 python3 tests/testCandidateGate.py
 python3 tools/candidateGate.py
@@ -121,8 +122,10 @@ BT="$ANDROID_HOME/build-tools/36.1.0"
 "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/android/zipalign.txt
 unzip -l "$APK" | tee build/android/ziplist.txt
 sha256sum "$APK" | tee build/android/sha256.txt
-grep -q "package: name='art.eggiebagelface.luhmos.cathedraltoy.atelier'" build/android/badging.txt
-grep -q "versionCode='125'" build/android/badging.txt
+grep -q "package: name='art.eggiebagelface.luhmos'" build/android/badging.txt
+grep -q "versionCode='102'" build/android/badging.txt
+grep -q "versionName='1.0.2-final.mutation.1'" build/android/badging.txt
+grep -q "application-label:'LuHm OS'" build/android/badging.txt
 grep -q 'org.godotengine.plugin.v2.KAIWebView' build/android/manifest.txt
 grep -q 'assets/cockpit/index.html' build/android/ziplist.txt
 grep -q 'assets/cockpit/jquery/luhm.atelier.js' build/android/ziplist.txt
@@ -134,8 +137,9 @@ grep -q 'assets/cockpit/vendor/vue/vue.global.prod.js' build/android/ziplist.txt
 cp build/community-assets/receipt.json build/android/community-assets-receipt.json
 cp assets/community/selected-assets.json build/android/community-assets-selection.json
 cp doctrine/oniAtelierBodyForge-20260926.json build/android/oni-atelier-doctrine.json
+cp doctrine/finalMutationMilestone-20260928.json build/android/final-mutation-milestone.json
 printf '%s\n' "$SOURCE_SHA" > build/android/source-commit.txt
-printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=CATHEDRAL_ONI_ATELIER_CI_PROOF\npackage=art.eggiebagelface.luhmos.cathedraltoy.atelier\nversion=1.0.25-cathedral.atelier.1\n' "$SOURCE_SHA" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/cathedral-atelier-receipt.txt
+printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=CATHEDRAL_ONI_ATELIER_CI_PROOF\npackage=art.eggiebagelface.luhmos\nversion=1.0.2-final.mutation.1\nversion_code=102\nruntime=GODOT_4_NATIVE_3D\n' "$SOURCE_SHA" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/cathedral-atelier-receipt.txt
 cp cockpit/package-lock.json build/android/package-lock.json
 sha256sum addons/kai_webview/bin/kaiwebview-debug.aar cockpit/package-lock.json >> build/android/source-components-sha256.txt
 rm -f "$PCK"
@@ -144,4 +148,4 @@ rm -rf build/installPortal
 python3 tools/stageInstallPortal.py --apk "$APK" --out build/installPortal --commit "$SOURCE_SHA"
 (cd build/installPortal && sha256sum -c SHA256SUMS.txt)
 
-echo 'CATHEDRAL ONI ATELIER APK BUILD GREEN'
+echo 'LUHM OS FINAL MUTATION APK BUILD GREEN'

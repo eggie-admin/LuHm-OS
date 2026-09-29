@@ -16,6 +16,9 @@ MAX_DONOR_BYTES = 2 * 1024 * 1024
 CURRENT_BRANCH = "candidate/crown-cathedral-audit-hardening-20260927"
 CANONICAL_MAIN = "506e486cb142f6c81f7df71d007fdf05e47e82ed"
 BASELINE_GREEN_HEAD = "93bc11cbc1c09ecf6e18605985beebf4f9a4e8d5"
+EXPECTED_PACKAGE = "art.eggiebagelface.luhmos"
+EXPECTED_VERSION_CODE = "102"
+EXPECTED_VERSION_NAME = "1.0.2-final.mutation.1"
 
 
 def fail(msg: str) -> None:
@@ -56,6 +59,7 @@ def main() -> int:
     root_truth = load_json(ROOT / "doctrine/SOURCE_OF_TRUTH.json")
     final_truth = load_json(ROOT / "doctrine/finalSystemSourceTruth-20260927.json")
     deployment = load_json(ROOT / "doctrine/crownCathedralDeployment-20260927.json")
+    milestone = load_json(ROOT / "doctrine/finalMutationMilestone-20260928.json")
 
     if game_doctrine.get("product") != "LuHm OS" or game_doctrine.get("scope") != "FULL_GAME":
         fail("LuHm full-game doctrine scope drift")
@@ -67,6 +71,8 @@ def main() -> int:
         fail("final-system source-truth scope drift")
     if deployment.get("product") != "LuHm OS" or deployment.get("product_scope") != "FULL_GAME":
         fail("Crown deployment scope drift")
+    if milestone.get("milestone") != "LUHM_OS_FINAL_MUTATION_001":
+        fail("final mutation milestone drift")
 
     branches = {
         "game_doctrine": game_doctrine.get("candidate_branch"),
@@ -74,6 +80,7 @@ def main() -> int:
         "root_truth": root_truth.get("currentFullGameCandidate", {}).get("branch"),
         "final_truth": final_truth.get("candidate_branch"),
         "deployment": deployment.get("branch"),
+        "milestone": milestone.get("source", {}).get("candidate_branch"),
     }
     if any(value != CURRENT_BRANCH for value in branches.values()):
         fail("current full-game authority branch drift: " + json.dumps(branches, sort_keys=True))
@@ -88,6 +95,7 @@ def main() -> int:
         root_truth.get("currentFullGameCandidate", {}).get("baselineProvenExactHead"),
         final_truth.get("candidate_lineage", {}).get("baseline_proven_green_head"),
         deployment.get("baseline_proven_green_head"),
+        milestone.get("source", {}).get("baseline_proven_green_head"),
     }
     if baseline_heads != {BASELINE_GREEN_HEAD}:
         fail("baseline proof drift")
@@ -101,6 +109,8 @@ def main() -> int:
         fail("deployment self-referential head")
     if root_truth.get("currentFullGameCandidate", {}).get("currentExactHead") != "DERIVED_AT_CI_RUNTIME":
         fail("root truth self-referential head")
+    if milestone.get("source", {}).get("exact_head") != "DERIVED_AT_CI_RUNTIME":
+        fail("final mutation milestone self-reference")
 
     if game_doctrine.get("historical_seals_override_current_full_game") is not False:
         fail("historical doctrine override drift")
@@ -133,6 +143,17 @@ def main() -> int:
     if deployment.get("webglass", {}).get("runtime_identity") != "LUHM_WEBGLASS":
         fail("deployment WebGlass identity drift")
 
+    if root_truth.get("android", {}).get("package") != EXPECTED_PACKAGE:
+        fail("root Android package drift")
+    if deployment.get("android", {}).get("package") != EXPECTED_PACKAGE:
+        fail("deployment Android package drift")
+    if milestone.get("android", {}).get("package") != EXPECTED_PACKAGE:
+        fail("milestone Android package drift")
+    if int(milestone.get("android", {}).get("version_code", -1)) != int(EXPECTED_VERSION_CODE):
+        fail("milestone version code drift")
+    if milestone.get("android", {}).get("version_name") != EXPECTED_VERSION_NAME:
+        fail("milestone version name drift")
+
     recovery = load_json(ROOT / "doctrine/reconciledCoffeeHouseLumCandidate-20260927.json")
     if recovery["authority"]["crown"] != "Professor":
         fail("recovery authority drift")
@@ -153,6 +174,7 @@ def main() -> int:
         "sha256.txt", "source-commit.txt", "release-hardening.txt", "ziplist.txt",
         "community-assets-receipt.json", "luhm-game-donor-receipt.json",
         "luhm-game-donor-manifest.json", "luhm-full-game-final-audit.json",
+        "final-mutation-milestone.json",
     ]
     for name in required:
         if not (b / name).is_file():
@@ -174,8 +196,12 @@ def main() -> int:
         fail("APK shell profiling remains enabled")
     if re.search(r"host/openai|lumHost\.py", ziplist, re.I):
         fail("host OpenAI adapter leaked into APK payload")
-    if "art.eggiebagelface.luhmos.cathedraltoy.atelier" not in badging:
+    if f"package: name='{EXPECTED_PACKAGE}'" not in badging:
         fail("package mismatch")
+    if f"versionCode='{EXPECTED_VERSION_CODE}'" not in badging:
+        fail("version code mismatch")
+    if f"versionName='{EXPECTED_VERSION_NAME}'" not in badging:
+        fail("version name mismatch")
     if "targetSdkVersion:'36'" not in badging:
         fail("target SDK mismatch")
     if "Verifies" not in signature or "Number of signers: 1" not in signature:
@@ -285,9 +311,10 @@ def main() -> int:
     )
 
     receipt = {
-        "schema": "luhm-os.final-system-audit.v4",
+        "schema": "luhm-os.final-system-audit.v5",
         "product": "LuHm OS",
         "scope": "FULL_GAME",
+        "milestone": "LUHM_OS_FINAL_MUTATION_001",
         "source_sha": args.source_sha,
         "source_exact_head_ci": True,
         "current_candidate_branch": CURRENT_BRANCH,
@@ -299,6 +326,9 @@ def main() -> int:
         "game_deployment_candidate_green": True,
         "full_game_scope_green": True,
         "apk_release_candidate_green": True,
+        "apk_package": EXPECTED_PACKAGE,
+        "apk_version_code": int(EXPECTED_VERSION_CODE),
+        "apk_version_name": EXPECTED_VERSION_NAME,
         "apk_debuggable": False,
         "apk_internet_permission": False,
         "apk_profileable_shell": False,
@@ -341,6 +371,7 @@ def main() -> int:
     args.output.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
     print("FINAL_SYSTEM_AUDIT=PASS")
     print("LUHM_FULL_GAME=PASS")
+    print("FINAL_MUTATION_MILESTONE=PASS")
     print("AUTHORITY_CONVERGENCE=PASS")
     print("LUM_RIG=PASS")
     print(f"COMMUNITY_ASSETS=PASS count={community['asset_count']}")

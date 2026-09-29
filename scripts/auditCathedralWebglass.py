@@ -14,11 +14,14 @@ def require(cond, label):
 
 doctrine = json.loads(read("doctrine/cathedralWebglassFinal-20260926.json"))
 atelier = json.loads(read("doctrine/oniAtelierBodyForge-20260926.json"))
+android = json.loads(read("doctrine/androidCandidate.json"))
 require(doctrine["authority"] == "Professor", "Crown authority remains human")
 require(atelier["authority"] == "Professor", "Oni Atelier remains Crown-gated")
 require(doctrine["runtime"]["world_owner"].startswith("Godot 4"), "Godot owns world")
 require(doctrine["runtime"]["ui_owner"].startswith("caged local Android WebView"), "WebView owns glass only")
 require(atelier["runtime"]["mutationMode"] == "runtime_non_destructive", "BodyForge is non-destructive")
+require(android["package"] == "art.eggiebagelface.luhmos", "canonical LuHm OS package identity")
+require(android["versionCode"] == 102, "final mutation version code")
 
 world = read("scripts/game/neonWorld.gd")
 require("LumPlinth" not in world, "literal Lum performance plinth removed")
@@ -54,6 +57,7 @@ for asset in ["vendor/jquery/jquery.min.js", "vendor/jquery-ui/jquery-ui.min.js"
     require(asset in html, f"local packaged UI dependency referenced: {asset}")
 require("connect-src 'none'" in html, "CSP blocks web network connections")
 require("Oni Atelier // BodyForge" in html, "character creator panel packaged")
+require("LUHM OS // CROWN CATHEDRAL" in html, "final LuHm identity packaged")
 
 css = read("cockpit/styles.css")
 for mode in ["bubble", "compact", "panel", "fullscreen"]:
@@ -66,7 +70,8 @@ for msg in ["input.axis", "camera.delta", "window.mode", "app.background", "app.
 
 export = read("export_presets.cfg")
 require('permissions/internet=false' in export, "APK internet permission disabled")
-require('art.eggiebagelface.luhmos.cathedraltoy.atelier' in export, "side-by-side Oni Atelier package identity")
-require('version/code=125' in export, "Oni Atelier version code")
+require('package/unique_name="art.eggiebagelface.luhmos"' in export, "canonical LuHm package identity")
+require('version/code=102' in export, "final mutation version code")
+require('version/name="1.0.2-final.mutation.1"' in export, "final mutation version name")
 
-print("CATHEDRAL_ONI_ATELIER_10_PASS=GREEN")
+print("LUHM_OS_FINAL_MUTATION_10_PASS=GREEN")
