@@ -6,8 +6,8 @@ cd "$ROOT"
 TMP="${RUNNER_TEMP:-/tmp}"
 SOURCE_SHA="${SOURCE_SHA:-${GITHUB_SHA:-local}}"
 GODOT_TEMPLATE_ID="4.7.2.stable"
-APK="build/android/luhmos-cathedral-atelier-1.0.25.apk"
-PCK="build/android/luhmos-cathedral-atelier-1.0.25.pck"
+APK="build/android/luhmos-cathedral-atelier-1.0.27.apk"
+PCK="build/android/luhmos-cathedral-atelier-1.0.27.pck"
 
 SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
 yes | "$SDKMANAGER" --licenses >/dev/null || true
@@ -92,6 +92,9 @@ test -s "$ASSETS/vendor/vue/vue.global.prod.js"
 test -s "$ASSETS/jquery/luhm.atelier.js"
 test -s "$ASSETS/jquery/luhm.proof.viewer.js"
 test -s "$ASSETS/proof-viewer.css"
+grep -Fq 'luhm.webglass.preflight.v1' "$ASSETS/app.js"
+grep -Fq 'widgetFactory' "$ASSETS/app.js"
+grep -Fq 'LuHmBootBlocked' "$ASSETS/jquery/luhm.atelier.js"
 
 ANDROID_SOURCE="$(find "$TEMPLATE_DIR" -type f -name 'android_source.zip' -print -quit)"
 test -n "$ANDROID_SOURCE"
@@ -124,13 +127,16 @@ BT="$ANDROID_HOME/build-tools/36.1.0"
 unzip -l "$APK" | tee build/android/ziplist.txt
 sha256sum "$APK" | tee build/android/sha256.txt
 grep -q "package: name='art.eggiebagelface.luhmos.cathedraltoy.atelier'" build/android/badging.txt
-grep -q "versionCode='125'" build/android/badging.txt
+grep -q "versionCode='127'" build/android/badging.txt
+grep -q "versionName='1.0.27-professor.approval.1'" build/android/badging.txt
 grep -q 'org.godotengine.plugin.v2.KAIWebView' build/android/manifest.txt
 grep -q 'assets/cockpit/index.html' build/android/ziplist.txt
+grep -q 'assets/cockpit/app.js' build/android/ziplist.txt
 grep -q 'assets/cockpit/jquery/luhm.atelier.js' build/android/ziplist.txt
 grep -q 'assets/cockpit/jquery/luhm.proof.viewer.js' build/android/ziplist.txt
 grep -q 'assets/cockpit/proof-viewer.css' build/android/ziplist.txt
 grep -q 'assets/cockpit/vendor/jquery/jquery.min.js' build/android/ziplist.txt
+grep -q 'assets/cockpit/vendor/jquery-ui/jquery-ui.min.js' build/android/ziplist.txt
 grep -q 'assets/cockpit/vendor/vue/vue.global.prod.js' build/android/ziplist.txt
 ! grep -R -nE 'addJavascriptInterface|allowUniversalAccessFromFileURLs|allowFileAccessFromFileURLs|MIXED_CONTENT_ALWAYS_ALLOW' native/kaiwebview
 ! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' native/kaiwebview cockpit scripts/platform scripts/game
@@ -139,7 +145,7 @@ cp build/community-assets/receipt.json build/android/community-assets-receipt.js
 cp assets/community/selected-assets.json build/android/community-assets-selection.json
 cp doctrine/oniAtelierBodyForge-20260926.json build/android/oni-atelier-doctrine.json
 printf '%s\n' "$SOURCE_SHA" > build/android/source-commit.txt
-printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=CATHEDRAL_ONI_ATELIER_CI_PROOF\npackage=art.eggiebagelface.luhmos.cathedraltoy.atelier\nversion=1.0.25-cathedral.atelier.1\n' "$SOURCE_SHA" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/cathedral-atelier-receipt.txt
+printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=CATHEDRAL_ONI_ATELIER_CI_PROOF\npackage=art.eggiebagelface.luhmos.cathedraltoy.atelier\nversion=1.0.27-professor.approval.1\n' "$SOURCE_SHA" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/cathedral-atelier-receipt.txt
 cp cockpit/package-lock.json build/android/package-lock.json
 sha256sum addons/kai_webview/bin/kaiwebview-debug.aar cockpit/package-lock.json >> build/android/source-components-sha256.txt
 rm -f "$PCK"

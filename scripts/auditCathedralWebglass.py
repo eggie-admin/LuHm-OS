@@ -50,10 +50,20 @@ for forbidden in ["shell", "exec(", "system(", "su ", "setenforce"]:
     require(forbidden not in bridge.lower(), f"no privileged/generic executor token: {forbidden}")
 
 html = read("cockpit/index.html")
-for asset in ["vendor/jquery/jquery.min.js", "vendor/jquery-ui/jquery-ui.min.js", "vendor/bootstrap/bootstrap.bundle.min.js", "vendor/vue/vue.global.prod.js", "jquery/luhm.atelier.js"]:
+assets = ["vendor/jquery/jquery.min.js", "vendor/jquery-ui/jquery-ui.min.js", "vendor/bootstrap/bootstrap.bundle.min.js", "vendor/vue/vue.global.prod.js", "jquery/luhm.atelier.js"]
+for asset in assets:
     require(asset in html, f"local packaged UI dependency referenced: {asset}")
+require(html.index("vendor/jquery/jquery.min.js") < html.index("vendor/jquery-ui/jquery-ui.min.js"), "jQuery loads before jQuery UI")
+require(html.index("vendor/jquery-ui/jquery-ui.min.js") < html.index("jquery/luhm.atelier.js"), "jQuery UI loads before Atelier plugin")
 require("connect-src 'none'" in html, "CSP blocks web network connections")
 require("Oni Atelier // BodyForge" in html, "character creator panel packaged")
+
+app = read("cockpit/app.js")
+for token in ["luhm.webglass.preflight.v1", "widgetFactory", "draggable", "resizable", "slider", "LuHmBootBlocked", "LUHM WEBGLASS BOOT BLOCKED"]:
+    require(token in app, f"runtime WebGlass preflight guard present: {token}")
+atelier_js = read("cockpit/jquery/luhm.atelier.js")
+require("if(window.LuHmBootBlocked)return" in atelier_js, "Atelier respects failed boot preflight")
+require("typeof $.fn.slider!=='function'" in atelier_js, "Atelier fails closed when slider plugin is absent")
 
 css = read("cockpit/styles.css")
 for mode in ["bubble", "compact", "panel", "fullscreen"]:
@@ -67,6 +77,7 @@ for msg in ["input.axis", "camera.delta", "window.mode", "app.background", "app.
 export = read("export_presets.cfg")
 require('permissions/internet=false' in export, "APK internet permission disabled")
 require('art.eggiebagelface.luhmos.cathedraltoy.atelier' in export, "side-by-side Oni Atelier package identity")
-require('version/code=125' in export, "Oni Atelier version code")
+require('version/code=127' in export, "Professor approval version code")
+require('version/name="1.0.27-professor.approval.1"' in export, "Professor approval version name")
 
 print("CATHEDRAL_ONI_ATELIER_10_PASS=GREEN")
