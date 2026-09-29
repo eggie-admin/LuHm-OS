@@ -1,0 +1,11 @@
+{
+  "schema": "luhm-os.manual-source-validation.v1",
+  "bookStatus": "WORKING_DRAFT_SOURCE_PROJECT",
+  "chapterCount": 12,
+  "sceneCount": 12,
+  "assetBindingCount": 10,
+  "externalSealedAssetCount": 10,
+  "errors": [],
+  "warnings": [],
+  "gate": "GREEN"
+}

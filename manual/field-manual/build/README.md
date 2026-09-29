@@ -1,23 +1,35 @@
 # Manual Forge build lane
 
-`build_manual.py` is the first deterministic build edge for the editable manual source project.
+Two validators have different jobs.
 
-## Validate
+## Source structure
+
+```bash
+python build/validate_source.py
+```
+
+This validates chapter Markdown, scene YAML, doctrine metadata, and the Drive/SHA bindings for sealed art without requiring the image bytes in Git. It writes `build/source-validation-report.json`.
+
+## Full materialized validation
+
+Materialize the sealed Drive art into `assets/scenes/`, then run:
 
 ```bash
 python build/build_manual.py --validate-only
 ```
 
-Checks chapter, scene, generated-block, and asset references. It verifies sealed image hashes and dimensions and checks that generated doctrine metadata agrees with `book.yaml`.
+This verifies the actual image bytes, SHA-256 hashes, and dimensions. It is the stronger artifact check.
 
 ## Preview
+
+With art materialized:
 
 ```bash
 python build/build_manual.py
 ```
 
-Writes `dist/preview/index.html` with local copied artwork. Preview generation does not grant print, release, publication, or runtime authority.
+The preview does not grant print, runtime, release, signing, or publication authority.
 
 ## Press rule
 
-A press build stays blocked while the sealed scene plates remain below the requested 300 ppi at 17×11 and until bleed/crop-mark output is separately implemented and inspected.
+Press remains AMBER while the sealed plates are below the requested 300 ppi at 17×11 and until bleed/crop-mark output is implemented and visually inspected.

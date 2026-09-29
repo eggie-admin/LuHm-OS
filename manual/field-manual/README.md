@@ -24,5 +24,5 @@ Content/source structure is ready for editing. Current sealed scene plates remai
 
 Git is the editable source of truth for prose, dialogue, manifests, doctrine references, and the build validator. The sealed high-weight comic plates remain in Google Drive and are bound to this source by `assets/assets.yaml`.
 
-A source-only checkout may validate AMBER when art has not been materialized. A full local bundle with matching art hashes validates GREEN.
+A source-only checkout can validate the editable structure and Drive/hash bindings without materializing art. Full artifact validation remains separate and requires the sealed image bytes. A full local bundle with matching art hashes validates GREEN.
 

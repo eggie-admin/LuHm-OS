@@ -1,33 +1,52 @@
 {
-  "schema": "luhm-os.manual-forge-workflow-receipt.v1",
+  "schema": "luhm-os.manual-forge-workflow-receipt.v3",
   "date": "2026-09-28",
-  "phase": "MUTATE_TEST",
-  "mutation": "Add deterministic Manual Forge validator and HTML preview builder",
+  "phase": "MUTATE_TEST_RECEIPTS",
+  "mutation": "Stage Manual Forge editable source on non-release GitHub branch with source/art split",
   "sourceProjectStatus": "WORKING_DRAFT_SOURCE_PROJECT",
-  "validation": {
+  "snapshotGate": {
+    "gate": "GREEN",
+    "luhmOs": "snapshot/manual-forge-20260928",
+    "hydraShellAndroid": "snapshot/manual-forge-20260928",
+    "vueHeadlessCms": "snapshot/manual-forge-20260928",
+    "historicalDriveRootsRecorded": true
+  },
+  "repoStaging": {
+    "branch": "docs/manual-forge-20260928",
+    "baseCommit": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+    "initialStageCommit": "a006d46b46f430282118d62e49e65ad55a45c144",
+    "mainMutated": false,
+    "releasePromotion": false
+  },
+  "sourceStructureValidation": {
+    "schema": "luhm-os.manual-source-validation.v1",
+    "bookStatus": "WORKING_DRAFT_SOURCE_PROJECT",
+    "chapterCount": 12,
+    "sceneCount": 12,
+    "assetBindingCount": 10,
+    "externalSealedAssetCount": 10,
+    "errors": [],
+    "warnings": [],
+    "gate": "GREEN"
+  },
+  "fullMaterializedValidation": {
+    "schema": "luhm-os.manual-build-report.v1",
+    "bookStatus": "WORKING_DRAFT_SOURCE_PROJECT",
     "chapterCount": 12,
     "sceneCount": 12,
     "assetCount": 10,
-    "errors": 0,
-    "warnings": 0,
+    "errors": [],
+    "warnings": [],
     "gate": "GREEN"
   },
-  "preview": {
-    "chapterSections": 12,
-    "imageRefs": 10,
-    "dialogueRows": 93,
-    "unresolvedSceneMacros": 0,
-    "unresolvedStatusMacros": 0,
-    "gate": "GREEN"
+  "artStorage": {
+    "mode": "drive-sealed-local-materialization",
+    "driveFolderId": "1GCw8OCq51LbybLzYe1BnV6618zlX3qU-",
+    "sealedAssetCount": 10
   },
   "press": {
     "gate": "AMBER",
-    "reason": "Sealed raster plates are below requested 300 ppi at full 17x11 placement; press bleed/crop-mark build is not implemented or inspected."
-  },
-  "repoMutation": {
-    "performed": false,
-    "gate": "BLOCKED_PENDING_SNAPSHOT",
-    "reason": "Repository staging waits for the mandatory pre-mutation snapshot checkpoint."
+    "reason": "Sealed plates are 1559x1009 (~91.7 effective ppi at full 17x11); bleed/crop-mark press output remains unimplemented/uninspected."
   },
   "runtimeReleaseAuthority": false
 }
