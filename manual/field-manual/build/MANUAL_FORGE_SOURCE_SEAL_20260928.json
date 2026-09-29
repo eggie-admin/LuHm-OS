@@ -1,0 +1,51 @@
+{
+  "schema": "luhm-os.manual-forge-source-seal.v1",
+  "date": "2026-09-28",
+  "product": "LuHm OS",
+  "manual": "Project Hydra Field Manual / Manual Forge",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "repository": "eggie-admin/LuHm-OS",
+  "branch": "docs/manual-forge-20260928",
+  "baseMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+  "sealedSourceCommit": "d607fc812c9d26409f22581dc77a7723648f7292",
+  "status": "GREEN_SOURCE_MILESTONE_AMBER_PRESS",
+  "sourceStructure": {
+    "gate": "GREEN",
+    "chapters": 12,
+    "scenes": 12,
+    "externalSealedAssetBindings": 10,
+    "errors": 0,
+    "warnings": 0
+  },
+  "fullMaterialization": {
+    "gate": "GREEN",
+    "verifiedArtAssets": 10,
+    "hashesVerified": true,
+    "dimensionsVerified": true,
+    "errors": 0,
+    "warnings": 0
+  },
+  "press": {
+    "gate": "AMBER",
+    "reason": "Current sealed plates are 1559x1009 (~91.7 effective ppi at full 17x11); 0.125in bleed and crop-mark press output remain unimplemented/uninspected."
+  },
+  "artCoverage": {
+    "sealedChapterPlates": 9,
+    "coverPlate": 1,
+    "chaptersWithoutDedicatedSealedPlate": [9, 10, 11]
+  },
+  "driveRecovery": {
+    "folderId": "1GCw8OCq51LbybLzYe1BnV6618zlX3qU-",
+    "fileId": "1xftR7WIbmoCWs72VpZxhEYziWLL_eC0d",
+    "fileName": "LuHm_OS_Manual_Forge_Source_STAGED_RECOVERY_20260928.zip",
+    "sha256": "bbcb1653d17004dbc15da1ba730567027210ebf38b1b4d6669f1d3946ed3321a"
+  },
+  "promotion": false,
+  "mainMutated": false,
+  "runtimeAuthority": false,
+  "releaseAuthority": false,
+  "publicationAuthority": false,
+  "productionSigningAuthority": false,
+  "nextSafeAction": "Professor reviews this sealed source milestone. Any PR, merge to main, documentation promotion, publication, release, or signing action requires separate explicit Crown authorization."
+}
