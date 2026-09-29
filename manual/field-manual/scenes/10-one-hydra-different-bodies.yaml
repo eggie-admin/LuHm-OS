@@ -1,0 +1,28 @@
+schema: luhm-os.manual-scene.v1
+id: chapter10-one-hydra-different-bodies
+chapter: 10
+title: One Hydra, Different Bodies
+art: null
+artStatus: NO_SEALED_PLATE_IN_CURRENT_SET
+dialogue:
+- speaker: PROFESSOR
+  text: Tiny jobs?
+- speaker: LUM
+  text: Antenna.
+- speaker: PROFESSOR
+  text: Mobile jobs?
+- speaker: LUM
+  text: Samsung.
+- speaker: PROFESSOR
+  text: Real workstation jobs?
+- speaker: LUM
+  text: Medium box.
+- speaker: PROFESSOR
+  text: Stupid giant jobs?
+- speaker: LUM
+  text: Heavyweight desktop compute.
+- speaker: PROFESSOR
+  text: Stupid giant jobs.
+- speaker: LUM
+  text: Accepted.
+source: LuHm_OS_Project_Hydra_Field_Manual_REAL_CANDIDATE_20260927

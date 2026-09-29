@@ -1,0 +1,33 @@
+{
+  "schema": "luhm-os.manual-forge-workflow-receipt.v1",
+  "date": "2026-09-28",
+  "phase": "MUTATE_TEST",
+  "mutation": "Add deterministic Manual Forge validator and HTML preview builder",
+  "sourceProjectStatus": "WORKING_DRAFT_SOURCE_PROJECT",
+  "validation": {
+    "chapterCount": 12,
+    "sceneCount": 12,
+    "assetCount": 10,
+    "errors": 0,
+    "warnings": 0,
+    "gate": "GREEN"
+  },
+  "preview": {
+    "chapterSections": 12,
+    "imageRefs": 10,
+    "dialogueRows": 93,
+    "unresolvedSceneMacros": 0,
+    "unresolvedStatusMacros": 0,
+    "gate": "GREEN"
+  },
+  "press": {
+    "gate": "AMBER",
+    "reason": "Sealed raster plates are below requested 300 ppi at full 17x11 placement; press bleed/crop-mark build is not implemented or inspected."
+  },
+  "repoMutation": {
+    "performed": false,
+    "gate": "BLOCKED_PENDING_SNAPSHOT",
+    "reason": "Repository staging waits for the mandatory pre-mutation snapshot checkpoint."
+  },
+  "runtimeReleaseAuthority": false
+}

@@ -1,0 +1,24 @@
+schema: luhm-os.manual-scene.v1
+id: chapter03-source-of-truth-crowns-seals-receipts
+chapter: 3
+title: 'Source of Truth: Crowns, Seals, Receipts'
+art: assets/scenes/04_luhm_os_source_of_truth_manual.png
+artStatus: SEALED_PLATE
+dialogue:
+- speaker: PROFESSOR
+  text: What does this receipt prove?
+- speaker: LUM
+  text: That the build compiled.
+- speaker: PROFESSOR
+  text: Does it prove the APK installed?
+- speaker: LUM
+  text: No.
+- speaker: PROFESSOR
+  text: Launched?
+- speaker: LUM
+  text: No.
+- speaker: PROFESSOR
+  text: Good robot.
+- speaker: LUM
+  text: I am framing this moment.
+source: LuHm_OS_Project_Hydra_Field_Manual_REAL_CANDIDATE_20260927

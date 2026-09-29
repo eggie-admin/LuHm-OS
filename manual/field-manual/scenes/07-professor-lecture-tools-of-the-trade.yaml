@@ -1,0 +1,22 @@
+schema: luhm-os.manual-scene.v1
+id: chapter07-professor-lecture-tools-of-the-trade
+chapter: 7
+title: 'Professor Lecture: Tools of the Trade'
+art: assets/scenes/08_luhm_os_field_manual_toolchain_to_device.png
+artStatus: SEALED_PLATE
+dialogue:
+- speaker: PROFESSOR
+  text: Every tool gets a lane.
+- speaker: LUM
+  text: Different jobs. Same pipeline.
+- speaker: PROFESSOR
+  text: And Termux?
+- speaker: LUM
+  text: Useful development or experimental lane. Not production Android control-plane law.
+- speaker: PROFESSOR
+  text: Gradle?
+- speaker: LUM
+  text: Android build system. Annoying, real, necessary.
+- speaker: PROFESSOR
+  text: Good. Continue before I encounter Gradle emotionally.
+source: LuHm_OS_Project_Hydra_Field_Manual_REAL_CANDIDATE_20260927

@@ -1,0 +1,20 @@
+schema: luhm-os.manual-scene.v1
+id: chapter02-professor-lecture-how-coding-got-here
+chapter: 2
+title: 'Professor Lecture: How Coding Got Here'
+art: assets/scenes/03_luhm_os_evolution_of_coding.png
+artStatus: SEALED_PLATE
+dialogue:
+- speaker: PROFESSOR
+  text: Coding started with humans turning problems into logic.
+- speaker: LUM
+  text: Then humans got tired of typing the same thing twice.
+- speaker: PROFESSOR
+  text: Exactly. Scripts made repetition cheap. Libraries made good ideas reusable. Python made composition approachable.
+- speaker: LUM
+  text: Then AI arrived and everybody immediately became normal about it.
+- speaker: PROFESSOR
+  text: Absolutely not.
+- speaker: LUM
+  text: There he is.
+source: LuHm_OS_Project_Hydra_Field_Manual_REAL_CANDIDATE_20260927

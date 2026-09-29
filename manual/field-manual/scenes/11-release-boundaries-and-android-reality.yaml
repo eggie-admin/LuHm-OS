@@ -1,0 +1,28 @@
+schema: luhm-os.manual-scene.v1
+id: chapter11-release-boundaries-and-android-reality
+chapter: 11
+title: Release Boundaries and Android Reality
+art: null
+artStatus: NO_SEALED_PLATE_IN_CURRENT_SET
+dialogue:
+- speaker: LUM
+  text: We have a candidate.
+- speaker: PROFESSOR
+  text: Installed?
+- speaker: LUM
+  text: Not yet.
+- speaker: PROFESSOR
+  text: Then say candidate.
+- speaker: LUM
+  text: Candidate.
+- speaker: PROFESSOR
+  text: Signed for production?
+- speaker: LUM
+  text: No.
+- speaker: PROFESSOR
+  text: Published?
+- speaker: LUM
+  text: No.
+- speaker: PROFESSOR
+  text: Good. The status board lives another day.
+source: LuHm_OS_Project_Hydra_Field_Manual_REAL_CANDIDATE_20260927

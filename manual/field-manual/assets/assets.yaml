@@ -1,0 +1,149 @@
+schema: luhm-os.manual-assets.v1
+generatedDate: '2026-09-28'
+sourceSeal: LuHm_OS_Crown_Cathedral_Comic_Scene_Plates_SEAL_20260927.json
+count: 10
+printRule: 300 ppi requested at placed size; current sealed plates remain AMBER for
+  full 17x11 press use where effective ppi is below 300.
+assets:
+- id: 01_luhm_os_field_manual_project_hydra
+  path: assets/scenes/01_luhm_os_field_manual_project_hydra.png
+  sourceFile: luhm_os_field_manual_project_hydra.png
+  role: cover
+  chapters:
+  - 0
+  widthPx: 1559
+  heightPx: 1009
+  sha256: 91413a9e563b18ec470ca7ddd1ac1ece2a2db348e6c2c70efab764c23022f867
+  bytes: 3322487
+  effectivePpiAt17x11: 91.7
+  press300PpiStatus: AMBER
+  driveFileId: 1vVvm7xo_wTdxvifd-dxRehWNboZ37a9q
+  driveUrl: https://drive.google.com/file/d/1vVvm7xo_wTdxvifd-dxRehWNboZ37a9q/view
+- id: 02_luhm_os_field_manual_welcome_to_class
+  path: assets/scenes/02_luhm_os_field_manual_welcome_to_class.png
+  sourceFile: luhm_os_field_manual_welcome_to_class.png
+  role: chapterScene
+  chapters:
+  - 1
+  widthPx: 1559
+  heightPx: 1009
+  sha256: c9287bc1a7bad4832aea0e06fb1f60cc12cff038e6a13c470a9004e956701c51
+  bytes: 3230423
+  effectivePpiAt17x11: 91.7
+  press300PpiStatus: AMBER
+  driveFileId: 1JlGaLYWa2m2NICJYYneWJ5iFDgbYDBVV
+  driveUrl: https://drive.google.com/file/d/1JlGaLYWa2m2NICJYYneWJ5iFDgbYDBVV/view
+- id: 03_luhm_os_evolution_of_coding
+  path: assets/scenes/03_luhm_os_evolution_of_coding.png
+  sourceFile: luhm_os_evolution_of_coding.png
+  role: chapterScene
+  chapters:
+  - 2
+  widthPx: 1559
+  heightPx: 1009
+  sha256: 4c8a233665ebc0f9ddb69271cabe1f38d7b4442098a36649f10a98b62a1f6006
+  bytes: 3114241
+  effectivePpiAt17x11: 91.7
+  press300PpiStatus: AMBER
+  driveFileId: 1bfB_k0Fpi8YQVbZmQ1hVYOFjDroOaFRk
+  driveUrl: https://drive.google.com/file/d/1bfB_k0Fpi8YQVbZmQ1hVYOFjDroOaFRk/view
+- id: 04_luhm_os_source_of_truth_manual
+  path: assets/scenes/04_luhm_os_source_of_truth_manual.png
+  sourceFile: luhm_os_source_of_truth_manual.png
+  role: chapterScene
+  chapters:
+  - 3
+  widthPx: 1559
+  heightPx: 1009
+  sha256: 87abb3a007e1ee95a53a7a78fcee3197aaa37c7f6ab1a921924ea020361ae697
+  bytes: 3181732
+  effectivePpiAt17x11: 91.7
+  press300PpiStatus: AMBER
+  driveFileId: 19hIU7nDbg82lAVewZWO6xmMa8AcG-mMx
+  driveUrl: https://drive.google.com/file/d/19hIU7nDbg82lAVewZWO6xmMa8AcG-mMx/view
+- id: 05_oni_mesh_tiny_demons_specific_jobs
+  path: assets/scenes/05_oni_mesh_tiny_demons_specific_jobs.png
+  sourceFile: oni_mesh_tiny_demons_specific_jobs.png
+  role: chapterScene
+  chapters:
+  - 4
+  widthPx: 1559
+  heightPx: 1009
+  sha256: 3e95d9d05460f97f647470451cf1cfb9548d3e0f8e3dd5b18492d2c4a19da72c
+  bytes: 3164040
+  effectivePpiAt17x11: 91.7
+  press300PpiStatus: AMBER
+  driveFileId: 1HnNr5Vsm6uXxl72Y-wFLqLB0B9eS_8A9
+  driveUrl: https://drive.google.com/file/d/1HnNr5Vsm6uXxl72Y-wFLqLB0B9eS_8A9/view
+- id: 06_luhm_os_witching_hour_field_manual
+  path: assets/scenes/06_luhm_os_witching_hour_field_manual.png
+  sourceFile: luhm_os_witching_hour_field_manual.png
+  role: chapterScene
+  chapters:
+  - 5
+  widthPx: 1559
+  heightPx: 1009
+  sha256: 64c5968a04f52fe853a3be844182793f06219386db7a0372a254eceb62bb763e
+  bytes: 3210688
+  effectivePpiAt17x11: 91.7
+  press300PpiStatus: AMBER
+  driveFileId: 13LRvJmAur-lQaXTb9CdHA0RRP_XCA2t4
+  driveUrl: https://drive.google.com/file/d/13LRvJmAur-lQaXTb9CdHA0RRP_XCA2t4/view
+- id: 07_luhm_os_field_manual_infographic
+  path: assets/scenes/07_luhm_os_field_manual_infographic.png
+  sourceFile: luhm_os_field_manual_infographic.png
+  role: chapterScene
+  chapters:
+  - 6
+  widthPx: 1559
+  heightPx: 1009
+  sha256: 3d9fa5db1743df96f4c6603ac391662131e719d0a84c93caa7dfb33706831883
+  bytes: 3095135
+  effectivePpiAt17x11: 91.7
+  press300PpiStatus: AMBER
+  driveFileId: 1u0Y7yyR7qKgQLK38lYg5h8MaUec_KpvV
+  driveUrl: https://drive.google.com/file/d/1u0Y7yyR7qKgQLK38lYg5h8MaUec_KpvV/view
+- id: 08_luhm_os_field_manual_toolchain_to_device
+  path: assets/scenes/08_luhm_os_field_manual_toolchain_to_device.png
+  sourceFile: luhm_os_field_manual_toolchain_to_device.png
+  role: chapterScene
+  chapters:
+  - 7
+  widthPx: 1559
+  heightPx: 1009
+  sha256: 92fe03d546fc70c62659fa666fb210eac8b85b00a1a31227955742a805e04fef
+  bytes: 3176414
+  effectivePpiAt17x11: 91.7
+  press300PpiStatus: AMBER
+  driveFileId: 1Z-LsYIH4tj_jzkqZdm4vs-2JJX-63NsY
+  driveUrl: https://drive.google.com/file/d/1Z-LsYIH4tj_jzkqZdm4vs-2JJX-63NsY/view
+- id: 09_professor_s_neon_late_night_comeback
+  path: assets/scenes/09_professor_s_neon_late_night_comeback.png
+  sourceFile: professor_s_neon_late_night_comeback.png
+  role: chapterScene
+  chapters:
+  - 8
+  widthPx: 1559
+  heightPx: 1009
+  sha256: f9c63788a759678aa7f55f787f7eedf813b857be6da74302899142ffadc30055
+  bytes: 3291124
+  effectivePpiAt17x11: 91.7
+  press300PpiStatus: AMBER
+  driveFileId: 1usLErF0WWSFSzkdAdSwUSFBxHfRwoQvP
+  driveUrl: https://drive.google.com/file/d/1usLErF0WWSFSzkdAdSwUSFBxHfRwoQvP/view
+- id: 13_luhm_os_crown_cathedral_finale
+  path: assets/scenes/13_luhm_os_crown_cathedral_finale.png
+  sourceFile: luhm_os_crown_cathedral_finale.png
+  role: chapterScene
+  chapters:
+  - 12
+  widthPx: 1559
+  heightPx: 1009
+  sha256: 6c3d8d525c220bec38537e63d8c67cce9c633f0f87b3816358cd1352da0cf4cb
+  bytes: 3278422
+  effectivePpiAt17x11: 91.7
+  press300PpiStatus: AMBER
+  driveFileId: 1wQgA02R5xe9kAAIJ1w3hCg_kNQjXyipH
+  driveUrl: https://drive.google.com/file/d/1wQgA02R5xe9kAAIJ1w3hCg_kNQjXyipH/view
+storageMode: drive-sealed-local-materialization
+driveFolderId: 1GCw8OCq51LbybLzYe1BnV6618zlX3qU-

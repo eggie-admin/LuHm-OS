@@ -1,0 +1,24 @@
+schema: luhm-os.manual-scene.v1
+id: chapter04-oni-mesh-tiny-demons-specific-jobs
+chapter: 4
+title: 'Oni Mesh: Tiny Demons, Specific Jobs'
+art: assets/scenes/05_oni_mesh_tiny_demons_specific_jobs.png
+artStatus: SEALED_PLATE
+dialogue:
+- speaker: LUM
+  text: Professor gives me the goal. I coordinate.
+- speaker: MIKO
+  text: I find the context.
+- speaker: KAI
+  text: I build the smallest useful change.
+- speaker: NIKO
+  text: I research the evidence.
+- speaker: KAGE
+  text: I ask why everyone is wrong.
+- speaker: PROFESSOR
+  text: And who authorizes?
+- speaker: ALL ONI
+  text: You do.
+- speaker: PROFESSOR
+  text: Good. Nobody has unionized yet.
+source: LuHm_OS_Project_Hydra_Field_Manual_REAL_CANDIDATE_20260927

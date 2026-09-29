@@ -1,0 +1,22 @@
+schema: luhm-os.manual-scene.v1
+id: chapter06-lum-tech-demo-how-the-pieces-fit
+chapter: 6
+title: 'Lum Tech Demo: How the Pieces Fit'
+art: assets/scenes/07_luhm_os_field_manual_infographic.png
+artStatus: SEALED_PLATE
+dialogue:
+- speaker: LUM
+  text: Front end is the face. Back end does the work.
+- speaker: PROFESSOR
+  text: Database?
+- speaker: LUM
+  text: Persistent state, not divine truth.
+- speaker: PROFESSOR
+  text: Interface?
+- speaker: LUM
+  text: The contract between parts.
+- speaker: KAGE
+  text: And the place bugs go to breed when the contract is vague.
+- speaker: LUM
+  text: Kage is why we keep Kage.
+source: LuHm_OS_Project_Hydra_Field_Manual_REAL_CANDIDATE_20260927

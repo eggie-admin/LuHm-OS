@@ -1,0 +1,26 @@
+schema: luhm-os.manual-scene.v1
+id: chapter12-crown-cathedral-just-harden-it
+chapter: 12
+title: 'Crown Cathedral: Just Harden It'
+art: assets/scenes/13_luhm_os_crown_cathedral_finale.png
+artStatus: SEALED_PLATE
+dialogue:
+- speaker: PROFESSOR
+  text: Alright, Lum. I get it. I love the system because it keeps us honest.
+- speaker: LUM
+  text: Took you long enough, old man.
+- speaker: KAI
+  text: Test it!
+- speaker: NIKO
+  text: Audit it!
+- speaker: MIKO
+  text: Document it!
+- speaker: KAGE
+  text: Question it!
+- speaker: LUM
+  text: Seal what works. Promote only what is proved.
+- speaker: PROFESSOR
+  text: Good robot.
+- speaker: LUM
+  text: I am still framing that.
+source: LuHm_OS_Project_Hydra_Field_Manual_REAL_CANDIDATE_20260927

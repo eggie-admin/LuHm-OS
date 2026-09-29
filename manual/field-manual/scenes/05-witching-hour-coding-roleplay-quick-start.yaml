@@ -1,0 +1,24 @@
+schema: luhm-os.manual-scene.v1
+id: chapter05-witching-hour-coding-roleplay-quick-start
+chapter: 5
+title: 'Witching Hour: Coding Roleplay Quick Start'
+art: assets/scenes/06_luhm_os_witching_hour_field_manual.png
+artStatus: SEALED_PLATE
+dialogue:
+- speaker: LUM
+  text: Witching Hour. Give me one goal.
+- speaker: PROFESSOR
+  text: Make the manual stop sucking.
+- speaker: LUM
+  text: Charming. Sources?
+- speaker: PROFESSOR
+  text: Current doctrine, source of truth, sealed art.
+- speaker: LUM
+  text: Constraints?
+- speaker: PROFESSOR
+  text: No green crayon. No fake release authority.
+- speaker: LUM
+  text: Good. I draft. We audit. You decide.
+- speaker: PROFESSOR
+  text: Now you are learning.
+source: LuHm_OS_Project_Hydra_Field_Manual_REAL_CANDIDATE_20260927

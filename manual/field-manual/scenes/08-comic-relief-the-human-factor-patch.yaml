@@ -1,0 +1,24 @@
+schema: luhm-os.manual-scene.v1
+id: chapter08-comic-relief-the-human-factor-patch
+chapter: 8
+title: 'Comic Relief: The Human Factor Patch'
+art: assets/scenes/09_professor_s_neon_late_night_comeback.png
+artStatus: SEALED_PLATE
+dialogue:
+- speaker: PROFESSOR
+  text: I am conducting advanced field research.
+- speaker: LUM
+  text: You fell asleep next to ramen and a whiteboard full of cat memes.
+- speaker: PROFESSOR
+  text: Observational research.
+- speaker: KAGE
+  text: 'Finding: no.'
+- speaker: LUM
+  text: Come on. Lecture hall. Now.
+- speaker: PROFESSOR
+  text: My notes...
+- speaker: LUM
+  text: Your notes say SAME PEOPLE WORSE HABITS.
+- speaker: PROFESSOR
+  text: Peer reviewed.
+source: LuHm_OS_Project_Hydra_Field_Manual_REAL_CANDIDATE_20260927

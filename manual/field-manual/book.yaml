@@ -1,0 +1,93 @@
+schema: luhm-os.manual-book.v1
+title: 'LuHm OS: Project Hydra'
+subtitle: Illustrated AI Builder Field Manual
+authority: Professor
+sourceLaw: AI proposes. Policy authorizes. CI proves. Human promotes.
+canonicalRepository: eggie-admin/LuHm-OS
+observedMain: 506e486cb142f6c81f7df71d007fdf05e47e82ed
+status: WORKING_DRAFT_SOURCE_PROJECT
+frontmatter:
+- frontmatter/00-candidate-status.md
+- frontmatter/01-manual-map.md
+chapters:
+- number: 1
+  title: Welcome to LuHm OS
+  markdown: chapters/01-welcome-to-luhm-os.md
+  scene: scenes/01-welcome-to-luhm-os.yaml
+  art: assets/scenes/02_luhm_os_field_manual_welcome_to_class.png
+- number: 2
+  title: 'Professor Lecture: How Coding Got Here'
+  markdown: chapters/02-professor-lecture-how-coding-got-here.md
+  scene: scenes/02-professor-lecture-how-coding-got-here.yaml
+  art: assets/scenes/03_luhm_os_evolution_of_coding.png
+- number: 3
+  title: 'Source of Truth: Crowns, Seals, Receipts'
+  markdown: chapters/03-source-of-truth-crowns-seals-receipts.md
+  scene: scenes/03-source-of-truth-crowns-seals-receipts.yaml
+  art: assets/scenes/04_luhm_os_source_of_truth_manual.png
+- number: 4
+  title: 'Oni Mesh: Tiny Demons, Specific Jobs'
+  markdown: chapters/04-oni-mesh-tiny-demons-specific-jobs.md
+  scene: scenes/04-oni-mesh-tiny-demons-specific-jobs.yaml
+  art: assets/scenes/05_oni_mesh_tiny_demons_specific_jobs.png
+- number: 5
+  title: 'Witching Hour: Coding Roleplay Quick Start'
+  markdown: chapters/05-witching-hour-coding-roleplay-quick-start.md
+  scene: scenes/05-witching-hour-coding-roleplay-quick-start.yaml
+  art: assets/scenes/06_luhm_os_witching_hour_field_manual.png
+- number: 6
+  title: 'Lum Tech Demo: How the Pieces Fit'
+  markdown: chapters/06-lum-tech-demo-how-the-pieces-fit.md
+  scene: scenes/06-lum-tech-demo-how-the-pieces-fit.yaml
+  art: assets/scenes/07_luhm_os_field_manual_infographic.png
+- number: 7
+  title: 'Professor Lecture: Tools of the Trade'
+  markdown: chapters/07-professor-lecture-tools-of-the-trade.md
+  scene: scenes/07-professor-lecture-tools-of-the-trade.yaml
+  art: assets/scenes/08_luhm_os_field_manual_toolchain_to_device.png
+- number: 8
+  title: 'Comic Relief: The Human Factor Patch'
+  markdown: chapters/08-comic-relief-the-human-factor-patch.md
+  scene: scenes/08-comic-relief-the-human-factor-patch.yaml
+  art: assets/scenes/09_professor_s_neon_late_night_comeback.png
+- number: 9
+  title: Vendor APIs, JSON, RSS, and Security
+  markdown: chapters/09-vendor-apis-json-rss-and-security.md
+  scene: scenes/09-vendor-apis-json-rss-and-security.yaml
+  art: null
+- number: 10
+  title: One Hydra, Different Bodies
+  markdown: chapters/10-one-hydra-different-bodies.md
+  scene: scenes/10-one-hydra-different-bodies.yaml
+  art: null
+- number: 11
+  title: Release Boundaries and Android Reality
+  markdown: chapters/11-release-boundaries-and-android-reality.md
+  scene: scenes/11-release-boundaries-and-android-reality.yaml
+  art: null
+- number: 12
+  title: 'Crown Cathedral: Just Harden It'
+  markdown: chapters/12-crown-cathedral-just-harden-it.md
+  scene: scenes/12-crown-cathedral-just-harden-it.yaml
+  art: assets/scenes/13_luhm_os_crown_cathedral_finale.png
+appendices:
+- appendices/field-vocabulary.md
+- appendices/provenance.md
+generated:
+  status: generated/status-blocks.md
+  references: generated/reference-blocks.md
+  doctrine: generated/current-doctrine.json
+assets: assets/assets.yaml
+outputs:
+- html
+- docx
+- pdf-color
+- pdf-bw
+printTarget:
+  trim: 17x11in
+  orientation: landscape
+  bleed: 0.125in
+  safety: 0.375in
+  rasterTargetPpi: 300
+  cropMarks: true
+editRule: Edit Markdown, scene YAML, and asset manifest. Regenerate output artifacts. Do not hand-edit generated PDF as source.

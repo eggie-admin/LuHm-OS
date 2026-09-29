@@ -1,0 +1,77 @@
+{
+  "schema": "luhm-os.manual-generated-doctrine.v1",
+  "generatedDate": "2026-09-28",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "observedMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "authority": "Professor",
+  "sourceTruthStatus": "AMBER_PROPOSED_SEAL_OF_TRUTH",
+  "manual": {
+    "path": "manual/LUHM_OS_PROJECT_HYDRA_FIELD_MANUAL.md",
+    "status": "WORKING_DRAFT",
+    "publicationAuthority": false
+  },
+  "documentationWorkflow": {
+    "status": "GREEN_DOCUMENTATION_WORKFLOW",
+    "runtimeAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false
+  },
+  "fullSourceTruthOrchestrator": {
+    "status": "GREEN_ORCHESTRATOR_CANONICAL_FULL_SOURCE_TRUTH_AMBER",
+    "readiness": "AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING",
+    "milestoneMutationComplete": false,
+    "runtimeAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false
+  },
+  "releaseBoundary": {
+    "status": "PROPOSED_NOT_CROWNED",
+    "allow": [
+      "native Godot 3D",
+      "local touch controls",
+      "primitive generated geometry",
+      "side-by-side debug install"
+    ],
+    "deny": [
+      "production signing",
+      "publishing",
+      "stable promotion",
+      "remote shell execution",
+      "loopback control plane in Android runtime",
+      "embedded provider secrets"
+    ]
+  },
+  "unresolvedGates": [
+    "physical S24 FE proof",
+    "LAN DNS activation",
+    "Apache activation",
+    "physical install",
+    "F-Droid repository signing / persistent update signing",
+    "enterprise readiness",
+    "public exposure"
+  ],
+  "excludedFromCleanAndroidArchitecture": [
+    "FastAPI loopback control plane from Android runtime",
+    "PySimpleGUI operator lane",
+    "Termux execution bridge",
+    "Vue donor runtime",
+    "production signing secrets",
+    "private third-party reference assets"
+  ],
+  "sources": [
+    {
+      "path": "doctrine/SOURCE_OF_TRUTH.json",
+      "blobSha": "49e20adad26ad03b6d3164e3724d3d7883a8e269"
+    },
+    {
+      "path": "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json",
+      "blobSha": "27287858733a0a1d39d3da24e29100ee2126def6"
+    },
+    {
+      "path": "doctrine/RELEASE_BOUNDARY.json",
+      "blobSha": "437efc08a4536851cd5f1d7f8ba727c3b7f811f2"
+    }
+  ]
+}

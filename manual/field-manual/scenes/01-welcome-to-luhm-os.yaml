@@ -1,0 +1,20 @@
+schema: luhm-os.manual-scene.v1
+id: chapter01-welcome-to-luhm-os
+chapter: 1
+title: Welcome to LuHm OS
+art: assets/scenes/02_luhm_os_field_manual_welcome_to_class.png
+artStatus: SEALED_PLATE
+dialogue:
+- speaker: PROFESSOR
+  text: Welcome to LuHm OS. This is not prompt worship.
+- speaker: LUM
+  text: Good. I look terrible in a cult robe.
+- speaker: PROFESSOR
+  text: We build systems. You help. Policy sets the rails. Evidence tells us what is real.
+- speaker: LUM
+  text: And you hold the Crown.
+- speaker: PROFESSOR
+  text: Correct. Try not to steal it.
+- speaker: LUM
+  text: No promises. Kidding. Mostly.
+source: LuHm_OS_Project_Hydra_Field_Manual_REAL_CANDIDATE_20260927

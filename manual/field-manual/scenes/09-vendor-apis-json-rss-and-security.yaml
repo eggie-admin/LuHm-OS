@@ -1,0 +1,20 @@
+schema: luhm-os.manual-scene.v1
+id: chapter09-vendor-apis-json-rss-and-security
+chapter: 9
+title: Vendor APIs, JSON, RSS, and Security
+art: null
+artStatus: NO_SEALED_PLATE_IN_CURRENT_SET
+dialogue:
+- speaker: PROFESSOR
+  text: Lum, is Base64 encryption?
+- speaker: LUM
+  text: No. It is encoding.
+- speaker: PROFESSOR
+  text: Good. I was checking.
+- speaker: LUM
+  text: You were absolutely not checking.
+- speaker: PROFESSOR
+  text: Describe the keyhole. Do not tape the key to the manifest.
+- speaker: LUM
+  text: That part is actually excellent advice.
+source: LuHm_OS_Project_Hydra_Field_Manual_REAL_CANDIDATE_20260927
