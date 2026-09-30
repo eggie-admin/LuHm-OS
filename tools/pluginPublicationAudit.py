@@ -12,12 +12,16 @@ SOURCE = ROOT / "doctrine/SOURCE_OF_TRUTH.json"
 BOUNDARY = ROOT / "doctrine/RELEASE_BOUNDARY.json"
 ENTERPRISE = ROOT / "doctrine/MCP_ENTERPRISE_SCOPE_V1.json"
 SERVER = ROOT / "host/mcp/luhmMcpServer.py"
+HARNESS_SERVER = ROOT / "host/mcp/luhmHarnessServer.py"
+HARNESS_MODULE = ROOT / "host/mcp/luhmHarness.py"
 REQUIREMENTS = ROOT / "host/mcp/requirements.txt"
 PLUGIN = ROOT / "plugins/luhm-os/plugin.json"
+MCP_CONFIG = ROOT / "plugins/luhm-os/mcp.json"
 TESTS = ROOT / "plugins/luhm-os/review-tests.json"
 PRIVACY = ROOT / "plugins/luhm-os/PRIVACY.md"
 TERMS = ROOT / "plugins/luhm-os/TERMS.md"
 SUBMISSION = ROOT / "plugins/luhm-os/PUBLIC_SUBMISSION_DRAFT.md"
+HARNESS_MCP_URL = "https://luhm-os-harness-green.onrender.com/mcp"
 
 
 def load(path: Path) -> dict:
@@ -27,7 +31,18 @@ def load(path: Path) -> dict:
     return value
 
 
-def validate(milestone: dict, source: dict, boundary: dict, enterprise: dict, server_text: str, plugin: dict, tests: dict) -> list[str]:
+def validate(
+    milestone: dict,
+    source: dict,
+    boundary: dict,
+    enterprise: dict,
+    server_text: str,
+    harness_server_text: str,
+    harness_module_text: str,
+    plugin: dict,
+    mcp_config: dict,
+    tests: dict,
+) -> list[str]:
     errors: list[str] = []
     law = "AI proposes. Policy authorizes. CI proves. Human promotes."
     if milestone.get("sourceLaw") != law or source.get("source_law") != law:
@@ -92,6 +107,32 @@ def validate(milestone: dict, source: dict, boundary: dict, enterprise: dict, se
         if phrase not in server_text:
             errors.append(f"MCP server publication hardening missing: {phrase}")
 
+    required_harness_server_phrases = (
+        "register_harness(",
+        "core.READ_ONLY_INTERNAL",
+        'streamable_http_path="/mcp"',
+        "stateless_http=True",
+        'host="0.0.0.0"',
+    )
+    for phrase in required_harness_server_phrases:
+        if phrase not in harness_server_text:
+            errors.append(f"harness server publication hardening missing: {phrase}")
+
+    required_harness_module_phrases = (
+        'UI_RESOURCE_URI = "ui://luhm-os/cockpit-v1.html"',
+        'APP_MIME_TYPE = "text/html;profile=mcp-app"',
+        'name="luhm_open_cockpit"',
+        '"publicationAuthority": False',
+        '"greenAuthority": False',
+    )
+    for phrase in required_harness_module_phrases:
+        if phrase not in harness_module_text:
+            errors.append(f"ChatGPT harness UI contract missing: {phrase}")
+
+    mcp_url = mcp_config.get("mcpServers", {}).get("luhm", {}).get("url")
+    if mcp_url != HARNESS_MCP_URL:
+        errors.append(f"plugin MCP endpoint is not live harness: {mcp_url!r}")
+
     interface = plugin.get("extensions", {}).get("com.openai", {}).get("interface", {})
     if interface.get("capabilities") != ["Read"]:
         errors.append("plugin manifest is not read-only")
@@ -109,7 +150,7 @@ def validate(milestone: dict, source: dict, boundary: dict, enterprise: dict, se
         if not entry.get("prompt") or not entry.get("expected"):
             errors.append("review test missing prompt or expected behavior")
 
-    for path in (SERVER, REQUIREMENTS, PRIVACY, TERMS, SUBMISSION):
+    for path in (SERVER, HARNESS_SERVER, HARNESS_MODULE, REQUIREMENTS, MCP_CONFIG, PRIVACY, TERMS, SUBMISSION):
         if not path.is_file() or path.stat().st_size == 0:
             errors.append(f"missing publication input: {path.relative_to(ROOT)}")
 
@@ -126,12 +167,26 @@ def main() -> int:
     boundary = load(BOUNDARY)
     enterprise = load(ENTERPRISE)
     plugin = load(PLUGIN)
+    mcp_config = load(MCP_CONFIG)
     tests = load(TESTS)
-    errors = validate(milestone, source, boundary, enterprise, SERVER.read_text(encoding="utf-8"), plugin, tests)
+    errors = validate(
+        milestone,
+        source,
+        boundary,
+        enterprise,
+        SERVER.read_text(encoding="utf-8"),
+        HARNESS_SERVER.read_text(encoding="utf-8"),
+        HARNESS_MODULE.read_text(encoding="utf-8"),
+        plugin,
+        mcp_config,
+        tests,
+    )
     report = {
-        "schema": "luhm-os.plugin-publication-source-audit.v1",
+        "schema": "luhm-os.plugin-publication-source-audit.v2",
         "status": "GREEN_PUBLICATION_SOURCE_READY" if not errors else "RED_PUBLICATION_SOURCE",
         "sourceCommit": git_head(),
+        "mcpUrl": mcp_config.get("mcpServers", {}).get("luhm", {}).get("url", "UNKNOWN"),
+        "chatUiResource": "ui://luhm-os/cockpit-v1.html",
         "contractErrors": errors,
         "publicationAuthority": False,
         "directoryPublicationProven": False,
