@@ -45,9 +45,13 @@
   },
   "sourceGates": {
     "currentMainSourceTruthReconciliation": "GREEN",
-    "mcpSourceContract": "PENDING_CI",
-    "reviewPackageContract": "PENDING_CI",
-    "negativeControls": "PENDING_CI"
+    "mcpSourceContract": "GREEN",
+    "reviewPackageContract": "GREEN",
+    "negativeControls": "GREEN",
+    "testedSourceCommit": "f0a16fac54b661141f70a6f35db65369f816165a",
+    "workflowRun": 36678361779,
+    "workflowName": "LuHm Plugin Publication Audit",
+    "workflowConclusion": "success"
   },
   "externalGates": {
     "cleanRenderProductionRuntime": "GREEN_LIVE",
