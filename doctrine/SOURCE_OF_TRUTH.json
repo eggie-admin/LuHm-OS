@@ -106,10 +106,27 @@
     "publicationAuthority": false,
     "productionSigningAuthority": false
   },
+  "currentMainSourceTruthMilestone": {
+    "contract": "doctrine/CURRENT_MAIN_SOURCE_TRUTH_GREEN_20260930.json",
+    "snapshot": "doctrine/PRE_GREEN_SNAPSHOT_20260930.json",
+    "auditor": "tools/currentMainSourceTruthMilestoneAudit.py",
+    "workflow": ".github/workflows/current-main-source-truth-green.yml",
+    "status": "GREEN_CURRENT_MAIN_SOURCE_TRUTH_RECONCILIATION",
+    "baseCanonicalMain": "013e056ad7fdf37ba92c298768d57806667a509c",
+    "scope": "doctrine-and-static-ci-only",
+    "runtimeAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false,
+    "crownStatus": "STOP"
+  },
   "reconciliation": {
-    "observedMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+    "observedMain": "013e056ad7fdf37ba92c298768d57806667a509c",
     "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b",
-    "status": "AMBER_CURRENT_MAIN_RECONCILED_EXTERNAL_GATES_PENDING",
+    "status": "GREEN_CURRENT_MAIN_SOURCE_TRUTH_RECONCILED",
+    "scope": "doctrine-and-static-ci-only",
+    "proof": "doctrine/CURRENT_MAIN_SOURCE_TRUTH_GREEN_20260930.json",
+    "snapshot": "doctrine/PRE_GREEN_SNAPSHOT_20260930.json",
     "preserved": "Lum/Oni fail-closed orchestration is canonical on main; documentation workflow, S24 FE cockpit switch, and LAN install bundle remain preserved as historical evidence; broader Android and release state remain AMBER; physical device proof, LAN DNS, Apache serving, persistent update signing, enterprise readiness, public exposure, server-side branch governance, and explicit Professor promotion remain separate evidence or Crown gates"
   }
 }
