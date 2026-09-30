@@ -8,7 +8,8 @@
     "maxParallelSupportWorkers": 3,
     "maxMutableSourceLanesPerCandidate": 1,
     "directQuestionBypassesMesh": true,
-    "evidenceTransport": "REFERENCE_FIRST"
+    "evidenceTransport": "REFERENCE_FIRST",
+    "oneWriterLeaseRequired": true
   },
   "authorityClasses": [
     "READ_ONLY",
@@ -32,6 +33,44 @@
     "Koe": {"kind": "dictation-scribe", "defaultAuthority": "READ_ONLY"},
     "Yume": {"kind": "art-media-helper", "defaultAuthority": "PLAN_ONLY"}
   },
+  "roleCapabilityCeilings": {
+    "Lum": ["read.context", "read.evidence", "route.task", "integrate.result", "plan.patch"],
+    "Kiri": ["read.context", "read.repository", "read.evidence"],
+    "Tetsu": ["read.repository", "read.evidence", "execute.build", "execute.test"],
+    "Kaji": ["read.repository", "read.evidence", "execute.build", "execute.test"],
+    "Momo": ["read.context", "read.evidence", "research.public"],
+    "Shiori": ["read.context", "read.repository", "read.evidence", "review.contradiction"],
+    "DrNao": ["read.context", "read.repository", "read.evidence", "adjudicate.evidence"],
+    "Kugi": ["read.repository", "read.evidence", "plan.mutation", "mutate.atomic"],
+    "Fumi": ["read.context", "read.repository", "read.evidence", "plan.records"],
+    "Sumi": ["read.repository", "read.evidence", "plan.assets"],
+    "Koe": ["read.context", "plan.transcription"],
+    "Yume": ["read.repository", "read.evidence", "plan.media"]
+  },
+  "capabilityFirewall": {
+    "defaultDeny": true,
+    "noTaskInheritance": true,
+    "noHistoryInheritance": true,
+    "noRoleplayInheritance": true,
+    "effectiveRule": "taskAllow INTERSECT roleCeiling INTERSECT authorityCeiling MINUS taskDeny MINUS hardDeny",
+    "hardDeny": [
+      "secret.read",
+      "secret.write",
+      "shell.arbitrary",
+      "subprocess.arbitrary",
+      "network.publicBind",
+      "release.productionSign",
+      "release.publish",
+      "release.promote",
+      "git.protectedMerge",
+      "git.forceUpdate",
+      "git.branchDelete",
+      "git.historyRewrite",
+      "data.destructiveDelete",
+      "policy.selfMutate",
+      "crown.selfApprove"
+    ]
+  },
   "requiredTaskEnvelope": [
     "taskId",
     "intent",
@@ -44,25 +83,102 @@
     "evidenceRefs",
     "requiredOutputs",
     "stopConditions",
-    "budget"
+    "budget",
+    "idempotencyKey",
+    "writerLease",
+    "evidencePolicy"
   ],
+  "budgetCeilings": {
+    "maxToolCalls": 20,
+    "maxMutations": 1,
+    "maxRetries": 1,
+    "maxRuntimeSeconds": 900,
+    "maxDelegationDepth": 0
+  },
+  "mutationPolicy": {
+    "exactSourceRefRequired": true,
+    "unknownSourceMayMutate": false,
+    "idempotencyKeyRequired": true,
+    "writerLeaseRequired": true,
+    "ambiguousMutationState": "STOP",
+    "ordinaryTaskMutationMax": 1,
+    "rollbackPointerRequiredWhenReversible": true,
+    "postconditionReceiptRequired": true
+  },
+  "writerLeaseRequiredFields": [
+    "leaseId",
+    "taskId",
+    "repository",
+    "sourceRef",
+    "candidateRef",
+    "holder",
+    "scope"
+  ],
+  "evidencePolicy": {
+    "exactSourceBinding": true,
+    "contradictionBlocksGreen": true,
+    "immutableEvidenceMustMatchIdentity": true,
+    "defaultMaxLiveEvidenceAgeHours": 24,
+    "requiredEvidenceFields": [
+      "kind",
+      "locator",
+      "sourceRef",
+      "observedAt",
+      "freshnessClass",
+      "status"
+    ],
+    "freshnessClasses": ["IMMUTABLE", "LIVE"],
+    "staleLiveEvidenceCanPromote": false
+  },
+  "contradictionPolicy": {
+    "stopMutation": true,
+    "routeTo": ["Shiori", "DrNao"],
+    "minimumStatus": "AMBER_CONTRADICTION",
+    "convenientReceiptSelectionForbidden": true
+  },
   "statePrecedence": ["ERROR", "RED", "UNKNOWN", "AMBER", "GREEN"],
   "retryPolicy": {
     "blindMutationRetry": false,
     "identicalTransientRetryMax": 1,
+    "retryRequiresSameIdempotencyKey": true,
+    "retryRequiresKnownNoPartialMutation": true,
     "mutationFailureReturnsToLum": true
   },
+  "requiredOutputPacket": [
+    "taskId",
+    "worker",
+    "sourceRef",
+    "scope",
+    "status",
+    "facts",
+    "evidenceRefs",
+    "uncertainties",
+    "proposedNextActions",
+    "authorityNeeded",
+    "budgetUsed",
+    "capabilitiesUsed",
+    "deniedCapabilityAttempts",
+    "errors",
+    "evidenceFreshness",
+    "idempotencyKey",
+    "writerLeaseId",
+    "mutationResultIdentity"
+  ],
   "learning": {
     "hiddenRetraining": false,
     "silentPolicyMutation": false,
     "verifiedLessonsRequireReceipts": true,
-    "staleLessonIsProof": false
+    "staleLessonIsProof": false,
+    "lessonMayGrantCapability": false,
+    "lessonMayIncreaseBudget": false,
+    "lessonMayOverrideStop": false
   },
   "crownRequiredFor": [
     "release-signing",
     "publication",
     "public-exposure",
     "protected-or-release-branch-promotion",
-    "destructive-delete"
+    "destructive-delete",
+    "policy-authority-expansion"
   ]
 }
