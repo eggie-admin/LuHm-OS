@@ -1,7 +1,7 @@
 {
   "schema": "luhm-os.s24fe-cockpit-audit-switch.v1",
   "date": "2026-09-26",
-  "status": "GREEN_CI_COCKPIT_SWITCH_DEVICE_PROOF_PENDING",
+  "status": "AMBER_CI_COCKPIT_SWITCH_DEVICE_PROOF_PENDING",
   "overallCandidateGate": "AMBER_CI_CANDIDATE_DEVICE_PROOF_PENDING",
   "authority": "Professor",
   "canonical_repository": "eggie-admin/LuHm-OS",

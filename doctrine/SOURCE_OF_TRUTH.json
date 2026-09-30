@@ -51,7 +51,7 @@
   "cockpitSwitch": {
     "receipt": "doctrine/s24FeCockpitAuditSwitch-20260926.json",
     "seal": "doctrine/s24FeCockpitAuditSwitchSeal-20260926.json",
-    "status": "GREEN_CI_COCKPIT_SWITCH_DEVICE_PROOF_PENDING",
+    "status": "AMBER_CI_COCKPIT_SWITCH_DEVICE_PROOF_PENDING",
     "target": "Samsung Galaxy S24 FE",
     "testedSourceCommit": "a37e926b64ba2fbfb4526f1f7673b0d982694064",
     "promotedByMergeCommit": "7752ade36ad24c3970a0026c3911e3781606dbde",
@@ -66,7 +66,7 @@
   "installPortal": {
     "receipt": "doctrine/fqdnInstallPortal-20260926.json",
     "seal": "doctrine/fqdnInstallPortalSeal-20260926.json",
-    "status": "GREEN_CI_BUNDLE_HOST_ACTIVATION_PENDING",
+    "status": "AMBER_CI_BUNDLE_HOST_ACTIVATION_PENDING",
     "fqdn": "get.lum.eggiebagelface.lan",
     "privateEndpoint": "http://get.lum.eggiebagelface.lan/",
     "apacheExample": "installPortal/apache/get.lum.eggiebagelface.lan.conf.example",
@@ -92,7 +92,7 @@
     "manual": "manual/LUHM_OS_LUM_ONI_FULL_SOURCE_TRUTH_WORKFLOW.md",
     "receipt": "doctrine/fullSourceTruthAudit-20260926.json",
     "seal": "doctrine/fullSourceTruthOrchestratorSeal-20260926.json",
-    "status": "GREEN_ORCHESTRATOR_CANONICAL_FULL_SOURCE_TRUTH_AMBER",
+    "status": "AMBER_ORCHESTRATOR_CANONICAL_FULL_SOURCE_TRUTH",
     "promotedByMergeCommit": "f54a3ece00dc4bdfe40c61d7fde218367443d0e2",
     "testedSourceCommit": "f46b023954d0ea75306ff11bf4b23a2055cf1d86",
     "workflowRun": 36222975020,

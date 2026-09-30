@@ -39,7 +39,7 @@ The proposed build contract is `doctrine/androidCandidate.json`. One workflow,
 Both pinned Lum models are ingested before compilation; the browser front end remains a prototype.
 
 - package: `art.eggiebagelface.luhmos.testing`
-- version: `1.0.15-samsungamber.1` / code `115`
+- version: `1.0.16-samsunglayout.1` / code `116`
 - minimum Android API 24; target API 36
 - exact source checkout, fail-closed runtime scan, negative controls, import and rig smoke checks
 - APK signature, metadata, permission, ZIP and ELF alignment gates
@@ -52,7 +52,7 @@ Compare installed certificate before installing; a different debug signer cannot
 an existing installation. Never automatically uninstall or erase app data.
 Golden beta stays untouched. Main promotion remains separate.
 
-Prior audit: `doctrine/universalSamsungAuditSeal-20260925.json`.
+Prior audit: `doctrine/samsungLayoutSeal-20260926.json`.
 The cleanplay workflow is retired on this proposal branch to avoid a second payload.
 
 ## Repository migration
