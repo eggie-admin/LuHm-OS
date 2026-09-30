@@ -1,0 +1,67 @@
+{
+  "schema": "luhm-os.mcp-enterprise-scope.v1",
+  "status": "BETA_HARDENING",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "cryptographyDoctrine": "doctrine/ENTERPRISE_CRYPTO_V1.json",
+  "transport": {
+    "production": "streamable-http",
+    "localDevelopment": ["streamable-http", "stdio"],
+    "productionPath": "/mcp",
+    "productionFqdn": "mcp.eggiebagelface.art",
+    "publicTlsProvider": "Render managed TLS",
+    "publicTlsPreferredCa": "Let's Encrypt",
+    "publicTlsApprovedCas": ["Let's Encrypt", "Google Trust Services"],
+    "publicTlsLiveEvidenceRequired": true,
+    "statelessHttp": true,
+    "sessionOwnsAuthority": false,
+    "sessionOwnsSourceTruth": false
+  },
+  "requestScope": {
+    "requiredFieldsForTruthSensitiveRouting": [
+      "taskId",
+      "sourceRef",
+      "scopeId"
+    ],
+    "optionalFields": [
+      "candidateSha",
+      "proofContext"
+    ],
+    "unknownSourceMayPromote": false,
+    "scopeMayEscalateAuthority": false,
+    "scopeMayOverrideCrown": false
+  },
+  "authentication": {
+    "currentPublicTools": "anonymous-read-only",
+    "privateOrWriteToolsRequireOAuth21": true,
+    "oauthImplemented": false,
+    "implementationRule": "Use an established identity provider and validate every request at the MCP server. Do not implement home-grown OAuth merely to satisfy a gate.",
+    "resourceMetadataRequiredBeforePrivateOrWrite": true,
+    "perToolSecuritySchemesRequiredBeforePrivateOrWrite": true
+  },
+  "operations": {
+    "healthEndpoint": "/healthz",
+    "openAiChallengeEndpoint": "/.well-known/openai-apps-challenge",
+    "maxRequestBodyBytes": 1048576,
+    "providerSecretsInAndroid": false,
+    "providerSecretsInPluginPackage": false,
+    "greenAuthority": false,
+    "publicationAuthority": false
+  },
+  "referencePatterns": {
+    "renderMcpServerCommit": "d9a8abd",
+    "borrow": [
+      "streamable-http-plus-stdio split",
+      "explicit resource scope on calls",
+      "boot-time configuration validation",
+      "separate auth and transport concerns",
+      "bounded session lifetime when sessions are unavoidable",
+      "structured operational logging",
+      "well-known metadata routes"
+    ],
+    "doNotBorrow": [
+      "implicit session-selected authority",
+      "Render account business tools",
+      "workspace state as a substitute for LuHm source identity"
+    ]
+  }
+}

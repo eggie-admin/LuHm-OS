@@ -1,0 +1,152 @@
+name: LuHm Plugin Publication Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json'
+      - 'doctrine/SOURCE_OF_TRUTH.json'
+      - 'doctrine/RELEASE_BOUNDARY.json'
+      - 'doctrine/MCP_ENTERPRISE_SCOPE_V1.json'
+      - 'host/mcp/**'
+      - 'plugins/luhm-os/**'
+      - 'agents/**/SKILL.md'
+      - 'tools/lumTaskRouter.py'
+      - 'tools/pluginPublicationAudit.py'
+      - 'tests/testPluginPublicationMilestone.py'
+      - '.github/workflows/plugin-publication-audit.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publication-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Bind exact head
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          echo "EXACT_HEAD=$(git rev-parse HEAD)"
+
+      - name: Install pinned MCP runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          pip install -r host/mcp/requirements.txt
+
+      - name: Validate JSON contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m json.tool doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json >/dev/null
+          python -m json.tool doctrine/MCP_ENTERPRISE_SCOPE_V1.json >/dev/null
+          python -m json.tool plugins/luhm-os/plugin.json >/dev/null
+          python -m json.tool plugins/luhm-os/mcp.json >/dev/null
+          python -m json.tool plugins/luhm-os/review-tests.json >/dev/null
+
+      - name: Enforce current OpenAI package metadata constraints
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+          from xml.etree import ElementTree as ET
+
+          root = Path('.')
+          plugin_root = root / 'plugins/luhm-os'
+          plugin = json.loads((plugin_root / 'plugin.json').read_text())
+          mcp = json.loads((plugin_root / 'mcp.json').read_text())
+          tests = json.loads((plugin_root / 'review-tests.json').read_text())
+          interface = plugin['extensions']['com.openai']['interface']
+
+          assert 1 <= len(interface['displayName']) <= 30
+          assert 1 <= len(interface['shortDescription']) <= 30
+          assert len(interface['longDescription']) <= 4000
+          assert 1 <= len(interface['developerName']) <= 80
+          assert re.fullmatch(r'#[0-9A-Fa-f]{6}', interface['brandColor'])
+          for key in ('websiteURL', 'privacyPolicyURL', 'termsOfServiceURL'):
+              assert interface[key].startswith('https://'), (key, interface[key])
+          assert len(tests.get('positive', [])) == 5
+          assert len(tests.get('negative', [])) == 3
+          assert mcp['mcpServers']['luhm']['url'] == 'https://luhm-os-publication-green.onrender.com/mcp'
+
+          for key in ('logo', 'composerIcon'):
+              rel = interface[key]
+              assert rel.startswith('./') and '..' not in rel
+              path = plugin_root / rel[2:]
+              assert path.is_file() and path.stat().st_size > 0
+              assert path.suffix.lower() in {'.png', '.jpg', '.jpeg', '.webp', '.svg'}
+              if path.suffix.lower() == '.svg':
+                  svg = ET.parse(path).getroot()
+                  view_box = svg.attrib.get('viewBox', '').split()
+                  assert len(view_box) == 4
+                  width, height = float(view_box[2]), float(view_box[3])
+                  assert width == height and 48 <= width <= 4096
+
+          prompts = interface.get('defaultPrompt', [])
+          assert prompts and len(prompts) == len({p.strip() for p in prompts})
+          assert all('@' not in p for p in prompts)
+          print('OPENAI_PACKAGE_METADATA_CONSTRAINTS=PASS')
+          PY
+
+      - name: Run publication negative controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest tests.testPluginPublicationMilestone -v
+
+      - name: Run deterministic publication source audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/pluginPublicationAudit.py
+
+      - name: Boot-time MCP contract check
+        shell: bash
+        env:
+          LUHM_MCP_PROFILE: production
+          RENDER_EXTERNAL_HOSTNAME: luhm-os-publication-green.onrender.com
+        run: |
+          set -euo pipefail
+          python host/mcp/luhmMcpServer.py --check
+
+      - name: Assert source-ready but not falsely published
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('build/plugin-publication/source-readiness.json').read_text())
+          assert report['status'] == 'GREEN_PUBLICATION_SOURCE_READY', report
+          assert report['contractErrors'] == [], report['contractErrors']
+          assert report['publicationAuthority'] is False
+          assert report['directoryPublicationProven'] is False
+          assert report['crownStatus'] == 'STOP'
+          print('PUBLICATION_SOURCE_GREEN=PROVEN')
+          print('SOURCE_COMMIT=' + report['sourceCommit'])
+          PY
+
+      - name: Upload publication source receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-plugin-publication-source-receipt
+          path: build/plugin-publication/
+          if-no-files-found: error
+          retention-days: 30
