@@ -107,6 +107,9 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
     @UsedByGodot
     fun listProofVault(): String = proofVault.listPackets().toString()
 
+    @UsedByGodot
+    fun shizukuCapabilityStatus(): String = ShizukuCapabilityProbe.snapshot().toString()
+
     override fun onMainActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onMainActivityResult(requestCode, resultCode, data)
         if (requestCode != REQUEST_PROOF_PICKER || resultCode != Activity.RESULT_OK) return
@@ -279,7 +282,8 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
                             .put("proofVault", "app-private")
                             .put("mode", currentMode)
                             .put("webviewPackage", pkg?.packageName ?: "unknown")
-                            .put("webviewVersion", pkg?.versionName ?: "unknown"))
+                            .put("webviewVersion", pkg?.versionName ?: "unknown")
+                            .put("shizuku", ShizukuCapabilityProbe.snapshot()))
                         .toString()
                 )
             }
