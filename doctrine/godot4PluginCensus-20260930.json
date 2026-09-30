@@ -12,6 +12,12 @@
     ],
     "asset_library_note": "The official Asset Library host did not resolve in the research environment. Its upstream backend repository says it is in maintenance mode and expected to be deprecated in favor of a future Godot Foundation asset store. Candidate-specific asset IDs/URLs are UNKNOWN unless directly verified; UNKNOWN does not mean absent.",
     "compatibility_note": "Godot 4.7.2 is the target. A 4.7, 4.6+, or broad Godot 4 claim is not treated as proof of 4.7.2 support. Findings are upstream declarations, not results of installation or testing.",
+    "godot_target_release": {
+      "version": "4.7.2-stable",
+      "release_date": "2026-08-18",
+      "official_archive_url": "https://godotengine.org/download/archive/4.7.2-stable/",
+      "plugin_test_note": "The release date establishes the target engine release only. No candidate is claimed to have a verified Godot 4.7.2 test unless its own entry says so."
+    },
     "release_date_note": "Where retrieved upstream pages exposed a release/tag but not a date, the tag is preserved and the date is UNKNOWN. No date has been estimated.",
     "unknown_convention": "UNKNOWN means upstream evidence was absent, inaccessible, or not sufficiently specific. It is not a negative finding.",
     "status_convention": {
@@ -24,34 +30,69 @@
   },
   "unverified_ai_discovery_leads": [
     {
-      "lead": "Additional Godot editor-MCP projects or forks",
+      "lead": "Additional Godot editor-MCP projects or forks beyond the four matrix entries",
       "canonical_upstream_url": "UNKNOWN",
       "current_upstream_status": "UNKNOWN",
-      "reason": "One server (Coding-Solo Godot MCP) was directly inspected. Repository search timed out/rate-limited; no absence claim is made."
+      "reason": "Coding-Solo, Funplay, Event Horizon Studio, and Ivan Murzak servers are recorded separately in candidates. Further forks were not verified."
     },
     {
-      "lead": "Dedicated Godot Ollama assistant/plugin",
+      "lead": "Other dedicated Godot Ollama assistants beyond Ollama Assistant for Godot",
       "canonical_upstream_url": "UNKNOWN",
       "current_upstream_status": "UNKNOWN",
-      "reason": "No direct Ollama/Godot editor integration was verified. The MCP + Ollama-host record is conditional, not a tested product."
+      "reason": "TheCronkTM/godot-ollama-assistant is a verified selected-script code assistant. Further projects or pairings remain unverified; the MCP + Ollama-host record is conditional."
     },
     {
-      "lead": "Godot AI helper/editor assistants",
+      "lead": "Other Godot AI helper/editor assistants beyond the verified matrix entries",
       "canonical_upstream_url": "UNKNOWN",
       "current_upstream_status": "UNKNOWN",
-      "reason": "No specific canonical current repository and supported Godot version could be confirmed from retrieved sources."
+      "reason": "Search surfaced additional catalog leads below, but canonical repositories and current status were not confirmed."
     },
     {
-      "lead": "Prompt-composer/editor-generation tools",
+      "lead": "Standalone prompt-composer/editor-generation tools",
       "canonical_upstream_url": "UNKNOWN",
       "current_upstream_status": "UNKNOWN",
-      "reason": "No named tool with verifiable current upstream and mutation/version evidence was confirmed."
+      "reason": "Funplay documents templates/project guidance, but no standalone prompt-composer product with verifiable upstream/version evidence was confirmed."
     },
     {
       "lead": "Godot-specific AI integration guides",
       "canonical_upstream_url": "UNKNOWN",
       "current_upstream_status": "UNKNOWN",
       "reason": "A guide is not itself a plugin; no verified source was used to establish a provider, data path, compatibility or project-mutation capability."
+    },
+    {
+      "lead": "Godot AI — Asset Library search result 5050",
+      "canonical_upstream_url": "UNKNOWN",
+      "asset_library_search_result_url": "https://godotengine.org/asset-library/asset/5050",
+      "current_upstream_status": "UNKNOWN",
+      "reason": "Search-result URL only; official page could not be fetched, so identity, publisher, release, license, compatibility and mutation scope are unverified."
+    },
+    {
+      "lead": "Breakpoint MCP — Asset Library search result 5335",
+      "canonical_upstream_url": "UNKNOWN",
+      "asset_library_search_result_url": "https://godotengine.org/asset-library/asset/5335",
+      "current_upstream_status": "UNKNOWN",
+      "reason": "Search-result URL only; official page could not be fetched, so identity, publisher, release, license, compatibility and mutation scope are unverified."
+    },
+    {
+      "lead": "Godot MCP Pro — Asset Library search result 4961",
+      "canonical_upstream_url": "UNKNOWN",
+      "asset_library_search_result_url": "https://godotengine.org/asset-library/asset/4961",
+      "current_upstream_status": "UNKNOWN",
+      "reason": "Search-result URL only; official page could not be fetched, so identity, publisher, release, license, compatibility and mutation scope are unverified."
+    },
+    {
+      "lead": "AI Assistant Hub — Asset Library search result 3427",
+      "canonical_upstream_url": "UNKNOWN",
+      "asset_library_search_result_url": "https://godotengine.org/asset-library/asset/3427",
+      "current_upstream_status": "UNKNOWN",
+      "reason": "Search-result URL only; official page could not be fetched, so identity, publisher, release, license, compatibility and mutation scope are unverified."
+    },
+    {
+      "lead": "GDMCP — Asset Library search result 5403",
+      "canonical_upstream_url": "UNKNOWN",
+      "asset_library_search_result_url": "https://godotengine.org/asset-library/asset/5403",
+      "current_upstream_status": "UNKNOWN",
+      "reason": "Search-result URL only; official page could not be fetched, so identity, publisher, release, license, compatibility and mutation scope are unverified."
     }
   ],
   "categories": [
@@ -116,13 +157,13 @@
       ]
     },
     {
-      "name": "Local Ollama model with an MCP-capable host and Godot MCP",
+      "name": "Conditional Ollama model with MCP host (unverified product pairing)",
       "categories": [4, 5, 7],
       "canonical_upstream_url": "UNKNOWN (no dedicated Godot/Ollama plugin or verified host pairing established; related server: https://github.com/Coding-Solo/godot-mcp)",
       "official_asset_library_url": "NOT_APPLICABLE (conditional external model/client combination)",
       "latest_release_tag": "UNKNOWN",
       "latest_release_date": "UNKNOWN",
-      "maintenance_activity_signal": "No dedicated upstream Godot 4.7.2 Ollama assistant was verified in this research. This entry documents a conditional architecture, not a product endorsement.",
+      "maintenance_activity_signal": "This is an architecture pattern, not a product: a separate host/model would need to support both Ollama and the selected Godot MCP server. No concrete pairing was tested.",
       "license": "UNKNOWN (depends on the selected MCP host, model and server)",
       "supported_godot_versions": {
         "upstream_statement": "Inherited from the selected Godot MCP server and project.",
@@ -145,7 +186,7 @@
       "reproducibility_offline_viability": "Possible only after model and dependencies are pinned and cached; reproducibility and fully offline behavior were not verified.",
       "integration_complexity": "High/UNKNOWN: depends on MCP transport, tool calling, local model capacity, host policy and model distribution.",
       "luhm_status": "UNKNOWN",
-      "luhm_status_reason": "A specific compatible Ollama/MCP configuration and its local-only data path have not been verified.",
+      "luhm_status_reason": "A specific compatible Ollama/MCP configuration and its local-only data path have not been verified; see the separate Ollama Assistant candidate for script-only local code help.",
       "evidence_urls": [
         "https://github.com/Coding-Solo/godot-mcp",
         "https://github.com/ollama/ollama"
@@ -184,6 +225,157 @@
       "luhm_status_reason": "Useful as an architecture reference only; cloud data policy and project-write controls must be selected and reviewed separately.",
       "evidence_urls": [
         "https://github.com/Coding-Solo/godot-mcp"
+      ]
+    },
+    {
+      "name": "Funplay MCP for Godot",
+      "categories": [1, 4, 6, 7, 15, 18, 22],
+      "canonical_upstream_url": "https://github.com/FunplayAI/funplay-godot-mcp",
+      "official_asset_library_url": "NOT_VERIFIED (upstream links to the separate Godot Asset Store, not the official Godot Asset Library)",
+      "latest_release_tag": "v0.10.0",
+      "latest_release_date": "UNKNOWN",
+      "maintenance_activity_signal": "GitHub releases include v0.10.0 with editor/HTTP integration tests and fixes; repository activity metadata reported 2026-09-22.",
+      "license": "MIT",
+      "supported_godot_versions": {
+        "upstream_statement": "README advertises Godot 4.2+ and says it is also usable in Godot .NET projects.",
+        "godot_4_7_2": "No explicit 4.7.2 test evidence; upstream's minimum-version claim is not a test result."
+      },
+      "implementation_language_and_dependencies": "Editor addon implemented in GDScript; optional Node.js/npm stdio wrapper. Model/client is separately selected.",
+      "editorplugin_vs_runtime_behavior": "README marks the plugin editor-only; no exported runtime component is claimed.",
+      "android_export_viability": "Not an exported runtime addon. Android editor/export interaction is UNKNOWN.",
+      "headless_ci_viability": "README describes tests that launch Godot instances; no 4.7.2 headless CI support matrix verified.",
+      "gl_compatibility_implications": "UNKNOWN; editor MCP capability does not prove target project renderer behavior.",
+      "installation_footprint": "Copy `addons/funplay_mcp` into a project; optional npm/stdio wrapper and generated MCP client configuration. Exact size/dependency tree UNKNOWN.",
+      "permissions_filesystem_mutation_scope": "Local HTTP bridge defaults to 127.0.0.1:8765 and uses a per-project token in user:// settings. Optional Configure + Skills writes project-local .funplay/skills and AGENTS.md files; config generation writes client files. High-impact execute_code is exposed.",
+      "network_endpoints_telemetry_data_egress": "Local bridge is loopback by default. npx package retrieval may contact npm; model/client network egress and telemetry are provider-specific and UNKNOWN.",
+      "api_key_or_secret_requirements": "Per-project bridge token is required for authenticated local MCP POST requests. Model API key/subscription, if any, belongs to the external client/provider.",
+      "local_model_support": "No model bundled; local-model support depends on MCP client.",
+      "ollama_compatibility": "Not explicitly documented or tested.",
+      "cloud_model_providers": "README shows clients including Claude Code, Cursor, Windsurf, Codex and VS Code Copilot; these are client integrations, not a provider guarantee.",
+      "execute_commands_or_mutate_files_scenes": "Yes. README advertises scene/script/UI/animation/editor/play-mode operations and execute_code; optional project skills/config generation also writes files. Safety checks are on by default and should remain enabled.",
+      "security_privacy_concerns": "High-trust editor control and code execution; local token/loopback transport narrows exposure but does not sandbox a trusted client. Disable server when not in use, reject auto-approval for writes/execution, review generated diffs and protect generated client configs.",
+      "reproducibility_offline_viability": "Addon can be copied/pinned locally; npx bootstrap needs package availability unless cached. Model/client offline behavior depends on provider and is UNKNOWN.",
+      "integration_complexity": "Medium: editor plugin, local endpoint/token, client configuration and optional Node package.",
+      "luhm_status": "CANDIDATE",
+      "luhm_status_reason": "Active v0.10.0 release with broad editor operation claims and a local token/safety-check model; only a disposable, human-approved 4.7.2/renderer/security evaluation is appropriate.",
+      "evidence_urls": [
+        "https://github.com/FunplayAI/funplay-godot-mcp",
+        "https://github.com/FunplayAI/funplay-godot-mcp/releases",
+        "https://github.com/FunplayAI/funplay-godot-mcp/commits/main",
+        "https://github.com/FunplayAI/funplay-godot-mcp/blob/main/addons/funplay_mcp/plugin.cfg"
+      ]
+    },
+    {
+      "name": "Godot AI MCP (Event Horizon Studio)",
+      "categories": [1, 4, 6, 7, 11, 15, 18],
+      "canonical_upstream_url": "https://github.com/event-horizon-studio/godot-ai-mcp",
+      "official_asset_library_url": "UNKNOWN (no official listing verified)",
+      "latest_release_tag": "UNKNOWN (GitHub releases page showed no release)",
+      "latest_release_date": "UNKNOWN",
+      "maintenance_activity_signal": "README has npm/Godot 4.7+ badges and usage documentation; activity metadata reported 2026-09-22, but no GitHub release tag was found.",
+      "license": "MIT (upstream README badge and LICENSE link)",
+      "supported_godot_versions": {
+        "upstream_statement": "README advertises Godot 4.7+.",
+        "godot_4_7_2": "Within the advertised 4.7+ range but no explicit 4.7.2 test evidence was found."
+      },
+      "implementation_language_and_dependencies": "Pure GDScript @tool EditorPlugin plus Node.js 18+ MCP stdio process; no .NET requirement stated.",
+      "editorplugin_vs_runtime_behavior": "Editor-only plugin communicating with a local MCP server; no exported runtime component is described.",
+      "android_export_viability": "Not a game runtime dependency; Android editor/export viability is UNKNOWN.",
+      "headless_ci_viability": "Requires live editor for editor/viewport operations; no headless CI claim or test matrix verified.",
+      "gl_compatibility_implications": "Viewport functions are editor-facing; renderer-specific GL Compatibility behavior is UNKNOWN.",
+      "installation_footprint": "Copy Godot plugin directory into project addons plus npx Node process; exact size/dependency tree UNKNOWN.",
+      "permissions_filesystem_mutation_scope": "Local TCP bridge is documented at 127.0.0.1:6505. Can mutate editor project state/settings and read/write scripts. README does not establish authentication or process sandboxing; verify before any trial.",
+      "network_endpoints_telemetry_data_egress": "Local loopback bridge; npx may fetch from npm. Model/client traffic and telemetry are external/UNKNOWN.",
+      "api_key_or_secret_requirements": "No key for the local bridge documented; provider/model credentials are determined by MCP host.",
+      "local_model_support": "No model bundled; depends on MCP host.",
+      "ollama_compatibility": "No direct Ollama pairing documented.",
+      "cloud_model_providers": "README gives MCP client examples (Claude, Cursor, Cline, Windsurf, Gemini CLI); provider depends on the client.",
+      "execute_commands_or_mutate_files_scenes": "Yes. README lists node/scene/project-settings changes, GDScript read/write/execute, primitive mesh/collision and material creation, and viewport screenshots; undo/redo is stated for node/property/signal changes.",
+      "security_privacy_concerns": "GDScript execution and project mutation are high trust. Localhost transport is not a sandbox; authentication controls were not verified. Require client approvals, isolate checkout and inspect all generated scripts/resources.",
+      "reproducibility_offline_viability": "Plugin source can be pinned; npx package bootstrapping may need npm network. Model/client offline mode UNKNOWN.",
+      "integration_complexity": "Medium: Godot editor plugin, Node process and local TCP lifecycle; no stable release evidenced.",
+      "luhm_status": "REFERENCE_ONLY",
+      "luhm_status_reason": "Promising pure-GDScript Godot 4.7+ bridge with undo/redo claims, but no release, authentication evidence or 4.7.2 test was verified.",
+      "evidence_urls": [
+        "https://github.com/event-horizon-studio/godot-ai-mcp",
+        "https://github.com/event-horizon-studio/godot-ai-mcp/releases",
+        "https://github.com/event-horizon-studio/godot-ai-mcp/commits/main",
+        "https://www.npmjs.com/package/godot-ai-mcp"
+      ]
+    },
+    {
+      "name": "Ollama Assistant for Godot",
+      "categories": [1, 5, 7],
+      "canonical_upstream_url": "https://github.com/TheCronkTM/godot-ollama-assistant",
+      "official_asset_library_url": "UNKNOWN (README recommends searching AssetLib for “Ollama Assistant”; exact catalog ID/page unavailable)",
+      "latest_release_tag": "UNKNOWN (no release tag verified)",
+      "latest_release_date": "UNKNOWN",
+      "maintenance_activity_signal": "README and plugin usage docs are available; repository activity metadata reported 2026-02-23. No release tag/date verified.",
+      "license": "MIT",
+      "supported_godot_versions": {
+        "upstream_statement": "README says Godot 4.4 or later.",
+        "godot_4_7_2": "Within the advertised minimum range, but no explicit 4.7.2 test evidence found."
+      },
+      "implementation_language_and_dependencies": "Godot editor addon written in GDScript plus locally installed Ollama and a code-oriented model.",
+      "editorplugin_vs_runtime_behavior": "Editor dock/plugin for development-time code assistance; not a game runtime addon.",
+      "android_export_viability": "Not exported into the game; Android editor/plugin usability is UNKNOWN.",
+      "headless_ci_viability": "Not a test runner; headless editor behavior UNKNOWN.",
+      "gl_compatibility_implications": "Not renderer-dependent by documented purpose; no compatibility test evidence.",
+      "installation_footprint": "Project-local addons/ollama_assistant plus Ollama application/model weights; model storage size is model-specific and UNKNOWN.",
+      "permissions_filesystem_mutation_scope": "Reads selected script context and applies generated code to the selected script in the editor; runs with Godot editor user's permissions. No scene/project-tree authoring scope documented.",
+      "network_endpoints_telemetry_data_egress": "Ollama API defaults to localhost:11434. Model pull/setup may use network; README says use is offline after setup. Telemetry/source audit not performed.",
+      "api_key_or_secret_requirements": "No cloud API key documented for local Ollama use.",
+      "local_model_support": "Yes; selects models installed in local Ollama.",
+      "ollama_compatibility": "Explicit: README requires Ollama and connects to localhost:11434.",
+      "cloud_model_providers": "None documented in this plugin.",
+      "execute_commands_or_mutate_files_scenes": "Applies generated code to a selected script; no scene-tree, shader, dialogue, texture or general command execution feature documented.",
+      "security_privacy_concerns": "Script edits are executable code; review diffs before saving/using. Confirm local endpoint, Ollama logs, model downloads and any host telemetry before making a local-only privacy claim.",
+      "reproducibility_offline_viability": "README claims offline use after setup and local model pull. Reproducibility depends on pinning plugin/model/Ollama versions; exact guarantees UNKNOWN.",
+      "integration_complexity": "Low to medium for local GDScript assistance; requires Ollama installation, model download and editor dock.",
+      "luhm_status": "CANDIDATE",
+      "luhm_status_reason": "Verified local GDScript assistant with an explicit Ollama endpoint and narrow selected-script scope; evaluate separately from scene-mutating MCP tools.",
+      "evidence_urls": [
+        "https://github.com/TheCronkTM/godot-ollama-assistant",
+        "https://github.com/TheCronkTM/godot-ollama-assistant/commits/main",
+        "https://github.com/TheCronkTM/godot-ollama-assistant/blob/main/LICENSE"
+      ]
+    },
+    {
+      "name": "Godot-MCP (Ivan Murzak)",
+      "categories": [1, 4, 6, 7, 11, 18],
+      "canonical_upstream_url": "https://github.com/IvanMurzak/Godot-MCP",
+      "official_asset_library_url": "https://godotengine.org/asset-library/asset/5245 (search-result lead; official page details could not be fetched)",
+      "latest_release_tag": "UNKNOWN",
+      "latest_release_date": "UNKNOWN",
+      "maintenance_activity_signal": "README documents current CLI/server workflow and 42 tools; release/activity date and exact latest version were not established.",
+      "license": "UNKNOWN (verify repository license before evaluation)",
+      "supported_godot_versions": {
+        "upstream_statement": "README advertises Godot 4.3+ and describes a C# editor addon.",
+        "godot_4_7_2": "Within advertised minimum version, but no explicit 4.7.2 test evidence found."
+      },
+      "implementation_language_and_dependencies": "C# EditorPlugin/MCP stack; README requires .NET 8 and NuGet packages/ReflectorNet. Uses godot-cli tooling.",
+      "editorplugin_vs_runtime_behavior": "Editor addon and MCP integration; no game runtime feature intended.",
+      "android_export_viability": "Not an exported runtime feature; C# editor/tool workflow on Android is UNKNOWN.",
+      "headless_ci_viability": "No 4.7.2 headless support evidence verified; setup expects Godot editor and .NET build.",
+      "gl_compatibility_implications": "Editor tool does not establish renderer support; viewport screenshot behavior on Compatibility is UNKNOWN.",
+      "installation_footprint": "Addon plus .NET 8/NuGet dependencies, CLI, MCP client and optionally hosted/self-hosted server; higher footprint than script-only addon.",
+      "permissions_filesystem_mutation_scope": "Can mutate scenes, nodes, resources and scripts; godot-cli install-plugin adds NuGet packages and extension-catalog resources to .csproj and enables plugin in project.godot. Reflection tool can call methods across loaded assemblies.",
+      "network_endpoints_telemetry_data_egress": "Default cloud route uses ai-game.dev and OAuth/device login; NuGet/npm/package downloads use network. Self-hosting is documented. Exact telemetry/data retention UNKNOWN.",
+      "api_key_or_secret_requirements": "README documents OAuth 2.1 device login for ai-game.dev default route; local credential is stored machine-wide. Self-hosted route credentials/policy are configuration-dependent.",
+      "local_model_support": "Agent/provider is described as configurable; self-hosted service is available, but local model inference is not established.",
+      "ollama_compatibility": "No direct Ollama integration documented.",
+      "cloud_model_providers": "README names Anthropic, OpenAI, Google and other MCP-aware agents; default backend ai-game.dev, with self-hosted option.",
+      "execute_commands_or_mutate_files_scenes": "Yes: 42 tools cover scenes/nodes/resources, GDScript/C# scripts and screenshots; CLI installation changes project/C# configuration; reflection escape hatch broadens invocation scope.",
+      "security_privacy_concerns": "Default cloud backend transmits tool context externally; machine-wide OAuth credential, C# reflection, project configuration mutation, NuGet dependencies and arbitrary editor actions need explicit review.",
+      "reproducibility_offline_viability": "Local source install and pinned release are documented; default cloud route is online. Fully offline editor/tool operation and model behavior UNKNOWN.",
+      "integration_complexity": "High for a non-.NET project: .NET 8, NuGet, CLI, editor plugin and cloud/self-hosted server setup.",
+      "luhm_status": "REFERENCE_ONLY",
+      "luhm_status_reason": "Broad comparator for C# and hosted/self-hosted MCP, but .NET/cloud/reflection complexity is disproportionate to current project needs and exact license/version evidence remains incomplete.",
+      "evidence_urls": [
+        "https://github.com/IvanMurzak/Godot-MCP",
+        "https://github.com/IvanMurzak/Godot-MCP/blob/main/README.md",
+        "https://github.com/IvanMurzak/Godot-MCP/commits/main",
+        "https://godotengine.org/asset-library/asset/5245"
       ]
     },
     {
@@ -849,7 +1041,13 @@
     "testing_and_ci": ["GUT (Godot Unit Test)"],
     "debug_visualization": ["Debug Draw 3D"],
     "code_productivity": ["Godot Tools for VS Code"],
-    "editor_automation_reference_only": ["Godot MCP (Coding-Solo)"],
+    "editor_automation_bridges": [
+      "Funplay MCP for Godot",
+      "Godot MCP (Coding-Solo)",
+      "Godot AI MCP (Event Horizon Studio)",
+      "Godot-MCP (Ivan Murzak)"
+    ],
+    "local_script_assistance": ["Ollama Assistant for Godot"],
     "terrain_and_world_building_reference_only": ["Terrain3D", "ProtonScatter", "Voxel Tools"],
     "pixel_art_companion": ["Pixelorama"],
     "sprite_animation_import": ["Aseprite Wizard"],
@@ -859,10 +1057,11 @@
   },
   "coverage_notes": [
     "All 22 categories are represented by the category index and categorized survey in the companion Markdown document. Built-in engine systems and external companion applications are explicitly distinguished from installable addons.",
-    "No AI-assisted tool was verified as a full autonomous author for all listed content types. Godot MCP documents direct scene/project operations; external model/client capabilities are separate.",
+    "No AI-assisted tool was verified as a full autonomous author for all listed content types. Individual tools document different editor, script and resource operations; provider capabilities are separate.",
+    "Ollama Assistant documents local selected-script GDScript edits. Funplay, Godot AI MCP and Ivan Murzak MCP document distinct scene/script/resource operations; none has an explicit 4.7.2 test result here.",
     "No direct Ollama/Godot MCP pairing was validated. Local-only operation is conditional on the selected host and its data path.",
     "Cloud model credentials, providers, network egress and retention belong to the external assistant/provider, not the Godot MCP server.",
-    "The Asset Library host was inaccessible in the research environment. Unknown direct catalog URLs and missing exact release dates are deliberate evidence gaps, not negative claims.",
+    "The Asset Library host was inaccessible in the research environment. Debug Draw 3D's direct asset page is linked by its upstream README; additional AI catalog links are search-result leads only. Unverified details remain unknown, not negative claims.",
     "Godot 4.7.2 support, Android viability, headless CI, GL Compatibility, binary ABI, security and offline behavior must be independently revalidated before T1/T2/T3 integration."
   ]
 }
