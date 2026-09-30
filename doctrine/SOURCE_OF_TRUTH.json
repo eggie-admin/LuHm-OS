@@ -120,6 +120,21 @@
     "productionSigningAuthority": false,
     "crownStatus": "STOP"
   },
+  "publicationMilestone": {
+    "contract": "doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json",
+    "auditor": "tools/pluginPublicationAudit.py",
+    "workflow": ".github/workflows/plugin-publication-audit.yml",
+    "status": "GREEN_PUBLICATION_CANDIDATE_SOURCE_RUNTIME_LISTING",
+    "testedSourceCommit": "52ecfce60554fa31cdfe2dcb7cb7fb49c8bb7bc1",
+    "promotedByMergeCommit": "69630053ffd9804a7960202ca9245705e77dad87",
+    "scope": "public-read-only-chatgpt-plugin",
+    "mcpUrl": "https://luhm-os-publication-green.onrender.com/mcp",
+    "websiteUrl": "https://luhm-os-publication-site.onrender.com/",
+    "externalOpenAiGates": "AMBER_PENDING_PORTAL",
+    "publicationAuthority": false,
+    "directoryPublicationProven": false,
+    "crownStatus": "STOP"
+  },
   "reconciliation": {
     "observedMain": "013e056ad7fdf37ba92c298768d57806667a509c",
     "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b",
