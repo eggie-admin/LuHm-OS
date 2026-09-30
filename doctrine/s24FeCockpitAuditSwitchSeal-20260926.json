@@ -1,7 +1,7 @@
 {
   "schema": "luhm-os.s24fe-cockpit-audit-switch-seal.v1",
   "date": "2026-09-26",
-  "status": "GREEN_CI_DEVICE_PROOF_PENDING",
+  "status": "AMBER_CI_DEVICE_PROOF_PENDING",
   "authority": "Professor",
   "canonical_repository": "eggie-admin/LuHm-OS",
   "promotedMergeCommit": "7752ade36ad24c3970a0026c3911e3781606dbde",
