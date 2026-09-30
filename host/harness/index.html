@@ -4,46 +4,77 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<title>LuHm OS Harness</title>
+<title>LuHm OS Asset Desk</title>
 <link rel="stylesheet" href="/harness/assets/cockpit.css">
 </head>
 <body>
-<main class="shell">
-<header class="topbar">
-  <div class="petDock" id="petDock" aria-label="Lum pet">
+<main class="shell" id="shell">
+<header class="topbar" id="parallaxHeader">
+  <button class="petDock" id="petDock" type="button" aria-label="Cycle Lum and Oni pets">
     <div class="pixelPet" id="pixelPet"><span id="petGlyph">L</span></div>
-  </div>
+  </button>
   <div class="titleBlock">
-    <h1>LuHm OS · Render Harness</h1>
-    <div class="subtitle">local-first shell · ChatGPT frame · Godot 4 viewer</div>
+    <h1>LuHm OS · Asset Desk</h1>
+    <div class="subtitle">local asset intake · media desk · Godot 4 viewer · ChatGPT frame</div>
   </div>
   <div class="badge" id="edgeBadge">checking edge…</div>
 </header>
 
 <section class="statusGrid">
   <article class="panel"><span class="label">network</span><strong id="networkStatus">loading…</strong><small id="networkNote"></small></article>
-  <article class="panel"><span class="label">chat frame</span><strong>ui://luhm-os/cockpit-v1.html</strong><small>self-contained; no third-party CDN in chat</small></article>
+  <article class="panel"><span class="label">asset intake</span><strong>LOCAL BROWSER ONLY</strong><small>No file upload endpoint. Blob URLs die with the page.</small></article>
   <article class="panel"><span class="label">pet</span><strong id="petName">Lum</strong><small id="petRole">orchestrator</small></article>
   <article class="panel"><span class="label">authority</span><strong class="amber">READ ONLY</strong><small>AI proposes. Human promotes.</small></article>
 </section>
 
-<section class="workspace">
-  <article class="panel library">
-    <div class="panelHead"><h2>JavaScript library shelf</h2><span class="tiny">policy, not auto-load</span></div>
-    <div id="libraryList" class="chips"></div>
-    <p class="tiny">Production uses vendored/self-hosted assets only. Development CDNs stay opt-in and pinned.</p>
-  </article>
+<section class="desk">
+  <aside class="panel explorer">
+    <div class="panelHead"><h2>Workspace tree</h2><span class="tiny">donor ideas, LuHm rules</span></div>
+    <div id="assetTree" class="tree" role="tree" aria-label="Local asset tree"></div>
+    <label class="dropZone" id="dropZone" for="assetInput">
+      <strong>Drop assets here</strong>
+      <span>image · video · PDF</span>
+      <input id="assetInput" type="file" multiple accept="image/*,video/*,application/pdf">
+    </label>
+    <button class="ghostButton" id="clearAssets" type="button">Clear local desk</button>
+  </aside>
 
-  <article class="panel godot">
-    <div class="panelHead"><h2>Godot 4 Web viewport</h2><span class="badge" id="godotBadge">probing…</span></div>
-    <div class="godotStage" id="godotStage">
-      <div class="emptyState" id="godotEmpty">No staged Web export yet. Export target: <code>host/harness/godot-export/index.html</code>.</div>
-      <iframe id="godotFrame" title="Godot 4 Web viewer" sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-downloads" referrerpolicy="no-referrer"></iframe>
-    </div>
-  </article>
+  <section class="mainDesk">
+    <article class="panel mediaPanel">
+      <div class="panelHead">
+        <h2>Media carousel</h2>
+        <div class="toolbar">
+          <button id="prevAsset" type="button" aria-label="Previous asset">◀</button>
+          <span class="badge" id="assetCounter">0 / 0</span>
+          <button id="nextAsset" type="button" aria-label="Next asset">▶</button>
+        </div>
+      </div>
+      <div class="previewStage" id="previewStage">
+        <div class="emptyState" id="previewEmpty">Drop an image, video, or PDF. Nothing leaves this browser.</div>
+        <img id="imagePreview" alt="Selected local asset preview">
+        <video id="videoPreview" controls playsinline></video>
+        <iframe id="pdfPreview" title="Local PDF preview" sandbox></iframe>
+      </div>
+      <div id="thumbRail" class="thumbRail" aria-label="Asset carousel thumbnails"></div>
+    </article>
+
+    <article class="panel godot">
+      <div class="panelHead"><h2>Godot 4 Web viewport</h2><span class="badge" id="godotBadge">probing…</span></div>
+      <div class="godotStage" id="godotStage">
+        <div class="emptyState" id="godotEmpty">No staged Web export yet. Target: <code>host/harness/godot-export/index.html</code>.</div>
+        <iframe id="godotFrame" title="Godot 4 Web viewer" sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-downloads" referrerpolicy="no-referrer"></iframe>
+      </div>
+    </article>
+  </section>
 </section>
 
-<footer>Render terminates TLS and redirects public HTTP to HTTPS. Local development stays on <code>127.0.0.1</code>. Render origin is IPv4-only.</footer>
+<section class="panel libraryShelf">
+  <div class="panelHead"><h2>Library / donor policy</h2><span class="tiny">production stays same-origin</span></div>
+  <div id="libraryList" class="chips"></div>
+  <p class="tiny">Uploaded examples are treated as donors. Remote scripts, analytics, ads, arbitrary upload endpoints, and unclear-license code are not promoted.</p>
+</section>
+
+<footer>Public Render edge is HTTPS. Local development uses <code>127.0.0.1</code>. Render origin is IPv4-only. This asset desk has no server-side upload route.</footer>
 </main>
 <script src="/harness/assets/cockpit.js" defer></script>
 </body>
