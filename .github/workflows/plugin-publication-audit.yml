@@ -55,7 +55,54 @@ jobs:
           python -m json.tool doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json >/dev/null
           python -m json.tool doctrine/MCP_ENTERPRISE_SCOPE_V1.json >/dev/null
           python -m json.tool plugins/luhm-os/plugin.json >/dev/null
+          python -m json.tool plugins/luhm-os/mcp.json >/dev/null
           python -m json.tool plugins/luhm-os/review-tests.json >/dev/null
+
+      - name: Enforce current OpenAI package metadata constraints
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+          from xml.etree import ElementTree as ET
+
+          root = Path('.')
+          plugin_root = root / 'plugins/luhm-os'
+          plugin = json.loads((plugin_root / 'plugin.json').read_text())
+          mcp = json.loads((plugin_root / 'mcp.json').read_text())
+          tests = json.loads((plugin_root / 'review-tests.json').read_text())
+          interface = plugin['extensions']['com.openai']['interface']
+
+          assert 1 <= len(interface['displayName']) <= 30
+          assert 1 <= len(interface['shortDescription']) <= 30
+          assert len(interface['longDescription']) <= 4000
+          assert 1 <= len(interface['developerName']) <= 80
+          assert re.fullmatch(r'#[0-9A-Fa-f]{6}', interface['brandColor'])
+          for key in ('websiteURL', 'privacyPolicyURL', 'termsOfServiceURL'):
+              assert interface[key].startswith('https://'), (key, interface[key])
+          assert len(tests.get('positive', [])) == 5
+          assert len(tests.get('negative', [])) == 3
+          assert mcp['mcpServers']['luhm']['url'] == 'https://luhm-os-publication-green.onrender.com/mcp'
+
+          for key in ('logo', 'composerIcon'):
+              rel = interface[key]
+              assert rel.startswith('./') and '..' not in rel
+              path = plugin_root / rel[2:]
+              assert path.is_file() and path.stat().st_size > 0
+              assert path.suffix.lower() in {'.png', '.jpg', '.jpeg', '.webp', '.svg'}
+              if path.suffix.lower() == '.svg':
+                  svg = ET.parse(path).getroot()
+                  view_box = svg.attrib.get('viewBox', '').split()
+                  assert len(view_box) == 4
+                  width, height = float(view_box[2]), float(view_box[3])
+                  assert width == height and 48 <= width <= 4096
+
+          prompts = interface.get('defaultPrompt', [])
+          assert prompts and len(prompts) == len({p.strip() for p in prompts})
+          assert all('@' not in p for p in prompts)
+          print('OPENAI_PACKAGE_METADATA_CONSTRAINTS=PASS')
+          PY
 
       - name: Run publication negative controls
         shell: bash
