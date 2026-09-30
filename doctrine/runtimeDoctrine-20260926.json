@@ -1,0 +1,122 @@
+{
+  "schema": "luhm-os.runtime-doctrine.v1",
+  "version": "1.0",
+  "date": "2026-09-26",
+  "status": "FULL_MUTATION_CANDIDATE",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true,
+    "ai_self_approval": false,
+    "consequential_mutations_require_human_authorization": true
+  },
+  "source": {
+    "repository": "eggie-admin/LuHm-OS",
+    "canonical_branch": "main",
+    "candidate_branch": "candidate/witching-hour-three-ritual-cathedral-20260926",
+    "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes."
+  },
+  "runtime": {
+    "world_owner": "Godot 4",
+    "ui_owner": "caged local Android WebView WebGlass",
+    "web_origin": "https://appassets.androidplatform.net",
+    "network": "dark",
+    "runtime_downloads": false,
+    "embedded_secrets": false,
+    "generic_shell": false,
+    "filesystem_bridge": false,
+    "eval_bridge": false,
+    "arbitrary_url_bridge": false,
+    "root": false,
+    "silent_install": false,
+    "bridge": {
+      "request_schema": "luhm.bridge.v1",
+      "reply_schema": "luhm.bridge.reply.v1",
+      "fail_closed": true,
+      "capabilities": {
+        "window_modes": ["bubble", "compact", "panel", "fullscreen", "hidden"],
+        "toy_actions": ["pet_lum", "oni_pop", "crown_pulse"],
+        "rituals": ["crown_wake", "oni_trinity", "witching_hour"],
+        "avatar_sliders": ["height", "head", "shoulders", "torso", "arms", "legs", "hips", "frame"],
+        "message_types": [
+          "system.capabilities",
+          "world.show",
+          "toy.action",
+          "ritual.start",
+          "input.axis",
+          "camera.delta",
+          "window.mode",
+          "avatar.tune",
+          "avatar.reset",
+          "avatar.inspect",
+          "app.quit",
+          "chat.send"
+        ]
+      }
+    }
+  },
+  "ritual_system": {
+    "count": 3,
+    "one_at_a_time": true,
+    "unknown_ids_fail_closed": true,
+    "explicit_cancel_restores_lum": true,
+    "persistent_mutation": false,
+    "rituals": {
+      "crown_wake": ["crown_pulse", "pet_lum"],
+      "oni_trinity": ["oni_pop", "lum_pulse", "crown_pulse"],
+      "witching_hour": ["oni_pop", "temporary_lum_expression", "crown_pulse", "lum_pulse", "restore"]
+    }
+  },
+  "agent_mesh": {
+    "boss": "Lum",
+    "default_helpers": {
+      "Context": "Oni-Kumo",
+      "Build": "Oni-Tetsu",
+      "Research": "Oni-Sumi"
+    },
+    "conditional_helper": {
+      "Critic": "Oni-Ibara"
+    },
+    "deterministic_executor": "Kanabo Gate",
+    "parallelism_max": 3,
+    "delegation_depth_max": 1,
+    "recursive_recruitment": false,
+    "parallel_writes": false,
+    "direct_questions_bypass_mesh": true,
+    "evidence_by_reference": true
+  },
+  "learning": {
+    "mode": "candidate_memory_only",
+    "candidate_state": "CANDIDATE_NOT_ACTIVE",
+    "human_promotion_required": true,
+    "autonomous_prompt_mutation": false,
+    "autonomous_source_mutation": false,
+    "autonomous_model_weight_mutation": false
+  },
+  "kai9000": {
+    "termux": "optional_external_companion",
+    "ollama": "optional_loopback_companion",
+    "android_to_termux_exec": false,
+    "apk_lifecycle_authority": false,
+    "sidecar_public_bind": false
+  },
+  "build": {
+    "package": "art.eggiebagelface.luhmos.cathedraltoy.motionrepair",
+    "version_code": 128,
+    "version_name": "1.0.28-cathedral.fullmutation.1",
+    "target_sdk": 36,
+    "abi": "arm64-v8a",
+    "internet_permission": false,
+    "signing": "ephemeral_debug_candidate",
+    "production_signing": false
+  },
+  "promotion_gates": {
+    "source_green": "exact-head doctrine and contract audit",
+    "ci_green": "required exact-head workflows successful",
+    "apk_green": "package + signature + 16K alignment + payload + SHA256",
+    "device_green": "physical Samsung install/runtime receipt",
+    "main_merge": "NOT_AUTHORIZED",
+    "public_release": "NOT_AUTHORIZED",
+    "unknown_is_not_green": true
+  },
+  "promotion": false
+}

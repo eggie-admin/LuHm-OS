@@ -1,0 +1,153 @@
+{
+  "schema": "luhm-os.pet-runtime-hardening.v1",
+  "id": "LUHM_OS_PET_RUNTIME_HARDENING_20260926",
+  "status": "CROWN_AMBER_CANDIDATE",
+  "date_local": "2026-09-26",
+  "authority": "Professor",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "base_commit": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+  "snapshot_branch": "snapshot/pre-pet-runtime-hardening-20260926",
+  "candidate_branch": "luhm/pet-runtime-hardening-20260926",
+  "goal": "Harden the LuHm OS pet shell from fullscreen Cathedral through compact player, pet inspection, chat-head/bubble, background companion, and explicit quit while keeping Ollama, Termux:X11, Android lifecycle, source-of-truth, licensing, and Crown boundaries fail-closed.",
+  "ux_modes": [
+    {
+      "id": "FULLSCREEN",
+      "intent": "Full Cathedral/game cockpit.",
+      "implementation": "Godot foreground activity/window.",
+      "authority": "LOCAL_UI"
+    },
+    {
+      "id": "MINI_PLAYER",
+      "intent": "Original Winamp-inspired compact floating control strip without copying Winamp artwork or skins.",
+      "implementation": "Desktop/X11 borderless compact window; Android remains an in-app compact mode until native shell evidence exists.",
+      "authority": "LOCAL_UI"
+    },
+    {
+      "id": "PET_INSPECT",
+      "intent": "Cute adult pixel-anime wifey sitter inspection window with touch/gamepad controls.",
+      "implementation": "Original LuHm assets only; provenance manifest required for any third-party donor asset.",
+      "authority": "LOCAL_UI"
+    },
+    {
+      "id": "CHAT_HEAD",
+      "intent": "Collapsible chat-head/bubble interaction.",
+      "implementation": "Godot/X11 floating window on desktop; Android system bubble requires a native Android notification/conversation lane and explicit user enablement. No fake overlay claim.",
+      "authority": "CANDIDATE_NATIVE_SHELL"
+    },
+    {
+      "id": "BACKGROUND",
+      "intent": "Keep local companion services available without leaving a visible game window.",
+      "implementation": "Termux/Ollama/X11 companion processes remain separate from the Android runtime. Android persistent background work must obey current foreground-service/background-start rules and visible notification requirements where applicable.",
+      "authority": "COMPANION_LANE"
+    },
+    {
+      "id": "EXIT",
+      "intent": "Explicitly stop LuHm-owned UI/processes and return control to the operator.",
+      "implementation": "No hidden restart, no zombie child ownership, no kill-all behavior outside known LuHm process scope.",
+      "authority": "LOCAL_OPERATOR"
+    }
+  ],
+  "runtime_lanes": {
+    "godot": {
+      "role": "visible app/game/pet presentation",
+      "status": "CURRENT_CLEAN_SPINE",
+      "rules": [
+        "feature-gate desktop window flags",
+        "do not claim Android always-on-top support from desktop APIs",
+        "no arbitrary shell execution",
+        "no embedded secrets"
+      ]
+    },
+    "ollama": {
+      "role": "local model daemon/CLI companion",
+      "status": "COMPANION_CANDIDATE_NOT_ANDROID_CONTROL_PLANE",
+      "rules": [
+        "bind local-only unless explicitly Crown-approved otherwise",
+        "do not treat the unauthenticated local API as safe for network exposure",
+        "prefer OLLAMA_NO_CLOUD when a strictly local session is required",
+        "bound model keep-alive and concurrency for mobile thermals",
+        "probe actual daemon and model state before reporting GREEN"
+      ]
+    },
+    "termux": {
+      "role": "operator-owned local toolchain and companion services",
+      "status": "SEPARATE_FROM_CLEAN_ANDROID_RUNTIME",
+      "rules": [
+        "no Termux execution bridge inside the LuHm Android runtime",
+        "no root requirement",
+        "scoped permissions only",
+        "runtime dependencies stay in Termux private home unless proven safe elsewhere"
+      ]
+    },
+    "termux_x11": {
+      "role": "desktop/X11 host for real floating sitter windows",
+      "status": "OPTIONAL_COMPANION",
+      "rules": [
+        "use the official Termux:X11 app plus companion package as a matched pair",
+        "do not recommend SELinux disabling or root bypasses",
+        "keep display/process ownership explicit",
+        "quit must distinguish Android activity from X server process"
+      ]
+    },
+    "android_native_shell": {
+      "role": "future notification bubble/foreground-service lifecycle adapter",
+      "status": "AMBER_NOT_IMPLEMENTED",
+      "rules": [
+        "system bubbles are user-controlled",
+        "conversation bubble requirements must be satisfied before claiming support",
+        "foreground-service start restrictions apply",
+        "persistent background execution is not equivalent to an immortal process"
+      ]
+    }
+  },
+  "sprite_contract": {
+    "style": "original cute sexy pixel-anime adult wifey sitters, mature but non-explicit",
+    "required_states": ["idle", "blink", "talk", "inspect", "sleep", "alert", "drag", "dismiss"],
+    "recommended_canvas": [128, 128],
+    "recommended_scale": "integer nearest-neighbor",
+    "formats": ["PNG", "APNG", "sprite sheet"],
+    "alpha": true,
+    "copyright": "Original or license-audited assets only; community references do not become shipping permission.",
+    "provenance_required": true
+  },
+  "ten_pass_audit": [
+    {"pass": 1, "name": "source-truth", "gate": "Canonical repo and exact base commit recorded; legacy KAI/Hydra/Termux claims cannot silently override current LuHm OS source."},
+    {"pass": 2, "name": "process-lifecycle", "gate": "Every visible/background/quit transition has an owner, an exit path, and no hidden respawn."},
+    {"pass": 3, "name": "android-lifecycle", "gate": "Background execution, bubble behavior, and service starts are represented as native-shell work, not assumed Godot capability."},
+    {"pass": 4, "name": "ollama-locality", "gate": "Ollama remains local companion by default; network exposure, cloud use, model residency, and concurrency are explicit knobs."},
+    {"pass": 5, "name": "termux-x11", "gate": "X11 window sitter path is optional, non-root, and separate from clean Android runtime authority."},
+    {"pass": 6, "name": "window-capability", "gate": "Borderless/always-on-top/transparency are feature-gated; Android and X11 capabilities are not conflated."},
+    {"pass": 7, "name": "asset-provenance", "gate": "Pixel sitter assets require original authorship or explicit license/provenance before shipping."},
+    {"pass": 8, "name": "security", "gate": "No secrets, arbitrary shell, remote admin, donor-code auto-execution, root bypass, or public control plane."},
+    {"pass": 9, "name": "ci-evidence", "gate": "JSON validation plus deterministic audit must pass; Android/Godot build evidence remains a separate receipt."},
+    {"pass": 10, "name": "crown-reporting", "gate": "Candidate may be sealed and saved, but main/release promotion remains a distinct Professor action after evidence review."}
+  ],
+  "explicit_denies": [
+    "production signing",
+    "public publishing",
+    "stable promotion",
+    "remote shell execution",
+    "Android runtime Termux execution bridge",
+    "root or SELinux bypass",
+    "embedded provider secrets",
+    "unlicensed sprite packs",
+    "false GREEN runtime claims"
+  ],
+  "evidence_state": {
+    "repository_snapshot": "GREEN",
+    "doctrine_candidate": "GREEN_WRITTEN",
+    "deterministic_ci": "PENDING",
+    "godot_import": "PENDING",
+    "android_debug_build": "PENDING",
+    "physical_device": "PENDING",
+    "ollama_runtime": "PENDING_LOCAL_PROBE",
+    "termux_x11_runtime": "PENDING_LOCAL_PROBE",
+    "android_system_bubble": "PENDING_NATIVE_IMPLEMENTATION"
+  },
+  "seal": {
+    "kind": "CANDIDATE_CHECKPOINT",
+    "promotion": false,
+    "main_mutation": false,
+    "release_authority": false
+  }
+}

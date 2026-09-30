@@ -1,9 +1,9 @@
 {
   "schema": "luhmOs.androidCandidate.v1",
-  "status": "PROPOSED_AMBER_TARGET",
-  "package": "art.eggiebagelface.luhmos.testing",
-  "versionCode": 116,
-  "versionName": "1.0.16-samsunglayout.1",
+  "status": "PROPOSED_AMBER_FULL_MUTATION",
+  "package": "art.eggiebagelface.luhmos.cathedraltoy.motionrepair",
+  "versionCode": 128,
+  "versionName": "1.0.28-cathedral.fullmutation.1",
   "minSdk": 24,
   "targetSdk": 36,
   "abi": "arm64-v8a",
@@ -13,7 +13,51 @@
   ],
   "signing": "disposable-debug-only",
   "persistentSigner": false,
-  "installScope": "same exact APK on both devices; certificate check required before replacement",
+  "installScope": "side-by-side doctrine-complete Cathedral full-mutation candidate; exact APK certificate and hash check required before any replacement lane",
+  "assetLane": {
+    "manifest": "assets/community/selected-assets.json",
+    "count": 77,
+    "license": "CC0",
+    "fetch": "build-time-only-at-immutable-source-commit",
+    "runtimeNetwork": false
+  },
+  "characterCreator": {
+    "mode": "runtime_non_destructive",
+    "engine": "SkeletonModifier3D post-animation proportion lane",
+    "sliders": [
+      "height",
+      "head",
+      "shoulders",
+      "torso",
+      "arms",
+      "legs",
+      "hips",
+      "frame"
+    ],
+    "meshMorphTargetsObserved": 0,
+    "persistence": false,
+    "typedBridgeOnly": true
+  },
+  "ritualSystem": {
+    "count": 3,
+    "ids": [
+      "crown_wake",
+      "oni_trinity",
+      "witching_hour"
+    ],
+    "runtimeMutation": "temporary_visual_only",
+    "typedBridgeOnly": true,
+    "network": false,
+    "privilege": false,
+    "persistentState": false
+  },
+  "runtimeDoctrine": {
+    "path": "doctrine/runtimeDoctrine-20260926.json",
+    "failClosed": true,
+    "candidateMemoryOnly": true,
+    "humanPromotionRequired": true
+  },
   "promotion": false,
-  "orientation": "sensor-portrait-and-landscape"
+  "orientation": "sensor-portrait-and-landscape",
+  "physicalDeviceProof": "PENDING"
 }

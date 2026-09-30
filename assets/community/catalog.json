@@ -1,0 +1,95 @@
+{
+  "schema": "luhm-os.community-asset-catalog.v1",
+  "date": "2026-09-26",
+  "authority": "Professor",
+  "policy": "CURATED_CC0_FIRST_NO_BLIND_VENDOR_INGEST",
+  "goal": "Detroit industrial/dieselpunk demon-bar + RiverWalk + theatre/casino/night-city + cute pixel sitter mutation",
+  "sources": [
+    {
+      "name": "CC0 Asset Index",
+      "url": "https://github.com/Jpalmer95/cc0-asset-index",
+      "license": "CC0 index only",
+      "role": "primary searchable catalog; ~2500 license-validated assets; download selected GLB/gltf with provenance"
+    },
+    {
+      "name": "Kenney full organized library",
+      "url": "https://github.com/shorepine/kenney",
+      "license": "CC0",
+      "role": "2D/UI/icons/3D catalog; select only scene-relevant files"
+    },
+    {
+      "name": "Kenney Starter Kit 3D Platformer",
+      "url": "https://github.com/KenneyNL/Starter-Kit-3D-Platformer",
+      "license": "MIT code + CC0 assets",
+      "role": "camera/gamepad/collectable mechanics reference; selective transplant only"
+    },
+    {
+      "name": "Gobkit free assets",
+      "url": "https://github.com/Ariescar/gobkit-free-assets",
+      "license": "CC0",
+      "role": "rigged animated low-poly creatures/characters; optional scene NPC donor"
+    },
+    {
+      "name": "GDQ CC0 sprites",
+      "url": "https://github.com/tonytins/gdq-cc0-sprites",
+      "license": "CC0",
+      "role": "prototype pixel sprites; sitter study/reference"
+    },
+    {
+      "name": "Free Game Dev Assets catalog",
+      "url": "https://github.com/TMHSDigital/Free-Game-Dev-Assets",
+      "license": "catalog; per-pack evidence",
+      "role": "Kenney Nature Kit and other CC0 discovery"
+    },
+    {
+      "name": "Jam Ready Assets",
+      "url": "https://github.com/series-ai/jam-ready-assets",
+      "license": "per-pack CC0/MIT/BSD",
+      "role": "secondary discovery only; import only after per-pack license proof"
+    }
+  ],
+  "preferred_tags": [
+    "industrial",
+    "factory",
+    "warehouse",
+    "brick",
+    "concrete",
+    "metal",
+    "pipe",
+    "bar",
+    "furniture",
+    "street",
+    "city",
+    "road",
+    "river",
+    "dock",
+    "theatre",
+    "casino",
+    "neon",
+    "sign",
+    "lamp",
+    "vehicle",
+    "sky",
+    "night",
+    "smoke",
+    "particle",
+    "pixel",
+    "character",
+    "ui"
+  ],
+  "reject": [
+    "NC assets for distributable APK",
+    "unknown-license assets",
+    "franchise/copied character art",
+    "blind whole-repository vendoring",
+    "runtime network asset downloads",
+    "unreviewed scripts/plugins",
+    "secrets"
+  ],
+  "provenance_required": true,
+  "asset_budget": {
+    "apk_policy": "curated subset only",
+    "large_catalogs": "index/reference, not bundled wholesale"
+  },
+  "mutation_rule": "Original LuHm/Professor creative direction wins. Donors supply reusable mechanics/materials/props, never identity."
+}

@@ -23,10 +23,21 @@ class GateTests(unittest.TestCase):
             fixture.write_bytes(b'\xff')
             with self.assertRaises(UnicodeError):
                 gate.scan_runtime(root)
+
+    def test_build_tooling_is_not_runtime_scope(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            for name in ('scripts', 'scenes', 'cutscenes'):
+                (root / name).mkdir()
+            (root / 'scripts/main.gd').write_text('extends Node\n')
+            (root / 'scripts/buildCandidate.sh').write_text('curl http://localhost:8000\n')
+            gate.scan_runtime(root)
+
     def test_missing_scope_fails(self):
         with tempfile.TemporaryDirectory() as d:
             with self.assertRaises(ValueError):
                 gate.scan_runtime(Path(d))
+
     def test_native_alignment_negative_controls(self):
         data = bytearray(120)
         data[:6] = b'\x7fELF\x02\x01'

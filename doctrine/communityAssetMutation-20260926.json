@@ -1,0 +1,45 @@
+{
+  "schema": "luhm-os.community-asset-mutation.v1",
+  "status": "GREEN_CANDIDATE_CI_REQUIRED",
+  "authority": "Professor",
+  "parentCommit": "387dac8ab816c3443697d6428d83ffa384b5607c",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "design": "Detroit industrial dieselpunk demon-bar / RiverWalk / theatre-casino neon / PS1-era pre-rendered JRPG-SCUMM mood",
+  "integration": {
+    "immediate": [
+      "catalog + provenance contract",
+      "asset-selection tags",
+      "CI license/policy audit"
+    ],
+    "staged": [
+      "selected CC0 GLB/gltf props",
+      "selected CC0 pixel/UI sprites",
+      "selected audio/VFX after format+license verification"
+    ],
+    "excluded": [
+      "wholesale asset dumps",
+      "NC art",
+      "unknown licenses",
+      "donor scripts without review"
+    ]
+  },
+  "android": {
+    "target": "Samsung candidate",
+    "renderer": "GL Compatibility",
+    "offlineAssets": true,
+    "runtimeDownloads": false
+  },
+  "pet": {
+    "originalLum": true,
+    "pixelSitter": true,
+    "adultCharacter": true,
+    "franchiseCopy": false
+  },
+  "crown": {
+    "compileCandidate": true,
+    "mergeToMain": false,
+    "productionSigning": false,
+    "publicPublish": false,
+    "physicalInstallProof": "PENDING"
+  }
+}

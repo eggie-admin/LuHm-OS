@@ -1,0 +1,62 @@
+name: Crowned Cathedral Agent Forge
+
+on:
+  pull_request:
+    paths:
+      - '.github/copilot-instructions.md'
+      - 'agents/luhm-agent-mesh/**'
+      - 'skills/crowned-cathedral-forge/**'
+      - 'doctrine/crownedCathedralSystemHarness-20260926.json'
+      - 'doctrine/SOURCE_OF_TRUTH.json'
+      - 'tools/crownedCathedralForgeAudit.py'
+      - '.github/workflows/crowned-cathedral-agent-forge.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  forge-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Python syntax
+        run: python3 -m py_compile tools/crownedCathedralForgeAudit.py
+
+      - name: JSON syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/crownedCathedralSystemHarness-20260926.json >/dev/null
+          python3 -m json.tool agents/luhm-agent-mesh/crownedCathedralForgePipeline.json >/dev/null
+
+      - name: Ten-pass agent forge audit
+        run: python3 tools/crownedCathedralForgeAudit.py
+
+      - name: Security boundary grep
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' \
+            .github/copilot-instructions.md agents/luhm-agent-mesh skills/crowned-cathedral-forge doctrine/crownedCathedralSystemHarness-20260926.json
+
+      - name: Exact-head receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/crowned-cathedral-forge
+          printf 'source_sha=%s\npr=%s\nstatus=GREEN_SOURCE_FORGE\n' \
+            "$GITHUB_SHA" "${{ github.event.pull_request.number || 'workflow_dispatch' }}" \
+            > build/crowned-cathedral-forge/exact-head.txt
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: crowned-cathedral-agent-forge-receipt
+          path: build/crowned-cathedral-forge/
+          if-no-files-found: error
+          retention-days: 14
