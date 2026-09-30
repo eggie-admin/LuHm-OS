@@ -1,0 +1,31 @@
+name: LuHm In-Chat HTML Check
+
+on:
+  pull_request:
+    paths:
+      - 'frontEnd/**'
+      - 'tools/inChatHtmlCheck.py'
+      - 'tests/testInChatHtmlCheck.py'
+      - 'doctrine/IN_CHAT_HTML_CHECK_V1.json'
+      - '.github/workflows/in-chat-html-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  html-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Run in-chat HTML negative controls
+        run: python3 -m unittest tests/testInChatHtmlCheck.py -v
+      - name: Check current LuHm front-end HTML
+        run: python3 tools/inChatHtmlCheck.py frontEnd/index.html | tee in-chat-html-receipt.json
+      - name: Upload receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-in-chat-html-receipt
+          path: in-chat-html-receipt.json
+          if-no-files-found: error
