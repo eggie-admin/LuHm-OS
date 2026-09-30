@@ -57,7 +57,7 @@ The entries below cover the requested categories. The field-complete JSON matrix
 | 15 | UI / UX | Godot’s built-in Control/Theme system is the default reference. No separate third-party UI editor with sufficiently clear 4.7.2 evidence was verified. |
 | 16 | Terrain / navigation / behavior-tree / gameplay AI | Terrain3D and LimboAI are the notable candidates. Godot’s built-in navigation remains the lower-dependency baseline. LimboAI’s latest release material explicitly targets Godot 4.6; do not silently extend that claim to 4.7.2. |
 | 17 | Import / export / interchange (Blender/glTF) | Prefer the engine’s built-in glTF/scene import path as the baseline. The official docs URL is recorded in the JSON; the documentation host was not reachable for this research run, so detailed current version behavior is not asserted. Aseprite Wizard is a separate 2D importer. |
-| 18 | Testing / debugging / profiling / telemetry | [GUT](https://github.com/bitwes/Gut) 9.7.0 explicitly notes compatibility changes for Godot 4.7 and is the strongest test-framework candidate. This is not 4.7.2 certification. Godot MCP can retrieve debug output; no telemetry service or test integration is implied. |
+| 18 | Testing / debugging / profiling / telemetry | [GUT](https://github.com/bitwes/Gut) 9.7.0 explicitly notes compatibility changes for Godot 4.7 and is the strongest test-framework candidate. [Debug Draw 3D](https://github.com/DmitriySalnikov/godot_debug_draw_3d) provides C++-backed in-game visualizations and lists Android binaries; its exact Godot 4.7.2/renderer support is unknown. Neither is a telemetry service. |
 | 19 | Git / version control / collaboration | Godot’s native VCS interface and external Git are baseline references. The [Godot Git Plugin](https://github.com/godotengine/godot-git-plugin) release page retrieved for this survey describes Godot 3.2–3.4 compatibility, so reject that release line for a Godot 4.7.2 integration unless a newer upstream version explicitly supersedes it. |
 | 20 | Android / export / build / release | Godot’s standard export templates and Android export process are the baseline, not an add-on candidate. No surveyed AI tool was verified as a safe Android build, signing, or publishing authority. Signing credentials and release permissions remain outside this census’s integration scope. |
 | 21 | Networking / multiplayer | Godot’s built-in multiplayer/ENet is the no-extra-dependency baseline. GodotSteam’s former GitHub repository states that it moved to Codeberg, so the GitHub copy is not treated as canonical current evidence. No third-party networking extension was advanced without current upstream/version proof. |
@@ -69,6 +69,7 @@ These are grouped by use, not ranked against one another. All remain subject to 
 
 - **Dialogue/narrative:** Dialogue Manager (4.1.0; Godot 4.6+ statement) and Dialogic (2.0-alpha-20; Godot 4.5+, recommends 4.6; alpha risk).
 - **Testing/CI:** GUT 9.7.0 (explicit Godot 4.7 compatibility statement; 4.7.2 still unverified).
+- **Debug visualization:** Debug Draw 3D (upstream lists Android binaries and Asset Library asset 1766; require exact engine/renderer checks).
 - **Code productivity:** Godot Tools for VS Code (language/debugger workflow, not AI).
 - **Editor automation research reference:** Godot MCP (directly mutating capabilities; reference-only until its local permissions and MCP host are constrained and reviewed).
 - **Terrain/world:** Terrain3D 1.0.2 stable (Godot 4.6 evidence, native extension) and ProtonScatter 4.0 (scene dressing; 4.7.2 unknown). Voxel Tools v1.7 is a higher-complexity alternative with a custom Godot 4.7 build caveat.
@@ -91,6 +92,7 @@ These are grouped by use, not ranked against one another. All remain subject to 
 - [Coding-Solo Godot MCP README and operations](https://github.com/Coding-Solo/godot-mcp)
 - [Godot Asset Library backend status and API](https://github.com/godotengine/godot-asset-library) · [API documentation](https://github.com/godotengine/godot-asset-library/blob/master/API.md)
 - [Godot Tools for VS Code](https://github.com/godotengine/godot-vscode-plugin)
+- [Debug Draw 3D](https://github.com/DmitriySalnikov/godot_debug_draw_3d) · [official Asset Library listing](https://godotengine.org/asset-library/asset/1766)
 - [GUT releases](https://github.com/bitwes/Gut/releases)
 - [Dialogue Manager](https://github.com/nathanhoad/godot_dialogue_manager) · [releases](https://github.com/nathanhoad/godot_dialogue_manager/releases/latest)
 - [Dialogic](https://github.com/dialogic-godot/dialogic) · [releases](https://github.com/dialogic-godot/dialogic/releases/latest)

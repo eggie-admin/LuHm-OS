@@ -409,6 +409,44 @@
       ]
     },
     {
+      "name": "Debug Draw 3D",
+      "categories": [3, 18],
+      "canonical_upstream_url": "https://github.com/DmitriySalnikov/godot_debug_draw_3d",
+      "official_asset_library_url": "https://godotengine.org/asset-library/asset/1766 (direct URL is listed by upstream README; Asset Library host itself was inaccessible during research)",
+      "latest_release_tag": "1.7.3 (latest release page redirect)",
+      "latest_release_date": "UNKNOWN",
+      "maintenance_activity_signal": "Upstream release page has a 1.7.3 latest tag; v1.7.1 release describes C# crash fixes and CI test-project updates.",
+      "license": "UNKNOWN (not verified from retrieved upstream source)",
+      "supported_godot_versions": {
+        "upstream_statement": "README states Web support for Godot 4.3+; no general minimum/maximum version statement retrieved.",
+        "godot_4_7_2": "UNKNOWN; no exact target support statement found."
+      },
+      "implementation_language_and_dependencies": "C++ addon with GDScript, C++ and C# APIs; native/GDExtension support is referenced in release notes.",
+      "editorplugin_vs_runtime_behavior": "Project addon for runtime/debug visualization and 2D overlays; editor installation/setup required.",
+      "android_export_viability": "Upstream README lists precompiled Android 5.0+ binaries; target Godot 4.7.2 ABI and LuHm build remain unverified.",
+      "headless_ci_viability": "v1.7.1 notes updated CI tests running GDScript and C# test scenes; exact headless/renderer matrix is UNKNOWN.",
+      "gl_compatibility_implications": "UNKNOWN; no explicit GL Compatibility renderer statement found.",
+      "installation_footprint": "Copy/download `addons/debug_draw_3d` plus platform-specific native binaries; exact size UNKNOWN.",
+      "permissions_filesystem_mutation_scope": "Installed in the Godot project; runtime draws debug primitives and overlays. Editor/project filesystem operations beyond installation are UNKNOWN.",
+      "network_endpoints_telemetry_data_egress": "No runtime network/telemetry feature identified in retrieved README; full source audit not performed.",
+      "api_key_or_secret_requirements": "None documented.",
+      "local_model_support": "None documented.",
+      "ollama_compatibility": "None documented.",
+      "cloud_model_providers": "None documented.",
+      "execute_commands_or_mutate_files_scenes": "Provides debug visualization; no AI, scene-authoring, or general command execution documented.",
+      "security_privacy_concerns": "Native C++ code executes in editor/game process; inspect binary provenance and ABI. Upstream release notes warn of a C# crash in v1.7.0 and direct users to 1.7.1 or later.",
+      "reproducibility_offline_viability": "Stable release archives and project addon can be pinned; network/telemetry absence and deterministic debug output are not formally verified.",
+      "integration_complexity": "Medium due to native binaries and GDScript/C#/C++ bindings; test target Android ABI and renderer.",
+      "luhm_status": "CANDIDATE",
+      "luhm_status_reason": "Focused debug visualization with upstream-listed Android binaries and a verified official Asset Library URL; evaluate only after exact 4.7.2/GL Compatibility/ABI checks.",
+      "evidence_urls": [
+        "https://github.com/DmitriySalnikov/godot_debug_draw_3d",
+        "https://github.com/DmitriySalnikov/godot_debug_draw_3d/releases/latest",
+        "https://github.com/DmitriySalnikov/godot_debug_draw_3d/releases/tag/1.7.1",
+        "https://godotengine.org/asset-library/asset/1766"
+      ]
+    },
+    {
       "name": "ProtonScatter",
       "categories": [1, 9, 11],
       "canonical_upstream_url": "https://github.com/HungryProton/scatter",
@@ -777,6 +815,7 @@
   "top_candidates_by_function": {
     "branching_dialogue": ["Dialogue Manager", "Dialogic 2"],
     "testing_and_ci": ["GUT (Godot Unit Test)"],
+    "debug_visualization": ["Debug Draw 3D"],
     "code_productivity": ["Godot Tools for VS Code"],
     "editor_automation_reference_only": ["Godot MCP (Coding-Solo)"],
     "terrain_and_world_building_reference_only": ["Terrain3D", "ProtonScatter", "Voxel Tools"],
