@@ -3,7 +3,7 @@
   "mcpServers": {
     "luhm": {
       "type": "streamable-http",
-      "url": "https://luhm-os-publication-green.onrender.com/mcp"
+      "url": "https://luhm-os-harness-green.onrender.com/mcp"
     }
   }
 }
