@@ -1,0 +1,88 @@
+name: LuHm Current Main Source Truth GREEN
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'doctrine/SOURCE_OF_TRUTH.json'
+      - 'doctrine/PRE_GREEN_SNAPSHOT_20260930.json'
+      - 'doctrine/CURRENT_MAIN_SOURCE_TRUTH_GREEN_20260930.json'
+      - 'doctrine/RELEASE_BOUNDARY.json'
+      - 'tools/currentMainSourceTruthMilestoneAudit.py'
+      - 'tests/testCurrentMainSourceTruthMilestone.py'
+      - '.github/workflows/current-main-source-truth-green.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prove:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Bind exact head
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "EXACT_HEAD=$(git rev-parse HEAD)"
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+
+      - name: Validate doctrine JSON
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/SOURCE_OF_TRUTH.json >/dev/null
+          python3 -m json.tool doctrine/PRE_GREEN_SNAPSHOT_20260930.json >/dev/null
+          python3 -m json.tool doctrine/CURRENT_MAIN_SOURCE_TRUTH_GREEN_20260930.json >/dev/null
+          python3 -m json.tool doctrine/RELEASE_BOUNDARY.json >/dev/null
+
+      - name: Run negative controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest tests.testCurrentMainSourceTruthMilestone -v
+
+      - name: Run deterministic milestone audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/currentMainSourceTruthMilestoneAudit.py
+
+      - name: Assert scoped GREEN only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('build/current-main-source-truth/milestone.json').read_text())
+          assert report['status'] == 'GREEN_CURRENT_MAIN_SOURCE_TRUTH_RECONCILIATION', report
+          assert report['contractErrors'] == [], report['contractErrors']
+          assert report['fullProductReadiness'] == 'AMBER'
+          assert report['runtimeAuthority'] is False
+          assert report['releaseAuthority'] is False
+          assert report['publicationAuthority'] is False
+          assert report['productionSigningAuthority'] is False
+          assert report['crownStatus'] == 'STOP'
+          print('CURRENT_MAIN_SOURCE_TRUTH_GREEN=PROVEN')
+          print('SOURCE_COMMIT=' + report['sourceCommit'])
+          PY
+
+      - name: Upload exact-head receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: current-main-source-truth-green-receipt
+          path: build/current-main-source-truth/
+          if-no-files-found: error
+          retention-days: 30
