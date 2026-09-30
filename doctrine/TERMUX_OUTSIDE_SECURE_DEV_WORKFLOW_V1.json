@@ -1,0 +1,38 @@
+{
+  "schema": "luhm-os.termux-outside-secure-dev-workflow.v1",
+  "status": "PROPOSED_LOCAL_DEVELOPMENT_WORKFLOW",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalBase": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+  "target": "Termux primary Android user profile",
+  "profileGate": {
+    "rule": "androidUserId must equal 0",
+    "derivation": "floor(uid / 100000)",
+    "failure": "STOP_SECONDARY_PROFILE_OR_SECURE_CONTAINER"
+  },
+  "steps": [
+    "verify Termux and primary Android user profile",
+    "install only missing git/python/jq dependencies",
+    "back up prior ~/.luhm candidate state",
+    "fetch exact canonical LuHm-OS main into detached read-only source clone",
+    "verify canonical main SHA before using it as evidence",
+    "install this roleplay/skill candidate under ~/.luhm/candidates/roleplay-v3",
+    "install deterministic luhm CLI wrapper in $PREFIX/bin",
+    "run local roleplay audit",
+    "write install receipt with exact hashes",
+    "stop before push/merge/sign/publish/public exposure"
+  ],
+  "forbidden": [
+    "Samsung Secure Folder access",
+    "Shizuku mutation",
+    "root escalation",
+    "provider secret installation",
+    "git push",
+    "merge",
+    "release signing",
+    "publication",
+    "public exposure",
+    "history rewrite"
+  ],
+  "promotion": false
+}

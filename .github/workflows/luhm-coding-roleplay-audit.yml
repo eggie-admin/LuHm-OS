@@ -1,0 +1,37 @@
+name: LuHm Coding Roleplay Audit
+
+on:
+  pull_request:
+    paths:
+      - 'agents/**'
+      - 'doctrine/CODING_ROLEPLAY_SYSTEM_V3.json'
+      - 'doctrine/TERMUX_OUTSIDE_SECURE_DEV_WORKFLOW_V1.json'
+      - 'plugins/luhm-os/skills/luhm-coding-roleplay/**'
+      - 'tools/luhmRoleplayAudit.py'
+      - 'tools/luhmTermuxCli.py'
+      - 'scripts/termux/install-luhm-dev.sh'
+      - '.github/workflows/luhm-coding-roleplay-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Shell syntax
+        run: bash -n scripts/termux/install-luhm-dev.sh
+      - name: Python syntax
+        run: |
+          python -m py_compile tools/luhmRoleplayAudit.py
+          python -m py_compile tools/luhmTermuxCli.py
+          python -m py_compile tools/lumTaskRouter.py
+      - name: Roleplay doctrine audit
+        run: python tools/luhmRoleplayAudit.py
+      - name: Shared protocol exists
+        run: test -s agents/shared/ONI_PROTOCOL_V2.md

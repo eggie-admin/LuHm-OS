@@ -1,0 +1,24 @@
+{
+  "schema": "luhm-os.coding-roleplay-v3-candidate.v1",
+  "status": "CANDIDATE_STAGED_CI_PENDING",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "baseCanonicalMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+  "repairFinding": "agents and portable workflow reference agents/shared/ONI_PROTOCOL_V2.md but canonical main does not contain the referenced shared protocol file",
+  "candidateAdds": [
+    "agents/shared/ONI_PROTOCOL_V2.md",
+    "doctrine/CODING_ROLEPLAY_SYSTEM_V3.json",
+    "doctrine/TERMUX_OUTSIDE_SECURE_DEV_WORKFLOW_V1.json",
+    "plugins/luhm-os/skills/luhm-coding-roleplay/SKILL.md",
+    "tools/luhmRoleplayAudit.py",
+    "tools/luhmTermuxCli.py",
+    "scripts/termux/install-luhm-dev.sh",
+    ".github/workflows/luhm-coding-roleplay-audit.yml"
+  ],
+  "driveBundleFolderId": "1hMoIsnyqmA4M8rxD6-nGFRaAHxBhYbhX",
+  "localBundleSha256": "b23b9bb69a8e7cdbb4e67c1cfe0ffb8fa2d94fb1a650e46ffb81615e0009e02e",
+  "promotion": false,
+  "publicationAuthority": false,
+  "productionSigningAuthority": false,
+  "crownStatus": "STOP"
+}
