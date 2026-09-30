@@ -1,0 +1,26 @@
+name: LuHm OS Community Asset Doctrine Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'assets/community/**'
+      - 'tools/communityAssetAudit.py'
+      - 'doctrine/communityAssetMutation-20260926.json'
+      - '.github/workflows/community-asset-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - run: python3 -m json.tool assets/community/catalog.json >/dev/null
+      - run: python3 -m json.tool doctrine/communityAssetMutation-20260926.json >/dev/null
+      - run: python3 tools/communityAssetAudit.py

@@ -43,11 +43,12 @@ def main() -> None:
     apk = Path(args.apk)
     out = Path(args.out)
     if not apk.is_file() or apk.stat().st_size == 0:
-        raise SystemExit("APK missing or empty")
+        raise SystemExit(f"APK missing or empty: {apk}")
 
     meta = read_export_meta(Path(args.export_preset))
-    if meta["packageName"] != "art.eggiebagelface.luhmos.testing":
-        raise SystemExit(f"unexpected package: {meta['packageName']}")
+    package_name = meta["packageName"]
+    if not package_name.startswith("art.eggiebagelface.luhmos."):
+        raise SystemExit(f"unexpected package namespace: {package_name}")
     if meta["targetSdk"] != 36:
         raise SystemExit(f"unexpected target SDK: {meta['targetSdk']}")
 
@@ -60,6 +61,7 @@ def main() -> None:
     template = Path("installPortal/manifest.template.json").read_text(encoding="utf-8")
     rendered = (
         template
+        .replace("__PACKAGE_NAME__", package_name)
         .replace("__VERSION_NAME__", meta["versionName"])
         .replace("__VERSION_CODE__", str(meta["versionCode"]))
         .replace("__APK_SHA256__", apk_hash)
@@ -68,6 +70,10 @@ def main() -> None:
     if "__" in rendered:
         raise SystemExit("unresolved install manifest placeholder")
     manifest = json.loads(rendered)
+    if manifest["packageName"] != package_name:
+        raise SystemExit("rendered package identity mismatch")
+    if manifest["targetSdk"] != meta["targetSdk"]:
+        raise SystemExit("rendered target SDK mismatch")
     if manifest["apkSha256"] != sha256(out_apk):
         raise SystemExit("copied APK hash mismatch")
 
