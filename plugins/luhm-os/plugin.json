@@ -15,7 +15,7 @@
     "com.openai": {
       "interface": {
         "displayName": "LuHm OS",
-        "shortDescription": "Lum + Oni evidence-gated developer cockpit",
+        "shortDescription": "Evidence-gated dev cockpit",
         "longDescription": "Use Lum as the single orchestrator for bounded read-only Oni workflows, exact-source inspection, proof-aware status, and scope validation without granting merge, release, signing, or publication authority to the plugin.",
         "developerName": "Eggie Bagelface",
         "category": "Developer Tools",
@@ -24,6 +24,8 @@
         "privacyPolicyURL": "https://luhm-os-publication-site.onrender.com/privacy.html",
         "termsOfServiceURL": "https://luhm-os-publication-site.onrender.com/terms.html",
         "brandColor": "#7C3AED",
+        "composerIcon": "./assets/logo.svg",
+        "logo": "./assets/logo.svg",
         "defaultPrompt": [
           "Use LuHm OS to inspect the current source truth and explain what is actually proven.",
           "Use LuHm OS to list the Lum and Oni roles and their current bounded capabilities.",
