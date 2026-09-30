@@ -62,12 +62,18 @@ def main() -> int:
     require(all(item.get("copyCode") is False for item in donors.get("donors", [])), "RED_DONOR_CODE_COPY")
 
     require('type="file"' in index and 'application/pdf' in index, "RED_LOCAL_FILE_INTAKE")
+    require(re.search(r'<iframe id="pdfPreview"[^>]*\bsandbox\b', index) is not None, "RED_PDF_SANDBOX")
     require("URL.createObjectURL" in script and "URL.revokeObjectURL" in script, "RED_BLOB_LIFECYCLE")
     require("requestAnimationFrame" in script and "pointermove" in script, "RED_PARALLAX_REIMPLEMENTATION")
     require("treeBranch" in script and "aria-expanded" in script, "RED_TREE_REIMPLEMENTATION")
     require("imagePreview" in index and "videoPreview" in index and "pdfPreview" in index, "RED_MEDIA_DESK")
     require("FormData" not in script and "XMLHttpRequest" not in script and "sendBeacon" not in script, "RED_NETWORK_UPLOAD_PRIMITIVE")
     require(not re.search(r'fetch\s*\(\s*["\']https?://', script), "RED_REMOTE_FETCH")
+
+    require('h.endsWith(".localhost")' in script, "RED_LOCALHOST_ALIAS")
+    require('h.endsWith(".onrender.com")' in script, "RED_RENDER_HOST_CLASSIFICATION")
+    require("EXTERNAL / UNVERIFIED" in script, "RED_EXTERNAL_HOST_TRUTH")
+    require("Render and IPv4 claims are not assumed" in script, "RED_EXTERNAL_RENDER_ASSUMPTION")
 
     require("host/harness/godot-export/index.html" in presets, "RED_GODOT_EXPORT_TARGET")
     require("variant/thread_support=false" in presets, "RED_GODOT_THREAD_POLICY")
@@ -76,6 +82,7 @@ def main() -> int:
 
     print("LUHM_RENDER_CHATGPT_HARNESS_GREEN")
     print("LUHM_ASSET_DESK_DONOR_MUTATION_GREEN")
+    print("LUHM_NETWORK_TRUTH_GREEN")
     return 0
 
 
