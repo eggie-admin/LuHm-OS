@@ -1,0 +1,43 @@
+{
+  "schema": "luhm-os.pet-manifest.v1",
+  "spritePolicy": "original-user-controlled-assets-only",
+  "fallback": "css-pixel-oni",
+  "pets": [
+    {
+      "name": "Lum",
+      "role": "boss/orchestrator",
+      "glyph": "L",
+      "sprite": null,
+      "status": "FALLBACK_ONLY"
+    },
+    {
+      "name": "Kiri",
+      "role": "context",
+      "glyph": "K",
+      "sprite": null,
+      "status": "FALLBACK_ONLY"
+    },
+    {
+      "name": "Momo",
+      "role": "research",
+      "glyph": "M",
+      "sprite": null,
+      "status": "FALLBACK_ONLY"
+    },
+    {
+      "name": "Sumi",
+      "role": "asset review",
+      "glyph": "S",
+      "sprite": null,
+      "status": "FALLBACK_ONLY"
+    },
+    {
+      "name": "Yume",
+      "role": "art",
+      "glyph": "Y",
+      "sprite": null,
+      "status": "FALLBACK_ONLY"
+    }
+  ],
+  "note": "Drop approved sprite sheets under host/harness/pets/ and update this manifest; no remote asset harvesting."
+}
