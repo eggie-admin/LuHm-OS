@@ -12,18 +12,39 @@ const state = {
   pointerY: 0
 };
 
+function normalizedHost() {
+  const raw = location.hostname.toLowerCase();
+  return raw.startsWith("[") && raw.endsWith("]") ? raw.slice(1, -1) : raw;
+}
+
 function isLoopback() {
-  const h = location.hostname;
-  return h === "127.0.0.1" || h === "localhost" || h === "::1";
+  const h = normalizedHost();
+  return h === "127.0.0.1" || h === "localhost" || h.endsWith(".localhost") || h === "::1";
+}
+
+function isRenderHost() {
+  const h = normalizedHost();
+  return h === "onrender.com" || h.endsWith(".onrender.com");
 }
 
 function renderNetwork() {
-  const local = isLoopback();
-  byId("networkStatus").textContent = local ? `${location.protocol}//${location.host}` : "Render HTTPS edge";
-  byId("networkNote").textContent = local
-    ? "Loopback development shell. No remote asset upload."
-    : "Render redirects public HTTP to HTTPS. Origin remains IPv4-only.";
-  byId("edgeBadge").textContent = local ? "LOCAL / HTTP OK" : "PUBLIC / HTTPS";
+  if (isLoopback()) {
+    byId("networkStatus").textContent = `${location.protocol}//${location.host}`;
+    byId("networkNote").textContent = "Local .localhost/loopback shell. No remote asset upload.";
+    byId("edgeBadge").textContent = "LOCAL / LOOPBACK";
+    return;
+  }
+
+  if (isRenderHost()) {
+    byId("networkStatus").textContent = "Render HTTPS edge";
+    byId("networkNote").textContent = "Render redirects public HTTP to HTTPS. Origin remains IPv4-only.";
+    byId("edgeBadge").textContent = "PUBLIC / HTTPS";
+    return;
+  }
+
+  byId("networkStatus").textContent = `${location.protocol}//${location.host}`;
+  byId("networkNote").textContent = "External host. Render and IPv4 claims are not assumed.";
+  byId("edgeBadge").textContent = "EXTERNAL / UNVERIFIED";
 }
 
 function renderLibraries(policy) {
