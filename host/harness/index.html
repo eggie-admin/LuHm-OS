@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>LuHm OS Harness</title>
+<link rel="stylesheet" href="/harness/assets/cockpit.css">
+</head>
+<body>
+<main class="shell">
+<header class="topbar">
+  <div class="petDock" id="petDock" aria-label="Lum pet">
+    <div class="pixelPet" id="pixelPet"><span id="petGlyph">L</span></div>
+  </div>
+  <div class="titleBlock">
+    <h1>LuHm OS · Render Harness</h1>
+    <div class="subtitle">local-first shell · ChatGPT frame · Godot 4 viewer</div>
+  </div>
+  <div class="badge" id="edgeBadge">checking edge…</div>
+</header>
+
+<section class="statusGrid">
+  <article class="panel"><span class="label">network</span><strong id="networkStatus">loading…</strong><small id="networkNote"></small></article>
+  <article class="panel"><span class="label">chat frame</span><strong>ui://luhm-os/cockpit-v1.html</strong><small>self-contained; no third-party CDN in chat</small></article>
+  <article class="panel"><span class="label">pet</span><strong id="petName">Lum</strong><small id="petRole">orchestrator</small></article>
+  <article class="panel"><span class="label">authority</span><strong class="amber">READ ONLY</strong><small>AI proposes. Human promotes.</small></article>
+</section>
+
+<section class="workspace">
+  <article class="panel library">
+    <div class="panelHead"><h2>JavaScript library shelf</h2><span class="tiny">policy, not auto-load</span></div>
+    <div id="libraryList" class="chips"></div>
+    <p class="tiny">Production uses vendored/self-hosted assets only. Development CDNs stay opt-in and pinned.</p>
+  </article>
+
+  <article class="panel godot">
+    <div class="panelHead"><h2>Godot 4 Web viewport</h2><span class="badge" id="godotBadge">probing…</span></div>
+    <div class="godotStage" id="godotStage">
+      <div class="emptyState" id="godotEmpty">No staged Web export yet. Export target: <code>host/harness/godot-export/index.html</code>.</div>
+      <iframe id="godotFrame" title="Godot 4 Web viewer" sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-downloads" referrerpolicy="no-referrer"></iframe>
+    </div>
+  </article>
+</section>
+
+<footer>Render terminates TLS and redirects public HTTP to HTTPS. Local development stays on <code>127.0.0.1</code>. Render origin is IPv4-only.</footer>
+</main>
+<script src="/harness/assets/cockpit.js" defer></script>
+</body>
+</html>

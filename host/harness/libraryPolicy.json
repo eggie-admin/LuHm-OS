@@ -1,0 +1,31 @@
+{
+  "schema": "luhm-os.library-policy.v1",
+  "productionPolicy": "vendored-or-self-hosted-only",
+  "chatWidgetExternalCdnAllowed": false,
+  "developmentCdnMode": "explicit-opt-in-only",
+  "allowedDevelopmentOrigins": [
+    "https://cdn.jsdelivr.net"
+  ],
+  "libraries": [
+    {
+      "name": "jQuery",
+      "purpose": "DOM/event convenience",
+      "load": "not-bundled-by-default"
+    },
+    {
+      "name": "jQuery UI",
+      "purpose": "desktop-like draggable/resizable controls",
+      "load": "not-bundled-by-default"
+    },
+    {
+      "name": "Vue 3",
+      "purpose": "larger CMS views when component state warrants it",
+      "load": "not-bundled-by-default"
+    }
+  ],
+  "rules": [
+    "Pin exact versions and integrity hashes before any CDN use.",
+    "Do not load third-party CDN JavaScript inside the ChatGPT widget.",
+    "Prefer vendored production assets so CSP can remain same-origin."
+  ]
+}

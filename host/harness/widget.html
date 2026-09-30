@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LuHm OS Cockpit</title>
+<style>
+:root{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color-scheme:dark;--bg:#0a0b10;--panel:#11131b;--ink:#e8edf7;--muted:#9ba7ba;--cyan:#5ee7ff;--violet:#b07cff;--line:#293142}
+*{box-sizing:border-box}html,body{margin:0;background:transparent;color:var(--ink)}body{padding:10px}
+main{background:linear-gradient(180deg,#11131b,#0b0d13);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 12px 35px #0006}
+header{display:flex;gap:10px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line)}
+.pet{width:42px;height:42px;border-radius:12px;background:#171b25;position:relative;display:grid;place-items:center;color:var(--cyan);font-weight:900}
+.pet:before,.pet:after{content:"";position:absolute;top:3px;width:10px;height:16px;border:2px solid var(--violet);border-bottom:0;border-radius:10px 10px 0 0}
+.pet:before{left:6px;transform:rotate(-20deg)}.pet:after{right:6px;transform:rotate(20deg)}
+h1{font-size:14px;margin:0}.sub{font-size:11px;color:var(--muted);margin-top:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}.card{border:1px solid var(--line);background:#0d1017;border-radius:12px;padding:10px;min-height:72px}
+.k{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.v{margin-top:6px;font-size:12px;word-break:break-word}.green{color:#78f0a7}.amber{color:#ffd36c}.cyan{color:var(--cyan)}
+footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}
+@media(max-width:430px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="pet" id="pet">L</div>
+<div><h1>LuHm OS · Lum/Oni Cockpit</h1><div class="sub" id="surface">read-only MCP Apps frame</div></div>
+</header>
+<section class="grid">
+<div class="card"><div class="k">source truth</div><div class="v green" id="truth">loading…</div></div>
+<div class="card"><div class="k">authority</div><div class="v amber">READ ONLY · Crown stays human</div></div>
+<div class="card"><div class="k">oni roster</div><div class="v cyan" id="roster">loading…</div></div>
+<div class="card"><div class="k">godot web</div><div class="v" id="godot">Full harness owns the Godot 4 viewer.</div></div>
+</section>
+<footer id="foot">UI never grants GREEN, signing, merge, or publication authority.</footer>
+</main>
+<script>
+let rpcId=0;const pending=new Map();let latest=null;
+const $=id=>document.getElementById(id);
+function render(data){
+  latest=data?.structuredContent||data||latest||{};
+  const payload=latest;
+  $("truth").textContent=payload?.status?.sourceTruthStatus||"UNKNOWN";
+  const roles=payload?.roster?.roles||[];
+  $("roster").textContent=roles.length?roles.slice(0,5).map(x=>x.name).join(" · ")+(roles.length>5?" · …":""):"UNKNOWN";
+  const origin=payload?.harness?.publicOrigin;
+  if(origin&&origin!=="LOCAL_ONLY") $("foot").textContent=`Full harness: ${origin}/harness/ · read-only`;
+  const openai=window.openai;
+  if(openai?.setOpenInAppUrl&&origin&&origin!=="LOCAL_ONLY"){
+    openai.setOpenInAppUrl({href:origin+"/harness/"});
+  }
+}
+function request(method,params){const id=++rpcId;window.parent.postMessage({jsonrpc:"2.0",id,method,params},"*");return new Promise((resolve,reject)=>pending.set(id,{resolve,reject}))}
+function notify(method,params){window.parent.postMessage({jsonrpc:"2.0",method,params},"*")}
+window.addEventListener("message",e=>{
+  if(e.source!==window.parent)return;const m=e.data;if(!m||m.jsonrpc!=="2.0")return;
+  if(m.id!==undefined&&pending.has(m.id)){const p=pending.get(m.id);pending.delete(m.id);m.error?p.reject(m.error):p.resolve(m.result);return}
+  if(m.method==="ui/notifications/tool-result")render(m.params);
+},{passive:true});
+(async()=>{
+  render(window.openai?.toolOutput);
+  if(window.parent===window)return;
+  try{
+    await request("ui/initialize",{appInfo:{name:"luhm-os-cockpit",version:"1.0.0"},appCapabilities:{},protocolVersion:"2026-01-26"});
+    notify("ui/notifications/initialized",{});
+    $("surface").textContent="ChatGPT / MCP Apps · inline-safe";
+  }catch(_){$("surface").textContent="MCP Apps compatibility frame";}
+})();
+</script>
+</body>
+</html>
