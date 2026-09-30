@@ -1,7 +1,7 @@
 {
   "schema": "luhm-os.fqdn-install-portal-seal.v1",
   "date": "2026-09-26",
-  "status": "GREEN_CI_BUNDLE_HOST_ACTIVATION_PENDING",
+  "status": "AMBER_CI_BUNDLE_HOST_ACTIVATION_PENDING",
   "authority": "Professor",
   "canonical_repository": "eggie-admin/LuHm-OS",
   "fqdn": "get.lum.eggiebagelface.lan",
