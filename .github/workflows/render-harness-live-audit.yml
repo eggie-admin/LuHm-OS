@@ -1,0 +1,67 @@
+name: LuHm Render Harness Live Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'render.yaml'
+      - 'doctrine/ASSET_DESK_HARNESS_LIVE_20260930.json'
+      - 'tools/renderHarnessLiveAudit.py'
+      - '.github/workflows/render-harness-live-audit.yml'
+      - 'host/mcp/luhmHarnessServer.py'
+      - 'host/harness/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  live-receipt:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Bind exact head
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          echo "EXACT_HEAD=$(git rev-parse HEAD)"
+
+      - name: Validate receipt JSON
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/ASSET_DESK_HARNESS_LIVE_20260930.json >/dev/null
+          python3 -m json.tool doctrine/SOURCE_OF_TRUTH.json >/dev/null
+
+      - name: Run deterministic live receipt audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/renderHarnessLiveAudit.py
+
+      - name: Install pinned MCP runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          pip install -r host/mcp/requirements.txt
+
+      - name: Re-run production harness source contract
+        shell: bash
+        env:
+          LUHM_MCP_PROFILE: production
+          RENDER_EXTERNAL_HOSTNAME: luhm-os-harness-green.onrender.com
+          LUHM_HARNESS_PUBLIC_ORIGIN: https://luhm-os-harness-green.onrender.com
+        run: |
+          set -euo pipefail
+          python host/mcp/luhmHarnessServer.py --check

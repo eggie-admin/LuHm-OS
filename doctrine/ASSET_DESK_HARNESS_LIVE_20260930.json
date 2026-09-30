@@ -1,0 +1,56 @@
+{
+  "schema": "luhm-os.asset-desk-harness-live.v1",
+  "date": "2026-09-30",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "status": "GREEN_ASSET_DESK_SOURCE_CI_RENDER_LIVE",
+  "repository": "eggie-admin/LuHm-OS",
+  "testedFeatureHead": "761524e179ddf8e69594d34c7e1839e3fba0d625",
+  "promotedByMergeCommit": "c4fd6c254c8b0c620c152edd2cfd7861dfe53bf2",
+  "prePromotionSnapshotBranch": "snapshot/pre-asset-desk-promotion-20260930",
+  "prePromotionSnapshotSha": "ec03df885a8bd67e85adb66e47adc456805c2362",
+  "ci": {
+    "harness": "SUCCESS",
+    "publicationRegression": "SUCCESS",
+    "lumRig": "SUCCESS",
+    "samsungGodotApk": "SUCCESS"
+  },
+  "render": {
+    "workspace": "My Workspace",
+    "serviceName": "luhm-os-harness-green",
+    "serviceId": "srv-daubsi1srm7s73bl5lh0",
+    "deployId": "dep-daubsihsrm7s73bl5nj0",
+    "sourceBranch": "main",
+    "sourceCommit": "c4fd6c254c8b0c620c152edd2cfd7861dfe53bf2",
+    "region": "ohio",
+    "plan": "free",
+    "autoDeploy": false,
+    "deployStatus": "live",
+    "publicOrigin": "https://luhm-os-harness-green.onrender.com",
+    "observedRootStatus": 307,
+    "observedHarnessPath": "/harness/",
+    "observedHarnessStatus": 200,
+    "observedHarnessAt": "2026-09-30T07:47:10.698932776Z",
+    "applicationStartupComplete": true,
+    "defaultHealthCheckModeAtCreation": "TCP",
+    "blueprintHealthCheckPath": "/healthz",
+    "blueprintAppliedToExistingService": false
+  },
+  "harness": {
+    "chatResource": "ui://luhm-os/cockpit-v1.html",
+    "assetDesk": "host/harness/index.html",
+    "localBrowserAssetIntake": true,
+    "serverUploadAuthority": false,
+    "thirdPartyCdnRuntime": false,
+    "godotWebViewerTarget": "host/harness/godot-export/index.html",
+    "godotWebArtifactProven": false
+  },
+  "boundaries": {
+    "publicationAuthority": false,
+    "releaseAuthority": false,
+    "productionSigningAuthority": false,
+    "directoryPublicationProven": false,
+    "godotWebArtifactProven": false,
+    "crownStatus": "STOP"
+  }
+}
