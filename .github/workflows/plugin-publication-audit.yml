@@ -9,6 +9,7 @@ on:
       - 'doctrine/RELEASE_BOUNDARY.json'
       - 'doctrine/MCP_ENTERPRISE_SCOPE_V1.json'
       - 'host/mcp/**'
+      - 'host/harness/**'
       - 'plugins/luhm-os/**'
       - 'agents/**/SKILL.md'
       - 'tools/lumTaskRouter.py'
@@ -83,7 +84,7 @@ jobs:
               assert interface[key].startswith('https://'), (key, interface[key])
           assert len(tests.get('positive', [])) == 5
           assert len(tests.get('negative', [])) == 3
-          assert mcp['mcpServers']['luhm']['url'] == 'https://luhm-os-publication-green.onrender.com/mcp'
+          assert mcp['mcpServers']['luhm']['url'] == 'https://luhm-os-harness-green.onrender.com/mcp'
 
           for key in ('logo', 'composerIcon'):
               rel = interface[key]
@@ -116,14 +117,15 @@ jobs:
           set -euo pipefail
           python tools/pluginPublicationAudit.py
 
-      - name: Boot-time MCP contract check
+      - name: Boot-time harness MCP contract check
         shell: bash
         env:
           LUHM_MCP_PROFILE: production
-          RENDER_EXTERNAL_HOSTNAME: luhm-os-publication-green.onrender.com
+          RENDER_EXTERNAL_HOSTNAME: luhm-os-harness-green.onrender.com
+          LUHM_HARNESS_PUBLIC_ORIGIN: https://luhm-os-harness-green.onrender.com
         run: |
           set -euo pipefail
-          python host/mcp/luhmMcpServer.py --check
+          python host/mcp/luhmHarnessServer.py --check
 
       - name: Assert source-ready but not falsely published
         shell: bash
