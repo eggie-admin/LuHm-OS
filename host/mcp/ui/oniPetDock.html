@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LuHm Oni Pet Dock</title>
+<style>
+:root{font-family:ui-sans-serif,system-ui,sans-serif;color-scheme:light dark}body{margin:0;padding:10px;background:transparent}.dock{border:1px solid color-mix(in srgb,currentColor 18%,transparent);border-radius:16px;padding:12px;display:grid;gap:10px}.head{display:flex;justify-content:space-between;gap:10px;align-items:center}.title{font-weight:800}.meta{font-size:12px;opacity:.7}.pets{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:8px}.pet{appearance:none;border:1px solid color-mix(in srgb,currentColor 16%,transparent);background:color-mix(in srgb,currentColor 5%,transparent);border-radius:14px;padding:9px;display:grid;gap:5px;text-align:left;cursor:pointer;min-height:82px}.pet[data-id="lum"]{transform:scale(1.03);font-weight:700}.glyph{font-size:28px;line-height:1}.name{font-weight:700}.state{font-size:11px;letter-spacing:.04em}.pet[data-state="ERROR"]{outline:2px solid currentColor}.pet[data-state="VERIFYING"] .glyph,.pet[data-state="ACTIVE"] .glyph{animation:pulse 1.25s ease-in-out infinite}.foot{font-size:11px;opacity:.72;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}@keyframes pulse{50%{transform:translateY(-2px)}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<section class="dock" aria-live="polite">
+  <div class="head"><div><div class="title">👹 LuHm Oni Pet Dock</div><div class="meta" id="scope">source UNKNOWN</div></div><div class="meta" id="phase">REPORT</div></div>
+  <div class="pets" id="pets"></div>
+  <div class="foot"><span id="truth">evidence UNKNOWN</span><span id="android">Shizuku: detect-only lane</span></div>
+</section>
+<script>
+const ROLE={Lum:['♛','Lum'],Kiri:['⌕','Kiri'],Tetsu:['◆','Tetsu'],Kaji:['♨','Kaji'],Momo:['✦','Momo'],Shiori:['!','Shiori'],Kugi:['⌘','Kugi'],DrNao:['✚','Dr. Nao'],Fumi:['▤','Fumi'],Sumi:['#','Sumi'],Koe:['◖','Koe'],Yume:['✎','Yume']};
+let latest={boss:{id:'Lum',state:'IDLE'},helpers:[],sourceRef:'UNKNOWN',phase:'REPORT',evidenceState:'UNKNOWN',androidCapabilities:{shizuku:{mode:'DETECT_ONLY',liveState:'UNKNOWN'}}};
+function safe(v,n=80){return String(v??'').replace(/[<>]/g,'').slice(0,n)}
+function normalize(v){const boss=v?.boss?.id==='Lum'?v.boss:{id:'Lum',state:'IDLE'};const helpers=(Array.isArray(v?.helpers)?v.helpers:[]).filter(x=>ROLE[x?.id]).slice(0,3);return {...latest,...v,boss,helpers,sourceRef:safe(v?.sourceRef||'UNKNOWN',96),phase:safe(v?.phase||'REPORT',24),evidenceState:safe(v?.evidenceState||'UNKNOWN',16)}}
+function petButton(p){const role=ROLE[p.id]||['? ',p.id];const b=document.createElement('button');b.className='pet';b.dataset.id=p.id;b.dataset.state=safe(p.state||'WAITING',16).toUpperCase();b.innerHTML='<span class="glyph"></span><span class="name"></span><span class="state"></span>';b.querySelector('.glyph').textContent=role[0];b.querySelector('.name').textContent=role[1];b.querySelector('.state').textContent=(p.state||'WAITING')+(p.label?' · '+safe(p.label,46):'');b.onclick=()=>followup(`Lum, show ${role[1]}'s current evidence and status. Do not infer work that is not evidenced.`);return b}
+function render(v){latest=normalize(v);const pets=document.getElementById('pets');pets.replaceChildren(petButton(latest.boss),...latest.helpers.map(petButton));document.getElementById('scope').textContent='source '+latest.sourceRef;document.getElementById('phase').textContent=latest.phase;document.getElementById('truth').textContent='evidence '+latest.evidenceState;const s=latest.androidCapabilities?.shizuku||{};document.getElementById('android').textContent='Shizuku: '+(s.liveState||s.permission||s.mode||'UNKNOWN')}
+function followup(prompt){if(window.openai?.sendFollowUpMessage){window.openai.sendFollowUpMessage({prompt,scrollToBottom:true});return}window.parent.postMessage({jsonrpc:'2.0',id:Date.now(),method:'ui/message',params:{prompt}},'*')}
+window.addEventListener('message',(event)=>{if(event.source!==window.parent)return;const m=event.data;if(!m||m.jsonrpc!=='2.0')return;if(m.method==='ui/notifications/tool-result'){render(m.params?.structuredContent||m.params||{})}}, {passive:true});
+if(window.openai?.toolOutput)render(window.openai.toolOutput);else render(latest);
+</script>
+</body>
+</html>
