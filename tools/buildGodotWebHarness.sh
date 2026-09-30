@@ -60,9 +60,14 @@ cp "$BASE" assets/lum/luhm.glb
 cp "$RUN" assets/lum/luhmRunning.glb
 
 "$GODOT_BIN" --headless --editor --path . --quit
-python3 tools/runGodotSmoke.py "$GODOT_BIN" layoutSmoke
-python3 tools/runGodotSmoke.py "$GODOT_BIN" runtimeSmoke
-python3 tools/runGodotSmoke.py "$GODOT_BIN" lumRigV2Phase1Smoke
+
+if [[ "${LUHM_WEB_SKIP_SMOKE:-0}" != "1" ]]; then
+  python3 tools/runGodotSmoke.py "$GODOT_BIN" layoutSmoke
+  python3 tools/runGodotSmoke.py "$GODOT_BIN" runtimeSmoke
+  python3 tools/runGodotSmoke.py "$GODOT_BIN" lumRigV2Phase1Smoke
+else
+  echo 'RENDER_BUILD_MODE: runtime smoke skipped; exact-source CI remains authoritative for runtime smoke proof'
+fi
 
 rm -rf host/harness/godot-export
 mkdir -p host/harness/godot-export
