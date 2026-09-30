@@ -1,0 +1,48 @@
+name: LuHm Oni Pet Chat UI Audit
+
+on:
+  push:
+    branches:
+      - 'feature/oni-pet-chatgpt-shizuku-v1-20260930'
+  pull_request:
+    paths:
+      - 'host/mcp/**'
+      - 'native/kaiwebview/**'
+      - 'doctrine/ONI_PET_CHAT_UI_V1.json'
+      - 'tools/oniPetChatUiAudit.py'
+      - 'render.yaml'
+      - '.github/workflows/oni-pet-chat-ui-audit.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oni-pet-chat-ui-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Assert exact source
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha || github.sha }}'
+      - name: Static authority and UI contract audit
+        run: python3 tools/oniPetChatUiAudit.py
+      - name: Python syntax
+        run: python3 -m py_compile host/mcp/luhmMcpServer.py host/mcp/luhmMcpAppServer.py tools/oniPetChatUiAudit.py
+      - name: JSON doctrine syntax
+        run: python3 -m json.tool doctrine/ONI_PET_CHAT_UI_V1.json >/dev/null
+      - name: Install pinned MCP SDK
+        run: python3 -m pip install --disable-pip-version-check -r host/mcp/requirements.txt
+      - name: MCP Apps source self-check
+        env:
+          LUHM_MCP_PROFILE: local
+        run: python3 host/mcp/luhmMcpAppServer.py --check
