@@ -25,6 +25,10 @@ The key distinction for later decisions is **assistant proposal versus delegated
 
 No upstream evidence retrieved for this census establishes a dedicated, maintained Godot 4.7.2 Ollama assistant that safely edits all requested artifact types. In particular, there is no verified direct AI authoring path here for textures, sprites, animations, rigging, audio, or builds. Those are not implied by a tool that can add a node or write a script. The JSON matrix distinguishes native server operations from model-host capabilities and leaves unproven claims `UNKNOWN`.
 
+### Discovery-seed disposition
+
+The names/classes supplied as discovery seeds are not endorsements. Godot MCP (Coding-Solo) is the only editor-control server in this snapshot with an upstream source inspected in detail. Other Godot editor-MCP projects/forks, Godot Ollama assistants, AI helper/editor assistants, prompt-composer/editor-generation tools, and Godot-specific AI integration guides remain `UNKNOWN` unless a canonical upstream link and current status can be verified. The initial repository-search service timed out or rate-limited; do not interpret missing entries as proof that such projects do not exist. The conditional Ollama + MCP arrangement above is an architecture possibility, not a verified integration.
+
 ### AI creation surface: verified versus not established
 
 | Artifact/task | Evidence-based conclusion |

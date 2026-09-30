@@ -22,6 +22,38 @@
     },
     "non_mutation": "No plugins/dependencies were installed, no engine/runtime/project settings were changed, and no remote service was signed up for."
   },
+  "unverified_ai_discovery_leads": [
+    {
+      "lead": "Additional Godot editor-MCP projects or forks",
+      "canonical_upstream_url": "UNKNOWN",
+      "current_upstream_status": "UNKNOWN",
+      "reason": "One server (Coding-Solo Godot MCP) was directly inspected. Repository search timed out/rate-limited; no absence claim is made."
+    },
+    {
+      "lead": "Dedicated Godot Ollama assistant/plugin",
+      "canonical_upstream_url": "UNKNOWN",
+      "current_upstream_status": "UNKNOWN",
+      "reason": "No direct Ollama/Godot editor integration was verified. The MCP + Ollama-host record is conditional, not a tested product."
+    },
+    {
+      "lead": "Godot AI helper/editor assistants",
+      "canonical_upstream_url": "UNKNOWN",
+      "current_upstream_status": "UNKNOWN",
+      "reason": "No specific canonical current repository and supported Godot version could be confirmed from retrieved sources."
+    },
+    {
+      "lead": "Prompt-composer/editor-generation tools",
+      "canonical_upstream_url": "UNKNOWN",
+      "current_upstream_status": "UNKNOWN",
+      "reason": "No named tool with verifiable current upstream and mutation/version evidence was confirmed."
+    },
+    {
+      "lead": "Godot-specific AI integration guides",
+      "canonical_upstream_url": "UNKNOWN",
+      "current_upstream_status": "UNKNOWN",
+      "reason": "A guide is not itself a plugin; no verified source was used to establish a provider, data path, compatibility or project-mutation capability."
+    }
+  ],
   "categories": [
     {"id": 1, "name": "EditorPlugin/editor productivity"},
     {"id": 2, "name": "Runtime addons"},
