@@ -6,9 +6,10 @@ services:
     buildCommand: >-
       python -m pip install --disable-pip-version-check -r host/mcp/requirements.txt
       && python host/mcp/luhmMcpServer.py --check
+      && python host/mcp/luhmMcpAppServer.py --check
       && python tools/luhmMcpEnterpriseAudit.py
       && python tools/luhmPluginPackageAudit.py
-    startCommand: python host/mcp/luhmMcpServer.py streamable-http
+    startCommand: python host/mcp/luhmMcpAppServer.py streamable-http
     autoDeployTrigger: checksPass
     healthCheckPath: /healthz
     maxShutdownDelaySeconds: 45
