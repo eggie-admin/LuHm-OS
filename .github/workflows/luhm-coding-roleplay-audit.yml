@@ -6,6 +6,7 @@ on:
       - 'agents/**'
       - 'doctrine/CODING_ROLEPLAY_SYSTEM_V3.json'
       - 'doctrine/TERMUX_OUTSIDE_SECURE_DEV_WORKFLOW_V1.json'
+      - 'doctrine/codingRoleplayV3Candidate-20260930.json'
       - 'plugins/luhm-os/skills/luhm-coding-roleplay/**'
       - 'tools/luhmRoleplayAudit.py'
       - 'tools/luhmTermuxCli.py'
