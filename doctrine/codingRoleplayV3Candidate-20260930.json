@@ -15,8 +15,12 @@
     "scripts/termux/install-luhm-dev.sh",
     ".github/workflows/luhm-coding-roleplay-audit.yml"
   ],
+  "githubPullRequest": 86,
   "driveBundleFolderId": "1hMoIsnyqmA4M8rxD6-nGFRaAHxBhYbhX",
-  "localBundleSha256": "b23b9bb69a8e7cdbb4e67c1cfe0ffb8fa2d94fb1a650e46ffb81615e0009e02e",
+  "driveBundleFileId": "1BXOlaeG8wN2Qk4HmiaHJuENSCkRP69l9",
+  "driveInstallerFileId": "129wydQYA2B5GyceQQHoxTfxO_0tuAO08",
+  "localBundleSha256": "64ad98d03b875c2bfaadfaf0f7e72a1fd2ed4e5305c427cf85ea661297341779",
+  "standaloneInstallerSha256": "71fba8e624e96462044c6deea886900cc4270fdd1c0308386cbcd658873a760f",
   "promotion": false,
   "publicationAuthority": false,
   "productionSigningAuthority": false,
