@@ -1,31 +1,42 @@
 {
-  "schema": "luhm-os.library-policy.v1",
+  "schema": "luhm-os.library-policy.v2",
   "productionPolicy": "vendored-or-self-hosted-only",
   "chatWidgetExternalCdnAllowed": false,
   "developmentCdnMode": "explicit-opt-in-only",
-  "allowedDevelopmentOrigins": [
-    "https://cdn.jsdelivr.net"
-  ],
+  "allowedDevelopmentOrigins": [],
   "libraries": [
     {
+      "name": "Native Asset Desk",
+      "purpose": "local file tree, preview, media carousel, PDF iframe, drag/drop",
+      "load": "bundled"
+    },
+    {
+      "name": "Native Parallax",
+      "purpose": "requestAnimationFrame pointer depth effect",
+      "load": "bundled"
+    },
+    {
       "name": "jQuery",
-      "purpose": "DOM/event convenience",
+      "purpose": "optional compatibility layer for future desktop plugins",
       "load": "not-bundled-by-default"
     },
     {
       "name": "jQuery UI",
-      "purpose": "desktop-like draggable/resizable controls",
+      "purpose": "optional draggable/resizable desktop controls",
       "load": "not-bundled-by-default"
     },
     {
       "name": "Vue 3",
-      "purpose": "larger CMS views when component state warrants it",
+      "purpose": "larger CMS stateful views",
       "load": "not-bundled-by-default"
     }
   ],
+  "donorRule": "Donors inform behavior; code is copied only when license/provenance is explicit and the dependency fits current doctrine.",
   "rules": [
-    "Pin exact versions and integrity hashes before any CDN use.",
-    "Do not load third-party CDN JavaScript inside the ChatGPT widget.",
-    "Prefer vendored production assets so CSP can remain same-origin."
+    "No third-party CDN JavaScript in production or the ChatGPT widget.",
+    "No ad, analytics, remote-image, YouTube, or arbitrary upload endpoints from donor demos.",
+    "Local file intake uses browser File/Blob APIs only and never grants server write authority.",
+    "Unknown or absent donor licenses are concept-only and are not copied.",
+    "Production dependencies must be vendored/self-hosted and pinned before activation."
   ]
 }
