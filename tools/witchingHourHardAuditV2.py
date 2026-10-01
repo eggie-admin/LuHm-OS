@@ -7,6 +7,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "doctrine" / "WITCHING_HOUR_HARD_AUDIT_V2.json"
+RECEIPT = ROOT / "doctrine" / "WITCHING_HOUR_HARD_AUDIT_RECEIPT_20261001.json"
 
 errors: list[str] = []
 
@@ -16,12 +17,24 @@ def require(condition: bool, message: str) -> None:
         errors.append(message)
 
 
+def load(path: Path, label: str) -> dict:
+    require(path.is_file(), f"missing {label}")
+    if not path.is_file():
+        return {}
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        errors.append(f"invalid {label}: {exc}")
+        return {}
+    require(isinstance(value, dict), f"{label} must be a JSON object")
+    return value if isinstance(value, dict) else {}
+
+
 def main() -> int:
-    require(CONTRACT.is_file(), "missing Witching Hour hard-audit v2 contract")
+    data = load(CONTRACT, "Witching Hour hard-audit v2 contract")
+    receipt = load(RECEIPT, "Witching Hour hard-audit receipt")
     if errors:
         return finish()
-
-    data = json.loads(CONTRACT.read_text(encoding="utf-8"))
 
     require(data.get("schema") == "luhm.witching-hour.hard-audit.v2", "schema mismatch")
     require(data.get("status") == "PROPOSED_CANDIDATE", "candidate status required")
@@ -97,6 +110,32 @@ def main() -> int:
     ):
         require(required_stop in hard_stops, f"missing hard stop: {required_stop}")
 
+    require(receipt.get("schema") == "luhm.witching-hour.hard-audit-receipt.v2", "receipt schema mismatch")
+    require(receipt.get("status") == "AMBER_HARD_AUDIT_BLOCKERS_REMAIN", "receipt must preserve broader AMBER state")
+    require(receipt.get("crownStatus") == "STOP", "receipt Crown must remain STOP")
+    require(receipt.get("authority") == "Professor", "receipt Professor authority required")
+    require(receipt.get("baseCanonicalMain") == data.get("baseCanonicalMain"), "contract/receipt canonical main mismatch")
+    require(receipt.get("castPresent") is False, "receipt cannot claim CAST")
+    require(receipt.get("buildExecutedByThisAudit") is False, "static audit cannot claim build execution")
+
+    rb = receipt.get("reviewers", {}).get("bigBrother", {})
+    require(rb.get("surface") == "GOOGLE_AI_EDGE_GALLERY_IN_SAMSUNG_SECURE_FOLDER", "receipt Big Brother surface drift")
+    require(rb.get("environment") == "SOURCE_DERIVED_GREEN", "receipt must preserve source-derived environment scope")
+    for field in ("modelRuntime", "entitlementProgram", "galleryToLuhmIntegration", "currentAuditOutput"):
+        require(rb.get(field) == "UNKNOWN", f"receipt must keep {field} UNKNOWN until direct receipt")
+    require(rb.get("signoff") == "NOT_CLAIMED", "Big Brother signoff cannot be invented")
+
+    result_passes = receipt.get("passes", [])
+    require(isinstance(result_passes, list) and len(result_passes) == 10, "receipt must contain ten pass results")
+    ids = [item.get("id") for item in result_passes if isinstance(item, dict)]
+    require(ids == list(range(1, 11)), "receipt pass IDs must be 1..10 in order")
+    statuses = {item.get("id"): item.get("status") for item in result_passes if isinstance(item, dict)}
+    require(statuses.get(7) == "RED", "canonical Forge/CAST mismatch must remain RED")
+    require(statuses.get(9) == "RED", "enterprise Android final path must remain RED until proven")
+    require(all(value in {"GREEN", "AMBER", "RED", "UNKNOWN"} for value in statuses.values()), "invalid pass status")
+
+    require(receipt.get("verdict") == "WITCHING_HOUR_STATIC_CONTRACT_GREEN_BROADER_MILESTONE_AMBER_WITH_RED_BUILD_AND_ENTERPRISE_GATES", "receipt verdict drift")
+
     return finish()
 
 
@@ -109,11 +148,13 @@ def finish() -> int:
         return 1
 
     print("WITCHING_HOUR_HARD_AUDIT_V2=GREEN")
-    print("scope=static-policy-contract-only")
+    print("scope=static-policy-and-receipt-consistency-only")
     print("edgeGalleryEnvironment=SOURCE_DERIVED_GREEN")
     print("galleryToLuhmIntegration=UNKNOWN")
     print("modelRuntime=UNKNOWN")
     print("entitlementProgram=UNKNOWN")
+    print("bigBrotherAuditOutput=UNKNOWN")
+    print("broaderMilestone=AMBER_WITH_RED_GATES")
     print("cast=NOT_ISSUED")
     print("build=NOT_AUTHORIZED")
     print("crown=STOP")
