@@ -1,0 +1,329 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eggiebagelface.art/schemas/goddessTriad.schema.json",
+  "title": "goddessTriad",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "systemId",
+    "displayName",
+    "enabledByDefault",
+    "chatLoadMode",
+    "authority",
+    "goddesses",
+    "commands",
+    "grepRules",
+    "limits"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "systemId": {
+      "type": "string",
+      "const": "goddessTriad"
+    },
+    "displayName": {
+      "type": "string",
+      "const": "Three Goddesses"
+    },
+    "enabledByDefault": {
+      "type": "boolean"
+    },
+    "chatLoadMode": {
+      "type": "string",
+      "enum": [
+        "presenceAlwaysWorkOnDemand",
+        "summonedOnly",
+        "parked"
+      ]
+    },
+    "authority": {
+      "$ref": "#/$defs/authority"
+    },
+    "goddesses": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "urd",
+        "skuld",
+        "belldandy"
+      ],
+      "properties": {
+        "urd": {
+          "$ref": "#/$defs/goddess"
+        },
+        "skuld": {
+          "$ref": "#/$defs/goddess"
+        },
+        "belldandy": {
+          "$ref": "#/$defs/goddess"
+        }
+      }
+    },
+    "commands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summonAll",
+        "takeBreak",
+        "resumeAll",
+        "summonOnePattern"
+      ],
+      "properties": {
+        "summonAll": {
+          "type": "string",
+          "minLength": 1
+        },
+        "takeBreak": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resumeAll": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summonOnePattern": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "grepRules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/grepRule"
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxActiveGoddesses",
+        "maxParallelResearchTasks",
+        "maxAutomaticResearchQueries",
+        "defaultEvidenceFreshnessHours",
+        "maxReceiptRefsPerHandoff"
+      ],
+      "properties": {
+        "maxActiveGoddesses": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "maxParallelResearchTasks": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "maxAutomaticResearchQueries": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "defaultEvidenceFreshnessHours": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 720
+        },
+        "maxReceiptRefsPerHandoff": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        }
+      }
+    }
+  },
+  "$defs": {
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "professorIsCrown",
+        "lumIsConversationalBoss",
+        "selfCrown",
+        "mergeAuthority",
+        "publishAuthority",
+        "deployAuthority",
+        "signAuthority",
+        "buildAuthorityWithoutCast"
+      ],
+      "properties": {
+        "professorIsCrown": {
+          "type": "boolean",
+          "const": true
+        },
+        "lumIsConversationalBoss": {
+          "type": "boolean",
+          "const": true
+        },
+        "selfCrown": {
+          "type": "boolean",
+          "const": false
+        },
+        "mergeAuthority": {
+          "type": "boolean",
+          "const": false
+        },
+        "publishAuthority": {
+          "type": "boolean",
+          "const": false
+        },
+        "deployAuthority": {
+          "type": "boolean",
+          "const": false
+        },
+        "signAuthority": {
+          "type": "boolean",
+          "const": false
+        },
+        "buildAuthorityWithoutCast": {
+          "type": "boolean",
+          "const": false
+        }
+      }
+    },
+    "goddess": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "displayName",
+        "role",
+        "skillPath",
+        "enabled",
+        "defaultPresence",
+        "workMode",
+        "legacyAliases",
+        "activationPhrases",
+        "canMutate",
+        "canBuild",
+        "canMerge",
+        "canPublish",
+        "canDeploy",
+        "canSign",
+        "canCrown"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": [
+            "urd",
+            "skuld",
+            "belldandy"
+          ]
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "skillPath": {
+          "type": "string",
+          "pattern": "^agents/[a-z][A-Za-z0-9]*/SKILL\\.md$"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "defaultPresence": {
+          "type": "boolean"
+        },
+        "workMode": {
+          "type": "string",
+          "enum": [
+            "passiveGuard",
+            "workOnDemand",
+            "stateKeeper"
+          ]
+        },
+        "legacyAliases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "activationPhrases": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "canMutate": {
+          "type": "boolean",
+          "const": false
+        },
+        "canBuild": {
+          "type": "boolean",
+          "const": false
+        },
+        "canMerge": {
+          "type": "boolean",
+          "const": false
+        },
+        "canPublish": {
+          "type": "boolean",
+          "const": false
+        },
+        "canDeploy": {
+          "type": "boolean",
+          "const": false
+        },
+        "canSign": {
+          "type": "boolean",
+          "const": false
+        },
+        "canCrown": {
+          "type": "boolean",
+          "const": false
+        }
+      }
+    },
+    "grepRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "pattern",
+        "severity",
+        "enabled",
+        "purpose"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "pattern": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "info",
+            "amber",
+            "red"
+          ]
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
