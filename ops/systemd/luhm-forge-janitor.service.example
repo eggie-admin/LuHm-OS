@@ -1,0 +1,17 @@
+# TEMPLATE ONLY. Do not install without substituting __LUHM_REPO__ with the exact local repo path.
+# User service, not root service.
+[Unit]
+Description=LuHm Forge TTL Janitor
+ConditionPathExists=__LUHM_REPO__/tools/forgeWorkspaceJanitor.py
+
+[Service]
+Type=oneshot
+WorkingDirectory=__LUHM_REPO__
+Environment=XDG_CACHE_HOME=%h/.cache
+ExecStartPre=/usr/bin/python3 __LUHM_REPO__/tools/forgeWorkspaceJanitor.py --root %h/.cache/luhm/forge --init-root
+ExecStart=/usr/bin/python3 __LUHM_REPO__/tools/forgeWorkspaceJanitor.py --root %h/.cache/luhm/forge --apply
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/.cache/luhm/forge
