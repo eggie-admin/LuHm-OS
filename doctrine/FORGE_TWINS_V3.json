@@ -72,6 +72,7 @@
     ],
     "castWord": "cast",
     "authorizedBy": "Professor",
+    "authorizedGitHubActors": ["eggie-admin"],
     "defaultTtlMinutes": 30,
     "consumedOnAttempt": true,
     "ambiguousMilestoneBehavior": "STOP",
@@ -123,7 +124,7 @@
     "builderSelfReportIsSufficientProof": false,
     "greenMustBeScoped": true
   },
-  "knownCurrentConflicts": [
+  "baseMainObservedConflicts": [
     {
       "id": "FORGE-CONFLICT-001",
       "status": "RED_POLICY_DRIFT",
@@ -132,22 +133,31 @@
     {
       "id": "FORGE-CONFLICT-002",
       "status": "RED_AUTOBUILD_TRIGGER",
-      "detail": ".github/workflows/android-testing-build.yml currently includes pull_request and executes an Android/Godot build"
+      "detail": ".github/workflows/android-testing-build.yml on base main included pull_request and executed an Android/Godot build"
     },
     {
       "id": "FORGE-CONFLICT-003",
       "status": "RED_AUTOBUILD_TRIGGER",
-      "detail": ".github/workflows/godot-web-harness.yml currently includes pull_request and builds a Godot Web harness"
+      "detail": ".github/workflows/godot-web-harness.yml on base main included pull_request and built a Godot Web harness"
     },
     {
       "id": "FORGE-CONFLICT-004",
       "status": "RED_AUTOBUILD_TRIGGER",
-      "detail": ".github/workflows/lumrigv2-phase1.yml currently includes pull_request and executes Godot build/runtime preparation"
+      "detail": ".github/workflows/lumrigv2-phase1.yml on base main included pull_request and executed Godot import/runtime preparation"
     },
     {
       "id": "FORGE-CONFLICT-005",
       "status": "AMBER_GOVERNANCE",
-      "detail": "live main branch protection is currently not enabled; local Forge protection must not claim otherwise"
+      "detail": "live base main branch protection was not enabled; local Forge protection must not claim otherwise"
     }
+  ],
+  "candidateResolutions": [
+    "replace automatic twin-build skill with Source Forge / Compile Forge split",
+    "remove pull_request build triggers from the three observed Godot/Android build workflows",
+    "require workflow_dispatch plus exact CAST input, milestoneId, taskId, and sourceRef",
+    "require forgeCastGate.py before build-producing steps",
+    "reduce remote ephemeral build artifact retention to 72 hours",
+    "add sentinel-bound Forge workspace TTL policy and janitor",
+    "keep branch-protection state explicitly external and unproven until live governance is changed"
   ]
 }
