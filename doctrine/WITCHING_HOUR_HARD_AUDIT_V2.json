@@ -1,0 +1,119 @@
+{
+  "schema": "luhm.witching-hour.hard-audit.v2",
+  "status": "PROPOSED_CANDIDATE",
+  "crownStatus": "STOP",
+  "authority": "Professor",
+  "projectGoal": "LuHm OS",
+  "workingTitle": "Project Hydra",
+  "openAiAgent": "Lum",
+  "codingRoleplaySystem": "Witching Hour",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "baseCanonicalMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+  "buildAuthority": false,
+  "castIssued": false,
+  "reviewTopology": [
+    "Lum",
+    "internalOni",
+    "CopilotReviewer",
+    "BigBrotherEdgeGalleryReviewer",
+    "DrNaoAdjudication",
+    "SecretaryReconciliation",
+    "WitchingHourReceipt",
+    "ProfessorCrownWait"
+  ],
+  "bigBrother": {
+    "surface": "GOOGLE_AI_EDGE_GALLERY_IN_SAMSUNG_SECURE_FOLDER",
+    "environmentState": "SOURCE_DERIVED_GREEN",
+    "environmentEvidenceBoundary": "Project source records Secure Folder Big Brother as GREEN and Edge Gallery as the phone-side reviewer/inference environment.",
+    "modelRuntime": "UNKNOWN_UNTIL_EXACT_DEVICE_RECEIPT",
+    "entitlementProgram": "UNKNOWN_UNTIL_EXACT_RECEIPT",
+    "galleryToLuhmIntegration": "UNKNOWN_UNTIL_DEVICE_SIDE_TOOL_RESULT_RECEIPT",
+    "auditOutput": "UNKNOWN_UNTIL_ACTUAL_EDGE_GALLERY_REVIEW_RECEIPT",
+    "approvalAuthority": false,
+    "mergeAuthority": false,
+    "publishAuthority": false,
+    "deployAuthority": false,
+    "signAuthority": false,
+    "crownAuthority": false,
+    "secureFolderIsolationMustRemain": true
+  },
+  "copilot": {
+    "role": "INDEPENDENT_GITHUB_REVIEWER",
+    "approvalAuthority": false,
+    "mergeAuthority": false,
+    "publishAuthority": false,
+    "deployAuthority": false,
+    "signAuthority": false,
+    "crownAuthority": false
+  },
+  "doctorOni": {
+    "role": "ANTI_HALLUCINATION_TRUTH_ADJUDICATOR",
+    "law": "No evidence -> no factual claim. Unknown stays UNKNOWN.",
+    "reviewPrestigeIsEvidence": false,
+    "memoryIsMutableStateProof": false
+  },
+  "secretaryOni": {
+    "role": "STATE_AND_RECEIPT_RECONCILIATION",
+    "mustPreserveContradictions": true,
+    "mustSeparateEnvironmentFromIntegration": true
+  },
+  "forge": {
+    "law": "PROTECT != INGEST != MUTATE != CAST != JANITOR",
+    "sourceTwin": "Tetsu",
+    "compileTwin": "Kaji",
+    "compileRequiresProfessorCast": true,
+    "castPresent": false
+  },
+  "tenPasses": [
+    "SOURCE_TRUTH_IDENTITY",
+    "HUMAN_CROWN_AUTHORITY",
+    "DR_NAO_AND_ONI_FIREWALL",
+    "SECRETARY_MCP_CHATGPT_COCKPIT",
+    "ANDROID_EDGE_GALLERY_SHIZUKU_SECURE_FOLDER",
+    "GODOT_DETERMINISTIC_STATE",
+    "FORGE_CI_CAST_CORRECTNESS",
+    "DEPENDENCIES_SECRETS_SUPPLY_CHAIN",
+    "ENTERPRISE_ANDROID_FINAL_PATH",
+    "ADVERSARIAL_RECOVERY_CROWN_STOP"
+  ],
+  "pass5RequiredSeparation": [
+    "SECURE_FOLDER_EDGE_GALLERY_ENVIRONMENT",
+    "EDGE_GALLERY_MODEL_RUNTIME",
+    "EDGE_GALLERY_ENTITLEMENTS",
+    "EDGE_GALLERY_TO_LUHM_INTEGRATION",
+    "BIG_BROTHER_AUDIT_OUTPUT"
+  ],
+  "enterpriseTarget": {
+    "device": "Samsung Galaxy S24 FE",
+    "os": "Android 16",
+    "root": false,
+    "endUserDeveloperToolDependency": false,
+    "releaseSigningState": "NOT_AUTHORIZED",
+    "enterpriseDistributionState": "NOT_PROVEN",
+    "managedInstallState": "NOT_PROVEN",
+    "physicalDeviceReleaseProof": "NOT_PROVEN"
+  },
+  "hardStops": [
+    "BIG_BROTHER_ENVIRONMENT_TREATED_AS_COMPLETED_AUDIT",
+    "EDGE_GALLERY_INSTALL_TREATED_AS_LUHM_INTEGRATION",
+    "UNKNOWN_MODEL_OR_ENTITLEMENT_INVENTED",
+    "SECURE_FOLDER_ISOLATION_WEAKENED",
+    "COPILOT_OR_BIG_BROTHER_TREATED_AS_CROWN_AUTHORITY",
+    "CI_TREATED_AS_DEVICE_OR_ENTERPRISE_PROOF",
+    "BUILD_WITHOUT_EXACT_PROFESSOR_CAST",
+    "CANDIDATE_TREATED_AS_CURRENT_OR_MERGED",
+    "CONTRADICTION_SMOOTHED_OVER",
+    "UNSCOPED_GREEN"
+  ],
+  "automation": {
+    "staticAuditAllowed": true,
+    "networkCallsRequired": false,
+    "repoMutationAllowed": false,
+    "buildAllowed": false,
+    "artifactProductionAllowed": false,
+    "deploymentAllowed": false,
+    "publicationAllowed": false,
+    "signingAllowed": false,
+    "crownAllowed": false
+  }
+}
