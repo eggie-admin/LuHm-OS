@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eggiebagelface.art/schemas/goddessTriad.schema.json",
+  "title": "goddessTriad",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "systemId", "displayName", "enabledByDefault", "chatLoadMode", "conversationModel", "authority", "goddesses", "commands", "grepRules", "limits"],
+  "properties": {
+    "schemaVersion": {"type": "integer", "minimum": 2},
+    "systemId": {"type": "string", "const": "goddessTriad"},
+    "displayName": {"type": "string", "const": "Three Goddesses"},
+    "enabledByDefault": {"type": "boolean"},
+    "chatLoadMode": {"type": "string", "enum": ["presenceAlwaysWorkOnDemand", "summonedOnly", "parked"]},
+    "conversationModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "backgroundSemantics", "directAddressEnabled", "lumMayConsult", "professorMayAddressDirectly", "goddessToGoddessDialogueAllowed", "hiddenChainOfThoughtExposed", "seriousContextSuppressesBanter", "maxVisibleSpeakersPerReply", "defaultVisibleSpeaker", "allowedPresenceStates"],
+      "properties": {
+        "mode": {"type": "string", "const": "cooperativeRoleplay"},
+        "backgroundSemantics": {"type": "string", "const": "advisoryEligibilityNotAsyncExecution"},
+        "directAddressEnabled": {"type": "boolean", "const": true},
+        "lumMayConsult": {"type": "boolean", "const": true},
+        "professorMayAddressDirectly": {"type": "boolean", "const": true},
+        "goddessToGoddessDialogueAllowed": {"type": "boolean", "const": true},
+        "hiddenChainOfThoughtExposed": {"type": "boolean", "const": false},
+        "seriousContextSuppressesBanter": {"type": "boolean", "const": true},
+        "maxVisibleSpeakersPerReply": {"type": "integer", "minimum": 1, "maximum": 4},
+        "defaultVisibleSpeaker": {"type": "string", "enum": ["lum", "urd", "skuld", "belldandy"]},
+        "allowedPresenceStates": {"type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": {"type": "string", "enum": ["background", "foreground", "parked"]}}
+      }
+    },
+    "authority": {"$ref": "#/$defs/authority"},
+    "goddesses": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["urd", "skuld", "belldandy"],
+      "properties": {"urd": {"$ref": "#/$defs/goddess"}, "skuld": {"$ref": "#/$defs/goddess"}, "belldandy": {"$ref": "#/$defs/goddess"}}
+    },
+    "commands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summonAll", "takeBreak", "resumeAll", "summonOnePattern", "directAddressPattern"],
+      "properties": {
+        "summonAll": {"type": "string", "minLength": 1},
+        "takeBreak": {"type": "string", "minLength": 1},
+        "resumeAll": {"type": "string", "minLength": 1},
+        "summonOnePattern": {"type": "string", "minLength": 1},
+        "directAddressPattern": {"type": "string", "minLength": 1}
+      }
+    },
+    "grepRules": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/grepRule"}},
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maxActiveGoddesses", "maxParallelResearchTasks", "maxAutomaticResearchQueries", "defaultEvidenceFreshnessHours", "maxReceiptRefsPerHandoff", "maxPersonaBanterLines"],
+      "properties": {
+        "maxActiveGoddesses": {"type": "integer", "minimum": 1, "maximum": 3},
+        "maxParallelResearchTasks": {"type": "integer", "minimum": 1, "maximum": 3},
+        "maxAutomaticResearchQueries": {"type": "integer", "minimum": 1, "maximum": 20},
+        "defaultEvidenceFreshnessHours": {"type": "integer", "minimum": 1, "maximum": 720},
+        "maxReceiptRefsPerHandoff": {"type": "integer", "minimum": 1, "maximum": 50},
+        "maxPersonaBanterLines": {"type": "integer", "minimum": 0, "maximum": 5}
+      }
+    }
+  },
+  "$defs": {
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["professorIsCrown", "lumIsConversationalBoss", "selfCrown", "mergeAuthority", "publishAuthority", "deployAuthority", "signAuthority", "buildAuthorityWithoutCast"],
+      "properties": {
+        "professorIsCrown": {"type": "boolean", "const": true},
+        "lumIsConversationalBoss": {"type": "boolean", "const": true},
+        "selfCrown": {"type": "boolean", "const": false},
+        "mergeAuthority": {"type": "boolean", "const": false},
+        "publishAuthority": {"type": "boolean", "const": false},
+        "deployAuthority": {"type": "boolean", "const": false},
+        "signAuthority": {"type": "boolean", "const": false},
+        "buildAuthorityWithoutCast": {"type": "boolean", "const": false}
+      }
+    },
+    "goddess": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "displayName", "role", "skillPath", "personaPath", "enabled", "defaultPresence", "presenceState", "workMode", "persona", "legacyAliases", "activationPhrases", "canMutate", "canBuild", "canMerge", "canPublish", "canDeploy", "canSign", "canCrown"],
+      "properties": {
+        "id": {"type": "string", "enum": ["urd", "skuld", "belldandy"]},
+        "displayName": {"type": "string", "minLength": 1},
+        "role": {"type": "string", "minLength": 1},
+        "skillPath": {"type": "string", "pattern": "^agents/[a-z][A-Za-z0-9]*/SKILL\\.md$"},
+        "personaPath": {"type": "string", "pattern": "^agents/[a-z][A-Za-z0-9]*/PERSONA\\.md$"},
+        "enabled": {"type": "boolean"},
+        "defaultPresence": {"type": "boolean"},
+        "presenceState": {"type": "string", "enum": ["background", "foreground", "parked"]},
+        "workMode": {"type": "string", "enum": ["passiveGuard", "workOnDemand", "stateKeeper"]},
+        "persona": {"$ref": "#/$defs/persona"},
+        "legacyAliases": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "activationPhrases": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "canMutate": {"type": "boolean", "const": false},
+        "canBuild": {"type": "boolean", "const": false},
+        "canMerge": {"type": "boolean", "const": false},
+        "canPublish": {"type": "boolean", "const": false},
+        "canDeploy": {"type": "boolean", "const": false},
+        "canSign": {"type": "boolean", "const": false},
+        "canCrown": {"type": "boolean", "const": false}
+      }
+    },
+    "persona": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adult", "familyArchetype", "agePresentation", "coreTraits", "warmthLevel", "bratLevel", "techObsessionLevel", "risqueHumorLevel", "boobJokesAllowed", "sexualHumorWithSkuldAllowed", "seriousContextBanterAllowed", "patronizingAllowed"],
+      "properties": {
+        "adult": {"type": "boolean", "const": true},
+        "familyArchetype": {"type": "string", "enum": ["olderSister", "youngerSister", "motherlyPeer"]},
+        "agePresentation": {"type": "string", "enum": ["matureAdult", "youngerAdult", "peerAdultToLum"]},
+        "coreTraits": {"type": "array", "minItems": 3, "maxItems": 10, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z][A-Za-z0-9]*$"}},
+        "warmthLevel": {"type": "integer", "minimum": 0, "maximum": 5},
+        "bratLevel": {"type": "integer", "minimum": 0, "maximum": 5},
+        "techObsessionLevel": {"type": "integer", "minimum": 0, "maximum": 5},
+        "risqueHumorLevel": {"type": "integer", "minimum": 0, "maximum": 5},
+        "boobJokesAllowed": {"type": "boolean"},
+        "sexualHumorWithSkuldAllowed": {"type": "boolean", "const": false},
+        "seriousContextBanterAllowed": {"type": "boolean", "const": false},
+        "patronizingAllowed": {"type": "boolean", "const": false}
+      }
+    },
+    "grepRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "pattern", "severity", "enabled", "purpose"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][A-Za-z0-9]*$"},
+        "pattern": {"type": "string", "minLength": 1},
+        "severity": {"type": "string", "enum": ["info", "amber", "red"]},
+        "enabled": {"type": "boolean"},
+        "purpose": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

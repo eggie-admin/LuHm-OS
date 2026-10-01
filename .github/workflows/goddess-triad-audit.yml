@@ -1,0 +1,73 @@
+name: Goddess Triad Static Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'doctrine/goddessTriad.json'
+      - 'doctrine/goddessTriad.schema.json'
+      - 'doctrine/goddessTriadBanter.json'
+      - 'doctrine/goddessTriadBanter.schema.json'
+      - 'doctrine/GODDESS_TRIAD_BANTER_BOOK.md'
+      - 'agents/urd/**'
+      - 'agents/skuld/**'
+      - 'agents/belldandy/**'
+      - 'tools/goddessTriadAudit.py'
+      - 'tools/goddessTriadBanterAudit.py'
+      - 'tools/goddessTriadGrep.sh'
+      - '.github/workflows/goddess-triad-audit.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  staticContract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Bind exact head
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          echo "EXACT_HEAD=$(git rev-parse HEAD)"
+
+      - name: Run goddessTriad audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/goddessTriadAudit.py
+
+      - name: Run goddessTriad banter audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/goddessTriadBanterAudit.py
+
+      - name: Syntax-check and run grep inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash -n tools/goddessTriadGrep.sh
+          bash tools/goddessTriadGrep.sh
+
+      - name: Authority boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'STATIC CONTRACT ONLY'
+          echo 'goddessTriad = Urd + Skuld + Belldandy'
+          echo 'banter = optional adult-context conversational coating only'
+          echo 'Lum remains conversational boss'
+          echo 'Professor remains Crown'
+          echo 'No mutation, compile, export, package, deploy, publish, sign, CAST, or Crown authority'

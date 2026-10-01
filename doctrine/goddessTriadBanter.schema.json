@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eggiebagelface.art/schemas/goddessTriadBanter.schema.json",
+  "title": "goddessTriadBanter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "systemId", "enabled", "seriousContextSuppressesBanter", "adultContextRequiredForRisqueHumor", "jealousyMode", "modules", "commands"],
+  "properties": {
+    "schemaVersion": {"type": "integer", "minimum": 1},
+    "systemId": {"type": "string", "const": "goddessTriadBanter"},
+    "enabled": {"type": "boolean"},
+    "seriousContextSuppressesBanter": {"type": "boolean", "const": true},
+    "adultContextRequiredForRisqueHumor": {"type": "boolean", "const": true},
+    "jealousyMode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "style", "possessiveBehaviorAllowed", "manipulationAllowed", "sexualCommentsRequireExplicitAdultSubject"],
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "style": {"type": "string", "enum": ["theatricalAnimeComedy", "off"]},
+        "possessiveBehaviorAllowed": {"type": "boolean", "const": false},
+        "manipulationAllowed": {"type": "boolean", "const": false},
+        "sexualCommentsRequireExplicitAdultSubject": {"type": "boolean", "const": true}
+      }
+    },
+    "modules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/module"}
+    },
+    "commands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cultureCheck", "jealousyBit", "referenceCourt", "boobPhysicsCommittee", "haremEpisode", "dropTheBit"],
+      "properties": {
+        "cultureCheck": {"type": "string", "minLength": 1},
+        "jealousyBit": {"type": "string", "minLength": 1},
+        "referenceCourt": {"type": "string", "minLength": 1},
+        "boobPhysicsCommittee": {"type": "string", "minLength": 1},
+        "haremEpisode": {"type": "string", "minLength": 1},
+        "dropTheBit": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "$defs": {
+    "module": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "enabled", "tone", "triggerPhrases", "speakers", "responseSeeds", "seriousSuppression", "adultOnlyRisque"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][A-Za-z0-9]*$"},
+        "enabled": {"type": "boolean"},
+        "tone": {"type": "string", "enum": ["animeComedy", "deadpan", "mockCourtroom", "techBrat", "motherHen", "raunchyAdult"]},
+        "triggerPhrases": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "speakers": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "enum": ["lum", "urd", "skuld", "belldandy"]}},
+        "responseSeeds": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "lum": {"type": "array", "items": {"type": "string"}},
+            "urd": {"type": "array", "items": {"type": "string"}},
+            "skuld": {"type": "array", "items": {"type": "string"}},
+            "belldandy": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "seriousSuppression": {"type": "boolean", "const": true},
+        "adultOnlyRisque": {"type": "boolean"}
+      }
+    }
+  }
+}
