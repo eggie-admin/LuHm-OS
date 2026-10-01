@@ -11,6 +11,7 @@ import os
 
 import luhmMcpServer as core
 from luhmHarness import register_harness
+from luhmOniSummoner import register_oni_summoner
 
 register_harness(
     core.server,
@@ -19,6 +20,14 @@ register_harness(
     status_provider=core._status_payload,
     roster_provider=core._roster_payload,
     profile_provider=core._profile,
+)
+
+register_oni_summoner(
+    core.server,
+    root=core.ROOT,
+    annotations=core.READ_ONLY_INTERNAL,
+    status_provider=core._status_payload,
+    roster_provider=core._roster_payload,
 )
 
 
