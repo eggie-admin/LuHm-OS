@@ -1,4 +1,5 @@
 {
+  "schema": "luhm.automation.milestone-receipt.v2",
   "milestoneId": "REQUIRED",
   "milestoneSourceRef": "REQUIRED",
   "taskId": "REQUIRED",
@@ -16,6 +17,19 @@
   "retryCount": 0,
   "evidenceRequired": [],
   "evidenceRefs": [],
+  "claimReceipts": [
+    {
+      "claimId": "REQUIRED_FOR_MATERIAL_CLAIMS",
+      "claimText": "REQUIRED",
+      "claimClass": "PROVEN|SOURCE_DERIVED|OBSERVED|INFERENCE|PROPOSAL|MEMORY_ONLY|UNKNOWN|CONTRADICTED",
+      "sourceRef": "REQUIRED",
+      "evidenceRefs": [],
+      "observedAt": "OPTIONAL_UNLESS_TIME_SENSITIVE",
+      "scope": "REQUIRED",
+      "limits": "REQUIRED",
+      "verdict": "REQUIRED"
+    }
+  ],
   "gatesClosed": [],
   "gatesOpened": [],
   "nextGate": "REQUIRED",
@@ -24,5 +38,5 @@
   "authorityUsed": [],
   "promotionAuthority": false,
   "crownAuthority": false,
-  "notes": "Template only. UNKNOWN remains UNKNOWN until exact evidence proves a scoped result."
+  "notes": "Template only. UNKNOWN remains UNKNOWN until exact evidence proves a scoped result. Material factual claims require claim receipts."
 }
