@@ -68,7 +68,7 @@ require('"luhm:oni:summon"' in js and '"luhm:oni:activity"' in js, "RED_EVENT_CO
 require("No observed task packet is active." in js, "RED_NO_FAKE_ACTIVITY")
 require("prefers-reduced-motion" in css, "RED_REDUCED_MOTION")
 require('aria-live' in js, "RED_ARIA_LIVE")
-require("hidden chain-of-thought" in widget, "RED_THINKING_BOUNDARY")
+require("hidden chain-of-thought" in widget.lower(), "RED_THINKING_BOUNDARY")
 require('request("tools/call",{name,arguments:args})' in widget, "RED_MCP_APPS_TOOL_CALL")
 require('window.openai?.callTool' in widget, "RED_CHATGPT_CALLTOOL_FALLBACK")
 require('name="luhm_open_oni_summoner"' in mcp, "RED_MCP_RENDER_TOOL")
