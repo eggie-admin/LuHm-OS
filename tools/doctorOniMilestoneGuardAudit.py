@@ -27,7 +27,7 @@ def require(condition, message):
 try:
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
 except Exception as exc:
-    print(f"DOCTOR_ONI_MILESTONE_GUARD=RED\ncontract parse failure: {exc}")
+    print(f"DOCTOR_ONI_TRUTH_GUARD=RED\ncontract parse failure: {exc}")
     sys.exit(2)
 
 skill = SKILL.read_text(encoding="utf-8") if SKILL.exists() else ""
@@ -35,11 +35,41 @@ skill = SKILL.read_text(encoding="utf-8") if SKILL.exists() else ""
 require(contract.get("status") == "PROPOSED_CANDIDATE", "candidate contract must remain PROPOSED_CANDIDATE")
 require(contract.get("crownStatus") == "STOP", "CROWN must remain STOP")
 require(contract.get("authority") == "Professor", "Professor must remain authority")
+require(contract.get("primaryRole") == "OpenAI/Lum anti-hallucination truth guard", "Doctor primary role drifted")
+require(contract.get("secondaryRole") == "milestone and automation drift guard", "Doctor secondary role drifted")
+require(contract.get("truthLaw") == "No evidence -> no factual claim. Unknown stays UNKNOWN.", "truth law drifted")
+
+classes = set(contract.get("claimClasses", []))
+required_classes = {"PROVEN", "SOURCE_DERIVED", "OBSERVED", "INFERENCE", "PROPOSAL", "MEMORY_ONLY", "UNKNOWN", "CONTRADICTED"}
+require(classes == required_classes, "claim classification vocabulary drift")
+
+truth = contract.get("truthFirewall", {})
+for key in (
+    "materialClaimsRequireEvidence",
+    "contradictionsMustBeReported",
+):
+    require(truth.get(key) is True, f"truth firewall requires {key}=true")
+for key in (
+    "memoryIsMutableStateProof",
+    "plausibilityIsProof",
+    "confidenceIsProof",
+    "toneIsProof",
+    "silentGapFilling",
+    "candidateMayBeCalledCurrent",
+    "ciMayImplyDeviceRuntimeRelease",
+    "inferIntentToLie",
+):
+    require(truth.get(key) is False, f"truth firewall requires {key}=false")
+require(truth.get("unsupportedClaimVerdict") == "UNKNOWN_DOCTOR_ONI_UNSUPPORTED_CLAIM", "unsupported claim verdict drift")
+require(truth.get("falseStateClaimVerdict") == "RED_DOCTOR_ONI_FALSE_STATE_CLAIM", "false-state claim verdict drift")
+
+claim_receipt = set(contract.get("requiredClaimReceipt", []))
+for field in ("claimId", "claimText", "claimClass", "sourceRef", "evidenceRefs", "scope", "limits", "verdict"):
+    require(field in claim_receipt, f"claim receipt missing {field}")
 
 milestone = contract.get("activeMilestone", {})
 for field in ("id", "status", "sourceRef", "objective", "nextGate", "completionRequires"):
     require(bool(milestone.get(field)), f"activeMilestone missing {field}")
-
 require(milestone.get("status", "").startswith("AMBER_"), "candidate active milestone must remain AMBER until promoted")
 
 relations = set(contract.get("milestoneRelations", []))
@@ -72,31 +102,34 @@ require(gov.get("mutationAfterExpectedDeltaAchieved") is False, "automation must
 require(gov.get("defaultForUnclassifiedAutomation") == "UNKNOWN_AUTOMATION_UNACCOUNTED", "unclassified automation must fail closed")
 
 for phrase in (
+    "OpenAI / Lum truth firewall",
+    "Anti-vibes rule",
+    "Claim receipt",
+    "Memory firewall",
+    "Source precedence",
+    "No evidence -> no factual claim. Unknown stays UNKNOWN.",
+    "UNKNOWN_DOCTOR_ONI_UNSUPPORTED_CLAIM",
+    "RED_DOCTOR_ONI_FALSE_STATE_CLAIM",
     "Active-milestone lock",
     "Side-quest firewall",
     "Automation receipt contract",
-    "Milestone progress rule",
     "Witching Hour handoff",
-    "UNKNOWN_AUTOMATION_UNACCOUNTED",
-    "AMBER_DOCTOR_ONI_SIDE_QUEST_DRIFT",
-    "RED_DOCTOR_ONI_MILESTONE_BREACH",
 ):
-    require(phrase in skill, f"Doctor skill missing required milestone guard phrase: {phrase}")
+    require(phrase in skill, f"Doctor skill missing required truth/milestone phrase: {phrase}")
 
 for forbidden_power in (
     "modifying source herself",
     "merging or rebasing",
     "publishing or deploying",
     "self-Crown",
+    "treating memory, confidence, or plausibility as proof",
 ):
-    require(forbidden_power in skill, f"Doctor authority boundary missing: {forbidden_power}")
+    require(forbidden_power in skill, f"Doctor authority/truth boundary missing: {forbidden_power}")
 
-# Current main has a known dangling ONI_PROTOCOL_V2 reference in v2. v3 must be self-contained
-# and must explicitly fail closed if a protocol dependency is absent.
 require("Dependency drift" in skill, "Doctor v3 must contain dependency-drift handling")
 require("dangling dependency" in skill, "Doctor v3 must not pretend missing dependencies exist")
+require("TRUTH_CHECK" in contract.get("witchingHourSequence", []), "Witching Hour must contain TRUTH_CHECK")
 
-# Any workflow added with this candidate must itself be milestone-governed by name.
 workflow = ROOT / ".github" / "workflows" / "doctor-oni-milestone-guard.yml"
 if workflow.exists():
     text = workflow.read_text(encoding="utf-8")
@@ -106,11 +139,11 @@ else:
     warn("guard workflow not present yet")
 
 status = "GREEN" if not errors else "RED"
-print(f"DOCTOR_ONI_MILESTONE_GUARD={status}")
+print(f"DOCTOR_ONI_TRUTH_GUARD={status}")
 print(f"errors={len(errors)} warnings={len(warnings)}")
 for item in errors:
     print("ERROR:", item)
 for item in warnings:
     print("WARN:", item)
-print("NOTE: GREEN proves only the candidate milestone-guard contract/static audit. It is not milestone completion, deployment, publication, device, enterprise, or Crown GREEN.")
+print("NOTE: GREEN proves only the candidate truth/milestone guard contract and static audit. It does not make any unverified LuHm claim true and is not deployment, publication, device, enterprise, or Crown GREEN.")
 sys.exit(0 if not errors else 2)
