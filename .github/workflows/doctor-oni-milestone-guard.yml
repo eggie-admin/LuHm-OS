@@ -1,0 +1,25 @@
+name: Doctor Oni Milestone Guard
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  doctor-oni-milestone-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Dr Nao milestone guard
+        run: python3 tools/doctorOniMilestoneGuardAudit.py
+
+      - name: Milestone authority reminder
+        run: |
+          echo 'Milestone guard success is static scoped evidence only.'
+          echo 'It does not merge, publish, deploy, sign, change the active milestone, or Crown anything.'
