@@ -1,0 +1,40 @@
+{
+  "schema": "luhm-os.oni-summoner-plugin.v1",
+  "status": "PROPOSED_CANDIDATE_NOT_CROWNED",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalBase": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+  "boss": "Lum",
+  "humanAuthority": "Professor",
+  "jquery": {
+    "required": "3.7.1",
+    "source": "frontEnd/package.json -> npm stage:jquery",
+    "jqueryUi": "OPTIONAL_FEATURE_DETECTED_ONLY"
+  },
+  "activityStates": ["PARKED", "QUEUED", "ACTIVE", "WAITING", "VERIFYING", "SUCCESS", "ERROR"],
+  "truthStates": ["ERROR", "RED", "UNKNOWN", "AMBER", "GREEN"],
+  "thinkingEcho": "OBSERVED_ACTIVITY_SUMMARY_ONLY_NO_HIDDEN_CHAIN_OF_THOUGHT",
+  "backgroundWork": "OBSERVED_TASKS_ONLY_NO_INVENTED_AUTONOMY",
+  "summonMeaning": "emit bounded request event; UI never executes the worker itself",
+  "roles": [
+    {"name":"Lum","glyph":"L","kind":"boss-router-integrator","skillPath":"agents/lum/SKILL.md","defaultAuthority":"NONE","tagline":"Routes the smallest useful crew and keeps the Professor-facing thread coherent."},
+    {"name":"Kiri","glyph":"K","kind":"context-resolver","skillPath":"agents/kiriContextOni/SKILL.md","defaultAuthority":"READ_ONLY","tagline":"Resolves source identity, scope, context, and evidence references."},
+    {"name":"Tetsu","glyph":"T","kind":"fast-builder","skillPath":"agents/buildOnis/SKILL.md","defaultAuthority":"READ_ONLY","tagline":"Runs the fast exact-source build lane."},
+    {"name":"Kaji","glyph":"J","kind":"clean-room-builder","skillPath":"agents/buildOnis/SKILL.md","defaultAuthority":"READ_ONLY","tagline":"Independently rebuilds the same immutable source for cross-checking."},
+    {"name":"Momo","glyph":"M","kind":"bounded-researcher","skillPath":"agents/momoResearchOni/SKILL.md","defaultAuthority":"READ_ONLY","tagline":"Researches only the bounded external/current fact Lum asks for."},
+    {"name":"Shiori","glyph":"S","kind":"critic-contradiction-checker","skillPath":"agents/shioriCriticOni/SKILL.md","defaultAuthority":"READ_ONLY","tagline":"Challenges contradictions, stale evidence, scope drift, and fake GREEN."},
+    {"name":"DrNao","glyph":"N","kind":"source-truth-adjudicator","skillPath":"agents/doctorOni/SKILL.md","defaultAuthority":"READ_ONLY","tagline":"Adjudicates exact-source evidence without repairing what she diagnoses."},
+    {"name":"Kugi","glyph":"G","kind":"deterministic-tool-executor","skillPath":"agents/kugiToolOni/SKILL.md","defaultAuthority":"PLAN_ONLY","tagline":"Executes only the exact bounded mutation packet already authorized."},
+    {"name":"Fumi","glyph":"F","kind":"secretary-records-helper","skillPath":"agents/fumiSecretaryOni/SKILL.md","defaultAuthority":"READ_ONLY","tagline":"Normalizes records, Drive/API/repo naming, and receipt indexes."},
+    {"name":"Sumi","glyph":"U","kind":"asset-curator","skillPath":"agents/sumiAssetOni/SKILL.md","defaultAuthority":"READ_ONLY","tagline":"Checks asset identity, rights, provenance, and importability."},
+    {"name":"Koe","glyph":"O","kind":"dictation-scribe","skillPath":"agents/koeDictationOni/SKILL.md","defaultAuthority":"READ_ONLY","tagline":"Turns dictation into faithful notes and bounded task packets."},
+    {"name":"Yume","glyph":"Y","kind":"art-media-helper","skillPath":"agents/yumeArtOni/SKILL.md","defaultAuthority":"PLAN_ONLY","tagline":"Plans original visual and audiovisual work inside the bounded creative lane."}
+  ],
+  "authority": {
+    "mutationAuthority": false,
+    "greenAuthority": false,
+    "publicationAuthority": false,
+    "releaseAuthority": false,
+    "productionSigningAuthority": false,
+    "crownStatus": "STOP"
+  }
+}
