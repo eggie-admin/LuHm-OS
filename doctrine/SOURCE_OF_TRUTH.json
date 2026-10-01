@@ -163,5 +163,38 @@
     "proof": "doctrine/CURRENT_MAIN_SOURCE_TRUTH_GREEN_20260930.json",
     "snapshot": "doctrine/PRE_GREEN_SNAPSHOT_20260930.json",
     "preserved": "Lum/Oni fail-closed orchestration is canonical on main; documentation workflow, S24 FE cockpit switch, and LAN install bundle remain preserved as historical evidence; broader Android and release state remain AMBER; physical device proof, LAN DNS, Apache serving, persistent update signing, enterprise readiness, public exposure, server-side branch governance, and explicit Professor promotion remain separate evidence or Crown gates"
+  },
+  "codingRoleplaySystem": {
+    "contract": "doctrine/CODING_ROLEPLAY_SYSTEM_V3.json",
+    "sharedProtocol": "agents/shared/ONI_PROTOCOL_V2.md",
+    "portableSkill": "plugins/luhm-os/skills/luhm-coding-roleplay/SKILL.md",
+    "termuxWorkflow": "doctrine/TERMUX_OUTSIDE_SECURE_DEV_WORKFLOW_V1.json",
+    "auditor": "tools/luhmRoleplayAudit.py",
+    "workflow": ".github/workflows/coding-roleplay-audit.yml",
+    "status": "GREEN_SCOPED_CODING_ROLEPLAY_CANDIDATE",
+    "scope": "coding-roleplay + shared Oni protocol + outside-Secure-Folder Termux development workflow",
+    "testedSourceCommit": "5d6cad1ec3654ff69ddbc4b1926133388def8c0c",
+    "candidatePullRequest": 86,
+    "candidateBranch": "candidate/coding-roleplay-v3-termux-20260930",
+    "driveHandoffFolderId": "1hMoIsnyqmA4M8rxD6-nGFRaAHxBhYbhX",
+    "exactHeadWorkflowRuns": {
+      "codingRoleplayAudit": 36785499873,
+      "lumRigV2Phase1": 36785499773,
+      "pluginPublicationAudit": 36785499828,
+      "godotWebHarness": 36785500031,
+      "universalSamsungCandidate": 36785500109
+    },
+    "allExactHeadWorkflowsGreen": true,
+    "oniDeploymentMeaning": "skill/logic bundle installed or loaded with evidence receipt; no autonomous background daemon claim",
+    "termuxTarget": "ordinary Termux in Android primary user profile outside Samsung Secure Folder",
+    "rootRequired": false,
+    "shizukuRequired": false,
+    "providerSecretsInstalled": false,
+    "runtimeAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false,
+    "promotion": false,
+    "crownStatus": "STOP"
   }
 }
