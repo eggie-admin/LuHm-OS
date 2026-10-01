@@ -18,9 +18,12 @@ UID_NOW="$(id -u)"
 ANDROID_USER_ID=$(( UID_NOW / 100000 ))
 note "Termux uid=$UID_NOW androidUserId=$ANDROID_USER_ID"
 
-if ! command -v git >/dev/null 2>&1; then
-  pkg install -y git
-fi
+for cmd in git python; do
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    note "Installing missing bootstrap dependency: $cmd"
+    pkg install -y "$cmd"
+  fi
+done
 
 rm -rf "$TMP"
 git clone --filter=blob:none --no-checkout "$REPO_URL" "$TMP/repo"
