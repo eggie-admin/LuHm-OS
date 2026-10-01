@@ -44,10 +44,7 @@ required_classes = {"PROVEN", "SOURCE_DERIVED", "OBSERVED", "INFERENCE", "PROPOS
 require(classes == required_classes, "claim classification vocabulary drift")
 
 truth = contract.get("truthFirewall", {})
-for key in (
-    "materialClaimsRequireEvidence",
-    "contradictionsMustBeReported",
-):
+for key in ("materialClaimsRequireEvidence", "contradictionsMustBeReported"):
     require(truth.get(key) is True, f"truth firewall requires {key}=true")
 for key in (
     "memoryIsMutableStateProof",
@@ -133,7 +130,7 @@ require("TRUTH_CHECK" in contract.get("witchingHourSequence", []), "Witching Hou
 workflow = ROOT / ".github" / "workflows" / "doctor-oni-milestone-guard.yml"
 if workflow.exists():
     text = workflow.read_text(encoding="utf-8")
-    require("Doctor Oni Milestone Guard" in text, "guard workflow name missing")
+    require("Doctor Oni Truth + Milestone Guard" in text, "truth guard workflow name missing")
     require("doctorOniMilestoneGuardAudit.py" in text, "guard workflow does not invoke auditor")
 else:
     warn("guard workflow not present yet")
