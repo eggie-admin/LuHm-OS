@@ -11,6 +11,34 @@
   "baseCanonicalMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
   "buildAuthority": false,
   "castIssued": false,
+  "enterpriseDefault": {
+    "mode": "ENTERPRISE_DEFAULT_UNLESS_RED",
+    "defaultEnabled": true,
+    "readinessClaimRequiresEvidence": true,
+    "amberBehavior": "CONTINUE_ENTERPRISE_DESIGN_WITHOUT_CLAIMING_PROOF",
+    "unknownBehavior": "CONTINUE_ENTERPRISE_DESIGN_AND_OPEN_EVIDENCE_GATE",
+    "redBehavior": "BLOCK_AFFECTED_CAPABILITY_AND_REQUIRE_REMEDIATION",
+    "automaticFallbackToNonEnterprise": false,
+    "nonEnterpriseFallbackRequiresProfessorAuthorization": true,
+    "redDoesNotEraseUnrelatedEnterpriseControls": true,
+    "appliesTo": [
+      "architecture",
+      "security",
+      "identity_and_permissions",
+      "source_governance",
+      "ci_and_build_governance",
+      "signing_design",
+      "distribution_design",
+      "managed_install_design",
+      "update_and_rollback_design",
+      "device_enrollment_design",
+      "audit_and_evidence",
+      "supply_chain",
+      "backup_and_restore",
+      "secrets_management",
+      "least_privilege"
+    ]
+  },
   "reviewTopology": [
     "Lum",
     "internalOni",
@@ -50,19 +78,22 @@
     "role": "ANTI_HALLUCINATION_TRUTH_ADJUDICATOR",
     "law": "No evidence -> no factual claim. Unknown stays UNKNOWN.",
     "reviewPrestigeIsEvidence": false,
-    "memoryIsMutableStateProof": false
+    "memoryIsMutableStateProof": false,
+    "enterpriseDefaultIsEnterpriseReadyProof": false
   },
   "secretaryOni": {
     "role": "STATE_AND_RECEIPT_RECONCILIATION",
     "mustPreserveContradictions": true,
-    "mustSeparateEnvironmentFromIntegration": true
+    "mustSeparateEnvironmentFromIntegration": true,
+    "mustTrackEnterpriseGateStateSeparately": true
   },
   "forge": {
     "law": "PROTECT != INGEST != MUTATE != CAST != JANITOR",
     "sourceTwin": "Tetsu",
     "compileTwin": "Kaji",
     "compileRequiresProfessorCast": true,
-    "castPresent": false
+    "castPresent": false,
+    "enterpriseBuildControlsDefault": true
   },
   "tenPasses": [
     "SOURCE_TRUTH_IDENTITY",
@@ -91,7 +122,8 @@
     "releaseSigningState": "NOT_AUTHORIZED",
     "enterpriseDistributionState": "NOT_PROVEN",
     "managedInstallState": "NOT_PROVEN",
-    "physicalDeviceReleaseProof": "NOT_PROVEN"
+    "physicalDeviceReleaseProof": "NOT_PROVEN",
+    "architectureDefault": "ENTERPRISE"
   },
   "hardStops": [
     "BIG_BROTHER_ENVIRONMENT_TREATED_AS_COMPLETED_AUDIT",
@@ -100,6 +132,9 @@
     "SECURE_FOLDER_ISOLATION_WEAKENED",
     "COPILOT_OR_BIG_BROTHER_TREATED_AS_CROWN_AUTHORITY",
     "CI_TREATED_AS_DEVICE_OR_ENTERPRISE_PROOF",
+    "ENTERPRISE_DEFAULT_TREATED_AS_ENTERPRISE_READY_PROOF",
+    "AMBER_OR_UNKNOWN_USED_TO_SILENTLY_FALL_BACK_TO_NON_ENTERPRISE",
+    "RED_ENTERPRISE_GATE_IGNORED",
     "BUILD_WITHOUT_EXACT_PROFESSOR_CAST",
     "CANDIDATE_TREATED_AS_CURRENT_OR_MERGED",
     "CONTRADICTION_SMOOTHED_OVER",
