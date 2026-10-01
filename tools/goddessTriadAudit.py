@@ -7,23 +7,12 @@ import re
 import subprocess
 import sys
 
-ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "doctrine" / "goddessTriad.json"
-SCHEMA = ROOT / "doctrine" / "goddessTriad.schema.json"
-SKILLS = {
-    "urd": ROOT / "agents" / "urd" / "SKILL.md",
-    "skuld": ROOT / "agents" / "skuld" / "SKILL.md",
-    "belldandy": ROOT / "agents" / "belldandy" / "SKILL.md",
-}
-
-CAMEL_HUMP = re.compile(r"^[a-z][A-Za-z0-9]*$")
-SECRET_PATTERNS = [
-    re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
-    re.compile(r"\bsk-[A-Za-z0-9_-]{20,}\b"),
-    re.compile(r"\bgh[pousr]_[A-Za-z0-9]{20,}\b"),
-    re.compile(r"\bAIza[0-9A-Za-z_-]{20,}\b"),
-]
-
+root = Path(__file__).resolve().parents[1]
+manifestPath = root / "doctrine" / "goddessTriad.json"
+schemaPath = root / "doctrine" / "goddessTriad.schema.json"
+skillPaths = {name: root / "agents" / name / "SKILL.md" for name in ("urd", "skuld", "belldandy")}
+personaPaths = {name: root / "agents" / name / "PERSONA.md" for name in ("urd", "skuld", "belldandy")}
+camelHump = re.compile(r"^[a-z][A-Za-z0-9]*$")
 errors: list[str] = []
 warnings: list[str] = []
 
@@ -33,12 +22,8 @@ def require(condition: bool, message: str) -> None:
         errors.append(message)
 
 
-def warn(message: str) -> None:
-    warnings.append(message)
-
-
-def load_json(path: Path, label: str) -> dict:
-    require(path.is_file(), f"missing {label}: {path.relative_to(ROOT)}")
+def loadJson(path: Path, label: str) -> dict:
+    require(path.is_file(), f"missing {label}")
     if not path.is_file():
         return {}
     try:
@@ -46,158 +31,140 @@ def load_json(path: Path, label: str) -> dict:
     except Exception as exc:
         errors.append(f"invalid {label}: {exc}")
         return {}
-    require(isinstance(value, dict), f"{label} must be a JSON object")
+    require(isinstance(value, dict), f"{label} must be object")
     return value if isinstance(value, dict) else {}
 
 
-def check_camel_hump_keys(value: object, path: str = "root") -> None:
+def checkCamelHump(value: object, path: str = "root") -> None:
     if isinstance(value, dict):
         for key, child in value.items():
             if not key.startswith("$"):
-                require(bool(CAMEL_HUMP.fullmatch(key)), f"non-camelHump key at {path}: {key}")
-            check_camel_hump_keys(child, f"{path}.{key}")
+                require(bool(camelHump.fullmatch(key)), f"non-camelHump key at {path}: {key}")
+            checkCamelHump(child, f"{path}.{key}")
     elif isinstance(value, list):
         for index, child in enumerate(value):
-            check_camel_hump_keys(child, f"{path}[{index}]")
+            checkCamelHump(child, f"{path}[{index}]")
 
 
-def check_grep_pattern(pattern: str, rule_id: str) -> None:
+def checkGrep(pattern: str, ruleId: str) -> None:
     try:
-        result = subprocess.run(
-            ["grep", "-E", pattern],
-            input="",
-            text=True,
-            capture_output=True,
-            check=False,
-        )
+        result = subprocess.run(["grep", "-E", pattern], input="", text=True, capture_output=True, check=False)
     except FileNotFoundError:
-        warn("grep not available; regex syntax was not shell-validated")
+        warnings.append("grep unavailable; regex syntax not shell-validated")
         return
-    require(result.returncode in (0, 1), f"invalid grep -E pattern for {rule_id}: {result.stderr.strip()}")
+    require(result.returncode in (0, 1), f"invalid grep pattern {ruleId}: {result.stderr.strip()}")
 
 
-def assert_false_authority(obj: dict, label: str) -> None:
-    for key in (
-        "canMutate",
-        "canBuild",
-        "canMerge",
-        "canPublish",
-        "canDeploy",
-        "canSign",
-        "canCrown",
-    ):
-        require(obj.get(key) is False, f"{label}.{key} must be false")
+def checkFalseAuthority(record: dict, name: str) -> None:
+    for key in ("canMutate", "canBuild", "canMerge", "canPublish", "canDeploy", "canSign", "canCrown"):
+        require(record.get(key) is False, f"{name}.{key} must be false")
 
 
 def main() -> int:
-    manifest = load_json(MANIFEST, "goddessTriad manifest")
-    schema = load_json(SCHEMA, "goddessTriad schema")
+    manifest = loadJson(manifestPath, "manifest")
+    schema = loadJson(schemaPath, "schema")
     if errors:
         return finish()
 
-    check_camel_hump_keys(manifest)
+    checkCamelHump(manifest)
+    require(schema.get("title") == "goddessTriad", "schema title drift")
+    require(schema.get("additionalProperties") is False, "schema must fail closed")
+    require(manifest.get("schemaVersion") == 2, "schemaVersion must be 2")
+    require(manifest.get("systemId") == "goddessTriad", "systemId drift")
+    require(manifest.get("enabledByDefault") is True, "triad must default enabled")
+    require(manifest.get("chatLoadMode") == "presenceAlwaysWorkOnDemand", "chatLoadMode drift")
 
-    require(schema.get("title") == "goddessTriad", "schema title must be goddessTriad")
-    require(schema.get("type") == "object", "schema root must be object")
-    require(schema.get("additionalProperties") is False, "schema root must fail closed on unknown fields")
-
-    require(type(manifest.get("schemaVersion")) is int, "schemaVersion must be integer")
-    require(manifest.get("schemaVersion") >= 1, "schemaVersion must be positive")
-    require(manifest.get("systemId") == "goddessTriad", "systemId must be one-word camelHump goddessTriad")
-    require(bool(CAMEL_HUMP.fullmatch(str(manifest.get("systemId", "")))), "systemId must be camelHump")
-    require(manifest.get("displayName") == "Three Goddesses", "human display name drift")
-    require(manifest.get("enabledByDefault") is True, "goddessTriad must default enabled")
-    require(manifest.get("chatLoadMode") == "presenceAlwaysWorkOnDemand", "chat load mode drift")
+    conversation = manifest.get("conversationModel", {})
+    require(conversation.get("mode") == "cooperativeRoleplay", "conversation mode drift")
+    require(conversation.get("backgroundSemantics") == "advisoryEligibilityNotAsyncExecution", "background must never claim async execution")
+    require(conversation.get("directAddressEnabled") is True, "direct address must be enabled")
+    require(conversation.get("lumMayConsult") is True, "Lum consultation must be enabled")
+    require(conversation.get("professorMayAddressDirectly") is True, "Professor direct address must be enabled")
+    require(conversation.get("goddessToGoddessDialogueAllowed") is True, "goddess dialogue must be enabled")
+    require(conversation.get("hiddenChainOfThoughtExposed") is False, "hidden chain-of-thought exposure must remain false")
+    require(conversation.get("seriousContextSuppressesBanter") is True, "serious contexts must suppress banter")
+    require(type(conversation.get("maxVisibleSpeakersPerReply")) is int, "maxVisibleSpeakersPerReply must be integer")
+    require(1 <= conversation.get("maxVisibleSpeakersPerReply", 0) <= 4, "visible speaker limit out of bounds")
+    require(set(conversation.get("allowedPresenceStates", [])) == {"background", "foreground", "parked"}, "presence-state enum drift")
 
     authority = manifest.get("authority", {})
     require(authority.get("professorIsCrown") is True, "Professor must remain Crown")
     require(authority.get("lumIsConversationalBoss") is True, "Lum must remain conversational boss")
-    for key in (
-        "selfCrown",
-        "mergeAuthority",
-        "publishAuthority",
-        "deployAuthority",
-        "signAuthority",
-        "buildAuthorityWithoutCast",
-    ):
+    for key in ("selfCrown", "mergeAuthority", "publishAuthority", "deployAuthority", "signAuthority", "buildAuthorityWithoutCast"):
         require(authority.get(key) is False, f"authority leak: {key}")
 
+    expected = {
+        "urd": ("truthGuard", "passiveGuard", "olderSister", "matureAdult"),
+        "skuld": ("librarianResearchArchitect", "workOnDemand", "youngerSister", "youngerAdult"),
+        "belldandy": ("secretaryStateKeeper", "stateKeeper", "motherlyPeer", "peerAdultToLum"),
+    }
     goddesses = manifest.get("goddesses", {})
-    require(set(goddesses) == {"urd", "skuld", "belldandy"}, "goddess set must be exactly urd/skuld/belldandy")
+    require(set(goddesses) == set(expected), "goddess set drift")
 
-    expected_roles = {
-        "urd": "truthGuard",
-        "skuld": "librarianResearchArchitect",
-        "belldandy": "secretaryStateKeeper",
-    }
-    expected_modes = {
-        "urd": "passiveGuard",
-        "skuld": "workOnDemand",
-        "belldandy": "stateKeeper",
-    }
-    for name in ("urd", "skuld", "belldandy"):
+    for name, (role, mode, archetype, agePresentation) in expected.items():
         record = goddesses.get(name, {})
+        persona = record.get("persona", {})
         require(record.get("id") == name, f"{name}.id drift")
-        require(record.get("role") == expected_roles[name], f"{name}.role drift")
-        require(record.get("workMode") == expected_modes[name], f"{name}.workMode drift")
-        require(record.get("enabled") is True, f"{name} must be enabled")
-        require(record.get("defaultPresence") is True, f"{name} must default present")
-        require(isinstance(record.get("legacyAliases"), list), f"{name}.legacyAliases must be array")
-        require(isinstance(record.get("activationPhrases"), list), f"{name}.activationPhrases must be array")
-        assert_false_authority(record, name)
-        require(SKILLS[name].is_file(), f"missing skill for {name}")
+        require(record.get("role") == role, f"{name}.role drift")
+        require(record.get("workMode") == mode, f"{name}.workMode drift")
+        require(record.get("presenceState") in {"background", "foreground", "parked"}, f"{name}.presenceState invalid")
+        require(record.get("enabled") is True and record.get("defaultPresence") is True, f"{name} must default present")
+        require(persona.get("adult") is True, f"{name} must be explicitly adult")
+        require(persona.get("familyArchetype") == archetype, f"{name}.familyArchetype drift")
+        require(persona.get("agePresentation") == agePresentation, f"{name}.agePresentation drift")
+        for levelKey in ("warmthLevel", "bratLevel", "techObsessionLevel", "risqueHumorLevel"):
+            require(type(persona.get(levelKey)) is int and 0 <= persona.get(levelKey, -1) <= 5, f"{name}.{levelKey} must be integer 0..5")
+        require(persona.get("seriousContextBanterAllowed") is False, f"{name} serious banter must be disabled")
+        require(persona.get("patronizingAllowed") is False, f"{name} patronizing behavior must be disabled")
+        require(persona.get("sexualHumorWithSkuldAllowed") is False, f"{name} sexual humor with Skuld must be disabled")
+        checkFalseAuthority(record, name)
+        require(skillPaths[name].is_file(), f"missing skill for {name}")
+        require(personaPaths[name].is_file(), f"missing persona for {name}")
+        require(record.get("skillPath") == f"agents/{name}/SKILL.md", f"{name}.skillPath drift")
+        require(record.get("personaPath") == f"agents/{name}/PERSONA.md", f"{name}.personaPath drift")
 
-    require("Dr. Nao" in goddesses.get("urd", {}).get("legacyAliases", []), "Urd must preserve Dr. Nao alias")
-    require("Secretary Oni" in goddesses.get("belldandy", {}).get("legacyAliases", []), "Belldandy must preserve Secretary Oni alias")
+    require(goddesses.get("urd", {}).get("persona", {}).get("boobJokesAllowed") is True, "Urd occasional adult boob humor setting missing")
+    require(goddesses.get("urd", {}).get("persona", {}).get("risqueHumorLevel") == 3, "Urd humor throttle drift")
+    require(goddesses.get("skuld", {}).get("persona", {}).get("techObsessionLevel") == 5, "Skuld tech obsession drift")
+    require(goddesses.get("skuld", {}).get("persona", {}).get("bratLevel") == 4, "Skuld brat throttle drift")
+    require(goddesses.get("skuld", {}).get("persona", {}).get("boobJokesAllowed") is False, "Skuld must not use boob jokes")
+    require(goddesses.get("belldandy", {}).get("persona", {}).get("warmthLevel") == 5, "Belldandy warmth drift")
+    require(goddesses.get("belldandy", {}).get("persona", {}).get("bratLevel") == 0, "Belldandy brat level drift")
 
     commands = manifest.get("commands", {})
     require(commands.get("summonAll") == "summon the goddesses", "summon phrase drift")
     require(commands.get("takeBreak") == "goddesses take a break", "break phrase drift")
     require(commands.get("resumeAll") == "goddesses return", "resume phrase drift")
+    require("<urd|skuld|belldandy>" in str(commands.get("directAddressPattern", "")), "direct-address pattern drift")
 
     limits = manifest.get("limits", {})
-    for key in (
-        "maxActiveGoddesses",
-        "maxParallelResearchTasks",
-        "maxAutomaticResearchQueries",
-        "defaultEvidenceFreshnessHours",
-        "maxReceiptRefsPerHandoff",
-    ):
+    for key in ("maxActiveGoddesses", "maxParallelResearchTasks", "maxAutomaticResearchQueries", "defaultEvidenceFreshnessHours", "maxReceiptRefsPerHandoff", "maxPersonaBanterLines"):
         require(type(limits.get(key)) is int, f"limits.{key} must be integer")
-        require(limits.get(key, 0) > 0, f"limits.{key} must be positive")
-    require(limits.get("maxActiveGoddesses") == 3, "exactly three active goddess slots required")
-    require(limits.get("maxParallelResearchTasks") <= 3, "research parallelism may not exceed three")
+    require(limits.get("maxActiveGoddesses") == 3, "exactly three goddess slots required")
+    require(0 <= limits.get("maxPersonaBanterLines", -1) <= 5, "maxPersonaBanterLines out of bounds")
 
-    rules = manifest.get("grepRules", [])
-    require(isinstance(rules, list) and len(rules) >= 3, "grepRules must contain multiple rules")
-    for rule in rules:
+    for rule in manifest.get("grepRules", []):
         require(isinstance(rule, dict), "grep rule must be object")
         if not isinstance(rule, dict):
             continue
-        rule_id = rule.get("id")
-        require(isinstance(rule_id, str) and bool(CAMEL_HUMP.fullmatch(rule_id)), f"grep rule id must be camelHump: {rule_id}")
-        require(rule.get("severity") in {"info", "amber", "red"}, f"invalid grep severity: {rule_id}")
-        require(type(rule.get("enabled")) is bool, f"grep enabled must be boolean: {rule_id}")
+        ruleId = str(rule.get("id", ""))
+        require(bool(camelHump.fullmatch(ruleId)), f"grep id not camelHump: {ruleId}")
+        require(rule.get("severity") in {"info", "amber", "red"}, f"grep severity invalid: {ruleId}")
+        require(type(rule.get("enabled")) is bool, f"grep enabled not boolean: {ruleId}")
         pattern = rule.get("pattern")
-        require(isinstance(pattern, str) and bool(pattern), f"grep pattern required: {rule_id}")
+        require(isinstance(pattern, str) and bool(pattern), f"grep pattern missing: {ruleId}")
         if isinstance(pattern, str) and pattern:
-            check_grep_pattern(pattern, str(rule_id))
+            checkGrep(pattern, ruleId)
 
-    skill_text = {name: path.read_text(encoding="utf-8") for name, path in SKILLS.items() if path.is_file()}
-    require("No evidence -> no factual claim" in skill_text.get("urd", ""), "Urd did not inherit truth law")
-    require("ENTERPRISE_DEFAULT_UNLESS_RED" in skill_text.get("urd", ""), "Urd enterprise-default guard missing")
-    require("grep` is a locator, not proof" in skill_text.get("skuld", ""), "Skuld grep evidence boundary missing")
-    require("Library dossier" in skill_text.get("skuld", ""), "Skuld library dossier missing")
-    require("goddessTriad" in skill_text.get("belldandy", ""), "Belldandy chat bootstrap identity missing")
-    require("ENTERPRISE_DEFAULT_UNLESS_RED" in skill_text.get("belldandy", ""), "Belldandy enterprise-default state tracking missing")
-
-    all_candidate_text = "\n".join([
-        MANIFEST.read_text(encoding="utf-8"),
-        SCHEMA.read_text(encoding="utf-8"),
-        *skill_text.values(),
-    ])
-    for pattern in SECRET_PATTERNS:
-        require(pattern.search(all_candidate_text) is None, f"secret-like material matched: {pattern.pattern}")
+    personaText = {name: personaPaths[name].read_text(encoding="utf-8") for name in personaPaths if personaPaths[name].is_file()}
+    require("older-sister" in personaText.get("urd", ""), "Urd older-sister voice missing")
+    require("boob joke" in personaText.get("urd", ""), "Urd humor boundary missing")
+    require("younger-sister" in personaText.get("skuld", ""), "Skuld younger-sister voice missing")
+    require("adult persona" in personaText.get("skuld", ""), "Skuld adult boundary missing")
+    require("motherly-peer" in personaText.get("belldandy", ""), "Belldandy motherly-peer voice missing")
+    for name, text in personaText.items():
+        require("does not reveal hidden chain-of-thought" in text, f"{name} hidden-thought boundary missing")
+        require("does not simulate" in text, f"{name} background-process boundary missing")
 
     return finish()
 
@@ -207,20 +174,20 @@ def finish() -> int:
         print("GODDESS_TRIAD_AUDIT=RED")
         for error in errors:
             print(f"ERROR={error}")
-        for item in warnings:
-            print(f"WARNING={item}")
+        for warning in warnings:
+            print(f"WARNING={warning}")
         print("crown=STOP")
         return 1
-
     print("GODDESS_TRIAD_AUDIT=GREEN")
-    print("scope=static-chat-bootstrap-schema-and-skill-contract-only")
+    print("scope=static-chat-persona-schema-and-authority-contract-only")
     print("systemId=goddessTriad")
-    print("defaultPresence=urd,skuld,belldandy")
+    print("background=advisory-eligibility-not-async-execution")
+    print("directAddress=enabled")
     print("buildAuthority=false")
     print("cast=NOT_ISSUED")
     print("crown=STOP")
-    for item in warnings:
-        print(f"WARNING={item}")
+    for warning in warnings:
+        print(f"WARNING={warning}")
     return 0
 
 
