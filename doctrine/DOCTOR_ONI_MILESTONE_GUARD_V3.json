@@ -1,0 +1,134 @@
+{
+  "schema": "luhm.doctor-oni.milestone-guard.v3",
+  "status": "PROPOSED_CANDIDATE",
+  "crownStatus": "STOP",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "activeMilestone": {
+    "id": "CHATGPT_WITCHING_HOUR_READINESS_001",
+    "status": "AMBER_ACTIVE_CANDIDATE_MILESTONE",
+    "sourceRef": "eggie-admin/LuHm-OS@f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+    "objective": "Converge the read-only LuHm ChatGPT cockpit, Oni organization/evidence controls, exact-source proof, and System Portal proposal into one bounded Witching Hour review package without widening execution or Crown authority.",
+    "nextGate": "prove one coherent exact-source Witching Hour candidate lineage and reconcile candidate inputs before any promotion",
+    "completionRequires": [
+      "single declared candidate lineage",
+      "ChatGPT plugin/harness scope remains read-only",
+      "Oni activity UI reports observed state without hidden-chain claims",
+      "Secretary and Dr. Nao anti-drift contracts agree on authority",
+      "System Portal remains read-only and contains no secrets or execution authority",
+      "exact-source CI receipts for the chosen lineage",
+      "open external/platform/device gates remain explicitly AMBER or UNKNOWN",
+      "Professor Crown review before promotion"
+    ]
+  },
+  "milestoneRelations": ["DIRECT", "SUPPORT", "BLOCKER", "EXEMPT"],
+  "relationRules": {
+    "DIRECT": "required to complete the active milestone",
+    "SUPPORT": "removes a named dependency or produces required evidence",
+    "BLOCKER": "investigates or resolves a named gate preventing completion",
+    "EXEMPT": "useful but not milestone progress; proposal/read-only unless Professor explicitly authorizes mutation"
+  },
+  "automationGovernance": {
+    "appliesTo": [
+      "GitHub Actions",
+      "ChatGPT agent/tool workflows",
+      "scheduled or conditional automations",
+      "Copilot tasks",
+      "external vendor automation",
+      "local scripted pipelines",
+      "CI/CD and deployment automation"
+    ],
+    "defaultForUnclassifiedAutomation": "UNKNOWN_AUTOMATION_UNACCOUNTED",
+    "existingWorkflowResults": "EVIDENCE_ONLY_UNTIL_MAPPED_TO_ACTIVE_MILESTONE",
+    "newOrChangedAutomationRequiresMilestonePacket": true,
+    "recursiveTaskSpawning": false,
+    "selfPromotion": false,
+    "selfCrown": false,
+    "unboundedRetries": false,
+    "mutationAfterExpectedDeltaAchieved": false
+  },
+  "requiredMilestonePacket": [
+    "milestoneId",
+    "milestoneSourceRef",
+    "taskId",
+    "sourceRef",
+    "relation",
+    "expectedDelta",
+    "nextGate",
+    "allowedScope",
+    "mutationBudget",
+    "evidenceRequired",
+    "stopConditions"
+  ],
+  "requiredAutomationReceipt": [
+    "milestoneId",
+    "taskId",
+    "automationId",
+    "trigger",
+    "sourceBefore",
+    "sourceAfter",
+    "relation",
+    "expectedDelta",
+    "observedDelta",
+    "evidenceRefs",
+    "gatesClosed",
+    "gatesOpened",
+    "nextGate",
+    "status",
+    "authorityUsed",
+    "mutationCount",
+    "retryCount"
+  ],
+  "sideQuestFirewall": {
+    "default": "STOP_MUTATION_AND_RETURN_TO_NEXT_GATE",
+    "triggers": [
+      "new workstream without milestone relation",
+      "tool or plugin discovery expands scope",
+      "cosmetic or speculative mutation while a named blocker is open",
+      "automation creates downstream dependencies without closing the current gate",
+      "research substitutes for already-available required proof",
+      "automation continues after expectedDelta is achieved",
+      "candidate work is described as milestone progress without a closed gate or required evidence"
+    ]
+  },
+  "deferredUnlessProfessorChangesMilestone": [
+    "new unrelated vendor integrations",
+    "new unrelated game feature lanes",
+    "new asset-community intake mutations",
+    "new Secure Folder mutation experiments",
+    "repo cleanup unrelated to the active milestone",
+    "publication or production signing"
+  ],
+  "currentCandidateInputs": [
+    {
+      "name": "Oni Summoner + ChatGPT activity cockpit",
+      "ref": "PR#87@a7aea05103d9adde75eff43a8e0c840bf55ecc70",
+      "relation": "DIRECT",
+      "promotionAuthority": false
+    },
+    {
+      "name": "System Portal DNS/certificate service directory",
+      "ref": "PR#90",
+      "relation": "SUPPORT",
+      "promotionAuthority": false
+    },
+    {
+      "name": "Secretary Oni anti-drift candidate",
+      "ref": "candidate artifact v0.1.0",
+      "relation": "SUPPORT",
+      "promotionAuthority": false
+    }
+  ],
+  "witchingHourSequence": [
+    "NAME_TARGET",
+    "SUMMON_CURRENT",
+    "MILESTONE_LOCK",
+    "QUARANTINE",
+    "SMALLEST_DELTA",
+    "PROVE_EXACT_IDENTITY",
+    "DRIFT_CHECK",
+    "SEAL_RECEIPT",
+    "NEXT_GATE",
+    "CROWN_WAIT"
+  ]
+}
