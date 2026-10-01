@@ -2,40 +2,67 @@ name: LuHm Godot Web Harness
 
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - 'project.godot'
-      - 'export_presets.cfg'
-      - 'scenes/**'
-      - 'scripts/**'
-      - 'tools/runGodotSmoke.py'
-      - 'tools/buildGodotWebHarness.sh'
-      - 'host/harness/**'
-      - '.github/workflows/godot-web-harness.yml'
+    inputs:
+      cast:
+        description: "Exact Professor build authorization word"
+        required: true
+        type: string
+      milestoneId:
+        description: "Exact build milestone ID"
+        required: true
+        type: string
+      taskId:
+        description: "Exact Forge task ID"
+        required: true
+        type: string
+      sourceRef:
+        description: "Exact commit SHA to build"
+        required: true
+        type: string
 
 permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ inputs.milestoneId }}-${{ inputs.sourceRef }}
+  cancel-in-progress: false
 
 jobs:
   export-web:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
-      - name: Checkout exact source
+      - name: Checkout exact CAST source
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ inputs.sourceRef }}
+
+      - name: CAST gate
+        shell: bash
+        env:
+          CAST_WORD: ${{ inputs.cast }}
+          MILESTONE_ID: ${{ inputs.milestoneId }}
+          TASK_ID: ${{ inputs.taskId }}
+          SOURCE_REF: ${{ inputs.sourceRef }}
+        run: |
+          set -euo pipefail
+          ACTUAL_REF="$(git rev-parse HEAD)"
+          python3 tools/forgeCastGate.py \
+            --cast-word "$CAST_WORD" \
+            --milestone-id "$MILESTONE_ID" \
+            --task-id "$TASK_ID" \
+            --source-ref "$SOURCE_REF" \
+            --actual-source-ref "$ACTUAL_REF" \
+            --build-scope 'godot-web-harness' \
+            --actor "$GITHUB_ACTOR" \
+            --receipt "$RUNNER_TEMP/forge-cast-receipt.json"
 
       - name: Bind exact head
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          test "$(git rev-parse HEAD)" = "${{ inputs.sourceRef }}"
           echo "EXACT_HEAD=$(git rev-parse HEAD)"
 
       - name: Build verified Godot Web harness
@@ -63,10 +90,18 @@ jobs:
           print('GODOT_WEB_ARTIFACTS=PASS')
           PY
 
-      - name: Upload Godot Web harness artifact
+      - name: Upload CAST-scoped Godot Web artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: luhm-os-godot-web-harness
+          name: luhm-os-godot-web-harness-${{ inputs.milestoneId }}
           path: host/harness/godot-export/
           if-no-files-found: error
-          retention-days: 30
+          retention-days: 3
+
+      - name: Preserve CAST receipt in workflow log
+        if: always()
+        shell: bash
+        run: |
+          if test -s "$RUNNER_TEMP/forge-cast-receipt.json"; then
+            python3 -m json.tool "$RUNNER_TEMP/forge-cast-receipt.json"
+          fi
