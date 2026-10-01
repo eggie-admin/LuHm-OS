@@ -1,0 +1,49 @@
+schemaVersion: 1
+status: EXAMPLE_ONLY
+crown: STOP
+zone: eggiebagelface.art
+records:
+  - type: CNAME
+    name: system
+    target: '<cloudflare-tunnel-uuid>.cfargotunnel.com'
+    proxied: true
+    purpose: public HTTPS System Portal through Cloudflare Tunnel
+  - type: CNAME
+    name: mcp
+    target: '<cloudflare-tunnel-uuid>.cfargotunnel.com'
+    proxied: true
+    purpose: public HTTPS LuHm MCP through Cloudflare Tunnel
+  - type: TXT
+    name: _luhm.system
+    value: 'v=1;service=systemPortal;env=public-candidate;authority=read-only'
+    purpose: small service metadata only, never HTML or secrets
+  - type: TXT
+    name: _luhm.mcp
+    value: 'v=1;service=mcp;transport=https;authority=read-only'
+    purpose: small service metadata only, never credentials
+  - type: TXT
+    name: _acme-challenge.system
+    value: '<issued-during-acme-flow>'
+    purpose: ACME DNS-01 validation token; ephemeral example, never hard-code a live token
+  - type: SRV
+    name: _luhm._tcp
+    priority: 0
+    weight: 10
+    port: 443
+    target: system.eggiebagelface.art.
+    purpose: optional non-browser service discovery metadata
+certificatePolicy:
+  publicBrowser:
+    mode: ACME_DNS_01_OR_CLOUDFLARE_EDGE
+    secretStorage: external
+  cloudflareToOrigin:
+    mode: CLOUDFLARE_ORIGIN_CA_OR_TUNNEL_MANAGED
+    directBrowserTrust: false
+security:
+  apiTokenScope: minimum_required_dns_zone_scope
+  inboundRouterPortForwardRequired: false
+  secretsInRepo: false
+  portalWriteAuthority: false
+notes:
+  - DNS records are proposal examples only and do not assert that these hostnames or a Cloudflare Tunnel are currently configured.
+  - SRV and TXT are discovery/metadata records. Browsers load portal HTML over ordinary HTTPS hostnames.
