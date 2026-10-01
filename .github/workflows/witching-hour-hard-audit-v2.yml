@@ -5,6 +5,7 @@ on:
   pull_request:
     paths:
       - 'doctrine/WITCHING_HOUR_HARD_AUDIT_V2.json'
+      - 'doctrine/WITCHING_HOUR_HARD_AUDIT_RECEIPT_20261001.json'
       - 'tools/witchingHourHardAuditV2.py'
       - '.github/workflows/witching-hour-hard-audit-v2.yml'
 
@@ -43,7 +44,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          echo 'STATIC POLICY AUDIT ONLY'
+          echo 'STATIC POLICY + RECEIPT CONSISTENCY AUDIT ONLY'
           echo 'BIG BROTHER = Edge Gallery in Samsung Secure Folder'
           echo 'Environment proof != model proof != entitlement proof != Gallery→LuHm proof != audit-output proof'
+          echo 'Scoped static GREEN does not erase RED Forge/CAST or enterprise-delivery gates'
           echo 'No compile, export, package, APK, deployment, publication, signing, merge, CAST, or Crown authority'
