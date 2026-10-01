@@ -1,0 +1,41 @@
+{
+  "schema": "luhm-os.coding-roleplay-v3-candidate.v1",
+  "status": "GREEN_SCOPED_CODING_ROLEPLAY_CANDIDATE",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "baseCanonicalMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+  "testedSourceCommit": "25eb56a038959af04351edf2e09a5f1efc6e291c",
+  "scope": "coding-roleplay-shared-oni-protocol-termux-development-workflow",
+  "repairFinding": "agents and portable workflow reference agents/shared/ONI_PROTOCOL_V2.md but canonical main does not contain the referenced shared protocol file",
+  "candidateAdds": [
+    "agents/shared/ONI_PROTOCOL_V2.md",
+    "doctrine/CODING_ROLEPLAY_SYSTEM_V3.json",
+    "doctrine/TERMUX_OUTSIDE_SECURE_DEV_WORKFLOW_V1.json",
+    "plugins/luhm-os/skills/luhm-coding-roleplay/SKILL.md",
+    "tools/luhmRoleplayAudit.py",
+    "tools/luhmTermuxCli.py",
+    "scripts/termux/install-luhm-dev.sh",
+    ".github/workflows/luhm-coding-roleplay-audit.yml"
+  ],
+  "exactHeadCi": {
+    "codingRoleplayAudit": {"runId": 36785263905, "conclusion": "success"},
+    "lumRigV2Phase1": {"runId": 36785263870, "conclusion": "success"},
+    "pluginPublicationAudit": {"runId": 36785263882, "conclusion": "success"},
+    "godotWebHarness": {"runId": 36785263718, "conclusion": "success"},
+    "universalSamsungCandidate": {"runId": 36785263842, "conclusion": "IN_PROGRESS_AT_SEAL_TIME"}
+  },
+  "githubPullRequest": 86,
+  "driveBundleFolderId": "1hMoIsnyqmA4M8rxD6-nGFRaAHxBhYbhX",
+  "driveBundleFileId": "1BXOlaeG8wN2Qk4HmiaHJuENSCkRP69l9",
+  "driveInstallerFileId": "129wydQYA2B5GyceQQHoxTfxO_0tuAO08",
+  "localBundleSha256": "64ad98d03b875c2bfaadfaf0f7e72a1fd2ed4e5305c427cf85ea661297341779",
+  "standaloneInstallerSha256": "71fba8e624e96462044c6deea886900cc4270fdd1c0308386cbcd658873a760f",
+  "broaderProductReadiness": "AMBER",
+  "deviceProofAuthority": false,
+  "runtimeAuthority": false,
+  "releaseAuthority": false,
+  "promotion": false,
+  "publicationAuthority": false,
+  "productionSigningAuthority": false,
+  "crownStatus": "STOP"
+}

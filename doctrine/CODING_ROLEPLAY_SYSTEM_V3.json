@@ -1,0 +1,58 @@
+{
+  "schema": "luhm-os.coding-roleplay-system.v3",
+  "status": "PROPOSED_CANDIDATE_NOT_CROWNED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalBase": {
+    "repository": "eggie-admin/LuHm-OS",
+    "sourceRef": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2"
+  },
+  "purpose": "Bind coding roleplay vocabulary to deterministic LuHm agent behavior without allowing narrative language to create authority or evidence.",
+  "boss": "Lum",
+  "sharedProtocol": "agents/shared/ONI_PROTOCOL_V2.md",
+  "controlPlane": "doctrine/ONI_MESH_CONTROL_PLANE_V2.json",
+  "router": "tools/lumTaskRouter.py",
+  "portableWorkflowSkill": "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md",
+  "roleplayVocabulary": {
+    "summon": "ROUTE_BOUNDED_WORKER",
+    "forge": "PREPARE_REVERSIBLE_CANDIDATE",
+    "doctor": "ADJUDICATE_EVIDENCE_READ_ONLY",
+    "seal": "WRITE_EVIDENCE_RECEIPT",
+    "crown": "PROFESSOR_EXPLICIT_PROMOTION_ONLY",
+    "deployOni": "INSTALL_OR_LOAD_SKILL_LOGIC_WITH_RECEIPT",
+    "green": "DETERMINISTIC_EVIDENCE_FOR_EXACT_SOURCE_AND_SCOPE_ONLY"
+  },
+  "statePrecedence": [
+    "ERROR",
+    "RED",
+    "UNKNOWN",
+    "AMBER",
+    "GREEN"
+  ],
+  "constraints": {
+    "helperRecruitment": false,
+    "maxParallelSupportWorkers": 3,
+    "maxMutableSourceLanesPerCandidate": 1,
+    "directQuestionsBypassMesh": true,
+    "narrativeGrantsAuthority": false,
+    "toolSuccessEqualsSystemGreen": false,
+    "backgroundWorkMayBeInvented": false
+  },
+  "crownRequiredFor": [
+    "release-signing",
+    "publication",
+    "public-exposure",
+    "protected-or-release-branch-promotion",
+    "destructive-delete",
+    "persistent-production-secret-write"
+  ],
+  "termuxBoundary": {
+    "target": "ordinary Termux in Android primary user profile, outside Samsung Secure Folder",
+    "secureFolderAccess": false,
+    "shizukuRequired": false,
+    "rootRequired": false,
+    "providerSecretsInstalled": false,
+    "remoteShellAuthority": false
+  },
+  "promotion": false
+}

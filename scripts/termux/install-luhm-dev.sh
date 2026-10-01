@@ -1,0 +1,118 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -Eeuo pipefail
+IFS=$'\n\t'
+umask 077
+
+EXPECTED_MAIN="f22681b905bd5bc0cf84da5e3d1e865a855b5fc2"
+CANDIDATE_BRANCH="candidate/coding-roleplay-v3-termux-20260930"
+REPO_URL="https://github.com/eggie-admin/LuHm-OS.git"
+LUHM_HOME="${HOME}/.luhm"
+CANDIDATE="${LUHM_HOME}/candidates/roleplay-v3"
+RECEIPTS="${LUHM_HOME}/receipts"
+STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
+TMP="${TMPDIR:-$PREFIX/tmp}/luhm-roleplay-v3-${STAMP}"
+
+die() { printf 'RED: %s\n' "$*" >&2; exit 1; }
+note() { printf ':: %s\n' "$*"; }
+
+[[ "${PREFIX:-}" == *"com.termux"* ]] || die "This installer is for Termux."
+UID_NOW="$(id -u)"
+ANDROID_USER_ID=$(( UID_NOW / 100000 ))
+[[ "$ANDROID_USER_ID" -eq 0 ]] || die "STOP_SECONDARY_PROFILE_OR_SECURE_CONTAINER androidUserId=$ANDROID_USER_ID; run ordinary Termux outside Secure Folder."
+
+for cmd in git python jq; do
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    note "Installing missing dependency: $cmd"
+    pkg install -y "$cmd"
+  fi
+done
+
+mkdir -p "$LUHM_HOME/candidates" "$RECEIPTS" "$LUHM_HOME/backups"
+rm -rf "$TMP"
+mkdir -p "$TMP"
+
+note "Fetching candidate and exact canonical base"
+git clone --filter=blob:none --no-checkout "$REPO_URL" "$TMP/repo"
+git -C "$TMP/repo" fetch --prune origin \
+  "+refs/heads/main:refs/remotes/origin/main" \
+  "+refs/heads/${CANDIDATE_BRANCH}:refs/remotes/origin/${CANDIDATE_BRANCH}"
+
+REMOTE_MAIN="$(git -C "$TMP/repo" rev-parse refs/remotes/origin/main)"
+[[ "$REMOTE_MAIN" == "$EXPECTED_MAIN" ]] || die "Canonical main moved: expected $EXPECTED_MAIN got $REMOTE_MAIN. Refuse stale install."
+
+CANDIDATE_REF="refs/remotes/origin/${CANDIDATE_BRANCH}"
+CANDIDATE_SHA="$(git -C "$TMP/repo" rev-parse "$CANDIDATE_REF")"
+MERGE_BASE="$(git -C "$TMP/repo" merge-base refs/remotes/origin/main "$CANDIDATE_REF")"
+[[ "$MERGE_BASE" == "$EXPECTED_MAIN" ]] || die "Candidate is not based on expected canonical main."
+AHEAD="$(git -C "$TMP/repo" rev-list --count refs/remotes/origin/main.."$CANDIDATE_REF")"
+[[ "$AHEAD" -ge 1 ]] || die "Candidate contains no mutation commit."
+
+git -C "$TMP/repo" checkout --detach "$CANDIDATE_SHA"
+
+for required in \
+  agents/shared/ONI_PROTOCOL_V2.md \
+  doctrine/CODING_ROLEPLAY_SYSTEM_V3.json \
+  doctrine/TERMUX_OUTSIDE_SECURE_DEV_WORKFLOW_V1.json \
+  doctrine/ONI_MESH_CONTROL_PLANE_V2.json \
+  plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md \
+  plugins/luhm-os/skills/luhm-coding-roleplay/SKILL.md \
+  tools/lumTaskRouter.py \
+  tools/luhmRoleplayAudit.py \
+  tools/luhmTermuxCli.py; do
+  [[ -s "$TMP/repo/$required" ]] || die "Candidate missing $required"
+done
+
+if [[ -e "$CANDIDATE" ]]; then
+  mv "$CANDIDATE" "$LUHM_HOME/backups/roleplay-v3-${STAMP}"
+fi
+mkdir -p "$CANDIDATE"
+
+note "Deploying Oni skills and deterministic logic"
+cp -a "$TMP/repo/agents" "$CANDIDATE/"
+mkdir -p "$CANDIDATE/doctrine" "$CANDIDATE/tools" "$CANDIDATE/plugins/luhm-os"
+cp "$TMP/repo/doctrine/CODING_ROLEPLAY_SYSTEM_V3.json" "$CANDIDATE/doctrine/"
+cp "$TMP/repo/doctrine/TERMUX_OUTSIDE_SECURE_DEV_WORKFLOW_V1.json" "$CANDIDATE/doctrine/"
+cp "$TMP/repo/doctrine/ONI_MESH_CONTROL_PLANE_V2.json" "$CANDIDATE/doctrine/"
+cp -a "$TMP/repo/plugins/luhm-os/skills" "$CANDIDATE/plugins/luhm-os/"
+cp "$TMP/repo/tools/lumTaskRouter.py" "$CANDIDATE/tools/"
+cp "$TMP/repo/tools/luhmRoleplayAudit.py" "$CANDIDATE/tools/"
+cp "$TMP/repo/tools/luhmTermuxCli.py" "$CANDIDATE/tools/"
+
+cat > "$PREFIX/bin/luhm" <<'WRAP'
+#!/data/data/com.termux/files/usr/bin/bash
+exec python "$HOME/.luhm/candidates/roleplay-v3/tools/luhmTermuxCli.py" "$@"
+WRAP
+chmod 700 "$PREFIX/bin/luhm"
+
+note "Running candidate audit"
+python "$CANDIDATE/tools/luhmRoleplayAudit.py" | tee "$RECEIPTS/roleplay-audit-${STAMP}.json"
+
+python - "$CANDIDATE" "$RECEIPTS/install-${STAMP}.json" "$CANDIDATE_SHA" "$EXPECTED_MAIN" <<'PY'
+import hashlib, json, os, pathlib, sys
+candidate=pathlib.Path(sys.argv[1]); out=pathlib.Path(sys.argv[2]); candidate_sha=sys.argv[3]; base=sys.argv[4]
+files=[]
+for p in sorted(x for x in candidate.rglob("*") if x.is_file()):
+    files.append({"path":str(p.relative_to(candidate)),"sha256":hashlib.sha256(p.read_bytes()).hexdigest()})
+receipt={
+  "schema":"luhm-os.termux-roleplay-install-receipt.v1",
+  "status":"GREEN_LOCAL_CANDIDATE_INSTALLED",
+  "androidUserId":os.getuid()//100000,
+  "canonicalBase":base,
+  "candidateSha":candidate_sha,
+  "candidate":"roleplay-v3",
+  "files":files,
+  "authority":"Professor",
+  "mutationAuthority":False,
+  "releaseAuthority":False,
+  "publicationAuthority":False,
+  "productionSigningAuthority":False,
+  "autonomousDaemonClaim":False,
+  "crownStatus":"STOP"
+}
+out.write_text(json.dumps(receipt,indent=2)+"\n")
+print(out)
+PY
+
+rm -rf "$TMP"
+note "Installed skill/logic candidate outside Secure Folder. No push/merge/sign/publish/public exposure performed."
+note "Try: luhm status ; luhm roster ; luhm route read --truth-sensitive ; luhm doctor ; luhm roleplay"
