@@ -1,0 +1,25 @@
+name: LuHm Termux Secure Folder Shizuku Audit
+on:
+  pull_request:
+    paths:
+      - "scripts/termux/**"
+      - "doctrine/TERMUX_SECURE_FOLDER_SHIZUKU_EXPERIMENT_V1.json"
+      - "tools/termuxSecureFolderAudit.py"
+      - ".github/workflows/termux-secure-folder-shizuku-audit.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bash syntax
+        run: |
+          bash -n scripts/termux/install-luhm-dev.sh
+          bash -n scripts/termux/luhm-secure-folder-shizuku-probe.sh
+          bash -n scripts/termux/bootstrap-secure-folder.sh
+      - name: Python syntax
+        run: python -m py_compile tools/termuxSecureFolderAudit.py
+      - name: Doctrine and boundary audit
+        run: python tools/termuxSecureFolderAudit.py
