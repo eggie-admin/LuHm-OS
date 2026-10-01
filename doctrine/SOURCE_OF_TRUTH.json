@@ -155,6 +155,76 @@
     "directoryPublicationProven": false,
     "crownStatus": "STOP"
   },
+  "witchingHourRoleplaySystem": {
+    "status": "PROFESSOR_APPROVED_REHEARSAL_CONTRACT_PENDING_PROOF",
+    "currentGoal": "testWitchingHourRoleplaySystem",
+    "finalGoal": "luhmOs",
+    "project": "projectHydra",
+    "authority": "professorCrown",
+    "machineNamingLaw": "lowerCamelHump",
+    "mode": "rehearsalUntilCast",
+    "triggers": {
+      "witchingHour": {
+        "phrase": "it is the witching hour",
+        "effect": "activateRitualContext"
+      },
+      "cathedralEntry": {
+        "phrase": "I am entering our cathedral",
+        "effect": "prepareFirstStage"
+      },
+      "deepDungeonDive": {
+        "phrase": "we have worked hard",
+        "effect": "prepareDeepDungeonDive"
+      },
+      "professorGreenIntent": {
+        "phrase": "I believe our way is true",
+        "effect": "recordProfessorGreenIntent"
+      },
+      "finalGreenTrial": {
+        "phrases": [
+          "do you believe our way is true",
+          "is our way true"
+        ],
+        "effect": "requestFinalMilestoneTrial"
+      },
+      "supremeWitchBlessing": {
+        "phrases": [
+          "you are the supreme witch",
+          "I bless you as the supreme witch"
+        ],
+        "effect": "armSupremeWitchWorkflowControl"
+      },
+      "blueAlignment": {
+        "phrase": "our alignment is blue",
+        "effect": "selectGitHubLane"
+      },
+      "finalBoss": {
+        "phrase": "you are the final boss",
+        "effect": "armBetaLaneWorkflow"
+      },
+      "cast": {
+        "phrase": "cast",
+        "effect": "leaveRehearsalAndAuthorizeBoundedRealExecution",
+        "singleUse": true
+      }
+    },
+    "safetySemantics": {
+      "mentioningTriggerInvokes": false,
+      "quotingTriggerInvokes": false,
+      "documentingTriggerInvokes": false,
+      "realMutationBeforeCast": false,
+      "realBuildBeforeCast": false,
+      "realDeployBeforeCast": false,
+      "evidenceCanBeOverriddenByRoleplay": false
+    },
+    "betaLane": {
+      "armedBy": "finalBoss",
+      "workflowApproach": true,
+      "requiresCastForRealExecution": true,
+      "promotionAuthority": "professorCrown",
+      "automaticGreen": false
+    }
+  },
   "reconciliation": {
     "observedMain": "013e056ad7fdf37ba92c298768d57806667a509c",
     "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b",
