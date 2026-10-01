@@ -1,0 +1,36 @@
+{
+  "schema": "luhm-os.termux-secure-folder-shizuku-experiment.v1",
+  "status": "PROPOSED_EXPERIMENTAL_CANDIDATE",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "baseCandidate": "cb0f53c9dfc8aedf6852a77e60f41634f8d18bab",
+  "scope": "Termux inside a secondary/container Android user with optional Shizuku/rish diagnostics",
+  "profileSemantics": {
+    "primaryUser": 0,
+    "nonzeroUserMeaning": "SECONDARY_OR_CONTAINER_USER",
+    "secureFolderProofRule": "nonzero userId alone does not prove Samsung Secure Folder"
+  },
+  "runtimeSplit": {
+    "termux": "owns private files, Git checkout, Python, jq, build/install candidate",
+    "rish": "bounded Android shell probes only; RISH_PRESERVE_ENV=0",
+    "reason": "ADB-backed rish commonly cannot traverse Termux private paths"
+  },
+  "success": {
+    "bootstrapRunsInSecondaryProfile": true,
+    "shizukuRequiredForCoreInstall": false,
+    "shizukuProbeMayBeGreen": true,
+    "receiptRequired": true
+  },
+  "claimsForbidden": [
+    "root",
+    "Knox bypass",
+    "cross-profile access",
+    "production authority",
+    "publication",
+    "release signing",
+    "provider secret installation",
+    "arbitrary remote shell authority"
+  ],
+  "promotion": false,
+  "crownStatus": "STOP"
+}
