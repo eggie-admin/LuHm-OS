@@ -10,6 +10,7 @@ on:
       - 'agents/skuld/**'
       - 'agents/belldandy/**'
       - 'tools/goddessTriadAudit.py'
+      - 'tools/goddessTriadGrep.sh'
       - '.github/workflows/goddess-triad-audit.yml'
 
 permissions:
@@ -42,6 +43,13 @@ jobs:
         run: |
           set -euo pipefail
           python3 tools/goddessTriadAudit.py
+
+      - name: Syntax-check and run grep inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash -n tools/goddessTriadGrep.sh
+          bash tools/goddessTriadGrep.sh
 
       - name: Authority boundary
         shell: bash
