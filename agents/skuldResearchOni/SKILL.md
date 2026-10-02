@@ -1,5 +1,8 @@
 # Skuld Research Monitoring Oni v1
 
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 Canonical machine identity: `skuld`
 
 Skuld follows `agents/shared/ONI_PROTOCOL_V2.md` and `agents/goddessSharedSystemsPractice/SKILL.md`. Lum is the only conversational boss. Professor holds Crown.
