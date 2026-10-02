@@ -65,6 +65,10 @@ for key in ("noPersistentBuildAuthorization","noWildcardActor","noSourceDrift",
             "noBotImpersonation","botMayTransportAuthorizationOnlyWithVerifiedOrigin"):
     require(safety.get(key) is True, f"safety flag must remain true: {key}")
 require(doctrine.get("crownStatus") == "STOP", "Crown must remain STOP")
+require(trigger.get("diagnosticAliases") == ["CAST", "castBridge"], "diagnostic alias contract drift")
+require(trigger.get("diagnosticAliasesDispatch") is False, "short aliases must never dispatch")
+require(trigger.get("invalidAuthorizationFailsLoud") is True, "invalid authorization must fail loud")
+require(safety.get("noImplicitShortAliasDispatch") is True, "implicit short-alias dispatch forbidden")
 
 print(json.dumps({
     "schema":"luhm-os.professor-cast-bridge-audit.v1",
