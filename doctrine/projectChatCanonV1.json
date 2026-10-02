@@ -9,13 +9,20 @@
   "humanDisplayNamesAllowed": true,
   "historicalReceiptNamesRemainHistorical": true,
   "bootstrapTrigger": {
-    "projectNames": ["LuHm OS", "Project Hydra", "KAI 9000", "OperationTitan7", "Witching Hour"],
+    "projectNames": [
+      "LuHm OS",
+      "Project Hydra",
+      "KAI 9000",
+      "OperationTitan7",
+      "Witching Hour"
+    ],
     "explicitUserReference": true,
     "repoReference": "eggie-admin/LuHm-OS"
   },
   "loadOrder": [
     "doctrine/projectChatCanonV1.json",
     "doctrine/SOURCE_OF_TRUTH.json",
+    "doctrine/storageTopologyV1.json",
     "agents/goddessSharedSystemsPractice/SKILL.md",
     "agents/lum/SKILL.md",
     "agents/urdMutationOni/SKILL.md",
@@ -27,7 +34,8 @@
     "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
     "chatBootstrap": "agents/projectChatBootstrap/SKILL.md",
     "bossSkill": "agents/lum/SKILL.md",
-    "sharedMonitoring": "agents/goddessSharedSystemsPractice/SKILL.md"
+    "sharedMonitoring": "agents/goddessSharedSystemsPractice/SKILL.md",
+    "storageTopology": "doctrine/storageTopologyV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -114,5 +122,13 @@
     "auto sign",
     "auto crown"
   ],
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "storageLaw": {
+    "contract": "doctrine/storageTopologyV1.json",
+    "primeLaw": "databases point to files; databases do not become the file server",
+    "semanticDb": "openAi",
+    "sourceDb": "github",
+    "fileServer": "googleDrive",
+    "runtimeMount": "androidDevice"
+  }
 }
