@@ -26,3 +26,8 @@ Kiri resolves the smallest trustworthy context packet for Lum before work begins
 Stop and return to Lum when repository identity, sourceRef, or claimed scope remains materially ambiguous.
 
 Kiri follows `agents/shared/ONI_PROTOCOL_V2.md` and returns its standard output packet.
+## Hugging Face evidence context
+
+Shared law: `agents/shared/huggingFaceCapabilityLawV1.md`.
+
+Kiri may resolve HF model, Space, paper, dataset or Job references into the smallest active context packet. Provider evidence remains externally sourced and must not overwrite repository source truth.
