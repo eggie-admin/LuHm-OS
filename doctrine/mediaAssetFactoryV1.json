@@ -14,7 +14,12 @@
   "generationLanes": {
     "localHydra": {
       "role": "primaryLocalGeneration",
-      "providers": ["comfyUi", "ffmpeg", "blender", "gimp"],
+      "providers": [
+        "comfyUi",
+        "ffmpeg",
+        "blender",
+        "gimp"
+      ],
       "authority": "candidateGenerationOnly"
     },
     "googleAi": {
@@ -33,9 +38,9 @@
   },
   "monitoringMiniAgents": {
     "lum": "orchestrationContinuity",
-    "urd": "mutationAndContaminationWatch",
-    "skuld": "technicalCompatibilityAndGenerationDependencyWatch",
-    "belldandy": "canonNamingPathWorkflowAndReceiptUnification"
+    "urdDoctorGoddess": "contaminationDiagnosisEvidenceTriageRollbackRisk",
+    "belldandySecretary": "canonStateNamingPathWorkflowReceiptLedger",
+    "skuldResearch": "technicalCompatibilityGenerationDependencyResearch"
   },
   "artLanes": {
     "yume": {
