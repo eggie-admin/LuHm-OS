@@ -83,7 +83,7 @@ never = set(ttl.get("neverAutoDeleteClasses", []))
 for cls in ["source", "canonical", "evidenceReceipt", "backup", "snapshot", "release", "promotedArtifact", "signingMaterial"]:
     require(cls in never, f"TTL policy must protect class {cls}")
 require(ttl.get("sentinelName") == ".luhm-forge-root.json", "Forge sentinel drift")
-for phrase in ["is_symlink", "missing Forge root sentinel", "filesystem/home/repository root is forbidden", "REFUSED_PATH_ESCAPE"]:
+for phrase in ["is_symlink", "sentinel = root / SENTINEL", "not sentinel.is_file()", "sentinel.is_symlink()", "filesystem/home/repository root is forbidden", "REFUSED_PATH_ESCAPE"]:
     require(phrase in janitor, f"janitor missing safety control: {phrase}")
 
 cast_workflows = {
