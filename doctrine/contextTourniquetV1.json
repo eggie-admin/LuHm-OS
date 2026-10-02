@@ -67,13 +67,22 @@
         "mutationImpactMap",
         "rollbackDesign",
         "memoryToSourceConflictReview",
-        "secondOrderEffectReview"
+        "secondOrderEffectReview",
+        "statusChangeTrace",
+        "debugRoute",
+        "boundedChatCheckpoint"
       ],
       "mayProposeMutations": true,
       "mayMutate": false,
       "mayExecute": false,
       "maySelfApprove": false,
-      "mayGrantCrown": false
+      "mayGrantCrown": false,
+      "statusTracerRouterRef": "doctrine/urdStatusTracerRouterV1.json",
+      "chatStatusMonitoring": {
+        "enabled": true,
+        "mode": "materialTransitionOnly",
+        "unchangedSuppressed": true
+      }
     }
   },
   "checkpointRequired": [
