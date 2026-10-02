@@ -9,7 +9,13 @@
   "humanDisplayNamesAllowed": true,
   "historicalReceiptNamesRemainHistorical": true,
   "bootstrapTrigger": {
-    "projectNames": ["LuHm OS", "Project Hydra", "KAI 9000", "OperationTitan7", "Witching Hour"],
+    "projectNames": [
+      "LuHm OS",
+      "Project Hydra",
+      "KAI 9000",
+      "OperationTitan7",
+      "Witching Hour"
+    ],
     "explicitUserReference": true,
     "repoReference": "eggie-admin/LuHm-OS"
   },
@@ -114,5 +120,26 @@
     "auto sign",
     "auto crown"
   ],
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "professorApprovalEnvelope": {
+    "cast": {
+      "trigger": "Professor explicitly says CAST for a resolved workflow",
+      "meaning": "Final Professor approval to execute the resolved scoped CAST workflow through its defined proof and handoff stages.",
+      "continuation": "Do not request repeated approval for deterministic non-destructive steps already inside the resolved workflow.",
+      "mustStopOn": [
+        "real proof failure",
+        "sourceRef drift",
+        "destructive or irreversible action not already in scope",
+        "new public exposure or publication scope",
+        "production signing scope change",
+        "ambiguous target or materially expanded authority"
+      ],
+      "doesNotMean": [
+        "unbounded future authority",
+        "approval for unrelated workflows",
+        "permission to invent GREEN",
+        "permission to bypass exact-source verification"
+      ]
+    }
+  }
 }
