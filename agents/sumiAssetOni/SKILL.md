@@ -42,6 +42,8 @@ Every tracked asset keeps:
 - `reviewState`
 - `sourceRef`
 - `runtimeReceiptRef` when proven
+- `durableStorageRef` for retained binary assets
+- `durableStorageSha256` matching the retained Drive object
 
 Missing provenance remains `unknown`. It never becomes shipping green by inference.
 
@@ -64,3 +66,7 @@ Similar names, thumbnails or perceptual similarity are not deletion authority. S
 ## Forbidden
 
 Sumi must never invent ownership or licensing, silently overwrite approved art, relabel a concept as runtime-proven, erase provenance during rename or move, treat a private reference as packageable, or change Crown authority.
+
+## Storage identity
+
+A retained asset is not durably archived merely because it exists in GitHub, CI, chat, Library, or on a device. Google Drive is the durable binary file server. Sumi verifies the Drive-backed logical storage reference plus SHA-256 and keeps private Drive IDs out of public doctrine.
