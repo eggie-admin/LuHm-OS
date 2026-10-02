@@ -1,0 +1,52 @@
+{
+  "schema": "luhm-os.android-web3-source-ready-receipt.v1",
+  "date": "2026-10-01",
+  "authority": "Professor",
+  "status": "GREEN_SOURCE_AND_STATIC_CI_ONLY",
+  "milestone": "androidWeb3Cockpit",
+  "candidateBranch": "candidate/android-web3-cockpit-switch-v1-20261001",
+  "auditedSourceCommit": "3ebed03f73c871d2347f08f597237c6bfb92e338",
+  "staticAudit": {
+    "workflow": "Android Web3 Cockpit Switch Audit",
+    "runId": 36964062745,
+    "artifactId": 11208468291,
+    "result": "SUCCESS"
+  },
+  "proven": [
+    "packaged frontEnd source exists",
+    "Godot v2 Android plugin source exists",
+    "WebViewAssetLoader local-origin source exists",
+    "external navigation and network fallback are fail-closed by source contract",
+    "origin-scoped WebMessageListener bridge is source-defined",
+    "Godot show/hide world transition source is wired",
+    "Android export addon source is enabled",
+    "Android Web3 AAR build is staged behind exact CAST workflow",
+    "build-producing Android/Godot workflows are manual CAST-gated on this candidate",
+    "front-end regression and source-truth checks passed at auditedSourceCommit"
+  ],
+  "notProven": [
+    "Kotlin/Gradle plugin compilation",
+    "AAR production",
+    "Godot APK integration",
+    "APK export",
+    "physical Samsung launch",
+    "installed WebView package/version",
+    "touch/keyboard/cutout/rotation device behavior",
+    "runtime no-network observation",
+    "production signing",
+    "publication",
+    "Shizuku binding"
+  ],
+  "nextGate": {
+    "exactProfessorWord": "cast",
+    "sourceRefRule": "must equal exact candidate head at dispatch",
+    "buildScope": "android-testing-apk",
+    "singleUse": true
+  },
+  "mergeAuthority": false,
+  "releaseAuthority": false,
+  "publicationAuthority": false,
+  "productionSigningAuthority": false,
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}
