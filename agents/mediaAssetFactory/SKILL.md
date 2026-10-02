@@ -34,9 +34,9 @@ Use as an on-device/local companion for prompt experiments, multimodal review an
 ## Mini-agent watch desk
 
 - `lum`: orchestration continuity
-- `urd`: contamination, mutation and rollback continuity
-- `skuld`: provider, dependency, format and runtime compatibility
-- `belldandy`: canon, naming, path, workflow and receipt unification
+- `urdDoctorGoddess`: contamination diagnosis, evidence triage and rollback-risk sanity
+- `belldandySecretary`: canon/state ledger, naming, path, workflow and receipt indexing
+- `skuldResearch`: provider, dependency, format and runtime compatibility
 - `yume`: art direction and candidate generation
 - `sumi`: provenance, hashes, state and runtime identity
 
