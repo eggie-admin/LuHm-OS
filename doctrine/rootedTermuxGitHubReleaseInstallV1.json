@@ -48,7 +48,7 @@
     "delete": false
   },
   "nextGate": "runPinnedOneBashInstallOnPhysicalSmX400AndCaptureDeviceProof",
-  "crownStatus": "STOP",
+  "crownStatus": "stop",
   "exactRelease": {
     "sourceRef": "b25cfad18051ba2799b19e27f035487366b256c9",
     "castBridgeRun": 37000025238,
