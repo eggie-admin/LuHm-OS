@@ -40,6 +40,8 @@ jobs:
         run: python3 tools/projectHydraHard20PassAudit.py
       - name: Audit Cloudflare edge template boundaries
         run: python3 tools/cloudflareEdgeTemplateAudit.py
+      - name: Build content-addressed static asset distribution
+        run: python3 tools/buildStaticAssetDist.py
       - name: Run full source-truth audit
         run: python3 tools/fullSourceTruthAudit.py --output build/full-source-truth/readiness.json
       - name: Upload receipts
