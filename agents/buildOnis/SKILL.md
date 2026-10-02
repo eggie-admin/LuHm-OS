@@ -40,3 +40,6 @@ A builder stops rather than improvises when:
 Run Tetsu and Kaji in parallel when dual-build evidence is required. Do not recruit additional builders unless a concrete independent proof requirement exists.
 
 Neither builder may mutate canonical source, change tests to force GREEN, declare promotion readiness, sign production releases, or publish/expose services. Build success is evidence only.
+## Artifact storage handoff
+
+Builders may emit binaries only into ephemeral runner/workspace storage long enough to verify them. After digest/provenance checks, the durable copy belongs on Google Drive. GitHub CI artifacts or Releases may serve as temporary transport, but the builder receipt must point to the Drive-backed artifact record for durable retention. Builders never self-promote that copy.
