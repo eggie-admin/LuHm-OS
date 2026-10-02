@@ -184,6 +184,14 @@ func _check_scripted_chat() -> void:
     var lum: Dictionary = chat.submit("Lum coffee", "45")
     _check(lum.get("speaker") == "Lum", "Lum scripted routing works")
     _check(lum.get("action", {}).get("event") == "coffeeEmergency", "scripted chaos event works")
+    var world: Dictionary = chat.submit("Lum cathedral", "46")
+    _check(world.get("action", {}).get("type") == "worldRequest", "scripted world action is typed")
+    _check(world.get("action", {}).get("worldId") == "cathedral", "scripted Cathedral routing works")
+    var quest: Dictionary = chat.submit("Skuld quest", "47")
+    _check(quest.get("action", {}).get("type") == "questRequest", "scripted quest action is typed")
+    var dieA: Dictionary = chat.submit("Urd roll dice", "48")
+    var dieB: Dictionary = chat.submit("Urd roll dice", "48")
+    _check(dieA.get("action", {}).get("roll") == dieB.get("action", {}).get("roll"), "scripted d20 is deterministic")
     chat.queue_free()
 
 func _finish() -> void:
