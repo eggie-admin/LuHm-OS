@@ -1,0 +1,26 @@
+name: Doctor Oni Truth + Milestone Guard
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  doctor-oni-truth-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Dr Nao truth and milestone guard
+        run: python3 tools/doctorOniMilestoneGuardAudit.py
+
+      - name: Truth authority reminder
+        run: |
+          echo 'Truth-guard success proves only this static guard contract.'
+          echo 'It does not make any unsupported LuHm claim true.'
+          echo 'It does not merge, publish, deploy, sign, change the active milestone, or Crown anything.'
