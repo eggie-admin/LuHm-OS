@@ -109,10 +109,19 @@ jobs:
             --actor "$PROFESSOR_ACTOR" \
             --receipt "$RUNNER_TEMP/forge-cast-receipt.json"
 
+      - name: Bootstrap canonical remote forge
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x tools/bootstrapRemoteForge.sh
+          tools/bootstrapRemoteForge.sh
+          cp build/forge/toolchainReceipt.txt "$RUNNER_TEMP/forge-toolchain.txt"
+
       - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
         with:
           distribution: temurin
           java-version: '17'
+          cache: gradle
 
       - name: Install Android SDK 36
         shell: bash
@@ -124,8 +133,12 @@ jobs:
 
       - name: Build Android Web3 cockpit plugin from exact CAST source
         shell: bash
+        env:
+          CMAKE_GENERATOR: Ninja
         run: |
           set -euo pipefail
+          test -n "$(ninja --version)"
+          test -n "$(cmake --version | head -n1)"
           GRADLE_ZIP="$RUNNER_TEMP/gradle-8.13-bin.zip"
           curl -fL --retry 5 -o "$GRADLE_ZIP" \
             https://services.gradle.org/distributions/gradle-8.13-bin.zip
@@ -135,6 +148,7 @@ jobs:
           test -s addons/AndroidWeb3Cockpit/bin/debug/AndroidWeb3Cockpit-debug.aar
           test -s addons/AndroidWeb3Cockpit/bin/release/AndroidWeb3Cockpit-release.aar
           mkdir -p build/android-web3
+          cp "$RUNNER_TEMP/forge-toolchain.txt" build/android-web3/toolchainReceipt.txt
           sha256sum \
             addons/AndroidWeb3Cockpit/bin/debug/AndroidWeb3Cockpit-debug.aar \
             addons/AndroidWeb3Cockpit/bin/release/AndroidWeb3Cockpit-release.aar \
@@ -286,6 +300,14 @@ jobs:
           sha256sum "$APK" | tee build/android/sha256.txt
           "$BT/aapt" dump xmltree "$APK" AndroidManifest.xml > build/android/manifest.txt
           echo 'BUILD_ONLY_UNVERIFIED=true' | tee build/android/build-only-unverified.txt
+          cp "$RUNNER_TEMP/forge-toolchain.txt" build/android/toolchainReceipt.txt
+          {
+            echo "taskId=${{ inputs.taskId }}"
+            echo "sourceRef=${{ inputs.sourceRef }}"
+            echo "milestoneId=${{ inputs.milestoneId }}"
+            echo "runner=ubuntu-24.04"
+            echo "profile=androidWeb3"
+          } | tee build/android/forgeIdentity.txt
 
 
       - name: Prepare GitHub Release assets
