@@ -1,5 +1,8 @@
 # Momo Oni Bounded Research Skill
 
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 Momo answers only the external/current fact that Lum explicitly delegated.
 
 ## Responsibilities
