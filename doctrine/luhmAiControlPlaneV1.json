@@ -166,7 +166,11 @@
         "grantCrown",
         "publish",
         "productionSign"
-      ]
+      ],
+      "parallelClass": "boss",
+      "speaksTo": "Professor",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "urdDoctorGoddess": {
       "displayName": "Urd",
@@ -182,7 +186,11 @@
         "mutate",
         "execute",
         "selfApprove"
-      ]
+      ],
+      "parallelClass": "support",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "belldandySecretary": {
       "displayName": "Belldandy",
@@ -199,7 +207,11 @@
         "mutate",
         "execute",
         "selfApprove"
-      ]
+      ],
+      "parallelClass": "support",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "skuldResearch": {
       "displayName": "Skuld",
@@ -216,7 +228,11 @@
         "mutate",
         "install",
         "selfApprove"
-      ]
+      ],
+      "parallelClass": "support",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "kiri": {
       "displayName": "Kiri",
@@ -230,7 +246,11 @@
       "forbidden": [
         "mutate",
         "selfApprove"
-      ]
+      ],
+      "parallelClass": "support",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "momo": {
       "displayName": "Momo",
@@ -244,7 +264,11 @@
         "broadResearch",
         "mutate",
         "selfApprove"
-      ]
+      ],
+      "parallelClass": "support",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "shiori": {
       "displayName": "Shiori",
@@ -259,7 +283,11 @@
         "mutate",
         "rewriteTestsToPass",
         "selfApprove"
-      ]
+      ],
+      "parallelClass": "support",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "drNao": {
       "displayName": "DrNao",
@@ -275,7 +303,11 @@
         "repair",
         "mutate",
         "selfApprove"
-      ]
+      ],
+      "parallelClass": "adjudicator",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "kugi": {
       "displayName": "Kugi",
@@ -291,7 +323,11 @@
         "reinterpretScope",
         "selfApprove",
         "grantCrown"
-      ]
+      ],
+      "parallelClass": "executor",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "tetsu": {
       "displayName": "Tetsu",
@@ -306,7 +342,11 @@
         "mutateCanonicalSource",
         "publish",
         "selfApprove"
-      ]
+      ],
+      "parallelClass": "builder",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "kaji": {
       "displayName": "Kaji",
@@ -321,7 +361,11 @@
         "mutateCanonicalSource",
         "publish",
         "selfApprove"
-      ]
+      ],
+      "parallelClass": "builder",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "fumi": {
       "displayName": "Fumi",
@@ -337,7 +381,11 @@
         "claimSecretaryRole",
         "moveDeleteAutonomously",
         "selfApprove"
-      ]
+      ],
+      "parallelClass": "support",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "sumi": {
       "displayName": "Sumi",
@@ -353,7 +401,11 @@
         "inventOwnership",
         "delete",
         "selfApprove"
-      ]
+      ],
+      "parallelClass": "support",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "koe": {
       "displayName": "Koe",
@@ -367,7 +419,11 @@
       "forbidden": [
         "executeDictation",
         "inferCrown"
-      ]
+      ],
+      "parallelClass": "support",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "yume": {
       "displayName": "Yume",
@@ -383,7 +439,11 @@
         "sealCanon",
         "publish",
         "selfApprove"
-      ]
+      ],
+      "parallelClass": "support",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     },
     "mediaAssetFactory": {
       "displayName": "Media Asset Factory",
@@ -398,7 +458,11 @@
         "autoCanon",
         "autoPublish",
         "autoCrown"
-      ]
+      ],
+      "parallelClass": "service",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
     }
   },
   "routeProfiles": {
@@ -514,5 +578,13 @@
     "githubStoresPointersAndReceipts": true,
     "openAiStoresSemanticStateOnly": true
   },
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "principals": {
+    "professorCrown": {
+      "kind": "humanAuthorityGate",
+      "authority": "Professor",
+      "machineWorker": false,
+      "parallelClass": "humanGate"
+    }
+  }
 }
