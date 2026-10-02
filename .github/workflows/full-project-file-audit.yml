@@ -57,7 +57,7 @@ jobs:
           python3 tools/fullSourceTruthAudit.py --output build/full-source-truth/readiness.json
           python3 tools/currentMainSourceTruthMilestoneAudit.py
           python3 tools/pluginPublicationAudit.py
-          python3 tools/inChatHtmlCheck.py
+          python3 tools/inChatHtmlCheck.py frontEnd/index.html
 
       - name: Assert whole-repository coverage
         shell: bash
