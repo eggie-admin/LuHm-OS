@@ -51,9 +51,9 @@
     if (!state) return;
     const p = packet && typeof packet === "object" ? packet : {};
 
-    $root.attr("data-task-id", text(p.taskId, "UNKNOWN"));
-    $root.attr("data-source-ref", text(p.sourceRef, "UNKNOWN"));
-    $root.attr("data-scope-id", text(p.scopeId, "UNKNOWN"));
+    $root.attr("data-task-id", text(p.taskId, "unknown"));
+    $root.attr("data-source-ref", text(p.sourceRef, "unknown"));
+    $root.attr("data-scope-id", text(p.scopeId, "unknown"));
 
     $root.find("[data-activity-headline]").text(text(p.headline, "No active observed task"));
     setStateClass($root.find("[data-activity-phase]"), p.phase);
