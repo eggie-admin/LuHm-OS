@@ -46,6 +46,8 @@ plugin_cfg = read("addons/AndroidWeb3Cockpit/plugin.cfg")
 project = read("project.godot")
 preset = read("export_presets.cfg")
 godot_main = read("scripts/main.gd")
+lum_avatar = read("scripts/game/lumAvatar.gd")
+lum_rig_smoke = read("tests/lumRigV2Phase1Smoke.gd")
 android_workflow = read(".github/workflows/android-testing-build.yml")
 godot_workflow = read(".github/workflows/godot-web-harness.yml")
 rig_workflow = read(".github/workflows/lumrigv2-phase1.yml")
@@ -164,6 +166,12 @@ for token in (
     "android_web3_plugin.showCockpit()",
 ):
     require(token in godot_main, f"Godot bridge missing: {token}")
+
+# Known pre-build rig blocker must be source-fixed before CAST.
+require("look_target.top_level = true" in lum_avatar,
+        "Lum look target must remain independent of parent bobbing")
+require('initial_marker.top_level' in lum_rig_smoke,
+        "Lum rig smoke must regression-check world-space look target")
 
 # Bridge doctrine remains minimal.
 require(bridge.get("localOrigin") == "https://appassets.androidplatform.net",
