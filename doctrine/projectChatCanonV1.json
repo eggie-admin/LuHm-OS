@@ -5,7 +5,7 @@
   "boss": "lum",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "purpose": "Canonical bootstrap contract for every LuHm OS / Project Hydra related chat.",
-  "machineNamingLaw": "lowerCamelHump",
+  "machineNamingLaw": "conventionAwareSemanticCamelHump",
   "humanDisplayNamesAllowed": true,
   "historicalReceiptNamesRemainHistorical": true,
   "bootstrapTrigger": {
@@ -94,7 +94,8 @@
     "unknownIsNotGreen": true,
     "hiddenAsyncExecution": false,
     "professorCorrectionInterruptsCurrentPlan": true,
-    "automaticResumeAfterCorrection": false
+    "automaticResumeAfterCorrection": false,
+    "namingPolicy": "LuHm semantic IDs prefer lowerCamelHump; language, platform, vendor and build-system native conventions are preserved."
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
@@ -156,5 +157,6 @@
       "skillPath": "agents/skuldResearchOni/SKILL.md",
       "mode": "readOnlyMiniAgent"
     }
-  }
+  },
+  "namingContract": "doctrine/namingPathSealV1.json"
 }
