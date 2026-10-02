@@ -7,10 +7,10 @@
 
     $cockpit.luhmCockpit({ initialView: "chat" });
 
-    // Temporary dry-run bridge surface. Native backend launch/wrapper wiring
-    // belongs to the Android/Godot shell and is intentionally not faked here.
+    // Android Web3 cockpit candidate boundary. Native Android System WebView
+    // wrapper wiring remains separate and is intentionally not faked here.
     $cockpit.on("luhm:backend:open", function (_event, detail) {
-      console.info("LuHm backend boundary requested", detail);
+      console.info("LuHm Godot/system boundary requested", detail);
     });
 
     window.LuHmFrontEnd = Object.freeze({
