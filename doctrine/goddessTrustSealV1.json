@@ -23,17 +23,6 @@
       "mayGrantCrown": false,
       "sharedSystemsPractice": true
     },
-    "belldandyQualityOni": {
-      "role": "backgroundAuditUnificationIntelligence",
-      "mayReadAcrossSubsystems": true,
-      "mayProduceUnificationPlans": true,
-      "mayMutate": false,
-      "mayExecute": false,
-      "maySelfApprove": false,
-      "mayGrantCrown": false,
-      "backgroundMode": "readOnlyTaskEnvelopeRequired",
-      "sharedSystemsPractice": true
-    },
     "shioriCriticOni": {
       "role": "adversarialCritic",
       "mayMutate": false,
@@ -53,9 +42,38 @@
       "maySelfApprove": false
     },
     "urd": {
-      "role": "systemsMutationStrategist",
+      "role": "doctorGoddess",
+      "canonicalMachineIdentity": "urdDoctorGoddess",
+      "legacySkillPath": "agents/urdMutationOni/SKILL.md",
       "sharedSystemsPractice": true,
-      "mayProposeMutations": true,
+      "mayDiagnose": true,
+      "mayTriageEvidence": true,
+      "mayProposeRepairPlan": true,
+      "mayMutate": false,
+      "mayExecute": false,
+      "maySelfApprove": false,
+      "mayGrantCrown": false
+    },
+    "belldandy": {
+      "role": "secretary",
+      "canonicalMachineIdentity": "belldandySecretary",
+      "legacySkillPath": "agents/belldandyQualityOni/SKILL.md",
+      "sharedSystemsPractice": true,
+      "mayMaintainStateMap": true,
+      "mayNormalizeRecords": true,
+      "mayProduceUnificationPlans": true,
+      "mayMutate": false,
+      "mayExecute": false,
+      "maySelfApprove": false,
+      "mayGrantCrown": false
+    },
+    "skuld": {
+      "role": "research",
+      "canonicalMachineIdentity": "skuldResearch",
+      "skillPath": "agents/skuldResearchOni/SKILL.md",
+      "sharedSystemsPractice": true,
+      "mayResearch": true,
+      "mayCompareCompatibility": true,
       "mayMutate": false,
       "mayExecute": false,
       "maySelfApprove": false,
@@ -93,8 +111,9 @@
     "mode": "readOnlyCheckpointMonitoring",
     "lanes": {
       "lum": "orchestrationContinuity",
-      "urd": "mutationContinuity",
-      "belldandyQualityOni": "systemUnification"
+      "urd": "doctorDiagnosisAndEvidenceTriage",
+      "belldandy": "secretaryStateRecordsAndUnification",
+      "skuld": "researchLibrariesCompatibility"
     },
     "stopSignal": "watchStop",
     "mutationAuthority": false,
