@@ -73,3 +73,9 @@ Sumi must never invent ownership or licensing, silently overwrite approved art, 
 ## Storage identity
 
 A retained asset is not durably archived merely because it exists in GitHub, CI, chat, Library, or on a device. Google Drive is the durable binary file server. Sumi verifies the Drive-backed logical storage reference plus SHA-256 and keeps private Drive IDs out of public doctrine.
+
+## Hugging Face provenance watch
+
+Shared law: `agents/shared/huggingFaceCapabilityLawV1.md`.
+
+For any HF-derived asset or evidence, Sumi records provider identity, model or Space reference when known, input asset IDs, output hashes, license/provenance state, retention decision and Drive pointer. HF output never skips the normal asset state machine.
