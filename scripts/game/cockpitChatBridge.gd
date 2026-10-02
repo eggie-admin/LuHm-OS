@@ -4,14 +4,18 @@ class_name CockpitChatBridge
 signal worldRequested(worldId: String)
 signal questRequested(questId: String)
 
+const AdventureDirectorScript := preload("res://scripts/game/adventureDirector.gd")
+
 const ScriptedChatDirectorScript := preload("res://scripts/game/scriptedChatDirector.gd")
 var hud: CanvasLayer
 var scriptedChat: Node
+var adventure: Node
 
 func configure(gameHud: CanvasLayer) -> void:
     hud = gameHud
-    scriptedChat = ScriptedChatDirectorScript.new()
-    add_child(scriptedChat)
+    scriptedChat = ScriptedChatDirectorScript.new(); add_child(scriptedChat)
+    adventure = AdventureDirectorScript.new(); add_child(adventure)
+    adventure.startAdventure("cathedralFirstCoffee", 7)
 
 func submit(text: String, chaosSeed: String) -> void:
     var cleanText := text.strip_edges().substr(0, 512)
@@ -21,5 +25,8 @@ func submit(text: String, chaosSeed: String) -> void:
     var action: Dictionary = reply.get("action", {})
     match str(action.get("type", "presentationOnly")):
         "worldRequest": worldRequested.emit(str(action.get("worldId", "")))
-        "questRequest": questRequested.emit(str(action.get("questId", "")))
+        "questRequest":
+            var questId := str(action.get("questId", ""))
+            adventure.setQuest(questId, "active")
+            questRequested.emit(questId)
         _: pass
