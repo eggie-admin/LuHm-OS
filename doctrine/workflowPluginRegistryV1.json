@@ -1,0 +1,31 @@
+{
+  "schema":"luhmOs.workflowPluginRegistry.v1",
+  "status":"candidate",
+  "authority":"Professor",
+  "defaultRuntime":"luhmAgentMesh",
+  "pluginLaw":{
+    "explicitInvocation":true,
+    "specialCaseOnly":true,
+    "mayNotBecomeDefaultWorkflow":true,
+    "boundedLifecycle":["attach","enact","emit","release"],
+    "recursiveRecruitment":false,
+    "professorCrownPreserved":true
+  },
+  "plugins":{
+    "operationTitan7":{
+      "entryPoint":"$.operationTitan7",
+      "trigger":"explicitOperationInvocation",
+      "purpose":"hardenedSpecialCaseWorkflow",
+      "logic":"operationTitan7",
+      "releaseTo":"luhmAgentMesh"
+    },
+    "deepDungeon":{
+      "entryPoint":"$.deepDungeon",
+      "trigger":"whereIsMyMilestonePhrase",
+      "triggerPattern":"Where's my <currentMilestone>?",
+      "purpose":"milestoneDeepDiveAndMemoryCheck",
+      "agentMode":"miniAgentOnly",
+      "releaseTo":"Professor"
+    }
+  }
+}
