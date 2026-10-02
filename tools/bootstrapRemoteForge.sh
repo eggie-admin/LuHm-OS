@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ "${GITHUB_ACTIONS:-}" != "true" ]]; then
+  echo "RED_REMOTE_FORGE_BOOTSTRAP_OUTSIDE_CI: this bootstrap is GitHub Actions only" >&2
+  exit 2
+fi
+
 export DEBIAN_FRONTEND=noninteractive
 export CMAKE_GENERATOR=Ninja
 export NINJA_STATUS='[%f/%t %o/sec] '
