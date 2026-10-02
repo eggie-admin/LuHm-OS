@@ -1,0 +1,31 @@
+name: Chat Activity Presentation Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/chatActivityPresentationV1.json'
+      - 'frontEnd/index.html'
+      - 'frontEnd/jquery/luhm.cockpit.js'
+      - 'scripts/game/activityLoading.gd'
+      - 'tools/chatActivityPresentationAudit.py'
+      - '.github/workflows/chat-activity-presentation-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+      - name: Audit chat activity presentation
+        run: python3 tools/chatActivityPresentationAudit.py
+      - name: Diff hygiene
+        run: git diff --check
