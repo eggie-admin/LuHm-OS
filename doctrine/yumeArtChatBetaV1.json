@@ -122,5 +122,45 @@
     ],
     "renderStores": "runtimeOnly"
   },
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "contracts": {
+    "googleSentry": "doctrine/googleSentryAuthV1.json",
+    "providerOrchestra": "doctrine/providerOrchestraV1.json",
+    "artSchema": "doctrine/yumeArtSchemaV1.json",
+    "artWorkflow": "doctrine/artOniLayeredMutationV3.json",
+    "mediaFactory": "doctrine/mediaAssetFactoryV1.json"
+  },
+  "openAi": {
+    "adapter": "host/providers/openAiProvider.py",
+    "apiSurface": "responsesApi",
+    "structuredOutputs": true,
+    "storeByDefault": false,
+    "secretBoundary": "trustedHostOnly"
+  },
+  "huggingFaceUtilityLane": {
+    "role": "productionAssistResearchAndCompute",
+    "capabilityIds": [
+      "backgroundRemoval",
+      "imageSegmentation",
+      "depthMap",
+      "poseStructure",
+      "imageTo3dResearch",
+      "batchAssetProcessing"
+    ],
+    "implementationDiscovery": "refreshAtTaskTime",
+    "modelPinRequiresLicenseAndCompatibilityReview": true,
+    "paidJobRequiresExplicitTask": true
+  },
+  "githubSecondCompatibilityLayer": {
+    "enabled": true,
+    "duties": [
+      "providerAdapters",
+      "workflowTranslation",
+      "manifestTranslation",
+      "copilotContext",
+      "ciProof",
+      "remoteForge",
+      "receiptLedger"
+    ]
+  }
 }
