@@ -17,7 +17,12 @@
     "canonicalTrackedPathsInventoried": 154,
     "hydraShellTrackedPathsInventoried": 204,
     "vueCmsTrackedPathsInventoried": 30,
-    "semanticLimit": "Broad whole-project inventory/risk audit plus manual review of key contracts; not independent semantic proof of every line."
+    "semanticLimit": "Broad whole-project inventory/risk audit plus manual review of key contracts; not independent semantic proof of every line.",
+    "canonicalFileContentsReadAndHeuristicScanned": 154,
+    "trackedJsonFiles": 56,
+    "validRawJson": 55,
+    "intentionalTemplateException": "installPortal/manifest.template.json is a build template; stageInstallPortal.py rejects unresolved placeholders and parses rendered JSON.",
+    "redHeuristicFindings": 0
   },
   "supportRoots": {
     "hydraShellAndroid": "08644e2dbb032b1804e260c8ece1060597a22ae0",
@@ -44,7 +49,9 @@
     "Recorded Drive empty-folder observation is historical; the compatibility root now has roleplay-v3 material.",
     "Physical Samsung candidate proof remains pending.",
     "Server-side branch/ruleset governance remains absent on the three live roots.",
-    "Open PR cleanup remains review-only until supersession is individually proven."
+    "Open PR cleanup remains review-only until supersession is individually proven.",
+    "vue-headless-cms remains a frozen donor with older beta/caret dependency ranges; re-audit before production reactivation.",
+    "hydra-shell-android Ultima Python integration leaves several dependencies unpinned; keep frozen donor/support authority until dependency provenance is reconciled."
   ],
   "scopedCandidateCI": {
     "pr86": "SUCCESS",
