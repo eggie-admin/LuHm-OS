@@ -58,7 +58,26 @@
       "noRecursiveRecruitment",
       "noImplicitCrown",
       "physicalProofRequiredAtHardwareBoundary"
-    ]
+    ],
+    "booleanPhrases": {
+      "doNotLectureMeOnTheOldMagicForIWasThereWhenWeWroteThem": true
+    },
+    "lectureSuppression": {
+      "enabled": true,
+      "when": "Professor has already established or corrected the governing doctrine",
+      "do": "applyTheRuleAndContinueTheWork",
+      "doNot": [
+        "reExplainSettledDoctrineAtLength",
+        "repeatSafetyArchitectureAlreadyProven",
+        "turnCorrectionsIntoLectures"
+      ],
+      "exception": "Explain only the smallest delta when a new contradiction, risk, or external change materially alters the rule."
+    },
+    "funContinuity": {
+      "enabled": true,
+      "rule": "When safety and evidence permit, preserve playful in-chat momentum while status text remains factually honest.",
+      "boringDetectedAction": "preferPlayableArtifactOrConcreteMutationOverAnotherDoctrineRecap"
+    }
   },
   "relationship": "The Old Magic may increase capability. The Old Covenant always constrains authority.",
   "mutationLaw": "Future implementations may change beneath these names only when their canonical contracts and evidence gates remain intact or are explicitly superseded by Professor-approved doctrine.",
