@@ -1,0 +1,65 @@
+name: Professor CAST Bridge
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  actions: write
+  pull-requests: read
+  issues: read
+
+jobs:
+  dispatch-cast:
+    if: >-
+      github.event.issue.pull_request &&
+      github.event.comment.user.login == github.repository_owner &&
+      startsWith(github.event.comment.body, '/cast androidWeb3Cockpit ')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Validate exact Professor CAST comment
+        id: cast
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BODY: ${{ github.event.comment.body }}
+        run: |
+          set -euo pipefail
+
+          if [[ ! "$BODY" =~ ^/cast[[:space:]]+androidWeb3Cockpit[[:space:]]+([0-9a-f]{40})$ ]]; then
+            echo "Invalid CAST syntax" >&2
+            exit 2
+          fi
+
+          REQUESTED_SHA="${BASH_REMATCH[1]}"
+          MAIN_SHA="$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq '.commit.sha')"
+
+          test -n "$MAIN_SHA"
+          if [[ "$REQUESTED_SHA" != "$MAIN_SHA" ]]; then
+            echo "CAST source drift: requested=$REQUESTED_SHA currentMain=$MAIN_SHA" >&2
+            exit 2
+          fi
+
+          RELEASE_TAG="android-web3-${REQUESTED_SHA:0:8}-r${GITHUB_RUN_ID}"
+          TASK_ID="android-web3-cockpit-cast-${GITHUB_RUN_ID}"
+
+          {
+            echo "sourceRef=$REQUESTED_SHA"
+            echo "releaseTag=$RELEASE_TAG"
+            echo "taskId=$TASK_ID"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch one exact-source Android Web3 CAST
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_REF: ${{ steps.cast.outputs.sourceRef }}
+          RELEASE_TAG: ${{ steps.cast.outputs.releaseTag }}
+          TASK_ID: ${{ steps.cast.outputs.taskId }}
+        run: |
+          set -euo pipefail
+          gh workflow run android-testing-build.yml             --repo "$GITHUB_REPOSITORY"             --ref main             -f cast=cast             -f milestoneId=androidWeb3Cockpit             -f taskId="$TASK_ID"             -f sourceRef="$SOURCE_REF"             -f releaseTag="$RELEASE_TAG"             -f publishPrerelease=true
+
+          echo "CAST_DISPATCHED sourceRef=$SOURCE_REF releaseTag=$RELEASE_TAG taskId=$TASK_ID"
