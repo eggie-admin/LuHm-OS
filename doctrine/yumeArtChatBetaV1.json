@@ -162,5 +162,16 @@
       "remoteForge",
       "receiptLedger"
     ]
+  },
+  "betaDeployment": {
+    "mode": "autoDeploy",
+    "source": "githubBetaBranch",
+    "branch": "beta/yumeArtChatV1-20261002",
+    "movingEdge": "https://luhm-os-yume-autobeta.onrender.com",
+    "frozenFallback": "https://luhm-os-yume-beta.onrender.com",
+    "autoDeploy": true,
+    "cloudflareCustomDomain": false,
+    "dnsMutation": false,
+    "crownStatus": "stop"
   }
 }
