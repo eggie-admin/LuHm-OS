@@ -39,7 +39,8 @@
     "sharedMonitoring": "agents/goddessSharedSystemsPractice/SKILL.md",
     "storageTopology": "doctrine/storageTopologyV1.json",
     "goddessCabinet": "doctrine/lumGoddessCabinetV1.json",
-    "oldMagicAndOldCovenant": "doctrine/oldMagicAndOldCovenantV1.json"
+    "oldMagicAndOldCovenant": "doctrine/oldMagicAndOldCovenantV1.json",
+    "s24FeLocalHost": "doctrine/s24FeLocalHostV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -176,5 +177,10 @@
     "ledger": "belldandySecretary",
     "executor": "kugi",
     "proof": "drNao"
+  },
+  "mobileHost": {
+    "canonical": "ordinaryTermuxOutsideSecureFolder",
+    "doctrine": "doctrine/s24FeLocalHostV1.json",
+    "secureFolderRole": "optionalIsolationOnly"
   }
 }
