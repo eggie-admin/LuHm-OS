@@ -67,11 +67,12 @@ if su -c "pm path '$PACKAGE'" >/dev/null 2>&1; then
   printf 'Existing LuHm package found, removing user install...\n'
   su -c "am force-stop '$PACKAGE' || true"
   su -c "pm clear '$PACKAGE' || true"
-  su -c "pm uninstall '$PACKAGE'" >/tmp/luhm-uninstall.txt 2>&1 || {
-    cat /tmp/luhm-uninstall.txt >&2
+  UNINSTALL_LOG="$WORK/uninstall.txt"
+  su -c "pm uninstall '$PACKAGE'" >"$UNINSTALL_LOG" 2>&1 || {
+    cat "$UNINSTALL_LOG" >&2
     die "package uninstall failed"
   }
-  grep -q 'Success' /tmp/luhm-uninstall.txt || die "package uninstall did not report Success"
+  grep -q 'Success' "$UNINSTALL_LOG" || die "package uninstall did not report Success"
 fi
 
 # LuHm-owned external app directories only. No broad storage deletion.
@@ -86,14 +87,18 @@ su -c "cp '$APK' '$STAGED'"
 su -c "chmod 0644 '$STAGED'"
 
 printf 'Installing exact verified release APK...\n'
-su -c "pm install -t '$STAGED'" >/tmp/luhm-install.txt 2>&1 || {
-  cat /tmp/luhm-install.txt >&2
+INSTALL_LOG="$WORK/install.txt"
+PACKAGE_PATH_LOG="$WORK/package-path.txt"
+LAUNCH_LOG="$WORK/launch.txt"
+
+su -c "pm install -t '$STAGED'" >"$INSTALL_LOG" 2>&1 || {
+  cat "$INSTALL_LOG" >&2
   die "pm install failed"
 }
-cat /tmp/luhm-install.txt
-grep -q 'Success' /tmp/luhm-install.txt || die "pm install did not report Success"
+cat "$INSTALL_LOG"
+grep -q 'Success' "$INSTALL_LOG" || die "pm install did not report Success"
 
-su -c "pm path '$PACKAGE'" >/tmp/luhm-package-path.txt 2>&1   || die "installed package cannot be resolved"
+su -c "pm path '$PACKAGE'" >"$PACKAGE_PATH_LOG" 2>&1   || die "installed package cannot be resolved"
 
 DUMP="$(su -c "dumpsys package '$PACKAGE'")"
 printf '%s\n' "$DUMP" | grep -E 'versionName=|versionCode=' | head -n 4 || true
@@ -104,11 +109,11 @@ if [ -z "$MAIN_COMPONENT" ] || [ "$MAIN_COMPONENT" = "No activity found" ]; then
 fi
 
 printf 'Launching %s\n' "$MAIN_COMPONENT"
-su -c "am start -n '$MAIN_COMPONENT'" >/tmp/luhm-launch.txt 2>&1 || {
-  cat /tmp/luhm-launch.txt >&2
+su -c "am start -n '$MAIN_COMPONENT'" >"$LAUNCH_LOG" 2>&1 || {
+  cat "$LAUNCH_LOG" >&2
   die "launch failed"
 }
-cat /tmp/luhm-launch.txt
+cat "$LAUNCH_LOG"
 
 printf 'LUHM_VIRGIN_INSTALL=GREEN\n'
 printf 'tag=%s\n' "$TAG"
