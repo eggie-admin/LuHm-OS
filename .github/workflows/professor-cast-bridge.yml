@@ -45,10 +45,14 @@ jobs:
           RELEASE_TAG="android-web3-${REQUESTED_SHA:0:8}-r${GITHUB_RUN_ID}"
           TASK_ID="android-web3-cockpit-cast-${GITHUB_RUN_ID}"
 
+          PROFESSOR_ACTOR="${{ github.event.comment.user.login }}"
+
           {
             echo "sourceRef=$REQUESTED_SHA"
             echo "releaseTag=$RELEASE_TAG"
             echo "taskId=$TASK_ID"
+            echo "professorActor=$PROFESSOR_ACTOR"
+            echo "castOriginRunId=$GITHUB_RUN_ID"
           } >> "$GITHUB_OUTPUT"
 
       - name: Dispatch one exact-source Android Web3 CAST
@@ -58,8 +62,10 @@ jobs:
           SOURCE_REF: ${{ steps.cast.outputs.sourceRef }}
           RELEASE_TAG: ${{ steps.cast.outputs.releaseTag }}
           TASK_ID: ${{ steps.cast.outputs.taskId }}
+          PROFESSOR_ACTOR: ${{ steps.cast.outputs.professorActor }}
+          CAST_ORIGIN_RUN_ID: ${{ steps.cast.outputs.castOriginRunId }}
         run: |
           set -euo pipefail
-          gh workflow run android-testing-build.yml             --repo "$GITHUB_REPOSITORY"             --ref main             -f cast=cast             -f milestoneId=androidWeb3Cockpit             -f taskId="$TASK_ID"             -f sourceRef="$SOURCE_REF"             -f releaseTag="$RELEASE_TAG"             -f publishPrerelease=true
+          gh workflow run android-testing-build.yml             --repo "$GITHUB_REPOSITORY"             --ref main             -f cast=cast             -f milestoneId=androidWeb3Cockpit             -f taskId="$TASK_ID"             -f sourceRef="$SOURCE_REF"             -f professorActor="$PROFESSOR_ACTOR"             -f castOriginRunId="$CAST_ORIGIN_RUN_ID"             -f releaseTag="$RELEASE_TAG"             -f publishPrerelease=true
 
           echo "CAST_DISPATCHED sourceRef=$SOURCE_REF releaseTag=$RELEASE_TAG taskId=$TASK_ID"

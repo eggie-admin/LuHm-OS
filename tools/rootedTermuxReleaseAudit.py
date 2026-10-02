@@ -91,6 +91,8 @@ for token in (
     '--ref main',
     '-f cast=cast',
     '-f sourceRef="$SOURCE_REF"',
+    '-f professorActor="$PROFESSOR_ACTOR"',
+    '-f castOriginRunId=direct',
     '-f releaseTag="$TAG"',
     '-f publishPrerelease=true',
     'gh run watch "$RUN_ID"',
@@ -101,6 +103,8 @@ for token in (
 require("rerun" not in orchestrator.lower(), "helper may not substitute rerun for a fresh CAST dispatch")
 require("DISPATCH_AFTER=" in orchestrator and ".createdAt >= " in orchestrator,
         "helper must bind run lookup to the dispatch window")
+require("PROFESSOR_ACTOR=\"$(gh api user --jq '.login')\"" in orchestrator,
+        "direct Termux CAST must carry authenticated GitHub actor")
 
 scope = release_boundary.get("androidWeb3Prerelease", {})
 require(scope.get("authorizedBy") == "Professor", "prerelease authority drift")
@@ -114,6 +118,8 @@ for token in (
     "workflow_dispatch:",
     "releaseTag:",
     "publishPrerelease:",
+    "professorActor:",
+    "castOriginRunId:",
     "Prepare GitHub Release assets",
     "LuHmOS-AndroidWeb3-",
     "arm64-v8a.apk",
@@ -137,6 +143,14 @@ require(workflow.count("contents: write") == 1,
         "write permission must be scoped to the single prerelease publication job")
 require("forgeCastGate.py" in workflow, "build workflow must invoke Forge CAST gate")
 require("inputs.sourceRef" in workflow, "workflow must bind exact sourceRef input")
+require("inputs.professorActor" in workflow, "workflow must bind Professor actor input")
+require("inputs.castOriginRunId" in workflow, "workflow must bind CAST origin run input")
+require("GITHUB_ACTOR" in workflow and "github-actions[bot]" in workflow,
+        "workflow must distinguish direct Professor dispatch from bridge transport")
+require("actions/runs/$CAST_ORIGIN_RUN_ID" in workflow,
+        "bridge-origin workflow run must be verified")
+require('--actor "$PROFESSOR_ACTOR"' in workflow,
+        "Forge gate must receive verified Professor actor, not dispatcher bot")
 
 status = "GREEN_ROOTED_TERMUX_GITHUB_PRERELEASE_SOURCE_READY" if not errors else "RED_ROOTED_TERMUX_GITHUB_PRERELEASE"
 print(json.dumps({

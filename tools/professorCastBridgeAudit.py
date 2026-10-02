@@ -30,6 +30,8 @@ for token in (
     "-f cast=cast",
     "-f milestoneId=androidWeb3Cockpit",
     "-f sourceRef=\"$SOURCE_REF\"",
+    "-f professorActor=\"$PROFESSOR_ACTOR\"",
+    "-f castOriginRunId=\"$CAST_ORIGIN_RUN_ID\"",
     "-f publishPrerelease=true",
 ):
     require(token in workflow, f"bridge missing required guard/control: {token}")
@@ -44,6 +46,10 @@ require(re.search(r"\^/cast\[\[:space:\]\]\+androidWeb3Cockpit", workflow) is no
         "exact CAST syntax regex missing")
 require("requested=$REQUESTED_SHA currentMain=$MAIN_SHA" in workflow,
         "source drift failure path missing")
+require('echo "professorActor=$PROFESSOR_ACTOR"' in workflow,
+        "bridge must export Professor actor")
+require('echo "castOriginRunId=$GITHUB_RUN_ID"' in workflow,
+        "bridge must export origin run ID")
 
 require(doctrine.get("authority") == "Professor", "Professor authority drift")
 trigger = doctrine.get("trigger", {})
@@ -51,7 +57,8 @@ require(trigger.get("requiredActor") == "github.repository_owner", "owner-only a
 require(trigger.get("exactMainMatch") is True, "exact-main rule drift")
 safety = doctrine.get("safety", {})
 for key in ("noPersistentBuildAuthorization","noWildcardActor","noSourceDrift",
-            "noStableRelease","noProductionSigning","noMergeAuthority","noCrownAuthority"):
+            "noStableRelease","noProductionSigning","noMergeAuthority","noCrownAuthority",
+            "noBotImpersonation","botMayTransportAuthorizationOnlyWithVerifiedOrigin"):
     require(safety.get(key) is True, f"safety flag must remain true: {key}")
 require(doctrine.get("crownStatus") == "STOP", "Crown must remain STOP")
 

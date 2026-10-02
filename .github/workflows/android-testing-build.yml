@@ -19,6 +19,14 @@ on:
         description: "Exact commit SHA to build"
         required: true
         type: string
+      professorActor:
+        description: "Verified Professor GitHub login carried from direct dispatch or CAST bridge"
+        required: true
+        type: string
+      castOriginRunId:
+        description: "Professor CAST bridge run ID, or direct for owner-authored direct dispatch"
+        required: true
+        type: string
       releaseTag:
         description: "GitHub prerelease tag, for example android-web3-0.1.0-rc1"
         required: true
@@ -35,6 +43,7 @@ concurrency:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   android-testing:
@@ -54,9 +63,42 @@ jobs:
           MILESTONE_ID: ${{ inputs.milestoneId }}
           TASK_ID: ${{ inputs.taskId }}
           SOURCE_REF: ${{ inputs.sourceRef }}
+          PROFESSOR_ACTOR: ${{ inputs.professorActor }}
+          CAST_ORIGIN_RUN_ID: ${{ inputs.castOriginRunId }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           ACTUAL_REF="$(git rev-parse HEAD)"
+          OWNER="$(gh api "repos/$GITHUB_REPOSITORY" --jq '.owner.login')"
+
+          if [[ "$PROFESSOR_ACTOR" != "$OWNER" ]]; then
+            echo "CAST provenance denied: professorActor=$PROFESSOR_ACTOR repositoryOwner=$OWNER" >&2
+            exit 2
+          fi
+
+          if [[ "$GITHUB_ACTOR" == "$PROFESSOR_ACTOR" ]]; then
+            if [[ "$CAST_ORIGIN_RUN_ID" != "direct" ]]; then
+              echo "CAST provenance denied: owner direct dispatch must use castOriginRunId=direct" >&2
+              exit 2
+            fi
+          elif [[ "$GITHUB_ACTOR" == "github-actions[bot]" ]]; then
+            if [[ ! "$CAST_ORIGIN_RUN_ID" =~ ^[0-9]+$ ]]; then
+              echo "CAST provenance denied: bridge dispatch requires numeric origin run ID" >&2
+              exit 2
+            fi
+            ORIGIN_JSON="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$CAST_ORIGIN_RUN_ID")"
+            ORIGIN_EVENT="$(jq -r '.event' <<<"$ORIGIN_JSON")"
+            ORIGIN_ACTOR="$(jq -r '.actor.login' <<<"$ORIGIN_JSON")"
+            ORIGIN_SHA="$(jq -r '.head_sha' <<<"$ORIGIN_JSON")"
+            if [[ "$ORIGIN_EVENT" != "issue_comment" || "$ORIGIN_ACTOR" != "$PROFESSOR_ACTOR" || "$ORIGIN_SHA" != "$SOURCE_REF" ]]; then
+              echo "CAST provenance denied: origin event/actor/source mismatch" >&2
+              exit 2
+            fi
+          else
+            echo "CAST provenance denied: dispatcher $GITHUB_ACTOR is neither Professor nor trusted bridge bot" >&2
+            exit 2
+          fi
+
           python3 tools/forgeCastGate.py \
             --cast-word "$CAST_WORD" \
             --milestone-id "$MILESTONE_ID" \
@@ -64,7 +106,7 @@ jobs:
             --source-ref "$SOURCE_REF" \
             --actual-source-ref "$ACTUAL_REF" \
             --build-scope 'android-testing-apk' \
-            --actor "$GITHUB_ACTOR" \
+            --actor "$PROFESSOR_ACTOR" \
             --receipt "$RUNNER_TEMP/forge-cast-receipt.json"
 
       - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
