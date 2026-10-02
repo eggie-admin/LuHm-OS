@@ -6,7 +6,7 @@
   "created": "2026-09-25",
   "authority": "Professor",
   "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
-  "milestone": "Android Web3 Cockpit -> packaged WebView shell -> typed Godot world/system boundary -> Samsung device proof",
+  "milestone": "Android Web3 Cockpit -> CAST-built GitHub prerelease -> rooted Termux virgin install -> Samsung tablet physical proof",
   "android": {
     "contract": "doctrine/androidCandidate.json",
     "production_signer": false,
@@ -191,10 +191,20 @@
     "pluginAar": "PENDING_CAST_BUILD",
     "apkIntegration": "PENDING_CAST_BUILD",
     "staticSecurityAudit": "GREEN_SOURCE_AND_STATIC_CI_ONLY",
-    "nextGate": "EXACT_HEAD_STATIC_CI_THEN_EXPLICIT_CAST_BUILD",
+    "nextGate": "EXACT_HEAD_STATIC_CI_THEN_FRESH_CAST_BUILD_AND_GITHUB_PRERELEASE",
     "sourceReadyReceipt": "doctrine/ANDROID_WEB3_SOURCE_READY_RECEIPT_20261001.json",
     "auditedSourceCommit": "3ebed03f73c871d2347f08f597237c6bfb92e338",
     "staticAuditRun": 36964062745,
-    "staticAuditArtifact": 11208468291
+    "staticAuditArtifact": 11208468291,
+    "delivery": "GITHUB_PRERELEASE_TO_ROOTED_TERMUX",
+    "releaseInstallContract": "doctrine/ROOTED_TERMUX_GITHUB_RELEASE_INSTALL_V1.json",
+    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
+    "releaseAsset": "LuHmOS-AndroidWeb3-<tag>-arm64-v8a.apk",
+    "releaseChecksum": "LuHmOS-AndroidWeb3-<tag>-arm64-v8a.apk.sha256",
+    "rootedTermuxInstaller": "tools/termuxVirginInstall.sh",
+    "tabletIdentity": "CAPTURE_ON_DEVICE",
+    "githubPrerelease": "PENDING_CAST_BUILD",
+    "virginInstallProof": "PENDING_DEVICE",
+    "legacyLanPortal": "HISTORICAL_ONLY_FOR_THIS_MILESTONE"
   }
 }
