@@ -1,0 +1,50 @@
+{
+  "schema":"luhmOs.skuldArtOniIntake.v1",
+  "status":"awaitingProtectedReferences",
+  "authority":"Professor",
+  "character":"skuld",
+  "artOni":"Yume",
+  "provenanceOni":"Sumi",
+  "capabilityBroker":"aiApiBoss",
+  "canonLock":{
+    "adult":true,
+    "minimumAge":25,
+    "role":"tech engineer",
+    "anchors":[
+      "petite flat-chested adult anime archetype",
+      "strong lower-body silhouette",
+      "Japanese tech x Italian couture x Harajuku goth",
+      "black ivory chrome",
+      "Hydra cyan-magenta accents",
+      "tool charms and hardware"
+    ],
+    "prohibited":["celebrity likeness","real-person body cloning"]
+  },
+  "intakeStages":[
+    "protectedReferenceRegistration",
+    "visualVocabularyExtraction",
+    "identityFirewall",
+    "crossCharacterContaminationMatrix",
+    "wardrobeAndSilhouetteMutation",
+    "motionAndPropVocabulary",
+    "GodotFamilyPlan",
+    "ArtOniMasterProof",
+    "ProfessorReview"
+  ],
+  "contaminationFirewall":{
+    "lum":["red oni identity","Lum horns/tail","executive art-director identity"],
+    "urd":["thread-hair primary silhouette","time-spindle collar","circuit lace identity"],
+    "belldandy":["cathedral healer identity","reliquary healer hardware"]
+  },
+  "requiredProofPanels":[
+    "coreHero",
+    "frontSideBack",
+    "techEngineer",
+    "harajukuGoth",
+    "italianTechCouture",
+    "expressionStrip",
+    "toolPropDeck",
+    "spritePetPreview"
+  ],
+  "professorSeal":"STOP"
+}
