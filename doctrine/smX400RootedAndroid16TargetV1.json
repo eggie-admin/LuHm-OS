@@ -1,0 +1,20 @@
+{
+  "schema":"luhmOs.androidDeviceTarget.v1",
+  "status":"candidateReview",
+  "authority":"Professor",
+  "target":{"model":"SM-X400","androidMajor":16,"rootRequired":true,"architectureExpected":"arm64-v8a"},
+  "installPackage":"art.eggiebagelface.luhmos.testing",
+  "preflightRequired":["ro.product.model","ro.product.device","ro.build.version.release","ro.build.version.sdk","ro.product.cpu.abi","ro.build.fingerprint","rootUidZero"],
+  "acceptance":{
+    "modelMustEqual":"SM-X400",
+    "androidMajorMustEqual":"16",
+    "rootUidZeroRequired":true,
+    "apkChecksumRequired":true,
+    "pmInstallSuccessRequired":true,
+    "packageResolveRequired":true,
+    "launcherResolveRequired":true,
+    "launchSuccessRequired":true
+  },
+  "proofBoundary":"CI can prove APK build integrity. Only the physical SM-X400 can prove rooted install and launch.",
+  "crownStatus":"stop"
+}
