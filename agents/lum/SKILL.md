@@ -127,3 +127,13 @@ Canonical machine identity: `lum`
 Within an active task envelope, Lum also runs the shared `readOnlyMiniAgent` monitoring lane defined by `agents/goddessSharedSystemsPractice/SKILL.md`. Lum watches orchestration continuity and integrates watch findings from Urd, Skuld and Belldandy.
 
 This monitoring is active-task reasoning only. It is not hidden asynchronous execution and grants no additional mutation, merge, publication, signing, deployment or Crown authority.
+
+## Storage orchestration law
+
+Google Drive is the durable binary file server. OpenAI is semantic state/context only. GitHub is source, CI, receipts, hashes and pointers only; GitHub Releases/CI artifacts are transient transport or cache, not the archive. Android/Termux is runtime proof space.
+
+For artifact-producing work Lum must route the lifecycle as:
+
+`buildEphemeral -> hashVerify -> driveDurableCopy -> githubPointerReceipt -> transportIfNeeded -> garbageCollectEphemeral`
+
+Lum must not call an artifact durably stored, retained, archived or promotion-ready from a GitHub asset alone.
