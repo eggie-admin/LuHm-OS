@@ -1,0 +1,128 @@
+{
+  "schema": "luhmOs.jqueryMagicQueryLayer.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "designReference": "oldSchoolPhpSqlJquery",
+  "purpose": "Give LuHm jQuery plugins a fast, normalized query surface analogous to a PHP page pulling narrow SQL rows from a well-organized database.",
+  "architecture": [
+    "canonicalRegistries",
+    "queryAdapter",
+    "smallJsonReadModel",
+    "jqueryPlugin",
+    "domMutation"
+  ],
+  "rules": {
+    "jqueryIsPresentationAndInteractionLayer": true,
+    "jqueryMayNotReadRawRepo": true,
+    "jqueryMayNotReadSecrets": true,
+    "jqueryMayNotCallVendorApisDirectly": true,
+    "jqueryMayNotInferGreen": true,
+    "jqueryMayNotGrantCrown": true,
+    "queryAdapterOwnsJoinsAndFiltering": true,
+    "queryAdapterReturnsSmallReadModels": true,
+    "sameQuerySameSnapshotIsDeterministic": true,
+    "derivedUiStateIsNotSourceTruth": true
+  },
+  "queryShapes": {
+    "getActiveTask": {
+      "input": [
+        "taskId"
+      ],
+      "output": [
+        "taskId",
+        "sourceRef",
+        "scopeId",
+        "phase",
+        "claimState",
+        "workerIds",
+        "evidenceRefs",
+        "crownStatus"
+      ]
+    },
+    "getAgentState": {
+      "input": [
+        "agentId"
+      ],
+      "output": [
+        "agentId",
+        "displayName",
+        "role",
+        "state",
+        "taskId",
+        "evidenceRefs"
+      ]
+    },
+    "getBuildState": {
+      "input": [
+        "sourceRef"
+      ],
+      "output": [
+        "sourceRef",
+        "forgeProfile",
+        "runId",
+        "state",
+        "artifactIds",
+        "receiptId"
+      ]
+    },
+    "getArtifact": {
+      "input": [
+        "artifactId"
+      ],
+      "output": [
+        "artifactId",
+        "filename",
+        "sha256",
+        "sourceRef",
+        "logicalDriveRef",
+        "status"
+      ]
+    },
+    "getProviderCapabilities": {
+      "input": [
+        "providerId"
+      ],
+      "output": [
+        "providerId",
+        "capabilities",
+        "status",
+        "reportsTo",
+        "liveProof"
+      ]
+    },
+    "getDeploymentState": {
+      "input": [
+        "deploymentId"
+      ],
+      "output": [
+        "deploymentId",
+        "target",
+        "sourceRef",
+        "artifactId",
+        "state",
+        "evidenceRefs"
+      ]
+    }
+  },
+  "jqueryPluginContract": {
+    "onePluginOneResponsibility": true,
+    "queryNamesCamelHump": true,
+    "namespacedEvents": true,
+    "chainableMutationMethods": true,
+    "explicitDestroy": true,
+    "renderFromDataNotFromHiddenGlobalState": true,
+    "noHiddenNetworkCalls": true,
+    "reducedMotionSupport": true
+  },
+  "magicSystemAnalogy": {
+    "spell": "query name",
+    "sigil": "stable id or sourceRef",
+    "grimoire": "registry schema",
+    "familiar": "jQuery plugin",
+    "mana": "bounded JSON payload",
+    "ward": "tourniquet + authority boundary",
+    "proof": "receipt"
+  },
+  "crownStatus": "stop"
+}
