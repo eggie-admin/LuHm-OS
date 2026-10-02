@@ -1,0 +1,45 @@
+{
+  "schema":"luhmOs.characterPetPresentation.v1",
+  "status":"candidate",
+  "authority":"Professor",
+  "canonicalCharacterSource":"game/canon/CHARACTER_CANON_V1.json",
+  "assetSource":"game/assets/ASSET_MANIFEST_V1.json",
+  "artMutationSource":"doctrine/artOniLayeredMutationV3.json",
+  "characters":["lum","urd","belldandy","skuld"],
+  "identityLaw":{
+    "originalFictionalDesignsOnly":true,
+    "canonFieldsMayNotBeOverriddenByPetLayer":true,
+    "protectedReferenceMayNotBecomeRuntimeAsset":true,
+    "crossCharacterContaminationAllowed":false
+  },
+  "petSystem":{
+    "role":"jrpgInspiredChatPresentation",
+    "authority":"presentationOnly",
+    "eventTypes":["thought","reaction","trace","repair","warning","celebration","worldHint"],
+    "requiredVisualFamilies":["portrait","spriteIdle","expressionSheet","uiIcon"],
+    "optionalVisualFamilies":["spriteWalk","spriteRun","fullBody","glb","vfx"],
+    "bubble":{
+      "maxLines":3,
+      "speakerRequired":true,
+      "expressionRequired":true,
+      "poseOptional":true,
+      "fxOptional":true,
+      "evidenceStateOptional":true
+    },
+    "runtimeLaw":[
+      "petThoughtDoesNotEqualAgentAuthority",
+      "petBubbleDoesNotEstablishGreen",
+      "petPresentationCannotCrownCastMergeDeployOrPublish",
+      "missingApprovedArtUsesDeclaredOriginalFallback"
+    ]
+  },
+  "layerMap":{
+    "layerBack":"environmentDepth",
+    "layerWorld":"worldAndSet",
+    "layerCast":"petSpritePortraitPose",
+    "layerFxUi":"bubbleExpressionFxHud"
+  },
+  "assetPromotion":"candidateAsset -> approvedArt -> runtimeImportProven -> cast",
+  "exactHashRuntimeProofRequired":true,
+  "crownStatus":"stop"
+}
