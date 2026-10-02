@@ -13,16 +13,16 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-ROOT=Path(__file__).resolve().parents[1]
-POLICY=json.loads((ROOT/"doctrine/HARNESS_ASSET_INTAKE_V1.json").read_text())
-MAX_BYTES=int(POLICY["remoteImagePolicy"]["maxBytes"])
-GOOGLE_HOSTS=set(POLICY["lanes"]["googleFonts"]["allowedHosts"])
+rootPath=Path(__file__).resolve().parents[1]
+policy=json.loads((rootPath/"doctrine/harnessAssetIntakeV1.json").read_text())
+maxBytes=int(policy["remoteImagePolicy"]["maxBytes"])
+googleHosts=set(policy["lanes"]["googleFonts"]["allowedHosts"])
 
 def die(msg):
-    print(json.dumps({"status":"RED_ASSET_PULL","error":msg},indent=2))
+    print(json.dumps({"status":"redAssetPull","error":msg},indent=2))
     raise SystemExit(2)
 
-def public_host(host):
+def publicHost(host):
     try:
         infos=socket.getaddrinfo(host,443,type=socket.SOCK_STREAM)
     except OSError as e:
@@ -32,7 +32,7 @@ def public_host(host):
         if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_multicast or ip.is_reserved:
             die(f"non_public_address:{ip}")
 
-def sanitize_svg(data:bytes)->bytes:
+def sanitizeSvg(data:bytes)->bytes:
     text=data.decode("utf-8","strict")
     bad=["<script","<foreignObject","javascript:","data:"," onload="," onclick="," onerror="," href="http"," href='http"," xlink:href="http"," xlink:href='http"]
     lower=text.lower()
@@ -48,52 +48,52 @@ def main():
     p.add_argument("url")
     p.add_argument("--out",required=True)
     p.add_argument("--kind",choices=["image","svg","font"],required=True)
-    p.add_argument("--allow-host",action="append",default=[])
+    p.add_argument("--allow-host",dest="allowHost",action="append",default=[])
     p.add_argument("--receipt",required=True)
-    a=p.parse_args()
+    args=p.parse_args()
 
-    u=urllib.parse.urlparse(a.url)
+    u=urllib.parse.urlparse(args.url)
     if u.scheme!="https" or not u.hostname:
         die("https_url_required")
-    allowed=set(a.allow_host)
-    if a.kind=="font":
-        allowed |= GOOGLE_HOSTS
+    allowed=set(args.allowHost)
+    if args.kind=="font":
+        allowed |= googleHosts
     if u.hostname not in allowed:
         die(f"host_not_allowlisted:{u.hostname}")
-    public_host(u.hostname)
+    publicHost(u.hostname)
 
-    req=urllib.request.Request(a.url,headers={"User-Agent":"LuHmOS-AssetIntake/1"})
+    req=urllib.request.Request(args.url,headers={"User-Agent":"LuHmOS-AssetIntake/1"})
     ctx=ssl.create_default_context()
     with urllib.request.urlopen(req,context=ctx,timeout=30) as r:
         final=urllib.parse.urlparse(r.geturl())
         if final.scheme!="https" or final.hostname not in allowed:
             die("redirect_left_allowlist")
-        data=r.read(MAX_BYTES+1)
+        data=r.read(maxBytes+1)
         ctype=(r.headers.get_content_type() or "application/octet-stream").lower()
 
-    if len(data)>MAX_BYTES:
+    if len(data)>maxBytes:
         die("asset_too_large")
-    if a.kind=="svg":
+    if args.kind=="svg":
         if ctype not in {"image/svg+xml","text/xml","application/xml","text/plain"}:
             die(f"unexpected_svg_mime:{ctype}")
-        data=sanitize_svg(data)
-    elif a.kind=="font":
+        data=sanitizeSvg(data)
+    elif args.kind=="font":
         if not (ctype.startswith("font/") or ctype in {"application/font-woff","application/octet-stream"}):
             die(f"unexpected_font_mime:{ctype}")
     elif not ctype.startswith("image/"):
         die(f"unexpected_image_mime:{ctype}")
 
-    out=Path(a.out)
+    out=Path(args.out)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_bytes(data)
     sha=hashlib.sha256(data).hexdigest()
     receipt={
       "schema":"luhmOs.assetPullReceipt.v1",
-      "status":"QUARANTINED",
-      "sourceUrl":a.url,
+      "status":"quarantined",
+      "sourceUrl":args.url,
       "finalUrl":urllib.parse.urlunparse((final.scheme,final.netloc,final.path,"","","")),
       "host":final.hostname,
-      "kind":a.kind,
+      "kind":args.kind,
       "mime":ctype,
       "bytes":len(data),
       "sha256":sha,
@@ -102,7 +102,7 @@ def main():
       "promotionAuthority":False,
       "crownStatus":"stop"
     }
-    rp=Path(a.receipt)
+    rp=Path(args.receipt)
     rp.parent.mkdir(parents=True,exist_ok=True)
     rp.write_text(json.dumps(receipt,indent=2)+"\n")
     print(json.dumps(receipt,indent=2))
