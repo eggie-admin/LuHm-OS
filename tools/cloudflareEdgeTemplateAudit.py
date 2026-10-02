@@ -14,4 +14,15 @@ assert lanes["mcp"]["mergeIntoHydraTunnel"] is False
 assert d["dns"]["noIpAddressesInSource"] is True
 assert d["deployment"]["automatic"] is False
 assert d["deployment"]["cloudflareAccountMutationPerformed"] is False
+html=Path("frontEnd/index.html").read_text()
+srv=Path("frontEnd/srv.txt").read_text()
+resolver=Path("frontEnd/staticService.js").read_text()
+assert '<script src="./staticService.js"></script>' in html
+assert html.index("staticService.js") < html.index("jquery-3.7.1.min.js")
+assert "mode=localFirst" in srv
+assert "remoteAssetBase=" in srv
+assert "remoteAuthority=none" in srv
+assert "LuHmStaticService" in resolver
+assert "candidates" in resolver
+assert "remoteAssetBase" in resolver
 print("CLOUDFLARE EDGE TEMPLATE GREEN")
