@@ -1,0 +1,92 @@
+{
+  "schema": "luhmOs.repositorySchemaPipeline.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Use MariaDB-style relational discipline to organize LuHm repos and pipeline state. This is a schema/query design model, not a claim that GitHub or OpenAI literally are SQL databases.",
+  "metaphorBoundary": {
+    "mariaDbIsSchemaModel": true,
+    "oldSchoolPhpSqlPatternIsDesignReference": true,
+    "literalSqlRuntimeRequired": false,
+    "githubIsLiteralDatabase": false,
+    "openAiIsLiteralDatabase": false
+  },
+  "normalizationLaw": {
+    "oneCanonicalRecordPerIdentity": true,
+    "relationshipsUseStableRefs": true,
+    "duplicateEmbeddedStateForbidden": true,
+    "largeBinaryPayloadsStayOutOfSchema": true,
+    "migrationsRequireReceipts": true,
+    "derivedViewsNeverBecomeAuthority": true,
+    "unknownForeignRefIsNotGreen": true,
+    "historicalRowsRemainImmutableEvidence": true
+  },
+  "relationalAnalogy": {
+    "tables": "registries and ledgers",
+    "primaryKeys": "stable machine identities and hashes",
+    "foreignKeys": "sourceRef taskId scopeId providerId artifactId deploymentId repoId",
+    "views": "small read models for chat UI, status panels and dashboards",
+    "storedProcedures": "bounded deterministic tools and workflow actions",
+    "migrations": "explicit doctrine and naming receipts",
+    "blobs": "Google Drive durable files, referenced by digest and logical pointer"
+  },
+  "logicalTables": {
+    "repoRegistry": {
+      "key": "repoId",
+      "purpose": "repo responsibility, canonical branch, compatibility role and lifecycle"
+    },
+    "agentRegistry": {
+      "key": "agentId",
+      "purpose": "Lum, goddess, Oni and deterministic worker identities"
+    },
+    "providerRegistry": {
+      "key": "providerId",
+      "purpose": "vendor and open provider capabilities"
+    },
+    "compatibilityRegistry": {
+      "key": "compatibilityId",
+      "purpose": "MCP, JSON manifests, RSS/event projections, adapters and workflow glue"
+    },
+    "taskLedger": {
+      "key": "taskId",
+      "purpose": "bounded work envelopes linked to sourceRef and scopeId"
+    },
+    "evidenceLedger": {
+      "key": "receiptId",
+      "purpose": "observed and proven receipts linked to exact source, task and scope"
+    },
+    "artifactRegistry": {
+      "key": "artifactId",
+      "purpose": "metadata, hashes and Drive pointers only"
+    },
+    "deploymentRegistry": {
+      "key": "deploymentId",
+      "purpose": "Render, Android, Cloudflare and future runtime targets"
+    },
+    "decisionLedger": {
+      "key": "decisionId",
+      "purpose": "Professor corrections, Crown decisions and supersession"
+    },
+    "aliasRegistry": {
+      "key": "aliasId",
+      "purpose": "legacy-to-canonical camelHump mappings"
+    }
+  },
+  "systemMapping": {
+    "openAi": "semantic reasoning and session context",
+    "github": "source + compatibility layer + remote forge + receipt ledger",
+    "googleDrive": "durable binary file server",
+    "render": "managed runtime/deploy target",
+    "cloudflare": "edge and vendor capability target",
+    "android": "runtime and physical proof target"
+  },
+  "queryLaw": {
+    "uiNeverScansRawDoctrine": true,
+    "uiNeverParsesGitHistory": true,
+    "uiRequestsNarrowReadModels": true,
+    "queryResultMustBeBounded": true,
+    "queryResultMustIncludeIdentityRefs": true,
+    "queryResultMayNotGrantAuthority": true
+  },
+  "crownStatus": "stop"
+}
