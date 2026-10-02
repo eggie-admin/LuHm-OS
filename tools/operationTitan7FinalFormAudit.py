@@ -18,6 +18,18 @@ if mil.get("auditProtocol",{}).get("harness")!="operationTitan7": errors.append(
 wh=(root/"agents/witchingHourCoding/SKILL.md").read_text()
 for term in ["exact sourceRef","Urd","Belldandy","Shiori","Kugi","nearest evidence-backed known-good"]:
     if term not in wh: errors.append("witching hour missing "+term)
+tour=load("doctrine/tourniquetWorkflowV1.json")
+titan=load("doctrine/operationTitan7FinalFormV1.json")
+binding=titan.get("tourniquet",{})
+if binding.get("required") is not True: errors.append("Titan7 Tourniquet not required")
+if binding.get("path")!="doctrine/tourniquetWorkflowV1.json": errors.append("Titan7 Tourniquet path drift")
+if binding.get("skill")!="agents/tourniquetWorkflow/SKILL.md": errors.append("Titan7 Tourniquet skill drift")
+if tour.get("authority")!="Professor": errors.append("Tourniquet authority drift")
+if tour.get("greenAction")!="reingestCurrentTruthAndContinue": errors.append("Tourniquet green continuation drift")
+if tour.get("redAction")!="rollbackOrNearestEvidenceBackedKnownGood": errors.append("Tourniquet red fallback drift")
+workflow=(root/".github/workflows/operation-titan7-final-form.yml").read_text()
+if "python3 tools/tourniquetAgentLogicAudit.py" not in workflow: errors.append("Final Form missing Tourniquet audit")
+if "pull_request:\n    paths:" in workflow: errors.append("Final Form PR path filter creates audit blind spot")
 head=subprocess.check_output(["git","rev-parse","HEAD"],cwd=root,text=True).strip()
 report={"schema":"luhmOs.operationTitan7FinalFormAudit.v1","sourceCommit":head,"status":"GREEN_STAGED_OPERATION_TITAN7_FINAL_FORM" if not errors else "RED_OPERATION_TITAN7_FINAL_FORM","contractErrors":errors,"stagedOnly":True,"physicalDeviceProof":False,"crownStatus":"STOP"}
 out=root/"build/operation-titan7-final-form";out.mkdir(parents=True,exist_ok=True);(out/"report.json").write_text(json.dumps(report,indent=2)+"\n")
