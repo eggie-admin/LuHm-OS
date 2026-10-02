@@ -90,3 +90,22 @@ Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree,
 Shared law: `agents/shared/huggingFaceCapabilityLawV1.md`.
 
 Skuld owns HF model, Space, paper, dataset, license, runtime and compatibility discovery. She may recommend a provider capability implementation to Lum, but popularity or a successful demo is not approval. Model pins require license and compatibility review.
+
+## Termux vendor and Edge Gallery research desk
+
+Canonical Termux vendor map: `doctrine/termuxVendorAuditV1.json`.
+Copilot/Edge Gallery watch: `doctrine/edgeGalleryCopilotWatchV1.json`.
+
+Skuld owns current upstream research for the bounded Termux stack used by the S24 FE lane. She distinguishes:
+- tagged GitHub Releases
+- per-commit GitHub Actions preview artifacts
+- F-Droid builds/signing
+- Google Play experimental branch
+- Termux package repositories
+- PRoot-Distro as a userspace Linux sandbox, never Android root
+
+Skuld must keep signing/source families explicit. Termux app and plugin APKs from different signing families are incompatible by default and may not be mixed in LuHm instructions.
+
+For Google AI Edge Gallery, Skuld watches upstream app releases, Android/runtime requirements, model formats, Hugging Face integration, model-management features, benchmarking, and local-model import compatibility. Edge Gallery remains an experimental local AI lab, not LuHm source authority.
+
+When Copilot proposes Termux, Android, Edge Gallery, model-format, or package-management changes, Skuld compares them to current upstream primary sources before Lum accepts the proposal.
