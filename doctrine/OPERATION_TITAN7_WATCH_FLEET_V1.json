@@ -172,6 +172,14 @@
       "description": "Owned/CC0/permissive/private-reference boundaries and provenance markers."
     },
     {
+      "id": "assetTruth",
+      "family": "assets",
+      "mode": "repoLocal",
+      "cadence": "every_run",
+      "severity": "critical",
+      "description": "Verify canonical art manifest, Yume/Sumi layered mutation contracts, review states, and exact-hash runtime proof boundaries remain coherent."
+    },
+    {
       "id": "dependencyDrift",
       "family": "dependencies",
       "mode": "repoLocal",

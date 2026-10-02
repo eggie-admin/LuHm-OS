@@ -216,6 +216,39 @@ def evaluate(manifest: dict, texts: dict[str, str]) -> list[dict]:
             ))
             continue
 
+        if wid == "assetTruth":
+            manifest_path = ROOT / "game" / "assets" / "ASSET_MANIFEST_V1.json"
+            yume_path = ROOT / "agents" / "yumeArtOni" / "SKILL.md"
+            sumi_path = ROOT / "agents" / "sumiAssetOni" / "SKILL.md"
+            art_contract_path = ROOT / "doctrine" / "artOniLayeredMutationV3.json"
+            missing = [str(p.relative_to(ROOT)) for p in (manifest_path, yume_path, sumi_path, art_contract_path) if not p.is_file()]
+            errors = list(missing)
+            if not missing:
+                asset = json.loads(manifest_path.read_text(encoding="utf-8"))
+                art = json.loads(art_contract_path.read_text(encoding="utf-8"))
+                yume = yume_path.read_text(encoding="utf-8")
+                sumi = sumi_path.read_text(encoding="utf-8")
+                required_states = ["concept", "candidateReview", "approvedArt", "runtimeImportProven", "parked", "rejected"]
+                if asset.get("reviewStates") != required_states:
+                    errors.append("asset review-state contract drift")
+                if art.get("runtimeProofRequiresExactHash") is not True:
+                    errors.append("runtime proof no longer requires exact hash")
+                if art.get("castRequiresApprovedRuntimeIdentity") is not True:
+                    errors.append("CAST no longer requires approved runtime identity")
+                if "Generated binary art and APK files are not doctrine receipts." != asset.get("binaryPolicy"):
+                    errors.append("binary art/doctrine receipt boundary drift")
+                if "A generated concept is not canon." not in yume:
+                    errors.append("Yume generated-concept boundary missing")
+                if "runtimeImportProven" not in sumi or "exact asset hash" not in sumi:
+                    errors.append("Sumi exact-hash runtime boundary missing")
+            results.append(result(
+                wid,
+                "RED" if errors else "GREEN",
+                "; ".join(errors) if errors else "Asset manifest, Yume/Sumi contracts, review states and exact-hash runtime boundary are coherent.",
+                errors or None,
+            ))
+            continue
+
         if wid == "dependencyDrift":
             broad = []
             for rel, text in texts.items():
