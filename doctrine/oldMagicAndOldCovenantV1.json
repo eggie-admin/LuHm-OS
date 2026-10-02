@@ -1,0 +1,66 @@
+{
+  "schema": "luhmOs.oldMagicAndOldCovenant.v1",
+  "status": "canonicalNamedDoctrine",
+  "authority": "Professor",
+  "displayNames": {
+    "oldMagic": "The Old Magic",
+    "oldCovenant": "The Old Covenant"
+  },
+  "purpose": "Stable human-facing names for the hardened LuHm enterprise machinery and the governance law that constrains it. These names alias existing doctrine; they do not fork or replace it.",
+  "oldMagic": {
+    "meaning": "The enterprise implementation craft that makes LuHm provider and runtime integrations durable, typed, evidence-backed and boring to maintain.",
+    "canonicalRefs": [
+      "doctrine/MCP_ENTERPRISE_SCOPE_V1.json",
+      "doctrine/enterpriseCryptoV1.json",
+      "doctrine/providerEnterpriseGatewayV1.json",
+      "doctrine/providerOrchestraV1.json",
+      "host/providers/providerGateway.py",
+      "host/providers/openAiProvider.py",
+      "host/providers/googleAiProvider.py",
+      "host/providers/cloudflareAiProvider.py",
+      ".github/workflows/providerEnterpriseGatewayAudit.yml"
+    ],
+    "laws": [
+      "openAiIsCompatibilityLayer1",
+      "githubIsCompatibilityLayer2",
+      "providersRemainCapabilitySources",
+      "credentialsResolveAtTrustedRuntimeOnly",
+      "typedProviderAdaptersFailClosed",
+      "exactSourceCiBeforeDeploy",
+      "providerSuccessMeansObserved",
+      "databasesPointToFiles",
+      "renderIsManagedRuntime",
+      "googleDriveOwnsDurableBinaryBytes"
+    ]
+  },
+  "oldCovenant": {
+    "meaning": "The human-control and evidence covenant that prevents LuHm from confusing capability, transport, personality, provider success or automation with authority.",
+    "canonicalRefs": [
+      "doctrine/luhmAiControlPlaneV1.json",
+      "doctrine/lumGoddessCabinetV1.json",
+      "doctrine/googleSentryAuthV1.json",
+      "agents/shared/ONI_PROTOCOL_V2.md",
+      "doctrine/RELEASE_BOUNDARY.json",
+      "doctrine/projectChatCanonV1.json"
+    ],
+    "laws": [
+      "professorHoldsCrown",
+      "aiProposesPolicyAuthorizesCiProvesHumanPromotes",
+      "authenticationIsNotAuthorization",
+      "authorizationIsNotApproval",
+      "approvalIsNotEvidence",
+      "unknownIsNotGreen",
+      "personalityIsNotAuthority",
+      "transportIsNotAuthority",
+      "providerOutputIsNotProofUntilReconciled",
+      "tourniquetStopsAndCorrectsDrift",
+      "helpersSpeakThroughLum",
+      "noRecursiveRecruitment",
+      "noImplicitCrown",
+      "physicalProofRequiredAtHardwareBoundary"
+    ]
+  },
+  "relationship": "The Old Magic may increase capability. The Old Covenant always constrains authority.",
+  "mutationLaw": "Future implementations may change beneath these names only when their canonical contracts and evidence gates remain intact or are explicitly superseded by Professor-approved doctrine.",
+  "crownStatus": "stop"
+}
