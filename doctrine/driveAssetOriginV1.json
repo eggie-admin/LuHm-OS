@@ -1,0 +1,102 @@
+{
+  "schema": "luhmOs.driveAssetOrigin.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "purpose": "Use Google Drive as the temporary durable asset file server/origin until a proper VM or object-storage origin exists, while preserving schema discipline and fail-closed sharing.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "storageRole": {
+    "provider": "googleDrive",
+    "role": "temporaryDurableAssetFileServer",
+    "canonicalBinaryStorage": true,
+    "sourceAuthority": false,
+    "promotionAuthority": false
+  },
+  "observedDriveLayout": {
+    "rootLogicalRef": "luhmGodotAssetNexus",
+    "physicalIdsInPublicDoctrine": false,
+    "aliases": {
+      "incomingQuarantine": "00_INCOMING_QUARANTINE",
+      "licenseReceipts": "10_LICENSE_RECEIPTS",
+      "approvedOpenAssets": "20_APPROVED_OPEN_ASSETS",
+      "godotImportTested": "30_GODOT_IMPORT_TESTED",
+      "gameReady": "40_GAME_READY"
+    },
+    "existingPhysicalNamesAreExternalStorageLabels": true,
+    "renameRequired": false
+  },
+  "sharingLaw": {
+    "default": "private",
+    "browserConsumableAssetsRequireVerifiedReadOnlyLink": true,
+    "writerLinksForRuntimeAssets": false,
+    "secretsOrPrivateReferencesNeverLinkShared": true,
+    "privateDriveIdsNeverReturnedToBrowser": true,
+    "unverifiedSharedStateIsNotPublic": true,
+    "unverifiedSharedStateIsNotGreen": true
+  },
+  "schemaLaw": {
+    "assetRecordRequired": [
+      "assetId",
+      "family",
+      "mimeType",
+      "sha256",
+      "sizeBytes",
+      "sourceRef",
+      "driveLogicalRef",
+      "visibility",
+      "licenseRef",
+      "reviewState",
+      "runtimeUrlState"
+    ],
+    "runtimeUrlStateAllowed": [
+      "localFallback",
+      "driveReadOnlyVerified",
+      "cloudflareCachedVerified",
+      "unavailable"
+    ],
+    "urlIsDerivedField": true,
+    "urlNeverBecomesAssetIdentity": true,
+    "sha256IsContentIdentity": true
+  },
+  "backendResolver": {
+    "owner": "renderBackend",
+    "returnsOnly": [
+      "assetId",
+      "family",
+      "mimeType",
+      "sha256",
+      "publicUrl",
+      "runtimeUrlState",
+      "cacheHint"
+    ],
+    "privateDriveIdReturned": false,
+    "privateShareTokenReturned": false,
+    "missingVerifiedUrlBehavior": "localFallback",
+    "environmentPrefix": "LUHM_ASSET_"
+  },
+  "frontEnd": {
+    "consumer": "jqueryComicStreamPlugin",
+    "mayFetchManifest": true,
+    "mayFetchAssetBytesFromResolvedPublicUrl": true,
+    "mayCallGoogleDriveApiDirectly": false,
+    "mayReceiveCredentials": false,
+    "mayReceivePrivateDriveIds": false,
+    "mayInferAuthorityFromAssetAvailability": false
+  },
+  "cloudflare": {
+    "role": "optionalFirstPartyCacheAndPrettyEdge",
+    "canonicalAssetStorage": false,
+    "originMayTemporarilyBeDrive": true,
+    "activationRequiresVerifiedOriginUrl": true,
+    "dnsOrWorkerMutationRequiresProfessorApproval": true,
+    "assetCacheDoesNotGrantAuthority": true
+  },
+  "migrationToVm": {
+    "preserveAssetId": true,
+    "preserveSha256": true,
+    "preserveLogicalRefs": true,
+    "swapResolverOriginOnly": true,
+    "jqueryPluginChangesRequired": false,
+    "repoSchemaMigrationRequired": false
+  },
+  "crownStatus": "stop"
+}
