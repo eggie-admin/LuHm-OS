@@ -1,0 +1,14 @@
+{
+  "schema":"luhmOs.artOniLayeredMutation.v3",
+  "status":"candidateReview",
+  "authority":"Professor",
+  "sourceLaw":"AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "primeLaw":"protectedReference != visualVocabulary != canonLock != layeredMutation != candidateAsset != approvedArt != runtimeImport != cast",
+  "scope":["characterArt","environmentArt","props","uiHud","icons","sprites","textures","materials","threeDDirection","rigDirection","animation","storyboards","video","compositing","ffmpegDirection","posters","titleCards","godotHandoff"],
+  "requiredLayers":["protectedReference","visualVocabulary","canonLock","silhouetteMutation","wardrobeMaterialMutation","palettePropMutation","poseExpressionMutation","formatDerivation","contaminationAudit","technicalAssetAudit","candidateContactSheet","professorReview","sumiHandoff","runtimeImport","cast"],
+  "rejectedParentAllowed":false,
+  "crossCharacterContaminationAllowed":false,
+  "runtimeProofRequiresExactHash":true,
+  "castRequiresApprovedRuntimeIdentity":true,
+  "crownStatus":"stop"
+}

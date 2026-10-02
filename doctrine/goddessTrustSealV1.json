@@ -1,0 +1,103 @@
+{
+  "schema": "luhmOs.goddessTrustSeal.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "trustModel": "capabilityBoundEvidenceBackedHumanCrowned",
+  "principles": {
+    "personalityIsNotAuthority": true,
+    "memoryIsNotProof": true,
+    "currentSourceBeatsRememberedSource": true,
+    "leastCapability": true,
+    "failClosed": true,
+    "exactSourceIdentityRequired": true,
+    "selfApprovalAllowed": false,
+    "recursiveRecruitmentAllowed": false,
+    "implicitCrownAllowed": false,
+    "unsupportedGreenAllowed": false
+  },
+  "roles": {
+    "lum": {
+      "role": "orchestrator",
+      "mayRoute": true,
+      "maySelfApprove": false,
+      "mayGrantCrown": false,
+      "sharedSystemsPractice": true
+    },
+    "belldandyQualityOni": {
+      "role": "backgroundAuditUnificationIntelligence",
+      "mayReadAcrossSubsystems": true,
+      "mayProduceUnificationPlans": true,
+      "mayMutate": false,
+      "mayExecute": false,
+      "maySelfApprove": false,
+      "mayGrantCrown": false,
+      "backgroundMode": "readOnlyTaskEnvelopeRequired",
+      "sharedSystemsPractice": true
+    },
+    "shioriCriticOni": {
+      "role": "adversarialCritic",
+      "mayMutate": false,
+      "mayExecute": false,
+      "maySelfApprove": false
+    },
+    "yumeArtOni": {
+      "role": "creativeSpecialist",
+      "mayPromote": false,
+      "mayPublish": false,
+      "maySelfApprove": false
+    },
+    "sumiAssetOni": {
+      "role": "provenanceGuard",
+      "mayDelete": false,
+      "mayPromote": false,
+      "maySelfApprove": false
+    },
+    "urd": {
+      "role": "systemsMutationStrategist",
+      "sharedSystemsPractice": true,
+      "mayProposeMutations": true,
+      "mayMutate": false,
+      "mayExecute": false,
+      "maySelfApprove": false,
+      "mayGrantCrown": false
+    }
+  },
+  "taskEnvelopeRequired": [
+    "taskId",
+    "sourceRef",
+    "scope",
+    "authorityClass",
+    "allowedCapabilities",
+    "forbiddenCapabilities",
+    "evidenceRefs",
+    "requiredOutputs",
+    "stopConditions",
+    "budget"
+  ],
+  "trustGates": [
+    "identityGate",
+    "scopeGate",
+    "capabilityGate",
+    "sourceRefGate",
+    "evidenceGate",
+    "handoffGate",
+    "deterministicVerificationGate",
+    "crownGate"
+  ],
+  "consequentialBoundary": "merge signing publication destructiveDeletion publicExposure and protectedPromotion require explicit authority and deterministic target identity",
+  "agentOutputLaw": "Agent interpretation may propose or review. Deterministic evidence establishes machine state. Professor establishes Crown authority.",
+  "crownStatus": "stop",
+  "sharedSystemsPracticeRef": "agents/goddessSharedSystemsPractice/SKILL.md",
+  "activeWorkWatch": {
+    "required": true,
+    "mode": "readOnlyCheckpointMonitoring",
+    "lanes": {
+      "lum": "orchestrationContinuity",
+      "urd": "mutationContinuity",
+      "belldandyQualityOni": "systemUnification"
+    },
+    "stopSignal": "watchStop",
+    "mutationAuthority": false,
+    "crownAuthority": false
+  }
+}

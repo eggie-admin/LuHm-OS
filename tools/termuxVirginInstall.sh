@@ -30,7 +30,12 @@ ANDROID="$(getprop ro.build.version.release 2>/dev/null || true)"
 SDK="$(getprop ro.build.version.sdk 2>/dev/null || true)"
 FINGERPRINT="$(getprop ro.build.fingerprint 2>/dev/null || true)"
 
-printf 'Device: %s (%s) Android %s SDK %s\n' "$MODEL" "$DEVICE" "$ANDROID" "$SDK"
+ABI="$(getprop ro.product.cpu.abi 2>/dev/null || true)"
+printf 'Device: %s (%s) Android %s SDK %s ABI %s\n' "$MODEL" "$DEVICE" "$ANDROID" "$SDK" "$ABI"
+
+[ "$MODEL" = "SM-X400" ] || die "target model mismatch: expected SM-X400 got $MODEL"
+[ "$ANDROID" = "16" ] || die "target Android mismatch: expected 16 got $ANDROID"
+[ "$ABI" = "arm64-v8a" ] || die "target ABI mismatch: expected arm64-v8a got $ABI"
 
 if [ -z "$TAG" ]; then
   TAG="$(curl -fsSL "https://api.github.com/repos/$REPO/releases?per_page=20"     | python -c 'import json,sys; releases=json.load(sys.stdin); print(next(r["tag_name"] for r in releases if not r.get("draft")))' )"     || die "could not resolve newest non-draft GitHub Release tag"
@@ -126,4 +131,5 @@ printf 'deviceModel=%s\n' "$MODEL"
 printf 'deviceCode=%s\n' "$DEVICE"
 printf 'android=%s\n' "$ANDROID"
 printf 'sdk=%s\n' "$SDK"
+printf 'abi=%s\n' "$ABI"
 printf 'fingerprint=%s\n' "$FINGERPRINT"

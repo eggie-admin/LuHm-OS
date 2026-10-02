@@ -1,8 +1,11 @@
 {
-  "schema":"luhm-os.godot4-game-assets.v1","status":"SOURCE_SLOTS_READY","binaryPolicy":"No generated binary art or APK stored as doctrine/source receipt.",
+  "schema":"luhmOs.godot4GameAssets.v1",
+  "status":"sourceSlotsReady",
+  "binaryPolicy":"Generated binary art and APK files are not doctrine receipts.",
   "characters":["lum","urd","belldandy","skuld"],
   "requiredFamilies":["portrait","fullBody","spriteIdle","spriteWalk","spriteRun","expressionSheet","uiIcon"],
   "optionalFamilies":["glb","animationLibrary","voice","vfx"],
-  "formats":{"2d":["png","webp"],"3d":["glb"],"motion":["res","tres"],"manifest":["json"]},
-  "ingestLaw":"References remain protected; only original mutated assets enter game slots."
+  "formats":{"twoD":["png","webp"],"threeD":["glb"],"motion":["res","tres"],"manifest":["json"]},
+  "ingestLaw":"protectedReference != candidateAsset; only approved original mutations may enter runtime asset slots.",
+  "reviewStates":["concept","candidateReview","approvedArt","runtimeImportProven","parked","rejected"]
 }
