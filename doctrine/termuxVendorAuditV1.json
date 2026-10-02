@@ -1,0 +1,136 @@
+{
+  "schema": "luhmOs.termuxVendorAudit.v1",
+  "date": "2026-10-02",
+  "status": "betaResearchGreen",
+  "authority": "Professor",
+  "ownerAgent": "skuldResearch",
+  "purpose": "Track the bounded Termux upstream stack used by LuHm's S24 FE/Termux/proot lane without treating upstream repositories as LuHm source authority.",
+  "sourceLaw": "Upstream Termux facts are provider evidence. GitHub is LuHm compatibility layer #2 and stores pins, manifests, audits and receipts.",
+  "distributionFamilies": {
+    "github": {
+      "appReleaseLane": "tagged GitHub Releases",
+      "appPreviewLane": "per-commit GitHub Actions artifacts",
+      "signingFamily": "termuxGitHubDebugTestKeyFamily",
+      "android7PlusVariant": "apt-android-7",
+      "architecturePreference": "arm64-v8a",
+      "actionArtifactsRequireLoggedInGitHub": true
+    },
+    "fdroid": {
+      "appLane": "F-Droid build and signing infrastructure",
+      "signingFamily": "fdroidTermuxFamily",
+      "updateLag": "may trail GitHub releases",
+      "mixingWithGithubFamilyForbidden": true
+    },
+    "googlePlay": {
+      "role": "separate experimental branch",
+      "compatibility": "not assumed interchangeable with F-Droid/GitHub families"
+    }
+  },
+  "hardRule": "Termux app and plugin APKs installed together must come from one signing/source family.",
+  "coreVendorSet": [
+    {
+      "id": "termuxApp",
+      "upstream": "termux/termux-app",
+      "upstreamBranch": "master",
+      "observedHead": "8629e632fcb95da272221be327db653fb24befe9",
+      "observedAt": "2026-09-26",
+      "role": "Android terminal app, bootstrap and release/preview APK lane",
+      "forkPriority": "required"
+    },
+    {
+      "id": "termuxApi",
+      "upstream": "termux/termux-api",
+      "upstreamBranch": "master",
+      "observedHead": "fc26ce17e3badf85d4df191af364fcf7798047f1",
+      "observedAt": "2026-09-17",
+      "role": "Android API bridge app; must share signing family with main Termux app",
+      "forkPriority": "required"
+    },
+    {
+      "id": "termuxApiPackage",
+      "upstream": "termux/termux-api-package",
+      "upstreamBranch": "master",
+      "observedHead": "9e7f1531e1aa4a9c1e261a2dbde4de93653c366e",
+      "observedAt": "2026-09-16",
+      "role": "Termux command-line API helper package",
+      "forkPriority": "required"
+    },
+    {
+      "id": "termuxPackages",
+      "upstream": "termux/termux-packages",
+      "upstreamBranch": "master",
+      "observedHead": "fae8d5f31bbeecca9eaef23d812ced27bfeb2644",
+      "observedAt": "2026-10-02",
+      "role": "Package recipes, channels and bootstrap/package ecosystem",
+      "forkPriority": "required",
+      "upstreamForkWarning": "Do not point a custom fork at upstream Termux package mirrors; custom forks must use their own package repository."
+    },
+    {
+      "id": "prootDistro",
+      "upstream": "termux/proot-distro",
+      "upstreamBranch": "master",
+      "observedHead": "c76286a2fb57884dae11bc2ea469949bbcdec135",
+      "observedAt": "2026-09-23",
+      "role": "Optional Linux tooling sandbox; not Android root",
+      "forkPriority": "required"
+    },
+    {
+      "id": "termuxTools",
+      "upstream": "termux/termux-tools",
+      "upstreamBranch": "master",
+      "observedHead": "f5865c30a6a32346217cbb3bcfc70080a9fb7c9e",
+      "observedAt": "2026-09-19",
+      "role": "Termux package/repository utility scripts including mirror handling",
+      "forkPriority": "required"
+    }
+  ],
+  "optionalVendorSet": [
+    {
+      "id": "termuxX11",
+      "upstream": "termux/termux-x11",
+      "observedHead": "0e1ebb4c180f4e8e7a14a80f7cd0db8301791b6d",
+      "observedAt": "2026-10-01",
+      "role": "Optional X11 lane only if S24 FE workflow proves it necessary",
+      "forkPriority": "conditional"
+    }
+  ],
+  "quickStart": {
+    "appInstall": "Choose one signing family and stay inside it. For GitHub on Android 7+, use apt-android-7. Prefer arm64-v8a on the S24 FE.",
+    "packageUpdate": [
+      "pkg update",
+      "pkg upgrade"
+    ],
+    "prootInstall": [
+      "pkg install proot-distro"
+    ],
+    "prootStart": [
+      "proot-distro search ubuntu",
+      "proot-distro install ubuntu:24.04",
+      "proot-distro login ubuntu"
+    ],
+    "mirrorCheck": [
+      "termux-info",
+      "termux-change-repo"
+    ],
+    "apiRule": "Termux:API app and main Termux app must be signed from the same source family."
+  },
+  "docsIndex": [
+    "termux/termux-app README + wiki",
+    "termux/termux-app GitHub Actions debug_build.yml",
+    "termux/termux-api README",
+    "termux/termux-packages README + Developer Wiki",
+    "termux/termux-packages Package Management wiki",
+    "termux/termux-packages Mirrors wiki",
+    "termux/proot-distro README",
+    "F-Droid com.termux page",
+    "F-Droid com.termux.api page"
+  ],
+  "forkPolicy": {
+    "forkIntoProfessorNamespace": true,
+    "forkTool": "tools/skuldTermuxVendorFork.sh",
+    "connectorForkCapabilityObserved": false,
+    "actualForkRequiresAuthenticatedGh": true,
+    "forkDoesNotGrantRuntimeAuthority": true
+  },
+  "crownStatus": "stop"
+}
