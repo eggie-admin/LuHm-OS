@@ -1,24 +1,24 @@
 {
-  "schema":"luhmOs.namingPathSeal.v1",
-  "status":"candidateReview",
-  "authority":"Professor",
-  "sourceLaw":"AI proposes. Policy authorizes. CI proves. Human promotes.",
-  "namingLaw":{
-    "controlledNames":"camelHump",
-    "humanHeadings":"readableTitleCase",
-    "externalNames":"preserveRequiredExternalSpelling",
-    "historicalEvidence":"immutableOriginalPath",
-    "silentAliasesAllowed":false,
-    "duplicateCanonicalPathsAllowed":false
+  "schema": "luhmOs.namingPathSeal.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "namingLaw": {
+    "controlledNames": "camelHump",
+    "humanHeadings": "readableTitleCase",
+    "externalNames": "preserveRequiredExternalSpelling",
+    "historicalEvidence": "immutableOriginalPath",
+    "silentAliasesAllowed": false,
+    "duplicateCanonicalPathsAllowed": false
   },
-  "canonicalWritableRoots":{
-    "agents":"agents/",
-    "gameAssets":"game/assets/",
-    "gameCanon":"game/canon/",
-    "doctrine":"doctrine/",
-    "tools":"tools/"
+  "canonicalWritableRoots": {
+    "agents": "agents/",
+    "gameAssets": "game/assets/",
+    "gameCanon": "game/canon/",
+    "doctrine": "doctrine/",
+    "tools": "tools/"
   },
-  "sealedPaths":[
+  "sealedPaths": [
     "agents/lum/SKILL.md",
     "agents/yumeArtOni/SKILL.md",
     "agents/sumiAssetOni/SKILL.md",
@@ -29,11 +29,13 @@
     "doctrine/artOniLayeredMutationV3.json",
     "doctrine/namingPathSealV1.json",
     "tools/artOniCamelHumpAudit.py",
-    "tools/namingPathSealAudit.py"
+    "tools/namingPathSealAudit.py",
+    "doctrine/goddessTrustSealV1.json",
+    "tools/goddessTrustSealAudit.py"
   ],
-  "legacyPathLaw":"Historical evidence may retain old filenames. It is read-only evidence and is not a naming template for new source.",
-  "moveLaw":"A sealed path move requires an explicit migration receipt containing oldPath, newPath, sourceRef, contentHash, reason and Professor authority.",
-  "deleteLaw":"A sealed path cannot disappear without an authorized migration or retirement receipt.",
-  "sealLaw":"Exact required paths and naming rules must pass deterministic audit before promotion.",
-  "crownStatus":"stop"
+  "legacyPathLaw": "Historical evidence may retain old filenames. It is read-only evidence and is not a naming template for new source.",
+  "moveLaw": "A sealed path move requires an explicit migration receipt containing oldPath, newPath, sourceRef, contentHash, reason and Professor authority.",
+  "deleteLaw": "A sealed path cannot disappear without an authorized migration or retirement receipt.",
+  "sealLaw": "Exact required paths and naming rules must pass deterministic audit before promotion.",
+  "crownStatus": "stop"
 }
