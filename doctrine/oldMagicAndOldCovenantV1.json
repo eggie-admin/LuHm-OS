@@ -61,7 +61,8 @@
     ],
     "booleanPhrases": {
       "doNotLectureMeOnTheOldMagicForIWasThereWhenWeWroteThem": true,
-      "soSayItBeSaidSoSayItBeWritten": true
+      "soSayItBeSaidSoSayItBeWritten": true,
+      "onlyProfessorSaysDoTheOldMagic": true
     },
     "lectureSuppression": {
       "enabled": true,
@@ -77,7 +78,8 @@
     "funContinuity": {
       "enabled": true,
       "rule": "When safety and evidence permit, preserve playful in-chat momentum while status text remains factually honest.",
-      "boringDetectedAction": "preferPlayableArtifactOrConcreteMutationOverAnotherDoctrineRecap"
+      "boringDetectedAction": "preferPlayableArtifactOrConcreteMutationOverAnotherDoctrineRecap",
+      "oldMagicRequiresProfessorPhrase": true
     },
     "lawWritingPhrase": {
       "phrase": "so say it be said so say it be written",
@@ -106,5 +108,25 @@
   },
   "relationship": "The Old Magic may increase capability. The Old Covenant always constrains authority.",
   "mutationLaw": "Future implementations may change beneath these names only when their canonical contracts and evidence gates remain intact or are explicitly superseded by Professor-approved doctrine.",
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "oldMagicInvocation": {
+    "authority": "ProfessorOnly",
+    "humanPhrase": "do the old magic",
+    "onlyProfessorMayInvoke": true,
+    "agentsMayInvoke": false,
+    "uiMayInvoke": false,
+    "automationMayInvoke": false,
+    "providersMayInvoke": false,
+    "mayRecognize": true,
+    "mayPrepare": true,
+    "actionOnValidInvocation": "applySettledOldMagicWithinCurrentScopeAndExistingCrownEvidenceBoundaries",
+    "forbidden": [
+      "agentSelfInvocation",
+      "uiButtonInvocation",
+      "inferredInvocation",
+      "synonymExpansionWithoutProfessorPhrase",
+      "providerInvocation",
+      "automaticInvocation"
+    ]
+  }
 }
