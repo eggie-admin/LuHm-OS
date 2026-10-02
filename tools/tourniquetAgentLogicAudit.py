@@ -24,4 +24,14 @@ for term in ("exact sourceRef","Witching Hour","Kugi","Urd","Belldandy","Shiori"
 witch=(root/"agents/witchingHourCoding/SKILL.md").read_text()
 for term in ("exact sourceRef","Urd","Belldandy","Shiori","Kugi","nearest evidence-backed known-good"):
     assert term in witch, "RED_WITCHING_HOUR_DRIFT:"+term
+protocol=root/"agents/shared/ONI_PROTOCOL_V2.md"
+assert protocol.is_file(), "RED_ONI_PROTOCOL_MISSING"
+proto=protocol.read_text()
+for term in ("authority","evidence"):
+    assert term.lower() in proto.lower(), "RED_ONI_PROTOCOL_DRIFT:"+term
+kugi=(root/"agents/kugiToolOni/SKILL.md").read_text()
+for term in ("deterministic","authorized","does not reinterpret","GREEN"):
+    assert term in kugi, "RED_KUGI_AUTHORITY_DRIFT:"+term
+lum=(root/"agents/lum/SKILL.md").read_text()
+assert "Consequential boundary" in lum, "RED_LUM_CROWN_BOUNDARY"
 print("TOURNIQUET AGENT LOGIC GREEN")
