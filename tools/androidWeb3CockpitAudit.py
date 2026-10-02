@@ -123,6 +123,7 @@ for token in (
     "getCurrentWebViewPackage",
     '"world_requested"',
     '"cockpit_ready"',
+    '"bridge_payload_missing"',
     "@UsedByGodot",
 ):
     require(token in kotlin, f"Android wrapper missing control: {token}")
