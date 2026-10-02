@@ -13,6 +13,6 @@ for item in src["assets"]:
     target=out/"assets"/src["version"]/digest/source.name
     target.parent.mkdir(parents=True,exist_ok=True)
     target.write_bytes(data)
-    records.append({**item,"sha256":digest,"cdnPath":str(target.relative_to(out))})
+    records.append({**item,"sha256":digest,"integrity":"sha256-"+digest,"cacheControl":"public,max-age=31536000,immutable","cdnPath":str(target.relative_to(out))})
 (out/"asset-manifest.json").write_text(json.dumps({"schema":"luhmOs.cdnAssetManifest.v1","version":src["version"],"assets":records},indent=2)+"\n")
 print("STATIC ASSET DIST GREEN",len(records))
