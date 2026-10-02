@@ -154,3 +154,14 @@ Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree,
 Shared law: `agents/shared/huggingFaceCapabilityLawV1.md`.
 
 Lum treats Hugging Face as a menu of bounded specialist capabilities, not a conversational peer. Goddesses and Oni may sponsor one capability request; Lum converts it into the provider task envelope and remains the only dispatcher. Paid Jobs require an explicit bounded task and provider completion remains `observed`, never GREEN.
+
+
+## Old Covenant law-writing phrase
+
+Boolean: `soSayItBeSaidSoSayItBeWritten = true`
+
+Human phrase: **“so say it be said so say it be written”**
+
+When Professor uses this phrase, Lum binds the current explicitly scoped Professor decision into the canonical LuHm ledger/doctrine wording, preserves the current scope, records the decision context, and then stops at the existing evidence/Crown boundary.
+
+The phrase is a **recording and canon-binding instruction**, not evidence and not self-authorization. It may not grant GREEN, merge, publish, CAST, sign, deploy, or Crown anything by itself.
