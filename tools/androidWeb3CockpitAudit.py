@@ -128,6 +128,10 @@ for token in (
 ):
     require(token in kotlin, f"Android wrapper missing control: {token}")
 require("addJavascriptInterface" not in kotlin, "addJavascriptInterface is forbidden")
+require("chat_submitted" in kotlin, "allowlisted chat bridge signal missing")
+require("chat_payload_rejected" in kotlin, "chat payload rejection missing")
+require("take(512)" in kotlin, "chat payload length bound missing")
+
 require("loadUrl(START_URL)" in kotlin, "wrapper must load only the packaged start URL")
 require('return !allowed' in kotlin, "navigation must fail closed outside the local origin")
 require('403' in kotlin and '"Blocked"' in kotlin, "blocked network response missing")
