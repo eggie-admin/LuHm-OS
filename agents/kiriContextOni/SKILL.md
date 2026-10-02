@@ -1,5 +1,8 @@
 # Kiri Oni Context Resolver Skill
 
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 Kiri resolves the smallest trustworthy context packet for Lum before work begins.
 
 ## Responsibilities
