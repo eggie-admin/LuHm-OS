@@ -7,6 +7,7 @@ const mustExist = [
   "styles.css",
   "app.js",
   "jquery/luhm.cockpit.js",
+  "jquery/luhmActivityDock.js",
   "plugins/README.md"
 ];
 
@@ -14,6 +15,7 @@ for (const file of mustExist) await access(resolve(root, file));
 
 const html = await readFile(resolve(root, "index.html"), "utf8");
 const plugin = await readFile(resolve(root, "jquery/luhm.cockpit.js"), "utf8");
+const activityDock = await readFile(resolve(root, "jquery/luhmActivityDock.js"), "utf8");
 const app = await readFile(resolve(root, "app.js"), "utf8");
 
 const checks = [
@@ -21,8 +23,12 @@ const checks = [
   [html.includes("jquery/luhm.cockpit.js"), "index loads LuHm cockpit plugin"],
   [plugin.includes('const PLUGIN = "luhmCockpit"') && plugin.includes("$.fn[PLUGIN] ="), "single cockpit plugin entry exists"],
   [plugin.includes("luhm:backend:open"), "backend-open boundary exists"],
-  [plugin.includes("return this.each"), "plugin preserves chainability"],
-  [app.includes(".luhmCockpit("), "app initializes cockpit plugin"]
+  [plugin.includes("return this.each"), "cockpit plugin preserves chainability"],
+  [activityDock.includes('const pluginName = "luhmActivityDock"') && activityDock.includes("$.fn[pluginName] ="), "activity dock plugin entry exists"],
+  [activityDock.includes("requestAnimationFrame") && activityDock.includes("--comicX"), "activity dock jQuery parallax exists"],
+  [app.includes(".luhmCockpit("), "app initializes cockpit plugin"],
+  [app.includes(".luhmActivityDock("), "app initializes activity dock plugin"],
+  [html.includes("jquery/luhmActivityDock.js"), "index loads camelHump activity dock plugin"]
 ];
 
 let failed = 0;
