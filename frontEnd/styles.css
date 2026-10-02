@@ -249,11 +249,11 @@ button { color: inherit; }
 .activityPanels span { display:block; margin-top:4px; color:var(--muted); font-size:9px; line-height:1.25; }
 .activityCrown { border-color:rgba(255,44,145,.40)!important; }
 .activityCrown strong { color:var(--pink); }
-[data-activity-claim][data-claim="GREEN"] { color:#79efab; }
-[data-activity-claim][data-claim="AMBER"],
+[data-activity-claim][data-claim="green"] { color:#79efab; }
+[data-activity-claim][data-claim="amber"],
 [data-state="verifying"], [data-state="observed"] { color:#ffd36c; }
-[data-activity-claim][data-claim="RED"], [data-state="error"] { color:#ff6f7d; }
-[data-activity-claim][data-claim="UNKNOWN"], [data-state="unknown"], [data-state="parked"] { color:var(--muted); }
+[data-activity-claim][data-claim="red"], [data-state="error"] { color:#ff6f7d; }
+[data-activity-claim][data-claim="unknown"], [data-state="unknown"], [data-state="parked"] { color:var(--muted); }
 .activityLanes {
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
