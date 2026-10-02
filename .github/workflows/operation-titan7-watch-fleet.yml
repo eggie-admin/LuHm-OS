@@ -57,6 +57,8 @@ jobs:
           python3 tools/networkContractReconcile.py
       - name: Asset castBridge contract
         run: python3 tools/assetCastBridgeAudit.py
+      - name: Character canon and JRPG pet presentation
+        run: python3 tools/characterPetPresentationAudit.py
       - name: Static CDN and vendor boundaries
         run: |
           python3 tools/cloudflareEdgeTemplateAudit.py
