@@ -95,7 +95,7 @@
     "hiddenAsyncExecution": false,
     "professorCorrectionInterruptsCurrentPlan": true,
     "automaticResumeAfterCorrection": false,
-    "namingPolicy": "camelHump prettier-code law: LuHm-owned identifiers, logical names and writable source use lowerCamelHump. Exact external spellings are isolated at explicit adapters."
+    "namingPolicy": "human-centered camelHump: begin from the human phrase, vowel-rip only while obvious, use predicate-style booleans, action-style functions, and preserve WHAT/WHY/data-flow/Crown breadcrumbs."
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
