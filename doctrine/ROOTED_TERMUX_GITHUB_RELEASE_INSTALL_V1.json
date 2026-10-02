@@ -1,13 +1,13 @@
 {
   "schema": "luhm-os.rooted-termux-github-release-install.v1",
   "date": "2026-10-02",
-  "status": "AMBER_RELEASE_ARTIFACT_PENDING",
+  "status": "GREEN_RELEASE_ARTIFACT_VERIFIED_DEVICE_INSTALL_PENDING",
   "authority": "Professor",
   "purpose": "Fresh LuHm OS installation on a rooted Samsung tablet using Termux and a GitHub Release APK.",
   "terminology": {
     "rootedAndroid": true,
     "jailbreakTerm": "not used for Android",
-    "exactTabletModel": "TO_CAPTURE_ON_DEVICE"
+    "exactTabletModel": "SM-X400_REQUIRED_AND_CAPTURE_ON_DEVICE"
   },
   "sourceRepository": "eggie-admin/LuHm-OS",
   "package": "art.eggiebagelface.luhmos.testing",
@@ -47,6 +47,12 @@
     "status": "HISTORICAL_ONLY_FOR_THIS_MILESTONE",
     "delete": false
   },
-  "nextGate": "BUILD_AND_PUBLISH_EXACT_GITHUB_PRERELEASE_THEN_ROOTED_TERMUX_VIRGIN_INSTALL_PROOF",
-  "crownStatus": "STOP"
+  "nextGate": "ROOTED_TERMUX_SM_X400_ANDROID_16_VIRGIN_INSTALL_PROOF",
+  "crownStatus": "STOP",
+  "verifiedRelease": {
+    "tag": "android-web3-77a143ec-r36976385703",
+    "sourceCommit": "77a143ec8e3a83b259a86cdf1b706a6e0641354e",
+    "workflowRun": 36976394057,
+    "apkSha256": "b18014c4e344605ec2905d76b593d4ed3e297792e151084656394ab8af3a7e45"
+  }
 }

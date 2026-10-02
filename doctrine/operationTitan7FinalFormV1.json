@@ -1,8 +1,8 @@
 {
   "schema": "luhmOs.operationTitan7FinalForm.v1",
-  "status": "STAGED_CANDIDATE",
+  "status": "GREEN_STAGED_OPERATION_TITAN7_FINAL_FORM",
   "authority": "Professor",
-  "baseMain": "77a143ec8e3a83b259a86cdf1b706a6e0641354e",
+  "baseMain": "3e056e6f0867032d788c0b0db74f302ddf997ecd",
   "purpose": "Escalated final-milestone audit and bounded repair protocol using current doctrine, source truth, real workflows, agent skills and deterministic evidence.",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "stages": [
@@ -33,6 +33,9 @@
     "apkSha256": "b18014c4e344605ec2905d76b593d4ed3e297792e151084656394ab8af3a7e45"
   },
   "finalMilestone": "Project Hydra final system audit and evidence-backed seal candidate",
-  "crownStatus": "STOP",
-  "greenClaim": false
+  "crownStatus": "STOP_PHYSICAL_DEVICE_PROOF_PENDING",
+  "greenClaim": true,
+  "finalAuditRun": 36977276596,
+  "finalAuditArtifact": 11213972004,
+  "finalAuditArtifactDigest": "sha256:79df4185e4637c6b57366f688aea3bf757620072de2b5d6ce81ca3e85555769b"
 }
