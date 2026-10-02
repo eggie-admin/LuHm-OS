@@ -9,3 +9,5 @@ imagePath=assets/v1/image/
 mediaPath=assets/v1/media/
 vendorPath=vendor/
 remoteAuthority=none
+vendorManifest=vendor/vendor-lock.json
+vendorRuntimeOrigin=firstPartyMirrorOnly
