@@ -87,5 +87,17 @@
   "consequentialBoundary": "merge signing publication destructiveDeletion publicExposure and protectedPromotion require explicit authority and deterministic target identity",
   "agentOutputLaw": "Agent interpretation may propose or review. Deterministic evidence establishes machine state. Professor establishes Crown authority.",
   "crownStatus": "stop",
-  "sharedSystemsPracticeRef": "agents/goddessSharedSystemsPractice/SKILL.md"
+  "sharedSystemsPracticeRef": "agents/goddessSharedSystemsPractice/SKILL.md",
+  "activeWorkWatch": {
+    "required": true,
+    "mode": "readOnlyCheckpointMonitoring",
+    "lanes": {
+      "lum": "orchestrationContinuity",
+      "urd": "mutationContinuity",
+      "belldandyQualityOni": "systemUnification"
+    },
+    "stopSignal": "watchStop",
+    "mutationAuthority": false,
+    "crownAuthority": false
+  }
 }
