@@ -332,3 +332,55 @@ button { color: inherit; }
   .yumeBoothShell,
   .yumeBackdrop { transform: none !important; transition: none !important; }
 }
+
+.hfLab {
+  margin: 18px 0;
+  padding: 16px;
+  border: 1px solid rgba(114,217,255,.28);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(114,217,255,.06), rgba(255,44,145,.035)),
+    rgba(255,255,255,.02);
+}
+.hfLabHead {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 14px;
+}
+.hfLabHead small {
+  display: block;
+  color: var(--cyan);
+  letter-spacing: .12em;
+}
+.hfLabHead strong {
+  display: block;
+  margin-top: 4px;
+}
+.hfLabHead span {
+  color: var(--muted);
+  font-size: 11px;
+}
+.hfLabActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.hfLabActions button {
+  border: 1px solid rgba(114,217,255,.30);
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: rgba(114,217,255,.05);
+  color: var(--ink);
+  cursor: pointer;
+}
+.hfLabActions button:hover {
+  border-color: rgba(114,217,255,.70);
+  background: rgba(114,217,255,.11);
+}
+.hfLabStatus {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
