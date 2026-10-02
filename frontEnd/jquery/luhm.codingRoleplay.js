@@ -6,7 +6,7 @@
 
   function freezeList(value) { return Object.freeze(Array.isArray(value) ? value.slice() : []); }
 
-  $.codingRoleplay = Object.freeze({
+  const roleplay = {
     emit(type, input) {
       if (!allowed.has(type)) throw new Error("unknown roleplay event");
       const data = input || {};
@@ -50,12 +50,11 @@
       $(document).trigger("luhm:roleplay:dungeonRoom", [packet]);
       return packet;
     }
-  });
-
+  };
 
   const goalStates = Object.freeze(["UNKNOWN","GAP","MUTATING","PROVING","SOFTWARE_CANDIDATE","PROFESSOR_GATE","CAST","POST_CAST_PHYSICAL_PROOF"]);
 
-  $.codingRoleplay.goal = Object.freeze({
+  roleplay.goal = Object.freeze({
     states: goalStates,
     emit(state, input) {
       if (!goalStates.includes(state)) throw new Error("unknown goal state");
@@ -91,6 +90,8 @@
       });
     }
   });
+
+  $.codingRoleplay = Object.freeze(roleplay);
 
   $(document).on("luhm:boss:capabilityRequest", function (_, packet) {
     $.codingRoleplay.emit("bossCapabilityRequest", {
