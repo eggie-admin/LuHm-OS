@@ -59,6 +59,12 @@
   }
 
   $(function () {
+    if (window.LuHmStaticService) {
+      window.LuHmStaticService.load().then(function (config) {
+        window.LuHmAssets = window.LuHmStaticService.resolver(config);
+        $(document).trigger("luhm:staticService:ready", [config]);
+      });
+    }
     const $cockpit = $("[data-luhm-cockpit]");
     if (!$cockpit.length) return;
 
