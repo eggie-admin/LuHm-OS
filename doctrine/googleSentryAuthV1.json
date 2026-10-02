@@ -1,0 +1,63 @@
+{
+  "schema": "luhmOs.googleSentryAuth.v1",
+  "status": "beta",
+  "authority": "Professor",
+  "purpose": "Use Google identity as the login sentry while Hydra policy, Crown, and evidence remain separate authority layers.",
+  "primeLaw": "authentication != authorization != approval != evidence",
+  "identityProvider": {
+    "provider": "googleIdentity",
+    "protocol": "oidcOAuth21",
+    "role": "identitySentryOnly",
+    "mayGrantHydraAuthority": false,
+    "mayGrantCrown": false,
+    "mayGrantGreen": false
+  },
+  "loginFlow": [
+    "browserStartsHttpsLogin",
+    "googleReturnsAuthorizationResult",
+    "backendValidatesIssuerAudienceNonceAndState",
+    "backendExchangesGrantWithPkce",
+    "providerTokensRemainServerSide",
+    "hydraCreatesShortLivedSession",
+    "clientUsesSecureSessionCookie",
+    "hydraPolicyChecksAuthorization",
+    "consequentialActionsStillRequireCrown",
+    "evidenceProvesOutcomeSeparately"
+  ],
+  "sessionLaw": {
+    "shortLived": true,
+    "httpOnlyCookie": true,
+    "secureCookie": true,
+    "sameSite": "laxOrStrictPerFlow",
+    "csrfDefense": true,
+    "pkce": true,
+    "state": true,
+    "nonce": true,
+    "revocable": true,
+    "refreshTokenNeverInBrowser": true,
+    "providerTokensNeverInJquery": true,
+    "providerTokensNeverInGodot": true,
+    "providerTokensNeverInApk": true
+  },
+  "sentryReadModel": {
+    "allowedFields": [
+      "identityState",
+      "sessionState",
+      "expiresAt",
+      "reauthNeeded",
+      "providerStates"
+    ],
+    "forbiddenFields": [
+      "accessToken",
+      "refreshToken",
+      "apiKey",
+      "clientSecret"
+    ]
+  },
+  "monitoring": {
+    "urdDoctorGoddess": "authFailureExpiryAndEvidencePathology",
+    "belldandySecretary": "sessionStateCredentialLedgerAndReauthContinuity",
+    "lum": "providerRoutingAndProfessorFacingStatus"
+  },
+  "crownStatus": "stop"
+}
