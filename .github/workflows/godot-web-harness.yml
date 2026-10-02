@@ -58,12 +58,28 @@ jobs:
             --actor "$GITHUB_ACTOR" \
             --receipt "$RUNNER_TEMP/forge-cast-receipt.json"
 
+      - name: Bootstrap canonical remote forge
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x tools/bootstrapRemoteForge.sh
+          tools/bootstrapRemoteForge.sh
+
       - name: Bind exact head
         shell: bash
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "${{ inputs.sourceRef }}"
           echo "EXACT_HEAD=$(git rev-parse HEAD)"
+          mkdir -p host/harness/godot-export
+          cp build/forge/toolchainReceipt.txt host/harness/godot-export/toolchainReceipt.txt
+          {
+            echo "taskId=${{ inputs.taskId }}"
+            echo "sourceRef=${{ inputs.sourceRef }}"
+            echo "milestoneId=${{ inputs.milestoneId }}"
+            echo "runner=ubuntu-24.04"
+            echo "profile=godotWeb"
+          } > host/harness/godot-export/forgeIdentity.txt
 
       - name: Build verified Godot Web harness
         shell: bash
