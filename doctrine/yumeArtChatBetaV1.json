@@ -172,6 +172,11 @@
     "autoDeploy": true,
     "cloudflareCustomDomain": false,
     "dnsMutation": false,
-    "crownStatus": "stop"
+    "crownStatus": "stop",
+    "autoDeployProbe": {
+      "probeId": "postLiveCommitProbeV1",
+      "expectation": "renderCommitTrigger",
+      "result": "pendingEvidence"
+    }
   }
 }
