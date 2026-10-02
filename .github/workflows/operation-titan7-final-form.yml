@@ -10,6 +10,10 @@ on:
       - 'doctrine/**'
       - 'agents/**'
       - 'tools/**'
+      - 'frontEnd/**'
+      - 'host/**'
+      - 'scripts/**'
+      - 'androidWeb3Plugin/**'
       - '.github/workflows/**'
 
 permissions:
