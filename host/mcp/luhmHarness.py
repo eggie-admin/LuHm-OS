@@ -85,8 +85,11 @@ def register_harness(
     pets_path = harness_root / "pets.json"
     libraries_path = harness_root / "libraryPolicy.json"
     godot_root = harness_root / "godot-export"
+    frontEndRoot = root / "frontEnd"
+    frontEndIndex = frontEndRoot / "index.html"
+    yumePlugin = frontEndRoot / "jquery" / "luhmYumeBooth.js"
 
-    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path)):
+    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, frontEndIndex, yumePlugin)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     resource_meta: dict[str, Any] = {
@@ -138,9 +141,18 @@ def register_harness(
             "harness": {
                 "publicOrigin": public_origin or "LOCAL_ONLY",
                 "standalonePath": "/harness/",
+                "cockpitPath": "/cockpit/",
                 "godotPath": "/harness/godot-export/index.html",
                 "godotEmbeddingInChat": False,
-                "reason": "Nested Godot iframe is kept out of the chat widget by default; the full same-origin harness owns it.",
+                "reason": "The compact MCP frame links to the full same-origin jQuery cockpit; nested Godot stays outside the tiny chat frame.",
+            },
+            "yume": {
+                "status": "betaPlay",
+                "skill": "agents/yumeArtOni/SKILL.md",
+                "schema": "doctrine/yumeArtSchemaV1.json",
+                "providerOrchestra": "doctrine/providerOrchestraV1.json",
+                "personality": "90sArtSchoolRecordStoreZine",
+                "greenAuthority": False,
             },
             "authority": {
                 "readOnly": True,
@@ -174,6 +186,35 @@ def register_harness(
         media_type = "text/css; charset=utf-8" if target.suffix == ".css" else "text/javascript; charset=utf-8"
         return FileResponse(target, media_type=media_type, headers=_headers())
 
+    @server.custom_route("/cockpit/", methods=["GET", "HEAD"])
+    async def full_cockpit(_: Request) -> Response:
+        return FileResponse(
+            frontEndIndex,
+            media_type="text/html; charset=utf-8",
+            headers=_headers(html=True, production=profile_provider() == "production"),
+        )
+
+    @server.custom_route("/cockpit/{asset_path:path}", methods=["GET", "HEAD"])
+    async def cockpit_asset(request: Request) -> Response:
+        relative = request.path_params.get("asset_path", "")
+        allowed = {
+            "styles.css",
+            "app.js",
+            "vendor/jquery-3.7.1.min.js",
+            "jquery/luhm.cockpit.js",
+            "jquery/luhmYumeBooth.js",
+        }
+        if relative not in allowed:
+            return PlainTextResponse("not found", status_code=404, headers=_headers())
+        target = _safe_file(frontEndRoot, relative)
+        if target is None:
+            return PlainTextResponse("not found", status_code=404, headers=_headers())
+        if target.suffix == ".css":
+            media_type = "text/css; charset=utf-8"
+        else:
+            media_type = "text/javascript; charset=utf-8"
+        return FileResponse(target, media_type=media_type, headers=_headers())
+
     @server.custom_route("/harness/config.json", methods=["GET"])
     async def harness_config(_: Request) -> Response:
         libraries = json.loads(libraries_path.read_text(encoding="utf-8"))
@@ -191,6 +232,8 @@ def register_harness(
                     "resourceUri": UI_RESOURCE_URI,
                     "availableDisplayModes": ["inline", "fullscreen"],
                     "nestedFramesByDefault": False,
+                    "fullJqueryCockpit": "/cockpit/",
+                    "yumeBooth": "luhmYumeBooth"
                 },
                 "godot": {
                     "viewer": "/harness/godot-export/index.html",
