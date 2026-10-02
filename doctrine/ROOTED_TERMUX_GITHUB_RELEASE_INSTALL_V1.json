@@ -1,13 +1,13 @@
 {
   "schema": "luhm-os.rooted-termux-github-release-install.v1",
   "date": "2026-10-02",
-  "status": "AMBER_RELEASE_ARTIFACT_PENDING",
+  "status": "GREEN_RELEASE_ARTIFACT_READY_DEVICE_PROOF_PENDING",
   "authority": "Professor",
   "purpose": "Fresh LuHm OS installation on a rooted Samsung tablet using Termux and a GitHub Release APK.",
   "terminology": {
     "rootedAndroid": true,
     "jailbreakTerm": "not used for Android",
-    "exactTabletModel": "TO_CAPTURE_ON_DEVICE"
+    "exactTabletModel": "SM-X400"
   },
   "sourceRepository": "eggie-admin/LuHm-OS",
   "package": "art.eggiebagelface.luhmos.testing",
@@ -47,6 +47,15 @@
     "status": "HISTORICAL_ONLY_FOR_THIS_MILESTONE",
     "delete": false
   },
-  "nextGate": "BUILD_AND_PUBLISH_EXACT_GITHUB_PRERELEASE_THEN_ROOTED_TERMUX_VIRGIN_INSTALL_PROOF",
-  "crownStatus": "STOP"
+  "nextGate": "RUN_PINNED_ONE_BASH_INSTALL_ON_PHYSICAL_SM_X400_AND_CAPTURE_DEVICE_PROOF",
+  "crownStatus": "STOP",
+  "exactRelease": {
+    "sourceRef": "b25cfad18051ba2799b19e27f035487366b256c9",
+    "castBridgeRun": 37000025238,
+    "androidBuildRun": 37000033757,
+    "tag": "android-web3-b25cfad1-r37000025238",
+    "apk": "LuHmOS-AndroidWeb3-android-web3-b25cfad1-r37000025238-arm64-v8a.apk",
+    "apkSha256": "2a030cd15f6409464b9fc0fcd65f39f60635dcdabfdc298db3e25ae51ee4e3c8",
+    "oneBashInstaller": "tools/smX400OneBashInstall.sh"
+  }
 }
