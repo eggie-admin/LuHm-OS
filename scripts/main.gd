@@ -50,9 +50,7 @@ func _build_runtime() -> void:
     titan7_milestone = Titan7MilestoneScript.new()
     titan7_milestone.name = "Titan7Milestone"
     add_child(titan7_milestone)
-    cockpit_chat_bridge = CockpitChatBridgeScript.new()
-    cockpit_chat_bridge.configure(game_hud)
-    add_child(cockpit_chat_bridge)
+    cockpit_chat_bridge = CockpitChatBridgeScript.new(); cockpit_chat_bridge.configure(game_hud); add_child(cockpit_chat_bridge)
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
     game_hud.backend_requested.connect(_enter_backend)
@@ -80,8 +78,7 @@ func _on_android_web3_error(reason: String) -> void:
     push_error("ANDROID_WEB3_COCKPIT_ERROR: " + reason)
 
 func enterWorldMode() -> void:
-    if android_web3_plugin != null:
-        android_web3_plugin.hideCockpit()
+    if android_web3_plugin != null: android_web3_plugin.hideCockpit()
     game_hud.show_world()
     player_controller.set_world_active(true)
     if not intro_played:
@@ -92,8 +89,7 @@ func _enter_backend() -> void:
     if cutscene_bridge != null:
         cutscene_bridge.cancel()
         cutscene_bridge.restore_now()
-    if player_controller != null:
-        player_controller.set_world_active(false)
+    if player_controller != null: player_controller.set_world_active(false)
     if game_hud != null:
         game_hud.show_backend()
     if android_web3_plugin != null:
