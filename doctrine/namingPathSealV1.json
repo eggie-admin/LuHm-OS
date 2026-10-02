@@ -9,7 +9,10 @@
     "externalNames": "preserveRequiredExternalSpelling",
     "historicalEvidence": "immutableOriginalPath",
     "silentAliasesAllowed": false,
-    "duplicateCanonicalPathsAllowed": false
+    "duplicateCanonicalPathsAllowed": false,
+    "newWritableFiles": "lowerCamelHumpUnlessExternalFormatRequiresOtherwise",
+    "newInternalIdentifiers": "lowerCamelHump",
+    "machineEnumValues": "lowerCamelHump"
   },
   "canonicalWritableRoots": {
     "agents": "agents/",
@@ -46,5 +49,27 @@
   "moveLaw": "A sealed path move requires an explicit migration receipt containing oldPath, newPath, sourceRef, contentHash, reason and Professor authority.",
   "deleteLaw": "A sealed path cannot disappear without an authorized migration or retirement receipt.",
   "sealLaw": "Exact required paths and naming rules must pass deterministic audit before promotion.",
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "monitoring": {
+    "urdDoctorGoddess": {
+      "role": "structuralNamingPathology",
+      "watches": [
+        "newWritableNameDrift",
+        "machineIdentityCollision",
+        "routingBreakRisk",
+        "aliasAmbiguity"
+      ],
+      "authority": "readOnly"
+    },
+    "belldandySecretary": {
+      "role": "canonicalNameLedger",
+      "watches": [
+        "canonicalNames",
+        "legacyAliases",
+        "migrationReceipts",
+        "pathContinuity"
+      ],
+      "authority": "readOnly"
+    }
+  }
 }
