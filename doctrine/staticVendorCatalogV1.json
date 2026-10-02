@@ -1,0 +1,26 @@
+{
+  "schema": "luhmOs.staticVendorCatalog.v1",
+  "status": "candidateMetadataOnly",
+  "authority": "Professor",
+  "runtimeRule": "neverExecuteFromVendorOrigin",
+  "vendors": [
+    {"id":"jquery","family":"browserLibrary","artifactKind":"js","mirrorEligible":true,"browserExecutable":true},
+    {"id":"jqueryUi","family":"browserLibrary","artifactKind":"jsCss","mirrorEligible":true,"browserExecutable":true},
+    {"id":"bootstrap","family":"browserLibrary","artifactKind":"jsCss","mirrorEligible":true,"browserExecutable":true},
+    {"id":"openJdk","family":"buildToolchain","artifactKind":"metadata","mirrorEligible":false,"browserExecutable":false},
+    {"id":"python3","family":"buildToolchain","artifactKind":"metadata","mirrorEligible":false,"browserExecutable":false}
+  ],
+  "requiredArtifactMetadata": [
+    "vendorId","upstreamName","version","sourceUrl","sourceSha256",
+    "licenseId","mediaType","localPath","cdnPath","cacheControl","approvalState"
+  ],
+  "fetchLaw": {
+    "liveVendorRuntimeUrl": false,
+    "unpinnedFetch": false,
+    "hashVerificationRequired": true,
+    "licenseReceiptRequired": true,
+    "localMirrorRequiredForBrowserRuntime": true,
+    "cloudflareServesAuditedMirrorOnly": true,
+    "secretsAllowed": false
+  }
+}
