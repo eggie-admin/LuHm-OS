@@ -2,18 +2,7 @@ name: OperationTitan7 Watch Fleet
 
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - 'doctrine/**'
-      - 'agents/**'
-      - 'tools/**'
-      - '.github/workflows/**'
-      - 'assets/**'
-      - 'frontEnd/**'
-      - 'backEndGui/**'
-      - 'installPortal/**'
-  schedule:
-    - cron: '17 * * * *'
+  workflow_call:
 
 permissions:
   contents: read
