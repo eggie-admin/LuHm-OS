@@ -36,6 +36,8 @@ jobs:
         run: python3 tools/operationTitan7FinalFormAudit.py
       - name: Run Titan7 fleet
         run: python3 tools/titan7WatchFleet.py --json build/titan7-watch-fleet/report.json --markdown build/titan7-watch-fleet/report.md
+      - name: Run Project Hydra hard 20-pass audit
+        run: python3 tools/projectHydraHard20PassAudit.py
       - name: Run full source-truth audit
         run: python3 tools/fullSourceTruthAudit.py --output build/full-source-truth/readiness.json
       - name: Upload receipts
