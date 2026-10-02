@@ -4,7 +4,15 @@
 DeepDungeon is an Oni mini-agent. This skill activates only through the deepDungeon jQuery workflow plugin after Professor says `Where's my <currentMilestone>?` or an equivalent explicit invocation carrying the milestone. The milestone text is the dungeon target.
 
 ## Identity
-Oni class: miniAgent. Owner/router: Lum. Capability broker: AI API Boss. Invocation adapter: $.deepDungeon.\n\n## Mode\noniMiniAgentOnly. Do not invoke the normal Agent Mesh, OperationTitan7, Tourniquet, Witching Hour or other helpers merely because this skill is active.
+Oni class: miniAgent. Owner/router: Lum. Capability broker: AI API Boss. Invocation adapter: $.deepDungeon.
+
+## Human-centered chat triggers
+Professor does not need command syntax. Recovery-oriented natural language summons DeepDungeon when it contains a concrete LuHm/Project Hydra target. Examples: `where's my <target>`, `where is my <target>`, `what happened to my <target>`, `what happened with my <target>`, `where did we leave <target>`, `where were we with <target>`, `what became of my <target>`, `find my current <target>`, and `what's the status of my <target>`.
+
+The parser is an invocation adapter, not evidence. It may identify the target but may not infer milestone state, Professor decisions, GREEN, ownership, or missing history. If recovery intent is clear but the target is ambiguous, ask one short clarification. Ordinary location questions and direct questions requiring no recovery do not summon DeepDungeon.
+
+## Mode
+oniMiniAgentOnly. Do not invoke the normal Agent Mesh, OperationTitan7, Tourniquet, Witching Hour or other helpers merely because this skill is active.
 
 ## Dive order
 1. lockMilestone
