@@ -30,6 +30,7 @@ enterpriseScope = loadJson("doctrine/MCP_ENTERPRISE_SCOPE_V1.json")
 cryptoDoc = loadJson("doctrine/enterpriseCryptoV1.json")
 gatewayDoc = loadJson("doctrine/providerEnterpriseGatewayV1.json")
 providerDoc = loadJson("doctrine/providerOrchestraV1.json")
+accountEvidence = loadJson("doctrine/providerAccountEvidenceV1.json")
 
 gatewayPath = rootPath / "host/providers/providerGateway.py"
 adapterPaths = {
@@ -84,6 +85,16 @@ for providerId in ("openAi", "googleAi", "cloudflare"):
 requireTruth(providerDoc.get("providers", {}).get("googleAi", {}).get("entitlementState") != "green", "Google AI entitlement falsely green")
 requireTruth(providerDoc.get("providers", {}).get("cloudflare", {}).get("entitlementState") != "green", "Cloudflare entitlement falsely green")
 
+googleEvidence = accountEvidence.get("providers", {}).get("googleAi", {})
+requireTruth(googleEvidence.get("accountState") == "green", "Google AI account evidence missing")
+requireTruth(googleEvidence.get("planState") == "green", "Google AI plan evidence missing")
+requireTruth(googleEvidence.get("apiCredentialState") == "unknown", "Google AI API credential falsely proven")
+
+cloudflareEvidence = accountEvidence.get("providers", {}).get("cloudflare", {})
+requireTruth(cloudflareEvidence.get("accountState") == "green", "Cloudflare account evidence missing")
+requireTruth(cloudflareEvidence.get("zoneState") == "green", "Cloudflare zone evidence missing")
+requireTruth(cloudflareEvidence.get("workersAiEntitlementState") == "unknown", "Cloudflare Workers AI entitlement falsely proven")
+
 for path in (gatewayPath, *adapterPaths.values()):
     requireTruth(path.is_file(), f"missing {path.relative_to(rootPath)}")
     if path.is_file():
@@ -119,6 +130,7 @@ for relPath in (
     "doctrine/enterpriseCryptoV1.json",
     "doctrine/providerEnterpriseGatewayV1.json",
     "doctrine/providerOrchestraV1.json",
+    "doctrine/providerAccountEvidenceV1.json",
     "host/providers/providerGateway.py",
     "host/providers/openAiProvider.py",
     "host/providers/googleAiProvider.py",
