@@ -5,6 +5,8 @@ import json
 import pathlib
 import py_compile
 import re
+import shutil
+import subprocess
 import sys
 
 rootPath = pathlib.Path(__file__).resolve().parents[1]
@@ -36,6 +38,14 @@ yumeSkillPath = rootPath / "agents/yumeArtOni/SKILL.md"
 requirementsPath = rootPath / "host/mcp/requirements.txt"
 copilotPath = rootPath / ".github/copilot-instructions.md"
 yumePluginPath = rootPath / "frontEnd/jquery/luhmYumeBooth.js"
+nodePath = shutil.which("node")
+requireTruth(nodePath is not None, "Node.js is required to validate the Yume browser code")
+if nodePath and yumePluginPath.is_file():
+    syntaxResult = subprocess.run(
+        [nodePath, "--check", str(yumePluginPath)],
+        capture_output=True, text=True, timeout=30,
+    )
+    requireTruth(syntaxResult.returncode == 0, "Yume browser syntax: " + syntaxResult.stderr.strip())
 oldYumePluginPath = rootPath / "frontEnd/jquery/luhm.yumeBooth.js"
 frontEndIndexPath = rootPath / "frontEnd/index.html"
 frontEndAppPath = rootPath / "frontEnd/app.js"
