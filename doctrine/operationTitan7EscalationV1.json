@@ -1,0 +1,59 @@
+{
+  "schema":"luhmOs.operationTitan7Escalation.v1",
+  "status":"candidate",
+  "authority":"Professor",
+  "operationId":"operationTitan7",
+  "defaultWorkflow":false,
+  "entryPoint":"$.operationTitan7",
+  "normalWorkflow":"luhmAgentMesh",
+  "tierOrder":["ffs","scorchedEarth","finalForm"],
+  "tiers":{
+    "ffs":{
+      "order":1,
+      "displayName":"FFS!",
+      "booleanPhrase":"For Fuck Sake!",
+      "aliases":["FFS!","ffs!","for fuck sake!"],
+      "hardPasses":25,
+      "mode":"sanestApproachFirstTierEscalatedAudit",
+      "purpose":"first escalated audit when ordinary bounded work is not converging",
+      "autoDestructive":false
+    },
+    "scorchedEarth":{
+      "order":2,
+      "displayName":"Scorched Earth",
+      "booleanPhrase":"Scorched Earth",
+      "hardPasses":50,
+      "mode":"sanestApproachSecondTierEscalation",
+      "purpose":"maximum breadth hard audit before structural replacement",
+      "autoDestructive":false,
+      "meaning":"audit breadth escalation, not destructive authority"
+    },
+    "finalForm":{
+      "order":3,
+      "displayName":"Final Form",
+      "booleanPhrase":"Final Form",
+      "hardPasses":null,
+      "mode":"absoluteRipOutAndReplaceAudit",
+      "purpose":"replace contradictory or structurally unsound implementation inside the bounded candidate scope",
+      "replacementLaw":{
+        "candidateLaneOnly":true,
+        "exactSourceRequired":true,
+        "rollbackRequired":true,
+        "knownGoodFallbackRequired":true,
+        "targetedProofRequired":true,
+        "professorCrownPreserved":true,
+        "mayNotRewriteHistory":true,
+        "mayNotDeleteUnsatisfiedGoalsToPass":true
+      }
+    }
+  },
+  "escalationLaw":{
+    "tierMayBeExplicitlyInvoked":true,
+    "redMayRecommendNextTier":true,
+    "automaticTierEscalationWithoutPolicy":false,
+    "passCountMustActuallyExecute":true,
+    "configuredPassCountIsNotReceipt":true,
+    "unknownIsNotGreen":true,
+    "greenReturnsToInvokingMilestone":true
+  }
+}
