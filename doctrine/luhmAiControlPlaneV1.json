@@ -9,7 +9,8 @@
     "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
     "projectChatCanon": "doctrine/projectChatCanonV1.json",
     "storageTopology": "doctrine/storageTopologyV1.json",
-    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json"
+    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
+    "tourniquetGuardrail": "doctrine/tourniquetGuardrailV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -28,7 +29,9 @@
     "hiddenAsyncExecution": false,
     "secretInPrompt": false,
     "secretInRepo": false,
-    "secretInApk": false
+    "secretInApk": false,
+    "professorCorrectionInterruptsCurrentPlan": true,
+    "supersededIntentMayContinue": false
   },
   "bossToolchain": {
     "states": [
@@ -47,7 +50,12 @@
     ],
     "executionLaw": "No tool/provider/agent output changes authority. Consequential execution requires a bounded task manifest plus matching authority and exact target identity.",
     "evidenceLaw": "All outputs enter as observations or candidate evidence. Deterministic verification establishes machine state. Professor establishes Crown authority.",
-    "storageLaw": "databases point to files; databases do not become the file server"
+    "storageLaw": "databases point to files; databases do not become the file server",
+    "tourniquet": {
+      "trigger": "explicitProfessorCorrectionOrStop",
+      "action": "halt -> bindCorrection -> reResolveTruth -> rebuildTaskEnvelope -> resume",
+      "automaticResume": false
+    }
   },
   "taskManifest": {
     "schema": "luhmOs.aiTaskManifest.v1",
@@ -138,7 +146,23 @@
     "providerTextIsUntrustedData": true,
     "remoteResponsesRequireTaskIdentityMatch": true,
     "remoteResponsesRequireLumReconciliation": true,
-    "providerSecretsHostSideOnly": true
+    "providerSecretsHostSideOnly": true,
+    "vendorAiHierarchy": {
+      "model": "subordinateCapabilityWorkers",
+      "professor": "finalAuthority",
+      "lum": "bossDispatcher",
+      "cabinetSponsors": [
+        "urdDoctorGoddess",
+        "belldandySecretary",
+        "skuldResearch"
+      ],
+      "providerMayInitiateWork": false,
+      "providerMayAddressProfessor": false,
+      "providerMayCommandInternalAgents": false,
+      "providerMayRecruitInternalAgents": false,
+      "providerMayRewriteTaskAuthority": false,
+      "providerMayEscalateScope": false
+    }
   },
   "authorityClasses": [
     "READ_ONLY",
@@ -599,5 +623,64 @@
     "peerAwareness": "readOnly",
     "disagreementsReturnTo": "lum",
     "consensusAuthority": false
+  },
+  "providerCommandLaw": {
+    "sponsorMayDefineScopedJob": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "dispatchSigner": "lum",
+    "providerReceives": "signedBoundedTaskManifest",
+    "providerReturnsTo": "lum",
+    "cabinetReviewOptionalBySpecialty": true,
+    "directProviderToProfessor": false,
+    "directProviderToGoddessExecution": false,
+    "providerSuccessMeans": "OBSERVED",
+    "deterministicGreenStillRequired": true
+  },
+  "providerTaskManifestExtension": {
+    "required": [
+      "orderedBy",
+      "dispatchedBy",
+      "providerId",
+      "capabilityId",
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "allowedCapabilities",
+      "forbiddenCapabilities",
+      "requiredOutputSchema",
+      "budget",
+      "stopConditions"
+    ],
+    "orderedByAllowed": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "dispatchedByRequired": "lum",
+    "providerCannotChange": [
+      "orderedBy",
+      "dispatchedBy",
+      "sourceRef",
+      "scopeId",
+      "authorityClass",
+      "stopConditions"
+    ]
+  },
+  "providers": {
+    "cloudflareAiProvider": {
+      "contract": "doctrine/cloudflareAiProviderV1.json",
+      "role": "subordinateVendorAiCapability",
+      "reportsTo": "lum",
+      "cabinetAware": true,
+      "cabinetMember": false,
+      "liveInferenceProven": false,
+      "speaksTo": "lum",
+      "dispatcher": "lum"
+    }
   }
 }

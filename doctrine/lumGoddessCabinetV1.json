@@ -223,5 +223,53 @@
     "unresolvedConflictState": "CONFLICT",
     "lumMayNotSilenceMinorityEvidence": true
   },
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "vendorAiCommandLaw": {
+    "principle": "Lum and the goddess cabinet command vendor AI as bounded capability workers.",
+    "dispatcher": "lum",
+    "sponsors": {
+      "lum": [
+        "generalProviderTask",
+        "integrationTask",
+        "providerComparison"
+      ],
+      "urdDoctorGoddess": [
+        "diagnosticSecondOpinion",
+        "evidenceTriageAssist",
+        "failurePatternAnalysis"
+      ],
+      "belldandySecretary": [
+        "recordNormalizationAssist",
+        "stateComparisonAssist",
+        "receiptIndexAssist"
+      ],
+      "skuldResearch": [
+        "externalResearchAssist",
+        "compatibilityResearchAssist",
+        "licensingResearchAssist",
+        "upstreamFactAssist"
+      ]
+    },
+    "sponsorCreates": "providerJobIntent",
+    "lumCreates": "signedBoundedProviderManifest",
+    "providerReturns": "candidateEvidencePacket",
+    "providerMayRouteCabinet": false,
+    "providerMayInitiateFollowup": false,
+    "providerMayChangeAuthority": false,
+    "providerIsSubordinate": true
+  },
+  "externalProviders": {
+    "cloudflareAiProvider": {
+      "role": "subordinateVendorAiCapability",
+      "knowsCabinet": true,
+      "cabinetMember": false,
+      "returnsTo": "lum",
+      "directGoddessRouting": false,
+      "acceptsSpecialtySponsor": [
+        "urdDoctorGoddess",
+        "belldandySecretary",
+        "skuldResearch"
+      ]
+    }
+  }
 }

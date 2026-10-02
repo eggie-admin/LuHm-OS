@@ -1,0 +1,137 @@
+schema: luhmOs.remoteForge.v1
+status: candidateReview
+authority: Professor
+sourceLaw: AI proposes. Policy authorizes. CI proves. Human promotes.
+
+forge:
+  primaryRemoteForge: githubActions
+  compatibilityLayer: github
+  executionTargets:
+    - githubActions
+    - render
+  durableBinaryStore: googleDrive
+  transientReleaseTransport: githubPrerelease
+  physicalProofTarget: androidDevice
+
+runner:
+  os: ubuntu-24.04
+  shell: bash
+  failFast: true
+
+baselinePackages:
+  apt:
+    - build-essential
+    - ninja-build
+    - cmake
+    - pkg-config
+    - ccache
+    - curl
+    - git
+    - jq
+    - unzip
+    - zip
+    - python3
+    - python3-pip
+
+nativeBuild:
+  generator: Ninja
+  cmakeGenerator: Ninja
+  ccache: true
+  buildTypeDefault: RelWithDebInfo
+
+profiles:
+  androidWeb3:
+    java: "17"
+    gradle: "8.13"
+    android:
+      compileSdk: 36
+      buildTools: "36.1.0"
+      platform: android-36
+      minSdk: 24
+      abi:
+        - arm64-v8a
+    godot: "4.7.2-stable"
+    outputs:
+      - aarDebug
+      - aarRelease
+      - apkDebug
+      - sha256
+      - signatureReceipt
+      - zipalignReceipt
+
+  godotWeb:
+    godot: "4.7.2-stable"
+    outputs:
+      - html
+      - wasm
+      - pck
+      - sha256
+
+  pythonMcp:
+    python: "3.x"
+    outputs:
+      - sourceAudit
+      - packageAudit
+      - healthCheck
+
+  frontEndStatic:
+    node: "24"
+    outputs:
+      - syntaxAudit
+      - staticBundle
+      - receipt
+
+cachePolicy:
+  gradle: githubCache
+  ccache: githubCache
+  node: githubCache
+  godotDownloads: ephemeralVerifiedDownload
+  androidSdk: runnerToolCacheOrSdkManager
+  secrets: neverCache
+
+buildIdentity:
+  required:
+    - taskId
+    - sourceRef
+    - scopeId
+    - milestoneId
+    - runnerImage
+    - toolchainReceipt
+    - outputHashes
+
+artifactLaw:
+  githubActionsArtifacts: ephemeralBuildCache
+  githubPrerelease: transientTransport
+  googleDrive: durableBinaryFileServer
+  artifactDigestRequired: true
+  exactSourceRefRequired: true
+
+deployLaw:
+  render:
+    role: managedRemoteRuntime
+    sourceMustBeExact: true
+    deployReceiptRequired: true
+  android:
+    role: physicalRuntimeProof
+    installReceiptRequired: true
+  cloudflare:
+    role: optionalEdgeAndVendorProvider
+    dnsMutationRequiresProfessorApproval: true
+    publicExposureRequiresProfessorApproval: true
+
+security:
+  providerSecretsHostSideOnly: true
+  secretsInRepo: false
+  secretsInArtifacts: false
+  secretsInLogs: false
+  productionSigningInCiWithoutExplicitAuthority: false
+
+cast:
+  requiredForBuildProducingWorkflows: true
+  exactSourceRef: true
+  singleUse: true
+  retryRequiresNewCast: true
+  automaticBuildOnPullRequest: false
+  automaticBuildOnPush: false
+
+crownStatus: stop

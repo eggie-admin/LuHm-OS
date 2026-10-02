@@ -1,0 +1,18 @@
+{
+  "schema": "luhmOs.namingMigration.v1",
+  "status": "candidateReview",
+  "watcherRoles": {
+    "urdDoctorGoddess": "structuralNamingPathology",
+    "belldandySecretary": "canonicalNameLedger"
+  },
+  "migrations": [
+    {
+      "oldPath": ".github/workflows/cloudflare-ai-provider-audit.yml",
+      "newPath": ".github/workflows/cloudflareAiProviderAudit.yml",
+      "reason": "new writable workflow filename must follow lowerCamelHump"
+    }
+  ],
+  "sourceRef": "candidate/cloudflareAiProviderV1-20261002",
+  "historicalEvidenceRenamed": false,
+  "crownStatus": "stop"
+}

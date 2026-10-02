@@ -245,5 +245,26 @@
     "cabinetContract": "doctrine/lumGoddessCabinetV1.json",
     "acquaintance": "MUTUAL_ROLE_AWARENESS_REQUIRED",
     "consensusAuthority": false
+  },
+  "aiProviders": {
+    "cloudflareAiProvider": {
+      "contract": "doctrine/cloudflareAiProviderV1.json",
+      "role": "subordinateVendorAiCapability",
+      "status": "candidateContractOnly",
+      "dispatcher": "lum",
+      "cabinetAware": true,
+      "cabinetMember": false,
+      "liveInferenceProven": false,
+      "providerAuthority": false,
+      "crownStatus": "stop"
+    }
+  },
+  "tourniquetGuardrail": {
+    "contract": "doctrine/tourniquetGuardrailV1.json",
+    "role": "professorConversationInterruptAndDriftClamp",
+    "triggerOwner": "Professor",
+    "automaticResume": false,
+    "providerRedispatchRequiresNewManifest": true,
+    "crownStatus": "stop"
   }
 }

@@ -5,11 +5,84 @@
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "namingLaw": {
     "controlledNames": "camelHump",
+    "prettierCodeLaw": true,
+    "internalIdentifiers": "lowerCamelHump",
+    "internalFileStems": "lowerCamelHump",
+    "internalJsonKeys": "lowerCamelHump",
+    "internalMachineEnums": "lowerCamelHump",
     "humanHeadings": "readableTitleCase",
-    "externalNames": "preserveRequiredExternalSpelling",
+    "externalNames": "preserveOnlyWhenRequiredByExternalInterface",
+    "boundaryAdapterRequiredForExternalNaming": true,
     "historicalEvidence": "immutableOriginalPath",
     "silentAliasesAllowed": false,
-    "duplicateCanonicalPathsAllowed": false
+    "duplicateCanonicalPathsAllowed": false,
+    "boundaryExceptions": {
+      "environmentVariables": "externalProcessBoundaryOnly",
+      "vendorPayloadKeys": "adapterBoundaryOnly",
+      "protocolRequiredFields": "adapterBoundaryOnly",
+      "androidOrGradleRequiredKeys": "adapterBoundaryOnly",
+      "historicalPaths": "readOnlyEvidenceOnly"
+    },
+    "boundaryLaw": "Ugly external names stop at the adapter. LuHm-owned state, code identifiers, logical IDs, manifests and new writable source remain camelHump.",
+    "migrationRule": "Prefer camelHump migrations when functionally safe. External compatibility exceptions require an explicit adapter or receipt.",
+    "humanCenteredNaming": {
+      "phraseFirst": true,
+      "rule": "Start from the human phrase, then compress into a readable LuHm machine name.",
+      "examples": {
+        "pluginRegistry": "plgnRgstry",
+        "libraryLoader": "lbrryLdr",
+        "magicSystem": "mgcSystm",
+        "githubApi": "gthbApi",
+        "createRepo": "crtRepo",
+        "setRemote": "setRmt"
+      }
+    },
+    "vowelRip": {
+      "enabled": true,
+      "readabilityWins": true,
+      "removeOnlyWhenObvious": true,
+      "preserveMeaningfulVowelsWhenNeeded": true,
+      "forbidden": "crypticCompressionForItsOwnSake"
+    },
+    "booleanPhraseLaw": {
+      "required": true,
+      "examples": [
+        "isReady",
+        "hasReceipt",
+        "canDeploy",
+        "shouldRetry",
+        "needsCrown",
+        "isDriveAssetPublic",
+        "hasExactSourceRef"
+      ],
+      "rule": "Boolean names read like yes/no questions or plain-English predicates."
+    },
+    "functionPhraseLaw": {
+      "required": true,
+      "style": "shortVerbPlusObviousNoun",
+      "examples": [
+        "getBuildState",
+        "pullAsset",
+        "bindReceipt",
+        "resolveAssetUrl",
+        "emitSceneEvent",
+        "renderComicPanel",
+        "crtRepo",
+        "setRmt"
+      ],
+      "rule": "Functions say what they do. Tiny jQuery-style spell names are encouraged when still obvious."
+    },
+    "breadcrumbLaw": {
+      "requiredWhenCompressed": true,
+      "include": [
+        "what",
+        "why",
+        "dataFlow",
+        "forbiddenCallers",
+        "crownBoundary"
+      ],
+      "rule": "Compressed names never erase human understanding; comments and receipts carry the full intent."
+    }
   },
   "canonicalWritableRoots": {
     "agents": "agents/",
@@ -42,9 +115,33 @@
     "tools/smX400OneBashInstall.sh",
     "tools/smX400OneBashInstallAudit.py"
   ],
-  "legacyPathLaw": "Historical evidence may retain old filenames. It is read-only evidence and is not a naming template for new source.",
+  "legacyPathLaw": "Historical evidence may retain legacy spelling. New LuHm-owned writable source must not copy legacy snake, screaming-snake, kebab or dotted naming unless an external interface requires that exact spelling.",
   "moveLaw": "A sealed path move requires an explicit migration receipt containing oldPath, newPath, sourceRef, contentHash, reason and Professor authority.",
   "deleteLaw": "A sealed path cannot disappear without an authorized migration or retirement receipt.",
   "sealLaw": "Exact required paths and naming rules must pass deterministic audit before promotion.",
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "monitoring": {
+    "urdDoctorGoddess": {
+      "role": "structuralNamingPathology",
+      "watches": [
+        "camelHumpDrift",
+        "boundaryLeak",
+        "machineIdentityCollision",
+        "routingBreakRisk",
+        "aliasAmbiguity"
+      ],
+      "authority": "readOnly"
+    },
+    "belldandySecretary": {
+      "role": "canonicalNameLedger",
+      "watches": [
+        "canonicalCamelHumpNames",
+        "boundaryExceptionReceipts",
+        "legacyAliases",
+        "migrationReceipts",
+        "pathContinuity"
+      ],
+      "authority": "readOnly"
+    }
+  }
 }

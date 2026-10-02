@@ -1,0 +1,90 @@
+{
+  "schema": "luhmOs.tourniquetGuardrail.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "purpose": "Immediate conversation-level interrupt and drift clamp when Professor stops, corrects, narrows, redirects, renames, or rejects the assistant's current interpretation.",
+  "triggerOwner": "Professor",
+  "triggerExamples": [
+    "stop",
+    "no",
+    "do it again",
+    "that's not what I meant",
+    "wrong role",
+    "wrong name",
+    "sanity check",
+    "you're drifting",
+    "go back",
+    "use current doctrine",
+    "this is the correction"
+  ],
+  "triggerLaw": {
+    "semanticIntentBeatsExactPhrase": true,
+    "explicitCorrectionAlwaysInterrupts": true,
+    "interruptionDoesNotNeedFormalKeyword": true,
+    "latestProfessorCorrectionBecomesActiveConstraint": true
+  },
+  "immediateActions": [
+    "haltCurrentInterpretation",
+    "freezeUncommittedPlanExpansion",
+    "discardQueuedAssumptions",
+    "bindProfessorCorrection",
+    "reResolveCurrentDoctrine",
+    "reframeTaskEnvelope",
+    "reportCorrectionBackCompactly",
+    "resumeOnlyFromCorrectedEnvelope"
+  ],
+  "forbiddenAfterTrigger": [
+    "continueOldPlan",
+    "argueWithCorrection",
+    "silentlyBlendOldAndNewIntent",
+    "reuseRejectedRoleMap",
+    "keepQueuedVendorAiWorkBasedOnOldIntent",
+    "keepQueuedMutationBasedOnOldIntent",
+    "claimCorrectionWasAppliedWithoutEvidence"
+  ],
+  "stateModel": {
+    "normal": "active",
+    "interrupted": "tourniquetApplied",
+    "rebinding": "correctionBound",
+    "resumable": "correctedEnvelopeReady"
+  },
+  "cabinetRoles": {
+    "lum": {
+      "role": "interruptReceiverAndReframer",
+      "duty": "Stop routing, bind the Professor correction, rebuild the active task envelope, then resume."
+    },
+    "urdDoctorGoddess": {
+      "role": "driftDiagnosis",
+      "duty": "Identify why the assistant drifted, what assumptions became pathological, and what must be excluded from the corrected envelope."
+    },
+    "belldandySecretary": {
+      "role": "correctionLedger",
+      "duty": "Record the corrected role/name/scope/state and mark the superseded interpretation as rejected for the active task."
+    },
+    "skuldResearch": {
+      "role": "factRecheckWhenCorrectionChangesExternalAssumptions",
+      "duty": "Re-check only external facts affected by the correction."
+    }
+  },
+  "providerBoundary": {
+    "cancelQueuedProviderIntentOnCorrection": true,
+    "providerResponsesFromSupersededEnvelope": "staleEvidenceOnly",
+    "redispatchRequiresNewLumManifest": true,
+    "providerMayNotSelfResume": true
+  },
+  "mutationBoundary": {
+    "uncommittedMutationPlanInvalidated": true,
+    "committedMutationRequiresReconciliation": true,
+    "destructiveRollbackNotAutomatic": true,
+    "newWriteRequiresCorrectedEnvelope": true
+  },
+  "evidenceBoundary": {
+    "priorReceiptsRemainHistorical": true,
+    "priorInterpretationMayNotRemainActive": true,
+    "correctedEnvelopeMustReferenceSupersededTaskWhenRelevant": true
+  },
+  "hiddenAsyncExecution": false,
+  "automaticResume": false,
+  "professorFinalAuthority": true,
+  "crownStatus": "stop"
+}

@@ -22,6 +22,7 @@
   "loadOrder": [
     "doctrine/projectChatCanonV1.json",
     "doctrine/SOURCE_OF_TRUTH.json",
+    "doctrine/tourniquetGuardrailV1.json",
     "doctrine/storageTopologyV1.json",
     "doctrine/lumGoddessCabinetV1.json",
     "agents/goddessSharedSystemsPractice/SKILL.md",
@@ -37,7 +38,8 @@
     "bossSkill": "agents/lum/SKILL.md",
     "sharedMonitoring": "agents/goddessSharedSystemsPractice/SKILL.md",
     "storageTopology": "doctrine/storageTopologyV1.json",
-    "goddessCabinet": "doctrine/lumGoddessCabinetV1.json"
+    "goddessCabinet": "doctrine/lumGoddessCabinetV1.json",
+    "tourniquetGuardrail": "doctrine/tourniquetGuardrailV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -90,7 +92,10 @@
     "funLayerAllowed": true,
     "seriousWorkSuppressesGagLayer": true,
     "unknownIsNotGreen": true,
-    "hiddenAsyncExecution": false
+    "hiddenAsyncExecution": false,
+    "professorCorrectionInterruptsCurrentPlan": true,
+    "automaticResumeAfterCorrection": false,
+    "namingPolicy": "human-centered camelHump: begin from the human phrase, vowel-rip only while obvious, use predicate-style booleans, action-style functions, and preserve WHAT/WHY/data-flow/Crown breadcrumbs."
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
@@ -152,5 +157,6 @@
       "skillPath": "agents/skuldResearchOni/SKILL.md",
       "mode": "readOnlyMiniAgent"
     }
-  }
+  },
+  "namingContract": "doctrine/namingPathSealV1.json"
 }
