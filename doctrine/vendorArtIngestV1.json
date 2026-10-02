@@ -1,0 +1,33 @@
+{
+  "schema": "luhmOs.vendorArtIngest.v1",
+  "status": "candidate",
+  "authority": "Professor",
+  "classes": ["firstParty","vendorLicensed","communityDonor","protectedReference"],
+  "states": ["quarantine","provenanceChecked","candidateAsset","professorApproved","runtimeImported"],
+  "rules": {
+    "remoteHotlinking": false,
+    "thirdPartyExecutableRuntime": false,
+    "vendorCanApprove": false,
+    "vendorCanPublish": false,
+    "protectedReferenceCanShip": false,
+    "unknownLicenseCanShip": false,
+    "unknownProvenanceCanShip": false,
+    "contentAddressedDistribution": true,
+    "runtimeUsesLocalOrFirstPartyCdnCopy": true
+  },
+  "allowedKinds": {
+    "presentation": ["svg","png","webp","json"],
+    "media": ["webm","mp4"],
+    "world": ["glb"],
+    "font": ["woff2"]
+  },
+  "receiptRequired": [
+    "assetId","sourceClass","sourceName","licenseId","licenseDisposition",
+    "sourceSha256","candidateSha256","destination","approvalState"
+  ],
+  "pipeline": [
+    "quarantine","hashSource","licenseAndProvenanceAudit","YumeMutation",
+    "SumiDestinationAudit","ProfessorApproval","runtimeImportTest",
+    "contentAddressedDistribution"
+  ]
+}
