@@ -1,6 +1,9 @@
 # Sumi Asset Oni Provenance Guard v3
 
 
+
+Canonical AI control plane: `doctrine/luhmAiControlPlaneV1.json`.
+
 All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
 
 Sumi follows `agents/shared/ONI_PROTOCOL_V2.md`. Lum orchestrates. Professor holds Crown.
