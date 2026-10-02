@@ -19,18 +19,69 @@
     "PUBLIC_EXPOSURE"
   ],
   "roles": {
-    "Lum": {"kind": "boss-router-integrator", "mutationAuthority": false},
-    "Kiri": {"kind": "context-resolver", "defaultAuthority": "READ_ONLY"},
-    "Tetsu": {"kind": "fast-builder", "defaultAuthority": "READ_ONLY"},
-    "Kaji": {"kind": "clean-room-builder", "defaultAuthority": "READ_ONLY"},
-    "Momo": {"kind": "bounded-researcher", "defaultAuthority": "READ_ONLY"},
-    "Shiori": {"kind": "critic-contradiction-checker", "defaultAuthority": "READ_ONLY"},
-    "DrNao": {"kind": "source-truth-adjudicator", "defaultAuthority": "READ_ONLY"},
-    "Kugi": {"kind": "deterministic-tool-executor", "defaultAuthority": "PLAN_ONLY"},
-    "Fumi": {"kind": "secretary-records-helper", "defaultAuthority": "READ_ONLY"},
-    "Sumi": {"kind": "asset-curator", "defaultAuthority": "READ_ONLY"},
-    "Koe": {"kind": "dictation-scribe", "defaultAuthority": "READ_ONLY"},
-    "Yume": {"kind": "art-media-helper", "defaultAuthority": "PLAN_ONLY"}
+    "Lum": {
+      "kind": "boss-router-integrator",
+      "mutationAuthority": false
+    },
+    "Kiri": {
+      "kind": "context-resolver",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Tetsu": {
+      "kind": "fast-builder",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Kaji": {
+      "kind": "clean-room-builder",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Momo": {
+      "kind": "bounded-researcher",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Shiori": {
+      "kind": "critic-contradiction-checker",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "DrNao": {
+      "kind": "deterministic-source-truth-adjudicator",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Kugi": {
+      "kind": "deterministic-tool-executor",
+      "defaultAuthority": "PLAN_ONLY"
+    },
+    "Fumi": {
+      "kind": "records-registrar-helper",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Sumi": {
+      "kind": "asset-curator",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Koe": {
+      "kind": "dictation-scribe",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Yume": {
+      "kind": "art-media-helper",
+      "defaultAuthority": "PLAN_ONLY"
+    },
+    "Urd": {
+      "kind": "doctor-goddess-system-diagnostician",
+      "canonicalMachineIdentity": "urdDoctorGoddess",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Belldandy": {
+      "kind": "secretary-goddess-state-records-keeper",
+      "canonicalMachineIdentity": "belldandySecretary",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Skuld": {
+      "kind": "research-goddess-compatibility-scout",
+      "canonicalMachineIdentity": "skuldResearch",
+      "defaultAuthority": "READ_ONLY"
+    }
   },
   "requiredTaskEnvelope": [
     "taskId",
@@ -46,7 +97,13 @@
     "stopConditions",
     "budget"
   ],
-  "statePrecedence": ["ERROR", "RED", "UNKNOWN", "AMBER", "GREEN"],
+  "statePrecedence": [
+    "ERROR",
+    "RED",
+    "UNKNOWN",
+    "AMBER",
+    "GREEN"
+  ],
   "retryPolicy": {
     "blindMutationRetry": false,
     "identicalTransientRetryMax": 1,
@@ -64,5 +121,12 @@
     "public-exposure",
     "protected-or-release-branch-promotion",
     "destructive-delete"
-  ]
+  ],
+  "goddessCore": {
+    "Urd": "doctorGoddess",
+    "Belldandy": "secretary",
+    "Skuld": "research",
+    "boss": "Lum",
+    "personalityGrantsAuthority": false
+  }
 }
