@@ -48,6 +48,17 @@ jobs:
           python3 tools/namingPathSealAudit.py
           python3 tools/artOniCamelHumpAudit.py
 
+      - name: Tourniquet enterprise preflight
+        run: |
+          python3 tools/tourniquetAgentLogicAudit.py
+          python3 tools/fqdnReverseProxyBoundaryAudit.py
+          python3 tools/reverseProxyServiceMapAudit.py
+          python3 tools/networkContractReconcile.py
+          python3 tools/cloudflareEdgeTemplateAudit.py
+          python3 tools/staticVendorMetadataAudit.py
+          python3 tools/vendorArtNegativeControls.py
+          python3 tools/buildStaticAssetDist.py
+
       - name: Run Titan7 watch fleet
         shell: bash
         run: |
