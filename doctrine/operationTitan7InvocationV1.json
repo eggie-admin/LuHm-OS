@@ -10,18 +10,19 @@
     "workflowProcess",
     "aiLogic",
     "agentSkillDeployment",
+    "tierEscalation",
     "tourniquetRepairClamp",
     "witchingHourBoundedCoding",
     "evidenceGates",
     "stopConditions"
   ],
   "passPolicy": {
-    "requestedPasses": 50,
     "passMustExecute": true,
     "passMustProduceFindingOrExplicitNoFinding": true,
     "passCountMayNotBeClaimedFromConfigurationAlone": true,
-    "redTriggersBoundedRepair": true,
-    "greenContinuesAutomatically": true
+    "tierOwnsPassCount": true,
+    "redTriggersBoundedRepairOrEscalationRecommendation": true,
+    "greenContinuesAutomaticallyWithinInvokedMilestone": true
   },
   "presentation": {
     "jrpgPetBubbles": true,
@@ -39,5 +40,6 @@
       "release"
     ],
     "releaseTo": "luhmAgentMesh"
-  }
+  },
+  "escalationContract": "doctrine/operationTitan7EscalationV1.json"
 }
