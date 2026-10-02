@@ -22,6 +22,9 @@ def getModelId() -> str:
 def hasOpenAiCredential() -> bool:
     return bool(os.environ.get("OPENAI_API_KEY", "").strip())
 
+def isConfigured() -> bool:
+    return hasOpenAiCredential()
+
 def makeClient() -> OpenAI:
     apiKey = os.environ.get("OPENAI_API_KEY", "").strip()
     if not apiKey:
@@ -120,3 +123,15 @@ def createStructuredResponse(
         "greenAuthority": False,
         "crownStatus": "stop",
     }
+
+
+def invoke(*, capabilityId: str, taskPacket: dict[str, Any]) -> dict[str, Any]:
+    if capabilityId == "text":
+        return createTextResponse(
+            instructions=str(taskPacket.get("instructions", "")),
+            userText=str(taskPacket.get("userText", "")),
+            taskId=str(taskPacket["taskId"]),
+            sourceRef=str(taskPacket["sourceRef"]),
+            scopeId=str(taskPacket["scopeId"]),
+        )
+    raise RuntimeError(f"unsupported openAi capabilityId: {capabilityId}")
