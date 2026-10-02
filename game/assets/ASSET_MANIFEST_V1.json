@@ -1,0 +1,8 @@
+{
+  "schema":"luhm-os.godot4-game-assets.v1","status":"SOURCE_SLOTS_READY","binaryPolicy":"No generated binary art or APK stored as doctrine/source receipt.",
+  "characters":["lum","urd","belldandy","skuld"],
+  "requiredFamilies":["portrait","fullBody","spriteIdle","spriteWalk","spriteRun","expressionSheet","uiIcon"],
+  "optionalFamilies":["glb","animationLibrary","voice","vfx"],
+  "formats":{"2d":["png","webp"],"3d":["glb"],"motion":["res","tres"],"manifest":["json"]},
+  "ingestLaw":"References remain protected; only original mutated assets enter game slots."
+}
