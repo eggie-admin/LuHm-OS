@@ -31,28 +31,28 @@ installer = read("tools/termuxVirginInstall.sh")
 orchestrator = read("tools/termuxCastReleaseInstall.sh")
 workflow = read(".github/workflows/android-testing-build.yml")
 source = load_json("doctrine/SOURCE_OF_TRUTH.json")
-release_boundary = load_json("doctrine/RELEASE_BOUNDARY.json")
-install_contract = load_json("doctrine/ROOTED_TERMUX_GITHUB_RELEASE_INSTALL_V1.json")
+releaseBoundary = load_json("doctrine/RELEASE_BOUNDARY.json")
+installContract = load_json("doctrine/rootedTermuxGitHubReleaseInstallV1.json")
 
 aw3 = source.get("androidWeb3Cockpit", {})
-require(aw3.get("delivery") == "GITHUB_PRERELEASE_TO_ROOTED_TERMUX",
+require(aw3.get("delivery") == "githubPrereleaseToRootedTermux",
         "source truth delivery must be GitHub prerelease -> rooted Termux")
-require(aw3.get("releaseInstallContract") == "doctrine/ROOTED_TERMUX_GITHUB_RELEASE_INSTALL_V1.json",
+require(aw3.get("releaseInstallContract") == "doctrine/rootedTermuxGitHubReleaseInstallV1.json",
         "source truth rooted install contract missing")
 require(aw3.get("rootedTermuxInstaller") == "tools/termuxVirginInstall.sh",
         "source truth Termux installer drift")
-require(aw3.get("legacyLanPortal") == "HISTORICAL_ONLY_FOR_THIS_MILESTONE",
+require(aw3.get("legacyLanPortal") == "historicalOnlyForThisMilestone",
         "legacy LAN portal must remain historical for this milestone")
 
-require(install_contract.get("package") == "art.eggiebagelface.luhmos.testing",
+require(installContract.get("package") == "art.eggiebagelface.luhmos.testing",
         "rooted install package drift")
-safety = install_contract.get("safety", {})
+safety = installContract.get("safety", {})
 require(safety.get("checksumRequired") is True, "checksum must be required")
 require(safety.get("rootRequired") is True, "root must be required")
 require(safety.get("broadStorageDeletion") is False, "broad storage deletion must remain false")
 require(safety.get("arbitraryPackageRemoval") is False, "arbitrary package removal must remain false")
 require(safety.get("packageFixedToLuHm") is True, "package must remain fixed to LuHm")
-require(install_contract.get("priorLanPortal", {}).get("status") == "HISTORICAL_ONLY_FOR_THIS_MILESTONE",
+require(installContract.get("priorLanPortal", {}).get("status") == "historicalOnlyForThisMilestone",
         "install contract must retire LAN portal for this milestone")
 
 for token in (
@@ -106,7 +106,7 @@ require("DISPATCH_AFTER=" in orchestrator and ".createdAt >= " in orchestrator,
 require("PROFESSOR_ACTOR=\"$(gh api user --jq '.login')\"" in orchestrator,
         "direct Termux CAST must carry authenticated GitHub actor")
 
-scope = release_boundary.get("androidWeb3Prerelease", {})
+scope = releaseBoundary.get("androidWeb3Prerelease", {})
 require(scope.get("authorizedBy") == "Professor", "prerelease authority drift")
 require(scope.get("sourceMustEqualCastSource") is True, "prerelease source must equal CAST source")
 require(scope.get("overwriteExistingTag") is False, "release tags must be immutable")
@@ -157,9 +157,9 @@ print(json.dumps({
     "schema": "luhm-os.rooted-termux-github-prerelease-audit.v1",
     "status": status,
     "errors": errors,
-    "build": "PENDING_FRESH_CAST",
-    "githubPrerelease": "PENDING_FRESH_CAST",
-    "rootedVirginInstall": "PENDING_DEVICE",
-    "crownStatus": "STOP"
+    "build": "pendingFreshCast",
+    "githubPrerelease": "pendingFreshCast",
+    "rootedVirginInstall": "pendingDevice",
+    "crownStatus": "stop"
 }, indent=2))
 sys.exit(0 if not errors else 2)

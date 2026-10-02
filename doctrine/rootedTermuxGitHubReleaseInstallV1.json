@@ -1,7 +1,7 @@
 {
-  "schema": "luhm-os.rooted-termux-github-release-install.v1",
+  "schema": "luhmOs.rootedTermuxGitHubReleaseInstall.v1",
   "date": "2026-10-02",
-  "status": "GREEN_RELEASE_ARTIFACT_READY_DEVICE_PROOF_PENDING",
+  "status": "greenReleaseArtifactReadyDeviceProofPending",
   "authority": "Professor",
   "purpose": "Fresh LuHm OS installation on a rooted Samsung tablet using Termux and a GitHub Release APK.",
   "terminology": {
@@ -44,11 +44,11 @@
     "latestResolutionAllowed": true
   },
   "priorLanPortal": {
-    "status": "HISTORICAL_ONLY_FOR_THIS_MILESTONE",
+    "status": "historicalOnlyForThisMilestone",
     "delete": false
   },
-  "nextGate": "RUN_PINNED_ONE_BASH_INSTALL_ON_PHYSICAL_SM_X400_AND_CAPTURE_DEVICE_PROOF",
-  "crownStatus": "STOP",
+  "nextGate": "runPinnedOneBashInstallOnPhysicalSmX400AndCaptureDeviceProof",
+  "crownStatus": "stop",
   "exactRelease": {
     "sourceRef": "b25cfad18051ba2799b19e27f035487366b256c9",
     "castBridgeRun": 37000025238,

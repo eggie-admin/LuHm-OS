@@ -36,7 +36,11 @@
     "agents/urdMutationOni/SKILL.md",
     "doctrine/smX400RootedAndroid16TargetV1.json",
     "tools/termuxVirginInstall.sh",
-    "doctrine/projectHydraFinalAuditMilestoneV1.json"
+    "doctrine/projectHydraFinalAuditMilestoneV1.json",
+    "doctrine/rootedTermuxGitHubReleaseInstallV1.json",
+    "doctrine/smX400OneBashInstallSealV1.json",
+    "tools/smX400OneBashInstall.sh",
+    "tools/smX400OneBashInstallAudit.py"
   ],
   "legacyPathLaw": "Historical evidence may retain old filenames. It is read-only evidence and is not a naming template for new source.",
   "moveLaw": "A sealed path move requires an explicit migration receipt containing oldPath, newPath, sourceRef, contentHash, reason and Professor authority.",

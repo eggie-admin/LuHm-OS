@@ -25,7 +25,7 @@ on:
       - 'tools/rootedTermuxReleaseAudit.py'
       - 'tools/termuxVirginInstall.sh'
       - 'tools/termuxCastReleaseInstall.sh'
-      - 'doctrine/ROOTED_TERMUX_GITHUB_RELEASE_INSTALL_V1.json'
+      - 'doctrine/rootedTermuxGitHubReleaseInstallV1.json'
       - 'doctrine/RELEASE_BOUNDARY.json'
       - '.github/workflows/android-web3-cockpit-audit.yml'
   workflow_dispatch:

@@ -42,11 +42,14 @@ jobs:
           test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
           git diff --check
 
-      - name: Goddess trust and naming path seals
-        run: |
-          python3 tools/goddessTrustSealAudit.py
-          python3 tools/namingPathSealAudit.py
-          python3 tools/artOniCamelHumpAudit.py
+      - name: Audit goddess trust seal
+        run: python3 tools/goddessTrustSealAudit.py
+
+      - name: Audit naming path seal
+        run: python3 tools/namingPathSealAudit.py
+
+      - name: Audit Art Oni camelHump
+        run: python3 tools/artOniCamelHumpAudit.py
 
       - name: Run Titan7 watch fleet
         shell: bash

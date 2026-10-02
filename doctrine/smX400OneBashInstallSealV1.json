@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.smX400OneBashInstallSeal.v1",
-  "status": "GREEN_INSTALL_BUNDLE_READY_DEVICE_PROOF_PENDING",
+  "status": "greenInstallBundleReadyDeviceProofPending",
   "authority": "Professor",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "apkSourceRef": "b25cfad18051ba2799b19e27f035487366b256c9",
@@ -30,13 +30,13 @@
     "arbitraryPackageRemoval": false
   },
   "deviceProof": {
-    "install": "PENDING_DEVICE",
-    "launch": "PENDING_DEVICE",
-    "touch": "PENDING_DEVICE",
-    "worldMode": "PENDING_DEVICE",
-    "lumTalk": "PENDING_DEVICE",
-    "cathedralReturn": "PENDING_DEVICE"
+    "install": "pendingDevice",
+    "launch": "pendingDevice",
+    "touch": "pendingDevice",
+    "worldMode": "pendingDevice",
+    "lumTalk": "pendingDevice",
+    "cathedralReturn": "pendingDevice"
   },
-  "nextGate": "RUN_ONE_BASH_INSTALL_ON_PHYSICAL_SM_X400_AND_CAPTURE_LUHM_VIRGIN_INSTALL_GREEN",
+  "nextGate": "runPinnedOneBashInstallOnPhysicalSmX400AndCaptureVirginInstallGreen",
   "crownStatus": "stop"
 }
