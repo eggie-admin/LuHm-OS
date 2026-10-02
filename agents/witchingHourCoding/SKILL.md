@@ -3,6 +3,18 @@
 ## Mission
 Witching Hour is LuHm OS's bounded high-intensity coding approach for OperationTitan7 repair tiers. It turns an audited blocker into the smallest reversible source mutation and matching proof.
 
+## Canonical handoff
+
+Witching Hour is entered from `agents/projectChatBootstrap/SKILL.md`, not as a permanent chat mode. The active task must carry the same exact `taskId`, `sourceRef`, scope, blocker, known-good fallback, and proof target into this repair lane.
+
+Monitoring mini-agents remain read-only while Witching Hour is active:
+- `lum` watches orchestration continuity
+- `urd` watches mutation and rollback continuity
+- `skuld` watches dependency, library and compatibility continuity
+- `belldandy` watches doctrine, naming, path, skill and workflow continuity
+
+No monitoring lane grants CAST, build, merge, publication, signing, deployment, or Crown authority.
+
 ## Invocation
 Lum invokes Witching Hour only after current sourceRef, blocker, authority boundary, known-good fallback and required proof are resolved.
 
