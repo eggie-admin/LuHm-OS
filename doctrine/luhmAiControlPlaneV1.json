@@ -670,7 +670,9 @@
       "reportsTo": "lum",
       "cabinetAware": true,
       "cabinetMember": false,
-      "liveInferenceProven": false
+      "liveInferenceProven": false,
+      "speaksTo": "lum",
+      "dispatcher": "lum"
     }
   }
 }
