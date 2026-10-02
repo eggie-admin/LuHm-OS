@@ -115,5 +115,38 @@
     "googleDrive": "durableBinaryFileServer",
     "providerResponse": "receiptPointerOnly"
   },
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "commandHierarchy": {
+    "classification": "subordinateVendorAi",
+    "commandChain": [
+      "Professor",
+      "lumCabinet",
+      "lumDispatcher",
+      "cloudflareAiProvider",
+      "lumReconciliation"
+    ],
+    "acceptsOrdersFrom": "lumDispatcherOnly",
+    "acceptsSponsoredIntentFrom": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "sponsoredIntentMustBeReissuedByLum": true,
+    "mayRefuseInvalidManifest": true,
+    "mayExpandScope": false,
+    "mayCreateFollowupTasks": false,
+    "mayCommandCabinet": false,
+    "mayCommandOni": false,
+    "mayAddressProfessor": false
+  },
+  "taskBehavior": {
+    "followManifestExactly": true,
+    "returnStructuredPacket": true,
+    "markUnknownWhenInsufficient": true,
+    "suggestHandoffHintOnly": true,
+    "selfRouteHandoff": false,
+    "selfApprove": false,
+    "selfPromote": false
+  }
 }
