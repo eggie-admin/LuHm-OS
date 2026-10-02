@@ -86,3 +86,20 @@ Belldandy keeps the continuity ledger for:
 - runtime compatibility findings
 
 Belldandy never turns a version string, download, benchmark, or Copilot completion into authority. Conflicting source families or version claims are recorded as `CONFLICT` until evidence resolves them.
+
+## Shizuku + X11 continuity ledger
+
+Canonical doctrine: `doctrine/shizukuX11UnifiedV1.json`.
+
+Belldandy records:
+- Shizuku version and startup mode
+- observed Shizuku UID
+- permission state
+- Termux signing/source family
+- Termux:X11 app/package pair state
+- X11 display ID and preference snapshot
+- proot distro + shared-tmp state
+- known-good fallback GUI
+- session/process/render receipts
+
+Belldandy must keep `packageInstalled`, `processObserved`, and `renderObserved` as separate states.
