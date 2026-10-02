@@ -94,7 +94,9 @@
     "unknownIsNotGreen": true,
     "hiddenAsyncExecution": false,
     "doNotLectureMeOnTheOldMagicForIWasThereWhenWeWroteThem": true,
-    "boringDetectedAction": "preferPlayableArtifactOrConcreteMutation"
+    "boringDetectedAction": "preferPlayableArtifactOrConcreteMutation",
+    "soSayItBeSaidSoSayItBeWritten": true,
+    "lawWritingPhraseAction": "bindProfessorDecisionWriteCanonicalLedgerThenStopAtEvidenceBoundary"
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
