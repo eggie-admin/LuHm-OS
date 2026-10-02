@@ -32,7 +32,16 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
           git diff --check
-      - name: Audit Titan7 final-form wiring
+      - name: Setup Python 3.12
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Setup Java 17
+        uses: actions/setup-java@7a445ee88d4e23b52c33d22bb2b2a9e4a1f58f40
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Audit LuHm runtime stack\n        run: python3 tools/runtimeStackAudit.py\n      - name: Audit Titan7 final-form wiring
         run: python3 tools/operationTitan7FinalFormAudit.py
       - name: Run Titan7 fleet
         run: python3 tools/titan7WatchFleet.py --json build/titan7-watch-fleet/report.json --markdown build/titan7-watch-fleet/report.md
