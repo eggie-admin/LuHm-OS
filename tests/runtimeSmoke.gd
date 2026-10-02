@@ -68,6 +68,21 @@ func _run() -> void:
         _check(not bool(player.get("world_active")), "Cathedral disables world movement")
         _check(not bool(player.get("controls_locked")), "Cathedral releases cutscene control lock")
         _check(not bool(hud.get("dialogue_label").visible), "Cathedral clears dialogue")
+        _check(hud.get("_world_buttons").size() == 3, "world HUD exposes three playable destinations")
+        _check(hud.get("_talk") is Button, "world HUD exposes Talk to Lum")
+        hud.emit_signal("lum_talk_requested")
+        await process_frame
+        _check(bool(hud.get("dialogue_label").visible), "Talk to Lum produces deterministic dialogue")
+        hud.clear_dialogue()
+        hud.emit_signal("world_destination_requested", "lumCoffeeHouse")
+        await process_frame
+        _check(String(game.get("active_world_id")) == "lumCoffeeHouse", "HUD destination reaches coffee house")
+        hud.emit_signal("world_destination_requested", "cathedral")
+        await process_frame
+        _check(String(game.get("active_world_id")) == "cathedral", "HUD destination reaches cathedral")
+        hud.emit_signal("world_destination_requested", "neonRiverwalk")
+        await process_frame
+        _check(String(game.get("active_world_id")) == "neonRiverwalk", "HUD destination returns riverwalk")
         _check(player.get("touch_axis") == Vector2.ZERO, "Cathedral clears held touch input")
 
     if game.has_method("switchWorld"):
