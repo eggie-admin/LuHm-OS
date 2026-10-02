@@ -9,7 +9,7 @@
     "historyRewrite": false,
     "globalCrown": "STOP"
   },
-  "status": "AMBER_FULL_PROJECT_AUDIT_RECONCILIATION_CANDIDATE",
+  "status": "AMBER_FULL_PROJECT_AUDIT_RECONCILIATION_REQUIRED",
   "milestone": "FULL_PROJECT_RECONCILIATION_GATE",
   "exactCanonicalMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
   "canonicalTree": "4b9e85e5070952e8600580589681bafaf31e3e65",
