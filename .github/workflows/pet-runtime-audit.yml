@@ -1,0 +1,79 @@
+name: LuHm OS Pet Runtime Hardening Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'doctrine/petRuntimeHardening-20260926.json'
+      - 'doctrine/SOURCE_OF_TRUTH.json'
+      - 'doctrine/RELEASE_BOUNDARY.json'
+      - 'scripts/main.gd'
+      - 'scripts/game/petWindowController.gd'
+      - 'scripts/game/petHudOverlay.gd'
+      - 'scripts/game/pixelSitter.gd'
+      - 'tools/petRuntimeAudit.py'
+      - '.github/workflows/pet-runtime-audit.yml'
+      - 'manual/LUHM_OS_PET_RUNTIME_HARDENING.md'
+      - 'assets/pet/**'
+      - 'assets/community/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contract-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Validate JSON contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/petRuntimeHardening-20260926.json >/dev/null
+          python3 -m json.tool doctrine/SOURCE_OF_TRUTH.json >/dev/null
+          python3 -m json.tool doctrine/RELEASE_BOUNDARY.json >/dev/null
+          python3 -m json.tool assets/community/community-assets.json >/dev/null
+          test -s assets/community/THIRD_PARTY_NOTICES.md
+
+      - name: Run deterministic pet-runtime contract audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/petRuntimeAudit.py --output build/pet-runtime/audit.json
+          python3 -m json.tool build/pet-runtime/audit.json >/dev/null
+
+      - name: Assert evidence boundaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('build/pet-runtime/audit.json').read_text())
+          assert report['status'] == 'GREEN_REPOSITORY_CONTRACT', report
+          assert report['runtimeProof'] is False
+          assert report['deviceProof'] is False
+          assert report['releaseAuthority'] is False
+          assert report['promotionAuthority'] is False
+          print('PET_RUNTIME_CONTRACT=PASS')
+          print('RUNTIME_PROOF=NOT_CLAIMED')
+          PY
+
+      - name: Upload audit receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-os-pet-runtime-audit
+          path: build/pet-runtime/
+          if-no-files-found: error
+          retention-days: 30

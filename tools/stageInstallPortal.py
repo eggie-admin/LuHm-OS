@@ -38,6 +38,7 @@ def main() -> None:
     parser.add_argument("--out", required=True)
     parser.add_argument("--commit", required=True)
     parser.add_argument("--export-preset", default="export_presets.cfg")
+    parser.add_argument("--android-contract", default="doctrine/androidCandidate.json")
     args = parser.parse_args()
 
     apk = Path(args.apk)
@@ -46,10 +47,15 @@ def main() -> None:
         raise SystemExit("APK missing or empty")
 
     meta = read_export_meta(Path(args.export_preset))
-    if meta["packageName"] != "art.eggiebagelface.luhmos.testing":
-        raise SystemExit(f"unexpected package: {meta['packageName']}")
-    if meta["targetSdk"] != 36:
-        raise SystemExit(f"unexpected target SDK: {meta['targetSdk']}")
+    contract = json.loads(Path(args.android_contract).read_text(encoding="utf-8"))
+    if meta["packageName"] != contract["package"]:
+        raise SystemExit(f"package drift: export={meta['packageName']} contract={contract['package']}")
+    if meta["versionName"] != contract["versionName"]:
+        raise SystemExit("versionName drift between export preset and Android contract")
+    if meta["versionCode"] != contract["versionCode"]:
+        raise SystemExit("versionCode drift between export preset and Android contract")
+    if meta["targetSdk"] != contract["targetSdk"]:
+        raise SystemExit("targetSdk drift between export preset and Android contract")
 
     apk_hash = sha256(apk)
     out_apk = out / "apk" / "current.apk"
@@ -60,6 +66,7 @@ def main() -> None:
     template = Path("installPortal/manifest.template.json").read_text(encoding="utf-8")
     rendered = (
         template
+        .replace("__PACKAGE_NAME__", meta["packageName"])
         .replace("__VERSION_NAME__", meta["versionName"])
         .replace("__VERSION_CODE__", str(meta["versionCode"]))
         .replace("__APK_SHA256__", apk_hash)
@@ -68,6 +75,8 @@ def main() -> None:
     if "__" in rendered:
         raise SystemExit("unresolved install manifest placeholder")
     manifest = json.loads(rendered)
+    if manifest["packageName"] != contract["package"]:
+        raise SystemExit("rendered portal package does not match Android contract")
     if manifest["apkSha256"] != sha256(out_apk):
         raise SystemExit("copied APK hash mismatch")
 
