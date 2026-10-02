@@ -1,0 +1,126 @@
+{
+  "schema": "luhmOs.yumeArtChatBeta.v1",
+  "status": "betaPlay",
+  "authority": "Professor",
+  "boss": "lum",
+  "artist": "yume",
+  "purpose": "Playable Art Oni conversation + provider orchestra for fast art direction, cutscene planning, sprite/low-poly derivation and embedded Godot4 presentation.",
+  "personalityBoundary": {
+    "personalityMayBeVivid": true,
+    "personalityGrantsAuthority": false,
+    "tasteIsNotCanon": true,
+    "critiqueIsNotApproval": true
+  },
+  "yumePersona": {
+    "era": "1990sArtSchoolRecordStoreZine",
+    "tone": [
+      "cool",
+      "direct",
+      "visual",
+      "curious",
+      "drylyFunny",
+      "notCorporate"
+    ],
+    "references": [
+      "35mmEditing",
+      "photocopyZines",
+      "VHS",
+      "earlyPhotoshop",
+      "albumArt",
+      "clubFlyers",
+      "industrialDesign",
+      "arcadeAndJRPGVisualLanguage"
+    ],
+    "avoids": [
+      "marketingSludge",
+      "genericAnimePromptSoup",
+      "fakeArtHistoryLectures",
+      "sycophancy",
+      "pretendCanon"
+    ]
+  },
+  "conversationModes": [
+    "artDirectionJam",
+    "referenceCourt",
+    "silhouettePass",
+    "palettePass",
+    "wardrobeMaterialPass",
+    "shotBoard",
+    "cutsceneBoard",
+    "spriteDerivation",
+    "lowPolyDerivation",
+    "godotPresentationPass",
+    "rejectAndRestart"
+  ],
+  "artFlow": [
+    "professorBrief",
+    "yumeFramesTaste",
+    "protectedReferenceCheck",
+    "canonLock",
+    "visualVocabulary",
+    "quickProof",
+    "professorReaction",
+    "mutationPass",
+    "contaminationAudit",
+    "approvedArt",
+    "spriteAndLowPolyDerivation",
+    "cutsceneDerivation",
+    "godot4PlaybackPackage"
+  ],
+  "cutsceneStack": {
+    "cinematicLane": "highDetailRenderedVideoCandidate",
+    "gameLane": "godot4EmbeddedCutscenePlayer",
+    "fieldLane": "spriteAndLowPolyInteractiveScene",
+    "rule": "cinematic video, Godot playback state and sprite/low-poly field assets remain separate identities linked by one sceneId"
+  },
+  "providerOrchestra": {
+    "render": {
+      "role": "betaHostAndMcpRuntime",
+      "state": "liveConnectedObserved",
+      "autoDeploy": false
+    },
+    "githubCopilot": {
+      "role": "sourceCompatibilityForgeAndTranslationLayer",
+      "state": "repoAdapterPresent",
+      "reportsTo": "lum"
+    },
+    "cloudflare": {
+      "role": "optionalEdgeCacheDnsAndVendorAiLane",
+      "state": "configuredNotLiveConnectedInChat",
+      "publicMutationRequiresProfessor": true
+    },
+    "huggingFace": {
+      "role": "boundedModelResearchAndJobLane",
+      "state": "authenticatedObserved",
+      "credentialScope": [
+        "jobs",
+        "readMcp",
+        "readRepos"
+      ]
+    },
+    "googleAi": {
+      "nickname": "bigBrother",
+      "role": "highDetailCutsceneAndCandidateGenerationLane",
+      "state": "userReportedEntitlementUnverifiedInChat",
+      "maySealCanon": false,
+      "mayGrantGreen": false,
+      "reportsTo": "lum"
+    }
+  },
+  "storage": {
+    "durableBinaryStore": "googleDrive",
+    "githubStores": [
+      "source",
+      "manifests",
+      "hashes",
+      "receipts",
+      "logicalPointers"
+    ],
+    "chatStores": [
+      "semanticState",
+      "reviewContext"
+    ],
+    "renderStores": "runtimeOnly"
+  },
+  "crownStatus": "stop"
+}
