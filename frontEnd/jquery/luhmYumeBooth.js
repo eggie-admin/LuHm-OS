@@ -76,6 +76,20 @@
           });
         });
 
+        $root.on("click." + pluginName, "[data-yume-hf]", function () {
+          const capabilityId = String($(this).attr("data-yume-hf") || "");
+          if (!capabilityId) return;
+          $root.find("[data-yume-hf-status]").text("request queued for Lum · " + capabilityId);
+          emit($root, "hfCapabilityRequested", {
+            providerId: "huggingFace",
+            capabilityId: capabilityId,
+            sceneId: state.options.sceneId,
+            requestedBy: "yume",
+            dispatchedBy: "lum",
+            authority: false
+          });
+        });
+
         $root.on("click." + pluginName, "[data-yume-reject]", function () {
           const proofId = String($(this).attr("data-proof-id") || "currentProof");
           if (!state.rejectedProofIds.includes(proofId)) state.rejectedProofIds.push(proofId);
