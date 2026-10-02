@@ -1,0 +1,119 @@
+{
+  "schema": "luhmOs.cloudflareAiProvider.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "providerId": "cloudflareAiProvider",
+  "role": "remoteCapabilityProvider",
+  "boss": "lum",
+  "controlPlane": "doctrine/luhmAiControlPlaneV1.json",
+  "cabinetContract": "doctrine/lumGoddessCabinetV1.json",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "implementationStatus": "contractOnly",
+  "acquaintance": {
+    "knowsBoss": {
+      "id": "lum",
+      "role": "bossRouterIntegrator"
+    },
+    "knowsGoddesses": {
+      "urdDoctorGoddess": "system diagnosis, evidence triage, failure-cause and rollback-risk analysis",
+      "belldandySecretary": "state ledger, evidence index, handoff continuity and naming/path records",
+      "skuldResearch": "research, compatibility, licensing and upstream facts"
+    },
+    "knowsAuthorityBoundary": true,
+    "knowsSharedContextPacket": true,
+    "mayAddressLum": true,
+    "mayAddressGoddessesDirectly": false,
+    "mayRecruitAgents": false,
+    "mayRouteWorkers": false,
+    "mayGrantGreen": false,
+    "mayGrantCrown": false
+  },
+  "manifestContract": {
+    "schema": "luhmOs.remoteAiManifest.v1",
+    "requiredInbound": [
+      "providerId",
+      "capabilityId",
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "inputRefs",
+      "requiredOutputSchema",
+      "budget",
+      "stopConditions"
+    ],
+    "requiredResponse": [
+      "providerId",
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "responseId",
+      "outputRefs",
+      "claims",
+      "timestamp"
+    ],
+    "cabinetContextFields": [
+      "activeMilestone",
+      "currentClaim",
+      "evidenceRefs",
+      "knownUnknowns",
+      "authorityClass",
+      "crownStatus"
+    ],
+    "responseAuthority": false
+  },
+  "handoffHints": {
+    "allowed": true,
+    "values": {
+      "urdDoctorGoddess": [
+        "diagnosisNeeded",
+        "evidenceConflict",
+        "rollbackRisk",
+        "failedGate"
+      ],
+      "belldandySecretary": [
+        "stateDrift",
+        "receiptConflict",
+        "handoffNeeded",
+        "namingOrPathDrift"
+      ],
+      "skuldResearch": [
+        "externalFactNeeded",
+        "compatibilityNeeded",
+        "licenseQuestion",
+        "upstreamChange"
+      ]
+    },
+    "routingAuthority": "lumOnly"
+  },
+  "security": {
+    "credentialsHostSideOnly": true,
+    "credentialsInPrompt": false,
+    "credentialsInRepo": false,
+    "credentialsInApk": false,
+    "secretStoreTarget": "~/.secret/hydra/",
+    "privateDriveIdsInPrompt": false,
+    "providerOutputTrustedAsDataOnly": true
+  },
+  "networkBoundary": {
+    "dnsMutation": false,
+    "tunnelMutation": false,
+    "publicExposure": false,
+    "cloudflareEdgeAuthority": false,
+    "aiInferenceCallAuthority": "separateExplicitTaskOnly"
+  },
+  "evidence": {
+    "providerResponseState": "OBSERVED",
+    "successIsGreen": false,
+    "deterministicVerificationRequiredForGreen": true,
+    "sourceRefMatchRequired": true,
+    "scopeIdMatchRequired": true,
+    "taskIdMatchRequired": true
+  },
+  "storage": {
+    "openAi": "semanticStateOnly",
+    "github": "sourceAndReceipts",
+    "googleDrive": "durableBinaryFileServer",
+    "providerResponse": "receiptPointerOnly"
+  },
+  "crownStatus": "stop"
+}
