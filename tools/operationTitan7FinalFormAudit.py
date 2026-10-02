@@ -16,7 +16,7 @@ if ff.get("greenClaim") is not False: errors.append("candidate may not self-gree
 if len(fleet.get("watches",[]))<20: errors.append("Titan7 fleet below 20 watches")
 if mil.get("auditProtocol",{}).get("harness")!="operationTitan7": errors.append("final milestone not bound to Titan7")
 wh=(root/"agents/witchingHourCoding/SKILL.md").read_text()
-for term in ["exact sourceRef","Urd","Belldandy","Skuld","Shiori","Kugi","nearest evidence-backed known-good"]:
+for term in ["exact sourceRef","urdDoctorGoddess","belldandySecretary","skuldResearch","Shiori","Kugi","nearest evidence-backed known-good"]:
     if term not in wh: errors.append("witching hour missing "+term)
 
 whc=ff.get("witchingHour",{})
