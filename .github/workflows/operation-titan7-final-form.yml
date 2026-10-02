@@ -53,6 +53,8 @@ jobs:
         run: python3 tools/projectHydraHard20PassAudit.py
       - name: Audit Cloudflare edge template boundaries
         run: python3 tools/cloudflareEdgeTemplateAudit.py
+      - name: Audit FQDN reverse proxy and mobile-origin boundary
+        run: python3 tools/fqdnReverseProxyBoundaryAudit.py
       - name: Audit FQDN and local reverse proxy boundaries
         run: python3 tools/fqdnReverseProxyAudit.py
       - name: Build content-addressed static asset distribution
