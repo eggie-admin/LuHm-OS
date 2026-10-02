@@ -2,11 +2,11 @@
 set -euo pipefail
 
 repoName="eggie-admin/LuHm-OS"
-sourceRef="b25cfad18051ba2799b19e27f035487366b256c9"
-releaseTag="android-web3-b25cfad1-r37000025238"
+sourceRef="569e535ec3dbb17c6ba407ce23b0b216b816f883"
+releaseTag="android-web3-569e535e-r37002117063"
 apkName="LuHmOS-AndroidWeb3-${releaseTag}-arm64-v8a.apk"
 shaName="${apkName}.sha256"
-expectedApkSha256="2a030cd15f6409464b9fc0fcd65f39f60635dcdabfdc298db3e25ae51ee4e3c8"
+expectedApkSha256="368efd3c41fa92a55ff7cedbeeb48424a973eaec10104931615f02ba7f4cec2c"
 workDir="${TMPDIR:-$HOME/.cache}/luhm-one-bash-install"
 installerPath="${workDir}/termuxVirginInstall.sh"
 
