@@ -8,6 +8,10 @@ assert jq.is_file(), "RED_JQUERY_MISSING"
 html=Path("frontEnd/index.html").read_text()
 assert "./vendor/jquery-3.7.1.min.js" in html
 assert "./jquery/luhm.cockpit.js" in html
+assert "./jquery/luhm.plugins.js" in html
+assert html.index("jquery-3.7.1.min.js") < html.index("luhm.plugins.js") < html.index("luhm.cockpit.js")
+registry=Path("frontEnd/jquery/luhm.plugins.js").read_text()
+assert "LuHmPlugins" in registry and "capabilities" in registry
 assert html.index("jquery-3.7.1.min.js") < html.index("luhm.cockpit.js")
 assert b["jqueryUi"]["state"]=="approvedCandidate"
 assert b["bootstrap"]["state"]=="approvedCandidate"
