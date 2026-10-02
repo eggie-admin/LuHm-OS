@@ -29,6 +29,7 @@ SOURCE_REF="$(gh api "repos/$REPO/branches/main" --jq '.commit.sha')"   || die "
 
 printf 'CAST source: %s\n' "$SOURCE_REF"
 printf 'Release tag: %s\n' "$TAG"
+DISPATCH_AFTER="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 if gh release view "$TAG" --repo "$REPO" >/dev/null 2>&1; then
   die "release tag already exists; refusing overwrite"
@@ -39,7 +40,7 @@ gh workflow run "$WORKFLOW"   --repo "$REPO"   --ref main   -f cast=cast   -f mi
 printf 'Waiting for exact workflow run to appear...\n'
 RUN_ID=""
 for _ in $(seq 1 30); do
-  RUN_ID="$(gh run list     --repo "$REPO"     --workflow "$WORKFLOW"     --event workflow_dispatch     --limit 20     --json databaseId,headSha,status,createdAt     --jq ".[] | select(.headSha == \"$SOURCE_REF\") | .databaseId"     | head -n 1)"
+  RUN_ID="$(gh run list     --repo "$REPO"     --workflow "$WORKFLOW"     --event workflow_dispatch     --limit 20     --json databaseId,headSha,status,createdAt     --jq ".[] | select(.headSha == \"$SOURCE_REF\" and .createdAt >= \"$DISPATCH_AFTER\") | .databaseId"     | head -n 1)"
   [ -n "$RUN_ID" ] && break
   sleep 2
 done
@@ -58,4 +59,4 @@ done
 gh release view "$TAG" --repo "$REPO" >/dev/null 2>&1   || die "workflow succeeded but prerelease is not visible"
 
 printf 'GitHub prerelease is visible. Starting rooted virgin install...\n'
-exec "$SCRIPT_DIR/termuxVirginInstall.sh" "$TAG"
+exec bash "$SCRIPT_DIR/termuxVirginInstall.sh" "$TAG"
