@@ -154,7 +154,12 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                 emitSignal(BRIDGE_ERROR.name, "bridge_origin_rejected")
                 return@addWebMessageListener
             }
-            handleBridgeMessage(message.data)
+            val raw = message.data
+            if (raw == null) {
+                emitSignal(BRIDGE_ERROR.name, "bridge_payload_missing")
+                return@addWebMessageListener
+            }
+            handleBridgeMessage(raw)
         }
     }
 
