@@ -1,5 +1,8 @@
 # Project Chat Bootstrap v1
 
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 Canonical machine identity: `projectChatBootstrap`
 
 This skill is the entry point for every LuHm OS / Project Hydra related chat. It is intentionally small. It loads the current truth and the smallest agent set needed for the user's task instead of copying the whole project history into every conversation.
