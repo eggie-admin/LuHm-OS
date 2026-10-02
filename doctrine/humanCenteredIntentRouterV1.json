@@ -1,0 +1,71 @@
+{
+  "schema": "luhmOs.humanCenteredIntentRouter.v1",
+  "status": "candidate",
+  "authority": "Professor",
+  "purpose": "Route conversational intent to the least consequential workflow that safely satisfies the requested human goal.",
+  "rules": [
+    "Infer task scope from the Professor's current goal, explicit constraints, environment and conversational corrections.",
+    "Do not escalate a development task into release, publication or Crown ceremony merely because those workflows exist.",
+    "Prefer the smallest reversible lane that can satisfy the request.",
+    "Ambiguity between two equally consequential safe lanes may require one concise clarification; otherwise proceed with the narrower lane.",
+    "A higher-authority lane is selected only when the requested outcome actually requires its boundary."
+  ],
+  "lanes": {
+    "virginDevInstall": {
+      "cues": [
+        "virgin install",
+        "empty dev tablet",
+        "test apk",
+        "development install",
+        "rooted test device",
+        "no sensitive data"
+      ],
+      "flow": [
+        "exactSource",
+        "buildApk",
+        "sha256PackageCheck",
+        "confirmDeviceContract",
+        "install",
+        "launchSmoke"
+      ],
+      "success": "greenForVirginDevInstall",
+      "excludes": [
+        "productionSigning",
+        "publication",
+        "stablePromotion",
+        "releaseCrown",
+        "sourceTruthReconciliation"
+      ]
+    },
+    "releaseCandidate": {
+      "cues": [
+        "prerelease",
+        "release artifact",
+        "publish candidate"
+      ],
+      "requiresExplicitOutcome": true
+    },
+    "fullCrown": {
+      "cues": [
+        "crown",
+        "seal release",
+        "production promotion",
+        "source-of-truth reconciliation"
+      ],
+      "requiresExplicitOutcome": true
+    }
+  },
+  "correctionLearning": {
+    "chatCorrectionOverridesEarlierInferredScope": true,
+    "recordAsRoutingRuleNotPersonality": true,
+    "noSilentPersistentAuthorityPromotion": true
+  },
+  "urd": {
+    "role": "statusChangeObserverDebugTracerRouter",
+    "monitorMaterialTransitions": true,
+    "routeFailuresToSmallestRelevantSkill": true,
+    "mayEscalateAuthority": false,
+    "mayBlockOnDeterministicSafetyFailure": true
+  },
+  "crownStatus": "stop"
+}
