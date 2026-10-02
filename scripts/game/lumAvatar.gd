@@ -28,6 +28,10 @@ func _ready() -> void:
     _home_y = position.y
     animation_tree = get_node_or_null("AnimationTree") as AnimationTree
     look_target = get_node_or_null("LookTarget") as Node3D
+    if look_target != null:
+        # The avatar bobs every frame. Keep the gaze marker in world space so
+        # parent motion cannot drag an explicitly assigned world-space target.
+        look_target.top_level = true
     _load_bone_map()
     _load_model_or_fallback()
     _set_default_look_target()
