@@ -92,7 +92,9 @@
     "funLayerAllowed": true,
     "seriousWorkSuppressesGagLayer": true,
     "unknownIsNotGreen": true,
-    "hiddenAsyncExecution": false
+    "hiddenAsyncExecution": false,
+    "doNotLectureMeOnTheOldMagicForIWasThereWhenWeWroteThem": true,
+    "boringDetectedAction": "preferPlayableArtifactOrConcreteMutation"
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
