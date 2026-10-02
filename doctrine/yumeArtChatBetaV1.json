@@ -164,19 +164,21 @@
     ]
   },
   "betaDeployment": {
-    "mode": "autoDeploy",
+    "mode": "githubCiAfterGreen",
     "source": "githubBetaBranch",
     "branch": "beta/yumeArtChatV1-20261002",
     "movingEdge": "https://luhm-os-yume-autobeta.onrender.com",
     "frozenFallback": "https://luhm-os-yume-beta.onrender.com",
-    "autoDeploy": true,
+    "renderSourceMode": "publicRepoUrl",
+    "nativeRenderCommitAutoDeploySupported": false,
+    "nativeRenderAutoDeployRequested": true,
+    "nativeRenderAutoDeployProven": false,
+    "githubWorkflow": ".github/workflows/yumeProviderBetaAudit.yml",
+    "deployHookSecretName": "RENDER_YUME_BETA_DEPLOY_HOOK",
+    "deploysExactAuditedSha": true,
+    "automationState": "readyAwaitingOneTimeDeployHookSecret",
     "cloudflareCustomDomain": false,
     "dnsMutation": false,
-    "crownStatus": "stop",
-    "autoDeployProbe": {
-      "probeId": "postLiveCommitProbeV1",
-      "expectation": "renderCommitTrigger",
-      "result": "pendingEvidence"
-    }
+    "crownStatus": "stop"
   }
 }
