@@ -41,6 +41,7 @@ frontEndIndexPath = rootPath / "frontEnd/index.html"
 frontEndAppPath = rootPath / "frontEnd/app.js"
 harnessPath = rootPath / "host/mcp/luhmHarness.py"
 widgetPath = rootPath / "host/harness/widget.html"
+mcpConfigPath = rootPath / "plugins/luhm-os/mcp.json"
 hfSharedPath = rootPath / "agents/shared/huggingFaceCapabilityLawV1.md"
 hfSkillPaths = [
     rootPath / "agents/lum/SKILL.md",
@@ -54,7 +55,7 @@ hfSkillPaths = [
     rootPath / "agents/kiriContextOni/SKILL.md",
 ]
 
-for path in (openAiPath, yumeSkillPath, requirementsPath, copilotPath, yumePluginPath, frontEndIndexPath, frontEndAppPath, harnessPath, widgetPath, hfSharedPath, *hfSkillPaths):
+for path in (openAiPath, yumeSkillPath, requirementsPath, copilotPath, yumePluginPath, frontEndIndexPath, frontEndAppPath, harnessPath, widgetPath, mcpConfigPath, hfSharedPath, *hfSkillPaths):
     requireTruth(path.is_file(), f"missing {path.relative_to(rootPath)}")
 
 if openAiPath.is_file():
@@ -178,6 +179,18 @@ if widgetPath.is_file():
     widgetText = widgetPath.read_text(encoding="utf-8")
     requireTruth('id="yume"' in widgetText, "MCP widget Yume card missing")
     requireTruth('origin+"/cockpit/"' in widgetText, "MCP widget cockpit handoff missing")
+
+if mcpConfigPath.is_file():
+    mcpConfig = json.loads(mcpConfigPath.read_text(encoding="utf-8"))
+    requireTruth(
+        mcpConfig.get("mcpServers", {}).get("luhm", {}).get("url") == "https://luhm-os-yume-autobeta.onrender.com/mcp",
+        "beta plugin MCP does not point at Yume auto-beta edge"
+    )
+
+betaDeployment = betaDoc.get("betaDeployment", {})
+requireTruth(betaDeployment.get("mode") == "autoDeploy", "beta auto-deploy doctrine missing")
+requireTruth(betaDeployment.get("autoDeploy") is True, "beta auto-deploy disabled in doctrine")
+requireTruth(betaDeployment.get("dnsMutation") is False, "beta deploy unexpectedly mutates DNS")
 
 secretRx = re.compile(r"\b(?:sk-(?:proj-)?[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{30,}|ghp_[A-Za-z0-9]{20,})\b")
 for relPath in (
