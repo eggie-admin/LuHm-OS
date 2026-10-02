@@ -23,6 +23,7 @@
     "doctrine/projectChatCanonV1.json",
     "doctrine/SOURCE_OF_TRUTH.json",
     "doctrine/storageTopologyV1.json",
+    "doctrine/lumGoddessCabinetV1.json",
     "agents/goddessSharedSystemsPractice/SKILL.md",
     "agents/lum/SKILL.md",
     "agents/urdMutationOni/SKILL.md",
@@ -35,7 +36,8 @@
     "chatBootstrap": "agents/projectChatBootstrap/SKILL.md",
     "bossSkill": "agents/lum/SKILL.md",
     "sharedMonitoring": "agents/goddessSharedSystemsPractice/SKILL.md",
-    "storageTopology": "doctrine/storageTopologyV1.json"
+    "storageTopology": "doctrine/storageTopologyV1.json",
+    "goddessCabinet": "doctrine/lumGoddessCabinetV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
