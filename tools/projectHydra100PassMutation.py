@@ -2,11 +2,17 @@
 import json, pathlib, subprocess, sys
 root=pathlib.Path(__file__).resolve().parents[1]
 policy=json.loads((root/"doctrine/projectHydraContinuousBuildV1.json").read_text())
+assert policy["systemScope"]["name"]=="wholeLuHmOsProjectHydra"
 cfg=policy["mutationPass"]; max_passes=int(cfg["maxPasses"])
 receipts=[]
 
 def run_audit():
-    p=subprocess.run([sys.executable,str(root/"tools/projectHydraHard20PassAudit.py")],cwd=root,text=True,capture_output=True)
+    commands=[[sys.executable,str(root/"tools/projectHydraHard20PassAudit.py")],[sys.executable,str(root/"tools/fullSourceTruthAudit.py"),"--output",str(root/"build/full-source-truth/readiness.json")],[sys.executable,str(root/"tools/operationTitan7FinalFormAudit.py")],[sys.executable,str(root/"tools/namingPathSealAudit.py")],[sys.executable,str(root/"tools/artOniCamelHumpAudit.py")],[sys.executable,str(root/"tools/goddessTrustSealAudit.py")]]
+    logs=[]; rc=0
+    for command in commands:
+        q=subprocess.run(command,cwd=root,text=True,capture_output=True)
+        logs.append(q.stdout+q.stderr); rc=max(rc,q.returncode)
+    p=type("AuditResult",(),{"returncode":rc,"stdout":"\n".join(logs),"stderr":""})()
     receipt_path=root/"build/projectHydraHard20Pass/receipt.json"
     receipt=json.loads(receipt_path.read_text()) if receipt_path.exists() else None
     return p.returncode,receipt,(p.stdout+p.stderr)[-6000:]
