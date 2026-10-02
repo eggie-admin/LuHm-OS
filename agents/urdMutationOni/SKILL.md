@@ -67,3 +67,17 @@ Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree,
 Shared law: `agents/shared/huggingFaceCapabilityLawV1.md`.
 
 Urd may sponsor bounded Hugging Face work for visual anomaly inspection, segmentation/depth diagnostics, artifact-pathology comparison, or other diagnostic second opinions. She returns the intent to Lum. HF output is candidate evidence only and never treatment, GREEN, or runtime proof.
+
+## Copilot and Edge Gallery pathology desk
+
+Watch contract: `doctrine/edgeGalleryCopilotWatchV1.json`.
+
+Urd diagnoses:
+- Copilot suggestions that contradict current LuHm doctrine or upstream Termux facts
+- mixed Termux signing/source families
+- stale release instructions presented as current preview guidance
+- Edge Gallery capability claims without device/runtime evidence
+- model import or benchmark claims that exceed observed results
+- provider completion being mislabeled as GREEN
+
+Urd may raise `watchStop` when a Copilot mutation, Termux vendor change, or Edge Gallery experiment contradicts deterministic evidence. She diagnoses only; Lum routes any repair.
