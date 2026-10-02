@@ -34,5 +34,13 @@
   },
   "finalMilestone": "Project Hydra final system audit and evidence-backed seal candidate",
   "crownStatus": "STOP",
-  "greenClaim": false
+  "greenClaim": false,
+  "tourniquet": {
+    "path": "doctrine/tourniquetWorkflowV1.json",
+    "skill": "agents/tourniquetWorkflow/SKILL.md",
+    "position": "failClosedClampAroundWitchingHour",
+    "required": true,
+    "greenAction": "reingestCurrentTruthAndContinue",
+    "redAction": "rollbackOrNearestEvidenceBackedKnownGood"
+  }
 }
