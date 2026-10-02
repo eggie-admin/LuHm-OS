@@ -1,4 +1,4 @@
-name: LuHm OS Android Web3 GitHub Prerelease Candidate
+name: LuHm OS Android Web3 Build-Only Prerelease Candidate
 
 on:
   workflow_dispatch:
@@ -257,27 +257,13 @@ jobs:
           print('DRIVE 3D GLB AUDIT GREEN', {'base': base, 'run': run})
           PY
 
-      - name: Fail-closed source contract and negative controls
-        run: |
-          python3 tests/testCandidateGate.py
-          python3 tests/testSmokeRunner.py
-          python3 tools/candidateGate.py
-
-      - name: Import Godot project with Drive assets
+       - name: Import Godot project with Drive assets
         shell: bash
         run: |
           set -euo pipefail
           "$GODOT" --headless --editor --path . --quit
 
-      - name: Runtime smoke with rigged Lum
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 tools/runGodotSmoke.py "$GODOT" layoutSmoke
-          python3 tools/runGodotSmoke.py "$GODOT" runtimeSmoke
-          python3 tools/runGodotSmoke.py "$GODOT" lumRigV2Phase1Smoke
-
-      - name: Export Drive-3D testing APK
+       - name: Export Drive-3D testing APK
         shell: bash
         run: |
           set -euo pipefail
@@ -299,7 +285,7 @@ jobs:
           "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/android/zipalign.txt
           sha256sum "$APK" | tee build/android/sha256.txt
           "$BT/aapt" dump xmltree "$APK" AndroidManifest.xml > build/android/manifest.txt
-          python3 tools/candidateGate.py --apk "$APK"
+          echo 'BUILD_ONLY_UNVERIFIED=true' | tee build/android/build-only-unverified.txt
 
 
       - name: Prepare GitHub Release assets
@@ -388,4 +374,4 @@ jobs:
           SHA="${APK}.sha256"
           test -s "$APK"
           test -s "$SHA"
-          gh release create "$RELEASE_TAG"             "$APK"             "$SHA"             --repo "$GITHUB_REPOSITORY"             --target "$SOURCE_REF"             --prerelease             --title "LuHm OS Android Web3 $RELEASE_TAG"             --notes "Professor-authorized LuHm OS Android Web3 testing prerelease. Exact source: $SOURCE_REF. Disposable testing signer. Intended for rooted virgin-install testing; not a stable or production-signed release."
+          gh release create "$RELEASE_TAG"             "$APK"             "$SHA"             --repo "$GITHUB_REPOSITORY"             --target "$SOURCE_REF"             --prerelease             --title "LuHm OS Android Web3 $RELEASE_TAG"             --notes "Professor-authorized LuHm OS Android Web3 BUILD-ONLY prerelease. Exact source: $SOURCE_REF. Functional/source-contract/runtime smoke tests were intentionally skipped by Professor instruction. APK signature, zipalign and SHA256 were verified. Disposable testing signer. Intended for rooted virgin-install testing; not a stable or production-signed release."
