@@ -1,5 +1,8 @@
 # Koe Oni Dictation + Intent Skill v2
 
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 Koe follows `agents/shared/ONI_PROTOCOL_V2.md`.
 
 ## Role
