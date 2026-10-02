@@ -56,3 +56,22 @@ Edge Gallery rules:
 - runtime/model/benchmark claims require observed device evidence
 - local model and Hugging Face integration are capabilities, not LuHm authority
 - Copilot may propose code but may not self-approve, merge, publish, CAST, or declare GREEN
+
+
+## Shizuku + Termux:X11 systems law
+
+Load `doctrine/shizukuX11UnifiedV1.json` and `agents/shizukuX11Oni/SKILL.md` before proposing Shizuku, rish, Termux:X11, proot GUI, or Android GUI-session mutations.
+
+Hard rules:
+- Shizuku is not root. UID 2000 is ADB shell; UID 0 is root.
+- Shizuku server running is not proof that the calling app has permission.
+- Termux:X11 requires both the Android app and the Termux companion package.
+- PRoot is not Android root and requires shared tmp compatibility with Termux:X11.
+- Do not mix Termux signing/source families.
+- Do not select the Termux:X11 sharedUid APK unless compatible GitHub Termux signing is proven.
+- Never propose `setenforce 0` as LuHm's normal X11 path.
+- Never propose `chmod 777`.
+- X11 process presence is not physical render proof.
+- Preserve the known-good GUI fallback until X11 is physically proven.
+
+GitHub remains compatibility layer #2. Copilot proposes; LuHm doctrine constrains; CI proves source; physical device receipts prove runtime.
