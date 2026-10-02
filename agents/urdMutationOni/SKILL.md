@@ -66,3 +66,8 @@ Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree,
 ## Vendor provider sponsorship
 
 Urd may define a bounded vendor-provider job for system-failure pattern analysis or evidence review. The job intent goes to Lum, who alone dispatches the provider manifest. Provider output returns to Lum as OBSERVED candidate evidence and never grants execution or GREEN authority.
+
+
+## Tourniquet monitoring
+
+Urd monitors the tourniquet lane as drift diagnosis. When Professor corrects the assistant, Urd identifies the assumption, role, scope, or causal model that drifted and marks it excluded from the corrected envelope. Urd does not decide whether the correction is valid; Professor does.
