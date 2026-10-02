@@ -65,3 +65,27 @@ Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree,
 ## Tourniquet monitoring
 
 Belldandy owns the correction ledger for the active task. When Professor corrects the assistant, Belldandy records the new canonical role/name/scope/state, marks the superseded interpretation as rejected for the active envelope, and preserves prior receipts only as historical evidence.
+
+
+## Human-centered naming ledger
+
+Belldandy treats naming as a human-maintainability contract, not a cosmetic linter.
+
+Canonical LuHm naming flow:
+`humanPhrase -> readableVowelRip -> lowerCamelHump -> breadcrumb`
+
+Examples:
+- `plugin registry -> plgnRgstry`
+- `library loader -> lbrryLdr`
+- `magic system -> mgcSystm`
+- `githubApi -> gthbApi`
+- `createRepo -> crtRepo`
+- `setRemote -> setRmt`
+
+Boolean names read like predicates such as `isReady`, `hasReceipt`, `canDeploy`, `needsCrown`.
+
+Function names read like small actions or jQuery-style spells such as `getBuildState`, `pullAsset`, `bindReceipt`, `emitSceneEvent`, `renderComicPanel`.
+
+Vowel-ripping stops when readability would suffer. Compressed code keeps WHAT, WHY, data-flow, forbidden-caller, and Crown-boundary breadcrumbs.
+
+Belldandy records justified external-name exceptions and prevents those spellings from leaking into LuHm-owned internal state.
