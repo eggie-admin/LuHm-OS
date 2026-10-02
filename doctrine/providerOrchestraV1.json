@@ -79,7 +79,23 @@
       ],
       "paidComputeRequiresExplicitTask": true,
       "mayGrantGreen": false,
-      "reportsTo": "lum"
+      "reportsTo": "lum",
+      "sharedLaw": "agents/shared/huggingFaceCapabilityLawV1.md",
+      "sponsorRoles": [
+        "lum",
+        "urdDoctorGoddess",
+        "belldandySecretary",
+        "skuldResearch",
+        "yume",
+        "sumi",
+        "momo",
+        "shiori",
+        "kiri"
+      ],
+      "directWorkerDispatch": false,
+      "lumDispatchRequired": true,
+      "runningJobsObserved": 0,
+      "runningJobsObservedAt": "2026-10-02"
     },
     "googleAi": {
       "nickname": "bigBrother",
