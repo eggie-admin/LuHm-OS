@@ -586,5 +586,18 @@
       "machineWorker": false,
       "parallelClass": "humanGate"
     }
+  },
+  "goddessCabinet": {
+    "contract": "doctrine/lumGoddessCabinetV1.json",
+    "members": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "sharedContextRequired": true,
+    "peerAwareness": "readOnly",
+    "disagreementsReturnTo": "lum",
+    "consensusAuthority": false
   }
 }
