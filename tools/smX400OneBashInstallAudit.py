@@ -28,22 +28,39 @@ if not errors:
     need(seal.get("authority") == "Professor", "authority drift")
     need(seal.get("crownStatus") == "stop", "crown must remain stop")
     need(contract.get("status") == "greenReleaseArtifactReadyDeviceProofPending", "install contract status drift")
+
     release = seal.get("release", {})
-    need(release.get("tag") == "android-web3-b25cfad1-r37000025238", "tag drift")
-    need(release.get("apkSha256") == "2a030cd15f6409464b9fc0fcd65f39f60635dcdabfdc298db3e25ae51ee4e3c8", "apk digest drift")
+    sourceRef = seal.get("apkSourceRef")
+    releaseTag = release.get("tag")
+    apkSha256 = release.get("apkSha256")
+    need(bool(sourceRef), "seal missing apkSourceRef")
+    need(bool(releaseTag), "seal missing release tag")
+    need(bool(apkSha256), "seal missing APK digest")
     need(release.get("productionSigned") is False, "must remain testing signer")
-    for token in (
-        'sourceRef="b25cfad18051ba2799b19e27f035487366b256c9"',
-        'releaseTag="android-web3-b25cfad1-r37000025238"',
-        'expectedApkSha256="2a030cd15f6409464b9fc0fcd65f39f60635dcdabfdc298db3e25ae51ee4e3c8"',
-        'releaseSha="$(awk',
-        'pinned release checksum drift',
-        'raw.githubusercontent.com/$repoName/$sourceRef/tools/termuxVirginInstall.sh',
-        'exec bash "$installerPath" "$releaseTag" "$apkName" "$shaName"',
-    ):
-        need(token in wrapper, f"wrapper missing {token}")
+
+    exactRelease = contract.get("exactRelease", {})
+    need(exactRelease.get("sourceRef") == sourceRef, "contract sourceRef drift")
+    need(exactRelease.get("tag") == releaseTag, "contract tag drift")
+    need(exactRelease.get("apkSha256") == apkSha256, "contract APK digest drift")
+    need(exactRelease.get("castBridgeRun") == seal.get("castBridgeRun"), "CAST run drift")
+    need(exactRelease.get("androidBuildRun") == seal.get("androidBuildRun"), "Android build run drift")
+    need(exactRelease.get("oneBashInstaller") == "tools/smX400OneBashInstall.sh", "one-bash installer path drift")
+
+    if sourceRef and releaseTag and apkSha256:
+        for token in (
+            f'sourceRef="{sourceRef}"',
+            f'releaseTag="{releaseTag}"',
+            f'expectedApkSha256="{apkSha256}"',
+            'releaseSha="$(awk',
+            'pinned release checksum drift',
+            'raw.githubusercontent.com/$repoName/$sourceRef/tools/termuxVirginInstall.sh',
+            'exec bash "$installerPath" "$releaseTag" "$apkName" "$shaName"',
+        ):
+            need(token in wrapper, f"wrapper missing {token}")
+
     need(wrapper.index('releaseSha="$(awk') < wrapper.index('exec bash "$installerPath"'), "digest pin must precede installer execution")
     need(not re.search(r"(?m)^[A-Z][A-Z0-9_]*=", wrapper), "new wrapper contains non-camelHump internal variable")
+
     for token in (
         '[ "$MODEL" = "SM-X400" ]',
         '[ "$ANDROID" = "16" ]',
