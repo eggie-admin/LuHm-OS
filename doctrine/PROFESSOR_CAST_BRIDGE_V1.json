@@ -1,7 +1,7 @@
 {
-  "schema": "luhm-os.professor-cast-bridge.v1",
+  "schema": "luhm-os.professor-cast-bridge.v2",
   "date": "2026-10-02",
-  "status": "PROPOSED_CONTROL_PLANE",
+  "status": "PROPOSED_CONTROL_PLANE_WITH_PROVENANCE",
   "authority": "Professor",
   "purpose": "Allow an explicit owner-authored GitHub PR comment containing a milestone and exact current-main SHA to dispatch exactly one CAST-gated Android Web3 build/release workflow.",
   "trigger": {
@@ -26,7 +26,26 @@
     "noStableRelease": true,
     "noProductionSigning": true,
     "noMergeAuthority": true,
-    "noCrownAuthority": true
+    "noCrownAuthority": true,
+    "noBotImpersonation": true,
+    "botMayTransportAuthorizationOnlyWithVerifiedOrigin": true
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "provenance": {
+    "bridge": {
+      "carriesProfessorActorFrom": "github.event.comment.user.login",
+      "carriesOriginRunIdFrom": "github.run_id",
+      "buildWorkflowMustVerify": {
+        "repositoryOwnerMatchesProfessorActor": true,
+        "originEvent": "issue_comment",
+        "originRunActorMatchesProfessorActor": true,
+        "originRunHeadShaMatchesSourceRef": true
+      }
+    },
+    "direct": {
+      "termuxActorSource": "gh api user --jq .login",
+      "requiredOriginMarker": "direct",
+      "buildWorkflowRequiresDispatcherEqualsProfessorActor": true
+    }
+  }
 }
