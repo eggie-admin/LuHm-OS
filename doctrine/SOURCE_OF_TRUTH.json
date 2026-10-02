@@ -205,6 +205,22 @@
     "tabletIdentity": "captureOnDevice",
     "githubPrerelease": "greenExactPrereleasePublished",
     "virginInstallProof": "pendingDevice",
-    "legacyLanPortal": "historicalOnlyForThisMilestone"
+    "legacyLanPortal": "historicalOnlyForThisMilestone",
+    "artifactStorage": "googleDriveDurableBinary",
+    "githubPrereleaseRole": "transientTransportOnly",
+    "durableArtifactReceipt": "PENDING_DRIVE_COPY"
+  },
+  "storageTopology": {
+    "contract": "doctrine/storageTopologyV1.json",
+    "status": "CANDIDATE_STORAGE_LAW_STAGED",
+    "primeLaw": "databases point to files; databases do not become the file server",
+    "openAiRole": "semanticDb",
+    "githubRole": "sourceDb",
+    "googleDriveRole": "durableBinaryFileServer",
+    "androidRole": "runtimeMountAndPhysicalProof",
+    "githubBinaryRetention": "ephemeralTransportOrBuildCacheOnly",
+    "durableBinaryStorage": "googleDrive",
+    "privateDriveIdsInPublicDoctrine": false,
+    "crownStatus": "STOP"
   }
 }
