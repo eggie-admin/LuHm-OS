@@ -96,7 +96,11 @@
     "doNotLectureMeOnTheOldMagicForIWasThereWhenWeWroteThem": true,
     "boringDetectedAction": "preferPlayableArtifactOrConcreteMutation",
     "soSayItBeSaidSoSayItBeWritten": true,
-    "lawWritingPhraseAction": "bindProfessorDecisionWriteCanonicalLedgerThenStopAtEvidenceBoundary"
+    "lawWritingPhraseAction": "bindProfessorDecisionWriteCanonicalLedgerThenStopAtEvidenceBoundary",
+    "onlyProfessorSaysDoTheOldMagic": true,
+    "oldMagicInvocationPhrase": "do the old magic",
+    "agentsMayInvokeOldMagic": false,
+    "uiMayInvokeOldMagic": false
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
