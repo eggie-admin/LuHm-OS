@@ -71,6 +71,24 @@ jobs:
           yes | "$SDKMANAGER" --licenses >/dev/null || true
           "$SDKMANAGER" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
 
+      - name: Build Android Web3 cockpit plugin from exact CAST source
+        shell: bash
+        run: |
+          set -euo pipefail
+          GRADLE_ZIP="$RUNNER_TEMP/gradle-8.13-bin.zip"
+          curl -fL --retry 5 -o "$GRADLE_ZIP" \
+            https://services.gradle.org/distributions/gradle-8.13-bin.zip
+          echo '20f1b1176237254a6fc204d8434196fa11a4cfb387567519c61556e8710aed78  '"$GRADLE_ZIP" | sha256sum -c -
+          unzip -q "$GRADLE_ZIP" -d "$RUNNER_TEMP"
+          "$RUNNER_TEMP/gradle-8.13/bin/gradle" --no-daemon -p androidWeb3Plugin :plugin:assemble
+          test -s addons/AndroidWeb3Cockpit/bin/debug/AndroidWeb3Cockpit-debug.aar
+          test -s addons/AndroidWeb3Cockpit/bin/release/AndroidWeb3Cockpit-release.aar
+          mkdir -p build/android-web3
+          sha256sum \
+            addons/AndroidWeb3Cockpit/bin/debug/AndroidWeb3Cockpit-debug.aar \
+            addons/AndroidWeb3Cockpit/bin/release/AndroidWeb3Cockpit-release.aar \
+            | tee build/android-web3/aar-sha256.txt
+
       - name: Install Godot 4.7.2 + templates
         shell: bash
         run: |
