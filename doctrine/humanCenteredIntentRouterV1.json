@@ -65,7 +65,23 @@
     "monitorMaterialTransitions": true,
     "routeFailuresToSmallestRelevantSkill": true,
     "mayEscalateAuthority": false,
-    "mayBlockOnDeterministicSafetyFailure": true
+    "mayBlockOnDeterministicSafetyFailure": true,
+    "rollbackLadder": true,
+    "fallbackRequiresEvidence": true
   },
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "routingStrategy": {
+    "mode": "highestJustifiedThenFallback",
+    "rule": "Attempt the highest workflow state justified by Professor intent and current evidence. On deterministic failure, stop advancement and fall back to the most recent evidence-backed known-good checkpoint.",
+    "noBlindEscalation": true,
+    "noUnnecessaryFullReset": true,
+    "preserveKnownGoodStates": true,
+    "fallbackOrder": [
+      "fullCrown",
+      "releaseCandidate",
+      "virginDevInstall",
+      "verifiedBuild",
+      "exactSource"
+    ]
+  }
 }
