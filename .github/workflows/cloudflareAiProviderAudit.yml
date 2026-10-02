@@ -1,0 +1,26 @@
+name: Cloudflare AI Provider Audit
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/cloudflareAiProviderV1.json"
+      - "doctrine/luhmAiControlPlaneV1.json"
+      - "doctrine/lumGoddessCabinetV1.json"
+      - "doctrine/SOURCE_OF_TRUTH.json"
+      - "agents/cloudflareAiProvider/SKILL.md"
+      - "tools/cloudflareAiProviderAudit.py"
+      - ".github/workflows/cloudflareAiProviderAudit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - run: python tools/cloudflareAiProviderAudit.py
