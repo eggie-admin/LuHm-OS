@@ -90,6 +90,18 @@
           });
         });
 
+        $root.on("click." + pluginName, "[data-yume-old-magic]", function () {
+          state.options.mode = "makeSomethingCool";
+          $root.find("[data-yume-active-mode]").text("makeSomethingCool");
+          $root.find("[data-yume-fun-status]").text("Old Magic invoked · sermon suppressed · Yume wants a shot, sprite, cutscene, or weird little machine.");
+          emit($root, "oldMagicInvoked", {
+            phrase: "doNotLectureMeOnTheOldMagicForIWasThereWhenWeWroteThem",
+            value: true,
+            nextMode: "makeSomethingCool",
+            authority: false
+          });
+        });
+
         $root.on("click." + pluginName, "[data-yume-reject]", function () {
           const proofId = String($(this).attr("data-proof-id") || "currentProof");
           if (!state.rejectedProofIds.includes(proofId)) state.rejectedProofIds.push(proofId);
@@ -138,5 +150,5 @@
     return this;
   };
 
-  $.fn[pluginName].version = "0.1.0-beta";
+  $.fn[pluginName].version = "0.2.0-beta";
 }(jQuery));
