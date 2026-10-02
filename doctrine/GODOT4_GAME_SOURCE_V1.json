@@ -1,0 +1,12 @@
+{
+  "schema":"luhm-os.godot4-game-source.v1","status":"CANDIDATE_SOURCE_ONLY","authority":"Professor","crownStatus":"STOP",
+  "baseMain":"6427357afccb76c085a4d7632e1310f9a27ccad0",
+  "scope":["Godot 4 project source","original character canon","game asset slots","Titan7 milestone UI","source validation"],
+  "excluded":["APK","AAB","production signing","stable publication","real-person likeness cloning","private reference redistribution"],
+  "characters":["Lum","Urd","Belldandy","Skuld"],
+  "sourceLaw":"AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "operationLaw":"PROTECT != INGEST != MUTATE != CAST != JANITOR",
+  "castRequiredForBuild":true,
+  "physicalDeviceProof":"PENDING",
+  "assetBinaryProof":"PENDING_GENERATION_AND_INGEST"
+}
