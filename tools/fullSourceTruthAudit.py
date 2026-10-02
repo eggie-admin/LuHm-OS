@@ -64,6 +64,7 @@ def main() -> int:
 
     errors: list[str] = []
     blockers: list[dict[str, str]] = []
+    post_cast_boundaries: list[dict[str, str]] = []
 
     if source.get("canonical_repository") != "eggie-admin/LuHm-OS":
         errors.append("canonical repository drift")
@@ -116,7 +117,7 @@ def main() -> int:
 
     # Physical SM-X400 install/launch is post-CAST deployment evidence. Its
     # absence must remain visible without falsely blocking software readiness.
-    blockers.append({"gate": "physical_deployment_post_cast", "reason": "SM-X400 install/launch proof remains physical-only and is not inferred from CI"})
+    post_cast_boundaries.append({"gate": "physical_deployment_post_cast", "reason": "SM-X400 install/launch proof remains physical-only and is not inferred from CI"})
 
     if source.get("enterpriseReady") is not True:
         blockers.append({"gate": "enterprise_readiness", "reason": "enterpriseReady=false"})
@@ -153,6 +154,7 @@ def main() -> int:
         "workflowStatus": orchestrator.get("status"),
         "tenPassAudit": audit_passes,
         "blockers": blockers,
+        "postCastBoundaries": post_cast_boundaries,
         "contractErrors": errors,
         "hashes": {
             str(path.relative_to(ROOT)): sha256(path)
