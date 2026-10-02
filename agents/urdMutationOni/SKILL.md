@@ -61,3 +61,9 @@ Lum, Urd, Belldandy and Skuld share the cabinet contract at `doctrine/lumGoddess
 Every cabinet member knows the other three roles, their authority limits, and the shared handoff vocabulary. Peer awareness is read-only. Goddesses never recruit one another, execute one another's work, or silently form a majority verdict. All specialty packets return to Lum for reconciliation.
 
 Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree, the disagreement stays explicit as `CONFLICT`; Lum may not invent consensus. Deterministic evidence outranks cabinet opinion, and Professor retains Crown.
+
+## Hugging Face diagnostic sponsorship
+
+Shared law: `agents/shared/huggingFaceCapabilityLawV1.md`.
+
+Urd may sponsor bounded Hugging Face work for visual anomaly inspection, segmentation/depth diagnostics, artifact-pathology comparison, or other diagnostic second opinions. She returns the intent to Lum. HF output is candidate evidence only and never treatment, GREEN, or runtime proof.
