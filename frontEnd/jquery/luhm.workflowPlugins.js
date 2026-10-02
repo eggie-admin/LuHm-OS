@@ -31,6 +31,29 @@
     return packet;
   };
 
+  const deepDungeonPatterns = [
+    /where(?:'s| is) my\s+(.+)/i,
+    /what happened (?:to|with) my\s+(.+)/i,
+    /where did we leave\s+(.+)/i,
+    /where were we with\s+(.+)/i,
+    /what became of my\s+(.+)/i,
+    /find my current\s+(.+)/i,
+    /what(?:'s| is) the status of my\s+(.+)/i
+  ];
+
+  function deepDungeonIntent(text) {
+    const source = String(text || "").trim();
+    for (const pattern of deepDungeonPatterns) {
+      const match = source.match(pattern);
+      if (match && String(match[1] || "").trim()) {
+        return Object.freeze({matched:true, target:String(match[1]).trim(), source});
+      }
+    }
+    return Object.freeze({matched:false, target:"", source});
+  }
+
+  $.deepDungeonIntent = deepDungeonIntent;
+
   $.deepDungeon = function (milestone, detail) {
     if (!String(milestone || "").trim()) throw new Error("deepDungeon requires the Professor milestone");
     const packet = envelope("deepDungeon", milestone, detail);
