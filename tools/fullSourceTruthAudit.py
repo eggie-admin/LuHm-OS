@@ -18,8 +18,6 @@ ORCHESTRATOR = ROOT / "doctrine/fullSourceTruthOrchestrator-20260926.json"
 SAMSUNG_SEAL = ROOT / "doctrine/samsungLayoutSeal-20260926.json"
 COCKPIT_SEAL = ROOT / "doctrine/s24FeCockpitAuditSwitchSeal-20260926.json"
 PORTAL_SEAL = ROOT / "doctrine/fqdnInstallPortalSeal-20260926.json"
-ANDROID_WEB3 = ROOT / "doctrine/ANDROID_WEB3_COCKPIT_SWITCH_V1.json"
-SMX400 = ROOT / "doctrine/smX400RootedAndroid16TargetV1.json"
 
 GOOD = {"GREEN", "VERIFIED", "PASS", "PROVEN"}
 
@@ -59,12 +57,9 @@ def main() -> int:
     samsung = load(SAMSUNG_SEAL)
     cockpit = load(COCKPIT_SEAL)
     portal = load(PORTAL_SEAL)
-    android_web3 = load(ANDROID_WEB3)
-    smx400 = load(SMX400)
 
     errors: list[str] = []
     blockers: list[dict[str, str]] = []
-    post_cast_boundaries: list[dict[str, str]] = []
 
     if source.get("canonical_repository") != "eggie-admin/LuHm-OS":
         errors.append("canonical repository drift")
@@ -101,23 +96,22 @@ def main() -> int:
         if required_deny not in deny:
             errors.append(f"release boundary lost required deny rule: {required_deny}")
 
-    # Historical S24 FE/.lan/Apache receipts remain immutable evidence, but the
-    # Android Web3 switch explicitly supersedes them as active readiness gates.
-    if android_web3.get("supersedes", {}).get("priorSeal") != "doctrine/s24FeCockpitAuditSwitchSeal-20260926.json":
-        errors.append("Android Web3 supersession contract missing historical cockpit seal")
-    target = smx400.get("target", {})
-    if target.get("model") != "SM-X400" or target.get("androidMajor") != 16:
-        errors.append("active Android target drift")
+    if not normalized_good(samsung.get("status")):
+        blockers.append({"gate": "core_demo", "reason": samsung.get("status", "UNKNOWN")})
+    if samsung.get("remaining"):
+        blockers.append({"gate": "core_demo_remaining", "reason": "; ".join(samsung["remaining"])})
 
-    web3_evidence = android_web3.get("currentEvidence", {})
-    if not normalized_good(web3_evidence.get("staticSecurityAudit")):
-        blockers.append({"gate": "android_web3.static_security", "reason": str(web3_evidence.get("staticSecurityAudit", "UNKNOWN"))})
-    if web3_evidence.get("physicalSamsungWebViewProof") not in {"PENDING", "UNKNOWN"} and not normalized_good(web3_evidence.get("physicalSamsungWebViewProof")):
-        blockers.append({"gate": "android_web3.physical_webview", "reason": str(web3_evidence.get("physicalSamsungWebViewProof"))})
+    cockpit_state = source.get("cockpitSwitch", {}).get("physicalS24FeProof")
+    if not normalized_good(cockpit_state):
+        blockers.append({"gate": "s24fe_cockpit", "reason": f"physicalS24FeProof={cockpit_state or 'UNKNOWN'}"})
 
-    # Physical SM-X400 install/launch is post-CAST deployment evidence. Its
-    # absence must remain visible without falsely blocking software readiness.
-    post_cast_boundaries.append({"gate": "physical_deployment_post_cast", "reason": "SM-X400 install/launch proof remains physical-only and is not inferred from CI"})
+    portal_state = source.get("installPortal", {})
+    for field in ("lanDnsActivation", "apacheActivation", "physicalS24FeInstall"):
+        if not normalized_good(portal_state.get(field)):
+            blockers.append({"gate": f"install_portal.{field}", "reason": str(portal_state.get(field, "UNKNOWN"))})
+
+    if not normalized_good(portal_state.get("fdroidRepositorySigning")):
+        blockers.append({"gate": "secure_update_identity", "reason": f"fdroidRepositorySigning={portal_state.get('fdroidRepositorySigning', 'UNKNOWN')}"})
 
     if source.get("enterpriseReady") is not True:
         blockers.append({"gate": "enterprise_readiness", "reason": "enterpriseReady=false"})
@@ -154,11 +148,10 @@ def main() -> int:
         "workflowStatus": orchestrator.get("status"),
         "tenPassAudit": audit_passes,
         "blockers": blockers,
-        "postCastBoundaries": post_cast_boundaries,
         "contractErrors": errors,
         "hashes": {
             str(path.relative_to(ROOT)): sha256(path)
-            for path in (SOURCE, BOUNDARY, DOC_WORKFLOW, ORCHESTRATOR, SAMSUNG_SEAL, COCKPIT_SEAL, PORTAL_SEAL, ANDROID_WEB3, SMX400)
+            for path in (SOURCE, BOUNDARY, DOC_WORKFLOW, ORCHESTRATOR, SAMSUNG_SEAL, COCKPIT_SEAL, PORTAL_SEAL)
         },
         "authority": "Professor",
         "promotion": False,
