@@ -1,0 +1,30 @@
+{
+  "schema":"luhmOs.characterDesignSeal.v1",
+  "character":"lum",
+  "proofId":"lumMasterProofV2",
+  "status":"professorApprovedDesign",
+  "authority":"Professor",
+  "approvedFromChat":true,
+  "variationDeck":"game/canon/candidates/lumAssetVariationDeckV1.json",
+  "identityAnchors":[
+    "red oni skin",
+    "mature executive identity",
+    "auburn updo primary hair anchor",
+    "oni horns",
+    "tail",
+    "teal-black executive tailoring",
+    "restrained cyan-magenta Hydra accents",
+    "art-director AI-operative presence"
+  ],
+  "approvedVariationPrinciple":"one invariant Lum identity with composable wardrobe, expression, pose, prop, environment and presentation-scale variants",
+  "rejectedDrift":["wings","crown as identity anchor","donor face/body","donor logos","cat ears","generated poster status claims as evidence"],
+  "proofBoundary":{
+    "generatedProofIsDesignEvidence":true,
+    "posterClaimsAreMachineEvidence":false,
+    "assetFamilyComplete":false,
+    "godotImportProven":false,
+    "runtimeProven":false,
+    "cast":false
+  },
+  "nextCharacter":"skuld"
+}

@@ -1,0 +1,47 @@
+{
+  "schema":"luhmOs.characterDesignCandidate.v1",
+  "character":"belldandy",
+  "status":"candidateReview",
+  "authority":"Professor",
+  "protectedReferenceCount":5,
+  "identityFirewall":{
+    "copyFace":false,
+    "copyBody":false,
+    "copyExactOutfit":false,
+    "visualVocabularyOnly":true
+  },
+  "canonLock":[
+    "adult grace/healing goth mother",
+    "cathedral elegance",
+    "warm ara presence",
+    "black ivory oxblood antique-gold",
+    "elegant medium-sexy styling"
+  ],
+  "visualVocabulary":[
+    "warm approachable maternal confidence",
+    "soft curving elegant silhouette",
+    "clean fitted caretaker tailoring",
+    "bright reassuring smile and open pose language",
+    "simple bodywear geometry translated into layered cathedral garment construction",
+    "white healer vocabulary translated into ivory ceremonial panels"
+  ],
+  "layeredMutation":[
+    "ivory cathedral-healer coatdress over black fitted foundation",
+    "oxblood piping and antique-gold reliquary hardware",
+    "soft winglike sleeve and skirt-panel geometry",
+    "healing sigils replacing literal medical insignia",
+    "warm dark-to-honey hair palette candidate",
+    "graceful adult silhouette distinct from Urd tech-goth",
+    "gentle halo-thread VFX candidate"
+  ],
+  "contaminationAudit":{
+    "urdLongThreadHairPrimarySilhouette":false,
+    "urdCircuitLace":false,
+    "urdTimeSpindleCollar":false,
+    "literalNurseCosplay":false
+  },
+  "godotRequiredFamilies":["portrait","fullBody","spriteIdle","spriteWalk","spriteRun","expressionSheet","uiIcon"],
+  "runtimeImportProven":false,
+  "assetFamilyComplete":false,
+  "professorSeal":"STOP"
+}

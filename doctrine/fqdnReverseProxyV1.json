@@ -1,0 +1,47 @@
+{
+  "schema": "luhmOs.fqdnReverseProxyV1",
+  "status": "candidateNotDeployed",
+  "authority": "Professor",
+  "names": {
+    "localCockpit": "hydra.localhost",
+    "remotePrivateCockpit": "hydra.eggiebagelface.art",
+    "publicSite": "eggiebagelface.art",
+    "assetCdn": "cdn.eggiebagelface.art",
+    "mcp": "mcp.eggiebagelface.art"
+  },
+  "localProxy": {
+    "role": "singleHttpIngress",
+    "implementation": "nginx",
+    "localTls": "mkcert",
+    "listen": ["https://hydra.localhost"],
+    "apiPrefix": "/api/",
+    "upstreamPolicy": "loopbackOnly",
+    "browserDirectServicePorts": false
+  },
+  "remotePrivate": {
+    "dnsProvider": "Cloudflare",
+    "accessRequired": true,
+    "tunnelRequired": true,
+    "tunnelTarget": "localReverseProxy",
+    "directServiceTarget": false,
+    "routerPortForward": false,
+    "originIpPublished": false
+  },
+  "serviceBoundaries": {
+    "fastApi": "127.0.0.1:8798",
+    "ollama": "127.0.0.1:11434",
+    "comfyUi": "127.0.0.1:8188",
+    "browserMayAddressDirectly": false
+  },
+  "dnsLaw": {
+    "applicationConfigUsesFqdn": true,
+    "rawLanIpInBrowserConfig": false,
+    "localhostServicePortsAreImplementationDetail": true,
+    "dnsRecordExistenceRequiresExternalEvidence": true
+  },
+  "tlsLaw": {
+    "localAndRemoteCertificatesAreSeparateTrustDomains": true,
+    "localMkcertDoesNotProvePublicTls": true,
+    "cloudflareEdgeTlsDoesNotReplaceLocalOriginPolicy": true
+  }
+}

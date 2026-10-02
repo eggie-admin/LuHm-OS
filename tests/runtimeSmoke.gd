@@ -147,7 +147,56 @@ func _check(condition: bool, label: String) -> void:
         failures.append(label)
         push_error("RED: %s" % label)
 
+func _check_adventure_loop() -> void:
+    var AdventureDirectorScript = load("res://scripts/game/adventureDirector.gd")
+    _check(AdventureDirectorScript != null, "adventure director script loads")
+    if AdventureDirectorScript == null:
+        return
+    var adventure = AdventureDirectorScript.new()
+    root.add_child(adventure)
+    adventure.startAdventure("cathedralFirstCoffee", 42)
+    adventure.setQuest("findLum", "active")
+    var choice = adventure.presentChoice("Coffee or catastrophe?", ["coffee", "catastrophe"])
+    _check(choice.get("choices", []).size() == 2, "dialogue choice contract works")
+    var skill = adventure.skillCheck("nerve", 2, 10)
+    _check(skill.has("success") and int(skill.get("roll", 0)) >= 3, "skill check contract works")
+    adventure.startEncounter("tinyOniInvasion")
+    adventure.resolveEncounter("befriended")
+    var snapshot = adventure.snapshot()
+    _check(snapshot.get("activeAdventure") == "cathedralFirstCoffee", "adventure state persists")
+    _check(snapshot.get("questState", {}).get("findLum") == "active", "quest state persists")
+    _check(snapshot.get("encounterState", {}).get("outcome") == "befriended", "encounter resolves")
+    adventure.queue_free()
+
+func _check_scripted_chat() -> void:
+    var Chat = load("res://scripts/game/scriptedChatDirector.gd")
+    _check(Chat != null, "scripted chat director loads")
+    if Chat == null: return
+    var chat = Chat.new()
+    root.add_child(chat)
+    var urd: Dictionary = chat.submit("Urd what broke?", "42")
+    _check(urd.get("speaker") == "Urd", "Urd scripted routing works")
+    _check(urd.get("action", {}).get("type") == "presentationOnly", "scripted chat cannot claim authority")
+    var skuld: Dictionary = chat.submit("Skuld fix the toy", "43")
+    _check(skuld.get("speaker") == "Skuld", "Skuld scripted routing works")
+    var bell: Dictionary = chat.submit("Belldandy doctrine sanity", "44")
+    _check(bell.get("speaker") == "Belldandy", "Belldandy scripted routing works")
+    var lum: Dictionary = chat.submit("Lum coffee", "45")
+    _check(lum.get("speaker") == "Lum", "Lum scripted routing works")
+    _check(lum.get("action", {}).get("event") == "coffeeEmergency", "scripted chaos event works")
+    var world: Dictionary = chat.submit("Lum cathedral", "46")
+    _check(world.get("action", {}).get("type") == "worldRequest", "scripted world action is typed")
+    _check(world.get("action", {}).get("worldId") == "cathedral", "scripted Cathedral routing works")
+    var quest: Dictionary = chat.submit("Skuld quest", "47")
+    _check(quest.get("action", {}).get("type") == "questRequest", "scripted quest action is typed")
+    var dieA: Dictionary = chat.submit("Urd roll dice", "48")
+    var dieB: Dictionary = chat.submit("Urd roll dice", "48")
+    _check(dieA.get("action", {}).get("roll") == dieB.get("action", {}).get("roll"), "scripted d20 is deterministic")
+    chat.queue_free()
+
 func _finish() -> void:
+    _check_adventure_loop()
+    _check_scripted_chat()
     if failures.is_empty():
         print("CROWN RUNTIME SMOKE GREEN")
         quit(0)

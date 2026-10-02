@@ -1,0 +1,69 @@
+{
+  "schema":"luhmOs.lumAssetVariationDeck.v1",
+  "status":"candidateReview",
+  "authority":"Professor",
+  "character":"lum",
+  "identityCore":{
+    "adult":true,
+    "species":"original oni",
+    "role":"executive oni art director and AI operative",
+    "anchors":[
+      "red oni skin",
+      "recognizable mature executive face language",
+      "oni horns",
+      "tail",
+      "confident art-director presence"
+    ],
+    "variableWithoutIdentityDrift":[
+      "hair styling",
+      "wardrobe",
+      "pose",
+      "expression",
+      "props",
+      "environment",
+      "presentation scale"
+    ]
+  },
+  "variationDecks":{
+    "executive":["tealBlackDirector","blackCopperFormal","vendorCouncil"],
+    "operator":["kai9000Cockpit","codingNightShift","terminalOperator","debugFieldTech"],
+    "world":["cathedralHost","coffeeHouseCasual","neonRiverwalk","hydraWorkshop"],
+    "action":["hoverAssistant","run","point","typing","repair","warning","victory"],
+    "presentation":["dialoguePortrait","fullBody","petChibi","uiIcon","expressionSheet"],
+    "runtime":["spriteIdle","spriteWalk","spriteRun","spriteReaction","glbRig","animationLibrary"],
+    "special":["oldGodMeeting","tourniquetRepair","witchingHourCoder","deepDungeonGuide"]
+  },
+  "wardrobeVocabulary":{
+    "canonical":["teal-black executive tailoring","cyan-magenta restraint"],
+    "approvedExpansionCandidates":[
+      "black copper industrial executive",
+      "asymmetric utility harness",
+      "modular fitted field uniform",
+      "formal suit and tie",
+      "high collar technical bodysuit",
+      "layered art-director coat"
+    ],
+    "protectedDonorOnly":[
+      "exact Mona garments",
+      "donor logos and insignia",
+      "cat ears",
+      "donor face and body geometry"
+    ]
+  },
+  "hairDeck":{
+    "canonical":"auburn updo",
+    "candidates":["auburn updo","long auburn director hair","short layered field cut"],
+    "identityRule":"hair variation may not replace oni anchors"
+  },
+  "expressionDeck":["neutral","smirk","warm","focused","annoyed","warning","debugPanic","victory","blink"],
+  "propDeck":["tablet","stylus","coffee","terminalSlate","artBook","debugWrench","pointer"],
+  "requiredGodotFamilies":["portrait","fullBody","spriteIdle","spriteWalk","spriteRun","expressionSheet","uiIcon"],
+  "robustExpansionFamilies":["spriteTyping","spritePoint","spriteHover","spriteRepair","spriteReaction","wardrobeAtlas","propAtlas","portraitVariants","dialogueExpressions","glb","animationLibrary","vfx"],
+  "proofLaw":{
+    "protectedReferenceIsRuntimeAsset":false,
+    "variationIsSeparateCharacter":false,
+    "generatedProofIsRuntimeProof":false,
+    "exactHashRequiredForRuntime":true,
+    "professorApprovalRequired":true
+  }
+}

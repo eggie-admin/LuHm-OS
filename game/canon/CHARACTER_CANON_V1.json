@@ -1,10 +1,111 @@
 {
-  "schema":"luhm-os.game-character-canon.v1","status":"CANDIDATE","authority":"Professor",
-  "identityFirewall":"Original fictional designs only. Real-person references may inform non-identifying fashion language, never face/body cloning.",
-  "characters":{
-    "lum":{"adult":true,"role":"executive oni art director","design":["teal-black executive tailoring","auburn updo","subtle horns","cyan-magenta restraint"],"motions":["idle","hover","walk","run","typing","wave","point","blink"]},
-    "urd":{"adult":true,"role":"weave/time goth mother","design":["dangerous tech-goth","thread and weave motifs","magenta-cyan accents","maternal confidence"],"motions":["idle","hover","walk","cast","threadWeave","smile"]},
-    "belldandy":{"adult":true,"role":"grace/healing goth mother","design":["black ivory oxblood antique-gold","cathedral elegance","warm ara presence","elegant medium-sexy styling"],"motions":["idle","hover","walk","heal","blessing","smile"]},
-    "skuld":{"minimumAge":25,"role":"tech engineer","design":["petite flat-chested adult anime archetype","strong lower-body silhouette","Japanese tech x Italian couture x Harajuku goth","black ivory chrome","Hydra cyan-magenta accents","tool charms and hardware"],"prohibited":["celebrity likeness","real-person body cloning"],"motions":["idle","walk","run","typing","repair","toolSpin"]}
+  "schema": "luhm-os.game-character-canon.v1",
+  "status": "CANDIDATE",
+  "authority": "Professor",
+  "identityFirewall": "Original fictional designs only. Real-person references may inform non-identifying fashion language, never face/body cloning.",
+  "characters": {
+    "lum": {
+      "adult": true,
+      "role": "executive oni art director",
+      "design": [
+        "red-skinned mature original oni executive identity",
+        "auburn updo primary hair anchor",
+        "oni horns and tail",
+        "teal-black executive tailoring primary canon",
+        "restrained Hydra cyan-magenta accents",
+        "confident art-director and AI-operative presence",
+        "modular context wardrobe preserving one recognizable identity"
+      ],
+      "motions": [
+        "idle",
+        "hover",
+        "walk",
+        "run",
+        "typing",
+        "wave",
+        "point",
+        "blink"
+      ],
+      "designSeal": {
+        "state": "professorApprovedDesign",
+        "proofId": "lumMasterProofV2",
+        "variationDeck": "game/canon/candidates/lumAssetVariationDeckV1.json",
+        "runtimeImportProven": false,
+        "assetFamilyComplete": false,
+        "sourceLaw": "protectedReference != candidateProof != professorApprovedDesign != runtimeImportProven"
+      }
+    },
+    "urd": {
+      "adult": true,
+      "role": "weave/time goth mother",
+      "design": [
+        "weave/time goth mother",
+        "dangerous elegant tech-goth",
+        "very long dark thread-hair primary silhouette",
+        "optional blunt-fringe working variation",
+        "black fitted asymmetric weave-cut wardrobe architecture",
+        "woven circuit and thread-mesh lace vocabulary",
+        "time-spindle collar and original hardware",
+        "restrained Hydra magenta-cyan filament accents",
+        "maternal confidence with dangerous composure"
+      ],
+      "motions": [
+        "idle",
+        "hover",
+        "walk",
+        "cast",
+        "threadWeave",
+        "smile"
+      ],
+      "designSeal": {
+        "state": "professorApprovedDesign",
+        "proofId": "urdCharacterDesignProofV1",
+        "runtimeImportProven": false,
+        "assetFamilyComplete": false,
+        "sourceLaw": "protectedReference != approvedOriginalDesign != runtimeImportProven"
+      }
+    },
+    "belldandy": {
+      "adult": true,
+      "role": "grace/healing goth mother",
+      "design": [
+        "black ivory oxblood antique-gold",
+        "cathedral elegance",
+        "warm ara presence",
+        "elegant medium-sexy styling"
+      ],
+      "motions": [
+        "idle",
+        "hover",
+        "walk",
+        "heal",
+        "blessing",
+        "smile"
+      ]
+    },
+    "skuld": {
+      "minimumAge": 25,
+      "role": "tech engineer",
+      "design": [
+        "petite flat-chested adult anime archetype",
+        "strong lower-body silhouette",
+        "Japanese tech x Italian couture x Harajuku goth",
+        "black ivory chrome",
+        "Hydra cyan-magenta accents",
+        "tool charms and hardware"
+      ],
+      "prohibited": [
+        "celebrity likeness",
+        "real-person body cloning"
+      ],
+      "motions": [
+        "idle",
+        "walk",
+        "run",
+        "typing",
+        "repair",
+        "toolSpin"
+      ]
+    }
   }
 }

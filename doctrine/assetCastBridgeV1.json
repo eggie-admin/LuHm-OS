@@ -1,0 +1,23 @@
+{
+  "schema": "luhmOs.assetCastBridge.v1",
+  "status": "candidate",
+  "authority": "Professor",
+  "sourceManifest": "game/assets/ASSET_MANIFEST_V1.json",
+  "artPipeline": "protectedReference != candidateAsset != approvedArt != runtimeImportProven != cast",
+  "acceptedRuntimeStates": ["runtimeImportProven"],
+  "requiredEvidence": ["assetId","sourceClass","licenseDisposition","sha256","runtimePath","runtimeImportProof"],
+  "forbiddenSourceClasses": ["protectedReference","rejectedDerivative","unknownProvenance"],
+  "fallbackPolicy": {
+    "originalProceduralScaffoldAllowed": true,
+    "fallbackMustBeDeclared": true,
+    "fallbackMayNotMasqueradeAsApprovedArt": true
+  },
+  "bridgeLaw": {
+    "exactSourceRequired": true,
+    "hashRequired": true,
+    "licenseDispositionRequired": true,
+    "runtimeProofRequired": true,
+    "professorPromotionRequired": true,
+    "missingAssetMayBecomeGreen": false
+  }
+}

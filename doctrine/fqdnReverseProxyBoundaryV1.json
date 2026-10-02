@@ -1,0 +1,38 @@
+{
+  "schema": "luhmOs.fqdnReverseProxyBoundary.v1",
+  "status": "candidate",
+  "authority": "Professor",
+  "local": {
+    "canonicalFqdn": "hydra.localhost",
+    "reverseProxy": "nginx",
+    "originClass": "desktopOrServer",
+    "apiPath": "/api/",
+    "backendBindPolicy": "loopbackOnly",
+    "rawLanIpAsCanonicalOrigin": false
+  },
+  "remote": {
+    "canonicalFqdnTemplate": "hydra.eggiebagelface.art",
+    "dns": "Cloudflare",
+    "accessRequired": true,
+    "tunnelRequired": true,
+    "tunnelOrigin": "localReverseProxy",
+    "directBackendExposure": false,
+    "routerPortForwarding": false
+  },
+  "mobile": {
+    "kai9000Role": ["cockpit","controller","client","diagnostic"],
+    "smX400Role": ["cockpit","client","runtimeTestTarget"],
+    "webOriginAllowed": false,
+    "reverseProxyAllowed": false,
+    "cloudflareTunnelOriginAllowed": false,
+    "cdnOriginAllowed": false,
+    "publicListenerAllowed": false,
+    "localDevUtilityPolicy": "loopbackOnlyNonAuthoritative"
+  },
+  "serviceLaw": [
+    "browser and mobile clients use canonical FQDN boundaries",
+    "privileged backends remain behind the local reverse proxy",
+    "Ollama ComfyUI and internal FastAPI ports are never direct remote origins",
+    "mobile devices never become authoritative LuHm OS web infrastructure"
+  ]
+}

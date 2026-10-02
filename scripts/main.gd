@@ -6,6 +6,7 @@ const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
 const CutsceneBridgeScript := preload("res://scripts/game/cutsceneBridge.gd")
 const CharacterRosterScript := preload("res://scripts/game/characterRoster.gd")
 const Titan7MilestoneScript := preload("res://scripts/game/titan7Milestone.gd")
+const CockpitChatBridgeScript := preload("res://scripts/game/cockpitChatBridge.gd")
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
 var neon_world: Node3D
 var active_world: Node3D
@@ -16,6 +17,7 @@ var cutscene_director: Node
 var cutscene_bridge: Node
 var character_roster: Node
 var titan7_milestone: CanvasLayer
+var cockpit_chat_bridge: Node
 var intro_played := false
 var android_web3_plugin = null
 var android_web3_version := "unavailable"
@@ -48,13 +50,13 @@ func _build_runtime() -> void:
     titan7_milestone = Titan7MilestoneScript.new()
     titan7_milestone.name = "Titan7Milestone"
     add_child(titan7_milestone)
-
+    cockpit_chat_bridge = CockpitChatBridgeScript.new(); cockpit_chat_bridge.configure(game_hud); add_child(cockpit_chat_bridge)
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
     game_hud.backend_requested.connect(_enter_backend)
     game_hud.world_destination_requested.connect(switchWorld)
     game_hud.lum_talk_requested.connect(game_hud.show_dialogue.bind("Lum: Pick a door, Professor. Coffee is hot; architecture is questionable. ♡"))
-    game_hud.move_axis_changed.connect(player_controller.set_touch_axis)
+    game_hud.move_axis_changed.connect(player_controller.set_touch_axis); cockpit_chat_bridge.worldRequested.connect(switchWorld)
 
 func _wire_android_web3() -> void:
     if OS.get_name() != "Android":
@@ -65,6 +67,7 @@ func _wire_android_web3() -> void:
     android_web3_plugin = Engine.get_singleton("AndroidWeb3Cockpit")
     android_web3_plugin.connect("world_requested", enterWorldMode)
     android_web3_plugin.connect("cockpit_ready", _on_android_web3_ready)
+    android_web3_plugin.connect("chat_submitted", cockpit_chat_bridge.submit)
     android_web3_plugin.connect("bridge_error", _on_android_web3_error)
 
 func _on_android_web3_ready(version: String) -> void:
@@ -75,8 +78,7 @@ func _on_android_web3_error(reason: String) -> void:
     push_error("ANDROID_WEB3_COCKPIT_ERROR: " + reason)
 
 func enterWorldMode() -> void:
-    if android_web3_plugin != null:
-        android_web3_plugin.hideCockpit()
+    if android_web3_plugin != null: android_web3_plugin.hideCockpit()
     game_hud.show_world()
     player_controller.set_world_active(true)
     if not intro_played:
@@ -87,8 +89,7 @@ func _enter_backend() -> void:
     if cutscene_bridge != null:
         cutscene_bridge.cancel()
         cutscene_bridge.restore_now()
-    if player_controller != null:
-        player_controller.set_world_active(false)
+    if player_controller != null: player_controller.set_world_active(false)
     if game_hud != null:
         game_hud.show_backend()
     if android_web3_plugin != null:
@@ -96,7 +97,6 @@ func _enter_backend() -> void:
 
 func _play_intro() -> void:
     await cutscene_bridge.play_path(INTRO_CUTSCENE_PATH)
-
 
 func switchWorld(world_id: String) -> bool:
     if world_id == active_world_id:

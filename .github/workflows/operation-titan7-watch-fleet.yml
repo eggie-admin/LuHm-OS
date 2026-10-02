@@ -48,6 +48,36 @@ jobs:
           python3 tools/namingPathSealAudit.py
           python3 tools/artOniCamelHumpAudit.py
 
+      - name: OperationTitan7 explicit 50-pass audit
+        run: python3 tools/operationTitan7FiftyPassAudit.py
+      - name: Upload OperationTitan7 50-pass receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: operation-titan7-50pass-${{ github.event.pull_request.head.sha || github.sha }}
+          path: build/titan7-50pass/report.json
+          if-no-files-found: error
+
+      - name: Tourniquet agent logic
+        run: python3 tools/tourniquetAgentLogicAudit.py
+      - name: Network and FQDN contract
+        run: |
+          python3 tools/fqdnReverseProxyBoundaryAudit.py
+          python3 tools/reverseProxyServiceMapAudit.py
+          python3 tools/networkContractReconcile.py
+      - name: Asset castBridge contract
+        run: python3 tools/assetCastBridgeAudit.py
+      - name: Character canon and JRPG pet presentation
+        run: python3 tools/characterPetPresentationAudit.py
+      - name: Static CDN and vendor boundaries
+        run: |
+          python3 tools/cloudflareEdgeTemplateAudit.py
+          python3 tools/staticVendorMetadataAudit.py
+          python3 tools/vendorArtNegativeControls.py
+          python3 tools/buildStaticAssetDist.py
+      - name: Enterprise exact-source receipt
+        run: python3 tools/writeEnterprisePreflightReceipt.py
+
       - name: Run Titan7 watch fleet
         shell: bash
         run: |

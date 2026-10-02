@@ -1,0 +1,27 @@
+{
+  "schema": "luhmOs.runtimeStack.v1",
+  "authority": "Professor",
+  "browser": {
+    "html5": {"state":"active"},
+    "css": {"state":"active"},
+    "svg": {"state":"active"},
+    "jquery": {"state":"active","version":"3.7.1","path":"frontEnd/vendor/jquery-3.7.1.min.js","load":"vendored"},
+    "jqueryUi": {"state":"approvedCandidate","load":"vendoredOnly","runtimeCdn":false},
+    "bootstrap": {"state":"approvedCandidate","load":"vendoredOnly","runtimeCdn":false},
+    "luhmJqueryPlugins": {"state":"active","path":"frontEnd/jquery/luhm.cockpit.js"}
+  },
+  "android": {
+    "java": {"state":"active","jvmTarget":"17","toolchain":"OpenJDK-compatible"},
+    "kotlin": {"state":"active","jvmTarget":"17"},
+    "compileSdk": 36
+  },
+  "tooling": {
+    "python": {"state":"active","major":3,"minimum":"3.11","purpose":"deterministic audits builds receipts"}
+  },
+  "rules": [
+    "no browser runtime dependency may load from a third-party CDN",
+    "approvedCandidate does not mean installed or active",
+    "browser libraries require version license path and hash evidence before activation",
+    "Java and Python versions used by CI must be explicit and auditable"
+  ]
+}

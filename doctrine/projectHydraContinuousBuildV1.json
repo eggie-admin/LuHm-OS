@@ -1,0 +1,154 @@
+{
+  "schema": "luhmOs.projectHydraContinuousBuild.v1",
+  "status": "candidate",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Treat Project Hydra playable experience work as a first-class LuHm OS integration lane while preserving platform boundaries and the last evidence-backed CAST as fallback.",
+  "integrationContract": {
+    "platform": "LuHm OS provides the local-first cockpit, typed native boundary, deterministic evidence gates and agent/tool services.",
+    "application": "Project Hydra owns playable Godot worlds, Lum interaction, chat-driven presentation, four-layer parallax, randomFunDirector and Art Oni candidate presentation.",
+    "rule": "Integration may share tested interfaces; application presentation does not gain Crown, security, publication or evidence authority."
+  },
+  "continuousBuild": {
+    "enabled": true,
+    "stopOnlyFor": [
+      "deterministicRedWithoutBoundedRepair",
+      "ambiguousDestructiveChoice",
+      "physicalActionRequiringProfessor",
+      "ProfessorStop"
+    ],
+    "knownGoodFallback": "latestEvidenceBackedCAST"
+  },
+  "playableChain": [
+    "chat",
+    "Godot",
+    "Lum",
+    "worlds",
+    "interaction",
+    "parallax",
+    "randomChaos",
+    "ArtOni"
+  ],
+  "hardAudit": {
+    "passes": 20,
+    "eachPassRequiresExactSource": true,
+    "unknownIsNotGreen": true,
+    "passNames": [
+      "canonicalSourceIdentity",
+      "sourceTruthFreshness",
+      "authorityAndCrown",
+      "castSemantics",
+      "namingAndPaths",
+      "agentSkillBoundaries",
+      "workflowPermissions",
+      "actionPinning",
+      "secretAndNetworkExposure",
+      "rollbackAndKnownGood",
+      "cockpitChatBoundary",
+      "godotImport",
+      "godotRuntimeSmoke",
+      "worldNavigation",
+      "lumInteraction",
+      "parallaxRuntime",
+      "randomFunDeterminism",
+      "artOniCandidateBoundary",
+      "assetProvenance",
+      "androidArtifactAndPhysicalBoundary"
+    ]
+  },
+  "castBridge": "candidate -> hard20PassAudit -> exactHeadCi -> runtimeEvidence -> artifactEvidence -> evidenceReconcile -> ProfessorCrown -> CAST",
+  "claims": {
+    "currentCandidateGreen": false,
+    "currentCastPreserved": true,
+    "physicalInstallImplied": false,
+    "publicationImplied": false
+  },
+  "mutationPass": {
+    "mode": "wholeProjectConditionalBoundedMutation",
+    "maxPasses": 100,
+    "minPasses": 1,
+    "earlyStopWhen": "wholeProjectAuditHasNoRequiredRedAmberOrUnknownForClaimedSoftwareScope",
+    "eachPass": [
+      "sanityCheck",
+      "ingestCurrentCanonicalTruth",
+      "auditCurrentMilestone",
+      "identifySmallestEvidenceGap",
+      "boundedMutationIfRequired",
+      "targetedTest",
+      "reingestMutatedTruth",
+      "recordReceipt",
+      "continueOrStop"
+    ],
+    "requirements": {
+      "exactSourceRef": true,
+      "evidenceNonNull": true,
+      "auditNonNull": true,
+      "oneMutableLane": true,
+      "maxParallelism": 3,
+      "knownGoodFallback": true,
+      "unknownIsNotGreen": true,
+      "deterministicRedStopsEscalation": true
+    },
+    "forbidden": [
+      "blind100IdenticalChecks",
+      "selfApproval",
+      "implicitCrown",
+      "destructiveScorchedEarth",
+      "claimingPhysicalEvidenceFromSoftware"
+    ],
+    "milestone": "wholeLuHmOsProjectHydra",
+    "goal": "Advance the entire LuHm OS + Project Hydra project toward the Professor's intended finished system by implementing, integrating, testing, and reconciling real missing capabilities. Never make progress by deleting, downgrading, superseding, excluding, relabeling, or moving an unsatisfied intended target outside the milestone.",
+    "gapPolicy": {
+      "preserveIntendedTargets": true,
+      "gapClosureMeans": [
+        "implementMissingCapability",
+        "repairBrokenImplementation",
+        "addMissingIntegration",
+        "addDeterministicTest",
+        "collectAvailableSoftwareEvidence",
+        "reconcileContradictoryCurrentDoctrineWithoutErasingDesiredCapability"
+      ],
+      "forbiddenShortcuts": [
+        "removeGateToMakeGreen",
+        "markDesiredTargetHistoricalToAvoidWork",
+        "moveRequiredCapabilityPostCastToAvoidWork",
+        "weakenTest",
+        "convertRedToUnknown",
+        "narrowWholeProjectScope"
+      ],
+      "physicalBoundary": "When software cannot prove a physical fact, keep the target pending and continue other buildable work. Do not pretend it is satisfied and do not delete it."
+    }
+  },
+  "systemScope": {
+    "name": "wholeLuHmOsProjectHydra",
+    "include": [
+      "canonicalSourceTruth",
+      "doctrineAndSeals",
+      "agentMeshAndAllSkills",
+      "goddessAndOniTrustBoundaries",
+      "namingAndPathUnification",
+      "githubWorkflowsAndPermissions",
+      "securitySecretsAndNetworkExposure",
+      "backupRollbackAndKnownGoodStates",
+      "desktopHydraContracts",
+      "androidKai9000Contracts",
+      "smX400Android16Target",
+      "godotProjectAndRuntime",
+      "web3JqueryCockpit",
+      "chatNativeBoundary",
+      "lumAndPlayableWorlds",
+      "parallaxRandomChaosAndArtOni",
+      "assetProvenanceAndCharacterCanon",
+      "mediaFfmpegAndCompositing",
+      "pluginsMcpAndExternalVendorBoundaries",
+      "buildArtifactsChecksumsAndPrereleases",
+      "castBridgeAndFinalCast",
+      "legacyContradictionsAndStaleEvidence",
+      "physicalVsSoftwareEvidenceBoundary"
+    ],
+    "excludeOnly": [
+      "unavailablePhysicalEvidenceCannotBeInvented",
+      "externalSystemsWithoutEvidenceRemainUnknown"
+    ]
+  }
+}

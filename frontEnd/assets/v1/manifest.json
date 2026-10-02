@@ -1,0 +1,15 @@
+{
+  "schema": "luhmOs.staticAssetManifest.v1",
+  "version": "v1",
+  "authority": "Professor",
+  "remoteAuthority": false,
+  "assets": [
+    {
+      "id": "cathedralSignal",
+      "path": "assets/v1/svg/cathedralSignal.svg",
+      "kind": "svg",
+      "provenance": "originalLuHmOs",
+      "runtime": "optionalPresentation"
+    }
+  ]
+}

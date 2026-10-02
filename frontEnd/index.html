@@ -24,7 +24,13 @@
     </header>
 
     <section class="scene" aria-label="Lum companion scene">
-      <div class="lumViewport" data-luhm-lum-viewport aria-label="3D Lum renderer mount"><span class="viewportLabel">LUM / GODOT SCENE BOUNDARY</span></div>
+      <div class="lumViewport" data-luhm-lum-viewport aria-label="Godot and LuHm layered scene">
+        <div class="parallaxLayer layerBack" data-layer-back aria-hidden="true"></div>
+        <div class="parallaxLayer layerWorld" data-layer-world aria-hidden="true"><span class="worldGlyph">♢</span></div>
+        <div class="parallaxLayer layerCast" data-layer-cast><span class="lumGlyph" aria-label="Lum">L</span></div>
+        <div class="parallaxLayer layerFxUi" data-layer-fx aria-live="polite">Art Oni standing by</div>
+        <span class="viewportLabel">GODOT / LUHM LIVE BOUNDARY</span>
+      </div>
       <div class="sceneShade" aria-hidden="true"></div>
       <div class="sceneStatus" aria-live="polite"><span class="onlineDot" aria-hidden="true"></span><span>LuHm Android Web3 cockpit · candidate</span></div>
     </section>
@@ -51,7 +57,9 @@
     </div>
   </main>
 
+  <script src="./staticService.js"></script>
   <script src="./vendor/jquery-3.7.1.min.js"></script>
+  <script src="./jquery/luhm.plugins.js"></script>
   <script src="./jquery/luhm.cockpit.js"></script>
   <script src="./app.js"></script>
 </body>

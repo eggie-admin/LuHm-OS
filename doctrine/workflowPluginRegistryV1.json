@@ -1,0 +1,69 @@
+{
+  "schema": "luhmOs.workflowPluginRegistry.v1",
+  "status": "candidate",
+  "authority": "Professor",
+  "defaultRuntime": "luhmAgentMesh",
+  "pluginLaw": {
+    "explicitInvocation": true,
+    "specialCaseOnly": true,
+    "mayNotBecomeDefaultWorkflow": true,
+    "boundedLifecycle": [
+      "attach",
+      "enact",
+      "emit",
+      "release"
+    ],
+    "recursiveRecruitment": false,
+    "professorCrownPreserved": true
+  },
+  "plugins": {
+    "operationTitan7": {
+      "entryPoint": "$.operationTitan7",
+      "trigger": "explicitOperationInvocation",
+      "purpose": "hardenedSpecialCaseWorkflow",
+      "logic": "operationTitan7",
+      "releaseTo": "luhmAgentMesh",
+      "capabilityBroker": "aiApiBoss",
+      "directVendorApiAllowed": false
+    },
+    "deepDungeon": {
+      "entryPoint": "$.deepDungeon",
+      "trigger": "humanRecoveryIntent",
+      "triggerPattern": "Where's my <currentMilestone>?",
+      "purpose": "milestoneDeepDiveAndMemoryCheck",
+      "agentMode": "oniMiniAgentOnly",
+      "releaseTo": "Professor",
+      "oniSkill": "agents/deepDungeon/SKILL.md",
+      "ownerRouter": "Lum",
+      "capabilityBroker": "aiApiBoss",
+      "directVendorApiAllowed": false,
+      "allowedCapabilityClasses": [
+        "read",
+        "research",
+        "memoryContext",
+        "provenance"
+      ],
+      "triggerPatterns": [
+        "where's my <target>",
+        "where is my <target>",
+        "what happened to my <target>",
+        "what happened with my <target>",
+        "where did we leave <target>",
+        "where were we with <target>",
+        "what became of my <target>",
+        "find my current <target>",
+        "what's the status of my <target>"
+      ],
+      "humanCenteredTrigger": {
+        "naturalLanguageFirst": true,
+        "exactMagicPhraseRequired": false,
+        "targetRequired": true,
+        "recoverIntentRequired": true,
+        "ambiguousTargetAction": "askOneShortClarifyingQuestion",
+        "casualWhereQuestionDoesNotTrigger": true,
+        "directCurrentQuestionBypassesWhenNoRecoveryNeeded": true
+      }
+    }
+  },
+  "capabilitySpine": "doctrine/aiApiBossCapabilitySpineV1.json"
+}
