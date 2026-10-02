@@ -1,0 +1,73 @@
+{
+  "schema": "luhm-os.android-web3-cockpit-switch.v1",
+  "date": "2026-10-01",
+  "status": "AMBER_ANDROID_WEB3_COCKPIT_WRAPPER_DEVICE_PROOF_PENDING",
+  "authority": "Professor",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "sourceRef": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+  "milestoneCodename": "androidWeb3Cockpit",
+  "terminology": {
+    "androidWeb3Cockpit": "LuHm project codename only",
+    "runtime": "Android System WebView",
+    "notClaimed": [
+      "not a Google product/version named Android Web 3",
+      "not blockchain/Web3",
+      "not proof of a specific installed WebView version"
+    ]
+  },
+  "supersedes": {
+    "priorSurface": "native Godot Cathedral cockpit",
+    "priorReceipt": "doctrine/s24FeCockpitAuditSwitch-20260926.json",
+    "priorSeal": "doctrine/s24FeCockpitAuditSwitchSeal-20260926.json",
+    "treatment": "historical evidence preserved; no historical receipt is rewritten"
+  },
+  "targetArchitecture": {
+    "userFacingCockpit": "Android System WebView hosting packaged LuHm frontEnd/",
+    "webSurface": "frontEnd/index.html + local CSS/JS + pinned local jQuery",
+    "godotRole": "scene/game engine and native world/system layer behind a narrow typed boundary",
+    "frontendPrivilege": false,
+    "shellAuthority": false,
+    "runtimeMutationAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false,
+    "remoteContentDefault": "FORBIDDEN",
+    "arbitraryNavigation": "FORBIDDEN",
+    "arbitraryShell": "FORBIDDEN",
+    "secretsInWebSurface": "FORBIDDEN",
+    "localAssetServingTarget": "WebViewAssetLoader or equivalent app-owned local origin",
+    "rawFileUriExposure": "FORBIDDEN",
+    "bridgePolicy": "typed allowlisted events only; no general command bridge"
+  },
+  "currentEvidence": {
+    "jqueryCockpitExists": true,
+    "pinnedJquery": "3.7.1",
+    "frontEndEntry": "frontEnd/index.html",
+    "typedBoundary": "luhm:backend:open",
+    "backEndGuiContract": "future Android/WebView/native bridge may translate typed event",
+    "priorCockpitSealWebViewBridgeAdded": false,
+    "androidNativeWebViewWrapperImplemented": false,
+    "physicalSamsungWebViewProof": "PENDING",
+    "installedWebViewVersion": "UNKNOWN"
+  },
+  "requiredGates": [
+    "static cockpit contract passes",
+    "all cockpit assets local and deterministic",
+    "Android wrapper loads packaged cockpit through app-owned local origin",
+    "navigation policy blocks arbitrary external navigation",
+    "typed bridge cannot invoke arbitrary shell or mutate Crown state",
+    "Samsung physical launch proof",
+    "portrait and landscape proof",
+    "touch and keyboard/input proof",
+    "safe-area/cutout proof",
+    "WebView version captured on device",
+    "no unexpected network requests",
+    "Godot world/system transition proof",
+    "exact APK identity/signature/alignment receipt after explicit CAST build"
+  ],
+  "promotion": false,
+  "releaseAuthority": false,
+  "publicationAuthority": false,
+  "productionSigningAuthority": false,
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}
