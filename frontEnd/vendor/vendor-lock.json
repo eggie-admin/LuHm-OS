@@ -1,0 +1,11 @@
+{
+  "schema": "luhmOs.staticVendorLock.v1",
+  "status": "templateNeedsPinnedReceipts",
+  "artifacts": [
+    {"vendorId":"jquery","upstreamName":"jQuery","version":"","sourceUrl":"","sourceSha256":"","licenseId":"MIT","mediaType":"text/javascript","localPath":"frontEnd/vendor/","cdnPath":"","cacheControl":"public,max-age=31536000,immutable","approvalState":"unresolved"},
+    {"vendorId":"jqueryUi","upstreamName":"jQuery UI","version":"","sourceUrl":"","sourceSha256":"","licenseId":"MIT","mediaType":"text/javascript+text/css","localPath":"frontEnd/vendor/","cdnPath":"","cacheControl":"public,max-age=31536000,immutable","approvalState":"unresolved"},
+    {"vendorId":"bootstrap","upstreamName":"Bootstrap","version":"","sourceUrl":"","sourceSha256":"","licenseId":"MIT","mediaType":"text/javascript+text/css","localPath":"frontEnd/vendor/","cdnPath":"","cacheControl":"public,max-age=31536000,immutable","approvalState":"unresolved"},
+    {"vendorId":"openJdk","upstreamName":"OpenJDK","version":"","sourceUrl":"","sourceSha256":"","licenseId":"","mediaType":"application/vnd.luhm.metadata","localPath":"","cdnPath":"","cacheControl":"no-store","approvalState":"metadataOnly"},
+    {"vendorId":"python3","upstreamName":"Python","version":"","sourceUrl":"","sourceSha256":"","licenseId":"PSF-2.0","mediaType":"application/vnd.luhm.metadata","localPath":"","cdnPath":"","cacheControl":"no-store","approvalState":"metadataOnly"}
+  ]
+}
