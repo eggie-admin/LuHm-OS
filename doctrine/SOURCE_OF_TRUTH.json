@@ -245,5 +245,31 @@
     "cabinetContract": "doctrine/lumGoddessCabinetV1.json",
     "acquaintance": "MUTUAL_ROLE_AWARENESS_REQUIRED",
     "consensusAuthority": false
+  },
+  "frontEndActivityDock": {
+    "contract": "doctrine/frontEndComicActivityDockV1.json",
+    "source": "frontEnd/jquery/luhmActivityDock.js",
+    "status": "candidateSourceOnly",
+    "rendering": "receiptDrivenComicStatus",
+    "jqueryParallax": true,
+    "hiddenAsyncImplied": false,
+    "executionAuthority": false,
+    "watchers": {
+      "urdDoctorGoddess": "uiStateSemanticsAndNamingPathology",
+      "belldandySecretary": "canonicalNameLedgerAndReceiptContinuity"
+    },
+    "crownStatus": "stop"
+  },
+  "harnessAssetIntake": {
+    "contract": "doctrine/harnessAssetIntakeV1.json",
+    "tool": "tools/pullHarnessAsset.py",
+    "status": "candidateSourceOnly",
+    "browserRuntimeRemotePull": false,
+    "svgSanitizeRequired": true,
+    "googleFontsRuntimeCdn": false,
+    "googleFontsVendorLane": true,
+    "cloudflareStaticEdge": "futureCrownGated",
+    "durableBinaryStorage": "googleDrive",
+    "crownStatus": "stop"
   }
 }
