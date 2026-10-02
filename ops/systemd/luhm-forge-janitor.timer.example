@@ -1,0 +1,13 @@
+# TEMPLATE ONLY. User timer. Installation is a separate Professor-approved local action.
+[Unit]
+Description=Run LuHm Forge TTL Janitor hourly
+
+[Timer]
+OnBootSec=15min
+OnUnitActiveSec=1h
+Persistent=true
+AccuracySec=5min
+Unit=luhm-forge-janitor.service
+
+[Install]
+WantedBy=timers.target

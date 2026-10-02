@@ -1,0 +1,50 @@
+{
+  "schema": "luhm.forge.ttl.v1",
+  "status": "PROPOSED_CANDIDATE",
+  "crownStatus": "STOP",
+  "janitorAuthority": "TEMPORARY_FORGE_PATHS_ONLY",
+  "sentinelName": ".luhm-forge-root.json",
+  "ttlHours": {
+    "workspace": 6,
+    "failedBuild": 24,
+    "successfulUnpromotedBuild": 72,
+    "remoteEphemeralArtifact": 72
+  },
+  "neverAutoDeleteClasses": [
+    "source",
+    "canonical",
+    "candidateBranch",
+    "evidenceReceipt",
+    "provenance",
+    "backup",
+    "snapshot",
+    "release",
+    "promotedArtifact",
+    "signingMaterial"
+  ],
+  "allowedRootPatterns": [
+    "$RUNNER_TEMP/luhm-forge",
+    "$XDG_CACHE_HOME/luhm/forge",
+    "$HOME/.cache/luhm/forge"
+  ],
+  "hardRefusals": [
+    "filesystem root",
+    "home root",
+    "repository root",
+    "missing Forge sentinel",
+    "symlink root or child target",
+    "path outside configured Forge root",
+    "unknown owner/classification",
+    "evidence/backup/release root",
+    "active lock or hold marker"
+  ],
+  "deletionReceiptFields": [
+    "targetRealpath",
+    "ttlClass",
+    "ageHours",
+    "reason",
+    "bytesBefore",
+    "deletedAt",
+    "result"
+  ]
+}

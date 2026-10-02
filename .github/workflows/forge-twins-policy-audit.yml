@@ -1,0 +1,42 @@
+name: Forge Twins Policy Audit
+
+on:
+  pull_request:
+    paths:
+      - 'agents/buildOnis/**'
+      - 'doctrine/FORGE_TWINS_V3.json'
+      - 'doctrine/FORGE_TTL_POLICY_V1.json'
+      - 'tools/forgeCastGate.py'
+      - 'tools/forgeWorkspaceJanitor.py'
+      - 'tools/forgeTwinsPolicyAudit.py'
+      - '.github/workflows/android-testing-build.yml'
+      - '.github/workflows/godot-web-harness.yml'
+      - '.github/workflows/lumrigv2-phase1.yml'
+      - '.github/workflows/forge-twins-policy-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  forge-policy-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Run static Forge policy audit only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/forgeTwinsPolicyAudit.py
+
+      - name: No-build reminder
+        shell: bash
+        run: |
+          echo 'FORGE_POLICY_AUDIT_ONLY=PASS'
+          echo 'This workflow does not compile, export, package, upload build artifacts, mutate main, deploy, sign, publish, or Crown.'

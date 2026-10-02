@@ -1,0 +1,70 @@
+{
+  "schema": "luhm.forge.sanity-receipt.v1",
+  "date": "2026-10-01",
+  "status": "AMBER_CANDIDATE_POLICY_HARDENED_STATIC_CI_NOT_RUN",
+  "crownStatus": "STOP",
+  "authority": "Professor",
+  "baseLiveMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+  "candidateBranch": "candidate/forge-twins-cast-gate-v3-20261001",
+  "buildExecutedDuringHardening": false,
+  "prOpened": false,
+  "observations": [
+    {
+      "id": "OBS-001",
+      "classification": "PROVEN",
+      "claim": "Live main was f22681b905bd5bc0cf84da5e3d1e865a855b5fc2 during this sanity pass."
+    },
+    {
+      "id": "OBS-002",
+      "classification": "PROVEN",
+      "claim": "Live main branch protection reported protected=false during this sanity pass."
+    },
+    {
+      "id": "OBS-003",
+      "classification": "PROVEN",
+      "claim": "doctrine/SOURCE_OF_TRUTH.json remains AMBER_PROPOSED_SEAL_OF_TRUTH and contains older reconciliation pointers than live main."
+    },
+    {
+      "id": "OBS-004",
+      "classification": "SOURCE_DERIVED",
+      "claim": "Attached project doctrine requires selective transplant/quarantine for donor and legacy material rather than wholesale legacy authority."
+    },
+    {
+      "id": "OBS-005",
+      "classification": "PROVEN",
+      "claim": "Base-main android-testing-build.yml, godot-web-harness.yml, and lumrigv2-phase1.yml contained pull_request automation capable of build/import/export/runtime work before this candidate."
+    }
+  ],
+  "candidateChanges": [
+    "Tetsu redefined as Source Forge with zero build authority",
+    "Kaji redefined as Compile Forge with zero pre-CAST build authority",
+    "operation classes separated: PROTECT != INGEST != MUTATE != CAST != JANITOR",
+    "one-shot Professor CAST gate bound to milestoneId, taskId, exact sourceRef, build scope, actor, expiry, and nonce",
+    "failed build consumes CAST; retry requires a new explicit cast",
+    "legacy/donor ingestion restricted to quarantine with provenance and rights gates",
+    "three observed Godot/Android build workflows changed on candidate branch from pull_request automation to manual workflow_dispatch with CAST gate",
+    "remote ephemeral build artifact retention reduced to 72 hours on CAST-gated upload lanes",
+    "sentinel-bound TTL janitor added for disposable Forge cache only",
+    "user-level hourly janitor service/timer templates added but not installed",
+    "static Forge policy audit added but not executed through GitHub CI because no PR was opened"
+  ],
+  "separateUnresolvedDrift": [
+    "SOURCE_OF_TRUTH internal reconciliation pointers are stale relative to live main and require a separate source-truth reconciliation task",
+    "server-side branch protection/rulesets remain external governance work and are not made true by Forge policy",
+    "candidate branch and commits are not Crown-promoted or merged",
+    "static Forge policy audit has not yet been executed in GitHub CI",
+    "janitor timer is a template only and is not installed on Hydra or any runner"
+  ],
+  "nextSafeGate": "review candidate without triggering build automation; execute static-only Forge policy audit in a context proven not to invoke build workflows; merge/promotion remains separate Professor Crown action",
+  "forbiddenUntilProfessorSaysCast": [
+    "compile",
+    "export",
+    "package",
+    "assemble",
+    "link",
+    "APK build",
+    "Godot Web build",
+    "build-producing runtime/import milestone",
+    "build retry"
+  ]
+}
