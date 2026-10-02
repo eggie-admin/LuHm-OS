@@ -1,5 +1,8 @@
 # Media Asset Factory v1
 
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 Canonical machine identity: `mediaAssetFactory`
 
 Lum orchestrates. Professor holds Crown.
