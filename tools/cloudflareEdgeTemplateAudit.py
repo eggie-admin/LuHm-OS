@@ -25,4 +25,9 @@ assert "remoteAuthority=none" in srv
 assert "LuHmStaticService" in resolver
 assert "candidates" in resolver
 assert "remoteAssetBase" in resolver
+assert 'fetch("./srv.txt"' in resolver
+assert '{ cache: "no-store", credentials: "same-origin" }' in resolver
+app=Path("frontEnd/app.js").read_text()
+assert "LuHmStaticService.load()" in app
+assert "LuHmAssets" in app
 print("CLOUDFLARE EDGE TEMPLATE GREEN")
