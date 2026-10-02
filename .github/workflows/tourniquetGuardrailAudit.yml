@@ -1,0 +1,28 @@
+name: Tourniquet Guardrail Audit
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/tourniquetGuardrailV1.json"
+      - "doctrine/SOURCE_OF_TRUTH.json"
+      - "doctrine/projectChatCanonV1.json"
+      - "doctrine/luhmAiControlPlaneV1.json"
+      - "agents/lum/SKILL.md"
+      - "agents/urdMutationOni/SKILL.md"
+      - "agents/belldandyQualityOni/SKILL.md"
+      - "tools/tourniquetGuardrailAudit.py"
+      - ".github/workflows/tourniquetGuardrailAudit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tourniquet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - run: python tools/tourniquetGuardrailAudit.py
