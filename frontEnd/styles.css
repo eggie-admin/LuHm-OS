@@ -202,3 +202,133 @@ button { color: inherit; }
 @media (max-width: 520px) {
   .assetFactoryGrid { grid-template-columns: 1fr; }
 }
+
+
+.yumeBooth {
+  --yumeX: 0;
+  --yumeY: 0;
+  --yumeScroll: 0;
+  position: absolute;
+  z-index: 70;
+  inset: var(--topPanelH) 0 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: clamp(14px, 3vw, 32px);
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255,44,145,.18), transparent 28%),
+    radial-gradient(circle at 80% 28%, rgba(114,217,255,.13), transparent 24%),
+    #08070d;
+  perspective: 900px;
+}
+.yumeBooth[hidden] { display: none; }
+.yumeBackdrop {
+  position: fixed;
+  pointer-events: none;
+  inset: 10% -10% auto;
+  height: 42vh;
+  filter: blur(1px);
+  opacity: .55;
+  transform-style: preserve-3d;
+}
+.yumeBackdropFar {
+  background: repeating-linear-gradient(90deg, transparent 0 9%, rgba(114,217,255,.08) 9.2% 9.5%);
+  transform: translate3d(calc(var(--yumeX) * -8px), calc(var(--yumeScroll) * -0.035px), -80px);
+}
+.yumeBackdropNear {
+  background:
+    linear-gradient(125deg, transparent 0 35%, rgba(255,44,145,.10) 36% 40%, transparent 41%),
+    repeating-linear-gradient(0deg, transparent 0 28px, rgba(255,255,255,.025) 29px 30px);
+  transform: translate3d(calc(var(--yumeX) * 14px), calc(var(--yumeScroll) * -0.08px), 20px);
+}
+.yumeBoothShell {
+  position: relative;
+  width: min(1120px, 96vw);
+  margin: 0 auto;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid rgba(255,44,145,.42);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(17,12,23,.96), rgba(8,8,14,.94));
+  box-shadow: 0 32px 100px rgba(0,0,0,.6);
+  transform: rotateX(calc(var(--yumeY) * -0.5deg)) rotateY(calc(var(--yumeX) * 0.7deg));
+  transition: transform 120ms ease-out;
+}
+.yumeBoothHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 16px;
+}
+.yumeBoothHead small {
+  color: var(--pink);
+  letter-spacing: .16em;
+}
+.yumeBoothHead h2 { margin: 4px 0 0; font-size: clamp(24px, 4vw, 46px); }
+.yumeBoothHead button,
+.yumeModes button,
+.yumeActions button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.04);
+  color: var(--ink);
+  padding: 9px 13px;
+  cursor: pointer;
+}
+.yumeModes button:hover,
+.yumeActions button:hover { border-color: rgba(255,44,145,.64); background: rgba(255,44,145,.09); }
+.yumeQuote {
+  margin: 24px 0;
+  padding: 16px 18px;
+  border-left: 3px solid var(--pink);
+  background: rgba(255,255,255,.025);
+  color: #efe7f2;
+  font-size: clamp(16px, 2vw, 21px);
+}
+.yumeModes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.yumeBoard {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.yumeBoard article {
+  min-height: 140px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.035);
+}
+.yumeBoard small { color: var(--cyan); text-transform: uppercase; letter-spacing: .12em; }
+.yumeBoard strong { display: block; margin: 8px 0; font-size: 19px; }
+.yumeBoard span { color: var(--muted); line-height: 1.45; }
+.providerStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0;
+}
+.providerStrip span {
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.providerStrip .isObserved { border-color: rgba(85,229,155,.38); color: #8feab4; }
+.providerStrip .isAmber { border-color: rgba(255,211,108,.40); color: #ffd36c; }
+.yumeActions { display: flex; gap: 10px; flex-wrap: wrap; }
+.yumeActions button:first-child { border-color: rgba(114,217,255,.42); }
+.yumeActions button:last-child { border-color: rgba(255,44,145,.42); }
+.yumeFooter {
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+@media (max-width: 720px) {
+  .yumeBoard { grid-template-columns: 1fr; }
+  .yumeBoothShell { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .yumeBoothShell,
+  .yumeBackdrop { transform: none !important; transition: none !important; }
+}
