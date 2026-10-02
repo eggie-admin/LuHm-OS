@@ -11,15 +11,17 @@ permissions:
   issues: read
 
 jobs:
-  dispatch-cast:
+  validate-cast:
     if: >-
       github.event.issue.pull_request &&
       github.event.comment.user.login == github.repository_owner &&
-      startsWith(github.event.comment.body, '/cast androidWeb3Cockpit ')
+      (github.event.comment.body == 'CAST' ||
+       github.event.comment.body == 'castBridge' ||
+       startsWith(github.event.comment.body, '/cast '))
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - name: Validate exact Professor CAST comment
+      - name: Validate exact Professor CAST authorization
         id: cast
         shell: bash
         env:
@@ -28,23 +30,28 @@ jobs:
         run: |
           set -euo pipefail
 
+          MAIN_SHA="$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq '.commit.sha')"
+          test -n "$MAIN_SHA"
+
+          if [[ "$BODY" == "CAST" || "$BODY" == "castBridge" ]]; then
+            echo "::error title=CAST authorization incomplete::Use /cast androidWeb3Cockpit $MAIN_SHA"
+            echo "Short CAST aliases are diagnostic only. Exact current-main SHA is required before dispatch." >&2
+            exit 2
+          fi
+
           if [[ ! "$BODY" =~ ^/cast[[:space:]]+androidWeb3Cockpit[[:space:]]+([0-9a-f]{40})$ ]]; then
-            echo "Invalid CAST syntax" >&2
+            echo "::error title=Invalid CAST syntax::Use /cast androidWeb3Cockpit $MAIN_SHA"
             exit 2
           fi
 
           REQUESTED_SHA="${BASH_REMATCH[1]}"
-          MAIN_SHA="$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq '.commit.sha')"
-
-          test -n "$MAIN_SHA"
           if [[ "$REQUESTED_SHA" != "$MAIN_SHA" ]]; then
-            echo "CAST source drift: requested=$REQUESTED_SHA currentMain=$MAIN_SHA" >&2
+            echo "::error title=CAST source drift::requested=$REQUESTED_SHA currentMain=$MAIN_SHA"
             exit 2
           fi
 
           RELEASE_TAG="android-web3-${REQUESTED_SHA:0:8}-r${GITHUB_RUN_ID}"
           TASK_ID="android-web3-cockpit-cast-${GITHUB_RUN_ID}"
-
           PROFESSOR_ACTOR="${{ github.event.comment.user.login }}"
 
           {
@@ -66,6 +73,16 @@ jobs:
           CAST_ORIGIN_RUN_ID: ${{ steps.cast.outputs.castOriginRunId }}
         run: |
           set -euo pipefail
-          gh workflow run android-testing-build.yml             --repo "$GITHUB_REPOSITORY"             --ref main             -f cast=cast             -f milestoneId=androidWeb3Cockpit             -f taskId="$TASK_ID"             -f sourceRef="$SOURCE_REF"             -f professorActor="$PROFESSOR_ACTOR"             -f castOriginRunId="$CAST_ORIGIN_RUN_ID"             -f releaseTag="$RELEASE_TAG"             -f publishPrerelease=true
+          gh workflow run android-testing-build.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --ref main \
+            -f cast=cast \
+            -f milestoneId=androidWeb3Cockpit \
+            -f taskId="$TASK_ID" \
+            -f sourceRef="$SOURCE_REF" \
+            -f professorActor="$PROFESSOR_ACTOR" \
+            -f castOriginRunId="$CAST_ORIGIN_RUN_ID" \
+            -f releaseTag="$RELEASE_TAG" \
+            -f publishPrerelease=true
 
           echo "CAST_DISPATCHED sourceRef=$SOURCE_REF releaseTag=$RELEASE_TAG taskId=$TASK_ID"
