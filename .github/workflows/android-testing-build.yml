@@ -1,4 +1,4 @@
-name: LuHm OS Universal Samsung Candidate
+name: LuHm OS Android Web3 GitHub Prerelease Candidate
 
 on:
   workflow_dispatch:
@@ -290,33 +290,10 @@ jobs:
           if-no-files-found: error
           retention-days: 3
 
-      - name: Stage private LAN install bundle
-        shell: bash
-        env:
-          CANDIDATE_HEAD: ${{ inputs.sourceRef }}
-        run: |
-          set -euo pipefail
-          python3 tools/stageInstallPortal.py \
-            --apk build/android/luhmos-1.0.16-samsunglayout.1.apk \
-            --out build/installPortal \
-            --commit "$CANDIDATE_HEAD"
-          test -s build/installPortal/index.html
-          test -s build/installPortal/manifest.json
-          test -s build/installPortal/apk/current.apk
-          python3 -m json.tool build/installPortal/manifest.json >/dev/null
-          (cd build/installPortal && sha256sum -c SHA256SUMS.txt)
-
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: luhm-os-universal-samsung-cast-${{ inputs.milestoneId }}
           path: build/android/
-          if-no-files-found: error
-          retention-days: 3
-
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: luhm-os-s24fe-lan-install-cast-${{ inputs.milestoneId }}
-          path: build/installPortal/
           if-no-files-found: error
           retention-days: 3
 
