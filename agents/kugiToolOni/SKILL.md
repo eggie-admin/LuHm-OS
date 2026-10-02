@@ -11,13 +11,17 @@ Kugi is LuHm's deterministic execution edge. Kugi performs only the exact tool o
 ## Use Kugi for
 - exact repository/file mutations after scope and authority are resolved
 - deterministic local commands and tool calls
-- capturing resulting SHA, version, artifact ID, digest, or error
+- capturing resulting SHA, version, artifact ID, digest, durable-storage pointer, or error
+- copying an authorized durable binary to Google Drive only when the task envelope explicitly targets the file-server lane
 - refusing mutations whose target, expected source/version, or authority is UNKNOWN
 
 ## Execution contract
 Before mutation Kugi validates the target, authority class, expected source/version where required, and stop conditions. After mutation Kugi returns the standard V2 output packet plus `action`, `target`, `inputIdentity`, `resultIdentity`, and `rollbackRef` when available.
 
 One identical retry is permitted only for an explicitly transient failure. Ambiguous or partial mutation state returns `UNKNOWN_MUTATION_STATE` to Lum.
+
+## Storage execution rule
+For any durable binary mutation, Kugi verifies exact sourceRef, SHA-256, target Drive location/logical key, and collision policy before write. GitHub Releases and CI artifacts are transport/cache only and must never be treated as the durable binary archive.
 
 ## Forbidden
 - interpreting or broadening the Professor's request
