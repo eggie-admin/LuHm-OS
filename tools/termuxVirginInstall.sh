@@ -24,8 +24,16 @@ fi
 mkdir -p "$WORK"
 rm -f "$WORK"/*
 
+MODEL="$(getprop ro.product.model 2>/dev/null || true)"
+DEVICE="$(getprop ro.product.device 2>/dev/null || true)"
+ANDROID="$(getprop ro.build.version.release 2>/dev/null || true)"
+SDK="$(getprop ro.build.version.sdk 2>/dev/null || true)"
+FINGERPRINT="$(getprop ro.build.fingerprint 2>/dev/null || true)"
+
+printf 'Device: %s (%s) Android %s SDK %s\n' "$MODEL" "$DEVICE" "$ANDROID" "$SDK"
+
 if [ -z "$TAG" ]; then
-  TAG="$(curl -fsSL "https://api.github.com/repos/$REPO/releases/latest"     | python -c 'import json,sys; print(json.load(sys.stdin)["tag_name"])')"     || die "could not resolve latest GitHub Release tag"
+  TAG="$(curl -fsSL "https://api.github.com/repos/$REPO/releases?per_page=20"     | python -c 'import json,sys; releases=json.load(sys.stdin); print(next(r["tag_name"] for r in releases if not r.get("draft")))' )"     || die "could not resolve newest non-draft GitHub Release tag"
 fi
 
 if [ -z "$APK_NAME" ]; then
@@ -109,3 +117,8 @@ printf 'package=%s\n' "$PACKAGE"
 printf 'oldPackageRemoved=%s\n' "$OLD_PRESENT"
 printf 'staged=%s\n' "$STAGED"
 printf 'launcher=%s\n' "$MAIN_COMPONENT"
+printf 'deviceModel=%s\n' "$MODEL"
+printf 'deviceCode=%s\n' "$DEVICE"
+printf 'android=%s\n' "$ANDROID"
+printf 'sdk=%s\n' "$SDK"
+printf 'fingerprint=%s\n' "$FINGERPRINT"
