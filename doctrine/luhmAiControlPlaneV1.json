@@ -536,6 +536,13 @@
     "asset": [
       "lum",
       "sumi"
+    ],
+    "androidSystems": [
+      "lum",
+      "shizukuX11Oni",
+      "urdDoctorGoddess",
+      "skuldResearch",
+      "belldandySecretary"
     ]
   },
   "remoteAiManifest": {
@@ -599,5 +606,33 @@
     "peerAwareness": "readOnly",
     "disagreementsReturnTo": "lum",
     "consensusAuthority": false
+  },
+  "workers": {
+    "shizukuX11Oni": {
+      "displayName": "Shizuku X11 Oni",
+      "kind": "androidSystemsIntegrator",
+      "skillPath": "agents/shizukuX11Oni/SKILL.md",
+      "defaultAuthority": "PLAN_ONLY",
+      "capabilities": [
+        "shizukuStateReconciliation",
+        "termuxX11StateReconciliation",
+        "prootX11Compatibility",
+        "androidGuiSessionPlanning",
+        "runtimeReceiptShaping"
+      ],
+      "forbidden": [
+        "assumeRoot",
+        "disableSelinux",
+        "grantShizukuPermission",
+        "mixSigningFamilies",
+        "publicExposeX11",
+        "mutateWithoutLum",
+        "selfApprove"
+      ],
+      "parallelClass": "support",
+      "speaksTo": "lum",
+      "mayRecruit": false,
+      "maySelfApprove": false
+    }
   }
 }
