@@ -19,6 +19,15 @@ on:
         description: "Exact commit SHA to build"
         required: true
         type: string
+      releaseTag:
+        description: "GitHub prerelease tag, for example android-web3-0.1.0-rc1"
+        required: true
+        type: string
+      publishPrerelease:
+        description: "Publish exact built APK + SHA256 as a GitHub prerelease"
+        required: true
+        type: boolean
+        default: true
 
 concurrency:
   group: ${{ github.workflow }}-${{ inputs.milestoneId }}-${{ inputs.sourceRef }}
@@ -250,6 +259,37 @@ jobs:
           "$BT/aapt" dump xmltree "$APK" AndroidManifest.xml > build/android/manifest.txt
           python3 tools/candidateGate.py --apk "$APK"
 
+
+      - name: Prepare GitHub Release assets
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ inputs.releaseTag }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os, re
+          tag = os.environ["RELEASE_TAG"]
+          if not re.fullmatch(r"[A-Za-z0-9._-]+", tag):
+              raise SystemExit("invalid releaseTag: use only A-Z a-z 0-9 . _ -")
+          PY
+          SRC=build/android/luhmos-1.0.16-samsunglayout.1.apk
+          NAME="LuHmOS-AndroidWeb3-${RELEASE_TAG}-arm64-v8a.apk"
+          mkdir -p build/github-release
+          cp "$SRC" "build/github-release/$NAME"
+          (
+            cd build/github-release
+            sha256sum "$NAME" > "$NAME.sha256"
+            sha256sum -c "$NAME.sha256"
+          )
+
+      - name: Upload GitHub Release asset bundle
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-os-github-release-assets-${{ inputs.milestoneId }}
+          path: build/github-release/
+          if-no-files-found: error
+          retention-days: 3
+
       - name: Stage private LAN install bundle
         shell: bash
         env:
@@ -287,3 +327,46 @@ jobs:
           if test -s "$RUNNER_TEMP/forge-cast-receipt.json"; then
             python3 -m json.tool "$RUNNER_TEMP/forge-cast-receipt.json"
           fi
+
+
+  publish-prerelease:
+    if: ${{ inputs.publishPrerelease }}
+    needs: android-testing
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Download exact release asset bundle
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: luhm-os-github-release-assets-${{ inputs.milestoneId }}
+          path: release-assets
+
+      - name: Verify release asset checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd release-assets
+          test "$(find . -maxdepth 1 -type f -name '*.apk' | wc -l)" -eq 1
+          test "$(find . -maxdepth 1 -type f -name '*.apk.sha256' | wc -l)" -eq 1
+          sha256sum -c ./*.apk.sha256
+
+      - name: Publish immutable GitHub prerelease
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.releaseTag }}
+          SOURCE_REF: ${{ inputs.sourceRef }}
+        run: |
+          set -euo pipefail
+          command -v gh >/dev/null
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "release tag already exists; refusing overwrite" >&2
+            exit 2
+          fi
+          APK="$(find release-assets -maxdepth 1 -type f -name '*.apk' -print -quit)"
+          SHA="${APK}.sha256"
+          test -s "$APK"
+          test -s "$SHA"
+          gh release create "$RELEASE_TAG"             "$APK"             "$SHA"             --repo "$GITHUB_REPOSITORY"             --target "$SOURCE_REF"             --prerelease             --title "LuHm OS Android Web3 $RELEASE_TAG"             --notes "Professor-authorized LuHm OS Android Web3 testing prerelease. Exact source: $SOURCE_REF. Disposable testing signer. Intended for rooted virgin-install testing; not a stable or production-signed release."
