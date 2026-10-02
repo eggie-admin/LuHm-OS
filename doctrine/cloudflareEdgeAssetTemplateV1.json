@@ -1,0 +1,58 @@
+{
+  "schema": "luhmOs.cloudflareEdgeAssetTemplate.v1",
+  "status": "candidateNotDeployed",
+  "authority": "Professor",
+  "domain": "eggiebagelface.art",
+  "lanes": {
+    "publicSite": {
+      "host": "eggiebagelface.art",
+      "purpose": "static public face",
+      "apiAuthority": false
+    },
+    "assetCdn": {
+      "hostTemplate": "cdn.eggiebagelface.art",
+      "purpose": "first-party versioned LuHm static assets",
+      "allowed": ["css","js","svg","png","webp","woff2","json"],
+      "thirdPartyRuntimeDependencies": false,
+      "immutablePathTemplate": "/assets/<version>/<contentHash>/<file>",
+      "cache": "public,max-age=31536000,immutable"
+    },
+    "privateHydra": {
+      "hostTemplate": "hydra.eggiebagelface.art",
+      "purpose": "authenticated remote entry to existing Hydra origin",
+      "cloudflareAccessRequired": true,
+      "cloudflareTunnelRequired": true,
+      "routerPortForwardRequired": false,
+      "originTls": "local origin TLS remains independently configured",
+      "apiPath": "/api/",
+      "newApiSpine": false
+    },
+    "mcp": {
+      "host": "mcp.eggiebagelface.art",
+      "preserveExistingRenderManagedTlsLane": true,
+      "mergeIntoHydraTunnel": false
+    }
+  },
+  "dns": {
+    "provider": "Cloudflare intended authoritative DNS",
+    "recordsAreDeploymentEvidence": false,
+    "noIpAddressesInSource": true
+  },
+  "certificate": {
+    "browserEdge": "Cloudflare managed edge certificate when deployed",
+    "privateOrigin": "do not replace local hydra.localhost mkcert contract",
+    "mcp": "preserve Render managed TLS contract"
+  },
+  "assetLaw": [
+    "local assets remain canonical and self-hostable",
+    "Cloudflare may cache first-party approved assets only",
+    "no secrets tokens Crown authority or source-truth decisions in static assets",
+    "asset provenance approval and runtime-import proof remain required",
+    "HTML and manifests use short or no-cache policy; hashed assets may be immutable"
+  ],
+  "deployment": {
+    "automatic": false,
+    "requiresProfessorPromotion": true,
+    "cloudflareAccountMutationPerformed": false
+  }
+}
