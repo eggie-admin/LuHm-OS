@@ -4,15 +4,32 @@
   "authority": "Professor",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "namingLaw": {
-    "controlledNames": "camelHump",
+    "semanticMachineIds": "lowerCamelHumpPreferred",
     "humanHeadings": "readableTitleCase",
     "externalNames": "preserveRequiredExternalSpelling",
     "historicalEvidence": "immutableOriginalPath",
     "silentAliasesAllowed": false,
     "duplicateCanonicalPathsAllowed": false,
-    "newWritableFiles": "lowerCamelHumpUnlessExternalFormatRequiresOtherwise",
-    "newInternalIdentifiers": "lowerCamelHump",
-    "machineEnumValues": "lowerCamelHump"
+    "conventionProfiles": {
+      "luHmSemanticIds": "lowerCamelHump",
+      "jsonOwnedDomainKeys": "lowerCamelHumpPreferred",
+      "jsonVendorOrExternalKeys": "preserveExternal",
+      "javascriptIdentifiers": "languageNative",
+      "pythonFunctionsAndLocals": "snake_caseAllowed",
+      "pythonConstants": "UPPER_SNAKE_ALLOWED",
+      "shellLocals": "snake_caseAllowed",
+      "shellEnvironment": "UPPER_SNAKE_ALLOWED",
+      "githubWorkflowFiles": "kebab-case-or-camelHump-allowed",
+      "yamlKeys": "schemaOrVendorNative",
+      "gradleKotlin": "languageNative",
+      "androidManifest": "androidNative",
+      "filenames": "projectOrEcosystemNative",
+      "dnsAndFqdn": "dnsNative",
+      "databaseFields": "schemaNative"
+    },
+    "semanticIdentityRule": "LuHm-owned agent IDs, provider IDs, worker IDs, logical asset IDs, task IDs, scope IDs and capability IDs use stable lowerCamelHump unless an external protocol owns the identifier.",
+    "ecosystemRule": "Do not rename syntax, keys, files or identifiers merely to satisfy camelHump when that conflicts with language, framework, platform, vendor, build-system or established repository conventions.",
+    "migrationRule": "A naming migration must improve clarity, compatibility or collision safety. Cosmetic convention churn alone is insufficient."
   },
   "canonicalWritableRoots": {
     "agents": "agents/",
@@ -45,7 +62,7 @@
     "tools/smX400OneBashInstall.sh",
     "tools/smX400OneBashInstallAudit.py"
   ],
-  "legacyPathLaw": "Historical evidence may retain old filenames. It is read-only evidence and is not a naming template for new source.",
+  "legacyPathLaw": "Historical evidence and established working paths retain their original names unless a migration is functionally justified.",
   "moveLaw": "A sealed path move requires an explicit migration receipt containing oldPath, newPath, sourceRef, contentHash, reason and Professor authority.",
   "deleteLaw": "A sealed path cannot disappear without an authorized migration or retirement receipt.",
   "sealLaw": "Exact required paths and naming rules must pass deterministic audit before promotion.",
@@ -54,17 +71,19 @@
     "urdDoctorGoddess": {
       "role": "structuralNamingPathology",
       "watches": [
-        "newWritableNameDrift",
-        "machineIdentityCollision",
+        "semanticIdentityDrift",
+        "languageConventionMismatch",
         "routingBreakRisk",
-        "aliasAmbiguity"
+        "aliasAmbiguity",
+        "cosmeticRenameChurn"
       ],
       "authority": "readOnly"
     },
     "belldandySecretary": {
       "role": "canonicalNameLedger",
       "watches": [
-        "canonicalNames",
+        "canonicalSemanticNames",
+        "nativeConventionExceptions",
         "legacyAliases",
         "migrationReceipts",
         "pathContinuity"
