@@ -48,6 +48,8 @@ jobs:
           python3 tools/namingPathSealAudit.py
           python3 tools/artOniCamelHumpAudit.py
 
+      - name: OperationTitan7 explicit 50-pass audit
+        run: python3 tools/operationTitan7FiftyPassAudit.py
       - name: Tourniquet agent logic
         run: python3 tools/tourniquetAgentLogicAudit.py
       - name: Network and FQDN contract
