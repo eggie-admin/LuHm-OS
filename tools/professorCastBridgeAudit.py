@@ -21,17 +21,21 @@ for token in (
     "types: [created]",
     "github.event.issue.pull_request",
     "github.event.comment.user.login == github.repository_owner",
-    "startsWith(github.event.comment.body, '/cast androidWeb3Cockpit ')",
+    "github.event.comment.body == 'CAST'",
+    "github.event.comment.body == 'castBridge'",
+    "startsWith(github.event.comment.body, '/cast ')",
     "gh api \"repos/$GITHUB_REPOSITORY/branches/main\" --jq '.commit.sha'",
-    "REQUESTED_SHA",
-    "MAIN_SHA",
+    "Short CAST aliases are diagnostic only",
+    "::error title=Invalid CAST syntax",
+    "requestedSha",
+    "mainSha",
     "gh workflow run android-testing-build.yml",
     "--ref main",
     "-f cast=cast",
     "-f milestoneId=androidWeb3Cockpit",
-    "-f sourceRef=\"$SOURCE_REF\"",
-    "-f professorActor=\"$PROFESSOR_ACTOR\"",
-    "-f castOriginRunId=\"$CAST_ORIGIN_RUN_ID\"",
+    "-f sourceRef=\"$sourceRef\"",
+    "-f professorActor=\"$professorActor\"",
+    "-f castOriginRunId=\"$castOriginRunId\"",
     "-f publishPrerelease=true",
 ):
     require(token in workflow, f"bridge missing required guard/control: {token}")
@@ -42,11 +46,13 @@ require("contents: write" not in workflow, "bridge may not write repository cont
 require("pull_request_target" not in workflow, "pull_request_target forbidden")
 require("push:" not in workflow, "push trigger forbidden")
 require("schedule:" not in workflow, "scheduled CAST forbidden")
+for bad in ("MAIN_SHA", "REQUESTED_SHA", "SOURCE_REF", "RELEASE_TAG", "TASK_ID", "PROFESSOR_ACTOR", "CAST_ORIGIN_RUN_ID"):
+    require(bad not in workflow, f"non-camelHump internal shell variable forbidden: {bad}")
 require(re.search(r"\^/cast\[\[:space:\]\]\+androidWeb3Cockpit", workflow) is not None,
         "exact CAST syntax regex missing")
-require("requested=$REQUESTED_SHA currentMain=$MAIN_SHA" in workflow,
+require("requested=$requestedSha currentMain=$mainSha" in workflow,
         "source drift failure path missing")
-require('echo "professorActor=$PROFESSOR_ACTOR"' in workflow,
+require('echo "professorActor=$professorActor"' in workflow,
         "bridge must export Professor actor")
 require('echo "castOriginRunId=$GITHUB_RUN_ID"' in workflow,
         "bridge must export origin run ID")
@@ -61,6 +67,10 @@ for key in ("noPersistentBuildAuthorization","noWildcardActor","noSourceDrift",
             "noBotImpersonation","botMayTransportAuthorizationOnlyWithVerifiedOrigin"):
     require(safety.get(key) is True, f"safety flag must remain true: {key}")
 require(doctrine.get("crownStatus") == "STOP", "Crown must remain STOP")
+require(trigger.get("diagnosticAliases") == ["CAST", "castBridge"], "diagnostic alias contract drift")
+require(trigger.get("diagnosticAliasesDispatch") is False, "short aliases must never dispatch")
+require(trigger.get("invalidAuthorizationFailsLoud") is True, "invalid authorization must fail loud")
+require(safety.get("noImplicitShortAliasDispatch") is True, "implicit short-alias dispatch forbidden")
 
 print(json.dumps({
     "schema":"luhm-os.professor-cast-bridge-audit.v1",

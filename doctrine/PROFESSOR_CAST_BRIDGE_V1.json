@@ -1,7 +1,7 @@
 {
-  "schema": "luhm-os.professor-cast-bridge.v2",
+  "schema": "luhm-os.professor-cast-bridge.v3",
   "date": "2026-10-02",
-  "status": "PROPOSED_CONTROL_PLANE_WITH_PROVENANCE",
+  "status": "PROPOSED_HARDENED_CONTROL_PLANE_WITH_FAIL_LOUD_DIAGNOSTICS",
   "authority": "Professor",
   "purpose": "Allow an explicit owner-authored GitHub PR comment containing a milestone and exact current-main SHA to dispatch exactly one CAST-gated Android Web3 build/release workflow.",
   "trigger": {
@@ -9,7 +9,13 @@
     "requiresPullRequestContext": true,
     "requiredActor": "github.repository_owner",
     "syntax": "/cast androidWeb3Cockpit <40-char-current-main-sha>",
-    "exactMainMatch": true
+    "exactMainMatch": true,
+    "diagnosticAliases": [
+      "CAST",
+      "castBridge"
+    ],
+    "diagnosticAliasesDispatch": false,
+    "invalidAuthorizationFailsLoud": true
   },
   "dispatch": {
     "workflow": "android-testing-build.yml",
@@ -28,7 +34,8 @@
     "noMergeAuthority": true,
     "noCrownAuthority": true,
     "noBotImpersonation": true,
-    "botMayTransportAuthorizationOnlyWithVerifiedOrigin": true
+    "botMayTransportAuthorizationOnlyWithVerifiedOrigin": true,
+    "noImplicitShortAliasDispatch": true
   },
   "crownStatus": "STOP",
   "provenance": {
