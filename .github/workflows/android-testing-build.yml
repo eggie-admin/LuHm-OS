@@ -257,13 +257,13 @@ jobs:
           print('DRIVE 3D GLB AUDIT GREEN', {'base': base, 'run': run})
           PY
 
-       - name: Import Godot project with Drive assets
+      - name: Import Godot project with Drive assets
         shell: bash
         run: |
           set -euo pipefail
           "$GODOT" --headless --editor --path . --quit
 
-       - name: Export Drive-3D testing APK
+      - name: Export Drive-3D testing APK
         shell: bash
         run: |
           set -euo pipefail
