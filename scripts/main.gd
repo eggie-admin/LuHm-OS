@@ -65,6 +65,7 @@ func _wire_android_web3() -> void:
     android_web3_plugin = Engine.get_singleton("AndroidWeb3Cockpit")
     android_web3_plugin.connect("world_requested", enterWorldMode)
     android_web3_plugin.connect("cockpit_ready", _on_android_web3_ready)
+    android_web3_plugin.connect("chat_submitted", _on_android_chat_submitted)
     android_web3_plugin.connect("bridge_error", _on_android_web3_error)
 
 func _on_android_web3_ready(version: String) -> void:
@@ -73,6 +74,13 @@ func _on_android_web3_ready(version: String) -> void:
 
 func _on_android_web3_error(reason: String) -> void:
     push_error("ANDROID_WEB3_COCKPIT_ERROR: " + reason)
+
+func _on_android_chat_submitted(text: String, chaos_seed: String) -> void:
+    var clean_text := text.strip_edges().substr(0, 512)
+    if clean_text.is_empty():
+        return
+    print("LUHM_CHAT_SUBMITTED seed=", chaos_seed, " text=", clean_text)
+    game_hud.show_dialogue("Lum: I heard you, Professor. " + clean_text)
 
 func enterWorldMode() -> void:
     if android_web3_plugin != null:
