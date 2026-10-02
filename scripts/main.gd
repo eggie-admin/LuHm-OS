@@ -1,8 +1,6 @@
 extends Node3D
 
-const NeonWorldScript := preload("res://scripts/game/neonWorld.gd")
-const LumCoffeeHouseScript := preload("res://scripts/game/lumCoffeeHouseScene.gd")
-const CathedralWorldScript := preload("res://scripts/game/cathedralWorld.gd")
+const WorldFactoryScript := preload("res://scripts/game/worldFactory.gd")
 const PlayerControllerScript := preload("res://scripts/game/playerController.gd")
 const GameHudScript := preload("res://scripts/game/gameHud.gd")
 const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
@@ -31,8 +29,7 @@ func _ready() -> void:
     _enter_backend()
 
 func _build_runtime() -> void:
-    neon_world = NeonWorldScript.new()
-    neon_world.name = "NeonWorld"
+    neon_world = WorldFactoryScript.new().createWorld("neonRiverwalk")
     add_child(neon_world)
     active_world = neon_world
 
@@ -112,19 +109,9 @@ func _play_intro() -> void:
 func switchWorld(world_id: String) -> bool:
     if world_id == active_world_id:
         return true
-    var next_world: Node3D
-    match world_id:
-        "neonRiverwalk":
-            next_world = NeonWorldScript.new()
-            next_world.name = "NeonWorld"
-        "lumCoffeeHouse":
-            next_world = LumCoffeeHouseScript.new()
-            next_world.name = "LumCoffeeHouse"
-        "cathedral":
-            next_world = CathedralWorldScript.new()
-            next_world.name = "CathedralWorld"
-        _:
-            return false
+    var next_world: Node3D = WorldFactoryScript.new().createWorld(world_id)
+    if next_world == null:
+        return false
     if cutscene_bridge != null:
         cutscene_bridge.cancel()
         cutscene_bridge.restore_now()
