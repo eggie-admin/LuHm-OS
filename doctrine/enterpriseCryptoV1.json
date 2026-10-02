@@ -1,0 +1,65 @@
+{
+  "schema": "luhmOs.enterpriseCrypto.v1",
+  "status": "betaHardening",
+  "authority": "Professor",
+  "purpose": "Canonical cryptography, credential, token, and trust-boundary contract for LuHm enterprise integrations.",
+  "primeLaw": "identity != authorization != approval != evidence",
+  "trustLayers": {
+    "identity": "establishedOidcOauth21Provider",
+    "transport": "tls13OrPlatformManagedTls",
+    "authorization": "hydraPolicy",
+    "approval": "professorCrownForConsequentialActions",
+    "evidence": "exactSourceDeterministicReceipts"
+  },
+  "secretLaw": {
+    "secretValuesInGit": false,
+    "secretValuesInPrompts": false,
+    "secretValuesInBrowser": false,
+    "secretValuesInJquery": false,
+    "secretValuesInGodot": false,
+    "secretValuesInAndroidApk": false,
+    "secretValuesInDriveMetadata": false,
+    "runtimeSecretStores": [
+      "renderEnvironment",
+      "trustedHostEnvironment",
+      "localSecretDirectory"
+    ],
+    "localSecretDirectory": "~/.secret/hydra/",
+    "logRedactionRequired": true,
+    "receiptStoresSecretReferencesOnly": true
+  },
+  "tokenLaw": {
+    "shortLivedPreferred": true,
+    "oauth21ForPrivateOrWriteTools": true,
+    "pkceS256": true,
+    "state": true,
+    "nonce": true,
+    "issuerValidation": true,
+    "audienceValidation": true,
+    "expiryValidation": true,
+    "scopeValidation": true,
+    "refreshTokensServerSideOnly": true,
+    "revokeOnCompromise": true
+  },
+  "keyLaw": {
+    "projectScopedApiKeysPreferred": true,
+    "leastPrivilegeScopes": true,
+    "oneProviderOnePurpose": true,
+    "rotateWithoutSourceChange": true,
+    "hardcodedKeysForbidden": true
+  },
+  "tlsLaw": {
+    "managedTlsPreferred": true,
+    "productionFqdn": "mcp.eggiebagelface.art",
+    "renderTerminatesTls": true,
+    "duplicateOriginCertificateForbidden": true,
+    "hstsPreloadRequiresSeparateReview": true
+  },
+  "monitoring": {
+    "urdDoctorGoddess": "credentialExpiryAuthFailureTrustBoundaryPathology",
+    "belldandySecretary": "credentialReferenceRotationAndSessionLedger",
+    "skuldResearch": "providerAuthCompatibilityAndUpstreamChange",
+    "lum": "providerAvailabilityAndProfessorFacingStatus"
+  },
+  "crownStatus": "stop"
+}
