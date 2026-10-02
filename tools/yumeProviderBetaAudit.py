@@ -123,7 +123,7 @@ requireTruth(hfProvider.get("lumDispatchRequired") is True, "HF Lum dispatch gat
 
 if hfSharedPath.is_file():
     hfSharedText = hfSharedPath.read_text(encoding="utf-8")
-    for phrase in ("Lum signs and dispatches", "Temporary CPU/GPU Jobs require an explicit bounded task", "Provider output is `observed`"):
+    for phrase in ("signs and dispatches every provider job", "Temporary CPU/GPU Jobs require an explicit bounded task", "Provider output is `observed`"):
         requireTruth(phrase in hfSharedText, f"HF shared law missing {phrase}")
 
 for skillPath in hfSkillPaths:
