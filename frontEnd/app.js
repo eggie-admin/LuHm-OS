@@ -11,9 +11,11 @@
   $(function () {
     const $cockpit = $("[data-luhm-cockpit]");
     const $assetFactory = $cockpit.find("[data-luhm-asset-factory]");
+    const $activityDock = $cockpit.find("[data-luhm-activity-dock]");
     if (!$cockpit.length) return;
 
     $cockpit.luhmCockpit({ initialView: "chat" });
+    if ($activityDock.length) $activityDock.luhmActivityDock();
 
     $cockpit.on("click", "[data-luhm-factory-button]", function () {
       $cockpit.find("[data-luhm-menu]").prop("hidden", true);
@@ -40,6 +42,9 @@
       setView: function (view) { $cockpit.luhmCockpit("view", view); },
       openMediaFactory: function () { $assetFactory.prop("hidden", false); },
       closeMediaFactory: function () { $assetFactory.prop("hidden", true); },
+      updateActivity: function (packet) { if ($activityDock.length) $activityDock.luhmActivityDock("render", packet); },
+      clearActivity: function () { if ($activityDock.length) $activityDock.luhmActivityDock("clear"); },
+      activitySnapshot: function () { return $activityDock.length ? $activityDock.luhmActivityDock("snapshot") : null; },
       nativeBridgeAvailable: function () {
         return !!(window.LuHmNative && typeof window.LuHmNative.postMessage === "function");
       }
