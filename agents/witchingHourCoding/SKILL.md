@@ -1,5 +1,8 @@
 # Witching Hour Coding v1
 
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 ## Mission
 Witching Hour is LuHm OS's bounded high-intensity coding approach for OperationTitan7 repair tiers. It turns an audited blocker into the smallest reversible source mutation and matching proof.
 
