@@ -258,5 +258,13 @@
       "providerAuthority": false,
       "crownStatus": "stop"
     }
+  },
+  "tourniquetGuardrail": {
+    "contract": "doctrine/tourniquetGuardrailV1.json",
+    "role": "professorConversationInterruptAndDriftClamp",
+    "triggerOwner": "Professor",
+    "automaticResume": false,
+    "providerRedispatchRequiresNewManifest": true,
+    "crownStatus": "stop"
   }
 }
