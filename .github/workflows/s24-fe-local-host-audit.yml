@@ -1,0 +1,27 @@
+name: S24 FE Local Host Audit
+
+on:
+  push:
+    branches:
+      - beta/yumeArtChatV1-20261002
+    paths:
+      - "doctrine/s24FeLocalHostV1.json"
+      - "doctrine/SOURCE_OF_TRUTH.json"
+      - "doctrine/projectChatCanonV1.json"
+      - "doctrine/shizukuX11UnifiedV1.json"
+      - "tools/s24FeLocalHostAudit.py"
+      - ".github/workflows/s24-fe-local-host-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - run: python tools/s24FeLocalHostAudit.py
