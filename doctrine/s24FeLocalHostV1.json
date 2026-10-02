@@ -1,0 +1,71 @@
+{
+  "schema": "luhmOs.s24FeLocalHost.v1",
+  "date": "2026-10-02",
+  "status": "betaCanonicalMobileHost",
+  "authority": "Professor",
+  "purpose": "Make ordinary Termux outside Samsung Secure Folder the authoritative S24 FE local control plane for LuHm mobile development and runtime support.",
+  "target": {
+    "device": "Samsung Galaxy S24 FE",
+    "model": "SM-S721U1",
+    "android": "16",
+    "architecture": "arm64-v8a"
+  },
+  "primaryHost": {
+    "id": "s24FeLocalHost",
+    "surface": "ordinaryTermuxOutsideSecureFolder",
+    "role": "mobileControlPlane",
+    "authoritativeFor": [
+      "githubCliAndSourceSync",
+      "betaCastInstall",
+      "prootToolSandbox",
+      "shizukuAndRishIntegration",
+      "termuxX11SessionControl",
+      "localLoopbackServices",
+      "deviceProbes",
+      "runtimeReceipts",
+      "lightweightLocalAutomation"
+    ]
+  },
+  "secureFolder": {
+    "role": "optionalIsolationOnly",
+    "defaultControlPlane": false,
+    "sourceAuthority": false,
+    "runtimeAuthority": false,
+    "requiredForNormalWorkflow": false,
+    "mayBeUsedFor": [
+      "explicitIsolationExperiment",
+      "temporaryCompatibilityCheck",
+      "oneOffAppIsolation"
+    ],
+    "forbiddenAsDefault": [
+      "canonicalTermuxHost",
+      "canonicalGitWorkspace",
+      "requiredShizukuHost",
+      "requiredX11Host",
+      "requiredBetaInstallLane"
+    ]
+  },
+  "localStack": {
+    "termux": "authoritativeMobileHost",
+    "proot": "optionalUserspaceLinuxSandbox",
+    "shizuku": "optionalBinderPrivilegeBridge",
+    "termuxX11": "preferredLocalGraphicalServerWhenProven",
+    "vncWebsocket": "fallbackOnly",
+    "github": "compatibilityLayer2AndRemoteForge",
+    "googleDrive": "durableBinaryFileServer",
+    "render": "remoteManagedRuntime"
+  },
+  "loopbackLaw": {
+    "localServicesBindLoopbackByDefault": true,
+    "publicExposureRequiresSeparateCrownGate": true,
+    "phoneIsNotPublicWebServer": true
+  },
+  "migrationLaw": {
+    "newMobileWorkTargetsOrdinaryTermux": true,
+    "secureFolderDependenciesShouldBeRemovedWhenSafe": true,
+    "doNotMoveOrDeleteSecureFolderDataWithoutExplicitProfessorApproval": true,
+    "preserveKnownGoodFallbacksUntilReplacementProven": true
+  },
+  "physicalProofRequired": true,
+  "crownStatus": "stop"
+}
