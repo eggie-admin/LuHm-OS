@@ -1,0 +1,43 @@
+{
+  "schema": "luhmOs.mediaBatchManifest.v1",
+  "status": "template",
+  "authority": "professor",
+  "characterId": "replaceMe",
+  "sealedCanonRef": "required",
+  "batchId": "replaceMe",
+  "reviewState": "candidateReview",
+  "assetFamilies": [
+    {"id": "masterSheet", "count": 1},
+    {"id": "turnaround", "count": 1},
+    {"id": "expressions", "count": 2},
+    {"id": "wardrobe", "count": 3},
+    {"id": "props", "count": 1},
+    {"id": "portraitBust", "count": 4},
+    {"id": "dialoguePortrait", "count": 6},
+    {"id": "chibi", "count": 4},
+    {"id": "spriteSet", "count": 2},
+    {"id": "voxelSet", "count": 1},
+    {"id": "ps1Set", "count": 1},
+    {"id": "uiIcon", "count": 4},
+    {"id": "keyArt", "count": 2},
+    {"id": "animationKeyframes", "count": 2},
+    {"id": "threeDBrief", "count": 1}
+  ],
+  "providers": {
+    "preferred": ["localHydra", "googleAi"],
+    "fallback": ["edgeGalleryReview"],
+    "providerAuthority": "candidateOnly"
+  },
+  "technicalTargets": {
+    "stillFormats": ["png"],
+    "transparentPreferred": true,
+    "videoIntermediates": ["pngSequence"],
+    "colorSpace": "sRGB",
+    "namingLaw": "lowerCamelHump"
+  },
+  "approval": {
+    "professorRequired": true,
+    "automaticSeal": false,
+    "automaticCast": false
+  }
+}
