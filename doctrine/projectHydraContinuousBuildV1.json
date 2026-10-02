@@ -11,15 +11,50 @@
   },
   "continuousBuild": {
     "enabled": true,
-    "stopOnlyFor": ["deterministicRedWithoutBoundedRepair", "ambiguousDestructiveChoice", "physicalActionRequiringProfessor", "ProfessorStop"],
+    "stopOnlyFor": [
+      "deterministicRedWithoutBoundedRepair",
+      "ambiguousDestructiveChoice",
+      "physicalActionRequiringProfessor",
+      "ProfessorStop"
+    ],
     "knownGoodFallback": "latestEvidenceBackedCAST"
   },
-  "playableChain": ["chat", "Godot", "Lum", "worlds", "interaction", "parallax", "randomChaos", "ArtOni"],
+  "playableChain": [
+    "chat",
+    "Godot",
+    "Lum",
+    "worlds",
+    "interaction",
+    "parallax",
+    "randomChaos",
+    "ArtOni"
+  ],
   "hardAudit": {
     "passes": 20,
     "eachPassRequiresExactSource": true,
     "unknownIsNotGreen": true,
-    "passNames": ["canonicalSourceIdentity", "sourceTruthFreshness", "authorityAndCrown", "castSemantics", "namingAndPaths", "agentSkillBoundaries", "workflowPermissions", "actionPinning", "secretAndNetworkExposure", "rollbackAndKnownGood", "cockpitChatBoundary", "godotImport", "godotRuntimeSmoke", "worldNavigation", "lumInteraction", "parallaxRuntime", "randomFunDeterminism", "artOniCandidateBoundary", "assetProvenance", "androidArtifactAndPhysicalBoundary"]
+    "passNames": [
+      "canonicalSourceIdentity",
+      "sourceTruthFreshness",
+      "authorityAndCrown",
+      "castSemantics",
+      "namingAndPaths",
+      "agentSkillBoundaries",
+      "workflowPermissions",
+      "actionPinning",
+      "secretAndNetworkExposure",
+      "rollbackAndKnownGood",
+      "cockpitChatBoundary",
+      "godotImport",
+      "godotRuntimeSmoke",
+      "worldNavigation",
+      "lumInteraction",
+      "parallaxRuntime",
+      "randomFunDeterminism",
+      "artOniCandidateBoundary",
+      "assetProvenance",
+      "androidArtifactAndPhysicalBoundary"
+    ]
   },
   "castBridge": "candidate -> hard20PassAudit -> exactHeadCi -> runtimeEvidence -> artifactEvidence -> evidenceReconcile -> ProfessorCrown -> CAST",
   "claims": {
@@ -27,5 +62,39 @@
     "currentCastPreserved": true,
     "physicalInstallImplied": false,
     "publicationImplied": false
+  },
+  "mutationPass": {
+    "mode": "conditionalBoundedMutation",
+    "maxPasses": 100,
+    "minPasses": 1,
+    "earlyStopWhen": "milestoneSatisfiedAndAllRequiredEvidenceGreen",
+    "eachPass": [
+      "sanityCheck",
+      "ingestCurrentCanonicalTruth",
+      "auditCurrentMilestone",
+      "identifySmallestEvidenceGap",
+      "boundedMutationIfRequired",
+      "targetedTest",
+      "reingestMutatedTruth",
+      "recordReceipt",
+      "continueOrStop"
+    ],
+    "requirements": {
+      "exactSourceRef": true,
+      "evidenceNonNull": true,
+      "auditNonNull": true,
+      "oneMutableLane": true,
+      "maxParallelism": 3,
+      "knownGoodFallback": true,
+      "unknownIsNotGreen": true,
+      "deterministicRedStopsEscalation": true
+    },
+    "forbidden": [
+      "blind100IdenticalChecks",
+      "selfApproval",
+      "implicitCrown",
+      "destructiveScorchedEarth",
+      "claimingPhysicalEvidenceFromSoftware"
+    ]
   }
 }
