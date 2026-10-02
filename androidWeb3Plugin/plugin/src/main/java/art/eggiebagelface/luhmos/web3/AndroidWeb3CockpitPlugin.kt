@@ -31,6 +31,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
 
         private val WORLD_REQUESTED = SignalInfo("world_requested")
         private val COCKPIT_READY = SignalInfo("cockpit_ready", String::class.java)
+        private val CHAT_SUBMITTED = SignalInfo("chat_submitted", String::class.java, String::class.java)
         private val BRIDGE_ERROR = SignalInfo("bridge_error", String::class.java)
     }
 
@@ -42,6 +43,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
     override fun getPluginSignals() = setOf(
         WORLD_REQUESTED,
         COCKPIT_READY,
+        CHAT_SUBMITTED,
         BRIDGE_ERROR,
     )
 
@@ -172,6 +174,13 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                 }
                 "cockpit_ready" -> {
                     emitSignal(COCKPIT_READY.name, getWebViewVersion())
+                }
+                "chat_submitted" -> {
+                    val detail = JSONObject(raw).optJSONObject("detail")
+                    val text = detail?.optString("text")?.take(512).orEmpty()
+                    val seed = detail?.optString("chaosSeed").orEmpty()
+                    if (text.isBlank()) emitSignal(BRIDGE_ERROR.name, "chat_payload_rejected")
+                    else emitSignal(CHAT_SUBMITTED.name, text, seed)
                 }
                 else -> emitSignal(BRIDGE_ERROR.name, "bridge_type_rejected")
             }
