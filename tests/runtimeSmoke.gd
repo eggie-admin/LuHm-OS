@@ -149,7 +149,25 @@ func _check(condition: bool, label: String) -> void:
 
 func _finish() -> void:
     if failures.is_empty():
-        print("CROWN RUNTIME SMOKE GREEN")
+    
+    var AdventureDirectorScript = load("res://scripts/game/adventureDirector.gd")
+    _require(AdventureDirectorScript != null, "adventure director script missing")
+    var adventure = AdventureDirectorScript.new()
+    root.add_child(adventure)
+    adventure.startAdventure("cathedralFirstCoffee", 42)
+    adventure.setQuest("findLum", "active")
+    var choice = adventure.presentChoice("Coffee or catastrophe?", ["coffee", "catastrophe"])
+    _require(choice.get("choices", []).size() == 2, "dialogue choice contract failed")
+    var skill = adventure.skillCheck("nerve", 2, 10)
+    _require(skill.has("success") and int(skill.get("roll", 0)) >= 3, "skill check contract failed")
+    adventure.startEncounter("tinyOniInvasion")
+    adventure.resolveEncounter("befriended")
+    var adventure_snapshot = adventure.snapshot()
+    _require(adventure_snapshot.get("activeAdventure") == "cathedralFirstCoffee", "adventure state missing")
+    _require(adventure_snapshot.get("questState", {}).get("findLum") == "active", "quest state missing")
+    _require(adventure_snapshot.get("encounterState", {}).get("outcome") == "befriended", "encounter resolution missing")
+
+    print("CROWN RUNTIME SMOKE GREEN")
         quit(0)
     else:
         push_error("CROWN RUNTIME SMOKE RED: %s" % ", ".join(failures))
