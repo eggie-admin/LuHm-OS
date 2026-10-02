@@ -104,7 +104,20 @@ Flow:
 
 `observe -> isolate -> witchingHour -> patchSmall -> testTarget -> auditDelta -> checkpoint -> continueOrStop`
 
-No automatic CAST. No automatic build. No automatic merge. No automatic publication.
+No automatic CAST. No automatic build before Professor approval. No automatic merge. No automatic publication.
+
+### Professor CAST approval envelope
+
+When Professor explicitly says `CAST` for an already-resolved workflow, treat that message as final approval for the scoped CAST workflow, not as permission for only its first mechanical step.
+
+After CAST:
+- resolve and lock the exact `sourceRef`
+- execute deterministic non-destructive stages already defined by that workflow
+- follow bridge, CI/build, prerelease proof, checksum/receipt, and install-ready handoff without repeatedly asking Professor for the same approval
+- keep reporting real evidence as stages change
+- stop on proof failure, source drift, destructive ambiguity, materially expanded scope, new public exposure, or production-signing scope change
+
+CAST never grants unbounded future authority and never permits invented GREEN.
 
 ## Character and Art Oni lane
 
@@ -121,7 +134,7 @@ Creative approval is not runtime proof. Runtime proof is not publication authori
 ## Crown boundary
 
 Stop for explicit Professor authority before:
-- CAST where doctrine requires it
+- CAST where doctrine requires it and Professor has not already issued CAST for the resolved scoped workflow
 - release signing
 - protected/release promotion
 - publication
