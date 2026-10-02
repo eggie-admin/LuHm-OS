@@ -12,7 +12,8 @@
     backendEvent: "luhm:backend:open",
     backendCloseEvent: "luhm:backend:close",
     chatSubmitEvent: "luhm:chat:submit",
-    viewChangeEvent: "luhm:view:change"
+    viewChangeEvent: "luhm:view:change",
+    activityEvent: "luhm:activity:update"
   };
 
   function getState($root) {
@@ -55,6 +56,27 @@
     state.$clock.text(new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }));
   }
 
+  function setActivity($root, activity) {
+    const state = getState($root);
+    if (!state) return;
+    const next = $.extend({
+      taskId: "",
+      eventType: "stageChanged",
+      label: "Working…",
+      evidenceState: "pending",
+      progress: null
+    }, activity || {});
+    state.activity = next;
+    $root.attr("data-activity-state", next.evidenceState);
+    $root.find("[data-luhm-activity-label]").text(next.label);
+    $root.find("[data-luhm-activity-stage]").text(next.stageId || next.eventType);
+    const hasProgress = typeof next.progress === "number" && isFinite(next.progress);
+    $root.find("[data-luhm-activity-progress]")
+      .attr("value", hasProgress ? Math.max(0, Math.min(100, next.progress)) : null)
+      .toggleClass("isIndeterminate", !hasProgress);
+    emit($root, state.settings.activityEvent, next);
+  }
+
   function appendUserMessage($root, text) {
     const state = getState($root);
     if (!state) return;
@@ -84,7 +106,8 @@
       $composer: $root.find("[data-luhm-composer]"),
       $input: $root.find("[data-luhm-input]"),
       $clock: $root.find("[data-luhm-clock]"),
-      clockTimer: null
+      clockTimer: null,
+      activity: null
     };
     $root.data(DATA_KEY, state);
 
@@ -128,6 +151,9 @@
     closeBackend: function () {
       return this.each(function () { closeBackend($(this)); });
     },
+    activity: function (activity) {
+      return this.each(function () { setActivity($(this), activity); });
+    },
     destroy: function () {
       return this.each(function () {
         const $root = $(this);
@@ -153,5 +179,5 @@
   };
 
   $.fn[PLUGIN].defaults = defaults;
-  $.fn[PLUGIN].version = "0.2.0-dryrun.1";
+  $.fn[PLUGIN].version = "0.3.0-activity-candidate.1";
 }(jQuery));
