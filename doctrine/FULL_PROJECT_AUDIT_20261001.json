@@ -9,7 +9,7 @@
     "historyRewrite": false,
     "globalCrown": "STOP"
   },
-  "status": "AMBER_FULL_PROJECT_AUDIT_RECONCILIATION_REQUIRED",
+  "status": "AMBER_FULL_PROJECT_AUDIT_RECONCILIATION_CANDIDATE",
   "milestone": "FULL_PROJECT_RECONCILIATION_GATE",
   "exactCanonicalMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
   "canonicalTree": "4b9e85e5070952e8600580589681bafaf31e3e65",
@@ -41,9 +41,10 @@
     "Historical scoped-green reconciliation baseline is older than live canonical main.",
     "Historical private-LAN install lane remains on current main.",
     "Legacy buildOnis naming remains while current naming doctrine prefers forgeOniTwins.",
-    "Frontend jQuery dry-run workflow retains mutable major action tags.",
     "Recorded Drive empty-folder observation is historical; the compatibility root now has roleplay-v3 material.",
-    "Physical Samsung candidate proof remains pending."
+    "Physical Samsung candidate proof remains pending.",
+    "Server-side branch/ruleset governance remains absent on the three live roots.",
+    "Open PR cleanup remains review-only until supersession is individually proven."
   ],
   "scopedCandidateCI": {
     "pr86": "SUCCESS",
@@ -53,5 +54,13 @@
     "pr91": "SUCCESS",
     "pr92": "SUCCESS",
     "pr93": "SUCCESS"
-  }
+  },
+  "auditBranch": "audit/full-project-sanity-20261001",
+  "preAuditSnapshotBranch": "snapshot/pre-full-project-audit-20261001",
+  "resolvedOnAuditBranch": [
+    "Pinned frontend jQuery workflow checkout and setup-node actions to immutable commit SHAs.",
+    "Added live main reconciliation metadata without rewriting historical scoped-GREEN receipts.",
+    "Mapped all 47 open PRs into non-destructive review buckets."
+  ],
+  "nextGate": "EXACT_HEAD_CI_ON_DRAFT_RECONCILIATION_PR"
 }
