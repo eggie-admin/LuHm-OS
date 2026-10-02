@@ -78,7 +78,11 @@
       "adapterState": "green",
       "credentialState": "unknownAtSource",
       "entitlementState": "unknown",
-      "runtimeState": "parked"
+      "runtimeState": "parked",
+      "accountState": "green",
+      "zoneState": "green",
+      "apiCredentialState": "unknown",
+      "workersAiEntitlementState": "unknown"
     },
     "huggingFace": {
       "state": "authenticatedObserved",
@@ -129,7 +133,11 @@
       "adapterState": "green",
       "credentialState": "unknownAtSource",
       "entitlementState": "reportedNotObserved",
-      "runtimeState": "parked"
+      "runtimeState": "parked",
+      "accountState": "green",
+      "planState": "greenGoogleAiPro",
+      "apiCredentialState": "unknown",
+      "apiEntitlementState": "unknown"
     }
   },
   "providerJobLaw": {
@@ -165,5 +173,6 @@
     "cryptography": "doctrine/enterpriseCryptoV1.json",
     "gitHubCompatibilityLayerOrder": 2,
     "failClosed": true
-  }
+  },
+  "accountEvidence": "doctrine/providerAccountEvidenceV1.json"
 }
