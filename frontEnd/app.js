@@ -10,9 +10,18 @@
 
   $(function () {
     const $cockpit = $("[data-luhm-cockpit]");
+    const $assetFactory = $cockpit.find("[data-luhm-asset-factory]");
     if (!$cockpit.length) return;
 
     $cockpit.luhmCockpit({ initialView: "chat" });
+
+    $cockpit.on("click", "[data-luhm-factory-button]", function () {
+      $cockpit.find("[data-luhm-menu]").prop("hidden", true);
+      $assetFactory.prop("hidden", false);
+    });
+    $cockpit.on("click", "[data-luhm-factory-close]", function () {
+      $assetFactory.prop("hidden", true);
+    });
 
     // Android Web3 cockpit candidate boundary. Native Android System WebView
     // wrapper wiring remains separate and is intentionally not faked here.
@@ -29,6 +38,8 @@
       openBackend: function () { $cockpit.luhmCockpit("openBackend"); },
       closeBackend: function () { $cockpit.luhmCockpit("closeBackend"); },
       setView: function (view) { $cockpit.luhmCockpit("view", view); },
+      openMediaFactory: function () { $assetFactory.prop("hidden", false); },
+      closeMediaFactory: function () { $assetFactory.prop("hidden", true); },
       nativeBridgeAvailable: function () {
         return !!(window.LuHmNative && typeof window.LuHmNative.postMessage === "function");
       }
