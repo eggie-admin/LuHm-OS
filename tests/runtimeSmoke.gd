@@ -70,6 +70,19 @@ func _run() -> void:
         _check(not bool(hud.get("dialogue_label").visible), "Cathedral clears dialogue")
         _check(player.get("touch_axis") == Vector2.ZERO, "Cathedral clears held touch input")
 
+    if game.has_method("switchWorld"):
+        _check(bool(game.call("switchWorld", "lumCoffeeHouse")), "coffee house world switch succeeds")
+        await process_frame
+        var coffee_house := game.get_node_or_null("LumCoffeeHouse")
+        _check(coffee_house != null, "LumCoffeeHouse exists")
+        if coffee_house != null:
+            _check(coffee_house.get_node_or_null("CoffeeHouseFloor") is StaticBody3D, "coffee house floor is collidable")
+            _check(coffee_house.get_node_or_null("CoffeeBar") is StaticBody3D, "coffee bar is collidable")
+            _check(coffee_house.get_node_or_null("LumAvatarSocket") != null, "coffee house Lum socket exists")
+        _check(bool(game.call("switchWorld", "neonRiverwalk")), "riverwalk rollback switch succeeds")
+        await process_frame
+        _check(game.get_node_or_null("NeonWorld") != null, "NeonWorld restored after coffee house")
+
     _check_expression_restore()
     _finish()
 
