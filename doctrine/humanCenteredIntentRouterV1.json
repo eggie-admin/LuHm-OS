@@ -1,0 +1,111 @@
+{
+  "schema": "luhmOs.humanCenteredIntentRouter.v1",
+  "status": "candidate",
+  "authority": "Professor",
+  "purpose": "Route conversational intent to the least consequential workflow that safely satisfies the requested human goal.",
+  "rules": [
+    "Infer task scope from the Professor's current goal, explicit constraints, environment and conversational corrections.",
+    "Do not escalate a development task into release, publication or Crown ceremony merely because those workflows exist.",
+    "Prefer the smallest reversible lane that can satisfy the request.",
+    "Ambiguity between two equally consequential safe lanes may require one concise clarification; otherwise proceed with the narrower lane.",
+    "A higher-authority lane is selected only when the requested outcome actually requires its boundary."
+  ],
+  "lanes": {
+    "virginDevInstall": {
+      "cues": [
+        "virgin install",
+        "empty dev tablet",
+        "test apk",
+        "development install",
+        "rooted test device",
+        "no sensitive data"
+      ],
+      "flow": [
+        "exactSource",
+        "buildApk",
+        "sha256PackageCheck",
+        "confirmDeviceContract",
+        "install",
+        "launchSmoke"
+      ],
+      "success": "greenForVirginDevInstall",
+      "excludes": [
+        "productionSigning",
+        "publication",
+        "stablePromotion",
+        "releaseCrown",
+        "sourceTruthReconciliation"
+      ]
+    },
+    "releaseCandidate": {
+      "cues": [
+        "prerelease",
+        "release artifact",
+        "publish candidate"
+      ],
+      "requiresExplicitOutcome": true
+    },
+    "fullCrown": {
+      "cues": [
+        "crown",
+        "seal release",
+        "production promotion",
+        "source-of-truth reconciliation"
+      ],
+      "requiresExplicitOutcome": true
+    }
+  },
+  "correctionLearning": {
+    "chatCorrectionOverridesEarlierInferredScope": true,
+    "recordAsRoutingRuleNotPersonality": true,
+    "noSilentPersistentAuthorityPromotion": true
+  },
+  "urd": {
+    "role": "statusChangeObserverDebugTracerRouter",
+    "monitorMaterialTransitions": true,
+    "routeFailuresToSmallestRelevantSkill": true,
+    "mayEscalateAuthority": false,
+    "mayBlockOnDeterministicSafetyFailure": true,
+    "rollbackLadder": true,
+    "fallbackRequiresEvidence": true
+  },
+  "crownStatus": "stop",
+  "routingStrategy": {
+    "mode": "highestJustifiedThenFallback",
+    "rule": "Attempt the highest workflow state justified by Professor intent and current evidence. On deterministic failure, stop advancement and fall back to the most recent evidence-backed known-good checkpoint.",
+    "noBlindEscalation": true,
+    "noUnnecessaryFullReset": true,
+    "preserveKnownGoodStates": true,
+    "fallbackOrder": [
+      "fullCrown",
+      "releaseCandidate",
+      "virginDevInstall",
+      "verifiedBuild",
+      "exactSource"
+    ]
+  },
+  "operationTitan7": {
+    "triggerMeaning": "finalEscalatedWorkflowAudit",
+    "canonicalRefs": [
+      "doctrine/projectHydraFinalAuditMilestoneV1.json",
+      "doctrine/OPERATION_TITAN7_WATCH_FLEET_V1.json",
+      "doctrine/fullSourceTruthOrchestrator-20260926.json",
+      "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json",
+      "tools/fullSourceTruthAudit.py",
+      "tools/titan7WatchFleet.py"
+    ],
+    "tiers": [
+      "specialistWatchFleet",
+      "workflowUnificationAudit",
+      "tenPassHardAudit",
+      "fullSourceTruthAudit",
+      "boundedRepairLoop",
+      "rerunAffectedTiers",
+      "finalSealCandidate",
+      "professorCrown"
+    ],
+    "goal": "final declared milestone",
+    "fallbackLaw": "On a failed tier, stop escalation, preserve all evidence-backed GREEN checkpoints, fall back to the nearest known-good state, repair only the failed boundary, then resume escalation.",
+    "crownLaw": "No agent self-promotes. Final promotion remains Professor-authorized."
+  }
+}
