@@ -43,6 +43,11 @@
       console.info("Yume rejected proof", detail);
     });
 
+    $yumeBooth.on("luhm:yume:hfCapabilityRequested", function (_event, detail) {
+      console.info("Yume HF lab intent", detail);
+      postNative("hf_lab_requested");
+    });
+
     // Android Web3 cockpit candidate boundary. Native Android System WebView
     // wrapper wiring remains separate and is intentionally not faked here.
     $cockpit.on("luhm:backend:open", function (_event, detail) {
