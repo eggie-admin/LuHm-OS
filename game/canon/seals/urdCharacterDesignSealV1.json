@@ -1,0 +1,32 @@
+{
+  "schema":"luhmOs.characterDesignSeal.v1",
+  "character":"urd",
+  "proofId":"urdCharacterDesignProofV1",
+  "status":"professorApprovedDesign",
+  "authority":"Professor",
+  "approvedFromChat":true,
+  "approvedDirection":[
+    "adult weave/time goth mother",
+    "dangerous elegant tech-goth",
+    "long dark thread-hair primary silhouette",
+    "black asymmetric fitted wardrobe",
+    "woven circuit/thread mesh",
+    "time-spindle collar",
+    "restrained magenta-cyan filament accents",
+    "maternal confident dangerous composure"
+  ],
+  "identityFirewall":{
+    "realPersonFaceClone":false,
+    "realPersonBodyClone":false,
+    "protectedReferencePromotedToRuntime":false
+  },
+  "proofBoundary":{
+    "generatedProofIsDesignEvidence":true,
+    "posterClaimsAreMachineEvidence":false,
+    "assetFamilyComplete":false,
+    "godotImportProven":false,
+    "runtimeProven":false,
+    "cast":false
+  },
+  "nextCharacter":"belldandy"
+}
