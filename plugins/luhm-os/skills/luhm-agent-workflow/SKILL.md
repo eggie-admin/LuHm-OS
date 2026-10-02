@@ -68,3 +68,9 @@ Android WebGlass remains secret-free and network-off by default. The Android pro
 ## Consequential stop
 
 When a workflow reaches signing, publication, public exposure, protected/release promotion, destructive deletion, or another Crown boundary, report the proved candidate and stop for explicit human authority.
+
+## Storage topology
+
+Google Drive is the durable binary file server. GitHub is canonical source plus receipts/hashes/pointers and may use release/CI assets only as transient transport or cache. OpenAI is semantic state/context, not binary storage or source authority. Android/Termux is runtime and physical-proof space.
+
+Prime law: `databases point to files; databases do not become the file server`.
