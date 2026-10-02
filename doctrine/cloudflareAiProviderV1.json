@@ -102,7 +102,7 @@
     "aiInferenceCallAuthority": "separateExplicitTaskOnly"
   },
   "evidence": {
-    "providerResponseState": "OBSERVED",
+    "providerResponseState": "observed",
     "successIsGreen": false,
     "deterministicVerificationRequiredForGreen": true,
     "sourceRefMatchRequired": true,
