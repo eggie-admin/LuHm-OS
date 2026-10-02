@@ -66,7 +66,7 @@
     installParallax($cockpit);
 
     $cockpit.on("luhm:backend:open", function (_event, detail) {
-      postNative("world_requested", detail);
+      postNative("world_requested");
     });
 
     $cockpit.on("luhm:chat:submit", function (_event, detail) {
