@@ -1,0 +1,36 @@
+{
+  "schema": "luhmOs.s24FeBetaInstall.v1",
+  "date": "2026-10-02",
+  "status": "betaSourceReady",
+  "authority": "Professor",
+  "target": {
+    "model": "SM-S721U1",
+    "displayName": "Samsung Galaxy S24 FE",
+    "android": "16",
+    "abi": "arm64-v8a"
+  },
+  "package": "art.eggiebagelface.luhmos.testing",
+  "sourceBranch": "beta/yumeArtChatV1-20261002",
+  "installer": "tools/s24FeBetaInstall.sh",
+  "flow": [
+    "resolve immutable S24 FE beta prerelease",
+    "download APK + adjacent SHA256",
+    "verify SHA256 before mutation",
+    "prove root if available",
+    "if rooted perform package-scoped virgin uninstall/install/launch",
+    "if root is not proven hand verified APK to Android package installer",
+    "capture launch/device receipt after physical install"
+  ],
+  "safety": {
+    "broadStorageDeletion": false,
+    "arbitraryPackageRemoval": false,
+    "packageFixedToLuHm": true,
+    "checksumRequired": true,
+    "rootNotAssumed": true,
+    "nonRootFallbackRequiresUserConfirmation": true,
+    "productionSigningAuthority": false,
+    "stableReleaseAuthority": false
+  },
+  "physicalProofRequired": true,
+  "crownStatus": "stop"
+}
