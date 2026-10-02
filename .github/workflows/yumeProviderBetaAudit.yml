@@ -24,6 +24,7 @@ on:
       - "host/mcp/requirements.txt"
       - "host/mcp/luhmHarness.py"
       - "host/harness/widget.html"
+      - "plugins/luhm-os/mcp.json"
       - "frontEnd/index.html"
       - "frontEnd/app.js"
       - "frontEnd/styles.css"
