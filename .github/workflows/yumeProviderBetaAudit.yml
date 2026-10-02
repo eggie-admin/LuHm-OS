@@ -1,6 +1,9 @@
 name: Yume Provider Beta Audit
 
 on:
+  pull_request:
+    branches:
+      - beta/yumeArtChatV1-20261002
   push:
     branches:
       - beta/yumeArtChatV1-20261002
@@ -27,6 +30,7 @@ on:
       - "plugins/luhm-os/mcp.json"
       - "frontEnd/index.html"
       - "frontEnd/app.js"
+      - "frontEnd/package.json"
       - "frontEnd/styles.css"
       - "frontEnd/jquery/luhmYumeBooth.js"
       - ".github/copilot-instructions.md"
@@ -43,6 +47,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
       - uses: actions/setup-python@v5
         with:
           python-version: "3.14"
@@ -53,6 +60,7 @@ jobs:
 
   deployBeta:
     name: Deploy Yume beta after GREEN audit
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/beta/yumeArtChatV1-20261002'
     needs: audit
     runs-on: ubuntu-24.04
     timeout-minutes: 10
