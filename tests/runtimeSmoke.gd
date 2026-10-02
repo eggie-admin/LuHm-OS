@@ -83,6 +83,21 @@ func _run() -> void:
         await process_frame
         _check(game.get_node_or_null("NeonWorld") != null, "NeonWorld restored after coffee house")
 
+        _check(bool(game.call("switchWorld", "cathedral")), "cathedral world switch succeeds")
+        await process_frame
+        var cathedral := game.get_node_or_null("CathedralWorld")
+        _check(cathedral != null, "CathedralWorld exists")
+        if cathedral != null:
+            _check(cathedral.get_node_or_null("CathedralFloor") is StaticBody3D, "cathedral floor is collidable")
+            _check(cathedral.get_node_or_null("Altar") is StaticBody3D, "cathedral altar is collidable")
+            _check(cathedral.get_node_or_null("LumAvatarSocket") != null, "cathedral Lum socket exists")
+            _check(cathedral.get_node_or_null("riverwalkDoor") is Marker3D, "cathedral riverwalk transition anchor exists")
+            _check(cathedral.get_node_or_null("coffeeHouseDoor") is Marker3D, "cathedral coffee house transition anchor exists")
+            _check(cathedral.get_node_or_null("encounterAnchor") is Marker3D, "cathedral encounter anchor exists")
+        _check(bool(game.call("switchWorld", "neonRiverwalk")), "cathedral rollback switch succeeds")
+        await process_frame
+        _check(game.get_node_or_null("NeonWorld") != null, "NeonWorld restored after cathedral")
+
     _check_expression_restore()
     _finish()
 
