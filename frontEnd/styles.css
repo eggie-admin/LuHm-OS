@@ -140,3 +140,20 @@ button { color: inherit; }
   .message { grid-template-columns: 32px 1fr; }
   .avatar { width: 32px; height: 32px; }
 }
+
+
+/* Four-layer chat/game compositor. Truth stays deterministic; chaos is presentation-only. */
+.cockpit { --parallaxX: 0; --parallaxY: 0; }
+.lumViewport { position: relative; isolation: isolate; perspective: 900px; }
+.parallaxLayer { position: absolute; inset: -4%; pointer-events: none; will-change: transform; transition: filter .25s ease; }
+.layerBack { z-index: 1; transform: translate3d(calc(var(--parallaxX) * 6px), calc(var(--parallaxY) * 4px), 0); background: radial-gradient(circle at 50% 40%, rgba(114,217,255,.12), transparent 30%), linear-gradient(160deg, transparent 35%, rgba(255,44,145,.08)); }
+.layerWorld { z-index: 2; display: grid; place-items: center; transform: translate3d(calc(var(--parallaxX) * 12px), calc(var(--parallaxY) * 8px), 0); }
+.worldGlyph { font-size: clamp(12rem, 35vw, 34rem); opacity: .09; transform: rotate(45deg); }
+.layerCast { z-index: 3; display: grid; place-items: center; transform: translate3d(calc(var(--parallaxX) * 22px), calc(var(--parallaxY) * 14px), 0); }
+.lumGlyph { display: grid; place-items: center; width: clamp(86px, 14vw, 150px); aspect-ratio: 1; border-radius: 48% 52% 45% 55%; font-size: clamp(2.4rem, 6vw, 5rem); font-weight: 800; background: linear-gradient(145deg, rgba(255,44,145,.34), rgba(114,217,255,.18)); border: 1px solid rgba(255,255,255,.18); box-shadow: 0 0 60px rgba(255,44,145,.18); }
+.layerFxUi { z-index: 4; inset: auto 18px 52px auto; padding: 6px 9px; border: 1px solid var(--line); border-radius: 999px; background: rgba(8,7,13,.52); color: var(--muted); font-size: 11px; transform: translate3d(calc(var(--parallaxX) * 30px), calc(var(--parallaxY) * 18px), 0); }
+.viewportLabel { position: relative; z-index: 5; }
+[data-chaos-mood="coffeeEmergency"] .layerBack { filter: sepia(.3) saturate(1.25); }
+[data-chaos-mood="pixelStorm"] .layerWorld { image-rendering: pixelated; filter: contrast(1.25); }
+[data-chaos-fx="magentaFog"] .layerBack { filter: saturate(1.5) blur(1px); }
+@media (prefers-reduced-motion: reduce) { .parallaxLayer { transform: none !important; transition: none; } }
