@@ -24,9 +24,25 @@
     });
   }
 
+  const titan7TierPatterns = Object.freeze([
+    {tier:"ffs", pattern:/^(?:ffs!|for fuck sake!)$/i},
+    {tier:"scorchedEarth", pattern:/^scorched earth$/i},
+    {tier:"finalForm", pattern:/^final form$/i}
+  ]);
+
+  function operationTitan7Intent(text) {
+    const source=String(text || "").trim();
+    for (const item of titan7TierPatterns) {
+      if (item.pattern.test(source)) return Object.freeze({matched:true,tier:item.tier,source});
+    }
+    return Object.freeze({matched:false,tier:"",source});
+  }
+
+  $.operationTitan7Intent = operationTitan7Intent;
+
   $.operationTitan7 = function (milestone, detail) {
     if (!String(milestone || "").trim()) throw new Error("operationTitan7 requires a milestone");
-    const packet = envelope("operationTitan7", milestone, detail);
+    const payload=Object.assign({}, detail || {});\n    if (payload.phrase && !payload.tier) {\n      const intent=operationTitan7Intent(payload.phrase);\n      if (intent.matched) payload.tier=intent.tier;\n    }\n    const packet = envelope("operationTitan7", milestone, payload);
     $(document).trigger("luhm:workflow:operationTitan7", [packet]);
     return packet;
   };
