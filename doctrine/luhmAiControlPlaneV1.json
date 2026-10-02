@@ -9,7 +9,8 @@
     "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
     "projectChatCanon": "doctrine/projectChatCanonV1.json",
     "storageTopology": "doctrine/storageTopologyV1.json",
-    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json"
+    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
+    "tourniquetGuardrail": "doctrine/tourniquetGuardrailV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -28,7 +29,9 @@
     "hiddenAsyncExecution": false,
     "secretInPrompt": false,
     "secretInRepo": false,
-    "secretInApk": false
+    "secretInApk": false,
+    "professorCorrectionInterruptsCurrentPlan": true,
+    "supersededIntentMayContinue": false
   },
   "bossToolchain": {
     "states": [
@@ -47,7 +50,12 @@
     ],
     "executionLaw": "No tool/provider/agent output changes authority. Consequential execution requires a bounded task manifest plus matching authority and exact target identity.",
     "evidenceLaw": "All outputs enter as observations or candidate evidence. Deterministic verification establishes machine state. Professor establishes Crown authority.",
-    "storageLaw": "databases point to files; databases do not become the file server"
+    "storageLaw": "databases point to files; databases do not become the file server",
+    "tourniquet": {
+      "trigger": "explicitProfessorCorrectionOrStop",
+      "action": "halt -> bindCorrection -> reResolveTruth -> rebuildTaskEnvelope -> resume",
+      "automaticResume": false
+    }
   },
   "taskManifest": {
     "schema": "luhmOs.aiTaskManifest.v1",
