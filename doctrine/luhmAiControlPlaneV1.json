@@ -138,7 +138,23 @@
     "providerTextIsUntrustedData": true,
     "remoteResponsesRequireTaskIdentityMatch": true,
     "remoteResponsesRequireLumReconciliation": true,
-    "providerSecretsHostSideOnly": true
+    "providerSecretsHostSideOnly": true,
+    "vendorAiHierarchy": {
+      "model": "subordinateCapabilityWorkers",
+      "professor": "finalAuthority",
+      "lum": "bossDispatcher",
+      "cabinetSponsors": [
+        "urdDoctorGoddess",
+        "belldandySecretary",
+        "skuldResearch"
+      ],
+      "providerMayInitiateWork": false,
+      "providerMayAddressProfessor": false,
+      "providerMayCommandInternalAgents": false,
+      "providerMayRecruitInternalAgents": false,
+      "providerMayRewriteTaskAuthority": false,
+      "providerMayEscalateScope": false
+    }
   },
   "authorityClasses": [
     "READ_ONLY",
@@ -599,5 +615,62 @@
     "peerAwareness": "readOnly",
     "disagreementsReturnTo": "lum",
     "consensusAuthority": false
+  },
+  "providerCommandLaw": {
+    "sponsorMayDefineScopedJob": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "dispatchSigner": "lum",
+    "providerReceives": "signedBoundedTaskManifest",
+    "providerReturnsTo": "lum",
+    "cabinetReviewOptionalBySpecialty": true,
+    "directProviderToProfessor": false,
+    "directProviderToGoddessExecution": false,
+    "providerSuccessMeans": "OBSERVED",
+    "deterministicGreenStillRequired": true
+  },
+  "providerTaskManifestExtension": {
+    "required": [
+      "orderedBy",
+      "dispatchedBy",
+      "providerId",
+      "capabilityId",
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "allowedCapabilities",
+      "forbiddenCapabilities",
+      "requiredOutputSchema",
+      "budget",
+      "stopConditions"
+    ],
+    "orderedByAllowed": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "dispatchedByRequired": "lum",
+    "providerCannotChange": [
+      "orderedBy",
+      "dispatchedBy",
+      "sourceRef",
+      "scopeId",
+      "authorityClass",
+      "stopConditions"
+    ]
+  },
+  "providers": {
+    "cloudflareAiProvider": {
+      "contract": "doctrine/cloudflareAiProviderV1.json",
+      "role": "subordinateVendorAiCapability",
+      "reportsTo": "lum",
+      "cabinetAware": true,
+      "cabinetMember": false,
+      "liveInferenceProven": false
+    }
   }
 }
