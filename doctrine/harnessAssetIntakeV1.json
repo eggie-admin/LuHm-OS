@@ -1,0 +1,87 @@
+{
+  "schema": "luhmOs.harnessAssetIntake.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "purpose": "Fast, bounded acquisition and quarantine of images, SVG/vector assets and web fonts for LuHm harness/front-end work without runtime CDN dependencies.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "lanes": {
+    "localDrop": {
+      "enabled": true,
+      "runtime": "browser",
+      "network": false,
+      "accepts": [
+        "image/png",
+        "image/jpeg",
+        "image/webp",
+        "image/gif",
+        "image/svg+xml",
+        "application/pdf",
+        "video/*",
+        "font/woff2",
+        "font/woff",
+        "font/ttf",
+        "font/otf"
+      ]
+    },
+    "remotePull": {
+      "enabled": true,
+      "runtime": "developerWorkstationOrCIOnly",
+      "browserRuntime": false,
+      "httpsOnly": true,
+      "authentication": false,
+      "redirects": "samePublicHttpsClassOnly",
+      "destination": "quarantine",
+      "durablePromotionRequiresReceipt": true
+    },
+    "googleFonts": {
+      "enabled": true,
+      "acquisition": "buildTimeOrDeveloperTimeOnly",
+      "runtimeCdn": false,
+      "allowedHosts": [
+        "fonts.googleapis.com",
+        "fonts.gstatic.com"
+      ],
+      "vendorAfterAcquisition": true,
+      "preserveLicense": true
+    }
+  },
+  "svgPolicy": {
+    "sanitizeRequired": true,
+    "scriptForbidden": true,
+    "foreignObjectForbidden": true,
+    "externalHrefForbidden": true,
+    "eventHandlerAttributesForbidden": true,
+    "dataUrlForbidden": true,
+    "preserveViewBox": true
+  },
+  "fontPolicy": {
+    "preferredRuntimeFormat": "woff2",
+    "licenseMetadataRequired": true,
+    "localCssRequired": true,
+    "runtimeRemoteFontLoad": false
+  },
+  "remoteImagePolicy": {
+    "arbitraryRemoteImageInRuntime": false,
+    "quarantineBeforeUse": true,
+    "mimeValidation": true,
+    "maxBytes": 15728640,
+    "sha256Required": true,
+    "provenanceRequired": true
+  },
+  "storage": {
+    "quarantine": "ephemeralWorkspace",
+    "durableBinary": "googleDrive",
+    "sourceAndReceipts": "github",
+    "semanticIndex": "openAi"
+  },
+  "cloudflare": {
+    "futureFirstPartyStaticEdge": true,
+    "activationRequiresProfessorApproval": true,
+    "runtimeDependencyForAndroidCockpit": false
+  },
+  "crownStatus": "stop",
+  "monitoring": {
+    "urdDoctorGoddess": "assetBoundaryAndNamingPathology",
+    "belldandySecretary": "canonicalAssetAndMigrationLedger"
+  }
+}
