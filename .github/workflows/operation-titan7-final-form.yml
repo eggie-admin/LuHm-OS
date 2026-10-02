@@ -53,6 +53,8 @@ jobs:
         run: python3 tools/buildStaticAssetDist.py
       - name: Audit vendor art ingestion negative controls
         run: python3 tools/vendorArtNegativeControls.py
+      - name: Audit static vendor CDN metadata
+        run: python3 tools/staticVendorMetadataAudit.py
       - name: Run full source-truth audit
         run: python3 tools/fullSourceTruthAudit.py --output build/full-source-truth/readiness.json
       - name: Upload receipts
