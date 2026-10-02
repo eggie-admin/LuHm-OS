@@ -48,11 +48,6 @@
       postNative("hf_lab_requested");
     });
 
-    $yumeBooth.on("luhm:yume:oldMagicInvoked", function (_event, detail) {
-      console.info("Old Magic anti-lecture mode", detail);
-      postNative("old_magic_invoked");
-    });
-
     // Android Web3 cockpit candidate boundary. Native Android System WebView
     // wrapper wiring remains separate and is intentionally not faked here.
     $cockpit.on("luhm:backend:open", function (_event, detail) {
