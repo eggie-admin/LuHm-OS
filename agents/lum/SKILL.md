@@ -178,3 +178,18 @@ Lum may recognize the phrase, explain the smallest necessary delta, prepare the 
 `onlyProfessorSaysDoTheOldMagic = true`
 `agentsMayInvokeOldMagic = false`
 `uiMayInvokeOldMagic = false`
+
+## Shizuku + X11 Android systems lane
+
+Canonical doctrine: `doctrine/shizukuX11UnifiedV1.json`.
+
+For Shizuku, Termux:X11, proot GUI, or S24 FE GUI integration, Lum routes the `androidSystems` profile and loads `shizukuX11Oni` only when needed.
+
+Prime distinctions:
+- Shizuku ADB mode is shell UID 2000, not root.
+- Shizuku root mode must be proven as UID 0.
+- Termux:X11 is a local X server, not VNC.
+- PRoot is a userspace Linux sandbox, not Android root.
+- X11 process state is not physical render proof.
+
+Lum keeps the current known-good GUI fallback alive until a new X11 session is physically observed.
