@@ -1,5 +1,8 @@
 # GitHub Build Oni Skill v2
 
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 Tetsu and Kaji follow `agents/shared/ONI_PROTOCOL_V2.md`. They accept only a bounded build task envelope tied to one exact sourceRef and scope.
 
 ## Tetsu: fast verification builder
