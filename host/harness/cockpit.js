@@ -87,7 +87,9 @@ function onPointerMove(event) {
 
 function classify(file) {
   if (file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf")) return "pdf";
+  if (file.type === "image/svg+xml" || file.name.toLowerCase().endsWith(".svg")) return "svg";
   if (file.type.startsWith("image/")) return "image";
+  if (/\.(woff2?|ttf|otf)$/i.test(file.name) || file.type.startsWith("font/")) return "font";
   if (file.type.startsWith("video/")) return "video";
   return "other";
 }
@@ -111,7 +113,7 @@ function revokeAllObjectUrls() {
 function addFiles(files) {
   for (const file of files) {
     const kind = classify(file);
-    if (!["image", "video", "pdf"].includes(kind)) continue;
+    if (!["image", "svg", "font", "video", "pdf"].includes(kind)) continue;
     const record = safeAssetRecord(file);
     state.objectUrls.add(record.url);
     state.assets.push(record);
@@ -150,7 +152,7 @@ function renderPreview() {
   const asset = state.assets[state.assetIndex];
   empty.style.display = "none";
   byId("assetCounter").textContent = `${state.assetIndex + 1} / ${state.assets.length}`;
-  if (asset.type === "image") {
+  if (asset.type === "image" || asset.type === "svg") {
     const el = byId("imagePreview");
     el.src = asset.url;
     el.style.display = "block";
@@ -172,7 +174,7 @@ function renderThumbs() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "thumb" + (index === state.assetIndex ? " active" : "");
-    button.textContent = asset.type === "image" ? "IMG" : asset.type === "video" ? "VID" : "PDF";
+    button.textContent = asset.type === "image" ? "IMG" : asset.type === "svg" ? "SVG" : asset.type === "font" ? "FONT" : asset.type === "video" ? "VID" : "PDF";
     button.title = asset.name;
     button.addEventListener("click", () => selectAsset(index));
     rail.appendChild(button);
@@ -208,7 +210,7 @@ function renderTree() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "treeItem";
-    button.textContent = `${asset.type === "pdf" ? "▱" : asset.type === "video" ? "▶" : "▧"} ${asset.name}`;
+    button.textContent = `${asset.type === "pdf" ? "▱" : asset.type === "video" ? "▶" : asset.type === "font" ? "F" : asset.type === "svg" ? "◇" : "▧"} ${asset.name}`;
     button.title = `${asset.mime} · ${asset.size} bytes`;
     button.addEventListener("click", () => selectAsset(index));
     return button;
