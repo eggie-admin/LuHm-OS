@@ -1,0 +1,67 @@
+{
+  "schema": "luhmOs.remoteForgeDoctrine.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Make GitHub the reproducible remote compile/deploy forge and second compatibility layer for LuHm while keeping durable binaries on Google Drive.",
+  "config": "forge/remoteForgeV1.yml",
+  "bootstrap": "tools/bootstrapRemoteForge.sh",
+  "roles": {
+    "github": {
+      "sourceControl": true,
+      "compatibilityLayer": true,
+      "remoteForge": true,
+      "workflowOrchestrator": true,
+      "receiptLedger": true,
+      "durableBinaryStorage": false
+    },
+    "render": {
+      "managedRuntimeTarget": true,
+      "sourceAuthority": false,
+      "forgeAuthority": false
+    },
+    "googleDrive": {
+      "durableBinaryFileServer": true,
+      "buildAuthority": false,
+      "sourceAuthority": false
+    },
+    "androidDevice": {
+      "physicalRuntimeProof": true,
+      "buildAuthority": false
+    }
+  },
+  "forgeProfiles": [
+    "androidWeb3",
+    "godotWeb",
+    "pythonMcp",
+    "frontEndStatic"
+  ],
+  "nativeToolchain": {
+    "buildEssential": true,
+    "ninja": true,
+    "cmake": true,
+    "pkgConfig": true,
+    "ccache": true,
+    "generator": "Ninja"
+  },
+  "androidToolchain": {
+    "java": "17",
+    "gradle": "8.13",
+    "androidSdk": "36",
+    "buildTools": "36.1.0",
+    "godot": "4.7.2-stable"
+  },
+  "invariants": {
+    "exactSourceRef": true,
+    "castBeforeBuild": true,
+    "buildConfigInRepo": true,
+    "workflowYamlInRepo": true,
+    "toolchainReceiptRequired": true,
+    "outputHashRequired": true,
+    "cacheIsNotAuthority": true,
+    "prereleaseIsNotArchive": true,
+    "driveIsDurableBinaryStore": true,
+    "noPhoneAsPublicOrigin": true
+  },
+  "crownStatus": "stop"
+}
