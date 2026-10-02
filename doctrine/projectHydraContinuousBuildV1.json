@@ -64,10 +64,10 @@
     "publicationImplied": false
   },
   "mutationPass": {
-    "mode": "conditionalBoundedMutation",
+    "mode": "wholeProjectConditionalBoundedMutation",
     "maxPasses": 100,
     "minPasses": 1,
-    "earlyStopWhen": "milestoneSatisfiedAndAllRequiredEvidenceGreen",
+    "earlyStopWhen": "wholeProjectAuditHasNoRequiredRedAmberOrUnknownForClaimedSoftwareScope",
     "eachPass": [
       "sanityCheck",
       "ingestCurrentCanonicalTruth",
@@ -95,6 +95,39 @@
       "implicitCrown",
       "destructiveScorchedEarth",
       "claimingPhysicalEvidenceFromSoftware"
+    ],
+    "milestone": "wholeLuHmOsProjectHydra"
+  },
+  "systemScope": {
+    "name": "wholeLuHmOsProjectHydra",
+    "include": [
+      "canonicalSourceTruth",
+      "doctrineAndSeals",
+      "agentMeshAndAllSkills",
+      "goddessAndOniTrustBoundaries",
+      "namingAndPathUnification",
+      "githubWorkflowsAndPermissions",
+      "securitySecretsAndNetworkExposure",
+      "backupRollbackAndKnownGoodStates",
+      "desktopHydraContracts",
+      "androidKai9000Contracts",
+      "smX400Android16Target",
+      "godotProjectAndRuntime",
+      "web3JqueryCockpit",
+      "chatNativeBoundary",
+      "lumAndPlayableWorlds",
+      "parallaxRandomChaosAndArtOni",
+      "assetProvenanceAndCharacterCanon",
+      "mediaFfmpegAndCompositing",
+      "pluginsMcpAndExternalVendorBoundaries",
+      "buildArtifactsChecksumsAndPrereleases",
+      "castBridgeAndFinalCast",
+      "legacyContradictionsAndStaleEvidence",
+      "physicalVsSoftwareEvidenceBoundary"
+    ],
+    "excludeOnly": [
+      "unavailablePhysicalEvidenceCannotBeInvented",
+      "externalSystemsWithoutEvidenceRemainUnknown"
     ]
   }
 }
