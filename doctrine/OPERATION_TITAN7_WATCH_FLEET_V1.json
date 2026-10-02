@@ -1,0 +1,199 @@
+{
+  "schema": "luhm-os.operation-titan7-watch-fleet.v1",
+  "status": "PROPOSED_CANDIDATE",
+  "authority": "Professor",
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "One read-only fleet runner supervises many specialist watches without requiring one ChatGPT automation per watch.",
+  "notificationLaw": "specialists stay quiet unless state materially changes; Titan7 reconciler summarizes cross-cutting changes",
+  "forbiddenActions": [
+    "merge",
+    "close_pr",
+    "retarget_pr",
+    "rebase",
+    "cast",
+    "build",
+    "compile",
+    "export",
+    "package",
+    "sign",
+    "deploy",
+    "publish",
+    "rewrite_history",
+    "change_branch_protection",
+    "change_rulesets",
+    "grant_crown",
+    "weaken_secure_folder",
+    "bind_shizuku",
+    "expose_service"
+  ],
+  "states": [
+    "GREEN",
+    "AMBER",
+    "RED",
+    "UNKNOWN_EXTERNAL",
+    "WAIT_HUMAN"
+  ],
+  "watches": [
+    {
+      "id": "canonicalMainIdentity",
+      "family": "source",
+      "mode": "repoLocal",
+      "cadence": "every_run",
+      "severity": "critical",
+      "description": "Canonical repository, authority and current main identity remain coherent."
+    },
+    {
+      "id": "sourceTruthDrift",
+      "family": "doctrine",
+      "mode": "repoLocal",
+      "cadence": "every_run",
+      "severity": "critical",
+      "description": "Detect stale main pointers, authority creep and historical evidence mislabeled as current truth."
+    },
+    {
+      "id": "prExactHeadCi",
+      "family": "github",
+      "mode": "externalGitHub",
+      "cadence": "hourly",
+      "severity": "high",
+      "description": "Current-candidate PR heads, exact-head CI and mergeability."
+    },
+    {
+      "id": "workflowPermissions",
+      "family": "github",
+      "mode": "repoLocal",
+      "cadence": "every_run",
+      "severity": "critical",
+      "description": "Reject write-all and pull_request_target trust-boundary surprises."
+    },
+    {
+      "id": "actionPinning",
+      "family": "github",
+      "mode": "repoLocal",
+      "cadence": "every_run",
+      "severity": "medium",
+      "description": "Detect mutable actions/*@vN refs."
+    },
+    {
+      "id": "secretLeakage",
+      "family": "security",
+      "mode": "repoLocal",
+      "cadence": "every_run",
+      "severity": "critical",
+      "description": "Detect secret-like literals or private keys in tracked text."
+    },
+    {
+      "id": "legacyLanLane",
+      "family": "network",
+      "mode": "repoLocal",
+      "cadence": "every_run",
+      "severity": "medium",
+      "description": "Track historical .lan references until explicitly historical, migrated or retired."
+    },
+    {
+      "id": "forgeIdentity",
+      "family": "agents",
+      "mode": "repoLocal",
+      "cadence": "every_run",
+      "severity": "medium",
+      "description": "Track buildOnis legacy naming versus forgeOniTwins canonical identity."
+    },
+    {
+      "id": "forgeCastBoundary",
+      "family": "agents",
+      "mode": "repoLocal",
+      "cadence": "every_run",
+      "severity": "critical",
+      "description": "Verify CAST boundary files exist and no repo-local contract grants build authority without explicit cast."
+    },
+    {
+      "id": "githubGovernance",
+      "family": "github",
+      "mode": "externalGitHub",
+      "cadence": "daily",
+      "severity": "high",
+      "description": "Branch protection and rulesets across canonical and support roots."
+    },
+    {
+      "id": "androidArtifactIdentity",
+      "family": "android",
+      "mode": "externalGitHub",
+      "cadence": "hourly",
+      "severity": "high",
+      "description": "APK package/version/signature/alignment artifact evidence."
+    },
+    {
+      "id": "androidPhysicalProof",
+      "family": "android",
+      "mode": "manualDevice",
+      "cadence": "on_receipt",
+      "severity": "critical",
+      "description": "Install, launch, rotation, cutout, touch and real-device proof."
+    },
+    {
+      "id": "shizukuGate",
+      "family": "android",
+      "mode": "manualDevice",
+      "cadence": "on_receipt",
+      "severity": "critical",
+      "description": "Unlock Shizuku bind only after cockpit physical proof."
+    },
+    {
+      "id": "webviewEdgeGallery",
+      "family": "android",
+      "mode": "externalWeb",
+      "cadence": "daily",
+      "severity": "medium",
+      "description": "Material Android WebView/Chromium/Edge Gallery compatibility changes."
+    },
+    {
+      "id": "mcpRenderExposure",
+      "family": "runtime",
+      "mode": "externalRuntime",
+      "cadence": "hourly",
+      "severity": "high",
+      "description": "Unexpected public exposure, endpoint drift, certificate/runtime changes."
+    },
+    {
+      "id": "driveEvidence",
+      "family": "evidence",
+      "mode": "externalDrive",
+      "cadence": "daily",
+      "severity": "high",
+      "description": "Required receipts exist and Drive visibility matches intended data class."
+    },
+    {
+      "id": "assetProvenance",
+      "family": "assets",
+      "mode": "repoLocal",
+      "cadence": "every_run",
+      "severity": "high",
+      "description": "Owned/CC0/permissive/private-reference boundaries and provenance markers."
+    },
+    {
+      "id": "dependencyDrift",
+      "family": "dependencies",
+      "mode": "repoLocal",
+      "cadence": "every_run",
+      "severity": "medium",
+      "description": "Unpinned or unexpectedly broad dependency ranges in authoritative lanes."
+    },
+    {
+      "id": "snapshotBackup",
+      "family": "recovery",
+      "mode": "externalGitHub",
+      "cadence": "daily",
+      "severity": "high",
+      "description": "Required snapshot refs and recovery evidence still resolve."
+    },
+    {
+      "id": "currentMilestone",
+      "family": "reconciliation",
+      "mode": "aggregate",
+      "cadence": "every_run",
+      "severity": "critical",
+      "description": "Produce one compact Professor-facing milestone from all watches."
+    }
+  ]
+}
