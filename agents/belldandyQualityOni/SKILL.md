@@ -1,5 +1,8 @@
 # Belldandy Secretary Goddess Skill v2
 
+
+Canonical AI control plane: `doctrine/luhmAiControlPlaneV1.json`.
+
 All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
 
 Canonical machine identity: `belldandySecretary`
