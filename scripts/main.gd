@@ -53,7 +53,6 @@ func _build_runtime() -> void:
     cockpit_chat_bridge = CockpitChatBridgeScript.new()
     cockpit_chat_bridge.configure(game_hud)
     add_child(cockpit_chat_bridge)
-
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
     game_hud.backend_requested.connect(_enter_backend)
@@ -102,7 +101,6 @@ func _enter_backend() -> void:
 
 func _play_intro() -> void:
     await cutscene_bridge.play_path(INTRO_CUTSCENE_PATH)
-
 
 func switchWorld(world_id: String) -> bool:
     if world_id == active_world_id:
