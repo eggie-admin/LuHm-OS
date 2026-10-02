@@ -49,7 +49,32 @@
     "conditionalWorker": "Critic",
     "executor": "ToolExecutor",
     "recursiveRecruitment": false,
-    "maxParallelWorkers": 3
+    "maxParallelWorkers": 3,
+    "urd": {
+      "role": "systemsMutationStrategist",
+      "skillRef": "agents/urdMutationOni/SKILL.md",
+      "sharedSystemsPracticeRef": "agents/goddessSharedSystemsPractice/SKILL.md",
+      "requiredAt": [
+        "memoryConflict",
+        "sourceRefChange",
+        "proposedMutation",
+        "rollbackPlanning",
+        "crossLayerImpact",
+        "preCrownBoundary"
+      ],
+      "responsibilities": [
+        "dependencyTrace",
+        "mutationImpactMap",
+        "rollbackDesign",
+        "memoryToSourceConflictReview",
+        "secondOrderEffectReview"
+      ],
+      "mayProposeMutations": true,
+      "mayMutate": false,
+      "mayExecute": false,
+      "maySelfApprove": false,
+      "mayGrantCrown": false
+    }
   },
   "checkpointRequired": [
     "sourceRef",
@@ -61,5 +86,9 @@
     "proposedMutations",
     "executionAuthorized"
   ],
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "checkpointReview": {
+    "urdRequiredForMutationBearingCheckpoint": true,
+    "urdOutputIsEvidenceReviewNotAuthority": true
+  }
 }
