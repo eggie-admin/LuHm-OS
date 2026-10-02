@@ -9,7 +9,7 @@ for k in ["personalityIsNotAuthority","memoryIsNotProof","leastCapability","fail
 for k in ["selfApprovalAllowed","recursiveRecruitmentAllowed","implicitCrownAllowed","unsupportedGreenAllowed"]:
     if p.get(k) is not False: bad.append(["principleNotFalse",k])
 roles=d.get("roles",{})
-expected={"lum":"orchestrator","urd":"systemsMutationStrategist","belldandyQualityOni":"backgroundAuditUnificationIntelligence"}
+expected={"lum":"orchestrator","urd":"doctorGoddess","belldandy":"secretary","skuld":"research"}
 for name,role in expected.items():
     if roles.get(name,{}).get("role")!=role: bad.append(["roleDrift",name,roles.get(name,{}).get("role"),role])
 for name,role in roles.items():
@@ -21,4 +21,4 @@ if watch.get("mutationAuthority") is not False or watch.get("crownAuthority") is
 if d.get("crownStatus")!="stop": bad.append(["crownNotStopped",d.get("crownStatus")])
 if bad:
     print(json.dumps({"status":"red","violations":bad},indent=2)); sys.exit(1)
-print(json.dumps({"status":"greenTrustSealSourceAudit","sharedSystemsPractice":True,"activeWorkWatch":True,"selfApproval":False,"implicitCrown":False},indent=2))
+print(json.dumps({"status":"greenTrustSealSourceAudit","sharedSystemsPractice":True,"activeWorkWatch":True,"goddessRoles":{"urd":"doctorGoddess","belldandy":"secretary","skuld":"research"},"selfApproval":False,"implicitCrown":False},indent=2))

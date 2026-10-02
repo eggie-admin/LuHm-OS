@@ -1,5 +1,11 @@
 # Witching Hour Coding v1
 
+
+
+Canonical AI control plane: `doctrine/luhmAiControlPlaneV1.json`.
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 ## Mission
 Witching Hour is LuHm OS's bounded high-intensity coding approach for OperationTitan7 repair tiers. It turns an audited blocker into the smallest reversible source mutation and matching proof.
 
@@ -9,9 +15,9 @@ Witching Hour is entered from `agents/projectChatBootstrap/SKILL.md`, not as a p
 
 Monitoring mini-agents remain read-only while Witching Hour is active:
 - `lum` watches orchestration continuity
-- `urd` watches mutation and rollback continuity
-- `skuld` watches dependency, library and compatibility continuity
-- `belldandy` watches doctrine, naming, path, skill and workflow continuity
+- `urdDoctorGoddess` diagnoses failure cause, rollback risk and evidence sufficiency
+- `belldandySecretary` tracks doctrine, state, naming, paths, skills and workflow continuity
+- `skuldResearch` watches dependency, library and compatibility continuity
 
 No monitoring lane grants CAST, build, merge, publication, signing, deployment, or Crown authority.
 
@@ -21,7 +27,7 @@ Lum invokes Witching Hour only after current sourceRef, blocker, authority bound
 ## Loop
 `trace -> isolate -> patchSmall -> testTarget -> crossCheck -> auditDelta -> checkpoint -> continueOrStop`
 
-Urd traces dependencies and rollback. Belldandy checks doctrine, naming, paths, skills and workflow unification. Build Oni workers may independently verify build-affecting patches. Shiori/Critic is mandatory for contradictory evidence or disputed GREEN. Kugi alone performs an authorized deterministic mutation.
+Urd diagnoses the failure, evidence gaps, dependency pathology and rollback risk. Belldandy keeps the repair ledger, source/state map, naming, paths, skills and workflow continuity. Build Oni workers may independently verify build-affecting patches. Shiori/Critic is mandatory for contradictory evidence or disputed GREEN. Kugi alone performs an authorized deterministic mutation.
 
 ## Laws
 - exact sourceRef in every task envelope

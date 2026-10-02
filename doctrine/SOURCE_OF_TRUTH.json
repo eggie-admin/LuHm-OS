@@ -205,6 +205,45 @@
     "tabletIdentity": "captureOnDevice",
     "githubPrerelease": "greenExactPrereleasePublished",
     "virginInstallProof": "pendingDevice",
-    "legacyLanPortal": "historicalOnlyForThisMilestone"
+    "legacyLanPortal": "historicalOnlyForThisMilestone",
+    "artifactStorage": "googleDriveDurableBinary",
+    "githubPrereleaseRole": "transientTransportOnly",
+    "durableArtifactReceipt": "PENDING_DRIVE_COPY"
+  },
+  "storageTopology": {
+    "contract": "doctrine/storageTopologyV1.json",
+    "status": "CANDIDATE_STORAGE_LAW_STAGED",
+    "primeLaw": "databases point to files; databases do not become the file server",
+    "openAiRole": "semanticDb",
+    "githubRole": "sourceDb",
+    "googleDriveRole": "durableBinaryFileServer",
+    "androidRole": "runtimeMountAndPhysicalProof",
+    "githubBinaryRetention": "ephemeralTransportOrBuildCacheOnly",
+    "durableBinaryStorage": "googleDrive",
+    "privateDriveIdsInPublicDoctrine": false,
+    "crownStatus": "STOP"
+  },
+  "goddessCore": {
+    "urd": {
+      "role": "doctorGoddess",
+      "machineIdentity": "urdDoctorGoddess",
+      "authority": "READ_ONLY"
+    },
+    "belldandy": {
+      "role": "secretary",
+      "machineIdentity": "belldandySecretary",
+      "authority": "READ_ONLY"
+    },
+    "skuld": {
+      "role": "research",
+      "machineIdentity": "skuldResearch",
+      "authority": "READ_ONLY"
+    },
+    "drNao": "deterministicSourceTruthAdjudicator",
+    "fumi": "recordsRegistrarHelper",
+    "personalityGrantsAuthority": false,
+    "cabinetContract": "doctrine/lumGoddessCabinetV1.json",
+    "acquaintance": "MUTUAL_ROLE_AWARENESS_REQUIRED",
+    "consensusAuthority": false
   }
 }

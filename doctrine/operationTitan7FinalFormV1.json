@@ -23,9 +23,14 @@
     "requiresExactSourceRef": true,
     "requiresRollbackPlan": true,
     "requiresTargetedTests": true,
-    "requiresUrdTrace": true,
-    "requiresBelldandyUnificationAudit": true,
-    "requiresCriticOnContradiction": true
+    "requiresCriticOnContradiction": true,
+    "requiresUrdDoctorDiagnosis": true,
+    "requiresBelldandySecretaryStateAudit": true,
+    "requiresSkuldResearchCompatibility": true,
+    "compatibilityAliases": {
+      "requiresUrdTrace": "legacyAliasForRequiresUrdDoctorDiagnosis",
+      "requiresBelldandyUnificationAudit": "legacyAliasForRequiresBelldandySecretaryStateAudit"
+    }
   },
   "fallback": {
     "mode": "nearestEvidenceBackedKnownGood",

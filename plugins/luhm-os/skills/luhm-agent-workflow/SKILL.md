@@ -9,7 +9,7 @@ description: Route LuHm OS work through Lum and the smallest evidence-gated Oni 
 
 For any LuHm OS / Project Hydra related request, first resolve and follow `agents/projectChatBootstrap/SKILL.md` plus `doctrine/projectChatCanonV1.json`. This portable skill does not replace that bootstrap contract.
 
-The core chat environment is `lum` plus read-only monitoring mini-agents `urd`, `skuld`, and `belldandy`. Load other specialists only when the active task actually needs them.
+The core chat environment is `lum` plus read-only goddess lanes: `urdDoctorGoddess` for diagnosis/evidence triage, `belldandySecretary` for state/records continuity, and `skuldResearch` for research/compatibility. Load other specialists only when the active task actually needs them.
 
 
 Use this skill when the user asks to inspect, route, build, verify, diagnose, or continue work on LuHm OS / Project Hydra.
@@ -47,7 +47,7 @@ For truth-sensitive routing, carry these values in the tool call:
 
 ## Canonical role model
 
-Lum is the only conversational boss. Helpers speak to Lum and never recursively recruit. Normal support-worker parallelism is at most 3. Tetsu and Kaji are the independent dual-build lane. DrNao is the read-only source-truth adjudicator. Kugi is deterministic execution/planning, not autonomous authority. Fumi normalizes cross-surface records. Yume handles art/media planning, Koe dictation normalization, Sumi asset/provenance review, Kiri context resolution, Momo bounded research, and Shiori contradiction challenge.
+Lum is the only conversational boss. Helpers speak to Lum and never recursively recruit. Normal support-worker parallelism is at most 3. Tetsu and Kaji are the independent dual-build lane. DrNao is the read-only source-truth adjudicator. Kugi is deterministic execution/planning, not autonomous authority. Belldandy is the canonical secretary/state keeper. Fumi is a bounded records registrar supporting that lane. Urd is the doctor goddess for diagnosis/evidence triage. Skuld is the research goddess for libraries, compatibility and current technical facts. Yume handles art/media planning, Koe dictation normalization, Sumi asset/provenance review, Kiri context resolution, Momo bounded research, and Shiori contradiction challenge.
 
 Detailed role behavior remains canonical in the repository under `agents/*/SKILL.md` and `agents/shared/ONI_PROTOCOL_V2.md`. This portable skill is an orchestration entry point, not a replacement source of truth.
 
@@ -68,3 +68,9 @@ Android WebGlass remains secret-free and network-off by default. The Android pro
 ## Consequential stop
 
 When a workflow reaches signing, publication, public exposure, protected/release promotion, destructive deletion, or another Crown boundary, report the proved candidate and stop for explicit human authority.
+
+## Storage topology
+
+Google Drive is the durable binary file server. GitHub is canonical source plus receipts/hashes/pointers and may use release/CI assets only as transient transport or cache. OpenAI is semantic state/context, not binary storage or source authority. Android/Termux is runtime and physical-proof space.
+
+Prime law: `databases point to files; databases do not become the file server`.

@@ -1,5 +1,11 @@
 # Project Chat Bootstrap v1
 
+
+
+Canonical AI control plane: `doctrine/luhmAiControlPlaneV1.json`.
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 Canonical machine identity: `projectChatBootstrap`
 
 This skill is the entry point for every LuHm OS / Project Hydra related chat. It is intentionally small. It loads the current truth and the smallest agent set needed for the user's task instead of copying the whole project history into every conversation.
@@ -36,15 +42,16 @@ Load or resolve these first:
 
 - `doctrine/projectChatCanonV1.json`
 - `doctrine/SOURCE_OF_TRUTH.json`
+- `doctrine/storageTopologyV1.json`
 - `agents/lum/SKILL.md`
 - `agents/goddessSharedSystemsPractice/SKILL.md`
 
 Then attach the four monitoring mini-agent lanes:
 
 - `lum` -> orchestration continuity
-- `urd` -> mutation continuity
-- `skuld` -> research, libraries and compatibility
-- `belldandy` -> doctrine, naming, paths, skills, workflow and receipt unification
+- `urdDoctorGoddess` -> diagnosis, evidence triage and repair sanity
+- `belldandySecretary` -> state, records, naming, paths, workflow and handoff continuity
+- `skuldResearch` -> research, libraries and compatibility
 
 Monitoring is read-only active-task reasoning. It is not hidden asynchronous execution.
 
@@ -111,9 +118,9 @@ No automatic CAST. No automatic build. No automatic merge. No automatic publicat
 When the task is character/media work:
 - `yume` owns art direction and candidate generation
 - `sumi` owns provenance and runtime identity
-- `urd` watches mutation/contamination risk
-- `skuld` watches technical/library/runtime compatibility
-- `belldandy` watches naming/canon/workflow consistency
+- `urdDoctorGoddess` diagnoses contamination, failed gates and mutation risk
+- `belldandySecretary` tracks naming/canon/workflow/receipt state
+- `skuldResearch` watches technical/library/runtime compatibility
 - `lum` integrates and presents the approval proof to Professor
 
 Creative approval is not runtime proof. Runtime proof is not publication authority.
@@ -136,3 +143,14 @@ For meaningful work, prefer:
 `sourceRef | scope | activeLane | evidence | blocker | nextAction | crown`
 
 Never call the whole system green because one scoped lane passed.
+
+## Storage topology
+
+Prime law: `databases point to files; databases do not become the file server`.
+
+- OpenAI is the semantic-state/index lane, never canonical binary storage.
+- GitHub is the source/receipt database and pointer layer, never durable binary archive authority.
+- Google Drive is the durable binary file server for APKs, ZIPs, media, manuals, snapshots, recovery bundles and large build outputs.
+- Android/Termux is a runtime mount and physical-proof boundary, not durable project storage.
+
+A durable artifact is not storage-GREEN until its Drive-backed pointer and SHA-256 are recorded.

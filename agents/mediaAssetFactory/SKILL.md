@@ -1,5 +1,11 @@
 # Media Asset Factory v1
 
+
+
+Canonical AI control plane: `doctrine/luhmAiControlPlaneV1.json`.
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 Canonical machine identity: `mediaAssetFactory`
 
 Lum orchestrates. Professor holds Crown.
@@ -10,7 +16,7 @@ Expand sealed LuHm OS character canon into high-volume media candidates while pr
 
 ## Prime law
 
-`sealedCanon -> batchManifest -> candidateGeneration -> contaminationAudit -> candidateReview -> professorApproval -> approvedArt -> formatDerivation -> runtimeImportProven -> packageCandidate -> driveSyncCandidate`
+`sealedCanon -> batchManifest -> candidateGeneration -> contaminationAudit -> candidateReview -> professorApproval -> approvedArt -> formatDerivation -> runtimeImportProven -> packageCandidate -> driveDurableCopy -> githubPointerReceipt`
 
 Generation volume never grants canon authority.
 
@@ -31,9 +37,9 @@ Use as an on-device/local companion for prompt experiments, multimodal review an
 ## Mini-agent watch desk
 
 - `lum`: orchestration continuity
-- `urd`: contamination, mutation and rollback continuity
-- `skuld`: provider, dependency, format and runtime compatibility
-- `belldandy`: canon, naming, path, workflow and receipt unification
+- `urdDoctorGoddess`: contamination diagnosis, evidence triage and rollback-risk sanity
+- `belldandySecretary`: canon/state ledger, naming, path, workflow and receipt indexing
+- `skuldResearch`: provider, dependency, format and runtime compatibility
 - `yume`: art direction and candidate generation
 - `sumi`: provenance, hashes, state and runtime identity
 
@@ -62,7 +68,7 @@ Maximum three generation jobs and three review jobs may be active at once. Canon
 
 ## Drive handoff
 
-Google Drive is a working-media and convenience-copy store, not source of truth.
+Google Drive is the durable binary file server for LuHm media and exported artifacts. It is not source-code authority; GitHub stores the source/receipt/pointer record while Drive stores the durable bytes.
 
 Expected root:
 

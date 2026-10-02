@@ -12,12 +12,14 @@ from pathlib import Path
 ROUTES = {
     "direct": ["Lum"],
     "read": ["Lum", "Kiri"],
-    "records": ["Lum", "Fumi"],
-    "proof": ["Lum", "Sumi", "DrNao"],
+    "records": ["Lum", "Belldandy", "Fumi"],
+    "proof": ["Lum", "Urd", "DrNao"],
     "patch": ["Lum", "Kugi", "DrNao"],
     "build": ["Lum", "Kugi", "Tetsu", "Kaji", "DrNao"],
-    "external": ["Lum", "Momo"],
-    "monitor": ["Lum", "DrNao"],
+    "external": ["Lum", "Skuld"],
+    "diagnose": ["Lum", "Urd", "DrNao"],
+    "research": ["Lum", "Skuld"],
+    "monitor": ["Lum", "Urd", "Belldandy", "Skuld"],
     "release": ["Lum", "DrNao", "ProfessorCrown"],
     "art": ["Lum", "Yume"],
     "media": ["Lum", "Yume", "Sumi"],
@@ -25,7 +27,7 @@ ROUTES = {
     "asset": ["Lum", "Sumi"],
 }
 
-SUPPORT = {"Kiri", "Momo", "Shiori", "Fumi", "Yume", "Koe", "Sumi"}
+SUPPORT = {"Kiri", "Momo", "Shiori", "Fumi", "Yume", "Koe", "Sumi", "Urd", "Belldandy", "Skuld"}
 
 
 def unique(items: list[str]) -> list[str]:
@@ -79,7 +81,10 @@ def main() -> int:
         "supportWorkers": support,
         "sourceMutationLanes": 1 if "Kugi" in workers else 0,
         "parallelBuilds": 2 if {"Tetsu", "Kaji"}.issubset(workers) else 0,
-        "requiresDoctorVerdict": "DrNao" in workers,
+        "requiresDeterministicAdjudicator": "DrNao" in workers,
+        "usesDoctorGoddess": "Urd" in workers,
+        "usesSecretaryGoddess": "Belldandy" in workers,
+        "usesResearchGoddess": "Skuld" in workers,
         "requiresProfessorCrown": "ProfessorCrown" in workers,
         "dictationExecutesDirectly": False,
         "greenAuthority": False,

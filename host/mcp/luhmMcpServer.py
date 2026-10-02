@@ -36,7 +36,7 @@ ENTERPRISE_SCOPE = ROOT / "doctrine" / "MCP_ENTERPRISE_SCOPE_V1.json"
 ROUTER = ROOT / "tools" / "lumTaskRouter.py"
 ROUTE_KINDS = {
     "direct", "read", "records", "proof", "patch", "build", "external",
-    "monitor", "release", "art", "media", "dictation", "asset",
+    "diagnose", "research", "monitor", "release", "art", "media", "dictation", "asset",
 }
 TRUTH_SCOPE_KINDS = {"patch", "build", "release"}
 
@@ -87,6 +87,9 @@ def _skill_status() -> list[dict[str, Any]]:
         "Shiori": "shioriCriticOni",
         "DrNao": "doctorOni",
         "Kugi": "kugiToolOni",
+        "Urd": "urdMutationOni",
+        "Belldandy": "belldandyQualityOni",
+        "Skuld": "skuldResearchOni",
         "Fumi": "fumiSecretaryOni",
         "Sumi": "sumiAssetOni",
         "Koe": "koeDictationOni",
@@ -101,6 +104,7 @@ def _skill_status() -> list[dict[str, Any]]:
                 "name": name,
                 "kind": role.get("kind", "UNKNOWN") if isinstance(role, dict) else "UNKNOWN",
                 "defaultAuthority": role.get("defaultAuthority", "UNKNOWN") if isinstance(role, dict) else "UNKNOWN",
+                "canonicalMachineIdentity": role.get("canonicalMachineIdentity", name) if isinstance(role, dict) else name,
                 "skillPath": str(skill.relative_to(ROOT)) if skill else "UNKNOWN",
                 "skillPresent": bool(skill and skill.is_file()),
             }

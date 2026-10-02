@@ -20,7 +20,10 @@
       "Fumi",
       "Sumi",
       "Koe",
-      "Yume"
+      "Yume",
+      "Urd",
+      "Belldandy",
+      "Skuld"
     ],
     "parallelism_max_support": 3,
     "parallelism_max_builds": 2,
@@ -28,7 +31,29 @@
     "single_mutable_source_lane": true,
     "android_provider_secrets": false,
     "android_remote_shell": false,
-    "android_runtime_network_default": false
+    "android_runtime_network_default": false,
+    "goddessCore": [
+      {
+        "name": "Urd",
+        "machineIdentity": "urdDoctorGoddess",
+        "role": "doctorGoddess",
+        "authority": "READ_ONLY"
+      },
+      {
+        "name": "Belldandy",
+        "machineIdentity": "belldandySecretary",
+        "role": "secretary",
+        "authority": "READ_ONLY"
+      },
+      {
+        "name": "Skuld",
+        "machineIdentity": "skuldResearch",
+        "role": "research",
+        "authority": "READ_ONLY"
+      }
+    ],
+    "fumiRole": "recordsRegistrarHelper",
+    "drNaoRole": "deterministicSourceTruthAdjudicator"
   },
   "openai": {
     "api_surface": "Responses API",
@@ -111,7 +136,14 @@
     "consequential_actions_crown_gated": true,
     "executor_reinterprets_scope": false,
     "doctor_repairs_source": false,
-    "dictation_executes_directly": false
+    "dictation_executes_directly": false,
+    "databases_point_to_files": true,
+    "databases_are_not_file_servers": true,
+    "goddess_role_map": {
+      "urd": "doctorGoddess",
+      "belldandy": "secretary",
+      "skuld": "research"
+    }
   },
   "deployment_gates": {
     "source_candidate": "exact-head CI",
@@ -125,7 +157,8 @@
     "apk": "signature + package + 16K alignment + payload + SHA256",
     "device": "physical Samsung install + runtime smoke",
     "canonical": "human promotion",
-    "production": "persistent signing + branch controls + paid/non-sleeping host + live evidence"
+    "production": "persistent signing + branch controls + paid/non-sleeping host + live evidence",
+    "durable_artifact": "verified Google Drive copy + SHA256 + sourceRef + buildRun pointer receipt"
   },
   "forbidden_claims": [
     "CI proves live OpenAI credentials",
@@ -136,6 +169,30 @@
     "Render subdomain proves custom FQDN ownership",
     "agent may self-promote",
     "agent may publish or production-sign without Crown",
-    "proof import alone makes evidence GREEN"
-  ]
+    "proof import alone makes evidence GREEN",
+    "GitHub Release or CI artifact is the durable LuHm binary archive",
+    "OpenAI conversational context is canonical binary or source storage"
+  ],
+  "storageTopology": {
+    "contract": "doctrine/storageTopologyV1.json",
+    "semanticDb": {
+      "provider": "OpenAI",
+      "durableBinaryStorage": false,
+      "sourceAuthority": false
+    },
+    "sourceDb": {
+      "provider": "GitHub",
+      "durableBinaryStorage": false,
+      "releaseArtifacts": "transientTransportOrBuildCacheOnly"
+    },
+    "fileServer": {
+      "provider": "GoogleDrive",
+      "canonicalBinaryStorage": true
+    },
+    "runtimeMount": {
+      "provider": "Android/Termux",
+      "durableBinaryStorage": false,
+      "physicalProof": true
+    }
+  }
 }

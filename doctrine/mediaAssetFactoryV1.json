@@ -14,7 +14,12 @@
   "generationLanes": {
     "localHydra": {
       "role": "primaryLocalGeneration",
-      "providers": ["comfyUi", "ffmpeg", "blender", "gimp"],
+      "providers": [
+        "comfyUi",
+        "ffmpeg",
+        "blender",
+        "gimp"
+      ],
       "authority": "candidateGenerationOnly"
     },
     "googleAi": {
@@ -33,9 +38,9 @@
   },
   "monitoringMiniAgents": {
     "lum": "orchestrationContinuity",
-    "urd": "mutationAndContaminationWatch",
-    "skuld": "technicalCompatibilityAndGenerationDependencyWatch",
-    "belldandy": "canonNamingPathWorkflowAndReceiptUnification"
+    "urdDoctorGoddess": "contaminationDiagnosisEvidenceTriageRollbackRisk",
+    "belldandySecretary": "canonStateNamingPathWorkflowReceiptLedger",
+    "skuldResearch": "technicalCompatibilityGenerationDependencyResearch"
   },
   "artLanes": {
     "yume": {
@@ -59,7 +64,8 @@
     "runtimeImport",
     "runtimeImportProven",
     "packageCandidate",
-    "driveSyncCandidate"
+    "driveDurableCopy",
+    "githubPointerReceipt"
   ],
   "assetFamilies": [
     "masterSheet",
@@ -99,8 +105,10 @@
     "projectFilesFolderTitle": "50_PROJECT_FILES",
     "finalExportsFolderTitle": "70_FINAL_EXPORTS",
     "driveIsSourceOfTruth": false,
-    "syncLaw": "Drive stores working and approved media copies; canonical state remains receipt-backed in LuHm OS source.",
-    "writeScope": "explicitConnectedDriveOnly"
+    "syncLaw": "Google Drive stores the durable binary bytes for working and approved media; GitHub stores source, hashes, receipts and logical pointers. Drive is not source-code authority.",
+    "writeScope": "explicitConnectedDriveOnly",
+    "canonicalBinaryStorage": true,
+    "githubBinaryArchiveAuthority": false
   },
   "cockpit": {
     "surface": "frontEnd",
