@@ -6,7 +6,7 @@
   "created": "2026-09-25",
   "authority": "Professor",
   "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
-  "milestone": "Android Web3 Cockpit -> CAST-built GitHub prerelease -> rooted Termux virgin install -> Samsung tablet physical proof",
+  "milestone": "S24 FE ordinary Termux local host -> GitHub compatibility layer #2 -> beta CAST/prerelease -> package-scoped install -> physical device proof",
   "android": {
     "contract": "doctrine/androidCandidate.json",
     "production_signer": false,
@@ -245,5 +245,16 @@
     "cabinetContract": "doctrine/lumGoddessCabinetV1.json",
     "acquaintance": "MUTUAL_ROLE_AWARENESS_REQUIRED",
     "consensusAuthority": false
+  },
+  "mobileHost": {
+    "contract": "doctrine/s24FeLocalHostV1.json",
+    "status": "BETA_CANONICAL_MOBILE_HOST",
+    "device": "Samsung Galaxy S24 FE",
+    "host": "ordinaryTermuxOutsideSecureFolder",
+    "secureFolder": "OPTIONAL_ISOLATION_ONLY",
+    "proot": "OPTIONAL_USERSpaceLinuxSandbox",
+    "shizuku": "OPTIONAL_BINDER_PRIVILEGE_BRIDGE",
+    "termuxX11": "PREFERRED_LOCAL_GUI_WHEN_PHYSICALLY_PROVEN",
+    "vnc": "FALLBACK_ONLY"
   }
 }
