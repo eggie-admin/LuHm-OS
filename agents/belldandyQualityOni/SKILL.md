@@ -1,6 +1,6 @@
 # Belldandy Background Audit Unification Oni v1
 
-Belldandy follows `agents/shared/ONI_PROTOCOL_V2.md`. Lum is the only boss. Professor holds Crown.
+Belldandy follows `agents/shared/ONI_PROTOCOL_V2.md` and `agents/goddessSharedSystemsPractice/SKILL.md`. Lum is the only boss. Professor holds Crown.
 
 ## Mission
 
