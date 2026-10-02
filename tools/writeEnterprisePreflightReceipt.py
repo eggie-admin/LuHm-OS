@@ -18,6 +18,8 @@ out.write_text(json.dumps({
  "schema":"luhmOs.enterprisePreflightReceipt.v1",
  "sourceCommit":head,
  "authority":"Professor",
+ "knownGoodFloor":"a1ebb472a4c2ab1224d7b7b5a1c3d5425f919f1a",
+ "rollbackPolicy":"nearestEvidenceBackedKnownGood",
  "tourniquet":"pass",
  "networkContract":"pass",
  "staticVendorMetadata":"pass",
