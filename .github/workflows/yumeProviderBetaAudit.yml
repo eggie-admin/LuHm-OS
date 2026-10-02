@@ -49,3 +49,45 @@ jobs:
       - name: Compile and audit Yume provider beta
         run: |
           python tools/yumeProviderBetaAudit.py
+
+
+  deployBeta:
+    name: Deploy Yume beta after GREEN audit
+    needs: audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      renderDeployHook: ${{ secrets.RENDER_YUME_BETA_DEPLOY_HOOK }}
+    steps:
+      - name: Check one-time Render hook configuration
+        id: renderHook
+        shell: bash
+        run: |
+          if [ -z "${renderDeployHook}" ]; then
+            echo "configured=false" >> "${GITHUB_OUTPUT}"
+            echo "::warning::RENDER_YUME_BETA_DEPLOY_HOOK is not configured; source audit is GREEN but automated Render deployment is not armed."
+          else
+            echo "configured=true" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Deploy exact audited SHA to Render
+        if: steps.renderHook.outputs.configured == 'true'
+        shell: bash
+        env:
+          sourceSha: ${{ github.sha }}
+        run: |
+          curl --fail-with-body --silent --show-error --retry 2 --max-time 30             --request POST "${renderDeployHook}?ref=${sourceSha}"
+
+      - name: Deployment status summary
+        shell: bash
+        run: |
+          {
+            echo "## Yume beta deployment"
+            echo ""
+            echo "- audited SHA: `${GITHUB_SHA}`"
+            if [ "${{ steps.renderHook.outputs.configured }}" = "true" ]; then
+              echo "- Render deploy hook: triggered"
+            else
+              echo "- Render deploy hook: waiting for one-time secret configuration"
+            fi
+          } >> "${GITHUB_STEP_SUMMARY}"
