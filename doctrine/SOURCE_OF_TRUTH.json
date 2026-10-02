@@ -222,5 +222,25 @@
     "durableBinaryStorage": "googleDrive",
     "privateDriveIdsInPublicDoctrine": false,
     "crownStatus": "STOP"
+  },
+  "goddessCore": {
+    "urd": {
+      "role": "doctorGoddess",
+      "machineIdentity": "urdDoctorGoddess",
+      "authority": "READ_ONLY"
+    },
+    "belldandy": {
+      "role": "secretary",
+      "machineIdentity": "belldandySecretary",
+      "authority": "READ_ONLY"
+    },
+    "skuld": {
+      "role": "research",
+      "machineIdentity": "skuldResearch",
+      "authority": "READ_ONLY"
+    },
+    "drNao": "deterministicSourceTruthAdjudicator",
+    "fumi": "recordsRegistrarHelper",
+    "personalityGrantsAuthority": false
   }
 }
