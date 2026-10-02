@@ -1,0 +1,11 @@
+schema=luhmOs.staticService.v1
+mode=localFirst
+assetBase=./
+remoteAssetBase=
+fallbackAssetBase=./
+assetPath=assets/v1/
+svgPath=assets/v1/svg/
+imagePath=assets/v1/image/
+mediaPath=assets/v1/media/
+vendorPath=vendor/
+remoteAuthority=none
