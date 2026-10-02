@@ -2,15 +2,21 @@
   "schema": "luhm-os.mcp-enterprise-scope.v1",
   "status": "BETA_HARDENING",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
-  "cryptographyDoctrine": "doctrine/ENTERPRISE_CRYPTO_V1.json",
+  "cryptographyDoctrine": "doctrine/enterpriseCryptoV1.json",
   "transport": {
     "production": "streamable-http",
-    "localDevelopment": ["streamable-http", "stdio"],
+    "localDevelopment": [
+      "streamable-http",
+      "stdio"
+    ],
     "productionPath": "/mcp",
     "productionFqdn": "mcp.eggiebagelface.art",
     "publicTlsProvider": "Render managed TLS",
     "publicTlsPreferredCa": "Let's Encrypt",
-    "publicTlsApprovedCas": ["Let's Encrypt", "Google Trust Services"],
+    "publicTlsApprovedCas": [
+      "Let's Encrypt",
+      "Google Trust Services"
+    ],
     "publicTlsLiveEvidenceRequired": true,
     "statelessHttp": true,
     "sessionOwnsAuthority": false,
@@ -63,5 +69,11 @@
       "Render account business tools",
       "workspace state as a substitute for LuHm source identity"
     ]
+  },
+  "providerGatewayDoctrine": "doctrine/providerEnterpriseGatewayV1.json",
+  "gitHubCompatibilityLayer": {
+    "order": 2,
+    "role": "sourceForgeWorkflowAndVendorCompatibilityTranslation",
+    "exactSourceReceiptsRequired": true
   }
 }
