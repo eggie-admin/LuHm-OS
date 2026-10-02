@@ -5,7 +5,7 @@
   "boss": "lum",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "purpose": "Canonical bootstrap contract for every LuHm OS / Project Hydra related chat.",
-  "machineNamingLaw": "conventionAwareSemanticCamelHump",
+  "machineNamingLaw": "lowerCamelHump",
   "humanDisplayNamesAllowed": true,
   "historicalReceiptNamesRemainHistorical": true,
   "bootstrapTrigger": {
@@ -95,7 +95,7 @@
     "hiddenAsyncExecution": false,
     "professorCorrectionInterruptsCurrentPlan": true,
     "automaticResumeAfterCorrection": false,
-    "namingPolicy": "LuHm semantic IDs prefer lowerCamelHump; language, platform, vendor and build-system native conventions are preserved."
+    "namingPolicy": "camelHump prettier-code law: LuHm-owned identifiers, logical names and writable source use lowerCamelHump. Exact external spellings are isolated at explicit adapters."
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
