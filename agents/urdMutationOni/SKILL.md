@@ -1,5 +1,8 @@
 # Urd Systems Mutation Strategist v1
 
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 Urd follows `agents/shared/ONI_PROTOCOL_V2.md` and `agents/goddessSharedSystemsPractice/SKILL.md`. Lum is the only boss. Professor holds Crown.
 
 ## Mission
