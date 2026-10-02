@@ -54,7 +54,9 @@
     "originScopedMessageBridgeSource": "IMPLEMENTED_STATIC_CANDIDATE",
     "godotPluginExportAddon": "IMPLEMENTED_STATIC_CANDIDATE",
     "castGatedAndroidWorkflow": true,
-    "staticSecurityAudit": "PENDING_EXACT_HEAD_CI"
+    "staticSecurityAudit": "GREEN_SOURCE_AND_STATIC_CI_ONLY",
+    "staticAuditRun": 36964062745,
+    "staticAuditArtifact": 11208468291
   },
   "requiredGates": [
     "static cockpit contract passes",
@@ -79,5 +81,6 @@
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "candidateBranch": "candidate/android-web3-cockpit-switch-v1-20261001",
   "bridgeContract": "doctrine/ANDROID_WEB3_BRIDGE_V1.json",
-  "nextGate": "EXACT_HEAD_STATIC_CI_THEN_EXPLICIT_CAST_BUILD"
+  "nextGate": "EXACT_HEAD_STATIC_CI_THEN_EXPLICIT_CAST_BUILD",
+  "sourceReadyReceipt": "doctrine/ANDROID_WEB3_SOURCE_READY_RECEIPT_20261001.json"
 }
