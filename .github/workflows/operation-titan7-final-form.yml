@@ -2,6 +2,9 @@ name: OperationTitan7 Final Form Audit
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
   pull_request:
     paths:
       - 'doctrine/**'
