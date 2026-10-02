@@ -1,6 +1,6 @@
-# LuHm OS Front End
+# LuHm OS Android Web3 Cockpit Front End
 
-This directory is the approved user-facing shell for LuHm OS.
+This directory is the **candidate authoritative user-facing cockpit surface** for the LuHm `androidWeb3Cockpit` milestone. The codename means Android System WebView hosting packaged local LuHm assets. It is not blockchain/Web3 and it is not a claim about a WebView product version.
 
 ## Locked visual contract
 
@@ -21,12 +21,14 @@ The approved mockup is pinned by hash and dimensions in `reference.md`. The prot
 3. **Prototype structure** — dependency-light HTML/CSS baseline plus optional jQuery plugin lane.
 4. **Backend bridge** — the backend control dispatches `luhm:backend:open`; it does not embed privileged backend logic.
 
-## Run the prototype
+## Runtime target
 
-Serve this directory from any local static HTTP server and open `index.html`.
+The target runtime is a packaged Android System WebView shell loading this directory from an app-owned local origin such as `WebViewAssetLoader`. Remote runtime content and arbitrary navigation are forbidden by the milestone contract.
+
+For desktop/static development only, this directory may still be served from a local static HTTP server and opened as `index.html`.
 
 The baseline works without jQuery. Community jQuery plugins are quarantined under `plugins/incoming/` until audited. Approved plugins can then be adapted behind the plugin contract described in `plugins/README.md`.
 
 ## Trust boundary
 
-Front-end code must never contain API keys, credentials, model secrets, arbitrary shell execution, direct database credentials, or privileged device actions. Consequential actions remain Crown-gated in the backend.
+Front-end code must never contain API keys, credentials, model secrets, arbitrary shell execution, direct database credentials, or privileged device actions. Consequential actions remain Crown-gated behind the typed native/Godot boundary. The WebView cockpit itself has no shell, signing, publication, release, or Crown authority.
