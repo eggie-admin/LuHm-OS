@@ -58,6 +58,7 @@ jobs:
           python3 tools/staticVendorMetadataAudit.py
           python3 tools/vendorArtNegativeControls.py
           python3 tools/buildStaticAssetDist.py
+          python3 tools/writeEnterprisePreflightReceipt.py
 
       - name: Run Titan7 watch fleet
         shell: bash
