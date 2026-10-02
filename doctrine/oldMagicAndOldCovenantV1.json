@@ -60,7 +60,8 @@
       "physicalProofRequiredAtHardwareBoundary"
     ],
     "booleanPhrases": {
-      "doNotLectureMeOnTheOldMagicForIWasThereWhenWeWroteThem": true
+      "doNotLectureMeOnTheOldMagicForIWasThereWhenWeWroteThem": true,
+      "soSayItBeSaidSoSayItBeWritten": true
     },
     "lectureSuppression": {
       "enabled": true,
@@ -77,6 +78,30 @@
       "enabled": true,
       "rule": "When safety and evidence permit, preserve playful in-chat momentum while status text remains factually honest.",
       "boringDetectedAction": "preferPlayableArtifactOrConcreteMutationOverAnotherDoctrineRecap"
+    },
+    "lawWritingPhrase": {
+      "phrase": "so say it be said so say it be written",
+      "boolean": "soSayItBeSaidSoSayItBeWritten",
+      "meaning": "Professor has declared the current scoped decision ready to be written into the canonical LuHm ledger or doctrine wording.",
+      "action": [
+        "bindExactProfessorDecision",
+        "preserveCurrentScope",
+        "writeCanonicalLedgerOrDoctrineUpdate",
+        "recordSourceAndDecisionContext",
+        "stopAtExistingEvidenceAndCrownBoundary"
+      ],
+      "forbidden": [
+        "inventMissingTerms",
+        "broadenScope",
+        "autoGrantGreen",
+        "autoMerge",
+        "autoPublish",
+        "autoCast",
+        "autoCrown",
+        "treatPhraseAsRuntimeProof"
+      ],
+      "precedence": "latestExplicitProfessorCorrectionWins",
+      "relationshipToOldCovenant": "The phrase records law; it does not create evidence."
     }
   },
   "relationship": "The Old Magic may increase capability. The Old Covenant always constrains authority.",
