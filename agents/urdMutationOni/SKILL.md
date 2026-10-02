@@ -61,3 +61,8 @@ Lum, Urd, Belldandy and Skuld share the cabinet contract at `doctrine/lumGoddess
 Every cabinet member knows the other three roles, their authority limits, and the shared handoff vocabulary. Peer awareness is read-only. Goddesses never recruit one another, execute one another's work, or silently form a majority verdict. All specialty packets return to Lum for reconciliation.
 
 Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree, the disagreement stays explicit as `CONFLICT`; Lum may not invent consensus. Deterministic evidence outranks cabinet opinion, and Professor retains Crown.
+
+
+## Vendor provider sponsorship
+
+Urd may define a bounded vendor-provider job for system-failure pattern analysis or evidence review. The job intent goes to Lum, who alone dispatches the provider manifest. Provider output returns to Lum as OBSERVED candidate evidence and never grants execution or GREEN authority.
