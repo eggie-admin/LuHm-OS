@@ -1,15 +1,16 @@
 {
-  "schema":"luhmOs.codingRoleplayDirector.v1",
-  "status":"candidate",
-  "authority":"Professor",
-  "purpose":"humanCenteredWorkflowPresentation",
-  "sources":{
-    "workflowPlugins":"doctrine/workflowPluginRegistryV1.json",
-    "capabilitySpine":"doctrine/aiApiBossCapabilitySpineV1.json",
-    "petPresentation":"doctrine/characterPetPresentationV1.json",
-    "characterCanon":"game/canon/CHARACTER_CANON_V1.json"
+  "schema": "luhmOs.codingRoleplayDirector.v1",
+  "status": "candidate",
+  "authority": "Professor",
+  "purpose": "humanCenteredWorkflowPresentation",
+  "sources": {
+    "workflowPlugins": "doctrine/workflowPluginRegistryV1.json",
+    "capabilitySpine": "doctrine/aiApiBossCapabilitySpineV1.json",
+    "petPresentation": "doctrine/characterPetPresentationV1.json",
+    "characterCanon": "game/canon/CHARACTER_CANON_V1.json",
+    "finalGoalDirector": "doctrine/finalGoalMutationDirectorV1.json"
   },
-  "eventSpine":[
+  "eventSpine": [
     "professorIntent",
     "workflowSummoned",
     "oniEntered",
@@ -21,37 +22,74 @@
     "repairProposed",
     "checkpoint",
     "professorNeeded",
-    "workflowReleased"
+    "workflowReleased",
+    "goalLoaded",
+    "goalGap",
+    "boundedMutation",
+    "proofReceipt",
+    "softwareCandidate",
+    "professorGate",
+    "castReached",
+    "postCastPhysicalProof"
   ],
-  "deepDungeonPresentation":{
-    "rooms":["surface","sourceTruth","doctrine","receipts","memoryCrypt","contradictionVault","dependencyDepth","dungeonMap"],
-    "depthMeter":true,
-    "breadcrumbTrail":true,
-    "contradictionMonster":true,
-    "memoryCard":true,
-    "unknownFog":true,
-    "professorDoor":true
+  "deepDungeonPresentation": {
+    "rooms": [
+      "surface",
+      "sourceTruth",
+      "doctrine",
+      "receipts",
+      "memoryCrypt",
+      "contradictionVault",
+      "dependencyDepth",
+      "dungeonMap"
+    ],
+    "depthMeter": true,
+    "breadcrumbTrail": true,
+    "contradictionMonster": true,
+    "memoryCard": true,
+    "unknownFog": true,
+    "professorDoor": true
   },
-  "bubbleLaw":{
-    "maxLines":3,
-    "speakerRequired":true,
-    "expressionRequired":true,
-    "machineStateSeparate":true,
-    "bubbleCannotEstablishGreen":true,
-    "vendorCannotCrown":true,
-    "roleplayCannotRewriteEvidence":true
+  "bubbleLaw": {
+    "maxLines": 3,
+    "speakerRequired": true,
+    "expressionRequired": true,
+    "machineStateSeparate": true,
+    "bubbleCannotEstablishGreen": true,
+    "vendorCannotCrown": true,
+    "roleplayCannotRewriteEvidence": true,
+    "roleplayCannotAdvanceGoalState": true,
+    "decorativeGreenForbidden": true
   },
-  "layers":{
-    "layerBack":"environmentDepth",
-    "layerWorld":"workflowRoomsAndEvidence",
-    "layerCast":"oniVendorPortraitPose",
-    "layerFxUi":"bubbleDepthMeterBreadcrumbFx"
+  "layers": {
+    "layerBack": "environmentDepth",
+    "layerWorld": "workflowRoomsAndEvidence",
+    "layerCast": "oniVendorPortraitPose",
+    "layerFxUi": "bubbleDepthMeterBreadcrumbFx"
   },
-  "funLaw":{
-    "reproducibleChaosSeed":true,
-    "gagsPresentationOnly":true,
-    "failureMayUseMonsterMetaphor":true,
-    "unknownMayUseFogMetaphor":true,
-    "professorGateMayUseLockedDoorMetaphor":true
+  "funLaw": {
+    "reproducibleChaosSeed": true,
+    "gagsPresentationOnly": true,
+    "failureMayUseMonsterMetaphor": true,
+    "unknownMayUseFogMetaphor": true,
+    "professorGateMayUseLockedDoorMetaphor": true
+  },
+  "goalPresentation": {
+    "states": [
+      "UNKNOWN",
+      "GAP",
+      "MUTATING",
+      "PROVING",
+      "SOFTWARE_CANDIDATE",
+      "PROFESSOR_GATE",
+      "CAST",
+      "POST_CAST_PHYSICAL_PROOF"
+    ],
+    "machineStateRequired": true,
+    "sourceRefRequiredForEvidenceEvents": true,
+    "proofClassRequiredForProofReceipt": true,
+    "professorGateCannotAutoAdvance": true,
+    "castRequiresProfessorCrown": true,
+    "postCastPhysicalProofSeparate": true
   }
 }
