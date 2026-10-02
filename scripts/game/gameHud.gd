@@ -4,8 +4,8 @@ signal world_requested
 signal backend_requested
 signal move_axis_changed(axis: Vector2)
 
-const AUDIT_WORKFLOW_PATH := "res://doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json"
-const AUDIT_SEAL_PATH := "res://doctrine/DOCUMENT_MUTATION_AUDIT_SEAL_20260926.json"
+const GAME_DOCTRINE_PATH := "res://doctrine/GODOT4_GAME_SOURCE_V1.json"
+const CHARACTER_CANON_PATH := "res://game/canon/CHARACTER_CANON_V1.json"
 
 var backend_root: Control
 var world_root: Control
@@ -59,7 +59,7 @@ func _build_backend() -> void:
     _scroll.add_child(_panel)
     _panel.add_child(_label("LUHM OS // CATHEDRAL", 34))
     _panel.add_child(_label("PROFESSOR HOLDS THE CROWN", 22))
-    _panel.add_child(_label("Lum · Neon Riverwalk\nSamsung candidate · AMBER", 26))
+    _panel.add_child(_label("Lum · Urd · Belldandy · Skuld\nGodot 4 · OperationTitan7", 26))
 
     var enter := Button.new()
     enter.name = "EnterWorld"
@@ -95,7 +95,7 @@ func _build_world_hud() -> void:
     _back.add_theme_font_size_override("font_size", 22)
     _back.pressed.connect(func(): backend_requested.emit())
     world_root.add_child(_back)
-    status_label = _label("CROWN · AMBER", 22)
+    status_label = _label("SOURCE · EXACT-HEAD GREEN", 22)
     world_root.add_child(status_label)
     dialogue_label = _label("", 28)
     dialogue_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -128,18 +128,14 @@ func _load_json(path: String) -> Dictionary:
     return {}
 
 func _audit_summary() -> String:
-    var workflow := _load_json(AUDIT_WORKFLOW_PATH)
-    var seal := _load_json(AUDIT_SEAL_PATH)
-    var workflow_status := str(workflow.get("status", "UNKNOWN"))
-    var seal_status := str(seal.get("status", "UNKNOWN"))
-    var source_law := str(workflow.get("source_law", "SOURCE LAW UNKNOWN"))
-    var runtime_status := "UNKNOWN"
-    var release_status := "UNKNOWN"
-    var gate_scope = seal.get("gate_scope", {})
-    if gate_scope is Dictionary:
-        runtime_status = str(gate_scope.get("runtime", "UNKNOWN"))
-        release_status = str(gate_scope.get("release", "UNKNOWN"))
-    return "DOC WORKFLOW · %s\nSEAL · %s\nRUNTIME · %s\nRELEASE · %s\nREAD-ONLY COCKPIT VIEW\n%s" % [workflow_status, seal_status, runtime_status, release_status, source_law]
+    var doctrine := _load_json(GAME_DOCTRINE_PATH)
+    var canon := _load_json(CHARACTER_CANON_PATH)
+    var doctrine_status := str(doctrine.get("status", "UNKNOWN"))
+    var authority := str(doctrine.get("authority", "UNKNOWN"))
+    var crown := str(doctrine.get("crownStatus", "UNKNOWN"))
+    var characters = canon.get("characters", {})
+    var character_count := characters.size() if characters is Dictionary else 0
+    return "GAME SOURCE · %s\nCHARACTER CANON · %s ORIGINAL ADULT DESIGNS\nAUTHORITY · %s\nCROWN · %s\nCAST REQUIRED FOR BUILD" % [doctrine_status, character_count, authority, crown]
 
 func _set_audit_panel(enabled: bool) -> void:
     if _audit_panel == null:
