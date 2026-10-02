@@ -83,5 +83,29 @@
       "verifiedBuild",
       "exactSource"
     ]
+  },
+  "operationTitan7": {
+    "triggerMeaning": "finalEscalatedWorkflowAudit",
+    "canonicalRefs": [
+      "doctrine/projectHydraFinalAuditMilestoneV1.json",
+      "doctrine/OPERATION_TITAN7_WATCH_FLEET_V1.json",
+      "doctrine/fullSourceTruthOrchestrator-20260926.json",
+      "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json",
+      "tools/fullSourceTruthAudit.py",
+      "tools/titan7WatchFleet.py"
+    ],
+    "tiers": [
+      "specialistWatchFleet",
+      "workflowUnificationAudit",
+      "tenPassHardAudit",
+      "fullSourceTruthAudit",
+      "boundedRepairLoop",
+      "rerunAffectedTiers",
+      "finalSealCandidate",
+      "professorCrown"
+    ],
+    "goal": "final declared milestone",
+    "fallbackLaw": "On a failed tier, stop escalation, preserve all evidence-backed GREEN checkpoints, fall back to the nearest known-good state, repair only the failed boundary, then resume escalation.",
+    "crownLaw": "No agent self-promotes. Final promotion remains Professor-authorized."
   }
 }
