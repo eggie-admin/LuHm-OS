@@ -1,0 +1,153 @@
+{
+  "schema": "luhmOs.shizukuX11Unified.v1",
+  "date": "2026-10-02",
+  "status": "betaHardening",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "Unify Shizuku, Termux:X11, proot and S24 FE runtime evidence into one bounded Android systems lane.",
+  "upstreamFacts": {
+    "shizuku": {
+      "latestObserved": "v13.6.0",
+      "android16Qpr1SupportObserved": true,
+      "nonRootWirelessDebuggingSupported": true,
+      "android13PlusTrustedWlanAutoStartObserved": true,
+      "apiIdentityModes": [
+        "adbShellUid2000",
+        "rootUid0"
+      ],
+      "primeLaw": "Shizuku privilege is not equivalent to root unless observed UID is 0."
+    },
+    "termuxX11": {
+      "androidMinimum": 8,
+      "twoPartInstallRequired": true,
+      "androidApp": "termux-x11-universal-debug.apk",
+      "companionPackage": "termux-x11-nightly",
+      "repositoryPackage": "x11-repo",
+      "displayDefault": ":1",
+      "prootRequiresSharedTmp": true,
+      "sharedUidVariantSigningConstraint": "GitHub Termux signing family only"
+    }
+  },
+  "sourceFamilyLaw": {
+    "termuxAndPluginsMustMatchSigningFamily": true,
+    "currentPhoneTermuxFamilyMustBeObservedBeforeX11SharedUidChoice": true,
+    "fDroidGithubPlayMixingForbiddenByDefault": true
+  },
+  "runtimeLayers": {
+    "termux": "controlPlane",
+    "shizuku": "binderPrivilegeBridge",
+    "termuxX11": "androidOptimizedXServer",
+    "proot": "userspaceLinuxToolSandbox",
+    "godot": "applicationRuntime",
+    "vncWebsocket": "legacyOrFallbackRemoteGuiOnly"
+  },
+  "nonEquivalence": [
+    "shizuku != root",
+    "proot != androidRoot",
+    "termuxX11 != vnc",
+    "x11RenderSuccess != appRuntimeGreen",
+    "binderAlive != permissionGranted",
+    "packageInstalled != sessionRunning"
+  ],
+  "aiLogic": {
+    "routeProfile": "androidSystems",
+    "specialist": "shizukuX11Oni",
+    "research": "skuldResearch",
+    "diagnosis": "urdDoctorGoddess",
+    "ledger": "belldandySecretary",
+    "executor": "kugi",
+    "adjudicator": "drNao",
+    "maxParallelSupportWorkers": 3
+  },
+  "workflow": [
+    "resolveDeviceAndTermuxSourceFamily",
+    "resolveExactSourceRef",
+    "auditShizukuUpstreamCompatibility",
+    "auditTermuxX11UpstreamCompatibility",
+    "probeShizukuInstalledAndRunning",
+    "probeShizukuUidAndPermissionState",
+    "probeTermuxX11AppAndCompanionPackage",
+    "probeX11PreferencesAndDisplayState",
+    "probeProotSharedTmpCompatibilityWhenUsed",
+    "launchBoundedX11SessionOnlyWhenExplicitlyAuthorized",
+    "captureSessionReceipt",
+    "urdDiagnosisIfAnyGateFails",
+    "belldandyLedgerUpdate",
+    "drNaoAdjudication",
+    "professorCrownStop"
+  ],
+  "shizukuStates": [
+    "notInstalled",
+    "installedStopped",
+    "runningAdb",
+    "runningRoot",
+    "permissionUnknown",
+    "permissionDenied",
+    "permissionGranted"
+  ],
+  "x11States": [
+    "notInstalled",
+    "appOnly",
+    "companionOnly",
+    "pairedInstalled",
+    "sessionStarting",
+    "sessionRunning",
+    "sessionStopped",
+    "renderUnknown",
+    "renderObserved"
+  ],
+  "proofRequired": {
+    "shizuku": [
+      "managerVersion",
+      "serverRunning",
+      "serverUid",
+      "appPermissionState"
+    ],
+    "x11": [
+      "androidAppPresent",
+      "companionPackagePresent",
+      "displayId",
+      "serverProcessObserved"
+    ],
+    "prootWhenUsed": [
+      "distributionId",
+      "sharedTmpEnabled",
+      "displayExportObserved"
+    ],
+    "session": [
+      "commandIdentity",
+      "timestamp",
+      "processReceipt",
+      "displayReceipt"
+    ]
+  },
+  "safeDefaults": {
+    "display": ":1",
+    "noPublicListener": true,
+    "noSelinuxDisable": true,
+    "noChmod777": true,
+    "noSharedUidVariantUnlessSigningFamilyProven": true,
+    "noRootAssumption": true,
+    "noAutoPermissionGrant": true,
+    "noAutoWirelessDebuggingPair": true,
+    "noBackgroundAutostartClaimWithoutReceipt": true
+  },
+  "forbidden": [
+    "setenforce0",
+    "disableSelinux",
+    "assumeRootFromShizuku",
+    "assumeShizukuPermissionFromServerRunning",
+    "installMixedTermuxSigningFamilies",
+    "bindShizukuBeforeProfessorApprovedDeviceAction",
+    "claimX11GreenFromPackagePresence",
+    "claimRuntimeGreenFromX11ProcessOnly",
+    "publiclyExposeX11OrVnc",
+    "autoCrown"
+  ],
+  "fallbackLaw": {
+    "legacyVncMayRemainFallback": true,
+    "doNotKillKnownGoodGuiUntilX11SessionObserved": true,
+    "x11PromotionRequiresPhysicalDisplayReceipt": true
+  },
+  "crownStatus": "stop"
+}
