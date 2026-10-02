@@ -9,6 +9,7 @@ on:
       - "doctrine/enterpriseCryptoV1.json"
       - "doctrine/providerEnterpriseGatewayV1.json"
       - "doctrine/providerOrchestraV1.json"
+      - "doctrine/providerAccountEvidenceV1.json"
       - "host/providers/**"
       - "tools/providerEnterpriseGatewayAudit.py"
       - ".github/workflows/providerEnterpriseGatewayAudit.yml"
