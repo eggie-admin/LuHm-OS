@@ -28,5 +28,12 @@
       }
     });
   }
-  global.LuHmStaticService = Object.freeze({ defaults: defaults, parse: parse, resolver: resolver });
+  function load() {
+    if (!global.fetch) return Promise.resolve(defaults);
+    return global.fetch("./srv.txt", { cache: "no-store", credentials: "same-origin" })
+      .then(function (response) { if (!response.ok) throw new Error("srv"); return response.text(); })
+      .then(parse)
+      .catch(function () { return defaults; });
+  }
+  global.LuHmStaticService = Object.freeze({ defaults: defaults, parse: parse, resolver: resolver, load: load });
 }(window));
