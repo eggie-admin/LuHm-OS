@@ -1,6 +1,8 @@
 extends Node3D
 
 const NeonWorldScript := preload("res://scripts/game/neonWorld.gd")
+const LumCoffeeHouseScript := preload("res://scripts/game/lumCoffeeHouseScene.gd")
+const CathedralWorldScript := preload("res://scripts/game/cathedralWorld.gd")
 const PlayerControllerScript := preload("res://scripts/game/playerController.gd")
 const GameHudScript := preload("res://scripts/game/gameHud.gd")
 const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
@@ -10,6 +12,8 @@ const Titan7MilestoneScript := preload("res://scripts/game/titan7Milestone.gd")
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
 
 var neon_world: Node3D
+var active_world: Node3D
+var active_world_id := "neonRiverwalk"
 var player_controller: CharacterBody3D
 var game_hud: CanvasLayer
 var cutscene_director: Node
@@ -30,6 +34,7 @@ func _build_runtime() -> void:
     neon_world = NeonWorldScript.new()
     neon_world.name = "NeonWorld"
     add_child(neon_world)
+    active_world = neon_world
 
     player_controller = PlayerControllerScript.new()
     player_controller.name = "PlayerController"
@@ -47,7 +52,7 @@ func _build_runtime() -> void:
     cutscene_bridge = CutsceneBridgeScript.new()
     cutscene_bridge.name = "CutsceneBridge"
     add_child(cutscene_bridge)
-    cutscene_bridge.configure(cutscene_director, player_controller, neon_world, game_hud)
+    cutscene_bridge.configure(cutscene_director, player_controller, active_world, game_hud)
 
     character_roster = CharacterRosterScript.new()
     character_roster.name = "CharacterRoster"
@@ -102,3 +107,34 @@ func _enter_backend() -> void:
 
 func _play_intro() -> void:
     await cutscene_bridge.play_path(INTRO_CUTSCENE_PATH)
+
+
+func switchWorld(world_id: String) -> bool:
+    if world_id == active_world_id:
+        return true
+    var next_world: Node3D
+    match world_id:
+        "neonRiverwalk":
+            next_world = NeonWorldScript.new()
+            next_world.name = "NeonWorld"
+        "lumCoffeeHouse":
+            next_world = LumCoffeeHouseScript.new()
+            next_world.name = "LumCoffeeHouse"
+        "cathedral":
+            next_world = CathedralWorldScript.new()
+            next_world.name = "CathedralWorld"
+        _:
+            return false
+    if cutscene_bridge != null:
+        cutscene_bridge.cancel()
+        cutscene_bridge.restore_now()
+    if active_world != null:
+        active_world.queue_free()
+    add_child(next_world)
+    active_world = next_world
+    neon_world = next_world if world_id == "neonRiverwalk" else null
+    active_world_id = world_id
+    player_controller.global_position = active_world.player_spawn
+    player_controller.velocity = Vector3.ZERO
+    cutscene_bridge.world = active_world
+    return true
