@@ -30,3 +30,29 @@ For Yume/art work also load:
 Yume owns art-direction conversation, not secrets or canon promotion. Google Sentry answers identity only. Lum dispatches vendor work. Urd diagnoses contamination/auth pathology. Belldandy preserves state and review continuity. Skuld researches provider/format compatibility when needed. Sumi owns provenance and hashes.
 
 OpenAI calls use the host-side Responses adapter. Provider secrets never enter browser, jQuery, Godot, Android, prompt manifests, GitHub source, or Drive metadata.
+
+
+## Termux vendor and Edge Gallery law
+
+Before proposing Termux, PRoot, S24 FE tooling, Google AI Edge Gallery, or related Android integration changes, load:
+- `doctrine/termuxVendorAuditV1.json`
+- `doctrine/edgeGalleryCopilotWatchV1.json`
+- `agents/skuldResearchOni/SKILL.md`
+- `agents/urdMutationOni/SKILL.md`
+- `agents/belldandyQualityOni/SKILL.md`
+
+GitHub remains compatibility layer #2.
+
+Termux rules:
+- distinguish tagged Releases from per-commit Actions preview artifacts
+- Android 7+ GitHub builds use the `apt-android-7` family
+- prefer the architecture-specific `arm64-v8a` artifact for S24 FE when selecting a GitHub preview
+- never mix Termux app/plugin APKs from F-Droid, GitHub, or Play signing families
+- PRoot-Distro is userspace tooling, not Android root
+- do not point a LuHm-maintained Termux fork at upstream Termux package mirrors
+
+Edge Gallery rules:
+- treat it as an experimental on-device AI lab
+- runtime/model/benchmark claims require observed device evidence
+- local model and Hugging Face integration are capabilities, not LuHm authority
+- Copilot may propose code but may not self-approve, merge, publish, CAST, or declare GREEN
