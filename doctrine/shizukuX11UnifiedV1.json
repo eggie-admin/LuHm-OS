@@ -34,12 +34,13 @@
     "fDroidGithubPlayMixingForbiddenByDefault": true
   },
   "runtimeLayers": {
-    "termux": "controlPlane",
+    "termux": "authoritativeControlPlaneOutsideSecureFolder",
     "shizuku": "binderPrivilegeBridge",
     "termuxX11": "androidOptimizedXServer",
     "proot": "userspaceLinuxToolSandbox",
     "godot": "applicationRuntime",
-    "vncWebsocket": "legacyOrFallbackRemoteGuiOnly"
+    "vncWebsocket": "legacyOrFallbackRemoteGuiOnly",
+    "secureFolder": "optionalIsolationOnly"
   },
   "nonEquivalence": [
     "shizuku != root",
@@ -60,6 +61,7 @@
     "maxParallelSupportWorkers": 3
   },
   "workflow": [
+    "bindOrdinaryTermuxAsAuthoritativeLocalHost",
     "resolveDeviceAndTermuxSourceFamily",
     "resolveExactSourceRef",
     "auditShizukuUpstreamCompatibility",
@@ -130,7 +132,8 @@
     "noRootAssumption": true,
     "noAutoPermissionGrant": true,
     "noAutoWirelessDebuggingPair": true,
-    "noBackgroundAutostartClaimWithoutReceipt": true
+    "noBackgroundAutostartClaimWithoutReceipt": true,
+    "secureFolderNotRequired": true
   },
   "forbidden": [
     "setenforce0",
@@ -142,12 +145,14 @@
     "claimX11GreenFromPackagePresence",
     "claimRuntimeGreenFromX11ProcessOnly",
     "publiclyExposeX11OrVnc",
-    "autoCrown"
+    "autoCrown",
+    "makeSecureFolderDefaultControlPlane"
   ],
   "fallbackLaw": {
     "legacyVncMayRemainFallback": true,
     "doNotKillKnownGoodGuiUntilX11SessionObserved": true,
     "x11PromotionRequiresPhysicalDisplayReceipt": true
   },
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "mobileHost": "doctrine/s24FeLocalHostV1.json"
 }
