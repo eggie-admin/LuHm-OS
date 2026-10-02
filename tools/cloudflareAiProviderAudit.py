@@ -60,7 +60,7 @@ if truthp.is_file():
     truth=json.loads(truthp.read_text())
     cf=truth.get("aiProviders",{}).get("cloudflareAiProvider",{})
     need(cf.get("contract")=="doctrine/cloudflareAiProviderV1.json","source truth provider contract missing")
-    need(cf.get("status")=="CANDIDATE_CONTRACT_ONLY","source truth must not claim live provider")
+    need(cf.get("status")=="candidateContractOnly","source truth must not claim live provider")
 
 if skillp.is_file():
     txt=skillp.read_text()
