@@ -11,13 +11,13 @@
     "disposable testing signer for virgin-install candidate"
   ],
   "deny": [
+    "publishing",
     "production signing",
     "stable promotion",
     "remote shell execution",
     "loopback control plane in Android runtime",
     "embedded provider secrets",
     "stable release promotion",
-    "production signing",
     "silent publication without explicit Professor authorization"
   ],
   "androidWeb3Prerelease": {
@@ -27,6 +27,8 @@
     "overwriteExistingTag": false,
     "stableReleaseAuthority": false,
     "productionSigningAuthority": false,
-    "crownAuthority": false
+    "crownAuthority": false,
+    "globalPublishingDenyPreserved": true,
+    "scopedException": "Only the Professor-authorized exact-source Android Web3 testing prerelease job may publish the APK + SHA256 assets; this does not relax global publication authority."
   }
 }
