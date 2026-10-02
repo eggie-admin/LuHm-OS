@@ -1,0 +1,62 @@
+{
+  "schema": "luhmOs.huggingFaceArtUtility.v1",
+  "status": "beta",
+  "authority": "Professor",
+  "purpose": "Use Hugging Face as a bounded production-assist discovery and compute lane for Yume without making models, Spaces or Jobs canon authorities.",
+  "accountState": "authenticatedObserved",
+  "capabilityClasses": {
+    "backgroundRemoval": {
+      "mode": "modelDiscoveryOrBoundedJob",
+      "use": "maskingAndAlphaPrep"
+    },
+    "imageSegmentation": {
+      "mode": "modelDiscoveryOrBoundedJob",
+      "use": "subjectPartAndRegionMasks"
+    },
+    "depthMap": {
+      "mode": "modelDiscoveryOrBoundedJob",
+      "use": "parallaxDepthAnd3dAssist"
+    },
+    "poseStructure": {
+      "mode": "modelDiscoveryOrBoundedJob",
+      "use": "poseAndStructureReferenceOnly"
+    },
+    "imageTo3dResearch": {
+      "mode": "modelDiscoveryOrBoundedJob",
+      "use": "privatePrototypeGeometry"
+    },
+    "batchAssetProcessing": {
+      "mode": "hfJobs",
+      "use": "boundedBatchConversionOrAnalysis"
+    }
+  },
+  "providerProducts": {
+    "hub": "modelSpaceDatasetAndPaperDiscovery",
+    "mcp": "assistantConnectedHubAndCommunityTools",
+    "jobs": "temporaryCpuGpuWorkloads",
+    "inferenceEndpoints": "laterStableDedicatedServing"
+  },
+  "discoveryLaw": {
+    "refreshAtTaskTime": true,
+    "licenseCheckBeforePin": true,
+    "compatibilityCheckBeforePin": true,
+    "modelPopularityIsNotApproval": true,
+    "communitySpaceIsUntrustedUntilReviewed": true
+  },
+  "privacyAndArtLaw": {
+    "protectedReferencesRequireExplicitUploadApproval": true,
+    "publicGenerativeArtPublication": false,
+    "privatePrototypeGenerationAllowedWhenRequested": true,
+    "providerOutputIsCandidateOnly": true
+  },
+  "costLaw": {
+    "paidComputeRequiresExplicitBoundedTask": true,
+    "noIdleGpuJobs": true,
+    "cancelTemporaryServersAfterTask": true
+  },
+  "reportsTo": "lum",
+  "yumeMayRequestCapabilities": true,
+  "providerMayGrantCanon": false,
+  "providerMayGrantGreen": false,
+  "crownStatus": "stop"
+}
