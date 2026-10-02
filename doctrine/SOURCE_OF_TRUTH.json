@@ -241,6 +241,9 @@
     },
     "drNao": "deterministicSourceTruthAdjudicator",
     "fumi": "recordsRegistrarHelper",
-    "personalityGrantsAuthority": false
+    "personalityGrantsAuthority": false,
+    "cabinetContract": "doctrine/lumGoddessCabinetV1.json",
+    "acquaintance": "MUTUAL_ROLE_AWARENESS_REQUIRED",
+    "consensusAuthority": false
   }
 }
