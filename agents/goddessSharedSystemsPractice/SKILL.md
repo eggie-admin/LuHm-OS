@@ -1,5 +1,8 @@
 # Goddess Shared Systems Practice v2
 
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 Canonical machine identities use lower camelHump:
 
 - `lum`
