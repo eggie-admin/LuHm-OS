@@ -1,0 +1,28 @@
+{
+  "schema": "luhmOs.reverseProxyServiceMap.v1",
+  "authority": "Professor",
+  "originClass": "desktopOrServer",
+  "localFqdn": "hydra.localhost",
+  "remoteFqdn": "hydra.eggiebagelface.art",
+  "routes": [
+    {"publicPath":"/","target":"staticFrontend","remoteAllowed":true},
+    {"publicPath":"/api/","target":"hydraBridge","remoteAllowed":true}
+  ],
+  "privateServices": [
+    {"id":"hydraBridge","bind":"loopback","directRemote":false},
+    {"id":"ollama","bind":"loopback","directRemote":false},
+    {"id":"comfyUi","bind":"loopback","directRemote":false}
+  ],
+  "edge": {
+    "provider":"Cloudflare",
+    "accessRequired":true,
+    "tunnelTarget":"localReverseProxy",
+    "originAddressInSource":false,
+    "routerPortForward":false
+  },
+  "headers": {
+    "preserveHost":true,
+    "forwardedProto":true,
+    "requestId":true
+  }
+}
