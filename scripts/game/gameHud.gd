@@ -134,7 +134,9 @@ func _audit_summary() -> String:
     var authority := str(doctrine.get("authority", "UNKNOWN"))
     var crown := str(doctrine.get("crownStatus", "UNKNOWN"))
     var characters = canon.get("characters", {})
-    var character_count := characters.size() if characters is Dictionary else 0
+    var character_count: int = 0
+    if characters is Dictionary:
+        character_count = (characters as Dictionary).size()
     return "GAME SOURCE · %s\nCHARACTER CANON · %s ORIGINAL ADULT DESIGNS\nAUTHORITY · %s\nCROWN · %s\nCAST REQUIRED FOR BUILD" % [doctrine_status, character_count, authority, crown]
 
 func _set_audit_panel(enabled: bool) -> void:
