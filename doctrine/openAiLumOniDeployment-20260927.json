@@ -20,7 +20,10 @@
       "Fumi",
       "Sumi",
       "Koe",
-      "Yume"
+      "Yume",
+      "Urd",
+      "Belldandy",
+      "Skuld"
     ],
     "parallelism_max_support": 3,
     "parallelism_max_builds": 2,
