@@ -66,7 +66,8 @@
     "kugi": "agents/kugiToolOni/SKILL.md",
     "sumi": "agents/sumiAssetOni/SKILL.md",
     "koe": "agents/koeDictationOni/SKILL.md",
-    "yume": "agents/yumeArtOni/SKILL.md"
+    "yume": "agents/yumeArtOni/SKILL.md",
+    "shizukuX11Oni": "agents/shizukuX11Oni/SKILL.md"
   },
   "repairEscalation": {
     "witchingHourSkill": "agents/witchingHourCoding/SKILL.md",
@@ -166,5 +167,14 @@
   "namedDoctrine": {
     "oldMagic": "enterpriseIntegrationCraft",
     "oldCovenant": "humanAuthorityAndEvidenceLaw"
+  },
+  "androidSystemsLane": {
+    "doctrine": "doctrine/shizukuX11UnifiedV1.json",
+    "specialist": "shizukuX11Oni",
+    "research": "skuldResearch",
+    "diagnosis": "urdDoctorGoddess",
+    "ledger": "belldandySecretary",
+    "executor": "kugi",
+    "proof": "drNao"
   }
 }
