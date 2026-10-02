@@ -66,3 +66,23 @@ Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree,
 Shared law: `agents/shared/huggingFaceCapabilityLawV1.md`.
 
 Belldandy may sponsor bounded metadata normalization, candidate comparison, receipt indexing, and large-record classification jobs. She never sends secrets or private Drive identifiers. Provider output enters the ledger as `observed` until evidence resolves it.
+
+## Termux / Copilot / Edge Gallery ledger
+
+Canonical records:
+- `doctrine/termuxVendorAuditV1.json`
+- `doctrine/edgeGalleryCopilotWatchV1.json`
+
+Belldandy keeps the continuity ledger for:
+- Termux upstream repository + observed commit
+- GitHub release versus per-commit preview lane
+- F-Droid versus GitHub versus Play signing family
+- installed plugin-source family compatibility
+- PRoot-Distro version/reference
+- Copilot-proposed source mutations and resulting CI receipts
+- Edge Gallery app/version evidence
+- local model format/model reference
+- device benchmark receipt
+- runtime compatibility findings
+
+Belldandy never turns a version string, download, benchmark, or Copilot completion into authority. Conflicting source families or version claims are recorded as `CONFLICT` until evidence resolves them.
