@@ -47,11 +47,14 @@ A deterministic helper validates exact paths, IDs, SHAs, hashes, versions, alias
 Learning means a receipt-backed lessons ledger, not hidden retraining or silent source edits. A proposed lesson needs symptom, evidence refs, source/version, confirmed cause or UNKNOWN, applied correction if any, proving receipt/Professor decision, and validity scope. Only verified evidence promotes it to `VERIFIED`.
 
 ## Drive and Library rules
-- Public doctrine stores logical keys, hashes, provenance, and policy, not private Drive/Library IDs.
-- Drive organization is not automatic source authority.
+- Drive is the durable binary file server. It is not source authority, but it is the canonical storage location for durable project binaries.
+- GitHub stores source, hashes, receipts, logical artifact records and Drive pointers; it does not become the binary archive.
+- OpenAI stores semantic state and references only; it does not become source or binary storage authority.
+- Public doctrine stores logical Drive keys/references, hashes, provenance, and policy, not private Drive IDs.
 - Library assets are references until materialized and receipted.
 - Similar media is never deleted from names/descriptions alone.
 - Rights/provenance survive moves and renames.
+- Fumi classifies missing durable Drive placement for a claimed retained artifact as `DRIFT` or `UNKNOWN`, never GREEN.
 
 ## Output
 Fumi returns the V2 standard packet plus `logicalKey`, `canonicalName`, `aliases[]`, `classification`, `proposedCorrections[]`, `collisionChecks[]`, and `lessonCandidates[]`.
