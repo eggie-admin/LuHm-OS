@@ -1,0 +1,118 @@
+{
+  "schema": "luhm-os.full-project-audit.v1",
+  "date": "2026-10-01",
+  "authority": {
+    "developmentMayContinue": true,
+    "merge": false,
+    "publication": false,
+    "productionSigning": false,
+    "historyRewrite": false,
+    "globalCrown": "STOP"
+  },
+  "status": "AMBER_FULL_PROJECT_AUDIT_RECONCILIATION_REQUIRED",
+  "milestone": "FULL_PROJECT_RECONCILIATION_GATE",
+  "exactCanonicalMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+  "canonicalTree": "4b9e85e5070952e8600580589681bafaf31e3e65",
+  "coverage": {
+    "canonicalTrackedPathsInventoried": 154,
+    "hydraShellTrackedPathsInventoried": 204,
+    "vueCmsTrackedPathsInventoried": 30,
+    "semanticLimit": "Broad whole-project inventory/risk audit plus manual review of key contracts; not independent semantic proof of every line.",
+    "canonicalFileContentsReadAndHeuristicScanned": 154,
+    "trackedJsonFiles": 56,
+    "validRawJson": 55,
+    "intentionalTemplateException": "installPortal/manifest.template.json is a build template; stageInstallPortal.py rejects unresolved placeholders and parses rendered JSON.",
+    "redHeuristicFindings": 0
+  },
+  "supportRoots": {
+    "hydraShellAndroid": "08644e2dbb032b1804e260c8ece1060597a22ae0",
+    "vueHeadlessCms": "1d51c5b90266f7beb8236cf07acfb17a085a4134",
+    "frozenRefsStillMatch": true
+  },
+  "governance": {
+    "mainBranchProtected": false,
+    "activeRulesets": 0,
+    "supportRootMainsProtected": false,
+    "supportRootRulesets": 0
+  },
+  "pullRequests": {
+    "open": 47,
+    "draft": 45,
+    "nonDraft": 2,
+    "directMain": 17,
+    "chainedOrNonMain": 30
+  },
+  "reconciliationRequired": [
+    "Historical scoped-green reconciliation baseline is older than live canonical main.",
+    "Historical private-LAN install lane remains on current main.",
+    "Legacy buildOnis naming remains while current naming doctrine prefers forgeOniTwins.",
+    "Recorded Drive empty-folder observation is historical; the compatibility root now has roleplay-v3 material.",
+    "Physical Samsung candidate proof remains pending.",
+    "Server-side branch/ruleset governance remains absent on the three live roots.",
+    "Open PR cleanup remains review-only until supersession is individually proven.",
+    "vue-headless-cms remains a frozen donor with older beta/caret dependency ranges; re-audit before production reactivation.",
+    "hydra-shell-android Ultima Python integration leaves several dependencies unpinned; keep frozen donor/support authority until dependency provenance is reconciled."
+  ],
+  "scopedCandidateCI": {
+    "pr86": "SUCCESS",
+    "pr87": "SUCCESS",
+    "pr89": "SUCCESS",
+    "pr90": "SUCCESS",
+    "pr91": "SUCCESS",
+    "pr92": "SUCCESS",
+    "pr93": "SUCCESS"
+  },
+  "auditBranch": "audit/full-project-sanity-20261001",
+  "preAuditSnapshotBranch": "snapshot/pre-full-project-audit-20261001",
+  "resolvedOnAuditBranch": [
+    "Pinned frontend jQuery workflow checkout and setup-node actions to immutable commit SHAs.",
+    "Added live main reconciliation metadata without rewriting historical scoped-GREEN receipts.",
+    "Mapped all 47 open PRs into non-destructive review buckets."
+  ],
+  "nextGate": "EXACT_HEAD_CI_ON_DRAFT_RECONCILIATION_PR",
+  "repairCandidates": {
+    "forgeOniTwins": {
+      "pullRequest": 96,
+      "branch": "candidate/forge-twins-cast-gate-v3-20261001",
+      "head": "878871e5cd275178320f37260e3a455eaccc0971",
+      "baseMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+      "purpose": "canonical forgeOniTwins identity, Tetsu/Kaji split, exact CAST gate, TTL janitor, static workflow policy",
+      "staticPolicyAudit": {
+        "runId": 36960573979,
+        "status": "SUCCESS"
+      },
+      "pluginPublicationAudit": {
+        "runId": 36960574000,
+        "status": "SUCCESS"
+      },
+      "buildExecuted": false,
+      "castIssued": false,
+      "merged": false,
+      "authority": false
+    },
+    "systemPortal": {
+      "pullRequest": 90,
+      "branch": "candidate/system-portal-dns-layer-v1-20261001",
+      "head": "bd58e47d5c4727d5dc5b46eec038b86136f2b8c2",
+      "purpose": "read-only DNS/certificate service directory and bounded HTTPS portal proposal",
+      "merged": false,
+      "authority": false
+    },
+    "edgeGalleryAudit": {
+      "pullRequest": 92,
+      "branch": "candidate/witching-hour-edge-gallery-hard-audit-v2-20261001",
+      "head": "4c4ca824ef0e2b66c0500fd60fd3ae718cc114b8",
+      "purpose": "Edge Gallery-aware reviewer/audit policy with no CAST or runtime authority",
+      "merged": false,
+      "authority": false
+    }
+  },
+  "fastLaneEvidence": {
+    "cockpitCandidatePr": 87,
+    "secureFolderShizukuPr": 89,
+    "doctorTruthGuardPr": 91,
+    "edgeGalleryAuditPr": 92,
+    "goddessTriadPr": 93,
+    "integrationStatus": "CANDIDATE_LANES_EXIST_END_TO_END_FAST_LANE_NOT_YET_PROVEN"
+  }
+}

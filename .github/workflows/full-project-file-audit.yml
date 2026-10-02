@@ -1,0 +1,92 @@
+name: LuHm Full Project File Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Bind exact head
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
+
+      - name: Audit negative controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/fullProjectAudit.py --self-test
+
+      - name: Audit every tracked file
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/fullProjectAudit.py \
+            --json build/full-project-audit/report.json \
+            --markdown build/full-project-audit/report.md
+          python3 -m json.tool build/full-project-audit/report.json >/dev/null
+
+      - name: Run existing Python regression suite
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests -p 'test*.py' -v
+
+      - name: Re-run canonical source truth contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/fullSourceTruthAudit.py --output build/full-source-truth/readiness.json
+          python3 tools/currentMainSourceTruthMilestoneAudit.py
+          python3 tools/pluginPublicationAudit.py
+          python3 tools/inChatHtmlCheck.py frontEnd/index.html
+
+      - name: Assert whole-repository coverage
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path("build/full-project-audit/report.json").read_text())
+          assert report["sourceCommit"] == "${{ github.event.pull_request.head.sha || github.sha }}"
+          assert report["trackedFileCount"] >= 154, report["trackedFileCount"]
+          assert report["findingCounts"]["RED"] == 0, report["findings"]
+          assert report["status"] in {
+              "AMBER_FULL_PROJECT_AUDIT_ACTIONS_PENDING",
+              "GREEN_FULL_PROJECT_AUDIT",
+          }
+          print("FULL_PROJECT_FILE_AUDIT=PASS")
+          print("TRACKED_FILES=" + str(report["trackedFileCount"]))
+          print("READINESS=" + report["status"])
+          PY
+
+      - name: Upload full audit receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-full-project-file-audit
+          path: |
+            build/full-project-audit/
+            build/full-source-truth/
+            build/current-main-source-truth/
+          if-no-files-found: error
+          retention-days: 30
