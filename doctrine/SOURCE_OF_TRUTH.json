@@ -168,13 +168,13 @@
   },
   "androidWeb3Cockpit": {
     "contract": "doctrine/ANDROID_WEB3_COCKPIT_SWITCH_V1.json",
-    "status": "AMBER_ANDROID_WEB3_COCKPIT_WRAPPER_DEVICE_PROOF_PENDING",
+    "status": "AMBER_ANDROID_WEB3_COCKPIT_SOURCE_READY_CAST_BUILD_PENDING",
     "milestoneCodename": "androidWeb3Cockpit",
     "runtime": "Android System WebView",
     "frontEnd": "frontEnd/index.html",
     "godotRole": "scene/game engine and native world/system layer behind typed boundary",
-    "webViewWrapper": "PENDING_IMPLEMENTATION",
-    "webViewAssetLoader": "PENDING_IMPLEMENTATION",
+    "webViewWrapper": "SOURCE_IMPLEMENTED_BUILD_PENDING",
+    "webViewAssetLoader": "SOURCE_IMPLEMENTED_BUILD_PENDING",
     "physicalSamsungProof": "PENDING",
     "installedWebViewVersion": "UNKNOWN",
     "remoteContentDefault": "FORBIDDEN",
@@ -184,6 +184,13 @@
     "releaseAuthority": false,
     "publicationAuthority": false,
     "productionSigningAuthority": false,
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "bridgeContract": "doctrine/ANDROID_WEB3_BRIDGE_V1.json",
+    "candidateBranch": "candidate/android-web3-cockpit-switch-v1-20261001",
+    "typedGodotBridge": "SOURCE_IMPLEMENTED_BUILD_PENDING",
+    "pluginAar": "PENDING_CAST_BUILD",
+    "apkIntegration": "PENDING_CAST_BUILD",
+    "staticSecurityAudit": "PENDING_EXACT_HEAD_CI",
+    "nextGate": "EXACT_HEAD_STATIC_CI_THEN_EXPLICIT_CAST_BUILD"
   }
 }
