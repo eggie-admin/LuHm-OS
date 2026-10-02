@@ -190,7 +190,11 @@
     "typedGodotBridge": "SOURCE_IMPLEMENTED_BUILD_PENDING",
     "pluginAar": "PENDING_CAST_BUILD",
     "apkIntegration": "PENDING_CAST_BUILD",
-    "staticSecurityAudit": "PENDING_EXACT_HEAD_CI",
-    "nextGate": "EXACT_HEAD_STATIC_CI_THEN_EXPLICIT_CAST_BUILD"
+    "staticSecurityAudit": "GREEN_SOURCE_AND_STATIC_CI_ONLY",
+    "nextGate": "EXACT_HEAD_STATIC_CI_THEN_EXPLICIT_CAST_BUILD",
+    "sourceReadyReceipt": "doctrine/ANDROID_WEB3_SOURCE_READY_RECEIPT_20261001.json",
+    "auditedSourceCommit": "3ebed03f73c871d2347f08f597237c6bfb92e338",
+    "staticAuditRun": 36964062745,
+    "staticAuditArtifact": 11208468291
   }
 }
