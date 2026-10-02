@@ -8,10 +8,13 @@
       "adult": true,
       "role": "executive oni art director",
       "design": [
-        "teal-black executive tailoring",
-        "auburn updo",
-        "subtle horns",
-        "cyan-magenta restraint"
+        "red-skinned mature original oni executive identity",
+        "auburn updo primary hair anchor",
+        "oni horns and tail",
+        "teal-black executive tailoring primary canon",
+        "restrained Hydra cyan-magenta accents",
+        "confident art-director and AI-operative presence",
+        "modular context wardrobe preserving one recognizable identity"
       ],
       "motions": [
         "idle",
@@ -22,7 +25,15 @@
         "wave",
         "point",
         "blink"
-      ]
+      ],
+      "designSeal": {
+        "state": "professorApprovedDesign",
+        "proofId": "lumMasterProofV2",
+        "variationDeck": "game/canon/candidates/lumAssetVariationDeckV1.json",
+        "runtimeImportProven": false,
+        "assetFamilyComplete": false,
+        "sourceLaw": "protectedReference != candidateProof != professorApprovedDesign != runtimeImportProven"
+      }
     },
     "urd": {
       "adult": true,
