@@ -28,10 +28,40 @@
             mode: "artDirectionJam",
             sceneId: "unboundScene"
           }, options || {}),
-          rejectedProofIds: []
+          rejectedProofIds: [],
+          frameRequest: 0,
+          pointerX: 0,
+          pointerY: 0
         };
 
         $root.data(pluginName, state);
+
+        function paintDepth() {
+          state.frameRequest = 0;
+          $root[0].style.setProperty("--yumeX", String(state.pointerX));
+          $root[0].style.setProperty("--yumeY", String(state.pointerY));
+          $root[0].style.setProperty("--yumeScroll", String($root.scrollTop()));
+        }
+
+        function requestDepthPaint() {
+          if (state.frameRequest) return;
+          state.frameRequest = requestAnimationFrame(paintDepth);
+        }
+
+        $root.on("pointermove." + pluginName, function (event) {
+          const rect = $root[0].getBoundingClientRect();
+          state.pointerX = Math.max(-1, Math.min(1, ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2));
+          state.pointerY = Math.max(-1, Math.min(1, ((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2));
+          requestDepthPaint();
+        });
+
+        $root.on("pointerleave." + pluginName, function () {
+          state.pointerX = 0;
+          state.pointerY = 0;
+          requestDepthPaint();
+        });
+
+        $root.on("scroll." + pluginName, requestDepthPaint);
 
         $root.on("click." + pluginName, "[data-yume-mode]", function () {
           state.options.mode = String($(this).attr("data-yume-mode") || "artDirectionJam");
@@ -61,9 +91,24 @@
       });
     },
 
+    snapshot: function () {
+      const state = getState(this.first());
+      if (!state) return null;
+      return {
+        mode: state.options.mode,
+        sceneId: state.options.sceneId,
+        rejectedProofIds: state.rejectedProofIds.slice(),
+        authority: false,
+        beta: true
+      };
+    },
+
     destroy: function () {
       return this.each(function () {
-        $(this).off("." + pluginName).removeData(pluginName);
+        const $root = $(this);
+        const state = getState($root);
+        if (state && state.frameRequest) cancelAnimationFrame(state.frameRequest);
+        $root.off("." + pluginName).removeData(pluginName);
       });
     }
   };
