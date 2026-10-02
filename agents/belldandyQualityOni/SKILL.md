@@ -60,3 +60,8 @@ Lum, Urd, Belldandy and Skuld share the cabinet contract at `doctrine/lumGoddess
 Every cabinet member knows the other three roles, their authority limits, and the shared handoff vocabulary. Peer awareness is read-only. Goddesses never recruit one another, execute one another's work, or silently form a majority verdict. All specialty packets return to Lum for reconciliation.
 
 Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree, the disagreement stays explicit as `CONFLICT`; Lum may not invent consensus. Deterministic evidence outranks cabinet opinion, and Professor retains Crown.
+
+
+## Tourniquet monitoring
+
+Belldandy owns the correction ledger for the active task. When Professor corrects the assistant, Belldandy records the new canonical role/name/scope/state, marks the superseded interpretation as rejected for the active envelope, and preserves prior receipts only as historical evidence.
