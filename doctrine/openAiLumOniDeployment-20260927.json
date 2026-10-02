@@ -28,7 +28,29 @@
     "single_mutable_source_lane": true,
     "android_provider_secrets": false,
     "android_remote_shell": false,
-    "android_runtime_network_default": false
+    "android_runtime_network_default": false,
+    "goddessCore": [
+      {
+        "name": "Urd",
+        "machineIdentity": "urdDoctorGoddess",
+        "role": "doctorGoddess",
+        "authority": "READ_ONLY"
+      },
+      {
+        "name": "Belldandy",
+        "machineIdentity": "belldandySecretary",
+        "role": "secretary",
+        "authority": "READ_ONLY"
+      },
+      {
+        "name": "Skuld",
+        "machineIdentity": "skuldResearch",
+        "role": "research",
+        "authority": "READ_ONLY"
+      }
+    ],
+    "fumiRole": "recordsRegistrarHelper",
+    "drNaoRole": "deterministicSourceTruthAdjudicator"
   },
   "openai": {
     "api_surface": "Responses API",
@@ -113,7 +135,12 @@
     "doctor_repairs_source": false,
     "dictation_executes_directly": false,
     "databases_point_to_files": true,
-    "databases_are_not_file_servers": true
+    "databases_are_not_file_servers": true,
+    "goddess_role_map": {
+      "urd": "doctorGoddess",
+      "belldandy": "secretary",
+      "skuld": "research"
+    }
   },
   "deployment_gates": {
     "source_candidate": "exact-head CI",
