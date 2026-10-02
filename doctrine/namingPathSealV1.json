@@ -4,32 +4,27 @@
   "authority": "Professor",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "namingLaw": {
-    "semanticMachineIds": "lowerCamelHumpPreferred",
+    "controlledNames": "camelHump",
+    "prettierCodeLaw": true,
+    "internalIdentifiers": "lowerCamelHump",
+    "internalFileStems": "lowerCamelHump",
+    "internalJsonKeys": "lowerCamelHump",
+    "internalMachineEnums": "lowerCamelHump",
     "humanHeadings": "readableTitleCase",
-    "externalNames": "preserveRequiredExternalSpelling",
+    "externalNames": "preserveOnlyWhenRequiredByExternalInterface",
+    "boundaryAdapterRequiredForExternalNaming": true,
     "historicalEvidence": "immutableOriginalPath",
     "silentAliasesAllowed": false,
     "duplicateCanonicalPathsAllowed": false,
-    "conventionProfiles": {
-      "luHmSemanticIds": "lowerCamelHump",
-      "jsonOwnedDomainKeys": "lowerCamelHumpPreferred",
-      "jsonVendorOrExternalKeys": "preserveExternal",
-      "javascriptIdentifiers": "languageNative",
-      "pythonFunctionsAndLocals": "snake_caseAllowed",
-      "pythonConstants": "UPPER_SNAKE_ALLOWED",
-      "shellLocals": "snake_caseAllowed",
-      "shellEnvironment": "UPPER_SNAKE_ALLOWED",
-      "githubWorkflowFiles": "kebab-case-or-camelHump-allowed",
-      "yamlKeys": "schemaOrVendorNative",
-      "gradleKotlin": "languageNative",
-      "androidManifest": "androidNative",
-      "filenames": "projectOrEcosystemNative",
-      "dnsAndFqdn": "dnsNative",
-      "databaseFields": "schemaNative"
+    "boundaryExceptions": {
+      "environmentVariables": "externalProcessBoundaryOnly",
+      "vendorPayloadKeys": "adapterBoundaryOnly",
+      "protocolRequiredFields": "adapterBoundaryOnly",
+      "androidOrGradleRequiredKeys": "adapterBoundaryOnly",
+      "historicalPaths": "readOnlyEvidenceOnly"
     },
-    "semanticIdentityRule": "LuHm-owned agent IDs, provider IDs, worker IDs, logical asset IDs, task IDs, scope IDs and capability IDs use stable lowerCamelHump unless an external protocol owns the identifier.",
-    "ecosystemRule": "Do not rename syntax, keys, files or identifiers merely to satisfy camelHump when that conflicts with language, framework, platform, vendor, build-system or established repository conventions.",
-    "migrationRule": "A naming migration must improve clarity, compatibility or collision safety. Cosmetic convention churn alone is insufficient."
+    "boundaryLaw": "Ugly external names stop at the adapter. LuHm-owned state, code identifiers, logical IDs, manifests and new writable source remain camelHump.",
+    "migrationRule": "Prefer camelHump migrations when functionally safe. External compatibility exceptions require an explicit adapter or receipt."
   },
   "canonicalWritableRoots": {
     "agents": "agents/",
@@ -62,7 +57,7 @@
     "tools/smX400OneBashInstall.sh",
     "tools/smX400OneBashInstallAudit.py"
   ],
-  "legacyPathLaw": "Historical evidence and established working paths retain their original names unless a migration is functionally justified.",
+  "legacyPathLaw": "Historical evidence may retain legacy spelling. New LuHm-owned writable source must not copy legacy snake, screaming-snake, kebab or dotted naming unless an external interface requires that exact spelling.",
   "moveLaw": "A sealed path move requires an explicit migration receipt containing oldPath, newPath, sourceRef, contentHash, reason and Professor authority.",
   "deleteLaw": "A sealed path cannot disappear without an authorized migration or retirement receipt.",
   "sealLaw": "Exact required paths and naming rules must pass deterministic audit before promotion.",
@@ -71,19 +66,19 @@
     "urdDoctorGoddess": {
       "role": "structuralNamingPathology",
       "watches": [
-        "semanticIdentityDrift",
-        "languageConventionMismatch",
+        "camelHumpDrift",
+        "boundaryLeak",
+        "machineIdentityCollision",
         "routingBreakRisk",
-        "aliasAmbiguity",
-        "cosmeticRenameChurn"
+        "aliasAmbiguity"
       ],
       "authority": "readOnly"
     },
     "belldandySecretary": {
       "role": "canonicalNameLedger",
       "watches": [
-        "canonicalSemanticNames",
-        "nativeConventionExceptions",
+        "canonicalCamelHumpNames",
+        "boundaryExceptionReceipts",
         "legacyAliases",
         "migrationReceipts",
         "pathContinuity"
