@@ -39,6 +39,7 @@ Load or resolve these first:
 
 - `doctrine/projectChatCanonV1.json`
 - `doctrine/SOURCE_OF_TRUTH.json`
+- `doctrine/storageTopologyV1.json`
 - `agents/lum/SKILL.md`
 - `agents/goddessSharedSystemsPractice/SKILL.md`
 
@@ -139,3 +140,14 @@ For meaningful work, prefer:
 `sourceRef | scope | activeLane | evidence | blocker | nextAction | crown`
 
 Never call the whole system green because one scoped lane passed.
+
+## Storage topology
+
+Prime law: `databases point to files; databases do not become the file server`.
+
+- OpenAI is the semantic-state/index lane, never canonical binary storage.
+- GitHub is the source/receipt database and pointer layer, never durable binary archive authority.
+- Google Drive is the durable binary file server for APKs, ZIPs, media, manuals, snapshots, recovery bundles and large build outputs.
+- Android/Termux is a runtime mount and physical-proof boundary, not durable project storage.
+
+A durable artifact is not storage-GREEN until its Drive-backed pointer and SHA-256 are recorded.
