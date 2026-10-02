@@ -25,7 +25,7 @@ jobs:
         id: cast
         shell: bash
         env:
-          ghToken: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
           commentBody: ${{ github.event.comment.body }}
         run: |
           set -euo pipefail
@@ -65,7 +65,7 @@ jobs:
       - name: Dispatch one exact-source Android Web3 CAST
         shell: bash
         env:
-          ghToken: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
           sourceRef: ${{ steps.cast.outputs.sourceRef }}
           releaseTag: ${{ steps.cast.outputs.releaseTag }}
           taskId: ${{ steps.cast.outputs.taskId }}
