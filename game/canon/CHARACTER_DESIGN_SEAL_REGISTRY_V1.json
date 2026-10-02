@@ -1,0 +1,36 @@
+{
+  "schema":"luhmOs.characterDesignSealRegistry.v1",
+  "status":"candidate",
+  "authority":"Professor",
+  "pipeline":"protectedReference -> canonAudit -> ArtOniProof -> ProfessorApproval -> designSeal -> assetFamilyExpansion -> SumiProvenance -> GodotImportProof",
+  "characters":{
+    "urd":{
+      "designState":"professorApprovedDesign",
+      "seal":"game/canon/seals/urdCharacterDesignSealV1.json",
+      "runtimeImportProven":false
+    },
+    "belldandy":{
+      "designState":"professorApprovedInChatReceiptPending",
+      "candidate":"game/canon/candidates/belldandyCharacterDesignCandidateV1.json",
+      "runtimeImportProven":false
+    },
+    "lum":{
+      "designState":"professorApprovedDesign",
+      "seal":"game/canon/seals/lumCharacterDesignSealV2.json",
+      "variationDeck":"game/canon/candidates/lumAssetVariationDeckV1.json",
+      "runtimeImportProven":false
+    },
+    "skuld":{
+      "designState":"awaitingProtectedReferences",
+      "minimumAge":25,
+      "runtimeImportProven":false
+    }
+  },
+  "truthLaw":{
+    "chatApprovalMaySealDesignDirection":true,
+    "generatedPosterStatusIsMachineEvidence":false,
+    "designSealIsRuntimeProof":false,
+    "runtimeRequiresExactHashAndImportReceipt":true,
+    "crossCharacterContaminationForbidden":true
+  }
+}
