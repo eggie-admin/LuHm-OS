@@ -29,6 +29,12 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
+      - name: Goddess trust and naming path seals
+        run: |
+          python3 tools/goddessTrustSealAudit.py
+          python3 tools/namingPathSealAudit.py
+          python3 tools/artOniCamelHumpAudit.py
+
       - name: Checkout exact source
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
