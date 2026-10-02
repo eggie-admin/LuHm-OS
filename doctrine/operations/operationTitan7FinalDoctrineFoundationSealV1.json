@@ -1,0 +1,31 @@
+{
+  "schema":"luhmOs.operationTitan7OperationTicket.v1",
+  "operation":"operationTitan7",
+  "milestone":"finalDoctrineFoundationSeal",
+  "tier":"finalForm",
+  "explicitInvocation":true,
+  "authority":"Professor",
+  "scope":"doctrineFoundationOnly",
+  "requestedMode":"absoluteRipOutAndReplaceAudit",
+  "verificationEscalation":[
+    "ffs25HardPass",
+    "scorchedEarth50HardPass",
+    "finalFormStructuralAudit"
+  ],
+  "capabilitySpine":"doctrine/aiApiBossCapabilitySpineV1.json",
+  "tourniquet":"doctrine/tourniquetWorkflowV1.json",
+  "seal":"doctrine/finalDoctrineFoundationSealV1.json",
+  "promotionBoundary":{
+    "doctrineFoundationSealApproved":true,
+    "mergeApproved":false,
+    "castApproved":false,
+    "publicationApproved":false,
+    "physicalInstallClaimed":false
+  },
+  "stopOn":[
+    "deterministicRedWithoutBoundedRepair",
+    "authorityAmbiguity",
+    "scopeDrift",
+    "exactSourceMismatch"
+  ]
+}
