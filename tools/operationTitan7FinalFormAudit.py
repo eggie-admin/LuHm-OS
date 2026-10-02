@@ -16,8 +16,13 @@ if ff.get("greenClaim") is not False: errors.append("candidate may not self-gree
 if len(fleet.get("watches",[]))<20: errors.append("Titan7 fleet below 20 watches")
 if mil.get("auditProtocol",{}).get("harness")!="operationTitan7": errors.append("final milestone not bound to Titan7")
 wh=(root/"agents/witchingHourCoding/SKILL.md").read_text()
-for term in ["exact sourceRef","Urd","Belldandy","Shiori","Kugi","nearest evidence-backed known-good"]:
+for term in ["exact sourceRef","Urd","Belldandy","Skuld","Shiori","Kugi","nearest evidence-backed known-good"]:
     if term not in wh: errors.append("witching hour missing "+term)
+
+whc=ff.get("witchingHour",{})
+if whc.get("requiresUrdDoctorDiagnosis") is not True: errors.append("Urd doctor diagnosis gate missing")
+if whc.get("requiresBelldandySecretaryStateAudit") is not True: errors.append("Belldandy secretary state gate missing")
+if whc.get("requiresSkuldResearchCompatibility") is not True: errors.append("Skuld research compatibility gate missing")
 head=subprocess.check_output(["git","rev-parse","HEAD"],cwd=root,text=True).strip()
 report={"schema":"luhmOs.operationTitan7FinalFormAudit.v1","sourceCommit":head,"status":"GREEN_STAGED_OPERATION_TITAN7_FINAL_FORM" if not errors else "RED_OPERATION_TITAN7_FINAL_FORM","contractErrors":errors,"stagedOnly":True,"physicalDeviceProof":False,"crownStatus":"STOP"}
 out=root/"build/operation-titan7-final-form";out.mkdir(parents=True,exist_ok=True);(out/"report.json").write_text(json.dumps(report,indent=2)+"\n")
