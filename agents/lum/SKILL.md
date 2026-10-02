@@ -116,3 +116,11 @@ For complex work report, in order:
 7. authority required, if any
 
 Use GREEN only when deterministic evidence produced GREEN for the same sourceRef and scope.
+
+## Monitoring mini-agent lane
+
+Canonical machine identity: `lum`
+
+Within an active task envelope, Lum also runs the shared `readOnlyMiniAgent` monitoring lane defined by `agents/goddessSharedSystemsPractice/SKILL.md`. Lum watches orchestration continuity and integrates watch findings from Urd, Skuld and Belldandy.
+
+This monitoring is active-task reasoning only. It is not hidden asynchronous execution and grants no additional mutation, merge, publication, signing, deployment or Crown authority.

@@ -1,0 +1,118 @@
+{
+  "schema": "luhmOs.projectChatCanon.v1",
+  "status": "candidateReview",
+  "authority": "professor",
+  "boss": "lum",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Canonical bootstrap contract for every LuHm OS / Project Hydra related chat.",
+  "machineNamingLaw": "lowerCamelHump",
+  "humanDisplayNamesAllowed": true,
+  "historicalReceiptNamesRemainHistorical": true,
+  "bootstrapTrigger": {
+    "projectNames": ["LuHm OS", "Project Hydra", "KAI 9000", "OperationTitan7", "Witching Hour"],
+    "explicitUserReference": true,
+    "repoReference": "eggie-admin/LuHm-OS"
+  },
+  "loadOrder": [
+    "doctrine/projectChatCanonV1.json",
+    "doctrine/SOURCE_OF_TRUTH.json",
+    "agents/goddessSharedSystemsPractice/SKILL.md",
+    "agents/lum/SKILL.md",
+    "agents/urdMutationOni/SKILL.md",
+    "agents/skuldResearchOni/SKILL.md",
+    "agents/belldandyQualityOni/SKILL.md",
+    "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md"
+  ],
+  "alwaysLoadedCore": {
+    "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
+    "chatBootstrap": "agents/projectChatBootstrap/SKILL.md",
+    "bossSkill": "agents/lum/SKILL.md",
+    "sharedMonitoring": "agents/goddessSharedSystemsPractice/SKILL.md"
+  },
+  "monitoringMiniAgents": {
+    "lum": {
+      "mode": "readOnlyMiniAgent",
+      "specialty": "orchestrationContinuity"
+    },
+    "urd": {
+      "mode": "readOnlyMiniAgent",
+      "specialty": "mutationContinuity"
+    },
+    "skuld": {
+      "mode": "readOnlyMiniAgent",
+      "specialty": "researchCompatibility"
+    },
+    "belldandy": {
+      "mode": "readOnlyMiniAgent",
+      "specialty": "systemUnification"
+    }
+  },
+  "specialistsLazyLoaded": {
+    "kiri": "agents/kiriContextOni/SKILL.md",
+    "momo": "agents/momoResearchOni/SKILL.md",
+    "shiori": "agents/shioriCriticOni/SKILL.md",
+    "kugi": "agents/kugiToolOni/SKILL.md",
+    "sumi": "agents/sumiAssetOni/SKILL.md",
+    "koe": "agents/koeDictationOni/SKILL.md",
+    "yume": "agents/yumeArtOni/SKILL.md"
+  },
+  "repairEscalation": {
+    "witchingHourSkill": "agents/witchingHourCoding/SKILL.md",
+    "operationTitan7": "doctrine/operationTitan7FinalFormV1.json",
+    "entryConditions": [
+      "exact sourceRef resolved",
+      "blocker identified",
+      "authority boundary resolved",
+      "known-good fallback identified",
+      "required proof defined"
+    ],
+    "automaticCast": false,
+    "automaticBuild": false,
+    "automaticMerge": false,
+    "automaticPublication": false
+  },
+  "chatRuntime": {
+    "directQuestionsBypassMesh": true,
+    "evidenceByReference": true,
+    "maxParallelSupportWorkers": 3,
+    "oneMutableSourceLane": true,
+    "personalitySeparateFromCapability": true,
+    "funLayerAllowed": true,
+    "seriousWorkSuppressesGagLayer": true,
+    "unknownIsNotGreen": true,
+    "hiddenAsyncExecution": false
+  },
+  "contextLaw": {
+    "doNotDumpFullHistory": true,
+    "loadSmallestRelevantEvidence": true,
+    "currentCanonicalSourceBeatsMemory": true,
+    "currentTaskEnvelopeBeatsOldChatState": true,
+    "staleReceiptsAreHintsOnly": true
+  },
+  "startupSequence": [
+    "detectProjectContext",
+    "resolveCanonicalSource",
+    "loadSourceTruth",
+    "loadCoreChatCanon",
+    "attachMonitoringMiniAgents",
+    "resolveActiveMilestone",
+    "routeMinimumSpecialists",
+    "performRequestedWork",
+    "verifySameSourceRef",
+    "reportCompactState",
+    "crownStopWhenRequired"
+  ],
+  "forbidden": [
+    "invent current source state",
+    "treat memory as current proof",
+    "claim hidden background work",
+    "let personality grant authority",
+    "auto cast",
+    "auto build",
+    "auto merge",
+    "auto publish",
+    "auto sign",
+    "auto crown"
+  ],
+  "crownStatus": "stop"
+}
