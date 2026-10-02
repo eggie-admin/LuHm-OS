@@ -28,9 +28,9 @@ TEXT_EXTENSIONS = {
 }
 
 SECRET_PATTERNS = {
-    "OPENAI_STYLE_KEY": re.compile(r"\\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}\\b"),
-    "GITHUB_PAT": re.compile(r"\\bghp_[A-Za-z0-9]{20,}\\b"),
-    "GOOGLE_API_KEY": re.compile(r"\\bAIza[0-9A-Za-z_-]{30,}\\b"),
+    "OPENAI_STYLE_KEY": re.compile(r"\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}\b"),
+    "GITHUB_PAT": re.compile(r"\bghp_[A-Za-z0-9]{20,}\b"),
+    "GOOGLE_API_KEY": re.compile(r"\bAIza[0-9A-Za-z_-]{30,}\b"),
     "PRIVATE_KEY": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
 }
 
@@ -64,7 +64,7 @@ def git(*args: str) -> str:
 
 def tracked_files() -> list[Path]:
     raw = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT)
-    return [ROOT / p.decode("utf-8") for p in raw.split(b"\\0") if p]
+    return [ROOT / p.decode("utf-8") for p in raw.split(b"\0") if p]
 
 def add(findings: list[Finding], severity: str, code: str, path: str, detail: str) -> None:
     findings.append(Finding(severity, code, path, detail))
@@ -106,11 +106,11 @@ def scan_content(rel: str, text: str, findings: list[Finding]) -> None:
         if pattern.search(text):
             add(findings, "RED", code, rel, "Secret-like literal appears in tracked text.")
 
-    if re.search(r"\\bchmod\\s+777\\b", text):
+    if re.search(r"\bchmod\s+777\b", text):
         add(findings, "RED", "CHMOD_777", rel, "World-writable chmod detected.")
-    if re.search(r"curl[^\\n|]*\\|\\s*(?:bash|sh)\\b", text, re.I):
+    if re.search(r"curl[^\n|]*\|\s*(?:bash|sh)\b", text, re.I):
         add(findings, "RED", "PIPE_TO_SHELL", rel, "Network download piped directly to a shell.")
-    if re.search(r"\\bpermissions:\\s*write-all\\b", text):
+    if re.search(r"\bpermissions:\s*write-all\b", text):
         add(findings, "RED", "ACTIONS_WRITE_ALL", rel, "GitHub workflow grants write-all.")
     if "pull_request_target" in text:
         add(findings, "AMBER", "PULL_REQUEST_TARGET", rel, "Review pull_request_target trust boundary.")
@@ -121,23 +121,23 @@ def scan_content(rel: str, text: str, findings: list[Finding]) -> None:
         else:
             add(findings, "AMBER", "LEGACY_LAN", rel, "Contains .lan naming outside the historical install-portal lane.")
 
-    if re.search(r"\\bluhmos-main\\b", text, re.I):
+    if re.search(r"\bluhmos-main\b", text, re.I):
         add(findings, "AMBER", "LEGACY_BRANCH_NAME", rel, "Contains luhmos-main; current canonical repository branch is main.")
-    if re.search(r"\\bvercel\\b", text, re.I):
+    if re.search(r"\bvercel\b", text, re.I):
         add(findings, "AMBER", "RETIRED_VENDOR_REFERENCE", rel, "Contains Vercel reference; verify historical/retired context.")
-    if re.search(r"\\bbuildOnis\\b", text):
+    if re.search(r"\bbuildOnis\b", text):
         add(findings, "AMBER", "LEGACY_BUILD_ONIS", rel, "Legacy buildOnis name remains; current naming doctrine prefers forgeOniTwins.")
 
     if "0.0.0.0" in text and rel not in ALLOWED_WILDCARD_BIND_PATHS:
         add(findings, "AMBER", "WILDCARD_BIND_REVIEW", rel, "Contains 0.0.0.0 outside the explicit Render/MCP allowlist.")
 
     if rel.startswith(".github/workflows/"):
-        for match in re.finditer(r"uses:\\s*([^\\s#]+)", text):
+        for match in re.finditer(r"uses:\s*([^\s#]+)", text):
             ref = match.group(1)
-            if re.match(r"actions/[^@]+@v\\d+$", ref, re.I):
+            if re.match(r"actions/[^@]+@v\d+$", ref, re.I):
                 add(findings, "AMBER", "MUTABLE_ACTION_TAG", rel, f"Workflow uses mutable major tag: {ref}")
 
-    if re.search(r"\\b(?:TODO|FIXME|HACK|XXX)\\b", text):
+    if re.search(r"\b(?:TODO|FIXME|HACK|XXX)\b", text):
         add(findings, "INFO", "WORK_MARKER", rel, "Contains TODO/FIXME/HACK/XXX.")
 
 def doctrine_checks(files: dict[str, str], head: str, findings: list[Finding]) -> None:
