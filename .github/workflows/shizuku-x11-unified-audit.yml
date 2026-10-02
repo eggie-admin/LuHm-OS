@@ -1,0 +1,37 @@
+name: Shizuku X11 Unified Audit
+
+on:
+  push:
+    branches:
+      - beta/yumeArtChatV1-20261002
+    paths:
+      - "doctrine/shizukuX11UnifiedV1.json"
+      - "doctrine/luhmAiControlPlaneV1.json"
+      - "doctrine/projectChatCanonV1.json"
+      - "doctrine/OPERATION_TITAN7_WATCH_FLEET_V1.json"
+      - "agents/shizukuX11Oni/**"
+      - "agents/lum/SKILL.md"
+      - "agents/skuldResearchOni/SKILL.md"
+      - "agents/urdMutationOni/SKILL.md"
+      - "agents/belldandyQualityOni/SKILL.md"
+      - "agents/kugiToolOni/SKILL.md"
+      - "tools/shizukuX11Probe.sh"
+      - "tools/shizukuX11UnifiedAudit.py"
+      - ".github/copilot-instructions.md"
+      - ".github/workflows/shizuku-x11-unified-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - name: Audit Shizuku X11 unified lane
+        run: python tools/shizukuX11UnifiedAudit.py
