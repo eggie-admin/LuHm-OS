@@ -1,0 +1,111 @@
+{
+  "schema": "luhmOs.providerOrchestra.v1",
+  "status": "beta",
+  "authority": "Professor",
+  "boss": "lum",
+  "compatibilityLayers": [
+    {
+      "order": 1,
+      "id": "openAi",
+      "role": "semanticReasoningAndPrimaryApiCompatibility"
+    },
+    {
+      "order": 2,
+      "id": "github",
+      "role": "sourceForgeWorkflowAndVendorCompatibilityTranslation"
+    }
+  ],
+  "providers": {
+    "openAi": {
+      "state": "platformAccountObserved",
+      "apiSurface": "responsesApi",
+      "adapter": "host/providers/openAiProvider.py",
+      "secretBoundary": "serverEnvironmentOnly",
+      "mayGrantGreen": false,
+      "reportsTo": "lum"
+    },
+    "github": {
+      "state": "authenticatedObserved",
+      "roles": [
+        "sourceControl",
+        "remoteForge",
+        "ci",
+        "receiptLedger",
+        "secondCompatibilityLayer",
+        "copilotTranslationLayer"
+      ],
+      "mayGrantGreen": false,
+      "reportsTo": "lum"
+    },
+    "render": {
+      "state": "authenticatedObserved",
+      "role": "managedBetaRuntime",
+      "autoDeployDefault": false,
+      "mayGrantGreen": false
+    },
+    "cloudflare": {
+      "state": "configuredAccountNotObservedInChat",
+      "roles": [
+        "dns",
+        "tlsEdge",
+        "cache",
+        "optionalWorkersAi"
+      ],
+      "publicMutationRequiresProfessor": true,
+      "mayGrantGreen": false
+    },
+    "huggingFace": {
+      "state": "authenticatedObserved",
+      "roles": [
+        "modelDiscovery",
+        "spaceDiscovery",
+        "paperResearch",
+        "datasetResearch",
+        "boundedJobs",
+        "futureInferenceEndpoint"
+      ],
+      "paidComputeRequiresExplicitTask": true,
+      "mayGrantGreen": false,
+      "reportsTo": "lum"
+    },
+    "googleAi": {
+      "nickname": "bigBrother",
+      "state": "userReportedEntitlementUnverifiedInChat",
+      "roles": [
+        "candidateGeneration",
+        "cinematicGeneration",
+        "multimodalReview"
+      ],
+      "maySealCanon": false,
+      "mayGrantGreen": false,
+      "reportsTo": "lum"
+    }
+  },
+  "providerJobLaw": {
+    "required": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "providerId",
+      "capabilityId",
+      "requestedBy",
+      "dispatchedBy",
+      "inputRefs",
+      "outputSchema",
+      "stopConditions"
+    ],
+    "requestedByAllowed": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch",
+      "yume"
+    ],
+    "dispatchedBy": "lum",
+    "providerReturns": "candidateEvidenceOrAssetPacket",
+    "providerMayRecruit": false,
+    "providerMayChangeScope": false,
+    "providerMayAddressProfessorDirectly": false
+  },
+  "crownStatus": "stop"
+}
