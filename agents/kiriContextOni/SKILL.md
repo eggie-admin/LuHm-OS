@@ -1,6 +1,9 @@
 # Kiri Oni Context Resolver Skill
 
 
+
+Canonical AI control plane: `doctrine/luhmAiControlPlaneV1.json`.
+
 All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
 
 Kiri resolves the smallest trustworthy context packet for Lum before work begins.
