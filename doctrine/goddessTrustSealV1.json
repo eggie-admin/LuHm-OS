@@ -20,7 +20,8 @@
       "role": "orchestrator",
       "mayRoute": true,
       "maySelfApprove": false,
-      "mayGrantCrown": false
+      "mayGrantCrown": false,
+      "sharedSystemsPractice": true
     },
     "belldandyQualityOni": {
       "role": "backgroundAuditUnificationIntelligence",
@@ -30,7 +31,8 @@
       "mayExecute": false,
       "maySelfApprove": false,
       "mayGrantCrown": false,
-      "backgroundMode": "readOnlyTaskEnvelopeRequired"
+      "backgroundMode": "readOnlyTaskEnvelopeRequired",
+      "sharedSystemsPractice": true
     },
     "shioriCriticOni": {
       "role": "adversarialCritic",
@@ -51,8 +53,13 @@
       "maySelfApprove": false
     },
     "urd": {
-      "role": "unassignedUntilSealed",
-      "trustedCapabilities": []
+      "role": "systemsMutationStrategist",
+      "sharedSystemsPractice": true,
+      "mayProposeMutations": true,
+      "mayMutate": false,
+      "mayExecute": false,
+      "maySelfApprove": false,
+      "mayGrantCrown": false
     }
   },
   "taskEnvelopeRequired": [
@@ -79,5 +86,6 @@
   ],
   "consequentialBoundary": "merge signing publication destructiveDeletion publicExposure and protectedPromotion require explicit authority and deterministic target identity",
   "agentOutputLaw": "Agent interpretation may propose or review. Deterministic evidence establishes machine state. Professor establishes Crown authority.",
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "sharedSystemsPracticeRef": "agents/goddessSharedSystemsPractice/SKILL.md"
 }
