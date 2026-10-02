@@ -1,0 +1,50 @@
+{
+  "schema": "luhmOs.operationTitan7EscalationTriggers.v1",
+  "status": "STAGED_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Escalating audit breadth for OperationTitan7 while inheriting existing fail-closed authority boundaries.",
+  "triggers": {
+    "finalForm": {
+      "tier": 1,
+      "scope": "canonicalFinalFormHierarchy",
+      "repair": "smallestEvidenceGap"
+    },
+    "hardFinalForm": {
+      "tier": 2,
+      "includes": "finalForm",
+      "scope": "crossSystemContradictionAndAffectedTierSweep",
+      "repair": "boundedGapsInPriorityOrder"
+    },
+    "scorchedEarth": {
+      "tier": 3,
+      "includes": "hardFinalForm",
+      "scope": "exhaustiveCurrentDoctrineSourceTruthWorkflowAgentEvidenceAssetAndMilestoneAudit",
+      "repair": "boundedReversibleRepoInternalContradictions",
+      "rerun": "fromCurrentTruthThroughAllAffectedTiers"
+    }
+  },
+  "conditioning": {
+    "exactSourceRef": true,
+    "activeMilestone": true,
+    "nearestKnownGood": true,
+    "deterministicEvidence": true,
+    "externalProofStops": true
+  },
+  "laws": [
+    "auditBreadthDoesNotExpandAuthority",
+    "unifyFirstDeleteLast",
+    "oneMutableCandidateLane",
+    "maxThreeSupportWorkers",
+    "deterministicRedStopsEscalation",
+    "unknownStaysUnknown",
+    "noSelfPromotion"
+  ],
+  "inheritsAuthorityFrom": [
+    "agents/lum/SKILL.md",
+    "agents/witchingHourCoding/SKILL.md",
+    "doctrine/operationTitan7FinalFormV1.json",
+    "doctrine/fullSourceTruthOrchestrator-20260926.json"
+  ],
+  "crownStatus": "STOP",
+  "greenClaim": false
+}
