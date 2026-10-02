@@ -22,7 +22,20 @@
       "adapter": "host/providers/openAiProvider.py",
       "secretBoundary": "serverEnvironmentOnly",
       "mayGrantGreen": false,
-      "reportsTo": "lum"
+      "reportsTo": "lum",
+      "integrationModes": {
+        "chatGptMcpApp": {
+          "requiresLuhmOpenAiApiKey": false,
+          "modelHost": "chatGpt",
+          "luhmRole": "remoteMcpToolsAndUi"
+        },
+        "directOpenAiApi": {
+          "requiresLuhmOpenAiApiKey": true,
+          "adapter": "host/providers/openAiProvider.py",
+          "secretBoundary": "trustedHostOnly",
+          "defaultStore": false
+        }
+      }
     },
     "github": {
       "state": "authenticatedObserved",
