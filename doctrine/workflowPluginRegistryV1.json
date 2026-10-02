@@ -24,7 +24,18 @@
       "logic": "operationTitan7",
       "releaseTo": "luhmAgentMesh",
       "capabilityBroker": "aiApiBoss",
-      "directVendorApiAllowed": false
+      "directVendorApiAllowed": false,
+      "escalationContract": "doctrine/operationTitan7EscalationV1.json",
+      "tiers": [
+        "ffs",
+        "scorchedEarth",
+        "finalForm"
+      ],
+      "triggers": {
+        "ffs": "For Fuck Sake!",
+        "scorchedEarth": "Scorched Earth",
+        "finalForm": "Final Form"
+      }
     },
     "deepDungeon": {
       "entryPoint": "$.deepDungeon",
