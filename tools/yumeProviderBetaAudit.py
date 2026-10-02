@@ -35,8 +35,14 @@ openAiPath = rootPath / "host/providers/openAiProvider.py"
 yumeSkillPath = rootPath / "agents/yumeArtOni/SKILL.md"
 requirementsPath = rootPath / "host/mcp/requirements.txt"
 copilotPath = rootPath / ".github/copilot-instructions.md"
+yumePluginPath = rootPath / "frontEnd/jquery/luhmYumeBooth.js"
+oldYumePluginPath = rootPath / "frontEnd/jquery/luhm.yumeBooth.js"
+frontEndIndexPath = rootPath / "frontEnd/index.html"
+frontEndAppPath = rootPath / "frontEnd/app.js"
+harnessPath = rootPath / "host/mcp/luhmHarness.py"
+widgetPath = rootPath / "host/harness/widget.html"
 
-for path in (openAiPath, yumeSkillPath, requirementsPath, copilotPath):
+for path in (openAiPath, yumeSkillPath, requirementsPath, copilotPath, yumePluginPath, frontEndIndexPath, frontEndAppPath, harnessPath, widgetPath):
     requireTruth(path.is_file(), f"missing {path.relative_to(rootPath)}")
 
 if openAiPath.is_file():
@@ -114,6 +120,33 @@ if copilotPath.is_file():
     copilotText = copilotPath.read_text(encoding="utf-8")
     requireTruth("second compatibility layer" in copilotText, "Copilot missing GitHub compatibility law")
     requireTruth("doctrine/yumeArtSchemaV1.json" in copilotText, "Copilot missing Yume schema")
+
+requireTruth(not oldYumePluginPath.exists(), "legacy dotted Yume plugin path still exists")
+if yumePluginPath.is_file():
+    pluginText = yumePluginPath.read_text(encoding="utf-8")
+    requireTruth('const pluginName = "luhmYumeBooth"' in pluginText, "Yume jQuery plugin identity drift")
+    requireTruth('"cutsceneRequested"' in pluginText, "Yume cutscene event missing")
+    requireTruth("requestAnimationFrame" in pluginText, "Yume parallax loop missing")
+
+if frontEndIndexPath.is_file():
+    frontEndIndexText = frontEndIndexPath.read_text(encoding="utf-8")
+    requireTruth("./jquery/luhmYumeBooth.js" in frontEndIndexText, "Yume plugin not loaded by cockpit")
+    requireTruth("data-yume-booth" in frontEndIndexText, "Yume booth DOM missing")
+
+if frontEndAppPath.is_file():
+    frontEndAppText = frontEndAppPath.read_text(encoding="utf-8")
+    requireTruth("luhmYumeBooth" in frontEndAppText, "Yume booth not initialized")
+    requireTruth("yume_cutscene_requested" in frontEndAppText, "Yume native cutscene bridge event missing")
+
+if harnessPath.is_file():
+    harnessText = harnessPath.read_text(encoding="utf-8")
+    requireTruth('@server.custom_route("/cockpit/"' in harnessText, "Render cockpit route missing")
+    requireTruth('"jquery/luhmYumeBooth.js"' in harnessText, "Render Yume plugin route missing")
+
+if widgetPath.is_file():
+    widgetText = widgetPath.read_text(encoding="utf-8")
+    requireTruth('id="yume"' in widgetText, "MCP widget Yume card missing")
+    requireTruth('origin+"/cockpit/"' in widgetText, "MCP widget cockpit handoff missing")
 
 secretRx = re.compile(r"\b(?:sk-(?:proj-)?[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{30,}|ghp_[A-Za-z0-9]{20,})\b")
 for relPath in (
