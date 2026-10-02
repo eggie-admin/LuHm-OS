@@ -45,7 +45,9 @@ require(workflow.count("actions: write") == 1, "actions write permission must ap
 require("contents: write" not in workflow, "bridge may not write repository contents")
 require("pull_request_target" not in workflow, "pull_request_target forbidden")
 require("push:" not in workflow, "push trigger forbidden")
-require("schedule:" not in workflow, "scheduled CAST forbidden")\nfor bad in ("MAIN_SHA", "REQUESTED_SHA", "SOURCE_REF", "RELEASE_TAG", "TASK_ID", "PROFESSOR_ACTOR", "CAST_ORIGIN_RUN_ID"):\n    require(bad not in workflow, f"non-camelHump internal shell variable forbidden: {bad}")
+require("schedule:" not in workflow, "scheduled CAST forbidden")
+for bad in ("MAIN_SHA", "REQUESTED_SHA", "SOURCE_REF", "RELEASE_TAG", "TASK_ID", "PROFESSOR_ACTOR", "CAST_ORIGIN_RUN_ID"):
+    require(bad not in workflow, f"non-camelHump internal shell variable forbidden: {bad}")
 require(re.search(r"\^/cast\[\[:space:\]\]\+androidWeb3Cockpit", workflow) is not None,
         "exact CAST syntax regex missing")
 require("requested=$requestedSha currentMain=$mainSha" in workflow,
