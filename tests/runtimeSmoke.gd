@@ -168,8 +168,27 @@ func _check_adventure_loop() -> void:
     _check(snapshot.get("encounterState", {}).get("outcome") == "befriended", "encounter resolves")
     adventure.queue_free()
 
+func _check_scripted_chat() -> void:
+    var Chat = load("res://scripts/game/scriptedChatDirector.gd")
+    _check(Chat != null, "scripted chat director loads")
+    if Chat == null: return
+    var chat = Chat.new()
+    root.add_child(chat)
+    var urd: Dictionary = chat.submit("Urd what broke?", "42")
+    _check(urd.get("speaker") == "Urd", "Urd scripted routing works")
+    _check(urd.get("action", {}).get("type") == "presentationOnly", "scripted chat cannot claim authority")
+    var skuld: Dictionary = chat.submit("Skuld fix the toy", "43")
+    _check(skuld.get("speaker") == "Skuld", "Skuld scripted routing works")
+    var bell: Dictionary = chat.submit("Belldandy doctrine sanity", "44")
+    _check(bell.get("speaker") == "Belldandy", "Belldandy scripted routing works")
+    var lum: Dictionary = chat.submit("Lum coffee", "45")
+    _check(lum.get("speaker") == "Lum", "Lum scripted routing works")
+    _check(lum.get("action", {}).get("event") == "coffeeEmergency", "scripted chaos event works")
+    chat.queue_free()
+
 func _finish() -> void:
     _check_adventure_loop()
+    _check_scripted_chat()
     if failures.is_empty():
         print("CROWN RUNTIME SMOKE GREEN")
         quit(0)
