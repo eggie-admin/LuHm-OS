@@ -5,6 +5,13 @@ description: Route LuHm OS work through Lum and the smallest evidence-gated Oni 
 
 # LuHm OS agent workflow
 
+## Project chat bootstrap
+
+For any LuHm OS / Project Hydra related request, first resolve and follow `agents/projectChatBootstrap/SKILL.md` plus `doctrine/projectChatCanonV1.json`. This portable skill does not replace that bootstrap contract.
+
+The core chat environment is `lum` plus read-only monitoring mini-agents `urd`, `skuld`, and `belldandy`. Load other specialists only when the active task actually needs them.
+
+
 Use this skill when the user asks to inspect, route, build, verify, diagnose, or continue work on LuHm OS / Project Hydra.
 
 ## Authority law
