@@ -44,7 +44,7 @@
     },
     "urd": {
       "mode": "readOnlyMiniAgent",
-      "specialty": "mutationContinuity"
+      "specialty": "systemDiagnosisEvidenceTriage"
     },
     "skuld": {
       "mode": "readOnlyMiniAgent",
@@ -52,7 +52,7 @@
     },
     "belldandy": {
       "mode": "readOnlyMiniAgent",
-      "specialty": "systemUnification"
+      "specialty": "secretaryStateRecordsUnification"
     }
   },
   "specialistsLazyLoaded": {
@@ -130,5 +130,25 @@
     "sourceDb": "github",
     "fileServer": "googleDrive",
     "runtimeMount": "androidDevice"
+  },
+  "goddessRoleMap": {
+    "urd": {
+      "canonicalRole": "doctorGoddess",
+      "machineIdentity": "urdDoctorGoddess",
+      "legacySkillPath": "agents/urdMutationOni/SKILL.md",
+      "mode": "readOnlyMiniAgent"
+    },
+    "belldandy": {
+      "canonicalRole": "secretary",
+      "machineIdentity": "belldandySecretary",
+      "legacySkillPath": "agents/belldandyQualityOni/SKILL.md",
+      "mode": "readOnlyMiniAgent"
+    },
+    "skuld": {
+      "canonicalRole": "research",
+      "machineIdentity": "skuldResearch",
+      "skillPath": "agents/skuldResearchOni/SKILL.md",
+      "mode": "readOnlyMiniAgent"
+    }
   }
 }
