@@ -6,6 +6,8 @@ signal move_axis_changed(axis: Vector2)
 
 const GAME_DOCTRINE_PATH := "res://doctrine/GODOT4_GAME_SOURCE_V1.json"
 const CHARACTER_CANON_PATH := "res://game/canon/CHARACTER_CANON_V1.json"
+const AUDIT_WORKFLOW_PATH := "res://doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json"
+const AUDIT_SEAL_PATH := "res://doctrine/DOCUMENT_MUTATION_AUDIT_SEAL_20260926.json"
 
 var backend_root: Control
 var world_root: Control
@@ -130,14 +132,24 @@ func _load_json(path: String) -> Dictionary:
 func _audit_summary() -> String:
     var doctrine := _load_json(GAME_DOCTRINE_PATH)
     var canon := _load_json(CHARACTER_CANON_PATH)
+    var workflow := _load_json(AUDIT_WORKFLOW_PATH)
+    var seal := _load_json(AUDIT_SEAL_PATH)
     var doctrine_status := str(doctrine.get("status", "UNKNOWN"))
     var authority := str(doctrine.get("authority", "UNKNOWN"))
     var crown := str(doctrine.get("crownStatus", "UNKNOWN"))
+    var workflow_status := str(workflow.get("status", "UNKNOWN"))
+    var seal_status := str(seal.get("status", "UNKNOWN"))
+    var gate_scope = seal.get("gate_scope", {})
+    var runtime_status := "UNKNOWN"
+    var release_status := "UNKNOWN"
+    if gate_scope is Dictionary:
+        runtime_status = str((gate_scope as Dictionary).get("runtime", "UNKNOWN"))
+        release_status = str((gate_scope as Dictionary).get("release", "UNKNOWN"))
     var characters = canon.get("characters", {})
     var character_count: int = 0
     if characters is Dictionary:
         character_count = (characters as Dictionary).size()
-    return "GAME SOURCE · %s\nCHARACTER CANON · %s ORIGINAL ADULT DESIGNS\nAUTHORITY · %s\nCROWN · %s\nCAST REQUIRED FOR BUILD" % [doctrine_status, character_count, authority, crown]
+    return "GAME SOURCE · %s\nCHARACTER CANON · %s ORIGINAL ADULT DESIGNS\nAUDIT WORKFLOW · %s\nAUDIT SEAL · %s\nRUNTIME · %s\nRELEASE · %s\nAUTHORITY · %s\nCROWN · %s\nCAST REQUIRED FOR BUILD" % [doctrine_status, character_count, workflow_status, seal_status, runtime_status, release_status, authority, crown]
 
 func _set_audit_panel(enabled: bool) -> void:
     if _audit_panel == null:
