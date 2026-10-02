@@ -19,6 +19,8 @@ command -v gh >/dev/null || die "GitHub CLI missing; install/authenticate gh in 
 command -v git >/dev/null || die "git missing"
 command -v su >/dev/null || die "root su missing"
 gh auth status >/dev/null 2>&1 || die "GitHub CLI is not authenticated"
+PROFESSOR_ACTOR="$(gh api user --jq '.login')"
+[ -n "$PROFESSOR_ACTOR" ] || die "could not resolve authenticated GitHub actor"
 
 case "$TAG" in
   *[!A-Za-z0-9._-]*|'') die "release tag may contain only A-Z a-z 0-9 . _ -" ;;
@@ -35,7 +37,7 @@ if gh release view "$TAG" --repo "$REPO" >/dev/null 2>&1; then
   die "release tag already exists; refusing overwrite"
 fi
 
-gh workflow run "$WORKFLOW"   --repo "$REPO"   --ref main   -f cast=cast   -f milestoneId="$MILESTONE"   -f taskId="$TASK_ID"   -f sourceRef="$SOURCE_REF"   -f releaseTag="$TAG"   -f publishPrerelease=true   || die "workflow dispatch failed"
+gh workflow run "$WORKFLOW"   --repo "$REPO"   --ref main   -f cast=cast   -f milestoneId="$MILESTONE"   -f taskId="$TASK_ID"   -f sourceRef="$SOURCE_REF"   -f professorActor="$PROFESSOR_ACTOR"   -f castOriginRunId=direct   -f releaseTag="$TAG"   -f publishPrerelease=true   || die "workflow dispatch failed"
 
 printf 'Waiting for exact workflow run to appear...\n'
 RUN_ID=""
