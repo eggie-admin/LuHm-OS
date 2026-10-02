@@ -1,0 +1,150 @@
+{
+  "schema": "luhmOs.providerEnterpriseGateway.v1",
+  "status": "betaHardening",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "Enterprise compatibility gateway for external AI and infrastructure providers behind GitHub compatibility layer #2.",
+  "compatibilityChain": [
+    "openAiCompatibilityLayer1",
+    "githubCompatibilityLayer2",
+    "providerEnterpriseGateway",
+    "providerAdapter",
+    "providerApi"
+  ],
+  "taskContract": {
+    "required": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "providerId",
+      "capabilityId",
+      "authorityClass",
+      "inputRefs",
+      "outputSchema",
+      "budget",
+      "stopConditions"
+    ],
+    "dispatchSigner": "lum",
+    "exactSourceRequired": true,
+    "scopeEscalationForbidden": true
+  },
+  "adapterContract": {
+    "interface": "host/providers/providerGateway.py",
+    "requiredMethods": [
+      "isConfigured",
+      "healthPacket",
+      "invoke"
+    ],
+    "providerSpecificSdkOrHttpHiddenBehindAdapter": true,
+    "directProviderCallsFromJquery": false,
+    "directProviderCallsFromGodot": false,
+    "directProviderCallsFromAndroid": false,
+    "directProviderCallsFromAgents": false
+  },
+  "credentialContract": {
+    "valuesNeverInSource": true,
+    "valuesNeverInReceipts": true,
+    "runtimeResolutionOnly": true,
+    "requiredFields": [
+      "providerId",
+      "secretRefIds",
+      "entitlementState",
+      "credentialState"
+    ],
+    "unknownCredentialIsNotGreen": true
+  },
+  "providerStates": {
+    "adapter": [
+      "unknown",
+      "configured",
+      "green"
+    ],
+    "credential": [
+      "unknown",
+      "missing",
+      "present",
+      "expired",
+      "invalid",
+      "green"
+    ],
+    "entitlement": [
+      "unknown",
+      "notRequired",
+      "reported",
+      "observed",
+      "denied",
+      "green"
+    ],
+    "runtime": [
+      "unknown",
+      "parked",
+      "observed",
+      "green",
+      "red"
+    ]
+  },
+  "providers": {
+    "openAi": {
+      "adapterId": "openAiProvider",
+      "secretRefIds": [
+        "OPENAI_API_KEY",
+        "OPENAI_PROJECT_ID",
+        "OPENAI_ORG_ID"
+      ],
+      "credentialState": "unknownAtSource",
+      "entitlementState": "observedAccountTargets",
+      "networkMutationAuthority": false
+    },
+    "googleAi": {
+      "adapterId": "googleAiProvider",
+      "secretRefIds": [
+        "GEMINI_API_KEY"
+      ],
+      "credentialState": "unknownAtSource",
+      "entitlementState": "reportedNotObserved",
+      "networkMutationAuthority": false
+    },
+    "cloudflare": {
+      "adapterId": "cloudflareAiProvider",
+      "secretRefIds": [
+        "CLOUDFLARE_API_TOKEN",
+        "CLOUDFLARE_ACCOUNT_ID"
+      ],
+      "credentialState": "unknownAtSource",
+      "entitlementState": "unknown",
+      "networkMutationAuthority": false,
+      "dnsMutationSeparateCrownGate": true,
+      "tunnelMutationSeparateCrownGate": true
+    },
+    "huggingFace": {
+      "adapterId": "huggingFaceProvider",
+      "secretRefIds": [
+        "HF_TOKEN"
+      ],
+      "credentialState": "observedViaConnector",
+      "entitlementState": "observed",
+      "networkMutationAuthority": false
+    },
+    "render": {
+      "adapterId": "renderProvider",
+      "secretRefIds": [
+        "RENDER_YUME_BETA_DEPLOY_HOOK"
+      ],
+      "credentialState": "workflowSecretPending",
+      "entitlementState": "observed",
+      "networkMutationAuthority": false
+    }
+  },
+  "receiptLaw": {
+    "providerSuccessMeans": "observed",
+    "greenRequires": [
+      "adapterAudit",
+      "credentialObservationWhenRequired",
+      "entitlementObservationWhenRequired",
+      "exactTaskIdentity",
+      "responseValidation"
+    ],
+    "crownNeverImplicit": true
+  },
+  "crownStatus": "stop"
+}
