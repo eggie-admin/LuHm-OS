@@ -22,7 +22,7 @@
 
 <section class="statusGrid">
   <article class="panel"><span class="label">network</span><strong id="networkStatus">loading…</strong><small id="networkNote"></small></article>
-  <article class="panel"><span class="label">asset intake</span><strong>LOCAL BROWSER ONLY</strong><small>No file upload endpoint. Blob URLs die with the page.</small></article>
+  <article class="panel"><span class="label">asset intake</span><strong>LOCAL + QUARANTINE</strong><small>Browser drop stays local. Remote acquisition is a separate bounded workstation/CI intake lane.</small></article>
   <article class="panel"><span class="label">pet</span><strong id="petName">Lum</strong><small id="petRole">orchestrator</small></article>
   <article class="panel"><span class="label">authority</span><strong class="amber">READ ONLY</strong><small>AI proposes. Human promotes.</small></article>
 </section>
@@ -33,8 +33,8 @@
     <div id="assetTree" class="tree" role="tree" aria-label="Local asset tree"></div>
     <label class="dropZone" id="dropZone" for="assetInput">
       <strong>Drop assets here</strong>
-      <span>image · video · PDF</span>
-      <input id="assetInput" type="file" multiple accept="image/*,video/*,application/pdf">
+      <span>image · SVG/vector · font · video · PDF</span>
+      <input id="assetInput" type="file" multiple accept="image/*,video/*,application/pdf,font/woff2,font/woff,font/ttf,font/otf,.woff2,.woff,.ttf,.otf,.svg">
     </label>
     <button class="ghostButton" id="clearAssets" type="button">Clear local desk</button>
   </aside>
@@ -66,6 +66,17 @@
       </div>
     </article>
   </section>
+</section>
+
+<section class="panel intakeShelf">
+  <div class="panelHead"><h2>Quick asset pull</h2><span class="tiny">quarantine first · runtime stays local</span></div>
+  <div class="chips">
+    <span class="chip">HTTPS image pull</span>
+    <span class="chip">SVG sanitize</span>
+    <span class="chip">Google Fonts vendor</span>
+    <span class="chip">SHA-256 receipt</span>
+  </div>
+  <p class="tiny">Use the bounded workstation/CI intake tool. The browser harness never performs arbitrary remote pulls.</p>
 </section>
 
 <section class="panel libraryShelf">
