@@ -1,0 +1,31 @@
+{
+  "schema": "luhmOs.tourniquetWorkflow.v1",
+  "status": "candidate",
+  "authority": "Professor",
+  "purpose": "failClosedMutationClamp",
+  "entryRequires": [
+    "exactSourceRef","boundedBlocker","scope","authorityBoundary",
+    "knownGoodFallback","rollbackPlan","requiredProof"
+  ],
+  "route": [
+    "operationTitan7Detect","tourniquetClamp","lumRoute",
+    "witchingHourBoundedCoding","kugiDeterministicExecution",
+    "urdTrace","belldandyReconcile","shioriContradictionCheck",
+    "targetedTests","exactSourceReceipt","tourniquetReconcile"
+  ],
+  "limits": {
+    "maxParallelism": 3,
+    "recursiveRecruitment": false,
+    "selfApproval": false,
+    "implicitCrown": false,
+    "unknownToGreen": false,
+    "weakenEvidenceToPass": false,
+    "broadenScopeDuringRepair": false
+  },
+  "redAction": "rollbackOrNearestEvidenceBackedKnownGood",
+  "greenAction": "reingestCurrentTruthAndContinue",
+  "consequentialPromotion": "ProfessorCrownOnly",
+  "witchingHourSkill": "agents/witchingHourCoding/SKILL.md",
+  "sharedPractice": "agents/goddessSharedSystemsPractice/SKILL.md",
+  "executorSkill": "agents/kugiToolOni/SKILL.md"
+}
