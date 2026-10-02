@@ -2,7 +2,9 @@
 import json,hashlib
 from pathlib import Path
 root=Path(".")
-inv=json.loads((root/"doctrine/operationTitan7InvocationV1.json").read_text())\nesc=json.loads((root/"doctrine/operationTitan7EscalationV1.json").read_text())\nscorched=esc["tiers"]["scorchedEarth"]
+inv=json.loads((root/"doctrine/operationTitan7InvocationV1.json").read_text())
+esc=json.loads((root/"doctrine/operationTitan7EscalationV1.json").read_text())
+scorched=esc["tiers"]["scorchedEarth"]
 checks=[]
 def add(name,ok,detail): checks.append({"pass":len(checks)+1,"name":name,"state":"GREEN" if ok else "RED","detail":detail})
 add("explicitInvocation",inv["defaultWorkflow"] is False,"Titan7 is not default")
