@@ -1,0 +1,103 @@
+{
+  "schema": "luhmOs.operationTitan7ChatTrigger.v1",
+  "status": "STAGED_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Three-tier semantic chat trigger router for OperationTitan7. Chat language selects requested scope; it never manufactures authority or evidence.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "tiers": {
+    "inspect": {
+      "tier": 1,
+      "lumStates": [
+        "INTAKE",
+        "RESOLVE",
+        "ROUTE",
+        "OBSERVE",
+        "REPORT"
+      ],
+      "defaultMode": "system",
+      "mutationAllowed": false,
+      "triggers": [
+        "check",
+        "inspect",
+        "audit",
+        "status",
+        "system"
+      ],
+      "stop": "Report evidence and next justified action."
+    },
+    "operate": {
+      "tier": 2,
+      "lumStates": [
+        "INTAKE",
+        "RESOLVE",
+        "ROUTE",
+        "OBSERVE",
+        "MUTATE",
+        "VERIFY",
+        "ADJUDICATE",
+        "REPORT"
+      ],
+      "allowedModes": [
+        "apply",
+        "test",
+        "all"
+      ],
+      "mutationAllowed": "boundedOnly",
+      "requires": [
+        "exactSourceRef",
+        "activeMilestone",
+        "explicitOperationIntent",
+        "rollbackCheckpoint",
+        "milestoneCondition"
+      ],
+      "stop": "Deterministic RED, milestone condition false, external/physical proof gate, or Crown boundary."
+    },
+    "promote": {
+      "tier": 3,
+      "lumStates": [
+        "VERIFY",
+        "ADJUDICATE",
+        "REPORT",
+        "CROWN_STOP"
+      ],
+      "mutationAllowed": false,
+      "requires": [
+        "exactCandidateIdentity",
+        "sameSourceDeterministicGreen",
+        "allRequiredMilestoneProof",
+        "explicitProfessorPromotionIntent"
+      ],
+      "actions": [
+        "cast",
+        "mergeToProtectedOrReleaseBoundary",
+        "publish",
+        "productionSign",
+        "publicExpose",
+        "professorCrown"
+      ],
+      "stop": "No inferred or persistent promotion authority."
+    }
+  },
+  "routing": {
+    "ambiguousTrigger": "inspect",
+    "higherTierIncludesLowerTierChecks": true,
+    "phraseMatchingIsNotAuthority": true,
+    "directQuestionBypassesMesh": true,
+    "allMapsTo": "operate",
+    "allMeaning": "Run conditioned system -> apply -> test cycles; never imply promote.",
+    "finalFormMeaning": "Use OperationTitan7 final-form audit hierarchy; promotion remains a separate Tier 3 decision."
+  },
+  "milestoneConditionRef": "doctrine/operationTitan7ExecutionSchemaV1.json",
+  "titan7Ref": "doctrine/operationTitan7FinalFormV1.json",
+  "invariants": [
+    "currentCanonicalTruthBeatsMemory",
+    "deterministicRedStopsEscalation",
+    "unknownStaysUnknown",
+    "historicalGreenIsNotCurrentGreen",
+    "oneMutableCandidateLane",
+    "maxThreeSupportWorkers",
+    "noChatPhraseCanGrantCrown"
+  ],
+  "crownStatus": "STOP",
+  "greenClaim": false
+}
