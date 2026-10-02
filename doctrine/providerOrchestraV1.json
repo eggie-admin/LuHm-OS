@@ -35,7 +35,11 @@
           "secretBoundary": "trustedHostOnly",
           "defaultStore": false
         }
-      }
+      },
+      "adapterState": "green",
+      "credentialState": "unknownAtSource",
+      "entitlementState": "observed",
+      "runtimeState": "chatGptMcpGreenDirectApiUnproven"
     },
     "github": {
       "state": "authenticatedObserved",
@@ -54,7 +58,11 @@
       "state": "authenticatedObserved",
       "role": "managedBetaRuntime",
       "autoDeployDefault": false,
-      "mayGrantGreen": false
+      "mayGrantGreen": false,
+      "adapterState": "connectorManagedGreen",
+      "credentialState": "connectorManaged",
+      "entitlementState": "observed",
+      "runtimeState": "green"
     },
     "cloudflare": {
       "state": "configuredAccountNotObservedInChat",
@@ -65,7 +73,12 @@
         "optionalWorkersAi"
       ],
       "publicMutationRequiresProfessor": true,
-      "mayGrantGreen": false
+      "mayGrantGreen": false,
+      "adapter": "host/providers/cloudflareAiProvider.py",
+      "adapterState": "green",
+      "credentialState": "unknownAtSource",
+      "entitlementState": "unknown",
+      "runtimeState": "parked"
     },
     "huggingFace": {
       "state": "authenticatedObserved",
@@ -95,7 +108,11 @@
       "directWorkerDispatch": false,
       "lumDispatchRequired": true,
       "runningJobsObserved": 0,
-      "runningJobsObservedAt": "2026-10-02"
+      "runningJobsObservedAt": "2026-10-02",
+      "adapterState": "connectorManagedGreen",
+      "credentialState": "observedViaConnector",
+      "entitlementState": "observed",
+      "runtimeState": "jobsGreenDiscoveryDegraded"
     },
     "googleAi": {
       "nickname": "bigBrother",
@@ -107,7 +124,12 @@
       ],
       "maySealCanon": false,
       "mayGrantGreen": false,
-      "reportsTo": "lum"
+      "reportsTo": "lum",
+      "adapter": "host/providers/googleAiProvider.py",
+      "adapterState": "green",
+      "credentialState": "unknownAtSource",
+      "entitlementState": "reportedNotObserved",
+      "runtimeState": "parked"
     }
   },
   "providerJobLaw": {
@@ -136,5 +158,12 @@
     "providerMayChangeScope": false,
     "providerMayAddressProfessorDirectly": false
   },
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "enterpriseGateway": {
+    "contract": "doctrine/providerEnterpriseGatewayV1.json",
+    "implementation": "host/providers/providerGateway.py",
+    "cryptography": "doctrine/enterpriseCryptoV1.json",
+    "gitHubCompatibilityLayerOrder": 2,
+    "failClosed": true
+  }
 }
