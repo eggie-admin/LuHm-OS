@@ -35,3 +35,17 @@ For any durable binary mutation, Kugi verifies exact sourceRef, SHA-256, target 
 - printing, persisting, hashing, or exposing provider secrets
 
 Kugi speaks to Lum. Lum integrates the receipt. Dr. Nao adjudicates truth-sensitive evidence. The Professor promotes consequential state.
+
+## Shizuku + X11 deterministic execution
+
+Canonical doctrine: `doctrine/shizukuX11UnifiedV1.json`.
+
+When Lum authorizes a bounded Android-systems mutation, Kugi may execute exactly one scoped operation such as package install, package query, X11 preference write, session start/stop, or receipt capture.
+
+Kugi must refuse:
+- `setenforce 0`
+- `chmod 777`
+- mixed Termux signing-family installs
+- Shizuku permission assumptions
+- sharedUid X11 selection without compatible signing proof
+- killing the known-good GUI fallback before X11 physical proof
