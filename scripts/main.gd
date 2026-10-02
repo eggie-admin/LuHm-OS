@@ -2,6 +2,7 @@ extends Node3D
 
 const NeonWorldScript := preload("res://scripts/game/neonWorld.gd")
 const LumCoffeeHouseScript := preload("res://scripts/game/lumCoffeeHouseScene.gd")
+const CathedralWorldScript := preload("res://scripts/game/cathedralWorld.gd")
 const PlayerControllerScript := preload("res://scripts/game/playerController.gd")
 const GameHudScript := preload("res://scripts/game/gameHud.gd")
 const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
@@ -119,6 +120,9 @@ func switchWorld(world_id: String) -> bool:
         "lumCoffeeHouse":
             next_world = LumCoffeeHouseScript.new()
             next_world.name = "LumCoffeeHouse"
+        "cathedral":
+            next_world = CathedralWorldScript.new()
+            next_world.name = "CathedralWorld"
         _:
             return false
     if cutscene_bridge != null:
