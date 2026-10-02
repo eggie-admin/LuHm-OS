@@ -1,0 +1,32 @@
+{
+  "schema": "luhmOs.namingMigration.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "watcherRoles": {
+    "urdDoctorGoddess": "structuralNamingPathology",
+    "belldandySecretary": "canonicalNameLedger"
+  },
+  "sourceRef": "e710b0768bf718bdfc75cca392367d3212cdb7c9",
+  "migrations": [
+    {
+      "oldPath": "doctrine/FRONT_END_COMIC_ACTIVITY_DOCK_V1.json",
+      "newPath": "doctrine/frontEndComicActivityDockV1.json",
+      "contentHash": "dd71f8e4ce69f40a96b00b4bc28588884af83fd0",
+      "reason": "new writable doctrine filename must follow lowerCamelHump"
+    },
+    {
+      "oldPath": "doctrine/HARNESS_ASSET_INTAKE_V1.json",
+      "newPath": "doctrine/harnessAssetIntakeV1.json",
+      "contentHash": "b313a164cf944c26f9148b5341c6c0f8429d2bd1",
+      "reason": "new writable doctrine filename must follow lowerCamelHump"
+    },
+    {
+      "oldPath": "frontEnd/jquery/luhm.activityDock.js",
+      "newPath": "frontEnd/jquery/luhmActivityDock.js",
+      "contentHash": "6c43c64cdc6ce8a40df36af919f675da137c2bee",
+      "reason": "new writable plugin filename and internals must follow lowerCamelHump"
+    }
+  ],
+  "historicalEvidenceRenamed": false,
+  "crownStatus": "stop"
+}
