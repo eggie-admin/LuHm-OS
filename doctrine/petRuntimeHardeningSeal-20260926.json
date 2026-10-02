@@ -1,0 +1,30 @@
+{
+  "schema": "luhm-os.pet-runtime-hardening-seal.v1",
+  "seal_id": "LUHM_OS_PET_RUNTIME_HARDENING_CANDIDATE_SEAL_20260926",
+  "status": "SEALED_CANDIDATE_CI_PENDING",
+  "date_local": "2026-09-26",
+  "authority": "Professor",
+  "repository": "eggie-admin/LuHm-OS",
+  "branch": "luhm/pet-runtime-hardening-20260926",
+  "snapshot_branch": "snapshot/pre-pet-runtime-hardening-20260926",
+  "base_commit": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
+  "subject_commit": "9b64f3d95866880312c24bc8cb5c97b44c90855b",
+  "files": [
+    "doctrine/petRuntimeHardening-20260926.json",
+    "scripts/game/petWindowController.gd",
+    "tools/petRuntimeAudit.py",
+    ".github/workflows/pet-runtime-audit.yml",
+    "manual/LUHM_OS_PET_RUNTIME_HARDENING.md",
+    "assets/pet/README.md"
+  ],
+  "ten_passes_declared": true,
+  "runtime_proof": false,
+  "physical_device_proof": false,
+  "ollama_runtime_proof": false,
+  "termux_x11_runtime_proof": false,
+  "android_bubble_proof": false,
+  "release_authority": false,
+  "promotion_authority": false,
+  "public_exposure": false,
+  "note": "Candidate checkpoint only. CI may prove repository/Godot/Android debug-build properties. Main promotion and any production/public action remain separate Crown decisions."
+}

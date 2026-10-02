@@ -1,0 +1,246 @@
+name: LuHm Cathedral Toy Community Final Candidate
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'project.godot'
+      - 'export_presets.cfg'
+      - 'scripts/**'
+      - 'scenes/**'
+      - 'assets/community/**'
+      - 'assets/pixel-sitters/**'
+      - 'tests/communityAssetSmoke.gd'
+      - 'tools/stageCommunityAssets.py'
+      - 'tools/communityAssetAudit.py'
+      - 'tools/candidateGate.py'
+      - 'tools/runGodotSmoke.py'
+      - 'tools/stageInstallPortal.py'
+      - 'doctrine/communityAssetMutation-20260926.json'
+      - '.github/workflows/cathedral-community-final-build.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cathedral-community-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cathedral-community-apk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact candidate source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Java 17
+        uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android SDK 36
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
+
+      - name: Install pinned Godot 4.7.2 and Android templates
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 5 -o /tmp/godot.zip \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          curl -fL --retry 5 -o /tmp/templates.tpz \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
+          echo 'cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip' | sha256sum -c -
+          echo 'f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011  /tmp/templates.tpz' | sha256sum -c -
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable"
+          unzip -q /tmp/templates.tpz -d /tmp/tpl
+          cp -a /tmp/tpl/templates/. "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+          echo 'GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64' >> "$GITHUB_ENV"
+
+      - name: Configure disposable candidate signer
+        shell: bash
+        run: |
+          set -euo pipefail
+          KEYSTORE="$RUNNER_TEMP/luhm-cathedral-community-debug.keystore"
+          keytool -genkeypair -keystore "$KEYSTORE" -storepass android \
+            -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 \
+            -validity 10000 -dname 'CN=LuHm Cathedral Community Candidate,O=LuHm OS,C=US'
+          chmod 600 "$KEYSTORE"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$KEYSTORE" >> "$GITHUB_ENV"
+          echo 'GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey' >> "$GITHUB_ENV"
+          echo 'GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android' >> "$GITHUB_ENV"
+          mkdir -p "$HOME/.config/godot"
+          cat > "$HOME/.config/godot/editor_settings-4.tres" <<SETTINGS
+          [gd_resource type="EditorSettings" format=3]
+          [resource]
+          export/android/android_sdk_path = "$ANDROID_HOME"
+          export/android/java_sdk_path = "$JAVA_HOME"
+          SETTINGS
+
+      - name: Stage pinned rigged Lum donor from Drive
+        shell: bash
+        run: |
+          set -euo pipefail
+          DRIVE_ID='1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen'
+          BUNDLE_SHA='fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da'
+          BASE_SHA='06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69'
+          RUN_SHA='750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0'
+          BUNDLE="$RUNNER_TEMP/lum-biped.zip"
+          OUT="$RUNNER_TEMP/lum-biped"
+          for url in \
+            "https://drive.usercontent.google.com/download?id=${DRIVE_ID}&export=download&confirm=t" \
+            "https://drive.google.com/uc?export=download&id=${DRIVE_ID}&confirm=t"; do
+            rm -f "$BUNDLE"
+            if curl -fL --retry 4 --retry-all-errors --connect-timeout 20 --max-time 240 \
+              -A 'Mozilla/5.0 LuHmOS-CI' -o "$BUNDLE" "$url" && test -s "$BUNDLE"; then
+              break
+            fi
+          done
+          echo "$BUNDLE_SHA  $BUNDLE" | sha256sum -c -
+          rm -rf "$OUT"
+          mkdir -p "$OUT" assets/lum
+          unzip -q "$BUNDLE" -d "$OUT"
+          BASE="$OUT/Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Character_output.glb"
+          RUN="$OUT/Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Animation_Running_withSkin.glb"
+          echo "$BASE_SHA  $BASE" | sha256sum -c -
+          echo "$RUN_SHA  $RUN" | sha256sum -c -
+          cp "$BASE" assets/lum/luhm.glb
+          cp "$RUN" assets/lum/luhmRunning.glb
+
+      - name: Validate curated community donor contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool assets/community/catalog.json >/dev/null
+          python3 -m json.tool assets/community/selected-assets.json >/dev/null
+          python3 -m json.tool doctrine/communityAssetMutation-20260926.json >/dev/null
+          python3 tools/communityAssetAudit.py
+
+      - name: Stage immutable CC0 community assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/stageCommunityAssets.py
+          python3 -m json.tool build/community-assets/receipt.json >/dev/null
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('build/community-assets/receipt.json').read_text())
+          assert r['asset_count'] == 77, r['asset_count']
+          assert r['license'] == 'CC0'
+          assert r['runtime_network'] is False
+          assert r['total_asset_bytes'] <= 8*1024*1024
+          print('COMMUNITY_ASSET_RECEIPT=PASS', r['asset_count'], r['total_asset_bytes'])
+          PY
+
+      - name: Fail-closed source contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tests/testCandidateGate.py
+          python3 tests/testSmokeRunner.py
+          python3 tools/candidateGate.py
+
+      - name: Import Godot project with Lum and community assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT" --headless --editor --path . --quit
+
+      - name: Smoke curated community assets in Godot
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT" --headless --path . --script tests/communityAssetSmoke.gd
+
+      - name: Run existing Cathedral runtime smoke suite
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/runGodotSmoke.py "$GODOT" layoutSmoke
+          python3 tools/runGodotSmoke.py "$GODOT" runtimeSmoke
+          python3 tools/runGodotSmoke.py "$GODOT" lumRigV2Phase1Smoke
+
+      - name: Export Cathedral community APK and proof pack
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/android
+          APK=build/android/luhmos-cathedral-toy-community-1.0.23.apk
+          PCK=build/android/luhmos-cathedral-toy-community-1.0.23.pck
+          "$GODOT" --headless --path . --install-android-build-template \
+            --export-debug 'Android Proposed' "$APK"
+          "$GODOT" --headless --path . --export-pack 'Android Proposed' "$PCK"
+          test -s "$APK"
+          test -s "$PCK"
+
+      - name: Smoke exact exported resource pack
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT" --headless --main-pack build/android/luhmos-cathedral-toy-community-1.0.23.pck \
+            --script res://tests/communityAssetSmoke.gd
+          echo 'EXPORTED_PACK_COMMUNITY_ASSET_SMOKE=PASS'
+
+      - name: Verify APK signature alignment identity and provenance
+        shell: bash
+        env:
+          CANDIDATE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          APK=build/android/luhmos-cathedral-toy-community-1.0.23.apk
+          BT="$ANDROID_HOME/build-tools/36.1.0"
+          "$BT/aapt" dump badging "$APK" | tee build/android/badging.txt
+          grep -F "package: name='art.eggiebagelface.luhmos.cathedraltoy.community'" build/android/badging.txt
+          "$BT/apksigner" verify --verbose --print-certs "$APK" | tee build/android/signature.txt
+          "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/android/zipalign.txt
+          sha256sum "$APK" | tee build/android/sha256.txt
+          "$BT/aapt" dump xmltree "$APK" AndroidManifest.xml > build/android/manifest.txt
+          python3 tools/candidateGate.py --apk "$APK"
+          cp build/community-assets/receipt.json build/android/community-assets-receipt.json
+          cp assets/community/selected-assets.json build/android/community-assets-selection.json
+          printf '%s\n' "$CANDIDATE_HEAD" > build/android/source-commit.txt
+          rm -f build/android/luhmos-cathedral-toy-community-1.0.23.pck
+
+      - name: Stage private install portal bundle
+        shell: bash
+        env:
+          CANDIDATE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          python3 tools/stageInstallPortal.py \
+            --apk build/android/luhmos-cathedral-toy-community-1.0.23.apk \
+            --out build/installPortal \
+            --commit "$CANDIDATE_HEAD"
+          test -s build/installPortal/index.html
+          test -s build/installPortal/manifest.json
+          test -s build/installPortal/apk/current.apk
+          python3 -m json.tool build/installPortal/manifest.json >/dev/null
+          (cd build/installPortal && sha256sum -c SHA256SUMS.txt)
+
+      - name: Upload exact APK evidence bundle
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-cathedral-toy-community-apk
+          path: build/android/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload private install bundle
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-cathedral-toy-community-install-bundle
+          path: build/installPortal/
+          if-no-files-found: error
+          retention-days: 30

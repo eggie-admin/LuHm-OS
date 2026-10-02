@@ -1,15 +1,18 @@
 extends Node3D
 
 const LumAvatarScene := preload("res://scenes/LumAvatar.tscn")
+const CommunitySetDressScript := preload("res://scripts/game/communitySetDress.gd")
 
 var player_spawn := Vector3(0.0, 1.15, 8.0)
 var lum_avatar: Node3D
+var community_set_dress: Node3D
 var _neon_materials: Array[StandardMaterial3D] = []
 
 func _ready() -> void:
     _build_environment()
     _build_riverwalk()
     _build_city()
+    _build_community_set_dress()
     _build_lum_stage()
 
 func _build_environment() -> void:
@@ -78,6 +81,11 @@ func _build_city() -> void:
     accent.light_energy = 3.4
     accent.omni_range = 14.0
     add_child(accent)
+
+func _build_community_set_dress() -> void:
+    community_set_dress = CommunitySetDressScript.new()
+    community_set_dress.name = "CommunityCathedralSetDress"
+    add_child(community_set_dress)
 
 func _build_lum_stage() -> void:
     var plinth := _box("LumPlinth", Vector3(0.0, 0.3, -8.0), Vector3(3.8, 0.6, 3.8), Color("16101d"), true)

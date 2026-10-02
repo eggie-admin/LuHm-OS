@@ -1,0 +1,51 @@
+{
+  "schema": "luhm-os.community-asset-selection.v1",
+  "date": "2026-09-26",
+  "authority": "Professor",
+  "source": {
+    "repository": "shorepine/kenney",
+    "commit": "3694c6879e487c108f55677be7dd2ca75b07cc3b",
+    "license": "CC0",
+    "license_path": "LICENSE.txt",
+    "runtime_network": false,
+    "build_time_fetch_only": true
+  },
+  "budget": {
+    "max_assets": 96,
+    "max_total_bytes": 8388608,
+    "policy": "curated subset for Android APK; catalogs remain references"
+  },
+  "groups": {
+    "city-industrial": [
+      "building-a.glb", "building-b.glb", "building-c.glb", "building-d.glb", "building-e.glb",
+      "building-f.glb", "building-g.glb", "building-h.glb", "building-i.glb", "building-j.glb",
+      "building-k.glb", "building-l.glb", "building-m.glb", "building-n.glb", "building-o.glb",
+      "building-p.glb", "building-q.glb", "building-r.glb", "building-s.glb", "building-t.glb",
+      "chimney-basic.glb", "chimney-large.glb", "chimney-medium.glb", "chimney-small.glb", "detail-tank.glb"
+    ],
+    "factory": [
+      "catwalk-corner.glb", "catwalk-cross.glb", "catwalk-junction.glb", "catwalk-stairs-loop.glb", "catwalk-stairs.glb", "catwalk-straight.glb",
+      "conveyor.glb", "conveyor-corner.glb", "conveyor-long.glb",
+      "crane.glb", "crane-lift.glb", "crane-magnet.glb",
+      "door-wide-open.glb", "floor-large.glb",
+      "hopper-high-round.glb", "hopper-high-square.glb",
+      "lever-double.glb", "lever-single.glb",
+      "machine.glb", "machine-bed.glb", "machine-connection-pipe.glb", "machine-window.glb",
+      "pipe-large-bend.glb", "pipe-large-cross.glb", "pipe-large-curve.glb", "pipe-large-junction.glb", "pipe-large-long.glb", "pipe-large-side.glb", "pipe-large-valve.glb",
+      "robot-arm-a.glb", "screen-wide.glb", "warning-traffic.glb"
+    ],
+    "furniture": [
+      "bench.glb", "chair.glb", "chairCushion.glb",
+      "kitchenBar.glb", "kitchenBarEnd.glb", "stoolBar.glb", "stoolBarSquare.glb",
+      "table.glb", "tableRound.glb", "loungeSofaLong.glb", "loungeChair.glb",
+      "speaker.glb", "radio.glb", "televisionVintage.glb",
+      "lampWall.glb", "lampSquareFloor.glb", "sideTable.glb", "rugRectangle.glb", "pottedPlant.glb", "ceilingFan.glb"
+    ]
+  },
+  "integration": {
+    "theme": "Detroit industrial dieselpunk demon-bar + neon RiverWalk",
+    "identity": "original LuHm/Lum art direction",
+    "shipping_rule": "Only staged files from this immutable selection enter the candidate APK",
+    "provenance_receipt": "assets/community/runtime/PROVENANCE.json"
+  }
+}
