@@ -41,8 +41,20 @@ frontEndIndexPath = rootPath / "frontEnd/index.html"
 frontEndAppPath = rootPath / "frontEnd/app.js"
 harnessPath = rootPath / "host/mcp/luhmHarness.py"
 widgetPath = rootPath / "host/harness/widget.html"
+hfSharedPath = rootPath / "agents/shared/huggingFaceCapabilityLawV1.md"
+hfSkillPaths = [
+    rootPath / "agents/lum/SKILL.md",
+    rootPath / "agents/urdMutationOni/SKILL.md",
+    rootPath / "agents/belldandyQualityOni/SKILL.md",
+    rootPath / "agents/skuldResearchOni/SKILL.md",
+    rootPath / "agents/yumeArtOni/SKILL.md",
+    rootPath / "agents/sumiAssetOni/SKILL.md",
+    rootPath / "agents/momoResearchOni/SKILL.md",
+    rootPath / "agents/shioriCriticOni/SKILL.md",
+    rootPath / "agents/kiriContextOni/SKILL.md",
+]
 
-for path in (openAiPath, yumeSkillPath, requirementsPath, copilotPath, yumePluginPath, frontEndIndexPath, frontEndAppPath, harnessPath, widgetPath):
+for path in (openAiPath, yumeSkillPath, requirementsPath, copilotPath, yumePluginPath, frontEndIndexPath, frontEndAppPath, harnessPath, widgetPath, hfSharedPath, *hfSkillPaths):
     requireTruth(path.is_file(), f"missing {path.relative_to(rootPath)}")
 
 if openAiPath.is_file():
@@ -103,6 +115,20 @@ requireTruth(hfPrivacy.get("providerOutputIsCandidateOnly") is True, "HF output 
 requireTruth(hfDoc.get("providerMayGrantCanon") is False, "HF canon authority leak")
 requireTruth(hfDoc.get("providerMayGrantGreen") is False, "HF GREEN authority leak")
 
+hfProvider = providerDoc.get("providers", {}).get("huggingFace", {})
+requireTruth(hfProvider.get("sharedLaw") == "agents/shared/huggingFaceCapabilityLawV1.md", "HF shared law binding missing")
+requireTruth(hfProvider.get("directWorkerDispatch") is False, "HF direct worker dispatch leak")
+requireTruth(hfProvider.get("lumDispatchRequired") is True, "HF Lum dispatch gate missing")
+
+if hfSharedPath.is_file():
+    hfSharedText = hfSharedPath.read_text(encoding="utf-8")
+    for phrase in ("Lum signs and dispatches", "Temporary CPU/GPU Jobs require an explicit bounded task", "Provider output is `observed`"):
+        requireTruth(phrase in hfSharedText, f"HF shared law missing {phrase}")
+
+for skillPath in hfSkillPaths:
+    if skillPath.is_file():
+        requireTruth("huggingFaceCapabilityLawV1.md" in skillPath.read_text(encoding="utf-8"), f"{skillPath.relative_to(rootPath)} missing HF acquaintance")
+
 if yumeSkillPath.is_file():
     yumeText = yumeSkillPath.read_text(encoding="utf-8")
     for phrase in (
@@ -126,12 +152,17 @@ if yumePluginPath.is_file():
     pluginText = yumePluginPath.read_text(encoding="utf-8")
     requireTruth('const pluginName = "luhmYumeBooth"' in pluginText, "Yume jQuery plugin identity drift")
     requireTruth('"cutsceneRequested"' in pluginText, "Yume cutscene event missing")
+    requireTruth('"hfCapabilityRequested"' in pluginText, "Yume HF lab event missing")
+    requireTruth('dispatchedBy: "lum"' in pluginText, "Yume HF lab bypasses Lum")
     requireTruth("requestAnimationFrame" in pluginText, "Yume parallax loop missing")
 
 if frontEndIndexPath.is_file():
     frontEndIndexText = frontEndIndexPath.read_text(encoding="utf-8")
     requireTruth("./jquery/luhmYumeBooth.js" in frontEndIndexText, "Yume plugin not loaded by cockpit")
     requireTruth("data-yume-booth" in frontEndIndexText, "Yume booth DOM missing")
+    requireTruth("HF LAB // SPECIAL EFFECTS DEPARTMENT" in frontEndIndexText, "HF lab UI missing")
+    requireTruth('data-yume-hf="depthMap"' in frontEndIndexText, "HF depth action missing")
+    requireTruth('data-yume-hf="imageTo3dResearch"' in frontEndIndexText, "HF 3D scout action missing")
 
 if frontEndAppPath.is_file():
     frontEndAppText = frontEndAppPath.read_text(encoding="utf-8")
