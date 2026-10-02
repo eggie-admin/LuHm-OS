@@ -33,7 +33,9 @@
     "doctrine/goddessTrustSealV1.json",
     "tools/goddessTrustSealAudit.py",
     "agents/goddessSharedSystemsPractice/SKILL.md",
-    "agents/urdMutationOni/SKILL.md"
+    "agents/urdMutationOni/SKILL.md",
+    "doctrine/smX400RootedAndroid16TargetV1.json",
+    "tools/termuxVirginInstall.sh"
   ],
   "legacyPathLaw": "Historical evidence may retain old filenames. It is read-only evidence and is not a naming template for new source.",
   "moveLaw": "A sealed path move requires an explicit migration receipt containing oldPath, newPath, sourceRef, contentHash, reason and Professor authority.",
