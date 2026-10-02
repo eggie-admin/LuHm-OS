@@ -12,6 +12,8 @@ on:
       - 'project.godot'
       - 'export_presets.cfg'
       - 'scripts/main.gd'
+      - 'scripts/game/lumAvatar.gd'
+      - 'tests/lumRigV2Phase1Smoke.gd'
       - 'doctrine/ANDROID_WEB3_BRIDGE_V1.json'
       - 'doctrine/FORGE_TWINS_V3.json'
       - 'tools/forgeCastGate.py'
