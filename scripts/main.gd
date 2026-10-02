@@ -1,8 +1,5 @@
 extends Node3D
-
-const NeonWorldScript := preload("res://scripts/game/neonWorld.gd")
-const LumCoffeeHouseScript := preload("res://scripts/game/lumCoffeeHouseScene.gd")
-const CathedralWorldScript := preload("res://scripts/game/cathedralWorld.gd")
+const WorldFactoryScript := preload("res://scripts/game/worldFactory.gd")
 const PlayerControllerScript := preload("res://scripts/game/playerController.gd")
 const GameHudScript := preload("res://scripts/game/gameHud.gd")
 const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
@@ -10,7 +7,6 @@ const CutsceneBridgeScript := preload("res://scripts/game/cutsceneBridge.gd")
 const CharacterRosterScript := preload("res://scripts/game/characterRoster.gd")
 const Titan7MilestoneScript := preload("res://scripts/game/titan7Milestone.gd")
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
-
 var neon_world: Node3D
 var active_world: Node3D
 var active_world_id := "neonRiverwalk"
@@ -23,41 +19,32 @@ var titan7_milestone: CanvasLayer
 var intro_played := false
 var android_web3_plugin = null
 var android_web3_version := "unavailable"
-
 func _ready() -> void:
     _build_runtime()
     _wire_runtime()
     _wire_android_web3()
     _enter_backend()
-
 func _build_runtime() -> void:
-    neon_world = NeonWorldScript.new()
-    neon_world.name = "NeonWorld"
+    neon_world = WorldFactoryScript.new().createWorld("neonRiverwalk")
     add_child(neon_world)
     active_world = neon_world
-
     player_controller = PlayerControllerScript.new()
     player_controller.name = "PlayerController"
     player_controller.position = neon_world.player_spawn
     add_child(player_controller)
-
     game_hud = GameHudScript.new()
     game_hud.name = "GameHud"
     add_child(game_hud)
-
     cutscene_director = CutsceneDirectorScript.new()
     cutscene_director.name = "CutsceneDirector"
     add_child(cutscene_director)
-
     cutscene_bridge = CutsceneBridgeScript.new()
     cutscene_bridge.name = "CutsceneBridge"
     add_child(cutscene_bridge)
     cutscene_bridge.configure(cutscene_director, player_controller, active_world, game_hud)
-
     character_roster = CharacterRosterScript.new()
     character_roster.name = "CharacterRoster"
     add_child(character_roster)
-
     titan7_milestone = Titan7MilestoneScript.new()
     titan7_milestone.name = "Titan7Milestone"
     add_child(titan7_milestone)
@@ -112,19 +99,9 @@ func _play_intro() -> void:
 func switchWorld(world_id: String) -> bool:
     if world_id == active_world_id:
         return true
-    var next_world: Node3D
-    match world_id:
-        "neonRiverwalk":
-            next_world = NeonWorldScript.new()
-            next_world.name = "NeonWorld"
-        "lumCoffeeHouse":
-            next_world = LumCoffeeHouseScript.new()
-            next_world.name = "LumCoffeeHouse"
-        "cathedral":
-            next_world = CathedralWorldScript.new()
-            next_world.name = "CathedralWorld"
-        _:
-            return false
+    var next_world: Node3D = WorldFactoryScript.new().createWorld(world_id)
+    if next_world == null:
+        return false
     if cutscene_bridge != null:
         cutscene_bridge.cancel()
         cutscene_bridge.restore_now()
