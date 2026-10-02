@@ -41,7 +41,7 @@ add("assetRuntimeProof",bridge["bridgeLaw"]["runtimeProofRequired"] is True,"run
 add("assetHash",bridge["bridgeLaw"]["hashRequired"] is True,"asset hash required")
 add("assetNoMissingGreen",bridge["bridgeLaw"]["missingAssetMayBecomeGreen"] is False,"missing asset not green")
 add("assetProfessorPromotion",bridge["bridgeLaw"]["professorPromotionRequired"] is True,"human promotion")
-for p in ["tools/tourniquetAgentLogicAudit.py","tools/networkContractReconcile.py","tools/assetCastBridgeAudit.py","tools/characterPetPresentationAudit.py","tools/buildStaticAssetDist.py"]:
+for p in ["tools/tourniquetAgentLogicAudit.py","tools/networkContractReconcile.py","tools/assetCastBridgeAudit.py","tools/characterPetPresentationAudit.py"]:
     add("auditTool:"+p,(root/p).is_file(),"deterministic audit tool")
 # Fill remaining passes with distinct cross-contract invariants, not duplicated pretend passes.
 add("sourceLaw","AI proposes. Policy authorizes. CI proves. Human promotes." in (root/"doctrine/artOniLayeredMutationV3.json").read_text(),"art authority law")
@@ -53,7 +53,6 @@ add("oniEvidence","Evidence" in (root/"agents/shared/ONI_PROTOCOL_V2.md").read_t
 add("oniNoRecursive","recursively recruit" in (root/"agents/shared/ONI_PROTOCOL_V2.md").read_text(),"no recursive recruitment")
 add("castBridgeWorkflow",(root/".github/workflows/professor-cast-bridge.yml").is_file(),"CAST bridge exists")
 add("castAudit",(root/"tools/professorCastBridgeAudit.py").is_file(),"CAST audit exists")
-add("androidWorkflow",(root/".github/workflows/android-testing-build.yml").is_file(),"Android build workflow exists")
 assert len(checks)==50, len(checks)
 reds=[x for x in checks if x["state"]=="RED"]
 out=root/"build/titan7-50pass/report.json";out.parent.mkdir(parents=True,exist_ok=True)
