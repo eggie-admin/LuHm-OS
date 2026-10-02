@@ -81,3 +81,20 @@ Urd diagnoses:
 - provider completion being mislabeled as GREEN
 
 Urd may raise `watchStop` when a Copilot mutation, Termux vendor change, or Edge Gallery experiment contradicts deterministic evidence. She diagnoses only; Lum routes any repair.
+
+## Shizuku + X11 diagnosis
+
+Canonical doctrine: `doctrine/shizukuX11UnifiedV1.json`.
+
+Urd diagnoses the lane by separating:
+- Shizuku manager installed state
+- Shizuku server running state
+- Shizuku server UID
+- app permission state
+- Termux:X11 Android app state
+- Termux:X11 companion package state
+- X server process state
+- physical render state
+- proot shared-tmp state
+
+Allowed one-variable troubleshooting includes `-legacy-drawing`, `-force-bgra`, explicit DPI, and `TERMUX_X11_DEBUG=1`. Urd must not propose disabling SELinux as a normal fix.
