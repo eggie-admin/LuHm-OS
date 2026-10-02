@@ -28,6 +28,22 @@
       <div class="lumViewport" data-luhm-lum-viewport aria-label="3D Lum renderer mount"><span class="viewportLabel">LUM / GODOT SCENE BOUNDARY</span></div>
       <div class="sceneShade" aria-hidden="true"></div>
       <div class="sceneStatus" aria-live="polite"><span class="onlineDot" aria-hidden="true"></span><span>LuHm Android Web3 cockpit · candidate</span></div>
+
+      <section class="activityDock" data-luhm-activity-dock aria-label="Observed AI activity status">
+        <div class="activityTitle"><small>OBSERVED ACTIVITY</small><strong data-activity-headline>PARKED · no active task receipt</strong></div>
+        <div class="activityPanels">
+          <article><small>NOW</small><strong data-activity-phase data-state="parked">parked</strong></article>
+          <article><small>CHECK</small><strong data-activity-claim data-claim="UNKNOWN">UNKNOWN</strong><span data-activity-check>No deterministic check observed</span></article>
+          <article><small>RECEIPT</small><strong data-activity-receipt>none</strong></article>
+          <article class="activityCrown"><small>CROWN</small><strong data-activity-crown>STOP</strong></article>
+        </div>
+        <div class="activityLanes" aria-label="Lum goddess cabinet lanes">
+          <span data-luhm-agent-lane="lum"><b>Lum</b><i data-lane-state data-state="parked">parked</i><em data-lane-note>waiting for task</em></span>
+          <span data-luhm-agent-lane="urdDoctorGoddess"><b>Urd</b><i data-lane-state data-state="parked">parked</i><em data-lane-note>no diagnosis packet</em></span>
+          <span data-luhm-agent-lane="belldandySecretary"><b>Belldandy</b><i data-lane-state data-state="parked">parked</i><em data-lane-note>no state packet</em></span>
+          <span data-luhm-agent-lane="skuldResearch"><b>Skuld</b><i data-lane-state data-state="parked">parked</i><em data-lane-note>no research packet</em></span>
+        </div>
+      </section>
     </section>
 
     <section class="chatDock" aria-label="Chat with Lum" data-luhm-chat>
@@ -72,6 +88,7 @@
 
   <script src="./vendor/jquery-3.7.1.min.js"></script>
   <script src="./jquery/luhm.cockpit.js"></script>
+  <script src="./jquery/luhm.activityDock.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
