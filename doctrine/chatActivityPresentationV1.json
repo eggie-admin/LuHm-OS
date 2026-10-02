@@ -1,0 +1,40 @@
+{
+  "schema": "luhmOs.chatActivityPresentation.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "purpose": "Present real LuHm task activity consistently in ChatGPT, the packaged cockpit, and Godot 4 without inventing progress.",
+  "eventTypes": [
+    "taskStarted",
+    "stageChanged",
+    "imageCandidateReady",
+    "taskComplete",
+    "taskFailed"
+  ],
+  "eventEnvelope": {
+    "required": ["taskId", "eventType", "label", "evidenceState"],
+    "optional": ["stageId", "progress", "agent", "artifactRef", "receiptRef"],
+    "progressRule": "numeric progress is allowed only when the producer has measurable evidence; otherwise use null and indeterminate presentation",
+    "evidenceStates": ["pending", "proved", "failed"]
+  },
+  "surfaces": {
+    "chatGpt": "concise human activity updates",
+    "webCockpit": "activity card and loading overlay",
+    "godot4": "animated loading scene and preview transition"
+  },
+  "art": {
+    "candidateGenerationOwner": "yume",
+    "provenanceOwner": "sumi",
+    "previewBeforeCanonApproval": true,
+    "automaticCanonPromotion": false,
+    "maximumConcurrentGenerationJobs": 3
+  },
+  "safety": {
+    "noFakeProgress": true,
+    "noShellAuthority": true,
+    "noReleaseAuthority": true,
+    "noInstallAuthority": true,
+    "noCrownAuthority": true,
+    "typedBoundaryOnly": true
+  },
+  "crownStatus": "STOP"
+}
