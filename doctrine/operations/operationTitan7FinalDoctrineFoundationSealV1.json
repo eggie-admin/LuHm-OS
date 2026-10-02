@@ -1,31 +1,40 @@
 {
-  "schema":"luhmOs.operationTitan7OperationTicket.v1",
-  "operation":"operationTitan7",
-  "milestone":"finalDoctrineFoundationSeal",
-  "tier":"finalForm",
-  "explicitInvocation":true,
-  "authority":"Professor",
-  "scope":"doctrineFoundationOnly",
-  "requestedMode":"absoluteRipOutAndReplaceAudit",
-  "verificationEscalation":[
+  "schema": "luhmOs.operationTitan7OperationTicket.v1",
+  "operation": "operationTitan7",
+  "milestone": "finalDoctrineFoundationSeal",
+  "tier": "finalForm",
+  "explicitInvocation": true,
+  "authority": "Professor",
+  "scope": "doctrineFoundationOnly",
+  "requestedMode": "absoluteRipOutAndReplaceAudit",
+  "verificationEscalation": [
     "ffs25HardPass",
     "scorchedEarth50HardPass",
     "finalFormStructuralAudit"
   ],
-  "capabilitySpine":"doctrine/aiApiBossCapabilitySpineV1.json",
-  "tourniquet":"doctrine/tourniquetWorkflowV1.json",
-  "seal":"doctrine/finalDoctrineFoundationSealV1.json",
-  "promotionBoundary":{
-    "doctrineFoundationSealApproved":true,
-    "mergeApproved":false,
-    "castApproved":false,
-    "publicationApproved":false,
-    "physicalInstallClaimed":false
+  "capabilitySpine": "doctrine/aiApiBossCapabilitySpineV1.json",
+  "tourniquet": "doctrine/tourniquetWorkflowV1.json",
+  "seal": "doctrine/finalDoctrineFoundationSealV1.json",
+  "promotionBoundary": {
+    "doctrineFoundationSealApproved": true,
+    "mergeApproved": false,
+    "castApproved": false,
+    "publicationApproved": false,
+    "physicalInstallClaimed": false
   },
-  "stopOn":[
+  "stopOn": [
     "deterministicRedWithoutBoundedRepair",
     "authorityAmbiguity",
     "scopeDrift",
     "exactSourceMismatch"
-  ]
+  ],
+  "attempt": 2,
+  "repairRefs": [
+    "e2f347c109f2ef2b46defa0f12673864425e6ace"
+  ],
+  "previousAttempt": {
+    "sourceRef": "2c345e98e9945922e6d37aab35aa34042275fac8",
+    "result": "RED",
+    "blocker": "workflowPluginRegistryAuditSyntax"
+  }
 }
