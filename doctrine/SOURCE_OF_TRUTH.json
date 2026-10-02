@@ -118,7 +118,9 @@
     "releaseAuthority": false,
     "publicationAuthority": false,
     "productionSigningAuthority": false,
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "historicalScopeOnly": true,
+    "historicalBaselineNote": "Scoped GREEN remains valid for its audited 2026-09-30 baseline only; it is not the live current-main identity."
   },
   "publicationMilestone": {
     "contract": "doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json",
@@ -163,5 +165,42 @@
     "proof": "doctrine/CURRENT_MAIN_SOURCE_TRUTH_GREEN_20260930.json",
     "snapshot": "doctrine/PRE_GREEN_SNAPSHOT_20260930.json",
     "preserved": "Lum/Oni fail-closed orchestration is canonical on main; documentation workflow, S24 FE cockpit switch, and LAN install bundle remain preserved as historical evidence; broader Android and release state remain AMBER; physical device proof, LAN DNS, Apache serving, persistent update signing, enterprise readiness, public exposure, server-side branch governance, and explicit Professor promotion remain separate evidence or Crown gates"
+  },
+  "liveReconciliation": {
+    "status": "AMBER_LIVE_MAIN_RECONCILIATION_IN_PROGRESS",
+    "observedCanonicalMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+    "observedCanonicalTree": "4b9e85e5070952e8600580589681bafaf31e3e65",
+    "observedAt": "2026-10-01",
+    "receipt": "doctrine/FULL_PROJECT_AUDIT_20261001.json",
+    "auditBranch": "audit/full-project-sanity-20261001",
+    "preAuditSnapshotBranch": "snapshot/pre-full-project-audit-20261001",
+    "priorScopedGreenBaseline": "013e056ad7fdf37ba92c298768d57806667a509c",
+    "priorScopedGreenPreservedAsHistoricalEvidence": true,
+    "developmentMayContinue": true,
+    "fullProductReadiness": "AMBER",
+    "branchProtectionObserved": false,
+    "activeRulesetsObserved": 0,
+    "physicalSamsungProof": "PENDING",
+    "mergeAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false,
+    "crownStatus": "STOP"
+  },
+  "fullProjectAudit": {
+    "contract": "doctrine/FULL_PROJECT_AUDIT_20261001.json",
+    "status": "AMBER_FULL_PROJECT_AUDIT_RECONCILIATION_REQUIRED",
+    "exactCanonicalMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+    "canonicalTrackedPathsInventoried": 154,
+    "supportRootsInventoried": {
+      "eggie-admin/hydra-shell-android": 204,
+      "eggie-admin/vue-headless-cms": 30
+    },
+    "frontendActionsPinnedOnAuditBranch": true,
+    "prStateMap": "doctrine/OPEN_PR_RECONCILIATION_20261001.json",
+    "mergeAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false,
+    "historyRewriteAuthority": false,
+    "crownStatus": "STOP"
   }
 }
