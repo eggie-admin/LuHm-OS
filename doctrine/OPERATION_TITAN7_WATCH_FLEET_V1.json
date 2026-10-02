@@ -194,6 +194,14 @@
       "cadence": "every_run",
       "severity": "critical",
       "description": "Produce one compact Professor-facing milestone from all watches."
+    },
+    {
+      "id": "shizukuX11UnifiedGate",
+      "family": "android",
+      "mode": "manualDevice",
+      "cadence": "on_receipt",
+      "severity": "critical",
+      "description": "Reconcile Shizuku UID/permission state, Termux:X11 app+companion pairing, proot shared-tmp state, session process evidence and physical render proof without conflating privilege layers."
     }
   ]
 }
