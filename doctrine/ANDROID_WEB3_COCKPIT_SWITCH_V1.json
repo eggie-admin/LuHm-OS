@@ -1,7 +1,7 @@
 {
   "schema": "luhm-os.android-web3-cockpit-switch.v1",
   "date": "2026-10-01",
-  "status": "AMBER_ANDROID_WEB3_COCKPIT_WRAPPER_DEVICE_PROOF_PENDING",
+  "status": "AMBER_ANDROID_WEB3_COCKPIT_SOURCE_READY_CAST_BUILD_PENDING",
   "authority": "Professor",
   "canonicalRepository": "eggie-admin/LuHm-OS",
   "sourceRef": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
@@ -45,9 +45,16 @@
     "typedBoundary": "luhm:backend:open",
     "backEndGuiContract": "future Android/WebView/native bridge may translate typed event",
     "priorCockpitSealWebViewBridgeAdded": false,
-    "androidNativeWebViewWrapperImplemented": false,
     "physicalSamsungWebViewProof": "PENDING",
-    "installedWebViewVersion": "UNKNOWN"
+    "installedWebViewVersion": "UNKNOWN",
+    "wrapperSource": "IMPLEMENTED_STATIC_CANDIDATE",
+    "wrapperAar": "PENDING_CAST_BUILD",
+    "apkIntegration": "PENDING_CAST_BUILD",
+    "webViewAssetLoaderSource": "IMPLEMENTED_STATIC_CANDIDATE",
+    "originScopedMessageBridgeSource": "IMPLEMENTED_STATIC_CANDIDATE",
+    "godotPluginExportAddon": "IMPLEMENTED_STATIC_CANDIDATE",
+    "castGatedAndroidWorkflow": true,
+    "staticSecurityAudit": "PENDING_EXACT_HEAD_CI"
   },
   "requiredGates": [
     "static cockpit contract passes",
@@ -69,5 +76,8 @@
   "publicationAuthority": false,
   "productionSigningAuthority": false,
   "crownStatus": "STOP",
-  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes."
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "candidateBranch": "candidate/android-web3-cockpit-switch-v1-20261001",
+  "bridgeContract": "doctrine/ANDROID_WEB3_BRIDGE_V1.json",
+  "nextGate": "EXACT_HEAD_STATIC_CI_THEN_EXPLICIT_CAST_BUILD"
 }
