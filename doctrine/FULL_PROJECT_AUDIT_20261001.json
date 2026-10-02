@@ -72,10 +72,21 @@
   "nextGate": "EXACT_HEAD_CI_ON_DRAFT_RECONCILIATION_PR",
   "repairCandidates": {
     "forgeOniTwins": {
+      "pullRequest": 96,
       "branch": "candidate/forge-twins-cast-gate-v3-20261001",
-      "head": "cb9d6aad3a6cff70fc43ad816b883e6639017be7",
-      "relationToMain": "16 commits ahead of f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
-      "purpose": "canonical forgeOniTwins identity, Tetsu/Kaji split, CAST gate, TTL janitor, workflow policy",
+      "head": "878871e5cd275178320f37260e3a455eaccc0971",
+      "baseMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+      "purpose": "canonical forgeOniTwins identity, Tetsu/Kaji split, exact CAST gate, TTL janitor, static workflow policy",
+      "staticPolicyAudit": {
+        "runId": 36960573979,
+        "status": "SUCCESS"
+      },
+      "pluginPublicationAudit": {
+        "runId": 36960574000,
+        "status": "SUCCESS"
+      },
+      "buildExecuted": false,
+      "castIssued": false,
       "merged": false,
       "authority": false
     },
