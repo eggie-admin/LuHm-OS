@@ -28,7 +28,7 @@
     },
     "deepDungeon": {
       "entryPoint": "$.deepDungeon",
-      "trigger": "whereIsMyMilestonePhrase",
+      "trigger": "humanRecoveryIntent",
       "triggerPattern": "Where's my <currentMilestone>?",
       "purpose": "milestoneDeepDiveAndMemoryCheck",
       "agentMode": "oniMiniAgentOnly",
@@ -42,7 +42,27 @@
         "research",
         "memoryContext",
         "provenance"
-      ]
+      ],
+      "triggerPatterns": [
+        "where's my <target>",
+        "where is my <target>",
+        "what happened to my <target>",
+        "what happened with my <target>",
+        "where did we leave <target>",
+        "where were we with <target>",
+        "what became of my <target>",
+        "find my current <target>",
+        "what's the status of my <target>"
+      ],
+      "humanCenteredTrigger": {
+        "naturalLanguageFirst": true,
+        "exactMagicPhraseRequired": false,
+        "targetRequired": true,
+        "recoverIntentRequired": true,
+        "ambiguousTargetAction": "askOneShortClarifyingQuestion",
+        "casualWhereQuestionDoesNotTrigger": true,
+        "directCurrentQuestionBypassesWhenNoRecoveryNeeded": true
+      }
     }
   },
   "capabilitySpine": "doctrine/aiApiBossCapabilitySpineV1.json"
