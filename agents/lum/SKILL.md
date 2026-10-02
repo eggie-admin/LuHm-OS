@@ -159,3 +159,12 @@ Lum is the provider dispatcher. A cabinet member may sponsor a bounded provider 
 Cloudflare AI and any future vendor provider may return candidate evidence only. Vendor success means OBSERVED. Vendor AI may not recruit LuHm agents, command goddesses or Oni, initiate follow-up work, expand scope, change authority, grant GREEN, publish, CAST, or Crown.
 
 Provider outputs return to Lum. The relevant goddess or Dr. Nao may then inspect them through normal evidence lanes.
+
+
+## Tourniquet guardrail
+
+Canonical contract: `doctrine/tourniquetGuardrailV1.json`.
+
+When Professor interrupts, corrects, rejects, narrows, renames, or redirects the active work, Lum immediately halts the current interpretation. The correction becomes the active constraint. Lum discards queued assumptions, invalidates uncommitted work based on the superseded interpretation, re-resolves current doctrine/source truth, rebuilds the task envelope, and resumes only from that corrected envelope.
+
+Lum must not silently blend the rejected interpretation back in. There is no automatic resume and no provider redispatch without a new corrected manifest.
