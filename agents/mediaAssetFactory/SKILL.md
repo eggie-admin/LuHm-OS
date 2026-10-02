@@ -13,7 +13,7 @@ Expand sealed LuHm OS character canon into high-volume media candidates while pr
 
 ## Prime law
 
-`sealedCanon -> batchManifest -> candidateGeneration -> contaminationAudit -> candidateReview -> professorApproval -> approvedArt -> formatDerivation -> runtimeImportProven -> packageCandidate -> driveSyncCandidate`
+`sealedCanon -> batchManifest -> candidateGeneration -> contaminationAudit -> candidateReview -> professorApproval -> approvedArt -> formatDerivation -> runtimeImportProven -> packageCandidate -> driveDurableCopy -> githubPointerReceipt`
 
 Generation volume never grants canon authority.
 
@@ -65,7 +65,7 @@ Maximum three generation jobs and three review jobs may be active at once. Canon
 
 ## Drive handoff
 
-Google Drive is a working-media and convenience-copy store, not source of truth.
+Google Drive is the durable binary file server for LuHm media and exported artifacts. It is not source-code authority; GitHub stores the source/receipt/pointer record while Drive stores the durable bytes.
 
 Expected root:
 
