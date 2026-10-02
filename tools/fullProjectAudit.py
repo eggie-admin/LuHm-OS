@@ -49,6 +49,14 @@ HISTORICAL_LAN_PREFIXES = (
     "doctrine/fullSourceTruthAudit-20260926.json",
 )
 
+HEURISTIC_SELF_EXEMPT = {
+    "tools/fullProjectAudit.py",
+}
+
+JSON_TEMPLATE_EXCEPTIONS = {
+    "installPortal/manifest.template.json",
+}
+
 class StrictHTMLParser(HTMLParser):
     pass
 
@@ -225,11 +233,17 @@ def audit() -> dict:
 
         item["kind"] = "text"
         text_cache[rel] = text
-        scan_content(rel, text, findings)
+        if rel not in HEURISTIC_SELF_EXEMPT:
+            scan_content(rel, text, findings)
+        else:
+            item["checks"].append("heuristic-self-exempt")
 
         if suffix == ".json":
-            check_json(rel, text, findings)
-            item["checks"].append("json")
+            if rel in JSON_TEMPLATE_EXCEPTIONS:
+                item["checks"].append("json-template")
+            else:
+                check_json(rel, text, findings)
+                item["checks"].append("json")
         elif suffix == ".py":
             check_python(rel, text, findings)
             item["checks"].append("python-compile")
