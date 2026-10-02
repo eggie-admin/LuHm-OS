@@ -1,0 +1,24 @@
+{
+  "schema":"luhmOs.operationTitan7Invocation.v1",
+  "status":"candidate",
+  "authority":"Professor",
+  "operationId":"operationTitan7",
+  "defaultWorkflow":false,
+  "invocation":"explicitOrMilestoneBound",
+  "normalWorkflow":"luhmAgentMesh",
+  "components":["workflowProcess","aiLogic","agentSkillDeployment","tourniquetRepairClamp","witchingHourBoundedCoding","evidenceGates","stopConditions"],
+  "passPolicy":{
+    "requestedPasses":50,
+    "passMustExecute":true,
+    "passMustProduceFindingOrExplicitNoFinding":true,
+    "passCountMayNotBeClaimedFromConfigurationAlone":true,
+    "redTriggersBoundedRepair":true,
+    "greenContinuesAutomatically":true
+  },
+  "presentation":{
+    "jrpgPetBubbles":true,
+    "presentationOnly":true,
+    "mayNotEstablishMachineGreen":true
+  },
+  "crownStatus":"stop"
+}
