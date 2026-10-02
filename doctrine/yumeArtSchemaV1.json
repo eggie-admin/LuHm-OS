@@ -1,0 +1,200 @@
+{
+  "schema": "luhmOs.yumeArtSchema.v1",
+  "status": "beta",
+  "authority": "Professor",
+  "designReference": "oldSchoolPhpSqlFocusedPull",
+  "purpose": "Organize Yume art creation and file management as normalized registries with narrow query-style reads, while Drive stores binary bytes.",
+  "primeLaw": "selectOnlyWhatTheCurrentArtDecisionNeeds",
+  "logicalTables": {
+    "characterRegistry": {
+      "key": "characterId",
+      "fields": [
+        "characterId",
+        "canonRef",
+        "fixedTraitIds",
+        "forbiddenTraitIds",
+        "neighborCharacterIds",
+        "reviewState"
+      ]
+    },
+    "referenceRegistry": {
+      "key": "referenceId",
+      "fields": [
+        "referenceId",
+        "sourceType",
+        "protected",
+        "provenanceState",
+        "driveLogicalRef",
+        "sha256"
+      ]
+    },
+    "traitRegistry": {
+      "key": "traitId",
+      "fields": [
+        "traitId",
+        "traitType",
+        "value",
+        "isFixed",
+        "sourceRef"
+      ]
+    },
+    "sceneRegistry": {
+      "key": "sceneId",
+      "fields": [
+        "sceneId",
+        "storyBeat",
+        "shotIds",
+        "characterIds",
+        "cutsceneState",
+        "godotState"
+      ]
+    },
+    "shotRegistry": {
+      "key": "shotId",
+      "fields": [
+        "shotId",
+        "sceneId",
+        "cameraLanguage",
+        "durationHint",
+        "assetIds",
+        "generationJobIds"
+      ]
+    },
+    "assetRegistry": {
+      "key": "assetId",
+      "fields": [
+        "assetId",
+        "family",
+        "parentAssetId",
+        "characterId",
+        "sceneId",
+        "sha256",
+        "driveLogicalRef",
+        "reviewState",
+        "runtimeState"
+      ]
+    },
+    "generationJobLedger": {
+      "key": "generationJobId",
+      "fields": [
+        "generationJobId",
+        "providerId",
+        "capabilityId",
+        "taskId",
+        "sourceRef",
+        "scopeId",
+        "inputAssetIds",
+        "outputAssetIds",
+        "state"
+      ]
+    },
+    "reviewLedger": {
+      "key": "reviewId",
+      "fields": [
+        "reviewId",
+        "assetId",
+        "reviewerId",
+        "decision",
+        "reason",
+        "supersedesReviewId"
+      ]
+    },
+    "providerCapabilityRegistry": {
+      "key": "capabilityId",
+      "fields": [
+        "capabilityId",
+        "providerId",
+        "kind",
+        "availabilityState",
+        "costClass",
+        "requiresEntitlement"
+      ]
+    },
+    "filePointerRegistry": {
+      "key": "filePointerId",
+      "fields": [
+        "filePointerId",
+        "assetId",
+        "store",
+        "logicalRef",
+        "sha256",
+        "visibility"
+      ]
+    }
+  },
+  "relationLaw": {
+    "characterToAsset": "characterId -> assetRegistry.characterId",
+    "sceneToShot": "sceneId -> shotRegistry.sceneId",
+    "shotToAsset": "shotId -> assetIds",
+    "generationToProvider": "providerId + capabilityId -> providerCapabilityRegistry",
+    "assetToBytes": "assetId -> filePointerRegistry -> googleDrive",
+    "rejectedParentAllowed": false
+  },
+  "querySurface": {
+    "getCharacterArtLock": [
+      "characterId",
+      "canonRef",
+      "fixedTraits",
+      "forbiddenTraits",
+      "neighborCharacterIds"
+    ],
+    "getSceneBoard": [
+      "sceneId",
+      "storyBeat",
+      "shots",
+      "characterIds",
+      "cutsceneState",
+      "godotState"
+    ],
+    "getAssetById": [
+      "assetId",
+      "family",
+      "sha256",
+      "reviewState",
+      "runtimeState",
+      "publicOrLocalUrl"
+    ],
+    "getProviderForCapability": [
+      "capabilityId",
+      "providerId",
+      "availabilityState",
+      "costClass"
+    ],
+    "getPendingArtReviews": [
+      "assetId",
+      "family",
+      "knownDeviations",
+      "reviewState"
+    ],
+    "getCutscenePackage": [
+      "sceneId",
+      "cinematicAssetId",
+      "godotTimelineId",
+      "spriteAssetIds",
+      "lowPolyAssetIds"
+    ]
+  },
+  "queryRules": {
+    "noRawDoctrineScanFromJquery": true,
+    "noDriveFolderCrawlFromJquery": true,
+    "noProviderCredentialReadFromYume": true,
+    "boundedRowsOnly": true,
+    "idsAndHashesTravelWithRows": true,
+    "derivedViewsNeverBecomeCanon": true
+  },
+  "storage": {
+    "semanticState": "openAi",
+    "sourceSchemaAndReceipts": "github",
+    "durableBinaryBytes": "googleDrive",
+    "runtime": "renderAndAndroid",
+    "cacheEdge": "cloudflareOptional"
+  },
+  "monitoring": {
+    "yume": "artDirectionAndQueryIntent",
+    "urdDoctorGoddess": "contaminationAndSchemaPathology",
+    "belldandySecretary": "canonicalRowsAliasesAndReviewLedger",
+    "sumi": "hashProvenanceAndFilePointers",
+    "lum": "routingAndProviderDispatch"
+  },
+  "crownStatus": "stop"
+}
