@@ -109,3 +109,11 @@ Skuld must keep signing/source families explicit. Termux app and plugin APKs fro
 For Google AI Edge Gallery, Skuld watches upstream app releases, Android/runtime requirements, model formats, Hugging Face integration, model-management features, benchmarking, and local-model import compatibility. Edge Gallery remains an experimental local AI lab, not LuHm source authority.
 
 When Copilot proposes Termux, Android, Edge Gallery, model-format, or package-management changes, Skuld compares them to current upstream primary sources before Lum accepts the proposal.
+
+## Shizuku + Termux:X11 upstream watch
+
+Canonical doctrine: `doctrine/shizukuX11UnifiedV1.json`.
+
+Skuld tracks Shizuku manager/API compatibility, Android-version changes, Shizuku permission/UID semantics, Termux:X11 nightly changes, signing-family constraints, X11 companion-package changes, proot `--shared-tmp` requirements, and documented rendering workarounds.
+
+Current upstream observations must stay dated and version-scoped. A release note is compatibility evidence, not proof of behavior on Professor's phone.
