@@ -1,18 +1,24 @@
 {
   "schema": "luhmOs.operationTitan7FinalForm.v1",
-  "status": "STAGED_CANDIDATE",
+  "status": "STAGED_FINAL_FORM_CANDIDATE",
   "authority": "Professor",
   "baseMain": "77a143ec8e3a83b259a86cdf1b706a6e0641354e",
-  "purpose": "Escalated final-milestone audit and bounded repair protocol using current doctrine, source truth, real workflows, agent skills and deterministic evidence.",
+  "purpose": "Third-tier OperationTitan7 structural replacement audit. Freeze a bounded scope, rip out contradictory or structurally unsound candidate implementation, replace it from current canonical contracts, then prove the rebuilt scope.",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "stages": [
     "resolveCurrentTruth",
-    "specialistWatchFleet",
-    "workflowAndAgentSkillAudit",
-    "tenPassHardAudit",
+    "freezeBoundedScope",
+    "snapshotRollbackAndKnownGood",
+    "buildContradictionGraph",
+    "designReplacementMap",
+    "tourniquetClamp",
+    "ripOutConflictingCandidateImplementation",
+    "replaceFromCanonicalContracts",
+    "rewireAgentSkillsWorkflowsAndAiLogic",
+    "targetedDeterministicTests",
+    "rerunFfsTwentyFivePass",
+    "rerunScorchedEarthFiftyPass",
     "fullSourceTruthAudit",
-    "witchingHourRepairLoop",
-    "rerunAffectedTiers",
     "finalSealCandidate",
     "professorCrown"
   ],
@@ -42,5 +48,32 @@
     "required": true,
     "greenAction": "reingestCurrentTruthAndContinue",
     "redAction": "rollbackOrNearestEvidenceBackedKnownGood"
+  },
+  "escalationContract": "doctrine/operationTitan7EscalationV1.json",
+  "tier": "finalForm",
+  "mode": "absoluteRipOutAndReplaceAudit",
+  "entry": {
+    "explicitInvocationAllowed": true,
+    "orderedEscalationPredecessor": "scorchedEarth",
+    "automaticEscalationWithoutPolicy": false
+  },
+  "replacementLaw": {
+    "candidateLaneOnly": true,
+    "reversibleUntilProfessorPromotion": true,
+    "exactSourceRefRequired": true,
+    "rollbackPlanRequired": true,
+    "knownGoodFallbackRequired": true,
+    "preserveUnsatisfiedGoals": true,
+    "mayNotRewriteHistory": true,
+    "mayNotDeleteGateToPass": true,
+    "mayNotConvertRedToUnknown": true,
+    "mayReplaceStaleImplementation": true,
+    "mayReplaceContradictoryDoctrineWithinFrozenScope": true
+  },
+  "verification": {
+    "ffsAudit": "tools/operationTitan7FfsTwentyFivePassAudit.py",
+    "scorchedEarthAudit": "tools/operationTitan7FiftyPassAudit.py",
+    "finalFormAudit": "tools/operationTitan7FinalFormAudit.py",
+    "fullSourceTruthAudit": "tools/fullSourceTruthAudit.py"
   }
 }
