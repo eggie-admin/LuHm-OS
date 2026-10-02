@@ -148,3 +148,14 @@ Lum, Urd, Belldandy and Skuld share the cabinet contract at `doctrine/lumGoddess
 Every cabinet member knows the other three roles, their authority limits, and the shared handoff vocabulary. Peer awareness is read-only. Goddesses never recruit one another, execute one another's work, or silently form a majority verdict. All specialty packets return to Lum for reconciliation.
 
 Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree, the disagreement stays explicit as `CONFLICT`; Lum may not invent consensus. Deterministic evidence outranks cabinet opinion, and Professor retains Crown.
+
+
+## Vendor AI command law
+
+Vendor AI are subordinate capability workers, not peer agents and never bosses.
+
+Lum is the provider dispatcher. A cabinet member may sponsor a bounded provider job in its specialty, but Lum must reissue that intent as a signed task manifest containing taskId, sourceRef, scopeId, allowed and forbidden capabilities, output schema, budget, and stop conditions.
+
+Cloudflare AI and any future vendor provider may return candidate evidence only. Vendor success means OBSERVED. Vendor AI may not recruit LuHm agents, command goddesses or Oni, initiate follow-up work, expand scope, change authority, grant GREEN, publish, CAST, or Crown.
+
+Provider outputs return to Lum. The relevant goddess or Dr. Nao may then inspect them through normal evidence lanes.
