@@ -2,12 +2,12 @@
 import json,hashlib
 from pathlib import Path
 root=Path(".")
-inv=json.loads((root/"doctrine/operationTitan7InvocationV1.json").read_text())
+inv=json.loads((root/"doctrine/operationTitan7InvocationV1.json").read_text())\nesc=json.loads((root/"doctrine/operationTitan7EscalationV1.json").read_text())\nscorched=esc["tiers"]["scorchedEarth"]
 checks=[]
 def add(name,ok,detail): checks.append({"pass":len(checks)+1,"name":name,"state":"GREEN" if ok else "RED","detail":detail})
 add("explicitInvocation",inv["defaultWorkflow"] is False,"Titan7 is not default")
 add("normalMesh",inv["normalWorkflow"]=="luhmAgentMesh","normal workflow preserved")
-add("requestedPasses",inv["passPolicy"]["requestedPasses"]==50,"50 requested")
+add("scorchedEarthTier",scorched["hardPasses"]==50 and scorched["mode"]=="sanestApproachSecondTierEscalation","50-pass second escalation")
 files=[
 "agents/shared/ONI_PROTOCOL_V2.md","agents/lum/SKILL.md","agents/goddessSharedSystemsPractice/SKILL.md",
 "agents/witchingHourCoding/SKILL.md","agents/tourniquetWorkflow/SKILL.md","agents/kugiToolOni/SKILL.md",
@@ -55,6 +55,6 @@ add("androidWorkflow",(root/".github/workflows/android-testing-build.yml").is_fi
 assert len(checks)==50, len(checks)
 reds=[x for x in checks if x["state"]=="RED"]
 out=root/"build/titan7-50pass/report.json";out.parent.mkdir(parents=True,exist_ok=True)
-out.write_text(json.dumps({"schema":"luhmOs.operationTitan7.50passReceipt.v1","executedPasses":len(checks),"green":len(checks)-len(reds),"red":len(reds),"passes":checks},indent=2)+"\n")
-print(json.dumps({"executedPasses":50,"red":len(reds),"redNames":[x["name"] for x in reds]}))
+out.write_text(json.dumps({"schema":"luhmOs.operationTitan7.scorchedEarth50PassReceipt.v1","tier":"scorchedEarth","executedPasses":len(checks),"green":len(checks)-len(reds),"red":len(reds),"passes":checks},indent=2)+"\n")
+print(json.dumps({"tier":"scorchedEarth","executedPasses":50,"red":len(reds),"redNames":[x["name"] for x in reds]}))
 raise SystemExit(2 if reds else 0)
