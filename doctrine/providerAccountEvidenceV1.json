@@ -1,0 +1,55 @@
+{
+  "schema": "luhmOs.providerAccountEvidence.v1",
+  "status": "observed",
+  "observedAt": "2026-10-02",
+  "evidencePolicy": "storeNonSecretAccountFactsOnly",
+  "providers": {
+    "googleAi": {
+      "accountState": "green",
+      "planState": "green",
+      "evidence": [
+        "googleOneGoogleAiProOnboardingObserved2026-09-02",
+        "googleOneGeminiAppGoogleAiProOnboardingObserved2026-09-07"
+      ],
+      "apiCredentialState": "unknown",
+      "apiEntitlementState": "unknown",
+      "note": "Consumer Google AI Pro plan evidence does not by itself prove Gemini Developer API credentials or paid API entitlement."
+    },
+    "cloudflare": {
+      "accountState": "green",
+      "zoneState": "green",
+      "evidence": [
+        "cloudflareAccountBillingObserved2026-09-30",
+        "eggiebagelfaceArtCloudflareZoneObservedActive"
+      ],
+      "workersAiEntitlementState": "unknown",
+      "apiCredentialState": "unknown",
+      "note": "Cloudflare account and zone evidence do not by themselves prove Workers AI API credential availability."
+    },
+    "openAi": {
+      "accountState": "green",
+      "projectTargetState": "green",
+      "evidence": [
+        "openAiPlatformTargetsObservedInConnectedPlatformTool"
+      ],
+      "directApiCredentialState": "unknownAtSource"
+    },
+    "huggingFace": {
+      "accountState": "green",
+      "connectorState": "green",
+      "jobsState": "green",
+      "discoveryState": "degraded"
+    },
+    "render": {
+      "accountState": "green",
+      "connectorState": "green",
+      "runtimeState": "green"
+    },
+    "github": {
+      "accountState": "green",
+      "connectorState": "green",
+      "compatibilityLayer": 2
+    }
+  },
+  "crownStatus": "stop"
+}
