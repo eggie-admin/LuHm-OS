@@ -1,0 +1,31 @@
+{
+  "schema": "luhmOs.projectHydraContinuousBuild.v1",
+  "status": "candidate",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Treat Project Hydra playable experience work as a first-class LuHm OS integration lane while preserving platform boundaries and the last evidence-backed CAST as fallback.",
+  "integrationContract": {
+    "platform": "LuHm OS provides the local-first cockpit, typed native boundary, deterministic evidence gates and agent/tool services.",
+    "application": "Project Hydra owns playable Godot worlds, Lum interaction, chat-driven presentation, four-layer parallax, randomFunDirector and Art Oni candidate presentation.",
+    "rule": "Integration may share tested interfaces; application presentation does not gain Crown, security, publication or evidence authority."
+  },
+  "continuousBuild": {
+    "enabled": true,
+    "stopOnlyFor": ["deterministicRedWithoutBoundedRepair", "ambiguousDestructiveChoice", "physicalActionRequiringProfessor", "ProfessorStop"],
+    "knownGoodFallback": "latestEvidenceBackedCAST"
+  },
+  "playableChain": ["chat", "Godot", "Lum", "worlds", "interaction", "parallax", "randomChaos", "ArtOni"],
+  "hardAudit": {
+    "passes": 20,
+    "eachPassRequiresExactSource": true,
+    "unknownIsNotGreen": true,
+    "passNames": ["canonicalSourceIdentity", "sourceTruthFreshness", "authorityAndCrown", "castSemantics", "namingAndPaths", "agentSkillBoundaries", "workflowPermissions", "actionPinning", "secretAndNetworkExposure", "rollbackAndKnownGood", "cockpitChatBoundary", "godotImport", "godotRuntimeSmoke", "worldNavigation", "lumInteraction", "parallaxRuntime", "randomFunDeterminism", "artOniCandidateBoundary", "assetProvenance", "androidArtifactAndPhysicalBoundary"]
+  },
+  "castBridge": "candidate -> hard20PassAudit -> exactHeadCi -> runtimeEvidence -> artifactEvidence -> evidenceReconcile -> ProfessorCrown -> CAST",
+  "claims": {
+    "currentCandidateGreen": false,
+    "currentCastPreserved": true,
+    "physicalInstallImplied": false,
+    "publicationImplied": false
+  }
+}
