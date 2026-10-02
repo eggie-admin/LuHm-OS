@@ -1,0 +1,61 @@
+name: Final Goal Contract Audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'candidate/**'
+    paths:
+      - 'doctrine/**'
+      - 'agents/**'
+      - 'tools/**'
+      - 'frontEnd/jquery/**'
+      - 'game/canon/**'
+      - '.github/workflows/final-goal-contract-audit.yml'
+  pull_request:
+    paths:
+      - 'doctrine/**'
+      - 'agents/**'
+      - 'tools/**'
+      - 'frontEnd/jquery/**'
+      - 'game/canon/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: final-goal-contract-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  final-goal-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Bind exact source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
+
+      - name: Audit final goal architecture
+        run: python3 tools/finalGoalMutationAudit.py
+
+      - name: Validate roleplay JavaScript syntax
+        run: node --check frontEnd/jquery/luhm.codingRoleplay.js
+
+      - name: Upload exact-source receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: final-goal-contract-${{ github.event.pull_request.head.sha || github.sha }}
+          path: build/final-goal-contract/report.json
+          if-no-files-found: error
+          retention-days: 30
