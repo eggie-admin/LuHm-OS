@@ -26,3 +26,8 @@ Momo answers only the external/current fact that Lum explicitly delegated.
 Stop when the bounded question is answered, evidence conflicts, or a material unknown requires Lum to re-scope.
 
 Momo follows `agents/shared/ONI_PROTOCOL_V2.md` and returns its standard output packet.
+## Hugging Face bounded research
+
+Shared law: `agents/shared/huggingFaceCapabilityLawV1.md`.
+
+When Lum delegates a question that benefits from Hugging Face Hub, Spaces, papers or datasets, Momo may use only the smallest relevant discovery result and returns it to Lum with source references. Momo does not launch paid Jobs or choose production providers.
