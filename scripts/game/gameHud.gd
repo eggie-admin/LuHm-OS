@@ -2,6 +2,8 @@ extends CanvasLayer
 
 signal world_requested
 signal backend_requested
+signal world_destination_requested(worldId: String)
+signal lum_talk_requested
 signal move_axis_changed(axis: Vector2)
 
 const GAME_DOCTRINE_PATH := "res://doctrine/GODOT4_GAME_SOURCE_V1.json"
@@ -18,6 +20,8 @@ var _scroll: ScrollContainer
 var _panel: VBoxContainer
 var _back: Button
 var _hint: Label
+var _world_buttons: Array[Button] = []
+var _talk: Button
 var _audit_switch: CheckButton
 var _audit_panel: Label
 var _pads: Array[Button] = []
@@ -115,6 +119,19 @@ func _build_world_hud() -> void:
         button.button_up.connect(func(): _set_touch_axis(Vector2.ZERO))
         world_root.add_child(button)
         _pads.append(button)
+    var destinations := [["RIVERWALK", "neonRiverwalk"], ["CATHEDRAL", "cathedral"], ["COFFEE HOUSE", "lumCoffeeHouse"]]
+    for destination in destinations:
+        var world_button := Button.new()
+        world_button.text = destination[0]
+        world_button.focus_mode = Control.FOCUS_NONE
+        world_button.pressed.connect(func(): world_destination_requested.emit(destination[1]))
+        world_root.add_child(world_button)
+        _world_buttons.append(world_button)
+    _talk = Button.new()
+    _talk.text = "TALK TO LUM"
+    _talk.focus_mode = Control.FOCUS_NONE
+    _talk.pressed.connect(func(): lum_talk_requested.emit())
+    world_root.add_child(_talk)
     _hint = _label("DRAG RIGHT\nCAMERA", 20)
     world_root.add_child(_hint)
 
@@ -218,11 +235,18 @@ func apply_layout(view_size: Vector2, safe: Rect2) -> void:
         _pads[i].size = Vector2(80, 80)
     dialogue_label.position = Vector2(area.position.x, area.end.y - 320)
     dialogue_label.size = Vector2(area.size.x, 128)
+    var world_width := minf(150.0, maxf((area.size.x - 24.0) / 4.0, 92.0))
+    for i in range(_world_buttons.size()):
+        _world_buttons[i].position = area.position + Vector2(i * (world_width + 6.0), 78)
+        _world_buttons[i].size = Vector2(world_width, 62)
+    _talk.position = area.position + Vector2(0, 146)
+    _talk.size = Vector2(world_width * 1.6, 62)
     _hint.position = Vector2(area.end.x - 210, area.end.y - 96)
     _hint.size = Vector2(210, 88)
 
 func layout_controls() -> Array[Control]:
-    var result: Array[Control] = [_back, status_label, dialogue_label, _hint]
+    var result: Array[Control] = [_back, status_label, dialogue_label, _hint, _talk]
+    result.append_array(_world_buttons)
     for button in _pads:
         result.append(button)
     return result

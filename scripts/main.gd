@@ -52,6 +52,8 @@ func _build_runtime() -> void:
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
     game_hud.backend_requested.connect(_enter_backend)
+    game_hud.world_destination_requested.connect(switchWorld)
+    game_hud.lum_talk_requested.connect(game_hud.show_dialogue.bind("Lum: Pick a door, Professor. Coffee is hot; architecture is questionable. ♡"))
     game_hud.move_axis_changed.connect(player_controller.set_touch_axis)
 
 func _wire_android_web3() -> void:
