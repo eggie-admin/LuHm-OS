@@ -6,7 +6,7 @@
   "created": "2026-09-25",
   "authority": "Professor",
   "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
-  "milestone": "Cathedral -> World Mode -> native Godot 3D -> movement -> Cathedral",
+  "milestone": "Android Web3 Cockpit -> packaged WebView shell -> typed Godot world/system boundary -> Samsung device proof",
   "android": {
     "contract": "doctrine/androidCandidate.json",
     "production_signer": false,
@@ -61,7 +61,9 @@
     "physicalS24FeProof": "PENDING",
     "runtimeAuthority": false,
     "releaseAuthority": false,
-    "publicationAuthority": false
+    "publicationAuthority": false,
+    "historicalOnly": true,
+    "supersededBy": "doctrine/ANDROID_WEB3_COCKPIT_SWITCH_V1.json"
   },
   "installPortal": {
     "receipt": "doctrine/fqdnInstallPortal-20260926.json",
@@ -163,5 +165,25 @@
     "proof": "doctrine/CURRENT_MAIN_SOURCE_TRUTH_GREEN_20260930.json",
     "snapshot": "doctrine/PRE_GREEN_SNAPSHOT_20260930.json",
     "preserved": "Lum/Oni fail-closed orchestration is canonical on main; documentation workflow, S24 FE cockpit switch, and LAN install bundle remain preserved as historical evidence; broader Android and release state remain AMBER; physical device proof, LAN DNS, Apache serving, persistent update signing, enterprise readiness, public exposure, server-side branch governance, and explicit Professor promotion remain separate evidence or Crown gates"
+  },
+  "androidWeb3Cockpit": {
+    "contract": "doctrine/ANDROID_WEB3_COCKPIT_SWITCH_V1.json",
+    "status": "AMBER_ANDROID_WEB3_COCKPIT_WRAPPER_DEVICE_PROOF_PENDING",
+    "milestoneCodename": "androidWeb3Cockpit",
+    "runtime": "Android System WebView",
+    "frontEnd": "frontEnd/index.html",
+    "godotRole": "scene/game engine and native world/system layer behind typed boundary",
+    "webViewWrapper": "PENDING_IMPLEMENTATION",
+    "webViewAssetLoader": "PENDING_IMPLEMENTATION",
+    "physicalSamsungProof": "PENDING",
+    "installedWebViewVersion": "UNKNOWN",
+    "remoteContentDefault": "FORBIDDEN",
+    "arbitraryNavigation": "FORBIDDEN",
+    "shellAuthority": false,
+    "runtimeMutationAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false,
+    "crownStatus": "STOP"
   }
 }
