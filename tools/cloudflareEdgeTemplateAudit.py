@@ -30,4 +30,12 @@ assert '{ cache: "no-store", credentials: "same-origin" }' in resolver
 app=Path("frontEnd/app.js").read_text()
 assert "LuHmStaticService.load()" in app
 assert "LuHmAssets" in app
+asset_manifest=json.loads(Path("frontEnd/assets/v1/manifest.json").read_text())
+assert asset_manifest["schema"]=="luhmOs.staticAssetManifest.v1"
+assert asset_manifest["remoteAuthority"] is False
+for asset in asset_manifest["assets"]:
+    path=Path("frontEnd") / asset["path"]
+    assert path.is_file(), "RED_STATIC_ASSET_MISSING"
+    assert ".." not in Path(asset["path"]).parts
+    assert asset["provenance"]=="originalLuHmOs"
 print("CLOUDFLARE EDGE TEMPLATE GREEN")
