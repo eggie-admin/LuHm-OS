@@ -30,6 +30,7 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <div class="card"><div class="k">authority</div><div class="v amber">READ ONLY · Crown stays human</div></div>
 <div class="card"><div class="k">oni roster</div><div class="v cyan" id="roster">loading…</div></div>
 <div class="card"><div class="k">godot web</div><div class="v" id="godot">Full harness owns the Godot 4 viewer.</div></div>
+<div class="card"><div class="k">yume art oni</div><div class="v cyan" id="yume">loading beta…</div></div>
 </section>
 <footer id="foot">UI never grants GREEN, signing, merge, or publication authority.</footer>
 </main>
@@ -43,10 +44,12 @@ function render(data){
   const roles=payload?.roster?.roles||[];
   $("roster").textContent=roles.length?roles.slice(0,5).map(x=>x.name).join(" · ")+(roles.length>5?" · …":""):"UNKNOWN";
   const origin=payload?.harness?.publicOrigin;
-  if(origin&&origin!=="LOCAL_ONLY") $("foot").textContent=`Full harness: ${origin}/harness/ · read-only`;
+  const yume=payload?.yume;
+  $("yume").textContent=yume?.status==="betaPlay"?"Yume beta · tap app for art booth":"UNKNOWN";
+  if(origin&&origin!=="LOCAL_ONLY") $("foot").textContent=`Open full Yume cockpit: ${origin}/cockpit/ · beta`;
   const openai=window.openai;
   if(openai?.setOpenInAppUrl&&origin&&origin!=="LOCAL_ONLY"){
-    openai.setOpenInAppUrl({href:origin+"/harness/"});
+    openai.setOpenInAppUrl({href:origin+"/cockpit/"});
   }
 }
 function request(method,params){const id=++rpcId;window.parent.postMessage({jsonrpc:"2.0",id,method,params},"*");return new Promise((resolve,reject)=>pending.set(id,{resolve,reject}))}
