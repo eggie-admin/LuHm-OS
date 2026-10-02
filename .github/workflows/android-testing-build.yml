@@ -1,29 +1,37 @@
-name: LuHm OS Universal Samsung Candidate
+name: LuHm OS Android Web3 GitHub Prerelease Candidate
 
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - 'project.godot'
-      - 'export_presets.cfg'
-      - 'scripts/**'
-      - 'scenes/**'
-      - 'assets/**'
-      - 'cutscenes/**'
-      - 'tests/**'
-      - 'tools/candidateGate.py'
-      - 'tools/runGodotSmoke.py'
-      - 'tools/stageInstallPortal.py'
-      - 'doctrine/androidCandidate.json'
-      - 'doctrine/fqdnInstallPortal-20260926.json'
-      - 'frontEnd/**'
-      - 'installPortal/**'
-      - '.github/workflows/android-testing-build.yml'
-      - '.github/workflows/lumrigv2-phase1.yml'
+    inputs:
+      cast:
+        description: "Exact Professor build authorization word"
+        required: true
+        type: string
+      milestoneId:
+        description: "Exact build milestone ID"
+        required: true
+        type: string
+      taskId:
+        description: "Exact Forge task ID"
+        required: true
+        type: string
+      sourceRef:
+        description: "Exact commit SHA to build"
+        required: true
+        type: string
+      releaseTag:
+        description: "GitHub prerelease tag, for example android-web3-0.1.0-rc1"
+        required: true
+        type: string
+      publishPrerelease:
+        description: "Publish exact built APK + SHA256 as a GitHub prerelease"
+        required: true
+        type: boolean
+        default: true
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ inputs.milestoneId }}-${{ inputs.sourceRef }}
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -33,10 +41,31 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Checkout exact CAST source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ inputs.sourceRef }}
+
+      - name: CAST gate
+        shell: bash
+        env:
+          CAST_WORD: ${{ inputs.cast }}
+          MILESTONE_ID: ${{ inputs.milestoneId }}
+          TASK_ID: ${{ inputs.taskId }}
+          SOURCE_REF: ${{ inputs.sourceRef }}
+        run: |
+          set -euo pipefail
+          ACTUAL_REF="$(git rev-parse HEAD)"
+          python3 tools/forgeCastGate.py \
+            --cast-word "$CAST_WORD" \
+            --milestone-id "$MILESTONE_ID" \
+            --task-id "$TASK_ID" \
+            --source-ref "$SOURCE_REF" \
+            --actual-source-ref "$ACTUAL_REF" \
+            --build-scope 'android-testing-apk' \
+            --actor "$GITHUB_ACTOR" \
+            --receipt "$RUNNER_TEMP/forge-cast-receipt.json"
 
       - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
         with:
@@ -50,6 +79,24 @@ jobs:
           SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
           yes | "$SDKMANAGER" --licenses >/dev/null || true
           "$SDKMANAGER" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
+
+      - name: Build Android Web3 cockpit plugin from exact CAST source
+        shell: bash
+        run: |
+          set -euo pipefail
+          GRADLE_ZIP="$RUNNER_TEMP/gradle-8.13-bin.zip"
+          curl -fL --retry 5 -o "$GRADLE_ZIP" \
+            https://services.gradle.org/distributions/gradle-8.13-bin.zip
+          echo '20f1b1176237254a6fc204d8434196fa11a4cfb387567519c61556e8710aed78  '"$GRADLE_ZIP" | sha256sum -c -
+          unzip -q "$GRADLE_ZIP" -d "$RUNNER_TEMP"
+          "$RUNNER_TEMP/gradle-8.13/bin/gradle" --no-daemon -p androidWeb3Plugin :plugin:assemble
+          test -s addons/AndroidWeb3Cockpit/bin/debug/AndroidWeb3Cockpit-debug.aar
+          test -s addons/AndroidWeb3Cockpit/bin/release/AndroidWeb3Cockpit-release.aar
+          mkdir -p build/android-web3
+          sha256sum \
+            addons/AndroidWeb3Cockpit/bin/debug/AndroidWeb3Cockpit-debug.aar \
+            addons/AndroidWeb3Cockpit/bin/release/AndroidWeb3Cockpit-release.aar \
+            | tee build/android-web3/aar-sha256.txt
 
       - name: Install Godot 4.7.2 + templates
         shell: bash
@@ -200,7 +247,7 @@ jobs:
       - name: Verify Drive-3D testing APK
         shell: bash
         env:
-          CANDIDATE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+          CANDIDATE_HEAD: ${{ inputs.sourceRef }}
         run: |
           set -euo pipefail
           APK=build/android/luhmos-1.0.16-samsunglayout.1.apk
@@ -212,32 +259,91 @@ jobs:
           "$BT/aapt" dump xmltree "$APK" AndroidManifest.xml > build/android/manifest.txt
           python3 tools/candidateGate.py --apk "$APK"
 
-      - name: Stage private LAN install bundle
+
+      - name: Prepare GitHub Release assets
         shell: bash
         env:
-          CANDIDATE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+          RELEASE_TAG: ${{ inputs.releaseTag }}
         run: |
           set -euo pipefail
-          python3 tools/stageInstallPortal.py \
-            --apk build/android/luhmos-1.0.16-samsunglayout.1.apk \
-            --out build/installPortal \
-            --commit "$CANDIDATE_HEAD"
-          test -s build/installPortal/index.html
-          test -s build/installPortal/manifest.json
-          test -s build/installPortal/apk/current.apk
-          python3 -m json.tool build/installPortal/manifest.json >/dev/null
-          (cd build/installPortal && sha256sum -c SHA256SUMS.txt)
+          python3 - <<'PY'
+          import os, re
+          tag = os.environ["RELEASE_TAG"]
+          if not re.fullmatch(r"[A-Za-z0-9._-]+", tag):
+              raise SystemExit("invalid releaseTag: use only A-Z a-z 0-9 . _ -")
+          PY
+          SRC=build/android/luhmos-1.0.16-samsunglayout.1.apk
+          NAME="LuHmOS-AndroidWeb3-${RELEASE_TAG}-arm64-v8a.apk"
+          mkdir -p build/github-release
+          cp "$SRC" "build/github-release/$NAME"
+          (
+            cd build/github-release
+            sha256sum "$NAME" > "$NAME.sha256"
+            sha256sum -c "$NAME.sha256"
+          )
+
+      - name: Upload GitHub Release asset bundle
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-os-github-release-assets-${{ inputs.milestoneId }}
+          path: build/github-release/
+          if-no-files-found: error
+          retention-days: 3
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: luhm-os-universal-samsung-amber-apk
+          name: luhm-os-universal-samsung-cast-${{ inputs.milestoneId }}
           path: build/android/
           if-no-files-found: error
-          retention-days: 30
+          retention-days: 3
 
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - name: Preserve CAST receipt in workflow log
+        if: always()
+        shell: bash
+        run: |
+          if test -s "$RUNNER_TEMP/forge-cast-receipt.json"; then
+            python3 -m json.tool "$RUNNER_TEMP/forge-cast-receipt.json"
+          fi
+
+
+  publish-prerelease:
+    if: ${{ inputs.publishPrerelease }}
+    needs: android-testing
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Download exact release asset bundle
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
-          name: luhm-os-s24fe-lan-install-bundle
-          path: build/installPortal/
-          if-no-files-found: error
-          retention-days: 30
+          name: luhm-os-github-release-assets-${{ inputs.milestoneId }}
+          path: release-assets
+
+      - name: Verify release asset checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd release-assets
+          test "$(find . -maxdepth 1 -type f -name '*.apk' | wc -l)" -eq 1
+          test "$(find . -maxdepth 1 -type f -name '*.apk.sha256' | wc -l)" -eq 1
+          sha256sum -c ./*.apk.sha256
+
+      - name: Publish immutable GitHub prerelease
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.releaseTag }}
+          SOURCE_REF: ${{ inputs.sourceRef }}
+        run: |
+          set -euo pipefail
+          command -v gh >/dev/null
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "release tag already exists; refusing overwrite" >&2
+            exit 2
+          fi
+          APK="$(find release-assets -maxdepth 1 -type f -name '*.apk' -print -quit)"
+          SHA="${APK}.sha256"
+          test -s "$APK"
+          test -s "$SHA"
+          gh release create "$RELEASE_TAG"             "$APK"             "$SHA"             --repo "$GITHUB_REPOSITORY"             --target "$SOURCE_REF"             --prerelease             --title "LuHm OS Android Web3 $RELEASE_TAG"             --notes "Professor-authorized LuHm OS Android Web3 testing prerelease. Exact source: $SOURCE_REF. Disposable testing signer. Intended for rooted virgin-install testing; not a stable or production-signed release."

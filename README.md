@@ -4,9 +4,13 @@ Canonical repository: `eggie-admin/LuHm-OS`.
 
 This main line is the clean playable LuHm OS spine. The old Hydra/KAI/Vue/Termux repositories remain migration references, not runtime authorities.
 
-## Play milestone
+## Active milestone
 
-`CATHEDRAL -> WORLD MODE -> native Godot 3D -> move on phone -> CATHEDRAL`
+`ANDROID WEB3 COCKPIT -> packaged Android System WebView shell -> typed Godot world/system boundary -> Samsung device proof`
+
+`androidWeb3Cockpit` is a LuHm project codename. It means a hardened Android System WebView cockpit. It is not blockchain/Web3 and does not claim a Google product or WebView version named "Android Web 3".
+
+The prior native Godot Cathedral cockpit remains preserved as historical proof and as the scene/game engine boundary behind the new user-facing cockpit.
 
 The current playable source is intentionally small:
 
@@ -30,13 +34,13 @@ The approved front-end direction is sealed under `frontEnd/`:
 - one explicit backend/system-layer entry point
 - quarantined jQuery plugin-ingest bay for audited community modules
 
-`frontEnd/` is a browser prototype and design contract. It does not replace the canonical native Godot playable runtime yet, and it contains no privileged backend authority.
+`frontEnd/` is now the **candidate user-facing cockpit surface** for the Android Web3 milestone. The Android WebView wrapper and device proof are still pending, so this does not claim deployed/runtime GREEN. The front end remains non-privileged; Godot keeps scene/game authority behind a narrow typed boundary.
 
 ## Android candidate: one Samsung build
 
 The proposed build contract is `doctrine/androidCandidate.json`. One workflow,
 `android-testing-build.yml`, exports the same ARM64 APK for S24 FE and SM-X400.
-Both pinned Lum models are ingested before compilation; the browser front end remains a prototype.
+Both pinned Lum models are ingested before compilation; the Android Web3 cockpit remains a no-build candidate until an explicit CAST build is separately authorized.
 
 - package: `art.eggiebagelface.luhmos.testing`
 - version: `1.0.16-samsunglayout.1` / code `116`

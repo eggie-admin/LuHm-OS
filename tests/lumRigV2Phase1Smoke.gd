@@ -24,6 +24,8 @@ func _run() -> void:
 
     _check(avatar.get_node_or_null("AnimationTree") is AnimationTree, "AnimationTree wrapper exists")
     _check(avatar.get_node_or_null("LookTarget") is Node3D, "LookTarget exists")
+    var initial_marker: Node3D = avatar.get_node_or_null("LookTarget") as Node3D
+    _check(initial_marker != null and initial_marker.top_level, "LookTarget is world-space independent")
     _check(bool(avatar.call("uses_external_model")), "Drive Lum GLB loaded")
 
     var summary: Dictionary = avatar.call("get_rig_summary") as Dictionary

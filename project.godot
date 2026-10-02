@@ -22,3 +22,8 @@ textures/default_filters/use_nearest_mipmap_filter=false
 textures/vram_compression/import_etc2_astc=true
 
 audio/driver/enable_input=false
+
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AndroidWeb3Cockpit/plugin.cfg")
