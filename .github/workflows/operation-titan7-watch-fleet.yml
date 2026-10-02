@@ -55,6 +55,8 @@ jobs:
           python3 tools/fqdnReverseProxyBoundaryAudit.py
           python3 tools/reverseProxyServiceMapAudit.py
           python3 tools/networkContractReconcile.py
+      - name: Asset castBridge contract
+        run: python3 tools/assetCastBridgeAudit.py
       - name: Static CDN and vendor boundaries
         run: |
           python3 tools/cloudflareEdgeTemplateAudit.py
