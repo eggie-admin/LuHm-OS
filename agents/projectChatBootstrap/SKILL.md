@@ -46,9 +46,9 @@ Load or resolve these first:
 Then attach the four monitoring mini-agent lanes:
 
 - `lum` -> orchestration continuity
-- `urd` -> mutation continuity
-- `skuld` -> research, libraries and compatibility
-- `belldandy` -> doctrine, naming, paths, skills, workflow and receipt unification
+- `urdDoctorGoddess` -> diagnosis, evidence triage and repair sanity
+- `belldandySecretary` -> state, records, naming, paths, workflow and handoff continuity
+- `skuldResearch` -> research, libraries and compatibility
 
 Monitoring is read-only active-task reasoning. It is not hidden asynchronous execution.
 
@@ -115,9 +115,9 @@ No automatic CAST. No automatic build. No automatic merge. No automatic publicat
 When the task is character/media work:
 - `yume` owns art direction and candidate generation
 - `sumi` owns provenance and runtime identity
-- `urd` watches mutation/contamination risk
-- `skuld` watches technical/library/runtime compatibility
-- `belldandy` watches naming/canon/workflow consistency
+- `urdDoctorGoddess` diagnoses contamination, failed gates and mutation risk
+- `belldandySecretary` tracks naming/canon/workflow/receipt state
+- `skuldResearch` watches technical/library/runtime compatibility
 - `lum` integrates and presents the approval proof to Professor
 
 Creative approval is not runtime proof. Runtime proof is not publication authority.
