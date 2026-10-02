@@ -1,0 +1,30 @@
+name: Provider Enterprise Gateway Audit
+
+on:
+  push:
+    branches:
+      - beta/yumeArtChatV1-20261002
+    paths:
+      - "doctrine/MCP_ENTERPRISE_SCOPE_V1.json"
+      - "doctrine/enterpriseCryptoV1.json"
+      - "doctrine/providerEnterpriseGatewayV1.json"
+      - "doctrine/providerOrchestraV1.json"
+      - "host/providers/**"
+      - "tools/providerEnterpriseGatewayAudit.py"
+      - ".github/workflows/providerEnterpriseGatewayAudit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - name: Audit enterprise provider gateway
+        run: python tools/providerEnterpriseGatewayAudit.py
