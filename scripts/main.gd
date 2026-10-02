@@ -5,6 +5,8 @@ const PlayerControllerScript := preload("res://scripts/game/playerController.gd"
 const GameHudScript := preload("res://scripts/game/gameHud.gd")
 const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
 const CutsceneBridgeScript := preload("res://scripts/game/cutsceneBridge.gd")
+const CharacterRosterScript := preload("res://scripts/game/characterRoster.gd")
+const Titan7MilestoneScript := preload("res://scripts/game/titan7Milestone.gd")
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
 
 var neon_world: Node3D
@@ -12,6 +14,8 @@ var player_controller: CharacterBody3D
 var game_hud: CanvasLayer
 var cutscene_director: Node
 var cutscene_bridge: Node
+var character_roster: Node
+var titan7_milestone: CanvasLayer
 var intro_played := false
 var android_web3_plugin = null
 var android_web3_version := "unavailable"
@@ -44,6 +48,14 @@ func _build_runtime() -> void:
     cutscene_bridge.name = "CutsceneBridge"
     add_child(cutscene_bridge)
     cutscene_bridge.configure(cutscene_director, player_controller, neon_world, game_hud)
+
+    character_roster = CharacterRosterScript.new()
+    character_roster.name = "CharacterRoster"
+    add_child(character_roster)
+
+    titan7_milestone = Titan7MilestoneScript.new()
+    titan7_milestone.name = "Titan7Milestone"
+    add_child(titan7_milestone)
 
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
