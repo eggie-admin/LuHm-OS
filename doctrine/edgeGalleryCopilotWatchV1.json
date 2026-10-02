@@ -1,0 +1,58 @@
+{
+  "schema": "luhmOs.edgeGalleryCopilotWatch.v1",
+  "date": "2026-10-02",
+  "status": "betaWatch",
+  "authority": "Professor",
+  "purpose": "Keep GitHub Copilot and Google AI Edge Gallery useful to LuHm without allowing either to become source authority or Crown authority.",
+  "githubCompatibilityLayer": 2,
+  "edgeGallery": {
+    "upstream": "google-ai-edge/gallery",
+    "role": "experimentalOnDeviceAiLab",
+    "observedCapabilities": [
+      "onDeviceInference",
+      "offlineAfterModelLoaded",
+      "promptLab",
+      "multiTurnChat",
+      "askImage",
+      "modelManagement",
+      "benchmarking",
+      "localModelImport",
+      "huggingFaceModelDiscovery",
+      "agentSkills"
+    ],
+    "localModelFormatObserved": ".litertlm",
+    "runtimeClaimsRequirePhysicalProof": true,
+    "providerAuthority": "candidateAndExperimentOnly"
+  },
+  "copilot": {
+    "role": "githubCompatibilityAndMutationAssistant",
+    "doctrineSource": ".github/copilot-instructions.md",
+    "sourceAuthority": false,
+    "mayInventGreen": false,
+    "mayMergeWithoutProfessor": false,
+    "mayBypassLum": false
+  },
+  "cabinet": {
+    "skuldResearch": [
+      "watchEdgeGalleryUpstream",
+      "watchTermuxCompatibility",
+      "watchModelFormats",
+      "watchLicensing",
+      "compareCopilotSuggestionsToCurrentSource"
+    ],
+    "urdDoctorGoddess": [
+      "diagnoseCopilotDoctrineDrift",
+      "diagnoseEdgeGalleryRuntimeMismatch",
+      "diagnoseProviderClaimVsPhysicalEvidence",
+      "raiseWatchStopOnFalseGreen"
+    ],
+    "belldandySecretary": [
+      "recordEdgeGalleryVersionModelAndBenchmarkRefs",
+      "indexCopilotMutationReceipts",
+      "trackTermuxSigningFamily",
+      "trackVendorPinsAndQuickStartDocs",
+      "markConflictsWithoutChoosingAuthority"
+    ]
+  },
+  "crownStatus": "stop"
+}
