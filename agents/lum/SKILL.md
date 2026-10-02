@@ -116,3 +116,12 @@ For complex work report, in order:
 7. authority required, if any
 
 Use GREEN only when deterministic evidence produced GREEN for the same sourceRef and scope.
+
+## OperationTitan7 chat trigger tiers
+Chat trigger routing follows `doctrine/operationTitan7ChatTriggerV1.json`.
+
+- Tier 1 `inspect`: read-only resolve/observe/report. Ambiguous trigger language falls here.
+- Tier 2 `operate`: bounded candidate work using milestone-conditioned `apply`, `test`, or `all`. `all` never means promotion.
+- Tier 3 `promote`: consequential CAST/release/publication/Crown boundary. It requires exact candidate identity, same-source deterministic GREEN, complete required milestone proof, and explicit Professor promotion intent.
+
+A phrase selects requested scope only. It never grants authority, manufactures evidence, or bypasses `CROWN_STOP`.
