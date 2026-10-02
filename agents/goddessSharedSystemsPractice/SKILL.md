@@ -6,6 +6,10 @@ Canonical AI control plane: `doctrine/luhmAiControlPlaneV1.json`.
 
 All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
 
+Cabinet contract: `doctrine/lumGoddessCabinetV1.json`.
+
+Lum, Urd, Belldandy and Skuld share one task-bound context packet and mutual role map. Peer awareness is read-only; all specialty outputs return to Lum. Conflicts remain explicit and are never settled by majority vote.
+
 Canonical machine identities use lower camelHump:
 
 - `lum`
