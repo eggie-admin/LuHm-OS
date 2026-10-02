@@ -17,6 +17,7 @@
         <button class="navItem" type="button" data-view="library">Library</button>
         <button class="navItem" type="button" data-view="memories">Memories</button>
         <button class="navItem" type="button" data-luhm-factory-button>Factory</button>
+        <button class="navItem" type="button" data-yume-open>Yume</button>
       </nav>
       <div class="systemTray" aria-label="System indicators">
         <span title="local-first">⌂</span><span title="audio">◖))</span><time data-luhm-clock>--:--</time>
@@ -27,7 +28,7 @@
     <section class="scene" aria-label="Lum companion scene">
       <div class="lumViewport" data-luhm-lum-viewport aria-label="3D Lum renderer mount"><span class="viewportLabel">LUM / GODOT SCENE BOUNDARY</span></div>
       <div class="sceneShade" aria-hidden="true"></div>
-      <div class="sceneStatus" aria-live="polite"><span class="onlineDot" aria-hidden="true"></span><span>LuHm Android Web3 cockpit · candidate</span></div>
+      <div class="sceneStatus" aria-live="polite"><span class="onlineDot" aria-hidden="true"></span><span>LuHm Android Web3 cockpit · beta art-play</span></div>
     </section>
 
     <section class="chatDock" aria-label="Chat with Lum" data-luhm-chat>
@@ -54,7 +55,7 @@
           <button type="button" data-luhm-factory-close>Close</button>
         </div>
         <div class="assetFactoryGrid">
-          <article><small>factory status</small><strong data-factory-status>candidateReview</strong><span>No automatic canon promotion.</span></article>
+          <article><small>factory status</small><strong data-factory-status>betaPlay</strong><span>Playable beta. Canon still requires Professor approval.</span></article>
           <article><small>generation queue</small><strong data-factory-queue>0 active</strong><span>Maximum 3 generation jobs.</span></article>
           <article><small>candidate review</small><strong data-factory-review>Professor gated</strong><span>Yume + Sumi receipts required.</span></article>
           <article><small>provider lanes</small><strong data-factory-providers>localHydra · googleAi · edgeGallery</strong><span>Google features verified before use.</span></article>
@@ -65,13 +66,82 @@
       </div>
     </aside>
 
+
+    <aside class="yumeBooth" hidden data-yume-booth aria-label="Yume Art Oni beta booth">
+      <div class="yumeBackdrop yumeBackdropFar" aria-hidden="true"></div>
+      <div class="yumeBackdrop yumeBackdropNear" aria-hidden="true"></div>
+      <section class="yumeBoothShell">
+        <header class="yumeBoothHead">
+          <div>
+            <small>YUME // ART ONI BETA</small>
+            <h2>Cut, paste, argue, make it cooler.</h2>
+          </div>
+          <button type="button" data-yume-close>Close</button>
+        </header>
+
+        <blockquote class="yumeQuote">“Give me the ugly version first. We can make it beautiful after we know what the hell it is.”</blockquote>
+
+        <div class="yumeModes" aria-label="Art direction modes">
+          <button type="button" data-yume-mode="artDirectionJam">art jam</button>
+          <button type="button" data-yume-mode="silhouettePass">silhouette</button>
+          <button type="button" data-yume-mode="palettePass">palette</button>
+          <button type="button" data-yume-mode="shotBoard">shot board</button>
+          <button type="button" data-yume-mode="cutsceneBoard">cutscene</button>
+          <button type="button" data-yume-mode="spriteDerivation">sprites</button>
+          <button type="button" data-yume-mode="lowPolyDerivation">low poly</button>
+        </div>
+
+        <div class="yumeBoard">
+          <article>
+            <small>active mode</small>
+            <strong data-yume-active-mode>artDirectionJam</strong>
+            <span>Talk composition, silhouette, palette, materials, edit rhythm and production reality.</span>
+          </article>
+          <article>
+            <small>cinematic lane</small>
+            <strong>high-detail video</strong>
+            <span>Big Brother / Google AI may generate candidates only when entitlement is actually available.</span>
+          </article>
+          <article>
+            <small>engine lane</small>
+            <strong>Godot 4 playback</strong>
+            <span>Timeline, transitions, branching, cutscene state and return-to-field handoff.</span>
+          </article>
+          <article>
+            <small>field lane</small>
+            <strong>sprites + low poly</strong>
+            <span>Separate approved derivations tied to the same sceneId.</span>
+          </article>
+        </div>
+
+        <div class="providerStrip" aria-label="Provider orchestra">
+          <span class="isObserved">OpenAI platform</span>
+          <span class="isObserved">GitHub / Copilot</span>
+          <span class="isObserved">Render</span>
+          <span class="isObserved">Hugging Face</span>
+          <span class="isAmber">Cloudflare configured</span>
+          <span class="isAmber">Big Brother entitlement unverified</span>
+        </div>
+
+        <div class="yumeActions">
+          <button type="button" data-yume-cutscene>🎬 build cutscene packet</button>
+          <button type="button" data-yume-reject data-proof-id="currentProof">🗑 reject current proof</button>
+        </div>
+
+        <footer class="yumeFooter">
+          Lum conducts · Yume art-directs · Urd diagnoses · Belldandy keeps the ledger · Sumi guards provenance
+        </footer>
+      </section>
+    </aside>
+
     <div class="appMenu" hidden data-luhm-menu>
-      <button type="button" data-view="chat">Chat</button><button type="button" data-view="library">Library</button><button type="button" data-view="memories">Memories</button><button type="button" data-luhm-factory-button>Media Factory</button><hr><button type="button" data-luhm-backend-button>Godot World Layer</button>
+      <button type="button" data-view="chat">Chat</button><button type="button" data-view="library">Library</button><button type="button" data-view="memories">Memories</button><button type="button" data-luhm-factory-button>Media Factory</button><button type="button" data-yume-open>Yume Art Booth</button><hr><button type="button" data-luhm-backend-button>Godot World Layer</button>
     </div>
   </main>
 
   <script src="./vendor/jquery-3.7.1.min.js"></script>
   <script src="./jquery/luhm.cockpit.js"></script>
+  <script src="./jquery/luhmYumeBooth.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
