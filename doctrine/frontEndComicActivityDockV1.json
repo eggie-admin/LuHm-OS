@@ -1,0 +1,81 @@
+{
+  "schema": "luhmOs.frontEndComicActivityDock.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Render quick comic-book-style observed AI/tool/build status inside the LuHm cockpit without implying hidden background work or execution authority.",
+  "source": "frontEnd/jquery/luhmActivityDock.js",
+  "mount": "[data-luhm-activity-dock]",
+  "displayLaw": {
+    "observedReceiptsOnly": true,
+    "hiddenAsyncImplied": false,
+    "successIsGreen": false,
+    "unknownIsNotGreen": true,
+    "deterministicRedBeatsVisualState": true,
+    "crownStatusVisible": true,
+    "rawSecretsVisible": false,
+    "rawPrivateDriveIdsVisible": false
+  },
+  "panels": [
+    "NOW",
+    "CHECK",
+    "RECEIPT",
+    "CROWN"
+  ],
+  "defaultLanes": [
+    {
+      "id": "lum",
+      "role": "boss"
+    },
+    {
+      "id": "urdDoctorGoddess",
+      "role": "doctor"
+    },
+    {
+      "id": "belldandySecretary",
+      "role": "secretary"
+    },
+    {
+      "id": "skuldResearch",
+      "role": "research"
+    }
+  ],
+  "allowedActivityStates": [
+    "parked",
+    "queued",
+    "active",
+    "waiting",
+    "observed",
+    "verifying",
+    "success",
+    "error",
+    "unknown",
+    "crownStop"
+  ],
+  "allowedClaimStates": [
+    "unknown",
+    "observed",
+    "amber",
+    "green",
+    "red"
+  ],
+  "packetRequired": [
+    "taskId",
+    "sourceRef",
+    "scopeId",
+    "headline",
+    "phase",
+    "claimState",
+    "checkSummary",
+    "evidenceRef",
+    "crownStatus"
+  ],
+  "executionAuthority": false,
+  "mutationAuthority": false,
+  "networkAuthority": false,
+  "crownStatus": "stop",
+  "monitoring": {
+    "urdDoctorGoddess": "uiStateSemanticsAndNamingPathology",
+    "belldandySecretary": "canonicalNameLedgerAndReceiptContinuity"
+  }
+}
