@@ -28,13 +28,14 @@
     "scopeDrift",
     "exactSourceMismatch"
   ],
-  "attempt": 2,
+  "attempt": 3,
   "repairRefs": [
-    "e2f347c109f2ef2b46defa0f12673864425e6ace"
+    "e2f347c109f2ef2b46defa0f12673864425e6ace",
+    "201c076a56354e36567f687679f0d236683d3112"
   ],
   "previousAttempt": {
-    "sourceRef": "2c345e98e9945922e6d37aab35aa34042275fac8",
+    "sourceRef": "2277915f4cef266b76f89a59be5ff642a2a3f8fa",
     "result": "RED",
-    "blocker": "workflowPluginRegistryAuditSyntax"
+    "blocker": "scorchedEarthExpected50Found52"
   }
 }
