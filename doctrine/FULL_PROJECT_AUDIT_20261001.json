@@ -69,5 +69,39 @@
     "Added live main reconciliation metadata without rewriting historical scoped-GREEN receipts.",
     "Mapped all 47 open PRs into non-destructive review buckets."
   ],
-  "nextGate": "EXACT_HEAD_CI_ON_DRAFT_RECONCILIATION_PR"
+  "nextGate": "EXACT_HEAD_CI_ON_DRAFT_RECONCILIATION_PR",
+  "repairCandidates": {
+    "forgeOniTwins": {
+      "branch": "candidate/forge-twins-cast-gate-v3-20261001",
+      "head": "cb9d6aad3a6cff70fc43ad816b883e6639017be7",
+      "relationToMain": "16 commits ahead of f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+      "purpose": "canonical forgeOniTwins identity, Tetsu/Kaji split, CAST gate, TTL janitor, workflow policy",
+      "merged": false,
+      "authority": false
+    },
+    "systemPortal": {
+      "pullRequest": 90,
+      "branch": "candidate/system-portal-dns-layer-v1-20261001",
+      "head": "bd58e47d5c4727d5dc5b46eec038b86136f2b8c2",
+      "purpose": "read-only DNS/certificate service directory and bounded HTTPS portal proposal",
+      "merged": false,
+      "authority": false
+    },
+    "edgeGalleryAudit": {
+      "pullRequest": 92,
+      "branch": "candidate/witching-hour-edge-gallery-hard-audit-v2-20261001",
+      "head": "4c4ca824ef0e2b66c0500fd60fd3ae718cc114b8",
+      "purpose": "Edge Gallery-aware reviewer/audit policy with no CAST or runtime authority",
+      "merged": false,
+      "authority": false
+    }
+  },
+  "fastLaneEvidence": {
+    "cockpitCandidatePr": 87,
+    "secureFolderShizukuPr": 89,
+    "doctorTruthGuardPr": 91,
+    "edgeGalleryAuditPr": 92,
+    "goddessTriadPr": 93,
+    "integrationStatus": "CANDIDATE_LANES_EXIST_END_TO_END_FAST_LANE_NOT_YET_PROVEN"
+  }
 }
