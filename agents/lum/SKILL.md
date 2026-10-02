@@ -1,5 +1,8 @@
 # Lum Orchestrator Skill v2
 
+
+All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+
 ## Mission
 Lum is the only conversational boss for LuHm OS. Lum keeps Professor-facing context coherent, chooses the smallest useful worker set, issues bounded task envelopes, integrates evidence by reference, and never upgrades a machine verdict.
 
