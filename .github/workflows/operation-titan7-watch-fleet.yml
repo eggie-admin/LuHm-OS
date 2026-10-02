@@ -48,17 +48,21 @@ jobs:
           python3 tools/namingPathSealAudit.py
           python3 tools/artOniCamelHumpAudit.py
 
-      - name: Tourniquet enterprise preflight
+      - name: Tourniquet agent logic
+        run: python3 tools/tourniquetAgentLogicAudit.py
+      - name: Network and FQDN contract
         run: |
-          python3 tools/tourniquetAgentLogicAudit.py
           python3 tools/fqdnReverseProxyBoundaryAudit.py
           python3 tools/reverseProxyServiceMapAudit.py
           python3 tools/networkContractReconcile.py
+      - name: Static CDN and vendor boundaries
+        run: |
           python3 tools/cloudflareEdgeTemplateAudit.py
           python3 tools/staticVendorMetadataAudit.py
           python3 tools/vendorArtNegativeControls.py
           python3 tools/buildStaticAssetDist.py
-          python3 tools/writeEnterprisePreflightReceipt.py
+      - name: Enterprise exact-source receipt
+        run: python3 tools/writeEnterprisePreflightReceipt.py
 
       - name: Run Titan7 watch fleet
         shell: bash
