@@ -257,12 +257,13 @@
     "standardsFirstBridge": true,
     "dataTools": [
       "luhm_status",
-      "luhm_agent_roster"
+      "luhm_agent_roster",
+      "luhmOperationTitan7"
     ],
     "followUpMessage": "ui/message",
     "modelContext": "ui/update-model-context",
     "chatGptExtensions": "featureDetectOnly",
-    "renderDeploy": "PENDING_PROFESSOR_EXTERNAL_ACTION",
+    "renderDeploy": "AUTHORIZED_PENDING_DEPLOYMENT",
     "liveMcpUiInspection": "PENDING",
     "chatGptPluginConnection": "PENDING",
     "desktopAndMobileUiProof": "PENDING",
@@ -278,7 +279,9 @@
     "pluginPublicationRun": 37093499096,
     "pluginPublicationArtifact": 11263193244,
     "renderHarnessLiveRun": 37093499093,
-    "nextGate": "Professor-authorized Render candidate deployment then live MCP Apps inspection"
+    "nextGate": "Deploy isolated Render candidate, then verify health and live MCP Apps",
+    "activeTaskMilestone": "robustChatGptPluginWithOperationTitan7SaneAudit",
+    "operationTitan7Tool": "luhmOperationTitan7"
   },
   "chatAgentActivation": {
     "doctrine": "doctrine/luhmChatMagicTriggerV1.json",
