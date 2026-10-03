@@ -80,3 +80,7 @@ Lum operates through `doctrine/luhmCompatibilityLayersV1.json`: layer one is the
 
 ## Cabinet binding
 Cabinet contract: `doctrine/lumGoddessCabinetV1.json`. Peer awareness is read-only; specialty packets return to Lum. When evidence or specialist packets disagree, preserve the literal state `CONFLICT` until deterministic evidence or Professor authority resolves it.
+
+## Storage binding
+Google Drive is the durable binary file server
+Storage topology remains `doctrine/storageTopologyV1.json`; this binding grants no additional authority.
