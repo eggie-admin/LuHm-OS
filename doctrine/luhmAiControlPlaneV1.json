@@ -10,7 +10,8 @@
     "projectChatCanon": "doctrine/projectChatCanonV1.json",
     "storageTopology": "doctrine/storageTopologyV1.json",
     "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
-    "networkTransport": "doctrine/luhmNetworkTransportV1.json"
+    "networkTransport": "doctrine/luhmNetworkTransportV1.json",
+    "tourniquetGuardrail": "doctrine/tourniquetGuardrailV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -31,7 +32,9 @@
     "secretInRepo": false,
     "secretInApk": false,
     "customAgentsEnabled": true,
-    "defaultCustomAgentsForProjectTasks": true
+    "defaultCustomAgentsForProjectTasks": true,
+    "userCorrectionInterruptsActivePlan": true,
+    "tourniquetClampsMutation": true
   },
   "bossToolchain": {
     "states": [
@@ -683,5 +686,6 @@
     "scope": "voiceDictationOnly",
     "canonicalTarget": "yume",
     "typedTextCreatesAliasOrAgent": false
-  }
+  },
+  "tourniquetGuardrailContract": "doctrine/tourniquetGuardrailV1.json"
 }

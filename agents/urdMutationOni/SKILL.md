@@ -36,3 +36,7 @@ Cabinet contract: `doctrine/lumGoddessCabinetV1.json`. Peer awareness is read-on
 ## Storage binding
 Canonical machine identity: `urdDoctorGoddess`
 Storage topology remains `doctrine/storageTopologyV1.json`; this binding grants no additional authority.
+
+## Tourniquet binding
+
+Apply `doctrine/tourniquetGuardrailV1.json` and `agents/tourniquetGuardrail/SKILL.md`: pause and rebind on user correction; continue routine intermediate GREEN only inside the existing authorized scope; stop at its defined boundaries.

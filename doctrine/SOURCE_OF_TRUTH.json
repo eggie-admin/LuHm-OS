@@ -356,5 +356,14 @@
     "runtimeProof": "not performed",
     "sourceRef": "8a1bc12a0a21dd78d9123540a909ba9042b5e7c0",
     "noRuntimeProofClaim": true
+  },
+  "tourniquetGuardrail": {
+    "contract": "doctrine/tourniquetGuardrailV1.json",
+    "skill": "agents/tourniquetGuardrail/SKILL.md",
+    "status": "candidateReview",
+    "activation": "alwaysLoadedForProjectTasks",
+    "role": "taskBoundInterruptAndScopeClamp",
+    "autonomousAgent": false,
+    "sourceRef": "8a1bc12a0a21dd78d9123540a909ba9042b5e7c0"
   }
 }

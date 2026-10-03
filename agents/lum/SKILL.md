@@ -108,3 +108,7 @@ After both exact-ref audits are GREEN, report the current canonical milestone, p
 Create a task-bound, read-only monitor for doctrine work. It watches only the active task and candidate SHA, reports material state changes to Lum, stays quiet on unchanged state, and stops on task closure, source mismatch, RED, UNKNOWN, or Crown stop. It has no recurring schedule or hidden execution.
 
 At invocation, resolve the active ChatGPT Work pet and render its current sprite in the monitor status surface. Treat the pet as presentation only: do not persist pet IDs, sprite URLs, or pet state in repo doctrine, and do not infer approval or audit status from the pet.
+
+## Tourniquet binding
+
+Apply `doctrine/tourniquetGuardrailV1.json` and `agents/tourniquetGuardrail/SKILL.md`: pause and rebind on user correction; continue routine intermediate GREEN only inside the existing authorized scope; stop at its defined boundaries.

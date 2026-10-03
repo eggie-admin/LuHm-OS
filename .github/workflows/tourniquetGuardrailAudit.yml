@@ -1,33 +1,25 @@
-name: LuHm Network Transport Contract
+name: Tourniquet Guardrail Audit
 
 on:
   pull_request:
     paths:
       - 'doctrine/tourniquetGuardrailV1.json'
-      - 'agents/tourniquetGuardrail/**'
-      - 'tools/tourniquetGuardrailAudit.py'
-      - '.github/workflows/tourniquetGuardrailAudit.yml'
-      - 'doctrine/luhmNetworkTransportV1.json'
-      - 'doctrine/luhmChatMagicTriggerV1.json'
       - 'doctrine/projectChatCanonV1.json'
       - 'doctrine/luhmAiControlPlaneV1.json'
       - 'doctrine/SOURCE_OF_TRUTH.json'
+      - 'doctrine/operationTitan7V1.json'
       - 'agents/**/SKILL.md'
-      - '.codex/agents/**'
-      - 'AGENTS.md'
-      - 'plugins/luhm-os/**'
-      - 'host/mcp/luhmMcpServer.py'
-      - 'tools/luhmNetworkTransportAudit.py'
+      - 'tools/tourniquetGuardrailAudit.py'
       - 'tools/namingPathSealAudit.py'
       - 'doctrine/namingPathSealV1.json'
-      - '.github/workflows/luhmNetworkTransportAudit.yml'
+      - '.github/workflows/tourniquetGuardrailAudit.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  transport-contract:
+  tourniquet-contract:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
@@ -36,8 +28,7 @@ jobs:
         with:
           persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Validate network and voice-alias contracts
+      - name: Validate Tourniquet interrupt and scope clamp
         run: |
-          python3 tools/luhmNetworkTransportAudit.py
-          python3 tools/luhmChatMagicTriggerAudit.py
+          python3 tools/tourniquetGuardrailAudit.py
           python3 tools/namingPathSealAudit.py

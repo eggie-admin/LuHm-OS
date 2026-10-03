@@ -50,7 +50,11 @@
     "tools/luhmChatMagicTriggerAudit.py",
     "doctrine/luhmNetworkTransportV1.json",
     "tools/luhmNetworkTransportAudit.py",
-    ".github/workflows/luhmNetworkTransportAudit.yml"
+    ".github/workflows/luhmNetworkTransportAudit.yml",
+    "doctrine/tourniquetGuardrailV1.json",
+    "agents/tourniquetGuardrail/SKILL.md",
+    "tools/tourniquetGuardrailAudit.py",
+    ".github/workflows/tourniquetGuardrailAudit.yml"
   ],
   "legacyPathLaw": "Historical evidence may retain old filenames. It is read-only evidence and is not a naming template for new source.",
   "moveLaw": "A sealed path move requires an explicit migration receipt containing oldPath, newPath, sourceRef, contentHash, reason and Professor authority.",

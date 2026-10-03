@@ -64,7 +64,9 @@
     "projectBootstrapMayNotTreatAsProjectName": true,
     "currentProjectContextInherited": true,
     "exactSourceRefRequiredForMutation": true,
-    "dryRunMayUseCurrentHead": true
+    "dryRunMayUseCurrentHead": true,
+    "tourniquetGuardrail": "doctrine/tourniquetGuardrailV1.json",
+    "userCorrectionInterruptsBeforeNextMutation": true
   },
   "goddessRoles": {
     "urdDoctorGoddess": "diagnosis, evidence pathology, rollback risk",

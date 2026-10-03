@@ -26,11 +26,13 @@
     "doctrine/luhmChatMagicTriggerV1.json",
     "doctrine/chatExperienceV1.json",
     "doctrine/SOURCE_OF_TRUTH.json",
+    "doctrine/tourniquetGuardrailV1.json",
     "doctrine/storageTopologyV1.json",
     "doctrine/luhmNetworkTransportV1.json",
     "doctrine/luhmCompatibilityLayersV1.json",
     "doctrine/lumGoddessCabinetV1.json",
     "agents/goddessSharedSystemsPractice/SKILL.md",
+    "agents/tourniquetGuardrail/SKILL.md",
     "agents/lum/SKILL.md",
     "agents/urdMutationOni/SKILL.md",
     "agents/skuldResearchOni/SKILL.md",
@@ -47,7 +49,9 @@
     "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json",
     "compatibilityLayers": "doctrine/luhmCompatibilityLayersV1.json",
     "chatExperience": "doctrine/chatExperienceV1.json",
-    "networkTransport": "doctrine/luhmNetworkTransportV1.json"
+    "networkTransport": "doctrine/luhmNetworkTransportV1.json",
+    "tourniquetGuardrail": "doctrine/tourniquetGuardrailV1.json",
+    "tourniquetSkill": "agents/tourniquetGuardrail/SKILL.md"
   },
   "specialistsLazyLoaded": {
     "kiri": "agents/kiriContextOni/SKILL.md",

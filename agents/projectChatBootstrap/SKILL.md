@@ -86,3 +86,7 @@ For doctrine work, pin the current canonical SHA as immutable `priorTruthAudit`,
 Both audits must be GREEN and bound to their declared SHAs before reporting a green sanity check. Otherwise preserve AMBER/RED/UNKNOWN/CONFLICT and show the blocker. The receipt includes current milestone, proposed mutation, sanity-check status, both evidence refs, next milestone or `endOfLine`, and the next concrete gate. See `doctrine/parallelDoctrineAuditV1.json`.
 
 The task monitor is read-only and task-bound. It watches material changes for that task/candidate only, stops with the task or on mismatch/RED/UNKNOWN/Crown stop, and never runs as a hidden or recurring task. Resolve and render the active Work pet sprite at monitor start; pet identity and sprite URLs are runtime-only presentation data and carry no authority.
+
+## Tourniquet binding
+
+Always load `doctrine/tourniquetGuardrailV1.json` and `agents/tourniquetGuardrail/SKILL.md`. On user correction, pause and rebind before another mutation; routine intermediate GREEN proceeds within the existing authorized manifest.

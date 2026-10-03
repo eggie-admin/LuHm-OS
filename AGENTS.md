@@ -25,3 +25,7 @@ Load `doctrine/luhmChatMagicTriggerV1.json` for trigger, alias, and project pers
 
 ## Persistent chat and network rules
 Load `doctrine/projectChatCanonV1.json`, `doctrine/luhmChatMagicTriggerV1.json`, and `doctrine/luhmNetworkTransportV1.json` for LuHm work. The network doctrine distinguishes the documented Render HTTPS route from an unconfigured Cloudflare Tunnel proposal. Local HTTP is loopback-only; remote service connections require verified HTTPS. DreamChan is a nickname only for confirmed chat voice dictation and routes to existing Yume.
+
+## Tourniquet guardrail
+
+Load `doctrine/tourniquetGuardrailV1.json` and `agents/tourniquetGuardrail/SKILL.md` for every LuHm project task. A user correction interrupts the active plan before more mutation; routine intermediate GREEN continues inside the authorized task manifest. Tourniquet is a guardrail skill, not an autonomous agent or repair engine.

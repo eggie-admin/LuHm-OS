@@ -29,3 +29,7 @@ No automatic CAST, merge, deploy, signing, publication, or Crown.
 
 ## Voice nickname scope
 Resolve DreamChan only when Koe confirms chat voice-dictation modality. Route to existing canonical `yume` within the current task; typed text creates no alias or trigger.
+
+## Tourniquet binding
+
+Apply `doctrine/tourniquetGuardrailV1.json` and `agents/tourniquetGuardrail/SKILL.md`: pause and rebind on user correction; continue routine intermediate GREEN only inside the existing authorized scope; stop at its defined boundaries.
