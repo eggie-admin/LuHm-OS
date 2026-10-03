@@ -41,8 +41,15 @@ def audit(command: str, escalation: str) -> dict:
     checks["jqueryPluginEmitsInvocation"] = 'const pluginName = "operationTitan7"' in PLUGIN.read_text(encoding="utf-8") and "luhm:operationTitan7:invoke" in PLUGIN.read_text(encoding="utf-8")
     widget = WIDGET.read_text(encoding="utf-8")
     server = SERVER.read_text(encoding="utf-8")
+    devcontainer = load(ROOT / ".devcontainer" / "devcontainer.json")
     checks["chatWidgetCallsTitan7Tool"] = 'name:"luhmOperationTitan7"' in widget
     checks["mcpToolIsReadOnly"] = '@server.tool(annotations=READ_ONLY_INTERNAL)\ndef luhmOperationTitan7(' in server
+    checks["repoCodingEnvironment"] = (
+        "python" in devcontainer.get("image", "").lower()
+        and devcontainer.get("features", {}).get("ghcr.io/devcontainers/features/node:1", {}).get("version") == "22"
+        and "host/mcp/requirements.txt" in devcontainer.get("postCreateCommand", "")
+        and "npm install --prefix frontEnd" in devcontainer.get("postCreateCommand", "")
+    )
 
     for name, passed in checks.items():
         if not passed:
