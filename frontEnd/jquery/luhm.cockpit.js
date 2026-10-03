@@ -135,6 +135,14 @@
       event.preventDefault();
       const text = String(state.$input.val() || "").trim();
       if (!text) return;
+      if ($.fn.operationTitan7 && $.fn.operationTitan7.parse) {
+        const titanCommand = $.fn.operationTitan7.parse(text);
+        if (titanCommand) {
+          $root.operationTitan7(titanCommand.command, titanCommand.options);
+          state.$input.val("");
+          return;
+        }
+      }
       if ($root.mgcCdngRlplay.matches(text)) {
         $root.mgcCdngRlplay("invoke", text);
         state.$input.val("");
