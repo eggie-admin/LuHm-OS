@@ -130,6 +130,13 @@
       "role": "optionalFutureEventIngress",
       "authority": false,
       "implementationStatus": "contractOnly"
+    },
+    "compactManifestWireProjection": {
+      "role": "deterministicBandwidthReduction",
+      "contract": "doctrine/luhmSubsidiaryAiMeshV1.json",
+      "adapter": "luhmManifestMin",
+      "authority": false,
+      "canonicalExpansionRequiredBeforeRouting": true
     }
   },
   "providerBoundary": {
@@ -140,7 +147,9 @@
     "providerTextIsUntrustedData": true,
     "remoteResponsesRequireTaskIdentityMatch": true,
     "remoteResponsesRequireLumReconciliation": true,
-    "providerSecretsHostSideOnly": true
+    "providerSecretsHostSideOnly": true,
+    "vendorMirrorsUseCanonicalAgentIdentity": true,
+    "vendorMirrorsMayBecomeIndependentBoss": false
   },
   "authorityClasses": [
     "READ_ONLY",
@@ -631,5 +640,6 @@
     "phraseTrigger": "doctrine/luhmChatMagicTriggerV1.json",
     "spokenAliasesResolveToCanonicalIdentity": true
   },
-  "namingContract": "New LuHm-owned identifiers and agent config filenames use lowerCamelHump; vowel-ripped terms are explicit aliases only."
+  "namingContract": "New LuHm-owned identifiers and agent config filenames use lowerCamelHump; vowel-ripped terms are explicit aliases only.",
+  "subsidiaryMeshContract": "doctrine/luhmSubsidiaryAiMeshV1.json"
 }
