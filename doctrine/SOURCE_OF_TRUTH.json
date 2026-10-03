@@ -292,7 +292,9 @@
     ],
     "status": "candidateReview",
     "executionBoundary": "activeTaskOnly",
-    "crownStatus": "stop"
+    "crownStatus": "stop",
+    "responsePresentation": "reconciledDeltasOnly",
+    "rawAgentChatter": false
   },
   "compatibilityLayers": {
     "contract": "doctrine/luhmCompatibilityLayersV1.json",
@@ -318,6 +320,29 @@
     ],
     "mutationAuthority": false,
     "publicationAuthority": false,
+    "crownStatus": "STOP"
+  },
+  "chatExperience": {
+    "contract": "doctrine/chatExperienceV1.json",
+    "status": "CANDIDATE_COMPACT_CHAT_STAGED",
+    "defaultResponseMode": "compactConversational",
+    "resultsFirst": true,
+    "deltaOnly": true,
+    "rawToolLogsByDefault": false,
+    "routineAgentChatterByDefault": false,
+    "userMayRequestVerbose": true,
+    "authority": false,
+    "crownStatus": "STOP"
+  },
+  "chatArchiveHandoff": {
+    "contract": "doctrine/chatArchiveHandoffV1.json",
+    "status": "CANDIDATE_HANDOFF_STAGED",
+    "priorProvenMilestone": "twoLayerCompatibilityPlusCallableTitan7Candidate",
+    "priorProvenHead": "f535235e2732ca58b01ff89921ad2478d3115d86",
+    "sourceRefPolicy": "resolveCurrentRemoteHeadAtResume",
+    "archivedChatRole": "evidenceNotAuthority",
+    "replayFullArchiveByDefault": false,
+    "nextTechnicalBoundary": "bindRemoteProviderAdaptersOnlyWithExactConnectorOrDeploymentEvidence",
     "crownStatus": "STOP"
   }
 }
