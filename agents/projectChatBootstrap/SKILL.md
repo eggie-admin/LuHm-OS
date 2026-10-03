@@ -68,3 +68,7 @@ Local loopback may remain ordinary unencrypted HTTP. Remote/public boundaries us
 
 ## Crown
 Professor retains Crown. UNKNOWN remains UNKNOWN. Deterministic RED beats AI interpretation.
+
+## Storage binding
+databases point to files; databases do not become the file server
+Storage topology remains `doctrine/storageTopologyV1.json`; this binding grants no additional authority.
