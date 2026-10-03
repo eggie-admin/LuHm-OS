@@ -1,5 +1,6 @@
 import { access, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import vm from "node:vm";
 
 const root = resolve(new URL("..", import.meta.url).pathname);
 const mustExist = [
@@ -23,12 +24,21 @@ const titan = await readFile(resolve(root, "jquery/operationTitan7.js"), "utf8")
 const plugin = await readFile(resolve(root, "jquery/luhm.cockpit.js"), "utf8");
 const app = await readFile(resolve(root, "app.js"), "utf8");
 
+const sandbox = { jQuery: {} };
+vm.runInNewContext(manifestRuntime, sandbox);
+const manifestApi = sandbox.jQuery.luhmManifestMin;
+const sample = { schema:"luhmOs.aiEvent.v1", taskId:"t1", sourceRef:"abc", scopeId:"q1", state:"active", evidenceRefs:["e1"] };
+const compactSample = manifestApi.compact(sample);
+const expandedSample = manifestApi.expand(compactSample);
+
 const checks = [
   [html.includes("vendor/jquery-3.7.1.min.js"), "index loads pinned staged jQuery"],
   [html.includes("jquery/luhmManifestMin.min.js"), "index loads minified manifest adapter"],
   [html.includes("jquery/operationTitan7.min.js"), "index loads minified operationTitan7 plugin"],
   [manifestRuntime.length < manifestSource.length, "manifest runtime is minified"],
   [manifestRuntime.includes("$.luhmManifestMin"), "compact manifest adapter exists"],
+  [compactSample.t === "t1" && compactSample.r === "abc" && compactSample.q === "q1", "manifest adapter compacts identity fields"],
+  [expandedSample.taskId === "t1" && expandedSample.sourceRef === "abc" && expandedSample.scopeId === "q1", "manifest adapter round-trips identity fields"],
   [titan.includes('const pluginName = "operationTitan7"'), "canonical operationTitan7 plugin entry exists"],
   [titan.includes("forFuckSake") && titan.includes("scorchedEarth") && titan.includes("finalForm"), "three Titan7 escalation tiers exist"],
   [titan.includes("continueAll") && titan.includes("dryRun") && titan.includes("distro"), "npm-style Titan7 command surface exists"],
