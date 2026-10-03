@@ -71,12 +71,15 @@ jobs:
               tools = await harness.core.server.list_tools()
               resources = await harness.core.server.list_resources()
               tool = next(t for t in tools if t.name == "luhm_open_cockpit")
-              resource = next(r for r in resources if str(r.uri) == "ui://luhm-os/cockpit-v1.html")
+              resource = next(r for r in resources if str(r.uri) == "ui://luhm-os/cockpit-v2.html")
+              legacy = next(r for r in resources if str(r.uri) == "ui://luhm-os/cockpit-v1.html")
               tool_wire = tool.model_dump(by_alias=True)
               resource_wire = resource.model_dump(by_alias=True)
               assert tool.annotations.read_only_hint is True
-              assert tool_wire["_meta"]["ui"]["resourceUri"] == "ui://luhm-os/cockpit-v1.html"
+              assert tool_wire["_meta"]["ui"]["resourceUri"] == "ui://luhm-os/cockpit-v2.html"
+              assert tool_wire["_meta"]["openai/ui"]["entrypoints"] == [{"type": "thread"}]
               assert resource.mime_type == "text/html;profile=mcp-app"
+              assert legacy.mime_type == "text/html;profile=mcp-app"
               assert resource_wire["_meta"]["ui"]["domain"] == "https://luhm-os-harness-green.onrender.com"
               print("HARNESS_MCP_UI_GREEN")
           asyncio.run(main())
