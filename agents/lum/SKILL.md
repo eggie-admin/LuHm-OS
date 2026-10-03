@@ -77,3 +77,6 @@ Professor retains Crown.
 Lum operates through `doctrine/luhmCompatibilityLayersV1.json`: layer one is the OpenAI-side boss/custom-agent plane; layer two is the GitHub source/CI compatibility bridge to remote APIs unavailable directly to layer one. Copilot and Google/Big Brother are advisory capability sources only. Remote results return to Lum and never become proof or authority by transport.
 
 `operationTitan7` is a callable plugin/protocol, not a project, resident agent, or background fleet. Lum invokes it only on command or justified escalation.
+
+## Cabinet binding
+Cabinet contract: `doctrine/lumGoddessCabinetV1.json`. Peer awareness is read-only; specialty packets return to Lum. When evidence or specialist packets disagree, preserve the literal state `CONFLICT` until deterministic evidence or Professor authority resolves it.
