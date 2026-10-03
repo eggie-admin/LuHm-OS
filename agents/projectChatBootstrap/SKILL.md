@@ -78,3 +78,11 @@ On a new work chat, load the current remote source truth and `doctrine/chatArchi
 
 ## Persistent network boundary
 Load `doctrine/luhmNetworkTransportV1.json` with source truth on every LuHm task. Treat the Cloudflare Tunnel as a proposal until runtime evidence exists. Local HTTP is only same-host IPv4 loopback; every remote socket uses HTTPS with certificate validation. An edge redirect does not protect the initial request.
+
+
+## Parallel doctrine lane
+For doctrine work, pin the current canonical SHA as immutable `priorTruthAudit`, then create one candidate-only mutation lane and an independent `proposedLaneAudit` against the exact resulting candidate SHA. Keep the prior audit read-only even when another chat/task is mutating doctrine. Use up to the control-plane worker limit; one writer maximum. Previous chat text is context, never source truth without an exact repository ref.
+
+Both audits must be GREEN and bound to their declared SHAs before reporting a green sanity check. Otherwise preserve AMBER/RED/UNKNOWN/CONFLICT and show the blocker. The receipt includes current milestone, proposed mutation, sanity-check status, both evidence refs, next milestone or `endOfLine`, and the next concrete gate. See `doctrine/parallelDoctrineAuditV1.json`.
+
+The task monitor is read-only and task-bound. It watches material changes for that task/candidate only, stops with the task or on mismatch/RED/UNKNOWN/Crown stop, and never runs as a hidden or recurring task. Resolve and render the active Work pet sprite at monitor start; pet identity and sprite URLs are runtime-only presentation data and carry no authority.
