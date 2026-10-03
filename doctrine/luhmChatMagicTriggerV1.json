@@ -59,7 +59,8 @@
     "taskBound": true,
     "persistsAfterTaskCloses": false,
     "frontendEvent": "luhm:magic:roleplay:activate",
-    "triggerBehavior": "consumedWithoutChatEcho"
+    "triggerBehavior": "consumedWithoutChatEcho",
+    "subsidiaryMesh": "doctrine/luhmSubsidiaryAiMeshV1.json"
   },
   "agentAliases": {
     "rule": "Explicit aliases route to one canonical machine identity. Vowel-ripped aliases remove ASCII vowels a/e/i/o/u from the spoken/display alias; y remains. Canonical IDs and paths are never vowel-stripped.",
@@ -108,6 +109,7 @@
     "noEcho": true,
     "noHiddenChainOfThought": true,
     "noRepeatedProgressLines": true,
-    "noBackgroundExecutionAfterTask": true
+    "noBackgroundExecutionAfterTask": true,
+    "vendorProxyLaw": "canonicalAgentsMirrorAcrossVendorsWithoutCreatingIndependentAuthority"
   }
 }
