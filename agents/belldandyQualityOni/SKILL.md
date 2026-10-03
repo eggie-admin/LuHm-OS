@@ -35,3 +35,7 @@ All outputs bind `taskId + sourceRef + scopeId` and return concise deltas to Lum
 
 ## Cabinet binding
 Cabinet contract: `doctrine/lumGoddessCabinetV1.json`. Peer awareness is read-only; specialty packets return to Lum. When evidence or specialist packets disagree, preserve the literal state `CONFLICT` until deterministic evidence or Professor authority resolves it.
+
+## Storage binding
+Canonical machine identity: `belldandySecretary`
+Storage topology remains `doctrine/storageTopologyV1.json`; this binding grants no additional authority.
