@@ -66,6 +66,7 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <script>
 let rpcId=0;
 const pending=new Map();
+let latestCockpit=null;
 let latestStatus=null;
 let latestRoster=null;
 let hostCaps={};
@@ -133,7 +134,7 @@ async function talk(){
   }
 }
 function openFull(){
-  const origin=(latestStatus?.harness?.publicOrigin||window.openai?.toolOutput?.harness?.publicOrigin||"").replace(/\/$/,"");
+  const origin=(latestCockpit?.harness?.publicOrigin||window.openai?.toolOutput?.harness?.publicOrigin||"").replace(/\/$/,"");
   if(!origin||origin==="LOCAL_ONLY"){ $("event").textContent="FULL_COCKPIT_UNAVAILABLE:"; return; }
   const href=origin+"/harness/";
   if(window.openai?.openExternal){ window.openai.openExternal({href,redirectUrl:false}); }
@@ -150,6 +151,7 @@ window.addEventListener("message",event=>{
   if(m.method==="ui/notifications/tool-result"){
     const value=unpack(m.params);
     if(value?.schema==="luhm-os.cockpit.v1"){
+      latestCockpit=value;
       latestStatus=value.status||latestStatus;
       latestRoster=value.roster||latestRoster;
       render();
@@ -179,6 +181,7 @@ $("openFull").addEventListener("click",openFull);
     const legacy=window.openai?.toolOutput;
     if(legacy){
       const value=unpack(legacy);
+      latestCockpit=value||latestCockpit;
       latestStatus=value?.status||latestStatus;
       latestRoster=value?.roster||latestRoster;
       render();
