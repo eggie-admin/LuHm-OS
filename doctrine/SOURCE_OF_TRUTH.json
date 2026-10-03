@@ -293,5 +293,31 @@
     "status": "candidateReview",
     "executionBoundary": "activeTaskOnly",
     "crownStatus": "stop"
+  },
+  "compatibilityLayers": {
+    "contract": "doctrine/luhmCompatibilityLayersV1.json",
+    "status": "CANDIDATE_TWO_LAYER_CONTRACT_STAGED",
+    "layerOne": "openAiCompatibilityLayer",
+    "layerTwo": "githubCompatibilityLayer",
+    "remoteProviderDeployment": "PARTIAL_OR_PENDING_BY_PROVIDER",
+    "mutationAuthority": false,
+    "publicationAuthority": false,
+    "crownStatus": "STOP"
+  },
+  "operationTitan7": {
+    "contract": "doctrine/operationTitan7V1.json",
+    "status": "CANDIDATE_CALLABLE_PLUGIN_STAGED",
+    "kind": "callableJQueryPluginProtocol",
+    "notAProject": true,
+    "alwaysRunning": false,
+    "scheduled": false,
+    "escalationOrder": [
+      "forFuckSake",
+      "scorchedEarth",
+      "finalForm"
+    ],
+    "mutationAuthority": false,
+    "publicationAuthority": false,
+    "crownStatus": "STOP"
   }
 }
