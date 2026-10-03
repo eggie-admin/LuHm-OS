@@ -24,6 +24,7 @@
   "loadOrder": [
     "doctrine/projectChatCanonV1.json",
     "doctrine/luhmChatMagicTriggerV1.json",
+    "doctrine/chatExperienceV1.json",
     "doctrine/SOURCE_OF_TRUTH.json",
     "doctrine/storageTopologyV1.json",
     "doctrine/luhmCompatibilityLayersV1.json",
@@ -43,7 +44,8 @@
     "storageTopology": "doctrine/storageTopologyV1.json",
     "goddessCabinet": "doctrine/lumGoddessCabinetV1.json",
     "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json",
-    "compatibilityLayers": "doctrine/luhmCompatibilityLayersV1.json"
+    "compatibilityLayers": "doctrine/luhmCompatibilityLayersV1.json",
+    "chatExperience": "doctrine/chatExperienceV1.json"
   },
   "specialistsLazyLoaded": {
     "kiri": "agents/kiriContextOni/SKILL.md",
@@ -92,14 +94,20 @@
       "githubCompatibilityLayer"
     ],
     "operationTitan7AlwaysRunning": false,
-    "operationTitan7Scheduled": false
+    "operationTitan7Scheduled": false,
+    "defaultResponseMode": "compactConversational",
+    "rawToolLogsByDefault": false,
+    "routineAgentChatterByDefault": false,
+    "repeatKnownArchitecture": false
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
     "loadSmallestRelevantEvidence": true,
     "currentCanonicalSourceBeatsMemory": true,
     "currentTaskEnvelopeBeatsOldChatState": true,
-    "staleReceiptsAreHintsOnly": true
+    "staleReceiptsAreHintsOnly": true,
+    "archivedChatIsEvidenceNotAuthority": true,
+    "doNotReplayArchivedChat": true
   },
   "startupSequence": [
     "detectProjectContext",
@@ -184,5 +192,6 @@
     }
   },
   "projectPersonalContext": "doctrine/luhmChatMagicTriggerV1.json",
-  "vowelRippedAliasPolicy": "Explicit aliases resolve to existing canonical identities; canonical names and paths stay lowerCamelHump."
+  "vowelRippedAliasPolicy": "Explicit aliases resolve to existing canonical identities; canonical names and paths stay lowerCamelHump.",
+  "archiveHandoff": "doctrine/chatArchiveHandoffV1.json"
 }
