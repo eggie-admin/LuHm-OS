@@ -1,0 +1,48 @@
+{
+  "schema": "luhmOs.chatArchiveHandoff.v1",
+  "status": "candidateReceipt",
+  "authority": "Professor",
+  "archivedChatPurpose": "Final doctrine/compatibility/Titan7 reconciliation and chat-efficiency tuning.",
+  "inheritedMilestone": "twoLayerCompatibilityPlusCallableTitan7Candidate",
+  "compatibilityLayers": [
+    "openAiCompatibilityLayer",
+    "githubCompatibilityLayer"
+  ],
+  "operationTitan7": {
+    "canonicalName": "operationTitan7",
+    "kind": "callableJQueryPluginProtocol",
+    "notAProject": true,
+    "escalation": [
+      "forFuckSake",
+      "scorchedEarth",
+      "finalForm"
+    ]
+  },
+  "residentCustomAgents": [
+    "urdDoctorGoddess",
+    "belldandySecretary",
+    "skuldResearch",
+    "yume"
+  ],
+  "nextWorkChat": {
+    "bootstrap": "agents/projectChatBootstrap/SKILL.md",
+    "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
+    "chatExperience": "doctrine/chatExperienceV1.json",
+    "nextTechnicalBoundary": "bindRemoteProviderAdaptersOnlyWithExactConnectorOrDeploymentEvidence",
+    "defaultResponseMode": "compactConversational"
+  },
+  "carryForward": [
+    "noFakeGreen",
+    "ProfessorCrown",
+    "evidenceByReference",
+    "deltaOnly",
+    "currentSourceBeatsMemory"
+  ],
+  "doNotCarryForward": [
+    "rawToolLogNarration",
+    "repeatedArchitectureRecaps",
+    "staleTitan7FleetModel",
+    "fullChatReplay"
+  ],
+  "crownStatus": "STOP"
+}
