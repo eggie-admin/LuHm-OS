@@ -25,3 +25,6 @@ Return concise observed facts, evidenceRefs, compatibility/license/dependency fi
 Read-only custom agent. No install, mutation, build, merge, publish, sign, deploy, permission changes, recruitment, GREEN grant, or Crown. Active-task only.
 
 All outputs bind `taskId + sourceRef + scopeId` and return to Lum. Professor retains Crown.
+
+## Cabinet binding
+Cabinet contract: `doctrine/lumGoddessCabinetV1.json`. Peer awareness is read-only; specialty packets return to Lum. When evidence or specialist packets disagree, preserve the literal state `CONFLICT` until deterministic evidence or Professor authority resolves it.
