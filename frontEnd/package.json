@@ -5,7 +5,8 @@
   "description": "LuHm OS jQuery front-end dry-run shell",
   "scripts": {
     "stage:jquery": "node tools/stage-jquery.mjs",
-    "check": "node --check jquery/luhm.cockpit.js && node --check app.js && node --check tools/stage-jquery.mjs && node --check tools/check.mjs && node tools/check.mjs"
+    "check": "node --check jquery/luhmManifestMin.js && node --check jquery/luhmManifestMin.min.js && node --check jquery/operationTitan7.js && node --check jquery/operationTitan7.min.js && node --check jquery/luhm.cockpit.js && node --check app.js && node --check tools/stage-jquery.mjs && node --check tools/check.mjs && node tools/check.mjs",
+    "operationTitan7": "python3 ../tools/operationTitan7.py"
   },
   "dependencies": {
     "jquery": "3.7.1"
