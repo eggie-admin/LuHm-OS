@@ -31,7 +31,7 @@ h1{font-size:14px;margin:0}.sub{font-size:11px;color:var(--muted);margin-top:3px
 .v{margin-top:6px;font-size:12px;word-break:break-word}.green{color:var(--green)}.amber{color:var(--amber)}.cyan{color:var(--cyan)}
 .cabinet{display:flex;gap:6px;flex-wrap:wrap;padding:0 10px 10px}
 .chip{border:1px solid var(--line);border-radius:999px;padding:5px 8px;font-size:10px;color:var(--muted)}
-.actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 10px 10px}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 10px 10px}
 .action{min-height:42px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--ink);cursor:pointer}
 .action:hover,.action:focus-visible{border-color:var(--cyan);outline:none}
 .action.primary{background:color-mix(in srgb,var(--violet) 28%,var(--panel));border-color:color-mix(in srgb,var(--violet) 70%,var(--line))}
@@ -58,6 +58,7 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 </div>
 <div class="actions">
   <button class="action" type="button" id="refresh">Refresh evidence</button>
+  <button class="action" type="button" id="titan7">Titan7 sane audit</button>
   <button class="action primary" type="button" id="talk">Talk to Lum</button>
   <button class="action" type="button" id="openFull">Full cockpit</button>
 </div>
@@ -70,6 +71,7 @@ let latestCockpit=null;
 let latestStatus=null;
 let latestRoster=null;
 let hostCaps={};
+let titan7Busy=false;
 const $=id=>document.getElementById(id);
 
 function request(method,params){
@@ -133,6 +135,24 @@ async function talk(){
     }
   }
 }
+async function runTitan7(){
+  if(titan7Busy)return;
+  titan7Busy=true;
+  $("titan7").disabled=true;
+  $("event").textContent="TITAN7_AUDIT_RUNNING:";
+  try{
+    const result=await request("tools/call",{name:"luhmOperationTitan7",arguments:{command:"saneApproach",escalation:"finalForm"}});
+    const receipt=unpack(result)||{};
+    const status=receipt.status||"UNKNOWN";
+    $("event").textContent="TITAN7_"+status+":";
+    await request("ui/update-model-context",{structuredContent:{luhmOperationTitan7:{entryPoint:"jQuery.fn.operationTitan7",command:"saneApproach",escalation:"finalForm",status,sourceRef:receipt.sourceRef||"UNKNOWN",crownStatus:"STOP"}}});
+  }catch(_){
+    $("event").textContent="TITAN7_AUDIT_FAILED:";
+  }finally{
+    titan7Busy=false;
+    $("titan7").disabled=false;
+  }
+}
 function openFull(){
   const origin=(latestCockpit?.harness?.publicOrigin||window.openai?.toolOutput?.harness?.publicOrigin||"").replace(/\/$/,"");
   if(!origin||origin==="LOCAL_ONLY"){ $("event").textContent="FULL_COCKPIT_UNAVAILABLE:"; return; }
@@ -161,6 +181,7 @@ window.addEventListener("message",event=>{
 },{passive:true});
 
 $("refresh").addEventListener("click",refresh);
+$("titan7").addEventListener("click",runTitan7);
 $("talk").addEventListener("click",talk);
 $("openFull").addEventListener("click",openFull);
 
