@@ -1,7 +1,7 @@
 {
   "schema": "luhmOs.inChatCockpitV2.v1",
   "date": "2026-10-02",
-  "status": "candidateSourceCiPending",
+  "status": "candidateSourceCiGreen",
   "authority": "Professor",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "baseMain": "8a1bc12a0a21dd78d9123540a909ba9042b5e7c0",
@@ -66,12 +66,27 @@
     "crownStatus": "STOP"
   },
   "externalGates": {
-    "renderDeploy": "PENDING_CANDIDATE_CI",
+    "renderDeploy": "PENDING_PROFESSOR_EXTERNAL_ACTION",
     "liveMcpUiInspection": "PENDING",
     "chatGptPluginConnection": "PENDING",
     "desktopAndMobileUiProof": "PENDING",
     "directoryPublication": "NOT_REQUESTED"
   },
-  "nextGate": "exactHeadCiThenRenderCandidateDeploymentEvidence",
-  "crownStatus": "STOP"
+  "nextGate": "Professor-authorized Render candidate deployment then live MCP Apps inspection",
+  "crownStatus": "STOP",
+  "sourceCi": {
+    "auditedHead": "10a3c2fb701af13d902946a564291d7cb2a6eae1",
+    "exactHeadChecks": "10/10 SUCCESS",
+    "renderChatGptHarnessRun": 37093499202,
+    "pluginPublicationRun": 37093499096,
+    "pluginPublicationArtifact": 11263193244,
+    "renderHarnessLiveRun": 37093499093,
+    "fullSourceTruthRun": 37093499040,
+    "titan7FinalFormRun": 37093499050,
+    "titan7WatchFleetRun": 37093499167,
+    "androidWeb3RegressionRun": 37093499108,
+    "storageTopologyRun": 37093499149,
+    "goddessCabinetRun": 37093499039,
+    "currentMainSourceTruthRun": 37093499128
+  }
 }
