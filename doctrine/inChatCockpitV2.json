@@ -1,7 +1,7 @@
 {
   "schema": "luhmOs.inChatCockpitV2.v1",
   "date": "2026-10-02",
-  "status": "candidateSourceCiGreen",
+  "status": "candidateWithTitan7SaneAudit",
   "authority": "Professor",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "baseMain": "8a1bc12a0a21dd78d9123540a909ba9042b5e7c0",
@@ -20,7 +20,8 @@
       "app"
     ],
     "threadEntrypoint": true,
-    "compatibilityOutputTemplate": true
+    "compatibilityOutputTemplate": true,
+    "operationTitan7Tool": "luhmOperationTitan7"
   },
   "mcpAppsBridge": {
     "standardsFirst": true,
@@ -30,7 +31,8 @@
     "hostContext": "ui/notifications/host-context-changed",
     "dataCalls": [
       "luhm_status",
-      "luhm_agent_roster"
+      "luhm_agent_roster",
+      "luhmOperationTitan7"
     ],
     "followUpMessage": "ui/message",
     "modelContext": "ui/update-model-context",
@@ -51,7 +53,8 @@
       "Lum cockpit status",
       "goddess cabinet chips",
       "COMEDIC_AMBER system events",
-      "Talk to Lum follow-up"
+      "Talk to Lum follow-up",
+      "Titan7 saneApproach/finalForm audit"
     ]
   },
   "authorityBoundary": {
@@ -66,15 +69,15 @@
     "crownStatus": "STOP"
   },
   "externalGates": {
-    "renderDeploy": "PENDING_PROFESSOR_EXTERNAL_ACTION",
+    "renderDeploy": "AUTHORIZED_PENDING_DEPLOYMENT",
     "liveMcpUiInspection": "PENDING",
     "chatGptPluginConnection": "PENDING",
     "desktopAndMobileUiProof": "PENDING",
     "directoryPublication": "NOT_REQUESTED"
   },
-  "nextGate": "Professor-authorized Render candidate deployment then live MCP Apps inspection",
+  "nextGate": "Deploy isolated Render candidate, then verify health and live MCP Apps",
   "crownStatus": "STOP",
-  "sourceCi": {
+  "sourceCiHistory": {
     "auditedHead": "10a3c2fb701af13d902946a564291d7cb2a6eae1",
     "exactHeadChecks": "10/10 SUCCESS",
     "renderChatGptHarnessRun": 37093499202,
