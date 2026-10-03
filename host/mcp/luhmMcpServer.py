@@ -258,6 +258,28 @@ def luhm_agent_roster() -> dict[str, Any]:
 
 
 @server.tool(annotations=READ_ONLY_INTERNAL)
+def luhmOperationTitan7(command: str = "saneApproach", escalation: str = "finalForm") -> dict[str, Any]:
+    """Run the schema-bounded read-only Titan7 audit and return its exact-source receipt."""
+    if command not in {"saneApproach", "dryRun"}:
+        raise ValueError("ChatGPT Titan7 supports only saneApproach and dryRun")
+    if escalation not in {"forFuckSake", "scorchedEarth", "finalForm"}:
+        raise ValueError("unsupported Titan7 escalation")
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "tools" / "operationTitan7.py"), command,
+         "--escalation", escalation, "--json", "-"],
+        cwd=ROOT, check=False, capture_output=True, text=True, timeout=20,
+        env={"PATH": os.environ.get("PATH", "")},
+    )
+    try:
+        receipt = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError("Titan7 returned an invalid receipt") from exc
+    if result.returncode != 0:
+        raise RuntimeError(json.dumps(receipt, separators=(",", ":")))
+    return receipt
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
 def luhm_validate_scope(
     taskId: str,
     sourceRef: str,
