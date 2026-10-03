@@ -248,7 +248,7 @@
   },
   "chatPluginLane": {
     "contract": "doctrine/inChatCockpitV2.json",
-    "status": "candidateSourceCiPending",
+    "status": "candidateSourceCiGreen",
     "baseMain": "8a1bc12a0a21dd78d9123540a909ba9042b5e7c0",
     "primaryResource": "ui://luhm-os/cockpit-v2.html",
     "legacyResource": "ui://luhm-os/cockpit-v1.html",
@@ -262,7 +262,7 @@
     "followUpMessage": "ui/message",
     "modelContext": "ui/update-model-context",
     "chatGptExtensions": "featureDetectOnly",
-    "renderDeploy": "PENDING_CANDIDATE_CI",
+    "renderDeploy": "PENDING_PROFESSOR_EXTERNAL_ACTION",
     "liveMcpUiInspection": "PENDING",
     "chatGptPluginConnection": "PENDING",
     "desktopAndMobileUiProof": "PENDING",
@@ -271,6 +271,13 @@
     "publicationAuthority": false,
     "productionSigningAuthority": false,
     "greenAuthority": false,
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "auditedHead": "10a3c2fb701af13d902946a564291d7cb2a6eae1",
+    "exactHeadChecks": "10/10 SUCCESS",
+    "renderChatGptHarnessRun": 37093499202,
+    "pluginPublicationRun": 37093499096,
+    "pluginPublicationArtifact": 11263193244,
+    "renderHarnessLiveRun": 37093499093,
+    "nextGate": "Professor-authorized Render candidate deployment then live MCP Apps inspection"
   }
 }
