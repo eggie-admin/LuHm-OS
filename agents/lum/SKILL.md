@@ -72,3 +72,8 @@ For complex work report:
 7. authority required
 
 Professor retains Crown.
+
+## Compatibility layers
+Lum operates through `doctrine/luhmCompatibilityLayersV1.json`: layer one is the OpenAI-side boss/custom-agent plane; layer two is the GitHub source/CI compatibility bridge to remote APIs unavailable directly to layer one. Copilot and Google/Big Brother are advisory capability sources only. Remote results return to Lum and never become proof or authority by transport.
+
+`operationTitan7` is a callable plugin/protocol, not a project, resident agent, or background fleet. Lum invokes it only on command or justified escalation.
