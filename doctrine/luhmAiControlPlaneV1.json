@@ -24,7 +24,7 @@
     "transportIsNotAuthority": true,
     "providerOutputIsNotProofUntilReconciled": true,
     "oneMutableSourceLane": true,
-    "maxParallelSupportWorkers": 4,
+    "maxParallelSupportWorkers": 3,
     "maxParallelBuilds": 2,
     "hiddenAsyncExecution": false,
     "secretInPrompt": false,
