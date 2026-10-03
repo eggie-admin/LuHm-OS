@@ -1,0 +1,272 @@
+{
+  "schema": "luhmOs.subsidiaryAiMesh.v1",
+  "status": "candidateSourceOnly",
+  "authority": "Professor",
+  "boss": "lum",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Make OpenAI/Lum the headquarters control plane while Cloudflare, Render, Google AI Edge Gallery, Google AI services, and GitHub act as bounded subsidiary runtimes or capability providers under one schema.",
+  "inherits": {
+    "aiControlPlane": "doctrine/luhmAiControlPlaneV1.json",
+    "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
+    "chatTrigger": "doctrine/luhmChatMagicTriggerV1.json"
+  },
+  "corporateTopology": {
+    "headquarters": {
+      "id": "openAiHeadquarters",
+      "role": "canonicalConversationRoutingAndReconciliation",
+      "boss": "lum",
+      "crownAuthority": false,
+      "notes": "OpenAI hosts the primary LuHm conversational control plane. Professor remains final authority."
+    },
+    "subsidiaries": {
+      "cloudflare": {
+        "role": [
+          "edgeGateway",
+          "agentProxyRuntime",
+          "aiGateway",
+          "securityAndVendorWatchTransport"
+        ],
+        "deployment": "notYetDeployed",
+        "mayOwnCanonicalAgentIdentity": false,
+        "mayGrantGreen": false,
+        "mayGrantCrown": false
+      },
+      "render": {
+        "role": [
+          "mcpOrigin",
+          "harnessRuntime",
+          "fallbackApplicationHost"
+        ],
+        "deployment": "existingReadOnlyHarnessOnly",
+        "mayOwnCanonicalAgentIdentity": false,
+        "mayGrantGreen": false,
+        "mayGrantCrown": false
+      },
+      "googleEdgeGallery": {
+        "role": [
+          "onDeviceModelWorker",
+          "agentSkillsClient",
+          "mcpClient",
+          "localInferenceLab"
+        ],
+        "deployment": "notYetBoundToLuHmMesh",
+        "localInferencePreferred": true,
+        "mcpAuthority": "READ_ONLY",
+        "externalMcpRequiresHttps": true,
+        "mayGrantGreen": false,
+        "mayGrantCrown": false
+      },
+      "googleAiServices": {
+        "role": [
+          "geminiCloudCapability",
+          "aiStudioDeveloperEntitlement",
+          "androidStudioDeveloperEntitlement",
+          "antigravityDeveloperEntitlement"
+        ],
+        "deployment": "providerRoutePending",
+        "entitlementAccounting": "productSpecificLimits",
+        "mayGrantGreen": false,
+        "mayGrantCrown": false
+      },
+      "githubCompatibilityLayer": {
+        "role": [
+          "sourceDatabase",
+          "ciEvidence",
+          "compatibilityLayer",
+          "copilotAdvisory"
+        ],
+        "deployment": "active",
+        "mayGrantGreen": "ciMayProveScopedChecksOnly",
+        "mayGrantCrown": false
+      }
+    }
+  },
+  "canonicalAgents": {
+    "alwaysRegisteredForProjectTask": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch",
+      "yume"
+    ],
+    "canonicalIdentityOwnedBy": "openAiHeadquarters",
+    "vendorInstancesAre": "roleMirrorsNotNewAgents",
+    "lumOnlyConversationalBoss": true,
+    "allVendorOutputsReturnTo": "lum"
+  },
+  "goddessRoles": {
+    "urdDoctorGoddess": {
+      "primary": [
+        "failureDiagnosis",
+        "evidenceTriage",
+        "driftDetection",
+        "rollbackRisk"
+      ],
+      "vendorMirrorClass": "diagnosticProxy"
+    },
+    "belldandySecretary": {
+      "primary": [
+        "naming",
+        "stateLedger",
+        "ttlLedger",
+        "snapshotIndex",
+        "legacyArchivePlan",
+        "handoffLedger"
+      ],
+      "auditCommitDepth": {
+        "routine": 10,
+        "ffs": 25,
+        "scorchedEarth": 50
+      },
+      "finalForm": "reconcileOrReplaceCurrentStructureWithoutAuditingPast50Commits",
+      "vendorMirrorClass": "stateProxy"
+    },
+    "skuldResearch": {
+      "primary": [
+        "technologyResearch",
+        "vendorSecurityUpdates",
+        "android16CanaryWatch",
+        "cloudflareResearch",
+        "googleEdgeResearch",
+        "compatibility",
+        "licensing"
+      ],
+      "vendorMirrorClass": "researchProxy"
+    },
+    "yume": {
+      "primary": [
+        "artDirection",
+        "mediaPlan",
+        "voiceAliasDreamchan"
+      ],
+      "vendorMirrorClass": "creativeProxy"
+    }
+  },
+  "concurrency": {
+    "registeredCustomAgents": 4,
+    "maxGlobalSupportInference": 4,
+    "defaultProviderInferenceSlots": 1,
+    "providerBurstSlots": 2,
+    "rule": "presenceIsNotInference",
+    "routeMinimumWorkersOnly": true,
+    "duplicateContextFanoutForbidden": true,
+    "unchangedStateRequeryForbidden": true,
+    "oneCallPerRolePerSourceRefUnlessMaterialChange": true
+  },
+  "entitlementPolicy": {
+    "objective": "Use local or already-entitled capacity first and avoid redundant vendor calls.",
+    "order": [
+      "deterministicLocalCode",
+      "googleEdgeGalleryLocalInference",
+      "alreadyEntitledInteractiveDeveloperProducts",
+      "cloudflareWorkersAiOrGatewayWhenExplicitlyBudgeted",
+      "paidRemoteModelApiWhenCapabilityRequiresIt"
+    ],
+    "googleAiPro": {
+      "treatAs": "developerProductEntitlement",
+      "notEquivalentTo": "automaticEdgeGalleryAgentDeployment",
+      "apiBillingAssumption": "unknownUntilSpecificGoogleApiProjectBillingIsVerified"
+    },
+    "cloudflare": {
+      "unifiedBillingAutomaticUse": false,
+      "dynamicRouteMustEnforceBudget": true
+    }
+  },
+  "wireProtocol": {
+    "canonicalSchemas": {
+      "task": "luhmOs.aiTaskManifest.v1",
+      "event": "luhmOs.aiEvent.v1",
+      "remote": "luhmOs.remoteAiManifest.v1"
+    },
+    "schemaRegistry": {
+      "tsk1": "luhmOs.aiTaskManifest.v1",
+      "evt1": "luhmOs.aiEvent.v1",
+      "ram1": "luhmOs.remoteAiManifest.v1"
+    },
+    "minifier": {
+      "name": "luhmManifestMin",
+      "authority": false,
+      "deterministicOnly": true,
+      "removeDefaults": true,
+      "repeatedMetadataBySchemaId": true,
+      "evidenceByReferenceOnly": true,
+      "preserveExactIdentityFields": [
+        "taskId",
+        "sourceRef",
+        "scopeId",
+        "providerId",
+        "workerId"
+      ],
+      "shortFieldMap": {
+        "schema": "s",
+        "providerId": "p",
+        "capabilityId": "c",
+        "taskId": "t",
+        "sourceRef": "r",
+        "scopeId": "q",
+        "inputRefs": "i",
+        "outputRefs": "o",
+        "evidenceRefs": "e",
+        "state": "x",
+        "timestamp": "z",
+        "budget": "b"
+      }
+    },
+    "rssAtom": {
+      "role": "statusProjectionOnly",
+      "mayCarryAuthority": false,
+      "mayTriggerMutation": false,
+      "payloadStyle": "compactEventReferences",
+      "canonicalSource": "aiEvent"
+    },
+    "transport": {
+      "machineToMachine": [
+        "https",
+        "mcp",
+        "compactJson"
+      ],
+      "chatFacingOriginCount": 1,
+      "secretsInManifest": false,
+      "providerSecretsHostSideOnly": true
+    }
+  },
+  "edgeGallerySafety": {
+    "toolsDefault": "deny",
+    "initialAllowedTools": [
+      "luhm_status",
+      "luhm_agent_roster",
+      "luhm_source_refs"
+    ],
+    "mutationToolsExposed": false,
+    "signingToolsExposed": false,
+    "crownToolsExposed": false,
+    "outputBudget": "max25PercentOfActiveModelContext",
+    "permissionPromptRequired": true,
+    "cleartextRemoteMcp": false
+  },
+  "retentionPolicy": {
+    "generatedWorkingMaterialMaxDays": 30,
+    "taskEventHotHours": 6,
+    "failedEphemeralOutputHours": 24,
+    "unpromotedGeneratedArtifactDays": 7,
+    "staleCandidateReviewDays": 30,
+    "automaticDeletionExemptions": [
+      "canonicalSource",
+      "promotedRelease",
+      "snapshotEvidence",
+      "auditReceipt",
+      "provenanceRecord",
+      "legalOrLicenseRecord"
+    ],
+    "deleteRequiresScopeSentinel": true,
+    "legacyPruneRequiresSnapshotFirst": true
+  },
+  "deploymentState": {
+    "sourceSchema": "candidate",
+    "cloudflareAgentProxy": "notDeployed",
+    "cloudflareAiGatewayRoute": "notConfigured",
+    "googleEdgeGalleryLuHmMcp": "notConnected",
+    "googleCloudModelRoute": "notConfigured",
+    "renderHarness": "existingReadOnlyOnly",
+    "crownStatus": "STOP"
+  }
+}
