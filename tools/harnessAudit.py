@@ -21,6 +21,7 @@ def main() -> int:
     required = (
         HARNESS / "index.html",
         HARNESS / "widget.html",
+        HARNESS / "widget-v2.html",
         HARNESS / "cockpit.css",
         HARNESS / "cockpit.js",
         HARNESS / "libraryPolicy.json",
@@ -33,7 +34,8 @@ def main() -> int:
     for path in required:
         require(path.is_file(), f"RED_HARNESS_MISSING:{path.relative_to(ROOT)}")
 
-    widget = (HARNESS / "widget.html").read_text(encoding="utf-8")
+    widget = (HARNESS / "widget-v2.html").read_text(encoding="utf-8")
+    legacy_widget = (HARNESS / "widget.html").read_text(encoding="utf-8")
     index = (HARNESS / "index.html").read_text(encoding="utf-8")
     script = (HARNESS / "cockpit.js").read_text(encoding="utf-8")
     module = MODULE.read_text(encoding="utf-8")
@@ -42,16 +44,25 @@ def main() -> int:
     pets = json.loads((HARNESS / "pets.json").read_text(encoding="utf-8"))
     donors = json.loads((HARNESS / "donorMutation.json").read_text(encoding="utf-8"))
 
-    require("ui://luhm-os/cockpit-v1.html" in module, "RED_WIDGET_URI")
+    require('UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"' in module, "RED_WIDGET_V2_URI")
+    require('LEGACY_UI_RESOURCE_URI = "ui://luhm-os/cockpit-v1.html"' in module, "RED_WIDGET_V1_COMPAT_URI")
     require("text/html;profile=mcp-app" in module, "RED_WIDGET_MIME")
     require("luhm_open_cockpit" in module, "RED_RENDER_TOOL")
+    require('"openai/ui": {"entrypoints": [{"type": "thread"}]}' in module, "RED_THREAD_ENTRYPOINT")
     require('"greenAuthority": False' in module, "RED_UI_GREEN_AUTHORITY")
     require('"publicationAuthority": False' in module, "RED_UI_PUBLICATION_AUTHORITY")
     require("godotEmbeddingInChat" in module and "False" in module, "RED_NESTED_FRAME_BOUNDARY")
 
-    for text, label in ((widget, "WIDGET"), (index, "INDEX")):
+    for text, label in ((widget, "WIDGET_V2"), (legacy_widget, "WIDGET_V1"), (index, "INDEX")):
         require(not re.search(r'<script[^>]+src=["\']https?://', text, re.I), f"RED_{label}_REMOTE_SCRIPT")
         require(not re.search(r'<link[^>]+href=["\']https?://', text, re.I), f"RED_{label}_REMOTE_STYLE")
+
+    for token in ("ui/initialize", "ui/notifications/initialized", "ui/notifications/tool-result", "ui/notifications/host-context-changed", "tools/call", "ui/message", "ui/update-model-context"):
+        require(token in widget, f"RED_WIDGET_V2_MCP_APPS:{token}")
+    for allowed_tool in ("luhm_status", "luhm_agent_roster"):
+        require(f'name:"{allowed_tool}"' in widget, f"RED_WIDGET_V2_TOOL:{allowed_tool}")
+    for forbidden in ("fetch(", "XMLHttpRequest", "WebSocket(", "sendBeacon(", "localStorage"):
+        require(forbidden not in widget, f"RED_WIDGET_V2_FORBIDDEN:{forbidden}")
 
     require(libraries.get("productionPolicy") == "vendored-or-self-hosted-only", "RED_LIBRARY_POLICY")
     require(libraries.get("chatWidgetExternalCdnAllowed") is False, "RED_CHAT_CDN_POLICY")
