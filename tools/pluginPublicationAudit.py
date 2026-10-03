@@ -119,11 +119,13 @@ def validate(
             errors.append(f"harness server publication hardening missing: {phrase}")
 
     required_harness_module_phrases = (
-        'UI_RESOURCE_URI = "ui://luhm-os/cockpit-v1.html"',
+        'UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"',
+        'LEGACY_UI_RESOURCE_URI = "ui://luhm-os/cockpit-v1.html"',
         'APP_MIME_TYPE = "text/html;profile=mcp-app"',
         'name="luhm_open_cockpit"',
         '"publicationAuthority": False',
         '"greenAuthority": False',
+        '"openai/ui": {"entrypoints": [{"type": "thread"}]}',
     )
     for phrase in required_harness_module_phrases:
         if phrase not in harness_module_text:
@@ -186,7 +188,8 @@ def main() -> int:
         "status": "GREEN_PUBLICATION_SOURCE_READY" if not errors else "RED_PUBLICATION_SOURCE",
         "sourceCommit": git_head(),
         "mcpUrl": mcp_config.get("mcpServers", {}).get("luhm", {}).get("url", "UNKNOWN"),
-        "chatUiResource": "ui://luhm-os/cockpit-v1.html",
+        "chatUiResource": "ui://luhm-os/cockpit-v2.html",
+        "legacyChatUiResource": "ui://luhm-os/cockpit-v1.html",
         "contractErrors": errors,
         "publicationAuthority": False,
         "directoryPublicationProven": False,
