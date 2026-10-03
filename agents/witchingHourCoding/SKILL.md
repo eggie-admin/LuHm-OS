@@ -42,3 +42,7 @@ Urd diagnoses the failure, evidence gaps, dependency pathology and rollback risk
 
 ## Exit
 Return a compact receipt: sourceRef, blocker, changed boundary, tests, deterministic result, rollback checkpoint, next Titan7 tier, Crown status.
+
+## Magic coding roleplay trigger
+
+`jQuery.fn.mgcCdngRlplay` activates this workflow only when both normalized phrases match: `I invoke the old magic` AND `so let it be written, so let it be done`. Activation loads current source truth, the active milestone, this coding workflow, the four default custom-agent skills, and Lum's AI logic together. The phrase is a mode selector, never an authorization token. Resolve voice aliases through `doctrine/luhmChatMagicTriggerV1.json`; route Dreamchan/Dream(yume)chan to canonical `yume`.

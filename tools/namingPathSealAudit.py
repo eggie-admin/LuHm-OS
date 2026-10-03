@@ -12,7 +12,10 @@ controlled=[
  "doctrine/artOniLayeredMutationV3.json","doctrine/namingPathSealV1.json",
  "doctrine/rootedTermuxGitHubReleaseInstallV1.json","doctrine/smX400OneBashInstallSealV1.json",
  "tools/artOniCamelHumpAudit.py","tools/namingPathSealAudit.py",
- "tools/smX400OneBashInstall.sh","tools/smX400OneBashInstallAudit.py"
+ "tools/smX400OneBashInstall.sh","tools/smX400OneBashInstallAudit.py",
+ ".codex/agents/urdDoctorGoddess.toml",".codex/agents/belldandySecretary.toml",
+ ".codex/agents/skuldResearch.toml",".codex/agents/yume.toml",
+ "doctrine/luhmChatMagicTriggerV1.json","tools/luhmChatMagicTriggerAudit.py"
 ]
 snake=re.compile(r"^[A-Za-z0-9.-]*_[A-Za-z0-9_.-]+$")
 scream=re.compile(r"^[A-Z0-9]+(?:_[A-Z0-9]+)+")

@@ -169,3 +169,13 @@ If a lane detects material drift it returns `watchStop` with evidence and the sm
 The watch loop ends when the active task envelope closes, reaches its stop condition, or Professor stops the work.
 
 Professor retains Crown.
+
+## Custom-agent default and voice aliases
+
+These roles are Codex custom agents, not mini-agent entries. Attach Urd, Belldandy, Skuld, and Yume to every active LuHm project task under Lum. Each receives the current task envelope and this skill's role; all return only concise findings, evidence references, state changes, or blockers to Lum. They stop when the task closes.
+
+Canonical IDs and paths remain lower camelHump. The phrase forms `rd`, `bllndy`, `skld`, `ym`, and `drmchn` are explicit vowel-ripped aliases; Dreamchan, Dream(yume)chan, and Dream Yume Chan route to canonical `yume`. Aliases never create additional agents.
+
+## Trigger and project context
+
+The coding roleplay trigger is a normalized equality check requiring both phrases: `I invoke the old magic` AND `so let it be written, so let it be done`. It loads the coding workflow, goddess/Yume skills, and current control-plane doctrine together. It does not grant extra authority. See `doctrine/luhmChatMagicTriggerV1.json`.

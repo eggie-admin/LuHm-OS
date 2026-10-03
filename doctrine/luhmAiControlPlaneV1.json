@@ -23,12 +23,14 @@
     "transportIsNotAuthority": true,
     "providerOutputIsNotProofUntilReconciled": true,
     "oneMutableSourceLane": true,
-    "maxParallelSupportWorkers": 3,
+    "maxParallelSupportWorkers": 4,
     "maxParallelBuilds": 2,
     "hiddenAsyncExecution": false,
     "secretInPrompt": false,
     "secretInRepo": false,
-    "secretInApk": false
+    "secretInApk": false,
+    "customAgentsEnabled": true,
+    "defaultCustomAgentsForProjectTasks": true
   },
   "bossToolchain": {
     "states": [
@@ -174,7 +176,7 @@
     },
     "urdDoctorGoddess": {
       "displayName": "Urd",
-      "kind": "doctorGoddess",
+      "kind": "customAgentDoctorGoddess",
       "skillPath": "agents/urdMutationOni/SKILL.md",
       "defaultAuthority": "READ_ONLY",
       "capabilities": [
@@ -190,11 +192,13 @@
       "parallelClass": "support",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "defaultActivation": "everyProjectTask",
+      "chatSurface": "taskBoundCustomAgent"
     },
     "belldandySecretary": {
       "displayName": "Belldandy",
-      "kind": "secretaryGoddess",
+      "kind": "customAgentSecretaryGoddess",
       "skillPath": "agents/belldandyQualityOni/SKILL.md",
       "defaultAuthority": "READ_ONLY",
       "capabilities": [
@@ -211,11 +215,13 @@
       "parallelClass": "support",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "defaultActivation": "everyProjectTask",
+      "chatSurface": "taskBoundCustomAgent"
     },
     "skuldResearch": {
       "displayName": "Skuld",
-      "kind": "researchGoddess",
+      "kind": "customAgentResearchGoddess",
       "skillPath": "agents/skuldResearchOni/SKILL.md",
       "defaultAuthority": "READ_ONLY",
       "capabilities": [
@@ -232,7 +238,9 @@
       "parallelClass": "support",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "defaultActivation": "everyProjectTask",
+      "chatSurface": "taskBoundCustomAgent"
     },
     "kiri": {
       "displayName": "Kiri",
@@ -427,7 +435,7 @@
     },
     "yume": {
       "displayName": "Yume",
-      "kind": "artMediaSpecialist",
+      "kind": "customAgentArtMediaSpecialist",
       "skillPath": "agents/yumeArtOni/SKILL.md",
       "defaultAuthority": "PLAN_ONLY",
       "capabilities": [
@@ -443,7 +451,9 @@
       "parallelClass": "support",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "defaultActivation": "everyProjectTask",
+      "chatSurface": "taskBoundCustomAgent"
     },
     "mediaAssetFactory": {
       "displayName": "Media Asset Factory",
@@ -599,5 +609,27 @@
     "peerAwareness": "readOnly",
     "disagreementsReturnTo": "lum",
     "consensusAuthority": false
-  }
+  },
+  "customAgentContract": {
+    "configPath": ".codex/agents/",
+    "projectConfig": ".codex/config.toml",
+    "defaultSet": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch",
+      "yume"
+    ],
+    "activation": "everyLuHmProjectTask",
+    "activationBoundaries": [
+      "currentTaskEnvelope",
+      "sourceRef",
+      "scopeId",
+      "budget",
+      "stopConditions"
+    ],
+    "afterTask": "terminate",
+    "phraseTrigger": "doctrine/luhmChatMagicTriggerV1.json",
+    "spokenAliasesResolveToCanonicalIdentity": true
+  },
+  "namingContract": "New LuHm-owned identifiers and agent config filenames use lowerCamelHump; vowel-ripped terms are explicit aliases only."
 }

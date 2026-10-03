@@ -279,5 +279,19 @@
     "pluginPublicationArtifact": 11263193244,
     "renderHarnessLiveRun": 37093499093,
     "nextGate": "Professor-authorized Render candidate deployment then live MCP Apps inspection"
+  },
+  "chatAgentActivation": {
+    "doctrine": "doctrine/luhmChatMagicTriggerV1.json",
+    "controlPlane": "doctrine/luhmAiControlPlaneV1.json",
+    "customAgentConfig": ".codex/config.toml",
+    "defaultCustomAgents": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch",
+      "yume"
+    ],
+    "status": "candidateReview",
+    "executionBoundary": "activeTaskOnly",
+    "crownStatus": "stop"
   }
 }

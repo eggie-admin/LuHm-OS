@@ -154,3 +154,7 @@ Prime law: `databases point to files; databases do not become the file server`.
 - Android/Termux is a runtime mount and physical-proof boundary, not durable project storage.
 
 A durable artifact is not storage-GREEN until its Drive-backed pointer and SHA-256 are recorded.
+
+## Custom agents and magic coding roleplay
+
+For each LuHm OS / Project Hydra task, attach the four Codex custom agents Urd, Belldandy, Skuld, and Yume by default. They are task-bound helpers supervised by Lum; there is no after-task background process. Load `doctrine/luhmChatMagicTriggerV1.json` to resolve both-phrase activation, Project Hydra personal context, acronym, and vowel-ripped aliases. Do not echo unchanged tool activity or expose hidden reasoning.

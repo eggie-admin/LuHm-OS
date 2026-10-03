@@ -1,0 +1,85 @@
+{
+  "schema": "luhmOs.chatMagicTrigger.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "boss": "lum",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "machineNamingLaw": "lowerCamelHump",
+  "entryPoint": "jQuery.fn.mgcCdngRlplay",
+  "trigger": {
+    "operator": "AND",
+    "allOf": [
+      "I invoke the old magic",
+      "so let it be written, so let it be done"
+    ],
+    "comparison": "normalizedPhraseEquality",
+    "normalization": {
+      "unicode": "NFC",
+      "caseSensitive": false,
+      "trimOuterWhitespace": true,
+      "collapseInternalWhitespace": true,
+      "ignoreTerminalPunctuation": true
+    },
+    "eitherPhraseAloneActivates": false,
+    "triggerExpression": "oldMagicPhrase == true && writtenDonePhrase == true",
+    "authorityEffect": "none"
+  },
+  "projectLibrary": {
+    "productDisplayName": "LuHm OS",
+    "canonicalRepository": "eggie-admin/LuHm-OS",
+    "workingDevelopmentTitle": "Project Hydra",
+    "acronym": {
+      "text": "LuHm OS",
+      "expansion": ["Linux", "Unix", "Hydra", "Manifest"]
+    },
+    "personalContext": "Load as project context for Lum and every default custom agent; current repository doctrine and exact sourceRef override stale memory."
+  },
+  "activation": {
+    "projectTasks": "activateDefaultCustomAgents",
+    "magicTrigger": "loadCodingRoleplayWorkflowAndAgentSkills",
+    "workflowSkill": "agents/witchingHourCoding/SKILL.md",
+    "agentSkills": [
+      "agents/urdMutationOni/SKILL.md",
+      "agents/belldandyQualityOni/SKILL.md",
+      "agents/skuldResearchOni/SKILL.md",
+      "agents/yumeArtOni/SKILL.md"
+    ],
+    "aiLogic": "doctrine/luhmAiControlPlaneV1.json",
+    "taskBound": true,
+    "persistsAfterTaskCloses": false
+  },
+  "agentAliases": {
+    "rule": "Explicit aliases route to one canonical machine identity. Vowel-ripped aliases remove ASCII vowels a/e/i/o/u from the spoken/display alias; y remains. Canonical IDs and paths are never vowel-stripped.",
+    "canonicalMachineIdentity": {
+      "urdDoctorGoddess": ["Urd", "rd"],
+      "belldandySecretary": ["Belldandy", "Bllndy"],
+      "skuldResearch": ["Skuld", "Skld"],
+      "yume": ["Yume", "Ym", "Dreamchan", "Dream Yume Chan", "Dream(yume)chan", "Drmchn", "DrmYmChn"]
+    },
+    "nicknameRouting": {
+      "Dreamchan": "yume",
+      "Dream(yume)chan": "yume",
+      "dreamYumeChan": "yume"
+    },
+    "unknownAlias": "askLumToResolveWithoutCreatingAgent",
+    "silentAliasesAllowed": false
+  },
+  "defaults": {
+    "projectAgentSet": ["urdDoctorGoddess", "belldandySecretary", "skuldResearch", "yume"],
+    "lumIsPrimaryBoss": true,
+    "allWorkersReturnToLum": true,
+    "maximumConcurrentSupportAgents": 4,
+    "visibleChatActivity": "materialStateChangesOnly",
+    "noEcho": true,
+    "noHiddenChainOfThought": true,
+    "noRepeatedProgressLines": true,
+    "noBackgroundExecutionAfterTask": true
+  },
+  "authority": {
+    "helpersMayRecruit": false,
+    "helpersMaySelfApprove": false,
+    "helpersMayGrantGreen": false,
+    "helpersMayGrantCrown": false,
+    "externalSideEffectsRequireExistingAuthority": true
+  }
+}

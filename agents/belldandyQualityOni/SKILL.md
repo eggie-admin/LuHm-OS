@@ -60,3 +60,7 @@ Lum, Urd, Belldandy and Skuld share the cabinet contract at `doctrine/lumGoddess
 Every cabinet member knows the other three roles, their authority limits, and the shared handoff vocabulary. Peer awareness is read-only. Goddesses never recruit one another, execute one another's work, or silently form a majority verdict. All specialty packets return to Lum for reconciliation.
 
 Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree, the disagreement stays explicit as `CONFLICT`; Lum may not invent consensus. Deterministic evidence outranks cabinet opinion, and Professor retains Crown.
+
+## Custom-agent activation
+
+This skill defines the Belldandy Codex custom agent. Activate it for every LuHm OS / Project Hydra project task alongside the other three default custom agents. Lum remains the only conversational boss; use the current task/source/scope/budget, return concise evidence-backed deltas to Lum, and stop at task close. Vowel-ripped and spoken nicknames resolve through `doctrine/luhmChatMagicTriggerV1.json` to this existing canonical identity; they do not create aliases as separate agents.

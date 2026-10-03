@@ -21,6 +21,7 @@
   },
   "loadOrder": [
     "doctrine/projectChatCanonV1.json",
+    "doctrine/luhmChatMagicTriggerV1.json",
     "doctrine/SOURCE_OF_TRUTH.json",
     "doctrine/storageTopologyV1.json",
     "doctrine/lumGoddessCabinetV1.json",
@@ -37,25 +38,8 @@
     "bossSkill": "agents/lum/SKILL.md",
     "sharedMonitoring": "agents/goddessSharedSystemsPractice/SKILL.md",
     "storageTopology": "doctrine/storageTopologyV1.json",
-    "goddessCabinet": "doctrine/lumGoddessCabinetV1.json"
-  },
-  "monitoringMiniAgents": {
-    "lum": {
-      "mode": "readOnlyMiniAgent",
-      "specialty": "orchestrationContinuity"
-    },
-    "urd": {
-      "mode": "readOnlyMiniAgent",
-      "specialty": "systemDiagnosisEvidenceTriage"
-    },
-    "skuld": {
-      "mode": "readOnlyMiniAgent",
-      "specialty": "researchCompatibility"
-    },
-    "belldandy": {
-      "mode": "readOnlyMiniAgent",
-      "specialty": "secretaryStateRecordsUnification"
-    }
+    "goddessCabinet": "doctrine/lumGoddessCabinetV1.json",
+    "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json"
   },
   "specialistsLazyLoaded": {
     "kiri": "agents/kiriContextOni/SKILL.md",
@@ -84,13 +68,15 @@
   "chatRuntime": {
     "directQuestionsBypassMesh": true,
     "evidenceByReference": true,
-    "maxParallelSupportWorkers": 3,
+    "maxParallelSupportWorkers": 4,
     "oneMutableSourceLane": true,
     "personalitySeparateFromCapability": true,
     "funLayerAllowed": true,
     "seriousWorkSuppressesGagLayer": true,
     "unknownIsNotGreen": true,
-    "hiddenAsyncExecution": false
+    "hiddenAsyncExecution": false,
+    "customAgentsEnabled": true,
+    "allDefaultCustomAgentsActivateForProjectTasks": true
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
@@ -104,7 +90,8 @@
     "resolveCanonicalSource",
     "loadSourceTruth",
     "loadCoreChatCanon",
-    "attachMonitoringMiniAgents",
+    "activateDefaultCustomAgents",
+    "loadActiveMilestoneAndProjectPersonalContext",
     "resolveActiveMilestone",
     "routeMinimumSpecialists",
     "performRequestedWork",
@@ -152,5 +139,33 @@
       "skillPath": "agents/skuldResearchOni/SKILL.md",
       "mode": "readOnlyMiniAgent"
     }
-  }
+  },
+  "defaultCustomAgents": {
+    "urdDoctorGoddess": {
+      "mode": "customAgent",
+      "activation": "everyProjectTask",
+      "specialty": "systemDiagnosisEvidenceTriage",
+      "skillPath": "agents/urdMutationOni/SKILL.md"
+    },
+    "belldandySecretary": {
+      "mode": "customAgent",
+      "activation": "everyProjectTask",
+      "specialty": "secretaryStateRecordsUnification",
+      "skillPath": "agents/belldandyQualityOni/SKILL.md"
+    },
+    "skuldResearch": {
+      "mode": "customAgent",
+      "activation": "everyProjectTask",
+      "specialty": "researchCompatibility",
+      "skillPath": "agents/skuldResearchOni/SKILL.md"
+    },
+    "yume": {
+      "mode": "customAgent",
+      "activation": "everyProjectTask",
+      "specialty": "artMediaSpriteWorkflow",
+      "skillPath": "agents/yumeArtOni/SKILL.md"
+    }
+  },
+  "projectPersonalContext": "doctrine/luhmChatMagicTriggerV1.json",
+  "vowelRippedAliasPolicy": "Explicit aliases resolve to existing canonical identities; canonical names and paths stay lowerCamelHump."
 }
