@@ -11,6 +11,7 @@ on:
       - 'frontEnd/**'
       - 'tools/luhmCompatibilityAudit.py'
       - 'tools/operationTitan7.py'
+      - '.devcontainer/**'
       - '.codex/**'
       - '.github/workflows/operationTitan7.yml'
   workflow_dispatch:
