@@ -20,7 +20,8 @@ from typing import Any, Callable
 from starlette.requests import Request
 from starlette.responses import FileResponse, JSONResponse, PlainTextResponse, RedirectResponse, Response
 
-UI_RESOURCE_URI = "ui://luhm-os/cockpit-v1.html"
+UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"
+LEGACY_UI_RESOURCE_URI = "ui://luhm-os/cockpit-v1.html"
 APP_MIME_TYPE = "text/html;profile=mcp-app"
 
 
@@ -80,13 +81,14 @@ def register_harness(
     profile_provider: Callable[[], str],
 ) -> None:
     harness_root = root / "host" / "harness"
-    widget_path = harness_root / "widget.html"
+    widget_path = harness_root / "widget-v2.html"
+    legacy_widget_path = harness_root / "widget.html"
     index_path = harness_root / "index.html"
     pets_path = harness_root / "pets.json"
     libraries_path = harness_root / "libraryPolicy.json"
     godot_root = harness_root / "godot-export"
 
-    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path)):
+    if not all(path.is_file() for path in (widget_path, legacy_widget_path, index_path, pets_path, libraries_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     resource_meta: dict[str, Any] = {
@@ -107,6 +109,23 @@ def register_harness(
         resource_meta["ui"]["domain"] = public_origin
 
     @server.resource(
+        LEGACY_UI_RESOURCE_URI,
+        name="luhm-os-cockpit-v1-legacy",
+        title="LuHm OS Cockpit v1",
+        description="Legacy read-only LuHm cockpit retained as a compatibility resource.",
+        mime_type=APP_MIME_TYPE,
+        meta={
+            "ui": {
+                "prefersBorder": True,
+                "csp": {"connectDomains": [], "resourceDomains": []},
+            },
+            "openai/ui": {"availableDisplayModes": ["inline"]},
+        },
+    )
+    def luhm_cockpit_v1_resource() -> str:
+        return legacy_widget_path.read_text(encoding="utf-8")
+
+    @server.resource(
         UI_RESOURCE_URI,
         name="luhm-os-cockpit",
         title="LuHm OS Cockpit",
@@ -124,6 +143,7 @@ def register_harness(
         annotations=annotations,
         meta={
             "ui": {"resourceUri": UI_RESOURCE_URI, "visibility": ["model", "app"]},
+            "openai/ui": {"entrypoints": [{"type": "thread"}]},
             "openai/outputTemplate": UI_RESOURCE_URI,
             "openai/toolInvocation/invoking": "Opening LuHm cockpit…",
             "openai/toolInvocation/invoked": "LuHm cockpit ready.",
