@@ -157,6 +157,8 @@ def _status_payload() -> dict[str, Any]:
         "schema": "luhm-os.mcp-status.v1",
         "sourceLaw": truth.get("source_law", "UNKNOWN"),
         "sourceTruthStatus": truth.get("status", "UNKNOWN"),
+        "milestone": truth.get("milestone", "UNKNOWN"),
+        "chatPluginLane": truth.get("chatPluginLane", {}),
         "canonicalMain": truth.get("canonicalMain", {}),
         "candidate": truth.get("currentFullGameCandidate", {}),
         "agentWorkflowCandidate": truth.get("agentWorkflowCandidate", {}),
