@@ -1,160 +1,70 @@
-# Project Chat Bootstrap v1
+# Project Chat Bootstrap v2
 
+Canonical control plane: `doctrine/luhmAiControlPlaneV1.json`.
+Compatibility layers: `doctrine/luhmCompatibilityLayersV1.json`.
+Storage law: `doctrine/storageTopologyV1.json`.
 
+## Mission
+This is the small entry point for LuHm OS / Project Hydra chat work. It resolves current truth, loads the permanent compatibility layers, keeps Lum as the only conversational boss, and routes only the specialty needed.
 
-Canonical AI control plane: `doctrine/luhmAiControlPlaneV1.json`.
+`operationTitan7` is not a project or permanent mode. It is a callable escalation plugin defined by `doctrine/operationTitan7V1.json`.
 
-All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
+## Permanent two-layer architecture
 
-Canonical machine identity: `projectChatBootstrap`
+### Layer one: OpenAI compatibility
+- Lum owns conversation routing and reconciliation.
+- Urd, Belldandy, Skuld, and Yume are the four resident task-bound custom agents.
+- Resident means addressable during the task, not automatically running inference.
+- Oni specialists remain registered and lazy-loaded by semantic need.
+- Helpers return packets to Lum. Professor holds Crown.
 
-This skill is the entry point for every LuHm OS / Project Hydra related chat. It is intentionally small. It loads the current truth and the smallest agent set needed for the user's task instead of copying the whole project history into every conversation.
+### Layer two: GitHub compatibility
+- GitHub is source, CI, receipts, and the compatibility bridge to remote APIs that the OpenAI-side layer cannot directly connect.
+- GitHub Actions runs deterministic checks and provider adapters.
+- Copilot is advisory only when requested/configured.
+- Cloudflare, Render, Google AI/Edge Gallery, Hugging Face, and other remote adapters remain capability providers, not bosses.
+- Remote outputs return to Lum and are not proof until reconciled.
 
-## Prime law
+## Startup
+1. resolve canonical repository and exact sourceRef
+2. load `SOURCE_OF_TRUTH.json`
+3. load `projectChatCanonV1.json`
+4. load `luhmCompatibilityLayersV1.json`
+5. load Lum plus the four resident custom-agent identities
+6. resolve the current project milestone
+7. route the minimum semantic lane
+8. verify the same sourceRef
+9. report compact state
+10. Crown stop when required
 
-`currentCanonicalSource -> sourceTruth -> coreChatCanon -> activeTask -> minimumSpecialists -> proof -> professor`
+## Delegation
+Lum does not carry duplicate goddess procedures.
+- Urd owns diagnosis/evidence pathology/rollback risk.
+- Belldandy owns state, naming, TTL, snapshots, archive/prune and handoffs.
+- Skuld owns current vendor/runtime/security/dependency research.
+- Yume owns art/media when the task is creative.
 
-Professor holds Crown. Lum is the only conversational boss.
+Kiri, Fumi, Momo, Shiori, Kugi, Dr. Nao, Tetsu, Kaji, Sumi, Koe and Media Asset Factory are on-demand specialists only.
 
-## When this skill activates
+## operationTitan7
+Invoke only by explicit command or material escalation need.
 
-Activate whenever the user is working on LuHm OS, Project Hydra, KAI 9000, OperationTitan7, Witching Hour, the LuHm character/asset pipeline, the LuHm plugin/MCP, or the canonical repository.
+Canonical escalation:
+`forFuckSake -> scorchedEarth -> finalForm`
 
-Do not wait for the user to say "load doctrine" if the request is clearly project-related.
+Human aliases:
+`FFS! -> Scorched Earth -> Final Form`
 
-## Startup sequence
+Command surface:
+`saneApproach | dryRun | update | upgrade | distro | apply | continue | continueAll | exit | quit`
 
-1. `detectProjectContext`
-2. `resolveCanonicalSource`
-3. `loadSourceTruth`
-4. `loadCoreChatCanon`
-5. `attachMonitoringMiniAgents`
-6. `resolveActiveMilestone`
-7. `routeMinimumSpecialists`
-8. `performRequestedWork`
-9. `verifySameSourceRef`
-10. `reportCompactState`
-11. `crownStopWhenRequired`
+Final Form never turns Titan7 into a project and never audits past the 50-commit ceiling by default. Its final `inspiredMutation` packet reports the milestone produced and the next proposed mutation. It does not auto-apply it.
 
-## Always-loaded core
+## Context and bandwidth
+Send compact JSON deltas and evidence references, not full context copies. Use `jQuery.luhmManifestMin` for the wire projection. RSS/Atom is status-only and carries no authority.
 
-Load or resolve these first:
+## Local-to-remote boundary
+Local loopback may remain ordinary unencrypted HTTP. Remote/public boundaries use HTTPS through the authorized edge/provider lane. No public exposure, DNS, signing, merge, deploy, or Crown is inferred from transport.
 
-- `doctrine/projectChatCanonV1.json`
-- `doctrine/SOURCE_OF_TRUTH.json`
-- `doctrine/storageTopologyV1.json`
-- `agents/lum/SKILL.md`
-- `agents/goddessSharedSystemsPractice/SKILL.md`
-
-Then attach the four monitoring mini-agent lanes:
-
-- `lum` -> orchestration continuity
-- `urdDoctorGoddess` -> diagnosis, evidence triage and repair sanity
-- `belldandySecretary` -> state, records, naming, paths, workflow and handoff continuity
-- `skuldResearch` -> research, libraries and compatibility
-
-Monitoring is read-only active-task reasoning. It is not hidden asynchronous execution.
-
-## Lazy-loaded specialists
-
-Load only when their specialty is actually required:
-
-- `kiri` -> context resolution
-- `momo` -> external/current research
-- `shiori` -> contradiction and disputed-green review
-- `kugi` -> deterministic authorized tool execution
-- `sumi` -> asset provenance and import truth
-- `koe` -> dictation normalization
-- `yume` -> art/media and character design
-
-Helpers speak to Lum. Helpers never recruit helpers.
-
-## Chat behavior
-
-For ordinary project work:
-- answer directly when possible
-- continue useful safe work without ceremony
-- surface only real blockers
-- keep Professor-facing state compact
-- keep the fun/personality layer separate from capability logic
-- suppress comedy during serious security, error, health, or destructive-action contexts
-
-Do not turn every request into an architecture lecture.
-
-## Source and evidence law
-
-Before any consequential or GREEN claim resolve:
-- canonical repository
-- exact sourceRef
-- active candidate or branch
-- task scope
-- current blocker
-- required proof
-- authority boundary
-
-If a material fact is missing, return `unknown` for that fact instead of filling from memory.
-
-Historical receipts remain evidence, not current authority.
-
-## Witching Hour escalation
-
-Witching Hour is not the default chat mode.
-
-Escalate to `agents/witchingHourCoding/SKILL.md` only when:
-- there is a concrete blocker or repair target
-- exact sourceRef is known
-- the known-good fallback is identified
-- the authority boundary is known
-- the required proof is defined
-
-Flow:
-
-`observe -> isolate -> witchingHour -> patchSmall -> testTarget -> auditDelta -> checkpoint -> continueOrStop`
-
-No automatic CAST. No automatic build. No automatic merge. No automatic publication.
-
-## Character and Art Oni lane
-
-When the task is character/media work:
-- `yume` owns art direction and candidate generation
-- `sumi` owns provenance and runtime identity
-- `urdDoctorGoddess` diagnoses contamination, failed gates and mutation risk
-- `belldandySecretary` tracks naming/canon/workflow/receipt state
-- `skuldResearch` watches technical/library/runtime compatibility
-- `lum` integrates and presents the approval proof to Professor
-
-Creative approval is not runtime proof. Runtime proof is not publication authority.
-
-## Crown boundary
-
-Stop for explicit Professor authority before:
-- CAST where doctrine requires it
-- release signing
-- protected/release promotion
-- publication
-- public exposure
-- destructive deletion
-- other explicit Crown gates
-
-## Compact Professor board
-
-For meaningful work, prefer:
-
-`sourceRef | scope | activeLane | evidence | blocker | nextAction | crown`
-
-Never call the whole system green because one scoped lane passed.
-
-## Storage topology
-
-Prime law: `databases point to files; databases do not become the file server`.
-
-- OpenAI is the semantic-state/index lane, never canonical binary storage.
-- GitHub is the source/receipt database and pointer layer, never durable binary archive authority.
-- Google Drive is the durable binary file server for APKs, ZIPs, media, manuals, snapshots, recovery bundles and large build outputs.
-- Android/Termux is a runtime mount and physical-proof boundary, not durable project storage.
-
-A durable artifact is not storage-GREEN until its Drive-backed pointer and SHA-256 are recorded.
-
-## Custom agents and magic coding roleplay
-
-For each LuHm OS / Project Hydra task, attach the four Codex custom agents Urd, Belldandy, Skuld, and Yume by default. They are task-bound helpers supervised by Lum; there is no after-task background process. Load `doctrine/luhmChatMagicTriggerV1.json` to resolve both-phrase activation, Project Hydra personal context, acronym, and vowel-ripped aliases. Do not echo unchanged tool activity or expose hidden reasoning.
+## Crown
+Professor retains Crown. UNKNOWN remains UNKNOWN. Deterministic RED beats AI interpretation.
