@@ -1,0 +1,103 @@
+{
+  "schema": "luhmOs.networkTransport.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Persistent transport rules for localhost HTTP, Cloudflare edge/tunnel routing, and remote service TLS.",
+  "currentSourceRef": "8a1bc12a0a21dd78d9123540a909ba9042b5e7c0",
+  "currentDocumentedState": {
+    "route": "ChatGPT or Codex -> HTTPS -> Render edge -> LuHm MCP process",
+    "publicEndpoint": "https://mcp.eggiebagelface.art/mcp",
+    "localDevelopmentEndpoint": "http://127.0.0.1:8788/mcp",
+    "cloudflareRole": "authoritativeDnsOnlyForCurrentRenderEndpoint",
+    "workstationPublishedAsOrigin": false,
+    "cloudflareTunnel": "notConfiguredOrProvenInCurrentSource",
+    "evidenceRefs": [
+      "plugins/luhm-os/DEPLOYMENT.md",
+      "plugins/luhm-os/README.md"
+    ],
+    "runtimeProbe": "notPerformedByThisDoctrine",
+    "localListener": {
+      "source": "host/mcp/luhmMcpServer.py",
+      "profile": "local",
+      "bindAddress": "127.0.0.1",
+      "port": 8788,
+      "publiclyExposed": false
+    },
+    "productionListener": {
+      "profile": "production",
+      "bindAddress": "0.0.0.0",
+      "boundary": "Render-managed service ingress",
+      "notLocalhost": false
+    }
+  },
+  "intendedArchitecture": {
+    "controller": "cloudflareNetworkController",
+    "inboundPublicClient": {
+      "requiredProtocol": "https",
+      "httpPolicy": "redirectAtCloudflareEdgeToHttps",
+      "redirectProtectsInitialHttpRequest": false,
+      "sensitiveDataMayBeSentBeforeHttps": false
+    },
+    "localIPv4ControllerSocket": {
+      "address": "127.0.0.1",
+      "protocol": "http",
+      "encrypted": false,
+      "scope": "sameHostLoopbackOnly",
+      "allowed": true,
+      "bindAddressesForbidden": [
+        "0.0.0.0",
+        "LAN IPv4 address",
+        "public IPv4 address"
+      ],
+      "accessibleFromRemoteNetwork": false
+    },
+    "cloudflareTunnel": {
+      "connector": "cloudflared",
+      "connectorToCloudflare": "outboundEncryptedTunnel",
+      "inboundPortsRequired": false,
+      "localServiceUrlProtocol": "http",
+      "localOriginHopEncrypted": false,
+      "localOriginHttpAllowedOnlyWhenSameHostLoopback": true,
+      "automaticallyUpgradesLocalHttpToTls": false
+    },
+    "remoteServiceSockets": {
+      "requiredProtocol": "https",
+      "peerCertificateValidation": true,
+      "allowCleartextHttp": false,
+      "cloudflareRedirectIsNotTlsForBackendClientSockets": true
+    }
+  },
+  "invariants": {
+    "plaintextHttpAllowedOnlyOnIPv4Loopback": true,
+    "publicClientTrafficRequiresHttps": true,
+    "httpRedirectIsNotTransportEncryption": true,
+    "cloudflareTunnelEncryptsConnectorEdgeHop": true,
+    "tunnelDoesNotEncryptLocalHttpOriginHop": true,
+    "remoteServiceTlsIsConfiguredAndVerifiedPerConnection": true,
+    "noSensitiveDataBeforeTls": true,
+    "dnsPresenceDoesNotProveTunnelOrRuntime": true,
+    "doctrineDoesNotClaimDeployment": true,
+    "localBindMustUseIpv4Loopback": true
+  },
+  "proofRequiredBeforeTunnelActivation": [
+    "exact service and environment resolved",
+    "connector process and tunnel identity observed",
+    "route Service URL restricted to 127.0.0.1 when using HTTP",
+    "listener bind address verified as 127.0.0.1",
+    "Cloudflare edge HTTPS certificate and redirect behavior verified",
+    "initial HTTP request carries no sensitive data",
+    "remote API clients validate TLS certificates",
+    "exact source commit and rollback path recorded"
+  ],
+  "statusClaims": {
+    "intendedArchitecture": "candidateOnly",
+    "tunnelRuntime": "unknownNotRunningClaimed",
+    "enterpriseReadiness": "notClaimed"
+  },
+  "references": [
+    "https://developers.cloudflare.com/tunnel/",
+    "https://developers.cloudflare.com/tunnel/troubleshooting/https-origins/",
+    "https://developers.cloudflare.com/ssl/edge-certificates/additional-options/always-use-https/"
+  ]
+}

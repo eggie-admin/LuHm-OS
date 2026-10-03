@@ -347,5 +347,14 @@
     "replayFullArchiveByDefault": false,
     "nextTechnicalBoundary": "bindRemoteProviderAdaptersOnlyWithExactConnectorOrDeploymentEvidence",
     "crownStatus": "STOP"
+  },
+  "networkTransport": {
+    "doctrine": "doctrine/luhmNetworkTransportV1.json",
+    "status": "candidateReview",
+    "currentDocumentedRoute": "HTTPS through Render; Cloudflare DNS-only; workstation loopback endpoint unpublished",
+    "plannedCloudflareTunnel": "not configured or runtime-proven",
+    "runtimeProof": "not performed",
+    "sourceRef": "8a1bc12a0a21dd78d9123540a909ba9042b5e7c0",
+    "noRuntimeProofClaim": true
   }
 }

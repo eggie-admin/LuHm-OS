@@ -179,3 +179,7 @@ Canonical IDs and paths remain lower camelHump. The phrase forms `rd`, `bllndy`,
 ## Trigger and project context
 
 The coding roleplay trigger is a normalized equality check requiring both phrases: `I invoke the old magic` AND `so let it be written, so let it be done`. It loads the coding workflow, goddess/Yume skills, and current control-plane doctrine together. It does not grant extra authority. See `doctrine/luhmChatMagicTriggerV1.json`.
+
+## Network transport memory
+Every goddess and Yume inherit `doctrine/luhmNetworkTransportV1.json`. Keep current Render/DNS-only state separate from the proposed tunnel; never claim tunnel activation without runtime proof. HTTP is loopback-only; remote sockets use verified HTTPS.
+DreamChan is Koe-normalized only for confirmed chat voice dictation and routes to existing Yume. It is not a typed alias, display name, persistent alias, or separate agent.

@@ -15,7 +15,8 @@ controlled=[
  "tools/smX400OneBashInstall.sh","tools/smX400OneBashInstallAudit.py",
  ".codex/agents/urdDoctorGoddess.toml",".codex/agents/belldandySecretary.toml",
  ".codex/agents/skuldResearch.toml",".codex/agents/yume.toml",
- "doctrine/luhmChatMagicTriggerV1.json","tools/luhmChatMagicTriggerAudit.py"
+ "doctrine/luhmChatMagicTriggerV1.json","tools/luhmChatMagicTriggerAudit.py",
+ "doctrine/luhmNetworkTransportV1.json","tools/luhmNetworkTransportAudit.py",".github/workflows/luhmNetworkTransportAudit.yml"
 ]
 snake=re.compile(r"^[A-Za-z0-9.-]*_[A-Za-z0-9_.-]+$")
 scream=re.compile(r"^[A-Z0-9]+(?:_[A-Z0-9]+)+")

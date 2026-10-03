@@ -47,7 +47,10 @@
     ".codex/agents/belldandySecretary.toml",
     ".codex/agents/skuldResearch.toml",
     ".codex/agents/yume.toml",
-    "tools/luhmChatMagicTriggerAudit.py"
+    "tools/luhmChatMagicTriggerAudit.py",
+    "doctrine/luhmNetworkTransportV1.json",
+    "tools/luhmNetworkTransportAudit.py",
+    ".github/workflows/luhmNetworkTransportAudit.yml"
   ],
   "legacyPathLaw": "Historical evidence may retain old filenames. It is read-only evidence and is not a naming template for new source.",
   "moveLaw": "A sealed path move requires an explicit migration receipt containing oldPath, newPath, sourceRef, contentHash, reason and Professor authority.",

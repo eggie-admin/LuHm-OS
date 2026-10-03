@@ -36,9 +36,18 @@ if submit_handler.find("$root.mgcCdngRlplay.matches(text)") > submit_handler.fin
 expected_agents = ["urdDoctorGoddess", "belldandySecretary", "skuldResearch", "yume"]
 if contract.get("defaults", {}).get("projectAgentSet") != expected_agents:
     errors.append("default custom-agent set mismatch")
-for alias, agent in contract.get("agentAliases", {}).get("nicknameRouting", {}).items():
-    if agent != "yume":
-        errors.append(f"Yume nickname routes outside canonical identity: {alias}")
+voice = contract.get("voiceDictationAliases", {})
+if voice.get("scope") != "chatVoiceDictationOnly" or voice.get("canonicalTarget") != "yume":
+    errors.append("DreamChan must be a voice-dictation-only nickname for canonical yume")
+if voice.get("requireVoiceModalityEvidence") is not True or voice.get("typedTextBehavior") != "noSpecialNormalizationOrDispatch":
+    errors.append("DreamChan requires voice modality evidence and must not route typed text")
+if "agentAliases" in contract:
+    errors.append("broad persistent agentAliases are forbidden; use voiceDictationAliases")
+yume_profile = (root / ".codex/agents/yume.toml").read_text()
+if "Dreamchan" in yume_profile and "voice modality is confirmed" not in yume_profile:
+    errors.append("Yume custom-agent instructions must scope DreamChan to confirmed voice input")
+if "Dreamchan" in plugin or "DreamChan" in plugin or "drmchn" in plugin:
+    errors.append("voice nicknames must not be parsed by the text-only composer")
 for name in expected_agents:
     path = root / ".codex/agents" / f"{name}.toml"
     try:

@@ -9,7 +9,8 @@
     "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
     "projectChatCanon": "doctrine/projectChatCanonV1.json",
     "storageTopology": "doctrine/storageTopologyV1.json",
-    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json"
+    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
+    "networkTransport": "doctrine/luhmNetworkTransportV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -668,5 +669,19 @@
       "finalForm"
     ]
   },
-  "chatExperienceContract": "doctrine/chatExperienceV1.json"
+  "chatExperienceContract": "doctrine/chatExperienceV1.json",
+  "networkTransportContract": {
+    "doctrine": "doctrine/luhmNetworkTransportV1.json",
+    "localhostHttpAllowedOnly": "127.0.0.1 loopback on the same host",
+    "cloudflareTunnelRuntimeClaim": "require exact runtime evidence",
+    "remoteServiceProtocol": "httpsWithPeerValidation",
+    "redirectsDoNotEncryptInitialHttpRequest": true
+  },
+  "voiceAliasPolicy": {
+    "doctrine": "doctrine/luhmChatMagicTriggerV1.json",
+    "nickname": "DreamChan",
+    "scope": "voiceDictationOnly",
+    "canonicalTarget": "yume",
+    "typedTextCreatesAliasOrAgent": false
+  }
 }

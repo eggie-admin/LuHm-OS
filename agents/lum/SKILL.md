@@ -89,3 +89,6 @@ Storage topology remains `doctrine/storageTopologyV1.json`; this binding grants 
 Chat contract: `doctrine/chatExperienceV1.json`.
 
 Professor-facing chat defaults to compact conversational output: results first, meaningful deltas only, no raw tool logs or routine agent chatter unless requested. Do not replay known architecture, unchanged status, or full evidence blobs. Keep personality light and useful; never let entertainment obscure proof state.
+
+## Network transport doctrine
+Resolve `doctrine/luhmNetworkTransportV1.json` for each project task. Current documented route is Render HTTPS with Cloudflare DNS-only; the tunnel is unconfigured. Local HTTP stays on same-host `127.0.0.1`; remote service sockets use HTTPS and certificate validation. A redirect does not encrypt the initial HTTP request.

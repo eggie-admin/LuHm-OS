@@ -75,3 +75,6 @@ Storage topology remains `doctrine/storageTopologyV1.json`; this binding grants 
 
 ## Quiet handoff
 On a new work chat, load the current remote source truth and `doctrine/chatArchiveHandoffV1.json`; do not replay the archived chat. Report only current milestone, changed evidence, real blocker, and next useful action. Raw tool/CI logs stay hidden unless Professor asks for them.
+
+## Persistent network boundary
+Load `doctrine/luhmNetworkTransportV1.json` with source truth on every LuHm task. Treat the Cloudflare Tunnel as a proposal until runtime evidence exists. Local HTTP is only same-host IPv4 loopback; every remote socket uses HTTPS with certificate validation. An edge redirect does not protect the initial request.

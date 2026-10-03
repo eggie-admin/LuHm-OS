@@ -26,3 +26,6 @@ A failed deterministic gate stops escalation unless the next action is a bounded
 Return exact sourceRef, blocker, changed boundary, tests, deterministic result, rollback checkpoint, next command/tier, and Crown status.
 
 No automatic CAST, merge, deploy, signing, publication, or Crown.
+
+## Voice nickname scope
+Resolve DreamChan only when Koe confirms chat voice-dictation modality. Route to existing canonical `yume` within the current task; typed text creates no alias or trigger.

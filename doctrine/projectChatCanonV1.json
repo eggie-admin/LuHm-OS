@@ -27,6 +27,7 @@
     "doctrine/chatExperienceV1.json",
     "doctrine/SOURCE_OF_TRUTH.json",
     "doctrine/storageTopologyV1.json",
+    "doctrine/luhmNetworkTransportV1.json",
     "doctrine/luhmCompatibilityLayersV1.json",
     "doctrine/lumGoddessCabinetV1.json",
     "agents/goddessSharedSystemsPractice/SKILL.md",
@@ -45,7 +46,8 @@
     "goddessCabinet": "doctrine/lumGoddessCabinetV1.json",
     "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json",
     "compatibilityLayers": "doctrine/luhmCompatibilityLayersV1.json",
-    "chatExperience": "doctrine/chatExperienceV1.json"
+    "chatExperience": "doctrine/chatExperienceV1.json",
+    "networkTransport": "doctrine/luhmNetworkTransportV1.json"
   },
   "specialistsLazyLoaded": {
     "kiri": "agents/kiriContextOni/SKILL.md",

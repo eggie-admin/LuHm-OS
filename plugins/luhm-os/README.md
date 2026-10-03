@@ -71,3 +71,6 @@ Before public submission:
 The candidate exposes read-oriented status, roster, deterministic routing, and proof-contract tools. It does not gain production signing, release promotion, publication, remote shell, secret-write authority, or GREEN authority.
 
 Source law: **AI proposes. Policy authorizes. CI proves. Human promotes.**
+
+
+Candidate transport rules and verified current boundaries: `doctrine/luhmNetworkTransportV1.json`.
