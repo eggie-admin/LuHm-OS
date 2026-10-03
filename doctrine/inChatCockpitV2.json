@@ -1,0 +1,77 @@
+{
+  "schema": "luhmOs.inChatCockpitV2.v1",
+  "date": "2026-10-02",
+  "status": "candidateSourceCiPending",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "baseMain": "8a1bc12a0a21dd78d9123540a909ba9042b5e7c0",
+  "purpose": "Make the LuHm OS cockpit a standards-first MCP Apps UI that renders inside ChatGPT conversations while preserving read-only evidence boundaries.",
+  "resources": {
+    "primary": "ui://luhm-os/cockpit-v2.html",
+    "legacyCompatibility": "ui://luhm-os/cockpit-v1.html",
+    "mimeType": "text/html;profile=mcp-app",
+    "cacheKeyRule": "breaking UI changes require a new ui:// resource URI"
+  },
+  "toolBinding": {
+    "renderTool": "luhm_open_cockpit",
+    "primaryResourceUri": "ui://luhm-os/cockpit-v2.html",
+    "visibility": [
+      "model",
+      "app"
+    ],
+    "threadEntrypoint": true,
+    "compatibilityOutputTemplate": true
+  },
+  "mcpAppsBridge": {
+    "standardsFirst": true,
+    "initialize": "ui/initialize",
+    "initialized": "ui/notifications/initialized",
+    "toolResult": "ui/notifications/tool-result",
+    "hostContext": "ui/notifications/host-context-changed",
+    "dataCalls": [
+      "luhm_status",
+      "luhm_agent_roster"
+    ],
+    "followUpMessage": "ui/message",
+    "modelContext": "ui/update-model-context",
+    "chatGptExtensions": "featureDetectOnly"
+  },
+  "ui": {
+    "modes": [
+      "inline",
+      "fullscreen"
+    ],
+    "mobileResponsive": true,
+    "remoteScripts": false,
+    "remoteStyles": false,
+    "localStorageAuthority": false,
+    "externalUploadAuthority": false,
+    "nestedGodotFrame": false,
+    "funLayer": [
+      "Lum cockpit status",
+      "goddess cabinet chips",
+      "COMEDIC_AMBER system events",
+      "Talk to Lum follow-up"
+    ]
+  },
+  "authorityBoundary": {
+    "readOnly": true,
+    "mutationAuthority": false,
+    "mergeAuthority": false,
+    "buildAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false,
+    "greenAuthority": false,
+    "crownStatus": "STOP"
+  },
+  "externalGates": {
+    "renderDeploy": "PENDING_CANDIDATE_CI",
+    "liveMcpUiInspection": "PENDING",
+    "chatGptPluginConnection": "PENDING",
+    "desktopAndMobileUiProof": "PENDING",
+    "directoryPublication": "NOT_REQUESTED"
+  },
+  "nextGate": "exactHeadCiThenRenderCandidateDeploymentEvidence",
+  "crownStatus": "STOP"
+}
