@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LuHm OS Cockpit v2</title>
+<style>
+:root{
+  color-scheme:light dark;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --bg:var(--color-background-primary,#0a0b10);
+  --panel:var(--color-background-secondary,#11131b);
+  --ink:var(--color-text-primary,#e8edf7);
+  --muted:var(--color-text-secondary,#9ba7ba);
+  --cyan:#5ee7ff;--violet:#b07cff;--amber:#ffd36c;--green:#78f0a7;--red:#ff7b88;
+  --line:color-mix(in srgb,var(--ink) 14%,transparent)
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:transparent;color:var(--ink)}
+body{padding:10px}
+button{font:inherit}
+main{background:linear-gradient(180deg,color-mix(in srgb,var(--panel) 96%,var(--violet) 4%),var(--bg));border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 14px 40px #0005}
+header{display:flex;gap:10px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line)}
+.pet{width:44px;height:44px;border-radius:13px;background:#171b25;position:relative;display:grid;place-items:center;color:var(--cyan);font-weight:900;flex:0 0 auto}
+.pet:before,.pet:after{content:"";position:absolute;top:3px;width:10px;height:16px;border:2px solid var(--violet);border-bottom:0;border-radius:10px 10px 0 0}
+.pet:before{left:6px;transform:rotate(-20deg)}.pet:after{right:6px;transform:rotate(20deg)}
+h1{font-size:14px;margin:0}.sub{font-size:11px;color:var(--muted);margin-top:3px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+.card{border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 92%,transparent);border-radius:12px;padding:10px;min-height:76px}
+.k{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.v{margin-top:6px;font-size:12px;word-break:break-word}.green{color:var(--green)}.amber{color:var(--amber)}.cyan{color:var(--cyan)}
+.cabinet{display:flex;gap:6px;flex-wrap:wrap;padding:0 10px 10px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:5px 8px;font-size:10px;color:var(--muted)}
+.actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 10px 10px}
+.action{min-height:42px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--ink);cursor:pointer}
+.action:hover,.action:focus-visible{border-color:var(--cyan);outline:none}
+.action.primary{background:color-mix(in srgb,var(--violet) 28%,var(--panel));border-color:color-mix(in srgb,var(--violet) 70%,var(--line))}
+.action:disabled{opacity:.45;cursor:default}
+footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}
+#event{color:var(--amber)}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.actions{grid-template-columns:1fr}.card{min-height:64px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="pet" aria-hidden="true">L</div>
+  <div><h1>LuHm OS · Cockpit v2</h1><div class="sub" id="surface">MCP Apps · initializing</div></div>
+</header>
+<section class="grid">
+  <div class="card"><div class="k">source truth</div><div class="v green" id="truth">loading…</div></div>
+  <div class="card"><div class="k">authority</div><div class="v amber">READ ONLY · Professor keeps Crown</div></div>
+  <div class="card"><div class="k">active milestone</div><div class="v" id="milestone">loading…</div></div>
+  <div class="card"><div class="k">oni / goddess cabinet</div><div class="v cyan" id="roster">loading…</div></div>
+</section>
+<div class="cabinet" aria-label="LuHm cabinet">
+  <span class="chip">Lum · boss</span><span class="chip">Urd · doctor</span><span class="chip">Belldandy · secretary</span><span class="chip">Skuld · research</span>
+</div>
+<div class="actions">
+  <button class="action" type="button" id="refresh">Refresh evidence</button>
+  <button class="action primary" type="button" id="talk">Talk to Lum</button>
+  <button class="action" type="button" id="openFull">Full cockpit</button>
+</div>
+<footer><span id="event">COMEDIC_AMBER:</span> UI may roast Professor. UI may not grant GREEN, merge, sign, publish, or Crown.</footer>
+</main>
+<script>
+let rpcId=0;
+const pending=new Map();
+let latestStatus=null;
+let latestRoster=null;
+let hostCaps={};
+const $=id=>document.getElementById(id);
+
+function request(method,params){
+  const id=++rpcId;
+  window.parent.postMessage({jsonrpc:"2.0",id,method,params},"*");
+  return new Promise((resolve,reject)=>pending.set(id,{resolve,reject}));
+}
+function notify(method,params){
+  window.parent.postMessage({jsonrpc:"2.0",method,params},"*");
+}
+function unpack(result){
+  return result?.structuredContent||result||null;
+}
+function render(){
+  const status=latestStatus||{};
+  const roster=latestRoster||{};
+  $("truth").textContent=status.sourceTruthStatus||status.status?.sourceTruthStatus||"UNKNOWN";
+  $("milestone").textContent=status.milestone||status.status?.milestone||"Android Web3 / in-chat plugin candidate";
+  const roles=roster.roles||roster.roster?.roles||[];
+  $("roster").textContent=roles.length?roles.slice(0,6).map(x=>x.name||x.displayName||"?").join(" · "):"Lum · Urd · Belldandy · Skuld";
+}
+function applyHostContext(ctx){
+  if(!ctx||typeof ctx!=="object")return;
+  hostCaps=ctx.capabilities||hostCaps;
+  const vars=ctx.styles?.variables;
+  if(vars&&typeof vars==="object"){
+    for(const [name,value] of Object.entries(vars)){
+      if(typeof value==="string"&&name.startsWith("--"))document.documentElement.style.setProperty(name,value);
+    }
+  }
+  const mode=ctx.displayMode||ctx.hostContext?.displayMode;
+  if(mode)$("surface").textContent="MCP Apps · "+mode;
+}
+async function refresh(){
+  $("refresh").disabled=true;
+  try{
+    const [statusResult,rosterResult]=await Promise.all([
+      request("tools/call",{name:"luhm_status",arguments:{}}),
+      request("tools/call",{name:"luhm_agent_roster",arguments:{}})
+    ]);
+    latestStatus=unpack(statusResult);
+    latestRoster=unpack(rosterResult);
+    render();
+    $("event").textContent="EVIDENCE_REFRESHED:";
+  }catch(_){
+    $("event").textContent="COMEDIC_AMBER:";
+  }finally{
+    $("refresh").disabled=false;
+  }
+}
+async function talk(){
+  const content=[{type:"text",text:"Give me a concise LuHm OS cockpit update from current evidence, with a little Lum personality. Keep UNKNOWN as UNKNOWN and do not grant GREEN, merge, publication, signing, or Crown authority."}];
+  try{
+    await request("ui/update-model-context",{structuredContent:{luhmCockpit:true,sourceTruthStatus:latestStatus?.sourceTruthStatus||"UNKNOWN"}});
+  }catch(_){}
+  try{
+    await request("ui/message",{role:"user",content});
+  }catch(_){
+    if(window.openai?.sendFollowUpMessage){
+      await window.openai.sendFollowUpMessage({prompt:content[0].text});
+    }
+  }
+}
+function openFull(){
+  const origin=(latestStatus?.harness?.publicOrigin||window.openai?.toolOutput?.harness?.publicOrigin||"").replace(/\/$/,"");
+  if(!origin||origin==="LOCAL_ONLY"){ $("event").textContent="FULL_COCKPIT_UNAVAILABLE:"; return; }
+  const href=origin+"/harness/";
+  if(window.openai?.openExternal){ window.openai.openExternal({href,redirectUrl:false}); }
+  else request("ui/open-link",{url:href}).catch(()=>{});
+}
+window.addEventListener("message",event=>{
+  if(event.source!==window.parent)return;
+  const m=event.data;
+  if(!m||m.jsonrpc!=="2.0")return;
+  if(m.id!==undefined&&pending.has(m.id)){
+    const p=pending.get(m.id);pending.delete(m.id);
+    m.error?p.reject(m.error):p.resolve(m.result);return;
+  }
+  if(m.method==="ui/notifications/tool-result"){
+    const value=unpack(m.params);
+    if(value?.schema==="luhm-os.cockpit.v1"){
+      latestStatus=value.status||latestStatus;
+      latestRoster=value.roster||latestRoster;
+      render();
+    }
+  }
+  if(m.method==="ui/notifications/host-context-changed")applyHostContext(m.params);
+},{passive:true});
+
+$("refresh").addEventListener("click",refresh);
+$("talk").addEventListener("click",talk);
+$("openFull").addEventListener("click",openFull);
+
+(async()=>{
+  if(window.parent===window){
+    $("surface").textContent="standalone preview";
+    render();
+    return;
+  }
+  try{
+    const init=await request("ui/initialize",{
+      appInfo:{name:"luhm-os-cockpit",version:"2.0.0"},
+      appCapabilities:{},
+      protocolVersion:"2026-01-26"
+    });
+    applyHostContext(init);
+    notify("ui/notifications/initialized",{});
+    const legacy=window.openai?.toolOutput;
+    if(legacy){
+      const value=unpack(legacy);
+      latestStatus=value?.status||latestStatus;
+      latestRoster=value?.roster||latestRoster;
+      render();
+    }
+    await refresh();
+  }catch(_){
+    $("surface").textContent="MCP Apps compatibility frame";
+    const legacy=window.openai?.toolOutput;
+    if(legacy){
+      const value=unpack(legacy);
+      latestStatus=value?.status||latestStatus;
+      latestRoster=value?.roster||latestRoster;
+      render();
+    }
+  }
+})();
+</script>
+</body>
+</html>
