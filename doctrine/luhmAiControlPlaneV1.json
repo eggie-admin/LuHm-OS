@@ -49,7 +49,11 @@
     ],
     "executionLaw": "No tool/provider/agent output changes authority. Consequential execution requires a bounded task manifest plus matching authority and exact target identity.",
     "evidenceLaw": "All outputs enter as observations or candidate evidence. Deterministic verification establishes machine state. Professor establishes Crown authority.",
-    "storageLaw": "databases point to files; databases do not become the file server"
+    "storageLaw": "databases point to files; databases do not become the file server",
+    "compatibilityLayerOrder": [
+      "openAiCompatibilityLayer",
+      "githubCompatibilityLayer"
+    ]
   },
   "taskManifest": {
     "schema": "luhmOs.aiTaskManifest.v1",
@@ -133,8 +137,9 @@
     },
     "compactManifestWireProjection": {
       "role": "deterministicBandwidthReduction",
-      "contract": "doctrine/luhmSubsidiaryAiMeshV1.json",
-      "adapter": "luhmManifestMin",
+      "contract": "doctrine/luhmCompatibilityLayersV1.json",
+      "adapter": "jQuery.luhmManifestMin",
+      "runtime": "frontEnd/jquery/luhmManifestMin.min.js",
       "authority": false,
       "canonicalExpansionRequiredBeforeRouting": true
     }
@@ -149,7 +154,10 @@
     "remoteResponsesRequireLumReconciliation": true,
     "providerSecretsHostSideOnly": true,
     "vendorMirrorsUseCanonicalAgentIdentity": true,
-    "vendorMirrorsMayBecomeIndependentBoss": false
+    "vendorMirrorsMayBecomeIndependentBoss": false,
+    "remoteProvidersVia": "githubCompatibilityLayer",
+    "copilotIsAdvisory": true,
+    "googleBigBrotherIsAdvisory": true
   },
   "authorityClasses": [
     "READ_ONLY",
@@ -489,13 +497,11 @@
       "lum"
     ],
     "read": [
-      "lum",
-      "kiri"
+      "lum"
     ],
     "records": [
       "lum",
-      "belldandySecretary",
-      "fumi"
+      "belldandySecretary"
     ],
     "proof": [
       "lum",
@@ -513,8 +519,7 @@
     ],
     "external": [
       "lum",
-      "skuldResearch",
-      "momo"
+      "skuldResearch"
     ],
     "patch": [
       "lum",
@@ -638,8 +643,25 @@
     ],
     "afterTask": "terminate",
     "phraseTrigger": "doctrine/luhmChatMagicTriggerV1.json",
-    "spokenAliasesResolveToCanonicalIdentity": true
+    "spokenAliasesResolveToCanonicalIdentity": true,
+    "presenceIsNotInference": true,
+    "inferencePolicy": "matchingSemanticTriggerOrMaterialStateChangeOnly",
+    "unchangedStateReinvoke": false,
+    "specialistsLazyByDefault": true,
+    "lumDelegationLaw": "Lum delegates owned specialty work to its goddess or specialist and integrates the returned packet instead of duplicating that procedure in boss context."
   },
   "namingContract": "New LuHm-owned identifiers and agent config filenames use lowerCamelHump; vowel-ripped terms are explicit aliases only.",
-  "subsidiaryMeshContract": "doctrine/luhmSubsidiaryAiMeshV1.json"
+  "compatibilityLayersContract": "doctrine/luhmCompatibilityLayersV1.json",
+  "operationTitan7": {
+    "contract": "doctrine/operationTitan7V1.json",
+    "kind": "callablePluginProtocol",
+    "entryPoint": "jQuery.fn.operationTitan7",
+    "alwaysRunning": false,
+    "scheduled": false,
+    "escalationOrder": [
+      "forFuckSake",
+      "scorchedEarth",
+      "finalForm"
+    ]
+  }
 }
