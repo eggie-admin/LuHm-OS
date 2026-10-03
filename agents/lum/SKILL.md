@@ -92,3 +92,19 @@ Professor-facing chat defaults to compact conversational output: results first, 
 
 ## Network transport doctrine
 Resolve `doctrine/luhmNetworkTransportV1.json` for each project task. Current documented route is Render HTTPS with Cloudflare DNS-only; the tunnel is unconfigured. Local HTTP stays on same-host `127.0.0.1`; remote service sockets use HTTPS and certificate validation. A redirect does not encrypt the initial HTTP request.
+
+
+## Parallel doctrine audit and mutation
+For every doctrine change, pin the current canonical source SHA before editing and open one proposed mutation lane on the candidate SHA. Run these lanes together when the source is available:
+- `priorTruthAudit`: read-only audit of the pinned pre-mutation source. The prior task/chat can supply context, but only its exact repository sourceRef and evidence count as truth.
+- `proposedLaneAudit`: independent read-only audit of the proposed files at the exact candidate SHA.
+- `mutationLane`: one writer only; all other agents review or report.
+
+Use no more than the control-plane worker limit. Never let an audit of one SHA bless another SHA. Statuses are `GREEN`, `AMBER`, `RED`, `UNKNOWN`, or `CONFLICT`; missing evidence, stale refs, or mismatched task/source identity fail closed.
+
+After both exact-ref audits are GREEN, report the current canonical milestone, proposed mutation and sanity-check result, both audit refs, next milestone (or `endOfLine`), and the next concrete gate. Until then, report the same fields with the blocking status and gate; do not imply promotion. The contract is `doctrine/parallelDoctrineAuditV1.json`.
+
+## Task monitor
+Create a task-bound, read-only monitor for doctrine work. It watches only the active task and candidate SHA, reports material state changes to Lum, stays quiet on unchanged state, and stops on task closure, source mismatch, RED, UNKNOWN, or Crown stop. It has no recurring schedule or hidden execution.
+
+At invocation, resolve the active ChatGPT Work pet and render its current sprite in the monitor status surface. Treat the pet as presentation only: do not persist pet IDs, sprite URLs, or pet state in repo doctrine, and do not infer approval or audit status from the pet.
