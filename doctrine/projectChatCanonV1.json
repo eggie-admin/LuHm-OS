@@ -13,11 +13,14 @@
       "LuHm OS",
       "Project Hydra",
       "KAI 9000",
-      "OperationTitan7",
       "Witching Hour"
     ],
     "explicitUserReference": true,
-    "repoReference": "eggie-admin/LuHm-OS"
+    "repoReference": "eggie-admin/LuHm-OS",
+    "commandNames": [
+      "operationTitan7",
+      "Witching Hour"
+    ]
   },
   "loadOrder": [
     "doctrine/projectChatCanonV1.json",
@@ -39,7 +42,8 @@
     "sharedMonitoring": "agents/goddessSharedSystemsPractice/SKILL.md",
     "storageTopology": "doctrine/storageTopologyV1.json",
     "goddessCabinet": "doctrine/lumGoddessCabinetV1.json",
-    "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json"
+    "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json",
+    "compatibilityLayers": "doctrine/luhmCompatibilityLayersV1.json"
   },
   "specialistsLazyLoaded": {
     "kiri": "agents/kiriContextOni/SKILL.md",
@@ -52,7 +56,7 @@
   },
   "repairEscalation": {
     "witchingHourSkill": "agents/witchingHourCoding/SKILL.md",
-    "operationTitan7": "doctrine/operationTitan7FinalFormV1.json",
+    "operationTitan7": "doctrine/operationTitan7V1.json",
     "entryConditions": [
       "exact sourceRef resolved",
       "blocker identified",
@@ -63,7 +67,13 @@
     "automaticCast": false,
     "automaticBuild": false,
     "automaticMerge": false,
-    "automaticPublication": false
+    "automaticPublication": false,
+    "operationTitan7IsCallableNotProject": true,
+    "escalationOrder": [
+      "forFuckSake",
+      "scorchedEarth",
+      "finalForm"
+    ]
   },
   "chatRuntime": {
     "directQuestionsBypassMesh": true,
@@ -76,7 +86,13 @@
     "unknownIsNotGreen": true,
     "hiddenAsyncExecution": false,
     "customAgentsEnabled": true,
-    "allDefaultCustomAgentsActivateForProjectTasks": true
+    "allDefaultCustomAgentsActivateForProjectTasks": true,
+    "compatibilityLayerOrder": [
+      "openAiCompatibilityLayer",
+      "githubCompatibilityLayer"
+    ],
+    "operationTitan7AlwaysRunning": false,
+    "operationTitan7Scheduled": false
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
@@ -90,6 +106,7 @@
     "resolveCanonicalSource",
     "loadSourceTruth",
     "loadCoreChatCanon",
+    "loadCompatibilityLayers",
     "activateDefaultCustomAgents",
     "loadActiveMilestoneAndProjectPersonalContext",
     "resolveActiveMilestone",
