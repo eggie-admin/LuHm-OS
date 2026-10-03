@@ -31,6 +31,22 @@ require(plane.get("compatibilityLayersContract")=="doctrine/luhmCompatibilityLay
 require(plane.get("operationTitan7",{}).get("contract")=="doctrine/operationTitan7V1.json","control plane missing Titan7 plugin contract")
 require("OperationTitan7" not in canon.get("bootstrapTrigger",{}).get("projectNames",[]),"project bootstrap still treats Titan7 as a project")
 
+agents=plane.get("agents",{})
+for agent_id,spec in agents.items():
+    skill=spec.get("skillPath")
+    require(bool(skill),f"{agent_id} missing skillPath")
+    if skill:
+        require((root/skill).is_file(),f"{agent_id} skill missing: {skill}")
+    require(spec.get("mayRecruit") is False,f"{agent_id} mayRecruit drift")
+    require(spec.get("maySelfApprove") is False,f"{agent_id} maySelfApprove drift")
+
+require(plane.get("bossToolchain",{}).get("compatibilityLayerOrder")==["openAiCompatibilityLayer","githubCompatibilityLayer"],"boss layer order drift")
+require(plane.get("routeProfiles",{}).get("read")==["lum"],"read route not lean")
+require(plane.get("routeProfiles",{}).get("records")==["lum","belldandySecretary"],"records route duplicates secretary")
+require(plane.get("routeProfiles",{}).get("external")==["lum","skuldResearch"],"external route duplicates research")
+require(plane.get("providerBoundary",{}).get("copilotIsAdvisory") is True,"Copilot advisory boundary missing")
+require(plane.get("providerBoundary",{}).get("googleBigBrotherIsAdvisory") is True,"Google advisory boundary missing")
+
 profiles=sorted((root/".codex/agents").glob("*.toml"))
 expected=["belldandySecretary","skuldResearch","urdDoctorGoddess","yume"]
 require([p.stem for p in profiles]==expected,"resident goddess profiles mismatch")
@@ -66,6 +82,7 @@ print(json.dumps({
  "layerOne":"openAiCompatibilityLayer",
  "layerTwo":"githubCompatibilityLayer",
  "operationTitan7":"callable",
+ "declaredAgentRoles":len(agents),
  "crownStatus":"STOP"
 },indent=2))
 sys.exit(1 if errors else 0)
