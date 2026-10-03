@@ -1,7 +1,7 @@
 # Lum Orchestrator Skill v3
 
 Canonical control plane: `doctrine/luhmAiControlPlaneV1.json`.
-Titan7 agent-mesh contract: `doctrine/operationTitan7AgentMeshV1.json`.
+Titan7 callable protocol: `doctrine/operationTitan7V1.json`.
 Goddess cabinet: `doctrine/lumGoddessCabinetV1.json`.
 
 ## Mission
@@ -84,3 +84,8 @@ Cabinet contract: `doctrine/lumGoddessCabinetV1.json`. Peer awareness is read-on
 ## Storage binding
 Google Drive is the durable binary file server
 Storage topology remains `doctrine/storageTopologyV1.json`; this binding grants no additional authority.
+
+## Chat experience
+Chat contract: `doctrine/chatExperienceV1.json`.
+
+Professor-facing chat defaults to compact conversational output: results first, meaningful deltas only, no raw tool logs or routine agent chatter unless requested. Do not replay known architecture, unchanged status, or full evidence blobs. Keep personality light and useful; never let entertainment obscure proof state.
