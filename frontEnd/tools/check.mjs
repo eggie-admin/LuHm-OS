@@ -22,6 +22,9 @@ const checks = [
   [plugin.includes('const PLUGIN = "luhmCockpit"') && plugin.includes("$.fn[PLUGIN] ="), "single cockpit plugin entry exists"],
   [plugin.includes("luhm:backend:open"), "backend-open boundary exists"],
   [plugin.includes("return this.each"), "plugin preserves chainability"],
+  [plugin.includes("$.fn.mgcCdngRlplay =") && plugin.includes("oldMagicPhrase") && plugin.includes("writtenDonePhrase"), "two-phrase magic plugin exists"],
+  [plugin.includes("ROLEPLAY_EVENT") && plugin.includes("echoTriggerText: false"), "roleplay event carries no trigger echo"],
+  [plugin.slice(plugin.indexOf('state.$composer.on("submit'), plugin.indexOf("setView($root, settings.initialView)")).indexOf("$root.mgcCdngRlplay.matches(text)") < plugin.slice(plugin.indexOf('state.$composer.on("submit'), plugin.indexOf("setView($root, settings.initialView)")).indexOf("appendUserMessage($root, text)"), "magic trigger is consumed before chat echo"],
   [app.includes(".luhmCockpit("), "app initializes cockpit plugin"]
 ];
 

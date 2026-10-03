@@ -8,6 +8,20 @@ on:
       - 'scripts/main.gd'
       - 'scripts/game/gameHud.gd'
       - 'doctrine/guiSplitDryRun-20260925.json'
+      - 'doctrine/luhmChatMagicTriggerV1.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'doctrine/projectChatCanonV1.json'
+      - 'doctrine/namingPathSealV1.json'
+      - 'agents/goddessSharedSystemsPractice/SKILL.md'
+      - 'agents/urdMutationOni/SKILL.md'
+      - 'agents/belldandyQualityOni/SKILL.md'
+      - 'agents/skuldResearchOni/SKILL.md'
+      - 'agents/yumeArtOni/SKILL.md'
+      - 'agents/witchingHourCoding/SKILL.md'
+      - 'agents/projectChatBootstrap/SKILL.md'
+      - '.codex/**'
+      - 'tools/luhmChatMagicTriggerAudit.py'
+      - 'tools/namingPathSealAudit.py'
       - '.github/workflows/frontend-jquery-dryrun.yml'
   workflow_dispatch:
 
@@ -31,6 +45,8 @@ jobs:
       - name: Static plugin checks
         working-directory: frontEnd
         run: npm run check
+      - name: Audit magic roleplay and custom agents
+        run: python3 tools/luhmChatMagicTriggerAudit.py
       - name: Stage local jQuery runtime
         working-directory: frontEnd
         run: npm run stage:jquery

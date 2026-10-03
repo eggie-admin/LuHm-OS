@@ -21,6 +21,18 @@ if contract.get("projectLibrary", {}).get("workingDevelopmentTitle") != "Project
     errors.append("Project Hydra working title missing")
 if contract.get("projectLibrary", {}).get("acronym", {}).get("expansion") != ["Linux", "Unix", "Hydra", "Manifest"]:
     errors.append("LuHm OS acronym expansion mismatch")
+if contract.get("activation", {}).get("frontendEvent") != "luhm:magic:roleplay:activate":
+    errors.append("frontend magic event mismatch")
+if contract.get("activation", {}).get("triggerBehavior") != "consumedWithoutChatEcho":
+    errors.append("magic trigger must be consumed without chat echo")
+plugin = (root / "frontEnd/jquery/luhm.cockpit.js").read_text()
+if "$.fn.mgcCdngRlplay =" not in plugin or "oldMagicPhrase" not in plugin or "writtenDonePhrase" not in plugin:
+    errors.append("jQuery roleplay plugin or two-phrase AND check missing")
+if "echoTriggerText: false" not in plugin:
+    errors.append("roleplay event must suppress trigger echo")
+submit_handler = plugin.split('state.$composer.on("submit', 1)[-1].split("setView($root, settings.initialView)", 1)[0]
+if submit_handler.find("$root.mgcCdngRlplay.matches(text)") > submit_handler.find("appendUserMessage($root, text)"):
+    errors.append("composer must consume magic invocation before echoing it")
 expected_agents = ["urdDoctorGoddess", "belldandySecretary", "skuldResearch", "yume"]
 if contract.get("defaults", {}).get("projectAgentSet") != expected_agents:
     errors.append("default custom-agent set mismatch")

@@ -1,7 +1,13 @@
 {
   "schema": "luhmOs.chatMagicTrigger.v1",
   "status": "candidateReview",
-  "authority": "Professor",
+  "authority": {
+    "helpersMayRecruit": false,
+    "helpersMaySelfApprove": false,
+    "helpersMayGrantGreen": false,
+    "helpersMayGrantCrown": false,
+    "externalSideEffectsRequireExistingAuthority": true
+  },
   "boss": "lum",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "machineNamingLaw": "lowerCamelHump",
@@ -30,7 +36,12 @@
     "workingDevelopmentTitle": "Project Hydra",
     "acronym": {
       "text": "LuHm OS",
-      "expansion": ["Linux", "Unix", "Hydra", "Manifest"]
+      "expansion": [
+        "Linux",
+        "Unix",
+        "Hydra",
+        "Manifest"
+      ]
     },
     "personalContext": "Load as project context for Lum and every default custom agent; current repository doctrine and exact sourceRef override stale memory."
   },
@@ -46,15 +57,34 @@
     ],
     "aiLogic": "doctrine/luhmAiControlPlaneV1.json",
     "taskBound": true,
-    "persistsAfterTaskCloses": false
+    "persistsAfterTaskCloses": false,
+    "frontendEvent": "luhm:magic:roleplay:activate",
+    "triggerBehavior": "consumedWithoutChatEcho"
   },
   "agentAliases": {
     "rule": "Explicit aliases route to one canonical machine identity. Vowel-ripped aliases remove ASCII vowels a/e/i/o/u from the spoken/display alias; y remains. Canonical IDs and paths are never vowel-stripped.",
     "canonicalMachineIdentity": {
-      "urdDoctorGoddess": ["Urd", "rd"],
-      "belldandySecretary": ["Belldandy", "Bllndy"],
-      "skuldResearch": ["Skuld", "Skld"],
-      "yume": ["Yume", "Ym", "Dreamchan", "Dream Yume Chan", "Dream(yume)chan", "Drmchn", "DrmYmChn"]
+      "urdDoctorGoddess": [
+        "Urd",
+        "rd"
+      ],
+      "belldandySecretary": [
+        "Belldandy",
+        "Bllndy"
+      ],
+      "skuldResearch": [
+        "Skuld",
+        "Skld"
+      ],
+      "yume": [
+        "Yume",
+        "Ym",
+        "Dreamchan",
+        "Dream Yume Chan",
+        "Dream(yume)chan",
+        "Drmchn",
+        "DrmYmChn"
+      ]
     },
     "nicknameRouting": {
       "Dreamchan": "yume",
@@ -65,7 +95,12 @@
     "silentAliasesAllowed": false
   },
   "defaults": {
-    "projectAgentSet": ["urdDoctorGoddess", "belldandySecretary", "skuldResearch", "yume"],
+    "projectAgentSet": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch",
+      "yume"
+    ],
     "lumIsPrimaryBoss": true,
     "allWorkersReturnToLum": true,
     "maximumConcurrentSupportAgents": 4,
@@ -74,12 +109,5 @@
     "noHiddenChainOfThought": true,
     "noRepeatedProgressLines": true,
     "noBackgroundExecutionAfterTask": true
-  },
-  "authority": {
-    "helpersMayRecruit": false,
-    "helpersMaySelfApprove": false,
-    "helpersMayGrantGreen": false,
-    "helpersMayGrantCrown": false,
-    "externalSideEffectsRequireExistingAuthority": true
   }
 }

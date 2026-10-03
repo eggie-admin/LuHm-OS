@@ -5,6 +5,37 @@
   const PLUGIN = "luhmCockpit";
   const DATA_KEY = PLUGIN;
   const EVENT_NS = "." + PLUGIN;
+  const ROLEPLAY_EVENT = "luhm:magic:roleplay:activate";
+  const ROLEPLAY_SKILL = "agents/witchingHourCoding/SKILL.md";
+  const ROLEPLAY_CONTROL = "doctrine/luhmAiControlPlaneV1.json";
+
+  function normalizeMagicText(value) {
+    return String(value || "")
+      .normalize("NFC")
+      .toLocaleLowerCase("en-US")
+      .replace(/[^\p{L}\p{N}]+/gu, " ")
+      .trim()
+      .replace(/\s+/gu, " ");
+  }
+
+  function matchesMagicTrigger(value) {
+    const normalized = " " + normalizeMagicText(value) + " ";
+    const oldMagicPhrase = " i invoke the old magic ";
+    const writtenDonePhrase = " so let it be written so let it be done ";
+    return normalized.includes(oldMagicPhrase) && normalized.includes(writtenDonePhrase);
+  }
+
+  function invokeMagicRoleplay($root, value) {
+    if (!matchesMagicTrigger(value)) return false;
+    emit($root, ROLEPLAY_EVENT, {
+      schema: "luhmOs.chatMagicTrigger.v1",
+      workflowSkill: ROLEPLAY_SKILL,
+      aiLogic: ROLEPLAY_CONTROL,
+      defaultAgents: ["urdDoctorGoddess", "belldandySecretary", "skuldResearch", "yume"],
+      echoTriggerText: false
+    });
+    return true;
+  }
 
   const defaults = {
     initialView: "chat",
@@ -104,6 +135,11 @@
       event.preventDefault();
       const text = String(state.$input.val() || "").trim();
       if (!text) return;
+      if ($root.mgcCdngRlplay.matches(text)) {
+        $root.mgcCdngRlplay("invoke", text);
+        state.$input.val("");
+        return;
+      }
       appendUserMessage($root, text);
       state.$input.val("");
       emit($root, settings.chatSubmitEvent, { text: text });
@@ -154,4 +190,13 @@
 
   $.fn[PLUGIN].defaults = defaults;
   $.fn[PLUGIN].version = "0.2.0-dryrun.1";
+
+  $.fn.mgcCdngRlplay = function (method, value) {
+    if (method === "invoke") {
+      return this.each(function () { invokeMagicRoleplay($(this), value); });
+    }
+    $.error("Unknown mgcCdngRlplay method: " + method);
+    return this;
+  };
+  $.fn.mgcCdngRlplay.matches = matchesMagicTrigger;
 }(jQuery));
