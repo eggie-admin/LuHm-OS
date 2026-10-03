@@ -77,7 +77,10 @@ const $=id=>document.getElementById(id);
 function request(method,params){
   const id=++rpcId;
   window.parent.postMessage({jsonrpc:"2.0",id,method,params},"*");
-  return new Promise((resolve,reject)=>pending.set(id,{resolve,reject}));
+  return new Promise((resolve,reject)=>{
+    const timer=window.setTimeout(()=>{pending.delete(id);reject(new Error("request timeout"));},15000);
+    pending.set(id,{resolve:value=>{window.clearTimeout(timer);resolve(value);},reject:error=>{window.clearTimeout(timer);reject(error);}});
+  });
 }
 function notify(method,params){
   window.parent.postMessage({jsonrpc:"2.0",method,params},"*");
@@ -142,6 +145,7 @@ async function runTitan7(){
   $("event").textContent="TITAN7_AUDIT_RUNNING:";
   try{
     const result=await request("tools/call",{name:"luhmOperationTitan7",arguments:{command:"saneApproach",escalation:"finalForm"}});
+    if(result?.isError)throw new Error("tool call failed");
     const receipt=unpack(result)||{};
     const status=receipt.status||"UNKNOWN";
     $("event").textContent="TITAN7_"+status+":";
