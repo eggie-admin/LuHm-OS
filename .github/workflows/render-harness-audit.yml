@@ -9,6 +9,8 @@ on:
       - 'host/mcp/luhmHarnessServer.py'
       - 'export_presets.cfg'
       - 'tools/harnessAudit.py'
+      - 'doctrine/inChatCockpitV2.json'
+      - 'doctrine/SOURCE_OF_TRUTH.json'
       - '.github/workflows/render-harness-audit.yml'
 
 permissions:
