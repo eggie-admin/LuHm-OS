@@ -245,5 +245,32 @@
     "cabinetContract": "doctrine/lumGoddessCabinetV1.json",
     "acquaintance": "MUTUAL_ROLE_AWARENESS_REQUIRED",
     "consensusAuthority": false
+  },
+  "chatPluginLane": {
+    "contract": "doctrine/inChatCockpitV2.json",
+    "status": "candidateSourceCiPending",
+    "baseMain": "8a1bc12a0a21dd78d9123540a909ba9042b5e7c0",
+    "primaryResource": "ui://luhm-os/cockpit-v2.html",
+    "legacyResource": "ui://luhm-os/cockpit-v1.html",
+    "renderTool": "luhm_open_cockpit",
+    "threadEntrypoint": true,
+    "standardsFirstBridge": true,
+    "dataTools": [
+      "luhm_status",
+      "luhm_agent_roster"
+    ],
+    "followUpMessage": "ui/message",
+    "modelContext": "ui/update-model-context",
+    "chatGptExtensions": "featureDetectOnly",
+    "renderDeploy": "PENDING_CANDIDATE_CI",
+    "liveMcpUiInspection": "PENDING",
+    "chatGptPluginConnection": "PENDING",
+    "desktopAndMobileUiProof": "PENDING",
+    "directoryPublication": "NOT_REQUESTED",
+    "mutationAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false,
+    "greenAuthority": false,
+    "crownStatus": "STOP"
   }
 }
