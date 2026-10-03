@@ -60,7 +60,8 @@
     "persistsAfterTaskCloses": false,
     "frontendEvent": "luhm:magic:roleplay:activate",
     "triggerBehavior": "consumedWithoutChatEcho",
-    "subsidiaryMesh": "doctrine/luhmSubsidiaryAiMeshV1.json"
+    "compatibilityLayers": "doctrine/luhmCompatibilityLayersV1.json",
+    "operationTitan7": "doctrine/operationTitan7V1.json"
   },
   "agentAliases": {
     "rule": "Explicit aliases route to one canonical machine identity. Vowel-ripped aliases remove ASCII vowels a/e/i/o/u from the spoken/display alias; y remains. Canonical IDs and paths are never vowel-stripped.",
@@ -110,6 +111,12 @@
     "noHiddenChainOfThought": true,
     "noRepeatedProgressLines": true,
     "noBackgroundExecutionAfterTask": true,
-    "vendorProxyLaw": "canonicalAgentsMirrorAcrossVendorsWithoutCreatingIndependentAuthority"
+    "vendorProxyLaw": "canonicalAgentsMirrorAcrossVendorsWithoutCreatingIndependentAuthority",
+    "operationTitan7AlwaysRunning": false,
+    "operationTitan7IsProject": false,
+    "compatibilityLayerOrder": [
+      "openAiCompatibilityLayer",
+      "githubCompatibilityLayer"
+    ]
   }
 }
