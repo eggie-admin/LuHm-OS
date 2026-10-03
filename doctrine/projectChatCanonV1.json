@@ -12,8 +12,7 @@
     "projectNames": [
       "LuHm OS",
       "Project Hydra",
-      "KAI 9000",
-      "Witching Hour"
+      "KAI 9000"
     ],
     "explicitUserReference": true,
     "repoReference": "eggie-admin/LuHm-OS",
@@ -27,6 +26,7 @@
     "doctrine/luhmChatMagicTriggerV1.json",
     "doctrine/SOURCE_OF_TRUTH.json",
     "doctrine/storageTopologyV1.json",
+    "doctrine/luhmCompatibilityLayersV1.json",
     "doctrine/lumGoddessCabinetV1.json",
     "agents/goddessSharedSystemsPractice/SKILL.md",
     "agents/lum/SKILL.md",
