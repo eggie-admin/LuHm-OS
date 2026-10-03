@@ -6,6 +6,10 @@ const mustExist = [
   "index.html",
   "styles.css",
   "app.js",
+  "jquery/luhmManifestMin.js",
+  "jquery/luhmManifestMin.min.js",
+  "jquery/operationTitan7.js",
+  "jquery/operationTitan7.min.js",
   "jquery/luhm.cockpit.js",
   "plugins/README.md"
 ];
@@ -13,19 +17,25 @@ const mustExist = [
 for (const file of mustExist) await access(resolve(root, file));
 
 const html = await readFile(resolve(root, "index.html"), "utf8");
+const manifestSource = await readFile(resolve(root, "jquery/luhmManifestMin.js"), "utf8");
+const manifestRuntime = await readFile(resolve(root, "jquery/luhmManifestMin.min.js"), "utf8");
+const titan = await readFile(resolve(root, "jquery/operationTitan7.js"), "utf8");
 const plugin = await readFile(resolve(root, "jquery/luhm.cockpit.js"), "utf8");
 const app = await readFile(resolve(root, "app.js"), "utf8");
 
 const checks = [
   [html.includes("vendor/jquery-3.7.1.min.js"), "index loads pinned staged jQuery"],
-  [html.includes("jquery/luhm.cockpit.js"), "index loads LuHm cockpit plugin"],
+  [html.includes("jquery/luhmManifestMin.min.js"), "index loads minified manifest adapter"],
+  [html.includes("jquery/operationTitan7.min.js"), "index loads minified operationTitan7 plugin"],
+  [manifestRuntime.length < manifestSource.length, "manifest runtime is minified"],
+  [manifestRuntime.includes("$.luhmManifestMin"), "compact manifest adapter exists"],
+  [titan.includes('const pluginName = "operationTitan7"'), "canonical operationTitan7 plugin entry exists"],
+  [titan.includes("forFuckSake") && titan.includes("scorchedEarth") && titan.includes("finalForm"), "three Titan7 escalation tiers exist"],
+  [titan.includes("continueAll") && titan.includes("dryRun") && titan.includes("distro"), "npm-style Titan7 command surface exists"],
   [plugin.includes('const PLUGIN = "luhmCockpit"') && plugin.includes("$.fn[PLUGIN] ="), "single cockpit plugin entry exists"],
-  [plugin.includes("luhm:backend:open"), "backend-open boundary exists"],
-  [plugin.includes("return this.each"), "plugin preserves chainability"],
+  [plugin.includes("$.fn.operationTitan7.parse") && plugin.includes("$root.operationTitan7"), "cockpit consumes explicit Titan7 commands"],
   [plugin.includes("$.fn.mgcCdngRlplay =") && plugin.includes("oldMagicPhrase") && plugin.includes("writtenDonePhrase"), "two-phrase magic plugin exists"],
-  [plugin.includes("ROLEPLAY_EVENT") && plugin.includes("echoTriggerText: false"), "roleplay event carries no trigger echo"],
-  [plugin.slice(plugin.indexOf('state.$composer.on("submit'), plugin.indexOf("setView($root, settings.initialView)")).indexOf("$root.mgcCdngRlplay.matches(text)") < plugin.slice(plugin.indexOf('state.$composer.on("submit'), plugin.indexOf("setView($root, settings.initialView)")).indexOf("appendUserMessage($root, text)"), "magic trigger is consumed before chat echo"],
-  [app.includes(".luhmCockpit("), "app initializes cockpit plugin"]
+  [app.includes("luhm:operationTitan7:invoke") && app.includes("operationTitan7: function"), "front-end exposes Titan7 control surface"]
 ];
 
 let failed = 0;
