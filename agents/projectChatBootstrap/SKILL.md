@@ -2,7 +2,7 @@
 
 Canonical control plane: `doctrine/luhmAiControlPlaneV1.json`.
 Compatibility layers: `doctrine/luhmCompatibilityLayersV1.json`.
-Storage law: `doctrine/storageTopologyV1.json`.
+Storage law: `doctrine/storageTopologyV1.json`.\nChat experience: `doctrine/chatExperienceV1.json`.
 
 ## Mission
 This is the small entry point for LuHm OS / Project Hydra chat work. It resolves current truth, loads the permanent compatibility layers, keeps Lum as the only conversational boss, and routes only the specialty needed.
@@ -72,3 +72,6 @@ Professor retains Crown. UNKNOWN remains UNKNOWN. Deterministic RED beats AI int
 ## Storage binding
 databases point to files; databases do not become the file server
 Storage topology remains `doctrine/storageTopologyV1.json`; this binding grants no additional authority.
+
+## Quiet handoff
+On a new work chat, load the current remote source truth and `doctrine/chatArchiveHandoffV1.json`; do not replay the archived chat. Report only current milestone, changed evidence, real blocker, and next useful action. Raw tool/CI logs stay hidden unless Professor asks for them.
