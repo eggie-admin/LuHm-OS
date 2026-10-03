@@ -223,5 +223,43 @@
     "unresolvedConflictState": "CONFLICT",
     "lumMayNotSilenceMinorityEvidence": true
   },
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "delegationFirewall": {
+    "lumDoesNotReimplementOwnedSpecialties": true,
+    "presenceIsNotInference": true,
+    "unchangedStateStaysQuiet": true,
+    "semanticOwnership": {
+      "urdDoctorGoddess": [
+        "diagnosis",
+        "evidenceTriage",
+        "rollbackRisk",
+        "repairPlan",
+        "driftPathology"
+      ],
+      "belldandySecretary": [
+        "state",
+        "naming",
+        "paths",
+        "snapshots",
+        "ttl",
+        "legacyArchive",
+        "handoffs"
+      ],
+      "skuldResearch": [
+        "currentResearch",
+        "vendorSecurity",
+        "android16Canary",
+        "webviewChromium",
+        "cloudflare",
+        "googleEdgeGallery",
+        "compatibility",
+        "licensing"
+      ],
+      "yume": [
+        "artMedia",
+        "canonAwareCreativeMutation"
+      ]
+    },
+    "fallbackHelpersDoNotDuplicateDefaultGoddessLane": true
+  }
 }
