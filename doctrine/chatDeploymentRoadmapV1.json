@@ -38,5 +38,17 @@
     "deviceSubsidiary": "samsung",
     "finalAuthority": "Professor"
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "orientationBridge": "doctrine/enterpriseOrientationBridgeV1.json",
+  "campaignMilestone": {
+    "id": "letsMakeMoneyForCorporations",
+    "contract": "doctrine/campaignLaunchKitV1.json",
+    "beginsAfter": "enterpriseOrientation",
+    "mayProceedInParallelWith": [
+      "chatGptPluginExternalGates",
+      "samsungAntennaPhysicalProof"
+    ],
+    "sendAuthority": false,
+    "publicationAuthority": false
+  }
 }
