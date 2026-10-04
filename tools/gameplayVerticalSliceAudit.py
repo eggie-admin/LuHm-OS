@@ -60,8 +60,10 @@ if not missing:
     if "Titan7MilestoneScript" in main or 'add_child(titan7_milestone)' in main: errors.append("stale Titan7 milestone overlay still active")
     for token in ["QuestDirectorScript","FIRST_NIGHT_QUEST_PATH","_update_interaction_target","interact_requested",'begins_with("travel:")',"set_fast_travel_enabled(false)","set_fast_travel_enabled(true)",'event_name == "clearStaticWisp"',"pulse_effect"]:
         if token not in main: errors.append(f"main missing {token}")
-    for token in ["signal interact_requested","set_interaction_prompt","set_quest","set_fast_travel_enabled"]:
+    for token in ["signal interact_requested","set_interaction_prompt","set_quest","set_fast_travel_enabled","OniSummonCard","show_oni_request","ROUTING ONLY · NO WORKER STARTED"]:
         if token not in hud: errors.append(f"HUD missing {token}")
+    for token in ['android_web3_plugin.hideCockpit()','game_hud.show_world()','game_hud.show_oni_request(name)','player_controller.set_world_active(true)']:
+        if token not in main: errors.append(f"Oni summon transition missing {token}")
     for token in ["collectSignalShard","collectCoffee","clearStaticWisp","_build_signal_shard","_build_coffee","_build_static_wisp"]:
         if token not in interaction_visual: errors.append(f"interaction visual missing {token}")
     if "func pulse_effect(" not in player:
