@@ -31,7 +31,6 @@ from starlette.responses import JSONResponse, PlainTextResponse, Response
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_TRUTH = ROOT / "doctrine" / "currentSourceTruthV3.json"
 CONTROL_PLANE = ROOT / "doctrine" / "luhmAiControlPlaneV1.json"
-OPENAI_DEPLOYMENT = ROOT / "doctrine" / "openAiDeploymentV3.json"
 ENTERPRISE_SCOPE = ROOT / "doctrine" / "mcpEnterpriseScopeV2.json"
 ROUTER = ROOT / "tools" / "lumTaskRouter.py"
 ROUTE_KINDS = {
