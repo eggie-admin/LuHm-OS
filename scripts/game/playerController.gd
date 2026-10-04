@@ -204,3 +204,34 @@ func _kill_camera_tween() -> void:
     if _camera_tween != null and _camera_tween.is_valid():
         _camera_tween.kill()
     _camera_tween = null
+
+
+func pulse_effect(color: Color = Color("ff3c9d")) -> void:
+    var ring_root := Node3D.new()
+    ring_root.name = "PlayerPulse"
+    get_parent().add_child(ring_root)
+    ring_root.global_position = global_position + Vector3(0.0, 0.08, 0.0)
+
+    var ring := MeshInstance3D.new()
+    var ring_mesh := TorusMesh.new()
+    ring_mesh.inner_radius = 0.36
+    ring_mesh.outer_radius = 0.48
+    ring.mesh = ring_mesh
+    ring.rotation_degrees.x = 90.0
+
+    var material := StandardMaterial3D.new()
+    material.albedo_color = color.darkened(0.35)
+    material.emission_enabled = true
+    material.emission = color
+    material.emission_energy_multiplier = 4.2
+    material.metallic = 0.15
+    material.roughness = 0.28
+    ring.material_override = material
+    ring_root.add_child(ring)
+
+    ring_root.scale = Vector3.ONE * 0.35
+    var tween := ring_root.create_tween()
+    tween.set_trans(Tween.TRANS_QUAD)
+    tween.set_ease(Tween.EASE_OUT)
+    tween.tween_property(ring_root, "scale", Vector3.ONE * 4.2, 0.34)
+    tween.tween_callback(ring_root.queue_free)
