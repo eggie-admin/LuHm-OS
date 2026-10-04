@@ -1,0 +1,169 @@
+{
+  "schema": "luhmOs.recoverTruthReceipt.v1",
+  "taskId": "recoverTruth20261004",
+  "scopeId": "agentMeshFinalDeploy",
+  "status": "partiallyVerified",
+  "observedAt": "2026-10-04T02:42:19Z",
+  "canonicalMain": "3cddb3800e90c2517ec043e9e5f6b7090b2b1d67",
+  "sourceRef": "5072459d87443ff648d346e780c43b3fd62be24a",
+  "sourceTree": "32c3f8d3ac985f43f0d678fed2f78c106e6d204b",
+  "rollbackRef": "b432e351e4f1ec5e29e99cc511fc28491925f225",
+  "activePr": 134,
+  "changes": [
+    "Explicit covenant loading and acknowledgement contract for Lum, Urd, Belldandy and Skuld",
+    "Cabinet source audit rejects missing bindings, identity fields and unsupported authority/runtime claims",
+    "Covenant edits trigger cabinet CI"
+  ],
+  "checks": {
+    "localCabinetAudit": "passedAtSourceRef",
+    "localCovenantAndProposedLaneAudit": "passedAtIdenticalTreeLocalCommit24d758d44d5883434f9ed209f6863d236223b75d",
+    "negativeFixtures": {
+      "missingBinding": "rejected",
+      "missingSkuld": "rejected",
+      "selfApproval": "rejected",
+      "missingDigest": "rejected",
+      "claimedRuntimeProof": "rejected"
+    },
+    "returnedCiRuns": [
+      {
+        "id": 37171830306,
+        "name": "LuHm Current Main Source Truth GREEN",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 37171830302,
+        "name": "Proposed Doctrine Working Lane Audit",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 37171830324,
+        "name": "Storage Topology Audit",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 37171830298,
+        "name": "Lum Goddess Cabinet Audit",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 37171830328,
+        "name": "Yume Creative Pipeline 20-Pass Audit",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 37171830330,
+        "name": "Doctrine Lane · 100-pass audit",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 37171830304,
+        "name": "LuHm Plugin Publication Audit",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 37171830308,
+        "name": "LuHm Render Harness Live Audit",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 37171830316,
+        "name": "LuHm OS Full Source Truth Audit",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 37171830310,
+        "name": "Android Web3 Cockpit Switch Audit",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 37171830319,
+        "name": "LuHm Render ChatGPT Harness Audit",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "ciQueryLimit": "First page of pull-request runs only"
+  },
+  "workerRuns": [
+    {
+      "workerId": "urdDoctorGoddess",
+      "taskId": "sourceReview",
+      "scopeId": "agentMeshFinalDeploy",
+      "sourceRef": "b432e351e4f1ec5e29e99cc511fc28491925f225",
+      "observedAt": "2026-10-04T02:41:58Z",
+      "covenantRef": "doctrine/everlastingCovenantV1.json",
+      "covenantDigest": "af11a59ef268a0bd3a9edb5dd8863c2164215c3103b60fad3be99573648f58d9",
+      "state": "completed",
+      "executionSurface": "chatSessionReadOnlyReview",
+      "remoteRuntimeProof": false
+    },
+    {
+      "workerId": "belldandySecretary",
+      "taskId": "recoverTruth20261004",
+      "scopeId": "agentMeshFinalDeploy",
+      "sourceRef": "b432e351e4f1ec5e29e99cc511fc28491925f225",
+      "observedAt": "2026-10-04T02:39:21Z",
+      "covenantRef": "doctrine/everlastingCovenantV1.json",
+      "covenantDigest": "af11a59ef268a0bd3a9edb5dd8863c2164215c3103b60fad3be99573648f58d9",
+      "state": "completed",
+      "executionSurface": "chatSessionReadOnlyReview",
+      "remoteRuntimeProof": false
+    },
+    {
+      "workerId": "skuldResearch",
+      "taskId": "recoverTruth20261004",
+      "scopeId": "agentMeshFinalDeploy",
+      "sourceRef": "b432e351e4f1ec5e29e99cc511fc28491925f225",
+      "observedAt": "2026-10-04T02:39:24Z",
+      "covenantRef": "doctrine/everlastingCovenantV1.json",
+      "covenantDigest": "af11a59ef268a0bd3a9edb5dd8863c2164215c3103b60fad3be99573648f58d9",
+      "state": "completed",
+      "executionSurface": "chatSessionReadOnlyReview",
+      "remoteRuntimeProof": false
+    }
+  ],
+  "providerRuns": [],
+  "deploymentId": null,
+  "healthEvidence": {
+    "renderCockpit": {
+      "status": "providerReportsLive",
+      "sourceRef": "af8d018b4ffacaa238045a4ec098c9b7a4132fd6",
+      "existingDeploymentId": "dep-db0nh9mkemhc73es9ol0",
+      "plan": "free",
+      "autoDeploy": false,
+      "applicationProbe": "timedOutAfter15Seconds"
+    },
+    "huggingFace": {
+      "authentication": "verified",
+      "inference": "unverified",
+      "modelEndpoint": null
+    }
+  },
+  "blockers": [
+    "Repository support cap remains three; requested four/six-worker policy not implemented",
+    "Remote provider task execution remains contractOnly",
+    "Selected model endpoint and zero-extra-cost inference entitlement unresolved",
+    "Google Guard app authentication and Edge device route unverified",
+    "No exact deployment-target manifest for the new mesh candidate"
+  ],
+  "deploymentIdReason": "No deployment attempted; target, execution and entitlement gates unresolved",
+  "scopeBoundary": "recoverTruth and explicit goddess covenant binding completed; full agentMeshFinalDeploy remains incomplete",
+  "gameDevelopment": {
+    "ordinaryFeatureWorkMayContinue": true,
+    "source": "doctrine/FINAL_RECONCILIATION_20260930.json",
+    "newGlobalAuditRequiredForOrdinaryFeatureWork": false
+  },
+  "nextAction": "Reconcile dispatch controls in one candidate; resolve provider/model/target evidence before remote execution. Ordinary bounded game development is independently permitted.",
+  "backgroundJob": null,
+  "mainPromoted": false
+}
