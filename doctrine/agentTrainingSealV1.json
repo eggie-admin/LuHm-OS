@@ -57,7 +57,8 @@
     "evidenceTeaching": "completeCandidate",
     "stopConditionTeaching": "completeCandidate",
     "covenantTeaching": "completeCandidate",
-    "deterministicAuditRequired": true
+    "deterministicAuditRequired": true,
+    "portableDeploymentTeaching": "completeCandidate"
   },
   "promotionLaw": {
     "ciGreenMeans": "training contract is internally consistent for the exact candidate source",
@@ -79,5 +80,8 @@
       "ingestedInto": "urdDoctorGoddess",
       "currentTrainingRoster": false
     }
-  }
+  },
+  "deploymentContract": "doctrine/agentSystemDeploymentV1.json",
+  "trainingReadyForPortableDeployment": true,
+  "trainingReadyDoesNotMeanLiveProviderDeployment": true
 }
