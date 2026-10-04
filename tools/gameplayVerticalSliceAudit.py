@@ -6,6 +6,7 @@ import sys
 root=Path(__file__).resolve().parents[1]
 required=[
     "doctrine/gameplayVerticalSliceV1.json",
+    "doctrine/gameplayVerticalSliceCrownReceiptV1.json",
     "game/story/firstNightQuest.json",
     "scripts/game/questDirector.gd",
     "scripts/game/interactable.gd",
@@ -20,13 +21,25 @@ errors=[]
 
 if not missing:
     contract=json.loads((root/"doctrine/gameplayVerticalSliceV1.json").read_text())
+    receipt=json.loads((root/"doctrine/gameplayVerticalSliceCrownReceiptV1.json").read_text())
     quest=json.loads((root/"game/story/firstNightQuest.json").read_text())
-    if contract.get("status")!="PROPOSED_SOURCE_ONLY": errors.append("gameplay contract must remain proposed")
-    if contract.get("workingLane")!="PROPOSED_ONLY": errors.append("working lane drift")
-    if contract.get("promotion") is not False: errors.append("promotion must remain false")
-    if contract.get("crownStatus")!="STOP": errors.append("Crown must remain STOP")
+    if contract.get("status")!="CANONICAL_GAMEPLAY_SOURCE": errors.append("gameplay contract status drift")
+    if contract.get("workingLane")!="CANONICAL_SOURCE": errors.append("gameplay working lane drift")
+    if contract.get("promotion") is not True: errors.append("gameplay promotion must be true")
+    if contract.get("professorApproval") is not True: errors.append("Professor gameplay approval missing")
+    if contract.get("crownStatus")!="CROWNED_SOURCE_MILESTONE": errors.append("gameplay Crown status drift")
+    if contract.get("crownReceipt")!="doctrine/gameplayVerticalSliceCrownReceiptV1.json": errors.append("gameplay crown receipt drift")
     if contract.get("installBoundary")!="PARKED": errors.append("install boundary must remain parked")
-    if quest.get("status")!="proposedGameplay": errors.append("quest status drift")
+    if contract.get("releaseAuthority") is not False: errors.append("release authority must remain false")
+    if contract.get("publicationAuthority") is not False: errors.append("publication authority must remain false")
+    if contract.get("productionSigningAuthority") is not False: errors.append("signing authority must remain false")
+    if receipt.get("status")!="crownApprovedCandidate": errors.append("gameplay receipt status drift")
+    if receipt.get("authority")!="Professor": errors.append("gameplay receipt authority drift")
+    if receipt.get("approvedCandidateSourceRef")!="831368b087b007a00cc7e77563877ed09b9001ef": errors.append("approved candidate source drift")
+    if receipt.get("evidence",{}).get("exactHeadGreen") is not True: errors.append("approved candidate proof missing")
+    if quest.get("status")!="canonicalGameplay": errors.append("quest status drift")
+    if quest.get("professorApproval") is not True: errors.append("quest approval missing")
+    if quest.get("crownReceipt")!="doctrine/gameplayVerticalSliceCrownReceiptV1.json": errors.append("quest crown receipt drift")
     steps=quest.get("steps",[])
     expected=["talkLumRiverwalk","collectSignalShard","collectCoffee","clearStaticWisp","sealFirstNight"]
     actual=[s.get("event") for s in steps]
@@ -39,7 +52,10 @@ if not missing:
     source_truth=json.loads((root/"doctrine/currentSourceTruthV3.json").read_text())
     game_layer=source_truth.get("gameLayer",{})
     if game_layer.get("contract")!="doctrine/gameplayVerticalSliceV1.json": errors.append("current source truth gameLayer contract drift")
-    if game_layer.get("workingLane")!="PROPOSED_ONLY": errors.append("current source truth gameLayer must remain proposed")
+    if game_layer.get("workingLane")!="CANONICAL_SOURCE": errors.append("current source truth gameLayer lane drift")
+    if game_layer.get("status")!="CANONICAL_GAMEPLAY_SOURCE": errors.append("current source truth gameLayer status drift")
+    if game_layer.get("promotion") is not True: errors.append("current source truth gameLayer promotion missing")
+    if game_layer.get("crownStatus")!="CROWNED_SOURCE_MILESTONE": errors.append("current source truth gameLayer crown drift")
     if game_layer.get("installBoundary")!="PARKED": errors.append("current source truth install boundary must remain parked")
     if "Titan7MilestoneScript" in main or 'add_child(titan7_milestone)' in main: errors.append("stale Titan7 milestone overlay still active")
     for token in ["QuestDirectorScript","FIRST_NIGHT_QUEST_PATH","_update_interaction_target","interact_requested",'begins_with("travel:")',"set_fast_travel_enabled(false)","set_fast_travel_enabled(true)",'event_name == "clearStaticWisp"',"pulse_effect"]:
@@ -81,5 +97,5 @@ print(json.dumps({
     "quest":"firstNightCircuit",
     "steps":5,
     "installBoundary":"PARKED",
-    "crownStatus":"STOP"
+    "crownStatus":"CROWNED_SOURCE_MILESTONE"
 },indent=2))
