@@ -580,35 +580,6 @@
       "urdDoctorGoddess"
     ]
   },
-  "remoteAiManifest": {
-    "schema": "luhmOs.remoteAiManifest.v1",
-    "implementationStatus": "contractOnly",
-    "required": [
-      "providerId",
-      "capabilityId",
-      "taskId",
-      "sourceRef",
-      "scopeId",
-      "inputRefs",
-      "requiredOutputSchema",
-      "budget",
-      "stopConditions"
-    ],
-    "responseRequired": [
-      "providerId",
-      "taskId",
-      "sourceRef",
-      "scopeId",
-      "responseId",
-      "outputRefs",
-      "claims",
-      "timestamp"
-    ],
-    "responseAuthority": false,
-    "template": "doctrine/remote-ai-manifest-v1.template.json",
-    "filenameStyle": "kebabCase",
-    "machineKeyStyle": "lowerCamelHump"
-  },
   "receipts": {
     "aiReceiptMustBind": [
       "taskId",
@@ -682,5 +653,36 @@
     "gdscript": "godotRuntimeAdapterOnly",
     "kotlin": "androidBridgeOnly",
     "shell": "buildBootstrapGlueOnly"
+  },
+  "aiTaskManifest": {
+    "schema": "luhmOs.aiTaskManifest.v2",
+    "template": "doctrine/aiTaskManifestV2.template.json",
+    "instanceFilenameStyle": "kebab-case.json",
+    "implementationStatus": "contractOnly",
+    "required": [
+      "providerId",
+      "capabilityId",
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "inputRefs",
+      "requiredOutputSchema",
+      "budget",
+      "stopConditions"
+    ],
+    "responseRequired": [
+      "providerId",
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "responseId",
+      "outputRefs",
+      "claims",
+      "timestamp"
+    ],
+    "responseAuthority": false
+  },
+  "legacyFormats": {
+    "remoteAiManifestV1": "legacyArtifact"
   }
 }
