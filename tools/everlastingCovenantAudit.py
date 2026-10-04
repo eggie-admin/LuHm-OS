@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json, os, re
+import json, os, re, struct
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def load(p): return json.loads((ROOT/p).read_text(encoding="utf-8"))
@@ -11,6 +11,7 @@ chat=load("doctrine/projectChatCanonV1.json")
 terms=load("doctrine/termResolutionV1.json")
 progress=load("doctrine/chatProgressStreamV1.json")
 sprites=load("doctrine/agentLoadingSpriteManifestV1.json")
+runtime_sprites=json.loads((ROOT/"host/harness/agent-loading-sprites.json").read_text(encoding="utf-8"))
 expected=["sanityCheck","audit","ingest","mutation","test","apply","continue","deploy"]
 human=["so let it be written so let it be done","Do not tell me of the old magic, for I was there when we first wrote them","This is the law and our everlasting covenant."]
 checks=[]
@@ -53,12 +54,12 @@ global_checks=[
 ("progress.noHiddenAsync",progress.get("execution",{}).get("hiddenAsyncExecution") is False and progress.get("execution",{}).get("visibleBackgroundProcess")=="GitHub Actions pull-request checks" and progress.get("execution",{}).get("scheduledRuns") is False),
 ("identity.externalAuthEvidence",chat.get("externalIdentityEvidence",{}).get("googleDriveConnector")=="CONNECTED" and chat.get("externalIdentityEvidence",{}).get("googleIdentityOAuthCallback")=="UNVERIFIED" and chat.get("externalIdentityEvidence",{}).get("sentryMonitoringEvents")=="UNVERIFIED" and bool(chat.get("externalIdentityEvidence",{}).get("checkedAt"))),
 ("sprites.schema",sprites.get("schema")=="luhmOs.agentLoadingSpriteManifest.v1"),
-("sprites.completeRoster",sprites.get("agentIds")==list(control.get("agents",{}).keys()) and set(by_id)==set(control.get("agents",{}))),
-("sprites.largeFourByFourAtlas",sprites.get("grid",{}).get("columns")==4 and sprites.get("grid",{}).get("rows")==4 and sprites.get("asset",{}).get("width")==1280 and sprites.get("asset",{}).get("height")==1280),
-("sprites.loadingOnly",sprites.get("usage",{}).get("loadingOnly") is True and sprites.get("usage",{}).get("avatarReplacement") is False and sprites.get("usage",{}).get("marketing") is False),
+("sprites.completeRoster",sprites.get("agentIds")==list(control.get("agents",{}).keys()) and set(by_id)==set(control.get("agents",{})) and [x.get("agentId") for x in runtime_sprites.get("sprites",[])]==sprites.get("agentIds")),
+("sprites.largeFourByFourAtlas",sprites.get("grid",{}).get("columns")==4 and sprites.get("grid",{}).get("rows")==4 and struct.unpack(">II",(ROOT/sprites["assetPath"]).read_bytes()[16:24])==(1254,1254) and (ROOT/sprites["assetPath"]).read_bytes()[25] in (4,6)),
+("sprites.loadingOnly",sprites.get("usage",{}).get("loadingOnly") is True and sprites.get("usage",{}).get("avatarReplacement") is False and sprites.get("usage",{}).get("marketing") is False and "agentLoadingScreen" in (ROOT/"host/harness/index.html").read_text(encoding="utf-8") and "agent-roster-v1.png" in (ROOT/"host/mcp/luhmHarness.py").read_text(encoding="utf-8")),
 ("sprites.assetPresent",(ROOT/sprites.get("assetPath","")).is_file()),
 ("fleet.removed",all(not (ROOT/p).exists() for p in [".github/workflows/operation-titan7-watch-fleet.yml","doctrine/OPERATION_TITAN7_WATCH_FLEET_V1.json","tools/titan7WatchFleet.py"])),
-("fleet.noScheduledTitan7",not any(re.search(r"^\\s*schedule\\s*:",p.read_text(encoding="utf-8",errors="ignore"),re.MULTILINE) and "titan7" in (p.name+p.read_text(encoding="utf-8",errors="ignore")).lower() for p in (ROOT/".github/workflows").glob("*") if p.is_file())),
+("fleet.noScheduledTitan7",not any(re.search(r"^\s*schedule\s*:",p.read_text(encoding="utf-8",errors="ignore"),re.MULTILINE) and "titan7" in (p.name+p.read_text(encoding="utf-8",errors="ignore")).lower() for p in (ROOT/".github/workflows").glob("*") if p.is_file())),
 ]
 for name,ok in global_checks: add(name,ok)
 if len(checks)!=100: raise SystemExit(f"AUDIT_CONFIGURATION_ERROR expected=100 actual={len(checks)}")

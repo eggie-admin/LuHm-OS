@@ -1,35 +1,13 @@
 {
-  "schema": "luhmOs.agentLoadingSpriteManifest.v1",
-  "status": "proposed",
-  "sourceRoster": "doctrine/luhmAiControlPlaneV1.json#agents",
-  "assetPath": "host/harness/agent-roster-v1.png",
-  "asset": {
-    "format": "png",
-    "width": 1254,
-    "height": 1254,
-    "transparentBackground": true,
-    "generated": true
-  },
+  "schema": "luhmOs.runtimeAgentLoadingSprites.v1",
+  "rosterSource": "doctrine/luhmAiControlPlaneV1.json#agents",
+  "assetUrl": "/harness/assets/agent-roster-v1.png",
   "grid": {
     "columns": 4,
     "rows": 4,
     "cellWidth": 313.5,
     "cellHeight": 313.5,
     "ordering": "rowMajor"
-  },
-  "usage": {
-    "allowed": [
-      "loadingScreen",
-      "workflowProgress"
-    ],
-    "loadingOnly": true,
-    "avatarReplacement": false,
-    "chatMessageDecoration": false,
-    "marketing": false
-  },
-  "style": {
-    "largeReadableSprites": true,
-    "characterHeightPercentMinimum": 82
   },
   "goddessGroup": {
     "machineIds": [
@@ -44,24 +22,6 @@
     ],
     "prominent": true
   },
-  "agentIds": [
-    "lum",
-    "urdDoctorGoddess",
-    "belldandySecretary",
-    "skuldResearch",
-    "kiri",
-    "momo",
-    "shiori",
-    "drNao",
-    "kugi",
-    "tetsu",
-    "kaji",
-    "fumi",
-    "sumi",
-    "koe",
-    "yume",
-    "mediaAssetFactory"
-  ],
   "sprites": [
     {
       "agentId": "lum",
