@@ -213,6 +213,8 @@ func _interact() -> void:
         if switchWorld(destination):
             game_hud.show_dialogue("Transit gate linked: %s" % destination)
         return
+    if event_name == "clearStaticWisp" and player_controller.has_method("pulse_effect"):
+        player_controller.call("pulse_effect", Color("ff3c9d"))
     var result: Dictionary = quest_director.apply_event(event_name)
     var message := str(result.get("message", ""))
     if not message.is_empty():
