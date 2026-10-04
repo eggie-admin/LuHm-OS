@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "luhm.studyMesh.class.v1",
+  "title": "LuHm Study Mesh Class",
+  "type": "object",
+  "required": [
+    "SCHEMA_ID",
+    "CLASS_ID",
+    "STATE",
+    "TOPIC",
+    "PRINCIPLE",
+    "STUDY_BUDDIES",
+    "FACT_POLICY",
+    "TRANSPORT"
+  ],
+  "properties": {
+    "SCHEMA_ID": {
+      "const": "CLASS1"
+    },
+    "CLASS_ID": {
+      "type": "string"
+    },
+    "STATE": {
+      "enum": [
+        "DRAFT",
+        "STUDY",
+        "REVIEW",
+        "GREEN_CANDIDATE",
+        "PARKED"
+      ]
+    },
+    "TOPIC": {
+      "type": "string"
+    },
+    "PRINCIPLE": {
+      "type": "string"
+    },
+    "NOTES": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "STUDY_BUDDIES": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "LUM",
+          "URD",
+          "BELLDANDY",
+          "SKULD"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "FACT_POLICY": {
+      "type": "object"
+    },
+    "TRANSPORT": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}
