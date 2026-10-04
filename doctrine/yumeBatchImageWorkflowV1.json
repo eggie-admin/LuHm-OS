@@ -1,0 +1,111 @@
+{
+  "schema": "luhmOs.yumeBatchImageWorkflow.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "boss": "lum",
+  "creativeLead": "yume",
+  "factory": "mediaAssetFactory",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "sourceLaw": "Canonical source truth defines identity and constraints. Batch generation creates private draft candidates only.",
+  "batchLaw": {
+    "maxConcurrentGenerationJobs": 3,
+    "maxConcurrentReviewJobs": 3,
+    "sourceBound": true,
+    "exactSourceRefRequired": true,
+    "preservePromptAndSeedMetadata": true,
+    "generatedCandidateNeverEqualsCanon": true,
+    "publicGeneratedReplacementArt": false,
+    "privateDraftOnlyByDefault": true
+  },
+  "orderedStages": [
+    "sanityCheck",
+    "resolveSourceTruth",
+    "resolveCanonRefs",
+    "buildBatchManifest",
+    "expandJobCards",
+    "providerDispatch",
+    "candidateGeneration",
+    "candidateReceipt",
+    "contaminationAudit",
+    "technicalAssetAudit",
+    "candidateReview",
+    "driveHandoff",
+    "githubPointerReceipt",
+    "professorReview"
+  ],
+  "providerAdapters": {
+    "localHydra": {
+      "status": "EVIDENCE_DEPENDENT",
+      "mayGeneratePrivateDrafts": true
+    },
+    "openAiImage": {
+      "status": "AVAILABLE_WHEN_CHAT_IMAGE_TOOL_EXISTS",
+      "mayGeneratePrivateDrafts": true
+    },
+    "googleAi": {
+      "status": "UNCONFIGURED_EVIDENCE_PENDING",
+      "mayGeneratePrivateDrafts": false
+    },
+    "edgeGallery": {
+      "status": "UNCONFIGURED_EVIDENCE_PENDING",
+      "mayGeneratePrivateDrafts": false
+    },
+    "huggingFace": {
+      "status": "CANDIDATE_PROVIDER_UNPROVEN",
+      "mayGeneratePrivateDrafts": false
+    }
+  },
+  "jobCardRequiredFields": [
+    "jobId",
+    "batchId",
+    "sourceRef",
+    "sourceTruthRef",
+    "assetFamily",
+    "assetRole",
+    "canonRefs",
+    "prompt",
+    "negativeConstraints",
+    "dimensions",
+    "transparentBackground",
+    "providerPreference",
+    "privacyClass",
+    "publicAllowed",
+    "reviewState"
+  ],
+  "candidateReceiptRequiredFields": [
+    "jobId",
+    "batchId",
+    "sourceRef",
+    "providerLane",
+    "generationMethod",
+    "assetFile",
+    "sha256",
+    "dimensions",
+    "format",
+    "canonRefs",
+    "knownDeviations",
+    "reviewState"
+  ],
+  "driveHandoff": {
+    "root": "20_HYDRA_MEDIA",
+    "candidateFolder": "50_PROJECT_FILES/yumeBatchCandidates",
+    "approvedFolder": "70_FINAL_EXPORTS",
+    "uploadCandidatesOnlyAfterBytesExist": true,
+    "driveIsBinaryAuthority": true,
+    "githubStoresPointerAndHash": true,
+    "proofDeferredAllowed": true
+  },
+  "stopConditions": [
+    "missingSourceRef",
+    "missingCanonRefForCanonBoundAsset",
+    "providerUnavailable",
+    "privateReferenceWouldLeaveAllowedLane",
+    "publicAllowedTrueForGeneratedDraft",
+    "rejectedParentSelected",
+    "unknownProvenance"
+  ],
+  "publicationAuthority": false,
+  "releaseAuthority": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}
