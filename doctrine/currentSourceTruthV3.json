@@ -14,7 +14,10 @@
   "workingDoctrineLane": {
     "contract": "doctrine/proposedWorkingLaneV1.json",
     "status": "PROPOSED_ONLY",
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "currentMutationPromotion": false,
+    "professorPromotionRequired": true,
+    "historicalReceiptsRemainHistorical": true
   },
   "everlastingCovenant": {
     "contract": "doctrine/everlastingCovenantV1.json",
