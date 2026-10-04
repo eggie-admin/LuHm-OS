@@ -19,8 +19,7 @@
   },
   "usage": {
     "allowed": [
-      "loadingScreen",
-      "workflowProgress"
+      "loadingScreen"
     ],
     "loadingOnly": true,
     "avatarReplacement": false,
