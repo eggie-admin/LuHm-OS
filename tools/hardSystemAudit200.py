@@ -129,7 +129,7 @@ for n,o in g: add("sourceGovernance",n,o)
 # 21-40 namingAndManifestFormat
 good_sample = "big-brother-review-001.json"
 bad_sample = "BigBrotherReview_001.json"
-manifest_regex = manifest_law.get("fileNaming",{}).get("currentAiManifestFilenameRegex","")
+manifest_regex = manifest_law.get("fileNaming",{}).get("instanceFilenameRegex","")
 g = [
 ("namingSchema", naming.get("schema") == "luhmOs.camelHumpDoctrineLaw.v1"),
 ("machineIdentifiersCamel", naming.get("currentNaming",{}).get("machineIdentifiers") == "lowerCamelHump"),
@@ -141,7 +141,7 @@ g = [
 ("formatNamesManifestLaw", format_law.get("specializedContracts",{}).get("aiManifestFormat") == "doctrine/aiManifestFormatV1.json"),
 ("formatNamesPythonLaw", format_law.get("specializedContracts",{}).get("python3ControlPlane") == "doctrine/python3ControlPlaneLawV1.json"),
 ("manifestLawSchema", manifest_law.get("schema") == "luhmOs.aiManifestFormat.v1"),
-("manifestKebabStyle", manifest_law.get("fileNaming",{}).get("currentAiManifestFilenameStyle") == "kebab-case"),
+("manifestKebabStyle", manifest_law.get("fileNaming",{}).get("instanceFilenameStyle") == "kebab-case"),
 ("manifestRegexGood", bool(re.fullmatch(manifest_regex, good_sample))),
 ("manifestRegexBad", not bool(re.fullmatch(manifest_regex, bad_sample))),
 ("aiTaskSchemaCurrent", "luhmOs.aiTaskManifest.v2" in manifest_law.get("currentSchemas",[])),
