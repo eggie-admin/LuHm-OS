@@ -1,0 +1,39 @@
+{
+  "schema": "luhmOs.python3ControlPlaneLaw.v1",
+  "status": "PROPOSED_CANON_LAW",
+  "authority": "Professor",
+  "purpose": "Make Python 3 the canonical language for LuHm AI logic, orchestration, auditing, evidence adjudication, and control-plane implementation.",
+  "canonicalLanguage": "python3",
+  "currentPython3Scopes": [
+    "AI orchestration",
+    "task routing",
+    "source-truth audits",
+    "evidence adjudication",
+    "provider adapters where LuHm owns the implementation",
+    "manifest validation",
+    "MCP server logic",
+    "campaign evidence tooling",
+    "creative-pipeline audit tooling"
+  ],
+  "legacyLaw": [
+    "non_python3_luhm_owned_ai_or_control_plane_code_is_legacy",
+    "legacy_control_plane_code_may_remain_for_historical_receipts_or migration_only",
+    "new_luhm_owned_ai_logic_must_be_python3"
+  ],
+  "runtimeAdapterExceptions": {
+    "javascript": "browser and MCP Apps UI presentation adapter only; no source-truth or Crown authority",
+    "gdscript": "Godot scene/game runtime adapter only; no doctrine or Crown authority",
+    "kotlin": "Android platform bridge only; typed bounded adapter; no doctrine or Crown authority",
+    "shell": "bootstrap/build/install glue only; must call deterministic gates and hold no independent authority",
+    "gradle": "Android build-system adapter only",
+    "htmlCssSvg": "presentation/static asset formats only"
+  },
+  "currentAuthorityFiles": [
+    "tools/lumTaskRouter.py",
+    "tools/everlastingCovenantAudit.py",
+    "tools/agentTrainingAudit.py",
+    "tools/hardSystemAudit200.py",
+    "host/mcp/luhmMcpServer.py"
+  ],
+  "crownStatus": "STOP"
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "luhmOs.camelHumpDoctrineLaw.v1",
+  "status": "PROPOSED_CANON_LAW",
+  "authority": "Professor",
+  "purpose": "Make lower camelHump the only naming form for current machine doctrine while preserving older names as legacy provenance.",
+  "currentNaming": {
+    "machineIdentifiers": "lowerCamelHump",
+    "doctrineFileBasenames": "lowerCamelHump",
+    "jsonObjectKeys": "lowerCamelHump",
+    "agentIds": "lowerCamelHump",
+    "routeIds": "lowerCamelHump"
+  },
+  "currentNameRegex": "^[a-z][A-Za-z0-9]*$",
+  "legacyLaw": [
+    "any non camelHump doctrine filename is a legacyArtifact",
+    "any non camelHump current machine identifier is a legacyArtifact",
+    "legacy artifacts may remain immutable for receipts provenance rollback and compatibility",
+    "legacy artifact names may not be introduced as new current authority",
+    "current contracts may reference legacy artifacts only as explicitly labeled historical or legacy evidence",
+    "human display names quoted speech product names external vendor names URLs and immutable historical hashes are not machine identifier violations"
+  ],
+  "migrationLaw": {
+    "deleteLegacyArtifacts": false,
+    "rewriteHistoricalReceipts": false,
+    "currentSuccessorRequiredBeforeAuthorityMoves": true,
+    "sourceIdentityChangesRestartCovenantAt": "sanityCheck"
+  },
+  "legacyRegistry": [
+    "doctrine/SOURCE_OF_TRUTH.json",
+    "doctrine/ONI_MESH_CONTROL_PLANE_V2.json",
+    "doctrine/ANDROID_WEB3_COCKPIT_SWITCH_V1.json",
+    "doctrine/ANDROID_WEB3_BRIDGE_V1.json",
+    "doctrine/ANDROID_WEB3_SOURCE_READY_RECEIPT_20261001.json",
+    "doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json",
+    "doctrine/RELEASE_BOUNDARY.json",
+    "doctrine/CURRENT_MAIN_SOURCE_TRUTH_GREEN_20260930.json",
+    "doctrine/PRE_GREEN_SNAPSHOT_20260930.json",
+    "doctrine/ASSET_DESK_HARNESS_LIVE_20260930.json",
+    "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json",
+    "doctrine/DOCUMENT_MUTATION_AUDIT_RECEIPT_20260925.json",
+    "doctrine/DOCUMENT_MUTATION_AUDIT_SEAL_20260926.json"
+  ],
+  "crownStatus": "STOP"
+}

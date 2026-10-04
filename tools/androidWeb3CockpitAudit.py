@@ -29,9 +29,9 @@ def load_json(rel: str) -> dict:
         errors.append(f"invalid JSON {rel}: {exc}")
         return {}
 
-contract = load_json("doctrine/ANDROID_WEB3_COCKPIT_SWITCH_V1.json")
-bridge = load_json("doctrine/ANDROID_WEB3_BRIDGE_V1.json")
-source = load_json("doctrine/SOURCE_OF_TRUTH.json")
+contract = load_json("doctrine/androidWeb3CockpitV2.json")
+bridge = load_json("doctrine/androidWeb3BridgeV2.json")
+source = load_json("doctrine/currentSourceTruthV3.json")
 
 html = read("frontEnd/index.html")
 app = read("frontEnd/app.js")
@@ -75,19 +75,19 @@ require(contract.get("currentEvidence", {}).get("apkIntegration") == "PENDING_CA
 require(contract.get("currentEvidence", {}).get("physicalSamsungWebViewProof") == "PENDING",
         "must not fake Samsung WebView proof")
 
-aw3 = source.get("androidWeb3Cockpit", {})
-require(source.get("milestone", "").startswith("Android Web3 Cockpit"),
-        "SOURCE_OF_TRUTH active milestone did not switch")
-require(aw3.get("contract") == "doctrine/ANDROID_WEB3_COCKPIT_SWITCH_V1.json",
-        "SOURCE_OF_TRUTH missing Web3 contract")
-require(aw3.get("runtime") == "Android System WebView", "runtime must be Android System WebView")
-require(aw3.get("webViewWrapper") == "SOURCE_IMPLEMENTED_BUILD_PENDING",
-        "source truth wrapper state drift")
-require(aw3.get("pluginAar") == "PENDING_CAST_BUILD", "source truth AAR gate drift")
-require(aw3.get("physicalSamsungProof") == "PENDING", "physical proof must remain pending")
-require(aw3.get("crownStatus") == "STOP", "source truth Crown must remain STOP")
-require(source.get("cockpitSwitch", {}).get("historicalOnly") is True,
-        "prior native cockpit receipt must remain historical evidence")
+android = source.get("androidLayer", {})
+require(source.get("schema") == "luhmOs.currentSourceTruth.v3",
+        "current source truth schema drift")
+require(android.get("cockpitContract") == "doctrine/androidWeb3CockpitV2.json",
+        "current source truth missing camel Web3 cockpit contract")
+require(android.get("bridgeContract") == "doctrine/androidWeb3BridgeV2.json",
+        "current source truth missing camel Web3 bridge contract")
+require(android.get("releaseBoundary") == "doctrine/releaseBoundaryV2.json",
+        "current source truth release boundary drift")
+require(android.get("physicalSamsungProof") == "PENDING",
+        "physical Samsung proof must remain pending")
+require(android.get("crownStatus") == "STOP",
+        "current source truth Crown must remain STOP")
 
 # Browser surface.
 require("jquery-3.7.1.min.js" in html, "pinned local jQuery missing")
@@ -185,7 +185,7 @@ for key in ("arbitraryNavigation", "networkFallback", "addJavascriptInterface",
             "shellAuthority", "crownAuthority"):
     require(security.get(key) is False, f"bridge security {key} must remain false")
 allowed_js = [x.get("type") for x in bridge.get("javascriptToNative", [])]
-require(allowed_js == ["cockpit_ready", "world_requested"],
+require(allowed_js == ["cockpitReady", "worldRequested"],
         "JavaScript-to-native bridge types expanded unexpectedly")
 
 # Forge CAST gating: build-producing workflows must be manual only.

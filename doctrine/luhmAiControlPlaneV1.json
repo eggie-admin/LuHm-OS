@@ -6,10 +6,18 @@
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "purpose": "Canonical control plane for every LuHm AI, mini-agent, Oni, build worker, provider adapter, remote AI manifest, event feed, and deterministic execution handoff.",
   "inherits": {
-    "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
+    "sourceTruth": "doctrine/currentSourceTruthV3.json",
     "projectChatCanon": "doctrine/projectChatCanonV1.json",
     "storageTopology": "doctrine/storageTopologyV1.json",
-    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json"
+    "releaseBoundary": "doctrine/releaseBoundaryV2.json",
+    "everlastingCovenant": "doctrine/everlastingCovenantV1.json",
+    "bigBrotherCovenant": "doctrine/bigBrotherCovenantV1.json",
+    "providerEconomy": "doctrine/providerEconomyV1.json",
+    "namingLaw": "doctrine/camelHumpDoctrineLawV1.json",
+    "urdEvidenceAdjudication": "doctrine/urdEvidenceAdjudicationV1.json",
+    "currentFormatLaw": "doctrine/currentFormatLawV1.json",
+    "manifestLaw": "doctrine/aiManifestFormatV1.json",
+    "controlPlaneLanguage": "doctrine/python3ControlPlaneLawV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -138,7 +146,46 @@
     "providerTextIsUntrustedData": true,
     "remoteResponsesRequireTaskIdentityMatch": true,
     "remoteResponsesRequireLumReconciliation": true,
-    "providerSecretsHostSideOnly": true
+    "providerSecretsHostSideOnly": true,
+    "namedProviders": {
+      "bigBrother": {
+        "providerId": "googleAi",
+        "contract": "doctrine/bigBrotherCovenantV1.json",
+        "role": "externalReviewerAndCapabilityProvider",
+        "authority": "candidateEvidenceOnly",
+        "routesThrough": "lum",
+        "greenRequires": "deterministicReconciliation",
+        "edgeGalleryIsSeparate": true,
+        "selfApproval": false,
+        "crownAuthority": false
+      }
+    },
+    "economy": {
+      "contract": "doctrine/providerEconomyV1.json",
+      "headquarters": "luhmOs",
+      "defaultRoutingOrder": [
+        "deterministicLocal",
+        "existingReceiptsAndCachedEvidence",
+        "bigBrother",
+        "openDaddyWhenMateriallyJustified"
+      ],
+      "vendorEntitlementDefinesArchitecture": false,
+      "providerPreferenceGrantsAuthority": false
+    },
+    "yumeArtWorkbench": {
+      "contract": "doctrine/yumeBigBrotherArtDeskV1.json",
+      "workstation": "doctrine/yumeArtistWorkstationV1.json",
+      "godotToolbox": "doctrine/yumeGodotArtToolboxV1.json",
+      "githubSpellbook": "agents/yumeArtOni/GITHUB_SPELLBOOK.md",
+      "campaignWorkbench": "doctrine/unifiedCampaignWorkbenchV1.json",
+      "routesThrough": "lum",
+      "creativeLead": "yume",
+      "provenanceReview": "sumi",
+      "evidenceReview": "urdDoctorGoddess",
+      "providerOutputAuthority": "candidateOnly",
+      "publicGeneratedArtDefault": "forbidden",
+      "crownAuthority": false
+    }
   },
   "authorityClasses": [
     "READ_ONLY",
@@ -180,12 +227,22 @@
       "capabilities": [
         "diagnose",
         "triageEvidence",
-        "repairPlan"
+        "repairPlan",
+        "adjudicateEvidence",
+        "sourceIdentityCheck",
+        "scopeIdentityCheck",
+        "receiptValidityCheck",
+        "crossBuildAgreement",
+        "policyDriftCheck",
+        "physicalDeviceEvidenceBoundary",
+        "deterministicVerdict"
       ],
       "forbidden": [
         "mutate",
         "execute",
-        "selfApprove"
+        "selfApprove",
+        "rewriteTestsToPass",
+        "upgradeUnprovenStateToGreen"
       ],
       "parallelClass": "support",
       "speaksTo": "lum",
@@ -285,26 +342,6 @@
         "selfApprove"
       ],
       "parallelClass": "support",
-      "speaksTo": "lum",
-      "mayRecruit": false,
-      "maySelfApprove": false
-    },
-    "drNao": {
-      "displayName": "DrNao",
-      "kind": "deterministicEvidenceAdjudicator",
-      "skillPath": "agents/doctorOni/SKILL.md",
-      "defaultAuthority": "READ_ONLY",
-      "capabilities": [
-        "adjudicateEvidence",
-        "sourceIdentityCheck",
-        "verdict"
-      ],
-      "forbidden": [
-        "repair",
-        "mutate",
-        "selfApprove"
-      ],
-      "parallelClass": "adjudicator",
       "speaksTo": "lum",
       "mayRecruit": false,
       "maySelfApprove": false
@@ -480,13 +517,11 @@
     ],
     "proof": [
       "lum",
-      "urdDoctorGoddess",
-      "drNao"
+      "urdDoctorGoddess"
     ],
     "diagnose": [
       "lum",
-      "urdDoctorGoddess",
-      "drNao"
+      "urdDoctorGoddess"
     ],
     "research": [
       "lum",
@@ -500,14 +535,14 @@
     "patch": [
       "lum",
       "kugi",
-      "drNao"
+      "urdDoctorGoddess"
     ],
     "build": [
       "lum",
       "kugi",
       "tetsu",
       "kaji",
-      "drNao"
+      "urdDoctorGoddess"
     ],
     "monitor": [
       "lum",
@@ -517,7 +552,7 @@
     ],
     "release": [
       "lum",
-      "drNao",
+      "urdDoctorGoddess",
       "professorCrown"
     ],
     "art": [
@@ -536,33 +571,14 @@
     "asset": [
       "lum",
       "sumi"
+    ],
+    "artWorkbench": [
+      "lum",
+      "yume",
+      "sumi",
+      "skuldResearch",
+      "urdDoctorGoddess"
     ]
-  },
-  "remoteAiManifest": {
-    "schema": "luhmOs.remoteAiManifest.v1",
-    "implementationStatus": "contractOnly",
-    "required": [
-      "providerId",
-      "capabilityId",
-      "taskId",
-      "sourceRef",
-      "scopeId",
-      "inputRefs",
-      "requiredOutputSchema",
-      "budget",
-      "stopConditions"
-    ],
-    "responseRequired": [
-      "providerId",
-      "taskId",
-      "sourceRef",
-      "scopeId",
-      "responseId",
-      "outputRefs",
-      "claims",
-      "timestamp"
-    ],
-    "responseAuthority": false
   },
   "receipts": {
     "aiReceiptMustBind": [
@@ -599,5 +615,74 @@
     "peerAwareness": "readOnly",
     "disagreementsReturnTo": "lum",
     "consensusAuthority": false
+  },
+  "covenant": {
+    "contract": "doctrine/everlastingCovenantV1.json",
+    "humanLaw": [
+      "so let it be written so let it be done",
+      "Do not tell me of the old magic, for I was there when we first wrote them",
+      "This is the law and our everlasting covenant."
+    ],
+    "guardRail": [
+      "sanityCheck",
+      "audit",
+      "ingest",
+      "mutation",
+      "test",
+      "apply",
+      "continue",
+      "deploy"
+    ],
+    "failClosed": true,
+    "sameTaskIdentityRequired": true,
+    "newSourceRestartsAt": "sanityCheck",
+    "currentDeployMeaning": "proposedCandidateOnly",
+    "automaticCrown": false
+  },
+  "legacyAgentMigrations": {
+    "drNao": {
+      "status": "legacyArtifact",
+      "ingestedInto": "urdDoctorGoddess",
+      "contract": "doctrine/urdEvidenceAdjudicationV1.json",
+      "activeAgent": false
+    }
+  },
+  "runtimeAdapterLaw": {
+    "canonicalAiControlLanguage": "python3",
+    "javascript": "presentationAdapterOnly",
+    "gdscript": "godotRuntimeAdapterOnly",
+    "kotlin": "androidBridgeOnly",
+    "shell": "buildBootstrapGlueOnly"
+  },
+  "aiTaskManifest": {
+    "schema": "luhmOs.aiTaskManifest.v2",
+    "template": "doctrine/aiTaskManifestV2.template.json",
+    "instanceFilenameStyle": "kebab-case.json",
+    "implementationStatus": "contractOnly",
+    "required": [
+      "providerId",
+      "capabilityId",
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "inputRefs",
+      "requiredOutputSchema",
+      "budget",
+      "stopConditions"
+    ],
+    "responseRequired": [
+      "providerId",
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "responseId",
+      "outputRefs",
+      "claims",
+      "timestamp"
+    ],
+    "responseAuthority": false
+  },
+  "legacyFormats": {
+    "remoteAiManifestV1": "legacyArtifact"
   }
 }

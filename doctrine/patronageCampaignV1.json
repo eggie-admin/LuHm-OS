@@ -1,0 +1,84 @@
+{
+  "schema": "luhmOs.patronageCampaign.v1",
+  "status": "PROPOSED_OUTREACH_DRAFTS_ONLY",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "Seek practical patronage, privileged developer access, credits, test resources, and useful escalation channels from platforms that materially benefit from LuHm OS development and feedback.",
+  "toneLaw": {
+    "negativePersonalPutdowns": false,
+    "insults": false,
+    "diminishRecipientCompetence": false,
+    "respectProfessorExpertise": true,
+    "recognitionOrTitleIsPrimaryGoal": false,
+    "practicalPatronageIsPrimaryGoal": true,
+    "askToRemoveUnnecessaryGatekeeping": true
+  },
+  "professorPosition": {
+    "experience": "roughlyThreeDecadesWebAndOpenSource",
+    "credentialSeeking": false,
+    "leadershipTitleSeeking": false,
+    "recognitionSeeking": false,
+    "desiredExchange": [
+      "developerCredits",
+      "entitlementHeadroom",
+      "privilegedTestingAccess",
+      "engineeringFeedbackEscalation",
+      "hardwareOrCloudTestResources",
+      "distributionOrStoreGuidance",
+      "appropriateSponsorshipOrPatronage"
+    ]
+  },
+  "projectEvidenceThemes": [
+    "unitApproach",
+    "razorSharpScope",
+    "rapidWorkaroundArchitecture",
+    "sourceBoundReceipts",
+    "deterministicAudits",
+    "phoneFirstConversationalEngineering",
+    "noCodeAndLowCodeAiAssistedDevelopment",
+    "multiProviderInteroperability",
+    "humanCrownGovernance"
+  ],
+  "claimLaw": [
+    "only_make_claims_supported_by_repo_ci_drive_or_direct_user_evidence",
+    "describe_noCode_contribution_as_project_practice_or_demonstration_not_industry_credit",
+    "do_not_claim_vendor_adoption_without_vendor_receipt",
+    "do_not_claim_private_provider_identity_from_screenshots",
+    "do_not_claim_device_runtime_without_physical_receipt"
+  ],
+  "targets": {
+    "openAi": {
+      "nickname": "openDaddy",
+      "ask": ["developerApiCredits", "entitlementHeadroom", "engineeringFeedbackRoute", "builderPatronage"],
+      "sendAuthority": false
+    },
+    "github": {
+      "nickname": "gitDaddy",
+      "ask": ["developerProgramSupport", "copilotOrActionsEntitlement", "sponsorshipGuidance", "advancedTestingAccess"],
+      "sendAuthority": false
+    },
+    "samsung": {
+      "nickname": "samsungDaddy",
+      "ask": ["developerSupport", "remoteTestLabOrDeviceAccess", "galaxyStoreBetaAndPromotionGuidance", "advancedSamsungTestingAccess"],
+      "sendAuthority": false
+    },
+    "google": {
+      "nickname": "bigBrother",
+      "ask": ["googleAiOrCloudCredits", "developerProgramAccess", "googlePlayDeveloperRouting", "advancedTestingEntitlement"],
+      "sendAuthority": false
+    },
+    "fDroid": {
+      "nickname": "fDroid",
+      "ask": ["packagingAndReviewGuidance", "testingCollaboration", "maintainerCoordination", "appropriateOpenSourceSupport"],
+      "sendAuthority": false
+    }
+  },
+  "campaignState": {
+    "draftsMayBeCreated": true,
+    "automaticSend": false,
+    "bulkSend": false,
+    "professorReviewRequiredBeforeEachSend": true,
+    "socialPublicationAuthority": false
+  },
+  "crownStatus": "STOP"
+}

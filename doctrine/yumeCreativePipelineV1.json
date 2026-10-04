@@ -29,6 +29,7 @@
     "soundDepartment",
     "editorialDepartment",
     "providerTaskCards",
+    "contentLaneClassification",
     "candidateGeneration",
     "continuityAndContaminationAudit",
     "technicalAssetAudit",
@@ -67,7 +68,11 @@
     "providerTaskCards",
     "renderExportSpecs",
     "approvalLedger",
-    "publishChecklist"
+    "publishChecklist",
+    "contentLaneProfile",
+    "assetEligibility",
+    "fineArtIntent",
+    "commercialProductionPlan"
   ],
   "audit": {
     "tool": "tools/yumeCreativePipelineAudit.py",
@@ -81,5 +86,34 @@
   "workingLane": "PROPOSED_ONLY",
   "promotion": false,
   "historicalReceiptsMayRemainGreen": true,
-  "currentDoctrinePromotionRequiresProfessor": true
+  "currentDoctrinePromotionRequiresProfessor": true,
+  "contentLaneDoctrine": "doctrine/contentLaneDoctrineV1.json",
+  "assetEligibilityMatrix": "doctrine/assetEligibilityMatrixV1.json",
+  "contentLaneLaw": [
+    "provider_cannot_widen_lane_eligibility",
+    "private_references_never_flow_to_public",
+    "cathedralPublic_requires_publicAllowed_true",
+    "sexualized_assets_require_machine_readable_adult_roster",
+    "unknown_lane_or_maturity_fails_closed"
+  ],
+  "artistWorkstation": "doctrine/yumeArtistWorkstationV1.json",
+  "bigBrotherArtDesk": "doctrine/yumeBigBrotherArtDeskV1.json",
+  "godotArtToolbox": "doctrine/yumeGodotArtToolboxV1.json",
+  "githubSpellbook": "agents/yumeArtOni/GITHUB_SPELLBOOK.md",
+  "campaignWorkbench": "doctrine/unifiedCampaignWorkbenchV1.json",
+  "workbenchLaw": [
+    "local_tools_first_when_they_satisfy_the_task",
+    "remote_3d_vendor_identity_and_entitlement_require_receipt",
+    "bigBrother_assists_but_does_not_replace_yume",
+    "godot_asset_prep_is_plan_only_until_import_and_runtime_receipts",
+    "public_generative_ai_art_default_remains_forbidden"
+  ],
+  "artEducation": "doctrine/yumeArtEducationV1.json",
+  "professionalInterpretationLaw": [
+    "preserve_professor_source_before_cleanup",
+    "separate_fine_art_intent_from_commercial_delivery_constraints",
+    "commercial_derivative_must_reference_editable_master",
+    "roughness_may_be_intentional_and_must_not_be_auto_corrected",
+    "unknown_school_or_reference_name_remains_unknown_until_confirmed"
+  ]
 }

@@ -3,8 +3,8 @@ name: Android Web3 Cockpit Switch Audit
 on:
   pull_request:
     paths:
-      - 'doctrine/ANDROID_WEB3_COCKPIT_SWITCH_V1.json'
-      - 'doctrine/SOURCE_OF_TRUTH.json'
+      - 'doctrine/androidWeb3CockpitV2.json'
+      - 'doctrine/currentSourceTruthV3.json'
       - 'frontEnd/**'
       - 'backEndGui/**'
       - 'androidWeb3Plugin/**'
@@ -14,7 +14,7 @@ on:
       - 'scripts/main.gd'
       - 'scripts/game/lumAvatar.gd'
       - 'tests/lumRigV2Phase1Smoke.gd'
-      - 'doctrine/ANDROID_WEB3_BRIDGE_V1.json'
+      - 'doctrine/androidWeb3BridgeV2.json'
       - 'doctrine/FORGE_TWINS_V3.json'
       - 'tools/forgeCastGate.py'
       - '.github/workflows/android-testing-build.yml'
@@ -26,7 +26,7 @@ on:
       - 'tools/termuxVirginInstall.sh'
       - 'tools/termuxCastReleaseInstall.sh'
       - 'doctrine/rootedTermuxGitHubReleaseInstallV1.json'
-      - 'doctrine/RELEASE_BOUNDARY.json'
+      - 'doctrine/releaseBoundaryV2.json'
       - '.github/workflows/android-web3-cockpit-audit.yml'
   workflow_dispatch:
 

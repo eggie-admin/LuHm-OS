@@ -51,7 +51,9 @@
     "knownUnknowns",
     "authorityClass",
     "stopConditions",
-    "crownStatus"
+    "crownStatus",
+    "covenantRef",
+    "covenantDigest"
   ],
   "handoffs": {
     "lum->urdDoctorGoddess": {
@@ -209,6 +211,7 @@
     "lumFramesTask",
     "sharedContextPacketBound",
     "minimumGoddessLanesSelected",
+    "verifyCovenantAcknowledgements",
     "goddessesReturnIndependentSpecialtyPackets",
     "lumReconcilesWithoutInventingConsensus",
     "conflictsRemainExplicit",
@@ -223,5 +226,32 @@
     "unresolvedConflictState": "CONFLICT",
     "lumMayNotSilenceMinorityEvidence": true
   },
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "covenantBinding": {
+    "contract": "doctrine/everlastingCovenantV1.json",
+    "requiredForMembers": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "loadBeforeWork": true,
+    "acknowledgementRequired": true,
+    "acknowledgementFields": [
+      "taskId",
+      "scopeId",
+      "sourceRef",
+      "workerId",
+      "covenantRef",
+      "covenantDigest",
+      "observedAt"
+    ],
+    "truthfulRepresentation": "Speak in Professor\u2019s name only within explicit delegated scope; distinguish observed facts, proposals and unknowns.",
+    "evidenceRequiredForClaims": true,
+    "unknownRemainsUnknown": true,
+    "missingOrMismatchedAcknowledgement": "stop",
+    "acknowledgementGrantsAuthority": false,
+    "selfApproval": false,
+    "runtimeAcknowledgementsProven": false
+  }
 }

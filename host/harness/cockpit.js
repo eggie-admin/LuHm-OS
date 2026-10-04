@@ -3,6 +3,7 @@
 const byId = id => document.getElementById(id);
 const state = {
   pets: [],
+  loadingManifest: null,
   petIndex: 0,
   assets: [],
   assetIndex: 0,
@@ -11,6 +12,22 @@ const state = {
   pointerX: 0,
   pointerY: 0
 };
+
+function setLoadingAgent(agentId, message) {
+  const item=state.loadingManifest?.sprites?.find(x=>x.agentId===agentId);
+  if(item){
+    const slot=item.slot-1, col=slot%4, row=Math.floor(slot/4);
+    byId("agentLoadingSprite").style.backgroundPosition=String(col*100/3)+"% "+String(row*100/3)+"%";
+    byId("agentLoadingName").textContent=item.displayName;
+  }
+  byId("agentLoadingState").textContent=message;
+}
+function validateLoadingManifest(value) {
+  const ids=(value?.sprites||[]).map(x=>x.agentId), goddesses=value?.goddessGroup?.machineIds||[];
+  if(value?.schema!=="luhmOs.runtimeAgentLoadingSprites.v1"||ids.length!==16||new Set(ids).size!==16)throw new Error("invalid agent loading roster");
+  if(goddesses.join(",")!=="urdDoctorGoddess,belldandySecretary,skuldResearch")throw new Error("invalid goddess roster");
+  if(value?.grid?.columns!==4||value?.grid?.rows!==4)throw new Error("invalid sprite grid");
+}
 
 function normalizedHost() {
   const raw = location.hostname.toLowerCase();
@@ -275,10 +292,17 @@ function wireDropZone() {
 }
 
 async function boot() {
-  const [cfg, pets] = await Promise.all([
+  const [cfg, pets, spriteManifest] = await Promise.all([
     fetch("/harness/config.json", { cache: "no-store" }).then(r => r.json()),
-    fetch("/harness/pets.json", { cache: "no-store" }).then(r => r.json())
+    fetch("/harness/pets.json", { cache: "no-store" }).then(r => r.json()),
+    fetch("/harness/agent-loading-sprites.json", { cache: "no-store" }).then(r => r.json())
   ]);
+  state.loadingManifest = spriteManifest;
+  setLoadingAgent("belldandySecretary", "Loading the verified agent roster");
+  validateLoadingManifest(spriteManifest);
+  setLoadingAgent("sumi", "Checking the large sprite atlas");
+  const atlasResponse = await fetch(spriteManifest.assetUrl, { method: "HEAD", cache: "no-store" });
+  if (!atlasResponse.ok) throw new Error("agent sprite atlas unavailable");
   state.pets = pets.pets || [];
   renderNetwork();
   renderLibraries(cfg.libraries || {});
@@ -301,10 +325,13 @@ async function boot() {
   byId("clearAssets").addEventListener("click", clearAssets);
   window.addEventListener("beforeunload", revokeAllObjectUrls, { once: true });
 
+  setLoadingAgent("kugi", "Checking the Godot web viewer");
   await probeGodot();
+  byId("agentLoadingScreen").hidden = true;
 }
 
 boot().catch(error => {
   byId("edgeBadge").textContent = "HARNESS ERROR";
+  setLoadingAgent("drNao", "Startup could not be verified");
   console.error(error);
 });

@@ -1,0 +1,60 @@
+{
+  "schema": "luhmOs.chatProgressStream.v1",
+  "status": "proposed",
+  "purpose": "Show concise, verifiable workflow progress while a user is away.",
+  "execution": {
+    "visibleBackgroundProcess": "GitHub Actions pull-request checks",
+    "triggers": [
+      "pull_request",
+      "workflow_dispatch"
+    ],
+    "scheduledRuns": false,
+    "hiddenAsyncExecution": false,
+    "progressSources": [
+      "workflow logs",
+      "step summary"
+    ]
+  },
+  "event": {
+    "required": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "stage",
+      "state",
+      "shortLabel",
+      "timestamp"
+    ],
+    "states": [
+      "active",
+      "passed",
+      "blocked",
+      "unknown"
+    ],
+    "stages": [
+      "sourceBinding",
+      "schemaValidation",
+      "doctrineAudit",
+      "report"
+    ],
+    "emitWhen": "actual stage transition only",
+    "sourceIdentityMustRemainStable": true
+  },
+  "presentation": {
+    "default": "compact",
+    "maxVisibleLines": 5,
+    "showCurrentScriptAndStage": true,
+    "showPassCount": true,
+    "showEvidenceReference": true,
+    "includeChainOfThought": false,
+    "includeRawLogs": false,
+    "repeatUnchangedStatus": false,
+    "onlyMaterialStateChanges": true
+  },
+  "authority": {
+    "progressIsEvidenceProjectionOnly": true,
+    "grantsMutationAuthority": false,
+    "grantsDeploymentAuthority": false,
+    "grantsCrown": false
+  }
+}

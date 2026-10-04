@@ -1,0 +1,86 @@
+{
+  "schema": "luhmOs.openAiDeployment.v3",
+  "status": "PROPOSED_REMOTE_MCP_STAGED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalControlPlane": "doctrine/luhmAiControlPlaneV1.json",
+  "canonicalSourceTruth": "doctrine/currentSourceTruthV3.json",
+  "architecture": {
+    "boss": "lum",
+    "activeAgents": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch",
+      "kiri",
+      "momo",
+      "shiori",
+      "kugi",
+      "tetsu",
+      "kaji",
+      "fumi",
+      "sumi",
+      "koe",
+      "yume",
+      "mediaAssetFactory"
+    ],
+    "parallelismMaxSupport": 3,
+    "recursiveRecruitment": false,
+    "singleMutableSourceLane": true,
+    "urdOwnsDeterministicEvidenceAdjudication": true,
+    "legacyAdjudicatorActive": false
+  },
+  "openAi": {
+    "apiSurface": "ResponsesApi",
+    "providerBoundary": "hostSideAdapterOnly",
+    "credentialSource": "OPENAI_API_KEY or approved secret store",
+    "credentialInGit": false,
+    "credentialInApk": false,
+    "toolPolicy": "allowlistOnly",
+    "networkPolicy": "explicitHostDeploymentOnly"
+  },
+  "plugin": {
+    "portableManifest": "plugins/luhm-os/plugin.json",
+    "portableSkill": "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md",
+    "portableMcp": "plugins/luhm-os/mcp.json",
+    "publicSubmissionAuthorized": false,
+    "workspacePublicationAuthorized": false
+  },
+  "privateMcp": {
+    "profile": "localDevelopment",
+    "server": "host/mcp/luhmMcpServer.py",
+    "bind": "127.0.0.1:8788",
+    "transport": "streamableHttp",
+    "mutationAuthority": false,
+    "publicBindAllowed": false
+  },
+  "remoteMcp": {
+    "profile": "production",
+    "provider": "Render",
+    "canonicalFqdn": "mcp.eggiebagelface.art",
+    "canonicalMcpUrl": "https://mcp.eggiebagelface.art/mcp",
+    "transport": "streamableHttp",
+    "autoDeploy": false,
+    "mutationAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "providerSecretsInSource": false,
+    "customDomainTls": "PENDING_RECEIPT",
+    "chatGptConnection": "PENDING_RECEIPT"
+  },
+  "forbiddenClaims": [
+    "ciProvesLiveOpenAiCredentials",
+    "ciProvesChatGptConnectionInstalled",
+    "apkContainsProviderCredentials",
+    "androidHostsPythonControlPlane",
+    "loopbackIsPubliclyReachable",
+    "agentMaySelfPromote"
+  ],
+  "legacySource": "doctrine/openAiLumOniDeployment-20260927.json",
+  "crownStatus": "STOP",
+  "legacyAgentMigration": {
+    "legacyIdentity": "drNao",
+    "ingestedInto": "urdDoctorGoddess",
+    "active": false
+  }
+}

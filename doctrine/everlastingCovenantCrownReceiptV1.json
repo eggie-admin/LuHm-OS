@@ -1,0 +1,27 @@
+{
+  "schema": "luhmOs.everlastingCovenantCrownReceipt.v1",
+  "status": "crownApprovedCandidate",
+  "authority": "Professor",
+  "scopeId": "everlastingCovenantGovernanceMilestone",
+  "approvalBasis": {
+    "sanityCheckedSourceRef": "86382523dd47b708436d02ba4eab71f9e5ca18ef",
+    "exactHeadWorkflowCount": 11,
+    "exactHeadWorkflowsGreen": true
+  },
+  "promotedLaw": "doctrine/everlastingCovenantV1.json",
+  "preservedWorkingLane": {
+    "contract": "doctrine/proposedWorkingLaneV1.json",
+    "futureDoctrineMutationsDefault": "PROPOSED_ONLY",
+    "futureSourceTruthMutationsDefault": "PROPOSED_ONLY",
+    "automaticPromotion": false
+  },
+  "boundaries": {
+    "publicationAuthority": false,
+    "releaseAuthority": false,
+    "productionSigningAuthority": false,
+    "providerDeploymentAuthority": false,
+    "automaticMerge": false,
+    "automaticCrown": false
+  },
+  "promotionRule": "Crown this governance law only. Future doctrine and source-truth mutations remain proposed until separately approved for their exact source identity."
+}

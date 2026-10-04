@@ -83,10 +83,12 @@ def register_harness(
     widget_path = harness_root / "widget.html"
     index_path = harness_root / "index.html"
     pets_path = harness_root / "pets.json"
+    loading_sprites_path = harness_root / "agent-loading-sprites.json"
+    loading_atlas_path = harness_root / "agent-roster-v1.png"
     libraries_path = harness_root / "libraryPolicy.json"
     godot_root = harness_root / "godot-export"
 
-    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path)):
+    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     resource_meta: dict[str, Any] = {
@@ -165,13 +167,13 @@ def register_harness(
     @server.custom_route("/harness/assets/{asset_path:path}", methods=["GET", "HEAD"])
     async def harness_asset(request: Request) -> Response:
         relative = request.path_params.get("asset_path", "")
-        allowed = {"cockpit.css", "cockpit.js"}
+        allowed = {"cockpit.css", "cockpit.js", "agent-loading-sprites.json", "agent-roster-v1.png"}
         if relative not in allowed:
             return PlainTextResponse("not found", status_code=404, headers=_headers())
         target = _safe_file(harness_root, relative)
         if target is None:
             return PlainTextResponse("not found", status_code=404, headers=_headers())
-        media_type = "text/css; charset=utf-8" if target.suffix == ".css" else "text/javascript; charset=utf-8"
+        media_type = {".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json", ".png": "image/png"}.get(target.suffix, "application/octet-stream")
         return FileResponse(target, media_type=media_type, headers=_headers())
 
     @server.custom_route("/harness/config.json", methods=["GET"])

@@ -262,14 +262,15 @@
     "crownStatus": "STOP",
     "lastProvenPreCrownHead": "cd1c2c8e5d693fb0e85593fd22d829990149550b",
     "lastProvenPreCrownWorkflowRun": 37165200574,
-    "professorApproval": true,
-    "approvalScope": "yumeCreativePipeline source milestone promotion to main",
+    "professorApproval": false,
     "finalFacebookPublicationApproved": false,
     "workingLane": "PROPOSED_ONLY",
     "currentProfessorPromotion": false,
     "historicalPromotionReceipt": {
       "mergeCommit": "4cc921b485b0c1c0a4e63746024c7d0069cffce3",
-      "note": "prior scoped source promotion retained as historical receipt only"
+      "note": "prior scoped source promotion retained as historical receipt only",
+      "professorApproved": true,
+      "scope": "prior scoped source promotion to main"
     }
   },
   "workingDoctrineLane": {
@@ -279,6 +280,141 @@
     "currentMutationPromotion": false,
     "historicalReceiptsRemainHistorical": true,
     "professorPromotionRequired": true,
+    "crownStatus": "STOP"
+  },
+  "everlastingCovenant": {
+    "contract": "doctrine/everlastingCovenantV1.json",
+    "status": "PROPOSED_CANON_LAW",
+    "scope": "all chat AI agent workflow and AI logic",
+    "guardRail": [
+      "sanityCheck",
+      "audit",
+      "ingest",
+      "mutation",
+      "test",
+      "apply",
+      "continue",
+      "deploy"
+    ],
+    "currentWorkingLane": "PROPOSED_ONLY",
+    "promotion": false,
+    "publicationAuthority": false,
+    "releaseAuthority": false,
+    "crownStatus": "STOP"
+  },
+  "bigBrotherCovenant": {
+    "contract": "doctrine/bigBrotherCovenantV1.json",
+    "status": "PROPOSED_CANON_LAW",
+    "providerId": "googleAi",
+    "providerNickname": "bigBrother",
+    "role": "externalReviewerAndCapabilityProvider",
+    "edgeGalleryIdentity": "SEPARATE_LOCAL_EDGE_COMPANION",
+    "providerDeploymentProven": false,
+    "exactModelRuntime": "UNKNOWN_UNTIL_RECEIPT",
+    "exactEntitlement": "UNKNOWN_UNTIL_RECEIPT",
+    "outputAuthority": "CANDIDATE_EVIDENCE_ONLY",
+    "lumReconciliationRequired": true,
+    "deterministicAdjudicationRequiredForGreen": true,
+    "professorFinalAuthority": true,
+    "currentWorkingLane": "PROPOSED_ONLY",
+    "promotion": false,
+    "crownStatus": "STOP"
+  },
+  "providerEconomy": {
+    "contract": "doctrine/providerEconomyV1.json",
+    "status": "PROPOSED_CANON_LAW",
+    "headquarters": "luhmOs",
+    "routingOrder": [
+      "deterministicLocal",
+      "existingReceiptsAndCachedEvidence",
+      "bigBrother",
+      "openDaddyWhenMateriallyJustified"
+    ],
+    "bigBrotherRole": "highCapacityExternalWorker",
+    "openDaddyRole": "scarcePremiumCapability",
+    "vendorEntitlementDefinesArchitecture": false,
+    "professorFinalAuthority": true,
+    "currentWorkingLane": "PROPOSED_ONLY",
+    "promotion": false,
+    "crownStatus": "STOP"
+  },
+  "contentLanes": {
+    "contract": "doctrine/contentLaneDoctrineV1.json",
+    "assetEligibility": "doctrine/assetEligibilityMatrixV1.json",
+    "status": "PROPOSED_CANON_LAW",
+    "lanes": [
+      "privateMutation",
+      "betaAfterDark",
+      "cathedralPublic"
+    ],
+    "oneCharacterCanon": true,
+    "adultLock": true,
+    "publicSafeFallbackRequired": true,
+    "workingLane": "PROPOSED_ONLY",
+    "promotion": false,
+    "crownStatus": "STOP"
+  },
+  "patronageCampaign": {
+    "contract": "doctrine/patronageCampaignV1.json",
+    "status": "PROPOSED_OUTREACH_DRAFTS_ONLY",
+    "targets": [
+      "openAi",
+      "github",
+      "samsung",
+      "google",
+      "fDroid"
+    ],
+    "automaticSend": false,
+    "professorReviewRequiredBeforeEachSend": true,
+    "workingLane": "PROPOSED_ONLY",
+    "promotion": false,
+    "crownStatus": "STOP"
+  },
+  "yumeWorkstation": {
+    "contract": "doctrine/yumeArtistWorkstationV1.json",
+    "status": "PROPOSED_CAPABILITY_REGISTRY",
+    "owner": "yume",
+    "localFirst": true,
+    "knownToolClasses": [
+      "blender",
+      "godot4",
+      "gimp",
+      "ffmpeg",
+      "meshyAi"
+    ],
+    "remoteQuick3dVendorPool": "EXACT_VENDOR_IDENTITIES_UNKNOWN_UNTIL_RECEIPT",
+    "localGpuVram": "EXACT_DEVICE_AND_CAPACITY_REQUIRE_RECEIPT",
+    "publicGenerativeAiDefault": "FORBIDDEN_UNLESS_PROFESSOR_CHANGES_POLICY",
+    "crownStatus": "STOP"
+  },
+  "yumeBigBrotherArtDesk": {
+    "contract": "doctrine/yumeBigBrotherArtDeskV1.json",
+    "status": "PROPOSED_CONTRACT_ONLY",
+    "providerId": "googleAi",
+    "providerNickname": "bigBrother",
+    "providerExecution": "UNPROVEN_UNTIL_EXACT_PROVIDER_RECEIPT",
+    "outputAuthority": "CANDIDATE_ONLY",
+    "crownStatus": "STOP"
+  },
+  "unifiedCampaignWorkbench": {
+    "contract": "doctrine/unifiedCampaignWorkbenchV1.json",
+    "patronageContract": "doctrine/patronageCampaignV1.json",
+    "status": "PROPOSED_DRAFT_ONLY",
+    "publicationAuthority": false,
+    "automaticCrossPosting": false,
+    "professorReviewRequired": true,
+    "crownStatus": "STOP"
+  },
+  "yumeArtEducation": {
+    "contract": "doctrine/yumeArtEducationV1.json",
+    "status": "PROPOSED_TRAINING_CONTRACT",
+    "tracks": [
+      "fineArt",
+      "commercialArt"
+    ],
+    "professorSketchMayBeLowFidelity": true,
+    "sourcePreservationRequired": true,
+    "publicOutputsStillContentLaneBound": true,
     "crownStatus": "STOP"
   }
 }

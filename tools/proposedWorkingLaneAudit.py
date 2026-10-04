@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-source=json.loads((ROOT/"doctrine/SOURCE_OF_TRUTH.json").read_text())
+source=json.loads((ROOT/"doctrine/currentSourceTruthV3.json").read_text())
 lane=json.loads((ROOT/"doctrine/proposedWorkingLaneV1.json").read_text())
 yume=json.loads((ROOT/"doctrine/yumeCreativePipelineV1.json").read_text())
 

@@ -1,0 +1,124 @@
+{
+  "schema": "luhmOs.runtimeAgentLoadingSprites.v1",
+  "rosterSource": "doctrine/luhmAiControlPlaneV1.json#agents",
+  "assetUrl": "/harness/assets/agent-roster-v1.png",
+  "grid": {
+    "columns": 4,
+    "rows": 4,
+    "cellWidth": 313.5,
+    "cellHeight": 313.5,
+    "ordering": "rowMajor"
+  },
+  "goddessGroup": {
+    "machineIds": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "slots": [
+      2,
+      3,
+      4
+    ],
+    "prominent": true
+  },
+  "sprites": [
+    {
+      "agentId": "lum",
+      "displayName": "Lum",
+      "skillPath": "agents/lum/SKILL.md",
+      "slot": 1
+    },
+    {
+      "agentId": "urdDoctorGoddess",
+      "displayName": "Urd",
+      "skillPath": "agents/urdMutationOni/SKILL.md",
+      "slot": 2
+    },
+    {
+      "agentId": "belldandySecretary",
+      "displayName": "Belldandy",
+      "skillPath": "agents/belldandyQualityOni/SKILL.md",
+      "slot": 3
+    },
+    {
+      "agentId": "skuldResearch",
+      "displayName": "Skuld",
+      "skillPath": "agents/skuldResearchOni/SKILL.md",
+      "slot": 4
+    },
+    {
+      "agentId": "kiri",
+      "displayName": "Kiri",
+      "skillPath": "agents/kiriContextOni/SKILL.md",
+      "slot": 5
+    },
+    {
+      "agentId": "momo",
+      "displayName": "Momo",
+      "skillPath": "agents/momoResearchOni/SKILL.md",
+      "slot": 6
+    },
+    {
+      "agentId": "shiori",
+      "displayName": "Shiori",
+      "skillPath": "agents/shioriCriticOni/SKILL.md",
+      "slot": 7
+    },
+    {
+      "agentId": "kugi",
+      "displayName": "Kugi",
+      "skillPath": "agents/kugiToolOni/SKILL.md",
+      "slot": 9
+    },
+    {
+      "agentId": "tetsu",
+      "displayName": "Tetsu",
+      "skillPath": "agents/buildOnis/SKILL.md",
+      "slot": 10
+    },
+    {
+      "agentId": "kaji",
+      "displayName": "Kaji",
+      "skillPath": "agents/buildOnis/SKILL.md",
+      "slot": 11
+    },
+    {
+      "agentId": "fumi",
+      "displayName": "Fumi",
+      "skillPath": "agents/fumiSecretaryOni/SKILL.md",
+      "slot": 12
+    },
+    {
+      "agentId": "sumi",
+      "displayName": "Sumi",
+      "skillPath": "agents/sumiAssetOni/SKILL.md",
+      "slot": 13
+    },
+    {
+      "agentId": "koe",
+      "displayName": "Koe",
+      "skillPath": "agents/koeDictationOni/SKILL.md",
+      "slot": 14
+    },
+    {
+      "agentId": "yume",
+      "displayName": "Yume",
+      "skillPath": "agents/yumeArtOni/SKILL.md",
+      "slot": 15
+    },
+    {
+      "agentId": "mediaAssetFactory",
+      "displayName": "Media Asset Factory",
+      "skillPath": "agents/mediaAssetFactory/SKILL.md",
+      "slot": 16
+    }
+  ],
+  "legacySprites": {
+    "drNao": {
+      "status": "legacyArtifact",
+      "slot": 8,
+      "active": false
+    }
+  }
+}

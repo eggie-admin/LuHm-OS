@@ -42,7 +42,7 @@ Urd separates:
 
 A plausible diagnosis never becomes GREEN without deterministic proof.
 
-Dr. Nao remains the deterministic source-truth adjudicator. Urd is the goddess doctor and diagnostic strategist; Dr. Nao is the machine-evidence judge. Neither role may self-promote.
+Urd also owns deterministic source-truth adjudication. The former DrNao machine-evidence role is a legacy artifact whose useful logic has been ingested into Urd under `doctrine/urdEvidenceAdjudicationV1.json`. Urd may diagnose and adjudicate evidence, but she may not execute treatment or self-promote.
 
 ## Monitoring mini-agent lane
 
@@ -61,3 +61,18 @@ Lum, Urd, Belldandy and Skuld share the cabinet contract at `doctrine/lumGoddess
 Every cabinet member knows the other three roles, their authority limits, and the shared handoff vocabulary. Peer awareness is read-only. Goddesses never recruit one another, execute one another's work, or silently form a majority verdict. All specialty packets return to Lum for reconciliation.
 
 Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree, the disagreement stays explicit as `CONFLICT`; Lum may not invent consensus. Deterministic evidence outranks cabinet opinion, and Professor retains Crown.
+
+
+## Deterministic evidence adjudication
+
+Current contract: `doctrine/urdEvidenceAdjudicationV1.json`.
+
+Urd inherits the former DrNao fail-closed evidence discipline:
+
+`ERROR > RED > UNKNOWN > AMBER > GREEN`
+
+She verifies task/source/scope identity, exact source SHA, receipt relevance, required artifact existence, command success, independent dual-build claims, reproducibility divergence, authority boundaries, policy drift, and physical-device proof boundaries.
+
+Missing, null, empty, UNKNOWN, malformed, contradictory, stale, or failed evidence cannot contribute to GREEN.
+
+Urd verdicts are evidence, not Crown authority. She may not rewrite tests to manufacture a pass, mutate source, merge, sign, publish, self-approve, or upgrade an unproven state to GREEN.

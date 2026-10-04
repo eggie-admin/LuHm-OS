@@ -14,3 +14,11 @@ footer{border-top:1px solid var(--line);padding:10px 14px;color:var(--muted);fon
 @media(max-width:900px){.statusGrid{grid-template-columns:1fr 1fr}.desk{grid-template-columns:1fr}.previewStage,.previewStage img,.previewStage video,.previewStage iframe,.godotStage,.godotStage iframe{min-height:320px;height:320px}}
 @media(max-width:520px){body{padding:8px}.statusGrid{grid-template-columns:1fr}.topbar{align-items:flex-start}.desk{padding:0 8px 8px}.libraryShelf{margin:0 8px 8px}}
 @media(prefers-reduced-motion:reduce){.pixelPet{transition:none}.topbar{transition:none}}
+
+.agentLoadingScreen{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 50% 35%,#1c2432f5,#07090df7 72%);backdrop-filter:blur(10px)}
+.agentLoadingScreen[hidden]{display:none}
+.agentLoadingCard{display:grid;justify-items:center;gap:8px;text-align:center;max-width:min(92vw,420px);padding:24px;border:1px solid var(--line);border-radius:22px;background:#0c0f16ee;box-shadow:0 24px 80px #000a}
+.agentLoadingSprite{width:min(58vw,280px);height:min(58vw,280px);background-image:url("/harness/assets/agent-roster-v1.png");background-size:400% 400%;background-repeat:no-repeat;filter:drop-shadow(0 10px 24px #0008)}
+.agentLoadingKicker{color:var(--cyan);font:11px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}
+#agentLoadingName{font-size:20px}#agentLoadingState{color:var(--muted);font-size:13px}
+@media(max-width:520px){.agentLoadingCard{padding:18px}.agentLoadingSprite{width:min(68vw,250px);height:min(68vw,250px)}}

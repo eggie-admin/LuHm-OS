@@ -13,14 +13,14 @@ ROUTES = {
     "direct": ["Lum"],
     "read": ["Lum", "Kiri"],
     "records": ["Lum", "Belldandy", "Fumi"],
-    "proof": ["Lum", "Urd", "DrNao"],
-    "patch": ["Lum", "Kugi", "DrNao"],
-    "build": ["Lum", "Kugi", "Tetsu", "Kaji", "DrNao"],
+    "proof": ["Lum", "Urd", "Urd"],
+    "patch": ["Lum", "Kugi", "Urd"],
+    "build": ["Lum", "Kugi", "Tetsu", "Kaji", "Urd"],
     "external": ["Lum", "Skuld"],
-    "diagnose": ["Lum", "Urd", "DrNao"],
+    "diagnose": ["Lum", "Urd", "Urd"],
     "research": ["Lum", "Skuld"],
     "monitor": ["Lum", "Urd", "Belldandy", "Skuld"],
-    "release": ["Lum", "DrNao", "ProfessorCrown"],
+    "release": ["Lum", "Urd", "ProfessorCrown"],
     "art": ["Lum", "Yume"],
     "media": ["Lum", "Yume", "Sumi"],
     "dictation": ["Lum", "Koe"],
@@ -53,13 +53,13 @@ def main() -> int:
     workers = list(ROUTES[args.kind])
     reasons = [f"base:{args.kind}"]
 
-    if args.truth_sensitive and "DrNao" not in workers:
-        workers.append("DrNao")
+    if args.truth_sensitive and "Urd" not in workers:
+        workers.append("Urd")
         reasons.append("truth-sensitive")
     if args.contested:
         workers.append("Shiori")
-        if "DrNao" not in workers:
-            workers.append("DrNao")
+        if "Urd" not in workers:
+            workers.append("Urd")
         reasons.append("contested")
     if args.external_fact and "Momo" not in workers:
         workers.append("Momo")
@@ -81,7 +81,7 @@ def main() -> int:
         "supportWorkers": support,
         "sourceMutationLanes": 1 if "Kugi" in workers else 0,
         "parallelBuilds": 2 if {"Tetsu", "Kaji"}.issubset(workers) else 0,
-        "requiresDeterministicAdjudicator": "DrNao" in workers,
+        "requiresDeterministicAdjudicator": "Urd" in workers,
         "usesDoctorGoddess": "Urd" in workers,
         "usesSecretaryGoddess": "Belldandy" in workers,
         "usesResearchGoddess": "Skuld" in workers,

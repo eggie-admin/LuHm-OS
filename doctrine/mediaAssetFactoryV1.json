@@ -54,6 +54,7 @@
   },
   "stateMachine": [
     "sealedCanon",
+    "contentLaneClassification",
     "batchManifest",
     "candidateGeneration",
     "contaminationAudit",
@@ -96,7 +97,11 @@
     "copyrightedCharacterOneToOneCopyForbidden": true,
     "maxParallelGenerationJobs": 3,
     "maxParallelReviewJobs": 3,
-    "oneCanonicalPromotionLane": true
+    "oneCanonicalPromotionLane": true,
+    "laneMetadataRequired": true,
+    "adultLockRequiredForMatureAssets": true,
+    "publicSafeFallbackRequired": true,
+    "providerCannotWidenLane": true
   },
   "drive": {
     "canonicalMediaRootTitle": "20_HYDRA_MEDIA",
@@ -123,5 +128,7 @@
     "uiAuthority": "readOnlyStatusAndExplicitUserActions",
     "greenAuthority": false
   },
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "contentLaneDoctrine": "doctrine/contentLaneDoctrineV1.json",
+  "assetEligibilityMatrix": "doctrine/assetEligibilityMatrixV1.json"
 }

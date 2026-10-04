@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "doctrine/lumGoddessCabinetV1.json"
+      - "doctrine/everlastingCovenantV1.json"
       - "doctrine/luhmAiControlPlaneV1.json"
       - "doctrine/projectChatCanonV1.json"
       - "doctrine/SOURCE_OF_TRUTH.json"

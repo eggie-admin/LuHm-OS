@@ -30,18 +30,23 @@ def load_json(rel: str) -> dict:
 installer = read("tools/termuxVirginInstall.sh")
 orchestrator = read("tools/termuxCastReleaseInstall.sh")
 workflow = read(".github/workflows/android-testing-build.yml")
-source = load_json("doctrine/SOURCE_OF_TRUTH.json")
-releaseBoundary = load_json("doctrine/RELEASE_BOUNDARY.json")
+source = load_json("doctrine/currentSourceTruthV3.json")
+releaseBoundary = load_json("doctrine/releaseBoundaryV2.json")
 installContract = load_json("doctrine/rootedTermuxGitHubReleaseInstallV1.json")
+cockpit = load_json("doctrine/androidWeb3CockpitV2.json")
 
-aw3 = source.get("androidWeb3Cockpit", {})
-require(aw3.get("delivery") == "githubPrereleaseToRootedTermux",
-        "source truth delivery must be GitHub prerelease -> rooted Termux")
-require(aw3.get("releaseInstallContract") == "doctrine/rootedTermuxGitHubReleaseInstallV1.json",
-        "source truth rooted install contract missing")
-require(aw3.get("rootedTermuxInstaller") == "tools/termuxVirginInstall.sh",
-        "source truth Termux installer drift")
-require(aw3.get("legacyLanPortal") == "historicalOnlyForThisMilestone",
+android = source.get("androidLayer", {})
+require(android.get("cockpitContract") == "doctrine/androidWeb3CockpitV2.json",
+        "current source truth cockpit contract drift")
+require(android.get("releaseBoundary") == "doctrine/releaseBoundaryV2.json",
+        "current source truth release boundary drift")
+require(cockpit.get("delivery") == "githubPrereleaseToRootedTermux",
+        "cockpit delivery must be GitHub prerelease -> rooted Termux")
+require(cockpit.get("releaseInstallContract") == "doctrine/rootedTermuxGitHubReleaseInstallV1.json",
+        "cockpit rooted install contract missing")
+require(cockpit.get("rootedTermuxInstaller") == "tools/termuxVirginInstall.sh",
+        "cockpit Termux installer drift")
+require(cockpit.get("legacyLanPortal") == "historicalOnlyForThisMilestone",
         "legacy LAN portal must remain historical for this milestone")
 
 require(installContract.get("package") == "art.eggiebagelface.luhmos.testing",

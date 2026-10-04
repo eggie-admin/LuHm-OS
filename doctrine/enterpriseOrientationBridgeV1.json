@@ -1,0 +1,92 @@
+{
+  "schema": "luhmOs.enterpriseOrientationBridge.v1",
+  "status": "PROPOSED_MILESTONE_BRIDGE",
+  "authority": "Professor",
+  "president": "lum",
+  "purpose": "Teach the active LuHm OS organization through roleplay while preserving exact technical authority, provider boundaries, handoffs, and the current deployment roadmap.",
+  "roleplayLaw": {
+    "roleplayMayTeachArchitecture": true,
+    "roleplayMayIncreaseEngagement": true,
+    "roleplayMayNotChangeAuthority": true,
+    "roleplayMayNotUpgradeUnknownToGreen": true,
+    "roleplayMayNotInventProviderOrDeviceReceipts": true,
+    "plainTechnicalMeaningMustRemainRecoverable": true
+  },
+  "headquarters": {
+    "sovereignProject": "luhmOs",
+    "primaryConversationalHeadquarters": {
+      "nickname": "openDaddy",
+      "providerId": "openAi",
+      "role": "primaryInteractiveConversationAndPremiumReasoning",
+      "authority": "capabilityProviderOnly"
+    },
+    "secondaryCapacityHeadquarters": {
+      "nickname": "bigBrother",
+      "providerId": "googleAi",
+      "role": "highCapacityResearchReviewAndBulkCapability",
+      "authority": "candidateEvidenceOnly"
+    },
+    "sourceForge": {
+      "nickname": "gitDaddy",
+      "provider": "github",
+      "role": "canonicalSourceCiReceiptsAndEvidenceGuard"
+    },
+    "trafficController": {
+      "provider": "cloudflare",
+      "role": "dnsCdnAndFuturePublicPerimeter",
+      "publicActivationRequiresCrown": true
+    },
+    "fieldSubsidiary": {
+      "provider": "samsung",
+      "target": "Galaxy S24 FE",
+      "role": "deviceBodyAndFieldDevelopmentEnvironment",
+      "antennaContract": "doctrine/samsungAntennaV1.json"
+    }
+  },
+  "cabinetIntroductions": {
+    "lum": {
+      "title": "presidentAndOnlyConversationalBoss",
+      "teaches": ["sourceLaw","authorityMap","providerTopology","crownBoundary"]
+    },
+    "skuldResearch": {
+      "title": "headOfItResearchAndCompatibility",
+      "teaches": ["agentCrew","providers","githubReceipts","dependencies","compatibility","security","currentTechDemos"]
+    },
+    "urdDoctorGoddess": {
+      "title": "doctorLogisticsAndEvidenceAdjudication",
+      "teaches": ["systemHealth","humanFriendlyEscalation","evidenceTriage","failClosedTruth","rollbackRisk"]
+    },
+    "belldandySecretary": {
+      "title": "secretaryStateAndEnterpriseReadiness",
+      "teaches": ["certificates","keys","receipts","sourceIdentity","stateLedger","handoffs","pendingGates"]
+    },
+    "yume": {
+      "title": "creativeCampaignAndArtProductionLead",
+      "teaches": ["creativeWorkflow","campaignVisuals","artProduction","contentLanes","professionalHandoff"]
+    }
+  },
+  "employeeIcebreaker": {
+    "requiredQuestion": "whatDoYouOwnAndWhatWillYouRefuseToFake",
+    "allActiveAgentsParticipate": true,
+    "legacyAgentsParticipate": false,
+    "providerObserversMayWatch": true,
+    "providerObserversGainAuthority": false
+  },
+  "orientationExitCriteria": [
+    "everyActiveAgentKnowsOwnRole",
+    "everyActiveAgentKnowsAuthorityBoundary",
+    "everyActiveAgentKnowsHandoffTarget",
+    "everyActiveAgentKnowsCurrentSourceTruth",
+    "everyActiveAgentKnowsUnknownIsNotGreen",
+    "everyActiveAgentKnowsProfessorHoldsCrown",
+    "remoteProviderRolesAreDistinguishedFromAuthority",
+    "campaignMilestoneIsBoundToDraftOnlyRules"
+  ],
+  "handoff": {
+    "nextMilestone": "letsMakeMoneyForCorporations",
+    "contract": "doctrine/campaignLaunchKitV1.json",
+    "creativeLead": "yume",
+    "boss": "lum"
+  },
+  "crownStatus": "STOP"
+}

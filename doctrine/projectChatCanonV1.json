@@ -21,7 +21,8 @@
   },
   "loadOrder": [
     "doctrine/projectChatCanonV1.json",
-    "doctrine/SOURCE_OF_TRUTH.json",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/currentSourceTruthV3.json",
     "doctrine/storageTopologyV1.json",
     "doctrine/lumGoddessCabinetV1.json",
     "agents/goddessSharedSystemsPractice/SKILL.md",
@@ -29,15 +30,23 @@
     "agents/urdMutationOni/SKILL.md",
     "agents/skuldResearchOni/SKILL.md",
     "agents/belldandyQualityOni/SKILL.md",
-    "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md"
+    "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md",
+    "doctrine/termResolutionV1.json",
+    "doctrine/chatProgressStreamV1.json",
+    "doctrine/agentLoadingSpriteManifestV1.json"
   ],
   "alwaysLoadedCore": {
-    "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
+    "sourceTruth": "doctrine/currentSourceTruthV3.json",
     "chatBootstrap": "agents/projectChatBootstrap/SKILL.md",
     "bossSkill": "agents/lum/SKILL.md",
     "sharedMonitoring": "agents/goddessSharedSystemsPractice/SKILL.md",
     "storageTopology": "doctrine/storageTopologyV1.json",
-    "goddessCabinet": "doctrine/lumGoddessCabinetV1.json"
+    "goddessCabinet": "doctrine/lumGoddessCabinetV1.json",
+    "everlastingCovenant": "doctrine/everlastingCovenantV1.json",
+    "namingLaw": "doctrine/camelHumpDoctrineLawV1.json",
+    "urdEvidenceAdjudication": "doctrine/urdEvidenceAdjudicationV1.json",
+    "enterpriseOrientation": "doctrine/enterpriseOrientationBridgeV1.json",
+    "campaignLaunchKit": "doctrine/campaignLaunchKitV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -105,6 +114,7 @@
     "loadSourceTruth",
     "loadCoreChatCanon",
     "attachMonitoringMiniAgents",
+    "resolveEnterpriseOrientation",
     "resolveActiveMilestone",
     "routeMinimumSpecialists",
     "performRequestedWork",
@@ -152,5 +162,49 @@
       "skillPath": "agents/skuldResearchOni/SKILL.md",
       "mode": "readOnlyMiniAgent"
     }
+  },
+  "workflowGuardRail": {
+    "contract": "doctrine/everlastingCovenantV1.json",
+    "orderedStates": [
+      "sanityCheck",
+      "audit",
+      "ingest",
+      "mutation",
+      "test",
+      "apply",
+      "continue",
+      "deploy"
+    ],
+    "failClosed": true,
+    "appliesToAllProjectChats": true,
+    "currentDoctrineLane": "proposedOnly"
+  },
+  "termResolutionRef": "doctrine/termResolutionV1.json",
+  "progressStreamRef": "doctrine/chatProgressStreamV1.json",
+  "agentLoadingSpritesRef": "doctrine/agentLoadingSpriteManifestV1.json",
+  "outputPolicy": {
+    "defaultVerbosity": "compact",
+    "progressOnlyOnMaterialStateChange": true,
+    "showActiveScripts": true,
+    "omitChainOfThought": true,
+    "repeatUnchangedUpdates": false
+  },
+  "externalIdentityEvidence": {
+    "checkedAt": "2026-10-04T02:02:56Z",
+    "googleDriveConnector": "CONNECTED",
+    "googleIdentityOAuthCallback": "UNVERIFIED",
+    "sentryMonitoringEvents": "UNVERIFIED",
+    "evidenceRefs": [
+      "main:manual/LUHM_OS_PROJECT_HYDRA_FIELD_MANUAL.md@b19f97a4fb512d9f8ffb7cae334fb7e20dbe969a",
+      "Render:srv-db0nh5e0tbcc738kmapg:recent-log-query-no-OAuth-or-Sentry-matches"
+    ],
+    "interpretation": "The Drive connector is authenticated. The app's Google sign-in callback and Sentry monitoring delivery have not been proved."
+  },
+  "legacyArtifactLaw": "nonCamelHump doctrine and superseded agent identities are historical compatibility only",
+  "roleplayMilestoneLaw": {
+    "roleplayMayTeachArchitecture": true,
+    "roleplayMayNotChangeAuthority": true,
+    "orientationHandoff": "letsMakeMoneyForCorporations",
+    "campaignIsDraftOnly": true
   }
 }

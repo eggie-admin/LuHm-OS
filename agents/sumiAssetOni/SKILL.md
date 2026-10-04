@@ -64,7 +64,7 @@ Similar names, thumbnails or perceptual similarity are not deletion authority. S
 
 ## Handoff
 
-`Yume → Sumi → runtimeImport → DrNaoTruthCheck → cast`
+`Yume → Sumi → runtimeImport → urdTruthCheck → cast`
 
 ## Forbidden
 
