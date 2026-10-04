@@ -14,10 +14,24 @@
     "CI GREEN does not promote doctrine",
     "historical GREEN seals and receipts remain historical evidence and are not rewritten",
     "current proposed work must not claim runtime deployment or publication",
-    "moving current work out of proposed requires a new explicit Professor promotion for the exact source identity"
+    "moving current work out of proposed requires a new explicit Professor promotion for the exact source identity",
+    "all current AI workflow mutations inherit the everlasting covenant guard rail",
+    "deploy within this lane means proposed candidate deployment only",
+    "a new sourceRef restarts the guard rail at sanityCheck"
   ],
   "historicalException": "immutable historical receipts may retain prior GREEN/promotion language when clearly historical",
   "publicationAuthority": false,
   "releaseAuthority": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "covenant": "doctrine/everlastingCovenantV1.json",
+  "guardRail": [
+    "sanityCheck",
+    "audit",
+    "ingest",
+    "mutation",
+    "test",
+    "apply",
+    "continue",
+    "deploy"
+  ]
 }
