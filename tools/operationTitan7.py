@@ -13,6 +13,7 @@ WIDGET = ROOT / "host" / "harness" / "widget-v2.html"
 SERVER = ROOT / "host" / "mcp" / "luhmMcpServer.py"
 PLUGIN = ROOT / "frontEnd" / "jquery" / "operationTitan7.js"
 MAX_FINAL_FORM_COMMITS = 50
+MAX_AUDIT_PASSES = 100
 
 
 def git(*args: str) -> str:
@@ -23,18 +24,15 @@ def load(path: pathlib.Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def audit(command: str, escalation: str) -> dict:
-    contract = load(CONTRACT)
-    layers = load(LAYERS)
-    errors = []
-    checks = {}
-
+def one_pass(contract: dict, layers: dict) -> tuple[dict[str, bool], list[str]]:
+    checks: dict[str, bool] = {}
     checks["canonicalName"] = contract.get("canonicalName") == "operationTitan7"
     checks["jqueryEntryPoint"] = contract.get("entryPoints", {}).get("jquery") == "jQuery.fn.operationTitan7"
     checks["defaultMode"] = contract.get("defaultMode") == "saneApproach"
     checks["finalFormCeiling"] = contract.get("escalation", {}).get("finalForm", {}).get("commitWindowMax") == MAX_FINAL_FORM_COMMITS
     checks["noAutoDeploy"] = contract.get("forbidden", []).count("autoDeploy") == 1
     checks["noScheduledRuns"] = contract.get("invocationLaw", {}).get("scheduledBackgroundRunsForbidden") is True
+    checks["noPermanentFleet"] = contract.get("invocationLaw", {}).get("permanentWatchFleetForbidden") is True
     checks["compatibilityLayerOne"] = layers.get("layerOne", {}).get("id") == "openAiCompatibilityLayer"
     checks["compatibilityLayerTwo"] = layers.get("layerTwo", {}).get("id") == "githubCompatibilityLayer"
     checks["providerResultsReturnToLum"] = layers.get("layerTwo", {}).get("allProviderResultsReturnTo") == "lum"
@@ -50,20 +48,43 @@ def audit(command: str, escalation: str) -> dict:
         and "host/mcp/requirements.txt" in devcontainer.get("postCreateCommand", "")
         and "npm install --prefix frontEnd" in devcontainer.get("postCreateCommand", "")
     )
+    return checks, [name for name, passed in checks.items() if not passed]
 
-    for name, passed in checks.items():
-        if not passed:
-            errors.append(name)
 
+def audit(command: str, escalation: str, requested_passes: int | None) -> dict:
+    contract = load(CONTRACT)
+    layers = load(LAYERS)
+    errors: list[str] = []
     escalation_spec = contract.get("escalation", {}).get(escalation, {})
     commit_limit = escalation_spec.get("commitWindowMax", MAX_FINAL_FORM_COMMITS)
     if not isinstance(commit_limit, int) or commit_limit < 1:
         commit_limit = MAX_FINAL_FORM_COMMITS
         errors.append("commitWindowMax")
     commit_limit = min(commit_limit, MAX_FINAL_FORM_COMMITS)
+
+    if requested_passes is None:
+        tier_passes = escalation_spec.get("auditPasses", 1)
+        passes = tier_passes if isinstance(tier_passes, int) else 1
+    else:
+        passes = requested_passes
+    if not isinstance(passes, int) or not 1 <= passes <= MAX_AUDIT_PASSES:
+        errors.append("auditPassesOutOfRange")
+        passes = min(max(passes if isinstance(passes, int) else 1, 1), MAX_AUDIT_PASSES)
+
+    # Each pass independently reloads the source contracts and reevaluates every
+    # control. The receipt distinguishes repeated pass count from unique controls.
+    pass_failures: list[str] = []
+    final_checks: dict[str, bool] = {}
+    for pass_number in range(1, passes + 1):
+        current_contract = load(CONTRACT)
+        current_layers = load(LAYERS)
+        final_checks, failed = one_pass(current_contract, current_layers)
+        pass_failures.extend(f"pass{pass_number}:{name}" for name in failed)
+
+    if pass_failures:
+        errors.extend(pass_failures)
     commits = git("log", f"-n{commit_limit}", "--pretty=%H").splitlines()
     source_ref = git("rev-parse", "HEAD")
-
     supported = command in {"saneApproach", "dryRun"}
     if command in {"exit", "quit"}:
         status = "STOPPED"
@@ -84,7 +105,11 @@ def audit(command: str, escalation: str) -> dict:
         "sourceRef": source_ref,
         "commitWindowExamined": len(commits),
         "commitWindowMax": commit_limit,
-        "checks": checks,
+        "auditPassesRequested": passes,
+        "auditPassesCompleted": passes,
+        "uniqueControlsPerPass": len(final_checks),
+        "controlEvaluations": passes * len(final_checks),
+        "checks": final_checks,
         "contractErrors": errors,
         "mutationAuthority": False,
         "mergeAuthority": False,
@@ -101,10 +126,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(prog="operationTitan7")
     parser.add_argument("command", choices=["saneApproach", "dryRun", "update", "upgrade", "distro", "apply", "continue", "continueAll", "exit", "quit"])
     parser.add_argument("--escalation", choices=["forFuckSake", "scorchedEarth", "finalForm"], default="forFuckSake")
+    parser.add_argument("--passes", type=int, default=None, help="number of complete doctrine audit passes (maximum 100)")
     parser.add_argument("--json", dest="json_path", default="build/operationTitan7/receipt.json")
     args = parser.parse_args()
     try:
-        receipt = audit(args.command, args.escalation)
+        receipt = audit(args.command, args.escalation, args.passes)
     except Exception as exc:
         print(json.dumps({"schema":"luhmOs.operationTitan7Receipt.v1","status":"RED_OPERATION_TITAN7","error":type(exc).__name__,"mutationAuthority":False,"crownStatus":"STOP"}, indent=2))
         return 1
