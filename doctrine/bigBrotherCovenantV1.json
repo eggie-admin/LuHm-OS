@@ -37,7 +37,7 @@
     "structuredProposalGeneration"
   ],
   "taskLaw": {
-    "manifestSchema": "luhmOs.remoteAiManifest.v1",
+    "manifestSchema": "luhmOs.aiTaskManifest.v2",
     "requiredIdentity": [
       "taskId",
       "sourceRef",
@@ -50,8 +50,8 @@
     "lumReconciliationRequired": true,
     "deterministicAdjudicationRequiredForGreen": true,
     "professorPromotionRequired": true,
-    "template": "doctrine/remote-ai-manifest-v1.template.json",
-    "filenameStyle": "kebabCase",
+    "template": "doctrine/aiTaskManifestV2.template.json",
+    "filenameStyle": "kebab-case.json",
     "machineKeyStyle": "lowerCamelHump"
   },
   "providerAuthority": {
@@ -78,8 +78,8 @@
   "inherits": [
     "doctrine/everlastingCovenantV1.json",
     "doctrine/luhmAiControlPlaneV1.json",
-    "doctrine/remote-ai-manifest-v1.template.json",
-    "doctrine/proposedWorkingLaneV1.json"
+    "doctrine/proposedWorkingLaneV1.json",
+    "doctrine/aiTaskManifestV2.template.json"
   ],
   "crownStatus": "STOP"
 }
