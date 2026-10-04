@@ -304,3 +304,9 @@ func set_quest(title: String, objective: String, current_step: int, total_steps:
     if quest_label == null:
         return
     quest_label.text = "%s · %d/%d\n%s" % [title.to_upper(), current_step, total_steps, objective]
+
+
+func set_fast_travel_enabled(enabled: bool) -> void:
+    for button in _world_buttons:
+        button.disabled = not enabled
+        button.tooltip_text = "Complete First Night Circuit to unlock fast travel." if not enabled else "Fast travel"
