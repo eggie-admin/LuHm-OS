@@ -1,0 +1,40 @@
+{
+  "schema": "luhm-os.oni-summoner-plugin-contract.v1",
+  "status": "PROPOSED_PLUGIN_ONLY_CANDIDATE",
+  "authority": {
+    "mutationAuthority": false,
+    "greenAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false,
+    "crownStatus": "STOP"
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalBase": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+  "controlPlane": "doctrine/ONI_MESH_CONTROL_PLANE_V2.json",
+  "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
+  "scope": "front-end Oni summon/workflow/skill/activity GUI and read-only ChatGPT MCP Apps adapter only",
+  "appImplementation": "frontEnd/plugins/incoming/luhm-oni-summoner/jquery.luhmOniSummoner.js",
+  "chatAdapter": "host/harness/oni-summoner-widget.html",
+  "jquery": "3.7.1",
+  "summonEvent": "luhm:oni:summon",
+  "activityEvent": "luhm:oni:activity",
+  "activityStates": [
+    "PARKED",
+    "QUEUED",
+    "ACTIVE",
+    "WAITING",
+    "VERIFYING",
+    "SUCCESS",
+    "ERROR"
+  ],
+  "thinkingEcho": "OBSERVED_ACTIVITY_SUMMARY_ONLY_NO_HIDDEN_CHAIN_OF_THOUGHT",
+  "backgroundProcessRule": "NO_OBSERVED_TASK_PACKET_MEANS_NO_ACTIVE_WORKER_CLAIM",
+  "maxParallelSupportWorkers": 3,
+  "maxMutableSourceLanesPerCandidate": 1,
+  "directQuestionsBypassMesh": true,
+  "mcpModule": "host/mcp/luhmOniSummoner.py",
+  "openTool": "luhm_open_oni_summoner",
+  "summonTool": "luhm_request_oni",
+  "summonToolMeaning": "READ_ONLY_REQUEST_REQUIRES_LUM_ROUTING_EXECUTION_NOT_STARTED"
+}

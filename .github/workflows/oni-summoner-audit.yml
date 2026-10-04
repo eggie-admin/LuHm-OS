@@ -1,0 +1,29 @@
+name: LuHm Oni Summoner Audit
+on:
+  pull_request:
+    paths:
+      - "frontEnd/plugins/incoming/luhm-oni-summoner/**"
+      - "host/harness/oni-summoner-widget.html"
+      - "host/mcp/luhmOniSummoner.py"
+      - "host/mcp/luhmHarnessServer.py"
+      - "doctrine/ONI_SUMMONER_PLUGIN_V1.json"
+      - "doctrine/SOURCE_OF_TRUTH.json"
+      - "tools/oniSummonerAudit.py"
+      - ".github/workflows/oni-summoner-audit.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: JavaScript syntax
+        run: node --check frontEnd/plugins/incoming/luhm-oni-summoner/jquery.luhmOniSummoner.js
+      - name: Python syntax
+        run: python -m py_compile tools/oniSummonerAudit.py host/mcp/luhmOniSummoner.py host/mcp/luhmHarnessServer.py
+      - name: Doctrine and UI contract
+        run: python tools/oniSummonerAudit.py
