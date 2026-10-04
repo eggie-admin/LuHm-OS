@@ -70,7 +70,9 @@
     "priorAndroidWeb3BridgeContract": "doctrine/ANDROID_WEB3_BRIDGE_V1.json",
     "priorPluginPublicationMilestone": "doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json",
     "priorReleaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
-    "treatment": "historicalEvidenceCompatibilityOnly"
+    "treatment": "historicalEvidenceCompatibilityOnly",
+    "priorMcpEnterpriseScope": "doctrine/MCP_ENTERPRISE_SCOPE_V1.json",
+    "priorOpenAiDeployment": "doctrine/openAiLumOniDeployment-20260927.json"
   },
   "legacyAgentMigrations": {
     "drNao": {
@@ -83,5 +85,11 @@
   "publicationAuthority": false,
   "releaseAuthority": false,
   "productionSigningAuthority": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "formatLaw": "doctrine/currentFormatLawV1.json",
+  "runtimeContracts": {
+    "releaseBoundary": "doctrine/releaseBoundaryV2.json",
+    "mcpEnterpriseScope": "doctrine/mcpEnterpriseScopeV2.json",
+    "openAiDeployment": "doctrine/openAiDeploymentV3.json"
+  }
 }
