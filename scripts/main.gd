@@ -8,6 +8,7 @@ const CutsceneBridgeScript := preload("res://scripts/game/cutsceneBridge.gd")
 const CharacterRosterScript := preload("res://scripts/game/characterRoster.gd")
 const QuestDirectorScript := preload("res://scripts/game/questDirector.gd")
 const OniSummonBeaconScript := preload("res://scripts/game/oniSummonBeacon.gd")
+const OniEchoCompanionScript := preload("res://scripts/game/oniEchoCompanion.gd")
 
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
 const FIRST_NIGHT_QUEST_PATH := "res://game/story/firstNightQuest.json"
@@ -27,6 +28,7 @@ var intro_played := false
 var android_web3_plugin = null
 var android_web3_version := "unavailable"
 var active_oni_beacon: Area3D
+var active_oni_companion: Node3D
 
 func _ready() -> void:
     _build_runtime()
@@ -120,11 +122,25 @@ func _spawn_oni_beacon(name: String) -> void:
         return
     if active_oni_beacon != null and is_instance_valid(active_oni_beacon):
         active_oni_beacon.queue_free()
+    if active_oni_companion != null and is_instance_valid(active_oni_companion):
+        active_oni_companion.queue_free()
+        active_oni_companion = null
     var beacon = OniSummonBeaconScript.new()
     beacon.configure(name)
     active_world.add_child(beacon)
     beacon.global_position = player_controller.global_position + Vector3(1.4, 0.0, 0.0)
     active_oni_beacon = beacon
+
+func _spawn_oni_companion(name: String) -> void:
+    if active_world == null or player_controller == null:
+        return
+    if active_oni_companion != null and is_instance_valid(active_oni_companion):
+        active_oni_companion.queue_free()
+    var companion = OniEchoCompanionScript.new()
+    companion.configure(name, player_controller)
+    active_world.add_child(companion)
+    companion.global_position = player_controller.global_position + Vector3(0.8, 1.3, 0.0)
+    active_oni_companion = companion
 
 func _on_android_web3_error(reason: String) -> void:
     push_error("ANDROID_WEB3_COCKPIT_ERROR: " + reason)
@@ -247,7 +263,8 @@ func _interact() -> void:
         var oni_name := event_name.trim_prefix("oni:")
         if player_controller.has_method("pulse_effect"):
             player_controller.call("pulse_effect", Color("b783ff"))
-        game_hud.show_dialogue("Lum: %s echo acknowledged. Routing only; still no worker started." % oni_name)
+        _spawn_oni_companion(oni_name)
+        game_hud.show_dialogue("Lum: %s echo linked for eight seconds. Presence only; still no worker started." % oni_name)
         if nearest_interactable.has_method("dismiss"):
             nearest_interactable.call("dismiss")
         active_oni_beacon = null
