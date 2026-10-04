@@ -252,18 +252,33 @@
     "template": "agents/yumeArtOni/templates/filmProductionBible.md",
     "auditor": "tools/yumeCreativePipelineAudit.py",
     "workflow": ".github/workflows/yume-creative-pipeline-audit.yml",
-    "status": "GREEN_20_PASS_CROWN_APPROVED_SOURCE_DEPLOYMENT",
+    "status": "PROPOSED_YUME_CREATIVE_PIPELINE_SOURCE",
     "scope": "art-film-preproduction-editorial-source-contract",
     "googleAi": "UNCONFIGURED_EVIDENCE_PENDING",
     "edgeGallery": "UNCONFIGURED_EVIDENCE_PENDING",
     "huggingFace": "CANDIDATE_PROVIDER_UNPROVEN",
     "publicationAuthority": false,
     "providerDeploymentProven": false,
-    "crownStatus": "CROWN_APPROVED_SOURCE_PROMOTION",
+    "crownStatus": "STOP",
     "lastProvenPreCrownHead": "cd1c2c8e5d693fb0e85593fd22d829990149550b",
     "lastProvenPreCrownWorkflowRun": 37165200574,
     "professorApproval": true,
     "approvalScope": "yumeCreativePipeline source milestone promotion to main",
-    "finalFacebookPublicationApproved": false
+    "finalFacebookPublicationApproved": false,
+    "workingLane": "PROPOSED_ONLY",
+    "currentProfessorPromotion": false,
+    "historicalPromotionReceipt": {
+      "mergeCommit": "4cc921b485b0c1c0a4e63746024c7d0069cffce3",
+      "note": "prior scoped source promotion retained as historical receipt only"
+    }
+  },
+  "workingDoctrineLane": {
+    "contract": "doctrine/proposedWorkingLaneV1.json",
+    "status": "PROPOSED_ONLY",
+    "scope": "all current doctrine and SOURCE_OF_TRUTH mutations",
+    "currentMutationPromotion": false,
+    "historicalReceiptsRemainHistorical": true,
+    "professorPromotionRequired": true,
+    "crownStatus": "STOP"
   }
 }
