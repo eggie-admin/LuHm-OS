@@ -23,11 +23,15 @@ def _text(value: Any, maximum: int) -> str:
 
 def _role_index(roster: dict[str, Any]) -> dict[str, dict[str, Any]]:
     rows = roster.get("roles", []) if isinstance(roster, dict) else []
-    return {
-        str(row.get("name")): row
-        for row in rows
-        if isinstance(row, dict) and row.get("name")
-    }
+    out: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        for key in ("agentId", "displayName", "name"):
+            alias = str(row.get(key, "")).strip()
+            if alias:
+                out[alias] = row
+    return out
 
 
 def register_oni_summoner(
