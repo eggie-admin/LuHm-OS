@@ -47,6 +47,13 @@ checks=[
 ("roadmapOrientation",roadmap.get("orientationBridge")=="doctrine/enterpriseOrientationBridgeV1.json"),
 ("patronageNoSend",patronage.get("campaignState",{}).get("automaticSend") is False),
 ("campaignDraftPresent",(ROOT/"campaign/first-campaign-wave.md").is_file()),
+("evidenceLedgerPresent",(ROOT/"campaign/evidence-ledger.json").is_file()),
+("githubNarrativePresent",(ROOT/"campaign/github-project-narrative.md").is_file()),
+("socialWavePresent",(ROOT/"campaign/social-wave-one.md").is_file()),
+("patronageBriefPresent",(ROOT/"campaign/patronage-brief.md").is_file()),
+("bigBrotherManifestPresent",(ROOT/"campaign/manifests/big-brother-campaign-review-001.json").is_file()),
+("launchArtifactsBound",launch.get("artifacts",{}).get("evidenceLedger")=="campaign/evidence-ledger.json" and launch.get("artifacts",{}).get("socialWave")=="campaign/social-wave-one.md"),
+("bigBrotherReviewPending",launch.get("providerReview",{}).get("status")=="STAGED_NOT_EXECUTED" and launch.get("providerReview",{}).get("executionReceipt")=="PENDING"),
 ("crownStop",orientation.get("crownStatus")=="STOP" and launch.get("crownStatus")=="STOP")
 ]
 failed=[n for n,o in checks if not o]
