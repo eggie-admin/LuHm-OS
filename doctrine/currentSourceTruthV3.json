@@ -176,5 +176,17 @@
     "roleplayMayChangeAuthority": false,
     "nextMilestone": "letsMakeMoneyForCorporations",
     "crownStatus": "STOP"
+  },
+  "gameLayer": {
+    "contract": "doctrine/gameplayVerticalSliceV1.json",
+    "foundation": "doctrine/GODOT4_GAME_SOURCE_V1.json",
+    "quest": "game/story/firstNightQuest.json",
+    "runtime": "project.godot",
+    "status": "PROPOSED_GAMEPLAY_VERTICAL_SLICE",
+    "workingLane": "PROPOSED_ONLY",
+    "installBoundary": "PARKED",
+    "physicalDeviceProof": "PENDING",
+    "promotion": false,
+    "crownStatus": "STOP"
   }
 }
