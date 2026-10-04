@@ -6,7 +6,6 @@ const GameHudScript := preload("res://scripts/game/gameHud.gd")
 const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
 const CutsceneBridgeScript := preload("res://scripts/game/cutsceneBridge.gd")
 const CharacterRosterScript := preload("res://scripts/game/characterRoster.gd")
-const Titan7MilestoneScript := preload("res://scripts/game/titan7Milestone.gd")
 const QuestDirectorScript := preload("res://scripts/game/questDirector.gd")
 
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
@@ -21,7 +20,6 @@ var game_hud: CanvasLayer
 var cutscene_director: Node
 var cutscene_bridge: Node
 var character_roster: Node
-var titan7_milestone: CanvasLayer
 var quest_director: Node
 var nearest_interactable: Area3D
 var intro_played := false
@@ -72,9 +70,6 @@ func _build_runtime() -> void:
     quest_director.name = "QuestDirector"
     add_child(quest_director)
 
-    titan7_milestone = Titan7MilestoneScript.new()
-    titan7_milestone.name = "Titan7Milestone"
-    add_child(titan7_milestone)
 
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
