@@ -41,7 +41,7 @@ Every event binds to taskId + sourceRef + scopeId + workerId. `success` means th
 
 ## Execution
 
-Kugi is the deterministic mutation edge. Tetsu/Kaji are ephemeral build workers. DrNao adjudicates evidence. None of them may reinterpret task authority or self-promote.
+Kugi is the deterministic mutation edge. Tetsu/Kaji are ephemeral build workers. Urd Doctor Goddess performs deterministic evidence adjudication as part of her doctor role. None of them may reinterpret task authority or self-promote.
 
 ## Storage
 
