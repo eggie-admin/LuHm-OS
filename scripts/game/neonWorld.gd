@@ -172,6 +172,9 @@ func _arch(pos: Vector3) -> void:
 
 func _build_interactions() -> void:
     _add_interaction("talkLumRiverwalk", "talkLumRiverwalk", "Talk to Lum", Vector3(0.0, 0.55, -5.6), Color("ff4f9f"))
+    _add_interaction("collectSignalShard", "collectSignalShard", "Recover signal shard", Vector3(7.5, 0.35, 6.0), Color("55dfff"))
+    _add_interaction("gateCoffeeHouse", "travel:lumCoffeeHouse", "Enter Coffee House gate", Vector3(-10.5, 0.35, 12.0), Color("f3b47c"))
+    _add_interaction("gateCathedral", "travel:cathedral", "Enter Cathedral gate", Vector3(10.5, 0.35, 12.0), Color("b76cff"))
 
 func _add_interaction(interaction_id: String, event_name: String, prompt: String, pos: Vector3, accent: Color) -> void:
     var node := InteractableScript.new() as Area3D
