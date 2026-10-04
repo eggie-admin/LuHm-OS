@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+import json
+from pathlib import Path
+import sys
+
+root=Path(__file__).resolve().parents[1]
+required=[
+    "doctrine/gameplayVerticalSliceV1.json",
+    "game/story/firstNightQuest.json",
+    "scripts/game/questDirector.gd",
+    "scripts/game/interactable.gd",
+    "scripts/main.gd",
+    "scripts/game/gameHud.gd",
+    "scripts/game/neonWorld.gd",
+    "scripts/game/lumCoffeeHouseScene.gd",
+    "scripts/game/cathedralWorld.gd",
+]
+missing=[p for p in required if not (root/p).is_file()]
+errors=[]
+
+if not missing:
+    contract=json.loads((root/"doctrine/gameplayVerticalSliceV1.json").read_text())
+    quest=json.loads((root/"game/story/firstNightQuest.json").read_text())
+    if contract.get("status")!="PROPOSED_SOURCE_ONLY": errors.append("gameplay contract must remain proposed")
+    if contract.get("workingLane")!="PROPOSED_ONLY": errors.append("working lane drift")
+    if contract.get("promotion") is not False: errors.append("promotion must remain false")
+    if contract.get("crownStatus")!="STOP": errors.append("Crown must remain STOP")
+    if contract.get("installBoundary")!="PARKED": errors.append("install boundary must remain parked")
+    if quest.get("status")!="proposedGameplay": errors.append("quest status drift")
+    steps=quest.get("steps",[])
+    expected=["talkLumRiverwalk","collectCoffee","sealFirstNight"]
+    actual=[s.get("event") for s in steps]
+    if actual!=expected: errors.append(f"quest event order drift: {actual}")
+
+    main=(root/"scripts/main.gd").read_text()
+    hud=(root/"scripts/game/gameHud.gd").read_text()
+    for token in ["QuestDirectorScript","FIRST_NIGHT_QUEST_PATH","_update_interaction_target","interact_requested"]:
+        if token not in main: errors.append(f"main missing {token}")
+    for token in ["signal interact_requested","set_interaction_prompt","set_quest"]:
+        if token not in hud: errors.append(f"HUD missing {token}")
+    for world,event in [
+        ("scripts/game/neonWorld.gd","talkLumRiverwalk"),
+        ("scripts/game/lumCoffeeHouseScene.gd","collectCoffee"),
+        ("scripts/game/cathedralWorld.gd","sealFirstNight"),
+    ]:
+        if event not in (root/world).read_text():
+            errors.append(f"{world} missing {event}")
+
+if missing or errors:
+    print(json.dumps({"status":"RED","missing":missing,"errors":errors},indent=2))
+    sys.exit(1)
+
+print(json.dumps({
+    "status":"GREEN_GAMEPLAY_VERTICAL_SLICE_SOURCE",
+    "scope":"source-only",
+    "quest":"firstNightCircuit",
+    "steps":3,
+    "installBoundary":"PARKED",
+    "crownStatus":"STOP"
+},indent=2))
