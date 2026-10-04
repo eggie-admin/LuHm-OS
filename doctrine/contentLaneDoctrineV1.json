@@ -96,5 +96,11 @@
   },
   "publicationAuthority": false,
   "releaseAuthority": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "humanTriggerAliases": {
+    "fun release of the game": "contentLaneSelection",
+    "private crazy Iggy version": "privateMutation",
+    "dont tell mom beta": "betaAfterDark",
+    "Christian Minecraft public": "cathedralPublic"
+  }
 }
