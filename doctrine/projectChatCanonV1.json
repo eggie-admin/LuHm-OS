@@ -44,7 +44,9 @@
     "goddessCabinet": "doctrine/lumGoddessCabinetV1.json",
     "everlastingCovenant": "doctrine/everlastingCovenantV1.json",
     "namingLaw": "doctrine/camelHumpDoctrineLawV1.json",
-    "urdEvidenceAdjudication": "doctrine/urdEvidenceAdjudicationV1.json"
+    "urdEvidenceAdjudication": "doctrine/urdEvidenceAdjudicationV1.json",
+    "enterpriseOrientation": "doctrine/enterpriseOrientationBridgeV1.json",
+    "campaignLaunchKit": "doctrine/campaignLaunchKitV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -112,6 +114,7 @@
     "loadSourceTruth",
     "loadCoreChatCanon",
     "attachMonitoringMiniAgents",
+    "resolveEnterpriseOrientation",
     "resolveActiveMilestone",
     "routeMinimumSpecialists",
     "performRequestedWork",
@@ -197,5 +200,11 @@
     ],
     "interpretation": "The Drive connector is authenticated. The app's Google sign-in callback and Sentry monitoring delivery have not been proved."
   },
-  "legacyArtifactLaw": "nonCamelHump doctrine and superseded agent identities are historical compatibility only"
+  "legacyArtifactLaw": "nonCamelHump doctrine and superseded agent identities are historical compatibility only",
+  "roleplayMilestoneLaw": {
+    "roleplayMayTeachArchitecture": true,
+    "roleplayMayNotChangeAuthority": true,
+    "orientationHandoff": "letsMakeMoneyForCorporations",
+    "campaignIsDraftOnly": true
+  }
 }
