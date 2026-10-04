@@ -404,5 +404,17 @@
     "automaticCrossPosting": false,
     "professorReviewRequired": true,
     "crownStatus": "STOP"
+  },
+  "yumeArtEducation": {
+    "contract": "doctrine/yumeArtEducationV1.json",
+    "status": "PROPOSED_TRAINING_CONTRACT",
+    "tracks": [
+      "fineArt",
+      "commercialArt"
+    ],
+    "professorSketchMayBeLowFidelity": true,
+    "sourcePreservationRequired": true,
+    "publicOutputsStillContentLaneBound": true,
+    "crownStatus": "STOP"
   }
 }
