@@ -6,7 +6,7 @@ def load(p): return json.loads((ROOT/p).read_text(encoding="utf-8"))
 edu=load("doctrine/yumeArtEducationV1.json")
 yume=load("doctrine/yumeCreativePipelineV1.json")
 work=load("doctrine/yumeArtistWorkstationV1.json")
-truth=load("doctrine/SOURCE_OF_TRUTH.json")
+truth=load("doctrine/currentSourceTruthV3.json")
 checks=[
  ("schema",edu.get("schema")=="luhmOs.yumeArtEducation.v1"),
  ("status",edu.get("status")=="PROPOSED_TRAINING_CONTRACT"),
@@ -27,7 +27,7 @@ checks=[
  ("professional",edu.get("professionalStandard",{}).get("editableMasterSeparatedFromDeliveryDerivative") is True),
  ("yumeBound",yume.get("artEducation")=="doctrine/yumeArtEducationV1.json"),
  ("workBound",work.get("trainingContract")=="doctrine/yumeArtEducationV1.json"),
- ("truthBound",truth.get("yumeArtEducation",{}).get("contract")=="doctrine/yumeArtEducationV1.json"),
+ ("truthBound",truth.get("creativeLayer",{}).get("yumeArtEducation")=="doctrine/yumeArtEducationV1.json"),
  ("crown",edu.get("crownStatus")=="STOP")
 ]
 failed=[n for n,o in checks if not o]
