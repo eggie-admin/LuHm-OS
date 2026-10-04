@@ -337,5 +337,37 @@
     "currentWorkingLane": "PROPOSED_ONLY",
     "promotion": false,
     "crownStatus": "STOP"
+  },
+  "contentLanes": {
+    "contract": "doctrine/contentLaneDoctrineV1.json",
+    "assetEligibility": "doctrine/assetEligibilityMatrixV1.json",
+    "status": "PROPOSED_CANON_LAW",
+    "lanes": [
+      "privateMutation",
+      "betaAfterDark",
+      "cathedralPublic"
+    ],
+    "oneCharacterCanon": true,
+    "adultLock": true,
+    "publicSafeFallbackRequired": true,
+    "workingLane": "PROPOSED_ONLY",
+    "promotion": false,
+    "crownStatus": "STOP"
+  },
+  "patronageCampaign": {
+    "contract": "doctrine/patronageCampaignV1.json",
+    "status": "PROPOSED_OUTREACH_DRAFTS_ONLY",
+    "targets": [
+      "openAi",
+      "github",
+      "samsung",
+      "google",
+      "fDroid"
+    ],
+    "automaticSend": false,
+    "professorReviewRequiredBeforeEachSend": true,
+    "workingLane": "PROPOSED_ONLY",
+    "promotion": false,
+    "crownStatus": "STOP"
   }
 }
