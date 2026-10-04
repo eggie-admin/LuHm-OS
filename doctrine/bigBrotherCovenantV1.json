@@ -18,10 +18,9 @@
     "professor": "humanKingAndFinalCrownAuthority",
     "lum": "onlyConversationalBossAndProviderRouter",
     "bigBrother": "externalReviewerAndCapabilityProvider",
-    "drNao": "deterministicEvidenceAdjudicator",
     "belldandySecretary": "stateAndReceiptContinuity",
     "skuldResearch": "providerCompatibilityAndTechnicalResearch",
-    "urdDoctorGoddess": "evidencePathologyAndFailureDiagnosis"
+    "urdDoctorGoddess": "evidencePathologyFailureDiagnosisAndDeterministicAdjudication"
   },
   "workClasses": [
     "repositoryReview",
