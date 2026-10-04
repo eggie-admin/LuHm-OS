@@ -14,12 +14,15 @@
     { name: "Kaji", glyph: "J", kind: "clean-room-builder", skillPath: "agents/buildOnis/SKILL.md", defaultAuthority: "READ_ONLY", tagline: "Independently rebuilds the same immutable source for cross-checking." },
     { name: "Momo", glyph: "M", kind: "bounded-researcher", skillPath: "agents/momoResearchOni/SKILL.md", defaultAuthority: "READ_ONLY", tagline: "Researches only the bounded external/current fact Lum asks for." },
     { name: "Shiori", glyph: "S", kind: "critic-contradiction-checker", skillPath: "agents/shioriCriticOni/SKILL.md", defaultAuthority: "READ_ONLY", tagline: "Challenges contradictions, stale evidence, scope drift, and fake GREEN." },
-    { name: "DrNao", glyph: "N", kind: "source-truth-adjudicator", skillPath: "agents/doctorOni/SKILL.md", defaultAuthority: "READ_ONLY", tagline: "Adjudicates exact-source evidence without repairing what she diagnoses." },
+    { name: "DrNao", glyph: "N", kind: "deterministic-source-truth-adjudicator", skillPath: "agents/doctorOni/SKILL.md", defaultAuthority: "READ_ONLY", tagline: "Adjudicates exact-source evidence without repairing what she diagnoses." },
     { name: "Kugi", glyph: "G", kind: "deterministic-tool-executor", skillPath: "agents/kugiToolOni/SKILL.md", defaultAuthority: "PLAN_ONLY", tagline: "Executes only the exact bounded mutation packet already authorized." },
-    { name: "Fumi", glyph: "F", kind: "secretary-records-helper", skillPath: "agents/fumiSecretaryOni/SKILL.md", defaultAuthority: "READ_ONLY", tagline: "Normalizes records, Drive/API/repo naming, and receipt indexes." },
+    { name: "Fumi", glyph: "F", kind: "records-registrar-helper", skillPath: "agents/fumiSecretaryOni/SKILL.md", defaultAuthority: "READ_ONLY", tagline: "Normalizes records, Drive/API/repo naming, and receipt indexes." },
     { name: "Sumi", glyph: "U", kind: "asset-curator", skillPath: "agents/sumiAssetOni/SKILL.md", defaultAuthority: "READ_ONLY", tagline: "Checks asset identity, rights, provenance, and importability." },
     { name: "Koe", glyph: "O", kind: "dictation-scribe", skillPath: "agents/koeDictationOni/SKILL.md", defaultAuthority: "READ_ONLY", tagline: "Turns dictation into faithful notes and bounded task packets." },
-    { name: "Yume", glyph: "Y", kind: "art-media-helper", skillPath: "agents/yumeArtOni/SKILL.md", defaultAuthority: "PLAN_ONLY", tagline: "Plans original visual and audiovisual work inside the bounded creative lane." }
+    { name: "Yume", glyph: "Y", kind: "art-media-helper", skillPath: "agents/yumeArtOni/SKILL.md", defaultAuthority: "PLAN_ONLY", tagline: "Plans original visual and audiovisual work inside the bounded creative lane." },
+    { name: "Urd", glyph: "R", kind: "doctor-goddess-system-diagnostician", skillPath: "agents/urdMutationOni/SKILL.md", defaultAuthority: "READ_ONLY", tagline: "Diagnoses failures, evidence gaps, rollback risk, and repair sanity without taking authority." },
+    { name: "Belldandy", glyph: "B", kind: "secretary-goddess-state-records-keeper", skillPath: "agents/belldandyQualityOni/SKILL.md", defaultAuthority: "READ_ONLY", tagline: "Keeps state, names, paths, receipts, handoffs, and milestone continuity from drifting." },
+    { name: "Skuld", glyph: "S", kind: "research-goddess-compatibility-scout", skillPath: "agents/skuldResearchOni/SKILL.md", defaultAuthority: "READ_ONLY", tagline: "Scouts current technical compatibility, dependencies, vendor behavior, and licensing." }
   ];
 
   const defaults = {
