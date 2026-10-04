@@ -166,6 +166,20 @@
       ],
       "vendorEntitlementDefinesArchitecture": false,
       "providerPreferenceGrantsAuthority": false
+    },
+    "yumeArtWorkbench": {
+      "contract": "doctrine/yumeBigBrotherArtDeskV1.json",
+      "workstation": "doctrine/yumeArtistWorkstationV1.json",
+      "godotToolbox": "doctrine/yumeGodotArtToolboxV1.json",
+      "githubSpellbook": "agents/yumeArtOni/GITHUB_SPELLBOOK.md",
+      "campaignWorkbench": "doctrine/unifiedCampaignWorkbenchV1.json",
+      "routesThrough": "lum",
+      "creativeLead": "yume",
+      "provenanceReview": "sumi",
+      "evidenceReview": "drNao",
+      "providerOutputAuthority": "candidateOnly",
+      "publicGeneratedArtDefault": "forbidden",
+      "crownAuthority": false
     }
   },
   "authorityClasses": [
@@ -564,6 +578,13 @@
     "asset": [
       "lum",
       "sumi"
+    ],
+    "artWorkbench": [
+      "lum",
+      "yume",
+      "sumi",
+      "skuldResearch",
+      "drNao"
     ]
   },
   "remoteAiManifest": {
