@@ -8,7 +8,9 @@
     "server": "host/mcp/luhmMcpServer.py",
     "manifest": "plugins/luhm-os/plugin.json",
     "portableSkill": "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md",
+    "connection": "plugins/luhm-os/mcp.json",
     "transport": "streamableHttp",
+    "canonicalMcpEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
     "readOnly": true,
     "writeToolsAllowed": false,
     "mutationAuthority": false,
@@ -21,6 +23,25 @@
     "openAiDeployment": "doctrine/openAiDeploymentV3.json",
     "releaseBoundary": "doctrine/releaseBoundaryV2.json"
   },
+  "developerEvaluation": {
+    "sequence": [
+      "mcpInspector",
+      "toolSchemaAnnotationEvaluation",
+      "chatGptDeveloperConnection",
+      "discoveredToolInspection",
+      "luhmOpenCockpitComponentTest",
+      "networkTruthPresentationTest",
+      "positiveIndirectFollowUpNegativeEvaluations",
+      "evaluationReceipt",
+      "metadataRefreshIfChanged",
+      "completePluginTest",
+      "ProfessorPromotion"
+    ],
+    "retainPromptsAndResults": true,
+    "clientConnectionProven": false,
+    "completePluginTestProven": false,
+    "publicationEffect": "none"
+  },
   "historicalEvidence": {
     "legacyPublicationMilestone": "doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json",
     "legacyHarnessReceipt": "doctrine/ASSET_DESK_HARNESS_LIVE_20260930.json",
@@ -29,8 +50,11 @@
   "remainingGates": [
     "exactHeadCi",
     "currentMcpRuntimeDeployReceipt",
-    "domainVerificationIfRequired",
+    "mcpInspectorReceipt",
     "approvedChatGptConnectionTest",
+    "toolSelectionEvaluationReceipt",
+    "componentUiRuntimeReceipt",
+    "completePluginTest",
     "ProfessorPromotion"
   ],
   "publicationAuthority": false,
