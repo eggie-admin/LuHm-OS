@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-src 'none'">
+  <title>LuHm Cathedral WebGlass</title>
+  <link rel="stylesheet" href="./vendor/jquery-ui/jquery-ui.min.css">
+  <link rel="stylesheet" href="./vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-mode="compact">
+  <button class="lumBubble" type="button" data-window-mode="compact" aria-label="Open Lum WebGlass">
+    <span class="horn">♛</span><span class="face">👹</span>
+  </button>
+
+  <main id="luhmCockpit" class="cockpit" data-luhm-cockpit>
+    <section class="miniDeck">
+      <header class="deckTitle">
+        <div class="identity"><strong>LUM // CATHEDRAL</strong><small>GODOT 4 VIEWER GLASS</small></div>
+        <span class="statusLamp" data-site-status>LIVE</span>
+      </header>
+
+      <div class="readout">
+        <div><span>WORLD</span><b>GODOT NATIVE</b></div>
+        <div><span>GLASS</span><b>jQuery + Vue</b></div>
+        <div><span>WEBVIEW</span><b data-webview-status>probe</b></div>
+      </div>
+
+      <div class="transport">
+        <button type="button" data-window-mode="bubble">●</button>
+        <button type="button" data-window-mode="compact">MIN</button>
+        <button type="button" data-window-mode="panel">PANEL</button>
+        <button type="button" data-window-mode="fullscreen">MAX</button>
+        <button type="button" data-app-background>BG</button>
+        <button type="button" class="danger" data-app-quit>EXIT</button>
+      </div>
+
+      <div class="toyStrip">
+        <button type="button" data-toy-action="pet_lum">♥ PET</button>
+        <button type="button" data-toy-action="oni_pop">👹 ONI</button>
+        <button type="button" data-toy-action="crown_pulse">♛ PULSE</button>
+        <button type="button" data-request-status>STATUS</button>
+      </div>
+
+      <div class="controlRow">
+        <div class="dpad" aria-label="Move Lum">
+          <button data-axis="0,-1">▲</button>
+          <button data-axis="-1,0">◀</button>
+          <button data-axis="0,1">▼</button>
+          <button data-axis="1,0">▶</button>
+        </div>
+        <div class="cameraPad" data-camera-pad><span>DRAG CAMERA</span></div>
+      </div>
+    </section>
+
+    <section class="floatingPanel" id="chatPanel" data-luhm-panel>
+      <div class="panelTitle"><span>Lum / Chat</span><button type="button" data-toggle-panel="chatPanel">×</button></div>
+      <div class="panelBody">
+        <div class="messageStream" data-message-stream>
+          <p><b>Lum:</b> Godot owns the world. This is the floating WebGlass, not a literal stage. 👹</p>
+        </div>
+        <form class="input-group" data-chat-form>
+          <input class="form-control" name="message" autocomplete="off" placeholder="Message Lum…">
+          <button class="btn btn-outline-light" type="submit">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="floatingPanel" id="agentPanel" data-luhm-panel hidden>
+      <div class="panelTitle"><span>Oni Mesh</span><button type="button" data-toggle-panel="agentPanel">×</button></div>
+      <div class="panelBody small">
+        <div>Kiri · doctrine/context</div>
+        <div>Tetsu · build/service contracts</div>
+        <div>Momo · research/dependency freshness</div>
+        <div>Shiori · conditional critic</div>
+        <div>Kugi · deterministic executor</div>
+      </div>
+    </section>
+
+    <section class="floatingPanel" id="cmsPanel" data-luhm-panel hidden>
+      <div class="panelTitle"><span>Vue CMS Island</span><button type="button" data-toggle-panel="cmsPanel">×</button></div>
+      <div class="panelBody" id="vueCmsApp">
+        <div class="row g-2">
+          <div class="col-6" v-for="card in cards" :key="card.id">
+            <button class="cmsCard" type="button" @click="select(card.id)">
+              <strong>{{ card.title }}</strong><small>{{ card.note }}</small>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section hidden data-luhm-site-view="cathedral"></section>
+    <section hidden data-luhm-site-view="agents"></section>
+    <section hidden data-luhm-site-view="cms"></section>
+    <section hidden data-luhm-site-view="memory"></section>
+    <section hidden data-luhm-site-view="system"></section>
+
+    <nav class="bottomDock" aria-label="WebGlass panels">
+      <button data-toggle-panel="chatPanel">CHAT</button>
+      <button data-toggle-panel="agentPanel">ONI</button>
+      <button data-toggle-panel="cmsPanel">CMS</button>
+      <button data-native-world>WORLD</button>
+    </nav>
+  </main>
+
+  <script src="./vendor/jquery/jquery.min.js"></script>
+  <script src="./vendor/jquery-ui/jquery-ui.min.js"></script>
+  <script src="./vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="./vendor/vue/vue.global.prod.js"></script>
+  <script src="./jquery/luhm.deck.js"></script>
+  <script src="./jquery/luhm.site.js"></script>
+  <script src="./cms/vueCms.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

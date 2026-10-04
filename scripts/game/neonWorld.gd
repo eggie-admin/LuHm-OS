@@ -7,13 +7,14 @@ var player_spawn := Vector3(0.0, 1.15, 8.0)
 var lum_avatar: Node3D
 var community_set_dress: Node3D
 var _neon_materials: Array[StandardMaterial3D] = []
+var _toy_lights: Array[OmniLight3D] = []
 
 func _ready() -> void:
     _build_environment()
     _build_riverwalk()
     _build_city()
     _build_community_set_dress()
-    _build_lum_stage()
+    _build_lum_resident()
 
 func _build_environment() -> void:
     var env_node := WorldEnvironment.new()
@@ -41,7 +42,6 @@ func _build_environment() -> void:
 func _build_riverwalk() -> void:
     _box("WalkFloor", Vector3(0.0, -0.25, 0.0), Vector3(26.0, 0.5, 62.0), Color("11101a"), true)
     _box("River", Vector3(0.0, -0.52, -25.0), Vector3(58.0, 0.12, 18.0), Color("0b2840"), false, Color("0b3150"), 0.8)
-
     _box("LeftBoundary", Vector3(-13.0, 1.0, 0.0), Vector3(0.35, 2.0, 62.0), Color("17121f"), true)
     _box("RightBoundary", Vector3(13.0, 1.0, 0.0), Vector3(0.35, 2.0, 62.0), Color("17121f"), true)
 
@@ -62,13 +62,7 @@ func _build_city() -> void:
         var h: float = heights[i]
         var z: float = 10.0 - floor(float(i) / 2.0) * 7.2
         var x: float = side * (16.0 + lane * 3.8)
-        _box(
-            "CityBlock_%02d" % i,
-            Vector3(x, h * 0.5, z),
-            Vector3(5.0, h, 5.0),
-            Color("15111f") if i % 2 == 0 else Color("101a24"),
-            true
-        )
+        _box("CityBlock_%02d" % i, Vector3(x, h * 0.5, z), Vector3(5.0, h, 5.0), Color("15111f") if i % 2 == 0 else Color("101a24"), true)
         _window_stack(Vector3(x - side * 2.52, 1.6, z), h, Color("ff3c9d") if i % 2 == 0 else Color("55dfff"), side)
 
     _arch(Vector3(0.0, 0.0, -6.5))
@@ -87,22 +81,49 @@ func _build_community_set_dress() -> void:
     community_set_dress.name = "CommunityCathedralSetDress"
     add_child(community_set_dress)
 
-func _build_lum_stage() -> void:
-    var plinth := _box("LumPlinth", Vector3(0.0, 0.3, -8.0), Vector3(3.8, 0.6, 3.8), Color("16101d"), true)
-    plinth.rotation.y = PI * 0.25
-
+func _build_lum_resident() -> void:
+    # Lum lives in the world. No literal performance plinth/stage: the HTML WebGlass is the UI stage.
     lum_avatar = LumAvatarScene.instantiate() as Node3D
     lum_avatar.name = "LumAvatarSocket"
-    lum_avatar.position = Vector3(0.0, 0.65, -8.0)
+    lum_avatar.position = Vector3(0.0, 0.05, -8.0)
     add_child(lum_avatar)
 
     var halo := OmniLight3D.new()
     halo.name = "LumHalo"
     halo.position = Vector3(0.0, 3.0, -8.0)
     halo.light_color = Color("ff4f9f")
-    halo.light_energy = 3.0
+    halo.light_energy = 2.4
     halo.omni_range = 8.0
     add_child(halo)
+
+func pet_lum() -> void:
+    pulse_lum(0.55)
+    set_lum_expression("talk", 0.35)
+    get_tree().create_timer(0.45).timeout.connect(func(): restore_lum())
+
+func oni_pop() -> void:
+    for light in _toy_lights:
+        if is_instance_valid(light):
+            light.queue_free()
+    _toy_lights.clear()
+    var colors := [Color("ff4aa5"), Color("5fe7ff"), Color("b579ff")]
+    var offsets := [Vector3(-2.0, 2.0, -7.0), Vector3(0.0, 3.2, -6.5), Vector3(2.0, 2.0, -7.0)]
+    for i in range(3):
+        var light := OmniLight3D.new()
+        light.name = "OniPop_%d" % i
+        light.position = offsets[i]
+        light.light_color = colors[i]
+        light.light_energy = 4.0
+        light.omni_range = 5.0
+        add_child(light)
+        _toy_lights.append(light)
+
+func crown_pulse() -> void:
+    for material in _neon_materials:
+        material.emission_energy_multiplier = 7.0
+    await get_tree().create_timer(0.22).timeout
+    for material in _neon_materials:
+        material.emission_energy_multiplier = 3.0
 
 func get_lum_focus_position() -> Vector3:
     return lum_avatar.global_position + Vector3(0.0, 1.65, 0.0)
@@ -135,11 +156,9 @@ func _box(name_value: String, pos: Vector3, size: Vector3, color: Color, collida
         body.add_child(collision)
     else:
         root_node = Node3D.new()
-
     root_node.name = name_value
     root_node.position = pos
     add_child(root_node)
-
     var mesh_instance := MeshInstance3D.new()
     var mesh := BoxMesh.new()
     mesh.size = size
@@ -164,9 +183,7 @@ func _window_stack(base: Vector3, height: float, color: Color, side: float) -> v
     var count := maxi(2, int(height / 2.2))
     for level in range(count):
         var y := 1.2 + float(level) * 2.0
-        var size := Vector3(0.06, 0.28, 2.4)
-        var pos := Vector3(base.x, y, base.z)
-        _box("Window_%s_%s" % [int(base.z * 10.0), level], pos, size, Color("101018"), false, color, 2.0)
+        _box("Window_%s_%s" % [int(base.z * 10.0), level], Vector3(base.x, y, base.z), Vector3(0.06, 0.28, 2.4), Color("101018"), false, color, 2.0)
 
 func _arch(pos: Vector3) -> void:
     var pink := Color("ff3c9d")

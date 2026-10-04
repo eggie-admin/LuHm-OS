@@ -1,19 +1,22 @@
-; LuHm OS clean playable spine
+; LuHm OS Cathedral WebGlass candidate
 config_version=5
 
 [application]
-config/name="LuHm OS Clean Play"
+config/name="LuHm Cathedral WebGlass"
 run/main_scene="res://scenes/Main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display]
-window/size/viewport_width=720
-window/size/viewport_height=720
-window/size/window_width_override=1280
-window/size/window_height_override=720
+window/size/viewport_width=1080
+window/size/viewport_height=2340
+window/size/window_width_override=540
+window/size/window_height_override=1170
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=6
+
+[editor_plugins]
+enabled=PackedStringArray("res://addons/kai_webview/plugin.cfg")
 
 [rendering]
 renderer/rendering_method="gl_compatibility"
