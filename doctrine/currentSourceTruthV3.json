@@ -242,5 +242,31 @@
     "workingLane": "PROPOSED_ONLY",
     "promotion": false,
     "crownStatus": "STOP"
+  },
+  "openPrReconciliation": {
+    "contract": "doctrine/openPrReconciliationV2.json",
+    "status": "PROPOSED_SOURCE_ONLY",
+    "sourceMain": "8026ed1085c1fd039af9dded5e416ebea409219c",
+    "staleWholeBranchMerge": false,
+    "closeSupersededAfterGreenMerge": true,
+    "crownStatus": "STOP"
+  },
+  "experienceLayer": {
+    "activityPresentation": "doctrine/chatActivityPresentationV1.json",
+    "codingRoleplayDirector": "doctrine/codingRoleplayDirectorV2.json",
+    "characterPetPresentation": "doctrine/characterPetPresentationV1.json",
+    "intentRouter": "doctrine/humanCenteredIntentRouterV2.json",
+    "operationTitan7ChatTrigger": "doctrine/operationTitan7ChatTriggerV2.json",
+    "roleplayFrontend": "frontEnd/jquery/luhm.codingRoleplay.js",
+    "status": "PROPOSED_SOURCE_ONLY",
+    "crownStatus": "STOP"
+  },
+  "studyLayer": {
+    "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",
+    "deploy": "doctrine/professorOldMagicStudyDeployV2.json",
+    "schema": "doctrine/professorOldMagicStudyClassSchemaV2.json",
+    "driveReceiptProven": false,
+    "status": "PROPOSED_SOURCE_ONLY",
+    "crownStatus": "STOP"
   }
 }
