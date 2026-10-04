@@ -76,7 +76,7 @@ if not missing:
         if token not in oni_beacon: errors.append(f"Oni beacon missing {token}")
     if "agent-roster-v1.png" in oni_beacon:
         errors.append("Oni beacon may not repurpose loading-only roster sprites")
-    for token in ['event_name.begins_with("oni:")','echo acknowledged','nearest_interactable.call("dismiss")']:
+    for token in ['event_name.begins_with("oni:")','echo linked for eight seconds','nearest_interactable.call("dismiss")']:
         if token not in main: errors.append(f"Oni beacon interaction missing {token}")
     if 'return "TOUCH " + oni_name.to_upper() + " ECHO"' not in oni_beacon:
         errors.append("Oni beacon interaction prompt missing")
