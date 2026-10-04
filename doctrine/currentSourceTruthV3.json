@@ -1,0 +1,87 @@
+{
+  "schema": "luhmOs.currentSourceTruth.v3",
+  "status": "AMBER_PROPOSED_SEAL_OF_TRUTH",
+  "product": "LuHm OS",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "promotion": false,
+  "namingLaw": {
+    "contract": "doctrine/camelHumpDoctrineLawV1.json",
+    "currentMachineNaming": "lowerCamelHump",
+    "nonCamelCurrentDoctrine": "LEGACY_ARTIFACT"
+  },
+  "workingDoctrineLane": {
+    "contract": "doctrine/proposedWorkingLaneV1.json",
+    "status": "PROPOSED_ONLY",
+    "crownStatus": "STOP"
+  },
+  "everlastingCovenant": {
+    "contract": "doctrine/everlastingCovenantV1.json",
+    "status": "PROPOSED_CANON_LAW",
+    "guardRail": [
+      "sanityCheck",
+      "audit",
+      "ingest",
+      "mutation",
+      "test",
+      "apply",
+      "continue",
+      "deploy"
+    ],
+    "crownStatus": "STOP"
+  },
+  "aiControlPlane": {
+    "contract": "doctrine/luhmAiControlPlaneV1.json",
+    "boss": "lum",
+    "authority": "Professor"
+  },
+  "goddessCabinet": {
+    "contract": "doctrine/lumGoddessCabinetV1.json",
+    "resident": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "urdEvidenceAdjudication": "doctrine/urdEvidenceAdjudicationV1.json"
+  },
+  "providerLayer": {
+    "bigBrotherCovenant": "doctrine/bigBrotherCovenantV1.json",
+    "providerEconomy": "doctrine/providerEconomyV1.json"
+  },
+  "creativeLayer": {
+    "contentLaneDoctrine": "doctrine/contentLaneDoctrineV1.json",
+    "assetEligibilityMatrix": "doctrine/assetEligibilityMatrixV1.json",
+    "yumeCreativePipeline": "doctrine/yumeCreativePipelineV1.json",
+    "yumeArtistWorkstation": "doctrine/yumeArtistWorkstationV1.json",
+    "yumeBigBrotherArtDesk": "doctrine/yumeBigBrotherArtDeskV1.json",
+    "yumeGodotArtToolbox": "doctrine/yumeGodotArtToolboxV1.json",
+    "yumeArtEducation": "doctrine/yumeArtEducationV1.json"
+  },
+  "campaignLayer": {
+    "patronageCampaign": "doctrine/patronageCampaignV1.json",
+    "unifiedCampaignWorkbench": "doctrine/unifiedCampaignWorkbenchV1.json"
+  },
+  "legacyArtifacts": {
+    "priorSourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
+    "priorOniMeshControlPlane": "doctrine/ONI_MESH_CONTROL_PLANE_V2.json",
+    "priorAndroidWeb3CockpitContract": "doctrine/ANDROID_WEB3_COCKPIT_SWITCH_V1.json",
+    "priorAndroidWeb3BridgeContract": "doctrine/ANDROID_WEB3_BRIDGE_V1.json",
+    "priorPluginPublicationMilestone": "doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json",
+    "priorReleaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
+    "treatment": "historicalEvidenceCompatibilityOnly"
+  },
+  "legacyAgentMigrations": {
+    "drNao": {
+      "status": "LEGACY_ARTIFACT",
+      "ingestedInto": "urdDoctorGoddess",
+      "contract": "doctrine/urdEvidenceAdjudicationV1.json",
+      "activeAgent": false
+    }
+  },
+  "publicationAuthority": false,
+  "releaseAuthority": false,
+  "productionSigningAuthority": false,
+  "crownStatus": "STOP"
+}
