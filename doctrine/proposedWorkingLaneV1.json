@@ -5,7 +5,9 @@
   "scope": [
     "current doctrine mutations",
     "current SOURCE_OF_TRUTH mutations",
-    "current agent-skill doctrine bindings"
+    "current agent-skill doctrine bindings",
+    "current content and asset lane doctrine",
+    "current patronage outreach draft governance"
   ],
   "sourceLaw": "AI proposes. Policy authorizes. CI proves candidate consistency. Professor separately promotes.",
   "rules": [
@@ -17,7 +19,9 @@
     "moving current work out of proposed requires a new explicit Professor promotion for the exact source identity",
     "all current AI workflow mutations inherit the everlasting covenant guard rail",
     "deploy within this lane means proposed candidate deployment only",
-    "a new sourceRef restarts the guard rail at sanityCheck"
+    "a new sourceRef restarts the guard rail at sanityCheck",
+    "outreach drafts may be created but are never sent without explicit Professor review and approval",
+    "content lane promotion changes asset presentation eligibility only and never grants repository promotion release publication signing or Crown authority"
   ],
   "historicalException": "immutable historical receipts may retain prior GREEN/promotion language when clearly historical",
   "publicationAuthority": false,
