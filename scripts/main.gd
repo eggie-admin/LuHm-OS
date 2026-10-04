@@ -7,6 +7,7 @@ const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
 const CutsceneBridgeScript := preload("res://scripts/game/cutsceneBridge.gd")
 const CharacterRosterScript := preload("res://scripts/game/characterRoster.gd")
 const QuestDirectorScript := preload("res://scripts/game/questDirector.gd")
+const OniSummonBeaconScript := preload("res://scripts/game/oniSummonBeacon.gd")
 
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
 const FIRST_NIGHT_QUEST_PATH := "res://game/story/firstNightQuest.json"
@@ -25,6 +26,7 @@ var nearest_interactable: Area3D
 var intro_played := false
 var android_web3_plugin = null
 var android_web3_version := "unavailable"
+var active_oni_beacon: Node3D
 
 func _ready() -> void:
     _build_runtime()
@@ -110,7 +112,19 @@ func _on_android_oni_requested(name: String) -> void:
         game_hud.show_oni_request(name)
     if player_controller != null:
         player_controller.set_world_active(true)
+    _spawn_oni_beacon(name)
     _update_interaction_target()
+
+func _spawn_oni_beacon(name: String) -> void:
+    if active_world == null or player_controller == null:
+        return
+    if active_oni_beacon != null and is_instance_valid(active_oni_beacon):
+        active_oni_beacon.queue_free()
+    var beacon = OniSummonBeaconScript.new()
+    beacon.configure(name)
+    active_world.add_child(beacon)
+    beacon.global_position = player_controller.global_position + Vector3(1.4, 0.0, 0.0)
+    active_oni_beacon = beacon
 
 func _on_android_web3_error(reason: String) -> void:
     push_error("ANDROID_WEB3_COCKPIT_ERROR: " + reason)
