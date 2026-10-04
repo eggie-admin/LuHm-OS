@@ -59,7 +59,7 @@ def main() -> int:
     if args.contested:
         workers.append("shiori")
         if "urdDoctorGoddess" not in workers:
-            workers.append("Urd")
+            workers.append("urdDoctorGoddess")
         reasons.append("contested")
     if args.external_fact and "momo" not in workers:
         workers.append("momo")
@@ -82,7 +82,7 @@ def main() -> int:
         "sourceMutationLanes": 1 if "kugi" in workers else 0,
         "parallelBuilds": 2 if {"tetsu", "kaji"}.issubset(workers) else 0,
         "requiresDeterministicAdjudicator": "urdDoctorGoddess" in workers,
-        "usesDoctorGoddess": "Urd" in workers,
+        "usesDoctorGoddess": "urdDoctorGoddess" in workers,
         "usesSecretaryGoddess": "belldandySecretary" in workers,
         "usesResearchGoddess": "skuldResearch" in workers,
         "requiresProfessorCrown": "ProfessorCrown" in workers,
