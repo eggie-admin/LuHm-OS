@@ -50,12 +50,12 @@
   "nextGate": "runPinnedOneBashInstallOnPhysicalSmX400AndCaptureDeviceProof",
   "crownStatus": "stop",
   "exactRelease": {
-    "sourceRef": "b25cfad18051ba2799b19e27f035487366b256c9",
-    "castBridgeRun": 37000025238,
-    "androidBuildRun": 37000033757,
-    "tag": "android-web3-b25cfad1-r37000025238",
-    "apk": "LuHmOS-AndroidWeb3-android-web3-b25cfad1-r37000025238-arm64-v8a.apk",
-    "apkSha256": "2a030cd15f6409464b9fc0fcd65f39f60635dcdabfdc298db3e25ae51ee4e3c8",
+    "sourceRef": "569e535ec3dbb17c6ba407ce23b0b216b816f883",
+    "castBridgeRun": 37002117063,
+    "androidBuildRun": 37002127185,
+    "tag": "android-web3-569e535e-r37002117063",
+    "apk": "LuHmOS-AndroidWeb3-android-web3-569e535e-r37002117063-arm64-v8a.apk",
+    "apkSha256": "368efd3c41fa92a55ff7cedbeeb48424a973eaec10104931615f02ba7f4cec2c",
     "oneBashInstaller": "tools/smX400OneBashInstall.sh"
   }
 }
