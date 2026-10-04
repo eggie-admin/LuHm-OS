@@ -31,7 +31,11 @@
     "frontendEvent": "luhm:magic:roleplay:activate",
     "triggerBehavior": "consumedWithoutChatEcho",
     "taskBound": true,
-    "persistsAfterTaskCloses": false
+    "persistsAfterTaskCloses": false,
+    "codingRoleplayDirector": "doctrine/codingRoleplayDirectorV2.json",
+    "intentRouter": "doctrine/humanCenteredIntentRouterV2.json",
+    "operationTitan7ChatTrigger": "doctrine/operationTitan7ChatTriggerV2.json",
+    "frontendRoleplay": "frontEnd/jquery/luhm.codingRoleplay.js"
   },
   "defaults": {
     "maximumConcurrentSupportAgents": 3,
