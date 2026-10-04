@@ -1,0 +1,151 @@
+:root {
+  --luhm-touch: 44px;
+  --luhm-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --luhm-safe-top: env(safe-area-inset-top, 0px);
+  --luhm-focus: rgba(125, 92, 255, 0.92);
+  --luhm-warning: #ffbf66;
+}
+
+html {
+  color-scheme: dark;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+
+[data-luhm-cockpit] {
+  padding-bottom: var(--luhm-safe-bottom);
+}
+
+button,
+textarea,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+[role="button"],
+.chatQuickAction,
+.composerTool,
+.sendButton,
+.proofViewerButton {
+  min-width: var(--luhm-touch);
+  min-height: var(--luhm-touch);
+}
+
+button:focus-visible,
+a:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--luhm-focus);
+  outline-offset: 2px;
+}
+
+.messageStream {
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+.messageStream > * {
+  content-visibility: auto;
+  contain: layout paint style;
+  contain-intrinsic-size: 1px 84px;
+}
+
+.chatQuickRail {
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+}
+
+.chatQuickAction {
+  scroll-snap-align: start;
+}
+
+[data-luhm-chat][aria-busy="true"] .sendButton {
+  opacity: 0.72;
+}
+
+[data-context-freshness="stale"] [data-chat-context="sourceRef"] {
+  border-color: color-mix(in srgb, var(--luhm-warning) 70%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--luhm-warning) 28%, transparent) inset;
+}
+
+[data-context-freshness="stale"] [data-chat-context="sourceRef"] strong::after {
+  content: " · STALE";
+  color: var(--luhm-warning);
+  font-size: 0.72em;
+  letter-spacing: 0.05em;
+}
+
+[data-page-visible="false"] .lumViewport,
+[data-page-visible="false"] .sceneShade {
+  visibility: hidden;
+}
+
+[data-network-state="offline"] .sceneStatus::after {
+  content: " · offline";
+  color: var(--luhm-warning);
+}
+
+@media (pointer: coarse) {
+  .chatQuickRail {
+    gap: 8px;
+    padding-block: 6px;
+  }
+
+  .composerShell {
+    min-height: 56px;
+  }
+
+  textarea[data-luhm-input] {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 760px) {
+  .topPanel {
+    padding-top: var(--luhm-safe-top);
+  }
+
+  .chatContextBar,
+  .chatQuickRail {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .chatContextPill,
+  .chatQuickAction {
+    flex: 0 0 auto;
+  }
+
+  .proofViewer {
+    inset: var(--luhm-safe-top) 0 var(--luhm-safe-bottom) 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .chatContextPill,
+  .chatQuickAction,
+  .composerShell,
+  .chatSystemCard,
+  .proofViewer {
+    border-width: 2px;
+  }
+}
