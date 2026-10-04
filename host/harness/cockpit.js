@@ -28,7 +28,8 @@ function validateLoadingManifest(value) {
   if(goddesses.join(",")!=="urdDoctorGoddess,belldandySecretary,skuldResearch")throw new Error("invalid goddess roster");
   if(value?.grid?.columns!==4||value?.grid?.rows!==4)throw new Error("invalid sprite grid");
 }
-\nfunction normalizedHost() {
+
+function normalizedHost() {
   const raw = location.hostname.toLowerCase();
   return raw.startsWith("[") && raw.endsWith("]") ? raw.slice(1, -1) : raw;
 }
