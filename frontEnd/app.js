@@ -1,10 +1,14 @@
 (function ($) {
   "use strict";
 
-  function postNative(type) {
+  function postNative(type, detail) {
     const bridge = window.LuHmNative;
     if (!bridge || typeof bridge.postMessage !== "function") return false;
-    bridge.postMessage(JSON.stringify({ type: type }));
+    const payload = { type: type };
+    if (type === "oni_requested" && detail && typeof detail === "object") {
+      payload.name = String(detail.name || "").trim().slice(0, 32);
+    }
+    bridge.postMessage(JSON.stringify(payload));
     return true;
   }
 
@@ -52,6 +56,13 @@
     $cockpit.on("luhm:backend:open", function (_event, detail) {
       console.info("LuHm Godot/system boundary requested", detail);
       postNative("world_requested");
+    });
+
+    $cockpit.on("luhm:oni:summon", function (_event, detail) {
+      const name = String((detail && detail.name) || "").trim();
+      if (!name) return;
+      console.info("LuHm bounded Oni request forwarded to Godot", name);
+      postNative("oni_requested", { name: name });
     });
 
     postNative("cockpit_ready");
