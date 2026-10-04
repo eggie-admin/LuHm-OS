@@ -98,5 +98,11 @@
     "productionChoreAssistanceMayBeAllowedWhenProvenanceIsHonest": true,
     "falseAnalogAuthorshipClaimForbidden": true
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "trainingContract": "doctrine/yumeArtEducationV1.json",
+  "trainingModel": {
+    "fineArtTrack": "meaningFormAndVisualLanguage",
+    "commercialArtTrack": "reproductionProductionAndDelivery",
+    "bothRequiredForProfessionalHandoff": true
+  }
 }
