@@ -21,10 +21,13 @@
   "loop": [
     "enterRiverwalk",
     "interactLum",
-    "travelCoffeeHouse",
+    "recoverSignalShard",
+    "travelByWorldGate",
     "collectCoffee",
-    "travelCathedral",
-    "sealFirstNight"
+    "travelByWorldGate",
+    "clearStaticWisp",
+    "sealFirstNight",
+    "unlockFastTravel"
   ],
   "artPolicy": "Runtime slice uses existing approved/private-safe sockets and procedural primitives only. No new public generative replacement art.",
   "persistence": "sessionOnly",
@@ -37,5 +40,13 @@
     "staleMilestoneOverlayAllowed": false,
     "currentSourceTruthHudRequired": true,
     "gameplayMayAdvanceWithoutDeviceInstall": true
+  },
+  "gameplaySystems": {
+    "sessionQuestState": true,
+    "proximityInteraction": true,
+    "inWorldTravelGates": true,
+    "questGatedFastTravel": true,
+    "proceduralCollectibleBeat": true,
+    "proceduralEncounterBeat": true
   }
 }
