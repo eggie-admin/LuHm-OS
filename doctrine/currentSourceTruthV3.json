@@ -131,7 +131,8 @@
     "server": "host/mcp/luhmMcpServer.py",
     "language": "python3",
     "mutationAuthority": false,
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "openAiDeployment": "doctrine/openAiDeploymentV3.json"
   },
   "contentLanes": {
     "contract": "doctrine/contentLaneDoctrineV1.json"
