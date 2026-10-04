@@ -63,7 +63,8 @@
     "yumeArtistWorkstation": "doctrine/yumeArtistWorkstationV1.json",
     "yumeBigBrotherArtDesk": "doctrine/yumeBigBrotherArtDeskV1.json",
     "yumeGodotArtToolbox": "doctrine/yumeGodotArtToolboxV1.json",
-    "yumeArtEducation": "doctrine/yumeArtEducationV1.json"
+    "yumeArtEducation": "doctrine/yumeArtEducationV1.json",
+    "yumeBatchImageWorkflow": "doctrine/yumeBatchImageWorkflowV1.json"
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
@@ -175,6 +176,16 @@
     "status": "PROPOSED_MILESTONE_BRIDGE",
     "roleplayMayChangeAuthority": false,
     "nextMilestone": "letsMakeMoneyForCorporations",
+    "crownStatus": "STOP"
+  },
+  "yumeBatchImageWorkflow": {
+    "contract": "doctrine/yumeBatchImageWorkflowV1.json",
+    "status": "PROPOSED_SOURCE_ONLY",
+    "mode": "skeletonBatchImageWorkflow",
+    "privateDraftOnly": true,
+    "providerExecutionProven": false,
+    "driveHandoffProven": false,
+    "promotion": false,
     "crownStatus": "STOP"
   }
 }
