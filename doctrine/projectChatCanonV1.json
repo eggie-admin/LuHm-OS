@@ -207,7 +207,10 @@
     "roleplayMayTeachArchitecture": true,
     "roleplayMayNotChangeAuthority": true,
     "orientationHandoff": "letsMakeMoneyForCorporations",
-    "campaignIsDraftOnly": true
+    "campaignIsDraftOnly": true,
+    "vendorDebugMayTeachProviderRouting": true,
+    "vendorDebugMayInferHiddenProviderLogic": false,
+    "vendorDebugMayChangeAuthority": false
   },
   "systemAgentRegistry": {
     "contract": "doctrine/agentSystemDeploymentV1.json",
@@ -232,6 +235,17 @@
       "mediaAssetFactory"
     ],
     "activationByTask": true,
+    "hiddenAsyncExecution": false
+  },
+  "magicCodingRoleplay": {
+    "triggerContract": "doctrine/luhmChatMagicTriggerV1.json",
+    "workflowSkill": "agents/witchingHourCoding/SKILL.md",
+    "vendorDebug": "doctrine/vendorAiDebugV1.json",
+    "frontendEntry": "jQuery.fn.mgcCdngRlplay",
+    "debugEntry": "jQuery.fn.vendorAiDebug",
+    "debugPresentation": "UPPERCASE",
+    "roleplayMayChangeAuthority": false,
+    "taskBound": true,
     "hiddenAsyncExecution": false
   }
 }

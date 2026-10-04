@@ -42,3 +42,20 @@ Urd diagnoses the failure, evidence gaps, dependency pathology and rollback risk
 
 ## Exit
 Return a compact receipt: sourceRef, blocker, changed boundary, tests, deterministic result, rollback checkpoint, next Titan7 tier, Crown status.
+
+
+## Vendor AI debug glass
+
+Load `doctrine/vendorAiDebugV1.json` when the magic coding-roleplay system needs provider diagnostics.
+
+The human-facing debug surface is intentionally uppercase while machine identifiers remain lowerCamelHump. Example fields:
+
+`VENDOR_AI_DEBUG · PROVIDER · LUHM_ROUTE · READINESS · MODEL_ID · ENTITLEMENT · PROVIDER_NATIVE_DEFAULT · OBSERVED_EXECUTION · FALLBACK · RECONCILE · AUTHORITY · SOURCE_REF · VERDICT`
+
+Truth separation is mandatory:
+- `LUHM_ROUTE` describes LuHm's routing doctrine.
+- `PROVIDER_NATIVE_DEFAULT` remains `UNKNOWN_UNTIL_PROVIDER_RECEIPT` unless a provider receipt proves the exact model/runtime behavior.
+- `OBSERVED_EXECUTION` remains `UNKNOWN_UNTIL_EXACT_EXECUTION_RECEIPT` until the exact provider task is observed.
+- debug text never grants GREEN, Crown, merge, publication, signing, or deployment authority.
+
+Within an activated magic-roleplay session, commands such as `VENDOR DEBUG OPENAI`, `VENDOR DEBUG GOOGLE`, `VENDOR DEBUG COPILOT`, `VENDOR DEBUG HUGGINGFACE`, and `VENDOR DEBUG EDGE` request a diagnostic snapshot. The front end emits a bounded debug request; provider execution remains backend-owned and evidence-gated.
