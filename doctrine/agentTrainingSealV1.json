@@ -8,7 +8,7 @@
   "canonicalChatBootstrap": "doctrine/projectChatCanonV1.json",
   "canonicalCovenant": "doctrine/everlastingCovenantV1.json",
   "canonicalAgentProtocol": "agents/shared/ONI_PROTOCOL_V2.md",
-  "expectedAgentCount": 16,
+  "expectedAgentCount": 15,
   "requiredAgents": [
     "lum",
     "urdDoctorGoddess",
@@ -17,7 +17,6 @@
     "kiri",
     "momo",
     "shiori",
-    "drNao",
     "kugi",
     "tetsu",
     "kaji",
@@ -48,7 +47,8 @@
     "UNKNOWN never becomes GREEN",
     "provider output is not proof until reconciled",
     "the everlasting covenant guard rail is inherited",
-    "all delegated work remains source and scope bound"
+    "all delegated work remains source and scope bound",
+    "Urd carries deterministic evidence adjudication formerly held by the DrNao legacy agent"
   ],
   "trainingState": {
     "roleTeaching": "completeCandidate",
@@ -72,5 +72,12 @@
     ],
     "professorPromotionRequired": true
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "legacyAgentMigrations": {
+    "drNao": {
+      "status": "legacyArtifact",
+      "ingestedInto": "urdDoctorGoddess",
+      "currentTrainingRoster": false
+    }
+  }
 }
