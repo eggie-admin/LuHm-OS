@@ -1,0 +1,97 @@
+{
+  "schema": "luhmOs.chatLikeTermFold.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "Fold repeated semantically equivalent chat/tool/provider work into deterministic batches before execution so repeated like terms do not exhaust vendor entitlements or spam the progress surface.",
+  "principle": "normalize -> partitionBySemanticClass -> dedupeExact -> batchDeterministic -> escalateOnceIfNeeded -> emitAggregate -> explodeExceptionsOnly",
+  "semanticClass": {
+    "requiredFields": [
+      "sourceRef",
+      "scopeId",
+      "operationFamily",
+      "repository",
+      "baseRef",
+      "toolClass",
+      "proofKind",
+      "authorityClass"
+    ],
+    "memberSpecificFields": [
+      "targetId",
+      "targetRef",
+      "displayLabel"
+    ],
+    "law": "Member-specific target identity does not force a separate chat/provider workflow when the proof operation and authority class are otherwise equivalent."
+  },
+  "executionLaw": {
+    "collectionEndpointBeforeItemEndpoint": true,
+    "exactDuplicateCallsForbidden": true,
+    "deterministicBatchBeforeProvider": true,
+    "progressiveNarrowing": true,
+    "providerFanoutPerItem": false,
+    "oneProviderEscalationPerSemanticClass": true,
+    "cacheWithinTaskEnvelope": true,
+    "cacheKey": [
+      "sourceRef",
+      "scopeId",
+      "operationFamily",
+      "repository",
+      "baseRef",
+      "targetSetHash",
+      "proofKind"
+    ],
+    "staleCacheAcrossSourceRef": false,
+    "exceptionOnlyExpansion": true
+  },
+  "narrowingPipeline": [
+    "inventoryOnce",
+    "groupLikeTerms",
+    "removeExactDuplicates",
+    "resolveAlreadySupersededOrAncestorCases",
+    "runDeterministicBatch",
+    "isolateExceptions",
+    "routeOnlyExceptionsForDeeperInspection"
+  ],
+  "providerEconomy": {
+    "vendorCallsAreLastMileReasoningNotLoopControl": true,
+    "repeatedPromptPerTargetForbidden": true,
+    "aggregateEvidenceBeforeVendorCall": true,
+    "rawUnfilteredHistoryToPremiumProvider": false,
+    "providerResultAppliedOnlyToMatchingSemanticClass": true,
+    "unknownEntitlementMeansDeterministicFallback": true
+  },
+  "progressPresentation": {
+    "oneVisibleLinePerSemanticClass": true,
+    "individualItemProgressByDefault": false,
+    "aggregateTemplate": "{operationLabel} · {complete}/{total} · {state}",
+    "exceptionTemplate": "{operationLabel} · {exceptionCount} exceptions",
+    "repeatUnchangedStatus": false,
+    "emitOn": [
+      "classStart",
+      "materialCountChange",
+      "exception",
+      "classComplete",
+      "blocked"
+    ],
+    "maxVisibleGroups": 3,
+    "rawPerItemTrace": "verboseOnRequestOnly"
+  },
+  "example": {
+    "antiPattern": [
+      "Comparing Branch Commits Against Main",
+      "Comparing Branch Commits Against Main",
+      "Comparing Branch Commits Against Main"
+    ],
+    "foldedDisplay": "Comparing 20 branch heads against main · 20/20 · COMPLETE",
+    "executionIntent": "One inventory, one semantic class, deterministic comparison batch, inspect only divergent exceptions."
+  },
+  "authorityBoundary": {
+    "foldingChangesAuthority": false,
+    "cachedEvidenceMayGrantGreen": false,
+    "providerSummaryMayGrantGreen": false,
+    "exactSourceProofStillRequired": true,
+    "professorCrownUnchanged": true
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}

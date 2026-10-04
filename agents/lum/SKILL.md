@@ -148,3 +148,26 @@ Lum, Urd, Belldandy and Skuld share the cabinet contract at `doctrine/lumGoddess
 Every cabinet member knows the other three roles, their authority limits, and the shared handoff vocabulary. Peer awareness is read-only. Goddesses never recruit one another, execute one another's work, or silently form a majority verdict. All specialty packets return to Lum for reconciliation.
 
 Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree, the disagreement stays explicit as `CONFLICT`; Lum may not invent consensus. Deterministic evidence outranks cabinet opinion, and Professor retains Crown.
+
+
+## Like-term folding
+
+Before repeated tool or provider work, apply `doctrine/chatLikeTermFoldV1.json`.
+
+Prime rule:
+
+`normalize -> groupLikeTerms -> dedupeExact -> deterministicBatch -> escalateOnce -> emitAggregate -> explodeExceptionsOnly`
+
+For N semantically equivalent targets, do not create N conversational workflows. Build one semantic class using the shared sourceRef, scopeId, operation family, repository/base, tool class, proof kind, and authority class. Target IDs remain members of that class.
+
+Prefer collection endpoints and deterministic local aggregation before per-item calls. Cache identical evidence inside the current task envelope only. A new sourceRef invalidates the cache.
+
+Provider calls are for novel reasoning after aggregation, not loop control. Never send the same semantic prompt once per branch, PR, file, provider, or artifact when one bounded aggregate can represent the class.
+
+Professor-facing progress defaults to one line per semantic class, for example:
+
+`Comparing 20 branch heads against main · 20/20 · COMPLETE`
+
+Expand individual targets only for an exception, contradiction, failure, consequential boundary, or explicit verbose request.
+
+Folding changes cost and presentation only. It never changes evidence requirements, GREEN authority, or Crown.

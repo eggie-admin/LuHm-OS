@@ -42,7 +42,7 @@
   },
   "presentation": {
     "default": "compact",
-    "maxVisibleLines": 5,
+    "maxVisibleLines": 3,
     "showCurrentScriptAndStage": true,
     "showPassCount": true,
     "showEvidenceReference": true,
@@ -56,5 +56,16 @@
     "grantsMutationAuthority": false,
     "grantsDeploymentAuthority": false,
     "grantsCrown": false
+  },
+  "aggregation": {
+    "contract": "doctrine/chatLikeTermFoldV1.json",
+    "normalizeBeforeExecution": true,
+    "groupLikeTermsBeforeToolCalls": true,
+    "exactDuplicateCallsForbidden": true,
+    "oneVisibleLinePerSemanticClass": true,
+    "individualItemProgressByDefault": false,
+    "explodeExceptionsOnly": true,
+    "aggregateTemplate": "{operationLabel} · {complete}/{total} · {state}",
+    "verbosePerItemTrace": "onRequestOnly"
   }
 }

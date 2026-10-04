@@ -71,5 +71,16 @@
     "mayMerge": false,
     "providerOutputRequiresLumReconciliation": true
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "likeTermEconomy": {
+    "contract": "doctrine/chatLikeTermFoldV1.json",
+    "groupBeforeProviderRoute": true,
+    "collectionAndDeterministicBatchFirst": true,
+    "aggregateEvidenceBeforeVendorCall": true,
+    "perTargetProviderFanout": false,
+    "oneProviderEscalationPerSemanticClass": true,
+    "reuseTaskEnvelopeCache": true,
+    "staleCacheAcrossSourceRef": false,
+    "entitlementGoal": "Spend vendor capacity on novel reasoning, not repeated loop control or duplicated status work."
+  }
 }
