@@ -1,0 +1,43 @@
+{
+  "schema": "luhmOs.yumeBigBrotherArtTask.v1",
+  "taskId": "<taskId>",
+  "sourceRef": "<exactSourceRef>",
+  "scopeId": "<scopeId>",
+  "providerId": "googleAi",
+  "providerNickname": "bigBrother",
+  "contentLane": "<privateMutation|betaAfterDark|cathedralPublic>",
+  "assetOrCampaignGoal": "<goal>",
+  "inputRefs": [],
+  "allowedOperations": [
+    "research",
+    "review",
+    "critique",
+    "plan",
+    "draftMetadata"
+  ],
+  "forbiddenOperations": [
+    "merge",
+    "publish",
+    "sealCanon",
+    "grantGreen",
+    "grantCrown",
+    "widenContentLane"
+  ],
+  "requiredOutputSchema": {
+    "findings": [],
+    "candidateSuggestions": [],
+    "risks": [],
+    "sourceRefs": [],
+    "unknowns": []
+  },
+  "budget": {
+    "mode": "bounded",
+    "maxPasses": 3
+  },
+  "stopConditions": [
+    "sourceMismatch",
+    "privateReferenceLeakage",
+    "unknownProviderIdentity",
+    "scopeExpansion"
+  ]
+}
