@@ -1,0 +1,108 @@
+{
+  "schema": "luhmOs.unifiedCampaignWorkbench.v1",
+  "status": "PROPOSED_DRAFT_ONLY",
+  "authority": "Professor",
+  "boss": "lum",
+  "creativeLead": "yume",
+  "evidenceLead": "drNao",
+  "recordsLead": "belldandySecretary",
+  "researchLead": "skuldResearch",
+  "providerAssist": "bigBrother",
+  "purpose": "Unify sponsor outreach, GitHub project presentation, social storytelling, art/game development updates, and no-code AI engineering evidence into one draft-first campaign system.",
+  "brandRoot": "EggieBagelface",
+  "organizationLaw": {
+    "oneCampaignBacklog": true,
+    "oneEvidenceLedger": true,
+    "oneAssetIdentityPerSource": true,
+    "platformSpecificDerivativesAllowed": true,
+    "crossPostDoesNotMeanCopyPaste": true,
+    "publicClaimsRequireEvidence": true
+  },
+  "campaignPillars": [
+    "threeDecadesOfWebAndOpenSourceExperience",
+    "phoneFirstConversationalEngineering",
+    "unitOrientedArchitecture",
+    "rapidWorkaroundEngineering",
+    "deterministicReceiptsOverVibes",
+    "noCodeAndLowCodeAiDevelopmentCaseStudy",
+    "openSourceAndMobileDevelopment",
+    "LuHmOsGameAndArtDevelopment",
+    "practicalPatronageNotRecognition"
+  ],
+  "contentUnits": [
+    "buildReceipt",
+    "bugAndWorkaroundStory",
+    "mobileEngineeringDiary",
+    "agentTrainingProof",
+    "godotArtDev",
+    "characterDesignDevlog",
+    "openSourceTechnique",
+    "noCodeAiCaseStudy",
+    "sponsorAsk",
+    "publicGameTeaser"
+  ],
+  "channels": {
+    "github": {
+      "role": "canonicalPublicEngineeringProofAndProjectNarrative",
+      "identity": "eggie-admin/LuHm-OS",
+      "publicationAuthority": false
+    },
+    "website": {
+      "role": "ownedCampaignHub",
+      "identity": "VERIFY_BEFORE_PUBLISH",
+      "publicationAuthority": false
+    },
+    "instagram": {
+      "role": "visualArtAndShortDevStory",
+      "identity": "VERIFY_BEFORE_PUBLISH",
+      "publicationAuthority": false
+    },
+    "tiktok": {
+      "role": "shortMobileDevAndArtStory",
+      "identity": "VERIFY_BEFORE_PUBLISH",
+      "publicationAuthority": false
+    },
+    "threads": {
+      "role": "shortEngineeringAndArtConversation",
+      "identity": "VERIFY_BEFORE_PUBLISH",
+      "publicationAuthority": false
+    },
+    "youtube": {
+      "role": "longerBuildProofDevlogAndDemo",
+      "identity": "VERIFY_BEFORE_PUBLISH",
+      "publicationAuthority": false
+    },
+    "patreon": {
+      "role": "patronFacingDevelopmentJournalAndSupport",
+      "identity": "VERIFY_BEFORE_PUBLISH",
+      "publicationAuthority": false
+    },
+    "email": {
+      "role": "directSponsorAndDeveloperProgramOutreach",
+      "identity": "ProfessorApprovedRecipientsOnly",
+      "publicationAuthority": false
+    }
+  },
+  "unitWorkflow": [
+    "selectOneClaim",
+    "bindEvidence",
+    "selectAudience",
+    "selectContentLane",
+    "selectSourceAsset",
+    "draftMasterUnit",
+    "derivePlatformVariants",
+    "factAndProvenanceAudit",
+    "ProfessorReview",
+    "holdForCrownOrExplicitSendApproval"
+  ],
+  "socialLaw": [
+    "noPlatformPostWithoutProfessorApproval",
+    "noBulkSend",
+    "noAutomatedCrossPosting",
+    "noUnverifiedPerformanceOrProviderClaims",
+    "privateMutationAssetsNeverEnterPublicCampaign",
+    "betaAfterDarkAssetsRequireExplicitAudienceBoundary",
+    "cathedralPublicAssetsOnlyForBroadPublicCampaign"
+  ],
+  "crownStatus": "STOP"
+}
