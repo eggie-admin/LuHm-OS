@@ -91,7 +91,8 @@
     "priorMcpEnterpriseScope": "doctrine/MCP_ENTERPRISE_SCOPE_V1.json",
     "priorOpenAiDeployment": "doctrine/openAiLumOniDeployment-20260927.json",
     "priorRemoteAiManifest": "doctrine/remote-ai-manifest-v1.template.json",
-    "priorYumeBigBrotherTaskTemplate": "agents/yumeArtOni/templates/bigBrotherArtTaskV1.template.json"
+    "priorYumeBigBrotherTaskTemplate": "agents/yumeArtOni/templates/bigBrotherArtTaskV1.template.json",
+    "priorGodotGameSource": "doctrine/GODOT4_GAME_SOURCE_V1.json"
   },
   "legacyAgentMigrations": {
     "drNao": {
@@ -175,6 +176,17 @@
     "status": "PROPOSED_MILESTONE_BRIDGE",
     "roleplayMayChangeAuthority": false,
     "nextMilestone": "letsMakeMoneyForCorporations",
+    "crownStatus": "STOP"
+  },
+  "gameLayer": {
+    "contract": "doctrine/gameplayVerticalSliceV1.json",
+    "quest": "game/story/firstNightQuest.json",
+    "runtime": "project.godot",
+    "status": "PROPOSED_GAMEPLAY_VERTICAL_SLICE",
+    "workingLane": "PROPOSED_ONLY",
+    "installBoundary": "PARKED",
+    "physicalDeviceProof": "PENDING",
+    "promotion": false,
     "crownStatus": "STOP"
   }
 }

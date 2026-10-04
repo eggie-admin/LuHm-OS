@@ -1,0 +1,44 @@
+{
+  "schema": "luhmOs.gameQuest.v1",
+  "status": "proposedGameplay",
+  "questId": "firstNightCircuit",
+  "title": "First Night Circuit",
+  "premise": "Lum has the Cathedral online, but the city loop needs one human pass before the night shift can call it alive.",
+  "rules": {
+    "linear": true,
+    "autosave": false,
+    "externalNetwork": false,
+    "publicationAuthority": false,
+    "crownAuthority": false
+  },
+  "steps": [
+    {
+      "stepId": "meetLum",
+      "worldId": "neonRiverwalk",
+      "event": "talkLumRiverwalk",
+      "objective": "Meet Lum at the Riverwalk beacon.",
+      "prompt": "Talk to Lum",
+      "response": "Lum: Good. You made it. Before we call this a city, coffee first."
+    },
+    {
+      "stepId": "coffeeRun",
+      "worldId": "lumCoffeeHouse",
+      "event": "collectCoffee",
+      "objective": "Grab the night-shift coffee from Lum Coffee House.",
+      "prompt": "Take the coffee",
+      "response": "Coffee acquired. Industrial-grade optimism: questionable. Caffeine: confirmed."
+    },
+    {
+      "stepId": "cathedralSeal",
+      "worldId": "cathedral",
+      "event": "sealFirstNight",
+      "objective": "Return to the Cathedral lectern and close the first circuit.",
+      "prompt": "Touch the lectern",
+      "response": "Circuit closed. Cathedral awake. The city has officially survived one night."
+    }
+  ],
+  "completion": {
+    "title": "First Night Complete",
+    "message": "Lum: Not bad, Professor. Three rooms, one coffee, zero apocalypse."
+  }
+}

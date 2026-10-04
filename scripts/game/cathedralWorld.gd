@@ -1,9 +1,11 @@
 extends Node3D
 
 const LumAvatarScene := preload("res://scenes/LumAvatar.tscn")
+const InteractableScript := preload("res://scripts/game/interactable.gd")
 
 var player_spawn := Vector3(0.0, 1.15, 12.0)
 var lum_avatar: Node3D
+var interaction_points: Array[Area3D] = []
 
 func _ready() -> void:
     _build_environment()
@@ -13,6 +15,7 @@ func _ready() -> void:
     _build_quest_nook()
     _build_transition_anchors()
     _build_lum_focus()
+    _build_interactions()
 
 func _build_environment() -> void:
     var environment := WorldEnvironment.new()
@@ -126,3 +129,18 @@ func _box(name_value: String, pos: Vector3, size: Vector3, color: Color, collida
     mesh_instance.material_override = material
     root_node.add_child(mesh_instance)
     return root_node
+
+
+func _build_interactions() -> void:
+    _add_interaction("sealFirstNight", "sealFirstNight", "Touch the lectern", Vector3(-7.5, 1.95, -10.2), Color("b76cff"))
+
+func _add_interaction(interaction_id: String, event_name: String, prompt: String, pos: Vector3, accent: Color) -> void:
+    var node := InteractableScript.new() as Area3D
+    node.name = interaction_id
+    node.position = pos
+    node.configure(interaction_id, event_name, prompt, accent)
+    add_child(node)
+    interaction_points.append(node)
+
+func get_interaction_points() -> Array[Area3D]:
+    return interaction_points.duplicate()
