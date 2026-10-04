@@ -1,0 +1,34 @@
+{
+  "schema": "luhm-os.nexus-private-donor-manifest.v1",
+  "date": "2026-09-27",
+  "authority": "Professor",
+  "status": "READY_EMPTY_NO_NEXUS_BINARY_DISCOVERED_IN_CONNECTED_SOURCES",
+  "purpose": "Inventory user-owned or explicitly permitted Nexus donor files without redistributing closed third-party binaries.",
+  "rules": {
+    "repository_binary_vendor": false,
+    "ci_artifact_vendor": false,
+    "apk_inclusion_default": false,
+    "runtime_network": false,
+    "wholesale_dump": false,
+    "private_reference_allowed": true,
+    "redistributable_build_requires": [
+      "page_url",
+      "author",
+      "sha256",
+      "permission_evidence",
+      "conversion_permission",
+      "redistribution_permission",
+      "attribution"
+    ],
+    "accepted_permission_evidence": [
+      "open_license",
+      "explicit_author_permission",
+      "user_created_or_owned"
+    ],
+    "use_scopes": [
+      "private_reference_only",
+      "redistributable_build"
+    ]
+  },
+  "entries": []
+}

@@ -1,0 +1,87 @@
+{
+  "schema": "luhm-os.final-form-coffeehouse-mutation.v1",
+  "date": "2026-09-27",
+  "status": "CANDIDATE_MUTATION_EXACT_HEAD_CI_REQUIRED",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true
+  },
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "parent": {
+    "branch": "candidate/crowned-cathedral-system-harness-20260926",
+    "commit": "bcaa750465790785170ee6b6cbbdda5c320785d1"
+  },
+  "candidate_branch": "candidate/final-form-coffeehouse-20260927",
+  "goal": "Final-form Godot 4 coffee-house world mutation: preserve Lum idle rig, use every approved current community GLB, zoom intro camera onto Lum, add a reproducible Blender authoring bridge, and harden Nexus as a provenance-gated private donor lane.",
+  "source_truth": {
+    "godot": "4.7.2",
+    "renderer": "GL Compatibility",
+    "lum_socket": "res://assets/lum/luhm.glb",
+    "lum_drive_contract": "doctrine/drive3dAssetMutation-20260925.json",
+    "selection": "assets/community/selected-assets.json",
+    "layout": "assets/community/final-form-layout.json",
+    "community_asset_count": 77,
+    "runtime_downloads": false,
+    "git_binary_vendor": false
+  },
+  "nexus": {
+    "manifest": "assets/community/nexus-private-donor-manifest.json",
+    "mode": "PRIVATE_DONOR_PROVENANCE_GATE",
+    "repository_binaries": false,
+    "ci_artifact_binaries": false,
+    "candidate_inclusion_rule": "Only material with open redistribution/conversion rights, explicit author permission, or user-owned origin may enter a distributable build.",
+    "closed_permission_rule": "Closed or unknown-permission Nexus files remain private reference material and never enter GitHub, CI artifacts, or APK bundles.",
+    "wholesale_dump": false
+  },
+  "blender": {
+    "strategy": "reproducible project generator instead of committing an opaque .blend binary",
+    "script": "blender/finalFormCoffeehouse.py",
+    "inputs": [
+      "assets/community/selected-assets.json",
+      "assets/community/final-form-layout.json",
+      "assets/community/runtime/**",
+      "assets/lum/luhm.glb"
+    ],
+    "outputs": [
+      "build/blender/LuHmFinalFormCoffeehouse.blend",
+      "build/blender/LuHmFinalFormCoffeehouse.glb"
+    ],
+    "animation_authority": "Godot Lum AnimationTree remains runtime authority; Blender preserves imported animation data for authoring/export.",
+    "ci_scope": "Static Python syntax and contract audit now; Blender binary execution requires a future pinned Blender CI toolchain."
+  },
+  "passes": [
+    {"pass": 1, "name": "source boundary", "gate": "mutation isolated on candidate/final-form-coffeehouse-20260927; canonical main untouched"},
+    {"pass": 2, "name": "scene composition", "gate": "FinalFormWorld extends proven NeonWorld and retains thin Main orchestrator"},
+    {"pass": 3, "name": "all current assets", "gate": "all 77 immutable selected CC0 GLBs are instantiated and all 77 load in source/PCK smoke"},
+    {"pass": 4, "name": "Lum rig and idle", "gate": "existing Drive Lum socket, skin, AnimationTree and clip0/idle discovery stay authoritative"},
+    {"pass": 5, "name": "hero camera", "gate": "existing CutsceneBridge focuses Lum and SpringArm camera closes to 3.2 m before restore"},
+    {"pass": 6, "name": "mobile rendering", "gate": "GL Compatibility retained; coffee-house shell uses emissive materials and existing bounded realtime-light budget"},
+    {"pass": 7, "name": "Nexus donor hardening", "gate": "private provenance manifest; no wholesale vendoring, unknown-license shipping, runtime downloads, or CI leakage"},
+    {"pass": 8, "name": "Blender bridge", "gate": "deterministic Blender generator consumes the same manifests and all staged GLBs; script parses without importing bpy in CI"},
+    {"pass": 9, "name": "build doctrine", "gate": "existing exact Godot/Lum hashes, community provenance, Android export, signing/alignment and receipts remain mandatory"},
+    {"pass": 10, "name": "exact-head proof", "gate": "current mutation commit must pass PR-triggered exact-head community + Cathedral + rig/runtime CI before CROWN GREEN"}
+  ],
+  "crown_green_requires": [
+    "final-form static doctrine audit",
+    "community asset policy audit",
+    "Nexus donor policy audit",
+    "77 staged CC0 GLBs with provenance receipt",
+    "Godot 4.7.2 import/parse",
+    "all-asset source smoke",
+    "headless runtime smoke",
+    "LumRigV2 smoke",
+    "Android debug export",
+    "all-asset PCK smoke",
+    "aapt package/version verification",
+    "apksigner verification",
+    "zipalign verification",
+    "exact-head PR CI success"
+  ],
+  "promotion": {
+    "candidate_green_allowed": true,
+    "merge_to_main": false,
+    "production_signing": false,
+    "public_publish": false,
+    "physical_device_proof": "PENDING"
+  }
+}

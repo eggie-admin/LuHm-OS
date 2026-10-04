@@ -3,7 +3,7 @@ extends Node3D
 # Final Cathedral install architecture:
 # Godot owns the native renderer/world. The Android WebView is movable WebGlass UI,
 # not a literal 3D stage. Headless/desktop keeps the native HUD as a deterministic fallback.
-const NeonWorldScript := preload("res://scripts/game/neonWorld.gd")
+const NeonWorldScript := preload("res://scripts/game/finalFormWorld.gd")
 const PlayerControllerScript := preload("res://scripts/game/playerController.gd")
 const GameHudScript := preload("res://scripts/game/gameHud.gd")
 const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
