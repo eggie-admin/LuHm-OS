@@ -24,6 +24,7 @@
     "doctrine/everlastingCovenantV1.json",
     "doctrine/currentSourceTruthV3.json",
     "doctrine/storageTopologyV1.json",
+    "doctrine/agentSystemDeploymentV1.json",
     "doctrine/lumGoddessCabinetV1.json",
     "agents/goddessSharedSystemsPractice/SKILL.md",
     "agents/lum/SKILL.md",
@@ -46,7 +47,8 @@
     "namingLaw": "doctrine/camelHumpDoctrineLawV1.json",
     "urdEvidenceAdjudication": "doctrine/urdEvidenceAdjudicationV1.json",
     "enterpriseOrientation": "doctrine/enterpriseOrientationBridgeV1.json",
-    "campaignLaunchKit": "doctrine/campaignLaunchKitV1.json"
+    "campaignLaunchKit": "doctrine/campaignLaunchKitV1.json",
+    "agentSystemDeployment": "doctrine/agentSystemDeploymentV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -206,5 +208,30 @@
     "roleplayMayNotChangeAuthority": true,
     "orientationHandoff": "letsMakeMoneyForCorporations",
     "campaignIsDraftOnly": true
+  },
+  "systemAgentRegistry": {
+    "contract": "doctrine/agentSystemDeploymentV1.json",
+    "allCanonicalAgentsRegistered": true,
+    "residentCore": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "lazySpecialists": [
+      "kiri",
+      "momo",
+      "shiori",
+      "kugi",
+      "tetsu",
+      "kaji",
+      "fumi",
+      "sumi",
+      "koe",
+      "yume",
+      "mediaAssetFactory"
+    ],
+    "activationByTask": true,
+    "hiddenAsyncExecution": false
   }
 }
