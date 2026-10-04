@@ -43,6 +43,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 -m json.tool doctrine/everlastingCovenantV1.json >/dev/null
+          python3 -m json.tool doctrine/everlastingCovenantCrownReceiptV1.json >/dev/null
           python3 -m json.tool doctrine/luhmAiControlPlaneV1.json >/dev/null
           python3 -m json.tool doctrine/projectChatCanonV1.json >/dev/null
           python3 -m json.tool doctrine/currentSourceTruthV3.json >/dev/null
