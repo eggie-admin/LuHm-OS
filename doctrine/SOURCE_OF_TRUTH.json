@@ -301,5 +301,23 @@
     "publicationAuthority": false,
     "releaseAuthority": false,
     "crownStatus": "STOP"
+  },
+  "bigBrotherCovenant": {
+    "contract": "doctrine/bigBrotherCovenantV1.json",
+    "status": "PROPOSED_CANON_LAW",
+    "providerId": "googleAi",
+    "providerNickname": "bigBrother",
+    "role": "externalReviewerAndCapabilityProvider",
+    "edgeGalleryIdentity": "SEPARATE_LOCAL_EDGE_COMPANION",
+    "providerDeploymentProven": false,
+    "exactModelRuntime": "UNKNOWN_UNTIL_RECEIPT",
+    "exactEntitlement": "UNKNOWN_UNTIL_RECEIPT",
+    "outputAuthority": "CANDIDATE_EVIDENCE_ONLY",
+    "lumReconciliationRequired": true,
+    "deterministicAdjudicationRequiredForGreen": true,
+    "professorFinalAuthority": true,
+    "currentWorkingLane": "PROPOSED_ONLY",
+    "promotion": false,
+    "crownStatus": "STOP"
   }
 }
