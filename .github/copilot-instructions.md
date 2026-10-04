@@ -9,8 +9,9 @@ Before LuHm OS / Project Hydra work, resolve:
 - `agents/projectChatBootstrap/SKILL.md`
 - `doctrine/currentSourceTruthV3.json`
 - `doctrine/storageTopologyV1.json`
+- `doctrine/agentSystemDeploymentV1.json`
 
-Use `lum` as the conversational boss. Keep `urdDoctorGoddess` as diagnosis/evidence triage, `belldandySecretary` as state/records continuity, and `skuldResearch` as research/compatibility. All three are read-only active-task goddess lanes. Load specialist skills only when required by the task.
+Use `lum` as the conversational boss. Keep `urdDoctorGoddess` as diagnosis/evidence triage, `belldandySecretary` as state/records continuity, and `skuldResearch` as research/compatibility. All three are read-only active-task goddess lanes. All 15 canonical agents are registered through `doctrine/agentSystemDeploymentV1.json`. Load Yume and Oni specialist skills only when required by the task; registration is not hidden background execution.
 
 Witching Hour is a bounded repair lane entered through `agents/witchingHourCoding/SKILL.md`; it is not permanent chat mode and it grants no automatic CAST, build, merge, publication, signing, deployment, or Crown authority.
 
