@@ -56,6 +56,14 @@ jobs:
         run: python3 tools/luhmCompatibilityAudit.py
       - name: Final Form 100-pass dry-run proof
         run: python3 tools/operationTitan7.py dryRun --escalation finalForm --passes 100
+      - name: Upload 100-pass receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: operation-titan7-final-form-${{ github.run_id }}
+          path: build/operationTitan7/receipt.json
+          if-no-files-found: error
+          retention-days: 30
 
   invoke:
     if: github.event_name == 'workflow_dispatch'
