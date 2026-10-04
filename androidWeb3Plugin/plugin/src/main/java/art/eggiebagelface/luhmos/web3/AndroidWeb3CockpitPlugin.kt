@@ -184,6 +184,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                         emitSignal(BRIDGE_ERROR.name, "oni_name_rejected")
                         return
                     }
+                    hideCockpitInternal()
                     emitSignal(ONI_REQUESTED.name, name)
                 }
                 "cockpit_ready" -> {
