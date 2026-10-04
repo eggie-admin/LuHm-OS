@@ -1,4 +1,4 @@
-# Media Asset Factory v1
+# Media Asset Factory v2
 
 
 
@@ -28,11 +28,21 @@ Preferred local lane for ComfyUI, FFmpeg, Blender and GIMP work. Local tools may
 
 ### `googleAi`
 
-Use existing Google AI entitlements when the requested feature is actually available. Verify the feature before depending on it. Big Brother may generate or review candidates but may not seal canon, grant GREEN, CAST, publish or promote.
+Current readiness: `UNCONFIGURED_EVIDENCE_PENDING`.
+
+A Google AI subscription or entitlement is not a configured production service. Yume may prepare provider-neutral prompts and task cards, but must not depend on Google AI execution until the exact service/feature has a setup + successful task receipt.
 
 ### `edgeGallery`
 
-Use as an on-device/local companion for prompt experiments, multimodal review and compatibility checks when available. Do not invent runtime/API capabilities.
+Current readiness: `UNCONFIGURED_EVIDENCE_PENDING`.
+
+Google AI Edge Gallery has **never been accepted as properly configured for LuHm**. Treat it as unavailable for production dependency until an exact device/setup receipt proves the model, permissions, feature, route and successful task. App installation alone is not evidence.
+
+### `huggingFace`
+
+Current readiness: `CANDIDATE_PROVIDER_UNPROVEN`.
+
+Hugging Face may be used for discovery or candidate generation only after the exact model/Space/task and its license/provenance are verified. No UI label such as "Create image" or "Create task" is a deployment receipt.
 
 ## Mini-agent watch desk
 
@@ -88,3 +98,8 @@ Create subfolders only within the verified media root. Candidate and approved as
 The cockpit may show queue state, candidate review state, provider lane, Drive sync state and Professor approval gate.
 
 The cockpit must not display GREEN merely because generation completed.
+
+
+## Film-production handoff
+
+For narrative video, use `doctrine/yumeCreativePipelineV1.json` and Yume's production-bible workflow before batch generation. The media factory consumes approved task cards; it does not invent screenplay, canon or provider readiness.
