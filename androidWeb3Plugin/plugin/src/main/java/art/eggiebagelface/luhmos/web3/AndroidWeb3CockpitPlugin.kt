@@ -30,8 +30,14 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
         private const val BRIDGE_OBJECT = "LuHmNative"
 
         private val WORLD_REQUESTED = SignalInfo("world_requested")
+        private val ONI_REQUESTED = SignalInfo("oni_requested", String::class.java)
         private val COCKPIT_READY = SignalInfo("cockpit_ready", String::class.java)
         private val BRIDGE_ERROR = SignalInfo("bridge_error", String::class.java)
+
+        private val CANONICAL_ONI = setOf(
+            "Lum", "Kiri", "Tetsu", "Kaji", "Momo", "Shiori", "DrNao", "Kugi",
+            "Fumi", "Sumi", "Koe", "Yume", "Urd", "Belldandy", "Skuld",
+        )
     }
 
     private var cockpitView: WebView? = null
@@ -41,6 +47,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
 
     override fun getPluginSignals() = setOf(
         WORLD_REQUESTED,
+        ONI_REQUESTED,
         COCKPIT_READY,
         BRIDGE_ERROR,
     )
@@ -165,10 +172,19 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
 
     private fun handleBridgeMessage(raw: String) {
         try {
-            when (JSONObject(raw).optString("type")) {
+            val payload = JSONObject(raw)
+            when (payload.optString("type")) {
                 "world_requested" -> {
                     hideCockpitInternal()
                     emitSignal(WORLD_REQUESTED.name)
+                }
+                "oni_requested" -> {
+                    val name = payload.optString("name").trim()
+                    if (name !in CANONICAL_ONI) {
+                        emitSignal(BRIDGE_ERROR.name, "oni_name_rejected")
+                        return
+                    }
+                    emitSignal(ONI_REQUESTED.name, name)
                 }
                 "cockpit_ready" -> {
                     emitSignal(COCKPIT_READY.name, getWebViewVersion())
