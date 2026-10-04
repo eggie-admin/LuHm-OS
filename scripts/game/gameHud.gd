@@ -29,6 +29,7 @@ var _hint: Label
 var _world_buttons: Array[Button] = []
 var _talk: Button
 var _interact: Button
+var _interaction_tween: Tween
 var _audit_switch: CheckButton
 var _audit_panel: Label
 var _pads: Array[Button] = []
@@ -340,6 +341,21 @@ func set_interaction_prompt(prompt_value: String, available: bool) -> void:
         return
     _interact.disabled = not available
     _interact.text = prompt_value.to_upper() if available and not prompt_value.is_empty() else "INTERACT"
+
+func nudge_interaction() -> void:
+    if _interact == null or _interact.disabled:
+        return
+    if _interaction_tween != null and _interaction_tween.is_valid():
+        _interaction_tween.kill()
+    _interact.pivot_offset = _interact.size * 0.5
+    _interact.scale = Vector2.ONE
+    _interaction_tween = create_tween()
+    _interaction_tween.set_trans(Tween.TRANS_BACK)
+    _interaction_tween.set_ease(Tween.EASE_OUT)
+    _interaction_tween.tween_property(_interact, "scale", Vector2.ONE * 1.10, 0.12)
+    _interaction_tween.tween_property(_interact, "scale", Vector2.ONE, 0.18)
+    _interaction_tween.tween_property(_interact, "scale", Vector2.ONE * 1.06, 0.10)
+    _interaction_tween.tween_property(_interact, "scale", Vector2.ONE, 0.16)
 
 func set_quest(title: String, objective: String, current_step: int, total_steps: int) -> void:
     if quest_label == null:
