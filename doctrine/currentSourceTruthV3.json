@@ -54,7 +54,8 @@
   },
   "providerLayer": {
     "bigBrotherCovenant": "doctrine/bigBrotherCovenantV1.json",
-    "providerEconomy": "doctrine/providerEconomyV1.json"
+    "providerEconomy": "doctrine/providerEconomyV1.json",
+    "vendorAiDebug": "doctrine/vendorAiDebugV1.json"
   },
   "creativeLayer": {
     "contentLaneDoctrine": "doctrine/contentLaneDoctrineV1.json",
@@ -224,6 +225,21 @@
     "privateDraftOnly": true,
     "providerExecutionProven": false,
     "driveHandoffProven": false,
+    "promotion": false,
+    "crownStatus": "STOP"
+  },
+  "vendorDebugLayer": {
+    "contract": "doctrine/vendorAiDebugV1.json",
+    "magicTrigger": "doctrine/luhmChatMagicTriggerV1.json",
+    "workflowSkill": "agents/witchingHourCoding/SKILL.md",
+    "frontendPlugin": "jQuery.fn.vendorAiDebug",
+    "debugPresentation": "UPPERCASE",
+    "machineNaming": "lowerCamelHump",
+    "providerNativeDefault": "UNKNOWN_UNTIL_PROVIDER_RECEIPT",
+    "observedExecution": "UNKNOWN_UNTIL_EXACT_EXECUTION_RECEIPT",
+    "authorityEffect": "none",
+    "status": "PROPOSED_SOURCE_ONLY",
+    "workingLane": "PROPOSED_ONLY",
     "promotion": false,
     "crownStatus": "STOP"
   }
