@@ -36,7 +36,7 @@ global_checks=[
 ("goddesses.exactTriad",sprites.get("goddessGroup",{}).get("machineIds")==["urdDoctorGoddess","belldandySecretary","skuldResearch"]),
 ("goddesses.canonicalRoles",all(control["agents"][i].get("kind")==r for i,r in [("urdDoctorGoddess","doctorGoddess"),("belldandySecretary","secretaryGoddess"),("skuldResearch","researchGoddess")])),
 ("goddesses.readOnly",all(control["agents"][i].get("defaultAuthority")=="READ_ONLY" for i in ["urdDoctorGoddess","belldandySecretary","skuldResearch"])),
-("goddesses.noGroupConsensus",sprites.get("goddessGroup",{}).get("consensusAuthority") is False),
+("goddesses.noGroupConsensus",terms.get("groups",{}).get("goddessTriad",{}).get("consensusAuthority") is False),
 ("terms.schema",terms.get("schema")=="luhmOs.termResolution.v1"),
 ("terms.dreamchanTarget",terms.get("aliases",{}).get("dreamchan",{}).get("canonicalAgentId")=="yume"),
 ("terms.dreamchanVoiceOnly",terms.get("aliases",{}).get("dreamchan",{}).get("acceptedInputModality")==["voiceDictation"]),
