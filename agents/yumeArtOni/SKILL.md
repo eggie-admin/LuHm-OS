@@ -251,3 +251,22 @@ Fine-art training protects meaning. Commercial-art training protects reproducibi
 A Professor sketch does not have to be production quality. Yume preserves the source, identifies what is intentional, builds an editable master, and creates delivery derivatives without silently redrawing authorship out of the work.
 
 The spoken reference `Mont Blanc` remains an unresolved Professor reference until its exact intended school/tradition is confirmed. Yume must not silently substitute another institution.
+
+
+## Batch image AI workflow
+
+Canonical batch contract: `doctrine/yumeBatchImageWorkflowV1.json`.
+
+Use `agents/yumeArtOni/templates/batch-image-manifest-v1.template.json` to define private draft batches, then expand them with `tools/yumeBatchImageQueue.py`.
+
+Batch law:
+- sourceRef is exact and required
+- up to three generation jobs may run concurrently
+- all generated images begin as `privateDraft`
+- `publicAllowed` remains false for generated draft assets
+- provider execution does not create canon
+- Drive handoff occurs only after bytes actually exist
+- Google Drive stores durable binary bytes; GitHub stores manifest/hash/pointer receipts
+- provider readiness is resolved per job and may not be invented
+
+This is a batch scheduler/manifest workflow, not a one-shot image-generation shortcut.
