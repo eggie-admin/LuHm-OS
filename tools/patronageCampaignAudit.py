@@ -8,7 +8,7 @@ def load(path):
     return json.loads((ROOT / path).read_text(encoding="utf-8"))
 
 campaign = load("doctrine/patronageCampaignV1.json")
-truth = load("doctrine/SOURCE_OF_TRUTH.json")
+truth = load("doctrine/currentSourceTruthV3.json")
 
 checks = [
     ("schema", campaign.get("schema") == "luhmOs.patronageCampaign.v1"),
@@ -33,7 +33,7 @@ checks = [
     ("automaticSendFalse", campaign.get("campaignState", {}).get("automaticSend") is False),
     ("bulkSendFalse", campaign.get("campaignState", {}).get("bulkSend") is False),
     ("professorReview", campaign.get("campaignState", {}).get("professorReviewRequiredBeforeEachSend") is True),
-    ("truthBound", truth.get("patronageCampaign", {}).get("contract") == "doctrine/patronageCampaignV1.json"),
+    ("truthBound", truth.get("campaignLayer", {}).get("patronageCampaign") == "doctrine/patronageCampaignV1.json"),
     ("crownStop", campaign.get("crownStatus") == "STOP"),
 ]
 
