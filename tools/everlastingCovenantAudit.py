@@ -7,6 +7,9 @@ control=load("doctrine/luhmAiControlPlaneV1.json")
 covenant=load("doctrine/everlastingCovenantV1.json")
 truth=load("doctrine/currentSourceTruthV3.json")
 lane=load("doctrine/proposedWorkingLaneV1.json")
+naming=load("doctrine/camelHumpDoctrineLawV1.json")
+urd_evidence=load("doctrine/urdEvidenceAdjudicationV1.json")
+manifest_law=load("doctrine/aiManifestFormatV1.json")
 chat=load("doctrine/projectChatCanonV1.json")
 terms=load("doctrine/termResolutionV1.json")
 progress=load("doctrine/chatProgressStreamV1.json")
@@ -59,7 +62,11 @@ global_checks=[
 ("sprites.loadingOnly",sprites.get("usage",{}).get("allowed")==["loadingScreen"] and sprites.get("usage",{}).get("loadingOnly") is True and sprites.get("usage",{}).get("avatarReplacement") is False and sprites.get("usage",{}).get("marketing") is False and "agentLoadingScreen" in (ROOT/"host/harness/index.html").read_text(encoding="utf-8") and "agent-roster-v1.png" in (ROOT/"host/mcp/luhmHarness.py").read_text(encoding="utf-8")),
 ("sprites.assetPresent",(ROOT/sprites.get("assetPath","")).is_file()),
 ("fleet.removed",all(not (ROOT/p).exists() for p in [".github/workflows/operation-titan7-watch-fleet.yml","doctrine/OPERATION_TITAN7_WATCH_FLEET_V1.json","tools/titan7WatchFleet.py"])),
-("fleet.noScheduledTitan7",not any(re.search(r"^\s*schedule\s*:",p.read_text(encoding="utf-8",errors="ignore"),re.MULTILINE) and "titan7" in (p.name+p.read_text(encoding="utf-8",errors="ignore")).lower() for p in (ROOT/".github/workflows").glob("*") if p.is_file())),
+("fleet.noScheduledTitan7",not any(re.search(r"^\\s*schedule\\s*:",p.read_text(encoding="utf-8",errors="ignore"),re.MULTILINE) and "titan7" in (p.name+p.read_text(encoding="utf-8",errors="ignore")).lower() for p in (ROOT/".github/workflows").glob("*") if p.is_file())),
+("currentTruth.schema",truth.get("schema")=="luhmOs.currentSourceTruth.v3"),
+("naming.currentLaw",truth.get("namingLaw",{}).get("contract")=="doctrine/camelHumpDoctrineLawV1.json" and naming.get("currentNaming",{}).get("machineIdentifiers")=="lowerCamelHump"),
+("urd.drNaoRetired","drNao" not in control.get("agents",{}) and urd_evidence.get("legacyTreatment",{}).get("drNaoActiveAgent") is False),
+("manifest.kebabCurrent",control.get("remoteAiManifest",{}).get("template")=="doctrine/remote-ai-manifest-v1.template.json" and manifest_law.get("fileNaming",{}).get("currentAiManifestFilenameStyle")=="kebab-case"),
 ]
 for name,ok in global_checks: add(name,ok)
 if len(checks)!=100: raise SystemExit(f"AUDIT_CONFIGURATION_ERROR expected=100 actual={len(checks)}")
