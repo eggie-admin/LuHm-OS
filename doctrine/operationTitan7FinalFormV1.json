@@ -39,5 +39,13 @@
   },
   "finalMilestone": "Project Hydra final system audit and evidence-backed seal candidate",
   "crownStatus": "STOP",
-  "greenClaim": false
+  "greenClaim": false,
+  "executionSchema": "doctrine/operationTitan7ExecutionSchemaV1.json",
+  "executionModes": [
+    "system",
+    "apply",
+    "test",
+    "all"
+  ],
+  "milestoneConditionRequired": true
 }
