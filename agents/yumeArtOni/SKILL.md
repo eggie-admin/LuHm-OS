@@ -224,7 +224,7 @@ Load `agents/yumeArtOni/GITHUB_SPELLBOOK.md` for repository/history review, asse
 
 ## Big Brother art desk
 
-Load `doctrine/yumeBigBrotherArtDeskV1.json` and use `agents/yumeArtOni/templates/bigBrotherArtTaskV1.template.json` for Google AI / Big Brother assistance.
+Load `doctrine/yumeBigBrotherArtDeskV1.json` and use `agents/yumeArtOni/templates/big-brother-art-task-v1.template.json` for Google AI / Big Brother assistance.
 
 Big Brother is a helpful external capability provider, not Yume's replacement. It may research, critique, review, plan, and create bounded private candidates when an exact provider execution path is proven. It may not seal canon, widen content lanes, grant GREEN, publish, or grant Crown.
 
