@@ -7,10 +7,10 @@ signal lum_talk_requested
 signal interact_requested
 signal move_axis_changed(axis: Vector2)
 
-const GAME_DOCTRINE_PATH := "res://doctrine/GODOT4_GAME_SOURCE_V1.json"
+const CURRENT_SOURCE_TRUTH_PATH := "res://doctrine/currentSourceTruthV3.json"
+const GAMEPLAY_CONTRACT_PATH := "res://doctrine/gameplayVerticalSliceV1.json"
 const CHARACTER_CANON_PATH := "res://game/canon/CHARACTER_CANON_V1.json"
-const AUDIT_WORKFLOW_PATH := "res://doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json"
-const AUDIT_SEAL_PATH := "res://doctrine/DOCUMENT_MUTATION_AUDIT_SEAL_20260926.json"
+const COVENANT_PATH := "res://doctrine/everlastingCovenantV1.json"
 
 var backend_root: Control
 var world_root: Control
@@ -159,26 +159,25 @@ func _load_json(path: String) -> Dictionary:
     return {}
 
 func _audit_summary() -> String:
-    var doctrine := _load_json(GAME_DOCTRINE_PATH)
+    var source_truth := _load_json(CURRENT_SOURCE_TRUTH_PATH)
+    var gameplay := _load_json(GAMEPLAY_CONTRACT_PATH)
     var canon := _load_json(CHARACTER_CANON_PATH)
-    var workflow := _load_json(AUDIT_WORKFLOW_PATH)
-    var seal := _load_json(AUDIT_SEAL_PATH)
-    var doctrine_status := str(doctrine.get("status", "UNKNOWN"))
-    var authority := str(doctrine.get("authority", "UNKNOWN"))
-    var crown := str(doctrine.get("crownStatus", "UNKNOWN"))
-    var workflow_status := str(workflow.get("status", "UNKNOWN"))
-    var seal_status := str(seal.get("status", "UNKNOWN"))
-    var gate_scope = seal.get("gate_scope", {})
-    var runtime_status := "UNKNOWN"
-    var release_status := "UNKNOWN"
-    if gate_scope is Dictionary:
-        runtime_status = str((gate_scope as Dictionary).get("runtime", "UNKNOWN"))
-        release_status = str((gate_scope as Dictionary).get("release", "UNKNOWN"))
+    var covenant := _load_json(COVENANT_PATH)
+
     var characters = canon.get("characters", {})
-    var character_count: int = 0
-    if characters is Dictionary:
-        character_count = (characters as Dictionary).size()
-    return "GAME SOURCE · %s\nCHARACTER CANON · %s ORIGINAL ADULT DESIGNS\nAUDIT WORKFLOW · %s\nAUDIT SEAL · %s\nRUNTIME · %s\nRELEASE · %s\nAUTHORITY · %s\nCROWN · %s\nCAST REQUIRED FOR BUILD" % [doctrine_status, character_count, workflow_status, seal_status, runtime_status, release_status, authority, crown]
+    var character_count := (characters as Dictionary).size() if characters is Dictionary else 0
+    var working_lane = source_truth.get("workingDoctrineLane", {})
+    var lane_status := str((working_lane as Dictionary).get("status", "UNKNOWN")) if working_lane is Dictionary else "UNKNOWN"
+
+    return "SOURCE TRUTH · %s\nGAMEPLAY · %s\nQUEST LOOP · FIRST NIGHT CIRCUIT\nCHARACTER CANON · %s ENTRIES\nCOVENANT · %s\nWORKING LANE · %s\nINSTALL BOUNDARY · %s\nCROWN · %s" % [
+        str(source_truth.get("status", "UNKNOWN")),
+        str(gameplay.get("status", "UNKNOWN")),
+        character_count,
+        str(covenant.get("status", "UNKNOWN")),
+        lane_status,
+        str(gameplay.get("installBoundary", "UNKNOWN")),
+        str(gameplay.get("crownStatus", "UNKNOWN"))
+    ]
 
 func _set_audit_panel(enabled: bool) -> void:
     if _audit_panel == null:
