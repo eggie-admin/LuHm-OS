@@ -11,7 +11,8 @@
     "storageTopology": "doctrine/storageTopologyV1.json",
     "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
     "everlastingCovenant": "doctrine/everlastingCovenantV1.json",
-    "bigBrotherCovenant": "doctrine/bigBrotherCovenantV1.json"
+    "bigBrotherCovenant": "doctrine/bigBrotherCovenantV1.json",
+    "providerEconomy": "doctrine/providerEconomyV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -153,6 +154,18 @@
         "selfApproval": false,
         "crownAuthority": false
       }
+    },
+    "economy": {
+      "contract": "doctrine/providerEconomyV1.json",
+      "headquarters": "luhmOs",
+      "defaultRoutingOrder": [
+        "deterministicLocal",
+        "existingReceiptsAndCachedEvidence",
+        "bigBrother",
+        "openDaddyWhenMateriallyJustified"
+      ],
+      "vendorEntitlementDefinesArchitecture": false,
+      "providerPreferenceGrantsAuthority": false
     }
   },
   "authorityClasses": [
