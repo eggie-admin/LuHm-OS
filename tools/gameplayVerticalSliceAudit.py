@@ -34,16 +34,22 @@ if not missing:
 
     main=(root/"scripts/main.gd").read_text()
     hud=(root/"scripts/game/gameHud.gd").read_text()
+    interaction_visual=(root/"scripts/game/interactable.gd").read_text()
+    player=(root/"scripts/game/playerController.gd").read_text()
     source_truth=json.loads((root/"doctrine/currentSourceTruthV3.json").read_text())
     game_layer=source_truth.get("gameLayer",{})
     if game_layer.get("contract")!="doctrine/gameplayVerticalSliceV1.json": errors.append("current source truth gameLayer contract drift")
     if game_layer.get("workingLane")!="PROPOSED_ONLY": errors.append("current source truth gameLayer must remain proposed")
     if game_layer.get("installBoundary")!="PARKED": errors.append("current source truth install boundary must remain parked")
     if "Titan7MilestoneScript" in main or 'add_child(titan7_milestone)' in main: errors.append("stale Titan7 milestone overlay still active")
-    for token in ["QuestDirectorScript","FIRST_NIGHT_QUEST_PATH","_update_interaction_target","interact_requested",'begins_with("travel:")',"set_fast_travel_enabled(false)","set_fast_travel_enabled(true)"]:
+    for token in ["QuestDirectorScript","FIRST_NIGHT_QUEST_PATH","_update_interaction_target","interact_requested",'begins_with("travel:")',"set_fast_travel_enabled(false)","set_fast_travel_enabled(true)",'event_name == "clearStaticWisp"',"pulse_effect"]:
         if token not in main: errors.append(f"main missing {token}")
     for token in ["signal interact_requested","set_interaction_prompt","set_quest","set_fast_travel_enabled"]:
         if token not in hud: errors.append(f"HUD missing {token}")
+    for token in ["collectSignalShard","collectCoffee","clearStaticWisp","_build_signal_shard","_build_coffee","_build_static_wisp"]:
+        if token not in interaction_visual: errors.append(f"interaction visual missing {token}")
+    if "func pulse_effect(" not in player:
+        errors.append("player pulse effect missing")
     travel_tokens = {
         "scripts/game/neonWorld.gd": ["travel:lumCoffeeHouse","travel:cathedral"],
         "scripts/game/lumCoffeeHouseScene.gd": ["travel:neonRiverwalk","travel:cathedral"],
