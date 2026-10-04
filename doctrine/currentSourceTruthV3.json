@@ -76,7 +76,7 @@
     "treatment": "historicalEvidenceCompatibilityOnly",
     "priorMcpEnterpriseScope": "doctrine/MCP_ENTERPRISE_SCOPE_V1.json",
     "priorOpenAiDeployment": "doctrine/openAiLumOniDeployment-20260927.json",
-    "priorRemoteAiManifest": "doctrine/remoteAiManifestV1.template.json",
+    "priorRemoteAiManifest": "doctrine/remote-ai-manifest-v1.template.json",
     "priorYumeBigBrotherTaskTemplate": "agents/yumeArtOni/templates/bigBrotherArtTaskV1.template.json"
   },
   "legacyAgentMigrations": {
@@ -99,10 +99,11 @@
   },
   "manifestLaw": {
     "contract": "doctrine/aiManifestFormatV1.json",
-    "currentAiManifestFileStyle": "kebabCase",
+    "currentAiTaskSchema": "luhmOs.aiTaskManifest.v2",
+    "currentAiManifestFileStyle": "kebab-case.json",
     "currentMachineKeys": "lowerCamelHump",
-    "remoteAiTemplate": "doctrine/remote-ai-manifest-v1.template.json",
-    "legacyNonKebabAiManifests": true
+    "taskTemplate": "doctrine/aiTaskManifestV2.template.json",
+    "legacyNonCurrentAiManifests": true
   },
   "controlPlaneLanguage": {
     "contract": "doctrine/python3ControlPlaneLawV1.json",
@@ -112,6 +113,7 @@
   },
   "pluginLayer": {
     "contract": "doctrine/pluginPublicationV2.json",
+    "milestone": "doctrine/chatGptPluginMilestoneV2.json",
     "status": "AMBER_PUBLICATION_EXTERNAL_OPENAI_GATES",
     "publicationAuthority": false,
     "crownStatus": "STOP"
@@ -119,6 +121,7 @@
   "androidLayer": {
     "cockpitContract": "doctrine/androidWeb3CockpitV2.json",
     "bridgeContract": "doctrine/androidWeb3BridgeV2.json",
+    "antennaContract": "doctrine/samsungAntennaV1.json",
     "releaseBoundary": "doctrine/releaseBoundaryV2.json",
     "physicalSamsungProof": "PENDING",
     "crownStatus": "STOP"
@@ -150,5 +153,6 @@
     "workingLane": "PROPOSED_ONLY",
     "crownStatus": "STOP",
     "status": "PROPOSED_YUME_CREATIVE_PIPELINE_SOURCE"
-  }
+  },
+  "roadmap": "doctrine/chatDeploymentRoadmapV1.json"
 }
