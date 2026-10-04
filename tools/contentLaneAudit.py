@@ -9,7 +9,7 @@ def load(path):
 
 lane = load("doctrine/contentLaneDoctrineV1.json")
 matrix = load("doctrine/assetEligibilityMatrixV1.json")
-truth = load("doctrine/SOURCE_OF_TRUTH.json")
+truth = load("doctrine/currentSourceTruthV3.json")
 yume = load("doctrine/yumeCreativePipelineV1.json")
 media = load("doctrine/mediaAssetFactoryV1.json")
 
@@ -41,7 +41,7 @@ checks = [
     ("matrix.publicFallback", "ApprovedPublicSafeFallbackOrFailClosed" in matrix.get("fallbackLaw", {}).get("privateAdultOrMatureAssetInPublicBuild", "")),
     ("matrix.noAiPromotion", matrix.get("crossLaneRules", {}).get("aiCannotPromoteAsset") is True),
     ("matrix.noProviderPromotion", matrix.get("crossLaneRules", {}).get("providerCannotPromoteAsset") is True),
-    ("truth.bound", truth.get("contentLanes", {}).get("contract") == "doctrine/contentLaneDoctrineV1.json"),
+    ("truth.bound", truth.get("creativeLayer", {}).get("contentLaneDoctrine") == "doctrine/contentLaneDoctrineV1.json"),
     ("yume.bound", yume.get("contentLaneDoctrine") == "doctrine/contentLaneDoctrineV1.json"),
     ("media.bound", media.get("contentLaneDoctrine") == "doctrine/contentLaneDoctrineV1.json"),
 ]
