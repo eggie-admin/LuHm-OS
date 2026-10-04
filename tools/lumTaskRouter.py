@@ -10,24 +10,24 @@ import json
 from pathlib import Path
 
 ROUTES = {
-    "direct": ["Lum"],
-    "read": ["Lum", "Kiri"],
-    "records": ["Lum", "Belldandy", "Fumi"],
-    "proof": ["Lum", "Urd", "Urd"],
-    "patch": ["Lum", "Kugi", "Urd"],
-    "build": ["Lum", "Kugi", "Tetsu", "Kaji", "Urd"],
-    "external": ["Lum", "Skuld"],
-    "diagnose": ["Lum", "Urd", "Urd"],
-    "research": ["Lum", "Skuld"],
-    "monitor": ["Lum", "Urd", "Belldandy", "Skuld"],
-    "release": ["Lum", "Urd", "ProfessorCrown"],
-    "art": ["Lum", "Yume"],
-    "media": ["Lum", "Yume", "Sumi"],
-    "dictation": ["Lum", "Koe"],
-    "asset": ["Lum", "Sumi"],
+    "direct": ["lum"],
+    "read": ["lum", "kiri"],
+    "records": ["lum", "belldandySecretary", "fumi"],
+    "proof": ["lum", "urdDoctorGoddess"],
+    "patch": ["lum", "kugi", "urdDoctorGoddess"],
+    "build": ["lum", "kugi", "tetsu", "kaji", "urdDoctorGoddess"],
+    "external": ["lum", "skuldResearch"],
+    "diagnose": ["lum", "urdDoctorGoddess"],
+    "research": ["lum", "skuldResearch"],
+    "monitor": ["lum", "urdDoctorGoddess", "belldandySecretary", "skuldResearch"],
+    "release": ["lum", "urdDoctorGoddess", "ProfessorCrown"],
+    "art": ["lum", "yume"],
+    "media": ["lum", "yume", "sumi"],
+    "dictation": ["lum", "koe"],
+    "asset": ["lum", "sumi"],
 }
 
-SUPPORT = {"Kiri", "Momo", "Shiori", "Fumi", "Yume", "Koe", "Sumi", "Urd", "Belldandy", "Skuld"}
+SUPPORT = {"kiri", "momo", "shiori", "fumi", "yume", "koe", "sumi", "urdDoctorGoddess", "belldandySecretary", "skuldResearch"}
 
 
 def unique(items: list[str]) -> list[str]:
@@ -53,19 +53,19 @@ def main() -> int:
     workers = list(ROUTES[args.kind])
     reasons = [f"base:{args.kind}"]
 
-    if args.truth_sensitive and "Urd" not in workers:
-        workers.append("Urd")
+    if args.truth_sensitive and "urdDoctorGoddess" not in workers:
+        workers.append("urdDoctorGoddess")
         reasons.append("truth-sensitive")
     if args.contested:
-        workers.append("Shiori")
-        if "Urd" not in workers:
+        workers.append("shiori")
+        if "urdDoctorGoddess" not in workers:
             workers.append("Urd")
         reasons.append("contested")
-    if args.external_fact and "Momo" not in workers:
-        workers.append("Momo")
+    if args.external_fact and "momo" not in workers:
+        workers.append("momo")
         reasons.append("external-fact")
-    if args.asset_review and "Sumi" not in workers:
-        workers.append("Sumi")
+    if args.asset_review and "sumi" not in workers:
+        workers.append("sumi")
         reasons.append("asset-review")
 
     workers = unique(workers)
@@ -79,12 +79,12 @@ def main() -> int:
         "workers": workers,
         "reasons": reasons,
         "supportWorkers": support,
-        "sourceMutationLanes": 1 if "Kugi" in workers else 0,
-        "parallelBuilds": 2 if {"Tetsu", "Kaji"}.issubset(workers) else 0,
-        "requiresDeterministicAdjudicator": "Urd" in workers,
+        "sourceMutationLanes": 1 if "kugi" in workers else 0,
+        "parallelBuilds": 2 if {"tetsu", "kaji"}.issubset(workers) else 0,
+        "requiresDeterministicAdjudicator": "urdDoctorGoddess" in workers,
         "usesDoctorGoddess": "Urd" in workers,
-        "usesSecretaryGoddess": "Belldandy" in workers,
-        "usesResearchGoddess": "Skuld" in workers,
+        "usesSecretaryGoddess": "belldandySecretary" in workers,
+        "usesResearchGoddess": "skuldResearch" in workers,
         "requiresProfessorCrown": "ProfessorCrown" in workers,
         "dictationExecutesDirectly": False,
         "greenAuthority": False,
