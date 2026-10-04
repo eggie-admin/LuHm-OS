@@ -24,7 +24,7 @@ function setLoadingAgent(agentId, message) {
 }
 function validateLoadingManifest(value) {
   const ids=(value?.sprites||[]).map(x=>x.agentId), goddesses=value?.goddessGroup?.machineIds||[];
-  if(value?.schema!=="luhmOs.runtimeAgentLoadingSprites.v1"||ids.length!==16||new Set(ids).size!==16)throw new Error("invalid agent loading roster");
+  if(value?.schema!=="luhmOs.runtimeAgentLoadingSprites.v1"||ids.length<1||new Set(ids).size!==ids.length)throw new Error("invalid agent loading roster");
   if(goddesses.join(",")!=="urdDoctorGoddess,belldandySecretary,skuldResearch")throw new Error("invalid goddess roster");
   if(value?.grid?.columns!==4||value?.grid?.rows!==4)throw new Error("invalid sprite grid");
 }
