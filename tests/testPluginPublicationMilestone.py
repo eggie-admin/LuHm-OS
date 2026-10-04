@@ -72,7 +72,7 @@ class PluginPublicationMilestoneTests(unittest.TestCase):
 
     def test_removing_publish_boundary_fails(self):
         boundary = copy.deepcopy(self.boundary)
-        boundary["deny"] = [v for v in boundary["deny"] if v != "publishing"]
+        boundary["deniedActions"] = [v for v in boundary["deniedActions"] if v != "stablePublication"]
         self.assertTrue(self.errors(boundary=boundary))
 
     def test_write_capability_fails(self):
