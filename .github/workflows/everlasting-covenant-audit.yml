@@ -55,6 +55,12 @@ jobs:
           python3 -m json.tool doctrine/contentLaneDoctrineV1.json >/dev/null
           python3 -m json.tool doctrine/assetEligibilityMatrixV1.json >/dev/null
           python3 -m json.tool doctrine/patronageCampaignV1.json >/dev/null
+          python3 -m json.tool doctrine/yumeBigBrotherArtDeskV1.json >/dev/null
+          python3 -m json.tool doctrine/yumeGodotArtToolboxV1.json >/dev/null
+          python3 -m json.tool doctrine/yumeArtistWorkstationV1.json >/dev/null
+          python3 -m json.tool doctrine/unifiedCampaignWorkbenchV1.json >/dev/null
+          python3 -m json.tool agents/yumeArtOni/templates/bigBrotherArtTaskV1.template.json >/dev/null
+          python3 -m py_compile tools/yumeGodotAssetPrep.py tools/yumeWorkbenchAudit.py
           python3 -m json.tool host/harness/agent-loading-sprites.json >/dev/null
           python3 -m py_compile host/mcp/luhmHarness.py
           node --check host/harness/cockpit.js
@@ -67,3 +73,5 @@ jobs:
         run: python3 tools/contentLaneAudit.py
       - name: Prove patronage draft boundaries
         run: python3 tools/patronageCampaignAudit.py
+      - name: Prove Yume creative workbench
+        run: python3 tools/yumeWorkbenchAudit.py
