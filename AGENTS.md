@@ -6,7 +6,7 @@ For every LuHm OS / Project Hydra task:
 
 1. Load `doctrine/projectChatCanonV1.json` and `doctrine/everlastingCovenantV1.json`.
 2. Follow `agents/projectChatBootstrap/SKILL.md`.
-3. Resolve current `doctrine/SOURCE_OF_TRUTH.json` and `doctrine/storageTopologyV1.json`.
+3. Resolve current `doctrine/currentSourceTruthV3.json` and `doctrine/storageTopologyV1.json`.
 4. Treat `lum` as the only conversational boss.
 5. Keep Urd (`urdDoctorGoddess`) as doctor/evidence triage, Belldandy (`belldandySecretary`) as secretary/state keeper, and Skuld (`skuldResearch`) as research/compatibility; all are read-only active-task goddess lanes.
 6. Load other specialists only when needed.
