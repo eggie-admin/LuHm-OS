@@ -9,11 +9,11 @@
     "doctrineMachineKeysRemain": "lowerCamelHump"
   },
   "currentSchemas": [
-    "luhmOs.remoteAiManifest.v1",
+    "luhmOs.aiTaskManifest.v2",
     "luhmOs.yumeBigBrotherArtTask.v1"
   ],
   "currentTemplates": [
-    "doctrine/remote-ai-manifest-v1.template.json",
+    "doctrine/aiTaskManifestV2.template.json",
     "agents/yumeArtOni/templates/big-brother-art-task-v1.template.json"
   ],
   "legacyLaw": [
@@ -26,5 +26,9 @@
     "plugins/luhm-os/plugin.json",
     "androidWeb3Plugin/plugin/src/main/AndroidManifest.xml"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "legacyFormats": {
+    "remoteAiManifestV1": "doctrine/remote-ai-manifest-v1.template.json",
+    "camelNamedYumeTemplate": "agents/yumeArtOni/templates/bigBrotherArtTaskV1.template.json"
+  }
 }
