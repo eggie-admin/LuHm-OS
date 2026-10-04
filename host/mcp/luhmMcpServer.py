@@ -29,10 +29,10 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse, PlainTextResponse, Response
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE_TRUTH = ROOT / "doctrine" / "SOURCE_OF_TRUTH.json"
-CONTROL_PLANE = ROOT / "doctrine" / "ONI_MESH_CONTROL_PLANE_V2.json"
-OPENAI_DEPLOYMENT = ROOT / "doctrine" / "openAiLumOniDeployment-20260927.json"
-ENTERPRISE_SCOPE = ROOT / "doctrine" / "MCP_ENTERPRISE_SCOPE_V1.json"
+SOURCE_TRUTH = ROOT / "doctrine" / "currentSourceTruthV3.json"
+CONTROL_PLANE = ROOT / "doctrine" / "luhmAiControlPlaneV1.json"
+OPENAI_DEPLOYMENT = ROOT / "doctrine" / "openAiDeploymentV3.json"
+ENTERPRISE_SCOPE = ROOT / "doctrine" / "mcpEnterpriseScopeV2.json"
 ROUTER = ROOT / "tools" / "lumTaskRouter.py"
 ROUTE_KINDS = {
     "direct", "read", "records", "proof", "patch", "build", "external",
@@ -77,40 +77,24 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 def _skill_status() -> list[dict[str, Any]]:
     control = _load_json(CONTROL_PLANE)
-    roles = control.get("roles", {})
-    directory_map = {
-        "Lum": "lum",
-        "Kiri": "kiriContextOni",
-        "Tetsu": "buildOnis",
-        "Kaji": "buildOnis",
-        "Momo": "momoResearchOni",
-        "Shiori": "shioriCriticOni",
-        "DrNao": "doctorOni",
-        "Kugi": "kugiToolOni",
-        "Urd": "urdMutationOni",
-        "Belldandy": "belldandyQualityOni",
-        "Skuld": "skuldResearchOni",
-        "Fumi": "fumiSecretaryOni",
-        "Sumi": "sumiAssetOni",
-        "Koe": "koeDictationOni",
-        "Yume": "yumeArtOni",
-    }
+    agents = control.get("agents", {})
     out: list[dict[str, Any]] = []
-    for name, role in roles.items():
-        folder = directory_map.get(name, "")
-        skill = ROOT / "agents" / folder / "SKILL.md" if folder else None
+    for agent_id, role in agents.items():
+        if not isinstance(role, dict):
+            continue
+        skill_path = str(role.get("skillPath", ""))
+        skill = ROOT / skill_path if skill_path else None
         out.append(
             {
-                "name": name,
-                "kind": role.get("kind", "UNKNOWN") if isinstance(role, dict) else "UNKNOWN",
-                "defaultAuthority": role.get("defaultAuthority", "UNKNOWN") if isinstance(role, dict) else "UNKNOWN",
-                "canonicalMachineIdentity": role.get("canonicalMachineIdentity", name) if isinstance(role, dict) else name,
-                "skillPath": str(skill.relative_to(ROOT)) if skill else "UNKNOWN",
+                "agentId": agent_id,
+                "displayName": role.get("displayName", agent_id),
+                "kind": role.get("kind", "UNKNOWN"),
+                "defaultAuthority": role.get("defaultAuthority", "UNKNOWN"),
+                "skillPath": skill_path or "UNKNOWN",
                 "skillPresent": bool(skill and skill.is_file()),
             }
         )
     return out
-
 
 def _scope_value(value: Any, max_len: int = 256) -> str:
     text = str(value if value is not None else "").strip()
@@ -154,13 +138,11 @@ def _status_payload() -> dict[str, Any]:
     enterprise = _load_json(ENTERPRISE_SCOPE)
     transport = enterprise.get("transport", {})
     return {
-        "schema": "luhm-os.mcp-status.v1",
-        "sourceLaw": truth.get("source_law", "UNKNOWN"),
+        "schema": "luhmOs.mcpStatus.v2",
+        "sourceLaw": truth.get("sourceLaw", "UNKNOWN"),
         "sourceTruthStatus": truth.get("status", "UNKNOWN"),
-        "canonicalMain": truth.get("canonicalMain", {}),
-        "candidate": truth.get("currentFullGameCandidate", {}),
-        "agentWorkflowCandidate": truth.get("agentWorkflowCandidate", {}),
-        "remainingExternalGates": truth.get("remainingExternalGates", {}),
+        "workingDoctrineLane": truth.get("workingDoctrineLane", {}),
+        "runtimeContracts": truth.get("runtimeContracts", {}),
         "openAiDeploymentStatus": deploy.get("status", "UNKNOWN"),
         "mcpTransport": {
             "productionFqdn": transport.get("productionFqdn", "UNKNOWN"),
@@ -168,24 +150,22 @@ def _status_payload() -> dict[str, Any]:
             "sessionOwnsAuthority": bool(transport.get("sessionOwnsAuthority", True)),
             "sessionOwnsSourceTruth": bool(transport.get("sessionOwnsSourceTruth", True)),
         },
-        "publicationAuthority": bool(truth.get("publication_authority", False)),
+        "publicationAuthority": bool(truth.get("publicationAuthority", False)),
         "promotion": bool(truth.get("promotion", False)),
         "greenAuthority": False,
     }
 
-
 def _roster_payload() -> dict[str, Any]:
     control = _load_json(CONTROL_PLANE)
     return {
-        "schema": "luhm-os.mcp-roster.v1",
+        "schema": "luhmOs.mcpRoster.v2",
         "boss": control.get("boss", "UNKNOWN"),
-        "humanAuthority": control.get("humanAuthority", "UNKNOWN"),
-        "maxParallelSupportWorkers": control.get("topology", {}).get("maxParallelSupportWorkers", "UNKNOWN"),
-        "helperRecruitment": control.get("topology", {}).get("helperRecruitment", "UNKNOWN"),
+        "humanAuthority": control.get("authority", "UNKNOWN"),
+        "maxParallelSupportWorkers": control.get("maxParallelSupportWorkers", 3),
         "roles": _skill_status(),
+        "legacyAgentMigrations": control.get("legacyAgentMigrations", {}),
         "greenAuthority": False,
     }
-
 
 def _profile() -> str:
     return os.environ.get("LUHM_MCP_PROFILE", "local").strip().lower()
@@ -237,7 +217,7 @@ def _assert_source_contract() -> None:
         raise RuntimeError("RED_MCP_STATEFUL_HTTP_DRIFT")
     if transport.get("sessionOwnsAuthority") is not False or transport.get("sessionOwnsSourceTruth") is not False:
         raise RuntimeError("RED_MCP_SESSION_AUTHORITY_DRIFT")
-    if auth.get("privateOrWriteToolsRequireOAuth21") is not True:
+    if auth.get("privateOrWriteToolsRequireOauth21") is not True:
         raise RuntimeError("RED_MCP_AUTH_BOUNDARY_DRIFT")
     if auth.get("oauthImplemented") is not False:
         raise RuntimeError("RED_MCP_OAUTH_STATUS_OVERCLAIM")
@@ -326,8 +306,8 @@ def luhm_proof_contract() -> dict[str, Any]:
             "importState": "UNKNOWN_UNTIL_ADJUDICATED",
             "rawSafUriExposedToModel": False,
         },
-        "unknownIsNotGreen": bool(truth.get("unknown_is_not_green", True)),
-        "sourceLaw": truth.get("source_law", "UNKNOWN"),
+        "unknownIsNotGreen": bool(True),
+        "sourceLaw": truth.get("sourceLaw", "UNKNOWN"),
         "greenAuthority": False,
     }
 
