@@ -8,13 +8,32 @@
   "startUrl": "https://appassets.androidplatform.net/assets/index.html",
   "jsObject": "LuHmNative",
   "javascriptToNative": [
-    {"type":"cockpitReady","effect":"emit cockpit_ready(webViewPackageVersion) to Godot"},
-    {"type":"worldRequested","effect":"hide WebView overlay and emit world_requested to Godot"}
+    {
+      "type": "cockpitReady",
+      "effect": "emit cockpit_ready(webViewPackageVersion) to Godot"
+    },
+    {
+      "type": "oniRequested",
+      "effect": "validate canonical Oni name, emit oni_requested(name) to Godot; routing only, execution does not start"
+    },
+    {
+      "type": "worldRequested",
+      "effect": "hide WebView overlay and emit world_requested to Godot"
+    }
   ],
   "godotToNative": [
-    {"method":"showCockpit","effect":"show/focus WebView overlay"},
-    {"method":"hideCockpit","effect":"hide WebView overlay"},
-    {"method":"getWebViewVersion","effect":"return current WebView package and version"}
+    {
+      "method": "showCockpit",
+      "effect": "show/focus WebView overlay"
+    },
+    {
+      "method": "hideCockpit",
+      "effect": "hide WebView overlay"
+    },
+    {
+      "method": "getWebViewVersion",
+      "effect": "return current WebView package and version"
+    }
   ],
   "security": {
     "allowedMainFrameOnly": true,
