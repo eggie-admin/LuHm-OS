@@ -66,7 +66,7 @@ global_checks=[
 ("currentTruth.schema",truth.get("schema")=="luhmOs.currentSourceTruth.v3"),
 ("naming.currentLaw",truth.get("namingLaw",{}).get("contract")=="doctrine/camelHumpDoctrineLawV1.json" and naming.get("currentNaming",{}).get("machineIdentifiers")=="lowerCamelHump"),
 ("urd.drNaoRetired","drNao" not in control.get("agents",{}) and urd_evidence.get("legacyTreatment",{}).get("drNaoActiveAgent") is False),
-("manifest.kebabCurrent",control.get("remoteAiManifest",{}).get("template")=="doctrine/remote-ai-manifest-v1.template.json" and manifest_law.get("fileNaming",{}).get("currentAiManifestFilenameStyle")=="kebab-case"),
+("manifest.kebabCurrent",control.get("aiTaskManifest",{}).get("template")=="doctrine/aiTaskManifestV2.template.json" and manifest_law.get("fileNaming",{}).get("instanceFilenameStyle")=="kebab-case"),
 ]
 for name,ok in global_checks: add(name,ok)
 if len(checks)!=100: raise SystemExit(f"AUDIT_CONFIGURATION_ERROR expected=100 actual={len(checks)}")
