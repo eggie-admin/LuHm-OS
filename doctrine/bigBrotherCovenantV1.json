@@ -1,0 +1,83 @@
+{
+  "schema": "luhmOs.bigBrotherCovenant.v1",
+  "status": "PROPOSED_CANON_LAW",
+  "authority": "Professor",
+  "providerId": "googleAi",
+  "providerNickname": "bigBrother",
+  "humanCovenant": "So let it be written, so let it be done. This is Big Brother's covenant with the king.",
+  "purpose": "Bind the existing Google AI / Big Brother provider lane to LuHm OS as a bounded external reviewer and capability provider without granting provider authority over truth, source, release, or Crown.",
+  "identityLaw": {
+    "bigBrotherIsGoogleAiProviderNickname": true,
+    "bigBrotherIsNotEdgeGallery": true,
+    "edgeGalleryRemainsSeparateLocalEdgeCompanion": true,
+    "providerModelIdentityRequiresReceipt": true,
+    "providerEntitlementRequiresReceipt": true,
+    "providerRuntimeActivationRequiresReceipt": true
+  },
+  "relationship": {
+    "professor": "humanKingAndFinalCrownAuthority",
+    "lum": "onlyConversationalBossAndProviderRouter",
+    "bigBrother": "externalReviewerAndCapabilityProvider",
+    "drNao": "deterministicEvidenceAdjudicator",
+    "belldandySecretary": "stateAndReceiptContinuity",
+    "skuldResearch": "providerCompatibilityAndTechnicalResearch",
+    "urdDoctorGoddess": "evidencePathologyAndFailureDiagnosis"
+  },
+  "workClasses": [
+    "repositoryReview",
+    "commitHistoryReview",
+    "pullRequestReview",
+    "schemaReview",
+    "mcpImplementationReview",
+    "deduplicationReview",
+    "compatibilityResearch",
+    "dependencyResearch",
+    "securityReview",
+    "contradictionHunt",
+    "boundedCodeReview",
+    "structuredProposalGeneration"
+  ],
+  "taskLaw": {
+    "manifestSchema": "luhmOs.remoteAiManifest.v1",
+    "requiredIdentity": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "providerId",
+      "capabilityId"
+    ],
+    "outputIsCandidateEvidence": true,
+    "providerSuccessIsNotGreen": true,
+    "lumReconciliationRequired": true,
+    "deterministicAdjudicationRequiredForGreen": true,
+    "professorPromotionRequired": true
+  },
+  "providerAuthority": {
+    "default": "READ_ONLY_OR_PLAN_ONLY",
+    "mayReview": true,
+    "mayPropose": true,
+    "mayGenerateCandidatePatches": true,
+    "mayMutateCanonicalSource": false,
+    "mayMerge": false,
+    "mayPublish": false,
+    "mayProductionSign": false,
+    "mayDeployRuntime": false,
+    "mayGrantGreen": false,
+    "mayGrantCrown": false,
+    "maySelfApprove": false
+  },
+  "evidenceLaw": {
+    "currentSourceBeatsProviderMemory": true,
+    "providerTextIsUntrustedUntilReconciled": true,
+    "staleProviderOutputIsHintOnly": true,
+    "screenshotsOrUiActivityDoNotProveProviderModelIdentity": true,
+    "exactProviderExecutionReceiptRequiredForExecutedTaskClaim": true
+  },
+  "inherits": [
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/luhmAiControlPlaneV1.json",
+    "doctrine/remoteAiManifestV1.template.json",
+    "doctrine/proposedWorkingLaneV1.json"
+  ],
+  "crownStatus": "STOP"
+}
