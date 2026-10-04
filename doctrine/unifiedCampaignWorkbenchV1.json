@@ -119,5 +119,14 @@
     "cathedralPublic_required_for_broad_public_visuals",
     "public_generated_art_default_forbidden",
     "campaign_claims_bind_to_receipts"
+  ],
+  "launchKit": "doctrine/campaignLaunchKitV1.json",
+  "firstCampaignDraft": "campaign/first-campaign-wave.md",
+  "currentMilestone": "letsMakeMoneyForCorporations",
+  "milestoneLaw": [
+    "orientation_must_complete_before_campaign_handoff",
+    "each_campaign_unit_binds_exact_evidence_before_derivation",
+    "email_social_and_publication_remain_professor_review_gated",
+    "plugin_external_gates_and_samsung_physical_proof_must_not_be_overclaimed"
   ]
 }
