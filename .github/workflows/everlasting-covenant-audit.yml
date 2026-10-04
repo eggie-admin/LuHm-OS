@@ -49,9 +49,12 @@ jobs:
           python3 -m json.tool doctrine/termResolutionV1.json >/dev/null
           python3 -m json.tool doctrine/chatProgressStreamV1.json >/dev/null
           python3 -m json.tool doctrine/agentLoadingSpriteManifestV1.json >/dev/null
+          python3 -m json.tool doctrine/agentTrainingSealV1.json >/dev/null
           python3 -m json.tool host/harness/agent-loading-sprites.json >/dev/null
           python3 -m py_compile host/mcp/luhmHarness.py
           node --check host/harness/cockpit.js
           echo "[progress] schemaValidation=passed source=$LUHM_SOURCE_REF"
       - name: Run 100-pass doctrine audit
         run: python3 tools/everlastingCovenantAudit.py
+      - name: Prove agent training contract
+        run: python3 tools/agentTrainingAudit.py
