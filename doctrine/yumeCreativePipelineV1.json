@@ -70,7 +70,9 @@
     "approvalLedger",
     "publishChecklist",
     "contentLaneProfile",
-    "assetEligibility"
+    "assetEligibility",
+    "fineArtIntent",
+    "commercialProductionPlan"
   ],
   "audit": {
     "tool": "tools/yumeCreativePipelineAudit.py",
@@ -105,5 +107,13 @@
     "bigBrother_assists_but_does_not_replace_yume",
     "godot_asset_prep_is_plan_only_until_import_and_runtime_receipts",
     "public_generative_ai_art_default_remains_forbidden"
+  ],
+  "artEducation": "doctrine/yumeArtEducationV1.json",
+  "professionalInterpretationLaw": [
+    "preserve_professor_source_before_cleanup",
+    "separate_fine_art_intent_from_commercial_delivery_constraints",
+    "commercial_derivative_must_reference_editable_master",
+    "roughness_may_be_intentional_and_must_not_be_auto_corrected",
+    "unknown_school_or_reference_name_remains_unknown_until_confirmed"
   ]
 }
