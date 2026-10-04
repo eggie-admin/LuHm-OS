@@ -451,5 +451,27 @@
     "sourcePreservationRequired": true,
     "publicOutputsStillContentLaneBound": true,
     "crownStatus": "STOP"
+  },
+  "professorOldMagicStudyMesh": {
+    "contract": "doctrine/professorOldMagicStudyMeshV1.json",
+    "schema": "doctrine/professorOldMagicStudyClassSchemaV1.json",
+    "oniDeploy": "doctrine/professorOldMagicOniDeployV1.json",
+    "status": "GREEN_CANDIDATE_DRIVE_VERIFIED_SOURCE_PROPOSAL",
+    "driveLogicalPath": "LuHm OS/Study Cabinets/Professor Old Magic",
+    "masterSha256": "4185901daeb2c279ac21d9628a1186dc62e59f5884cd553da71ef767a588531c",
+    "classCount": 8,
+    "studyBuddies": [
+      "lum",
+      "urd",
+      "belldandy",
+      "skuld"
+    ],
+    "mockExamTarget": "2026-10-09",
+    "privateDriveIdsInPublicDoctrine": false,
+    "promotion": false,
+    "runtimeAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "crownStatus": "STOP"
   }
 }
