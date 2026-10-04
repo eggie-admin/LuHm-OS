@@ -35,7 +35,10 @@
     "doctrine/termResolutionV1.json",
     "doctrine/chatLikeTermFoldV1.json",
     "doctrine/chatProgressStreamV1.json",
-    "doctrine/agentLoadingSpriteManifestV1.json"
+    "doctrine/agentLoadingSpriteManifestV1.json",
+    "doctrine/humanCenteredIntentRouterV2.json",
+    "doctrine/chatActivityPresentationV1.json",
+    "doctrine/codingRoleplayDirectorV2.json"
   ],
   "alwaysLoadedCore": {
     "sourceTruth": "doctrine/currentSourceTruthV3.json",
@@ -50,7 +53,8 @@
     "enterpriseOrientation": "doctrine/enterpriseOrientationBridgeV1.json",
     "campaignLaunchKit": "doctrine/campaignLaunchKitV1.json",
     "agentSystemDeployment": "doctrine/agentSystemDeploymentV1.json",
-    "likeTermFold": "doctrine/chatLikeTermFoldV1.json"
+    "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
+    "humanCenteredIntentRouter": "doctrine/humanCenteredIntentRouterV2.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -106,7 +110,11 @@
     "hiddenAsyncExecution": false,
     "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
     "groupRepeatedOperationsBeforeExecution": true,
-    "vendorFanoutPerItem": false
+    "vendorFanoutPerItem": false,
+    "activityPresentation": "doctrine/chatActivityPresentationV1.json",
+    "codingRoleplayDirector": "doctrine/codingRoleplayDirectorV2.json",
+    "operationTitan7ChatTrigger": "doctrine/operationTitan7ChatTriggerV2.json",
+    "professorOldMagicStudy": "doctrine/professorOldMagicStudyMeshV2.json"
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
