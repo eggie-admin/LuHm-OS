@@ -1,29 +1,39 @@
-# Google AI Edge Gallery prompt pack
+# Google AI Edge Gallery prompt pack — PARKED ADAPTER
 
-Use the **local** reference sheet and private clips on the device. Do not upload the raw media into this public repository.
+Status: **UNCONFIGURED_EVIDENCE_PENDING**
 
-## 1. Ask Image: canon extraction
+This file is a future adapter pack only. It must not be read as proof that Google AI Edge Gallery is installed correctly, linked to LuHm, authorized, or usable for production.
 
-> Treat every visible character in this reference as an adult. Extract only observable visual continuity for the red-haired oni woman and Big Daddy. Return compact JSON with: hair, horns, glasses, jewelry, outfit palette, recurring motifs, tattoos, body proportions at a nonsexual production level, camera mood, lighting, environment, and any details that must not drift between shots. Do not invent biography.
+The active Daddy's Princess workflow is provider-neutral and can proceed with GitHub manifests + local editing/FFmpeg. When Edge Gallery is eventually proven, these prompts can be used as optional task cards.
 
-## 2. Prompt Lab: shot card generator
+## Setup proof required before activation
 
-> Build a 150-second vertical short titled "Daddy's Princess Gets Her Date." Tone: affectionate goth-anime family comedy, neon workshop, warm not creepy. Output 14 beat cards. For each card return: seconds, visual action, framing, one caption under 9 words, optional sound cue, transition, and continuity warnings. First 20 seconds need rapid pattern changes. Middle may breathe. Final 6 seconds are locked branding: "PIRATE DADDIES FILM" and "Remember... All Daddies Love You."
+Record all of:
+1. exact device/app version
+2. exact local model/feature
+3. permissions actually granted
+4. exact LuHm integration route, if any
+5. one successful bounded test task
+6. result screenshot/receipt
+7. explicit statement that the receipt proves only that feature
 
-## 3. AI Chat: doom-scroll pacing audit
+Until then:
 
-> Audit this edit manifest for short-form attention pacing. Flag any stretch longer than 5 seconds without a meaningful visual, caption, framing, or emotional change. Do not recommend random flashing. Preserve emotional readability and accessibility. Return only timestamp + problem + smallest fix.
+`edgeGallery = UNCONFIGURED_EVIDENCE_PENDING`
 
-## 4. AI Chat: canon continuity audit
+## Future task cards
 
-> Compare each planned shot with the local reference sheet. Mark each shot CANON, DRIFT, or UNKNOWN. Unknown stays UNKNOWN. Never silently invent missing clothing, tattoo, horn, hair, or prop details.
+### Canon extraction
+> Extract only observable visual continuity from the supplied private reference. Return compact JSON for hair, horns, jewelry, wardrobe palette, recurring motifs, lighting, environment and explicit UNKNOWN fields. Do not invent biography.
 
-## 5. Audio Scribe: scratch VO
+### Shot-card planning
+> Build a 150-second vertical short titled "Daddy's Princess Gets Her Date." Return beat cards with seconds, action, framing, caption under 9 words, sound cue, transition and continuity warnings.
 
-Record scratch narration in chunks under the app's supported audio limit, transcribe each chunk, then run:
+### Pacing audit
+> Flag any stretch longer than 5 seconds without a meaningful visual, caption, framing or emotional change. Preserve readability and accessibility. Return timestamp + problem + smallest fix.
 
-> Tighten this transcript for vertical video captions. Keep the speaker's voice. Maximum 8 words per caption card. Preserve jokes. Remove filler only when it improves pace.
+### Continuity audit
+> Compare each planned shot with the private reference. Mark CANON, DRIFT or UNKNOWN. UNKNOWN stays UNKNOWN.
 
-## 6. Caption alternatives
-
-> Give three alternate caption lines for this beat: one sweet, one dry, one absurd. Maximum 8 words each. No hashtags inside the video.
+### Scratch transcript tightening
+> Tighten scratch narration for vertical captions. Maximum 8 words per caption card. Preserve jokes and speaker voice.
