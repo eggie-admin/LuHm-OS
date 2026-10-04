@@ -1,4 +1,4 @@
-name: Doctrine Lane · 100-pass audit
+name: Doctrine Lane · 100-pass + 200-pass hard audit
 on:
   pull_request:
     paths:
@@ -8,6 +8,7 @@ on:
       - '.github/copilot-instructions.md'
       - '.github/workflows/**'
       - 'tools/everlastingCovenantAudit.py'
+      - 'tools/hardSystemAudit200.py'
       - 'host/**'
       - 'assets/agent-loading/**'
   workflow_dispatch:
@@ -44,7 +45,12 @@ jobs:
           python3 -m json.tool doctrine/everlastingCovenantV1.json >/dev/null
           python3 -m json.tool doctrine/luhmAiControlPlaneV1.json >/dev/null
           python3 -m json.tool doctrine/projectChatCanonV1.json >/dev/null
-          python3 -m json.tool doctrine/SOURCE_OF_TRUTH.json >/dev/null
+          python3 -m json.tool doctrine/currentSourceTruthV3.json >/dev/null
+          python3 -m json.tool doctrine/camelHumpDoctrineLawV1.json >/dev/null
+          python3 -m json.tool doctrine/currentFormatLawV1.json >/dev/null
+          python3 -m json.tool doctrine/aiManifestFormatV1.json >/dev/null
+          python3 -m json.tool doctrine/python3ControlPlaneLawV1.json >/dev/null
+          python3 -m json.tool doctrine/urdEvidenceAdjudicationV1.json >/dev/null
           python3 -m json.tool doctrine/proposedWorkingLaneV1.json >/dev/null
           python3 -m json.tool doctrine/termResolutionV1.json >/dev/null
           python3 -m json.tool doctrine/chatProgressStreamV1.json >/dev/null
@@ -61,8 +67,19 @@ jobs:
           python3 -m json.tool doctrine/yumeArtEducationV1.json >/dev/null
           python3 -m py_compile tools/yumeArtEducationAudit.py
           python3 -m json.tool doctrine/unifiedCampaignWorkbenchV1.json >/dev/null
-          python3 -m json.tool agents/yumeArtOni/templates/bigBrotherArtTaskV1.template.json >/dev/null
-          python3 -m py_compile tools/yumeGodotAssetPrep.py tools/yumeWorkbenchAudit.py
+          python3 -m json.tool agents/yumeArtOni/templates/big-brother-art-task-v1.template.json >/dev/null
+          python3 -m json.tool doctrine/aiTaskManifestV2.template.json >/dev/null
+          python3 -m json.tool doctrine/releaseBoundaryV2.json >/dev/null
+          python3 -m json.tool doctrine/mcpEnterpriseScopeV2.json >/dev/null
+          python3 -m json.tool doctrine/openAiDeploymentV3.json >/dev/null
+          python3 -m json.tool doctrine/pluginPublicationV2.json >/dev/null
+          python3 -m json.tool doctrine/chatGptPluginMilestoneV2.json >/dev/null
+          python3 -m json.tool doctrine/androidWeb3CockpitV2.json >/dev/null
+          python3 -m json.tool doctrine/androidWeb3BridgeV2.json >/dev/null
+          python3 -m json.tool doctrine/samsungAntennaV1.json >/dev/null
+          python3 -m json.tool doctrine/chatDeploymentRoadmapV1.json >/dev/null
+          python3 -m json.tool doctrine/hardSystemAuditV1.json >/dev/null
+          python3 -m py_compile tools/yumeGodotAssetPrep.py tools/yumeWorkbenchAudit.py tools/hardSystemAudit200.py host/mcp/luhmMcpServer.py
           python3 -m json.tool host/harness/agent-loading-sprites.json >/dev/null
           python3 -m py_compile host/mcp/luhmHarness.py
           node --check host/harness/cockpit.js
@@ -79,3 +96,5 @@ jobs:
         run: python3 tools/yumeWorkbenchAudit.py
       - name: Prove Yume dual-track art education
         run: python3 tools/yumeArtEducationAudit.py
+      - name: Run 200-pass hard system audit
+        run: python3 tools/hardSystemAudit200.py
