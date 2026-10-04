@@ -26,85 +26,173 @@
   "firstWaveUnits": [
     {
       "id": "proofOfWork",
-      "audience": ["github","website","email"],
+      "audience": [
+        "github",
+        "website",
+        "email"
+      ],
       "claim": "LuHm OS uses exact-source CI and deterministic audits to keep conversational AI development evidence-bound.",
-      "requiredEvidence": ["exactHead","workflowRun","auditReceipt"],
+      "requiredEvidence": [
+        "exactHead",
+        "workflowRun",
+        "auditReceipt"
+      ],
       "publicationState": "draftOnly"
     },
     {
       "id": "phoneFirstEngineering",
-      "audience": ["instagram","tiktok","threads","youtube","email"],
+      "audience": [
+        "instagram",
+        "tiktok",
+        "threads",
+        "youtube",
+        "email"
+      ],
       "claim": "A substantial portion of LuHm OS has been directed from a Samsung phone through conversational AI workflows.",
-      "requiredEvidence": ["ProfessorDirectStatement","repoTimeline"],
+      "requiredEvidence": [
+        "ProfessorDirectStatement",
+        "repoTimeline"
+      ],
       "publicationState": "draftOnly"
     },
     {
       "id": "noCodeAiCaseStudy",
-      "audience": ["github","website","youtube","email"],
+      "audience": [
+        "github",
+        "website",
+        "youtube",
+        "email"
+      ],
       "claim": "LuHm OS demonstrates a conversational no-code and low-code operator layer over conventional code, policy, CI, and receipts.",
-      "requiredEvidence": ["repoArchitecture","controlPlane","workflowReceipts"],
+      "requiredEvidence": [
+        "repoArchitecture",
+        "controlPlane",
+        "workflowReceipts"
+      ],
       "publicationState": "draftOnly"
     },
     {
       "id": "agentTrainingProof",
-      "audience": ["github","website","email"],
+      "audience": [
+        "github",
+        "website",
+        "email"
+      ],
       "claim": "LuHm OS has a bounded active agent and service roster with explicit roles, authority, stop conditions, and deterministic evidence gates.",
-      "requiredEvidence": ["agentTrainingSeal","controlPlane","exactHeadCi"],
+      "requiredEvidence": [
+        "agentTrainingSeal",
+        "controlPlane",
+        "exactHeadCi"
+      ],
       "publicationState": "draftOnly"
     },
     {
       "id": "pluginMilestone",
-      "audience": ["github","website","email"],
+      "audience": [
+        "github",
+        "website",
+        "email"
+      ],
       "claim": "The ChatGPT plugin and MCP source package is source-ready while external connection and publication gates remain pending.",
-      "requiredEvidence": ["pluginPublicationAudit","chatGptPluginMilestone"],
+      "requiredEvidence": [
+        "pluginPublicationAudit",
+        "chatGptPluginMilestone"
+      ],
       "publicationState": "draftOnly"
     },
     {
       "id": "samsungFieldLab",
-      "audience": ["github","website","samsungOutreach"],
+      "audience": [
+        "github",
+        "website",
+        "samsungOutreach"
+      ],
       "claim": "The Samsung S24 FE field architecture is defined around Termux, Termux X11, and Shizuku, while current physical integration proof remains pending.",
-      "requiredEvidence": ["samsungAntennaContract","physicalReceiptPending"],
+      "requiredEvidence": [
+        "samsungAntennaContract",
+        "physicalReceiptPending"
+      ],
       "publicationState": "draftOnly"
     },
     {
       "id": "patronageAsk",
-      "audience": ["email"],
+      "audience": [
+        "email"
+      ],
       "claim": "The Professor seeks practical patronage, access, credits, testing resources, and useful escalation rather than titles or recognition.",
-      "requiredEvidence": ["patronageCampaignContract"],
+      "requiredEvidence": [
+        "patronageCampaignContract"
+      ],
       "publicationState": "draftOnly"
     }
   ],
   "channelPackage": {
     "github": {
-      "deliverables": ["projectNarrative","proofIndex","currentMilestoneCard","developerContributionStory"],
+      "deliverables": [
+        "projectNarrative",
+        "proofIndex",
+        "currentMilestoneCard",
+        "developerContributionStory"
+      ],
       "publicationAuthority": false
     },
     "website": {
-      "deliverables": ["projectOverview","proofTimeline","patronagePage","creativeDevlog"],
+      "deliverables": [
+        "projectOverview",
+        "proofTimeline",
+        "patronagePage",
+        "creativeDevlog"
+      ],
       "publicationAuthority": false
     },
     "instagram": {
-      "deliverables": ["carouselDraft","artDevlogDraft","proofCardDraft"],
+      "deliverables": [
+        "carouselDraft",
+        "artDevlogDraft",
+        "proofCardDraft"
+      ],
       "publicationAuthority": false
     },
     "tiktok": {
-      "deliverables": ["shortDevStoryScript","phoneFirstEngineeringScript","artPipelineScript"],
+      "deliverables": [
+        "shortDevStoryScript",
+        "phoneFirstEngineeringScript",
+        "artPipelineScript"
+      ],
       "publicationAuthority": false
     },
     "threads": {
-      "deliverables": ["shortEngineeringThread","patronagePosition","buildReceiptStory"],
+      "deliverables": [
+        "shortEngineeringThread",
+        "patronagePosition",
+        "buildReceiptStory"
+      ],
       "publicationAuthority": false
     },
     "youtube": {
-      "deliverables": ["orientationTrailerOutline","buildProofDevlogOutline","phoneFirstEngineeringOutline"],
+      "deliverables": [
+        "orientationTrailerOutline",
+        "buildProofDevlogOutline",
+        "phoneFirstEngineeringOutline"
+      ],
       "publicationAuthority": false
     },
     "patreon": {
-      "deliverables": ["developmentJournalDraft","supportPitchDraft","behindTheScenesOutline"],
+      "deliverables": [
+        "developmentJournalDraft",
+        "supportPitchDraft",
+        "behindTheScenesOutline"
+      ],
       "publicationAuthority": false
     },
     "email": {
-      "deliverables": ["openAiDraft","githubDraft","samsungDraft","googleDraft","fDroidDraft"],
+      "deliverables": [
+        "openAiDraft",
+        "githubDraft",
+        "samsungDraft",
+        "googleDraft",
+        "fDroidDraft"
+      ],
       "sendAuthority": false
     }
   },
@@ -131,5 +219,21 @@
   "automaticSend": false,
   "automaticPublication": false,
   "automaticCrossPost": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "artifacts": {
+    "evidenceLedger": "campaign/evidence-ledger.json",
+    "masterWave": "campaign/first-campaign-wave.md",
+    "githubNarrative": "campaign/github-project-narrative.md",
+    "socialWave": "campaign/social-wave-one.md",
+    "patronageBrief": "campaign/patronage-brief.md",
+    "bigBrotherReviewManifest": "campaign/manifests/big-brother-campaign-review-001.json"
+  },
+  "providerReview": {
+    "status": "STAGED_NOT_EXECUTED",
+    "providerId": "googleAi",
+    "providerNickname": "bigBrother",
+    "manifest": "campaign/manifests/big-brother-campaign-review-001.json",
+    "executionReceipt": "PENDING",
+    "outputAuthority": "candidateEvidenceOnly"
+  }
 }
