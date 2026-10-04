@@ -4,6 +4,7 @@ IFS=$'\n\t'
 umask 077
 
 EXPECTED_MAIN="f22681b905bd5bc0cf84da5e3d1e865a855b5fc2"
+EXPECTED_BASE="cb0f53c9dfc8aedf6852a77e60f41634f8d18bab"
 CANDIDATE_BRANCH="candidate/coding-roleplay-v3-termux-20260930"
 REPO_URL="https://github.com/eggie-admin/LuHm-OS.git"
 LUHM_HOME="${HOME}/.luhm"
@@ -11,14 +12,22 @@ CANDIDATE="${LUHM_HOME}/candidates/roleplay-v3"
 RECEIPTS="${LUHM_HOME}/receipts"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 TMP="${TMPDIR:-$PREFIX/tmp}/luhm-roleplay-v3-${STAMP}"
+SECURE_EXPERIMENT="${LUHM_SECURE_FOLDER_EXPERIMENT:-0}"
 
 die() { printf 'RED: %s\n' "$*" >&2; exit 1; }
 note() { printf ':: %s\n' "$*"; }
 
-[[ "${PREFIX:-}" == *"com.termux"* ]] || die "This installer is for Termux."
+[[ "${PREFIX:-}" == *"termux"* || "${PREFIX:-}" == *"/com.termux/"* ]] || die "This installer is for Termux."
+
 UID_NOW="$(id -u)"
 ANDROID_USER_ID=$(( UID_NOW / 100000 ))
-[[ "$ANDROID_USER_ID" -eq 0 ]] || die "STOP_SECONDARY_PROFILE_OR_SECURE_CONTAINER androidUserId=$ANDROID_USER_ID; run ordinary Termux outside Secure Folder."
+PROFILE_MODE="PRIMARY_USER"
+
+if [[ "$ANDROID_USER_ID" -ne 0 ]]; then
+  PROFILE_MODE="SECONDARY_OR_CONTAINER_USER"
+  [[ "$SECURE_EXPERIMENT" == "1" ]] || die "Secondary/container Android user detected (userId=$ANDROID_USER_ID). Re-run with LUHM_SECURE_FOLDER_EXPERIMENT=1 only when you intentionally want the Secure Folder experimental lane."
+  note "Secure Folder experimental lane enabled for androidUserId=$ANDROID_USER_ID."
+fi
 
 for cmd in git python jq; do
   if ! command -v "$cmd" >/dev/null 2>&1; then
@@ -42,10 +51,7 @@ REMOTE_MAIN="$(git -C "$TMP/repo" rev-parse refs/remotes/origin/main)"
 
 CANDIDATE_REF="refs/remotes/origin/${CANDIDATE_BRANCH}"
 CANDIDATE_SHA="$(git -C "$TMP/repo" rev-parse "$CANDIDATE_REF")"
-MERGE_BASE="$(git -C "$TMP/repo" merge-base refs/remotes/origin/main "$CANDIDATE_REF")"
-[[ "$MERGE_BASE" == "$EXPECTED_MAIN" ]] || die "Candidate is not based on expected canonical main."
-AHEAD="$(git -C "$TMP/repo" rev-list --count refs/remotes/origin/main.."$CANDIDATE_REF")"
-[[ "$AHEAD" -ge 1 ]] || die "Candidate contains no mutation commit."
+[[ "$CANDIDATE_SHA" == "$EXPECTED_BASE" ]] || die "Roleplay candidate moved: expected $EXPECTED_BASE got $CANDIDATE_SHA. Refuse unreviewed drift."
 
 git -C "$TMP/repo" checkout --detach "$CANDIDATE_SHA"
 
@@ -87,25 +93,46 @@ chmod 700 "$PREFIX/bin/luhm"
 note "Running candidate audit"
 python "$CANDIDATE/tools/luhmRoleplayAudit.py" | tee "$RECEIPTS/roleplay-audit-${STAMP}.json"
 
-python - "$CANDIDATE" "$RECEIPTS/install-${STAMP}.json" "$CANDIDATE_SHA" "$EXPECTED_MAIN" <<'PY'
-import hashlib, json, os, pathlib, sys
-candidate=pathlib.Path(sys.argv[1]); out=pathlib.Path(sys.argv[2]); candidate_sha=sys.argv[3]; base=sys.argv[4]
+SHIZUKU_RECEIPT="NOT_RUN"
+PROBE="${LUHM_SECURE_FOLDER_PROBE:-}"
+if [[ "$SECURE_EXPERIMENT" == "1" && -n "$PROBE" && -x "$PROBE" ]]; then
+  SHIZUKU_RECEIPT="$RECEIPTS/secure-folder-shizuku-probe-${STAMP}.json"
+  "$PROBE" "$SHIZUKU_RECEIPT"
+fi
+
+python - "$CANDIDATE" "$RECEIPTS/install-${STAMP}.json" "$CANDIDATE_SHA" "$EXPECTED_MAIN" "$PROFILE_MODE" "$ANDROID_USER_ID" "$SECURE_EXPERIMENT" "$SHIZUKU_RECEIPT" <<'PY'
+import hashlib, json, pathlib, sys
+candidate=pathlib.Path(sys.argv[1])
+out=pathlib.Path(sys.argv[2])
+candidate_sha=sys.argv[3]
+base=sys.argv[4]
+profile_mode=sys.argv[5]
+android_user_id=int(sys.argv[6])
+secure_experiment=sys.argv[7] == "1"
+shizuku_receipt=sys.argv[8]
 files=[]
 for p in sorted(x for x in candidate.rglob("*") if x.is_file()):
     files.append({"path":str(p.relative_to(candidate)),"sha256":hashlib.sha256(p.read_bytes()).hexdigest()})
 receipt={
-  "schema":"luhm-os.termux-roleplay-install-receipt.v1",
+  "schema":"luhm-os.termux-roleplay-install-receipt.v2",
   "status":"GREEN_LOCAL_CANDIDATE_INSTALLED",
-  "androidUserId":os.getuid()//100000,
+  "androidUserId":android_user_id,
+  "profileMode":profile_mode,
+  "secureFolderExperimentalMode":secure_experiment,
+  "secureFolderConfirmed":False,
   "canonicalBase":base,
   "candidateSha":candidate_sha,
   "candidate":"roleplay-v3",
   "files":files,
+  "shizukuProbeReceipt":shizuku_receipt,
   "authority":"Professor",
   "mutationAuthority":False,
   "releaseAuthority":False,
   "publicationAuthority":False,
   "productionSigningAuthority":False,
+  "rootClaim":False,
+  "knoxBypassClaim":False,
+  "crossProfileAccessClaim":False,
   "autonomousDaemonClaim":False,
   "crownStatus":"STOP"
 }
@@ -114,5 +141,5 @@ print(out)
 PY
 
 rm -rf "$TMP"
-note "Installed skill/logic candidate outside Secure Folder. No push/merge/sign/publish/public exposure performed."
+note "Installed skill/logic candidate in $PROFILE_MODE. No push/merge/sign/publish/public exposure performed."
 note "Try: luhm status ; luhm roster ; luhm route read --truth-sensitive ; luhm doctor ; luhm roleplay"
