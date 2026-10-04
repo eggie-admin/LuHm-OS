@@ -69,7 +69,13 @@
     "currentMilestone": "letsMakeMoneyForCorporations",
     "campaignDraft": "campaign/first-campaign-wave.md",
     "automaticSend": false,
-    "automaticPublication": false
+    "automaticPublication": false,
+    "evidenceLedger": "campaign/evidence-ledger.json",
+    "githubNarrative": "campaign/github-project-narrative.md",
+    "socialWave": "campaign/social-wave-one.md",
+    "patronageBrief": "campaign/patronage-brief.md",
+    "bigBrotherReviewManifest": "campaign/manifests/big-brother-campaign-review-001.json",
+    "bigBrotherReviewExecution": "PENDING"
   },
   "legacyArtifacts": {
     "priorSourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
