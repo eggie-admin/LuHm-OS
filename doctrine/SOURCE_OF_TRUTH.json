@@ -319,5 +319,23 @@
     "currentWorkingLane": "PROPOSED_ONLY",
     "promotion": false,
     "crownStatus": "STOP"
+  },
+  "providerEconomy": {
+    "contract": "doctrine/providerEconomyV1.json",
+    "status": "PROPOSED_CANON_LAW",
+    "headquarters": "luhmOs",
+    "routingOrder": [
+      "deterministicLocal",
+      "existingReceiptsAndCachedEvidence",
+      "bigBrother",
+      "openDaddyWhenMateriallyJustified"
+    ],
+    "bigBrotherRole": "highCapacityExternalWorker",
+    "openDaddyRole": "scarcePremiumCapability",
+    "vendorEntitlementDefinesArchitecture": false,
+    "professorFinalAuthority": true,
+    "currentWorkingLane": "PROPOSED_ONLY",
+    "promotion": false,
+    "crownStatus": "STOP"
   }
 }
