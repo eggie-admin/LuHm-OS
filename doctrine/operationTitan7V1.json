@@ -52,9 +52,9 @@
         "final form"
       ],
       "order": 3,
-      "auditPasses": "structural",
+      "auditPasses": 100,
       "commitWindowMax": 50,
-      "behavior": "reconcile or replace current structure from evidence after the 50-commit ceiling; never excavate beyond 50 commits by default"
+      "behavior": "100 explicit read-only doctrine audit passes across the verified source scope after the bounded 50-commit history review; no mutation or Crown authority"
     }
   },
   "invocationLaw": {
