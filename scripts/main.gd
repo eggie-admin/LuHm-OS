@@ -103,8 +103,14 @@ func _on_android_web3_ready(version: String) -> void:
 
 func _on_android_oni_requested(name: String) -> void:
     print("ANDROID_WEB3_ONI_REQUESTED name=", name)
+    if android_web3_plugin != null:
+        android_web3_plugin.hideCockpit()
     if game_hud != null:
-        game_hud.show_dialogue("Lum: %s request received from the cockpit. Routing only; no worker started." % name)
+        game_hud.show_world()
+        game_hud.show_oni_request(name)
+    if player_controller != null:
+        player_controller.set_world_active(true)
+    _update_interaction_target()
 
 func _on_android_web3_error(reason: String) -> void:
     push_error("ANDROID_WEB3_COCKPIT_ERROR: " + reason)

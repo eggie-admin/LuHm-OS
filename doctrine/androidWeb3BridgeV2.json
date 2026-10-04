@@ -14,7 +14,7 @@
     },
     {
       "type": "oniRequested",
-      "effect": "validate canonical Oni name, emit oni_requested(name) to Godot; routing only, execution does not start"
+      "effect": "validate canonical Oni name, hide WebView overlay, emit oni_requested(name) to Godot, show bounded summon acknowledgement; routing only, execution does not start"
     },
     {
       "type": "worldRequested",

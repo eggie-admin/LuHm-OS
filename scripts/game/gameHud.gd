@@ -17,6 +17,10 @@ var world_root: Control
 var dialogue_label: Label
 var status_label: Label
 var quest_label: Label
+var summon_card: PanelContainer
+var summon_name_label: Label
+var summon_state_label: Label
+var _summon_timer: Timer
 var _touch_axis := Vector2.ZERO
 var _scroll: ScrollContainer
 var _panel: VBoxContainer
@@ -115,6 +119,27 @@ func _build_world_hud() -> void:
     dialogue_label.add_theme_constant_override("outline_size", 8)
     dialogue_label.visible = false
     world_root.add_child(dialogue_label)
+
+    summon_card = PanelContainer.new()
+    summon_card.name = "OniSummonCard"
+    summon_card.visible = false
+    summon_card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    world_root.add_child(summon_card)
+    var summon_stack := VBoxContainer.new()
+    summon_stack.add_theme_constant_override("separation", 6)
+    summon_card.add_child(summon_stack)
+    summon_name_label = _label("ONI REQUEST", 24)
+    summon_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+    summon_stack.add_child(summon_name_label)
+    summon_state_label = _label("ROUTING ONLY · NO WORKER STARTED", 16)
+    summon_state_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+    summon_stack.add_child(summon_state_label)
+    _summon_timer = Timer.new()
+    _summon_timer.one_shot = true
+    _summon_timer.wait_time = 3.2
+    _summon_timer.timeout.connect(func(): summon_card.visible = false)
+    add_child(_summon_timer)
+
     var glyphs := ["▲", "◀", "▼", "▶"]
     for i in range(4):
         var button := Button.new()
@@ -248,6 +273,9 @@ func apply_layout(view_size: Vector2, safe: Rect2) -> void:
     quest_label.size = Vector2(area.size.x, 72)
     dialogue_label.position = Vector2(area.position.x, area.end.y - 320)
     dialogue_label.size = Vector2(area.size.x, 128)
+    var summon_width := minf(420.0, area.size.x)
+    summon_card.position = Vector2(area.position.x + maxf((area.size.x - summon_width) * 0.5, 0.0), area.end.y - 452.0)
+    summon_card.size = Vector2(summon_width, 104)
     var world_width := minf(150.0, maxf((area.size.x - 24.0) / 4.0, 92.0))
     for i in range(_world_buttons.size()):
         _world_buttons[i].position = area.position + Vector2(i * (world_width + 6.0), 78)
@@ -274,11 +302,24 @@ func show_backend() -> void:
     release_touch()
     backend_root.visible = true
     world_root.visible = false
+    if summon_card != null:
+        summon_card.visible = false
     clear_dialogue()
 
 func show_world() -> void:
     backend_root.visible = false
     world_root.visible = true
+
+func show_oni_request(name: String) -> void:
+    var safe_name := name.strip_edges().left(32)
+    if safe_name.is_empty():
+        safe_name = "UNKNOWN"
+    summon_name_label.text = "ONI REQUEST // " + safe_name.to_upper()
+    summon_state_label.text = "ROUTING ONLY · NO WORKER STARTED"
+    summon_card.visible = true
+    if _summon_timer != null:
+        _summon_timer.start()
+    set_status("ONI REQUEST · %s · ROUTING ONLY" % safe_name.to_upper())
 
 func show_dialogue(text: String) -> void:
     dialogue_label.text = text
