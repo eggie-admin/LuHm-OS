@@ -31,6 +31,7 @@ from starlette.responses import JSONResponse, PlainTextResponse, Response
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_TRUTH = ROOT / "doctrine" / "currentSourceTruthV3.json"
 CONTROL_PLANE = ROOT / "doctrine" / "luhmAiControlPlaneV1.json"
+AGENT_DEPLOYMENT = ROOT / "doctrine" / "agentSystemDeploymentV1.json"
 ENTERPRISE_SCOPE = ROOT / "doctrine" / "mcpEnterpriseScopeV2.json"
 ROUTER = ROOT / "tools" / "lumTaskRouter.py"
 ROUTE_KINDS = {
@@ -40,7 +41,7 @@ ROUTE_KINDS = {
 TRUTH_SCOPE_KINDS = {"patch", "build", "release"}
 
 SERVER_NAME = "luhm-os"
-SERVER_VERSION = "0.3.0-beta"
+SERVER_VERSION = "0.4.0-beta"
 DEFAULT_PUBLIC_FQDN = "mcp.eggiebagelface.art"
 LOCAL_HOST = "127.0.0.1"
 LOCAL_PORT = 8788
@@ -48,7 +49,7 @@ LOCAL_PORT = 8788
 server = MCPServer(
     SERVER_NAME,
     title="LuHm OS",
-    description="Read-only LuHm source-truth, Oni routing, proof-contract, and transport-contract tools.",
+    description="Read-only LuHm source-truth, full agent deployment roster, Oni routing, proof-contract, and transport-contract tools.",
     version=SERVER_VERSION,
     instructions=(
         "LuHm OS is evidence-gated. AI proposes; policy authorizes; CI proves; human promotes. "
@@ -134,6 +135,7 @@ def _require_explicit_scope(scope: dict[str, Any]) -> None:
 def _status_payload() -> dict[str, Any]:
     truth = _load_json(SOURCE_TRUTH)
     enterprise = _load_json(ENTERPRISE_SCOPE)
+    deployment = _deployment_payload()
     transport = enterprise.get("transport", {})
     plugin = truth.get("pluginLayer", {})
     android = truth.get("androidLayer", {})
@@ -166,6 +168,26 @@ def _roster_payload() -> dict[str, Any]:
         "roles": _skill_status(),
         "greenAuthority": False,
     }
+
+def _deployment_payload() -> dict[str, Any]:
+    deployment = _load_json(AGENT_DEPLOYMENT)
+    control = _load_json(CONTROL_PLANE)
+    required = deployment.get("requiredAgents", [])
+    roles = {role["agentId"]: role for role in _skill_status()}
+    return {
+        "schema": "luhmOs.mcpAgentDeployment.v1",
+        "status": deployment.get("status", "UNKNOWN"),
+        "registeredEverywhere": deployment.get("activationLaw", {}).get("registeredEverywhere", False),
+        "residentCore": deployment.get("residentCore", []),
+        "lazyAgents": deployment.get("globallyAvailableLazyAgents", []),
+        "requiredAgentCount": deployment.get("requiredAgentCount", 0),
+        "allRequiredPresent": all(agent_id in control.get("agents", {}) for agent_id in required),
+        "allSkillsPresent": all(roles.get(agent_id, {}).get("skillPresent", False) for agent_id in required),
+        "surfaces": deployment.get("deploymentSurfaces", {}),
+        "liveProviderDeploymentProven": False,
+        "greenAuthority": False,
+    }
+
 
 def _profile() -> str:
     return os.environ.get("LUHM_MCP_PROFILE", "local").strip().lower()
@@ -210,6 +232,10 @@ def _assert_source_contract() -> None:
         raise RuntimeError("RED_SOURCE_LAW_DRIFT")
     if not roster["roles"] or not all(role["skillPresent"] for role in roster["roles"]):
         raise RuntimeError("RED_AGENT_SKILL_MISSING")
+    if deployment.get("requiredAgentCount") != len(roster["roles"]):
+        raise RuntimeError("RED_AGENT_DEPLOYMENT_COUNT_DRIFT")
+    if deployment.get("allRequiredPresent") is not True or deployment.get("allSkillsPresent") is not True:
+        raise RuntimeError("RED_AGENT_DEPLOYMENT_ROSTER_DRIFT")
     for kind in ("records", "proof"):
         if kind not in ROUTE_KINDS:
             raise RuntimeError("RED_ROUTE_KIND_MISSING")
@@ -233,6 +259,12 @@ def luhm_status() -> dict[str, Any]:
 def luhm_agent_roster() -> dict[str, Any]:
     """List canonical Lum/Oni roles and whether each canonical SKILL.md is present."""
     return _roster_payload()
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_agent_deployment() -> dict[str, Any]:
+    """Return the canonical system-wide agent deployment registry and surface readiness."""
+    return _deployment_payload()
 
 
 @server.tool(annotations=READ_ONLY_INTERNAL)
