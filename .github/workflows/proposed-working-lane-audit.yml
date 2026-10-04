@@ -1,0 +1,21 @@
+name: Proposed Doctrine Working Lane Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/**'
+      - 'agents/**'
+      - 'tools/proposedWorkingLaneAudit.py'
+      - '.github/workflows/proposed-working-lane-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate current proposed working lane
+        run: python tools/proposedWorkingLaneAudit.py
