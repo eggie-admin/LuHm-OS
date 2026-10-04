@@ -23,6 +23,21 @@ if cab_path.is_file():
     members={m.get("id") for m in cab.get("members",[])}
     expected={"lum","urdDoctorGoddess","belldandySecretary","skuldResearch"}
     need(members==expected,f"cabinet members drift: {sorted(members)}")
+    binding=cab.get("covenantBinding",{})
+    need(binding.get("contract")=="doctrine/everlastingCovenantV1.json","covenant contract drift")
+    need((root/"doctrine/everlastingCovenantV1.json").is_file(),"missing covenant source")
+    need(set(binding.get("requiredForMembers",[]))==expected,"covenant member coverage drift")
+    for key in ("loadBeforeWork","acknowledgementRequired","evidenceRequiredForClaims","unknownRemainsUnknown"):
+        need(binding.get(key) is True,f"covenant binding missing {key}")
+    for key in ("acknowledgementGrantsAuthority","selfApproval","runtimeAcknowledgementsProven"):
+        need(binding.get(key) is False,f"covenant unsupported authority or runtime claim: {key}")
+    requiredAck={"taskId","scopeId","sourceRef","workerId","covenantRef","covenantDigest","observedAt"}
+    need(set(binding.get("acknowledgementFields",[]))==requiredAck,"covenant acknowledgement identity drift")
+    need(binding.get("missingOrMismatchedAcknowledgement")=="stop","covenant acknowledgement fails open")
+    need(bool(binding.get("truthfulRepresentation")),"missing truthful representation law")
+    need({"covenantRef","covenantDigest"}.issubset(cab.get("sharedContextPacket",[])),"covenant missing from shared context")
+    loop=cab.get("cabinetLoop",[])
+    need("verifyCovenantAcknowledgements" in loop and "goddessesReturnIndependentSpecialtyPackets" in loop and loop.index("verifyCovenantAcknowledgements") < loop.index("goddessesReturnIndependentSpecialtyPackets"),"covenant acknowledgement must precede work results")
     law=cab.get("acquaintanceLaw",{})
     for k in ("sharedCabinetContextRequired","everyMemberKnowsAllRoles","everyMemberKnowsAuthorityBoundary","everyMemberKnowsHandoffVocabulary","helpersSpeakToLum","readOnlyPeerAwareness","disagreementReturnsToLum","professorFinalAuthority"):
         need(law.get(k) is True,f"acquaintance law missing {k}")
