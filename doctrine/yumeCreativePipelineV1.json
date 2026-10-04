@@ -93,5 +93,17 @@
     "cathedralPublic_requires_publicAllowed_true",
     "sexualized_assets_require_machine_readable_adult_roster",
     "unknown_lane_or_maturity_fails_closed"
+  ],
+  "artistWorkstation": "doctrine/yumeArtistWorkstationV1.json",
+  "bigBrotherArtDesk": "doctrine/yumeBigBrotherArtDeskV1.json",
+  "godotArtToolbox": "doctrine/yumeGodotArtToolboxV1.json",
+  "githubSpellbook": "agents/yumeArtOni/GITHUB_SPELLBOOK.md",
+  "campaignWorkbench": "doctrine/unifiedCampaignWorkbenchV1.json",
+  "workbenchLaw": [
+    "local_tools_first_when_they_satisfy_the_task",
+    "remote_3d_vendor_identity_and_entitlement_require_receipt",
+    "bigBrother_assists_but_does_not_replace_yume",
+    "godot_asset_prep_is_plan_only_until_import_and_runtime_receipts",
+    "public_generative_ai_art_default_remains_forbidden"
   ]
 }
