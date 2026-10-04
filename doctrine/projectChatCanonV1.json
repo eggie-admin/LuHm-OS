@@ -185,9 +185,14 @@
     "repeatUnchangedUpdates": false
   },
   "externalIdentityEvidence": {
+    "checkedAt": "2026-10-04T02:02:56Z",
     "googleDriveConnector": "CONNECTED",
     "googleIdentityOAuthCallback": "UNVERIFIED",
-    "sentryEventDelivery": "UNVERIFIED",
-    "evidenceNote": "Google Drive connector confirmed live; repository manual describes Google identity sentry as target architecture and states architecture is not evidence."
+    "sentryMonitoringEvents": "UNVERIFIED",
+    "evidenceRefs": [
+      "main:manual/LUHM_OS_PROJECT_HYDRA_FIELD_MANUAL.md@b19f97a4fb512d9f8ffb7cae334fb7e20dbe969a",
+      "Render:srv-db0nh5e0tbcc738kmapg:recent-log-query-no-OAuth-or-Sentry-matches"
+    ],
+    "interpretation": "The Drive connector is authenticated. The app's Google sign-in callback and Sentry monitoring delivery have not been proved."
   }
 }
