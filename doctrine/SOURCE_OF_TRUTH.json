@@ -252,13 +252,18 @@
     "template": "agents/yumeArtOni/templates/filmProductionBible.md",
     "auditor": "tools/yumeCreativePipelineAudit.py",
     "workflow": ".github/workflows/yume-creative-pipeline-audit.yml",
-    "status": "CANDIDATE_20_PASS_AUDIT_PENDING",
+    "status": "GREEN_20_PASS_CROWN_APPROVED_SOURCE_DEPLOYMENT",
     "scope": "art-film-preproduction-editorial-source-contract",
     "googleAi": "UNCONFIGURED_EVIDENCE_PENDING",
     "edgeGallery": "UNCONFIGURED_EVIDENCE_PENDING",
     "huggingFace": "CANDIDATE_PROVIDER_UNPROVEN",
     "publicationAuthority": false,
     "providerDeploymentProven": false,
-    "crownStatus": "STOP"
+    "crownStatus": "CROWN_APPROVED_SOURCE_PROMOTION",
+    "lastProvenPreCrownHead": "cd1c2c8e5d693fb0e85593fd22d829990149550b",
+    "lastProvenPreCrownWorkflowRun": 37165200574,
+    "professorApproval": true,
+    "approvalScope": "yumeCreativePipeline source milestone promotion to main",
+    "finalFacebookPublicationApproved": false
   }
 }
