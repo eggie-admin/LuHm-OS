@@ -120,5 +120,52 @@
       "slot": 8,
       "active": false
     }
+  },
+  "deploymentVisuals": {
+    "schema": "luhmOs.oniDeploymentVisuals.v1",
+    "purpose": "Approved Oni artwork is the visual marker for Oni deployment lanes; generic colored status emoji are not deployment identity.",
+    "protectedSource": true,
+    "semanticBinding": "UNBOUND_UNTIL_DOCTRINE_ASSIGNMENT",
+    "assets": [
+      {
+        "assetId": "brownOni",
+        "sourceLabel": "brownOniFace",
+        "roleBinding": null
+      },
+      {
+        "assetId": "redOni",
+        "sourceLabel": "redOniFaceHeartEyes",
+        "roleBinding": null
+      },
+      {
+        "assetId": "grayOni",
+        "sourceLabel": "grayOniFace",
+        "roleBinding": null
+      },
+      {
+        "assetId": "purpleOni",
+        "sourceLabel": "purpleOniFace",
+        "roleBinding": null
+      },
+      {
+        "assetId": "activeRedOni",
+        "sourceLabel": "redOniFullBodyClub",
+        "roleBinding": "deploymentActivity"
+      }
+    ],
+    "states": [
+      "IDLE",
+      "WORKING",
+      "VERIFY",
+      "PASS",
+      "BLOCKED"
+    ],
+    "presentationLaw": {
+      "deploymentIdentity": "approvedOniArtwork",
+      "textualStateRequired": true,
+      "unicodeTrafficLightIdentity": false,
+      "mobileCodeBlocks": "ASCII_STATE_ONLY"
+    },
+    "authorityEffect": "none"
   }
 }
