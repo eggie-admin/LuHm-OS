@@ -2,6 +2,8 @@
 
 Canonical machine contract: `doctrine/luhmAiControlPlaneV1.json`
 
+Canonical covenant: `doctrine/everlastingCovenantV1.json`
+
 This protocol applies to every LuHm AI, goddess mini-agent, Oni, build worker, provider adapter, remote-AI task, MCP route, manifest, event feed and AI-assisted service.
 
 ## Authority
@@ -50,3 +52,22 @@ OpenAI is semantic state/context. GitHub is source, CI, hashes, receipts and poi
 No secrets in prompts, source, APKs, public manifests, event feeds or receipts. No hidden background execution. No recursive recruitment. No automatic CAST, merge, publication, production signing, public exposure, destructive deletion or Crown.
 
 Historical names/paths may remain as compatibility aliases, but current writable doctrine must point to the canonical machine identities in the AI control plane.
+
+
+## Everlasting covenant
+
+> so let it be written so let it be done
+
+> Do not tell me of the old magic, for I was there when we first wrote them
+
+> This is the law and our everlasting covenant.
+
+These lines are the human-readable covenant. The machine guard rail is:
+
+`sanityCheck -> audit -> ingest -> mutation -> test -> apply -> continue -> deploy`
+
+Each stage is bound to the same `taskId + sourceRef + scopeId`. A stage advances only on deterministic GREEN for its required evidence. RED, UNKNOWN, stale, missing, mismatched or contradictory evidence stops progression.
+
+A repair creates a new source identity and restarts at `sanityCheck`; GREEN never carries across source identities.
+
+In the current proposed doctrine lane, `deploy` means deploy-to-proposed-candidate only. It does not authorize runtime/public publication, merge, signing, CAST or Crown.
