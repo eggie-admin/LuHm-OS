@@ -281,5 +281,25 @@
     "historicalReceiptsRemainHistorical": true,
     "professorPromotionRequired": true,
     "crownStatus": "STOP"
+  },
+  "everlastingCovenant": {
+    "contract": "doctrine/everlastingCovenantV1.json",
+    "status": "PROPOSED_CANON_LAW",
+    "scope": "all chat AI agent workflow and AI logic",
+    "guardRail": [
+      "sanityCheck",
+      "audit",
+      "ingest",
+      "mutation",
+      "test",
+      "apply",
+      "continue",
+      "deploy"
+    ],
+    "currentWorkingLane": "PROPOSED_ONLY",
+    "promotion": false,
+    "publicationAuthority": false,
+    "releaseAuthority": false,
+    "crownStatus": "STOP"
   }
 }
