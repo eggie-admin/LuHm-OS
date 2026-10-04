@@ -213,6 +213,7 @@ func _update_interaction_target() -> void:
     var expected_event := quest_director.current_event()
     var closest: Area3D = null
     var closest_distance := INF
+    var objective_target: Area3D = null
     var candidates: Array = []
     var raw_points = active_world.call("get_interaction_points")
     if raw_points is Array:
@@ -224,6 +225,8 @@ func _update_interaction_target() -> void:
         if node == null:
             continue
         var event_name := str(node.call("get_event_name")) if node.has_method("get_event_name") else ""
+        if event_name == expected_event:
+            objective_target = node
         var relevant := event_name == expected_event or event_name.begins_with("travel:") or event_name.begins_with("oni:")
         if node.has_method("set_active"):
             node.call("set_active", relevant)
@@ -234,6 +237,8 @@ func _update_interaction_target() -> void:
             closest_distance = distance
             closest = node
 
+    if active_oni_companion != null and is_instance_valid(active_oni_companion) and active_oni_companion.has_method("set_guide_target"):
+        active_oni_companion.call("set_guide_target", objective_target)
     nearest_interactable = closest if closest_distance <= INTERACTION_RANGE else null
     if nearest_interactable != null and nearest_interactable.has_method("get_prompt"):
         game_hud.set_interaction_prompt(str(nearest_interactable.call("get_prompt")), true)
