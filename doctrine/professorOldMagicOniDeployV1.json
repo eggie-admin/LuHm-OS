@@ -1,0 +1,25 @@
+{
+  "manifestId": "LUHM_ONI_STUDY_DEPLOY_V1",
+  "status": "GREEN_CANDIDATE_SOURCE_PROPOSAL",
+  "deployMeaning": "load bounded study skills for the current task; not persistent provider-side deployment",
+  "load": [
+    "LUM_STUDY_ROUTER",
+    "URD_STUDY_BUDDY",
+    "BELLDANDY_STUDY_BUDDY",
+    "SKULD_STUDY_BUDDY"
+  ],
+  "route": {
+    "factualChallenge": "URD_STUDY_BUDDY",
+    "stateContinuity": "BELLDANDY_STUDY_BUDDY",
+    "techGenealogy": "SKULD_STUDY_BUDDY",
+    "synthesis": "LUM_STUDY_ROUTER"
+  },
+  "forbidden": [
+    "MERGE_WITHOUT_CROWN",
+    "PUBLISH",
+    "SIGN",
+    "SELF_CROWN",
+    "CLAIM_ASYNC_BACKGROUND_EXECUTION"
+  ],
+  "crownStatus": "STOP"
+}
