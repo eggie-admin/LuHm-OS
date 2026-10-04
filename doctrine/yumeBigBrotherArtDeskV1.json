@@ -52,7 +52,7 @@
     "bigBrotherMayGrantCrown": false
   },
   "taskPacket": {
-    "template": "agents/yumeArtOni/templates/bigBrotherArtTaskV1.template.json",
+    "template": "agents/yumeArtOni/templates/big-brother-art-task-v1.template.json",
     "required": [
       "taskId",
       "sourceRef",
@@ -65,7 +65,8 @@
       "requiredOutputSchema",
       "budget",
       "stopConditions"
-    ]
+    ],
+    "filenameStyle": "kebabCase"
   },
   "reconciliation": {
     "returnsTo": "lum",
