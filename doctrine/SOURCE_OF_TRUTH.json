@@ -262,14 +262,15 @@
     "crownStatus": "STOP",
     "lastProvenPreCrownHead": "cd1c2c8e5d693fb0e85593fd22d829990149550b",
     "lastProvenPreCrownWorkflowRun": 37165200574,
-    "professorApproval": true,
-    "approvalScope": "yumeCreativePipeline source milestone promotion to main",
+    "professorApproval": false,
     "finalFacebookPublicationApproved": false,
     "workingLane": "PROPOSED_ONLY",
     "currentProfessorPromotion": false,
     "historicalPromotionReceipt": {
       "mergeCommit": "4cc921b485b0c1c0a4e63746024c7d0069cffce3",
-      "note": "prior scoped source promotion retained as historical receipt only"
+      "note": "prior scoped source promotion retained as historical receipt only",
+      "professorApproved": true,
+      "scope": "prior scoped source promotion to main"
     }
   },
   "workingDoctrineLane": {
