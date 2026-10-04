@@ -287,6 +287,8 @@ func _interact() -> void:
     if event_name == "clearStaticWisp" and player_controller.has_method("pulse_effect"):
         player_controller.call("pulse_effect", Color("ff3c9d"))
     var result: Dictionary = quest_director.apply_event(event_name)
+    if bool(result.get("accepted", false)) and active_oni_companion != null and is_instance_valid(active_oni_companion) and active_oni_companion.has_method("celebrate"):
+        active_oni_companion.call("celebrate")
     var message := str(result.get("message", ""))
     if not message.is_empty():
         game_hud.show_dialogue(message)
