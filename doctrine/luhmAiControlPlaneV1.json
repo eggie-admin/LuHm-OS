@@ -17,7 +17,9 @@
     "urdEvidenceAdjudication": "doctrine/urdEvidenceAdjudicationV1.json",
     "currentFormatLaw": "doctrine/currentFormatLawV1.json",
     "manifestLaw": "doctrine/aiManifestFormatV1.json",
-    "controlPlaneLanguage": "doctrine/python3ControlPlaneLawV1.json"
+    "controlPlaneLanguage": "doctrine/python3ControlPlaneLawV1.json",
+    "vendorAiDebug": "doctrine/vendorAiDebugV1.json",
+    "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -185,6 +187,16 @@
       "providerOutputAuthority": "candidateOnly",
       "publicGeneratedArtDefault": "forbidden",
       "crownAuthority": false
+    },
+    "vendorDebug": {
+      "contract": "doctrine/vendorAiDebugV1.json",
+      "displayOnlyUppercase": true,
+      "machineNaming": "lowerCamelHump",
+      "providerNativeDefaultRequiresReceipt": true,
+      "observedExecutionRequiresReceipt": true,
+      "mayInferHiddenChainOfThought": false,
+      "mayGrantGreen": false,
+      "mayGrantCrown": false
     }
   },
   "authorityClasses": [
