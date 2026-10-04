@@ -28,7 +28,7 @@
     "recursiveRecruitment": false,
     "singleMutableSourceLane": true,
     "urdOwnsDeterministicEvidenceAdjudication": true,
-    "drNaoActive": false
+    "legacyAdjudicatorActive": false
   },
   "openAi": {
     "apiSurface": "ResponsesApi",
@@ -77,5 +77,10 @@
     "agentMaySelfPromote"
   ],
   "legacySource": "doctrine/openAiLumOniDeployment-20260927.json",
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "legacyAgentMigration": {
+    "legacyIdentity": "drNao",
+    "ingestedInto": "urdDoctorGoddess",
+    "active": false
+  }
 }
