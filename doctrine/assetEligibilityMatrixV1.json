@@ -1,0 +1,48 @@
+{
+  "schema": "luhmOs.assetEligibilityMatrix.v1",
+  "status": "PROPOSED_CONTRACT",
+  "authority": "Professor",
+  "contentLaneContract": "doctrine/contentLaneDoctrineV1.json",
+  "matrix": {
+    "privateMutation": {
+      "wardrobe": ["experimental", "matureAdult", "alternate", "roughPrototype"],
+      "dialogue": ["clean", "strongLanguage", "matureHumor"],
+      "visualTone": ["general", "dark", "matureAdult"],
+      "marketing": "forbidden",
+      "distribution": "privateOnly"
+    },
+    "betaAfterDark": {
+      "wardrobe": ["approvedGeneral", "approvedMatureAdult"],
+      "dialogue": ["clean", "strongLanguage", "matureHumor"],
+      "visualTone": ["general", "dark", "matureAdultBounded"],
+      "marketing": "testerOnly",
+      "distribution": "inviteOnly"
+    },
+    "cathedralPublic": {
+      "wardrobe": ["approvedPublicSafe"],
+      "dialogue": ["clean"],
+      "visualTone": ["general", "familySafe"],
+      "marketing": "publicAllowedAfterSeparatePromotion",
+      "distribution": "publicCandidateOnlyUntilReleaseGate"
+    }
+  },
+  "crossLaneRules": {
+    "sharedCanonIdentityRequired": true,
+    "laneMetadataRequired": true,
+    "publicAllowedBooleanRequired": true,
+    "provenanceRequired": true,
+    "hashRequired": true,
+    "privateReferenceLeakageForbidden": true,
+    "adultLockRequiredForMatureSexualizedAssets": true,
+    "providerCannotPromoteAsset": true,
+    "aiCannotPromoteAsset": true,
+    "professorReviewRequiredForVisibilityIncrease": true
+  },
+  "fallbackLaw": {
+    "privateAdultOrMatureAssetInPublicBuild": "replaceWithApprovedPublicSafeFallbackOrFailClosed",
+    "missingLaneMetadata": "failClosed",
+    "unknownMaturity": "failClosed",
+    "unknownAdultStatusForSexualizedAsset": "failClosed"
+  },
+  "crownStatus": "STOP"
+}
