@@ -16,6 +16,7 @@ required=[
     "scripts/game/lumCoffeeHouseScene.gd",
     "scripts/game/cathedralWorld.gd",
     "scripts/game/oniSummonBeacon.gd",
+    "scripts/game/oniEchoCompanion.gd",
 ]
 missing=[p for p in required if not (root/p).is_file()]
 errors=[]
@@ -51,6 +52,7 @@ if not missing:
     interaction_visual=(root/"scripts/game/interactable.gd").read_text()
     player=(root/"scripts/game/playerController.gd").read_text()
     oni_beacon=(root/"scripts/game/oniSummonBeacon.gd").read_text()
+    oni_companion=(root/"scripts/game/oniEchoCompanion.gd").read_text()
     source_truth=json.loads((root/"doctrine/currentSourceTruthV3.json").read_text())
     game_layer=source_truth.get("gameLayer",{})
     if game_layer.get("contract")!="doctrine/gameplayVerticalSliceV1.json": errors.append("current source truth gameLayer contract drift")
@@ -60,7 +62,7 @@ if not missing:
     if game_layer.get("crownStatus")!="CROWNED_SOURCE_MILESTONE": errors.append("current source truth gameLayer crown drift")
     if game_layer.get("installBoundary")!="PARKED": errors.append("current source truth install boundary must remain parked")
     if "Titan7MilestoneScript" in main or 'add_child(titan7_milestone)' in main: errors.append("stale Titan7 milestone overlay still active")
-    for token in ["QuestDirectorScript","FIRST_NIGHT_QUEST_PATH","_update_interaction_target","interact_requested",'begins_with("travel:")',"set_fast_travel_enabled(false)","set_fast_travel_enabled(true)",'event_name == "clearStaticWisp"',"pulse_effect","OniSummonBeaconScript","_spawn_oni_beacon(name)"]:
+    for token in ["QuestDirectorScript","FIRST_NIGHT_QUEST_PATH","_update_interaction_target","interact_requested",'begins_with("travel:")',"set_fast_travel_enabled(false)","set_fast_travel_enabled(true)",'event_name == "clearStaticWisp"',"pulse_effect","OniSummonBeaconScript","_spawn_oni_beacon(name)","OniEchoCompanionScript","_spawn_oni_companion(oni_name)"]:
         if token not in main: errors.append(f"main missing {token}")
     for token in ["signal interact_requested","set_interaction_prompt","set_quest","set_fast_travel_enabled","OniSummonCard","show_oni_request","ROUTING ONLY · NO WORKER STARTED"]:
         if token not in hud: errors.append(f"HUD missing {token}")
@@ -78,6 +80,12 @@ if not missing:
         if token not in main: errors.append(f"Oni beacon interaction missing {token}")
     if 'return "TOUCH " + oni_name.to_upper() + " ECHO"' not in oni_beacon:
         errors.append("Oni beacon interaction prompt missing")
+    for token in ["extends Node3D","OniEchoCompanionVisual","_lifetime := 8.0","target.global_position","global_position.lerp","queue_free()"]:
+        if token not in oni_companion: errors.append(f"Oni companion missing {token}")
+    if "agent-roster-v1.png" in oni_companion:
+        errors.append("Oni companion may not repurpose loading-only roster sprites")
+    if "Presence only; still no worker started." not in main:
+        errors.append("Oni companion authority disclaimer missing")
     travel_tokens = {
         "scripts/game/neonWorld.gd": ["travel:lumCoffeeHouse","travel:cathedral"],
         "scripts/game/lumCoffeeHouseScene.gd": ["travel:neonRiverwalk","travel:cathedral"],
