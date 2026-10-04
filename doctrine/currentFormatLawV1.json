@@ -22,7 +22,15 @@
     "nonPythonControlPlaneCode": "legacyArtifact",
     "platformAdapterException": {
       "allowed": true,
-      "languages": ["gdscript","kotlin","javascript","html","css","shell","gradle"],
+      "languages": [
+        "gdscript",
+        "kotlin",
+        "javascript",
+        "html",
+        "css",
+        "shell",
+        "gradle"
+      ],
       "law": "platform adapters may remain current only when required by Godot Android Web UI or build transport and may not own doctrine AI authority or source truth"
     }
   },
@@ -32,5 +40,10 @@
     "mayReadAsEvidence": true,
     "mayOwnCurrentAuthority": false
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "specializedContracts": {
+    "doctrineNaming": "doctrine/camelHumpDoctrineLawV1.json",
+    "aiManifestFormat": "doctrine/aiManifestFormatV1.json",
+    "python3ControlPlane": "doctrine/python3ControlPlaneLawV1.json"
+  }
 }
