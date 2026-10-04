@@ -5,9 +5,13 @@ signal toy_action_requested(action: String)
 signal move_axis_changed(axis: Vector2)
 signal camera_delta_requested(delta: Vector2)
 signal quit_requested
+signal avatar_tune_requested(key: String, value: float)
+signal avatar_reset_requested
+signal avatar_inspect_requested
 
 const WINDOW_MODES := ["bubble", "compact", "panel", "fullscreen", "hidden"]
 const TOY_ACTIONS := ["pet_lum", "oni_pop", "crown_pulse"]
+const AVATAR_SLIDERS := ["height", "head", "shoulders", "torso", "arms", "legs", "hips", "frame"]
 var _plugin = null
 
 func _ready() -> void:
@@ -75,6 +79,14 @@ func _on_bridge_message(raw: String) -> void:
             var mode := String(payload.get("mode", ""))
             if mode in WINDOW_MODES:
                 set_mode(mode)
+        "avatar.tune":
+            var key := String(payload.get("key", ""))
+            if key in AVATAR_SLIDERS:
+                avatar_tune_requested.emit(key, clampf(float(payload.get("value", 0.5)), 0.0, 1.0))
+        "avatar.reset":
+            avatar_reset_requested.emit()
+        "avatar.inspect":
+            avatar_inspect_requested.emit()
         "app.quit":
             quit_requested.emit()
         "chat.send":

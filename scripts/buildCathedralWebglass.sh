@@ -6,8 +6,8 @@ cd "$ROOT"
 TMP="${RUNNER_TEMP:-/tmp}"
 SOURCE_SHA="${SOURCE_SHA:-${GITHUB_SHA:-local}}"
 GODOT_TEMPLATE_ID="4.7.2.stable"
-APK="build/android/luhmos-cathedral-webglass-1.0.24.apk"
-PCK="build/android/luhmos-cathedral-webglass-1.0.24.pck"
+APK="build/android/luhmos-cathedral-atelier-1.0.25.apk"
+PCK="build/android/luhmos-cathedral-atelier-1.0.25.pck"
 
 SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
 yes | "$SDKMANAGER" --licenses >/dev/null || true
@@ -27,8 +27,8 @@ unzip -q "$TMP/templates.tpz" -d "$TMP/tpl"
 cp -a "$TMP/tpl/templates/." "$TEMPLATE_DIR/"
 printf '[gd_resource type="EditorSettings" format=3]\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_HOME" "$JAVA_HOME" > "$HOME/.config/godot/editor_settings-4.tres"
 
-KEYSTORE="$TMP/luhm-cathedral-webglass-debug.keystore"
-keytool -genkeypair -keystore "$KEYSTORE" -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname 'CN=LuHm Cathedral WebGlass Candidate,O=LuHm OS,C=US'
+KEYSTORE="$TMP/luhm-cathedral-atelier-debug.keystore"
+keytool -genkeypair -keystore "$KEYSTORE" -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname 'CN=LuHm Cathedral Oni Atelier Candidate,O=LuHm OS,C=US'
 chmod 600 "$KEYSTORE"
 export GODOT_ANDROID_KEYSTORE_DEBUG_PATH="$KEYSTORE"
 export GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey
@@ -58,7 +58,10 @@ cp "$BASE" assets/lum/luhm.glb
 cp "$RUN" assets/lum/luhmRunning.glb
 
 python3 -m json.tool doctrine/cathedralWebglassFinal-20260926.json >/dev/null
+python3 -m json.tool doctrine/oniAtelierBodyForge-20260926.json >/dev/null
 python3 scripts/auditCathedralWebglass.py
+python3 tests/testCandidateGate.py
+python3 tools/candidateGate.py
 python3 tools/communityAssetAudit.py
 python3 tools/stageCommunityAssets.py
 python3 - <<'PY'
@@ -86,6 +89,7 @@ test -s "$ASSETS/vendor/jquery/jquery.min.js"
 test -s "$ASSETS/vendor/jquery-ui/jquery-ui.min.js"
 test -s "$ASSETS/vendor/bootstrap/bootstrap.bundle.min.js"
 test -s "$ASSETS/vendor/vue/vue.global.prod.js"
+test -s "$ASSETS/jquery/luhm.atelier.js"
 
 ANDROID_SOURCE="$(find "$TEMPLATE_DIR" -type f -name 'android_source.zip' -print -quit)"
 test -n "$ANDROID_SOURCE"
@@ -102,6 +106,7 @@ test -s addons/kai_webview/bin/kaiwebview-debug.aar
 
 "$GODOT" --headless --editor --path . --quit
 "$GODOT" --headless --path . --script tests/communityAssetSmoke.gd
+"$GODOT" --headless --path . --script tests/characterCreatorSmoke.gd
 python3 tools/runGodotSmoke.py "$GODOT" runtimeSmoke
 python3 tools/runGodotSmoke.py "$GODOT" lumRigV2Phase1Smoke
 
@@ -110,6 +115,7 @@ mkdir -p build/android
 "$GODOT" --headless --path . --export-pack 'Android Proposed' "$PCK"
 test -s "$APK" && test -s "$PCK"
 "$GODOT" --headless --main-pack "$PCK" --script res://tests/communityAssetSmoke.gd
+"$GODOT" --headless --main-pack "$PCK" --script res://tests/characterCreatorSmoke.gd
 
 BT="$ANDROID_HOME/build-tools/36.1.0"
 "$BT/aapt" dump badging "$APK" | tee build/android/badging.txt
@@ -118,19 +124,21 @@ BT="$ANDROID_HOME/build-tools/36.1.0"
 "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/android/zipalign.txt
 unzip -l "$APK" | tee build/android/ziplist.txt
 sha256sum "$APK" | tee build/android/sha256.txt
-grep -q "package: name='art.eggiebagelface.luhmos.cathedraltoy.webglass'" build/android/badging.txt
-grep -q "versionCode='124'" build/android/badging.txt
+grep -q "package: name='art.eggiebagelface.luhmos.cathedraltoy.atelier'" build/android/badging.txt
+grep -q "versionCode='125'" build/android/badging.txt
 grep -q 'org.godotengine.plugin.v2.KAIWebView' build/android/manifest.txt
 grep -q 'assets/cockpit/index.html' build/android/ziplist.txt
+grep -q 'assets/cockpit/jquery/luhm.atelier.js' build/android/ziplist.txt
 grep -q 'assets/cockpit/vendor/jquery/jquery.min.js' build/android/ziplist.txt
 grep -q 'assets/cockpit/vendor/vue/vue.global.prod.js' build/android/ziplist.txt
 ! grep -R -nE 'addJavascriptInterface|allowUniversalAccessFromFileURLs|allowFileAccessFromFileURLs|MIXED_CONTENT_ALWAYS_ALLOW' native/kaiwebview
-! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' native/kaiwebview cockpit scripts/platform
+! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' native/kaiwebview cockpit scripts/platform scripts/game
 
 cp build/community-assets/receipt.json build/android/community-assets-receipt.json
 cp assets/community/selected-assets.json build/android/community-assets-selection.json
+cp doctrine/oniAtelierBodyForge-20260926.json build/android/oni-atelier-doctrine.json
 printf '%s\n' "$SOURCE_SHA" > build/android/source-commit.txt
-printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=CATHEDRAL_WEBGLASS_CI_PROOF\npackage=art.eggiebagelface.luhmos.cathedraltoy.webglass\nversion=1.0.24-cathedral.webglass.1\n' "$SOURCE_SHA" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/cathedral-webglass-receipt.txt
+printf 'source_sha=%s\nworkflow=%s\nrun_id=%s\nstatus=CATHEDRAL_ONI_ATELIER_CI_PROOF\npackage=art.eggiebagelface.luhmos.cathedraltoy.atelier\nversion=1.0.25-cathedral.atelier.1\n' "$SOURCE_SHA" "${GITHUB_WORKFLOW:-local}" "${GITHUB_RUN_ID:-local}" > build/android/cathedral-atelier-receipt.txt
 cp cockpit/package-lock.json build/android/package-lock.json
 sha256sum addons/kai_webview/bin/kaiwebview-debug.aar cockpit/package-lock.json >> build/android/source-components-sha256.txt
 rm -f "$PCK"
@@ -139,4 +147,4 @@ rm -rf build/installPortal
 python3 tools/stageInstallPortal.py --apk "$APK" --out build/installPortal --commit "$SOURCE_SHA"
 (cd build/installPortal && sha256sum -c SHA256SUMS.txt)
 
-echo 'CATHEDRAL WEBGLASS APK BUILD GREEN'
+echo 'CATHEDRAL ONI ATELIER APK BUILD GREEN'

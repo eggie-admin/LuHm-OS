@@ -91,6 +91,29 @@
       </div>
     </section>
 
+    <section class="floatingPanel atelierPanel" id="atelierPanel" data-luhm-panel hidden>
+      <div class="panelTitle"><span>Oni Atelier // BodyForge</span><button type="button" data-toggle-panel="atelierPanel">×</button></div>
+      <div class="panelBody">
+        <div class="atelierBanner">
+          <div><b>RUNTIME BODY LAB</b><small>non-destructive skeleton proportions</small></div>
+          <button type="button" data-avatar-inspect>INSPECT</button>
+        </div>
+        <div class="atelierCapability" data-atelier-capability>RIG ?/? · BONES ? · MORPHS ?</div>
+        <div class="atelierSliders" data-atelier-sliders></div>
+        <div class="atelierPresets">
+          <button type="button" data-atelier-preset="default">DEFAULT</button>
+          <button type="button" data-atelier-preset="tallOni">TALL ONI</button>
+          <button type="button" data-atelier-preset="pocketOni">POCKET ONI</button>
+          <button type="button" data-atelier-preset="heroic">HEROIC</button>
+        </div>
+        <div class="atelierActions">
+          <button type="button" data-atelier-random>🎲 RANDOM</button>
+          <button type="button" data-atelier-reset>RESET</button>
+        </div>
+        <p class="atelierNote">Current donor has no body morph targets, so Phase 1 uses a bounded Godot SkeletonModifier3D proportion rig. Future blend-shape donors can plug into the same panel.</p>
+      </div>
+    </section>
+
     <section hidden data-luhm-site-view="cathedral"></section>
     <section hidden data-luhm-site-view="agents"></section>
     <section hidden data-luhm-site-view="cms"></section>
@@ -101,6 +124,7 @@
       <button data-toggle-panel="chatPanel">CHAT</button>
       <button data-toggle-panel="agentPanel">ONI</button>
       <button data-toggle-panel="cmsPanel">CMS</button>
+      <button data-toggle-panel="atelierPanel">ATELIER</button>
       <button data-native-world>WORLD</button>
     </nav>
   </main>
@@ -111,6 +135,7 @@
   <script src="./vendor/vue/vue.global.prod.js"></script>
   <script src="./jquery/luhm.deck.js"></script>
   <script src="./jquery/luhm.site.js"></script>
+  <script src="./jquery/luhm.atelier.js"></script>
   <script src="./cms/vueCms.js"></script>
   <script src="./app.js"></script>
 </body>

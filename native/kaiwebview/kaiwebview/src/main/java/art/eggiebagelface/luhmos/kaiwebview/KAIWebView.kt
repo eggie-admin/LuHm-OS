@@ -199,7 +199,8 @@ class KAIWebView(godot: Godot) : GodotPlugin(godot) {
                 emitSignal(BRIDGE_SIGNAL.name, raw)
             }
             "app.background" -> activity?.moveTaskToBack(true)
-            "chat.send", "panel.set", "model.select", "cms.select", "world.show", "toy.action", "input.axis", "camera.delta", "app.quit" ->
+            "chat.send", "panel.set", "model.select", "cms.select", "world.show", "toy.action",
+            "input.axis", "camera.delta", "app.quit", "avatar.tune", "avatar.reset", "avatar.inspect" ->
                 emitSignal(BRIDGE_SIGNAL.name, raw)
             else -> Unit
         }
