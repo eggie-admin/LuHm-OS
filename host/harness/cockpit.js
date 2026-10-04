@@ -295,7 +295,7 @@ async function boot() {
   const [cfg, pets, spriteManifest] = await Promise.all([
     fetch("/harness/config.json", { cache: "no-store" }).then(r => r.json()),
     fetch("/harness/pets.json", { cache: "no-store" }).then(r => r.json()),
-    fetch("/harness/agent-loading-sprites.json", { cache: "no-store" }).then(r => r.json())
+    fetch("/harness/assets/agent-loading-sprites.json", { cache: "no-store" }).then(r => r.json())
   ]);
   state.loadingManifest = spriteManifest;
   setLoadingAgent("belldandySecretary", "Loading the verified agent roster");
@@ -332,6 +332,6 @@ async function boot() {
 
 boot().catch(error => {
   byId("edgeBadge").textContent = "HARNESS ERROR";
-  setLoadingAgent("drNao", "Startup could not be verified");
+  setLoadingAgent("urdDoctorGoddess", "Startup could not be verified");
   console.error(error);
 });
