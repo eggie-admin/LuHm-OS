@@ -82,15 +82,15 @@ def _skill_status() -> list[dict[str, Any]]:
     for agent_id, role in agents.items():
         if not isinstance(role, dict):
             continue
-        skill_path = str(role.get("skillPath", ""))
-        skill = ROOT / skill_path if skill_path else None
+        skill_rel = role.get("skillPath", "")
+        skill = ROOT / skill_rel if skill_rel else None
         out.append(
             {
                 "agentId": agent_id,
                 "displayName": role.get("displayName", agent_id),
                 "kind": role.get("kind", "UNKNOWN"),
                 "defaultAuthority": role.get("defaultAuthority", "UNKNOWN"),
-                "skillPath": skill_path or "UNKNOWN",
+                "skillPath": skill_rel or "UNKNOWN",
                 "skillPresent": bool(skill and skill.is_file()),
             }
         )
@@ -134,16 +134,17 @@ def _require_explicit_scope(scope: dict[str, Any]) -> None:
 
 def _status_payload() -> dict[str, Any]:
     truth = _load_json(SOURCE_TRUTH)
-    deploy = _load_json(OPENAI_DEPLOYMENT)
     enterprise = _load_json(ENTERPRISE_SCOPE)
     transport = enterprise.get("transport", {})
+    plugin = truth.get("pluginLayer", {})
+    android = truth.get("androidLayer", {})
     return {
-        "schema": "luhmOs.mcpStatus.v2",
+        "schema": "luhmOs.mcpStatus.v3",
         "sourceLaw": truth.get("sourceLaw", "UNKNOWN"),
         "sourceTruthStatus": truth.get("status", "UNKNOWN"),
-        "workingDoctrineLane": truth.get("workingDoctrineLane", {}),
-        "runtimeContracts": truth.get("runtimeContracts", {}),
-        "openAiDeploymentStatus": deploy.get("status", "UNKNOWN"),
+        "canonicalRepository": truth.get("canonicalRepository", "UNKNOWN"),
+        "pluginStatus": plugin.get("status", "UNKNOWN"),
+        "androidPhysicalProof": android.get("physicalSamsungProof", "UNKNOWN"),
         "mcpTransport": {
             "productionFqdn": transport.get("productionFqdn", "UNKNOWN"),
             "statelessHttp": bool(transport.get("statelessHttp", False)),
@@ -158,12 +159,12 @@ def _status_payload() -> dict[str, Any]:
 def _roster_payload() -> dict[str, Any]:
     control = _load_json(CONTROL_PLANE)
     return {
-        "schema": "luhmOs.mcpRoster.v2",
+        "schema": "luhmOs.mcpRoster.v3",
         "boss": control.get("boss", "UNKNOWN"),
         "humanAuthority": control.get("authority", "UNKNOWN"),
-        "maxParallelSupportWorkers": control.get("maxParallelSupportWorkers", 3),
+        "maxParallelSupportWorkers": control.get("invariants", {}).get("maxParallelSupportWorkers", "UNKNOWN"),
+        "helperRecruitment": control.get("invariants", {}).get("helperRecruitment", "UNKNOWN"),
         "roles": _skill_status(),
-        "legacyAgentMigrations": control.get("legacyAgentMigrations", {}),
         "greenAuthority": False,
     }
 
