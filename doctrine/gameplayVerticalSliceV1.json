@@ -32,5 +32,10 @@
   "installBoundary": "PARKED",
   "workingLane": "PROPOSED_ONLY",
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "runtimeLaw": {
+    "staleMilestoneOverlayAllowed": false,
+    "currentSourceTruthHudRequired": true,
+    "gameplayMayAdvanceWithoutDeviceInstall": true
+  }
 }
