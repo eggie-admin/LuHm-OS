@@ -136,6 +136,10 @@ require("addJavascriptInterface" not in kotlin, "addJavascriptInterface is forbi
 require("loadUrl(START_URL)" in kotlin, "wrapper must load only the packaged start URL")
 require('return !allowed' in kotlin, "navigation must fail closed outside the local origin")
 require('403' in kotlin and '"Blocked"' in kotlin, "blocked network response missing")
+oni_handler = kotlin.split('"oni_requested" -> {', 1)[1].split('"cockpit_ready" -> {', 1)[0] if '"oni_requested" -> {' in kotlin and '"cockpit_ready" -> {' in kotlin else ""
+require("name !in CANONICAL_ONI" in oni_handler, "Oni bridge must validate canonical name before transition")
+require("hideCockpitInternal()" in oni_handler, "validated Oni request must reveal Godot by hiding cockpit")
+require("emitSignal(ONI_REQUESTED.name, name)" in oni_handler, "validated Oni request signal missing")
 
 # Plugin build and v2 registration.
 require('id("com.android.library") version "8.13.2" apply false' in gradle_root,
@@ -195,6 +199,8 @@ require(allowed_js == ["cockpitReady", "oniRequested", "worldRequested"],
         "JavaScript-to-native bridge types drifted")
 require("routing only" in bridge.get("javascriptToNative", [])[1].get("effect", ""),
         "Oni request bridge must remain routing-only")
+require("hide WebView overlay" in bridge.get("javascriptToNative", [])[1].get("effect", ""),
+        "Oni request bridge must document visible Godot transition")
 
 # Forge CAST gating: build-producing workflows must be manual only.
 require(forge.get("operationLaw") == "PROTECT != INGEST != MUTATE != CAST != JANITOR",
