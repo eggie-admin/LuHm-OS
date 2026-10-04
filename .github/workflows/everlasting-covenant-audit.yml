@@ -52,6 +52,9 @@ jobs:
           python3 -m json.tool doctrine/agentTrainingSealV1.json >/dev/null
           python3 -m json.tool doctrine/bigBrotherCovenantV1.json >/dev/null
           python3 -m json.tool doctrine/providerEconomyV1.json >/dev/null
+          python3 -m json.tool doctrine/contentLaneDoctrineV1.json >/dev/null
+          python3 -m json.tool doctrine/assetEligibilityMatrixV1.json >/dev/null
+          python3 -m json.tool doctrine/patronageCampaignV1.json >/dev/null
           python3 -m json.tool host/harness/agent-loading-sprites.json >/dev/null
           python3 -m py_compile host/mcp/luhmHarness.py
           node --check host/harness/cockpit.js
@@ -60,3 +63,7 @@ jobs:
         run: python3 tools/everlastingCovenantAudit.py
       - name: Prove agent training contract
         run: python3 tools/agentTrainingAudit.py
+      - name: Prove content lane boundaries
+        run: python3 tools/contentLaneAudit.py
+      - name: Prove patronage draft boundaries
+        run: python3 tools/patronageCampaignAudit.py
