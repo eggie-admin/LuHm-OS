@@ -138,9 +138,16 @@ func _spawn_oni_companion(name: String) -> void:
         active_oni_companion.queue_free()
     var companion = OniEchoCompanionScript.new()
     companion.configure(name, player_controller)
+    companion.objective_reached.connect(_on_oni_objective_reached)
     active_world.add_child(companion)
     companion.global_position = player_controller.global_position + Vector3(0.8, 1.3, 0.0)
     active_oni_companion = companion
+
+func _on_oni_objective_reached(name: String) -> void:
+    if player_controller != null and player_controller.has_method("pulse_effect"):
+        player_controller.call("pulse_effect", Color("73ef9f"))
+    if game_hud != null:
+        game_hud.show_dialogue("Lum: %s echo has the objective in reach. Your move, Professor." % name)
 
 func _on_android_web3_error(reason: String) -> void:
     push_error("ANDROID_WEB3_COCKPIT_ERROR: " + reason)
