@@ -32,15 +32,28 @@ The approved front-end direction is sealed under `frontEnd/`:
 
 `frontEnd/` is a browser prototype and design contract. It does not replace the canonical native Godot playable runtime yet, and it contains no privileged backend authority.
 
-## Android identity
+## Android candidate: one Samsung build
 
-- app: `LuHm OS Clean Play`
-- package: `art.eggiebagelface.luhmos.cleanplay`
-- version: `1.0.11-cleanplay.1`
-- versionCode: `111`
-- signer: disposable debug signer in CI only
+The proposed build contract is `doctrine/androidCandidate.json`. One workflow,
+`android-testing-build.yml`, exports the same ARM64 APK for S24 FE and SM-X400.
+Both pinned Lum models are ingested before compilation; the browser front end remains a prototype.
 
-The package is side-by-side with the frozen golden beta and cannot overwrite it.
+- package: `art.eggiebagelface.luhmos.testing`
+- version: `1.0.15-samsungamber.1` / code `115`
+- minimum Android API 24; target API 36
+- exact source checkout, fail-closed runtime scan, negative controls, import and rig smoke checks
+- APK signature, metadata, permission, ZIP and ELF alignment gates
+- signer: disposable debug signer; **not a stable update channel**
+
+Amber means CI compiled and verified the candidate, while physical-device proof,
+16KB runtime testing, persistent signing custody and update continuity remain pending.
+The workflow does not register an app with Google or claim Play Protect acceptance.
+Compare installed certificate before installing; a different debug signer cannot update
+an existing installation. Never automatically uninstall or erase app data.
+Golden beta stays untouched. Main promotion remains separate.
+
+Prior audit: `doctrine/universalSamsungAuditSeal-20260925.json`.
+The cleanplay workflow is retired on this proposal branch to avoid a second payload.
 
 ## Repository migration
 
