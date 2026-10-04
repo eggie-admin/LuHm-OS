@@ -684,5 +684,33 @@
   },
   "legacyFormats": {
     "remoteAiManifestV1": "legacyArtifact"
+  },
+  "deploymentRegistry": {
+    "contract": "doctrine/agentSystemDeploymentV1.json",
+    "rosterSource": "agents",
+    "registeredAgentCount": 15,
+    "residentCore": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "globallyAvailableLazyAgents": [
+      "kiri",
+      "momo",
+      "shiori",
+      "kugi",
+      "tetsu",
+      "kaji",
+      "fumi",
+      "sumi",
+      "koe",
+      "yume",
+      "mediaAssetFactory"
+    ],
+    "machineRoutingUsesCanonicalIds": true,
+    "registeredEverywhere": true,
+    "hiddenAsyncExecution": false,
+    "providerDeploymentRequiresReceipt": true
   }
 }
