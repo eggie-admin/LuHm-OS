@@ -25,7 +25,7 @@ need(reconcile.get("status")=="PROPOSED_SOURCE_ONLY","reconciliation must remain
 need(reconcile.get("law",{}).get("mergeStaleWholeBranch") is False,"stale whole-branch merge must stay false")
 need(reconcile.get("law",{}).get("portNovelCompatibleDelta") is True,"novel compatible delta law missing")
 need(len(reconcile.get("portedOrAdapted",[]))==5,"ported/adapted PR count drift")
-need(len(reconcile.get("supersededOrHistorical",[]))==15,"superseded/historical PR count drift")
+need(len(reconcile.get("supersededOrHistorical",[]))==16,"superseded/historical PR count drift")
 need(activity.get("aggregation",{}).get("oneVisibleEventPerSemanticClass") is True,"activity aggregation missing")
 need(activity.get("aggregation",{}).get("repeatedPerTargetEvents") is False,"per-target activity spam must stay false")
 need(intent.get("likeTermFold")=="doctrine/chatLikeTermFoldV1.json","intent router not bound to like-term fold")
