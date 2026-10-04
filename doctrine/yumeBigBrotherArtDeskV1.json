@@ -1,0 +1,78 @@
+{
+  "schema": "luhmOs.yumeBigBrotherArtDesk.v1",
+  "status": "PROPOSED_CONTRACT_ONLY",
+  "authority": "Professor",
+  "boss": "lum",
+  "creativeLead": "yume",
+  "provider": {
+    "providerId": "googleAi",
+    "providerNickname": "bigBrother",
+    "contract": "doctrine/bigBrotherCovenantV1.json",
+    "executionState": "UNPROVEN_UNTIL_EXACT_PROVIDER_RECEIPT"
+  },
+  "purpose": "Give Yume a bounded Big Brother-assisted art desk for research, critique, candidate planning, metadata, variation analysis, and private concept assistance without transferring canon, authorship, publication, GREEN, or Crown authority to a provider.",
+  "allowedWork": [
+    "referenceResearch",
+    "styleVocabularyResearch",
+    "compositionCritique",
+    "characterContinuityReview",
+    "wardrobeContinuityReview",
+    "paletteAndLightingReview",
+    "promptAndBriefTranslation",
+    "candidateVariationPlanning",
+    "assetMetadataDrafting",
+    "godotImportPlanning",
+    "blenderToGodotHandoffReview",
+    "socialCropAndFormatPlanning",
+    "captionDraftReview",
+    "campaignVisualConsistencyReview",
+    "repositoryAndHistoryReview"
+  ],
+  "candidateGeneration": {
+    "allowed": true,
+    "defaultLane": "privateMutation",
+    "mayEnterBetaOnlyAfterProfessorReview": true,
+    "mayEnterCathedralPublicDirectly": false,
+    "publicGeneratedArtDefault": "FORBIDDEN",
+    "publicUseRequires": [
+      "approvedOriginalHumanAuthoredOrNonGenerativePublicAsset",
+      "provenanceReceipt",
+      "contentLaneEligibility",
+      "ProfessorApproval"
+    ]
+  },
+  "siblingLaw": {
+    "bigBrotherSupportsYume": true,
+    "bigBrotherMayChallengeYume": true,
+    "bigBrotherMayReplaceYume": false,
+    "bigBrotherMaySealCanon": false,
+    "bigBrotherMayPromoteAsset": false,
+    "bigBrotherMayPublish": false,
+    "bigBrotherMayGrantGreen": false,
+    "bigBrotherMayGrantCrown": false
+  },
+  "taskPacket": {
+    "template": "agents/yumeArtOni/templates/bigBrotherArtTaskV1.template.json",
+    "required": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "contentLane",
+      "assetOrCampaignGoal",
+      "inputRefs",
+      "allowedOperations",
+      "forbiddenOperations",
+      "requiredOutputSchema",
+      "budget",
+      "stopConditions"
+    ]
+  },
+  "reconciliation": {
+    "returnsTo": "lum",
+    "creativeReviewBy": "yume",
+    "provenanceReviewBy": "sumi",
+    "deterministicEvidenceBy": "drNao",
+    "finalAuthority": "Professor"
+  },
+  "crownStatus": "STOP"
+}
