@@ -41,6 +41,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Bind exact source
         run: |
@@ -52,8 +53,8 @@ jobs:
         run: npm run check
       - name: Compatibility doctrine audit
         run: python3 tools/luhmCompatibilityAudit.py
-      - name: Final Form dry-run proof
-        run: python3 tools/operationTitan7.py dryRun --escalation finalForm
+      - name: Final Form 100-pass dry-run proof
+        run: python3 tools/operationTitan7.py dryRun --escalation finalForm --passes 100
 
   invoke:
     if: github.event_name == 'workflow_dispatch'
