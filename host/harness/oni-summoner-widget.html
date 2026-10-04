@@ -27,12 +27,15 @@ const fallback=[
 {name:"Kaji",glyph:"J",kind:"clean-room-builder",defaultAuthority:"READ_ONLY",skillPath:"agents/buildOnis/SKILL.md"},
 {name:"Momo",glyph:"M",kind:"bounded-researcher",defaultAuthority:"READ_ONLY",skillPath:"agents/momoResearchOni/SKILL.md"},
 {name:"Shiori",glyph:"S",kind:"critic-contradiction-checker",defaultAuthority:"READ_ONLY",skillPath:"agents/shioriCriticOni/SKILL.md"},
-{name:"DrNao",glyph:"N",kind:"source-truth-adjudicator",defaultAuthority:"READ_ONLY",skillPath:"agents/doctorOni/SKILL.md"},
+{name:"DrNao",glyph:"N",kind:"deterministic-source-truth-adjudicator",defaultAuthority:"READ_ONLY",skillPath:"agents/doctorOni/SKILL.md"},
 {name:"Kugi",glyph:"G",kind:"deterministic-tool-executor",defaultAuthority:"PLAN_ONLY",skillPath:"agents/kugiToolOni/SKILL.md"},
-{name:"Fumi",glyph:"F",kind:"secretary-records-helper",defaultAuthority:"READ_ONLY",skillPath:"agents/fumiSecretaryOni/SKILL.md"},
+{name:"Fumi",glyph:"F",kind:"records-registrar-helper",defaultAuthority:"READ_ONLY",skillPath:"agents/fumiSecretaryOni/SKILL.md"},
 {name:"Sumi",glyph:"U",kind:"asset-curator",defaultAuthority:"READ_ONLY",skillPath:"agents/sumiAssetOni/SKILL.md"},
 {name:"Koe",glyph:"O",kind:"dictation-scribe",defaultAuthority:"READ_ONLY",skillPath:"agents/koeDictationOni/SKILL.md"},
-{name:"Yume",glyph:"Y",kind:"art-media-helper",defaultAuthority:"PLAN_ONLY",skillPath:"agents/yumeArtOni/SKILL.md"}
+{name:"Yume",glyph:"Y",kind:"art-media-helper",defaultAuthority:"PLAN_ONLY",skillPath:"agents/yumeArtOni/SKILL.md"},
+{name:"Urd",glyph:"R",kind:"doctor-goddess-system-diagnostician",defaultAuthority:"READ_ONLY",skillPath:"agents/urdMutationOni/SKILL.md"},
+{name:"Belldandy",glyph:"B",kind:"secretary-goddess-state-records-keeper",defaultAuthority:"READ_ONLY",skillPath:"agents/belldandyQualityOni/SKILL.md"},
+{name:"Skuld",glyph:"S",kind:"research-goddess-compatibility-scout",defaultAuthority:"READ_ONLY",skillPath:"agents/skuldResearchOni/SKILL.md"}
 ];
 const byId=id=>document.getElementById(id);let latest={};let roles=fallback;let selected="Lum";let rpcId=0;const pending=new Map();
 function safe(v,max=180){const s=String(v??"").replace(/\s+/g," ").trim();return s.length<=max?s:s.slice(0,max-1)+"…"}
