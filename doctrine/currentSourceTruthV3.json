@@ -182,11 +182,18 @@
     "contract": "doctrine/gameplayVerticalSliceV1.json",
     "quest": "game/story/firstNightQuest.json",
     "runtime": "project.godot",
-    "status": "PROPOSED_GAMEPLAY_VERTICAL_SLICE",
-    "workingLane": "PROPOSED_ONLY",
+    "status": "CANONICAL_GAMEPLAY_SOURCE",
+    "workingLane": "CANONICAL_SOURCE",
     "installBoundary": "PARKED",
     "physicalDeviceProof": "PENDING",
-    "promotion": false,
-    "crownStatus": "STOP"
+    "promotion": true,
+    "crownStatus": "CROWNED_SOURCE_MILESTONE",
+    "crownReceipt": "doctrine/gameplayVerticalSliceCrownReceiptV1.json",
+    "approvedCandidateSourceRef": "831368b087b007a00cc7e77563877ed09b9001ef",
+    "professorApproval": true,
+    "promotionScope": "gameplayVerticalSliceSourceMilestone",
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false
   }
 }
