@@ -9,12 +9,13 @@
     "sourceTruth": "doctrine/currentSourceTruthV3.json",
     "projectChatCanon": "doctrine/projectChatCanonV1.json",
     "storageTopology": "doctrine/storageTopologyV1.json",
-    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
+    "releaseBoundary": "doctrine/releaseBoundaryV2.json",
     "everlastingCovenant": "doctrine/everlastingCovenantV1.json",
     "bigBrotherCovenant": "doctrine/bigBrotherCovenantV1.json",
     "providerEconomy": "doctrine/providerEconomyV1.json",
     "namingLaw": "doctrine/camelHumpDoctrineLawV1.json",
-    "urdEvidenceAdjudication": "doctrine/urdEvidenceAdjudicationV1.json"
+    "urdEvidenceAdjudication": "doctrine/urdEvidenceAdjudicationV1.json",
+    "currentFormatLaw": "doctrine/currentFormatLawV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
