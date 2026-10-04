@@ -1,0 +1,72 @@
+{
+  "schema": "luhmOs.campaignEvidenceLedger.v1",
+  "status": "PROPOSED_DRAFT_EVIDENCE_INDEX",
+  "authority": "Professor",
+  "sourceHeadAtDraft": "2b2fe557bcd0797011988d0c287ceeb790f47f1c",
+  "claims": [
+    {
+      "claimId": "exactSourceAudits",
+      "claim": "LuHm OS uses exact-source CI and deterministic audits to prove candidate consistency.",
+      "evidence": [
+        "github:PR-134",
+        "github:Doctrine Lane 100-pass + 200-pass hard audit",
+        "github:LuHm OS Full Source Truth Audit"
+      ],
+      "state": "PROVEN_AT_REFERENCED_HEAD"
+    },
+    {
+      "claimId": "fifteenActiveAgents",
+      "claim": "Current active agent and service roster is fifteen, with legacy DrNao logic ingested into Urd.",
+      "evidence": [
+        "doctrine/luhmAiControlPlaneV1.json",
+        "doctrine/agentTrainingSealV1.json",
+        "doctrine/urdEvidenceAdjudicationV1.json"
+      ],
+      "state": "PROVEN_BY_CURRENT_CONTRACT_AND_CI"
+    },
+    {
+      "claimId": "phoneFirstEngineering",
+      "claim": "A substantial portion of LuHm OS has been directed from a Samsung phone through conversational AI workflows.",
+      "evidence": [
+        "ProfessorDirectStatement",
+        "projectChatHistory"
+      ],
+      "state": "USER_ATTESTED"
+    },
+    {
+      "claimId": "pluginSourceReady",
+      "claim": "The ChatGPT plugin and MCP package is source-ready while external connection and publication gates remain pending.",
+      "evidence": [
+        "doctrine/pluginPublicationV2.json",
+        "doctrine/chatGptPluginMilestoneV2.json",
+        "github:LuHm Plugin Publication Audit"
+      ],
+      "state": "SOURCE_READY_EXTERNAL_GATES_PENDING"
+    },
+    {
+      "claimId": "samsungAntenna",
+      "claim": "The Samsung S24 FE Termux, Termux X11, and Shizuku antenna architecture is defined, but current physical integration proof remains pending.",
+      "evidence": [
+        "doctrine/samsungAntennaV1.json"
+      ],
+      "state": "CONTRACT_PROVEN_PHYSICAL_PENDING"
+    },
+    {
+      "claimId": "patronagePosition",
+      "claim": "The campaign seeks practical patronage and access rather than titles or recognition.",
+      "evidence": [
+        "doctrine/patronageCampaignV1.json",
+        "ProfessorDirectStatement"
+      ],
+      "state": "POLICY_PROVEN"
+    }
+  ],
+  "law": {
+    "claimWithoutEvidence": "FORBIDDEN",
+    "staleExactHeadClaimMustBeRelabeled": true,
+    "userAttestationMustBeLabeled": true,
+    "pendingPhysicalProofMustRemainPending": true,
+    "providerExecutionMustNotBeInferred": true
+  },
+  "crownStatus": "STOP"
+}
