@@ -1,0 +1,38 @@
+{
+  "schema": "luhmOs.aiTaskManifest.v2",
+  "status": "CURRENT_TEMPLATE",
+  "instanceFilenameLaw": "kebab-case.json",
+  "providerId": "UNKNOWN",
+  "capabilityId": "UNKNOWN",
+  "taskId": "UNKNOWN",
+  "sourceRef": "UNKNOWN",
+  "scopeId": "UNKNOWN",
+  "inputRefs": [],
+  "requiredOutputSchema": "UNKNOWN",
+  "budget": {
+    "maxRequests": 1,
+    "maxParallel": 1,
+    "maxPasses": 1
+  },
+  "stopConditions": [
+    "scopeComplete",
+    "evidenceConflict",
+    "sourceMismatch",
+    "budgetExhausted"
+  ],
+  "authority": {
+    "mutation": false,
+    "green": false,
+    "crown": false
+  },
+  "responseRequired": [
+    "providerId",
+    "taskId",
+    "sourceRef",
+    "scopeId",
+    "responseId",
+    "outputRefs",
+    "claims",
+    "timestamp"
+  ]
+}
