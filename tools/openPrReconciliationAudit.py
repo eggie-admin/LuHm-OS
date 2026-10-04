@@ -19,7 +19,7 @@ titan=load("doctrine/operationTitan7ChatTriggerV2.json")
 roleplay=load("doctrine/codingRoleplayDirectorV2.json")
 pet=load("doctrine/characterPetPresentationV1.json")
 study=load("doctrine/professorOldMagicStudyMeshV2.json")
-deploy=load("doctrine/professorOldMagicStudyDeployV2.json")
+deploy=load("doctrine/professorOldMagicStudyDeployV2.json")\nexamReceipt=load("doctrine/professorOldMagicLumExamReceiptV1.json")
 
 need(reconcile.get("status")=="PROPOSED_SOURCE_ONLY","reconciliation must remain proposed")
 need(reconcile.get("law",{}).get("mergeStaleWholeBranch") is False,"stale whole-branch merge must stay false")
@@ -37,11 +37,11 @@ need("noTitanFleet" in titan.get("laws",[]),"Titan fleet must remain retired")
 need(roleplay.get("bubbleLaw",{}).get("bubbleCannotEstablishGreen") is True,"roleplay bubble truth boundary drift")
 need(roleplay.get("progressLaw",{}).get("repeatedLikeTermBubbles") is False,"roleplay like-term spam drift")
 need(pet.get("petSystem",{}).get("authority")=="presentationOnly","pet layer authority drift")
-need(study.get("classLibrary",{}).get("driveReceiptProven") is False,"study mesh may not claim Drive proof")
+need(study.get("classLibrary",{}).get("driveReceiptProven") is True,"study mesh Drive proof must be present after sealed exam upload")\nneed(study.get("classLibrary",{}).get("currentLearningReceipt")=="doctrine/professorOldMagicLumExamReceiptV1.json","study mesh receipt pointer drift")\nneed(examReceipt.get("status")=="SEALED_STUDY_LIBRARY_PROOF","study exam receipt is not sealed proof")\nneed(examReceipt.get("driveZipRoundTripVerified") is True,"study exam Drive ZIP round-trip not proven")\nneed(examReceipt.get("driveBase64TransportVerified") is True,"study exam Drive Base64 transport not proven")\nneed(examReceipt.get("zipSha256")=="04cdfdadf9e07a860398e8035342307586f1dd0c8e2a9cf83f321d9f4f7c2457","study exam sealed ZIP identity drift")
 need(set(deploy.get("load",[]))=={"lum","urdDoctorGoddess","belldandySecretary","skuldResearch"},"study deploy canonical agent set drift")
 need(truth.get("openPrReconciliation",{}).get("contract")=="doctrine/openPrReconciliationV2.json","source truth reconciliation pointer missing")
 need(truth.get("experienceLayer",{}).get("intentRouter")=="doctrine/humanCenteredIntentRouterV2.json","experience intent router pointer missing")
-need(truth.get("studyLayer",{}).get("driveReceiptProven") is False,"source truth study proof overclaim")
+need(truth.get("studyLayer",{}).get("driveReceiptProven") is True,"source truth missing proven study Drive receipt")\nneed(truth.get("studyLayer",{}).get("latestReceipt")=="doctrine/professorOldMagicLumExamReceiptV1.json","source truth study receipt pointer drift")\nneed(truth.get("studyLayer",{}).get("promotionScope")=="professorOldMagicStudyLibraryOnly","study promotion scope widened unexpectedly")
 
 for rel in [
   "frontEnd/jquery/luhm.codingRoleplay.js",
