@@ -1,0 +1,29 @@
+name: Daddy's Princess Media Lane Proof
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate manifest JSON
+        run: python -m json.tool media/daddys-princess-date/edit-manifest.json >/dev/null
+
+      - name: Validate renderer syntax
+        run: bash -n scripts/render-daddys-princess-date.sh
+
+      - name: Check privacy boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          if find media/daddys-princess-date -type f \( -iname '*.mp4' -o -iname '*.mov' -o -iname '*.mkv' -o -iname '*.wav' -o -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \) | grep -q .; then
+            echo "RED: raw media entered public source lane"
+            exit 1
+          fi
+          echo "GREEN: edit logic only; no raw media committed"
