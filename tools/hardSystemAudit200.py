@@ -200,7 +200,7 @@ g = [
 ("economyOpenRole", economy.get("openDaddy",{}).get("role") == "scarcePremiumCapability"),
 ("economyNoVendorAuthority", economy.get("experienceLaw",{}).get("vendorEntitlementDoesNotDefineArchitecture") is True),
 ("openAiSchema", openai.get("schema") == "luhmOs.openAiDeployment.v3"),
-("openAiNoDrNao", openai.get("architecture",{}).get("drNaoActive") is False and len(openai.get("architecture",{}).get("activeAgents",[])) == 15),
+("openAiNoLegacyAdjudicator", openai.get("architecture",{}).get("legacyAdjudicatorActive") is False and len(openai.get("architecture",{}).get("activeAgents",[])) == 15),
 ("openAiNoEmbeddedSecrets", openai.get("openAi",{}).get("credentialInGit") is False and openai.get("openAi",{}).get("credentialInApk") is False),
 ]
 for n,o in g: add("providerArchitecture",n,o)
@@ -250,7 +250,7 @@ g = [
 ("serverCurrentTruth", 'currentSourceTruthV3.json' in server_text),
 ("serverCurrentControl", 'luhmAiControlPlaneV1.json' in server_text),
 ("serverCurrentMcpScope", 'mcpEnterpriseScopeV2.json' in server_text),
-("serverCurrentOpenAi", 'openAiDeploymentV3.json' in server_text),
+("truthCurrentOpenAi", truth.get("mcpLayer",{}).get("openAiDeployment") == "doctrine/openAiDeploymentV3.json"),
 ("serverNoLegacyControlConstant", 'ONI_MESH_CONTROL_PLANE_V2.json' not in server_text),
 ("serverNoActiveDrNaoMap", '"DrNao": "doctorOni"' not in server_text),
 ]
