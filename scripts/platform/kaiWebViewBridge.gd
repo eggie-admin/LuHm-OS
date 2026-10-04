@@ -2,6 +2,9 @@ extends Node
 
 signal world_requested
 signal toy_action_requested(action: String)
+signal ui_mode_requested(mode: String)
+signal background_requested
+signal exit_requested
 
 var _plugin = null
 
@@ -23,6 +26,23 @@ func hide_cockpit() -> void:
     if _plugin != null:
         _plugin.hideCockpit()
 
+func set_cockpit_mode(mode: String) -> bool:
+    if _plugin == null:
+        return false
+    if mode not in ["full", "mini", "pet", "bubble"]:
+        return false
+    return bool(_plugin.setCockpitMode(mode))
+
+func background_app() -> bool:
+    if _plugin == null:
+        return false
+    return bool(_plugin.backgroundTask())
+
+func exit_app() -> bool:
+    if _plugin == null:
+        return false
+    return bool(_plugin.finishTask())
+
 func _on_bridge_message(raw: String) -> void:
     var parsed = JSON.parse_string(raw)
     if typeof(parsed) != TYPE_DICTIONARY:
@@ -37,6 +57,18 @@ func _on_bridge_message(raw: String) -> void:
         if action in ["pet_lum", "oni_pop", "crown_pulse"]:
             toy_action_requested.emit(action)
         return
+    if message_type == "ui.mode":
+        var mode_payload = parsed.get("payload", {})
+        var mode := String(mode_payload.get("mode", ""))
+        if mode in ["full", "mini", "pet", "bubble"]:
+            ui_mode_requested.emit(mode)
+        return
+    if message_type == "app.background":
+        background_requested.emit()
+        return
+    if message_type == "app.exit":
+        exit_requested.emit()
+        return
     if message_type == "chat.send":
         var payload = parsed.get("payload", {})
         var professor_message := String(payload.get("message", ""))
@@ -45,7 +77,7 @@ func _on_bridge_message(raw: String) -> void:
             "type": "chat.reply",
             "payload": {
                 "speaker": "Lum",
-                "message": "Crowned Cathedral bridge online. Tap Toy World when you want back into Godot. Received: " + professor_message.left(160)
+                "message": "Crowned kiosk bridge online. Bubble, pet, Winamp mini, full glass, background, or exit. Received: " + professor_message.left(160)
             }
         }
         _plugin.postToCockpit(JSON.stringify(reply))

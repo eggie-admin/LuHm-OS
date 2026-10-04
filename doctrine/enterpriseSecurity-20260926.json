@@ -1,0 +1,121 @@
+{
+  "schema": "luhm-os.enterprise-security.v1",
+  "date": "2026-09-26",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true,
+    "ai_may": ["audit", "draft", "build_assist", "verify_public_material", "verify_receipts"],
+    "ai_may_not": ["extract_live_session_tokens", "print_private_keys", "weaken_tls", "disable_selinux", "silently_install", "auto_promote"]
+  },
+  "identity": {
+    "google_live_session": {
+      "connector_session_may_be_used_by_authorized_connector": true,
+      "connector_tokens_are_opaque": true,
+      "export_connector_access_token_to_apk": false,
+      "read_browser_cookies_or_google_session_db": false,
+      "apk_auth_pattern": "Google Credential Manager for sign-in; Google AuthorizationClient for Google-account data authorization; OAuth authorization-code/PKCE where an installed-app flow is required",
+      "client_secret_in_apk": false,
+      "nonce_state_pkce_required": true,
+      "scopes": "minimum_required",
+      "refresh_token_storage": "avoid_when_possible; otherwise hardware-backed Android Keystore envelope and revocable account grant",
+      "id_token": "identity assertion only; validate issuer, audience, expiry and nonce before trust",
+      "access_token": "short-lived bearer credential; never log, commit or place in WebView DOM/localStorage"
+    }
+  },
+  "tls": {
+    "non_loopback_transport": "HTTPS_ONLY",
+    "minimum": "TLS_1_2",
+    "preferred": "TLS_1_3",
+    "trust": "platform trust store or explicitly provisioned enterprise CA",
+    "hostname_verification": true,
+    "trust_all_certificates": false,
+    "cleartext_http_non_loopback": false,
+    "certificate_pinning": "optional only with rotation and recovery plan",
+    "mtls": "preferred for private machine-to-machine administration when remote control is eventually enabled",
+    "webview": "packaged appassets origin remains network-dark unless a separately approved typed HTTPS client is added"
+  },
+  "openssl": {
+    "role": ["certificate_inspection", "CSR_generation", "fingerprint_verification", "CI_crypto_toolchain_receipt"],
+    "private_key_generation": "off-repo and non-logged",
+    "private_key_output_to_ci_artifact": false,
+    "private_key_output_to_google_drive_build_folder": false,
+    "public_certificates_and_sha256_fingerprints_may_be_recorded": true
+  },
+  "keys": {
+    "android_release_signing": "persistent external trust anchor; never in repository or pull-request code",
+    "candidate_signing": "disposable debug key allowed only for side-by-side test package",
+    "oauth_client_secret": "not applicable to native public client; never embed one",
+    "vpn_private_key": "device/managed VPN store or protected keystore; never repository",
+    "tls_private_key": "server/managed keystore only",
+    "public_keys": "safe to distribute when bound to owner, purpose, algorithm, fingerprint and rotation metadata",
+    "rotation": "document key id, creation, expiry/rotation trigger, revocation and recovery"
+  },
+  "vpn": {
+    "purpose": "optional remote administrative overlay only; loopback KAI/Ollama does not require VPN",
+    "preferred_android_owner": "platform/managed VPN profile or dedicated audited OpenVPN client",
+    "openvpn": {
+      "status": "OPTIONAL_NOT_ACTIVATED",
+      "tls_crypt": "prefer tls-crypt-v2 when server/client support it; per-client material preferred over one shared fleet key",
+      "profile_in_repo": false,
+      "embedded_client_private_key": false,
+      "embedded_password": false,
+      "public_ca_certificate_allowed": true,
+      "remote_management_requires_vpn_or_equivalent_private_overlay": true
+    },
+    "termux": "not a substitute for Android device-owner networking authority"
+  },
+  "shizuku": {
+    "library": "RikkaApps Shizuku API",
+    "version": "13.1.5",
+    "license": "MIT",
+    "mode": "OPTIONAL_EXPLICIT_USER_GRANT",
+    "auto_request_permission": false,
+    "generic_shell": false,
+    "newProcess": false,
+    "user_service": "not_enabled_in_first_pass",
+    "adb_uid_2000_is_not_root": true,
+    "root_uid_0_is_distinct_lab_lane": true,
+    "secure_folder_cross_profile_bypass": false,
+    "webview_privilege_bridge": false,
+    "godot_native_may_request_permission_only_from_explicit_user_action": true,
+    "absence_must_not_break_base_apk": true
+  },
+  "github": {
+    "workflow_permissions": "contents_read_only_by_default",
+    "checkout_persist_credentials": false,
+    "third_party_actions": "pin_full_commit_sha",
+    "branch_ruleset_required_for_enterprise_green": true,
+    "signed_or_github_verified_main_commits_preferred": true,
+    "secrets_in_pull_request_code": false
+  },
+  "google_drive": {
+    "build_artifact_folder": "private_owner_only_or_explicitly_scoped",
+    "public_share": false,
+    "allowed": ["APK", "hashes", "public_cert_fingerprints", "non-secret_build_receipts"],
+    "forbidden": ["OAuth_access_tokens", "OAuth_refresh_tokens", "browser_cookies", "private_signing_keys", "VPN_private_keys", "TLS_private_keys", "tls-crypt_secret_keys"]
+  },
+  "logging": {
+    "redact_headers": ["Authorization", "Cookie", "Set-Cookie", "Proxy-Authorization"],
+    "redact_types": ["access_token", "refresh_token", "id_token", "client_secret", "private_key", "session_cookie"],
+    "crash_reports_may_contain_secrets": false
+  },
+  "ten_pass": [
+    "source_and_authority",
+    "secret_material_scan",
+    "github_ci_token_boundary",
+    "google_identity_and_oauth_boundary",
+    "tls_and_certificate_validation",
+    "private_public_key_lifecycle",
+    "vpn_overlay_boundary",
+    "shizuku_privilege_boundary",
+    "drive_artifact_visibility",
+    "receipts_rotation_and_recovery"
+  ],
+  "green_semantics": {
+    "source_green": "static contracts and deterministic scans pass",
+    "connector_green": "live authorized connector works without token extraction and destination visibility is verified",
+    "enterprise_green": "also requires branch protections/ruleset, persistent signing custody, OAuth client registration/verification where used, and live TLS/VPN endpoint proof if those lanes are activated",
+    "device_runtime_green": "requires physical Samsung install and runtime receipts"
+  },
+  "source_law": "AI proposes. Policy authorizes. CI or deterministic probes prove. Human promotes."
+}

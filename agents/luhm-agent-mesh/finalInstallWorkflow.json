@@ -1,0 +1,61 @@
+{
+  "schema": "luhm.agent.final-install-workflow.v1",
+  "name": "Lum Final APK Install Route",
+  "authority": "Professor",
+  "boss": "Lum",
+  "goal": "Turn one exact proposed source head into a verified installable APK, route its evidence bundle into the private LuHm OS Drive build directory, and stop before physical installation unless the Professor installs it.",
+  "helpers": {
+    "Kiri": {
+      "role": "context_and_doctrine",
+      "mode": "read_only",
+      "checks": ["source_of_truth", "package_law", "project_boundary", "prior_receipts"]
+    },
+    "Tetsu": {
+      "role": "build_and_service_contracts",
+      "mode": "read_only_until_explicit_build",
+      "checks": ["exact_head", "toolchain_pins", "apk_identity", "signature", "zipalign", "payload"]
+    },
+    "Momo": {
+      "role": "dependency_and_delivery_freshness",
+      "mode": "read_only",
+      "checks": ["webview_dependency", "github_artifact", "drive_destination", "artifact_expiry"]
+    },
+    "Shiori": {
+      "role": "critic",
+      "wake_when": ["green_claim", "scope_drift", "missing_hash", "drive_mismatch", "device_claim_without_device_receipt"]
+    },
+    "Kugi": {
+      "role": "deterministic_executor",
+      "may_reinterpret_scope": false,
+      "may_merge": false,
+      "may_publish": false,
+      "may_install_silently": false
+    }
+  },
+  "flow": [
+    {"step": 1, "owner": "Lum", "action": "bind exact GitHub branch and head SHA"},
+    {"step": 2, "owner": "Kiri", "action": "verify doctrine and source boundary"},
+    {"step": 3, "owner": "Tetsu", "action": "run ten-pass source/build audit"},
+    {"step": 4, "owner": "Kugi", "action": "execute the deterministic GitHub Actions build only after the requested build mutation exists"},
+    {"step": 5, "owner": "Tetsu", "action": "verify APK package, version, signature, 16K zipalign, payload and SHA-256"},
+    {"step": 6, "owner": "Momo", "action": "resolve exact GitHub artifact and private Drive destination"},
+    {"step": 7, "owner": "Lum", "action": "download exact GitHub artifact through authorized connector"},
+    {"step": 8, "owner": "Lum", "action": "upload APK and evidence bundle to the private LuHm OS Drive build directory"},
+    {"step": 9, "owner": "Shiori", "action": "reject GREEN if source SHA, artifact digest, APK hash or Drive file receipt disagree"},
+    {"step": 10, "owner": "Lum", "action": "report source/build/delivery status and hand physical install control to Professor"}
+  ],
+  "openai_agent_boundary": {
+    "connector_orchestration_allowed": true,
+    "api_key_in_apk": false,
+    "api_key_in_webview": false,
+    "background_autonomous_publish": false,
+    "background_model_training": false,
+    "candidate_learning_from_receipts": true,
+    "candidate_learning_activation_requires_human_review": true
+  },
+  "terminal_states": {
+    "GREEN_SOURCE_BUILD_DELIVERY": "CI and Drive delivery receipts agree; device install may still be pending",
+    "AMBER_DEVICE": "physical install or runtime smoke is missing",
+    "RED": "one or more deterministic gates failed"
+  }
+}
