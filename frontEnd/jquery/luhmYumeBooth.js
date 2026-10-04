@@ -89,7 +89,6 @@
             authority: false
           });
         });
-        });
 
         $root.on("click." + pluginName, "[data-yume-reject]", function () {
           const proofId = String($(this).attr("data-proof-id") || "currentProof");
