@@ -28,7 +28,10 @@
     "recursiveRecruitment": false,
     "singleMutableSourceLane": true,
     "urdOwnsDeterministicEvidenceAdjudication": true,
-    "legacyAdjudicatorActive": false
+    "legacyAdjudicatorActive": false,
+    "rosterSource": "doctrine/agentSystemDeploymentV1.json#requiredAgents",
+    "allCanonicalAgentsPortable": true,
+    "providerSideWorkersProven": false
   },
   "openAi": {
     "apiSurface": "ResponsesApi",
@@ -82,5 +85,6 @@
     "legacyIdentity": "drNao",
     "ingestedInto": "urdDoctorGoddess",
     "active": false
-  }
+  },
+  "agentSystemDeployment": "doctrine/agentSystemDeploymentV1.json"
 }
