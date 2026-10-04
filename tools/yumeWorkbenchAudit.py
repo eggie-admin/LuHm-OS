@@ -9,7 +9,7 @@ workstation=load("doctrine/yumeArtistWorkstationV1.json")
 art=load("doctrine/yumeBigBrotherArtDeskV1.json")
 godot=load("doctrine/yumeGodotArtToolboxV1.json")
 campaign=load("doctrine/unifiedCampaignWorkbenchV1.json")
-truth=load("doctrine/SOURCE_OF_TRUTH.json")
+truth=load("doctrine/currentSourceTruthV3.json")
 control=load("doctrine/luhmAiControlPlaneV1.json")
 yume=load("doctrine/yumeCreativePipelineV1.json")
 
@@ -36,8 +36,8 @@ checks=[
  ("campaign.yume",campaign.get("creativeLead")=="yume"),
  ("campaign.bigBrother",campaign.get("providerAssist")=="bigBrother"),
  ("campaign.noAutoPosting","noAutomatedCrossPosting" in campaign.get("socialLaw",[])),
- ("truth.workstation",truth.get("yumeWorkstation",{}).get("contract")=="doctrine/yumeArtistWorkstationV1.json"),
- ("truth.campaign",truth.get("unifiedCampaignWorkbench",{}).get("contract")=="doctrine/unifiedCampaignWorkbenchV1.json"),
+ ("truth.workstation",truth.get("creativeLayer",{}).get("yumeArtistWorkstation")=="doctrine/yumeArtistWorkstationV1.json"),
+ ("truth.campaign",truth.get("campaignLayer",{}).get("unifiedCampaignWorkbench")=="doctrine/unifiedCampaignWorkbenchV1.json"),
  ("control.artWorkbench",control.get("providerBoundary",{}).get("yumeArtWorkbench",{}).get("contract")=="doctrine/yumeBigBrotherArtDeskV1.json"),
  ("yume.workstation",yume.get("artistWorkstation")=="doctrine/yumeArtistWorkstationV1.json"),
  ("yume.spellbook",yume.get("githubSpellbook")=="agents/yumeArtOni/GITHUB_SPELLBOOK.md"),
