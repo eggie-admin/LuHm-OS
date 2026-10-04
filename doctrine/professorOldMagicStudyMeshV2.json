@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.professorOldMagicStudyMesh.v2",
-  "status": "PROPOSED_SOURCE_ONLY",
+  "status": "CANONICAL_STUDY_LIBRARY",
   "authority": "Professor",
   "purpose": "Professor-led historical-computing calibration for Lum, Urd, Belldandy, and Skuld.",
   "classLibrary": {
@@ -17,8 +17,12 @@
     ],
     "driveLogicalPath": "LuHm OS/Study Cabinets/Professor Old Magic",
     "durableBinaryAuthority": "googleDrive",
-    "driveReceiptProven": false,
-    "historicalCandidateSha256": "4185901daeb2c279ac21d9628a1186dc62e59f5884cd553da71ef767a588531c"
+    "driveReceiptProven": true,
+    "historicalCandidateSha256": "4185901daeb2c279ac21d9628a1186dc62e59f5884cd553da71ef767a588531c",
+    "currentLearningLibrary": "agents/professorOldMagicStudy/library/lumMasterOralExamV1.json",
+    "currentLearningReceipt": "doctrine/professorOldMagicLumExamReceiptV1.json",
+    "currentArchiveSha256": "04cdfdadf9e07a860398e8035342307586f1dd0c8e2a9cf83f321d9f4f7c2457",
+    "currentArchiveBytes": 3069
   },
   "transport": {
     "canonical": "json",
@@ -46,6 +50,18 @@
   },
   "deploy": "doctrine/professorOldMagicStudyDeployV2.json",
   "schemaRef": "doctrine/professorOldMagicStudyClassSchemaV2.json",
-  "promotion": false,
-  "crownStatus": "STOP"
+  "promotion": true,
+  "crownStatus": "CROWNED_STUDY_LIBRARY",
+  "learningMode": "retrievalAndReasoningReferenceNotModelWeightTrainingClaim",
+  "completedExam": {
+    "student": "lum",
+    "date": "2026-10-04",
+    "grade": "A_PLUS",
+    "extraCredit": true,
+    "questionCount": 11,
+    "artifact": "agents/professorOldMagicStudy/library/lumMasterOralExamV1.json",
+    "receipt": "doctrine/professorOldMagicLumExamReceiptV1.json"
+  },
+  "professorApproval": true,
+  "promotionScope": "professorOldMagicStudyLibrary"
 }
