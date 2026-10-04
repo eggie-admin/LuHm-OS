@@ -79,6 +79,10 @@ require('from luhmOniSummoner import register_oni_summoner' in server, "RED_MCP_
 require('register_oni_summoner(' in server, "RED_MCP_SERVER_REGISTRATION")
 require('for key in ("agentId", "displayName", "name")' in mcp, "RED_CANONICAL_ROSTER_ALIAS_BRIDGE")
 require('r.name||r.displayName||r.agentId||"UNKNOWN"' in widget, "RED_WIDGET_ROSTER_NORMALIZATION")
+for visible_name in ("Urd", "Belldandy", "Skuld"):
+    require(f'name: "{visible_name}"' in js, "RED_JQUERY_ROSTER_MISSING_" + visible_name.upper())
+require('kind: "deterministic-source-truth-adjudicator"' in js, "RED_JQUERY_DRNAO_ROLE_DRIFT")
+require('kind: "records-registrar-helper"' in js, "RED_JQUERY_FUMI_ROLE_DRIFT")
 
 for forbidden in (".html(", "innerHTML", "eval(", "new Function", "XMLHttpRequest", "WebSocket", "EventSource"):
     require(forbidden not in js, "RED_JS_SINK_" + forbidden.replace(" ", "_"))
