@@ -7,10 +7,10 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MILESTONE = ROOT / "doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json"
-SOURCE = ROOT / "doctrine/SOURCE_OF_TRUTH.json"
-BOUNDARY = ROOT / "doctrine/RELEASE_BOUNDARY.json"
-ENTERPRISE = ROOT / "doctrine/MCP_ENTERPRISE_SCOPE_V1.json"
+MILESTONE = ROOT / "doctrine/pluginPublicationV2.json"
+SOURCE = ROOT / "doctrine/currentSourceTruthV3.json"
+BOUNDARY = ROOT / "doctrine/releaseBoundaryV2.json"
+ENTERPRISE = ROOT / "doctrine/mcpEnterpriseScopeV2.json"
 SERVER = ROOT / "host/mcp/luhmMcpServer.py"
 HARNESS_SERVER = ROOT / "host/mcp/luhmHarnessServer.py"
 HARNESS_MODULE = ROOT / "host/mcp/luhmHarness.py"
@@ -45,15 +45,15 @@ def validate(
 ) -> list[str]:
     errors: list[str] = []
     law = "AI proposes. Policy authorizes. CI proves. Human promotes."
-    if milestone.get("sourceLaw") != law or source.get("source_law") != law:
+    if milestone.get("sourceLaw") != law or source.get("sourceLaw") != law:
         errors.append("source law drift")
     if source.get("authority") != "Professor" or milestone.get("authority") != "Professor":
         errors.append("Professor authority drift")
-    if source.get("reconciliation", {}).get("status") != "GREEN_CURRENT_MAIN_SOURCE_TRUTH_RECONCILED":
-        errors.append("current-main source truth reconciliation is not GREEN")
+    if source.get("schema") != "luhmOs.currentSourceTruth.v3":
+        errors.append("current source truth schema drift")
     if source.get("status", "").startswith("GREEN_FULL_SOURCE"):
         errors.append("full product GREEN overclaim")
-    if milestone.get("scope") != "public-read-only-chatgpt-plugin":
+    if milestone.get("scope") != "publicReadOnlyChatgptPlugin":
         errors.append("publication scope drift")
     runtime = milestone.get("runtime", {})
     for field in ("toolsReadOnly",):
@@ -69,23 +69,23 @@ def validate(
     if milestone.get("crownStatus") != "STOP":
         errors.append("Crown must remain STOP before external gates")
 
-    deny = set(boundary.get("deny", []))
-    if "publishing" not in deny:
-        errors.append("global publishing deny was removed before external proof")
-    if "production signing" not in deny:
+    deny = set(boundary.get("deniedActions", []))
+    if "stablePublication" not in deny:
+        errors.append("stable publication deny was removed before external proof")
+    if "productionSigning" not in deny:
         errors.append("production signing deny missing")
 
     transport = enterprise.get("transport", {})
     auth = enterprise.get("authentication", {})
-    if transport.get("production") != "streamable-http" or transport.get("productionPath") != "/mcp":
+    if transport.get("production") != "streamableHttp" or transport.get("productionPath") != "/mcp":
         errors.append("production MCP transport drift")
     if transport.get("statelessHttp") is not True:
         errors.append("MCP transport must remain stateless")
     if transport.get("sessionOwnsAuthority") is not False or transport.get("sessionOwnsSourceTruth") is not False:
         errors.append("MCP session authority creep")
-    if auth.get("currentPublicTools") != "anonymous-read-only":
+    if auth.get("currentPublicTools") != "anonymousReadOnly":
         errors.append("public tool posture is not anonymous read-only")
-    if auth.get("privateOrWriteToolsRequireOAuth21") is not True:
+    if auth.get("privateOrWriteToolsRequireOauth21") is not True:
         errors.append("private/write OAuth boundary drift")
     if auth.get("oauthImplemented") is not False:
         errors.append("OAuth implementation overclaim")
