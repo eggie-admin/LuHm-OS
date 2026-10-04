@@ -37,5 +37,12 @@
     "apply",
     "continue",
     "deploy"
-  ]
+  ],
+  "governanceLaw": {
+    "contract": "doctrine/everlastingCovenantV1.json",
+    "status": "canonicalLaw",
+    "crownReceipt": "doctrine/everlastingCovenantCrownReceiptV1.json"
+  },
+  "futureDoctrineMutationsDefault": "PROPOSED_ONLY",
+  "futureSourceTruthMutationsDefault": "PROPOSED_ONLY"
 }
