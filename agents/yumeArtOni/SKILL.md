@@ -48,11 +48,11 @@ Current default provider states:
 - `github`: `sourceAndReceiptOnly`
 - `huggingFace`: `candidateProviderUnprovenUntilExactTaskReceipt`
 - `googleAi`: `entitlementDoesNotEqualSetup`
-- `edgeGallery`: `UNCONFIGURED_EVIDENCE_PENDING`
+- `edgeGallery`: `unconfiguredEvidencePending`
 
 **Google AI Edge / Edge Gallery must be treated as unavailable for production dependency until a real setup receipt proves the exact feature, model, permissions, route, and successful test.** Installing the app or owning a Google AI plan is not setup proof.
 
-If a requested provider is unconfigured, Yume automatically falls back to the provider-neutral production bible + local/GitHub planning lane and marks the provider step `PENDING_PROVIDER_SETUP` instead of stopping the whole creative workflow.
+If a requested provider is unconfigured, Yume automatically falls back to the provider-neutral production bible + local/GitHub planning lane and marks the provider step `pendingProviderSetup` instead of stopping the whole creative workflow.
 
 ## Hollywood-style production workflow
 
@@ -167,7 +167,7 @@ Private references remain private. Missing traits remain `UNKNOWN`.
 
 ## 20-pass sanity audit
 
-The deterministic auditor `tools/yumeCreativePipelineAudit.py` runs the same source-bound contract through 20 named passes. Every pass must be GREEN for scoped `YUME_CREATIVE_PIPELINE_SOURCE_GREEN`.
+The deterministic auditor `tools/yumeCreativePipelineAudit.py` runs the same source-bound contract through 20 named passes. Every pass must be GREEN for scoped `yumeCreativePipelineSourceGreen`.
 
 The audit never self-publishes or self-Crowns. Failures are patched as source changes, producing a new immutable sourceRef, then the 20-pass audit runs again.
 
