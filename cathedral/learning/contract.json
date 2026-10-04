@@ -1,0 +1,22 @@
+{
+  "schema": "luhm.backgroundLearning.v1",
+  "status": "PROPOSED_CANDIDATE_MEMORY_ONLY",
+  "purpose": "Allow local background distillation without autonomous self-modification.",
+  "pipeline": [
+    "observe bounded local events",
+    "distill summary with local model when explicitly scheduled",
+    "append candidate memory with source refs",
+    "human review/promote outside WebView bridge",
+    "retrieve only promoted memory"
+  ],
+  "never": [
+    "fine-tune model weights automatically",
+    "rewrite agent instructions",
+    "edit source code",
+    "promote memory automatically",
+    "send transcripts to remote provider by default"
+  ],
+  "candidate_fields": ["id", "created_unix", "summary", "source_refs", "tags", "state"],
+  "active_by_default": false,
+  "promotion_requires_human": true
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "luhm.kai9000.cathedral.hardAudit.v1",
+  "date": "2026-09-25",
+  "status": "AMBER_PROPOSED_BUILD",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "source_resolution": {
+    "canonical_main": "57e954116bdb8df9280b7149b7b8f38040df1f76",
+    "agent_mesh_candidate": "a6d67db937a96fa3b6bc920a12b11cdae2118200",
+    "webview_candidate": "f48e43617f23a1486578eccfe05b183dfc6d0534",
+    "dryrun_branch": "dryrun/kai9000-cathedral-enterprise-20260925"
+  },
+  "passes": [
+    {"pass": 1, "name": "authority_and_source_resolution", "result": "GREEN", "finding": "main remains canonical; this mutation is isolated on a dry-run branch under the current Professor instruction"},
+    {"pass": 2, "name": "site_plugin_and_web_encapsulation", "result": "GREEN_CANDIDATE", "finding": "the current front-end plugin bay is preserved and jquery.luhmSite is a local DOM/router plugin with no hidden network or privileged action surface"},
+    {"pass": 3, "name": "android_webview_boundary", "result": "AMBER", "finding": "the packaged caged WebView contract and network-dark CSP are present; Kotlin WebViewAssetLoader overlay and touch-through behavior still require executed proof"},
+    {"pass": 4, "name": "termux_ollama_companion", "result": "AMBER", "finding": "a dependency-free headless CLI and Termux controller are staged; current physical Termux/Ollama runtime state must be reproved"},
+    {"pass": 5, "name": "api_spine", "result": "GREEN_CANDIDATE", "finding": "the API contract is allowlisted and loopback-oriented; the first implementation uses a CLI adapter instead of introducing another HTTP listener"},
+    {"pass": 6, "name": "agent_workflow_and_logic", "result": "GREEN_CANDIDATE", "finding": "Lum remains the single boss; bounded Oni helpers are read-only; Kanabo Gate is deterministic; recursive recruitment and parallel writes remain off"},
+    {"pass": 7, "name": "agent_skills", "result": "GREEN_CANDIDATE", "finding": "the Cathedral skill composes source resolution, encapsulation, Ollama companion, proof ladder, agent routing and stop rules"},
+    {"pass": 8, "name": "background_learning", "result": "AMBER", "finding": "learning is restricted to inactive candidate-memory distillation with provenance; no automatic prompt, policy, source, or model-weight mutation is permitted"},
+    {"pass": 9, "name": "enterprise_hardening", "result": "AMBER", "finding": "least privilege, local assets, no runtime CDN, secret scanning, action pinning and exact-head receipts are candidate requirements; canonical main is still unprotected and its current head is unsigned"},
+    {"pass": 10, "name": "build_release_device_gate_separation", "result": "AMBER", "finding": "the inherited WebView candidate already has successful static, testing APK and clean-play CI receipts, but this exact Cathedral head and physical Samsung pairing still require proof"}
+  ],
+  "final_proposed_build": {
+    "branch": "proposed/kai9000-cathedral-enterprise-20260925",
+    "promotion": false,
+    "production_signing": false,
+    "public_release": false,
+    "main_merge": false,
+    "device_green": false
+  }
+}

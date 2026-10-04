@@ -17,6 +17,7 @@
       <span class="badge text-bg-dark">WebView glass above</span>
       <span class="badge text-bg-dark" data-kai-status>KAI 9000</span>
       <span class="badge text-bg-dark" data-ollama-status>Ollama probe</span>
+      <span class="badge text-bg-dark" data-site-status>Site cathedral</span>
     </header>
 
     <section class="floatingPanel" id="chatPanel" data-luhm-panel>
@@ -56,11 +57,18 @@
       </div>
     </section>
 
+    <section hidden data-luhm-site-view="cathedral"></section>
+    <section hidden data-luhm-site-view="agents"></section>
+    <section hidden data-luhm-site-view="cms"></section>
+    <section hidden data-luhm-site-view="memory"></section>
+    <section hidden data-luhm-site-view="system"></section>
+
     <nav class="bottomDock" aria-label="Cockpit panels">
       <button class="btn btn-sm btn-outline-light" data-toggle-panel="chatPanel">Chat</button>
       <button class="btn btn-sm btn-outline-light" data-toggle-panel="agentPanel">Agents</button>
       <button class="btn btn-sm btn-outline-light" data-toggle-panel="cmsPanel">Vue CMS</button>
       <button class="btn btn-sm btn-outline-light" data-request-status>Status</button>
+      <button class="btn btn-sm btn-outline-light" data-luhm-site-route="cathedral">Cathedral</button>
     </nav>
   </main>
 
@@ -69,6 +77,7 @@
   <script src="./vendor/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="./vendor/vue/vue.global.prod.js"></script>
   <script src="./jquery/luhm.deck.js"></script>
+  <script src="./jquery/luhm.site.js"></script>
   <script src="./cms/vueCms.js"></script>
   <script src="./app.js"></script>
 </body>
