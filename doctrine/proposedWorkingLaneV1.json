@@ -1,0 +1,23 @@
+{
+  "schema": "luhm.proposedWorkingLane.v1",
+  "status": "PROPOSED_ONLY",
+  "authority": "Professor",
+  "scope": [
+    "current doctrine mutations",
+    "current SOURCE_OF_TRUTH mutations",
+    "current agent-skill doctrine bindings"
+  ],
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves candidate consistency. Professor separately promotes.",
+  "rules": [
+    "new doctrine work defaults to proposed",
+    "new SOURCE_OF_TRUTH work defaults to proposed",
+    "CI GREEN does not promote doctrine",
+    "historical GREEN seals and receipts remain historical evidence and are not rewritten",
+    "current proposed work must not claim runtime deployment or publication",
+    "moving current work out of proposed requires a new explicit Professor promotion for the exact source identity"
+  ],
+  "historicalException": "immutable historical receipts may retain prior GREEN/promotion language when clearly historical",
+  "publicationAuthority": false,
+  "releaseAuthority": false,
+  "crownStatus": "STOP"
+}
