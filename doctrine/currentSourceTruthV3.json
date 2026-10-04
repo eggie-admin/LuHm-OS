@@ -64,7 +64,12 @@
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
-    "unifiedCampaignWorkbench": "doctrine/unifiedCampaignWorkbenchV1.json"
+    "unifiedCampaignWorkbench": "doctrine/unifiedCampaignWorkbenchV1.json",
+    "campaignLaunchKit": "doctrine/campaignLaunchKitV1.json",
+    "currentMilestone": "letsMakeMoneyForCorporations",
+    "campaignDraft": "campaign/first-campaign-wave.md",
+    "automaticSend": false,
+    "automaticPublication": false
   },
   "legacyArtifacts": {
     "priorSourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
@@ -155,5 +160,12 @@
     "crownStatus": "STOP",
     "status": "PROPOSED_YUME_CREATIVE_PIPELINE_SOURCE"
   },
-  "roadmap": "doctrine/chatDeploymentRoadmapV1.json"
+  "roadmap": "doctrine/chatDeploymentRoadmapV1.json",
+  "enterpriseOrientation": {
+    "contract": "doctrine/enterpriseOrientationBridgeV1.json",
+    "status": "PROPOSED_MILESTONE_BRIDGE",
+    "roleplayMayChangeAuthority": false,
+    "nextMilestone": "letsMakeMoneyForCorporations",
+    "crownStatus": "STOP"
+  }
 }
