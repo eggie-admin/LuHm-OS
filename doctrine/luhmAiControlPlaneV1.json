@@ -15,7 +15,9 @@
     "providerEconomy": "doctrine/providerEconomyV1.json",
     "namingLaw": "doctrine/camelHumpDoctrineLawV1.json",
     "urdEvidenceAdjudication": "doctrine/urdEvidenceAdjudicationV1.json",
-    "currentFormatLaw": "doctrine/currentFormatLawV1.json"
+    "currentFormatLaw": "doctrine/currentFormatLawV1.json",
+    "manifestLaw": "doctrine/aiManifestFormatV1.json",
+    "controlPlaneLanguage": "doctrine/python3ControlPlaneLawV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -602,7 +604,10 @@
       "claims",
       "timestamp"
     ],
-    "responseAuthority": false
+    "responseAuthority": false,
+    "template": "doctrine/remote-ai-manifest-v1.template.json",
+    "filenameStyle": "kebabCase",
+    "machineKeyStyle": "lowerCamelHump"
   },
   "receipts": {
     "aiReceiptMustBind": [
@@ -670,5 +675,12 @@
       "contract": "doctrine/urdEvidenceAdjudicationV1.json",
       "activeAgent": false
     }
+  },
+  "runtimeAdapterLaw": {
+    "canonicalAiControlLanguage": "python3",
+    "javascript": "presentationAdapterOnly",
+    "gdscript": "godotRuntimeAdapterOnly",
+    "kotlin": "androidBridgeOnly",
+    "shell": "buildBootstrapGlueOnly"
   }
 }
