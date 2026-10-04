@@ -148,6 +148,7 @@ func _on_oni_objective_reached(name: String) -> void:
         player_controller.call("pulse_effect", Color("73ef9f"))
     if game_hud != null:
         game_hud.show_dialogue("Lum: %s echo has the objective in reach. Your move, Professor." % name)
+        game_hud.nudge_interaction()
 
 func _on_android_web3_error(reason: String) -> void:
     push_error("ANDROID_WEB3_COCKPIT_ERROR: " + reason)
