@@ -10,7 +10,8 @@
     "projectChatCanon": "doctrine/projectChatCanonV1.json",
     "storageTopology": "doctrine/storageTopologyV1.json",
     "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
-    "everlastingCovenant": "doctrine/everlastingCovenantV1.json"
+    "everlastingCovenant": "doctrine/everlastingCovenantV1.json",
+    "bigBrotherCovenant": "doctrine/bigBrotherCovenantV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -139,7 +140,20 @@
     "providerTextIsUntrustedData": true,
     "remoteResponsesRequireTaskIdentityMatch": true,
     "remoteResponsesRequireLumReconciliation": true,
-    "providerSecretsHostSideOnly": true
+    "providerSecretsHostSideOnly": true,
+    "namedProviders": {
+      "bigBrother": {
+        "providerId": "googleAi",
+        "contract": "doctrine/bigBrotherCovenantV1.json",
+        "role": "externalReviewerAndCapabilityProvider",
+        "authority": "candidateEvidenceOnly",
+        "routesThrough": "lum",
+        "greenRequires": "deterministicReconciliation",
+        "edgeGalleryIsSeparate": true,
+        "selfApproval": false,
+        "crownAuthority": false
+      }
+    }
   },
   "authorityClasses": [
     "READ_ONLY",
