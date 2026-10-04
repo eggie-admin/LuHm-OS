@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
-      - 'doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json'
-      - 'doctrine/SOURCE_OF_TRUTH.json'
-      - 'doctrine/RELEASE_BOUNDARY.json'
-      - 'doctrine/MCP_ENTERPRISE_SCOPE_V1.json'
+      - 'doctrine/pluginPublicationV2.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/releaseBoundaryV2.json'
+      - 'doctrine/mcpEnterpriseScopeV2.json'
       - 'host/mcp/**'
       - 'host/harness/**'
       - 'plugins/luhm-os/**'
@@ -53,8 +53,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m json.tool doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json >/dev/null
-          python -m json.tool doctrine/MCP_ENTERPRISE_SCOPE_V1.json >/dev/null
+          python -m json.tool doctrine/pluginPublicationV2.json >/dev/null
+          python -m json.tool doctrine/currentSourceTruthV3.json >/dev/null
+          python -m json.tool doctrine/releaseBoundaryV2.json >/dev/null
+          python -m json.tool doctrine/mcpEnterpriseScopeV2.json >/dev/null
           python -m json.tool plugins/luhm-os/plugin.json >/dev/null
           python -m json.tool plugins/luhm-os/mcp.json >/dev/null
           python -m json.tool plugins/luhm-os/review-tests.json >/dev/null
