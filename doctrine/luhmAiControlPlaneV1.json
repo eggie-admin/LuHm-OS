@@ -9,7 +9,8 @@
     "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
     "projectChatCanon": "doctrine/projectChatCanonV1.json",
     "storageTopology": "doctrine/storageTopologyV1.json",
-    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json"
+    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
+    "everlastingCovenant": "doctrine/everlastingCovenantV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -599,5 +600,28 @@
     "peerAwareness": "readOnly",
     "disagreementsReturnTo": "lum",
     "consensusAuthority": false
+  },
+  "covenant": {
+    "contract": "doctrine/everlastingCovenantV1.json",
+    "humanLaw": [
+      "so let it be written so let it be done",
+      "Do not tell me of the old magic, for I was there when we first wrote them",
+      "This is the law and our everlasting covenant."
+    ],
+    "guardRail": [
+      "sanityCheck",
+      "audit",
+      "ingest",
+      "mutation",
+      "test",
+      "apply",
+      "continue",
+      "deploy"
+    ],
+    "failClosed": true,
+    "sameTaskIdentityRequired": true,
+    "newSourceRestartsAt": "sanityCheck",
+    "currentDeployMeaning": "proposedCandidateOnly",
+    "automaticCrown": false
   }
 }
