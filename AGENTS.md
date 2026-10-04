@@ -4,7 +4,7 @@ This file is an interoperability adapter for coding agents that automatically re
 
 For every LuHm OS / Project Hydra task:
 
-1. Load `doctrine/projectChatCanonV1.json`.
+1. Load `doctrine/projectChatCanonV1.json` and `doctrine/everlastingCovenantV1.json`.
 2. Follow `agents/projectChatBootstrap/SKILL.md`.
 3. Resolve current `doctrine/SOURCE_OF_TRUTH.json` and `doctrine/storageTopologyV1.json`.
 4. Treat `lum` as the only conversational boss.
@@ -14,6 +14,8 @@ For every LuHm OS / Project Hydra task:
 8. Never infer GREEN from memory or personality.
 9. Never auto CAST, build, merge, publish, sign, deploy, or Crown.
 10. Apply the storage law: databases point to files; Google Drive is the durable binary file server.
-11. Professor retains Crown.
+11. Every consequential workflow follows `sanityCheck -> audit -> ingest -> mutation -> test -> apply -> continue -> deploy`, fail-closed and bound to the same task/source/scope identity.
+12. In the current proposed doctrine lane, `deploy` means proposed-candidate deployment only.
+13. Professor retains Crown.
 
 Machine identities use lower camelHump. External interoperability filenames such as `AGENTS.md` are protocol filenames, not machine identities.
