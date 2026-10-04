@@ -1,0 +1,47 @@
+name: LuHm Private Plugin Stage Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'doctrine/PLUGIN_PRIVATE_STAGE_V1.json'
+      - 'plugins/luhm-os/**'
+      - 'host/mcp/luhmMcpServer.py'
+      - 'tools/pluginPrivateStageAudit.py'
+      - '.github/workflows/plugin-private-stage-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  private-plugin-stage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Assert exact source
+        run: |
+          set -euo pipefail
+          EXPECTED='${{ github.event.pull_request.head.sha || github.sha }}'
+          ACTUAL="$(git rev-parse HEAD)"
+          test "$ACTUAL" = "$EXPECTED"
+          echo "EXACT_SOURCE=$ACTUAL"
+
+      - name: Compile private-stage auditor
+        run: python3 -m py_compile tools/pluginPrivateStageAudit.py
+
+      - name: Validate JSON staging contracts
+        run: |
+          python3 -m json.tool doctrine/PLUGIN_PRIVATE_STAGE_V1.json >/dev/null
+          python3 -m json.tool plugins/luhm-os/plugin.json >/dev/null
+          python3 -m json.tool plugins/luhm-os/mcp.json >/dev/null
+          python3 -m json.tool plugins/luhm-os/mcp.private.json >/dev/null
+          python3 -m json.tool plugins/luhm-os/review-tests.json >/dev/null
+
+      - name: Private plugin stage audit
+        run: python3 tools/pluginPrivateStageAudit.py
