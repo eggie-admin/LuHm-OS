@@ -28,7 +28,7 @@ if not missing:
     if contract.get("installBoundary")!="PARKED": errors.append("install boundary must remain parked")
     if quest.get("status")!="proposedGameplay": errors.append("quest status drift")
     steps=quest.get("steps",[])
-    expected=["talkLumRiverwalk","collectCoffee","sealFirstNight"]
+    expected=["talkLumRiverwalk","collectSignalShard","collectCoffee","clearStaticWisp","sealFirstNight"]
     actual=[s.get("event") for s in steps]
     if actual!=expected: errors.append(f"quest event order drift: {actual}")
 
@@ -40,13 +40,26 @@ if not missing:
     if game_layer.get("workingLane")!="PROPOSED_ONLY": errors.append("current source truth gameLayer must remain proposed")
     if game_layer.get("installBoundary")!="PARKED": errors.append("current source truth install boundary must remain parked")
     if "Titan7MilestoneScript" in main or 'add_child(titan7_milestone)' in main: errors.append("stale Titan7 milestone overlay still active")
-    for token in ["QuestDirectorScript","FIRST_NIGHT_QUEST_PATH","_update_interaction_target","interact_requested"]:
+    for token in ["QuestDirectorScript","FIRST_NIGHT_QUEST_PATH","_update_interaction_target","interact_requested",'begins_with("travel:")',"set_fast_travel_enabled(false)","set_fast_travel_enabled(true)"]:
         if token not in main: errors.append(f"main missing {token}")
-    for token in ["signal interact_requested","set_interaction_prompt","set_quest"]:
+    for token in ["signal interact_requested","set_interaction_prompt","set_quest","set_fast_travel_enabled"]:
         if token not in hud: errors.append(f"HUD missing {token}")
+    travel_tokens = {
+        "scripts/game/neonWorld.gd": ["travel:lumCoffeeHouse","travel:cathedral"],
+        "scripts/game/lumCoffeeHouseScene.gd": ["travel:neonRiverwalk","travel:cathedral"],
+        "scripts/game/cathedralWorld.gd": ["travel:neonRiverwalk","travel:lumCoffeeHouse"],
+    }
+    for world,tokens in travel_tokens.items():
+        world_text=(root/world).read_text()
+        for token in tokens:
+            if token not in world_text:
+                errors.append(f"{world} missing travel gate {token}")
+
     for world,event in [
         ("scripts/game/neonWorld.gd","talkLumRiverwalk"),
+        ("scripts/game/neonWorld.gd","collectSignalShard"),
         ("scripts/game/lumCoffeeHouseScene.gd","collectCoffee"),
+        ("scripts/game/cathedralWorld.gd","clearStaticWisp"),
         ("scripts/game/cathedralWorld.gd","sealFirstNight"),
     ]:
         if event not in (root/world).read_text():
@@ -60,7 +73,7 @@ print(json.dumps({
     "status":"GREEN_GAMEPLAY_VERTICAL_SLICE_SOURCE",
     "scope":"source-only",
     "quest":"firstNightCircuit",
-    "steps":3,
+    "steps":5,
     "installBoundary":"PARKED",
     "crownStatus":"STOP"
 },indent=2))
