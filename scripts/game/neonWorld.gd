@@ -1,9 +1,11 @@
 extends Node3D
 
 const LumAvatarScene := preload("res://scenes/LumAvatar.tscn")
+const InteractableScript := preload("res://scripts/game/interactable.gd")
 
 var player_spawn := Vector3(0.0, 1.15, 8.0)
 var lum_avatar: Node3D
+var interaction_points: Array[Area3D] = []
 var _neon_materials: Array[StandardMaterial3D] = []
 
 func _ready() -> void:
@@ -11,6 +13,7 @@ func _ready() -> void:
     _build_riverwalk()
     _build_city()
     _build_lum_stage()
+    _build_interactions()
 
 func _build_environment() -> void:
     var env_node := WorldEnvironment.new()
@@ -165,3 +168,21 @@ func _arch(pos: Vector3) -> void:
     _box("ArchLeft_%s" % int(pos.z), pos + Vector3(-3.2, 2.4, 0.0), Vector3(0.25, 4.8, 0.25), Color("111018"), false, pink, 2.6)
     _box("ArchRight_%s" % int(pos.z), pos + Vector3(3.2, 2.4, 0.0), Vector3(0.25, 4.8, 0.25), Color("111018"), false, pink, 2.6)
     _box("ArchTop_%s" % int(pos.z), pos + Vector3(0.0, 4.8, 0.0), Vector3(6.65, 0.25, 0.25), Color("111018"), false, pink, 2.6)
+
+
+func _build_interactions() -> void:
+    _add_interaction("talkLumRiverwalk", "talkLumRiverwalk", "Talk to Lum", Vector3(0.0, 0.55, -5.6), Color("ff4f9f"))
+    _add_interaction("collectSignalShard", "collectSignalShard", "Recover signal shard", Vector3(7.5, 0.35, 6.0), Color("55dfff"))
+    _add_interaction("gateCoffeeHouse", "travel:lumCoffeeHouse", "Enter Coffee House gate", Vector3(-10.5, 0.35, 12.0), Color("f3b47c"))
+    _add_interaction("gateCathedral", "travel:cathedral", "Enter Cathedral gate", Vector3(10.5, 0.35, 12.0), Color("b76cff"))
+
+func _add_interaction(interaction_id: String, event_name: String, prompt: String, pos: Vector3, accent: Color) -> void:
+    var node := InteractableScript.new() as Area3D
+    node.name = interaction_id
+    node.position = pos
+    node.configure(interaction_id, event_name, prompt, accent)
+    add_child(node)
+    interaction_points.append(node)
+
+func get_interaction_points() -> Array[Area3D]:
+    return interaction_points.duplicate()

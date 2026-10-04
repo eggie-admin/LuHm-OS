@@ -63,7 +63,8 @@
     "yumeArtistWorkstation": "doctrine/yumeArtistWorkstationV1.json",
     "yumeBigBrotherArtDesk": "doctrine/yumeBigBrotherArtDeskV1.json",
     "yumeGodotArtToolbox": "doctrine/yumeGodotArtToolboxV1.json",
-    "yumeArtEducation": "doctrine/yumeArtEducationV1.json"
+    "yumeArtEducation": "doctrine/yumeArtEducationV1.json",
+    "yumeBatchImageWorkflow": "doctrine/yumeBatchImageWorkflowV1.json"
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
@@ -91,7 +92,8 @@
     "priorMcpEnterpriseScope": "doctrine/MCP_ENTERPRISE_SCOPE_V1.json",
     "priorOpenAiDeployment": "doctrine/openAiLumOniDeployment-20260927.json",
     "priorRemoteAiManifest": "doctrine/remote-ai-manifest-v1.template.json",
-    "priorYumeBigBrotherTaskTemplate": "agents/yumeArtOni/templates/bigBrotherArtTaskV1.template.json"
+    "priorYumeBigBrotherTaskTemplate": "agents/yumeArtOni/templates/bigBrotherArtTaskV1.template.json",
+    "priorGodotGameSource": "doctrine/GODOT4_GAME_SOURCE_V1.json"
   },
   "legacyAgentMigrations": {
     "drNao": {
@@ -175,6 +177,54 @@
     "status": "PROPOSED_MILESTONE_BRIDGE",
     "roleplayMayChangeAuthority": false,
     "nextMilestone": "letsMakeMoneyForCorporations",
+    "crownStatus": "STOP"
+  },
+  "gameLayer": {
+    "contract": "doctrine/gameplayVerticalSliceV1.json",
+    "quest": "game/story/firstNightQuest.json",
+    "runtime": "project.godot",
+    "status": "CANONICAL_GAMEPLAY_SOURCE",
+    "workingLane": "CANONICAL_SOURCE",
+    "installBoundary": "PARKED",
+    "physicalDeviceProof": "PENDING",
+    "promotion": true,
+    "crownStatus": "CROWNED_SOURCE_MILESTONE",
+    "crownReceipt": "doctrine/gameplayVerticalSliceCrownReceiptV1.json",
+    "approvedCandidateSourceRef": "831368b087b007a00cc7e77563877ed09b9001ef",
+    "professorApproval": true,
+    "promotionScope": "gameplayVerticalSliceSourceMilestone",
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false
+  },
+  "agentLayer": {
+    "training": "doctrine/agentTrainingSealV1.json",
+    "deployment": "doctrine/agentSystemDeploymentV1.json",
+    "controlPlane": "doctrine/luhmAiControlPlaneV1.json",
+    "rosterCount": 15,
+    "boss": "lum",
+    "residentCore": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "yumeAvailableSystemWide": true,
+    "oniMiniAgentsAvailableSystemWide": true,
+    "status": "PROPOSED_SYSTEM_WIDE_AGENT_DEPLOYMENT",
+    "liveProviderDeploymentProven": false,
+    "workingLane": "PROPOSED_ONLY",
+    "promotion": false,
+    "crownStatus": "STOP"
+  },
+  "yumeBatchImageWorkflow": {
+    "contract": "doctrine/yumeBatchImageWorkflowV1.json",
+    "status": "PROPOSED_SOURCE_ONLY",
+    "mode": "skeletonBatchImageWorkflow",
+    "privateDraftOnly": true,
+    "providerExecutionProven": false,
+    "driveHandoffProven": false,
+    "promotion": false,
     "crownStatus": "STOP"
   }
 }

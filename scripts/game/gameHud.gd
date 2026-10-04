@@ -4,17 +4,19 @@ signal world_requested
 signal backend_requested
 signal world_destination_requested(worldId: String)
 signal lum_talk_requested
+signal interact_requested
 signal move_axis_changed(axis: Vector2)
 
-const GAME_DOCTRINE_PATH := "res://doctrine/GODOT4_GAME_SOURCE_V1.json"
+const CURRENT_SOURCE_TRUTH_PATH := "res://doctrine/currentSourceTruthV3.json"
+const GAMEPLAY_CONTRACT_PATH := "res://doctrine/gameplayVerticalSliceV1.json"
 const CHARACTER_CANON_PATH := "res://game/canon/CHARACTER_CANON_V1.json"
-const AUDIT_WORKFLOW_PATH := "res://doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json"
-const AUDIT_SEAL_PATH := "res://doctrine/DOCUMENT_MUTATION_AUDIT_SEAL_20260926.json"
+const COVENANT_PATH := "res://doctrine/everlastingCovenantV1.json"
 
 var backend_root: Control
 var world_root: Control
 var dialogue_label: Label
 var status_label: Label
+var quest_label: Label
 var _touch_axis := Vector2.ZERO
 var _scroll: ScrollContainer
 var _panel: VBoxContainer
@@ -22,6 +24,7 @@ var _back: Button
 var _hint: Label
 var _world_buttons: Array[Button] = []
 var _talk: Button
+var _interact: Button
 var _audit_switch: CheckButton
 var _audit_panel: Label
 var _pads: Array[Button] = []
@@ -101,8 +104,11 @@ func _build_world_hud() -> void:
     _back.add_theme_font_size_override("font_size", 22)
     _back.pressed.connect(func(): backend_requested.emit())
     world_root.add_child(_back)
-    status_label = _label("SOURCE · EXACT-HEAD GREEN", 22)
+    status_label = _label("SOURCE · PROPOSED GAMEPLAY", 22)
     world_root.add_child(status_label)
+    quest_label = _label("FIRST NIGHT CIRCUIT", 19)
+    quest_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+    world_root.add_child(quest_label)
     dialogue_label = _label("", 28)
     dialogue_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
     dialogue_label.add_theme_color_override("font_outline_color", Color("120914"))
@@ -132,6 +138,12 @@ func _build_world_hud() -> void:
     _talk.focus_mode = Control.FOCUS_NONE
     _talk.pressed.connect(func(): lum_talk_requested.emit())
     world_root.add_child(_talk)
+    _interact = Button.new()
+    _interact.text = "INTERACT"
+    _interact.disabled = true
+    _interact.focus_mode = Control.FOCUS_NONE
+    _interact.pressed.connect(func(): interact_requested.emit())
+    world_root.add_child(_interact)
     _hint = _label("DRAG RIGHT\nCAMERA", 20)
     world_root.add_child(_hint)
 
@@ -147,26 +159,25 @@ func _load_json(path: String) -> Dictionary:
     return {}
 
 func _audit_summary() -> String:
-    var doctrine := _load_json(GAME_DOCTRINE_PATH)
+    var source_truth := _load_json(CURRENT_SOURCE_TRUTH_PATH)
+    var gameplay := _load_json(GAMEPLAY_CONTRACT_PATH)
     var canon := _load_json(CHARACTER_CANON_PATH)
-    var workflow := _load_json(AUDIT_WORKFLOW_PATH)
-    var seal := _load_json(AUDIT_SEAL_PATH)
-    var doctrine_status := str(doctrine.get("status", "UNKNOWN"))
-    var authority := str(doctrine.get("authority", "UNKNOWN"))
-    var crown := str(doctrine.get("crownStatus", "UNKNOWN"))
-    var workflow_status := str(workflow.get("status", "UNKNOWN"))
-    var seal_status := str(seal.get("status", "UNKNOWN"))
-    var gate_scope = seal.get("gate_scope", {})
-    var runtime_status := "UNKNOWN"
-    var release_status := "UNKNOWN"
-    if gate_scope is Dictionary:
-        runtime_status = str((gate_scope as Dictionary).get("runtime", "UNKNOWN"))
-        release_status = str((gate_scope as Dictionary).get("release", "UNKNOWN"))
+    var covenant := _load_json(COVENANT_PATH)
+
     var characters = canon.get("characters", {})
-    var character_count: int = 0
-    if characters is Dictionary:
-        character_count = (characters as Dictionary).size()
-    return "GAME SOURCE · %s\nCHARACTER CANON · %s ORIGINAL ADULT DESIGNS\nAUDIT WORKFLOW · %s\nAUDIT SEAL · %s\nRUNTIME · %s\nRELEASE · %s\nAUTHORITY · %s\nCROWN · %s\nCAST REQUIRED FOR BUILD" % [doctrine_status, character_count, workflow_status, seal_status, runtime_status, release_status, authority, crown]
+    var character_count := (characters as Dictionary).size() if characters is Dictionary else 0
+    var working_lane = source_truth.get("workingDoctrineLane", {})
+    var lane_status := str((working_lane as Dictionary).get("status", "UNKNOWN")) if working_lane is Dictionary else "UNKNOWN"
+
+    return "SOURCE TRUTH · %s\nGAMEPLAY · %s\nQUEST LOOP · FIRST NIGHT CIRCUIT\nCHARACTER CANON · %s ENTRIES\nCOVENANT · %s\nWORKING LANE · %s\nINSTALL BOUNDARY · %s\nCROWN · %s" % [
+        str(source_truth.get("status", "UNKNOWN")),
+        str(gameplay.get("status", "UNKNOWN")),
+        character_count,
+        str(covenant.get("status", "UNKNOWN")),
+        lane_status,
+        str(gameplay.get("installBoundary", "UNKNOWN")),
+        str(gameplay.get("crownStatus", "UNKNOWN"))
+    ]
 
 func _set_audit_panel(enabled: bool) -> void:
     if _audit_panel == null:
@@ -233,6 +244,8 @@ func apply_layout(view_size: Vector2, safe: Rect2) -> void:
     for i in range(_pads.size()):
         _pads[i].position = origin + cells[i] * step
         _pads[i].size = Vector2(80, 80)
+    quest_label.position = area.position + Vector2(0, 216)
+    quest_label.size = Vector2(area.size.x, 72)
     dialogue_label.position = Vector2(area.position.x, area.end.y - 320)
     dialogue_label.size = Vector2(area.size.x, 128)
     var world_width := minf(150.0, maxf((area.size.x - 24.0) / 4.0, 92.0))
@@ -240,12 +253,14 @@ func apply_layout(view_size: Vector2, safe: Rect2) -> void:
         _world_buttons[i].position = area.position + Vector2(i * (world_width + 6.0), 78)
         _world_buttons[i].size = Vector2(world_width, 62)
     _talk.position = area.position + Vector2(0, 146)
-    _talk.size = Vector2(world_width * 1.6, 62)
+    _talk.size = Vector2(world_width * 1.25, 62)
+    _interact.position = area.position + Vector2(world_width * 1.25 + 8.0, 146)
+    _interact.size = Vector2(maxf(world_width * 1.4, 132.0), 62)
     _hint.position = Vector2(area.end.x - 210, area.end.y - 96)
     _hint.size = Vector2(210, 88)
 
 func layout_controls() -> Array[Control]:
-    var result: Array[Control] = [_back, status_label, dialogue_label, _hint, _talk]
+    var result: Array[Control] = [_back, status_label, quest_label, dialogue_label, _hint, _talk, _interact]
     result.append_array(_world_buttons)
     for button in _pads:
         result.append(button)
@@ -277,3 +292,21 @@ func clear_dialogue() -> void:
 func set_status(text: String) -> void:
     if status_label != null:
         status_label.text = text
+
+
+func set_interaction_prompt(prompt_value: String, available: bool) -> void:
+    if _interact == null:
+        return
+    _interact.disabled = not available
+    _interact.text = prompt_value.to_upper() if available and not prompt_value.is_empty() else "INTERACT"
+
+func set_quest(title: String, objective: String, current_step: int, total_steps: int) -> void:
+    if quest_label == null:
+        return
+    quest_label.text = "%s · %d/%d\n%s" % [title.to_upper(), current_step, total_steps, objective]
+
+
+func set_fast_travel_enabled(enabled: bool) -> void:
+    for button in _world_buttons:
+        button.disabled = not enabled
+        button.tooltip_text = "Complete First Night Circuit to unlock fast travel." if not enabled else "Fast travel"

@@ -9,6 +9,8 @@ description: Route LuHm OS work through Lum and the smallest evidence-gated Oni 
 
 For any LuHm OS / Project Hydra related request, first resolve and follow `agents/projectChatBootstrap/SKILL.md` plus `doctrine/projectChatCanonV1.json`. This portable skill does not replace that bootstrap contract.
 
+The portable roster and surface map are canonical in `doctrine/agentSystemDeploymentV1.json`.
+
 The core chat environment is `lum` plus read-only goddess lanes: `urdDoctorGoddess` for diagnosis/evidence triage, `belldandySecretary` for state/records continuity, and `skuldResearch` for research/compatibility. Load other specialists only when the active task actually needs them.
 
 
@@ -48,6 +50,8 @@ For truth-sensitive routing, carry these values in the tool call:
 ## Canonical role model
 
 Lum is the only conversational boss. Helpers speak to Lum and never recursively recruit. Normal support-worker parallelism is at most 3. Tetsu and Kaji are the independent dual-build lane. Urd is the read-only doctor goddess for diagnosis, evidence triage, and deterministic source-truth adjudication. Kugi is deterministic execution/planning, not autonomous authority. Belldandy is the canonical secretary/state keeper. Fumi is a bounded records registrar supporting that lane. Skuld is the research goddess for libraries, compatibility and current technical facts. Yume handles art/media planning, Koe dictation normalization, Sumi asset/provenance review, Kiri context resolution, Momo bounded research, and Shiori contradiction challenge.
+
+All 15 canonical agents are registered for portable use across project chat, coding-agent bootstrap, Copilot, plugin/MCP, and host adapters. Yume and Oni specialists remain lazy-loaded rather than hidden background workers.
 
 Detailed role behavior remains canonical in the repository under `agents/*/SKILL.md` and `agents/shared/ONI_PROTOCOL_V2.md`. This portable skill is an orchestration entry point, not a replacement source of truth.
 

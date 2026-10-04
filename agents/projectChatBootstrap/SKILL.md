@@ -3,6 +3,7 @@
 
 
 Canonical AI control plane: `doctrine/luhmAiControlPlaneV1.json`.
+Canonical system deployment registry: `doctrine/agentSystemDeploymentV1.json`.
 
 All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
 
@@ -43,6 +44,7 @@ Load or resolve these first:
 - `doctrine/projectChatCanonV1.json`
 - `doctrine/currentSourceTruthV3.json`
 - `doctrine/storageTopologyV1.json`
+- `doctrine/agentSystemDeploymentV1.json`
 - `agents/lum/SKILL.md`
 - `agents/goddessSharedSystemsPractice/SKILL.md`
 
@@ -66,6 +68,8 @@ Load only when their specialty is actually required:
 - `sumi` -> asset provenance and import truth
 - `koe` -> dictation normalization
 - `yume` -> art/media and character design
+
+All 15 canonical agents are registered on every supported system surface. The resident core is Lum + Urd + Belldandy + Skuld; Yume and the Oni specialists are task-loaded from the deployment registry. Registered does not mean continuously running.
 
 Helpers speak to Lum. Helpers never recruit helpers.
 

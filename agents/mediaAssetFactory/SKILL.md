@@ -53,6 +53,10 @@ Hugging Face may be used for discovery or candidate generation only after the ex
 - `yume`: art direction and candidate generation
 - `sumi`: provenance, hashes, state and runtime identity
 
+Canonical batch-image workflow: `doctrine/yumeBatchImageWorkflowV1.json`.
+Batch manifest template: `agents/yumeArtOni/templates/batch-image-manifest-v1.template.json`.
+Queue expander: `tools/yumeBatchImageQueue.py`.
+
 ## Batch rules
 
 - sealed parent required

@@ -1,0 +1,45 @@
+name: Agent System Deployment Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/agentSystemDeploymentV1.json'
+      - 'doctrine/agentTrainingSealV1.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'doctrine/projectChatCanonV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/openAiDeploymentV3.json'
+      - 'agents/**'
+      - 'AGENTS.md'
+      - '.github/copilot-instructions.md'
+      - 'plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md'
+      - 'host/mcp/luhmMcpServer.py'
+      - 'tools/lumTaskRouter.py'
+      - 'tools/agentTrainingAudit.py'
+      - 'tools/agentSystemDeploymentAudit.py'
+      - '.github/workflows/agent-system-deployment-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Validate deployment contracts
+        run: |
+          python3 -m json.tool doctrine/agentSystemDeploymentV1.json >/dev/null
+          python3 -m json.tool doctrine/agentTrainingSealV1.json >/dev/null
+          python3 -m json.tool doctrine/luhmAiControlPlaneV1.json >/dev/null
+          python3 -m json.tool doctrine/projectChatCanonV1.json >/dev/null
+          python3 -m json.tool doctrine/currentSourceTruthV3.json >/dev/null
+          python3 -m json.tool doctrine/openAiDeploymentV3.json >/dev/null
+          python3 -m py_compile tools/lumTaskRouter.py tools/agentTrainingAudit.py tools/agentSystemDeploymentAudit.py host/mcp/luhmMcpServer.py
+      - name: Prove full agent training
+        run: python3 tools/agentTrainingAudit.py
+      - name: Prove system-wide source deployment
+        run: python3 tools/agentSystemDeploymentAudit.py
