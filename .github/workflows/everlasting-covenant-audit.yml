@@ -1,0 +1,30 @@
+name: Everlasting Covenant Guard Rail Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/**'
+      - 'agents/**'
+      - 'AGENTS.md'
+      - '.github/copilot-instructions.md'
+      - 'tools/everlastingCovenantAudit.py'
+      - '.github/workflows/everlasting-covenant-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate covenant JSON
+        run: |
+          python -m json.tool doctrine/everlastingCovenantV1.json >/dev/null
+          python -m json.tool doctrine/luhmAiControlPlaneV1.json >/dev/null
+          python -m json.tool doctrine/projectChatCanonV1.json >/dev/null
+          python -m json.tool doctrine/SOURCE_OF_TRUTH.json >/dev/null
+          python -m json.tool doctrine/proposedWorkingLaneV1.json >/dev/null
+      - name: Run covenant 20-pass guard rail audit
+        run: python tools/everlastingCovenantAudit.py
