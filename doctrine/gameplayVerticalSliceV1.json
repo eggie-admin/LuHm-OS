@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.gameplayVerticalSlice.v1",
-  "status": "PROPOSED_SOURCE_ONLY",
+  "status": "CANONICAL_GAMEPLAY_SOURCE",
   "authority": "Professor",
   "sourceRefBase": "05ae560bd07a42f5df12a06e3f79bc0dec9adc11",
   "scope": [
@@ -33,9 +33,9 @@
   "persistence": "sessionOnly",
   "networking": "none",
   "installBoundary": "PARKED",
-  "workingLane": "PROPOSED_ONLY",
-  "promotion": false,
-  "crownStatus": "STOP",
+  "workingLane": "CANONICAL_SOURCE",
+  "promotion": true,
+  "crownStatus": "CROWNED_SOURCE_MILESTONE",
   "runtimeLaw": {
     "staleMilestoneOverlayAllowed": false,
     "currentSourceTruthHudRequired": true,
@@ -48,5 +48,12 @@
     "questGatedFastTravel": true,
     "proceduralCollectibleBeat": true,
     "proceduralEncounterBeat": true
-  }
+  },
+  "professorApproval": true,
+  "promotionScope": "gameplayVerticalSliceSourceMilestone",
+  "crownReceipt": "doctrine/gameplayVerticalSliceCrownReceiptV1.json",
+  "approvedCandidateSourceRef": "831368b087b007a00cc7e77563877ed09b9001ef",
+  "releaseAuthority": false,
+  "publicationAuthority": false,
+  "productionSigningAuthority": false
 }
