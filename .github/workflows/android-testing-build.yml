@@ -3,6 +3,23 @@ name: LuHm OS Universal Samsung Candidate
 on:
   workflow_dispatch:
   pull_request:
+    paths:
+      - 'project.godot'
+      - 'export_presets.cfg'
+      - 'scripts/**'
+      - 'scenes/**'
+      - 'assets/**'
+      - 'cutscenes/**'
+      - 'tests/**'
+      - 'tools/candidateGate.py'
+      - 'doctrine/androidCandidate.json'
+      - 'frontEnd/**'
+      - '.github/workflows/android-testing-build.yml'
+      - '.github/workflows/lumrigv2-phase1.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
