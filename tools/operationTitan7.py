@@ -33,6 +33,11 @@ def one_pass(contract: dict, layers: dict) -> tuple[dict[str, bool], list[str]]:
     checks["noAutoDeploy"] = contract.get("forbidden", []).count("autoDeploy") == 1
     checks["noScheduledRuns"] = contract.get("invocationLaw", {}).get("scheduledBackgroundRunsForbidden") is True
     checks["noPermanentFleet"] = contract.get("invocationLaw", {}).get("permanentWatchFleetForbidden") is True
+    checks["fleetRunnerAbsent"] = not (ROOT / "tools" / "titan7WatchFleet.py").exists()
+    checks["fleetManifestAbsent"] = not (ROOT / "doctrine" / "OPERATION_TITAN7_WATCH_FLEET_V1.json").exists()
+    checks["fleetWorkflowAbsent"] = not (ROOT / ".github" / "workflows" / "operation-titan7-watch-fleet.yml").exists()
+    titan_workflows = [p for p in (ROOT / ".github" / "workflows").glob("*titan7*") if p.is_file()]
+    checks["noScheduledTitan7Workflow"] = all("schedule:" not in p.read_text(encoding="utf-8") for p in titan_workflows)
     checks["compatibilityLayerOne"] = layers.get("layerOne", {}).get("id") == "openAiCompatibilityLayer"
     checks["compatibilityLayerTwo"] = layers.get("layerTwo", {}).get("id") == "githubCompatibilityLayer"
     checks["providerResultsReturnToLum"] = layers.get("layerTwo", {}).get("allProviderResultsReturnTo") == "lum"
