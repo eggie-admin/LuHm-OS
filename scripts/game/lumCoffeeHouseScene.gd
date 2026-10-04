@@ -101,6 +101,8 @@ func _box(name_value: String, pos: Vector3, size: Vector3, color: Color, collida
 
 func _build_interactions() -> void:
     _add_interaction("collectCoffee", "collectCoffee", "Take the coffee", Vector3(-4.25, 1.55, -3.5), Color("f3b47c"))
+    _add_interaction("gateRiverwalk", "travel:neonRiverwalk", "Return to Riverwalk", Vector3(0.0, 0.35, 8.5), Color("55dfff"))
+    _add_interaction("gateCathedral", "travel:cathedral", "Enter Cathedral gate", Vector3(7.0, 0.35, 7.5), Color("b76cff"))
 
 func _add_interaction(interaction_id: String, event_name: String, prompt: String, pos: Vector3, accent: Color) -> void:
     var node := InteractableScript.new() as Area3D
