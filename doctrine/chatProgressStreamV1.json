@@ -49,7 +49,8 @@
     "includeChainOfThought": false,
     "includeRawLogs": false,
     "repeatUnchangedStatus": false,
-    "onlyMaterialStateChanges": true
+    "onlyMaterialStateChanges": true,
+    "loadingSpriteManifest": "doctrine/agentLoadingSpriteManifestV1.json"
   },
   "authority": {
     "progressIsEvidenceProjectionOnly": true,
@@ -67,5 +68,6 @@
     "explodeExceptionsOnly": true,
     "aggregateTemplate": "{operationLabel} · {complete}/{total} · {state}",
     "verbosePerItemTrace": "onRequestOnly"
-  }
+  },
+  "activityPresentation": "doctrine/chatActivityPresentationV1.json"
 }
