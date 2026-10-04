@@ -9,6 +9,7 @@ on:
       - '.github/workflows/**'
       - 'tools/everlastingCovenantAudit.py'
       - 'tools/hardSystemAudit200.py'
+      - 'tools/hardSystemAudit200.py'
       - 'host/**'
       - 'assets/agent-loading/**'
   workflow_dispatch:
@@ -86,6 +87,8 @@ jobs:
           echo "[progress] schemaValidation=passed source=$LUHM_SOURCE_REF"
       - name: Run 100-pass doctrine audit
         run: python3 tools/everlastingCovenantAudit.py
+      - name: Run 200-pass hard system audit
+        run: python3 tools/hardSystemAudit200.py
       - name: Prove agent training contract
         run: python3 tools/agentTrainingAudit.py
       - name: Prove content lane boundaries
