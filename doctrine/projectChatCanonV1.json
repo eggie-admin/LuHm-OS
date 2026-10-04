@@ -22,7 +22,7 @@
   "loadOrder": [
     "doctrine/projectChatCanonV1.json",
     "doctrine/everlastingCovenantV1.json",
-    "doctrine/SOURCE_OF_TRUTH.json",
+    "doctrine/currentSourceTruthV3.json",
     "doctrine/storageTopologyV1.json",
     "doctrine/lumGoddessCabinetV1.json",
     "agents/goddessSharedSystemsPractice/SKILL.md",
@@ -36,13 +36,15 @@
     "doctrine/agentLoadingSpriteManifestV1.json"
   ],
   "alwaysLoadedCore": {
-    "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
+    "sourceTruth": "doctrine/currentSourceTruthV3.json",
     "chatBootstrap": "agents/projectChatBootstrap/SKILL.md",
     "bossSkill": "agents/lum/SKILL.md",
     "sharedMonitoring": "agents/goddessSharedSystemsPractice/SKILL.md",
     "storageTopology": "doctrine/storageTopologyV1.json",
     "goddessCabinet": "doctrine/lumGoddessCabinetV1.json",
-    "everlastingCovenant": "doctrine/everlastingCovenantV1.json"
+    "everlastingCovenant": "doctrine/everlastingCovenantV1.json",
+    "namingLaw": "doctrine/camelHumpDoctrineLawV1.json",
+    "urdEvidenceAdjudication": "doctrine/urdEvidenceAdjudicationV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -194,5 +196,6 @@
       "Render:srv-db0nh5e0tbcc738kmapg:recent-log-query-no-OAuth-or-Sentry-matches"
     ],
     "interpretation": "The Drive connector is authenticated. The app's Google sign-in callback and Sentry monitoring delivery have not been proved."
-  }
+  },
+  "legacyArtifactLaw": "nonCamelHump doctrine and superseded agent identities are historical compatibility only"
 }
