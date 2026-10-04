@@ -22,6 +22,9 @@ const checks = [
   [plugin.includes('const PLUGIN = "luhmCockpit"') && plugin.includes("$.fn[PLUGIN] ="), "single cockpit plugin entry exists"],
   [plugin.includes("luhm:backend:open"), "backend-open boundary exists"],
   [plugin.includes("return this.each"), "plugin preserves chainability"],
+  [plugin.includes("$.fn.mgcCdngRlplay") && plugin.includes("oldMagicPhrase") && plugin.includes("writtenDonePhrase"), "magic coding roleplay trigger exists"],
+  [plugin.includes("$.fn.vendorAiDebug") && plugin.includes("VENDOR_AI_DEBUG") && plugin.includes("luhm:vendor:debug:request"), "uppercase vendor AI debug glass exists"],
+  [plugin.includes("UNKNOWN_UNTIL_PROVIDER_RECEIPT") && plugin.includes("UNKNOWN_UNTIL_EXACT_EXECUTION_RECEIPT"), "vendor debug preserves unknown truth boundaries"],
   [app.includes(".luhmCockpit("), "app initializes cockpit plugin"]
 ];
 
