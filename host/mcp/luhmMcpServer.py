@@ -225,6 +225,7 @@ def _production_security() -> TransportSecuritySettings:
 def _assert_source_contract() -> None:
     status = _status_payload()
     roster = _roster_payload()
+    deployment = _deployment_payload()
     enterprise = _load_json(ENTERPRISE_SCOPE)
     transport = enterprise.get("transport", {})
     auth = enterprise.get("authentication", {})
