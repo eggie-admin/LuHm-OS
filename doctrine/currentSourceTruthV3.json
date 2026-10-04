@@ -21,7 +21,7 @@
   },
   "everlastingCovenant": {
     "contract": "doctrine/everlastingCovenantV1.json",
-    "status": "PROPOSED_CANON_LAW",
+    "status": "CANONICAL_LAW",
     "guardRail": [
       "sanityCheck",
       "audit",
@@ -32,7 +32,10 @@
       "continue",
       "deploy"
     ],
-    "crownStatus": "STOP"
+    "crownStatus": "CROWNED_MILESTONE",
+    "professorApproval": true,
+    "promotionScope": "everlastingCovenantGovernanceMilestone",
+    "crownReceipt": "doctrine/everlastingCovenantCrownReceiptV1.json"
   },
   "aiControlPlane": {
     "contract": "doctrine/luhmAiControlPlaneV1.json",
