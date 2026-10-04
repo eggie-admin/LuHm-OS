@@ -26,7 +26,7 @@ var nearest_interactable: Area3D
 var intro_played := false
 var android_web3_plugin = null
 var android_web3_version := "unavailable"
-var active_oni_beacon: Node3D
+var active_oni_beacon: Area3D
 
 func _ready() -> void:
     _build_runtime()
@@ -197,22 +197,26 @@ func _update_interaction_target() -> void:
     var expected_event := quest_director.current_event()
     var closest: Area3D = null
     var closest_distance := INF
+    var candidates: Array = []
     var raw_points = active_world.call("get_interaction_points")
     if raw_points is Array:
-        for raw_node in raw_points:
-            var node := raw_node as Area3D
-            if node == null:
-                continue
-            var event_name := str(node.call("get_event_name")) if node.has_method("get_event_name") else ""
-            var relevant := event_name == expected_event or event_name.begins_with("travel:")
-            if node.has_method("set_active"):
-                node.call("set_active", relevant)
-            if not relevant:
-                continue
-            var distance := player_controller.global_position.distance_to(node.global_position)
-            if distance < closest_distance:
-                closest_distance = distance
-                closest = node
+        candidates.append_array(raw_points)
+    if active_oni_beacon != null and is_instance_valid(active_oni_beacon):
+        candidates.append(active_oni_beacon)
+    for raw_node in candidates:
+        var node := raw_node as Area3D
+        if node == null:
+            continue
+        var event_name := str(node.call("get_event_name")) if node.has_method("get_event_name") else ""
+        var relevant := event_name == expected_event or event_name.begins_with("travel:") or event_name.begins_with("oni:")
+        if node.has_method("set_active"):
+            node.call("set_active", relevant)
+        if not relevant:
+            continue
+        var distance := player_controller.global_position.distance_to(node.global_position)
+        if distance < closest_distance:
+            closest_distance = distance
+            closest = node
 
     nearest_interactable = closest if closest_distance <= INTERACTION_RANGE else null
     if nearest_interactable != null and nearest_interactable.has_method("get_prompt"):
@@ -238,6 +242,17 @@ func _interact() -> void:
         var destination := event_name.trim_prefix("travel:")
         if switchWorld(destination):
             game_hud.show_dialogue("Transit gate linked: %s" % destination)
+        return
+    if event_name.begins_with("oni:"):
+        var oni_name := event_name.trim_prefix("oni:")
+        if player_controller.has_method("pulse_effect"):
+            player_controller.call("pulse_effect", Color("b783ff"))
+        game_hud.show_dialogue("Lum: %s echo acknowledged. Routing only; still no worker started." % oni_name)
+        if nearest_interactable.has_method("dismiss"):
+            nearest_interactable.call("dismiss")
+        active_oni_beacon = null
+        nearest_interactable = null
+        game_hud.set_interaction_prompt("", false)
         return
     if event_name == "clearStaticWisp" and player_controller.has_method("pulse_effect"):
         player_controller.call("pulse_effect", Color("ff3c9d"))

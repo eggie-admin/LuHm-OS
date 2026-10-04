@@ -1,4 +1,4 @@
-extends Node3D
+extends Area3D
 
 var oni_name := "UNKNOWN"
 var accent := Color("b783ff")
@@ -13,7 +13,24 @@ func configure(name_value: String) -> void:
     accent = _accent_for(oni_name)
 
 func _ready() -> void:
+    collision_layer = 0
+    collision_mask = 0
+    monitoring = false
+    monitorable = false
     _build_visual()
+
+func get_event_name() -> String:
+    return "oni:" + oni_name
+
+func get_prompt() -> String:
+    return "TOUCH " + oni_name.to_upper() + " ECHO"
+
+func set_active(active: bool) -> void:
+    if _visual_root != null:
+        _visual_root.visible = active
+
+func dismiss() -> void:
+    queue_free()
 
 func _process(delta: float) -> void:
     _clock += delta
