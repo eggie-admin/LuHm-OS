@@ -1,5 +1,7 @@
 extends Node3D
 
+signal objective_reached(oni_name: String)
+
 var oni_name := "UNKNOWN"
 var target: Node3D
 var guide_target: Node3D
@@ -7,6 +9,7 @@ var accent := Color("b783ff")
 var _clock := 0.0
 var _lifetime := 8.0
 var _visual_root: Node3D
+var _objective_pinged := false
 
 func configure(name_value: String, target_value: Node3D) -> void:
     oni_name = name_value.strip_edges().left(32)
@@ -19,6 +22,8 @@ func _ready() -> void:
     _build_visual()
 
 func set_guide_target(target_value: Node3D) -> void:
+    if guide_target != target_value:
+        _objective_pinged = false
     guide_target = target_value
 
 func _process(delta: float) -> void:
@@ -40,6 +45,10 @@ func _process(delta: float) -> void:
             _visual_root.look_at(guide_target.global_position, Vector3.UP)
         else:
             _visual_root.rotation.y += delta * 2.2
+    if guide_target != null and is_instance_valid(guide_target) and not _objective_pinged:
+        if target.global_position.distance_to(guide_target.global_position) <= 2.8:
+            _objective_pinged = true
+            objective_reached.emit(oni_name)
     if _clock >= _lifetime:
         queue_free()
 
