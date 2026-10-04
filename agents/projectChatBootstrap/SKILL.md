@@ -158,3 +158,19 @@ Prime law: `databases point to files; databases do not become the file server`.
 - Android/Termux is a runtime mount and physical-proof boundary, not durable project storage.
 
 A durable artifact is not storage-GREEN until its Drive-backed pointer and SHA-256 are recorded.
+
+
+## Like-term execution economy
+
+Load `doctrine/chatLikeTermFoldV1.json` for repeated operations.
+
+Before issuing repeated tool/provider work:
+1. inventory once
+2. group semantically equivalent targets
+3. remove exact duplicates
+4. use collection or deterministic batch operations first
+5. narrow to exceptions
+6. spend provider capacity only on unresolved novel reasoning
+7. show one compact aggregate progress line per group
+
+Do not emit the same progress sentence once per target. Per-item expansion is exception-only unless Professor explicitly asks for verbose trace.
