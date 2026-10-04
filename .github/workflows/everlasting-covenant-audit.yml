@@ -79,6 +79,9 @@ jobs:
           python3 -m json.tool doctrine/samsungAntennaV1.json >/dev/null
           python3 -m json.tool doctrine/chatDeploymentRoadmapV1.json >/dev/null
           python3 -m json.tool doctrine/hardSystemAuditV1.json >/dev/null
+          python3 -m json.tool doctrine/enterpriseOrientationBridgeV1.json >/dev/null
+          python3 -m json.tool doctrine/campaignLaunchKitV1.json >/dev/null
+          python3 -m py_compile tools/enterpriseCampaignAudit.py
           python3 -m py_compile tools/yumeGodotAssetPrep.py tools/yumeWorkbenchAudit.py tools/hardSystemAudit200.py host/mcp/luhmMcpServer.py
           python3 -m json.tool host/harness/agent-loading-sprites.json >/dev/null
           python3 -m py_compile host/mcp/luhmHarness.py
@@ -98,3 +101,5 @@ jobs:
         run: python3 tools/yumeWorkbenchAudit.py
       - name: Prove Yume dual-track art education
         run: python3 tools/yumeArtEducationAudit.py
+      - name: Prove enterprise orientation and campaign bridge
+        run: python3 tools/enterpriseCampaignAudit.py
