@@ -51,7 +51,6 @@
     "kiri",
     "momo",
     "shiori",
-    "drNao",
     "kugi",
     "tetsu",
     "kaji",
@@ -105,12 +104,6 @@
       "slot": 7
     },
     {
-      "agentId": "drNao",
-      "displayName": "DrNao",
-      "skillPath": "agents/doctorOni/SKILL.md",
-      "slot": 8
-    },
-    {
       "agentId": "kugi",
       "displayName": "Kugi",
       "skillPath": "agents/kugiToolOni/SKILL.md",
@@ -158,5 +151,12 @@
       "skillPath": "agents/mediaAssetFactory/SKILL.md",
       "slot": 16
     }
-  ]
+  ],
+  "legacySprites": {
+    "drNao": {
+      "status": "legacyArtifact",
+      "slot": 8,
+      "active": false
+    }
+  }
 }
