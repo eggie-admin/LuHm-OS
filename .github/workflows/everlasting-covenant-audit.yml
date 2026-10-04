@@ -1,5 +1,4 @@
-name: Everlasting Covenant Guard Rail Audit
-
+name: Doctrine Lane · 100-pass audit
 on:
   pull_request:
     paths:
@@ -7,24 +6,48 @@ on:
       - 'agents/**'
       - 'AGENTS.md'
       - '.github/copilot-instructions.md'
+      - '.github/workflows/**'
       - 'tools/everlastingCovenantAudit.py'
-      - '.github/workflows/everlasting-covenant-audit.yml'
+      - 'assets/agent-loading/**'
   workflow_dispatch:
 
 permissions:
   contents: read
-
+concurrency:
+  group: doctrine-lane-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   audit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+      LUHM_SCOPE_ID: PR-134-doctrine-candidate
     steps:
-      - uses: actions/checkout@v4
-      - name: Validate covenant JSON
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Bind source
+        shell: bash
         run: |
-          python -m json.tool doctrine/everlastingCovenantV1.json >/dev/null
-          python -m json.tool doctrine/luhmAiControlPlaneV1.json >/dev/null
-          python -m json.tool doctrine/projectChatCanonV1.json >/dev/null
-          python -m json.tool doctrine/SOURCE_OF_TRUTH.json >/dev/null
-          python -m json.tool doctrine/proposedWorkingLaneV1.json >/dev/null
-      - name: Run covenant 20-pass guard rail audit
-        run: python tools/everlastingCovenantAudit.py
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+          echo "[progress] sourceBinding=passed source=$LUHM_SOURCE_REF scope=$LUHM_SCOPE_ID"
+      - name: Validate doctrine schemas
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/everlastingCovenantV1.json >/dev/null
+          python3 -m json.tool doctrine/luhmAiControlPlaneV1.json >/dev/null
+          python3 -m json.tool doctrine/projectChatCanonV1.json >/dev/null
+          python3 -m json.tool doctrine/SOURCE_OF_TRUTH.json >/dev/null
+          python3 -m json.tool doctrine/proposedWorkingLaneV1.json >/dev/null
+          python3 -m json.tool doctrine/termResolutionV1.json >/dev/null
+          python3 -m json.tool doctrine/chatProgressStreamV1.json >/dev/null
+          python3 -m json.tool doctrine/agentLoadingSpriteManifestV1.json >/dev/null
+          echo "[progress] schemaValidation=passed source=$LUHM_SOURCE_REF"
+      - name: Run 100-pass doctrine audit
+        run: python3 tools/everlastingCovenantAudit.py

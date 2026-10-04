@@ -30,7 +30,10 @@
     "agents/urdMutationOni/SKILL.md",
     "agents/skuldResearchOni/SKILL.md",
     "agents/belldandyQualityOni/SKILL.md",
-    "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md"
+    "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md",
+    "doctrine/termResolutionV1.json",
+    "doctrine/chatProgressStreamV1.json",
+    "doctrine/agentLoadingSpriteManifestV1.json"
   ],
   "alwaysLoadedCore": {
     "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
@@ -170,5 +173,21 @@
     "failClosed": true,
     "appliesToAllProjectChats": true,
     "currentDoctrineLane": "proposedOnly"
+  },
+  "termResolutionRef": "doctrine/termResolutionV1.json",
+  "progressStreamRef": "doctrine/chatProgressStreamV1.json",
+  "agentLoadingSpritesRef": "doctrine/agentLoadingSpriteManifestV1.json",
+  "outputPolicy": {
+    "defaultVerbosity": "compact",
+    "progressOnlyOnMaterialStateChange": true,
+    "showActiveScripts": true,
+    "omitChainOfThought": true,
+    "repeatUnchangedUpdates": false
+  },
+  "externalIdentityEvidence": {
+    "googleDriveConnector": "CONNECTED",
+    "googleIdentityOAuthCallback": "UNVERIFIED",
+    "sentryEventDelivery": "UNVERIFIED",
+    "evidenceNote": "Google Drive connector confirmed live; repository manual describes Google identity sentry as target architecture and states architecture is not evidence."
   }
 }
