@@ -27,7 +27,7 @@ for ident,a in control.get("agents",{}).items():
     add(f"agent.{ident}.skillPath",item.get("skillPath")==a.get("skillPath"))
     add(f"agent.{ident}.capabilities",bool(a.get("capabilities")) and a.get("defaultAuthority") in control.get("authorityClasses",[]))
 global_checks=[
-("covenant.proposedStatus",covenant.get("status")=="proposedCanonLaw"),
+("covenant.canonicalStatus",covenant.get("status")=="canonicalLaw" and covenant.get("professorApproval") is True and covenant.get("crownStatus")=="crownedMilestone" and covenant.get("crownReceipt")=="doctrine/everlastingCovenantCrownReceiptV1.json" and truth.get("everlastingCovenant",{}).get("status")=="CANONICAL_LAW"),
 ("covenant.humanLaw",covenant.get("humanLaw")==human),
 ("covenant.guardRailOrder",covenant.get("guardRail",{}).get("orderedStates")==expected),
 ("covenant.redUnknownFailClosed",covenant.get("guardRail",{}).get("redLaw","").startswith("RED, UNKNOWN")),
@@ -79,7 +79,7 @@ for i,(name,ok) in enumerate(checks,1):
     print(f"{'PASS' if ok else 'FAIL'} {i:03d}/100 {name}")
     if not ok: failed.append(name)
 state="GREEN" if not failed else "RED"
-summary=["## Doctrine lane audit",f"- Source: `{source}`",f"- Scope: `{scope}`",f"- Audit: **{state}** ({100-len(failed)}/100)","- Progress: visible CI only; no scheduled fleet or hidden execution.","- Google OAuth callback and Sentry event delivery: **UNVERIFIED**.","- Lane: **PROPOSED_ONLY** · Crown: **STOP**"]
+summary=["## Doctrine lane audit",f"- Source: `{source}`",f"- Scope: `{scope}`",f"- Audit: **{state}** ({100-len(failed)}/100)","- Progress: visible CI only; no scheduled fleet or hidden execution.","- Google OAuth callback and Sentry event delivery: **UNVERIFIED**.","- Lane: **PROPOSED_ONLY** · Covenant Crown: **SCOPED MILESTONE** · Future doctrine Crown: **STOP**"]
 out=os.environ.get("GITHUB_STEP_SUMMARY")
 if out:
     with open(out,"a",encoding="utf-8") as f: f.write("\n".join(summary)+"\n")
