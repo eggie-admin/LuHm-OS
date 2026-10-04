@@ -34,6 +34,12 @@ if not missing:
 
     main=(root/"scripts/main.gd").read_text()
     hud=(root/"scripts/game/gameHud.gd").read_text()
+    source_truth=json.loads((root/"doctrine/currentSourceTruthV3.json").read_text())
+    game_layer=source_truth.get("gameLayer",{})
+    if game_layer.get("contract")!="doctrine/gameplayVerticalSliceV1.json": errors.append("current source truth gameLayer contract drift")
+    if game_layer.get("workingLane")!="PROPOSED_ONLY": errors.append("current source truth gameLayer must remain proposed")
+    if game_layer.get("installBoundary")!="PARKED": errors.append("current source truth install boundary must remain parked")
+    if "Titan7MilestoneScript" in main or 'add_child(titan7_milestone)' in main: errors.append("stale Titan7 milestone overlay still active")
     for token in ["QuestDirectorScript","FIRST_NIGHT_QUEST_PATH","_update_interaction_target","interact_requested"]:
         if token not in main: errors.append(f"main missing {token}")
     for token in ["signal interact_requested","set_interaction_prompt","set_quest"]:
