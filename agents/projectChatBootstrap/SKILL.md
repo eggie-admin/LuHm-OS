@@ -41,7 +41,7 @@ Do not wait for the user to say "load doctrine" if the request is clearly projec
 Load or resolve these first:
 
 - `doctrine/projectChatCanonV1.json`
-- `doctrine/SOURCE_OF_TRUTH.json`
+- `doctrine/currentSourceTruthV3.json`
 - `doctrine/storageTopologyV1.json`
 - `agents/lum/SKILL.md`
 - `agents/goddessSharedSystemsPractice/SKILL.md`
