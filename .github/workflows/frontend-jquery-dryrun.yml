@@ -6,6 +6,7 @@ on:
       - 'frontEnd/**'
       - 'backEndGui/**'
       - 'scripts/main.gd'
+      - 'scripts/game/gameHud.gd'
       - 'doctrine/guiSplitDryRun-20260925.json'
       - '.github/workflows/frontend-jquery-dryrun.yml'
   workflow_dispatch:
@@ -39,7 +40,8 @@ jobs:
           test -s frontEnd/vendor/jquery-LICENSE.txt
           test -f scenes/Main.tscn
           test -f scripts/main.gd
-          grep -q 'BACKEND CATHEDRAL' scripts/main.gd
+          test -f scripts/game/gameHud.gd
+          grep -q 'BACKEND CATHEDRAL' scripts/game/gameHud.gd
       - name: HTTP smoke test
         run: |
           python3 -m http.server 8765 --directory frontEnd >/tmp/luhm-front.log 2>&1 &
