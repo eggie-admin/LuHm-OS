@@ -1,6 +1,6 @@
 {
   "schema": "luhm.yumeCreativePipeline.v1",
-  "status": "CANDIDATE_SOURCE_ONLY",
+  "status": "PROPOSED_SOURCE_ONLY",
   "authority": "Professor",
   "boss": "Lum",
   "creativeLead": "yumeArtOni",
@@ -77,5 +77,9 @@
     "selfPublication": false,
     "selfCrown": false
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "workingLane": "PROPOSED_ONLY",
+  "promotion": false,
+  "historicalReceiptsMayRemainGreen": true,
+  "currentDoctrinePromotionRequiresProfessor": true
 }
