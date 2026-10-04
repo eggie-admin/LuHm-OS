@@ -50,6 +50,7 @@ jobs:
           python3 -m json.tool doctrine/chatProgressStreamV1.json >/dev/null
           python3 -m json.tool doctrine/agentLoadingSpriteManifestV1.json >/dev/null
           python3 -m json.tool doctrine/agentTrainingSealV1.json >/dev/null
+          python3 -m json.tool doctrine/bigBrotherCovenantV1.json >/dev/null
           python3 -m json.tool host/harness/agent-loading-sprites.json >/dev/null
           python3 -m py_compile host/mcp/luhmHarness.py
           node --check host/harness/cockpit.js
