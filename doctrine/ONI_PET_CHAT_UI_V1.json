@@ -1,0 +1,41 @@
+{
+  "schema": "luhm-os.oni-pet-chat-ui.v1",
+  "status": "CANDIDATE_SOURCE_NOT_RUNTIME_PROVEN",
+  "authority": "Professor",
+  "chatgpt": {
+    "mcpAppsResource": "ui://luhm/oni-pet-dock-v1.html",
+    "renderTool": "show_oni_pet_dock",
+    "maxVisibleHelpers": 3,
+    "bossScaleIntent": "Lum visually dominant",
+    "toolReadOnly": true,
+    "widgetOwnsAuthority": false,
+    "widgetOwnsSourceTruth": false,
+    "widgetMayInferWorkerActivity": false,
+    "queuedMeansRunning": false
+  },
+  "android": {
+    "shizukuVersion": "13.1.5",
+    "mode": "DETECT_ONLY",
+    "liveProbeSurface": "KAIWebView status.request",
+    "permissionRequest": false,
+    "genericShell": false,
+    "secureFolderBypass": false,
+    "silentInstall": false,
+    "mutationAuthority": false
+  },
+  "truthRules": [
+    "ChatGPT widget helpers come from deterministic route output and are QUEUED, not claimed ACTIVE execution",
+    "no more than three helpers render at once",
+    "GREEN is never produced by the widget or Shizuku probe",
+    "remote MCP does not claim live Android Shizuku state",
+    "device-local Shizuku state is reported only by the Android probe",
+    "Shizuku permission is never requested by status rendering",
+    "Professor remains Crown authority"
+  ],
+  "runtimeProof": {
+    "chatgptWidgetRendered": "PENDING",
+    "androidShizukuProbeCompiled": "PENDING",
+    "physicalSamsungProbe": "PENDING"
+  },
+  "promotion": false
+}
