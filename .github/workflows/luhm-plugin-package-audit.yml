@@ -1,0 +1,57 @@
+name: LuHm ChatGPT Plugin Package Audit
+
+on:
+  push:
+    branches:
+      - 'feature/oni-pet-activity-dock-v2-20260927'
+  pull_request:
+    paths:
+      - 'plugins/luhm-os/**'
+      - 'host/mcp/**'
+      - 'tools/luhmPluginPackageAudit.py'
+      - 'render.yaml'
+      - '.github/workflows/luhm-plugin-package-audit.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: luhm-plugin-package-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  plugin-package-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Assert exact source
+        run: |
+          set -euo pipefail
+          EXPECTED='${{ github.event.pull_request.head.sha || github.sha }}'
+          ACTUAL="$(git rev-parse HEAD)"
+          test "$ACTUAL" = "$EXPECTED"
+          echo "EXACT_SOURCE=$ACTUAL"
+      - name: Parse plugin manifests
+        run: |
+          python3 -m json.tool plugins/luhm-os/plugin.json >/dev/null
+          python3 -m json.tool plugins/luhm-os/mcp.json >/dev/null
+          python3 -m json.tool plugins/luhm-os/mcp.local.json >/dev/null
+          python3 -m json.tool plugins/luhm-os/mcp.remote.example.json >/dev/null
+      - name: Python syntax
+        run: python3 -m py_compile tools/luhmPluginPackageAudit.py host/mcp/luhmMcpServer.py
+      - name: Deterministic package audit
+        run: python3 tools/luhmPluginPackageAudit.py
+      - name: Install pinned MCP SDK
+        run: python3 -m pip install --disable-pip-version-check -r host/mcp/requirements.txt
+      - name: MCP local source self-check
+        run: python3 host/mcp/luhmMcpServer.py --check
+      - name: MCP production FQDN self-check
+        env:
+          LUHM_MCP_PROFILE: production
+          LUHM_MCP_FQDN: mcp.eggiebagelface.art
+        run: python3 host/mcp/luhmMcpServer.py --check

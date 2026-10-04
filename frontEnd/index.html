@@ -6,6 +6,9 @@
   <meta name="theme-color" content="#100d17">
   <title>LuHm OS Front End</title>
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./oni-activity.css">
+  <link rel="stylesheet" href="./chat-workbench.css">
+  <link rel="stylesheet" href="./proof-viewer.css">
 </head>
 <body>
   <main class="cockpit" data-luhm-cockpit>
@@ -26,24 +29,81 @@
     <section class="scene" aria-label="Lum companion scene">
       <div class="lumViewport" data-luhm-lum-viewport aria-label="3D Lum renderer mount"><span class="viewportLabel">3D LUM VIEWPORT</span></div>
       <div class="sceneShade" aria-hidden="true"></div>
-      <div class="sceneStatus" aria-live="polite"><span class="onlineDot" aria-hidden="true"></span><span>LuHm jQuery front end · dry run</span></div>
+      <div class="sceneStatus" aria-live="polite"><span class="onlineDot" aria-hidden="true"></span><span>LuHm chat workbench · beta lane</span></div>
     </section>
 
-    <section class="chatDock" aria-label="Chat with Lum" data-luhm-chat>
-      <div class="messageStream" data-luhm-message-stream>
-        <article class="message messageLum"><div class="avatar" aria-hidden="true">L</div><div><div class="messageMeta"><strong>Lum</strong><time>10:24 PM</time></div><p>Welcome to LuHm OS. I’m here with you. ♡</p></div></article>
-        <article class="message messageLum"><div class="avatar" aria-hidden="true">L</div><div><div class="messageMeta"><strong>Lum</strong><time>10:26 PM</time></div><p>Front end is jQuery now. The native Cathedral is the backend cockpit.</p></div></article>
+    <section class="chatDock" data-chat-state="ready" aria-label="Chat with Lum" data-luhm-chat>
+      <div class="chatContextBar" aria-label="Current chat source context">
+        <span class="chatContextPill isUnknown" data-chat-context="branch">branch <strong>UNKNOWN</strong></span>
+        <span class="chatContextPill isUnknown" data-chat-context="sourceRef">source <strong>UNKNOWN</strong></span>
+        <span class="chatContextPill" data-chat-context="target">target <strong>local-first</strong></span>
       </div>
+
+      <div class="messageStream" data-luhm-message-stream>
+        <article class="message messageLum"><div class="avatar" aria-hidden="true">L</div><div><div class="messageMeta"><strong>Lum</strong><time>now</time></div><p>LuHm workbench ready. Pick a common workflow or just talk to me.</p></div></article>
+      </div>
+
+      <div class="chatQuickRail" aria-label="Common LuHm workflows">
+        <button class="chatQuickAction" type="button" data-chat-action="continue">Continue</button>
+        <button class="chatQuickAction" type="button" data-chat-action="audit">Audit source</button>
+        <button class="chatQuickAction" type="button" data-chat-action="verify">Verify GREEN</button>
+        <button class="chatQuickAction" type="button" data-chat-action="build">Build / test</button>
+        <button class="chatQuickAction" type="button" data-chat-action="fix">Fix bug</button>
+        <button class="chatQuickAction" type="button" data-chat-action="assets">Assets</button>
+        <button class="chatQuickAction" type="button" data-chat-action="proofs">Proofs</button>
+        <button class="chatQuickAction" type="button" data-chat-action="research">Research</button>
+        <button class="chatQuickAction" type="button" data-chat-action="drive">Drive install</button>
+        <button class="chatQuickAction" type="button" data-tone="pink" data-chat-action="crown">Prepare Crown</button>
+      </div>
+
+      <div class="oniActivityDock" data-luhm-oni-dock data-phase="REPORT" aria-label="Active LuHm Oni workers" aria-live="polite">
+        <div class="oniActivityLabel"><span>Oni mesh</span><strong data-luhm-oni-phase>REPORT</strong><span data-luhm-oni-status>0 active</span></div>
+        <div class="oniPetRail" data-luhm-oni-pets></div>
+      </div>
+
       <form class="composer" data-luhm-composer>
-        <button class="iconButton" type="button" aria-label="Attach file">⌕</button>
-        <label class="srOnly" for="messageInput">Message Lum</label>
-        <input id="messageInput" name="message" type="text" autocomplete="off" placeholder="Message Lum…" data-luhm-input>
-        <button class="sendButton" type="submit" aria-label="Send message">➤</button>
+        <div class="composerShell">
+          <div class="composerLeft">
+            <button class="composerTool" type="button" aria-label="Attach file" title="Attach" data-chat-attach>＋</button>
+            <button class="composerTool" type="button" aria-label="Start or stop dictation staging" title="Dictation" data-chat-voice>◖))</button>
+            <button class="composerTool" type="button" aria-label="More chat tools" title="More" data-chat-more>⌘</button>
+          </div>
+          <div class="composerTextWrap">
+            <label class="srOnly" for="messageInput">Message Lum</label>
+            <textarea id="messageInput" name="message" rows="1" autocomplete="off" placeholder="Message Lum…" data-luhm-input></textarea>
+            <span class="composerHint" data-chat-hint>Enter sends · Shift+Enter adds a line</span>
+          </div>
+          <div class="composerRight">
+            <button class="composerTool stopButton" type="button" aria-label="Stop current LuHm task" title="Stop" data-chat-stop>■</button>
+            <button class="sendButton" type="submit" aria-label="Send message">➤</button>
+          </div>
+        </div>
       </form>
+
+      <div class="chatStateLine" data-chat-state-line aria-live="polite">
+        <span><strong data-chat-state-label>Ready</strong></span>
+        <span>AI proposes · policy authorizes · CI proves · human promotes</span>
+      </div>
     </section>
+
+    <aside class="proofViewer" hidden data-luhm-proof-viewer aria-label="Embedded proof viewer">
+      <div class="proofViewerHeader">
+        <div class="proofViewerTitle"><small data-proof-kind>PROOF</small><strong data-proof-title>Evidence</strong></div>
+        <div class="proofViewerTools">
+          <a class="proofViewerButton" href="#" target="_blank" rel="noopener noreferrer" hidden data-proof-external>Open source</a>
+          <button class="proofViewerButton" type="button" data-proof-pin>Pin receipt</button>
+          <button class="proofViewerButton" type="button" aria-label="Close proof viewer" data-proof-close>×</button>
+        </div>
+      </div>
+      <div class="proofViewerMeta" data-proof-meta>
+        <div class="proofMetaCell"><small>status</small><span class="proofStatus" data-status="UNKNOWN" data-proof-status>UNKNOWN</span></div>
+      </div>
+      <div class="proofViewerBody"><div class="proofStage" data-proof-stage></div></div>
+      <div class="proofViewerFooter"><span><strong>Proof viewer</strong> · evidence display only</span><span>Raw Office HTML/scripts are never executed · live websites are sandboxed opt-in</span></div>
+    </aside>
 
     <aside class="systemLayer" hidden data-luhm-system-layer aria-label="Backend system layer">
-      <div class="systemLayerCard"><div><small>NATIVE SYSTEM LAYER</small><h2>Backend Cathedral</h2><p>The existing Godot cockpit is now the backend/system GUI in this dry run. This panel proves the front-end boundary only; native launch wiring is not simulated.</p></div><button type="button" data-luhm-backend-close>Close</button></div>
+      <div class="systemLayerCard"><div><small>NATIVE SYSTEM LAYER</small><h2>Backend Cathedral</h2><p>Godot remains the native system/game cockpit. The chat workbench emits typed events and never pretends a privileged backend action succeeded.</p></div><button type="button" data-luhm-backend-close>Close</button></div>
     </aside>
 
     <div class="appMenu" hidden data-luhm-menu>
@@ -53,6 +113,9 @@
 
   <script src="./vendor/jquery-3.7.1.min.js"></script>
   <script src="./jquery/luhm.cockpit.js"></script>
+  <script src="./jquery/luhm.oni.activity.js"></script>
+  <script src="./jquery/luhm.proof.viewer.js"></script>
+  <script src="./jquery/luhm.chat.workbench.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>

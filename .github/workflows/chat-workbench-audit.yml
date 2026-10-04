@@ -1,0 +1,34 @@
+name: LuHm Chat Workbench Audit
+
+on:
+  push:
+    paths:
+      - 'frontEnd/index.html'
+      - 'frontEnd/app.js'
+      - 'frontEnd/chat-workbench.css'
+      - 'frontEnd/jquery/luhm.chat.workbench.js'
+      - 'tests/testChatWorkbench.py'
+      - '.github/workflows/chat-workbench-audit.yml'
+  pull_request:
+    paths:
+      - 'frontEnd/index.html'
+      - 'frontEnd/app.js'
+      - 'frontEnd/chat-workbench.css'
+      - 'frontEnd/jquery/luhm.chat.workbench.js'
+      - 'tests/testChatWorkbench.py'
+      - '.github/workflows/chat-workbench-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  chat-workbench-audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Python contract audit
+        run: python3 tests/testChatWorkbench.py
+      - name: Workbench JavaScript syntax
+        run: node --check frontEnd/jquery/luhm.chat.workbench.js
+      - name: Front-end bridge syntax
+        run: node --check frontEnd/app.js

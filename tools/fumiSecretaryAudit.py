@@ -67,9 +67,9 @@ def audit() -> dict:
 
     required_skill_phrases = (
         "Fumi speaks to Lum",
-        "OpenAI may help Fumi classify records",
-        "deterministic helper validates exact paths",
-        "Learning\" means a receipt-backed lessons ledger".replace('\\"', '"'),
+        "OpenAI may classify records",
+        "A deterministic helper validates exact paths",
+        'Learning means a receipt-backed lessons ledger',
     )
     for phrase in required_skill_phrases:
         require(phrase in skill, f"missing bounded-skill rule: {phrase}")

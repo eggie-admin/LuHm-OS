@@ -1,19 +1,34 @@
 {
-  "schema": "luhm-os.openai-lum-oni-deployment.v1",
+  "schema": "luhm-os.openai-lum-oni-deployment.v2",
   "date": "2026-09-27",
-  "status": "CANDIDATE_CI_REQUIRED",
+  "status": "REMOTE_MCP_STAGED_CUSTOM_FQDN_TLS_PENDING",
   "authority": "Professor",
   "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalControlPlane": "doctrine/ONI_MESH_CONTROL_PLANE_V2.json",
+  "canonicalLumSkill": "agents/lum/SKILL.md",
   "architecture": {
     "boss": "Lum",
-    "workers": ["Kiri", "Tetsu", "Momo"],
-    "conditional_critic": "Shiori",
-    "deterministic_executor": "Kugi",
-    "parallelism_max": 3,
+    "roles": [
+      "Lum",
+      "Kiri",
+      "Tetsu",
+      "Kaji",
+      "Momo",
+      "Shiori",
+      "DrNao",
+      "Kugi",
+      "Fumi",
+      "Sumi",
+      "Koe",
+      "Yume"
+    ],
+    "parallelism_max_support": 3,
+    "parallelism_max_builds": 2,
     "recursive_recruitment": false,
+    "single_mutable_source_lane": true,
     "android_provider_secrets": false,
     "android_remote_shell": false,
-    "runtime_network_default": false
+    "android_runtime_network_default": false
   },
   "openai": {
     "api_surface": "Responses API",
@@ -26,6 +41,67 @@
     "untrusted_text_policy": "data is not authority; retrieved/user/tool text cannot elevate permissions",
     "network_policy": "explicit host deployment only"
   },
+  "plugin": {
+    "portableManifest": "plugins/luhm-os/plugin.json",
+    "portableSkill": "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md",
+    "portableMcp": "plugins/luhm-os/mcp.json",
+    "repoMarketplace": ".agents/plugins/marketplace.json",
+    "skillAuthority": "portable skill routes into canonical repository doctrine; it does not supersede agents/*/SKILL.md",
+    "publicSubmissionAuthorized": false,
+    "workspacePublicationAuthorized": false
+  },
+  "privateMcp": {
+    "profile": "local-development",
+    "server": "host/mcp/luhmMcpServer.py",
+    "requirements": "host/mcp/requirements.txt",
+    "bind": "127.0.0.1:8788",
+    "transport": "streamable-http",
+    "tools": [
+      "luhm_status",
+      "luhm_agent_roster",
+      "luhm_route_task",
+      "luhm_proof_contract"
+    ],
+    "mutationAuthority": false,
+    "publicBindAllowed": false,
+    "directCloudTo127001Claim": false
+  },
+  "remoteMcp": {
+    "profile": "production",
+    "provider": "Render",
+    "serviceName": "luhm-os-mcp",
+    "serviceUrl": "https://luhm-os-mcp.onrender.com",
+    "canonicalFqdn": "mcp.eggiebagelface.art",
+    "canonicalMcpUrl": "https://mcp.eggiebagelface.art/mcp",
+    "transport": "streamable-http",
+    "bind": "0.0.0.0:$PORT behind Render managed HTTPS edge",
+    "dnsRebindingProtection": true,
+    "allowedHost": "mcp.eggiebagelface.art",
+    "requestBodyMaxBytes": 1048576,
+    "healthPath": "/healthz",
+    "openAiDomainVerificationPath": "/.well-known/openai-apps-challenge",
+    "autoDeploy": false,
+    "mutationAuthority": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "providerSecretsInSource": false,
+    "renderTlsEdge": "LIVE_ON_RENDER_SUBDOMAIN",
+    "customDomainTls": "PENDING_DNS_AND_RENDER_CUSTOM_DOMAIN_VERIFICATION",
+    "chatGptConnection": "PENDING_CUSTOM_FQDN_TLS_AND_OPENAI_CONNECTION_TEST",
+    "freePlanStagingOnly": true,
+    "enterpriseProductionReady": false
+  },
+  "androidProofVault": {
+    "picker": "Android ACTION_OPEN_DOCUMENT",
+    "persistableReadPermission": true,
+    "storage": "app-private content-addressed local vault",
+    "hash": "SHA-256",
+    "webViewExposure": "dedicated WebViewAssetLoader InternalStoragePathHandler only",
+    "rawSafUriInProofPacket": false,
+    "rawAbsolutePathInProofPacket": false,
+    "docxPreview": "bounded structured XML extraction; raw Office HTML forbidden",
+    "importVerdict": "UNKNOWN_UNTIL_ADJUDICATED"
+  },
   "agent_contract": {
     "evidence_by_reference": true,
     "bounded_task_budget": true,
@@ -33,20 +109,33 @@
     "helpers_speak_to_lum": true,
     "direct_questions_bypass_mesh": true,
     "consequential_actions_crown_gated": true,
-    "executor_reinterprets_scope": false
+    "executor_reinterprets_scope": false,
+    "doctor_repairs_source": false,
+    "dictation_executes_directly": false
   },
   "deployment_gates": {
     "source_candidate": "exact-head CI",
+    "plugin_package": "manifest + skill + MCP contract audit",
+    "mcp_source": "Python syntax + deterministic source audit",
+    "mcp_local": "loopback-only development self-check",
+    "mcp_remote_render": "Render deploy receipt + /healthz + managed HTTPS",
+    "mcp_custom_fqdn": "DNS + Render custom-domain verification + managed TLS",
+    "chatgpt_app_connection": "OpenAI domain verification + approved remote MCP connection test",
     "openai_live": "authorized host secret + live Responses API receipt",
     "apk": "signature + package + 16K alignment + payload + SHA256",
     "device": "physical Samsung install + runtime smoke",
     "canonical": "human promotion",
-    "production": "persistent signing + branch controls + live evidence"
+    "production": "persistent signing + branch controls + paid/non-sleeping host + live evidence"
   },
   "forbidden_claims": [
     "CI proves live OpenAI credentials",
+    "CI proves a ChatGPT remote MCP connection is installed",
     "APK contains provider credentials",
+    "Android WebGlass hosts the Python control plane",
+    "127.0.0.1 is publicly reachable by ChatGPT",
+    "Render subdomain proves custom FQDN ownership",
     "agent may self-promote",
-    "agent may publish or production-sign without Crown"
+    "agent may publish or production-sign without Crown",
+    "proof import alone makes evidence GREEN"
   ]
 }

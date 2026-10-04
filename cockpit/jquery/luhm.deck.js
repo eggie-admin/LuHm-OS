@@ -1,7 +1,7 @@
 (function($){
   'use strict';
   const NS='luhmDeck';
-  const allowed=new Set(['chat.send','panel.set','status.request','model.select','cms.select','world.show','toy.action','input.axis','camera.delta','window.mode','app.background','app.quit','avatar.tune','avatar.reset','avatar.inspect']);
+  const allowed=new Set(['chat.send','panel.set','status.request','model.select','cms.select','world.show','toy.action','input.axis','camera.delta','window.mode','app.background','app.quit','avatar.tune','avatar.reset','avatar.inspect','proof.pick','proof.list','proof.pin']);
   const modes=new Set(['bubble','compact','panel','fullscreen','hidden']);
 
   function nativeSend(type,payload){
@@ -41,6 +41,8 @@
     $root.on('click','[data-toy-action]',function(){nativeSend('toy.action',{action:String($(this).attr('data-toy-action')||'')})});
     $root.on('click','[data-app-background]',()=>nativeSend('app.background',{}));
     $root.on('click','[data-app-quit]',()=>nativeSend('app.quit',{}));
+    $root.on('click','[data-proof-pick]',function(){nativeSend('proof.pick',{mimeTypes:String($(this).attr('data-proof-mimes')||'')})});
+    $root.on('click','[data-proof-list]',()=>nativeSend('proof.list',{}));
     $root.on('luhm:model:select',(e,id)=>nativeSend('model.select',{modelId:String(id)}));
     $root.on('luhm:cms:select',(e,id)=>nativeSend('cms.select',{entryId:String(id)}));
 

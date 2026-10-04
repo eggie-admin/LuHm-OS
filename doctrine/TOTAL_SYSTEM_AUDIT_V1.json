@@ -1,0 +1,40 @@
+{
+  "schema": "luhm-os.total-system-audit.v1",
+  "date": "2026-09-27",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "mode": "TEN_PASS_FAIL_CLOSED",
+  "objective": "Fastest evidence-backed path from current doctrine to one exact-head candidate without weakening security boundaries.",
+  "passes": [
+    {"id":1,"name":"source-truth-and-doctrine","blocking":true,"checks":["canonical source law","authority order","UNKNOWN is not GREEN","current candidate identity"]},
+    {"id":2,"name":"github-governance-and-entitlements","blocking":false,"checks":["repository visibility","default branch","rulesets or protection","workflow token least privilege"],"external":true},
+    {"id":3,"name":"android-entitlements-and-package-boundary","blocking":true,"checks":["target SDK","single ABI","no Internet permission","no custom permissions","host code excluded"]},
+    {"id":4,"name":"webview-proof-vault-and-content-security","blocking":true,"checks":["SAF copy into app-private vault","SHA-256 identity","XXE disabled","network loads blocked","raw HTML forbidden"]},
+    {"id":5,"name":"lum-oni-agent-control-plane","blocking":true,"checks":["Lum sole boss","12 canonical roles","3 support workers","2 build lanes","no recursive recruitment","one mutable source lane"]},
+    {"id":6,"name":"host-openai-mcp-secret-boundary","blocking":true,"checks":["provider secrets host-only","MCP loopback-only","plugin read-only","no Android provider credentials","no mutation authority"]},
+    {"id":7,"name":"fastapi-cloud-https-bridge","blocking":true,"checks":["read-only entitlements","fail-closed bearer auth","no docs/CORS/write methods","env-only secret","live deployment receipt separate"]},
+    {"id":8,"name":"ci-supply-chain-and-fast-path","blocking":true,"checks":["pinned actions","exact-source checkout","cancel superseded runs","small static preflight before heavy build","bounded timeouts"]},
+    {"id":9,"name":"artifact-provenance-release-and-recovery","blocking":false,"checks":["artifact digests","APK signature verification","16K ELF/zip alignment","persistent signer","SBOM/provenance","backup/restore drill"],"external":true},
+    {"id":10,"name":"performance-and-operational-readiness","blocking":false,"checks":["selective workflows","two-build parallelism","stateless cloud bridge","no unnecessary DB/cache","device smoke","latency/error/cost receipts"],"external":true}
+  ],
+  "fastPath": [
+    "resolve exact head once",
+    "run static ten-pass preflight",
+    "stop immediately on deterministic RED",
+    "run Tetsu and Kaji only after preflight",
+    "reuse hash-pinned unchanged artifacts where doctrine permits",
+    "run APK/device proof only after source/build GREEN",
+    "never rebuild documentation-only changes"
+  ],
+  "knownExternalGates": [
+    "physical Samsung exact-build proof",
+    "persistent Crown-owned release signer and recovery custody",
+    "GitHub server-side branch protection or active ruleset",
+    "FastAPI Cloud linked app/auth/live deployment receipt",
+    "live OpenAI host receipt",
+    "SBOM/provenance binding",
+    "backup/restore drill",
+    "runtime latency/error/cost benchmark"
+  ],
+  "promotionAuthority": false
+}

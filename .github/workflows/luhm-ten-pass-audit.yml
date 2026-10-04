@@ -1,0 +1,80 @@
+name: LuHm OS Ten Pass Hard Audit
+
+on:
+  push:
+    branches:
+      - 'feature/oni-pet-activity-dock-v2-20260927'
+  pull_request:
+    paths:
+      - 'doctrine/**'
+      - 'agents/**'
+      - 'host/**'
+      - 'plugins/**'
+      - 'native/**'
+      - 'cockpit/**'
+      - 'tools/**'
+      - 'scripts/**'
+      - '.github/workflows/luhm-ten-pass-audit.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: luhm-ten-pass-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ten-pass:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Assert exact source
+        run: |
+          set -euo pipefail
+          EXPECTED='${{ github.event.pull_request.head.sha || github.sha }}'
+          ACTUAL="$(git rev-parse HEAD)"
+          test "$ACTUAL" = "$EXPECTED"
+          echo "EXACT_SOURCE=$ACTUAL"
+      - name: Syntax and JSON
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/luhmTenPassAudit.py tools/lumAgentWorkflowAudit.py tools/finalSystemAudit.py host/mcp/luhmMcpServer.py
+          python3 -m json.tool doctrine/SOURCE_OF_TRUTH.json >/dev/null
+          python3 -m json.tool doctrine/deviceProof-52cdb6e-20260927.json >/dev/null
+          python3 -m json.tool doctrine/openAiLumOniDeployment-20260927.json >/dev/null
+          python3 -m json.tool doctrine/ONI_MESH_CONTROL_PLANE_V2.json >/dev/null
+          python3 -m json.tool plugins/luhm-os/plugin.json >/dev/null
+          python3 -m json.tool plugins/luhm-os/mcp.json >/dev/null
+          python3 -m json.tool plugins/luhm-os/mcp.local.json >/dev/null
+      - name: Run all ten passes
+        run: |
+          set -euo pipefail
+          python3 tools/luhmTenPassAudit.py \
+            --source-sha '${{ github.event.pull_request.head.sha || github.sha }}' \
+            --output build/ten-pass/luhm-ten-pass-audit.json
+      - name: Assert truthful blocked state
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p = json.loads(Path('build/ten-pass/luhm-ten-pass-audit.json').read_text())
+          assert p['auditExecution'] == '10_OF_10_PASSES_EVALUATED'
+          assert p['overallSystemStatus'] == 'RED_BLOCKED'
+          assert p['crownAuthorized'] is False
+          assert len(p['passes']) == 10
+          assert p['passes'][9]['status'] == 'RED_DEVICE'
+          print('TEN_PASS_TRUTHFUL_BLOCK_GREEN')
+          PY
+      - name: Upload audit receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-os-ten-pass-audit
+          path: build/ten-pass/luhm-ten-pass-audit.json
+          if-no-files-found: error
+          retention-days: 30

@@ -10,7 +10,10 @@ import subprocess
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-FORBIDDEN = re.compile(r'127\.0\.0\.1|localhost|FastAPI|PySimpleGUI|RUN_COMMAND|OPENAI_API_KEY|AIza|sk-proj-|cms_registry|api_bridge|web_cms_bridge|cage_manager|HTTPRequest|MANIFEST_URL|SpringBoneSimulator3D|FaceController|LipSyncController')
+# Network/control-plane/provider capabilities remain forbidden in the offline APK lane.
+# Godot-native presentation/animation helpers such as SpringBoneSimulator3D are no
+# longer blanket-forbidden; their runtime use is governed by feature-specific audits.
+FORBIDDEN = re.compile(r'127\.0\.0\.1|localhost|FastAPI|PySimpleGUI|RUN_COMMAND|OPENAI_API_KEY|AIza|sk-proj-|cms_registry|api_bridge|web_cms_bridge|cage_manager|HTTPRequest|MANIFEST_URL|FaceController|LipSyncController')
 RUNTIME_SCOPE = {
     'scripts': {'.gd'},
     'scenes': {'.tscn', '.tres'},
