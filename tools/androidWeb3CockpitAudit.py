@@ -99,8 +99,10 @@ for primitive in ("fetch(", "XMLHttpRequest", "WebSocket(", "eval(", "new Functi
 require('window.LuHmNative' in app and '.postMessage' in app,
         "origin-scoped native message surface not wired from front end")
 require('postNative("world_requested")' in app, "world request bridge missing")
+require('postNative("oni_requested", { name: name })' in app, "bounded Oni request bridge missing")
 require('postNative("cockpit_ready")' in app, "cockpit ready bridge missing")
 require("luhm:backend:open" in app, "typed Godot/system boundary event missing")
+require("luhm:oni:summon" in app, "Oni summon event is not wired to native bridge")
 require("Android Web3 cockpit" in html, "candidate cockpit identity missing from HTML")
 require("Android System WebView" in front_readme, "front-end runtime target not documented")
 require("shell execution" in back_readme.lower(), "Godot boundary must document shell prohibition")
@@ -122,8 +124,11 @@ for token in (
     "assetLoader.shouldInterceptRequest(request.url) ?: blockedResponse()",
     "getCurrentWebViewPackage",
     '"world_requested"',
+    '"oni_requested"',
     '"cockpit_ready"',
     '"bridge_payload_missing"',
+    '"oni_name_rejected"',
+    'CANONICAL_ONI',
     "@UsedByGodot",
 ):
     require(token in kotlin, f"Android wrapper missing control: {token}")
@@ -161,6 +166,7 @@ for token in (
     'Engine.has_singleton("AndroidWeb3Cockpit")',
     'Engine.get_singleton("AndroidWeb3Cockpit")',
     'connect("world_requested", enterWorldMode)',
+    'connect("oni_requested", _on_android_oni_requested)',
     'connect("cockpit_ready", _on_android_web3_ready)',
     'connect("bridge_error", _on_android_web3_error)',
     "android_web3_plugin.hideCockpit()",
@@ -185,8 +191,10 @@ for key in ("arbitraryNavigation", "networkFallback", "addJavascriptInterface",
             "shellAuthority", "crownAuthority"):
     require(security.get(key) is False, f"bridge security {key} must remain false")
 allowed_js = [x.get("type") for x in bridge.get("javascriptToNative", [])]
-require(allowed_js == ["cockpitReady", "worldRequested"],
-        "JavaScript-to-native bridge types expanded unexpectedly")
+require(allowed_js == ["cockpitReady", "oniRequested", "worldRequested"],
+        "JavaScript-to-native bridge types drifted")
+require("routing only" in bridge.get("javascriptToNative", [])[1].get("effect", ""),
+        "Oni request bridge must remain routing-only")
 
 # Forge CAST gating: build-producing workflows must be manual only.
 require(forge.get("operationLaw") == "PROTECT != INGEST != MUTATE != CAST != JANITOR",
