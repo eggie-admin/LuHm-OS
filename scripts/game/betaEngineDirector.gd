@@ -4,10 +4,12 @@ const PbrMaterialForge := preload("res://scripts/game/pbrMaterialForge.gd")
 const SecondaryMotionRig := preload("res://scripts/game/secondaryMotionRig.gd")
 const FacialRigDriver := preload("res://scripts/game/facialRigDriver.gd")
 const PrivateModRegistry := preload("res://scripts/game/privateModRegistry.gd")
+const RuntimeBudget := preload("res://scripts/game/runtimeBudget.gd")
 const ASSET_REGISTRY_PATH := "res://assets/registry/BETA_ASSET_SOURCES_V1.json"
 const PBR_SIDECAR_PATH := "res://assets/beta_external/pbr/materials.json"
 
 var _summary: Dictionary = {}
+var _runtime_budget: Node
 
 func _ready() -> void:
     call_deferred("_boot_beta_engine")
@@ -33,6 +35,7 @@ func _boot_beta_engine() -> void:
     _configure_viewport(renderer)
     _configure_environment(world, renderer)
     _configure_lights(world, renderer)
+    _install_runtime_budget(world, renderer)
 
     var lum := world.get_node_or_null("LumAvatarSocket") as Node3D
     var pbr_summary := PbrMaterialForge.apply_sidecar(lum, PBR_SIDECAR_PATH)
@@ -48,17 +51,30 @@ func _boot_beta_engine() -> void:
         "facial": face_summary,
         "secondary_motion": motion_summary,
         "private_mods": mod_summary,
+        "runtime_budget": _runtime_budget.call("get_summary") if _runtime_budget != null else {"quality":"UNKNOWN"},
     }
-    print("GODOT4_BETA_ENGINE=READY renderer=%s driver=%s pbr=%s face=%s motion=%s" % [
+    print("GODOT4_BETA_ENGINE=READY renderer=%s driver=%s pbr=%s face=%s motion=%s budget=%s" % [
         renderer,
         driver,
         str(pbr_summary.get("status", "unknown")),
         str(face_summary.get("status", "unknown")),
         str(motion_summary.get("status", "unknown")),
+        str(_summary.get("runtime_budget", {}).get("quality", "UNKNOWN")),
     ])
 
 func get_beta_summary() -> Dictionary:
-    return _summary.duplicate(true)
+    var current := _summary.duplicate(true)
+    if _runtime_budget != null:
+        current["runtime_budget"] = _runtime_budget.call("get_summary")
+    return current
+
+func _install_runtime_budget(world: Node3D, renderer: String) -> void:
+    if _runtime_budget != null:
+        return
+    _runtime_budget = RuntimeBudget.new()
+    _runtime_budget.name = "RuntimeBudget"
+    add_child(_runtime_budget)
+    _runtime_budget.call("configure", world, get_viewport(), renderer)
 
 func _configure_viewport(renderer: String) -> void:
     var viewport := get_viewport()

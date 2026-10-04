@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - 'beta/godot4-engine-hardening-*'
+      - 'beta/godot4-gameplay-hardening-*'
   pull_request:
     paths:
       - 'project.godot'
@@ -19,6 +20,7 @@ on:
       - 'tools/stageCommunityAssets.py'
       - 'tests/betaEngineHardeningSmoke.gd'
       - 'tests/lumRuntimeCapabilityAudit.gd'
+      - 'tests/runtimeBudgetSmoke.gd'
       - '.github/workflows/godot4-beta-engine-audit.yml'
 
 permissions:
@@ -57,6 +59,7 @@ jobs:
           set -euo pipefail
           GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
           "$GODOT" --headless --editor --path . --quit
+          "$GODOT" --headless --path . --script tests/runtimeBudgetSmoke.gd
           "$GODOT" --headless --path . --script tests/lumRuntimeCapabilityAudit.gd
           "$GODOT" --headless --path . --script tests/betaEngineHardeningSmoke.gd
       - name: Upload beta receipts
