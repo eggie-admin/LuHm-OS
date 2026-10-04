@@ -216,7 +216,10 @@
     "liveProviderDeploymentProven": false,
     "workingLane": "PROPOSED_ONLY",
     "promotion": false,
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "deploymentVisualContract": "host/harness/agent-loading-sprites.json#deploymentVisuals",
+    "deploymentVisualLaw": "approved Oni artwork identifies deployment lanes; textual state carries IDLE/WORKING/VERIFY/PASS/BLOCKED; color-to-role semantics remain unbound until explicit doctrine assignment",
+    "genericGreenEmojiDeploymentIdentity": false
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
