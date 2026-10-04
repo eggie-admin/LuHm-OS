@@ -77,6 +77,8 @@ require('ONI_SUMMONER_UI_RESOURCE_URI = "ui://luhm-os/oni-summoner-v1.html"' in 
 require('"executionStarted": False' in mcp, "RED_NO_FAKE_EXECUTION")
 require('from luhmOniSummoner import register_oni_summoner' in server, "RED_MCP_SERVER_IMPORT")
 require('register_oni_summoner(' in server, "RED_MCP_SERVER_REGISTRATION")
+require('for key in ("agentId", "displayName", "name")' in mcp, "RED_CANONICAL_ROSTER_ALIAS_BRIDGE")
+require('r.name||r.displayName||r.agentId||"UNKNOWN"' in widget, "RED_WIDGET_ROSTER_NORMALIZATION")
 
 for forbidden in (".html(", "innerHTML", "eval(", "new Function", "XMLHttpRequest", "WebSocket", "EventSource"):
     require(forbidden not in js, "RED_JS_SINK_" + forbidden.replace(" ", "_"))
