@@ -1,0 +1,84 @@
+{
+  "schema": "luhm-os.beta-asset-sources.v1",
+  "runtimeNetwork": false,
+  "publicLocatorPolicy": "Private Google Drive and ChatGPT Library IDs are intentionally not committed to public GitHub registries.",
+  "sources": [
+    {
+      "key": "repo-community-cc0",
+      "kind": "repository_runtime_payload",
+      "rights": "PERMISSIVE",
+      "package": true,
+      "manifest": "res://assets/community/selected-assets.json",
+      "expectedAssetCount": 77,
+      "notes": "Pinned/hash-receipted CC0 GLB set staged at build time; this is the current deterministic Cathedral environment payload."
+    },
+    {
+      "key": "godot4-community-capability-cathedral",
+      "kind": "community_source_map",
+      "rights": "MIXED_PER_ENTRY",
+      "package": "SELECTIVE_AFTER_RECEIPT",
+      "manifest": "res://assets/registry/GODOT4_COMMUNITY_CAPABILITY_MAP_V1.json",
+      "referenceCount": 20,
+      "notes": "Character bases/outfits/animations, FACS/face reference, VRM, secondary motion, hair, creatures, environments and props; private-reference archetypes never cross the rights wall."
+    },
+    {
+      "key": "drive-original-vault",
+      "kind": "google_drive_private",
+      "rights": "OWNED",
+      "package": "AFTER_LOCAL_MATERIALIZATION",
+      "observedAssets": ["kai9000_cathedral_cockpit_interface.png", "lum_gothic_hip_wing_animation_asset_sheet.png"],
+      "notes": "Original/private LuHm art. Pull through local/Drive materialization and hash before staging."
+    },
+    {
+      "key": "drive-character-physics-curated",
+      "kind": "google_drive_private_source_receipts",
+      "rights": "MIXED_PER_ENTRY",
+      "package": "LUHM_AUTHORED_ENGINE_NATIVE_PROFILE_ONLY_BY_DEFAULT",
+      "observedCapabilities": ["SpringBoneSimulator3D", "WiggleBone", "JiggleBones", "godot-vrm", "GodotHair", "VitruvianGodot"],
+      "notes": "Curated community snapshots remain reference/provenance inputs unless their runtime files and licenses are explicitly promoted."
+    },
+    {
+      "key": "drive-third-party-private-reference",
+      "kind": "google_drive_private",
+      "rights": "PRIVATE_REFERENCE",
+      "package": false,
+      "observedCollections": ["DESTINY_CHILD_GACHA_REFERENCE_20"],
+      "notes": "Private comparison/motion-state reference only. No proprietary pixels/code/audio/assets are redistributed."
+    },
+    {
+      "key": "chatgpt-library-asset-dungeon",
+      "kind": "chatgpt_library",
+      "rights": "MIXED",
+      "package": "PER_ENTRY",
+      "manifestName": "KAI9000_MULTIVERSE_ASSET_DUNGEON_MANIFEST_20260914.json",
+      "indexedAssetCount": 28,
+      "ownedGeneratedExamples": ["lum_character_sheet.png", "face_front.png", "face_3q.png", "face_profile.png", "eye_detail.png", "horn_detail.png", "lum_front_000.png", "lum_right_090.png", "Neon Gothic Cathedral Game Hub.png"],
+      "privateReferencePolicy": "Entries marked third_party_private_reference_do_not_publish remain non-packageable."
+    },
+    {
+      "key": "lum-animated-state-contract",
+      "kind": "owned_animation_reference",
+      "rights": "OWNED_OR_GENERATED",
+      "package": "DERIVATIVES_ONLY_AFTER_INGEST",
+      "states": ["idle", "blink", "smile", "wave", "tease", "cast", "victory", "sad"],
+      "godotStates": ["Idle_Breathe", "Blink", "Face_Happy", "Emote_Wave", "Face_Smug", "Cast", "Victory", "Face_Sad"],
+      "notes": "Existing LuHm animated-state lane can drive/author 3D AnimationTree and facial behavior without importing protected reference content."
+    },
+    {
+      "key": "meshy-lum-runtime-donor",
+      "kind": "build_input",
+      "rights": "OWNED_OR_EXPLICITLY_APPROVED",
+      "package": true,
+      "staging": "scripts/stageBetaGamePayload.sh",
+      "rigContract": {"joints":24,"requiredHumanoidRoles":22,"externalModel":true,"runningAsset":true},
+      "notes": "Pinned/hash-verified LumRigV2 GLB payload. CI must materialize it before judging rig/runtime capability."
+    }
+  ],
+  "staging": {
+    "externalRoot": "assets/beta_external",
+    "pbrSidecar": "assets/beta_external/pbr/materials.json",
+    "privateMods": "user://mods",
+    "receipts": "build/beta-engine",
+    "acceptedExtensions": [".png", ".jpg", ".jpeg", ".webp", ".exr", ".hdr", ".glb", ".gltf", ".fbx", ".obj", ".ogg", ".wav", ".flac", ".json", ".tres", ".res"]
+  }
+}

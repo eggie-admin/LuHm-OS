@@ -1,6 +1,6 @@
 {
-  "schema": "luhm-os.clean-source.v4",
-  "status": "AMBER_FULL_GAME_EXTERNAL_GATES_PENDING",
+  "schema": "luhm-os.clean-source.v5",
+  "status": "AMBER_FINAL_MUTATION_EXACT_HEAD_CI_AND_DEVICE_PROOF_PENDING",
   "product": "LuHm OS",
   "scope": "FULL_GAME",
   "canonical_repository": "eggie-admin/LuHm-OS",
@@ -23,11 +23,12 @@
       "webGlassRun": 36315800471,
       "fullGameDeploymentRun": 36315800455
     },
-    "status": "BASELINE_GREEN_RECONCILIATION_COMMITS_REQUIRE_NEW_EXACT_HEAD_CI",
+    "status": "FINAL_MUTATION_EXACT_HEAD_CI_REQUIRED",
     "gameDoctrine": "doctrine/luhmFullGameDoctrine-20260927.json",
     "gameSourceTruth": "doctrine/luhmFullGameSourceTruth-20260927.json",
     "deploymentDoctrine": "doctrine/crownCathedralDeployment-20260927.json",
     "systemTruth": "doctrine/finalSystemSourceTruth-20260927.json",
+    "finalMutationMilestone": "doctrine/finalMutationMilestone-20260928.json",
     "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
     "systemAuditor": "tools/finalSystemAudit.py",
     "fullGameAuditor": "tools/luhmFullGameAudit.py"
@@ -37,6 +38,7 @@
     "doctrine/luhmFullGameSourceTruth-20260927.json",
     "doctrine/luhmFullGameDoctrine-20260927.json",
     "doctrine/crownCathedralDeployment-20260927.json",
+    "doctrine/finalMutationMilestone-20260928.json",
     "current subsystem contracts",
     "historical seals and donor records"
   ],
@@ -66,9 +68,12 @@
   },
   "android": {
     "contract": "doctrine/crownCathedralDeployment-20260927.json",
-    "package": "art.eggiebagelface.luhmos.cathedraltoy.atelier",
+    "package": "art.eggiebagelface.luhmos",
+    "versionCode": 102,
+    "versionName": "1.0.2-final.mutation.1",
     "targetSdk": 36,
     "production_signer": false,
+    "expectedSignerSha256": "598D7272D62DBEBB71972D6164822636AD1439CD35631D0CD43321D003C92142",
     "publication_authority": false,
     "internetPermission": false
   },
@@ -85,7 +90,7 @@
   ],
   "remainingExternalGates": {
     "physicalSamsungCurrentExactBuild": "PENDING",
-    "persistentCrownOwnedSigning": "PENDING",
+    "persistentCrownOwnedSigning": "REQUIRED_IN_EXTERNAL_SIGNING_FORGE",
     "liveOpenAiHostReceipt": "PENDING_SEPARATE_HOST_LANE",
     "branchControls": "EXTERNAL_ADMIN_GATE",
     "explicitCanonicalPromotion": "PENDING_AFTER_DEVICE_PROOF"
@@ -96,8 +101,8 @@
   "reconciliation": {
     "observedMain": "506e486cb142f6c81f7df71d007fdf05e47e82ed",
     "baselineGreenCandidate": "93bc11cbc1c09ecf6e18605985beebf4f9a4e8d5",
-    "status": "FULL_GAME_HARDENING_LINEAGE_ACTIVE_CANONICAL_MAIN_UNCHANGED",
-    "preserved": "Canonical main remains unchanged; current LuHm OS full-game evidence lives on the Crown Cathedral hardening candidate until physical Samsung exact-build proof and explicit Professor promotion."
+    "status": "FULL_GAME_FINAL_MUTATION_LINEAGE_ACTIVE_CANONICAL_MAIN_UNCHANGED",
+    "preserved": "Canonical main remains unchanged; current LuHm OS full-game final mutation remains on the Crown Cathedral candidate until physical Samsung exact-build proof and explicit Professor promotion."
   },
   "unknown_is_not_green": true
 }

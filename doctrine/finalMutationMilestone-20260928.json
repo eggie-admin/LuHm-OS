@@ -1,0 +1,83 @@
+{
+  "schema": "luhm-os.final-mutation-milestone.v1",
+  "date": "2026-09-28",
+  "milestone": "LUHM_OS_FINAL_MUTATION_001",
+  "product": "LuHm OS",
+  "scope": "FULL_GAME",
+  "authority": {
+    "crown": "Professor",
+    "human_final_authority": true,
+    "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+    "auto_merge": false,
+    "auto_promote": false,
+    "auto_publish": false
+  },
+  "source": {
+    "repository": "eggie-admin/LuHm-OS",
+    "candidate_branch": "candidate/crown-cathedral-audit-hardening-20260927",
+    "pre_mutation_snapshot": "snapshot/pre-final-mutation-20260928",
+    "baseline_proven_green_head": "93bc11cbc1c09ecf6e18605985beebf4f9a4e8d5",
+    "exact_head": "DERIVED_AT_CI_RUNTIME"
+  },
+  "android": {
+    "package": "art.eggiebagelface.luhmos",
+    "app_name": "LuHm OS",
+    "version_code": 102,
+    "version_name": "1.0.2-final.mutation.1",
+    "target_sdk": 36,
+    "abi": "arm64-v8a",
+    "internet_permission": false,
+    "debuggable": false,
+    "profileable_shell": false,
+    "alignment": "16K_REQUIRED",
+    "expected_signer_sha256": "598D7272D62DBEBB71972D6164822636AD1439CD35631D0CD43321D003C92142"
+  },
+  "required_runtime": {
+    "engine": "Godot 4 native 3D",
+    "world": [
+      "Crown Cathedral authored facade",
+      "Japanese kissaten interior",
+      "Detroit industrial neon RiverWalk"
+    ],
+    "resident": "rigged external Lum GLB",
+    "lum_target_visible_height_m": 1.9,
+    "community_assets": 77,
+    "community_license": "CC0",
+    "owned_donor_gallery": true,
+    "movement_and_camera": true,
+    "pet_and_oni_actions": true,
+    "webglass": "local caged jQuery + jQuery UI + Bootstrap + Vue island overlay",
+    "opening_webglass_mode": "bubble",
+    "runtime_network": false
+  },
+  "authority_boundaries": {
+    "luhm_os_full_game": "SOURCE_OF_TRUTH_AUTHORITY",
+    "kai9000": "DONOR_INVENTORY_ONLY",
+    "hydra_shell_android": "EXTERNAL_SIGNING_FORGE_ONLY",
+    "vue_headless_cms": "VISUAL_OR_IMPLEMENTATION_DONOR_ONLY",
+    "termux": "RUNTIME_TOOLING_ONLY_NOT_GAME_AUTHORITY",
+    "provider_secrets_in_apk": false,
+    "arbitrary_shell_from_webglass": false
+  },
+  "proof_required": {
+    "exact_head_ci": true,
+    "native_3d_scene_smoke": true,
+    "rigged_lum_hash_and_height": true,
+    "community_77_of_77": true,
+    "donor_gallery_export_pack": true,
+    "persistent_signer_continuity": true,
+    "canonical_package_and_version": true,
+    "apk_sha256": true,
+    "physical_samsung_install": true,
+    "physical_runtime_recording": true
+  },
+  "final_gate": {
+    "source_and_ci": "PENDING_EXACT_HEAD_BUILD",
+    "signed_apk": "PENDING_EXTERNAL_SIGNING_FORGE",
+    "physical_device": "PENDING",
+    "canonical_main_promotion": "LOCKED_UNTIL_EXACT_DEVICE_PROOF_AND_EXPLICIT_PROFESSOR_PROMOTION",
+    "publication": "LOCKED",
+    "crown": "LOCKED"
+  },
+  "unknown_is_not_green": true
+}
