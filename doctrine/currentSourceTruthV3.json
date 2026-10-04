@@ -176,5 +176,25 @@
     "roleplayMayChangeAuthority": false,
     "nextMilestone": "letsMakeMoneyForCorporations",
     "crownStatus": "STOP"
+  },
+  "agentLayer": {
+    "training": "doctrine/agentTrainingSealV1.json",
+    "deployment": "doctrine/agentSystemDeploymentV1.json",
+    "controlPlane": "doctrine/luhmAiControlPlaneV1.json",
+    "rosterCount": 15,
+    "boss": "lum",
+    "residentCore": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "yumeAvailableSystemWide": true,
+    "oniMiniAgentsAvailableSystemWide": true,
+    "status": "PROPOSED_SYSTEM_WIDE_AGENT_DEPLOYMENT",
+    "liveProviderDeploymentProven": false,
+    "workingLane": "PROPOSED_ONLY",
+    "promotion": false,
+    "crownStatus": "STOP"
   }
 }
