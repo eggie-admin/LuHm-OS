@@ -1,0 +1,41 @@
+name: Android WebView Cockpit Audit
+
+on:
+  pull_request:
+    paths:
+      - 'cockpit/**'
+      - 'doctrine/androidWebViewCockpit-20260925.json'
+      - 'scripts/auditAndroidWebViewCockpit.py'
+      - '.github/workflows/android-webview-cockpit-audit.yml'
+  push:
+    branches:
+      - 'candidate/**'
+    paths:
+      - 'cockpit/**'
+      - 'doctrine/androidWebViewCockpit-20260925.json'
+      - 'scripts/auditAndroidWebViewCockpit.py'
+      - '.github/workflows/android-webview-cockpit-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Syntax
+        run: |
+          python3 -m py_compile scripts/auditAndroidWebViewCockpit.py
+          node --check cockpit/app.js
+          node --check cockpit/jquery/luhm.deck.js
+          node --check cockpit/cms/vueCms.js
+          node --check cockpit/tools/stage-vendor.mjs
+      - name: Contract audit
+        run: python3 scripts/auditAndroidWebViewCockpit.py
+      - name: Secret-pattern guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -R -nE '(sk-proj-|AIza|hf_[A-Za-z0-9]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' cockpit doctrine/androidWebViewCockpit-20260925.json scripts/auditAndroidWebViewCockpit.py
