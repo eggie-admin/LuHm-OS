@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.gameQuest.v1",
-  "status": "proposedGameplay",
+  "status": "canonicalGameplay",
   "questId": "firstNightCircuit",
   "title": "First Night Circuit",
   "premise": "Lum has the Cathedral online, but the city loop needs one human pass before the night shift can call it alive.",
@@ -56,5 +56,7 @@
   "completion": {
     "title": "First Night Complete",
     "message": "Lum: Not bad, Professor. Three districts, one coffee, one electrical ghost, zero apocalypse."
-  }
+  },
+  "professorApproval": true,
+  "crownReceipt": "doctrine/gameplayVerticalSliceCrownReceiptV1.json"
 }
