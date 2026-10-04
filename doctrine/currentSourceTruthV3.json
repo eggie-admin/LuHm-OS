@@ -265,8 +265,14 @@
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",
     "deploy": "doctrine/professorOldMagicStudyDeployV2.json",
     "schema": "doctrine/professorOldMagicStudyClassSchemaV2.json",
-    "driveReceiptProven": false,
-    "status": "PROPOSED_SOURCE_ONLY",
-    "crownStatus": "STOP"
+    "learningLibrary": "agents/professorOldMagicStudy/library/lumMasterOralExamV1.json",
+    "latestReceipt": "doctrine/professorOldMagicLumExamReceiptV1.json",
+    "driveReceiptProven": true,
+    "status": "CANONICAL_STUDY_LIBRARY",
+    "learningMode": "retrievalAndReasoningReferenceNotModelWeightTrainingClaim",
+    "professorApproval": true,
+    "promotion": true,
+    "promotionScope": "professorOldMagicStudyLibraryOnly",
+    "crownStatus": "CROWNED_STUDY_LIBRARY"
   }
 }
