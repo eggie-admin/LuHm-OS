@@ -2,7 +2,7 @@ extends Node3D
 
 const LumAvatarScene := preload("res://scenes/LumAvatar.tscn")
 
-var player_spawn := Vector3(0.0, 1.15, 8.0)
+var player_spawn := Vector3(0.0, 1.15, 0.5)
 var lum_avatar: Node3D
 var _neon_materials: Array[StandardMaterial3D] = []
 
@@ -11,6 +11,8 @@ func _ready() -> void:
     _build_riverwalk()
     _build_city()
     _build_lum_stage()
+    _build_noir_details()
+    _build_community_set()
 
 func _build_environment() -> void:
     var env_node := WorldEnvironment.new()
@@ -19,11 +21,11 @@ func _build_environment() -> void:
     env.background_mode = Environment.BG_COLOR
     env.background_color = Color("070711")
     env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-    env.ambient_light_color = Color("5e4b87")
-    env.ambient_light_energy = 0.62
+    env.ambient_light_color = Color("79999f")
+    env.ambient_light_energy = 0.85
     env.fog_enabled = true
-    env.fog_light_color = Color("23152f")
-    env.fog_density = 0.012
+    env.fog_light_color = Color("102330")
+    env.fog_density = 0.008
     env_node.environment = env
     add_child(env_node)
 
@@ -69,7 +71,7 @@ func _build_city() -> void:
         _window_stack(Vector3(x - side * 2.52, 1.6, z), h, Color("ff3c9d") if i % 2 == 0 else Color("55dfff"), side)
 
     _arch(Vector3(0.0, 0.0, -6.5))
-    _arch(Vector3(0.0, 0.0, 5.0))
+    # Keep the foreground clear of overhead neon clipping the portrait view.
 
     var accent := OmniLight3D.new()
     accent.name = "RiverwalkAccent"
@@ -165,3 +167,62 @@ func _arch(pos: Vector3) -> void:
     _box("ArchLeft_%s" % int(pos.z), pos + Vector3(-3.2, 2.4, 0.0), Vector3(0.25, 4.8, 0.25), Color("111018"), false, pink, 2.6)
     _box("ArchRight_%s" % int(pos.z), pos + Vector3(3.2, 2.4, 0.0), Vector3(0.25, 4.8, 0.25), Color("111018"), false, pink, 2.6)
     _box("ArchTop_%s" % int(pos.z), pos + Vector3(0.0, 4.8, 0.0), Vector3(6.65, 0.25, 0.25), Color("111018"), false, pink, 2.6)
+
+func _sign(title: String, pos: Vector3, tint: Color, font_size: int = 64) -> void:
+    var sign := Label3D.new()
+    sign.text = title
+    sign.position = pos
+    sign.font_size = font_size
+    sign.pixel_size = 0.0035
+    sign.modulate = tint
+    sign.outline_modulate = Color("07151e")
+    sign.outline_size = 10
+    sign.no_depth_test = false
+    add_child(sign)
+
+func _build_noir_details() -> void:
+    _sign("NEON RIVERWALK", Vector3(0, 5.5, -7), Color("8dffe0"), 72)
+    _sign("D E T R O I T   /   A F T E R   D A R K", Vector3(0, 4.8, -7), Color("f6bd7b"), 28)
+    _sign("L U M", Vector3(0, 0.8, -5.8), Color("90ffe3"), 42)
+    # A distant skyline closes the empty horizon without new textures.
+    for i in range(11):
+        var h := 4.0 + float((i * 7) % 9)
+        var x := float(i - 5) * 3.7
+        _box("DistantTower%d" % i, Vector3(x, h / 2, -31), Vector3(2.8, h, 3), Color("142e3b"), false)
+        for row in range(int(h)):
+            _box("DistantWindow%d_%d" % [i, row], Vector3(x, 0.7 + row, -29.45), Vector3(1.8, 0.12, 0.05), Color("c7975d"), false, Color("ceaa74"), 0.7)
+    for side in [-1.0, 1.0]:
+        for z in [-11.0, -3.0, 5.0]:
+            var x: float = side * 8.0
+            _box("LampMast", Vector3(x, 2.2, z), Vector3(0.16, 4.4, 0.16), Color("334651"), false)
+            _box("LampCap", Vector3(x, 4.4, z), Vector3(1.1, 0.13, 0.5), Color("ffd49b"), false, Color("ffd49b"), 1.2)
+            _box("Bench", Vector3(side * 9.0, 0.55, z + 2), Vector3(2.5, 0.25, 0.7), Color("4b4142"), true)
+        _box("StagePylon", Vector3(side * 4.6, 1.6, -8), Vector3(0.8, 3.2, 0.8), Color("263d48"), true)
+        _box("PylonTrim", Vector3(side * 4.6, 1.6, -7.57), Vector3(0.12, 2.8, 0.05), Color("68e5ca"), false, Color("68e5ca"), 1.3)
+    var key := OmniLight3D.new()
+    key.name = "LumPortraitKey"
+    key.position = Vector3(0, 3.8, -4.5)
+    key.light_color = Color("b5f9e3")
+    key.light_energy = 3.2
+    key.omni_range = 9
+    add_child(key)
+
+func _build_community_set() -> void:
+    # Optional offline content: CI stages exact licensed sources before import.
+    var placements := [
+        ["building-a", Vector3(-19, 0, -18), Vector3(4, 4, 4)],
+        ["building-a", Vector3(19, 0, -22), Vector3(4, 4, 4)],
+        ["chimney-large", Vector3(-16, 0, -24), Vector3(3, 3, 3)],
+        ["shipping-container-a", Vector3(10, 0, -10), Vector3(2, 2, 2)]
+    ]
+    for placement in placements:
+        var path := "res://assets/community/industrial/%s.glb" % placement[0]
+        if not ResourceLoader.exists(path):
+            continue
+        var packed := load(path) as PackedScene
+        if packed == null:
+            continue
+        var prop := packed.instantiate() as Node3D
+        prop.position = placement[1]
+        prop.scale = placement[2]
+        add_child(prop)
