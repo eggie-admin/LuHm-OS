@@ -80,12 +80,14 @@ if not missing:
         if token not in main: errors.append(f"Oni beacon interaction missing {token}")
     if 'return "TOUCH " + oni_name.to_upper() + " ECHO"' not in oni_beacon:
         errors.append("Oni beacon interaction prompt missing")
-    for token in ["extends Node3D","OniEchoCompanionVisual","_lifetime := 8.0","target.global_position","global_position.lerp","queue_free()"]:
+    for token in ["extends Node3D","OniEchoCompanionVisual","QuestGuidePointer","_lifetime := 8.0","target.global_position","set_guide_target","guide_target.global_position","global_position.lerp","queue_free()"]:
         if token not in oni_companion: errors.append(f"Oni companion missing {token}")
     if "agent-roster-v1.png" in oni_companion:
         errors.append("Oni companion may not repurpose loading-only roster sprites")
     if "Presence only; still no worker started." not in main:
         errors.append("Oni companion authority disclaimer missing")
+    for token in ["objective_target","event_name == expected_event",'active_oni_companion.call("set_guide_target", objective_target)']:
+        if token not in main: errors.append(f"Oni quest guide missing {token}")
     travel_tokens = {
         "scripts/game/neonWorld.gd": ["travel:lumCoffeeHouse","travel:cathedral"],
         "scripts/game/lumCoffeeHouseScene.gd": ["travel:neonRiverwalk","travel:cathedral"],
