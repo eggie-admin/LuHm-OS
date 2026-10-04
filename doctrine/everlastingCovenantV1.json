@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.everlastingCovenant.v1",
-  "status": "proposedCanonLaw",
+  "status": "canonicalLaw",
   "authority": "Professor",
   "humanLaw": [
     "so let it be written so let it be done",
@@ -123,5 +123,8 @@
     "professorPromotionRequired": true
   },
   "sourceLaw": "AI proposes. Policy authorizes. Deterministic evidence proves. Professor promotes.",
-  "crownStatus": "stop"
+  "crownStatus": "crownedMilestone",
+  "professorApproval": true,
+  "promotionScope": "everlastingCovenantGovernanceMilestone",
+  "crownReceipt": "doctrine/everlastingCovenantCrownReceiptV1.json"
 }
