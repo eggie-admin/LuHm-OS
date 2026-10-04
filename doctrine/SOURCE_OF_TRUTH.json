@@ -245,5 +245,20 @@
     "cabinetContract": "doctrine/lumGoddessCabinetV1.json",
     "acquaintance": "MUTUAL_ROLE_AWARENESS_REQUIRED",
     "consensusAuthority": false
+  },
+  "yumeCreativePipeline": {
+    "contract": "doctrine/yumeCreativePipelineV1.json",
+    "skill": "agents/yumeArtOni/SKILL.md",
+    "template": "agents/yumeArtOni/templates/filmProductionBible.md",
+    "auditor": "tools/yumeCreativePipelineAudit.py",
+    "workflow": ".github/workflows/yume-creative-pipeline-audit.yml",
+    "status": "CANDIDATE_20_PASS_AUDIT_PENDING",
+    "scope": "art-film-preproduction-editorial-source-contract",
+    "googleAi": "UNCONFIGURED_EVIDENCE_PENDING",
+    "edgeGallery": "UNCONFIGURED_EVIDENCE_PENDING",
+    "huggingFace": "CANDIDATE_PROVIDER_UNPROVEN",
+    "publicationAuthority": false,
+    "providerDeploymentProven": false,
+    "crownStatus": "STOP"
   }
 }
