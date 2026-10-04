@@ -64,7 +64,7 @@ if not missing:
     if "Titan7MilestoneScript" in main or 'add_child(titan7_milestone)' in main: errors.append("stale Titan7 milestone overlay still active")
     for token in ["QuestDirectorScript","FIRST_NIGHT_QUEST_PATH","_update_interaction_target","interact_requested",'begins_with("travel:")',"set_fast_travel_enabled(false)","set_fast_travel_enabled(true)",'event_name == "clearStaticWisp"',"pulse_effect","OniSummonBeaconScript","_spawn_oni_beacon(name)","OniEchoCompanionScript","_spawn_oni_companion(oni_name)"]:
         if token not in main: errors.append(f"main missing {token}")
-    for token in ["signal interact_requested","set_interaction_prompt","set_quest","set_fast_travel_enabled","OniSummonCard","show_oni_request","ROUTING ONLY · NO WORKER STARTED"]:
+    for token in ["signal interact_requested","set_interaction_prompt","nudge_interaction","_interaction_tween","Tween.TRANS_BACK","set_quest","set_fast_travel_enabled","OniSummonCard","show_oni_request","ROUTING ONLY · NO WORKER STARTED"]:
         if token not in hud: errors.append(f"HUD missing {token}")
     for token in ['android_web3_plugin.hideCockpit()','game_hud.show_world()','game_hud.show_oni_request(name)','player_controller.set_world_active(true)']:
         if token not in main: errors.append(f"Oni summon transition missing {token}")
@@ -88,7 +88,7 @@ if not missing:
         errors.append("Oni companion authority disclaimer missing")
     for token in ["objective_target","event_name == expected_event",'active_oni_companion.call("set_guide_target", objective_target)']:
         if token not in main: errors.append(f"Oni quest guide missing {token}")
-    for token in ['companion.objective_reached.connect(_on_oni_objective_reached)',"objective in reach. Your move, Professor."]:
+    for token in ['companion.objective_reached.connect(_on_oni_objective_reached)',"objective in reach. Your move, Professor.","game_hud.nudge_interaction()"]:
         if token not in main: errors.append(f"Oni objective arrival feedback missing {token}")
     travel_tokens = {
         "scripts/game/neonWorld.gd": ["travel:lumCoffeeHouse","travel:cathedral"],
