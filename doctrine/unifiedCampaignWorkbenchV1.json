@@ -104,5 +104,20 @@
     "betaAfterDarkAssetsRequireExplicitAudienceBoundary",
     "cathedralPublicAssetsOnlyForBroadPublicCampaign"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "yumeWorkbench": {
+    "workstation": "doctrine/yumeArtistWorkstationV1.json",
+    "bigBrotherArtDesk": "doctrine/yumeBigBrotherArtDeskV1.json",
+    "godotToolbox": "doctrine/yumeGodotArtToolboxV1.json",
+    "githubSpellbook": "agents/yumeArtOni/GITHUB_SPELLBOOK.md"
+  },
+  "assetLaw": [
+    "master_asset_retains_one_identity_and_hash",
+    "platform_derivatives_reference_the_master_asset",
+    "privateMutation_never_public",
+    "betaAfterDark_requires_explicit_audience_boundary",
+    "cathedralPublic_required_for_broad_public_visuals",
+    "public_generated_art_default_forbidden",
+    "campaign_claims_bind_to_receipts"
+  ]
 }
