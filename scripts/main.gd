@@ -81,6 +81,7 @@ func _wire_runtime() -> void:
 
     quest_director.quest_changed.connect(_on_quest_changed)
     quest_director.quest_completed.connect(_on_quest_completed)
+    game_hud.set_fast_travel_enabled(false)
     if not quest_director.load_quest(FIRST_NIGHT_QUEST_PATH):
         game_hud.set_status("QUEST SOURCE · UNAVAILABLE")
 
@@ -177,7 +178,7 @@ func _update_interaction_target() -> void:
             if node == null:
                 continue
             var event_name := str(node.call("get_event_name")) if node.has_method("get_event_name") else ""
-            var relevant := event_name == expected_event
+            var relevant := event_name == expected_event or event_name.begins_with("travel:")
             if node.has_method("set_active"):
                 node.call("set_active", relevant)
             if not relevant:
@@ -207,6 +208,11 @@ func _interact() -> void:
     if nearest_interactable == null or quest_director == null:
         return
     var event_name := str(nearest_interactable.call("get_event_name"))
+    if event_name.begins_with("travel:"):
+        var destination := event_name.trim_prefix("travel:")
+        if switchWorld(destination):
+            game_hud.show_dialogue("Transit gate linked: %s" % destination)
+        return
     var result: Dictionary = quest_director.apply_event(event_name)
     var message := str(result.get("message", ""))
     if not message.is_empty():
@@ -217,7 +223,8 @@ func _on_quest_changed(title: String, objective: String, current_step: int, tota
     game_hud.set_quest(title, objective, current_step, total_steps)
 
 func _on_quest_completed(_quest_id: String, message: String) -> void:
-    game_hud.set_quest("First Night Complete", "Circuit closed. Free roam unlocked.", 3, 3)
+    game_hud.set_quest("First Night Complete", "Circuit closed. Fast travel unlocked.", 5, 5)
+    game_hud.set_fast_travel_enabled(true)
     game_hud.set_interaction_prompt("", false)
     if not message.is_empty():
         game_hud.show_dialogue(message)
