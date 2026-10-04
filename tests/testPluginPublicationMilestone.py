@@ -96,7 +96,7 @@ class PluginPublicationMilestoneTests(unittest.TestCase):
 
     def test_missing_chat_ui_resource_fails(self):
         harness_module = self.harness_module.replace(
-            'UI_RESOURCE_URI = "ui://luhm-os/cockpit-v1.html"',
+            'UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"',
             'UI_RESOURCE_URI = "ui://removed/cockpit.html"',
         )
         self.assertTrue(self.errors(harness_module=harness_module))

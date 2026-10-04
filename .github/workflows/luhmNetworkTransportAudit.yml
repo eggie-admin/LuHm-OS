@@ -1,0 +1,43 @@
+name: LuHm Network Transport Contract
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/tourniquetGuardrailV1.json'
+      - 'agents/tourniquetGuardrail/**'
+      - 'tools/tourniquetGuardrailAudit.py'
+      - '.github/workflows/tourniquetGuardrailAudit.yml'
+      - 'doctrine/luhmNetworkTransportV1.json'
+      - 'doctrine/luhmChatMagicTriggerV1.json'
+      - 'doctrine/projectChatCanonV1.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'doctrine/SOURCE_OF_TRUTH.json'
+      - 'agents/**/SKILL.md'
+      - '.codex/agents/**'
+      - 'AGENTS.md'
+      - 'plugins/luhm-os/**'
+      - 'host/mcp/luhmMcpServer.py'
+      - 'tools/luhmNetworkTransportAudit.py'
+      - 'tools/namingPathSealAudit.py'
+      - 'doctrine/namingPathSealV1.json'
+      - '.github/workflows/luhmNetworkTransportAudit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  transport-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact pull request head
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Validate network and voice-alias contracts
+        run: |
+          python3 tools/luhmNetworkTransportAudit.py
+          python3 tools/luhmChatMagicTriggerAudit.py
+          python3 tools/namingPathSealAudit.py

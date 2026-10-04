@@ -23,7 +23,12 @@
     "renderDeployCommit": "4d7bdf833c786437e32b2af31a8d11864b297ee4",
     "publicMcpUrl": "https://luhm-os-publication-green.onrender.com/mcp",
     "renderDeployStatus": "LIVE",
-    "startupEvidence": "Render logs: build successful; server process started; StreamableHTTP session manager started; application startup complete; public service URL available"
+    "startupEvidence": "Render logs: build successful; server process started; StreamableHTTP session manager started; application startup complete; public service URL available",
+    "chatUiResource": "ui://luhm-os/cockpit-v2.html",
+    "legacyChatUiResource": "ui://luhm-os/cockpit-v1.html",
+    "mcpAppsStandardsFirst": true,
+    "threadEntrypoint": true,
+    "chatUiCandidateContract": "doctrine/inChatCockpitV2.json"
   },
   "reviewPackage": {
     "pluginManifest": "plugins/luhm-os/plugin.json",
@@ -51,7 +56,8 @@
     "testedSourceCommit": "f0a16fac54b661141f70a6f35db65369f816165a",
     "workflowRun": 36678361779,
     "workflowName": "LuHm Plugin Publication Audit",
-    "workflowConclusion": "success"
+    "workflowConclusion": "success",
+    "inChatCockpitV2": "PENDING_EXACT_HEAD_CI"
   },
   "externalGates": {
     "cleanRenderProductionRuntime": "GREEN_LIVE",

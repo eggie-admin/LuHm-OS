@@ -1,0 +1,77 @@
+name: LuHm Compatibility + operationTitan7
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/luhmCompatibilityLayersV1.json'
+      - 'doctrine/operationTitan7V1.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'doctrine/projectChatCanonV1.json'
+      - 'agents/**'
+      - 'frontEnd/**'
+      - 'tools/luhmCompatibilityAudit.py'
+      - 'tools/operationTitan7.py'
+      - '.devcontainer/**'
+      - '.codex/**'
+      - '.github/workflows/operationTitan7.yml'
+  workflow_dispatch:
+    inputs:
+      command:
+        description: 'operationTitan7 command'
+        required: false
+        default: 'dryRun'
+        type: choice
+        options: [saneApproach, dryRun, update, upgrade, distro, apply, continue, continueAll, exit, quit]
+      escalation:
+        description: 'operationTitan7 escalation'
+        required: false
+        default: 'finalForm'
+        type: choice
+        options: [forFuckSake, scorchedEarth, finalForm]
+
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+
+jobs:
+  contractAudit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Bind exact source
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
+      - name: Front-end schema and syntax
+        working-directory: frontEnd
+        run: npm run check
+      - name: Compatibility doctrine audit
+        run: python3 tools/luhmCompatibilityAudit.py
+      - name: Final Form 100-pass dry-run proof
+        run: python3 tools/operationTitan7.py dryRun --escalation finalForm --passes 100
+      - name: Upload 100-pass receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: operation-titan7-final-form-${{ github.run_id }}
+          path: build/operationTitan7/receipt.json
+          if-no-files-found: error
+          retention-days: 30
+
+  invoke:
+    if: github.event_name == 'workflow_dispatch'
+    needs: contractAudit
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Invoke operationTitan7
+        run: python3 tools/operationTitan7.py "${{ inputs.command }}" --escalation "${{ inputs.escalation }}"

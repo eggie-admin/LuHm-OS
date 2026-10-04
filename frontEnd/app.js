@@ -30,6 +30,10 @@
       postNative("world_requested");
     });
 
+    $cockpit.on("luhm:operationTitan7:invoke", function (_event, detail) {
+      console.info("operationTitan7 invocation requested", detail.wire || detail.manifest);
+    });
+
     postNative("cockpit_ready");
 
     window.LuHmFrontEnd = Object.freeze({
@@ -40,6 +44,7 @@
       setView: function (view) { $cockpit.luhmCockpit("view", view); },
       openMediaFactory: function () { $assetFactory.prop("hidden", false); },
       closeMediaFactory: function () { $assetFactory.prop("hidden", true); },
+      operationTitan7: function (command, options) { return $cockpit.operationTitan7(command, options); },
       nativeBridgeAvailable: function () {
         return !!(window.LuHmNative && typeof window.LuHmNative.postMessage === "function");
       }

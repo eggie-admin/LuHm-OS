@@ -1,0 +1,35 @@
+name: LuHm Chat Archive Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/chatExperienceV1.json'
+      - 'doctrine/chatArchiveHandoffV1.json'
+      - 'doctrine/projectChatCanonV1.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'doctrine/SOURCE_OF_TRUTH.json'
+      - 'agents/lum/SKILL.md'
+      - 'agents/projectChatBootstrap/SKILL.md'
+      - '.codex/**'
+      - 'tools/chatArchiveAudit.py'
+      - '.github/workflows/chat-archive-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Bind exact source
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
+      - name: Audit archive handoff
+        run: python3 tools/chatArchiveAudit.py

@@ -1,0 +1,89 @@
+{
+  "schema": "luhmOs.tourniquetGuardrail.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "kind": "taskBoundInterruptAndScopeClamp",
+  "purpose": "Stop conversational drift and keep authorized work inside its exact source, scope, budget, authority and proof boundary.",
+  "notAnAutonomousAgent": true,
+  "notARepairEngine": true,
+  "appliesTo": [
+    "projectChat",
+    "aiAgentWorkflow",
+    "oniDeployment",
+    "witchingHourCoding",
+    "operationTitan7",
+    "enterpriseMutation"
+  ],
+  "interruptSemantics": {
+    "triggers": [
+      "userSaysStop",
+      "userCorrectsAssistant",
+      "userNarrowsScope",
+      "userRenamesRequestedRole",
+      "userSaysThatIsNotWhatIMeant"
+    ],
+    "effect": "immediatelyPauseActivePlanAndMutation",
+    "rebindTo": "latestUserInstruction",
+    "beforeResume": [
+      "restateCorrectedIntentBriefly",
+      "refreshExactSourceRefAndScope",
+      "reconcileCompletedAndUnstartedWork",
+      "chooseNextBoundedAction"
+    ],
+    "explicitCorrectionOverridesPreviousPlan": true,
+    "doNotRepeatResolvedClarification": true
+  },
+  "clamp": {
+    "require": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "authorityClass",
+      "budget",
+      "stopConditions",
+      "knownGoodFallback",
+      "proofTarget"
+    ],
+    "routineIntermediateGreen": "continueAutomaticallyWithinAuthorizedTaskManifest",
+    "reAskOnRoutineGreen": false,
+    "stopOn": [
+      "userStop",
+      "redProof",
+      "unknownRequiredEvidence",
+      "sourceRefDrift",
+      "scopeExpansion",
+      "destructiveAmbiguity",
+      "externalAccountAuthority",
+      "physicalAction",
+      "productionSigningChange",
+      "professorCrownDecision"
+    ],
+    "redAction": "haltOrRollbackToKnownGoodAndReportEvidence",
+    "noAuthorityExpansion": true,
+    "noHiddenAsyncContinuation": true
+  },
+  "memory": {
+    "currentSourceBeatsChatMemory": true,
+    "chatMemoryIsEvidenceNotSourceTruth": true,
+    "doNotReplayFullHistory": true,
+    "handoffWhenContextIsNearLimit": [
+      "sourceRef",
+      "taskId",
+      "scopeId",
+      "completedProof",
+      "currentGate",
+      "realBlocker",
+      "nextBoundedAction",
+      "stopConditions"
+    ],
+    "neverClaimBackgroundWork": true
+  },
+  "binding": {
+    "doctrine": "doctrine/tourniquetGuardrailV1.json",
+    "skill": "agents/tourniquetGuardrail/SKILL.md",
+    "loadedByProjectCanon": true,
+    "boss": "lum",
+    "finalAuthority": "Professor"
+  }
+}

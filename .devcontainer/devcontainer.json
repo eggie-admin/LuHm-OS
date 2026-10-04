@@ -1,0 +1,35 @@
+{
+  "name": "LuHm OS Chat Plugin",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ]
+    }
+  },
+  "postCreateCommand": "python -m pip install -r host/mcp/requirements.txt && npm install --prefix frontEnd",
+  "forwardPorts": [
+    8788,
+    8080
+  ],
+  "portsAttributes": {
+    "8788": {
+      "label": "LuHm MCP local",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "LuHm cockpit preview",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "remoteEnv": {
+    "LUHM_MCP_PROFILE": "local"
+  }
+}

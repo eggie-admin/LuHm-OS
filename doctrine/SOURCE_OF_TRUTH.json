@@ -245,5 +245,125 @@
     "cabinetContract": "doctrine/lumGoddessCabinetV1.json",
     "acquaintance": "MUTUAL_ROLE_AWARENESS_REQUIRED",
     "consensusAuthority": false
+  },
+  "chatPluginLane": {
+    "contract": "doctrine/inChatCockpitV2.json",
+    "status": "candidateSourceCiGreen",
+    "baseMain": "8a1bc12a0a21dd78d9123540a909ba9042b5e7c0",
+    "primaryResource": "ui://luhm-os/cockpit-v2.html",
+    "legacyResource": "ui://luhm-os/cockpit-v1.html",
+    "renderTool": "luhm_open_cockpit",
+    "threadEntrypoint": true,
+    "standardsFirstBridge": true,
+    "dataTools": [
+      "luhm_status",
+      "luhm_agent_roster",
+      "luhmOperationTitan7"
+    ],
+    "followUpMessage": "ui/message",
+    "modelContext": "ui/update-model-context",
+    "chatGptExtensions": "featureDetectOnly",
+    "renderDeploy": "AUTHORIZED_PENDING_DEPLOYMENT",
+    "liveMcpUiInspection": "PENDING",
+    "chatGptPluginConnection": "PENDING",
+    "desktopAndMobileUiProof": "PENDING",
+    "directoryPublication": "NOT_REQUESTED",
+    "mutationAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false,
+    "greenAuthority": false,
+    "crownStatus": "STOP",
+    "auditedHead": "10a3c2fb701af13d902946a564291d7cb2a6eae1",
+    "exactHeadChecks": "10/10 SUCCESS",
+    "renderChatGptHarnessRun": 37093499202,
+    "pluginPublicationRun": 37093499096,
+    "pluginPublicationArtifact": 11263193244,
+    "renderHarnessLiveRun": 37093499093,
+    "nextGate": "Deploy isolated Render candidate, then verify health and live MCP Apps",
+    "activeTaskMilestone": "robustChatGptPluginWithOperationTitan7SaneAudit",
+    "operationTitan7Tool": "luhmOperationTitan7"
+  },
+  "chatAgentActivation": {
+    "doctrine": "doctrine/luhmChatMagicTriggerV1.json",
+    "controlPlane": "doctrine/luhmAiControlPlaneV1.json",
+    "customAgentConfig": ".codex/config.toml",
+    "defaultCustomAgents": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch",
+      "yume"
+    ],
+    "status": "candidateReview",
+    "executionBoundary": "activeTaskOnly",
+    "crownStatus": "stop",
+    "responsePresentation": "reconciledDeltasOnly",
+    "rawAgentChatter": false
+  },
+  "compatibilityLayers": {
+    "contract": "doctrine/luhmCompatibilityLayersV1.json",
+    "status": "CANDIDATE_TWO_LAYER_CONTRACT_STAGED",
+    "layerOne": "openAiCompatibilityLayer",
+    "layerTwo": "githubCompatibilityLayer",
+    "remoteProviderDeployment": "PARTIAL_OR_PENDING_BY_PROVIDER",
+    "mutationAuthority": false,
+    "publicationAuthority": false,
+    "crownStatus": "STOP"
+  },
+  "operationTitan7": {
+    "contract": "doctrine/operationTitan7V1.json",
+    "status": "CANDIDATE_CALLABLE_PLUGIN_STAGED",
+    "kind": "callableJQueryPluginProtocol",
+    "notAProject": true,
+    "alwaysRunning": false,
+    "scheduled": false,
+    "escalationOrder": [
+      "forFuckSake",
+      "scorchedEarth",
+      "finalForm"
+    ],
+    "mutationAuthority": false,
+    "publicationAuthority": false,
+    "crownStatus": "STOP"
+  },
+  "chatExperience": {
+    "contract": "doctrine/chatExperienceV1.json",
+    "status": "CANDIDATE_COMPACT_CHAT_STAGED",
+    "defaultResponseMode": "compactConversational",
+    "resultsFirst": true,
+    "deltaOnly": true,
+    "rawToolLogsByDefault": false,
+    "routineAgentChatterByDefault": false,
+    "userMayRequestVerbose": true,
+    "authority": false,
+    "crownStatus": "STOP"
+  },
+  "chatArchiveHandoff": {
+    "contract": "doctrine/chatArchiveHandoffV1.json",
+    "status": "CANDIDATE_HANDOFF_STAGED",
+    "priorProvenMilestone": "twoLayerCompatibilityPlusCallableTitan7Candidate",
+    "priorProvenHead": "f535235e2732ca58b01ff89921ad2478d3115d86",
+    "sourceRefPolicy": "resolveCurrentRemoteHeadAtResume",
+    "archivedChatRole": "evidenceNotAuthority",
+    "replayFullArchiveByDefault": false,
+    "nextTechnicalBoundary": "bindRemoteProviderAdaptersOnlyWithExactConnectorOrDeploymentEvidence",
+    "crownStatus": "STOP"
+  },
+  "networkTransport": {
+    "doctrine": "doctrine/luhmNetworkTransportV1.json",
+    "status": "candidateReview",
+    "currentDocumentedRoute": "HTTPS through Render; Cloudflare DNS-only; workstation loopback endpoint unpublished",
+    "plannedCloudflareTunnel": "not configured or runtime-proven",
+    "runtimeProof": "not performed",
+    "sourceRef": "8a1bc12a0a21dd78d9123540a909ba9042b5e7c0",
+    "noRuntimeProofClaim": true
+  },
+  "tourniquetGuardrail": {
+    "contract": "doctrine/tourniquetGuardrailV1.json",
+    "skill": "agents/tourniquetGuardrail/SKILL.md",
+    "status": "candidateReview",
+    "activation": "alwaysLoadedForProjectTasks",
+    "role": "taskBoundInterruptAndScopeClamp",
+    "autonomousAgent": false,
+    "sourceRef": "8a1bc12a0a21dd78d9123540a909ba9042b5e7c0"
   }
 }

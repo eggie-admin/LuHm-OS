@@ -1,0 +1,101 @@
+{
+  "schema": "luhmOs.operationTitan7.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "kind": "callableJQueryPluginProtocol",
+  "canonicalName": "operationTitan7",
+  "notAProject": true,
+  "notAlwaysRunning": true,
+  "entryPoints": {
+    "jquery": "jQuery.fn.operationTitan7",
+    "npmStyle": "npm run operationTitan7 -- <command> [--escalation <tier>]",
+    "python": "python3 tools/operationTitan7.py <command> [--escalation <tier>]"
+  },
+  "defaultMode": "saneApproach",
+  "commands": {
+    "saneApproach": "resolve current truth, choose smallest audit scope, no unnecessary escalation",
+    "dryRun": "read-only plan and audit receipt; no mutation",
+    "update": "refresh source/evidence pointers without broadening scope",
+    "upgrade": "advance one escalation tier only when unresolved evidence justifies it",
+    "distro": "emit compact doctrine/receipt distribution manifest; not a release",
+    "apply": "hand bounded mutation packet to authorized executor; never self-execute Crown actions",
+    "continue": "perform the next safe unresolved step",
+    "continueAll": "perform all safe non-Crown steps until a stop condition, RED, UNKNOWN, or Crown boundary",
+    "exit": "stop cleanly",
+    "quit": "alias of exit"
+  },
+  "escalation": {
+    "forFuckSake": {
+      "aliases": [
+        "FFS!",
+        "For Fuck's Sake!",
+        "for fucks sake"
+      ],
+      "order": 1,
+      "auditPasses": 25,
+      "commitWindowMax": 25,
+      "behavior": "hard audit of current scope with targeted repairs"
+    },
+    "scorchedEarth": {
+      "aliases": [
+        "Scorched Earth",
+        "scorched earth"
+      ],
+      "order": 2,
+      "auditPasses": 50,
+      "commitWindowMax": 50,
+      "behavior": "deep audit of current scope, aggressive fat pruning and contradictory-state reconciliation"
+    },
+    "finalForm": {
+      "aliases": [
+        "Final Form",
+        "final form"
+      ],
+      "order": 3,
+      "auditPasses": 100,
+      "commitWindowMax": 50,
+      "behavior": "100 explicit read-only doctrine audit passes across the verified source scope after the bounded 50-commit history review; no mutation or Crown authority"
+    }
+  },
+  "invocationLaw": {
+    "explicitCallOrMaterialNeedRequired": true,
+    "scheduledBackgroundRunsForbidden": true,
+    "permanentWatchFleetForbidden": true,
+    "projectBootstrapMayNotTreatAsProjectName": true,
+    "currentProjectContextInherited": true,
+    "exactSourceRefRequiredForMutation": true,
+    "dryRunMayUseCurrentHead": true,
+    "tourniquetGuardrail": "doctrine/tourniquetGuardrailV1.json",
+    "userCorrectionInterruptsBeforeNextMutation": true
+  },
+  "goddessRoles": {
+    "urdDoctorGoddess": "diagnosis, evidence pathology, rollback risk",
+    "belldandySecretary": "state, naming, TTL, snapshots, archive/prune ledger",
+    "skuldResearch": "current vendor/runtime/dependency/security research",
+    "yume": "art/media only when current scope requires it"
+  },
+  "finalFollowUp": {
+    "name": "inspiredMutation",
+    "authority": "PLAN_ONLY",
+    "returns": [
+      "sourceRef",
+      "scope",
+      "escalationUsed",
+      "changesProven",
+      "remainingUnknowns",
+      "finalMilestoneProduced",
+      "nextInspiredMutation"
+    ],
+    "autoApply": false
+  },
+  "forbidden": [
+    "autoMerge",
+    "autoPublish",
+    "autoSign",
+    "autoDeploy",
+    "autoCrown",
+    "hiddenAsyncExecution",
+    "auditBeyond50CommitsByDefault"
+  ],
+  "crownStatus": "STOP"
+}

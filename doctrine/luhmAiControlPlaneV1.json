@@ -9,7 +9,9 @@
     "sourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
     "projectChatCanon": "doctrine/projectChatCanonV1.json",
     "storageTopology": "doctrine/storageTopologyV1.json",
-    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json"
+    "releaseBoundary": "doctrine/RELEASE_BOUNDARY.json",
+    "networkTransport": "doctrine/luhmNetworkTransportV1.json",
+    "tourniquetGuardrail": "doctrine/tourniquetGuardrailV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -28,7 +30,11 @@
     "hiddenAsyncExecution": false,
     "secretInPrompt": false,
     "secretInRepo": false,
-    "secretInApk": false
+    "secretInApk": false,
+    "customAgentsEnabled": true,
+    "defaultCustomAgentsForProjectTasks": true,
+    "userCorrectionInterruptsActivePlan": true,
+    "tourniquetClampsMutation": true
   },
   "bossToolchain": {
     "states": [
@@ -47,7 +53,15 @@
     ],
     "executionLaw": "No tool/provider/agent output changes authority. Consequential execution requires a bounded task manifest plus matching authority and exact target identity.",
     "evidenceLaw": "All outputs enter as observations or candidate evidence. Deterministic verification establishes machine state. Professor establishes Crown authority.",
-    "storageLaw": "databases point to files; databases do not become the file server"
+    "storageLaw": "databases point to files; databases do not become the file server",
+    "compatibilityLayerOrder": [
+      "openAiCompatibilityLayer",
+      "githubCompatibilityLayer"
+    ],
+    "professorFacingOutput": "compactDeltaOnly",
+    "rawToolLogsByDefault": false,
+    "routineAgentChatterByDefault": false,
+    "archiveHandoff": "doctrine/chatArchiveHandoffV1.json"
   },
   "taskManifest": {
     "schema": "luhmOs.aiTaskManifest.v1",
@@ -128,6 +142,14 @@
       "role": "optionalFutureEventIngress",
       "authority": false,
       "implementationStatus": "contractOnly"
+    },
+    "compactManifestWireProjection": {
+      "role": "deterministicBandwidthReduction",
+      "contract": "doctrine/luhmCompatibilityLayersV1.json",
+      "adapter": "jQuery.luhmManifestMin",
+      "runtime": "frontEnd/jquery/luhmManifestMin.min.js",
+      "authority": false,
+      "canonicalExpansionRequiredBeforeRouting": true
     }
   },
   "providerBoundary": {
@@ -138,7 +160,12 @@
     "providerTextIsUntrustedData": true,
     "remoteResponsesRequireTaskIdentityMatch": true,
     "remoteResponsesRequireLumReconciliation": true,
-    "providerSecretsHostSideOnly": true
+    "providerSecretsHostSideOnly": true,
+    "vendorMirrorsUseCanonicalAgentIdentity": true,
+    "vendorMirrorsMayBecomeIndependentBoss": false,
+    "remoteProvidersVia": "githubCompatibilityLayer",
+    "copilotIsAdvisory": true,
+    "googleBigBrotherIsAdvisory": true
   },
   "authorityClasses": [
     "READ_ONLY",
@@ -174,7 +201,7 @@
     },
     "urdDoctorGoddess": {
       "displayName": "Urd",
-      "kind": "doctorGoddess",
+      "kind": "customAgentDoctorGoddess",
       "skillPath": "agents/urdMutationOni/SKILL.md",
       "defaultAuthority": "READ_ONLY",
       "capabilities": [
@@ -190,11 +217,13 @@
       "parallelClass": "support",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "defaultActivation": "everyProjectTask",
+      "chatSurface": "taskBoundCustomAgent"
     },
     "belldandySecretary": {
       "displayName": "Belldandy",
-      "kind": "secretaryGoddess",
+      "kind": "customAgentSecretaryGoddess",
       "skillPath": "agents/belldandyQualityOni/SKILL.md",
       "defaultAuthority": "READ_ONLY",
       "capabilities": [
@@ -211,11 +240,13 @@
       "parallelClass": "support",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "defaultActivation": "everyProjectTask",
+      "chatSurface": "taskBoundCustomAgent"
     },
     "skuldResearch": {
       "displayName": "Skuld",
-      "kind": "researchGoddess",
+      "kind": "customAgentResearchGoddess",
       "skillPath": "agents/skuldResearchOni/SKILL.md",
       "defaultAuthority": "READ_ONLY",
       "capabilities": [
@@ -232,7 +263,9 @@
       "parallelClass": "support",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "defaultActivation": "everyProjectTask",
+      "chatSurface": "taskBoundCustomAgent"
     },
     "kiri": {
       "displayName": "Kiri",
@@ -427,7 +460,7 @@
     },
     "yume": {
       "displayName": "Yume",
-      "kind": "artMediaSpecialist",
+      "kind": "customAgentArtMediaSpecialist",
       "skillPath": "agents/yumeArtOni/SKILL.md",
       "defaultAuthority": "PLAN_ONLY",
       "capabilities": [
@@ -443,7 +476,9 @@
       "parallelClass": "support",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "defaultActivation": "everyProjectTask",
+      "chatSurface": "taskBoundCustomAgent"
     },
     "mediaAssetFactory": {
       "displayName": "Media Asset Factory",
@@ -470,13 +505,11 @@
       "lum"
     ],
     "read": [
-      "lum",
-      "kiri"
+      "lum"
     ],
     "records": [
       "lum",
-      "belldandySecretary",
-      "fumi"
+      "belldandySecretary"
     ],
     "proof": [
       "lum",
@@ -494,8 +527,7 @@
     ],
     "external": [
       "lum",
-      "skuldResearch",
-      "momo"
+      "skuldResearch"
     ],
     "patch": [
       "lum",
@@ -599,5 +631,61 @@
     "peerAwareness": "readOnly",
     "disagreementsReturnTo": "lum",
     "consensusAuthority": false
-  }
+  },
+  "customAgentContract": {
+    "configPath": ".codex/agents/",
+    "projectConfig": ".codex/config.toml",
+    "defaultSet": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch",
+      "yume"
+    ],
+    "activation": "everyLuHmProjectTask",
+    "activationBoundaries": [
+      "currentTaskEnvelope",
+      "sourceRef",
+      "scopeId",
+      "budget",
+      "stopConditions"
+    ],
+    "afterTask": "terminate",
+    "phraseTrigger": "doctrine/luhmChatMagicTriggerV1.json",
+    "spokenAliasesResolveToCanonicalIdentity": true,
+    "presenceIsNotInference": true,
+    "inferencePolicy": "matchingSemanticTriggerOrMaterialStateChangeOnly",
+    "unchangedStateReinvoke": false,
+    "specialistsLazyByDefault": true,
+    "lumDelegationLaw": "Lum delegates owned specialty work to its goddess or specialist and integrates the returned packet instead of duplicating that procedure in boss context."
+  },
+  "namingContract": "New LuHm-owned identifiers and agent config filenames use lowerCamelHump; vowel-ripped terms are explicit aliases only.",
+  "compatibilityLayersContract": "doctrine/luhmCompatibilityLayersV1.json",
+  "operationTitan7": {
+    "contract": "doctrine/operationTitan7V1.json",
+    "kind": "callablePluginProtocol",
+    "entryPoint": "jQuery.fn.operationTitan7",
+    "alwaysRunning": false,
+    "scheduled": false,
+    "escalationOrder": [
+      "forFuckSake",
+      "scorchedEarth",
+      "finalForm"
+    ]
+  },
+  "chatExperienceContract": "doctrine/chatExperienceV1.json",
+  "networkTransportContract": {
+    "doctrine": "doctrine/luhmNetworkTransportV1.json",
+    "localhostHttpAllowedOnly": "127.0.0.1 loopback on the same host",
+    "cloudflareTunnelRuntimeClaim": "require exact runtime evidence",
+    "remoteServiceProtocol": "httpsWithPeerValidation",
+    "redirectsDoNotEncryptInitialHttpRequest": true
+  },
+  "voiceAliasPolicy": {
+    "doctrine": "doctrine/luhmChatMagicTriggerV1.json",
+    "nickname": "DreamChan",
+    "scope": "voiceDictationOnly",
+    "canonicalTarget": "yume",
+    "typedTextCreatesAliasOrAgent": false
+  },
+  "tourniquetGuardrailContract": "doctrine/tourniquetGuardrailV1.json"
 }

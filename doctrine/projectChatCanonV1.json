@@ -12,19 +12,27 @@
     "projectNames": [
       "LuHm OS",
       "Project Hydra",
-      "KAI 9000",
-      "OperationTitan7",
-      "Witching Hour"
+      "KAI 9000"
     ],
     "explicitUserReference": true,
-    "repoReference": "eggie-admin/LuHm-OS"
+    "repoReference": "eggie-admin/LuHm-OS",
+    "commandNames": [
+      "operationTitan7",
+      "Witching Hour"
+    ]
   },
   "loadOrder": [
     "doctrine/projectChatCanonV1.json",
+    "doctrine/luhmChatMagicTriggerV1.json",
+    "doctrine/chatExperienceV1.json",
     "doctrine/SOURCE_OF_TRUTH.json",
+    "doctrine/tourniquetGuardrailV1.json",
     "doctrine/storageTopologyV1.json",
+    "doctrine/luhmNetworkTransportV1.json",
+    "doctrine/luhmCompatibilityLayersV1.json",
     "doctrine/lumGoddessCabinetV1.json",
     "agents/goddessSharedSystemsPractice/SKILL.md",
+    "agents/tourniquetGuardrail/SKILL.md",
     "agents/lum/SKILL.md",
     "agents/urdMutationOni/SKILL.md",
     "agents/skuldResearchOni/SKILL.md",
@@ -37,25 +45,13 @@
     "bossSkill": "agents/lum/SKILL.md",
     "sharedMonitoring": "agents/goddessSharedSystemsPractice/SKILL.md",
     "storageTopology": "doctrine/storageTopologyV1.json",
-    "goddessCabinet": "doctrine/lumGoddessCabinetV1.json"
-  },
-  "monitoringMiniAgents": {
-    "lum": {
-      "mode": "readOnlyMiniAgent",
-      "specialty": "orchestrationContinuity"
-    },
-    "urd": {
-      "mode": "readOnlyMiniAgent",
-      "specialty": "systemDiagnosisEvidenceTriage"
-    },
-    "skuld": {
-      "mode": "readOnlyMiniAgent",
-      "specialty": "researchCompatibility"
-    },
-    "belldandy": {
-      "mode": "readOnlyMiniAgent",
-      "specialty": "secretaryStateRecordsUnification"
-    }
+    "goddessCabinet": "doctrine/lumGoddessCabinetV1.json",
+    "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json",
+    "compatibilityLayers": "doctrine/luhmCompatibilityLayersV1.json",
+    "chatExperience": "doctrine/chatExperienceV1.json",
+    "networkTransport": "doctrine/luhmNetworkTransportV1.json",
+    "tourniquetGuardrail": "doctrine/tourniquetGuardrailV1.json",
+    "tourniquetSkill": "agents/tourniquetGuardrail/SKILL.md"
   },
   "specialistsLazyLoaded": {
     "kiri": "agents/kiriContextOni/SKILL.md",
@@ -68,7 +64,7 @@
   },
   "repairEscalation": {
     "witchingHourSkill": "agents/witchingHourCoding/SKILL.md",
-    "operationTitan7": "doctrine/operationTitan7FinalFormV1.json",
+    "operationTitan7": "doctrine/operationTitan7V1.json",
     "entryConditions": [
       "exact sourceRef resolved",
       "blocker identified",
@@ -79,32 +75,54 @@
     "automaticCast": false,
     "automaticBuild": false,
     "automaticMerge": false,
-    "automaticPublication": false
+    "automaticPublication": false,
+    "operationTitan7IsCallableNotProject": true,
+    "escalationOrder": [
+      "forFuckSake",
+      "scorchedEarth",
+      "finalForm"
+    ]
   },
   "chatRuntime": {
     "directQuestionsBypassMesh": true,
     "evidenceByReference": true,
-    "maxParallelSupportWorkers": 3,
+    "maxParallelSupportWorkers": 4,
     "oneMutableSourceLane": true,
     "personalitySeparateFromCapability": true,
     "funLayerAllowed": true,
     "seriousWorkSuppressesGagLayer": true,
     "unknownIsNotGreen": true,
-    "hiddenAsyncExecution": false
+    "hiddenAsyncExecution": false,
+    "customAgentsEnabled": true,
+    "allDefaultCustomAgentsActivateForProjectTasks": true,
+    "compatibilityLayerOrder": [
+      "openAiCompatibilityLayer",
+      "githubCompatibilityLayer"
+    ],
+    "operationTitan7AlwaysRunning": false,
+    "operationTitan7Scheduled": false,
+    "defaultResponseMode": "compactConversational",
+    "rawToolLogsByDefault": false,
+    "routineAgentChatterByDefault": false,
+    "repeatKnownArchitecture": false
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
     "loadSmallestRelevantEvidence": true,
     "currentCanonicalSourceBeatsMemory": true,
     "currentTaskEnvelopeBeatsOldChatState": true,
-    "staleReceiptsAreHintsOnly": true
+    "staleReceiptsAreHintsOnly": true,
+    "archivedChatIsEvidenceNotAuthority": true,
+    "doNotReplayArchivedChat": true
   },
   "startupSequence": [
     "detectProjectContext",
     "resolveCanonicalSource",
     "loadSourceTruth",
     "loadCoreChatCanon",
-    "attachMonitoringMiniAgents",
+    "loadCompatibilityLayers",
+    "activateDefaultCustomAgents",
+    "loadActiveMilestoneAndProjectPersonalContext",
     "resolveActiveMilestone",
     "routeMinimumSpecialists",
     "performRequestedWork",
@@ -152,5 +170,34 @@
       "skillPath": "agents/skuldResearchOni/SKILL.md",
       "mode": "readOnlyMiniAgent"
     }
-  }
+  },
+  "defaultCustomAgents": {
+    "urdDoctorGoddess": {
+      "mode": "customAgent",
+      "activation": "everyProjectTask",
+      "specialty": "systemDiagnosisEvidenceTriage",
+      "skillPath": "agents/urdMutationOni/SKILL.md"
+    },
+    "belldandySecretary": {
+      "mode": "customAgent",
+      "activation": "everyProjectTask",
+      "specialty": "secretaryStateRecordsUnification",
+      "skillPath": "agents/belldandyQualityOni/SKILL.md"
+    },
+    "skuldResearch": {
+      "mode": "customAgent",
+      "activation": "everyProjectTask",
+      "specialty": "researchCompatibility",
+      "skillPath": "agents/skuldResearchOni/SKILL.md"
+    },
+    "yume": {
+      "mode": "customAgent",
+      "activation": "everyProjectTask",
+      "specialty": "artMediaSpriteWorkflow",
+      "skillPath": "agents/yumeArtOni/SKILL.md"
+    }
+  },
+  "projectPersonalContext": "doctrine/luhmChatMagicTriggerV1.json",
+  "vowelRippedAliasPolicy": "Explicit aliases resolve to existing canonical identities; canonical names and paths stay lowerCamelHump.",
+  "archiveHandoff": "doctrine/chatArchiveHandoffV1.json"
 }

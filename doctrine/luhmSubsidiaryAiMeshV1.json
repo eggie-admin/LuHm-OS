@@ -1,0 +1,9 @@
+{
+  "schema": "luhmOs.compatibilityAlias.v1",
+  "status": "deprecatedAlias",
+  "deprecated": true,
+  "canonical": "doctrine/luhmCompatibilityLayersV1.json",
+  "reason": "Replaced by the explicit two-layer OpenAI compatibility plus GitHub compatibility architecture.",
+  "authority": "Professor",
+  "crownStatus": "STOP"
+}

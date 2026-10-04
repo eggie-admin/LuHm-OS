@@ -1,0 +1,34 @@
+name: Tourniquet Guardrail Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/tourniquetGuardrailV1.json'
+      - 'doctrine/projectChatCanonV1.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'doctrine/SOURCE_OF_TRUTH.json'
+      - 'doctrine/operationTitan7V1.json'
+      - 'agents/**/SKILL.md'
+      - 'tools/tourniquetGuardrailAudit.py'
+      - 'tools/namingPathSealAudit.py'
+      - 'doctrine/namingPathSealV1.json'
+      - '.github/workflows/tourniquetGuardrailAudit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tourniquet-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact pull request head
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Validate Tourniquet interrupt and scope clamp
+        run: |
+          python3 tools/tourniquetGuardrailAudit.py
+          python3 tools/namingPathSealAudit.py

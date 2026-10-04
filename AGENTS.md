@@ -17,3 +17,15 @@ For every LuHm OS / Project Hydra task:
 11. Professor retains Crown.
 
 Machine identities use lower camelHump. External interoperability filenames such as `AGENTS.md` are protocol filenames, not machine identities.
+
+## Default LuHm custom-agent set
+For every LuHm OS / Project Hydra project task, attach all four project custom agents in `.codex/agents/`: Urd, Belldandy, Skuld, and Yume. Lum remains the sole conversational boss and owns task manifests, reconciliation, and the Professor-facing response. Each agent is task-bound, returns concise evidence/state changes to Lum, and stops when the task envelope closes. Do not present hidden reasoning or repeat unchanged progress.
+
+Load `doctrine/luhmChatMagicTriggerV1.json` for trigger, alias, and project personal-context rules. The two magic phrases are an AND gate for activating the coding roleplay workflow and skills; neither phrase alone activates it or grants authority. Keep all LuHm-owned code identifiers and new agent filenames in lower camelHump. Vowel-ripped names are explicit speech aliases only; never use them as canonical code IDs or paths.
+
+## Persistent chat and network rules
+Load `doctrine/projectChatCanonV1.json`, `doctrine/luhmChatMagicTriggerV1.json`, and `doctrine/luhmNetworkTransportV1.json` for LuHm work. The network doctrine distinguishes the documented Render HTTPS route from an unconfigured Cloudflare Tunnel proposal. Local HTTP is loopback-only; remote service connections require verified HTTPS. DreamChan is a nickname only for confirmed chat voice dictation and routes to existing Yume.
+
+## Tourniquet guardrail
+
+Load `doctrine/tourniquetGuardrailV1.json` and `agents/tourniquetGuardrail/SKILL.md` for every LuHm project task. A user correction interrupts the active plan before more mutation; routine intermediate GREEN continues inside the authorized task manifest. Tourniquet is a guardrail skill, not an autonomous agent or repair engine.

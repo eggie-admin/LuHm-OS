@@ -101,3 +101,8 @@ Only after DNS, TLS, MCP initialization, OpenAI domain verification, and exact-h
 5. request the separate human Crown decision for public submission/promotion.
 
 No CI or hosting success grants publication authority by itself.
+
+
+## Candidate Cloudflare Tunnel evolution
+
+The deployed runbook remains Render HTTPS with Cloudflare DNS-only and an unpublished workstation loopback endpoint. The following is a candidate design only: bind a local controller/origin to IPv4 loopback `127.0.0.1`; connect outward through Cloudflare Tunnel; require HTTPS with certificate validation for every remote service socket. A Cloudflare edge redirect does not protect the first HTTP request. Tunnel encryption protects connector-to-edge traffic, while an HTTP service URL remains plaintext on the local host. No tunnel is configured or runtime-proven by this document. See `doctrine/luhmNetworkTransportV1.json`.

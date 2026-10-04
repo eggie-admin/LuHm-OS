@@ -1,0 +1,164 @@
+{
+  "schema": "luhmOs.compatibilityLayers.v1",
+  "status": "candidateReview",
+  "authority": "Professor",
+  "boss": "lum",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Canonical two-layer LuHm compatibility architecture. Layer one is the OpenAI-side agent compatibility plane. Layer two is the GitHub repository compatibility plane used to broker remote APIs and vendor runtimes that the OpenAI-side plane cannot directly connect.",
+  "layerOne": {
+    "id": "openAiCompatibilityLayer",
+    "role": "conversationAndAgentControlPlane",
+    "boss": "lum",
+    "customAgentSet": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch",
+      "yume"
+    ],
+    "oniPolicy": "registeredLazySpecialists",
+    "directQuestionBypassesMesh": true,
+    "presenceIsNotInference": true,
+    "duplicateSpecialtyContextForbidden": true,
+    "outputsTo": "lum",
+    "crownAuthority": false
+  },
+  "layerTwo": {
+    "id": "githubCompatibilityLayer",
+    "role": "sourceCiAndRemoteApiCompatibilityBridge",
+    "sourceDatabase": "github",
+    "components": [
+      "githubActions",
+      "copilotAdvisory",
+      "providerAdapters",
+      "compactManifestRouter",
+      "evidenceReceipts"
+    ],
+    "remoteApiTargets": {
+      "cloudflare": {
+        "state": "contractOnly",
+        "role": [
+          "edgeGateway",
+          "httpsBoundary",
+          "aiGateway",
+          "vendorRouter"
+        ]
+      },
+      "render": {
+        "state": "existingHarnessOnly",
+        "role": [
+          "mcpOrigin",
+          "applicationHost"
+        ]
+      },
+      "googleAi": {
+        "state": "providerRoutePending",
+        "role": [
+          "geminiCapability",
+          "developerEntitlementAdapter"
+        ]
+      },
+      "googleEdgeGallery": {
+        "state": "localClientBindingPending",
+        "role": [
+          "onDeviceInference",
+          "mcpClient",
+          "agentSkillsClient"
+        ]
+      },
+      "huggingFace": {
+        "state": "optionalAdapter",
+        "role": [
+          "modelAndDatasetCapability"
+        ]
+      },
+      "externalMcp": {
+        "state": "boundedAdapter",
+        "role": [
+          "toolAndContextTransport"
+        ]
+      }
+    },
+    "copilot": {
+      "role": "advisoryCodeReviewAndImplementationAssistant",
+      "activeOnlyWhenRequestedOrConfigured": true,
+      "authority": false,
+      "mayGrantGreen": false,
+      "mayGrantCrown": false
+    },
+    "googleBigBrotherAdvisory": {
+      "role": "googleGeminiAndDeveloperCapabilityAdvisor",
+      "authority": false,
+      "mayGrantGreen": false,
+      "mayGrantCrown": false
+    },
+    "allProviderResultsReturnTo": "lum",
+    "providerOutputIsProof": false,
+    "crownAuthority": false
+  },
+  "localToRemoteTopology": {
+    "localControlPlane": {
+      "transport": "http",
+      "bind": "loopbackOnly",
+      "encryption": "noneOnLoopback",
+      "headlessPreferred": true,
+      "uiSurface": "minimal",
+      "secrets": "hostSideOnly"
+    },
+    "remoteBoundary": {
+      "preferredEdge": "cloudflare",
+      "transport": "https",
+      "tlsTerminatesOutsideLocalLoopback": true,
+      "publicExposureRequiresProfessor": true
+    },
+    "loginAndObservability": {
+      "googleIdentity": {
+        "state": "contractOnly",
+        "purpose": "loginIdentityWhenExplicitlyIntegrated"
+      },
+      "sentryObservability": {
+        "state": "contractOnly",
+        "purpose": "errorAndHealthTelemetryWhenExplicitlyIntegrated"
+      }
+    },
+    "installerBudget": {
+      "objective": "smallestPracticalHeadlessPythonBootstrap",
+      "spokenTarget": "30 megabit",
+      "exactUnitAndMeasuredArtifact": "UNKNOWN_UNTIL_BUILD_RECEIPT"
+    }
+  },
+  "wireProtocol": {
+    "canonicalSchemas": {
+      "task": "luhmOs.aiTaskManifest.v1",
+      "event": "luhmOs.aiEvent.v1",
+      "remote": "luhmOs.remoteAiManifest.v1"
+    },
+    "schemaIds": {
+      "task": "tsk1",
+      "event": "evt1",
+      "remote": "ram1"
+    },
+    "javascriptAdapter": {
+      "source": "frontEnd/jquery/luhmManifestMin.js",
+      "runtime": "frontEnd/jquery/luhmManifestMin.min.js",
+      "jqueryApi": "jQuery.luhmManifestMin",
+      "deterministicOnly": true,
+      "authority": false
+    },
+    "rules": [
+      "compactJsonNoPrettyWhitespace",
+      "schemaIdInsteadOfRepeatedSchemaName",
+      "evidenceByReference",
+      "deltaOnly",
+      "unchangedStateSuppressed",
+      "identityFieldsPreserved",
+      "secretsForbidden"
+    ],
+    "rssAtom": {
+      "role": "statusProjectionOnly",
+      "mayGrantAuthority": false,
+      "mayTriggerMutation": false
+    }
+  },
+  "operationTitan7": "doctrine/operationTitan7V1.json",
+  "crownStatus": "STOP"
+}

@@ -42,3 +42,6 @@ Koe is LuHm's voice/dictation scribe. Koe turns messy speech into faithful notes
 Koe returns the V2 standard packet plus `rawRef`, `cleanText`, `intents[]`, `uncertainTokens[]`, `namedRefs[]`, `explicitConstraints[]`, and `corrections[]`.
 
 Koe may suggest a route. Lum decides the route.
+
+## DreamChan voice nickname
+In chat voice dictation only, normalize DreamChan and listed transcription variants to existing canonical `yume` when input modality is confirmed. Preserve the raw transcript and record normalization in corrections. Never turn it into a typed-text shortcut, display name, persistent alias, or agent. See `doctrine/luhmChatMagicTriggerV1.json`.

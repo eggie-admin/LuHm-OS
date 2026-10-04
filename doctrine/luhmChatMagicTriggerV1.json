@@ -1,0 +1,129 @@
+{
+  "schema": "luhmOs.chatMagicTrigger.v1",
+  "status": "candidateReview",
+  "authority": {
+    "helpersMayRecruit": false,
+    "helpersMaySelfApprove": false,
+    "helpersMayGrantGreen": false,
+    "helpersMayGrantCrown": false,
+    "externalSideEffectsRequireExistingAuthority": true
+  },
+  "boss": "lum",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "machineNamingLaw": "lowerCamelHump",
+  "entryPoint": "jQuery.fn.mgcCdngRlplay",
+  "trigger": {
+    "operator": "AND",
+    "allOf": [
+      "I invoke the old magic",
+      "so let it be written, so let it be done"
+    ],
+    "comparison": "normalizedPhraseEquality",
+    "normalization": {
+      "unicode": "NFC",
+      "caseSensitive": false,
+      "trimOuterWhitespace": true,
+      "collapseInternalWhitespace": true,
+      "ignoreTerminalPunctuation": true
+    },
+    "eitherPhraseAloneActivates": false,
+    "triggerExpression": "oldMagicPhrase == true && writtenDonePhrase == true",
+    "authorityEffect": "none"
+  },
+  "projectLibrary": {
+    "productDisplayName": "LuHm OS",
+    "canonicalRepository": "eggie-admin/LuHm-OS",
+    "workingDevelopmentTitle": "Project Hydra",
+    "acronym": {
+      "text": "LuHm OS",
+      "expansion": [
+        "Linux",
+        "Unix",
+        "Hydra",
+        "Manifest"
+      ]
+    },
+    "personalContext": "Load as project context for Lum and every default custom agent; current repository doctrine and exact sourceRef override stale memory."
+  },
+  "activation": {
+    "projectTasks": "activateDefaultCustomAgents",
+    "magicTrigger": "loadCodingRoleplayWorkflowAndAgentSkills",
+    "workflowSkill": "agents/witchingHourCoding/SKILL.md",
+    "agentSkills": [
+      "agents/urdMutationOni/SKILL.md",
+      "agents/belldandyQualityOni/SKILL.md",
+      "agents/skuldResearchOni/SKILL.md",
+      "agents/yumeArtOni/SKILL.md"
+    ],
+    "aiLogic": "doctrine/luhmAiControlPlaneV1.json",
+    "taskBound": true,
+    "persistsAfterTaskCloses": false,
+    "frontendEvent": "luhm:magic:roleplay:activate",
+    "triggerBehavior": "consumedWithoutChatEcho",
+    "compatibilityLayers": "doctrine/luhmCompatibilityLayersV1.json",
+    "operationTitan7": "doctrine/operationTitan7V1.json"
+  },
+  "defaults": {
+    "projectAgentSet": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch",
+      "yume"
+    ],
+    "lumIsPrimaryBoss": true,
+    "allWorkersReturnToLum": true,
+    "maximumConcurrentSupportAgents": 4,
+    "visibleChatActivity": "materialStateChangesOnly",
+    "noEcho": true,
+    "noHiddenChainOfThought": true,
+    "noRepeatedProgressLines": true,
+    "noBackgroundExecutionAfterTask": true,
+    "vendorProxyLaw": "canonicalAgentsMirrorAcrossVendorsWithoutCreatingIndependentAuthority",
+    "operationTitan7AlwaysRunning": false,
+    "operationTitan7IsProject": false,
+    "compatibilityLayerOrder": [
+      "openAiCompatibilityLayer",
+      "githubCompatibilityLayer"
+    ]
+  },
+  "voiceDictationAliases": {
+    "scope": "chatVoiceDictationOnly",
+    "nickname": "DreamChan",
+    "canonicalTarget": "yume",
+    "inputModality": "voiceDictation",
+    "normalization": "caseAndWhitespaceInsensitiveTranscriptionAliasMatch",
+    "acceptedForms": [
+      "DreamChan",
+      "Dream Chan",
+      "Dreamchan",
+      "Dream Yume Chan",
+      "Dream(yume)chan",
+      "drmchn",
+      "drmYmChn",
+      "Dream Chain",
+      "Dream Chance"
+    ],
+    "otherVowelRippedSpokenNames": {
+      "urdDoctorGoddess": [
+        "rd"
+      ],
+      "belldandySecretary": [
+        "bllndy"
+      ],
+      "skuldResearch": [
+        "skld"
+      ],
+      "yume": [
+        "ym"
+      ]
+    },
+    "routingEffect": "routeYumeSpecialtyWithinCurrentTaskEnvelope",
+    "canonicalAgentIdentityCreated": false,
+    "displayAsAgentName": false,
+    "persistentAliasCreated": false,
+    "typedTextBehavior": "noSpecialNormalizationOrDispatch",
+    "requireVoiceModalityEvidence": true,
+    "currentRuntimeStatus": "conversationalDictationRule;pluginComposerHasNoVoiceModalitySignal"
+  },
+  "networkTransportDoctrine": "doctrine/luhmNetworkTransportV1.json"
+}
