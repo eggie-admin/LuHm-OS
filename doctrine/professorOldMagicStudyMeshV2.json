@@ -1,0 +1,51 @@
+{
+  "schema": "luhmOs.professorOldMagicStudyMesh.v2",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "purpose": "Professor-led historical-computing calibration for Lum, Urd, Belldandy, and Skuld.",
+  "classLibrary": {
+    "classCount": 8,
+    "classIds": [
+      "class00",
+      "class01",
+      "class02",
+      "class03",
+      "class04",
+      "class05",
+      "class06",
+      "class07"
+    ],
+    "driveLogicalPath": "LuHm OS/Study Cabinets/Professor Old Magic",
+    "durableBinaryAuthority": "googleDrive",
+    "driveReceiptProven": false,
+    "historicalCandidateSha256": "4185901daeb2c279ac21d9628a1186dc62e59f5884cd553da71ef767a588531c"
+  },
+  "transport": {
+    "canonical": "json",
+    "archive": "zipDeflate",
+    "textSafeEncoding": "base64Rfc4648",
+    "integrity": "sha256",
+    "base64IsCompression": false
+  },
+  "studyBuddies": {
+    "lum": "routerAndSynthesizer",
+    "urdDoctorGoddess": "skepticAndEvidencePathology",
+    "belldandySecretary": "stateAndContinuity",
+    "skuldResearch": "technicalGenealogyAndCurrentResearch",
+    "personalityGrantsAuthority": false
+  },
+  "factPolicy": {
+    "listenForPrincipleFirst": true,
+    "correctMaterialErrors": true,
+    "markUncertain": true
+  },
+  "exam": {
+    "mode": "rolePlayMockExam",
+    "target": "2026-10-09",
+    "automaticAction": false
+  },
+  "deploy": "doctrine/professorOldMagicStudyDeployV2.json",
+  "schemaRef": "doctrine/professorOldMagicStudyClassSchemaV2.json",
+  "promotion": false,
+  "crownStatus": "STOP"
+}

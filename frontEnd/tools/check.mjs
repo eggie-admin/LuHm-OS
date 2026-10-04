@@ -7,6 +7,7 @@ const mustExist = [
   "styles.css",
   "app.js",
   "jquery/luhm.cockpit.js",
+  "jquery/luhm.codingRoleplay.js",
   "plugins/README.md"
 ];
 
@@ -15,6 +16,7 @@ for (const file of mustExist) await access(resolve(root, file));
 const html = await readFile(resolve(root, "index.html"), "utf8");
 const plugin = await readFile(resolve(root, "jquery/luhm.cockpit.js"), "utf8");
 const app = await readFile(resolve(root, "app.js"), "utf8");
+const roleplay = await readFile(resolve(root, "jquery/luhm.codingRoleplay.js"), "utf8");
 
 const checks = [
   [html.includes("vendor/jquery-3.7.1.min.js"), "index loads pinned staged jQuery"],
@@ -25,6 +27,9 @@ const checks = [
   [plugin.includes("$.fn.mgcCdngRlplay") && plugin.includes("oldMagicPhrase") && plugin.includes("writtenDonePhrase"), "magic coding roleplay trigger exists"],
   [plugin.includes("$.fn.vendorAiDebug") && plugin.includes("VENDOR_AI_DEBUG") && plugin.includes("luhm:vendor:debug:request"), "uppercase vendor AI debug glass exists"],
   [plugin.includes("UNKNOWN_UNTIL_PROVIDER_RECEIPT") && plugin.includes("UNKNOWN_UNTIL_EXACT_EXECUTION_RECEIPT"), "vendor debug preserves unknown truth boundaries"],
+  [html.includes("jquery/luhm.codingRoleplay.js"), "index loads coding roleplay presentation"],
+  [roleplay.includes("$.codingRoleplay") && roleplay.includes("presentationOnly"), "coding roleplay remains presentation-only"],
+  [app.includes("luhm:magic:roleplay:activate") && app.includes("luhm:vendor:debug:request"), "app wires bounded roleplay events"],
   [app.includes(".luhmCockpit("), "app initializes cockpit plugin"]
 ];
 

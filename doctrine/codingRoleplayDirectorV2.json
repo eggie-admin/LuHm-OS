@@ -1,0 +1,67 @@
+{
+  "schema": "luhmOs.codingRoleplayDirector.v2",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "purpose": "Human-centered coding-roleplay presentation over real machine state without changing authority.",
+  "sources": {
+    "magicTrigger": "doctrine/luhmChatMagicTriggerV1.json",
+    "vendorDebug": "doctrine/vendorAiDebugV1.json",
+    "intentRouter": "doctrine/humanCenteredIntentRouterV2.json",
+    "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
+    "petPresentation": "doctrine/characterPetPresentationV1.json",
+    "characterCanon": "game/canon/CHARACTER_CANON_V1.json",
+    "gameplay": "doctrine/gameplayVerticalSliceV1.json"
+  },
+  "eventSpine": [
+    "professorIntent",
+    "workflowSummoned",
+    "oniEntered",
+    "vendorCapabilityResult",
+    "evidenceFound",
+    "memoryRecovered",
+    "contradictionFound",
+    "repairProposed",
+    "checkpoint",
+    "professorNeeded",
+    "workflowReleased",
+    "goalGap",
+    "boundedMutation",
+    "proofReceipt",
+    "softwareCandidate",
+    "professorGate",
+    "castReached",
+    "postCastPhysicalProof"
+  ],
+  "deepDungeonPresentation": {
+    "rooms": [
+      "surface",
+      "sourceTruth",
+      "doctrine",
+      "receipts",
+      "memoryCrypt",
+      "contradictionVault",
+      "dependencyDepth",
+      "dungeonMap"
+    ],
+    "depthMeter": true,
+    "breadcrumbTrail": true,
+    "unknownFog": true,
+    "professorDoor": true
+  },
+  "bubbleLaw": {
+    "maxLines": 3,
+    "machineStateSeparate": true,
+    "bubbleCannotEstablishGreen": true,
+    "vendorCannotCrown": true,
+    "roleplayCannotRewriteEvidence": true,
+    "roleplayCannotAdvanceGoalState": true,
+    "decorativeGreenForbidden": true
+  },
+  "progressLaw": {
+    "semanticGrouping": true,
+    "repeatedLikeTermBubbles": false,
+    "exceptionsMayExpand": true
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}

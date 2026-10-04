@@ -1,0 +1,55 @@
+{
+  "schema": "luhmOs.operationTitan7ChatTrigger.v2",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "purpose": "Resolve Professor-facing Titan escalation phrases into bounded audit intensity without granting merge, deploy, release, or Crown authority.",
+  "sourceLaw": "AI proposes. Policy authorizes. Deterministic evidence proves. Professor promotes.",
+  "entryPoint": "jQuery.fn.operationTitan7",
+  "escalationOrder": [
+    "forFuckSake",
+    "scorchedEarth",
+    "finalForm"
+  ],
+  "escalations": {
+    "forFuckSake": {
+      "aliases": [
+        "FFS!",
+        "For Fuck Sake!",
+        "for fuck sake"
+      ],
+      "passTarget": 25,
+      "meaning": "first-tier hard audit",
+      "mutation": "boundedRepairOnly"
+    },
+    "scorchedEarth": {
+      "aliases": [
+        "Scorched Earth",
+        "scorched earth"
+      ],
+      "passTarget": 50,
+      "meaning": "second-tier deep audit",
+      "mutation": "boundedRepairOnly"
+    },
+    "finalForm": {
+      "aliases": [
+        "Final Form",
+        "final form"
+      ],
+      "passTarget": "structural",
+      "meaning": "absolute reconcile/rip-out-and-replace audit after lower tiers cannot close the blocker",
+      "mutation": "structuralReconcileWithinCurrentTaskEnvelope"
+    }
+  },
+  "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
+  "guardRail": "doctrine/everlastingCovenantV1.json",
+  "laws": [
+    "phraseSelectsAuditIntensityNotAuthority",
+    "noTitanFleet",
+    "sourceRefChangeRestartsProof",
+    "deterministicRedStopsAdvancement",
+    "physicalProofNeverInferred",
+    "castMergeDeployPublishSignCrownRemainSeparateConsequences"
+  ],
+  "promotion": false,
+  "crownStatus": "STOP"
+}

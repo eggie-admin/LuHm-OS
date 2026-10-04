@@ -23,6 +23,30 @@
       $assetFactory.prop("hidden", true);
     });
 
+    $cockpit.on("luhm:magic:roleplay:activate", function (_event, detail) {
+      if ($.codingRoleplay) {
+        $.codingRoleplay.emit("workflowSummoned", {
+          speaker: "Lum",
+          expression: "working",
+          lines: ["Old magic loaded.", "Roleplay is presentation; authority is unchanged."],
+          machineState: "ROLEPLAY_ACTIVE",
+          sourceRef: String((detail && detail.sourceRef) || "")
+        });
+      }
+    });
+
+    $cockpit.on("luhm:vendor:debug:request", function (_event, detail) {
+      if ($.codingRoleplay) {
+        $.codingRoleplay.emit("vendorCapabilityResult", {
+          speaker: "Lum",
+          expression: "working",
+          lines: ["Vendor debug requested.", String((detail && detail.providerId) || "all")],
+          machineState: "UNKNOWN_UNTIL_EXACT_EXECUTION_RECEIPT",
+          evidenceRefs: []
+        });
+      }
+    });
+
     // Android Web3 cockpit candidate boundary. Native Android System WebView
     // wrapper wiring remains separate and is intentionally not faked here.
     $cockpit.on("luhm:backend:open", function (_event, detail) {

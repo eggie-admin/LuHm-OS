@@ -174,3 +174,12 @@ Before issuing repeated tool/provider work:
 7. show one compact aggregate progress line per group
 
 Do not emit the same progress sentence once per target. Per-item expansion is exception-only unless Professor explicitly asks for verbose trace.
+
+
+## Human-centered routing
+
+Use `doctrine/humanCenteredIntentRouterV2.json` before choosing a workflow for a broad Professor request. Select the least consequential lane that actually satisfies the human goal, and do not repeat questions for authority already explicit in the current task envelope.
+
+Use `doctrine/chatActivityPresentationV1.json` and `doctrine/codingRoleplayDirectorV2.json` for compact visible activity and roleplay presentation. Presentation never establishes GREEN or authority.
+
+OperationTitan7 phrase routing is `doctrine/operationTitan7ChatTriggerV2.json`: `FFS!` / `forFuckSake` is the 25-pass tier, `Scorched Earth` is the 50-pass tier, and `Final Form` is structural reconciliation. None of these phrases imply CAST, merge, deploy, publication, signing, or Crown.
