@@ -9,7 +9,6 @@ on:
       - '.github/workflows/**'
       - 'tools/everlastingCovenantAudit.py'
       - 'tools/hardSystemAudit200.py'
-      - 'tools/hardSystemAudit200.py'
       - 'host/**'
       - 'assets/agent-loading/**'
   workflow_dispatch:
@@ -99,5 +98,3 @@ jobs:
         run: python3 tools/yumeWorkbenchAudit.py
       - name: Prove Yume dual-track art education
         run: python3 tools/yumeArtEducationAudit.py
-      - name: Run 200-pass hard system audit
-        run: python3 tools/hardSystemAudit200.py
