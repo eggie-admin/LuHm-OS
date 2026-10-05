@@ -1,0 +1,121 @@
+{
+  "schema": "luhmOs.chatGptPluginCrownFlow.v1",
+  "status": "ACTIVE_HOST_CONFIRMATION_PENDING",
+  "authority": "Professor",
+  "boss": "lum",
+  "scopeId": "chatGptPluginFullGreenCrown",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "target": "CROWNED_CHATGPT_PLUGIN_MILESTONE",
+  "runtimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json",
+  "inChatExperience": "doctrine/inChatExperienceV1.json",
+  "rules": {
+    "fastPathUntilUserAction": true,
+    "deterministicRedStops": true,
+    "unknownNeverBecomesGreen": true,
+    "oneUserActionAtATime": true,
+    "noRepeatedProofCarousel": true,
+    "noAutomaticCrown": true
+  },
+  "agentRoles": {
+    "lum": "conductor; advances the state machine and emits one compact Professor-facing next action",
+    "urdDoctorGoddess": "evidence adjudication; verifies each gate and blocks false GREEN",
+    "belldandySecretary": "state ledger; records current gate, receipts, superseded state, and the handoff",
+    "skuldResearch": "OpenAI/MCP compatibility check only when host behavior or current platform requirements need verification",
+    "kiri": "ambiguity resolver only when a historical or host referent is unclear",
+    "kugi": "deterministic mutation/deploy executor only when an already-authorized machine action exists",
+    "yume": "fieldGuide visual cue only at a genuine Professor UI action boundary"
+  },
+  "gates": [
+    {
+      "id": "candidateCi",
+      "class": "machine",
+      "owner": "urdDoctorGoddess",
+      "state": "PROVED",
+      "proof": "runtimeReceipt.sourceProof.candidateExactHeadCi"
+    },
+    {
+      "id": "mainPromotion",
+      "class": "machine",
+      "owner": "lum",
+      "state": "PROVED",
+      "proof": "runtimeReceipt.sourceProof.mainMergeReceipt"
+    },
+    {
+      "id": "runtimeDeploy",
+      "class": "machine",
+      "owner": "urdDoctorGoddess",
+      "state": "PROVED",
+      "proof": "runtimeReceipt.runtimeProof"
+    },
+    {
+      "id": "chatGptMetadataRefresh",
+      "class": "professorUserAction",
+      "owner": "belldandySecretary",
+      "state": "PENDING",
+      "action": "Refresh the existing LuHm developer connection so ChatGPT re-reads MCP tool/resource metadata.",
+      "proof": "ChatGPT host discovers ui://luhm-os/cockpit-v2.html"
+    },
+    {
+      "id": "toolDiscovery",
+      "class": "host",
+      "owner": "urdDoctorGoddess",
+      "state": "PENDING",
+      "proof": "Host lists luhm_open_cockpit bound to cockpit-v2"
+    },
+    {
+      "id": "cockpitInvocation",
+      "class": "host",
+      "owner": "lum",
+      "state": "PENDING",
+      "action": "Invoke luhm_open_cockpit once.",
+      "proof": "Tool result schema=luhmOs.inChatExperiencePayload.v1 and experience.schema=luhmOs.inChatExperience.v1"
+    },
+    {
+      "id": "hostEvaluation",
+      "class": "host",
+      "owner": "urdDoctorGoddess",
+      "state": "PENDING",
+      "action": "Run the bounded positive/negative review pack against the connected host.",
+      "proof": "All required host evaluations pass without authority creep."
+    },
+    {
+      "id": "crownReady",
+      "class": "evidence",
+      "owner": "urdDoctorGoddess",
+      "state": "PENDING",
+      "proof": "candidateCi + mainPromotion + runtimeDeploy + metadataRefresh + toolDiscovery + cockpitInvocation + hostEvaluation all PROVED"
+    },
+    {
+      "id": "professorCrown",
+      "class": "professorAuthority",
+      "owner": "Professor",
+      "state": "PENDING",
+      "action": "C",
+      "proof": "Explicit Professor promotion bound to exact main source and this scope only."
+    }
+  ],
+  "transitionLogic": {
+    "currentGate": "chatGptMetadataRefresh",
+    "onGreen": "advanceExactlyOneGate",
+    "onRed": "diagnoseSmallestRepairThenRetrySameGate",
+    "onUnknown": "holdGateAndReportUnknown",
+    "onUserAction": "fieldGuideActivate",
+    "afterUserAction": "urdReconcileThenFieldGuideDismiss",
+    "finalTransition": "crownReady -> Professor C -> crownReceipt"
+  },
+  "fieldGuide": {
+    "yume": "show only the current ChatGPT control or screen state needed",
+    "belldandy": "one short tap/click instruction",
+    "professor": "perform action then reply C",
+    "urd": "reconcile the resulting host receipt",
+    "lum": "resume FAST_PATH"
+  },
+  "professorFacingOutput": [
+    "currentGate",
+    "state",
+    "provedReceipt",
+    "singleNextAction",
+    "authorityNeeded"
+  ],
+  "crownStatus": "STOP"
+}
