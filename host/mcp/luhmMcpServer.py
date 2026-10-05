@@ -36,6 +36,7 @@ ENTERPRISE_SCOPE = ROOT / "doctrine" / "mcpEnterpriseScopeV2.json"
 API_SPINE = ROOT / "doctrine" / "apiSpineV1.json"
 TRAFFIC_CONTROLLER = ROOT / "doctrine" / "cloudflareAirTrafficControllerV1.json"
 ROUTER = ROOT / "tools" / "lumTaskRouter.py"
+API_SPINE_RESOLVER = ROOT / "host" / "api" / "luhmApiSpine.py"
 ROUTE_KINDS = {
     "direct", "read", "records", "proof", "patch", "build", "external",
     "diagnose", "research", "monitor", "release", "art", "media", "dictation", "asset",
@@ -286,6 +287,8 @@ def _assert_source_contract() -> None:
         raise RuntimeError("RED_TRAFFIC_CONTROLLER_AUTHORITY_LEAK")
     if traffic.get("schema") != "luhmOs.cloudflareAirTrafficController.v1":
         raise RuntimeError("RED_TRAFFIC_CONTROLLER_SCHEMA")
+    if not API_SPINE_RESOLVER.is_file():
+        raise RuntimeError("RED_API_SPINE_RESOLVER_MISSING")
     if traffic.get("authorityBoundary", {}).get("aiProvider") is not False:
         raise RuntimeError("RED_CLOUDFLARE_AI_PROVIDER_DRIFT")
     mcp_lane = traffic.get("lanes", {}).get("publicChatPluginMcp", {})
@@ -394,6 +397,27 @@ def luhm_proof_contract() -> dict[str, Any]:
 def luhm_api_spine() -> dict[str, Any]:
     """Return the stable capability-first provider spine and Cloudflare traffic-controller contract."""
     return _api_spine_payload()
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_resolve_capability(capabilityId: str, providerHint: str = "") -> dict[str, Any]:
+    """Resolve a capability to eligible provider adapters without executing a provider or changing authority."""
+    command = [sys.executable, str(API_SPINE_RESOLVER), "--capability", capabilityId]
+    if providerHint:
+        command.extend(["--provider", providerHint])
+    completed = subprocess.run(
+        command,
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=10,
+        env={"PATH": ""},
+    )
+    result = json.loads(completed.stdout)
+    result["mcpMutationAuthority"] = False
+    result["providerExecutionProven"] = False
+    return result
 
 
 @server.tool(annotations=READ_ONLY_INTERNAL)
