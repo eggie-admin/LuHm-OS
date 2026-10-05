@@ -113,29 +113,18 @@
   },
   "corporatePanelContract": "doctrine/corporatePanelMilestonesV1.json",
   "partnerEscalation": {
-    "defaultTier": {
-      "tier": 0,
-      "principal": "eggieFounder",
-      "kind": "humanAuthority"
-    },
-    "tierOne": {
-      "tier": 1,
-      "providerId": "googleAi",
-      "nickname": "bigBrother",
-      "role": "mainWorkhorse"
-    },
-    "tierTwo": {
-      "tier": 2,
-      "providerId": "openAi",
-      "nickname": "openDaddy",
-      "role": "interactivePremiumAndPlatformSpecific"
-    },
-    "tierThree": {
-      "tier": 3,
-      "providerId": "openSourceVendorCommunity",
-      "nickname": "vendorCommunity",
-      "role": "specialistLongTailAndOpenEcosystem"
-    }
+    "contract": "doctrine/corporatePanelMilestonesV1.json#milestones/partnerEscalationMilestone",
+    "defaultHumanTier": "eggieFounder",
+    "providerOrder": [
+      "googleAi",
+      "openAi",
+      "openSourceVendorCommunity"
+    ],
+    "googleRole": "tierOneWorkhorsePartner",
+    "openAiRole": "tierTwoStrategicPartner",
+    "communityRole": "tierThreeOpenSourceAndSpecialistBreadth",
+    "authorityEffect": "NONE",
+    "legalEquityClaim": false
   },
   "partnerEscalationLaw": {
     "capabilityFitMaySkipTier": true,
@@ -145,5 +134,29 @@
     "providerInterestIsEquity": false,
     "respectKnownEntitlements": true,
     "freeTierAware": true
+  },
+  "workspaceLaw": {
+    "officialEntitledWorkspace": "github",
+    "googleAi": "STRICT_FREE_TIER_PROXY_UNLESS_RECEIPT_PROVES_MORE",
+    "openAi": "STRICT_FREE_TIER_PROXY_UNLESS_RECEIPT_PROVES_MORE",
+    "providerEntitlementMayNotDefineArchitecture": true
+  },
+  "openSourceVendorCommunity": {
+    "providerId": "openSourceVendorCommunity",
+    "role": "longTailOpenSourceAndSpecialistEcosystem",
+    "examples": [
+      "gitLab",
+      "fDroid",
+      "izzyOnDroid",
+      "huggingFace",
+      "openSourceMaintainers"
+    ],
+    "invokeWhen": [
+      "specialistOpenSourceCapabilityFitsBetterThanPrimaryProviders",
+      "freeOpenEcosystemProvidesRequiredPackageRepoModelOrKnowledge",
+      "googleAndOpenAiArePoorFitOrBudgetShouldBePreserved"
+    ],
+    "routesThrough": "lum",
+    "authority": "candidateEvidenceOnly"
   }
 }
