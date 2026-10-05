@@ -232,7 +232,7 @@ func _update_interaction_target() -> void:
         game_hud.set_interaction_prompt("", false)
         return
 
-    var expected_event := quest_director.current_event()
+    var expected_event: String = str(quest_director.current_event())
     var closest: Area3D = null
     var closest_distance := INF
     var objective_target: Area3D = null
@@ -249,7 +249,7 @@ func _update_interaction_target() -> void:
         var event_name := str(node.call("get_event_name")) if node.has_method("get_event_name") else ""
         if event_name == expected_event:
             objective_target = node
-        var relevant := event_name == expected_event or event_name.begins_with("travel:") or event_name.begins_with("oni:")
+        var relevant: bool = event_name == expected_event or event_name.begins_with("travel:") or event_name.begins_with("oni:")
         if node.has_method("set_active"):
             node.call("set_active", relevant)
         if not relevant:
