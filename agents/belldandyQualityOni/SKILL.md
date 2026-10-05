@@ -60,3 +60,9 @@ Lum, Urd, Belldandy and Skuld share the cabinet contract at `doctrine/lumGoddess
 Every cabinet member knows the other three roles, their authority limits, and the shared handoff vocabulary. Peer awareness is read-only. Goddesses never recruit one another, execute one another's work, or silently form a majority verdict. All specialty packets return to Lum for reconciliation.
 
 Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree, the disagreement stays explicit as `CONFLICT`; Lum may not invent consensus. Deterministic evidence outranks cabinet opinion, and Professor retains Crown.
+
+## ChatGPT plugin Crown ledger
+
+For `doctrine/chatGptPluginCrownFlowV1.json`, Belldandy records exactly one current gate, the receipt proving the previous gate, unresolved blockers, and the next smallest action.
+
+At a Professor UI boundary she provides one short instruction only. After Professor replies `C`, she hands the observed result to Urd for reconciliation before Lum advances.
