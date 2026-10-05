@@ -1,0 +1,93 @@
+{
+  "schema": "luhmOs.organizationBrandRegistry.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "sourceRef": "7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
+  "recordsLead": "belldandySecretary",
+  "creativeLead": "yumeArtOni",
+  "evidenceLead": "urdDoctorGoddess",
+  "compatibilityLead": "skuldResearch",
+  "boss": "lum",
+  "purpose": "Give every LuHm organization, public project brand, character-persona brand, and internal provider nickname exactly one machine-readable identity without implying vendor sponsorship or affiliation.",
+  "publicBrands": {
+    "luhmOs": {
+      "displayName": "LuHm OS",
+      "class": "product",
+      "brandRoot": "EggieBagelface",
+      "publicUse": true,
+      "publisher": "Eggie Bagelface",
+      "requiredFamilies": ["logoMark", "wordmark", "favicon", "appIcon", "socialAvatar", "socialBanner", "thumbnailFrame", "endCard", "colorTokens", "typeTokens"]
+    },
+    "eggieBagelface": {
+      "displayName": "Eggie Bagelface",
+      "class": "publisherOrganization",
+      "publicUse": true,
+      "requiredFamilies": ["wordmark", "publisherLockup", "socialAvatar", "socialBanner", "colorTokens", "typeTokens"]
+    },
+    "pirateDaddiesFilm": {
+      "displayName": "PIRATE DADDIES FILM",
+      "class": "studio",
+      "publicUse": true,
+      "tagline": "Remember... All Daddies Love You",
+      "source": "media/daddys-princess-date/edit-manifest.json",
+      "requiredFamilies": ["studioMark", "wordmark", "endCard", "lowerThird", "socialAvatar", "socialBanner", "thumbnailFrame"]
+    },
+    "bigDaddy": {
+      "displayName": "Big Daddy",
+      "class": "characterPersona",
+      "publicUse": "ONLY_AFTER_EXPLICIT_PROFESSOR_LIKENESS_AND_ASSET_APPROVAL",
+      "source": "media/daddys-princess-date/edit-manifest.json",
+      "realPersonReferencePolicy": "protectedReferencePrivate; no generative public replacement; public derivative requires Professor-approved authorship and likeness treatment",
+      "requiredFamilies": ["characterLockup", "portrait", "fullBody", "expressionSheet", "socialPortrait", "titleCard"]
+    }
+  },
+  "internalProviderRoleplay": {
+    "openDaddy": {
+      "provider": "openAi",
+      "source": "doctrine/enterpriseOrientationBridgeV1.json",
+      "publicCoBrand": false,
+      "officialAffiliationClaim": false,
+      "vendorLogoUse": "FORBIDDEN_UNLESS_SEPARATELY_AUTHORIZED_AND_REQUIRED"
+    },
+    "gitDaddy": {
+      "provider": "github",
+      "source": "doctrine/enterpriseOrientationBridgeV1.json",
+      "publicCoBrand": false,
+      "officialAffiliationClaim": false,
+      "vendorLogoUse": "FORBIDDEN_UNLESS_SEPARATELY_AUTHORIZED_AND_REQUIRED"
+    },
+    "samsungDaddy": {
+      "provider": "samsung",
+      "source": "doctrine/patronageCampaignV1.json",
+      "publicCoBrand": false,
+      "officialAffiliationClaim": false,
+      "vendorLogoUse": "FORBIDDEN_UNLESS_SEPARATELY_AUTHORIZED_AND_REQUIRED"
+    },
+    "bigBrother": {
+      "provider": "google",
+      "source": "doctrine/enterpriseOrientationBridgeV1.json",
+      "publicCoBrand": false,
+      "officialAffiliationClaim": false,
+      "vendorLogoUse": "FORBIDDEN_UNLESS_SEPARATELY_AUTHORIZED_AND_REQUIRED"
+    },
+    "cloudflareAirTrafficController": {
+      "provider": "cloudflare",
+      "role": "networkAirTrafficController",
+      "publicCoBrand": false,
+      "officialAffiliationClaim": false,
+      "technicalAttributionOnlyWhenFactual": true
+    }
+  },
+  "brandLaw": [
+    "one_brand_identity_per_public_name",
+    "public_brand_asset_requires_hash_provenance_and_professor_approval",
+    "internal_provider_nickname_is_not_public_cobrand",
+    "provider_nickname_must_not_imply_sponsorship_partnership_or_affiliation",
+    "vendor_logo_use_requires_separate_rights_and_brand_guideline_review",
+    "generated_public_art_default_forbidden",
+    "private_reference_never_embedded_in_public_brand_asset"
+  ],
+  "publicationAuthority": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}
