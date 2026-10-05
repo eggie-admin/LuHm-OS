@@ -6,6 +6,7 @@ on:
     paths:
       - 'host/harness/**'
       - 'doctrine/inChatExperienceV1.json'
+      - 'doctrine/openingDayStaffTrainingV1.json'
       - 'doctrine/chatGptPluginRuntimeReceiptV1.json'
       - 'doctrine/chatGptPluginCrownFlowV1.json'
       - 'host/mcp/luhmHarness.py'
@@ -13,6 +14,7 @@ on:
       - 'export_presets.cfg'
       - 'tools/harnessAudit.py'
       - 'tools/inChatExperienceAudit.py'
+      - 'tools/openingDayStaffTrainingAudit.py'
       - 'tools/chatGptPluginCrownFlowAudit.py'
       - '.github/workflows/render-harness-audit.yml'
 
@@ -50,6 +52,7 @@ jobs:
           set -euo pipefail
           python tools/harnessAudit.py
           python tools/inChatExperienceAudit.py
+          python tools/openingDayStaffTrainingAudit.py
           python tools/chatGptPluginCrownFlowAudit.py
 
       - name: Boot-time harness contract check
