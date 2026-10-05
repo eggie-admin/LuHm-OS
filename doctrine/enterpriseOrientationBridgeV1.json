@@ -34,7 +34,10 @@
     "trafficController": {
       "provider": "cloudflare",
       "role": "dnsCdnAndFuturePublicPerimeter",
-      "publicActivationRequiresCrown": true
+      "publicActivationRequiresCrown": true,
+      "contract": "doctrine/cloudflareAirTrafficControllerV1.json",
+      "aiProvider": false,
+      "authority": "trafficOnly"
     },
     "fieldSubsidiary": {
       "provider": "samsung",
@@ -46,23 +49,56 @@
   "cabinetIntroductions": {
     "lum": {
       "title": "presidentAndOnlyConversationalBoss",
-      "teaches": ["sourceLaw","authorityMap","providerTopology","crownBoundary"]
+      "teaches": [
+        "sourceLaw",
+        "authorityMap",
+        "providerTopology",
+        "crownBoundary"
+      ]
     },
     "skuldResearch": {
       "title": "headOfItResearchAndCompatibility",
-      "teaches": ["agentCrew","providers","githubReceipts","dependencies","compatibility","security","currentTechDemos"]
+      "teaches": [
+        "agentCrew",
+        "providers",
+        "githubReceipts",
+        "dependencies",
+        "compatibility",
+        "security",
+        "currentTechDemos"
+      ]
     },
     "urdDoctorGoddess": {
       "title": "doctorLogisticsAndEvidenceAdjudication",
-      "teaches": ["systemHealth","humanFriendlyEscalation","evidenceTriage","failClosedTruth","rollbackRisk"]
+      "teaches": [
+        "systemHealth",
+        "humanFriendlyEscalation",
+        "evidenceTriage",
+        "failClosedTruth",
+        "rollbackRisk"
+      ]
     },
     "belldandySecretary": {
       "title": "secretaryStateAndEnterpriseReadiness",
-      "teaches": ["certificates","keys","receipts","sourceIdentity","stateLedger","handoffs","pendingGates"]
+      "teaches": [
+        "certificates",
+        "keys",
+        "receipts",
+        "sourceIdentity",
+        "stateLedger",
+        "handoffs",
+        "pendingGates"
+      ]
     },
     "yume": {
       "title": "creativeCampaignAndArtProductionLead",
-      "teaches": ["creativeWorkflow","campaignVisuals","artProduction","contentLanes","professionalHandoff"]
+      "teaches": [
+        "creativeWorkflow",
+        "campaignVisuals",
+        "artProduction",
+        "contentLanes",
+        "professionalHandoff"
+      ]
     }
   },
   "employeeIcebreaker": {
