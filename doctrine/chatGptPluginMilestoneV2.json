@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.chatGptPluginMilestone.v2",
-  "status": "PROPOSED_SOURCE_READY_EXTERNAL_CONNECTION_PENDING",
+  "status": "RUNTIME_GREEN_CHATGPT_HOST_CONFIRMATION_PENDING",
   "authority": "Professor",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "purpose": "Current camelHump milestone for the LuHm OS ChatGPT plugin and MCP app surface.",
@@ -48,16 +48,15 @@
     "treatment": "legacyArtifactEvidenceOnly"
   },
   "remainingGates": [
-    "exactHeadCi",
-    "currentMcpRuntimeDeployReceipt",
-    "mcpInspectorReceipt",
-    "approvedChatGptConnectionTest",
-    "toolSelectionEvaluationReceipt",
-    "componentUiRuntimeReceipt",
-    "completePluginTest",
+    "chatGptMetadataRefresh",
+    "toolDiscovery",
+    "cockpitInvocation",
+    "hostEvaluation",
     "ProfessorPromotion"
   ],
   "publicationAuthority": false,
   "directoryPublicationProven": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "crownFlow": "doctrine/chatGptPluginCrownFlowV1.json",
+  "runtimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json"
 }

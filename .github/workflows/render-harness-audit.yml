@@ -6,11 +6,14 @@ on:
     paths:
       - 'host/harness/**'
       - 'doctrine/inChatExperienceV1.json'
+      - 'doctrine/chatGptPluginRuntimeReceiptV1.json'
+      - 'doctrine/chatGptPluginCrownFlowV1.json'
       - 'host/mcp/luhmHarness.py'
       - 'host/mcp/luhmHarnessServer.py'
       - 'export_presets.cfg'
       - 'tools/harnessAudit.py'
       - 'tools/inChatExperienceAudit.py'
+      - 'tools/chatGptPluginCrownFlowAudit.py'
       - '.github/workflows/render-harness-audit.yml'
 
 permissions:
@@ -47,6 +50,7 @@ jobs:
           set -euo pipefail
           python tools/harnessAudit.py
           python tools/inChatExperienceAudit.py
+          python tools/chatGptPluginCrownFlowAudit.py
 
       - name: Boot-time harness contract check
         shell: bash

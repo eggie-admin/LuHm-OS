@@ -31,6 +31,8 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <div class="card"><div class="k">oni roster</div><div class="v cyan" id="roster">loading…</div></div>
 <div class="card"><div class="k">in-chat schema</div><div class="v cyan" id="experienceSchema">loading…</div></div>
 <div class="card"><div class="k">experience panels</div><div class="v" id="experiencePanels">loading…</div></div>
+<div class="card"><div class="k">crown gate</div><div class="v amber" id="crownGate">loading…</div></div>
+<div class="card"><div class="k">next action</div><div class="v" id="crownAction">loading…</div></div>
 <div class="card"><div class="k">godot web</div><div class="v" id="godot">Full harness owns the Godot 4 viewer.</div></div>
 </section>
 <section class="commandDeck">
@@ -61,6 +63,10 @@ function render(data){
   $("experienceSchema").textContent=experience?.schema||"UNKNOWN";
   const panels=experience?.runtime?.panels||[];
   $("experiencePanels").textContent=panels.length?panels.join(" · "):"UNKNOWN";
+  const flow=payload?.crownFlow||{};
+  $("crownGate").textContent=(flow?.transitionLogic?.currentGate||"UNKNOWN")+" · "+(flow?.status||"UNKNOWN");
+  const current=(flow?.gates||[]).find(x=>x.id===flow?.transitionLogic?.currentGate);
+  $("crownAction").textContent=current?.action||"Machine gate or no user action required.";
   const origin=payload?.harness?.publicOrigin;
   if(origin&&origin!=="LOCAL_ONLY") $("foot").textContent=`Full harness: ${origin}/harness/ · read-only`;
   const openai=window.openai;

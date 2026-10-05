@@ -1,0 +1,54 @@
+{
+  "schema": "luhmOs.chatGptPluginRuntimeReceipt.v1",
+  "status": "GREEN_RUNTIME_DEPLOY_HOST_CONFIRMATION_PENDING",
+  "authority": "Professor",
+  "scopeId": "chatGptPluginFullGreenCrown",
+  "repository": "eggie-admin/LuHm-OS",
+  "source": {
+    "candidateHead": "d09750279616070aa060f869692674154a477e3b",
+    "mergedPr": 165,
+    "mainCommit": "d88f5ff23d580327a10f585d8b23b6beebc21aa4"
+  },
+  "sourceProof": {
+    "candidateExactHeadCi": "GREEN",
+    "candidateWorkflowClasses": [
+      "LuHm Render ChatGPT Harness Audit",
+      "LuHm Plugin Publication Audit",
+      "LuHm Render Harness Live Audit",
+      "Doctrine Lane · 100-pass + 200-pass hard audit",
+      "Open PR Reconciliation v2 Audit",
+      "Agent System Deployment Audit",
+      "Vendor AI Debug + Magic Roleplay Audit",
+      "Android Web3 Cockpit Switch Audit",
+      "Yume Batch Image Workflow Audit",
+      "Proposed Doctrine Working Lane Audit"
+    ],
+    "mainMergeReceipt": "GREEN",
+    "exactMainCi": "UNPROVEN_NO_MAIN_RUN_RECEIPT"
+  },
+  "runtimeProof": {
+    "service": "luhm-os-harness-green",
+    "branch": "main",
+    "deployedCommit": "d88f5ff23d580327a10f585d8b23b6beebc21aa4",
+    "deployId": "dep-db1iuadg1s2s73admed0",
+    "buildStatus": "succeeded",
+    "deployStatus": "succeeded",
+    "applicationStartup": "complete",
+    "harnessHttpStatus": 200,
+    "observedAt": "2026-10-05T05:02:15Z"
+  },
+  "chatGptHostProof": {
+    "metadataRefresh": "PENDING",
+    "cockpitV2Discovered": "PENDING",
+    "luhmOpenCockpitInvocation": "PENDING",
+    "inChatExperiencePayloadObserved": "PENDING",
+    "positiveNegativeHostEvaluation": "PENDING"
+  },
+  "greenClaim": {
+    "sourceCandidate": "GREEN",
+    "renderRuntime": "GREEN",
+    "chatGptHost": "AMBER",
+    "fullPluginMilestone": "AMBER"
+  },
+  "crownStatus": "STOP"
+}

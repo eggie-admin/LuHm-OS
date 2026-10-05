@@ -22,7 +22,9 @@ expected={
   "pets":"doctrine/characterPetPresentationV1.json",
   "loadingSprites":"doctrine/agentLoadingSpriteManifestV1.json",
   "agentControl":"doctrine/luhmAiControlPlaneV1.json",
-  "sourceTruth":"doctrine/currentSourceTruthV3.json"
+  "sourceTruth":"doctrine/currentSourceTruthV3.json",
+  "crownFlow":"doctrine/chatGptPluginCrownFlowV1.json",
+  "runtimeReceipt":"doctrine/chatGptPluginRuntimeReceiptV1.json"
 }
 need(sources==expected,"source map drift")
 for rel in expected.values():
@@ -32,7 +34,7 @@ runtime=experience.get("runtime",{})
 need(runtime.get("tool")=="luhm_open_cockpit","tool binding drift")
 need(runtime.get("resourceUri")=="ui://luhm-os/cockpit-v2.html","resource URI drift")
 need(runtime.get("surface")=="mcp-app","surface drift")
-need(runtime.get("panels")==["sourceTruth","activeCast","activity","roleplay","petDock","commandCapsule","godotHandoff"],"panel contract drift")
+need(runtime.get("panels")==["sourceTruth","crownFlow","activeCast","activity","roleplay","petDock","commandCapsule","godotHandoff"],"panel contract drift")
 need(runtime.get("godotEmbeddingInChat") is False,"Godot embedding boundary drift")
 
 authority=experience.get("authorityBoundary",{})
@@ -50,6 +52,8 @@ need('UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"' in module,"harness still
 need('"schema": "luhmOs.inChatExperiencePayload.v1"' in module,"tool payload schema missing")
 need('"experience": experience' in module,"tool/config do not expose experience")
 need('id="experienceSchema"' in widget and 'id="experiencePanels"' in widget,"widget does not render experience")
+need('id="crownGate"' in widget and 'id="crownAction"' in widget,"widget does not render Crown flow")
+need('"crownFlow": crown_flow' in module and '"runtimeReceipt": runtime_receipt' in module,"harness does not expose Crown flow receipts")
 
 print(json.dumps({
   "schema":"luhmOs.inChatExperienceAudit.v1",
