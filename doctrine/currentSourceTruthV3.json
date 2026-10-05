@@ -225,7 +225,11 @@
     "assetRecordsLead": "belldandySecretary",
     "artDirectionLead": "yume",
     "sanityLead": "urdDoctorGoddess",
-    "specialistTrainer": "huggingFace"
+    "specialistTrainer": "huggingFace",
+    "assetArchitecture": "doctrine/godot4AssetArchitectureDecisionV1.json",
+    "assetReconciliation": "media/godot4-asset-reconciliation-v1.json",
+    "assetReconciliationStatus": "AMBER_RECONCILIATION_IN_PROGRESS",
+    "buildAllowedFromAssetEstate": false
   },
   "agentLayer": {
     "training": "doctrine/agentTrainingSealV1.json",
