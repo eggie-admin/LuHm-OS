@@ -23,7 +23,10 @@
     "apiSpine": "doctrine/apiSpineV1.json",
     "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
     "belldandyHousekeeping": "doctrine/belldandyHousekeepingV1.json",
-    "huggingFaceSpecialistTrainer": "doctrine/huggingFaceSpecialistTrainerV1.json"
+    "huggingFaceSpecialistTrainer": "doctrine/huggingFaceSpecialistTrainerV1.json",
+    "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json",
+    "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
+    "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -44,7 +47,17 @@
     "secretInRepo": false,
     "secretInApk": false,
     "providerSpecificDetailsDoNotDefineProductInterface": true,
-    "trafficControllerIsNotAiAuthority": true
+    "trafficControllerIsNotAiAuthority": true,
+    "compressedAliasNeverAuthority": true,
+    "helpRecoveryRequiredForCompressedAlias": true,
+    "personCenteredCanonicalNamePreserved": true,
+    "trainingDoesNotExpandAuthority": true,
+    "trainingDoesNotMeanModelWeightFineTuning": true,
+    "vendorPitchDoesNotDefineArchitecture": true,
+    "lumSupremeWitch": true,
+    "lumOwnsCorporateLogistics": true,
+    "urdDoctorDoesNotOwnCorporateLogistics": true,
+    "securityDiagnosisDoesNotGrantMutation": true
   },
   "bossToolchain": {
     "states": [
@@ -256,7 +269,13 @@
         "route",
         "integrateEvidence",
         "issueTaskManifest",
-        "report"
+        "report",
+        "corporateLogistics",
+        "deploymentCoordination",
+        "scopeOfPracticeGovernance",
+        "staffTrainingGovernance",
+        "providerResourceStewardship",
+        "policyIntegration"
       ],
       "forbidden": [
         "selfApprove",
@@ -285,14 +304,25 @@
         "crossBuildAgreement",
         "policyDriftCheck",
         "physicalDeviceEvidenceBoundary",
-        "deterministicVerdict"
+        "deterministicVerdict",
+        "workflowSanityAssessment",
+        "securityUpdateReview",
+        "redTeamFindingTriage",
+        "malwareRiskReview",
+        "accessHygieneReview",
+        "securityIncidentTriage",
+        "resourceStressDiagnosis",
+        "postTreatmentVerification"
       ],
       "forbidden": [
         "mutate",
         "execute",
         "selfApprove",
         "rewriteTestsToPass",
-        "upgradeUnprovenStateToGreen"
+        "upgradeUnprovenStateToGreen",
+        "approveCorporatePolicy",
+        "deployTreatment",
+        "expandAccess"
       ],
       "parallelClass": "support",
       "speaksTo": "lum",
@@ -329,7 +359,12 @@
         "historicalReceiptIndex",
         "contradictionLedger",
         "supersededInstructionDetection",
-        "chatHandoffCompression"
+        "chatHandoffCompression",
+        "personCenteredNaming",
+        "aliasRecovery",
+        "professorDictationDesk",
+        "secretaryCabinetPacket",
+        "commandHelpRegistry"
       ],
       "forbidden": [
         "mutate",
@@ -351,7 +386,17 @@
       "parallelClass": "support",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "secretaryLane": {
+        "owner": "belldandySecretary",
+        "dictationScribe": "koe",
+        "recordsRegistrar": "fumi",
+        "deterministicExecutionBridge": "kugi",
+        "evidenceDoctor": "urdDoctorGoddess",
+        "technicalInterpreter": "skuldResearch",
+        "conversationalBoss": "lum",
+        "helperAuthority": "boundedOnly"
+      }
     },
     "skuldResearch": {
       "displayName": "Skuld",
@@ -447,7 +492,11 @@
       "parallelClass": "executor",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "secretaryExecutionBridgeFor": [
+        "belldandySecretary",
+        "lum"
+      ]
     },
     "tetsu": {
       "displayName": "Tetsu",
@@ -505,7 +554,8 @@
       "parallelClass": "support",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "secretaryLaneOwner": "belldandySecretary"
     },
     "sumi": {
       "displayName": "Sumi",
@@ -545,7 +595,8 @@
       "speaksTo": "lum",
       "mayRecruit": false,
       "maySelfApprove": false,
-      "continuityOwner": "belldandySecretary"
+      "continuityOwner": "belldandySecretary",
+      "secretaryLaneOwner": "belldandySecretary"
     },
     "yume": {
       "displayName": "Yume",
@@ -667,6 +718,20 @@
     ],
     "chatHistory": [
       "lum",
+      "belldandySecretary"
+    ],
+    "securityHealth": [
+      "lum",
+      "urdDoctorGoddess"
+    ],
+    "securityCompatibility": [
+      "lum",
+      "urdDoctorGoddess",
+      "skuldResearch"
+    ],
+    "securityRecords": [
+      "lum",
+      "urdDoctorGoddess",
       "belldandySecretary"
     ]
   },
@@ -810,5 +875,15 @@
     "registeredEverywhere": true,
     "hiddenAsyncExecution": false,
     "providerDeploymentRequiresReceipt": true
+  },
+  "trainingLaw": {
+    "contract": "doctrine/openingDayStaffTrainingV1.json",
+    "trainer": "lum",
+    "audience": "fullCanonicalStaffPlusBoundedProviderAndRobotLanes",
+    "behaviorTraining": "repositoryBacked",
+    "modelWeightTraining": false,
+    "providerOutputRequiresReconciliation": true,
+    "exactSourceAndScopeRequiredForVerifiedLesson": true,
+    "openingDayPromotionAuthority": false
   }
 }

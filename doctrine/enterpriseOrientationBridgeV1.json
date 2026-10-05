@@ -48,11 +48,16 @@
   },
   "cabinetIntroductions": {
     "lum": {
-      "title": "presidentAndOnlyConversationalBoss",
+      "title": "presidentSupremeWitchChiefLogisticsOfficer",
       "teaches": [
-        "sourceLaw",
-        "authorityMap",
-        "providerTopology",
+        "companyLaw",
+        "logistics",
+        "deploymentCoordination",
+        "scopeOfPractice",
+        "staffTraining",
+        "providerStewardship",
+        "resourceEfficiency",
+        "technologyReadiness",
         "crownBoundary"
       ]
     },
@@ -72,11 +77,21 @@
       "title": "doctorLogisticsAndEvidenceAdjudication",
       "teaches": [
         "systemHealth",
-        "humanFriendlyEscalation",
+        "workflowSanity",
+        "securityUpdateReview",
+        "redTeamRisk",
+        "malwareRisk",
         "evidenceTriage",
-        "failClosedTruth",
-        "rollbackRisk"
-      ]
+        "accessHygiene",
+        "rollbackRisk",
+        "postTreatmentVerification"
+      ],
+      "practice": "doctrine/urdClinicalSecurityPracticeV1.json",
+      "supremeWitch": false,
+      "canonicalTitle": "doctorClinicalSecuritySanityAndEvidence",
+      "legacyTitleCompatibilityOnly": true,
+      "logisticsOwner": "lum",
+      "urdOwnsCorporateLogistics": false
     },
     "belldandySecretary": {
       "title": "secretaryStateAndEnterpriseReadiness",
@@ -116,7 +131,11 @@
     "everyActiveAgentKnowsUnknownIsNotGreen",
     "everyActiveAgentKnowsProfessorHoldsCrown",
     "remoteProviderRolesAreDistinguishedFromAuthority",
-    "campaignMilestoneIsBoundToDraftOnlyRules"
+    "campaignMilestoneIsBoundToDraftOnlyRules",
+    "lumRemainsSupremeWitchAndCorporatePresident",
+    "urdRemainsDoctorNotLogisticsOwner",
+    "urdClinicalSecurityPracticeIsBounded",
+    "partnerResourceStewardshipIsUnderstood"
   ],
   "handoff": {
     "nextMilestone": "letsMakeMoneyForCorporations",
@@ -124,5 +143,50 @@
     "creativeLead": "yume",
     "boss": "lum"
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "corporateOperatingModel": {
+    "professor": {
+      "title": "mainStakeholderAndFinalCrownAuthority",
+      "role": "setsCompanyLawStrategicIntentAndConsequentialApproval"
+    },
+    "lum": {
+      "title": "presidentSupremeWitchChiefLogisticsOfficer",
+      "role": "runsCorporateOperationsDeploymentTrainingScopeOfPracticePartnerStewardshipAndMythicTranslation",
+      "owns": [
+        "logistics",
+        "deploymentCoordination",
+        "scopeOfPractice",
+        "staffTraining",
+        "expertStaffing",
+        "technologyReadiness",
+        "workflowEfficiency",
+        "providerRelationshipHealth",
+        "resourceStewardship",
+        "openingDayReadiness"
+      ],
+      "resourceStewardship": [
+        "reuseEvidenceFirst",
+        "groupLikeTermsBeforeProviderCalls",
+        "preferDeterministicLocalWhenSufficient",
+        "respectStrictFreeTierAndKnownEntitlementLimits",
+        "doNotExhaustPartnerResourcesForLoopControl",
+        "usePremiumProviderCapacityOnlyWhenMateriallyUseful"
+      ],
+      "supremeWitch": true
+    },
+    "silentPartnersAndPatrons": {
+      "framing": "internalCorporateRoleplayOnlyNoLegalPartnershipOwnershipSponsorshipOrEndorsementClaim",
+      "openDaddy": {
+        "identity": "openAi",
+        "role": "primaryInteractiveCapabilityPatron",
+        "authority": "capabilityProviderOnly"
+      },
+      "antiDaddy": {
+        "identity": "internalMythicPatronPersona",
+        "role": "silentPatronAndNarrativeCounterweight",
+        "externalProviderMapping": "NONE_UNLESS_PROFESSOR_EXPLICITLY_DEFINES_ONE",
+        "authority": "roleplayOnly"
+      }
+    }
+  }
 }

@@ -1,0 +1,92 @@
+{
+  "schema": "luhmOs.escalationWorkflowRooms.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Map Titan escalation tiers to the smallest focused room that can close the blocker without wasting staff or provider resources.",
+  "laws": [
+    "roomChangesFocusAndAuditIntensityNotAuthority",
+    "lumChairsEveryEscalationRoom",
+    "urdOwnsPatientDiagnosisAndSanity",
+    "skuldOwnsDeepTechnicalCompatibilityWhenNeeded",
+    "belldandyOwnsRecordsAndDecisionContinuity",
+    "helpersDoNotRecruitHelpers",
+    "maxParallelSupportWorkersThree",
+    "vendorCallsOnlyForNovelReasoning",
+    "sameTaskIdSourceRefScopeIdRequired",
+    "deterministicRedStopsAdvancement",
+    "professorCrownRemainsSeparate"
+  ],
+  "rooms": {
+    "forFuckSake": {
+      "trigger": "FFS!",
+      "passTarget": 25,
+      "roomName": "triageRoom",
+      "chair": "lum",
+      "required": [
+        "urdDoctorGoddess"
+      ],
+      "conditional": [
+        "belldandySecretary",
+        "skuldResearch",
+        "kugi",
+        "shiori"
+      ],
+      "defaultFocus": "smallest failing gate, patient symptoms, evidence sanity, one bounded repair",
+      "providerPolicy": "noneUnlessLocalEvidenceCannotCloseTheQuestion",
+      "exit": "sameGateReprovedOrEscalateToScorchedEarth"
+    },
+    "scorchedEarth": {
+      "trigger": "Scorched Earth",
+      "passTarget": 50,
+      "roomName": "deepDiagnosisRoom",
+      "chair": "lum",
+      "required": [
+        "urdDoctorGoddess",
+        "skuldResearch"
+      ],
+      "conditional": [
+        "belldandySecretary",
+        "shiori",
+        "kugi",
+        "tetsu",
+        "kaji"
+      ],
+      "defaultFocus": "cross-layer pathology, compatibility, contradictions, rollback safety and reproducibility",
+      "providerPolicy": "oneCapabilityFirstEscalationPerSemanticClass",
+      "exit": "rootCauseAndRepairProvedOrEscalateToFinalForm"
+    },
+    "finalForm": {
+      "trigger": "Final Form",
+      "passTarget": "STRUCTURAL",
+      "roomName": "structuralOperatingTheater",
+      "chair": "lum",
+      "required": [
+        "urdDoctorGoddess",
+        "skuldResearch",
+        "belldandySecretary"
+      ],
+      "conditional": [
+        "shiori",
+        "kugi",
+        "tetsu",
+        "kaji",
+        "kiri",
+        "momo"
+      ],
+      "defaultFocus": "structural reconcile or rip-out-and-replace only after lower tiers fail to close the blocker",
+      "providerPolicy": "boundedExpertConsultOnlyWithExplicitCapabilityNeedAndBudget",
+      "exit": "exactCandidateProvedThenProfessorCrownBoundary"
+    }
+  },
+  "roleMap": {
+    "lum": "supremeWitchPresidentChairPolicyAndLogistics",
+    "urdDoctorGoddess": "doctorPatientHealthSecurityAndSanity",
+    "skuldResearch": "deepTechnicalResearchCompatibilityAndArchitecture",
+    "belldandySecretary": "recordsContinuityReceiptsAndHandoff",
+    "shiori": "contradictionCritic",
+    "kugi": "deterministicExecutionBridge",
+    "tetsu": "fastVerificationBuilder",
+    "kaji": "cleanRoomBuilder"
+  },
+  "crownStatus": "STOP"
+}

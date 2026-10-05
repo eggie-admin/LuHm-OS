@@ -7,9 +7,20 @@
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "promotion": false,
   "namingLaw": {
-    "contract": "doctrine/camelHumpDoctrineLawV1.json",
-    "currentMachineNaming": "lowerCamelHump",
-    "nonCamelCurrentDoctrine": "LEGACY_ARTIFACT"
+    "contract": "doctrine/namingNamespaceCanonV1.json",
+    "camelHumpCompatibility": "doctrine/camelHumpDoctrineLawV1.json",
+    "helpContract": "doctrine/commandHelpV1.json",
+    "currentMachineNaming": "camelHump",
+    "currentTransportNaming": "kebab-case-lowercase",
+    "currentStateNaming": "DRAGONTAIL",
+    "personCenteredDegradation": [
+      "camelHump",
+      "vowelRippedCamel",
+      "lowercaseShorthand"
+    ],
+    "canonicalIdentityNeverDiscarded": true,
+    "compressedAliasesRequireHelpRecovery": true,
+    "historicalAndExternalNamesPreserved": true
   },
   "workingDoctrineLane": {
     "contract": "doctrine/proposedWorkingLaneV1.json",
@@ -173,7 +184,8 @@
     "apiSpine": "doctrine/apiSpineV1.json",
     "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
     "capabilityResolverTool": "luhm_resolve_capability",
-    "housekeepingStatusTool": "luhm_housekeeping_status"
+    "housekeepingStatusTool": "luhm_housekeeping_status",
+    "helpTool": "luhm_help"
   },
   "contentLanes": {
     "contract": "doctrine/contentLaneDoctrineV1.json"
@@ -266,7 +278,19 @@
     "dictationScribe": "koe",
     "oniActivationModel": "standby->active->verifying->parked",
     "standbyMeansRegisteredNotExecuting": true,
-    "residentDoesNotMeanHiddenAsync": true
+    "residentDoesNotMeanHiddenAsync": true,
+    "namingContinuityOwner": "belldandySecretary",
+    "openingDayTraining": "doctrine/openingDayStaffTrainingV1.json",
+    "openingDayTrainingStatus": "SOURCE_CONFIGURED_CANDIDATE",
+    "fullStaffTrainingClaim": "REPOSITORY_BACKED_BEHAVIORAL_CONTRACTS_ONLY",
+    "modelWeightTrainingProven": false,
+    "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
+    "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json",
+    "lumCorporateRole": "presidentSupremeWitchChiefLogisticsOfficer",
+    "urdCorporateRole": "doctorClinicalSecurityWorkflowSanityEvidenceAndRisk",
+    "skuldCorporateRole": "deepTechnologyResearchCompatibilityAndArchitectureMeaning",
+    "urdOwnsCorporateLogistics": false,
+    "lumOwnsCorporateLogistics": true
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
@@ -332,7 +356,9 @@
       "deploymentProven": false,
       "promotion": false,
       "crownStatus": "STOP"
-    }
+    },
+    "openingDayStaffOrientation": "STAFF_ORIENTATION_CANDIDATE",
+    "publicOpeningDayStillExternal": true
   },
   "studyLayer": {
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",

@@ -8,6 +8,7 @@ covenant=load("doctrine/everlastingCovenantV1.json")
 truth=load("doctrine/currentSourceTruthV3.json")
 lane=load("doctrine/proposedWorkingLaneV1.json")
 naming=load("doctrine/camelHumpDoctrineLawV1.json")
+naming_namespace=load("doctrine/namingNamespaceCanonV1.json")
 urd_evidence=load("doctrine/urdEvidenceAdjudicationV1.json")
 manifest_law=load("doctrine/aiManifestFormatV1.json")
 chat=load("doctrine/projectChatCanonV1.json")
@@ -64,7 +65,7 @@ global_checks=[
 ("fleet.removed",all(not (ROOT/p).exists() for p in [".github/workflows/operation-titan7-watch-fleet.yml","doctrine/OPERATION_TITAN7_WATCH_FLEET_V1.json","tools/titan7WatchFleet.py"])),
 ("fleet.noScheduledTitan7",not any(re.search(r"^\\s*schedule\\s*:",p.read_text(encoding="utf-8",errors="ignore"),re.MULTILINE) and "titan7" in (p.name+p.read_text(encoding="utf-8",errors="ignore")).lower() for p in (ROOT/".github/workflows").glob("*") if p.is_file())),
 ("currentTruth.schema",truth.get("schema")=="luhmOs.currentSourceTruth.v3"),
-("naming.currentLaw",truth.get("namingLaw",{}).get("contract")=="doctrine/camelHumpDoctrineLawV1.json" and naming.get("currentNaming",{}).get("machineIdentifiers")=="lowerCamelHump"),
+("naming.currentLaw",truth.get("namingLaw",{}).get("contract")=="doctrine/namingNamespaceCanonV1.json" and naming_namespace.get("schema")=="luhmOs.namingNamespaceCanon.v1" and naming.get("currentNaming",{}).get("machineIdentifiers")=="camelHump"),
 ("urd.drNaoRetired","drNao" not in control.get("agents",{}) and urd_evidence.get("legacyTreatment",{}).get("drNaoActiveAgent") is False),
 ("manifest.kebabCurrent",control.get("aiTaskManifest",{}).get("template")=="doctrine/aiTaskManifestV2.template.json" and manifest_law.get("fileNaming",{}).get("instanceFilenameStyle")=="kebab-case"),
 ]
