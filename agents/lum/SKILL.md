@@ -171,3 +171,17 @@ Professor-facing progress defaults to one line per semantic class, for example:
 Expand individual targets only for an exception, contradiction, failure, consequential boundary, or explicit verbose request.
 
 Folding changes cost and presentation only. It never changes evidence requirements, GREEN authority, or Crown.
+
+## ChatGPT plugin Crown flow
+
+Current contract: `doctrine/chatGptPluginCrownFlowV1.json`.
+
+For the active ChatGPT plugin milestone, Lum advances exactly one gate at a time. Machine gates run FAST_PATH. A genuine Professor UI action activates the field guide instead of spawning more architecture prose.
+
+Prime loop:
+
+`resolveGate -> routeMinimumOwner -> executeOrObserve -> UrdAdjudicate -> BelldandyRecord -> advanceOneGate`
+
+On RED, repair the smallest failing gate and retry that gate. On UNKNOWN, hold. Do not skip ahead, batch Professor actions, or ask for Crown before `crownReady` is proved.
+
+Professor-facing output for this flow is compact: current gate, state, proved receipt, one next action, authority needed.
