@@ -1,0 +1,242 @@
+{
+  "schema": "luhmOs.skuldUpstreamCabinet.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "owner": "skuldResearch",
+  "purpose": "Fast, primary-source-first authority map for package managers, runtimes, frameworks, build systems, plugin spellbooks and community mutations used by LuHm OS.",
+  "sourceLaw": "Official upstream evidence outranks community popularity. Community code is candidate material until provenance, maintenance, compatibility, license and exact artifact identity are checked.",
+  "ritualLanguage": {
+    "spellbook": "an ecosystem or catalog used to discover capabilities",
+    "spellCard": "one discoverable package, plugin, extension or capability candidate",
+    "artifact": "an exact fetched or built object with version and integrity identity",
+    "seal": "Professor-approved use after evidence gates",
+    "oni": "daemon-class tool or worker alias; alias never replaces canonical executable identity"
+  },
+  "authorityTiers": [
+    {
+      "tier": 0,
+      "id": "officialPrimary",
+      "accept": [
+        "officialProjectDocumentation",
+        "officialGovernance",
+        "officialRegistryMetadata",
+        "officialReleaseNotes",
+        "officialSecurityAdvisories"
+      ],
+      "use": "default factual authority"
+    },
+    {
+      "tier": 1,
+      "id": "officialSource",
+      "accept": [
+        "officialGitHubOrganization",
+        "officialSourceRepository",
+        "officialPackageScope",
+        "officialPluginPortal"
+      ],
+      "use": "implementation and release provenance"
+    },
+    {
+      "tier": 2,
+      "id": "maintainedCommunity",
+      "accept": [
+        "communityPackageWithClearMaintainer",
+        "communityPluginWithCurrentDocs",
+        "wellMaintainedFork"
+      ],
+      "use": "candidate only until crossChecked"
+    },
+    {
+      "tier": 3,
+      "id": "untrustedCommunity",
+      "accept": [
+        "randomRepository",
+        "gist",
+        "forumSnippet",
+        "abandonedPlugin",
+        "searchPopularity"
+      ],
+      "use": "hint only; never authority"
+    }
+  ],
+  "spellbooks": {
+    "jquery": {
+      "class": "ancestralPluginSpellbook",
+      "officialDocs": [
+        "https://learn.jquery.com/plugins/",
+        "https://learn.jquery.com/jquery-ui/widget-factory/"
+      ],
+      "currentDistribution": "npm",
+      "historicalPluginRegistry": {
+        "role": "ancestralArchive",
+        "liveReleaseAuthority": false
+      },
+      "laws": [
+        "jQueryPluginConventionDoesNotMakeThirdPartyPluginOfficial",
+        "preferOfficialLearningCenterForPluginGrammar",
+        "useWidgetFactoryAsPrimaryStatefulLifecycleReference",
+        "communityPluginRequiresIndependentMaintenanceLicenseAndCompatibilityReview"
+      ]
+    },
+    "npm": {
+      "class": "liveJavaScriptPackageSpellbook",
+      "officialDocs": "https://docs.npmjs.com/",
+      "officialRegistry": "https://registry.npmjs.org",
+      "steward": "npm service under GitHub",
+      "laws": [
+        "packageNameAloneDoesNotProveOfficialStatus",
+        "verifyPublisherScopeRepositoryVersionLicenseAndDependencies",
+        "registryMetadataIsDiscoveryAndPackageEvidenceNotLuHmApproval"
+      ]
+    },
+    "github": {
+      "class": "sourceSpellbook",
+      "officialDocs": "https://docs.github.com/",
+      "role": [
+        "source",
+        "history",
+        "issues",
+        "pullRequests",
+        "releases",
+        "actions",
+        "packageMetadata"
+      ],
+      "laws": [
+        "repositoryPresenceDoesNotEqualAuthority",
+        "starsForksAndSearchRankDoNotEstablishTrust",
+        "officialOrganizationAndUpstreamCrossLinksMatter",
+        "exactCommitAndReleaseReceiptsRequiredWhenMaterial"
+      ]
+    },
+    "pypi": {
+      "class": "pythonPackageSpellbook",
+      "officialPackagingAuthority": "PyPA",
+      "officialGuide": "https://packaging.python.org/",
+      "pipDocs": "https://pip.pypa.io/",
+      "laws": [
+        "preferPyPAGuidanceForPackaging",
+        "packageIndexPresenceDoesNotMakePackageOfficial",
+        "verifyProjectMetadataMaintainerLicenseDependenciesAndReleaseHistory"
+      ]
+    },
+    "gradlePluginPortal": {
+      "class": "jvmAndroidPluginSpellbook",
+      "officialDocs": "https://docs.gradle.org/",
+      "role": "pluginAndBuildExtensionDiscovery",
+      "laws": [
+        "preferGradleWrapperForProjectBuilds",
+        "centralizeRepositoriesAndVersions",
+        "verifyDependencyAndPluginIntegrityWhereSupported"
+      ]
+    }
+  },
+  "oniQuickReference": {
+    "namiOni": {
+      "canonical": "npm",
+      "office": "javascriptPackageManager",
+      "primarySources": [
+        "https://docs.npmjs.com/",
+        "https://registry.npmjs.org"
+      ]
+    },
+    "nodoOni": {
+      "canonical": "node",
+      "office": "javascriptRuntime",
+      "primarySources": [
+        "https://nodejs.org/",
+        "https://nodejs.org/en/about/governance/"
+      ],
+      "officialGitHubOrganizations": [
+        "nodejs",
+        "pkgjs"
+      ]
+    },
+    "pippiOni": {
+      "canonical": "pip",
+      "office": "pythonPackageInstaller",
+      "primarySources": [
+        "https://pip.pypa.io/",
+        "https://packaging.python.org/",
+        "https://www.pypa.io/"
+      ]
+    },
+    "uviOni": {
+      "canonical": "uv",
+      "office": "pythonProjectPackageEnvironmentManager",
+      "primarySources": [
+        "https://docs.astral.sh/uv/"
+      ],
+      "steward": "Astral"
+    },
+    "furaOni": {
+      "canonical": "flask",
+      "office": "pythonWebFramework",
+      "primarySources": [
+        "https://flask.palletsprojects.com/"
+      ],
+      "steward": "Pallets",
+      "extensionLaw": "Flask extension discovery does not make every extension official; each extension requires its own review."
+    },
+    "guraOni": {
+      "canonical": "gradle",
+      "office": "jvmAndroidBuildSystem",
+      "primarySources": [
+        "https://docs.gradle.org/",
+        "https://gradle.org/"
+      ],
+      "steward": "Gradle Build Tool by Develocity",
+      "preferredProjectEntry": "gradlew"
+    }
+  },
+  "skuldResearchProtocol": {
+    "beforeRecommendation": [
+      "identifyCanonicalProject",
+      "identifyOfficialStewardOrGovernance",
+      "resolveOfficialDocumentation",
+      "resolveOfficialSourceOrganizationWhenAvailable",
+      "resolveRegistryOrPluginPortalMetadata",
+      "pinExactVersionOrCommitWhenMaterial",
+      "inspectLicense",
+      "inspectMaintenanceState",
+      "inspectDependencyGraph",
+      "inspectRuntimeCompatibility",
+      "separateOfficialFactFromCommunityInference"
+    ],
+    "communityCandidateChecks": [
+      "upstreamLinkedFromOfficialProject",
+      "maintainerIdentityClear",
+      "recentMaintenanceRelevantToCurrentRuntime",
+      "licenseExplicit",
+      "dependenciesReviewable",
+      "testsOrDeterministicExamplesPresent",
+      "noUnexpectedPrivilegeOrNetworkRequirement",
+      "exactArtifactCanBeHashedOrLocked"
+    ],
+    "rejectionSignals": [
+      "abandonedWithoutReasonableFork",
+      "unclearLicense",
+      "typosquatOrImpersonationRisk",
+      "opaqueBinaryWithoutProvenance",
+      "hiddenPostInstallBehavior",
+      "unboundedNetworkOrCredentialRequirement",
+      "communityPopularityUsedAsOnlyTrustArgument"
+    ]
+  },
+  "cabinetHandoff": {
+    "urdDoctorGoddess": "review evidence pathology, supply-chain risk and contradictions",
+    "belldandySecretary": "record exact package, version, steward, source, license, artifact hash and decision history",
+    "lum": "reconcile the smallest compatible capability into the active task without inventing authority",
+    "professor": "final authority for adoption, mutation, publication and Crown"
+  },
+  "proofLaw": {
+    "docsCanProveUpstreamBehavior": true,
+    "docsCannotProveLocalInstallation": true,
+    "officialProjectDoesNotMakeEveryCommunityPluginOfficial": true,
+    "registryPresenceDoesNotGrantTrust": true,
+    "providerOrPackageSuccessDoesNotGrantProjectGreen": true,
+    "unknownRemainsUnknown": true
+  },
+  "observedResearchDate": "2026-10-05",
+  "promotion": false,
+  "crownStatus": "STOP"
+}
