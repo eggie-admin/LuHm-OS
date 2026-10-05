@@ -91,5 +91,7 @@
     "forFuckSake": 1,
     "scorchedEarth": 2,
     "finalForm": 3
-  }
+  },
+  "kernel": "doctrine/escalationKernelV1.json",
+  "profileId": "technology"
 }
