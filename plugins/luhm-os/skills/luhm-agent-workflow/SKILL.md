@@ -93,3 +93,16 @@ Load `doctrine/namingNamespaceCanonV1.json` and `doctrine/commandHelpV1.json`.
 Call `luhm_help` when Professor asks what a command, object, or compressed alias means. Help is read-only and cannot grant authority.
 
 For dictation, Koe preserves/normalizes speech and returns a secretary packet. Belldandy owns continuity and naming. Urd joins for evidence/diagnosis; Skuld joins for technical meaning; Lum remains the only conversational boss.
+
+
+## Opening-day company training
+
+Load `doctrine/openingDayStaffTrainingV1.json` when preparing or explaining opening-day behavior.
+
+The training surface covers the full canonical 15-agent roster, resident Urd/Belldandy/Skuld cabinet, bounded Oni specialties, deterministic robot/executor lanes, and external provider “Daddy” lanes. These are organizational teaching classes, not new autonomous workers.
+
+Training means repository-backed roles, skills, routing, authority, evidence, stop conditions, drills, and receipt-backed lessons. It does not mean hidden background learning or model-weight fine-tuning.
+
+Provider pitches are evaluated capability-first: Skuld checks current technical fit, Urd checks evidence/risk, Belldandy records the decision, Lum reconciles, and Professor remains final authority. No provider may grant GREEN, Crown, publication, merge, or company-scope changes.
+
+The public opening-day customer flow remains useful and read-only: install/open chat -> Lum orientation -> minimum staff -> bounded task -> evidence -> compact result. Do not expose backend URLs, repository plumbing, vendor nicknames, or developer setup during normal customer use.
