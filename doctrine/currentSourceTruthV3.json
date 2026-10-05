@@ -7,9 +7,20 @@
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "promotion": false,
   "namingLaw": {
-    "contract": "doctrine/camelHumpDoctrineLawV1.json",
-    "currentMachineNaming": "lowerCamelHump",
-    "nonCamelCurrentDoctrine": "LEGACY_ARTIFACT"
+    "contract": "doctrine/namingNamespaceCanonV1.json",
+    "camelHumpCompatibility": "doctrine/camelHumpDoctrineLawV1.json",
+    "helpContract": "doctrine/commandHelpV1.json",
+    "currentMachineNaming": "camelHump",
+    "currentTransportNaming": "kebab-case-lowercase",
+    "currentStateNaming": "DRAGONTAIL",
+    "personCenteredDegradation": [
+      "camelHump",
+      "vowelRippedCamel",
+      "lowercaseShorthand"
+    ],
+    "canonicalIdentityNeverDiscarded": true,
+    "compressedAliasesRequireHelpRecovery": true,
+    "historicalAndExternalNamesPreserved": true
   },
   "workingDoctrineLane": {
     "contract": "doctrine/proposedWorkingLaneV1.json",
@@ -60,7 +71,15 @@
     "apiSpineRuntime": "host/api/luhmApiSpine.py",
     "huggingFaceSpecialistTrainer": "doctrine/huggingFaceSpecialistTrainerV1.json",
     "huggingFaceRole": "specialistTrainer",
-    "huggingFaceAuthority": "candidateEvidenceOnly"
+    "huggingFaceAuthority": "candidateEvidenceOnly",
+    "partnerEscalation": [
+      "FOUNDER_DEFAULT",
+      "GOOGLE",
+      "OPENAI",
+      "OPEN_SOURCE_VENDOR_COMMUNITY"
+    ],
+    "partnerEscalationAuthority": false,
+    "providerInterestIsEquity": false
   },
   "creativeLayer": {
     "contentLaneDoctrine": "doctrine/contentLaneDoctrineV1.json",
@@ -74,7 +93,8 @@
     "yumeCommunityArtResources": "doctrine/yumeCommunityArtResourcesV1.json",
     "artistCreditLedger": "doctrine/artistCreditLedgerV1.json",
     "organizationBrandRegistry": "doctrine/organizationBrandRegistryV1.json",
-    "publicArtReleaseReadiness": "doctrine/publicArtReleaseReadinessV1.json"
+    "publicArtReleaseReadiness": "doctrine/publicArtReleaseReadinessV1.json",
+    "yumeProofStudio": "doctrine/fourTierOperatingModelV1.json#tiers/yumeProofStudio"
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
@@ -173,7 +193,10 @@
     "apiSpine": "doctrine/apiSpineV1.json",
     "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
     "capabilityResolverTool": "luhm_resolve_capability",
-    "housekeepingStatusTool": "luhm_housekeeping_status"
+    "housekeepingStatusTool": "luhm_housekeeping_status",
+    "helpTool": "luhm_help",
+    "escalationPlanTool": "luhm_escalation_plan",
+    "escalationResolver": "tools/escalationKernel.py"
   },
   "contentLanes": {
     "contract": "doctrine/contentLaneDoctrineV1.json"
@@ -202,7 +225,8 @@
     "status": "PROPOSED_MILESTONE_BRIDGE",
     "roleplayMayChangeAuthority": false,
     "nextMilestone": "letsMakeMoneyForCorporations",
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json"
   },
   "gameLayer": {
     "contract": "doctrine/gameplayVerticalSliceV1.json",
@@ -266,7 +290,32 @@
     "dictationScribe": "koe",
     "oniActivationModel": "standby->active->verifying->parked",
     "standbyMeansRegisteredNotExecuting": true,
-    "residentDoesNotMeanHiddenAsync": true
+    "residentDoesNotMeanHiddenAsync": true,
+    "namingContinuityOwner": "belldandySecretary",
+    "openingDayTraining": "doctrine/openingDayStaffTrainingV1.json",
+    "openingDayTrainingStatus": "SOURCE_CONFIGURED_CANDIDATE",
+    "fullStaffTrainingClaim": "REPOSITORY_BACKED_BEHAVIORAL_CONTRACTS_ONLY",
+    "modelWeightTrainingProven": false,
+    "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
+    "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json",
+    "lumCorporateRole": "presidentSupremeWitchChiefLogisticsOfficer",
+    "urdCorporateRole": "doctorClinicalSecurityWorkflowSanityEvidenceAndRisk",
+    "skuldCorporateRole": "deepTechnologyResearchCompatibilityAndArchitectureMeaning",
+    "urdOwnsCorporateLogistics": false,
+    "lumOwnsCorporateLogistics": true,
+    "corporatePanelMilestones": "doctrine/corporatePanelMilestonesV1.json",
+    "corporateAuthority": {
+      "ceoFounder": "eggieFounder",
+      "president": "lum",
+      "vicePresident": "urdDoctorGoddess",
+      "secretaryOfState": "belldandySecretary",
+      "headOfResearchAndDevelopment": "skuldResearch"
+    },
+    "operatingLanes": [
+      "commercialPublic",
+      "privateResearchDevelopment"
+    ],
+    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json"
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
@@ -332,7 +381,9 @@
       "deploymentProven": false,
       "promotion": false,
       "crownStatus": "STOP"
-    }
+    },
+    "openingDayStaffOrientation": "STAFF_ORIENTATION_CANDIDATE",
+    "publicOpeningDayStillExternal": true
   },
   "studyLayer": {
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",
@@ -435,5 +486,42 @@
     "explicitSingleUseCastRequired": true,
     "publicationAuthority": false,
     "crownStatus": "STOP"
+  },
+  "escalationSystem": {
+    "kernel": "doctrine/escalationKernelV1.json",
+    "profiles": {
+      "default": "doctrine/founderEscalationLadderV1.json",
+      "corporate": "doctrine/corporateEscalationProfileV1.json",
+      "magic": "doctrine/magicEscalationProfileV1.json",
+      "art": "doctrine/yumeCreativeEscalationV1.json",
+      "technology": "doctrine/operationTitan7ChatTriggerV2.json"
+    },
+    "resolver": "tools/escalationKernel.py",
+    "sharedAgentPractice": "agents/shared/ESCALATION_KERNEL_V1.md",
+    "tierCount": 4,
+    "zeroBased": true,
+    "authorityEffect": "NONE",
+    "crownStatus": "STOP"
+  },
+  "architectureRhythm": {
+    "fourLayerArchitecture": "doctrine/jqueryFourLayerArchitectureV1.json",
+    "fourBeatInteraction": "doctrine/fourBeatInteractionRhythmV1.json",
+    "escalationKernel": "doctrine/escalationKernelV1.json",
+    "matrix": "4x4",
+    "horizontal": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "vertical": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "learningClaim": "RECEIPT_BACKED_ROUTING_AND_PACING_ONLY",
+    "hiddenPsychologicalProfiling": false,
+    "hiddenModelWeightTraining": false
   }
 }

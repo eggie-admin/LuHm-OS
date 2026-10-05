@@ -126,5 +126,24 @@
   "artistCreditLedger": "doctrine/artistCreditLedgerV1.json",
   "everlastingCovenant": "doctrine/everlastingCovenantV1.json",
   "oldMagicStudy": "agents/professorOldMagicStudy/SKILL.md",
-  "workflowBudget": "doctrine/githubWorkflowBudgetV1.json"
+  "workflowBudget": "doctrine/githubWorkflowBudgetV1.json",
+  "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json",
+  "proofStudio": {
+    "tier": "yumeProofStudio",
+    "executiveLead": "lum",
+    "creativeLead": "yumeArtOni",
+    "primeRule": "proof -> presentation; presentation never creates proof",
+    "partnerShowcaseHandoff": "partnerPublicShowcase",
+    "privateResearchMayAutoPublish": false,
+    "providerOrInvestorInterestMayGrantAuthority": false
+  },
+  "creativeEscalation": "doctrine/yumeCreativeEscalationV1.json",
+  "creativeTierDefault": 0,
+  "creativeTierLaw": [
+    "startAtFineArtDevelopmentUnlessDeliveryOrToolEvidenceRequiresHigherTier",
+    "escalateOnlyWhenCurrentCreativeTierCannotCloseTheNeed",
+    "tierIncreaseDoesNotExpandPublicationAuthority",
+    "toolResearchDoesNotChangeCanon",
+    "provedShowcaseRequiresExactEvidenceAndProfessorGate"
+  ]
 }

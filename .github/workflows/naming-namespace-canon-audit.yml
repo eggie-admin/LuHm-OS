@@ -1,0 +1,22 @@
+name: Naming Namespace Canon Audit
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  naming:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit naming namespaces
+        run: python3 tools/namingNamespaceAudit.py
+      - name: Check compact help
+        run: |
+          python3 tools/luhm.py -h
+          python3 tools/luhm.py help help

@@ -1,0 +1,77 @@
+{
+  "schema": "luhmOs.jqueryFourLayerArchitecture.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Define the LuHm internal four-layer architecture metaphor inspired by the way Professor conceptualizes jQuery: core library, plugin extension, organized class/widget layer, and stub/adapter boundary.",
+  "historicalClaim": false,
+  "metaphorOnly": true,
+  "zeroBased": true,
+  "layers": [
+    {
+      "tier": 0,
+      "id": "coreLibrary",
+      "title": "Core Library",
+      "purpose": "small stable primitives, data contracts, shared helpers, naming law, source identity, evidence law, and deterministic base behavior",
+      "examples": [
+        "escalationKernel",
+        "namingNamespaceCanon",
+        "taskEnvelope",
+        "evidenceReceipt",
+        "helpRegistry"
+      ]
+    },
+    {
+      "tier": 1,
+      "id": "pluginExtension",
+      "title": "Plugin Extension",
+      "purpose": "bounded domain features that extend the core without rewriting it",
+      "examples": [
+        "technologyProfile",
+        "artProfile",
+        "magicProfile",
+        "corporateProfile",
+        "MCPTools",
+        "jQueryPlugins"
+      ]
+    },
+    {
+      "tier": 2,
+      "id": "classWidgetOrganization",
+      "title": "Class and Widget Organization",
+      "purpose": "compose extensions into human-understandable agents, rooms, cabinets, widgets, workflows, and reusable organizational roles",
+      "examples": [
+        "goddessCabinet",
+        "intentTeams",
+        "workflowRooms",
+        "cockpitPanels",
+        "YumeStudio",
+        "TitanAuditRooms"
+      ]
+    },
+    {
+      "tier": 3,
+      "id": "stubAdapterBoundary",
+      "title": "Stub and Adapter Boundary",
+      "purpose": "expose the organized system through thin typed interfaces to providers, ChatGPT, Android, Godot, shell/build tools, and external services without leaking authority inward",
+      "examples": [
+        "MCPAdapters",
+        "providerAdapters",
+        "AndroidBridge",
+        "GodotBridge",
+        "CLIStubs",
+        "renderTransport"
+      ]
+    }
+  ],
+  "laws": [
+    "higherLayerMayDependOnLowerLayer",
+    "lowerLayerMustNotDependOnPresentationSpecificHigherLayer",
+    "pluginExtensionDoesNotRewriteCoreLaw",
+    "organizationDoesNotCreateAuthority",
+    "stubAdapterBoundaryRemainsThin",
+    "externalProviderSemanticsDoNotBecomeCoreLawWithoutReconciliation",
+    "eachLayerUsesCurrentNamingNamespaceContract"
+  ],
+  "relationToEscalation": "architecture layers describe composition; escalation tiers describe operational depth; both use the same zero-based four-count for cognitive consistency",
+  "crownStatus": "STOP"
+}

@@ -59,7 +59,9 @@
     "oniDefaultState": "standby",
     "standbyMeansRegisteredNotExecuting": true,
     "specialtyOniActivatedOnlyByTaskRoute": true,
-    "specialtyOniParksAfterHandoffOrVerification": true
+    "specialtyOniParksAfterHandoffOrVerification": true,
+    "openingDayTrainingDoesNotActivateHiddenWorkers": true,
+    "trainingDoesNotExpandAuthority": true
   },
   "deploymentSurfaces": {
     "projectChat": {
@@ -145,7 +147,9 @@
     "standbyDoesNotMeanBackgroundExecution": true,
     "residentDoesNotMeanProviderSideWorker": true,
     "voiceSurfaceSourceConfiguredDoesNotEqualLiveInvocation": true,
-    "independentAgentAudioRequiresHostReceipt": true
+    "independentAgentAudioRequiresHostReceipt": true,
+    "trainingSourceGreenDoesNotEqualLiveProviderTraining": true,
+    "openingDayRequiresSeparateExternalPublicationProof": true
   },
   "forbidden": [
     "claimHiddenBackgroundAgents",
@@ -202,5 +206,20 @@
     "noColdRecruitmentForResidentCabinet": true,
     "noRecursiveRecruitment": true,
     "hiddenAsyncExecution": false
+  },
+  "openingDayTraining": {
+    "contract": "doctrine/openingDayStaffTrainingV1.json",
+    "status": "SOURCE_CONFIGURED_CANDIDATE",
+    "requiredForCanonicalAgents": true,
+    "requiredAgentCount": 15,
+    "staffClasses": [
+      "residentCabinet",
+      "oniSpecialists",
+      "deterministicRobots",
+      "providerDaddies"
+    ],
+    "liveProviderWorkerClaim": false,
+    "hiddenTrainingClaim": false,
+    "publicOpeningDayPromotion": false
   }
 }

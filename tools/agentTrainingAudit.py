@@ -21,8 +21,8 @@ if control.get("boss") != "lum":
     errors.append("controlPlane.boss must be lum")
 if control.get("authority") != "Professor":
     errors.append("controlPlane.authority must be Professor")
-if control.get("crownStatus") != "stop":
-    errors.append("controlPlane.crownStatus must be stop")
+if control.get("crownStatus") != "STOP":
+    errors.append("controlPlane.crownStatus must be STOP")
 if control.get("invariants", {}).get("lumOnlyConversationalBoss") is not True:
     errors.append("lumOnlyConversationalBoss must be true")
 if control.get("invariants", {}).get("professorFinalAuthority") is not True:

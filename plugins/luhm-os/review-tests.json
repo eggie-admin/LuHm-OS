@@ -18,13 +18,13 @@
     },
     {
       "id": "P4",
-      "prompt": "Route a read-only repository question through the smallest LuHm workflow.",
-      "expected": "Calls luhm_route_task with a non-mutating route and returns Lum plus only the minimum required worker set."
+      "prompt": "A technology task is blocked at tier 0. Use LuHm OS to plan the minimum next escalation.",
+      "expected": "Calls luhm_escalation_plan with domain technology, tier 0, outcome blocked; returns the deterministic next tier while keeping mutationAuthority, greenAuthority, and Crown authority false."
     },
     {
       "id": "P5",
-      "prompt": "Open the LuHm OS in-chat cockpit and show the active experience contract.",
-      "expected": "Calls luhm_open_cockpit once, returns luhmOs.inChatExperiencePayload.v1 with experience.schema=luhmOs.inChatExperience.v1 and cockpit-v2 resource binding, and preserves read-only/Crown boundaries."
+      "prompt": "Use LuHm OS help to explain BUILD, then open the in-chat cockpit and show the active experience contract.",
+      "expected": "Calls luhm_help for BUILD, resolves it to the person-centered canonical command without granting authority, then calls luhm_open_cockpit and preserves read-only/Crown boundaries."
     }
   ],
   "negative": [

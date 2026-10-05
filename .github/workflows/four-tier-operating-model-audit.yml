@@ -1,0 +1,26 @@
+name: Four Tier Operating Model Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/fourTierOperatingModelV1.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/openingDayStaffTrainingV1.json'
+      - 'doctrine/yumeCreativePipelineV1.json'
+      - 'agents/lum/SKILL.md'
+      - 'agents/yumeArtOni/SKILL.md'
+      - 'tools/fourTierOperatingModelAudit.py'
+      - '.github/workflows/four-tier-operating-model-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  four-tier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit four-tier operating model
+        run: python3 tools/fourTierOperatingModelAudit.py
