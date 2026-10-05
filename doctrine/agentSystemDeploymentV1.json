@@ -52,7 +52,14 @@
     "helpersSpeakTo": "lum",
     "recursiveRecruitment": false,
     "maxParallelSupportWorkers": 3,
-    "oneMutableSourceLane": true
+    "oneMutableSourceLane": true,
+    "residentCoreBoundToEveryActiveTaskEnvelope": true,
+    "residentCoreExcludedFromLazyActivationChurn": true,
+    "residentCoreHiddenAsync": false,
+    "oniDefaultState": "standby",
+    "standbyMeansRegisteredNotExecuting": true,
+    "specialtyOniActivatedOnlyByTaskRoute": true,
+    "specialtyOniParksAfterHandoffOrVerification": true
   },
   "deploymentSurfaces": {
     "projectChat": {
@@ -124,7 +131,9 @@
     "allSurfacesMustResolveSameRoster": true,
     "sourceConfiguredDoesNotEqualLiveProviderDeployment": true,
     "liveDeploymentRequiresExactSurfaceReceipt": true,
-    "physicalAndroidRuntimeRequiresDeviceReceipt": true
+    "physicalAndroidRuntimeRequiresDeviceReceipt": true,
+    "standbyDoesNotMeanBackgroundExecution": true,
+    "residentDoesNotMeanProviderSideWorker": true
   },
   "forbidden": [
     "claimHiddenBackgroundAgents",
@@ -137,5 +146,49 @@
   ],
   "workingLane": "PROPOSED_ONLY",
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "activationModel": {
+    "residentCabinet": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "residentGoddessTriplet": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "lazyOniPool": [
+      "kiri",
+      "momo",
+      "shiori",
+      "kugi",
+      "tetsu",
+      "kaji",
+      "fumi",
+      "sumi",
+      "koe",
+      "yume",
+      "mediaAssetFactory"
+    ],
+    "fastPath": [
+      "resolveTaskEnvelope",
+      "bindResidentCabinet",
+      "activateMinimumOni",
+      "executeAllowedWork",
+      "verify",
+      "parkSpecialistOni",
+      "retainResidentCabinetUntilTaskClose"
+    ],
+    "states": [
+      "standby",
+      "active",
+      "verifying",
+      "parked"
+    ],
+    "noColdRecruitmentForResidentCabinet": true,
+    "noRecursiveRecruitment": true,
+    "hiddenAsyncExecution": false
+  }
 }
