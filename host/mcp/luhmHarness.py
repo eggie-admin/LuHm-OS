@@ -88,8 +88,10 @@ def register_harness(
     libraries_path = harness_root / "libraryPolicy.json"
     godot_root = harness_root / "godot-export"
     experience_path = root / "doctrine" / "inChatExperienceV1.json"
+    crown_flow_path = root / "doctrine" / "chatGptPluginCrownFlowV1.json"
+    runtime_receipt_path = root / "doctrine" / "chatGptPluginRuntimeReceiptV1.json"
 
-    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path)):
+    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     resource_meta: dict[str, Any] = {
@@ -107,10 +109,14 @@ def register_harness(
     }
     public_origin = _origin()
     experience = json.loads(experience_path.read_text(encoding="utf-8"))
+    crown_flow = json.loads(crown_flow_path.read_text(encoding="utf-8"))
+    runtime_receipt = json.loads(runtime_receipt_path.read_text(encoding="utf-8"))
     if experience.get("schema") != "luhmOs.inChatExperience.v1":
         raise RuntimeError("RED_IN_CHAT_EXPERIENCE_SCHEMA")
     if experience.get("runtime", {}).get("resourceUri") != UI_RESOURCE_URI:
         raise RuntimeError("RED_IN_CHAT_RESOURCE_DRIFT")
+    if crown_flow.get("schema") != "luhmOs.chatGptPluginCrownFlow.v1":
+        raise RuntimeError("RED_CROWN_FLOW_SCHEMA")
     if public_origin:
         resource_meta["ui"]["domain"] = public_origin
 
@@ -142,6 +148,8 @@ def register_harness(
             "schema": "luhmOs.inChatExperiencePayload.v1",
             "surface": "mcp-app",
             "experience": experience,
+            "crownFlow": crown_flow,
+            "runtimeReceipt": runtime_receipt,
             "status": status_provider(),
             "roster": roster_provider(),
             "harness": {
@@ -191,6 +199,8 @@ def register_harness(
             {
                 "schema": "luhmOs.harnessConfig.v2",
                 "experience": experience,
+                "crownFlow": crown_flow,
+                "runtimeReceipt": runtime_receipt,
                 "network": {
                     "localDevelopment": "http://127.0.0.1:8788/harness/",
                     "publicHttpsRequired": True,
