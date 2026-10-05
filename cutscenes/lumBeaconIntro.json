@@ -1,6 +1,6 @@
 {
   "id": "lum_beacon_intro",
-  "title": "Lum Beacon Intro Dry Run",
+  "title": "Lum Beacon Intro",
   "beats": [
     {
       "id": "lock_player",
@@ -20,8 +20,8 @@
     {
       "id": "dialogue_event",
       "type": "dialogue",
-      "duration": 1.8,
-      "dialogue": "LuHm link established. Riverwalk signal acquired.",
+      "duration": 2.2,
+      "dialogue": "Lum: Link is clean. Riverwalk is awake. Come on, Professor. Let us make the toy earn its keep.",
       "event": "lum_beacon_linked"
     },
     {
