@@ -1,0 +1,68 @@
+{
+  "schema": "luhmOs.godot4AssetReconciliation.v1",
+  "status": "TETSU_PROTECT_INGEST_RECONCILIATION",
+  "authority": "Professor",
+  "sourceRef": "7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
+  "forge": "Tetsu",
+  "architecture": "doctrine/godot4AssetArchitectureDecisionV1.json",
+  "estate": "doctrine/godot4AssetEstateV1.json",
+  "ledger": "media/godot4-game-asset-estate.json",
+  "lanes": {
+    "canonicalCurrent": {
+      "state": "SOURCE_OF_TRUTH",
+      "items": [
+        "project.godot",
+        "export_presets.cfg",
+        "scenes/",
+        "scripts/",
+        "cutscenes/",
+        "addons/",
+        "game/",
+        "doctrine/godot4PluginCensus-20260930.md"
+      ]
+    },
+    "originalLuHmDrive": {
+      "state": "DISCOVERED_RECONCILE_HASH_AND_CANON",
+      "publicEligibleOnlyAfterReceipts": true
+    },
+    "communityOpenLicense": {
+      "state": "DISCOVERED_RIGHTS_AND_PIN_AUDIT",
+      "publicEligibleOnlyAfterReceipts": true
+    },
+    "godotAssetNexus": {
+      "state": "DISCOVERED_STAGING_WORKFLOW",
+      "folderStateIsNotProof": true
+    },
+    "privateReference": {
+      "state": "QUARANTINE_ONLY",
+      "publicAllowed": false
+    },
+    "legacyGodotDump": {
+      "state": "DONOR_HISTORY_ONLY",
+      "directRuntimePromotion": false
+    },
+    "multipartArchive": {
+      "state": "HISTORICAL_MIXED_BLOCKED",
+      "directRuntimePromotion": false
+    }
+  },
+  "historicalReceipts": {
+    "curatedCharacterPhysicsPack": "INTEGRITY_RECEIPT_EXISTS_HISTORICAL",
+    "multipartArchive": "INTEGRITY_AND_INVENTORY_EXIST_PROVENANCE_MIXED_BLOCKED",
+    "engineNativeSecondaryMotion": "HISTORICALLY_PROMOTED_PATTERN_REQUIRES_CURRENT_IMPORT_PROOF"
+  },
+  "currentCandidateRequirements": [
+    "exact file identity and hash for every selected binary asset",
+    "rights/provenance class for every selected asset",
+    "Yume creative-use decision for visual assets",
+    "Skuld import/runtime architecture for each selected family",
+    "Belldandy canonical assetId/path/state entry",
+    "Urd no unresolved RED or UNKNOWN in candidate payload",
+    "Godot 4.7 import/runtime smoke where consumed",
+    "no private-reference bytes in public candidate"
+  ],
+  "currentVerdict": "AMBER_RECONCILIATION_IN_PROGRESS",
+  "buildAllowed": false,
+  "publicationAuthority": false,
+  "crownStatus": "STOP"
+}
