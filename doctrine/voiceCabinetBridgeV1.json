@@ -1,0 +1,95 @@
+{
+  "schema": "luhmOs.voiceCabinetBridge.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "Route a live or transcribed voice turn through Lum to the existing goddess/Oni cabinet, then project the reconciled result back as a compact named ensemble response without pretending the host provides independent per-agent audio voices.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "cabinetContract": "doctrine/lumGoddessCabinetV1.json",
+  "deploymentContract": "doctrine/agentSystemDeploymentV1.json",
+  "inputModalities": [
+    "voiceLive",
+    "voiceDictation",
+    "text"
+  ],
+  "eligibleResidentSpeakers": [
+    "lum",
+    "urdDoctorGoddess",
+    "belldandySecretary",
+    "skuldResearch"
+  ],
+  "routingLaw": {
+    "lumRemainsConversationalBoss": true,
+    "explicitNamedWorkersAreHonored": true,
+    "minimumUsefulWorkerSet": true,
+    "helpersReturnToLum": true,
+    "recursiveRecruitment": false,
+    "maxParallelSupportWorkers": 3,
+    "exampleExplicitRoute": {
+      "userIntent": "ask Skuld and Urd to fix this",
+      "workers": [
+        "skuldResearch",
+        "urdDoctorGoddess"
+      ],
+      "boss": "lum"
+    }
+  },
+  "turnEnvelope": {
+    "requiredInput": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "modality",
+      "userUtterance"
+    ],
+    "workerPacketRequired": [
+      "workerId",
+      "state",
+      "utterance",
+      "evidenceRefs"
+    ],
+    "output": {
+      "kind": "namedEnsembleTurn",
+      "speakerSegments": true,
+      "preserveWorkerIdentity": true,
+      "lumReconcilesBeforeProfessorFacingOutput": true,
+      "rawChainOfThoughtForbidden": true
+    }
+  },
+  "voiceProjection": {
+    "preferred": "hostSpeaksOneCompositeAssistantTurnWithNamedSpeakerSegments",
+    "fallback": "renderCompactNamedTranscriptForHostTts",
+    "independentPerAgentTtsVoicesProven": false,
+    "mayClaimDistinctAudibleAgentVoices": false,
+    "mayClaimProviderSideVoiceAgentInvocationWithoutReceipt": false,
+    "speakerLabelsArePresentationNotAuthority": true
+  },
+  "hostCapabilityGate": {
+    "nativeVoiceToolDelegationRequiredForLiveCabinetInvocation": true,
+    "ifUnavailable": "PLATFORM_CAPABILITY_UNPROVEN",
+    "fallbackStillAllowed": "lumProducesNamedCabinetTranscriptUsingAvailableCurrentTaskReasoning",
+    "mustNotFabricateToolCalls": true,
+    "mustNotFabricateBackgroundWorkers": true
+  },
+  "proofContract": {
+    "sourceConfiguredIsNotLiveVoiceProof": true,
+    "liveProofRequires": [
+      "exactSourceRef",
+      "voiceTurnReceipt",
+      "bridgeInvocationReceipt",
+      "workerIdentityReceipt",
+      "professorFacingOutputReceipt"
+    ],
+    "multiVoiceAudioRequiresSeparateHostEvidence": true
+  },
+  "forbidden": [
+    "hiddenAsyncExecution",
+    "fakeIndependentVoices",
+    "fakeProviderAgentInvocation",
+    "selfApproval",
+    "automaticCrown",
+    "automaticPublication"
+  ],
+  "promotion": false,
+  "crownStatus": "STOP"
+}

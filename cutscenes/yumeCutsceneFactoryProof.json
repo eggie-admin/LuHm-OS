@@ -1,0 +1,24 @@
+{
+  "id": "yumeCutsceneFactoryProof",
+  "title": "Yume Cutscene Factory Proof",
+  "sourceRef": "a6201c4e927cbc16f51c375e2931b2df103e1b2a",
+  "character": "Lum",
+  "characterAssetState": "PROXY_ONLY_NO_CANON_MEDIA_COMMITTED",
+  "environment": "Crown Cathedral",
+  "environmentAssetState": "PROXY_ONLY_NO_CANON_MEDIA_COMMITTED",
+  "durationSeconds": 4.5,
+  "orientation": "vertical",
+  "resolution": [1080, 1920],
+  "fps": 30,
+  "camera": {"preset": "slowPushIn", "safeFrame": "9:16"},
+  "action": "turnAndPresent",
+  "presentationModes": [
+    {"id": "dayShift", "label": "Day Shift / Christian Minecraft Server"},
+    {"id": "afterHours", "label": "After Hours"}
+  ],
+  "existingDirector": "res://scripts/cutsceneDirector.gd",
+  "sceneTemplate": "res://scenes/YumeCutsceneFactoryProof.tscn",
+  "renderScript": "scripts/render-yume-cutscene-proof.sh",
+  "encodeScript": "scripts/encode-yume-cutscene-proof.sh",
+  "publication": "FORBIDDEN_FROM_THIS_CANDIDATE"
+}

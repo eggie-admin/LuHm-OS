@@ -22,7 +22,8 @@
     "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json",
     "apiSpine": "doctrine/apiSpineV1.json",
     "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
-    "belldandyHousekeeping": "doctrine/belldandyHousekeepingV1.json"
+    "belldandyHousekeeping": "doctrine/belldandyHousekeepingV1.json",
+    "huggingFaceSpecialistTrainer": "doctrine/huggingFaceSpecialistTrainerV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -112,7 +113,9 @@
       "success",
       "error",
       "parked",
-      "unknown"
+      "unknown",
+      "standby",
+      "resident"
     ],
     "successIsNotGreen": true,
     "eventFeedMayGrantAuthority": false
@@ -165,6 +168,18 @@
         "edgeGalleryIsSeparate": true,
         "selfApproval": false,
         "crownAuthority": false
+      },
+      "huggingFace": {
+        "providerId": "huggingFace",
+        "contract": "doctrine/huggingFaceSpecialistTrainerV1.json",
+        "role": "specialistTrainer",
+        "authority": "candidateEvidenceOnly",
+        "routesThrough": "lum",
+        "selfApproval": false,
+        "crownAuthority": false,
+        "mayOverrideSkuldArchitecture": false,
+        "mayOverrideYumeArtDirection": false,
+        "mayOverrideUrdAdjudication": false
       }
     },
     "economy": {
@@ -206,7 +221,21 @@
     "apiSpine": "doctrine/apiSpineV1.json",
     "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
     "cloudflareIsProviderAdapter": false,
-    "providerSwapMayChangeAuthority": false
+    "providerSwapMayChangeAuthority": false,
+    "openAiWorkspaceHygiene": {
+      "contract": "doctrine/openAiWorkspaceHygieneV1.json",
+      "owner": "belldandySecretary",
+      "routesThrough": "lum",
+      "automaticDestructiveMutation": false,
+      "hiddenAsyncExecution": false
+    },
+    "chatHistoryStewardship": {
+      "contract": "doctrine/chatHistoryStewardshipV1.json",
+      "owner": "belldandySecretary",
+      "routesThrough": "lum",
+      "currentSourceBeatsHistory": true,
+      "hiddenAsyncExecution": false
+    }
   },
   "authorityClasses": [
     "READ_ONLY",
@@ -283,7 +312,24 @@
         "housekeepingWindow",
         "snapshotPlanning",
         "prRunReconciliation",
-        "doctrineSweep"
+        "doctrineSweep",
+        "dictationContinuity",
+        "voiceIntentLedger",
+        "correctionLedger",
+        "conversationContinuity",
+        "openAiWorkspaceInventory",
+        "chatGptLibraryIndex",
+        "projectFileHygiene",
+        "duplicateReferenceDetection",
+        "staleHandoffDetection",
+        "orphanArtifactDetection",
+        "archiveProposal",
+        "chatHistoryIndex",
+        "decisionExtraction",
+        "historicalReceiptIndex",
+        "contradictionLedger",
+        "supersededInstructionDetection",
+        "chatHandoffCompression"
       ],
       "forbidden": [
         "mutate",
@@ -292,7 +338,15 @@
         "merge",
         "deleteBranch",
         "closePr",
-        "rewriteHistory"
+        "rewriteHistory",
+        "deleteUserContent",
+        "moveUserContent",
+        "renameUserContent",
+        "overwriteUserContent",
+        "detachUserContent",
+        "deleteChatHistory",
+        "archiveChatHistory",
+        "rewriteChatHistory"
       ],
       "parallelClass": "support",
       "speaksTo": "lum",
@@ -475,12 +529,13 @@
     },
     "koe": {
       "displayName": "Koe",
-      "kind": "dictationIntentScribe",
+      "kind": "dictationScribeUnderSecretary",
       "skillPath": "agents/koeDictationOni/SKILL.md",
       "defaultAuthority": "READ_ONLY",
       "capabilities": [
         "normalizeDictation",
-        "extractIntent"
+        "extractIntent",
+        "returnSecretaryPacket"
       ],
       "forbidden": [
         "executeDictation",
@@ -489,7 +544,8 @@
       "parallelClass": "support",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "continuityOwner": "belldandySecretary"
     },
     "yume": {
       "displayName": "Yume",
@@ -595,6 +651,7 @@
     ],
     "dictation": [
       "lum",
+      "belldandySecretary",
       "koe"
     ],
     "asset": [
@@ -607,6 +664,10 @@
       "sumi",
       "skuldResearch",
       "urdDoctorGoddess"
+    ],
+    "chatHistory": [
+      "lum",
+      "belldandySecretary"
     ]
   },
   "receipts": {
@@ -643,7 +704,14 @@
     "sharedContextRequired": true,
     "peerAwareness": "readOnly",
     "disagreementsReturnTo": "lum",
-    "consensusAuthority": false
+    "consensusAuthority": false,
+    "residentDuringActiveTaskEnvelope": true,
+    "residentGoddessTriplet": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "residentDoesNotMeanHiddenAsync": true
   },
   "covenant": {
     "contract": "doctrine/everlastingCovenantV1.json",

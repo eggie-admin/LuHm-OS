@@ -57,7 +57,10 @@
     "providerEconomy": "doctrine/providerEconomyV1.json",
     "vendorAiDebug": "doctrine/vendorAiDebugV1.json",
     "apiSpine": "doctrine/apiSpineV1.json",
-    "apiSpineRuntime": "host/api/luhmApiSpine.py"
+    "apiSpineRuntime": "host/api/luhmApiSpine.py",
+    "huggingFaceSpecialistTrainer": "doctrine/huggingFaceSpecialistTrainerV1.json",
+    "huggingFaceRole": "specialistTrainer",
+    "huggingFaceAuthority": "candidateEvidenceOnly"
   },
   "creativeLayer": {
     "contentLaneDoctrine": "doctrine/contentLaneDoctrineV1.json",
@@ -67,7 +70,11 @@
     "yumeBigBrotherArtDesk": "doctrine/yumeBigBrotherArtDeskV1.json",
     "yumeGodotArtToolbox": "doctrine/yumeGodotArtToolboxV1.json",
     "yumeArtEducation": "doctrine/yumeArtEducationV1.json",
-    "yumeBatchImageWorkflow": "doctrine/yumeBatchImageWorkflowV1.json"
+    "yumeBatchImageWorkflow": "doctrine/yumeBatchImageWorkflowV1.json",
+    "yumeCommunityArtResources": "doctrine/yumeCommunityArtResourcesV1.json",
+    "artistCreditLedger": "doctrine/artistCreditLedgerV1.json",
+    "organizationBrandRegistry": "doctrine/organizationBrandRegistryV1.json",
+    "publicArtReleaseReadiness": "doctrine/publicArtReleaseReadinessV1.json"
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
@@ -82,7 +89,9 @@
     "socialWave": "campaign/social-wave-one.md",
     "patronageBrief": "campaign/patronage-brief.md",
     "bigBrotherReviewManifest": "campaign/manifests/big-brother-campaign-review-001.json",
-    "bigBrotherReviewExecution": "PENDING"
+    "bigBrotherReviewExecution": "PENDING",
+    "organizationBrandRegistry": "doctrine/organizationBrandRegistryV1.json",
+    "publicArtLedger": "media/public-release-art-ledger.json"
   },
   "legacyArtifacts": {
     "priorSourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
@@ -211,7 +220,19 @@
     "promotionScope": "gameplayVerticalSliceSourceMilestone",
     "releaseAuthority": false,
     "publicationAuthority": false,
-    "productionSigningAuthority": false
+    "productionSigningAuthority": false,
+    "assetEstateContract": "doctrine/godot4AssetEstateV1.json",
+    "assetEstateLedger": "media/godot4-game-asset-estate.json",
+    "assetEstateStatus": "DISCOVERED_INVENTORY_AUDIT_PENDING",
+    "assetArchitectureLead": "skuldResearch",
+    "assetRecordsLead": "belldandySecretary",
+    "artDirectionLead": "yume",
+    "sanityLead": "urdDoctorGoddess",
+    "specialistTrainer": "huggingFace",
+    "assetArchitecture": "doctrine/godot4AssetArchitectureDecisionV1.json",
+    "assetReconciliation": "media/godot4-asset-reconciliation-v1.json",
+    "assetReconciliationStatus": "AMBER_RECONCILIATION_ADVANCED_ORIGINAL_ASSETS_HASHED",
+    "buildAllowedFromAssetEstate": false
   },
   "agentLayer": {
     "training": "doctrine/agentTrainingSealV1.json",
@@ -235,7 +256,17 @@
     "deploymentVisualContract": "host/harness/agent-loading-sprites.json#deploymentVisuals",
     "deploymentVisualLaw": "approved Oni artwork identifies deployment lanes; textual state carries IDLE/WORKING/VERIFY/PASS/BLOCKED; color-to-role semantics remain unbound until explicit doctrine assignment",
     "genericGreenEmojiDeploymentIdentity": false,
-    "housekeeping": "doctrine/belldandyHousekeepingV1.json"
+    "housekeeping": "doctrine/belldandyHousekeepingV1.json",
+    "residentGoddessTriplet": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "dictationContinuityOwner": "belldandySecretary",
+    "dictationScribe": "koe",
+    "oniActivationModel": "standby->active->verifying->parked",
+    "standbyMeansRegisteredNotExecuting": true,
+    "residentDoesNotMeanHiddenAsync": true
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
@@ -285,7 +316,23 @@
     "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json",
     "installTarget": "publicDirectoryOneInstall",
     "endUserManualMcpSetup": false,
-    "providerPlumbingHiddenFromEndUser": true
+    "providerPlumbingHiddenFromEndUser": true,
+    "stageTwo": {
+      "status": "PROPOSED_RED_REPAIR_REQUIRED",
+      "scope": "chatGptPluginStageTwoInChatGui",
+      "candidateSourceRef": "3f3cac10f283c62da089c89d5255d81ce0134e5e",
+      "pullRequest": 172,
+      "precisionCommandSchema": "doctrine/chatPrecisionCommandV1.json",
+      "layout": "verticalScroll",
+      "parallax": "cssLayered",
+      "exactHeadEvidence": "RED",
+      "decisiveFailure": "inChatExperienceAudit source map drift and panel contract drift",
+      "smallestRepair": "Synchronize inChatExperienceAudit expectations with chatPrecisionCommand source and precisionCommands panel, then rerun exact-head CI.",
+      "mergeAuthority": false,
+      "deploymentProven": false,
+      "promotion": false,
+      "crownStatus": "STOP"
+    }
   },
   "studyLayer": {
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",
@@ -309,7 +356,8 @@
     "authority": false,
     "currentPublicPluginMcpPath": "directRenderManagedTls",
     "customFqdn": "PENDING_OPTIONAL",
-    "liveDnsMutation": "CROWN_GATED"
+    "liveDnsMutation": "CROWN_GATED",
+    "staticPublicEdge": "doctrine/staticPublicEdgeV1.json"
   },
   "housekeepingLayer": {
     "contract": "doctrine/belldandyHousekeepingV1.json",
@@ -323,6 +371,69 @@
     "automaticMerge": false,
     "automaticDelete": false,
     "status": "PROPOSED_SOURCE_ONLY",
+    "crownStatus": "STOP"
+  },
+  "workflowBudget": {
+    "contract": "doctrine/githubWorkflowBudgetV1.json",
+    "maxCommitsPerWorkflow": 50,
+    "codespacesConfig": ".devcontainer/devcontainer.json",
+    "crownStatus": "STOP"
+  },
+  "commitHistoryModel": {
+    "contract": "doctrine/githubWorkflowBudgetV1.json#historyLanes",
+    "basis": "relativeCommitDistanceFromCurrentHead",
+    "lanes": {
+      "activeProposed": "0-25",
+      "proposedSourceTruth": "50+"
+    },
+    "maturationBuffer": "26-49",
+    "bufferIsNotThirdLane": true,
+    "crownStatus": "STOP"
+  },
+  "publicReleaseReadiness": {
+    "status": "PROPOSED_SOURCE_ONLY",
+    "sourceMain": "7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
+    "art": "doctrine/publicArtReleaseReadinessV1.json",
+    "brandRegistry": "doctrine/organizationBrandRegistryV1.json",
+    "artLedger": "media/public-release-art-ledger.json",
+    "staticEdge": "doctrine/staticPublicEdgeV1.json",
+    "publicLane": "cathedralPublic",
+    "renderStaticSite": "https://luhm-os-publication-site.onrender.com",
+    "renderMcp": "https://luhm-os-harness-green.onrender.com",
+    "liveDnsMutation": false,
+    "liveCertificateMutation": false,
+    "automaticPublication": false,
+    "publicationAuthority": false,
+    "promotion": false,
+    "crownStatus": "STOP"
+  },
+  "forgeLayer": {
+    "contract": "doctrine/forgeTwinsV3.json",
+    "sourceForge": "Tetsu",
+    "sourceForgeSequence": [
+      "PROTECT",
+      "INGEST",
+      "MUTATE",
+      "VERIFY",
+      "JANITOR"
+    ],
+    "compileForge": "Kaji",
+    "compileForgeSequence": [
+      "PREPARE",
+      "CAST",
+      "BUILD",
+      "HASH",
+      "RECEIPT",
+      "JANITOR"
+    ],
+    "truthGuard": "urdDoctorGoddess",
+    "architectureAdvisor": "skuldResearch",
+    "artDirection": "yume",
+    "records": "belldandySecretary",
+    "specialistTrainer": "huggingFace",
+    "reconciler": "lum",
+    "explicitSingleUseCastRequired": true,
+    "publicationAuthority": false,
     "crownStatus": "STOP"
   }
 }

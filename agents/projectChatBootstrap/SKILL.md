@@ -1,7 +1,6 @@
 # Project Chat Bootstrap v1
 
 
-
 Canonical AI control plane: `doctrine/luhmAiControlPlaneV1.json`.
 Canonical system deployment registry: `doctrine/agentSystemDeploymentV1.json`.
 
@@ -53,7 +52,7 @@ Then attach the four monitoring mini-agent lanes:
 
 - `lum` -> orchestration continuity
 - `urdDoctorGoddess` -> diagnosis, evidence triage and repair sanity
-- `belldandySecretary` -> state, records, naming, paths, workflow and handoff continuity
+- `belldandySecretary` -> state, records, naming, paths, workflow, handoff continuity, and relevant chat-history stewardship
 - `skuldResearch` -> research, libraries and compatibility
 
 Monitoring is read-only active-task reasoning. It is not hidden asynchronous execution.
@@ -197,3 +196,13 @@ Belldandy checks the nearest receipt-backed checkpoint and commit distance:
 - default historical audit window -> at most 50 commits
 
 Do not re-audit hundreds of old commits merely because the active lane became messy. Valid older checkpoint receipts summarize prior state unless evidence conflicts or Professor explicitly requests a deeper OperationTitan7 pass.
+
+## Historical chat continuity
+
+When Professor asks to remember, resume, reconcile, or continue earlier LuHm work, route continuity through `doctrine/chatHistoryStewardshipV1.json`.
+
+- Belldandy extracts the smallest relevant prior-chat state and produces the handoff.
+- Kiri joins only when the historical referent is ambiguous.
+- Urd joins when old status/evidence claims conflict.
+- Historical conversation text never outranks current canonical source or the latest Professor instruction.
+- Do not dump full chat history into the active thread when a compact handoff is enough.

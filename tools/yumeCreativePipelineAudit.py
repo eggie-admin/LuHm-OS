@@ -9,9 +9,12 @@ yume_path = ROOT / "agents" / "yumeArtOni" / "SKILL.md"
 media_path = ROOT / "agents" / "mediaAssetFactory" / "SKILL.md"
 project_manifest = ROOT / "media" / "daddys-princess-date" / "edit-manifest.json"
 prompt_pack = ROOT / "media" / "daddys-princess-date" / "edge-gallery-prompt-pack.md"
+community_path = ROOT / "doctrine" / "yumeCommunityArtResourcesV1.json"
+credit_path = ROOT / "doctrine" / "artistCreditLedgerV1.json"
+budget_path = ROOT / "doctrine" / "githubWorkflowBudgetV1.json"
 
 errors = []
-for p in (contract_path, yume_path, media_path, project_manifest, prompt_pack):
+for p in (contract_path, yume_path, media_path, project_manifest, prompt_pack, community_path, credit_path, budget_path):
     if not p.exists():
         errors.append(f"missing:{p.relative_to(ROOT)}")
 
@@ -25,6 +28,9 @@ manifest = json.loads(project_manifest.read_text())
 yume = yume_path.read_text()
 media = media_path.read_text()
 prompt = prompt_pack.read_text()
+community = json.loads(community_path.read_text())
+credit = json.loads(credit_path.read_text())
+budget = json.loads(budget_path.read_text())
 
 checks = [
     ("schema", contract.get("schema") == "luhm.yumeCreativePipeline.v1"),
@@ -44,6 +50,17 @@ checks = [
     ("editorial", "editorialDepartment" in contract["stages"]),
     ("professorReview", "professorReview" in contract["stages"]),
     ("crownStop", contract.get("crownStatus") == "STOP"),
+    ("communityPointer", contract.get("communityArtResources") == "doctrine/yumeCommunityArtResourcesV1.json"),
+    ("creditPointer", contract.get("artistCreditLedger") == "doctrine/artistCreditLedgerV1.json"),
+    ("covenantPointer", contract.get("everlastingCovenant") == "doctrine/everlastingCovenantV1.json"),
+    ("workflowBudgetPointer", contract.get("workflowBudget") == "doctrine/githubWorkflowBudgetV1.json"),
+    ("communityLead", community.get("creativeLead") == "yumeArtOni"),
+    ("communitySumi", community.get("provenanceLead") == "sumi"),
+    ("communityNoBlindVendor", "no_blind_whole_repository_vendoring" in community.get("discoveryLaw", [])),
+    ("artistCreditHuman", "credit_the_human_when_identity_is_known_even_if_the_license_does_not_require_attribution" in credit.get("humanPolicy", [])),
+    ("artistNoExploit", "do_not_exploit_the_art_community" in credit.get("humanPolicy", [])),
+    ("artistNoAiAuthorshipRewrite", credit.get("authorshipLaw", {}).get("humanAuthorshipMustNotBeReassignedToAi") is True),
+    ("workflowCommitLimit", budget.get("maxCommitsPerWorkflow") == 50),
     ("yumeEdgeTruth", "Google AI Edge / Edge Gallery must be treated as unavailable" in yume),
     ("mediaEdgeTruth", "never been accepted as properly configured" in media),
     ("promptParked", "UNCONFIGURED_EVIDENCE_PENDING" in prompt and manifest["mediaPolicy"]["rawMediaInRepo"] is False),
@@ -65,4 +82,7 @@ print("passes=20")
 print("scope=source_contract_only")
 print("edgeGallery=UNCONFIGURED_EVIDENCE_PENDING")
 print("googleAi=UNCONFIGURED_EVIDENCE_PENDING")
+print("artistCredit=ENFORCED_SOURCE_CONTRACT")
+print("communityResources=CURATED_PROVENANCE_REQUIRED")
+print("workflowCommitCeiling=50")
 print("crown=STOP")

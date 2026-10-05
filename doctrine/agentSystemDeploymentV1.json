@@ -52,7 +52,14 @@
     "helpersSpeakTo": "lum",
     "recursiveRecruitment": false,
     "maxParallelSupportWorkers": 3,
-    "oneMutableSourceLane": true
+    "oneMutableSourceLane": true,
+    "residentCoreBoundToEveryActiveTaskEnvelope": true,
+    "residentCoreExcludedFromLazyActivationChurn": true,
+    "residentCoreHiddenAsync": false,
+    "oniDefaultState": "standby",
+    "standbyMeansRegisteredNotExecuting": true,
+    "specialtyOniActivatedOnlyByTaskRoute": true,
+    "specialtyOniParksAfterHandoffOrVerification": true
   },
   "deploymentSurfaces": {
     "projectChat": {
@@ -105,6 +112,16 @@
       "localPythonAgentRuntime": false,
       "providerSecretsInApk": false,
       "status": "PENDING_PHYSICAL_RUNTIME_PROOF"
+    },
+    "voiceConversation": {
+      "adapter": "doctrine/voiceCabinetBridgeV1.json",
+      "mode": "lumMediatedCabinetTurn",
+      "roster": "residentCore",
+      "explicitNamedWorkers": "honored",
+      "livePlatformCapabilityProven": false,
+      "independentPerAgentAudioVoicesProven": false,
+      "fallback": "namedEnsembleTranscript",
+      "status": "SOURCE_CONFIGURED_LIVE_PLATFORM_CAPABILITY_UNPROVEN"
     }
   },
   "identityLaw": {
@@ -124,7 +141,11 @@
     "allSurfacesMustResolveSameRoster": true,
     "sourceConfiguredDoesNotEqualLiveProviderDeployment": true,
     "liveDeploymentRequiresExactSurfaceReceipt": true,
-    "physicalAndroidRuntimeRequiresDeviceReceipt": true
+    "physicalAndroidRuntimeRequiresDeviceReceipt": true,
+    "standbyDoesNotMeanBackgroundExecution": true,
+    "residentDoesNotMeanProviderSideWorker": true,
+    "voiceSurfaceSourceConfiguredDoesNotEqualLiveInvocation": true,
+    "independentAgentAudioRequiresHostReceipt": true
   },
   "forbidden": [
     "claimHiddenBackgroundAgents",
@@ -137,5 +158,49 @@
   ],
   "workingLane": "PROPOSED_ONLY",
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "activationModel": {
+    "residentCabinet": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "residentGoddessTriplet": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "lazyOniPool": [
+      "kiri",
+      "momo",
+      "shiori",
+      "kugi",
+      "tetsu",
+      "kaji",
+      "fumi",
+      "sumi",
+      "koe",
+      "yume",
+      "mediaAssetFactory"
+    ],
+    "fastPath": [
+      "resolveTaskEnvelope",
+      "bindResidentCabinet",
+      "activateMinimumOni",
+      "executeAllowedWork",
+      "verify",
+      "parkSpecialistOni",
+      "retainResidentCabinetUntilTaskClose"
+    ],
+    "states": [
+      "standby",
+      "active",
+      "verifying",
+      "parked"
+    ],
+    "noColdRecruitmentForResidentCabinet": true,
+    "noRecursiveRecruitment": true,
+    "hiddenAsyncExecution": false
+  }
 }

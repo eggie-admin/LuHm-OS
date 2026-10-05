@@ -24,6 +24,8 @@
     "productionBible",
     "scriptDepartment",
     "artDepartment",
+    "communityResourceDiscovery",
+    "funPrototypeTaskCards",
     "cinematographyDepartment",
     "storyboardDepartment",
     "soundDepartment",
@@ -106,7 +108,11 @@
     "remote_3d_vendor_identity_and_entitlement_require_receipt",
     "bigBrother_assists_but_does_not_replace_yume",
     "godot_asset_prep_is_plan_only_until_import_and_runtime_receipts",
-    "public_generative_ai_art_default_remains_forbidden"
+    "public_generative_ai_art_default_remains_forbidden",
+    "community_assets_require_artist_credit_and_sumi_provenance",
+    "known_human_creators_receive_credit_even_when_optional",
+    "artist_identity_and_requested_credit_survive_derivatives",
+    "workflow_branch_commit_budget_is_50"
   ],
   "artEducation": "doctrine/yumeArtEducationV1.json",
   "professionalInterpretationLaw": [
@@ -115,5 +121,10 @@
     "commercial_derivative_must_reference_editable_master",
     "roughness_may_be_intentional_and_must_not_be_auto_corrected",
     "unknown_school_or_reference_name_remains_unknown_until_confirmed"
-  ]
+  ],
+  "communityArtResources": "doctrine/yumeCommunityArtResourcesV1.json",
+  "artistCreditLedger": "doctrine/artistCreditLedgerV1.json",
+  "everlastingCovenant": "doctrine/everlastingCovenantV1.json",
+  "oldMagicStudy": "agents/professorOldMagicStudy/SKILL.md",
+  "workflowBudget": "doctrine/githubWorkflowBudgetV1.json"
 }
