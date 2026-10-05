@@ -20,7 +20,7 @@ from typing import Any, Callable
 from starlette.requests import Request
 from starlette.responses import FileResponse, JSONResponse, PlainTextResponse, RedirectResponse, Response
 
-UI_RESOURCE_URI = "ui://luhm-os/cockpit-v1.html"
+UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"
 APP_MIME_TYPE = "text/html;profile=mcp-app"
 
 
@@ -87,8 +87,9 @@ def register_harness(
     loading_atlas_path = harness_root / "agent-roster-v1.png"
     libraries_path = harness_root / "libraryPolicy.json"
     godot_root = harness_root / "godot-export"
+    experience_path = root / "doctrine" / "inChatExperienceV1.json"
 
-    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path)):
+    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     resource_meta: dict[str, Any] = {
@@ -102,9 +103,14 @@ def register_harness(
         "openai/ui": {
             "availableDisplayModes": ["inline", "fullscreen"],
         },
-        "openai/widgetDescription": "LuHm OS read-only cockpit with Lum/Oni pet status and a full-harness handoff.",
+        "openai/widgetDescription": "LuHm OS in-chat cockpit for Lum/Oni activity, roleplay, pet status, source truth, and the bounded Godot handoff.",
     }
     public_origin = _origin()
+    experience = json.loads(experience_path.read_text(encoding="utf-8"))
+    if experience.get("schema") != "luhmOs.inChatExperience.v1":
+        raise RuntimeError("RED_IN_CHAT_EXPERIENCE_SCHEMA")
+    if experience.get("runtime", {}).get("resourceUri") != UI_RESOURCE_URI:
+        raise RuntimeError("RED_IN_CHAT_RESOURCE_DRIFT")
     if public_origin:
         resource_meta["ui"]["domain"] = public_origin
 
@@ -133,8 +139,9 @@ def register_harness(
     )
     def luhm_open_cockpit() -> dict[str, Any]:
         return {
-            "schema": "luhm-os.cockpit.v1",
+            "schema": "luhmOs.inChatExperiencePayload.v1",
             "surface": "mcp-app",
+            "experience": experience,
             "status": status_provider(),
             "roster": roster_provider(),
             "harness": {
@@ -182,7 +189,8 @@ def register_harness(
         pets = json.loads(pets_path.read_text(encoding="utf-8"))
         return JSONResponse(
             {
-                "schema": "luhm-os.harness-config.v1",
+                "schema": "luhmOs.harnessConfig.v2",
+                "experience": experience,
                 "network": {
                     "localDevelopment": "http://127.0.0.1:8788/harness/",
                     "publicHttpsRequired": True,
