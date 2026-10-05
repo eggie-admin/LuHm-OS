@@ -194,7 +194,9 @@
     "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
     "capabilityResolverTool": "luhm_resolve_capability",
     "housekeepingStatusTool": "luhm_housekeeping_status",
-    "helpTool": "luhm_help"
+    "helpTool": "luhm_help",
+    "escalationPlanTool": "luhm_escalation_plan",
+    "escalationResolver": "tools/escalationKernel.py"
   },
   "contentLanes": {
     "contract": "doctrine/contentLaneDoctrineV1.json"
