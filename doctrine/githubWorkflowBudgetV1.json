@@ -1,0 +1,33 @@
+{
+  "schema": "luhmOs.githubWorkflowBudget.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "maxCommitsPerWorkflow": 50,
+  "purpose": "Keep GitHub/Codespaces work bounded so one task does not turn into an unreviewable commit avalanche.",
+  "laws": [
+    "one_workflow_task_may_not_span_more_than_50_candidate_commits",
+    "prefer_small_coherent_commits_or_a_squashed_candidate_before_promotion",
+    "history_research_may_sample_at_most_50_commits_per_single_workflow_pass_unless_professor_explicitly_selects_a_deeper_audit",
+    "new_source_identity_restarts_evidence_gates",
+    "workflow_budget_does_not_grant_merge_deploy_publish_or_crown_authority"
+  ],
+  "codespaces": {
+    "preferredFor": [
+      "isolated_repo_inspection",
+      "source_mutation",
+      "deterministic_audits",
+      "tooling_smoke_tests",
+      "pull_request_preparation"
+    ],
+    "notProofOf": [
+      "physical_android_device_state",
+      "local_samsung_runtime",
+      "production_deployment",
+      "secret_availability",
+      "provider_entitlement"
+    ],
+    "secretLaw": "Use Codespaces secret storage or environment injection; never commit credentials, tokens, signing keys, or private Drive identifiers."
+  },
+  "crownStatus": "STOP",
+  "promotion": false
+}
