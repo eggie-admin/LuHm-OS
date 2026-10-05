@@ -502,5 +502,26 @@
     "zeroBased": true,
     "authorityEffect": "NONE",
     "crownStatus": "STOP"
+  },
+  "architectureRhythm": {
+    "fourLayerArchitecture": "doctrine/jqueryFourLayerArchitectureV1.json",
+    "fourBeatInteraction": "doctrine/fourBeatInteractionRhythmV1.json",
+    "escalationKernel": "doctrine/escalationKernelV1.json",
+    "matrix": "4x4",
+    "horizontal": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "vertical": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "learningClaim": "RECEIPT_BACKED_ROUTING_AND_PACING_ONLY",
+    "hiddenPsychologicalProfiling": false,
+    "hiddenModelWeightTraining": false
   }
 }
