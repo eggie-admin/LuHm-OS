@@ -274,7 +274,10 @@
     "crownStatus": "STOP",
     "inChatExperience": "doctrine/inChatExperienceV1.json",
     "chatUiResource": "ui://luhm-os/cockpit-v2.html",
-    "runtimeTool": "luhm_open_cockpit"
+    "runtimeTool": "luhm_open_cockpit",
+    "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json",
+    "installTarget": "publicDirectoryOneInstall",
+    "endUserManualMcpSetup": false
   },
   "studyLayer": {
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",
