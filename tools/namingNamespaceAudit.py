@@ -39,6 +39,32 @@ for value in ns["dragonTail"]["examples"]:
 for value in ns["camelHump"]["examples"]:
     need(bool(camel.fullmatch(value)),f"camelHump drift: {value}")
 
+dragon_scan_files=[
+    "doctrine/luhmAiControlPlaneV1.json",
+    "doctrine/escalationKernelV1.json",
+    "doctrine/corporateEscalationProfileV1.json",
+    "doctrine/magicEscalationProfileV1.json",
+    "doctrine/founderEscalationLadderV1.json",
+    "doctrine/yumeCreativeEscalationV1.json",
+    "doctrine/operationTitan7ChatTriggerV2.json",
+    "doctrine/escalationWorkflowRoomsV1.json",
+]
+
+def scan_dragon_values(value,path=""):
+    if isinstance(value,dict):
+        for key,item in value.items():
+            item_path=f"{path}.{key}" if path else key
+            if isinstance(item,str) and key in {"status","state","crownStatus","gate","receiptState","debugVerb"}:
+                need(bool(dragon.fullmatch(item)),f"dragonTail field drift: {item_path}={item}")
+            scan_dragon_values(item,item_path)
+    elif isinstance(value,list):
+        for index,item in enumerate(value):
+            scan_dragon_values(item,f"{path}[{index}]")
+
+for rel in dragon_scan_files:
+    doc=json.loads((root/rel).read_text(encoding="utf-8"))
+    scan_dragon_values(doc,rel)
+
 degrade=naming["personCenteredDegradation"]
 need(degrade.get("canonicalHumanLayer",{}).get("form")=="camelHump","person-centered canonical layer drift")
 need(degrade.get("vowelRippedLayer",{}).get("form")=="vowelRippedCamel","vowel-ripped layer drift")
