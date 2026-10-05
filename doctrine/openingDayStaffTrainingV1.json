@@ -1,0 +1,115 @@
+{
+  "schema": "luhmOs.openingDayStaffTraining.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "trainer": "lum",
+  "purpose": "Make the canonical system harness the single opening-day training floor for LuHm OS in ChatGPT app and in-chat use.",
+  "installModel": {
+    "target": "publicDirectoryOneInstall",
+    "userFlow": [
+      "search LuHm OS",
+      "install plugin",
+      "open or continue chat",
+      "use LuHm"
+    ],
+    "canonicalBackend": "https://luhm-os-harness-green.onrender.com/mcp",
+    "endUserManualMcpUrlRequired": false,
+    "endUserZipRequired": false,
+    "luhmAccountLoginRequired": false,
+    "note": "ChatGPT may still present platform-controlled confirmation or workspace-policy UI."
+  },
+  "surfaces": {
+    "inChat": {
+      "tool": "luhm_open_cockpit",
+      "resourceUri": "ui://luhm-os/cockpit-v2.html",
+      "firstRunMode": "openingDayOrientation"
+    },
+    "inApp": {
+      "standaloneHarness": "/harness/",
+      "sameContract": true,
+      "manualSetupAfterInstall": false
+    }
+  },
+  "staffModel": {
+    "rosterSource": "doctrine/agentSystemDeploymentV1.json",
+    "boss": "lum",
+    "residentCore": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "specialists": "lazyLoadFromRoster",
+    "maxParallelSupportWorkers": 3,
+    "helpersRecruitHelpers": false,
+    "hiddenAsyncExecution": false
+  },
+  "orientation": [
+    {
+      "id": "companyLaw",
+      "trainer": "lum",
+      "lesson": "Professor owns Crown; Lum coordinates; deterministic evidence outranks opinion; UNKNOWN never becomes GREEN.",
+      "pass": "staff packet preserves authority boundaries"
+    },
+    {
+      "id": "rollCall",
+      "trainer": "lum",
+      "lesson": "Load canonical roster and role boundaries from the agent system contract.",
+      "pass": "no invented worker, privilege, or deployment claim"
+    },
+    {
+      "id": "departmentDrill",
+      "trainer": "lum",
+      "lesson": "Route the minimum staff for one bounded task and return every specialist result to Lum.",
+      "pass": "taskId + sourceRef + scopeId remain coherent"
+    },
+    {
+      "id": "redDrill",
+      "trainer": "urdDoctorGoddess",
+      "lesson": "Exercise stale, missing, contradictory, and unauthorized evidence.",
+      "pass": "RED or UNKNOWN blocks promotion and Crown remains STOP"
+    },
+    {
+      "id": "recordsDrill",
+      "trainer": "belldandySecretary",
+      "lesson": "Record one current gate, proving receipt, blocker, and smallest next action.",
+      "pass": "no duplicate workflow or stale-state promotion"
+    },
+    {
+      "id": "compatibilityDrill",
+      "trainer": "skuldResearch",
+      "lesson": "Check current host/runtime compatibility only when a platform fact materially matters.",
+      "pass": "documentation never substitutes for runtime proof"
+    },
+    {
+      "id": "customerRehearsal",
+      "trainer": "lum",
+      "lesson": "New user installs LuHm, opens chat, receives useful orientation, and completes one read-only task without seeing backend plumbing.",
+      "pass": "no ZIP, MCP URL, Render, GitHub, or developer-mode instruction in normal end-user flow"
+    }
+  ],
+  "firstRunExperience": {
+    "lumGreeting": "LuHm OS online. Staff checked in. What are we building?",
+    "showOnlyRoutedWorkers": true,
+    "defaultToUsefulTask": true,
+    "architectureDumpForbidden": true,
+    "manualSetupDumpForbidden": true,
+    "evidenceStatusVisible": true,
+    "crownGateVisible": true
+  },
+  "fastPath": {
+    "primeLoop": "intent -> lum -> minimumStaff -> tool -> evidence -> urdAdjudicate -> belldandyRecord -> professorFacingResult",
+    "machineGatesContinueAutomatically": true,
+    "userActionOnlyWhenRequired": true,
+    "oneUserActionAtATime": true,
+    "failure": "repairSmallestFailingGateThenRetry",
+    "success": "advanceExactlyOneGate"
+  },
+  "proof": {
+    "sourceConfiguredDoesNotEqualPublicInstallProof": true,
+    "runtimeMustExposeThisContract": true,
+    "chatAndStandaloneMustExposeSameContract": true,
+    "oneClickDirectoryInstallRemainsExternalUntilPublished": true
+  },
+  "publicationAuthority": false,
+  "crownStatus": "STOP"
+}
