@@ -295,5 +295,16 @@
     "maxCommitsPerWorkflow": 50,
     "codespacesConfig": ".devcontainer/devcontainer.json",
     "crownStatus": "STOP"
+  },
+  "commitHistoryModel": {
+    "contract": "doctrine/githubWorkflowBudgetV1.json#historyLanes",
+    "basis": "relativeCommitDistanceFromCurrentHead",
+    "lanes": {
+      "activeProposed": "0-25",
+      "proposedSourceTruth": "50+"
+    },
+    "maturationBuffer": "26-49",
+    "bufferIsNotThirdLane": true,
+    "crownStatus": "STOP"
   }
 }
