@@ -5,6 +5,7 @@ on:
     paths:
       - "doctrine/lumGoddessCabinetV1.json"
       - "doctrine/voiceCabinetBridgeV1.json"
+      - "doctrine/openAiWorkspaceHygieneV1.json"
       - "doctrine/agentSystemDeploymentV1.json"
       - "doctrine/everlastingCovenantV1.json"
       - "doctrine/luhmAiControlPlaneV1.json"
@@ -17,6 +18,7 @@ on:
       - "agents/goddessSharedSystemsPractice/SKILL.md"
       - "tools/lumGoddessCabinetAudit.py"
       - "tools/voiceCabinetBridgeAudit.py"
+      - "tools/openAiWorkspaceHygieneAudit.py"
       - ".github/workflows/lum-goddess-cabinet-audit.yml"
   workflow_dispatch:
 
@@ -33,3 +35,4 @@ jobs:
           python-version: "3.x"
       - run: python tools/lumGoddessCabinetAudit.py
       - run: python tools/voiceCabinetBridgeAudit.py
+      - run: python tools/openAiWorkspaceHygieneAudit.py
