@@ -7,7 +7,7 @@ services:
     region: ohio
     plan: free
     numInstances: 1
-    buildCommand: python -m pip install --upgrade pip && pip install -r host/mcp/requirements.txt
+    buildCommand: python -m pip install --upgrade pip && pip install -r host/mcp/requirements.txt && chmod +x tools/buildGodotWebHarness.sh && LUHM_WEB_SKIP_SMOKE=1 tools/buildGodotWebHarness.sh
     startCommand: python host/mcp/luhmHarnessServer.py streamable-http
     healthCheckPath: /healthz
     autoDeployTrigger: off
