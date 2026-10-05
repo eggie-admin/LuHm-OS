@@ -19,3 +19,13 @@ Files:
 - `portalPolicy.json` fail-closed portal contract
 
 Promotion requires exact-head CI plus Professor review. This candidate does not configure Cloudflare, certificates, tunnels, DNS, or public exposure by itself.
+
+## Air-traffic split
+
+Canonical controller: `doctrine/cloudflareAirTrafficControllerV1.json`.
+
+- ChatGPT plugin MCP currently flies directly to the canonical Render harness over Render-managed TLS.
+- A future `mcp.eggiebagelface.art` custom domain uses Cloudflare as authoritative DNS, initially DNS-only to the Render hostname.
+- The System Portal may use a separate Cloudflare Tunnel lane.
+- Do not silently substitute the Tunnel lane for the MCP lane.
+- Cloudflare is network traffic control only. It is not an AI provider, agent, source-truth authority, GREEN authority, or Crown authority.
