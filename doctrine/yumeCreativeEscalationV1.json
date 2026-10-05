@@ -124,5 +124,7 @@
     "technologyTier3": "finalForm",
     "law": "the ladders share escalation rhythm but not domain ownership"
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "kernel": "doctrine/escalationKernelV1.json",
+  "profileId": "art"
 }
