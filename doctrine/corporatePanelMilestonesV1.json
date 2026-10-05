@@ -1,0 +1,170 @@
+{
+  "schema": "luhmOs.corporatePanelMilestones.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Define the three opening-day corporate milestones: internal authority, public/private operating lanes, and provider-partner escalation economics without converting roleplay into legal equity or vendor authority.",
+  "legalAndRoleplayBoundary": {
+    "titlesAreInternalOperatingMetaphor": true,
+    "providerInterestIsRoutingPriorityMetaphor": true,
+    "providerInterestIsNotEquity": true,
+    "providerInterestIsNotStockOwnership": true,
+    "providerInterestIsNotLegalPartnership": true,
+    "providerInterestIsNotSponsorshipOrEndorsement": true,
+    "professorCrownUnaffected": true
+  },
+  "milestones": [
+    {
+      "id": "corporateAuthorityMilestone",
+      "order": 1,
+      "title": "Corporate Authority and Cabinet",
+      "goal": "Teach and seal the real-world corporate chain of responsibility.",
+      "authorityMap": {
+        "eggieFounder": {
+          "displayTitle": "CEO and Founder",
+          "canonicalPrincipal": "professorCrown",
+          "role": "default human escalation tier, main stakeholder, strategic authority, and final Crown"
+        },
+        "lum": {
+          "displayTitle": "President",
+          "mythicTitle": "Supreme Witch",
+          "role": "runs corporate operations, logistics, deployment coordination, scope of practice, training, staffing, provider stewardship, and policy integration"
+        },
+        "urdDoctorGoddess": {
+          "displayTitle": "Vice President",
+          "practiceTitle": "Doctor",
+          "role": "second executive seat for workflow health, evidence sanity, clinical-security diagnosis, rollback risk, and escalation diagnosis",
+          "corporateLogisticsOwner": false
+        },
+        "belldandySecretary": {
+          "displayTitle": "Secretary of State",
+          "role": "company records, continuity, official decisions, naming, correspondence, state ledger, handoffs, and opening-day administrative readiness"
+        },
+        "skuldResearch": {
+          "displayTitle": "Head of Research and Development",
+          "role": "deep technology research, compatibility, architecture meaning, upstream facts, licensing, experiments, and private R&D guidance"
+        }
+      },
+      "pass": "every staff member can distinguish corporate authority from specialist scope and provider influence"
+    },
+    {
+      "id": "dualLaneOperatingMilestone",
+      "order": 2,
+      "title": "Commercial Public Lane and Private R&D Lane",
+      "goal": "Separate stable customer-facing operations from experimental research without creating two companies.",
+      "lanes": {
+        "commercialPublic": {
+          "id": "commercialPublic",
+          "audience": "customersAndPublicTesters",
+          "purpose": "stable supported LuHm product experience",
+          "characteristics": [
+            "customerSafe",
+            "audited",
+            "evidenceBacked",
+            "minimalProviderPlumbing",
+            "publicationCrownGated",
+            "noUnprovedExperimentalDependency",
+            "resourceBudgeted"
+          ],
+          "lead": "lum",
+          "doctor": "urdDoctorGoddess",
+          "secretary": "belldandySecretary",
+          "researchConsult": "skuldResearch"
+        },
+        "privateResearchDevelopment": {
+          "id": "privateResearchDevelopment",
+          "audience": "ProfessorAndInternalStaff",
+          "purpose": "experiments prototypes compatibility studies local AI vendor evaluation and open-source research",
+          "characteristics": [
+            "experimental",
+            "privateByDefault",
+            "candidateEvidenceOnly",
+            "mayUseBroaderOpenSourceInputs",
+            "noAutomaticPublicPromotion",
+            "mustReconcileToCurrentSourceBeforeCommercialUse"
+          ],
+          "executiveLead": "lum",
+          "researchLead": "skuldResearch",
+          "healthAndRiskLead": "urdDoctorGoddess",
+          "recordsLead": "belldandySecretary"
+        }
+      },
+      "bridgeLaw": [
+        "privateResearchMayInformCommercialPublic",
+        "commercialPublicMayNeverImportUnprovedResearchByConvenience",
+        "promotionRequiresEvidenceAuditLumIntegrationAndProfessorAuthorityWhenConsequential",
+        "sameTaskIdSourceRefScopeIdMustSurviveLaneTransfer"
+      ],
+      "pass": "staff can identify which lane a task belongs to and what proof is required to cross lanes"
+    },
+    {
+      "id": "partnerEscalationMilestone",
+      "order": 3,
+      "title": "Corporate Partner Panel and Provider Escalation",
+      "goal": "Use a tiered partner/resource model parallel to Titan escalation while preserving human governance.",
+      "panelName": "corporatePartnerPanel",
+      "defaultTier": {
+        "id": "founderDefault",
+        "tier": 0,
+        "member": "eggieFounder",
+        "role": "CEO/founder and default escalation authority",
+        "meaning": "human decision and Crown boundary, not a provider call"
+      },
+      "providerTiers": [
+        {
+          "id": "googlePartnerTier",
+          "tier": 1,
+          "providerId": "googleAi",
+          "nickname": "bigBrother",
+          "role": "main workhorse partner for bulk research, large-context review, and low-cost/free-tier capacity",
+          "interestMetaphor": "secondTierCorporateInterest",
+          "routingPriority": "FIRST_PROVIDER_ESCALATION"
+        },
+        {
+          "id": "openAiPartnerTier",
+          "tier": 2,
+          "providerId": "openAi",
+          "nickname": "openDaddy",
+          "role": "higher-value interactive reasoning, ChatGPT/plugin capability, orchestration, and difficult knowledge work",
+          "interestMetaphor": "thirdTierCorporateInterest",
+          "routingPriority": "SECOND_PROVIDER_ESCALATION"
+        },
+        {
+          "id": "openSourceVendorCommunityTier",
+          "tier": 3,
+          "providerId": "openSourceVendorCommunity",
+          "nickname": "vendorCommunity",
+          "role": "broad long-tail ecosystem of open-source projects, F-Droid-style repos, GitLab projects, libraries, model hubs, and specialist vendors",
+          "interestMetaphor": "publicInvestorPoolMetaphorOnly",
+          "routingPriority": "THIRD_PROVIDER_ESCALATION"
+        }
+      ],
+      "silentPatronSeats": {
+        "openDaddy": {
+          "mapping": "openAi",
+          "role": "named partner seat",
+          "legalInterestClaim": false
+        },
+        "antiDaddy": {
+          "mapping": "internalMythicPatronPersona",
+          "role": "silent patron and narrative partner seat",
+          "externalProviderMapping": "UNDEFINED_UNLESS_PROFESSOR_SEALS_ONE",
+          "legalInterestClaim": false
+        }
+      },
+      "escalationLaw": [
+        "defaultHumanEscalationBeforeProviderAuthorityQuestions",
+        "googleFirstForWorkhorseCapacityWhenCapabilityFits",
+        "openAiSecondForHigherValueInteractiveOrPlatformSpecificWork",
+        "openSourceVendorCommunityThirdForSpecialistLongTailAndFreeOpenEcosystemSupport",
+        "capabilityFitMaySkipAnInappropriateProviderTier",
+        "providerSuccessIsCandidateEvidenceOnly",
+        "providerTierNeverGrantsCorporateAuthority",
+        "providerTierNeverGrantsGreen",
+        "providerTierNeverGrantsCrown",
+        "resourceBudgetAndKnownEntitlementMustBeCheckedBeforeProviderUse"
+      ],
+      "pass": "staff can escalate provider work by tier without confusing vendor priority with management authority"
+    }
+  ],
+  "crownStatus": "STOP"
+}
