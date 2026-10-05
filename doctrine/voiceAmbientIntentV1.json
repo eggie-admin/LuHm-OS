@@ -43,7 +43,33 @@
     "examples": {
       "Cass": "CAST",
       "Big Brother": "Big Bother"
-    }
+    },
+    "projectContextAliases": {
+      "Mom": {
+        "canonical": "Lum",
+        "condition": "LuHm project context and orchestration-agent referent is clear"
+      },
+      "Mum": {
+        "canonical": "Lum",
+        "condition": "LuHm project context and orchestration-agent referent is clear"
+      },
+      "Mama": {
+        "canonical": "Lum",
+        "condition": "LuHm project context and orchestration-agent referent is clear"
+      },
+      "Bell dandy": {
+        "canonical": "Belldandy",
+        "condition": "resident secretary goddess referent is clear"
+      },
+      "Skull": {
+        "canonical": "Skuld",
+        "condition": "technical/research goddess referent is clear"
+      }
+    },
+    "namingContract": "doctrine/namingNamespaceCanonV1.json",
+    "helpContract": "doctrine/commandHelpV1.json",
+    "unknownOrAmbiguousAlias": "VERIFY",
+    "aliasMayChangeAuthority": false
   },
   "output": {
     "required": [
