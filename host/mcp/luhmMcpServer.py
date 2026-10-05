@@ -36,7 +36,11 @@ ENTERPRISE_SCOPE = ROOT / "doctrine" / "mcpEnterpriseScopeV2.json"
 API_SPINE = ROOT / "doctrine" / "apiSpineV1.json"
 TRAFFIC_CONTROLLER = ROOT / "doctrine" / "cloudflareAirTrafficControllerV1.json"
 HOUSEKEEPING = ROOT / "doctrine" / "belldandyHousekeepingV1.json"
+NAMING_NAMESPACE = ROOT / "doctrine" / "namingNamespaceCanonV1.json"
+COMMAND_HELP = ROOT / "doctrine" / "commandHelpV1.json"
+PRECISION_COMMAND = ROOT / "doctrine" / "chatPrecisionCommandV1.json"
 ROUTER = ROOT / "tools" / "lumTaskRouter.py"
+ESCALATION_RESOLVER = ROOT / "tools" / "escalationKernel.py"
 API_SPINE_RESOLVER = ROOT / "host" / "api" / "luhmApiSpine.py"
 ROUTE_KINDS = {
     "direct", "read", "records", "proof", "patch", "build", "external",
@@ -45,7 +49,7 @@ ROUTE_KINDS = {
 TRUTH_SCOPE_KINDS = {"patch", "build", "release"}
 
 SERVER_NAME = "luhm-os"
-SERVER_VERSION = "0.5.1-beta"
+SERVER_VERSION = "0.5.3-beta"
 DEFAULT_PUBLIC_FQDN = "mcp.eggiebagelface.art"
 LOCAL_HOST = "127.0.0.1"
 LOCAL_PORT = 8788
@@ -53,11 +57,11 @@ LOCAL_PORT = 8788
 server = MCPServer(
     SERVER_NAME,
     title="LuHm OS",
-    description="Read-only LuHm source-truth, agent roster, Belldandy housekeeping, capability-first API spine, Oni routing, proof, and transport tools.",
+    description="Read-only LuHm source-truth, help, escalation planning, agent roster, Belldandy housekeeping, capability-first API spine, Oni routing, proof, and transport tools.",
     version=SERVER_VERSION,
     instructions=(
         "LuHm OS is evidence-gated. AI proposes; policy authorizes; CI proves; human promotes. "
-        "Use read-only status, roster, Belldandy housekeeping, routing, proof-contract, scope, and transport tools to inspect the current workflow. "
+        "Use read-only status, help, escalation planning, roster, Belldandy housekeeping, routing, proof-contract, scope, and transport tools to inspect the current workflow. "
         "Truth-sensitive patch/build/release routing requires explicit taskId, sourceRef, and scopeId. "
         "Never infer GREEN, promotion, signing, publication, or public exposure from these tools. "
         "Professor remains final authority."
@@ -160,6 +164,111 @@ def _api_spine_payload() -> dict[str, Any]:
     }
 
 
+def _vowel_rip(name: str) -> str:
+    parts = re.findall(r"[a-z]+|[A-Z][a-z0-9]*|[A-Z]+(?![a-z])|[0-9]+", name)
+    out: list[str] = []
+    for part in parts:
+        if not part:
+            continue
+        first = part[0]
+        rest = "".join(ch for ch in part[1:] if ch.lower() not in "aeiou")
+        out.append(first + rest)
+    return "".join(out)
+
+
+def _help_entries() -> list[dict[str, Any]]:
+    help_contract = _load_json(COMMAND_HELP)
+    precision = _load_json(PRECISION_COMMAND)
+    entries: list[dict[str, Any]] = []
+    for row in help_contract.get("builtins", []):
+        if isinstance(row, dict):
+            entries.append(dict(row))
+    for row in precision.get("examples", []):
+        if not isinstance(row, dict):
+            continue
+        canonical = str(row.get("camelHump", "")).strip()
+        if not canonical:
+            continue
+        words = re.findall(r"[a-z]+|[A-Z][a-z0-9]*", canonical)
+        shorthand = "".join(word[0] for word in words).lower()
+        entries.append(
+            {
+                "canonicalName": canonical,
+                "humanMeaning": row.get("humanMeaning", "registered LuHm precision command"),
+                "purpose": row.get("humanMeaning", "registered LuHm precision command"),
+                "scope": "command",
+                "owner": "lum",
+                "aliases": {
+                    "kebab": row.get("kebab", ""),
+                    "dragonTail": row.get("debugVerb", ""),
+                    "vowelRipped": _vowel_rip(canonical),
+                    "shorthand": shorthand,
+                },
+                "authorityBoundary": "inherits normal LuHm command authority",
+                "examples": [
+                    f"luhm help {canonical}",
+                    f"luhm help {row.get('kebab', canonical)}",
+                    f"luhm help {row.get('debugVerb', canonical)}",
+                ],
+            }
+        )
+    return entries
+
+
+def _help_payload(name: str = "") -> dict[str, Any]:
+    naming = _load_json(NAMING_NAMESPACE)
+    help_contract = _load_json(COMMAND_HELP)
+    term = str(name or "").strip()
+    entries = _help_entries()
+    if not term:
+        return {
+            "schema": "luhmOs.mcpHelp.v1",
+            "state": "READY",
+            "entryPoints": help_contract.get("entryPoints", []),
+            "namespaces": naming.get("namespaces", {}),
+            "degradation": naming.get("personCenteredDegradation", {}),
+            "commands": [
+                {
+                    "canonicalName": row.get("canonicalName", "UNKNOWN"),
+                    "humanMeaning": row.get("humanMeaning", "UNKNOWN"),
+                    "aliases": row.get("aliases", {}),
+                }
+                for row in entries
+            ],
+            "mutationAuthority": False,
+            "greenAuthority": False,
+        }
+
+    matches: list[dict[str, Any]] = []
+    for row in entries:
+        values = [str(row.get("canonicalName", ""))]
+        aliases = row.get("aliases", {})
+        if isinstance(aliases, dict):
+            values.extend(str(value) for value in aliases.values())
+        if term in values:
+            matches.append(row)
+
+    if len(matches) == 1:
+        return {
+            "schema": "luhmOs.mcpHelp.v1",
+            "state": "FOUND",
+            "query": term,
+            "entry": matches[0],
+            "mutationAuthority": False,
+            "greenAuthority": False,
+        }
+
+    return {
+        "schema": "luhmOs.mcpHelp.v1",
+        "state": "VERIFY",
+        "query": term,
+        "reason": "ambiguousAlias" if len(matches) > 1 else "unknownAlias",
+        "candidates": [row.get("canonicalName", "UNKNOWN") for row in matches],
+        "mutationAuthority": False,
+        "greenAuthority": False,
+    }
+
+
 def _status_payload() -> dict[str, Any]:
     truth = _load_json(SOURCE_TRUTH)
     enterprise = _load_json(ENTERPRISE_SCOPE)
@@ -259,8 +368,18 @@ def _assert_source_contract() -> None:
     enterprise = _load_json(ENTERPRISE_SCOPE)
     spine = _load_json(API_SPINE)
     traffic = _load_json(TRAFFIC_CONTROLLER)
+    naming = _load_json(NAMING_NAMESPACE)
+    help_contract = _load_json(COMMAND_HELP)
     transport = enterprise.get("transport", {})
     auth = enterprise.get("authentication", {})
+    if naming.get("schema") != "luhmOs.namingNamespaceCanon.v1":
+        raise RuntimeError("RED_NAMING_NAMESPACE_SCHEMA")
+    if help_contract.get("schema") != "luhmOs.commandHelp.v1":
+        raise RuntimeError("RED_COMMAND_HELP_SCHEMA")
+    if help_contract.get("behavior", {}).get("helpMayMutate") is not False:
+        raise RuntimeError("RED_COMMAND_HELP_AUTHORITY_LEAK")
+    if help_contract.get("behavior", {}).get("allAliasesResolveToCanonical") is not True:
+        raise RuntimeError("RED_COMMAND_HELP_RECOVERY_DRIFT")
     if status["sourceLaw"] != "AI proposes. Policy authorizes. CI proves. Human promotes.":
         raise RuntimeError("RED_SOURCE_LAW_DRIFT")
     if not roster["roles"] or not all(role["skillPresent"] for role in roster["roles"]):
@@ -290,6 +409,8 @@ def _assert_source_contract() -> None:
         raise RuntimeError("RED_TRAFFIC_CONTROLLER_SCHEMA")
     if not API_SPINE_RESOLVER.is_file():
         raise RuntimeError("RED_API_SPINE_RESOLVER_MISSING")
+    if not ESCALATION_RESOLVER.is_file():
+        raise RuntimeError("RED_ESCALATION_RESOLVER_MISSING")
     if traffic.get("authorityBoundary", {}).get("aiProvider") is not False:
         raise RuntimeError("RED_CLOUDFLARE_AI_PROVIDER_DRIFT")
     mcp_lane = traffic.get("lanes", {}).get("publicChatPluginMcp", {})
@@ -354,6 +475,12 @@ def _housekeeping_payload() -> dict[str, Any]:
         "greenAuthority": False,
         "crownStatus": "STOP",
     }
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_help(name: str = "") -> dict[str, Any]:
+    """Explain LuHm commands, canonical names, and registered aliases without changing state."""
+    return _help_payload(name)
 
 
 @server.tool(annotations=READ_ONLY_INTERNAL)
@@ -428,6 +555,41 @@ def luhm_route_task(
     result = json.loads(completed.stdout)
     result["requestScope"] = scope
     result["mcpMutationAuthority"] = False
+    return result
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_escalation_plan(
+    domain: str,
+    tier: int = 0,
+    outcome: str = "working",
+) -> dict[str, Any]:
+    """Resolve LuHm's zero-based escalation tier without mutating state or authority."""
+    if domain not in {"default", "corporate", "magic", "art", "technology"}:
+        raise ValueError("unsupported escalation domain")
+    if tier < 0 or tier > 3:
+        raise ValueError("tier must be 0..3")
+    if outcome not in {"working", "green", "blocked", "unknown", "conflict"}:
+        raise ValueError("unsupported escalation outcome")
+    completed = subprocess.run(
+        [
+            sys.executable,
+            str(ESCALATION_RESOLVER),
+            "--domain", domain,
+            "--tier", str(tier),
+            "--outcome", outcome,
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=10,
+        env={"PATH": ""},
+    )
+    result = json.loads(completed.stdout)
+    result["mcpMutationAuthority"] = False
+    result["greenAuthority"] = False
+    result["crownAuthority"] = False
     return result
 
 

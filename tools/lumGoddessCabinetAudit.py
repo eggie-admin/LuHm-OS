@@ -33,7 +33,7 @@ if cab_path.is_file():
         need(binding.get(key) is False,f"covenant unsupported authority or runtime claim: {key}")
     requiredAck={"taskId","scopeId","sourceRef","workerId","covenantRef","covenantDigest","observedAt"}
     need(set(binding.get("acknowledgementFields",[]))==requiredAck,"covenant acknowledgement identity drift")
-    need(binding.get("missingOrMismatchedAcknowledgement")=="stop","covenant acknowledgement fails open")
+    need(binding.get("missingOrMismatchedAcknowledgement")=="STOP","covenant acknowledgement fails open")
     need(bool(binding.get("truthfulRepresentation")),"missing truthful representation law")
     need({"covenantRef","covenantDigest"}.issubset(cab.get("sharedContextPacket",[])),"covenant missing from shared context")
     loop=cab.get("cabinetLoop",[])
@@ -47,6 +47,10 @@ if cab_path.is_file():
     need(law.get("residentPresenceDoesNotImplyHiddenAsync") is True,"resident presence hidden async ambiguity")
     resident_ops=cab.get("residentOperations",{})
     need(resident_ops.get("residentGoddesses")==["urdDoctorGoddess","belldandySecretary","skuldResearch"],"resident goddess triplet drift")
+    need(resident_ops.get("stateWhileTaskEnvelopeOpen")=="RESIDENT","resident task state drift")
+    need(resident_ops.get("stateWithoutTaskEnvelope")=="PARKED","resident parked state drift")
+    need(resident_ops.get("specialtyStateWhenRouted")=="ACTIVE","specialty active state drift")
+    need(resident_ops.get("nonSpecialtyResidentState")=="RESIDENT","non-specialty resident state drift")
     need(resident_ops.get("hiddenAsyncExecution") is False,"resident operations hidden async leak")
     need(resident_ops.get("residentPresenceGrantsAuthority") is False,"resident presence authority leak")
     bhand=cab.get("handoffs",{}).get("lum->belldandySecretary",{})
@@ -99,11 +103,11 @@ if truth_path.is_file():
 
 print(json.dumps({
     "schema":"luhmOs.lumGoddessCabinetAudit.v1",
-    "status":"greenLumGoddessCabinetCandidate" if not errors else "redLumGoddessCabinetCandidate",
+    "status":"GREEN_LUM_GODDESS_CABINET_CANDIDATE" if not errors else "RED_LUM_GODDESS_CABINET_CANDIDATE",
     "members":["lum","urdDoctorGoddess","belldandySecretary","skuldResearch"],
     "mutualRoleAwareness":not errors,
     "consensusAuthority":False,
-    "crownStatus":"stop",
+    "crownStatus":"STOP",
     "errors":errors
 },indent=2))
 raise SystemExit(1 if errors else 0)

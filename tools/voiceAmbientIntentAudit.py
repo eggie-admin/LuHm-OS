@@ -47,7 +47,8 @@ for phrase in (
     "mediaPlayback",
     "authorityEligible",
     "Cass",
-    "Big Bother",
+    "Mom",
+    "Bell dandy",
     "Repository doctrine does not imply raw microphone access",
 ):
     need(phrase in koe, f"Koe voice contract missing: {phrase}")

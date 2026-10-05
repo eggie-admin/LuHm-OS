@@ -1,0 +1,34 @@
+name: Escalation Kernel Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/escalationKernelV1.json'
+      - 'doctrine/founderEscalationLadderV1.json'
+      - 'doctrine/corporateEscalationProfileV1.json'
+      - 'doctrine/magicEscalationProfileV1.json'
+      - 'doctrine/yumeCreativeEscalationV1.json'
+      - 'doctrine/operationTitan7ChatTriggerV2.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'agents/shared/ESCALATION_KERNEL_V1.md'
+      - 'agents/lum/SKILL.md'
+      - 'agents/urdMutationOni/SKILL.md'
+      - 'agents/belldandyQualityOni/SKILL.md'
+      - 'agents/skuldResearchOni/SKILL.md'
+      - 'agents/yumeArtOni/SKILL.md'
+      - 'tools/escalationKernel.py'
+      - 'tools/escalationKernelAudit.py'
+      - '.github/workflows/escalation-kernel-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  escalation-kernel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit universal escalation kernel
+        run: python3 tools/escalationKernelAudit.py

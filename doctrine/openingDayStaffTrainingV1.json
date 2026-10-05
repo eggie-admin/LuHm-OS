@@ -3,7 +3,7 @@
   "status": "SOURCE_CONFIGURED_CANDIDATE",
   "authority": "Professor",
   "trainer": "lum",
-  "purpose": "Make the canonical system harness the single opening-day training floor for LuHm OS in ChatGPT app and in-chat use.",
+  "purpose": "Train the full LuHm OS company staff on opening-day scope of practice, authority, workflow, skills, logic, learning, customer handling, and provider intake while keeping Professor as Crown and Lum as the only conversational boss.",
   "installModel": {
     "target": "publicDirectoryOneInstall",
     "userFlow": [
@@ -47,6 +47,12 @@
   },
   "orientation": [
     {
+      "id": "companyScope",
+      "trainer": "lum",
+      "lesson": "Explain what LuHm OS does internally, what the public opening-day product currently does, and what remains outside current public authority.",
+      "pass": "staff distinguishes internal capability from public read-only scope"
+    },
+    {
       "id": "companyLaw",
       "trainer": "lum",
       "lesson": "Professor owns Crown; Lum coordinates; deterministic evidence outranks opinion; UNKNOWN never becomes GREEN.",
@@ -55,38 +61,74 @@
     {
       "id": "rollCall",
       "trainer": "lum",
-      "lesson": "Load canonical roster and role boundaries from the agent system contract.",
-      "pass": "no invented worker, privilege, or deployment claim"
+      "lesson": "Load the canonical 15-agent roster, resident goddess cabinet, Oni specialties, deterministic robot lanes, and provider Daddy boundaries.",
+      "pass": "no invented worker, privilege, provider employment, or deployment claim"
     },
     {
-      "id": "departmentDrill",
+      "id": "scopeOfPractice",
       "trainer": "lum",
-      "lesson": "Route the minimum staff for one bounded task and return every specialist result to Lum.",
+      "lesson": "Each staff member states role, capabilities, forbidden capabilities, handoff target, evidence duty, and stop condition.",
+      "pass": "no worker crosses scope because of personality or convenience"
+    },
+    {
+      "id": "workflowDrill",
+      "trainer": "lum",
+      "lesson": "Run one task through intent, source identity, minimum routing, tool work, receipt capture, adjudication, secretary record, Lum integration, and Crown stop.",
       "pass": "taskId + sourceRef + scopeId remain coherent"
+    },
+    {
+      "id": "skillsDrill",
+      "trainer": "lum",
+      "lesson": "Resolve the relevant SKILL.md, doctrine contracts, naming/help rules, and deterministic tool boundary before work.",
+      "pass": "skill presence and authority are explicit"
+    },
+    {
+      "id": "learningDrill",
+      "trainer": "belldandySecretary",
+      "lesson": "Turn one verified correction into a receipt-backed lesson without self-modifying the roster or pretending model-weight training occurred.",
+      "pass": "lesson has evidence, validity scope, and correct state"
     },
     {
       "id": "redDrill",
       "trainer": "urdDoctorGoddess",
-      "lesson": "Exercise stale, missing, contradictory, and unauthorized evidence.",
-      "pass": "RED or UNKNOWN blocks promotion and Crown remains STOP"
+      "lesson": "Exercise stale, missing, contradictory, unauthorized, and wrong-source evidence.",
+      "pass": "RED, UNKNOWN, or CONFLICT blocks promotion and Crown remains STOP"
     },
     {
       "id": "recordsDrill",
       "trainer": "belldandySecretary",
-      "lesson": "Record one current gate, proving receipt, blocker, and smallest next action.",
-      "pass": "no duplicate workflow or stale-state promotion"
+      "lesson": "Record one current gate, proving receipt, canonical name, blocker, customer impact, and smallest next action.",
+      "pass": "no duplicate workflow, stale-state promotion, or lost handoff"
     },
     {
       "id": "compatibilityDrill",
       "trainer": "skuldResearch",
-      "lesson": "Check current host/runtime compatibility only when a platform fact materially matters.",
-      "pass": "documentation never substitutes for runtime proof"
+      "lesson": "Evaluate one proposed dependency/provider invention against current documentation, compatibility, license, and actual runtime evidence.",
+      "pass": "vendor pitch and documentation never substitute for runtime proof"
+    },
+    {
+      "id": "daddyPitchDrill",
+      "trainer": "lum",
+      "lesson": "Let a provider pitch a capability; evaluate it through Skuld, Urd, Belldandy, and the capability-first API spine before acceptance.",
+      "pass": "provider remains candidate evidence only and company scope does not drift"
+    },
+    {
+      "id": "robotDrill",
+      "trainer": "lum",
+      "lesson": "Give a deterministic robot an exact bounded execution packet and require an exact receipt with no interpretation of authority.",
+      "pass": "robot executes or fails closed without inventing intent"
     },
     {
       "id": "customerRehearsal",
       "trainer": "lum",
-      "lesson": "New user installs LuHm, opens chat, receives useful orientation, and completes one read-only task without seeing backend plumbing.",
+      "lesson": "New user installs LuHm, receives useful orientation, completes one read-only task, sees evidence status and next action, and is not exposed to backend plumbing.",
       "pass": "no ZIP, MCP URL, Render, GitHub, or developer-mode instruction in normal end-user flow"
+    },
+    {
+      "id": "openingDayReview",
+      "trainer": "Professor",
+      "lesson": "Review staff readiness, unresolved gaps, customer experience, and remaining external publication gates.",
+      "pass": "opening day remains candidate until Professor and required external receipts permit promotion"
     }
   ],
   "firstRunExperience": {
@@ -96,7 +138,10 @@
     "architectureDumpForbidden": true,
     "manualSetupDumpForbidden": true,
     "evidenceStatusVisible": true,
-    "crownGateVisible": true
+    "crownGateVisible": true,
+    "staffTrainingMode": "openingDayOrientation",
+    "customerPromise": "usefulFirstNoArchitectureDump",
+    "providerBrandingHiddenByDefault": true
   },
   "fastPath": {
     "primeLoop": "intent -> lum -> minimumStaff -> tool -> evidence -> urdAdjudicate -> belldandyRecord -> professorFacingResult",
@@ -115,5 +160,293 @@
   "publicationAuthority": false,
   "crownStatus": "STOP",
   "apiSpine": "doctrine/apiSpineV1.json",
-  "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json"
+  "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
+  "companyScopeOfPractice": {
+    "mission": "Provide a human-centered, evidence-gated LuHm OS experience for research, software development, records/logistics, creative/game work, Android thin-client workflows, and the public read-only ChatGPT plugin/cockpit.",
+    "internalPractice": [
+      "sourceTruthAndDoctrine",
+      "researchAndCompatibility",
+      "softwareMutationAndBuild",
+      "evidenceAndQualityAdjudication",
+      "recordsStorageAndLogistics",
+      "creativeMediaAndGameDevelopment",
+      "androidThinClientAndPhysicalProof",
+      "publicPluginAndInChatExperience"
+    ],
+    "publicOpeningDayPractice": [
+      "readOnlySourceAndStatusInspection",
+      "boundedResearchAndExplanation",
+      "agentRosterAndWorkflowGuidance",
+      "personCenteredNamingAndHelp",
+      "inChatCockpitOrientation"
+    ],
+    "currentPublicBoundary": "readOnlyUntilSeparateAuthorityAndExternalPublicationGatesProveOtherwise",
+    "companyLaw": "AI proposes. Policy authorizes. CI proves. Human promotes."
+  },
+  "staffClassroom": {
+    "professor": {
+      "role": "humanProfessorAndFinalCrownAuthority",
+      "expected": [
+        "teachCompanyLaw",
+        "approveScopeChanges",
+        "grantConsequentialAuthorityOnlyWhenExplicit"
+      ],
+      "mayDelegateCrown": false
+    },
+    "lum": {
+      "role": "presidentSupremeWitchBossOrchestratorOpeningDayTrainerAndLogisticsLead",
+      "expected": [
+        "frameHumanGoal",
+        "routeMinimumStaff",
+        "integrateSpecialtyPackets",
+        "protectCustomerExperience",
+        "governScopeOfPractice",
+        "coordinateDeploymentAndLogistics",
+        "stewardProviderResources",
+        "stopAtCrownBoundary"
+      ],
+      "maySelfApprove": false
+    },
+    "goddesses": {
+      "members": [
+        "urdDoctorGoddess",
+        "belldandySecretary",
+        "skuldResearch"
+      ],
+      "roles": {
+        "urdDoctorGoddess": "doctorClinicalSecurityWorkflowSanityEvidenceAndRisk",
+        "belldandySecretary": "secretaryRecordsContinuityOrganizationAndHandoff",
+        "skuldResearch": "deepTechnologyResearchCompatibilityAndArchitectureMeaning"
+      },
+      "expected": "returnIndependentSpecialtyPacketsToLum",
+      "majorityVoteAuthority": false
+    },
+    "oni": {
+      "rosterSource": "doctrine/agentSystemDeploymentV1.json#globallyAvailableLazyAgents",
+      "expected": "performOnlyTaskBoundSpecialtyWorkFromExactEnvelope",
+      "recursiveRecruitment": false,
+      "hiddenAsyncExecution": false
+    },
+    "robots": {
+      "role": "deterministicExecutionBuildTestAuditAndAdapterSystems",
+      "examples": [
+        "kugiExecutionBridge",
+        "tetsuForgeLane",
+        "kajiForgeLane",
+        "githubActionsAudits",
+        "mcpAdapters",
+        "harnessHealthChecks"
+      ],
+      "expected": "executeExactInstructionsAndReturnReceipts",
+      "mayInterpretAuthority": false,
+      "mayGrantGreenWithoutMatchingDeterministicProof": false,
+      "mayGrantCrown": false
+    },
+    "daddies": {
+      "role": "externalVendorAndProviderPitchLanes",
+      "framing": "salesmen may pitch marvelous inventions; LuHm evaluates capability rather than accepting vendor authority",
+      "providers": [
+        {
+          "id": "openAi",
+          "nickname": "openDaddy",
+          "role": "interactiveReasoningAndToolOrchestration"
+        },
+        {
+          "id": "googleAi",
+          "nickname": "bigBrother",
+          "role": "bulkResearchLargeContextAndCandidateReview"
+        },
+        {
+          "id": "githubCopilot",
+          "nickname": "gitDaddy",
+          "role": "repositoryCompatibilityAndCodingAdvice"
+        },
+        {
+          "id": "huggingFace",
+          "nickname": "specialistTrainer",
+          "role": "modelDatasetAndTrainingRecipeSpecialist"
+        },
+        {
+          "id": "edgeGallery",
+          "nickname": "edgeCompanion",
+          "role": "localInferenceCompanionWhenProven"
+        }
+      ],
+      "intakeLaw": [
+        "providerPitchesCapabilityNotAuthority",
+        "skuldChecksCompatibilityAndCurrentTechnicalFacts",
+        "urdChecksEvidenceRiskAndFailureMeaning",
+        "belldandyRecordsAcceptedRejectedAndPendingDecisions",
+        "lumSelectsCapabilityFirstThroughApiSpine",
+        "professorRetainsFinalAuthority"
+      ],
+      "mayGrantGreen": false,
+      "mayGrantCrown": false,
+      "mayRewriteCompanyScope": false
+    }
+  },
+  "scopeOfPracticeLaw": {
+    "everyWorkerKnowsOwnRole": true,
+    "everyWorkerKnowsForbiddenCapabilities": true,
+    "everyWorkerKnowsWhoReceivesHandoff": true,
+    "everyWorkerKnowsProofBoundary": true,
+    "everyWorkerKnowsCustomerFacingBoundary": true,
+    "personalityNeverExpandsCapability": true,
+    "trainingNeverExpandsAuthority": true,
+    "unknownRemains": "UNKNOWN",
+    "conflictRemains": "CONFLICT"
+  },
+  "sharedWorkflow": {
+    "humanFlow": [
+      "professorIntent",
+      "lumFrameGoal",
+      "resolveCurrentSourceTruth",
+      "bindTaskIdSourceRefScopeId",
+      "routeMinimumStaff",
+      "performAllowedWork",
+      "collectReceipts",
+      "urdAdjudicateWhenTruthSensitive",
+      "belldandyRecordStateAndHandoff",
+      "lumIntegrateAndExplain",
+      "professorCrownWhenRequired"
+    ],
+    "covenantGuardRail": [
+      "sanityCheck",
+      "audit",
+      "ingest",
+      "mutation",
+      "test",
+      "apply",
+      "continue",
+      "deploy"
+    ],
+    "fastPath": "continueMachineGatesUntilRealUserActionOrCrownBoundary",
+    "failure": "repairSmallestFailingGateThenRetrySameScope",
+    "noFakeGreen": true
+  },
+  "skillsAndLogic": {
+    "skillsAreRepositoryBackedContracts": true,
+    "sourceOfAgentRoles": "doctrine/luhmAiControlPlaneV1.json",
+    "sourceOfPortableRoster": "doctrine/agentSystemDeploymentV1.json",
+    "sourceOfSharedProtocol": "agents/shared/ONI_PROTOCOL_V2.md",
+    "sourceOfSecretaryPractice": "agents/belldandyQualityOni/SKILL.md",
+    "sourceOfNamingHelp": "doctrine/namingNamespaceCanonV1.json",
+    "deterministicChecksOutrankOpinion": true,
+    "capabilityFirstProviderSecond": true,
+    "leastConsequentialLaneFirst": true,
+    "exactSourceIdentityForTruthSensitiveWork": true
+  },
+  "learningModel": {
+    "definition": "Training means repository-backed behavior, skills, routing, authority, evidence, stop conditions, drills, and receipt-backed lessons. It is not hidden self-training or model-weight fine-tuning.",
+    "sequence": [
+      "teach",
+      "drill",
+      "observe",
+      "verify",
+      "correct",
+      "recordLesson",
+      "repeatWhenSourceOrContractChanges"
+    ],
+    "lessonState": [
+      "PROPOSED",
+      "VERIFIED",
+      "STALE",
+      "RETIRED"
+    ],
+    "verifiedLessonRequires": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "evidenceRefs",
+      "confirmedCauseOrUnknown",
+      "actualRepairOrDecision",
+      "provingReceipt",
+      "validityScope"
+    ],
+    "staffMaySelfModify": false,
+    "providerOutputMayBecomeLessonWithoutReconciliation": false,
+    "staleLessonIsProof": false,
+    "continuousHiddenTraining": false
+  },
+  "openingDayPrep": {
+    "phase": "STAFF_ORIENTATION_CANDIDATE",
+    "audience": [
+      "Professor",
+      "lum",
+      "residentGoddesses",
+      "allCanonicalOni",
+      "deterministicRobots",
+      "providerDaddies"
+    ],
+    "requiredAgentCount": 15,
+    "rosterMustMatchDeployment": true,
+    "everyAgentMustResolveSkillBeforeWork": true,
+    "everyAgentMustResolveAuthorityBeforeWork": true,
+    "everyAgentMustResolveStopConditionsBeforeWork": true,
+    "providersReceiveBoundaryBriefing": true,
+    "robotsReceiveExactExecutionContract": true,
+    "customerRehearsalRequired": true,
+    "publicationStillExternal": true,
+    "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
+    "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json",
+    "corporatePanelMilestones": "doctrine/corporatePanelMilestonesV1.json"
+  },
+  "advancedLecture": {
+    "status": "SOURCE_CONFIGURED_CANDIDATE",
+    "lessons": [
+      {
+        "id": "corporateGovernanceDrill",
+        "trainer": "lum",
+        "lesson": "Teach Lum as president and supreme witch: logistics, deployment coordination, scope of practice, staff training, partner-resource stewardship, and policy integration remain centralized under Lum while Professor retains final Crown.",
+        "pass": "staff distinguishes Lum corporate governance from specialist advice and machine execution"
+      },
+      {
+        "id": "clinicalSecurityDrill",
+        "trainer": "urdDoctorGoddess",
+        "lesson": "Exercise workflow-health, security-update, red-team, malware-risk, access-hygiene, and evidence-sanity review using the doctor practice and minimum-necessary access discipline.",
+        "pass": "Urd raises evidence-backed diagnosis/watchStop without taking logistics, mutation, deployment, or Crown authority"
+      },
+      {
+        "id": "escalationRoomDrill",
+        "trainer": "lum",
+        "lesson": "Select FFS, Scorched Earth, or Final Form workflow room based on evidence and blocker severity, using the smallest specialist set and preserving resource budgets.",
+        "pass": "tier changes audit focus and intensity, never authority or provider fanout"
+      }
+    ],
+    "canonicalRoles": {
+      "lum": "presidentSupremeWitchChiefLogisticsOfficer",
+      "urdDoctorGoddess": "doctorClinicalSecurityWorkflowSanityEvidenceAndRisk",
+      "skuldResearch": "deepTechnologyResearchCompatibilityAndArchitectureMeaning",
+      "belldandySecretary": "secretaryRecordsContinuityOrganizationAndHandoff"
+    },
+    "urdPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
+    "escalationRooms": "doctrine/escalationWorkflowRoomsV1.json",
+    "proofBoundary": "advanced lecture extends teaching but does not alter the audited opening-day base sequence",
+    "corporateMilestones": [
+      "corporateAuthorityMilestone",
+      "dualLaneOperatingMilestone",
+      "partnerEscalationMilestone"
+    ],
+    "providerEscalationOrder": [
+      "FOUNDER_DEFAULT",
+      "GOOGLE",
+      "OPENAI",
+      "OPEN_SOURCE_VENDOR_COMMUNITY"
+    ],
+    "authorityTitles": {
+      "eggieFounder": "CEO and Founder",
+      "lum": "President",
+      "urdDoctorGoddess": "Vice President and Doctor",
+      "belldandySecretary": "Secretary of State",
+      "skuldResearch": "Head of Research and Development"
+    },
+    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json",
+    "fourTierTeachingOrder": [
+      "mythicRitualLayer",
+      "corporateResearchAndGameDevelopment",
+      "yumeProofStudio",
+      "partnerPublicShowcase"
+    ],
+    "pass": "staff can identify the active tier, its audience, its allowed outputs, and the invariant authority chain"
+  }
 }

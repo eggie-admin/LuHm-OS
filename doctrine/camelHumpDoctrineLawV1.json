@@ -2,22 +2,22 @@
   "schema": "luhmOs.camelHumpDoctrineLaw.v1",
   "status": "PROPOSED_CANON_LAW",
   "authority": "Professor",
-  "purpose": "Make lower camelHump the only naming form for current machine doctrine while preserving older names as legacy provenance.",
+  "purpose": "Define person-centered camelHump as the canonical machine-identity layer inside the wider LuHm naming namespace law.",
   "currentNaming": {
-    "machineIdentifiers": "lowerCamelHump",
-    "doctrineFileBasenames": "lowerCamelHump",
-    "jsonObjectKeys": "lowerCamelHump",
-    "agentIds": "lowerCamelHump",
-    "routeIds": "lowerCamelHump"
+    "machineIdentifiers": "camelHump",
+    "jsonObjectKeys": "camelHump",
+    "agentIds": "camelHump",
+    "routeIds": "camelHump",
+    "codeHandlers": "camelHump",
+    "doctrineFileBasenames": "camelHumpUnlessContractSelectsKebab"
   },
   "currentNameRegex": "^[a-z][A-Za-z0-9]*$",
   "legacyLaw": [
-    "any non camelHump doctrine filename is a legacyArtifact",
-    "any non camelHump current machine identifier is a legacyArtifact",
-    "legacy artifacts may remain immutable for receipts provenance rollback and compatibility",
-    "legacy artifact names may not be introduced as new current authority",
-    "current contracts may reference legacy artifacts only as explicitly labeled historical or legacy evidence",
-    "human display names quoted speech product names external vendor names URLs and immutable historical hashes are not machine identifier violations"
+    "historical artifact names remain immutable evidence",
+    "external required spellings are preserved",
+    "new current names must use the namespace selected by their contract",
+    "camelHump remains the canonical person-centered machine identity when the machine identifier namespace is selected",
+    "vowel-ripped and shorthand forms may not replace the canonical identity"
   ],
   "migrationLaw": {
     "deleteLegacyArtifacts": false,
@@ -40,5 +40,19 @@
     "doctrine/DOCUMENT_MUTATION_AUDIT_RECEIPT_20260925.json",
     "doctrine/DOCUMENT_MUTATION_AUDIT_SEAL_20260926.json"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "namespaceContract": "doctrine/namingNamespaceCanonV1.json",
+  "personCenteredLaw": {
+    "startFromHumanMeaning": true,
+    "lowerFirstHump": true,
+    "objectNameAnswers": "what is this thing for",
+    "actionNameAnswers": "what does this do",
+    "degradation": [
+      "camelHump",
+      "vowelRippedCamel",
+      "lowercaseShorthand"
+    ],
+    "compressedFormsAreAliasesOnly": true,
+    "helpRecoveryRequired": true
+  }
 }

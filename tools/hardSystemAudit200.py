@@ -59,6 +59,7 @@ chat = load("doctrine/projectChatCanonV1.json")
 covenant = load("doctrine/everlastingCovenantV1.json")
 lane = load("doctrine/proposedWorkingLaneV1.json")
 naming = load("doctrine/camelHumpDoctrineLawV1.json")
+naming_namespace = load("doctrine/namingNamespaceCanonV1.json")
 format_law = load("doctrine/currentFormatLawV1.json")
 manifest_law = load("doctrine/aiManifestFormatV1.json")
 python_law = load("doctrine/python3ControlPlaneLawV1.json")
@@ -134,12 +135,12 @@ bad_sample = "BigBrotherReview_001.json"
 manifest_regex = manifest_law.get("fileNaming",{}).get("instanceFilenameRegex","")
 g = [
 ("namingSchema", naming.get("schema") == "luhmOs.camelHumpDoctrineLaw.v1"),
-("machineIdentifiersCamel", naming.get("currentNaming",{}).get("machineIdentifiers") == "lowerCamelHump"),
-("doctrineBasenamesCamel", naming.get("currentNaming",{}).get("doctrineFileBasenames") == "lowerCamelHump"),
-("jsonKeysCamel", naming.get("currentNaming",{}).get("jsonObjectKeys") == "lowerCamelHump"),
+("machineIdentifiersCamel", naming.get("currentNaming",{}).get("machineIdentifiers") == "camelHump"),
+("doctrineBasenamesCamel", naming.get("currentNaming",{}).get("doctrineFileBasenames") == "camelHumpUnlessContractSelectsKebab"),
+("jsonKeysCamel", naming.get("currentNaming",{}).get("jsonObjectKeys") == "camelHump"),
 ("agentIdsCamel", all(camel(x) for x in agent_ids)),
 ("formatLawSchema", format_law.get("schema") == "luhmOs.currentFormatLaw.v1"),
-("formatNamesNamingLaw", format_law.get("specializedContracts",{}).get("doctrineNaming") == "doctrine/camelHumpDoctrineLawV1.json"),
+("formatNamesNamingLaw", format_law.get("specializedContracts",{}).get("doctrineNaming") == "doctrine/camelHumpDoctrineLawV1.json" and format_law.get("specializedContracts",{}).get("namingNamespaces") == "doctrine/namingNamespaceCanonV1.json" and naming_namespace.get("schema") == "luhmOs.namingNamespaceCanon.v1"),
 ("formatNamesManifestLaw", format_law.get("specializedContracts",{}).get("aiManifestFormat") == "doctrine/aiManifestFormatV1.json"),
 ("formatNamesPythonLaw", format_law.get("specializedContracts",{}).get("python3ControlPlane") == "doctrine/python3ControlPlaneLawV1.json"),
 ("manifestLawSchema", manifest_law.get("schema") == "luhmOs.aiManifestFormat.v1"),

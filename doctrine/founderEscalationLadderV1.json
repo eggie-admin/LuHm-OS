@@ -1,0 +1,102 @@
+{
+  "schema": "luhmOs.founderEscalationLadder.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Define the zero-based four-tier escalation path from Professor's garage laboratory through Lum corporate handling and R&D to Witching Hour CAST closure.",
+  "relationToFourTierOperatingModel": {
+    "parallelNotReplacement": true,
+    "operatingModel": "doctrine/fourTierOperatingModelV1.json",
+    "distinction": "operatingModel answers which presentation/work layer is active; founderEscalationLadder answers how a problem or invention matures and escalates"
+  },
+  "tiers": [
+    {
+      "tier": 0,
+      "id": "professorGarageLab",
+      "title": "Professor's Garage Laboratory",
+      "lead": "Professor",
+      "purpose": "founder sandbox for first ideas, private experiments, rough prototypes, weird research, and direct problem framing",
+      "defaultVisibility": "private",
+      "characteristics": [
+        "fast",
+        "experimental",
+        "founderDriven",
+        "lowCeremony",
+        "candidateOnlyUnlessAlreadyProved"
+      ],
+      "exit": "when the work needs logistics, staffing, coordination, public handling, or company-scale discipline, escalate to Lum"
+    },
+    {
+      "tier": 1,
+      "id": "lumCorporateHandling",
+      "title": "Lum Corporate Handling",
+      "lead": "lum",
+      "lumTitles": [
+        "president",
+        "supremeWitch",
+        "chiefLogisticsOfficer",
+        "publicistAndHandler"
+      ],
+      "purpose": "turn garage inventions or problems into organized company work with scope, staffing, logistics, partner/resource stewardship, deployment planning, and customer/public handling",
+      "requiredPractices": [
+        "scopeOfPractice",
+        "taskIdentity",
+        "resourceBudget",
+        "staffRouting",
+        "records",
+        "deploymentPlanning"
+      ],
+      "exit": "when deeper technical investigation, architecture, compatibility, experimental validation, or specialist research is required, escalate to R&D"
+    },
+    {
+      "tier": 2,
+      "id": "researchAndDevelopmentEscalation",
+      "title": "Research and Development Escalation",
+      "lead": "skuldResearch",
+      "executiveLead": "lum",
+      "doctor": "urdDoctorGoddess",
+      "secretary": "belldandySecretary",
+      "purpose": "deep technical research, compatibility, architecture, experiments, evidence review, security/workflow health, and candidate proof construction",
+      "characteristics": [
+        "privateByDefault",
+        "evidenceBound",
+        "specialistDriven",
+        "candidateUntilReconciled"
+      ],
+      "exit": "when the exact candidate is ready for final ritualized reconciliation, CAST, and closure, call Witching Hour"
+    },
+    {
+      "tier": 3,
+      "id": "witchingHourCastClosure",
+      "title": "Witching Hour and CAST Closure",
+      "presidingOfficer": "lum",
+      "lumTitle": "supremePriestess",
+      "purpose": "final ritual interface for exact-source reconciliation, CAST, Crown gating, release proof, and closing the Mass before returning to normal operations",
+      "ritualLaw": "magicPresentationNeverBypassesCanonicalBuildEvidenceOrCrown",
+      "closureFlow": [
+        "callWitchingHour",
+        "resolveExactSource",
+        "summonRequiredCabinetAndIntentTrio",
+        "reconcileEvidence",
+        "CAST",
+        "verifyReleaseReceipt",
+        "ProfessorCrownWhereRequired",
+        "closeMass",
+        "returnToOrdinaryOperations"
+      ],
+      "physicalBoundary": "installedOrLaunchedClaimsStillRequirePhysicalReceipt",
+      "exit": "proved product state or explicit unresolved blocker; never ceremonial GREEN"
+    }
+  ],
+  "escalationLaw": [
+    "tierNumberIncreasesOperationalMaturityNotAutomaticAuthority",
+    "ProfessorRetainsFinalCrownAtEveryTier",
+    "LumOwnsEscalationLogisticsAfterGarage",
+    "RAndDDoesNotAutoPublish",
+    "WitchingHourDoesNotBypassEvidence",
+    "CASTRemainsCanonicalReleaseWorkflow",
+    "unresolvedPhysicalBoundaryRemainsUnresolved"
+  ],
+  "crownStatus": "STOP",
+  "kernel": "doctrine/escalationKernelV1.json",
+  "profileId": "default"
+}
