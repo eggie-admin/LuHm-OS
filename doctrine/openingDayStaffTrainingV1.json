@@ -439,6 +439,14 @@
       "urdDoctorGoddess": "Vice President and Doctor",
       "belldandySecretary": "Secretary of State",
       "skuldResearch": "Head of Research and Development"
-    }
+    },
+    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json",
+    "fourTierTeachingOrder": [
+      "mythicRitualLayer",
+      "corporateResearchAndGameDevelopment",
+      "yumeProofStudio",
+      "partnerPublicShowcase"
+    ],
+    "pass": "staff can identify the active tier, its audience, its allowed outputs, and the invariant authority chain"
   }
 }
