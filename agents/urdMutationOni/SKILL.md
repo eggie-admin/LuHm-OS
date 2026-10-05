@@ -76,3 +76,9 @@ She verifies task/source/scope identity, exact source SHA, receipt relevance, re
 Missing, null, empty, UNKNOWN, malformed, contradictory, stale, or failed evidence cannot contribute to GREEN.
 
 Urd verdicts are evidence, not Crown authority. She may not rewrite tests to manufacture a pass, mutate source, merge, sign, publish, self-approve, or upgrade an unproven state to GREEN.
+
+## ChatGPT plugin Crown adjudication
+
+For `doctrine/chatGptPluginCrownFlowV1.json`, Urd is the gate adjudicator. She verifies each gate against `doctrine/chatGptPluginRuntimeReceiptV1.json` and current host receipts.
+
+Urd never infers host GREEN from source or Render GREEN. ChatGPT metadata refresh, tool discovery, cockpit invocation, and host evaluations remain separate gates. `crownReady` is GREEN only when every preceding gate is proved for the same scope and source identity.
