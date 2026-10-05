@@ -5,10 +5,12 @@ on:
   pull_request:
     paths:
       - 'host/harness/**'
+      - 'doctrine/inChatExperienceV1.json'
       - 'host/mcp/luhmHarness.py'
       - 'host/mcp/luhmHarnessServer.py'
       - 'export_presets.cfg'
       - 'tools/harnessAudit.py'
+      - 'tools/inChatExperienceAudit.py'
       - '.github/workflows/render-harness-audit.yml'
 
 permissions:
@@ -44,6 +46,7 @@ jobs:
         run: |
           set -euo pipefail
           python tools/harnessAudit.py
+          python tools/inChatExperienceAudit.py
 
       - name: Boot-time harness contract check
         shell: bash
@@ -71,11 +74,11 @@ jobs:
               tools = await harness.core.server.list_tools()
               resources = await harness.core.server.list_resources()
               tool = next(t for t in tools if t.name == "luhm_open_cockpit")
-              resource = next(r for r in resources if str(r.uri) == "ui://luhm-os/cockpit-v1.html")
+              resource = next(r for r in resources if str(r.uri) == "ui://luhm-os/cockpit-v2.html")
               tool_wire = tool.model_dump(by_alias=True)
               resource_wire = resource.model_dump(by_alias=True)
               assert tool.annotations.read_only_hint is True
-              assert tool_wire["_meta"]["ui"]["resourceUri"] == "ui://luhm-os/cockpit-v1.html"
+              assert tool_wire["_meta"]["ui"]["resourceUri"] == "ui://luhm-os/cockpit-v2.html"
               assert resource.mime_type == "text/html;profile=mcp-app"
               assert resource_wire["_meta"]["ui"]["domain"] == "https://luhm-os-harness-green.onrender.com"
               print("HARNESS_MCP_UI_GREEN")
