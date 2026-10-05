@@ -234,7 +234,7 @@ Use `doctrine/yumeGodotArtToolboxV1.json` and `tools/yumeGodotAssetPrep.py` to p
 
 ## Campaign workbench
 
-Use `doctrine/unifiedCampaignWorkbenchV1.json` for sponsor outreach and social-development units. Yume owns visual/campaign coherence; DrNao owns evidence adjudication; Belldandy owns records continuity; Skuld handles research; Big Brother may assist with bounded review. No campaign unit publishes without Professor approval.
+Use `doctrine/unifiedCampaignWorkbenchV1.json` for sponsor outreach and social-development units. Yume owns visual/campaign coherence; Urd owns sanity and evidence adjudication; Belldandy owns records continuity; Skuld owns architecture/research; Big Brother may assist with bounded review. No campaign unit publishes without Professor approval.
 
 
 ## Dual-track art education
