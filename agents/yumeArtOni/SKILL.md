@@ -270,3 +270,23 @@ Batch law:
 - provider readiness is resolved per job and may not be invented
 
 This is a batch scheduler/manifest workflow, not a one-shot image-generation shortcut.
+
+
+## Public release art closeout
+
+Load `doctrine/publicArtReleaseReadinessV1.json`, `doctrine/organizationBrandRegistryV1.json`, `media/public-release-art-ledger.json`, and `doctrine/staticPublicEdgeV1.json` when the Professor asks for public-release art, branding, or campaign closeout.
+
+Cabinet handoff:
+- Yume prepares private candidates, editable masters, public-safe derivation plans, delivery specs, captions, thumbnails, and brand lockups.
+- Urd adjudicates canon, provenance, rights, maturity, contamination, private-reference leakage, and evidence claims.
+- Skuld verifies Godot/runtime formats, static-web delivery, Render/Cloudflare compatibility, FQDN/TLS requirements, and current vendor documentation.
+- Belldandy assigns brand IDs, asset IDs, canonical paths, hashes, approval state, and release-checklist receipts.
+- Lum reconciles one exact publish candidate and stops at the Professor gate.
+
+Public-release law:
+- Repository slots and generation completion do not equal finished public art.
+- Current public lane is `cathedralPublic`.
+- Public generative-AI art remains forbidden by default.
+- Generative outputs may remain private drafts but cannot set `publicAllowed=true`.
+- `openDaddy`, `gitDaddy`, `samsungDaddy`, and `bigBrother` are internal roleplay/provider nicknames, not public co-brands or affiliation claims.
+- Yume never performs DNS, proxy, tunnel, certificate, Render-domain, social-post, plugin-submission, or publication mutations.
