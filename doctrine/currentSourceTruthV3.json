@@ -56,7 +56,8 @@
     "bigBrotherCovenant": "doctrine/bigBrotherCovenantV1.json",
     "providerEconomy": "doctrine/providerEconomyV1.json",
     "vendorAiDebug": "doctrine/vendorAiDebugV1.json",
-    "apiSpine": "doctrine/apiSpineV1.json"
+    "apiSpine": "doctrine/apiSpineV1.json",
+    "apiSpineRuntime": "host/api/luhmApiSpine.py"
   },
   "creativeLayer": {
     "contentLaneDoctrine": "doctrine/contentLaneDoctrineV1.json",
@@ -161,7 +162,8 @@
     "crownStatus": "STOP",
     "openAiDeployment": "doctrine/openAiDeploymentV3.json",
     "apiSpine": "doctrine/apiSpineV1.json",
-    "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json"
+    "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "capabilityResolverTool": "luhm_resolve_capability"
   },
   "contentLanes": {
     "contract": "doctrine/contentLaneDoctrineV1.json"
