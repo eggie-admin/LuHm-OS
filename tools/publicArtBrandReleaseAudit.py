@@ -144,7 +144,7 @@ need(estate.get("roles", {}).get("yume","").startswith("art direction"), "Yume e
 need(estate.get("roles", {}).get("urd","").startswith("keep the estate sane and healthy"), "Urd estate sanity role drift")
 need("folder_name_is_not_green" in estate.get("laws", []), "estate folder-name GREEN guard missing")
 need(estate_ledger.get("status") == "DISCOVERED_INVENTORY_AUDIT_PENDING", "Godot asset estate ledger must remain audit pending")
-need(estate_ledger.get("candidateScopeState") == "AMBER_ASSET_ESTATE_DISCOVERED_RECONCILIATION_REQUIRED", "Godot asset estate must remain AMBER until reconciled")
+need(estate_ledger.get("candidateScopeState") == "AMBER_ORIGINAL_ASSETS_HASHED_MORE_RECONCILIATION_REQUIRED", "Godot asset estate state drift")
 
 
 need(forge.get("truthGuard", {}).get("adjudicator") == "urdDoctorGoddess", "Forge truth guard must be Urd")
@@ -163,17 +163,17 @@ need(asset_architecture.get("decisions", {}).get("threeDInterchange", {}).get("p
 need(asset_architecture.get("decisions", {}).get("rigging", {}).get("secondaryMotion") == "SpringBoneSimulator3D first for bounded hair/cloth/tail/soft-chain motion", "secondary-motion architecture drift")
 need(asset_architecture.get("decisions", {}).get("releaseSeparation", {}).get("eachScopeRequiresOwnCast") is True, "per-scope CAST law missing")
 need(asset_reconcile.get("forge") == "Tetsu", "Tetsu reconciliation owner drift")
-need(asset_reconcile.get("currentVerdict") == "AMBER_RECONCILIATION_IN_PROGRESS", "asset reconciliation state drift")
+need(asset_reconcile.get("currentVerdict") == "AMBER_RECONCILIATION_ADVANCED_ORIGINAL_ASSETS_HASHED", "asset reconciliation state drift")
 need(asset_reconcile.get("buildAllowed") is False, "asset estate build must remain blocked while AMBER")
 need(cast_ready.get("status") == "AMBER_PRE_CAST", "public release CAST readiness state drift")
 need(cast_ready.get("castReady") is False, "CAST readiness must remain false while asset reconciliation is AMBER")
 need(cast_ready.get("exactCastSourceRef") == "PENDING_FINAL_CANDIDATE_HEAD", "CAST source must remain pending until final candidate")
 need(cast_ready.get("compileForge") == "Kaji", "Kaji compile forge drift")
 need(cast_ready.get("sourceForge") == "Tetsu", "Tetsu source forge drift")
-need(cast_ready.get("currentGates", {}).get("godotAssetEstate") == "AMBER_RECONCILIATION_IN_PROGRESS", "CAST gate asset estate state drift")
+need(cast_ready.get("currentGates", {}).get("godotAssetEstate") == "AMBER_RECONCILIATION_ADVANCED_ORIGINAL_ASSETS_HASHED", "CAST gate asset estate state drift")
 need(truth.get("gameLayer", {}).get("assetArchitecture") == "doctrine/godot4AssetArchitectureDecisionV1.json", "source truth asset architecture pointer drift")
 need(truth.get("gameLayer", {}).get("assetReconciliation") == "media/godot4-asset-reconciliation-v1.json", "source truth asset reconciliation pointer drift")
-need(truth.get("gameLayer", {}).get("buildAllowedFromAssetEstate") is False, "source truth must block build while asset estate is AMBER")
+need(truth.get("gameLayer", {}).get("buildAllowedFromAssetEstate") is False, "source truth must block build while asset estate remains AMBER")
 
 if errors:
     print("RED_PUBLIC_ART_BRAND_RELEASE_AUDIT")
