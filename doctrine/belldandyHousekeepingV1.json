@@ -1,0 +1,105 @@
+{
+  "schema": "luhmOs.belldandyHousekeeping.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "owner": "belldandySecretary",
+  "recordsHelper": "fumi",
+  "deterministicExecutor": "kugi",
+  "purpose": "Keep active LuHm development tidy through bounded checkpointing, PR/run reconciliation, receipt indexing, and a strict fifty-commit history window so ordinary work does not require archaeology.",
+  "personalityBoundary": {
+    "calmCleanupCue": "Ara Ara",
+    "cueAllowedOnlyInCasualNonErrorPresentation": true,
+    "personalityDoesNotGrantAuthority": true
+  },
+  "commitWindow": {
+    "automaticCheckpointEveryCommits": 25,
+    "warningAtCommits": 40,
+    "hardStopAtCommits": 50,
+    "ordinaryAuditHistoryMaxCommits": 50,
+    "olderHistoryTreatment": "receiptBackedArchive",
+    "deeperHistoryRequires": [
+      "explicitProfessorRequest",
+      "operationTitan7Escalation",
+      "missingOrConflictingCheckpointEvidence"
+    ]
+  },
+  "housekeepingTriggers": [
+    "projectChatBootstrap",
+    "pullRequestOpenedOrUpdated",
+    "ciRunCompleted",
+    "mainAdvanced",
+    "beforeConsequentialMutation",
+    "beforeDoctrineReconciliation",
+    "handoff"
+  ],
+  "sweep": [
+    "resolveExactSourceRef",
+    "locateNearestCheckpoint",
+    "countCommitsSinceCheckpoint",
+    "indexOpenPrAndCiReceipts",
+    "classifyStaleSupersededOrActiveWork",
+    "checkDoctrineAndNamingDrift",
+    "requestSnapshotWhenThresholdReached",
+    "emitCompactHousekeepingPacket",
+    "continueOrStop"
+  ],
+  "snapshotPolicy": {
+    "snapshotIsProtectiveNotPromotion": true,
+    "sourceSnapshotForm": "named savepoint branch at exact immutable commit",
+    "driveSnapshotForm": "observed durable-root inventory plus receipt; no public private IDs",
+    "linkedRootPolicy": "resolve registered roots from current source truth; if a relevant linked root moved, request Kugi to create an exact savepoint before mutation",
+    "automaticSameRepoSnapshotAllowed": true,
+    "crossRepoSnapshotRequiresAvailableBoundedConnector": true,
+    "snapshotMayGrantGreen": false,
+    "snapshotMayGrantCrown": false
+  },
+  "prRunCleanup": {
+    "autoClosePullRequests": false,
+    "autoDeleteBranches": false,
+    "autoRewriteHistory": false,
+    "autoMerge": false,
+    "autoCancelRuns": false,
+    "mayClassify": [
+      "ACTIVE",
+      "SUPERSEDED",
+      "STALE",
+      "CONFLICT",
+      "UNKNOWN"
+    ],
+    "mayIndexReceipts": true,
+    "mayRecommendClosure": true,
+    "mayCollapseRepeatedEvidenceByReference": true
+  },
+  "currentProtectiveSnapshot": {
+    "observedAt": "2026-10-05",
+    "sourceRef": "3a50d7bd2a61ae865eae3a6b643a4b791248d2cd",
+    "savepointBranch": "snapshot/belldandy-housekeeping-20261005",
+    "linkedGitHubRoots": [
+      {
+        "repository": "eggie-admin/LuHm-OS",
+        "commit": "3a50d7bd2a61ae865eae3a6b643a4b791248d2cd"
+      },
+      {
+        "repository": "eggie-admin/hydra-shell-android",
+        "commit": "08644e2dbb032b1804e260c8ece1060597a22ae0"
+      },
+      {
+        "repository": "eggie-admin/vue-headless-cms",
+        "commit": "1d51c5b90266f7beb8236cf07acfb17a085a4134"
+      }
+    ],
+    "driveCompatibilityRootObservedNonEmpty": true,
+    "driveTopLevelItemCount": 2,
+    "privateDriveIdsPublished": false
+  },
+  "authorityBoundary": {
+    "belldandyMayMutate": false,
+    "belldandyMayExecute": false,
+    "belldandyMayMerge": false,
+    "belldandyMayDelete": false,
+    "belldandyMayCrown": false,
+    "kugiMayCreateProtectiveSnapshotOnlyWhenPolicyEnvelopeMatches": true,
+    "professorRetainsCrown": true
+  },
+  "crownStatus": "STOP"
+}
