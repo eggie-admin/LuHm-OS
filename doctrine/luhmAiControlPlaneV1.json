@@ -204,6 +204,13 @@
       "routesThrough": "lum",
       "automaticDestructiveMutation": false,
       "hiddenAsyncExecution": false
+    },
+    "chatHistoryStewardship": {
+      "contract": "doctrine/chatHistoryStewardshipV1.json",
+      "owner": "belldandySecretary",
+      "routesThrough": "lum",
+      "currentSourceBeatsHistory": true,
+      "hiddenAsyncExecution": false
     }
   },
   "authorityClasses": [
@@ -284,7 +291,13 @@
         "duplicateReferenceDetection",
         "staleHandoffDetection",
         "orphanArtifactDetection",
-        "archiveProposal"
+        "archiveProposal",
+        "chatHistoryIndex",
+        "decisionExtraction",
+        "historicalReceiptIndex",
+        "contradictionLedger",
+        "supersededInstructionDetection",
+        "chatHandoffCompression"
       ],
       "forbidden": [
         "mutate",
@@ -294,7 +307,10 @@
         "moveUserContent",
         "renameUserContent",
         "overwriteUserContent",
-        "detachUserContent"
+        "detachUserContent",
+        "deleteChatHistory",
+        "archiveChatHistory",
+        "rewriteChatHistory"
       ],
       "parallelClass": "support",
       "speaksTo": "lum",
@@ -609,6 +625,10 @@
       "sumi",
       "skuldResearch",
       "urdDoctorGoddess"
+    ],
+    "chatHistory": [
+      "lum",
+      "belldandySecretary"
     ]
   },
   "receipts": {
