@@ -1,0 +1,128 @@
+{
+  "schema": "luhmOs.yumeCreativeEscalation.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "owner": "yume",
+  "boss": "lum",
+  "purpose": "Define Yume's zero-based four-tier creative escalation from fine-art intent through commercial production and tool R&D to proved partner/public showcase candidates.",
+  "primeLaw": "creativeEscalationIncreasesProductionAndProofDisciplineNotArtAuthority",
+  "tiers": [
+    {
+      "tier": 0,
+      "id": "fineArtDevelopment",
+      "title": "Fine Art Development",
+      "lead": "yume",
+      "purpose": "protect artistic intent, source authorship, composition, drawing, color, form, visual language, experimentation, and editable masters before delivery constraints dominate",
+      "defaultVisibility": "private",
+      "goddessSupport": {
+        "primary": "belldandySecretary",
+        "reason": "source identity, canon notes, artist credit, naming, provenance pointers and continuity",
+        "conditional": [
+          "urdDoctorGoddess"
+        ]
+      },
+      "outputs": [
+        "protectedSource",
+        "fineArtIntent",
+        "editableMaster",
+        "visualDevelopmentCandidate"
+      ],
+      "exit": "escalate when the work needs reproducible delivery, campaign use, client-facing adaptation, or production constraints"
+    },
+    {
+      "tier": 1,
+      "id": "commercialArtDevelopment",
+      "title": "Commercial Art Development",
+      "lead": "yume",
+      "executiveLead": "lum",
+      "purpose": "translate approved artistic intent into reproducible print, digital, motion, UI, campaign, game, and delivery-ready derivatives",
+      "goddessSupport": {
+        "required": [
+          "belldandySecretary",
+          "urdDoctorGoddess"
+        ],
+        "conditional": [
+          "skuldResearch"
+        ]
+      },
+      "responsibilities": [
+        "deliverySpecs",
+        "contentLaneClassification",
+        "rightsAndProvenanceCheck",
+        "brandConsistency",
+        "accessibility",
+        "editableMasterPreservation",
+        "publicSafeDerivativePlanning"
+      ],
+      "outputs": [
+        "commercialMaster",
+        "deliveryDerivative",
+        "campaignCandidate",
+        "runtimeAssetCandidate"
+      ],
+      "exit": "escalate when tooling, runtime, format, engine, automation, provider, or production-system questions require technical R&D"
+    },
+    {
+      "tier": 2,
+      "id": "creativeToolResearchAndDevelopment",
+      "title": "Creative Tool Research and Development",
+      "lead": "skuldResearch",
+      "creativeLead": "yume",
+      "executiveLead": "lum",
+      "doctor": "urdDoctorGoddess",
+      "records": "belldandySecretary",
+      "purpose": "research, prototype, benchmark, and validate creative tools, Godot/Blender/GIMP/FFmpeg workflows, asset pipelines, providers, formats, shaders, automation, and runtime constraints",
+      "defaultVisibility": "private",
+      "outputs": [
+        "toolCandidate",
+        "workflowCandidate",
+        "compatibilityReceipt",
+        "runtimeProofCandidate",
+        "fallbackPlan"
+      ],
+      "laws": [
+        "toolResearchDoesNotChangeCanon",
+        "providerSuccessDoesNotCreateProjectGreen",
+        "privateToolExperimentDoesNotAutoPromoteToCommercialOrPublic",
+        "SkuldOwnsTechnicalCompatibility",
+        "UrdOwnsWorkflowHealthAndRiskMeaning",
+        "BelldandyOwnsToolAndReceiptRecords",
+        "YumeOwnsCreativeFitness"
+      ],
+      "exit": "escalate when one exact creative candidate is ready for proof packaging, partner showcase, or public-release review"
+    },
+    {
+      "tier": 3,
+      "id": "provedShowcaseAndReleaseCandidate",
+      "title": "Proved Showcase and Release Candidate",
+      "chair": "lum",
+      "creativeLead": "yume",
+      "requiredGoddesses": [
+        "urdDoctorGoddess",
+        "skuldResearch",
+        "belldandySecretary"
+      ],
+      "purpose": "assemble one exact proof-backed creative package for partner demonstration or public-release consideration without confusing presentation quality with evidence",
+      "roles": {
+        "urdDoctorGoddess": "evidenceRightsHealthAndContaminationAdjudication",
+        "skuldResearch": "runtimeFormatPlatformAndDeliveryCompatibility",
+        "belldandySecretary": "assetIdsHashesApprovalsReceiptsAndReleaseLedger",
+        "yume": "creativeDirectionPresentationAndDerivativeSelection",
+        "lum": "executiveReconciliationPartnerHandlingAndProfessorGate"
+      },
+      "output": "exactShowcaseOrPublishCandidate",
+      "publicGenerativeAiArtDefault": "FORBIDDEN_UNLESS_PROFESSOR_CHANGES_POLICY",
+      "mayPublish": false,
+      "crownRequiredForConsequentialPromotion": true,
+      "exit": "Professor approval plus all required external publication/runtime receipts, or explicit blocker"
+    }
+  ],
+  "parallelToTechnologyAudit": {
+    "technologyTier0": "technologyFastPath",
+    "technologyTier1": "forFuckSake",
+    "technologyTier2": "scorchedEarth",
+    "technologyTier3": "finalForm",
+    "law": "the ladders share escalation rhythm but not domain ownership"
+  },
+  "crownStatus": "STOP"
+}
