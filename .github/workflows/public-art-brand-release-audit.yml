@@ -19,6 +19,10 @@ on:
       - 'doctrine/huggingFaceSpecialistTrainerV1.json'
       - 'doctrine/godot4AssetEstateV1.json'
       - 'media/godot4-game-asset-estate.json'
+      - 'doctrine/FORGE_TWINS_V3.json'
+      - 'doctrine/godot4AssetArchitectureDecisionV1.json'
+      - 'media/godot4-asset-reconciliation-v1.json'
+      - 'doctrine/publicReleaseCastReadinessV1.json'
       - 'tools/publicArtBrandReleaseAudit.py'
       - '.github/workflows/public-art-brand-release-audit.yml'
   workflow_dispatch:
@@ -45,6 +49,13 @@ jobs:
           python3 -m json.tool doctrine/currentSourceTruthV3.json >/dev/null
           python3 -m json.tool doctrine/campaignLaunchKitV1.json >/dev/null
           python3 -m json.tool doctrine/pluginPublicationV2.json >/dev/null
+          python3 -m json.tool doctrine/huggingFaceSpecialistTrainerV1.json >/dev/null
+          python3 -m json.tool doctrine/godot4AssetEstateV1.json >/dev/null
+          python3 -m json.tool media/godot4-game-asset-estate.json >/dev/null
+          python3 -m json.tool doctrine/FORGE_TWINS_V3.json >/dev/null
+          python3 -m json.tool doctrine/godot4AssetArchitectureDecisionV1.json >/dev/null
+          python3 -m json.tool media/godot4-asset-reconciliation-v1.json >/dev/null
+          python3 -m json.tool doctrine/publicReleaseCastReadinessV1.json >/dev/null
           python3 -m py_compile tools/publicArtBrandReleaseAudit.py
       - name: Run public art brand release audit
         run: python3 tools/publicArtBrandReleaseAudit.py
