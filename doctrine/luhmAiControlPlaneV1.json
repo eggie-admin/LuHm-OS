@@ -26,7 +26,8 @@
     "huggingFaceSpecialistTrainer": "doctrine/huggingFaceSpecialistTrainerV1.json",
     "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json",
     "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
-    "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json"
+    "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json",
+    "corporatePanelMilestones": "doctrine/corporatePanelMilestonesV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -57,7 +58,10 @@
     "lumSupremeWitch": true,
     "lumOwnsCorporateLogistics": true,
     "urdDoctorDoesNotOwnCorporateLogistics": true,
-    "securityDiagnosisDoesNotGrantMutation": true
+    "securityDiagnosisDoesNotGrantMutation": true,
+    "providerTierDoesNotChangeAuthority": true,
+    "publicPrivateLaneTransferRequiresProof": true,
+    "antiDaddyExternalMappingRequiresProfessorSeal": true
   },
   "bossToolchain": {
     "states": [
@@ -885,5 +889,18 @@
     "providerOutputRequiresReconciliation": true,
     "exactSourceAndScopeRequiredForVerifiedLesson": true,
     "openingDayPromotionAuthority": false
+  },
+  "corporateAuthority": {
+    "founderCeo": "professorCrown",
+    "president": "lum",
+    "vicePresident": "urdDoctorGoddess",
+    "secretaryOfState": "belldandySecretary",
+    "headOfResearchAndDevelopment": "skuldResearch"
+  },
+  "providerEscalation": {
+    "default": "professorCrown",
+    "tierOne": "googleAi",
+    "tierTwo": "openAi",
+    "tierThree": "openSourceVendorCommunity"
   }
 }
