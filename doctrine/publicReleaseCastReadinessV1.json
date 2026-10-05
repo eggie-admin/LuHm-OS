@@ -1,0 +1,58 @@
+{
+  "schema": "luhmOs.publicReleaseCastReadiness.v1",
+  "status": "AMBER_PRE_CAST",
+  "authority": "Professor",
+  "sourceMain": "7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
+  "candidateBranch": "candidate/publicArtBrandReleaseReadiness-20261005",
+  "forgeContract": "doctrine/FORGE_TWINS_V3.json",
+  "sourceForge": "Tetsu",
+  "compileForge": "Kaji",
+  "reconciler": "lum",
+  "truthGuard": "urdDoctorGoddess",
+  "architecture": "skuldResearch",
+  "artDirection": "yume",
+  "records": "belldandySecretary",
+  "specialistTrainer": "huggingFace",
+  "intendedMilestone": "publicReleaseCandidate",
+  "castReady": false,
+  "exactCastSourceRef": "PENDING_FINAL_CANDIDATE_HEAD",
+  "proposedBuildScopes": [
+    "publicStaticSiteCandidate",
+    "publicPluginPackage",
+    "godotWebHarnessPreview",
+    "androidTestingCandidate",
+    "yumeCutsceneProof"
+  ],
+  "currentGates": {
+    "currentDoctrineAndRoleModel": "PROVED_ON_CANDIDATE_PENDING_LATEST_CI",
+    "publicArtInventory": "DISCOVERED_AUDIT_AND_APPROVAL_PENDING",
+    "godotAssetEstate": "AMBER_RECONCILIATION_IN_PROGRESS",
+    "architectureDecision": "PROPOSED_SKULD_RECOMMENDATION",
+    "tetsuCandidatePreparation": "IN_PROGRESS",
+    "staticEdgePlan": "PROPOSED_NO_LIVE_MUTATION",
+    "currentPluginPackage": "STALE_AFTER_CANDIDATE_CHANGES_REBUILD_REQUIRED",
+    "professorReview": "PENDING",
+    "singleUseCast": "NOT_YET_REQUESTABLE"
+  },
+  "blockingReasons": [
+    "public art assets used by release still need canonical IDs, hashes, provenance, lane eligibility, and Professor art approval",
+    "Godot asset estate still needs selected-asset reconciliation and current 4.7 import/runtime proof",
+    "final public package must be rebuilt from the final exact candidate head",
+    "Professor must review the exact candidate before CAST",
+    "each Kaji build scope requires its own explicit single-use CAST"
+  ],
+  "transitionToCastReadyRequires": [
+    "publicArtLedgerCandidateScopeGreen",
+    "godotAssetReconciliationGreen",
+    "skuldArchitectureAcceptedForCandidate",
+    "belldandyCandidateLedgerClosed",
+    "urdNoRedOrUnknownInBuildPayload",
+    "lumExactCandidateReconciled",
+    "candidateCiGreenAtExactHead",
+    "professorReviewApproved"
+  ],
+  "onReady": "set exactCastSourceRef to final candidate head and expose one exact CAST command for one build scope",
+  "releaseAuthority": false,
+  "publicationAuthority": false,
+  "crownStatus": "STOP"
+}
