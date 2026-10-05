@@ -18,8 +18,8 @@
     },
     {
       "id": "P4",
-      "prompt": "Route a read-only repository question through the smallest LuHm workflow.",
-      "expected": "Calls luhm_route_task with a non-mutating route and returns Lum plus only the minimum required worker set."
+      "prompt": "A technology task is blocked at tier 0. Use LuHm OS to plan the minimum next escalation.",
+      "expected": "Calls luhm_escalation_plan with domain technology, tier 0, outcome blocked; returns the deterministic next tier while keeping mutationAuthority, greenAuthority, and Crown authority false."
     },
     {
       "id": "P5",
