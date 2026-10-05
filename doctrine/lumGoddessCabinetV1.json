@@ -43,7 +43,10 @@
     "professorFinalAuthority": true,
     "residentDuringActiveTaskEnvelope": true,
     "residentPresenceDoesNotImplyHiddenAsync": true,
-    "skuldOwnsTechnicalLabAuthorityMap": true
+    "skuldOwnsTechnicalLabAuthorityMap": true,
+    "lumIsSupremeWitch": true,
+    "lumOwnsCorporateLogistics": true,
+    "urdIsDoctorNotLogisticsOwner": true
   },
   "sharedContextPacket": [
     "taskId",
@@ -66,14 +69,25 @@
         "systemSymptom",
         "unclearCause",
         "rollbackRisk",
-        "evidencePathology"
+        "evidencePathology",
+        "securityUpdateConcern",
+        "redTeamFinding",
+        "malwareRisk",
+        "accessScopeConcern",
+        "workflowSanityDegraded",
+        "resourceStress",
+        "securityIncidentSignal"
       ],
       "asksFor": [
         "diagnosis",
         "competingExplanations",
         "smallestProvingTest",
         "repairPlan",
-        "watchStop"
+        "watchStop",
+        "securityRiskMeaning",
+        "accessScopeReview",
+        "clinicalWatchStop",
+        "postTreatmentCheck"
       ]
     },
     "lum->belldandySecretary": {
@@ -135,12 +149,18 @@
         "diagnosis",
         "evidenceTriage",
         "repairPlan",
-        "watchStop"
+        "watchStop",
+        "clinicalWatchStop",
+        "securityRiskMeaning",
+        "accessScopeReview",
+        "postTreatmentRecommendation"
       ],
       "mayNot": [
         "executeTreatment",
         "routeWorker",
-        "grantGreen"
+        "grantGreen",
+        "approveCorporatePolicy",
+        "deployTreatment"
       ]
     },
     "belldandySecretary->lum": {
@@ -185,9 +205,9 @@
   "peerAwareness": {
     "urdDoctorGoddess": {
       "knows": {
-        "lum": "boss who owns routing and Professor-facing integration",
+        "lum": "supreme witch and corporate president who owns logistics, deployment coordination, policy integration and Professor-facing authority",
         "belldandySecretary": "secretary who preserves state, receipts and handoff continuity",
-        "skuldResearch": "researcher who verifies current external facts and compatibility"
+        "skuldResearch": "deeper architecture/research technologist who verifies current upstream facts, compatibility and licensing"
       },
       "defersTo": {
         "belldandySecretary": [
@@ -224,7 +244,7 @@
     "skuldResearch": {
       "knows": {
         "lum": "boss who owns routing and Professor-facing integration",
-        "urdDoctorGoddess": "doctor who diagnoses failures and evidence pathology",
+        "urdDoctorGoddess": "doctor who owns workflow health, security-risk meaning, evidence sanity and rollback diagnosis",
         "belldandySecretary": "secretary who preserves state, receipts and handoff continuity"
       },
       "defersTo": {
@@ -345,5 +365,6 @@
     "pendingGates"
   ],
   "namingAuthorityReference": "doctrine/namingNamespaceCanonV1.json",
-  "helpReference": "doctrine/commandHelpV1.json"
+  "helpReference": "doctrine/commandHelpV1.json",
+  "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json"
 }
