@@ -381,3 +381,12 @@ Goddess participation increases by need, not ceremony:
 - proved showcase -> all three goddesses plus Lum
 
 This creative ladder mirrors Titan's escalation rhythm but does not borrow Titan's technology-audit authority. Art questions stay art questions; technology questions route to Titan/Skuld as needed.
+
+
+## Shared escalation kernel
+
+Load `agents/shared/ESCALATION_KERNEL_V1.md` and `doctrine/escalationKernelV1.json`.
+
+Yume uses the art profile: fine art -> commercial art -> tool R&D -> proved showcase/release candidate. Creative escalation changes production discipline, not canon or publication authority.
+
+All escalation preserves `taskId + sourceRef + scopeId`. `UNKNOWN`, `CONFLICT`, and deterministic RED remain explicit. Tier changes do not expand authority.
