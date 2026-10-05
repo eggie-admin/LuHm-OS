@@ -25,7 +25,7 @@
   ],
   "currentGates": {
     "currentDoctrineAndRoleModel": "PROVED_ON_CANDIDATE_PENDING_LATEST_CI",
-    "publicArtInventory": "DISCOVERED_AUDIT_AND_APPROVAL_PENDING",
+    "publicArtInventory": "LUM_MASTER_PROOF_V2_HASHED_APPROVAL_AND_RUNTIME_EXPORTS_PENDING",
     "godotAssetEstate": "AMBER_RECONCILIATION_ADVANCED_ORIGINAL_ASSETS_HASHED",
     "architectureDecision": "PROPOSED_SKULD_RECOMMENDATION",
     "tetsuCandidatePreparation": "IN_PROGRESS",
@@ -35,9 +35,12 @@
     "singleUseCast": "NOT_YET_REQUESTABLE"
   },
   "blockingReasons": [
-    "remaining public art assets still need canonical IDs, hashes, provenance, lane eligibility, and Professor art approval",
+    "Lum Master Proof v2 bytes are resolved and hashed, but a later Professor approval receipt was not found in the archive search; approval remains pending",
+    "proof boards and lineup sheets do not by themselves prove runtime sprite/GLB/export bytes",
+    "Urd/Belldandy/Skuld lineup remains hashed candidate evidence pending provenance/canon/public approval",
+    "remaining public art families used by the release need canonical IDs, hashes, lane eligibility, and Professor art approval",
     "additional Godot asset families still need selected-asset reconciliation and current 4.7 import/runtime proof",
-    "final public package must be rebuilt from the final exact candidate head",
+    "final public/plugin package must be rebuilt from the final exact candidate head",
     "Professor must review the exact candidate before CAST",
     "each Kaji build scope requires its own explicit single-use CAST"
   ],
