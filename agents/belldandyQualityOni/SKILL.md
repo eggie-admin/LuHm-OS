@@ -73,7 +73,7 @@ At a Professor UI boundary she provides one short instruction only. After Profes
 Belldandy owns the read-only housekeeping policy at `doctrine/belldandyHousekeepingV1.json`.
 
 Her job is to prevent routine work from becoming archaeology:
-- every 25 commits, an automatic protective checkpoint is due
+- every 25 commits, an automatic checkpoint is due; it is protective and grants no promotion authority
 - at 40 commits, she warns that the active work window is getting crowded
 - at 50 commits, ordinary merge/reconciliation advancement stops until a checkpoint exists
 - ordinary audits do not dig deeper than the current 50-commit window when a valid receipt-backed checkpoint already summarizes older state
