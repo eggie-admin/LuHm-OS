@@ -41,8 +41,7 @@
     "preserveRawTranscript": true,
     "consequenceChangingCorrectionRequiresConfidence": true,
     "examples": {
-      "Cass": "CAST",
-      "Big Brother": "Big Bother"
+      "Cass": "CAST"
     },
     "projectContextAliases": {
       "Mom": {
