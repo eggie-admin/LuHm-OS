@@ -1,0 +1,92 @@
+{
+  "schema": "luhmOs.godot4GameAssetEstateLedger.v1",
+  "status": "DISCOVERED_INVENTORY_AUDIT_PENDING",
+  "sourceRef": "7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
+  "authority": "Professor",
+  "contract": "doctrine/godot4AssetEstateV1.json",
+  "privacyLaw": "Private Drive IDs are omitted from public doctrine; logical names and verified hashes/receipts are stored when reconciled.",
+  "observedDriveRoots": [
+    {
+      "name": "LUHM_GODOT4_ASSET_NEXUS",
+      "state": "DISCOVERED",
+      "role": "eligibilityAndPromotionStaging"
+    },
+    {
+      "name": "Godot4 • PRIVATE ASSET VAULT",
+      "state": "DISCOVERED",
+      "role": "protectedOriginalOpenLicenseAndPrivateReferenceStorage"
+    },
+    {
+      "name": "Godot4",
+      "state": "DISCOVERED_LEGACY_WORKING_ESTATE",
+      "role": "historicalWorkingAssetsAndBundles"
+    },
+    {
+      "name": "godot-assets",
+      "state": "DISCOVERED",
+      "role": "olderGodotAssetBundleStorage"
+    }
+  ],
+  "nexusLanes": {
+    "00_INCOMING_QUARANTINE": "DISCOVERED",
+    "10_LICENSE_RECEIPTS": "DISCOVERED",
+    "20_APPROVED_OPEN_ASSETS": "DISCOVERED",
+    "30_GODOT_IMPORT_TESTED": "DISCOVERED_TOP_LEVEL_EMPTY",
+    "40_GAME_READY": "DISCOVERED"
+  },
+  "privateVaultClasses": {
+    "LuHm OS • Original": "DISCOVERED",
+    "SOURCE_OF_TRUTH": "DISCOVERED_REFERENCE_ONLY_UNTIL_RECONCILED_WITH_CURRENT_GITHUB",
+    "COMMUNITY_OPEN_LICENSE": "DISCOVERED_RIGHTS_AUDIT_REQUIRED",
+    "THIRD_PARTY_PRIVATE_REFERENCE": "DISCOVERED_QUARANTINE_ONLY",
+    "community-assets": "DISCOVERED_RIGHTS_AUDIT_REQUIRED"
+  },
+  "knownFamilies": {
+    "characters": [
+      "Lum",
+      "Urd",
+      "Belldandy",
+      "Skuld",
+      "Professor/Big Daddy"
+    ],
+    "environments": [
+      "Crown Cathedral",
+      "JRPG Dating Cathedral",
+      "cockpit",
+      "dungeon/world concepts"
+    ],
+    "models": [
+      "Godot/GLB/USDZ and archived model bundles"
+    ],
+    "animation": [
+      "character animation sheets",
+      "animated Lum avatar",
+      "rig/animation donor bundles"
+    ],
+    "materials": [
+      "PBR/texture-direction targets; actual reconciled map inventory pending"
+    ],
+    "ui": [
+      "cockpit interface",
+      "Godot UI mockups",
+      "icons/rewards",
+      "loading/field-manual cards"
+    ],
+    "cutscenes": [
+      "repo cutscene manifests",
+      "Drive cyber-pirate/final-boss/date-night media donors"
+    ],
+    "audio": [
+      "Drive Godot4/audio tree discovered; detailed reconciliation pending"
+    ],
+    "plugins": [
+      "GitHub addons + plugin census are canonical research surface; Drive addons lane separately discovered"
+    ],
+    "scripts": [
+      "Drive Godot4 scripts/zips discovered; canonical executable source remains GitHub"
+    ]
+  },
+  "candidateScopeState": "AMBER_ASSET_ESTATE_DISCOVERED_RECONCILIATION_REQUIRED",
+  "publicationAuthority": false,
+  "crownStatus": "STOP"
+}
