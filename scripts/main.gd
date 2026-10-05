@@ -13,6 +13,13 @@ const OniEchoCompanionScript := preload("res://scripts/game/oniEchoCompanion.gd"
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
 const FIRST_NIGHT_QUEST_PATH := "res://game/story/firstNightQuest.json"
 const INTERACTION_RANGE := 2.8
+const LUM_BANTER := [
+    "Lum: Pick a door, Professor. Coffee is hot; architecture is questionable. ♡",
+    "Lum: You wanted the fun part. Good. The Riverwalk is right there. Go poke the weird glowing thing.",
+    "Lum: Tiny JRPG rule: if something sparkles, somebody made it your problem.",
+    "Lum: Cathedral is behaving. Coffee House is behaving less. I consider this balanced.",
+    "Lum: No architecture lecture. Pinky swear. Move your little guy around and make trouble."
+]
 
 var neon_world: Node3D
 var active_world: Node3D
@@ -29,6 +36,7 @@ var android_web3_plugin = null
 var android_web3_version := "unavailable"
 var active_oni_beacon: Area3D
 var active_oni_companion: Node3D
+var lum_banter_index := 0
 
 func _ready() -> void:
     _build_runtime()
@@ -79,7 +87,7 @@ func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
     game_hud.backend_requested.connect(_enter_backend)
     game_hud.world_destination_requested.connect(switchWorld)
-    game_hud.lum_talk_requested.connect(game_hud.show_dialogue.bind("Lum: Pick a door, Professor. Coffee is hot; architecture is questionable. ♡"))
+    game_hud.lum_talk_requested.connect(_on_lum_talk_requested)
     game_hud.interact_requested.connect(_interact)
     game_hud.move_axis_changed.connect(player_controller.set_touch_axis)
 
@@ -88,6 +96,12 @@ func _wire_runtime() -> void:
     game_hud.set_fast_travel_enabled(false)
     if not quest_director.load_quest(FIRST_NIGHT_QUEST_PATH):
         game_hud.set_status("QUEST SOURCE · UNAVAILABLE")
+
+func _on_lum_talk_requested() -> void:
+    if game_hud == null or LUM_BANTER.is_empty():
+        return
+    game_hud.show_dialogue(str(LUM_BANTER[lum_banter_index % LUM_BANTER.size()]))
+    lum_banter_index = (lum_banter_index + 1) % LUM_BANTER.size()
 
 func _wire_android_web3() -> void:
     if OS.get_name() != "Android":
