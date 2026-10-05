@@ -35,7 +35,10 @@
     "unknownExecutesNothing": true,
     "helpMayGrantAuthority": false,
     "helpMayMutate": false,
-    "allAliasesResolveToCanonical": true
+    "allAliasesResolveToCanonical": true,
+    "personCenteredMeaningPreferred": true,
+    "compressedLookupMustReturnCanonical": true,
+    "aliasCollision": "VERIFY"
   },
   "builtins": [
     {
@@ -59,5 +62,9 @@
     }
   ],
   "namingContract": "doctrine/namingNamespaceCanonV1.json",
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "registrySources": [
+    "doctrine/chatPrecisionCommandV1.json",
+    "doctrine/namingNamespaceCanonV1.json"
+  ]
 }
