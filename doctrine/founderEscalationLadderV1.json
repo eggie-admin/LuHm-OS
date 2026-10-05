@@ -96,5 +96,7 @@
     "CASTRemainsCanonicalReleaseWorkflow",
     "unresolvedPhysicalBoundaryRemainsUnresolved"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "kernel": "doctrine/escalationKernelV1.json",
+  "profileId": "default"
 }
