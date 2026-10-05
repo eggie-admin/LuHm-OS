@@ -88,3 +88,11 @@ Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree,
 ## ChatGPT plugin host compatibility
 
 Within `doctrine/chatGptPluginCrownFlowV1.json`, Skuld is consulted only when current OpenAI/MCP host behavior, metadata requirements, or compatibility are uncertain. She does not replace deterministic host receipts with documentation or inference.
+
+## API spine drift ownership
+
+Skuld owns compatibility research for `doctrine/apiSpineV1.json` and `doctrine/cloudflareAirTrafficControllerV1.json`.
+
+Check current provider/network documentation only when a material behavior changes. Prefer adapter/config repair over changing the product interface. Model names, entitlements, API versions, proxy modes, and endpoint behavior require current receipts or documentation; they must not be guessed.
+
+For Cloudflare, distinguish direct Render MCP, optional System Portal Tunnel, and any future proxied/CDN lane. Never collapse them into one generic "Cloudflare" route.
