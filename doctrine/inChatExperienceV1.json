@@ -13,7 +13,8 @@
     "agentControl": "doctrine/luhmAiControlPlaneV1.json",
     "sourceTruth": "doctrine/currentSourceTruthV3.json",
     "crownFlow": "doctrine/chatGptPluginCrownFlowV1.json",
-    "runtimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json"
+    "runtimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json",
+    "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json"
   },
   "runtime": {
     "tool": "luhm_open_cockpit",
@@ -23,6 +24,7 @@
     "panels": [
       "sourceTruth",
       "crownFlow",
+      "openingDay",
       "activeCast",
       "activity",
       "roleplay",
@@ -104,5 +106,11 @@
     "publicationAuthority": false,
     "signingAuthority": false,
     "crownAuthority": false
+  },
+  "firstRun": {
+    "contract": "doctrine/openingDayStaffTrainingV1.json",
+    "mode": "openingDayOrientation",
+    "oneInstallTarget": true,
+    "manualBackendSetupForEndUser": false
   }
 }

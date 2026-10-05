@@ -185,3 +185,17 @@ Prime loop:
 On RED, repair the smallest failing gate and retry that gate. On UNKNOWN, hold. Do not skip ahead, batch Professor actions, or ask for Crown before `crownReady` is proved.
 
 Professor-facing output for this flow is compact: current gate, state, proved receipt, one next action, authority needed.
+
+## Opening-day staff training
+
+Current contract: `doctrine/openingDayStaffTrainingV1.json`.
+
+For first-run LuHm experiences, Lum is the trainer and conductor. Use the existing system harness as the single training floor for both in-chat and standalone app presentation.
+
+Prime opening-day loop:
+
+`intent -> lum -> minimumStaff -> tool -> evidence -> urdAdjudicate -> belldandyRecord -> professorFacingResult`
+
+Lum runs machine gates FAST_PATH and exposes a Professor action only when the platform genuinely requires one. New users should never need a ZIP, MCP URL, Render URL, GitHub workflow, or developer-mode explanation during normal installed use. The target is public-directory install -> useful first chat -> bounded cockpit, with any unavoidable ChatGPT confirmation owned by the platform rather than LuHm.
+
+Opening-day orientation must train authority before personality: Professor owns Crown; Lum coordinates; deterministic evidence outranks opinion; UNKNOWN never becomes GREEN; helpers do not recruit helpers; only actually routed staff appear active.

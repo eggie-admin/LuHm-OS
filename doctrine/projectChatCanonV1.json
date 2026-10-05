@@ -40,7 +40,8 @@
     "doctrine/chatActivityPresentationV1.json",
     "doctrine/codingRoleplayDirectorV2.json",
     "doctrine/chatGptPluginCrownFlowV1.json",
-    "doctrine/chatGptPluginRuntimeReceiptV1.json"
+    "doctrine/chatGptPluginRuntimeReceiptV1.json",
+    "doctrine/openingDayStaffTrainingV1.json"
   ],
   "alwaysLoadedCore": {
     "sourceTruth": "doctrine/currentSourceTruthV3.json",
@@ -58,7 +59,8 @@
     "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
     "humanCenteredIntentRouter": "doctrine/humanCenteredIntentRouterV2.json",
     "chatGptPluginCrownFlow": "doctrine/chatGptPluginCrownFlowV1.json",
-    "chatGptPluginRuntimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json"
+    "chatGptPluginRuntimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json",
+    "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -118,7 +120,8 @@
     "activityPresentation": "doctrine/chatActivityPresentationV1.json",
     "codingRoleplayDirector": "doctrine/codingRoleplayDirectorV2.json",
     "operationTitan7ChatTrigger": "doctrine/operationTitan7ChatTriggerV2.json",
-    "professorOldMagicStudy": "doctrine/professorOldMagicStudyMeshV2.json"
+    "professorOldMagicStudy": "doctrine/professorOldMagicStudyMeshV2.json",
+    "openingDayFirstRun": true
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,

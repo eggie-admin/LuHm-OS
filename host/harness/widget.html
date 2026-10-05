@@ -31,13 +31,15 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <div class="card"><div class="k">oni roster</div><div class="v cyan" id="roster">loading…</div></div>
 <div class="card"><div class="k">in-chat schema</div><div class="v cyan" id="experienceSchema">loading…</div></div>
 <div class="card"><div class="k">experience panels</div><div class="v" id="experiencePanels">loading…</div></div>
+<div class="card"><div class="k">opening day</div><div class="v green" id="openingDay">loading…</div></div>
+<div class="card"><div class="k">install model</div><div class="v cyan" id="installModel">loading…</div></div>
 <div class="card"><div class="k">crown gate</div><div class="v amber" id="crownGate">loading…</div></div>
 <div class="card"><div class="k">next action</div><div class="v" id="crownAction">loading…</div></div>
 <div class="card"><div class="k">godot web</div><div class="v" id="godot">Full harness owns the Godot 4 viewer.</div></div>
 </section>
 <section class="commandDeck">
 <div class="k">command capsule</div>
-<pre id="commandText">C ➡️🌐🔌👹🎮</pre>
+<pre id="commandText">FAST_PATH ✔️➡️🟢👑👹⛪</pre>
 <div class="commandActions">
 <button id="copyCommand" type="button">▣ Copy</button>
 <button id="selectCommand" type="button">⌖ Select</button>
@@ -63,6 +65,9 @@ function render(data){
   $("experienceSchema").textContent=experience?.schema||"UNKNOWN";
   const panels=experience?.runtime?.panels||[];
   $("experiencePanels").textContent=panels.length?panels.join(" · "):"UNKNOWN";
+  const opening=payload?.openingDay||{};
+  $("openingDay").textContent=(opening?.status||"UNKNOWN")+" · trainer "+(opening?.trainer||"UNKNOWN");
+  $("installModel").textContent=(opening?.installModel?.target||"UNKNOWN")+" · manual MCP "+String(opening?.installModel?.endUserManualMcpUrlRequired ?? "UNKNOWN");
   const flow=payload?.crownFlow||{};
   $("crownGate").textContent=(flow?.transitionLogic?.currentGate||"UNKNOWN")+" · "+(flow?.status||"UNKNOWN");
   const current=(flow?.gates||[]).find(x=>x.id===flow?.transitionLogic?.currentGate);
@@ -75,7 +80,7 @@ function render(data){
     openai.setOpenInAppUrl({href:origin+"/harness/"});
   }
 }
-const command="C ➡️🌐🔌👹🎮";
+const command="FAST_PATH ✔️➡️🟢👑👹⛪";
 function sendFollowUp(message){const api=window.openai;if(api?.sendFollowUpMessage)return api.sendFollowUpMessage({prompt:message});return request("ui/message",{role:"user",content:[{type:"text",text:message}]})}
 function selectCommand(){const el=$("commandText"),range=document.createRange();range.selectNodeContents(el);const sel=getSelection();sel.removeAllRanges();sel.addRange(range)}
 async function copyCommand(){selectCommand();try{if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(command);else document.execCommand?.("copy");$("copyCommand").textContent="✓ Copied"}catch(_){$("copyCommand").textContent="⌖ Selected"}}
