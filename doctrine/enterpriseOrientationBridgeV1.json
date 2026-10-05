@@ -74,7 +74,7 @@
       ]
     },
     "urdDoctorGoddess": {
-      "title": "doctorClinicalSecuritySanityAndEvidence",
+      "title": "doctorLogisticsAndEvidenceAdjudication",
       "teaches": [
         "systemHealth",
         "workflowSanity",
@@ -87,7 +87,11 @@
         "postTreatmentVerification"
       ],
       "practice": "doctrine/urdClinicalSecurityPracticeV1.json",
-      "supremeWitch": false
+      "supremeWitch": false,
+      "canonicalTitle": "doctorClinicalSecuritySanityAndEvidence",
+      "legacyTitleCompatibilityOnly": true,
+      "logisticsOwner": "lum",
+      "urdOwnsCorporateLogistics": false
     },
     "belldandySecretary": {
       "title": "secretaryStateAndEnterpriseReadiness",
