@@ -33,6 +33,8 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <div class="card"><div class="k">experience panels</div><div class="v" id="experiencePanels">loading…</div></div>
 <div class="card"><div class="k">opening day</div><div class="v green" id="openingDay">loading…</div></div>
 <div class="card"><div class="k">install model</div><div class="v cyan" id="installModel">loading…</div></div>
+<div class="card"><div class="k">api spine</div><div class="v green" id="apiSpine">loading…</div></div>
+<div class="card"><div class="k">air traffic</div><div class="v cyan" id="airTraffic">loading…</div></div>
 <div class="card"><div class="k">crown gate</div><div class="v amber" id="crownGate">loading…</div></div>
 <div class="card"><div class="k">next action</div><div class="v" id="crownAction">loading…</div></div>
 <div class="card"><div class="k">godot web</div><div class="v" id="godot">Full harness owns the Godot 4 viewer.</div></div>
@@ -68,6 +70,11 @@ function render(data){
   const opening=payload?.openingDay||{};
   $("openingDay").textContent=(opening?.status||"UNKNOWN")+" · trainer "+(opening?.trainer||"UNKNOWN");
   $("installModel").textContent=(opening?.installModel?.target||"UNKNOWN")+" · manual MCP "+String(opening?.installModel?.endUserManualMcpUrlRequired ?? "UNKNOWN");
+  const spine=payload?.apiSpine||{};
+  $("apiSpine").textContent=(spine?.status||"UNKNOWN")+" · "+(spine?.routing?.principle||"UNKNOWN")+" · "+Object.keys(spine?.providers||{}).length+" adapters";
+  const traffic=payload?.trafficController||{};
+  const mcpLane=traffic?.lanes?.publicChatPluginMcp||{};
+  $("airTraffic").textContent=(traffic?.role||"UNKNOWN")+" · MCP "+(mcpLane?.currentTrafficPath||"UNKNOWN");
   const flow=payload?.crownFlow||{};
   $("crownGate").textContent=(flow?.transitionLogic?.currentGate||"UNKNOWN")+" · "+(flow?.status||"UNKNOWN");
   const current=(flow?.gates||[]).find(x=>x.id===flow?.transitionLogic?.currentGate);
@@ -84,7 +91,7 @@ const command="FAST_PATH ✔️➡️🟢👑👹⛪";
 function sendFollowUp(message){const api=window.openai;if(api?.sendFollowUpMessage)return api.sendFollowUpMessage({prompt:message});return request("ui/message",{role:"user",content:[{type:"text",text:message}]})}
 function selectCommand(){const el=$("commandText"),range=document.createRange();range.selectNodeContents(el);const sel=getSelection();sel.removeAllRanges();sel.addRange(range)}
 async function copyCommand(){selectCommand();try{if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(command);else document.execCommand?.("copy");$("copyCommand").textContent="✓ Copied"}catch(_){$("copyCommand").textContent="⌖ Selected"}}
-function renderNetworkTruth(){const origin=latest?.harness?.publicOrigin||"VERIFY";const rows={fqdn:origin,dns:"VERIFY",cname:"VERIFY",https:origin.startsWith?.("https://")?"PRESENT":"VERIFY",tls:"VERIFY",cloudflare:"VERIFY",staticAssets:"PRESENT",csp:"PRESENT",renderOrigin:origin.includes?.("onrender.com")?"PRESENT":"VERIFY",mcp:"PRESENT",sourceSha:latest?.status?.sourceTruthSha||latest?.status?.sourceSha||"VERIFY"};const box=$("networkTruth");box.textContent="";for(const [k,v] of Object.entries(rows)){const x=document.createElement("span");x.className=v==="PRESENT"?"ok":"verify";x.textContent=k+": "+v;box.appendChild(x)}}
+function renderNetworkTruth(){const origin=latest?.harness?.publicOrigin||"VERIFY";const traffic=latest?.trafficController||{};const lane=traffic?.lanes?.publicChatPluginMcp||{};const rows={fqdn:origin,dns:lane?.customFqdnMode||"VERIFY",cname:lane?.bootstrapRecord?.target||"VERIFY",https:origin.startsWith?.("https://")?"PRESENT":"VERIFY",tls:lane?.tlsTermination||"VERIFY",cloudflare:traffic?.status||"VERIFY",staticAssets:"PRESENT",csp:"PRESENT",renderOrigin:origin.includes?.("onrender.com")?"PRESENT":"VERIFY",mcp:lane?.currentEndpoint||"VERIFY",sourceSha:latest?.status?.sourceTruthSha||latest?.status?.sourceSha||"VERIFY"};const box=$("networkTruth");box.textContent="";for(const [k,v] of Object.entries(rows)){const x=document.createElement("span");x.className=v==="PRESENT"?"ok":"verify";x.textContent=k+": "+v;box.appendChild(x)}}
 function wireCommands(){ $("copyCommand").onclick=copyCommand;$("selectCommand").onclick=selectCommand;$("explainCommand").onclick=()=>sendFollowUp("Explain "+command+" using current LuHm doctrine.");$("sendCommand").onclick=()=>sendFollowUp(command);$("debugCommand").onclick=()=>sendFollowUp("DEBUG "+command+" using Witching Hour evidence reconciliation. Do not mutate unless a bounded repair is proven necessary.");renderNetworkTruth()}
 function request(method,params){const id=++rpcId;window.parent.postMessage({jsonrpc:"2.0",id,method,params},"*");return new Promise((resolve,reject)=>pending.set(id,{resolve,reject}))}
 function notify(method,params){window.parent.postMessage({jsonrpc:"2.0",method,params},"*")}
