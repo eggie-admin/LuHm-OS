@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "luhm-os",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Evidence-gated LuHm OS workflow with Lum/Oni routing, proof inspection, and read-only MCP-backed ChatGPT plugin support.",
   "author": {
     "name": "Eggie Bagelface",
@@ -24,7 +24,7 @@
       "interface": {
         "displayName": "LuHm OS",
         "shortDescription": "Evidence-gated dev cockpit",
-        "longDescription": "Use Lum as the single orchestrator for bounded read-only Oni workflows, exact-source inspection, Belldandy housekeeping/checkpoint status, proof-aware state, and scope validation without granting merge, release, signing, or publication authority to the plugin.",
+        "longDescription": "Use Lum as the single orchestrator for bounded read-only Oni workflows, exact-source inspection, Belldandy housekeeping and dictation continuity, person-centered naming/help recovery, proof-aware state, and scope validation without granting merge, release, signing, or publication authority to the plugin.",
         "developerName": "Eggie Bagelface",
         "category": "Developer Tools",
         "capabilities": [
@@ -41,7 +41,8 @@
           "Use LuHm OS to inspect the current source truth and explain what is actually proven.",
           "Use LuHm OS to list the Lum and Oni roles and their current bounded capabilities.",
           "Open the LuHm OS in-chat cockpit and show its current experience contract.",
-          "Ask Belldandy for the current housekeeping window and checkpoint status."
+          "Ask Belldandy for the current housekeeping window and checkpoint status.",
+          "Use LuHm OS help to explain what BUILD, build-candidate, or buildCandidate means before doing anything."
         ]
       },
       "review": {
@@ -102,7 +103,7 @@
         "commerce": false
       },
       "publication": {
-        "release_notes": "LuHm OS 0.4.2 adds a read-only Belldandy housekeeping view with receipt-backed 25/40/50 commit-window reporting. Automatic protective snapshot creation remains a repository workflow; the public plugin retains read-only authority."
+        "release_notes": "LuHm OS 0.4.3 adds read-only person-centered naming help, Belldandy secretary dictation hardening with Koe/Fumi/Kugi boundaries, and resident Urd/Belldandy/Skuld packet reconciliation. The public plugin remains read-only and Crown-gated."
       }
     }
   }
