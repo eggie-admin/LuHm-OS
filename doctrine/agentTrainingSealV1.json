@@ -48,7 +48,10 @@
     "provider output is not proof until reconciled",
     "the everlasting covenant guard rail is inherited",
     "all delegated work remains source and scope bound",
-    "Urd carries deterministic evidence adjudication formerly held by the DrNao legacy agent"
+    "Urd carries deterministic evidence adjudication formerly held by the DrNao legacy agent",
+    "Belldandy enforces the receipt-backed 50-commit housekeeping window without widening authority",
+    "automatic protective checkpoint requests route through Kugi instead of granting Belldandy mutation authority",
+    "ordinary audits prefer current checkpoint receipts over rescanning older history"
   ],
   "trainingState": {
     "roleTeaching": "completeCandidate",
@@ -58,7 +61,8 @@
     "stopConditionTeaching": "completeCandidate",
     "covenantTeaching": "completeCandidate",
     "deterministicAuditRequired": true,
-    "portableDeploymentTeaching": "completeCandidate"
+    "portableDeploymentTeaching": "completeCandidate",
+    "housekeepingTeaching": "completeCandidate"
   },
   "promotionLaw": {
     "ciGreenMeans": "training contract is internally consistent for the exact candidate source",
@@ -83,5 +87,6 @@
   },
   "deploymentContract": "doctrine/agentSystemDeploymentV1.json",
   "trainingReadyForPortableDeployment": true,
-  "trainingReadyDoesNotMeanLiveProviderDeployment": true
+  "trainingReadyDoesNotMeanLiveProviderDeployment": true,
+  "housekeepingContract": "doctrine/belldandyHousekeepingV1.json"
 }

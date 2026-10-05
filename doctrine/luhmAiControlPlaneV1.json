@@ -21,7 +21,8 @@
     "vendorAiDebug": "doctrine/vendorAiDebugV1.json",
     "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json",
     "apiSpine": "doctrine/apiSpineV1.json",
-    "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json"
+    "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "belldandyHousekeeping": "doctrine/belldandyHousekeepingV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -278,12 +279,20 @@
         "stateLedger",
         "evidenceIndex",
         "handoffLedger",
-        "unificationPlan"
+        "unificationPlan",
+        "housekeepingWindow",
+        "snapshotPlanning",
+        "prRunReconciliation",
+        "doctrineSweep"
       ],
       "forbidden": [
         "mutate",
         "execute",
-        "selfApprove"
+        "selfApprove",
+        "merge",
+        "deleteBranch",
+        "closePr",
+        "rewriteHistory"
       ],
       "parallelClass": "support",
       "speaksTo": "lum",

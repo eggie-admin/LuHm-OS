@@ -163,7 +163,8 @@
     "openAiDeployment": "doctrine/openAiDeploymentV3.json",
     "apiSpine": "doctrine/apiSpineV1.json",
     "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
-    "capabilityResolverTool": "luhm_resolve_capability"
+    "capabilityResolverTool": "luhm_resolve_capability",
+    "housekeepingStatusTool": "luhm_housekeeping_status"
   },
   "contentLanes": {
     "contract": "doctrine/contentLaneDoctrineV1.json"
@@ -233,7 +234,8 @@
     "crownStatus": "STOP",
     "deploymentVisualContract": "host/harness/agent-loading-sprites.json#deploymentVisuals",
     "deploymentVisualLaw": "approved Oni artwork identifies deployment lanes; textual state carries IDLE/WORKING/VERIFY/PASS/BLOCKED; color-to-role semantics remain unbound until explicit doctrine assignment",
-    "genericGreenEmojiDeploymentIdentity": false
+    "genericGreenEmojiDeploymentIdentity": false,
+    "housekeeping": "doctrine/belldandyHousekeepingV1.json"
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
@@ -308,5 +310,19 @@
     "currentPublicPluginMcpPath": "directRenderManagedTls",
     "customFqdn": "PENDING_OPTIONAL",
     "liveDnsMutation": "CROWN_GATED"
+  },
+  "housekeepingLayer": {
+    "contract": "doctrine/belldandyHousekeepingV1.json",
+    "owner": "belldandySecretary",
+    "pluginSkill": "plugins/luhm-os/skills/belldandy-housekeeping/SKILL.md",
+    "mcpStatusTool": "luhm_housekeeping_status",
+    "automaticCheckpointEveryCommits": 25,
+    "warningAtCommits": 40,
+    "hardStopAtCommits": 50,
+    "defaultHistoricalAuditMaxCommits": 50,
+    "automaticMerge": false,
+    "automaticDelete": false,
+    "status": "PROPOSED_SOURCE_ONLY",
+    "crownStatus": "STOP"
   }
 }

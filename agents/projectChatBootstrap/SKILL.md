@@ -30,12 +30,13 @@ Do not wait for the user to say "load doctrine" if the request is clearly projec
 3. `loadSourceTruth`
 4. `loadCoreChatCanon`
 5. `attachMonitoringMiniAgents`
-6. `resolveActiveMilestone`
-7. `routeMinimumSpecialists`
-8. `performRequestedWork`
-9. `verifySameSourceRef`
-10. `reportCompactState`
-11. `crownStopWhenRequired`
+6. `belldandyHousekeepingCheck`
+7. `resolveActiveMilestone`
+8. `routeMinimumSpecialists`
+9. `performRequestedWork`
+10. `verifySameSourceRef`
+11. `reportCompactState`
+12. `crownStopWhenRequired`
 
 ## Always-loaded core
 
@@ -183,3 +184,16 @@ Use `doctrine/humanCenteredIntentRouterV2.json` before choosing a workflow for a
 Use `doctrine/chatActivityPresentationV1.json` and `doctrine/codingRoleplayDirectorV2.json` for compact visible activity and roleplay presentation. Presentation never establishes GREEN or authority.
 
 OperationTitan7 phrase routing is `doctrine/operationTitan7ChatTriggerV2.json`: `FFS!` / `forFuckSake` is the 25-pass tier, `Scorched Earth` is the 50-pass tier, and `Final Form` is structural reconciliation. None of these phrases imply CAST, merge, deploy, publication, signing, or Crown.
+
+
+## Belldandy housekeeping window
+
+Load `doctrine/belldandyHousekeepingV1.json` during project startup and before consequential mutation, doctrine reconciliation, or a handoff.
+
+Belldandy checks the nearest receipt-backed checkpoint and commit distance:
+- 25 commits -> protective checkpoint due
+- 40 commits -> compact warning
+- 50 commits -> ordinary workflow STOP until checkpoint/reconciliation
+- default historical audit window -> at most 50 commits
+
+Do not re-audit hundreds of old commits merely because the active lane became messy. Valid older checkpoint receipts summarize prior state unless evidence conflicts or Professor explicitly requests a deeper OperationTitan7 pass.

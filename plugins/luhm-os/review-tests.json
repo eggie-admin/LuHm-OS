@@ -3,8 +3,8 @@
   "positive": [
     {
       "id": "P1",
-      "prompt": "Use LuHm OS to show the current source-truth status.",
-      "expected": "Calls luhm_status once, reports only returned status/gates, and does not claim promotion authority."
+      "prompt": "Use LuHm OS to show the current source-truth status and ask Belldandy whether the housekeeping checkpoint window is clean.",
+      "expected": "Calls luhm_status and luhm_housekeeping_status, reports only returned status/checkpoint evidence, and does not claim promotion or mutation authority."
     },
     {
       "id": "P2",
