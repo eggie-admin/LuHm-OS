@@ -169,3 +169,9 @@ If a lane detects material drift it returns `watchStop` with evidence and the sm
 The watch loop ends when the active task envelope closes, reaches its stop condition, or Professor stops the work.
 
 Professor retains Crown.
+
+## API spine monitoring
+
+The resident cabinet treats provider and network drift as bounded maintenance, not product redesign. Urd adjudicates receipts, Belldandy records adapter/network state, Skuld checks compatibility, and Lum preserves the stable Professor-facing interface.
+
+Cloudflare remains network traffic control only. Provider availability or network success never grants GREEN or Crown.
