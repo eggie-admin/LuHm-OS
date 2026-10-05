@@ -388,7 +388,8 @@
     "customerRehearsalRequired": true,
     "publicationStillExternal": true,
     "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
-    "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json"
+    "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json",
+    "corporatePanelMilestones": "doctrine/corporatePanelMilestonesV1.json"
   },
   "advancedLecture": {
     "status": "SOURCE_CONFIGURED_CANDIDATE",
@@ -420,6 +421,24 @@
     },
     "urdPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
     "escalationRooms": "doctrine/escalationWorkflowRoomsV1.json",
-    "proofBoundary": "advanced lecture extends teaching but does not alter the audited opening-day base sequence"
+    "proofBoundary": "advanced lecture extends teaching but does not alter the audited opening-day base sequence",
+    "corporateMilestones": [
+      "corporateAuthorityMilestone",
+      "dualLaneOperatingMilestone",
+      "partnerEscalationMilestone"
+    ],
+    "providerEscalationOrder": [
+      "FOUNDER_DEFAULT",
+      "GOOGLE",
+      "OPENAI",
+      "OPEN_SOURCE_VENDOR_COMMUNITY"
+    ],
+    "authorityTitles": {
+      "eggieFounder": "CEO and Founder",
+      "lum": "President",
+      "urdDoctorGoddess": "Vice President and Doctor",
+      "belldandySecretary": "Secretary of State",
+      "skuldResearch": "Head of Research and Development"
+    }
   }
 }
