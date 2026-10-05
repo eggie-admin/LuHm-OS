@@ -1,0 +1,85 @@
+{
+  "schema": "luhmOs.openAiWorkspaceHygiene.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "owner": "belldandySecretary",
+  "boss": "lum",
+  "purpose": "Keep OpenAI-facing LuHm project state and ChatGPT Library references legible, deduplicated by evidence, and organized without destructive automation.",
+  "surfaces": {
+    "projectFiles": {
+      "role": "activeProjectContext",
+      "inventory": true,
+      "reorganizeAutomatically": false
+    },
+    "chatGptLibrary": {
+      "role": "personalReusableFiles",
+      "inventory": true,
+      "classify": true,
+      "duplicateDetection": "identityAndReferenceFirst",
+      "moveRenameDeleteRequiresExplicitUserAction": true
+    },
+    "generatedArtifacts": {
+      "role": "workingOutputs",
+      "inventory": true,
+      "staleDetection": true,
+      "durableArchiveAssumed": false
+    },
+    "connectorBackedReferences": {
+      "role": "liveExternalPointers",
+      "copyDoesNotReplaceSource": true,
+      "currentConnectorStateRequiredForMutation": true
+    }
+  },
+  "tidyPass": [
+    "inventory",
+    "classify",
+    "dedupeReferences",
+    "detectStaleHandoffs",
+    "detectOrphanArtifacts",
+    "detectNamingDrift",
+    "proposeFoldersAndNames",
+    "emitTidyPlan"
+  ],
+  "classification": [
+    "canonical",
+    "currentTask",
+    "handoff",
+    "receipt",
+    "candidate",
+    "generatedArtifact",
+    "reference",
+    "archiveCandidate",
+    "duplicateCandidate",
+    "orphanCandidate",
+    "unknown"
+  ],
+  "identityLaw": {
+    "filenameAloneNeverProvesDuplicate": true,
+    "contentOrStableIdentityRequiredBeforeReplacement": true,
+    "unknownRemainsUnknown": true,
+    "currentTaskReferenceBeatsStaleConvenienceCopy": true
+  },
+  "storageBoundary": {
+    "openAi": "semanticStateAndActiveWorkspace",
+    "github": "sourceCiReceiptsHashesPointers",
+    "googleDrive": "durableBinaryFileServer",
+    "android": "runtimeProofSpace"
+  },
+  "automaticActions": {
+    "read": true,
+    "index": true,
+    "classify": true,
+    "compare": true,
+    "flag": true,
+    "propose": true,
+    "delete": false,
+    "move": false,
+    "rename": false,
+    "overwrite": false,
+    "detach": false,
+    "publish": false
+  },
+  "hiddenAsyncExecution": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}
