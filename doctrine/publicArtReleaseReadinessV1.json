@@ -21,9 +21,31 @@
     "pirateDaddiesManifest": "media/daddys-princess-date/edit-manifest.json"
   },
   "publicCharacterFamilies": {
-    "characters": ["lum", "urd", "belldandy", "skuld"],
-    "required": ["portrait", "fullBody", "spriteIdle", "spriteWalk", "spriteRun", "expressionSheet", "uiIcon"],
-    "cinematic": ["turnaround", "wardrobePublicSafe", "dialoguePortrait", "chibi", "storyboard", "animationKeyframes", "threeDBrief", "textureDirection"],
+    "characters": [
+      "lum",
+      "urd",
+      "belldandy",
+      "skuld"
+    ],
+    "required": [
+      "portrait",
+      "fullBody",
+      "spriteIdle",
+      "spriteWalk",
+      "spriteRun",
+      "expressionSheet",
+      "uiIcon"
+    ],
+    "cinematic": [
+      "turnaround",
+      "wardrobePublicSafe",
+      "dialoguePortrait",
+      "chibi",
+      "storyboard",
+      "animationKeyframes",
+      "threeDBrief",
+      "textureDirection"
+    ],
     "currentEvidenceState": "UNKNOWN_UNTIL_HASHED_APPROVED_ART_RECEIPTS_EXIST"
   },
   "brandFamilies": {
@@ -59,11 +81,12 @@
     "public_generative_ai_art_default_forbidden"
   ],
   "handoff": {
-    "yume": "prepare private candidates, human-editable masters, delivery specs, and public-safe derivation plans",
-    "urd": "reject contamination, unsupported canon, rights gaps, private-reference leakage, and fake GREEN",
-    "skuld": "verify formats, Godot/runtime compatibility, static-web delivery constraints, and current vendor requirements",
-    "belldandy": "assign canonical asset IDs, directories, hashes, brand IDs, approval state, and publication checklist status",
-    "lum": "reconcile one public release candidate and stop at Professor gate"
+    "yume": "direct art and map discovered assets into creative needs; request only genuinely missing derivatives",
+    "skuld": "select and verify the sanest technical architecture and delivery approach for Godot, static web, networking, formats, and platform compatibility",
+    "urd": "keep the pipeline sane and healthy by rejecting contradiction, contamination, unsupported claims, rights/provenance gaps, and drift",
+    "belldandy": "organize assets, brands, paths, IDs, hashes, states, receipts, and handoff packets",
+    "huggingFace": "advise on specialist training/model/dataset/evaluation questions only when materially relevant",
+    "lum": "operate from current doctrine and source truth, reconcile all specialist packets, and stop at Professor gates"
   },
   "releaseReadyRequires": [
     "all_required_brand_families_proved",
@@ -77,5 +100,13 @@
   ],
   "publicationAuthority": false,
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "roleDefinition": {
+    "lum": "operate against current doctrine and source truth; reconcile scope, specialists, evidence, and exact candidate state",
+    "yume": "art direction and creative intent; decide visual presentation and what derivative art is actually needed",
+    "skuld": "sanest architecture and implementation approach; verify Godot/web/network/provider/formats/compatibility choices",
+    "urd": "system sanity and health; diagnose contradictions, evidence gaps, provenance/rights risk, rollback risk, and drift",
+    "belldandy": "organization and records; canonical names, inventories, directories, hashes, receipts, branding state, and handoffs",
+    "huggingFace": "specialist trainer for models, datasets, training recipes, adapters, evaluation, and related model expertise when needed"
+  }
 }
