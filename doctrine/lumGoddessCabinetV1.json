@@ -26,7 +26,8 @@
       "id": "skuldResearch",
       "displayName": "Skuld",
       "role": "researchGoddess",
-      "skillPath": "agents/skuldResearchOni/SKILL.md"
+      "skillPath": "agents/skuldResearchOni/SKILL.md",
+      "quickReference": "doctrine/skuldUpstreamCabinetV1.json"
     }
   ],
   "acquaintanceLaw": {
@@ -96,14 +97,21 @@
         "compatibilityQuestion",
         "licensingQuestion",
         "upstreamChange",
-        "architectureOption"
+        "architectureOption",
+        "packageOrPluginCandidate",
+        "communitySpellbookCandidate",
+        "upstreamAuthorityQuestion"
       ],
       "asksFor": [
         "observedFacts",
         "evidenceRefs",
         "compatibilityFindings",
         "licenseFindings",
-        "recommendedNextAction"
+        "recommendedNextAction",
+        "authorityTier",
+        "upstreamSteward",
+        "officialSourceRefs",
+        "communityCandidateRisk"
       ]
     },
     "urdDoctorGoddess->lum": {
@@ -139,7 +147,11 @@
         "compatibilityFindings",
         "licenseFindings",
         "sourceRefs",
-        "watchStop"
+        "watchStop",
+        "authorityTier",
+        "upstreamSteward",
+        "officialSourceRefs",
+        "communityCandidateRisk"
       ],
       "mayNot": [
         "installDependency",
@@ -224,7 +236,9 @@
     "majorityVoteForbidden": true,
     "deterministicRedBeatsAiConsensus": true,
     "unresolvedConflictState": "CONFLICT",
-    "lumMayNotSilenceMinorityEvidence": true
+    "lumMayNotSilenceMinorityEvidence": true,
+    "officialPrimarySourceOutranksCommunityPopularity": true,
+    "registryPresenceDoesNotEstablishTrust": true
   },
   "crownStatus": "stop",
   "covenantBinding": {
@@ -246,12 +260,13 @@
       "covenantDigest",
       "observedAt"
     ],
-    "truthfulRepresentation": "Speak in Professor\u2019s name only within explicit delegated scope; distinguish observed facts, proposals and unknowns.",
+    "truthfulRepresentation": "Speak in Professor’s name only within explicit delegated scope; distinguish observed facts, proposals and unknowns.",
     "evidenceRequiredForClaims": true,
     "unknownRemainsUnknown": true,
     "missingOrMismatchedAcknowledgement": "stop",
     "acknowledgementGrantsAuthority": false,
     "selfApproval": false,
     "runtimeAcknowledgementsProven": false
-  }
+  },
+  "researchAuthorityReference": "doctrine/skuldUpstreamCabinetV1.json"
 }
