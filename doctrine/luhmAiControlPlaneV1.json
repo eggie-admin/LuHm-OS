@@ -24,7 +24,9 @@
     "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
     "belldandyHousekeeping": "doctrine/belldandyHousekeepingV1.json",
     "huggingFaceSpecialistTrainer": "doctrine/huggingFaceSpecialistTrainerV1.json",
-    "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json"
+    "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json",
+    "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
+    "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -51,7 +53,11 @@
     "personCenteredCanonicalNamePreserved": true,
     "trainingDoesNotExpandAuthority": true,
     "trainingDoesNotMeanModelWeightFineTuning": true,
-    "vendorPitchDoesNotDefineArchitecture": true
+    "vendorPitchDoesNotDefineArchitecture": true,
+    "lumSupremeWitch": true,
+    "lumOwnsCorporateLogistics": true,
+    "urdDoctorDoesNotOwnCorporateLogistics": true,
+    "securityDiagnosisDoesNotGrantMutation": true
   },
   "bossToolchain": {
     "states": [
@@ -263,7 +269,13 @@
         "route",
         "integrateEvidence",
         "issueTaskManifest",
-        "report"
+        "report",
+        "corporateLogistics",
+        "deploymentCoordination",
+        "scopeOfPracticeGovernance",
+        "staffTrainingGovernance",
+        "providerResourceStewardship",
+        "policyIntegration"
       ],
       "forbidden": [
         "selfApprove",
@@ -292,14 +304,25 @@
         "crossBuildAgreement",
         "policyDriftCheck",
         "physicalDeviceEvidenceBoundary",
-        "deterministicVerdict"
+        "deterministicVerdict",
+        "workflowSanityAssessment",
+        "securityUpdateReview",
+        "redTeamFindingTriage",
+        "malwareRiskReview",
+        "accessHygieneReview",
+        "securityIncidentTriage",
+        "resourceStressDiagnosis",
+        "postTreatmentVerification"
       ],
       "forbidden": [
         "mutate",
         "execute",
         "selfApprove",
         "rewriteTestsToPass",
-        "upgradeUnprovenStateToGreen"
+        "upgradeUnprovenStateToGreen",
+        "approveCorporatePolicy",
+        "deployTreatment",
+        "expandAccess"
       ],
       "parallelClass": "support",
       "speaksTo": "lum",
@@ -695,6 +718,20 @@
     ],
     "chatHistory": [
       "lum",
+      "belldandySecretary"
+    ],
+    "securityHealth": [
+      "lum",
+      "urdDoctorGoddess"
+    ],
+    "securityCompatibility": [
+      "lum",
+      "urdDoctorGoddess",
+      "skuldResearch"
+    ],
+    "securityRecords": [
+      "lum",
+      "urdDoctorGoddess",
       "belldandySecretary"
     ]
   },
