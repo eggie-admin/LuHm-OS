@@ -1,0 +1,81 @@
+{
+  "schema": "luhmOs.publicArtReleaseReadiness.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "sourceRef": "7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
+  "boss": "lum",
+  "creativeLead": "yumeArtOni",
+  "evidenceLead": "urdDoctorGoddess",
+  "compatibilityLead": "skuldResearch",
+  "recordsLead": "belldandySecretary",
+  "contentLane": "cathedralPublic",
+  "purpose": "Close the public-facing art and branding inventory without promoting private, mature, generated, unproven, or rights-unknown material.",
+  "sources": {
+    "characterCanon": "game/canon/CHARACTER_CANON_V1.json",
+    "runtimeAssetSlots": "game/assets/ASSET_MANIFEST_V1.json",
+    "contentLane": "doctrine/contentLaneDoctrineV1.json",
+    "assetEligibility": "doctrine/assetEligibilityMatrixV1.json",
+    "creativePipeline": "doctrine/yumeCreativePipelineV1.json",
+    "brandRegistry": "doctrine/organizationBrandRegistryV1.json",
+    "publicationSiteLogo": "publicationSite/logo.svg",
+    "pirateDaddiesManifest": "media/daddys-princess-date/edit-manifest.json"
+  },
+  "publicCharacterFamilies": {
+    "characters": ["lum", "urd", "belldandy", "skuld"],
+    "required": ["portrait", "fullBody", "spriteIdle", "spriteWalk", "spriteRun", "expressionSheet", "uiIcon"],
+    "cinematic": ["turnaround", "wardrobePublicSafe", "dialoguePortrait", "chibi", "storyboard", "animationKeyframes", "threeDBrief", "textureDirection"],
+    "currentEvidenceState": "UNKNOWN_UNTIL_HASHED_APPROVED_ART_RECEIPTS_EXIST"
+  },
+  "brandFamilies": {
+    "sourceLogoPresent": {
+      "asset": "publicationSite/logo.svg",
+      "state": "SOURCE_PRESENT_PROVENANCE_AND_PUBLIC_ART_REVIEW_REQUIRED"
+    },
+    "requiredForPublicRelease": [
+      "luhmOs.logoMark",
+      "luhmOs.wordmark",
+      "luhmOs.favicon",
+      "luhmOs.appIcon",
+      "luhmOs.socialAvatar",
+      "luhmOs.socialBanner",
+      "luhmOs.thumbnailFrame",
+      "luhmOs.endCard",
+      "eggieBagelface.publisherLockup",
+      "pirateDaddiesFilm.studioMark",
+      "pirateDaddiesFilm.endCard"
+    ]
+  },
+  "assetCompletionLaw": [
+    "source_slot_is_not_completed_art",
+    "generated_draft_is_private_only",
+    "public_asset_requires_cathedralPublic_eligibility",
+    "publicAllowed_true_is_required",
+    "provenance_and_hash_are_required",
+    "professor_art_approval_is_required",
+    "runtime_import_proof_is_required_when_asset_is_runtime_consumed",
+    "privateMutation_and_betaAfterDark_assets_never_satisfy_public_release",
+    "unknown_rights_or_unknown_maturity_fails_closed",
+    "real_person_reference_stays_private",
+    "public_generative_ai_art_default_forbidden"
+  ],
+  "handoff": {
+    "yume": "prepare private candidates, human-editable masters, delivery specs, and public-safe derivation plans",
+    "urd": "reject contamination, unsupported canon, rights gaps, private-reference leakage, and fake GREEN",
+    "skuld": "verify formats, Godot/runtime compatibility, static-web delivery constraints, and current vendor requirements",
+    "belldandy": "assign canonical asset IDs, directories, hashes, brand IDs, approval state, and publication checklist status",
+    "lum": "reconcile one public release candidate and stop at Professor gate"
+  },
+  "releaseReadyRequires": [
+    "all_required_brand_families_proved",
+    "all_public_character_assets_used_by_release_proved",
+    "publication_site_assets_proved",
+    "accessibility_alt_text_and_contrast_checked",
+    "privacy_terms_support_routes_current",
+    "network_fqdn_tls_plan_proved_or_existing_render_url_explicitly_selected",
+    "public_claims_bound_to_receipts",
+    "professor_approves_exact_publish_candidate"
+  ],
+  "publicationAuthority": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}
