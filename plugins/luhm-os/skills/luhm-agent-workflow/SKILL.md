@@ -78,3 +78,18 @@ When a workflow reaches signing, publication, public exposure, protected/release
 Google Drive is the durable binary file server. GitHub is canonical source plus receipts/hashes/pointers and may use release/CI assets only as transient transport or cache. OpenAI is semantic state/context, not binary storage or source authority. Android/Termux is runtime and physical-proof space.
 
 Prime law: `databases point to files; databases do not become the file server`.
+
+
+## Naming and help
+
+Load `doctrine/namingNamespaceCanonV1.json` and `doctrine/commandHelpV1.json`.
+
+- `camelHump` is the person-centered canonical machine identity and starts lowercase.
+- optional compression degrades `camelHump -> vowelRippedCamel -> lowercaseShorthand`.
+- compressed forms are aliases only and must resolve back through help.
+- `kebab-case` is lowercase transport/path/slug space.
+- `DRAGONTAIL` is uppercase state/sentinel/debug space.
+
+Call `luhm_help` when Professor asks what a command, object, or compressed alias means. Help is read-only and cannot grant authority.
+
+For dictation, Koe preserves/normalizes speech and returns a secretary packet. Belldandy owns continuity and naming. Urd joins for evidence/diagnosis; Skuld joins for technical meaning; Lum remains the only conversational boss.
