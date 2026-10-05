@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<title>LuHm OS Asset Desk</title>
+<title>LuHm OS First Night Demo</title>
 <link rel="stylesheet" href="/harness/assets/cockpit.css">
 </head>
 <body>
 <aside class="agentLoadingScreen" id="agentLoadingScreen" role="status" aria-live="polite">
   <div class="agentLoadingCard"><div class="agentLoadingSprite" id="agentLoadingSprite" aria-hidden="true"></div>
-    <div class="agentLoadingKicker">LuHm OS · loading crew</div><strong id="agentLoadingName">Lum</strong><span id="agentLoadingState">Starting the asset desk…</span>
+    <div class="agentLoadingKicker">LuHm OS · loading crew</div><strong id="agentLoadingName">Lum</strong><span id="agentLoadingState">Waking the Riverwalk…</span>
   </div>
 </aside>
 <main class="shell" id="shell">
@@ -19,8 +19,8 @@
     <div class="pixelPet" id="pixelPet"><span id="petGlyph">L</span></div>
   </button>
   <div class="titleBlock">
-    <h1>LuHm OS · Asset Desk</h1>
-    <div class="subtitle">local asset intake · media desk · Godot 4 viewer · ChatGPT frame</div>
+    <h1>LuHm OS · First Night Demo</h1>
+    <div class="subtitle">playable Godot world · Lum cockpit · local asset desk · ChatGPT frame</div>
   </div>
   <div class="badge" id="edgeBadge">checking edge…</div>
 </header>
@@ -30,6 +30,18 @@
   <article class="panel"><span class="label">asset intake</span><strong>LOCAL BROWSER ONLY</strong><small>No file upload endpoint. Blob URLs die with the page.</small></article>
   <article class="panel"><span class="label">pet</span><strong id="petName">Lum</strong><small id="petRole">orchestrator</small></article>
   <article class="panel"><span class="label">authority</span><strong class="amber">READ ONLY</strong><small>AI proposes. Human promotes.</small></article>
+</section>
+
+<section class="playHero panel" aria-labelledby="playTitle">
+  <div class="playCopy">
+    <span class="label">playable demo</span>
+    <h2 id="playTitle">First Night Circuit</h2>
+    <p>Meet Lum on the Riverwalk, recover the signal shard, make the Coffee House run, clear the static wisp, and unlock fast travel.</p>
+  </div>
+  <div class="playActions">
+    <button id="playFirstNight" type="button" disabled>Checking Godot export…</button>
+    <span class="tiny" id="playStatus">Verifying the staged browser build.</span>
+  </div>
 </section>
 
 <section class="desk">
@@ -45,6 +57,14 @@
   </aside>
 
   <section class="mainDesk">
+    <article class="panel godot">
+      <div class="panelHead"><h2>Godot 4 Web viewport</h2><span class="badge" id="godotBadge">probing…</span></div>
+      <div class="godotStage" id="godotStage">
+        <div class="emptyState" id="godotEmpty">No staged Web export yet. Target: <code>host/harness/godot-export/index.html</code>.</div>
+        <iframe id="godotFrame" title="LuHm OS First Night playable Godot 4 Web viewer" sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-downloads" referrerpolicy="no-referrer"></iframe>
+      </div>
+    </article>
+
     <article class="panel mediaPanel">
       <div class="panelHead">
         <h2>Media carousel</h2>
@@ -62,14 +82,6 @@
       </div>
       <div id="thumbRail" class="thumbRail" aria-label="Asset carousel thumbnails"></div>
     </article>
-
-    <article class="panel godot">
-      <div class="panelHead"><h2>Godot 4 Web viewport</h2><span class="badge" id="godotBadge">probing…</span></div>
-      <div class="godotStage" id="godotStage">
-        <div class="emptyState" id="godotEmpty">No staged Web export yet. Target: <code>host/harness/godot-export/index.html</code>.</div>
-        <iframe id="godotFrame" title="Godot 4 Web viewer" sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-downloads" referrerpolicy="no-referrer"></iframe>
-      </div>
-    </article>
   </section>
 </section>
 
@@ -79,7 +91,7 @@
   <p class="tiny">Uploaded examples are treated as donors. Remote scripts, analytics, ads, arbitrary upload endpoints, and unclear-license code are not promoted.</p>
 </section>
 
-<footer>Public Render edge is HTTPS. Local development uses <code>127.0.0.1</code>. Render origin is IPv4-only. This asset desk has no server-side upload route.</footer>
+<footer>Public Render edge is HTTPS. Local development uses <code>127.0.0.1</code>. Render origin is IPv4-only. The demo desk has no server-side upload route.</footer>
 </main>
 <script src="/harness/assets/cockpit.js" defer></script>
 </body>

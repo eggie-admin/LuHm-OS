@@ -10,7 +10,8 @@ const state = {
   objectUrls: new Set(),
   raf: 0,
   pointerX: 0,
-  pointerY: 0
+  pointerY: 0,
+  godotReady: false
 };
 
 function setLoadingAgent(agentId, message) {
@@ -260,16 +261,41 @@ function clearAssets() {
 }
 
 async function probeGodot() {
+  const playButton = byId("playFirstNight");
+  const playStatus = byId("playStatus");
   try {
     const response = await fetch("/harness/godot-export/index.html", { method: "HEAD", cache: "no-store" });
     if (!response.ok) throw new Error("not staged");
+    state.godotReady = true;
     byId("godotFrame").src = "/harness/godot-export/index.html";
     byId("godotFrame").style.display = "block";
     byId("godotEmpty").style.display = "none";
     byId("godotBadge").textContent = "WEB EXPORT READY";
+    if (playButton) {
+      playButton.disabled = false;
+      playButton.textContent = "▶ PLAY FIRST NIGHT";
+    }
+    if (playStatus) playStatus.textContent = "Riverwalk is ready. Click to jump into the game.";
   } catch (_) {
+    state.godotReady = false;
     byId("godotBadge").textContent = "EXPORT PENDING";
+    if (playButton) {
+      playButton.disabled = true;
+      playButton.textContent = "WEB EXPORT PENDING";
+    }
+    if (playStatus) playStatus.textContent = "This host has not staged the Godot browser build yet.";
   }
+}
+
+function wirePlayButton() {
+  const button = byId("playFirstNight");
+  if (!button) return;
+  button.addEventListener("click", () => {
+    if (!state.godotReady) return;
+    const stage = byId("godotStage");
+    if (stage) stage.scrollIntoView({ behavior: "smooth", block: "center" });
+    window.setTimeout(() => byId("godotFrame")?.focus(), 350);
+  });
 }
 
 function wireDropZone() {
@@ -309,6 +335,7 @@ async function boot() {
   showPet();
   renderAssetDesk();
   wireDropZone();
+  wirePlayButton();
 
   byId("petDock").addEventListener("click", () => {
     state.petIndex = (state.petIndex + 1) % Math.max(state.pets.length, 1);
