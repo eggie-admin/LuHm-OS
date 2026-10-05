@@ -67,7 +67,9 @@
     "yumeBigBrotherArtDesk": "doctrine/yumeBigBrotherArtDeskV1.json",
     "yumeGodotArtToolbox": "doctrine/yumeGodotArtToolboxV1.json",
     "yumeArtEducation": "doctrine/yumeArtEducationV1.json",
-    "yumeBatchImageWorkflow": "doctrine/yumeBatchImageWorkflowV1.json"
+    "yumeBatchImageWorkflow": "doctrine/yumeBatchImageWorkflowV1.json",
+    "organizationBrandRegistry": "doctrine/organizationBrandRegistryV1.json",
+    "publicArtReleaseReadiness": "doctrine/publicArtReleaseReadinessV1.json"
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
@@ -82,7 +84,9 @@
     "socialWave": "campaign/social-wave-one.md",
     "patronageBrief": "campaign/patronage-brief.md",
     "bigBrotherReviewManifest": "campaign/manifests/big-brother-campaign-review-001.json",
-    "bigBrotherReviewExecution": "PENDING"
+    "bigBrotherReviewExecution": "PENDING",
+    "organizationBrandRegistry": "doctrine/organizationBrandRegistryV1.json",
+    "publicArtLedger": "media/public-release-art-ledger.json"
   },
   "legacyArtifacts": {
     "priorSourceTruth": "doctrine/SOURCE_OF_TRUTH.json",
@@ -307,6 +311,24 @@
     "authority": false,
     "currentPublicPluginMcpPath": "directRenderManagedTls",
     "customFqdn": "PENDING_OPTIONAL",
-    "liveDnsMutation": "CROWN_GATED"
+    "liveDnsMutation": "CROWN_GATED",
+    "staticPublicEdge": "doctrine/staticPublicEdgeV1.json"
+  },
+  "publicReleaseReadiness": {
+    "status": "PROPOSED_SOURCE_ONLY",
+    "sourceMain": "7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
+    "art": "doctrine/publicArtReleaseReadinessV1.json",
+    "brandRegistry": "doctrine/organizationBrandRegistryV1.json",
+    "artLedger": "media/public-release-art-ledger.json",
+    "staticEdge": "doctrine/staticPublicEdgeV1.json",
+    "publicLane": "cathedralPublic",
+    "renderStaticSite": "https://luhm-os-publication-site.onrender.com",
+    "renderMcp": "https://luhm-os-harness-green.onrender.com",
+    "liveDnsMutation": false,
+    "liveCertificateMutation": false,
+    "automaticPublication": false,
+    "publicationAuthority": false,
+    "promotion": false,
+    "crownStatus": "STOP"
   }
 }
