@@ -1,0 +1,105 @@
+{
+  "schema": "luhmOs.inChatExperience.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "One canonical runtime contract for the LuHm ChatGPT cockpit, agent activity, roleplay, pets, and the bounded Godot handoff.",
+  "sources": {
+    "intentRouter": "doctrine/humanCenteredIntentRouterV2.json",
+    "activity": "doctrine/chatActivityPresentationV1.json",
+    "roleplay": "doctrine/codingRoleplayDirectorV2.json",
+    "pets": "doctrine/characterPetPresentationV1.json",
+    "loadingSprites": "doctrine/agentLoadingSpriteManifestV1.json",
+    "agentControl": "doctrine/luhmAiControlPlaneV1.json",
+    "sourceTruth": "doctrine/currentSourceTruthV3.json"
+  },
+  "runtime": {
+    "tool": "luhm_open_cockpit",
+    "resourceUri": "ui://luhm-os/cockpit-v2.html",
+    "surface": "mcp-app",
+    "standaloneHarness": "/harness/",
+    "panels": [
+      "sourceTruth",
+      "activeCast",
+      "activity",
+      "roleplay",
+      "petDock",
+      "commandCapsule",
+      "godotHandoff"
+    ],
+    "godotEmbeddingInChat": false,
+    "godotHandoffPath": "/harness/godot-export/index.html"
+  },
+  "turnModel": {
+    "sequence": [
+      "professorIntent",
+      "intentRoute",
+      "activeCast",
+      "activityEvent",
+      "roleplayProjection",
+      "evidenceReconcile",
+      "professorFacingTurn"
+    ],
+    "activityEvidenceStates": [
+      "pending",
+      "proved",
+      "failed"
+    ],
+    "visualStates": [
+      "IDLE",
+      "WORKING",
+      "VERIFY",
+      "PASS",
+      "BLOCKED"
+    ],
+    "roleplayMayChangeEvidence": false,
+    "presentationMayGrantAuthority": false
+  },
+  "activeCast": {
+    "boss": "lum",
+    "resident": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "specialistsFromControlPlane": true,
+    "maxParallelSupportWorkers": 3,
+    "onlyShowWorkersActuallyRouted": true
+  },
+  "petDock": {
+    "contract": "doctrine/characterPetPresentationV1.json",
+    "thoughtBubbleMaxLines": 3,
+    "speakerRequired": true,
+    "expressionRequired": true,
+    "fakeBackgroundActivityForbidden": true
+  },
+  "activity": {
+    "contract": "doctrine/chatActivityPresentationV1.json",
+    "semanticGrouping": true,
+    "numericProgressRequiresEvidence": true,
+    "unknownEvidenceState": "VERIFY",
+    "passRequiresProvedEvidence": true
+  },
+  "roleplay": {
+    "contract": "doctrine/codingRoleplayDirectorV2.json",
+    "machineStateSeparate": true,
+    "decorativeGreenForbidden": true,
+    "rawChainOfThoughtForbidden": true
+  },
+  "authority": {
+    "readOnlyPlugin": true,
+    "mutationAuthority": false,
+    "greenAuthority": false,
+    "publicationAuthority": false,
+    "signingAuthority": false,
+    "crownAuthority": false
+  },
+  "proof": {
+    "sourceConfiguredDoesNotEqualLiveHostProof": true,
+    "toolResultMustExposeThisSchema": true,
+    "chatResourceMustMatchResourceUri": true,
+    "standaloneHarnessMustExposeThisSchema": true
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}
