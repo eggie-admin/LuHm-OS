@@ -107,7 +107,9 @@
       "success",
       "error",
       "parked",
-      "unknown"
+      "unknown",
+      "standby",
+      "resident"
     ],
     "successIsNotGreen": true,
     "eventFeedMayGrantAuthority": false
@@ -270,7 +272,11 @@
         "stateLedger",
         "evidenceIndex",
         "handoffLedger",
-        "unificationPlan"
+        "unificationPlan",
+        "dictationContinuity",
+        "voiceIntentLedger",
+        "correctionLedger",
+        "conversationContinuity"
       ],
       "forbidden": [
         "mutate",
@@ -458,12 +464,13 @@
     },
     "koe": {
       "displayName": "Koe",
-      "kind": "dictationIntentScribe",
+      "kind": "dictationScribeUnderSecretary",
       "skillPath": "agents/koeDictationOni/SKILL.md",
       "defaultAuthority": "READ_ONLY",
       "capabilities": [
         "normalizeDictation",
-        "extractIntent"
+        "extractIntent",
+        "returnSecretaryPacket"
       ],
       "forbidden": [
         "executeDictation",
@@ -472,7 +479,8 @@
       "parallelClass": "support",
       "speaksTo": "lum",
       "mayRecruit": false,
-      "maySelfApprove": false
+      "maySelfApprove": false,
+      "continuityOwner": "belldandySecretary"
     },
     "yume": {
       "displayName": "Yume",
@@ -578,6 +586,7 @@
     ],
     "dictation": [
       "lum",
+      "belldandySecretary",
       "koe"
     ],
     "asset": [
@@ -626,7 +635,14 @@
     "sharedContextRequired": true,
     "peerAwareness": "readOnly",
     "disagreementsReturnTo": "lum",
-    "consensusAuthority": false
+    "consensusAuthority": false,
+    "residentDuringActiveTaskEnvelope": true,
+    "residentGoddessTriplet": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "residentDoesNotMeanHiddenAsync": true
   },
   "covenant": {
     "contract": "doctrine/everlastingCovenantV1.json",
