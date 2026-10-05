@@ -197,6 +197,13 @@
       "mayInferHiddenChainOfThought": false,
       "mayGrantGreen": false,
       "mayGrantCrown": false
+    },
+    "openAiWorkspaceHygiene": {
+      "contract": "doctrine/openAiWorkspaceHygieneV1.json",
+      "owner": "belldandySecretary",
+      "routesThrough": "lum",
+      "automaticDestructiveMutation": false,
+      "hiddenAsyncExecution": false
     }
   },
   "authorityClasses": [
@@ -270,12 +277,24 @@
         "stateLedger",
         "evidenceIndex",
         "handoffLedger",
-        "unificationPlan"
+        "unificationPlan",
+        "openAiWorkspaceInventory",
+        "chatGptLibraryIndex",
+        "projectFileHygiene",
+        "duplicateReferenceDetection",
+        "staleHandoffDetection",
+        "orphanArtifactDetection",
+        "archiveProposal"
       ],
       "forbidden": [
         "mutate",
         "execute",
-        "selfApprove"
+        "selfApprove",
+        "deleteUserContent",
+        "moveUserContent",
+        "renameUserContent",
+        "overwriteUserContent",
+        "detachUserContent"
       ],
       "parallelClass": "support",
       "speaksTo": "lum",
