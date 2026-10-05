@@ -65,7 +65,9 @@
     "yumeBigBrotherArtDesk": "doctrine/yumeBigBrotherArtDeskV1.json",
     "yumeGodotArtToolbox": "doctrine/yumeGodotArtToolboxV1.json",
     "yumeArtEducation": "doctrine/yumeArtEducationV1.json",
-    "yumeBatchImageWorkflow": "doctrine/yumeBatchImageWorkflowV1.json"
+    "yumeBatchImageWorkflow": "doctrine/yumeBatchImageWorkflowV1.json",
+    "yumeCommunityArtResources": "doctrine/yumeCommunityArtResourcesV1.json",
+    "artistCreditLedger": "doctrine/artistCreditLedgerV1.json"
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
@@ -287,5 +289,11 @@
     "promotion": true,
     "promotionScope": "professorOldMagicStudyLibraryOnly",
     "crownStatus": "CROWNED_STUDY_LIBRARY"
+  },
+  "workflowBudget": {
+    "contract": "doctrine/githubWorkflowBudgetV1.json",
+    "maxCommitsPerWorkflow": 50,
+    "codespacesConfig": ".devcontainer/devcontainer.json",
+    "crownStatus": "STOP"
   }
 }
