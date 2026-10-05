@@ -33,5 +33,19 @@
   "publicationAuthority": false,
   "directoryPublicationProven": false,
   "legacySource": "doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json",
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "publicPresentation": {
+    "brandRegistry": "doctrine/organizationBrandRegistryV1.json",
+    "artReadiness": "doctrine/publicArtReleaseReadinessV1.json",
+    "staticEdge": "doctrine/staticPublicEdgeV1.json",
+    "generatedPublicArtDefaultForbidden": true,
+    "publicProviderCoBranding": false
+  },
+  "networkActivation": {
+    "currentEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+    "customFqdnCandidate": "mcp.eggiebagelface.art",
+    "liveDnsMutation": false,
+    "liveCertificateMutation": false,
+    "professorApprovalRequired": true
+  }
 }
