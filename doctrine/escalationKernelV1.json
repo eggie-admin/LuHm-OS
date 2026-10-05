@@ -76,7 +76,9 @@
     "presentationNeverCreatesProof",
     "physicalProofNeverInferred",
     "ProfessorRetainsFinalCrownAtEveryTier",
-    "deEscalateAfterClosureOrWhenHigherTierNoLongerNeeded"
+    "deEscalateAfterClosureOrWhenHigherTierNoLongerNeeded",
+    "interactionMeasureUsesHearResolveActVerify",
+    "verifyBeatControlsTierTransition"
   ],
   "routing": {
     "defaultProfile": "doctrine/founderEscalationLadderV1.json",
@@ -97,5 +99,22 @@
     ],
     "repeatedEvidenceRequestsForbiddenWhenCurrentReceiptStillValid": true
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "architectureMetaphor": "doctrine/jqueryFourLayerArchitectureV1.json",
+  "interactionRhythm": "doctrine/fourBeatInteractionRhythmV1.json",
+  "fourByFourModel": {
+    "horizontalBeats": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "verticalTiers": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "law": "each measure stays on one escalation tier until verify decides close, repeat, hold, de-escalate, or escalate"
+  }
 }
