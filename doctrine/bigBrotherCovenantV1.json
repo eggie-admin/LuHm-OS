@@ -81,5 +81,12 @@
     "doctrine/proposedWorkingLaneV1.json",
     "doctrine/aiTaskManifestV2.template.json"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "apiSpine": "doctrine/apiSpineV1.json",
+  "adapter": {
+    "adapterId": "bigBrother",
+    "contract": "doctrine/apiSpineV1.json#providers.googleAi",
+    "outputReceipt": "luhmOs.providerExecutionReceipt.v1",
+    "providerNativePayloadEscapesAdapter": false
+  }
 }
