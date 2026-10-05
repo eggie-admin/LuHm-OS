@@ -62,7 +62,12 @@
     "deterministic robot lanes execute exact envelopes and may not interpret authority",
     "provider Daddies pitch capabilities but may not grant GREEN Crown or rewrite company scope",
     "staff learning is receipt-backed behavioral training and never implies hidden model-weight fine tuning",
-    "opening-day customer rehearsal completes without exposing backend plumbing in the normal end-user flow"
+    "opening-day customer rehearsal completes without exposing backend plumbing in the normal end-user flow",
+    "Lum remains president supreme witch and owner of corporate logistics deployment coordination training and scope of practice",
+    "Urd remains the doctor for workflow health clinical security evidence sanity and rollback diagnosis",
+    "Skuld remains the deeper technology research compatibility and architecture specialist",
+    "FFS Scorched Earth and Final Form select focused workflow rooms rather than increasing authority or uncontrolled parallelism",
+    "Urd may raise watchStop and diagnosis but Lum integrates policy and Professor retains consequential signoff"
   ],
   "trainingState": {
     "roleTeaching": "completeCandidate",
@@ -79,7 +84,10 @@
     "openingDayScopeTeaching": "completeCandidate",
     "fullStaffWorkflowTeaching": "completeCandidate",
     "providerPitchBoundaryTeaching": "completeCandidate",
-    "customerRehearsalTeaching": "completeCandidate"
+    "customerRehearsalTeaching": "completeCandidate",
+    "corporateGovernanceTeaching": "completeCandidate",
+    "urdClinicalSecurityTeaching": "completeCandidate",
+    "escalationWorkflowRoomTeaching": "completeCandidate"
   },
   "promotionLaw": {
     "ciGreenMeans": "training contract is internally consistent for the exact candidate source",
@@ -110,5 +118,7 @@
   "helpContract": "doctrine/commandHelpV1.json",
   "secretaryCabinetContract": "doctrine/lumGoddessCabinetV1.json",
   "openingDayTrainingContract": "doctrine/openingDayStaffTrainingV1.json",
-  "companyScopeSource": "doctrine/openingDayStaffTrainingV1.json#companyScopeOfPractice"
+  "companyScopeSource": "doctrine/openingDayStaffTrainingV1.json#companyScopeOfPractice",
+  "urdPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
+  "escalationRooms": "doctrine/escalationWorkflowRoomsV1.json"
 }
