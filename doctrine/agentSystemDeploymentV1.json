@@ -105,6 +105,16 @@
       "localPythonAgentRuntime": false,
       "providerSecretsInApk": false,
       "status": "PENDING_PHYSICAL_RUNTIME_PROOF"
+    },
+    "voiceConversation": {
+      "adapter": "doctrine/voiceCabinetBridgeV1.json",
+      "mode": "lumMediatedCabinetTurn",
+      "roster": "residentCore",
+      "explicitNamedWorkers": "honored",
+      "livePlatformCapabilityProven": false,
+      "independentPerAgentAudioVoicesProven": false,
+      "fallback": "namedEnsembleTranscript",
+      "status": "SOURCE_CONFIGURED_LIVE_PLATFORM_CAPABILITY_UNPROVEN"
     }
   },
   "identityLaw": {
@@ -124,7 +134,9 @@
     "allSurfacesMustResolveSameRoster": true,
     "sourceConfiguredDoesNotEqualLiveProviderDeployment": true,
     "liveDeploymentRequiresExactSurfaceReceipt": true,
-    "physicalAndroidRuntimeRequiresDeviceReceipt": true
+    "physicalAndroidRuntimeRequiresDeviceReceipt": true,
+    "voiceSurfaceSourceConfiguredDoesNotEqualLiveInvocation": true,
+    "independentAgentAudioRequiresHostReceipt": true
   },
   "forbidden": [
     "claimHiddenBackgroundAgents",
