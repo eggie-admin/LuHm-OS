@@ -136,5 +136,14 @@
     "partnerShowcaseHandoff": "partnerPublicShowcase",
     "privateResearchMayAutoPublish": false,
     "providerOrInvestorInterestMayGrantAuthority": false
-  }
+  },
+  "creativeEscalation": "doctrine/yumeCreativeEscalationV1.json",
+  "creativeTierDefault": 0,
+  "creativeTierLaw": [
+    "startAtFineArtDevelopmentUnlessDeliveryOrToolEvidenceRequiresHigherTier",
+    "escalateOnlyWhenCurrentCreativeTierCannotCloseTheNeed",
+    "tierIncreaseDoesNotExpandPublicationAuthority",
+    "toolResearchDoesNotChangeCanon",
+    "provedShowcaseRequiresExactEvidenceAndProfessorGate"
+  ]
 }
