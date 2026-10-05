@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-import argparse
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -24,7 +24,8 @@ def precision_rows():
     rows=[]
     for item in PRECISION.get("examples",[]):
         canonical=item["camelHump"]
-        shorthand="".join(word[0] for word in re.findall(r"[a-z]+|[A-Z][a-z0-9]*",canonical)).lower()
+        words=re.findall(r"[a-z]+|[A-Z][a-z0-9]*",canonical)
+        shorthand="".join(word[0] for word in words).lower()
         rows.append({
             "canonicalName":canonical,
             "humanMeaning":item.get("humanMeaning","registered LuHm precision command"),
@@ -53,14 +54,13 @@ def aliases(row):
 def find(term):
     term=term.strip()
     matches=[row for row in rows() if term in aliases(row)]
-    if len(matches)==1:
-        return matches[0]
-    return None
+    return matches[0] if len(matches)==1 else None
 
 def show_root():
     print("LuHm help")
     print("  luhm -h | --help")
     print("  luhm help <name>")
+    print("  luhm <command> -h")
     print("")
     print("Naming")
     print("  camelHump   person-centered canonical identity")
@@ -84,36 +84,37 @@ def show_row(row):
     for ex in row.get("examples",[]):
         print(f"  {ex}")
 
-def main():
-    parser=argparse.ArgumentParser(add_help=False)
-    parser.add_argument("-h","--help",action="store_true")
-    parser.add_argument("verb",nargs="?")
-    parser.add_argument("term",nargs="?")
-    parser.add_argument("tail",nargs="?")
-    args=parser.parse_args()
-    if args.help or not args.verb:
+def main(argv=None):
+    argv=list(sys.argv[1:] if argv is None else argv)
+    if not argv or argv in (["-h"],["--help"]):
         show_root()
         return 0
-    if args.tail in ("-h","--help"):
-        row=find(args.verb)
-        if row:
-            show_row(row)
-            return 0
-    if args.verb=="help":
-        if not args.term:
-            show_root()
-            return 0
-        row=find(args.term)
+
+    if len(argv)>=2 and argv[-1] in ("-h","--help") and argv[0]!="help":
+        row=find(argv[0])
         if row is None:
-            print(f"VERIFY: unknown or ambiguous help term: {args.term}")
+            print(f"VERIFY: unknown or ambiguous help term: {argv[0]}")
             return 2
         show_row(row)
         return 0
-    row=find(args.verb)
+
+    if argv[0]=="help":
+        if len(argv)==1:
+            show_root()
+            return 0
+        row=find(argv[1])
+        if row is None:
+            print(f"VERIFY: unknown or ambiguous help term: {argv[1]}")
+            return 2
+        show_row(row)
+        return 0
+
+    row=find(argv[0])
     if row:
         show_row(row)
         return 0
-    print(f"VERIFY: unknown command: {args.verb}")
+
+    print(f"VERIFY: unknown command: {argv[0]}")
     return 2
 
 if __name__=="__main__":
