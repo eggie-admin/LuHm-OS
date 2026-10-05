@@ -5,9 +5,11 @@ on:
   pull_request:
     paths:
       - 'host/harness/**'
+      - 'host/api/**'
       - 'doctrine/inChatExperienceV1.json'
       - 'doctrine/openingDayStaffTrainingV1.json'
       - 'doctrine/apiSpineV1.json'
+      - 'doctrine/python3ControlPlaneLawV1.json'
       - 'doctrine/cloudflareAirTrafficControllerV1.json'
       - 'doctrine/chatGptPluginRuntimeReceiptV1.json'
       - 'doctrine/chatGptPluginCrownFlowV1.json'
