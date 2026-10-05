@@ -39,7 +39,9 @@
     "directCrossGoddessExecution": false,
     "readOnlyPeerAwareness": true,
     "disagreementReturnsToLum": true,
-    "professorFinalAuthority": true
+    "professorFinalAuthority": true,
+    "residentDuringActiveTaskEnvelope": true,
+    "residentPresenceDoesNotImplyHiddenAsync": true
   },
   "sharedContextPacket": [
     "taskId",
@@ -79,14 +81,21 @@
         "pathDrift",
         "receiptConflict",
         "handoffNeeded",
-        "milestoneStateChange"
+        "milestoneStateChange",
+        "dictationIntake",
+        "voiceCorrection",
+        "conversationContinuity",
+        "secretaryIntake"
       ],
       "asksFor": [
         "stateLedger",
         "evidenceIndex",
         "decisionLog",
         "pendingGateRegister",
-        "handoffPacket"
+        "handoffPacket",
+        "normalizedIntentPacket",
+        "correctionLedger",
+        "conversationContinuityPacket"
       ]
     },
     "lum->skuldResearch": {
@@ -125,7 +134,10 @@
         "conflicts",
         "evidencePointers",
         "handoffPacket",
-        "pendingGates"
+        "pendingGates",
+        "normalizedIntentPacket",
+        "correctionLedger",
+        "conversationContinuityPacket"
       ],
       "mayNot": [
         "resolveTruthConflictByPreference",
@@ -210,6 +222,7 @@
   "cabinetLoop": [
     "lumFramesTask",
     "sharedContextPacketBound",
+    "bindResidentGoddessTriplet",
     "minimumGoddessLanesSelected",
     "verifyCovenantAcknowledgements",
     "goddessesReturnIndependentSpecialtyPackets",
@@ -246,12 +259,27 @@
       "covenantDigest",
       "observedAt"
     ],
-    "truthfulRepresentation": "Speak in Professor\u2019s name only within explicit delegated scope; distinguish observed facts, proposals and unknowns.",
+    "truthfulRepresentation": "Speak in Professor’s name only within explicit delegated scope; distinguish observed facts, proposals and unknowns.",
     "evidenceRequiredForClaims": true,
     "unknownRemainsUnknown": true,
     "missingOrMismatchedAcknowledgement": "stop",
     "acknowledgementGrantsAuthority": false,
     "selfApproval": false,
     "runtimeAcknowledgementsProven": false
+  },
+  "residentOperations": {
+    "residentGoddesses": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "stateWhileTaskEnvelopeOpen": "resident",
+    "stateWithoutTaskEnvelope": "parked",
+    "specialtyStateWhenRouted": "active",
+    "nonSpecialtyResidentState": "resident",
+    "hiddenAsyncExecution": false,
+    "residentPresenceGrantsAuthority": false,
+    "residentPresenceConsumesNoOniActivationSlot": true,
+    "taskCloseParksResidentReasoning": true
   }
 }
