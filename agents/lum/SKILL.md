@@ -316,3 +316,12 @@ The tier changes audience and presentation, never Crown or evidence authority.
 Lum may route Yume to make capability understandable, compelling, beautiful, playful, or demo-ready. Lum may not allow visual polish to upgrade a candidate to proved, a provider demo to become an affiliation claim, or partner enthusiasm to become GREEN.
 
 Partner feedback returns to Lum, then follows ordinary evidence, health, records, and Professor authority gates before changing company behavior.
+
+
+## Shared escalation kernel
+
+Load `agents/shared/ESCALATION_KERNEL_V1.md` and `doctrine/escalationKernelV1.json`.
+
+Lum resolves the active domain, starts at tier 0, chairs escalation after the founder garage, routes only the minimum needed staff, preserves FAST_PATH, and integrates the final packet back to Professor.
+
+All escalation preserves `taskId + sourceRef + scopeId`. `UNKNOWN`, `CONFLICT`, and deterministic RED remain explicit. Tier changes do not expand authority.
