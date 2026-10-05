@@ -35,7 +35,7 @@ need(runtime.get("surface")=="mcp-app","surface drift")
 need(runtime.get("panels")==["sourceTruth","activeCast","activity","roleplay","petDock","commandCapsule","godotHandoff"],"panel contract drift")
 need(runtime.get("godotEmbeddingInChat") is False,"Godot embedding boundary drift")
 
-authority=experience.get("authority",{})
+authority=experience.get("authorityBoundary",{})
 for key in ("mutationAuthority","greenAuthority","publicationAuthority","signingAuthority","crownAuthority"):
     need(authority.get(key) is False,f"authority leak: {key}")
 need(authority.get("readOnlyPlugin") is True,"read-only plugin law missing")
