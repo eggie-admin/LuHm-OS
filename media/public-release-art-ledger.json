@@ -6,20 +6,167 @@
   "brandRegistry": "doctrine/organizationBrandRegistryV1.json",
   "publicReadiness": "doctrine/publicArtReleaseReadinessV1.json",
   "characters": {
-    "lum": {"requiredPublicFamilies": ["portrait","fullBody","spriteIdle","spriteWalk","spriteRun","expressionSheet","uiIcon"], "state": "UNPROVEN"},
-    "urd": {"requiredPublicFamilies": ["portrait","fullBody","spriteIdle","spriteWalk","spriteRun","expressionSheet","uiIcon"], "state": "UNPROVEN"},
-    "belldandy": {"requiredPublicFamilies": ["portrait","fullBody","spriteIdle","spriteWalk","spriteRun","expressionSheet","uiIcon"], "state": "UNPROVEN"},
-    "skuld": {"requiredPublicFamilies": ["portrait","fullBody","spriteIdle","spriteWalk","spriteRun","expressionSheet","uiIcon"], "state": "UNPROVEN"}
+    "lum": {
+      "requiredPublicFamilies": [
+        "portrait",
+        "fullBody",
+        "spriteIdle",
+        "spriteWalk",
+        "spriteRun",
+        "expressionSheet",
+        "uiIcon"
+      ],
+      "state": "DISCOVERED_DRIVE_ASSETS_AUDIT_PENDING"
+    },
+    "urd": {
+      "requiredPublicFamilies": [
+        "portrait",
+        "fullBody",
+        "spriteIdle",
+        "spriteWalk",
+        "spriteRun",
+        "expressionSheet",
+        "uiIcon"
+      ],
+      "state": "DISCOVERED_GROUP_ART_AUDIT_PENDING"
+    },
+    "belldandy": {
+      "requiredPublicFamilies": [
+        "portrait",
+        "fullBody",
+        "spriteIdle",
+        "spriteWalk",
+        "spriteRun",
+        "expressionSheet",
+        "uiIcon"
+      ],
+      "state": "DISCOVERED_GROUP_ART_AUDIT_PENDING"
+    },
+    "skuld": {
+      "requiredPublicFamilies": [
+        "portrait",
+        "fullBody",
+        "spriteIdle",
+        "spriteWalk",
+        "spriteRun",
+        "expressionSheet",
+        "uiIcon"
+      ],
+      "state": "DISCOVERED_GROUP_ART_AUDIT_PENDING"
+    }
   },
   "brands": {
-    "luhmOs": {"state": "PARTIAL_SOURCE_PRESENT", "knownSource": "publicationSite/logo.svg", "remainingFamilies": ["wordmark","favicon","appIcon","socialAvatar","socialBanner","thumbnailFrame","endCard","colorTokens","typeTokens"]},
-    "eggieBagelface": {"state": "UNPROVEN", "remainingFamilies": ["wordmark","publisherLockup","socialAvatar","socialBanner","colorTokens","typeTokens"]},
-    "pirateDaddiesFilm": {"state": "MANIFEST_PRESENT_ART_UNPROVEN", "knownSource": "media/daddys-princess-date/edit-manifest.json", "remainingFamilies": ["studioMark","wordmark","endCard","lowerThird","socialAvatar","socialBanner","thumbnailFrame"]},
-    "bigDaddy": {"state": "PROTECTED_REFERENCE_REQUIRED", "remainingFamilies": ["characterLockup","portrait","fullBody","expressionSheet","socialPortrait","titleCard"]}
+    "luhmOs": {
+      "state": "DISCOVERED_DRIVE_AND_REPO_ASSETS_AUDIT_PENDING",
+      "knownSource": "publicationSite/logo.svg",
+      "remainingFamilies": [
+        "wordmark",
+        "favicon",
+        "appIcon",
+        "socialAvatar",
+        "socialBanner",
+        "thumbnailFrame",
+        "endCard",
+        "colorTokens",
+        "typeTokens"
+      ]
+    },
+    "eggieBagelface": {
+      "state": "UNPROVEN",
+      "remainingFamilies": [
+        "wordmark",
+        "publisherLockup",
+        "socialAvatar",
+        "socialBanner",
+        "colorTokens",
+        "typeTokens"
+      ]
+    },
+    "pirateDaddiesFilm": {
+      "state": "MANIFEST_PRESENT_ART_UNPROVEN",
+      "knownSource": "media/daddys-princess-date/edit-manifest.json",
+      "remainingFamilies": [
+        "studioMark",
+        "wordmark",
+        "endCard",
+        "lowerThird",
+        "socialAvatar",
+        "socialBanner",
+        "thumbnailFrame"
+      ]
+    },
+    "bigDaddy": {
+      "state": "DISCOVERED_PROFESSOR_ASSETS_PROTECTED_AUDIT_PENDING",
+      "remainingFamilies": [
+        "characterLockup",
+        "portrait",
+        "fullBody",
+        "expressionSheet",
+        "socialPortrait",
+        "titleCard"
+      ]
+    }
   },
-  "internalRoleplayOnly": ["openDaddy","gitDaddy","samsungDaddy","bigBrother"],
-  "publicAssetReceiptRequiredFields": ["assetId","brandId","characterId","laneEligibility","publicAllowed","canonStatus","provenance","generationMethod","parentAsset","hash","professorApproval","runtimeImportReceiptWhenApplicable"],
+  "internalRoleplayOnly": [
+    "openDaddy",
+    "gitDaddy",
+    "samsungDaddy",
+    "bigBrother"
+  ],
+  "publicAssetReceiptRequiredFields": [
+    "assetId",
+    "brandId",
+    "characterId",
+    "laneEligibility",
+    "publicAllowed",
+    "canonStatus",
+    "provenance",
+    "generationMethod",
+    "parentAsset",
+    "hash",
+    "professorApproval",
+    "runtimeImportReceiptWhenApplicable"
+  ],
   "generatedDraftPublicAllowed": false,
   "publicationAuthority": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "driveDiscovery": {
+    "status": "DISCOVERED_NOT_YET_PROMOTED",
+    "scanDate": "2026-10-05",
+    "observedImageCount": 322,
+    "law": "Drive discovery proves asset existence only. Public eligibility still requires provenance, canon, rights, hash, technical review, and Professor approval. Private Drive IDs are intentionally omitted from public doctrine.",
+    "namedEvidence": {
+      "lum": [
+        "CURRENT_LUM_MIDNIGHT_1996_MODEL_SHEET.png",
+        "lum final.png",
+        "lum_gothic_hip_wing_animation_asset_sheet.png",
+        "lum_ps1_float_shrine.webp",
+        "KAI9000_LUM_AVATAR_ACTUAL_ANIMATED.gif",
+        "LUM_FINAL_REFERENCE_PROPOSAL_03_GOTHIC_DATE_NIGHT.png",
+        "KAI9000_Lum_Cathedral_Concept.png"
+      ],
+      "goddessGroup": [
+        "LuHm_Goddess_Lineup_Urd_Belldandy_Skuld_v0.1.png"
+      ],
+      "professor": [
+        "LuHm_Professor_Character_Lineup_v0.1.png",
+        "09_Professor_Get_Back_to_Work_Intermission.png"
+      ],
+      "cathedral": [
+        "CURRENT_KAI9000_CATHEDRAL_POSTER.png",
+        "CURRENT_KAI9000_GAME_WORLD_BIBLE.png",
+        "KAI9000_JRPG_DATING_CATHEDRAL_GREEN_20260906_key_art.png",
+        "KAI9000_JRPG_DATING_CATHEDRAL_GREEN_20260906_world_bible.png",
+        "kai9000_cathedral_cockpit_interface.png",
+        "10_LuHm_OS_Crown_Cathedral_Finale.png"
+      ],
+      "broaderArt": [
+        "luhm_portrait_demo.png",
+        "luhm_turnaround_costumes_demo.png",
+        "luhm_godot_ui_mockup_demo.png",
+        "luhm_animation_props_demo.png",
+        "luhm_icons_rewards_demo.png"
+      ]
+    }
+  }
 }
