@@ -69,7 +69,9 @@
     "mayPublish": false,
     "mayProductionSign": false,
     "mayMerge": false,
-    "providerOutputRequiresLumReconciliation": true
+    "providerOutputRequiresLumReconciliation": true,
+    "providerNativePayloadMayEscapeAdapter": false,
+    "providerNativeErrorMayEscapeAdapter": false
   },
   "crownStatus": "STOP",
   "likeTermEconomy": {
@@ -82,5 +84,13 @@
     "reuseTaskEnvelopeCache": true,
     "staleCacheAcrossSourceRef": false,
     "entitlementGoal": "Spend vendor capacity on novel reasoning, not repeated loop control or duplicated status work."
+  },
+  "apiSpine": "doctrine/apiSpineV1.json",
+  "routingLaw": {
+    "capabilityFirst": true,
+    "providerSecond": true,
+    "productInterfaceStableAcrossProviderSwap": true,
+    "providerSpecificConfigOwnedByAdapter": true,
+    "modelOrEntitlementDriftMayNotRewriteUserWorkflow": true
   }
 }
