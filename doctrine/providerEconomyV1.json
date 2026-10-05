@@ -110,5 +110,40 @@
       "authority": "candidateEvidenceOnly",
       "routesThrough": "lum"
     }
+  },
+  "corporatePanelContract": "doctrine/corporatePanelMilestonesV1.json",
+  "partnerEscalation": {
+    "defaultTier": {
+      "tier": 0,
+      "principal": "eggieFounder",
+      "kind": "humanAuthority"
+    },
+    "tierOne": {
+      "tier": 1,
+      "providerId": "googleAi",
+      "nickname": "bigBrother",
+      "role": "mainWorkhorse"
+    },
+    "tierTwo": {
+      "tier": 2,
+      "providerId": "openAi",
+      "nickname": "openDaddy",
+      "role": "interactivePremiumAndPlatformSpecific"
+    },
+    "tierThree": {
+      "tier": 3,
+      "providerId": "openSourceVendorCommunity",
+      "nickname": "vendorCommunity",
+      "role": "specialistLongTailAndOpenEcosystem"
+    }
+  },
+  "partnerEscalationLaw": {
+    "capabilityFitMaySkipTier": true,
+    "providerTierChangesAuthority": false,
+    "providerTierMayGrantGreen": false,
+    "providerTierMayGrantCrown": false,
+    "providerInterestIsEquity": false,
+    "respectKnownEntitlements": true,
+    "freeTierAware": true
   }
 }
