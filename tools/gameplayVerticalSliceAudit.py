@@ -80,7 +80,7 @@ if not missing:
         if token not in main: errors.append(f"Oni beacon interaction missing {token}")
     if 'return "TOUCH " + oni_name.to_upper() + " ECHO"' not in oni_beacon:
         errors.append("Oni beacon interaction prompt missing")
-    for token in ["extends Node3D","signal objective_reached","OniEchoCompanionVisual","QuestGuidePointer","_lifetime := 8.0","target.global_position","set_guide_target","guide_target.global_position","_objective_pinged","distance_to(guide_target.global_position) <= 2.8","objective_reached.emit(oni_name)","global_position.lerp","queue_free()"]:
+    for token in ["extends Node3D","signal objective_reached","OniEchoCompanionVisual","QuestGuidePointer","ObjectiveAcceptedBurst","func celebrate()","_lifetime := 8.0","target.global_position","set_guide_target","guide_target.global_position","_objective_pinged","distance_to(guide_target.global_position) <= 2.8","objective_reached.emit(oni_name)","global_position.lerp","queue_free()"]:
         if token not in oni_companion: errors.append(f"Oni companion missing {token}")
     if "agent-roster-v1.png" in oni_companion:
         errors.append("Oni companion may not repurpose loading-only roster sprites")
@@ -90,6 +90,8 @@ if not missing:
         if token not in main: errors.append(f"Oni quest guide missing {token}")
     for token in ['companion.objective_reached.connect(_on_oni_objective_reached)',"objective in reach. Your move, Professor.","game_hud.nudge_interaction()"]:
         if token not in main: errors.append(f"Oni objective arrival feedback missing {token}")
+    for token in ['bool(result.get("accepted", false))','active_oni_companion.has_method("celebrate")','active_oni_companion.call("celebrate")']:
+        if token not in main: errors.append(f"Oni accepted-event celebration missing {token}")
     travel_tokens = {
         "scripts/game/neonWorld.gd": ["travel:lumCoffeeHouse","travel:cathedral"],
         "scripts/game/lumCoffeeHouseScene.gd": ["travel:neonRiverwalk","travel:cathedral"],

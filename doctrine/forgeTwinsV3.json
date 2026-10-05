@@ -1,6 +1,6 @@
 {
-  "schema": "luhm.forge-twins.v3",
-  "status": "PROPOSED_CANDIDATE",
+  "schema": "luhmOs.forgeTwins.v3",
+  "status": "PROPOSED_CURRENT_CAMELHUMP_CONTRACT",
   "crownStatus": "STOP",
   "authority": "Professor",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
@@ -227,5 +227,6 @@
     "specialistTrainer": "huggingFace",
     "reconciler": "lum",
     "compileForgeOwner": "Kaji"
-  }
+  },
+  "legacyCompatibilitySource": "doctrine/FORGE_TWINS_V3.json"
 }

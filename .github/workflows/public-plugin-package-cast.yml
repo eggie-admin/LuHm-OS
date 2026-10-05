@@ -1,0 +1,82 @@
+name: Public Plugin Package CAST
+
+on:
+  workflow_dispatch:
+    inputs:
+      cast:
+        description: Exact Professor CAST word
+        required: true
+        type: string
+      milestoneId:
+        description: Bound milestone
+        required: true
+        default: publicReleaseCandidate
+        type: string
+      taskId:
+        description: Single-use task identity
+        required: true
+        type: string
+      sourceRef:
+        description: Exact 40-character candidate SHA
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  kaji-public-plugin-package:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ inputs.sourceRef }}
+          persist-credentials: false
+
+      - name: Verify exact source
+        shell: bash
+        run: |
+          set -euo pipefail
+          actual="$(git rev-parse HEAD)"
+          test "$actual" = "${{ inputs.sourceRef }}"
+
+      - name: Kaji CAST gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/forgeCastGate.py             --cast-word "${{ inputs.cast }}"             --milestone-id "${{ inputs.milestoneId }}"             --task-id "${{ inputs.taskId }}"             --source-ref "${{ inputs.sourceRef }}"             --actual-source-ref "$(git rev-parse HEAD)"             --build-scope "publicPluginPackage"             --actor "${{ github.actor }}"             --receipt /tmp/forge-cast-receipt.json
+
+      - name: Build deterministic public plugin ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/buildPublicPluginPackage.py             --source-ref "${{ inputs.sourceRef }}"             --out-dir /tmp/luhm-public-plugin
+
+      - name: Verify package receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, pathlib, hashlib
+          root=pathlib.Path("/tmp/luhm-public-plugin")
+          receipt=json.loads((root/"publicPluginPackageBuildReceipt.json").read_text())
+          artifact=root/receipt["artifact"]["filename"]
+          actual=hashlib.sha256(artifact.read_bytes()).hexdigest()
+          assert actual == receipt["artifact"]["sha256"]
+          assert receipt["sourceRef"] == "${{ inputs.sourceRef }}"
+          assert receipt["buildScope"] == "publicPluginPackage"
+          assert receipt["publicationAuthority"] is False
+          print("GREEN_PUBLIC_PLUGIN_PACKAGE_RECEIPT")
+          PY
+
+      - name: Upload CAST-scoped artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-plugin-package-${{ inputs.sourceRef }}
+          path: |
+            /tmp/luhm-public-plugin/*.zip
+            /tmp/luhm-public-plugin/publicPluginPackageBuildReceipt.json
+            /tmp/forge-cast-receipt.json
+          retention-days: 3
+          if-no-files-found: error

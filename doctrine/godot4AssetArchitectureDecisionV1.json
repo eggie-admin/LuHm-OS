@@ -1,0 +1,114 @@
+{
+  "schema": "luhmOs.godot4AssetArchitectureDecision.v1",
+  "status": "PROPOSED_SKULD_RECOMMENDATION",
+  "authority": "Professor",
+  "sourceRef": "7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
+  "owner": "skuldResearch",
+  "reconciler": "lum",
+  "records": "belldandySecretary",
+  "sanity": "urdDoctorGoddess",
+  "artDirection": "yume",
+  "projectFacts": {
+    "projectFile": "project.godot",
+    "featureLevel": "4.7",
+    "renderer": "GL Compatibility",
+    "currentMainScene": "res://scenes/Main.tscn",
+    "exportPresets": [
+      "Android Proposed",
+      "Web Harness"
+    ]
+  },
+  "decisions": {
+    "threeDInterchange": {
+      "preferred": "glTF 2.0 binary (.glb)",
+      "authoring": "Blender may remain authoritative heavy authoring workstation",
+      "law": "runtime candidate stores/imports the Godot-consumable asset and provenance receipt; source authoring files remain separately traceable"
+    },
+    "images": {
+      "preferred": [
+        "PNG",
+        "WebP",
+        "SVG when vector UI is appropriate"
+      ],
+      "law": "choose compression/import preset by consumer; public asset still needs provenance and approval"
+    },
+    "audio": {
+      "preferred": [
+        "WAV for source/master or short samples",
+        "Ogg Vorbis for compressed game audio",
+        "MP3 only when justified"
+      ],
+      "law": "rights receipt and runtime import proof required"
+    },
+    "rigging": {
+      "baseline": "Skeleton3D + SkeletonModifier3D family",
+      "ik": "Godot 4.7 SkeletonModifier3D-based IK where appropriate",
+      "secondaryMotion": "SpringBoneSimulator3D first for bounded hair/cloth/tail/soft-chain motion",
+      "uncontrolledPhysics": "forbidden",
+      "pluginFallback": "only when engine-native path cannot satisfy the proved requirement"
+    },
+    "plugins": {
+      "default": "engine-native first",
+      "admission": [
+        "exact upstream identity",
+        "license/notice receipt",
+        "target Godot compatibility",
+        "bounded need",
+        "candidate import test",
+        "no hidden egress/secrets",
+        "Skuld recommendation",
+        "Lum reconciliation"
+      ],
+      "oldDriveSnapshots": "donor/reference only until freshly pinned and tested"
+    },
+    "storage": {
+      "github": "canonical source, manifests, scenes, scripts, import configuration, build lineage",
+      "drive": "durable media bytes, original/source art, donor/reference vault, receipts, recovery mirrors",
+      "generatedGodotImportCache": ".godot/ stays noncanonical and should not be committed as source"
+    },
+    "releaseSeparation": {
+      "law": "do not combine unrelated proof targets into one mega-build",
+      "proposedCastScopes": [
+        "godotWebHarnessPreview",
+        "androidTestingCandidate",
+        "yumeCutsceneProof",
+        "publicPluginPackage",
+        "publicStaticSiteCandidate"
+      ],
+      "eachScopeRequiresOwnCast": true,
+      "oneCastDoesNotAuthorizeAnotherScope": true
+    }
+  },
+  "historicalDriveEvidence": {
+    "treatment": "donorReceiptOnlyCurrentGitHubWins",
+    "acceptedFacts": [
+      "mixed multipart archive was integrity/inventory checked but provenance-blocked",
+      "curated Godot character-physics pack had integrity receipts",
+      "community plugin snapshots were references rather than automatic runtime dependencies",
+      "engine-native SpringBoneSimulator3D/SkeletonModifier3D approach was previously preferred",
+      "private/proprietary reference material remained outside public release"
+    ],
+    "notCarriedAsCurrentProof": [
+      "old APK version/build status",
+      "old branch promotion",
+      "old physical-device state",
+      "folder names implying game-ready or import-tested state"
+    ]
+  },
+  "implementationOrder": [
+    "Belldandy complete asset estate index for candidate scope",
+    "Urd classify rights/provenance/sanity state",
+    "Yume identify creative-useful assets and missing derivatives",
+    "Skuld choose import/runtime path per selected asset",
+    "Tetsu stage only cleared candidate assets and manifests",
+    "headless Godot import/runtime smoke",
+    "Lum reconcile exact candidate",
+    "Professor review",
+    "single-use CAST for one named build scope",
+    "Kaji compile/hash/receipt"
+  ],
+  "buildAuthority": false,
+  "publicationAuthority": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}

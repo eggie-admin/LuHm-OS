@@ -1,0 +1,70 @@
+name: Yume Cutscene Factory Proof
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/yumeCutsceneFactoryProofV1.json'
+      - 'cutscenes/yumeCutsceneFactoryProof.json'
+      - 'cutscenes/cinemaQualityV1.json'
+      - 'scenes/YumeCutsceneFactoryProof.tscn'
+      - 'scripts/yumeCutsceneShot.gd'
+      - 'scripts/render-yume-cutscene-proof.sh'
+      - 'scripts/encode-yume-cutscene-proof.sh'
+      - 'tools/yumeCutsceneFactoryAudit.py'
+      - 'tools/yumeCutsceneSmoke.gd'
+      - '.github/workflows/yume-cutscene-factory-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-and-import-proof:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+
+      - name: Validate contracts and scripts
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/yumeCutsceneFactoryProofV1.json >/dev/null
+          python3 -m json.tool cutscenes/yumeCutsceneFactoryProof.json >/dev/null
+          python3 -m json.tool cutscenes/cinemaQualityV1.json >/dev/null
+          python3 -m py_compile tools/yumeCutsceneFactoryAudit.py
+          bash -n scripts/render-yume-cutscene-proof.sh
+          bash -n scripts/encode-yume-cutscene-proof.sh
+          python3 tools/yumeCutsceneFactoryAudit.py
+
+      - name: Install pinned Godot 4.7.2 editor
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip"
+          expected="cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4"
+          curl --fail --location --retry 3 --output /tmp/godot.zip "$url"
+          actual="$(sha256sum /tmp/godot.zip | awk '{print $1}')"
+          test "$actual" = "$expected"
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --version
+
+      - name: Headless Godot scene/import smoke
+        run: |
+          set -euo pipefail
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64             --headless             --path .             --script res://tools/yumeCutsceneSmoke.gd
+
+      - name: Prove render remains CAST-gated
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          bash scripts/render-yume-cutscene-proof.sh dayShift "$(git rev-parse HEAD)" /tmp/yume-proof > /tmp/render-gate.log 2>&1
+          rc=$?
+          set -e
+          cat /tmp/render-gate.log
+          test "$rc" -eq 5
+          grep -q 'CAST_REQUIRED' /tmp/render-gate.log
+          test ! -e /tmp/yume-proof/dayShift/yumeCutsceneFactoryProof-dayShift.mp4
+          echo "GREEN_RENDER_GATE_NO_MEDIA_PRODUCED"

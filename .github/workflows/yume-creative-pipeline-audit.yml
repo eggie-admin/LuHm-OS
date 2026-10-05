@@ -6,6 +6,9 @@ on:
       - 'agents/yumeArtOni/**'
       - 'agents/mediaAssetFactory/**'
       - 'doctrine/yumeCreativePipelineV1.json'
+      - 'doctrine/yumeCommunityArtResourcesV1.json'
+      - 'doctrine/artistCreditLedgerV1.json'
+      - 'doctrine/githubWorkflowBudgetV1.json'
       - 'doctrine/SOURCE_OF_TRUTH.json'
       - 'media/daddys-princess-date/**'
       - 'tools/yumeCreativePipelineAudit.py'
@@ -23,6 +26,9 @@ jobs:
       - name: Validate JSON
         run: |
           python -m json.tool doctrine/yumeCreativePipelineV1.json >/dev/null
+          python -m json.tool doctrine/yumeCommunityArtResourcesV1.json >/dev/null
+          python -m json.tool doctrine/artistCreditLedgerV1.json >/dev/null
+          python -m json.tool doctrine/githubWorkflowBudgetV1.json >/dev/null
           python -m json.tool media/daddys-princess-date/edit-manifest.json >/dev/null
       - name: Run 20-pass Yume audit
         run: python tools/yumeCreativePipelineAudit.py

@@ -1,9 +1,0 @@
-{
-  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
-  "mcpServers": {
-    "luhm_remote": {
-      "type": "streamable-http",
-      "url": "https://luhm-mcp.example.invalid/mcp"
-    }
-  }
-}

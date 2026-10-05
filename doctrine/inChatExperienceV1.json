@@ -16,7 +16,8 @@
     "runtimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json",
     "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json",
     "apiSpine": "doctrine/apiSpineV1.json",
-    "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json"
+    "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "chatPrecisionCommand": "doctrine/chatPrecisionCommandV1.json"
   },
   "runtime": {
     "tool": "luhm_open_cockpit",
@@ -34,11 +35,19 @@
       "roleplay",
       "petDock",
       "commandCapsule",
+      "precisionCommands",
       "godotHandoff"
     ],
     "godotEmbeddingInChat": false,
     "godotHandoffPath": "/harness/godot-export/index.html",
-    "providerPlumbingHiddenFromEndUser": true
+    "providerPlumbingHiddenFromEndUser": true,
+    "stageTwo": {
+      "layout": "verticalScroll",
+      "parallax": "cssLayered",
+      "commandSchema": "doctrine/chatPrecisionCommandV1.json",
+      "inChatFirst": true,
+      "providerPlumbingHidden": true
+    }
   },
   "turnModel": {
     "sequence": [

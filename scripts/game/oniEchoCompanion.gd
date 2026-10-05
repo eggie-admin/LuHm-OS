@@ -52,6 +52,26 @@ func _process(delta: float) -> void:
     if _clock >= _lifetime:
         queue_free()
 
+func celebrate() -> void:
+    var burst := Node3D.new()
+    burst.name = "ObjectiveAcceptedBurst"
+    add_child(burst)
+    for i in range(3):
+        var ring := MeshInstance3D.new()
+        var ring_mesh := TorusMesh.new()
+        ring_mesh.inner_radius = 0.18 + float(i) * 0.08
+        ring_mesh.outer_radius = 0.23 + float(i) * 0.08
+        ring.mesh = ring_mesh
+        ring.rotation_degrees.x = 90.0
+        ring.material_override = _emissive(accent.lightened(0.18), 4.6 - float(i) * 0.4)
+        burst.add_child(ring)
+    burst.scale = Vector3.ONE * 0.35
+    var tween := burst.create_tween()
+    tween.set_trans(Tween.TRANS_BACK)
+    tween.set_ease(Tween.EASE_OUT)
+    tween.tween_property(burst, "scale", Vector3.ONE * 2.8, 0.42)
+    tween.tween_callback(burst.queue_free)
+
 func _build_visual() -> void:
     _visual_root = Node3D.new()
     _visual_root.name = "OniEchoCompanionVisual"
