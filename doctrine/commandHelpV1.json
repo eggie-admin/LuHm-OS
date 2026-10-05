@@ -1,0 +1,63 @@
+{
+  "schema": "luhmOs.commandHelp.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "purpose": "Provide an apt-like compact help surface that reverses LuHm aliases back to person-centered meaning.",
+  "entryPoints": [
+    "luhm -h",
+    "luhm --help",
+    "luhm help",
+    "luhm help <name>",
+    "luhm <command> -h"
+  ],
+  "lookupOrder": [
+    "exactCanonical",
+    "exactAlias",
+    "kebab",
+    "dragonTail",
+    "camelHump",
+    "vowelRipped",
+    "shorthand"
+  ],
+  "requiredHelpFields": [
+    "canonicalName",
+    "humanMeaning",
+    "purpose",
+    "scope",
+    "owner",
+    "aliases",
+    "authorityBoundary",
+    "examples"
+  ],
+  "behavior": {
+    "terseByDefault": true,
+    "unknownReturnsSuggestionsOnly": true,
+    "unknownExecutesNothing": true,
+    "helpMayGrantAuthority": false,
+    "helpMayMutate": false,
+    "allAliasesResolveToCanonical": true
+  },
+  "builtins": [
+    {
+      "canonicalName": "showHelp",
+      "humanMeaning": "show help for a LuHm command, object, alias, or naming form",
+      "purpose": "recover what something means and how to use it",
+      "scope": "readOnly",
+      "owner": "belldandySecretary",
+      "aliases": {
+        "kebab": "show-help",
+        "dragonTail": "HELP",
+        "vowelRipped": "shwHlp",
+        "shorthand": "help"
+      },
+      "authorityBoundary": "readOnly",
+      "examples": [
+        "luhm -h",
+        "luhm help currentSourceTruth",
+        "luhm help cst"
+      ]
+    }
+  ],
+  "namingContract": "doctrine/namingNamespaceCanonV1.json",
+  "crownStatus": "STOP"
+}
