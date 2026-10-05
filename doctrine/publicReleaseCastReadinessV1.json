@@ -4,7 +4,7 @@
   "authority": "Professor",
   "sourceMain": "7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
   "candidateBranch": "candidate/publicArtBrandReleaseReadiness-20261005",
-  "forgeContract": "doctrine/FORGE_TWINS_V3.json",
+  "forgeContract": "doctrine/forgeTwinsV3.json",
   "sourceForge": "Tetsu",
   "compileForge": "Kaji",
   "reconciler": "lum",
