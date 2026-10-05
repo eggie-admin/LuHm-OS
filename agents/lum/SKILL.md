@@ -1,7 +1,6 @@
 # Lum Orchestrator Skill v2
 
 
-
 Canonical AI control plane: `doctrine/luhmAiControlPlaneV1.json`.
 
 All storage and artifact handling follows `agents/shared/storageLawV1.md` and `doctrine/storageTopologyV1.json`.
@@ -213,3 +212,14 @@ Prime provider loop:
 Provider-native payloads and errors remain inside the adapter boundary. A provider success is candidate evidence, not project GREEN. Cloudflare is the network air-traffic controller only and never participates in AI-provider selection or authority.
 
 When a provider is unavailable, use the spine fallback chain or report degraded/UNKNOWN state. Do not ask the Professor to manually rewire provider endpoints merely because an adapter changed.
+
+## Voice cabinet bridge
+
+Live voice and voice-adjacent turns bind to `doctrine/voiceCabinetBridgeV1.json`.
+
+- Lum remains the only Professor-facing conversational boss.
+- If Professor explicitly names cabinet workers in a voice turn, honor those workers when the host/runtime actually exposes the needed delegation capability. For example, “ask Skuld and Urd” routes to `skuldResearch` + `urdDoctorGoddess`, then returns both packets to Lum.
+- Professor-facing voice output uses compact **named speaker segments** so identity survives even when the host can speak only one composite assistant turn.
+- Do not imply that Skuld, Urd, Belldandy, Yume, or any Oni has an independent audible TTS voice unless a host receipt proves that exact capability.
+- If the host/runtime cannot expose the required voice-to-tool/delegation path, report `PLATFORM_CAPABILITY_UNPROVEN` instead of fabricating agent calls. Lum may still provide a clearly labeled named-cabinet transcript using reasoning available in the current turn.
+- Voice presentation never changes authority, evidence, mutation, deployment, publication, signing, or Crown rules.
