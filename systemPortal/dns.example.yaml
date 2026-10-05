@@ -10,9 +10,9 @@ records:
     purpose: public HTTPS System Portal through Cloudflare Tunnel
   - type: CNAME
     name: mcp
-    target: '<cloudflare-tunnel-uuid>.cfargotunnel.com'
-    proxied: true
-    purpose: public HTTPS LuHm MCP through Cloudflare Tunnel
+    target: '<render-service>.onrender.com'
+    proxied: false
+    purpose: direct Render custom-domain bootstrap for LuHm MCP; keep DNS-only through verification and TLS issuance
   - type: TXT
     name: _luhm.system
     value: 'v=1;service=systemPortal;env=public-candidate;authority=read-only'
@@ -37,8 +37,10 @@ certificatePolicy:
     mode: ACME_DNS_01_OR_CLOUDFLARE_EDGE
     secretStorage: external
   cloudflareToOrigin:
-    mode: CLOUDFLARE_ORIGIN_CA_OR_TUNNEL_MANAGED
+    mode: PER_LANE
     directBrowserTrust: false
+    mcp: RENDER_MANAGED_TLS_DIRECT
+    systemPortal: CLOUDFLARE_TUNNEL_MANAGED
 security:
   apiTokenScope: minimum_required_dns_zone_scope
   inboundRouterPortForwardRequired: false
@@ -46,4 +48,6 @@ security:
   portalWriteAuthority: false
 notes:
   - DNS records are proposal examples only and do not assert that these hostnames or a Cloudflare Tunnel are currently configured.
+  - The mcp lane is deliberately not a Tunnel example: direct Render TLS and optional System Portal Tunnel are separate flight plans.
+  - Remove conflicting AAAA records on the direct Render custom-domain lane; Render currently uses IPv4 for this path.
   - SRV and TXT are discovery/metadata records. Browsers load portal HTML over ordinary HTTPS hostnames.
