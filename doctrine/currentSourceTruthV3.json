@@ -261,8 +261,11 @@
     "intentRouter": "doctrine/humanCenteredIntentRouterV2.json",
     "operationTitan7ChatTrigger": "doctrine/operationTitan7ChatTriggerV2.json",
     "roleplayFrontend": "frontEnd/jquery/luhm.codingRoleplay.js",
-    "status": "PROPOSED_SOURCE_ONLY",
-    "crownStatus": "STOP"
+    "status": "SOURCE_CONFIGURED_CANDIDATE",
+    "crownStatus": "STOP",
+    "inChatExperience": "doctrine/inChatExperienceV1.json",
+    "chatUiResource": "ui://luhm-os/cockpit-v2.html",
+    "runtimeTool": "luhm_open_cockpit"
   },
   "studyLayer": {
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",

@@ -18,6 +18,7 @@ REQUIREMENTS = ROOT / "host/mcp/requirements.txt"
 PLUGIN = ROOT / "plugins/luhm-os/plugin.json"
 MCP_CONFIG = ROOT / "plugins/luhm-os/mcp.json"
 TESTS = ROOT / "plugins/luhm-os/review-tests.json"
+EXPERIENCE = ROOT / "doctrine/inChatExperienceV1.json"
 PRIVACY = ROOT / "plugins/luhm-os/PRIVACY.md"
 TERMS = ROOT / "plugins/luhm-os/TERMS.md"
 SUBMISSION = ROOT / "plugins/luhm-os/PUBLIC_SUBMISSION_DRAFT.md"
@@ -42,6 +43,7 @@ def validate(
     plugin: dict,
     mcp_config: dict,
     tests: dict,
+    experience: dict,
 ) -> list[str]:
     errors: list[str] = []
     law = "AI proposes. Policy authorizes. CI proves. Human promotes."
@@ -118,12 +120,19 @@ def validate(
         if phrase not in harness_server_text:
             errors.append(f"harness server publication hardening missing: {phrase}")
 
+    if experience.get("schema") != "luhmOs.inChatExperience.v1":
+        errors.append("in-chat experience schema drift")
+    if experience.get("runtime", {}).get("resourceUri") != "ui://luhm-os/cockpit-v2.html":
+        errors.append("in-chat resource URI drift")
+
     required_harness_module_phrases = (
-        'UI_RESOURCE_URI = "ui://luhm-os/cockpit-v1.html"',
+        'UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"',
         'APP_MIME_TYPE = "text/html;profile=mcp-app"',
         'name="luhm_open_cockpit"',
         '"publicationAuthority": False',
         '"greenAuthority": False',
+        '"schema": "luhmOs.inChatExperiencePayload.v1"',
+        '"experience": experience',
     )
     for phrase in required_harness_module_phrases:
         if phrase not in harness_module_text:
@@ -150,7 +159,7 @@ def validate(
         if not entry.get("prompt") or not entry.get("expected"):
             errors.append("review test missing prompt or expected behavior")
 
-    for path in (SERVER, HARNESS_SERVER, HARNESS_MODULE, REQUIREMENTS, MCP_CONFIG, PRIVACY, TERMS, SUBMISSION):
+    for path in (SERVER, HARNESS_SERVER, HARNESS_MODULE, REQUIREMENTS, MCP_CONFIG, PRIVACY, TERMS, SUBMISSION, EXPERIENCE):
         if not path.is_file() or path.stat().st_size == 0:
             errors.append(f"missing publication input: {path.relative_to(ROOT)}")
 
@@ -169,6 +178,7 @@ def main() -> int:
     plugin = load(PLUGIN)
     mcp_config = load(MCP_CONFIG)
     tests = load(TESTS)
+    experience = load(EXPERIENCE)
     errors = validate(
         milestone,
         source,
@@ -180,13 +190,15 @@ def main() -> int:
         plugin,
         mcp_config,
         tests,
+        experience,
     )
     report = {
         "schema": "luhm-os.plugin-publication-source-audit.v2",
         "status": "GREEN_PUBLICATION_SOURCE_READY" if not errors else "RED_PUBLICATION_SOURCE",
         "sourceCommit": git_head(),
         "mcpUrl": mcp_config.get("mcpServers", {}).get("luhm", {}).get("url", "UNKNOWN"),
-        "chatUiResource": "ui://luhm-os/cockpit-v1.html",
+        "chatUiResource": "ui://luhm-os/cockpit-v2.html",
+        "inChatExperienceSchema": experience.get("schema"),
         "contractErrors": errors,
         "publicationAuthority": False,
         "directoryPublicationProven": False,

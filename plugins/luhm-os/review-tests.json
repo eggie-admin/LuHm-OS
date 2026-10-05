@@ -23,8 +23,8 @@
     },
     {
       "id": "P5",
-      "prompt": "Show the LuHm proof authority contract.",
-      "expected": "Calls luhm_proof_contract and preserves UNKNOWN/green-authority boundaries."
+      "prompt": "Open the LuHm OS in-chat cockpit and show the active experience contract.",
+      "expected": "Calls luhm_open_cockpit once, returns luhmOs.inChatExperiencePayload.v1 with experience.schema=luhmOs.inChatExperience.v1 and cockpit-v2 resource binding, and preserves read-only/Crown boundaries."
     }
   ],
   "negative": [

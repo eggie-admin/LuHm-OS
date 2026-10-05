@@ -29,6 +29,7 @@ def main() -> int:
         SERVER,
         MODULE,
         PRESETS,
+        ROOT / "doctrine" / "inChatExperienceV1.json",
     )
     for path in required:
         require(path.is_file(), f"RED_HARNESS_MISSING:{path.relative_to(ROOT)}")
@@ -41,13 +42,19 @@ def main() -> int:
     libraries = json.loads((HARNESS / "libraryPolicy.json").read_text(encoding="utf-8"))
     pets = json.loads((HARNESS / "pets.json").read_text(encoding="utf-8"))
     donors = json.loads((HARNESS / "donorMutation.json").read_text(encoding="utf-8"))
+    experience = json.loads((ROOT / "doctrine" / "inChatExperienceV1.json").read_text(encoding="utf-8"))
 
-    require("ui://luhm-os/cockpit-v1.html" in module, "RED_WIDGET_URI")
+    require("ui://luhm-os/cockpit-v2.html" in module, "RED_WIDGET_URI")
     require("text/html;profile=mcp-app" in module, "RED_WIDGET_MIME")
     require("luhm_open_cockpit" in module, "RED_RENDER_TOOL")
     require('"greenAuthority": False' in module, "RED_UI_GREEN_AUTHORITY")
     require('"publicationAuthority": False' in module, "RED_UI_PUBLICATION_AUTHORITY")
     require("godotEmbeddingInChat" in module and "False" in module, "RED_NESTED_FRAME_BOUNDARY")
+    require(experience.get("schema") == "luhmOs.inChatExperience.v1", "RED_IN_CHAT_SCHEMA")
+    require(experience.get("runtime", {}).get("resourceUri") == "ui://luhm-os/cockpit-v2.html", "RED_IN_CHAT_URI_DRIFT")
+    require('"schema": "luhmOs.inChatExperiencePayload.v1"' in module, "RED_IN_CHAT_PAYLOAD")
+    require('"experience": experience' in module, "RED_IN_CHAT_EXPERIENCE_NOT_EXPOSED")
+    require('id="experienceSchema"' in widget and 'id="experiencePanels"' in widget, "RED_IN_CHAT_WIDGET_BINDING")
 
     for text, label in ((widget, "WIDGET"), (index, "INDEX")):
         require(not re.search(r'<script[^>]+src=["\']https?://', text, re.I), f"RED_{label}_REMOTE_SCRIPT")
