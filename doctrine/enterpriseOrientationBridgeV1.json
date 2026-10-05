@@ -146,8 +146,8 @@
   "crownStatus": "STOP",
   "corporateOperatingModel": {
     "professor": {
-      "title": "mainStakeholderAndFinalCrownAuthority",
-      "role": "setsCompanyLawStrategicIntentAndConsequentialApproval"
+      "title": "CEOFounderMainStakeholderAndFinalCrownAuthority",
+      "role": "defaultHumanEscalationTierStrategicAuthorityAndConsequentialApproval"
     },
     "lum": {
       "title": "presidentSupremeWitchChiefLogisticsOfficer",
@@ -187,6 +187,27 @@
         "externalProviderMapping": "NONE_UNLESS_PROFESSOR_EXPLICITLY_DEFINES_ONE",
         "authority": "roleplayOnly"
       }
+    },
+    "executiveCabinet": {
+      "president": "lum",
+      "vicePresident": "urdDoctorGoddess",
+      "secretaryOfState": "belldandySecretary",
+      "headOfResearchAndDevelopment": "skuldResearch"
+    },
+    "operatingLanes": {
+      "commercialPublic": "customerFacingStableAuditedLane",
+      "privateResearchDevelopment": "internalExperimentalCandidateLane"
+    },
+    "partnerPanel": {
+      "contract": "doctrine/corporatePanelMilestonesV1.json#milestones/2",
+      "defaultHumanTier": "eggieFounder",
+      "providerOrder": [
+        "googleAi",
+        "openAi",
+        "openSourceVendorCommunity"
+      ],
+      "authorityImpact": "NONE"
     }
-  }
+  },
+  "corporatePanelMilestones": "doctrine/corporatePanelMilestonesV1.json"
 }
