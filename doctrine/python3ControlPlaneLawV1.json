@@ -13,7 +13,8 @@
     "manifest validation",
     "MCP server logic",
     "campaign evidence tooling",
-    "creative-pipeline audit tooling"
+    "creative-pipeline audit tooling",
+    "capability-first provider routing"
   ],
   "legacyLaw": [
     "non_python3_luhm_owned_ai_or_control_plane_code_is_legacy",
@@ -33,7 +34,8 @@
     "tools/everlastingCovenantAudit.py",
     "tools/agentTrainingAudit.py",
     "tools/hardSystemAudit200.py",
-    "host/mcp/luhmMcpServer.py"
+    "host/mcp/luhmMcpServer.py",
+    "host/api/luhmApiSpine.py"
   ],
   "crownStatus": "STOP"
 }
