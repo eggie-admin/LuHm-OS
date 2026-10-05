@@ -31,6 +31,7 @@
     "agents/urdMutationOni/SKILL.md",
     "agents/skuldResearchOni/SKILL.md",
     "agents/belldandyQualityOni/SKILL.md",
+    "doctrine/openAiWorkspaceHygieneV1.json",
     "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md",
     "doctrine/termResolutionV1.json",
     "doctrine/chatLikeTermFoldV1.json",
@@ -54,7 +55,8 @@
     "campaignLaunchKit": "doctrine/campaignLaunchKitV1.json",
     "agentSystemDeployment": "doctrine/agentSystemDeploymentV1.json",
     "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
-    "humanCenteredIntentRouter": "doctrine/humanCenteredIntentRouterV2.json"
+    "humanCenteredIntentRouter": "doctrine/humanCenteredIntentRouterV2.json",
+    "openAiWorkspaceHygiene": "doctrine/openAiWorkspaceHygieneV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -71,7 +73,7 @@
     },
     "belldandy": {
       "mode": "readOnlyMiniAgent",
-      "specialty": "secretaryStateRecordsUnification"
+      "specialty": "secretaryStateRecordsUnificationOpenAiWorkspaceHygiene"
     }
   },
   "specialistsLazyLoaded": {
@@ -169,7 +171,8 @@
       "canonicalRole": "secretary",
       "machineIdentity": "belldandySecretary",
       "legacySkillPath": "agents/belldandyQualityOni/SKILL.md",
-      "mode": "readOnlyMiniAgent"
+      "mode": "readOnlyMiniAgent",
+      "workspaceHygieneContract": "doctrine/openAiWorkspaceHygieneV1.json"
     },
     "skuld": {
       "canonicalRole": "research",
