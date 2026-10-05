@@ -34,6 +34,7 @@ plugin = load("doctrine/pluginPublicationV2.json")
 trainer = load("doctrine/huggingFaceSpecialistTrainerV1.json")
 estate = load("doctrine/godot4AssetEstateV1.json")
 estate_ledger = load("media/godot4-game-asset-estate.json")
+forge = load("doctrine/FORGE_TWINS_V3.json")
 canon = load("game/canon/CHARACTER_CANON_V1.json")
 runtime_assets = load("game/assets/ASSET_MANIFEST_V1.json")
 
@@ -141,6 +142,17 @@ need(estate.get("roles", {}).get("urd","").startswith("keep the estate sane and 
 need("folder_name_is_not_green" in estate.get("laws", []), "estate folder-name GREEN guard missing")
 need(estate_ledger.get("status") == "DISCOVERED_INVENTORY_AUDIT_PENDING", "Godot asset estate ledger must remain audit pending")
 need(estate_ledger.get("candidateScopeState") == "AMBER_ASSET_ESTATE_DISCOVERED_RECONCILIATION_REQUIRED", "Godot asset estate must remain AMBER until reconciled")
+
+
+need(forge.get("truthGuard", {}).get("adjudicator") == "urdDoctorGoddess", "Forge truth guard must be Urd")
+need("URD_TRUTH_CHECK" in forge.get("workflow", []), "Forge workflow must use Urd truth check")
+need("DR_NAO_TRUTH_CHECK" not in forge.get("workflow", []), "stale DrNao Forge workflow step remains")
+need(forge.get("twins", {}).get("Tetsu", {}).get("allowedOperations") == ["PROTECT","INGEST","MUTATE","VERIFY","JANITOR"], "Tetsu source lane drift")
+need(forge.get("twins", {}).get("Kaji", {}).get("allowedOperations") == ["PREPARE","CAST","BUILD","HASH","RECEIPT","JANITOR"], "Kaji compile lane drift")
+need(forge.get("assetEstateIntegration", {}).get("sourceForgeOwner") == "Tetsu", "asset estate source forge drift")
+need(forge.get("assetEstateIntegration", {}).get("compileForgeOwner") == "Kaji", "asset estate compile forge drift")
+need(truth.get("forgeLayer", {}).get("truthGuard") == "urdDoctorGoddess", "source truth Forge guard drift")
+need(truth.get("forgeLayer", {}).get("explicitSingleUseCastRequired") is True, "source truth CAST gate drift")
 
 if errors:
     print("RED_PUBLIC_ART_BRAND_RELEASE_AUDIT")
