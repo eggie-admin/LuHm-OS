@@ -40,6 +40,7 @@ NAMING_NAMESPACE = ROOT / "doctrine" / "namingNamespaceCanonV1.json"
 COMMAND_HELP = ROOT / "doctrine" / "commandHelpV1.json"
 PRECISION_COMMAND = ROOT / "doctrine" / "chatPrecisionCommandV1.json"
 ROUTER = ROOT / "tools" / "lumTaskRouter.py"
+ESCALATION_RESOLVER = ROOT / "tools" / "escalationKernel.py"
 API_SPINE_RESOLVER = ROOT / "host" / "api" / "luhmApiSpine.py"
 ROUTE_KINDS = {
     "direct", "read", "records", "proof", "patch", "build", "external",
@@ -48,7 +49,7 @@ ROUTE_KINDS = {
 TRUTH_SCOPE_KINDS = {"patch", "build", "release"}
 
 SERVER_NAME = "luhm-os"
-SERVER_VERSION = "0.5.2-beta"
+SERVER_VERSION = "0.5.3-beta"
 DEFAULT_PUBLIC_FQDN = "mcp.eggiebagelface.art"
 LOCAL_HOST = "127.0.0.1"
 LOCAL_PORT = 8788
@@ -56,11 +57,11 @@ LOCAL_PORT = 8788
 server = MCPServer(
     SERVER_NAME,
     title="LuHm OS",
-    description="Read-only LuHm source-truth, help, agent roster, Belldandy housekeeping, capability-first API spine, Oni routing, proof, and transport tools.",
+    description="Read-only LuHm source-truth, help, escalation planning, agent roster, Belldandy housekeeping, capability-first API spine, Oni routing, proof, and transport tools.",
     version=SERVER_VERSION,
     instructions=(
         "LuHm OS is evidence-gated. AI proposes; policy authorizes; CI proves; human promotes. "
-        "Use read-only status, help, roster, Belldandy housekeeping, routing, proof-contract, scope, and transport tools to inspect the current workflow. "
+        "Use read-only status, help, escalation planning, roster, Belldandy housekeeping, routing, proof-contract, scope, and transport tools to inspect the current workflow. "
         "Truth-sensitive patch/build/release routing requires explicit taskId, sourceRef, and scopeId. "
         "Never infer GREEN, promotion, signing, publication, or public exposure from these tools. "
         "Professor remains final authority."
@@ -408,6 +409,8 @@ def _assert_source_contract() -> None:
         raise RuntimeError("RED_TRAFFIC_CONTROLLER_SCHEMA")
     if not API_SPINE_RESOLVER.is_file():
         raise RuntimeError("RED_API_SPINE_RESOLVER_MISSING")
+    if not ESCALATION_RESOLVER.is_file():
+        raise RuntimeError("RED_ESCALATION_RESOLVER_MISSING")
     if traffic.get("authorityBoundary", {}).get("aiProvider") is not False:
         raise RuntimeError("RED_CLOUDFLARE_AI_PROVIDER_DRIFT")
     mcp_lane = traffic.get("lanes", {}).get("publicChatPluginMcp", {})
@@ -552,6 +555,41 @@ def luhm_route_task(
     result = json.loads(completed.stdout)
     result["requestScope"] = scope
     result["mcpMutationAuthority"] = False
+    return result
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_escalation_plan(
+    domain: str,
+    tier: int = 0,
+    outcome: str = "working",
+) -> dict[str, Any]:
+    """Resolve LuHm's zero-based escalation tier without mutating state or authority."""
+    if domain not in {"default", "corporate", "magic", "art", "technology"}:
+        raise ValueError("unsupported escalation domain")
+    if tier < 0 or tier > 3:
+        raise ValueError("tier must be 0..3")
+    if outcome not in {"working", "green", "blocked", "unknown", "conflict"}:
+        raise ValueError("unsupported escalation outcome")
+    completed = subprocess.run(
+        [
+            sys.executable,
+            str(ESCALATION_RESOLVER),
+            "--domain", domain,
+            "--tier", str(tier),
+            "--outcome", outcome,
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=10,
+        env={"PATH": ""},
+    )
+    result = json.loads(completed.stdout)
+    result["mcpMutationAuthority"] = False
+    result["greenAuthority"] = False
+    result["crownAuthority"] = False
     return result
 
 
