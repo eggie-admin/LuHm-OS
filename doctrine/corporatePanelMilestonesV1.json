@@ -166,5 +166,7 @@
       "pass": "staff can escalate provider work by tier without confusing vendor priority with management authority"
     }
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "escalationKernel": "doctrine/escalationKernelV1.json",
+  "corporateEscalationProfile": "doctrine/corporateEscalationProfileV1.json"
 }
