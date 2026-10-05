@@ -27,7 +27,8 @@ expected={
   "runtimeReceipt":"doctrine/chatGptPluginRuntimeReceiptV1.json",
   "openingDayStaffTraining":"doctrine/openingDayStaffTrainingV1.json",
   "apiSpine":"doctrine/apiSpineV1.json",
-  "trafficController":"doctrine/cloudflareAirTrafficControllerV1.json"
+  "trafficController":"doctrine/cloudflareAirTrafficControllerV1.json",
+  "chatPrecisionCommand":"doctrine/chatPrecisionCommandV1.json"
 }
 need(sources==expected,"source map drift")
 for rel in expected.values():
@@ -37,7 +38,7 @@ runtime=experience.get("runtime",{})
 need(runtime.get("tool")=="luhm_open_cockpit","tool binding drift")
 need(runtime.get("resourceUri")=="ui://luhm-os/cockpit-v2.html","resource URI drift")
 need(runtime.get("surface")=="mcp-app","surface drift")
-need(runtime.get("panels")==["sourceTruth","crownFlow","openingDay","apiSpine","airTraffic","activeCast","activity","roleplay","petDock","commandCapsule","godotHandoff"],"panel contract drift")
+need(runtime.get("panels")==["sourceTruth","crownFlow","openingDay","apiSpine","airTraffic","activeCast","activity","roleplay","petDock","commandCapsule","precisionCommands","godotHandoff"],"panel contract drift")
 need(runtime.get("godotEmbeddingInChat") is False,"Godot embedding boundary drift")
 
 authority=experience.get("authorityBoundary",{})
