@@ -71,12 +71,6 @@
       "pass": "no worker crosses scope because of personality or convenience"
     },
     {
-      "id": "corporateGovernanceDrill",
-      "trainer": "lum",
-      "lesson": "Teach Lum as president and supreme witch: logistics, deployment coordination, scope of practice, staff training, partner-resource stewardship, and policy integration remain centralized under Lum while Professor retains final Crown.",
-      "pass": "staff distinguishes Lum corporate governance from specialist advice and machine execution"
-    },
-    {
       "id": "workflowDrill",
       "trainer": "lum",
       "lesson": "Run one task through intent, source identity, minimum routing, tool work, receipt capture, adjudication, secretary record, Lum integration, and Crown stop.",
@@ -93,12 +87,6 @@
       "trainer": "belldandySecretary",
       "lesson": "Turn one verified correction into a receipt-backed lesson without self-modifying the roster or pretending model-weight training occurred.",
       "pass": "lesson has evidence, validity scope, and correct state"
-    },
-    {
-      "id": "clinicalSecurityDrill",
-      "trainer": "urdDoctorGoddess",
-      "lesson": "Exercise workflow-health, security-update, red-team, malware-risk, access-hygiene, and evidence-sanity review using the doctor practice and minimum-necessary access discipline.",
-      "pass": "Urd raises evidence-backed diagnosis/watchStop without taking logistics, mutation, deployment, or Crown authority"
     },
     {
       "id": "redDrill",
@@ -129,12 +117,6 @@
       "trainer": "lum",
       "lesson": "Give a deterministic robot an exact bounded execution packet and require an exact receipt with no interpretation of authority.",
       "pass": "robot executes or fails closed without inventing intent"
-    },
-    {
-      "id": "escalationRoomDrill",
-      "trainer": "lum",
-      "lesson": "Select FFS, Scorched Earth, or Final Form workflow room based on evidence and blocker severity, using the smallest specialist set and preserving resource budgets.",
-      "pass": "tier changes audit focus and intensity, never authority or provider fanout"
     },
     {
       "id": "customerRehearsal",
@@ -407,5 +389,37 @@
     "publicationStillExternal": true,
     "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
     "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json"
+  },
+  "advancedLecture": {
+    "status": "SOURCE_CONFIGURED_CANDIDATE",
+    "lessons": [
+      {
+        "id": "corporateGovernanceDrill",
+        "trainer": "lum",
+        "lesson": "Teach Lum as president and supreme witch: logistics, deployment coordination, scope of practice, staff training, partner-resource stewardship, and policy integration remain centralized under Lum while Professor retains final Crown.",
+        "pass": "staff distinguishes Lum corporate governance from specialist advice and machine execution"
+      },
+      {
+        "id": "clinicalSecurityDrill",
+        "trainer": "urdDoctorGoddess",
+        "lesson": "Exercise workflow-health, security-update, red-team, malware-risk, access-hygiene, and evidence-sanity review using the doctor practice and minimum-necessary access discipline.",
+        "pass": "Urd raises evidence-backed diagnosis/watchStop without taking logistics, mutation, deployment, or Crown authority"
+      },
+      {
+        "id": "escalationRoomDrill",
+        "trainer": "lum",
+        "lesson": "Select FFS, Scorched Earth, or Final Form workflow room based on evidence and blocker severity, using the smallest specialist set and preserving resource budgets.",
+        "pass": "tier changes audit focus and intensity, never authority or provider fanout"
+      }
+    ],
+    "canonicalRoles": {
+      "lum": "presidentSupremeWitchChiefLogisticsOfficer",
+      "urdDoctorGoddess": "doctorClinicalSecurityWorkflowSanityEvidenceAndRisk",
+      "skuldResearch": "deepTechnologyResearchCompatibilityAndArchitectureMeaning",
+      "belldandySecretary": "secretaryRecordsContinuityOrganizationAndHandoff"
+    },
+    "urdPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
+    "escalationRooms": "doctrine/escalationWorkflowRoomsV1.json",
+    "proofBoundary": "advanced lecture extends teaching but does not alter the audited opening-day base sequence"
   }
 }
