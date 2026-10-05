@@ -16,7 +16,13 @@
         "expressionSheet",
         "uiIcon"
       ],
-      "state": "DISCOVERED_DRIVE_ASSETS_AUDIT_PENDING"
+      "state": "CURRENT_CANON_VISUAL_BYTES_NOT_RESOLVED_IN_DRIVE",
+      "legacyDonorEvidence": {
+        "displayName": "CURRENT_LUM_MIDNIGHT_1996_MODEL_SHEET.png",
+        "sha256": "60a84012d60965c3cfb02c2f94aaeca11401f0965c85595fc9ebcc79a0961ce0",
+        "state": "REJECTED_AS_CURRENT_CANON_LEGACY_DONOR_ONLY",
+        "mismatch": "Drive sheet is red/blonde/large-horn/wing-tail presentation; current repo canon requires teal-black executive tailoring, auburn updo, subtle horns, cyan-magenta restraint."
+      }
     },
     "urd": {
       "requiredPublicFamilies": [
@@ -28,7 +34,7 @@
         "expressionSheet",
         "uiIcon"
       ],
-      "state": "DISCOVERED_GROUP_ART_AUDIT_PENDING"
+      "state": "HASHED_GROUP_SHEET_CANDIDATE_CANON_PUBLIC_APPROVAL_PENDING"
     },
     "belldandy": {
       "requiredPublicFamilies": [
@@ -40,7 +46,7 @@
         "expressionSheet",
         "uiIcon"
       ],
-      "state": "DISCOVERED_GROUP_ART_AUDIT_PENDING"
+      "state": "HASHED_GROUP_SHEET_CANDIDATE_CANON_PUBLIC_APPROVAL_PENDING"
     },
     "skuld": {
       "requiredPublicFamilies": [
@@ -52,7 +58,7 @@
         "expressionSheet",
         "uiIcon"
       ],
-      "state": "DISCOVERED_GROUP_ART_AUDIT_PENDING"
+      "state": "HASHED_GROUP_SHEET_CANDIDATE_CANON_PUBLIC_APPROVAL_PENDING"
     }
   },
   "brands": {
@@ -167,6 +173,40 @@
         "luhm_animation_props_demo.png",
         "luhm_icons_rewards_demo.png"
       ]
-    }
+    },
+    "latestImageScanFinding": "No newer Lum proof image was found in Drive from 2026-10-01 onward."
+  },
+  "recentDriveScan": {
+    "scannedFrom": "2026-10-01",
+    "imageCount": 2,
+    "namedAssets": [
+      {
+        "assetId": "candidate.goddessLineup.v0_1",
+        "displayName": "LuHm_Goddess_Lineup_Urd_Belldandy_Skuld_v0.1.png",
+        "sha256": "bfef62ec1981cca36a842937fd46464183bde53165fce5a6b558108a0e205607",
+        "sizeBytes": 2899131,
+        "contains": [
+          "urd.fullBody",
+          "urd.expressions",
+          "urd.chibi",
+          "belldandy.fullBody",
+          "belldandy.expressions",
+          "belldandy.chibi",
+          "skuld.fullBody",
+          "skuld.expressions",
+          "skuld.chibi"
+        ],
+        "state": "HASHED_CANDIDATE_CANON_PROVENANCE_PUBLIC_APPROVAL_PENDING",
+        "publicAllowed": false
+      },
+      {
+        "assetId": "candidate.professorLineup.v0_1",
+        "displayName": "LuHm_Professor_Character_Lineup_v0.1.png",
+        "sha256": "e3ba82c19ee4635d594e454d46355556f6c7cf62b3a42c84ecc34b09f34422a3",
+        "sizeBytes": 2685478,
+        "state": "HASHED_PROTECTED_REFERENCE_PROFESSOR_LIKENESS_APPROVAL_PENDING",
+        "publicAllowed": false
+      }
+    ]
   }
 }
