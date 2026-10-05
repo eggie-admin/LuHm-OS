@@ -23,8 +23,8 @@
     },
     {
       "id": "P5",
-      "prompt": "Open the LuHm OS in-chat cockpit and show the active experience contract.",
-      "expected": "Calls luhm_open_cockpit once, returns luhmOs.inChatExperiencePayload.v1 with experience.schema=luhmOs.inChatExperience.v1 and cockpit-v2 resource binding, and preserves read-only/Crown boundaries."
+      "prompt": "Use LuHm OS help to explain BUILD, then open the in-chat cockpit and show the active experience contract.",
+      "expected": "Calls luhm_help for BUILD, resolves it to the person-centered canonical command without granting authority, then calls luhm_open_cockpit and preserves read-only/Crown boundaries."
     }
   ],
   "negative": [
