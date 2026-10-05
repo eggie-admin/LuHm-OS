@@ -239,7 +239,7 @@ g = [
 ("pluginNoDestructive", plugin.get("runtime",{}).get("destructiveToolsAllowed") is False),
 ("pluginMilestoneSchema", plugin_milestone.get("schema") == "luhmOs.chatGptPluginMilestone.v2"),
 ("pluginMilestoneServer", plugin_milestone.get("runtime",{}).get("server") == "host/mcp/luhmMcpServer.py"),
-("pluginExternalPending", "approvedChatGptConnectionTest" in plugin_milestone.get("remainingGates",[])),
+("pluginExternalPending", plugin_milestone.get("status") == "RUNTIME_GREEN_CHATGPT_HOST_CONFIRMATION_PENDING" and "chatGptMetadataRefresh" in plugin_milestone.get("remainingGates",[]) and plugin_milestone.get("crownStatus") == "STOP"),
 ("mcpScopeSchema", mcp_scope.get("schema") == "luhmOs.mcpEnterpriseScope.v2"),
 ("mcpStateless", mcp_scope.get("transport",{}).get("statelessHttp") is True),
 ("mcpNoSessionAuthority", mcp_scope.get("transport",{}).get("sessionOwnsAuthority") is False),
