@@ -131,13 +131,18 @@
   "pluginLayer": {
     "contract": "doctrine/pluginPublicationV2.json",
     "milestone": "doctrine/chatGptPluginMilestoneV2.json",
-    "status": "RUNTIME_GREEN_CHATGPT_HOST_CONFIRMATION_PENDING",
+    "status": "PUBLIC_PACKAGE_GREEN_UPLOAD_PENDING",
     "publicationAuthority": false,
     "crownStatus": "STOP",
     "crownFlow": "doctrine/chatGptPluginCrownFlowV1.json",
     "runtimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json",
     "renderRuntime": "GREEN",
-    "chatGptHost": "AMBER"
+    "chatGptHost": "AMBER",
+    "publicPackageReceipt": "doctrine/publicPluginPackageReceiptV1.json",
+    "publicPackage": "GREEN",
+    "directoryPublication": "PENDING",
+    "publicSearch": "PENDING",
+    "publicInvocation": "PENDING"
   },
   "androidLayer": {
     "cockpitContract": "doctrine/androidWeb3CockpitV2.json",

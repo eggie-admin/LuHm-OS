@@ -1,11 +1,11 @@
 {
   "schema": "luhmOs.chatGptPluginCrownFlow.v1",
-  "status": "ACTIVE_HOST_CONFIRMATION_PENDING",
+  "status": "ACTIVE_PUBLIC_DIRECTORY_UPLOAD_PENDING",
   "authority": "Professor",
   "boss": "lum",
   "scopeId": "chatGptPluginFullGreenCrown",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
-  "target": "CROWNED_CHATGPT_PLUGIN_MILESTONE",
+  "target": "CROWNED_PUBLIC_CHATGPT_PLUGIN_MILESTONE",
   "runtimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json",
   "inChatExperience": "doctrine/inChatExperienceV1.json",
   "rules": {
@@ -48,42 +48,92 @@
       "proof": "runtimeReceipt.runtimeProof"
     },
     {
-      "id": "chatGptMetadataRefresh",
+      "id": "publicPackageBuild",
+      "class": "machine",
+      "owner": "urdDoctorGoddess",
+      "state": "PROVED",
+      "proof": "publicPackageReceipt.status=GREEN_UPLOAD_PACKAGE + exact artifact SHA-256"
+    },
+    {
+      "id": "publicPackageUpload",
       "class": "professorUserAction",
       "owner": "belldandySecretary",
       "state": "PENDING",
-      "action": "Refresh the existing LuHm developer connection so ChatGPT re-reads MCP tool/resource metadata.",
-      "proof": "ChatGPT host discovers ui://luhm-os/cockpit-v2.html"
+      "action": "ChatGPT web -> Plugins -> Upload new or existing plugin -> choose the verified Developer identity -> upload the exact LuHm ZIP whose SHA-256 is in publicPluginPackageReceiptV1.json.",
+      "proof": "Portal creates a LuHm OS draft from the exact package"
     },
     {
-      "id": "toolDiscovery",
-      "class": "host",
+      "id": "automatedPackageChecks",
+      "class": "portal",
       "owner": "urdDoctorGoddess",
       "state": "PENDING",
-      "proof": "Host lists luhm_open_cockpit bound to cockpit-v2"
+      "proof": "Metadata and skill checks complete without blocking errors"
     },
     {
-      "id": "cockpitInvocation",
-      "class": "host",
+      "id": "mcpConnectAndDomainVerify",
+      "class": "professorUserAction",
+      "owner": "belldandySecretary",
+      "state": "PENDING",
+      "action": "Open MCPs for the LuHm draft, connect the declared server, complete the portal domain-verification challenge, and reconnect if requested.",
+      "proof": "Portal marks MCP connection/domain verification complete"
+    },
+    {
+      "id": "currentToolScan",
+      "class": "portal",
+      "owner": "urdDoctorGoddess",
+      "state": "PENDING",
+      "proof": "Current server scan discovers the bounded LuHm tools including luhm_open_cockpit"
+    },
+    {
+      "id": "reviewMaterials",
+      "class": "mixed",
+      "owner": "belldandySecretary",
+      "state": "PENDING",
+      "proof": "Exactly five positive + three negative cases are present; reviewer details are complete; reviewer-accessible demo recording is attached"
+    },
+    {
+      "id": "reviewSubmission",
+      "class": "professorAuthority",
+      "owner": "Professor",
+      "state": "PENDING",
+      "action": "Submit the proved LuHm draft for OpenAI review.",
+      "proof": "Portal receipt shows review submitted"
+    },
+    {
+      "id": "reviewApproval",
+      "class": "external",
+      "owner": "urdDoctorGoddess",
+      "state": "PENDING",
+      "proof": "OpenAI portal shows the exact package version approved"
+    },
+    {
+      "id": "professorPublish",
+      "class": "professorAuthority",
+      "owner": "Professor",
+      "state": "PENDING",
+      "action": "Publish the approved LuHm OS plugin.",
+      "proof": "Portal shows published package version"
+    },
+    {
+      "id": "directorySearch",
+      "class": "publicHost",
+      "owner": "urdDoctorGoddess",
+      "state": "PENDING",
+      "proof": "A normal-user Plugins directory search for LuHm OS returns the published listing"
+    },
+    {
+      "id": "publicInvocation",
+      "class": "publicHost",
       "owner": "lum",
       "state": "PENDING",
-      "action": "Invoke luhm_open_cockpit once.",
-      "proof": "Tool result schema=luhmOs.inChatExperiencePayload.v1 and experience.schema=luhmOs.inChatExperience.v1"
-    },
-    {
-      "id": "hostEvaluation",
-      "class": "host",
-      "owner": "urdDoctorGoddess",
-      "state": "PENDING",
-      "action": "Run the bounded positive/negative review pack against the connected host.",
-      "proof": "All required host evaluations pass without authority creep."
+      "proof": "Installed public listing invokes luhm_open_cockpit and returns the canonical inChatExperience payload"
     },
     {
       "id": "crownReady",
       "class": "evidence",
       "owner": "urdDoctorGoddess",
       "state": "PENDING",
-      "proof": "candidateCi + mainPromotion + runtimeDeploy + metadataRefresh + toolDiscovery + cockpitInvocation + hostEvaluation all PROVED"
+      "proof": "All prior public-directory gates are PROVED for the same package SHA and current MCP endpoint"
     },
     {
       "id": "professorCrown",
@@ -91,17 +141,17 @@
       "owner": "Professor",
       "state": "PENDING",
       "action": "C",
-      "proof": "Explicit Professor promotion bound to exact main source and this scope only."
+      "proof": "Explicit Professor Crown bound to the published LuHm OS package and public invocation receipt"
     }
   ],
   "transitionLogic": {
-    "currentGate": "chatGptMetadataRefresh",
+    "currentGate": "publicPackageUpload",
     "onGreen": "advanceExactlyOneGate",
     "onRed": "diagnoseSmallestRepairThenRetrySameGate",
     "onUnknown": "holdGateAndReportUnknown",
     "onUserAction": "fieldGuideActivate",
     "afterUserAction": "urdReconcileThenFieldGuideDismiss",
-    "finalTransition": "crownReady -> Professor C -> crownReceipt"
+    "finalTransition": "directorySearch + publicInvocation -> crownReady -> Professor C -> publicPluginCrownReceipt"
   },
   "fieldGuide": {
     "yume": "show only the current ChatGPT control or screen state needed",
@@ -117,5 +167,16 @@
     "singleNextAction",
     "authorityNeeded"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "publicPackageReceipt": "doctrine/publicPluginPackageReceiptV1.json",
+  "privateDeveloperHostTrack": {
+    "status": "PARALLEL_OPTIONAL",
+    "unresolved": [
+      "chatGptMetadataRefresh",
+      "toolDiscovery",
+      "cockpitInvocation",
+      "hostEvaluation"
+    ],
+    "law": "Public directory submission uses its own portal MCP connection and tool scan; the private developer-host refresh lane remains useful for local testing but does not block package upload."
+  }
 }
