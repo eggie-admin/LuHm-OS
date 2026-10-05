@@ -35,6 +35,7 @@ These are working-copy corrections only. Raw speech remains preserved.
 - `Mom`, `Mum`, or `Mama` -> `Lum` only when the surrounding LuHm/project sentence clearly refers to the orchestration agent
 - `Bell dandy` / obvious spacing variants -> `Belldandy` when the resident secretary goddess is clearly the referent
 - `Skull` -> `Skuld` only when the surrounding technical-goddess context makes the referent clear
+- `Cass` may normalize to `CAST` only when the source is already Professor foreground and the surrounding intent clearly supports the command
 - consequence-changing words such as `CAST`, `CROWN`, `merge`, `deploy`, or `publish` are never repaired from weak context
 
 Alias normalization never expands authority.
@@ -66,7 +67,7 @@ Prefer the full human-centered `camelHump` canonical identity. If a vowel-ripped
 - A branch, file, device state, deployment, or GREEN claim mentioned in speech still requires proof.
 - Never expose secrets from dictation into logs, doctrine, or generated assets.
 - Never infer consequential approval from ambiguous speech.
-- Repository doctrine does not imply microphone access the current client has not exposed.
+- Repository doctrine does not imply raw microphone access the current client has not exposed.
 
 ## Output
 
