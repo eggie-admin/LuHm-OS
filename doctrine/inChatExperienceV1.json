@@ -86,14 +86,6 @@
     "decorativeGreenForbidden": true,
     "rawChainOfThoughtForbidden": true
   },
-  "authority": {
-    "readOnlyPlugin": true,
-    "mutationAuthority": false,
-    "greenAuthority": false,
-    "publicationAuthority": false,
-    "signingAuthority": false,
-    "crownAuthority": false
-  },
   "proof": {
     "sourceConfiguredDoesNotEqualLiveHostProof": true,
     "toolResultMustExposeThisSchema": true,
@@ -101,5 +93,13 @@
     "standaloneHarnessMustExposeThisSchema": true
   },
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "authorityBoundary": {
+    "readOnlyPlugin": true,
+    "mutationAuthority": false,
+    "greenAuthority": false,
+    "publicationAuthority": false,
+    "signingAuthority": false,
+    "crownAuthority": false
+  }
 }
