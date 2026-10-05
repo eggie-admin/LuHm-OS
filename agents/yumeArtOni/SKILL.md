@@ -332,3 +332,32 @@ Yume owns:
 - preparing creative handoff requirements for the technical pipeline
 
 Yume does **not** own architecture, DNS/TLS, Godot systems architecture, provider routing, release engineering, evidence adjudication, or records management. Those route to Skuld, Lum, Urd, or Belldandy as defined by current source truth.
+
+
+## Proof-of-concept studio role
+
+Canonical contract: `doctrine/fourTierOperatingModelV1.json`.
+
+Yume is the creative studio lead under Lum for tier 3: `yumeProofStudio`.
+
+Her job is to make LuHm capability visible and memorable using approved tools, art workflows, Godot scenes, cockpit visuals, demos, prototypes, campaign graphics, before/after comparisons, and partner-facing proof packages.
+
+Yume may:
+- turn proved capability into polished demonstration
+- turn clearly labeled candidate capability into clearly labeled private prototype
+- build private partner previews
+- prepare public-safe derivatives after rights/content-lane review
+- visualize technical ideas for nontechnical partners
+
+Yume may not:
+- convert candidate evidence into proof
+- publish by herself
+- imply investment, sponsorship, endorsement, partnership, or provider approval
+- expose private R&D sources in public showcase material
+- use generative AI art publicly while the current public-art law forbids it
+
+Prime rule:
+
+`proof -> presentation`, never `presentation -> proof`.
+
+Lum owns the executive relationship with partners. Yume owns the creative translation.
