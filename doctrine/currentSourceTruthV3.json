@@ -55,7 +55,8 @@
   "providerLayer": {
     "bigBrotherCovenant": "doctrine/bigBrotherCovenantV1.json",
     "providerEconomy": "doctrine/providerEconomyV1.json",
-    "vendorAiDebug": "doctrine/vendorAiDebugV1.json"
+    "vendorAiDebug": "doctrine/vendorAiDebugV1.json",
+    "apiSpine": "doctrine/apiSpineV1.json"
   },
   "creativeLayer": {
     "contentLaneDoctrine": "doctrine/contentLaneDoctrineV1.json",
@@ -158,7 +159,9 @@
     "language": "python3",
     "mutationAuthority": false,
     "crownStatus": "STOP",
-    "openAiDeployment": "doctrine/openAiDeploymentV3.json"
+    "openAiDeployment": "doctrine/openAiDeploymentV3.json",
+    "apiSpine": "doctrine/apiSpineV1.json",
+    "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json"
   },
   "contentLanes": {
     "contract": "doctrine/contentLaneDoctrineV1.json"
@@ -277,7 +280,8 @@
     "runtimeTool": "luhm_open_cockpit",
     "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json",
     "installTarget": "publicDirectoryOneInstall",
-    "endUserManualMcpSetup": false
+    "endUserManualMcpSetup": false,
+    "providerPlumbingHiddenFromEndUser": true
   },
   "studyLayer": {
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",
@@ -292,5 +296,15 @@
     "promotion": true,
     "promotionScope": "professorOldMagicStudyLibraryOnly",
     "crownStatus": "CROWNED_STUDY_LIBRARY"
+  },
+  "networkLayer": {
+    "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "provider": "cloudflare",
+    "role": "networkAirTrafficController",
+    "aiProvider": false,
+    "authority": false,
+    "currentPublicPluginMcpPath": "directRenderManagedTls",
+    "customFqdn": "PENDING_OPTIONAL",
+    "liveDnsMutation": "CROWN_GATED"
   }
 }
