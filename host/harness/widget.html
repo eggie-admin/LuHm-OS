@@ -29,6 +29,8 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <div class="card"><div class="k">source truth</div><div class="v green" id="truth">loading…</div></div>
 <div class="card"><div class="k">authority</div><div class="v amber">READ ONLY · Crown stays human</div></div>
 <div class="card"><div class="k">oni roster</div><div class="v cyan" id="roster">loading…</div></div>
+<div class="card"><div class="k">in-chat schema</div><div class="v cyan" id="experienceSchema">loading…</div></div>
+<div class="card"><div class="k">experience panels</div><div class="v" id="experiencePanels">loading…</div></div>
 <div class="card"><div class="k">godot web</div><div class="v" id="godot">Full harness owns the Godot 4 viewer.</div></div>
 </section>
 <section class="commandDeck">
@@ -55,6 +57,10 @@ function render(data){
   $("truth").textContent=payload?.status?.sourceTruthStatus||"UNKNOWN";
   const roles=payload?.roster?.roles||[];
   $("roster").textContent=roles.length?roles.slice(0,5).map(x=>x.name).join(" · ")+(roles.length>5?" · …":""):"UNKNOWN";
+  const experience=payload?.experience||{};
+  $("experienceSchema").textContent=experience?.schema||"UNKNOWN";
+  const panels=experience?.runtime?.panels||[];
+  $("experiencePanels").textContent=panels.length?panels.join(" · "):"UNKNOWN";
   const origin=payload?.harness?.publicOrigin;
   if(origin&&origin!=="LOCAL_ONLY") $("foot").textContent=`Full harness: ${origin}/harness/ · read-only`;
   const openai=window.openai;
