@@ -56,7 +56,13 @@
     "every compressed LuHm alias remains help-recoverable to canonical meaning",
     "Koe returns dictation normalization to Belldandy without executing it",
     "Urd checks evidence/diagnosis and Skuld checks technical meaning without replacing Belldandy continuity ownership",
-    "Lum remains the only conversational boss for the secretary and goddess cabinet lane"
+    "Lum remains the only conversational boss for the secretary and goddess cabinet lane",
+    "every canonical agent resolves opening-day scope of practice before customer-facing work",
+    "all staff distinguish internal capability from the current public read-only product boundary",
+    "deterministic robot lanes execute exact envelopes and may not interpret authority",
+    "provider Daddies pitch capabilities but may not grant GREEN Crown or rewrite company scope",
+    "staff learning is receipt-backed behavioral training and never implies hidden model-weight fine tuning",
+    "opening-day customer rehearsal completes without exposing backend plumbing in the normal end-user flow"
   ],
   "trainingState": {
     "roleTeaching": "completeCandidate",
@@ -69,7 +75,11 @@
     "portableDeploymentTeaching": "completeCandidate",
     "housekeepingTeaching": "completeCandidate",
     "secretaryDictationTeaching": "completeCandidate",
-    "namingHelpTeaching": "completeCandidate"
+    "namingHelpTeaching": "completeCandidate",
+    "openingDayScopeTeaching": "completeCandidate",
+    "fullStaffWorkflowTeaching": "completeCandidate",
+    "providerPitchBoundaryTeaching": "completeCandidate",
+    "customerRehearsalTeaching": "completeCandidate"
   },
   "promotionLaw": {
     "ciGreenMeans": "training contract is internally consistent for the exact candidate source",
@@ -98,5 +108,7 @@
   "housekeepingContract": "doctrine/belldandyHousekeepingV1.json",
   "namingContract": "doctrine/namingNamespaceCanonV1.json",
   "helpContract": "doctrine/commandHelpV1.json",
-  "secretaryCabinetContract": "doctrine/lumGoddessCabinetV1.json"
+  "secretaryCabinetContract": "doctrine/lumGoddessCabinetV1.json",
+  "openingDayTrainingContract": "doctrine/openingDayStaffTrainingV1.json",
+  "companyScopeSource": "doctrine/openingDayStaffTrainingV1.json#companyScopeOfPractice"
 }
