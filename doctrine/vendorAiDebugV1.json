@@ -16,6 +16,7 @@
   ],
   "truthLaw": {
     "luhmRouteSource": [
+      "doctrine/apiSpineV1.json",
       "doctrine/providerEconomyV1.json",
       "doctrine/luhmAiControlPlaneV1.json"
     ],
@@ -23,7 +24,8 @@
     "observedExecution": "UNKNOWN_UNTIL_EXACT_EXECUTION_RECEIPT",
     "providerUiOrSubscriptionIsNotExecutionProof": true,
     "debugOutputMayGrantGreen": false,
-    "debugOutputMayGrantCrown": false
+    "debugOutputMayGrantCrown": false,
+    "trafficControllerIsNotAiProvider": true
   },
   "debugFields": [
     "VENDOR_AI_DEBUG",
@@ -140,5 +142,7 @@
   ],
   "workingLane": "PROPOSED_ONLY",
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "apiSpine": "doctrine/apiSpineV1.json",
+  "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json"
 }
