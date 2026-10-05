@@ -59,7 +59,16 @@ echo "$RUN_SHA  $RUN" | sha256sum -c -
 cp "$BASE" assets/lum/luhm.glb
 cp "$RUN" assets/lum/luhmRunning.glb
 
-"$GODOT_BIN" --headless --editor --path . --quit
+PARSE_LOG=/tmp/luhm-godot-parse.log
+set +e
+"$GODOT_BIN" --headless --editor --path . --quit 2>&1 | tee "$PARSE_LOG"
+GODOT_EDITOR_STATUS=${PIPESTATUS[0]}
+set -e
+if [[ "$GODOT_EDITOR_STATUS" -ne 0 ]] || grep -Eq 'SCRIPT ERROR:|ERROR: Failed to load script' "$PARSE_LOG"; then
+  echo 'RED_GODOT_PARSE_GATE'
+  exit 1
+fi
+echo 'GREEN_GODOT_PARSE_GATE'
 
 if [[ "${LUHM_WEB_SKIP_SMOKE:-0}" != "1" ]]; then
   python3 tools/runGodotSmoke.py "$GODOT_BIN" layoutSmoke
