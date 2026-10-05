@@ -1,0 +1,106 @@
+{
+  "schema": "luhmOs.cloudflareAirTrafficController.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "provider": "cloudflare",
+  "role": "networkAirTrafficController",
+  "purpose": "Keep Cloudflare responsible for DNS, optional proxy/tunnel perimeter, and edge traffic policy without letting it become an AI provider, source-of-truth owner, execution authority, or Crown authority.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "authorityBoundary": {
+    "aiProvider": false,
+    "agent": false,
+    "sourceTruthOwner": false,
+    "secretAuthority": false,
+    "mutationAuthority": false,
+    "greenAuthority": false,
+    "publicationAuthority": false,
+    "crownAuthority": false,
+    "liveDnsChangesRequireProfessor": true,
+    "tunnelChangesRequireProfessor": true,
+    "proxyModeChangesRequireProfessor": true
+  },
+  "lanes": {
+    "publicChatPluginMcp": {
+      "currentEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+      "currentTrafficPath": "ChatGPT -> RenderManagedTls -> LuHm MCP",
+      "cloudflareDependencyForCurrentEndpoint": false,
+      "customFqdnCandidate": "mcp.eggiebagelface.art",
+      "customFqdnMode": "RenderCustomDomainWithCloudflareAuthoritativeDns",
+      "bootstrapRecord": {
+        "type": "CNAME",
+        "name": "mcp",
+        "target": "<render-service>.onrender.com",
+        "proxied": false,
+        "removeAaaa": true
+      },
+      "tlsTermination": "RenderManagedTls",
+      "proxyAfterCertificate": "OPTIONAL_AFTER_SEPARATE_STREAMING_AND_OPENAI_COMPATIBILITY_PROOF",
+      "tunnelForThisLane": false,
+      "reason": "Do not place a Cloudflare Tunnel in front of the direct Render MCP lane unless architecture is deliberately changed and re-proved."
+    },
+    "systemPortal": {
+      "mode": "optionalCloudflareTunnel",
+      "publicHostnameCandidate": "system.eggiebagelface.art",
+      "tunnelRecord": {
+        "type": "CNAME",
+        "name": "system",
+        "target": "<cloudflare-tunnel-uuid>.cfargotunnel.com",
+        "proxied": true
+      },
+      "originMustRemainBounded": true,
+      "noUnboundedShell": true,
+      "activationProofRequired": true
+    },
+    "staticAssets": {
+      "mode": "futureOptionalCloudflareProxyOrCdn",
+      "activationProofRequired": true,
+      "publicGeneratedContentPolicyUnchanged": true
+    }
+  },
+  "dnsLaw": {
+    "authoritativeDnsRole": true,
+    "mcpDirectRenderVerificationUsesDnsOnly": true,
+    "renderCustomDomainRemoveAaaa": true,
+    "cloudflareTunnelHostnameUsesCfargotunnelCname": true,
+    "txtAndSrvAreMetadataOnly": true,
+    "liveDnsStateRequiresRuntimeReceipt": true,
+    "exampleConfigMayNotClaimLiveState": true
+  },
+  "tlsLaw": {
+    "directRenderLane": "RenderManagedTls",
+    "cloudflareProxyLane": "FullOrStricterAfterOriginCertificateProof",
+    "noDuplicateOriginCertificateInsidePythonService": true,
+    "hstsPreloadNotAutomatic": true,
+    "certificateValidityRequiresRuntimeReceipt": true
+  },
+  "secretLaw": {
+    "apiTokensInRepo": false,
+    "tunnelCredentialsInRepo": false,
+    "dnsChallengeTokensInRepo": false,
+    "minimumTokenScope": true,
+    "approvedStorage": [
+      "CloudflareManagedCredentialStore",
+      "approvedHostSecretStore"
+    ],
+    "logsMayContainSecrets": false
+  },
+  "failClosed": {
+    "unknownDnsState": "VERIFY",
+    "unknownProxyState": "VERIFY",
+    "unknownTunnelState": "VERIFY",
+    "unknownTlsState": "VERIFY",
+    "networkSuccessIsNotProjectGreen": true,
+    "networkFailureMayNotRewriteSourceTruth": true
+  },
+  "operationalChecks": [
+    "resolveExpectedDnsTarget",
+    "rejectUnexpectedAaaaOnDirectRenderLane",
+    "verifyTlsHostname",
+    "verifyHttpsHealth",
+    "verifyMcpInitialization",
+    "verifyHostFiltering",
+    "verifyNoSecretsInLogs",
+    "verifyProxyOrTunnelModeMatchesLane"
+  ],
+  "crownStatus": "STOP"
+}
