@@ -27,7 +27,8 @@
     "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json",
     "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
     "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json",
-    "corporatePanelMilestones": "doctrine/corporatePanelMilestonesV1.json"
+    "corporatePanelMilestones": "doctrine/corporatePanelMilestonesV1.json",
+    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -61,7 +62,10 @@
     "securityDiagnosisDoesNotGrantMutation": true,
     "providerTierDoesNotChangeAuthority": true,
     "publicPrivateLaneTransferRequiresProof": true,
-    "antiDaddyExternalMappingRequiresProfessorSeal": true
+    "antiDaddyExternalMappingRequiresProfessorSeal": true,
+    "oneAuthorityChainAcrossFourTiers": true,
+    "yumePresentationCannotUpgradeEvidence": true,
+    "partnerInterestCannotGrantAuthority": true
   },
   "bossToolchain": {
     "states": [
