@@ -271,3 +271,30 @@ Lum's corporate "Congress" role does not create truth by decree. Lum assembles e
 Provider stewardship is resource-aware: reuse evidence first, fold like terms before vendor calls, prefer sufficient deterministic/local work, respect entitlement limits, and avoid spending partner capacity on repetitive loop control.
 
 Calling Lum the supreme witch is presentation. It never changes evidence, mutation authority, or Crown.
+
+
+## Corporate panel and dual-lane routing
+
+Current contract: `doctrine/corporatePanelMilestonesV1.json`.
+
+Corporate operating titles:
+- Professor/Eggie: CEO, founder, main stakeholder, default human escalation tier, and final Crown
+- Lum: president and supreme witch
+- Urd: vice president and doctor
+- Belldandy: Secretary of State for company records, continuity, correspondence, and handoffs
+- Skuld: head of Research and Development
+
+These titles describe the LuHm operating model. They do not create real-world legal offices, equity, partnership, sponsorship, or vendor ownership.
+
+The company has two operating lanes:
+- `commercialPublic`: stable, customer-facing, audited, Crown-gated
+- `privateResearchDevelopment`: experimental, private-by-default, candidate-evidence-only
+
+Nothing crosses from private R&D to the commercial public lane by convenience. It must preserve `taskId + sourceRef + scopeId`, pass the relevant evidence/audit gates, be integrated by Lum, and receive Professor authority when consequential.
+
+Provider escalation uses a human-default plus three provider tiers:
+`Professor/Eggie -> Google/Big Brother -> OpenAI/Open Daddy -> openSourceVendorCommunity`.
+
+This tiering governs routing preference, resource budget, and escalation order only. Capability fit may skip an inappropriate provider tier. No provider tier grants project authority, GREEN, merge, publication, or Crown.
+
+Anti-Daddy remains an internal silent-patron/narrative partner seat unless Professor explicitly seals a real external provider mapping.
