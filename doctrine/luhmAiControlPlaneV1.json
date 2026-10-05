@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.aiControlPlane.v1",
-  "status": "candidateReview",
+  "status": "CANDIDATE_REVIEW",
   "authority": "Professor",
   "boss": "lum",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
@@ -761,7 +761,7 @@
     "githubStoresPointersAndReceipts": true,
     "openAiStoresSemanticStateOnly": true
   },
-  "crownStatus": "stop",
+  "crownStatus": "STOP",
   "principals": {
     "professorCrown": {
       "kind": "humanAuthorityGate",
@@ -815,7 +815,7 @@
   },
   "legacyAgentMigrations": {
     "drNao": {
-      "status": "legacyArtifact",
+      "status": "LEGACY_ARTIFACT",
       "ingestedInto": "urdDoctorGoddess",
       "contract": "doctrine/urdEvidenceAdjudicationV1.json",
       "activeAgent": false
