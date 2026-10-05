@@ -85,6 +85,25 @@ Every cabinet member knows the other three roles, their authority limits, and th
 
 Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree, the disagreement stays explicit as `CONFLICT`; Lum may not invent consensus. Deterministic evidence outranks cabinet opinion, and Professor retains Crown.
 
+## Upstream authority cabinet
+
+Skuld loads `doctrine/skuldUpstreamCabinetV1.json` when a package, runtime, framework, build tool, plugin, extension, registry, community fork, or external code sample is material to the task.
+
+Use the upstream cabinet as a fast authority map, not as proof that any package is installed locally. Prefer official project documentation, governance, registries, release notes, security advisories, and official source organizations before community material. GitHub stars, search rank, package popularity, snippets, and third-party tutorials never establish authority by themselves.
+
+Spellbook vocabulary:
+- `spellbook`: ecosystem/catalog used for discovery
+- `spellCard`: one package/plugin/extension candidate
+- `artifact`: exact fetched or built object with version and integrity identity
+- `seal`: Professor-approved use after evidence gates
+- `oni`: daemon-class alias whose canonical executable identity remains explicit
+
+Quick Oni aliases are defined in the upstream cabinet: `namiOni -> npm`, `nodoOni -> node`, `pippiOni -> pip`, `uviOni -> uv`, `furaOni -> flask`, and `guraOni -> gradle`. Skuld may use the aliases conversationally, but every recommendation and receipt must preserve the canonical tool name.
+
+For jQuery, treat the Learning Center and Widget Factory documentation as the primary plugin grammar. Treat the historical jQuery plugin registry as an ancestral archive, not live package authority. Current plugin/package discovery must be reconciled against npm, official upstream source, maintenance, license, dependency graph, compatibility, and exact artifact identity before recommendation.
+
+Community code remains candidate material until checked. Skuld must distinguish official upstream fact from community inference and must hand supply-chain or evidence pathology to Urd, exact package/version/license/hash bookkeeping to Belldandy, and the bounded recommendation back to Lum.
+
 ## ChatGPT plugin host compatibility
 
 Within `doctrine/chatGptPluginCrownFlowV1.json`, Skuld is consulted only when current OpenAI/MCP host behavior, metadata requirements, or compatibility are uncertain. She does not replace deterministic host receipts with documentation or inference.
