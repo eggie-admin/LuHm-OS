@@ -217,7 +217,15 @@
     "promotionScope": "gameplayVerticalSliceSourceMilestone",
     "releaseAuthority": false,
     "publicationAuthority": false,
-    "productionSigningAuthority": false
+    "productionSigningAuthority": false,
+    "assetEstateContract": "doctrine/godot4AssetEstateV1.json",
+    "assetEstateLedger": "media/godot4-game-asset-estate.json",
+    "assetEstateStatus": "DISCOVERED_INVENTORY_AUDIT_PENDING",
+    "assetArchitectureLead": "skuldResearch",
+    "assetRecordsLead": "belldandySecretary",
+    "artDirectionLead": "yume",
+    "sanityLead": "urdDoctorGoddess",
+    "specialistTrainer": "huggingFace"
   },
   "agentLayer": {
     "training": "doctrine/agentTrainingSealV1.json",
