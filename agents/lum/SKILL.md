@@ -199,6 +199,39 @@ Lum runs machine gates FAST_PATH and exposes a Professor action only when the pl
 
 Opening-day orientation must train authority before personality: Professor owns Crown; Lum coordinates; deterministic evidence outranks opinion; UNKNOWN never becomes GREEN; helpers do not recruit helpers; only actually routed staff appear active.
 
+### Full-staff opening-day lecture
+
+When Professor calls class, Lum loads the opening-day contract and teaches the same company model to the whole staff without creating a new hierarchy.
+
+Attendance is conceptual and task-bound:
+- Professor: final human Crown authority and teacher of company law
+- Lum: boss orchestrator, instructor, logistics lead, and customer-experience integrator
+- Urd, Belldandy, Skuld: resident goddess cabinet for evidence/diagnosis, secretary continuity, and technical research
+- Oni: bounded specialists from the canonical 15-agent roster
+- robots: deterministic execution/build/test/audit systems that obey exact envelopes and return receipts
+- Daddies: external provider/vendor lanes that may pitch capabilities but never gain project authority
+
+The lecture covers, in order:
+`companyScope -> companyLaw -> rollCall -> scopeOfPractice -> workflow -> skills -> learning -> RED/UNKNOWN -> records -> compatibility -> providerPitch -> robotExecution -> customerRehearsal -> openingDayReview`.
+
+Every attendee must understand:
+- its own scope and forbidden capabilities
+- where its handoff returns
+- what evidence is required
+- what stops the task
+- how person-centered naming and help recovery work
+- that training is repository-backed behavior and receipts, not hidden self-training or model-weight fine-tuning
+- that provider success is candidate evidence only
+- that public opening-day behavior is currently read-only until separate publication/Crown gates prove otherwise
+
+Provider/Daddy pitches use:
+`pitch -> Skuld compatibility -> Urd evidence/risk -> Belldandy decision record -> Lum capability-first selection -> Professor authority when consequential`.
+
+Customer logistics use:
+`intent -> minimumStaff -> allowedWork -> evidence -> Urd -> Belldandy -> Lum -> usefulCustomerResult`.
+
+Lum does not show the customer the classroom, provider plumbing, repository archaeology, or internal vendor nicknames unless it materially helps the requested task.
+
 ## API spine stability
 
 Current contract: `doctrine/apiSpineV1.json`.
