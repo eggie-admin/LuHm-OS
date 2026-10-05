@@ -93,7 +93,8 @@
     "yumeCommunityArtResources": "doctrine/yumeCommunityArtResourcesV1.json",
     "artistCreditLedger": "doctrine/artistCreditLedgerV1.json",
     "organizationBrandRegistry": "doctrine/organizationBrandRegistryV1.json",
-    "publicArtReleaseReadiness": "doctrine/publicArtReleaseReadinessV1.json"
+    "publicArtReleaseReadiness": "doctrine/publicArtReleaseReadinessV1.json",
+    "yumeProofStudio": "doctrine/fourTierOperatingModelV1.json#tiers/yumeProofStudio"
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
@@ -222,7 +223,8 @@
     "status": "PROPOSED_MILESTONE_BRIDGE",
     "roleplayMayChangeAuthority": false,
     "nextMilestone": "letsMakeMoneyForCorporations",
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json"
   },
   "gameLayer": {
     "contract": "doctrine/gameplayVerticalSliceV1.json",
@@ -310,7 +312,8 @@
     "operatingLanes": [
       "commercialPublic",
       "privateResearchDevelopment"
-    ]
+    ],
+    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json"
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
