@@ -1,0 +1,80 @@
+{
+  "schema": "luhmOs.chatHistoryStewardship.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "owner": "belldandySecretary",
+  "boss": "lum",
+  "purpose": "Preserve useful continuity across LuHm chat history without treating old conversation text as current source truth.",
+  "accessibleSources": [
+    "currentConversation",
+    "projectConversationHistoryWhenRetrievable",
+    "retrievedPriorChatContext",
+    "userSuppliedChatExports",
+    "chatDerivedHandoffReceipts"
+  ],
+  "notAssumed": [
+    "completeAccountWideChatEnumeration",
+    "abilityToDeleteOrArchiveChatsWithoutSupportedSurface",
+    "oldChatClaimsAreCurrentTruth"
+  ],
+  "historyPass": [
+    "identifyRelevantThreads",
+    "extractMilestones",
+    "extractDecisions",
+    "extractReceiptsAndSourceRefs",
+    "extractUnresolvedQuestions",
+    "detectContradictions",
+    "detectSupersededInstructions",
+    "compressIntoHandoff",
+    "bindToCurrentTask"
+  ],
+  "outputClasses": [
+    "currentDecision",
+    "historicalDecision",
+    "supersededDecision",
+    "receiptReference",
+    "openQuestion",
+    "contradiction",
+    "userPreference",
+    "handoff",
+    "unknown"
+  ],
+  "truthLaw": {
+    "currentCanonicalSourceBeatsChatHistory": true,
+    "currentUserInstructionBeatsOldChatInstruction": true,
+    "historicalReceiptMaySupportButNotReplaceCurrentProof": true,
+    "contradictionsStayExplicit": true,
+    "unknownRemainsUnknown": true
+  },
+  "routing": {
+    "default": [
+      "lum",
+      "belldandySecretary"
+    ],
+    "ambiguousOldContextAdds": "kiri",
+    "conflictingStatusOrEvidenceAdds": "urdDoctorGoddess",
+    "researchGapAdds": "skuldResearch"
+  },
+  "automaticActions": {
+    "readWhenAvailable": true,
+    "index": true,
+    "summarize": true,
+    "classify": true,
+    "extractDecisions": true,
+    "buildHandoff": true,
+    "flagContradictions": true,
+    "deleteChat": false,
+    "archiveChat": false,
+    "renameChat": false,
+    "rewriteHistory": false
+  },
+  "privacy": {
+    "minimumRelevantHistoryOnly": true,
+    "doNotDumpFullHistoryIntoEveryTurn": true,
+    "privateChatContentDoesNotEnterPublicRepo": true,
+    "storeReferencesAndSummariesNotRawPrivateTranscriptsByDefault": true
+  },
+  "hiddenAsyncExecution": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}

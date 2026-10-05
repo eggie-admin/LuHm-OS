@@ -1,0 +1,32 @@
+name: Workflow Commit Budget
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  commit-budget:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Enforce 50-commit workflow ceiling
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "${{ github.base_ref }}" ]; then
+            git fetch --no-tags origin "${{ github.base_ref }}"
+            count="$(git rev-list --count "origin/${{ github.base_ref }}..HEAD")"
+          else
+            count="$(git rev-list --count HEAD~50..HEAD 2>/dev/null || git rev-list --count HEAD)"
+          fi
+          echo "WORKFLOW_COMMIT_COUNT=$count"
+          if [ "$count" -gt 50 ]; then
+            echo "RED: workflow exceeds Professor's 50-commit ceiling"
+            exit 1
+          fi
+          echo "WORKFLOW_COMMIT_BUDGET=GREEN"

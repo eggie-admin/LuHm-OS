@@ -1,0 +1,73 @@
+{
+  "schema": "luhmOs.voiceAmbientIntent.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "Classify mixed voice-session audio into Professor foreground intent, ambient context, and uncertain input without allowing background audio to grant execution authority.",
+  "inputs": {
+    "rawTranscriptRequired": true,
+    "audioMetadataOptional": true,
+    "speakerIdentityMayBeUnknown": true,
+    "multiMicMetadataMayBePresent": true
+  },
+  "sourceClasses": [
+    "professorForeground",
+    "ambientCabin",
+    "otherSpeaker",
+    "mediaPlayback",
+    "unknown"
+  ],
+  "classification": {
+    "directAddressBoostsForegroundConfidence": true,
+    "nearFieldOrPrimaryChannelMayBoostForegroundConfidence": true,
+    "backgroundMusicOrMediaNeverGrantsAuthority": true,
+    "carMicAndPhoneMicRemainSeparateObservationsWhenAvailable": true,
+    "singleMixedStreamMustNotPretendPerfectSourceSeparation": true,
+    "uncertainSourceRemainsUncertain": true
+  },
+  "authorityLaw": {
+    "ambientMayProvideContext": true,
+    "ambientMayTriggerExecution": false,
+    "otherSpeakerMayTriggerExecution": false,
+    "mediaPlaybackMayTriggerExecution": false,
+    "unknownMayTriggerExecution": false,
+    "professorForegroundStillRequiresExistingAuthorityRules": true,
+    "castFromAmbientForbidden": true,
+    "crownFromAmbientForbidden": true,
+    "explicitProfessorIntentRequiredForConsequentialBoundary": true
+  },
+  "voiceAliases": {
+    "normalizeOnlyOnWorkingCopy": true,
+    "preserveRawTranscript": true,
+    "consequenceChangingCorrectionRequiresConfidence": true,
+    "examples": {
+      "Cass": "CAST",
+      "Big Brother": "Big Bother"
+    }
+  },
+  "output": {
+    "required": [
+      "rawRef",
+      "cleanText",
+      "sourceClass",
+      "sourceConfidence",
+      "authorityEligible",
+      "ambientContext",
+      "uncertainTokens"
+    ]
+  },
+  "tourniquet": {
+    "authorityExpansionByNormalization": false,
+    "targetChangeByAmbientInference": false,
+    "repoOrBranchChangeByAmbientInference": false,
+    "deploymentChangeByAmbientInference": false,
+    "unknownIsNotGreen": true
+  },
+  "implementationBoundary": {
+    "chatClientAudioRoutingControlledByPlatform": true,
+    "repositoryDoctrineDoesNotGrantRawMicrophoneAccess": true,
+    "dualPhysicalMicCaptureRequiresDeviceProof": true
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}

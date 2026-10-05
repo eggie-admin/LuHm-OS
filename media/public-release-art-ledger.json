@@ -1,0 +1,237 @@
+{
+  "schema": "luhmOs.publicReleaseArtLedger.v1",
+  "status": "INVENTORY_NOT_COMPLETION_CLAIM",
+  "sourceRef": "7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
+  "authority": "Professor",
+  "brandRegistry": "doctrine/organizationBrandRegistryV1.json",
+  "publicReadiness": "doctrine/publicArtReleaseReadinessV1.json",
+  "characters": {
+    "lum": {
+      "requiredPublicFamilies": [
+        "portrait",
+        "fullBody",
+        "spriteIdle",
+        "spriteWalk",
+        "spriteRun",
+        "expressionSheet",
+        "uiIcon"
+      ],
+      "state": "MASTER_PROOF_V2_LIBRARY_BYTES_RESOLVED_APPROVAL_RECEIPT_PENDING",
+      "legacyDonorEvidence": {
+        "displayName": "CURRENT_LUM_MIDNIGHT_1996_MODEL_SHEET.png",
+        "sha256": "60a84012d60965c3cfb02c2f94aaeca11401f0965c85595fc9ebcc79a0961ce0",
+        "state": "REJECTED_AS_CURRENT_CANON_LEGACY_DONOR_ONLY",
+        "mismatch": "Drive sheet is red/blonde/large-horn/wing-tail presentation; current repo canon requires teal-black executive tailoring, auburn updo, subtle horns, cyan-magenta restraint."
+      },
+      "masterProofV2": {
+        "displayName": "Lum: Cyberpunk Oni Character Bible.png",
+        "sha256": "469305ab7f9710c2b7df81d9d8cfd9abd529b841f086df2d9b372ff71e3d6f87",
+        "sizeBytes": 2934704,
+        "storageClass": "personalLibrary",
+        "sourceState": "HASHED_MASTER_PROOF_V2",
+        "conceptualCoverage": [
+          "portrait",
+          "fullBody",
+          "expressionSheet",
+          "turnaround",
+          "wardrobeVariants",
+          "spriteConcepts",
+          "chibi",
+          "animationKeyframes",
+          "threeDPreview",
+          "environmentExamples",
+          "props",
+          "palette",
+          "workflow"
+        ],
+        "runtimeExportCoverage": "NOT_PROVED_BY_BOARD_ALONE",
+        "professorApprovalReceipt": "PENDING_ARCHIVE_OR_EXPLICIT_REAPPROVAL",
+        "publicAllowed": false
+      }
+    },
+    "urd": {
+      "requiredPublicFamilies": [
+        "portrait",
+        "fullBody",
+        "spriteIdle",
+        "spriteWalk",
+        "spriteRun",
+        "expressionSheet",
+        "uiIcon"
+      ],
+      "state": "HASHED_GROUP_SHEET_CANDIDATE_CANON_PUBLIC_APPROVAL_PENDING"
+    },
+    "belldandy": {
+      "requiredPublicFamilies": [
+        "portrait",
+        "fullBody",
+        "spriteIdle",
+        "spriteWalk",
+        "spriteRun",
+        "expressionSheet",
+        "uiIcon"
+      ],
+      "state": "HASHED_GROUP_SHEET_CANDIDATE_CANON_PUBLIC_APPROVAL_PENDING"
+    },
+    "skuld": {
+      "requiredPublicFamilies": [
+        "portrait",
+        "fullBody",
+        "spriteIdle",
+        "spriteWalk",
+        "spriteRun",
+        "expressionSheet",
+        "uiIcon"
+      ],
+      "state": "HASHED_GROUP_SHEET_CANDIDATE_CANON_PUBLIC_APPROVAL_PENDING"
+    }
+  },
+  "brands": {
+    "luhmOs": {
+      "state": "DISCOVERED_DRIVE_AND_REPO_ASSETS_AUDIT_PENDING",
+      "knownSource": "publicationSite/logo.svg",
+      "remainingFamilies": [
+        "wordmark",
+        "favicon",
+        "appIcon",
+        "socialAvatar",
+        "socialBanner",
+        "thumbnailFrame",
+        "endCard",
+        "colorTokens",
+        "typeTokens"
+      ]
+    },
+    "eggieBagelface": {
+      "state": "UNPROVEN",
+      "remainingFamilies": [
+        "wordmark",
+        "publisherLockup",
+        "socialAvatar",
+        "socialBanner",
+        "colorTokens",
+        "typeTokens"
+      ]
+    },
+    "pirateDaddiesFilm": {
+      "state": "MANIFEST_PRESENT_ART_UNPROVEN",
+      "knownSource": "media/daddys-princess-date/edit-manifest.json",
+      "remainingFamilies": [
+        "studioMark",
+        "wordmark",
+        "endCard",
+        "lowerThird",
+        "socialAvatar",
+        "socialBanner",
+        "thumbnailFrame"
+      ]
+    },
+    "bigDaddy": {
+      "state": "DISCOVERED_PROFESSOR_ASSETS_PROTECTED_AUDIT_PENDING",
+      "remainingFamilies": [
+        "characterLockup",
+        "portrait",
+        "fullBody",
+        "expressionSheet",
+        "socialPortrait",
+        "titleCard"
+      ]
+    }
+  },
+  "internalRoleplayOnly": [
+    "openDaddy",
+    "gitDaddy",
+    "samsungDaddy",
+    "bigBrother"
+  ],
+  "publicAssetReceiptRequiredFields": [
+    "assetId",
+    "brandId",
+    "characterId",
+    "laneEligibility",
+    "publicAllowed",
+    "canonStatus",
+    "provenance",
+    "generationMethod",
+    "parentAsset",
+    "hash",
+    "professorApproval",
+    "runtimeImportReceiptWhenApplicable"
+  ],
+  "generatedDraftPublicAllowed": false,
+  "publicationAuthority": false,
+  "crownStatus": "STOP",
+  "driveDiscovery": {
+    "status": "DISCOVERED_NOT_YET_PROMOTED",
+    "scanDate": "2026-10-05",
+    "observedImageCount": 322,
+    "law": "Drive discovery proves asset existence only. Public eligibility still requires provenance, canon, rights, hash, technical review, and Professor approval. Private Drive IDs are intentionally omitted from public doctrine.",
+    "namedEvidence": {
+      "lum": [
+        "CURRENT_LUM_MIDNIGHT_1996_MODEL_SHEET.png",
+        "lum final.png",
+        "lum_gothic_hip_wing_animation_asset_sheet.png",
+        "lum_ps1_float_shrine.webp",
+        "KAI9000_LUM_AVATAR_ACTUAL_ANIMATED.gif",
+        "LUM_FINAL_REFERENCE_PROPOSAL_03_GOTHIC_DATE_NIGHT.png",
+        "KAI9000_Lum_Cathedral_Concept.png"
+      ],
+      "goddessGroup": [
+        "LuHm_Goddess_Lineup_Urd_Belldandy_Skuld_v0.1.png"
+      ],
+      "professor": [
+        "LuHm_Professor_Character_Lineup_v0.1.png",
+        "09_Professor_Get_Back_to_Work_Intermission.png"
+      ],
+      "cathedral": [
+        "CURRENT_KAI9000_CATHEDRAL_POSTER.png",
+        "CURRENT_KAI9000_GAME_WORLD_BIBLE.png",
+        "KAI9000_JRPG_DATING_CATHEDRAL_GREEN_20260906_key_art.png",
+        "KAI9000_JRPG_DATING_CATHEDRAL_GREEN_20260906_world_bible.png",
+        "kai9000_cathedral_cockpit_interface.png",
+        "10_LuHm_OS_Crown_Cathedral_Finale.png"
+      ],
+      "broaderArt": [
+        "luhm_portrait_demo.png",
+        "luhm_turnaround_costumes_demo.png",
+        "luhm_godot_ui_mockup_demo.png",
+        "luhm_animation_props_demo.png",
+        "luhm_icons_rewards_demo.png"
+      ]
+    },
+    "latestImageScanFinding": "No newer Lum proof image was found in Drive from 2026-10-01 onward."
+  },
+  "recentDriveScan": {
+    "scannedFrom": "2026-10-01",
+    "imageCount": 2,
+    "namedAssets": [
+      {
+        "assetId": "candidate.goddessLineup.v0_1",
+        "displayName": "LuHm_Goddess_Lineup_Urd_Belldandy_Skuld_v0.1.png",
+        "sha256": "bfef62ec1981cca36a842937fd46464183bde53165fce5a6b558108a0e205607",
+        "sizeBytes": 2899131,
+        "contains": [
+          "urd.fullBody",
+          "urd.expressions",
+          "urd.chibi",
+          "belldandy.fullBody",
+          "belldandy.expressions",
+          "belldandy.chibi",
+          "skuld.fullBody",
+          "skuld.expressions",
+          "skuld.chibi"
+        ],
+        "state": "HASHED_CANDIDATE_CANON_PROVENANCE_PUBLIC_APPROVAL_PENDING",
+        "publicAllowed": false
+      },
+      {
+        "assetId": "candidate.professorLineup.v0_1",
+        "displayName": "LuHm_Professor_Character_Lineup_v0.1.png",
+        "sha256": "e3ba82c19ee4635d594e454d46355556f6c7cf62b3a42c84ecc34b09f34422a3",
+        "sizeBytes": 2685478,
+        "state": "HASHED_PROTECTED_REFERENCE_PROFESSOR_LIKENESS_APPROVAL_PENDING",
+        "publicAllowed": false
+      }
+    ]
+  }
+}
