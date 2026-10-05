@@ -219,7 +219,17 @@
     "crownStatus": "STOP",
     "deploymentVisualContract": "host/harness/agent-loading-sprites.json#deploymentVisuals",
     "deploymentVisualLaw": "approved Oni artwork identifies deployment lanes; textual state carries IDLE/WORKING/VERIFY/PASS/BLOCKED; color-to-role semantics remain unbound until explicit doctrine assignment",
-    "genericGreenEmojiDeploymentIdentity": false
+    "genericGreenEmojiDeploymentIdentity": false,
+    "residentGoddessTriplet": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "dictationContinuityOwner": "belldandySecretary",
+    "dictationScribe": "koe",
+    "oniActivationModel": "standby->active->verifying->parked",
+    "standbyMeansRegisteredNotExecuting": true,
+    "residentDoesNotMeanHiddenAsync": true
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
