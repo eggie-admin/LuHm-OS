@@ -283,7 +283,14 @@
     "openingDayTraining": "doctrine/openingDayStaffTrainingV1.json",
     "openingDayTrainingStatus": "SOURCE_CONFIGURED_CANDIDATE",
     "fullStaffTrainingClaim": "REPOSITORY_BACKED_BEHAVIORAL_CONTRACTS_ONLY",
-    "modelWeightTrainingProven": false
+    "modelWeightTrainingProven": false,
+    "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
+    "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json",
+    "lumCorporateRole": "presidentSupremeWitchChiefLogisticsOfficer",
+    "urdCorporateRole": "doctorClinicalSecurityWorkflowSanityEvidenceAndRisk",
+    "skuldCorporateRole": "deepTechnologyResearchCompatibilityAndArchitectureMeaning",
+    "urdOwnsCorporateLogistics": false,
+    "lumOwnsCorporateLogistics": true
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
