@@ -23,7 +23,8 @@
     "apiSpine": "doctrine/apiSpineV1.json",
     "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
     "belldandyHousekeeping": "doctrine/belldandyHousekeepingV1.json",
-    "huggingFaceSpecialistTrainer": "doctrine/huggingFaceSpecialistTrainerV1.json"
+    "huggingFaceSpecialistTrainer": "doctrine/huggingFaceSpecialistTrainerV1.json",
+    "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -47,7 +48,10 @@
     "trafficControllerIsNotAiAuthority": true,
     "compressedAliasNeverAuthority": true,
     "helpRecoveryRequiredForCompressedAlias": true,
-    "personCenteredCanonicalNamePreserved": true
+    "personCenteredCanonicalNamePreserved": true,
+    "trainingDoesNotExpandAuthority": true,
+    "trainingDoesNotMeanModelWeightFineTuning": true,
+    "vendorPitchDoesNotDefineArchitecture": true
   },
   "bossToolchain": {
     "states": [
@@ -834,5 +838,15 @@
     "registeredEverywhere": true,
     "hiddenAsyncExecution": false,
     "providerDeploymentRequiresReceipt": true
+  },
+  "trainingLaw": {
+    "contract": "doctrine/openingDayStaffTrainingV1.json",
+    "trainer": "lum",
+    "audience": "fullCanonicalStaffPlusBoundedProviderAndRobotLanes",
+    "behaviorTraining": "repositoryBacked",
+    "modelWeightTraining": false,
+    "providerOutputRequiresReconciliation": true,
+    "exactSourceAndScopeRequiredForVerifiedLesson": true,
+    "openingDayPromotionAuthority": false
   }
 }
