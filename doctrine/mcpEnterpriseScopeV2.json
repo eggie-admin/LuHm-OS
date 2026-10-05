@@ -5,18 +5,32 @@
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "transport": {
     "production": "streamableHttp",
-    "localDevelopment": ["streamableHttp", "stdio"],
+    "localDevelopment": [
+      "streamableHttp",
+      "stdio"
+    ],
     "productionPath": "/mcp",
     "productionFqdn": "mcp.eggiebagelface.art",
     "publicTlsProvider": "RenderManagedTls",
     "publicTlsLiveEvidenceRequired": true,
     "statelessHttp": true,
     "sessionOwnsAuthority": false,
-    "sessionOwnsSourceTruth": false
+    "sessionOwnsSourceTruth": false,
+    "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "currentPublishedPluginEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+    "currentPublishedPluginDependsOnCustomFqdn": false,
+    "customFqdnIsOptionalPerimeterUpgrade": true
   },
   "requestScope": {
-    "requiredFieldsForTruthSensitiveRouting": ["taskId","sourceRef","scopeId"],
-    "optionalFields": ["candidateSha","proofContext"],
+    "requiredFieldsForTruthSensitiveRouting": [
+      "taskId",
+      "sourceRef",
+      "scopeId"
+    ],
+    "optionalFields": [
+      "candidateSha",
+      "proofContext"
+    ],
     "unknownSourceMayPromote": false,
     "scopeMayEscalateAuthority": false,
     "scopeMayOverrideCrown": false
@@ -38,5 +52,6 @@
     "publicationAuthority": false
   },
   "legacySource": "doctrine/MCP_ENTERPRISE_SCOPE_V1.json",
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "apiSpine": "doctrine/apiSpineV1.json"
 }
