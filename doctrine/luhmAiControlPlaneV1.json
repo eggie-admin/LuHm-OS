@@ -28,7 +28,8 @@
     "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
     "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json",
     "corporatePanelMilestones": "doctrine/corporatePanelMilestonesV1.json",
-    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json"
+    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json",
+    "escalationKernel": "doctrine/escalationKernelV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -65,7 +66,10 @@
     "antiDaddyExternalMappingRequiresProfessorSeal": true,
     "oneAuthorityChainAcrossFourTiers": true,
     "yumePresentationCannotUpgradeEvidence": true,
-    "partnerInterestCannotGrantAuthority": true
+    "partnerInterestCannotGrantAuthority": true,
+    "escalationTierDoesNotExpandAuthority": true,
+    "escalationPreservesTaskSourceScope": true,
+    "escalationUsesMinimumStaff": true
   },
   "bossToolchain": {
     "states": [
@@ -906,5 +910,20 @@
     "tierOne": "googleAi",
     "tierTwo": "openAi",
     "tierThree": "openSourceVendorCommunity"
+  },
+  "escalation": {
+    "resolver": "tools/escalationKernel.py",
+    "sharedPractice": "agents/shared/ESCALATION_KERNEL_V1.md",
+    "profiles": [
+      "default",
+      "corporate",
+      "magic",
+      "art",
+      "technology"
+    ],
+    "zeroBased": true,
+    "tierCount": 4,
+    "maxParallelSupportWorkers": 3,
+    "authorityEffect": "NONE"
   }
 }
