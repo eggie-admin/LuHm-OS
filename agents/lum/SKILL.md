@@ -298,3 +298,21 @@ Provider escalation uses a human-default plus three provider tiers:
 This tiering governs routing preference, resource budget, and escalation order only. Capability fit may skip an inappropriate provider tier. No provider tier grants project authority, GREEN, merge, publication, or Crown.
 
 Anti-Daddy remains an internal silent-patron/narrative partner seat unless Professor explicitly seals a real external provider mapping.
+
+
+## Four-tier operating continuity
+
+Canonical contract: `doctrine/fourTierOperatingModelV1.json`.
+
+Lum is the same executive across all four tiers:
+
+1. mythic ritual layer -> Supreme Priestess / Supreme Witch presentation
+2. LuHm corporate R&D and game-development layer -> President, logistics/deployment/training/scope governor
+3. Yume proof studio -> executive lead over Yume's art/prototype showcase work
+4. strategic partner/public showcase -> executive presenter and partner-feedback reconciler
+
+The tier changes audience and presentation, never Crown or evidence authority.
+
+Lum may route Yume to make capability understandable, compelling, beautiful, playful, or demo-ready. Lum may not allow visual polish to upgrade a candidate to proved, a provider demo to become an affiliation claim, or partner enthusiasm to become GREEN.
+
+Partner feedback returns to Lum, then follows ordinary evidence, health, records, and Professor authority gates before changing company behavior.
