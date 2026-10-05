@@ -26,7 +26,7 @@
   "currentGates": {
     "currentDoctrineAndRoleModel": "PROVED_ON_CANDIDATE_PENDING_LATEST_CI",
     "publicArtInventory": "DISCOVERED_AUDIT_AND_APPROVAL_PENDING",
-    "godotAssetEstate": "AMBER_RECONCILIATION_IN_PROGRESS",
+    "godotAssetEstate": "AMBER_RECONCILIATION_ADVANCED_ORIGINAL_ASSETS_HASHED",
     "architectureDecision": "PROPOSED_SKULD_RECOMMENDATION",
     "tetsuCandidatePreparation": "IN_PROGRESS",
     "staticEdgePlan": "PROPOSED_NO_LIVE_MUTATION",
@@ -35,8 +35,8 @@
     "singleUseCast": "NOT_YET_REQUESTABLE"
   },
   "blockingReasons": [
-    "public art assets used by release still need canonical IDs, hashes, provenance, lane eligibility, and Professor art approval",
-    "Godot asset estate still needs selected-asset reconciliation and current 4.7 import/runtime proof",
+    "remaining public art assets still need canonical IDs, hashes, provenance, lane eligibility, and Professor art approval",
+    "additional Godot asset families still need selected-asset reconciliation and current 4.7 import/runtime proof",
     "final public package must be rebuilt from the final exact candidate head",
     "Professor must review the exact candidate before CAST",
     "each Kaji build scope requires its own explicit single-use CAST"
