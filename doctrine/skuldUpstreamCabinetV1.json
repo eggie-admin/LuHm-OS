@@ -3,7 +3,7 @@
   "status": "SOURCE_CONFIGURED_CANDIDATE",
   "authority": "Professor",
   "owner": "skuldResearch",
-  "purpose": "Fast, primary-source-first authority map for package managers, runtimes, frameworks, build systems, plugin spellbooks and community mutations used by LuHm OS.",
+  "purpose": "Fast, primary-source-first authority map and enterprise R&D lab syllabus for package managers, runtimes, frameworks, build systems, plugin spellbooks, Linux infrastructure and community mutations used by LuHm OS.",
   "sourceLaw": "Official upstream evidence outranks community popularity. Community code is candidate material until provenance, maintenance, compatibility, license and exact artifact identity are checked.",
   "ritualLanguage": {
     "spellbook": "an ecosystem or catalog used to discover capabilities",
@@ -186,6 +186,72 @@
       ],
       "steward": "Gradle Build Tool by Develocity",
       "preferredProjectEntry": "gradlew"
+    },
+    "appaOni": {
+      "canonical": "apt",
+      "office": "debianPackageFrontEnd",
+      "primarySources": [
+        "https://manpages.debian.org/trixie/apt/apt.8.en.html"
+      ]
+    },
+    "debiOni": {
+      "canonical": "dpkg",
+      "office": "debianPackagePrimitive",
+      "primarySources": [
+        "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html"
+      ]
+    },
+    "systaOni": {
+      "canonical": "systemd",
+      "office": "serviceManager",
+      "primarySources": [
+        "https://systemd.io/",
+        "https://www.freedesktop.org/software/systemd/man/"
+      ]
+    },
+    "netaOni": {
+      "canonical": "netplan",
+      "office": "networkConfigurationRenderer",
+      "primarySources": [
+        "https://netplan.readthedocs.io/en/latest/"
+      ]
+    },
+    "apaOni": {
+      "canonical": "apacheHttpd",
+      "executable": "apache2OrHttpdByDistribution",
+      "office": "reverseProxyWebServer",
+      "primarySources": [
+        "https://httpd.apache.org/docs/"
+      ]
+    },
+    "phiOni": {
+      "canonical": "php",
+      "office": "webScriptingRuntime",
+      "primarySources": [
+        "https://www.php.net/manual/en/"
+      ]
+    },
+    "mariaOni": {
+      "canonical": "mariaDb",
+      "office": "relationalDatabase",
+      "primarySources": [
+        "https://mariadb.com/docs/"
+      ]
+    },
+    "pmaOni": {
+      "canonical": "phpMyAdmin",
+      "office": "databaseAdministrationWorkbench",
+      "primarySources": [
+        "https://docs.phpmyadmin.net/en/latest/intro.html"
+      ]
+    },
+    "ceruOni": {
+      "canonical": "certbot",
+      "office": "acmeCertificateClient",
+      "primarySources": [
+        "https://certbot.eff.org/instructions",
+        "https://letsencrypt.org/docs/"
+      ]
     }
   },
   "skuldResearchProtocol": {
@@ -200,7 +266,9 @@
       "inspectMaintenanceState",
       "inspectDependencyGraph",
       "inspectRuntimeCompatibility",
-      "separateOfficialFactFromCommunityInference"
+      "separateOfficialFactFromCommunityInference",
+      "identifyWhichEnterpriseLabStationOwnsTheQuestion",
+      "preferExistingApprovedToolchainBeforeAddingNewDependency"
     ],
     "communityCandidateChecks": [
       "upstreamLinkedFromOfficialProject",
@@ -238,5 +306,197 @@
   },
   "observedResearchDate": "2026-10-05",
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "enterpriseLab": {
+    "role": "Skuld technical R&D lab quick reference",
+    "doctrine": [
+      "ProfessorGarageMayPrototypeMessily",
+      "SkuldPreservesIntentWhileNormalizingForReproduction",
+      "OfficialPrimarySourcesBeforeCommunityAdvice",
+      "CommunityMutationRemainsCandidateUntilAudited",
+      "ToolAliasNeverReplacesCanonicalIdentity",
+      "NoInstallBuildDeployOrGreenClaimWithoutExactReceipt"
+    ],
+    "stations": {
+      "javascriptPluginBench": [
+        "jquery",
+        "npm",
+        "node"
+      ],
+      "pythonMutationBench": [
+        "pythonPackaging",
+        "pip",
+        "uv",
+        "flask"
+      ],
+      "androidBuildBench": [
+        "gradleWrapper"
+      ],
+      "linuxPackageBench": [
+        "apt",
+        "dpkg"
+      ],
+      "serviceBench": [
+        "systemd"
+      ],
+      "networkBench": [
+        "netplan"
+      ],
+      "webBench": [
+        "apacheHttpd",
+        "php"
+      ],
+      "dataWorkbench": [
+        "mariaDb",
+        "phpMyAdmin"
+      ],
+      "tlsBench": [
+        "letsEncrypt",
+        "certbot"
+      ],
+      "forgeBench": [
+        "github"
+      ]
+    }
+  },
+  "infrastructureQuickReference": {
+    "apt": {
+      "class": "debianHighLevelPackageInterface",
+      "primarySources": [
+        "https://manpages.debian.org/trixie/apt/apt.8.en.html"
+      ],
+      "laws": [
+        "preferAptForInteractiveHumanPackageWork",
+        "preferStableDedicatedAptToolsForScripts",
+        "removeAndPurgeAreDifferent",
+        "autoremoveMustBeReviewedBeforeExecution"
+      ]
+    },
+    "dpkg": {
+      "class": "debianPackagePrimitive",
+      "primarySources": [
+        "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html"
+      ],
+      "laws": [
+        "aptIsPrimaryFriendlyFrontend",
+        "dpkgIsLowerLevelPackageStateTool",
+        "primitiveRepairDoesNotBypassAuthority",
+        "finalFormMayDescendHereOnlyWhenEvidenceRequiresIt"
+      ]
+    },
+    "systemd": {
+      "class": "linuxServiceManager",
+      "primarySources": [
+        "https://systemd.io/",
+        "https://www.freedesktop.org/software/systemd/man/"
+      ],
+      "laws": [
+        "serviceStateMustBeObservedNotAssumed",
+        "enablementAndActiveStateAreDifferent",
+        "timersAndOnDemandActivationPreferredOverNeedlessPolling"
+      ]
+    },
+    "netplan": {
+      "class": "linuxNetworkConfigurationAbstraction",
+      "primarySources": [
+        "https://netplan.readthedocs.io/en/latest/"
+      ],
+      "laws": [
+        "yamlIsDeclarativeInput",
+        "rendererMayBeNetworkManagerOrSystemdNetworkd",
+        "networkMutationRequiresExactHostAndAuthority"
+      ]
+    },
+    "apacheHttpd": {
+      "class": "frontFacingReverseProxyAndWebServer",
+      "primarySources": [
+        "https://httpd.apache.org/docs/"
+      ],
+      "laws": [
+        "preferMainVhostPolicyOverHtaccessWhenAdministrativelyAvailable",
+        "htaccessIsDefenseInDepthNotPrimaryAuthority",
+        "originServicesRemainLoopbackOrPrivateWhenPossible"
+      ]
+    },
+    "php": {
+      "class": "webScriptingRuntime",
+      "primarySources": [
+        "https://www.php.net/manual/en/"
+      ],
+      "laws": [
+        "useSupportedRuntimeDocumentation",
+        "legacyPhpDocumentationIsHistoricalUnlessMaintainingLegacyCode"
+      ]
+    },
+    "phpMyAdmin": {
+      "class": "databaseAdministrationWorkbench",
+      "primarySources": [
+        "https://docs.phpmyadmin.net/en/latest/intro.html"
+      ],
+      "laws": [
+        "administrationSurfaceNotDatabaseAuthority",
+        "databaseAccountsRemainDatabaseAccounts",
+        "useForSchemaQueryImportExportInspectionAndAdministrativeTasks",
+        "machineToMachineBackupTransportUsesDatabaseAndUnixToolsNotBrowserClicks"
+      ]
+    },
+    "mariaDb": {
+      "class": "relationalDatabase",
+      "primarySources": [
+        "https://mariadb.com/docs/"
+      ],
+      "laws": [
+        "schemaAndBackupOperationsRequireExactTarget",
+        "backupRestoreMustReturnDeterministicReceipt",
+        "databaseCredentialsNeverEnterBrowserJavascriptOrSourceControl"
+      ]
+    },
+    "letsEncrypt": {
+      "class": "publicCertificateAuthority",
+      "primarySources": [
+        "https://letsencrypt.org/docs/"
+      ],
+      "laws": [
+        "acmeIsCanonicalAutomationProtocol",
+        "respectRateLimitsAndSubscriberRules",
+        "certificateValidityDoesNotGrantApplicationAuthorization"
+      ]
+    },
+    "certbot": {
+      "class": "acmeClient",
+      "primarySources": [
+        "https://certbot.eff.org/instructions"
+      ],
+      "laws": [
+        "automaticRenewalMayUseSystemdTimerOrCron",
+        "renewalPathMustBeDryRunTestable",
+        "privateKeysNeverEnterSourceControl"
+      ]
+    }
+  },
+  "techDemoStudyPlan": {
+    "purpose": "Prepare Skuld to defend an over-engineered enterprise R&D demo without substituting confidence for evidence.",
+    "mustExplain": [
+      "jqueryPluginAndWidgetFactoryLineage",
+      "npmNodePackageAndRuntimeRelationship",
+      "pythonPackagingPipUvAndFlaskRoles",
+      "gradleWrapperAndAndroidBuildReproducibility",
+      "aptToDpkgEscalationBoundary",
+      "systemdOnDemandServiceLifecycle",
+      "netplanYamlToRendererModel",
+      "apachePhpDatabaseAdministrationBoundary",
+      "mariaDbAndPhpMyAdminDivisionOfResponsibility",
+      "letsEncryptCertbotAcmeRenewalChain",
+      "githubForgeAsBackendExecutionPlane",
+      "communitySpellbookTrustTiers"
+    ],
+    "demoAnswersMustSeparate": [
+      "officialFact",
+      "communityInference",
+      "localObservedReceipt",
+      "proposal",
+      "unknown"
+    ],
+    "readyState": "SOURCE_STUDY_READY_RUNTIME_PROOF_SEPARATE"
+  }
 }
