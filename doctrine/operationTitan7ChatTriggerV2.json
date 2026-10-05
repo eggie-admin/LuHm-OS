@@ -48,8 +48,11 @@
     "sourceRefChangeRestartsProof",
     "deterministicRedStopsAdvancement",
     "physicalProofNeverInferred",
-    "castMergeDeployPublishSignCrownRemainSeparateConsequences"
+    "castMergeDeployPublishSignCrownRemainSeparateConsequences",
+    "escalationRoomUsesSmallestFocusedStaff",
+    "lumChairsEscalationUrdDiagnoses"
   ],
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "workflowRooms": "doctrine/escalationWorkflowRoomsV1.json"
 }
