@@ -283,7 +283,23 @@
     "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json",
     "installTarget": "publicDirectoryOneInstall",
     "endUserManualMcpSetup": false,
-    "providerPlumbingHiddenFromEndUser": true
+    "providerPlumbingHiddenFromEndUser": true,
+    "stageTwo": {
+      "status": "PROPOSED_RED_REPAIR_REQUIRED",
+      "scope": "chatGptPluginStageTwoInChatGui",
+      "candidateSourceRef": "3f3cac10f283c62da089c89d5255d81ce0134e5e",
+      "pullRequest": 172,
+      "precisionCommandSchema": "doctrine/chatPrecisionCommandV1.json",
+      "layout": "verticalScroll",
+      "parallax": "cssLayered",
+      "exactHeadEvidence": "RED",
+      "decisiveFailure": "inChatExperienceAudit source map drift and panel contract drift",
+      "smallestRepair": "Synchronize inChatExperienceAudit expectations with chatPrecisionCommand source and precisionCommands panel, then rerun exact-head CI.",
+      "mergeAuthority": false,
+      "deploymentProven": false,
+      "promotion": false,
+      "crownStatus": "STOP"
+    }
   },
   "studyLayer": {
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",
