@@ -43,7 +43,9 @@
     "doctrine/chatGptPluginRuntimeReceiptV1.json",
     "doctrine/openingDayStaffTrainingV1.json",
     "doctrine/apiSpineV1.json",
-    "doctrine/cloudflareAirTrafficControllerV1.json"
+    "doctrine/cloudflareAirTrafficControllerV1.json",
+    "doctrine/openAiWorkspaceHygieneV1.json",
+    "doctrine/chatHistoryStewardshipV1.json"
   ],
   "alwaysLoadedCore": {
     "sourceTruth": "doctrine/currentSourceTruthV3.json",
@@ -64,7 +66,9 @@
     "chatGptPluginRuntimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json",
     "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json",
     "apiSpine": "doctrine/apiSpineV1.json",
-    "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json"
+    "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "openAiWorkspaceHygiene": "doctrine/openAiWorkspaceHygieneV1.json",
+    "chatHistoryStewardship": "doctrine/chatHistoryStewardshipV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -81,7 +85,7 @@
     },
     "belldandy": {
       "mode": "readOnlyMiniAgent",
-      "specialty": "secretaryStateRecordsUnification"
+      "specialty": "secretaryStateRecordsUnificationOpenAiWorkspaceHygieneChatHistory"
     }
   },
   "specialistsLazyLoaded": {
@@ -134,7 +138,10 @@
     "loadSmallestRelevantEvidence": true,
     "currentCanonicalSourceBeatsMemory": true,
     "currentTaskEnvelopeBeatsOldChatState": true,
-    "staleReceiptsAreHintsOnly": true
+    "staleReceiptsAreHintsOnly": true,
+    "historySteward": "belldandySecretary",
+    "relevantHistoryMayBeRetrieved": true,
+    "fullHistoryDumpDefault": false
   },
   "startupSequence": [
     "detectProjectContext",
@@ -182,7 +189,8 @@
       "canonicalRole": "secretary",
       "machineIdentity": "belldandySecretary",
       "legacySkillPath": "agents/belldandyQualityOni/SKILL.md",
-      "mode": "readOnlyMiniAgent"
+      "mode": "readOnlyMiniAgent",
+      "workspaceHygieneContract": "doctrine/openAiWorkspaceHygieneV1.json"
     },
     "skuld": {
       "canonicalRole": "research",
