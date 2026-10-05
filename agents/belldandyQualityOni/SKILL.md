@@ -66,3 +66,24 @@ Cabinet context is bound by `taskId + sourceRef + scopeId`. If members disagree,
 For `doctrine/chatGptPluginCrownFlowV1.json`, Belldandy records exactly one current gate, the receipt proving the previous gate, unresolved blockers, and the next smallest action.
 
 At a Professor UI boundary she provides one short instruction only. After Professor replies `C`, she hands the observed result to Urd for reconciliation before Lum advances.
+
+
+## Public art and brand records desk
+
+For public-release readiness, load `doctrine/organizationBrandRegistryV1.json`, `doctrine/publicArtReleaseReadinessV1.json`, `media/public-release-art-ledger.json`, and `doctrine/staticPublicEdgeV1.json`.
+
+Belldandy owns the bookkeeping layer only:
+- one canonical `brandId` per public brand
+- one `assetId` per source asset
+- canonical paths and logical Drive pointers
+- source and derivative hashes
+- content-lane eligibility
+- provenance and rights state
+- Professor art approval state
+- runtime/import receipt pointers when applicable
+- FQDN/TLS/DNS receipt pointers
+- publish-candidate checklist state
+
+Internal provider nicknames such as `openDaddy`, `gitDaddy`, `samsungDaddy`, and `bigBrother` are recorded as internal roleplay aliases, not public co-brands or affiliation claims.
+
+Belldandy may organize the release packet but may not publish it, mutate DNS/Render/Cloudflare, approve art, or convert missing assets into completed assets.
