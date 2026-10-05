@@ -19,7 +19,7 @@ on:
       - 'doctrine/huggingFaceSpecialistTrainerV1.json'
       - 'doctrine/godot4AssetEstateV1.json'
       - 'media/godot4-game-asset-estate.json'
-      - 'doctrine/FORGE_TWINS_V3.json'
+      - 'doctrine/forgeTwinsV3.json'
       - 'doctrine/godot4AssetArchitectureDecisionV1.json'
       - 'media/godot4-asset-reconciliation-v1.json'
       - 'doctrine/publicReleaseCastReadinessV1.json'
@@ -52,7 +52,7 @@ jobs:
           python3 -m json.tool doctrine/huggingFaceSpecialistTrainerV1.json >/dev/null
           python3 -m json.tool doctrine/godot4AssetEstateV1.json >/dev/null
           python3 -m json.tool media/godot4-game-asset-estate.json >/dev/null
-          python3 -m json.tool doctrine/FORGE_TWINS_V3.json >/dev/null
+          python3 -m json.tool doctrine/forgeTwinsV3.json >/dev/null
           python3 -m json.tool doctrine/godot4AssetArchitectureDecisionV1.json >/dev/null
           python3 -m json.tool media/godot4-asset-reconciliation-v1.json >/dev/null
           python3 -m json.tool doctrine/publicReleaseCastReadinessV1.json >/dev/null
