@@ -35,6 +35,7 @@ AGENT_DEPLOYMENT = ROOT / "doctrine" / "agentSystemDeploymentV1.json"
 ENTERPRISE_SCOPE = ROOT / "doctrine" / "mcpEnterpriseScopeV2.json"
 API_SPINE = ROOT / "doctrine" / "apiSpineV1.json"
 TRAFFIC_CONTROLLER = ROOT / "doctrine" / "cloudflareAirTrafficControllerV1.json"
+HOUSEKEEPING = ROOT / "doctrine" / "belldandyHousekeepingV1.json"
 ROUTER = ROOT / "tools" / "lumTaskRouter.py"
 API_SPINE_RESOLVER = ROOT / "host" / "api" / "luhmApiSpine.py"
 ROUTE_KINDS = {
@@ -44,7 +45,7 @@ ROUTE_KINDS = {
 TRUTH_SCOPE_KINDS = {"patch", "build", "release"}
 
 SERVER_NAME = "luhm-os"
-SERVER_VERSION = "0.5.0-beta"
+SERVER_VERSION = "0.5.1-beta"
 DEFAULT_PUBLIC_FQDN = "mcp.eggiebagelface.art"
 LOCAL_HOST = "127.0.0.1"
 LOCAL_PORT = 8788
@@ -52,11 +53,11 @@ LOCAL_PORT = 8788
 server = MCPServer(
     SERVER_NAME,
     title="LuHm OS",
-    description="Read-only LuHm source-truth, agent roster, capability-first API spine, Oni routing, proof, and transport tools.",
+    description="Read-only LuHm source-truth, agent roster, Belldandy housekeeping, capability-first API spine, Oni routing, proof, and transport tools.",
     version=SERVER_VERSION,
     instructions=(
         "LuHm OS is evidence-gated. AI proposes; policy authorizes; CI proves; human promotes. "
-        "Use read-only status, roster, routing, proof-contract, scope, and transport tools to inspect the current workflow. "
+        "Use read-only status, roster, Belldandy housekeeping, routing, proof-contract, scope, and transport tools to inspect the current workflow. "
         "Truth-sensitive patch/build/release routing requires explicit taskId, sourceRef, and scopeId. "
         "Never infer GREEN, promotion, signing, publication, or public exposure from these tools. "
         "Professor remains final authority."
@@ -304,6 +305,57 @@ def luhm_status() -> dict[str, Any]:
     return _status_payload()
 
 
+def _housekeeping_payload() -> dict[str, Any]:
+    policy = _load_json(HOUSEKEEPING)
+    snapshot = policy.get("currentProtectiveSnapshot", {})
+    base = snapshot.get("sourceRef", "UNKNOWN")
+    head = "UNKNOWN"
+    count: int | str = "UNKNOWN"
+    try:
+        head = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            text=True,
+            timeout=5,
+        ).strip()
+        if base not in ("", "UNKNOWN"):
+            count = int(subprocess.check_output(
+                ["git", "rev-list", "--count", f"{base}..{head}"],
+                cwd=ROOT,
+                text=True,
+                timeout=5,
+            ).strip())
+    except (subprocess.SubprocessError, OSError, ValueError):
+        count = "UNKNOWN"
+
+    window = policy.get("commitWindow", {})
+    state = "UNKNOWN"
+    if isinstance(count, int):
+        if count >= int(window.get("hardStopAtCommits", 50)):
+            state = "STOP"
+        elif count >= int(window.get("warningAtCommits", 40)):
+            state = "WARNING"
+        elif count >= int(window.get("automaticCheckpointEveryCommits", 25)):
+            state = "CHECKPOINT_DUE"
+        else:
+            state = "CLEAN"
+
+    return {
+        "schema": "luhmOs.mcpHousekeeping.v1",
+        "owner": policy.get("owner", "belldandySecretary"),
+        "sourceRef": head,
+        "checkpointSourceRef": base,
+        "commitsSinceCheckpoint": count,
+        "state": state,
+        "commitWindow": window,
+        "automaticMerge": False,
+        "automaticDelete": False,
+        "mutationAuthority": False,
+        "greenAuthority": False,
+        "crownStatus": "STOP",
+    }
+
+
 @server.tool(annotations=READ_ONLY_INTERNAL)
 def luhm_agent_roster() -> dict[str, Any]:
     """List canonical Lum/Oni roles and whether each canonical SKILL.md is present."""
@@ -314,6 +366,12 @@ def luhm_agent_roster() -> dict[str, Any]:
 def luhm_agent_deployment() -> dict[str, Any]:
     """Return the canonical system-wide agent deployment registry and surface readiness."""
     return _deployment_payload()
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_housekeeping_status() -> dict[str, Any]:
+    """Return Belldandy's read-only checkpoint and fifty-commit housekeeping state."""
+    return _housekeeping_payload()
 
 
 @server.tool(annotations=READ_ONLY_INTERNAL)
