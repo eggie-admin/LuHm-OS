@@ -4,7 +4,9 @@ on:
   pull_request:
     paths:
       - 'systemPortal/**'
+      - 'host/api/**'
       - 'doctrine/apiSpineV1.json'
+      - 'doctrine/python3ControlPlaneLawV1.json'
       - 'doctrine/cloudflareAirTrafficControllerV1.json'
       - 'tools/systemPortalAudit.py'
       - 'tools/apiSpineAudit.py'
