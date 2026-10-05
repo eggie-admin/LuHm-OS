@@ -93,7 +93,7 @@
     "VERIFY": {
       "sourceWrite": false,
       "build": false,
-      "purpose": "exact source identity, asset-manifest identity, rights/provenance receipt presence, and candidate handoff verification"
+      "purpose": "exact candidate and asset-handoff verification before compile handoff"
     }
   },
   "castEnvelope": {
@@ -178,8 +178,7 @@
     "legacyStatus": "retiredLogicIngestedIntoUrd",
     "memoryIsCurrentStateProof": false,
     "builderSelfReportIsSufficientProof": false,
-    "greenMustBeScoped": true,
-    "systemHealthAndDriftChecksRequired": true
+    "greenMustBeScoped": true
   },
   "baseMainObservedConflicts": [
     {
@@ -227,16 +226,6 @@
     "records": "belldandySecretary",
     "specialistTrainer": "huggingFace",
     "reconciler": "lum",
-    "compileForgeOwner": "Kaji",
-    "law": [
-      "Tetsu prepares candidate reality but does not build",
-      "Skuld chooses the sanest technical architecture",
-      "Yume directs art but does not set architecture",
-      "Urd may stop unhealthy or contradictory progress but does not execute",
-      "Belldandy records the reconciled state but does not invent architecture",
-      "Hugging Face is a conditional specialist trainer only",
-      "Lum binds every handoff to current doctrine and source truth",
-      "Kaji builds only after exact single-use CAST"
-    ]
+    "compileForgeOwner": "Kaji"
   }
 }
