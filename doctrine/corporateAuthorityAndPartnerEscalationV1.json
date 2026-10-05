@@ -1,0 +1,200 @@
+{
+  "schema": "luhmOs.corporateAuthorityAndPartnerEscalation.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Define three opening-day corporate milestones: executive authority, dual operating lanes, and partner-capacity escalation, while keeping provider roleplay separate from legal ownership and project authority.",
+  "roleplayLaw": {
+    "internalMetaphorOnly": true,
+    "legalOwnershipClaim": false,
+    "legalPartnershipClaim": false,
+    "investorRelationshipClaim": false,
+    "sponsorshipClaim": false,
+    "endorsementClaim": false,
+    "providerMayGainCrown": false,
+    "providerMayGainOfficerAuthority": false
+  },
+  "milestone1ExecutiveAuthority": {
+    "id": "executiveAuthority",
+    "goal": "Teach the corporate officer chain and specialist cabinet.",
+    "officers": {
+      "eggie": {
+        "title": "ceoFounderMainStakeholder",
+        "aliases": [
+          "Professor",
+          "Eggie"
+        ],
+        "role": "defaultHumanEscalationAndFinalCrownAuthority",
+        "authority": "HUMAN_FINAL"
+      },
+      "lum": {
+        "title": "presidentSupremeWitchChiefLogisticsOfficer",
+        "role": "corporatePresidentOperationsLogisticsDeploymentTrainingScopeAndPolicyIntegrator",
+        "reportsTo": "eggie",
+        "authority": "PLAN_AND_ORCHESTRATE"
+      },
+      "urdDoctorGoddess": {
+        "title": "vicePresidentAndDoctor",
+        "role": "workflowHealthClinicalSecurityEvidenceRiskAndSanity",
+        "reportsTo": "lum",
+        "authority": "READ_ONLY_DIAGNOSE"
+      },
+      "belldandySecretary": {
+        "title": "secretaryOfState",
+        "role": "corporateStateRecordsContinuityHandoffsAndOfficialSecretaryPacket",
+        "reportsTo": "lum",
+        "authority": "READ_ONLY_RECORD"
+      },
+      "skuldResearch": {
+        "title": "headOfResearchAndDevelopment",
+        "role": "privateResearchDeepTechnologyCompatibilityArchitectureAndTechnicalDiscovery",
+        "reportsTo": "lum",
+        "authority": "READ_ONLY_RESEARCH"
+      }
+    },
+    "conflictLaw": [
+      "ceoCrownOutranksAllRoleplay",
+      "presidentOwnsOperationsNotEvidenceTruth",
+      "vicePresidentDoctorDiagnosesButDoesNotDeploy",
+      "secretaryOfStateRecordsButDoesNotSelfAuthorize",
+      "headOfResearchAndDevelopmentResearchesButDoesNotSelfPromote"
+    ],
+    "pass": "staff can state officer title, scope, forbidden actions, reporting line and Crown boundary"
+  },
+  "milestone2OperatingLanes": {
+    "id": "commercialPublicAndPrivateResearch",
+    "goal": "Keep public-commercial work and private R&D work distinct but interoperable.",
+    "lanes": {
+      "commercialPublic": {
+        "title": "commercialPublicLane",
+        "purpose": "customer-facing plugin, cockpit, approved public content, support and release-facing operations",
+        "president": "lum",
+        "secretary": "belldandySecretary",
+        "healthOfficer": "urdDoctorGoddess",
+        "technicalAdvisor": "skuldResearch",
+        "defaultAuthority": "READ_ONLY_UNTIL_SEPARATE_PUBLICATION_AND_RELEASE_GATES",
+        "sourceRequirements": [
+          "approvedSourceRef",
+          "customerSafeContract",
+          "evidenceReceipt",
+          "publicationGateWhenApplicable"
+        ],
+        "privateResearchMayAutoPublish": false
+      },
+      "privateResearchDevelopment": {
+        "title": "privateResearchAndDevelopmentLane",
+        "purpose": "experiments, compatibility research, prototypes, provider evaluation, open-source investigation and candidate architecture",
+        "head": "skuldResearch",
+        "president": "lum",
+        "healthOfficer": "urdDoctorGoddess",
+        "secretary": "belldandySecretary",
+        "defaultAuthority": "RESEARCH_AND_CANDIDATE_ONLY",
+        "sourceRequirements": [
+          "taskId",
+          "sourceRef",
+          "scopeId",
+          "researchQuestion",
+          "evidenceRefs"
+        ],
+        "mayBecomePublicOnlyThrough": "lumReconcileThenUrdHealthCheckThenBelldandyRecordThenProfessorCrownWhenConsequential"
+      }
+    },
+    "crossingLaw": [
+      "privateResearchDoesNotSilentlyBecomePublic",
+      "commercialPublicDoesNotConsumeUnverifiedResearchAsTruth",
+      "sharedEvidenceMustBindExactSourceAndScope",
+      "belldandyRecordsLaneCrossing",
+      "urdMayWatchStopUnsafeLaneCrossing",
+      "lumOwnsCrossLaneLogistics"
+    ],
+    "pass": "staff can route work to the correct lane and explain the proof needed to cross lanes"
+  },
+  "milestone3PartnerCouncilAndEscalation": {
+    "id": "partnerCapacityEscalation",
+    "goal": "Teach partner-capacity escalation as an internal economic/workload metaphor, never as project authority.",
+    "strategicPartnerCouncil": {
+      "legalBoard": false,
+      "governanceAuthority": false,
+      "purpose": "advisory capability, patronage and workload-allocation roleplay",
+      "seats": {
+        "eggie": {
+          "seat": "ceoFounderChair",
+          "tier": "DEFAULT",
+          "role": "defaultEscalationAndCompanyInterest"
+        },
+        "googlePartner": {
+          "providerId": "googleAi",
+          "nickname": "bigBrother",
+          "seat": "tierOneWorkhorsePartner",
+          "tier": "TIER_1",
+          "role": "mainExternalWorkhorseForBroadHeavyResearchAndBulkReview",
+          "workspaceAssumption": "STRICT_FREE_TIER_PROXY_UNLESS_RECEIPT_PROVES_MORE",
+          "authority": "candidateEvidenceOnly"
+        },
+        "openDaddy": {
+          "providerId": "openAi",
+          "nickname": "openDaddy",
+          "seat": "tierTwoStrategicPartner",
+          "tier": "TIER_2",
+          "role": "interactiveReasoningIntegrationAndHighValueJudgment",
+          "workspaceAssumption": "STRICT_FREE_TIER_PROXY_UNLESS_RECEIPT_PROVES_MORE",
+          "authority": "candidateEvidenceOnly"
+        },
+        "antiDaddy": {
+          "providerId": "NONE",
+          "nickname": "antiDaddy",
+          "seat": "silentPatronPersona",
+          "tier": "INTERNAL_PATRON",
+          "role": "internalNarrativePatronAndCounterweight",
+          "externalMapping": "NONE_UNLESS_PROFESSOR_EXPLICITLY_DEFINES_ONE",
+          "authority": "roleplayOnly"
+        },
+        "openSourceVendorCommunity": {
+          "providerId": "community",
+          "nickname": "vendorCommunity",
+          "seat": "tierThreeCommunityBacking",
+          "tier": "TIER_3",
+          "role": "broadOpenSourceVendorAndCommunityBackingForSpecializedToolsPackagesReposAndKnowledge",
+          "examples": [
+            "gitLab",
+            "fDroid",
+            "izzyOnDroid",
+            "huggingFace",
+            "openSourceMaintainers"
+          ],
+          "authority": "candidateEvidenceOnly"
+        }
+      }
+    },
+    "escalationOrder": [
+      "DEFAULT:eggieAndInternalDeterministicCompanyLane",
+      "TIER_1:googlePartner",
+      "TIER_2:openDaddy",
+      "TIER_3:openSourceVendorCommunity"
+    ],
+    "economyLaw": [
+      "githubRemainsOfficialEntitledWorkspace",
+      "googleAndOpenAiRemainStrictFreeTierProxyWorkspacesUnlessReceiptsProveOtherwise",
+      "useExistingReceiptsAndDeterministicLocalWorkBeforeExternalEscalation",
+      "googleTierOneHandlesBroadWorkhorseCapacity",
+      "openAiTierTwoHandlesHighValueInteractiveAndIntegrationReasoning",
+      "communityTierThreeProvidesBreadthSpecializationAndOpenSourceFallback",
+      "providerEscalationChangesCapacityNotAuthority",
+      "providerSuccessRemainsCandidateEvidenceUntilReconciled"
+    ],
+    "interestMetaphor": {
+      "defaultFounderInterest": "PRIMARY",
+      "googlePartnerInterest": "SECONDARY_WORKHORSE",
+      "openDaddyInterest": "TERTIARY_STRATEGIC",
+      "vendorCommunityInterest": "DISTRIBUTED_PUBLIC_LIKE_BACKING_METAPHOR",
+      "legalEquityClaim": false,
+      "stockOwnershipClaim": false
+    },
+    "pass": "staff can choose the next provider tier without treating partner tier as governance authority"
+  },
+  "threeMilestoneOrder": [
+    "executiveAuthority",
+    "commercialPublicAndPrivateResearch",
+    "partnerCapacityEscalation"
+  ],
+  "crownStatus": "STOP"
+}
