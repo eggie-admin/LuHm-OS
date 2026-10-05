@@ -40,7 +40,8 @@
     "directCrossGoddessExecution": false,
     "readOnlyPeerAwareness": true,
     "disagreementReturnsToLum": true,
-    "professorFinalAuthority": true
+    "professorFinalAuthority": true,
+    "skuldOwnsTechnicalLabAuthorityMap": true
   },
   "sharedContextPacket": [
     "taskId",
@@ -100,7 +101,10 @@
         "architectureOption",
         "packageOrPluginCandidate",
         "communitySpellbookCandidate",
-        "upstreamAuthorityQuestion"
+        "upstreamAuthorityQuestion",
+        "techDemoPreparation",
+        "enterpriseLabReview",
+        "garagePrototypePolish"
       ],
       "asksFor": [
         "observedFacts",
@@ -111,7 +115,10 @@
         "authorityTier",
         "upstreamSteward",
         "officialSourceRefs",
-        "communityCandidateRisk"
+        "communityCandidateRisk",
+        "labStation",
+        "techDemoReadiness",
+        "canonicalToolchainMap"
       ]
     },
     "urdDoctorGoddess->lum": {
@@ -151,7 +158,10 @@
         "authorityTier",
         "upstreamSteward",
         "officialSourceRefs",
-        "communityCandidateRisk"
+        "communityCandidateRisk",
+        "labStation",
+        "techDemoReadiness",
+        "canonicalToolchainMap"
       ],
       "mayNot": [
         "installDependency",
