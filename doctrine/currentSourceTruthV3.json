@@ -341,5 +341,34 @@
     "publicationAuthority": false,
     "promotion": false,
     "crownStatus": "STOP"
+  },
+  "forgeLayer": {
+    "contract": "doctrine/FORGE_TWINS_V3.json",
+    "sourceForge": "Tetsu",
+    "sourceForgeSequence": [
+      "PROTECT",
+      "INGEST",
+      "MUTATE",
+      "VERIFY",
+      "JANITOR"
+    ],
+    "compileForge": "Kaji",
+    "compileForgeSequence": [
+      "PREPARE",
+      "CAST",
+      "BUILD",
+      "HASH",
+      "RECEIPT",
+      "JANITOR"
+    ],
+    "truthGuard": "urdDoctorGoddess",
+    "architectureAdvisor": "skuldResearch",
+    "artDirection": "yume",
+    "records": "belldandySecretary",
+    "specialistTrainer": "huggingFace",
+    "reconciler": "lum",
+    "explicitSingleUseCastRequired": true,
+    "publicationAuthority": false,
+    "crownStatus": "STOP"
   }
 }
