@@ -78,23 +78,27 @@
     "cast": [
       {
         "speaker": "lum",
-        "role": "scope and reconcile one release candidate"
+        "role": "operate against current doctrine and source truth; scope and reconcile one exact candidate"
       },
       {
         "speaker": "yume",
-        "role": "art direction and public-safe derivation planning"
-      },
-      {
-        "speaker": "urdDoctorGoddess",
-        "role": "canon provenance rights and evidence gate"
+        "role": "art direction, visual canon intent, composition, presentation, and creative handoff"
       },
       {
         "speaker": "skuldResearch",
-        "role": "Godot static web DNS TLS and platform compatibility"
+        "role": "sanest architecture and technical approach across Godot, static web, DNS, TLS, providers, formats, and compatibility"
+      },
+      {
+        "speaker": "urdDoctorGoddess",
+        "role": "keep the system sane and healthy through evidence, contradiction, risk, provenance, rollback, and drift checks"
       },
       {
         "speaker": "belldandySecretary",
-        "role": "brand asset path hash receipt and handoff ledger"
+        "role": "organize canonical names, paths, inventories, hashes, receipts, state, branding records, and handoffs"
+      },
+      {
+        "speaker": "huggingFace.specialistTrainer",
+        "role": "specialist model/dataset/training/evaluation advisor when that expertise is materially relevant"
       }
     ],
     "visibleState": [
@@ -114,6 +118,14 @@
       "publish_candidate_is_not_published",
       "only_professor_may_authorize_visibility_increase_or_publication"
     ],
-    "fieldGuide": "At a genuine external Professor action, show one current screen/action only; then Urd reconciles the resulting receipt."
+    "fieldGuide": "At a genuine external Professor action, show one current screen/action only; then Urd reconciles the resulting receipt.",
+    "roleLaw": [
+      "yume_owns_art_direction_not_architecture",
+      "skuld_owns_architecture_research_and_sanest_technical_approach",
+      "urd_owns_sanity_health_evidence_and_drift_diagnosis",
+      "belldandy_owns_records_organization_and_handoff_not_architecture",
+      "huggingFace_is_specialist_trainer_provider_not_boss",
+      "lum_operates_against_current_doctrine_and_source_truth_and_reconciles_all_specialists"
+    ]
   }
 }
