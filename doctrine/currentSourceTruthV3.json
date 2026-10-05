@@ -347,7 +347,7 @@
     "crownStatus": "STOP"
   },
   "forgeLayer": {
-    "contract": "doctrine/FORGE_TWINS_V3.json",
+    "contract": "doctrine/forgeTwinsV3.json",
     "sourceForge": "Tetsu",
     "sourceForgeSequence": [
       "PROTECT",
