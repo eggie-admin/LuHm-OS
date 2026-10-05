@@ -40,7 +40,7 @@
         "defaultPrompt": [
           "Use LuHm OS to inspect the current source truth and explain what is actually proven.",
           "Use LuHm OS to list the Lum and Oni roles and their current bounded capabilities.",
-          "Use LuHm OS to validate this read-only task scope before routing it."
+          "Open the LuHm OS in-chat cockpit and show its current experience contract."
         ]
       },
       "review": {
@@ -71,10 +71,10 @@
               "expected_behavior": "Calls route without granting promotion authority."
             },
             {
-              "description": "Inspect proof and transport contracts.",
-              "prompt": "Explain the current LuHm OS proof and transport contract for evidence.",
-              "tools_triggered": "proof, transport",
-              "expected_behavior": "Uses proof and transport while preserving exact-source and authority boundaries."
+              "description": "Open the in-chat LuHm cockpit.",
+              "prompt": "Open the LuHm OS cockpit and show the active in-chat experience.",
+              "tools_triggered": "luhm_open_cockpit",
+              "expected_behavior": "Renders the cockpit-v2 MCP Apps resource and exposes the canonical inChatExperience contract without granting GREEN or publication authority."
             }
           ],
           "negative": [
@@ -95,7 +95,7 @@
         "commerce": false
       },
       "publication": {
-        "release_notes": "LuHm OS 0.4.1 hardens the public review package with five positive and three negative MCP review cases while preserving read-only evidence, routing, proof, and transport boundaries."
+        "release_notes": "LuHm OS 0.4.1 now binds the MCP Apps cockpit to a canonical in-chat experience schema covering intent routing, activity, roleplay, pets, agent state, and the bounded Godot handoff while preserving read-only authority."
       }
     }
   }
