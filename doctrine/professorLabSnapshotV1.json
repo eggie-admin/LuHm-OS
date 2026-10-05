@@ -1,0 +1,214 @@
+{
+  "schema": "luhmOs.professorLabSnapshot.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "boss": "lum",
+  "sourceRef": "86b3d0e3837ac127cd550a3d8d53b041e88c254a",
+  "purpose": "Turn Professor's messy private lab work into compact evidence-bound snapshots that Lum can organize, route, brand, and hand into the LuHm enterprise without forcing Professor through every intermediate step.",
+  "lumLight": {
+    "kind": "operatingModeNotNewAgent",
+    "canonicalBoss": "lum",
+    "humanMeaning": "lightweight Professor-facing snapshot mode",
+    "triggerAliases": [
+      "Lum Light",
+      "Lum Lite",
+      "lab snapshot",
+      "snapshot the lab",
+      "clean the lab"
+    ],
+    "presentation": "one compact snapshot, exceptions expanded only when needed",
+    "newAgentStack": false,
+    "hiddenAsyncExecution": false
+  },
+  "professorLab": {
+    "visibility": "private",
+    "mayContain": [
+      "roughNotes",
+      "unfinishedCode",
+      "analogArtReferences",
+      "privateAiExperiments",
+      "gameIdeas",
+      "garageHardwareNotes",
+      "voiceDictation",
+      "prototypeAssets"
+    ],
+    "automaticPublicPromotion": false,
+    "sourceOfTruthEffect": "noneUntilEvidenceAndProfessorPromotion"
+  },
+  "snapshotInputs": {
+    "github": [
+      "exactRepository",
+      "exactSourceRef",
+      "branchAndPrState",
+      "ciReceipts",
+      "sourcePaths",
+      "releaseAndArtifactPointers"
+    ],
+    "googleDrive": [
+      "durableFilePointers",
+      "fieldManuals",
+      "characterBibles",
+      "artAndDoctrinePackages",
+      "hashReceipts"
+    ],
+    "gmail": [
+      "vendorCorrespondence",
+      "ciNotifications",
+      "submissionAndSupportReceipts"
+    ],
+    "render": [
+      "canonicalRuntimeServices",
+      "deploySourceSha",
+      "liveOrFailedState"
+    ],
+    "privateConversation": [
+      "currentProfessorIntent",
+      "latestCorrections",
+      "boundedRelevantHistory"
+    ],
+    "localOrDevice": [
+      "onlyWhenAnObservedReceiptExists"
+    ]
+  },
+  "connectorBoundary": {
+    "publicPluginReadsPrivateGoogleAccount": false,
+    "privateChatMayUseConnectedGmailAndDrive": true,
+    "googleAiOneDirectConnectorProven": false,
+    "authenticatorMayBeReadByAgents": false,
+    "credentialsMayBeCopiedIntoSnapshots": false,
+    "privateDriveIdsMayEnterPublicGithub": false,
+    "privateEmailBodiesMayEnterPublicGithub": false
+  },
+  "cabinetPass": [
+    {
+      "owner": "belldandySecretary",
+      "does": [
+        "normalizeNames",
+        "directoryMap",
+        "dedupePointers",
+        "fieldManualIndex",
+        "brandRegistryJoin",
+        "stateLedger",
+        "handoffPacket"
+      ]
+    },
+    {
+      "owner": "urdDoctorGoddess",
+      "does": [
+        "evidenceAdjudication",
+        "contradictionCheck",
+        "staleReceiptCheck",
+        "privateLeakageCheck",
+        "unsupportedGreenBlock"
+      ]
+    },
+    {
+      "owner": "skuldResearch",
+      "does": [
+        "technicalMeaning",
+        "dependencyAndCompatibilityReview",
+        "providerBoundaryReview",
+        "releaseSupportGapAnalysis"
+      ]
+    },
+    {
+      "owner": "yume",
+      "does": [
+        "canonAndArtClassification",
+        "brandPresentation",
+        "publicSafeDerivativePlan",
+        "studioAndPluginVisualContinuity"
+      ]
+    },
+    {
+      "owner": "lum",
+      "does": [
+        "reconcileSnapshot",
+        "routeMinimumWorkers",
+        "batchMachineActions",
+        "presentOneHumanBoundary"
+      ]
+    }
+  ],
+  "providerTopology": {
+    "openAiHeadquarters": {
+      "role": "humanFacingLuHmProductAndOrchestrationHeadquarters",
+      "publicLanguage": "English",
+      "renderRole": "runtimeSupportAndDemoFloor",
+      "officialOpenAiAffiliationClaim": false
+    },
+    "worldResearchHeadquarters": {
+      "role": "technicalEducationResearchAndReleaseSupportWing",
+      "providers": [
+        "google",
+        "huggingFace"
+      ],
+      "internalPersona": "antiDaddy",
+      "presentationLanguage": "JapaneseMetaphor",
+      "publicBrand": false,
+      "officialProviderAffiliationClaim": false
+    },
+    "githubCompatibilityLayer": {
+      "role": "providerNeutralSourceCiEvidenceAndTranslationLayer",
+      "forgeTranslators": [
+        "tetsuSourceForge",
+        "kajiCompileForge"
+      ],
+      "copilotTreatment": "githubWorkspaceAdvisoryWhenObserved; not independent authority",
+      "spellbookRole": "translate research into bounded source candidates and receipts"
+    }
+  },
+  "snapshotOutput": {
+    "required": [
+      "snapshotId",
+      "observedAt",
+      "sourceRef",
+      "scopeId",
+      "observedFacts",
+      "unknowns",
+      "conflicts",
+      "brandAndCanonState",
+      "repoAndDirectoryMap",
+      "evidenceRefs",
+      "proposedBatch",
+      "humanActionRequired",
+      "crownBoundary"
+    ],
+    "humanActionDefault": "none",
+    "expandOnly": [
+      "RED",
+      "CONFLICT",
+      "UNKNOWN_that_blocks_progress",
+      "externalUiBoundary",
+      "Crown"
+    ]
+  },
+  "automationLaw": [
+    "machine-readable checks continue without asking Professor to babysit each step",
+    "group equivalent work into one batch",
+    "use exact identities and receipts",
+    "private connector evidence stays private unless explicitly promoted as a safe pointer",
+    "no delete move rename publish send merge sign deploy or DNS mutation merely because a snapshot recommends it",
+    "a snapshot is a planning and continuity artifact, not GREEN"
+  ],
+  "fieldGuide": {
+    "repoManual": "manual/LUHM_OS_PROJECT_HYDRA_FIELD_MANUAL.md",
+    "durableDriveFamily": "Project Hydra Field Manual",
+    "publicEntry": "docs/PROJECT_MAP.md"
+  },
+  "eventualVmMesh": {
+    "goal": "strict free-tier one-click support VM mesh for compute and file-server assistance",
+    "status": "FUTURE_MILESTONE",
+    "constraints": [
+      "noSecretEmbedding",
+      "providerNeutralAdapters",
+      "driveRemainsDurableBinaryArchiveUntilExplicitMigration",
+      "githubRemainsSourceCiReceipts",
+      "oneClickInstallRequiresReproducibleImageAndDestroyableTestNode",
+      "ProfessorCrownBeforePublicOrPaidResourceMutation"
+    ]
+  },
+  "publicationAuthority": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}
