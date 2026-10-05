@@ -60,7 +60,8 @@
     "providerPreferenceMayReflectUxAndCollaborationQuality": true,
     "userPreferenceDoesNotGrantAuthority": true,
     "vendorEntitlementDoesNotDefineArchitecture": true,
-    "providerSwapMustNotChangeProjectAuthority": true
+    "providerSwapMustNotChangeProjectAuthority": true,
+    "specialistProviderDoesNotDefineArchitecture": true
   },
   "sharedProviderBoundary": {
     "mayGrantGreen": false,
@@ -92,5 +93,22 @@
     "productInterfaceStableAcrossProviderSwap": true,
     "providerSpecificConfigOwnedByAdapter": true,
     "modelOrEntitlementDriftMayNotRewriteUserWorkflow": true
+  },
+  "specialistProviders": {
+    "huggingFace": {
+      "providerId": "huggingFace",
+      "providerNickname": "specialistTrainer",
+      "contract": "doctrine/huggingFaceSpecialistTrainerV1.json",
+      "role": "specialistTrainer",
+      "invokeWhen": [
+        "modelOrDatasetSelectionMatters",
+        "trainingRecipeOrAdapterDesignMatters",
+        "evaluationOrModelCardReviewMatters",
+        "freeTierTrainingOrInferenceCompatibilityMatters"
+      ],
+      "defaultRouting": false,
+      "authority": "candidateEvidenceOnly",
+      "routesThrough": "lum"
+    }
   }
 }
