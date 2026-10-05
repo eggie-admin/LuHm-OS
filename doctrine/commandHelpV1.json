@@ -59,6 +59,58 @@
         "luhm help currentSourceTruth",
         "luhm help cst"
       ]
+    },
+    {
+      "canonicalName": "currentSourceTruth",
+      "humanMeaning": "the current canonical description of what LuHm believes is true right now",
+      "purpose": "recover current project state, authority boundaries, and pointers without relying on stale memory",
+      "scope": "readOnlyObject",
+      "owner": "belldandySecretary",
+      "aliases": {
+        "kebab": "current-source-truth",
+        "vowelRipped": "crrntSrcTrth",
+        "shorthand": "cst"
+      },
+      "authorityBoundary": "describes state; does not grant GREEN, mutation, merge, publication, or Crown",
+      "examples": [
+        "luhm help currentSourceTruth",
+        "luhm help current-source-truth",
+        "luhm help cst"
+      ]
+    },
+    {
+      "canonicalName": "belldandySecretary",
+      "humanMeaning": "Belldandy's secretary continuity and records role",
+      "purpose": "keep names, files, decisions, dictation continuity, receipts, and handoffs organized",
+      "scope": "readOnlyAgentRole",
+      "owner": "belldandySecretary",
+      "aliases": {
+        "kebab": "belldandy-secretary",
+        "vowelRipped": "blldndyScrtry",
+        "shorthand": "bs"
+      },
+      "authorityBoundary": "read-only continuity; Lum routes; Professor holds Crown",
+      "examples": [
+        "luhm help belldandySecretary",
+        "luhm help bs"
+      ]
+    },
+    {
+      "canonicalName": "sourceRef",
+      "humanMeaning": "the exact source identity a claim or task is bound to",
+      "purpose": "prevent work and evidence from drifting onto the wrong branch, SHA, or source",
+      "scope": "requestScopeField",
+      "owner": "belldandySecretary",
+      "aliases": {
+        "kebab": "source-ref",
+        "vowelRipped": "srcRf",
+        "shorthand": "sr"
+      },
+      "authorityBoundary": "identity only; does not grant authority",
+      "examples": [
+        "luhm help sourceRef",
+        "luhm help sr"
+      ]
     }
   ],
   "namingContract": "doctrine/namingNamespaceCanonV1.json",
