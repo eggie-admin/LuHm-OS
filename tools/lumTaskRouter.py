@@ -23,11 +23,13 @@ ROUTES = {
     "release": ["lum", "urdDoctorGoddess", "ProfessorCrown"],
     "art": ["lum", "yume"],
     "media": ["lum", "yume", "sumi"],
-    "dictation": ["lum", "koe"],
+    "dictation": ["lum", "belldandySecretary", "koe"],
     "asset": ["lum", "sumi"],
 }
 
 SUPPORT = {"kiri", "momo", "shiori", "fumi", "yume", "koe", "sumi", "urdDoctorGoddess", "belldandySecretary", "skuldResearch"}
+RESIDENT_CABINET = ["urdDoctorGoddess", "belldandySecretary", "skuldResearch"]
+LAZY_ONI = ["kiri", "momo", "shiori", "kugi", "tetsu", "kaji", "fumi", "sumi", "koe", "yume", "mediaAssetFactory"]
 
 
 def unique(items: list[str]) -> list[str]:
@@ -73,10 +75,19 @@ def main() -> int:
     if len(support) > 3:
         raise SystemExit("RED_ROUTER_SUPPORT_PARALLELISM_EXCEEDED")
 
+    active_oni = [w for w in workers if w in LAZY_ONI]
+    standby_oni = [w for w in LAZY_ONI if w not in active_oni]
+
     report = {
         "schema": "luhm-os.task-route.v2",
         "kind": args.kind,
         "workers": workers,
+        "residentCabinet": RESIDENT_CABINET,
+        "residentCabinetState": "resident",
+        "residentCabinetHiddenAsync": False,
+        "activeOni": active_oni,
+        "standbyOni": standby_oni,
+        "standbyMeansRegisteredNotExecuting": True,
         "reasons": reasons,
         "supportWorkers": support,
         "sourceMutationLanes": 1 if "kugi" in workers else 0,
