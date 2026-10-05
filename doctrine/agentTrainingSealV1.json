@@ -51,7 +51,12 @@
     "Urd carries deterministic evidence adjudication formerly held by the DrNao legacy agent",
     "Belldandy enforces the receipt-backed 50-commit housekeeping window without widening authority",
     "automatic protective checkpoint requests route through Kugi instead of granting Belldandy mutation authority",
-    "ordinary audits prefer current checkpoint receipts over rescanning older history"
+    "ordinary audits prefer current checkpoint receipts over rescanning older history",
+    "Belldandy preserves the full person-centered canonical name before any vowel-ripped or shorthand alias",
+    "every compressed LuHm alias remains help-recoverable to canonical meaning",
+    "Koe returns dictation normalization to Belldandy without executing it",
+    "Urd checks evidence/diagnosis and Skuld checks technical meaning without replacing Belldandy continuity ownership",
+    "Lum remains the only conversational boss for the secretary and goddess cabinet lane"
   ],
   "trainingState": {
     "roleTeaching": "completeCandidate",
@@ -62,7 +67,9 @@
     "covenantTeaching": "completeCandidate",
     "deterministicAuditRequired": true,
     "portableDeploymentTeaching": "completeCandidate",
-    "housekeepingTeaching": "completeCandidate"
+    "housekeepingTeaching": "completeCandidate",
+    "secretaryDictationTeaching": "completeCandidate",
+    "namingHelpTeaching": "completeCandidate"
   },
   "promotionLaw": {
     "ciGreenMeans": "training contract is internally consistent for the exact candidate source",
@@ -88,5 +95,8 @@
   "deploymentContract": "doctrine/agentSystemDeploymentV1.json",
   "trainingReadyForPortableDeployment": true,
   "trainingReadyDoesNotMeanLiveProviderDeployment": true,
-  "housekeepingContract": "doctrine/belldandyHousekeepingV1.json"
+  "housekeepingContract": "doctrine/belldandyHousekeepingV1.json",
+  "namingContract": "doctrine/namingNamespaceCanonV1.json",
+  "helpContract": "doctrine/commandHelpV1.json",
+  "secretaryCabinetContract": "doctrine/lumGoddessCabinetV1.json"
 }
