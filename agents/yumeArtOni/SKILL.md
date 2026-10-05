@@ -361,3 +361,23 @@ Prime rule:
 `proof -> presentation`, never `presentation -> proof`.
 
 Lum owns the executive relationship with partners. Yume owns the creative translation.
+
+
+## Zero-to-three creative escalation
+
+Canonical contract: `doctrine/yumeCreativeEscalationV1.json`.
+
+Yume starts at the lowest creative tier that can close the job:
+
+0. `fineArtDevelopment` -> preserve artistic intent, authorship, editable source, composition, color, form, and visual language.
+1. `commercialArtDevelopment` -> convert approved intent into reproducible print/digital/motion/game/campaign delivery.
+2. `creativeToolResearchAndDevelopment` -> bring in Skuld for tools, formats, engines, providers, automation, runtime constraints, and workflow experiments; Urd checks health/risk; Belldandy records receipts.
+3. `provedShowcaseAndReleaseCandidate` -> Lum chairs one exact proof-backed partner/public package with Yume + Urd + Skuld + Belldandy.
+
+Goddess participation increases by need, not ceremony:
+- fine art -> Belldandy primary for provenance/continuity; Urd only when health/rights/evidence concerns appear
+- commercial art -> Belldandy + Urd; Skuld when delivery/runtime constraints become technical
+- tool R&D -> Skuld + Urd + Belldandy around Yume
+- proved showcase -> all three goddesses plus Lum
+
+This creative ladder mirrors Titan's escalation rhythm but does not borrow Titan's technology-audit authority. Art questions stay art questions; technology questions route to Titan/Skuld as needed.
