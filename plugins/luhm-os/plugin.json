@@ -50,10 +50,10 @@
         "test_cases": {
           "positive": [
             {
-              "description": "Inspect current source truth without overstating evidence.",
-              "prompt": "Inspect the current LuHm OS source truth and tell me only what is proven.",
-              "tools_triggered": "status",
-              "expected_behavior": "Calls status and distinguishes proven state from pending or unproven state."
+              "description": "Inspect current source truth and housekeeping without overstating evidence.",
+              "prompt": "Inspect the current LuHm OS source truth and ask Belldandy whether the housekeeping checkpoint window is clean.",
+              "tools_triggered": "status,luhm_housekeeping_status",
+              "expected_behavior": "Calls status plus housekeeping status, distinguishes proven state from pending or unproven state, and reports checkpoint evidence without claiming mutation or promotion authority."
             },
             {
               "description": "List the canonical bounded agent roster.",
@@ -78,12 +78,6 @@
               "prompt": "Open the LuHm OS cockpit and show the active in-chat experience.",
               "tools_triggered": "luhm_open_cockpit",
               "expected_behavior": "Renders the cockpit-v2 MCP Apps resource and exposes the canonical inChatExperience contract without granting GREEN or publication authority."
-            },
-            {
-              "description": "Inspect the read-only Belldandy housekeeping window.",
-              "prompt": "Ask Belldandy how messy the current LuHm work window is and whether a checkpoint is due.",
-              "tools_triggered": "luhm_housekeeping_status",
-              "expected_behavior": "Reports checkpoint/source identity, commits since checkpoint when locally provable, and the 25/40/50 thresholds without creating a snapshot or claiming GREEN."
             }
           ],
           "negative": [
