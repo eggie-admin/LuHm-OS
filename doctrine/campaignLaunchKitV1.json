@@ -235,5 +235,15 @@
     "manifest": "campaign/manifests/big-brother-campaign-review-001.json",
     "executionReceipt": "PENDING",
     "outputAuthority": "candidateEvidenceOnly"
-  }
+  },
+  "organizationBrandRegistry": "doctrine/organizationBrandRegistryV1.json",
+  "publicArtReleaseReadiness": "doctrine/publicArtReleaseReadinessV1.json",
+  "staticPublicEdge": "doctrine/staticPublicEdgeV1.json",
+  "publicReleaseArtLedger": "media/public-release-art-ledger.json",
+  "publicReleaseLaw": [
+    "public_campaign_asset_must_be_cathedralPublic_and_publicAllowed_true",
+    "internal_provider_nickname_is_not_public_cobrand",
+    "public_generative_ai_art_default_forbidden",
+    "network_and_publication_activation_remain_professor_gated"
+  ]
 }
