@@ -21,7 +21,8 @@
     "vendorAiDebug": "doctrine/vendorAiDebugV1.json",
     "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json",
     "apiSpine": "doctrine/apiSpineV1.json",
-    "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json"
+    "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "huggingFaceSpecialistTrainer": "doctrine/huggingFaceSpecialistTrainerV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -164,6 +165,18 @@
         "edgeGalleryIsSeparate": true,
         "selfApproval": false,
         "crownAuthority": false
+      },
+      "huggingFace": {
+        "providerId": "huggingFace",
+        "contract": "doctrine/huggingFaceSpecialistTrainerV1.json",
+        "role": "specialistTrainer",
+        "authority": "candidateEvidenceOnly",
+        "routesThrough": "lum",
+        "selfApproval": false,
+        "crownAuthority": false,
+        "mayOverrideSkuldArchitecture": false,
+        "mayOverrideYumeArtDirection": false,
+        "mayOverrideUrdAdjudication": false
       }
     },
     "economy": {
