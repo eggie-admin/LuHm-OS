@@ -1,0 +1,56 @@
+name: Public Art Brand Release Readiness Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/organizationBrandRegistryV1.json'
+      - 'doctrine/publicArtReleaseReadinessV1.json'
+      - 'doctrine/staticPublicEdgeV1.json'
+      - 'doctrine/codingRoleplayDirectorV2.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/campaignLaunchKitV1.json'
+      - 'doctrine/pluginPublicationV2.json'
+      - 'media/public-release-art-ledger.json'
+      - 'agents/yumeArtOni/**'
+      - 'agents/belldandyQualityOni/**'
+      - 'agents/skuldResearchOni/**'
+      - 'agents/urdMutationOni/**'
+      - 'campaign/public-release-brand-readiness.md'
+      - 'tools/publicArtBrandReleaseAudit.py'
+      - '.github/workflows/public-art-brand-release-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Validate JSON and Python
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/organizationBrandRegistryV1.json >/dev/null
+          python3 -m json.tool doctrine/publicArtReleaseReadinessV1.json >/dev/null
+          python3 -m json.tool doctrine/staticPublicEdgeV1.json >/dev/null
+          python3 -m json.tool media/public-release-art-ledger.json >/dev/null
+          python3 -m json.tool agents/yumeArtOni/templates/public-release-art-manifest-v1.template.json >/dev/null
+          python3 -m json.tool doctrine/codingRoleplayDirectorV2.json >/dev/null
+          python3 -m json.tool doctrine/currentSourceTruthV3.json >/dev/null
+          python3 -m json.tool doctrine/campaignLaunchKitV1.json >/dev/null
+          python3 -m json.tool doctrine/pluginPublicationV2.json >/dev/null
+          python3 -m py_compile tools/publicArtBrandReleaseAudit.py
+      - name: Run public art brand release audit
+        run: python3 tools/publicArtBrandReleaseAudit.py
+      - name: Prove no live infrastructure mutation workflow entered candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only origin/main...HEAD | grep -E '(^|/)(terraform|pulumi|cloudflare|certbot|acme)(/|\.|$)' | grep -v '^doctrine/cloudflareAirTrafficControllerV1.json$'; then
+            echo "RED: infrastructure mutation surface entered candidate"
+            exit 1
+          fi
+          echo "GREEN_NO_LIVE_INFRA_MUTATION_SURFACE"
