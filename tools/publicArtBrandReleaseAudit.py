@@ -31,6 +31,9 @@ roleplay = load("doctrine/codingRoleplayDirectorV2.json")
 truth = load("doctrine/currentSourceTruthV3.json")
 campaign = load("doctrine/campaignLaunchKitV1.json")
 plugin = load("doctrine/pluginPublicationV2.json")
+trainer = load("doctrine/huggingFaceSpecialistTrainerV1.json")
+estate = load("doctrine/godot4AssetEstateV1.json")
+estate_ledger = load("media/godot4-game-asset-estate.json")
 canon = load("game/canon/CHARACTER_CANON_V1.json")
 runtime_assets = load("game/assets/ASSET_MANIFEST_V1.json")
 
@@ -106,6 +109,38 @@ for path in (
     "campaign/public-release-brand-readiness.md",
 ):
     need((ROOT / path).is_file(), f"missing cabinet/public release file {path}")
+
+
+
+need(trainer.get("organizationalRole") == "specialistTrainer", "Hugging Face specialist trainer role drift")
+need(trainer.get("reportsThrough") == "lum", "Hugging Face must route through Lum")
+need(trainer.get("publicationAuthority") is False, "Hugging Face trainer may not publish")
+need(trainer.get("crownStatus") == "STOP", "Hugging Face trainer Crown must STOP")
+for law in (
+    "specialist_trainer_does_not_replace_skuld_architecture",
+    "specialist_trainer_does_not_replace_yume_art_direction",
+    "specialist_trainer_does_not_replace_urd_sanity_and_evidence_adjudication",
+    "specialist_trainer_does_not_replace_belldandy_records",
+):
+    need(law in trainer.get("operatingLaw", []), f"missing trainer role boundary: {law}")
+
+role = art.get("roleDefinition", {})
+need("art direction" in role.get("yume",""), "Yume role must be art direction")
+need("architecture" in role.get("skuld",""), "Skuld role must own architecture")
+need("sanity" in role.get("urd","") and "health" in role.get("urd",""), "Urd role must own sanity/health")
+need("organization" in role.get("belldandy",""), "Belldandy role must own organization")
+need("specialist trainer" in role.get("huggingFace",""), "Hugging Face role must be specialist trainer")
+need("current doctrine and source truth" in role.get("lum",""), "Lum must operate against current doctrine/source truth")
+
+need(estate.get("authority") == "Professor", "Godot asset estate authority drift")
+need(estate.get("crownStatus") == "STOP", "Godot asset estate Crown must STOP")
+need(estate.get("roles", {}).get("skuld","").startswith("choose and verify the sanest Godot architecture"), "Skuld Godot architecture role drift")
+need(estate.get("roles", {}).get("belldandy","").startswith("maintain the canonical inventory"), "Belldandy estate records role drift")
+need(estate.get("roles", {}).get("yume","").startswith("art direction"), "Yume estate art direction role drift")
+need(estate.get("roles", {}).get("urd","").startswith("keep the estate sane and healthy"), "Urd estate sanity role drift")
+need("folder_name_is_not_green" in estate.get("laws", []), "estate folder-name GREEN guard missing")
+need(estate_ledger.get("status") == "DISCOVERED_INVENTORY_AUDIT_PENDING", "Godot asset estate ledger must remain audit pending")
+need(estate_ledger.get("candidateScopeState") == "AMBER_ASSET_ESTATE_DISCOVERED_RECONCILIATION_REQUIRED", "Godot asset estate must remain AMBER until reconciled")
 
 if errors:
     print("RED_PUBLIC_ART_BRAND_RELEASE_AUDIT")
