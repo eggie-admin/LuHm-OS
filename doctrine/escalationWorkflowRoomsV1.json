@@ -14,7 +14,8 @@
     "vendorCallsOnlyForNovelReasoning",
     "sameTaskIdSourceRefScopeIdRequired",
     "deterministicRedStopsAdvancement",
-    "professorCrownRemainsSeparate"
+    "professorCrownRemainsSeparate",
+    "tierZeroFastPathPrecedesHardAuditEscalation"
   ],
   "rooms": {
     "forFuckSake": {
@@ -88,5 +89,23 @@
     "tetsu": "fastVerificationBuilder",
     "kaji": "cleanRoomBuilder"
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "defaultFastPathRoom": {
+    "tier": 0,
+    "id": "technologyFastPath",
+    "roomName": "technologyFastPathRoom",
+    "chair": "lum",
+    "required": [],
+    "conditional": [
+      "urdDoctorGoddess",
+      "skuldResearch",
+      "belldandySecretary",
+      "kugi",
+      "tetsu"
+    ],
+    "defaultFocus": "smallest technological gate, exact source identity, deterministic evidence, bounded repair, same-gate reproof",
+    "providerPolicy": "localAndExistingReceiptsFirst",
+    "maxParallelSupportWorkers": 3,
+    "exit": "GREEN_FOR_SCOPE_OR_ESCALATE_TO_FFS"
+  }
 }
