@@ -11,7 +11,9 @@
     "pets": "doctrine/characterPetPresentationV1.json",
     "loadingSprites": "doctrine/agentLoadingSpriteManifestV1.json",
     "agentControl": "doctrine/luhmAiControlPlaneV1.json",
-    "sourceTruth": "doctrine/currentSourceTruthV3.json"
+    "sourceTruth": "doctrine/currentSourceTruthV3.json",
+    "crownFlow": "doctrine/chatGptPluginCrownFlowV1.json",
+    "runtimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json"
   },
   "runtime": {
     "tool": "luhm_open_cockpit",
@@ -20,6 +22,7 @@
     "standaloneHarness": "/harness/",
     "panels": [
       "sourceTruth",
+      "crownFlow",
       "activeCast",
       "activity",
       "roleplay",
