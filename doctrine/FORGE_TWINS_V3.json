@@ -4,22 +4,49 @@
   "crownStatus": "STOP",
   "authority": "Professor",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
-  "baseSourceRef": "eggie-admin/LuHm-OS@f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+  "baseSourceRef": "eggie-admin/LuHm-OS@7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
   "operationLaw": "PROTECT != INGEST != MUTATE != CAST != JANITOR",
   "twins": {
     "Tetsu": {
       "role": "SOURCE_FORGE",
-      "allowedOperations": ["PROTECT", "INGEST", "MUTATE", "JANITOR"],
+      "allowedOperations": [
+        "PROTECT",
+        "INGEST",
+        "MUTATE",
+        "VERIFY",
+        "JANITOR"
+      ],
       "buildAuthority": false,
       "canonicalMutationAuthority": false,
-      "compileAuthority": false
+      "compileAuthority": false,
+      "assetEstateResponsibilities": [
+        "inventory current GitHub and Drive asset estate",
+        "quarantine unknown or private-reference donors",
+        "prepare candidate-only source mutations",
+        "preserve rights and source identity",
+        "verify candidate source identity before handoff",
+        "emit source-preparation receipt"
+      ]
     },
     "Kaji": {
       "role": "COMPILE_FORGE",
-      "allowedOperations": ["PREPARE", "CAST", "JANITOR"],
+      "allowedOperations": [
+        "PREPARE",
+        "CAST",
+        "BUILD",
+        "HASH",
+        "RECEIPT",
+        "JANITOR"
+      ],
       "sourceMutationAuthority": false,
       "preCastBuildAuthority": false,
-      "compileAuthorityRequiresCast": true
+      "compileAuthorityRequiresCast": true,
+      "assetEstateResponsibilities": [
+        "consume only exact reconciled candidate source",
+        "compile or export only after explicit single-use CAST",
+        "emit artifact hash and build receipt",
+        "never mutate source or asset eligibility state"
+      ]
     }
   },
   "operationBoundaries": {
@@ -32,7 +59,15 @@
       "canonicalWrite": false,
       "build": false,
       "destinationAuthority": "QUARANTINE_ONLY",
-      "required": ["origin", "sourceHash", "rightsClass", "intendedDestination", "compatibilityNotes", "requiredTests", "quarantineStatus"]
+      "required": [
+        "origin",
+        "sourceHash",
+        "rightsClass",
+        "intendedDestination",
+        "compatibilityNotes",
+        "requiredTests",
+        "quarantineStatus"
+      ]
     },
     "MUTATE": {
       "canonicalWrite": false,
@@ -54,6 +89,11 @@
       "build": false,
       "temporaryRootsOnly": true,
       "requiresForgeSentinel": true
+    },
+    "VERIFY": {
+      "sourceWrite": false,
+      "build": false,
+      "purpose": "exact source identity, asset-manifest identity, rights/provenance receipt presence, and candidate handoff verification"
     }
   },
   "castEnvelope": {
@@ -72,11 +112,22 @@
     ],
     "castWord": "cast",
     "authorizedBy": "Professor",
-    "authorizedGitHubActors": ["eggie-admin"],
+    "authorizedGitHubActors": [
+      "eggie-admin"
+    ],
     "defaultTtlMinutes": 30,
     "consumedOnAttempt": true,
     "ambiguousMilestoneBehavior": "STOP",
-    "doesNotAuthorize": ["retry", "differentSourceRef", "scopeExpansion", "release", "deployment", "publication", "productionSigning", "Crown"]
+    "doesNotAuthorize": [
+      "retry",
+      "differentSourceRef",
+      "scopeExpansion",
+      "release",
+      "deployment",
+      "publication",
+      "productionSigning",
+      "Crown"
+    ]
   },
   "legacyPolicy": {
     "mode": "SELECTIVE_TRANSPLANT_ONLY",
@@ -93,7 +144,7 @@
     "CHECK_SNAPSHOT",
     "QUARANTINE_IF_INGEST",
     "PLAN_SMALLEST_DELTA",
-    "DR_NAO_TRUTH_CHECK",
+    "URD_TRUTH_CHECK",
     "EXECUTE_ALLOWED_CLASS",
     "VERIFY_EXACT_IDENTITY",
     "RECEIPT",
@@ -103,7 +154,9 @@
   ],
   "compileBranch": [
     "CAST_GATE",
+    "PREPARE_EXACT_CANDIDATE",
     "ISOLATED_BUILD",
+    "HASH_ARTIFACT",
     "BUILD_RECEIPT",
     "JANITOR",
     "NEXT_GATE",
@@ -119,10 +172,14 @@
     "sourceMutationInsideCompileWorkspace": false
   },
   "truthGuard": {
-    "adjudicator": "Dr. Nao",
+    "adjudicator": "urdDoctorGoddess",
+    "contract": "doctrine/urdEvidenceAdjudicationV1.json",
+    "legacyIdentity": "drNao",
+    "legacyStatus": "retiredLogicIngestedIntoUrd",
     "memoryIsCurrentStateProof": false,
     "builderSelfReportIsSufficientProof": false,
-    "greenMustBeScoped": true
+    "greenMustBeScoped": true,
+    "systemHealthAndDriftChecksRequired": true
   },
   "baseMainObservedConflicts": [
     {
@@ -159,5 +216,27 @@
     "reduce remote ephemeral build artifact retention to 72 hours",
     "add sentinel-bound Forge workspace TTL policy and janitor",
     "keep branch-protection state explicitly external and unproven until live governance is changed"
-  ]
+  ],
+  "assetEstateIntegration": {
+    "contract": "doctrine/godot4AssetEstateV1.json",
+    "ledger": "media/godot4-game-asset-estate.json",
+    "sourceForgeOwner": "Tetsu",
+    "architectureAdvisor": "skuldResearch",
+    "artDirection": "yume",
+    "sanityAndEvidence": "urdDoctorGoddess",
+    "records": "belldandySecretary",
+    "specialistTrainer": "huggingFace",
+    "reconciler": "lum",
+    "compileForgeOwner": "Kaji",
+    "law": [
+      "Tetsu prepares candidate reality but does not build",
+      "Skuld chooses the sanest technical architecture",
+      "Yume directs art but does not set architecture",
+      "Urd may stop unhealthy or contradictory progress but does not execute",
+      "Belldandy records the reconciled state but does not invent architecture",
+      "Hugging Face is a conditional specialist trainer only",
+      "Lum binds every handoff to current doctrine and source truth",
+      "Kaji builds only after exact single-use CAST"
+    ]
+  }
 }
