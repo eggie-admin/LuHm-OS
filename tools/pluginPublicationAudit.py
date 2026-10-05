@@ -19,6 +19,8 @@ PLUGIN = ROOT / "plugins/luhm-os/plugin.json"
 MCP_CONFIG = ROOT / "plugins/luhm-os/mcp.json"
 TESTS = ROOT / "plugins/luhm-os/review-tests.json"
 EXPERIENCE = ROOT / "doctrine/inChatExperienceV1.json"
+NAMING = ROOT / "doctrine/namingNamespaceCanonV1.json"
+COMMAND_HELP = ROOT / "doctrine/commandHelpV1.json"
 PRIVACY = ROOT / "plugins/luhm-os/PRIVACY.md"
 TERMS = ROOT / "plugins/luhm-os/TERMS.md"
 SUBMISSION = ROOT / "plugins/luhm-os/PUBLIC_SUBMISSION_DRAFT.md"
@@ -142,6 +144,12 @@ def validate(
     if mcp_url != HARNESS_MCP_URL:
         errors.append(f"plugin MCP endpoint is not live harness: {mcp_url!r}")
 
+    naming_law = source.get("namingLaw", {})
+    if naming_law.get("contract") != "doctrine/namingNamespaceCanonV1.json":
+        errors.append("naming namespace contract drift")
+    if naming_law.get("helpContract") != "doctrine/commandHelpV1.json":
+        errors.append("command help contract drift")
+
     interface = plugin.get("extensions", {}).get("com.openai", {}).get("interface", {})
     if interface.get("capabilities") != ["Read"]:
         errors.append("plugin manifest is not read-only")
@@ -159,7 +167,7 @@ def validate(
         if not entry.get("prompt") or not entry.get("expected"):
             errors.append("review test missing prompt or expected behavior")
 
-    for path in (SERVER, HARNESS_SERVER, HARNESS_MODULE, REQUIREMENTS, MCP_CONFIG, PRIVACY, TERMS, SUBMISSION, EXPERIENCE):
+    for path in (SERVER, HARNESS_SERVER, HARNESS_MODULE, REQUIREMENTS, MCP_CONFIG, PRIVACY, TERMS, SUBMISSION, EXPERIENCE, NAMING, COMMAND_HELP):
         if not path.is_file() or path.stat().st_size == 0:
             errors.append(f"missing publication input: {path.relative_to(ROOT)}")
 
