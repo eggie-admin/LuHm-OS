@@ -228,7 +228,7 @@
     "specialistTrainer": "huggingFace",
     "assetArchitecture": "doctrine/godot4AssetArchitectureDecisionV1.json",
     "assetReconciliation": "media/godot4-asset-reconciliation-v1.json",
-    "assetReconciliationStatus": "AMBER_RECONCILIATION_IN_PROGRESS",
+    "assetReconciliationStatus": "AMBER_RECONCILIATION_ADVANCED_ORIGINAL_ASSETS_HASHED",
     "buildAllowedFromAssetEstate": false
   },
   "agentLayer": {
