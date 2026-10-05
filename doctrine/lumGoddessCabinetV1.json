@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.lumGoddessCabinet.v1",
-  "status": "candidateReview",
+  "status": "CANDIDATE_REVIEW",
   "authority": "Professor",
   "boss": "lum",
   "members": [
@@ -265,7 +265,7 @@
     "dictationUncertaintyStaysExplicit": true,
     "compressedAliasDoesNotGrantAuthority": true
   },
-  "crownStatus": "stop",
+  "crownStatus": "STOP",
   "covenantBinding": {
     "contract": "doctrine/everlastingCovenantV1.json",
     "requiredForMembers": [
@@ -288,7 +288,7 @@
     "truthfulRepresentation": "Speak in Professor’s name only within explicit delegated scope; distinguish observed facts, proposals and unknowns.",
     "evidenceRequiredForClaims": true,
     "unknownRemainsUnknown": true,
-    "missingOrMismatchedAcknowledgement": "stop",
+    "missingOrMismatchedAcknowledgement": "STOP",
     "acknowledgementGrantsAuthority": false,
     "selfApproval": false,
     "runtimeAcknowledgementsProven": false
@@ -299,10 +299,10 @@
       "belldandySecretary",
       "skuldResearch"
     ],
-    "stateWhileTaskEnvelopeOpen": "resident",
-    "stateWithoutTaskEnvelope": "parked",
-    "specialtyStateWhenRouted": "active",
-    "nonSpecialtyResidentState": "resident",
+    "stateWhileTaskEnvelopeOpen": "RESIDENT",
+    "stateWithoutTaskEnvelope": "PARKED",
+    "specialtyStateWhenRouted": "ACTIVE",
+    "nonSpecialtyResidentState": "RESIDENT",
     "hiddenAsyncExecution": false,
     "residentPresenceGrantsAuthority": false,
     "residentPresenceConsumesNoOniActivationSlot": true,
