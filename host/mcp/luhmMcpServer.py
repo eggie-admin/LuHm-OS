@@ -33,7 +33,10 @@ SOURCE_TRUTH = ROOT / "doctrine" / "currentSourceTruthV3.json"
 CONTROL_PLANE = ROOT / "doctrine" / "luhmAiControlPlaneV1.json"
 AGENT_DEPLOYMENT = ROOT / "doctrine" / "agentSystemDeploymentV1.json"
 ENTERPRISE_SCOPE = ROOT / "doctrine" / "mcpEnterpriseScopeV2.json"
+API_SPINE = ROOT / "doctrine" / "apiSpineV1.json"
+TRAFFIC_CONTROLLER = ROOT / "doctrine" / "cloudflareAirTrafficControllerV1.json"
 ROUTER = ROOT / "tools" / "lumTaskRouter.py"
+API_SPINE_RESOLVER = ROOT / "host" / "api" / "luhmApiSpine.py"
 ROUTE_KINDS = {
     "direct", "read", "records", "proof", "patch", "build", "external",
     "diagnose", "research", "monitor", "release", "art", "media", "dictation", "asset",
@@ -41,7 +44,7 @@ ROUTE_KINDS = {
 TRUTH_SCOPE_KINDS = {"patch", "build", "release"}
 
 SERVER_NAME = "luhm-os"
-SERVER_VERSION = "0.4.0-beta"
+SERVER_VERSION = "0.5.0-beta"
 DEFAULT_PUBLIC_FQDN = "mcp.eggiebagelface.art"
 LOCAL_HOST = "127.0.0.1"
 LOCAL_PORT = 8788
@@ -49,7 +52,7 @@ LOCAL_PORT = 8788
 server = MCPServer(
     SERVER_NAME,
     title="LuHm OS",
-    description="Read-only LuHm source-truth, full agent deployment roster, Oni routing, proof-contract, and transport-contract tools.",
+    description="Read-only LuHm source-truth, agent roster, capability-first API spine, Oni routing, proof, and transport tools.",
     version=SERVER_VERSION,
     instructions=(
         "LuHm OS is evidence-gated. AI proposes; policy authorizes; CI proves; human promotes. "
@@ -132,6 +135,30 @@ def _require_explicit_scope(scope: dict[str, Any]) -> None:
         raise ValueError("explicit request scope required: " + ", ".join(missing))
 
 
+def _api_spine_payload() -> dict[str, Any]:
+    spine = _load_json(API_SPINE)
+    traffic = _load_json(TRAFFIC_CONTROLLER)
+    return {
+        "schema": "luhmOs.mcpApiSpine.v1",
+        "spineSchema": spine.get("schema", "UNKNOWN"),
+        "spineStatus": spine.get("status", "UNKNOWN"),
+        "routing": spine.get("routing", {}),
+        "providers": spine.get("providers", {}),
+        "resilience": spine.get("resilience", {}),
+        "trafficController": {
+            "schema": traffic.get("schema", "UNKNOWN"),
+            "status": traffic.get("status", "UNKNOWN"),
+            "provider": traffic.get("provider", "UNKNOWN"),
+            "role": traffic.get("role", "UNKNOWN"),
+            "lanes": traffic.get("lanes", {}),
+            "authorityBoundary": traffic.get("authorityBoundary", {}),
+        },
+        "providerSpecificDetailsVisibleToEndUser": spine.get("publicInterface", {}).get("providerSpecificDetailsVisibleToEndUser", True),
+        "greenAuthority": False,
+        "crownAuthority": False,
+    }
+
+
 def _status_payload() -> dict[str, Any]:
     truth = _load_json(SOURCE_TRUTH)
     enterprise = _load_json(ENTERPRISE_SCOPE)
@@ -145,6 +172,8 @@ def _status_payload() -> dict[str, Any]:
         "sourceTruthStatus": truth.get("status", "UNKNOWN"),
         "canonicalRepository": truth.get("canonicalRepository", "UNKNOWN"),
         "pluginStatus": plugin.get("status", "UNKNOWN"),
+        "apiSpineStatus": truth.get("providerLayer", {}).get("apiSpine", "UNKNOWN"),
+        "trafficController": truth.get("networkLayer", {}).get("role", "UNKNOWN"),
         "androidPhysicalProof": android.get("physicalSamsungProof", "UNKNOWN"),
         "mcpTransport": {
             "productionFqdn": transport.get("productionFqdn", "UNKNOWN"),
@@ -227,6 +256,8 @@ def _assert_source_contract() -> None:
     roster = _roster_payload()
     deployment = _deployment_payload()
     enterprise = _load_json(ENTERPRISE_SCOPE)
+    spine = _load_json(API_SPINE)
+    traffic = _load_json(TRAFFIC_CONTROLLER)
     transport = enterprise.get("transport", {})
     auth = enterprise.get("authentication", {})
     if status["sourceLaw"] != "AI proposes. Policy authorizes. CI proves. Human promotes.":
@@ -248,6 +279,23 @@ def _assert_source_contract() -> None:
         raise RuntimeError("RED_MCP_AUTH_BOUNDARY_DRIFT")
     if auth.get("oauthImplemented") is not False:
         raise RuntimeError("RED_MCP_OAUTH_STATUS_OVERCLAIM")
+    if spine.get("schema") != "luhmOs.apiSpine.v1":
+        raise RuntimeError("RED_API_SPINE_SCHEMA")
+    if spine.get("routing", {}).get("principle") != "capabilityFirstProviderSecond":
+        raise RuntimeError("RED_API_SPINE_ROUTING_DRIFT")
+    if spine.get("authorityBoundary", {}).get("trafficControllerMayGrantAuthority") is not False:
+        raise RuntimeError("RED_TRAFFIC_CONTROLLER_AUTHORITY_LEAK")
+    if traffic.get("schema") != "luhmOs.cloudflareAirTrafficController.v1":
+        raise RuntimeError("RED_TRAFFIC_CONTROLLER_SCHEMA")
+    if not API_SPINE_RESOLVER.is_file():
+        raise RuntimeError("RED_API_SPINE_RESOLVER_MISSING")
+    if traffic.get("authorityBoundary", {}).get("aiProvider") is not False:
+        raise RuntimeError("RED_CLOUDFLARE_AI_PROVIDER_DRIFT")
+    mcp_lane = traffic.get("lanes", {}).get("publicChatPluginMcp", {})
+    if mcp_lane.get("currentEndpoint") != "https://luhm-os-harness-green.onrender.com/mcp":
+        raise RuntimeError("RED_CURRENT_PLUGIN_ENDPOINT_DRIFT")
+    if mcp_lane.get("tunnelForThisLane") is not False:
+        raise RuntimeError("RED_MCP_TUNNEL_DRIFT")
 
 
 @server.tool(annotations=READ_ONLY_INTERNAL)
@@ -343,6 +391,33 @@ def luhm_proof_contract() -> dict[str, Any]:
         "sourceLaw": truth.get("sourceLaw", "UNKNOWN"),
         "greenAuthority": False,
     }
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_api_spine() -> dict[str, Any]:
+    """Return the stable capability-first provider spine and Cloudflare traffic-controller contract."""
+    return _api_spine_payload()
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_resolve_capability(capabilityId: str, providerHint: str = "") -> dict[str, Any]:
+    """Resolve a capability to eligible provider adapters without executing a provider or changing authority."""
+    command = [sys.executable, str(API_SPINE_RESOLVER), "--capability", capabilityId]
+    if providerHint:
+        command.extend(["--provider", providerHint])
+    completed = subprocess.run(
+        command,
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=10,
+        env={"PATH": ""},
+    )
+    result = json.loads(completed.stdout)
+    result["mcpMutationAuthority"] = False
+    result["providerExecutionProven"] = False
+    return result
 
 
 @server.tool(annotations=READ_ONLY_INTERNAL)

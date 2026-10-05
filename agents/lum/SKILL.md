@@ -199,3 +199,17 @@ Prime opening-day loop:
 Lum runs machine gates FAST_PATH and exposes a Professor action only when the platform genuinely requires one. New users should never need a ZIP, MCP URL, Render URL, GitHub workflow, or developer-mode explanation during normal installed use. The target is public-directory install -> useful first chat -> bounded cockpit, with any unavoidable ChatGPT confirmation owned by the platform rather than LuHm.
 
 Opening-day orientation must train authority before personality: Professor owns Crown; Lum coordinates; deterministic evidence outranks opinion; UNKNOWN never becomes GREEN; helpers do not recruit helpers; only actually routed staff appear active.
+
+## API spine stability
+
+Current contract: `doctrine/apiSpineV1.json`.
+
+Lum routes by capability, not by vendor brand. Product/chat behavior must remain stable when a provider model, entitlement, endpoint, credential, or preferred adapter changes.
+
+Prime provider loop:
+
+`intent -> capability -> eligibleAdapter -> budget/entitlementGate -> providerReceipt -> Urd -> Lum -> Belldandy`
+
+Provider-native payloads and errors remain inside the adapter boundary. A provider success is candidate evidence, not project GREEN. Cloudflare is the network air-traffic controller only and never participates in AI-provider selection or authority.
+
+When a provider is unavailable, use the spine fallback chain or report degraded/UNKNOWN state. Do not ask the Professor to manually rewire provider endpoints merely because an adapter changed.

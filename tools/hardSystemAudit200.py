@@ -70,6 +70,8 @@ runtime_sprites = load("host/harness/agent-loading-sprites.json")
 big = load("doctrine/bigBrotherCovenantV1.json")
 economy = load("doctrine/providerEconomyV1.json")
 openai = load("doctrine/openAiDeploymentV3.json")
+api_spine = load("doctrine/apiSpineV1.json")
+traffic_controller = load("doctrine/cloudflareAirTrafficControllerV1.json")
 content = load("doctrine/contentLaneDoctrineV1.json")
 matrix = load("doctrine/assetEligibilityMatrixV1.json")
 yume = load("doctrine/yumeCreativePipelineV1.json")
@@ -196,8 +198,8 @@ g = [
 ("bigNoMerge", big.get("providerAuthority",{}).get("mayMerge") is False),
 ("economySchema", economy.get("schema") == "luhmOs.providerEconomy.v1"),
 ("economyHq", economy.get("headquarters") == "luhmOs"),
-("economyBigRole", economy.get("bigBrother",{}).get("role") == "highCapacityExternalWorker"),
-("economyOpenRole", economy.get("openDaddy",{}).get("role") == "scarcePremiumCapability"),
+("apiSpineCapabilityFirst", api_spine.get("routing",{}).get("principle") == "capabilityFirstProviderSecond"),
+("cloudflareTrafficOnly", traffic_controller.get("role") == "networkAirTrafficController" and traffic_controller.get("authorityBoundary",{}).get("aiProvider") is False),
 ("economyNoVendorAuthority", economy.get("experienceLaw",{}).get("vendorEntitlementDoesNotDefineArchitecture") is True),
 ("openAiSchema", openai.get("schema") == "luhmOs.openAiDeployment.v3"),
 ("openAiNoLegacyAdjudicator", openai.get("architecture",{}).get("legacyAdjudicatorActive") is False and len(openai.get("architecture",{}).get("activeAgents",[])) == 15),
@@ -355,6 +357,8 @@ current_required = [
     "doctrine/releaseBoundaryV2.json",
     "doctrine/mcpEnterpriseScopeV2.json",
     "doctrine/openAiDeploymentV3.json",
+    "doctrine/apiSpineV1.json",
+    "doctrine/cloudflareAirTrafficControllerV1.json",
     "doctrine/pluginPublicationV2.json",
     "doctrine/androidWeb3CockpitV2.json",
     "doctrine/androidWeb3BridgeV2.json",

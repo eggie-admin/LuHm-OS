@@ -40,7 +40,11 @@
     "credentialInGit": false,
     "credentialInApk": false,
     "toolPolicy": "allowlistOnly",
-    "networkPolicy": "explicitHostDeploymentOnly"
+    "networkPolicy": "explicitHostDeploymentOnly",
+    "adapterId": "openAiResponses",
+    "adapterContract": "doctrine/apiSpineV1.json#providers.openAi",
+    "rotationMayRequireProductCodeChange": false,
+    "providerNativePayloadEscapesAdapter": false
   },
   "plugin": {
     "portableManifest": "plugins/luhm-os/plugin.json",
@@ -69,7 +73,10 @@
     "publicationAuthority": false,
     "providerSecretsInSource": false,
     "customDomainTls": "PENDING_RECEIPT",
-    "chatGptConnection": "PENDING_RECEIPT"
+    "chatGptConnection": "PENDING_RECEIPT",
+    "networkController": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "currentPublishedPluginEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+    "currentPublishedPluginDependsOnCustomFqdn": false
   },
   "forbiddenClaims": [
     "ciProvesLiveOpenAiCredentials",
@@ -86,5 +93,6 @@
     "ingestedInto": "urdDoctorGoddess",
     "active": false
   },
-  "agentSystemDeployment": "doctrine/agentSystemDeploymentV1.json"
+  "agentSystemDeployment": "doctrine/agentSystemDeploymentV1.json",
+  "apiSpine": "doctrine/apiSpineV1.json"
 }

@@ -5,8 +5,12 @@ on:
   pull_request:
     paths:
       - 'host/harness/**'
+      - 'host/api/**'
       - 'doctrine/inChatExperienceV1.json'
       - 'doctrine/openingDayStaffTrainingV1.json'
+      - 'doctrine/apiSpineV1.json'
+      - 'doctrine/python3ControlPlaneLawV1.json'
+      - 'doctrine/cloudflareAirTrafficControllerV1.json'
       - 'doctrine/chatGptPluginRuntimeReceiptV1.json'
       - 'doctrine/chatGptPluginCrownFlowV1.json'
       - 'host/mcp/luhmHarness.py'
@@ -15,6 +19,7 @@ on:
       - 'tools/harnessAudit.py'
       - 'tools/inChatExperienceAudit.py'
       - 'tools/openingDayStaffTrainingAudit.py'
+      - 'tools/apiSpineAudit.py'
       - 'tools/chatGptPluginCrownFlowAudit.py'
       - '.github/workflows/render-harness-audit.yml'
 
@@ -53,6 +58,7 @@ jobs:
           python tools/harnessAudit.py
           python tools/inChatExperienceAudit.py
           python tools/openingDayStaffTrainingAudit.py
+          python tools/apiSpineAudit.py
           python tools/chatGptPluginCrownFlowAudit.py
 
       - name: Boot-time harness contract check

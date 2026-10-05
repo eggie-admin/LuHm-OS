@@ -25,6 +25,8 @@ for path in required:
 if not errors:
     services = json.loads((PORTAL / "services.json").read_text(encoding="utf-8"))
     policy = json.loads((PORTAL / "portalPolicy.json").read_text(encoding="utf-8"))
+    traffic = json.loads((ROOT / "doctrine" / "cloudflareAirTrafficControllerV1.json").read_text(encoding="utf-8"))
+    spine = json.loads((ROOT / "doctrine" / "apiSpineV1.json").read_text(encoding="utf-8"))
     html = (PORTAL / "index.html").read_text(encoding="utf-8")
     dns = (PORTAL / "dns.example.yaml").read_text(encoding="utf-8")
     all_text = "\n".join(p.read_text(encoding="utf-8", errors="ignore") for p in required)
@@ -44,6 +46,13 @@ if not errors:
     require("websocket" not in html.lower(), "portal HTML must not open WebSockets in v1")
     require("EXAMPLE_ONLY" in dns, "DNS proposal must remain EXAMPLE_ONLY")
     require("<cloudflare-tunnel-uuid>" in dns, "DNS proposal must not embed a claimed live tunnel target")
+    require("target: '<render-service>.onrender.com'" in dns, "MCP example must target Render directly")
+    require("name: mcp" in dns and "proxied: false" in dns, "MCP example must stay DNS-only during bootstrap")
+    require(traffic.get("schema") == "luhmOs.cloudflareAirTrafficController.v1", "traffic-controller schema drift")
+    require(traffic.get("role") == "networkAirTrafficController", "Cloudflare role drift")
+    require(traffic.get("authorityBoundary", {}).get("aiProvider") is False, "Cloudflare must not become AI provider")
+    require(traffic.get("lanes", {}).get("publicChatPluginMcp", {}).get("tunnelForThisLane") is False, "MCP lane must not silently become Tunnel-backed")
+    require(spine.get("network", {}).get("cloudflareIsAiProvider") is False, "API spine Cloudflare role drift")
 
     secret_patterns = [
         r"sk-[A-Za-z0-9_-]{16,}",

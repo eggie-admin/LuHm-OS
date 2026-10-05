@@ -16,7 +16,9 @@
     "endUserManualMcpUrlRequired": false,
     "endUserZipRequired": false,
     "luhmAccountLoginRequired": false,
-    "note": "ChatGPT may still present platform-controlled confirmation or workspace-policy UI."
+    "note": "ChatGPT may still present platform-controlled confirmation or workspace-policy UI.",
+    "apiSpineHiddenFromEndUser": true,
+    "providerSwapMayChangeInstallFlow": false
   },
   "surfaces": {
     "inChat": {
@@ -111,5 +113,7 @@
     "oneClickDirectoryInstallRemainsExternalUntilPublished": true
   },
   "publicationAuthority": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "apiSpine": "doctrine/apiSpineV1.json",
+  "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json"
 }

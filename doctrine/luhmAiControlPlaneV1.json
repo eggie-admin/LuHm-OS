@@ -19,7 +19,9 @@
     "manifestLaw": "doctrine/aiManifestFormatV1.json",
     "controlPlaneLanguage": "doctrine/python3ControlPlaneLawV1.json",
     "vendorAiDebug": "doctrine/vendorAiDebugV1.json",
-    "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json"
+    "chatMagicTrigger": "doctrine/luhmChatMagicTriggerV1.json",
+    "apiSpine": "doctrine/apiSpineV1.json",
+    "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -38,7 +40,9 @@
     "hiddenAsyncExecution": false,
     "secretInPrompt": false,
     "secretInRepo": false,
-    "secretInApk": false
+    "secretInApk": false,
+    "providerSpecificDetailsDoNotDefineProductInterface": true,
+    "trafficControllerIsNotAiAuthority": true
   },
   "bossToolchain": {
     "states": [
@@ -197,7 +201,11 @@
       "mayInferHiddenChainOfThought": false,
       "mayGrantGreen": false,
       "mayGrantCrown": false
-    }
+    },
+    "apiSpine": "doctrine/apiSpineV1.json",
+    "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "cloudflareIsProviderAdapter": false,
+    "providerSwapMayChangeAuthority": false
   },
   "authorityClasses": [
     "READ_ONLY",
@@ -664,7 +672,8 @@
     "javascript": "presentationAdapterOnly",
     "gdscript": "godotRuntimeAdapterOnly",
     "kotlin": "androidBridgeOnly",
-    "shell": "buildBootstrapGlueOnly"
+    "shell": "buildBootstrapGlueOnly",
+    "providerAdapters": "capabilityFirstAdaptersBoundByDoctrineApiSpine"
   },
   "aiTaskManifest": {
     "schema": "luhmOs.aiTaskManifest.v2",

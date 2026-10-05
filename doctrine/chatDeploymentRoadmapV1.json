@@ -36,7 +36,10 @@
     "sourceForge": "gitDaddy",
     "trafficController": "cloudflare",
     "deviceSubsidiary": "samsung",
-    "finalAuthority": "Professor"
+    "finalAuthority": "Professor",
+    "apiSpine": "doctrine/apiSpineV1.json",
+    "trafficControllerContract": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "trafficControllerIsAiProvider": false
   },
   "crownStatus": "STOP",
   "orientationBridge": "doctrine/enterpriseOrientationBridgeV1.json",
