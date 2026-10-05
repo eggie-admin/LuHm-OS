@@ -484,5 +484,21 @@
     "explicitSingleUseCastRequired": true,
     "publicationAuthority": false,
     "crownStatus": "STOP"
+  },
+  "escalationSystem": {
+    "kernel": "doctrine/escalationKernelV1.json",
+    "profiles": {
+      "default": "doctrine/founderEscalationLadderV1.json",
+      "corporate": "doctrine/corporateEscalationProfileV1.json",
+      "magic": "doctrine/magicEscalationProfileV1.json",
+      "art": "doctrine/yumeCreativeEscalationV1.json",
+      "technology": "doctrine/operationTitan7ChatTriggerV2.json"
+    },
+    "resolver": "tools/escalationKernel.py",
+    "sharedAgentPractice": "agents/shared/ESCALATION_KERNEL_V1.md",
+    "tierCount": 4,
+    "zeroBased": true,
+    "authorityEffect": "NONE",
+    "crownStatus": "STOP"
   }
 }
