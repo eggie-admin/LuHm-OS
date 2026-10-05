@@ -41,7 +41,9 @@
     "doctrine/codingRoleplayDirectorV2.json",
     "doctrine/chatGptPluginCrownFlowV1.json",
     "doctrine/chatGptPluginRuntimeReceiptV1.json",
-    "doctrine/openingDayStaffTrainingV1.json"
+    "doctrine/openingDayStaffTrainingV1.json",
+    "doctrine/apiSpineV1.json",
+    "doctrine/cloudflareAirTrafficControllerV1.json"
   ],
   "alwaysLoadedCore": {
     "sourceTruth": "doctrine/currentSourceTruthV3.json",
@@ -60,7 +62,9 @@
     "humanCenteredIntentRouter": "doctrine/humanCenteredIntentRouterV2.json",
     "chatGptPluginCrownFlow": "doctrine/chatGptPluginCrownFlowV1.json",
     "chatGptPluginRuntimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json",
-    "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json"
+    "openingDayStaffTraining": "doctrine/openingDayStaffTrainingV1.json",
+    "apiSpine": "doctrine/apiSpineV1.json",
+    "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -121,7 +125,9 @@
     "codingRoleplayDirector": "doctrine/codingRoleplayDirectorV2.json",
     "operationTitan7ChatTrigger": "doctrine/operationTitan7ChatTriggerV2.json",
     "professorOldMagicStudy": "doctrine/professorOldMagicStudyMeshV2.json",
-    "openingDayFirstRun": true
+    "openingDayFirstRun": true,
+    "providerRouting": "capabilityFirstThroughApiSpine",
+    "cloudflareRole": "networkAirTrafficControllerOnly"
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
