@@ -38,7 +38,9 @@
     "doctrine/agentLoadingSpriteManifestV1.json",
     "doctrine/humanCenteredIntentRouterV2.json",
     "doctrine/chatActivityPresentationV1.json",
-    "doctrine/codingRoleplayDirectorV2.json"
+    "doctrine/codingRoleplayDirectorV2.json",
+    "doctrine/chatGptPluginCrownFlowV1.json",
+    "doctrine/chatGptPluginRuntimeReceiptV1.json"
   ],
   "alwaysLoadedCore": {
     "sourceTruth": "doctrine/currentSourceTruthV3.json",
@@ -54,7 +56,9 @@
     "campaignLaunchKit": "doctrine/campaignLaunchKitV1.json",
     "agentSystemDeployment": "doctrine/agentSystemDeploymentV1.json",
     "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
-    "humanCenteredIntentRouter": "doctrine/humanCenteredIntentRouterV2.json"
+    "humanCenteredIntentRouter": "doctrine/humanCenteredIntentRouterV2.json",
+    "chatGptPluginCrownFlow": "doctrine/chatGptPluginCrownFlowV1.json",
+    "chatGptPluginRuntimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
