@@ -279,7 +279,11 @@
     "oniActivationModel": "standby->active->verifying->parked",
     "standbyMeansRegisteredNotExecuting": true,
     "residentDoesNotMeanHiddenAsync": true,
-    "namingContinuityOwner": "belldandySecretary"
+    "namingContinuityOwner": "belldandySecretary",
+    "openingDayTraining": "doctrine/openingDayStaffTrainingV1.json",
+    "openingDayTrainingStatus": "SOURCE_CONFIGURED_CANDIDATE",
+    "fullStaffTrainingClaim": "REPOSITORY_BACKED_BEHAVIORAL_CONTRACTS_ONLY",
+    "modelWeightTrainingProven": false
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
@@ -345,7 +349,9 @@
       "deploymentProven": false,
       "promotion": false,
       "crownStatus": "STOP"
-    }
+    },
+    "openingDayStaffOrientation": "STAFF_ORIENTATION_CANDIDATE",
+    "publicOpeningDayStillExternal": true
   },
   "studyLayer": {
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",
