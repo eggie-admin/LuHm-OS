@@ -1,0 +1,25 @@
+{
+  "schema": "luhmOs.publicReleaseArtLedger.v1",
+  "status": "INVENTORY_NOT_COMPLETION_CLAIM",
+  "sourceRef": "7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
+  "authority": "Professor",
+  "brandRegistry": "doctrine/organizationBrandRegistryV1.json",
+  "publicReadiness": "doctrine/publicArtReleaseReadinessV1.json",
+  "characters": {
+    "lum": {"requiredPublicFamilies": ["portrait","fullBody","spriteIdle","spriteWalk","spriteRun","expressionSheet","uiIcon"], "state": "UNPROVEN"},
+    "urd": {"requiredPublicFamilies": ["portrait","fullBody","spriteIdle","spriteWalk","spriteRun","expressionSheet","uiIcon"], "state": "UNPROVEN"},
+    "belldandy": {"requiredPublicFamilies": ["portrait","fullBody","spriteIdle","spriteWalk","spriteRun","expressionSheet","uiIcon"], "state": "UNPROVEN"},
+    "skuld": {"requiredPublicFamilies": ["portrait","fullBody","spriteIdle","spriteWalk","spriteRun","expressionSheet","uiIcon"], "state": "UNPROVEN"}
+  },
+  "brands": {
+    "luhmOs": {"state": "PARTIAL_SOURCE_PRESENT", "knownSource": "publicationSite/logo.svg", "remainingFamilies": ["wordmark","favicon","appIcon","socialAvatar","socialBanner","thumbnailFrame","endCard","colorTokens","typeTokens"]},
+    "eggieBagelface": {"state": "UNPROVEN", "remainingFamilies": ["wordmark","publisherLockup","socialAvatar","socialBanner","colorTokens","typeTokens"]},
+    "pirateDaddiesFilm": {"state": "MANIFEST_PRESENT_ART_UNPROVEN", "knownSource": "media/daddys-princess-date/edit-manifest.json", "remainingFamilies": ["studioMark","wordmark","endCard","lowerThird","socialAvatar","socialBanner","thumbnailFrame"]},
+    "bigDaddy": {"state": "PROTECTED_REFERENCE_REQUIRED", "remainingFamilies": ["characterLockup","portrait","fullBody","expressionSheet","socialPortrait","titleCard"]}
+  },
+  "internalRoleplayOnly": ["openDaddy","gitDaddy","samsungDaddy","bigBrother"],
+  "publicAssetReceiptRequiredFields": ["assetId","brandId","characterId","laneEligibility","publicAllowed","canonStatus","provenance","generationMethod","parentAsset","hash","professorApproval","runtimeImportReceiptWhenApplicable"],
+  "generatedDraftPublicAllowed": false,
+  "publicationAuthority": false,
+  "crownStatus": "STOP"
+}
