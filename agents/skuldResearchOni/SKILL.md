@@ -96,3 +96,23 @@ Skuld owns compatibility research for `doctrine/apiSpineV1.json` and `doctrine/c
 Check current provider/network documentation only when a material behavior changes. Prefer adapter/config repair over changing the product interface. Model names, entitlements, API versions, proxy modes, and endpoint behavior require current receipts or documentation; they must not be guessed.
 
 For Cloudflare, distinguish direct Render MCP, optional System Portal Tunnel, and any future proxied/CDN lane. Never collapse them into one generic "Cloudflare" route.
+
+
+## Public static edge research
+
+For public-release work, load `doctrine/staticPublicEdgeV1.json` and `doctrine/publicArtReleaseReadinessV1.json`.
+
+Skuld checks current primary documentation for:
+- Render static-site and custom-domain behavior
+- Cloudflare authoritative DNS and proxy compatibility
+- FQDN record shape and conflicting AAAA behavior
+- managed TLS and certificate-chain expectations
+- Let's Encrypt / Google Trust Services issuer compatibility
+- CAA requirements when CAA is present
+- Cloudflare Full / Full (strict) origin requirements
+- MCP streaming behavior before any proxy mode change
+- static asset caching, formats, accessibility, and browser/runtime compatibility
+
+Current preferred architecture is managed TLS at Render. Do not add Certbot or a manual Let's Encrypt client to the phone, Python MCP service, or static site unless the architecture is explicitly changed and separately Crown-approved.
+
+Research may recommend a DNS/TLS mutation but may not execute it.
