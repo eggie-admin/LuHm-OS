@@ -22,6 +22,7 @@ class PluginPublicationMilestoneTests(unittest.TestCase):
         cls.plugin = MODULE.load(MODULE.PLUGIN)
         cls.mcp_config = MODULE.load(MODULE.MCP_CONFIG)
         cls.tests = MODULE.load(MODULE.TESTS)
+        cls.experience = MODULE.load(MODULE.EXPERIENCE)
         cls.server = MODULE.SERVER.read_text(encoding="utf-8")
         cls.harness_server = MODULE.HARNESS_SERVER.read_text(encoding="utf-8")
         cls.harness_module = MODULE.HARNESS_MODULE.read_text(encoding="utf-8")
@@ -38,6 +39,7 @@ class PluginPublicationMilestoneTests(unittest.TestCase):
         plugin=None,
         mcp_config=None,
         tests=None,
+        experience=None,
     ):
         return MODULE.validate(
             copy.deepcopy(milestone or self.milestone),
@@ -50,6 +52,7 @@ class PluginPublicationMilestoneTests(unittest.TestCase):
             copy.deepcopy(plugin or self.plugin),
             copy.deepcopy(mcp_config or self.mcp_config),
             copy.deepcopy(tests or self.tests),
+            copy.deepcopy(experience or self.experience),
         )
 
     def test_current_source_package_is_valid(self):
@@ -96,10 +99,20 @@ class PluginPublicationMilestoneTests(unittest.TestCase):
 
     def test_missing_chat_ui_resource_fails(self):
         harness_module = self.harness_module.replace(
-            'UI_RESOURCE_URI = "ui://luhm-os/cockpit-v1.html"',
+            'UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"',
             'UI_RESOURCE_URI = "ui://removed/cockpit.html"',
         )
         self.assertTrue(self.errors(harness_module=harness_module))
+
+    def test_in_chat_experience_schema_drift_fails(self):
+        experience = copy.deepcopy(self.experience)
+        experience["schema"] = "luhmOs.inChatExperience.invalid"
+        self.assertTrue(self.errors(experience=experience))
+
+    def test_in_chat_resource_drift_fails(self):
+        experience = copy.deepcopy(self.experience)
+        experience["runtime"]["resourceUri"] = "ui://luhm-os/cockpit-v1.html"
+        self.assertTrue(self.errors(experience=experience))
 
 
 if __name__ == "__main__":
