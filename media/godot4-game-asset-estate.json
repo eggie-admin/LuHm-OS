@@ -86,7 +86,25 @@
       "Drive Godot4 scripts/zips discovered; canonical executable source remains GitHub"
     ]
   },
-  "candidateScopeState": "AMBER_ASSET_ESTATE_DISCOVERED_RECONCILIATION_REQUIRED",
+  "candidateScopeState": "AMBER_ORIGINAL_ASSETS_HASHED_MORE_RECONCILIATION_REQUIRED",
   "publicationAuthority": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "verifiedOriginalAssets": [
+    {
+      "assetId": "luhmOriginal.cathedralCockpitInterface",
+      "displayName": "kai9000_cathedral_cockpit_interface.png",
+      "rightsClass": "LUHM_ORIGINAL",
+      "sha256": "15006744bfdc286cb5afd2425f0a27c3ee3a674b7f11f06540a036cd0546c70e",
+      "sizeBytes": 2650251,
+      "state": "HASHED_ORIGINAL_PUBLIC_APPROVAL_PENDING"
+    },
+    {
+      "assetId": "luhmOriginal.lumGothicHipWingAnimationSheet",
+      "displayName": "lum_gothic_hip_wing_animation_asset_sheet.png",
+      "rightsClass": "LUHM_ORIGINAL",
+      "sha256": "6bfc5147179c15d6a9339179ae0204bbb677ac419834ee6276f96ba476487d80",
+      "sizeBytes": 2683473,
+      "state": "HASHED_ORIGINAL_CANON_PUBLIC_APPROVAL_PENDING"
+    }
+  ]
 }
