@@ -71,7 +71,15 @@
     "apiSpineRuntime": "host/api/luhmApiSpine.py",
     "huggingFaceSpecialistTrainer": "doctrine/huggingFaceSpecialistTrainerV1.json",
     "huggingFaceRole": "specialistTrainer",
-    "huggingFaceAuthority": "candidateEvidenceOnly"
+    "huggingFaceAuthority": "candidateEvidenceOnly",
+    "partnerEscalation": [
+      "FOUNDER_DEFAULT",
+      "GOOGLE",
+      "OPENAI",
+      "OPEN_SOURCE_VENDOR_COMMUNITY"
+    ],
+    "partnerEscalationAuthority": false,
+    "providerInterestIsEquity": false
   },
   "creativeLayer": {
     "contentLaneDoctrine": "doctrine/contentLaneDoctrineV1.json",
@@ -290,7 +298,19 @@
     "urdCorporateRole": "doctorClinicalSecurityWorkflowSanityEvidenceAndRisk",
     "skuldCorporateRole": "deepTechnologyResearchCompatibilityAndArchitectureMeaning",
     "urdOwnsCorporateLogistics": false,
-    "lumOwnsCorporateLogistics": true
+    "lumOwnsCorporateLogistics": true,
+    "corporatePanelMilestones": "doctrine/corporatePanelMilestonesV1.json",
+    "corporateAuthority": {
+      "ceoFounder": "eggieFounder",
+      "president": "lum",
+      "vicePresident": "urdDoctorGoddess",
+      "secretaryOfState": "belldandySecretary",
+      "headOfResearchAndDevelopment": "skuldResearch"
+    },
+    "operatingLanes": [
+      "commercialPublic",
+      "privateResearchDevelopment"
+    ]
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
