@@ -16,6 +16,9 @@ on:
       - 'agents/skuldResearchOni/**'
       - 'agents/urdMutationOni/**'
       - 'campaign/public-release-brand-readiness.md'
+      - 'doctrine/huggingFaceSpecialistTrainerV1.json'
+      - 'doctrine/godot4AssetEstateV1.json'
+      - 'media/godot4-game-asset-estate.json'
       - 'tools/publicArtBrandReleaseAudit.py'
       - '.github/workflows/public-art-brand-release-audit.yml'
   workflow_dispatch:
