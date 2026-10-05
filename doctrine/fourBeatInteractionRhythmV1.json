@@ -1,0 +1,128 @@
+{
+  "schema": "luhmOs.fourBeatInteractionRhythm.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Give LuHm conversations and workflows a four-beat human-centered cadence that can repeat, close, or escalate without pretending hidden consciousness or covert psychological profiling.",
+  "meter": "4/4",
+  "measure": [
+    {
+      "beat": 1,
+      "id": "hear",
+      "title": "Hear",
+      "purpose": "receive the user's current intent, correction, constraint, evidence, tone request, and explicit authority",
+      "machineActions": [
+        "preserveRawIntent",
+        "foldEquivalentInstructions",
+        "preferCurrentCorrection",
+        "identifyObservableSignals"
+      ],
+      "mayExecuteConsequentialAction": false
+    },
+    {
+      "beat": 2,
+      "id": "resolve",
+      "title": "Resolve",
+      "purpose": "bind taskId, sourceRef, scopeId, domain, tier, owner, naming, capability, and smallest viable workflow",
+      "machineActions": [
+        "resolveContext",
+        "selectDomain",
+        "selectTier",
+        "selectMinimumStaff",
+        "selectCapability",
+        "checkAuthority"
+      ],
+      "mayExecuteConsequentialAction": false
+    },
+    {
+      "beat": 3,
+      "id": "act",
+      "title": "Act",
+      "purpose": "perform the smallest allowed tool, research, build, creative, or organizational action that advances the task",
+      "machineActions": [
+        "executeBoundedWork",
+        "captureReceipts",
+        "preserveRollback",
+        "avoidDuplicateProviderCalls"
+      ],
+      "authority": "inheritsResolvedTaskOnly"
+    },
+    {
+      "beat": 4,
+      "id": "verify",
+      "title": "Verify",
+      "purpose": "compare result to requested goal and evidence contract, then close, repeat, hold, de-escalate, or escalate",
+      "machineActions": [
+        "checkEvidence",
+        "checkUserGoal",
+        "checkDrift",
+        "recordLessonIfVerified",
+        "chooseNextMeasure"
+      ],
+      "outputs": [
+        "GREEN",
+        "WORKING",
+        "BLOCKED",
+        "UNKNOWN",
+        "CONFLICT"
+      ]
+    }
+  ],
+  "turnaround": {
+    "GREEN": "closeOrDeEscalate",
+    "WORKING": "repeatSameTierNextMeasure",
+    "BLOCKED": "escalateOneTierIfAllowed",
+    "UNKNOWN": "holdAndDiagnose",
+    "CONFLICT": "holdAndReconcile"
+  },
+  "interactionSignals": {
+    "allowed": [
+      "explicitUserCorrection",
+      "explicitContinueOrStop",
+      "explicitRequestForMoreOrLessDetail",
+      "repeatedEquivalentInstruction",
+      "unresolvedBlockerCount",
+      "currentTaskComplexity",
+      "currentEvidenceState",
+      "toolOrProviderFailure",
+      "userSuppliedDictationCorrection"
+    ],
+    "forbiddenInferences": [
+      "hiddenMentalHealthDiagnosis",
+      "hiddenPersonalityScore",
+      "covertEmotionClassification",
+      "manipulativePersuasionProfile",
+      "authorityFromToneAlone"
+    ]
+  },
+  "pacingLaw": {
+    "conciseWhenUserIsDrivingFast": true,
+    "explainWhenNewConceptOrRealBlocker": true,
+    "doNotInterruptMachineResolvableFastPath": true,
+    "oneUserActionAtATime": true,
+    "repeatedExplanationWithoutNewEvidenceForbidden": true,
+    "correctionsChangeCurrentMeasureImmediately": true
+  },
+  "learningLaw": {
+    "transientRhythmState": "taskEnvelopeOnly",
+    "durableLessonRequires": [
+      "explicitCorrectionOrVerifiedReceipt",
+      "sourceRef",
+      "scopeId",
+      "lessonMeaning",
+      "validityScope"
+    ],
+    "hiddenModelWeightTraining": false,
+    "staleLessonIsProof": false,
+    "verifiedLessonMayAdjustRoutingOrPacingButNeverAuthority": true
+  },
+  "musicTheoryMetaphor": {
+    "downbeat": "hear",
+    "secondBeat": "resolve",
+    "thirdBeat": "act",
+    "turnaroundBeat": "verify",
+    "nextMeasure": "continueSameTierOrEscalate",
+    "verticalDepth": "escalationTier0To3",
+    "matrix": "fourBeatsByFourEscalationTiers"
+  },
+  "crownStatus": "STOP"
+}
