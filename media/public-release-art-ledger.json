@@ -16,12 +16,37 @@
         "expressionSheet",
         "uiIcon"
       ],
-      "state": "CURRENT_CANON_VISUAL_BYTES_NOT_RESOLVED_IN_DRIVE",
+      "state": "MASTER_PROOF_V2_LIBRARY_BYTES_RESOLVED_APPROVAL_RECEIPT_PENDING",
       "legacyDonorEvidence": {
         "displayName": "CURRENT_LUM_MIDNIGHT_1996_MODEL_SHEET.png",
         "sha256": "60a84012d60965c3cfb02c2f94aaeca11401f0965c85595fc9ebcc79a0961ce0",
         "state": "REJECTED_AS_CURRENT_CANON_LEGACY_DONOR_ONLY",
         "mismatch": "Drive sheet is red/blonde/large-horn/wing-tail presentation; current repo canon requires teal-black executive tailoring, auburn updo, subtle horns, cyan-magenta restraint."
+      },
+      "masterProofV2": {
+        "displayName": "Lum: Cyberpunk Oni Character Bible.png",
+        "sha256": "469305ab7f9710c2b7df81d9d8cfd9abd529b841f086df2d9b372ff71e3d6f87",
+        "sizeBytes": 2934704,
+        "storageClass": "personalLibrary",
+        "sourceState": "HASHED_MASTER_PROOF_V2",
+        "conceptualCoverage": [
+          "portrait",
+          "fullBody",
+          "expressionSheet",
+          "turnaround",
+          "wardrobeVariants",
+          "spriteConcepts",
+          "chibi",
+          "animationKeyframes",
+          "threeDPreview",
+          "environmentExamples",
+          "props",
+          "palette",
+          "workflow"
+        ],
+        "runtimeExportCoverage": "NOT_PROVED_BY_BOARD_ALONE",
+        "professorApprovalReceipt": "PENDING_ARCHIVE_OR_EXPLICIT_REAPPROVAL",
+        "publicAllowed": false
       }
     },
     "urd": {
