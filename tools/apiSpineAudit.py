@@ -19,6 +19,8 @@ google=json.loads((root/"doctrine/bigBrotherCovenantV1.json").read_text(encoding
 truth=json.loads((root/"doctrine/currentSourceTruthV3.json").read_text(encoding="utf-8"))
 mcp_scope=json.loads((root/"doctrine/mcpEnterpriseScopeV2.json").read_text(encoding="utf-8"))
 opening=json.loads((root/"doctrine/openingDayStaffTrainingV1.json").read_text(encoding="utf-8"))
+python_law=json.loads((root/"doctrine/python3ControlPlaneLawV1.json").read_text(encoding="utf-8"))
+resolver=(root/"host/api/luhmApiSpine.py").read_text(encoding="utf-8")
 server=(root/"host/mcp/luhmMcpServer.py").read_text(encoding="utf-8")
 harness=(root/"host/mcp/luhmHarness.py").read_text(encoding="utf-8")
 widget=(root/"host/harness/widget.html").read_text(encoding="utf-8")
@@ -74,6 +76,10 @@ need(mcp_scope.get("apiSpine")=="doctrine/apiSpineV1.json","MCP scope missing AP
 need(mcp_scope.get("transport",{}).get("currentPublishedPluginDependsOnCustomFqdn") is False,"published plugin depends on custom FQDN")
 need(opening.get("installModel",{}).get("apiSpineHiddenFromEndUser") is True,"opening-day leaks API spine")
 need(opening.get("installModel",{}).get("providerSwapMayChangeInstallFlow") is False,"provider swap may change install flow")
+need("host/api/luhmApiSpine.py" in python_law.get("currentAuthorityFiles",[]),"Python control-plane law missing API spine resolver")
+need("capability-first provider routing" in python_law.get("currentPython3Scopes",[]),"Python control-plane scope missing capability routing")
+need("def resolve_capability(" in resolver,"API spine resolver missing capability resolver")
+need("def validate_receipt(" in resolver,"API spine resolver missing receipt validator")
 
 need(truth.get("providerLayer",{}).get("apiSpine")=="doctrine/apiSpineV1.json","source truth missing API spine")
 need(truth.get("networkLayer",{}).get("trafficController")=="doctrine/cloudflareAirTrafficControllerV1.json","source truth missing traffic controller")
@@ -82,6 +88,7 @@ need(truth.get("networkLayer",{}).get("aiProvider") is False,"source truth calls
 need('API_SPINE = ROOT / "doctrine" / "apiSpineV1.json"' in server,"MCP runtime missing API spine")
 need('TRAFFIC_CONTROLLER = ROOT / "doctrine" / "cloudflareAirTrafficControllerV1.json"' in server,"MCP runtime missing traffic controller")
 need("def luhm_api_spine()" in server,"MCP API-spine tool missing")
+need("def luhm_resolve_capability(" in server,"MCP capability resolver tool missing")
 need('"apiSpine": api_spine' in harness and '"trafficController": traffic_controller' in harness,"cockpit payload missing spine/controller")
 need('id="apiSpine"' in widget and 'id="airTraffic"' in widget,"cockpit UI missing spine/controller")
 
