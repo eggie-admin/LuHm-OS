@@ -29,7 +29,9 @@
     "escalationWorkflowRooms": "doctrine/escalationWorkflowRoomsV1.json",
     "corporatePanelMilestones": "doctrine/corporatePanelMilestonesV1.json",
     "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json",
-    "escalationKernel": "doctrine/escalationKernelV1.json"
+    "escalationKernel": "doctrine/escalationKernelV1.json",
+    "jqueryFourLayerArchitecture": "doctrine/jqueryFourLayerArchitectureV1.json",
+    "fourBeatInteractionRhythm": "doctrine/fourBeatInteractionRhythmV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,
@@ -69,7 +71,10 @@
     "partnerInterestCannotGrantAuthority": true,
     "escalationTierDoesNotExpandAuthority": true,
     "escalationPreservesTaskSourceScope": true,
-    "escalationUsesMinimumStaff": true
+    "escalationUsesMinimumStaff": true,
+    "interactionRhythmCannotGrantAuthority": true,
+    "pacingSignalsMustBeObservable": true,
+    "noCovertPsychologicalProfiling": true
   },
   "bossToolchain": {
     "states": [
@@ -924,6 +929,23 @@
     "zeroBased": true,
     "tierCount": 4,
     "maxParallelSupportWorkers": 3,
+    "authorityEffect": "NONE"
+  },
+  "interactionRhythm": {
+    "meter": "4/4",
+    "beats": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "escalationAxis": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "model": "fourByFour",
     "authorityEffect": "NONE"
   }
 }
