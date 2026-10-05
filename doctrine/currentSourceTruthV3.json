@@ -57,7 +57,10 @@
     "providerEconomy": "doctrine/providerEconomyV1.json",
     "vendorAiDebug": "doctrine/vendorAiDebugV1.json",
     "apiSpine": "doctrine/apiSpineV1.json",
-    "apiSpineRuntime": "host/api/luhmApiSpine.py"
+    "apiSpineRuntime": "host/api/luhmApiSpine.py",
+    "huggingFaceSpecialistTrainer": "doctrine/huggingFaceSpecialistTrainerV1.json",
+    "huggingFaceRole": "specialistTrainer",
+    "huggingFaceAuthority": "candidateEvidenceOnly"
   },
   "creativeLayer": {
     "contentLaneDoctrine": "doctrine/contentLaneDoctrineV1.json",
