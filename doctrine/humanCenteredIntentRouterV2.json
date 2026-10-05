@@ -63,5 +63,20 @@
   "operationTitan7": "doctrine/operationTitan7ChatTriggerV2.json",
   "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
   "voiceAmbientIntent": "doctrine/voiceAmbientIntentV1.json",
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "interactionRhythm": "doctrine/fourBeatInteractionRhythmV1.json",
+  "routingMeasure": [
+    "hear",
+    "resolve",
+    "act",
+    "verify"
+  ],
+  "rhythmLaw": {
+    "oneMeasureAtATime": true,
+    "explicitCorrectionRestartsAt": "hear",
+    "blockedVerifyMayEscalateOneTier": true,
+    "unknownOrConflictHoldsTier": true,
+    "greenVerifyClosesOrDeEscalates": true,
+    "toneAloneMayGrantAuthority": false
+  }
 }
