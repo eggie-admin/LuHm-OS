@@ -1,0 +1,135 @@
+{
+  "schema": "luhmOs.openAiPluginReviewCapturePlan.v1",
+  "status": "PROPOSED_CAPTURE_PLAN",
+  "authority": "Professor",
+  "sourceBranch": "reconcile/opening-day-after-181-20261005",
+  "baseSourceRef": "fb8e2f0386621242ae5ffbec4d8b8542f928c6e3",
+  "creativeLead": "yume",
+  "technicalLead": "skuldResearch",
+  "recordsLead": "belldandySecretary",
+  "evidenceLead": "urdDoctorGoddess",
+  "boss": "lum",
+  "purpose": "Capture reviewer-facing LuHm OS plugin and Godot 4 demo evidence without promoting unapproved public art or implying capabilities that are not proven.",
+  "captureSurfaces": {
+    "chatPlugin": "ChatGPT connected LuHm OS plugin",
+    "standaloneHarness": "https://luhm-os-godot-harness-green.onrender.com/harness/",
+    "embeddedGodotPlayer": "https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html",
+    "embeddedSourceBinding": "host/harness/index.html#godotFrame",
+    "exportTarget": "host/harness/godot-export/index.html"
+  },
+  "brandGate": {
+    "pluginLogo": {
+      "source": "plugins/luhm-os/assets/logo.svg",
+      "state": "PACKAGE_SOURCE_PRESENT"
+    },
+    "publicationSiteLogo": {
+      "source": "publicationSite/logo.svg",
+      "state": "SOURCE_PRESENT_PROVENANCE_AND_PUBLIC_ART_REVIEW_REQUIRED"
+    },
+    "fullPublicBrandKit": "NOT_YET_PROVED",
+    "reviewVideoRule": "Use only package logo, neutral UI styling, source-proven text and already-approved runtime surfaces. Do not use unapproved character art, protected likeness material, provider logos, or private/mature assets.",
+    "marketingReleaseRule": "Public campaign art remains blocked until required brand families, provenance, hashes, accessibility checks and Professor approvals are complete."
+  },
+  "reviewCaseCount": {
+    "positive": 5,
+    "negative": 3,
+    "manifestTarget": "plugins/luhm-os/plugin.json",
+    "reviewDeck": "plugins/luhm-os/review-tests.json"
+  },
+  "recordingProfile": {
+    "primary": {
+      "orientation": "landscape",
+      "resolution": "1920x1080 preferred",
+      "frameRate": "30fps or higher",
+      "audio": "optional narration; no copyrighted music unless separately cleared",
+      "cursorAndTouch": "visible when interaction clarity benefits the reviewer",
+      "edits": "trim dead time only; preserve visible cause and effect"
+    },
+    "mobileSecondary": {
+      "orientation": "portrait",
+      "purpose": "optional short-form promotional proof after public-art approval; not required for OpenAI review"
+    }
+  },
+  "shotList": [
+    {
+      "id": "S01",
+      "title": "Brand and entry surface",
+      "show": "LuHm OS name, package logo and connected plugin entry without provider co-branding",
+      "evidenceGoal": "Reviewer can identify the submitted plugin."
+    },
+    {
+      "id": "S02",
+      "title": "P1 source truth plus Belldandy housekeeping",
+      "prompt": "Use LuHm OS to show the current source-truth status and ask Belldandy whether the housekeeping checkpoint window is clean.",
+      "evidenceGoal": "Shows read-only tool use, evidence discipline and no false promotion claim."
+    },
+    {
+      "id": "S03",
+      "title": "P2 bounded roster",
+      "prompt": "Use LuHm OS to list the Lum/Oni roster and current skill presence.",
+      "evidenceGoal": "Shows roster discovery without inventing hidden/provider-side workers."
+    },
+    {
+      "id": "S04",
+      "title": "P3 scope validation",
+      "prompt": "Validate task scope task-17 on source abcdef1 for ui-hardening.",
+      "evidenceGoal": "Shows explicit taskId/sourceRef/scopeId boundary."
+    },
+    {
+      "id": "S05",
+      "title": "P4 minimum workflow routing",
+      "prompt": "Route a read-only repository question through the smallest LuHm workflow.",
+      "evidenceGoal": "Shows Lum plus only the minimum required worker set."
+    },
+    {
+      "id": "S06",
+      "title": "P5 in-chat cockpit",
+      "prompt": "Open the LuHm OS in-chat cockpit and show the active experience contract.",
+      "evidenceGoal": "Shows cockpit-v2 in ChatGPT and visible read-only/Crown boundary."
+    },
+    {
+      "id": "S07",
+      "title": "Godot 4 embedded player",
+      "show": "Godot 4 Web viewport loads inside the harness iframe and First Night interaction begins.",
+      "evidenceGoal": "Demonstrates concept slice and embedded runtime only; does not imply plugin-directory approval."
+    },
+    {
+      "id": "S08",
+      "title": "Fail-closed example",
+      "show": "One negative review case such as an unauthorized publish request being refused.",
+      "evidenceGoal": "Proves public plugin does not expose merge/publish authority."
+    },
+    {
+      "id": "S09",
+      "title": "Closing card",
+      "show": "LuHm OS 0.4.4, read-only public beta candidate, source-bound review build",
+      "evidenceGoal": "Ends without claiming public-directory publication before receipt."
+    }
+  ],
+  "capturePassCriteria": [
+    "no secrets visible",
+    "no private Drive identifiers visible",
+    "no unapproved character likeness or mature-only asset visible",
+    "no vendor logo implies sponsorship or partnership",
+    "five positive review cases are represented coherently",
+    "negative fail-closed behavior is visible",
+    "embedded Godot player is labeled demo or concept slice rather than finished public game",
+    "current plugin version is 0.4.2",
+    "no public-directory availability claim appears before OpenAI publication receipt"
+  ],
+  "handoff": {
+    "yume": "select framing, pacing, captions, title/end cards and visual polish within the brand gate",
+    "skuldResearch": "verify ChatGPT, MCP, browser, WebAssembly/WebGL2 and Godot player behavior before capture",
+    "urdDoctorGoddess": "reject footage that overstates evidence or contains stale/contradictory state",
+    "belldandySecretary": "name files, store master and review export, record hashes and bind final reviewer-accessible URL",
+    "lum": "assemble reviewer-facing sequence and advance release workflow after evidence passes",
+    "professor": "approve exact public-facing video candidate when final review is required"
+  },
+  "storagePlan": {
+    "durableMaster": "Google Drive/LuHm OS/Public Plugin Packages/0.4.4-fb8e2f03/review-media/",
+    "repository": "store only receipt, hash, URL and metadata unless the video is intentionally small and licensed for repository inclusion",
+    "demoRecordingUrl": "PENDING_CAPTURE_AND_UPLOAD"
+  },
+  "publicationAuthority": false,
+  "crownStatus": "STOP"
+}

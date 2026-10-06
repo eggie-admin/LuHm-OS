@@ -1,0 +1,49 @@
+{
+  "schema": "luhmOs.aiTaskManifest.v2",
+  "status": "PROPOSED_TASK_ONLY",
+  "providerId": "googleAi",
+  "capabilityId": "campaignReview",
+  "taskId": "bigBrotherCampaignReview001",
+  "sourceRef": "CURRENT_PR_HEAD_REQUIRED_AT_EXECUTION",
+  "scopeId": "letsMakeMoneyForCorporationsWaveOne",
+  "inputRefs": [
+    "doctrine/campaignLaunchKitV1.json",
+    "campaign/evidence-ledger.json",
+    "campaign/github-project-narrative.md",
+    "campaign/social-wave-one.md",
+    "campaign/patronage-brief.md"
+  ],
+  "requiredOutputSchema": "structuredCampaignReview",
+  "budget": {
+    "maxRequests": 1,
+    "maxParallel": 1,
+    "maxPasses": 3
+  },
+  "allowedCapabilities": [
+    "review",
+    "contradictionHunt",
+    "technicalClarityReview",
+    "audienceFitReview",
+    "claimRiskReview"
+  ],
+  "forbiddenCapabilities": [
+    "publish",
+    "send",
+    "merge",
+    "grantGreen",
+    "grantCrown",
+    "inventEvidence",
+    "widenContentLane"
+  ],
+  "stopConditions": [
+    "sourceMismatch",
+    "evidenceConflict",
+    "scopeExpansion",
+    "budgetExhausted"
+  ],
+  "authority": {
+    "mutation": false,
+    "green": false,
+    "crown": false
+  }
+}

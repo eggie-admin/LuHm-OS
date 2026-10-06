@@ -1,0 +1,37 @@
+{
+  "schema": "luhm-os.repo-migration.v1",
+  "date": "2026-09-25",
+  "canonical_repository": "eggie-admin/LuHm-OS",
+  "strategy": "selective source transplant; do not merge unrelated Git histories",
+  "snapshot": {
+    "pre_unification_main_sha": "55abe95333f392188b6f0ee9a23bb8aeb84feca8",
+    "branch": "snapshot/pre-unification-20260925"
+  },
+  "sources": [
+    {
+      "repository": "eggie-admin/hydra-shell-android",
+      "ref": "85389880d6d0e9c304817444298195ea48106587",
+      "role": "legacy LuHm Android lineage and proven build evidence",
+      "policy": "reference and selective transplant only"
+    },
+    {
+      "repository": "eggie-admin/vue-headless-cms",
+      "ref": "86507ed7c72650ff508eb9a1a9e52842eb50e821",
+      "role": "historical Samsung donor",
+      "policy": "reference only; Vue runtime excluded from canonical main"
+    },
+    {
+      "repository": "eggie-admin/amplify-godot-engine-template",
+      "ref": "abcc991107ad9d6b3ef413083e6906029337c94c",
+      "role": "Godot reference/testing donor",
+      "policy": "reference only unless a reviewed component is explicitly transplanted"
+    }
+  ],
+  "canonical_payload": [
+    "Godot project",
+    "native Cathedral/World Mode source",
+    "Android export preset",
+    "CI APK build and verification",
+    "source-of-truth doctrine"
+  ]
+}

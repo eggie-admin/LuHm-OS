@@ -1,0 +1,30 @@
+name: LuHm System Portal Audit
+
+on:
+  pull_request:
+    paths:
+      - 'systemPortal/**'
+      - 'host/api/**'
+      - 'doctrine/apiSpineV1.json'
+      - 'doctrine/python3ControlPlaneLawV1.json'
+      - 'doctrine/cloudflareAirTrafficControllerV1.json'
+      - 'tools/systemPortalAudit.py'
+      - 'tools/apiSpineAudit.py'
+      - '.github/workflows/system-portal-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run fail-closed portal audit
+        run: |
+          python tools/systemPortalAudit.py
+          python tools/apiSpineAudit.py

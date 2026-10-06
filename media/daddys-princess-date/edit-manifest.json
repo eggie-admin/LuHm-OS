@@ -1,0 +1,131 @@
+{
+  "schema": "luhm.mediaEdit.v1",
+  "projectId": "daddysPrincessDate",
+  "title": "Daddy's Princess Gets Her Date",
+  "brand": {
+    "studio": "PIRATE DADDIES FILM",
+    "endSubtitle": "Remember... All Daddies Love You"
+  },
+  "target": {
+    "durationSeconds": 150,
+    "aspectRatio": "9:16",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "videoCodec": "h264",
+    "audioCodec": "aac"
+  },
+  "pacing": {
+    "firstHookSeconds": 2,
+    "openingCutRangeSeconds": [
+      0.7,
+      1.8
+    ],
+    "middleCutRangeSeconds": [
+      1.5,
+      3.5
+    ],
+    "emotionalHoldRangeSeconds": [
+      3,
+      5.5
+    ],
+    "patternInterruptEverySeconds": [
+      8,
+      12
+    ],
+    "captions": "soundOffSafe",
+    "rule": "movement-or-text-change before attention goes flat"
+  },
+  "mediaPolicy": {
+    "rawMediaInRepo": false,
+    "referenceSheetInRepo": false,
+    "localMediaOnly": true,
+    "generatedPublicReplacementArt": false
+  },
+  "beats": [
+    {
+      "start": 0,
+      "end": 2,
+      "label": "coldOpen",
+      "overlay": "DADDY'S PRINCESS GOT A DATE."
+    },
+    {
+      "start": 2,
+      "end": 7,
+      "label": "smashReveal",
+      "overlay": "Big Daddy is pretending to be normal."
+    },
+    {
+      "start": 7,
+      "end": 16,
+      "label": "gettingReady",
+      "overlay": "She has options. He has concerns."
+    },
+    {
+      "start": 16,
+      "end": 28,
+      "label": "outfitMicroMontage",
+      "overlay": "EXECUTIVE / TECH / CASUAL / BATTLE"
+    },
+    {
+      "start": 28,
+      "end": 38,
+      "label": "clockCheck",
+      "overlay": "7:01 PM. Dad has checked the clock 14 times."
+    },
+    {
+      "start": 38,
+      "end": 50,
+      "label": "dateArrives",
+      "overlay": "Doorbell. Boss music."
+    },
+    {
+      "start": 50,
+      "end": 66,
+      "label": "dadInspection",
+      "overlay": "Name? Intentions? Favorite Linux distro?"
+    },
+    {
+      "start": 66,
+      "end": 82,
+      "label": "princessIntervenes",
+      "overlay": "DAD. BE NORMAL."
+    },
+    {
+      "start": 82,
+      "end": 98,
+      "label": "softBeat",
+      "overlay": "He remembers she can handle herself."
+    },
+    {
+      "start": 98,
+      "end": 112,
+      "label": "sendOff",
+      "overlay": "Have fun. Text me when you get there."
+    },
+    {
+      "start": 112,
+      "end": 126,
+      "label": "quietDad",
+      "overlay": "He is absolutely not staring at the door."
+    },
+    {
+      "start": 126,
+      "end": 138,
+      "label": "textCallback",
+      "overlay": "TEXT: 'Alive. Food good. He passed.'"
+    },
+    {
+      "start": 138,
+      "end": 144,
+      "label": "releaseLaugh",
+      "overlay": "Big Daddy status: pretending this was easy."
+    },
+    {
+      "start": 144,
+      "end": 150,
+      "label": "brandEnd",
+      "overlay": "PIRATE DADDIES FILM\\nRemember... All Daddies Love You"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "schema": "luhm-os.oni-mesh-control-plane.v2",
+  "boss": "Lum",
+  "humanAuthority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "topology": {
+    "helperRecruitment": false,
+    "maxParallelSupportWorkers": 3,
+    "maxMutableSourceLanesPerCandidate": 1,
+    "directQuestionBypassesMesh": true,
+    "evidenceTransport": "REFERENCE_FIRST"
+  },
+  "authorityClasses": [
+    "READ_ONLY",
+    "PLAN_ONLY",
+    "MUTATE_REVERSIBLE",
+    "MUTATE_BUILD_AFFECTING",
+    "RELEASE_SIGNING",
+    "PUBLIC_EXPOSURE"
+  ],
+  "roles": {
+    "Lum": {
+      "kind": "boss-router-integrator",
+      "mutationAuthority": false
+    },
+    "Kiri": {
+      "kind": "context-resolver",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Tetsu": {
+      "kind": "fast-builder",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Kaji": {
+      "kind": "clean-room-builder",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Momo": {
+      "kind": "bounded-researcher",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Shiori": {
+      "kind": "critic-contradiction-checker",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "DrNao": {
+      "kind": "deterministic-source-truth-adjudicator",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Kugi": {
+      "kind": "deterministic-tool-executor",
+      "defaultAuthority": "PLAN_ONLY"
+    },
+    "Fumi": {
+      "kind": "records-registrar-helper",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Sumi": {
+      "kind": "asset-curator",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Koe": {
+      "kind": "dictation-scribe",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Yume": {
+      "kind": "art-media-helper",
+      "defaultAuthority": "PLAN_ONLY"
+    },
+    "Urd": {
+      "kind": "doctor-goddess-system-diagnostician",
+      "canonicalMachineIdentity": "urdDoctorGoddess",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Belldandy": {
+      "kind": "secretary-goddess-state-records-keeper",
+      "canonicalMachineIdentity": "belldandySecretary",
+      "defaultAuthority": "READ_ONLY"
+    },
+    "Skuld": {
+      "kind": "research-goddess-compatibility-scout",
+      "canonicalMachineIdentity": "skuldResearch",
+      "defaultAuthority": "READ_ONLY"
+    }
+  },
+  "requiredTaskEnvelope": [
+    "taskId",
+    "intent",
+    "scope",
+    "repository",
+    "sourceRef",
+    "authorityClass",
+    "allowedCapabilities",
+    "forbiddenCapabilities",
+    "evidenceRefs",
+    "requiredOutputs",
+    "stopConditions",
+    "budget"
+  ],
+  "statePrecedence": [
+    "ERROR",
+    "RED",
+    "UNKNOWN",
+    "AMBER",
+    "GREEN"
+  ],
+  "retryPolicy": {
+    "blindMutationRetry": false,
+    "identicalTransientRetryMax": 1,
+    "mutationFailureReturnsToLum": true
+  },
+  "learning": {
+    "hiddenRetraining": false,
+    "silentPolicyMutation": false,
+    "verifiedLessonsRequireReceipts": true,
+    "staleLessonIsProof": false
+  },
+  "crownRequiredFor": [
+    "release-signing",
+    "publication",
+    "public-exposure",
+    "protected-or-release-branch-promotion",
+    "destructive-delete"
+  ],
+  "goddessCore": {
+    "Urd": "doctorGoddess",
+    "Belldandy": "secretary",
+    "Skuld": "research",
+    "boss": "Lum",
+    "personalityGrantsAuthority": false
+  }
+}

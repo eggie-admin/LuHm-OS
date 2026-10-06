@@ -1,0 +1,162 @@
+{
+  "schema": "luhmOs.providerEconomy.v1",
+  "status": "PROPOSED_CANON_LAW",
+  "authority": "Professor",
+  "headquarters": "luhmOs",
+  "boss": "lum",
+  "purpose": "Route work across providers by capability value, entitlement efficiency, and user experience without allowing any vendor to become project authority.",
+  "routingOrder": [
+    "deterministicLocal",
+    "existingReceiptsAndCachedEvidence",
+    "bigBrother",
+    "openDaddyWhenMateriallyJustified"
+  ],
+  "bigBrother": {
+    "providerId": "googleAi",
+    "providerNickname": "bigBrother",
+    "role": "highCapacityExternalWorker",
+    "preferredFor": [
+      "bulkResearch",
+      "largeContextReview",
+      "repositoryReview",
+      "historyReview",
+      "schemaReview",
+      "compatibilityResearch",
+      "broadCandidateGeneration"
+    ],
+    "economyLaw": "Use available Google capacity efficiently for heavy or broad work when the exact provider route is proven available.",
+    "authority": "candidateEvidenceOnly"
+  },
+  "openDaddy": {
+    "providerId": "openAi",
+    "providerNickname": "openDaddy",
+    "role": "scarcePremiumCapability",
+    "preferredFor": [
+      "highValueInteractiveReasoning",
+      "projectHeadquartersConversation",
+      "complexIntegrationJudgment",
+      "tasksWhereOpenAiMateriallyImprovesOutcome"
+    ],
+    "defaultPolicy": "minimumNecessaryUse",
+    "admissionGate": [
+      "localCannotAlreadyProveTask",
+      "cachedEvidenceIsInsufficient",
+      "bigBrotherIsInsufficientOrPoorFit",
+      "openAiCapabilityMateriallyImprovesOutcome"
+    ],
+    "economy": {
+      "reuseEvidenceFirst": true,
+      "avoidDuplicateProviderWork": true,
+      "smallestUsefulContext": true,
+      "smallestUsefulWorkerSet": true,
+      "oneShotEscalationPreferred": true,
+      "hardTaskBudgetRequired": true,
+      "unknownEntitlementMeansStopOrFallback": true
+    },
+    "justificationLaw": "Every premium OpenAI call should have a material reason that local tools, existing receipts, or Big Brother cannot satisfy as well.",
+    "authority": "candidateEvidenceOnly"
+  },
+  "experienceLaw": {
+    "providerPreferenceMayReflectUxAndCollaborationQuality": true,
+    "userPreferenceDoesNotGrantAuthority": true,
+    "vendorEntitlementDoesNotDefineArchitecture": true,
+    "providerSwapMustNotChangeProjectAuthority": true,
+    "specialistProviderDoesNotDefineArchitecture": true
+  },
+  "sharedProviderBoundary": {
+    "mayGrantGreen": false,
+    "mayGrantCrown": false,
+    "maySelfApprove": false,
+    "mayPublish": false,
+    "mayProductionSign": false,
+    "mayMerge": false,
+    "providerOutputRequiresLumReconciliation": true,
+    "providerNativePayloadMayEscapeAdapter": false,
+    "providerNativeErrorMayEscapeAdapter": false
+  },
+  "crownStatus": "STOP",
+  "likeTermEconomy": {
+    "contract": "doctrine/chatLikeTermFoldV1.json",
+    "groupBeforeProviderRoute": true,
+    "collectionAndDeterministicBatchFirst": true,
+    "aggregateEvidenceBeforeVendorCall": true,
+    "perTargetProviderFanout": false,
+    "oneProviderEscalationPerSemanticClass": true,
+    "reuseTaskEnvelopeCache": true,
+    "staleCacheAcrossSourceRef": false,
+    "entitlementGoal": "Spend vendor capacity on novel reasoning, not repeated loop control or duplicated status work."
+  },
+  "apiSpine": "doctrine/apiSpineV1.json",
+  "routingLaw": {
+    "capabilityFirst": true,
+    "providerSecond": true,
+    "productInterfaceStableAcrossProviderSwap": true,
+    "providerSpecificConfigOwnedByAdapter": true,
+    "modelOrEntitlementDriftMayNotRewriteUserWorkflow": true
+  },
+  "specialistProviders": {
+    "huggingFace": {
+      "providerId": "huggingFace",
+      "providerNickname": "specialistTrainer",
+      "contract": "doctrine/huggingFaceSpecialistTrainerV1.json",
+      "role": "specialistTrainer",
+      "invokeWhen": [
+        "modelOrDatasetSelectionMatters",
+        "trainingRecipeOrAdapterDesignMatters",
+        "evaluationOrModelCardReviewMatters",
+        "freeTierTrainingOrInferenceCompatibilityMatters"
+      ],
+      "defaultRouting": false,
+      "authority": "candidateEvidenceOnly",
+      "routesThrough": "lum"
+    }
+  },
+  "corporatePanelContract": "doctrine/corporatePanelMilestonesV1.json",
+  "partnerEscalation": {
+    "contract": "doctrine/corporatePanelMilestonesV1.json#milestones/partnerEscalationMilestone",
+    "defaultHumanTier": "eggieFounder",
+    "providerOrder": [
+      "googleAi",
+      "openAi",
+      "openSourceVendorCommunity"
+    ],
+    "googleRole": "tierOneWorkhorsePartner",
+    "openAiRole": "tierTwoStrategicPartner",
+    "communityRole": "tierThreeOpenSourceAndSpecialistBreadth",
+    "authorityEffect": "NONE",
+    "legalEquityClaim": false
+  },
+  "partnerEscalationLaw": {
+    "capabilityFitMaySkipTier": true,
+    "providerTierChangesAuthority": false,
+    "providerTierMayGrantGreen": false,
+    "providerTierMayGrantCrown": false,
+    "providerInterestIsEquity": false,
+    "respectKnownEntitlements": true,
+    "freeTierAware": true
+  },
+  "workspaceLaw": {
+    "officialEntitledWorkspace": "github",
+    "googleAi": "STRICT_FREE_TIER_PROXY_UNLESS_RECEIPT_PROVES_MORE",
+    "openAi": "STRICT_FREE_TIER_PROXY_UNLESS_RECEIPT_PROVES_MORE",
+    "providerEntitlementMayNotDefineArchitecture": true
+  },
+  "openSourceVendorCommunity": {
+    "providerId": "openSourceVendorCommunity",
+    "role": "longTailOpenSourceAndSpecialistEcosystem",
+    "examples": [
+      "gitLab",
+      "fDroid",
+      "izzyOnDroid",
+      "huggingFace",
+      "openSourceMaintainers"
+    ],
+    "invokeWhen": [
+      "specialistOpenSourceCapabilityFitsBetterThanPrimaryProviders",
+      "freeOpenEcosystemProvidesRequiredPackageRepoModelOrKnowledge",
+      "googleAndOpenAiArePoorFitOrBudgetShouldBePreserved"
+    ],
+    "routesThrough": "lum",
+    "authority": "candidateEvidenceOnly"
+  }
+}

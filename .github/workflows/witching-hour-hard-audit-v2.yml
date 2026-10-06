@@ -1,0 +1,51 @@
+name: Witching Hour Hard Audit v2
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'doctrine/WITCHING_HOUR_HARD_AUDIT_V2.json'
+      - 'doctrine/WITCHING_HOUR_HARD_AUDIT_RECEIPT_20261001.json'
+      - 'tools/witchingHourHardAuditV2.py'
+      - '.github/workflows/witching-hour-hard-audit-v2.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static-policy-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Bind exact head
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          echo "EXACT_HEAD=$(git rev-parse HEAD)"
+
+      - name: Run Witching Hour static hard audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/witchingHourHardAuditV2.py
+
+      - name: Authority boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'STATIC POLICY + RECEIPT CONSISTENCY AUDIT ONLY'
+          echo 'BIG BROTHER = Edge Gallery in Samsung Secure Folder'
+          echo 'Environment proof != model proof != entitlement proof != Gallery→LuHm proof != audit-output proof'
+          echo 'Scoped static GREEN does not erase RED Forge/CAST or enterprise-delivery gates'
+          echo 'No compile, export, package, APK, deployment, publication, signing, merge, CAST, or Crown authority'

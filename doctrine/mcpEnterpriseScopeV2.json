@@ -1,0 +1,57 @@
+{
+  "schema": "luhmOs.mcpEnterpriseScope.v2",
+  "status": "PROPOSED_BETA_HARDENING",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "transport": {
+    "production": "streamableHttp",
+    "localDevelopment": [
+      "streamableHttp",
+      "stdio"
+    ],
+    "productionPath": "/mcp",
+    "productionFqdn": "mcp.eggiebagelface.art",
+    "publicTlsProvider": "RenderManagedTls",
+    "publicTlsLiveEvidenceRequired": true,
+    "statelessHttp": true,
+    "sessionOwnsAuthority": false,
+    "sessionOwnsSourceTruth": false,
+    "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "currentPublishedPluginEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+    "currentPublishedPluginDependsOnCustomFqdn": false,
+    "customFqdnIsOptionalPerimeterUpgrade": true
+  },
+  "requestScope": {
+    "requiredFieldsForTruthSensitiveRouting": [
+      "taskId",
+      "sourceRef",
+      "scopeId"
+    ],
+    "optionalFields": [
+      "candidateSha",
+      "proofContext"
+    ],
+    "unknownSourceMayPromote": false,
+    "scopeMayEscalateAuthority": false,
+    "scopeMayOverrideCrown": false
+  },
+  "authentication": {
+    "currentPublicTools": "anonymousReadOnly",
+    "privateOrWriteToolsRequireOauth21": true,
+    "oauthImplemented": false,
+    "resourceMetadataRequiredBeforePrivateOrWrite": true,
+    "perToolSecuritySchemesRequiredBeforePrivateOrWrite": true
+  },
+  "operations": {
+    "healthEndpoint": "/healthz",
+    "openAiChallengeEndpoint": "/.well-known/openai-apps-challenge",
+    "maxRequestBodyBytes": 1048576,
+    "providerSecretsInAndroid": false,
+    "providerSecretsInPluginPackage": false,
+    "greenAuthority": false,
+    "publicationAuthority": false
+  },
+  "legacySource": "doctrine/MCP_ENTERPRISE_SCOPE_V1.json",
+  "crownStatus": "STOP",
+  "apiSpine": "doctrine/apiSpineV1.json"
+}

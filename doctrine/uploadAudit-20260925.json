@@ -1,0 +1,106 @@
+{
+  "schema": "luhmOs.uploadAudit.v1",
+  "date": "2026-09-25",
+  "status": "PARTIAL_UPLOAD_AUDIT_COMPLETE_INTEGRATION_PENDING",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "parentAmberSeal": "508a2de807044b771a778d2db154ba918b15fccc",
+  "testedApkSource": "972a31e041904bf2791ead44b3ef3851599ad47a",
+  "available": {
+    "filename": "jquery-ui-1.14.2.custom.zip",
+    "sha256": "e8fcd7f6c63630b903bff2f1bf37b5b2095e837467842d7a8c8e0ce45325c661",
+    "entries": 11,
+    "uncompressedBytes": 1180081,
+    "declaredUiVersion": "1.14.2",
+    "bundledJqueryVersion": "3.7.1",
+    "declaredJqueryDependency": ">=1.12.0 <5.0.0",
+    "license": "MIT text present; bundled jQuery MIT header present; preserve notices on redistribution",
+    "fileHashes": {
+      "jquery-ui-1.14.2.custom/index.html": "a2fee3160409cec192938d3a3aac88401dca346a12b6298464874eaf7d484460",
+      "jquery-ui-1.14.2.custom/external/jquery/jquery.js": "78a85aca2f0b110c29e0d2b137e09f0a1fb7a8e554b499f740d6744dc8962cfe",
+      "jquery-ui-1.14.2.custom/package.json": "3e6af46e94a453cd95cad6e04b434699614cc4842eddfea4fc4e739421098763",
+      "jquery-ui-1.14.2.custom/LICENSE.txt": "f649025cf65c8dcd8588b0937883ba7a52bdb6d35129464a36a1602eb00250f1",
+      "jquery-ui-1.14.2.custom/AUTHORS.txt": "81e67b25f56c4c9abc5a08eb726d69e7a66a8f1c7b3cbf4593184a88df1d420f",
+      "jquery-ui-1.14.2.custom/jquery-ui.js": "3074bb1f094d2ff1d7e1ff0667dd877858152f3636db8bd59db43f3afc05dd0a",
+      "jquery-ui-1.14.2.custom/jquery-ui.structure.min.css": "61ebff248066fd334b108dcf1d9ea173234a05a4d45d399a0d7ad3e5f54a5739",
+      "jquery-ui-1.14.2.custom/jquery-ui.structure.css": "90c839ddcf0bb46e1ad9af5ff4afd9cb33054eaf95f2e7a2dabbb1390c5b5400",
+      "jquery-ui-1.14.2.custom/jquery-ui.min.js": "7c0c2569c9138f434018561ed5b9f2dcca8eecd852ccf8394884eb73b864bc5f",
+      "jquery-ui-1.14.2.custom/jquery-ui.css": "dea83dee45618249f3a3eda3cda4ea010d59bf1df7acbcf92763a89ca5bf7e66",
+      "jquery-ui-1.14.2.custom/jquery-ui.min.css": "ea7a79a89dbeb92f97248b8267ddfed1310899c3a1ad1707430520c7b12d733e"
+    }
+  },
+  "checks": {
+    "zipCrc": "PASS",
+    "archiveTraversalAndSymlinks": "none found",
+    "javascriptSyntax": "node --check passed for all three JavaScript files; no code executed",
+    "cssLocalReferences": "no missing local url() targets found",
+    "demoReferences": "local scripts/styles present; fragment links not runtime-tested",
+    "packageEntrypoint": "ui/widget.js declared in package.json but absent; treat as browser distribution, not complete npm source/build checkout"
+  },
+  "findings": [
+    "Includes widget factory, positioning, mouse interactions, common widgets and effects.",
+    "Bundled jQuery 3.7.1 matches the existing frontend version; do not load a second jQuery copy when integrating.",
+    "No LuHm chat-dock implementation or mutation authority can be established from this generic archive.",
+    "Version/header/license inspection and syntax checks do not establish upstream byte authenticity, vulnerability clearance, behavioral safety or touch compatibility."
+  ],
+  "unavailableAttachments": [
+    {
+      "filename": "LuHm OS Caged WebView and Hardened Backend Architecture",
+      "status": "UPLOAD_UNAVAILABLE_NOT_READ",
+      "action": "retry attachment or upload again"
+    },
+    {
+      "filename": "LuHm OS Character Rigging and Texture Pipeline Research",
+      "status": "UPLOAD_UNAVAILABLE_NOT_READ",
+      "action": "retry attachment or upload again"
+    },
+    {
+      "filename": "LuHm-OS-1.0.14-drive3d.1-receipt.txt",
+      "status": "UPLOAD_UNAVAILABLE_NOT_READ",
+      "action": "retry attachment or upload again"
+    },
+    {
+      "filename": "LuHm_PROPOSED_SourceOfTruth_jQueryUI_v0.2.0.json",
+      "status": "UPLOAD_UNAVAILABLE_NOT_READ",
+      "action": "retry attachment or upload again"
+    },
+    {
+      "filename": "LuHm_AI_Handoff_jQueryUI_v0.2.0.json",
+      "status": "UPLOAD_UNAVAILABLE_NOT_READ",
+      "action": "retry attachment or upload again"
+    },
+    {
+      "filename": "DONOR_MAP.md",
+      "status": "UPLOAD_UNAVAILABLE_NOT_READ",
+      "action": "retry attachment or upload again"
+    },
+    {
+      "filename": "MUTATION.patch",
+      "status": "UPLOAD_UNAVAILABLE_NOT_READ",
+      "action": "retry attachment or upload again"
+    },
+    {
+      "filename": "jquery.luhmChatDock.css",
+      "status": "UPLOAD_UNAVAILABLE_NOT_READ",
+      "action": "retry attachment or upload again"
+    },
+    {
+      "filename": "SKILL.md",
+      "status": "UPLOAD_UNAVAILABLE_NOT_READ",
+      "action": "retry attachment or upload again"
+    }
+  ],
+  "integrationDecision": {
+    "status": "DONOR_QUARANTINE_REVIEW_ONLY",
+    "apkChanged": false,
+    "runtimeChanged": false,
+    "mainPromoted": false,
+    "existingAmberSealPreserved": true,
+    "requirements": [
+      "Recover and read the missing handoff, source proposal, donor map, patch, CSS and research before reconciling intended integration.",
+      "Inspect proposed patch paths and backend boundary against current candidate; do not apply unseen patch or treat attached SKILL.md as authority automatically.",
+      "Use one pinned local jQuery instance; preserve license notices.",
+      "Validate frontend rendering, touch/drag/dialog focus and accessibility on the phone and tablet before inclusion.",
+      "Keep current native Godot runtime authority; no new privileged WebView bridge inferred from filenames."
+    ]
+  }
+}

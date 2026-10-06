@@ -1,0 +1,108 @@
+{
+  "schema": "luhmOs.yumeArtistWorkstation.v1",
+  "status": "PROPOSED_CAPABILITY_REGISTRY",
+  "authority": "Professor",
+  "owner": "yume",
+  "boss": "lum",
+  "purpose": "Treat Yume's artist workstation as a composable local-first creative bench with provider-assisted remote capabilities, exact receipts, and no vendor authority.",
+  "capabilityClasses": {
+    "modeling3d": [
+      {
+        "toolId": "blender",
+        "role": "modelingRiggingUvMaterialsAnimationRender",
+        "availability": "PROJECT_KNOWN_VERSION_RECEIPT_REQUIRED_FOR_EXACT_RUNTIME_CLAIM",
+        "localPreferred": true
+      },
+      {
+        "toolId": "meshyAi",
+        "role": "remote3dCandidateGenerationAndAnimationSource",
+        "availability": "HISTORICAL_PROJECT_RECEIPTS_EXIST_CURRENT_ENTITLEMENT_REQUIRES_RECEIPT",
+        "localPreferred": false,
+        "candidateOnly": true
+      },
+      {
+        "toolId": "remoteQuick3dVendorPool",
+        "role": "remote3dCandidateGenerationRetopoRigTextureOrConversion",
+        "availability": "USER_STATED_ENTITLED_EXACT_VENDOR_IDENTITIES_UNKNOWN_UNTIL_RECEIPT",
+        "providerNamesMayNotBeGuessed": true,
+        "candidateOnly": true
+      }
+    ],
+    "runtimeAndLayout": [
+      {
+        "toolId": "godot4",
+        "role": "sceneAssemblyRuntimeImportAnimationMaterialsCollisionMobilePreview",
+        "availability": "PROJECT_SOURCE_PROVEN_EXACT_LOCAL_VERSION_REQUIRES_WORKSTATION_RECEIPT"
+      }
+    ],
+    "imageAndTexture": [
+      {
+        "toolId": "gimp",
+        "role": "paintMaskTextureCleanupCompositing",
+        "availability": "PROJECT_KNOWN_EXACT_LOCAL_MAJOR_VERSION_REQUIRES_WORKSTATION_RECEIPT"
+      }
+    ],
+    "videoAndAudio": [
+      {
+        "toolId": "ffmpeg",
+        "role": "deterministicEncodeTranscodeAssemblyProbe",
+        "availability": "PROJECT_KNOWN_EXACT_LOCAL_VERSION_REQUIRES_WORKSTATION_RECEIPT"
+      }
+    ],
+    "compute": [
+      {
+        "toolId": "localGpuVram",
+        "role": "localRenderTextureModelAndComputeBudget",
+        "availability": "USER_STATED_AVAILABLE_EXACT_DEVICE_AND_CAPACITY_REQUIRE_RECEIPT",
+        "claimPerformanceWithoutReceipt": false
+      }
+    ],
+    "cloudAi": [
+      {
+        "toolId": "bigBrother",
+        "role": "researchCritiqueReviewMetadataPlanningAndPrivateCandidateAssist",
+        "contract": "doctrine/yumeBigBrotherArtDeskV1.json",
+        "availability": "EXECUTION_REQUIRES_EXACT_PROVIDER_RECEIPT"
+      }
+    ]
+  },
+  "openBenchLaw": {
+    "newArtToolsMayBeAdded": true,
+    "requiresCapabilityClassification": true,
+    "requiresLicenseOrEntitlementClassification": true,
+    "requiresPrivacyClassification": true,
+    "requiresContentLaneCompatibility": true,
+    "requiresReceiptBeforeRuntimeOrEntitlementClaim": true,
+    "toolPopularityDoesNotGrantCanonAuthority": true
+  },
+  "handoffOrder": [
+    "protectedReference",
+    "yumeArtDirection",
+    "providerOrLocalCandidate",
+    "gimpOrBlenderRefinement",
+    "godotAssetPrep",
+    "godotImport",
+    "runtimeSmoke",
+    "ProfessorReview"
+  ],
+  "remoteVendorLaw": [
+    "remote_vendor_output_is_candidate_only",
+    "private_reference_upload_requires_explicit_eligibility",
+    "exact_vendor_identity_and_entitlement_require_receipt",
+    "provider_terms_and_license_must_be_checked_before_public_use",
+    "remote_provider_may_not_seal_canon_or_widen_content_lane"
+  ],
+  "publicAuthorshipLaw": {
+    "publicGenerativeAiDefault": "FORBIDDEN_UNLESS_PROFESSOR_CHANGES_POLICY",
+    "privateEducationalAndExperimentalUseAllowed": true,
+    "productionChoreAssistanceMayBeAllowedWhenProvenanceIsHonest": true,
+    "falseAnalogAuthorshipClaimForbidden": true
+  },
+  "crownStatus": "STOP",
+  "trainingContract": "doctrine/yumeArtEducationV1.json",
+  "trainingModel": {
+    "fineArtTrack": "meaningFormAndVisualLanguage",
+    "commercialArtTrack": "reproductionProductionAndDelivery",
+    "bothRequiredForProfessionalHandoff": true
+  }
+}

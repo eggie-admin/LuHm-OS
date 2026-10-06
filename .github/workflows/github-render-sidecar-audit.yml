@@ -1,0 +1,26 @@
+name: GitHub Render Sidecar Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/githubRenderSidecarV1.json'
+      - 'doctrine/apiSpineV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'render.yaml'
+      - 'host/mcp/luhmMcpServer.py'
+      - 'agents/lum/SKILL.md'
+      - 'tools/githubRenderSidecarAudit.py'
+      - '.github/workflows/github-render-sidecar-audit.yml'
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sidecar canon
+        run: python3 tools/githubRenderSidecarAudit.py
+      - name: Install MCP audit requirements
+        run: python3 -m pip install -r host/mcp/requirements.txt
+      - name: MCP source contract
+        run: python3 host/mcp/luhmMcpServer.py --check
+      - name: Harness source contract
+        run: python3 host/mcp/luhmHarnessServer.py --check

@@ -1,0 +1,13 @@
+{
+  "name": "luhm-os-frontend-dryrun",
+  "private": true,
+  "version": "0.2.0-dryrun.1",
+  "description": "LuHm OS jQuery front-end dry-run shell",
+  "scripts": {
+    "stage:jquery": "node tools/stage-jquery.mjs",
+    "check": "node --check jquery/luhm.cockpit.js && node --check app.js && node --check tools/stage-jquery.mjs && node --check tools/check.mjs && node tools/check.mjs"
+  },
+  "dependencies": {
+    "jquery": "3.7.1"
+  }
+}

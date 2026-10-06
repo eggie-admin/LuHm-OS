@@ -1,0 +1,120 @@
+{
+  "schema": "luhmOs.escalationKernel.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Define one zero-based four-tier escalation grammar shared by LuHm default operations, corporate operations, mythic/Witching Hour presentation, creative/art work, and technology audits.",
+  "tierSemantics": [
+    {
+      "tier": 0,
+      "id": "default",
+      "meaning": "start in the smallest ordinary lane capable of closing the task",
+      "laws": [
+        "minimumStaff",
+        "existingEvidenceFirst",
+        "localDeterministicFirstWhenSufficient",
+        "noCeremonyRequired"
+      ]
+    },
+    {
+      "tier": 1,
+      "id": "coordinated",
+      "meaning": "bring in the domain coordinator and focused support when the default lane cannot close the task",
+      "laws": [
+        "boundedScope",
+        "explicitHandoff",
+        "resourceBudget",
+        "sameTaskIdentity"
+      ]
+    },
+    {
+      "tier": 2,
+      "id": "specialist",
+      "meaning": "bring in deep specialists, R&D, or cross-layer diagnosis when coordination alone cannot close the blocker",
+      "laws": [
+        "specialistEvidence",
+        "compatibilityOrDomainResearch",
+        "rollbackOrFallback",
+        "contradictionsStayExplicit"
+      ]
+    },
+    {
+      "tier": 3,
+      "id": "closure",
+      "meaning": "perform exact final reconciliation, structural treatment, proved showcase, CAST, or equivalent closure for that domain",
+      "laws": [
+        "exactCandidate",
+        "finalDomainProof",
+        "ProfessorGateWhenConsequential",
+        "noCeremonialGreen"
+      ]
+    }
+  ],
+  "commonState": [
+    "taskId",
+    "sourceRef",
+    "scopeId",
+    "domain",
+    "tier",
+    "owner",
+    "evidenceRefs",
+    "blocker",
+    "smallestNextAction",
+    "rollbackOrFallback",
+    "authorityBoundary"
+  ],
+  "commonLaws": [
+    "startAtTierZeroUnlessExactEvidenceRequiresOtherwise",
+    "escalateOnlyWhenCurrentTierCannotCloseTheTask",
+    "tierIncreaseChangesFocusAndMaturityNotAuthority",
+    "sameTaskIdSourceRefScopeIdAcrossTierChanges",
+    "minimumStaffAndMinimumProviderCapacity",
+    "deterministicEvidenceOutranksRoleplayAndOpinion",
+    "unknownRemainsUnknown",
+    "conflictRemainsConflict",
+    "redStopsAdvancement",
+    "providerSuccessIsCandidateEvidenceOnly",
+    "presentationNeverCreatesProof",
+    "physicalProofNeverInferred",
+    "ProfessorRetainsFinalCrownAtEveryTier",
+    "deEscalateAfterClosureOrWhenHigherTierNoLongerNeeded",
+    "interactionMeasureUsesHearResolveActVerify",
+    "verifyBeatControlsTierTransition"
+  ],
+  "routing": {
+    "defaultProfile": "doctrine/founderEscalationLadderV1.json",
+    "corporateProfile": "doctrine/corporateEscalationProfileV1.json",
+    "magicProfile": "doctrine/magicEscalationProfileV1.json",
+    "artProfile": "doctrine/yumeCreativeEscalationV1.json",
+    "technologyProfile": "doctrine/operationTitan7ChatTriggerV2.json"
+  },
+  "fastPathLaw": {
+    "automaticMachineContinuation": true,
+    "stopOnlyFor": [
+      "realUserAction",
+      "ProfessorCrown",
+      "missingAuthority",
+      "missingExternalReceipt",
+      "physicalProofBoundary",
+      "unresolvedRedOrConflict"
+    ],
+    "repeatedEvidenceRequestsForbiddenWhenCurrentReceiptStillValid": true
+  },
+  "crownStatus": "STOP",
+  "architectureMetaphor": "doctrine/jqueryFourLayerArchitectureV1.json",
+  "interactionRhythm": "doctrine/fourBeatInteractionRhythmV1.json",
+  "fourByFourModel": {
+    "horizontalBeats": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "verticalTiers": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "law": "each measure stays on one escalation tier until verify decides close, repeat, hold, de-escalate, or escalate"
+  }
+}

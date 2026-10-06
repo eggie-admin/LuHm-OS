@@ -1,0 +1,12 @@
+.godot/
+android/build/
+build/
+*.keystore
+*.jks
+*.p12
+*.pfx
+*.pem
+*.key
+.env
+.env.*
+__pycache__/

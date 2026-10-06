@@ -1,0 +1,73 @@
+{
+  "schema": "luhmOs.yumeGodotArtToolbox.v1",
+  "status": "PROPOSED_TOOLBOX",
+  "authority": "Professor",
+  "owner": "yume",
+  "purpose": "Manifest-driven preparation and audit of art/model assets for the LuHm OS Godot 4 runtime without treating import success as canon or release proof.",
+  "runtime": "Godot4",
+  "sourceContract": "doctrine/GODOT4_GAME_SOURCE_V1.json",
+  "assetManifest": "game/assets/ASSET_MANIFEST_V1.json",
+  "contentLaneContract": "doctrine/contentLaneDoctrineV1.json",
+  "tools": {
+    "assetPrep": "tools/yumeGodotAssetPrep.py",
+    "sourceAudit": "tools/godotGameSourceAudit.py",
+    "runtimeSmoke": "tools/runGodotSmoke.py"
+  },
+  "profiles": {
+    "portrait2d": {
+      "formats": ["png", "webp"],
+      "destinationFamily": "portrait",
+      "requiresAlphaDecision": true
+    },
+    "sprite2d": {
+      "formats": ["png", "webp"],
+      "destinationFamily": "spriteSet",
+      "requiresFrameMetadata": true
+    },
+    "character3d": {
+      "formats": ["glb"],
+      "destinationFamily": "threeDBrief",
+      "requires": ["scalePolicy", "rigPolicy", "materialPolicy", "animationPolicy"],
+      "preferredHandoff": "BlenderToGlbToGodot"
+    },
+    "environment3d": {
+      "formats": ["glb"],
+      "destinationFamily": "environment",
+      "requires": ["scalePolicy", "materialPolicy", "collisionPolicy"]
+    },
+    "animationLibrary": {
+      "formats": ["res", "tres"],
+      "destinationFamily": "animationLibrary",
+      "requires": ["characterId", "rigCompatibility"]
+    }
+  },
+  "modelingAndImportChecks": [
+    "contentLaneEligibility",
+    "provenance",
+    "sourceHash",
+    "characterIdentity",
+    "scalePolicy",
+    "rigCompatibility",
+    "skeletonAndBoneMapWhenApplicable",
+    "animationNamesWhenApplicable",
+    "materialCountAndMobileSuitability",
+    "textureResolutionPolicy",
+    "collisionPolicy",
+    "lodPolicyWhenApplicable",
+    "publicSafeFallbackWhenRequired"
+  ],
+  "budgetLaw": {
+    "hardcodedUniversalPolygonBudget": false,
+    "projectProfileRequired": true,
+    "targetDeviceReceiptRequiredBeforeClaimingPerformance": true,
+    "mobileOptimizationIsProjectSpecific": true
+  },
+  "truthLaw": [
+    "assetPrepPlanIsNotImportProof",
+    "godotImportIsNotRuntimeProof",
+    "runtimeSmokeIsNotPhysicalDeviceProof",
+    "providerReviewIsNotCanon",
+    "publicLaneRequiresSeparateEligibilityAndProfessorApproval"
+  ],
+  "crownStatus": "STOP"
+}

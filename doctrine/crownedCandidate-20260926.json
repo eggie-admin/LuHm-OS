@@ -1,0 +1,35 @@
+{
+  "schema": "luhm.crowned-candidate.v1",
+  "status": "AMBER_DEVICE_PROOF_PENDING",
+  "buildChecks": "GREEN",
+  "professorApproval": "Explicit approval in session to build proposed APK and continue on passing checks",
+  "sourceCommit": "f1b80a7db3f6765e083b24b267b1489daae5af06",
+  "artifactUrl": "https://github.com/eggie-admin/LuHm-OS/actions/runs/36209181757/artifacts/10895046775",
+  "apk": "luhmos-1.0.15-samsungamber.1.apk",
+  "apkSha256": "fdc39beb027095feaa80ba453a1c6c614bb98eb1d8084beb229614f695561f01",
+  "certificateSha256": "68368fd24e7f11c3e0ebffbee104a863144baa57e2faeeeab90622a699ed4b78",
+  "archiveSha256": "b6f1c5ee6697d56aadae4ab4faf275727068e2a7f85ea9c2f8da2b3b035ee4e2",
+  "checks": [
+    {
+      "runId": 36209181757,
+      "name": "Android and Crown runtime smoke",
+      "conclusion": "success"
+    },
+    {
+      "runId": 36209181745,
+      "name": "Lum rig",
+      "conclusion": "success"
+    },
+    {
+      "runId": 36209181735,
+      "name": "Frontend dry run",
+      "conclusion": "success"
+    }
+  ],
+  "signing": "Disposable debug signer; installed-app update compatibility unproven",
+  "physicalDevicesVerified": [],
+  "cloudAgentsDeployed": false,
+  "enterpriseReady": false,
+  "exportWarning": "No project icon specified",
+  "priorSeal": "419c7f2f44b1b4c671010381c2b1b50a99a8697b"
+}

@@ -1,0 +1,54 @@
+{
+  "schema": "luhmOs.androidWeb3Bridge.v2",
+  "status": "PROPOSED_CANDIDATE",
+  "authority": "Professor",
+  "pluginName": "AndroidWeb3Cockpit",
+  "localOrigin": "https://appassets.androidplatform.net",
+  "assetPrefix": "/assets/",
+  "startUrl": "https://appassets.androidplatform.net/assets/index.html",
+  "jsObject": "LuHmNative",
+  "javascriptToNative": [
+    {
+      "type": "cockpitReady",
+      "effect": "emit cockpit_ready(webViewPackageVersion) to Godot"
+    },
+    {
+      "type": "oniRequested",
+      "effect": "validate canonical Oni name, hide WebView overlay, emit oni_requested(name) to Godot, show bounded summon acknowledgement; routing only, execution does not start"
+    },
+    {
+      "type": "worldRequested",
+      "effect": "hide WebView overlay and emit world_requested to Godot"
+    }
+  ],
+  "godotToNative": [
+    {
+      "method": "showCockpit",
+      "effect": "show/focus WebView overlay"
+    },
+    {
+      "method": "hideCockpit",
+      "effect": "hide WebView overlay"
+    },
+    {
+      "method": "getWebViewVersion",
+      "effect": "return current WebView package and version"
+    }
+  ],
+  "security": {
+    "allowedMainFrameOnly": true,
+    "exactOriginOnly": true,
+    "arbitraryNavigation": false,
+    "networkFallback": false,
+    "addJavascriptInterface": false,
+    "fileScheme": false,
+    "contentScheme": false,
+    "mixedContent": false,
+    "arbitraryCommands": false,
+    "shellAuthority": false,
+    "crownAuthority": false
+  },
+  "runtimeProof": "PENDING_CAST_BUILD_AND_SAMSUNG_DEVICE",
+  "legacySource": "doctrine/ANDROID_WEB3_BRIDGE_V1.json",
+  "crownStatus": "STOP"
+}

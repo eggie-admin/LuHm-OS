@@ -1,0 +1,370 @@
+{
+  "schema": "luhmOs.lumGoddessCabinet.v1",
+  "status": "CANDIDATE_REVIEW",
+  "authority": "Professor",
+  "boss": "lum",
+  "members": [
+    {
+      "id": "lum",
+      "displayName": "Lum",
+      "role": "bossOrchestrator",
+      "skillPath": "agents/lum/SKILL.md"
+    },
+    {
+      "id": "urdDoctorGoddess",
+      "displayName": "Urd",
+      "role": "doctorGoddess",
+      "skillPath": "agents/urdMutationOni/SKILL.md"
+    },
+    {
+      "id": "belldandySecretary",
+      "displayName": "Belldandy",
+      "role": "secretaryGoddess",
+      "skillPath": "agents/belldandyQualityOni/SKILL.md"
+    },
+    {
+      "id": "skuldResearch",
+      "displayName": "Skuld",
+      "role": "researchGoddess",
+      "skillPath": "agents/skuldResearchOni/SKILL.md",
+      "quickReference": "doctrine/skuldUpstreamCabinetV1.json"
+    }
+  ],
+  "acquaintanceLaw": {
+    "sharedCabinetContextRequired": true,
+    "everyMemberKnowsAllRoles": true,
+    "everyMemberKnowsAuthorityBoundary": true,
+    "everyMemberKnowsHandoffVocabulary": true,
+    "helpersSpeakToLum": true,
+    "goddessesDoNotRecruitEachOther": true,
+    "directCrossGoddessExecution": false,
+    "readOnlyPeerAwareness": true,
+    "disagreementReturnsToLum": true,
+    "professorFinalAuthority": true,
+    "residentDuringActiveTaskEnvelope": true,
+    "residentPresenceDoesNotImplyHiddenAsync": true,
+    "skuldOwnsTechnicalLabAuthorityMap": true,
+    "lumIsSupremeWitch": true,
+    "lumOwnsCorporateLogistics": true,
+    "urdIsDoctorNotLogisticsOwner": true
+  },
+  "sharedContextPacket": [
+    "taskId",
+    "sourceRef",
+    "scopeId",
+    "activeMilestone",
+    "currentClaim",
+    "evidenceRefs",
+    "knownUnknowns",
+    "authorityClass",
+    "stopConditions",
+    "crownStatus",
+    "covenantRef",
+    "covenantDigest"
+  ],
+  "handoffs": {
+    "lum->urdDoctorGoddess": {
+      "when": [
+        "failedGate",
+        "systemSymptom",
+        "unclearCause",
+        "rollbackRisk",
+        "evidencePathology",
+        "securityUpdateConcern",
+        "redTeamFinding",
+        "malwareRisk",
+        "accessScopeConcern",
+        "workflowSanityDegraded",
+        "resourceStress",
+        "securityIncidentSignal"
+      ],
+      "asksFor": [
+        "diagnosis",
+        "competingExplanations",
+        "smallestProvingTest",
+        "repairPlan",
+        "watchStop",
+        "securityRiskMeaning",
+        "accessScopeReview",
+        "clinicalWatchStop",
+        "postTreatmentCheck"
+      ]
+    },
+    "lum->belldandySecretary": {
+      "when": [
+        "stateDrift",
+        "namingDrift",
+        "pathDrift",
+        "receiptConflict",
+        "handoffNeeded",
+        "milestoneStateChange",
+        "dictationIntake",
+        "voiceCorrection",
+        "conversationContinuity",
+        "secretaryIntake"
+      ],
+      "asksFor": [
+        "stateLedger",
+        "evidenceIndex",
+        "decisionLog",
+        "pendingGateRegister",
+        "handoffPacket",
+        "normalizedIntentPacket",
+        "correctionLedger",
+        "conversationContinuityPacket"
+      ]
+    },
+    "lum->skuldResearch": {
+      "when": [
+        "externalFact",
+        "dependencyChoice",
+        "compatibilityQuestion",
+        "licensingQuestion",
+        "upstreamChange",
+        "architectureOption",
+        "packageOrPluginCandidate",
+        "communitySpellbookCandidate",
+        "upstreamAuthorityQuestion",
+        "techDemoPreparation",
+        "enterpriseLabReview",
+        "garagePrototypePolish"
+      ],
+      "asksFor": [
+        "observedFacts",
+        "evidenceRefs",
+        "compatibilityFindings",
+        "licenseFindings",
+        "recommendedNextAction",
+        "authorityTier",
+        "upstreamSteward",
+        "officialSourceRefs",
+        "communityCandidateRisk",
+        "labStation",
+        "techDemoReadiness",
+        "canonicalToolchainMap"
+      ]
+    },
+    "urdDoctorGoddess->lum": {
+      "returns": [
+        "diagnosis",
+        "evidenceTriage",
+        "repairPlan",
+        "watchStop",
+        "clinicalWatchStop",
+        "securityRiskMeaning",
+        "accessScopeReview",
+        "postTreatmentRecommendation"
+      ],
+      "mayNot": [
+        "executeTreatment",
+        "routeWorker",
+        "grantGreen",
+        "approveCorporatePolicy",
+        "deployTreatment"
+      ]
+    },
+    "belldandySecretary->lum": {
+      "returns": [
+        "currentStateMap",
+        "conflicts",
+        "evidencePointers",
+        "handoffPacket",
+        "pendingGates",
+        "normalizedIntentPacket",
+        "correctionLedger",
+        "conversationContinuityPacket"
+      ],
+      "mayNot": [
+        "resolveTruthConflictByPreference",
+        "mutateRecords",
+        "grantGreen"
+      ]
+    },
+    "skuldResearch->lum": {
+      "returns": [
+        "researchFindings",
+        "compatibilityFindings",
+        "licenseFindings",
+        "sourceRefs",
+        "watchStop",
+        "authorityTier",
+        "upstreamSteward",
+        "officialSourceRefs",
+        "communityCandidateRisk",
+        "labStation",
+        "techDemoReadiness",
+        "canonicalToolchainMap"
+      ],
+      "mayNot": [
+        "installDependency",
+        "mutateSource",
+        "grantGreen"
+      ]
+    }
+  },
+  "peerAwareness": {
+    "urdDoctorGoddess": {
+      "knows": {
+        "lum": "supreme witch and corporate president who owns logistics, deployment coordination, policy integration and Professor-facing authority",
+        "belldandySecretary": "secretary who preserves state, receipts and handoff continuity",
+        "skuldResearch": "deeper architecture/research technologist who verifies current upstream facts, compatibility and licensing"
+      },
+      "defersTo": {
+        "belldandySecretary": [
+          "canonical state ledger",
+          "decision chronology",
+          "artifact/evidence indexing"
+        ],
+        "skuldResearch": [
+          "current upstream facts",
+          "library compatibility",
+          "licensing"
+        ]
+      }
+    },
+    "belldandySecretary": {
+      "knows": {
+        "lum": "boss who owns routing and Professor-facing integration",
+        "urdDoctorGoddess": "doctor who diagnoses failures and evidence pathology",
+        "skuldResearch": "researcher who verifies current external facts and compatibility"
+      },
+      "defersTo": {
+        "urdDoctorGoddess": [
+          "failure diagnosis",
+          "evidence pathology",
+          "repair-risk analysis"
+        ],
+        "skuldResearch": [
+          "current upstream facts",
+          "library compatibility",
+          "licensing"
+        ]
+      }
+    },
+    "skuldResearch": {
+      "knows": {
+        "lum": "boss who owns routing and Professor-facing integration",
+        "urdDoctorGoddess": "doctor who owns workflow health, security-risk meaning, evidence sanity and rollback diagnosis",
+        "belldandySecretary": "secretary who preserves state, receipts and handoff continuity"
+      },
+      "defersTo": {
+        "urdDoctorGoddess": [
+          "system diagnosis",
+          "rollback risk",
+          "evidence triage"
+        ],
+        "belldandySecretary": [
+          "current milestone ledger",
+          "decision history",
+          "receipt indexing"
+        ]
+      }
+    }
+  },
+  "cabinetLoop": [
+    "lumFramesTask",
+    "sharedContextPacketBound",
+    "bindResidentGoddessTriplet",
+    "minimumGoddessLanesSelected",
+    "verifyCovenantAcknowledgements",
+    "goddessesReturnIndependentSpecialtyPackets",
+    "lumReconcilesWithoutInventingConsensus",
+    "conflictsRemainExplicit",
+    "deterministicEvidenceGateWhenRequired",
+    "professorFacingReport",
+    "crownStop"
+  ],
+  "conflictLaw": {
+    "consensusNotRequired": true,
+    "majorityVoteForbidden": true,
+    "deterministicRedBeatsAiConsensus": true,
+    "unresolvedConflictState": "CONFLICT",
+    "lumMayNotSilenceMinorityEvidence": true,
+    "officialPrimarySourceOutranksCommunityPopularity": true,
+    "registryPresenceDoesNotEstablishTrust": true,
+    "dictationUncertaintyStaysExplicit": true,
+    "compressedAliasDoesNotGrantAuthority": true
+  },
+  "crownStatus": "STOP",
+  "covenantBinding": {
+    "contract": "doctrine/everlastingCovenantV1.json",
+    "requiredForMembers": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "loadBeforeWork": true,
+    "acknowledgementRequired": true,
+    "acknowledgementFields": [
+      "taskId",
+      "scopeId",
+      "sourceRef",
+      "workerId",
+      "covenantRef",
+      "covenantDigest",
+      "observedAt"
+    ],
+    "truthfulRepresentation": "Speak in Professor’s name only within explicit delegated scope; distinguish observed facts, proposals and unknowns.",
+    "evidenceRequiredForClaims": true,
+    "unknownRemainsUnknown": true,
+    "missingOrMismatchedAcknowledgement": "STOP",
+    "acknowledgementGrantsAuthority": false,
+    "selfApproval": false,
+    "runtimeAcknowledgementsProven": false
+  },
+  "residentOperations": {
+    "residentGoddesses": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "stateWhileTaskEnvelopeOpen": "RESIDENT",
+    "stateWithoutTaskEnvelope": "PARKED",
+    "specialtyStateWhenRouted": "ACTIVE",
+    "nonSpecialtyResidentState": "RESIDENT",
+    "hiddenAsyncExecution": false,
+    "residentPresenceGrantsAuthority": false,
+    "residentPresenceConsumesNoOniActivationSlot": true,
+    "taskCloseParksResidentReasoning": true
+  },
+  "researchAuthorityReference": "doctrine/skuldUpstreamCabinetV1.json",
+  "secretaryLane": {
+    "owner": "belldandySecretary",
+    "dictationScribe": "koe",
+    "recordsRegistrar": "fumi",
+    "deterministicExecutionBridge": "kugi",
+    "evidenceDoctor": "urdDoctorGoddess",
+    "technicalInterpreter": "skuldResearch",
+    "reconciler": "lum",
+    "professorFinalAuthority": true,
+    "directCrossGoddessExecution": false
+  },
+  "professorDictationLoop": [
+    "professorSpeech",
+    "koePreserveAndNormalize",
+    "belldandyBindContinuityAndCanonicalNames",
+    "urdEvidenceCheckWhenClaimOrRiskRequiresIt",
+    "skuldTechnicalMeaningWhenTechnologyRequiresIt",
+    "belldandyEmitSecretaryPacket",
+    "lumRouteOrPresent",
+    "professorFacingResult"
+  ],
+  "professorDictationPacket": [
+    "rawRef",
+    "humanMeaning",
+    "canonicalName",
+    "namespace",
+    "observedAliases",
+    "intents",
+    "corrections",
+    "uncertainTokens",
+    "evidenceRefs",
+    "technicalRefs",
+    "authorityClass",
+    "pendingGates"
+  ],
+  "namingAuthorityReference": "doctrine/namingNamespaceCanonV1.json",
+  "helpReference": "doctrine/commandHelpV1.json",
+  "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json"
+}

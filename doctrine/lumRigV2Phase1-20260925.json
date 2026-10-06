@@ -1,0 +1,49 @@
+{
+  "schema": "luhm.rig.phase1.v1",
+  "status": "DRYRUN_CANDIDATE",
+  "date": "2026-09-25",
+  "base_commit": "1afde8af380f7bd698e99dc1db5fa643e07111c9",
+  "rollback_snapshot": "snapshot/pre-lumrigv2-phase1-20260925",
+  "branch": "dryrun/lumrigv2-phase1-20260925",
+  "scope": [
+    "canonical body semantic mapping",
+    "LumAvatar.tscn stable wrapper",
+    "AnimationTree scaffold over imported AnimationPlayer",
+    "head LookAtModifier3D",
+    "optional eye-bone LookAtModifier3D with honest head fallback",
+    "dedicated Godot 4.7.2 CI/runtime checks"
+  ],
+  "out_of_scope": [
+    "face morph targets",
+    "visemes",
+    "lip sync",
+    "SpringBoneSimulator3D",
+    "texture repainting",
+    "Blender topology mutation"
+  ],
+  "drive_source": {
+    "file_id": "1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen",
+    "bundle_sha256": "fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da",
+    "base_glb_sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
+    "joints": 24,
+    "required_humanoid_roles": 22,
+    "eye_bone_pair_present": false
+  },
+  "runtime_policy": {
+    "procedural_fallback_preserved": true,
+    "binary_vendored_to_git": false,
+    "characterbody3d_remains_translation_authority": true,
+    "runtime_eye_policy": "bone_pair_when_present_else_head_fallback",
+    "face_animation_claim": false
+  },
+  "promotion_gate": [
+    "canonical GLB hash match",
+    "22 required semantic roles map to donor bones",
+    "Godot 4.7.2 headless import",
+    "LumAvatar.tscn instantiation",
+    "AnimationTree active",
+    "head LookAtModifier3D active",
+    "eye capability reported honestly",
+    "existing Android testing lane remains green"
+  ]
+}

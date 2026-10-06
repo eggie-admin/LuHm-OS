@@ -1,0 +1,42 @@
+{
+  "schema": "luhm.frontEnd.guiSeal.v1",
+  "status": "SEALED_SOURCE_OF_TRUTH",
+  "authorized_by": "Professor",
+  "authorization": "Do all 4 mutations and seal to source of truth / stand by for jQuery plugins",
+  "canonical_repository": "eggie-admin/LuHm-OS",
+  "canonical_branch": "main",
+  "base_commit": "cf5ffbd79b32b91f811b3a8a2dbd3d63137c954a",
+  "rollback_checkpoint": "snapshot/pre-frontend-shell-20260924",
+  "sealed_content_commit": "9f64277ffefa865253bc6cf5039a150e50127a00",
+  "seal_commit": "SELF",
+  "sealed_local_date": "2026-09-24",
+  "visual_reference": {
+    "record": "frontEnd/reference.md",
+    "approved_png_sha256": "5d90b4244d61f6e11e1a8a832bdf948830a1a258c70a2baa28eefabfb71473b1",
+    "approved_png_dimensions": "1672x941",
+    "layout": "minimal Ubuntu MATE-inspired top panel; full-screen 3D Lum surface; bottom-docked chat",
+    "ratio": "approximately 70% scene / 30% chat"
+  },
+  "mutations": [
+    "front-end layout specification",
+    "widget and plugin boundary map",
+    "HTML/CSS prototype with jQuery-ready plugin bay",
+    "bounded backend system-layer open/close event contract"
+  ],
+  "security_boundary": {
+    "frontend_is_privileged": false,
+    "backend_event": "luhm:backend:open",
+    "secrets_allowed": false,
+    "arbitrary_shell_allowed": false,
+    "community_plugins_execute_from_incoming": false,
+    "consequential_actions": "Crown-gated backend only"
+  },
+  "verification": {
+    "javascript_syntax": "GREEN",
+    "html_parse": "GREEN",
+    "seal_json_parse": "GREEN",
+    "git_compare": "ahead_by_1_behind_by_0_before_seal",
+    "ci": "NOT_CLAIMED"
+  },
+  "jquery_ingest_state": "STANDBY"
+}

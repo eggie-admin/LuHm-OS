@@ -1,0 +1,27 @@
+{
+  "schema": "luhm-os.github-audit.v1",
+  "date": "2026-09-25",
+  "repository": "eggie-admin/LuHm-OS",
+  "audited_main_sha": "55abe95333f392188b6f0ee9a23bb8aeb84feca8",
+  "findings": {
+    "legacy_fastapi_runtime_present": true,
+    "legacy_kai9000_orchestration_present": true,
+    "legacy_termux_contract_present": true,
+    "legacy_vue_donor_pin_present": true,
+    "workflow_sprawl_present": true,
+    "repository_rulesets": 0,
+    "branch_protection_read": "integration_forbidden_403"
+  },
+  "credential_scan": {
+    "literal_sk_proj_hit": false,
+    "openai_api_key_name_hits": true,
+    "google_aiza_hits_observed_as_regex_guard_patterns": true,
+    "scope": "GitHub code-search heuristic, not a full secret-scanning product"
+  },
+  "fastapi_cloud_plugin": {
+    "requested": true,
+    "skill_catalog_status": "not available in the current connected plugin catalog",
+    "fallback": "GitHub-native repository audit"
+  },
+  "action": "replace canonical main candidate with minimal playable Godot spine; preserve old main on snapshot branch"
+}

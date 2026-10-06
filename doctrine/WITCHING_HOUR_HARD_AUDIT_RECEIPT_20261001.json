@@ -1,0 +1,142 @@
+{
+  "schema": "luhm.witching-hour.hard-audit-receipt.v2",
+  "date": "2026-10-01",
+  "status": "AMBER_HARD_AUDIT_BLOCKERS_REMAIN",
+  "crownStatus": "STOP",
+  "authority": "Professor",
+  "milestone": "ENTERPRISE_ANDROID_FINAL_PATH_001",
+  "baseCanonicalMain": "f22681b905bd5bc0cf84da5e3d1e865a855b5fc2",
+  "witchingHourCandidateBranch": "candidate/witching-hour-edge-gallery-hard-audit-v2-20261001",
+  "exactHeadBoundByWorkflowRuntime": true,
+  "castPresent": false,
+  "buildExecutedByThisAudit": false,
+  "enterprisePolicy": {
+    "mode": "ENTERPRISE_DEFAULT_UNLESS_RED",
+    "defaultEnabled": true,
+    "currentEnterpriseReadiness": "AMBER_NOT_PROVEN",
+    "amberAndUnknownKeepEnterpriseArchitecture": true,
+    "redBlocksAffectedCapability": true,
+    "automaticFallbackToNonEnterprise": false,
+    "nonEnterpriseFallbackRequiresProfessorAuthorization": true,
+    "readinessStillRequiresExactEvidence": true
+  },
+  "reviewers": {
+    "lum": "ACTIVE_ORCHESTRATOR",
+    "doctorOni": {
+      "candidateRef": "PR91@421177b4b4220279f69d0695d6bc98749c4425dc",
+      "exactHeadStaticGuard": "GREEN",
+      "merged": false
+    },
+    "secretaryOni": {
+      "state": "CANDIDATE_GOVERNANCE_PACKAGE_SOURCE_DERIVED",
+      "repoPromotionProven": false
+    },
+    "copilot": {
+      "evidence": "PR55@24406c2d4ac6676938e15ca5f74f6d0143057e38",
+      "state": "STALE_REVIEW_REFERENCE",
+      "reason": "audit base predates current canonical main and must not be treated as current signoff"
+    },
+    "bigBrother": {
+      "surface": "GOOGLE_AI_EDGE_GALLERY_IN_SAMSUNG_SECURE_FOLDER",
+      "environment": "SOURCE_DERIVED_GREEN",
+      "modelRuntime": "UNKNOWN",
+      "entitlementProgram": "UNKNOWN",
+      "galleryToLuhmIntegration": "UNKNOWN",
+      "currentAuditOutput": "UNKNOWN",
+      "signoff": "NOT_CLAIMED"
+    }
+  },
+  "passes": [
+    {
+      "id": 1,
+      "name": "SOURCE_TRUTH_IDENTITY",
+      "status": "AMBER",
+      "finding": "Canonical live main is f22681b..., while main SOURCE_OF_TRUTH remains globally AMBER and contains older internal reconciliation pointers. PR86 contains a newer candidate source-truth record but is unmerged and its receipt head is not independently CI-proven."
+    },
+    {
+      "id": 2,
+      "name": "HUMAN_CROWN_AUTHORITY",
+      "status": "AMBER",
+      "finding": "Professor authority and release denials are explicit, but live main reports branch protection disabled, leaving server-side governance unresolved. Enterprise governance remains the default target despite this missing proof."
+    },
+    {
+      "id": 3,
+      "name": "DR_NAO_AND_ONI_FIREWALL",
+      "status": "AMBER",
+      "finding": "Dr. Nao v3 exact-head static guard is GREEN, but PR91 is draft/unmerged. Shared Oni protocol/coding-roleplay repair is also candidate-only in PR86."
+    },
+    {
+      "id": 4,
+      "name": "SECRETARY_MCP_CHATGPT_COCKPIT",
+      "status": "AMBER",
+      "finding": "Secretary governance exists as a source-derived candidate package; Oni Summoner PR87 and System Portal PR90 are candidate lanes, not canonical promotion. Secretary must track enterprise gate states without downgrading the architecture to a non-enterprise fallback."
+    },
+    {
+      "id": 5,
+      "name": "ANDROID_EDGE_GALLERY_SHIZUKU_SECURE_FOLDER",
+      "status": "AMBER",
+      "finding": "Secure Folder Big Brother/Edge Gallery reviewer environment is source-derived GREEN. Exact model/runtime, entitlement program, Gallery-to-LuHm integration, and current Big Brother audit output remain separately UNKNOWN. Secure Folder/Shizuku PR89 is experimental and unmerged."
+    },
+    {
+      "id": 6,
+      "name": "GODOT_DETERMINISTIC_STATE",
+      "status": "AMBER",
+      "finding": "Project doctrine states AI proposes while Godot owns canonical game state, but the reviewed AI sidecar/shared proposal lane is draft historical/candidate evidence rather than current canonical proof for this milestone."
+    },
+    {
+      "id": 7,
+      "name": "FORGE_CI_CAST_CORRECTNESS",
+      "status": "RED",
+      "finding": "Current main still contains pull-request-triggered build/import/export workflows. CAST-only workflow repairs exist on Forge candidate cb9d6aad... but are not merged. Therefore current canonical automation violates the no-build-before-CAST law. This RED blocks build-producing automation, not unrelated enterprise controls."
+    },
+    {
+      "id": 8,
+      "name": "DEPENDENCIES_SECRETS_SUPPLY_CHAIN",
+      "status": "AMBER",
+      "finding": "Enterprise supply-chain controls remain the default target. Important lanes use pinned action identities and no secret material was intentionally added by this mutation, while release SBOM/provenance, persistent signer, and full supply-chain evidence remain open gates."
+    },
+    {
+      "id": 9,
+      "name": "ENTERPRISE_ANDROID_FINAL_PATH",
+      "status": "AMBER",
+      "finding": "Enterprise is now the default architecture and delivery posture: unrooted Android 16 S24 FE, managed distribution target, no end-user developer-tool dependency, least privilege, evidence-gated signing/update/rollback. Current SOURCE_OF_TRUTH still says enterpriseReady=false and production_signer=false, so readiness is AMBER_NOT_PROVEN rather than GREEN. Missing proof does not trigger an automatic non-enterprise fallback."
+    },
+    {
+      "id": 10,
+      "name": "ADVERSARIAL_RECOVERY_CROWN_STOP",
+      "status": "AMBER",
+      "finding": "CROWN=STOP is preserved. Forge TTL/janitor and stale-CAST protections exist only as candidate design; installation/runtime recovery behavior is not yet proven. A RED sub-gate blocks only its affected capability and cannot erase unrelated enterprise controls."
+    }
+  ],
+  "provenScopedGreen": [
+    "Witching Hour Hard Audit v2 static policy contract on its exact workflow-bound candidate head",
+    "Dr. Nao truth-guard static candidate at PR91 exact head",
+    "System Portal static candidate audit at PR90 exact head",
+    "Secure Folder Big Brother reviewer environment as source-derived Project evidence only"
+  ],
+  "redBlockers": [
+    "FORGE_CI_CAST_CORRECTNESS: canonical main still permits PR-triggered build lanes"
+  ],
+  "amberBlockers": [
+    "SOURCE_OF_TRUTH internal pointers lag live main",
+    "server-side branch protection is disabled",
+    "Dr. Nao/Secretary/Oni/Portal/Forge hardening remains candidate or unmerged",
+    "Big Brother exact model/runtime entitlement and Gallery-to-LuHm receipt incomplete",
+    "current Big Brother 10-pass reviewer output not yet receipted",
+    "Copilot PR55 audit is a stale review reference for the current main",
+    "enterprise signing/distribution/managed-install/device/update/rollback evidence remains incomplete",
+    "supply-chain/recovery enterprise receipts remain incomplete"
+  ],
+  "nextSafeMutation": "reconcile Forge CAST-only automation with current main in a dedicated candidate after the current snapshot/source-truth gate is confirmed; continue all unrelated architecture and governance work in ENTERPRISE_DEFAULT_UNLESS_RED mode",
+  "forbiddenUntilCast": [
+    "compile",
+    "Godot build-producing import milestone",
+    "export",
+    "package",
+    "assemble",
+    "APK build",
+    "Godot Web build",
+    "build retry"
+  ],
+  "verdict": "WITCHING_HOUR_ENTERPRISE_DEFAULT_STATIC_GREEN_BROADER_MILESTONE_AMBER_WITH_RED_FORGE_GATE"
+}

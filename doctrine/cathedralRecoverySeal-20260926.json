@@ -1,0 +1,44 @@
+{
+  "schema": "luhm.candidate-recovery.v1",
+  "status": "AMBER_DEVICE_PROOF_PENDING",
+  "buildChecks": "GREEN",
+  "sourceCommit": "ca20b087f1a354a1660ca515aedbc53685f14b67",
+  "priorCandidateSeal": "e7d6f0a77ec4732b04fa01e0195b1037923b96c7",
+  "artifactUrl": "https://github.com/eggie-admin/LuHm-OS/actions/runs/36209518738/artifacts/10895280695",
+  "apkSha256": "e7a58876c8b9ae4f0f15f781473d6e72c05d69ad3d781d38c13b7e59564201b7",
+  "certificateSha256": "eb4644d525520358ae80bad859327741230c68c03bc5ffdb69cd693668485328",
+  "archiveDigest": "sha256:d8c04f367c98abbccebadf669ba0a9c26dfe59e05fc841ac77a1d614b8bd4535",
+  "checks": [
+    {
+      "id": 36209518738,
+      "name": "Android and runtime regression",
+      "conclusion": "success"
+    },
+    {
+      "id": 36209518748,
+      "name": "Rig",
+      "conclusion": "success"
+    },
+    {
+      "id": 36209518750,
+      "name": "Frontend",
+      "conclusion": "success"
+    }
+  ],
+  "fixes": [
+    "HUD accurately labels amber candidate",
+    "Neutral expression resets supported facial channels without resetting unrelated shapes"
+  ],
+  "runtimeProof": [
+    "Return to Cathedral restores HUD and disables world movement",
+    "Cutscene lock released and dialogue cleared",
+    "Synthetic mouth expression activates then resets; unrelated shape preserved"
+  ],
+  "testLimitations": [
+    "Touch assertion verifies idle state only; held-input transition was not seeded"
+  ],
+  "signing": "Disposable debug signer",
+  "physicalDevicesVerified": [],
+  "cloudAgentsDeployed": false,
+  "enterpriseReady": false
+}

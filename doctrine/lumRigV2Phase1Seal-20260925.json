@@ -1,0 +1,67 @@
+{
+  "seal": "LumRigV2 Phase 1",
+  "status": "PROPOSED_SEAL_OF_TRUTH",
+  "sealed_at": "2026-09-25T03:16:00-04:00",
+  "canonical_repo": "eggie-admin/LuHm-OS",
+  "canonical_branch": "main",
+  "canonical_main_at_seal": "1afde8af380f7bd698e99dc1db5fa643e07111c9",
+  "candidate_branch": "dryrun/lumrigv2-phase1-20260925",
+  "candidate_content_commit": "11e8858d1966223d44104322ccb23e3bfe49a1d3",
+  "rollback_snapshot": "snapshot/pre-lumrigv2-phase1-20260925",
+  "pull_request": 6,
+  "scope": {
+    "phase": 1,
+    "included": [
+      "canonical body mapping",
+      "LumAvatar.tscn wrapper",
+      "AnimationTree scaffold over imported animation states",
+      "head LookAtModifier3D tracking",
+      "capability-aware eye tracking with explicit head_fallback when no eye-bone pair exists",
+      "Godot import/runtime smoke checks",
+      "Clean Play fallback compatibility",
+      "Drive-rig Android testing package"
+    ],
+    "excluded": [
+      "face morphs",
+      "lip sync",
+      "spring bones",
+      "secondary motion",
+      "texture surgery",
+      "Phase 2 rig mutation"
+    ]
+  },
+  "rig_receipt": {
+    "donor_joint_count": 24,
+    "canonical_required_roles": 22,
+    "canonical_mapped_roles": 22,
+    "missing_required_roles": 0,
+    "eye_bone_pair_present": false,
+    "eye_tracking_mode": "head_fallback"
+  },
+  "ci_receipts": {
+    "lumRigV2_phase1": {
+      "run_id": 36106329205,
+      "conclusion": "success"
+    },
+    "clean_play_apk": {
+      "run_id": 36106329230,
+      "conclusion": "success"
+    },
+    "drive_rig_testing_apk": {
+      "run_id": 36106329183,
+      "conclusion": "success"
+    }
+  },
+  "artifact_receipt": {
+    "name": "luhm-os-drive3d-testing-apk",
+    "artifact_id": 10851416335,
+    "artifact_digest": "sha256:297fb662c8095e7c00dbe3937eeb621b52c501cf6e3cf6a4405cd2dff0aec46e",
+    "apk_sha256": "f46befb58c7b90c12bd73985b99a7738708990c004aba0d936bd9ccf14338351"
+  },
+  "promotion_policy": {
+    "main_mutated": false,
+    "human_crown_required_for_promotion": true,
+    "candidate_may_be_promoted_only_as_the_tested_phase1_scope": true
+  },
+  "law": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}

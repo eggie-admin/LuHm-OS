@@ -1,0 +1,40 @@
+{
+  "schema": "luhm-os.document-mutation-audit-seal.v1",
+  "date": "2026-09-26",
+  "status": "GREEN_DOCUMENTATION_SEAL",
+  "authority": "Professor",
+  "canonical_repository": "eggie-admin/LuHm-OS",
+  "source_law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "sealed_workflow": {
+    "path": "doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json",
+    "manual": "manual/LUHM_OS_MUTATION_AUDIT_SEAL_WORKFLOW.md",
+    "receipt": "doctrine/DOCUMENT_MUTATION_AUDIT_RECEIPT_20260925.json",
+    "promoted_commit": "cbc41872d7fc610f529856f4b30236edaf2f1f5d",
+    "promotion_pr": 16
+  },
+  "checks": {
+    "workflow_present_on_main": true,
+    "manual_present_on_main": true,
+    "receipt_present_on_main": true,
+    "source_of_truth_pointer_staged": true,
+    "runtime_mutated": false,
+    "release_promoted": false,
+    "production_signing_changed": false,
+    "publication_authority_changed": false
+  },
+  "gate_scope": {
+    "documentation_workflow": "GREEN",
+    "manual_publication": "NOT_AUTHORIZED",
+    "runtime": "UNCHANGED",
+    "release": "UNCHANGED",
+    "repository_overall": "AMBER_PROPOSED_SEAL_OF_TRUTH"
+  },
+  "evidence": {
+    "merged_pr": "https://github.com/eggie-admin/LuHm-OS/pull/16",
+    "merge_commit": "cbc41872d7fc610f529856f4b30236edaf2f1f5d",
+    "merge_commit_signature": "VERIFIED_BY_GITHUB",
+    "branch_before_merge": "docs/mutation-audit-workflow-20260925"
+  },
+  "note": "This seal certifies the documentation mutation workflow only. It does not certify software release readiness, runtime health, enterprise readiness, publishing authority, or production signing.",
+  "final_rule": "Build weird things. Keep receipts. Pet the demon. Do not lie to the status board."
+}

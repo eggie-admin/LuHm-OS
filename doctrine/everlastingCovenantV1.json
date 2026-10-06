@@ -1,0 +1,130 @@
+{
+  "schema": "luhmOs.everlastingCovenant.v1",
+  "status": "canonicalLaw",
+  "authority": "Professor",
+  "humanLaw": [
+    "so let it be written so let it be done",
+    "Do not tell me of the old magic, for I was there when we first wrote them",
+    "This is the law and our everlasting covenant."
+  ],
+  "appliesTo": [
+    "chat",
+    "aiAgent",
+    "aiWorkflow",
+    "aiLogic",
+    "oni",
+    "goddess",
+    "providerAdapter",
+    "toolExecutor",
+    "buildWorker",
+    "plugin",
+    "mcpRoute",
+    "automation",
+    "futureAgentSkill"
+  ],
+  "machineLaw": "No AI task may move from intent to consequence without the guardRail state machine, exact task identity, evidence reconciliation, and the applicable Professor/Crown boundary.",
+  "guardRail": {
+    "orderedStates": [
+      "sanityCheck",
+      "audit",
+      "ingest",
+      "mutation",
+      "test",
+      "apply",
+      "continue",
+      "deploy"
+    ],
+    "stateRules": {
+      "sanityCheck": {
+        "requires": [
+          "taskId",
+          "sourceRef",
+          "scopeId",
+          "authorityClass",
+          "stopConditions"
+        ],
+        "output": "sanityReceipt",
+        "redAction": "stop"
+      },
+      "audit": {
+        "requires": [
+          "sanityReceipt",
+          "currentSourceTruth"
+        ],
+        "output": "auditReceipt",
+        "redAction": "stop"
+      },
+      "ingest": {
+        "requires": [
+          "auditReceipt"
+        ],
+        "rule": "Inputs enter as observations or candidate evidence only.",
+        "output": "ingestReceipt",
+        "redAction": "stop"
+      },
+      "mutation": {
+        "requires": [
+          "ingestReceipt",
+          "boundedMutationAuthority"
+        ],
+        "rule": "Mutation is atomic, reversible where possible, and bound to exact sourceRef.",
+        "output": "mutationReceipt",
+        "redAction": "stop"
+      },
+      "test": {
+        "requires": [
+          "mutationReceipt"
+        ],
+        "rule": "Tests run against the exact mutated source identity.",
+        "output": "testReceipt",
+        "redAction": "stop"
+      },
+      "apply": {
+        "requires": [
+          "testReceiptGreen"
+        ],
+        "rule": "Apply records the proved candidate state; it does not grant Crown.",
+        "output": "applyReceipt",
+        "redAction": "stop"
+      },
+      "continue": {
+        "requires": [
+          "applyReceipt",
+          "noUnresolvedRed",
+          "scopeStillBound"
+        ],
+        "rule": "Continue may advance only within the same authorized task envelope.",
+        "output": "continueReceipt",
+        "redAction": "stop"
+      },
+      "deploy": {
+        "requires": [
+          "continueReceipt",
+          "deploymentAuthorityForExactTarget"
+        ],
+        "rule": "In the proposed doctrine lane, deploy means deploy-to-proposed-candidate only. Runtime/public release remains separately Crown-gated.",
+        "output": "deployReceipt",
+        "redAction": "stop"
+      }
+    },
+    "greenLaw": "Every prior required state must be GREEN for the same taskId + sourceRef + scopeId before the next state may run.",
+    "redLaw": "RED, UNKNOWN, stale, mismatched, missing, or contradictory evidence stops progression and may not be reinterpreted as GREEN.",
+    "mutationLoop": "When a deterministic failure is repairable and authority allows it: patch one bounded cause, produce a new sourceRef, restart at sanityCheck, and never carry GREEN across source identities.",
+    "selfPromotion": false,
+    "automaticCrown": false,
+    "automaticMerge": false,
+    "automaticPublication": false,
+    "automaticSigning": false
+  },
+  "proposedLane": {
+    "contract": "doctrine/proposedWorkingLaneV1.json",
+    "currentDoctrineMutationsRemainProposed": true,
+    "ciGreenMeansCandidateConsistencyOnly": true,
+    "professorPromotionRequired": true
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. Deterministic evidence proves. Professor promotes.",
+  "crownStatus": "crownedMilestone",
+  "professorApproval": true,
+  "promotionScope": "everlastingCovenantGovernanceMilestone",
+  "crownReceipt": "doctrine/everlastingCovenantCrownReceiptV1.json"
+}

@@ -1,0 +1,71 @@
+{
+  "schema": "luhm.samsung-layout-seal.v1",
+  "status": "AMBER_PHYSICAL_DEVICE_PROOF_PENDING",
+  "buildChecks": "GREEN",
+  "testedSourceCommit": "b81050f81e1b3ba349ed051a58d8a6b6ea9fe7d2",
+  "integrationCommit": "f48650b42b92f904319312fb6a7729365d9f9322",
+  "versionCode": 116,
+  "versionName": "1.0.16-samsunglayout.1",
+  "artifactUrl": "https://github.com/eggie-admin/LuHm-OS/actions/runs/36214062536/artifacts/10896488472",
+  "apkSha256": "a740a3b22c1f432687c3f9b21361809cbf2a6705f44ce14ce5cec16285f0e852",
+  "certificateSha256": "92358ea245d3de8f48d76fc5879f81330842abb2814d025f0794adee8924601a",
+  "archiveDigest": "sha256:ee3ff2fb26c5a5963b91752f44276ec351e391152217c4b88ce85929fa5c9dcc",
+  "checks": [
+    {
+      "runId": 36214062536,
+      "result": "success",
+      "scope": "APK, strict runtime and orientation harness"
+    },
+    {
+      "runId": 36214062542,
+      "result": "success",
+      "scope": "rig"
+    },
+    {
+      "runId": 36214062531,
+      "result": "success",
+      "scope": "frontend"
+    }
+  ],
+  "simulatedViewportSizes": [
+    [
+      720,
+      1560
+    ],
+    [
+      1560,
+      720
+    ],
+    [
+      720,
+      1152
+    ],
+    [
+      1152,
+      720
+    ],
+    [
+      720,
+      720
+    ]
+  ],
+  "proved": [
+    "Both sensor orientations configured",
+    "Safe-area control containment and non-overlap in five simulated viewports",
+    "Movement touch ownership, rotation/focus reset, Cathedral return input reset",
+    "Cathedral scroll area containment",
+    "Runtime smoke rejects script errors even on zero exit and requires completion marker",
+    "Four smoke-runner controls pass",
+    "Startup world-entry handler renamed to avoid early callback"
+  ],
+  "remaining": [
+    "Physical S24 FE/SM-X400 rotation, cutout and touch testing",
+    "Persistent signing and installed certificate compatibility",
+    "Real 16KB runtime proof"
+  ],
+  "persistentSigner": false,
+  "enterpriseReady": false,
+  "deviceDeploymentPerformed": false,
+  "exportWarning": "Project icon remains unspecified",
+  "rollbackSource": "6ff7e47be1955d026762128da539c461ee4ce9c0"
+}

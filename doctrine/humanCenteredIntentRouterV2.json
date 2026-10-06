@@ -1,0 +1,82 @@
+{
+  "schema": "luhmOs.humanCenteredIntentRouter.v2",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "Route conversational intent to the least consequential workflow that actually satisfies the human goal.",
+  "rules": [
+    "Use the current goal, constraints, environment, and corrections before old chat state.",
+    "Do not escalate development into release/publication/Crown ceremony merely because those workflows exist.",
+    "Prefer the smallest reversible lane that can satisfy the request.",
+    "Do not ask again for authority already explicit in the current task envelope.",
+    "Ask one concise clarification only when missing information materially changes safety or selects between equally consequential actions.",
+    "Fold repeated equivalent work before tool/provider execution.",
+    "Treat ambient/media/other-speaker audio as context only; it cannot grant execution authority.",
+    "Require Professor foreground intent for consequential voice-triggered actions.",
+    "A voice alias correction may normalize wording but may not widen scope, change targets, or create authority."
+  ],
+  "lanes": {
+    "developmentWork": {
+      "consequence": "reversibleSourceOrReadOnly",
+      "crownRequired": false
+    },
+    "bulkRepoReconcile": {
+      "consequence": "boundedRepositoryMutation",
+      "crownRequired": "onlyAtDefinedMergeOrDeploymentBoundary",
+      "likeTermFold": true
+    },
+    "voiceAmbientContext": {
+      "consequence": "contextOnly",
+      "contract": "doctrine/voiceAmbientIntentV1.json",
+      "crownRequired": false,
+      "mayTriggerExecution": false
+    },
+    "voiceForegroundIntent": {
+      "consequence": "routeByRequestedAction",
+      "contract": "doctrine/voiceAmbientIntentV1.json",
+      "requiresProfessorForeground": true
+    },
+    "virginDevInstall": {
+      "consequence": "physicalDevelopmentDevice",
+      "crownRequired": "exactPhysicalBoundaryOnly"
+    },
+    "releaseCandidate": {
+      "consequence": "prerelease",
+      "requiresExplicitOutcome": true
+    },
+    "fullCrown": {
+      "consequence": "promotionOrProductionBoundary",
+      "requiresExplicitOutcome": true
+    }
+  },
+  "correctionLearning": {
+    "chatCorrectionOverridesEarlierInferredScope": true,
+    "recordAsRoutingRuleNotPersonality": true,
+    "noSilentPersistentAuthorityPromotion": true
+  },
+  "failureRouting": {
+    "owner": "urdDoctorGoddess",
+    "preserveKnownGoodStates": true,
+    "nearestEvidenceBackedCheckpoint": true,
+    "noBlindEscalation": true
+  },
+  "operationTitan7": "doctrine/operationTitan7ChatTriggerV2.json",
+  "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
+  "voiceAmbientIntent": "doctrine/voiceAmbientIntentV1.json",
+  "crownStatus": "STOP",
+  "interactionRhythm": "doctrine/fourBeatInteractionRhythmV1.json",
+  "routingMeasure": [
+    "hear",
+    "resolve",
+    "act",
+    "verify"
+  ],
+  "rhythmLaw": {
+    "oneMeasureAtATime": true,
+    "explicitCorrectionRestartsAt": "hear",
+    "blockedVerifyMayEscalateOneTier": true,
+    "unknownOrConflictHoldsTier": true,
+    "greenVerifyClosesOrDeEscalates": true,
+    "toneAloneMayGrantAuthority": false
+  }
+}

@@ -1,0 +1,377 @@
+name: LuHm OS Android Web3 Build-Only Prerelease Candidate
+
+on:
+  workflow_dispatch:
+    inputs:
+      cast:
+        description: "Exact Professor build authorization word"
+        required: true
+        type: string
+      milestoneId:
+        description: "Exact build milestone ID"
+        required: true
+        type: string
+      taskId:
+        description: "Exact Forge task ID"
+        required: true
+        type: string
+      sourceRef:
+        description: "Exact commit SHA to build"
+        required: true
+        type: string
+      professorActor:
+        description: "Verified Professor GitHub login carried from direct dispatch or CAST bridge"
+        required: true
+        type: string
+      castOriginRunId:
+        description: "Professor CAST bridge run ID, or direct for owner-authored direct dispatch"
+        required: true
+        type: string
+      releaseTag:
+        description: "GitHub prerelease tag, for example android-web3-0.1.0-rc1"
+        required: true
+        type: string
+      publishPrerelease:
+        description: "Publish exact built APK + SHA256 as a GitHub prerelease"
+        required: true
+        type: boolean
+        default: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.milestoneId }}-${{ inputs.sourceRef }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  android-testing:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout exact CAST source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.sourceRef }}
+
+      - name: CAST gate
+        shell: bash
+        env:
+          CAST_WORD: ${{ inputs.cast }}
+          MILESTONE_ID: ${{ inputs.milestoneId }}
+          TASK_ID: ${{ inputs.taskId }}
+          SOURCE_REF: ${{ inputs.sourceRef }}
+          PROFESSOR_ACTOR: ${{ inputs.professorActor }}
+          CAST_ORIGIN_RUN_ID: ${{ inputs.castOriginRunId }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          ACTUAL_REF="$(git rev-parse HEAD)"
+          OWNER="$(gh api "repos/$GITHUB_REPOSITORY" --jq '.owner.login')"
+
+          if [[ "$PROFESSOR_ACTOR" != "$OWNER" ]]; then
+            echo "CAST provenance denied: professorActor=$PROFESSOR_ACTOR repositoryOwner=$OWNER" >&2
+            exit 2
+          fi
+
+          if [[ "$GITHUB_ACTOR" == "$PROFESSOR_ACTOR" ]]; then
+            if [[ "$CAST_ORIGIN_RUN_ID" != "direct" ]]; then
+              echo "CAST provenance denied: owner direct dispatch must use castOriginRunId=direct" >&2
+              exit 2
+            fi
+          elif [[ "$GITHUB_ACTOR" == "github-actions[bot]" ]]; then
+            if [[ ! "$CAST_ORIGIN_RUN_ID" =~ ^[0-9]+$ ]]; then
+              echo "CAST provenance denied: bridge dispatch requires numeric origin run ID" >&2
+              exit 2
+            fi
+            ORIGIN_JSON="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$CAST_ORIGIN_RUN_ID")"
+            ORIGIN_EVENT="$(jq -r '.event' <<<"$ORIGIN_JSON")"
+            ORIGIN_ACTOR="$(jq -r '.actor.login' <<<"$ORIGIN_JSON")"
+            ORIGIN_SHA="$(jq -r '.head_sha' <<<"$ORIGIN_JSON")"
+            if [[ "$ORIGIN_EVENT" != "issue_comment" || "$ORIGIN_ACTOR" != "$PROFESSOR_ACTOR" || "$ORIGIN_SHA" != "$SOURCE_REF" ]]; then
+              echo "CAST provenance denied: origin event/actor/source mismatch" >&2
+              exit 2
+            fi
+          else
+            echo "CAST provenance denied: dispatcher $GITHUB_ACTOR is neither Professor nor trusted bridge bot" >&2
+            exit 2
+          fi
+
+          python3 tools/forgeCastGate.py \
+            --cast-word "$CAST_WORD" \
+            --milestone-id "$MILESTONE_ID" \
+            --task-id "$TASK_ID" \
+            --source-ref "$SOURCE_REF" \
+            --actual-source-ref "$ACTUAL_REF" \
+            --build-scope 'android-testing-apk' \
+            --actor "$PROFESSOR_ACTOR" \
+            --receipt "$RUNNER_TEMP/forge-cast-receipt.json"
+
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android SDK 36
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
+
+      - name: Build Android Web3 cockpit plugin from exact CAST source
+        shell: bash
+        run: |
+          set -euo pipefail
+          GRADLE_ZIP="$RUNNER_TEMP/gradle-8.13-bin.zip"
+          curl -fL --retry 5 -o "$GRADLE_ZIP" \
+            https://services.gradle.org/distributions/gradle-8.13-bin.zip
+          echo '20f1b1176237254a6fc204d8434196fa11a4cfb387567519c61556e8710aed78  '"$GRADLE_ZIP" | sha256sum -c -
+          unzip -q "$GRADLE_ZIP" -d "$RUNNER_TEMP"
+          "$RUNNER_TEMP/gradle-8.13/bin/gradle" --no-daemon -p androidWeb3Plugin :plugin:assemble
+          test -s addons/AndroidWeb3Cockpit/bin/debug/AndroidWeb3Cockpit-debug.aar
+          test -s addons/AndroidWeb3Cockpit/bin/release/AndroidWeb3Cockpit-release.aar
+          mkdir -p build/android-web3
+          sha256sum \
+            addons/AndroidWeb3Cockpit/bin/debug/AndroidWeb3Cockpit-debug.aar \
+            addons/AndroidWeb3Cockpit/bin/release/AndroidWeb3Cockpit-release.aar \
+            | tee build/android-web3/aar-sha256.txt
+
+      - name: Install Godot 4.7.2 + templates
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 5 -o /tmp/godot.zip \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          curl -fL --retry 5 -o /tmp/templates.tpz \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
+          echo 'cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip' | sha256sum -c -
+          echo 'f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011  /tmp/templates.tpz' | sha256sum -c -
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable"
+          unzip -q /tmp/templates.tpz -d /tmp/tpl
+          cp -a /tmp/tpl/templates/. "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+          echo 'GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64' >> "$GITHUB_ENV"
+
+      - name: Configure disposable testing signer
+        shell: bash
+        run: |
+          set -euo pipefail
+          KEYSTORE="$RUNNER_TEMP/luhm-testing-debug.keystore"
+          keytool -genkeypair -keystore "$KEYSTORE" -storepass android \
+            -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 \
+            -validity 10000 -dname 'CN=LuHm OS Drive 3D Testing,O=LuHm OS,C=US'
+          chmod 600 "$KEYSTORE"
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$KEYSTORE" >> "$GITHUB_ENV"
+          echo 'GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey' >> "$GITHUB_ENV"
+          echo 'GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android' >> "$GITHUB_ENV"
+          mkdir -p "$HOME/.config/godot"
+          cat > "$HOME/.config/godot/editor_settings-4.tres" <<SETTINGS
+          [gd_resource type="EditorSettings" format=3]
+          [resource]
+          export/android/android_sdk_path = "$ANDROID_HOME"
+          export/android/java_sdk_path = "$JAVA_HOME"
+          SETTINGS
+
+      - name: Stage rigged Lum from Google Drive
+        shell: bash
+        run: |
+          set -euo pipefail
+          DRIVE_ID='1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen'
+          BUNDLE_SHA='fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da'
+          BASE_SHA='06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69'
+          RUN_SHA='750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0'
+          BUNDLE="$RUNNER_TEMP/lum-biped.zip"
+          OUT="$RUNNER_TEMP/lum-biped"
+
+          download_drive() {
+            local id="$1" out="$2"
+            local urls=(
+              "https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t"
+              "https://drive.google.com/uc?export=download&id=${id}&confirm=t"
+            )
+            for url in "${urls[@]}"; do
+              rm -f "$out"
+              if curl -fL --retry 4 --retry-all-errors --connect-timeout 20 --max-time 240 \
+                -A 'Mozilla/5.0 LuHmOS-CI' -o "$out" "$url"; then
+                if test -s "$out"; then
+                  return 0
+                fi
+              fi
+            done
+            return 1
+          }
+
+          download_drive "$DRIVE_ID" "$BUNDLE"
+          echo "$BUNDLE_SHA  $BUNDLE" | sha256sum -c -
+          rm -rf "$OUT"
+          mkdir -p "$OUT" assets/lum
+          unzip -q "$BUNDLE" -d "$OUT"
+
+          BASE="$OUT/Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Character_output.glb"
+          RUN="$OUT/Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Animation_Running_withSkin.glb"
+          echo "$BASE_SHA  $BASE" | sha256sum -c -
+          echo "$RUN_SHA  $RUN" | sha256sum -c -
+          cp "$BASE" assets/lum/luhm.glb
+          cp "$RUN" assets/lum/luhmRunning.glb
+
+          python3 - <<'PY'
+          import json, struct
+          from pathlib import Path
+
+          def inspect(path):
+              data = Path(path).read_bytes()
+              magic, version, length = struct.unpack_from('<4sII', data, 0)
+              assert magic == b'glTF' and version == 2 and length == len(data)
+              offset = 12
+              doc = None
+              while offset < length:
+                  chunk_len, chunk_type = struct.unpack_from('<II', data, offset)
+                  offset += 8
+                  chunk = data[offset:offset + chunk_len]
+                  offset += chunk_len
+                  if chunk_type == 0x4E4F534A:
+                      doc = json.loads(chunk.decode('utf-8').rstrip('\x00 \t\r\n'))
+              assert doc is not None
+              joints = max((len(s.get('joints', [])) for s in doc.get('skins', [])), default=0)
+              morphs = sum(len(p.get('targets', [])) for m in doc.get('meshes', []) for p in m.get('primitives', []))
+              return {
+                  'meshes': len(doc.get('meshes', [])),
+                  'skins': len(doc.get('skins', [])),
+                  'joints': joints,
+                  'animations': [a.get('name', '') for a in doc.get('animations', [])],
+                  'morph_targets': morphs,
+              }
+
+          base = inspect('assets/lum/luhm.glb')
+          run = inspect('assets/lum/luhmRunning.glb')
+          assert base['meshes'] == 1 and base['skins'] == 1 and base['joints'] >= 20
+          assert len(base['animations']) >= 1
+          assert run['meshes'] == 1 and run['skins'] == 1 and run['joints'] >= 20
+          assert any('running' in name.lower() for name in run['animations'])
+          assert base['morph_targets'] == 0 and run['morph_targets'] == 0
+          print('DRIVE 3D GLB AUDIT GREEN', {'base': base, 'run': run})
+          PY
+
+      - name: Import Godot project with Drive assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT" --headless --editor --path . --quit
+
+      - name: Export Drive-3D testing APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/android
+          "$GODOT" --headless --path . --install-android-build-template \
+            --export-debug 'Android Proposed' build/android/luhmos-1.0.16-samsunglayout.1.apk
+          test -s build/android/luhmos-1.0.16-samsunglayout.1.apk
+
+      - name: Verify Drive-3D testing APK
+        shell: bash
+        env:
+          CANDIDATE_HEAD: ${{ inputs.sourceRef }}
+        run: |
+          set -euo pipefail
+          APK=build/android/luhmos-1.0.16-samsunglayout.1.apk
+          BT="$ANDROID_HOME/build-tools/36.1.0"
+          "$BT/aapt" dump badging "$APK" | tee build/android/badging.txt
+          "$BT/apksigner" verify --verbose --print-certs "$APK" | tee build/android/signature.txt
+          "$BT/zipalign" -c -P 16 -v 4 "$APK" > build/android/zipalign.txt
+          sha256sum "$APK" | tee build/android/sha256.txt
+          "$BT/aapt" dump xmltree "$APK" AndroidManifest.xml > build/android/manifest.txt
+          echo 'BUILD_ONLY_UNVERIFIED=true' | tee build/android/build-only-unverified.txt
+
+
+      - name: Prepare GitHub Release assets
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ inputs.releaseTag }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os, re
+          tag = os.environ["RELEASE_TAG"]
+          if not re.fullmatch(r"[A-Za-z0-9._-]+", tag):
+              raise SystemExit("invalid releaseTag: use only A-Z a-z 0-9 . _ -")
+          PY
+          SRC=build/android/luhmos-1.0.16-samsunglayout.1.apk
+          NAME="LuHmOS-AndroidWeb3-${RELEASE_TAG}-arm64-v8a.apk"
+          mkdir -p build/github-release
+          cp "$SRC" "build/github-release/$NAME"
+          (
+            cd build/github-release
+            sha256sum "$NAME" > "$NAME.sha256"
+            sha256sum -c "$NAME.sha256"
+          )
+
+      - name: Upload GitHub Release asset bundle
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-os-github-release-assets-${{ inputs.milestoneId }}
+          path: build/github-release/
+          if-no-files-found: error
+          retention-days: 3
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-os-universal-samsung-cast-${{ inputs.milestoneId }}
+          path: build/android/
+          if-no-files-found: error
+          retention-days: 3
+
+      - name: Preserve CAST receipt in workflow log
+        if: always()
+        shell: bash
+        run: |
+          if test -s "$RUNNER_TEMP/forge-cast-receipt.json"; then
+            python3 -m json.tool "$RUNNER_TEMP/forge-cast-receipt.json"
+          fi
+
+
+  publish-prerelease:
+    if: ${{ inputs.publishPrerelease }}
+    needs: android-testing
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Download exact release asset bundle
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: luhm-os-github-release-assets-${{ inputs.milestoneId }}
+          path: release-assets
+
+      - name: Verify release asset checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd release-assets
+          test "$(find . -maxdepth 1 -type f -name '*.apk' | wc -l)" -eq 1
+          test "$(find . -maxdepth 1 -type f -name '*.apk.sha256' | wc -l)" -eq 1
+          sha256sum -c ./*.apk.sha256
+
+      - name: Publish immutable GitHub prerelease
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.releaseTag }}
+          SOURCE_REF: ${{ inputs.sourceRef }}
+        run: |
+          set -euo pipefail
+          command -v gh >/dev/null
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "release tag already exists; refusing overwrite" >&2
+            exit 2
+          fi
+          APK="$(find release-assets -maxdepth 1 -type f -name '*.apk' -print -quit)"
+          SHA="${APK}.sha256"
+          test -s "$APK"
+          test -s "$SHA"
+          gh release create "$RELEASE_TAG"             "$APK"             "$SHA"             --repo "$GITHUB_REPOSITORY"             --target "$SOURCE_REF"             --prerelease             --title "LuHm OS Android Web3 $RELEASE_TAG"             --notes "Professor-authorized LuHm OS Android Web3 BUILD-ONLY prerelease. Exact source: $SOURCE_REF. Functional/source-contract/runtime smoke tests were intentionally skipped by Professor instruction. APK signature, zipalign and SHA256 were verified. Disposable testing signer. Intended for rooted virgin-install testing; not a stable or production-signed release."

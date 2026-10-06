@@ -1,0 +1,23 @@
+{
+  "schema": "luhmOs.cathedralOneShotHub.v1",
+  "status": "candidateNeedsCi",
+  "authority": "Professor",
+  "role": "oneShotAdventureHub",
+  "worldId": "cathedral",
+  "runtime": "Godot4",
+  "source": "scripts/game/cathedralWorld.gd",
+  "zones": ["nave", "altar", "sideAisles", "questNook"],
+  "transitionAnchors": ["riverwalkDoor", "coffeeHouseDoor", "encounterAnchor"],
+  "lumRole": "hostAndAdventureInterface",
+  "assetPolicy": {
+    "geometryNow": "originalPrimitiveScaffold",
+    "communityAssets": "licenseAndProvenanceAuditRequired",
+    "protectedDonor": "referenceOnlyUntilApprovedMutation",
+    "runtimeReplacement": "YumeToSumiToRuntimeImport",
+    "exactHashProofRequired": true
+  },
+  "adventurePipelineNext": ["adventureDirector", "questState", "skillCheck", "encounterDirector", "dialogueChoice"],
+  "knownGoodFallback": "neonRiverwalk",
+  "physicalDeviceProof": "pending",
+  "crownStatus": "stop"
+}

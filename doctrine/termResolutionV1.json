@@ -1,0 +1,63 @@
+{
+  "schema": "luhmOs.termResolution.v1",
+  "status": "proposed",
+  "sourceOfAgentIdentity": "doctrine/luhmAiControlPlaneV1.json#agents",
+  "matchingLaw": "Resolve exact canonical IDs first. Preserve user phrases as evidence. Unknown or ambiguous mappings stay UNKNOWN.",
+  "linkedTermRelations": [
+    "alias",
+    "group",
+    "relatedEvidence"
+  ],
+  "aliases": {
+    "dreamchan": {
+      "canonicalAgentId": "yume",
+      "displayName": "Yume",
+      "acceptedInputModality": [
+        "voiceDictation"
+      ],
+      "typedTextBehavior": "UNKNOWN_REQUIRES_CLARIFICATION",
+      "mayCreateAgent": false,
+      "source": "explicit Professor correction retained from chat"
+    }
+  },
+  "groups": {
+    "goddessTriad": {
+      "acceptedPhrases": [
+        "goddesses",
+        "goddess trio",
+        "goddess cabinet"
+      ],
+      "members": [
+        "urdDoctorGoddess",
+        "belldandySecretary",
+        "skuldResearch"
+      ],
+      "expansion": "allMembers",
+      "consensusAuthority": false
+    },
+    "agentRoster": {
+      "source": "doctrine/luhmAiControlPlaneV1.json#agents",
+      "expansion": "allCanonicalAgentIds",
+      "mustMatchSource": true
+    }
+  },
+  "learningPolicy": {
+    "captureChatCorrections": true,
+    "candidateLearning": [
+      "explicitCorrection",
+      "repeatedUserPhrase"
+    ],
+    "persistCanonicalAliasOnlyAfter": [
+      "explicitUserConfirmation",
+      "unambiguousExplicitCorrection"
+    ],
+    "inferFromSingleTypo": false,
+    "agentCreationFromAlias": false,
+    "preserveOriginalPhrase": true
+  },
+  "failureBehavior": {
+    "ambiguous": "UNKNOWN_REQUIRES_CLARIFICATION",
+    "missingSource": "STOP",
+    "groupMismatch": "STOP"
+  }
+}

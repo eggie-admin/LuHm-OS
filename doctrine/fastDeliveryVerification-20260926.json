@@ -1,0 +1,42 @@
+{
+  "schema": "luhm.delivery-verification.v1",
+  "status": "AMBER",
+  "observedAt": "2026-09-26",
+  "testedSourceCommit": "310ffbdec61053993709f658f603d7f5aaf58596",
+  "checks": [
+    {
+      "runId": 36193338770,
+      "check": "android-testing",
+      "conclusion": "success"
+    },
+    {
+      "runId": 36193338824,
+      "check": "rig-phase1",
+      "conclusion": "success"
+    }
+  ],
+  "artifact": {
+    "id": 10888814033,
+    "name": "luhm-os-universal-samsung-amber-apk",
+    "archiveSha256": "8431e22bde27f5385fd23247a6ed7cc4f39068cc8068640a7d6e90e64f982020",
+    "expiresAt": "2026-10-25T21:48:51Z",
+    "purpose": "CI verification; not a stable signed update"
+  },
+  "priorSamsungCandidateRetained": true,
+  "runtimeCodeChanged": false,
+  "enterpriseReady": false,
+  "cloudRedeployed": false,
+  "promotion": false,
+  "remainingGates": [
+    "Persistent trusted signing and installed-certificate compatibility",
+    "Physical S24 FE and SM-X400 validation",
+    "Real 16KB runtime validation",
+    "Authenticated exact backend target and live agent execution",
+    "Enforced repository protections and verified enterprise controls"
+  ],
+  "uploadAudit": {
+    "availableReviewed": 1,
+    "missingNotRead": 9
+  },
+  "note": "Archive digest is not the APK digest. Passing CI does not establish device installation or live cloud inference."
+}

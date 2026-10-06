@@ -1,0 +1,40 @@
+{
+  "schema": "luhm.rig.boneMap.v1",
+  "asset": "LumRigV2",
+  "source_drive_file_id": "1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen",
+  "source_base_glb_sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
+  "profile": "SkeletonProfileHumanoid-compatible semantics",
+  "required": {
+    "hips": "Hips",
+    "spine": "Spine",
+    "chest": "Spine01",
+    "upper_chest": "Spine02",
+    "neck": "neck",
+    "head": "Head",
+    "left_upper_leg": "LeftUpLeg",
+    "left_lower_leg": "LeftLeg",
+    "left_foot": "LeftFoot",
+    "left_toes": "LeftToeBase",
+    "right_upper_leg": "RightUpLeg",
+    "right_lower_leg": "RightLeg",
+    "right_foot": "RightFoot",
+    "right_toes": "RightToeBase",
+    "left_shoulder": "LeftShoulder",
+    "left_upper_arm": "LeftArm",
+    "left_lower_arm": "LeftForeArm",
+    "left_hand": "LeftHand",
+    "right_shoulder": "RightShoulder",
+    "right_upper_arm": "RightArm",
+    "right_lower_arm": "RightForeArm",
+    "right_hand": "RightHand"
+  },
+  "auxiliary": {
+    "head_end": "head_end",
+    "head_front": "headfront"
+  },
+  "optional_aliases": {
+    "left_eye": ["Eye_L", "LeftEye", "eye.L", "eye_l"],
+    "right_eye": ["Eye_R", "RightEye", "eye.R", "eye_r"]
+  },
+  "phase1_eye_policy": "If eye bones are absent, keep head tracking active and report eye_tracking_mode=head_fallback. Do not invent deform bones at runtime."
+}

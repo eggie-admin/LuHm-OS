@@ -1,0 +1,78 @@
+{
+  "schema": "luhmOs.chatActivityPresentation.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "purpose": "Present real LuHm task activity consistently in ChatGPT, the packaged cockpit, and Godot without inventing progress.",
+  "eventTypes": [
+    "taskStarted",
+    "stageChanged",
+    "imageCandidateReady",
+    "taskComplete",
+    "taskFailed"
+  ],
+  "eventEnvelope": {
+    "required": [
+      "taskId",
+      "eventType",
+      "label",
+      "evidenceState"
+    ],
+    "optional": [
+      "stageId",
+      "progress",
+      "agent",
+      "artifactRef",
+      "receiptRef",
+      "semanticClassId"
+    ],
+    "progressRule": "numeric progress requires measurable evidence; otherwise use null and indeterminate presentation",
+    "evidenceStates": [
+      "pending",
+      "proved",
+      "failed"
+    ]
+  },
+  "aggregation": {
+    "contract": "doctrine/chatLikeTermFoldV1.json",
+    "oneVisibleEventPerSemanticClass": true,
+    "repeatedPerTargetEvents": false,
+    "exceptionOnlyExpansion": true
+  },
+  "surfaces": {
+    "chatGpt": "concise aggregate activity updates; graphical emoji outside fixed-width receipts; receipts use ASCII state text",
+    "webCockpit": "Oni deployment card, activity card, loading overlay, textual evidence state",
+    "godot4": "Oni deployment marker plus animated loading scene and preview transition"
+  },
+  "art": {
+    "candidateGenerationOwner": "yume",
+    "provenanceOwner": "sumi",
+    "previewBeforeCanonApproval": true,
+    "automaticCanonPromotion": false,
+    "maximumConcurrentGenerationJobs": 3,
+    "loadingSpriteManifest": "doctrine/agentLoadingSpriteManifestV1.json"
+  },
+  "safety": {
+    "noFakeProgress": true,
+    "noShellAuthority": true,
+    "noReleaseAuthority": true,
+    "noInstallAuthority": true,
+    "noCrownAuthority": true,
+    "typedBoundaryOnly": true
+  },
+  "crownStatus": "STOP",
+  "visualStateLaw": {
+    "deploymentIdentity": "approvedOniArtwork",
+    "textStateRequired": true,
+    "textStates": [
+      "IDLE",
+      "WORKING",
+      "VERIFY",
+      "PASS",
+      "BLOCKED"
+    ],
+    "genericColoredEmojiAsDeploymentIdentity": false,
+    "codeBlockStatus": "ASCII_TEXT_ONLY",
+    "unknownEvidence": "VERIFY",
+    "proofRule": "PASS requires proved evidence"
+  }
+}

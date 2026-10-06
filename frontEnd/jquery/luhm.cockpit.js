@@ -1,0 +1,329 @@
+/* LuHm OS jQuery front-end shell. UI only; privileged actions remain backend-owned. */
+(function ($) {
+  "use strict";
+
+  const PLUGIN = "luhmCockpit";
+  const DATA_KEY = PLUGIN;
+  const EVENT_NS = "." + PLUGIN;
+  const ROLEPLAY_EVENT = "luhm:magic:roleplay:activate";
+  const VENDOR_DEBUG_EVENT = "luhm:vendor:debug:request";
+  const ROLEPLAY_SKILL = "agents/witchingHourCoding/SKILL.md";
+  const ROLEPLAY_CONTROL = "doctrine/luhmAiControlPlaneV1.json";
+  const ROLEPLAY_CONTRACT = "doctrine/luhmChatMagicTriggerV1.json";
+  const VENDOR_DEBUG_CONTRACT = "doctrine/vendorAiDebugV1.json";
+
+  const vendorAliases = Object.freeze({
+    "OPENAI": "openAi",
+    "OPEN DADDY": "openAi",
+    "OPENDADDY": "openAi",
+    "GOOGLE": "googleAi",
+    "GOOGLE AI": "googleAi",
+    "BIG BROTHER": "googleAi",
+    "BIGBROTHER": "googleAi",
+    "COPILOT": "githubCopilot",
+    "GITHUB": "githubCopilot",
+    "GITHUB COPILOT": "githubCopilot",
+    "HUGGINGFACE": "huggingFace",
+    "HUGGING FACE": "huggingFace",
+    "HF": "huggingFace",
+    "EDGE": "edgeGallery",
+    "EDGE GALLERY": "edgeGallery",
+    "EDGEGALLERY": "edgeGallery"
+  });
+
+  function normalizeMagicText(value) {
+    return String(value || "")
+      .normalize("NFC")
+      .toLocaleLowerCase("en-US")
+      .replace(/[^\p{L}\p{N}]+/gu, " ")
+      .trim()
+      .replace(/\s+/gu, " ");
+  }
+
+  function matchesMagicTrigger(value) {
+    const normalized = " " + normalizeMagicText(value) + " ";
+    const oldMagicPhrase = " i invoke the old magic ";
+    const writtenDonePhrase = " so let it be written so let it be done ";
+    return normalized.includes(oldMagicPhrase) && normalized.includes(writtenDonePhrase);
+  }
+
+  function normalizeDebugCommand(value) {
+    return String(value || "")
+      .normalize("NFC")
+      .toUpperCase()
+      .replace(/[^A-Z0-9]+/g, " ")
+      .trim()
+      .replace(/\s+/g, " ");
+  }
+
+  function parseVendorDebugCommand(value) {
+    const command = normalizeDebugCommand(value);
+    if (command === "VENDOR DEBUG" || command === "DEBUG VENDOR") {
+      return { providerId: "all", command: command };
+    }
+    let providerText = "";
+    if (command.startsWith("VENDOR DEBUG ")) providerText = command.slice("VENDOR DEBUG ".length);
+    if (command.startsWith("DEBUG VENDOR ")) providerText = command.slice("DEBUG VENDOR ".length);
+    if (command.startsWith("DEBUG ") && !providerText) providerText = command.slice("DEBUG ".length);
+    const providerId = vendorAliases[providerText];
+    return providerId ? { providerId: providerId, command: command } : null;
+  }
+
+  function getState($root) {
+    return $root.data(DATA_KEY);
+  }
+
+  function emit($root, name, detail) {
+    $root.trigger(name, [detail || {}]);
+  }
+
+  function appendSystemMessage($root, title, lines) {
+    const state = getState($root);
+    if (!state) return;
+    const time = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const $article = $("<article>", { class: "message messageLum" });
+    $("<div>", { class: "avatar", "aria-hidden": "true", text: "L" }).appendTo($article);
+    const $body = $("<div>").appendTo($article);
+    const $meta = $("<div>", { class: "messageMeta" }).appendTo($body);
+    $("<strong>", { text: title }).appendTo($meta);
+    $("<time>", { text: time }).appendTo($meta);
+    $("<pre>", { text: lines.join("\n") }).appendTo($body);
+    state.$messageStream.append($article);
+    state.$messageStream.scrollTop(state.$messageStream.prop("scrollHeight"));
+  }
+
+  function invokeMagicRoleplay($root, value) {
+    if (!matchesMagicTrigger(value)) return false;
+    const state = getState($root);
+    if (!state) return false;
+    state.magicRoleplayActive = true;
+    emit($root, ROLEPLAY_EVENT, {
+      schema: "luhmOs.chatMagicTrigger.v1",
+      contract: ROLEPLAY_CONTRACT,
+      workflowSkill: ROLEPLAY_SKILL,
+      aiLogic: ROLEPLAY_CONTROL,
+      vendorDebug: VENDOR_DEBUG_CONTRACT,
+      residentCore: ["lum", "urdDoctorGoddess", "belldandySecretary", "skuldResearch"],
+      yume: "lazyTaskLoaded",
+      echoTriggerText: false,
+      authorityEffect: "none"
+    });
+    appendSystemMessage($root, "MAGIC ROLEPLAY", [
+      "MAGIC_ROLEPLAY=ACTIVE",
+      "VENDOR_AI_DEBUG=READY",
+      "AUTHORITY=UNCHANGED",
+      "CROWN=STOP"
+    ]);
+    return true;
+  }
+
+  function invokeVendorDebug($root, request) {
+    const state = getState($root);
+    if (!state || !request) return false;
+    if (!state.magicRoleplayActive) {
+      appendSystemMessage($root, "VENDOR DEBUG", [
+        "VENDOR_AI_DEBUG=BLOCKED",
+        "MAGIC_ROLEPLAY=INACTIVE",
+        "VERDICT=ACTIVATE_OLD_MAGIC_FIRST"
+      ]);
+      return true;
+    }
+    emit($root, VENDOR_DEBUG_EVENT, {
+      schema: "luhmOs.vendorAiDebugRequest.v1",
+      contract: VENDOR_DEBUG_CONTRACT,
+      providerId: request.providerId,
+      debugPresentation: "UPPERCASE",
+      providerNativeDefault: "UNKNOWN_UNTIL_PROVIDER_RECEIPT",
+      observedExecution: "UNKNOWN_UNTIL_EXACT_EXECUTION_RECEIPT",
+      authorityEffect: "none",
+      echoTriggerText: false
+    });
+    appendSystemMessage($root, "VENDOR DEBUG", [
+      "VENDOR_AI_DEBUG=REQUESTED",
+      "PROVIDER=" + request.providerId,
+      "PROVIDER_NATIVE_DEFAULT=UNKNOWN_UNTIL_PROVIDER_RECEIPT",
+      "OBSERVED_EXECUTION=UNKNOWN_UNTIL_EXACT_EXECUTION_RECEIPT",
+      "VERDICT=DEBUG_ONLY_NOT_GREEN"
+    ]);
+    return true;
+  }
+
+  const defaults = {
+    initialView: "chat",
+    clockIntervalMs: 30000,
+    backendEvent: "luhm:backend:open",
+    backendCloseEvent: "luhm:backend:close",
+    chatSubmitEvent: "luhm:chat:submit",
+    viewChangeEvent: "luhm:view:change"
+  };
+
+  function setView($root, view) {
+    const state = getState($root);
+    if (!state) return;
+    state.view = view;
+    $root.find("[data-view]").each(function () {
+      $(this).toggleClass("isActive", $(this).data("view") === view);
+    });
+    state.$menu.prop("hidden", true);
+    emit($root, state.settings.viewChangeEvent, { view: view });
+  }
+
+  function openBackend($root) {
+    const state = getState($root);
+    if (!state) return;
+    state.$menu.prop("hidden", true);
+    state.$systemLayer.prop("hidden", false);
+    emit($root, state.settings.backendEvent, { source: "frontEnd" });
+  }
+
+  function closeBackend($root) {
+    const state = getState($root);
+    if (!state) return;
+    state.$systemLayer.prop("hidden", true);
+    emit($root, state.settings.backendCloseEvent, { source: "frontEnd" });
+  }
+
+  function updateClock($root) {
+    const state = getState($root);
+    if (!state) return;
+    state.$clock.text(new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }));
+  }
+
+  function appendUserMessage($root, text) {
+    const state = getState($root);
+    if (!state) return;
+    const time = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const $article = $("<article>", { class: "message messageUser" });
+    $("<div>", { class: "avatar", "aria-hidden": "true", text: "Y" }).appendTo($article);
+    const $body = $("<div>").appendTo($article);
+    const $meta = $("<div>", { class: "messageMeta" }).appendTo($body);
+    $("<strong>", { text: "You" }).appendTo($meta);
+    $("<time>", { text: time }).appendTo($meta);
+    $("<p>", { text: text }).appendTo($body);
+    state.$messageStream.append($article);
+    state.$messageStream.scrollTop(state.$messageStream.prop("scrollHeight"));
+  }
+
+  function initElement(element, options) {
+    const $root = $(element);
+    if (getState($root)) return;
+
+    const settings = $.extend({}, $.fn[PLUGIN].defaults, options || {});
+    const state = {
+      settings: settings,
+      view: settings.initialView,
+      magicRoleplayActive: false,
+      $systemLayer: $root.find("[data-luhm-system-layer]"),
+      $menu: $root.find("[data-luhm-menu]"),
+      $messageStream: $root.find("[data-luhm-message-stream]"),
+      $composer: $root.find("[data-luhm-composer]"),
+      $input: $root.find("[data-luhm-input]"),
+      $clock: $root.find("[data-luhm-clock]"),
+      clockTimer: null
+    };
+    $root.data(DATA_KEY, state);
+
+    $root.on("click" + EVENT_NS, "[data-view]", function () {
+      setView($root, $(this).data("view"));
+    });
+    $root.on("click" + EVENT_NS, "[data-luhm-backend-button]", function () {
+      openBackend($root);
+    });
+    $root.on("click" + EVENT_NS, "[data-luhm-backend-close]", function () {
+      closeBackend($root);
+    });
+    $root.on("click" + EVENT_NS, "[data-luhm-menu-button]", function () {
+      state.$menu.prop("hidden", !state.$menu.prop("hidden"));
+    });
+    state.$composer.on("submit" + EVENT_NS, function (event) {
+      event.preventDefault();
+      const text = String(state.$input.val() || "").trim();
+      if (!text) return;
+
+      if ($.fn.mgcCdngRlplay.matches(text)) {
+        $root.mgcCdngRlplay("invoke", text);
+        state.$input.val("");
+        return;
+      }
+
+      const debugRequest = $.fn.vendorAiDebug.parse(text);
+      if (debugRequest) {
+        $root.vendorAiDebug("invoke", debugRequest);
+        state.$input.val("");
+        return;
+      }
+
+      appendUserMessage($root, text);
+      state.$input.val("");
+      emit($root, settings.chatSubmitEvent, { text: text });
+    });
+
+    setView($root, settings.initialView);
+    updateClock($root);
+    state.clockTimer = window.setInterval(function () { updateClock($root); }, settings.clockIntervalMs);
+    emit($root, "luhm:frontend:ready", {
+      version: $.fn[PLUGIN].version,
+      jquery: $.fn.jquery,
+      magicRoleplay: "available",
+      vendorAiDebug: "available"
+    });
+  }
+
+  const methods = {
+    init: function (options) {
+      return this.each(function () { initElement(this, options); });
+    },
+    view: function (view) {
+      return this.each(function () { setView($(this), view); });
+    },
+    openBackend: function () {
+      return this.each(function () { openBackend($(this)); });
+    },
+    closeBackend: function () {
+      return this.each(function () { closeBackend($(this)); });
+    },
+    destroy: function () {
+      return this.each(function () {
+        const $root = $(this);
+        const state = getState($root);
+        if (!state) return;
+        if (state.clockTimer) window.clearInterval(state.clockTimer);
+        state.$composer.off(EVENT_NS);
+        $root.off(EVENT_NS);
+        $root.removeData(DATA_KEY);
+      });
+    }
+  };
+
+  $.fn[PLUGIN] = function (methodOrOptions) {
+    if (methods[methodOrOptions]) {
+      return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
+    }
+    if (typeof methodOrOptions === "object" || methodOrOptions == null) {
+      return methods.init.apply(this, arguments);
+    }
+    $.error("Unknown " + PLUGIN + " method: " + methodOrOptions);
+    return this;
+  };
+
+  $.fn[PLUGIN].defaults = defaults;
+  $.fn[PLUGIN].version = "0.3.0-vendor-debug.1";
+
+  $.fn.mgcCdngRlplay = function (method, value) {
+    if (method === "invoke") {
+      return this.each(function () { invokeMagicRoleplay($(this), value); });
+    }
+    $.error("Unknown mgcCdngRlplay method: " + method);
+    return this;
+  };
+  $.fn.mgcCdngRlplay.matches = matchesMagicTrigger;
+
+  $.fn.vendorAiDebug = function (method, value) {
+    if (method === "invoke") {
+      return this.each(function () { invokeVendorDebug($(this), value); });
+    }
+    $.error("Unknown vendorAiDebug method: " + method);
+    return this;
+  };
+  $.fn.vendorAiDebug.parse = parseVendorDebugCommand;
+}(jQuery));

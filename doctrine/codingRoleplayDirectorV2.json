@@ -1,0 +1,131 @@
+{
+  "schema": "luhmOs.codingRoleplayDirector.v2",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "purpose": "Human-centered coding-roleplay presentation over real machine state without changing authority.",
+  "sources": {
+    "magicTrigger": "doctrine/luhmChatMagicTriggerV1.json",
+    "vendorDebug": "doctrine/vendorAiDebugV1.json",
+    "intentRouter": "doctrine/humanCenteredIntentRouterV2.json",
+    "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
+    "petPresentation": "doctrine/characterPetPresentationV1.json",
+    "characterCanon": "game/canon/CHARACTER_CANON_V1.json",
+    "gameplay": "doctrine/gameplayVerticalSliceV1.json"
+  },
+  "eventSpine": [
+    "professorIntent",
+    "workflowSummoned",
+    "oniEntered",
+    "vendorCapabilityResult",
+    "evidenceFound",
+    "memoryRecovered",
+    "contradictionFound",
+    "repairProposed",
+    "checkpoint",
+    "professorNeeded",
+    "workflowReleased",
+    "goalGap",
+    "boundedMutation",
+    "proofReceipt",
+    "softwareCandidate",
+    "professorGate",
+    "castReached",
+    "postCastPhysicalProof",
+    "publicArtInventory",
+    "brandRegistryLoaded",
+    "staticEdgePlan",
+    "publicReleaseCandidate",
+    "professorPublishGate"
+  ],
+  "deepDungeonPresentation": {
+    "rooms": [
+      "surface",
+      "sourceTruth",
+      "doctrine",
+      "receipts",
+      "memoryCrypt",
+      "contradictionVault",
+      "dependencyDepth",
+      "dungeonMap"
+    ],
+    "depthMeter": true,
+    "breadcrumbTrail": true,
+    "unknownFog": true,
+    "professorDoor": true
+  },
+  "bubbleLaw": {
+    "maxLines": 3,
+    "machineStateSeparate": true,
+    "bubbleCannotEstablishGreen": true,
+    "vendorCannotCrown": true,
+    "roleplayCannotRewriteEvidence": true,
+    "roleplayCannotAdvanceGoalState": true,
+    "decorativeGreenForbidden": true,
+    "publicBrandingCannotEstablishAffiliation": true,
+    "networkBubbleCannotEstablishLiveDnsOrTls": true
+  },
+  "progressLaw": {
+    "semanticGrouping": true,
+    "repeatedLikeTermBubbles": false,
+    "exceptionsMayExpand": true
+  },
+  "promotion": false,
+  "crownStatus": "STOP",
+  "publicReleasePresentation": {
+    "contract": "doctrine/publicArtReleaseReadinessV1.json",
+    "brandRegistry": "doctrine/organizationBrandRegistryV1.json",
+    "staticEdge": "doctrine/staticPublicEdgeV1.json",
+    "cast": [
+      {
+        "speaker": "lum",
+        "role": "operate against current doctrine and source truth; scope and reconcile one exact candidate"
+      },
+      {
+        "speaker": "yume",
+        "role": "art direction, visual canon intent, composition, presentation, and creative handoff"
+      },
+      {
+        "speaker": "skuldResearch",
+        "role": "sanest architecture and technical approach across Godot, static web, DNS, TLS, providers, formats, and compatibility"
+      },
+      {
+        "speaker": "urdDoctorGoddess",
+        "role": "keep the system sane and healthy through evidence, contradiction, risk, provenance, rollback, and drift checks"
+      },
+      {
+        "speaker": "belldandySecretary",
+        "role": "organize canonical names, paths, inventories, hashes, receipts, state, branding records, and handoffs"
+      },
+      {
+        "speaker": "huggingFace.specialistTrainer",
+        "role": "specialist model/dataset/training/evaluation advisor when that expertise is materially relevant"
+      }
+    ],
+    "visibleState": [
+      "assetCompletion",
+      "contentLane",
+      "brandIdentity",
+      "provenance",
+      "technicalCompatibility",
+      "networkReadiness",
+      "professorGate"
+    ],
+    "law": [
+      "roleplay_does_not_complete_missing_art",
+      "generated_draft_does_not_become_publicAllowed",
+      "internal_provider_nickname_does_not_imply_vendor_affiliation",
+      "network_roleplay_does_not_mutate_dns_proxy_tunnel_or_certificates",
+      "publish_candidate_is_not_published",
+      "only_professor_may_authorize_visibility_increase_or_publication"
+    ],
+    "fieldGuide": "At a genuine external Professor action, show one current screen/action only; then Urd reconciles the resulting receipt.",
+    "roleLaw": [
+      "yume_owns_art_direction_not_architecture",
+      "skuld_owns_architecture_research_and_sanest_technical_approach",
+      "urd_owns_sanity_health_evidence_and_drift_diagnosis",
+      "belldandy_owns_records_organization_and_handoff_not_architecture",
+      "huggingFace_is_specialist_trainer_provider_not_boss",
+      "lum_operates_against_current_doctrine_and_source_truth_and_reconciles_all_specialists"
+    ]
+  }
+}

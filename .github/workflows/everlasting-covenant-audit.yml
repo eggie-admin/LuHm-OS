@@ -1,0 +1,106 @@
+name: Doctrine Lane · 100-pass + 200-pass hard audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/**'
+      - 'agents/**'
+      - 'AGENTS.md'
+      - '.github/copilot-instructions.md'
+      - '.github/workflows/**'
+      - 'tools/everlastingCovenantAudit.py'
+      - 'tools/hardSystemAudit200.py'
+      - 'host/**'
+      - 'assets/agent-loading/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+concurrency:
+  group: doctrine-lane-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+      LUHM_SCOPE_ID: PR-134-doctrine-candidate
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Bind source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+          echo "[progress] sourceBinding=passed source=$LUHM_SOURCE_REF scope=$LUHM_SCOPE_ID"
+      - name: Validate doctrine schemas
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/everlastingCovenantV1.json >/dev/null
+          python3 -m json.tool doctrine/everlastingCovenantCrownReceiptV1.json >/dev/null
+          python3 -m json.tool doctrine/luhmAiControlPlaneV1.json >/dev/null
+          python3 -m json.tool doctrine/projectChatCanonV1.json >/dev/null
+          python3 -m json.tool doctrine/currentSourceTruthV3.json >/dev/null
+          python3 -m json.tool doctrine/camelHumpDoctrineLawV1.json >/dev/null
+          python3 -m json.tool doctrine/currentFormatLawV1.json >/dev/null
+          python3 -m json.tool doctrine/aiManifestFormatV1.json >/dev/null
+          python3 -m json.tool doctrine/python3ControlPlaneLawV1.json >/dev/null
+          python3 -m json.tool doctrine/urdEvidenceAdjudicationV1.json >/dev/null
+          python3 -m json.tool doctrine/proposedWorkingLaneV1.json >/dev/null
+          python3 -m json.tool doctrine/termResolutionV1.json >/dev/null
+          python3 -m json.tool doctrine/chatProgressStreamV1.json >/dev/null
+          python3 -m json.tool doctrine/agentLoadingSpriteManifestV1.json >/dev/null
+          python3 -m json.tool doctrine/agentTrainingSealV1.json >/dev/null
+          python3 -m json.tool doctrine/bigBrotherCovenantV1.json >/dev/null
+          python3 -m json.tool doctrine/providerEconomyV1.json >/dev/null
+          python3 -m json.tool doctrine/contentLaneDoctrineV1.json >/dev/null
+          python3 -m json.tool doctrine/assetEligibilityMatrixV1.json >/dev/null
+          python3 -m json.tool doctrine/patronageCampaignV1.json >/dev/null
+          python3 -m json.tool doctrine/yumeBigBrotherArtDeskV1.json >/dev/null
+          python3 -m json.tool doctrine/yumeGodotArtToolboxV1.json >/dev/null
+          python3 -m json.tool doctrine/yumeArtistWorkstationV1.json >/dev/null
+          python3 -m json.tool doctrine/yumeArtEducationV1.json >/dev/null
+          python3 -m py_compile tools/yumeArtEducationAudit.py
+          python3 -m json.tool doctrine/unifiedCampaignWorkbenchV1.json >/dev/null
+          python3 -m json.tool agents/yumeArtOni/templates/big-brother-art-task-v1.template.json >/dev/null
+          python3 -m json.tool doctrine/aiTaskManifestV2.template.json >/dev/null
+          python3 -m json.tool doctrine/releaseBoundaryV2.json >/dev/null
+          python3 -m json.tool doctrine/mcpEnterpriseScopeV2.json >/dev/null
+          python3 -m json.tool doctrine/openAiDeploymentV3.json >/dev/null
+          python3 -m json.tool doctrine/pluginPublicationV2.json >/dev/null
+          python3 -m json.tool doctrine/chatGptPluginMilestoneV2.json >/dev/null
+          python3 -m json.tool doctrine/androidWeb3CockpitV2.json >/dev/null
+          python3 -m json.tool doctrine/androidWeb3BridgeV2.json >/dev/null
+          python3 -m json.tool doctrine/samsungAntennaV1.json >/dev/null
+          python3 -m json.tool doctrine/chatDeploymentRoadmapV1.json >/dev/null
+          python3 -m json.tool doctrine/hardSystemAuditV1.json >/dev/null
+          python3 -m json.tool doctrine/enterpriseOrientationBridgeV1.json >/dev/null
+          python3 -m json.tool doctrine/campaignLaunchKitV1.json >/dev/null
+          python3 -m py_compile tools/enterpriseCampaignAudit.py
+          python3 -m py_compile tools/yumeGodotAssetPrep.py tools/yumeWorkbenchAudit.py tools/hardSystemAudit200.py host/mcp/luhmMcpServer.py
+          python3 -m json.tool host/harness/agent-loading-sprites.json >/dev/null
+          python3 -m py_compile host/mcp/luhmHarness.py
+          node --check host/harness/cockpit.js
+          echo "[progress] schemaValidation=passed source=$LUHM_SOURCE_REF"
+      - name: Run 100-pass doctrine audit
+        run: python3 tools/everlastingCovenantAudit.py
+      - name: Run 200-pass hard system audit
+        run: python3 tools/hardSystemAudit200.py
+      - name: Prove agent training contract
+        run: python3 tools/agentTrainingAudit.py
+      - name: Prove content lane boundaries
+        run: python3 tools/contentLaneAudit.py
+      - name: Prove patronage draft boundaries
+        run: python3 tools/patronageCampaignAudit.py
+      - name: Prove Yume creative workbench
+        run: python3 tools/yumeWorkbenchAudit.py
+      - name: Prove Yume dual-track art education
+        run: python3 tools/yumeArtEducationAudit.py
+      - name: Prove enterprise orientation and campaign bridge
+        run: python3 tools/enterpriseCampaignAudit.py

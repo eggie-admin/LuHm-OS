@@ -1,0 +1,35 @@
+{
+  "schema": "luhmOs.publicReleaseArtManifest.v1",
+  "sourceRef": "<40-char-current-source-sha>",
+  "taskId": "<task-id>",
+  "assetId": "<asset-id>",
+  "brandId": "<luhmOs|eggieBagelface|pirateDaddiesFilm|bigDaddy>",
+  "characterId": "<lum|urd|belldandy|skuld|bigDaddy|none>",
+  "assetFamily": "<portrait|fullBody|spriteIdle|spriteWalk|spriteRun|expressionSheet|uiIcon|logoMark|wordmark|socialAvatar|socialBanner|thumbnailFrame|endCard|other>",
+  "contentLane": "cathedralPublic",
+  "maturity": "familySafe",
+  "canonStatus": "candidateReview",
+  "publicAllowed": false,
+  "generationMethod": "<humanAuthored|analogSourceEdit|deterministicDerivative|generativeAiPrivateDraft|other>",
+  "provenance": {
+    "sourceRefs": [],
+    "rightsClass": "<OWNED|PERMISSIVE|PRIVATE_REFERENCE|UNKNOWN>",
+    "privateReferenceEmbedded": false
+  },
+  "parentAssetIds": [],
+  "hash": "<sha256-after-bytes-exist>",
+  "technical": {
+    "format": "<png|webp|svg|glb|other>",
+    "dimensions": "<when-applicable>",
+    "consumer": "<publicationSite|godot|social|film|other>"
+  },
+  "review": {
+    "yume": "PENDING",
+    "urd": "PENDING",
+    "skuld": "PENDING",
+    "belldandy": "PENDING",
+    "professorApproval": false
+  },
+  "publicationAuthority": false,
+  "notes": "Generative AI drafts remain private and cannot set publicAllowed=true under current doctrine."
+}

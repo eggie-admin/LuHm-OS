@@ -1,0 +1,58 @@
+{
+  "schema": "luhm-os.professor-cast-bridge.v3",
+  "date": "2026-10-02",
+  "status": "PROPOSED_HARDENED_CONTROL_PLANE_WITH_FAIL_LOUD_DIAGNOSTICS",
+  "authority": "Professor",
+  "purpose": "Allow an explicit owner-authored GitHub PR comment containing a milestone and exact current-main SHA to dispatch exactly one CAST-gated Android Web3 build/release workflow.",
+  "trigger": {
+    "event": "issue_comment.created",
+    "requiresPullRequestContext": true,
+    "requiredActor": "github.repository_owner",
+    "syntax": "/cast androidWeb3Cockpit <40-char-current-main-sha>",
+    "exactMainMatch": true,
+    "diagnosticAliases": [
+      "CAST",
+      "castBridge"
+    ],
+    "diagnosticAliasesDispatch": false,
+    "invalidAuthorizationFailsLoud": true
+  },
+  "dispatch": {
+    "workflow": "android-testing-build.yml",
+    "ref": "main",
+    "cast": "cast",
+    "milestoneId": "androidWeb3Cockpit",
+    "publishPrerelease": true,
+    "releaseTag": "android-web3-<sha8>-r<bridgeRunId>"
+  },
+  "safety": {
+    "noPersistentBuildAuthorization": true,
+    "noWildcardActor": true,
+    "noSourceDrift": true,
+    "noStableRelease": true,
+    "noProductionSigning": true,
+    "noMergeAuthority": true,
+    "noCrownAuthority": true,
+    "noBotImpersonation": true,
+    "botMayTransportAuthorizationOnlyWithVerifiedOrigin": true,
+    "noImplicitShortAliasDispatch": true
+  },
+  "crownStatus": "STOP",
+  "provenance": {
+    "bridge": {
+      "carriesProfessorActorFrom": "github.event.comment.user.login",
+      "carriesOriginRunIdFrom": "github.run_id",
+      "buildWorkflowMustVerify": {
+        "repositoryOwnerMatchesProfessorActor": true,
+        "originEvent": "issue_comment",
+        "originRunActorMatchesProfessorActor": true,
+        "originRunHeadShaMatchesSourceRef": true
+      }
+    },
+    "direct": {
+      "termuxActorSource": "gh api user --jq .login",
+      "requiredOriginMarker": "direct",
+      "buildWorkflowRequiresDispatcherEqualsProfessorActor": true
+    }
+  }
+}

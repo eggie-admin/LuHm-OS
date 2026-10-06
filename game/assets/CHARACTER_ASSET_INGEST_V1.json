@@ -1,0 +1,15 @@
+{
+  "schema":"luhm-os.character-asset-ingest.v1",
+  "status":"CONCEPT_MASTER_GENERATED_ASSET_EXPORTS_PENDING",
+  "authority":"Professor",
+  "sourceMain":"b3842eb759cde99b8ef5a6c878afb3470bca1d90",
+  "conceptMaster":{"generated":true,"kind":"four-character game asset atlas","storageLaw":"conversation working artifact; not an APK and not sufficient as production sprites"},
+  "characters":{
+    "lum":{"root":"res://game/assets/characters/lum/","required":["portrait.png","fullBody.png","expressions.png","idle.png","walk.png","run.png","uiIcon.png"]},
+    "urd":{"root":"res://game/assets/characters/urd/","required":["portrait.png","fullBody.png","expressions.png","idle.png","walk.png","run.png","uiIcon.png"]},
+    "belldandy":{"root":"res://game/assets/characters/belldandy/","required":["portrait.png","fullBody.png","expressions.png","idle.png","walk.png","run.png","uiIcon.png"]},
+    "skuld":{"root":"res://game/assets/characters/skuld/","required":["portrait.png","fullBody.png","expressions.png","idle.png","walk.png","run.png","uiIcon.png"]}
+  },
+  "validation":{"missingAssetBehavior":"FAIL_CLOSED","godotImportRequired":true,"runtimeSmokeRequired":true,"castBeforeBuild":true},
+  "identityFirewall":"Original fictional designs only; no real-person face or body cloning."
+}

@@ -1,0 +1,231 @@
+{
+  "schema": "luhm.forge-twins.v3",
+  "status": "PROPOSED_CANDIDATE",
+  "crownStatus": "STOP",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "baseSourceRef": "eggie-admin/LuHm-OS@7bde87d74c2d68eb1c661d8d7b19bd45f20f5882",
+  "operationLaw": "PROTECT != INGEST != MUTATE != CAST != JANITOR",
+  "twins": {
+    "Tetsu": {
+      "role": "SOURCE_FORGE",
+      "allowedOperations": [
+        "PROTECT",
+        "INGEST",
+        "MUTATE",
+        "VERIFY",
+        "JANITOR"
+      ],
+      "buildAuthority": false,
+      "canonicalMutationAuthority": false,
+      "compileAuthority": false,
+      "assetEstateResponsibilities": [
+        "inventory current GitHub and Drive asset estate",
+        "quarantine unknown or private-reference donors",
+        "prepare candidate-only source mutations",
+        "preserve rights and source identity",
+        "verify candidate source identity before handoff",
+        "emit source-preparation receipt"
+      ]
+    },
+    "Kaji": {
+      "role": "COMPILE_FORGE",
+      "allowedOperations": [
+        "PREPARE",
+        "CAST",
+        "BUILD",
+        "HASH",
+        "RECEIPT",
+        "JANITOR"
+      ],
+      "sourceMutationAuthority": false,
+      "preCastBuildAuthority": false,
+      "compileAuthorityRequiresCast": true,
+      "assetEstateResponsibilities": [
+        "consume only exact reconciled candidate source",
+        "compile or export only after explicit single-use CAST",
+        "emit artifact hash and build receipt",
+        "never mutate source or asset eligibility state"
+      ]
+    }
+  },
+  "operationBoundaries": {
+    "PROTECT": {
+      "sourceWrite": false,
+      "build": false,
+      "purpose": "read-only inventory, hashes, snapshots, branch/ruleset observation, recovery and precondition checks"
+    },
+    "INGEST": {
+      "canonicalWrite": false,
+      "build": false,
+      "destinationAuthority": "QUARANTINE_ONLY",
+      "required": [
+        "origin",
+        "sourceHash",
+        "rightsClass",
+        "intendedDestination",
+        "compatibilityNotes",
+        "requiredTests",
+        "quarantineStatus"
+      ]
+    },
+    "MUTATE": {
+      "canonicalWrite": false,
+      "build": false,
+      "candidateOnly": true,
+      "deterministicExecutor": "Kugi",
+      "requiresSnapshotWhenPolicyRequires": true
+    },
+    "CAST": {
+      "sourceWrite": false,
+      "build": true,
+      "requiresExplicitProfessorWord": "cast",
+      "singleUse": true,
+      "retryRequiresNewCast": true,
+      "scopeBound": true
+    },
+    "JANITOR": {
+      "sourceWrite": false,
+      "build": false,
+      "temporaryRootsOnly": true,
+      "requiresForgeSentinel": true
+    },
+    "VERIFY": {
+      "sourceWrite": false,
+      "build": false,
+      "purpose": "exact candidate and asset-handoff verification before compile handoff"
+    }
+  },
+  "castEnvelope": {
+    "persistentAuthorizationAllowed": false,
+    "requiredFields": [
+      "castWord",
+      "authorizedBy",
+      "milestoneId",
+      "taskId",
+      "sourceRef",
+      "requestedBuildScope",
+      "issuedAt",
+      "expiresAt",
+      "nonce",
+      "singleUse"
+    ],
+    "castWord": "cast",
+    "authorizedBy": "Professor",
+    "authorizedGitHubActors": [
+      "eggie-admin"
+    ],
+    "defaultTtlMinutes": 30,
+    "consumedOnAttempt": true,
+    "ambiguousMilestoneBehavior": "STOP",
+    "doesNotAuthorize": [
+      "retry",
+      "differentSourceRef",
+      "scopeExpansion",
+      "release",
+      "deployment",
+      "publication",
+      "productionSigning",
+      "Crown"
+    ]
+  },
+  "legacyPolicy": {
+    "mode": "SELECTIVE_TRANSPLANT_ONLY",
+    "wholesaleHistoryMerge": false,
+    "privateReferenceRedistribution": false,
+    "unknownRightsPromotion": false,
+    "quarantineBeforeReview": true
+  },
+  "workflow": [
+    "SUMMON_CURRENT",
+    "BIND_MILESTONE",
+    "CLASSIFY_OPERATION",
+    "CHECK_PROTECTION",
+    "CHECK_SNAPSHOT",
+    "QUARANTINE_IF_INGEST",
+    "PLAN_SMALLEST_DELTA",
+    "URD_TRUTH_CHECK",
+    "EXECUTE_ALLOWED_CLASS",
+    "VERIFY_EXACT_IDENTITY",
+    "RECEIPT",
+    "JANITOR",
+    "NEXT_GATE",
+    "CROWN_WAIT"
+  ],
+  "compileBranch": [
+    "CAST_GATE",
+    "PREPARE_EXACT_CANDIDATE",
+    "ISOLATED_BUILD",
+    "HASH_ARTIFACT",
+    "BUILD_RECEIPT",
+    "JANITOR",
+    "NEXT_GATE",
+    "CROWN_WAIT"
+  ],
+  "automationPolicy": {
+    "automaticReadOnlyStaticAuditAllowed": true,
+    "automaticBuildOnPullRequest": false,
+    "automaticBuildOnPush": false,
+    "implicitBuildFromTestOrVerify": false,
+    "buildWorkflowMustInvokeCastGate": true,
+    "artifactUploadRequiresCastReceipt": true,
+    "sourceMutationInsideCompileWorkspace": false
+  },
+  "truthGuard": {
+    "adjudicator": "urdDoctorGoddess",
+    "contract": "doctrine/urdEvidenceAdjudicationV1.json",
+    "legacyIdentity": "drNao",
+    "legacyStatus": "retiredLogicIngestedIntoUrd",
+    "memoryIsCurrentStateProof": false,
+    "builderSelfReportIsSufficientProof": false,
+    "greenMustBeScoped": true
+  },
+  "baseMainObservedConflicts": [
+    {
+      "id": "FORGE-CONFLICT-001",
+      "status": "RED_POLICY_DRIFT",
+      "detail": "agents/buildOnis/SKILL.md v2 allowed automatic twin builds when dual-build evidence was required"
+    },
+    {
+      "id": "FORGE-CONFLICT-002",
+      "status": "RED_AUTOBUILD_TRIGGER",
+      "detail": ".github/workflows/android-testing-build.yml on base main included pull_request and executed an Android/Godot build"
+    },
+    {
+      "id": "FORGE-CONFLICT-003",
+      "status": "RED_AUTOBUILD_TRIGGER",
+      "detail": ".github/workflows/godot-web-harness.yml on base main included pull_request and built a Godot Web harness"
+    },
+    {
+      "id": "FORGE-CONFLICT-004",
+      "status": "RED_AUTOBUILD_TRIGGER",
+      "detail": ".github/workflows/lumrigv2-phase1.yml on base main included pull_request and executed Godot import/runtime preparation"
+    },
+    {
+      "id": "FORGE-CONFLICT-005",
+      "status": "AMBER_GOVERNANCE",
+      "detail": "live base main branch protection was not enabled; local Forge protection must not claim otherwise"
+    }
+  ],
+  "candidateResolutions": [
+    "replace automatic twin-build skill with Source Forge / Compile Forge split",
+    "remove pull_request build triggers from the three observed Godot/Android build workflows",
+    "require workflow_dispatch plus exact CAST input, milestoneId, taskId, and sourceRef",
+    "require forgeCastGate.py before build-producing steps",
+    "reduce remote ephemeral build artifact retention to 72 hours",
+    "add sentinel-bound Forge workspace TTL policy and janitor",
+    "keep branch-protection state explicitly external and unproven until live governance is changed"
+  ],
+  "assetEstateIntegration": {
+    "contract": "doctrine/godot4AssetEstateV1.json",
+    "ledger": "media/godot4-game-asset-estate.json",
+    "sourceForgeOwner": "Tetsu",
+    "architectureAdvisor": "skuldResearch",
+    "artDirection": "yume",
+    "sanityAndEvidence": "urdDoctorGoddess",
+    "records": "belldandySecretary",
+    "specialistTrainer": "huggingFace",
+    "reconciler": "lum",
+    "compileForgeOwner": "Kaji"
+  }
+}

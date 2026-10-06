@@ -1,0 +1,36 @@
+{
+  "schema": "luhm.cutscene.donorExtraction.v1",
+  "status": "DRY_RUN_CANDIDATE",
+  "target_repository": "eggie-admin/LuHm-OS",
+  "target_branch": "dryrun/jquery-gui-backend-split-20260925",
+  "rollback_checkpoint": "snapshot/pre-cutscene-dryrun-20260925",
+  "donor": {
+    "repository": "eggie-admin/vue-headless-cms",
+    "commit": "1d51c5b90266f7beb8236cf07acfb17a085a4134",
+    "reference_file": "godot/scripts/cutscene_director.gd",
+    "reference_blob": "b9524c2fe06a69e051381103080e3aca1d9b0441"
+  },
+  "strategy": "adapt the donor's small data-driven sequencing pattern; do not transplant donor runtime topology",
+  "accepted_pattern": [
+    "ordered beat sequencing",
+    "beat lifecycle signals",
+    "timer-based duration",
+    "cancellation boundary"
+  ],
+  "explicitly_excluded": [
+    "godot/scenes/main.tscn",
+    "godot/scripts/cage_manager.gd",
+    "godot/scripts/api_bridge.gd",
+    "godot/scripts/cms_registry.gd",
+    "godot/scripts/web_cms_bridge.gd",
+    "donor Android plugin tree",
+    "localhost or HTTP CMS dependencies"
+  ],
+  "first_cutscene": [
+    "lock player",
+    "camera move",
+    "Lum beacon pulse",
+    "one dialogue/event",
+    "restore camera/player"
+  ]
+}

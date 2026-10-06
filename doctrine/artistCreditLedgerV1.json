@@ -1,0 +1,89 @@
+{
+  "schema": "luhmOs.artistCreditLedger.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "boss": "lum",
+  "owner": "yumeArtOni",
+  "provenanceLead": "sumi",
+  "purpose": "Preserve artist identity, authorship, license, requested credit, source lineage, modification history, and ethical use preferences for every third-party creative asset used by LuHm OS.",
+  "humanPolicy": [
+    "artists_are_people_not_asset_vending_machines",
+    "do_not_exploit_the_art_community",
+    "credit_the_human_when_identity_is_known_even_if_the_license_does_not_require_attribution",
+    "never_imply_luhm_authored_donor_work",
+    "do_not_strip_artist_names_links_or_requested_credit_strings",
+    "preserve_original_work_and_derivative_lineage",
+    "respect_explicit_no_ai_no_clone_no_training_preferences_when_known",
+    "do_not_use_reference_material_to_clone_a_living_artist_or_performer_identity",
+    "community_participation_does_not_transfer_ownership_by_default"
+  ],
+  "requiredFields": [
+    "assetId",
+    "assetTitle",
+    "creatorDisplayName",
+    "creatorCanonicalNameWhenKnown",
+    "creatorUrlWhenPublic",
+    "sourcePlatform",
+    "sourceUrl",
+    "sourceRevisionOrVersion",
+    "license",
+    "licenseUrlOrFile",
+    "requestedCreditString",
+    "attributionRequired",
+    "attributionText",
+    "sourceHash",
+    "importedHash",
+    "derivativeOf",
+    "modificationSummary",
+    "contentLane",
+    "publicAllowed",
+    "reviewState"
+  ],
+  "ethicalPreferenceFields": [
+    "aiTrainingPermission",
+    "generativeDerivativePermission",
+    "voiceClonePermission",
+    "styleReferencePermission",
+    "commercialUsePreference",
+    "redistributionPreference",
+    "contactOrTipLinkWhenPubliclyProvided"
+  ],
+  "unknownLaw": {
+    "unknownPreference": "UNKNOWN",
+    "unknownLicense": "BLOCK",
+    "unknownCreator": "retain_source_identity_and_mark_unknown_creator",
+    "unknownAttributionRequirement": "BLOCK_PUBLIC_PROMOTION_UNTIL_REVIEWED"
+  },
+  "creditPlacement": {
+    "runtimeCredits": true,
+    "repositoryThirdPartyCredits": true,
+    "assetReceipt": true,
+    "campaignOrPublicPostWhenMaterial": true,
+    "machineReadableMetadata": true,
+    "humanReadableCredit": true,
+    "requestedSpellingWins": true,
+    "linkBackWhenPermitted": true
+  },
+  "derivativeLaw": {
+    "originalHashPreserved": true,
+    "eachDerivativeGetsNewHash": true,
+    "modificationsMustBeDescribed": true,
+    "creditSurvivesRenameMoveAndFormatConversion": true,
+    "shareAlikeObligationsMustRemainAttached": true,
+    "licenseChangeByLuhmForbiddenUnlessLegallyAllowedAndDocumented": true
+  },
+  "authorshipLaw": {
+    "humanAuthorshipMustNotBeReassignedToAi": true,
+    "aiProductionAssistanceMustNotEraseOriginalArtistCredit": true,
+    "professorAnalogAuthorshipMustRemainDistinguishableFromAiProductionChores": true,
+    "publicGenerativeAiArtDefaultForbidden": true
+  },
+  "storageLaw": {
+    "driveStoresDurableBinaryBytes": true,
+    "githubStoresReceiptsHashesMetadataAndPointers": true,
+    "privateContactDataMustNotEnterPublicDoctrine": true,
+    "publicCreatorLinksOnlyWhenAlreadyPublicOrExplicitlyApproved": true
+  },
+  "crownStatus": "STOP",
+  "promotion": false
+}

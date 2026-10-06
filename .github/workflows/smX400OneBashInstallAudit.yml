@@ -1,0 +1,37 @@
+name: smX400OneBashInstallAudit
+
+on:
+  pull_request:
+    paths:
+      - "tools/smX400OneBashInstall.sh"
+      - "tools/smX400OneBashInstallAudit.py"
+      - "doctrine/smX400OneBashInstallSealV1.json"
+      - "doctrine/rootedTermuxGitHubReleaseInstallV1.json"
+      - ".github/workflows/smX400OneBashInstallAudit.yml"
+  push:
+    branches: [main]
+    paths:
+      - "tools/smX400OneBashInstall.sh"
+      - "tools/smX400OneBashInstallAudit.py"
+      - "doctrine/smX400OneBashInstallSealV1.json"
+      - "doctrine/rootedTermuxGitHubReleaseInstallV1.json"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Audit one-bash tablet install contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/smX400OneBashInstallAudit.py
+          bash -n tools/smX400OneBashInstall.sh
+          bash -n tools/termuxVirginInstall.sh

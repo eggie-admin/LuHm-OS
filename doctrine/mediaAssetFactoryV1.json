@@ -1,0 +1,134 @@
+{
+  "schema": "luhmOs.mediaAssetFactory.v1",
+  "status": "candidateReview",
+  "authority": "professor",
+  "boss": "lum",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Batch-generate and curate LuHm OS media from sealed character canon without allowing generation systems to self-promote art into canon.",
+  "machineNamingLaw": "lowerCamelHump",
+  "sealedCanonRequired": true,
+  "automaticCanonSeal": false,
+  "automaticCast": false,
+  "automaticBuild": false,
+  "automaticPublication": false,
+  "generationLanes": {
+    "localHydra": {
+      "role": "primaryLocalGeneration",
+      "providers": [
+        "comfyUi",
+        "ffmpeg",
+        "blender",
+        "gimp"
+      ],
+      "authority": "candidateGenerationOnly"
+    },
+    "googleAi": {
+      "role": "cloudGenerationAndReviewWhenEntitled",
+      "entitlementPolicy": "verifyFeatureBeforeUse",
+      "providerNickname": "bigBrother",
+      "authority": "candidateGenerationAndReviewOnly",
+      "maySealCanon": false,
+      "mayGrantGreen": false
+    },
+    "edgeGallery": {
+      "role": "localEdgeCompanion",
+      "authority": "readOnlyReviewAndPromptExperiment",
+      "runtimeClaimsRequireProof": true
+    }
+  },
+  "monitoringMiniAgents": {
+    "lum": "orchestrationContinuity",
+    "urdDoctorGoddess": "contaminationDiagnosisEvidenceTriageRollbackRisk",
+    "belldandySecretary": "canonStateNamingPathWorkflowReceiptLedger",
+    "skuldResearch": "technicalCompatibilityGenerationDependencyResearch"
+  },
+  "artLanes": {
+    "yume": {
+      "role": "artDirectionAndCandidateGeneration",
+      "skill": "agents/yumeArtOni/SKILL.md"
+    },
+    "sumi": {
+      "role": "provenanceHashStateAndRuntimeIdentity",
+      "skill": "agents/sumiAssetOni/SKILL.md"
+    }
+  },
+  "stateMachine": [
+    "sealedCanon",
+    "contentLaneClassification",
+    "batchManifest",
+    "candidateGeneration",
+    "contaminationAudit",
+    "candidateReview",
+    "professorApproval",
+    "approvedArt",
+    "formatDerivation",
+    "runtimeImport",
+    "runtimeImportProven",
+    "packageCandidate",
+    "driveDurableCopy",
+    "githubPointerReceipt"
+  ],
+  "assetFamilies": [
+    "masterSheet",
+    "turnaround",
+    "expressions",
+    "wardrobe",
+    "props",
+    "portraitBust",
+    "dialoguePortrait",
+    "chibi",
+    "spriteSet",
+    "voxelSet",
+    "ps1Set",
+    "uiIcon",
+    "keyArt",
+    "storyboard",
+    "animationKeyframes",
+    "threeDBrief",
+    "textureDirection"
+  ],
+  "batchRules": {
+    "sealedParentOnly": true,
+    "rejectedParentForbidden": true,
+    "neighborContaminationAuditRequired": true,
+    "provenanceRequired": true,
+    "privateReferencesStayPrivate": true,
+    "realPersonIdentityCloningForbidden": true,
+    "copyrightedCharacterOneToOneCopyForbidden": true,
+    "maxParallelGenerationJobs": 3,
+    "maxParallelReviewJobs": 3,
+    "oneCanonicalPromotionLane": true,
+    "laneMetadataRequired": true,
+    "adultLockRequiredForMatureAssets": true,
+    "publicSafeFallbackRequired": true,
+    "providerCannotWidenLane": true
+  },
+  "drive": {
+    "canonicalMediaRootTitle": "20_HYDRA_MEDIA",
+    "sourceArtFolderTitle": "10_SOURCE_ART",
+    "referenceFolderTitle": "20_REFERENCE",
+    "projectFilesFolderTitle": "50_PROJECT_FILES",
+    "finalExportsFolderTitle": "70_FINAL_EXPORTS",
+    "driveIsSourceOfTruth": false,
+    "syncLaw": "Google Drive stores the durable binary bytes for working and approved media; GitHub stores source, hashes, receipts and logical pointers. Drive is not source-code authority.",
+    "writeScope": "explicitConnectedDriveOnly",
+    "canonicalBinaryStorage": true,
+    "githubBinaryArchiveAuthority": false
+  },
+  "cockpit": {
+    "surface": "frontEnd",
+    "requiredControls": [
+      "assetFactoryStatus",
+      "generationQueueSummary",
+      "candidateReviewSummary",
+      "providerLaneSummary",
+      "driveSyncSummary",
+      "professorApprovalGate"
+    ],
+    "uiAuthority": "readOnlyStatusAndExplicitUserActions",
+    "greenAuthority": false
+  },
+  "crownStatus": "stop",
+  "contentLaneDoctrine": "doctrine/contentLaneDoctrineV1.json",
+  "assetEligibilityMatrix": "doctrine/assetEligibilityMatrixV1.json"
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "luhmOs.aiManifestFormat.v1",
+  "status": "PROPOSED_CANON_LAW",
+  "authority": "Professor",
+  "purpose": "Define the only current LuHm AI manifest dialect and filename convention.",
+  "fileNaming": {
+    "instanceFilenameStyle": "kebab-case",
+    "instanceFilenameRegex": "^[a-z0-9]+(?:-[a-z0-9]+)*\\.json$",
+    "doctrineTemplateFilenameStyle": "lowerCamelHump",
+    "doctrineMachineKeysRemain": "lowerCamelHump"
+  },
+  "currentSchemas": [
+    "luhmOs.aiTaskManifest.v2",
+    "luhmOs.yumeBigBrotherArtTask.v1"
+  ],
+  "currentTemplates": [
+    "doctrine/aiTaskManifestV2.template.json",
+    "agents/yumeArtOni/templates/big-brother-art-task-v1.template.json"
+  ],
+  "legacyLaw": [
+    "non_kebab_case_ai_manifest_filenames_are_legacy_artifacts",
+    "unknown_or_superseded_ai_manifest_schema_versions_are_legacy_artifacts",
+    "legacy_manifest_files_may_be_read_for_provenance_but_may_not_be_emitted_as_current",
+    "external_vendor_fixed_manifest_names_are_adapter_exceptions_not_luhm_machine_naming"
+  ],
+  "externalAdapterExceptions": [
+    "plugins/luhm-os/plugin.json",
+    "androidWeb3Plugin/plugin/src/main/AndroidManifest.xml"
+  ],
+  "crownStatus": "STOP",
+  "legacyFormats": {
+    "remoteAiManifestV1": "doctrine/remote-ai-manifest-v1.template.json",
+    "camelNamedYumeTemplate": "agents/yumeArtOni/templates/bigBrotherArtTaskV1.template.json"
+  }
+}

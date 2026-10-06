@@ -1,0 +1,83 @@
+name: Android Web3 Cockpit Switch Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/androidWeb3CockpitV2.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'frontEnd/**'
+      - 'backEndGui/**'
+      - 'androidWeb3Plugin/**'
+      - 'addons/AndroidWeb3Cockpit/**'
+      - 'project.godot'
+      - 'export_presets.cfg'
+      - 'scripts/main.gd'
+      - 'scripts/game/lumAvatar.gd'
+      - 'tests/lumRigV2Phase1Smoke.gd'
+      - 'doctrine/androidWeb3BridgeV2.json'
+      - 'doctrine/FORGE_TWINS_V3.json'
+      - 'tools/forgeCastGate.py'
+      - '.github/workflows/android-testing-build.yml'
+      - '.github/workflows/godot-web-harness.yml'
+      - '.github/workflows/lumrigv2-phase1.yml'
+      - 'README.md'
+      - 'tools/androidWeb3CockpitAudit.py'
+      - 'tools/rootedTermuxReleaseAudit.py'
+      - 'tools/termuxVirginInstall.sh'
+      - 'tools/termuxCastReleaseInstall.sh'
+      - 'doctrine/rootedTermuxGitHubReleaseInstallV1.json'
+      - 'doctrine/releaseBoundaryV2.json'
+      - '.github/workflows/android-web3-cockpit-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-cockpit-switch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Bind exact source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
+
+      - name: Existing front-end regression check
+        shell: bash
+        run: |
+          set -euo pipefail
+          node frontEnd/tools/check.mjs
+
+      - name: Android Web3 cockpit static audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/androidWeb3CockpitAudit.py | tee android-web3-cockpit-receipt.json
+          python3 -m json.tool android-web3-cockpit-receipt.json >/dev/null
+
+      - name: Rooted Termux GitHub prerelease audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/rootedTermuxReleaseAudit.py | tee rooted-termux-release-receipt.json
+          python3 -m json.tool rooted-termux-release-receipt.json >/dev/null
+
+      - name: Upload static receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: android-web3-cockpit-static-receipt
+          path: |
+            android-web3-cockpit-receipt.json
+            rooted-termux-release-receipt.json
+          if-no-files-found: error
+          retention-days: 30

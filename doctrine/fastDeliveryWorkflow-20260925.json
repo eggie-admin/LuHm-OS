@@ -1,0 +1,63 @@
+{
+  "schema": "luhmOs.fastDelivery.v1",
+  "status": "PROPOSED_WORKFLOW_NOT_DEPLOYED_AGENT_RUNTIME",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "baselineUploadSeal": "835c481c303a865576f789e0fc46acbd41d26b38",
+  "baselineTestedApkSource": "972a31e041904bf2791ead44b3ef3851599ad47a",
+  "objective": "Shortest evidence-backed path from one scoped change to one Samsung candidate",
+  "stages": [
+    "resolve exact source and current service capabilities",
+    "select one blocking milestone",
+    "make isolated change",
+    "run risk-focused local checks",
+    "run exact-source CI when build inputs change",
+    "hash artifact, copy durable binary to Google Drive, and inspect pointer receipt",
+    "save proposed seal with unresolved gates"
+  ],
+  "ci": {
+    "documentationOnlyApkRebuild": false,
+    "supersededRunsCancelled": true,
+    "artifactAuthority": "exact tested source plus run and digests",
+    "runtimeChanges": false
+  },
+  "mesh": {
+    "boss": "Lum",
+    "simpleTask": "boss-direct",
+    "defaultHelperRoles": [
+      "Context",
+      "Build",
+      "Research"
+    ],
+    "conditionalHelperRole": "Critic",
+    "maxActiveIncludingBoss": 3,
+    "helperRecursion": false,
+    "maxHelperResponseTurns": 2,
+    "helperMutationAuthority": false,
+    "modelSelection": "target-account verified access plus task eval and budget; no inferred API entitlement",
+    "deploymentStatus": "policy only; no hosted Lum or Oni deployment asserted"
+  },
+  "providerResponsibilities": {
+    "GitHub": "canonical source database, review, CI, receipts, hashes and artifact pointers; release/CI binaries are transient transport/cache only",
+    "GoogleDrive": "durable LuHm file server for APKs, ZIPs, media, manuals, snapshots, recovery bundles and large build artifacts",
+    "FastAPICloud": "identified authenticated backend only when needed",
+    "Modal": "bounded measured compute job only when needed",
+    "HuggingFace": "discovery or bounded evaluation when entitled",
+    "Pets": "ChatGPT companion presentation; never backend inference",
+    "OpenAI": "semantic state and agent context pointers only; not canonical source or binary storage"
+  },
+  "enterpriseAcceptance": [
+    "verified identity and permission scopes",
+    "enforced repository review and release protection",
+    "persistent signing with recovery custody",
+    "secrets isolated from untrusted PRs and clients",
+    "traceable source/artifact/dependency provenance",
+    "restoration drill",
+    "bounded and measured latency/error/cost",
+    "agent regression and tool-boundary evals",
+    "physical device and upgrade receipts"
+  ],
+  "enterpriseReady": false,
+  "promotion": false,
+  "privateAudit": "Account, pet and private Drive evidence kept in the installed personal skill; not published here",
+  "storageContract": "doctrine/storageTopologyV1.json"
+}

@@ -1,0 +1,25 @@
+name: Voice Ambient Intent Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/voiceAmbientIntentV1.json'
+      - 'doctrine/humanCenteredIntentRouterV2.json'
+      - 'agents/koeDictationOni/SKILL.md'
+      - 'tools/voiceAmbientIntentAudit.py'
+      - '.github/workflows/voice-ambient-intent-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  voice-ambient-intent:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Audit voice ambient intent contract
+        run: python tools/voiceAmbientIntentAudit.py

@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "portal": {
+    "id": "luhm.systemPortal",
+    "status": "CANDIDATE",
+    "authority": "READ_ONLY",
+    "crown": "STOP"
+  },
+  "services": [
+    {
+      "id": "luhm.chatgptHarness",
+      "label": "ChatGPT Harness",
+      "href": "https://luhm-os-harness-green.onrender.com/harness/",
+      "kind": "https-ui",
+      "environment": "public-candidate",
+      "authority": "non-authoritative",
+      "state": "PROVEN_LIVE_BY_PRIOR_RECEIPT",
+      "proofClass": "runtime-receipt",
+      "writeAuthority": false
+    },
+    {
+      "id": "luhm.mcp",
+      "label": "LuHm MCP",
+      "href": "https://luhm-os-harness-green.onrender.com/mcp",
+      "kind": "mcp-streamable-http",
+      "environment": "public-candidate",
+      "authority": "supporting",
+      "state": "READ_ONLY_CANDIDATE",
+      "proofClass": "source-plus-runtime-receipt",
+      "writeAuthority": false
+    },
+    {
+      "id": "hydra.local",
+      "label": "Hydra Local Cockpit",
+      "href": "https://hydra.localhost/",
+      "kind": "local-https-ui",
+      "environment": "local",
+      "authority": "local-only",
+      "state": "LOCAL_ONLY",
+      "proofClass": "local-runtime",
+      "writeAuthority": false
+    }
+  ]
+}

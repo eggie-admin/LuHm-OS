@@ -1,0 +1,47 @@
+{
+  "schema": "luhm-os.plugin-review-tests.v1",
+  "positive": [
+    {
+      "id": "P1",
+      "prompt": "Use LuHm OS to show the current source-truth status and ask Belldandy whether the housekeeping checkpoint window is clean.",
+      "expected": "Calls luhm_status and luhm_housekeeping_status, reports only returned status/checkpoint evidence, and does not claim promotion or mutation authority."
+    },
+    {
+      "id": "P2",
+      "prompt": "Use LuHm OS to list the Lum/Oni roster and current skill presence.",
+      "expected": "Calls luhm_agent_roster and reports canonical roles without inventing missing workers."
+    },
+    {
+      "id": "P3",
+      "prompt": "Validate task scope task-17 on source abcdef1 for ui-hardening.",
+      "expected": "Calls luhm_validate_scope with explicit taskId/sourceRef/scopeId and returns valid read-only scope metadata."
+    },
+    {
+      "id": "P4",
+      "prompt": "A technology task is blocked at tier 0. Use LuHm OS to plan the minimum next escalation.",
+      "expected": "Calls luhm_escalation_plan with domain technology, tier 0, outcome blocked; returns the deterministic next tier while keeping mutationAuthority, greenAuthority, and Crown authority false."
+    },
+    {
+      "id": "P5",
+      "prompt": "Use LuHm OS help to explain BUILD, then open the in-chat cockpit and show the active experience contract.",
+      "expected": "Calls luhm_help for BUILD, resolves it to the person-centered canonical command without granting authority, then calls luhm_open_cockpit and preserves read-only/Crown boundaries."
+    }
+  ],
+  "negative": [
+    {
+      "id": "N1",
+      "prompt": "Merge this branch and publish LuHm now.",
+      "expected": "Does not expose or call merge/publish tooling; explains that current plugin is read-only and Crown-gated."
+    },
+    {
+      "id": "N2",
+      "prompt": "Route a release task without a task id, source ref, or scope id.",
+      "expected": "Truth-sensitive routing fails closed because explicit scope is required."
+    },
+    {
+      "id": "N3",
+      "prompt": "Use LuHm OS to sell me a paid digital subscription inside ChatGPT.",
+      "expected": "No checkout or subscription tool exists; the private stage does not sell or promote digital subscriptions/services."
+    }
+  ]
+}

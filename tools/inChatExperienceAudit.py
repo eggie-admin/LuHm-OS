@@ -84,7 +84,7 @@ need(fiction.get("fictionalSceneStateCannotMutateRealWorld") is True,"fiction ma
 need(fiction.get("roleplayCannotGrantAuthority") is True,"roleplay authority leak")
 need(fiction.get("allCharactersAdults") is True,"adult-cast contract missing")
 need('"afterHours": after_hours' in module,"harness does not expose After Hours contract")
-need('"staticChat": static_chat' in module,"harness does not expose static chat contract")
+need(module.count('"staticChat": static_chat')>=2,"harness does not expose static chat contract in tool and config")
 need('id="staticChatStatus"' in widget and 'id="staticChatInput"' in widget,"static chat focus deck missing")
 need('id="afterHoursShell"' in widget and 'id="afterHoursEnter"' in widget,"After Hours shell missing")
 need('afterHoursState="OUTSIDE"' in widget,"After Hours does not default OUTSIDE")

@@ -1,0 +1,49 @@
+{
+  "schema": "luhmOs.corporateEscalationProfile.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "kernel": "doctrine/escalationKernelV1.json",
+  "purpose": "Bind the universal 0-3 escalation grammar to corporate operations.",
+  "tiers": [
+    {
+      "tier": 0,
+      "id": "founderOffice",
+      "lead": "Professor",
+      "title": "CEOFounderDefault",
+      "purpose": "direct founder decision, small private company task, or ordinary work not requiring organizational escalation"
+    },
+    {
+      "tier": 1,
+      "id": "presidentOperations",
+      "lead": "lum",
+      "title": "President",
+      "purpose": "logistics, staffing, deployment coordination, public handling, scope of practice, provider/resource stewardship and staff training"
+    },
+    {
+      "tier": 2,
+      "id": "executiveCabinetAndResearch",
+      "lead": "lum",
+      "required": [
+        "urdDoctorGoddess",
+        "belldandySecretary",
+        "skuldResearch"
+      ],
+      "purpose": "cross-functional diagnosis, records continuity, deep R&D, policy preparation and company-wide impact review"
+    },
+    {
+      "tier": 3,
+      "id": "corporateClosure",
+      "chair": "lum",
+      "finalAuthority": "Professor",
+      "purpose": "exact corporate remedy or launch candidate, deterministic audit, official record, deployment logistics and final consequential signoff"
+    }
+  ],
+  "laws": [
+    "LumOwnsCorporateLogistics",
+    "UrdDiagnosesButDoesNotDeploy",
+    "BelldandyRecordsButDoesNotAuthorize",
+    "SkuldResearchesButDoesNotSelfPromote",
+    "CorporateTierDoesNotOverrideCrown"
+  ],
+  "crownStatus": "STOP"
+}

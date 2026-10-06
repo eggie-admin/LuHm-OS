@@ -141,6 +141,8 @@ def register_harness(
         raise RuntimeError("RED_AFTER_HOURS_SCHEMA")
     if after_hours.get("modeBoundary", {}).get("defaultMode") != "normalChat" or not after_hours.get("modeBoundary", {}).get("explicitEntryRequired"):
         raise RuntimeError("RED_AFTER_HOURS_BOUNDARY")
+    if static_chat.get("schema") != "luhmOs.staticChatTransmogrifier.v1":
+        raise RuntimeError("RED_STATIC_CHAT_SCHEMA")
     if public_origin:
         resource_meta["ui"]["domain"] = public_origin
 
@@ -236,6 +238,7 @@ def register_harness(
                 "trafficController": traffic_controller,
                 "precisionCommands": precision_command,
                 "afterHours": after_hours,
+                "staticChat": static_chat,
                 "network": {
                     "localDevelopment": "http://127.0.0.1:8788/harness/",
                     "publicHttpsRequired": True,

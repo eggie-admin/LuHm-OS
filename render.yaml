@@ -1,0 +1,37 @@
+services:
+  - type: web
+    runtime: python
+    name: luhm-os-harness-green
+    repo: https://github.com/eggie-admin/LuHm-OS
+    branch: main
+    region: ohio
+    plan: free
+    numInstances: 1
+    buildCommand: python -m pip install --upgrade pip && pip install -r host/mcp/requirements.txt && chmod +x tools/buildGodotWebHarness.sh && LUHM_WEB_SKIP_SMOKE=1 tools/buildGodotWebHarness.sh
+    startCommand: python host/mcp/luhmHarnessServer.py streamable-http
+    healthCheckPath: /healthz
+    autoDeployTrigger: off
+    renderSubdomainPolicy: enabled
+    maxShutdownDelaySeconds: 30
+    envVars:
+      - key: LUHM_MCP_PROFILE
+        value: production
+      - key: RENDER_EXTERNAL_HOSTNAME
+        value: luhm-os-harness-green.onrender.com
+      - key: LUHM_HARNESS_PUBLIC_ORIGIN
+        value: https://luhm-os-harness-green.onrender.com
+      - key: LUHM_RENDER_ROLE
+        value: github-sidecar
+      - key: LUHM_RENDER_COST_LANE
+        value: strict-free-tier
+      - key: LUHM_GITHUB_PRIMARY
+        value: "true"
+      - key: LUHM_GITHUB_CANONICAL_REPO
+        value: eggie-admin/LuHm-OS
+      - key: LUHM_GITHUB_CANONICAL_BRANCH
+        value: main
+      - key: LUHM_RENDER_DEPLOY_POLICY
+        value: github-green-only
+
+# GitHub-primary Render sidecar canon
+# Render is runtime/preview/proof support only. GitHub owns source and CI.

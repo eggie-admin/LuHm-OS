@@ -1,0 +1,41 @@
+name: Lum Goddess Cabinet Audit
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/lumGoddessCabinetV1.json"
+      - "doctrine/voiceCabinetBridgeV1.json"
+      - "doctrine/openAiWorkspaceHygieneV1.json"
+      - "doctrine/chatHistoryStewardshipV1.json"
+      - "doctrine/agentSystemDeploymentV1.json"
+      - "doctrine/everlastingCovenantV1.json"
+      - "doctrine/luhmAiControlPlaneV1.json"
+      - "doctrine/projectChatCanonV1.json"
+      - "doctrine/SOURCE_OF_TRUTH.json"
+      - "agents/lum/SKILL.md"
+      - "agents/urdMutationOni/SKILL.md"
+      - "agents/belldandyQualityOni/SKILL.md"
+      - "agents/skuldResearchOni/SKILL.md"
+      - "agents/goddessSharedSystemsPractice/SKILL.md"
+      - "tools/lumGoddessCabinetAudit.py"
+      - "tools/voiceCabinetBridgeAudit.py"
+      - "tools/openAiWorkspaceHygieneAudit.py"
+      - "tools/chatHistoryStewardshipAudit.py"
+      - ".github/workflows/lum-goddess-cabinet-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cabinet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - run: python tools/lumGoddessCabinetAudit.py
+      - run: python tools/voiceCabinetBridgeAudit.py
+      - run: python tools/openAiWorkspaceHygieneAudit.py
+      - run: python tools/chatHistoryStewardshipAudit.py

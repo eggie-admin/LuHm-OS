@@ -1,0 +1,20 @@
+# LuHm OS private install portal
+# EXAMPLE ONLY. Do not enable until the host and LAN DNS are audited.
+# Replace /srv/luhm/get with the extracted CI install-bundle directory.
+
+<VirtualHost *:80>
+    ServerName get.lum.eggiebagelface.lan
+    DocumentRoot /srv/luhm/get
+
+    <Directory /srv/luhm/get>
+        Options -Indexes
+        AllowOverride None
+        Require all granted
+    </Directory>
+
+    AddType application/vnd.android.package-archive .apk
+    AddType application/json .json
+
+    ErrorLog ${APACHE_LOG_DIR}/luhm-get-error.log
+    CustomLog ${APACHE_LOG_DIR}/luhm-get-access.log combined
+</VirtualHost>

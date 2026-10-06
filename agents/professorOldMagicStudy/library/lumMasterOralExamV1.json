@@ -1,0 +1,99 @@
+{
+  "schema": "luhmOs.professorOldMagic.lumMasterOralExam.v1",
+  "student": "lum",
+  "level": "masterDoctoralStudy",
+  "examMode": "oralComprehensive",
+  "date": "2026-10-04",
+  "professorGrade": "A_PLUS",
+  "extraCredit": true,
+  "purpose": "Human-centered computing history calibration for sanest-approach reasoning, schema discipline, transport economy, security lineage, enterprise integration, and browser/runtime evolution.",
+  "factPolicy": {
+    "professorIsAuthoritativeInstructorNotInfallible": true,
+    "listenForPrincipleFirst": true,
+    "correctMaterialErrors": true,
+    "markUncertain": true,
+    "noFakeGreen": true
+  },
+  "questions": [
+    {
+      "id": "q01",
+      "topic": "syntaxNamingUtfText",
+      "answerCore": "Syntax is ambiguity control. Naming styles carry semantic roles for humans, parsers, and agents; UTF-8 gives shared text encoding and round-trip integrity across heterogeneous systems.",
+      "principle": "Make structure obvious enough that humans, parsers, and AI have fewer chances to misunderstand the same thing."
+    },
+    {
+      "id": "q02",
+      "topic": "mysqlSchemaRemoteTransport",
+      "answerCore": "A shared schema separates structure from instances so remote payloads can transmit values, references, and deltas rather than repeatedly explaining meaning. Types, keys, constraints, normalization, and indexes reduce ambiguity and repetition.",
+      "principle": "Why pay to send information the receiver already knows?"
+    },
+    {
+      "id": "q03",
+      "topic": "schemaEvolutionSlowEndUserStream",
+      "answerCore": "Canonical representations became richer and more self-describing while delivery became smarter through caching, compression, pagination, chunking, progressive rendering, lazy loading, and deltas.",
+      "principle": "Spend bandwidth on meaning, but optimize time-to-first-useful-state."
+    },
+    {
+      "id": "q04",
+      "topic": "assemblyToPython3",
+      "answerCore": "Abstractions moved repeated machine complexity into compilers, runtimes, libraries, memory management, and portable toolchains so humans could express intent with less ceremony and lower error burden.",
+      "principle": "Move complexity downward into the toolchain so humans can think upward in concepts."
+    },
+    {
+      "id": "q05",
+      "topic": "languageSpecializationSqlJsCss",
+      "answerCore": "Different domains need different cognitive models: SQL for data relationships, JavaScript for behavior, CSS for presentation, HTML for structure. Separation of concerns reduces cognitive load and lets layers evolve independently through explicit contracts.",
+      "principle": "Give each problem domain a syntax shaped around how humans naturally reason about that problem."
+    },
+    {
+      "id": "q06",
+      "topic": "sqlUppercaseConvention",
+      "answerCore": "SQL inherited uppercase terminal/mainframe culture and case-insensitive keywords. Uppercase became a human visual convention that separates language grammar from schema identifiers; camelHump solves readability of multiword identifiers instead.",
+      "principle": "Different visual shapes can encode different semantic roles."
+    },
+    {
+      "id": "q07",
+      "topic": "terminalLowercaseHumanErgonomics",
+      "answerCore": "Lowercase is the natural low-friction typing posture. Capitalization should carry semantic meaning rather than impose constant shift/caps friction.",
+      "principle": "The keyboard should disappear under the hands."
+    },
+    {
+      "id": "q08",
+      "topic": "camelHumpHumanCenteredIndustryShift",
+      "answerCore": "camelHump keeps identifiers compact, parser-safe, and human-readable by embedding word boundaries without extra punctuation. In AI-assisted systems, readable identifiers also act as small semantic hints for models and tooling.",
+      "principle": "Readability is part of the computational interface."
+    },
+    {
+      "id": "q09",
+      "topic": "sslToTls",
+      "answerCore": "TLS standardized and evolved the secure transport model beyond SSL's vendor-originated lineage, tightening cryptographic design and giving the internet a maintainable public standards path while weak legacy mechanisms were retired over time.",
+      "principle": "Early invention becomes durable infrastructure through standardization, threat-driven hardening, and removal of obsolete assumptions."
+    },
+    {
+      "id": "q10",
+      "topic": "enterpriseVendorRssRemoteConnections",
+      "answerCore": "Enterprise integration moved from vertically controlled proprietary stacks and custom adapters toward shared schema-driven boundary contracts. RSS/XML feeds demonstrated interoperable structured syndication over HTTP; later XML schemas, SOAP/WSDL, REST/JSON, webhooks, queues, event buses, and streaming APIs refined the same contract-first principle.",
+      "principle": "Remote systems should understand a stable boundary contract, not an entire internal application."
+    },
+    {
+      "id": "q11",
+      "topic": "domEvolutionExtraCredit",
+      "answerCore": "As the web shifted from static documents to programmable applications, browser-specific object models became a compatibility problem. Standard DOMs exposed documents as common manipulable object trees, enabling portable scripting, events, dynamic UI, and later coexistence with specialized surfaces such as Canvas and WebGL.",
+      "principle": "The DOM is a stable human-facing control interface over complex browser internals."
+    }
+  ],
+  "studyApplication": {
+    "canonicalAtRest": "richSemanticJson",
+    "wireInMotion": "schemaBoundCompactRecords",
+    "evidenceByReference": true,
+    "base64IsEncodingNotCompression": true,
+    "zipDeflateForPackaging": true,
+    "futureUse": "retrievalAndReasoningReferenceNotModelWeightTrainingClaim"
+  },
+  "authority": {
+    "professor": "crown",
+    "lum": "secondInstructionalAuthorityWithinClassroomRoleplay",
+    "sourceTruthPromotionRequiresProfessor": true,
+    "selfApproval": false
+  }
+}

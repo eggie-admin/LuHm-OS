@@ -1,0 +1,108 @@
+{
+  "schema": "luhmOs.universalSamsungAmberSeal.v1",
+  "status": "AMBER_PROPOSED_SEAL_OF_TRUTH",
+  "date": "2026-09-25",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "priorAuditSealCommit": "c9eb83f79cedb0039ae87e21d0656a6f815e6e83",
+  "testedSourceCommit": "972a31e041904bf2791ead44b3ef3851599ad47a",
+  "proposalPullRequest": "https://github.com/eggie-admin/LuHm-OS/pull/8",
+  "scope": "Shared ARM64 debug APK for S24 FE and SM-X400; proposed candidate, not stable promotion",
+  "receipt": {
+    "status": "AMBER_CI_CANDIDATE_DEVICE_PROOF_PENDING",
+    "sourceCommit": "972a31e041904bf2791ead44b3ef3851599ad47a",
+    "workflowRun": "36186959718",
+    "contract": {
+      "schema": "luhmOs.androidCandidate.v1",
+      "status": "PROPOSED_AMBER_TARGET",
+      "package": "art.eggiebagelface.luhmos.testing",
+      "versionCode": 115,
+      "versionName": "1.0.15-samsungamber.1",
+      "minSdk": 24,
+      "targetSdk": 36,
+      "abi": "arm64-v8a",
+      "devices": [
+        "S24 FE",
+        "SM-X400"
+      ],
+      "signing": "disposable-debug-only",
+      "persistentSigner": false,
+      "installScope": "same exact APK on both devices; certificate check required before replacement",
+      "promotion": false
+    },
+    "apkSha256": "48d033bbe0c1f0e653bf4cd5eee91010333741bc02cbec7877cbd7fe2b95966d",
+    "certificateSha256": "87eb01a39a60091b043156f9111fcaaba0451f40a3529b0d58ff401b7c87f067",
+    "nativeElfLoadAlignments": {
+      "lib/arm64-v8a/libc++_shared.so": [
+        16384,
+        16384,
+        16384
+      ],
+      "lib/arm64-v8a/libgodot_android.so": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    "assetSha256": {
+      "luhm.glb": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
+      "luhmRunning.glb": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0"
+    },
+    "persistentSigner": false,
+    "signatureVerifiedBy": "apksigner",
+    "zipAlignmentVerifiedBy": "zipalign -c -P 16 -v 4",
+    "deviceProof": {
+      "S24FE": "pending",
+      "SM-X400": "pending"
+    },
+    "pageSizeRuntimeProof": "pending",
+    "promotion": false
+  },
+  "artifact": {
+    "id": 10886332600,
+    "name": "luhm-os-universal-samsung-amber-apk",
+    "size_in_bytes": 44234566,
+    "url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/artifacts/10886332600",
+    "archive_download_url": "https://api.github.com/repos/eggie-admin/LuHm-OS/actions/artifacts/10886332600/zip",
+    "expired": false,
+    "created_at": "2026-09-25T20:40:34Z",
+    "expires_at": "2026-10-25T20:40:31Z",
+    "updated_at": "2026-09-25T20:40:34Z",
+    "digest": "sha256:5ae76840d5fee5dab33e97853994d572efdfa52a28d53d6e8ca62d40d3c13753",
+    "workflow_run": {
+      "id": 36186959718,
+      "repository_id": 1386553994,
+      "head_repository_id": 1386553994,
+      "head_branch": "proposed/universalSamsungAmber-20260925",
+      "head_sha": "972a31e041904bf2791ead44b3ef3851599ad47a"
+    }
+  },
+  "ci": [
+    {
+      "id": 36186959718,
+      "name": "LuHm OS Universal Samsung Candidate",
+      "conclusion": "success"
+    },
+    {
+      "id": 36186959892,
+      "name": "LumRigV2 Phase 1",
+      "conclusion": "success"
+    }
+  ],
+  "resolved": [
+    "One Android package/version contract; duplicate Clean Play export retired on proposal branch",
+    "Exact source checkout rather than synthetic merge attribution",
+    "Runtime boundary checks fail on forbidden matches and scan errors, with negative controls",
+    "Final APK package/version/SDK/ABI/permission/debug-state verification",
+    "APK signature plus 16KB ZIP and both native-library ELF LOAD alignment verification",
+    "Pinned Lum asset hashes recorded with APK/certificate/source receipt"
+  ],
+  "remaining": [
+    "Persistent signing custody and stable update path; current signer is disposable debug",
+    "Physical installation and layout/input/pause-resume proof on S24 FE and SM-X400",
+    "Real 16KB runtime test",
+    "Google developer registration/Play Protect and Samsung warning diagnosis if device blocks installation"
+  ],
+  "installBoundary": "Check installed certificate first. Do not automatically uninstall or erase app data. This artifact cannot normally update an app signed by an older disposable CI key.",
+  "evidenceScope": "CI job logs and artifact metadata inspected; no claim of an independent binary rehash or physical-device test",
+  "sealSemantics": "This metadata seal is separate from tested source. The audit is preserved unchanged. Main and prior golden state are not promoted or replaced."
+}
