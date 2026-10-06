@@ -7,6 +7,11 @@ const jquery = { fn: {} };
 vm.runInNewContext(source, { window: { jQuery: jquery }, jQuery: jquery });
 
 const cabinet = jquery.luhmVoiceCabinet;
+assert.equal(cabinet.speechRecognitionConstructor({ SpeechRecognition: function Standard() {} }).name, "Standard", "supports standard browser recognition");
+assert.equal(cabinet.speechRecognitionConstructor({ webkitSpeechRecognition: function Prefixed() {} }).name, "Prefixed", "supports prefixed WebView recognition");
+assert.equal(cabinet.speechRecognitionConstructor({}), null, "gracefully handles hosts without recognition");
+assert.equal(cabinet.transcriptFromResult({ results: [[{ transcript: " hello " }]] }), "hello", "extracts a speech result");
+assert.equal(cabinet.transcriptFromResult({ results: [[{ transcript: "x".repeat(1300) }]] }).length, 1200, "bounds recognized input");
 assert.equal(cabinet.parseCommand("C", "OUTSIDE"), null, "C stays literal outside After Hours");
 assert.equal(cabinet.parseCommand("AFTER HOURS", "OUTSIDE"), "enter", "entry is explicit");
 assert.equal(cabinet.parseCommand("C", "ACTIVE"), "continue", "C advances an active scene");

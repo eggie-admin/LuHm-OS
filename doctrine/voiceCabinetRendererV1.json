@@ -30,7 +30,9 @@
     "hostSpeechSynthesisOptional": true,
     "voiceSelection": "installed device voices per speaker",
     "preferenceStorage": "localStorage presentation preference",
-    "fallback": "named transcript"
+    "fallback": "named transcript",
+    "deviceReadAloudAction": "per visible Lum or named ensemble message",
+    "deviceSpeechRecognitionInput": "optional host Web Speech API dictation to the existing composer/router"
   },
   "boundaries": {
     "agentRuntimeAttached": false,
@@ -39,7 +41,10 @@
     "presentationOnly": true,
     "authorityEffect": "none",
     "hiddenAsyncExecution": false,
-    "externalMutation": false
+    "externalMutation": false,
+    "chatgptNativeUiControl": false,
+    "realtimeApiBackendAttached": false,
+    "nativeChatGptVoiceControl": "not part of the public WebView bridge"
   },
   "proof": {
     "sourceCandidateIsNotRuntimeProof": true,

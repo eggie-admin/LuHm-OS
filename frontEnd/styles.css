@@ -96,7 +96,7 @@ button { color: inherit; }
   height: var(--chatRatio);
   min-height: 180px;
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto auto auto;
+  grid-template-rows: minmax(0, 1fr) auto auto auto auto;
   gap: 6px;
   padding: 10px clamp(16px, 5vw, 76px) 10px;
   background: linear-gradient(180deg, rgba(17,13,24,.78), rgba(10,9,15,.92));
@@ -111,7 +111,7 @@ button { color: inherit; }
 .messageMeta time { color: var(--muted); font-size: 12px; }
 .message p { margin: 3px 0 0; color: #e8e2ed; line-height: 1.35; }
 
-.composer { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; min-height: 50px; padding: 5px 6px 5px 12px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: rgba(9,9,15,.72); }
+.composer { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; align-items: center; gap: 8px; min-height: 50px; padding: 5px 6px 5px 12px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: rgba(9,9,15,.72); }
 .composer input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); }
 .composer input::placeholder { color: #847b90; }
 .iconButton { color: #dfe8ee; font-size: 20px; }
@@ -217,3 +217,8 @@ button { color: inherit; }
 .voiceSelector { display: grid; gap: 3px; color: var(--muted); }
 .voiceSelector select { max-width: 190px; border: 1px solid var(--line); border-radius: 6px; padding: 5px; background: #15111c; color: var(--ink); }
 @media (max-width: 720px) { .afterHoursBar { gap: 4px; } .afterHoursBar button { padding: 5px 7px; } }
+.voiceInputButton { border: 0; background: transparent; color: var(--cyan); font-size: 19px; cursor: pointer; }
+.voiceInputButton:disabled { opacity: .4; cursor: not-allowed; }
+.voiceInputStatus { min-height: 12px; margin: -2px 8px 0; color: var(--muted); font-size: 10px; line-height: 1.25; }
+.voiceReadAloud { display: inline-block; margin-top: 4px; padding: 3px 7px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.04); color: var(--muted); font-size: 10px; cursor: pointer; }
+.voiceReadAloud:hover { color: var(--ink); border-color: rgba(114,217,255,.5); }

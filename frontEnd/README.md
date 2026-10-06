@@ -40,3 +40,9 @@ Front-end code must never contain API keys, credentials, model secrets, arbitrar
 - A typed `namedEnsembleTurn` can render Lum, Urd, Belldandy, Skuld, and Yume as labeled transcript segments. If the host exposes browser speech synthesis, each speaker may use an installed device voice. Voice mappings are a local presentation preference; the named transcript remains the fallback.
 - The cockpit publishes events for a future Lum-mediated agent adapter. **This source candidate does not attach an agent runtime, invoke ChatGPT Voice, or call an Edge Gallery endpoint.** The C control displays that limitation instead of pretending agents responded.
 - See `../doctrine/voiceCabinetRendererV1.json` for the presentation boundary and `../doctrine/voiceCabinetBridgeV1.json` for the roster and proof requirements.
+
+### Device Read Aloud and voice input
+
+- Each visible Lum/ensemble message has a **Read aloud** control that uses the selected installed device voice when host speech synthesis is available.
+- The microphone button uses the browser SpeechRecognition API when exposed by the host. It transcribes one utterance into the normal composer or active After Hours router; the cockpit reports unavailable or permission errors without pretending audio was processed.
+- These are device speech features, not ChatGPT app controls. The documented ChatGPT Voice flow is started from ChatGPT itself; this separate WebView has no supported hook to press the app's private Voice or Read Aloud controls ([ChatGPT Voice](https://help.openai.com/en/articles/20001274-chatgpt-voice)). For a true AI speech-to-speech session, OpenAI documents the Realtime API as a separate integration; browser clients need a backend-minted short-lived client secret, and a standard API key must stay server-side ([Realtime API](https://platform.openai.com/docs/api-reference/realtime?lang=javascript), [API key safety](https://platform.openai.com/docs/api-reference/authentication)).

@@ -14,6 +14,16 @@
     yume: "Yume"
   });
 
+  function speechRecognitionConstructor(host) {
+    return host && (host.SpeechRecognition || host.webkitSpeechRecognition) || null;
+  }
+
+  function transcriptFromResult(event) {
+    const result = event && event.results && event.results[0];
+    const alternative = result && result[0];
+    return String(alternative && alternative.transcript || "").trim().slice(0, 1200);
+  }
+
   function normalizeCommand(value) {
     return String(value || "").normalize("NFC").trim().toLocaleUpperCase("en-US");
   }
@@ -115,6 +125,97 @@
     return availableVoices(state).find(function (voice) { return voice.voiceURI === uri; }) || null;
   }
 
+  function readAloud(state, rawText, speakerId) {
+    const text = String(rawText || "").trim().slice(0, 1200);
+    const speech = window.speechSynthesis;
+    const Utterance = window.SpeechSynthesisUtterance;
+    if (!text) return false;
+    if (!speech || typeof speech.speak !== "function" || typeof Utterance !== "function") {
+      appendStatus(state, "READ ALOUD", "Device speech synthesis is unavailable in this host.");
+      return false;
+    }
+    speech.cancel();
+    const utterance = new Utterance(text);
+    utterance.voice = selectedVoice(state, speakerId);
+    speech.speak(utterance);
+    return true;
+  }
+
+  function addReadAloudButton($article, speakerId) {
+    if (!$article.find("p").length || $article.find("[data-luhm-read-aloud]").length) return;
+    const label = speakers[speakerId] || "Lum";
+    $("<button>", {
+      type: "button", class: "voiceReadAloud",
+      "data-luhm-read-aloud": speakerId || "lum",
+      "aria-label": "Read " + label + " message aloud",
+      text: "Read aloud"
+    }).insertAfter($article.find("p").last());
+  }
+
+  function setDictationStatus(state, text) {
+    state.$dictationStatus.text(text);
+  }
+
+  function stopDictation(state) {
+    if (state.recognition) {
+      const recognition = state.recognition;
+      state.recognition = null;
+      try { recognition.stop(); } catch (_error) { /* Already stopped by the host. */ }
+    }
+    state.$dictate.text("🎙").attr("aria-label", "Start voice input").prop("disabled", !speechRecognitionConstructor(window));
+  }
+
+  function startDictation(state) {
+    const Recognition = speechRecognitionConstructor(window);
+    if (!Recognition) {
+      setDictationStatus(state, "Voice input is unavailable in this host.");
+      appendStatus(state, "VOICE INPUT", "This host does not expose speech recognition.");
+      return false;
+    }
+    if (state.recognition) {
+      stopDictation(state);
+      setDictationStatus(state, "Voice input stopped.");
+      return true;
+    }
+
+    const recognition = new Recognition();
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    state.recognition = recognition;
+    state.$dictate.text("…").attr("aria-label", "Stop voice input");
+    setDictationStatus(state, "Listening. Browser and host microphone permissions apply.");
+
+    recognition.onresult = function (event) {
+      const transcript = transcriptFromResult(event);
+      if (!transcript) {
+        setDictationStatus(state, "No speech was transcribed.");
+        return;
+      }
+      state.$input.val(transcript);
+      setDictationStatus(state, "Speech transcribed into the composer. A Lum reply still requires an attached chat runtime.");
+      state.$composer.triggerHandler("submit");
+    };
+    recognition.onerror = function (event) {
+      const reason = String(event && event.error || "unknown error").slice(0, 80);
+      setDictationStatus(state, "Voice input stopped: " + reason + ".");
+    };
+    recognition.onend = function () {
+      if (state.recognition === recognition) state.recognition = null;
+      state.$dictate.text("🎙").attr("aria-label", "Start voice input");
+    };
+    try {
+      recognition.start();
+      return true;
+    } catch (_error) {
+      state.recognition = null;
+      state.$dictate.text("🎙").attr("aria-label", "Start voice input");
+      setDictationStatus(state, "The host could not start microphone recognition.");
+      return false;
+    }
+  }
+
   function speakTurn(state, rawTurn) {
     const turn = normalizeTurn(rawTurn);
     if (!turn) {
@@ -129,6 +230,7 @@
       const $meta = $("<div>", { class: "messageMeta" }).appendTo($body);
       $("<strong>", { text: label }).appendTo($meta);
       $("<p>", { text: segment.text }).appendTo($body);
+      addReadAloudButton($article, segment.speakerId);
       state.$messageStream.append($article);
     });
     state.$messageStream.scrollTop(state.$messageStream.prop("scrollHeight"));
@@ -176,6 +278,7 @@
     if (command === "pause") {
       state.mode = "PAUSED";
       if (window.speechSynthesis) window.speechSynthesis.cancel();
+      stopDictation(state);
       updateControls(state);
       appendStatus(state, "OOC · PAUSED", "The scene is paused. Real-world requests stay out of the fiction.");
       emit(state.$root, "luhm:after-hours:pause", { mode: state.mode, authorityEffect: "none", source: source });
@@ -191,6 +294,7 @@
     if (command === "exit") {
       state.mode = "OUTSIDE";
       if (window.speechSynthesis) window.speechSynthesis.cancel();
+      stopDictation(state);
       updateControls(state);
       appendStatus(state, "NORMAL CHAT", "After Hours closed.");
       emit(state.$root, "luhm:after-hours:exit", { mode: state.mode, authorityEffect: "none", source: source });
@@ -238,6 +342,10 @@
       mode: "OUTSIDE",
       voiceMap: readVoiceMap(),
       $messageStream: $root.find("[data-luhm-message-stream]"),
+      $composer: $root.find("[data-luhm-composer]"),
+      $input: $root.find("[data-luhm-input]"),
+      $dictate: $root.find("[data-luhm-dictate]"),
+      $dictationStatus: $root.find("[data-luhm-dictation-status]"),
       $voiceSelectors: $root.find("[data-luhm-voice-selectors]"),
       $enter: $root.find("[data-luhm-after-hours-enter]"),
       $continue: $root.find("[data-luhm-continue]"),
@@ -248,10 +356,27 @@
     };
     $root.data(dataKey, state);
     buildVoiceSelectors(state);
+    state.$messageStream.find(".messageLum").each(function () {
+      const name = String($(this).find(".messageMeta strong").first().text() || "Lum");
+      const speakerId = Object.keys(speakers).find(function (key) { return speakers[key] === name; }) || "lum";
+      addReadAloudButton($(this), speakerId);
+    });
+    state.$dictate.prop("disabled", !speechRecognitionConstructor(window));
+    setDictationStatus(state, speechRecognitionConstructor(window)
+      ? "Device dictation is available; browser and host microphone handling apply."
+      : "This host does not expose browser speech recognition.");
     updateControls(state);
 
     $root.on("luhm:chat:route" + eventNamespace, function (_event, detail) {
       return routeText(state, detail && detail.text);
+    });
+    $root.on("click" + eventNamespace, "[data-luhm-read-aloud]", function () {
+      const speakerId = String($(this).attr("data-luhm-read-aloud") || "lum");
+      const text = $(this).closest(".message").find("p").last().text();
+      readAloud(state, text, speakerId);
+    });
+    $root.on("click" + eventNamespace, "[data-luhm-dictate]", function () {
+      startDictation(state);
     });
     $root.on("luhm:voice:ensemble" + eventNamespace, function (_event, turn) {
       if (state.mode === "ACTIVE") speakTurn(state, turn);
@@ -302,6 +427,7 @@
         const state = stateFor($root);
         if (!state) return;
         if (window.speechSynthesis) window.speechSynthesis.cancel();
+        stopDictation(state);
         if (window.speechSynthesis && state.onVoicesChanged && typeof window.speechSynthesis.removeEventListener === "function") {
           window.speechSynthesis.removeEventListener("voiceschanged", state.onVoicesChanged);
         }
@@ -321,6 +447,8 @@
   $.luhmVoiceCabinet = Object.freeze({
     parseCommand: parseCommand,
     normalizeTurn: normalizeTurn,
+    speechRecognitionConstructor: speechRecognitionConstructor,
+    transcriptFromResult: transcriptFromResult,
     speakers: speakers
   });
 }(window.jQuery));
