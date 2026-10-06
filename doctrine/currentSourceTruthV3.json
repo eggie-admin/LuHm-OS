@@ -523,5 +523,15 @@
     "learningClaim": "RECEIPT_BACKED_ROUTING_AND_PACING_ONLY",
     "hiddenPsychologicalProfiling": false,
     "hiddenModelWeightTraining": false
+  },
+  "renderSidecarLayer": {
+    "contract": "doctrine/githubRenderSidecarV1.json",
+    "status": "CANONICAL_LAW",
+    "primeFlow": "Professor invents -> Lum organizes -> R&D investigates -> Oni translate -> GitHub proves -> Render demonstrates -> Lum presents.",
+    "githubRole": "compatibilitySourceCiAndReceiptSpine",
+    "renderRole": "sidecarRuntimePreviewAndProofFloor",
+    "entitlementLane": "STRICT_FREE_TIER",
+    "professorApproval": true,
+    "crownStatus": "CROWNED_MILESTONE"
   }
 }

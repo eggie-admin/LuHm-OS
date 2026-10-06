@@ -150,6 +150,7 @@ def _api_spine_payload() -> dict[str, Any]:
         "routing": spine.get("routing", {}),
         "providers": spine.get("providers", {}),
         "resilience": spine.get("resilience", {}),
+        "renderSidecar": spine.get("renderSidecar", {}),
         "trafficController": {
             "schema": traffic.get("schema", "UNKNOWN"),
             "status": traffic.get("status", "UNKNOWN"),
@@ -405,6 +406,13 @@ def _assert_source_contract() -> None:
         raise RuntimeError("RED_API_SPINE_ROUTING_DRIFT")
     if spine.get("authorityBoundary", {}).get("trafficControllerMayGrantAuthority") is not False:
         raise RuntimeError("RED_TRAFFIC_CONTROLLER_AUTHORITY_LEAK")
+    sidecar = spine.get("renderSidecar", {})
+    if sidecar.get("sourceAndCiAuthority") != "github":
+        raise RuntimeError("RED_RENDER_SOURCE_AUTHORITY_DRIFT")
+    if sidecar.get("entitlementLane") != "STRICT_FREE_TIER":
+        raise RuntimeError("RED_RENDER_COST_LANE_DRIFT")
+    if sidecar.get("renderMayGrantGreen") is not False:
+        raise RuntimeError("RED_RENDER_GREEN_AUTHORITY_LEAK")
     if traffic.get("schema") != "luhmOs.cloudflareAirTrafficController.v1":
         raise RuntimeError("RED_TRAFFIC_CONTROLLER_SCHEMA")
     if not API_SPINE_RESOLVER.is_file():
@@ -667,7 +675,7 @@ async def healthz(_: Request) -> Response:
             headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"},
         )
     return JSONResponse(
-        {"status": "ok", "service": SERVER_NAME, "version": SERVER_VERSION},
+        {"status": "ok", "service": SERVER_NAME, "version": SERVER_VERSION, "role": os.environ.get("LUHM_RENDER_ROLE", "local-runtime"), "costLane": os.environ.get("LUHM_RENDER_COST_LANE", "local"), "githubPrimary": os.environ.get("LUHM_GITHUB_PRIMARY", "false").lower() == "true"},
         headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"},
     )
 
