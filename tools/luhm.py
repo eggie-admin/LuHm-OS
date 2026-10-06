@@ -44,7 +44,20 @@ def precision_rows():
     return rows
 
 def rows():
-    return HELP.get("builtins",[])+precision_rows()
+    merged={}
+    for row in HELP.get("builtins",[])+precision_rows():
+        canonical=row.get("canonicalName","")
+        if not canonical:
+            continue
+        if canonical not in merged:
+            merged[canonical]=dict(row)
+            continue
+        current=merged[canonical]
+        current_aliases=dict(current.get("aliases",{}))
+        current_aliases.update(row.get("aliases",{}))
+        current["aliases"]=current_aliases
+        current["examples"]=list(dict.fromkeys(current.get("examples",[])+row.get("examples",[])))
+    return list(merged.values())
 
 def aliases(row):
     values=[row.get("canonicalName","")]
@@ -53,7 +66,11 @@ def aliases(row):
 
 def find(term):
     term=term.strip()
-    matches=[row for row in rows() if term in aliases(row)]
+    exact=[row for row in rows() if term in aliases(row)]
+    if len(exact)==1:
+        return exact[0]
+    folded=term.casefold()
+    matches=[row for row in rows() if any(folded==value.casefold() for value in aliases(row))]
     return matches[0] if len(matches)==1 else None
 
 def show_root():

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 root=Path(__file__).resolve().parents[1]
@@ -10,6 +12,7 @@ def need(ok,msg):
         errors.append(msg)
 
 experience=json.loads((root/"doctrine/inChatExperienceV1.json").read_text(encoding="utf-8"))
+precision=json.loads((root/"doctrine/chatPrecisionCommandV1.json").read_text(encoding="utf-8"))
 need(experience.get("schema")=="luhmOs.inChatExperience.v1","schema drift")
 need(experience.get("boss")=="lum","Lum boss drift")
 need(experience.get("authority")=="Professor","Professor authority drift")
@@ -62,6 +65,13 @@ need('"openingDay": opening_day' in module,"harness does not expose opening-day 
 need('"apiSpine": api_spine' in module and '"trafficController": traffic_controller' in module,"harness does not expose API spine/traffic controller")
 need('id="apiSpine"' in widget and 'id="airTraffic"' in widget,"widget does not render API spine/traffic controller")
 need('"crownFlow": crown_flow' in module and '"runtimeReceipt": runtime_receipt' in module,"harness does not expose Crown flow receipts")
+need('"precisionCommands": precision_command' in module,"harness does not expose precision command contract")
+need('latest?.precisionCommands?.examples' in widget,"widget does not consume precision command payload")
+need('const precisionCommands=[' not in widget,"widget still hard-codes precision commands")
+need(any(row.get("debugVerb")=="HELP" and row.get("camelHump")=="showHelp" for row in precision.get("examples",[])),"HELP precision command missing")
+need(len(precision.get("examples",[]))>=9,"precision command registry unexpectedly shrank")
+cli=subprocess.run([sys.executable,str(root/"tools/luhm.py"),"-h"],capture_output=True,text=True)
+need(cli.returncode==0 and "HELP" in cli.stdout and "CONTINUE" in cli.stdout,"luhm -h does not expose precision command vocabulary")
 
 print(json.dumps({
   "schema":"luhmOs.inChatExperienceAudit.v1",

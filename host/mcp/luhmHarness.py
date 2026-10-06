@@ -93,8 +93,9 @@ def register_harness(
     opening_day_path = root / "doctrine" / "openingDayStaffTrainingV1.json"
     api_spine_path = root / "doctrine" / "apiSpineV1.json"
     traffic_controller_path = root / "doctrine" / "cloudflareAirTrafficControllerV1.json"
+    precision_command_path = root / "doctrine" / "chatPrecisionCommandV1.json"
 
-    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path)):
+    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     resource_meta: dict[str, Any] = {
@@ -117,6 +118,7 @@ def register_harness(
     opening_day = json.loads(opening_day_path.read_text(encoding="utf-8"))
     api_spine = json.loads(api_spine_path.read_text(encoding="utf-8"))
     traffic_controller = json.loads(traffic_controller_path.read_text(encoding="utf-8"))
+    precision_command = json.loads(precision_command_path.read_text(encoding="utf-8"))
     if experience.get("schema") != "luhmOs.inChatExperience.v1":
         raise RuntimeError("RED_IN_CHAT_EXPERIENCE_SCHEMA")
     if experience.get("runtime", {}).get("resourceUri") != UI_RESOURCE_URI:
@@ -129,6 +131,8 @@ def register_harness(
         raise RuntimeError("RED_API_SPINE_SCHEMA")
     if traffic_controller.get("schema") != "luhmOs.cloudflareAirTrafficController.v1":
         raise RuntimeError("RED_TRAFFIC_CONTROLLER_SCHEMA")
+    if precision_command.get("schema") != "luhmOs.chatPrecisionCommand.v1":
+        raise RuntimeError("RED_PRECISION_COMMAND_SCHEMA")
     if public_origin:
         resource_meta["ui"]["domain"] = public_origin
 
@@ -165,6 +169,7 @@ def register_harness(
             "openingDay": opening_day,
             "apiSpine": api_spine,
             "trafficController": traffic_controller,
+            "precisionCommands": precision_command,
             "status": status_provider(),
             "roster": roster_provider(),
             "harness": {
@@ -219,6 +224,7 @@ def register_harness(
                 "openingDay": opening_day,
                 "apiSpine": api_spine,
                 "trafficController": traffic_controller,
+                "precisionCommands": precision_command,
                 "network": {
                     "localDevelopment": "http://127.0.0.1:8788/harness/",
                     "publicHttpsRequired": True,

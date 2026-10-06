@@ -213,7 +213,20 @@ def _help_entries() -> list[dict[str, Any]]:
                 ],
             }
         )
-    return entries
+    merged: dict[str, dict[str, Any]] = {}
+    for row in entries:
+        canonical = str(row.get("canonicalName", "")).strip()
+        if not canonical:
+            continue
+        if canonical not in merged:
+            merged[canonical] = dict(row)
+            continue
+        current = merged[canonical]
+        aliases = dict(current.get("aliases", {}))
+        aliases.update(row.get("aliases", {}))
+        current["aliases"] = aliases
+        current["examples"] = list(dict.fromkeys(current.get("examples", []) + row.get("examples", [])))
+    return list(merged.values())
 
 
 def _help_payload(name: str = "") -> dict[str, Any]:
@@ -241,12 +254,13 @@ def _help_payload(name: str = "") -> dict[str, Any]:
         }
 
     matches: list[dict[str, Any]] = []
+    folded = term.casefold()
     for row in entries:
         values = [str(row.get("canonicalName", ""))]
         aliases = row.get("aliases", {})
         if isinstance(aliases, dict):
             values.extend(str(value) for value in aliases.values())
-        if term in values:
+        if term in values or any(folded == value.casefold() for value in values):
             matches.append(row)
 
     if len(matches) == 1:
