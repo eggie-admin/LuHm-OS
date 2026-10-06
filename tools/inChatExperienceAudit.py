@@ -33,7 +33,8 @@ expected={
   "apiSpine":"doctrine/apiSpineV1.json",
   "trafficController":"doctrine/cloudflareAirTrafficControllerV1.json",
   "chatPrecisionCommand":"doctrine/chatPrecisionCommandV1.json",
-  "afterHours":"doctrine/afterHoursExperienceV1.json",\n  "staticChat":"doctrine/staticChatTransmogrifierV1.json"
+  "afterHours":"doctrine/afterHoursExperienceV1.json",
+  "staticChat":"doctrine/staticChatTransmogrifierV1.json"
 }
 need(sources==expected,"source map drift")
 for rel in expected.values():

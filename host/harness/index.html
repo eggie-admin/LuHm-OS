@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <title>LuHm OS First Night Demo</title>
-<link rel="stylesheet" href="/harness/assets/cockpit.css">\n<link rel="stylesheet" href="/harness/assets/chat-transmogrifier.css">
+<link rel="stylesheet" href="/harness/assets/cockpit.css">
+<link rel="stylesheet" href="/harness/assets/chat-transmogrifier.css">
 </head>
 <body>
 <aside class="agentLoadingScreen" id="agentLoadingScreen" role="status" aria-live="polite">
@@ -86,7 +87,7 @@
 </section>
 
 
-<section class="panel staticChatWorkbench" aria-labelledby="staticChatTitle">
+<section class="panel staticChatWorkbench" data-luhm-static-chat aria-labelledby="staticChatTitle">
   <div class="staticChatHeader">
     <div><span class="label">static chat sharpening layer</span><h2 id="staticChatTitle">LuHm Focus Thread</h2></div>
     <span class="tiny">clean-room IRC interaction patterns · current LuHm authority</span>
@@ -99,7 +100,8 @@
   </div>
   <div class="staticChatHint">↑/↓ history · Tab completion · four line classes: CHAT / TOOL / PROOF / CONTROL</div>
 </section>
-\n<section class="panel libraryShelf">
+
+<section class="panel libraryShelf">
   <div class="panelHead"><h2>Library / donor policy</h2><span class="tiny">production stays same-origin</span></div>
   <div id="libraryList" class="chips"></div>
   <p class="tiny">Uploaded examples are treated as donors. Remote scripts, analytics, ads, arbitrary upload endpoints, and unclear-license code are not promoted.</p>
@@ -107,6 +109,7 @@
 
 <footer>Public Render edge is HTTPS. Local development uses <code>127.0.0.1</code>. Render origin is IPv4-only. The demo desk has no server-side upload route.</footer>
 </main>
-<script src="/harness/assets/chat-transmogrifier.js" defer></script>\n<script src="/harness/assets/cockpit.js" defer></script>
+<script src="/harness/assets/chat-transmogrifier.js" defer></script>
+<script src="/harness/assets/cockpit.js" defer></script>
 </body>
 </html>
