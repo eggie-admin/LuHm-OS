@@ -7,6 +7,7 @@
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "cabinetContract": "doctrine/lumGoddessCabinetV1.json",
   "deploymentContract": "doctrine/agentSystemDeploymentV1.json",
+  "rendererContract": "doctrine/voiceCabinetRendererV1.json",
   "inputModalities": [
     "voiceLive",
     "voiceDictation",

@@ -1,0 +1,50 @@
+{
+  "schema": "luhmOs.voiceCabinetRenderer.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "sourceRef": "f87e59bb9faee1fda576e9a48980fafbea01ce40",
+  "purpose": "Render typed named ensemble segments in After Hours with visible transcript text and optional host-provided device speech synthesis.",
+  "activation": {
+    "defaultMode": "NORMAL_CHAT",
+    "explicitEntry": "AFTER HOURS",
+    "continueCommand": "C",
+    "continueOnlyWhen": "ACTIVE",
+    "pauseCommands": [
+      "OOC",
+      "PAUSE"
+    ],
+    "resumeCommand": "RESUME",
+    "exitCommand": "EXIT"
+  },
+  "speakers": [
+    "lum",
+    "urdDoctorGoddess",
+    "belldandySecretary",
+    "skuldResearch",
+    "yume"
+  ],
+  "rendering": {
+    "inputKind": "namedEnsembleTurn",
+    "maxSegments": 8,
+    "maxCharactersPerSegment": 900,
+    "transcriptVisible": true,
+    "hostSpeechSynthesisOptional": true,
+    "voiceSelection": "installed device voices per speaker",
+    "preferenceStorage": "localStorage presentation preference",
+    "fallback": "named transcript"
+  },
+  "boundaries": {
+    "agentRuntimeAttached": false,
+    "chatgptVoiceInvocation": false,
+    "edgeGalleryEndpointInvocation": false,
+    "presentationOnly": true,
+    "authorityEffect": "none",
+    "hiddenAsyncExecution": false,
+    "externalMutation": false
+  },
+  "proof": {
+    "sourceCandidateIsNotRuntimeProof": true,
+    "liveInvocationRequiresExactExecutionReceipt": true
+  },
+  "crownStatus": "STOP",
+  "promotion": false
+}

@@ -7,6 +7,8 @@ const mustExist = [
   "styles.css",
   "app.js",
   "jquery/luhm.cockpit.js",
+  "jquery/luhm.voiceCabinet.js",
+  "tools/voice-check.mjs",
   "jquery/luhm.codingRoleplay.js",
   "plugins/README.md"
 ];
@@ -17,10 +19,17 @@ const html = await readFile(resolve(root, "index.html"), "utf8");
 const plugin = await readFile(resolve(root, "jquery/luhm.cockpit.js"), "utf8");
 const app = await readFile(resolve(root, "app.js"), "utf8");
 const roleplay = await readFile(resolve(root, "jquery/luhm.codingRoleplay.js"), "utf8");
+const voice = await readFile(resolve(root, "jquery/luhm.voiceCabinet.js"), "utf8");
 
 const checks = [
   [html.includes("vendor/jquery-3.7.1.min.js"), "index loads pinned staged jQuery"],
   [html.includes("jquery/luhm.cockpit.js"), "index loads LuHm cockpit plugin"],
+  [html.includes("jquery/luhm.voiceCabinet.js") && html.indexOf("jquery/luhm.voiceCabinet.js") < html.indexOf("jquery/luhm.cockpit.js"), "index loads voice cabinet before cockpit"],
+  [html.includes("data-luhm-after-hours-enter") && html.includes("data-luhm-continue") && html.includes("data-luhm-pause") && html.includes("data-luhm-resume") && html.includes("data-luhm-exit"), "explicit After Hours controls exist"],
+  [html.includes("data-luhm-voice-selectors"), "device voice selectors have a stable mount"],
+  [voice.includes("speechSynthesis") && voice.includes("luhm:voice:ensemble") && voice.includes("namedEnsembleTurn"), "voice cabinet uses host speech and typed named segments"],
+  [voice.includes("agent runtime attached yet"), "candidate discloses the unattached agent runtime"],
+  [plugin.includes("luhm:chat:route"), "cockpit exposes the bounded pre-chat route hook"],
   [plugin.includes('const PLUGIN = "luhmCockpit"') && plugin.includes("$.fn[PLUGIN] ="), "single cockpit plugin entry exists"],
   [plugin.includes("luhm:backend:open"), "backend-open boundary exists"],
   [plugin.includes("return this.each"), "plugin preserves chainability"],

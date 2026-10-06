@@ -32,3 +32,11 @@ The baseline works without jQuery. Community jQuery plugins are quarantined unde
 ## Trust boundary
 
 Front-end code must never contain API keys, credentials, model secrets, arbitrary shell execution, direct database credentials, or privileged device actions. Consequential actions remain Crown-gated behind the typed native/Godot boundary. The WebView cockpit itself has no shell, signing, publication, release, or Crown authority.
+
+## After Hours voice cabinet candidate
+
+- Normal chat remains the default. The user explicitly enters with **AFTER HOURS** before **C** becomes a scene-continue command. Outside that mode, C is ordinary chat text.
+- **OOC** or **PAUSE** pauses the scene; **RESUME** restarts it; **EXIT** returns to normal chat. The scene is read-only and has no authority effect.
+- A typed `namedEnsembleTurn` can render Lum, Urd, Belldandy, Skuld, and Yume as labeled transcript segments. If the host exposes browser speech synthesis, each speaker may use an installed device voice. Voice mappings are a local presentation preference; the named transcript remains the fallback.
+- The cockpit publishes events for a future Lum-mediated agent adapter. **This source candidate does not attach an agent runtime, invoke ChatGPT Voice, or call an Edge Gallery endpoint.** The C control displays that limitation instead of pretending agents responded.
+- See `../doctrine/voiceCabinetRendererV1.json` for the presentation boundary and `../doctrine/voiceCabinetBridgeV1.json` for the roster and proof requirements.
