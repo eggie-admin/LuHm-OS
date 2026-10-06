@@ -18,6 +18,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Sidecar canon
         run: python3 tools/githubRenderSidecarAudit.py
+      - name: Install MCP audit requirements
+        run: python3 -m pip install -r host/mcp/requirements.txt
       - name: MCP source contract
         run: python3 host/mcp/luhmMcpServer.py --check
       - name: Harness source contract
