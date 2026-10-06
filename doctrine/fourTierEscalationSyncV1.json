@@ -1,0 +1,131 @@
+{
+  "schema": "luhmOs.fourTierEscalationSync.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "Bind Urd evidence-health adjudication and Belldandy continuity/recordkeeping into one fail-closed synchronization contract for every 0-3 escalation profile without creating a new agent stack or expanding authority.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "tiers": [
+    {
+      "tier": 0,
+      "kernelId": "default",
+      "technologyId": "technologyFastPath",
+      "meaning": "ordinary FAST_PATH and Professor garage work",
+      "urdDuty": "intervene only when truth, risk, contradiction, security, rollback, or physical-proof meaning is material",
+      "belldandyDuty": "preserve task/source/scope continuity and record only meaningful gate transitions",
+      "transitionRule": "stay at tier zero when the current lane can close the task; escalate only from evidence-backed blocker"
+    },
+    {
+      "tier": 1,
+      "kernelId": "coordinated",
+      "technologyId": "forFuckSake",
+      "meaning": "focused coordinated hardening",
+      "urdDuty": "diagnose the smallest failing gate and classify evidence health",
+      "belldandyDuty": "record prior-tier receipt, escalation reason, active blocker, and smallest next action",
+      "transitionRule": "same gate is reproved or evidence justifies tier two"
+    },
+    {
+      "tier": 2,
+      "kernelId": "specialist",
+      "technologyId": "scorchedEarth",
+      "meaning": "specialist and cross-layer diagnosis",
+      "urdDuty": "adjudicate contradictions, rollback safety, security/workflow health, and proof boundaries",
+      "belldandyDuty": "maintain cross-layer decision continuity, evidence pointers, and rollback/fallback record",
+      "transitionRule": "root cause and bounded repair are proved or evidence justifies tier three"
+    },
+    {
+      "tier": 3,
+      "kernelId": "closure",
+      "technologyId": "finalForm",
+      "meaning": "structural reconciliation and exact closure candidate",
+      "urdDuty": "verify that the closure packet does not overclaim GREEN, runtime, physical proof, publication, or authority",
+      "belldandyDuty": "seal the exact continuity packet, unresolved gates, candidate identity, and Crown handoff",
+      "transitionRule": "close or de-escalate only from exact proof; consequential promotion still stops at Professor Crown"
+    }
+  ],
+  "syncPair": {
+    "evidenceDoctor": "urdDoctorGoddess",
+    "continuitySecretary": "belldandySecretary",
+    "chair": "lum",
+    "finalAuthority": "Professor",
+    "activationModel": "taskBoundPacketsOnly",
+    "hiddenAsyncExecution": false,
+    "majorityVoteAuthority": false,
+    "pairMayGrantGreen": false,
+    "pairMayGrantCrown": false
+  },
+  "requiredTransitionState": [
+    "taskId",
+    "sourceRef",
+    "scopeId",
+    "domain",
+    "currentTier",
+    "requestedTier",
+    "transitionReason",
+    "evidenceRefs",
+    "blocker",
+    "smallestNextAction",
+    "rollbackOrFallback",
+    "authorityBoundary"
+  ],
+  "urdPacket": {
+    "required": [
+      "evidenceState",
+      "identityMatch",
+      "riskState",
+      "proofBoundary",
+      "recommendation"
+    ],
+    "allowedRecommendations": [
+      "STAY",
+      "ESCALATE",
+      "DEESCALATE",
+      "CLOSE",
+      "HOLD"
+    ],
+    "mayMutate": false,
+    "mayDeploy": false,
+    "mayGrantCrown": false
+  },
+  "belldandyPacket": {
+    "required": [
+      "previousTierReceipt",
+      "continuityState",
+      "decisionRecord",
+      "smallestNextAction"
+    ],
+    "mayMutate": false,
+    "mayMerge": false,
+    "mayRewriteHistory": false,
+    "mayGrantCrown": false
+  },
+  "reconciliation": {
+    "sameTaskSourceScopeRequired": true,
+    "stalePacket": "UNKNOWN",
+    "missingPacket": "UNKNOWN",
+    "identityMismatch": "CONFLICT",
+    "urdBelldandyConflict": "CONFLICT",
+    "conflictAction": "HOLD_CURRENT_TIER_AND_RETURN_TO_LUM",
+    "deterministicRedAction": "STOP_ADVANCEMENT",
+    "validGreenAtScopeMayDeescalate": true,
+    "tierChangeMayExpandAuthority": false
+  },
+  "profileBindings": {
+    "default": "doctrine/founderEscalationLadderV1.json",
+    "corporate": "doctrine/corporateEscalationProfileV1.json",
+    "magic": "doctrine/magicEscalationProfileV1.json",
+    "art": "doctrine/yumeCreativeEscalationV1.json",
+    "technology": "doctrine/operationTitan7ChatTriggerV2.json",
+    "rooms": "doctrine/escalationWorkflowRoomsV1.json",
+    "operatingModel": "doctrine/fourTierOperatingModelV1.json",
+    "openingDay": "doctrine/openingDayStaffTrainingV1.json"
+  },
+  "proof": {
+    "sourceConfiguredDoesNotEqualRuntimeExecution": true,
+    "syncContractDoesNotCreateBackgroundAgents": true,
+    "syncContractDoesNotGrantPromotion": true,
+    "physicalProofMustRemainPhysical": true
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}

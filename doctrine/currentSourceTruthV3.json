@@ -506,7 +506,14 @@
     "tierCount": 4,
     "zeroBased": true,
     "authorityEffect": "NONE",
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "fourTierSync": "doctrine/fourTierEscalationSyncV1.json",
+    "syncPair": [
+      "urdDoctorGoddess",
+      "belldandySecretary"
+    ],
+    "syncPairMayGrantGreen": false,
+    "syncPairMayGrantCrown": false
   },
   "architectureRhythm": {
     "fourLayerArchitecture": "doctrine/jqueryFourLayerArchitectureV1.json",

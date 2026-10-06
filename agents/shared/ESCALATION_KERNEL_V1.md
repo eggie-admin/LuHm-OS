@@ -69,3 +69,12 @@ FAST_PATH stops at:
 - Professor Crown
 
 No repeated evidence request is allowed while a valid current receipt already proves the same source and scope.
+
+
+## Urd + Belldandy tier-transition sync
+
+Canonical contract: `doctrine/fourTierEscalationSyncV1.json`.
+
+Every 0-3 tier transition keeps one shared `taskId + sourceRef + scopeId` identity. Urd supplies evidence-health, risk, proof-boundary, and stay/escalate/de-escalate/close/hold recommendation. Belldandy supplies previous-tier receipt, continuity state, decision record, and smallest next action.
+
+This is a task-bound synchronization contract, not hidden background execution and not a new agent stack. The pair does not vote project state into GREEN and cannot grant Crown. If their packets conflict, identity mismatches, or deterministic RED exists, hold the current tier and return the conflict to Lum. Professor remains final authority.

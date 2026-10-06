@@ -448,5 +448,14 @@
       "partnerPublicShowcase"
     ],
     "pass": "staff can identify the active tier, its audience, its allowed outputs, and the invariant authority chain"
+  },
+  "fourTierEscalationSync": {
+    "contract": "doctrine/fourTierEscalationSyncV1.json",
+    "trainers": [
+      "urdDoctorGoddess",
+      "belldandySecretary"
+    ],
+    "lesson": "Urd proves evidence health and proof boundaries; Belldandy preserves continuity and the transition record. They synchronize tier changes without voting authority, hidden execution, or Crown authority.",
+    "pass": "every 0-3 transition preserves taskId + sourceRef + scopeId, disagreement remains CONFLICT, deterministic RED stops advancement, and Professor retains Crown"
   }
 }

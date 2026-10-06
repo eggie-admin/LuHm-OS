@@ -15,7 +15,8 @@
     "sameTaskIdSourceRefScopeIdRequired",
     "deterministicRedStopsAdvancement",
     "professorCrownRemainsSeparate",
-    "tierZeroFastPathPrecedesHardAuditEscalation"
+    "tierZeroFastPathPrecedesHardAuditEscalation",
+    "urdBelldandyTransitionSyncIsFailClosed"
   ],
   "rooms": {
     "forFuckSake": {
@@ -107,5 +108,12 @@
     "providerPolicy": "localAndExistingReceiptsFirst",
     "maxParallelSupportWorkers": 3,
     "exit": "GREEN_FOR_SCOPE_OR_ESCALATE_TO_FFS"
+  },
+  "fourTierSync": "doctrine/fourTierEscalationSyncV1.json",
+  "transitionSync": {
+    "contract": "doctrine/fourTierEscalationSyncV1.json",
+    "requiredOnTierChange": true,
+    "doesNotRequireBothAgentsToStayActiveBetweenTransitions": true,
+    "hiddenAsyncExecution": false
   }
 }

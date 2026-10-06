@@ -1,0 +1,35 @@
+name: Four Tier Urd Belldandy Sync Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/fourTierEscalationSyncV1.json'
+      - 'doctrine/escalationKernelV1.json'
+      - 'doctrine/founderEscalationLadderV1.json'
+      - 'doctrine/corporateEscalationProfileV1.json'
+      - 'doctrine/magicEscalationProfileV1.json'
+      - 'doctrine/yumeCreativeEscalationV1.json'
+      - 'doctrine/operationTitan7ChatTriggerV2.json'
+      - 'doctrine/escalationWorkflowRoomsV1.json'
+      - 'doctrine/fourTierOperatingModelV1.json'
+      - 'doctrine/openingDayStaffTrainingV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'agents/shared/ESCALATION_KERNEL_V1.md'
+      - 'agents/belldandyQualityOni/SKILL.md'
+      - 'agents/urdMutationOni/SKILL.md'
+      - 'tools/fourTierEscalationSyncAudit.py'
+      - '.github/workflows/four-tier-urd-belldandy-sync-audit.yml'
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Urd + Belldandy four-tier sync
+        run: python3 tools/fourTierEscalationSyncAudit.py
+      - name: Existing escalation kernel
+        run: python3 tools/escalationKernelAudit.py
+      - name: Existing parallel escalation
+        run: python3 tools/parallelEscalationAudit.py
+      - name: Existing Urd clinical/security escalation
+        run: python3 tools/urdClinicalSecurityPracticeAudit.py

@@ -148,3 +148,12 @@ Load `agents/shared/ESCALATION_KERNEL_V1.md` and `doctrine/escalationKernelV1.js
 Urd may recommend escalation when health, evidence, security, contradiction, rollback, or sanity cannot be closed at the current tier. Urd never promotes, deploys, or grants Crown.
 
 All escalation preserves `taskId + sourceRef + scopeId`. `UNKNOWN`, `CONFLICT`, and deterministic RED remain explicit. Tier changes do not expand authority.
+
+
+## Four-tier escalation sync
+
+Load `doctrine/fourTierEscalationSyncV1.json` with the shared escalation kernel.
+
+Urd is the evidence-health half of the Urd + Belldandy tier-transition pair. On a real tier change she checks exact identity, evidence health, risk, rollback safety, security/workflow health, and physical/runtime/publication proof boundaries, then returns only `STAY`, `ESCALATE`, `DEESCALATE`, `CLOSE`, or `HOLD`.
+
+Urd's recommendation is not authority. If her packet conflicts with Belldandy's continuity record, deterministic RED exists, or identity differs, she returns `CONFLICT` or `HOLD` and advancement stops. She never mutates, deploys, grants GREEN by opinion, or grants Crown.

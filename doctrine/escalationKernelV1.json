@@ -78,7 +78,8 @@
     "ProfessorRetainsFinalCrownAtEveryTier",
     "deEscalateAfterClosureOrWhenHigherTierNoLongerNeeded",
     "interactionMeasureUsesHearResolveActVerify",
-    "verifyBeatControlsTierTransition"
+    "verifyBeatControlsTierTransition",
+    "urdAndBelldandySynchronizeEveryTierTransition"
   ],
   "routing": {
     "defaultProfile": "doctrine/founderEscalationLadderV1.json",
@@ -115,6 +116,8 @@
       2,
       3
     ],
-    "law": "each measure stays on one escalation tier until verify decides close, repeat, hold, de-escalate, or escalate"
-  }
+    "law": "each measure stays on one escalation tier until verify decides close, repeat, hold, de-escalate, or escalate",
+    "syncContract": "doctrine/fourTierEscalationSyncV1.json"
+  },
+  "fourTierSync": "doctrine/fourTierEscalationSyncV1.json"
 }

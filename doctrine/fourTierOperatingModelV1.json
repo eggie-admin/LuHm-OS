@@ -138,5 +138,6 @@
     "doctrine/contentLaneDoctrineV1.json",
     "doctrine/escalationWorkflowRoomsV1.json"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "fourTierSync": "doctrine/fourTierEscalationSyncV1.json"
 }

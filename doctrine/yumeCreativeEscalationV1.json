@@ -126,5 +126,6 @@
   },
   "crownStatus": "STOP",
   "kernel": "doctrine/escalationKernelV1.json",
-  "profileId": "art"
+  "profileId": "art",
+  "fourTierSync": "doctrine/fourTierEscalationSyncV1.json"
 }

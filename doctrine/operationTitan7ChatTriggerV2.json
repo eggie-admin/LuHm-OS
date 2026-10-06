@@ -93,5 +93,6 @@
     "finalForm": 3
   },
   "kernel": "doctrine/escalationKernelV1.json",
-  "profileId": "technology"
+  "profileId": "technology",
+  "fourTierSync": "doctrine/fourTierEscalationSyncV1.json"
 }

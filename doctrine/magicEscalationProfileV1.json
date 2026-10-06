@@ -61,5 +61,6 @@
     "RitualSupportUsesExistingThreePersonTeam",
     "WitchingHourNeverBypassesCanonicalEvidenceOrCAST"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "fourTierSync": "doctrine/fourTierEscalationSyncV1.json"
 }
