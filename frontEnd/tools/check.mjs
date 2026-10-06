@@ -2,6 +2,8 @@ import { access, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const root = resolve(new URL("..", import.meta.url).pathname);
+const repositoryRoot = resolve(root, "..");
+const edgeSkillRoot = resolve(repositoryRoot, "integrations/edgeGallery/luhm-github-r-and-d-fastpath");
 const mustExist = [
   "index.html",
   "styles.css",
@@ -14,6 +16,11 @@ const mustExist = [
 ];
 
 for (const file of mustExist) await access(resolve(root, file));
+for (const file of ["SKILL.md", "README.md", "scripts/index.html"]) await access(resolve(edgeSkillRoot, file));
+await access(resolve(repositoryRoot, "doctrine/edgeGalleryGithubRAndDFastpathV1.json"));
+const edgeSkill = await readFile(resolve(edgeSkillRoot, "SKILL.md"), "utf8");
+const edgeHtml = await readFile(resolve(edgeSkillRoot, "scripts/index.html"), "utf8");
+const edgeContract = JSON.parse(await readFile(resolve(repositoryRoot, "doctrine/edgeGalleryGithubRAndDFastpathV1.json"), "utf8"));
 
 const html = await readFile(resolve(root, "index.html"), "utf8");
 const plugin = await readFile(resolve(root, "jquery/luhm.cockpit.js"), "utf8");
@@ -22,6 +29,10 @@ const roleplay = await readFile(resolve(root, "jquery/luhm.codingRoleplay.js"), 
 const voice = await readFile(resolve(root, "jquery/luhm.voiceCabinet.js"), "utf8");
 
 const checks = [
+  [edgeSkill.includes("luhm-github-r-and-d-fastpath") && edgeSkill.includes("GitHub as the R&D headquarters"), "Edge Gallery skill and GitHub-first route are present"],
+  [edgeHtml.includes("window.ai_edge_gallery_get_result") && edgeHtml.includes('method: "GET"') && edgeHtml.includes('credentials: "omit"') && !edgeHtml.includes("Authorization:"), "Edge Gallery bridge is anonymous GitHub GET-only"],
+  [edgeContract.openAiSidecar.apiEntitlement === "UNKNOWN_UNTIL_PROVIDER_RECEIPT" && edgeContract.edgeGallery.deviceSetup === "UNKNOWN_UNTIL_EXACT_DEVICE_RECEIPT", "OpenAI and Edge Gallery entitlements remain evidence-gated"],
+  [edgeContract.render.defaultRoute === false && edgeContract.render.reasonRequired === true, "Render requires a GitHub capability gap"],
   [html.includes("vendor/jquery-3.7.1.min.js"), "index loads pinned staged jQuery"],
   [html.includes("jquery/luhm.cockpit.js"), "index loads LuHm cockpit plugin"],
   [html.includes("jquery/luhm.voiceCabinet.js") && html.indexOf("jquery/luhm.voiceCabinet.js") < html.indexOf("jquery/luhm.cockpit.js"), "index loads voice cabinet before cockpit"],

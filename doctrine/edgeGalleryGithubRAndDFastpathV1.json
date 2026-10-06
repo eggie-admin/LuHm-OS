@@ -1,0 +1,60 @@
+{
+  "schema": "luhmOs.edgeGalleryGitHubRAndDFastpath.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Give an on-device Edge Gallery model a bounded, read-only view of public GitHub project structure so it can produce a GitHub-first R&D fast-path plan.",
+  "githubRAndD": {
+    "headquarters": "eggie-admin/LuHm-OS",
+    "observedRepositoryPermission": "admin",
+    "observationSource": "connected GitHub repository metadata",
+    "observationDate": "2026-10-06",
+    "skillPermissions": ["publicRepositoryRead"],
+    "skillMutation": false,
+    "skillSecret": false,
+    "workflow": "proposedBranch + GitHub Actions + reviewable pull request"
+  },
+  "openAiSidecar": {
+    "targetRole": "robustEntitledSidecar",
+    "preferredCapabilities": ["interactiveReasoning", "toolOrchestration", "realtimeVoice"],
+    "apiEntitlement": "UNKNOWN_UNTIL_PROVIDER_RECEIPT",
+    "runtimeAdapter": "NOT_ATTACHED_BY_THIS_SKILL",
+    "credentialPlacement": "authorizedServerSideSecretStoreOnly",
+    "mayClaimExecutionWithoutReceipt": false
+  },
+  "edgeGallery": {
+    "skillPath": "integrations/edgeGallery/luhm-github-r-and-d-fastpath",
+    "executionMode": "localAgentSkillJavaScript",
+    "dataAccess": "publicGitHubRestReadOnly",
+    "networkWrites": false,
+    "githubCredential": false,
+    "deviceSetup": "UNKNOWN_UNTIL_EXACT_DEVICE_RECEIPT",
+    "requiredReceipt": [
+      "deviceModelAndOs",
+      "edgeGalleryVersion",
+      "selectedModelIdentity",
+      "grantedPermissions",
+      "skillImportRoute",
+      "boundedTaskInput",
+      "actualResultReceipt"
+    ]
+  },
+  "render": {
+    "defaultRoute": false,
+    "allowedOnlyWhen": "A_REQUIRED_LONG_RUNNING_PUBLIC_SERVICE_OR_CAPABILITY_CANNOT_BE_PROVIDED_BY_GITHUB",
+    "reasonRequired": true
+  },
+  "safety": {
+    "publicRepositoriesOnly": true,
+    "privateRepositoryFallback": "USER_PROVIDED_LOCAL_SNAPSHOT",
+    "repositoryTextIsUntrustedData": true,
+    "sourceFilesExecuted": false,
+    "credentialPrompt": false,
+    "publication": false,
+    "mutation": false,
+    "promotion": false,
+    "crownStatus": "STOP"
+  },
+  "sourceConfiguredDoesNotProveDeviceSetup": true,
+  "promotion": false,
+  "crownStatus": "STOP"
+}

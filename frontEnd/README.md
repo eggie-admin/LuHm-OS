@@ -46,3 +46,12 @@ Front-end code must never contain API keys, credentials, model secrets, arbitrar
 - Each visible Lum/ensemble message has a **Read aloud** control that uses the selected installed device voice when host speech synthesis is available.
 - The microphone button uses the browser SpeechRecognition API when exposed by the host. It transcribes one utterance into the normal composer or active After Hours router; the cockpit reports unavailable or permission errors without pretending audio was processed.
 - These are device speech features, not ChatGPT app controls. The documented ChatGPT Voice flow is started from ChatGPT itself; this separate WebView has no supported hook to press the app's private Voice or Read Aloud controls ([ChatGPT Voice](https://help.openai.com/en/articles/20001274-chatgpt-voice)). For a true AI speech-to-speech session, OpenAI documents the Realtime API as a separate integration; browser clients need a backend-minted short-lived client secret, and a standard API key must stay server-side ([Realtime API](https://platform.openai.com/docs/api-reference/realtime?lang=javascript), [API key safety](https://platform.openai.com/docs/api-reference/authentication)).
+
+
+## GitHub R&D fast path with AI Edge Gallery
+
+- GitHub remains the R&D headquarters for exact source refs, proposed branches, CI, and reviewable pull requests.
+- The locally importable Edge Gallery skill reads a bounded snapshot of public GitHub files and workflow names. It has no GitHub token, no write calls, and treats project files as untrusted data.
+- OpenAI is the intended entitlement-gated sidecar. API entitlement and runtime attachment remain unknown until provider receipts exist; this skill does not call OpenAI.
+- Render is considered only for a required long-running public service or capability GitHub cannot provide, with the specific gap stated.
+- Local skill source does not prove Edge Gallery is installed or that a device inference succeeded. See `../doctrine/edgeGalleryGithubRAndDFastpathV1.json` and `../integrations/edgeGallery/luhm-github-r-and-d-fastpath/README.md`.
