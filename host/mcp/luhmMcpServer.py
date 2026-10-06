@@ -213,7 +213,20 @@ def _help_entries() -> list[dict[str, Any]]:
                 ],
             }
         )
-    return entries
+    merged: dict[str, dict[str, Any]] = {}
+    for row in entries:
+        canonical = str(row.get("canonicalName", "")).strip()
+        if not canonical:
+            continue
+        if canonical not in merged:
+            merged[canonical] = dict(row)
+            continue
+        current = merged[canonical]
+        aliases = dict(current.get("aliases", {}))
+        aliases.update(row.get("aliases", {}))
+        current["aliases"] = aliases
+        current["examples"] = list(dict.fromkeys(current.get("examples", []) + row.get("examples", [])))
+    return list(merged.values())
 
 
 def _help_payload(name: str = "") -> dict[str, Any]:
