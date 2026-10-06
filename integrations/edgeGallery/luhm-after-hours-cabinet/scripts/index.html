@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>LuHm cabinet skill runner</title></head>
+<body>
+<script>
+(() => {
+  "use strict";
+
+  const allowed = new Set(["lum", "urdDoctorGoddess", "belldandySecretary", "skuldResearch"]);
+
+  window.ai_edge_gallery_get_result = async (data) => {
+    try {
+      const input = JSON.parse(String(data || "{}"));
+      if (input.kind !== "namedEnsembleTurn" || !Array.isArray(input.speakerSegments)) {
+        throw new Error("Expected namedEnsembleTurn speakerSegments.");
+      }
+
+      const segments = input.speakerSegments.slice(0, 4).map((segment) => {
+        const speakerId = String(segment && segment.speakerId || "");
+        const utterance = String(segment && segment.utterance || "").trim().slice(0, 240);
+        if (!allowed.has(speakerId) || !utterance) throw new Error("Invalid cabinet segment.");
+        return { speakerId, utterance };
+      });
+
+      if (segments.length !== 4 || new Set(segments.map((s) => s.speakerId)).size !== 4) {
+        throw new Error("Cabinet turn requires exactly four unique speakers.");
+      }
+
+      const payload = encodeURIComponent(JSON.stringify({ kind: "namedEnsembleTurn", speakerSegments: segments }));
+      return JSON.stringify({
+        result: "LuHm cabinet card ready. Tap Speak Cabinet in the card to try installed device speech.",
+        webview: {
+          url: "cabinet.html?payload=" + payload,
+          aspectRatio: 1.25
+        }
+      });
+    } catch (error) {
+      return JSON.stringify({ error: "LuHm cabinet render failed: " + String(error && error.message || error) });
+    }
+  };
+})();
+</script>
+</body>
+</html>
