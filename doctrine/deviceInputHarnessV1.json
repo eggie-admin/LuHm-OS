@@ -1,0 +1,52 @@
+{
+  "schema": "luhmOs.deviceInputHarness.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "Select the Professor-facing interaction style from explicit device identity and available Samsung/system-harness evidence without guessing.",
+  "profiles": {
+    "luhmAntenna": {
+      "preferredInput": "dictation",
+      "responseStyle": "voiceFirst",
+      "instructionCadence": "oneActionAtATime",
+      "dictationNormalization": true,
+      "readback": "conciseWhenClientCapabilityExists"
+    },
+    "luhmLight": {
+      "preferredInput": "keyboard",
+      "responseStyle": "precisionText",
+      "instructionCadence": "oneActionAtATime",
+      "dictationNormalization": false,
+      "readback": "optional"
+    },
+    "unknown": {
+      "preferredInput": "preserveCurrentTurn",
+      "responseStyle": "normalChat",
+      "instructionCadence": "oneActionAtATime",
+      "mustNotGuessDevice": true
+    }
+  },
+  "resolution": {
+    "precedence": ["professorExplicitOverride", "verifiedSystemHarnessReceipt", "verifiedSamsungCoreReceipt", "unknown"],
+    "deviceNamesArePreferencesNotSecurityIdentity": true,
+    "missingEvidence": "UNKNOWN",
+    "manualOverrideAlwaysAvailable": true
+  },
+  "firstRun": {
+    "virginInstall": true,
+    "dryRun": true,
+    "firstSuggestion": true,
+    "guidedUntilMilestone": true,
+    "oneProfessorActionPerTurn": true,
+    "autonomousStepsRemainAutonomous": true,
+    "failureEscalatesSmallestSafeRepairFirst": true
+  },
+  "authorityBoundary": {
+    "inputModeMayGrantMutationAuthority": false,
+    "inputModeMayGrantGreen": false,
+    "inputModeMayGrantCrown": false,
+    "dictationSubmissionMayAuthorizeReadbackOnly": true
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}
