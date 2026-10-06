@@ -46,6 +46,14 @@ if law.get("stateAndSentinels")!="DRAGONTAIL":
     bad.append({"kind":"dragonTailNamespaceDrift"})
 if law.get("compressedAliasMustResolveThroughHelp") is not True:
     bad.append({"kind":"helpRecoveryMissing"})
+if law.get("kebabCaseMustBeLowercase") is not True or law.get("kebabCaseWhitespaceAllowed") is not False or law.get("kebabCaseNullAllowed") is not False:
+    bad.append({"kind":"kebabStrictTokenLawDrift"})
+if law.get("kebabCaseRepositoryAlignmentOnly") is not True:
+    bad.append({"kind":"kebabRepositoryAlignmentDrift"})
+if law.get("dragonTailMustBeUppercase") is not True or law.get("dragonTailWhitespaceAllowed") is not False or law.get("dragonTailNullAllowed") is not False:
+    bad.append({"kind":"dragonTailStrictTokenLawDrift"})
+if law.get("strictCaseSensitiveTokens") is not True:
+    bad.append({"kind":"strictCaseSensitiveTokenLawMissing"})
 
 agents=root/"agents"
 seen={}

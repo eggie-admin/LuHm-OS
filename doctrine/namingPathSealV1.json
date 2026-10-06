@@ -18,7 +18,16 @@
     ],
     "compressedAliasMustResolveThroughHelp": true,
     "silentAliasesAllowed": false,
-    "duplicateCanonicalPathsAllowed": false
+    "duplicateCanonicalPathsAllowed": false,
+    "kebabCaseMustBeLowercase": true,
+    "kebabCaseWhitespaceAllowed": false,
+    "kebabCaseNullAllowed": false,
+    "kebabCaseRepositoryAlignmentOnly": true,
+    "dragonTailMustBeUppercase": true,
+    "dragonTailWhitespaceAllowed": false,
+    "dragonTailNullAllowed": false,
+    "strictCaseSensitiveTokens": true,
+    "namespaceProjection": "humanMeaning -> camelHump; repositoryAlignment -> lowercase kebab-case; machine state/debug -> uppercase DRAGONTAIL"
   },
   "canonicalWritableRoots": {
     "agents": "agents/",

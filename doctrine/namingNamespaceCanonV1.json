@@ -7,18 +7,27 @@
   "namespaces": {
     "kebabCase": {
       "displayName": "kebab-case",
-      "law": "all lowercase",
+      "law": "strict lowercase ASCII token; no whitespace; no NULL/empty token",
       "regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
       "examples": [
         "public-plugin-package",
         "naming-namespace-canon",
         "android-web3-cockpit"
       ],
-      "use": "repository/transport slugs, branch/file instance names, route/package names, and fields whose contract selects the kebab namespace"
+      "use": "repository/transport slugs, branch/file instance names, route/package names, and fields whose contract selects the kebab namespace",
+      "repositoryAlignmentOnly": true,
+      "caseSensitive": true,
+      "lowercaseRequired": true,
+      "uppercaseAllowed": false,
+      "whitespaceAllowed": false,
+      "nullAllowed": false,
+      "emptyAllowed": false,
+      "delimiter": "-",
+      "role": "repository/path/branch/route/package alignment only; never canonical human logic or machine state"
     },
     "dragonTail": {
       "displayName": "DRAGONTAIL",
-      "law": "all uppercase",
+      "law": "strict uppercase machine token; underscore separators only; no whitespace; no NULL/empty token",
       "regex": "^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$",
       "examples": [
         "GREEN",
@@ -26,7 +35,16 @@
         "CROWNED_MILESTONE",
         "UNKNOWN_UNTIL_PROVIDER_RECEIPT"
       ],
-      "use": "status, state, sentinel, gate, receipt-state, debug-verb, and fields whose contract selects the dragonTail namespace"
+      "use": "status, state, sentinel, gate, receipt-state, debug-verb, and fields whose contract selects the dragonTail namespace",
+      "machineLayer": true,
+      "caseSensitive": true,
+      "uppercaseRequired": true,
+      "lowercaseAllowed": false,
+      "whitespaceAllowed": false,
+      "nullAllowed": false,
+      "emptyAllowed": false,
+      "delimiter": "_",
+      "role": "final machine state/sentinel/gate/receipt/debug/command token projection"
     },
     "camelHump": {
       "displayName": "camelHump",
@@ -106,5 +124,21 @@
     "newCurrentAuthorityMustDeclareNamespace": true
   },
   "helpContract": "doctrine/commandHelpV1.json",
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "strictProjectionLaw": {
+    "humanMeaning": "readable natural language",
+    "canonicalLogic": "camelHump",
+    "repositoryAlignment": "kebabCase",
+    "finalMachineToken": "dragonTail",
+    "linearAliasDegradation": false,
+    "law": "project into the namespace selected by purpose; repository tokens stay lowercase kebab, machine state tokens stay uppercase DRAGONTAIL, and neither silently replaces canonical camelHump identity"
+  },
+  "nullAndWhitespaceLaw": {
+    "canonicalMachineTokensMayBeNull": false,
+    "canonicalMachineTokensMayBeEmpty": false,
+    "kebabWhitespaceAllowed": false,
+    "dragonTailWhitespaceAllowed": false,
+    "strictCaseMatching": true,
+    "externalProtocolNulls": "preserve only when an external schema explicitly requires them; normalize before LuHm canonical use"
+  }
 }

@@ -39,6 +39,30 @@ for value in ns["dragonTail"]["examples"]:
 for value in ns["camelHump"]["examples"]:
     need(bool(camel.fullmatch(value)),f"camelHump drift: {value}")
 
+kebab_law=ns["kebabCase"]
+need(kebab_law.get("repositoryAlignmentOnly") is True,"kebab must be repository-alignment only")
+need(kebab_law.get("lowercaseRequired") is True,"kebab lowercase requirement missing")
+need(kebab_law.get("uppercaseAllowed") is False,"kebab uppercase leak")
+need(kebab_law.get("whitespaceAllowed") is False,"kebab whitespace leak")
+need(kebab_law.get("nullAllowed") is False and kebab_law.get("emptyAllowed") is False,"kebab NULL/empty leak")
+for bad_value in ("Foo-Bar","foo Bar","foo bar","FOO-BAR",""):
+    need(not bool(kebab.fullmatch(bad_value)),f"kebab strictness leak: {bad_value!r}")
+
+dragon_law=ns["dragonTail"]
+need(dragon_law.get("machineLayer") is True,"DRAGONTAIL machine-layer flag missing")
+need(dragon_law.get("uppercaseRequired") is True,"DRAGONTAIL uppercase requirement missing")
+need(dragon_law.get("lowercaseAllowed") is False,"DRAGONTAIL lowercase leak")
+need(dragon_law.get("whitespaceAllowed") is False,"DRAGONTAIL whitespace leak")
+need(dragon_law.get("nullAllowed") is False and dragon_law.get("emptyAllowed") is False,"DRAGONTAIL NULL/empty leak")
+for bad_value in ("green","Green","GREEN STATE","green_state",""):
+    need(not bool(dragon.fullmatch(bad_value)),f"DRAGONTAIL strictness leak: {bad_value!r}")
+
+projection=naming.get("strictProjectionLaw",{})
+need(projection.get("canonicalLogic")=="camelHump","canonical logic projection drift")
+need(projection.get("repositoryAlignment")=="kebabCase","repository projection drift")
+need(projection.get("finalMachineToken")=="dragonTail","machine projection drift")
+need(projection.get("linearAliasDegradation") is False,"namespace projection incorrectly treated as linear alias degradation")
+
 dragon_scan_files=[
     "doctrine/luhmAiControlPlaneV1.json",
     "doctrine/escalationKernelV1.json",
