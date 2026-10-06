@@ -44,7 +44,20 @@ def precision_rows():
     return rows
 
 def rows():
-    return HELP.get("builtins",[])+precision_rows()
+    merged={}
+    for row in HELP.get("builtins",[])+precision_rows():
+        canonical=row.get("canonicalName","")
+        if not canonical:
+            continue
+        if canonical not in merged:
+            merged[canonical]=dict(row)
+            continue
+        current=merged[canonical]
+        current_aliases=dict(current.get("aliases",{}))
+        current_aliases.update(row.get("aliases",{}))
+        current["aliases"]=current_aliases
+        current["examples"]=list(dict.fromkeys(current.get("examples",[])+row.get("examples",[])))
+    return list(merged.values())
 
 def aliases(row):
     values=[row.get("canonicalName","")]
