@@ -1,0 +1,19 @@
+name: Professor Garage Lab Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/professorGarageLabV1.json'
+      - 'hardware/professorGarageLab.yaml'
+      - 'tools/hardware/probeProfessorGarageLab.sh'
+      - 'tools/professorGarageLabAudit.py'
+      - '.github/workflows/professor-garage-lab-audit.yml'
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Garage lab source contract
+        run: python3 tools/professorGarageLabAudit.py
+      - name: Probe script syntax
+        run: bash -n tools/hardware/probeProfessorGarageLab.sh

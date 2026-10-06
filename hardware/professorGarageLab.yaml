@@ -1,0 +1,69 @@
+# Professor Garage Lab hardware inventory
+# Candidate source only. UNKNOWN stays UNKNOWN until a physical probe receipt exists.
+schema: luhmOs.professorGarageLabHardware.v1
+authority: Professor
+lane: privateResearchDevelopment
+sourceLaw: "AI proposes. Policy authorizes. CI proves. Human promotes."
+
+lab:
+  codingWorkspace: GitHub Forge
+  durableArtifacts: Google Drive
+  physicalLinuxHost: VERIFY_FROM_PROBE
+  samsungRuntime: VERIFY_FROM_PROBE
+
+knownHardware:
+  scanner:
+    vendor: Epson
+    model: Perfection V39 II
+    state: USER_CONFIRMED_MODEL
+    transport: USB
+    usbVidPid: VERIFY
+    saneBackend: VERIFY
+  samsungTablet:
+    model: SM-X400
+    state: REPO_REFERENCED_TARGET
+    kernelRelease: VERIFY
+    androidBuildFingerprint: VERIFY
+    vulkan: VERIFY
+    usbHost: VERIFY
+    cameras: VERIFY
+  samsungPhone:
+    model: VERIFY
+    state: PHYSICAL_RECEIPT_REQUIRED
+  workstation:
+    state: PHYSICAL_RECEIPT_REQUIRED
+  cameras:
+    state: INVENTORY_REQUIRED
+  usbDevices:
+    state: INVENTORY_REQUIRED
+
+toolchainTargets:
+  python3: VERIFY_EXACT_VERSION
+  java: "17 current Android Forge baseline"
+  gradle: PINNED_BY_FORGE
+  androidSdk: "36 current Forge baseline"
+  godot: PINNED_BY_FORGE
+  vulkanTools: REQUIRED_FOR_PROBE
+  ffmpeg: REQUIRED_FOR_PROBE
+  sane: REQUIRED_FOR_SCANNER_PROBE
+  libcamera: REQUIRED_WHEN_CAMERA_STACK_SUPPORTS_IT
+
+probeOrder:
+  - hostIdentity
+  - kernelAndDistro
+  - cpuAndMemory
+  - pciAndGpu
+  - vulkan
+  - usbTree
+  - cameraDevices
+  - scanner
+  - androidSdkAndAdb
+  - samsungDeviceIdentity
+  - termuxAndShizukuObservedState
+  - receiptHash
+
+boundaries:
+  codespacesIsNotPhysicalHardwareProof: true
+  customKernelBuildIsNotCustomKernelBootProof: true
+  androidVersionDoesNotImplyKernelVersion: true
+  unknownIsNotGreen: true

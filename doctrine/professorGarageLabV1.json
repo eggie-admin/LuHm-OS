@@ -1,0 +1,88 @@
+{
+  "schema": "luhmOs.professorGarageLab.v1",
+  "status": "CANDIDATE_SOURCE",
+  "authority": "Professor",
+  "boss": "lum",
+  "lane": "privateResearchDevelopment",
+  "purpose": "One evidence-bound garage/lab profile for the Professor's Ubuntu workstation, Samsung development devices, studio peripherals, GitHub Forge workspace, and durable Drive artifacts.",
+  "primeFlow": "Professor experiments -> Lum snapshots -> Skuld investigates -> Tetsu translates -> Kaji builds -> GitHub proves -> physical lab probes -> Urd adjudicates -> Belldandy records -> Lum presents.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "workspace": {
+    "canonicalCodingWorkspace": "GitHub Forge",
+    "codespacesRole": "reproducibleUbuntuUserlandAndToolchainWorkbench",
+    "codespacesMayProvePhysicalHardware": false,
+    "codespacesMayReplaceHostKernel": false,
+    "codespacesMayClaimUsbGpuCameraScannerState": false
+  },
+  "ubuntuCore": {
+    "strategy": "supportedUbuntuKernelPlusSmallLuHmConfigAndUserspaceDelta",
+    "customKernelBeforeInventory": false,
+    "mainlineKernelRole": "researchAndCompatibilityOnlyUntilExactBaselineChosen",
+    "hostKernelBootIsPhysicalAction": true,
+    "kernelBuildArtifactsMayBeProducedInForge": true,
+    "hardwareProfileRequiredBeforeKernelDelta": true
+  },
+  "samsungCore": {
+    "strategy": "preserveAndroidGkiAndSamsungVendorBoundary",
+    "genericUbuntuKernelMayReplaceSamsungVendorKernel": false,
+    "termuxRole": "userlandDevelopmentAndProbeAdapter",
+    "shizukuRole": "boundedAndroidServiceBridgeWhenObserved",
+    "exactDeviceKernelRequiresPhysicalReceipt": true
+  },
+  "packagePractice": {
+    "python": "python3Only",
+    "pythonEnvironment": "projectVenvOrUvManagedEnvironment",
+    "java": "jdk17ForCurrentAndroidForgeUntilWorkflowChanges",
+    "gradle": "wrapperOrHashPinnedDistribution",
+    "android": "sdk36CurrentForgeBaseline",
+    "godot": "exactVersionPinnedByForgeWorkflow",
+    "linuxPackages": "aptWithExplicitPackageInventory",
+    "secrets": "neverInImageRepoOrArtifact"
+  },
+  "studioHardware": {
+    "scanner": {
+      "vendor": "Epson",
+      "model": "Perfection V39 II",
+      "modelState": "USER_CONFIRMED",
+      "transport": "USB",
+      "exactUsbVidPid": "VERIFY_FROM_PHYSICAL_PROBE",
+      "linuxBackend": "VERIFY_FROM_SANE_PROBE"
+    },
+    "cameras": {
+      "inventoryState": "VERIFY_FROM_PHYSICAL_PROBE",
+      "linuxPath": "V4L2/libcamera/FFmpeg when supported",
+      "samsungInternalPath": "Android Camera2/vendor HAL",
+      "usbCameraPath": "Android USB host/UVC only when device receipt proves support"
+    },
+    "usb": {
+      "inventoryState": "VERIFY_FROM_PHYSICAL_PROBE",
+      "linuxOwnership": "Ubuntu host",
+      "samsungOwnership": "Android USB host permission boundary",
+      "directDeviceClaimWithoutReceipt": false
+    },
+    "samsungTablet": {
+      "model": "SM-X400",
+      "state": "REPO_REFERENCED_PHYSICAL_TARGET",
+      "runtimeProofStillRequired": true
+    },
+    "samsungPhone": {
+      "model": "VERIFY_FROM_DEVICE",
+      "state": "PHYSICAL_RECEIPT_REQUIRED"
+    }
+  },
+  "storage": {
+    "googleDrive": "durableBinaryAndRecoveryCabinet",
+    "github": "sourceCiHashesReceiptsAndArtifactPointers",
+    "runtimeNode": "ephemeralExecutionCopy",
+    "privateDriveIdentifiersInPublicSource": false
+  },
+  "proof": {
+    "inventoryManifest": "hardware/professorGarageLab.yaml",
+    "probeScript": "tools/hardware/probeProfessorGarageLab.sh",
+    "unknownIsNotGreen": true,
+    "physicalHardwareClaimsRequirePhysicalReceipt": true
+  },
+  "nextGate": "RUN_READ_ONLY_HARDWARE_INVENTORY",
+  "promotion": false,
+  "crownStatus": "STOP"
+}
