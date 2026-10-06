@@ -241,12 +241,13 @@ def _help_payload(name: str = "") -> dict[str, Any]:
         }
 
     matches: list[dict[str, Any]] = []
+    folded = term.casefold()
     for row in entries:
         values = [str(row.get("canonicalName", ""))]
         aliases = row.get("aliases", {})
         if isinstance(aliases, dict):
             values.extend(str(value) for value in aliases.values())
-        if term in values:
+        if term in values or any(folded == value.casefold() for value in values):
             matches.append(row)
 
     if len(matches) == 1:
