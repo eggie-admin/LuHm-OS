@@ -40,5 +40,64 @@
   },
   "releaseAuthority": false,
   "publicationAuthority": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "inputSurface": {
+    "contractStatus": "SOURCE_CONFIGURED_CANDIDATE",
+    "productName": "LuHm Antenna Keyboard",
+    "androidService": "InputMethodService",
+    "humanCenteredNaming": "camelHump",
+    "transportNaming": "kebab-case-lowercase",
+    "controlTokenNaming": "DRAGONTAIL_SQL_SEMANTICS",
+    "modes": [
+      "talk",
+      "command",
+      "rehearse",
+      "keyboard"
+    ],
+    "controls": [
+      "talk",
+      "command",
+      "rehearse",
+      "keyboard",
+      "continue",
+      "stop",
+      "repeat"
+    ],
+    "transcriptLaw": {
+      "preserveRawTranscript": true,
+      "showRecognizedTextBeforeConsequence": true,
+      "obviousDictationCorrectionMayNormalizeWorkingCopy": true,
+      "normalizationMayGrantAuthority": false,
+      "ambiguousConsequenceChangingCorrection": "VERIFY"
+    },
+    "educationEscalation": {
+      "purpose": "Increase explanation depth when Professor needs more education without changing command identity or authority.",
+      "tiers": [
+        {
+          "tier": 0,
+          "id": "shorthand",
+          "meaning": "smallest established unambiguous command"
+        },
+        {
+          "tier": 1,
+          "id": "vowelRipped",
+          "meaning": "compressed recoverable alias with help path"
+        },
+        {
+          "tier": 2,
+          "id": "humanSourced",
+          "meaning": "human-centered camelHump command or explanation"
+        },
+        {
+          "tier": 3,
+          "id": "verboseInstruction",
+          "meaning": "fully expanded instruction with consequence and next gate"
+        }
+      ],
+      "escalationChangesAuthority": false,
+      "escalationChangesCanonicalIdentity": false
+    },
+    "fallbackKeyboard": "Gboard remains a known-good fallback; LuHm does not modify or impersonate Gboard.",
+    "physicalImeProof": "PENDING"
+  }
 }
