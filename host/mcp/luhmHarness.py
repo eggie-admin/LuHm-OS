@@ -94,8 +94,9 @@ def register_harness(
     api_spine_path = root / "doctrine" / "apiSpineV1.json"
     traffic_controller_path = root / "doctrine" / "cloudflareAirTrafficControllerV1.json"
     precision_command_path = root / "doctrine" / "chatPrecisionCommandV1.json"
+    after_hours_path = root / "doctrine" / "afterHoursExperienceV1.json"
 
-    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path)):
+    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     resource_meta: dict[str, Any] = {
@@ -119,6 +120,7 @@ def register_harness(
     api_spine = json.loads(api_spine_path.read_text(encoding="utf-8"))
     traffic_controller = json.loads(traffic_controller_path.read_text(encoding="utf-8"))
     precision_command = json.loads(precision_command_path.read_text(encoding="utf-8"))
+    after_hours = json.loads(after_hours_path.read_text(encoding="utf-8"))
     if experience.get("schema") != "luhmOs.inChatExperience.v1":
         raise RuntimeError("RED_IN_CHAT_EXPERIENCE_SCHEMA")
     if experience.get("runtime", {}).get("resourceUri") != UI_RESOURCE_URI:
@@ -133,6 +135,10 @@ def register_harness(
         raise RuntimeError("RED_TRAFFIC_CONTROLLER_SCHEMA")
     if precision_command.get("schema") != "luhmOs.chatPrecisionCommand.v1":
         raise RuntimeError("RED_PRECISION_COMMAND_SCHEMA")
+    if after_hours.get("schema") != "luhmOs.afterHoursExperience.v1":
+        raise RuntimeError("RED_AFTER_HOURS_SCHEMA")
+    if after_hours.get("modeBoundary", {}).get("defaultMode") != "normalChat" or not after_hours.get("modeBoundary", {}).get("explicitEntryRequired"):
+        raise RuntimeError("RED_AFTER_HOURS_BOUNDARY")
     if public_origin:
         resource_meta["ui"]["domain"] = public_origin
 
@@ -170,6 +176,7 @@ def register_harness(
             "apiSpine": api_spine,
             "trafficController": traffic_controller,
             "precisionCommands": precision_command,
+            "afterHours": after_hours,
             "status": status_provider(),
             "roster": roster_provider(),
             "harness": {
@@ -225,6 +232,7 @@ def register_harness(
                 "apiSpine": api_spine,
                 "trafficController": traffic_controller,
                 "precisionCommands": precision_command,
+                "afterHours": after_hours,
                 "network": {
                     "localDevelopment": "http://127.0.0.1:8788/harness/",
                     "publicHttpsRequired": True,

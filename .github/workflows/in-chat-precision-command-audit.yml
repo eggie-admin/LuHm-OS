@@ -6,6 +6,7 @@ on:
       - 'doctrine/chatPrecisionCommandV1.json'
       - 'doctrine/commandHelpV1.json'
       - 'doctrine/inChatExperienceV1.json'
+      - 'doctrine/afterHoursExperienceV1.json'
       - 'doctrine/currentSourceTruthV3.json'
       - 'host/harness/widget.html'
       - 'host/mcp/luhmHarness.py'
@@ -45,6 +46,7 @@ jobs:
           python3 -m json.tool doctrine/chatPrecisionCommandV1.json >/dev/null
           python3 -m json.tool doctrine/commandHelpV1.json >/dev/null
           python3 -m json.tool doctrine/inChatExperienceV1.json >/dev/null
+          python3 -m json.tool doctrine/afterHoursExperienceV1.json >/dev/null
           python3 -m json.tool doctrine/currentSourceTruthV3.json >/dev/null
           python3 -m py_compile tools/luhm.py tools/inChatExperienceAudit.py tools/namingNamespaceAudit.py host/mcp/luhmHarness.py
 
