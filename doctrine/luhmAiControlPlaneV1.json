@@ -31,7 +31,8 @@
     "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json",
     "escalationKernel": "doctrine/escalationKernelV1.json",
     "jqueryFourLayerArchitecture": "doctrine/jqueryFourLayerArchitectureV1.json",
-    "fourBeatInteractionRhythm": "doctrine/fourBeatInteractionRhythmV1.json"
+    "fourBeatInteractionRhythm": "doctrine/fourBeatInteractionRhythmV1.json",
+    "professorDevelopmentPortfolio": "doctrine/professorDevelopmentPortfolioV1.json"
   },
   "invariants": {
     "professorFinalAuthority": true,

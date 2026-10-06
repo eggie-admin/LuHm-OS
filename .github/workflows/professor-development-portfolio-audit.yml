@@ -1,0 +1,48 @@
+name: Professor Development Portfolio Audit
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "doctrine/professorDevelopmentPortfolioV1.json"
+      - "doctrine/currentSourceTruthV3.json"
+      - "doctrine/luhmAiControlPlaneV1.json"
+      - "doctrine/agentSystemDeploymentV1.json"
+      - "doctrine/everlastingCovenantV1.json"
+      - "doctrine/githubWorkflowBudgetV1.json"
+      - "doctrine/unifiedCampaignWorkbenchV1.json"
+      - "doctrine/campaignLaunchKitV1.json"
+      - "doctrine/patronageCampaignV1.json"
+      - "doctrine/gameplayVerticalSliceV1.json"
+      - "doctrine/yumeCreativePipelineV1.json"
+      - "doctrine/contentLaneDoctrineV1.json"
+      - "doctrine/assetEligibilityMatrixV1.json"
+      - "frontEnd/README.md"
+      - "campaign/evidence-ledger.json"
+      - ".github/workflows/agent-system-deployment-audit.yml"
+      - ".github/workflows/vendor-ai-debug-audit.yml"
+      - ".github/workflows/gameplay-vertical-slice-audit.yml"
+      - ".github/workflows/godot-web-harness.yml"
+      - ".github/workflows/android-testing-build.yml"
+      - ".github/workflows/frontend-jquery-dryrun.yml"
+      - ".github/workflows/plugin-publication-audit.yml"
+      - ".github/workflows/witching-hour-hard-audit-v2.yml"
+      - ".github/workflows/yume-creative-pipeline-audit.yml"
+      - ".github/workflows/yume-batch-image-workflow-audit.yml"
+      - ".github/workflows/public-art-brand-release-audit.yml"
+      - "tools/professorDevelopmentPortfolioAudit.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portfolio-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Audit four lanes, guard rails, campaign boundaries, and source references
+        run: python tools/professorDevelopmentPortfolioAudit.py

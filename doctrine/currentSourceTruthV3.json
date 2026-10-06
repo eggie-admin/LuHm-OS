@@ -538,5 +538,18 @@
     "entitlementLane": "STRICT_FREE_TIER",
     "professorApproval": true,
     "crownStatus": "CROWNED_MILESTONE"
+  },
+  "developmentPortfolio": {
+    "contract": "doctrine/professorDevelopmentPortfolioV1.json",
+    "status": "PROPOSED_CANDIDATE",
+    "developmentLanes": [
+      "aiDevelopment",
+      "gameDevelopment",
+      "codingDevelopment",
+      "artDevelopment"
+    ],
+    "incomeCampaign": "sharedPortfolioOutcome_not_a_fifth_developmentLane",
+    "promotion": false,
+    "crownStatus": "STOP"
   }
 }

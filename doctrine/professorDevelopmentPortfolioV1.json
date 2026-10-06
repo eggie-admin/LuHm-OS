@@ -1,0 +1,194 @@
+{
+  "schema": "luhmOs.professorDevelopmentPortfolio.v1",
+  "status": "PROPOSED_CANDIDATE",
+  "authority": "Professor",
+  "boss": "lum",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Coordinate four independently scoped development workflows for LuHm OS while preserving one authority chain, one mutable source lane, and proof-bound milestones.",
+  "exactSource": "Resolve the active canonical repository head and bind every task to taskId + sourceRef + scopeId before work.",
+  "firstProgramPriority": [
+    "baselineAndAuditSharedLuHmFoundation",
+    "hardenLuHmSharedFoundation",
+    "auditFourDevelopmentLanes",
+    "developApprovedLaneMilestones"
+  ],
+  "canonicalTaskGuardRail": "doctrine/everlastingCovenantV1.json",
+  "developmentLanes": [
+    {
+      "id": "aiDevelopment",
+      "focus": "agents, model/provider routing, AI control plane, evaluations, voice and tool integration",
+      "lead": "lum",
+      "specialistRoutes": [
+        "skuldResearch",
+        "urdDoctorGoddess",
+        "kugi"
+      ],
+      "sourceContracts": [
+        "doctrine/luhmAiControlPlaneV1.json",
+        "doctrine/agentSystemDeploymentV1.json",
+        "doctrine/providerEconomyV1.json",
+        "doctrine/apiSpineV1.json"
+      ],
+      "ciWorkflows": [
+        ".github/workflows/agent-system-deployment-audit.yml",
+        ".github/workflows/vendor-ai-debug-audit.yml"
+      ],
+      "acceptanceEvidence": [
+        "exactProviderEntitlementReceiptWhenUsed",
+        "boundedTaskInputAndOutput",
+        "securityAndAuthorityAudit",
+        "exactHeadCiReceipt"
+      ],
+      "initialStatus": "EXISTING_CONTRACTS_PRESENT_LIVE_ENTITLEMENTS_UNVERIFIED"
+    },
+    {
+      "id": "gameDevelopment",
+      "focus": "Godot game loop, gameplay systems, platform SDKs, builds, device/runtime proof",
+      "lead": "lum",
+      "specialistRoutes": [
+        "tetsu",
+        "kaji",
+        "yume"
+      ],
+      "sourceContracts": [
+        "doctrine/gameplayVerticalSliceV1.json",
+        "doctrine/godot4HardArchitectureAudit-20260925.json"
+      ],
+      "ciWorkflows": [
+        ".github/workflows/gameplay-vertical-slice-audit.yml",
+        ".github/workflows/godot-web-harness.yml",
+        ".github/workflows/android-testing-build.yml"
+      ],
+      "acceptanceEvidence": [
+        "gameplaySliceAcceptance",
+        "reproducibleBuildReceipt",
+        "targetPlatformRuntimeReceiptWhenClaimed",
+        "exactHeadCiReceipt"
+      ],
+      "initialStatus": "EXISTING_GAMEPLAY_SOURCE_PHYSICAL_DEVICE_PROOF_PENDING",
+      "vendorEntitlements": {
+        "expectedSupport": [
+          "developerProgramAccess",
+          "licensedSdkOrDevPackage",
+          "testHardwareOrCloudLab",
+          "distributionGuidance"
+        ],
+        "currentState": "UNKNOWN_UNTIL_VENDOR_RECEIPT",
+        "accessLaw": "Verify account eligibility, license, NDA, target platform, and receipt before access or public claims."
+      }
+    },
+    {
+      "id": "codingDevelopment",
+      "focus": "front-end, native integrations, plugins, developer tooling, repository workflow and test architecture",
+      "lead": "lum",
+      "specialistRoutes": [
+        "kugi",
+        "urdDoctorGoddess",
+        "skuldResearch"
+      ],
+      "sourceContracts": [
+        "frontEnd/README.md",
+        "doctrine/pluginPublicationV2.json",
+        "doctrine/WITCHING_HOUR_HARD_AUDIT_V2.json"
+      ],
+      "ciWorkflows": [
+        ".github/workflows/frontend-jquery-dryrun.yml",
+        ".github/workflows/plugin-publication-audit.yml",
+        ".github/workflows/witching-hour-hard-audit-v2.yml"
+      ],
+      "acceptanceEvidence": [
+        "boundedDiff",
+        "securityAndBoundaryChecks",
+        "relevantUnitAndIntegrationChecks",
+        "exactHeadCiReceipt"
+      ],
+      "initialStatus": "EXISTING_CANDIDATE_CODE_RUNTIME_AND_PUBLICATION_GATES_REMAIN"
+    },
+    {
+      "id": "artDevelopment",
+      "focus": "character design, visual systems, asset provenance, animation, game/cockpit presentation and campaign visuals",
+      "lead": "yume",
+      "specialistRoutes": [
+        "sumi",
+        "urdDoctorGoddess",
+        "skuldResearch"
+      ],
+      "sourceContracts": [
+        "doctrine/yumeCreativePipelineV1.json",
+        "doctrine/contentLaneDoctrineV1.json",
+        "doctrine/assetEligibilityMatrixV1.json"
+      ],
+      "ciWorkflows": [
+        ".github/workflows/yume-creative-pipeline-audit.yml",
+        ".github/workflows/yume-batch-image-workflow-audit.yml",
+        ".github/workflows/public-art-brand-release-audit.yml"
+      ],
+      "acceptanceEvidence": [
+        "assetIdentityAndProvenance",
+        "laneEligibility",
+        "engineOrPresentationIntegrationWhenClaimed",
+        "exactHeadCiReceipt"
+      ],
+      "initialStatus": "EXISTING_CANDIDATE_ART_PIPELINE_PUBLIC_RELEASE_GATES_REMAIN"
+    }
+  ],
+  "orchestration": {
+    "multipleWorkflowsMayBeTrackedAtOnce": true,
+    "parallelWorkRequiresDisjointTaskScopes": true,
+    "maxParallelSupportWorkers": "inheritFrom-doctrine/agentSystemDeploymentV1.json (3)",
+    "oneMutableSourceLane": "inheritFrom-doctrine/agentSystemDeploymentV1.json (true)",
+    "residentMonitoringIsReadOnly": true,
+    "providerAndGitHubBudgets": "doctrine/githubWorkflowBudgetV1.json",
+    "noHiddenAsyncWorkers": true,
+    "activeTaskSelectsOnePrimaryLane": true,
+    "supportingLanesAreReadOnly": true,
+    "runtimeExecutor": "NOT_ATTACHED_BY_THIS_CONTRACT; this registry maps scope and evidence but does not launch hidden or parallel runtimes"
+  },
+  "incomeCampaign": {
+    "role": "sharedPortfolioOutcome_not_a_fifth_developmentLane",
+    "campaignContracts": [
+      "doctrine/unifiedCampaignWorkbenchV1.json",
+      "doctrine/campaignLaunchKitV1.json",
+      "doctrine/patronageCampaignV1.json"
+    ],
+    "evidenceLedger": "campaign/evidence-ledger.json",
+    "objective": "Generate verified income to fund Professor-approved contributor compensation and reduce recurring sidecar spend when equivalent capabilities are proven.",
+    "sourcePolicy": [
+      "patronageOrSponsorship",
+      "productOrGameRevenueOnlyAfterSeparateReleaseAndFulfillmentReadiness",
+      "gamePlatformDeveloperPackagesAndCreditsAreInKindSupport_notCashRevenue"
+    ],
+    "measures": [
+      "cashActuallyReceived",
+      "approvedCompensationPaid",
+      "recurringProviderSpend",
+      "replacementCapabilityEntitlementReceipt",
+      "verifiedNetRunway",
+      "inKindDeveloperAccessAndCredits"
+    ],
+    "financialTargets": "UNSET_REQUIRES_PROFESSOR_DECISION",
+    "financialRecord": "PRIVATE_SYSTEM_OF_RECORD_REQUIRED; do not store personal payout details in this public repository",
+    "successEvidence": [
+      "clearedFundsReceipt",
+      "ProfessorApprovedBudget",
+      "redactedPaymentReceipt",
+      "providerCostAndUsageBaseline",
+      "equivalentReplacementCapabilityReceipt"
+    ],
+    "automaticSend": false,
+    "automaticPublication": false,
+    "automaticPayout": false,
+    "automaticPurchaseOrTierChange": false,
+    "sidecarReductionGate": "Require a measured usage/cost baseline, equivalent verified replacement capability, rollback route, and Professor approval; in-kind credits and developer packages do not count as cash received."
+  },
+  "safety": {
+    "candidateEvidenceOnly": true,
+    "publicClaimsBindToReceipts": true,
+    "unknownRemainsUnknown": true,
+    "sourceMutationRequiresTaskSpecificAuthority": true,
+    "automaticMerge": false,
+    "automaticDeploy": false,
+    "promotion": false,
+    "crownStatus": "STOP"
+  }
+}
