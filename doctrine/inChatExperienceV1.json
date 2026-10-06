@@ -18,7 +18,8 @@
     "apiSpine": "doctrine/apiSpineV1.json",
     "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
     "chatPrecisionCommand": "doctrine/chatPrecisionCommandV1.json",
-    "afterHours": "doctrine/afterHoursExperienceV1.json"
+    "afterHours": "doctrine/afterHoursExperienceV1.json",
+    "staticChat": "doctrine/staticChatTransmogrifierV1.json"
   },
   "runtime": {
     "tool": "luhm_open_cockpit",
@@ -37,6 +38,7 @@
       "petDock",
       "commandCapsule",
       "precisionCommands",
+      "staticChat",
       "afterHours",
       "godotHandoff"
     ],
@@ -48,7 +50,8 @@
       "parallax": "cssLayered",
       "commandSchema": "doctrine/chatPrecisionCommandV1.json",
       "inChatFirst": true,
-      "providerPlumbingHidden": true
+      "providerPlumbingHidden": true,
+      "staticChatTransmogrifier": "doctrine/staticChatTransmogrifierV1.json"
     }
   },
   "turnModel": {

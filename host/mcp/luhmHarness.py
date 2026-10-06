@@ -94,9 +94,9 @@ def register_harness(
     api_spine_path = root / "doctrine" / "apiSpineV1.json"
     traffic_controller_path = root / "doctrine" / "cloudflareAirTrafficControllerV1.json"
     precision_command_path = root / "doctrine" / "chatPrecisionCommandV1.json"
-    after_hours_path = root / "doctrine" / "afterHoursExperienceV1.json"
+    after_hours_path = root / "doctrine" / "afterHoursExperienceV1.json"\n    static_chat_path = root / "doctrine" / "staticChatTransmogrifierV1.json"
 
-    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path)):
+    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, static_chat_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     resource_meta: dict[str, Any] = {
@@ -120,7 +120,7 @@ def register_harness(
     api_spine = json.loads(api_spine_path.read_text(encoding="utf-8"))
     traffic_controller = json.loads(traffic_controller_path.read_text(encoding="utf-8"))
     precision_command = json.loads(precision_command_path.read_text(encoding="utf-8"))
-    after_hours = json.loads(after_hours_path.read_text(encoding="utf-8"))
+    after_hours = json.loads(after_hours_path.read_text(encoding="utf-8"))\n    static_chat = json.loads(static_chat_path.read_text(encoding="utf-8"))
     if experience.get("schema") != "luhmOs.inChatExperience.v1":
         raise RuntimeError("RED_IN_CHAT_EXPERIENCE_SCHEMA")
     if experience.get("runtime", {}).get("resourceUri") != UI_RESOURCE_URI:
@@ -176,7 +176,7 @@ def register_harness(
             "apiSpine": api_spine,
             "trafficController": traffic_controller,
             "precisionCommands": precision_command,
-            "afterHours": after_hours,
+            "afterHours": after_hours,\n            "staticChat": static_chat,
             "status": status_provider(),
             "roster": roster_provider(),
             "harness": {
@@ -209,7 +209,7 @@ def register_harness(
     @server.custom_route("/harness/assets/{asset_path:path}", methods=["GET", "HEAD"])
     async def harness_asset(request: Request) -> Response:
         relative = request.path_params.get("asset_path", "")
-        allowed = {"cockpit.css", "cockpit.js", "agent-loading-sprites.json", "agent-roster-v1.png"}
+        allowed = {"cockpit.css", "cockpit.js", "chat-transmogrifier.css", "chat-transmogrifier.js", "agent-loading-sprites.json", "agent-roster-v1.png"}
         if relative not in allowed:
             return PlainTextResponse("not found", status_code=404, headers=_headers())
         target = _safe_file(harness_root, relative)

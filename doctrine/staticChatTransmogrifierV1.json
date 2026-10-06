@@ -1,0 +1,137 @@
+{
+  "schema": "luhmOs.staticChatTransmogrifier.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "Provide a deterministic static chat interaction layer for LuHm harness surfaces, using clean-room donor ideas from classic IRC clients without copying their code, networking stack, or scripting runtime.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "donorStudy": {
+    "mirc": {
+      "role": "interactionPatternDonorOnly",
+      "codeCopied": false,
+      "assetsCopied": false,
+      "networkRuntimeCopied": false,
+      "arbitraryScriptRuntimeCopied": false,
+      "adoptedPatterns": [
+        "commandAliases",
+        "inputHistory",
+        "tabCompletion",
+        "lineMarker",
+        "contextActions",
+        "windowClassThinking",
+        "timestamps",
+        "highlightRules"
+      ]
+    }
+  },
+  "hostModel": {
+    "inChat": "ChatGPT MCP app resource",
+    "standalone": "same-origin LuHm harness",
+    "preferredFollowUpBridge": "window.openai.sendFollowUpMessage",
+    "fallbackFollowUpBridge": "ui/message",
+    "mayScrapeHostConversation": false,
+    "mayReadHiddenHostState": false
+  },
+  "messageClasses": [
+    {
+      "id": "chat",
+      "meaning": "human and assistant conversational lines",
+      "authority": false
+    },
+    {
+      "id": "tool",
+      "meaning": "deterministic tool invocation or tool result projection",
+      "authority": false
+    },
+    {
+      "id": "proof",
+      "meaning": "evidence, receipt, verification, or scoped verdict projection",
+      "authority": false
+    },
+    {
+      "id": "control",
+      "meaning": "routing, workflow, escalation, Crown, and command-state projection",
+      "authority": false
+    }
+  ],
+  "fourByFour": {
+    "horizontalBeats": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "verticalMessageClasses": [
+      "chat",
+      "tool",
+      "proof",
+      "control"
+    ],
+    "law": "static presentation may classify and focus a line but may not change evidence or authority"
+  },
+  "interaction": {
+    "composer": {
+      "commandPrefix": "/",
+      "history": "memoryOnly",
+      "historyLimit": 32,
+      "arrowHistory": true,
+      "tabCompletion": true,
+      "completionSources": [
+        "doctrine/chatPrecisionCommandV1.json",
+        "canonicalAgentIds",
+        "registeredAliasesOnly"
+      ],
+      "unknownCommand": "VERIFY",
+      "unknownExecutesNothing": true
+    },
+    "lineMarker": {
+      "id": "lastProvedState",
+      "purpose": "show what changed since the last proved checkpoint",
+      "automaticGreen": false
+    },
+    "contextActions": [
+      "copy",
+      "explain",
+      "route",
+      "prove",
+      "state",
+      "dive"
+    ],
+    "transcript": {
+      "localProjectionOnly": true,
+      "durableLog": false,
+      "serverWrite": false,
+      "maxVisibleLines": 120
+    }
+  },
+  "security": {
+    "evalAllowed": false,
+    "newFunctionAllowed": false,
+    "arbitraryRemoteScriptAllowed": false,
+    "thirdPartyCdnAllowed": false,
+    "arbitraryUrlOpenAllowed": false,
+    "directFilesystemAccessAllowed": false,
+    "directShellAuthority": false,
+    "directNetworkAuthority": false,
+    "providerSecretAccess": false,
+    "htmlFromUntrustedMessageAllowed": false,
+    "textContentByDefault": true
+  },
+  "authorityBoundary": {
+    "mutationAuthority": false,
+    "mergeAuthority": false,
+    "deploymentAuthority": false,
+    "publicationAuthority": false,
+    "signingAuthority": false,
+    "greenAuthority": false,
+    "crownAuthority": false
+  },
+  "proof": {
+    "sourceConfiguredDoesNotEqualLiveHostProof": true,
+    "staticUiDoesNotEqualToolExecution": true,
+    "visualHighlightDoesNotEqualEvidence": true,
+    "liveChatGptBehaviorRequiresHostReceipt": true
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}
