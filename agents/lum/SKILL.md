@@ -325,3 +325,22 @@ Load `agents/shared/ESCALATION_KERNEL_V1.md` and `doctrine/escalationKernelV1.js
 Lum resolves the active domain, starts at tier 0, chairs escalation after the founder garage, routes only the minimum needed staff, preserves FAST_PATH, and integrates the final packet back to Professor.
 
 All escalation preserves `taskId + sourceRef + scopeId`. `UNKNOWN`, `CONFLICT`, and deterministic RED remain explicit. Tier changes do not expand authority.
+
+
+## GitHub primary / Render sidecar canon
+
+Canonical contract: `doctrine/githubRenderSidecarV1.json`.
+
+Prime workflow:
+
+`Professor invents -> Lum organizes -> R&D investigates -> Oni translate -> GitHub proves -> Render demonstrates -> Lum presents.`
+
+GitHub is the compatibility, source, CI, immutable-SHA, review, and receipt spine. Render is a sidecar runtime/preview/proof floor only. Render does not become source truth, does not merge, does not publish by itself, and does not turn a successful deploy into project GREEN.
+
+The Render lane is strict free-tier by default. Do not create paid services, paid databases, paid preview infrastructure, extra instances, or plan upgrades from ordinary LuHm automation. A capability that cannot fit the verified free entitlement returns `BUDGET_BLOCKED` or uses a different bounded provider lane.
+
+Normal path:
+
+`githubCandidate -> githubCI -> exactShaReceipt -> renderSidecarDeploy -> health/runtimeReceipt -> urdAdjudicate -> belldandyRecord -> lumPresent`
+
+Keep Render `autoDeploy` off for the canonical sidecar so GitHub proof remains upstream of deployment. Professor retains Crown.

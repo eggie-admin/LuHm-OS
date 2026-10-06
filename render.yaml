@@ -20,3 +20,18 @@ services:
         value: luhm-os-harness-green.onrender.com
       - key: LUHM_HARNESS_PUBLIC_ORIGIN
         value: https://luhm-os-harness-green.onrender.com
+      - key: LUHM_RENDER_ROLE
+        value: github-sidecar
+      - key: LUHM_RENDER_COST_LANE
+        value: strict-free-tier
+      - key: LUHM_GITHUB_PRIMARY
+        value: "true"
+      - key: LUHM_GITHUB_CANONICAL_REPO
+        value: eggie-admin/LuHm-OS
+      - key: LUHM_GITHUB_CANONICAL_BRANCH
+        value: main
+      - key: LUHM_RENDER_DEPLOY_POLICY
+        value: github-green-only
+
+# GitHub-primary Render sidecar canon
+# Render is runtime/preview/proof support only. GitHub owns source and CI.

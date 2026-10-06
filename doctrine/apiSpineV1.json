@@ -238,5 +238,20 @@
     "providerMayGrantCrown": false,
     "trafficControllerMayGrantAuthority": false
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "renderSidecar": {
+    "contract": "doctrine/githubRenderSidecarV1.json",
+    "role": "runtimePreviewAndProofFloor",
+    "sourceAndCiAuthority": "github",
+    "renderMayOwnSourceTruth": false,
+    "renderMayMerge": false,
+    "renderMayPublish": false,
+    "renderMayGrantGreen": false,
+    "deployPolicy": "githubGreenThenExplicitRenderSidecarDeploy",
+    "entitlementLane": "STRICT_FREE_TIER",
+    "canonicalServices": [
+      "luhm-os-harness-green",
+      "luhm-os-godot-harness-green"
+    ]
+  }
 }
