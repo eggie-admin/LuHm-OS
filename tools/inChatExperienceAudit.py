@@ -13,6 +13,7 @@ def need(ok,msg):
 
 experience=json.loads((root/"doctrine/inChatExperienceV1.json").read_text(encoding="utf-8"))
 precision=json.loads((root/"doctrine/chatPrecisionCommandV1.json").read_text(encoding="utf-8"))
+after_hours=json.loads((root/"doctrine/afterHoursExperienceV1.json").read_text(encoding="utf-8"))
 need(experience.get("schema")=="luhmOs.inChatExperience.v1","schema drift")
 need(experience.get("boss")=="lum","Lum boss drift")
 need(experience.get("authority")=="Professor","Professor authority drift")
@@ -31,7 +32,8 @@ expected={
   "openingDayStaffTraining":"doctrine/openingDayStaffTrainingV1.json",
   "apiSpine":"doctrine/apiSpineV1.json",
   "trafficController":"doctrine/cloudflareAirTrafficControllerV1.json",
-  "chatPrecisionCommand":"doctrine/chatPrecisionCommandV1.json"
+  "chatPrecisionCommand":"doctrine/chatPrecisionCommandV1.json",
+  "afterHours":"doctrine/afterHoursExperienceV1.json"
 }
 need(sources==expected,"source map drift")
 for rel in expected.values():
@@ -41,7 +43,7 @@ runtime=experience.get("runtime",{})
 need(runtime.get("tool")=="luhm_open_cockpit","tool binding drift")
 need(runtime.get("resourceUri")=="ui://luhm-os/cockpit-v2.html","resource URI drift")
 need(runtime.get("surface")=="mcp-app","surface drift")
-need(runtime.get("panels")==["sourceTruth","crownFlow","openingDay","apiSpine","airTraffic","activeCast","activity","roleplay","petDock","commandCapsule","precisionCommands","godotHandoff"],"panel contract drift")
+need(runtime.get("panels")==["sourceTruth","crownFlow","openingDay","apiSpine","airTraffic","activeCast","activity","roleplay","petDock","commandCapsule","precisionCommands","afterHours","godotHandoff"],"panel contract drift")
 need(runtime.get("godotEmbeddingInChat") is False,"Godot embedding boundary drift")
 
 authority=experience.get("authorityBoundary",{})
@@ -70,6 +72,20 @@ need('latest?.precisionCommands?.examples' in widget,"widget does not consume pr
 need('const precisionCommands=[' not in widget,"widget still hard-codes precision commands")
 need(any(row.get("debugVerb")=="HELP" and row.get("camelHump")=="showHelp" for row in precision.get("examples",[])),"HELP precision command missing")
 need(len(precision.get("examples",[]))>=9,"precision command registry unexpectedly shrank")
+need(after_hours.get("schema")=="luhmOs.afterHoursExperience.v1","After Hours schema drift")
+boundary=after_hours.get("modeBoundary",{})
+need(boundary.get("defaultMode")=="normalChat","After Hours must default outside fiction")
+need(boundary.get("explicitEntryRequired") is True,"After Hours explicit entry law missing")
+need(boundary.get("normalChatNeverAutoEnters") is True,"normal chat may auto-enter After Hours")
+need(boundary.get("exitReturnsToNormalChat") is True,"EXIT boundary missing")
+fiction=after_hours.get("fictionBoundary",{})
+need(fiction.get("fictionalSceneStateCannotMutateRealWorld") is True,"fiction may mutate real world")
+need(fiction.get("roleplayCannotGrantAuthority") is True,"roleplay authority leak")
+need(fiction.get("allCharactersAdults") is True,"adult-cast contract missing")
+need('"afterHours": after_hours' in module,"harness does not expose After Hours contract")
+need('id="afterHoursShell"' in widget and 'id="afterHoursEnter"' in widget,"After Hours shell missing")
+need('afterHoursState="OUTSIDE"' in widget,"After Hours does not default OUTSIDE")
+need('setAfterHoursMode("OUTSIDE")' in widget,"After Hours boot boundary missing")
 cli=subprocess.run([sys.executable,str(root/"tools/luhm.py"),"-h"],capture_output=True,text=True)
 need(cli.returncode==0 and "HELP" in cli.stdout and "CONTINUE" in cli.stdout,"luhm -h does not expose precision command vocabulary")
 
