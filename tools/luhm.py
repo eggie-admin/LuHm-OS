@@ -53,7 +53,11 @@ def aliases(row):
 
 def find(term):
     term=term.strip()
-    matches=[row for row in rows() if term in aliases(row)]
+    exact=[row for row in rows() if term in aliases(row)]
+    if len(exact)==1:
+        return exact[0]
+    folded=term.casefold()
+    matches=[row for row in rows() if any(folded==value.casefold() for value in aliases(row))]
     return matches[0] if len(matches)==1 else None
 
 def show_root():
