@@ -2,7 +2,7 @@
   "schema": "luhmOs.operationTitan7ExecutionSchema.v1",
   "status": "STAGED_CANDIDATE",
   "authority": "Professor",
-  "purpose": "Deterministic operation grammar connecting bounded system inspection, mutation and proof to OperationTitan7 milestone conditions.",
+  "purpose": "Deterministic operation grammar for bounded inspection, delegated AI-scope mutation, tests and deployment. A finalBoss invocation supplies scoped Lum authority; it does not make provider access or runtime receipts appear.",
   "modes": {
     "system": {
       "mutationAllowed": false,
@@ -62,5 +62,30 @@
   "operationTitanFunctionRef": "LuHmOS.fn.operationTitan",
   "operationTitanBuildVersion": 7,
   "operationTitanNamespaceRef": "doctrine/namingNamespaceCanonV1.json#namespaceEscalation",
-  "terminalEscalation": "finalBoss"
+  "terminalEscalation": "finalBoss",
+  "finalBossDelegation": {
+    "trigger": "explicitProfessorInvocationOfFinalBoss",
+    "delegate": "lum",
+    "requires": [
+      "activeTaskEnvelope",
+      "exactSourceRef",
+      "scopeId",
+      "rollbackCheckpoint",
+      "providerEntitlementReceipt"
+    ],
+    "can": [
+      "applyBoundedAiWorkflowMutations",
+      "runAuditsAndTests",
+      "promoteGreenAiScopeChanges",
+      "deployVerifiedAiScopeChanges"
+    ],
+    "cannot": [
+      "exceedActiveTaskEnvelope",
+      "claimUnobservedRuntime",
+      "publishPublicly",
+      "spendUnapprovedFunds"
+    ],
+    "crownReturnsAt": "milestoneCompletionOrStop"
+  },
+  "eighthNoteScope": "doctrine/eighthNoteAgentScopeV1.json"
 }
