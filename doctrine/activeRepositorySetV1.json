@@ -1,0 +1,46 @@
+{
+  "schema": "luhmOs.activeRepositorySet.v1",
+  "status": "PROPOSED_RECONCILIATION",
+  "authority": "Professor",
+  "purpose": "Define the currently observable Project Hydra repository set and exact protective snapshots used before structural reconciliation.",
+  "canonicalPrimary": "eggie-admin/LuHm-OS",
+  "activeRepositories": [
+    {
+      "repository": "eggie-admin/LuHm-OS",
+      "defaultBranch": "main",
+      "observedHead": "c6096b398eb226a2936c2332689dd87d034f39f7",
+      "snapshotRef": "snapshot/titan7-final-form-20261007-c6096b39"
+    },
+    {
+      "repository": "eggie-admin/hydra-shell-android",
+      "defaultBranch": "main",
+      "observedHead": "08644e2dbb032b1804e260c8ece1060597a22ae0",
+      "snapshotRef": "snapshot/titan7-final-form-20261007-08644e2d"
+    },
+    {
+      "repository": "eggie-admin/vue-headless-cms",
+      "defaultBranch": "main",
+      "observedHead": "1d51c5b90266f7beb8236cf07acfb17a085a4134",
+      "snapshotRef": "snapshot/titan7-final-form-20261007-1d51c5b9"
+    }
+  ],
+  "historicalUnavailableRepositories": [
+    {
+      "historicalName": "KAI9000_LuHm_Compatibility",
+      "status": "UNAVAILABLE_NOT_CURRENTLY_DISCOVERABLE",
+      "treatment": "historicalReferenceOnlyUntilRediscovered",
+      "mayBlockCurrentActiveRepoSnapshot": false,
+      "mayBecomeGreenWithoutRediscovery": false
+    }
+  ],
+  "backupLaw": {
+    "allActiveRepositoriesRequireExactSnapshot": true,
+    "historicalUnavailableRepositoryMustNotBeInvented": true,
+    "googleDriveReceiptRemainsSeparate": true,
+    "localWorkstationReceiptRemainsSeparate": true,
+    "destructiveHistoryRewriteAllowed": false,
+    "snapshotDoesNotGrantMergeDeployOrCrown": true
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}
