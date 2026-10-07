@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.semanticDomainHardening.v1",
-  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "status": "CANONICAL_SEMANTIC_SOURCE",
   "authority": "Professor",
   "purpose": "Define one cabinet-wide machine meaning for healthcare, security-checkpoint and other roleplay metaphors so presentation language cannot silently expand authority, imply professional credentials, alter evidence state or trigger unsafe mutation.",
   "primeLaw": "displayMetaphor -> machineMeaning -> allowedActions -> forbiddenInterpretations -> evidenceGate -> authorityCeiling",
@@ -242,5 +242,11 @@
     "metaphorMayNeverCreateCrown": true
   },
   "liveMutation": false,
-  "crownStatus": "STOP"
+  "crownStatus": "CROWNED_SOURCE_MILESTONE",
+  "promotion": true,
+  "professorApproval": true,
+  "promotionScope": "corporateSemanticPkiHardeningMilestone",
+  "crownReceipt": "doctrine/corporateHardeningCrownReceiptV1.json",
+  "approvedCandidateSourceRef": "9a00fd4ecac1e1af3302ff8c3e05524bf6b55020",
+  "mergedMainRef": "3471f78188410761c84a892101ba163a3052be13"
 }
