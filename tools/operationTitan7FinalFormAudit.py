@@ -20,8 +20,10 @@ eighth = load("doctrine/eighthNoteAgentScopeV1.json")
 naming = load("doctrine/namingNamespaceCanonV1.json")
 source_architecture = load("doctrine/modularSourceArchitectureV1.json")
 cast_workflow = load("doctrine/castCommandWorkflowV1.json")
+package_architecture = load("doctrine/luHmOSFourLayerArchitectureV1.json")
 
 required_files = [
+    "doctrine/luHmOSFourLayerArchitectureV1.json",
     "agents/lum/SKILL.md",
     "agents/urdMutationOni/SKILL.md",
     "agents/goddessSharedSystemsPractice/SKILL.md",
@@ -123,6 +125,14 @@ if ff.get("modularSourceArchitecture") != "doctrine/modularSourceArchitectureV1.
     errors.append("Final Form source architecture binding drift")
 if execution.get("modularSourceArchitecture") != "doctrine/modularSourceArchitectureV1.json":
     errors.append("execution schema source architecture binding drift")
+if source_architecture.get("references", {}).get("compositionArchitecture") != "doctrine/luHmOSFourLayerArchitectureV1.json":
+    errors.append("modular source architecture must use LuHmOS composition name")
+if eighth.get("parentArchitecture") != "doctrine/luHmOSFourLayerArchitectureV1.json":
+    errors.append("eight-note scope must use LuHmOS composition name")
+if package_architecture.get("packageIdentity") != "LuHmOS":
+    errors.append("four-layer architecture package identity drift")
+if package_architecture.get("historicalSourceRef") != "doctrine/jqueryFourLayerArchitectureV1.json":
+    errors.append("four-layer historical compatibility reference drift")
 
 expected_cast_verbs = ["create", "install", "run", "update", "upgrade"]
 cast_commands = cast_workflow.get("commandSurface", {})
@@ -146,10 +156,14 @@ if package_identity.get("packageNamespace") != "art.eggiebagelface.LuHmOS.cast":
     errors.append("CAST package namespace drift")
 if package_identity.get("lumAgentIdentity") != "lum" or package_identity.get("agentAndPackageAreDistinctIdentities") is not True:
     errors.append("Lum agent identity must remain distinct from the LuHmOS package")
-if package_identity.get("projectOwnedJqueryDerivedNamesResolveTo") != "LuHmOS":
-    errors.append("jQuery-derived project package names must resolve to LuHmOS")
-if package_identity.get("jqueryStyleAlias") != "$.LuHmOS.cast":
-    errors.append("jQuery-style compatibility namespace drift")
+if package_identity.get("projectOwnedExtensionNamesResolveTo") != "LuHmOS":
+    errors.append("project-owned extension names must resolve to LuHmOS")
+if package_identity.get("dollarEntryPoint") != "$.LuHmOS.cast":
+    errors.append("LuHmOS dollar-entrypoint namespace drift")
+if cast_workflow.get("canonicalCompositionArchitecture") != "doctrine/luHmOSFourLayerArchitectureV1.json":
+    errors.append("CAST package composition architecture binding drift")
+if cast_workflow.get("legacyNameNormalization", {}).get("currentProjectPackageName") != "LuHmOS":
+    errors.append("legacy extension names must normalize to LuHmOS")
 if any(not item.get("syntax", "").startswith("LuHmOS cast ") for item in cast_commands.get("verbs", [])):
     errors.append("CAST verb syntax must use the LuHmOS package executable")
 if ff.get("castCommandWorkflow") != "doctrine/castCommandWorkflowV1.json":
