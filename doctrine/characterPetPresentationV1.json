@@ -39,7 +39,15 @@
       "petBubbleDoesNotEstablishGreen",
       "petPresentationCannotCrownCastMergeDeployOrPublish",
       "missingApprovedArtUsesDeclaredOriginalFallback"
-    ]
+    ],
+    "spriteSequenceContract": "doctrine/pet-sprite-sequence-v1.json",
+    "presentationScale": "largestPossibleWithoutOccludingEssentialControls",
+    "animation": {
+      "framesPerSequence": 32,
+      "sheet": "8x4",
+      "currentAtlasRole": "fallbackOnlyUntilApprovedSequenceProof",
+      "communityAssetLane": "Yume may shortlist rights-cleared donor material; Sumi/Skuld/Urd gates still apply"
+    }
   },
   "exactHashRuntimeProofRequired": true,
   "crownStatus": "STOP"

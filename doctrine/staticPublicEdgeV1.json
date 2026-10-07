@@ -89,8 +89,18 @@
     "tls_hostname_and_chain_receipt",
     "https_health_receipt",
     "mcp_streaming_and_openai_compatibility_receipt_for_mcp_proxy_changes",
-    "no_secret_or_private_media_leakage"
+    "no_secret_or_private_media_leakage",
+    "static_transfer_mount_runtime_receipt",
+    "content_hash_receipt_before_immutable_cdn"
   ],
   "publicationAuthority": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "staticTransferMount": {
+    "contract": "doctrine/static-transfer-mount-v1.json",
+    "sourceRoute": "/harness/assets/",
+    "sourceState": "PRESENT_IN_SOURCE",
+    "runtimeState": "VERIFY",
+    "cloudflareCdnState": "VERIFY",
+    "assetFqdnCandidate": "assets.eggiebagelface.art"
+  }
 }

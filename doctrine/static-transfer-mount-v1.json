@@ -1,0 +1,85 @@
+{
+  "schema": "luhmOs.staticTransferMount.v1",
+  "status": "SOURCE_CANDIDATE_RUNTIME_UNPROVEN",
+  "authority": "Professor",
+  "sourceRef": "f87e59bb9faee1fda576e9a48980fafbea01ce40",
+  "purpose": "Expose approved LuHm presentation assets through one bounded read-only static mount so ChatGPT pet UI can resolve tiny semantic state events into visible sprites without carrying binary assets through MCP.",
+  "ownership": {
+    "trafficController": "cloudflare",
+    "runtimeOrigin": "render",
+    "assetProvenance": "sumi",
+    "artDirection": "yume",
+    "technicalCompatibility": "skuldResearch",
+    "evidenceAdjudication": "urdDoctorGoddess",
+    "records": "belldandySecretary"
+  },
+  "sourceMount": {
+    "route": "/harness/assets/{asset_path:path}",
+    "root": "host/harness/",
+    "mode": "sameOriginAllowlist",
+    "writeableFromClient": false,
+    "directoryListing": false,
+    "sourceState": "PRESENT_IN_SOURCE",
+    "runtimeState": "VERIFY",
+    "allowlist": [
+      "cockpit.css",
+      "cockpit.js",
+      "agent-loading-sprites.json",
+      "agent-roster-v1.png"
+    ]
+  },
+  "petPresentation": {
+    "manifest": "/harness/assets/agent-loading-sprites.json",
+    "atlas": "/harness/assets/agent-roster-v1.png",
+    "doctrineManifest": "doctrine/agentLoadingSpriteManifestV1.json",
+    "runtimeManifest": "host/harness/agent-loading-sprites.json",
+    "transportLaw": "MCP carries semantic state only; static mount carries presentation assets.",
+    "fallback": "deterministic badge when sprite asset cannot be proven available",
+    "executionAuthority": false,
+    "evidenceAuthority": false,
+    "sequenceContract": "doctrine/pet-sprite-sequence-v1.json",
+    "targetFramesPerSequence": 32,
+    "targetScale": "stageFilling",
+    "sequenceNamespace": "/harness/assets/pets/{agentId}/{sha256}/",
+    "currentAtlasRole": "fallback"
+  },
+  "edgeProjection": {
+    "currentMode": "sameOriginRenderSourceRoute",
+    "cloudflareMode": "futureOptionalCdnAfterActivationProof",
+    "assetFqdnCandidate": "assets.eggiebagelface.art",
+    "liveDnsMutation": false,
+    "proxyMutation": false,
+    "cdnState": "VERIFY",
+    "activationProofRequired": true
+  },
+  "cacheLaw": {
+    "manifest": "shortOrNoCache",
+    "contentHashedAssets": "immutableEligible",
+    "unversionedAtlas": "NOT_IMMUTABLE_EDGE_READY",
+    "contentHashMigrationRequiredBeforeImmutableCdn": true
+  },
+  "privacyLaw": {
+    "privateDriveMaterial": false,
+    "privateReferenceMaterial": false,
+    "credentials": false,
+    "rawPrompts": false,
+    "toolArguments": false,
+    "evidenceBlobs": false,
+    "publicGeneratedContentPolicyUnchanged": true
+  },
+  "states": {
+    "sourceMount": "PRESENT",
+    "renderRuntimeMount": "VERIFY",
+    "cloudflareCdn": "VERIFY",
+    "chatGptPetVisibility": "VERIFY"
+  },
+  "failClosed": {
+    "missingManifest": "FALLBACK_BADGE",
+    "missingAtlas": "FALLBACK_BADGE",
+    "unknownRuntime": "VERIFY",
+    "unknownCdn": "VERIFY",
+    "sourcePresenceIsNotRuntimeGreen": true,
+    "runtimePresenceIsNotCdnGreen": true
+  },
+  "crownStatus": "STOP"
+}

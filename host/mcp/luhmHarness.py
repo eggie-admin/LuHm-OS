@@ -22,6 +22,7 @@ from starlette.responses import FileResponse, JSONResponse, PlainTextResponse, R
 
 UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"
 APP_MIME_TYPE = "text/html;profile=mcp-app"
+PET_ASSET_IDS = {"lum","urdDoctorGoddess","belldandySecretary","skuldResearch","kiri","momo","shiori","kugi","tetsu","kaji","fumi","sumi","koe","yume","mediaAssetFactory"}
 
 
 def _origin() -> str:
@@ -210,12 +211,21 @@ def register_harness(
     async def harness_asset(request: Request) -> Response:
         relative = request.path_params.get("asset_path", "")
         allowed = {"cockpit.css", "cockpit.js", "agent-loading-sprites.json", "agent-roster-v1.png"}
-        if relative not in allowed:
+        parts = Path(relative).parts
+        pet_asset = (
+            len(parts) == 4
+            and parts[0] == "pets"
+            and parts[1] in PET_ASSET_IDS
+            and len(parts[2]) == 64
+            and all(c in "0123456789abcdef" for c in parts[2].lower())
+            and parts[3] in {"sequence.webp", "sequence.png", "sequence.json"}
+        )
+        if relative not in allowed and not pet_asset:
             return PlainTextResponse("not found", status_code=404, headers=_headers())
         target = _safe_file(harness_root, relative)
         if target is None:
             return PlainTextResponse("not found", status_code=404, headers=_headers())
-        media_type = {".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json", ".png": "image/png"}.get(target.suffix, "application/octet-stream")
+        media_type = {".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json", ".png": "image/png", ".webp": "image/webp"}.get(target.suffix, "application/octet-stream")
         return FileResponse(target, media_type=media_type, headers=_headers())
 
     @server.custom_route("/harness/config.json", methods=["GET"])
