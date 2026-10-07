@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 workflow = (ROOT / ".github/workflows/professor-cast-bridge.yml").read_text(encoding="utf-8")
+package_workflow = (ROOT / ".github/workflows/public-plugin-package-cast.yml").read_text(encoding="utf-8")
 doctrine = json.loads((ROOT / "doctrine/PROFESSOR_CAST_BRIDGE_V1.json").read_text(encoding="utf-8"))
 
 errors = []
@@ -83,3 +84,20 @@ print(json.dumps({
     "crownStatus":"STOP"
 }, indent=2))
 sys.exit(0 if not errors else 2)
+
+for token in (
+    "professorActor:",
+    "castOriginRunId:",
+    "actions: read",
+    'GITHUB_ACTOR" == "github-actions[bot]"',
+    'originEvent" != "issue_comment"',
+    'originActor" != "$PROFESSOR_ACTOR"',
+    'originSha" != "$SOURCE_REF"',
+    '--actor "$PROFESSOR_ACTOR"',
+):
+    require(token in package_workflow, f"public package CAST provenance missing: {token}")
+
+require('-f professorActor="$professorActor"' in workflow,
+        "bridge must pass professorActor to public package CAST")
+require('-f castOriginRunId="$castOriginRunId"' in workflow,
+        "bridge must pass castOriginRunId to public package CAST")
