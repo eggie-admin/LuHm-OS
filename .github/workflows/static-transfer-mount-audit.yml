@@ -1,0 +1,28 @@
+name: Static Transfer Mount Audit
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/static-transfer-mount-v1.json"
+      - "doctrine/pet-sprite-sequence-v1.json"
+      - "doctrine/characterPetPresentationV1.json"
+      - "doctrine/cloudflareAirTrafficControllerV1.json"
+      - "host/harness/**"
+      - "host/mcp/luhmHarness.py"
+      - "tools/staticTransferMountAudit.py"
+      - ".github/workflows/static-transfer-mount-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Audit static transfer mount and 32-frame pet contract
+        run: python tools/staticTransferMountAudit.py
