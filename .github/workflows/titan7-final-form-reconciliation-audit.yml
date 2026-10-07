@@ -1,0 +1,50 @@
+name: Titan7 Final Form Reconciliation Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/activeRepositorySetV1.json'
+      - 'doctrine/chatGptPluginWorkflowStreamV1.json'
+      - 'doctrine/operationTitan7FinalFormV1.json'
+      - 'doctrine/projectHydraFinalAuditMilestoneV1.json'
+      - 'doctrine/openPrReconciliationV2.json'
+      - 'doctrine/agentSystemDeploymentV1.json'
+      - 'tools/operationTitan7FinalFormAudit.py'
+      - 'tools/chatGptPluginWorkflowStreamAudit.py'
+      - '.github/workflows/titan7-final-form-reconciliation-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Bind exact source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          echo "SOURCE_REF=$LUHM_SOURCE_REF"
+
+      - name: Audit canonical 15-agent mesh
+        run: python3 tools/agentSystemDeploymentAudit.py
+
+      - name: Audit Operation Titan Final Form
+        run: python3 tools/operationTitan7FinalFormAudit.py
+
+      - name: Run 200-pass hard audit
+        run: python3 tools/hardSystemAudit200.py
+
+      - name: Audit ChatGPT plugin workflow standby
+        run: python3 tools/chatGptPluginWorkflowStreamAudit.py
