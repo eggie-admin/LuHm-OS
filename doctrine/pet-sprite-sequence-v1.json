@@ -1,0 +1,61 @@
+{
+  "schema": "luhmOs.petSpriteSequence.v1",
+  "status": "SOURCE_CANDIDATE_ASSETS_PENDING",
+  "authority": "Professor",
+  "presentationRole": "largeAnimatedPetTelemetry",
+  "frameContract": {
+    "framesPerSequence": 32,
+    "sheetColumns": 8,
+    "sheetRows": 4,
+    "ordering": "rowMajor",
+    "preferredFormat": "webp",
+    "fallbackFormats": ["png"],
+    "alphaRequired": true,
+    "pixelArtScaling": "nearestNeighbor",
+    "defaultFps": 10,
+    "allowedFps": [6, 8, 10, 12, 15],
+    "loop": true
+  },
+  "stageContract": {
+    "priority": "largestPossibleWithoutOccludingEssentialControls",
+    "desktopMaxCssPx": 720,
+    "mobileWidthVw": 92,
+    "viewportHeightCapVh": 72,
+    "safeAreaAware": true,
+    "preserveAspectRatio": true,
+    "imageRendering": "pixelated",
+    "reducedMotion": "freezeOnRepresentativeFrame"
+  },
+  "stateFamilies": [
+    "idle",
+    "working",
+    "research",
+    "art",
+    "verify",
+    "blocked",
+    "celebration",
+    "crownRequired"
+  ],
+  "assetPathTemplate": "/harness/assets/pets/{agentId}/{sha256}/sequence.webp",
+  "metadataPathTemplate": "/harness/assets/pets/{agentId}/{sha256}/sequence.json",
+  "transportLaw": "MCP transmits agentId, state and assetId only; sprite bytes travel through the static transfer mount.",
+  "communityDonorLaw": {
+    "lead": "yumeArtOni",
+    "provenanceLead": "sumi",
+    "licenseVerification": "skuldResearch",
+    "evidenceAdjudication": "urdDoctorGoddess",
+    "cc0FastLane": true,
+    "perAssetLicenseRequiresVerification": true,
+    "unknownLicense": "QUARANTINE",
+    "privateReference": "NEVER_PUBLIC",
+    "donorWorkNeverImpliedAsLuHmAuthorship": true,
+    "derivativeLineageRequired": true
+  },
+  "currentFallback": {
+    "manifest": "host/harness/agent-loading-sprites.json",
+    "atlas": "/harness/assets/agent-roster-v1.png",
+    "reason": "32-frame approved sequences are not yet proven present."
+  },
+  "runtimeProofRequired": true,
+  "crownStatus": "STOP"
+}
