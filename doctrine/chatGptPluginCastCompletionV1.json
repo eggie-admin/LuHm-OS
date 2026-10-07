@@ -1,0 +1,68 @@
+{
+  "schema": "luhmOs.chatGptPluginCastCompletion.v1",
+  "date": "2026-10-07",
+  "status": "ACTIVE_FAIL_CLOSED",
+  "authority": "Professor",
+  "boss": "lum",
+  "command": "CAST",
+  "scopeId": "chatGptPluginCurrentChatCast",
+  "meaning": "CAST is complete only when the exact current-main LuHm plugin is built, verified, installed into ChatGPT, invoked from the current conversation, and a runtime receipt proves the LuHm tool surface answered.",
+  "requiredSequence": [
+    "bindExactCurrentMain",
+    "buildDeterministicPluginPackage",
+    "verifyPackageShaAndReceipt",
+    "installPluginInChatGptHost",
+    "invokePluginInCurrentConversation",
+    "observeLuhmOpenCockpitRuntimeReceipt",
+    "declareCastGreen"
+  ],
+  "substeps": {
+    "publicPluginPackage": {
+      "meaning": "build/package substep only",
+      "completion": "PACKAGE_READY",
+      "neverEquals": [
+        "CHATGPT_INSTALLED",
+        "CURRENT_CHAT_ATTACHED",
+        "CURRENT_CHAT_INVOKED",
+        "CAST_GREEN",
+        "PUBLIC_DIRECTORY_PUBLISHED"
+      ]
+    }
+  },
+  "chatGptHost": {
+    "preferredInstaller": "Plugin Creator",
+    "localPluginBehavior": "OpenAI documents that local plugins created with Plugin Creator install automatically after creation; required app authorization may still require user approval.",
+    "currentConversationRequirement": "The installed LuHm plugin must be selected or @mentioned from this conversation and must successfully invoke its LuHm tool surface here.",
+    "requiredRuntimeTool": "luhm_open_cockpit",
+    "requiredProof": [
+      "hostPluginInstalled",
+      "currentConversationInvocation",
+      "luhmOpenCockpitResponse"
+    ],
+    "githubMayNotForgeHostProof": true
+  },
+  "automationLaw": {
+    "fastPath": true,
+    "automaticUntilExternalHostBoundary": true,
+    "whenChatGptHostInstallerCapabilityExists": "use it automatically after package verification",
+    "whenChatGptHostInstallerCapabilityIsUnavailable": "STOP_AT_HOST_INSTALL_BOUNDARY_WITHOUT_CAST_GREEN",
+    "packageSuccessMustNotBeReportedAsFinalCast": true,
+    "unknownNeverBecomesGreen": true
+  },
+  "publicDirectoryTrack": {
+    "separateFromCurrentChatCast": true,
+    "purpose": "Public review, publication, directory search, and normal-user install remain a later promotion lane and do not redefine whether the immediate current-chat CAST succeeded.",
+    "flow": "doctrine/chatGptPluginCrownFlowV1.json"
+  },
+  "success": {
+    "castGreenRequiresAll": [
+      "exactCurrentMainBound",
+      "packageReceiptGreen",
+      "chatGptHostInstallProved",
+      "currentConversationInvocationProved",
+      "luhmOpenCockpitRuntimeProved"
+    ],
+    "crownAuthority": false
+  },
+  "crownStatus": "STOP"
+}
