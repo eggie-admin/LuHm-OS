@@ -126,6 +126,7 @@ if execution.get("modularSourceArchitecture") != "doctrine/modularSourceArchitec
 
 expected_cast_verbs = ["create", "install", "run", "update", "upgrade"]
 cast_commands = cast_workflow.get("commandSurface", {})
+package_identity = cast_workflow.get("packageIdentity", {})
 actual_cast_verbs = [item.get("name") for item in cast_commands.get("verbs", [])]
 if cast_workflow.get("schema") != "luhmOs.castCommandWorkflow.v1":
     errors.append("CAST command workflow schema drift")
@@ -135,6 +136,22 @@ if actual_cast_verbs != expected_cast_verbs:
     errors.append("CAST command verb order or set drift")
 if cast_commands.get("helpAliases") != ["-h", "--help"]:
     errors.append("CAST help aliases drift")
+if cast_commands.get("executable") != "LuHmOS":
+    errors.append("CAST executable must use the LuHmOS package name")
+if "luhm" not in cast_commands.get("aliases", []) or package_identity.get("aliasResolvesToPackage") != "LuHmOS":
+    errors.append("legacy CLI alias must resolve to LuHmOS")
+if package_identity.get("packageName") != "LuHmOS":
+    errors.append("CAST package identity drift")
+if package_identity.get("packageNamespace") != "art.eggiebagelface.LuHmOS.cast":
+    errors.append("CAST package namespace drift")
+if package_identity.get("lumAgentIdentity") != "lum" or package_identity.get("agentAndPackageAreDistinctIdentities") is not True:
+    errors.append("Lum agent identity must remain distinct from the LuHmOS package")
+if package_identity.get("projectOwnedJqueryDerivedNamesResolveTo") != "LuHmOS":
+    errors.append("jQuery-derived project package names must resolve to LuHmOS")
+if package_identity.get("jqueryStyleAlias") != "$.LuHmOS.cast":
+    errors.append("jQuery-style compatibility namespace drift")
+if any(not item.get("syntax", "").startswith("LuHmOS cast ") for item in cast_commands.get("verbs", [])):
+    errors.append("CAST verb syntax must use the LuHmOS package executable")
 if ff.get("castCommandWorkflow") != "doctrine/castCommandWorkflowV1.json":
     errors.append("Final Form CAST command workflow binding drift")
 cast_authority = cast_workflow.get("authorityBoundary", {})
