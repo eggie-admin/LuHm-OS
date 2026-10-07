@@ -1,0 +1,84 @@
+{
+  "schema": "luhmOs.luHmOSFourLayerArchitecture.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "packageIdentity": "LuHmOS",
+  "purpose": "Define the LuHmOS package's four-layer composition model for core, extensions, organization, and typed adapters.",
+  "namingLaw": "Project-owned package and extension names use LuHmOS. The previous jQuery-named Doctrine file is historical evidence and is not the current naming authority.",
+  "historicalSourceRef": "doctrine/jqueryFourLayerArchitectureV1.json",
+  "zeroBased": true,
+  "layers": [
+    {
+      "tier": 0,
+      "id": "coreLibrary",
+      "title": "Core Library",
+      "purpose": "small stable primitives, data contracts, shared helpers, naming law, source identity, evidence law, and deterministic base behavior",
+      "examples": [
+        "escalationKernel",
+        "namingNamespaceCanon",
+        "taskEnvelope",
+        "evidenceReceipt",
+        "helpRegistry"
+      ]
+    },
+    {
+      "tier": 1,
+      "id": "pluginExtension",
+      "title": "LuHmOS Plugin Extension",
+      "purpose": "bounded domain features that extend the package core without rewriting it",
+      "examples": [
+        "technologyProfile",
+        "artProfile",
+        "magicProfile",
+        "corporateProfile",
+        "MCPTools",
+        "LuHmOSPlugins"
+      ]
+    },
+    {
+      "tier": 2,
+      "id": "classWidgetOrganization",
+      "title": "Class and Widget Organization",
+      "purpose": "compose extensions into human-understandable agents, rooms, cabinets, widgets, workflows, and reusable organizational roles",
+      "examples": [
+        "goddessCabinet",
+        "intentTeams",
+        "workflowRooms",
+        "cockpitPanels",
+        "YumeStudio",
+        "TitanAuditRooms"
+      ]
+    },
+    {
+      "tier": 3,
+      "id": "stubAdapterBoundary",
+      "title": "Stub and Adapter Boundary",
+      "purpose": "expose the organized system through thin typed interfaces to providers, ChatGPT, Android, Godot, shell/build tools, and external services without leaking authority inward",
+      "examples": [
+        "MCPAdapters",
+        "providerAdapters",
+        "AndroidBridge",
+        "GodotBridge",
+        "CLIStubs",
+        "renderTransport"
+      ]
+    }
+  ],
+  "laws": [
+    "higherLayerMayDependOnLowerLayer",
+    "lowerLayerMustNotDependOnPresentationSpecificHigherLayer",
+    "pluginExtensionDoesNotRewriteCoreLaw",
+    "organizationDoesNotCreateAuthority",
+    "stubAdapterBoundaryRemainsThin",
+    "externalProviderSemanticsDoNotBecomeCoreLawWithoutReconciliation",
+    "eachLayerUsesCurrentNamingNamespaceContract"
+  ],
+  "relationToEscalation": "architecture layers describe composition; escalation tiers describe operational depth; both use the same zero-based four-count for cognitive consistency",
+  "compatibility": {
+    "previousDoctrinePath": "doctrine/jqueryFourLayerArchitectureV1.json",
+    "status": "HISTORICAL_COMPATIBILITY_SOURCE",
+    "canonicalPackageName": "LuHmOS",
+    "projectOwnedAliasesResolveToCanonicalPackage": true
+  },
+  "crownStatus": "STOP"
+}

@@ -2,8 +2,8 @@
   "schema": "luhmOs.openPrReconciliation.v2",
   "status": "PROPOSED_SOURCE_ONLY",
   "authority": "Professor",
-  "canonicalMain": "8026ed1085c1fd039af9dded5e416ebea409219c",
-  "purpose": "Reconcile the remaining open PR backlog into current LuHm source without re-importing superseded architecture.",
+  "canonicalMain": "c6096b398eb226a2936c2332689dd87d034f39f7",
+  "purpose": "Collapse the remaining open PR backlog into one current reconciliation lane without re-importing stale whole branches.",
   "law": {
     "preserveHistoricalBranches": true,
     "mergeStaleWholeBranch": false,
@@ -13,125 +13,92 @@
     "noFakeGreen": true,
     "closeSupersededAfterReconciliationMerge": true
   },
-  "portedOrAdapted": [
+  "activeIntegration": {
+    "branch": "candidate/titan7-final-form-reconcile-v1-20261007",
+    "baseMain": "c6096b398eb226a2936c2332689dd87d034f39f7",
+    "operationTitanDonorPr": 200,
+    "operationTitanDonorHead": "11cd7d4f8fc16c7283636f75a0ca388f1afb5a69",
+    "oneMutableCandidateLane": true
+  },
+  "currentOpenPrDonors": [
     {
-      "pr": 140,
-      "head": "f5a6ca85f90cd7e1bc637b496e5a8748c8ac5af5",
-      "scope": "Professor Old Magic study mesh",
-      "result": "portedAsV2CurrentNamingNoDriveGreenClaim"
+      "pr": 185,
+      "head": "827565e37ed2b3eb04497cd7b9181bc37a58a82a",
+      "scope": "Professor Garage Lab hardware core",
+      "disposition": "HISTORICAL_DONOR_PRESERVE_NO_WHOLE_MERGE"
     },
     {
-      "pr": 127,
-      "head": "7a2754cccf1638c8ba3428cb0571efd52d337d64",
-      "scope": "chat and Godot activity presentation",
-      "result": "portedCurrentProgressAggregation"
+      "pr": 188,
+      "head": "49c96a70760aa1a5aa1476823b8a62977cfa32ba",
+      "scope": "four-tier Urd and Belldandy escalation sync",
+      "disposition": "HISTORICAL_DONOR_CURRENT_ESCALATION_KERNEL_WINS"
     },
     {
-      "pr": 120,
-      "head": "f62f0e076ac8e4533e72e074d7f086c9e6a8ccc1",
-      "scope": "coding roleplay, pet presentation, adventure helpers",
-      "result": "portedBoundedPresentationAndDormantGameplayHelpers"
+      "pr": 190,
+      "head": "37062462e146c7e6fd62a2dcdd5d0aa3f8af2431",
+      "scope": "static chat transmogrifier",
+      "disposition": "HISTORICAL_DONOR_FOR_NEW_CHATGPT_WORKFLOW"
     },
     {
-      "pr": 115,
-      "head": "7cafa1c33b989a5e5260d67a8de7e7c0e6733dd8",
-      "scope": "Titan chat trigger routing",
-      "result": "adaptedToCurrentForFuckSakeScorchedEarthFinalFormSemantics"
+      "pr": 191,
+      "head": "2d840a38ef2fb482dfb9c438291f54f4239d0b5d",
+      "scope": "device input harness",
+      "disposition": "HISTORICAL_DONOR_FOR_ANDROID_INPUT_STREAM"
     },
     {
-      "pr": 109,
-      "head": "88a303da5b5fb4bcec83b3d9613c620f4bd77f41",
-      "scope": "human-centered intent router",
-      "result": "portedWithoutRetiredWatchFleet"
+      "pr": 192,
+      "head": "455a0e3fb3d1df840c3aca3ca9eeb6ab26fefe82",
+      "scope": "Yume art-director internship",
+      "disposition": "HISTORICAL_DONOR_FOR_ART_STREAM"
+    },
+    {
+      "pr": 193,
+      "head": "02689e15fbe6723538b2cfa110732f538e331ab0",
+      "scope": "LuHm Antenna IME candidate",
+      "disposition": "HISTORICAL_DONOR_FOR_ANDROID_INPUT_STREAM"
+    },
+    {
+      "pr": 194,
+      "head": "bcae3f86bb1f00258beab944b9b6cd31ae3f31af",
+      "scope": "multi-lane R&D, Edge Gallery and voice",
+      "disposition": "HISTORICAL_DONOR_FOR_RND_AND_VOICE_STREAMS"
+    },
+    {
+      "pr": 200,
+      "head": "11cd7d4f8fc16c7283636f75a0ca388f1afb5a69",
+      "scope": "Operation Titan namespace, modular source architecture and LuHmOS CAST workflow",
+      "disposition": "PORTED_AS_BASE_OF_CURRENT_RECONCILIATION"
     }
   ],
-  "supersededOrHistorical": [
-    {
-      "pr": 131,
-      "head": "a9fe6f66a2e2f11ac89468b9258a84dc1be89171",
-      "reason": "modern magic trigger, agent deployment, vendor debug, and like-term folding already live on newer main"
-    },
-    {
-      "pr": 129,
-      "head": "b96b25ac0d995011a4c5f1bf6e6656122f048c54",
-      "reason": "Cloudflare AI-provider role conflicts with current provider boundary; keep Cloudflare outside AI authority"
-    },
-    {
-      "pr": 113,
-      "head": "78a16a783c0b97da88d515e8dae3d1e789e876b3",
-      "reason": "retired Titan watch-fleet model"
-    },
-    {
-      "pr": 112,
-      "head": "ffc953beee00ce0639a876a431476113081f9efb",
-      "reason": "superseded by current releaseBoundaryV2 and current source truth"
-    },
-    {
-      "pr": 96,
-      "head": "878871e5cd275178320f37260e3a455eaccc0971",
-      "reason": "forge concepts superseded by current build-worker and CAST boundaries"
-    },
-    {
-      "pr": 95,
-      "head": "6ca4b45f4fd2556f83626b0bfbbf0f3ba1282c29",
-      "reason": "superseded by currentSourceTruthV3 and current hard audits"
-    },
-    {
-      "pr": 91,
-      "head": "9378a73c85d48484026e54c0ae8564282ee5db95",
-      "reason": "DrNao retired; evidence adjudication is now Urd-owned"
-    },
-    {
-      "pr": 86,
-      "head": "339c527db5b4d656e507a1e9001016835da1b0b6",
-      "reason": "Secure Folder lane no longer current development control plane"
-    },
-    {
-      "pr": 50,
-      "head": "f25615e4888fa3ee87c2e4f7a78843a1d76783fb",
-      "reason": "enterprise transport/TLS baseline superseded by mcpEnterpriseScopeV2; branch retained as historical security donor"
-    },
-    {
-      "pr": 38,
-      "head": "7242a7188c297a4fee72eaed14e71cebfb5a2b40",
-      "reason": "legacy Cathedral build lineage superseded by current gameplay source"
-    },
-    {
-      "pr": 37,
-      "head": "3ab29449835f52b76080c775d92fd1ca5d80b064",
-      "reason": "legacy Cathedral harness lineage superseded by current gameplay source"
-    },
-    {
-      "pr": 33,
-      "head": "689ddb79982621e44f0eefda761620be0a63ca0b",
-      "reason": "legacy community-asset mutation retained as donor history"
-    },
-    {
-      "pr": 32,
-      "head": "0b8ca82de7f5deee87290c63b916a795cbd59ccd",
-      "reason": "legacy pet runtime retained as donor history; current pet/loading presentation is reconciled separately"
-    },
-    {
-      "pr": 28,
-      "head": "3587666c190a66f4e1f8ee70df26c355d0c8083e",
-      "reason": "legacy Witching Hour/source-truth lineage superseded"
-    },
-    {
-      "pr": 24,
-      "head": "b914da214a11573676496d220b4746649e00a32b",
-      "reason": "legacy public-beta lane is outside current release boundary"
-    },
-    {
-      "pr": 10,
-      "head": "ebf450fe2afe48400b3196be1a6e4bd27be1c5b9",
-      "reason": "legacy agent mesh superseded by current 15-agent deployment registry"
-    }
+  "historicalResolvedPrs": [
+    10,
+    24,
+    28,
+    32,
+    33,
+    37,
+    38,
+    50,
+    86,
+    91,
+    95,
+    96,
+    109,
+    112,
+    113,
+    115,
+    120,
+    127,
+    129,
+    131,
+    140
   ],
   "output": {
-    "reconciliationBranch": "integration/open-pr-reconcile-v2-20261004",
+    "reconciliationBranch": "candidate/titan7-final-form-reconcile-v1-20261007",
     "mergeTarget": "main",
     "closeSupersededAfterGreenMerge": true,
-    "deploymentAfterMerge": "currentMainRenderHarnesses",
+    "nextWorkflow": "doctrine/chatGptPluginWorkflowStreamV1.json",
+    "deploymentAfterMerge": "exactMainRenderHarnessesOnlyWhenRequired",
     "productionPublication": false,
     "productionSigning": false
   },

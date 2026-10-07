@@ -58,5 +58,9 @@
   ],
   "operationTitan7Ref": "doctrine/operationTitan7FinalFormV1.json",
   "crownStatus": "STOP",
-  "greenClaim": false
+  "greenClaim": false,
+  "operationTitanFunctionRef": "LuHmOS.fn.operationTitan",
+  "operationTitanBuildVersion": 7,
+  "operationTitanNamespaceRef": "doctrine/namingNamespaceCanonV1.json#namespaceEscalation",
+  "modularSourceArchitecture": "doctrine/modularSourceArchitectureV1.json"
 }

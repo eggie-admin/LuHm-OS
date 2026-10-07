@@ -173,7 +173,10 @@
     "publicPackage": "GREEN",
     "directoryPublication": "PENDING",
     "publicSearch": "PENDING",
-    "publicInvocation": "PENDING"
+    "publicInvocation": "PENDING",
+    "workflowStream": "doctrine/chatGptPluginWorkflowStreamV1.json",
+    "workflowStreamStatus": "STANDBY_CANDIDATE",
+    "newWorkflowActivation": "PENDING_RECONCILIATION_MERGE_AND_EXACT_MAIN_CI"
   },
   "androidLayer": {
     "cockpitContract": "doctrine/androidWeb3CockpitV2.json",
@@ -345,10 +348,11 @@
   "openPrReconciliation": {
     "contract": "doctrine/openPrReconciliationV2.json",
     "status": "PROPOSED_SOURCE_ONLY",
-    "sourceMain": "8026ed1085c1fd039af9dded5e416ebea409219c",
+    "sourceMain": "c6096b398eb226a2936c2332689dd87d034f39f7",
     "staleWholeBranchMerge": false,
     "closeSupersededAfterGreenMerge": true,
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "activeBranch": "candidate/titan7-final-form-reconcile-v1-20261007"
   },
   "experienceLayer": {
     "activityPresentation": "doctrine/chatActivityPresentationV1.json",
@@ -388,7 +392,10 @@
       "crownStatus": "STOP"
     },
     "openingDayStaffOrientation": "STAFF_ORIENTATION_CANDIDATE",
-    "publicOpeningDayStillExternal": true
+    "publicOpeningDayStillExternal": true,
+    "runtimeToolCanonical": "luhmOpenCockpit",
+    "runtimeToolLegacyCompatibility": "luhm_open_cockpit",
+    "runtimeToolMigrationStatus": "PENDING_CHATGPT_WORKFLOW_STREAM"
   },
   "studyLayer": {
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",
@@ -509,7 +516,7 @@
     "crownStatus": "STOP"
   },
   "architectureRhythm": {
-    "fourLayerArchitecture": "doctrine/jqueryFourLayerArchitectureV1.json",
+    "fourLayerArchitecture": "doctrine/luHmOSFourLayerArchitectureV1.json",
     "fourBeatInteraction": "doctrine/fourBeatInteractionRhythmV1.json",
     "escalationKernel": "doctrine/escalationKernelV1.json",
     "matrix": "4x4",
@@ -538,5 +545,13 @@
     "entitlementLane": "STRICT_FREE_TIER",
     "professorApproval": true,
     "crownStatus": "CROWNED_MILESTONE"
+  },
+  "repositorySet": {
+    "contract": "doctrine/activeRepositorySetV1.json",
+    "status": "PROPOSED_RECONCILIATION",
+    "activeRepositoryCount": 3,
+    "historicalUnavailableRepository": "KAI9000_LuHm_Compatibility",
+    "exactSnapshotRequiredBeforeStructuralPromotion": true,
+    "crownStatus": "STOP"
   }
 }

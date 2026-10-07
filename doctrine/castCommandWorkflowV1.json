@@ -1,0 +1,177 @@
+{
+  "schema": "luhmOs.castCommandWorkflow.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "purpose": "Define a package-manager-style command surface for creating, installing, running, updating, and upgrading CAST workflow candidates.",
+  "packageIdentity": {
+    "packageName": "LuHmOS",
+    "packageNamespace": "art.eggiebagelface.LuHmOS.cast",
+    "legacyCliAlias": "luhm",
+    "aliasResolvesToPackage": "LuHmOS",
+    "lumAgentIdentity": "lum",
+    "agentAndPackageAreDistinctIdentities": true,
+    "projectOwnedExtensionNamesResolveTo": "LuHmOS",
+    "dollarEntryPoint": "$.LuHmOS.cast"
+  },
+  "commandSurface": {
+    "executable": "LuHmOS",
+    "aliases": [
+      "luhm"
+    ],
+    "namespace": "cast",
+    "grammar": [
+      "LuHmOS cast -h",
+      "LuHmOS cast --help",
+      "LuHmOS cast help [<verb>]",
+      "LuHmOS cast <verb> [arguments] [options]",
+      "luhm cast <verb> [arguments] [options]"
+    ],
+    "helpAliases": [
+      "-h",
+      "--help"
+    ],
+    "verbs": [
+      {
+        "name": "create",
+        "syntax": "LuHmOS cast create <workflow-name> [--template <id>]",
+        "purpose": "Scaffold a named CAST workflow candidate from a declared template.",
+        "effects": "Writes only to an isolated candidate workspace and records its manifest and sourceRef.",
+        "gates": [
+          "Validate workflow name and template",
+          "Show created paths and next commands"
+        ],
+        "authority": "Creates a candidate only; does not install, run, publish, deploy, dispatch CAST, or grant approval."
+      },
+      {
+        "name": "install",
+        "syntax": "LuHmOS cast install [<dependency>...]",
+        "purpose": "Resolve and install declared candidate dependencies.",
+        "effects": "Uses an isolated workspace and lockfile with exact versions and integrity hashes; runs no dependency lifecycle scripts by default.",
+        "gates": [
+          "Enforce declared registries and dependency policy",
+          "Report lockfile changes",
+          "Stop on unpinned or integrity-mismatched artifacts"
+        ],
+        "authority": "Dependency installation only; does not install a ChatGPT plugin into the host or prove current-chat CAST completion."
+      },
+      {
+        "name": "run",
+        "syntax": "LuHmOS cast run <script> [-- <arguments>...]",
+        "purpose": "Run a named script declared in the candidate manifest.",
+        "effects": "Binds execution to an exact sourceRef and bounded task scope; captures command, logs, exit status, and artifact hashes.",
+        "gates": [
+          "Require exact sourceRef",
+          "Require declared script",
+          "Use the selected escalation audit depth",
+          "Stop on source drift or failed checks"
+        ],
+        "authority": "Runs the declared candidate workflow only; cannot merge, publish, deploy, create an approval, or dispatch final CAST."
+      },
+      {
+        "name": "update",
+        "syntax": "LuHmOS cast update [<dependency>...]",
+        "purpose": "Refresh dependencies within their already declared compatibility ranges.",
+        "effects": "Updates the isolated candidate lockfile and produces a reviewable diff.",
+        "gates": [
+          "Preserve declared ranges",
+          "Pin and hash resolved artifacts",
+          "Run affected checks before reporting ready"
+        ],
+        "authority": "Candidate update only; does not mutate a canonical or active runtime or dispatch final CAST."
+      },
+      {
+        "name": "upgrade",
+        "syntax": "LuHmOS cast upgrade <dependency>|--all",
+        "purpose": "Plan an explicit version-range or major-version migration.",
+        "effects": "Produces a migration plan and diff in the isolated candidate workspace before applying candidate changes.",
+        "gates": [
+          "Require explicit target or --all",
+          "Show breaking changes and rollback plan",
+          "Run affected checks"
+        ],
+        "authority": "Candidate migration only; does not mutate a canonical or active runtime or dispatch final CAST."
+      }
+    ],
+    "globalOptions": [
+      {
+        "syntax": "-h, --help",
+        "behavior": "Show read-only help for the namespace or selected verb; may appear before or after a verb."
+      },
+      {
+        "syntax": "--source-ref <40-char-sha>",
+        "behavior": "Bind mutating or executing candidate work to an exact source identity; required by run."
+      },
+      {
+        "syntax": "--dry-run",
+        "behavior": "Print the planned actions and writes without applying them."
+      },
+      {
+        "syntax": "--json",
+        "behavior": "Emit machine-readable output without changing command effects or authority."
+      }
+    ],
+    "unknownVerb": {
+      "behavior": "Return canonical help and suggestions; execute nothing."
+    }
+  },
+  "lifecycle": {
+    "normalPath": [
+      "create",
+      "install",
+      "run"
+    ],
+    "maintenancePath": [
+      "update",
+      "run"
+    ],
+    "migrationPath": [
+      "upgrade",
+      "run"
+    ],
+    "candidateVerificationRequiredAfter": [
+      "install",
+      "update",
+      "upgrade"
+    ],
+    "staleSourceOrFailedCheck": "STOP_AND_REPORT",
+    "shellExecution": "Only a declared, reviewed manifest script may execute; no implicit scripts."
+  },
+  "authorityBoundary": {
+    "packageStyleCommandsAreCandidateOperations": true,
+    "packageOrBuildArtifactIsFinalCast": false,
+    "cliVerbMayDispatchProfessorCastBridge": false,
+    "cliVerbMayGrantProfessorApproval": false,
+    "cliVerbMayMergePublishDeployOrPromote": false,
+    "currentChatPluginCompletion": "doctrine/chatGptPluginCastCompletionV1.json",
+    "professorDispatch": "doctrine/PROFESSOR_CAST_BRIDGE_V1.json",
+    "dispatchContract": "Only the separately defined owner-authored GitHub `/cast <milestone> <40-char-current-main-sha>` trigger may dispatch its gated milestone; `CAST`, `castBridge`, and every local CLI verb remain non-dispatching."
+  },
+  "escalation": {
+    "auditDepthRef": "doctrine/modularSourceArchitectureV1.json#escalation",
+    "tier0to3ChangesAuditDepthOnly": true,
+    "auditDepthGrantsAuthority": false,
+    "tier3RequiresSeparateProfessorAuthorization": true
+  },
+  "helpRegistry": {
+    "canonicalName": "castCommandWorkflow",
+    "kebab": "cast-command-workflow",
+    "vowelRipped": "cstCmdWrkflw",
+    "shorthand": "cast",
+    "owner": "belldandySecretary",
+    "readOnly": true
+  },
+  "doctrineBindings": [
+    "doctrine/commandHelpV1.json",
+    "doctrine/luHmOSFourLayerArchitectureV1.json",
+    "doctrine/PROFESSOR_CAST_BRIDGE_V1.json",
+    "doctrine/chatGptPluginCastCompletionV1.json"
+  ],
+  "crownStatus": "STOP",
+  "canonicalCompositionArchitecture": "doctrine/luHmOSFourLayerArchitectureV1.json",
+  "legacyNameNormalization": {
+    "legacyDoctrineSource": "doctrine/jqueryFourLayerArchitectureV1.json",
+    "status": "HISTORICAL_COMPATIBILITY_SOURCE",
+    "currentProjectPackageName": "LuHmOS",
+    "currentDoctrineReferencesUseCanonicalName": true
+  }
+}

@@ -23,6 +23,8 @@
     "doctrine/projectChatCanonV1.json",
     "doctrine/everlastingCovenantV1.json",
     "doctrine/currentSourceTruthV3.json",
+    "doctrine/chatGptPluginWorkflowStreamV1.json",
+    "doctrine/activeRepositorySetV1.json",
     "doctrine/storageTopologyV1.json",
     "doctrine/agentSystemDeploymentV1.json",
     "doctrine/lumGoddessCabinetV1.json",
@@ -68,7 +70,9 @@
     "apiSpine": "doctrine/apiSpineV1.json",
     "cloudflareAirTrafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
     "openAiWorkspaceHygiene": "doctrine/openAiWorkspaceHygieneV1.json",
-    "chatHistoryStewardship": "doctrine/chatHistoryStewardshipV1.json"
+    "chatHistoryStewardship": "doctrine/chatHistoryStewardshipV1.json",
+    "activeRepositorySet": "doctrine/activeRepositorySetV1.json",
+    "chatGptPluginWorkflowStream": "doctrine/chatGptPluginWorkflowStreamV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -131,7 +135,29 @@
     "professorOldMagicStudy": "doctrine/professorOldMagicStudyMeshV2.json",
     "openingDayFirstRun": true,
     "providerRouting": "capabilityFirstThroughApiSpine",
-    "cloudflareRole": "networkAirTrafficControllerOnly"
+    "cloudflareRole": "networkAirTrafficControllerOnly",
+    "modularSourceArchitecture": {
+      "contract": "doctrine/modularSourceArchitectureV1.json",
+      "loadWhen": [
+        "sourceArchitecture",
+        "operationTitan7Audit"
+      ],
+      "lazyLoaded": true
+    },
+    "eighthNoteAgentScope": {
+      "contract": "doctrine/eighthNoteAgentScopeV1.json",
+      "loadWhen": [
+        "aiAgentEnablement",
+        "miniAgentScopeWork",
+        "focusedAiAgentWorkflow"
+      ],
+      "lazyLoaded": true
+    },
+    "chatGptPluginWorkflowStream": {
+      "contract": "doctrine/chatGptPluginWorkflowStreamV1.json",
+      "status": "STANDBY_CANDIDATE",
+      "activatesAfter": "reconciliationMergeAndExactMainReproof"
+    }
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,

@@ -65,6 +65,20 @@ for rel in dragon_scan_files:
     doc=json.loads((root/rel).read_text(encoding="utf-8"))
     scan_dragon_values(doc,rel)
 
+ladder=naming.get("namespaceEscalation",{})
+example=ladder.get("example",{})
+need(ladder.get("orderedLayers")==["machineSqlDragonTail","repositoryKebabNamespace","vowelRippedStrictCamelHump","fullHumanCenteredCamelHump"],"namespace escalation order drift")
+need(example.get("machineSqlDragonTail")=="OPERATION_TITAN","machine SQL token drift")
+repoLayer=example.get("repositoryKebabNamespace",{})
+need(repoLayer.get("slug")=="operation-titan","repository kebab slug drift")
+need(repoLayer.get("namespacePattern")=="art.eggiebagelface.LuHmOS.*","repository namespace drift")
+need(bool(kebab.fullmatch(repoLayer.get("slug",""))),"repository kebab slug invalid")
+need(bool(camel.fullmatch(example.get("vowelRippedStrictCamelHump",""))),"vowel-ripped camelHump invalid")
+need(example.get("vowelRippedStrictCamelHump")=="oprtTtn","Operation Titan vowel-ripped alias drift")
+need(bool(camel.fullmatch(example.get("fullHumanCenteredCamelHump",""))),"full human-centered camelHump invalid")
+need(example.get("fullHumanCenteredCamelHump")=="operationTitan","Operation Titan canonical identity drift")
+need(ladder.get("identityLaw") and ladder.get("executionLaw"),"namespace identity/execution separation missing")
+
 degrade=naming["personCenteredDegradation"]
 need(degrade.get("canonicalHumanLayer",{}).get("form")=="camelHump","person-centered canonical layer drift")
 need(degrade.get("vowelRippedLayer",{}).get("form")=="vowelRippedCamel","vowel-ripped layer drift")

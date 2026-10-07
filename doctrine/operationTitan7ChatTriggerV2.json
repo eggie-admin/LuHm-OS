@@ -2,9 +2,9 @@
   "schema": "luhmOs.operationTitan7ChatTrigger.v2",
   "status": "PROPOSED_SOURCE_ONLY",
   "authority": "Professor",
-  "purpose": "Resolve Professor-facing technological audit escalation into the fastest evidence-backed path from normal machine checks through FFS, Scorched Earth, and Final Form without granting merge, deploy, release, or Crown authority.",
+  "purpose": "Route technology escalation through evidence-backed tiers. finalForm selects structural audit intensity; task authority is resolved from the active Professor task envelope.",
   "sourceLaw": "AI proposes. Policy authorizes. Deterministic evidence proves. Professor promotes.",
-  "entryPoint": "jQuery.fn.operationTitan7",
+  "entryPoint": "LuHmOS.fn.operationTitan",
   "escalationOrder": [
     "forFuckSake",
     "scorchedEarth",
@@ -54,7 +54,8 @@
     "technologyFastPathIsDefaultTierZero",
     "escalateOnlyWhenCurrentTierCannotCloseBlocker",
     "technologyAuditDoesNotOwnCreativeJudgment",
-    "fastPathPreservesTaskIdSourceRefScopeId"
+    "fastPathPreservesTaskIdSourceRefScopeId",
+    "workflowNamesDoNotGrantAuthority"
   ],
   "promotion": false,
   "crownStatus": "STOP",
@@ -93,5 +94,8 @@
     "finalForm": 3
   },
   "kernel": "doctrine/escalationKernelV1.json",
-  "profileId": "technology"
+  "profileId": "technology",
+  "buildVersion": 7,
+  "versionLaw": "operationTitan is the function; 7 is the current build version and remains separate from the function name.",
+  "modularSourceArchitecture": "doctrine/modularSourceArchitectureV1.json"
 }

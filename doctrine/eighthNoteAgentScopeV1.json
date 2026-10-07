@@ -1,0 +1,134 @@
+{
+  "schema": "luhmOs.eighthNoteAgentScope.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "purpose": "Subdivide focused AI-agent work into eight scoped notes inside the existing 4/4 interaction rhythm. The contract records workflow, scope and evidence; it does not grant authority.",
+  "parentRhythm": "doctrine/fourBeatInteractionRhythmV1.json",
+  "parentArchitecture": "doctrine/luHmOSFourLayerArchitectureV1.json",
+  "meter": {
+    "signature": "4/4",
+    "notesPerMeasure": 8,
+    "notesPerBeat": 2
+  },
+  "scopeContract": {
+    "required": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "goal",
+      "inputs",
+      "allowedActions",
+      "owner",
+      "stopCondition",
+      "requiredEvidence"
+    ],
+    "identityLaw": "all providers, mini-agents, auditors and Lum operate on the same taskId/sourceRef/scopeId",
+    "noAuthorityFromAlias": true,
+    "noAuthorityFromWorkflow": true
+  },
+  "notes": [
+    {
+      "note": 1,
+      "beat": 1,
+      "name": "hearProfessorGoal",
+      "owner": "lum",
+      "output": "userGoal"
+    },
+    {
+      "note": 2,
+      "beat": 1,
+      "name": "bindFocusedScopeAndCurrentTaskAuthority",
+      "owner": "lum",
+      "output": "taskScope"
+    },
+    {
+      "note": 3,
+      "beat": 2,
+      "name": "resolveVendorAiCapabilityAndEntitlement",
+      "owner": "skuldResearch",
+      "output": "verifiedProviderScope"
+    },
+    {
+      "note": 4,
+      "beat": 2,
+      "name": "routeVendorAiAndFocusedMiniAgentWork",
+      "owner": "lum",
+      "output": "boundedAgentTasks"
+    },
+    {
+      "note": 5,
+      "beat": 3,
+      "name": "collectVendorAndMiniAgentCandidates",
+      "owner": "taskScopedWorkers",
+      "output": "candidateResults"
+    },
+    {
+      "note": 6,
+      "beat": 3,
+      "name": "goddessAuditThenLumReconcile",
+      "owner": "goddessCabinetAndLum",
+      "output": "auditedCandidate"
+    },
+    {
+      "note": 7,
+      "beat": 4,
+      "name": "applyTestAndVerify",
+      "owner": "lum",
+      "output": "evidenceReceipt"
+    },
+    {
+      "note": 8,
+      "beat": 4,
+      "name": "reportCloseOrReturnTask",
+      "owner": "lum",
+      "output": "ProfessorStatus"
+    }
+  ],
+  "workflowChain": [
+    "vendorAiProvider",
+    "focusedMiniAgents",
+    "goddessAuditors",
+    "lumCustomAgentBoss"
+  ],
+  "scopes": {
+    "vendorAiProvider": {
+      "authority": "providerCapabilityOnly",
+      "may": "produceScopedCandidateOutput",
+      "mayNot": "grantAuthorityOrApproveOwnOutput"
+    },
+    "focusedMiniAgents": {
+      "authority": "boundedTaskExecution",
+      "maxParallelSupportWorkers": 3,
+      "recursiveRecruitment": false
+    },
+    "goddessAuditors": {
+      "agents": [
+        "urdDoctorGoddess",
+        "belldandySecretary",
+        "skuldResearch"
+      ],
+      "authority": "domainAuditAndEvidenceReview"
+    },
+    "lumCustomAgentBoss": {
+      "authority": "taskScopedOrchestrationWithinAuthorityResolvedFromCurrentTaskEnvelope",
+      "may": [
+        "route",
+        "coordinateWithinScope",
+        "test",
+        "report"
+      ],
+      "reportsTo": "Professor"
+    }
+  },
+  "evidenceLaw": {
+    "roster": "doctrine/agentSystemDeploymentV1.json",
+    "registeredDoesNotMeanLive": true,
+    "eachRequiredWorkerNeedsReceipt": true,
+    "missingRequiredDisposition": "BLOCKED",
+    "fullAgentApprovalIsEvidenceBackedNotSelfApproval": true,
+    "lumReconcilesAllDispositions": true,
+    "noHiddenAsyncExecution": true
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}
