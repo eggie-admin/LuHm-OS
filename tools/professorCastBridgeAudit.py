@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 workflow = (ROOT / ".github/workflows/professor-cast-bridge.yml").read_text(encoding="utf-8")
 package_workflow = (ROOT / ".github/workflows/public-plugin-package-cast.yml").read_text(encoding="utf-8")
 doctrine = json.loads((ROOT / "doctrine/PROFESSOR_CAST_BRIDGE_V1.json").read_text(encoding="utf-8"))
+completion = json.loads((ROOT / "doctrine/chatGptPluginCastCompletionV1.json").read_text(encoding="utf-8"))
 
 errors = []
 
@@ -59,31 +60,10 @@ require('echo "professorActor=$professorActor"' in workflow,
         "bridge must export Professor actor")
 require('echo "castOriginRunId=$GITHUB_RUN_ID"' in workflow,
         "bridge must export origin run ID")
-
-require(doctrine.get("authority") == "Professor", "Professor authority drift")
-trigger = doctrine.get("trigger", {})
-require(trigger.get("requiredActor") == "github.repository_owner", "owner-only actor rule drift")
-require(trigger.get("allowedMilestones") == ["androidWeb3Cockpit","publicPluginPackage"], "allowed CAST milestones drift")
-require(trigger.get("exactMainMatch") is True, "exact-main rule drift")
-safety = doctrine.get("safety", {})
-for key in ("noPersistentBuildAuthorization","noWildcardActor","noSourceDrift",
-            "noStableRelease","noProductionSigning","noMergeAuthority","noCrownAuthority",
-            "noBotImpersonation","botMayTransportAuthorizationOnlyWithVerifiedOrigin"):
-    require(safety.get(key) is True, f"safety flag must remain true: {key}")
-require(doctrine.get("crownStatus") == "STOP", "Crown must remain STOP")
-require(doctrine.get("dispatch",{}).get("publicPluginPackage",{}).get("workflow") == "public-plugin-package-cast.yml", "public plugin CAST dispatch missing")
-require(trigger.get("diagnosticAliases") == ["CAST", "castBridge"], "diagnostic alias contract drift")
-require(trigger.get("diagnosticAliasesDispatch") is False, "short aliases must never dispatch")
-require(trigger.get("invalidAuthorizationFailsLoud") is True, "invalid authorization must fail loud")
-require(safety.get("noImplicitShortAliasDispatch") is True, "implicit short-alias dispatch forbidden")
-
-print(json.dumps({
-    "schema":"luhm-os.professor-cast-bridge-audit.v1",
-    "status":"GREEN_PROFESSOR_CAST_BRIDGE" if not errors else "RED_PROFESSOR_CAST_BRIDGE",
-    "errors":errors,
-    "crownStatus":"STOP"
-}, indent=2))
-sys.exit(0 if not errors else 2)
+require('-f professorActor="$professorActor"' in workflow,
+        "bridge must pass professorActor to public package CAST")
+require('-f castOriginRunId="$castOriginRunId"' in workflow,
+        "bridge must pass castOriginRunId to public package CAST")
 
 for token in (
     "professorActor:",
@@ -97,7 +77,56 @@ for token in (
 ):
     require(token in package_workflow, f"public package CAST provenance missing: {token}")
 
-require('-f professorActor="$professorActor"' in workflow,
-        "bridge must pass professorActor to public package CAST")
-require('-f castOriginRunId="$castOriginRunId"' in workflow,
-        "bridge must pass castOriginRunId to public package CAST")
+require(doctrine.get("authority") == "Professor", "Professor authority drift")
+require(doctrine.get("schema") == "luhm-os.professor-cast-bridge.v5", "bridge schema drift")
+require(doctrine.get("completionContract") == "doctrine/chatGptPluginCastCompletionV1.json",
+        "CAST completion contract pointer missing")
+trigger = doctrine.get("trigger", {})
+require(trigger.get("requiredActor") == "github.repository_owner", "owner-only actor rule drift")
+require(trigger.get("allowedMilestones") == ["androidWeb3Cockpit","publicPluginPackage"], "allowed CAST milestones drift")
+require(trigger.get("exactMainMatch") is True, "exact-main rule drift")
+safety = doctrine.get("safety", {})
+for key in (
+    "noPersistentBuildAuthorization",
+    "noWildcardActor",
+    "noSourceDrift",
+    "noStableRelease",
+    "noProductionSigning",
+    "noMergeAuthority",
+    "noCrownAuthority",
+    "noBotImpersonation",
+    "botMayTransportAuthorizationOnlyWithVerifiedOrigin",
+    "noPackageEqualsFinalPluginCast",
+    "noForgedChatGptHostReceipt",
+):
+    require(safety.get(key) is True, f"safety flag must remain true: {key}")
+require(doctrine.get("crownStatus") == "STOP", "Crown must remain STOP")
+plugin_dispatch = doctrine.get("dispatch", {}).get("publicPluginPackage", {})
+require(plugin_dispatch.get("workflow") == "public-plugin-package-cast.yml", "public plugin CAST dispatch missing")
+require(plugin_dispatch.get("completionMeaning") == "PACKAGE_READY_ONLY",
+        "package workflow may not claim final plugin CAST")
+require(plugin_dispatch.get("finalCastRequires") == [
+    "chatGptHostInstallProved",
+    "currentConversationInvocationProved",
+    "luhmOpenCockpitRuntimeProved",
+], "final plugin CAST requirements drift")
+require(trigger.get("diagnosticAliases") == ["CAST", "castBridge"], "diagnostic alias contract drift")
+require(trigger.get("diagnosticAliasesDispatch") is False, "short aliases must never dispatch")
+require(trigger.get("invalidAuthorizationFailsLoud") is True, "invalid authorization must fail loud")
+require(safety.get("noImplicitShortAliasDispatch") is True, "implicit short-alias dispatch forbidden")
+
+require(completion.get("command") == "CAST", "completion contract CAST command drift")
+require(completion.get("automationLaw", {}).get("packageSuccessMustNotBeReportedAsFinalCast") is True,
+        "completion contract allows package/final conflation")
+require(completion.get("chatGptHost", {}).get("requiredRuntimeTool") == "luhm_open_cockpit",
+        "completion contract runtime tool drift")
+
+print(json.dumps({
+    "schema":"luhm-os.professor-cast-bridge-audit.v2",
+    "status":"GREEN_PROFESSOR_CAST_BRIDGE" if not errors else "RED_PROFESSOR_CAST_BRIDGE",
+    "errors":errors,
+    "pluginPackageCompletion":"PACKAGE_READY_ONLY",
+    "finalPluginCast":"REQUIRES_CHATGPT_HOST_INSTALL_AND_CURRENT_CHAT_PROOF",
+    "crownStatus":"STOP"
+}, indent=2))
+sys.exit(0 if not errors else 2)
