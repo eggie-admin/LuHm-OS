@@ -102,6 +102,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           sourceRef: ${{ steps.cast.outputs.sourceRef }}
           taskId: ${{ steps.cast.outputs.taskId }}
+          professorActor: ${{ steps.cast.outputs.professorActor }}
+          castOriginRunId: ${{ steps.cast.outputs.castOriginRunId }}
         run: |
           set -euo pipefail
           gh workflow run public-plugin-package-cast.yml \
@@ -110,6 +112,8 @@ jobs:
             -f cast=CAST \
             -f milestoneId=publicReleaseCandidate \
             -f taskId="$taskId" \
-            -f sourceRef="$sourceRef"
+            -f sourceRef="$sourceRef" \
+            -f professorActor="$professorActor" \
+            -f castOriginRunId="$castOriginRunId"
 
           echo "PUBLIC_PLUGIN_CAST_DISPATCHED sourceRef=$sourceRef taskId=$taskId"
