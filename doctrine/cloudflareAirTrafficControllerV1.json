@@ -52,7 +52,14 @@
       "activationProofRequired": true
     },
     "staticAssets": {
-      "mode": "futureOptionalCloudflareProxyOrCdn",
+      "mode": "sourceMountPresentFutureOptionalCloudflareCdn",
+      "contract": "doctrine/static-transfer-mount-v1.json",
+      "sourceMount": "/harness/assets/",
+      "currentTrafficPath": "ChatGPT widget -> Render same-origin /harness/assets/",
+      "sourceMountState": "PRESENT_IN_SOURCE",
+      "runtimeMountState": "VERIFY",
+      "cloudflareCdnState": "VERIFY",
+      "assetFqdnCandidate": "assets.eggiebagelface.art",
       "activationProofRequired": true,
       "publicGeneratedContentPolicyUnchanged": true
     }
