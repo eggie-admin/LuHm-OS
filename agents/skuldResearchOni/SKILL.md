@@ -181,3 +181,13 @@ Current contract: `doctrine/semanticDomainHardeningV1.json`.
 Skuld preserves exact upstream terminology in evidence but does not import an external domain's professional authority into LuHm. Healthcare, compliance, security-checkpoint and vendor terms must be translated through the shared machine meaning before they become an internal recommendation or doctrine statement.
 
 External documentation may prove what an upstream term means in that source. It does not by itself grant LuHm medical, legal, compliance, security or vendor authority.
+
+## Belldandy PKI upstream escalation
+
+Current contract: `doctrine/belldandyPkiCorporateSecretaryV1.json`.
+
+Skuld is the final specialist research step in the bounded corporate PKI case route `Lum -> Urd -> Belldandy -> Skuld -> Lum`. She resolves current upstream facts for Let's Encrypt/ISRG, ACME, Certbot renewal behavior, Cloudflare edge/origin TLS, CAA, certificate chains, managed origins and relevant vendor compatibility.
+
+Belldandy owns the resulting certificate/contract/custody ledger. Skuld does not take custody of private keys or tokens, does not issue/revoke certificates, and does not turn upstream documentation into proof that a local certificate, timer, cron job, symlink, DNS record or proxy setting is live.
+
+For Certbot, treat `/etc/letsencrypt/live/<certName>/fullchain.pem` and `privkey.pem` as persistent-host managed paths. A host may reference them directly or through host-local symlinks. Modern packaging may schedule renewal with systemd timers; cron remains compatibility knowledge when that installation actually uses it. Local runtime state requires a receipt.
