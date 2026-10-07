@@ -24,6 +24,20 @@ def probe(path):
     ])
     return json.loads(raw)
 
+def image_size(path):
+    raw = run([
+        "ffprobe", "-v", "error", "-select_streams", "v:0",
+        "-show_entries", "stream=width,height", "-of", "json", str(path)
+    ])
+    data = json.loads(raw)
+    streams = data.get("streams", [])
+    if not streams:
+        raise RuntimeError(f"no image stream: {path}")
+    return int(streams[0]["width"]), int(streams[0]["height"])
+
+def frame_path(root, frame):
+    return root / f"shot{frame:08d}.png"
+
 def cmd_probe(args):
     p = Path(args.input).resolve()
     result = {"source": str(p), "sha256": sha256(p), "probe": probe(p)}
@@ -69,6 +83,57 @@ def cmd_contact(args):
     ], check=True)
     print(f"CONTACT_SHEET=PASS\nOUTPUT={out}")
 
+def cmd_rebuild_window(args):
+    source_frames = Path(args.source_frames).resolve()
+    repair_frames = Path(args.repair_frames).resolve()
+    output_frames = Path(args.output_frames).resolve()
+
+    if args.end_frame < args.start_frame:
+        raise SystemExit("end-frame must be >= start-frame")
+    if output_frames.exists():
+        raise SystemExit(f"output frames directory already exists: {output_frames}")
+
+    source_files = sorted(source_frames.glob("shot*.png"))
+    if not source_files:
+        raise SystemExit("no source frames found")
+
+    shutil.copytree(source_frames, output_frames)
+
+    replacement_hashes = []
+    for frame in range(args.start_frame, args.end_frame + 1):
+        src = frame_path(source_frames, frame)
+        rep = frame_path(repair_frames, frame)
+        dst = frame_path(output_frames, frame)
+        if not src.exists():
+            raise SystemExit(f"source frame missing: {src.name}")
+        if not rep.exists():
+            raise SystemExit(f"repair frame missing: {rep.name}")
+        if image_size(src) != image_size(rep):
+            raise SystemExit(f"repair dimensions mismatch at frame {frame}")
+        replacement_hashes.append({
+            "frame": frame,
+            "sourceSha256": sha256(src),
+            "repairSha256": sha256(rep)
+        })
+        shutil.copy2(rep, dst)
+
+    receipt = {
+        "schema": "luhmOs.ffmpegAiRepairWindowReceipt.v1",
+        "sourceFrames": str(source_frames),
+        "repairFrames": str(repair_frames),
+        "outputFrames": str(output_frames),
+        "startFrame": args.start_frame,
+        "endFrame": args.end_frame,
+        "replacementCount": len(replacement_hashes),
+        "replacementHashes": replacement_hashes,
+        "untouchedFramesCopiedForward": True,
+        "professorApproval": False,
+        "crownAuthority": False
+    }
+    receipt_path = output_frames.parent / "repair-window-receipt.json"
+    receipt_path.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+    print(f"REBUILD_WINDOW=PASS\nREPLACEMENTS={len(replacement_hashes)}\nRECEIPT={receipt_path}")
+
 def cmd_remux(args):
     frames = Path(args.frames).resolve()
     source = Path(args.source).resolve()
@@ -76,22 +141,44 @@ def cmd_remux(args):
     output.parent.mkdir(parents=True, exist_ok=True)
 
     pattern = str(frames / "shot%08d.png")
-    audio_map = []
     metadata = probe(source)
-    if any(s.get("codec_type") == "audio" for s in metadata.get("streams", [])):
-        audio_map = ["-map", "0:v:0", "-map", "1:a:0?", "-c:a", "aac", "-b:a", "192k"]
+    has_audio = any(s.get("codec_type") == "audio" for s in metadata.get("streams", []))
 
     cmd = [
         "ffmpeg", "-hide_banner", "-y",
         "-framerate", str(args.fps), "-i", pattern,
         "-i", str(source),
-        *audio_map,
-        "-c:v", "libx264", "-preset", "slow", "-crf", "15",
-        "-pix_fmt", "yuv420p", "-movflags", "+faststart",
-        "-shortest", str(output)
+        "-map", "0:v:0"
     ]
+    if has_audio:
+        cmd += ["-map", "1:a:0?", "-c:a", "aac", "-b:a", "192k"]
+    cmd += [
+        "-c:v", "libx264", "-preset", "slow", "-crf", "15",
+        "-pix_fmt", "yuv420p", "-movflags", "+faststart"
+    ]
+    if has_audio:
+        cmd += ["-shortest"]
+    cmd += [str(output)]
+
     subprocess.run(cmd, check=True)
     print(f"REMUX=PASS\nOUTPUT_SHA256={sha256(output)}\nOUTPUT={output}")
+
+def cmd_compare(args):
+    before = Path(args.before).resolve()
+    after = Path(args.after).resolve()
+    output = Path(args.output).resolve()
+    output.parent.mkdir(parents=True, exist_ok=True)
+
+    subprocess.run([
+        "ffmpeg", "-hide_banner", "-y",
+        "-i", str(before), "-i", str(after),
+        "-filter_complex", "[0:v][1:v]hstack=inputs=2[v]",
+        "-map", "[v]", "-map", "1:a:0?",
+        "-c:v", "libx264", "-preset", "medium", "-crf", "18",
+        "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
+        "-movflags", "+faststart", "-shortest", str(output)
+    ], check=True)
+    print(f"COMPARE=PASS\nOUTPUT_SHA256={sha256(output)}\nOUTPUT={output}")
 
 def cmd_hash(args):
     p = Path(args.input).resolve()
@@ -122,12 +209,26 @@ def main():
     p.add_argument("--rows", type=int, default=2)
     p.set_defaults(func=cmd_contact)
 
+    p = sub.add_parser("rebuild-window")
+    p.add_argument("--source-frames", required=True)
+    p.add_argument("--repair-frames", required=True)
+    p.add_argument("--output-frames", required=True)
+    p.add_argument("--start-frame", type=int, required=True)
+    p.add_argument("--end-frame", type=int, required=True)
+    p.set_defaults(func=cmd_rebuild_window)
+
     p = sub.add_parser("remux")
     p.add_argument("--frames", required=True)
     p.add_argument("--source", required=True)
     p.add_argument("--output", required=True)
     p.add_argument("--fps", type=float, required=True)
     p.set_defaults(func=cmd_remux)
+
+    p = sub.add_parser("compare")
+    p.add_argument("--before", required=True)
+    p.add_argument("--after", required=True)
+    p.add_argument("--output", required=True)
+    p.set_defaults(func=cmd_compare)
 
     args = parser.parse_args()
     if not shutil.which("ffmpeg") or not shutil.which("ffprobe"):
