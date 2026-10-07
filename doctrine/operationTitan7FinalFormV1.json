@@ -1,1 +1,57 @@
-undefined
+{
+  "schema": "luhmOs.operationTitan7FinalForm.v1",
+  "status": "STAGED_CANDIDATE",
+  "authority": "Professor",
+  "baseMain": "77a143ec8e3a83b259a86cdf1b706a6e0641354e",
+  "purpose": "Escalated final-milestone audit and bounded repair protocol using current doctrine, source truth, real workflows, agent skills and deterministic evidence.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "stages": [
+    "resolveCurrentTruth",
+    "specialistWatchFleet",
+    "workflowAndAgentSkillAudit",
+    "tenPassHardAudit",
+    "fullSourceTruthAudit",
+    "witchingHourRepairLoop",
+    "rerunAffectedTiers",
+    "finalSealCandidate",
+    "professorCrown"
+  ],
+  "witchingHour": {
+    "path": "agents/witchingHourCoding/SKILL.md",
+    "mode": "boundedCodingExecution",
+    "maxParallelism": 3,
+    "requiresExactSourceRef": true,
+    "requiresRollbackPlan": true,
+    "requiresTargetedTests": true,
+    "requiresCriticOnContradiction": true,
+    "requiresUrdDoctorDiagnosis": true,
+    "requiresBelldandySecretaryStateAudit": true,
+    "requiresSkuldResearchCompatibility": true,
+    "compatibilityAliases": {
+      "requiresUrdTrace": "legacyAliasForRequiresUrdDoctorDiagnosis",
+      "requiresBelldandyUnificationAudit": "legacyAliasForRequiresBelldandySecretaryStateAudit"
+    }
+  },
+  "fallback": {
+    "mode": "nearestEvidenceBackedKnownGood",
+    "verifiedPrereleaseSource": "77a143ec8e3a83b259a86cdf1b706a6e0641354e",
+    "apkSha256": "b18014c4e344605ec2905d76b593d4ed3e297792e151084656394ab8af3a7e45"
+  },
+  "finalMilestone": "Project Hydra final system audit and evidence-backed seal candidate",
+  "crownStatus": "STOP",
+  "greenClaim": false,
+  "executionSchema": "doctrine/operationTitan7ExecutionSchemaV1.json",
+  "executionModes": [
+    "system",
+    "apply",
+    "test",
+    "all"
+  ],
+  "milestoneConditionRequired": true,
+  "functionRef": "LuHmOS.fn.operationTitan",
+  "buildVersion": 7,
+  "namespaceRef": "doctrine/namingNamespaceCanonV1.json#namespaceEscalation",
+  "escalationOption": "finalForm",
+  "eighthNoteScope": "doctrine/eighthNoteAgentScopeV1.json",
+  "modularSourceArchitecture": "doctrine/modularSourceArchitectureV1.json"
+}
