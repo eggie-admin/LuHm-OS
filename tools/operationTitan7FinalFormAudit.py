@@ -19,6 +19,7 @@ trigger = load("doctrine/operationTitan7ChatTriggerV2.json")
 eighth = load("doctrine/eighthNoteAgentScopeV1.json")
 naming = load("doctrine/namingNamespaceCanonV1.json")
 source_architecture = load("doctrine/modularSourceArchitectureV1.json")
+cast_workflow = load("doctrine/castCommandWorkflowV1.json")
 
 required_files = [
     "agents/lum/SKILL.md",
@@ -122,6 +123,32 @@ if ff.get("modularSourceArchitecture") != "doctrine/modularSourceArchitectureV1.
     errors.append("Final Form source architecture binding drift")
 if execution.get("modularSourceArchitecture") != "doctrine/modularSourceArchitectureV1.json":
     errors.append("execution schema source architecture binding drift")
+
+expected_cast_verbs = ["create", "install", "run", "update", "upgrade"]
+cast_commands = cast_workflow.get("commandSurface", {})
+actual_cast_verbs = [item.get("name") for item in cast_commands.get("verbs", [])]
+if cast_workflow.get("schema") != "luhmOs.castCommandWorkflow.v1":
+    errors.append("CAST command workflow schema drift")
+if cast_workflow.get("status") != "PROPOSED_SOURCE_ONLY":
+    errors.append("CAST command workflow must remain proposed")
+if actual_cast_verbs != expected_cast_verbs:
+    errors.append("CAST command verb order or set drift")
+if cast_commands.get("helpAliases") != ["-h", "--help"]:
+    errors.append("CAST help aliases drift")
+if ff.get("castCommandWorkflow") != "doctrine/castCommandWorkflowV1.json":
+    errors.append("Final Form CAST command workflow binding drift")
+cast_authority = cast_workflow.get("authorityBoundary", {})
+for key in ["packageStyleCommandsAreCandidateOperations", "cliVerbMayDispatchProfessorCastBridge",
+            "cliVerbMayGrantProfessorApproval", "cliVerbMayMergePublishDeployOrPromote"]:
+    expected = key == "packageStyleCommandsAreCandidateOperations"
+    if cast_authority.get(key) is not expected:
+        errors.append("CAST command authority boundary drift: " + key)
+if cast_authority.get("packageOrBuildArtifactIsFinalCast") is not False:
+    errors.append("CAST package must not be final CAST")
+if cast_commands.get("unknownVerb", {}).get("behavior") != "Return canonical help and suggestions; execute nothing.":
+    errors.append("CAST unknown verb must be non-executing")
+if cast_workflow.get("escalation", {}).get("auditDepthGrantsAuthority") is not False:
+    errors.append("CAST escalation must not grant authority")
 
 head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
 report = {
