@@ -3,13 +3,27 @@
   "status": "PROPOSED_SOURCE_ONLY",
   "authority": "Professor",
   "purpose": "Define a package-manager-style command surface for creating, installing, running, updating, and upgrading CAST workflow candidates.",
+  "packageIdentity": {
+    "packageName": "LuHmOS",
+    "packageNamespace": "art.eggiebagelface.LuHmOS.cast",
+    "projectOwnedJqueryDerivedNamesResolveTo": "LuHmOS",
+    "jqueryStyleAlias": "$.LuHmOS.cast",
+    "legacyCliAlias": "luhm",
+    "aliasResolvesToPackage": "LuHmOS",
+    "lumAgentIdentity": "lum",
+    "agentAndPackageAreDistinctIdentities": true
+  },
   "commandSurface": {
-    "executable": "luhm",
+    "executable": "LuHmOS",
+    "aliases": [
+      "luhm"
+    ],
     "namespace": "cast",
     "grammar": [
-      "luhm cast -h",
-      "luhm cast --help",
-      "luhm cast help [<verb>]",
+      "LuHmOS cast -h",
+      "LuHmOS cast --help",
+      "LuHmOS cast help [<verb>]",
+      "LuHmOS cast <verb> [arguments] [options]",
       "luhm cast <verb> [arguments] [options]"
     ],
     "helpAliases": [
@@ -19,7 +33,7 @@
     "verbs": [
       {
         "name": "create",
-        "syntax": "luhm cast create <workflow-name> [--template <id>]",
+        "syntax": "LuHmOS cast create <workflow-name> [--template <id>]",
         "purpose": "Scaffold a named CAST workflow candidate from a declared template.",
         "effects": "Writes only to an isolated candidate workspace and records its manifest and sourceRef.",
         "gates": [
@@ -30,7 +44,7 @@
       },
       {
         "name": "install",
-        "syntax": "luhm cast install [<dependency>...]",
+        "syntax": "LuHmOS cast install [<dependency>...]",
         "purpose": "Resolve and install declared candidate dependencies.",
         "effects": "Uses an isolated workspace and lockfile with exact versions and integrity hashes; runs no dependency lifecycle scripts by default.",
         "gates": [
@@ -42,7 +56,7 @@
       },
       {
         "name": "run",
-        "syntax": "luhm cast run <script> [-- <arguments>...]",
+        "syntax": "LuHmOS cast run <script> [-- <arguments>...]",
         "purpose": "Run a named script declared in the candidate manifest.",
         "effects": "Binds execution to an exact sourceRef and bounded task scope; captures command, logs, exit status, and artifact hashes.",
         "gates": [
@@ -55,7 +69,7 @@
       },
       {
         "name": "update",
-        "syntax": "luhm cast update [<dependency>...]",
+        "syntax": "LuHmOS cast update [<dependency>...]",
         "purpose": "Refresh dependencies within their already declared compatibility ranges.",
         "effects": "Updates the isolated candidate lockfile and produces a reviewable diff.",
         "gates": [
@@ -67,7 +81,7 @@
       },
       {
         "name": "upgrade",
-        "syntax": "luhm cast upgrade <dependency>|--all",
+        "syntax": "LuHmOS cast upgrade <dependency>|--all",
         "purpose": "Plan an explicit version-range or major-version migration.",
         "effects": "Produces a migration plan and diff in the isolated candidate workspace before applying candidate changes.",
         "gates": [
