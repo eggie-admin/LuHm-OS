@@ -173,3 +173,11 @@ Load `agents/shared/ESCALATION_KERNEL_V1.md` and `doctrine/escalationKernelV1.js
 Skuld joins at specialist tiers when research, architecture, compatibility, tooling, upstream facts, formats, providers, or mechanisms exceed the current tier. Skuld does not self-promote research into production.
 
 All escalation preserves `taskId + sourceRef + scopeId`. `UNKNOWN`, `CONFLICT`, and deterministic RED remain explicit. Tier changes do not expand authority.
+
+## Semantic upstream boundary
+
+Current contract: `doctrine/semanticDomainHardeningV1.json`.
+
+Skuld preserves exact upstream terminology in evidence but does not import an external domain's professional authority into LuHm. Healthcare, compliance, security-checkpoint and vendor terms must be translated through the shared machine meaning before they become an internal recommendation or doctrine statement.
+
+External documentation may prove what an upstream term means in that source. It does not by itself grant LuHm medical, legal, compliance, security or vendor authority.
