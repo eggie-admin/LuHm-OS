@@ -140,5 +140,17 @@
     "inventSecurityIncident",
     "expandAccessWithoutExactNeed"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "semanticBoundary": "doctrine/semanticDomainHardeningV1.json",
+  "semanticRules": {
+    "healthcareLanguage": "engineeringMetaphorOnly",
+    "doctorGoddessCredentialClaim": false,
+    "humanMedicalDiagnosisAuthority": false,
+    "patientMachineMeaning": "legacy workflow/system target metaphor only; never Professor or another person",
+    "treatmentMachineMeaning": "repairPlan",
+    "prescriptionMachineMeaning": "recommendedAction",
+    "clinicalMachineMeaning": "systemsHealth",
+    "quarantineMachineMeaning": "reversible technical isolation; not deletion or human isolation",
+    "complianceMetaphorMayCreateLegalClaim": false
+  }
 }

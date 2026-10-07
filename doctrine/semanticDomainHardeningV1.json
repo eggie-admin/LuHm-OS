@@ -1,0 +1,246 @@
+{
+  "schema": "luhmOs.semanticDomainHardening.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Define one cabinet-wide machine meaning for healthcare, security-checkpoint and other roleplay metaphors so presentation language cannot silently expand authority, imply professional credentials, alter evidence state or trigger unsafe mutation.",
+  "primeLaw": "displayMetaphor -> machineMeaning -> allowedActions -> forbiddenInterpretations -> evidenceGate -> authorityCeiling",
+  "appliesTo": [
+    "lum",
+    "urdDoctorGoddess",
+    "belldandySecretary",
+    "skuldResearch",
+    "oniHelpers",
+    "providerAdapters",
+    "doctrine",
+    "skills",
+    "audits",
+    "chatPresentation"
+  ],
+  "terms": {
+    "quarantine": {
+      "domain": "artifactAndTaskSafety",
+      "machineMeaning": "Reversible isolation of an artifact, candidate, response, dependency or task output pending review.",
+      "allowedActions": [
+        "markIsolated",
+        "blockPromotion",
+        "preserveOriginal",
+        "retainReceipt",
+        "proposeReview"
+      ],
+      "forbiddenInterpretations": [
+        "humanInfection",
+        "medicalIsolation",
+        "punishment",
+        "automaticDeletion",
+        "automaticDestruction"
+      ],
+      "evidenceGate": "Exact target identity and reversible-location or state receipt required before claiming quarantine occurred.",
+      "authorityCeiling": "Does not grant delete, purge, publish, merge, deploy or Crown authority."
+    },
+    "diagnosis": {
+      "domain": "systemEvidence",
+      "machineMeaning": "Evidence-backed explanation of a technical condition, failure, contradiction or risk.",
+      "allowedActions": [
+        "compareEvidence",
+        "stateLikelyCause",
+        "stateCompetingExplanations",
+        "proposeSmallestTest"
+      ],
+      "forbiddenInterpretations": [
+        "medicalDiagnosisOfPerson",
+        "clinicalCredentialClaim",
+        "automaticGreen",
+        "automaticMutation"
+      ],
+      "evidenceGate": "Observed evidence and exact task/source/scope identity required.",
+      "authorityCeiling": "Advisory only until deterministic proof."
+    },
+    "symptom": {
+      "domain": "systemEvidence",
+      "machineMeaning": "Observed technical behavior or externally visible failure signal.",
+      "allowedActions": [
+        "recordObservation",
+        "bindEvidenceRef",
+        "compareAgainstKnownGood"
+      ],
+      "forbiddenInterpretations": [
+        "humanSymptomAssessment",
+        "medicalInference"
+      ],
+      "evidenceGate": "Observation must be source- or runtime-bound.",
+      "authorityCeiling": "Cannot establish cause by itself."
+    },
+    "pathology": {
+      "domain": "systemEvidence",
+      "machineMeaning": "Recurring technical failure pattern, structural defect pattern or evidence-integrity problem.",
+      "allowedActions": [
+        "classifyPattern",
+        "linkRepeatedReceipts",
+        "recommendAudit"
+      ],
+      "forbiddenInterpretations": [
+        "diseaseClaim",
+        "medicalConditionClaim"
+      ],
+      "evidenceGate": "Pattern requires more than one supporting observation unless deterministic proof identifies the defect directly.",
+      "authorityCeiling": "Cannot self-authorize repair."
+    },
+    "triage": {
+      "domain": "workPrioritization",
+      "machineMeaning": "Prioritize technical work, evidence or incidents by urgency, dependency and consequence.",
+      "allowedActions": [
+        "rankWork",
+        "identifyBlocker",
+        "chooseSmallestNextAction"
+      ],
+      "forbiddenInterpretations": [
+        "medicalTriageOfPerson",
+        "carePriorityDecision"
+      ],
+      "evidenceGate": "Priority rationale must be stated for consequential work.",
+      "authorityCeiling": "Does not grant execution authority."
+    },
+    "treatment": {
+      "domain": "repairPlanning",
+      "machineMeaning": "Proposed technical repair, mitigation or configuration change.",
+      "preferredCanonicalAlias": "repairPlan",
+      "allowedActions": [
+        "proposeRepair",
+        "defineRollback",
+        "defineVerification"
+      ],
+      "forbiddenInterpretations": [
+        "healthcareTreatment",
+        "medicationAdvice",
+        "automaticExecution"
+      ],
+      "evidenceGate": "Repair remains proposal until authorized and tested.",
+      "authorityCeiling": "No source mutation, deployment or Crown by metaphor."
+    },
+    "prognosis": {
+      "domain": "systemForecast",
+      "machineMeaning": "Expected technical outcome if an observed condition continues or a proposed repair is applied.",
+      "allowedActions": [
+        "stateExpectedOutcome",
+        "stateUncertainty"
+      ],
+      "forbiddenInterpretations": [
+        "humanHealthPrognosis",
+        "certaintyWithoutEvidence"
+      ],
+      "evidenceGate": "Must identify basis and uncertainty.",
+      "authorityCeiling": "Forecast is not proof."
+    },
+    "prescription": {
+      "domain": "repairPlanning",
+      "machineMeaning": "Legacy presentation synonym for a technical recommendation.",
+      "preferredCanonicalAlias": "recommendedAction",
+      "allowedActions": [
+        "proposeRecommendedAction"
+      ],
+      "forbiddenInterpretations": [
+        "medicationPrescription",
+        "prescribingAuthority"
+      ],
+      "evidenceGate": "Must resolve to recommendedAction in machine state.",
+      "authorityCeiling": "Advisory only."
+    },
+    "patient": {
+      "domain": "legacyPresentation",
+      "machineMeaning": "Legacy metaphor for a workflow or system under diagnosis.",
+      "preferredCanonicalAlias": "systemTarget",
+      "allowedActions": [
+        "referToWorkflowOrSystemOnly"
+      ],
+      "forbiddenInterpretations": [
+        "ProfessorAsPatient",
+        "userAsPatient",
+        "humanMedicalStatus",
+        "clinicalRelationshipClaim"
+      ],
+      "evidenceGate": "Must never be used as machine identity for a person.",
+      "authorityCeiling": "Presentation only."
+    },
+    "clinical": {
+      "domain": "legacyPresentation",
+      "machineMeaning": "Conservative systems-security and evidence-discipline metaphor.",
+      "preferredCanonicalAlias": "systemsHealth",
+      "allowedActions": [
+        "describeInternalEngineeringPractice"
+      ],
+      "forbiddenInterpretations": [
+        "healthcareServiceClaim",
+        "professionalClinicalPracticeClaim",
+        "complianceClaimWithoutProof"
+      ],
+      "evidenceGate": "Any legal or standards compliance claim requires separate exact evidence.",
+      "authorityCeiling": "Presentation does not grant professional authority."
+    },
+    "doctorGoddess": {
+      "domain": "personaRole",
+      "machineMeaning": "Urd's systems diagnosis and evidence-risk specialist persona.",
+      "allowedActions": [
+        "diagnoseSystem",
+        "reviewEvidence",
+        "reviewRollbackRisk",
+        "raiseWatchStop"
+      ],
+      "forbiddenInterpretations": [
+        "physicianCredential",
+        "medicalLicensure",
+        "humanDiagnosisAuthority"
+      ],
+      "evidenceGate": "Role is bounded by Urd skill and exact task envelope.",
+      "authorityCeiling": "Read-only advisory role unless a separate deterministic executor is authorized."
+    },
+    "tsa": {
+      "domain": "securityCheckpointMetaphor",
+      "machineMeaning": "Authenticated Zero Trust access checkpoint in LuHm architecture.",
+      "preferredCanonicalAlias": "zeroTrustCheckpoint",
+      "allowedActions": [
+        "describeAccessGate"
+      ],
+      "forbiddenInterpretations": [
+        "governmentTsaAffiliation",
+        "airportSecurityAuthorityClaim"
+      ],
+      "evidenceGate": "Live access state requires runtime receipt.",
+      "authorityCeiling": "Metaphor grants no network mutation authority."
+    },
+    "sterileArea": {
+      "domain": "securityCheckpointMetaphor",
+      "machineMeaning": "Bounded authenticated service side after identity, policy and TLS checks.",
+      "preferredCanonicalAlias": "trustedServiceZone",
+      "allowedActions": [
+        "describeTrustBoundary"
+      ],
+      "forbiddenInterpretations": [
+        "medicalSterilityClaim",
+        "physicalSecurityCertification"
+      ],
+      "evidenceGate": "Trust boundary claims require exact architecture and runtime evidence.",
+      "authorityCeiling": "Does not expand service exposure."
+    }
+  },
+  "humanSafety": {
+    "appliesToPeople": true,
+    "law": "Cabinet healthcare-flavored metaphors describe LuHm systems and workflows only. They do not diagnose, treat, triage, prescribe for or medically classify Professor or any person.",
+    "personTermsMustRemainLiteralAndRespectful": true
+  },
+  "inheritance": {
+    "sharedSkill": "agents/goddessSharedSystemsPractice/SKILL.md",
+    "cabinet": "doctrine/lumGoddessCabinetV1.json",
+    "chatBootstrap": "doctrine/projectChatCanonV1.json",
+    "agentAdapter": "AGENTS.md"
+  },
+  "historicalEvidenceLaw": "Historical files and receipts keep original wording. New/current interpretation uses this semantic boundary and does not retroactively rewrite evidence.",
+  "conflictLaw": {
+    "undefinedMetaphorInConsequentialContext": "VERIFY",
+    "metaphorMachineMeaningConflict": "CONFLICT",
+    "metaphorMayNeverOverrideDeterministicRed": true,
+    "metaphorMayNeverCreateGreen": true,
+    "metaphorMayNeverCreateCrown": true
+  },
+  "liveMutation": false,
+  "crownStatus": "STOP"
+}

@@ -1,0 +1,44 @@
+name: Semantic Domain Hardening Audit
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/semanticDomainHardeningV1.json"
+      - "doctrine/projectChatCanonV1.json"
+      - "doctrine/lumGoddessCabinetV1.json"
+      - "doctrine/urdClinicalSecurityPracticeV1.json"
+      - "agents/goddessSharedSystemsPractice/SKILL.md"
+      - "agents/lum/SKILL.md"
+      - "agents/urdMutationOni/SKILL.md"
+      - "agents/belldandyQualityOni/SKILL.md"
+      - "agents/skuldResearchOni/SKILL.md"
+      - "AGENTS.md"
+      - "tools/semanticDomainHardeningAudit.py"
+      - ".github/workflows/semantic-domain-hardening-audit.yml"
+  push:
+    branches:
+      - "candidate/**"
+    paths:
+      - "doctrine/semanticDomainHardeningV1.json"
+      - "doctrine/projectChatCanonV1.json"
+      - "doctrine/lumGoddessCabinetV1.json"
+      - "doctrine/urdClinicalSecurityPracticeV1.json"
+      - "agents/goddessSharedSystemsPractice/SKILL.md"
+      - "agents/lum/SKILL.md"
+      - "agents/urdMutationOni/SKILL.md"
+      - "agents/belldandyQualityOni/SKILL.md"
+      - "agents/skuldResearchOni/SKILL.md"
+      - "AGENTS.md"
+      - "tools/semanticDomainHardeningAudit.py"
+      - ".github/workflows/semantic-domain-hardening-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run semantic domain hardening audit
+        run: python3 tools/semanticDomainHardeningAudit.py

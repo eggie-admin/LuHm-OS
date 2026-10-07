@@ -19,3 +19,5 @@ For every LuHm OS / Project Hydra task:
 13. Professor retains Crown.
 
 Machine identities use lower camelHump. External interoperability filenames such as `AGENTS.md` are protocol filenames, not machine identities.
+
+14. Resolve healthcare, quarantine, clinical, airport-security and similar roleplay metaphors through `doctrine/semanticDomainHardeningV1.json`; presentation language never grants professional credentials, GREEN, mutation authority, legal/compliance status, or Crown.

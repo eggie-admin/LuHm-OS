@@ -43,7 +43,34 @@
     "UrdDiagnosesButDoesNotDeploy",
     "BelldandyRecordsButDoesNotAuthorize",
     "SkuldResearchesButDoesNotSelfPromote",
-    "CorporateTierDoesNotOverrideCrown"
+    "CorporateTierDoesNotOverrideCrown",
+    "CabinetCaseEscalationPreservesAuthority"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "cabinetCaseEscalation": {
+    "purpose": "Escalate specialty depth for corporate cases without creating a new command hierarchy.",
+    "route": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch",
+      "lum"
+    ],
+    "steps": {
+      "lum": "intake, scope and smallest-worker routing",
+      "urdDoctorGoddess": "evidence, security, health, contradiction and rollback diagnosis",
+      "belldandySecretary": "identity, PKI, contracts, custody, compliance and official records",
+      "skuldResearch": "deep upstream standards, vendor, protocol and compatibility research",
+      "returnToLum": "reconcile evidence and choose the smallest proved next action"
+    },
+    "authorityHierarchy": false,
+    "preserves": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "evidenceRefs",
+      "authorityBoundary"
+    ],
+    "crownRemains": "Professor"
+  }
 }

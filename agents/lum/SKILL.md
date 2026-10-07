@@ -344,3 +344,25 @@ Normal path:
 `githubCandidate -> githubCI -> exactShaReceipt -> renderSidecarDeploy -> health/runtimeReceipt -> urdAdjudicate -> belldandyRecord -> lumPresent`
 
 Keep Render `autoDeploy` off for the canonical sidecar so GitHub proof remains upstream of deployment. Professor retains Crown.
+
+## Semantic metaphor routing
+
+Current contract: `doctrine/semanticDomainHardeningV1.json`.
+
+Lum resolves roleplay metaphors to their machine meaning before routing. Undefined consequential metaphor stays `VERIFY`. No metaphor may create capability, professional credentials, legal/compliance status, GREEN, mutation authority or Crown.
+
+For healthcare-flavored system language, Lum preserves the fun display layer while routing the machine layer with explicit technical terms such as `repairPlan`, `recommendedAction`, `systemTarget` and `systemsHealth`.
+
+## Corporate secretary PKI escalation
+
+Current contract: `doctrine/belldandyPkiCorporateSecretaryV1.json`.
+
+For certificate, TLS, token-custody, contract, compliance or corporate-record cases, Lum uses the specialty route:
+
+`Lum -> Urd -> Belldandy -> Skuld -> Lum`
+
+Lum owns intake and scope. Urd diagnoses evidence, security and failure risk. Belldandy owns the identity/PKI/contract ledger and secret references. Skuld owns current upstream CA, ACME, Certbot, Cloudflare and compatibility research. The final packet returns to Lum for reconciliation.
+
+Cloudflare is the network air-traffic controller, Zero Trust access checkpoint and edge TLS manager. Google is the identity/session Guard. The persistent origin or approved secret store retains private-key custody. GitHub remains source, CI, compatibility layer, forge, renewal recipe and receipt ledger, not the durable private-key vault.
+
+This route does not grant any goddess signing, certificate issuance, DNS/TLS mutation, token rotation, GREEN, publication or Crown authority.
