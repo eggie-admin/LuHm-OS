@@ -3,19 +3,21 @@
   "status": "STAGED_CANDIDATE",
   "authority": "Professor",
   "baseMain": "c6096b398eb226a2936c2332689dd87d034f39f7",
-  "purpose": "Escalated final-milestone audit and bounded repair protocol using current doctrine, source truth, real workflows, agent skills and deterministic evidence.",
+  "purpose": "Final Form is the structural audit escalation. finalBoss is Professor's explicit delegated Crown for Lum to get the active AI capability scope working, using the registered provider, mini-agent and goddess lanes.",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "stages": [
     "resolveCurrentTruth",
+    "bindFocusedAiScope",
     "specialistWatchFleet",
     "workflowAndAgentSkillAudit",
     "tenPassHardAudit",
     "fullSourceTruthAudit",
+    "finalBossAgentOrchestration",
     "witchingHourRepairLoop",
     "rerunAffectedTiers",
-    "finalBoss",
+    "scopedPromotionAndDeploy",
     "finalSealCandidate",
-    "professorCrown"
+    "returnCrownToProfessor"
   ],
   "witchingHour": {
     "path": "agents/witchingHourCoding/SKILL.md",
@@ -55,17 +57,45 @@
   "escalationOption": "finalForm",
   "terminalMode": "finalBoss",
   "finalBoss": {
-    "activation": "automaticallyAfterFinalFormIsSelectedAndRequiredAuditStagesComplete",
+    "activation": "explicitProfessorInvocationOfFinalBoss",
     "agentScope": "allCanonicalAgentsInCurrentDeploymentRegistry",
     "registry": "doctrine/agentSystemDeploymentV1.json",
+    "authorityChain": [
+      "vendorAiProvider",
+      "focusedMiniAgents",
+      "goddessAuditors",
+      "lumCustomAgentBoss"
+    ],
     "orchestrator": "lum",
-    "approvalMeaning": "all canonical agents return evidence-backed review dispositions for Lum reconciliation",
+    "delegatedCrown": {
+      "principal": "Professor",
+      "delegate": "lum",
+      "scope": "activeAiAgentAndMiniAgentEnablementMilestone",
+      "permittedActions": [
+        "configureAlreadyEntitledProviders",
+        "activateRegisteredTaskScopedAgents",
+        "applyBoundedAiWorkflowMutations",
+        "runAuditsAndTests",
+        "promoteGreenAiScopeChanges",
+        "deployVerifiedAiScopeChanges"
+      ],
+      "limits": [
+        "activeTaskEnvelopeOnly",
+        "noNewPaidSpend",
+        "noCredentialDisclosureOrSecretAccessOutsideAuthorizedConnector",
+        "noPublicPublication",
+        "noUnrelatedCreativeOrAndroidMutation"
+      ],
+      "returnCondition": "returnDelegatedCrownToProfessorAtMilestoneCompletionOrStop"
+    },
+    "approvalMeaning": "all required registered agents return evidence-backed dispositions; Lum reconciles and executes within delegated scope",
     "requiredDisposition": "APPROVE_WITH_EVIDENCE_OR_BLOCK",
     "missingDisposition": "BLOCK_FINAL_BOSS",
     "maxParallelism": 3,
     "recursiveRecruitment": false,
-    "authority": "Professor retains Crown; agent approval cannot merge, deploy, release, sign, publish, or self-promote",
-    "completion": "ALL_AGENT_DISPOSITIONS_RECONCILED_READY_FOR_PROFESSOR_CROWN",
+    "eighthNoteScope": "doctrine/eighthNoteAgentScopeV1.json",
+    "completion": "AI_SCOPE_GREEN_OR_EXPLICIT_BLOCKER_REPORTED_TO_PROFESSOR",
     "crownStatus": "STOP"
-  }
+  },
+  "eighthNoteScope": "doctrine/eighthNoteAgentScopeV1.json"
 }
