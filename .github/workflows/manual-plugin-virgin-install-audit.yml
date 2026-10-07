@@ -32,6 +32,15 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Bind exact head
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" == "$EXPECTED_HEAD"
+          echo "EXACT_HEAD=$(git rev-parse HEAD)"
       - name: Audit virgin-install plugin package
         run: python3 tools/manualPluginVirginInstallAudit.py
       - name: Upload manual plugin package
