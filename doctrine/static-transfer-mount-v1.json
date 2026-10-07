@@ -36,7 +36,12 @@
     "transportLaw": "MCP carries semantic state only; static mount carries presentation assets.",
     "fallback": "deterministic badge when sprite asset cannot be proven available",
     "executionAuthority": false,
-    "evidenceAuthority": false
+    "evidenceAuthority": false,
+    "sequenceContract": "doctrine/pet-sprite-sequence-v1.json",
+    "targetFramesPerSequence": 32,
+    "targetScale": "stageFilling",
+    "sequenceNamespace": "/harness/assets/pets/{agentId}/{sha256}/",
+    "currentAtlasRole": "fallback"
   },
   "edgeProjection": {
     "currentMode": "sameOriginRenderSourceRoute",
