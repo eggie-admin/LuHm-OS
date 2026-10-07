@@ -18,6 +18,7 @@ execution = load("doctrine/operationTitan7ExecutionSchemaV1.json")
 trigger = load("doctrine/operationTitan7ChatTriggerV2.json")
 eighth = load("doctrine/eighthNoteAgentScopeV1.json")
 naming = load("doctrine/namingNamespaceCanonV1.json")
+source_architecture = load("doctrine/modularSourceArchitectureV1.json")
 
 required_files = [
     "agents/lum/SKILL.md",
@@ -97,6 +98,30 @@ if eighth.get("scopeContract", {}).get("noAuthorityFromWorkflow") is not True:
     errors.append("workflow must not create authority")
 if "finalBossDelegation" in eighth:
     errors.append("personal/session authority token must not be encoded in doctrine")
+
+modules = source_architecture.get("sourceModules", [])
+if [m.get("id") for m in modules] != ["kernelVendorPlatform", "linuxBuildEssentials", "python3ControlPlane", "godot4Game"]:
+    errors.append("modular source architecture order drift")
+if modules and modules[0].get("canonicalChangePolicy") != "securityUpdatesOnly":
+    errors.append("canonical kernel security-only policy drift")
+if modules and modules[0].get("capsule") != "luhm-samsung-dev-core":
+    errors.append("kernel/vendor capsule name drift")
+if len(modules) > 1 and modules[1].get("status") != "sourceInPlace":
+    errors.append("Linux build essentials source status drift")
+if len(modules) > 2 and modules[2].get("runtime") != "Python 3":
+    errors.append("Python control-plane runtime drift")
+if len(modules) > 3 and modules[3].get("runtime") != "Godot 4":
+    errors.append("Godot game runtime drift")
+if source_architecture.get("escalation", {}).get("tierMap") != {
+    0: "defaultFastPath", 1: "forFuckSake", 2: "scorchedEarth", 3: "finalForm"
+}:
+    errors.append("modular source escalation tier map drift")
+if "separationLaw" not in source_architecture.get("escalation", {}):
+    errors.append("module boundaries and operational escalation are not separated")
+if ff.get("modularSourceArchitecture") != "doctrine/modularSourceArchitectureV1.json":
+    errors.append("Final Form source architecture binding drift")
+if execution.get("modularSourceArchitecture") != "doctrine/modularSourceArchitectureV1.json":
+    errors.append("execution schema source architecture binding drift")
 
 head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
 report = {
