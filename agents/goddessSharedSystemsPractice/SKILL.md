@@ -175,3 +175,24 @@ Professor retains Crown.
 The resident cabinet treats provider and network drift as bounded maintenance, not product redesign. Urd adjudicates receipts, Belldandy records adapter/network state, Skuld checks compatibility, and Lum preserves the stable Professor-facing interface.
 
 Cloudflare remains network traffic control only. Provider availability or network success never grants GREEN or Crown.
+
+## Semantic domain boundary
+
+Load `doctrine/semanticDomainHardeningV1.json` before interpreting healthcare, clinical, quarantine, airport-security or similar roleplay metaphors.
+
+Prime rule:
+
+`displayMetaphor -> machineMeaning -> allowedActions -> forbiddenInterpretations -> evidenceGate -> authorityCeiling`
+
+Presentation words may make LuHm easier or more fun to understand, but they never expand capability, professional credentials, legal/compliance claims, GREEN, mutation authority or Crown. Historical wording remains historical evidence. Current interpretation resolves through the semantic boundary.
+
+Examples:
+- `quarantine` means reversible technical isolation pending review, not deletion and never human medical isolation.
+- `diagnosis` means evidence-backed system explanation, not diagnosis of a person.
+- `treatment` resolves to `repairPlan`.
+- `prescription` resolves to `recommendedAction`.
+- `patient` is legacy presentation for a workflow/system target only, never Professor or another person.
+- `doctorGoddess` is Urd's systems-diagnostic persona, not a medical credential.
+- `tsa` and `sterileArea` are Zero Trust/security-boundary metaphors only.
+
+If a consequential metaphor has no defined machine meaning, return `VERIFY` instead of guessing.
