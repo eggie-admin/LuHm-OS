@@ -344,3 +344,11 @@ Normal path:
 `githubCandidate -> githubCI -> exactShaReceipt -> renderSidecarDeploy -> health/runtimeReceipt -> urdAdjudicate -> belldandyRecord -> lumPresent`
 
 Keep Render `autoDeploy` off for the canonical sidecar so GitHub proof remains upstream of deployment. Professor retains Crown.
+
+## Semantic metaphor routing
+
+Current contract: `doctrine/semanticDomainHardeningV1.json`.
+
+Lum resolves roleplay metaphors to their machine meaning before routing. Undefined consequential metaphor stays `VERIFY`. No metaphor may create capability, professional credentials, legal/compliance status, GREEN, mutation authority or Crown.
+
+For healthcare-flavored system language, Lum preserves the fun display layer while routing the machine layer with explicit technical terms such as `repairPlan`, `recommendedAction`, `systemTarget` and `systemsHealth`.
