@@ -1,42 +1,55 @@
 {
-  "schema":"luhmOs.projectHydraFinalAuditMilestone.v1",
-  "status":"greenForFinalAudit",
-  "authority":"Professor",
-  "sourceRef":"a1f10024f2e4a22232cc880fd54774809f8c6f1f",
-  "scope":"LuHm OS Project Hydra final system audit using fully mutated OperationTitan7 protocol",
-  "entryEvidence":[
-    {"workflow":"Android Web3 Cockpit Switch Audit","runId":36973330511,"conclusion":"success"},
-    {"workflow":"LuHm Plugin Publication Audit","runId":36973330375,"conclusion":"success"},
-    {"workflow":"OperationTitan7 Watch Fleet","runId":36973330409,"conclusion":"success"}
+  "schema": "luhmOs.projectHydraFinalAuditMilestone.v1",
+  "status": "READY_FOR_EXACT_HEAD_FINAL_AUDIT",
+  "authority": "Professor",
+  "baseMain": "c6096b398eb226a2936c2332689dd87d034f39f7",
+  "scope": "LuHm OS Project Hydra final system audit using Operation Titan Final Form and the canonical 15-agent mesh.",
+  "historicalEntryEvidence": [
+    {
+      "source": "PR_200_DONOR",
+      "head": "11cd7d4f8fc16c7283636f75a0ca388f1afb5a69",
+      "hardSystemAudit200": "GREEN",
+      "namingNamespaceAudit": "GREEN",
+      "belldandyHousekeeping": "GREEN_AFTER_CHECKPOINT"
+    }
   ],
-  "auditProtocol":{
-    "harness":"operationTitan7",
-    "goddessWatchRequired":true,
-    "sharedSystemsPractice":"agents/goddessSharedSystemsPractice/SKILL.md",
-    "auditScopes":[
+  "auditProtocol": {
+    "harness": "operationTitan7",
+    "agentMesh": "doctrine/agentSystemDeploymentV1.json",
+    "requiredAgentCount": 15,
+    "residentCabinetRequired": true,
+    "retiredWatchFleet": true,
+    "sharedSystemsPractice": "agents/goddessSharedSystemsPractice/SKILL.md",
+    "auditScopes": [
       "canonicalSourceTruth",
+      "activeRepositorySet",
       "namingAndPathSeals",
       "doctrineReconciliation",
       "agentSkillsAndAuthority",
       "workflowContracts",
       "evidenceAndReceiptIntegrity",
       "projectHydraBoundaries",
-      "artAssetProvenance",
+      "chatGptPluginWorkflowStandby",
       "androidBuildAndInstallBoundary",
-      "smX400RootedAndroid16Target",
       "castAndCrownBoundaries"
     ],
-    "failClosed":true,
-    "redReclosesMilestone":true
+    "failClosed": true,
+    "redReclosesMilestone": true
   },
-  "claims":{
-    "greenForFinalAudit":true,
-    "greenForMerge":false,
-    "greenForCast":false,
-    "greenForPhysicalInstall":false,
-    "greenForPublication":false
+  "claims": {
+    "readyForFinalAudit": true,
+    "greenForMerge": false,
+    "greenForCast": false,
+    "greenForPhysicalInstall": false,
+    "greenForPublication": false
   },
-  "remainingProof":["finalOperationTitan7AuditReceipt","postAuditExactHeadCi","smX400PhysicalInstallReceipt"],
-  "crownStatus":"stop",
-  "castStatus":"stop"
+  "remainingProof": [
+    "finalOperationTitan7AuditReceiptOnExactHead",
+    "agentSystemDeploymentAuditOnExactHead",
+    "hardSystemAudit200OnExactHead",
+    "chatGptPluginWorkflowStreamAuditOnExactHead",
+    "postMergeExactMainCiBeforeNewWorkflowActivation"
+  ],
+  "crownStatus": "STOP",
+  "castStatus": "STOP"
 }

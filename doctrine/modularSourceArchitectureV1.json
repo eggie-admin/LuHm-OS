@@ -1,0 +1,80 @@
+{
+  "schema": "luhmOs.modularSourceArchitecture.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "purpose": "Keep the kernel/vendor base, Linux build essentials, Python 3 control plane, and Godot 4 game source in separately bounded modules. Apply the shared four-tier escalation policy to any module or declared cross-module scope.",
+  "sourceModules": [
+    {
+      "order": 1,
+      "id": "kernelVendorPlatform",
+      "title": "Canonical kernel and machine/vendor capsule",
+      "capsule": "luhm-samsung-dev-core",
+      "canonicalUpstream": "Ubuntu-supported Canonical mainline/generic kernel",
+      "canonicalChangePolicy": "securityUpdatesOnly",
+      "localDelta": "smallest device configuration, compatibility patch, and separately isolated Samsung/vendor backend or SDK adapters",
+      "preserve": [
+        "AndroidGkiKmi",
+        "SamsungVendorModules",
+        "upstreamAbiContracts"
+      ],
+      "forbidden": [
+        "FrankensteinKernelFork",
+        "vendorSemanticsPromotedIntoCanonicalCore"
+      ]
+    },
+    {
+      "order": 2,
+      "id": "linuxBuildEssentials",
+      "title": "Linux build essentials",
+      "status": "sourceInPlace",
+      "purpose": "pinned Linux/Ubuntu build tools and reproducible system toolchain used to build and verify the source modules",
+      "boundary": "toolchain and system dependencies are versioned separately from application source"
+    },
+    {
+      "order": 3,
+      "id": "python3ControlPlane",
+      "title": "Python 3 control plane",
+      "runtime": "Python 3",
+      "purpose": "LuHm/Hydra service and API-broker source with stable contracts to platform adapters and clients",
+      "boundary": "Python services own control-plane behavior; they do not vendor kernel or game-engine implementation"
+    },
+    {
+      "order": 4,
+      "id": "godot4Game",
+      "title": "Godot 4 video-game source",
+      "runtime": "Godot 4",
+      "purpose": "gameplay, scenes, assets, and game-client source for Project Hydra",
+      "boundary": "game code calls stable service interfaces and does not absorb platform/vendor authority"
+    }
+  ],
+  "moduleLaws": [
+    "eachModuleHasOwnSourceRefBuildAndTests",
+    "stableInterfacesBetweenModules",
+    "localChangesStayInsideOwningModuleOrDeclaredInterface",
+    "higherApplicationModulesMayUseLowerPlatformContracts",
+    "lowerPlatformModulesMustNotDependOnGamePresentation",
+    "vendorBackendsRemainAdapters",
+    "unknownRuntimeOrVendorBehaviorRemainsUnknown"
+  ],
+  "escalation": {
+    "contract": "doctrine/escalationKernelV1.json",
+    "technologyProfile": "doctrine/operationTitan7ChatTriggerV2.json",
+    "tierMap": {
+      "0": "defaultFastPath",
+      "1": "forFuckSake",
+      "2": "scorchedEarth",
+      "3": "finalForm"
+    },
+    "application": "the four escalation tiers can audit any one module or an explicitly declared cross-module scope",
+    "separationLaw": "module order defines source boundaries; escalation tier defines operational audit depth; tier increase changes focus and proof maturity, not authority",
+    "scopeLaw": "every tier preserves taskId/sourceRef/scopeId and stops at unresolved red or missing authority"
+  },
+  "matrixLaw": "four source modules by four operational escalation tiers; no one-to-one assignment of module order to escalation authority",
+  "references": {
+    "namespace": "doctrine/namingNamespaceCanonV1.json#namespaceEscalation",
+    "compositionArchitecture": "doctrine/luHmOSFourLayerArchitectureV1.json",
+    "packageCompositionArchitecture": "doctrine/luHmOSFourLayerArchitectureV1.json"
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}

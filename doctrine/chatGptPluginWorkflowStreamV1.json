@@ -1,0 +1,83 @@
+{
+  "schema": "luhmOs.chatGptPluginWorkflowStream.v1",
+  "status": "STANDBY_CANDIDATE",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "Provide one clean post-reconciliation workflow stream for LuHmOS ChatGPT plugin development, doctrine mutation, GitHub proof, Render sidecar deployment, and ChatGPT host proof without reopening the historical PR backlog.",
+  "repositorySet": "doctrine/activeRepositorySetV1.json",
+  "agentMesh": "doctrine/agentSystemDeploymentV1.json",
+  "operationTitan": "doctrine/operationTitan7FinalFormV1.json",
+  "sourceArchitecture": "doctrine/modularSourceArchitectureV1.json",
+  "castWorkflow": "doctrine/castCommandWorkflowV1.json",
+  "activation": {
+    "residentCore": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "lazySpecialistsFromCanonicalRoster": true,
+    "canonicalAgentCount": 15,
+    "maxParallelSupportWorkers": 3,
+    "oneMutableSourceLane": true,
+    "recursiveRecruitment": false,
+    "hiddenAsyncExecution": false,
+    "helpersSpeakTo": "lum"
+  },
+  "workflow": [
+    "bindExactCurrentMain",
+    "loadCanonical15AgentMesh",
+    "reconcileDoctrineAndNaming",
+    "runTitan7FinalForm",
+    "run200PassHardAudit",
+    "buildPluginCandidateOnlyAfterExplicitCast",
+    "verifyPackageShaAndReceipt",
+    "deployRenderSidecarOnlyWhenGitHubCannotProvideRuntime",
+    "proveRemoteMcpExactSource",
+    "installOrRefreshChatGptHostConnection",
+    "invokeCurrentConversation",
+    "recordRuntimeReceipt",
+    "stopAtProfessorCrown"
+  ],
+  "mcpToolNamingMigration": {
+    "canonicalTool": "luhmOpenCockpit",
+    "legacyExternalAlias": "luhm_open_cockpit",
+    "migrationRequired": true,
+    "legacyAliasIsCanonical": false,
+    "newProjectOwnedSourceMayIntroduceSnakeCase": false,
+    "preserveLegacyAliasOnlyWhereExternalCompatibilityRequires": true
+  },
+  "historicalOpenPrDonors": [
+    185,
+    188,
+    190,
+    191,
+    192,
+    193,
+    194,
+    200
+  ],
+  "backlogLaw": {
+    "mergeStaleWholeBranch": false,
+    "preserveHistoricalBranches": true,
+    "portOnlyNovelCompatibleDelta": true,
+    "closeHistoricalPrOnlyAfterReconciliationMerge": true
+  },
+  "standbyGate": {
+    "requiresReconciliationMerge": true,
+    "requiresExactMainCiAfterMerge": true,
+    "requiresTitan7FinalFormGreenOnExactHead": true,
+    "requiresAgentMeshGreenOnExactHead": true,
+    "requiresWorkflowStreamAuditGreenOnExactHead": true
+  },
+  "deployment": {
+    "githubIsCompatibilitySourceCiReceiptSpine": true,
+    "renderIsSidecarRuntimeOnly": true,
+    "renderUsedOnlyWhenGitHubCannotProvideRuntime": true,
+    "automaticDeploy": false,
+    "automaticPublication": false,
+    "automaticMerge": false,
+    "productionSigningAuthority": false
+  },
+  "crownStatus": "STOP"
+}

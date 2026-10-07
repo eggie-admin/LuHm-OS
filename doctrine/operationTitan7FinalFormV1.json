@@ -2,20 +2,40 @@
   "schema": "luhmOs.operationTitan7FinalForm.v1",
   "status": "STAGED_CANDIDATE",
   "authority": "Professor",
-  "baseMain": "77a143ec8e3a83b259a86cdf1b706a6e0641354e",
-  "purpose": "Escalated final-milestone audit and bounded repair protocol using current doctrine, source truth, real workflows, agent skills and deterministic evidence.",
+  "baseMain": "c6096b398eb226a2936c2332689dd87d034f39f7",
+  "purpose": "Escalated final-milestone audit and bounded repair protocol using current doctrine, source truth, the canonical 15-agent mesh, real workflows, agent skills and deterministic evidence.",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "stages": [
     "resolveCurrentTruth",
-    "specialistWatchFleet",
+    "bindCanonical15AgentMesh",
     "workflowAndAgentSkillAudit",
     "tenPassHardAudit",
     "fullSourceTruthAudit",
     "witchingHourRepairLoop",
     "rerunAffectedTiers",
+    "chatGptWorkflowStandbyAudit",
     "finalSealCandidate",
     "professorCrown"
   ],
+  "agentMesh": "doctrine/agentSystemDeploymentV1.json",
+  "agentMeshExecution": {
+    "canonicalAgentCount": 15,
+    "residentCore": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "lazySpecialistCount": 11,
+    "maxParallelSupportWorkers": 3,
+    "oneMutableSourceLane": true,
+    "helpersSpeakTo": "lum",
+    "recursiveRecruitment": false,
+    "hiddenAsyncExecution": false,
+    "retiredWatchFleet": true
+  },
+  "repositorySet": "doctrine/activeRepositorySetV1.json",
+  "chatGptWorkflowStream": "doctrine/chatGptPluginWorkflowStreamV1.json",
   "witchingHour": {
     "path": "agents/witchingHourCoding/SKILL.md",
     "mode": "boundedCodingExecution",
@@ -47,5 +67,12 @@
     "test",
     "all"
   ],
-  "milestoneConditionRequired": true
+  "milestoneConditionRequired": true,
+  "functionRef": "LuHmOS.fn.operationTitan",
+  "buildVersion": 7,
+  "namespaceRef": "doctrine/namingNamespaceCanonV1.json#namespaceEscalation",
+  "escalationOption": "finalForm",
+  "eighthNoteScope": "doctrine/eighthNoteAgentScopeV1.json",
+  "modularSourceArchitecture": "doctrine/modularSourceArchitectureV1.json",
+  "castCommandWorkflow": "doctrine/castCommandWorkflowV1.json"
 }
