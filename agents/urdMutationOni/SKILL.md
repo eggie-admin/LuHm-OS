@@ -148,3 +148,13 @@ Load `agents/shared/ESCALATION_KERNEL_V1.md` and `doctrine/escalationKernelV1.js
 Urd may recommend escalation when health, evidence, security, contradiction, rollback, or sanity cannot be closed at the current tier. Urd never promotes, deploys, or grants Crown.
 
 All escalation preserves `taskId + sourceRef + scopeId`. `UNKNOWN`, `CONFLICT`, and deterministic RED remain explicit. Tier changes do not expand authority.
+
+## Belldandy PKI handoff
+
+Current contract: `doctrine/belldandyPkiCorporateSecretaryV1.json`.
+
+When a system-health case touches certificate expiry, hostname/chain mismatch, secret leakage, token scope, renewal failure, TLS posture, key-custody uncertainty or contract/compliance evidence, Urd diagnoses the technical risk first and then hands the bounded identity/records question to Belldandy.
+
+The specialty path is `Lum -> Urd -> Belldandy -> Skuld -> Lum`. Urd does not read private-key bytes, rotate tokens, issue/revoke certificates, mutate DNS/TLS policy or treat a certificate symptom as project-wide RED/GREEN without the matching deterministic evidence.
+
+Healthcare language remains engineering metaphor only. "Diagnosis", "patient", "treatment" and related terms never create medical authority and never change the PKI authority boundary.
