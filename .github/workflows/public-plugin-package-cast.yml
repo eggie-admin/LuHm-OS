@@ -93,15 +93,7 @@ jobs:
             exit 2
           fi
 
-          python3 tools/forgeCastGate.py \
-            --cast-word "$CAST_WORD" \
-            --milestone-id "$MILESTONE_ID" \
-            --task-id "$TASK_ID" \
-            --source-ref "$SOURCE_REF" \
-            --actual-source-ref "$actualRef" \
-            --build-scope "publicPluginPackage" \
-            --actor "$PROFESSOR_ACTOR" \
-            --receipt /tmp/forge-cast-receipt.json
+          python3 tools/forgeCastGate.py             --cast-word "$CAST_WORD"             --milestone-id "$MILESTONE_ID"             --task-id "$TASK_ID"             --source-ref "$SOURCE_REF"             --actual-source-ref "$actualRef"             --build-scope "publicPluginPackage"             --actor "$PROFESSOR_ACTOR"             --receipt /tmp/forge-cast-receipt.json
 
       - name: Build deterministic public plugin ZIP
         shell: bash
@@ -126,6 +118,28 @@ jobs:
           print("GREEN_PUBLIC_PLUGIN_PACKAGE_RECEIPT")
           PY
 
+      - name: Record ChatGPT host handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp doctrine/chatGptPluginCastCompletionV1.json /tmp/luhm-public-plugin/
+          cat > /tmp/luhm-public-plugin/chatGptHostHandoff.json <<'JSON'
+          {
+            "schema": "luhmOs.chatGptHostHandoff.v1",
+            "sourceRef": "${{ inputs.sourceRef }}",
+            "packageState": "PACKAGE_READY",
+            "castState": "HOST_INSTALL_REQUIRED",
+            "requiredNextProof": [
+              "chatGptHostInstallProved",
+              "currentConversationInvocationProved",
+              "luhmOpenCockpitRuntimeProved"
+            ],
+            "finalCastGreen": false,
+            "crownStatus": "STOP"
+          }
+          JSON
+          echo "PACKAGE_READY_ONLY final CAST requires ChatGPT host install + current-chat invocation + luhm_open_cockpit proof"
+
       - name: Upload CAST-scoped artifact
         uses: actions/upload-artifact@v4
         with:
@@ -133,6 +147,8 @@ jobs:
           path: |
             /tmp/luhm-public-plugin/*.zip
             /tmp/luhm-public-plugin/publicPluginPackageBuildReceipt.json
+            /tmp/luhm-public-plugin/chatGptPluginCastCompletionV1.json
+            /tmp/luhm-public-plugin/chatGptHostHandoff.json
             /tmp/forge-cast-receipt.json
           retention-days: 3
           if-no-files-found: error
