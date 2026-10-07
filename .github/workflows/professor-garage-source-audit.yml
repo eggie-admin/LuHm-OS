@@ -1,0 +1,41 @@
+name: professor-garage-source-audit
+
+on:
+  pull_request:
+    paths:
+      - '.devcontainer/devcontainer.json'
+      - 'doctrine/professorGarageWorkspaceV1.json'
+      - 'doctrine/ffmpegAiRepairBayV1.json'
+      - 'tools/professorGarageBootstrap.sh'
+      - 'tools/professorGarageInstallGodot.py'
+      - 'tools/professorGarageAudit.py'
+      - 'tools/ffmpegAiRepairBay.py'
+      - '.github/workflows/professor-garage-source-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON
+        run: |
+          python3 -m json.tool .devcontainer/devcontainer.json >/dev/null
+          python3 -m json.tool doctrine/professorGarageWorkspaceV1.json >/dev/null
+          python3 -m json.tool doctrine/ffmpegAiRepairBayV1.json >/dev/null
+
+      - name: Validate Python syntax
+        run: |
+          python3 -m py_compile tools/professorGarageAudit.py
+          python3 -m py_compile tools/professorGarageInstallGodot.py
+          python3 -m py_compile tools/ffmpegAiRepairBay.py
+
+      - name: Validate shell syntax
+        run: bash -n tools/professorGarageBootstrap.sh
+
+      - name: Run deterministic source audit
+        run: python3 tools/professorGarageAudit.py
