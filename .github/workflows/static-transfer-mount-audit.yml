@@ -1,6 +1,8 @@
 name: Static Transfer Mount Audit
 
 on:
+  push:
+    branches: [main]
   pull_request:
     paths:
       - "doctrine/static-transfer-mount-v1.json"
