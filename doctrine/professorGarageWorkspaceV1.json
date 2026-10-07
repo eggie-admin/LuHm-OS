@@ -63,8 +63,10 @@
       "gimp",
       "godot4"
     ],
-    "godotLaw": "Do not silently install a mismatched Godot. Exact version requires an explicit pinned setup receipt.",
-    "providerLaw": "Provider extension presence or subscription does not prove entitlement or successful execution."
+    "godotLaw": "Use the pinned installer and record the downloaded release asset SHA-256. Do not silently substitute another Godot version.",
+    "providerLaw": "Provider extension presence or subscription does not prove entitlement or successful execution.",
+    "godotInstaller": "tools/professorGarageInstallGodot.py",
+    "godotDefaultCandidateVersion": "4.7.2-stable"
   },
   "mediaLaw": {
     "sourceClipImmutable": true,
