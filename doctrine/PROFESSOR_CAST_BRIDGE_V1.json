@@ -1,29 +1,42 @@
 {
-  "schema": "luhm-os.professor-cast-bridge.v3",
+  "schema": "luhm-os.professor-cast-bridge.v4",
   "date": "2026-10-02",
-  "status": "PROPOSED_HARDENED_CONTROL_PLANE_WITH_FAIL_LOUD_DIAGNOSTICS",
+  "status": "PROPOSED_HARDENED_MULTI_MILESTONE_CONTROL_PLANE",
   "authority": "Professor",
-  "purpose": "Allow an explicit owner-authored GitHub PR comment containing a milestone and exact current-main SHA to dispatch exactly one CAST-gated Android Web3 build/release workflow.",
+  "purpose": "Allow an explicit owner-authored GitHub PR comment containing an allowed milestone and exact current-main SHA to dispatch exactly one CAST-gated build/package workflow.",
   "trigger": {
     "event": "issue_comment.created",
     "requiresPullRequestContext": true,
     "requiredActor": "github.repository_owner",
-    "syntax": "/cast androidWeb3Cockpit <40-char-current-main-sha>",
+    "syntax": "/cast <androidWeb3Cockpit|publicPluginPackage> <40-char-current-main-sha>",
     "exactMainMatch": true,
     "diagnosticAliases": [
       "CAST",
       "castBridge"
     ],
     "diagnosticAliasesDispatch": false,
-    "invalidAuthorizationFailsLoud": true
+    "invalidAuthorizationFailsLoud": true,
+    "allowedMilestones": [
+      "androidWeb3Cockpit",
+      "publicPluginPackage"
+    ]
   },
   "dispatch": {
-    "workflow": "android-testing-build.yml",
-    "ref": "main",
-    "cast": "cast",
-    "milestoneId": "androidWeb3Cockpit",
-    "publishPrerelease": true,
-    "releaseTag": "android-web3-<sha8>-r<bridgeRunId>"
+    "androidWeb3Cockpit": {
+      "workflow": "android-testing-build.yml",
+      "ref": "main",
+      "cast": "cast",
+      "milestoneId": "androidWeb3Cockpit",
+      "publishPrerelease": true,
+      "releaseTag": "android-web3-<sha8>-r<bridgeRunId>"
+    },
+    "publicPluginPackage": {
+      "workflow": "public-plugin-package-cast.yml",
+      "ref": "main",
+      "cast": "CAST",
+      "milestoneId": "publicReleaseCandidate",
+      "publishAuthority": false
+    }
   },
   "safety": {
     "noPersistentBuildAuthorization": true,
