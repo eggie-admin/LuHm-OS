@@ -34,28 +34,34 @@ jobs:
           test -n "$mainSha"
 
           if [[ "$commentBody" == "CAST" || "$commentBody" == "castBridge" ]]; then
-            echo "::error title=CAST authorization incomplete::Use /cast androidWeb3Cockpit $mainSha"
-            echo "Short CAST aliases are diagnostic only. Exact current-main SHA is required before dispatch." >&2
+            echo "::error title=CAST authorization incomplete::Use /cast <androidWeb3Cockpit|publicPluginPackage> $mainSha"
+            echo "Short CAST aliases are diagnostic only. Exact milestone + current-main SHA are required before dispatch." >&2
             exit 2
           fi
 
-          if [[ ! "$commentBody" =~ ^/cast[[:space:]]+androidWeb3Cockpit[[:space:]]+([0-9a-f]{40})$ ]]; then
-            echo "::error title=Invalid CAST syntax::Use /cast androidWeb3Cockpit $mainSha"
+          if [[ ! "$commentBody" =~ ^/cast[[:space:]]+(androidWeb3Cockpit|publicPluginPackage)[[:space:]]+([0-9a-f]{40})$ ]]; then
+            echo "::error title=Invalid CAST syntax::Use /cast <androidWeb3Cockpit|publicPluginPackage> $mainSha"
             exit 2
           fi
 
-          requestedSha="${BASH_REMATCH[1]}"
+          requestedMilestone="${BASH_REMATCH[1]}"
+          requestedSha="${BASH_REMATCH[2]}"
           if [[ "$requestedSha" != "$mainSha" ]]; then
             echo "::error title=CAST source drift::requested=$requestedSha currentMain=$mainSha"
             exit 2
           fi
 
           releaseTag="android-web3-${requestedSha:0:8}-r${GITHUB_RUN_ID}"
-          taskId="android-web3-cockpit-cast-${GITHUB_RUN_ID}"
+          if [[ "$requestedMilestone" == "androidWeb3Cockpit" ]]; then
+            taskId="android-web3-cockpit-cast-${GITHUB_RUN_ID}"
+          else
+            taskId="public-plugin-package-cast-${GITHUB_RUN_ID}"
+          fi
           professorActor="${{ github.event.comment.user.login }}"
 
           {
             echo "sourceRef=$requestedSha"
+            echo "requestedMilestone=$requestedMilestone"
             echo "releaseTag=$releaseTag"
             echo "taskId=$taskId"
             echo "professorActor=$professorActor"
@@ -63,6 +69,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Dispatch one exact-source Android Web3 CAST
+        if: steps.cast.outputs.requestedMilestone == 'androidWeb3Cockpit'
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -86,3 +93,23 @@ jobs:
             -f publishPrerelease=true
 
           echo "CAST_DISPATCHED sourceRef=$sourceRef releaseTag=$releaseTag taskId=$taskId"
+
+
+      - name: Dispatch one exact-source Public Plugin Package CAST
+        if: steps.cast.outputs.requestedMilestone == 'publicPluginPackage'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          sourceRef: ${{ steps.cast.outputs.sourceRef }}
+          taskId: ${{ steps.cast.outputs.taskId }}
+        run: |
+          set -euo pipefail
+          gh workflow run public-plugin-package-cast.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --ref main \
+            -f cast=CAST \
+            -f milestoneId=publicReleaseCandidate \
+            -f taskId="$taskId" \
+            -f sourceRef="$sourceRef"
+
+          echo "PUBLIC_PLUGIN_CAST_DISPATCHED sourceRef=$sourceRef taskId=$taskId"
