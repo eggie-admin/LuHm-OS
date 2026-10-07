@@ -10,6 +10,7 @@ on:
       - 'tools/professorGarageInstallGodot.py'
       - 'tools/professorGarageAudit.py'
       - 'tools/ffmpegAiRepairBay.py'
+      - 'tools/professorGarageMediaSmoke.sh'
       - '.github/workflows/professor-garage-source-audit.yml'
   workflow_dispatch:
 
@@ -35,7 +36,19 @@ jobs:
           python3 -m py_compile tools/ffmpegAiRepairBay.py
 
       - name: Validate shell syntax
-        run: bash -n tools/professorGarageBootstrap.sh
+        run: |
+          bash -n tools/professorGarageBootstrap.sh
+          bash -n tools/professorGarageMediaSmoke.sh
 
       - name: Run deterministic source audit
         run: python3 tools/professorGarageAudit.py
+
+      - name: Run FFmpeg repair bay media smoke
+        run: bash tools/professorGarageMediaSmoke.sh
+
+      - name: Upload visual smoke artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: professor-garage-media-smoke
+          path: .garage-smoke/artifact/
+          retention-days: 3
