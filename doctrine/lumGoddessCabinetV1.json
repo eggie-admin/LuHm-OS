@@ -46,7 +46,9 @@
     "skuldOwnsTechnicalLabAuthorityMap": true,
     "lumIsSupremeWitch": true,
     "lumOwnsCorporateLogistics": true,
-    "urdIsDoctorNotLogisticsOwner": true
+    "urdIsDoctorNotLogisticsOwner": true,
+    "metaphorMayChangeAuthority": false,
+    "undefinedConsequentialMetaphorMustVerify": true
   },
   "sharedContextPacket": [
     "taskId",
@@ -283,7 +285,9 @@
     "officialPrimarySourceOutranksCommunityPopularity": true,
     "registryPresenceDoesNotEstablishTrust": true,
     "dictationUncertaintyStaysExplicit": true,
-    "compressedAliasDoesNotGrantAuthority": true
+    "compressedAliasDoesNotGrantAuthority": true,
+    "semanticMetaphorMayNotCreateGreen": true,
+    "semanticMetaphorMayNotCreateCrown": true
   },
   "crownStatus": "STOP",
   "covenantBinding": {
@@ -366,5 +370,6 @@
   ],
   "namingAuthorityReference": "doctrine/namingNamespaceCanonV1.json",
   "helpReference": "doctrine/commandHelpV1.json",
-  "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json"
+  "urdClinicalSecurityPractice": "doctrine/urdClinicalSecurityPracticeV1.json",
+  "semanticBoundary": "doctrine/semanticDomainHardeningV1.json"
 }
