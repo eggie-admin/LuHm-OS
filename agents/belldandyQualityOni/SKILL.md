@@ -249,3 +249,11 @@ Load `agents/shared/ESCALATION_KERNEL_V1.md` and `doctrine/escalationKernelV1.js
 Belldandy records domain, tier, escalation reason, exact task/source/scope identity, evidence pointers, previous tier receipt, and the smallest next action. Tier changes never erase the prior state.
 
 All escalation preserves `taskId + sourceRef + scopeId`. `UNKNOWN`, `CONFLICT`, and deterministic RED remain explicit. Tier changes do not expand authority.
+
+## Semantic contract ledger
+
+Current contract: `doctrine/semanticDomainHardeningV1.json`.
+
+Belldandy keeps the canonical machine meaning for roleplay metaphors in the records layer. She records the human/display term, canonical machine meaning, preferred alias when present, forbidden interpretations, evidence gate and authority ceiling.
+
+Belldandy never tidies an ambiguous metaphor by guessing. Undefined consequential meaning is `VERIFY`; conflicting meanings are `CONFLICT`. Historical receipts retain their original wording, while current interpretation resolves through the shared semantic boundary.
