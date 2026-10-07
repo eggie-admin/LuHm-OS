@@ -20,9 +20,18 @@ on:
         description: Exact 40-character candidate SHA
         required: true
         type: string
+      professorActor:
+        description: Verified Professor GitHub login carried from direct dispatch or CAST bridge
+        required: true
+        type: string
+      castOriginRunId:
+        description: Professor CAST bridge run ID, or direct for owner-authored direct dispatch
+        required: true
+        type: string
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   kaji-public-plugin-package:
@@ -43,9 +52,56 @@ jobs:
 
       - name: Kaji CAST gate
         shell: bash
+        env:
+          CAST_WORD: ${{ inputs.cast }}
+          MILESTONE_ID: ${{ inputs.milestoneId }}
+          TASK_ID: ${{ inputs.taskId }}
+          SOURCE_REF: ${{ inputs.sourceRef }}
+          PROFESSOR_ACTOR: ${{ inputs.professorActor }}
+          CAST_ORIGIN_RUN_ID: ${{ inputs.castOriginRunId }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          python3 tools/forgeCastGate.py             --cast-word "${{ inputs.cast }}"             --milestone-id "${{ inputs.milestoneId }}"             --task-id "${{ inputs.taskId }}"             --source-ref "${{ inputs.sourceRef }}"             --actual-source-ref "$(git rev-parse HEAD)"             --build-scope "publicPluginPackage"             --actor "${{ github.actor }}"             --receipt /tmp/forge-cast-receipt.json
+          actualRef="$(git rev-parse HEAD)"
+          owner="$(gh api "repos/$GITHUB_REPOSITORY" --jq '.owner.login')"
+
+          if [[ "$PROFESSOR_ACTOR" != "$owner" ]]; then
+            echo "CAST provenance denied: professorActor=$PROFESSOR_ACTOR repositoryOwner=$owner" >&2
+            exit 2
+          fi
+
+          if [[ "$GITHUB_ACTOR" == "$PROFESSOR_ACTOR" ]]; then
+            if [[ "$CAST_ORIGIN_RUN_ID" != "direct" ]]; then
+              echo "CAST provenance denied: owner direct dispatch must use castOriginRunId=direct" >&2
+              exit 2
+            fi
+          elif [[ "$GITHUB_ACTOR" == "github-actions[bot]" ]]; then
+            if [[ ! "$CAST_ORIGIN_RUN_ID" =~ ^[0-9]+$ ]]; then
+              echo "CAST provenance denied: bridge dispatch requires numeric origin run ID" >&2
+              exit 2
+            fi
+            originJson="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$CAST_ORIGIN_RUN_ID")"
+            originEvent="$(jq -r '.event' <<<"$originJson")"
+            originActor="$(jq -r '.actor.login' <<<"$originJson")"
+            originSha="$(jq -r '.head_sha' <<<"$originJson")"
+            if [[ "$originEvent" != "issue_comment" || "$originActor" != "$PROFESSOR_ACTOR" || "$originSha" != "$SOURCE_REF" ]]; then
+              echo "CAST provenance denied: origin event/actor/source mismatch" >&2
+              exit 2
+            fi
+          else
+            echo "CAST provenance denied: dispatcher $GITHUB_ACTOR is neither Professor nor trusted bridge bot" >&2
+            exit 2
+          fi
+
+          python3 tools/forgeCastGate.py \
+            --cast-word "$CAST_WORD" \
+            --milestone-id "$MILESTONE_ID" \
+            --task-id "$TASK_ID" \
+            --source-ref "$SOURCE_REF" \
+            --actual-source-ref "$actualRef" \
+            --build-scope "publicPluginPackage" \
+            --actor "$PROFESSOR_ACTOR" \
+            --receipt /tmp/forge-cast-receipt.json
 
       - name: Build deterministic public plugin ZIP
         shell: bash
