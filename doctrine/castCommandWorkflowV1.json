@@ -6,12 +6,12 @@
   "packageIdentity": {
     "packageName": "LuHmOS",
     "packageNamespace": "art.eggiebagelface.LuHmOS.cast",
-    "projectOwnedJqueryDerivedNamesResolveTo": "LuHmOS",
-    "jqueryStyleAlias": "$.LuHmOS.cast",
     "legacyCliAlias": "luhm",
     "aliasResolvesToPackage": "LuHmOS",
     "lumAgentIdentity": "lum",
-    "agentAndPackageAreDistinctIdentities": true
+    "agentAndPackageAreDistinctIdentities": true,
+    "projectOwnedExtensionNamesResolveTo": "LuHmOS",
+    "dollarEntryPoint": "$.LuHmOS.cast"
   },
   "commandSurface": {
     "executable": "LuHmOS",
@@ -162,8 +162,16 @@
   },
   "doctrineBindings": [
     "doctrine/commandHelpV1.json",
+    "doctrine/luHmOSFourLayerArchitectureV1.json",
     "doctrine/PROFESSOR_CAST_BRIDGE_V1.json",
     "doctrine/chatGptPluginCastCompletionV1.json"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "canonicalCompositionArchitecture": "doctrine/luHmOSFourLayerArchitectureV1.json",
+  "legacyNameNormalization": {
+    "legacyDoctrineSource": "doctrine/jqueryFourLayerArchitectureV1.json",
+    "status": "HISTORICAL_COMPATIBILITY_SOURCE",
+    "currentProjectPackageName": "LuHmOS",
+    "currentDoctrineReferencesUseCanonicalName": true
+  }
 }
