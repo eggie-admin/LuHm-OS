@@ -72,7 +72,8 @@
   "matrixLaw": "four source modules by four operational escalation tiers; no one-to-one assignment of module order to escalation authority",
   "references": {
     "namespace": "doctrine/namingNamespaceCanonV1.json#namespaceEscalation",
-    "compositionArchitecture": "doctrine/jqueryFourLayerArchitectureV1.json"
+    "compositionArchitecture": "doctrine/luHmOSFourLayerArchitectureV1.json",
+    "packageCompositionArchitecture": "doctrine/luHmOSFourLayerArchitectureV1.json"
   },
   "promotion": false,
   "crownStatus": "STOP"
