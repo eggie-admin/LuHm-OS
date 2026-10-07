@@ -1,1 +1,66 @@
-undefined
+{
+  "schema": "luhmOs.operationTitan7ExecutionSchema.v1",
+  "status": "STAGED_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Deterministic operation grammar connecting bounded system inspection, mutation and proof to OperationTitan7 milestone conditions.",
+  "modes": {
+    "system": {
+      "mutationAllowed": false,
+      "meaning": "Resolve canonical sourceRef, source truth, active milestone, authority, blockers and nearest known-good checkpoint."
+    },
+    "apply": {
+      "mutationAllowed": true,
+      "meaning": "Apply exactly one authorized bounded reversible mutation to the active candidate lane.",
+      "requires": [
+        "systemGreen",
+        "exactSourceRef",
+        "activeMilestone",
+        "rollbackCheckpoint",
+        "boundedScope"
+      ]
+    },
+    "test": {
+      "mutationAllowed": false,
+      "meaning": "Run deterministic tests and affected Titan7 audit tiers against the exact candidate sourceRef.",
+      "requires": [
+        "exactSourceRef",
+        "testPlan"
+      ]
+    },
+    "all": {
+      "mutationAllowed": "conditional",
+      "meaning": "Sequence system -> apply -> test and repeat only while milestone conditioning permits.",
+      "sequence": [
+        "system",
+        "apply",
+        "test"
+      ],
+      "repeat": "untilMilestoneSatisfiedOrGateStops"
+    }
+  },
+  "milestoneCondition": {
+    "required": true,
+    "predicate": "activeMilestone && exactSourceRef && authorityResolved && noUnresolvedRedOutsideBoundedRepair && crownBoundaryPreserved",
+    "onTrue": "advanceHighestJustifiedTier",
+    "onFalse": "stopAtNearestEvidenceBackedKnownGood",
+    "deterministicFailure": "repairFailedBoundaryThenRerunAffectedTier",
+    "physicalOrExternalProofMissing": "WAIT_HUMAN",
+    "crown": "STOP_UNTIL_PROFESSOR_PROMOTION"
+  },
+  "invariants": [
+    "allNeverMeansUnboundedMutation",
+    "testNeverPromotes",
+    "applyNeverSelfGreens",
+    "historicalGreenIsNotCurrentGreen",
+    "unknownRemainsUnknown",
+    "oneMutableCandidateLane",
+    "maxThreeSupportWorkers"
+  ],
+  "operationTitan7Ref": "doctrine/operationTitan7FinalFormV1.json",
+  "crownStatus": "STOP",
+  "greenClaim": false,
+  "operationTitanFunctionRef": "LuHmOS.fn.operationTitan",
+  "operationTitanBuildVersion": 7,
+  "operationTitanNamespaceRef": "doctrine/namingNamespaceCanonV1.json#namespaceEscalation",
+  "modularSourceArchitecture": "doctrine/modularSourceArchitectureV1.json"
+}
