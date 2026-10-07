@@ -14,7 +14,8 @@
     "readOnly": true,
     "writeToolsAllowed": false,
     "mutationAuthority": false,
-    "greenAuthority": false
+    "greenAuthority": false,
+    "portableCodingRoleplay": "plugins/luhm-os/skills/luhm-coding-roleplay/SKILL.md"
   },
   "currentContracts": {
     "sourceTruth": "doctrine/currentSourceTruthV3.json",
@@ -65,5 +66,16 @@
   "crownStatus": "STOP",
   "crownFlow": "doctrine/chatGptPluginCrownFlowV1.json",
   "runtimeReceipt": "doctrine/chatGptPluginRuntimeReceiptV1.json",
-  "publicPackageReceipt": "doctrine/publicPluginPackageReceiptV1.json"
+  "publicPackageReceipt": "doctrine/publicPluginPackageReceiptV1.json",
+  "packageVersion": "0.5.0",
+  "manualUpload": {
+    "installContract": "doctrine/manualPluginVirginInstallV1.json",
+    "installMode": "virginInstall",
+    "artifact": "build/manual-plugin/luhm-os-manual-upload-0.5.0.zip",
+    "priorPluginStateRequired": false,
+    "migrationRequired": false,
+    "codingRoleplaySkill": "plugins/luhm-os/skills/luhm-coding-roleplay/SKILL.md",
+    "builder": "tools/buildManualPluginPackage.py",
+    "audit": "tools/manualPluginVirginInstallAudit.py"
+  }
 }
