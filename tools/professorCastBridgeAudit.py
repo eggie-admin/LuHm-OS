@@ -30,6 +30,7 @@ for token in (
     "requestedSha",
     "mainSha",
     "gh workflow run android-testing-build.yml",
+    "gh workflow run public-plugin-package-cast.yml",
     "--ref main",
     "-f cast=cast",
     "-f milestoneId=androidWeb3Cockpit",
@@ -37,6 +38,7 @@ for token in (
     "-f professorActor=\"$professorActor\"",
     "-f castOriginRunId=\"$castOriginRunId\"",
     "-f publishPrerelease=true",
+    "-f milestoneId=publicReleaseCandidate",
 ):
     require(token in workflow, f"bridge missing required guard/control: {token}")
 
@@ -48,8 +50,8 @@ require("push:" not in workflow, "push trigger forbidden")
 require("schedule:" not in workflow, "scheduled CAST forbidden")
 for bad in ("MAIN_SHA", "REQUESTED_SHA", "SOURCE_REF", "RELEASE_TAG", "TASK_ID", "PROFESSOR_ACTOR", "CAST_ORIGIN_RUN_ID"):
     require(bad not in workflow, f"non-camelHump internal shell variable forbidden: {bad}")
-require(re.search(r"\^/cast\[\[:space:\]\]\+androidWeb3Cockpit", workflow) is not None,
-        "exact CAST syntax regex missing")
+require(re.search(r"\^/cast\[\[:space:\]\]\+\(androidWeb3Cockpit\|publicPluginPackage\)", workflow) is not None,
+        "exact multi-milestone CAST syntax regex missing")
 require("requested=$requestedSha currentMain=$mainSha" in workflow,
         "source drift failure path missing")
 require('echo "professorActor=$professorActor"' in workflow,
@@ -60,6 +62,7 @@ require('echo "castOriginRunId=$GITHUB_RUN_ID"' in workflow,
 require(doctrine.get("authority") == "Professor", "Professor authority drift")
 trigger = doctrine.get("trigger", {})
 require(trigger.get("requiredActor") == "github.repository_owner", "owner-only actor rule drift")
+require(trigger.get("allowedMilestones") == ["androidWeb3Cockpit","publicPluginPackage"], "allowed CAST milestones drift")
 require(trigger.get("exactMainMatch") is True, "exact-main rule drift")
 safety = doctrine.get("safety", {})
 for key in ("noPersistentBuildAuthorization","noWildcardActor","noSourceDrift",
@@ -67,6 +70,7 @@ for key in ("noPersistentBuildAuthorization","noWildcardActor","noSourceDrift",
             "noBotImpersonation","botMayTransportAuthorizationOnlyWithVerifiedOrigin"):
     require(safety.get(key) is True, f"safety flag must remain true: {key}")
 require(doctrine.get("crownStatus") == "STOP", "Crown must remain STOP")
+require(doctrine.get("dispatch",{}).get("publicPluginPackage",{}).get("workflow") == "public-plugin-package-cast.yml", "public plugin CAST dispatch missing")
 require(trigger.get("diagnosticAliases") == ["CAST", "castBridge"], "diagnostic alias contract drift")
 require(trigger.get("diagnosticAliasesDispatch") is False, "short aliases must never dispatch")
 require(trigger.get("invalidAuthorizationFailsLoud") is True, "invalid authorization must fail loud")
