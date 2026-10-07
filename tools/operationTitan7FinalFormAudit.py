@@ -1,57 +1,115 @@
 #!/usr/bin/env python3
 import json, pathlib, subprocess, sys
-root=pathlib.Path(__file__).resolve().parents[1]
-errors=[]
-def load(p):
-    try:return json.loads((root/p).read_text())
-    except Exception as e: errors.append(f"{p}: {e}"); return {}
-ff=load("doctrine/operationTitan7FinalFormV1.json")
-mil=load("doctrine/projectHydraFinalAuditMilestoneV1.json")
-fleet=load("doctrine/OPERATION_TITAN7_WATCH_FLEET_V1.json")
-execSchema=load("doctrine/operationTitan7ExecutionSchemaV1.json")
-for p in ["agents/lum/SKILL.md","agents/urdMutationOni/SKILL.md","agents/goddessSharedSystemsPractice/SKILL.md","agents/witchingHourCoding/SKILL.md","tools/titan7WatchFleet.py","tools/fullSourceTruthAudit.py",".github/workflows/operation-titan7-watch-fleet.yml",".github/workflows/full-source-truth-audit.yml"]:
-    if not (root/p).is_file(): errors.append("missing "+p)
-if ff.get("authority")!="Professor": errors.append("final form authority")
-if ff.get("crownStatus")!="STOP": errors.append("candidate must stop at Crown")
-if ff.get("greenClaim") is not False: errors.append("candidate may not self-green")
-if len(fleet.get("watches",[]))<20: errors.append("Titan7 fleet below 20 watches")
-if mil.get("auditProtocol",{}).get("harness")!="operationTitan7": errors.append("final milestone not bound to Titan7")
-if ff.get("executionSchema")!="doctrine/operationTitan7ExecutionSchemaV1.json": errors.append("final form execution schema binding")
-if ff.get("executionModes")!=["system","apply","test","all"]: errors.append("execution mode grammar drift")
-if ff.get("milestoneConditionRequired") is not True: errors.append("milestone condition not required")
-if list(execSchema.get("modes",{}).keys())!=["system","apply","test","all"]: errors.append("execution schema modes")
-if execSchema.get("milestoneCondition",{}).get("required") is not True: errors.append("execution milestone condition disabled")
-if execSchema.get("modes",{}).get("all",{}).get("sequence")!=["system","apply","test"]: errors.append("all mode sequence drift")
-if execSchema.get("crownStatus")!="STOP" or execSchema.get("greenClaim") is not False: errors.append("execution schema authority drift")
-wh=(root/"agents/witchingHourCoding/SKILL.md").read_text()
-for term in ["exact sourceRef","urdDoctorGoddess","belldandySecretary","skuldResearch","Shiori","Kugi","nearest evidence-backed known-good"]:
-    if term not in wh: errors.append("witching hour missing "+term)
 
-whc=ff.get("witchingHour",{})
-if whc.get("requiresUrdDoctorDiagnosis") is not True: errors.append("Urd doctor diagnosis gate missing")
-if whc.get("requiresBelldandySecretaryStateAudit") is not True: errors.append("Belldandy secretary state gate missing")
-if whc.get("requiresSkuldResearchCompatibility") is not True: errors.append("Skuld research compatibility gate missing")
-trigger=load("doctrine/operationTitan7ChatTriggerV2.json")\neighth=load("doctrine/eighthNoteAgentScopeV1.json")
-naming=load("doctrine/namingNamespaceCanonV1.json")
-if trigger.get("entryPoint")!="LuHmOS.fn.operationTitan": errors.append("Operation Titan function name drift")
-if trigger.get("buildVersion")!=7: errors.append("Operation Titan build version drift")
-if trigger.get("invocationPath")!="LuHmOS.fn.operationTitan.7.finalForm.finalBoss": errors.append("Operation Titan invocation path drift")
-if trigger.get("namespaceLadder")!=naming.get("namespaceEscalation"): errors.append("Operation Titan namespace binding drift")
-if ff.get("functionRef")!="LuHmOS.fn.operationTitan" or ff.get("buildVersion")!=7: errors.append("Final Form function/version binding drift")
-if "finalBoss" not in ff.get("stages",[]): errors.append("finalBoss stage missing")
-fb=ff.get("finalBoss",{})
-if fb.get("agentScope")!="allCanonicalAgentsInCurrentDeploymentRegistry": errors.append("finalBoss canonical roster coverage missing")
-if fb.get("maxParallelism")!=3 or fb.get("recursiveRecruitment") is not False: errors.append("finalBoss bounded orchestration drift")
-if fb.get("crownStatus")!="STOP": errors.append("finalBoss Crown boundary drift")
-if fb.get("delegatedCrown",{}).get("delegate")!="lum": errors.append("finalBoss must delegate scoped Crown to Lum")
-if "deployVerifiedAiScopeChanges" not in fb.get("delegatedCrown",{}).get("permittedActions",[]): errors.append("finalBoss AI deployment authority missing")
-if fb.get("delegatedCrown",{}).get("returnCondition")!="returnDelegatedCrownToProfessorAtMilestoneCompletionOrStop": errors.append("finalBoss Crown return boundary drift")
-if eighth.get("meter",{}).get("notesPerMeasure")!=8 or len(eighth.get("notes",[]))!=8: errors.append("eighth-note agent scope must contain eight notes")
-if eighth.get("authorityChain")!=["vendorAiProvider","focusedMiniAgents","goddessAuditors","lumCustomAgentBoss"]: errors.append("eighth-note authority chain drift")
-if eighth.get("finalBossDelegation",{}).get("delegate")!="lum": errors.append("eighth-note FinalBoss delegation drift")
+root = pathlib.Path(__file__).resolve().parents[1]
+errors = []
 
-head=subprocess.check_output(["git","rev-parse","HEAD"],cwd=root,text=True).strip()
-report={"schema":"luhmOs.operationTitan7FinalFormAudit.v1","sourceCommit":head,"status":"GREEN_STAGED_OPERATION_TITAN7_FINAL_FORM" if not errors else "RED_OPERATION_TITAN7_FINAL_FORM","contractErrors":errors,"stagedOnly":True,"physicalDeviceProof":False,"crownStatus":"STOP"}
-out=root/"build/operation-titan7-final-form";out.mkdir(parents=True,exist_ok=True);(out/"report.json").write_text(json.dumps(report,indent=2)+"\n")
-print(json.dumps(report,indent=2))
+def load(path):
+    try:
+        return json.loads((root / path).read_text())
+    except Exception as exc:
+        errors.append(f"{path}: {exc}")
+        return {}
+
+ff = load("doctrine/operationTitan7FinalFormV1.json")
+milestone = load("doctrine/projectHydraFinalAuditMilestoneV1.json")
+fleet = load("doctrine/OPERATION_TITAN7_WATCH_FLEET_V1.json")
+execution = load("doctrine/operationTitan7ExecutionSchemaV1.json")
+trigger = load("doctrine/operationTitan7ChatTriggerV2.json")
+eighth = load("doctrine/eighthNoteAgentScopeV1.json")
+naming = load("doctrine/namingNamespaceCanonV1.json")
+
+required_files = [
+    "agents/lum/SKILL.md",
+    "agents/urdMutationOni/SKILL.md",
+    "agents/goddessSharedSystemsPractice/SKILL.md",
+    "agents/witchingHourCoding/SKILL.md",
+    "tools/titan7WatchFleet.py",
+    "tools/fullSourceTruthAudit.py",
+    ".github/workflows/operation-titan7-watch-fleet.yml",
+    ".github/workflows/full-source-truth-audit.yml",
+]
+for path in required_files:
+    if not (root / path).is_file():
+        errors.append("missing " + path)
+
+if ff.get("authority") != "Professor":
+    errors.append("final form authority")
+if ff.get("crownStatus") != "STOP":
+    errors.append("candidate must stop at Crown")
+if ff.get("greenClaim") is not False:
+    errors.append("candidate may not self-green")
+if len(fleet.get("watches", [])) < 20:
+    errors.append("Titan7 fleet below 20 watches")
+if milestone.get("auditProtocol", {}).get("harness") != "operationTitan7":
+    errors.append("final milestone not bound to Titan7")
+if ff.get("executionSchema") != "doctrine/operationTitan7ExecutionSchemaV1.json":
+    errors.append("final form execution schema binding")
+if ff.get("executionModes") != ["system", "apply", "test", "all"]:
+    errors.append("execution mode grammar drift")
+if ff.get("milestoneConditionRequired") is not True:
+    errors.append("milestone condition not required")
+if list(execution.get("modes", {}).keys()) != ["system", "apply", "test", "all"]:
+    errors.append("execution schema modes")
+if execution.get("milestoneCondition", {}).get("required") is not True:
+    errors.append("execution milestone condition disabled")
+if execution.get("modes", {}).get("all", {}).get("sequence") != ["system", "apply", "test"]:
+    errors.append("all mode sequence drift")
+if execution.get("crownStatus") != "STOP" or execution.get("greenClaim") is not False:
+    errors.append("execution schema authority drift")
+
+wh_path = root / "agents/witchingHourCoding/SKILL.md"
+if wh_path.is_file():
+    wh = wh_path.read_text()
+    for term in ["exact sourceRef", "urdDoctorGoddess", "belldandySecretary",
+                 "skuldResearch", "Shiori", "Kugi", "nearest evidence-backed known-good"]:
+        if term not in wh:
+            errors.append("witching hour missing " + term)
+
+wh_contract = ff.get("witchingHour", {})
+if wh_contract.get("requiresUrdDoctorDiagnosis") is not True:
+    errors.append("Urd doctor diagnosis gate missing")
+if wh_contract.get("requiresBelldandySecretaryStateAudit") is not True:
+    errors.append("Belldandy secretary state gate missing")
+if wh_contract.get("requiresSkuldResearchCompatibility") is not True:
+    errors.append("Skuld research compatibility gate missing")
+
+if trigger.get("entryPoint") != "LuHmOS.fn.operationTitan":
+    errors.append("Operation Titan function name drift")
+if trigger.get("buildVersion") != 7:
+    errors.append("Operation Titan build version drift")
+if naming.get("namespaceEscalation", {}).get("operationTitanBinding", {}).get("functionRef") != trigger.get("entryPoint"):
+    errors.append("Operation Titan namespace binding drift")
+if naming.get("namespaceEscalation", {}).get("operationTitanBinding", {}).get("buildVersion") != trigger.get("buildVersion"):
+    errors.append("Operation Titan build binding drift")
+if ff.get("functionRef") != "LuHmOS.fn.operationTitan" or ff.get("buildVersion") != 7:
+    errors.append("Final Form function/version binding drift")
+if "finalBoss" in ff or "finalBoss" in trigger:
+    errors.append("personal/session authority token must not be encoded in doctrine")
+if execution.get("terminalEscalation") or execution.get("finalBossDelegation"):
+    errors.append("execution schema must not grant authority")
+
+if eighth.get("meter", {}).get("notesPerMeasure") != 8 or len(eighth.get("notes", [])) != 8:
+    errors.append("eighth-note agent scope must contain eight notes")
+if eighth.get("workflowChain") != ["vendorAiProvider", "focusedMiniAgents", "goddessAuditors", "lumCustomAgentBoss"]:
+    errors.append("eighth-note workflow chain drift")
+if eighth.get("scopeContract", {}).get("noAuthorityFromWorkflow") is not True:
+    errors.append("workflow must not create authority")
+if "finalBossDelegation" in eighth:
+    errors.append("personal/session authority token must not be encoded in doctrine")
+
+head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
+report = {
+    "schema": "luhmOs.operationTitan7FinalFormAudit.v1",
+    "sourceCommit": head,
+    "status": "GREEN_STAGED_OPERATION_TITAN7_FINAL_FORM" if not errors else "RED_OPERATION_TITAN7_FINAL_FORM",
+    "contractErrors": errors,
+    "stagedOnly": True,
+    "physicalDeviceProof": False,
+    "crownStatus": "STOP",
+}
+out = root / "build/operation-titan7-final-form"
+out.mkdir(parents=True, exist_ok=True)
+(out / "report.json").write_text(json.dumps(report, indent=2) + "\n")
+print(json.dumps(report, indent=2))
 sys.exit(1 if errors else 0)
