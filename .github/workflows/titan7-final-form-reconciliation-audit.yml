@@ -1,6 +1,18 @@
 name: Titan7 Final Form Reconciliation Audit
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'doctrine/activeRepositorySetV1.json'
+      - 'doctrine/chatGptPluginWorkflowStreamV1.json'
+      - 'doctrine/operationTitan7FinalFormV1.json'
+      - 'doctrine/projectHydraFinalAuditMilestoneV1.json'
+      - 'doctrine/openPrReconciliationV2.json'
+      - 'doctrine/agentSystemDeploymentV1.json'
+      - 'tools/operationTitan7FinalFormAudit.py'
+      - 'tools/chatGptPluginWorkflowStreamAudit.py'
+      - '.github/workflows/titan7-final-form-reconciliation-audit.yml'
   pull_request:
     paths:
       - 'doctrine/activeRepositorySetV1.json'
