@@ -7,7 +7,9 @@ on:
       - '.github/workflows/public-plugin-package-cast.yml'
       - '.github/workflows/professor-cast-bridge-audit.yml'
       - 'tools/professorCastBridgeAudit.py'
+      - 'tools/chatGptPluginCastCompletionAudit.py'
       - 'doctrine/PROFESSOR_CAST_BRIDGE_V1.json'
+      - 'doctrine/chatGptPluginCastCompletionV1.json'
   workflow_dispatch:
 
 permissions:
@@ -36,3 +38,9 @@ jobs:
         run: |
           set -euo pipefail
           python3 tools/professorCastBridgeAudit.py
+
+      - name: Audit current-chat plugin CAST completion
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/chatGptPluginCastCompletionAudit.py
