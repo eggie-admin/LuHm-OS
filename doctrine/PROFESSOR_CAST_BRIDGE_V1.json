@@ -1,9 +1,10 @@
 {
-  "schema": "luhm-os.professor-cast-bridge.v4",
-  "date": "2026-10-02",
+  "schema": "luhm-os.professor-cast-bridge.v5",
+  "date": "2026-10-07",
   "status": "PROPOSED_HARDENED_MULTI_MILESTONE_CONTROL_PLANE",
   "authority": "Professor",
-  "purpose": "Allow an explicit owner-authored GitHub PR comment containing an allowed milestone and exact current-main SHA to dispatch exactly one CAST-gated build/package workflow.",
+  "purpose": "Allow an explicit owner-authored GitHub PR comment containing an allowed milestone and exact current-main SHA to dispatch exactly one CAST-gated build/package workflow. A publicPluginPackage dispatch is only the package substep of ChatGPT CAST and can never by itself equal installed/current-chat CAST completion.",
+  "completionContract": "doctrine/chatGptPluginCastCompletionV1.json",
   "trigger": {
     "event": "issue_comment.created",
     "requiresPullRequestContext": true,
@@ -35,7 +36,13 @@
       "ref": "main",
       "cast": "CAST",
       "milestoneId": "publicReleaseCandidate",
-      "publishAuthority": false
+      "publishAuthority": false,
+      "completionMeaning": "PACKAGE_READY_ONLY",
+      "finalCastRequires": [
+        "chatGptHostInstallProved",
+        "currentConversationInvocationProved",
+        "luhmOpenCockpitRuntimeProved"
+      ]
     }
   },
   "safety": {
@@ -48,7 +55,9 @@
     "noCrownAuthority": true,
     "noBotImpersonation": true,
     "botMayTransportAuthorizationOnlyWithVerifiedOrigin": true,
-    "noImplicitShortAliasDispatch": true
+    "noImplicitShortAliasDispatch": true,
+    "noPackageEqualsFinalPluginCast": true,
+    "noForgedChatGptHostReceipt": true
   },
   "crownStatus": "STOP",
   "provenance": {
