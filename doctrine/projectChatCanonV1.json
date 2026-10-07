@@ -131,7 +131,16 @@
     "professorOldMagicStudy": "doctrine/professorOldMagicStudyMeshV2.json",
     "openingDayFirstRun": true,
     "providerRouting": "capabilityFirstThroughApiSpine",
-    "cloudflareRole": "networkAirTrafficControllerOnly"
+    "cloudflareRole": "networkAirTrafficControllerOnly",
+    "eighthNoteAgentScope": {
+      "contract": "doctrine/eighthNoteAgentScopeV1.json",
+      "loadWhen": [
+        "aiAgentEnablement",
+        "miniAgentScopeWork",
+        "finalBoss"
+      ],
+      "lazyLoaded": true
+    }
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
