@@ -106,5 +106,30 @@
     "newCurrentAuthorityMustDeclareNamespace": true
   },
   "helpContract": "doctrine/commandHelpV1.json",
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "namespaceEscalation": {
+    "orderedLayers": [
+      "machineSqlDragonTail",
+      "repositoryKebabNamespace",
+      "vowelRippedStrictCamelHump",
+      "fullHumanCenteredCamelHump"
+    ],
+    "example": {
+      "machineSqlDragonTail": "OPERATION_TITAN",
+      "repositoryKebabNamespace": {
+        "slug": "operation-titan",
+        "namespacePattern": "art.eggiebagelface.LuHmOS.*",
+        "purpose": "unify repository naming and provide a drift-protection boundary"
+      },
+      "vowelRippedStrictCamelHump": "oprtTtn",
+      "fullHumanCenteredCamelHump": "operationTitan"
+    },
+    "identityLaw": "all layers resolve to one canonical human-centered identity; compression and formatting do not change target, authority, or execution",
+    "executionLaw": "names and aliases resolve identity only; workflow execution requires its separately defined explicit intent/trigger",
+    "operationTitanBinding": {
+      "functionRef": "LuHmOS.fn.operationTitan",
+      "buildVersion": 7,
+      "invocationPath": "LuHmOS.fn.operationTitan.7.finalForm.finalBoss"
+    }
+  }
 }
