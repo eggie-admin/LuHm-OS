@@ -4,7 +4,7 @@
   "authority": "Professor",
   "purpose": "Resolve Professor-facing technological audit escalation into the fastest evidence-backed path from normal machine checks through FFS, Scorched Earth, and Final Form without granting merge, deploy, release, or Crown authority.",
   "sourceLaw": "AI proposes. Policy authorizes. Deterministic evidence proves. Professor promotes.",
-  "entryPoint": "jQuery.fn.operationTitan7",
+  "entryPoint": "LuHmOS.fn.operationTitan",
   "escalationOrder": [
     "forFuckSake",
     "scorchedEarth",
@@ -37,7 +37,8 @@
       ],
       "passTarget": "structural",
       "meaning": "absolute reconcile/rip-out-and-replace audit after lower tiers cannot close the blocker",
-      "mutation": "structuralReconcileWithinCurrentTaskEnvelope"
+      "mutation": "structuralReconcileWithinCurrentTaskEnvelope",
+      "terminalMode": "finalBoss"
     }
   },
   "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
@@ -93,5 +94,22 @@
     "finalForm": 3
   },
   "kernel": "doctrine/escalationKernelV1.json",
-  "profileId": "technology"
+  "profileId": "technology",
+  "buildVersion": 7,
+  "invocationPath": "LuHmOS.fn.operationTitan.7.finalForm.finalBoss",
+  "versionLaw": "operationTitan is the function; 7 is the current build version and remains separate from the function name.",
+  "finalBoss": {
+    "activation": "automaticallyAfterFinalFormIsSelectedAndRequiredAuditStagesComplete",
+    "agentScope": "allCanonicalAgentsInCurrentDeploymentRegistry",
+    "registry": "doctrine/agentSystemDeploymentV1.json",
+    "orchestrator": "lum",
+    "approvalMeaning": "all canonical agents return evidence-backed review dispositions for Lum reconciliation",
+    "requiredDisposition": "APPROVE_WITH_EVIDENCE_OR_BLOCK",
+    "missingDisposition": "BLOCK_FINAL_BOSS",
+    "maxParallelism": 3,
+    "recursiveRecruitment": false,
+    "authority": "Professor retains Crown; agent approval cannot merge, deploy, release, sign, publish, or self-promote",
+    "completion": "ALL_AGENT_DISPOSITIONS_RECONCILED_READY_FOR_PROFESSOR_CROWN",
+    "crownStatus": "STOP"
+  }
 }
