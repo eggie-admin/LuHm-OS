@@ -1,1 +1,101 @@
-undefined
+{
+  "schema": "luhmOs.operationTitan7ChatTrigger.v2",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "purpose": "Route technology escalation through evidence-backed tiers. finalForm selects structural audit intensity; task authority is resolved from the active Professor task envelope.",
+  "sourceLaw": "AI proposes. Policy authorizes. Deterministic evidence proves. Professor promotes.",
+  "entryPoint": "LuHmOS.fn.operationTitan",
+  "escalationOrder": [
+    "forFuckSake",
+    "scorchedEarth",
+    "finalForm"
+  ],
+  "escalations": {
+    "forFuckSake": {
+      "aliases": [
+        "FFS!",
+        "For Fuck Sake!",
+        "for fuck sake"
+      ],
+      "passTarget": 25,
+      "meaning": "first-tier hard audit",
+      "mutation": "boundedRepairOnly"
+    },
+    "scorchedEarth": {
+      "aliases": [
+        "Scorched Earth",
+        "scorched earth"
+      ],
+      "passTarget": 50,
+      "meaning": "second-tier deep audit",
+      "mutation": "boundedRepairOnly"
+    },
+    "finalForm": {
+      "aliases": [
+        "Final Form",
+        "final form"
+      ],
+      "passTarget": "structural",
+      "meaning": "absolute reconcile/rip-out-and-replace audit after lower tiers cannot close the blocker",
+      "mutation": "structuralReconcileWithinCurrentTaskEnvelope"
+    }
+  },
+  "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
+  "guardRail": "doctrine/everlastingCovenantV1.json",
+  "laws": [
+    "phraseSelectsAuditIntensityNotAuthority",
+    "noTitanFleet",
+    "sourceRefChangeRestartsProof",
+    "deterministicRedStopsAdvancement",
+    "physicalProofNeverInferred",
+    "castMergeDeployPublishSignCrownRemainSeparateConsequences",
+    "escalationRoomUsesSmallestFocusedStaff",
+    "lumChairsEscalationUrdDiagnoses",
+    "technologyFastPathIsDefaultTierZero",
+    "escalateOnlyWhenCurrentTierCannotCloseBlocker",
+    "technologyAuditDoesNotOwnCreativeJudgment",
+    "fastPathPreservesTaskIdSourceRefScopeId",
+    "workflowNamesDoNotGrantAuthority"
+  ],
+  "promotion": false,
+  "crownStatus": "STOP",
+  "workflowRooms": "doctrine/escalationWorkflowRoomsV1.json",
+  "technologyAuditFocus": {
+    "scope": "softwareBuildRuntimeCompatibilitySecurityNetworkAndroidGodotPluginMcpAndInfrastructureTruth",
+    "notPrimaryFor": [
+      "fineArtJudgment",
+      "commercialArtDirection",
+      "recordsHousekeepingUnlessTechnicalBlocker",
+      "ordinaryConversation"
+    ],
+    "fastPathFirst": true,
+    "defaultTier": 0
+  },
+  "tierZero": {
+    "id": "technologyFastPath",
+    "tier": 0,
+    "trigger": "FAST PATH;",
+    "meaning": "normal evidence-backed technological audit and repair lane before escalated hard-audit protocols",
+    "required": [
+      "exactSourceRef",
+      "smallestFailingGate",
+      "deterministicChecks",
+      "boundedRepairWhenAuthorized",
+      "sameGateReproof"
+    ],
+    "staffPolicy": "minimumSpecialistsOnly",
+    "providerPolicy": "reuseReceiptsAndLocalDeterministicEvidenceFirst",
+    "exit": "GREEN_FOR_SCOPE_OR_ESCALATE_TO_FFS"
+  },
+  "escalationTierMap": {
+    "technologyFastPath": 0,
+    "forFuckSake": 1,
+    "scorchedEarth": 2,
+    "finalForm": 3
+  },
+  "kernel": "doctrine/escalationKernelV1.json",
+  "profileId": "technology",
+  "buildVersion": 7,
+  "versionLaw": "operationTitan is the function; 7 is the current build version and remains separate from the function name.",
+  "modularSourceArchitecture": "doctrine/modularSourceArchitectureV1.json"
+}
