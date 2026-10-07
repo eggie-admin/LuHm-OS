@@ -97,7 +97,7 @@ def register_harness(
     precision_command_path = root / "doctrine" / "chatPrecisionCommandV1.json"
     after_hours_path = root / "doctrine" / "afterHoursExperienceV1.json"
 
-    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path)):
+    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     resource_meta: dict[str, Any] = {
