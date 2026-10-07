@@ -53,5 +53,6 @@
   "namespaceRef": "doctrine/namingNamespaceCanonV1.json#namespaceEscalation",
   "escalationOption": "finalForm",
   "eighthNoteScope": "doctrine/eighthNoteAgentScopeV1.json",
-  "modularSourceArchitecture": "doctrine/modularSourceArchitectureV1.json"
+  "modularSourceArchitecture": "doctrine/modularSourceArchitectureV1.json",
+  "castCommandWorkflow": "doctrine/castCommandWorkflowV1.json"
 }
