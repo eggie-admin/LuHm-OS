@@ -122,7 +122,14 @@
     "turnaroundBeat": "verify",
     "nextMeasure": "continueSameTierOrEscalate",
     "verticalDepth": "escalationTier0To3",
-    "matrix": "fourBeatsByFourEscalationTiers"
+    "matrix": "fourBeatsByFourEscalationTiers",
+    "eighthNoteScope": "eight focused substeps nest within the 4/4 hear-resolve-act-verify measure"
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "eighthNoteSubdivision": {
+    "contract": "doctrine/eighthNoteAgentScopeV1.json",
+    "notesPerMeasure": 8,
+    "notesPerBeat": 2,
+    "purpose": "focused scope-of-practice routing for provider AI, mini-agents, goddess audits and Lum"
+  }
 }
