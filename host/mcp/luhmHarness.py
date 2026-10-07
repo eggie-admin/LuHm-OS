@@ -96,6 +96,8 @@ def register_harness(
     traffic_controller_path = root / "doctrine" / "cloudflareAirTrafficControllerV1.json"
     precision_command_path = root / "doctrine" / "chatPrecisionCommandV1.json"
     after_hours_path = root / "doctrine" / "afterHoursExperienceV1.json"
+    coding_roleplay_path = root / "doctrine" / "codingRoleplayDirectorV2.json"
+    virgin_install_path = root / "doctrine" / "manualPluginVirginInstallV1.json"
 
     if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
@@ -122,6 +124,12 @@ def register_harness(
     traffic_controller = json.loads(traffic_controller_path.read_text(encoding="utf-8"))
     precision_command = json.loads(precision_command_path.read_text(encoding="utf-8"))
     after_hours = json.loads(after_hours_path.read_text(encoding="utf-8"))
+    coding_roleplay = json.loads(coding_roleplay_path.read_text(encoding="utf-8"))
+    virgin_install = json.loads(virgin_install_path.read_text(encoding="utf-8"))
+    if coding_roleplay.get("schema") != "luhmOs.codingRoleplayDirector.v2":
+        raise RuntimeError("RED_CODING_ROLEPLAY_SCHEMA")
+    if virgin_install.get("schema") != "luhmOs.manualPluginVirginInstall.v1":
+        raise RuntimeError("RED_VIRGIN_INSTALL_SCHEMA")
     if experience.get("schema") != "luhmOs.inChatExperience.v1":
         raise RuntimeError("RED_IN_CHAT_EXPERIENCE_SCHEMA")
     if experience.get("runtime", {}).get("resourceUri") != UI_RESOURCE_URI:
@@ -178,6 +186,8 @@ def register_harness(
             "trafficController": traffic_controller,
             "precisionCommands": precision_command,
             "afterHours": after_hours,
+            "codingRoleplay": coding_roleplay,
+            "virginInstall": virgin_install,
             "status": status_provider(),
             "roster": roster_provider(),
             "harness": {
