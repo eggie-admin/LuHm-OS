@@ -1,0 +1,111 @@
+{
+  "schema": "luhmOs.professorGarageWorkspace.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "boss": "lum",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Define Professor's Garage as a reproducible GitHub Codespaces Linux workshop for media repair, deterministic FFmpeg assembly, Godot and Blender support, source mutation, static audits, and bounded provider-assisted development.",
+  "escalationTier": "professorGarageLab",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "workflowBudget": "doctrine/githubWorkflowBudgetV1.json",
+  "forgeContract": "doctrine/forgeTwinsV3.json",
+  "repairBayContract": "doctrine/ffmpegAiRepairBayV1.json",
+  "workspace": {
+    "provider": "githubCodespaces",
+    "config": ".devcontainer/devcontainer.json",
+    "bootstrap": "tools/professorGarageBootstrap.sh",
+    "audit": "tools/professorGarageAudit.py",
+    "remoteShell": "gh codespace ssh",
+    "publicSshPortRequired": false,
+    "cacheRootEnv": "PROFESSOR_GARAGE_CACHE",
+    "defaultCacheRoot": "/home/codespace/.cache/luhm/professor-garage",
+    "durableBinaryStore": "googleDrive",
+    "sourceAndReceiptStore": "github"
+  },
+  "cabinet": {
+    "lum": "orchestrationReconciliationAndProfessorFacingControl",
+    "urdDoctorGoddess": "truthGuardRiskEvidenceAndRollbackSanity",
+    "belldandySecretary": "stateReceiptsNamingAndWorkspaceContinuity",
+    "skuldResearch": "toolchainArchitectureCompatibilityAndPinnedDependencyResearch",
+    "Tetsu": "sourceForgeProtectIngestMutateVerify",
+    "Kaji": "compileForgePrepareCastBuildHashReceipt",
+    "gitDaddy": "githubCanonicalSourceCiReceiptsAndEvidenceGuard",
+    "githubCopilot": "repositoryCompatibilityAndCodingAdviceOnly"
+  },
+  "toolchain": {
+    "required": [
+      "git",
+      "gh",
+      "python3",
+      "pipx",
+      "node",
+      "npm",
+      "ffmpeg",
+      "ffprobe",
+      "imagemagick",
+      "mediainfo",
+      "exiftool",
+      "jq",
+      "sqlite3",
+      "build-essential",
+      "cmake",
+      "ninja",
+      "clang",
+      "gdb",
+      "shellcheck",
+      "rsync",
+      "rclone",
+      "openssh-client",
+      "git-lfs"
+    ],
+    "creativeOptional": [
+      "blender",
+      "gimp",
+      "godot4"
+    ],
+    "godotLaw": "Do not silently install a mismatched Godot. Exact version requires an explicit pinned setup receipt.",
+    "providerLaw": "Provider extension presence or subscription does not prove entitlement or successful execution."
+  },
+  "mediaLaw": {
+    "sourceClipImmutable": true,
+    "probeBeforeMutation": true,
+    "sha256BeforeMutation": true,
+    "frameExactRepairPreferred": true,
+    "neighborFramesAreContinuityEvidence": true,
+    "untouchedFramesStayUntouched": true,
+    "sourceAudioPreservedUnlessAudioIsDefect": true,
+    "fullVideoRegenerationIsEscalationNotDefault": true,
+    "beforeAfterReviewRequired": true,
+    "professorApprovalRequired": true
+  },
+  "storageLaw": {
+    "githubStores": [
+      "source",
+      "scripts",
+      "manifests",
+      "hashes",
+      "receipts",
+      "logicalPointers"
+    ],
+    "driveStores": [
+      "sourceMedia",
+      "workingMedia",
+      "approvedMedia",
+      "finalExports"
+    ],
+    "codespaceCacheIsDisposable": true,
+    "secretValuesMayBeCommitted": false,
+    "codespacesSecretsOrEnvironmentInjectionRequired": true
+  },
+  "authorityBoundaries": {
+    "automaticMerge": false,
+    "automaticPublication": false,
+    "automaticDeploy": false,
+    "automaticCrown": false,
+    "providerMaySealCanon": false,
+    "copilotMayApprove": false,
+    "buildRequiresForgeCastWhenBuildProducing": true
+  },
+  "crownStatus": "STOP",
+  "promotion": false
+}
