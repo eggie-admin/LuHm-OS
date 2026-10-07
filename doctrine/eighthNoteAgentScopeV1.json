@@ -4,7 +4,7 @@
   "authority": "Professor",
   "purpose": "Subdivide focused AI-agent work into eight scoped notes inside the existing 4/4 interaction rhythm. The contract records workflow, scope and evidence; it does not grant authority.",
   "parentRhythm": "doctrine/fourBeatInteractionRhythmV1.json",
-  "parentArchitecture": "doctrine/jqueryFourLayerArchitectureV1.json",
+  "parentArchitecture": "doctrine/luHmOSFourLayerArchitectureV1.json",
   "meter": {
     "signature": "4/4",
     "notesPerMeasure": 8,
