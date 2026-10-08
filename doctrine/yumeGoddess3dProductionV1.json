@@ -1,0 +1,188 @@
+{
+  "schema": "luhmOs.yumeGoddess3dProduction.v1",
+  "status": "PROPOSED_PRODUCTION_CANDIDATE",
+  "authority": "Professor",
+  "boss": "lum",
+  "artDirection": "yume",
+  "architecture": "skuldResearch",
+  "sanity": "urdDoctorGoddess",
+  "records": "belldandySecretary",
+  "purpose": "Turn the canon Lum/Urd/Belldandy/Skuld character estate into deformation-safe, Godot 4.7-ready 3D character candidates with explicit topology, rigging, secondary-motion, provenance, import, runtime, and Professor-review gates.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "currentTruth": {
+    "lum": {
+      "state": "RIGGED_3D_CANDIDATE_EXISTS",
+      "driveSourceId": "1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen",
+      "bundleName": "Meshy_AI_Lum_Midnight_1996_biped.zip",
+      "bundleSha256": "fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da",
+      "baseGlbSha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
+      "runningGlbSha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0",
+      "knownRigFacts": {
+        "joints": 24,
+        "skins": 1,
+        "animations": 1,
+        "blendShapes": 0
+      },
+      "missing": [
+        "deformation-safe topology pass",
+        "face morph/viseme system",
+        "secondary-motion rig",
+        "final material/texture cleanup",
+        "Professor canon review of runtime body"
+      ]
+    },
+    "urd": {
+      "state": "CANON_DESIGN_PRESENT_NO_RECONCILED_3D_BODY",
+      "driveApprovedArtFolder": "1ISHQIRa_ChVKshoxrm5KoCWzaAUhDOUO",
+      "driveCandidateReviewFolder": "1XTOXJIcVVZcwtgjPsvB53t6NUIxQPeON"
+    },
+    "belldandy": {
+      "state": "CANON_DESIGN_PRESENT_NO_RECONCILED_3D_BODY",
+      "driveApprovedArtFolder": "1WE9nZLhR1JJqDzDVHe5DObJ4_MYjSgl9",
+      "driveCandidateReviewFolder": "19XtWQPpYk-_8VbR-cwY6SIkqXxPanIP_"
+    },
+    "skuld": {
+      "state": "CANON_DESIGN_PRESENT_NO_RECONCILED_3D_BODY",
+      "driveApprovedArtFolder": "1ruzmx-2GsjdabgAC5gihNKAi82pIUe5g",
+      "driveCandidateReviewFolder": "1xtyUwj7fA0EgVXT1U7j2xPKC5WuQso4C"
+    },
+    "godotImportTestedLane": "EMPTY_AT_LAST_DIRECT_DRIVE_CHECK",
+    "gameReadyLane": "EMPTY_AT_LAST_DIRECT_DRIVE_CHECK"
+  },
+  "productionLaw": {
+    "authoring": "Blender authoritative for topology, weights, UV/material cleanup, corrective shapes, and rig inspection",
+    "runtimeInterchange": "glTF 2.0 binary (.glb)",
+    "godotTarget": "Godot 4.7",
+    "topology": {
+      "primeRule": "Final animated-character topology must be deformation-aware rather than accepted solely because an automatic remesh completed.",
+      "smartAutomationAllowed": true,
+      "automaticRetopoIsCandidateOnly": true,
+      "manualCleanupRequiredAt": [
+        "eyes",
+        "mouth",
+        "jaw",
+        "shoulders",
+        "armpits",
+        "elbows",
+        "wrists",
+        "hips",
+        "groin",
+        "knees",
+        "ankles",
+        "hands",
+        "hornRootsWhenDeforming",
+        "wingRootsWhenDeforming",
+        "tailRootWhenDeforming"
+      ],
+      "preserveSilhouetteBeforePolygonReduction": true
+    },
+    "rigging": {
+      "baseline": "Skeleton3D + SkeletonModifier3D family",
+      "semanticHumanoidMapRequired": true,
+      "weightTransferAllowed": true,
+      "weightNormalizationRequired": true,
+      "poseStressTestRequired": true,
+      "correctiveShapesWhenNeeded": true
+    },
+    "secondaryMotion": {
+      "engineNativeFirst": "SpringBoneSimulator3D",
+      "allowedTargets": [
+        "hairChains",
+        "clothChains",
+        "tailChains",
+        "softAccessoryChains",
+        "boundedCharacterSpecificSoftMotionOnlyAfterProfessorVisualReview"
+      ],
+      "uncontrolledPhysics": false,
+      "collisionRequiredWhereBodyPenetrationWouldBeVisible": true,
+      "communityPluginFallbackOnlyAfterNativeLimitIsProven": true
+    },
+    "identityFirewall": {
+      "lum": "Midnight 1996 continuity packet",
+      "urd": "vampy goth elder-sister goddess",
+      "belldandy": "warm goth caretaker goddess",
+      "skuld": "adult tech-goth goddess",
+      "noGenericGothConvergence": true,
+      "noCrossCharacterFaceSharing": true
+    },
+    "storage": {
+      "github": "source, scripts, manifests, hashes, CI receipts, Godot wrappers",
+      "drive": "heavy source models, texture sets, Blender authoring files, GLB candidates, final approved binary masters",
+      "godotImportCacheCanonical": false
+    }
+  },
+  "characterPipeline": [
+    "canonReferencePacket",
+    "base3dCandidate",
+    "topologyAudit",
+    "retopoAndDeformationCleanup",
+    "uvMaterialCleanup",
+    "rigMapAndWeights",
+    "poseStressTest",
+    "secondaryMotionRig",
+    "exportGlb",
+    "godot47ImportSmoke",
+    "runtimeMotionSmoke",
+    "yumeIdentityReview",
+    "urdEvidenceReview",
+    "belldandyReceipt",
+    "professorReview",
+    "namedSingleUseCastBeforePromotion"
+  ],
+  "acceptanceGates": {
+    "topology": [
+      "no self-intersection that breaks normal poses",
+      "deformation loops survive shoulder/hip/knee/elbow stress poses",
+      "hands/face retain usable edge flow",
+      "character silhouette remains canon"
+    ],
+    "rig": [
+      "required humanoid roles resolved or explicitly excepted",
+      "weights normalized",
+      "no catastrophic collapse in stress poses",
+      "root scale and orientation sane"
+    ],
+    "secondaryMotion": [
+      "bounded",
+      "stable",
+      "no visible body penetration in approved test poses",
+      "no explosive or perpetual simulation",
+      "does not distort character identity"
+    ],
+    "godot": [
+      "GLB imports in Godot 4.7",
+      "Skeleton3D discovered",
+      "materials resolve",
+      "animations play when present",
+      "SpringBoneSimulator3D chain initializes where configured",
+      "headless/runtime smoke receipt exists"
+    ],
+    "canon": [
+      "Yume identity pass",
+      "Urd evidence pass",
+      "Professor final visual approval"
+    ]
+  },
+  "firstProductionOrder": [
+    "Lum topology and secondary-motion Phase 2 candidate",
+    "Urd base 3D candidate",
+    "Belldandy base 3D candidate",
+    "Skuld base 3D candidate",
+    "shared skeleton/retarget compatibility only where it does not flatten character identity",
+    "four-character Godot lineup proof"
+  ],
+  "forbiddenShortcuts": [
+    "folder name treated as proof",
+    "automatic remesh treated as final deformation topology",
+    "provider generation treated as canon",
+    "Drive binary promoted without hash",
+    "3D body accepted while identity visibly drifts from approved character",
+    "unbounded jiggle physics",
+    "private reference bytes copied into public runtime",
+    "merge or publication without Professor authority"
+  ],
+  "buildAuthority": false,
+  "publicationAuthority": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}
