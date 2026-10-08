@@ -32,3 +32,27 @@ The baseline works without jQuery. Community jQuery plugins are quarantined unde
 ## Trust boundary
 
 Front-end code must never contain API keys, credentials, model secrets, arbitrary shell execution, direct database credentials, or privileged device actions. Consequential actions remain Crown-gated behind the typed native/Godot boundary. The WebView cockpit itself has no shell, signing, publication, release, or Crown authority.
+
+## Yume Reference Room
+
+Open `yumeReferenceGallery.html` directly in a desktop/mobile browser, or follow
+**Factory → Open Yume’s Reference Room** in this source candidate. The page works
+without a server; six credited preview images require access to Sketchfab.
+Search, world/type filters, and a local shortlist with JSON export are included.
+An exported shortlist is a selection of references, not asset approval.
+
+To expand the collection, add exact source records to
+`media/yumeReferenceGalleryV1.json`, preserving creator, source-registry path,
+and honest verification state. Ranking pages do not qualify as specific mods.
+Then run:
+
+```bash
+python3 tools/renderYumeReferenceGallery.py
+python3 tools/renderYumeReferenceGallery.py --check
+python3 tests/yumeReferenceGalleryTest.py
+```
+
+The generator performs no network requests. Update preview metadata explicitly
+from the source's oEmbed response; do not invent preview images or creator names.
+The checked-in HTML is the portable output of the template and catalog.
+This candidate does not change the deployed MCP cockpit or Android runtime.

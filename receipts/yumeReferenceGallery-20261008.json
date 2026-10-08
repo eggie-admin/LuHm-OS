@@ -1,0 +1,34 @@
+{
+  "taskId": "yumeReferenceGallery20261008",
+  "scopeId": "portableReferenceCatalog",
+  "baseSourceRef": "5365c47d4e1b6a65563342b1751f7ceae83322f0",
+  "pullRequest": 209,
+  "status": "AMBER_BROWSER_PREVIEW_PENDING",
+  "catalog": "media/yumeReferenceGalleryV1.json",
+  "page": "frontEnd/yumeReferenceGallery.html",
+  "generator": "tools/renderYumeReferenceGallery.py",
+  "cardCount": 29,
+  "creatorHostedPreviews": 6,
+  "excludedRankingPages": 2,
+  "sourceChecks": {
+    "sketchfabOembed": "6_RESPONSES_WITH_CREATOR_AND_THUMBNAIL",
+    "projectRehauledJill": "SOURCE_PAGE_CHECKED",
+    "otherSourceAvailability": "NOT_RECHECKED"
+  },
+  "verification": {
+    "catalogAndGeneratedHtmlMatch": "PASS",
+    "catalogSafetyTests": "4_PASS",
+    "existingYumeSourceAudits": "5_PASS",
+    "browserInteraction": "BLOCKED_CHROMIUM_UNAVAILABLE_DOWNLOAD_INVALID",
+    "mobileVisualPreview": "NOT_PROVEN",
+    "deployedCockpit": "NOT_CHANGED",
+    "androidRuntime": "NOT_TESTED",
+    "domInteraction": "PASS_FILTERS_SHORTLIST_PERSISTENCE_EXPORT_EMPTY_STATE_CORRUPT_STORAGE"
+  },
+  "referenceOnly": true,
+  "assetApproval": false,
+  "publicationAuthority": false,
+  "promotion": false,
+  "crownStatus": "STOP",
+  "nextAction": "Run browser smoke on portable page; review sources before approving any runtime asset."
+}

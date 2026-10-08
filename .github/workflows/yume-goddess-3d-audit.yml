@@ -6,6 +6,11 @@ on:
       - 'doctrine/yumeGoddess3dProductionV1.json'
       - 'media/goddess3d-production-matrix-v1.json'
       - 'tools/yumeGoddess3dAudit.py'
+      - 'media/yumeReferenceGalleryV1.json'
+      - 'frontEnd/yumeReferenceGallery.html'
+      - 'frontEnd/yumeReferenceGallery.template.html'
+      - 'tools/renderYumeReferenceGallery.py'
+      - 'tests/yumeReferenceGalleryTest.py'
       - 'doctrine/falloutBodyMutationStudyV1.json'
       - 'media/fallout-body-mutation-source-registry-v1.json'
       - 'tools/pullFalloutBodyMutationSources.sh'
@@ -80,3 +85,8 @@ jobs:
           grep -q 'canonPromoted' scripts/game/characterMorphController.gd
           grep -q 'GODDESS MORPH RUNTIME SMOKE GREEN' tests/goddessMorphRuntimeSmoke.gd
           echo 'GDSCRIPT_RUNTIME_EXECUTION=NOT_RUN_NO_CAST'
+
+      - name: Verify reference gallery catalog and portable page
+        run: |
+          python3 tools/renderYumeReferenceGallery.py --check
+          python3 tests/yumeReferenceGalleryTest.py
