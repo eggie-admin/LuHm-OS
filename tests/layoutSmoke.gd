@@ -39,7 +39,7 @@ func _run() -> void:
             check(safe.encloses(control.get_global_rect()), "%s stays in safe area at %s" % [control.name, dimensions])
         for i in range(controls.size()):
             for j in range(i + 1, controls.size()):
-                check(not controls[i].get_global_rect().intersects(controls[j].get_global_rect()), "HUD controls do not overlap at %s" % dimensions)
+                check(not controls[i].get_global_rect().intersects(controls[j].get_global_rect()), "%s and %s do not overlap at %s" % [controls[i].name, controls[j].name, dimensions])
         for button in hud._pads:
             check(button.size.x >= 80 and button.size.y >= 80, "movement target minimum")
         var press := InputEventScreenTouch.new()
