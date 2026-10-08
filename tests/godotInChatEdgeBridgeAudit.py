@@ -43,7 +43,7 @@ need(dns["recordProposal"]["target"] == "luhm-os-harness-green.onrender.com", "D
 need(dns["noLiveDnsMutation"] and dns["tunnelNotRequired"], "DNS_AUTHORITY")
 need(doc["naming"]["preferredSlug"] == "luhm-os", "DRAGON_TAIL")
 need(doc["safety"]["crownStatus"] == "STOP", "CROWN")
-need(not any(doc["safety"][x] for x in ("noAutomaticDeployment", "noDnsOrProxyChanges", "noProductionPublication")) is False, "AUTHORITY")
+need(all(doc["safety"][x] is True for x in ("noAutomaticDeployment", "noDnsOrProxyChanges", "noProductionPublication")), "AUTHORITY")
 states = {x["id"]: x["state"] for x in doc["evidenceGates"]}
 need(states["exactGodotWebExport"] == "PROVED", "EXPORT_EVIDENCE")
 need(states["staticHostDeployment"] == "UNVERIFIED" and states["androidEmbeddedPlayback"] == "UNVERIFIED", "HOST_EVIDENCE")
