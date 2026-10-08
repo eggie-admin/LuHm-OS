@@ -1,0 +1,27 @@
+name: yume-goddess-3d-audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/yumeGoddess3dProductionV1.json'
+      - 'media/goddess3d-production-matrix-v1.json'
+      - 'tools/yumeGoddess3dAudit.py'
+      - '.github/workflows/yume-goddess-3d-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON
+        run: |
+          python3 -m json.tool doctrine/yumeGoddess3dProductionV1.json >/dev/null
+          python3 -m json.tool media/goddess3d-production-matrix-v1.json >/dev/null
+      - name: Validate Python
+        run: python3 -m py_compile tools/yumeGoddess3dAudit.py
+      - name: Run Yume goddess 3D source audit
+        run: python3 tools/yumeGoddess3dAudit.py
