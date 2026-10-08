@@ -13,6 +13,8 @@ on:
       - 'scripts/game/characterMorphController.gd'
       - 'tests/goddessMorphRuntimeSmoke.gd'
       - 'tools/goddessMorphSourceAudit.py'
+      - 'media/gothic-matriarch-family-reference-study-v1.json'
+      - 'tools/gothicMatriarchReferenceAudit.py'
       - '.github/workflows/yume-goddess-3d-audit.yml'
   workflow_dispatch:
 
@@ -32,11 +34,13 @@ jobs:
           python3 -m json.tool doctrine/falloutBodyMutationStudyV1.json >/dev/null
           python3 -m json.tool media/fallout-body-mutation-source-registry-v1.json >/dev/null
           python3 -m json.tool game/assets/GODDESS_MORPH_PRESETS_V1.json >/dev/null
+          python3 -m json.tool media/gothic-matriarch-family-reference-study-v1.json >/dev/null
 
       - name: Validate Python
         run: |
           python3 -m py_compile tools/yumeGoddess3dAudit.py
           python3 -m py_compile tools/goddessMorphSourceAudit.py
+          python3 -m py_compile tools/gothicMatriarchReferenceAudit.py
 
       - name: Validate source-pull shell
         run: bash -n tools/pullFalloutBodyMutationSources.sh
@@ -46,6 +50,9 @@ jobs:
 
       - name: Run BodySlide-inspired morph source audit
         run: python3 tools/goddessMorphSourceAudit.py
+
+      - name: Run gothic matriarch protected-reference audit
+        run: python3 tools/gothicMatriarchReferenceAudit.py
 
       - name: Guard GDScript candidate boundary
         run: |
