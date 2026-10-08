@@ -1,0 +1,53 @@
+{
+  "schema": "luhmOs.goddess3dProductionMatrix.v1",
+  "status": "PROPOSED_WORK_QUEUE",
+  "authority": "Professor",
+  "characters": [
+    {
+      "id": "lum",
+      "priority": 1,
+      "source3d": "PROVEN_CANDIDATE",
+      "canon2d": "PRESENT",
+      "retopo": "PENDING",
+      "faceShapes": "PENDING",
+      "secondaryMotion": "PENDING",
+      "godotImport": "HISTORICAL_PHASE1_PROOF_EXISTS_NEW_PHASE2_PROOF_REQUIRED",
+      "next": "duplicate immutable donor and perform topology/weights/material/secondary-motion Phase 2"
+    },
+    {
+      "id": "urd",
+      "priority": 2,
+      "source3d": "MISSING_RECONCILED_BODY",
+      "canon2d": "PRESENT",
+      "retopo": "BLOCKED_ON_BASE_BODY",
+      "faceShapes": "BLOCKED_ON_BASE_BODY",
+      "secondaryMotion": "BLOCKED_ON_RIG",
+      "godotImport": "NOT_PROVEN",
+      "next": "generate or model canon-faithful base body candidate, then Blender cleanup"
+    },
+    {
+      "id": "belldandy",
+      "priority": 3,
+      "source3d": "MISSING_RECONCILED_BODY",
+      "canon2d": "PRESENT",
+      "retopo": "BLOCKED_ON_BASE_BODY",
+      "faceShapes": "BLOCKED_ON_BASE_BODY",
+      "secondaryMotion": "BLOCKED_ON_RIG",
+      "godotImport": "NOT_PROVEN",
+      "next": "generate or model canon-faithful base body candidate, then Blender cleanup"
+    },
+    {
+      "id": "skuld",
+      "priority": 4,
+      "source3d": "MISSING_RECONCILED_BODY",
+      "canon2d": "PRESENT",
+      "retopo": "BLOCKED_ON_BASE_BODY",
+      "faceShapes": "BLOCKED_ON_BASE_BODY",
+      "secondaryMotion": "BLOCKED_ON_RIG",
+      "godotImport": "NOT_PROVEN",
+      "next": "generate or model canon-faithful base body candidate, then Blender cleanup"
+    }
+  ],
+  "sharedProofTarget": "Four-character Godot 4.7 lineup scene with stable idle animation, bounded secondary motion, identity-preserving materials, and per-character receipt cards.",
+  "crownStatus": "STOP"
+}

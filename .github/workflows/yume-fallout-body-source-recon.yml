@@ -1,0 +1,72 @@
+name: yume-fallout-body-source-recon
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/falloutBodyMutationStudyV1.json'
+      - 'media/fallout-body-mutation-source-registry-v1.json'
+      - 'tools/pullFalloutBodyMutationSources.sh'
+      - '.github/workflows/yume-fallout-body-source-recon.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Pull public Git source into disposable quarantine
+        run: |
+          export PROFESSOR_GARAGE_EXTERNAL="$RUNNER_TEMP/fallout-body-mutation"
+          bash tools/pullFalloutBodyMutationSources.sh
+
+      - name: Build exact source receipt
+        run: |
+          set -euo pipefail
+          ROOT="$RUNNER_TEMP/fallout-body-mutation"
+          python3 - "$ROOT" <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+
+          root = Path(sys.argv[1])
+          receipt = {
+              "schema": "luhmOs.falloutBodyMutationSourceReceipt.v1",
+              "scope": "disposableGitHubActionsSourceRecon",
+              "sources": [],
+              "nexusFilesDownloaded": False,
+              "productionAssetsPromoted": False,
+              "crownAuthority": False
+          }
+
+          for lane in ("open-source", "reference-only"):
+              lane_dir = root / lane
+              for repo in sorted(lane_dir.iterdir()):
+                  if not (repo / ".git").exists():
+                      continue
+                  def git(*args):
+                      return subprocess.check_output(["git", "-C", str(repo), *args], text=True).strip()
+                  receipt["sources"].append({
+                      "lane": lane,
+                      "name": repo.name,
+                      "head": git("rev-parse", "HEAD"),
+                      "origin": git("remote", "get-url", "origin"),
+                      "branch": git("branch", "--show-current")
+                  })
+
+          out = root / "receipts" / "source-recon.json"
+          out.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps(receipt, indent=2))
+          PY
+
+      - name: Upload source receipt only
+        uses: actions/upload-artifact@v4
+        with:
+          name: yume-fallout-body-source-recon
+          path: ${{ runner.temp }}/fallout-body-mutation/receipts/
+          retention-days: 3

@@ -1,0 +1,82 @@
+name: yume-goddess-3d-audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/yumeGoddess3dProductionV1.json'
+      - 'media/goddess3d-production-matrix-v1.json'
+      - 'tools/yumeGoddess3dAudit.py'
+      - 'doctrine/falloutBodyMutationStudyV1.json'
+      - 'media/fallout-body-mutation-source-registry-v1.json'
+      - 'tools/pullFalloutBodyMutationSources.sh'
+      - 'game/assets/GODDESS_MORPH_PRESETS_V1.json'
+      - 'scripts/game/characterMorphController.gd'
+      - 'tests/goddessMorphRuntimeSmoke.gd'
+      - 'tools/goddessMorphSourceAudit.py'
+      - 'media/gothic-matriarch-family-reference-study-v1.json'
+      - 'tools/gothicMatriarchReferenceAudit.py'
+      - 'doctrine/reEngineModderMutationStudyV1.json'
+      - 'media/re-engine-nexus-model-reference-registry-v1.json'
+      - 'tools/reEngineModderReferenceAudit.py'
+      - 'game/assets/GODDESS_COMPONENT_CONTRACT_V1.json'
+      - 'scripts/game/characterComponentAssembler.gd'
+      - 'scripts/game/goddessAvatar.gd'
+      - 'scenes/GoddessAvatar.tscn'
+      - 'tools/goddessComponentSourceAudit.py'
+      - '.github/workflows/yume-goddess-3d-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON
+        run: |
+          python3 -m json.tool doctrine/yumeGoddess3dProductionV1.json >/dev/null
+          python3 -m json.tool media/goddess3d-production-matrix-v1.json >/dev/null
+          python3 -m json.tool doctrine/falloutBodyMutationStudyV1.json >/dev/null
+          python3 -m json.tool media/fallout-body-mutation-source-registry-v1.json >/dev/null
+          python3 -m json.tool game/assets/GODDESS_MORPH_PRESETS_V1.json >/dev/null
+          python3 -m json.tool media/gothic-matriarch-family-reference-study-v1.json >/dev/null
+          python3 -m json.tool doctrine/reEngineModderMutationStudyV1.json >/dev/null
+          python3 -m json.tool media/re-engine-nexus-model-reference-registry-v1.json >/dev/null
+          python3 -m json.tool game/assets/GODDESS_COMPONENT_CONTRACT_V1.json >/dev/null
+
+      - name: Validate Python
+        run: |
+          python3 -m py_compile tools/yumeGoddess3dAudit.py
+          python3 -m py_compile tools/goddessMorphSourceAudit.py
+          python3 -m py_compile tools/gothicMatriarchReferenceAudit.py
+          python3 -m py_compile tools/reEngineModderReferenceAudit.py
+          python3 -m py_compile tools/goddessComponentSourceAudit.py
+
+      - name: Validate source-pull shell
+        run: bash -n tools/pullFalloutBodyMutationSources.sh
+
+      - name: Run Yume goddess 3D source audit
+        run: python3 tools/yumeGoddess3dAudit.py
+
+      - name: Run BodySlide-inspired morph source audit
+        run: python3 tools/goddessMorphSourceAudit.py
+
+      - name: Run gothic matriarch protected-reference audit
+        run: python3 tools/gothicMatriarchReferenceAudit.py
+
+      - name: Run RE Engine model reference audit
+        run: python3 tools/reEngineModderReferenceAudit.py
+
+      - name: Run modular goddess component source audit
+        run: python3 tools/goddessComponentSourceAudit.py
+
+      - name: Guard GDScript candidate boundary
+        run: |
+          grep -q 'set_blend_shape_value' scripts/game/characterMorphController.gd
+          grep -q 'physicsApplied' scripts/game/characterMorphController.gd
+          grep -q 'canonPromoted' scripts/game/characterMorphController.gd
+          grep -q 'GODDESS MORPH RUNTIME SMOKE GREEN' tests/goddessMorphRuntimeSmoke.gd
+          echo 'GDSCRIPT_RUNTIME_EXECUTION=NOT_RUN_NO_CAST'
