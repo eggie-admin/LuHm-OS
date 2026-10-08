@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/game/goddessAvatar.gd" id="1_avatar"]
+
+[node name="GoddessAvatar" type="Node3D"]
+script = ExtResource("1_avatar")
+
+[node name="BodySocket" type="Node3D" parent="."]
+
+[node name="HeadSocket" type="Node3D" parent="."]
+
+[node name="HairSocket" type="Node3D" parent="."]
+
+[node name="OutfitSocket" type="Node3D" parent="."]
+
+[node name="AccessorySocket" type="Node3D" parent="."]
+
+[node name="MaterialSocket" type="Node3D" parent="."]
+
+[node name="PhysicsSocket" type="Node3D" parent="."]
