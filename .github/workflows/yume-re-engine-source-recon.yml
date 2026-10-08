@@ -1,0 +1,80 @@
+name: yume-re-engine-source-recon
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/reEngineModderMutationStudyV1.json'
+      - 'media/re-engine-nexus-model-reference-registry-v1.json'
+      - 'tools/pullReEngineModderSources.sh'
+      - 'tools/reEngineModderReferenceAudit.py'
+      - '.github/workflows/yume-re-engine-source-recon.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Validate registry and audit
+        run: |
+          python3 -m json.tool doctrine/reEngineModderMutationStudyV1.json >/dev/null
+          python3 -m json.tool media/re-engine-nexus-model-reference-registry-v1.json >/dev/null
+          python3 -m py_compile tools/reEngineModderReferenceAudit.py
+          bash -n tools/pullReEngineModderSources.sh
+          python3 tools/reEngineModderReferenceAudit.py
+
+      - name: Pull pinned public modder source into disposable quarantine
+        run: |
+          export PROFESSOR_GARAGE_EXTERNAL="$RUNNER_TEMP/re-engine-modder"
+          bash tools/pullReEngineModderSources.sh
+
+      - name: Build exact source receipt
+        run: |
+          set -euo pipefail
+          ROOT="$RUNNER_TEMP/re-engine-modder"
+          python3 - "$ROOT" <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+
+          root = Path(sys.argv[1])
+          receipt = {
+              "schema": "luhmOs.reEngineModderSourceReceipt.v1",
+              "scope": "disposableGitHubActionsSourceRecon",
+              "sources": [],
+              "nexusBinariesDownloaded": False,
+              "capcomAssetsPromoted": False,
+              "crownAuthority": False
+          }
+
+          for lane in ("open-source", "reference-only"):
+              lane_dir = root / lane
+              for repo in sorted(lane_dir.iterdir()):
+                  if not (repo / ".git").exists():
+                      continue
+                  def git(*args):
+                      return subprocess.check_output(["git", "-C", str(repo), *args], text=True).strip()
+                  receipt["sources"].append({
+                      "lane": lane,
+                      "name": repo.name,
+                      "head": git("rev-parse", "HEAD"),
+                      "origin": git("remote", "get-url", "origin")
+                  })
+
+          out = root / "receipts" / "source-recon.json"
+          out.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps(receipt, indent=2))
+          PY
+
+      - name: Upload source receipt only
+        uses: actions/upload-artifact@v4
+        with:
+          name: yume-re-engine-source-recon
+          path: ${{ runner.temp }}/re-engine-modder/receipts/
+          retention-days: 3
