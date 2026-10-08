@@ -18,6 +18,11 @@ on:
       - 'doctrine/reEngineModderMutationStudyV1.json'
       - 'media/re-engine-nexus-model-reference-registry-v1.json'
       - 'tools/reEngineModderReferenceAudit.py'
+      - 'game/assets/GODDESS_COMPONENT_CONTRACT_V1.json'
+      - 'scripts/game/characterComponentAssembler.gd'
+      - 'scripts/game/goddessAvatar.gd'
+      - 'scenes/GoddessAvatar.tscn'
+      - 'tools/goddessComponentSourceAudit.py'
       - '.github/workflows/yume-goddess-3d-audit.yml'
   workflow_dispatch:
 
@@ -40,6 +45,7 @@ jobs:
           python3 -m json.tool media/gothic-matriarch-family-reference-study-v1.json >/dev/null
           python3 -m json.tool doctrine/reEngineModderMutationStudyV1.json >/dev/null
           python3 -m json.tool media/re-engine-nexus-model-reference-registry-v1.json >/dev/null
+          python3 -m json.tool game/assets/GODDESS_COMPONENT_CONTRACT_V1.json >/dev/null
 
       - name: Validate Python
         run: |
@@ -47,6 +53,7 @@ jobs:
           python3 -m py_compile tools/goddessMorphSourceAudit.py
           python3 -m py_compile tools/gothicMatriarchReferenceAudit.py
           python3 -m py_compile tools/reEngineModderReferenceAudit.py
+          python3 -m py_compile tools/goddessComponentSourceAudit.py
 
       - name: Validate source-pull shell
         run: bash -n tools/pullFalloutBodyMutationSources.sh
@@ -62,6 +69,9 @@ jobs:
 
       - name: Run RE Engine model reference audit
         run: python3 tools/reEngineModderReferenceAudit.py
+
+      - name: Run modular goddess component source audit
+        run: python3 tools/goddessComponentSourceAudit.py
 
       - name: Guard GDScript candidate boundary
         run: |
