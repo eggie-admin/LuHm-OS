@@ -11,6 +11,8 @@ on:
       - 'doctrine/apiSpineV1.json'
       - 'doctrine/python3ControlPlaneLawV1.json'
       - 'doctrine/cloudflareAirTrafficControllerV1.json'
+      - 'doctrine/godotInChatEdgeBridgeV1.json'
+      - 'tests/godotInChatEdgeBridgeAudit.py'
       - 'doctrine/chatGptPluginRuntimeReceiptV1.json'
       - 'doctrine/chatGptPluginCrownFlowV1.json'
       - 'host/mcp/luhmHarness.py'
@@ -56,6 +58,7 @@ jobs:
         run: |
           set -euo pipefail
           python tools/harnessAudit.py
+          python tests/godotInChatEdgeBridgeAudit.py
           python tools/inChatExperienceAudit.py
           python tools/openingDayStaffTrainingAudit.py
           python tools/apiSpineAudit.py
