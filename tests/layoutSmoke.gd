@@ -67,8 +67,8 @@ func _run() -> void:
         hud._set_audit_panel(true)
         check(hud._audit_panel.visible, "audit seal panel opens")
         # Match the active game HUD contract, not the retired documentation seal panel.
-        var source_truth := hud._load_json("res://doctrine/currentSourceTruthV3.json")
-        var gameplay := hud._load_json("res://doctrine/gameplayVerticalSliceV1.json")
+        var source_truth: Dictionary = hud._load_json("res://doctrine/currentSourceTruthV3.json")
+        var gameplay: Dictionary = hud._load_json("res://doctrine/gameplayVerticalSliceV1.json")
         check(not source_truth.is_empty(), "source truth manifest is available")
         check(not gameplay.is_empty(), "gameplay manifest is available")
         check(hud._audit_panel.text.contains("SOURCE TRUTH · %s" % str(source_truth.get("status", "UNKNOWN"))), "audit source truth status loads from doctrine")
