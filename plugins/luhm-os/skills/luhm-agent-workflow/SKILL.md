@@ -61,9 +61,9 @@ Never infer GREEN from presence, successful import, plausible output, stale evid
 
 ## MCP transport and authentication boundary
 
-The bundled `luhm_local` MCP URL is a workstation-local development endpoint. Private local access may use OpenAI Secure MCP Tunnel rather than exposing the workstation publicly.
+The virgin manual-upload package carries only the canonical public HTTPS Streamable HTTP MCP connection. Local, private, and developer MCP profiles are intentionally excluded from the upload archive.
 
-The production profile is HTTPS Streamable HTTP at the canonical LuHm MCP FQDN and remains stateless with respect to authority. Public beta tools are anonymous and read-only. Before any tool reads user-specific/private account data or writes state, add OAuth 2.1 using an established identity provider, protected-resource metadata, per-tool security schemes, PKCE S256, and server-side issuer/audience/expiry/scope validation. Do not substitute session selection, a committed API key, or model judgment for authorization.
+The public tools remain anonymous and read-only. Before any tool reads user-specific/private account data or writes state, add OAuth 2.1 using an established identity provider, protected-resource metadata, per-tool security schemes, PKCE S256, and server-side issuer/audience/expiry/scope validation. Do not substitute session selection, a committed API key, or model judgment for authorization.
 
 ## Android boundary
 
