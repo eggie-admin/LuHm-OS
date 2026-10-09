@@ -1,0 +1,45 @@
+{
+  "schema": "luhmOs.corporateHardeningCrownReceipt.v1",
+  "status": "crownApprovedSourceMilestone",
+  "authority": "Professor",
+  "scopeId": "corporateSemanticPkiHardeningMilestone",
+  "approvalBasis": {
+    "professorCrownApproval": true,
+    "integrationPullRequest": 206,
+    "approvedCandidateSourceRef": "9a00fd4ecac1e1af3302ff8c3e05524bf6b55020",
+    "approvedTreeRef": "7d4d0cfbe01831c83446ff390cddc564f1fa7dbd",
+    "exactHeadWorkflowCount": 23,
+    "exactHeadWorkflowsGreen": true,
+    "mergedMainRef": "3471f78188410761c84a892101ba163a3052be13",
+    "mergedMainTreeRef": "7d4d0cfbe01831c83446ff390cddc564f1fa7dbd",
+    "mergedTreeMatchesApprovedCandidate": true,
+    "mainPushWorkflowCount": 4,
+    "mainPushWorkflowsGreen": true
+  },
+  "promotedScope": [
+    "semanticDomainHardeningV1",
+    "belldandyPkiCorporateSecretaryV1",
+    "corporateEscalationProfileV1.cabinetCaseEscalation",
+    "Lum/Urd/Belldandy/Skuld skill bindings for semantic and PKI boundaries",
+    "Cloudflare traffic-controller and TLS-manager boundary recorded by the PKI doctrine",
+    "Google identity/session Guard boundary recorded by the PKI doctrine",
+    "Certbot live-path and host-local symlink compatibility contract",
+    "Lum -> Urd -> Belldandy -> Skuld -> Lum specialty escalation route"
+  ],
+  "notPromoted": [
+    "live DNS mutation",
+    "certificate issuance",
+    "certificate revocation",
+    "secret rotation",
+    "token rotation",
+    "proxy mutation",
+    "tunnel mutation",
+    "identity-policy mutation",
+    "public deployment",
+    "production signing",
+    "automatic future doctrine promotion",
+    "automatic future source-truth promotion"
+  ],
+  "sourceTruthLaw": "This receipt canonizes the proved corporate semantic and PKI hardening source milestone only. Runtime infrastructure, secret custody state, certificate issuance, deployment and future doctrine changes remain separately evidence- and Crown-gated.",
+  "automaticFuturePromotion": false
+}

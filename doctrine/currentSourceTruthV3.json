@@ -318,7 +318,9 @@
       "commercialPublic",
       "privateResearchDevelopment"
     ],
-    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json"
+    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json",
+    "semanticDomainHardening": "doctrine/semanticDomainHardeningV1.json",
+    "belldandyPkiCorporateSecretary": "doctrine/belldandyPkiCorporateSecretaryV1.json"
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
@@ -553,5 +555,29 @@
     "historicalUnavailableRepository": "KAI9000_LuHm_Compatibility",
     "exactSnapshotRequiredBeforeStructuralPromotion": true,
     "crownStatus": "STOP"
+  },
+  "corporateHardening": {
+    "status": "CROWNED_SOURCE_MILESTONE",
+    "promotion": true,
+    "professorApproval": true,
+    "promotionScope": "corporateSemanticPkiHardeningMilestone",
+    "semanticBoundary": "doctrine/semanticDomainHardeningV1.json",
+    "pkiSecretary": "doctrine/belldandyPkiCorporateSecretaryV1.json",
+    "corporateEscalation": "doctrine/corporateEscalationProfileV1.json#cabinetCaseEscalation",
+    "crownReceipt": "doctrine/corporateHardeningCrownReceiptV1.json",
+    "approvedCandidateSourceRef": "9a00fd4ecac1e1af3302ff8c3e05524bf6b55020",
+    "approvedTreeRef": "7d4d0cfbe01831c83446ff390cddc564f1fa7dbd",
+    "mergedMainRef": "3471f78188410761c84a892101ba163a3052be13",
+    "mergedTreeRef": "7d4d0cfbe01831c83446ff390cddc564f1fa7dbd",
+    "cabinetRoute": [
+      "lum",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch",
+      "lum"
+    ],
+    "liveInfrastructureMutationIncluded": false,
+    "futurePromotionAutomatic": false,
+    "crownStatus": "CROWNED_SOURCE_MILESTONE"
   }
 }

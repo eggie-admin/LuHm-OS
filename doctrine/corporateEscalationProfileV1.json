@@ -71,6 +71,14 @@
       "evidenceRefs",
       "authorityBoundary"
     ],
-    "crownRemains": "Professor"
+    "crownRemains": "Professor",
+    "promotion": {
+      "status": "CROWNED_SOURCE_MILESTONE",
+      "professorApproval": true,
+      "promotionScope": "corporateSemanticPkiHardeningMilestone",
+      "crownReceipt": "doctrine/corporateHardeningCrownReceiptV1.json",
+      "approvedCandidateSourceRef": "9a00fd4ecac1e1af3302ff8c3e05524bf6b55020",
+      "mergedMainRef": "3471f78188410761c84a892101ba163a3052be13"
+    }
   }
 }
