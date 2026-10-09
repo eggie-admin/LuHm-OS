@@ -11,6 +11,7 @@ It does not grant merge, release, signing, publication, or source-truth authorit
 """
 from __future__ import annotations
 
+import html
 import json
 import mimetypes
 import os
@@ -21,6 +22,7 @@ from starlette.requests import Request
 from starlette.responses import FileResponse, JSONResponse, PlainTextResponse, RedirectResponse, Response
 
 UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"
+GODOT_PLAYER_RESOURCE_URI = "ui://luhm-os/godot-player-v1.html"
 APP_MIME_TYPE = "text/html;profile=mcp-app"
 PET_ASSET_IDS = {"lum","urdDoctorGoddess","belldandySecretary","skuldResearch","kiri","momo","shiori","kugi","tetsu","kaji","fumi","sumi","koe","yume","mediaAssetFactory"}
 
@@ -34,7 +36,7 @@ def _origin() -> str:
     return value
 
 
-def _headers(*, html: bool = False, production: bool = False) -> dict[str, str]:
+def _headers(*, html: bool = False, production: bool = False, godot_embed: bool = False) -> dict[str, str]:
     headers = {
         "Cache-Control": "no-store" if html else "public, max-age=300",
         "X-Content-Type-Options": "nosniff",
@@ -43,18 +45,26 @@ def _headers(*, html: bool = False, production: bool = False) -> dict[str, str]:
         "Cross-Origin-Resource-Policy": "same-origin",
     }
     if html:
+        # Godot's generated Web boot page uses inline startup code and WebAssembly.
+        # This narrower exception applies only to the immutable export HTML route.
+        script_policy = "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; " if godot_embed else "script-src 'self'; "
+        style_policy = "style-src 'self' 'unsafe-inline'; " if godot_embed else "style-src 'self'; "
+        ancestors = (
+            "frame-ancestors 'self' https://*.web-sandbox.oaiusercontent.com"
+            if godot_embed else "frame-ancestors 'self'"
+        )
         headers["Content-Security-Policy"] = (
             "default-src 'self'; "
-            "script-src 'self'; "
-            "style-src 'self'; "
-            "img-src 'self' data: blob:; "
-            "media-src 'self' blob:; "
-            "connect-src 'self'; "
-            "frame-src 'self'; "
-            "object-src 'none'; "
-            "base-uri 'none'; "
-            "form-action 'none'; "
-            "frame-ancestors 'self'"
+            + script_policy
+            + style_policy
+            + "img-src 'self' data: blob:; "
+            + "media-src 'self' blob:; "
+            + "connect-src 'self'; "
+            + "frame-src 'self'; "
+            + "object-src 'none'; "
+            + "base-uri 'none'; "
+            + "form-action 'none'; "
+            + ancestors
         )
     if production:
         headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
@@ -88,6 +98,7 @@ def register_harness(
     loading_atlas_path = harness_root / "agent-roster-v1.png"
     libraries_path = harness_root / "libraryPolicy.json"
     godot_root = harness_root / "godot-export"
+    godot_player_path = harness_root / "godotPlayerWidget.html"
     experience_path = root / "doctrine" / "inChatExperienceV1.json"
     crown_flow_path = root / "doctrine" / "chatGptPluginCrownFlowV1.json"
     runtime_receipt_path = root / "doctrine" / "chatGptPluginRuntimeReceiptV1.json"
@@ -97,7 +108,7 @@ def register_harness(
     precision_command_path = root / "doctrine" / "chatPrecisionCommandV1.json"
     after_hours_path = root / "doctrine" / "afterHoursExperienceV1.json"
 
-    if not all(path.is_file() for path in (widget_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path)):
+    if not all(path.is_file() for path in (widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     resource_meta: dict[str, Any] = {
@@ -153,6 +164,73 @@ def register_harness(
     )
     def luhm_cockpit_resource() -> str:
         return widget_path.read_text(encoding="utf-8")
+
+    @server.resource(
+        GODOT_PLAYER_RESOURCE_URI,
+        name="luhm-os-godot-player",
+        title="LuHm OS Godot 4 Player",
+        description="Dedicated in-chat viewer for the verified LuHm Godot 4 Web export.",
+        mime_type=APP_MIME_TYPE,
+        meta={
+            "ui": {
+                "prefersBorder": False,
+                "csp": {
+                    "connectDomains": [],
+                    "resourceDomains": [],
+                    "frameDomains": [public_origin] if public_origin else [],
+                },
+                **({"domain": public_origin} if public_origin else {}),
+            },
+            "openai/ui": {"availableDisplayModes": ["inline", "fullscreen"]},
+            "openai/widgetDescription": "LuHm Godot 4 gameplay viewer; no builds or privileged actions.",
+        },
+    )
+    def luhm_godot_player_resource() -> str:
+        page = godot_player_path.read_text(encoding="utf-8")
+        staged = (
+            (godot_root / "index.html").is_file()
+            and any(godot_root.glob("*.wasm"))
+            and any(godot_root.glob("*.pck"))
+        )
+        if not public_origin or not staged:
+            frame = '<p class="pending">Godot Web export not staged on this HTTPS origin. Player is waiting for exact-source CAST proof.</p>'
+        else:
+            url = html.escape(public_origin + "/harness/godot-export/index.html", quote=True)
+            frame = (
+                '<iframe title="LuHm OS Godot 4 playable viewport" src="' + url + '"'
+                ' sandbox="allow-scripts allow-same-origin allow-pointer-lock"'
+                ' allow="fullscreen; gamepad" allowfullscreen loading="eager" referrerpolicy="no-referrer"></iframe>'
+            )
+        return page.replace("<!-- LUHM_GODOT_FRAME -->", frame)
+
+    @server.tool(
+        name="luhm_open_godot_player",
+        title="Play LuHm OS Godot 4 in chat",
+        description="Open the bounded in-chat Godot Web viewer when a real WebAssembly/PCK export is staged. Read-only; no CAST, deployment, or Crown.",
+        annotations=annotations,
+        meta={
+            "ui": {"resourceUri": GODOT_PLAYER_RESOURCE_URI, "visibility": ["model", "app"]},
+            "openai/outputTemplate": GODOT_PLAYER_RESOURCE_URI,
+            "openai/toolInvocation/invoking": "Checking Godot 4 Web player…",
+            "openai/toolInvocation/invoked": "Godot 4 viewer opened.",
+        },
+    )
+    def luhm_open_godot_player() -> dict[str, Any]:
+        staged = (
+            (godot_root / "index.html").is_file()
+            and any(godot_root.glob("*.wasm"))
+            and any(godot_root.glob("*.pck"))
+        )
+        return {
+            "schema": "luhmOs.inChatGodotPlayer.v1",
+            "resourceUri": GODOT_PLAYER_RESOURCE_URI,
+            "state": "WEB_EXPORT_FILES_STAGED" if staged and public_origin else "PENDING_EXPORT_OR_HTTPS_ORIGIN",
+            "runtimeVerifiedInChat": False,
+            "sourceRef": "EXACT_BUILD_RECEIPT_REQUIRED",
+            "readOnly": True,
+            "buildAuthority": False,
+            "crownStatus": "STOP",
+        }
 
     @server.tool(
         name="luhm_open_cockpit",
@@ -295,5 +373,5 @@ def register_harness(
         return FileResponse(
             target,
             media_type=media_type or "application/octet-stream",
-            headers=_headers(html=html, production=profile_provider() == "production"),
+            headers=_headers(html=html, production=profile_provider() == "production", godot_embed=html),
         )
