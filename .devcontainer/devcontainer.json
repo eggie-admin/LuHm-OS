@@ -1,19 +1,32 @@
 {
-  "name": "LuHm OS Workshop",
+  "name": "Professor Garage // LuHm OS",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "remoteUser": "codespace",
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "8gb",
+    "storage": "32gb"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-python.python",
         "ms-vscode.vscode-json",
-        "eamodio.gitlens"
+        "eamodio.gitlens",
+        "github.copilot",
+        "github.copilot-chat",
+        "ms-vscode.makefile-tools",
+        "ms-vscode.cpptools"
       ]
     }
   },
-  "postCreateCommand": "python --version && node --version && git --version",
+  "postCreateCommand": "bash tools/professorGarageBootstrap.sh",
+  "postStartCommand": "python3 tools/professorGarageAudit.py --runtime",
   "containerEnv": {
-    "LUHM_WORKBENCH": "codespaces",
-    "LUHM_CROWN_STATUS": "STOP"
+    "LUHM_WORKBENCH": "professor-garage",
+    "LUHM_CROWN_STATUS": "STOP",
+    "PROFESSOR_GARAGE_CACHE": "/home/codespace/.cache/luhm/professor-garage",
+    "PYTHONUNBUFFERED": "1",
+    "GIT_LFS_SKIP_SMUDGE": "1"
   }
 }
