@@ -272,8 +272,11 @@ func apply_layout(view_size: Vector2, safe: Rect2) -> void:
         _pads[i].size = Vector2(80, 80)
     quest_label.position = area.position + Vector2(0, 216)
     quest_label.size = Vector2(area.size.x, 72)
-    dialogue_label.position = Vector2(area.position.x, area.end.y - 320)
-    dialogue_label.size = Vector2(area.size.x, 128)
+    # Keep dialogue below the quest row and above touch controls in landscape.
+    # The old fixed 128px card overlapped the quest at 720px viewport height.
+    var dialogue_top := maxf(area.position.y + 292.0, area.end.y - 320.0)
+    dialogue_label.position = Vector2(area.position.x, dialogue_top)
+    dialogue_label.size = Vector2(area.size.x, maxf(0.0, minf(112.0, area.end.y - 196.0 - dialogue_top)))
     var summon_width := minf(420.0, area.size.x)
     summon_card.position = Vector2(area.position.x + maxf((area.size.x - summon_width) * 0.5, 0.0), area.end.y - 452.0)
     summon_card.size = Vector2(summon_width, 104)

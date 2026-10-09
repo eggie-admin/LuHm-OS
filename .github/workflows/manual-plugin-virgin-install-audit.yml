@@ -1,0 +1,54 @@
+name: Manual Plugin Virgin Install Audit
+
+on:
+  pull_request:
+    paths:
+      - "plugins/luhm-os/**"
+      - "doctrine/manualPluginVirginInstallV1.json"
+      - "doctrine/codingRoleplayDirectorV2.json"
+      - "frontEnd/jquery/luhm.codingRoleplay.js"
+      - "host/mcp/luhmHarness.py"
+      - "tools/buildManualPluginPackage.py"
+      - "tools/manualPluginVirginInstallAudit.py"
+      - ".github/workflows/manual-plugin-virgin-install-audit.yml"
+  push:
+    branches:
+      - "candidate/**"
+    paths:
+      - "plugins/luhm-os/**"
+      - "doctrine/manualPluginVirginInstallV1.json"
+      - "doctrine/codingRoleplayDirectorV2.json"
+      - "frontEnd/jquery/luhm.codingRoleplay.js"
+      - "host/mcp/luhmHarness.py"
+      - "tools/buildManualPluginPackage.py"
+      - "tools/manualPluginVirginInstallAudit.py"
+      - ".github/workflows/manual-plugin-virgin-install-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Bind exact head
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" == "$EXPECTED_HEAD"
+          echo "EXACT_HEAD=$(git rev-parse HEAD)"
+      - name: Audit virgin-install plugin package
+        run: python3 tools/manualPluginVirginInstallAudit.py
+      - name: Upload manual plugin package
+        uses: actions/upload-artifact@v4
+        with:
+          name: luhm-os-manual-upload-0.5.0
+          path: |
+            build/manual-plugin/luhm-os-manual-upload-0.5.0.zip
+            build/manual-plugin/artifact-receipt.json
+          if-no-files-found: error
+          retention-days: 14

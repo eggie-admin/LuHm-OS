@@ -21,7 +21,9 @@
     "reviewTests": "plugins/luhm-os/review-tests.json",
     "privacy": "plugins/luhm-os/PRIVACY.md",
     "terms": "plugins/luhm-os/TERMS.md",
-    "submissionDraft": "plugins/luhm-os/PUBLIC_SUBMISSION_DRAFT.md"
+    "submissionDraft": "plugins/luhm-os/PUBLIC_SUBMISSION_DRAFT.md",
+    "virginInstallGuide": "plugins/luhm-os/VIRGIN_INSTALL.md",
+    "codingRoleplaySkill": "plugins/luhm-os/skills/luhm-coding-roleplay/SKILL.md"
   },
   "externalGates": {
     "domainVerificationChallenge": "PENDING_PORTAL_TOKEN",
@@ -47,5 +49,12 @@
     "liveDnsMutation": false,
     "liveCertificateMutation": false,
     "professorApprovalRequired": true
+  },
+  "manualUpload": {
+    "contract": "doctrine/manualPluginVirginInstallV1.json",
+    "version": "0.5.0",
+    "builder": "tools/buildManualPluginPackage.py",
+    "artifact": "build/manual-plugin/luhm-os-manual-upload-0.5.0.zip",
+    "migrationRequired": false
   }
 }

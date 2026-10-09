@@ -1,0 +1,3 @@
+# Browser-only HTML, sprites and MCP widgets live here.
+# The Godot scene does not import these browser assets.
+# Keep the original browser assets untouched; the web export destination remains under this tree.

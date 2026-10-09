@@ -1,0 +1,120 @@
+{
+  "schema": "luhmOs.godotInChatEdgeBridge.v1",
+  "status": "SOURCE_ONLY_INTEGRATION_CANDIDATE",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "sourceProof": {
+    "repository": "eggie-admin/LuHm-OS",
+    "playerCandidateCommit": "45eaaddd8bb72ca34c69c40a4214fca94364fe13",
+    "playerPullRequest": 210,
+    "godotWebExportWorkflowRunId": 37736153654,
+    "godotWebExportStatus": "GREEN_EXACT_SOURCE",
+    "exportRequiredFiles": [
+      "index.html",
+      "index.wasm",
+      "index.pck",
+      "SHA256SUMS.txt"
+    ],
+    "hashesVerifiedByWorkflow": true,
+    "artifactName": "luhm-os-godot-web-harness-godotWebHarnessInChatV1",
+    "artifactRetention": "THREE_DAYS_NOT_DURABLE",
+    "appHostProof": "NOT_VERIFIED",
+    "androidChatGptPlaybackProof": "NOT_VERIFIED"
+  },
+  "architecture": {
+    "appLayer": {
+      "resourceUri": "ui://luhm-os/godot-player-v1.html",
+      "toolName": "luhm_open_godot_player",
+      "template": "host/harness/godotPlayerWidget.html",
+      "mode": "isolatedMcpAppHtmlIframe",
+      "nestedFrameRequiresActualHostAcceptance": true
+    },
+    "originLayer": {
+      "currentHttpsOrigin": "https://luhm-os-harness-green.onrender.com",
+      "exportRoute": "/harness/godot-export/index.html",
+      "assetRoute": "/harness/godot-export/{asset_path:path}",
+      "assetsMustBeDeployedTogether": true,
+      "staticHost": "renderSameOrigin",
+      "browserMustLoadHtmlWasmPck": true,
+      "runtimeRequirements": [
+        "https",
+        "javascript",
+        "webassembly",
+        "webgl2"
+      ],
+      "javaRuntimeRequired": false,
+      "cssUsedForShell": true,
+      "javascriptUsedByGodotBootstrap": true,
+      "sameOriginPreferredForFirstHostTest": true,
+      "wasmMimeType": "application/wasm",
+      "separateFullScreenAndTouchSmokeRequired": true
+    },
+    "dnsLayer": {
+      "doctrine": "doctrine/cloudflareAirTrafficControllerV1.json",
+      "perimeter": "cloudflareAuthoritativeDns",
+      "purpose": "map a custom public hostname to an independently hosted HTTPS origin; DNS does not store or serve the game",
+      "customHostnameCandidate": "mcp.eggiebagelface.art",
+      "recordProposal": {
+        "type": "CNAME",
+        "name": "mcp",
+        "target": "luhm-os-harness-green.onrender.com",
+        "proxied": false
+      },
+      "recordState": "PROPOSED_UNVERIFIED",
+      "currentRenderOriginIndependentOfCloudflare": true,
+      "renderCustomDomainAndTlsProofRequired": true,
+      "proxyAllowedOnlyAfterMcpAndFrameCompatibilityTest": true,
+      "tunnelNotRequired": true,
+      "noLiveDnsMutation": true,
+      "noUnapprovedCloudflareCdn": true
+    }
+  },
+  "naming": {
+    "rule": "camelHumpForInternalIdentifiersAndLowercaseKebabCaseForNewUrlSlugs",
+    "preferredSlug": "luhm-os",
+    "legacyExternalGithubRepoIdentity": "eggie-admin/LuHm-OS",
+    "noRenameOfExistingToolOrRepositoryIdentifiers": true
+  },
+  "evidenceGates": [
+    {
+      "id": "exactGodotWebExport",
+      "state": "PROVED",
+      "evidence": "GitHub Actions run 37736153654; SHA 45eaaddd8bb72ca34c69c40a4214fca94364fe13"
+    },
+    {
+      "id": "playerSource",
+      "state": "SOURCE_PRESENT",
+      "evidence": "PR 210; dedicated MCP app viewer source"
+    },
+    {
+      "id": "staticHostDeployment",
+      "state": "UNVERIFIED",
+      "evidence": "No target-host deployment receipt for this candidate"
+    },
+    {
+      "id": "mcpClientDiscovery",
+      "state": "UNVERIFIED",
+      "evidence": "No luhm_open_godot_player discovery receipt in current conversation"
+    },
+    {
+      "id": "androidEmbeddedPlayback",
+      "state": "UNVERIFIED",
+      "evidence": "No ChatGPT Android WebGL2, frame, fullscreen or touch smoke receipt"
+    },
+    {
+      "id": "customCloudflareDns",
+      "state": "PROPOSED",
+      "evidence": "No DNS resolution, Render custom domain or TLS certificate receipt"
+    }
+  ],
+  "nextGate": "isolatedCandidateHostDeploymentAndMcpHostSmokeAfterExplicitProfessorApproval",
+  "safety": {
+    "noAutomaticDeployment": true,
+    "noDnsOrProxyChanges": true,
+    "noProductionPublication": true,
+    "noAssetRightsExpansion": true,
+    "noCompanionAgentPrivileges": true,
+    "candidateOnly": true,
+    "crownStatus": "STOP"
+  }
+}

@@ -10,7 +10,13 @@
     "likeTermFold": "doctrine/chatLikeTermFoldV1.json",
     "petPresentation": "doctrine/characterPetPresentationV1.json",
     "characterCanon": "game/canon/CHARACTER_CANON_V1.json",
-    "gameplay": "doctrine/gameplayVerticalSliceV1.json"
+    "gameplay": "doctrine/gameplayVerticalSliceV1.json",
+    "sourceTruth": "doctrine/currentSourceTruthV3.json",
+    "chatCanon": "doctrine/projectChatCanonV1.json",
+    "semanticDomainHardening": "doctrine/semanticDomainHardeningV1.json",
+    "pkiSecretary": "doctrine/belldandyPkiCorporateSecretaryV1.json",
+    "corporateEscalation": "doctrine/corporateEscalationProfileV1.json",
+    "virginInstall": "doctrine/manualPluginVirginInstallV1.json"
   },
   "eventSpine": [
     "professorIntent",
@@ -127,5 +133,38 @@
       "huggingFace_is_specialist_trainer_provider_not_boss",
       "lum_operates_against_current_doctrine_and_source_truth_and_reconciles_all_specialists"
     ]
+  },
+  "modeRouting": {
+    "defaultMode": "normalChat",
+    "oocForcesPlainConversation": true,
+    "irlForcesPlainConversation": true,
+    "directTaskCorrectionForcesPlainConversation": true,
+    "explicitSceneEntryRequired": true,
+    "activeSceneMayContinue": true,
+    "ambiguousInputStaysOoc": true
+  },
+  "portablePlugin": {
+    "skill": "plugins/luhm-os/skills/luhm-coding-roleplay/SKILL.md",
+    "installContract": "doctrine/manualPluginVirginInstallV1.json",
+    "priorPluginStateRequired": false,
+    "priorConversationStateRequired": false,
+    "hiddenAsyncExecution": false
+  },
+  "parserLaw": {
+    "unknownSingleLetterCommandsHaveNoDefaultMeaning": true,
+    "continueCommand": "C",
+    "pairedComparisonForms": [
+      "==",
+      "!=",
+      ">=",
+      "<="
+    ]
+  },
+  "frontEnd": {
+    "entry": "frontEnd/jquery/luhm.codingRoleplay.js",
+    "configurationMode": "doctrineConfigurable",
+    "defaultAuthority": "presentationOnly",
+    "persistentBrowserState": false,
+    "localStorageRequired": false
   }
 }
