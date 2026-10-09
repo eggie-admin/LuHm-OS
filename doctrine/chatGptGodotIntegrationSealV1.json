@@ -1,0 +1,80 @@
+{
+  "schema": "luhmOs.chatGptGodotIntegrationSeal.v1",
+  "status": "MERGED_DEPLOYED_HOST_UNVERIFIED",
+  "recordedDate": "2026-10-09",
+  "authority": "Professor",
+  "scopeId": "chatGptPluginGodotIntegration20261009",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "authorization": "Professor explicitly requested MERGE DEPLOY on 2026-10-09, then SAVE SEAL UPDATE SOURCE OF TRUTH in this chat.",
+  "source": {
+    "integratedPullRequest": 219,
+    "includedWorkPullRequests": [
+      208,
+      210,
+      215
+    ],
+    "integrationCandidateHead": "c47874868a698f57e06d4af8aeee661ff66b9d97",
+    "mergedMain": "23b7578c3ded869193f3bca9bdbb60bebd5a934a",
+    "integratedFiles": 23,
+    "originalDraftPullRequestsPreserved": true
+  },
+  "ci": {
+    "exactIntegrationCandidateRunCount": 21,
+    "exactIntegrationCandidateAllSuccessful": true,
+    "mainPostMergeRunCount": 4,
+    "mainPostMergeAllSuccessful": true,
+    "scope": "Exact-source GitHub workflows only; CI does not prove ChatGPT host installation or interactive gameplay."
+  },
+  "render": {
+    "mcpHarness": {
+      "name": "luhm-os-harness-green",
+      "serviceId": "srv-daubsi1srm7s73bl5lh0",
+      "url": "https://luhm-os-harness-green.onrender.com",
+      "deployId": "dep-db4kiqvavr4c73fjue7g",
+      "deployedCommit": "23b7578c3ded869193f3bca9bdbb60bebd5a934a",
+      "state": "live",
+      "finishedAt": "2026-10-09T20:07:56.78428Z",
+      "observedHomepageHttpStatus": 200
+    },
+    "godotHarness": {
+      "name": "luhm-os-godot-harness-green",
+      "serviceId": "srv-dauc8lnavr4c738kfd0g",
+      "url": "https://luhm-os-godot-harness-green.onrender.com",
+      "deployId": "dep-db4kis9srm7s7382qon0",
+      "deployedCommit": "23b7578c3ded869193f3bca9bdbb60bebd5a934a",
+      "state": "live",
+      "finishedAt": "2026-10-09T20:09:07.98265Z",
+      "godotExportBuild": "GREEN_GODOT_WEB_HARNESS_EXPORT",
+      "observedHomepageHttpStatus": 200
+    }
+  },
+  "portablePluginPackage": {
+    "version": "0.5.0",
+    "githubWorkflowRunId": 37984692927,
+    "githubArtifactId": 11642592485,
+    "artifactName": "luhm-os-manual-upload-0.5.0",
+    "source": "plugins/luhm-os",
+    "artifactCreated": true,
+    "chatGptPluginInstalled": "UNVERIFIED",
+    "publicDirectoryPublication": "PENDING"
+  },
+  "openGates": {
+    "chatGptPluginAttachment": "PENDING_USER_HOST_ACTION",
+    "chatGptToolDiscovery": "UNVERIFIED",
+    "luhmOpenCockpitInvocation": "UNVERIFIED",
+    "inChatGodotGameplay": "UNVERIFIED",
+    "publicationApproval": "NOT_GRANTED_BY_THIS_SEAL"
+  },
+  "nextAction": "Install or connect the reviewed LuHm OS 0.5.0 package in an eligible ChatGPT Plugins interface; then call luhm_open_cockpit and the Godot player and record actual host/browser interaction receipts.",
+  "scopeLimits": {
+    "sourceAndRenderDeploymentVerified": true,
+    "chatGptInstallProven": false,
+    "inChatGameRuntimeProven": false,
+    "noAutomaticFutureMerge": true,
+    "noAutomaticPublication": true,
+    "noProductionSigning": true,
+    "noNewDnsOrTlsMutations": true
+  },
+  "crownStatus": "STOP"
+}
