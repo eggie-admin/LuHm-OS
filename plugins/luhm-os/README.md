@@ -1,41 +1,55 @@
 # LuHm OS ChatGPT Plugin
 
-LuHm OS packages reusable agent skills plus a hardened MCP server for source-truth inspection, bounded Lum/Oni routing, and proof-aware status.
+LuHm OS 0.5.0 is built for a clean manual upload. It packages portable LuHm workflow skills, explicit coding-roleplay behavior, and the canonical read-only MCP connection.
 
-## Current endpoint layout
+## Virgin install
 
-- Canonical MCP endpoint: `https://luhm-os-harness-green.onrender.com/mcp`
-- Health/readiness: `https://luhm-os-harness-green.onrender.com/healthz`
-- Standalone cockpit: `https://luhm-os-harness-green.onrender.com/harness/`
-- Local workstation MCP: `http://127.0.0.1:8788/mcp`
+Uninstall the older LuHm OS plugin before uploading this package.
 
-`plugins/luhm-os/mcp.json` is the current connection source. A custom FQDN, DNS cutover, Cloudflare proxy, or public directory publication is not implied by this README and remains separately evidence-gated and Professor-controlled.
+The new package does not migrate or require prior plugin state, prior chat state, local developer MCP settings, tokens, private keys, or private connection files.
+
+Upload the ZIP exactly as built. Its archive root contains `plugin.json`.
+
+After installation, start a new chat and ask LuHm OS to inspect current source truth. Normal ChatGPT is the default mode. LuHm coding roleplay starts only when explicitly requested or when continuing an active scene. OOC, IRL, direct corrections, and real project control instructions return to plain conversation.
+
+## Current endpoint
+
+The manual package contains one MCP connection source:
+
+`https://luhm-os-harness-green.onrender.com/mcp`
+
+Custom DNS, Cloudflare proxy changes, certificate issuance, and public directory publication remain separately evidence-gated and Professor-controlled.
 
 ## Portable plugin root
 
-- `plugin.json` - Agent Plugins manifest.
-- `mcp.json` - current remote HTTPS MCP connection.
-- `mcp.local.json` - explicit loopback-only development connection.
-- `mcp.remote.example.json` - non-routable deployment example.
-- `skills/` - reusable LuHm workflow skills.
-- `PRIVACY.md` and `TERMS.md` - publication-policy candidates.
+The manual upload contains:
 
-## OpenAI developer-mode evaluation lane
+- `plugin.json`
+- `mcp.json`
+- `README.md`
+- `VIRGIN_INSTALL.md`
+- `PRIVACY.md`
+- `TERMS.md`
+- `review-tests.json`
+- `assets/`
+- `skills/luhm-agent-workflow/`
+- `skills/belldandy-housekeeping/`
+- `skills/luhm-coding-roleplay/`
+- generated `SOURCE_MAP.json`
+- generated `BUILD_RECEIPT.json`
 
-Test capabilities before the complete installed plugin and retain evaluation prompts/results across releases.
+Developer-only local/private MCP profiles and deployment/review working files are intentionally excluded from the manual upload artifact.
 
-1. Confirm public HTTPS Streamable HTTP at `/mcp` and inspect tool names, descriptions, schemas, annotations, authentication behavior, and model-readable results with MCP Inspector.
-2. Enable ChatGPT Developer mode when available under the account/workspace policy.
-3. Add the canonical MCP endpoint as a developer connection and inspect discovered tools and metadata.
-4. Run direct, indirect, follow-up, authorization/confirmation, unsupported, and empty/error evaluation cases. Record selected tool, arguments, result, errors, and confirmation behavior.
-5. Test optional UI both as a component and model-readable result. For LuHm, exercise `luhm_open_cockpit`, commandCapsule controls, networkTruth presentation, state restoration, and console-error behavior.
-6. Optionally use the OpenAI API Playground MCP Server tool for raw request/response inspection.
-7. After tool/schema/annotation/auth/UI-resource changes, deploy/restart, Refresh the developer connection, confirm metadata, start a new conversation, and rerun affected evaluations.
-8. Package and test the complete plugin only after the MCP capability lane works. Verify skills, manifest, MCP connection, starter prompts, bundled references, negative cases, and end-to-end combined workflows.
-9. Public submission remains a separate Professor Crown decision.
+## Coding roleplay boundary
 
-## Current authority boundary
+ChatGPT stays outside the tiny goth MUD unless Professor explicitly enters or continues a scene.
 
-The candidate exposes read-oriented status, roster, deterministic routing, proof-contract tools, and a read-only cockpit. It does not gain production signing, release promotion, publication, remote shell, secret-write authority, DNS/Cloudflare mutation authority, or GREEN authority.
+Roleplay is presentation only. It cannot create GREEN, mutation authority, merge, publication, deployment, signing, DNS/TLS changes, secret rotation, certificate issuance, or Crown.
+
+The portable roleplay skill and connected cockpit both resolve behavior from current LuHm doctrine/source truth rather than requiring remembered state from an older install.
+
+## Authority
+
+The plugin exposes read-oriented source truth, roster, housekeeping, routing, help, escalation planning, proof contracts, and the read-only cockpit.
 
 Source law: **AI proposes. Policy authorizes. CI proves. Human promotes.**

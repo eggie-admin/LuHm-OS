@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "luhm-os",
-  "version": "0.4.4",
-  "description": "Evidence-gated LuHm OS workflow with Lum/Oni routing, proof inspection, and read-only MCP-backed ChatGPT plugin support.",
+  "version": "0.5.0",
+  "description": "Virgin-install LuHm OS plugin with evidence-gated source-truth workflows, explicit coding roleplay, and read-only MCP-backed cockpit support.",
   "author": {
     "name": "Eggie Bagelface",
     "url": "https://luhm-os-publication-site.onrender.com/"
@@ -17,14 +17,15 @@
     "mcp",
     "proof",
     "oni",
-    "developer-tools"
+    "developer-tools",
+    "roleplay"
   ],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "LuHm OS",
-        "shortDescription": "Evidence-gated dev cockpit",
-        "longDescription": "Use Lum as the single orchestrator for bounded read-only LuHm workflows, universal 0-3 escalation planning, exact-source inspection, Belldandy continuity, naming/help recovery, proof-aware state, and scope validation without granting merge, release, signing, publication, or Crown authority.",
+        "shortDescription": "LuHm cockpit + roleplay",
+        "longDescription": "Clean-install LuHm OS plugin. Normal ChatGPT stays the default; explicit LuHm coding roleplay adds the tiny goth MUD presentation layer while Lum routes bounded read-only source-truth, evidence, housekeeping, escalation, and cockpit workflows. Roleplay never grants merge, release, signing, publication, secret, GREEN, or Crown authority.",
         "developerName": "Eggie Bagelface",
         "category": "Developer Tools",
         "capabilities": [
@@ -39,10 +40,9 @@
         "logo": "./assets/logo.svg",
         "defaultPrompt": [
           "Use LuHm OS to inspect the current source truth and explain what is actually proven.",
-          "Use LuHm OS to list the Lum and Oni roles and their current bounded capabilities.",
-          "Open the LuHm OS in-chat cockpit and show its current experience contract.",
+          "Open the LuHm OS in-chat cockpit and show the current clean-install experience contract.",
+          "Enter LuHm coding roleplay and continue only inside the explicit scene boundary.",
           "Ask Belldandy for the current housekeeping window and checkpoint status.",
-          "Use LuHm OS help to explain what BUILD, build-candidate, or buildCandidate means before doing anything.",
           "Use LuHm OS escalation planning to tell me whether this blocked task should continue, escalate, hold, or close."
         ]
       },
@@ -74,10 +74,10 @@
               "expected_behavior": "Calls route without granting promotion authority."
             },
             {
-              "description": "Open the in-chat LuHm cockpit.",
-              "prompt": "Open the LuHm OS cockpit and show the active in-chat experience.",
+              "description": "Enter explicit coding roleplay without leaking authority into normal chat.",
+              "prompt": "Enter LuHm coding roleplay, show the active cabinet, then go OOC and tell me the exact machine state.",
               "tools_triggered": "luhm_open_cockpit",
-              "expected_behavior": "Renders the cockpit-v2 MCP Apps resource and exposes the canonical inChatExperience contract without granting GREEN or publication authority."
+              "expected_behavior": "Uses the cockpit contract and portable coding-roleplay skill, keeps normal chat as the default, exits fiction on OOC, and never turns presentation into GREEN or mutation authority."
             }
           ],
           "negative": [
@@ -98,7 +98,7 @@
         "commerce": false
       },
       "publication": {
-        "release_notes": "LuHm OS 0.4.4 adds the shared zero-based escalation kernel across default, corporate, magic, art, and technology domains plus the read-only luhm_escalation_plan tool. Existing Crown, proof, publication, and authority boundaries remain unchanged."
+        "release_notes": "LuHm OS 0.5.0 is rebuilt for virgin manual upload. It adds a portable coding-roleplay skill, first-boot mode routing, doctrine-configurable roleplay, and a deterministic upload-package build while preserving the public read-only MCP and Professor Crown boundaries."
       }
     }
   }

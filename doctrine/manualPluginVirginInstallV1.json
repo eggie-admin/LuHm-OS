@@ -1,0 +1,88 @@
+{
+  "schema": "luhmOs.manualPluginVirginInstall.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Build a clean manual-upload LuHm OS plugin package that requires no prior plugin installation, chat memory, migration state or local developer configuration.",
+  "buildBasis": {
+    "canonicalRepository": "eggie-admin/LuHm-OS",
+    "canonicalMainAtStart": "3471f78188410761c84a892101ba163a3052be13",
+    "sourceTruth": "doctrine/currentSourceTruthV3.json",
+    "chatCanon": "doctrine/projectChatCanonV1.json",
+    "codingRoleplay": "doctrine/codingRoleplayDirectorV2.json",
+    "semanticBoundary": "doctrine/semanticDomainHardeningV1.json",
+    "pkiSecretary": "doctrine/belldandyPkiCorporateSecretaryV1.json",
+    "pluginPublication": "doctrine/pluginPublicationV2.json"
+  },
+  "installModel": {
+    "mode": "virginInstall",
+    "oldPluginStateRequired": false,
+    "migrationRequired": false,
+    "priorConversationStateRequired": false,
+    "localMcpConfigRequired": false,
+    "privateMcpConfigAllowedInUpload": false,
+    "packageRootMustContainPluginJson": true,
+    "cleanUninstallOfOldPluginExpectedBeforeManualUpload": true
+  },
+  "package": {
+    "packageVersion": "0.5.0",
+    "artifactBaseName": "luhm-os-manual-upload-0.5.0",
+    "root": "plugins/luhm-os",
+    "required": [
+      "plugin.json",
+      "mcp.json",
+      "README.md",
+      "VIRGIN_INSTALL.md",
+      "PRIVACY.md",
+      "TERMS.md",
+      "review-tests.json",
+      "assets",
+      "skills"
+    ],
+    "excluded": [
+      "mcp.local.json",
+      "mcp.private.json",
+      "mcp.remote.example.json",
+      "DEPLOYMENT.md",
+      "PUBLIC_SUBMISSION_DRAFT.md",
+      "review"
+    ],
+    "rootLayout": "archiveRootEqualsPluginRoot",
+    "buildReceipt": "BUILD_RECEIPT.json",
+    "sourceMap": "SOURCE_MAP.json"
+  },
+  "firstBoot": {
+    "defaultMode": "normalChat",
+    "roleplayEntry": "explicitIntentOnly",
+    "oocAndIrlForcePlainConversation": true,
+    "codingRoleplaySkill": "skills/luhm-coding-roleplay/SKILL.md",
+    "workflowSkill": "skills/luhm-agent-workflow/SKILL.md",
+    "authority": "readOnly",
+    "unknownState": "UNKNOWN"
+  },
+  "roleplayContract": {
+    "chatOutsideScene": "normalChat",
+    "sceneEntryRequiresExplicitPlayOrActiveScene": true,
+    "directTaskCorrectionExitsRoleplay": true,
+    "continueCommand": "C",
+    "parserFacingComparisonForms": [
+      "==",
+      "!=",
+      ">=",
+      "<="
+    ],
+    "unknownSingleLetterCommandsHaveNoDefaultMeaning": true,
+    "roleplayMayGrantAuthority": false,
+    "roleplayMayGrantGreen": false,
+    "roleplayMayGrantCrown": false,
+    "roleplayMayTriggerHiddenAsync": false
+  },
+  "network": {
+    "mcpConfig": "plugins/luhm-os/mcp.json",
+    "canonicalEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+    "manualUploadDoesNotMutateDns": true,
+    "manualUploadDoesNotMutateTls": true,
+    "manualUploadDoesNotRotateSecrets": true
+  },
+  "crownStatus": "STOP"
+}
