@@ -176,7 +176,15 @@
     "publicInvocation": "PENDING",
     "workflowStream": "doctrine/chatGptPluginWorkflowStreamV1.json",
     "workflowStreamStatus": "STANDBY_CANDIDATE",
-    "newWorkflowActivation": "PENDING_RECONCILIATION_MERGE_AND_EXACT_MAIN_CI"
+    "newWorkflowActivation": "PENDING_RECONCILIATION_MERGE_AND_EXACT_MAIN_CI",
+    "latestIntegrationSeal": {
+      "receipt": "doctrine/chatGptGodotIntegrationSealV1.json",
+      "mergedMain": "23b7578c3ded869193f3bca9bdbb60bebd5a934a",
+      "renderRuntime": "LIVE_BOTH_EXACT_COMMIT",
+      "chatGptHost": "PENDING_INSTALL_AND_DISCOVERY",
+      "godotInChatGameplay": "UNVERIFIED",
+      "crownStatus": "STOP"
+    }
   },
   "androidLayer": {
     "cockpitContract": "doctrine/androidWeb3CockpitV2.json",
