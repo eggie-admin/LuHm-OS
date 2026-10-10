@@ -1,0 +1,32 @@
+name: Godot Drive Library Bridge Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/godotDriveLibraryHandoffV1.json'
+      - 'tools/godotDriveLibraryIntakeAudit.py'
+      - 'tools/buildGodotWebHarness.sh'
+      - '.github/workflows/godot-drive-library-bridge-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  private-intake-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact revision
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" == "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Verify Drive pins without loading private binaries or credentials
+        run: |
+          set -euo pipefail
+          python3 tools/godotDriveLibraryIntakeAudit.py
