@@ -29,9 +29,9 @@ need(installDoc.get("installModel", {}).get("oldPluginStateRequired") is False, 
 need(installDoc.get("installModel", {}).get("migrationRequired") is False, "migration unexpectedly required")
 need(installDoc.get("firstBoot", {}).get("defaultMode") == "normalChat", "first boot must default to normal chat")
 need(installDoc.get("firstBoot", {}).get("oocAndIrlForcePlainConversation") is True, "OOC/IRL clean boundary missing")
-need(pluginDoc.get("version") == "0.5.0", "plugin version drift")
+need(pluginDoc.get("version") == "0.5.1", "plugin version drift")
 need(pluginDoc.get("extensions", {}).get("com.openai", {}).get("interface", {}).get("capabilities") == ["Read"], "plugin lost read-only capability")
-need(mcpDoc.get("mcpServers", {}).get("luhm", {}).get("url") == "https://luhm-os-harness-green.onrender.com/mcp", "manual package MCP endpoint drift")
+need(mcpDoc.get("mcpServers", {}).get("luhm", {}).get("url") == "https://luhm-os-godot-harness-green.onrender.com/mcp", "manual package MCP endpoint drift")
 
 need(roleplayDoc.get("sources", {}).get("sourceTruth") == "doctrine/currentSourceTruthV3.json", "roleplay no longer binds source truth")
 need(roleplayDoc.get("sources", {}).get("chatCanon") == "doctrine/projectChatCanonV1.json", "roleplay no longer binds chat canon")
@@ -73,7 +73,7 @@ need(any("coding roleplay" in row.get("prompt", "").lower() for row in reviewDoc
 builder = subprocess.run([sys.executable, str(rootPath / "tools/buildManualPluginPackage.py")], cwd=rootPath, capture_output=True, text=True)
 need(builder.returncode == 0, "manual plugin package builder failed")
 
-archivePath = rootPath / "build/manual-plugin/luhm-os-manual-upload-0.5.0.zip"
+archivePath = rootPath / "build/manual-plugin/luhm-os-manual-upload-0.5.1.zip"
 need(archivePath.is_file(), "manual upload ZIP missing")
 
 if archivePath.is_file():
@@ -112,7 +112,7 @@ print(json.dumps({
     "schema": "luhmOs.manualPluginVirginInstallAudit.v1",
     "status": "GREEN_MANUAL_PLUGIN_VIRGIN_INSTALL" if not errors else "RED_MANUAL_PLUGIN_VIRGIN_INSTALL",
     "pluginVersion": pluginDoc.get("version"),
-    "archive": "build/manual-plugin/luhm-os-manual-upload-0.5.0.zip",
+    "archive": "build/manual-plugin/luhm-os-manual-upload-0.5.1.zip",
     "errors": errors,
     "publicationAuthority": False,
     "mutationAuthority": False,
