@@ -25,8 +25,8 @@
     "cleanUninstallOfOldPluginExpectedBeforeManualUpload": true
   },
   "package": {
-    "packageVersion": "0.5.0",
-    "artifactBaseName": "luhm-os-manual-upload-0.5.0",
+    "packageVersion": "0.5.1",
+    "artifactBaseName": "luhm-os-manual-upload-0.5.1",
     "root": "plugins/luhm-os",
     "required": [
       "plugin.json",
@@ -79,7 +79,7 @@
   },
   "network": {
     "mcpConfig": "plugins/luhm-os/mcp.json",
-    "canonicalEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+    "canonicalEndpoint": "https://luhm-os-godot-harness-green.onrender.com/mcp",
     "manualUploadDoesNotMutateDns": true,
     "manualUploadDoesNotMutateTls": true,
     "manualUploadDoesNotRotateSecrets": true
