@@ -12,7 +12,7 @@ rootPath = Path(__file__).resolve().parents[1]
 pluginRoot = rootPath / "plugins" / "luhm-os"
 buildRoot = rootPath / "build" / "manual-plugin"
 stageRoot = buildRoot / "stage"
-archivePath = buildRoot / "luhm-os-manual-upload-0.5.0.zip"
+archivePath = buildRoot / "luhm-os-manual-upload-0.5.1.zip"
 
 installDoc = json.loads((rootPath / "doctrine" / "manualPluginVirginInstallV1.json").read_text(encoding="utf-8"))
 sourceTruth = json.loads((rootPath / "doctrine" / "currentSourceTruthV3.json").read_text(encoding="utf-8"))
