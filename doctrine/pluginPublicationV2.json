@@ -52,9 +52,9 @@
   },
   "manualUpload": {
     "contract": "doctrine/manualPluginVirginInstallV1.json",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "builder": "tools/buildManualPluginPackage.py",
-    "artifact": "build/manual-plugin/luhm-os-manual-upload-0.5.0.zip",
+    "artifact": "build/manual-plugin/luhm-os-manual-upload-0.5.1.zip",
     "migrationRequired": false
   }
 }
