@@ -1,0 +1,32 @@
+{
+  "schema": "luhmOs.lumNativeRunVisualProof.v1",
+  "status": "VISUALIZED_SOURCE_MODEL_CANDIDATE",
+  "authority": "Professor",
+  "source": {
+    "provider": "Google Drive",
+    "driveFileId": "1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen",
+    "bundle": "Meshy_AI_Lum_Midnight_1996_biped.zip",
+    "animatedGlb": "Meshy_AI_Lum_Midnight_1996_biped_Animation_Running_withSkin.glb",
+    "animatedGlbSha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0"
+  },
+  "observed": {
+    "animation": "Armature|running|baselayer",
+    "joints": 24,
+    "vertices": 38432,
+    "triangles": 27178,
+    "nativeAnimationSeconds": 0.633333365,
+    "embeddedTexture": true
+  },
+  "visualProof": {
+    "method": "software preview of actual skinned GLB plus embedded texture",
+    "videoSeconds": 4.0,
+    "videoResolution": "720x960",
+    "videoFps": 30,
+    "proofVideoSha256": "b6bc098a1aad581c25b43b494bc81b514b23f95f3c39f3c94aaa0ac7a498f646",
+    "nativeRunLoopRepeatedForVisibility": true,
+    "aiVideoGenerated": false,
+    "godotRuntimeCapture": false
+  },
+  "nextGate": "Godot 4 import and native animation playback capture after explicit Professor CAST",
+  "crownStatus": "STOP"
+}

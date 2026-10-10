@@ -1,0 +1,27 @@
+const {chromium}=require('playwright');
+const assert=require('node:assert/strict');
+const path=require('node:path');
+const fs=require('node:fs');
+const os=require('node:os');
+const {pathToFileURL}=require('node:url');
+const output=fs.mkdtempSync(path.join(os.tmpdir(),'yume-gallery-'));
+(async()=>{
+const browser=await chromium.launch({headless:true});
+const context=await browser.newContext({viewport:{width:1440,height:1000},acceptDownloads:true});
+const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.goto(pathToFileURL(path.join(__dirname,'../frontEnd/yumeReferenceGallery.html')).href);
+assert.equal(await page.locator('.card:visible').count(),29);
+await page.locator('#query').fill('hair');assert((await page.locator('.card:visible').count())>0);
+await page.locator('#reset').click();await page.locator('#game').selectOption('Fallout 4');assert.equal(await page.locator('.card:visible').count(),13);
+await page.locator('#kind').selectOption('Engineering tool');assert.equal(await page.locator('.card:visible').count(),6);
+await page.locator('#reset').click();await page.locator('.save').first().click();await page.locator('#shortlist').click();assert.equal(await page.locator('.card:visible').count(),1);
+await page.reload();assert.match(await page.locator('#count').textContent(),/1 shortlisted/);
+const download=page.waitForEvent('download');await page.locator('#export').click();const d=await download;await d.saveAs(path.join(output,'testShortlist.json'));
+const exported=require(path.join(output,'testShortlist.json'));assert.equal(exported.cards.length,1);assert.equal(exported.assetApproval,false);
+await page.locator('#query').fill('nothingcanmatchthis');assert(await page.locator('#empty').isVisible());await page.locator('#reset').click();
+await page.screenshot({path:path.join(output,'galleryDesktop.png')});
+await page.setViewportSize({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);await page.screenshot({path:path.join(output,'galleryMobile.png')});
+await page.evaluate(()=>localStorage.setItem('luhm.yumeReferenceShortlist.v1','{}'));await page.reload();assert.equal(await page.locator('.card:visible').count(),29);assert(await page.locator('#notice').isVisible());
+assert.deepEqual(errors,[]);console.log('PASS: 29 cards; world/type/search filters; shortlist persistence/export; empty state; mobile overflow; corrupt-storage recovery; no JS errors');
+await browser.close();
+})();

@@ -1,0 +1,114 @@
+{
+  "schema": "luhmOs.gothicMatriarchFamilyReferenceStudy.v1",
+  "status": "PROTECTED_REFERENCE_ONLY",
+  "authority": "Professor",
+  "boss": "lum",
+  "artDirection": "yume",
+  "purpose": "Use the Resident Evil Village Dimitrescu family as a protected visual/production reference for scale contrast, silhouette hierarchy, family differentiation, garment language, and LOD/topology comparison. No Capcom character geometry, textures, logos, names, faces, costumes, or proprietary details may enter LuHm runtime or public production assets.",
+  "officialReferenceFacts": {
+    "family": ["Alcina Dimitrescu", "Bela", "Cassandra", "Daniela"],
+    "motherRole": "very tall charismatic gothic matriarch",
+    "daughterCount": 3,
+    "castleTheme": "beautiful horror",
+    "wardrobeEra": "1960s influence",
+    "daughterWardrobe": "orthodox black witch-like garb with differentiated appearance/personality",
+    "designLaw": "family members should read as one household while remaining immediately distinguishable"
+  },
+  "modelReferenceLadder": [
+    {
+      "id": "dimitrescuFanartHigh",
+      "source": "Sketchfab",
+      "url": "https://sketchfab.com/3d-models/lady-dimitrescu-resident-evil-village-bf5ca61d810e4b1ab85579db0ca27319",
+      "reportedTriangles": 1400000,
+      "reportedVertices": 709000,
+      "role": "high-detail silhouette/material/facial construction reference",
+      "ingest": "NO_BINARY_INGEST"
+    },
+    {
+      "id": "dimitrescuMidA",
+      "source": "Sketchfab",
+      "url": "https://sketchfab.com/3d-models/alcina-dimitrescu-resident-evil-village-3c44696e61eb4e83b99eb1f384b99ed9",
+      "reportedTriangles": 350600,
+      "reportedVertices": 285400,
+      "reportedLicense": "CC-BY as displayed by Sketchfab uploader",
+      "role": "mid-high topology density reference",
+      "ingest": "NO_BINARY_INGEST_UNDERLYING_CHARACTER_IP_REMAINS_PROTECTED"
+    },
+    {
+      "id": "dimitrescuMidB",
+      "source": "Sketchfab",
+      "url": "https://sketchfab.com/3d-models/resident-evil-village-lady-dimitrescu-6e9a99ed44794102b516d611306867c0",
+      "reportedTriangles": 256500,
+      "reportedVertices": 147600,
+      "reportedLicense": "CC-BY as displayed by Sketchfab uploader",
+      "role": "game-scale topology/VR-ready comparison reference",
+      "ingest": "NO_BINARY_INGEST_UNDERLYING_CHARACTER_IP_REMAINS_PROTECTED"
+    },
+    {
+      "id": "dimitrescuLowA",
+      "source": "Sketchfab",
+      "url": "https://sketchfab.com/3d-models/lady-dimitrescu-lowpoly-model4536-2df36520d2ab48238df229b3c6bb633a",
+      "reportedTriangles": 4536,
+      "reportedVertices": 2300,
+      "reportedLicense": "CC-BY as displayed by Sketchfab uploader",
+      "role": "silhouette-retention under aggressive decimation reference",
+      "ingest": "NO_BINARY_INGEST"
+    },
+    {
+      "id": "dimitrescuLowB",
+      "source": "Sketchfab",
+      "url": "https://sketchfab.com/3d-models/low-poly-lady-dimitrescu-f9475c4393fa4587a74a6e40d2da446e",
+      "reportedTriangles": 739,
+      "reportedVertices": 394,
+      "reportedLicense": "CC-BY as displayed by Sketchfab uploader",
+      "role": "extreme LOD/silhouette readability reference",
+      "ingest": "NO_BINARY_INGEST"
+    },
+    {
+      "id": "belaReference",
+      "source": "Sketchfab",
+      "url": "https://sketchfab.com/3d-models/bela-dimitrescu-resident-evil-village-fa111656533f4230a8539a9a9e98fe35",
+      "reportedTriangles": 206300,
+      "reportedVertices": 112100,
+      "reportedLicense": "CC-BY as displayed by Sketchfab uploader",
+      "role": "daughter-scale silhouette/outfit hierarchy reference",
+      "ingest": "NO_BINARY_INGEST_UNDERLYING_CHARACTER_IP_REMAINS_PROTECTED"
+    }
+  ],
+  "pirateDaddiesTranslation": {
+    "familyHierarchy": "Use deliberate height, posture, costume-volume, and silhouette contrast to make the elder/matriarch figure dominate a group shot without cloning the reference.",
+    "sisterDifferentiation": "Shared family design language must not collapse Lum, Urd, Belldandy, and Skuld into the same face/body/costume.",
+    "lodLesson": "Preserve identity silhouette at multiple triangle budgets; build original LODs from LuHm masters.",
+    "materialLesson": "Separate readable large-shape costume design from fine ornament so characters remain identifiable at distance.",
+    "bodyMutationLesson": "Use the reference envelope to test tall/hourglass/mature and slimmer/younger-adult archetype extremes without importing protected proportions one-to-one.",
+    "runtimeLesson": "All final characters remain original LuHm geometry driven by GODDESS_MORPH_PRESETS_V1 and Godot runtime morph/secondary-motion systems."
+  },
+  "characterMapping": {
+    "urd": {
+      "borrowOnly": ["matriarch scale authority", "mature gothic silhouette confidence", "group-shot dominance"],
+      "mustRemainOriginal": true
+    },
+    "belldandy": {
+      "borrowOnly": ["family cohesion", "soft gothic elegance", "distinct silhouette within ensemble"],
+      "mustRemainOriginal": true
+    },
+    "skuld": {
+      "borrowOnly": ["daughter differentiation principle", "sharper silhouette contrast", "ensemble readability"],
+      "mustRemainOriginal": true
+    },
+    "lum": {
+      "borrowOnly": ["family-role contrast", "gothic command presence", "ensemble hierarchy"],
+      "mustRemainOriginal": true
+    }
+  },
+  "rightsFirewall": {
+    "capcomCharacterAssetsInRuntime": false,
+    "fanModelGeometryInRuntime": false,
+    "fanModelTexturesInRuntime": false,
+    "fanModelRigsInRuntime": false,
+    "directCostumeCopy": false,
+    "directFaceCopy": false,
+    "highLevelProductionStudyAllowed": true
+  },
+  "crownStatus": "STOP"
+}

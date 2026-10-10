@@ -1,0 +1,32 @@
+{
+  "schema": "luhmOs.reEngineModderMutationStudy.v1",
+  "status": "PROPOSED_SOURCE_STUDY",
+  "authority": "Professor",
+  "boss": "lum",
+  "artDirection": "yume",
+  "registry": "media/re-engine-nexus-model-reference-registry-v1.json",
+  "purpose": "Translate the strongest reusable engineering patterns from the RE2R/RE3R/RE Village model-modding ecosystem into the original LuHm Godot 4 goddess factory.",
+  "patternMap": {
+    "RE2CharacterReplacement": "modular character slot and outfit-family abstraction",
+    "RE3HairFaceOutfitSplit": "separate swappable component contracts",
+    "RE3PhysicsChainEditing": "bounded secondary-motion authoring UI and chain presets",
+    "RE3ClippingCleanup": "pose-based outfit/body penetration audit",
+    "VillageDimitrescuFamilySwaps": "shared family compatibility without assuming identical identity",
+    "VillageAlcinaScale": "group-shot scale hierarchy and mature gothic silhouette stress test",
+    "REFramework": "runtime introspection and tool-vs-asset separation",
+    "REMeshTooling": "DCC bridge concepts for structured import/export"
+  },
+  "originalRuntimeTargets": [
+    "componentSocketContract",
+    "characterPresetContract",
+    "outfitConformContract",
+    "secondaryMotionPresetContract",
+    "materialVariantContract",
+    "lodContract",
+    "identityFirewall",
+    "perCharacterGodotReceipt"
+  ],
+  "publicationAuthority": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}

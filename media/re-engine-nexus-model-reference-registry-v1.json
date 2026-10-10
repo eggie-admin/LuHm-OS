@@ -1,0 +1,184 @@
+{
+  "schema": "luhmOs.reEngineNexusModelReferenceRegistry.v1",
+  "status": "PROTECTED_REFERENCE_AND_TOOL_SOURCE_CANDIDATE",
+  "authority": "Professor",
+  "boss": "lum",
+  "artDirection": "yume",
+  "purpose": "Study Resident Evil 2 Remake, Resident Evil 3 Remake, and Resident Evil Village Nexus model-modding ecosystems for modular character construction, mesh replacement, component swaps, physics-chain authoring, texture mutation, silhouette control, and outfit/body separation. No Capcom game assets or third-party Nexus binaries may enter LuHm runtime unless independently licensed for that use.",
+  "nexusSurfaces": [
+    {
+      "game": "Resident Evil 2 (2019)",
+      "url": "https://www.nexusmods.com/games/residentevil22019/mods",
+      "observedTotalMods": 1647,
+      "observedModelsAndTextures": 1019,
+      "studyTargets": [
+        "head replacement",
+        "hair replacement",
+        "body/outfit replacement",
+        "cross-character model swaps",
+        "material and texture mutation",
+        "RT/non-RT compatibility patterns"
+      ]
+    },
+    {
+      "game": "Resident Evil 3 (2020)",
+      "url": "https://www.nexusmods.com/games/residentevil32020",
+      "observedCharactersAndOutfits": 331,
+      "observedModelsAndTextures": 176,
+      "studyTargets": [
+        "separate hair face and outfit modules",
+        "mix-and-match character components",
+        "physics and motion-chain tuning",
+        "body silhouette variants",
+        "rig reuse and manual weight cleanup",
+        "clipping correction"
+      ]
+    },
+    {
+      "game": "Resident Evil Village",
+      "url": "https://www.nexusmods.com/residentevilvillage/mods/categories",
+      "observedTotalMods": 591,
+      "observedCharacters": 152,
+      "observedModelsAndTextures": 163,
+      "studyTargets": [
+        "large-scale gothic character silhouette",
+        "family/sister model swaps",
+        "face replacement",
+        "eye/material mutation",
+        "character hierarchy",
+        "shared-family design with distinguishable identities"
+      ]
+    }
+  ],
+  "representativeReferenceOnlyMods": [
+    {
+      "game": "Resident Evil 2 (2019)",
+      "name": "Jill over Claire all outfits",
+      "url": "https://www.nexusmods.com/residentevil22019/mods/2247",
+      "lesson": "whole-character replacement across multiple costume slots",
+      "binaryIngest": false
+    },
+    {
+      "game": "Resident Evil 2 (2019)",
+      "name": "Captain Marvel",
+      "url": "https://www.nexusmods.com/residentevil22019/mods/73",
+      "lesson": "external 3D model import/export workflow and character-slot replacement lineage",
+      "binaryIngest": false
+    },
+    {
+      "game": "Resident Evil 3 (2020)",
+      "name": "Project ReHauled Jill Valentine",
+      "url": "https://www.nexusmods.com/residentevil32020/mods/1170",
+      "lesson": "hair face and outfit are separable modules that can be mixed with vanilla or other mods",
+      "binaryIngest": false
+    },
+    {
+      "game": "Resident Evil 3 (2020)",
+      "name": "Ultimate Trainer for Resident Evil 3 Remake",
+      "url": "https://www.nexusmods.com/residentevil32020/mods/9",
+      "lesson": "runtime outfit swap, size controls, and physics/motion-chain editor concepts",
+      "binaryIngest": false
+    },
+    {
+      "game": "Resident Evil 3 (2020)",
+      "name": "Hitwoman Jill Outfit",
+      "url": "https://www.nexusmods.com/residentevil32020/mods/top",
+      "lesson": "character outfit plus jiggle/tie secondary-motion reference",
+      "binaryIngest": false
+    },
+    {
+      "game": "Resident Evil Village",
+      "name": "Bela Dimitrescu Over Cassandra And Daniela",
+      "url": "https://www.nexusmods.com/residentevilvillage/mods/453",
+      "lesson": "same-family character-slot substitution and preset-like replacement",
+      "binaryIngest": false
+    },
+    {
+      "game": "Resident Evil Village",
+      "name": "Cassandra Dimitrescu Over Bela And Daniela",
+      "url": "https://www.nexusmods.com/residentevilvillage/mods/454",
+      "lesson": "sister-slot replacement and family-identity compatibility",
+      "binaryIngest": false
+    },
+    {
+      "game": "Resident Evil Village",
+      "name": "Daniela Dimitrescu Over Bela And Cassandra",
+      "url": "https://www.nexusmods.com/residentevilvillage/mods/455",
+      "lesson": "sister-slot replacement and interchangeable family rig/material assumptions",
+      "binaryIngest": false
+    },
+    {
+      "game": "Resident Evil Village",
+      "name": "Alcina Dimitrescu Glowing Eyes",
+      "url": "https://www.nexusmods.com/residentevilvillage/mods/top?offset=95",
+      "lesson": "small material/texture mutation without replacing the entire character",
+      "binaryIngest": false
+    }
+  ],
+  "toolSource": [
+    {
+      "id": "reFramework",
+      "upstream": "https://github.com/praydog/REFramework.git",
+      "head": "d1461375aee4ec3f313170f8eaad12064eb542d9",
+      "license": "MIT",
+      "lane": "OPEN_SOURCE_STUDY",
+      "lesson": [
+        "runtime object inspection",
+        "scripting/mod-loader architecture",
+        "cross-RE-Engine compatibility",
+        "developer tooling separation from game assets"
+      ]
+    },
+    {
+      "id": "reRsz",
+      "upstream": "https://github.com/alphazolam/RE_RSZ.git",
+      "head": "871a1d5c4c7b81c60c966d73ee63f4c4413ab56e",
+      "license": "MIT",
+      "lane": "OPEN_SOURCE_STUDY",
+      "lesson": [
+        "RE Engine binary-structure research",
+        "version-specific data mapping",
+        "tooling around structured game resources"
+      ]
+    },
+    {
+      "id": "reMeshNoesisPlugin",
+      "upstream": "https://github.com/alphazolam/fmt_RE_MESH-Noesis-Plugin.git",
+      "head": "7950d27bf521f90bf250a9d43239957018d2a294",
+      "license": "UNKNOWN_NO_RECOGNIZED_REPO_LICENSE",
+      "lane": "REFERENCE_ONLY",
+      "lesson": [
+        "RE2R RE3R RE8 mesh and texture import/export architecture",
+        "model/material/motion file-family awareness",
+        "external DCC bridge design"
+      ]
+    }
+  ],
+  "pirateDaddiesTranslation": {
+    "allModelDoesNotMeanAllBinaries": "Treat the entire ecosystem as a pattern library. Re-author original LuHm bodies, faces, outfits, textures, rigs and physics.",
+    "componentArchitecture": [
+      "body",
+      "head",
+      "hair",
+      "outfit",
+      "accessories",
+      "materials",
+      "physicsChains",
+      "expressions",
+      "animation",
+      "lod"
+    ],
+    "desiredRuntime": "Godot 4.7 modular character assembly around original GLB assets and GODDESS_MORPH_PRESETS_V1",
+    "desiredAuthoring": "Blender deformation-safe topology, morphs, weights, UV/material cleanup, outfit conform, and secondary-motion chain preparation",
+    "desiredFamilyRule": "Lum Urd Belldandy and Skuld may share engineering conventions but must remain visually distinct characters"
+  },
+  "rightsFirewall": {
+    "capcomGeometryInRuntime": false,
+    "capcomTexturesInRuntime": false,
+    "nexusModBinariesAutoDownloaded": false,
+    "thirdPartyModelConversionIntoPirateDaddies": false,
+    "referenceStudyAllowed": true,
+    "openSourceToolStudyAllowedUnderLicense": true
+  },
+  "crownStatus": "STOP"
+}

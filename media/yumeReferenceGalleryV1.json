@@ -1,0 +1,352 @@
+{
+  "schema": "luhmOs.yumeReferenceGallery.v1",
+  "baseSourceRef": "5365c47d4e1b6a65563342b1751f7ceae83322f0",
+  "scope": "referenceCatalogOnly",
+  "cards": [
+    {
+      "id": "dimitrescuFanartHigh",
+      "title": "Lady Dimitrescu - Resident Evil Village",
+      "url": "https://sketchfab.com/3d-models/lady-dimitrescu-resident-evil-village-bf5ca61d810e4b1ab85579db0ca27319",
+      "game": "Resident Evil Village",
+      "kind": "Model study",
+      "lesson": "high-detail silhouette/material/facial construction reference",
+      "registry": "media/gothic-matriarch-family-reference-study-v1.json",
+      "verification": "Sketchfab oEmbed checked 2026-10-08",
+      "creator": "Caio.Fernandes",
+      "thumbnail": "https://media.sketchfab.com/models/bf5ca61d810e4b1ab85579db0ca27319/thumbnails/2fa5849416204a1cace3e0cb64d608a6/c0616226f17c4339aa8216762f27bcd9.jpeg",
+      "creatorUrl": "https://sketchfab.com/Caio.Fernandes"
+    },
+    {
+      "id": "dimitrescuMidA",
+      "title": "Alcina Dimitrescu Resident Evil Village",
+      "url": "https://sketchfab.com/3d-models/alcina-dimitrescu-resident-evil-village-3c44696e61eb4e83b99eb1f384b99ed9",
+      "game": "Resident Evil Village",
+      "kind": "Model study",
+      "lesson": "mid-high topology density reference",
+      "registry": "media/gothic-matriarch-family-reference-study-v1.json",
+      "verification": "Sketchfab oEmbed checked 2026-10-08",
+      "creator": "Gabiruuu",
+      "thumbnail": "https://media.sketchfab.com/models/3c44696e61eb4e83b99eb1f384b99ed9/thumbnails/3748d6281dcd475b85109095cb0fbd5a/2a3ccd683f924848a8ea2813ed983c08.jpeg",
+      "creatorUrl": "https://sketchfab.com/Gabiru.3"
+    },
+    {
+      "id": "dimitrescuMidB",
+      "title": "Resident Evil Village Lady Dimitrescu",
+      "url": "https://sketchfab.com/3d-models/resident-evil-village-lady-dimitrescu-6e9a99ed44794102b516d611306867c0",
+      "game": "Resident Evil Village",
+      "kind": "Model study",
+      "lesson": "game-scale topology/VR-ready comparison reference",
+      "registry": "media/gothic-matriarch-family-reference-study-v1.json",
+      "verification": "Sketchfab oEmbed checked 2026-10-08",
+      "creator": "Sandy_boi",
+      "thumbnail": "https://media.sketchfab.com/models/6e9a99ed44794102b516d611306867c0/thumbnails/7ad7305e11dc4f9d991c64ceef4edb9d/3aa307201f6c46838add2efe50c16c3d.jpeg",
+      "creatorUrl": "https://sketchfab.com/Sandy_boi"
+    },
+    {
+      "id": "dimitrescuLowA",
+      "title": "Lady Dimitrescu lowpoly model(△4,536)",
+      "url": "https://sketchfab.com/3d-models/lady-dimitrescu-lowpoly-model4536-2df36520d2ab48238df229b3c6bb633a",
+      "game": "Resident Evil Village",
+      "kind": "Model study",
+      "lesson": "silhouette-retention under aggressive decimation reference",
+      "registry": "media/gothic-matriarch-family-reference-study-v1.json",
+      "verification": "Sketchfab oEmbed checked 2026-10-08",
+      "creator": "yogdyr",
+      "thumbnail": "https://media.sketchfab.com/models/2df36520d2ab48238df229b3c6bb633a/thumbnails/7df105a3660b4f5b8a8f52bd1dc67322/cb133423da5b4da58faaab1c3ceebdaa.jpeg",
+      "creatorUrl": "https://sketchfab.com/lmmuffet"
+    },
+    {
+      "id": "dimitrescuLowB",
+      "title": "Low poly - Lady Dimitrescu",
+      "url": "https://sketchfab.com/3d-models/low-poly-lady-dimitrescu-f9475c4393fa4587a74a6e40d2da446e",
+      "game": "Resident Evil Village",
+      "kind": "Model study",
+      "lesson": "extreme LOD/silhouette readability reference",
+      "registry": "media/gothic-matriarch-family-reference-study-v1.json",
+      "verification": "Sketchfab oEmbed checked 2026-10-08",
+      "creator": "the_regressor",
+      "thumbnail": "https://media.sketchfab.com/models/f9475c4393fa4587a74a6e40d2da446e/thumbnails/9046a13bf03040c3894c34af5ab4f3b2/723808e9a18543ed9e4c8669375710ec.jpeg",
+      "creatorUrl": "https://sketchfab.com/the-regressor"
+    },
+    {
+      "id": "belaReference",
+      "title": "Bela dimitrescu | Resident Evil Village",
+      "url": "https://sketchfab.com/3d-models/bela-dimitrescu-resident-evil-village-fa111656533f4230a8539a9a9e98fe35",
+      "game": "Resident Evil Village",
+      "kind": "Model study",
+      "lesson": "daughter-scale silhouette/outfit hierarchy reference",
+      "registry": "media/gothic-matriarch-family-reference-study-v1.json",
+      "verification": "Sketchfab oEmbed checked 2026-10-08",
+      "creator": "TopNotch Assets",
+      "thumbnail": "https://media.sketchfab.com/models/fa111656533f4230a8539a9a9e98fe35/thumbnails/a848c741b2df483cba1b503893b1410f/f760782620e2400190ce5e78ff2807cb.jpeg",
+      "creatorUrl": "https://sketchfab.com/Sxnneh"
+    },
+    {
+      "id": "bodySlideOutfitStudio",
+      "title": "body Slide Outfit Studio",
+      "url": "https://github.com/ousnius/BodySlide-and-Outfit-Studio",
+      "game": "Fallout 4",
+      "kind": "Engineering tool",
+      "lesson": "slider and morph architecture · outfit conform workflow · weight correction · mesh editing · preset separation · physics preview architecture",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "openCbpFo4",
+      "title": "open Cbp Fo4",
+      "url": "https://github.com/rickmccl/OpenCBP_FO4",
+      "game": "Fallout 4",
+      "kind": "Engineering tool",
+      "lesson": "secondary motion solver architecture · collision and tuning patterns · runtime configuration separation",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "looksMenuF4ee",
+      "title": "looks Menu F4ee",
+      "url": "https://github.com/expired6978/F4SEPlugins",
+      "game": "Fallout 4",
+      "kind": "Engineering tool",
+      "lesson": "BodyGen runtime morph application · preset and slider UI concepts · body morph dispatch",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "radMorphingRedux",
+      "title": "rad Morphing Redux",
+      "url": "https://github.com/LenAnderson/LenA_RadMorphing",
+      "game": "Fallout 4",
+      "kind": "Engineering tool",
+      "lesson": "runtime morph updates · slider range configuration · body-family abstraction",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "fallout4TechnicalGuides",
+      "title": "fallout4Technical Guides",
+      "url": "https://github.com/Rhivens/Fallout4-Technical-Guides",
+      "game": "Fallout 4",
+      "kind": "Engineering tool",
+      "lesson": "CBBE to Fusion Girl conversion workflow · rollback-safe conversion practice · reference layering · bone weight transfer · slider conform validation",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "f4se",
+      "title": "f4se",
+      "url": "https://github.com/ianpatt/f4se",
+      "game": "Fallout 4",
+      "kind": "Engineering tool",
+      "lesson": "plugin architecture context · runtime extension boundaries",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "fo4Mod25",
+      "title": "BodySlide and Outfit Studio Nexus page",
+      "url": "https://www.nexusmods.com/fallout4/mods/25",
+      "game": "Fallout 4",
+      "kind": "Mod reference",
+      "lesson": "Confirms the tool/source relationship, slider/outfit conversion functions, and that the program source is GPLv3+ while archive assets have separate permission rules.",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "fo4Mod17472",
+      "title": "CBBE BodySlide Universal Reference",
+      "url": "https://www.nexusmods.com/fallout4/mods/17472",
+      "game": "Fallout 4",
+      "kind": "Mod reference",
+      "lesson": "Useful lineage for extended slider vocabulary and conversion-reference design.",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "fo4Mod12631",
+      "title": "LooksMenu",
+      "url": "https://www.nexusmods.com/fallout4/mods/12631",
+      "game": "Fallout 4",
+      "kind": "Mod reference",
+      "lesson": "Runtime presets, in-game body sliders, and BodyGen concepts.",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "fo4Mod36410",
+      "title": "True Wasteland Body",
+      "url": "https://www.nexusmods.com/fallout4/mods/36410",
+      "game": "Fallout 4",
+      "kind": "Mod reference",
+      "lesson": "Body-family and 3BBB compatibility lineage.",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "fo4Mod37380",
+      "title": "CBBE to Fusion Girl Conversion Reference",
+      "url": "https://www.nexusmods.com/fallout4/mods/37380",
+      "game": "Fallout 4",
+      "kind": "Mod reference",
+      "lesson": "Body-to-body slider conversion reference pattern.",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "fo4Mod108947",
+      "title": "Diverse CBBE BodyGen",
+      "url": "https://www.nexusmods.com/fallout4/mods/108947",
+      "game": "Fallout 4",
+      "kind": "Mod reference",
+      "lesson": "Demonstrates population-level preset assignment through LooksMenu BodyGen.",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "fo4Mod23633",
+      "title": "Atomic Beauty style Slooty vaultsuit for CBBE",
+      "url": "https://www.nexusmods.com/fallout4/mods/23633",
+      "game": "Fallout 4",
+      "kind": "Mod reference",
+      "lesson": "Useful as a concrete example of converting an extreme silhouette/outfit back into CBBE slider space. Reference only.",
+      "registry": "media/fallout-body-mutation-source-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "reModresidentevil220192247",
+      "title": "Jill over Claire all outfits",
+      "url": "https://www.nexusmods.com/residentevil22019/mods/2247",
+      "game": "Resident Evil 2 (2019)",
+      "kind": "Mod reference",
+      "lesson": "whole-character replacement across multiple costume slots",
+      "registry": "media/re-engine-nexus-model-reference-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "reModresidentevil2201973",
+      "title": "Captain Marvel",
+      "url": "https://www.nexusmods.com/residentevil22019/mods/73",
+      "game": "Resident Evil 2 (2019)",
+      "kind": "Mod reference",
+      "lesson": "external 3D model import/export workflow and character-slot replacement lineage",
+      "registry": "media/re-engine-nexus-model-reference-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "reModresidentevil320201170",
+      "title": "Project ReHauled Jill Valentine",
+      "url": "https://www.nexusmods.com/residentevil32020/mods/1170",
+      "game": "Resident Evil 3 (2020)",
+      "kind": "Mod reference",
+      "lesson": "hair face and outfit are separable modules that can be mixed with vanilla or other mods",
+      "registry": "media/re-engine-nexus-model-reference-registry-v1.json",
+      "verification": "Source page checked 2026-10-08",
+      "creator": "Swiz19"
+    },
+    {
+      "id": "reModresidentevil320209",
+      "title": "Ultimate Trainer for Resident Evil 3 Remake",
+      "url": "https://www.nexusmods.com/residentevil32020/mods/9",
+      "game": "Resident Evil 3 (2020)",
+      "kind": "Mod reference",
+      "lesson": "runtime outfit swap, size controls, and physics/motion-chain editor concepts",
+      "registry": "media/re-engine-nexus-model-reference-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "reModresidentevilvillage453",
+      "title": "Bela Dimitrescu Over Cassandra And Daniela",
+      "url": "https://www.nexusmods.com/residentevilvillage/mods/453",
+      "game": "Resident Evil Village",
+      "kind": "Mod reference",
+      "lesson": "same-family character-slot substitution and preset-like replacement",
+      "registry": "media/re-engine-nexus-model-reference-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "reModresidentevilvillage454",
+      "title": "Cassandra Dimitrescu Over Bela And Daniela",
+      "url": "https://www.nexusmods.com/residentevilvillage/mods/454",
+      "game": "Resident Evil Village",
+      "kind": "Mod reference",
+      "lesson": "sister-slot replacement and family-identity compatibility",
+      "registry": "media/re-engine-nexus-model-reference-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "reModresidentevilvillage455",
+      "title": "Daniela Dimitrescu Over Bela And Cassandra",
+      "url": "https://www.nexusmods.com/residentevilvillage/mods/455",
+      "game": "Resident Evil Village",
+      "kind": "Mod reference",
+      "lesson": "sister-slot replacement and interchangeable family rig/material assumptions",
+      "registry": "media/re-engine-nexus-model-reference-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "reFramework",
+      "title": "re Framework",
+      "url": "https://github.com/praydog/REFramework",
+      "game": "Resident Evil / RE Engine",
+      "kind": "Engineering tool",
+      "lesson": "runtime object inspection · scripting/mod-loader architecture · cross-RE-Engine compatibility · developer tooling separation from game assets",
+      "registry": "media/re-engine-nexus-model-reference-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "reRsz",
+      "title": "re Rsz",
+      "url": "https://github.com/alphazolam/RE_RSZ",
+      "game": "Resident Evil / RE Engine",
+      "kind": "Engineering tool",
+      "lesson": "RE Engine binary-structure research · version-specific data mapping · tooling around structured game resources",
+      "registry": "media/re-engine-nexus-model-reference-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    },
+    {
+      "id": "reMeshNoesisPlugin",
+      "title": "re Mesh Noesis Plugin",
+      "url": "https://github.com/alphazolam/fmt_RE_MESH-Noesis-Plugin",
+      "game": "Resident Evil / RE Engine",
+      "kind": "Engineering tool",
+      "lesson": "RE2R RE3R RE8 mesh and texture import/export architecture · model/material/motion file-family awareness · external DCC bridge design",
+      "registry": "media/re-engine-nexus-model-reference-registry-v1.json",
+      "verification": "Registry reference; page not rechecked",
+      "creator": "See source credits"
+    }
+  ],
+  "excluded": [
+    {
+      "title": "Hitwoman Jill Outfit",
+      "url": "https://www.nexusmods.com/residentevil32020/mods/top",
+      "reason": "Ranking page is not an exact mod reference"
+    },
+    {
+      "title": "Alcina Dimitrescu Glowing Eyes",
+      "url": "https://www.nexusmods.com/residentevilvillage/mods/top?offset=95",
+      "reason": "Ranking page is not an exact mod reference"
+    }
+  ],
+  "assetApproval": false,
+  "runtimeImportProven": false
+}
