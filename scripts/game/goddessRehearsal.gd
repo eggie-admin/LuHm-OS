@@ -1,6 +1,7 @@
 extends Node3D
 ## Source-only playable rehearsal; stylized stand-ins are not approved 3D models.
 const CANON_PATH := "res://game/canon/CHARACTER_CANON_V1.json"
+const LumAvatarScene := preload("res://scenes/LumAvatar.tscn")
 const IDS := ["lum", "urd", "belldandy", "skuld"]
 const COLORS := [Color("#19b4af"), Color("#a346af"), Color("#d3a578"), Color("#6e9fc8")]
 const LINES := [
@@ -17,6 +18,7 @@ var _hud_column: VBoxContainer
 var _selector_grid: GridContainer
 var _canon_roles: Dictionary = {}
 var _focus_markers: Array[Node3D] = []
+var _lum_rig_loaded := false
 
 func _ready() -> void:
     var file := FileAccess.open(CANON_PATH, FileAccess.READ)
@@ -119,6 +121,24 @@ func _build_actor(i: int) -> void:
     focus.rotation_degrees.z = 45.0
     focus.visible = false
     _focus_markers.append(focus)
+    var pedestal := CylinderMesh.new()
+    pedestal.top_radius = 0.65
+    pedestal.bottom_radius = 0.7
+    pedestal.height = 0.18
+    _part(actor, pedestal, Vector3(0, 0.1, 0), Color("#383045"))
+    _box(actor, Vector3(0, 0.21, 0.50), Vector3(0.92, 0.05, 0.08), COLORS[i], true)
+
+    # Reuse the actual Godot avatar socket. The existing verified Web build already
+    # stages the GLB; the socket supplies a fallback for source-only Godot CI.
+    if i == 0:
+        var avatar := LumAvatarScene.instantiate() as Node3D
+        avatar.name = "LumRigSocket"
+        avatar.position = Vector3(0.0, 0.20, 0.0)
+        actor.add_child(avatar)
+        _lum_rig_loaded = bool(avatar.call("uses_external_model"))
+        return
+
+    # Only Urd, Belldandy and Skuld still use primitive stand-ins.
     var body := CylinderMesh.new()
     body.top_radius = 0.37
     body.bottom_radius = 0.49
@@ -139,14 +159,7 @@ func _build_actor(i: int) -> void:
         horn.height = 0.32
         _part(actor, horn, Vector3(-0.25, 2.7, 0), Color("#181522"))
         _part(actor, horn, Vector3(0.25, 2.7, 0), Color("#181522"))
-    var pedestal := CylinderMesh.new()
-    pedestal.top_radius = 0.65
-    pedestal.bottom_radius = 0.7
-    pedestal.height = 0.18
-    _part(actor, pedestal, Vector3(0, 0.1, 0), Color("#383045"))
-    _box(actor, Vector3(0, 0.21, 0.50), Vector3(0.92, 0.05, 0.08), COLORS[i], true)
-
-    # Four unmistakably different costumes and props, still procedural stand-ins.
+    # Remaining three Goddesses use explicitly temporary costume silhouettes.
     match i:
         0:
             # Lum's auburn updo, oni horns, teal executive lapels.
@@ -230,7 +243,10 @@ func _select(i: int) -> void:
         actor_roots[index].scale = Vector3.ONE * (1.10 if index == i else 1.0)
         _focus_markers[index].visible = index == i
     if message != null:
-        message.text = LINES[i] + "\n" + str(_canon_roles.get(IDS[i], "Goddess")) + " · PROTOTYPE STAND-IN"
+        var art_state := "IMPORTED 3D RIG" if _lum_rig_loaded else "AVATAR FALLBACK"
+        if i != 0:
+            art_state = "PROTOTYPE STAND-IN · MODEL PENDING"
+        message.text = LINES[i] + "\n" + str(_canon_roles.get(IDS[i], "Goddess")) + " · " + art_state
 
 func _process(delta: float) -> void:
     elapsed += delta
