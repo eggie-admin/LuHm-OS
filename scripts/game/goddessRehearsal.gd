@@ -16,6 +16,7 @@ var elapsed := 0.0
 var _hud_column: VBoxContainer
 var _selector_grid: GridContainer
 var _canon_roles: Dictionary = {}
+var _focus_markers: Array[Node3D] = []
 
 func _ready() -> void:
     var file := FileAccess.open(CANON_PATH, FileAccess.READ)
@@ -110,6 +111,14 @@ func _build_actor(i: int) -> void:
     actor.position = Vector3((float(i) - 1.5) * 2.1, 0, 0)
     add_child(actor)
     actor_roots.append(actor)
+    var focus := Node3D.new()
+    focus.name = "TapFocus"
+    focus.position = Vector3(0, 2.92, 0)
+    actor.add_child(focus)
+    _box(focus, Vector3(0, 0, 0), Vector3(0.30, 0.30, 0.07), COLORS[i], true)
+    focus.rotation_degrees.z = 45.0
+    focus.visible = false
+    _focus_markers.append(focus)
     var body := CylinderMesh.new()
     body.top_radius = 0.37
     body.bottom_radius = 0.49
@@ -219,6 +228,7 @@ func _select(i: int) -> void:
     active_index = i
     for index in actor_roots.size():
         actor_roots[index].scale = Vector3.ONE * (1.10 if index == i else 1.0)
+        _focus_markers[index].visible = index == i
     if message != null:
         message.text = LINES[i] + "\n" + str(_canon_roles.get(IDS[i], "Goddess")) + " · PROTOTYPE STAND-IN"
 
@@ -228,8 +238,30 @@ func _process(delta: float) -> void:
         actor_roots[i].position.y = sin(elapsed * 1.4 + i) * 0.045
         actor_roots[i].rotation.y = sin(elapsed * 0.8 + i) * 0.12
 
+func _tap_actor(screen_point: Vector2) -> void:
+    var camera := get_viewport().get_camera_3d()
+    if camera == null:
+        return
+    var best_index := -1
+    var best_distance := 90.0
+    for index in actor_roots.size():
+        var center := actor_roots[index].global_position + Vector3(0.0, 1.6, 0.0)
+        if camera.is_position_behind(center):
+            continue
+        var point := camera.unproject_position(center)
+        var distance := point.distance_to(screen_point)
+        if distance < best_distance:
+            best_index = index
+            best_distance = distance
+    if best_index >= 0:
+        _select(best_index)
+
 func _unhandled_input(event: InputEvent) -> void:
-    if event is InputEventKey and event.pressed and not event.echo:
+    if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+        _tap_actor(event.position)
+    elif event is InputEventScreenTouch and event.pressed:
+        _tap_actor(event.position)
+    elif event is InputEventKey and event.pressed and not event.echo:
         if event.keycode == KEY_LEFT:
             _select((active_index + IDS.size() - 1) % IDS.size())
         elif event.keycode == KEY_RIGHT:
