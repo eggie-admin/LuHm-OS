@@ -130,6 +130,41 @@ func _build_actor(i: int) -> void:
     pedestal.bottom_radius = 0.7
     pedestal.height = 0.18
     _part(actor, pedestal, Vector3(0, 0.1, 0), Color("#383045"))
+    _box(actor, Vector3(0, 0.21, 0.50), Vector3(0.92, 0.05, 0.08), COLORS[i], true)
+
+    # Four unmistakably different costumes and props, still procedural stand-ins.
+    match i:
+        0:
+            # Lum's auburn updo, oni horns, teal executive lapels.
+            var bun := SphereMesh.new()
+            bun.radius = 0.20
+            bun.height = 0.40
+            _part(actor, bun, Vector3(0.08, 2.75, -0.12), Color("#a34e35"))
+            _box(actor, Vector3(0, 1.55, 0.38), Vector3(0.16, 0.56, 0.07), Color("#111924"))
+            _box(actor, Vector3(0, 1.70, 0.43), Vector3(0.07, 0.12, 0.04), Color("#3de0cf"), true)
+        1:
+            # Urd's magenta thread charms and dramatic weave sash.
+            _box(actor, Vector3(0, 1.12, 0.44), Vector3(0.66, 0.14, 0.11), Color("#ff54b9"), true)
+            var thread_orb := SphereMesh.new()
+            thread_orb.radius = 0.13
+            thread_orb.height = 0.26
+            for x in [-0.65, 0.65]:
+                _part(actor, thread_orb, Vector3(x, 1.73, 0.30), Color("#b46dff"), true)
+        2:
+            # Belldandy's ivory mantle, oxblood ribbons, antique-gold crown.
+            _box(actor, Vector3(0, 1.68, 0.38), Vector3(0.72, 0.16, 0.12), Color("#e5d5b7"))
+            for x in [-0.27, 0.27]:
+                _box(actor, Vector3(x, 1.20, 0.37), Vector3(0.11, 0.88, 0.06), Color("#792d40"))
+            var gold := SphereMesh.new()
+            gold.radius = 0.13
+            gold.height = 0.26
+            _part(actor, gold, Vector3(0, 2.83, 0), Color("#bfa069"), true)
+        3:
+            # Adult Skuld's hardware belt, tool charms and chrome accents.
+            _box(actor, Vector3(0, 1.13, 0.43), Vector3(0.70, 0.17, 0.12), Color("#bec4d8"))
+            for x in [-0.30, 0.30]:
+                _box(actor, Vector3(x, 0.95, 0.45), Vector3(0.14, 0.20, 0.09), Color("#29c8d7"), true)
+            _box(actor, Vector3(0, 1.60, 0.39), Vector3(0.22, 0.12, 0.08), Color("#151627"))
 
 func _build_hud() -> void:
     var canvas := CanvasLayer.new()
@@ -164,6 +199,8 @@ func _build_hud() -> void:
 
 func _select(i: int) -> void:
     active_index = i
+    for index in actor_roots.size():
+        actor_roots[index].scale = Vector3.ONE * (1.10 if index == i else 1.0)
     if message != null:
         message.text = LINES[i] + "\nPROTOTYPE STAND-INS · NO CANON MODEL CLAIM"
 
