@@ -7,6 +7,7 @@ on:
       - 'scripts/game/gameHud.gd'
       - 'scripts/main.gd'
       - 'scenes/GoddessRehearsal.tscn'
+      - 'tests/goddessDirectTapSmoke.gd'
       - 'game/canon/CHARACTER_CANON_V1.json'
       - 'game/assets/ASSET_MANIFEST_V1.json'
       - 'doctrine/goddessGodotCanonHandoffV1.json'
@@ -77,3 +78,20 @@ jobs:
             exit 1
           fi
           echo GODDESS_REHEARSAL_STARTUP_GREEN
+
+      - name: Verify four Goddesses respond to touch and mouse selections
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          set +e
+          timeout 45s "$godot" --headless --path . --script res://tests/goddessDirectTapSmoke.gd 2>&1 | tee /tmp/goddess-tap.log
+          status=${PIPESTATUS[0]}
+          set -e
+          test "$status" -eq 0
+          grep -Fq GODDESS_DIRECT_TAP_SMOKE_GREEN /tmp/goddess-tap.log
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:|ERROR: Failed to load script|RED_GODDESS_TAP' /tmp/goddess-tap.log; then
+            echo GODDESS_DIRECT_TAP_RED
+            exit 1
+          fi
+          echo GODDESS_DIRECT_TAP_GREEN
