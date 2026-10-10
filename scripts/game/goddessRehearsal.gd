@@ -57,18 +57,47 @@ func _build_stage() -> void:
     environment.environment = env
     add_child(environment)
 
-func _material(color: Color) -> StandardMaterial3D:
+    # Lightweight neon stage geometry. No mod assets, images, or remote downloads.
+    for x in [-5.6, 5.6]:
+        for z in [-6.0, -1.5, 3.0]:
+            _box(self, Vector3(x, 2.2, z), Vector3(0.65, 4.4, 0.65), Color("#252238"))
+            _box(self, Vector3(x, 4.45, z), Vector3(1.25, 0.14, 1.25), Color("#ac47d4"), true)
+    _box(self, Vector3(-4.1, 2.8, -7.0), Vector3(0.34, 5.6, 0.4), Color("#883dcb"), true)
+    _box(self, Vector3(4.1, 2.8, -7.0), Vector3(0.34, 5.6, 0.4), Color("#883dcb"), true)
+    _box(self, Vector3(0, 5.55, -7.0), Vector3(8.4, 0.35, 0.4), Color("#b248e1"), true)
+    _box(self, Vector3(0, 4.6, -7.15), Vector3(5.8, 0.10, 0.15), Color("#28b7d6"), true)
+    for z in [-6.5, -4.0, -1.5, 1.0, 3.5]:
+        _box(self, Vector3(0, 0.035, z), Vector3(11.0, 0.04, 0.045), Color("#40284b"), true)
+    for x in [-4.65, 4.65]:
+        _box(self, Vector3(x, 0.04, -0.6), Vector3(0.055, 0.045, 11.5), Color("#16b7c7"), true)
+    var stage_light := OmniLight3D.new()
+    stage_light.position = Vector3(0, 4.5, 3.0)
+    stage_light.light_color = Color("#b66aff")
+    stage_light.light_energy = 1.2
+    stage_light.omni_range = 12.0
+    add_child(stage_light)
+
+func _material(color: Color, glow: bool = false) -> StandardMaterial3D:
     var material := StandardMaterial3D.new()
     material.albedo_color = color
-    material.roughness = 0.75
+    material.roughness = 0.68
+    if glow:
+        material.emission_enabled = true
+        material.emission = color
+        material.emission_energy_multiplier = 1.7
     return material
 
-func _part(parent: Node3D, shape: Mesh, pos: Vector3, color: Color) -> void:
+func _part(parent: Node3D, shape: Mesh, pos: Vector3, color: Color, glow: bool = false) -> void:
     var node := MeshInstance3D.new()
     node.mesh = shape
     node.position = pos
-    node.material_override = _material(color)
+    node.material_override = _material(color, glow)
     parent.add_child(node)
+
+func _box(parent: Node3D, pos: Vector3, size: Vector3, color: Color, glow: bool = false) -> void:
+    var mesh := BoxMesh.new()
+    mesh.size = size
+    _part(parent, mesh, pos, color, glow)
 
 func _build_actor(i: int) -> void:
     var actor := Node3D.new()
