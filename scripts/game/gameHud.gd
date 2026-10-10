@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal world_requested
+signal rehearsal_requested
 signal backend_requested
 signal world_destination_requested(worldId: String)
 signal lum_talk_requested
@@ -82,6 +83,14 @@ func _build_backend() -> void:
     enter.add_theme_font_size_override("font_size", 24)
     enter.pressed.connect(func(): world_requested.emit())
     _panel.add_child(enter)
+
+    var rehearsal := Button.new()
+    rehearsal.name = "GoddessRehearsal"
+    rehearsal.text = "MEET THE FOUR GODDESSES · REHEARSAL"
+    rehearsal.custom_minimum_size = Vector2(0, 76)
+    rehearsal.add_theme_font_size_override("font_size", 21)
+    rehearsal.pressed.connect(func(): rehearsal_requested.emit())
+    _panel.add_child(rehearsal)
 
     _audit_switch = CheckButton.new()
     _audit_switch.name = "AuditSealSwitch"

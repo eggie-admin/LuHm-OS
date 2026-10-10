@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'scripts/game/goddessRehearsal.gd'
+      - 'scripts/game/gameHud.gd'
+      - 'scripts/main.gd'
       - 'scenes/GoddessRehearsal.tscn'
       - 'game/canon/CHARACTER_CANON_V1.json'
       - 'game/assets/ASSET_MANIFEST_V1.json'
@@ -32,6 +34,8 @@ jobs:
           python3 tools/godotGameSourceAudit.py
           test -s scenes/GoddessRehearsal.tscn
           test -s scripts/game/goddessRehearsal.gd
+          grep -Fq 'rehearsal_requested.connect(_enter_goddess_rehearsal)' scripts/main.gd
+          grep -Fq 'rehearsal_requested.emit()' scripts/game/gameHud.gd
           grep -Fq 'res://scripts/game/goddessRehearsal.gd' scenes/GoddessRehearsal.tscn
       - name: Download pinned Godot editor
         shell: bash
