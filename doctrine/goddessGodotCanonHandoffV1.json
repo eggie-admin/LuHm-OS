@@ -1,0 +1,56 @@
+{
+  "schema": "luhmOs.goddessGodotCanonHandoff.v1",
+  "status": "CANDIDATE_SOURCE_CONTRACT",
+  "authority": "Professor",
+  "canonicalReferences": [
+    "game/canon/CHARACTER_CANON_V1.json",
+    "game/assets/ASSET_MANIFEST_V1.json",
+    "scripts/game/characterRoster.gd",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/lumRigV2Phase1Seal-20260925.json",
+    "doctrine/gothicCathedralBannerCrown-20261010.json"
+  ],
+  "goal": "Playable original adult Goddess Cathedral prototype in Godot 4; Lum first, then Urd, Belldandy, Skuld.",
+  "characterIds": [
+    "lum",
+    "urd",
+    "belldandy",
+    "skuld"
+  ],
+  "designLaw": "Character roles, silhouettes, palette, costume and motions are sourced dynamically from canonical game/canon/CHARACTER_CANON_V1.json. This file is not a replacement character sheet.",
+  "identityLaw": "Original fictional identities only; no celebrity likeness or real-person cloning. Banner art and illustrative search results cannot supersede game canon.",
+  "adultLaw": "All characters are adults; Skuld is explicitly at least 25.",
+  "firstPlayableAcceptance": "Lum walks into Cathedral, turns toward camera, delivers one dialogue line and responds to tap/mouse input. Demonstrate in actual Godot run.",
+  "progressiveIntegration": {
+    "lum": "Existing rig candidate; verify provenance, skeleton, import, animations and runtime before promotion.",
+    "urd": "Distinct tech-goth weave/time mother; asset candidate and runtime proof pending.",
+    "belldandy": "Distinct black/ivory/oxblood cathedral grace and healing; asset candidate and runtime proof pending.",
+    "skuld": "Adult engineering character with couture-tech styling and repair/tool motion; asset candidate and runtime proof pending."
+  },
+  "requiredInteraction": [
+    "idle",
+    "walk",
+    "faceCamera",
+    "dialogue",
+    "tapInteract"
+  ],
+  "runtimeGates": [
+    "sourceCanonAudit",
+    "assetProvenanceApproved",
+    "godotModelImportSmoke",
+    "animationAndInteractionSmoke",
+    "exactGitHubBuild",
+    "browserPlayableProof",
+    "chatGptMcpDiscoveryAndInvocation",
+    "professorVisualCrown"
+  ],
+  "assetPolicy": "Use original GLB approved for runtime or visibly labeled procedural placeholders. Source slots and artwork concepts do not prove four 3D models exist.",
+  "evidence": {
+    "browserHarness": "PROVED_SCREENSHOT_20261010",
+    "lumRig": "CANDIDATE",
+    "fourCharactersPlayable": "NOT_PROVED",
+    "chatGptPlayer": "NOT_PROVED"
+  },
+  "releaseLaw": "No automatic external publication, signing, source-truth supersession or runtime GREEN from source-only audits.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}
