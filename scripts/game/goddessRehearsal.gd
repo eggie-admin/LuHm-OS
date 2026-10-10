@@ -13,6 +13,9 @@ var actor_roots: Array[Node3D] = []
 var message: Label
 var active_index := 0
 var elapsed := 0.0
+var _hud_column: VBoxContainer
+var _selector_grid: GridContainer
+var _canon_roles: Dictionary = {}
 
 func _ready() -> void:
     var file := FileAccess.open(CANON_PATH, FileAccess.READ)
@@ -28,6 +31,8 @@ func _ready() -> void:
         if not characters.has(id):
             push_error("Missing canonical character: " + id)
             return
+    for id in IDS:
+        _canon_roles[id] = str((characters[id] as Dictionary).get("role", "Goddess"))
     _build_stage()
     for i in IDS.size():
         _build_actor(i)
@@ -176,19 +181,23 @@ func _build_hud() -> void:
     column.offset_left = 14
     column.offset_right = -14
     canvas.add_child(column)
+    _hud_column = column
     message = Label.new()
     message.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     message.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     message.add_theme_font_size_override("font_size", 19)
     column.add_child(message)
-    var row := HBoxContainer.new()
-    row.alignment = BoxContainer.ALIGNMENT_CENTER
+    var row := GridContainer.new()
+    row.name = "GoddessSelector"
+    row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     column.add_child(row)
+    _selector_grid = row
     for i in IDS.size():
         var index := i
         var button := Button.new()
         button.text = IDS[i].capitalize()
         button.custom_minimum_size = Vector2(110, 44)
+        button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
         button.pressed.connect(func(): _select(index))
         row.add_child(button)
     var back := Button.new()
@@ -196,13 +205,22 @@ func _build_hud() -> void:
     back.custom_minimum_size = Vector2(0, 44)
     back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/Main.tscn"))
     column.add_child(back)
+    get_viewport().size_changed.connect(_refresh_hud_layout)
+    _refresh_hud_layout()
+
+func _refresh_hud_layout() -> void:
+    if _hud_column == null or _selector_grid == null:
+        return
+    var portrait := get_viewport().get_visible_rect().size.x < 630.0
+    _selector_grid.columns = 2 if portrait else 4
+    _hud_column.offset_top = -265 if portrait else -205
 
 func _select(i: int) -> void:
     active_index = i
     for index in actor_roots.size():
         actor_roots[index].scale = Vector3.ONE * (1.10 if index == i else 1.0)
     if message != null:
-        message.text = LINES[i] + "\nPROTOTYPE STAND-INS · NO CANON MODEL CLAIM"
+        message.text = LINES[i] + "\n" + str(_canon_roles.get(IDS[i], "Goddess")) + " · PROTOTYPE STAND-IN"
 
 func _process(delta: float) -> void:
     elapsed += delta
