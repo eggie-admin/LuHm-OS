@@ -107,10 +107,10 @@ func _build_hud() -> void:
     add_child(canvas)
     var column := VBoxContainer.new()
     column.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-    column.offset_top = -135
+    column.offset_top = -205
     column.offset_bottom = -12
-    column.offset_left = 20
-    column.offset_right = -20
+    column.offset_left = 14
+    column.offset_right = -14
     canvas.add_child(column)
     message = Label.new()
     message.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -127,6 +127,11 @@ func _build_hud() -> void:
         button.custom_minimum_size = Vector2(110, 44)
         button.pressed.connect(func(): _select(index))
         row.add_child(button)
+    var back := Button.new()
+    back.text = "RETURN TO CATHEDRAL"
+    back.custom_minimum_size = Vector2(0, 44)
+    back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/Main.tscn"))
+    column.add_child(back)
 
 func _select(i: int) -> void:
     active_index = i
