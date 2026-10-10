@@ -1,0 +1,44 @@
+{
+  "schema": "luhmOs.crownArtCandidate.v1",
+  "assetId": "luhm.gothicCathedralBanner.20261010",
+  "displayName": "LuHm OS Gothic Cathedral Banner",
+  "fileName": "luhm_os_cyberpunk_neon_banner.png",
+  "sha256": "7af73e81c217cc86425d4ea1a93c446d34dee5c6308017b3c548c436f22a4f59",
+  "dimensions": {
+    "width": 2244,
+    "height": 701
+  },
+  "format": "image/png",
+  "creativeDirection": [
+    "original adult gothic quartet: Lum, Urd, Belldandy, Skuld",
+    "Detroit neon noir and industrial cathedral",
+    "cyan and magenta circuit motifs",
+    "LuHm OS identity and source-law footer"
+  ],
+  "generationMethod": "AI-generated image candidate, human-directed",
+  "sourceStorage": "ChatGPT conversation artifact; not committed to repository",
+  "professorApproval": {
+    "status": "ART_DIRECTION_APPROVED",
+    "signal": "C➡️👑⛪",
+    "date": "2026-10-10",
+    "scope": "visual approval only"
+  },
+  "readiness": {
+    "status": "AMBER_CANDIDATE",
+    "publicAllowed": false,
+    "publicationAuthority": false,
+    "releasePromotion": false,
+    "mediaBytesInRepo": false,
+    "runtimeImportVerified": false,
+    "thirdPartyRightsReview": "PENDING",
+    "assetExportReview": "PENDING",
+    "canonCharacterSheetSupersession": false
+  },
+  "nextSteps": [
+    "archive verified PNG in approved art store with sha256",
+    "complete provenance/rights and public audience-lane review",
+    "confirm cropped footer variants and responsive typography",
+    "submit explicit Professor approval before any publication"
+  ],
+  "law": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}
