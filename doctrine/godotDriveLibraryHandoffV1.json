@@ -1,0 +1,61 @@
+{
+  "schema": "luhmOs.godotDriveLibraryHandoff.v1",
+  "status": "HASH_PINNED_CANDIDATE",
+  "authority": "Professor",
+  "date": "2026-10-10",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Bind Drive durable masters, ChatGPT Library private review cache and exact-source Godot build inputs by digest, not by public Drive identifiers.",
+  "storageRoles": {
+    "googleDrive": "Durable private binary master",
+    "chatGptLibrary": "Private review cache at /Luhm OS/godotAssets; not browser asset hosting",
+    "github": "Public hashes and manifest only",
+    "render": "Serve reviewed, built Web export from same HTTPS origin"
+  },
+  "asset": {
+    "assetId": "lumMidnight1996RigCandidate",
+    "logicalSource": "Meshy_AI_Lum_Midnight_1996_biped.zip",
+    "bundleSha256": "fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da",
+    "sourceBuildScript": "tools/buildGodotWebHarness.sh",
+    "members": [
+      {
+        "role": "character",
+        "path": "Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Character_output.glb",
+        "sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
+        "skeletonJoints": 24,
+        "animations": [
+          "Armature|clip0|baselayer"
+        ]
+      },
+      {
+        "role": "running",
+        "path": "Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Animation_Running_withSkin.glb",
+        "sha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0",
+        "skeletonJoints": 24,
+        "animations": [
+          "Armature|running|baselayer"
+        ]
+      }
+    ],
+    "rightsState": "PROVENANCE_AND_REDISTRIBUTION_REVIEW_PENDING",
+    "runtimeState": "HASH_PINNED_BUILD_INPUT_NOT_NEW_PUBLIC_PROMOTION"
+  },
+  "safety": {
+    "noPublicDriveIds": true,
+    "noOauthSecretsInBrowser": true,
+    "noDriveCdn": true,
+    "noThirdPartyAssetAutoPublish": true,
+    "noPublicPromotionWithoutRights": true,
+    "failClosedOnHashMismatch": true,
+    "zipEntriesNeverExtractUnverified": true,
+    "libraryNotGameServer": true
+  },
+  "proof": {
+    "privateLibraryCopy": "PRESENT_USER_LIBRARY",
+    "bundleDigest": "MATCHED_BUILD_PIN",
+    "membersDigest": "MATCHED_BUILD_PINS",
+    "glbMetadata": "TWO_GLB_2_FILES_EACH_ONE_24_JOINT_SKIN",
+    "renderLiveDeployment": "EXISTING_GODOT_DEPLOY_INDEPENDENT_NOT_PROVEN_BY_THIS_RECEIPT",
+    "chatGptLibraryRuntimeAssetServing": "NOT_SUPPORTED"
+  },
+  "nextGate": "License provenance review, actual in-game imported model check, and future asset manifest build promotion."
+}
