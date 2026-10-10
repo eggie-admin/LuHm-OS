@@ -1,0 +1,30 @@
+{
+  "schema": "luhmOs.browserGodotSmoke.v1",
+  "date": "2026-10-10",
+  "sourceCommit": "b6cfa0e9ee2ce1dbd7aaab8e4bb23334589ff1ce",
+  "origin": "https://luhm-os-godot-harness-green.onrender.com/harness/",
+  "evidence": {
+    "type": "Professor supplied screenshot in ChatGPT",
+    "filename": "Screenshot_20261010_124203_Chrome Canary.png",
+    "observations": [
+      "Chrome Canary browser displays HTTPS harness with PUBLIC / HTTPS indicator",
+      "Harness shows WEB EXPORT READY",
+      "PLAY FIRST NIGHT button is enabled",
+      "Godot logo and loading progress are visible in embedded viewport"
+    ]
+  },
+  "passed": [
+    "browserHarnessPageVisible",
+    "godotExportAvailabilityReportedByHarness",
+    "godotLoaderRendered"
+  ],
+  "notYetProved": [
+    "Godot loading fully completes and gameplay input works",
+    "MCP protocol endpoint tool discovery",
+    "ChatGPT app attachment and luhm_open_godot_player invocation",
+    "embedded ChatGPT iframe fullscreen and touch"
+  ],
+  "authority": "Professor CROWN approved continuation",
+  "safety": "Evidence receipt only; no claim of full interactive gameplay or ChatGPT attachment",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}
