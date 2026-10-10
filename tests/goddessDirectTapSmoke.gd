@@ -27,6 +27,18 @@ func _run() -> void:
         _finish()
         return
 
+    var lum_socket := scene.get_node_or_null("lum/LumRigSocket") as Node3D
+    _check(lum_socket != null, "existingLumAvatarReused")
+    var rig_staged := ResourceLoader.exists("res://assets/lum/luhm.glb")
+    if lum_socket != null:
+        _check(bool(lum_socket.call("uses_external_model")) == rig_staged, "rigPresenceReported")
+        if rig_staged:
+            var summary: Dictionary = lum_socket.call("get_rig_summary")
+            _check(int(summary.get("skeleton_bones", 0)) == 24, "rig24Bones")
+            _check(int(summary.get("canonical_mapped", 0)) == 22, "rig22MappedRoles")
+            _check(bool(scene.get("_lum_rig_loaded")), "rehearsalUsesActualRig")
+        else:
+            _check(not bool(scene.get("_lum_rig_loaded")), "fallbackWithoutAsset")
     for i in IDS.size():
         var actor := scene.get_node_or_null(IDS[i]) as Node3D
         _check(actor != null, "actorExists:" + IDS[i])
@@ -57,6 +69,8 @@ func _run() -> void:
 func _finish() -> void:
     if failures.is_empty():
         print("GODDESS_DIRECT_TAP_SMOKE_GREEN")
+        if ResourceLoader.exists("res://assets/lum/luhm.glb"):
+            print("GODDESS_LUM_RIG_IN_REHEARSAL_GREEN")
         quit(0)
     else:
         push_error("GODDESS_DIRECT_TAP_SMOKE_RED: " + ", ".join(failures))
