@@ -1,0 +1,59 @@
+name: Goddess Rehearsal Canon and Godot Parse Audit
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/game/goddessRehearsal.gd'
+      - 'scenes/GoddessRehearsal.tscn'
+      - 'game/canon/CHARACTER_CANON_V1.json'
+      - 'game/assets/ASSET_MANIFEST_V1.json'
+      - 'doctrine/goddessGodotCanonHandoffV1.json'
+      - 'tools/goddessGodotCanonHandoffAudit.py'
+      - '.github/workflows/goddess-rehearsal-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  goddess-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout immutable source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Canon and rehearsal source proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/goddessGodotCanonHandoffAudit.py
+          python3 tools/godotGameSourceAudit.py
+          test -s scenes/GoddessRehearsal.tscn
+          test -s scripts/game/goddessRehearsal.gd
+          grep -Fq 'res://scripts/game/goddessRehearsal.gd' scenes/GoddessRehearsal.tscn
+      - name: Download pinned Godot editor
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 4 -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          echo 'cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip' | sha256sum -c -
+          mkdir -p /tmp/godot
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+      - name: Parse the standalone Goddess scene
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          set +e
+          "$godot" --headless --editor --path . --quit 2>&1 | tee /tmp/goddess-parse.log
+          status=${PIPESTATUS[0]}
+          set -e
+          test "$status" -eq 0
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:|ERROR: Failed to load script' /tmp/goddess-parse.log; then
+            echo GODDESS_SCENE_PARSE_RED
+            exit 1
+          fi
+          echo GODDESS_SCENE_PARSE_GREEN
