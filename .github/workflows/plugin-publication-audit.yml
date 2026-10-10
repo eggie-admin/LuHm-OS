@@ -86,7 +86,7 @@ jobs:
               assert interface[key].startswith('https://'), (key, interface[key])
           assert len(tests.get('positive', [])) == 5
           assert len(tests.get('negative', [])) == 3
-          assert mcp['mcpServers']['luhm']['url'] == 'https://luhm-os-harness-green.onrender.com/mcp'
+          assert mcp['mcpServers']['luhm']['url'] == 'https://luhm-os-godot-harness-green.onrender.com/mcp'
 
           for key in ('logo', 'composerIcon'):
               rel = interface[key]

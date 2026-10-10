@@ -24,7 +24,7 @@ COMMAND_HELP = ROOT / "doctrine/commandHelpV1.json"
 PRIVACY = ROOT / "plugins/luhm-os/PRIVACY.md"
 TERMS = ROOT / "plugins/luhm-os/TERMS.md"
 SUBMISSION = ROOT / "plugins/luhm-os/PUBLIC_SUBMISSION_DRAFT.md"
-HARNESS_MCP_URL = "https://luhm-os-harness-green.onrender.com/mcp"
+HARNESS_MCP_URL = "https://luhm-os-godot-harness-green.onrender.com/mcp"
 
 
 def load(path: Path) -> dict:

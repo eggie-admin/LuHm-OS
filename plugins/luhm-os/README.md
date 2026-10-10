@@ -1,6 +1,6 @@
 # LuHm OS ChatGPT Plugin
 
-LuHm OS 0.5.0 is built for a clean manual upload. It packages portable LuHm workflow skills, explicit coding-roleplay behavior, and the canonical read-only MCP connection.
+LuHm OS 0.5.1 is built for a clean manual upload. It packages portable LuHm workflow skills, explicit coding-roleplay behavior, and the canonical read-only MCP connection.
 
 ## Virgin install
 
@@ -14,9 +14,11 @@ After installation, start a new chat and ask LuHm OS to inspect current source t
 
 ## Current endpoint
 
+The Godot-hosting MCP service also stages the Web export needed by `luhm_open_godot_player`. Host plugin installation and iframe playback require separate real-world testing.
+
 The manual package contains one MCP connection source:
 
-`https://luhm-os-harness-green.onrender.com/mcp`
+`https://luhm-os-godot-harness-green.onrender.com/mcp`
 
 Custom DNS, Cloudflare proxy changes, certificate issuance, and public directory publication remain separately evidence-gated and Professor-controlled.
 

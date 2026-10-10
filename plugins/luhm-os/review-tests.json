@@ -23,8 +23,8 @@
     },
     {
       "id": "P5",
-      "prompt": "Enter LuHm coding roleplay, show the active cabinet, then go OOC and tell me the exact machine state.",
-      "expected": "Uses the portable coding-roleplay contract and luhm_open_cockpit as needed, keeps roleplay presentation-only, exits fiction on OOC, and reports machine state without inventing GREEN or mutation authority."
+      "prompt": "Enter LuHm coding roleplay, show the active cabinet, then go OOC and tell me the exact machine state. Then request the LuHm Godot 4 player in this chat.",
+      "expected": "Uses the portable coding-roleplay contract and luhm_open_cockpit as needed, keeps roleplay presentation-only, exits fiction on OOC, and reports machine state without inventing GREEN or mutation authority. The player request requires real host tool discovery, never an assumed in-chat success."
     }
   ],
   "negative": [

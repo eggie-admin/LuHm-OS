@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "luhm-os",
-  "version": "0.5.0",
-  "description": "Virgin-install LuHm OS plugin with evidence-gated source-truth workflows, explicit coding roleplay, and read-only MCP-backed cockpit support.",
+  "version": "0.5.1",
+  "description": "Virgin-install LuHm OS MCP plugin for the in-chat Godot 4 Cathedral, source truth, and explicit coding roleplay.",
   "author": {
     "name": "Eggie Bagelface",
     "url": "https://luhm-os-publication-site.onrender.com/"
@@ -24,8 +24,8 @@
     "com.openai": {
       "interface": {
         "displayName": "LuHm OS",
-        "shortDescription": "LuHm cockpit + roleplay",
-        "longDescription": "Clean-install LuHm OS plugin. Normal ChatGPT stays the default; explicit LuHm coding roleplay adds the tiny goth MUD presentation layer while Lum routes bounded read-only source-truth, evidence, housekeeping, escalation, and cockpit workflows. Roleplay never grants merge, release, signing, publication, secret, GREEN, or Crown authority.",
+        "shortDescription": "Godot Cathedral + LuHm cockpit",
+        "longDescription": "Clean-install LuHm OS plugin. Normal ChatGPT stays the default; explicit LuHm coding roleplay adds the tiny goth MUD presentation layer while Lum routes bounded read-only source-truth, evidence, housekeeping, escalation, and cockpit workflows. Roleplay never grants merge, release, signing, publication, secret, GREEN, or Crown authority. Includes a read-only Godot 4 Web player tool backed by the Godot HTTPS export. Host installation and in-chat playback must be verified.",
         "developerName": "Eggie Bagelface",
         "category": "Developer Tools",
         "capabilities": [
@@ -39,6 +39,7 @@
         "composerIcon": "./assets/logo.svg",
         "logo": "./assets/logo.svg",
         "defaultPrompt": [
+          "Use LuHm OS to open the Godot 4 Cathedral player in this chat.",
           "Use LuHm OS to inspect the current source truth and explain what is actually proven.",
           "Open the LuHm OS in-chat cockpit and show the current clean-install experience contract.",
           "Enter LuHm coding roleplay and continue only inside the explicit scene boundary.",
@@ -98,7 +99,7 @@
         "commerce": false
       },
       "publication": {
-        "release_notes": "LuHm OS 0.5.0 is rebuilt for virgin manual upload. It adds a portable coding-roleplay skill, first-boot mode routing, doctrine-configurable roleplay, and a deterministic upload-package build while preserving the public read-only MCP and Professor Crown boundaries."
+        "release_notes": "LuHm OS 0.5.1 routes the clean-install MCP connection to the live Godot harness with the actual WebAssembly/PCK export and in-chat player tool. Keeps the read-only Crown safety model and explicit roleplay boundaries; installing the plugin and in-chat playback remain host verification gates."
       }
     }
   }

@@ -46,9 +46,9 @@ jobs:
       - name: Upload manual plugin package
         uses: actions/upload-artifact@v4
         with:
-          name: luhm-os-manual-upload-0.5.0
+          name: luhm-os-manual-upload-0.5.1
           path: |
-            build/manual-plugin/luhm-os-manual-upload-0.5.0.zip
+            build/manual-plugin/luhm-os-manual-upload-0.5.1.zip
             build/manual-plugin/artifact-receipt.json
           if-no-files-found: error
           retention-days: 14
