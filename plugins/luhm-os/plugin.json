@@ -24,7 +24,7 @@
     "com.openai": {
       "interface": {
         "displayName": "LuHm OS",
-        "shortDescription": "Godot 4 Cathedral + LuHm cockpit",
+        "shortDescription": "Godot Cathedral + LuHm cockpit",
         "longDescription": "Clean-install LuHm OS plugin. Normal ChatGPT stays the default; explicit LuHm coding roleplay adds the tiny goth MUD presentation layer while Lum routes bounded read-only source-truth, evidence, housekeeping, escalation, and cockpit workflows. Roleplay never grants merge, release, signing, publication, secret, GREEN, or Crown authority. Includes a read-only Godot 4 Web player tool backed by the Godot HTTPS export. Host installation and in-chat playback must be verified.",
         "developerName": "Eggie Bagelface",
         "category": "Developer Tools",
