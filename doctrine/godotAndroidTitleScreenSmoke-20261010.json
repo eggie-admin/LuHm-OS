@@ -1,0 +1,37 @@
+{
+  "schema": "luhmOs.godotAndroidTitleScreenSmoke.v1",
+  "date": "2026-10-10",
+  "sourceCommit": "84ac3e538369d3445f2b300f76368e4b82017207",
+  "renderService": "luhm-os-godot-harness-green",
+  "renderDeploy": "dep-db5738ss728c73c34utg",
+  "renderStatus": "LIVE",
+  "url": "https://luhm-os-godot-harness-green.onrender.com/harness/",
+  "evidence": {
+    "type": "Professor-provided Chrome Canary screenshot in conversation, not committed binary",
+    "filename": "Screenshot_20261010_131556_Chrome Canary.png",
+    "observed": [
+      "Android Chrome Canary displays HTTPS Godot harness with WEB EXPORT READY label",
+      "Actual embedded Godot viewport displays LUHM OS // CATHEDRAL title and four character names",
+      "ENTER NEON RIVERWALK title menu option is visible",
+      "Workspace tree reports No local assets, and media carousel reports 0 / 0"
+    ]
+  },
+  "proven": [
+    "exactMainCommitDeployedLiveInRender",
+    "androidBrowserGodotTitleScreenVisible",
+    "embeddedWebExportReachedTitleMenu"
+  ],
+  "notProven": [
+    "Title screen button accepts touch and transitions",
+    "Neon Riverwalk loads and movement works",
+    "Four Goddess rehearsal exposed by browser launcher",
+    "Approved asset imports or remote Drive asset delivery",
+    "ChatGPT custom MCP app invocation"
+  ],
+  "restrictions": [
+    "Evidence receipt only, no gameplay GREEN without physical input proof",
+    "Screenshot remains private conversation reference; no public screenshot redistribution",
+    "No build, asset, deployment, or publication mutation"
+  ],
+  "law": "AI proposes. Policy authorizes. CI proves. Human promotes."
+}
