@@ -641,5 +641,20 @@
     "proposalScan": "tools/titan7CurrentCanonAudit.py",
     "scope": "metadataClassificationAndExactSourceEvidenceOnly",
     "crownStatus": "STOP"
+  },
+  "conversationModes": {
+    "contract": "doctrine/conversationModeRouterV1.json",
+    "status": "PROPOSED_CONTRACT_ONLY",
+    "runtimeWired": false,
+    "promotion": false,
+    "crownStatus": "STOP"
+  },
+  "packageDelivery": {
+    "contract": "doctrine/npmPluginApkDeliveryV1.json",
+    "status": "PROPOSED_CANDIDATE",
+    "frontendLockfile": "frontEnd/package-lock.json",
+    "apkWorkflow": ".github/workflows/android-testing-build.yml",
+    "promotion": false,
+    "crownStatus": "STOP"
   }
 }
