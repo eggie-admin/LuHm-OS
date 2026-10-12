@@ -1,0 +1,5 @@
+# OPTIONAL for a separately approved persistent worker; not the existing public harness.
+google-auth>=2.30,<3
+requests>=2.31,<3
+psycopg[binary]>=3.1,<4
+PyMySQL>=1.1,<2
