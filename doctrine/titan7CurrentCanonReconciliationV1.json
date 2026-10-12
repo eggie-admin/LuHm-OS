@@ -1,0 +1,165 @@
+{
+  "schema": "luhmOs.titan7CurrentCanonReconciliation.v1",
+  "status": "CANONICAL_AUDIT_INDEX_ONLY",
+  "authority": "Professor",
+  "purpose": "Final Form classification of all current doctrine candidate states and currently observed open PR mutations; it is not a bulk promotion of unfinished behavior.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "auditBasis": {
+    "observedMain": "dae5c07210a8a3599a202ed2a62acf430fb3a952",
+    "snapshotRef": "snapshot/titan7-current-canon-20261012-dae5c072",
+    "snapshotScope": "canonicalRepositoryOnly",
+    "activeRepositorySet": "doctrine/activeRepositorySetV1.json",
+    "crossRepoSnapshotVerifiedThisSession": false,
+    "observedDate": "2026-10-12",
+    "currentSourceTruth": "doctrine/currentSourceTruthV3.json"
+  },
+  "promotedScope": {
+    "currentCanonIndex": true,
+    "sourceTruthPointer": true,
+    "existingHistoricalCrownReceiptsPreserved": true,
+    "allProposedRuntimeMutationsPromoted": false,
+    "sourceRoleAndGovernanceOnly": true
+  },
+  "runtimeEvidence": {
+    "pluginVersion": "0.5.2",
+    "pluginMcpEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+    "pluginManualPackageRun": 38217231216,
+    "pluginExactMainArtifactId": 11732790107,
+    "pluginExactMainArtifactSourceRef": "dae5c07210a8a3599a202ed2a62acf430fb3a952",
+    "renderMcpDeployId": "dep-db68l5m7bikc73fj85ig",
+    "renderMcpDeployedSourceRef": "dae5c07210a8a3599a202ed2a62acf430fb3a952",
+    "renderMcpLiveReceipt": true,
+    "publicMcpProbeJobId": 114705396109,
+    "publicMcpProbeScope": "EXTERNAL_MCP_ONLY_NOT_HOST",
+    "godotServiceSourceRef": "06fcc09f41d98e88244c5e88c5303f1010d8141e",
+    "godotWebExportPreserved": true,
+    "chatGptHostMount": "UNVERIFIED",
+    "installedPluginRefresh": "UNVERIFIED",
+    "androidSamsungTouch": "UNVERIFIED",
+    "godotInChatRuntimeInput": "UNVERIFIED",
+    "providerWorkers": "NOT_PROVEN",
+    "liveDnsTlsMutation": "NOT_REQUESTED_NOT_PROVEN"
+  },
+  "canonBoundaries": {
+    "currentSourceTruthStatus": "AMBER_PROPOSED_SEAL_OF_TRUTH",
+    "proposedWorkingLane": "PROPOSED_ONLY",
+    "titanFinalFormSourceStatus": "STAGED_CANDIDATE",
+    "titanFinalFormExecutionModes": [
+      "system",
+      "apply",
+      "test",
+      "all"
+    ],
+    "agentRosterDefinitionCount": 15,
+    "liveProviderWorkerClaim": false,
+    "separateCastRequired": true,
+    "noAutomaticBuild": true,
+    "noAutomaticMergeOfOpenPrs": true,
+    "noAutomaticPublication": true,
+    "noSecrets": true,
+    "crownStatus": "STOP_FOR_UNPROVEN_GLOBAL_PROMOTION"
+  },
+  "proposedMutationInventory": {
+    "mode": "SCAN_ALL_DOCTRINE_JSON_AT_EXACT_CANDIDATE_SHA",
+    "auditTool": "tools/titan7CurrentCanonAudit.py",
+    "workflow": ".github/workflows/titan7-current-canon-audit.yml",
+    "candidateIndicators": [
+      "PROPOSED",
+      "CANDIDATE",
+      "PENDING",
+      "AMBER",
+      "UNVERIFIED",
+      "STAGED"
+    ],
+    "wholeBranchImportAllowed": false,
+    "requiresNovelDeltaDiffAndExactHeadProof": true
+  },
+  "openPullRequests": {
+    "observationScope": "GitHub open PR list on 2026-10-12",
+    "count": 11,
+    "items": [
+      {
+        "number": 241,
+        "headSha": "bfa942f7d565e341449b0badf516dcdd0430d39b",
+        "scope": "agentOrchestraGoogleApi",
+        "disposition": "DRAFT_REVIEW_NOVEL_DELTA_ENTITLEMENT_UNPROVEN",
+        "mergeAuthority": false
+      },
+      {
+        "number": 236,
+        "headSha": "cce80fddda112391204f5667603490d5576d401a",
+        "scope": "yumeGoddess3dDoctrine",
+        "disposition": "DRAFT_STACKED_ON_209_REVIEW_DELTA",
+        "mergeAuthority": false
+      },
+      {
+        "number": 234,
+        "headSha": "5a921d2147ef865a54505422cef01dd8454e758d",
+        "scope": "lumPhase2MorphGodot",
+        "disposition": "DRAFT_COMPETE_WITH_NEWER_CANON_PROOF_REVIEW_DELTA",
+        "mergeAuthority": false
+      },
+      {
+        "number": 216,
+        "headSha": "c58730add9be5d82c363d15b8b1f9a35043488a7",
+        "scope": "cloudflareArtDomain",
+        "disposition": "DRAFT_DNS_UNEXECUTED",
+        "mergeAuthority": false
+      },
+      {
+        "number": 215,
+        "headSha": "63994f9f6255afb73852450db290249ec1fa438f",
+        "scope": "godotChatEdge",
+        "disposition": "DRAFT_PARTIALLY_PORTED_REVIEW_DELTA",
+        "mergeAuthority": false
+      },
+      {
+        "number": 214,
+        "headSha": "0d2712c5bdea1f39d636ecdc9dde97691d5cd4ca",
+        "scope": "fastMudPacing",
+        "disposition": "DRAFT_SOURCE_ONLY_REVIEW_DELTA",
+        "mergeAuthority": false
+      },
+      {
+        "number": 210,
+        "headSha": "45eaaddd8bb72ca34c69c40a4214fca94364fe13",
+        "scope": "godotWebHarness",
+        "disposition": "DRAFT_PARTIALLY_PORTED_REVIEW_DELTA",
+        "mergeAuthority": false
+      },
+      {
+        "number": 209,
+        "headSha": "21e41e3ad03ecb92295289306f07be0f0cb250bb",
+        "scope": "yumeGoddess3dPipeline",
+        "disposition": "DRAFT_HISTORICAL_DONOR_REVIEW_DELTA",
+        "mergeAuthority": false
+      },
+      {
+        "number": 208,
+        "headSha": "4c277fad3e1e0b03fb5cddc02e11027a52f905b0",
+        "scope": "virginInstallPlugin",
+        "disposition": "DRAFT_LEGACY_VERSION_0_5_0_CURRENT_0_5_2_WINS",
+        "mergeAuthority": false
+      },
+      {
+        "number": 207,
+        "headSha": "76a926dc375e8d1d22ae7a920641a94ceda24be2",
+        "scope": "corporateGenome",
+        "disposition": "DRAFT_REVIEW_SOURCE_TRUTH_DELTA",
+        "mergeAuthority": false
+      },
+      {
+        "number": 203,
+        "headSha": "b7619cfc03b52959546a7b1b14cf524894ffa5ee",
+        "scope": "codespacesMediaGarage",
+        "disposition": "DRAFT_WORKSPACE_REVIEW_DELTA",
+        "mergeAuthority": false
+      }
+    ]
+  },
+  "promotion": false,
+  "releaseAuthority": false,
+  "publicationAuthority": false,
+  "productionSigningAuthority": false,
+  "crownStatus": "STOP"
+}
