@@ -1,0 +1,126 @@
+{
+  "schema": "luhmOs.conversationModeRouter.v1",
+  "status": "PROPOSED_CANDIDATE",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Define the four user-facing conversation modes independently from the operational escalation kernel.",
+  "modes": [
+    {
+      "tier": 0,
+      "id": "default",
+      "label": "Default",
+      "meaning": "Ordinary system-harnessed chat; no assumed fictional scene.",
+      "entry": "conversationStartOrExplicitReset",
+      "exit": "explicitModeSelection",
+      "default": true
+    },
+    {
+      "tier": 1,
+      "id": "ic",
+      "label": "IC",
+      "meaning": "In-character fictional scene or scripted chat.",
+      "entry": "explicitUserSceneEntryOrModeSelection",
+      "exit": [
+        "explicitUserExit",
+        "oocRequest",
+        "irlRequest",
+        "safetyOrRealityBoundary"
+      ],
+      "fictionOnly": true
+    },
+    {
+      "tier": 2,
+      "id": "ooc",
+      "label": "OOC",
+      "meaning": "Out-of-character project, technical, planning, and direct assistant conversation.",
+      "entry": "explicitModeSelectionOrDirectProjectContext",
+      "exit": "explicitModeSelection",
+      "currentConversationMode": "ooc"
+    },
+    {
+      "tier": 3,
+      "id": "irl",
+      "label": "IRL",
+      "meaning": "Real-world facts, decisions, and actions; evidence and consequence gates apply.",
+      "entry": "explicitModeSelectionOrClearRealWorldTask",
+      "exit": "explicitModeSelection"
+    }
+  ],
+  "axes": {
+    "conversationMode": {
+      "contract": "thisFile",
+      "values": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "operationalEscalation": {
+      "contract": "doctrine/escalationKernelV1.json",
+      "values": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "orthogonal": true,
+    "modeNeverChangesEscalationOrAuthority": true
+  },
+  "transitionLaw": {
+    "defaultMode": "default",
+    "icRequiresExplicitEntry": true,
+    "directCorrectionLeavesIcImmediately": true,
+    "noModeMaySuppressSafetyOrTruthChecks": true,
+    "modeSelectionDoesNotAuthorizeExternalSideEffects": true,
+    "preserveConversationAndTaskIdentity": true
+  },
+  "agentActivity": {
+    "source": "doctrine/luhmAiControlPlaneV1.json#eventEnvelope",
+    "requiredEvidence": [
+      "taskId",
+      "workerId",
+      "sourceRef",
+      "scopeId",
+      "eventId",
+      "timestamp",
+      "state"
+    ],
+    "standbyMeansRegisteredNotExecuting": true,
+    "onlyShowWorkerAsActiveWithMatchingTaskEvent": true,
+    "idleWhenNoCurrentTaskReceipt": true,
+    "reasoningDisplay": "short decision and evidence summary",
+    "hiddenChainOfThought": false,
+    "inventedBackgroundWork": false
+  },
+  "providerGate": {
+    "adapters": [
+      "openAi",
+      "googleAi"
+    ],
+    "receiptContract": "luhmOs.providerExecutionReceipt.v1",
+    "required": [
+      "providerId",
+      "modelIdentity",
+      "entitlementState",
+      "capabilityId",
+      "sourceRef",
+      "scopeId",
+      "timestamp"
+    ],
+    "unknownEntitlement": "STOP_OR_DETERMINISTIC_FALLBACK",
+    "providerChoiceDoesNotChangeAuthority": true,
+    "credentialsNeverEnterUiOrRepository": true
+  },
+  "uiContract": {
+    "runtime": "staticHtml",
+    "jquerySystem": "frontEnd/jquery/luhm.cockpit.js",
+    "showModeLabel": true,
+    "showActualRoutedAgentsOnly": true,
+    "showEvidenceAndStateWithoutHiddenReasoning": true,
+    "godotInChat": false
+  },
+  "contentLaneContract": "doctrine/contentLaneDoctrineV1.json remains authoritative until a separately reviewed four-lane contract is promoted.",
+  "crownStatus": "STOP"
+}
