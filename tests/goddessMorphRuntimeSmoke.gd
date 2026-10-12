@@ -30,7 +30,7 @@ func _run() -> void:
     root_node.add_child(instance)
 
     controller.configure(root_node)
-    var receipt := controller.apply_preset("urd")
+    var receipt: Dictionary = controller.apply_preset("urd")
 
     _check(receipt.get("character") == "urd", "Urd preset selected")
     _check(is_equal_approx(instance.get_blend_shape_value(0), 0.82), "Urd hip morph applied")
