@@ -14,9 +14,9 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-MODEL = "veo-3.1-fast-generate-001"
-REGION = "us-central1"
-MAX_COST_PER_SECOND_USD = 0.15  # intentionally conservative upper safety cap, not a billing quote
+veoModel = "veo-3.1-fast-generate-001"
+googleRegion = "us-central1"
+maxCostPerSecondUsd = 0.15  # intentionally conservative upper safety cap, not a billing quote
 
 
 def load_manifest(path: Path) -> dict:
@@ -26,7 +26,7 @@ def load_manifest(path: Path) -> dict:
     assert doc["sourceRef"] and len(doc["sourceRef"]) == 40
     assert doc["rights"]["publicAllowed"] is False
     assert doc["gates"]["publication"] == "STOP"
-    assert doc["model"] == MODEL
+    assert doc["model"] == veoModel
     assert doc["output"]["durationSeconds"] in (4, 6, 8)
     assert doc["output"]["sampleCount"] == 1
     assert doc["output"]["aspectRatio"] == "9:16"
@@ -70,7 +70,7 @@ def submit_one(project: str, shot_id: str, request: dict) -> str:
     token = raw.stdout.strip()
     if not token:
         raise RuntimeError("Google ADC/gcloud login unavailable")
-    url = f"https://{REGION}-aiplatform.googleapis.com/v1/projects/{project}/locations/{REGION}/publishers/google/models/{MODEL}:predictLongRunning"
+    url = f"https://{googleRegion}-aiplatform.googleapis.com/v1/projects/{project}/locations/{googleRegion}/publishers/google/models/{veoModel}:predictLongRunning"
     req = urllib.request.Request(url, data=json.dumps(request).encode("utf-8"), method="POST", headers={
         "Authorization": "Bearer " + token,
         "Content-Type": "application/json; charset=utf-8"
@@ -99,7 +99,7 @@ def main(argv=None) -> int:
     request = make_request(manifest, shot, storage_uri)
     if not args.submit:
         result = {"status": "DRY_RUN_NO_NETWORK_NO_CHARGE", "sourceRef": manifest["sourceRef"],
-                  "provider": "vertexAi", "shot": args.shot, "model": MODEL, "request": request}
+                  "provider": "vertexAi", "shot": args.shot, "model": veoModel, "request": request}
         content = json.dumps(result, indent=2, ensure_ascii=False) + "\n"
         if args.output:
             args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -107,7 +107,7 @@ def main(argv=None) -> int:
         else:
             print(content)
         return 0
-    estimated_ceiling = MAX_COST_PER_SECOND_USD * manifest["output"]["durationSeconds"]
+    estimated_ceiling = maxCostPerSecondUsd * manifest["output"]["durationSeconds"]
     if not args.approve_spend or args.cost_ceiling_usd < estimated_ceiling:
         raise SystemExit(f"CROWN_STOP: one shot requires --approve-spend and --cost-ceiling-usd >= {estimated_ceiling:.2f}")
     if os.getenv("LUHM_CROWN_VIDEO_COST_APPROVED") != "yes":
