@@ -9,10 +9,10 @@
       "source3d": "PROVEN_CANDIDATE",
       "canon2d": "PRESENT",
       "retopo": "PENDING",
-      "faceShapes": "PENDING",
+      "faceShapes": "THREE_ACTUAL_MORPHS_CI_PROVEN_HIP_WAIST_SMILE",
       "secondaryMotion": "PENDING",
-      "godotImport": "HISTORICAL_PHASE1_PROOF_EXISTS_NEW_PHASE2_PROOF_REQUIRED",
-      "next": "duplicate immutable donor and perform topology/weights/material/secondary-motion Phase 2"
+      "godotImport": "GODOT_4_7_2_HEADLESS_MORPH_AND_BONE_STRESS_PROOF_PASSED",
+      "next": "Professor reviews six-frame Blender contact sheet; deformation quality, secondary motion and rights remain open"
     },
     {
       "id": "urd",
@@ -49,5 +49,14 @@
     }
   ],
   "sharedProofTarget": "Four-character Godot 4.7 lineup scene with stable idle animation, bounded secondary motion, identity-preserving materials, and per-character receipt cards.",
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "proofStage": {
+    "lumPhase2CandidateSha256": "4b8d41393bb94affe469af551c2915d6b39890cd2add18048d78da8610505a1e",
+    "sourceRuntime": "PROVEN_AT_RECORDED_CI_RUN",
+    "identityAndClippingReview": "PENDING_PROFESSOR",
+    "otherThreeBodies": "UNASSIGNED",
+    "previewType": "fourStationGodotBlockoutNotFourFinishedBodies",
+    "visualEvidence": "BLENDER_REVIEW_FRAMES_GENERATED_PENDING_REVIEW",
+    "crownStatus": "STOP"
+  }
 }
