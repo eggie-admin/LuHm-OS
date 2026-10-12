@@ -12,7 +12,6 @@
   "currentTruth": {
     "lum": {
       "state": "RIGGED_3D_CANDIDATE_EXISTS",
-      "driveSourceId": "1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen",
       "bundleName": "Meshy_AI_Lum_Midnight_1996_biped.zip",
       "bundleSha256": "fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da",
       "baseGlbSha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
@@ -29,22 +28,29 @@
         "secondary-motion rig",
         "final material/texture cleanup",
         "Professor canon review of runtime body"
-      ]
+      ],
+      "privateAssetRef": "privateDrive:yume/lum/riggedBipedCandidate"
     },
     "urd": {
       "state": "CANON_DESIGN_PRESENT_NO_RECONCILED_3D_BODY",
-      "driveApprovedArtFolder": "1ISHQIRa_ChVKshoxrm5KoCWzaAUhDOUO",
-      "driveCandidateReviewFolder": "1XTOXJIcVVZcwtgjPsvB53t6NUIxQPeON"
+      "privateAssetRefs": {
+        "approvedArt": "privateDrive:yume/urd/approvedArt",
+        "candidateReview": "privateDrive:yume/urd/candidateReview"
+      }
     },
     "belldandy": {
       "state": "CANON_DESIGN_PRESENT_NO_RECONCILED_3D_BODY",
-      "driveApprovedArtFolder": "1WE9nZLhR1JJqDzDVHe5DObJ4_MYjSgl9",
-      "driveCandidateReviewFolder": "19XtWQPpYk-_8VbR-cwY6SIkqXxPanIP_"
+      "privateAssetRefs": {
+        "approvedArt": "privateDrive:yume/belldandy/approvedArt",
+        "candidateReview": "privateDrive:yume/belldandy/candidateReview"
+      }
     },
     "skuld": {
       "state": "CANON_DESIGN_PRESENT_NO_RECONCILED_3D_BODY",
-      "driveApprovedArtFolder": "1ruzmx-2GsjdabgAC5gihNKAi82pIUe5g",
-      "driveCandidateReviewFolder": "1xtyUwj7fA0EgVXT1U7j2xPKC5WuQso4C"
+      "privateAssetRefs": {
+        "approvedArt": "privateDrive:yume/skuld/approvedArt",
+        "candidateReview": "privateDrive:yume/skuld/candidateReview"
+      }
     },
     "godotImportTestedLane": "EMPTY_AT_LAST_DIRECT_DRIVE_CHECK",
     "gameReadyLane": "EMPTY_AT_LAST_DIRECT_DRIVE_CHECK"
@@ -184,5 +190,86 @@
   "buildAuthority": false,
   "publicationAuthority": false,
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "workingLane": "PROPOSED_ONLY",
+  "canonicalGovernance": [
+    "doctrine/proposedWorkingLaneV1.json",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/yumeCreativePipelineV1.json",
+    "doctrine/yumeCommunityArtResourcesV1.json",
+    "agents/yumeArtOni/SKILL.md"
+  ],
+  "sourcePrivacy": {
+    "publicDriveIdsAllowed": false,
+    "publicRepoStores": "logical asset keys, evidence-state manifests, cryptographic hashes and non-sensitive public source URLs",
+    "privateLocatorResolution": "Only via authorized private Drive access with provenance; missing permission is UNKNOWN",
+    "existingGitHistory": "Removing IDs from current files does not erase old commits; audit any legacy exposure separately and do not rewrite history without Professor approval",
+    "prohibitedPublicKeys": [
+      "driveSourceId",
+      "driveApprovedArtFolder",
+      "driveCandidateReviewFolder",
+      "folderId",
+      "fileId"
+    ]
+  },
+  "referenceGalleryGate": {
+    "catalog": "media/yumeReferenceGalleryV1.json",
+    "candidatePage": "frontEnd/yumeReferenceGallery.html",
+    "latestCandidateReceipt": "receipts/yumeReferenceGallery-20261008.json",
+    "referenceOnly": true,
+    "sourceLinkedCardMinimum": 24,
+    "catalogSourceChecksAreNotLiveBrowserProof": true,
+    "previewsAreNotImportProof": true,
+    "noModBinaryDownloadWithoutLicenseReceipt": true,
+    "thirdPartyGameCharacterAssetsExcludedFromOriginalRuntime": true,
+    "noUnverifiedNexusRssClaims": true,
+    "promotionRequires": [
+      "creatorAndSourceIdentity",
+      "exactAssetLicenseAndRedistributionPermission",
+      "contentLaneEligibility",
+      "binarySha256AndPrivateQuarantineReceipt",
+      "BlenderOrGodotImportReceipt",
+      "runtimeProofWhenClaimed",
+      "ProfessorVisualReview"
+    ]
+  },
+  "proofLadder": {
+    "states": [
+      "discovered",
+      "sourceVerified",
+      "rightsReviewed",
+      "bytesStaged",
+      "importTested",
+      "runtimeProven",
+      "professorApproved"
+    ],
+    "noSkippedStates": true,
+    "noSelfPromotion": true,
+    "pictureOrStillNotAnimationProof": true,
+    "galleryHtmlNotGodotRuntimeProof": true,
+    "CIStaticSourceAuditNotGodotExecution": true,
+    "missingState": "UNKNOWN"
+  },
+  "characterSwitchSafety": {
+    "requiredBodyAbsentMustNotDisplayStalePreviousCharacter": true,
+    "missingBodyMustReturnBlocker": true,
+    "oldMountedComponentsMustNotRemainVisibleOnFailedSwap": true,
+    "morphReceiptMustCountOnlyRealBlendShapes": true,
+    "unbuiltGodotTestMayNotClaimPass": true,
+    "proofRequires": "Godot 4.7 headless runtime smoke on exact sourceRef"
+  },
+  "reviewBoundary": {
+    "lumBoss": "lum",
+    "creativeLead": "yumeArtOni",
+    "architectureLead": "skuldResearch",
+    "evidenceChallenge": "urdDoctorGoddess",
+    "receiptsLead": "belldandySecretary",
+    "provenanceLead": "sumi",
+    "canonicalAuthority": "Professor",
+    "buildAuthority": false,
+    "mergeAuthority": false,
+    "deploymentAuthority": false,
+    "publicationAuthority": false,
+    "crownStatus": "STOP"
+  }
 }
