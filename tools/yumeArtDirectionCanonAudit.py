@@ -18,6 +18,7 @@ pipeline = load("doctrine/yumeCreativePipelineV1.json")
 community = load("doctrine/yumeCommunityArtResourcesV1.json")
 working = load("doctrine/proposedWorkingLaneV1.json")
 skill = (ROOT / "agents/yumeArtOni/SKILL.md").read_text(encoding="utf-8")
+receipt = load("doctrine/yumeArtDirectionCrownReceiptV1.json")
 
 def errors_for(canon: dict, control: dict, mesh: dict, truth: dict) -> list[str]:
     errors = []
@@ -34,6 +35,19 @@ def errors_for(canon: dict, control: dict, mesh: dict, truth: dict) -> list[str]
     claim = truth.get("yumeArtDirectionCanon", {})
     pointer = truth.get("agentLayer", {}).get("yumeRoleCanon", {})
 
+    require(canon.get("crownReceipt") == "doctrine/yumeArtDirectionCrownReceiptV1.json", "canonCrownReceiptPointer")
+    require(claim.get("crownReceipt") == canon.get("crownReceipt"), "truthCrownReceiptPointer")
+    require(pointer.get("crownReceipt") == canon.get("crownReceipt"), "agentCrownReceiptPointer")
+    require(receipt.get("schema") == "luhmOs.yumeArtDirectionCrownReceipt.v1", "receiptSchema")
+    require(receipt.get("authority") == "Professor" and receipt.get("scopeId") == canon.get("promotionScope"), "receiptScope")
+    require(receipt.get("crownBoundary") == "CROWNED_SOURCE_ROLE_ONLY", "receiptCrown")
+    require(receipt.get("automaticFuturePromotion") is False and receipt.get("automaticPublicationAuthority") is False, "receiptNoAutoPromotion")
+    require(receipt.get("meshReconciliationCommit") == "1cdaedbb6eefda78f02a7ab10f720d9ae5f39a5e", "receiptMeshRef")
+    historical = receipt.get("exactHeadEvidence", {})
+    require(receipt.get("testedCandidateSourceRef") == historical.get("sourceRef") == "f0d04ee9d89c0fd57b100ab5e8bf441606f24315", "receiptTestedHead")
+    historical_runs = historical.get("namedWorkflowRuns", [])
+    require(historical.get("workflowCount") == historical.get("workflowSuccess") == len(historical_runs) == 24, "receiptWorkflowCount")
+    require(all(row.get("conclusion") == "success" and isinstance(row.get("runId"), int) for row in historical_runs), "receiptWorkflowIntegrity")
     require(canon.get("schema") == "luhmOs.yumeArtDirectionCanon.v1", "schema")
     require(canon.get("status") == "CANONICAL_ART_DIRECTION_SOURCE", "roleCanonStatus")
     require(canon.get("authority") == "Professor" and canon.get("professorApproved") is True, "humanAuthority")
