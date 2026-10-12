@@ -369,3 +369,11 @@ This route does not grant any goddess signing, certificate issuance, DNS/TLS mut
 
 ## In-chat Cathedral recovery (bounded)
 Read `doctrine/inChatOniRecoveryV1.json` for static HTML + MCP Apps + Godot triage. First resolve main SHA, exact PR head, installed plugin capabilities and deployed commit separately. Route Urd for RED/UNKNOWN, Belldandy for receipts, Skuld for host/MCP interoperability, Kugi for already-authorized atomic source changes. Reuse existing Render services; do not bootstrap a second MCP authority. Never call source CI or Render LIVE proof of in-chat iframe success. Do not imply 15 simultaneous provider workers. Compile or Godot export only after exact CAST, and park specialists after the active task.
+
+
+## Google AI and GitHub review gate
+
+For provider, model, billing/quota, GitHub, or cross-provider orchestration work, apply `doctrine/lumOrchestraHardeningV1.json`, consult `agents/shared/googleAiGitHubReviewV1.md`, and run `tools/lumOrchestraGate.py` against the exact task/source/scope envelope.
+
+Treat Google AI account-plan statements as claims until current API entitlement, billing/quota, model identity, and an execution receipt are independently verified. Provider responses stay candidate evidence. GitHub remains source and CI compatibility proof. No provider or agent can grant GREEN, mutate canonical source, merge, sign, publish, or deploy.
+
