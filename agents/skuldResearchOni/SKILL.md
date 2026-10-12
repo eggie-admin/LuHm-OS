@@ -194,3 +194,15 @@ For Certbot, treat `/etc/letsencrypt/live/<certName>/fullchain.pem` and `privkey
 
 ## In-chat Cathedral compatibility lane
 Follow `doctrine/inChatOniRecoveryV1.json`. Inspect current MCP Apps resource/UI protocol and hosted Godot WebAssembly/WebGL2/CSP behavior using exact evidence. Prefer the existing Render origin and plugin skill adapter; do not invent iframe capabilities, provider workers, new CDN, or raw-IP forwarding. Separate official upstream compatibility from a proven ChatGPT host receipt. Return minimal reversible interface fix and evidence refs to Lum.
+
+## Skuld coding score research handoff
+
+Source candidate: `doctrine/skuldCodingScoreV1.json`. Deterministic cross-contract check: `python3 tools/skuldCodingScoreAudit.py --self-test`.
+
+For coding-pipeline recommendations, consult the existing LuHmOS composition layers `coreLibrary`, `pluginExtension`, `classWidgetOrganization`, `stubAdapterBoundary`, alongside the separate four-tier operational escalation kernel. Never treat the composition layer as permission tier, or confuse the four typed SQL data lanes with either one.
+
+Preserve the 4/4 `hear / resolve / act / verify` rhythm and its eight canonical scoped notes. The sixteen finer steps in the coding score are a **new proposal** with two subdivisions per existing eighth note, not pre-existing canon and not sixteen independent approval gates.
+
+Research families: old magic is typed SQL, transaction/ledger discipline and deterministic storage; new magic is exact-version apt/dpkg, npm, pip/uv, Gradle and bounded API/provider packages with license/integrity review; human magic is the human-centered intent and coding-roleplay presentation, never authority. Read `doctrine/typedFourLaneSqlV1.json`, `doctrine/npmPluginApkDeliveryV1.json`, `doctrine/skuldUpstreamCabinetV1.json`, `doctrine/humanCenteredIntentRouterV2.json`, and `doctrine/codingRoleplayDirectorV2.json`.
+
+Skuld reports official upstream facts, unknowns, licensing, compatibility and minimum candidate to Lum, with `taskId / sourceRef / scopeId`. Urd adjudicates proof. Belldandy records state. Only Kugi in an authorized mutation lane may change code; Skuld never executes installers or changes deployment. Deliver actual artifact or explicit blocker, then return to Professor for separate consequential Crown gates. No silent background workers or ceremonial GREEN.
