@@ -9,6 +9,7 @@ on:
       - '.github/workflows/**'
       - 'tools/everlastingCovenantAudit.py'
       - 'tools/hardSystemAudit200.py'
+      - 'tools/aiSanityAuthorityGate.py'
       - 'host/**'
       - 'assets/agent-loading/**'
   workflow_dispatch:
@@ -88,6 +89,8 @@ jobs:
           python3 -m py_compile host/mcp/luhmHarness.py
           node --check host/harness/cockpit.js
           echo "[progress] schemaValidation=passed source=$LUHM_SOURCE_REF"
+      - name: Run candidate AI sanity authority gate
+        run: python3 tools/aiSanityAuthorityGate.py --self-test
       - name: Run 100-pass doctrine audit
         run: python3 tools/everlastingCovenantAudit.py
       - name: Run 200-pass hard system audit

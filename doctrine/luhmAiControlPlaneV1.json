@@ -97,6 +97,9 @@
   },
   "taskManifest": {
     "schema": "luhmOs.aiTaskManifest.v1",
+    "status": "LEGACY_PROVENANCE_ONLY",
+    "mayAuthorizeExecution": false,
+    "supersededBy": "doctrine/aiTaskManifestV2.template.json",
     "required": [
       "taskId",
       "intent",
