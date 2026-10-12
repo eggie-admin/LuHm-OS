@@ -1,0 +1,107 @@
+{
+  "schema": "luhmOs.goddessMorphPresets.v1",
+  "status": "PROPOSED_RUNTIME_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "BodySlide-inspired original morph vocabulary and character presets for the LuHm Godot 4 character pipeline. Values are candidate art direction, not Crown canon.",
+  "range": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "sliders": {
+    "height": ["height", "body_height", "stature"],
+    "shoulderWidth": ["shoulder_width", "shoulders", "upper_width"],
+    "torsoLength": ["torso_length", "torso"],
+    "waistShape": ["waist_shape", "waist"],
+    "hipWidth": ["hip_width", "hips"],
+    "legProportion": ["leg_proportion", "leg_length"],
+    "bodySoftness": ["body_softness", "softness"],
+    "muscleTone": ["muscle_tone", "tone"],
+    "bustVolume": ["bust_volume", "bust"],
+    "gluteVolume": ["glute_volume", "glutes"],
+    "thighVolume": ["thigh_volume", "thighs"],
+    "faceSoftness": ["face_softness"],
+    "jawDefinition": ["jaw_definition", "jaw"]
+  },
+  "presets": {
+    "lum": {
+      "label": "Lum // Midnight 1996",
+      "values": {
+        "height": 0.66,
+        "shoulderWidth": 0.50,
+        "torsoLength": 0.55,
+        "waistShape": 0.70,
+        "hipWidth": 0.72,
+        "legProportion": 0.63,
+        "bodySoftness": 0.58,
+        "muscleTone": 0.48,
+        "bustVolume": 0.66,
+        "gluteVolume": 0.64,
+        "thighVolume": 0.62,
+        "faceSoftness": 0.48,
+        "jawDefinition": 0.52
+      }
+    },
+    "urd": {
+      "label": "Urd // Doctor Goddess",
+      "values": {
+        "height": 0.74,
+        "shoulderWidth": 0.54,
+        "torsoLength": 0.58,
+        "waistShape": 0.78,
+        "hipWidth": 0.82,
+        "legProportion": 0.67,
+        "bodySoftness": 0.66,
+        "muscleTone": 0.46,
+        "bustVolume": 0.82,
+        "gluteVolume": 0.78,
+        "thighVolume": 0.76,
+        "faceSoftness": 0.54,
+        "jawDefinition": 0.48
+      }
+    },
+    "belldandy": {
+      "label": "Belldandy // Secretary",
+      "values": {
+        "height": 0.62,
+        "shoulderWidth": 0.47,
+        "torsoLength": 0.53,
+        "waistShape": 0.62,
+        "hipWidth": 0.68,
+        "legProportion": 0.58,
+        "bodySoftness": 0.76,
+        "muscleTone": 0.34,
+        "bustVolume": 0.68,
+        "gluteVolume": 0.66,
+        "thighVolume": 0.64,
+        "faceSoftness": 0.72,
+        "jawDefinition": 0.36
+      }
+    },
+    "skuld": {
+      "label": "Skuld // Research",
+      "values": {
+        "height": 0.48,
+        "shoulderWidth": 0.44,
+        "torsoLength": 0.48,
+        "waistShape": 0.52,
+        "hipWidth": 0.54,
+        "legProportion": 0.61,
+        "bodySoftness": 0.42,
+        "muscleTone": 0.55,
+        "bustVolume": 0.42,
+        "gluteVolume": 0.48,
+        "thighVolume": 0.50,
+        "faceSoftness": 0.46,
+        "jawDefinition": 0.56
+      }
+    }
+  },
+  "runtimeLaw": {
+    "missingBlendShape": "report_missing_never_fake_applied",
+    "shapeMorphsSeparateFromPhysics": true,
+    "identityReviewRequired": true,
+    "outfitConformRequiredAfterBodyMutation": true,
+    "automaticPresetDoesNotGrantCanon": true
+  },
+  "crownStatus": "STOP"
+}
