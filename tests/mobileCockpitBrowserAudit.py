@@ -43,7 +43,8 @@ with sync_playwright() as pw:
                   badge:rect('#edgeBadge'),
                   h1Font:parseFloat(getComputedStyle(document.querySelector('.topbar h1')).fontSize),
                   subtitleFont:parseFloat(getComputedStyle(document.querySelector('.topbar .subtitle')).fontSize),
-                  display:getComputedStyle(document.querySelector('.topbar')).display};
+                  display:getComputedStyle(document.querySelector('.topbar')).display,
+                  overflows:Array.from(document.querySelectorAll("*")).filter(e=>e.getBoundingClientRect().right>innerWidth+1).slice(0,12).map(e=>({tag:e.tagName,id:e.id,cls:String(e.className).slice(0,60),right:Math.round(e.getBoundingClientRect().right)}))};
         }""")
         assert geometry["scroll"] <= width + 1, ("horizontal overflow", width, geometry)
         if width <= 640:
