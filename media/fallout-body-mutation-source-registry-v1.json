@@ -1,0 +1,149 @@
+{
+  "schema": "luhmOs.falloutBodyMutationSourceRegistry.v1",
+  "status": "REFERENCE_AND_OPEN_SOURCE_INGEST_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Study the Fallout 4 body-morph, outfit-conform, runtime-morph, and secondary-motion ecosystem for reusable engineering patterns without importing restricted Nexus assets into LuHm OS.",
+  "sourceLaw": "Pull public Git source when license permits. Treat Nexus-hosted body meshes, outfit meshes, textures, presets, and other author assets as reference-only unless their own permissions explicitly authorize reuse.",
+  "openSource": [
+    {
+      "id": "bodySlideOutfitStudio",
+      "upstream": "https://github.com/ousnius/BodySlide-and-Outfit-Studio.git",
+      "defaultBranch": "dev",
+      "license": "GPL-3.0",
+      "licenseStatus": "VERIFIED_GITHUB_METADATA",
+      "useForStudy": [
+        "slider and morph architecture",
+        "outfit conform workflow",
+        "weight correction",
+        "mesh editing",
+        "preset separation",
+        "physics preview architecture"
+      ],
+      "productionRule": "Study or adapt source only under GPL-compatible obligations. Do not assume bundled game/body assets share the program license."
+    },
+    {
+      "id": "openCbpFo4",
+      "upstream": "https://github.com/rickmccl/OpenCBP_FO4.git",
+      "defaultBranch": "master",
+      "license": "GPL-3.0",
+      "licenseStatus": "VERIFIED_GITHUB_METADATA",
+      "useForStudy": [
+        "secondary motion solver architecture",
+        "collision and tuning patterns",
+        "runtime configuration separation"
+      ],
+      "productionRule": "Reference physics concepts against Godot SpringBoneSimulator3D first; do not transplant Fallout runtime coupling."
+    }
+  ],
+  "referenceOnlyGit": [
+    {
+      "id": "looksMenuF4ee",
+      "upstream": "https://github.com/expired6978/F4SEPlugins.git",
+      "defaultBranch": "master",
+      "license": "UNKNOWN",
+      "licenseStatus": "NO_RECOGNIZED_REPO_LICENSE_IN_GITHUB_METADATA",
+      "useForStudy": [
+        "BodyGen runtime morph application",
+        "preset and slider UI concepts",
+        "body morph dispatch"
+      ],
+      "productionRule": "Read-only architecture reference until licensing is resolved."
+    },
+    {
+      "id": "radMorphingRedux",
+      "upstream": "https://github.com/LenAnderson/LenA_RadMorphing.git",
+      "defaultBranch": "develop",
+      "license": "UNKNOWN",
+      "licenseStatus": "NO_RECOGNIZED_REPO_LICENSE_IN_GITHUB_METADATA",
+      "useForStudy": [
+        "runtime morph updates",
+        "slider range configuration",
+        "body-family abstraction"
+      ],
+      "productionRule": "Read-only architecture reference until licensing is resolved."
+    },
+    {
+      "id": "fallout4TechnicalGuides",
+      "upstream": "https://github.com/Rhivens/Fallout4-Technical-Guides.git",
+      "defaultBranch": "main",
+      "license": "UNKNOWN",
+      "licenseStatus": "NO_RECOGNIZED_REPO_LICENSE_IN_GITHUB_METADATA",
+      "useForStudy": [
+        "CBBE to Fusion Girl conversion workflow",
+        "rollback-safe conversion practice",
+        "reference layering",
+        "bone weight transfer",
+        "slider conform validation"
+      ],
+      "productionRule": "Use as technical reading. Do not copy text or files without a verified license for the specific material."
+    },
+    {
+      "id": "f4se",
+      "upstream": "https://github.com/ianpatt/f4se.git",
+      "defaultBranch": "master",
+      "license": "PROJECT_SPECIFIC_OR_UNRESOLVED",
+      "licenseStatus": "REFERENCE_ONLY_UNTIL_REVIEW",
+      "useForStudy": [
+        "plugin architecture context",
+        "runtime extension boundaries"
+      ],
+      "productionRule": "Not needed in LuHm runtime; keep as contextual donor only."
+    }
+  ],
+  "nexusReferenceOnly": [
+    {
+      "name": "BodySlide and Outfit Studio Nexus page",
+      "url": "https://www.nexusmods.com/fallout4/mods/25",
+      "why": "Confirms the tool/source relationship, slider/outfit conversion functions, and that the program source is GPLv3+ while archive assets have separate permission rules."
+    },
+    {
+      "name": "CBBE BodySlide Universal Reference",
+      "url": "https://www.nexusmods.com/fallout4/mods/17472",
+      "why": "Useful lineage for extended slider vocabulary and conversion-reference design."
+    },
+    {
+      "name": "LooksMenu",
+      "url": "https://www.nexusmods.com/fallout4/mods/12631",
+      "why": "Runtime presets, in-game body sliders, and BodyGen concepts."
+    },
+    {
+      "name": "True Wasteland Body",
+      "url": "https://www.nexusmods.com/fallout4/mods/36410",
+      "why": "Body-family and 3BBB compatibility lineage."
+    },
+    {
+      "name": "CBBE to Fusion Girl Conversion Reference",
+      "url": "https://www.nexusmods.com/fallout4/mods/37380",
+      "why": "Body-to-body slider conversion reference pattern."
+    },
+    {
+      "name": "Diverse CBBE BodyGen",
+      "url": "https://www.nexusmods.com/fallout4/mods/108947",
+      "why": "Demonstrates population-level preset assignment through LooksMenu BodyGen."
+    },
+    {
+      "name": "Atomic Beauty style Slooty vaultsuit for CBBE",
+      "url": "https://www.nexusmods.com/fallout4/mods/23633",
+      "why": "Useful as a concrete example of converting an extreme silhouette/outfit back into CBBE slider space. Reference only."
+    }
+  ],
+  "derivedEngineeringTargets": [
+    "namedMorphSliderSystem",
+    "characterPresetSerialization",
+    "bodyFamilyBasePlusCharacterPreset",
+    "outfitConformAndWeightTransfer",
+    "deformationStressTest",
+    "runtimeMorphApplication",
+    "secondaryMotionSeparatedFromShapeMorphs",
+    "GodotGlbExportAndRuntimeValidation"
+  ],
+  "forbidden": [
+    "bulk mirroring Nexus files into GitHub",
+    "assuming a public download is open source",
+    "copying Fallout or Bethesda assets",
+    "copying CBBE/Fusion Girl/Atomic Beauty/TWB meshes into Pirate Daddies runtime without explicit compatible permission",
+    "treating adult or skimpy outfit assets as generic reusable source",
+    "mixing restricted third-party assets into LuHm original character masters"
+  ],
+  "crownStatus": "STOP"
+}

@@ -1,0 +1,86 @@
+{
+  "schema": "luhmOs.goddessComponentContract.v1",
+  "status": "PROPOSED_RUNTIME_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "RE2R/RE3R-inspired modular character component contract for original LuHm goddess assets.",
+  "slots": {
+    "body": {
+      "socket": "BodySocket",
+      "required": true
+    },
+    "head": {
+      "socket": "HeadSocket",
+      "required": false
+    },
+    "hair": {
+      "socket": "HairSocket",
+      "required": false
+    },
+    "outfit": {
+      "socket": "OutfitSocket",
+      "required": false
+    },
+    "accessories": {
+      "socket": "AccessorySocket",
+      "required": false
+    },
+    "materialOverlays": {
+      "socket": "MaterialSocket",
+      "required": false
+    },
+    "physicsChains": {
+      "socket": "PhysicsSocket",
+      "required": false
+    }
+  },
+  "characters": {
+    "lum": {
+      "body": "res://assets/lum/luhm.glb",
+      "head": null,
+      "hair": null,
+      "outfit": null,
+      "accessories": null,
+      "materialOverlays": null,
+      "physicsChains": null
+    },
+    "urd": {
+      "body": null,
+      "head": null,
+      "hair": null,
+      "outfit": null,
+      "accessories": null,
+      "materialOverlays": null,
+      "physicsChains": null
+    },
+    "belldandy": {
+      "body": null,
+      "head": null,
+      "hair": null,
+      "outfit": null,
+      "accessories": null,
+      "materialOverlays": null,
+      "physicsChains": null
+    },
+    "skuld": {
+      "body": null,
+      "head": null,
+      "hair": null,
+      "outfit": null,
+      "accessories": null,
+      "materialOverlays": null,
+      "physicsChains": null
+    }
+  },
+  "runtimeLaw": {
+    "allowedAssetPrefixes": [
+      "res://assets/lum/",
+      "res://assets/goddesses/"
+    ],
+    "missingRequiredComponent": "report_blocker",
+    "missingOptionalComponent": "report_missing",
+    "replaceOnlyNamedSocketChildren": true,
+    "externalThirdPartyRuntimeAsset": false,
+    "componentSwapDoesNotGrantCanon": true
+  },
+  "crownStatus": "STOP"
+}

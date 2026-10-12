@@ -403,3 +403,10 @@ Canonical law: `doctrine/yumeArtDirectionCanonV1.json`. This **scoped source-rol
 - Public repository doctrine and receipts use logical private-asset keys only, **never private Google Drive IDs or authenticated URLs**. Licence and underlying franchise rights must be checked separately before any binary staging or runtime use. Removing an ID in a new revision cannot erase old public Git history.
 - The proposed 3D character assembler must not display a stale previous body's geometry when switching to a character without a required body. Actual Godot test execution and a source-bound receipt are mandatory before a fix earns GREEN.
 - Yume may draft, audit, illustrate privately, and prepare reviewed production candidates under bounded authority. She may not merge, deploy, publish, sign, release, Crown, or widen content lanes. Professor promotion of this art-direction role does **not** self-promote new doctrine, the full agent mesh, runtime workers, 3D models, or public media.
+
+
+## Goddess 3D production handoff (proposed, not promoted)
+
+The scoped canonical art-director role remains `doctrine/yumeArtDirectionCanonV1.json`. The separate **proposed production implementation** is `doctrine/yumeGoddess3dProductionV1.json`, with a protected `media/yumeReferenceGalleryV1.json` reference catalog and `scenes/GoddessLineupProof.tscn` Godot blockout.
+
+A missing required body must block and clear stale character geometry. Yume directs the original adult design and cannot promote model, preview, rig, or runtime truth by writing doctrine. Urd checks rights/evidence, Skuld verifies Godot execution, Sumi handles creator credit, Belldandy records identity/receipts, and Lum returns approval to the Professor. Source-gate GREEN is not model-art GREEN. Urd, Belldandy and Skuld remain **BODY UNASSIGNED** until real rights-cleared, hash-bound candidates pass Blender/Godot and Professor visual review.

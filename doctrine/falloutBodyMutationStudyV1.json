@@ -1,0 +1,45 @@
+{
+  "schema": "luhmOs.falloutBodyMutationStudy.v1",
+  "status": "PROPOSED_SOURCE_STUDY",
+  "authority": "Professor",
+  "boss": "lum",
+  "artDirection": "yume",
+  "registry": "media/fallout-body-mutation-source-registry-v1.json",
+  "purpose": "Extract the best engineering ideas from the Fallout 4 CBBE/BodySlide/BodyGen/physics ecosystem and mutate them into an original Godot 4 character-creation pipeline for Lum, Urd, Belldandy, and Skuld.",
+  "translation": {
+    "BodySlide": "named morph sliders plus preset serialization",
+    "OutfitStudio": "outfit conform, weight transfer, clipping repair, and deformation audit",
+    "BodyGen": "runtime or spawn-time application of morph presets",
+    "CBBEAndBodyFamilies": "shared base architecture with distinct character presets rather than unrelated meshes",
+    "3BBBAndCBPLineage": "secondary motion is a separate bounded simulation layer, not baked into body-shape sliders",
+    "ConversionReferences": "explicit body-family conversion maps with rollback-safe source preservation",
+    "NexusPresetCulture": "many silhouettes can be represented as presets instead of duplicate master meshes"
+  },
+  "pirateDaddiesMutation": {
+    "base": "original goddess-compatible base topology and skeleton conventions",
+    "morphs": [
+      "heightProportion",
+      "torsoLength",
+      "shoulderWidth",
+      "waistShape",
+      "hipWidth",
+      "legProportion",
+      "muscleSoftness",
+      "characterSpecificCurves",
+      "faceShapeFamily"
+    ],
+    "presets": [
+      "lumMidnight1996",
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "outfits": "conform from original authored garments to character preset while preserving costume identity",
+    "motion": "Godot SpringBoneSimulator3D first for bounded secondary motion",
+    "runtime": "Godot 4.7 GLB import, character preset application, animation and physics smoke"
+  },
+  "rightsFirewall": "Reference the mechanics and open-source code where licensing permits. Re-author all Pirate Daddies bodies, faces, costumes, textures, and runtime assets as original work.",
+  "publicationAuthority": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}

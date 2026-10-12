@@ -1,0 +1,169 @@
+name: Lum Phase 2 Remote Godot Morph Proof
+on:
+  pull_request:
+    paths:
+      - 'tools/luHmLumMorphPhase2Build.py'
+      - 'tools/lumMorphPhase2VisualReview.py'
+      - 'tools/luHmVisualContactSheet.py'
+      - 'tests/lumMorphPhase2GodotSmoke.gd'
+      - 'tests/goddessMorphRuntimeSmoke.gd'
+      - 'tests/goddessComponentRuntimeSmoke.gd'
+      - 'scripts/game/goddessLineupProof.gd'
+      - 'scenes/GoddessLineupProof.tscn'
+      - 'tests/goddessLineupRuntimeSmoke.gd'
+      - 'scripts/game/characterComponentAssembler.gd'
+      - 'scripts/game/characterMorphController.gd'
+      - 'scripts/game/goddessAvatar.gd'
+      - 'scenes/GoddessAvatar.tscn'
+      - 'game/assets/GODDESS_COMPONENT_CONTRACT_V1.json'
+      - 'game/assets/GODDESS_MORPH_PRESETS_V1.json'
+      - 'doctrine/yumeGoddess3dProductionV1.json'
+      - 'media/goddess3d-production-matrix-v1.json'
+      - '.github/workflows/lum-morph-phase2-proof.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  prove-actual-lum-morph:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact candidate head without credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Setup isolated proof and math dependency
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --user 'numpy==2.3.3'
+          mkdir -p "$RUNNER_TEMP/lumSource" "$RUNNER_TEMP/lumMorph" "$RUNNER_TEMP/lumProof"
+          git rev-parse HEAD | tee "$RUNNER_TEMP/lumProof/headSha.txt"
+          printf 'CROWN=STOP\nLIVE_BUILD=UNTOUCHED\n'
+      - name: Audit original goddess pipeline and protected gallery
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/yumeGoddess3dAudit.py
+          python3 tools/goddessMorphSourceAudit.py
+          python3 tools/goddessComponentSourceAudit.py
+          python3 tools/renderYumeReferenceGallery.py --check
+          python3 tests/yumeReferenceGalleryTest.py
+
+      - name: Fetch existing Drive donor and verify SHA before extraction
+        shell: bash
+        run: |
+          set -euo pipefail
+          sourceFile=tools/buildGodotWebHarness.sh
+          donorId="$(sed -n "s/^DRIVE_ID='\([^']*\)'$/\1/p" "$sourceFile")"
+          donorSha="$(sed -n "s/^BUNDLE_SHA='\([^']*\)'$/\1/p" "$sourceFile")"
+          test -n "$donorId"
+          test "$donorSha" == 'fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da'
+          donor="$RUNNER_TEMP/lumSource/source.zip"
+          curl -fL --retry 4 --retry-all-errors --connect-timeout 20 --max-time 240 \
+            -A 'Mozilla/5.0 LuHmOS-CI' -o "$donor" \
+            "https://drive.usercontent.google.com/download?id=$donorId&export=download&confirm=t"
+          echo "$donorSha  $donor" | sha256sum -c -
+          python3 tools/godotDriveLibraryIntakeAudit.py --bundle "$donor"
+          echo 'LUM_DONOR_HASH_GREEN'
+      - name: Reproduce actual morph binary in remote runner
+        shell: bash
+        env:
+          LUM_PHASE2_OUT: ${{ runner.temp }}/lumMorph
+        run: |
+          set -euo pipefail
+          python3 tools/luHmLumMorphPhase2Build.py "$RUNNER_TEMP/lumSource/source.zip" | tee "$RUNNER_TEMP/lumProof/geometry.log"
+          echo "4b8d41393bb94affe469af551c2915d6b39890cd2add18048d78da8610505a1e  $RUNNER_TEMP/lumMorph/lumMorphPhase2Candidate.glb" | sha256sum -c -
+          cp "$RUNNER_TEMP/lumMorph/geometryReceipt.json" "$RUNNER_TEMP/lumProof/geometryReceipt.json"
+          mkdir -p assets/lum
+          cp "$RUNNER_TEMP/lumMorph/lumMorphPhase2Candidate.glb" assets/lum/luhm.glb
+      - name: Download SHA-pinned Godot 4.7.2
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 4 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          echo "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  $RUNNER_TEMP/godot.zip" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/godot"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          chmod +x "$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64"
+          "$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64" --version | tee "$RUNNER_TEMP/lumProof/godotVersion.txt"
+      - name: Godot GLB import and real morph setter/reset proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          engine="$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64"
+          "$engine" --headless --editor --path . --quit 2>&1 | tee "$RUNNER_TEMP/lumProof/import.log"
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:|ERROR: Failed to load script' "$RUNNER_TEMP/lumProof/import.log"; then
+            echo RED_GODOT_IMPORT
+            exit 1
+          fi
+          timeout 60s "$engine" --headless --path . --script res://tests/lumMorphPhase2GodotSmoke.gd 2>&1 | tee "$RUNNER_TEMP/lumProof/godotMorph.log"
+          grep -Fq LUM_MORPH_PHASE2_GODOT_GREEN "$RUNNER_TEMP/lumProof/godotMorph.log"
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:|RED_LUM_MORPH_PHASE2:' "$RUNNER_TEMP/lumProof/godotMorph.log"; then
+            echo RED_GODOT_RUNTIME
+            exit 1
+          fi
+          printf 'LUM_PHASE2_REMOTE_GODOT_GREEN\n' | tee "$RUNNER_TEMP/lumProof/summary.txt"
+          timeout 60s "$engine" --headless --path . --script res://tests/goddessMorphRuntimeSmoke.gd 2>&1 | tee "$RUNNER_TEMP/lumProof/goddessMorph.log"
+          grep -Fq 'GODDESS MORPH RUNTIME SMOKE GREEN' "$RUNNER_TEMP/lumProof/goddessMorph.log"
+          timeout 60s "$engine" --headless --path . --script res://tests/goddessComponentRuntimeSmoke.gd 2>&1 | tee "$RUNNER_TEMP/lumProof/goddessComponents.log"
+          grep -Fq 'GODDESS_COMPONENT_RUNTIME_SMOKE_GREEN' "$RUNNER_TEMP/lumProof/goddessComponents.log"
+          echo 'FOUR_GODDESS_SLOT_REGRESSION_GREEN_UNASSIGNED_BODIES_BLOCKED' | tee -a "$RUNNER_TEMP/lumProof/summary.txt"
+          timeout 60s "$engine" --headless --path . --script res://tests/goddessLineupRuntimeSmoke.gd 2>&1 | tee "$RUNNER_TEMP/lumProof/goddessLineup.log"
+          grep -Fq 'GODDESS_LINEUP_RUNTIME_SMOKE_GREEN' "$RUNNER_TEMP/lumProof/goddessLineup.log"
+          echo 'FOUR_STATION_LINEUP_RUNTIME_GREEN_THREE_BODIES_MISSING' | tee -a "$RUNNER_TEMP/lumProof/summary.txt"
+      - name: Install review-only Blender and WebP pipeline
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v blender >/dev/null 2>&1 || ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq blender ffmpeg
+          fi
+          blender -b --factory-startup --python-expr "import bpy; print('BLENDER_READY', bpy.app.version_string)"
+          python3 -m pip install --user 'Pillow==11.3.0'
+          ffmpeg -hide_banner -version | head -n 1
+      - name: Render real Lum neutral, morph, face and limb-pose review frames
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/lumVisualFrames" "$RUNNER_TEMP/lumReview"
+          blender -b -t 2 --python tools/lumMorphPhase2VisualReview.py -- \
+            "$RUNNER_TEMP/lumMorph/lumMorphPhase2Candidate.glb" \
+            "$RUNNER_TEMP/lumVisualFrames" 2>&1 | tee "$RUNNER_TEMP/lumProof/blender.log"
+          grep -Fq LUM_VISUAL_RENDER_GATE_GREEN_REVIEW_PENDING "$RUNNER_TEMP/lumProof/blender.log"
+          python3 tools/luHmVisualContactSheet.py "$RUNNER_TEMP/lumVisualFrames" "$RUNNER_TEMP/lumReview" \
+            | tee "$RUNNER_TEMP/lumProof/visualCompare.log"
+          grep -Fq LUM_VISUAL_COMPARE_GREEN "$RUNNER_TEMP/lumProof/visualCompare.log"
+          ffmpeg -nostdin -loglevel error -y \
+            -i "$RUNNER_TEMP/lumReview/lumVisualReviewTemporary.png" \
+            -frames:v 1 -c:v libwebp -quality 82 "$RUNNER_TEMP/lumReview/lumVisualReview.webp"
+          for name in neutralFront morphedFront neutralQuarter morphedQuarter morphedPose morphedFace; do
+            ffmpeg -nostdin -loglevel error -y -i "$RUNNER_TEMP/lumVisualFrames/$name.png" \
+              -frames:v 1 -c:v libwebp -quality 82 "$RUNNER_TEMP/lumReview/$name.webp"
+          done
+          test -s "$RUNNER_TEMP/lumReview/lumVisualReview.webp"
+          (cd "$RUNNER_TEMP/lumReview" && sha256sum -- *.webp > WebP_SHA256SUMS.txt && sha256sum -c WebP_SHA256SUMS.txt)
+          echo 'LUM_VISUAL_REVIEW_FRAMES_GREEN_PROFESSOR_APPROVAL_PENDING'
+      - name: Upload short-lived visual review, no GLB or donor
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lumMorphPhase2ReviewWebp-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/lumReview/*.webp
+            ${{ runner.temp }}/lumReview/WebP_SHA256SUMS.txt
+            ${{ runner.temp }}/lumReview/visualComparisonReceipt.json
+            ${{ runner.temp }}/lumVisualFrames/visualReviewReceipt.json
+          if-no-files-found: warn
+          retention-days: 2
+      - name: Upload proof receipts only, never GLB or donor
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lumMorphPhase2RemoteEvidence-${{ github.run_id }}
+          path: ${{ runner.temp }}/lumProof/
+          if-no-files-found: error
+          retention-days: 7
