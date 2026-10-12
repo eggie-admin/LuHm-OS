@@ -40,5 +40,61 @@
   },
   "releaseAuthority": false,
   "publicationAuthority": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "ubuntuDevelopmentHost": {
+    "osTarget": "Ubuntu 26.04 LTS",
+    "role": "sourceBuildDebugAndPermissionGatedDeviceAdapterHost",
+    "kernelPolicy": "CanonicalSupportedUbuntuGenericOrMainlineHostKernelOnly",
+    "samsungKernelPolicy": "preserveAndroidGkiKmiAndSamsungVendorModulesNeverReplaceWithUbuntuKernel",
+    "shizukuRunsOnUbuntu": false,
+    "requiredTools": [
+      "git",
+      "python3",
+      "adb",
+      "rsync",
+      "java",
+      "gradleWrapper"
+    ],
+    "installedAndVersionProven": false,
+    "rsyncInstalledAndTransferProven": false,
+    "physicalHostProof": "PENDING"
+  },
+  "inChatSpineRoute": {
+    "presentation": "HTML/jQuery cockpit and ChatGPT plugin in-chat layer",
+    "readOnlyIngress": "host/mcp/luhmHarnessServer.py via existing luhmMcpServer.py",
+    "hostAdapter": "Ubuntu26LocalDevelopmentAdapterCandidateNotDeployed",
+    "deviceAdapter": "SamsungAndroidShizukuExplicitBinderPermissionOnly",
+    "secureFlow": [
+      "resolveTaskIdSourceRefScopeId",
+      "reportReadOnlyCapability",
+      "requestExplicitDeviceAndProfessorAuthorization",
+      "executeOnlySeparatelyApprovedNativeAdapter",
+      "verifyDeviceReceipt"
+    ],
+    "inChatMcpMayExecuteDeviceCommands": false,
+    "htmlMayExecuteShell": false,
+    "directBrowserToShizuku": false,
+    "cloudRenderMayControlPhoneDirectly": false,
+    "publicPhoneServer": false,
+    "nativeAdapterImplementation": "PENDING",
+    "deniedOrUnavailableFallback": "readOnlyStatusWithoutMutation"
+  },
+  "deviceDiagnostics": {
+    "usb": "readOnlyEnumerationCandidateNoAutomaticPermissionGrants",
+    "bluetooth": "readOnlyStateCandidateNoUnauthorizedPairingOrRadioToggle",
+    "wifi": "readOnlyStateCandidateNoNetworkMutationWithoutPermission",
+    "cellular": "readOnlyConnectivityCandidateNoModemBasebandSimOrCarrierMutation",
+    "serviceRestart": "explicitUserActionRequiredWhenShizukuServiceStops",
+    "privilegeModel": "AndroidPermissionsAndShizukuGrantsCheckedPerCapability",
+    "runtimeProbe": "PENDING_PHYSICAL_SAMSUNG_DEVICE"
+  },
+  "releaseTrack": {
+    "priority": "AndroidFirst",
+    "currentExperiment": "FDroidDebugLane",
+    "fdroidRepository": "RESERVED_NOT_ACTIVATED",
+    "googlePlayGoal": "FreeSpineDemoAfterIndependentReview",
+    "publicDemoMustFunctionWithoutShizuku": true,
+    "applePlatform": "PARKED",
+    "storePublication": "CROWN_STOP"
+  }
 }
