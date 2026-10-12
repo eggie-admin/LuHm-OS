@@ -131,5 +131,6 @@
     "professorApprovalAppliesOnlyToNamedScope": true
   },
   "canonicalRolePromotion": true,
-  "crownStatus": "CROWNED_SOURCE_ROLE_ONLY"
+  "crownStatus": "CROWNED_SOURCE_ROLE_ONLY",
+  "crownReceipt": "doctrine/yumeArtDirectionCrownReceiptV1.json"
 }
