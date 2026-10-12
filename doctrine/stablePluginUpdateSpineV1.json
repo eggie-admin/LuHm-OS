@@ -1,0 +1,132 @@
+{
+  "schema": "luhmOs.stablePluginUpdateSpine.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "goal": "Stop rebuilding/reinstalling the ChatGPT plugin for approved visual assets and backward-compatible backend changes.",
+  "singleInstallShell": {
+    "canonicalPlugin": "plugins/luhm-os/plugin.json",
+    "baselineVersion": "0.5.2",
+    "stableMcpConfig": "plugins/luhm-os/mcp.json",
+    "stableMcpUrl": "https://luhm-os-harness-green.onrender.com/mcp",
+    "stableToolNames": [
+      "luhm_open_cockpit",
+      "luhm_open_godot_player"
+    ],
+    "stableResourceUri": "ui://luhm-os/cockpit-v2.html",
+    "reinstallForPresentationChange": false,
+    "newPluginHostInstallRequired": "ONLY_WHEN_HOST_PACKAGE_CONTRACT_REQUIRES",
+    "hostRefreshForNewToolSchemaMayBeRequired": true,
+    "hostInstallAndCurrentChatInvocationRemainSeparateProofs": true
+  },
+  "updateManifest": {
+    "endpoint": "/harness/update-manifest.json",
+    "method": "GET_HEAD",
+    "sourceModule": "host/mcp/luhmUpdateSpine.py",
+    "cache": "no-cache-must-revalidate",
+    "statusLaw": "Source manifest bytes do not prove Render deploy, Cloudflare DNS/CDN, or ChatGPT host installation.",
+    "publicAllowlist": [
+      "cockpit.css",
+      "cockpit.js",
+      "agent-loading-sprites.json",
+      "agent-roster-v1.png"
+    ],
+    "currentAssetRouting": "same-origin Render /harness/assets/",
+    "sha256ForEveryAsset": true,
+    "versionedImmutablePathsWhenPromoted": true,
+    "unversionedAssetsNeverImmutable": true,
+    "privateDriveLinksDisallowed": true,
+    "remoteExecutableJavaScriptFromManifestDisallowed": true,
+    "clientMayInterpretManifestAsCommands": false
+  },
+  "fourAssetLayers": [
+    {
+      "id": "vector",
+      "medium": "editable 64x64 pixel-grid SVG source masters",
+      "publish": "approved art only"
+    },
+    {
+      "id": "bitmap",
+      "medium": "indexed PNG, frame sequences, lossless animated WebP",
+      "publish": "approved binary assets and hashes"
+    },
+    {
+      "id": "css",
+      "medium": "responsive theme and renderer styling",
+      "publish": "same-origin staged CSS"
+    },
+    {
+      "id": "jquery",
+      "medium": "npm-locked jquery compatibility runtime and LuHmOS extension layer",
+      "publish": "vendored audited bundled JavaScript only"
+    }
+  ],
+  "deploymentLanes": [
+    {
+      "tier": 0,
+      "id": "artAndContent",
+      "change": "approved sprite pixels, SVG, WebP, CSS, text",
+      "action": "versioned static publish and manifest update",
+      "hostReinstall": false
+    },
+    {
+      "tier": 1,
+      "id": "backwardCompatibleBackend",
+      "change": "read-only MCP tool output and existing HTML resource body",
+      "action": "exact-SHA CI then Render service deploy",
+      "hostReinstall": false
+    },
+    {
+      "tier": 2,
+      "id": "hostContractChange",
+      "change": "plugin.json, mcp.json, permissions, new/renamed tool schemas",
+      "action": "new version, host review and possible reinstall/reconnect",
+      "hostReinstall": "POSSIBLE"
+    },
+    {
+      "tier": 3,
+      "id": "networkAndAuthority",
+      "change": "custom DNS, Cloudflare proxy/tunnel, cert, signing, publishing, sensitive permissions",
+      "action": "separate explicit Professor approval and live proof",
+      "hostReinstall": "INDEPENDENT"
+    }
+  ],
+  "trafficControl": {
+    "owner": "cloudflare",
+    "currentMcpLane": "direct Render-managed TLS",
+    "cdnLane": "CANDIDATE_UNVERIFIED",
+    "cdnActivationRequires": [
+      "DNS proof",
+      "TLS proof",
+      "content hash proof",
+      "cache behavior proof",
+      "origin safety proof"
+    ],
+    "doNotProxyMcpBeforeStreamingProof": true,
+    "doNotAdvertiseUnknownLive": true
+  },
+  "cabinet": {
+    "boss": "lum",
+    "art": "yume",
+    "compatibility": "skuldResearch",
+    "evidence": "urdDoctorGoddess",
+    "ledger": "belldandySecretary"
+  },
+  "security": {
+    "readOnly": true,
+    "noRemoteCodeExecution": true,
+    "noSecretsInManifest": true,
+    "noDrivePrivateMedia": true,
+    "noAutoPublish": true,
+    "noAgentSelfApproval": true,
+    "noRollbackWithoutReceipt": true,
+    "crownStatus": "STOP"
+  },
+  "runtime": {
+    "githubProof": "REQUIRED",
+    "renderProof": "PENDING",
+    "cloudflareProof": "PENDING",
+    "chatGptHostProof": "PENDING"
+  },
+  "crownStatus": "STOP"
+}
