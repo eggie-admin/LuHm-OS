@@ -656,5 +656,28 @@
     "apkWorkflow": ".github/workflows/android-testing-build.yml",
     "promotion": false,
     "crownStatus": "STOP"
+  },
+  "typedSqlLayer": {
+    "contract": "doctrine/typedFourLaneSqlV1.json",
+    "schemaSourceRef": "6aa1306733856f02b765b8eb1270d67b8e436ed3",
+    "status": "SOURCE_CONFIGURED_CANDIDATE",
+    "laneCount": 4,
+    "eighthNoteCanon": "doctrine/eighthNoteAgentScopeV1.json",
+    "sqliteStub": "tools/typedSqlStub.py",
+    "sqliteDdl": "host/api/typedLanesV1.sql",
+    "staticPortal": "systemPortal/typed-schema.html",
+    "sqlAdmin": "PRIVATE_ONLY_NOT_DEPLOYED",
+    "cloudflareRuntime": "UNVERIFIED",
+    "sqlRuntime": "UNVERIFIED",
+    "chatGptHost": "UNVERIFIED",
+    "mobileLatency": "UNVERIFIED",
+    "storage": {
+      "github": "source",
+      "chatGptLibrary": "mediumReviewCache",
+      "googleDrive": "durableBundle"
+    },
+    "promotion": false,
+    "publicationAuthority": false,
+    "crownStatus": "STOP"
   }
 }
