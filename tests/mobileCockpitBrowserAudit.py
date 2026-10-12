@@ -29,6 +29,8 @@ with sync_playwright() as pw:
     for width in (320, 390, 412, 640, 960):
         page = browser.new_page(viewport={"width": width, "height": 840}, device_scale_factor=1)
         page.set_content(html)
+        # Test the completed page, as seen in the user screenshot.
+        page.locator('#agentLoadingScreen').evaluate('(el) => { el.hidden = true; }')
         geometry = page.evaluate("""() => {
           const rect = sel => {
             const {x,y,width,height,bottom,right} = document.querySelector(sel).getBoundingClientRect();
