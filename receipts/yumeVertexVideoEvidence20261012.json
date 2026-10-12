@@ -1,0 +1,51 @@
+{
+  "schema": "luhmOs.yumeVertexVideoEvidence.v1",
+  "status": "CANDIDATE_ONLY_CROWN_STOP",
+  "sourceRef": "06fcc09f41d98e88244c5e88c5303f1010d8141e",
+  "privateDriveArtifactKey": "privateDrive:YumeReel_20261012/VeoGoddessCandidate_20261012",
+  "packageName": "LuHmOS_Yume_VertexVeo_4Goddesses_Candidate_v2.zip",
+  "packageSha256": "19f70326991efd60c1fe8ec7510c146eb2a47df75a035a27e4747e7b2461309e",
+  "previs": {
+    "file": "fourGoddesses_CONCEPT_PREVIS_SILENT.mp4",
+    "sha256": "3e14d17d6287ba3df82e4501c1e9624e1e095c86180829c9e30786913c52a375",
+    "durationSeconds": 24,
+    "width": 540,
+    "height": 960,
+    "fps": 24,
+    "codec": "h264",
+    "audio": false,
+    "state": "CONCEPT_KEN_BURNS_ANIMATIC_ONLY_NOT_GOOGLE_VIDEO"
+  },
+  "test": "SOURCE_DRY_RUN_AND_CROWN_STOP_OK",
+  "characters": [
+    "lum",
+    "urd",
+    "belldandy",
+    "skuld"
+  ],
+  "sourcePublicRedaction": "private song-lyric quotes remain in private Drive source only; no private Drive IDs, copyrighted reference pixels or model binaries committed",
+  "googleCloud": {
+    "videoOperationSubmitted": false,
+    "model": "veo-3.1-fast-generate-001",
+    "entitlement": "PENDING_ENABLED_API_BILLING_IAM_QUOTA_PROOF",
+    "billableVideoCostUsd": 0
+  },
+  "production": {
+    "realVeoVideoCount": 0,
+    "proven3dGoddessBodyCount": 0,
+    "approvalsRequired": [
+      "Professor character identity",
+      "Urd rights and contamination",
+      "Belldandy records continuity",
+      "Skuld format compatibility",
+      "Professor publication"
+    ],
+    "finalReel": "HOLD",
+    "instagramPublication": false
+  },
+  "mutations": {
+    "mainChanged": false,
+    "branchOnly": true,
+    "merge": false
+  }
+}
