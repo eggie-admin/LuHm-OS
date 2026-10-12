@@ -84,6 +84,8 @@ def main():
     scene.render.engine = "CYCLES"
     scene.cycles.device = "CPU"
     scene.cycles.samples = 10
+    # Ubuntu Blender packages can lack OIDN; use deterministic CPU sampling.
+    bpy.context.view_layer.cycles.use_denoising = False
     scene.render.resolution_x = 448
     scene.render.resolution_y = 576
     scene.render.resolution_percentage = 100
@@ -105,9 +107,11 @@ def main():
     cam.data.lens = 55
     cam.data.ortho_scale = height * 1.24
     light_span = height * 1.7
-    placeArea("LumKeyLight", center + Vector((-light_span, -light_span, height * .8)), 370, (0.64, 0.93, 1.0), height * 1.8, center)
-    placeArea("LumRimLight", center + Vector((light_span, light_span * .6, height * 1.0)), 470, (0.92, 0.25, 1.0), height * 1.25, center)
-    placeArea("LumFill", center + Vector((light_span*.7, -light_span, height*.4)), 200, (1.0, .84, .76), height * 1.8, center)
+    # GLB can import at 0.01 scene scale, so energy scales with distance squared.
+    light_scale = (height / 1.7) ** 2
+    placeArea("LumKeyLight", center + Vector((-light_span, -light_span, height * .8)), 370 * light_scale, (0.64, 0.93, 1.0), height * 1.8, center)
+    placeArea("LumRimLight", center + Vector((light_span, light_span * .6, height * 1.0)), 470 * light_scale, (0.92, 0.25, 1.0), height * 1.25, center)
+    placeArea("LumFill", center + Vector((light_span*.7, -light_span, height*.4)), 200 * light_scale, (1.0, .84, .76), height * 1.8, center)
 
     original_poses = {}
     for arm in armatures:
