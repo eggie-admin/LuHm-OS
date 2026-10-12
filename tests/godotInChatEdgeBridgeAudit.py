@@ -30,7 +30,10 @@ need(app["resourceUri"] == "ui://luhm-os/godot-player-v1.html", "APP_URI")
 need(app["toolName"] == "luhm_open_godot_player", "TOOL_ID")
 need(app["resourceUri"] in module and 'name="luhm_open_godot_player"' in module, "TOOL_WIRING")
 need('"/harness/godot-export/{asset_path:path}"' in module, "EXPORT_ROUTE")
-need('"frameDomains": [public_origin] if public_origin else []' in module, "FRAME_ALLOWLIST")
+need('"frameDomains": [godot_frame_origin] if godot_frame_origin else []' in module
+     and 'remote_godot_candidate = public_origin == MCP_COCKPIT_PUBLIC_ORIGIN' in module
+     and 'EXISTING_GODOT_PUBLIC_ORIGIN = "https://luhm-os-godot-harness-green.onrender.com"' in module,
+     "FRAME_ALLOWLIST")
 need("wasm-unsafe-eval" in module and "allow-pointer-lock" in module, "WEBGL_SANDBOX")
 need("<!-- LUHM_GODOT_FRAME -->" in player, "FRAME_TEMPLATE")
 need(origin["javaRuntimeRequired"] is False, "JAVA_BOUNDARY")
