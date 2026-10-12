@@ -46,7 +46,9 @@
     "transportNotProof": true,
     "configuredNotLive": true,
     "failClosedUnknown": true,
-    "noAggregateGreenWithoutAllGates": true
+    "noAggregateGreenWithoutAllGates": true,
+    "greenRequiresIndependentReceiptResolver": true,
+    "untrustedPacketCannotSelfAttest": true
   },
   "defaultMode": "normalChat",
   "fictionModeExplicit": true,

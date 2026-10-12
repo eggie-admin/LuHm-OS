@@ -14,8 +14,27 @@ def check(p):
     return adjudicate(p, taskId="cathedralFix", sourceRef="a" * 40, scopeId="chatHost")
 
 class RecoveryGateTests(unittest.TestCase):
-    def test_all_receipts(self):
-        self.assertEqual(check(packet()).state, "GREEN")
+    def test_unverified_claims_never_green(self):
+        self.assertEqual(check(packet()).state, "AMBER")
+
+    def test_resolved_proofs_can_green(self):
+        p = packet()
+        refs = {gate: "receipt:" + gate for gate in GATES}
+        v = adjudicate(p, taskId="cathedralFix", sourceRef="a" * 40,
+                       scopeId="chatHost", verifiedEvidenceRefs=refs)
+        self.assertEqual(v.state, "GREEN")
+
+    def test_partial_resolution_stays_amber(self):
+        p = packet()
+        v = adjudicate(p, taskId="cathedralFix", sourceRef="a" * 40,
+                       scopeId="chatHost", verifiedEvidenceRefs={"sourceCi": "receipt:sourceCi"})
+        self.assertEqual(v.state, "AMBER")
+
+    def test_red_outweighs_earlier_unknown(self):
+        p = packet()
+        p["gates"]["sourceCi"] = {"state": "UNKNOWN"}
+        p["gates"]["samsungTouch"] = {"state": "RED"}
+        self.assertEqual(check(p).state, "RED")
 
     def test_unproven_host_blocks_green(self):
         p=packet(); p["gates"]["chatGptHostMount"]={"state":"UNKNOWN"}
