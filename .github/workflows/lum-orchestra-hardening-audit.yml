@@ -8,6 +8,10 @@ on:
       - 'agents/shared/googleAiGitHubReviewV1.md'
       - 'agents/lum/SKILL.md'
       - '.github/workflows/lum-orchestra-hardening-audit.yml'
+      - 'doctrine/conversationModeRouterV1.json'
+      - 'doctrine/npmPluginApkDeliveryV1.json'
+      - 'frontEnd/**'
+      - 'tools/conversationModeDeliveryAudit.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -43,11 +47,21 @@ jobs:
           assert report['renderDeployment'] is False and report['crownStatus'] == 'STOP'
           print('LUM_ORCHESTRA_STATIC_CANDIDATE=PASS')
           PY
+      - name: Audit conversation modes, agents, npm lock, and APK gate
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/conversationModeDeliveryAudit.py
+          python3 tools/conversationModeDeliveryAudit.py --output build/conversation-mode-delivery/audit.json
+      - name: Reinstall pinned jQuery and run front-end checks
+        working-directory: frontEnd
+        run: npm run ci
       - name: Upload read-only audit receipt
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: lum-orchestra-candidate-audit
-          path: build/lum-orchestra/
+          path: |
+            build/lum-orchestra/
+            build/conversation-mode-delivery/
           if-no-files-found: warn
           retention-days: 14
