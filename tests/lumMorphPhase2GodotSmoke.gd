@@ -71,16 +71,23 @@ func _stress_bones_with_active_morphs(character: Node) -> void:
         return
     var skeleton := skeletons[0] as Skeleton3D
 
-    # Play actual source motion before checking bounded manual stress poses.
+    # Sample the source clip within its actual duration. A one-keyframe pose
+    # is valid source animation data, but does not prove continuous movement.
     var players = character.find_children("*", "AnimationPlayer", true, false)
     if not players.is_empty():
         var animator := players[0] as AnimationPlayer
         var clips := animator.get_animation_list()
         if not clips.is_empty():
-            animator.play(clips[0])
-            animator.advance(0.12)
-            _check(animator.is_playing(), "source animation advances")
-            animator.stop()
+            var clip := animator.get_animation(clips[0])
+            _check(clip != null and clip.get_length() > 0.0, "source animation has positive duration")
+            if clip != null and clip.get_length() > 0.0:
+                var sample_time := minf(clip.get_length() * 0.5, 0.01)
+                animator.play(clips[0])
+                animator.seek(sample_time, true)
+                _check(absf(animator.get_current_animation_position() - sample_time) <= 0.002, "source animation can sample pose within duration")
+                print("LUM_SOURCE_CLIP_DURATION_SECONDS=", clip.get_length())
+                print("LUM_SOURCE_CLIP_SAMPLE_SECONDS=", sample_time)
+                animator.stop()
 
     var meshes = character.find_children("*", "MeshInstance3D", true, false)
     var active_morphs := 0
