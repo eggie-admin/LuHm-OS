@@ -8,6 +8,9 @@ on:
       - 'tests/lumMorphPhase2GodotSmoke.gd'
       - 'tests/goddessMorphRuntimeSmoke.gd'
       - 'tests/goddessComponentRuntimeSmoke.gd'
+      - 'scripts/game/goddessLineupProof.gd'
+      - 'scenes/GoddessLineupProof.tscn'
+      - 'tests/goddessLineupRuntimeSmoke.gd'
       - 'scripts/game/characterComponentAssembler.gd'
       - 'scripts/game/characterMorphController.gd'
       - 'scripts/game/goddessAvatar.gd'
@@ -108,6 +111,9 @@ jobs:
           timeout 60s "$engine" --headless --path . --script res://tests/goddessComponentRuntimeSmoke.gd 2>&1 | tee "$RUNNER_TEMP/lumProof/goddessComponents.log"
           grep -Fq 'GODDESS_COMPONENT_RUNTIME_SMOKE_GREEN' "$RUNNER_TEMP/lumProof/goddessComponents.log"
           echo 'FOUR_GODDESS_SLOT_REGRESSION_GREEN_UNASSIGNED_BODIES_BLOCKED' | tee -a "$RUNNER_TEMP/lumProof/summary.txt"
+          timeout 60s "$engine" --headless --path . --script res://tests/goddessLineupRuntimeSmoke.gd 2>&1 | tee "$RUNNER_TEMP/lumProof/goddessLineup.log"
+          grep -Fq 'GODDESS_LINEUP_RUNTIME_SMOKE_GREEN' "$RUNNER_TEMP/lumProof/goddessLineup.log"
+          echo 'FOUR_STATION_LINEUP_RUNTIME_GREEN_THREE_BODIES_MISSING' | tee -a "$RUNNER_TEMP/lumProof/summary.txt"
       - name: Install review-only Blender and WebP pipeline
         shell: bash
         run: |
