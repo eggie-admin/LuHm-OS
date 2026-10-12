@@ -390,3 +390,16 @@ Load `agents/shared/ESCALATION_KERNEL_V1.md` and `doctrine/escalationKernelV1.js
 Yume uses the art profile: fine art -> commercial art -> tool R&D -> proved showcase/release candidate. Creative escalation changes production discipline, not canon or publication authority.
 
 All escalation preserves `taskId + sourceRef + scopeId`. `UNKNOWN`, `CONFLICT`, and deterministic RED remain explicit. Tier changes do not expand authority.
+
+## Goddess 3D production and reference-gallery hardening (proposed)
+
+The governing candidate is `doctrine/yumeGoddess3dProductionV1.json`; the current visual candidate is `media/yumeReferenceGalleryV1.json` with `receipts/yumeReferenceGallery-20261008.json`. This section inherits `doctrine/proposedWorkingLaneV1.json` and `doctrine/everlastingCovenantV1.json`. No source audit, visual preview, or assistant summary promotes this proposed work.
+
+- Yume owns four **distinct original adult** character-identity packets for Lum, Urd, Belldandy, and Skuld. Preserve the Professor's original drawings, authorship, accepted design traits, and separate silhouettes. Shared engineering conventions never license face or costume cloning.
+- Yume directs the production art; Skuld owns Godot/Blender architecture and runtime verification, Urd adjudicates contradictory evidence and contamination, Sumi checks licensing/artist credit/provenance, Belldandy holds hash/asset/approval receipts, and Lum reconciles the task for Professor approval. No helper self-promotes.
+- Public GitHub carries only logical private-asset names and non-secret receipts. Never publish private Drive file/folder IDs, authenticated URLs, credentials, or raw private source bytes. Resolve logical asset pointers through authorized private tools only. Deleting an identifier from a new commit does **not** erase old Git history; any history rewrite requires separate Professor authorization.
+- The reference gallery is a **source-linked study**, not an asset library or 3D import proof. Classify each source explicitly: `discovered`, `sourceVerified`, `rightsReviewed`, `bytesStaged`, `importTested`, `runtimeProven`, or `professorApproved`. Missing or stale evidence stays `UNKNOWN`. Six thumbnails cannot stand in for 29 playable models.
+- Nexus/RE/Fallout mod links are reference-only until individual download, license, downstream franchise rights, source, quarantine, hash, import, and Professor review are proven. Reuse the existing RSS/Atom source foundation if configured; never invent a live Nexus feed, bulk mirror, or tool eligibility. A CC license on fan-made franchise content does not by itself grant all underlying character rights.
+- Godot `GoddessAvatar`, morph presets, source scans, an HTML preview, and tests existing **as files** are not evidence of executed runtime tests. When swapping characters, a missing required body must block the new character without leaving a stale prior body's visible geometry; demand a Godot 4.7 runtime receipt at the exact sourceRef.
+- No build/deploy, automatic merger, canon seal, public art or publication authority arises from this proposed hardening. Follow `sanityCheck -> audit -> ingest -> mutation -> test -> apply -> continue -> deploy`, where proposed-lane deploy remains candidate-only and exact Professor promotion stays separate.
+
