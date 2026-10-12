@@ -1,0 +1,102 @@
+{
+  "schema": "luhmOs.yumeCanonLockedVeoShots.v1",
+  "state": "PRIVATE_MUTATION_CANDIDATE",
+  "sourceRef": "06fcc09f41d98e88244c5e88c5303f1010d8141e",
+  "authority": "Professor",
+  "filmBrand": "PIRATE DADDIES FILM",
+  "productBrand": "LuHm OS / Project Hydra",
+  "provider": "googleCloudVertexAiVeo",
+  "providerRoute": "Google Cloud project authenticated Vertex AI publisher endpoint; no consumer Gemini app; no vidIQ proxy substituted",
+  "model": "veo-3.1-fast-generate-001",
+  "location": "us-central1",
+  "output": {
+    "aspectRatio": "9:16",
+    "resolution": "720p",
+    "durationSeconds": 6,
+    "fps": 24,
+    "sampleCount": 1,
+    "generateAudio": false
+  },
+  "consistency": {
+    "visualLanguage": "original adult gothic 1990s JRPG illustration rendered cinematically; 1940s Detroit diesel-punk cathedral machine workshop; soot, rivets, aged copper, blackened brass, worn stained glass, magenta and teal accents; analog-film grit; original design, no copyrighted character likeness",
+    "identityPolicy": "Distinct face, silhouette, hair and costume per character. Use exact rights-cleared single-character reference image per shot if approved later. Without reference image, text-only output is exploratory, not locked canon.",
+    "sameWorld": true,
+    "wardrobePublicSafety": "tasteful fully clothed adults, PG-13",
+    "forbidden": [
+      "celebrity or franchise character likeness",
+      "nude or explicit imagery",
+      "minors",
+      "mixed/collapsed identities",
+      "unapproved reference file",
+      "text or logos generated into video frames",
+      "copied game sprites",
+      "unlicensed music"
+    ]
+  },
+  "creativeBriefFromCurrentChat": {
+    "purpose": "Instagram vertical proof reel advertising character/sprite art; kinetic three title cards, diesel-punk goth styling, original character motion",
+    "professorExactVoice": "Well, did you all miss Daddy? He's been studying for a test, and trying to get paid, don't worry about it, Big Daddy still loves all his babies",
+    "audioLicense": "Not supplied; no commercial recordings or lyrics automatically embedded in generated clips",
+    "editLaw": "Branding and exact typography are added in FFmpeg/compositing after video generation, not asked of the video model",
+    "protectedLyrics": "PRIVATE_DRIVE_ONLY_NOT_IN_PUBLIC_REPOSITORY"
+  },
+  "shots": [
+    {
+      "id": "lum",
+      "age": "adult",
+      "visualStatus": "RIGGED_CANDIDATE_NOT_FINAL_CANON_ART",
+      "characterIdentity": "auburn hair swept into an elegant updo; subtle original oni horns; teal and black executive tailoring; angular professional silhouette; poise and controlled expression",
+      "action": "At a riveted Detroit machine-shop executive drafting table, Lum adjusts an analog brass switchboard with a gloved hand, looks toward lens with one confident half-smile, and points to a softly illuminated schematic. No speaking.",
+      "camera": "slow controlled dolly toward face, then subtle 3-quarter profile orbit",
+      "palette": "cyan-teal, ink black, warm brass",
+      "identityRef": "privateDrive:yume/lum/approvedReferencePending"
+    },
+    {
+      "id": "urd",
+      "age": "adult",
+      "visualStatus": "DESIGN_CANON_NO_RECONCILED_3D_BODY",
+      "characterIdentity": "confident mature hourglass silhouette; original wine-red and magenta tech-goth dress with elegant tailored corsetry, black lace, long coat and boots; long dark hair with magenta undertones; thread-and-weave jewelry; utterly distinct face from Lum",
+      "action": "Urd stands on a soot-black iron catwalk in a midnight cathedral workshop and pulls a glowing thread of magenta light across a mechanical evidence ledger, the threads forming abstract geometric weaving in air. She smirks knowingly, fully clothed. No speaking.",
+      "camera": "low-angle dramatic push-in, gloved hand and moving light-thread detail",
+      "palette": "wine crimson, magenta, charred iron",
+      "identityRef": "privateDrive:yume/urd/approvedReferencePending"
+    },
+    {
+      "id": "belldandy",
+      "age": "adult",
+      "visualStatus": "DESIGN_CANON_NO_RECONCILED_3D_BODY",
+      "characterIdentity": "warm graceful adult woman; soft curvy mature silhouette; original black-and-ivory cathedral gown with oxblood embroidery, antique-gold accents and long sleeves; flowing honey-gold hair, luminous compassionate face entirely distinct from the others",
+      "action": "Belldandy closes a leather-bound project ledger and gently lifts an amber stained-glass lantern beside a vast gear-driven cathedral window. Soft light spills across her face; she offers a reassuring smile. No speaking.",
+      "camera": "mid-shot with slow parallax rise toward haloed arch window",
+      "palette": "ivory, oxblood, antique gold, candle amber",
+      "identityRef": "privateDrive:yume/belldandy/approvedReferencePending"
+    },
+    {
+      "id": "skuld",
+      "age": "adult 25+",
+      "visualStatus": "DESIGN_CANON_NO_RECONCILED_3D_BODY",
+      "characterIdentity": "clearly adult petite engineer, compact utility silhouette, black-ivory-chrome tech-goth jacket and layered trousers, protective goggles, inventive tool charms and boots; short silver-blue bob hair with original haircut; distinct sharp face; non-sexualized",
+      "action": "Skuld crouches beside a miniature clockwork Hydra control board on an ironwork bench; she spins a wrench once, locks a glowing cyan mechanism into place and grins at the successful repair. No speaking.",
+      "camera": "fast controlled detail rack focus, from precision tool to confident face",
+      "palette": "chrome, cyan, violet, soot black",
+      "identityRef": "privateDrive:yume/skuld/approvedReferencePending"
+    }
+  ],
+  "rights": {
+    "characterDesigns": "original project candidate",
+    "generatedVideo": "privateCandidateOnlyUntilRightsAndProfessorReview",
+    "thirdPartyAudio": "not included",
+    "driveAssetBinary": "privateDrive:YumeReel_20261012",
+    "publicAllowed": false
+  },
+  "gates": {
+    "cloudBillingCurrent": "UNVERIFIED_AFTER_20261001_WARNINGS",
+    "vertexAiEnabled": "UNVERIFIED",
+    "veoQuota": "UNVERIFIED",
+    "referenceRights": "PENDING",
+    "visualHumanApproval": "PENDING",
+    "finalMp4": "HOLD",
+    "publication": "STOP",
+    "automaticMerge": false
+  }
+}

@@ -227,6 +227,10 @@ New art tools may be added without changing Yume's authority model. Each new too
 
 Load `agents/yumeArtOni/GITHUB_SPELLBOOK.md` for repository/history review, asset contamination checks, campaign evidence binding, and Godot handoff discipline.
 
+## Google Cloud video candidate worker (source-only)
+
+For Pirate Daddies Film clips use `doctrine/yumeVideoAutomationBridgeV1.json`, `media/yumeVideo/canonLockedVeoShotsV1.json`, and the SQL-backed `host/api/luhmVideoJobWorker.py`. Route through the existing API Spine capability `videoCandidateGeneration`. Yume owns shot design and visual continuity, Skuld owns provider/SQL compatibility, Urd adjudicates execution evidence, and Belldandy persists receipts. `doctor` and `enqueue` are non-billable; `submit` is Crown/cost/Cloud/SQL gated, one operation per exact task. Repeated polling uses the stored operation ID. Never auto-retry uncertain submissions, treat an FFmpeg concept animatic as Google output, assume Google AI Pro means Vertex entitlement, or promote generated video to canon/publicity. The Google/SQL runtime remains **UNPROVEN** until external receipt and human review.
+
 ## Big Brother art desk
 
 Load `doctrine/yumeBigBrotherArtDeskV1.json` and use `agents/yumeArtOni/templates/big-brother-art-task-v1.template.json` for Google AI / Big Brother assistance.
