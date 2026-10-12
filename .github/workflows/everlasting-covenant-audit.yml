@@ -1,5 +1,16 @@
 name: Doctrine Lane · 100-pass + 200-pass hard audit
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'agents/**'
+      - 'doctrine/agentSystemDeploymentV1.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'tools/agentSystemDeploymentAudit.py'
+      - 'tools/lumTaskRouter.py'
+      - 'tools/aiSanityAuthorityGate.py'
+      - '.github/workflows/everlasting-covenant-audit.yml'
   pull_request:
     paths:
       - 'doctrine/**'
