@@ -1,0 +1,38 @@
+name: Yume Video Worker Source Gate
+on:
+  pull_request:
+    paths:
+      - 'host/api/luhmVideoJobWorker.py'
+      - 'host/api/yumeVideoJobSchemaV1.sql'
+      - 'host/api/requirementsVideoWorker.txt'
+      - 'host/api/yumeVideoWorkerRunbook.md'
+      - 'media/yumeVideo/canonLockedVeoShotsV1.json'
+      - 'tests/yumeVideoJobWorkerTest.py'
+      - 'doctrine/yumeVideoAutomationBridgeV1.json'
+      - 'doctrine/apiSpineV1.json'
+      - '.github/workflows/yumeVideoWorkerSourceGate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: yume-video-worker-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  offlineWorkerProof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source and negative-control tests
+        run: |
+          python -m py_compile host/api/luhmVideoJobWorker.py
+          python tests/yumeVideoJobWorkerTest.py
+      - name: API Spine capability route
+        run: |
+          python host/api/luhmApiSpine.py --capability videoCandidateGeneration --provider googleAi | python -c 'import json,sys; d=json.load(sys.stdin); assert d["providerExecutionProven"] is False; assert d["eligibleAdapters"][0]["providerId"] == "googleAi"; assert d["authority"]["crownAuthority"] is False'
+      - name: Nonbillable doctor negative gate
+        run: |
+          python host/api/luhmVideoJobWorker.py doctor | python -c 'import json,sys; d=json.load(sys.stdin); assert d["readyToSpend"] is False; assert d["crown"] == "STOP"'
