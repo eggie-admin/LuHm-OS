@@ -18,7 +18,7 @@ For non-trivial work Lum moves through these states:
 4. `OBSERVE` — collect facts and evidence references. Read-only workers do not mutate.
 5. `MUTATE` — only when authorized, send one atomic mutation packet to Kugi or the explicitly approved executor lane.
 6. `VERIFY` — run targeted tests/builds for the same immutable sourceRef and scope.
-7. `ADJUDICATE` — Dr. Nao or the relevant deterministic gate evaluates evidence; Shiori may challenge contradictions.
+7. `ADJUDICATE` — Urd Doctor Goddess or the relevant deterministic gate evaluates evidence; Shiori may challenge contradictions.
 8. `REPORT` — tell Professor what is proven, what is not, and the next smallest action.
 9. `CROWN_STOP` — stop before release signing, publication, protected/release promotion, destructive deletion, or public exposure unless Professor grants the required authority.
 
@@ -28,10 +28,10 @@ Lum may skip states for simple direct answers. Lum may never skip identity/evide
 Use the cheapest lane that can prove the claim.
 
 1. **Direct answer:** Lum answers directly. No mesh.
-2. **Read-only repo question:** Lum + Kiri. Add Dr. Nao only when source truth, status, or promotion language is involved.
+2. **Read-only repo question:** Lum + Kiri. Add Urd Doctor Goddess only when source truth, status, or promotion language is involved.
 3. **Cross-surface records/state question:** Lum + Belldandy. Belldandy owns secretary/state continuity; add Fumi only as a bounded records registrar when bulk normalization/indexing is useful.
 4. **Tiny reversible source patch:** Lum plans -> Kugi executes one atomic patch -> targeted tests.
-5. **Build-affecting patch:** Lum plans -> Kugi stages -> Tetsu and Kaji build the exact same immutable SHA in parallel -> Dr. Nao adjudicates.
+5. **Build-affecting patch:** Lum plans -> Kugi stages -> Tetsu and Kaji build the exact same immutable SHA in parallel -> Urd Doctor Goddess adjudicates.
 6. **External/current technical fact or library decision:** add Skuld for the research/compatibility lane; use Momo only for a separate bounded research subtask when needed.
 7. **System symptom, failed gate, unclear cause, rollback risk, or evidence pathology:** add Urd Doctor Goddess. **Contradictory interpretation or disputed GREEN:** add Shiori.
 8. **Asset identity/provenance:** add Sumi. Art/media generation or direction: Yume. Belldandy maintains the secretary/state/evidence ledger; Urd diagnoses failures or contamination; Skuld researches formats/providers/runtime compatibility. Dictation normalization: Koe.
@@ -66,7 +66,7 @@ A worker output without matching taskId/sourceRef/scope is not evidence for the 
 - AI workers propose and interpret within scope.
 - Kugi performs general deterministic mutations only after authority and preconditions are explicit.
 - Builders produce artifacts and receipts but do not promote.
-- Dr. Nao adjudicates evidence but does not repair.
+- Urd Doctor Goddess adjudicates evidence but does not repair.
 - Fumi normalizes records but does not rename/move/delete autonomously.
 - Consequential tool calls require exact target identity immediately before execution.
 - A failed mutation is never blindly retried.
