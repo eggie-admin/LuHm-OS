@@ -6,6 +6,16 @@ on:
       - 'tools/lumMorphPhase2VisualReview.py'
       - 'tools/luHmVisualContactSheet.py'
       - 'tests/lumMorphPhase2GodotSmoke.gd'
+      - 'tests/goddessMorphRuntimeSmoke.gd'
+      - 'tests/goddessComponentRuntimeSmoke.gd'
+      - 'scripts/game/characterComponentAssembler.gd'
+      - 'scripts/game/characterMorphController.gd'
+      - 'scripts/game/goddessAvatar.gd'
+      - 'scenes/GoddessAvatar.tscn'
+      - 'game/assets/GODDESS_COMPONENT_CONTRACT_V1.json'
+      - 'game/assets/GODDESS_MORPH_PRESETS_V1.json'
+      - 'doctrine/yumeGoddess3dProductionV1.json'
+      - 'media/goddess3d-production-matrix-v1.json'
       - '.github/workflows/lum-morph-phase2-proof.yml'
   workflow_dispatch:
 permissions:
@@ -28,6 +38,16 @@ jobs:
           mkdir -p "$RUNNER_TEMP/lumSource" "$RUNNER_TEMP/lumMorph" "$RUNNER_TEMP/lumProof"
           git rev-parse HEAD | tee "$RUNNER_TEMP/lumProof/headSha.txt"
           printf 'CROWN=STOP\nLIVE_BUILD=UNTOUCHED\n'
+      - name: Audit original goddess pipeline and protected gallery
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/yumeGoddess3dAudit.py
+          python3 tools/goddessMorphSourceAudit.py
+          python3 tools/goddessComponentSourceAudit.py
+          python3 tools/renderYumeReferenceGallery.py --check
+          python3 tests/yumeReferenceGalleryTest.py
+
       - name: Fetch existing Drive donor and verify SHA before extraction
         shell: bash
         run: |
@@ -83,6 +103,11 @@ jobs:
             exit 1
           fi
           printf 'LUM_PHASE2_REMOTE_GODOT_GREEN\n' | tee "$RUNNER_TEMP/lumProof/summary.txt"
+          timeout 60s "$engine" --headless --path . --script res://tests/goddessMorphRuntimeSmoke.gd 2>&1 | tee "$RUNNER_TEMP/lumProof/goddessMorph.log"
+          grep -Fq 'GODDESS MORPH RUNTIME SMOKE GREEN' "$RUNNER_TEMP/lumProof/goddessMorph.log"
+          timeout 60s "$engine" --headless --path . --script res://tests/goddessComponentRuntimeSmoke.gd 2>&1 | tee "$RUNNER_TEMP/lumProof/goddessComponents.log"
+          grep -Fq 'GODDESS_COMPONENT_RUNTIME_SMOKE_GREEN' "$RUNNER_TEMP/lumProof/goddessComponents.log"
+          echo 'FOUR_GODDESS_SLOT_REGRESSION_GREEN_UNASSIGNED_BODIES_BLOCKED' | tee -a "$RUNNER_TEMP/lumProof/summary.txt"
       - name: Install review-only Blender and WebP pipeline
         shell: bash
         run: |
