@@ -1,0 +1,36 @@
+name: LuHm Mobile Cockpit Layout Audit
+
+on:
+  pull_request:
+    paths:
+      - 'host/harness/cockpit.css'
+      - 'host/harness/index.html'
+      - 'tests/mobileCockpitBrowserAudit.py'
+      - '.github/workflows/mobile-cockpit-layout-audit.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'host/harness/cockpit.css'
+      - 'host/harness/index.html'
+      - 'tests/mobileCockpitBrowserAudit.py'
+      - '.github/workflows/mobile-cockpit-layout-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  mobile-layout:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Install pinned browser test driver
+        run: python3 -m pip install --user 'playwright==1.55.0'
+      - name: Test real HTML and CSS at five viewports using system Chrome
+        run: python3 tests/mobileCockpitBrowserAudit.py
+      - name: Clarify proof boundary
+        run: |
+          echo "BROWSER_LAYOUT_GREEN_SOURCE_ONLY"
+          echo "LIVE_RENDER_AND_ANDROID_CHROME_REQUIRE_RUNTIME_PROOF"
