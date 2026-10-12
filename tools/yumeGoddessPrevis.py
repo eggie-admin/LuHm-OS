@@ -10,13 +10,13 @@ import subprocess
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
-COLORS={
+shotColors={
   'lum':('#51e5e0','EXECUTIVE ONI','THE ARCHITECT'),
   'urd':('#f04eaa','GOTH AUDIT GODDESS','THE WEAVER'),
   'belldandy':('#e9af60','CATHEDRAL KEEPER','THE HEART'),
   'skuld':('#6ecaff','CLOCKWORK ENGINEER','THE INVENTOR'),
 }
-CROPS={
+shotCrops={
   'lum':(25,135,402,795),
   'urd':(222,270,615,825),
   'belldandy':(390,365,790,870),
@@ -31,7 +31,7 @@ def hexrgb(c):return tuple(int(c[i:i+2],16) for i in (1,3,5))
 
 def paint(src:Image.Image,shot:str)->Image.Image:
   W,H=540,960
-  accent,role,subtitle=COLORS[shot]
+  accent,role,subtitle=shotColors[shot]
   a=hexrgb(accent)
   board=Image.new('RGB',(W,H),'#080a0d')
   # depth layer
@@ -44,7 +44,7 @@ def paint(src:Image.Image,shot:str)->Image.Image:
   for k in range(7):
     yy=125+k*98
     ink.line([(45,yy),(54,yy+8),(60,yy)],fill='#5d4938',width=3)
-  crop=src.crop(CROPS[shot]);hero=ImageOps.fit(crop,(460,620),centering=(0.5,0.34))
+  crop=src.crop(shotCrops[shot]);hero=ImageOps.fit(crop,(460,620),centering=(0.5,0.34))
   # dark photo corners with readable frame
   board.paste(hero,(40,148))
   overlay=Image.new('RGBA',(W,H),(0,0,0,0));d=ImageDraw.Draw(overlay)
@@ -75,16 +75,16 @@ def main():
   out=args.output;out.mkdir(parents=True,exist_ok=True)
   img=Image.open(args.concept).convert('RGB')
   thumbs=[]
-  for shot in COLORS:
+  for shot in shotColors:
     framed=paint(img,shot); framed.save(out/f'{shot}Still.png',optimize=True)
     thumbs.append(framed.resize((270,480)))
   collage=Image.new('RGB',(1080,480),'#0b0c0e')
   for i,t in enumerate(thumbs): collage.paste(t,((i%4)*270,0))
   collage.save(out/'fourCharacterContactSheet.png',optimize=True)
-  receipt={'conceptImageSha256':hashlib.sha256(args.concept.read_bytes()).hexdigest(), 'type':'OFFLINE_CONCEPT_ANIMATIC_NOT_GOOGLE_GENERATION', 'shotIds':list(COLORS),'finishedVeoVideos':0,'licenseAndProfessorApproval':'PENDING'}
+  receipt={'conceptImageSha256':hashlib.sha256(args.concept.read_bytes()).hexdigest(), 'type':'OFFLINE_CONCEPT_ANIMATIC_NOT_GOOGLE_GENERATION', 'shotIds':list(shotColors),'finishedVeoVideos':0,'licenseAndProfessorApproval':'PENDING'}
   if args.render:
     shorts=[]
-    for shot in COLORS:
+    for shot in shotColors:
       dest=out/f'{shot}Previs.mp4'
       inp=out/f'{shot}Still.png'
       # Deliberately deterministic, small proxy, no audio. All source paths safely arg-separated.
