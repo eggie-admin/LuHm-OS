@@ -18,7 +18,8 @@
     "apiSpine": "doctrine/apiSpineV1.json",
     "trafficController": "doctrine/cloudflareAirTrafficControllerV1.json",
     "chatPrecisionCommand": "doctrine/chatPrecisionCommandV1.json",
-    "afterHours": "doctrine/afterHoursExperienceV1.json"
+    "afterHours": "doctrine/afterHoursExperienceV1.json",
+    "conversationModeRouter": "doctrine/conversationModeRouterV1.json"
   },
   "runtime": {
     "tool": "luhm_open_cockpit",
