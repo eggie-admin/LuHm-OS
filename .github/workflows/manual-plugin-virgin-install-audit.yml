@@ -14,6 +14,7 @@ on:
   push:
     branches:
       - "candidate/**"
+      - "main"
     paths:
       - "plugins/luhm-os/**"
       - "doctrine/manualPluginVirginInstallV1.json"
