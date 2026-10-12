@@ -1,0 +1,53 @@
+name: Lum Orchestra Hardening Audit
+on:
+  pull_request:
+    paths:
+      - 'tools/lumOrchestraGate.py'
+      - 'tests/testLumOrchestraGate.py'
+      - 'doctrine/lumOrchestraHardeningV1.json'
+      - 'agents/shared/googleAiGitHubReviewV1.md'
+      - 'agents/lum/SKILL.md'
+      - '.github/workflows/lum-orchestra-hardening-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  candidateAudit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact SHA
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Assert source identity
+        run: |
+          test "$(git rev-parse HEAD)" == "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Compile candidate and validate policy
+        run: |
+          python3 -m py_compile tools/lumOrchestraGate.py tests/testLumOrchestraGate.py
+          python3 -m json.tool doctrine/lumOrchestraHardeningV1.json >/dev/null
+      - name: Run fail-closed negative controls
+        run: python3 -m unittest discover -s tests -p testLumOrchestraGate.py -v
+      - name: Run structural orchestra candidate audit
+        run: |
+          python3 tools/lumOrchestraGate.py --output build/lum-orchestra/candidateAudit.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('build/lum-orchestra/candidateAudit.json').read_text())
+          assert report['status'] == 'AMBER_CANDIDATE' and report['contractErrors'] == []
+          assert report['promotion'] is False and report['providerEntitlementProven'] is False
+          assert report['googleDeveloperApiInvoked'] is False and report['githubMutation'] is False
+          assert report['renderDeployment'] is False and report['crownStatus'] == 'STOP'
+          print('LUM_ORCHESTRA_STATIC_CANDIDATE=PASS')
+          PY
+      - name: Upload read-only audit receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lum-orchestra-candidate-audit
+          path: build/lum-orchestra/
+          if-no-files-found: warn
+          retention-days: 14
