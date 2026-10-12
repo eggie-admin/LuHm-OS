@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'tools/luHmLumMorphPhase2Build.py'
+      - 'tools/lumMorphPhase2VisualReview.py'
+      - 'tools/luHmVisualContactSheet.py'
       - 'tests/lumMorphPhase2GodotSmoke.gd'
       - '.github/workflows/lum-morph-phase2-proof.yml'
   workflow_dispatch:
@@ -81,6 +83,51 @@ jobs:
             exit 1
           fi
           printf 'LUM_PHASE2_REMOTE_GODOT_GREEN\n' | tee "$RUNNER_TEMP/lumProof/summary.txt"
+      - name: Install review-only Blender and WebP pipeline
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v blender >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq blender
+          fi
+          blender -b --factory-startup --python-expr "import bpy; print('BLENDER_READY', bpy.app.version_string)"
+          python3 -m pip install --user 'Pillow==11.3.0'
+          ffmpeg -hide_banner -version | head -n 1
+      - name: Render real Lum neutral, morph, face and limb-pose review frames
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/lumVisualFrames" "$RUNNER_TEMP/lumReview"
+          blender -b -t 2 --python tools/lumMorphPhase2VisualReview.py -- \
+            "$RUNNER_TEMP/lumMorph/lumMorphPhase2Candidate.glb" \
+            "$RUNNER_TEMP/lumVisualFrames" 2>&1 | tee "$RUNNER_TEMP/lumProof/blender.log"
+          grep -Fq LUM_VISUAL_RENDER_GATE_GREEN_REVIEW_PENDING "$RUNNER_TEMP/lumProof/blender.log"
+          python3 tools/luHmVisualContactSheet.py "$RUNNER_TEMP/lumVisualFrames" "$RUNNER_TEMP/lumReview" \
+            | tee "$RUNNER_TEMP/lumProof/visualCompare.log"
+          grep -Fq LUM_VISUAL_COMPARE_GREEN "$RUNNER_TEMP/lumProof/visualCompare.log"
+          ffmpeg -nostdin -loglevel error -y \
+            -i "$RUNNER_TEMP/lumReview/lumVisualReviewTemporary.png" \
+            -frames:v 1 -c:v libwebp -quality 82 "$RUNNER_TEMP/lumReview/lumVisualReview.webp"
+          for name in neutralFront morphedFront neutralQuarter morphedQuarter morphedPose morphedFace; do
+            ffmpeg -nostdin -loglevel error -y -i "$RUNNER_TEMP/lumVisualFrames/$name.png" \
+              -frames:v 1 -c:v libwebp -quality 82 "$RUNNER_TEMP/lumReview/$name.webp"
+          done
+          test -s "$RUNNER_TEMP/lumReview/lumVisualReview.webp"
+          (cd "$RUNNER_TEMP/lumReview" && sha256sum -- *.webp > WebP_SHA256SUMS.txt && sha256sum -c WebP_SHA256SUMS.txt)
+          echo 'LUM_VISUAL_REVIEW_FRAMES_GREEN_PROFESSOR_APPROVAL_PENDING'
+      - name: Upload short-lived visual review, no GLB or donor
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lumMorphPhase2ReviewWebp-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/lumReview/*.webp
+            ${{ runner.temp }}/lumReview/WebP_SHA256SUMS.txt
+            ${{ runner.temp }}/lumReview/visualComparisonReceipt.json
+            ${{ runner.temp }}/lumVisualFrames/visualReviewReceipt.json
+          if-no-files-found: warn
+          retention-days: 2
       - name: Upload proof receipts only, never GLB or donor
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
