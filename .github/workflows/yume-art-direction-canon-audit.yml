@@ -1,0 +1,35 @@
+name: Yume Final Art Direction Canon Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/yumeArtDirectionCanonV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'agents/yumeArtOni/SKILL.md'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'doctrine/agentSystemDeploymentV1.json'
+      - 'doctrine/yumeCreativePipelineV1.json'
+      - 'doctrine/yumeCommunityArtResourcesV1.json'
+      - 'doctrine/proposedWorkingLaneV1.json'
+      - 'tools/yumeArtDirectionCanonAudit.py'
+      - '.github/workflows/yume-art-direction-canon-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate Yume canonical JSON
+        run: python3 -m json.tool doctrine/yumeArtDirectionCanonV1.json > /dev/null
+      - name: Compile audit
+        run: python3 -m py_compile tools/yumeArtDirectionCanonAudit.py
+      - name: Yume scoped canon and four negative controls
+        run: python3 tools/yumeArtDirectionCanonAudit.py
+      - name: Preserve proposed agent mesh boundary
+        run: python3 tools/agentSystemDeploymentAudit.py
+      - name: Preserve Yume proposed creative pipeline
+        run: python3 tools/yumeCreativePipelineAudit.py
