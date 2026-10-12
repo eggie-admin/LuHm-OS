@@ -1,0 +1,50 @@
+name: LuHm In-Chat Widget Evidence Gate
+
+on:
+  pull_request:
+    paths:
+      - 'host/harness/widget.html'
+      - 'tests/testInChatWidgetEvidenceContract.py'
+      - '.github/workflows/in-chat-widget-evidence-gate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-cockpit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify widget source contract and negative controls
+        run: python3 -m unittest tests/testInChatWidgetEvidenceContract.py -v
+      - name: Parse actual embedded widget JavaScript
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import subprocess
+          import tempfile
+          page = Path("host/harness/widget.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", page, re.I | re.S)
+          if len(scripts) != 1:
+              raise SystemExit("RED_WIDGET_SCRIPT_COUNT")
+          with tempfile.TemporaryDirectory() as tempDir:
+              source = Path(tempDir) / "widget.js"
+              source.write_text(scripts[0], encoding="utf-8")
+              subprocess.run(["node", "--check", str(source)], check=True)
+          print("GREEN_WIDGET_JAVASCRIPT_PARSE")
+          PY
+      - name: Record exact check identity
+        shell: bash
+        run: |
+          echo "WIDGET_AUDIT_SOURCE=$(git rev-parse HEAD)"
+          echo "WIDGET_AUDIT=SOURCE_ONLY_GREEN"
+          echo "CHATGPT_HOST=UNVERIFIED"
+          echo "ANDROID_GODOT=UNVERIFIED"
+          echo "CROWN=STOP"
