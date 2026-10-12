@@ -1,0 +1,26 @@
+name: Yume Read Only Cloud Preflight
+on:
+  pull_request:
+    paths:
+      - 'host/api/luhmCloudVideoPreflight.py'
+      - 'tests/luhmCloudVideoPreflightTest.py'
+      - 'doctrine/yumeGoogleCloudEntitlementProbeV1.json'
+      - 'host/api/yumeVideoWorkerRunbook.md'
+      - '.github/workflows/yumeCloudReadOnlyPreflightAudit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  proveFailClosed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline evidence tests
+        run: |
+          python -m py_compile host/api/luhmCloudVideoPreflight.py
+          python tests/luhmCloudVideoPreflightTest.py
+          python host/api/luhmCloudVideoPreflight.py | python -c 'import json,sys; d=json.load(sys.stdin); assert d["readyToSpend"] is False; assert d["mode"]=="OFFLINE_NO_REQUESTS"'

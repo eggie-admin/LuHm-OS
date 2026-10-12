@@ -10,6 +10,19 @@ Candidate source only, **not deployed**. Reuse the current API Spine, current Go
 4. Cloud provider's **`predictLongRunning`** returns an operation name. Store it durably with exact task identity before doing anything else. The `fetchPredictOperation` request polls exactly that operation; retrieve the resulting *private* `gs://` asset URI, not an unsecured public URL.
 5. Yume and Urd review returned footage as **private candidate**; FFmpeg may produce review videos. Rights/identity/artistry and final publication require Professor's review.
 
+
+### Independent Google Cloud preflight (read-only)
+
+The original worker \`doctor\` reports local environment flags, **not independently verified Google entitlement**. The supplementary source-audited preflight \`host/api/luhmCloudVideoPreflight.py\` defaults to zero network requests.
+
+On an **already-authorized private host**, with approved Google Cloud Application Default Credentials:
+
+\`\`\`bash
+python host/api/luhmCloudVideoPreflight.py --online --project "$GOOGLE_CLOUD_PROJECT"
+\`\`\`
+
+This performs only Google Cloud Billing \`GET /v1/projects/{projectId}/billingInfo\` and Service Usage \`GET /v1/projects/{projectId}/services/aiplatform.googleapis.com\`. It never enables APIs or modifies billing. It emits no bearer tokens. Even two ENABLED results do **not** prove service-account permission for a Veo job, Veo model entitlement, quota, GCS write permission, SQL availability, current account credit, or authorization to spend. All of those remain independent gates. This probe has no autonomous scheduling or production deployment.
+
 ### Read-only preflight
 
 `python host/api/luhmVideoJobWorker.py doctor`
