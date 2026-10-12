@@ -1,0 +1,64 @@
+{
+  "schema": "luhmOs.npmPluginApkDelivery.v1",
+  "status": "PROPOSED_CANDIDATE",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Use npm for reproducible web dependencies and approved jQuery extensions, and the existing Gradle/CAST release path for Android APK artifacts.",
+  "jquery": {
+    "packageManifest": "frontEnd/package.json",
+    "lockfile": "frontEnd/package-lock.json",
+    "exactDependency": "jquery@3.7.1",
+    "installCommand": "npm ci --ignore-scripts",
+    "stageCommand": "npm run stage:jquery",
+    "runtime": "local bundled asset",
+    "runtimeCdnAllowed": false,
+    "arbitraryInstallScriptsAllowed": false
+  },
+  "pluginLifecycle": {
+    "incoming": "frontEnd/plugins/incoming",
+    "approved": "frontEnd/plugins/approved",
+    "local": "frontEnd/plugins/local",
+    "incomingCodeExecutes": false,
+    "promoteRequires": [
+      "provenance",
+      "licenseReview",
+      "exactVersionAndIntegrity",
+      "staticAudit",
+      "jQueryContractTests",
+      "ProfessorPromotion"
+    ],
+    "installTargetBeforePromotion": "quarantineOnly",
+    "networkAndCredentialAccessFromPlugin": false,
+    "pluginMayGrantAuthority": false
+  },
+  "apkLifecycle": {
+    "project": "androidWeb3Plugin",
+    "buildSystem": "Gradle",
+    "workflow": "existingCastGatedAndroidWorkflow",
+    "npmInstallsApk": false,
+    "signing": "approvedSecretStoreOnly",
+    "releaseRequires": [
+      "singleUseCast",
+      "exactSourceSha",
+      "workflowReceipt",
+      "artifactHash",
+      "signatureAndAlignmentReceipt",
+      "physicalDeviceProof",
+      "ProfessorPromotion"
+    ],
+    "publicationAuthority": false
+  },
+  "packageRelease": {
+    "npmRegistryPublication": "disabled_until_explicit_promotion",
+    "apkDistribution": "GitHubReleaseCandidateOnly_after_Crown_gate",
+    "versionAndSourceShaBound": true,
+    "rollbackReceiptRequired": true
+  },
+  "baseline": {
+    "npmLockfileWasMissingAtAudit": true,
+    "frontEndPackageIsPrivate": true,
+    "frontEndIsDryRunCandidate": true,
+    "apkAndNpmAreSeparateArtifactTypes": true
+  },
+  "crownStatus": "STOP"
+}
