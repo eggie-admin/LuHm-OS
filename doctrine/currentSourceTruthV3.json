@@ -95,7 +95,10 @@
     "organizationBrandRegistry": "doctrine/organizationBrandRegistryV1.json",
     "publicArtReleaseReadiness": "doctrine/publicArtReleaseReadinessV1.json",
     "yumeProofStudio": "doctrine/fourTierOperatingModelV1.json#tiers/yumeProofStudio",
-    "yumeArtDirectionCanon": "doctrine/yumeArtDirectionCanonV1.json"
+    "yumeArtDirectionCanon": "doctrine/yumeArtDirectionCanonV1.json",
+    "yumeGoddess3dProduction": "doctrine/yumeGoddess3dProductionV1.json",
+    "yumeReferenceGallery": "media/yumeReferenceGalleryV1.json",
+    "goddess3dWorkMatrix": "media/goddess3d-production-matrix-v1.json"
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
@@ -268,7 +271,8 @@
     "assetArchitecture": "doctrine/godot4AssetArchitectureDecisionV1.json",
     "assetReconciliation": "media/godot4-asset-reconciliation-v1.json",
     "assetReconciliationStatus": "AMBER_RECONCILIATION_ADVANCED_ORIGINAL_ASSETS_HASHED",
-    "buildAllowedFromAssetEstate": false
+    "buildAllowedFromAssetEstate": false,
+    "goddessProofLineup": "scenes/GoddessLineupProof.tscn"
   },
   "agentLayer": {
     "training": "doctrine/agentTrainingSealV1.json",
@@ -586,5 +590,26 @@
     "publicationAuthority": false,
     "crownStatus": "CROWNED_SOURCE_ROLE_ONLY",
     "crownReceipt": "doctrine/yumeArtDirectionCrownReceiptV1.json"
+  },
+  "yumeGoddess3dMilestones": {
+    "schema": "luhmOs.yumeGoddess3dMilestoneTruth.v1",
+    "productionLaw": "doctrine/yumeGoddess3dProductionV1.json",
+    "scopedArtRoleCanon": "doctrine/yumeArtDirectionCanonV1.json",
+    "productionState": "PROPOSED_RUNTIME_PROOF_CANDIDATE",
+    "lumPhase2": "HASHED_MORPH_GODOT_RUNTIME_AND_REVIEW_FRAMES_CI_PROVEN",
+    "lumHumanVisualApproval": "PENDING",
+    "lumAssetRedistribution": "NOT_APPROVED",
+    "characterSwitchRegression": "GODOT_RUNTIME_CI_PROVEN",
+    "fourStationLineup": "GODOT_RUNTIME_CI_PROVEN_SOURCE_ONLY",
+    "lineupScene": "scenes/GoddessLineupProof.tscn",
+    "urdBody": "UNASSIGNED",
+    "belldandyBody": "UNASSIGNED",
+    "skuldBody": "UNASSIGNED",
+    "sourceGallery": "SOURCE_VERIFIED_REFERENCE_ONLY",
+    "liveBrowserGallery": "UNPROVEN",
+    "sourceReceipt": "receipts/yumeGoddessMilestones20261011.json",
+    "automatedPublication": false,
+    "releaseAuthority": false,
+    "crownStatus": "STOP"
   }
 }
