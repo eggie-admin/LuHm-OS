@@ -34,7 +34,7 @@
   "apkLifecycle": {
     "project": "androidWeb3Plugin",
     "buildSystem": "Gradle",
-    "workflow": "existingCastGatedAndroidWorkflow",
+    "workflow": ".github/workflows/android-testing-build.yml",
     "npmInstallsApk": false,
     "signing": "approvedSecretStoreOnly",
     "releaseRequires": [
