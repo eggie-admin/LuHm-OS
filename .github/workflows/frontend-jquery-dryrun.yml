@@ -19,15 +19,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: npm
-          cache-dependency-path: frontEnd/package.json
+          cache-dependency-path: frontEnd/package-lock.json
       - name: Install exact front-end dependency
         working-directory: frontEnd
-        run: npm install --ignore-scripts --no-audit --no-fund
+        run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Static plugin checks
         working-directory: frontEnd
         run: npm run check

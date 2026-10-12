@@ -30,7 +30,14 @@ const checks = [
   [html.includes("jquery/luhm.codingRoleplay.js"), "index loads coding roleplay presentation"],
   [roleplay.includes("$.codingRoleplay") && roleplay.includes("presentationOnly"), "coding roleplay remains presentation-only"],
   [app.includes("luhm:magic:roleplay:activate") && app.includes("luhm:vendor:debug:request"), "app wires bounded roleplay events"],
-  [app.includes(".luhmCockpit("), "app initializes cockpit plugin"]
+  [app.includes(".luhmCockpit("), "app initializes cockpit plugin"],
+  [plugin.includes('document.addEventListener("visibilitychange", state.visibilityHandler)') &&
+   plugin.includes('document.removeEventListener("visibilitychange", state.visibilityHandler)'),
+   "clock pauses on hidden tab and releases listener at destroy"],
+  [plugin.includes('if (document.hidden) return;') &&
+   plugin.includes('Math.max(15000, configured)') &&
+   plugin.includes('if (state.$clock.text() !== display)'),
+   "clock avoids hidden/duplicate updates and timer storms"]
 ];
 
 let failed = 0;

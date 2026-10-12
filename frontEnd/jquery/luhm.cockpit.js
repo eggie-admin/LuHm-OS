@@ -186,7 +186,24 @@
   function updateClock($root) {
     const state = getState($root);
     if (!state) return;
-    state.$clock.text(new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }));
+    const display = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    if (state.$clock.text() !== display) state.$clock.text(display);
+  }
+
+  function syncClock($root) {
+    const state = getState($root);
+    if (!state) return;
+    if (state.clockTimer !== null) {
+      window.clearInterval(state.clockTimer);
+      state.clockTimer = null;
+    }
+    if (document.hidden) return;
+    updateClock($root);
+    const configured = Number(state.settings.clockIntervalMs);
+    const interval = Number.isFinite(configured) && configured > 0
+      ? Math.max(15000, configured)
+      : 30000;
+    state.clockTimer = window.setInterval(function () { updateClock($root); }, interval);
   }
 
   function appendUserMessage($root, text) {
@@ -219,7 +236,8 @@
       $composer: $root.find("[data-luhm-composer]"),
       $input: $root.find("[data-luhm-input]"),
       $clock: $root.find("[data-luhm-clock]"),
-      clockTimer: null
+      clockTimer: null,
+      visibilityHandler: null
     };
     $root.data(DATA_KEY, state);
 
@@ -259,8 +277,9 @@
     });
 
     setView($root, settings.initialView);
-    updateClock($root);
-    state.clockTimer = window.setInterval(function () { updateClock($root); }, settings.clockIntervalMs);
+    state.visibilityHandler = function () { syncClock($root); };
+    document.addEventListener("visibilitychange", state.visibilityHandler);
+    syncClock($root);
     emit($root, "luhm:frontend:ready", {
       version: $.fn[PLUGIN].version,
       jquery: $.fn.jquery,
@@ -287,7 +306,8 @@
         const $root = $(this);
         const state = getState($root);
         if (!state) return;
-        if (state.clockTimer) window.clearInterval(state.clockTimer);
+        if (state.clockTimer !== null) window.clearInterval(state.clockTimer);
+        if (state.visibilityHandler) document.removeEventListener("visibilitychange", state.visibilityHandler);
         state.$composer.off(EVENT_NS);
         $root.off(EVENT_NS);
         $root.removeData(DATA_KEY);
