@@ -17,6 +17,9 @@ func assemble_character(character_id: String) -> Dictionary:
         return _receipt(character_id, {}, [], ["avatar_root"])
     if contract.is_empty():
         contract = _load_contract()
+    # Fail closed on every switch, including an unknown or unassigned body.
+    # Never leave another character's geometry visible after a failed mount.
+    _clear_all_components()
 
     var characters = contract.get("characters", {})
     if not characters is Dictionary or not characters.has(character_id):
@@ -92,7 +95,10 @@ func unmount_component(slot_name: String) -> bool:
         return false
     var node = mounted[slot_name]
     if node is Node and is_instance_valid(node):
-        (node as Node).queue_free()
+        var old_node := node as Node
+        if old_node.get_parent() != null:
+            old_node.get_parent().remove_child(old_node)
+        old_node.free()
     mounted.erase(slot_name)
     return true
 
@@ -100,8 +106,25 @@ func get_last_receipt() -> Dictionary:
     return last_receipt.duplicate(true)
 
 func _clear_socket(socket: Node3D) -> void:
+    # Immediate removal prevents stale skin from surviving the next idle frame.
     for child in socket.get_children():
-        child.queue_free()
+        socket.remove_child(child)
+        child.free()
+
+func _clear_all_components() -> void:
+    if avatar_root == null:
+        return
+    var slots = contract.get("slots", {})
+    if slots is Dictionary:
+        for slot_name in slots:
+            var slot_rule = slots[slot_name]
+            if slot_rule is Dictionary:
+                var socket_name := String(slot_rule.get("socket", ""))
+                if not socket_name.is_empty():
+                    var socket := avatar_root.find_child(socket_name, true, false) as Node3D
+                    if socket != null:
+                        _clear_socket(socket)
+    mounted.clear()
 
 func _path_allowed(resource_path: String) -> bool:
     var law = contract.get("runtimeLaw", {})
