@@ -36,6 +36,7 @@ ENTERPRISE_SCOPE = ROOT / "doctrine" / "mcpEnterpriseScopeV2.json"
 API_SPINE = ROOT / "doctrine" / "apiSpineV1.json"
 TRAFFIC_CONTROLLER = ROOT / "doctrine" / "cloudflareAirTrafficControllerV1.json"
 HOUSEKEEPING = ROOT / "doctrine" / "belldandyHousekeepingV1.json"
+SAMSUNG_ANTENNA = ROOT / "doctrine" / "samsungAntennaV1.json"
 NAMING_NAMESPACE = ROOT / "doctrine" / "namingNamespaceCanonV1.json"
 COMMAND_HELP = ROOT / "doctrine" / "commandHelpV1.json"
 PRECISION_COMMAND = ROOT / "doctrine" / "chatPrecisionCommandV1.json"
@@ -440,6 +441,28 @@ def _assert_source_contract() -> None:
         raise RuntimeError("RED_CURRENT_PLUGIN_ENDPOINT_DRIFT")
     if mcp_lane.get("tunnelForThisLane") is not False:
         raise RuntimeError("RED_MCP_TUNNEL_DRIFT")
+
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_samsung_spine_contract() -> dict[str, Any]:
+    """Show the Ubuntu-host / Samsung-Shizuku in-chat route without contacting or controlling a device."""
+    antenna = _load_json(SAMSUNG_ANTENNA)
+    return {
+        "schema": "luhmOs.mcpSamsungSpineContract.v1",
+        "contractStatus": antenna.get("status", "UNKNOWN"),
+        "androidTarget": antenna.get("target", "UNKNOWN"),
+        "ubuntuDevelopmentHost": antenna.get("ubuntuDevelopmentHost", {}),
+        "inChatSpineRoute": antenna.get("inChatSpineRoute", {}),
+        "deviceDiagnostics": antenna.get("deviceDiagnostics", {}),
+        "releaseTrack": antenna.get("releaseTrack", {}),
+        "physicalProof": antenna.get("proofState", {}),
+        "deviceConnectionAttempted": False,
+        "shizukuRuntimeProven": False,
+        "mutationAuthority": False,
+        "greenAuthority": False,
+        "crownAuthority": False,
+    }
 
 
 @server.tool(annotations=READ_ONLY_INTERNAL)
