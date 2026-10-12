@@ -1,7 +1,8 @@
 extends SceneTree
-# Isolated headless Godot proof on ephemeral hash-pinned candidate, never live asset.
+# Isolated headless test against ephemeral GLB; no production writes.
 const MODEL_PATH := "res://assets/lum/luhm.glb"
 const SHAPES := ["hip_width", "waist_shape", "smile"]
+const EXPECTED_COUNTS := {"hip_width": 17109, "waist_shape": 11536, "smile": 5562}
 var errors: Array[String] = []
 
 func _initialize() -> void:
@@ -40,11 +41,17 @@ func _run() -> void:
                 if idx >= blend_arrays.size():
                     continue
                 var attributes: Array = blend_arrays[idx]
-                var offsets: PackedVector3Array = attributes[Mesh.ARRAY_VERTEX]
-                for d in offsets:
-                    if d.length() > 0.00001:
+                var base_arrays: Array = array_mesh.surface_get_arrays(surface)
+                var base_positions: PackedVector3Array = base_arrays[Mesh.ARRAY_VERTEX]
+                var target_positions: PackedVector3Array = attributes[Mesh.ARRAY_VERTEX]
+                if target_positions.size() != base_positions.size():
+                    _check(false, "blend shape and base vertex count mismatch: " + morph_name)
+                    continue
+                for vertex_index in range(base_positions.size()):
+                    if (target_positions[vertex_index] - base_positions[vertex_index]).length() > 0.00001:
                         moved += 1
-            _check(moved > 15, "real vertex deltas: " + morph_name)
+            var expected := int(EXPECTED_COUNTS[morph_name])
+            _check(moved >= int(expected * 0.8) and moved <= int(expected * 1.2), "actual displaced vertices: " + morph_name + " (" + str(moved) + ")")
             instance.set_blend_shape_value(idx, 0.75)
             _check(is_equal_approx(instance.get_blend_shape_value(idx), 0.75), "Godot setter: " + morph_name)
             instance.set_blend_shape_value(idx, 0.0)
