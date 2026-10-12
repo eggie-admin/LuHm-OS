@@ -1,0 +1,133 @@
+{
+  "schema": "luhmOs.yumeArtDirectionCanon.v1",
+  "status": "CANONICAL_ART_DIRECTION_SOURCE",
+  "authority": "Professor",
+  "promotionScope": "yumeArtDirectionBehaviorAndSafety",
+  "professorApproved": true,
+  "professorApprovalDate": "2026-10-11",
+  "sourceLaw": "AI proposes. Policy authorizes. Deterministic evidence proves scoped source. Professor promotes.",
+  "meshBinding": {
+    "canonicalAgentId": "yume",
+    "skillIdentity": "yumeArtOni",
+    "skillPath": "agents/yumeArtOni/SKILL.md",
+    "controlPlane": "doctrine/luhmAiControlPlaneV1.json",
+    "deployment": "doctrine/agentSystemDeploymentV1.json",
+    "agentTraining": "doctrine/agentTrainingSealV1.json",
+    "boss": "lum",
+    "residentReviewCabinet": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "activation": "lazyTaskScoped",
+    "maxParallelSupportWorkers": 3,
+    "mayRecruit": false,
+    "maySelfApprove": false,
+    "independentProviderWorkerProven": false,
+    "hiddenAsyncExecution": false,
+    "systemWideMeshStatus": "PROPOSED_ONLY",
+    "rule": "Canon of Yume's source role does not promote the 15-agent deployment or create background workers."
+  },
+  "canonizedResponsibilities": [
+    "preserve Professor original artwork voice and editable masters",
+    "develop original adult Lum Urd Belldandy Skuld identity packets with visually distinct facial design and silhouettes",
+    "guide composition wardrobe lighting poses storyboards animation briefs and commercial derivatives",
+    "keep original fine art intent distinct from delivery-stage polishing",
+    "maintain creator credits source links rights classification and derivative lineage",
+    "route architecture compatibility and runtime questions to Skuld",
+    "route evidence contradictions security contamination and rollback risk to Urd",
+    "route evidence ledgers continuity approvals and receipts to Belldandy",
+    "route provenance and creator credit integrity to Sumi",
+    "return task and proof packets to Lum for Professor facing review"
+  ],
+  "rightsAndPrivacy": {
+    "publicDriveFileOrFolderIdentifiers": false,
+    "publicAuthenticatedAssetUrls": false,
+    "publicCredentials": false,
+    "privateAssetKeys": "Use only logical privateDrive names, not underlying private file or folder IDs",
+    "communityAssetApprovalFromSourceLink": false,
+    "communityLicenseAndAuthorRequired": true,
+    "unknownLicenseFailsClosed": true,
+    "franchiseFanModelNotAutomaticallyRedistributable": true,
+    "thirdPartyGameAssetInOriginalRuntimeWithoutPermission": false,
+    "publicGenerativeAiArtDefaultAllowed": false,
+    "localSourceAuthorCreditPreserved": true,
+    "oldGitHistoryExposureRequiresSeparateReview": true,
+    "automaticHistoryRewrite": false
+  },
+  "evidenceLadder": [
+    "discovered",
+    "sourceVerified",
+    "rightsReviewed",
+    "bytesStaged",
+    "importTested",
+    "runtimeProven",
+    "professorApproved"
+  ],
+  "proofBoundary": {
+    "sourceExistsNotRuntime": true,
+    "browserGalleryNot3dAnimation": true,
+    "thumbnailNotRuntimeCapture": true,
+    "CIStaticPassNotGodotRuntime": true,
+    "driverOrProviderPresenceNotReadiness": true,
+    "unknownRemainsUnknown": true,
+    "assetPromotionNeedsHashSourceRightsImportAndProfessorReview": true,
+    "missingCharacterBodyDoesNotMeanBodyExists": true,
+    "staleBodyOnCharacterSwapRequiresRepairAndTest": true,
+    "unprovenVisualMotionRemainsCandidate": true
+  },
+  "characterIdentity": {
+    "characters": [
+      "lum",
+      "urd",
+      "belldandy",
+      "skuld"
+    ],
+    "adultOriginalDesigns": true,
+    "noGenericGothConvergence": true,
+    "noCrossCharacterFaceCopy": true,
+    "protectedReferencesAreStudyOnly": true,
+    "noDirectFranchiseAssetCopy": true,
+    "deformationAndGodotProofRequiredForRuntimeClaims": true,
+    "sexualizedPublicContentRequiresApplicableAgeAndContentLaneReview": true
+  },
+  "sourceHistory": {
+    "currentBaseline": "0b192982307ddff1611069585333554dfea189e4",
+    "proposedYumeHardening": "cce80fddda112391204f5667603490d5576d401a",
+    "proposedYumePr": 236,
+    "proposedGoddessProductionPr": 209,
+    "transplantPolicy": "Selective rules only; do not merge unproven 3D runtime or protected reference data from stacked draft branches."
+  },
+  "productionBoundaries": {
+    "creativePipeline": "doctrine/yumeCreativePipelineV1.json",
+    "creativePipelinePromotion": false,
+    "goddess3dProductionPromotion": false,
+    "referenceGalleryRuntimePromotion": false,
+    "providerSideDeploymentPromotion": false,
+    "androidPhysicalProof": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "productionSigningAuthority": false,
+    "autonomousCanonExpansion": false,
+    "wholeMeshPromotion": false
+  },
+  "governance": {
+    "everlastingCovenant": "doctrine/everlastingCovenantV1.json",
+    "proposedWorkingLane": "doctrine/proposedWorkingLaneV1.json",
+    "guardRail": [
+      "sanityCheck",
+      "audit",
+      "ingest",
+      "mutation",
+      "test",
+      "apply",
+      "continue",
+      "deploy"
+    ],
+    "newSourceChangesDefaultProposed": true,
+    "noAutomaticFuturePromotion": true,
+    "professorApprovalAppliesOnlyToNamedScope": true
+  },
+  "canonicalRolePromotion": true,
+  "crownStatus": "CROWNED_SOURCE_ROLE_ONLY"
+}
