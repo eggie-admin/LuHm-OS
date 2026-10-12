@@ -228,5 +228,101 @@
     "reconciler": "lum",
     "compileForgeOwner": "Kaji"
   },
-  "legacyCompatibilitySource": "doctrine/FORGE_TWINS_V3.json"
+  "legacyCompatibilitySource": "doctrine/FORGE_TWINS_V3.json",
+  "milestoneDelivery": {
+    "schema": "luhmOs.castMilestoneDelivery.v1",
+    "status": "SOURCE_ONLY_CANDIDATE_NO_INSTALL_OR_RUNTIME_CLAIM",
+    "intent": "CAST is an exact authorized build attempt inside a named milestone, never the closing receipt by itself. Carry the same milestone through verification and visible delivery or return the smallest precise blocker.",
+    "escalationKernel": "doctrine/escalationKernelV1.json",
+    "escalationTiers": [
+      {
+        "tier": 0,
+        "id": "default",
+        "result": "resolve existing proof, prior artifacts and exact desired user-visible result"
+      },
+      {
+        "tier": 1,
+        "id": "coordinated",
+        "result": "Lum coordinates bounded work, source and artifact ledger"
+      },
+      {
+        "tier": 2,
+        "id": "specialist",
+        "result": "Urd, Skuld, Yume or Forge resolve the exact technical, art or rights blocker as needed"
+      },
+      {
+        "tier": 3,
+        "id": "closure",
+        "result": "prove intended deliverable, present it, and only install/promote with exact Professor authority"
+      }
+    ],
+    "distinctOperatingLayers": "doctrine/fourTierOperatingModelV1.json",
+    "packageManagerAnalogy": {
+      "inspect": "read installed/source evidence without writes",
+      "stage": "assemble candidate source, expected output and required approvals",
+      "cast": "single-use build attempt only, unchanged from castEnvelope",
+      "verify": "hash/test the exact built artifact and inspect output against the milestone criteria",
+      "install": "separate exact-target, explicit Professor-approved promotion/deployment; never implied by CAST",
+      "receipt": "record the actually accessible output or explicit unresolved blocker"
+    },
+    "sequence": [
+      "inspect",
+      "stage",
+      "castIfBuildNeeded",
+      "verify",
+      "presentVisibleResult",
+      "installOnlyWithSeparateApproval",
+      "recordFinalReceiptOrBlocker"
+    ],
+    "requiredMilestoneFields": [
+      "milestoneId",
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "expectedVisibleResult",
+      "artifactKind",
+      "deliveryTarget",
+      "acceptanceChecks",
+      "artifactLocatorOrBlocker",
+      "evidenceRefs",
+      "currentState",
+      "smallestNextAction",
+      "professorApprovalBoundary"
+    ],
+    "evidenceRules": {
+      "castAuthorizedIsNotBuilt": true,
+      "builtIsNotInstalled": true,
+      "sourceGalleryIsNotRuntimeProof": true,
+      "privateArtReferenceIsNotRedistributionPermission": true,
+      "browserOrDeviceClaimsRequireActualRuntimeEvidence": true,
+      "unverifiedMustNotBeLabeledGreen": true,
+      "neverDiscardPreviouslyDiscoveredArtifact": true,
+      "reportNamedMissingStageRatherThanGenericFinalGreen": true,
+      "showReviewableLinkWhenAvailable": true,
+      "noAutomaticProviderOrAssetPublication": true
+    },
+    "knownCreativeRecovery": {
+      "research": "doctrine/falloutBodyMutationStudyV1.json",
+      "sourceRegistry": "media/fallout-body-mutation-source-registry-v1.json",
+      "galleryCatalog": "media/yumeReferenceGalleryV1.json",
+      "galleryPage": "frontEnd/yumeReferenceGallery.html",
+      "galleryReceipt": "receipts/yumeReferenceGallery-20261008.json",
+      "assetMatrix": "media/goddess3d-production-matrix-v1.json",
+      "productionLaw": "doctrine/yumeGoddess3dProductionV1.json",
+      "originalArtPrivateDriveFolder": "Character Reference Sheets",
+      "originalArtFilenames": [
+        "LuHm_Professor_Character_Lineup_v0.1.png",
+        "LuHm_Goddess_Lineup_Urd_Belldandy_Skuld_v0.1.png"
+      ],
+      "recoveryLedger": "manual/castMilestoneRecovery20261012.md",
+      "rightsRule": "Fallout 4/Nexus and Resident Evil study is reference-only except exact separately licensed permissions. No protected game character asset transfer."
+    },
+    "authorityGuards": {
+      "oneUseCastStillRequired": true,
+      "installIsNotAuthorizedByCast": true,
+      "installNeedsExactTargetAndSeparateProfessorApproval": true,
+      "releaseAndPublicationRemainForbiddenWithoutTheirOwnCrown": true,
+      "sourceCandidateDoesNotProveProviderWorkersOrRuntime": true
+    }
+  }
 }
