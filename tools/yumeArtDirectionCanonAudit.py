@@ -67,9 +67,10 @@ def errors_for(canon: dict, control: dict, mesh: dict, truth: dict) -> list[str]
     require(working.get("futureDoctrineMutationsDefault") == "PROPOSED_ONLY", "futureProposedLaw")
     require(community.get("storageLaw", {}).get("publicDoctrineStoresNoPrivateDriveIds") is True, "storageLaw")
     for name in ("publicDriveFileOrFolderIdentifiers","publicAuthenticatedAssetUrls","publicCredentials",
-                 "communityAssetApprovalFromSourceLink","franchiseFanModelNotAutomaticallyRedistributable",
+                 "communityAssetApprovalFromSourceLink",
                  "publicGenerativeAiArtDefaultAllowed","automaticHistoryRewrite"):
         require(privacy.get(name) is False, "privacy:"+name)
+    require(privacy.get("franchiseFanModelNotAutomaticallyRedistributable") is True, "franchiseRightsFirewall")
     for name in ("sourceExistsNotRuntime","browserGalleryNot3dAnimation","thumbnailNotRuntimeCapture",
                  "CIStaticPassNotGodotRuntime","unknownRemainsUnknown","staleBodyOnCharacterSwapRequiresRepairAndTest"):
         require(proof.get(name) is True, "evidence:"+name)
