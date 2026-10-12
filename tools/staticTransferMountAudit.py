@@ -51,7 +51,7 @@ runtimeIds=[x.get("agentId") for x in runtimeSprites.get("sprites",[])]
 need(sourceIds==runtimeIds,"source/runtime sprite roster drift")
 need("PET_ASSET_IDS" in server and 'parts[0] == "pets"' in server,"strict pet namespace missing")
 need('{"sequence.webp", "sequence.png", "sequence.json"}' in server,"pet sequence extension allowlist missing")
-need("image-rendering:pixelated" in css and "720px" in css and "94vw" in css,"large crisp pet stage CSS missing")
+need("image-rendering:pixelated" in css and "720px" in css and "86vw" in css and "max-width:100%" in css,"large crisp pet stage CSS missing or viewport unsafe")
 need('staticMount:staticLane?.sourceMountState||"VERIFY"' in widget,"widget static mount truth missing")
 need('staticCdn:staticLane?.cloudflareCdnState||"VERIFY"' in widget,"widget static CDN truth missing")
 need('staticAssets:"PRESENT"' not in widget,"widget still hardcodes static asset GREEN")
