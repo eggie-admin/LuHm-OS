@@ -76,6 +76,29 @@ need(receipt.get("verification", {}).get("mobileVisualPreview") == "NOT_PROVEN",
 need("doctrine/yumeGoddess3dProductionV1.json" in skill, "Yume skill missing proposed doctrine link")
 need("must not display a stale previous body" in skill, "Yume skill missing stale character safety")
 
+# Exact provenance and no-fake-four-body production receipt.
+RECEIPT = ROOT / "receipts" / "yumeGoddessMilestones20261011.json"
+TRUTH = ROOT / "doctrine" / "currentSourceTruthV3.json"
+r = json.loads(RECEIPT.read_text(encoding="utf-8"))
+t = json.loads(TRUTH.read_text(encoding="utf-8"))
+stage = t.get("yumeGoddess3dMilestones", {})
+need(r.get("authority") == "Professor" and r.get("crownStatus") == "STOP", "receipt cannot self-promote")
+need(r.get("modelArtPromotion") is False and r.get("publicationAuthority") is False, "model promotion rights boundary")
+need(r.get("milestone1", {}).get("glbSha256") == "4b8d41393bb94affe469af551c2915d6b39890cd2add18048d78da8610505a1e", "pinned Lum Phase 2 candidate drift")
+need(r.get("historicalCiProof", {}).get("successfulRuns") == 22, "historical scoped CI count drift")
+need(r.get("milestone3", {}).get("fourApprovedCharactersReady") is False, "four-body model claim forbidden")
+need(set(k for k,v in r.get("milestone3", {}).get("actualProductionBodies", {}).items() if v == "MISSING") == {"urd","belldandy","skuld"}, "missing 3D bodies must remain honest")
+need(stage.get("productionState") == "PROPOSED_RUNTIME_PROOF_CANDIDATE", "source truth candidate status drift")
+need(stage.get("crownStatus") == "STOP" and stage.get("releaseAuthority") is False, "source truth release boundary")
+need(stage.get("urdBody") == stage.get("belldandyBody") == stage.get("skuldBody") == "UNASSIGNED", "source truth must not fake three models")
+need(t.get("creativeLayer", {}).get("yumeGoddess3dProduction") == "doctrine/yumeGoddess3dProductionV1.json", "source truth doctrine pointer")
+need(t.get("gameLayer", {}).get("goddessProofLineup") == "scenes/GoddessLineupProof.tscn", "source truth Godot lineup pointer")
+need(d.get("fourCharacterLineup", {}).get("actualThreeGoddess3dModelsProven") is False, "production doctrine cannot overclaim lineup")
+need(m.get("proofStage", {}).get("otherThreeBodies") == "UNASSIGNED", "production work queue body status drift")
+need((ROOT / "scenes" / "GoddessLineupProof.tscn").is_file(), "lineup source scene missing")
+need((ROOT / "tests" / "goddessComponentRuntimeSmoke.gd").is_file(), "character-swap Godot regression missing")
+need((ROOT / "tests" / "goddessLineupRuntimeSmoke.gd").is_file(), "four-station Godot smoke missing")
+
 if errors:
     print("YUME_GODDESS_3D_AUDIT=FAIL")
     for e in errors:
