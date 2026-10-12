@@ -29,7 +29,21 @@
         "final material/texture cleanup",
         "Professor canon review of runtime body"
       ],
-      "privateAssetRef": "privateDrive:yume/lum/riggedBipedCandidate"
+      "privateAssetRef": "privateDrive:yume/lum/riggedBipedCandidate",
+      "phase2Candidate": {
+        "sha256": "4b8d41393bb94affe469af551c2915d6b39890cd2add18048d78da8610505a1e",
+        "actualBlendShapes": [
+          "hip_width",
+          "waist_shape",
+          "smile"
+        ],
+        "godotVersion": "4.7.2",
+        "proofScope": "hash pinned ephemerally generated donor, imported morphs, set/reset, 24 bone skeleton, four reversible limb pose checks",
+        "visualStatus": "BLENDER_REVIEW_FRAMES_GENERATED_PROFESSOR_APPROVAL_PENDING",
+        "secondaryMotion": "NOT_PROVEN",
+        "licenseAndRedistribution": "NOT_APPROVED",
+        "crownStatus": "STOP"
+      }
     },
     "urd": {
       "state": "CANON_DESIGN_PRESENT_NO_RECONCILED_3D_BODY",
@@ -231,7 +245,8 @@
       "BlenderOrGodotImportReceipt",
       "runtimeProofWhenClaimed",
       "ProfessorVisualReview"
-    ]
+    ],
+    "browserInteraction": "PENDING_LIVE_BROWSER_REVIEW"
   },
   "proofLadder": {
     "states": [
@@ -256,7 +271,8 @@
     "oldMountedComponentsMustNotRemainVisibleOnFailedSwap": true,
     "morphReceiptMustCountOnlyRealBlendShapes": true,
     "unbuiltGodotTestMayNotClaimPass": true,
-    "proofRequires": "Godot 4.7 headless runtime smoke on exact sourceRef"
+    "proofRequires": "Godot 4.7 headless runtime smoke on exact sourceRef",
+    "godotRuntimeRegression": "PROVEN_IN_EXACT_HEAD_CI"
   },
   "reviewBoundary": {
     "lumBoss": "lum",
@@ -270,6 +286,14 @@
     "mergeAuthority": false,
     "deploymentAuthority": false,
     "publicationAuthority": false,
+    "crownStatus": "STOP"
+  },
+  "fourCharacterLineup": {
+    "scene": "scenes/GoddessLineupProof.tscn",
+    "runtimeSmoke": "tests/goddessLineupRuntimeSmoke.gd",
+    "scope": "four source-labeled stations; Lum ephemerally imported in CI, other three body sockets empty",
+    "actualThreeGoddess3dModelsProven": false,
+    "generatedPlaceholdersAreNotFinishedBodies": true,
     "crownStatus": "STOP"
   }
 }
