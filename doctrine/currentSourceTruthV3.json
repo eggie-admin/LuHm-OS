@@ -336,7 +336,8 @@
       "promotionScope": "yumeArtDirectionBehaviorAndSafety",
       "wholeMeshDeploymentPromotion": false,
       "liveProviderWorkerProven": false,
-      "crownStatus": "CROWNED_SOURCE_ROLE_ONLY"
+      "crownStatus": "CROWNED_SOURCE_ROLE_ONLY",
+      "crownReceipt": "doctrine/yumeArtDirectionCrownReceiptV1.json"
     }
   },
   "yumeBatchImageWorkflow": {
@@ -583,6 +584,7 @@
     "contentLaneExpanded": false,
     "releaseAuthority": false,
     "publicationAuthority": false,
-    "crownStatus": "CROWNED_SOURCE_ROLE_ONLY"
+    "crownStatus": "CROWNED_SOURCE_ROLE_ONLY",
+    "crownReceipt": "doctrine/yumeArtDirectionCrownReceiptV1.json"
   }
 }
