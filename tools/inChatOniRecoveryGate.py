@@ -39,6 +39,7 @@ def adjudicate(packet: dict[str, Any], *, taskId: str,
     if not isinstance(claims, dict) or set(claims) != set(GATES):
         return Verdict("RED", "gates", "exact complete gate set required")
     firstPending: str | None = None
+    firstUnverified: str | None = None
     for gate in GATES:
         claim = claims[gate]
         if not isinstance(claim, dict) or claim.get("state") not in ALLOWED:
@@ -57,8 +58,10 @@ def adjudicate(packet: dict[str, Any], *, taskId: str,
             firstPending = gate
         if claim["state"] == "GREEN":
             resolved = verifiedEvidenceRefs or {}
-            if resolved.get(gate) != claim["evidenceRef"] and firstPending is None:
-                firstPending = gate
+            if resolved.get(gate) != claim["evidenceRef"] and firstUnverified is None:
+                firstUnverified = gate
     if firstPending is not None:
-        return Verdict("AMBER", firstPending, "claimed receipt is unproved by independent resolver")
+        return Verdict("AMBER", firstPending, "explicitly missing or unproven gate")
+    if firstUnverified is not None:
+        return Verdict("AMBER", firstUnverified, "claimed receipt not independently resolved")
     return Verdict("GREEN", "all", "all scoped receipts independently resolved")
