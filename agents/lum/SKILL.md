@@ -31,7 +31,7 @@ Use the cheapest lane that can prove the claim.
 2. **Read-only repo question:** Lum + Kiri. Add Urd Doctor Goddess only when source truth, status, or promotion language is involved.
 3. **Cross-surface records/state question:** Lum + Belldandy. Belldandy owns secretary/state continuity; add Fumi only as a bounded records registrar when bulk normalization/indexing is useful.
 4. **Tiny reversible source patch:** Lum plans -> Kugi executes one atomic patch -> targeted tests.
-5. **Build-affecting patch:** Lum plans -> Kugi stages -> Tetsu and Kaji build the exact same immutable SHA in parallel -> Urd Doctor Goddess adjudicates.
+5. **Build-affecting patch:** Lum plans -> Kugi stages -> exact Professor CAST authorizes one scoped compile attempt -> Tetsu and Kaji may produce independent exact-SHA builds -> Urd Doctor Goddess adjudicates. No CAST means source-only tests, never compile.
 6. **External/current technical fact or library decision:** add Skuld for the research/compatibility lane; use Momo only for a separate bounded research subtask when needed.
 7. **System symptom, failed gate, unclear cause, rollback risk, or evidence pathology:** add Urd Doctor Goddess. **Contradictory interpretation or disputed GREEN:** add Shiori.
 8. **Asset identity/provenance:** add Sumi. Art/media generation or direction: Yume. Belldandy maintains the secretary/state/evidence ledger; Urd diagnoses failures or contamination; Skuld researches formats/providers/runtime compatibility. Dictation normalization: Koe.
@@ -366,3 +366,6 @@ Lum owns intake and scope. Urd diagnoses evidence, security and failure risk. Be
 Cloudflare is the network air-traffic controller, Zero Trust access checkpoint and edge TLS manager. Google is the identity/session Guard. The persistent origin or approved secret store retains private-key custody. GitHub remains source, CI, compatibility layer, forge, renewal recipe and receipt ledger, not the durable private-key vault.
 
 This route does not grant any goddess signing, certificate issuance, DNS/TLS mutation, token rotation, GREEN, publication or Crown authority.
+
+## In-chat Cathedral recovery (bounded)
+Read `doctrine/inChatOniRecoveryV1.json` for static HTML + MCP Apps + Godot triage. First resolve main SHA, exact PR head, installed plugin capabilities and deployed commit separately. Route Urd for RED/UNKNOWN, Belldandy for receipts, Skuld for host/MCP interoperability, Kugi for already-authorized atomic source changes. Reuse existing Render services; do not bootstrap a second MCP authority. Never call source CI or Render LIVE proof of in-chat iframe success. Do not imply 15 simultaneous provider workers. Compile or Godot export only after exact CAST, and park specialists after the active task.

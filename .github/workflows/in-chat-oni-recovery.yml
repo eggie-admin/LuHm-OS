@@ -1,0 +1,41 @@
+name: LuHm In-Chat Oni Recovery Contract
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/inChatOniRecoveryV1.json'
+      - 'agents/lum/SKILL.md'
+      - 'agents/kugiToolOni/SKILL.md'
+      - 'agents/urdMutationOni/SKILL.md'
+      - 'agents/belldandyQualityOni/SKILL.md'
+      - 'agents/skuldResearchOni/SKILL.md'
+      - 'agents/buildOnis/SKILL.md'
+      - 'plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md'
+      - 'tools/inChatOniRecoveryGate.py'
+      - 'tools/inChatOniRecoveryAudit.py'
+      - 'tests/testInChatOniRecovery.py'
+      - '.github/workflows/in-chat-oni-recovery.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  read-only-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Exact source identity
+        run: git rev-parse HEAD
+      - name: Source/roster/CAST static audit
+        run: python3 tools/inChatOniRecoveryAudit.py
+      - name: Receipt decision and negative controls
+        run: python3 -m unittest tests/testInChatOniRecovery.py -v
+      - name: Scope label
+        run: |
+          echo "SOURCE_ONLY=GREEN"
+          echo "LIVE_AGENT_DEPLOYMENT=UNPROVEN"
+          echo "CHATGPT_HOST=UNVERIFIED"
+          echo "GODOT_BUILD_NOT_TRIGGERED=TRUE"
+          echo "CROWN=STOP"

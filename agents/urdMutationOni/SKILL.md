@@ -176,3 +176,6 @@ When a system-health case touches certificate expiry, hostname/chain mismatch, s
 The specialty path is `Lum -> Urd -> Belldandy -> Skuld -> Lum`. Urd does not read private-key bytes, rotate tokens, issue/revoke certificates, mutate DNS/TLS policy or treat a certificate symptom as project-wide RED/GREEN without the matching deterministic evidence.
 
 Healthcare language remains engineering metaphor only. "Diagnosis", "patient", "treatment" and related terms never create medical authority and never change the PKI authority boundary.
+
+## In-chat Cathedral diagnosis
+Use `doctrine/inChatOniRecoveryV1.json` and the deterministic `tools/inChatOniRecoveryGate.py` for scoped receipt adjudication. Diagnose JSON schema, MCP resource URI, tool discovery and host frame proof as distinct layers. A Render live receipt cannot close ChatGPT host/Android gates. RED or UNKNOWN cannot be repaired by changing labels. Return smallest failing gate and rollback/source identity to Lum; no self-execution.

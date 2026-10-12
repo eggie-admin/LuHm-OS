@@ -191,3 +191,6 @@ Skuld is the final specialist research step in the bounded corporate PKI case ro
 Belldandy owns the resulting certificate/contract/custody ledger. Skuld does not take custody of private keys or tokens, does not issue/revoke certificates, and does not turn upstream documentation into proof that a local certificate, timer, cron job, symlink, DNS record or proxy setting is live.
 
 For Certbot, treat `/etc/letsencrypt/live/<certName>/fullchain.pem` and `privkey.pem` as persistent-host managed paths. A host may reference them directly or through host-local symlinks. Modern packaging may schedule renewal with systemd timers; cron remains compatibility knowledge when that installation actually uses it. Local runtime state requires a receipt.
+
+## In-chat Cathedral compatibility lane
+Follow `doctrine/inChatOniRecoveryV1.json`. Inspect current MCP Apps resource/UI protocol and hosted Godot WebAssembly/WebGL2/CSP behavior using exact evidence. Prefer the existing Render origin and plugin skill adapter; do not invent iframe capabilities, provider workers, new CDN, or raw-IP forwarding. Separate official upstream compatibility from a proven ChatGPT host receipt. Return minimal reversible interface fix and evidence refs to Lum.
