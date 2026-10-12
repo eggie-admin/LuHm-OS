@@ -2,6 +2,7 @@
 import importlib.util
 import json
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 MODULE = Path(__file__).resolve().parents[1] / "tools/lumOrchestraGate.py"
@@ -100,6 +101,42 @@ class OrchestraGateTests(unittest.TestCase):
     def test_duplicate_json_denied(self):
         with self.assertRaisesRegex(ValueError, "RED_DUPLICATE_JSON_KEY"):
             json.loads('{"taskId":"a","taskId":"b"}', object_pairs_hook=gate.unique_pairs)
+
+    def check_modified_google_policy(self, updater):
+        real_load = gate.load_json
+        def tamper(path):
+            obj = real_load(path)
+            if path.name == "googleAiDeveloperEntitlementsV1.json":
+                updater(obj)
+            return obj
+        with patch.object(gate, "load_json", side_effect=tamper):
+            errors, _, _ = gate.policy_check(MODULE.parents[1])
+        return errors
+
+    def test_google_consumer_plan_cannot_grant_vertex_or_api(self):
+        errors = self.check_modified_google_policy(
+            lambda data: data["entitlementAxes"]["consumerSubscription"].update({"grantsDeveloperApi": True}))
+        self.assertIn("RED_GOOGLE_CONSUMER_TO_API_ESCALATION", errors)
+
+    def test_google_credit_promise_cannot_grant_paid_execution(self):
+        errors = self.check_modified_google_policy(
+            lambda data: data["entitlementAxes"]["developerProgramBenefits"].update({"grantApiExecution": True}))
+        self.assertIn("RED_GOOGLE_UNREDEEMED_CREDIT_AUTHORITY", errors)
+
+    def test_google_unresolved_billing_warning_cannot_be_cleared_by_agent(self):
+        errors = self.check_modified_google_policy(
+            lambda data: data["entitlementAxes"]["cloudBilling"].update({"paidCallsAllowed": True}))
+        self.assertIn("RED_GOOGLE_BILLING_WARNING_SUPPRESSED", errors)
+
+    def test_google_provider_cannot_self_authorize(self):
+        errors = self.check_modified_google_policy(
+            lambda data: data["executionLaw"].update({"noProviderCanGrantGreen": False}))
+        self.assertIn("RED_GOOGLE_EXECUTION_AUTHORITY", errors)
+
+    def test_unrelated_canonical_worker_cannot_join_route(self):
+        task = packet()
+        task["workers"].append("kugi")
+        self.assertIn("RED_WORKER_ROUTE", self.evaluate(task)[0])
 
 if __name__ == "__main__":
     unittest.main()
