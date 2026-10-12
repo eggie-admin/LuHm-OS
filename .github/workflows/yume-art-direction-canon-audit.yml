@@ -1,8 +1,18 @@
 name: Yume Final Art Direction Canon Audit
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'doctrine/yumeArtDirectionCanonV1.json'
+      - 'doctrine/yumeArtDirectionCrownReceiptV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'agents/yumeArtOni/SKILL.md'
+      - 'tools/yumeArtDirectionCanonAudit.py'
+      - '.github/workflows/yume-art-direction-canon-audit.yml'
   pull_request:
     paths:
       - 'doctrine/yumeArtDirectionCanonV1.json'
+      - 'doctrine/yumeArtDirectionCrownReceiptV1.json'
       - 'doctrine/currentSourceTruthV3.json'
       - 'agents/yumeArtOni/SKILL.md'
       - 'doctrine/luhmAiControlPlaneV1.json'
