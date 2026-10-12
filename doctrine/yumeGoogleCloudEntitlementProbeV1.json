@@ -1,0 +1,26 @@
+{
+  "schema": "luhmOs.yumeGoogleCloudEntitlementProbe.v1",
+  "status": "SOURCE_ONLY_RUNTIME_UNPROVEN",
+  "authority": "Professor",
+  "provider": "googleCloudVertexAiVeo",
+  "adapter": "bigBrother",
+  "probe": "host/api/luhmCloudVideoPreflight.py",
+  "offlineDefault": true,
+  "onlineOptIn": "--online",
+  "verifiedFields": [
+    "projectBillingEnabled",
+    "vertexAiServiceEnabled"
+  ],
+  "stillUnproven": [
+    "IAM",
+    "VeoModelEntitlement",
+    "Quota",
+    "GcsWrite",
+    "ExistingProductionSql"
+  ],
+  "noSpend": true,
+  "credentialsInSource": false,
+  "autoDeploy": false,
+  "autoPublish": false,
+  "crownStatus": "STOP"
+}
