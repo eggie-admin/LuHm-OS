@@ -148,13 +148,13 @@ def main():
                     if bone:
                         axis = Vector((1,0,0)) if "Leg" in name else Vector((0,0,1))
                         bone.rotation_quaternion = bone.rotation_quaternion @ Quaternion(axis, math.radians(degrees))
-        target = center + Vector((0, 0, height * (0.22 if closeup else 0.0)))
+        target = center + Vector((0, 0, height * (0.39 if closeup else 0.09)))
         if viewpoint == "quarter":
             cam.location = center + Vector((height * 1.1, -height * 2.0, height * .3))
         else:
             cam.location = center + Vector((0, -height * 2.4, height * .23))
         aim(cam, target)
-        cam.data.ortho_scale = height * (.45 if closeup else 1.22)
+        cam.data.ortho_scale = height * (.31 if closeup else .95)
         bpy.context.view_layer.update()
         filename = frame_name + ".png"
         scene.render.filepath = str(out / filename)
