@@ -10,6 +10,10 @@ on:
       - 'doctrine/currentSourceTruthV3.json'
       - 'tools/agentSystemDeploymentAudit.py'
       - 'tools/lumTaskRouter.py'
+      - 'doctrine/conversationModeRouterV1.json'
+      - 'doctrine/npmPluginApkDeliveryV1.json'
+      - 'frontEnd/**'
+      - 'tools/conversationModeDeliveryAudit.py'
       - '.github/workflows/agent-system-deployment-audit.yml'
   pull_request:
     paths:
@@ -27,6 +31,10 @@ on:
       - 'tools/lumTaskRouter.py'
       - 'tools/agentTrainingAudit.py'
       - 'tools/agentSystemDeploymentAudit.py'
+      - 'doctrine/conversationModeRouterV1.json'
+      - 'doctrine/npmPluginApkDeliveryV1.json'
+      - 'frontEnd/**'
+      - 'tools/conversationModeDeliveryAudit.py'
       - '.github/workflows/agent-system-deployment-audit.yml'
   workflow_dispatch:
 
@@ -40,6 +48,13 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Bind exact source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" == "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
       - name: Validate deployment contracts
         run: |
           python3 -m json.tool doctrine/agentSystemDeploymentV1.json >/dev/null
@@ -48,7 +63,14 @@ jobs:
           python3 -m json.tool doctrine/projectChatCanonV1.json >/dev/null
           python3 -m json.tool doctrine/currentSourceTruthV3.json >/dev/null
           python3 -m json.tool doctrine/openAiDeploymentV3.json >/dev/null
-          python3 -m py_compile tools/lumTaskRouter.py tools/agentTrainingAudit.py tools/agentSystemDeploymentAudit.py host/mcp/luhmMcpServer.py
+          python3 -m py_compile tools/lumTaskRouter.py tools/agentTrainingAudit.py tools/agentSystemDeploymentAudit.py host/mcp/luhmMcpServer.py tools/conversationModeDeliveryAudit.py
+          python3 -m json.tool doctrine/conversationModeRouterV1.json >/dev/null
+          python3 -m json.tool doctrine/npmPluginApkDeliveryV1.json >/dev/null
+      - name: Audit conversation modes and package delivery
+        run: python3 tools/conversationModeDeliveryAudit.py --output build/conversation-mode-delivery/audit.json
+      - name: Reinstall pinned jQuery and run front-end checks
+        working-directory: frontEnd
+        run: npm run ci
       - name: Prove full agent training
         run: python3 tools/agentTrainingAudit.py
       - name: Prove system-wide source deployment
