@@ -147,7 +147,7 @@ g = [
 ("manifestKebabStyle", manifest_law.get("fileNaming",{}).get("instanceFilenameStyle") == "kebab-case"),
 ("manifestRegexGood", bool(re.fullmatch(manifest_regex, good_sample))),
 ("manifestRegexBad", not bool(re.fullmatch(manifest_regex, bad_sample))),
-("aiTaskSchemaCurrent", "luhmOs.aiTaskManifest.v2" in manifest_law.get("currentSchemas",[])),
+("aiTaskSchemaCurrent", "luhmOs.aiTaskManifest.v2" in manifest_law.get("currentSchemas",[]) and truth.get("manifestLaw",{}).get("currentAiTaskSchema") == "luhmOs.aiTaskManifest.v2" and control.get("aiTaskManifest",{}).get("schema") == "luhmOs.aiTaskManifest.v2" and control.get("taskManifest",{}).get("schema") == "luhmOs.aiTaskManifest.v1" and control.get("taskManifest",{}).get("status") == "LEGACY_PROVENANCE_ONLY" and control.get("taskManifest",{}).get("mayAuthorizeExecution") is False),
 ("aiTaskTemplateCurrent", "doctrine/aiTaskManifestV2.template.json" in manifest_law.get("currentTemplates",[])),
 ("aiTaskSchema", ai_manifest.get("schema") == "luhmOs.aiTaskManifest.v2"),
 ("aiTaskKeysCamel", all_keys_camel(ai_manifest)),
