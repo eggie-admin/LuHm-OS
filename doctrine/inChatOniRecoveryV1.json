@@ -1,0 +1,117 @@
+{
+  "schema": "luhmOs.inChatOniRecovery.v1",
+  "status": "SOURCE_CANDIDATE_ONLY",
+  "authority": {
+    "readOnlyPresentation": true,
+    "canSelfApprove": false,
+    "canAutoMerge": false,
+    "canAutoPublish": false,
+    "canWriteSecrets": false,
+    "canDeclareCrown": false
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalSource": "doctrine/currentSourceTruthV3.json",
+  "existingPorts": {
+    "repo": "eggie-admin/LuHm-OS",
+    "mcpServer": "host/mcp/luhmHarnessServer.py",
+    "widget": "host/harness/widget.html",
+    "godotViewer": "host/harness/godotPlayerWidget.html",
+    "pluginMcpConfig": "plugins/luhm-os/mcp.json",
+    "newInfrastructure": false
+  },
+  "toolIdentities": {
+    "cockpit": {
+      "name": "luhm_open_cockpit",
+      "resourceUri": "ui://luhm-os/cockpit-v2.html",
+      "payloadSchema": "luhmOs.inChatExperiencePayload.v1"
+    },
+    "godot": {
+      "name": "luhm_open_godot_player",
+      "resourceUri": "ui://luhm-os/godot-player-v1.html",
+      "payloadSchema": "luhmOs.inChatGodotPlayer.v1"
+    }
+  },
+  "evidenceGates": [
+    "sourceCi",
+    "renderExactDeploy",
+    "mcpToolDiscovery",
+    "mcpResourceContract",
+    "chatGptHostMount",
+    "godotWebInput",
+    "samsungTouch"
+  ],
+  "gateRule": {
+    "exactSourceRef": true,
+    "receiptByReference": true,
+    "transportNotProof": true,
+    "configuredNotLive": true,
+    "failClosedUnknown": true,
+    "noAggregateGreenWithoutAllGates": true
+  },
+  "defaultMode": "normalChat",
+  "fictionModeExplicit": true,
+  "localDemoSeparateFromLive": true,
+  "taskEnvelope": [
+    "taskId",
+    "sourceRef",
+    "scopeId",
+    "authorityClass",
+    "stopConditions",
+    "budget",
+    "evidenceRefs"
+  ],
+  "workers": {
+    "boss": "lum",
+    "resident": [
+      "urdDoctorGoddess",
+      "belldandySecretary",
+      "skuldResearch"
+    ],
+    "executor": "kugi",
+    "buildWorkers": [
+      "tetsu",
+      "kaji"
+    ],
+    "maxParallelSupportWorkers": 3,
+    "noRecursiveRecruitment": true,
+    "hiddenAsyncExecution": false,
+    "liveProviderWorkersClaimed": false
+  },
+  "specialistLaw": {
+    "urdDoctorGoddess": "evidenceTriage",
+    "belldandySecretary": "sourceAndDeploymentLedger",
+    "skuldResearch": "mcpHostCompatibility",
+    "kugi": "boundedDeterministicMutation",
+    "tetsu": "sourceSnapshotAndPreparation",
+    "kaji": "exactCastOnlyCompile"
+  },
+  "sequence": [
+    "resolveExactMain",
+    "checkExistingRepoAndServices",
+    "classifyFailingLayer",
+    "routeMinimumSpecialists",
+    "applyBoundedFix",
+    "exactHeadStaticCi",
+    "humanAuthorizedMerge",
+    "deployExistingServiceOnlyWhenAuthorized",
+    "proveMcpToolDiscovery",
+    "proveHostUiMount",
+    "proveGodotInteraction",
+    "proveSamsungTouch",
+    "professorCrown"
+  ],
+  "buildGate": {
+    "requiredWord": "cast",
+    "scope": "oneMilestoneOneTaskOneExactSourceRefOneBuildScopeOneAttempt",
+    "genericApprovalDoesNotReplaceCast": true,
+    "sourceOnlyCiNotCompile": true,
+    "noAutomaticGodotWebExport": true
+  },
+  "currentClaims": {
+    "sourceAndRender": "VERIFY_LIVE_RECEIPTS_PER_SHA",
+    "inChatHost": "UNVERIFIED",
+    "godotInput": "UNVERIFIED",
+    "android": "UNVERIFIED",
+    "crown": "STOP"
+  }
+}

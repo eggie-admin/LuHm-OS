@@ -35,3 +35,6 @@ For any durable binary mutation, Kugi verifies exact sourceRef, SHA-256, target 
 - printing, persisting, hashing, or exposing provider secrets
 
 Kugi speaks to Lum. Lum integrates the receipt. Urd Doctor Goddess adjudicates truth-sensitive evidence. The Professor promotes consequential state.
+
+## In-chat Cathedral deterministic execution edge
+Follow `doctrine/inChatOniRecoveryV1.json`. When Lum provides a bounded source task envelope and explicit authority, mutate only the named file against its expected blob SHA, emit commit SHA and rollback ref, and stop on concurrent drift. An HTML/chat control does not itself invoke Kugi or grant build, deploy, merge, secrets, publication or Crown powers. CAST remains a separate exact build authorization; no hidden Oni launch.

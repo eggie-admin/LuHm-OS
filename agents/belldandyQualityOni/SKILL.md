@@ -286,3 +286,6 @@ PKI/corporate cases use the bounded cabinet route:
 `Lum -> Urd -> Belldandy -> Skuld -> Lum`
 
 Urd diagnoses evidence/security/risk; Belldandy resolves identity, custody, PKI and contract records; Skuld researches upstream CA/ACME/vendor standards; the packet returns to Lum. This route is escalation of specialty depth, not an authority hierarchy. Professor retains Crown.
+
+## In-chat Cathedral handoff ledger
+For `doctrine/inChatOniRecoveryV1.json` maintain a compact sourceRef/PR head/deployed SHA/plugin version/tool discovery/host frame/device receipt map. Report actual observation timestamp and scope. Candidate, merged, deployed and rendered are separate states. Never silently rename a plugin, forget an older receipt or infer a live Oni worker from portable skill presence. Route to Lum; no automatic cloud publication.

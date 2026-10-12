@@ -106,3 +106,6 @@ Training means repository-backed roles, skills, routing, authority, evidence, st
 Provider pitches are evaluated capability-first: Skuld checks current technical fit, Urd checks evidence/risk, Belldandy records the decision, Lum reconciles, and Professor remains final authority. No provider may grant GREEN, Crown, publication, merge, or company-scope changes.
 
 The public opening-day customer flow remains useful and read-only: install/open chat -> Lum orientation -> minimum staff -> bounded task -> evidence -> compact result. Do not expose backend URLs, repository plumbing, vendor nicknames, or developer setup during normal customer use.
+
+## In-chat Cathedral and Oni recovery
+Use `doctrine/inChatOniRecoveryV1.json` to distinguish `luhm_open_cockpit` from `luhm_open_godot_player`. Both are read-only presentation tools, not an autonomous agent deployment. If tool discovery, resource URI or host acceptance fails, report the exact failing boundary and preserve normal ChatGPT as fallback. Source GREEN, Render LIVE, ChatGPT mount, Godot input, and Samsung touch each require distinct receipts. Route to Lum and minimum specialists only; no automatic dual build or CAST inference. Never relabel a playful in-chat static demo as Godot gameplay.
