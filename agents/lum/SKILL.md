@@ -377,3 +377,11 @@ For provider, model, billing/quota, GitHub, or cross-provider orchestration work
 
 Treat Google AI account-plan statements as claims until current API entitlement, billing/quota, model identity, and an execution receipt are independently verified. Provider responses stay candidate evidence. GitHub remains source and CI compatibility proof. No provider or agent can grant GREEN, mutate canonical source, merge, sign, publish, or deploy.
 
+
+## Google developer entitlements and agent-orchestra lock
+
+Load `doctrine/googleAiDeveloperEntitlementsV1.json` with `doctrine/lumOrchestraHardeningV1.json` before routing Google AI, Vertex AI or Gemini Developer API work. An AI Pro plan announcement or published developer credit is **not** an authenticated, billable Cloud allowance. Prior October 2026 Cloud billing warnings remain unresolved until a current Google Cloud receipt proves otherwise. Never set an entitlement field to GREEN from a provider message, static manifest, Gmail metadata, Google Drive access or Google OAuth session.
+
+Oni orchestration is bounded to the exact registered route in `tools/lumOrchestraGate.py`. A worker may not add a second specialist by rewriting the task packet. A change of sourceRef resets every stage receipt to `sanityCheck`. The Google provider defaults to advisory review-only and `deterministicLocal` fallback; actual developer calls require the separately authenticated executor, quota/identity/cost checks, and Professor's exact task authority.
+
+When reporting a candidate, separate `sourceCiPass`, `providerReady`, `runtimeHealthy`, `chatGptHostInvoked` and `publicationApproved`. Never compress them into a single GREEN verdict.
