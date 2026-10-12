@@ -1,0 +1,40 @@
+name: LuHm Public MCP / Cathedral Runtime Observation
+
+on:
+  pull_request:
+    paths:
+      - 'tools/inChatLiveMcpProbe.py'
+      - 'tests/testInChatLiveMcpProbe.py'
+      - '.github/workflows/in-chat-public-mcp-probe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  external-read-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Source-only adversarial tests
+        run: python3 -m unittest tests/testInChatLiveMcpProbe.py -v
+      - name: Observe existing Render endpoints
+        run: python3 tools/inChatLiveMcpProbe.py --report in-chat-public-mcp-probe.json
+      - name: Upload observed runtime receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: in-chat-public-mcp-probe
+          path: in-chat-public-mcp-probe.json
+          if-no-files-found: warn
+      - name: Explain proof boundary
+        run: |
+          echo "NO_DEPLOY_NO_BUILD_NO_SECRETS"
+          echo "CI_SUCCESS_IS_NOT_MCP_OR_CHATGPT_HOST_GREEN"
+          echo "CHATGPT_HOST_AND_ANDROID_REQUIRE_REAL_CLIENT_PROOF"
