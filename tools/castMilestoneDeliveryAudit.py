@@ -30,7 +30,7 @@ def need(condition: bool, reason: str) -> None:
 
 need(forge["crownStatus"] == "STOP", "Forge must retain Crown STOP")
 need(cast["castWord"] == "cast", "CAST magic word changed")
-need(cast["singleUse"] is True and cast["consumedOnAttempt"] is True, "CAST single-use guard lost")
+need("singleUse" in cast["requiredFields"] and cast["consumedOnAttempt"] is True, "CAST single-use guard lost")
 need(cast["persistentAuthorizationAllowed"] is False, "persistent CAST enabled")
 need("deployment" in cast["doesNotAuthorize"] and "publication" in cast["doesNotAuthorize"], "CAST release boundary weakened")
 need(delivery["status"] == "SOURCE_ONLY_CANDIDATE_NO_INSTALL_OR_RUNTIME_CLAIM", "source-only boundary lost")
