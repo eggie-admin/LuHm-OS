@@ -1,0 +1,129 @@
+{
+  "schema": "luhmOs.networkSpine.v1",
+  "status": "SOURCE_HARDENING_CANDIDATE",
+  "authority": "Professor",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "foundation": "professorEstablishedOldMagic",
+  "dnsRole": "nameResolution",
+  "proxyRole": "requestForwarding",
+  "runtimeState": "UNVERIFIED",
+  "runtimeProofFromStaticCi": false,
+  "cabinet": {
+    "recordsOwner": "belldandySecretary",
+    "evidenceOwner": "urdDoctorGoddess",
+    "reconciliationOwner": "lum"
+  },
+  "hostIdentity": {
+    "reportedPlatform": "Ubuntu 26 LTS minimal headless",
+    "runtimeReceiptRequired": true,
+    "persistentOriginDistinctFromEphemeralWorkspace": true
+  },
+  "repositoryAlignment": {
+    "contract": "doctrine/activeRepositorySetV1.json",
+    "strategy": "selectiveReviewedTransplant",
+    "snapshotsBeforeStructuralChanges": true,
+    "exactDonorCommitRequired": true,
+    "lockfilesRequiredForNpm": true,
+    "symlinksProveAlignment": false,
+    "unrelatedHistoryMerge": false
+  },
+  "lanes": {
+    "systemPortal": {
+      "fqdn": "system.eggiebagelface.art",
+      "activationState": "UNVERIFIED",
+      "requestPath": [
+        "client",
+        "cloudflareEdge",
+        "cloudflared",
+        "hostReverseProxy",
+        "boundedService"
+      ],
+      "connectorDirection": "originInitiatesOutbound",
+      "mode": "optionalCloudflareTunnel"
+    },
+    "publicChatPluginMcp": {
+      "fqdn": "mcp.eggiebagelface.art",
+      "activationState": "UNVERIFIED",
+      "requestPath": [
+        "client",
+        "renderManagedTls",
+        "luhmMcp"
+      ],
+      "mode": "dnsOnlyRenderBootstrap",
+      "proxyRequiresSeparateStreamingProof": true
+    },
+    "staticAssets": {
+      "fqdn": "assets.eggiebagelface.art",
+      "activationState": "UNVERIFIED",
+      "currentMount": "/harness/assets/",
+      "mode": "sameOriginUntilSeparateCdnProof"
+    }
+  },
+  "reverseProxy": {
+    "preferredHostProxy": "apache2",
+    "backendBinding": "loopbackOrUnixSocket",
+    "unknownHostAction": "reject",
+    "allowForwardProxy": false,
+    "trustClientForwardedHeaders": false,
+    "forwardedHeaders": "acceptOnlyFromVerifiedIngressAndNormalizeAtBoundary",
+    "serveRepositoryRoot": false,
+    "exposeShellOrSqlAdmin": false,
+    "symlinksGrantAccess": false,
+    "rewriteBackendRedirects": true,
+    "cacheAuthenticatedOrMcpTraffic": false,
+    "symlinkResolution": "resolveWithinApprovedServiceRoot"
+  },
+  "tls": {
+    "edgeMode": "FullStrict",
+    "tunnelOriginValidation": "independentCloudflaredVerification",
+    "noTlsVerify": false,
+    "originServerName": "mustMatchOriginCertificate",
+    "privateKeyCustody": "persistentOriginOrApprovedSecretStore",
+    "managedLivePaths": "doctrine/belldandyPkiCorporateSecretaryV1.json",
+    "filesystemProofDoesNotProveCertificateOrRenewal": true
+  },
+  "runtimeEvidenceRequired": [
+    "hostIdentity",
+    "dnsTarget",
+    "tlsHostnameAndChain",
+    "originTlsValidation",
+    "proxyConfigSyntax",
+    "unknownHostRejected",
+    "forwardedHeaderSpoofRejected",
+    "backendRedirects",
+    "authBoundary",
+    "httpsHealth",
+    "mcpInitializationWhenApplicable",
+    "certificateRenewalWhenApplicable",
+    "rollbackRef"
+  ],
+  "receiptIdentity": [
+    "taskId",
+    "sourceRef",
+    "scopeId",
+    "laneId",
+    "fqdn",
+    "originIdentity",
+    "observedAt",
+    "evidenceRefs",
+    "checkResults"
+  ],
+  "proofLaw": "Record actual observations for the exact route and source. Missing, stale, conflicting or failed evidence never proves readiness. Source tests check contracts only.",
+  "workflow": ".github/workflows/network-spine-audit.yml",
+  "auditor": "tools/networkSpineAudit.py",
+  "liveMutation": {
+    "dns": false,
+    "tunnel": false,
+    "proxy": false,
+    "certificate": false,
+    "identityPolicy": false
+  },
+  "upstreamRefs": [
+    "https://developers.cloudflare.com/tunnel/concepts/routing/",
+    "https://developers.cloudflare.com/tunnel/troubleshooting/https-origins/",
+    "https://httpd.apache.org/docs/2.4/mod/mod_proxy.html",
+    "https://eff-certbot.readthedocs.io/en/stable/using.html"
+  ],
+  "crownStatus": "STOP"
+}
+

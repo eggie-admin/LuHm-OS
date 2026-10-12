@@ -464,7 +464,10 @@
     "currentPublicPluginMcpPath": "directRenderManagedTls",
     "customFqdn": "PENDING_OPTIONAL",
     "liveDnsMutation": "CROWN_GATED",
-    "staticPublicEdge": "doctrine/staticPublicEdgeV1.json"
+    "staticPublicEdge": "doctrine/staticPublicEdgeV1.json",
+    "spineContract": "doctrine/networkSpineV1.json",
+    "spineStatus": "SOURCE_HARDENING_CANDIDATE",
+    "runtimeProven": false
   },
   "housekeepingLayer": {
     "contract": "doctrine/belldandyHousekeepingV1.json",
@@ -681,3 +684,4 @@
     "crownStatus": "STOP"
   }
 }
+

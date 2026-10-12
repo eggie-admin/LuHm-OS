@@ -289,3 +289,11 @@ Urd diagnoses evidence/security/risk; Belldandy resolves identity, custody, PKI 
 
 ## In-chat Cathedral handoff ledger
 For `doctrine/inChatOniRecoveryV1.json` maintain a compact sourceRef/PR head/deployed SHA/plugin version/tool discovery/host frame/device receipt map. Report actual observation timestamp and scope. Candidate, merged, deployed and rendered are separate states. Never silently rename a plugin, forget an older receipt or infer a live Oni worker from portable skill presence. Route to Lum; no automatic cloud publication.
+
+## FQDN and reverse-proxy spine records
+Load `doctrine/networkSpineV1.json` for routing, host, TLS, symlink or repository-alignment work. Run `python3 tools/networkSpineAudit.py` for source consistency only.
+Record the exact laneId, FQDN, origin identity, taskId, sourceRef, scopeId, observation time and evidence references. Keep configured, observed and promoted states separate.
+Keep the optional system tunnel, direct Render MCP bootstrap and asset CDN candidate distinct. DNS resolves names; the edge proxy routes requests; Git/build workflows align repositories.
+Index certificate SAN/validity, managed symlink targets, renewal and rollback receipts without reading private-key bytes. Filesystem checks prove paths only.
+Return missing or conflicting route evidence to Urd and Lum. Never infer a persistent production host from a Copilot or Actions workspace label.
+
