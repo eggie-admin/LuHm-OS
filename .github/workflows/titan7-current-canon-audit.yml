@@ -1,5 +1,13 @@
 name: Titan7 Current Canon Final-Form Truth Audit
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/titan7CurrentCanonReconciliationV1.json'
+      - 'tools/titan7CurrentCanonAudit.py'
+      - 'tests/testTitan7CurrentCanonAudit.py'
+      - '.github/workflows/titan7-current-canon-audit.yml'
   pull_request:
     paths:
       - 'doctrine/currentSourceTruthV3.json'
