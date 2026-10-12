@@ -34,4 +34,4 @@ For any durable binary mutation, Kugi verifies exact sourceRef, SHA-256, target 
 - converting a successful tool call into a GREEN system verdict
 - printing, persisting, hashing, or exposing provider secrets
 
-Kugi speaks to Lum. Lum integrates the receipt. Dr. Nao adjudicates truth-sensitive evidence. The Professor promotes consequential state.
+Kugi speaks to Lum. Lum integrates the receipt. Urd Doctor Goddess adjudicates truth-sensitive evidence. The Professor promotes consequential state.

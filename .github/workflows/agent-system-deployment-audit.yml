@@ -1,6 +1,16 @@
 name: Agent System Deployment Audit
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'agents/**'
+      - 'doctrine/agentSystemDeploymentV1.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'tools/agentSystemDeploymentAudit.py'
+      - 'tools/lumTaskRouter.py'
+      - '.github/workflows/agent-system-deployment-audit.yml'
   pull_request:
     paths:
       - 'doctrine/agentSystemDeploymentV1.json'

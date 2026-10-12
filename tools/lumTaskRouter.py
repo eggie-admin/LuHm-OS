@@ -23,6 +23,7 @@ ROUTES = {
     "release": ["lum", "urdDoctorGoddess", "ProfessorCrown"],
     "art": ["lum", "yume"],
     "media": ["lum", "yume", "sumi"],
+    "mediaFactory": ["lum", "yume", "mediaAssetFactory"],
     "dictation": ["lum", "belldandySecretary", "koe"],
     "asset": ["lum", "sumi"],
 }

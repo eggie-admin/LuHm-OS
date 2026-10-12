@@ -111,7 +111,7 @@ need("def luhm_agent_deployment()" in mcp_text, "MCP deployment tool missing")
 need("RED_AGENT_DEPLOYMENT_ROSTER_DRIFT" in mcp_text, "MCP deployment health gate missing")
 
 router = ROOT / "tools/lumTaskRouter.py"
-route_kinds = ["direct","read","records","proof","patch","build","external","diagnose","research","monitor","release","art","media","dictation","asset"]
+route_kinds = ["direct","read","records","proof","patch","build","external","diagnose","research","monitor","release","art","media","mediaFactory","dictation","asset"]
 allowed = set(required) | {"ProfessorCrown"}
 routes: dict[str, list[str]] = {}
 for kind in route_kinds:
@@ -121,10 +121,80 @@ for kind in route_kinds:
     routes[kind] = workers
     need(all(worker in allowed for worker in workers), f"{kind}: noncanonical worker in route: {workers}")
 need(routes.get("art") == ["lum","yume"], "art route must resolve Lum + Yume")
+need(routes.get("mediaFactory") == ["lum","yume","mediaAssetFactory"], "media factory must remain Lum/Yume candidate-only")
 need(routes.get("monitor") == ["lum","urdDoctorGoddess","belldandySecretary","skuldResearch"], "monitor route cabinet drift")
 need({"tetsu","kaji"}.issubset(routes.get("build", [])), "build route missing forge Oni twins")
 need("urdDoctorGoddess" in routes.get("proof", []), "proof route missing Urd")
 need(routes.get("dictation") == ["lum","belldandySecretary","koe"], "dictation must route through Belldandy continuity before Koe handoff")
+
+# Full 15-agent behavioral/authority matrix. Skills inherit the shared protocol;
+# absence of repeated envelope text in a short skill does not remove that contract.
+protocol_text = (ROOT / "agents/shared/ONI_PROTOCOL_V2.md").read_text(encoding="utf-8")
+for token in ("taskId", "sourceRef", "scopeId", "Lum", "Professor", "UNKNOWN", "crownStop"):
+    need(token.lower() in protocol_text.lower(), f"shared reasoning/authority protocol missing: {token}")
+
+for agent_id in required:
+    role = agents[agent_id]
+    skill_rel = role["skillPath"]
+    skill = (ROOT / skill_rel).read_text(encoding="utf-8")
+    need(skill_rel.startswith("agents/") and ".." not in Path(skill_rel).parts, f"{agent_id}: unsafe skill path")
+    need(len(skill.strip()) >= 250, f"{agent_id}: skill body unexpectedly empty")
+    need("doctrine/luhmAiControlPlaneV1.json" in skill, f"{agent_id}: canonical control-plane link missing")
+    need(role.get("defaultAuthority") in control.get("authorityClasses", []), f"{agent_id}: unknown authority class")
+    need(bool(role.get("capabilities")) and all(isinstance(x, str) and x for x in role.get("capabilities", [])),
+         f"{agent_id}: declared capability contract missing")
+    need(bool(role.get("forbidden")) and all(isinstance(x, str) and x for x in role.get("forbidden", [])),
+         f"{agent_id}: forbidden-capability contract missing")
+    need(role.get("speaksTo") == ("Professor" if agent_id == "lum" else "lum"),
+         f"{agent_id}: unauthorized conversational authority")
+    need(role.get("parallelClass") in {"boss", "support", "executor", "builder", "service"},
+         f"{agent_id}: unknown parallel class")
+
+for agent_id in ("urdDoctorGoddess", "belldandySecretary", "skuldResearch"):
+    need(agents[agent_id]["defaultAuthority"] == "READ_ONLY", f"{agent_id}: cabinet authority drift")
+for agent_id in ("tetsu", "kaji"):
+    need(agents[agent_id]["defaultAuthority"] == "BUILD_EPHEMERAL", f"{agent_id}: builder authority drift")
+need(agents["kugi"]["defaultAuthority"] == "PLAN_ONLY", "Kugi mutation not allowed by default")
+for rel in ("agents/lum/SKILL.md", "agents/kugiToolOni/SKILL.md"):
+    skill = (ROOT / rel).read_text(encoding="utf-8")
+    need("Dr. Nao" not in skill, f"{rel}: retired adjudicator still owns active workflow")
+    need("Urd Doctor Goddess" in skill, f"{rel}: current evidence adjudicator missing")
+
+# A registered specialist must be addressable by at least one deliberate route,
+# including the three documented opt-in diagnostic/research flags.
+reachable = set(worker for workers in routes.values() for worker in workers)
+for flag in ("--contested", "--external-fact", "--asset-review"):
+    cp = subprocess.run([sys.executable, str(router), "read", flag], cwd=ROOT, capture_output=True, text=True)
+    need(cp.returncode == 0, f"router rejected bounded {flag}")
+    if cp.returncode == 0:
+        extra = json.loads(cp.stdout)
+        reachable.update(extra.get("workers", []))
+        need(extra.get("greenAuthority") is False and extra.get("residentCabinetHiddenAsync") is False,
+             f"{flag}: runtime-authority or hidden-async leak")
+need(set(required).issubset(reachable), f"unreachable agents: {sorted(set(required) - reachable)}")
+need(reachable.issubset(allowed), f"unregistered routing identity: {sorted(reachable - allowed)}")
+
+for kind in route_kinds:
+    cp = subprocess.run([sys.executable, str(router), kind], cwd=ROOT, capture_output=True, text=True)
+    if cp.returncode == 0:
+        payload = json.loads(cp.stdout)
+        need(payload.get("greenAuthority") is False, f"{kind}: routing grants GREEN")
+        need(payload.get("residentCabinetHiddenAsync") is False, f"{kind}: hidden runtime workers claimed")
+        need(payload.get("sourceMutationLanes") in (0, 1), f"{kind}: mutable lane expansion")
+        need(payload.get("parallelBuilds") in (0, 2), f"{kind}: unexpected build lane count")
+        need(len(payload.get("supportWorkers", [])) <= 3, f"{kind}: support-worker overrun")
+need(routes.get("release") == ["lum","urdDoctorGoddess","ProfessorCrown"],
+     "release must retain explicit Professor gate")
+overbudget = subprocess.run(
+    [sys.executable, str(router), "build", "--contested", "--external-fact", "--asset-review"],
+    cwd=ROOT, capture_output=True, text=True,
+)
+need(overbudget.returncode != 0 and "RED_ROUTER_SUPPORT_PARALLELISM_EXCEEDED" in (overbudget.stderr + overbudget.stdout),
+     "parallelism overflow did not fail closed")
+need(control.get("aiTaskManifest", {}).get("schema") == truth.get("manifestLaw", {}).get("currentAiTaskSchema")
+     == "luhmOs.aiTaskManifest.v2", "agent reasoning input manifest schema drift")
+need(control.get("taskManifest", {}).get("mayAuthorizeExecution") is False,
+     "legacy manifest may not grant execution authority")
 
 training_run = subprocess.run([sys.executable, str(ROOT / "tools/agentTrainingAudit.py")], cwd=ROOT, capture_output=True, text=True)
 need(training_run.returncode == 0, "agentTrainingAudit failed")
@@ -137,6 +207,10 @@ if errors:
 
 print("AGENT_SYSTEM_DEPLOYMENT=GREEN_SOURCE_CANDIDATE")
 print("registeredAgents=15")
+print("behavioralSkillsAudited=15")
+print("routingCoverage=15/15")
+print("retiredAdjudicator=urdDoctorGoddess")
+print("reasoningAudit=observableContractOnly")
 print("residentCore=lum,urdDoctorGoddess,belldandySecretary,skuldResearch")
 print("residentGoddessTriplet=urdDoctorGoddess,belldandySecretary,skuldResearch")
 print("oniDefaultState=standby")
