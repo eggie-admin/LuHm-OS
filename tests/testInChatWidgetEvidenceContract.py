@@ -8,6 +8,7 @@ def auditWidget(source: str) -> list[str]:
     errors = []
     checks = {
         "htmlSink": ".innerHTML=" not in source,
+        "noLiteralBackslashNewline": r"\nfunction " not in source,
         "safeCommandDOM": 'strong.textContent=item.icon+" "+item.debugVerb' in source and 'detail.textContent=item.kebab' in source,
         "schema": 'candidate.schema!=="luhmOs.inChatExperiencePayload.v1"' in source,
         "surface": 'candidate.surface!=="mcp-app"' in source,
@@ -40,6 +41,9 @@ class InChatWidgetEvidenceContract(unittest.TestCase):
 
     def test_rejectUnsafeSink(self):
         self.assertIn("htmlSink", auditWidget(SOURCE + "\nb.innerHTML=untrusted;"))
+
+    def test_rejectLiteralEscape(self):
+        self.assertIn("noLiteralBackslashNewline", auditWidget(SOURCE + r"\nfunction damaged(){}"))
 
     def test_rejectForgedGreen(self):
         self.assertIn("noConfiguredGreen", auditWidget(SOURCE + '\ncsp:"PRESENT"'))
