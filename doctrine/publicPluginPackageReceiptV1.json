@@ -2,24 +2,33 @@
   "schema": "luhmOs.publicPluginPackageReceipt.v1",
   "status": "GREEN_UPLOAD_PACKAGE",
   "authority": "Professor",
-  "sourceRef": "14ee43d22fafe0fcaaa1b1fb427c9b1dd42a0fda",
+  "sourceRef": "dae5c07210a8a3599a202ed2a62acf430fb3a952",
   "plugin": {
     "name": "luhm-os",
     "displayName": "LuHm OS",
-    "version": "0.4.1"
+    "version": "0.5.2"
   },
   "artifact": {
-    "filename": "LuHm-OS-plugin-0.4.1-14ee43d2.zip",
-    "sha256": "abef58af6cce75364f2ba9c8852d3ec85036e445a8c2e560faeae1b57f41a583",
-    "bytes": 5251,
-    "storage": "conversationArtifact",
+    "filename": "luhm-os-manual-upload-0.5.2.zip",
+    "sha256": "1e74d830b5d8381112ae857a00630c69aedff8957466304630bded952a7dbd09",
+    "bytes": 16120,
+    "storage": "googleDriveVerifiedArtifactAndChatDownload",
     "repositoryBinaryCommitted": false
   },
   "members": [
-    "plugin.json",
+    "BUILD_RECEIPT.json",
+    "PRIVACY.md",
+    "README.md",
+    "SOURCE_MAP.json",
+    "TERMS.md",
+    "VIRGIN_INSTALL.md",
+    "assets/logo.svg",
     "mcp.json",
+    "plugin.json",
+    "review-tests.json",
+    "skills/belldandy-housekeeping/SKILL.md",
     "skills/luhm-agent-workflow/SKILL.md",
-    "assets/logo.svg"
+    "skills/luhm-coding-roleplay/SKILL.md"
   ],
   "packageChecks": {
     "portableSchema": "PASS",
@@ -27,7 +36,9 @@
     "httpsMcp": "PASS",
     "reviewCaseCount": "5_positive_3_negative",
     "assetPaths": "PASS",
-    "secretPatternScan": "PASS"
+    "secretPatternScan": "PASS",
+    "memberHashVerification": "PASS",
+    "currentMcpDeployInsidePackage": "NOT_CLAIMED"
   },
   "mcp": {
     "transport": "streamable-http",
@@ -47,5 +58,14 @@
     "publicInvocationProof": "PENDING"
   },
   "publicationAuthority": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "buildEvidence": {
+    "githubActionRunId": 38217231216,
+    "githubArtifactId": 11732790107,
+    "githubArtifactDigest": "sha256:213a4ba08dba71040b38caf3e74caba07ec680260be7eeb2964dc0ec3f955862",
+    "exactSourceRef": "dae5c07210a8a3599a202ed2a62acf430fb3a952",
+    "innerZipSha256": "1e74d830b5d8381112ae857a00630c69aedff8957466304630bded952a7dbd09",
+    "privateDrivePointer": "keptOutsidePublicRepository",
+    "note": "Upload package is built from an earlier main SHA; newer Render MCP deployment is a separate runtime receipt, not included in this ZIP."
+  }
 }
