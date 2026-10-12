@@ -87,9 +87,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if ! command -v blender >/dev/null 2>&1; then
+          if ! command -v blender >/dev/null 2>&1 || ! command -v ffmpeg >/dev/null 2>&1; then
             sudo apt-get update -qq
-            sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq blender
+            sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq blender ffmpeg
           fi
           blender -b --factory-startup --python-expr "import bpy; print('BLENDER_READY', bpy.app.version_string)"
           python3 -m pip install --user 'Pillow==11.3.0'
