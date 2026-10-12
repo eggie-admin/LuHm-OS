@@ -1,0 +1,334 @@
+{
+  "schema": "luhmOs.skuldCodingScore.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Bind Skuld's coding-pipeline research to existing LuHmOS four-layer architecture, four-tier escalation, 4/4 rhythm, eight-note agent scope, typed SQL old magic, upstream package new magic and human-centered roleplay, while clearly proposing but not promoting sixteenth-note subdivision.",
+  "owner": "skuldResearch",
+  "orchestrator": "lum",
+  "reconciler": "belldandySecretary",
+  "evidenceAdjudicator": "urdDoctorGoddess",
+  "mutationExecutor": "kugi",
+  "provenance": {
+    "composition": "doctrine/luHmOSFourLayerArchitectureV1.json",
+    "escalation": "doctrine/escalationKernelV1.json",
+    "rhythm": "doctrine/fourBeatInteractionRhythmV1.json",
+    "eighthNotes": "doctrine/eighthNoteAgentScopeV1.json",
+    "oldMagic": "doctrine/typedFourLaneSqlV1.json",
+    "newMagic": "doctrine/npmPluginApkDeliveryV1.json",
+    "upstream": "doctrine/skuldUpstreamCabinetV1.json",
+    "sourceModules": "doctrine/modularSourceArchitectureV1.json",
+    "humanIntent": "doctrine/humanCenteredIntentRouterV2.json",
+    "humanRoleplay": "doctrine/codingRoleplayDirectorV2.json",
+    "providerApi": "doctrine/apiSpineV1.json",
+    "staff": "doctrine/agentSystemDeploymentV1.json",
+    "staffSkill": "agents/skuldResearchOni/SKILL.md"
+  },
+  "distinctFourCounts": {
+    "compositionLayers": [
+      "coreLibrary",
+      "pluginExtension",
+      "classWidgetOrganization",
+      "stubAdapterBoundary"
+    ],
+    "escalationTiers": [
+      "default",
+      "coordinated",
+      "specialist",
+      "closure"
+    ],
+    "beats": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "law": "Composition layer, escalation maturity, four-beat cadence and typed-data lane are independent axes; none upgrades task authority."
+  },
+  "magicFamilies": {
+    "oldMagic": {
+      "identity": "deterministicSqlAndData",
+      "source": "doctrine/typedFourLaneSqlV1.json",
+      "bindings": [
+        "numericStream",
+        "textStream",
+        "booleanStream",
+        "aiManifestStream"
+      ],
+      "databaseRuntimeProven": false,
+      "constraints": [
+        "databaseStoresPointersNotLargeBinary",
+        "transactionAtomicWithinTaskScope",
+        "unknownBooleanNeverCountsGreen",
+        "noPublicSqlAdminRoute"
+      ]
+    },
+    "newMagic": {
+      "identity": "versionedPackagesAndProviderAdapters",
+      "source": "doctrine/npmPluginApkDeliveryV1.json",
+      "upstream": "doctrine/skuldUpstreamCabinetV1.json",
+      "ecosystems": [
+        "apt",
+        "dpkg",
+        "npm",
+        "pip",
+        "uv",
+        "gradle",
+        "MCP",
+        "vendorApi"
+      ],
+      "constraints": [
+        "officialUpstreamFirst",
+        "lockfileVersionIntegrityAndLicenseReview",
+        "noInstallScriptByDefault",
+        "npmDoesNotInstallApk",
+        "providersAreAdaptersNotSourceAuthority"
+      ],
+      "installationProven": false
+    },
+    "humanMagic": {
+      "identity": "humanCenteredIntentAndRoleplay",
+      "intent": "doctrine/humanCenteredIntentRouterV2.json",
+      "roleplay": "doctrine/codingRoleplayDirectorV2.json",
+      "modes": [
+        "default",
+        "IC",
+        "OOC",
+        "IRL"
+      ],
+      "constraints": [
+        "OocIrlAndCorrectionOverridePresentation",
+        "roleplayNeverChangesMachineProof",
+        "voiceAliasNeverGrantsAuthority",
+        "artistAndHumanRetainCreativeControl",
+        "showRealMilestoneNotCeremonialGreen"
+      ],
+      "independentHostProof": false
+    }
+  },
+  "meter": {
+    "signature": "4/4",
+    "canonicalEighthSource": "doctrine/eighthNoteAgentScopeV1.json",
+    "eighthCount": 8,
+    "proposedSixteenthCount": 16,
+    "sixteenthStatus": "NEW_PROPOSAL_NOT_EXISTING_CANON",
+    "sixteenthsPerEighth": 2,
+    "sixteenthsPerBeat": 4,
+    "taskIdentity": [
+      "taskId",
+      "sourceRef",
+      "scopeId"
+    ],
+    "noteLaw": "Each adjacent sixteenth pair refines an existing eighth-note responsibility; neither changes ownership of the parent eighth nor grants mutation authority."
+  },
+  "sixteenthNotes": [
+    {
+      "sixteenth": 1,
+      "eighthNote": 1,
+      "beat": 1,
+      "id": "preserveProfessorIntent",
+      "activity": "captureExactCorrection",
+      "supportOwner": "lum",
+      "output": "goalAndConstraintReceipt",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 2,
+      "eighthNote": 1,
+      "beat": 1,
+      "id": "normalizeSpeechAndMode",
+      "activity": "preserveHumanOverride",
+      "supportOwner": "lum",
+      "output": "normalizedIntentWithoutAuthorityChange",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 3,
+      "eighthNote": 2,
+      "beat": 1,
+      "id": "bindCurrentSource",
+      "activity": "identifyTaskScope",
+      "supportOwner": "lum",
+      "output": "taskIdSourceRefScopeId",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 4,
+      "eighthNote": 2,
+      "beat": 1,
+      "id": "resolveAuthorityAndTier",
+      "activity": "bindSmallestAllowedTier",
+      "supportOwner": "lum",
+      "output": "authorityAndFallback",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 5,
+      "eighthNote": 3,
+      "beat": 2,
+      "id": "inspectVendorCapability",
+      "activity": "checkOfficialUpstream",
+      "supportOwner": "skuldResearch",
+      "output": "versionAndCapabilityResearch",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 6,
+      "eighthNote": 3,
+      "beat": 2,
+      "id": "checkEntitlementAndLicenses",
+      "activity": "auditCandidatePackageOrApi",
+      "supportOwner": "skuldResearch",
+      "output": "licenseEntitlementAndSupplyChainFindings",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 7,
+      "eighthNote": 4,
+      "beat": 2,
+      "id": "selectMinimalStaff",
+      "activity": "honorBoundedWorkerBudget",
+      "supportOwner": "lum",
+      "output": "routedWorkerList",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 8,
+      "eighthNote": 4,
+      "beat": 2,
+      "id": "issueScopedWorkEnvelope",
+      "activity": "bindDeterministicExecutor",
+      "supportOwner": "lum",
+      "output": "boundedManifest",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 9,
+      "eighthNote": 5,
+      "beat": 3,
+      "id": "inspectOldMagicData",
+      "activity": "reviewTypedSqlAndTransactions",
+      "supportOwner": "skuldResearch",
+      "output": "schemaAndStorageCompatibility",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 10,
+      "eighthNote": 5,
+      "beat": 3,
+      "id": "inspectNewMagicPackages",
+      "activity": "reviewAptNpmPipUvGradleAdapters",
+      "supportOwner": "skuldResearch",
+      "output": "packageAndAdapterCompatibility",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 11,
+      "eighthNote": 6,
+      "beat": 3,
+      "id": "adjudicateEvidence",
+      "activity": "holdRedUnknownConflict",
+      "supportOwner": "urdDoctorGoddess",
+      "output": "independentEvidenceDisposition",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 12,
+      "eighthNote": 6,
+      "beat": 3,
+      "id": "reconcileAndRegister",
+      "activity": "preserveEvidenceAndSecretaryHandoff",
+      "supportOwner": "belldandySecretary",
+      "output": "canonicalReceiptAndLumReconcile",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 13,
+      "eighthNote": 7,
+      "beat": 4,
+      "id": "stageAuthorizedCandidate",
+      "activity": "executeOnlyInsideMutationLane",
+      "supportOwner": "kugi",
+      "output": "exactCandidateAndRollbackRef",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 14,
+      "eighthNote": 7,
+      "beat": 4,
+      "id": "testExactScope",
+      "activity": "runTargetedDeterministicTests",
+      "supportOwner": "lum",
+      "output": "testResultAndObservedBoundary",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 15,
+      "eighthNote": 8,
+      "beat": 4,
+      "id": "presentActualMilestone",
+      "activity": "showArtifactOrExplicitBlocker",
+      "supportOwner": "belldandySecretary",
+      "output": "visibleResultOrBlocker",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    },
+    {
+      "sixteenth": 16,
+      "eighthNote": 8,
+      "beat": 4,
+      "id": "returnFinalDisposition",
+      "activity": "obtainSeparateCrownWhenNeeded",
+      "supportOwner": "lum",
+      "output": "professorStatusAndNextSafeAction",
+      "inheritsParentEighth": true,
+      "authorityFromNote": false
+    }
+  ],
+  "handoff": {
+    "researchFrom": "skuldResearch",
+    "researchTo": "lum",
+    "evidenceOwner": "urdDoctorGoddess",
+    "receiptOwner": "belldandySecretary",
+    "executor": "kugi",
+    "oneMutableSourceLane": true,
+    "maxParallelSupportWorkers": 3,
+    "hiddenAsyncExecution": false,
+    "recursiveRecruitment": false,
+    "requiresExactTaskSourceScope": true,
+    "unknownRemainsUnknown": true,
+    "conflictingEvidenceStopsPromotion": true,
+    "visibleArtifactOrBlockerRequired": true,
+    "singleUseCastIfRequired": true,
+    "installRequiresSeparateExactApproval": true
+  },
+  "currentClaim": {
+    "codingScore": "SOURCE_CANDIDATE_ONLY",
+    "sixteenthNoteCanon": "NOT_PROMOTED",
+    "liveWorkers": "NOT_PROVEN",
+    "liveSql": "NOT_PROVEN",
+    "livePackageInstall": "NOT_PROVEN",
+    "newRuntimeRoute": "NOT_CREATED",
+    "actualArtifact": "NOT_BUILT",
+    "milestone": "NOT_COMPLETE"
+  },
+  "promotion": false,
+  "mergeAuthority": false,
+  "deployAuthority": false,
+  "publicationAuthority": false,
+  "crownStatus": "STOP"
+}
