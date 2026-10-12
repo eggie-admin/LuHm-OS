@@ -22,7 +22,7 @@ footer{border-top:1px solid var(--line);padding:10px 14px;color:var(--muted);fon
 .agentLoadingSprite{width:min(92vw,72vh,720px);height:min(92vw,72vh,720px);background-image:url("/harness/assets/agent-roster-v1.png");background-size:400% 400%;background-repeat:no-repeat;image-rendering:pixelated;image-rendering:crisp-edges;filter:drop-shadow(0 10px 24px #0008)}
 .agentLoadingKicker{color:var(--cyan);font:11px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}
 #agentLoadingName{font-size:20px}#agentLoadingState{color:var(--muted);font-size:13px}
-@media(max-width:520px){.agentLoadingCard{width:98vw;max-width:98vw;padding:10px}.agentLoadingSprite{width:min(94vw,70vh);height:min(94vw,70vh)}}
+@media(max-width:520px){.agentLoadingCard{width:98vw;max-width:98vw;padding:10px}.agentLoadingSprite{width:min(86vw,70vh);height:min(86vw,70vh);max-width:100%}}
 
 /* LuHm-OS mobile title repair. Stable presentation asset, no plugin contract change. */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
