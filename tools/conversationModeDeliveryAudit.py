@@ -19,12 +19,18 @@ def load(rel):
 
 modes = load("doctrine/conversationModeRouterV1.json")
 delivery = load("doctrine/npmPluginApkDeliveryV1.json")
+truth = load("doctrine/currentSourceTruthV3.json")
+experience = load("doctrine/inChatExperienceV1.json")
 package = load("frontEnd/package.json")
 lock = load("frontEnd/package-lock.json")
 html = (ROOT / "frontEnd/index.html").read_text(encoding="utf-8")
 apk_workflow = (ROOT / ".github/workflows/android-testing-build.yml").read_text(encoding="utf-8")
 
 need(modes.get("schema") == "luhmOs.conversationModeRouter.v1", "mode:schema")
+need(truth.get("conversationModes", {}).get("contract") == "doctrine/conversationModeRouterV1.json", "mode:sourceTruthPointer")
+need(truth.get("conversationModes", {}).get("runtimeWired") is False, "mode:runtimeNotOverclaimed")
+need(experience.get("sources", {}).get("conversationModeRouter") == "doctrine/conversationModeRouterV1.json", "mode:inChatContractPointer")
+need(truth.get("packageDelivery", {}).get("contract") == "doctrine/npmPluginApkDeliveryV1.json", "delivery:sourceTruthPointer")
 need([(x.get("tier"), x.get("id")) for x in modes.get("modes", [])] == [
     (0, "default"), (1, "ic"), (2, "ooc"), (3, "irl")
 ], "mode:zeroBasedOrder")
