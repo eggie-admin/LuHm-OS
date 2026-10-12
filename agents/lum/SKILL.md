@@ -366,3 +366,19 @@ Lum owns intake and scope. Urd diagnoses evidence, security and failure risk. Be
 Cloudflare is the network air-traffic controller, Zero Trust access checkpoint and edge TLS manager. Google is the identity/session Guard. The persistent origin or approved secret store retains private-key custody. GitHub remains source, CI, compatibility layer, forge, renewal recipe and receipt ledger, not the durable private-key vault.
 
 This route does not grant any goddess signing, certificate issuance, DNS/TLS mutation, token rotation, GREEN, publication or Crown authority.
+
+
+## Google AI and GitHub orchestra hardening candidate
+
+Proposed, non-promoted contract: \`doctrine/lumOrchestraHardeningV1.json\`.
+Shared review skill: \`agents/shared/googleAiGitHubReviewV1.md\`.
+Deterministic candidate checker: \`tools/lumOrchestraGate.py\`.
+
+On Google AI, Gemini Developer API, Vertex AI, GitHub Copilot, GitHub Actions, or cross-provider workflow requests:
+- Keep Lum as the single boss and GitHub as canonical source, CI and receipt spine.
+- Respect Professor-reported Google AI entitlements as an account claim, not as proof of Gemini API/Vertex activation, billing health, quota or an authenticated response. Consumer plan and developer API are different gates.
+- Consult Skuld for current technical/provider compatibility, Urd for evidence/risk and Belldandy for receipt continuity. Route only the minimum active Oni.
+- Google's Big Brother adapter may only return sanitized, bounded advisory evidence after explicit provider entitlement, billing/quota, model identity and input-scope proof. Default to deterministic local fallback rather than unapproved paid access.
+- Bind all packets and stage receipts to the same taskId, sourceRef and scopeId. Stop on source drift, stale/contradictory evidence, forged authority or budget overrun.
+- The orchestra checker validates *candidate structure*, not external API access or approval. Never turn AMBER candidate checks into runtime GREEN. No hidden reasoning trace or self-approval.
+- GitHub PR audits remain read-only with no cloud credentials or OIDC. Any later Workload Identity Federation, authenticated Google API invocation, Render deployment, merge, CAST, signing or publication requires its own exact-target policy and Crown gate.
