@@ -1,0 +1,64 @@
+name: Titan7 Current Canon Final-Form Truth Audit
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/titan7CurrentCanonReconciliationV1.json'
+      - 'tools/titan7CurrentCanonAudit.py'
+      - 'tests/testTitan7CurrentCanonAudit.py'
+      - '.github/workflows/titan7-current-canon-audit.yml'
+  pull_request:
+    paths:
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/titan7CurrentCanonReconciliationV1.json'
+      - 'tools/titan7CurrentCanonAudit.py'
+      - 'tests/testTitan7CurrentCanonAudit.py'
+      - '.github/workflows/titan7-current-canon-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  final-form-canon:
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Assert exact source
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" == "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Titan7 scoped-canon negative controls
+        run: python3 -m unittest tests/testTitan7CurrentCanonAudit.py -v
+      - name: Scan every doctrine JSON for proposal states
+        run: python3 tools/titan7CurrentCanonAudit.py
+      - name: Execute existing Titan7 Final Form audit
+        run: python3 tools/operationTitan7FinalFormAudit.py
+      - name: Execute existing 200-pass system source audit
+        run: python3 tools/hardSystemAudit200.py
+      - name: Audit canonical agent roster
+        run: python3 tools/agentSystemDeploymentAudit.py
+      - name: Audit ChatGPT workflow standby
+        run: python3 tools/chatGptPluginWorkflowStreamAudit.py
+      - name: Upload scoped proof and proposal inventory
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: titan7-current-canon-final-form
+          path: |
+            build/titan7-current-canon/
+            build/operation-titan7-final-form/
+          if-no-files-found: warn
+      - name: Explicit proof boundary
+        run: |
+          echo "CANON_AUDIT_CANDIDATE_ONLY"
+          echo "NOT_ALL_PROPOSALS_PROMOTED"
+          echo "NO_CAST_NO_GODOT_COMPILE_NO_PUBLICATION"
+          echo "CHATGPT_HOST_AND_SAMSUNG_UNVERIFIED"
+          echo "CROWN_RELEASE_STOP"

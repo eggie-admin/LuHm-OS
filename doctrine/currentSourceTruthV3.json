@@ -188,6 +188,18 @@
       "chatGptHost": "PENDING_INSTALL_AND_DISCOVERY",
       "godotInChatGameplay": "UNVERIFIED",
       "crownStatus": "STOP"
+    },
+    "latestExactMainEvidence": {
+      "version": "0.5.2",
+      "sourceRef": "dae5c07210a8a3599a202ed2a62acf430fb3a952",
+      "mcpDeployId": "dep-db68l5m7bikc73fj85ig",
+      "manualPackageRun": 38217231216,
+      "manualPackageArtifactId": 11732790107,
+      "mcpPublicProbe": "PASS_EXTERNAL_ONLY",
+      "chatGptHost": "UNVERIFIED",
+      "godotInChat": "UNVERIFIED",
+      "promotionScope": "sourcePackageAndMcpDeploymentOnly",
+      "crownStatus": "STOP"
     }
   },
   "androidLayer": {
@@ -376,7 +388,15 @@
     "staleWholeBranchMerge": false,
     "closeSupersededAfterGreenMerge": true,
     "crownStatus": "STOP",
-    "activeBranch": "candidate/titan7-final-form-reconcile-v1-20261007"
+    "activeBranch": "candidate/titan7-final-form-reconcile-v1-20261007",
+    "latestCurrentAudit": {
+      "contract": "doctrine/titan7CurrentCanonReconciliationV1.json",
+      "observedMain": "dae5c07210a8a3599a202ed2a62acf430fb3a952",
+      "currentOpenPrCount": 11,
+      "historicalActiveBranchUnchanged": true,
+      "wholeBranchMerge": false,
+      "status": "REVIEW_NOVEL_DELTA_ONLY"
+    }
   },
   "experienceLayer": {
     "activityPresentation": "doctrine/chatActivityPresentationV1.json",
@@ -610,6 +630,16 @@
     "sourceReceipt": "receipts/yumeGoddessMilestones20261011.json",
     "automatedPublication": false,
     "releaseAuthority": false,
+    "crownStatus": "STOP"
+  },
+  "titan7CurrentCanonReconciliation": {
+    "contract": "doctrine/titan7CurrentCanonReconciliationV1.json",
+    "status": "CANONICAL_AUDIT_INDEX_ONLY",
+    "auditedBaseMain": "dae5c07210a8a3599a202ed2a62acf430fb3a952",
+    "snapshotRef": "snapshot/titan7-current-canon-20261012-dae5c072",
+    "allProposedChangesPromoted": false,
+    "proposalScan": "tools/titan7CurrentCanonAudit.py",
+    "scope": "metadataClassificationAndExactSourceEvidenceOnly",
     "crownStatus": "STOP"
   }
 }
