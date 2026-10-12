@@ -23,6 +23,8 @@ from starlette.responses import FileResponse, JSONResponse, PlainTextResponse, R
 
 UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"
 GODOT_PLAYER_RESOURCE_URI = "ui://luhm-os/godot-player-v1.html"
+MCP_COCKPIT_PUBLIC_ORIGIN = "https://luhm-os-harness-green.onrender.com"
+EXISTING_GODOT_PUBLIC_ORIGIN = "https://luhm-os-godot-harness-green.onrender.com"
 APP_MIME_TYPE = "text/html;profile=mcp-app"
 PET_ASSET_IDS = {"lum","urdDoctorGoddess","belldandySecretary","skuldResearch","kiri","momo","shiori","kugi","tetsu","kaji","fumi","sumi","koe","yume","mediaAssetFactory"}
 
@@ -127,6 +129,8 @@ def register_harness(
         "openai/widgetDescription": "LuHm OS in-chat cockpit for Lum/Oni activity, roleplay, pet status, source truth, and the bounded Godot handoff.",
     }
     public_origin = _origin()
+    remote_godot_candidate = public_origin == MCP_COCKPIT_PUBLIC_ORIGIN
+    godot_frame_origin = EXISTING_GODOT_PUBLIC_ORIGIN if remote_godot_candidate else public_origin
     experience = json.loads(experience_path.read_text(encoding="utf-8"))
     crown_flow = json.loads(crown_flow_path.read_text(encoding="utf-8"))
     runtime_receipt = json.loads(runtime_receipt_path.read_text(encoding="utf-8"))
@@ -185,7 +189,7 @@ def register_harness(
                 "csp": {
                     "connectDomains": [],
                     "resourceDomains": [],
-                    "frameDomains": [public_origin] if public_origin else [],
+                    "frameDomains": [godot_frame_origin] if godot_frame_origin else [],
                 },
                 **({"domain": public_origin} if public_origin else {}),
             },
@@ -200,15 +204,20 @@ def register_harness(
             and any(godot_root.glob("*.wasm"))
             and any(godot_root.glob("*.pck"))
         )
-        if not public_origin or not staged:
+        if not public_origin or (not staged and not remote_godot_candidate):
             frame = '<p class="pending">Godot Web export not staged on this HTTPS origin. Player is waiting for exact-source CAST proof.</p>'
         else:
-            url = html.escape(public_origin + "/harness/godot-export/index.html", quote=True)
+            url = html.escape(godot_frame_origin + "/harness/godot-export/index.html", quote=True)
             frame = (
                 '<iframe title="LuHm OS Godot 4 playable viewport" src="' + url + '"'
                 ' sandbox="allow-scripts allow-same-origin allow-pointer-lock"'
                 ' allow="fullscreen; gamepad" allowfullscreen loading="eager" referrerpolicy="no-referrer"></iframe>'
             )
+            if remote_godot_candidate:
+                frame += (
+                    '<p class="pending">External Godot frame is a ChatGPT-host candidate, not proof of gameplay. '
+                    '<a href="' + url + '" target="_blank" rel="noopener noreferrer">Open existing Godot Web player</a></p>'
+                )
         return page.replace("<!-- LUHM_GODOT_FRAME -->", frame)
 
     @server.tool(
@@ -232,7 +241,9 @@ def register_harness(
         return {
             "schema": "luhmOs.inChatGodotPlayer.v1",
             "resourceUri": GODOT_PLAYER_RESOURCE_URI,
-            "state": "WEB_EXPORT_FILES_STAGED" if staged and public_origin else "PENDING_EXPORT_OR_HTTPS_ORIGIN",
+            "state": ("WEB_EXPORT_FILES_STAGED" if staged and public_origin else
+                      "EXTERNAL_GODOT_FRAME_CANDIDATE" if remote_godot_candidate else
+                      "PENDING_EXPORT_OR_HTTPS_ORIGIN"),
             "runtimeVerifiedInChat": False,
             "sourceRef": "EXACT_BUILD_RECEIPT_REQUIRED",
             "readOnly": True,

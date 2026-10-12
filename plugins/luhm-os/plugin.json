@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "luhm-os",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Virgin-install LuHm OS MCP plugin for the in-chat Godot 4 Cathedral, source truth, and explicit coding roleplay.",
   "author": {
     "name": "Eggie Bagelface",
@@ -99,7 +99,7 @@
         "commerce": false
       },
       "publication": {
-        "release_notes": "LuHm OS 0.5.1 routes the clean-install MCP connection to the live Godot harness with the actual WebAssembly/PCK export and in-chat player tool. Keeps the read-only Crown safety model and explicit roleplay boundaries; installing the plugin and in-chat playback remain host verification gates."
+        "release_notes": "LuHm OS 0.5.2 routes the clean-install MCP connection to the live Godot harness with the actual WebAssembly/PCK export and in-chat player tool. Keeps the read-only Crown safety model and explicit roleplay boundaries; installing the plugin and in-chat playback remain host verification gates."
       }
     }
   }
