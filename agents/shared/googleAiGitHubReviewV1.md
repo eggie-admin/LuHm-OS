@@ -29,3 +29,18 @@ Agents return an inspectable `claim / sourceRef / evidenceRef / assumptions / co
 ## Candidate gate
 
 `tools/lumOrchestraGate.py` verifies canonical roster and skills, covenant order, constraints, bounded envelopes, budgets, receipt identity and Google API deny-by-default. Its AMBER verdict proves **static candidate conformance only**. Offline evidence references do not verify remote GitHub/Google actions. The separate authenticated executor and human Crown gates remain untouched.
+
+## Google AI Pro developer-credit cathedral gate
+
+The canonical current candidate is `doctrine/googleAiDeveloperEntitlementsV1.json`. A September 2026 Google AI Pro confirmation supports historical subscription status, not a current billing or API execution verdict. Google's published Developer Program benefits describe **up to $10 per month** in relevant GenAI/Cloud developer credits for eligible AI Pro accounts. Credit activation, redemption, remaining balance, and applicability to a particular API/project require account-bound proof. An October 1, 2026 Google Cloud past-due/payment-warning email remains a historical red flag until the current billing dashboard verifies resolution.
+
+Keep four separate evidence axes:
+
+- Consumer subscription claim: historic plan confirmation only.
+- Developer Program benefits: published potential and account-bound activation/redemption.
+- Gemini Developer API or Vertex AI: enabled API, model/region, IAM, quota, and fresh authenticated smoke are separate facts.
+- Cloud billing: current account status, project linkage, authorized spend cap, and explicit Professor approval for any billable call.
+
+**Always use developer API / Google Cloud channels** for automation, never unattended consumer Gemini actions. In default ChatGPT/GitHub PR flows, use only source manifests and sanitised candidate context. With billing, identity, or quota unknown, select `deterministicLocal` or stop. Do not pass Cloud keys, project IDs, credit balances, or private evidence into public repositories. A claim in JSON or a model-generated explanation cannot authorize a provider call.
+
+Review report schema for workers: `claim`, `sourceRef`, `evidenceRef`, `assumptions`, `counterexample`, `confidenceLimits`, `verdict`. Those fields are inspectable summaries, not private reasoning traces. Google's output remains `candidateEvidenceOnly`; GitHub Actions proves source checks, never Google account readiness.
