@@ -1,0 +1,164 @@
+{
+  "schema": "luhmOs.yumeArtDirectionCrownReceipt.v1",
+  "status": "PROFESSOR_APPROVED_SCOPED_SOURCE_ROLE",
+  "authority": "Professor",
+  "approvalRequest": "Audit and harden after agent mesh update move it to final Canon",
+  "approvalDate": "2026-10-11",
+  "scopeId": "yumeArtDirectionBehaviorAndSafety",
+  "promotedContract": "doctrine/yumeArtDirectionCanonV1.json",
+  "meshReconciliationCommit": "1cdaedbb6eefda78f02a7ab10f720d9ae5f39a5e",
+  "testedCandidateSourceRef": "f0d04ee9d89c0fd57b100ab5e8bf441606f24315",
+  "testedCandidatePr": 238,
+  "exactHeadEvidence": {
+    "sourceRef": "f0d04ee9d89c0fd57b100ab5e8bf441606f24315",
+    "workflowCount": 24,
+    "workflowSuccess": 24,
+    "namedWorkflowRuns": [
+      {
+        "name": "Proposed Doctrine Working Lane Audit",
+        "runId": 38197873237,
+        "conclusion": "success"
+      },
+      {
+        "name": "Public Art Brand Release Readiness Audit",
+        "runId": 38197873230,
+        "conclusion": "success"
+      },
+      {
+        "name": "Yume Creative Pipeline 20-Pass Audit",
+        "runId": 38197873217,
+        "conclusion": "success"
+      },
+      {
+        "name": "Parallel Escalation Audit",
+        "runId": 38197873216,
+        "conclusion": "success"
+      },
+      {
+        "name": "Vendor AI Debug + Magic Roleplay Audit",
+        "runId": 38197873213,
+        "conclusion": "success"
+      },
+      {
+        "name": "Yume Batch Image Workflow Audit",
+        "runId": 38197873251,
+        "conclusion": "success"
+      },
+      {
+        "name": "Agent System Deployment Audit",
+        "runId": 38197873221,
+        "conclusion": "success"
+      },
+      {
+        "name": "Belldandy Secretary Practice Audit",
+        "runId": 38197873214,
+        "conclusion": "success"
+      },
+      {
+        "name": "Open PR Reconciliation v2 Audit",
+        "runId": 38197873174,
+        "conclusion": "success"
+      },
+      {
+        "name": "In-Chat Precision Command Audit",
+        "runId": 38197873255,
+        "conclusion": "success"
+      },
+      {
+        "name": "Naming Namespace Canon Audit",
+        "runId": 38197873165,
+        "conclusion": "success"
+      },
+      {
+        "name": "Belldandy Housekeeping",
+        "runId": 38197873318,
+        "conclusion": "success"
+      },
+      {
+        "name": "Escalation Kernel Audit",
+        "runId": 38197873205,
+        "conclusion": "success"
+      },
+      {
+        "name": "Storage Topology Audit",
+        "runId": 38197873302,
+        "conclusion": "success"
+      },
+      {
+        "name": "Workflow Commit Budget",
+        "runId": 38197873223,
+        "conclusion": "success"
+      },
+      {
+        "name": "Four Tier Operating Model Audit",
+        "runId": 38197873329,
+        "conclusion": "success"
+      },
+      {
+        "name": "Doctrine Lane · 100-pass + 200-pass hard audit",
+        "runId": 38197873208,
+        "conclusion": "success"
+      },
+      {
+        "name": "Architecture Rhythm Audit",
+        "runId": 38197873268,
+        "conclusion": "success"
+      },
+      {
+        "name": "GitHub Render Sidecar Audit",
+        "runId": 38197873238,
+        "conclusion": "success"
+      },
+      {
+        "name": "LuHm Plugin Publication Audit",
+        "runId": 38197873380,
+        "conclusion": "success"
+      },
+      {
+        "name": "Urd Clinical Security Practice Audit",
+        "runId": 38197873372,
+        "conclusion": "success"
+      },
+      {
+        "name": "Yume Final Art Direction Canon Audit",
+        "runId": 38197873364,
+        "conclusion": "success"
+      },
+      {
+        "name": "Android Web3 Cockpit Switch Audit",
+        "runId": 38197873278,
+        "conclusion": "success"
+      },
+      {
+        "name": "Corporate Panel Milestones Audit",
+        "runId": 38197873179,
+        "conclusion": "success"
+      }
+    ],
+    "sourceOnly": true,
+    "liveDeploymentProof": false,
+    "godotRuntimeProof": false
+  },
+  "promotedScope": [
+    "Yume single 15-agent mesh specialist identity and Lum-facing role",
+    "original adult four-character design identity law",
+    "private Drive locator firewall and source-linked rights review",
+    "credit/provenance and exact evidence ladder",
+    "creative handoffs, anti-hallucination, static/runtime distinction"
+  ],
+  "notPromoted": [
+    "15-agent mesh live/provider deployment",
+    "Yume proposed production pipeline",
+    "goddess 3D runtime bodies",
+    "RE or Fallout franchise mod binaries",
+    "Godot runtime, physical Android, animation playback",
+    "public generative art, external publication, release, production signing"
+  ],
+  "workingLaneFutureDefaults": "PROPOSED_ONLY",
+  "automaticFuturePromotion": false,
+  "automaticMergeAuthority": false,
+  "automaticPublicationAuthority": false,
+  "automaticDeploymentAuthority": false,
+  "sourcePromotionOnly": true,
+  "crownBoundary": "CROWNED_SOURCE_ROLE_ONLY"
+}

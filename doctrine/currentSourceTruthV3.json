@@ -94,7 +94,8 @@
     "artistCreditLedger": "doctrine/artistCreditLedgerV1.json",
     "organizationBrandRegistry": "doctrine/organizationBrandRegistryV1.json",
     "publicArtReleaseReadiness": "doctrine/publicArtReleaseReadinessV1.json",
-    "yumeProofStudio": "doctrine/fourTierOperatingModelV1.json#tiers/yumeProofStudio"
+    "yumeProofStudio": "doctrine/fourTierOperatingModelV1.json#tiers/yumeProofStudio",
+    "yumeArtDirectionCanon": "doctrine/yumeArtDirectionCanonV1.json"
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
@@ -326,7 +327,18 @@
       "commercialPublic",
       "privateResearchDevelopment"
     ],
-    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json"
+    "fourTierOperatingModel": "doctrine/fourTierOperatingModelV1.json",
+    "yumeRoleCanon": {
+      "contract": "doctrine/yumeArtDirectionCanonV1.json",
+      "canonicalRosterId": "yume",
+      "skillIdentity": "yumeArtOni",
+      "roleStatus": "CANONICAL_SOURCE_ROLE",
+      "promotionScope": "yumeArtDirectionBehaviorAndSafety",
+      "wholeMeshDeploymentPromotion": false,
+      "liveProviderWorkerProven": false,
+      "crownStatus": "CROWNED_SOURCE_ROLE_ONLY",
+      "crownReceipt": "doctrine/yumeArtDirectionCrownReceiptV1.json"
+    }
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
@@ -561,5 +573,18 @@
     "historicalUnavailableRepository": "KAI9000_LuHm_Compatibility",
     "exactSnapshotRequiredBeforeStructuralPromotion": true,
     "crownStatus": "STOP"
+  },
+  "yumeArtDirectionCanon": {
+    "contract": "doctrine/yumeArtDirectionCanonV1.json",
+    "status": "CANONICAL_ART_DIRECTION_SOURCE",
+    "professorApproved": true,
+    "scope": "Yume source-role art direction safety privacy evidence and governance only",
+    "source3dRuntimePromoted": false,
+    "referenceGalleryRuntimePromoted": false,
+    "contentLaneExpanded": false,
+    "releaseAuthority": false,
+    "publicationAuthority": false,
+    "crownStatus": "CROWNED_SOURCE_ROLE_ONLY",
+    "crownReceipt": "doctrine/yumeArtDirectionCrownReceiptV1.json"
   }
 }
