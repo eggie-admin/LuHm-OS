@@ -5,6 +5,7 @@ on:
       - 'tools/lumOrchestraGate.py'
       - 'tests/testLumOrchestraGate.py'
       - 'doctrine/lumOrchestraHardeningV1.json'
+      - 'doctrine/googleAiDeveloperEntitlementsV1.json'
       - 'agents/shared/googleAiGitHubReviewV1.md'
       - 'agents/lum/SKILL.md'
       - '.github/workflows/lum-orchestra-hardening-audit.yml'
@@ -32,6 +33,7 @@ jobs:
         run: |
           python3 -m py_compile tools/lumOrchestraGate.py tests/testLumOrchestraGate.py
           python3 -m json.tool doctrine/lumOrchestraHardeningV1.json >/dev/null
+          python3 -m json.tool doctrine/googleAiDeveloperEntitlementsV1.json >/dev/null
       - name: Run fail-closed negative controls
         run: python3 -m unittest discover -s tests -p testLumOrchestraGate.py -v
       - name: Run structural orchestra candidate audit
