@@ -1,0 +1,34 @@
+name: LuHm Final Plugin Package Source Audit
+
+on:
+  pull_request:
+    paths:
+      - 'tools/buildPublicPluginPackage.py'
+      - 'plugins/luhm-os/**'
+      - '.github/workflows/luhm-final-plugin-package-source-audit.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/buildPublicPluginPackage.py'
+      - 'plugins/luhm-os/**'
+      - '.github/workflows/luhm-final-plugin-package-source-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify source and portable contents without CAST build
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/buildPublicPluginPackage.py
+          python3 tools/buildPublicPluginPackage.py --source-ref "$(git rev-parse HEAD)" --verify-only
+          grep -q 'skills/luhm-coding-roleplay/SKILL.md' tools/buildPublicPluginPackage.py
+          grep -q 'skills/belldandy-housekeeping/SKILL.md' tools/buildPublicPluginPackage.py
+          echo "GREEN_PORTABLE_PLUGIN_SOURCE_NO_RELEASE"
