@@ -8,7 +8,7 @@ ui = Path("host/harness/godotPlayerWidget.html").read_text(encoding="utf-8")
 ast.parse(source)
 assert 'GODOT_PLAYER_RESOURCE_URI = "ui://luhm-os/godot-player-v1.html"' in source
 assert 'name="luhm_open_godot_player"' in source
-assert '"frameDomains": [public_origin] if public_origin else []' in source
+assert '"frameDomains": [godot_frame_origin] if godot_frame_origin else []' in source
 assert 'godot_embed=html' in source
 assert "https://*.web-sandbox.oaiusercontent.com" in source
 assert '"godotEmbeddingInChat": False' in source  # default cockpit remains unchanged

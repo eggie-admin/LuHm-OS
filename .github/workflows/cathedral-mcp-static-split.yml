@@ -1,0 +1,39 @@
+name: LuHm Cathedral MCP Static Split Gate
+
+on:
+  pull_request:
+    paths:
+      - 'host/mcp/luhmHarness.py'
+      - 'plugins/luhm-os/**'
+      - 'doctrine/manualPluginVirginInstallV1.json'
+      - 'doctrine/chatGptPluginMilestoneV2.json'
+      - 'doctrine/pluginPublicationV2.json'
+      - 'tools/manualPluginVirginInstallAudit.py'
+      - 'tools/pluginPublicationAudit.py'
+      - 'tools/buildManualPluginPackage.py'
+      - 'tests/testCathedralMcpSplit.py'
+      - '.github/workflows/cathedral-mcp-static-split.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  source-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Contract and negative claim tests
+        run: python3 -m unittest tests/testCathedralMcpSplit.py -v
+      - name: Existing Godot player and HTML static source audit
+        run: python3 tests/inChatGodotPlayerSourceAudit.py
+      - name: Portable package audit and exact source ZIP
+        run: python3 tools/manualPluginVirginInstallAudit.py
+      - name: Verify limited scope
+        run: |
+          echo "SOURCE_ONLY_VALIDATED"
+          echo "GODOT_BUILD_NOT_TRIGGERED"
+          echo "HOST_ATTACHMENT_UNVERIFIED"
+          echo "CROWN_STOP_UNTIL_HOST_PROOF"
