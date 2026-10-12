@@ -80,7 +80,8 @@
         "bulkResearch",
         "largeContextReview",
         "compatibilityResearch",
-        "candidateReview"
+        "candidateReview",
+        "videoCandidateGeneration"
       ],
       "readiness": "RECEIPT_REQUIRED",
       "credentialSource": "hostSecretStoreOrConnectedProvider",
@@ -91,7 +92,17 @@
         "deterministicLocal",
         "openAi"
       ],
-      "receiptSchema": "luhmOs.providerExecutionReceipt.v1"
+      "receiptSchema": "luhmOs.providerExecutionReceipt.v1",
+      "videoCandidateGeneration": {
+        "worker": "host/api/luhmVideoJobWorker.py",
+        "contract": "doctrine/yumeVideoAutomationBridgeV1.json",
+        "mediaManifest": "media/yumeVideo/canonLockedVeoShotsV1.json",
+        "route": "directVertexVeoViaApprovedHostOnly",
+        "entitlement": "UNVERIFIED_NO_CLOUD_EXECUTION_RECEIPT",
+        "sql": "EXISTING_APPROVED_PERSISTENT_SQL_ONLY",
+        "execution": "CROWN_GATED_SOURCE_CANDIDATE_NOT_DEPLOYED",
+        "publicationAuthority": false
+      }
     },
     "githubCopilot": {
       "providerId": "githubCopilot",
