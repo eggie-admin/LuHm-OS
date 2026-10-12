@@ -1,0 +1,66 @@
+{
+  "schema": "luhmOs.yumeVideoAutomationBridge.v1",
+  "date": "2026-10-12",
+  "status": "SOURCE_CANDIDATE_NOT_DEPLOYED",
+  "authority": "Professor",
+  "sourceBranch": "candidate/yumeVertexGoddessVideo-20261012",
+  "sourceContracts": [
+    "doctrine/apiSpineV1.json",
+    "doctrine/bigBrotherCovenantV1.json",
+    "doctrine/yumeCreativePipelineV1.json",
+    "doctrine/yumeCutsceneFactoryProofV1.json",
+    "doctrine/assetEligibilityMatrixV1.json",
+    "media/yumeVideo/canonLockedVeoShotsV1.json"
+  ],
+  "capabilityId": "videoCandidateGeneration",
+  "providerId": "googleAi",
+  "adapterId": "bigBrother",
+  "modelId": "veo-3.1-fast-generate-001",
+  "modelRegion": "us-central1",
+  "requestEndpoint": ":predictLongRunning",
+  "pollEndpoint": ":fetchPredictOperation",
+  "authentication": {
+    "method": "googleCloudApplicationDefaultCredentials",
+    "preferred": "workloadIdentityOrServiceAccountImpersonation",
+    "privateHostOnly": true,
+    "credentialsInGitHub": false,
+    "credentialsInChat": false,
+    "projectIdentityVerifiedLive": false,
+    "cloudBillingVerifiedLive": false,
+    "serviceApiEnabledVerifiedLive": false,
+    "modelQuotaVerifiedLive": false
+  },
+  "sql": {
+    "reuseExistingApprovedSql": true,
+    "newDbProvisioning": false,
+    "productionDsnSecretName": "LUHM_EXISTING_SQL_DSN",
+    "supportedDrivers": ["postgresql", "mysql", "mariadb"],
+    "sqlite": "offlineTestsOnly",
+    "migration": "host/api/yumeVideoJobSchemaV1.sql",
+    "migrationExecuted": false,
+    "schemaMayCreateImplicitlyAtRuntime": false,
+    "durableOperationIdRequired": true,
+    "idempotency": "taskIdAndRequestHash",
+    "uncertainMutationOutcome": "STOP_NO_AUTOMATIC_RESUBMIT"
+  },
+  "worker": {
+    "entrypoint": "host/api/luhmVideoJobWorker.py",
+    "requirements": "host/api/requirementsVideoWorker.txt",
+    "transport": "internalCliOnly_notPublicWebEndpoint",
+    "oneSubmitPerExplicitInvocation": true,
+    "noHiddenAsyncWorkers": true,
+    "neverAutoApproveSpend": true,
+    "providerReceiptsDoNotPromote": true,
+    "sourceMustMatchManifest": true
+  },
+  "fourTierEscalation": [
+    {"tier": 1, "name": "localPreflight", "actor": "Skuld", "allows": "source validation, SQL schema check, offline FFmpeg dry-run", "spend": false},
+    {"tier": 2, "name": "providerEntitlement", "actor": "Belldandy", "allows": "verified GCP billing, service, IAM, quota, workspace identity receipts", "spend": false},
+    {"tier": 3, "name": "boundedVideoExecution", "actor": "Lum + Yume + Urd", "allows": "one Crown-budgeted submit, persisted operation id, repeatable poll, private asset receipt", "spend": "explicit"},
+    {"tier": 4, "name": "humanPromotion", "actor": "Professor", "allows": "identity review, FFmpeg final, separate public/Instagram approval", "spend": "separateApproval"}
+  ],
+  "publication": false,
+  "automaticMerge": false,
+  "automaticDeploy": false,
+  "crownStatus": "STOP"
+}
