@@ -1,0 +1,42 @@
+name: LuHm Typed Four-Lane SQL Stub
+on:
+  pull_request:
+    paths:
+      - 'host/api/typedLanesV1.sql'
+      - 'host/api/typedPostgresReviewV1.sql'
+      - 'tools/typedSqlStub.py'
+      - 'tests/testTypedSqlStub.py'
+      - 'doctrine/typedFourLaneSqlV1.json'
+      - 'systemPortal/**'
+      - 'manual/typedFourLaneSqlV1.md'
+      - '.github/workflows/typed-four-lane-sql.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  scoped-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Typed database adversarial tests
+        run: python3 -m unittest tests/testTypedSqlStub.py -v
+      - name: Local in-memory strict schema
+        run: python3 tools/typedSqlStub.py
+      - name: Existing static portal audit
+        run: python3 tools/systemPortalAudit.py
+      - name: Verify canonical notes and scope
+        run: |
+          python3 - <<'PY'
+          import json
+          d=json.load(open('doctrine/typedFourLaneSqlV1.json'))
+          n=json.load(open('doctrine/eighthNoteAgentScopeV1.json'))
+          assert len(d['lanes']) == 4
+          assert d['notes']==[x['name'] for x in n['notes']]
+          assert d['runtimeDatabase'] is False
+          assert d['admin']['staticPortalCanRunDatabaseAdmin'] is False
+          assert d['crownStatus']=='STOP'
+          print('SOURCE_ONLY_GREEN')
+          PY

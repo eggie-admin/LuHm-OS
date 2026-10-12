@@ -1,0 +1,23 @@
+{
+  "schema": "luhmOs.typedFourLaneSql.v1",
+  "status": "SOURCE_CANDIDATE_ONLY",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalComposition": "doctrine/luHmOSFourLayerArchitectureV1.json",
+  "relation": "four typed data lanes are orthogonal to core/plugin/widget/adapter composition tiers",
+  "canonicalManifest": "doctrine/aiTaskManifestV2.template.json",
+  "eighthNoteSource": "doctrine/eighthNoteAgentScopeV1.json",
+  "notes": ["hearProfessorGoal", "bindFocusedScopeAndCurrentTaskAuthority", "resolveVendorAiCapabilityAndEntitlement", "routeVendorAiAndFocusedMiniAgentWork", "collectVendorAndMiniAgentCandidates", "goddessAuditThenLumReconcile", "applyTestAndVerify", "reportCloseOrReturnTask"],
+  "lanes": [
+    {"tier":0,"id":"numericStream","kinds":["signedInt64","finiteIeee754Float","exactFixedScaleInt64"],"moneyUsesBinaryFloat":false},
+    {"tier":1,"id":"textStream","kinds":["boundedUtf8","sourceRef","artifactPointer"],"largeBinaryInDatabase":false},
+    {"tier":2,"id":"booleanStream","kinds":["true","false","unknownNull"],"unknownIsGreen":false},
+    {"tier":3,"id":"aiManifestStream","kinds":["boundedAgentTask","providerCapability","evidenceRef"],"selfApproval":false}
+  ],
+  "ledger":{"table":"streamEvent","identity":["eventId","taskId","sourceRef","scopeId","workerId","sequenceId","eighthNote","observedAt"],"sort":"sequenceIdThenEventId","transaction":"oneScopedAtomicEvent"},
+  "wireProjection":{"schemaId":"luhmOs.typedFourLaneSql.v1","fields":["taskId","sourceRef","scopeId","sequenceId","evidenceRef"],"authorityInferred":false,"canonicalManifestRetransmittedEveryHop":false},
+  "storage":{"github":"textSchemaSourceCodeManifestTemplateAndProofPointers","chatGptLibrary":"optionalMediumReviewCopyNotAuthority","googleDrive":"largeOrDurableVerifiedBinary","render":"runtimeAndReadOnlySourceTransportNotFileServer","huggingFace":"modelsAndTrainingReferencesNotSourceOfTruth","sqliteStub":"privateLocalOnlyNoCommittedDbFiles"},
+  "admin":{"sqlite":"Datasette default-deny with authenticated root only; no public SQL","postgres":"pgAdmin4 Python Flask behind authenticated private reverse proxy","staticPortalCanRunDatabaseAdmin":false,"publicSqlRoute":false,"liveInstalled":false},
+  "mobile":{"entry":"staticCloudflarePortalCandidate","backend":"existingApprovedHTTPSOriginOnly","allowDirectDbPorts":false,"allowSecretsInBrowser":false,"measureP95MsTarget":5000,"p95Proven":false},
+  "runtimeDatabase":false,"cloudflareMutation":false,"cast":false,"releaseAuthority":false,"publicationAuthority":false,"crownStatus":"STOP"
+}
