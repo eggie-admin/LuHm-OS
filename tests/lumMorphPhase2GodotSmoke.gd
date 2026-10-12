@@ -60,8 +60,80 @@ func _run() -> void:
     for shape in SHAPES:
         _check(found.has(shape), "imported actual morph: " + shape)
     print("MORPH_MOVED_VERTEX_COUNTS=", JSON.stringify(found))
+    _stress_bones_with_active_morphs(character)
     character.free()
     _finish()
+
+func _stress_bones_with_active_morphs(character: Node) -> void:
+    var skeletons = character.find_children("*", "Skeleton3D", true, false)
+    if skeletons.is_empty():
+        _check(false, "pose stress requires real skeleton")
+        return
+    var skeleton := skeletons[0] as Skeleton3D
+
+    # Play actual source motion before checking bounded manual stress poses.
+    var players = character.find_children("*", "AnimationPlayer", true, false)
+    if not players.is_empty():
+        var animator := players[0] as AnimationPlayer
+        var clips := animator.get_animation_list()
+        if not clips.is_empty():
+            animator.play(clips[0])
+            animator.advance(0.12)
+            _check(animator.is_playing(), "source animation advances")
+            animator.stop()
+
+    var meshes = character.find_children("*", "MeshInstance3D", true, false)
+    var active_morphs := 0
+    for obj in meshes:
+        var instance := obj as MeshInstance3D
+        if instance == null or instance.mesh == null:
+            continue
+        for shape_idx in range(instance.mesh.get_blend_shape_count()):
+            if String(instance.mesh.get_blend_shape_name(shape_idx)).to_lower() in SHAPES:
+                instance.set_blend_shape_value(shape_idx, 0.75)
+                _check(is_equal_approx(instance.get_blend_shape_value(shape_idx), 0.75), "morph remains active during pose")
+                active_morphs += 1
+    _check(active_morphs == 3, "three real morph targets coexist with skeleton")
+
+    # Change actual source limb bones. Confirm the global bone transform changes,
+    # then restore it. This is a skeleton/runtime coexistence smoke, NOT a
+    # photographed mesh-clipping or deformation-quality certification.
+    var stress_angles := {
+        "LeftArm": 35.0,
+        "RightArm": -35.0,
+        "LeftLeg": 20.0,
+        "RightLeg": -20.0
+    }
+    var tested_bones := 0
+    for bone_name in stress_angles:
+        var bone_idx := skeleton.find_bone(String(bone_name))
+        _check(bone_idx >= 0, "canonical stress bone present: " + str(bone_name))
+        if bone_idx < 0:
+            continue
+        var before_local := skeleton.get_bone_pose_rotation(bone_idx)
+        var before_global := skeleton.get_bone_global_pose(bone_idx).basis.get_rotation_quaternion()
+        var direction := Vector3.RIGHT if String(bone_name).contains("Leg") else Vector3.FORWARD
+        var angle := deg_to_rad(float(stress_angles[bone_name]))
+        skeleton.set_bone_pose_rotation(bone_idx, before_local * Quaternion(direction, angle))
+        skeleton.force_update_all_bone_transforms()
+        var moved_global := skeleton.get_bone_global_pose(bone_idx).basis.get_rotation_quaternion()
+        _check(before_global.angle_to(moved_global) > deg_to_rad(5.0), "visible skeletal pose rotation: " + str(bone_name))
+        skeleton.set_bone_pose_rotation(bone_idx, before_local)
+        skeleton.force_update_all_bone_transforms()
+        var restored := skeleton.get_bone_global_pose(bone_idx).basis.get_rotation_quaternion()
+        _check(before_global.angle_to(restored) < 0.001, "bone pose reversibly restored: " + str(bone_name))
+        tested_bones += 1
+    _check(tested_bones == 4, "four limb stress poses exercised")
+    for obj in meshes:
+        var instance := obj as MeshInstance3D
+        if instance == null or instance.mesh == null:
+            continue
+        for shape_idx in range(instance.mesh.get_blend_shape_count()):
+            if String(instance.mesh.get_blend_shape_name(shape_idx)).to_lower() in SHAPES:
+                _check(is_equal_approx(instance.get_blend_shape_value(shape_idx), 0.75), "morph survives limb pose")
+                instance.set_blend_shape_value(shape_idx, 0.0)
+                _check(is_zero_approx(instance.get_blend_shape_value(shape_idx)), "post-pose morph reset")
+    print("LUM_MORPH_PHASE2_POSE_SMOKE_GREEN" if errors.is_empty() else "LUM_MORPH_PHASE2_POSE_SMOKE_RED")
 
 func _check(ok: bool, label: String) -> void:
     if ok:
