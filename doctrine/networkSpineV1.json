@@ -6,6 +6,71 @@
   "foundation": "professorEstablishedOldMagic",
   "dnsRole": "nameResolution",
   "proxyRole": "requestForwarding",
+  "identityChain": {
+    "sequence": [
+      "forwardFqdn",
+      "reverseFqdnNamespace",
+      "authoritativeNameservers",
+      "reverseDnsPtrWhenApplicable",
+      "proxyLane",
+      "canonicalRepository"
+    ],
+    "forwardFqdn": {
+      "publicMcp": "mcp.eggiebagelface.art",
+      "systemPortal": "system.eggiebagelface.art",
+      "staticAssets": "assets.eggiebagelface.art",
+      "status": "UNVERIFIED",
+      "normalization": "lowercaseIdnaWithCanonicalTrailingDotForDnsQueries",
+      "recordsAreNotProofOfLiveTraffic": true
+    },
+    "reverseFqdnNamespace": {
+      "meaning": "reversedDnsLabelsAsInternalIdentityOnly",
+      "forwardExample": "mcp.eggiebagelface.art",
+      "reverseExample": "art.eggiebagelface.mcp",
+      "historicalInternalNamespace": "art.eggiebagelface.LuHmOS.*",
+      "isDnsRecord": false,
+      "isPtrRecord": false,
+      "wildcardTldIsPublicDns": false,
+      "mayGrantNetworkOrExecutionAuthority": false
+    },
+    "authoritativeNameservers": {
+      "expectedProvider": "cloudflare",
+      "delegationState": "UNVERIFIED",
+      "confirmParentZoneDelegation": true,
+      "confirmAuthoritativeNsAndSoa": true,
+      "checkDnssecChainWhenEnabled": true,
+      "nameserverNamesMustBeObservedNotGuessed": true,
+      "mayChangeRegistrarDelegation": false,
+      "sourceExampleMayNotClaimLiveAuthority": true
+    },
+    "reverseDnsPtrWhenApplicable": {
+      "meaning": "resolvedIpToHostViaInAddrArpaOrIp6Arpa",
+      "ptrState": "UNVERIFIED",
+      "isReverseFqdnNamespace": false,
+      "requiresIpPrefixAuthority": true,
+      "renderSharedIpIsOwnedByProject": false,
+      "optionalForPublicMcpTlsReadiness": true,
+      "mayMutatePtr": false
+    },
+    "proxyLane": {
+      "mcp": "dnsOnlyDirectRenderManagedTlsUntilStreamingProof",
+      "systemPortal": "optionalCloudflareTunnelWithBoundedOrigin",
+      "staticAssets": "sameOriginUntilApprovedCdnProof",
+      "trustUnverifiedForwardedHeaders": false,
+      "mayActivateFromSourceOnly": false
+    },
+    "canonicalRepository": {
+      "source": "eggie-admin/LuHm-OS",
+      "migration": "selectiveReviewedTransplant",
+      "donorHistoryAutoMerge": false,
+      "githubRepositoryIsDnsNameserver": false,
+      "dnsDoesNotServeRepositorySource": true,
+      "registryRef": "doctrine/activeRepositorySetV1.json",
+      "artMappingDraftPr": 216
+    },
+    "runtimeState": "UNVERIFIED",
+    "liveMutation": false
+  },
   "runtimeState": "UNVERIFIED",
   "runtimeProofFromStaticCi": false,
   "cabinet": {
@@ -126,4 +191,3 @@
   ],
   "crownStatus": "STOP"
 }
-
