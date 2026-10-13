@@ -36,6 +36,33 @@ def audit(rootPath):
         need(spineDoc["tls"]["edgeMode"] == "FullStrict", "strict edge TLS drift")
         need(spineDoc["tls"]["tunnelOriginValidation"] == "independentCloudflaredVerification", "tunnel origin TLS conflated with edge mode")
         need(spineDoc["tls"]["noTlsVerify"] is False, "tunnel certificate verification disabled")
+        chainDoc = spineDoc["identityChain"]
+        need(chainDoc["sequence"] == ["forwardFqdn", "reverseFqdnNamespace", "authoritativeNameservers", "reverseDnsPtrWhenApplicable", "proxyLane", "canonicalRepository"], "identity chain order drift")
+        forwardDoc = chainDoc["forwardFqdn"]
+        need(forwardDoc["publicMcp"] == "mcp.eggiebagelface.art" and forwardDoc["systemPortal"] == "system.eggiebagelface.art" and forwardDoc["staticAssets"] == "assets.eggiebagelface.art", "forward FQDN identity drift")
+        need(forwardDoc["status"] == "UNVERIFIED" and forwardDoc["recordsAreNotProofOfLiveTraffic"] is True, "forward DNS promoted without runtime proof")
+        revDoc = chainDoc["reverseFqdnNamespace"]
+        need(revDoc["forwardExample"] == "mcp.eggiebagelface.art" and revDoc["reverseExample"] == "art.eggiebagelface.mcp", "reverse namespace identity drift")
+        for keyValue in ("isDnsRecord", "isPtrRecord", "wildcardTldIsPublicDns", "mayGrantNetworkOrExecutionAuthority"):
+            need(revDoc[keyValue] is False, "reverse namespace treated as DNS or authority: " + keyValue)
+        nsDoc = chainDoc["authoritativeNameservers"]
+        need(nsDoc["expectedProvider"] == "cloudflare" and nsDoc["delegationState"] == "UNVERIFIED", "nameserver authority claimed without delegation receipt")
+        for keyValue in ("confirmParentZoneDelegation", "confirmAuthoritativeNsAndSoa", "nameserverNamesMustBeObservedNotGuessed", "sourceExampleMayNotClaimLiveAuthority"):
+            need(nsDoc[keyValue] is True, "nameserver proof boundary missing: " + keyValue)
+        need(nsDoc["mayChangeRegistrarDelegation"] is False, "source grants registrar mutation")
+        ptrDoc = chainDoc["reverseDnsPtrWhenApplicable"]
+        need(ptrDoc["ptrState"] == "UNVERIFIED" and ptrDoc["requiresIpPrefixAuthority"] is True, "PTR authority proof drift")
+        need(ptrDoc["isReverseFqdnNamespace"] is False and ptrDoc["renderSharedIpIsOwnedByProject"] is False, "reverse DNS confused with namespace or borrowed IP")
+        need(ptrDoc["optionalForPublicMcpTlsReadiness"] is True and ptrDoc["mayMutatePtr"] is False, "PTR overreach or unsafe mutation")
+        routeDoc = chainDoc["proxyLane"]
+        need(routeDoc["mcp"] == "dnsOnlyDirectRenderManagedTlsUntilStreamingProof", "direct MCP rerouted without streaming proof")
+        need(routeDoc["systemPortal"] == "optionalCloudflareTunnelWithBoundedOrigin" and routeDoc["staticAssets"] == "sameOriginUntilApprovedCdnProof", "proxy lane collision")
+        need(routeDoc["trustUnverifiedForwardedHeaders"] is False and routeDoc["mayActivateFromSourceOnly"] is False, "proxy source grants live traffic control")
+        canonDoc = chainDoc["canonicalRepository"]
+        need(canonDoc["source"] == repoDoc["canonicalPrimary"] and canonDoc["registryRef"] == "doctrine/activeRepositorySetV1.json", "repo identity drift")
+        need(canonDoc["migration"] == "selectiveReviewedTransplant" and canonDoc["artMappingDraftPr"] == 216, "repo mapping lineage drift")
+        need(canonDoc["donorHistoryAutoMerge"] is False and canonDoc["githubRepositoryIsDnsNameserver"] is False and canonDoc["dnsDoesNotServeRepositorySource"] is True, "GitHub/repo authority confused with DNS")
+        need(chainDoc["runtimeState"] == "UNVERIFIED" and chainDoc["liveMutation"] is False, "identity spine claimed live authority")
         policyDoc = spineDoc["reverseProxy"]
         for nameValue in ("allowForwardProxy", "trustClientForwardedHeaders", "serveRepositoryRoot", "exposeShellOrSqlAdmin", "symlinksGrantAccess"):
             need(policyDoc[nameValue] is False, "unsafe proxy policy: " + nameValue)
