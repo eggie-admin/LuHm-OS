@@ -10,6 +10,8 @@ on:
       - 'doctrine/currentSourceTruthV3.json'
       - 'tools/agentSystemDeploymentAudit.py'
       - 'tools/lumTaskRouter.py'
+      - 'doctrine/belldandyOperationalQuarantineV1.json'
+      - 'tools/belldandyOperationalQuarantineAudit.py'
       - 'doctrine/conversationModeRouterV1.json'
       - 'doctrine/npmPluginApkDeliveryV1.json'
       - 'frontEnd/**'
@@ -29,6 +31,8 @@ on:
       - 'plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md'
       - 'host/mcp/luhmMcpServer.py'
       - 'tools/lumTaskRouter.py'
+      - 'doctrine/belldandyOperationalQuarantineV1.json'
+      - 'tools/belldandyOperationalQuarantineAudit.py'
       - 'tools/agentTrainingAudit.py'
       - 'tools/agentSystemDeploymentAudit.py'
       - 'doctrine/conversationModeRouterV1.json'
@@ -63,7 +67,8 @@ jobs:
           python3 -m json.tool doctrine/projectChatCanonV1.json >/dev/null
           python3 -m json.tool doctrine/currentSourceTruthV3.json >/dev/null
           python3 -m json.tool doctrine/openAiDeploymentV3.json >/dev/null
-          python3 -m py_compile tools/lumTaskRouter.py tools/agentTrainingAudit.py tools/agentSystemDeploymentAudit.py host/mcp/luhmMcpServer.py tools/conversationModeDeliveryAudit.py
+          python3 -m py_compile tools/lumTaskRouter.py tools/agentTrainingAudit.py tools/agentSystemDeploymentAudit.py host/mcp/luhmMcpServer.py tools/conversationModeDeliveryAudit.py tools/belldandyOperationalQuarantineAudit.py
+          python3 -m json.tool doctrine/belldandyOperationalQuarantineV1.json >/dev/null
           python3 -m json.tool doctrine/conversationModeRouterV1.json >/dev/null
           python3 -m json.tool doctrine/npmPluginApkDeliveryV1.json >/dev/null
       - name: Audit conversation modes and package delivery
@@ -75,3 +80,5 @@ jobs:
         run: python3 tools/agentTrainingAudit.py
       - name: Prove system-wide source deployment
         run: python3 tools/agentSystemDeploymentAudit.py
+      - name: Enforce reversible Belldandy quarantine
+        run: python3 tools/belldandyOperationalQuarantineAudit.py
