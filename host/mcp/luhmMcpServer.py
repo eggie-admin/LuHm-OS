@@ -542,7 +542,18 @@ def luhm_agent_deployment() -> dict[str, Any]:
 
 @server.tool(annotations=READ_ONLY_INTERNAL)
 def luhm_housekeeping_status() -> dict[str, Any]:
-    """Return Belldandy's read-only checkpoint and fifty-commit housekeeping state."""
+    """Report quarantine instead of representing Belldandy as an active secretary."""
+    policy = _load_json(ROOT / "doctrine/belldandyOperationalQuarantineV1.json")
+    if policy.get("state") == "QUARANTINED":
+        return {
+            "status": "QUARANTINED_URD_REVIEW",
+            "recordOwner": "belldandySecretary",
+            "actingSecretary": False,
+            "evidenceReviewer": "urdDoctorGoddess",
+            "policy": "doctrine/belldandyOperationalQuarantineV1.json",
+            "mutationAuthority": False,
+            "greenAuthority": False,
+        }
     return _housekeeping_payload()
 
 
