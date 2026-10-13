@@ -111,6 +111,12 @@ need("def luhm_agent_deployment()" in mcp_text, "MCP deployment tool missing")
 need("RED_AGENT_DEPLOYMENT_ROSTER_DRIFT" in mcp_text, "MCP deployment health gate missing")
 
 router = ROOT / "tools/lumTaskRouter.py"
+quarantine_path = ROOT / "doctrine/belldandyOperationalQuarantineV1.json"
+quarantine = json.loads(quarantine_path.read_text(encoding="utf-8"))
+need(quarantine.get("schema") == "luhmOs.belldandyOperationalQuarantine.v1", "quarantine schema drift")
+need(quarantine.get("subject") == "belldandySecretary", "quarantine subject drift")
+need(quarantine.get("state") in {"QUARANTINED", "CLEARED"}, "quarantine state invalid")
+quarantined = quarantine.get("state") == "QUARANTINED"
 route_kinds = ["direct","read","records","proof","patch","build","external","diagnose","research","monitor","release","art","media","mediaFactory","dictation","asset"]
 allowed = set(required) | {"ProfessorCrown"}
 routes: dict[str, list[str]] = {}
@@ -122,10 +128,15 @@ for kind in route_kinds:
     need(all(worker in allowed for worker in workers), f"{kind}: noncanonical worker in route: {workers}")
 need(routes.get("art") == ["lum","yume"], "art route must resolve Lum + Yume")
 need(routes.get("mediaFactory") == ["lum","yume","mediaAssetFactory"], "media factory must remain Lum/Yume candidate-only")
-need(routes.get("monitor") == ["lum","urdDoctorGoddess","belldandySecretary","skuldResearch"], "monitor route cabinet drift")
+expected_monitor = ["lum","urdDoctorGoddess","skuldResearch"] if quarantined else ["lum","urdDoctorGoddess","belldandySecretary","skuldResearch"]
+need(routes.get("monitor") == expected_monitor, "monitor route quarantine drift")
 need({"tetsu","kaji"}.issubset(routes.get("build", [])), "build route missing forge Oni twins")
 need("urdDoctorGoddess" in routes.get("proof", []), "proof route missing Urd")
-need(routes.get("dictation") == ["lum","belldandySecretary","koe"], "dictation must route through Belldandy continuity before Koe handoff")
+expected_dictation = ["lum","koe"] if quarantined else ["lum","belldandySecretary","koe"]
+need(routes.get("dictation") == expected_dictation, "dictation route quarantine drift")
+need(routes.get("records") == (["lum","fumi"] if quarantined else ["lum","belldandySecretary","fumi"]), "records route quarantine drift")
+if quarantined:
+    need(all("belldandySecretary" not in workers for workers in routes.values()), "quarantined secretary still routed")
 
 # Full 15-agent behavioral/authority matrix. Skills inherit the shared protocol;
 # absence of repeated envelope text in a short skill does not remove that contract.
@@ -171,7 +182,10 @@ for flag in ("--contested", "--external-fact", "--asset-review"):
         reachable.update(extra.get("workers", []))
         need(extra.get("greenAuthority") is False and extra.get("residentCabinetHiddenAsync") is False,
              f"{flag}: runtime-authority or hidden-async leak")
-need(set(required).issubset(reachable), f"unreachable agents: {sorted(set(required) - reachable)}")
+expected_reachable = set(required) - ({"belldandySecretary"} if quarantined else set())
+need(expected_reachable.issubset(reachable), f"unexpected unreachable active agents: {sorted(expected_reachable - reachable)}")
+if quarantined:
+    need("belldandySecretary" not in reachable, "quarantined agent reachable in active route")
 need(reachable.issubset(allowed), f"unregistered routing identity: {sorted(reachable - allowed)}")
 
 for kind in route_kinds:
@@ -208,7 +222,8 @@ if errors:
 print("AGENT_SYSTEM_DEPLOYMENT=GREEN_SOURCE_CANDIDATE")
 print("registeredAgents=15")
 print("behavioralSkillsAudited=15")
-print("routingCoverage=15/15")
+print("routingRegistryCoverage=15/15")
+print("activeRouteCoverage=" + ("14/15_URD_REVIEW_PENDING" if quarantined else "15/15"))
 print("retiredAdjudicator=urdDoctorGoddess")
 print("reasoningAudit=observableContractOnly")
 print("residentCore=lum,urdDoctorGoddess,belldandySecretary,skuldResearch")
