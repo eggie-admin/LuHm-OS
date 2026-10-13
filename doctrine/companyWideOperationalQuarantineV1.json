@@ -1,0 +1,56 @@
+{
+  "schema": "luhmOs.companyWideOperationalQuarantine.v1",
+  "state": "QUARANTINED",
+  "authority": "Professor",
+  "sourceAnchor": "66e2aff3504992761157e618adc5eda7e1c79dc3",
+  "scope": "all15LuHmAgentWorkRoutes",
+  "registeredAgents": [
+    "lum",
+    "urdDoctorGoddess",
+    "belldandySecretary",
+    "skuldResearch",
+    "kiri",
+    "momo",
+    "shiori",
+    "kugi",
+    "tetsu",
+    "kaji",
+    "fumi",
+    "sumi",
+    "koe",
+    "yume",
+    "mediaAssetFactory"
+  ],
+  "registeredCount": 15,
+  "activeTaskWorkersAllowed": false,
+  "hiddenAsyncAgents": false,
+  "preserveSkillsAndReceipts": true,
+  "noDeleteOrOverwrite": true,
+  "reason": "Professor-requested company-wide systems/workflow safety hold; no human illness or individual blame inferred",
+  "readOnlyExceptions": [
+    "sourceAndCiAudit",
+    "statusAndRosterInspection",
+    "supervisedBelldandyMcpProof",
+    "inChatEvidenceReview"
+  ],
+  "supervisedProbe": {
+    "tool": "luhm_belldandy_supervised_probe",
+    "purpose": "Demonstrate MCP tool invocation in ChatGPT with task-source-scope and latest explicit correction; NOT active agent execution",
+    "requiresCurrentChatHostInvocation": true,
+    "requiresSameSourceSha": true,
+    "requiresUrdReconciliation": true,
+    "requiresProfessorReleaseApproval": true,
+    "hostInvocationReceipt": null,
+    "urdEvaluationReceipt": null,
+    "professorResumeReceipt": null
+  },
+  "resumeBlockedUntil": [
+    "exactLuHmAppToolInvocationObservedInCurrentChat",
+    "BelldandySupervisedPacketValidated",
+    "UrdEvidenceReviewAccepted",
+    "ExplicitProfessorResume"
+  ],
+  "releaseMode": "twoPhasePerAgentNoAutomaticRelease",
+  "sourceConfiguredNotHostProven": true,
+  "crownStatus": "STOP"
+}
