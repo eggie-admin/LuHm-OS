@@ -26,6 +26,15 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <div class="pet" id="pet">L</div>
 <div><h1>LuHm OS · Lum/Oni Cockpit</h1><div class="sub" id="surface">read-only MCP Apps frame</div></div>
 </header>
+<section class="commandDeck" data-luhm-chat-modes aria-label="Conversation modes">
+<div class="k">Conversation modes</div><div class="commandActions" role="group" aria-label="Presentation mode">
+<button type="button" data-luhm-chat-mode="default" aria-pressed="true">Default</button>
+<button type="button" data-luhm-chat-mode="ic" aria-pressed="false">IC</button>
+<button type="button" data-luhm-chat-mode="ooc" aria-pressed="false">OOC</button>
+<button type="button" data-luhm-chat-mode="irl" aria-pressed="false">IRL</button></div>
+<p class="sub" data-luhm-chat-mode-status role="status" aria-live="polite">Default · normal ChatGPT. Presentation only.</p>
+<details><summary>Operation Titan 7 · four steps</summary><p class="sub">0 Sanity check: exact Canon and PR audit. 1 Build: clean-install package and CI. 2 Merge: exact-head proof and Professor authorization. 3 Deploy: Render source, ChatGPT host and directory receipts. No self-GREEN.</p></details>
+</section>
 <section class="grid">
 <div class="card"><div class="k">source truth</div><div class="v green" id="truth">loading…</div></div>
 <div class="card"><div class="k">authority</div><div class="v amber">READ ONLY · Crown stays human</div></div>
@@ -130,6 +139,22 @@ window.addEventListener("message",e=>{
     $("surface").textContent="ChatGPT / MCP Apps · inline-safe";
   }catch(_){$("surface").textContent="MCP Apps compatibility frame";}
 })();
+</script>
+<script>
+(function () {
+ "use strict";
+ var descriptions = {default:"normal ChatGPT",ic:"in-character scene",ooc:"out-of-character project",irl:"real-life context"};
+ document.addEventListener("click",function(event){
+  var button=event.target.closest("[data-luhm-chat-mode]");
+  if(!button)return;
+  var group=button.closest("[data-luhm-chat-modes]");
+  if(!group)return;
+  var mode=button.getAttribute("data-luhm-chat-mode");
+  if(!Object.prototype.hasOwnProperty.call(descriptions,mode))return;
+  group.querySelectorAll("[data-luhm-chat-mode]").forEach(function(el){el.setAttribute("aria-pressed",String(el===button));});
+  group.querySelector("[data-luhm-chat-mode-status]").textContent=mode.toUpperCase()+" · "+descriptions[mode]+". UI only; ChatGPT host mode and agent execution unchanged.";
+ });
+}());
 </script>
 </body>
 </html>
