@@ -145,5 +145,7 @@
       "contractAndSubscriberAgreementPointer"
     ],
     "secretValuesAllowed": false
-  }
+  },
+  "networkSpineContract": "doctrine/networkSpineV1.json"
 }
+

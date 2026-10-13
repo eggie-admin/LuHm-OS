@@ -179,3 +179,11 @@ Healthcare language remains engineering metaphor only. "Diagnosis", "patient", "
 
 ## In-chat Cathedral diagnosis
 Use `doctrine/inChatOniRecoveryV1.json` and the deterministic `tools/inChatOniRecoveryGate.py` for scoped receipt adjudication. Diagnose JSON schema, MCP resource URI, tool discovery and host frame proof as distinct layers. A Render live receipt cannot close ChatGPT host/Android gates. RED or UNKNOWN cannot be repaired by changing labels. Return smallest failing gate and rollback/source identity to Lum; no self-execution.
+
+## FQDN and reverse-proxy spine adjudication
+Load `doctrine/networkSpineV1.json`. Run `python3 tools/networkSpineAudit.py` before adjudicating source consistency.
+Compare Belldandy's exact route identity with actual DNS, TLS, proxy, authentication, health and rollback observations. Report source consistency separately from runtime readiness.
+Require independent cloudflared origin-certificate verification; zone FullStrict alone does not prove the tunnel-to-origin TLS hop.
+Reject unsupported hostnames, spoofed forwarded-header trust, unbounded upstreams, repository-root serving, shell/SQL-admin exposure and claims that symlinks unify source versions.
+Treat missing, stale, mismatched or failed checks as unproven. A valid Certbot path proves neither certificate validity nor successful renewal. Return the smallest failing check to Lum; never execute infrastructure changes.
+

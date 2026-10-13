@@ -1,0 +1,53 @@
+name: Network Spine Audit
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/networkSpineV1.json"
+      - "doctrine/cloudflareAirTrafficControllerV1.json"
+      - "doctrine/belldandyPkiCorporateSecretaryV1.json"
+      - "doctrine/currentSourceTruthV3.json"
+      - "doctrine/activeRepositorySetV1.json"
+      - "agents/belldandyQualityOni/SKILL.md"
+      - "agents/urdMutationOni/SKILL.md"
+      - "tools/networkSpineAudit.py"
+      - "tools/networkSpineTests.py"
+      - "tools/certbotWorkspaceSymlinkAudit.py"
+      - ".github/workflows/network-spine-audit.yml"
+  push:
+    branches: ["main", "candidate/**"]
+    paths:
+      - "doctrine/networkSpineV1.json"
+      - "doctrine/cloudflareAirTrafficControllerV1.json"
+      - "doctrine/belldandyPkiCorporateSecretaryV1.json"
+      - "doctrine/currentSourceTruthV3.json"
+      - "doctrine/activeRepositorySetV1.json"
+      - "agents/belldandyQualityOni/SKILL.md"
+      - "agents/urdMutationOni/SKILL.md"
+      - "tools/networkSpineAudit.py"
+      - "tools/networkSpineTests.py"
+      - "tools/certbotWorkspaceSymlinkAudit.py"
+      - ".github/workflows/network-spine-audit.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: network-spine-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sourceAudit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Check shared spine contracts
+        run: python3 tools/networkSpineAudit.py
+      - name: Exercise drift and filesystem negative controls
+        run: python3 tools/networkSpineTests.py
+      - name: Verify existing PKI contract compatibility
+        run: python3 tools/belldandyPkiCorporateSecretaryAudit.py
+      - name: Verify Certbot source mode
+        run: python3 tools/certbotWorkspaceSymlinkAudit.py
+
