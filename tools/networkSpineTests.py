@@ -62,6 +62,46 @@ class NetworkSpineTests(unittest.TestCase):
         self.saveDoc()
         self.assertTrue(audit(self.rootValue)["errors"])
 
+    def testReverseFqdnNamespaceCannotBecomeDnsOrPtr(self):
+        for keyValue in ("isDnsRecord", "isPtrRecord", "wildcardTldIsPublicDns", "mayGrantNetworkOrExecutionAuthority"):
+            with self.subTest(keyValue=keyValue):
+                originalValue = copy.deepcopy(self.docValue)
+                self.docValue["identityChain"]["reverseFqdnNamespace"][keyValue] = True
+                self.saveDoc()
+                self.assertTrue(audit(self.rootValue)["errors"])
+                self.docValue = originalValue
+
+    def testNameserverAndPtrClaimsRejected(self):
+        changes = (
+            ("authoritativeNameservers", "delegationState", "LIVE"),
+            ("authoritativeNameservers", "mayChangeRegistrarDelegation", True),
+            ("reverseDnsPtrWhenApplicable", "renderSharedIpIsOwnedByProject", True),
+            ("reverseDnsPtrWhenApplicable", "mayMutatePtr", True),
+            ("reverseDnsPtrWhenApplicable", "optionalForPublicMcpTlsReadiness", False),
+        )
+        for parentValue, keyValue, value in changes:
+            with self.subTest(parentValue=parentValue, keyValue=keyValue):
+                originalValue = copy.deepcopy(self.docValue)
+                self.docValue["identityChain"][parentValue][keyValue] = value
+                self.saveDoc()
+                self.assertTrue(audit(self.rootValue)["errors"])
+                self.docValue = originalValue
+
+    def testRepositoryAndProxyCollisionRejected(self):
+        changes = (
+            ("canonicalRepository", "githubRepositoryIsDnsNameserver", True),
+            ("canonicalRepository", "donorHistoryAutoMerge", True),
+            ("proxyLane", "mayActivateFromSourceOnly", True),
+            ("proxyLane", "trustUnverifiedForwardedHeaders", True),
+        )
+        for parentValue, keyValue, value in changes:
+            with self.subTest(parentValue=parentValue, keyValue=keyValue):
+                originalValue = copy.deepcopy(self.docValue)
+                self.docValue["identityChain"][parentValue][keyValue] = value
+                self.saveDoc()
+                self.assertTrue(audit(self.rootValue)["errors"])
+                self.docValue = originalValue
+
     def testRenderTunnelDriftRejected(self):
         pathValue = self.rootValue / "doctrine/cloudflareAirTrafficControllerV1.json"
         value = json.loads(pathValue.read_text())
