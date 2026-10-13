@@ -20,6 +20,24 @@ jobs:
       - name: Audit Belldandy contract
         run: python3 tools/belldandyHousekeepingAudit.py
 
+      - name: Check Belldandy operational quarantine
+        id: quarantine
+        shell: bash
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          from pathlib import Path
+          policy_path = Path("doctrine/belldandyOperationalQuarantineV1.json")
+          if not policy_path.is_file():
+              print("quarantined=false")
+          else:
+              policy = json.loads(policy_path.read_text(encoding="utf-8"))
+              assert policy.get("schema") == "luhmOs.belldandyOperationalQuarantine.v1"
+              assert policy.get("subject") == "belldandySecretary"
+              assert policy.get("state") in ("QUARANTINED", "CLEARED")
+              print("quarantined=" + str(policy["state"] == "QUARANTINED").lower())
+          PY
+
       - name: Resolve nearest Belldandy checkpoint
         id: window
         shell: bash
@@ -48,7 +66,7 @@ jobs:
           exit 1
 
       - name: Create protective checkpoint
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && fromJSON(steps.window.outputs.count) >= 25 }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && fromJSON(steps.window.outputs.count) >= 25 && steps.quarantine.outputs.quarantined != 'true' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -65,6 +83,8 @@ jobs:
             echo "## Belldandy Housekeeping"
             echo "- checkpoint: ${{ steps.window.outputs.latest }}"
             echo "- commits since checkpoint: ${{ steps.window.outputs.count }}/50"
+            echo "- quarantine active: ${{ steps.quarantine.outputs.quarantined }}"
+            echo "- protected snapshot suspended during quarantine: ${{ steps.quarantine.outputs.quarantined }}"
             echo "- auto merge: false"
             echo "- auto delete: false"
             echo "- Crown: STOP"
