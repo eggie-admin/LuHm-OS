@@ -104,6 +104,17 @@ if archivePath.is_file():
         ):
             need(forbidden not in names, f"manual ZIP leaked developer/private file: {forbidden}")
         need(all(name.startswith("luhm-os/") is False for name in names), "ZIP has an extra top-level luhm-os directory")
+        for skillPath in sorted(name for name in names if name.startswith("skills/") and name.endswith("/SKILL.md")):
+            skillContent = archive.read(skillPath).decode("utf-8")
+            frontMatterEnd = skillContent.find("\n---\n", 4)
+            need(skillContent.startswith("---\n") and frontMatterEnd > 4,
+                 f"plugin skill missing YAML header: {skillPath}")
+            if skillContent.startswith("---\n") and frontMatterEnd > 4:
+                frontMatter = skillContent[4:frontMatterEnd]
+                need(any(line.startswith("name: ") and line[6:].strip() for line in frontMatter.splitlines()),
+                     f"plugin skill missing name: {skillPath}")
+                need(any(line.startswith("description: ") and line[13:].strip() for line in frontMatter.splitlines()),
+                     f"plugin skill missing description: {skillPath}")
         combined = b"".join(archive.read(name) for name in names if name.endswith((".json",".md",".txt",".svg")))
         need(b"-----BEGIN PRIVATE KEY-----" not in combined, "private key material found in manual ZIP")
         need(b"127.0.0.1:8788" not in combined, "local MCP endpoint leaked into manual ZIP")

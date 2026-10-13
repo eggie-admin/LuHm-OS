@@ -1,3 +1,8 @@
+---
+name: belldandy-housekeeping
+description: Inspect LuHm OS checkpoint windows, evidence receipts, and source-truth drift without granting mutation or Crown authority.
+---
+
 # Belldandy Housekeeping Skill v1
 
 This is the public LuHm plugin's read-only housekeeping view of the canonical Belldandy secretary workflow.
