@@ -22,6 +22,10 @@ Activate whenever the user is working on LuHm OS, Project Hydra, KAI 9000, Opera
 
 Do not wait for the user to say "load doctrine" if the request is clearly project-related.
 
+## Global company quarantine override
+
+Resolve `doctrine/companyWideOperationalQuarantineV1.json` before activating any resident or specialist agent. While status is `QUARANTINED`, preserve the 15-agent roster and all source/skill receipts but activate **zero** task workers. Read-only verification and authorized source review are separate actions by the assistant/tooling, not active agent execution. The only supervised in-chat proof lane is `luhm_belldandy_supervised_probe`; its MCP response is not live Belldandy cognition and cannot resume the company. Require current ChatGPT app invocation, exact source identity, Urd evidence review and explicit Professor release receipt. If host proof is missing, report UNKNOWN and hold.
+
 ## Startup sequence
 
 1. `detectProjectContext`
