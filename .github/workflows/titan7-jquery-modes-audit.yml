@@ -1,0 +1,31 @@
+name: Titan7 jQuery Modes Candidate Gate
+on:
+  pull_request:
+    paths: ['host/harness/**', 'host/mcp/luhmHarness.py', 'tests/titan7CockpitSourceAudit.py', '.github/workflows/titan7-jquery-modes-audit.yml']
+  push:
+    branches: [main]
+    paths: ['host/harness/**', 'host/mcp/luhmHarness.py', 'tests/titan7CockpitSourceAudit.py', '.github/workflows/titan7-jquery-modes-audit.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Exact candidate SHA
+        run: test "$(git rev-parse HEAD)" == "$LUHM_SOURCE_REF"
+      - name: JS syntax
+        run: node --check host/harness/titan7Cockpit.js && node --check host/harness/cockpit.js
+      - name: Local UI vendor and modes
+        run: python3 tests/titan7CockpitSourceAudit.py
+      - name: Existing harness regression
+        run: python3 tools/harnessAudit.py
+      - name: Proof boundary
+        run: echo "SOURCE_ONLY_NOT_HOST_OR_PUBLICATION_GREEN"
