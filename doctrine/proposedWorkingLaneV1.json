@@ -44,5 +44,16 @@
     "crownReceipt": "doctrine/everlastingCovenantCrownReceiptV1.json"
   },
   "futureDoctrineMutationsDefault": "PROPOSED_ONLY",
-  "futureSourceTruthMutationsDefault": "PROPOSED_ONLY"
+  "futureSourceTruthMutationsDefault": "PROPOSED_ONLY",
+  "androidPrototypeDelivery": {
+    "contract": "doctrine/androidDeliveryLanesV1.json",
+    "prototypePolicy": "isolated disposable debug build is the fast path",
+    "proposedMayExperimentBeforeBetaHardening": true,
+    "allowedPrototypeArtifact": "disposableDebugSignedApkOrAar",
+    "requestedAutoPrototypeBuild": true,
+    "currentBuildAutomationGate": "FORGE_CAST_UNCHANGED_PENDING_FOCUSED_MIGRATION",
+    "betaNeedsSeparateSecurityAndDeviceEvidence": true,
+    "releaseNeedsIndependentSigningTargetSdkAndPublicationProof": true,
+    "doNotChangeExistingProductionAuthority": true
+  }
 }

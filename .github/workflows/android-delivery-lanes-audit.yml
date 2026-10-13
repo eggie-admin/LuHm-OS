@@ -1,0 +1,31 @@
+name: android-delivery-lanes-audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/androidDeliveryLanesV1.json'
+      - 'doctrine/proposedWorkingLaneV1.json'
+      - 'doctrine/namingNamespaceCanonV1.json'
+      - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
+      - 'tools/androidDeliveryLanesAudit.py'
+      - '.github/workflows/android-delivery-lanes-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Validate Android delivery lane source
+        run: |
+          python3 -m json.tool doctrine/androidDeliveryLanesV1.json >/dev/null
+          python3 -m json.tool doctrine/proposedWorkingLaneV1.json >/dev/null
+          python3 tools/androidDeliveryLanesAudit.py --self-test
+      - name: Preserve existing Android WebView audit
+        run: python3 tools/androidWeb3CockpitAudit.py

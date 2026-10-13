@@ -28,6 +28,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
         private const val LOCAL_PREFIX = "/assets/"
         private const val START_URL = "$LOCAL_ORIGIN$LOCAL_PREFIX" + "index.html"
         private const val BRIDGE_OBJECT = "LuHmNative"
+        private const val MAX_BRIDGE_MESSAGE_CHARS = 512
 
         private val WORLD_REQUESTED = SignalInfo("world_requested")
         private val ONI_REQUESTED = SignalInfo("oni_requested", String::class.java)
@@ -171,8 +172,24 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
     }
 
     private fun handleBridgeMessage(raw: String) {
+        if (raw.length > MAX_BRIDGE_MESSAGE_CHARS) {
+            emitSignal(BRIDGE_ERROR.name, "bridge_payload_too_large")
+            return
+        }
         try {
             val payload = JSONObject(raw)
+            val expectedKeys = when (payload.optString("type")) {
+                "oni_requested" -> setOf("type", "name")
+                "world_requested", "cockpit_ready" -> setOf("type")
+                else -> {
+                    emitSignal(BRIDGE_ERROR.name, "bridge_type_rejected")
+                    return
+                }
+            }
+            if (payload.keys().asSequence().toSet() != expectedKeys) {
+                emitSignal(BRIDGE_ERROR.name, "bridge_keys_rejected")
+                return
+            }
             when (payload.optString("type")) {
                 "world_requested" -> {
                     hideCockpitInternal()
