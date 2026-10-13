@@ -32,6 +32,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCE_TRUTH = ROOT / "doctrine" / "currentSourceTruthV3.json"
 CONTROL_PLANE = ROOT / "doctrine" / "luhmAiControlPlaneV1.json"
 AGENT_DEPLOYMENT = ROOT / "doctrine" / "agentSystemDeploymentV1.json"
+COMPANY_QUARANTINE = ROOT / "doctrine" / "companyWideOperationalQuarantineV1.json"
 ENTERPRISE_SCOPE = ROOT / "doctrine" / "mcpEnterpriseScopeV2.json"
 API_SPINE = ROOT / "doctrine" / "apiSpineV1.json"
 TRAFFIC_CONTROLLER = ROOT / "doctrine" / "cloudflareAirTrafficControllerV1.json"
@@ -333,6 +334,8 @@ def _deployment_payload() -> dict[str, Any]:
         "schema": "luhmOs.mcpAgentDeployment.v1",
         "status": deployment.get("status", "UNKNOWN"),
         "registeredEverywhere": deployment.get("activationLaw", {}).get("registeredEverywhere", False),
+        "companyOperationalQuarantine": _load_json(COMPANY_QUARANTINE).get("state", "UNKNOWN"),
+        "activeAgentExecutionProven": False,
         "residentCore": deployment.get("residentCore", []),
         "lazyAgents": deployment.get("globallyAvailableLazyAgents", []),
         "requiredAgentCount": deployment.get("requiredAgentCount", 0),
@@ -556,6 +559,47 @@ def luhm_housekeeping_status() -> dict[str, Any]:
         receipt["mutationAuthority"] = False
         receipt["greenAuthority"] = False
     return receipt
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_belldandy_supervised_probe(
+    taskId: str,
+    sourceRef: str,
+    scopeId: str,
+    earlierStatement: str,
+    explicitCorrection: str,
+) -> dict[str, Any]:
+    """Supervised read-only correction echo for app-in-chat host verification, not agent execution."""
+    scope = _scope_payload(taskId, sourceRef, scopeId)
+    _require_explicit_scope(scope)
+    company = _load_json(COMPANY_QUARANTINE)
+    if company.get("state") != "QUARANTINED":
+        raise ValueError("supervised probe is only permitted during company quarantine")
+    old_text = _scope_value(earlierStatement, 256)
+    correction = _scope_value(explicitCorrection, 256)
+    if old_text == "UNKNOWN" or correction == "UNKNOWN" or old_text == correction:
+        raise ValueError("explicit correction must differ from earlier statement")
+    runtime_source = _housekeeping_payload().get("sourceRef", "UNKNOWN")
+    source_match = runtime_source == scope["sourceRef"]
+    return {
+        "schema": "luhmOs.belldandySupervisedProbe.v1",
+        "displayName": "Belldandy",
+        "canonicalAgentId": "belldandySecretary",
+        "mode": "SUPERVISED_READ_ONLY_QUARANTINE",
+        "previousStatement": old_text,
+        "latestProfessorCorrection": correction,
+        "normalizedIntent": correction,
+        "taskScope": scope,
+        "runtimeSourceRef": runtime_source,
+        "sourceMatch": source_match,
+        "claim": "MCP_TOOL_RESPONSE_ONLY_NOT_AGENT_EXECUTION",
+        "proofNeeded": "ChatGPT attached LuHm app invokes this tool and Urd reviews exact output",
+        "companyQuarantine": "QUARANTINED",
+        "allAgentsPaused": True,
+        "mutationAuthority": False,
+        "promotionAuthority": False,
+        "crownStatus": "STOP",
+    }
 
 
 @server.tool(annotations=READ_ONLY_INTERNAL)

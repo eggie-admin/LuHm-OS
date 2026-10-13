@@ -33,6 +33,25 @@ RESIDENT_CABINET = ["urdDoctorGoddess", "belldandySecretary", "skuldResearch"]
 LAZY_ONI = ["kiri", "momo", "shiori", "kugi", "tetsu", "kaji", "fumi", "sumi", "koe", "yume", "mediaAssetFactory"]
 
 QUARANTINE_PATH = Path(__file__).resolve().parents[1] / "doctrine/belldandyOperationalQuarantineV1.json"
+COMPANY_QUARANTINE_PATH = Path(__file__).resolve().parents[1] / "doctrine/companyWideOperationalQuarantineV1.json"
+
+
+def read_company_quarantine() -> dict:
+    try:
+        policy = json.loads(COMPANY_QUARANTINE_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        raise SystemExit("RED_COMPANY_QUARANTINE_POLICY_UNAVAILABLE") from exc
+    if (policy.get("schema") != "luhmOs.companyWideOperationalQuarantine.v1" or
+            policy.get("state") not in ("QUARANTINED", "CLEARED") or
+            policy.get("registeredCount") != 15 or
+            policy.get("crownStatus") != "STOP"):
+        raise SystemExit("RED_COMPANY_QUARANTINE_CONTRACT_INVALID")
+    if policy["state"] == "CLEARED":
+        evidence = policy.get("supervisedProbe", {})
+        if not all(evidence.get(key) for key in
+                   ("hostInvocationReceipt", "urdEvaluationReceipt", "professorResumeReceipt")):
+            raise SystemExit("RED_COMPANY_RELEASE_PROOF_MISSING")
+    return policy
 
 
 def read_quarantine() -> dict:
@@ -95,6 +114,11 @@ def main() -> int:
     if quarantined:
         workers = [worker for worker in workers if worker != policy["subject"]]
         reasons.append("professor-quarantine:belldandySecretary")
+    company_quarantine = read_company_quarantine()
+    all_held = company_quarantine["state"] == "QUARANTINED"
+    if all_held:
+        workers = []
+        reasons.append("professor-companywide-operational-hold")
     support = [w for w in workers if w in SUPPORT]
     if len(support) > 3:
         raise SystemExit("RED_ROUTER_SUPPORT_PARALLELISM_EXCEEDED")
@@ -108,7 +132,15 @@ def main() -> int:
         "workers": workers,
         "residentCabinet": RESIDENT_CABINET,
         "residentCabinetState": "registeredRosterNotProofOfActiveExecution",
-        "activeResidentCabinet": [name for name in RESIDENT_CABINET if not (quarantined and name == policy["subject"])],
+        "activeResidentCabinet": [] if all_held else [name for name in RESIDENT_CABINET if not (quarantined and name == policy["subject"])],
+        "companyQuarantine": {
+            "state": company_quarantine["state"],
+            "registeredAgents": company_quarantine["registeredCount"],
+            "activeWorkers": len(workers),
+            "supervisedProbeTool": company_quarantine["supervisedProbe"]["tool"],
+            "hostInvocationProven": False,
+            "releaseRequiresProfessor": True,
+        },
         "operationalQuarantine": {
             "subject": policy["subject"],
             "state": policy["state"],
@@ -128,7 +160,7 @@ def main() -> int:
         "usesDoctorGoddess": "urdDoctorGoddess" in workers,
         "usesSecretaryGoddess": "belldandySecretary" in workers,
         "usesResearchGoddess": "skuldResearch" in workers,
-        "requiresProfessorCrown": "ProfessorCrown" in workers,
+        "requiresProfessorCrown": args.kind == "release" or "ProfessorCrown" in workers,
         "dictationExecutesDirectly": False,
         "greenAuthority": False,
     }

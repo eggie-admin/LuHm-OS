@@ -221,5 +221,7 @@
     "liveProviderWorkerClaim": false,
     "hiddenTrainingClaim": false,
     "publicOpeningDayPromotion": false
-  }
+  },
+  "operationalQuarantineContract": "doctrine/companyWideOperationalQuarantineV1.json",
+  "statusQualifier": "registered roster preserved while all active agent work routes are quarantined pending in-chat app proof"
 }

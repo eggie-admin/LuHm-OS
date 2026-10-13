@@ -11,6 +11,8 @@ on:
       - 'tools/agentSystemDeploymentAudit.py'
       - 'tools/lumTaskRouter.py'
       - 'doctrine/belldandyOperationalQuarantineV1.json'
+      - 'doctrine/companyWideOperationalQuarantineV1.json'
+      - 'tools/companyWideQuarantineAudit.py'
       - 'tools/belldandyOperationalQuarantineAudit.py'
       - 'doctrine/conversationModeRouterV1.json'
       - 'doctrine/npmPluginApkDeliveryV1.json'
@@ -32,6 +34,8 @@ on:
       - 'host/mcp/luhmMcpServer.py'
       - 'tools/lumTaskRouter.py'
       - 'doctrine/belldandyOperationalQuarantineV1.json'
+      - 'doctrine/companyWideOperationalQuarantineV1.json'
+      - 'tools/companyWideQuarantineAudit.py'
       - 'tools/belldandyOperationalQuarantineAudit.py'
       - 'tools/agentTrainingAudit.py'
       - 'tools/agentSystemDeploymentAudit.py'
@@ -69,6 +73,7 @@ jobs:
           python3 -m json.tool doctrine/openAiDeploymentV3.json >/dev/null
           python3 -m py_compile tools/lumTaskRouter.py tools/agentTrainingAudit.py tools/agentSystemDeploymentAudit.py host/mcp/luhmMcpServer.py tools/conversationModeDeliveryAudit.py tools/belldandyOperationalQuarantineAudit.py
           python3 -m json.tool doctrine/belldandyOperationalQuarantineV1.json >/dev/null
+          python3 -m json.tool doctrine/companyWideOperationalQuarantineV1.json >/dev/null
           python3 -m json.tool doctrine/conversationModeRouterV1.json >/dev/null
           python3 -m json.tool doctrine/npmPluginApkDeliveryV1.json >/dev/null
       - name: Audit conversation modes and package delivery
@@ -82,3 +87,5 @@ jobs:
         run: python3 tools/agentSystemDeploymentAudit.py
       - name: Enforce reversible Belldandy quarantine
         run: python3 tools/belldandyOperationalQuarantineAudit.py
+      - name: Enforce company-wide operational quarantine
+        run: python3 tools/companyWideQuarantineAudit.py
