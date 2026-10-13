@@ -21,3 +21,6 @@ For every LuHm OS / Project Hydra task:
 Machine identities use lower camelHump. External interoperability filenames such as `AGENTS.md` are protocol filenames, not machine identities.
 
 14. Resolve healthcare, quarantine, clinical, airport-security and similar roleplay metaphors through `doctrine/semanticDomainHardeningV1.json`; presentation language never grants professional credentials, GREEN, mutation authority, legal/compliance status, or Crown.
+
+
+15. Before Google AI or provider-assisted repo work, load `doctrine/googleAiDeveloperEntitlementsV1.json` and `doctrine/lumOrchestraHardeningV1.json`. AI Pro plan/credits are not API billing or IAM proof. Use only the exact canonical agent route and keep authenticated Google execution outside untrusted pull-request CI.

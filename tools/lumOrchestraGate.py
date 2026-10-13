@@ -17,6 +17,7 @@ FILES = [
     "doctrine/agentSystemDeploymentV1.json",
     "doctrine/everlastingCovenantV1.json",
     "doctrine/apiSpineV1.json",
+    "doctrine/googleAiDeveloperEntitlementsV1.json",
 ]
 SHA = re.compile(r"[0-9a-f]{40}\Z")
 ROUTES = {
@@ -47,7 +48,7 @@ def source_sha(root):
 
 def policy_check(root):
     data = {name: load_json(root / name) for name in FILES}
-    cfg, truth, control, registry, covenant, api = (data[name] for name in FILES)
+    cfg, truth, control, registry, covenant, api, googleEntitlements = (data[name] for name in FILES)
     errors = []
     def need(condition, code):
         if not condition:
@@ -85,6 +86,51 @@ def policy_check(root):
          "RED_GOOGLE_REVIEW_BOUNDARY")
     need(gc.get("consumerSubscriptionGrantsApiAccess") is False and gc.get("requiresBillingAndQuotaProof") is True,
          "RED_GOOGLE_BILLING_GATE")
+    axes = googleEntitlements.get("entitlementAxes", {})
+    pro = axes.get("consumerSubscription", {})
+    benefit = axes.get("developerProgramBenefits", {})
+    dev = axes.get("developerApi", {})
+    billing = axes.get("cloudBilling", {})
+    execution = googleEntitlements.get("executionLaw", {})
+    need(googleEntitlements.get("schema") == "luhmOs.googleAiDeveloperEntitlements.v1"
+         and googleEntitlements.get("status") == "PROPOSED_CANDIDATE_NO_LIVE_API"
+         and googleEntitlements.get("crownStatus") == "STOP", "RED_GOOGLE_ENTITLEMENT_SCHEMA")
+    need(googleEntitlements.get("providerId") == "googleAi"
+         and googleEntitlements.get("adapterId") == google.get("adapterId")
+         and googleEntitlements.get("capabilityRoute") == "doctrine/apiSpineV1.json#providers/googleAi",
+         "RED_GOOGLE_PROVIDER_ROUTE")
+    need(pro.get("product") == "googleAiPro" and pro.get("evidenceState") == "HISTORICAL_SUBSCRIPTION_EMAIL_2026_09"
+         and all(pro.get(field) is False for field in
+                 ("grantsDeveloperApi", "grantsCloudBilling", "grantsVertexQuota")),
+         "RED_GOOGLE_CONSUMER_TO_API_ESCALATION")
+    need(benefit.get("potentialMonthlyCloudCreditUsd") == 10
+         and benefit.get("activationState") == "UNKNOWN_NO_ACCOUNT_BOUND_RECEIPT"
+         and benefit.get("creditBalanceState") == "UNKNOWN_NO_ACCOUNT_BOUND_RECEIPT"
+         and benefit.get("grantApiExecution") is False,
+         "RED_GOOGLE_UNREDEEMED_CREDIT_AUTHORITY")
+    need(dev.get("automatedConsumerGeminiForbidden") is True
+         and dev.get("apiEnabledState") == "UNKNOWN"
+         and dev.get("iamState") == "UNKNOWN"
+         and dev.get("modelAndQuotaState") == "UNKNOWN"
+         and dev.get("authorizedSmokeState") == "UNKNOWN",
+         "RED_GOOGLE_DEVELOPER_API_CLAIM")
+    need(billing.get("historicalWarning") == "UNRESOLVED_PAYMENT_WARNING_2026_10_01"
+         and billing.get("currentResolutionState") == "UNKNOWN"
+         and billing.get("paidCallsAllowed") is False
+         and billing.get("existingCreditsAloneAuthorizeSpend") is False,
+         "RED_GOOGLE_BILLING_WARNING_SUPPRESSED")
+    need(execution.get("defaultAction") == "DENY"
+         and execution.get("failClosedOnUnknown") is True
+         and execution.get("structuralReceiptDoesNotEstablishEntitlement") is True
+         and execution.get("noGithubPrOidcOrSecrets") is True
+         and execution.get("separateProfessorScopeRequiredForBillableCall") is True
+         and execution.get("noProviderCanGrantGreen") is True
+         and execution.get("noAutomaticMerge") is True
+         and execution.get("noAutomaticDeploy") is True
+         and execution.get("noAutomaticCrown") is True,
+         "RED_GOOGLE_EXECUTION_AUTHORITY")
+    need(len(googleEntitlements.get("authenticatedEvidenceRequirements", [])) >= 8,
+         "RED_GOOGLE_ACCOUNT_BOUND_EVIDENCE_CONTRACT")
     gh = cfg.get("github", {})
     need(gh.get("usesSecretsInPrAudit") is False and gh.get("oidcEnabledByThisWorkflow") is False,
          "RED_PR_SECRET_OR_OIDC")
@@ -136,7 +182,7 @@ def assess(packet, current_sha, cfg):
          1 <= budget["maxPasses"] <= 10, "RED_TASK_BUDGET")
     workers = packet.get("workers")
     need(isinstance(workers, list) and all(isinstance(w, str) for w in workers) and
-         len(workers) == len(set(workers)) and ROUTES.get(kind, {"lum"}).issubset(set(workers)) and
+         len(workers) == len(set(workers)) and set(workers) == ROUTES.get(kind, {"lum"}) and
          len(set(workers) & SUPPORT) <= 3 and
          set(workers) <= set(cfg.get("canonicalAgents", [])), "RED_WORKER_ROUTE")
     need(packet.get("authority") == {"mutation": False, "green": False, "crown": False},

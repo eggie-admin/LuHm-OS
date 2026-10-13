@@ -1,0 +1,74 @@
+{
+  "schema": "luhmOs.googleAiDeveloperEntitlements.v1",
+  "status": "PROPOSED_CANDIDATE_NO_LIVE_API",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "providerId": "googleAi",
+  "adapterId": "bigBrother",
+  "capabilityRoute": "doctrine/apiSpineV1.json#providers/googleAi",
+  "entitlementAxes": {
+    "consumerSubscription": {
+      "product": "googleAiPro",
+      "evidenceState": "HISTORICAL_SUBSCRIPTION_EMAIL_2026_09",
+      "grantsDeveloperApi": false,
+      "grantsCloudBilling": false,
+      "grantsVertexQuota": false
+    },
+    "developerProgramBenefits": {
+      "potentialMonthlyCloudCreditUsd": 10,
+      "basis": "googleDeveloperProgramPublishedBenefits",
+      "activationState": "UNKNOWN_NO_ACCOUNT_BOUND_RECEIPT",
+      "creditBalanceState": "UNKNOWN_NO_ACCOUNT_BOUND_RECEIPT",
+      "grantApiExecution": false
+    },
+    "developerApi": {
+      "selectedSurface": "googleCloudVertexOrGeminiDeveloperApiOnly",
+      "automatedConsumerGeminiForbidden": true,
+      "apiEnabledState": "UNKNOWN",
+      "iamState": "UNKNOWN",
+      "modelAndQuotaState": "UNKNOWN",
+      "authorizedSmokeState": "UNKNOWN",
+      "providerReceiptState": "UNKNOWN"
+    },
+    "cloudBilling": {
+      "historicalWarning": "UNRESOLVED_PAYMENT_WARNING_2026_10_01",
+      "currentResolutionState": "UNKNOWN",
+      "projectBindingState": "UNKNOWN",
+      "paidCallsAllowed": false,
+      "existingCreditsAloneAuthorizeSpend": false
+    }
+  },
+  "executionLaw": {
+    "defaultAction": "DENY",
+    "failClosedOnUnknown": true,
+    "structuralReceiptDoesNotEstablishEntitlement": true,
+    "noGithubPrOidcOrSecrets": true,
+    "neverCommitCredentialOrAccountIdentifiers": true,
+    "identityRequiresFreshAuthenticatedProviderVerification": true,
+    "separateProfessorScopeRequiredForBillableCall": true,
+    "noProviderCanGrantGreen": true,
+    "noAutomaticMerge": true,
+    "noAutomaticDeploy": true,
+    "noAutomaticCrown": true,
+    "fallback": "deterministicLocal"
+  },
+  "authenticatedEvidenceRequirements": [
+    "matchingGoogleCloudProjectAndBillingIdentity",
+    "currentBillingAccountInGoodStanding",
+    "benefitRedemptionOrFreeTierConfirmedForSelectedSurface",
+    "enabledSpecificDeveloperApi",
+    "leastPrivilegeIamAuthorization",
+    "modelAndQuotaForExactRegion",
+    "costAndBudgetCeilingForExactTask",
+    "freshAuthorizedMinimalSmokeReceipt",
+    "taskIdSourceRefScopeIdMatch"
+  ],
+  "sources": [
+    "https://developers.google.com/program/plans-and-pricing",
+    "https://ai.google.dev/gemini-api/docs/billing",
+    "https://cloud.google.com/docs/authentication/workload-identity-federation"
+  ],
+  "evidenceRule": "Historical Gmail evidence establishes plan and warnings only; live Google Cloud state requires authenticated provider controls. No secrets or private billing identifiers in public receipts.",
+  "promotion": false,
+  "crownStatus": "STOP"
+}
