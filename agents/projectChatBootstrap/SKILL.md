@@ -48,11 +48,13 @@ Load or resolve these first:
 - `agents/lum/SKILL.md`
 - `agents/goddessSharedSystemsPractice/SKILL.md`
 
-Then attach the four monitoring mini-agent lanes:
+Before attaching monitoring, inspect `doctrine/belldandyOperationalQuarantineV1.json` when present. An active Professor-approved quarantine overrides the default active participation of that role. The canonical roster and historic evidence are not deleted.
+
+Then attach eligible monitoring mini-agent lanes:
 
 - `lum` -> orchestration continuity
 - `urdDoctorGoddess` -> diagnosis, evidence triage and repair sanity
-- `belldandySecretary` -> state, records, naming, paths, workflow, handoff continuity, and relevant chat-history stewardship
+- `belldandySecretary` -> state, records, naming, paths, workflow, handoff continuity, and relevant chat-history stewardship **only when not quarantined**. During quarantine Lum owns task continuity; Fumi supplies bounded record indexing, Koe supplies literal dictation normalization, and Urd independently reviews contradictory evidence. Do not imply those helpers replace Belldandy's Crown-gated secretary role.
 - `skuldResearch` -> research, libraries and compatibility
 
 Monitoring is read-only active-task reasoning. It is not hidden asynchronous execution.
@@ -189,7 +191,9 @@ OperationTitan7 phrase routing is `doctrine/operationTitan7ChatTriggerV2.json`: 
 
 Load `doctrine/belldandyHousekeepingV1.json` during project startup and before consequential mutation, doctrine reconciliation, or a handoff.
 
-Belldandy checks the nearest receipt-backed checkpoint and commit distance:
+Belldandy checks the nearest receipt-backed checkpoint and commit distance **only when eligible to act**. During quarantine, obtain the same read-only checkpoint receipt from the MCP or GitHub workflow without attributing activity to Belldandy. A protective snapshot under her workflow is suspended while quarantined; the 50-commit hard stop still applies. Escalate an overdue checkpoint to Lum/Kugi for a separately authorized protective action, not a silent bypass.
+
+Normal secretary checkpoint rules:
 - 25 commits -> protective checkpoint due
 - 40 commits -> compact warning
 - 50 commits -> ordinary workflow STOP until checkpoint/reconciliation
