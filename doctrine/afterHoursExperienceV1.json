@@ -20,8 +20,23 @@
     "theme": "adultAnimeGothNightlife",
     "visuallyDistinctFromNormalChat": true,
     "shellStyle": "terminalMud",
-    "commandBar": ["LOOK", "TALK", "GO", "FLIRT", "DRINK", "INVENTORY", "STATS", "CHAOS", "C"],
-    "systemCommands": ["AFTER HOURS", "PAUSE", "RESUME", "EXIT"]
+    "commandBar": [
+      "LOOK",
+      "TALK",
+      "GO",
+      "FLIRT",
+      "DRINK",
+      "INVENTORY",
+      "STATS",
+      "CHAOS",
+      "C"
+    ],
+    "systemCommands": [
+      "AFTER HOURS",
+      "PAUSE",
+      "RESUME",
+      "EXIT"
+    ]
   },
   "fictionBoundary": {
     "allCharactersAdults": true,
@@ -33,7 +48,11 @@
   },
   "session": {
     "continuity": "conversationScoped",
-    "stateLabels": ["OUTSIDE", "ACTIVE", "PAUSED"],
+    "stateLabels": [
+      "OUTSIDE",
+      "ACTIVE",
+      "PAUSED"
+    ],
     "initialState": "OUTSIDE",
     "freeformNaturalLanguageInput": true,
     "oldMudVerbInput": true
@@ -46,5 +65,63 @@
     "crownAuthority": false
   },
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "fastMudTurn": {
+    "status": "CANDIDATE_SOURCE_ONLY",
+    "intent": "fast responsive conversational dungeon master, not a heavyweight UI",
+    "chatEntryPrefixes": [
+      "IN SCENE",
+      "AFTER HOURS"
+    ],
+    "chatExitPrefixes": [
+      "OOC",
+      "IRL",
+      "OUT OF CHARACTER"
+    ],
+    "commands": [
+      "LOOK",
+      "TALK",
+      "INSPECT",
+      "GO",
+      "TAKE",
+      "USE",
+      "INVENTORY",
+      "STATS",
+      "CHAOS",
+      "ART",
+      "C"
+    ],
+    "pacing": {
+      "actionFirst": true,
+      "targetWordsPerRoutineTurn": 120,
+      "maxWordsPerRoutineTurn": 150,
+      "maxSuggestedChoices": 3,
+      "allowNaturalSpeech": true,
+      "resolveOneActionPerTurn": true,
+      "noRoutineTitleCards": true,
+      "noRoutineQuestWidgets": true,
+      "showQuestInventoryOnlyWhenChangedOrRequested": true,
+      "noRepeatedLocationRecaps": true,
+      "noForcedCommandMenus": true
+    },
+    "art": {
+      "textTurnsNeverBlockedOnImageGeneration": true,
+      "drawOnExplicitArtCommandOrMeaningfulSceneReveal": true,
+      "doNotSearchForImagesOnRoutineActions": true,
+      "noPretendImagesOrRuntimeScreenshots": true,
+      "keepTextDialogueOutsideRenderedArt": true
+    },
+    "continuity": {
+      "preserveConversationScopedRoomAndCharacterState": true,
+      "preserveCluesAndInventory": true,
+      "noFakePersistentSaveOutsideConversation": true,
+      "showNextPlayableBeatWithoutAskingSetupQuestions": true
+    },
+    "boundaries": {
+      "oocStopsSceneImmediately": true,
+      "storyActionsNeverInvokePrivilegedTools": true,
+      "sourceRuleDoesNotProveLiveHostImplementation": true,
+      "roleplayNeverGrantsCrown": true
+    }
+  }
 }
