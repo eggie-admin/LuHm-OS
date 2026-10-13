@@ -111,6 +111,10 @@ need("def luhm_agent_deployment()" in mcp_text, "MCP deployment tool missing")
 need("RED_AGENT_DEPLOYMENT_ROSTER_DRIFT" in mcp_text, "MCP deployment health gate missing")
 
 router = ROOT / "tools/lumTaskRouter.py"
+company_quarantine = load("doctrine/companyWideOperationalQuarantineV1.json")
+need(company_quarantine.get("schema") == "luhmOs.companyWideOperationalQuarantine.v1", "company quarantine schema drift")
+need(company_quarantine.get("registeredAgents") == required, "company quarantine roster drift")
+company_held = company_quarantine.get("state") == "QUARANTINED"
 quarantine_path = ROOT / "doctrine/belldandyOperationalQuarantineV1.json"
 quarantine = json.loads(quarantine_path.read_text(encoding="utf-8"))
 need(quarantine.get("schema") == "luhmOs.belldandyOperationalQuarantine.v1", "quarantine schema drift")
@@ -126,17 +130,20 @@ for kind in route_kinds:
     workers = payload.get("workers", [])
     routes[kind] = workers
     need(all(worker in allowed for worker in workers), f"{kind}: noncanonical worker in route: {workers}")
-need(routes.get("art") == ["lum","yume"], "art route must resolve Lum + Yume")
-need(routes.get("mediaFactory") == ["lum","yume","mediaAssetFactory"], "media factory must remain Lum/Yume candidate-only")
-expected_monitor = ["lum","urdDoctorGoddess","skuldResearch"] if quarantined else ["lum","urdDoctorGoddess","belldandySecretary","skuldResearch"]
-need(routes.get("monitor") == expected_monitor, "monitor route quarantine drift")
-need({"tetsu","kaji"}.issubset(routes.get("build", [])), "build route missing forge Oni twins")
-need("urdDoctorGoddess" in routes.get("proof", []), "proof route missing Urd")
-expected_dictation = ["lum","koe"] if quarantined else ["lum","belldandySecretary","koe"]
-need(routes.get("dictation") == expected_dictation, "dictation route quarantine drift")
-need(routes.get("records") == (["lum","fumi"] if quarantined else ["lum","belldandySecretary","fumi"]), "records route quarantine drift")
-if quarantined:
-    need(all("belldandySecretary" not in workers for workers in routes.values()), "quarantined secretary still routed")
+if company_held:
+    need(all(not worker_list for worker_list in routes.values()), "company-wide quarantine leaked an active worker")
+else:
+    need(routes.get("art") == ["lum","yume"], "art route must resolve Lum + Yume")
+    need(routes.get("mediaFactory") == ["lum","yume","mediaAssetFactory"], "media factory must remain Lum/Yume candidate-only")
+    expected_monitor = ["lum","urdDoctorGoddess","skuldResearch"] if quarantined else ["lum","urdDoctorGoddess","belldandySecretary","skuldResearch"]
+    need(routes.get("monitor") == expected_monitor, "monitor route quarantine drift")
+    need({"tetsu","kaji"}.issubset(routes.get("build", [])), "build route missing forge Oni twins")
+    need("urdDoctorGoddess" in routes.get("proof", []), "proof route missing Urd")
+    expected_dictation = ["lum","koe"] if quarantined else ["lum","belldandySecretary","koe"]
+    need(routes.get("dictation") == expected_dictation, "dictation route quarantine drift")
+    need(routes.get("records") == (["lum","fumi"] if quarantined else ["lum","belldandySecretary","fumi"]), "records route quarantine drift")
+    if quarantined:
+        need(all("belldandySecretary" not in workers for workers in routes.values()), "quarantined secretary still routed")
 
 # Full 15-agent behavioral/authority matrix. Skills inherit the shared protocol;
 # absence of repeated envelope text in a short skill does not remove that contract.
@@ -182,10 +189,13 @@ for flag in ("--contested", "--external-fact", "--asset-review"):
         reachable.update(extra.get("workers", []))
         need(extra.get("greenAuthority") is False and extra.get("residentCabinetHiddenAsync") is False,
              f"{flag}: runtime-authority or hidden-async leak")
-expected_reachable = set(required) - ({"belldandySecretary"} if quarantined else set())
-need(expected_reachable.issubset(reachable), f"unexpected unreachable active agents: {sorted(expected_reachable - reachable)}")
-if quarantined:
-    need("belldandySecretary" not in reachable, "quarantined agent reachable in active route")
+if company_held:
+    need(reachable == set(), "company-quarantined workers were activated")
+else:
+    expected_reachable = set(required) - ({"belldandySecretary"} if quarantined else set())
+    need(expected_reachable.issubset(reachable), f"unexpected unreachable active agents: {sorted(expected_reachable - reachable)}")
+    if quarantined:
+        need("belldandySecretary" not in reachable, "quarantined agent reachable in active route")
 need(reachable.issubset(allowed), f"unregistered routing identity: {sorted(reachable - allowed)}")
 
 for kind in route_kinds:
@@ -197,14 +207,22 @@ for kind in route_kinds:
         need(payload.get("sourceMutationLanes") in (0, 1), f"{kind}: mutable lane expansion")
         need(payload.get("parallelBuilds") in (0, 2), f"{kind}: unexpected build lane count")
         need(len(payload.get("supportWorkers", [])) <= 3, f"{kind}: support-worker overrun")
-need(routes.get("release") == ["lum","urdDoctorGoddess","ProfessorCrown"],
-     "release must retain explicit Professor gate")
+if company_held:
+    need(routes.get("release") == [], "release route must be frozen")
+    release_plan = json.loads(subprocess.run([sys.executable, str(router), "release"], cwd=ROOT, check=True, capture_output=True, text=True).stdout)
+    need(release_plan.get("requiresProfessorCrown") is True, "frozen release still requires Professor")
+else:
+    need(routes.get("release") == ["lum","urdDoctorGoddess","ProfessorCrown"],
+         "release must retain explicit Professor gate")
 overbudget = subprocess.run(
     [sys.executable, str(router), "build", "--contested", "--external-fact", "--asset-review"],
     cwd=ROOT, capture_output=True, text=True,
 )
-need(overbudget.returncode != 0 and "RED_ROUTER_SUPPORT_PARALLELISM_EXCEEDED" in (overbudget.stderr + overbudget.stdout),
-     "parallelism overflow did not fail closed")
+if company_held:
+    need(overbudget.returncode == 0 and json.loads(overbudget.stdout).get("workers") == [], "quarantine must suppress all overloaded work")
+else:
+    need(overbudget.returncode != 0 and "RED_ROUTER_SUPPORT_PARALLELISM_EXCEEDED" in (overbudget.stderr + overbudget.stdout),
+         "parallelism overflow did not fail closed")
 need(control.get("aiTaskManifest", {}).get("schema") == truth.get("manifestLaw", {}).get("currentAiTaskSchema")
      == "luhmOs.aiTaskManifest.v2", "agent reasoning input manifest schema drift")
 need(control.get("taskManifest", {}).get("mayAuthorizeExecution") is False,
@@ -223,7 +241,7 @@ print("AGENT_SYSTEM_DEPLOYMENT=GREEN_SOURCE_CANDIDATE")
 print("registeredAgents=15")
 print("behavioralSkillsAudited=15")
 print("routingRegistryCoverage=15/15")
-print("activeRouteCoverage=" + ("14/15_URD_REVIEW_PENDING" if quarantined else "15/15"))
+print("activeRouteCoverage=" + ("0/15_COMPANY_QUARANTINE" if company_held else ("14/15_URD_REVIEW_PENDING" if quarantined else "15/15")))
 print("retiredAdjudicator=urdDoctorGoddess")
 print("reasoningAudit=observableContractOnly")
 print("residentCore=lum,urdDoctorGoddess,belldandySecretary,skuldResearch")
