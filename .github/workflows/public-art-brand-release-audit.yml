@@ -6,6 +6,8 @@ on:
       - 'doctrine/organizationBrandRegistryV1.json'
       - 'doctrine/publicArtReleaseReadinessV1.json'
       - 'doctrine/staticPublicEdgeV1.json'
+      - 'doctrine/artRepositoryNameMapV1.json'
+      - 'tools/artRepositoryNameMapAudit.py'
       - 'doctrine/codingRoleplayDirectorV2.json'
       - 'doctrine/currentSourceTruthV3.json'
       - 'doctrine/campaignLaunchKitV1.json'
@@ -43,6 +45,7 @@ jobs:
           python3 -m json.tool doctrine/organizationBrandRegistryV1.json >/dev/null
           python3 -m json.tool doctrine/publicArtReleaseReadinessV1.json >/dev/null
           python3 -m json.tool doctrine/staticPublicEdgeV1.json >/dev/null
+          python3 -m json.tool doctrine/artRepositoryNameMapV1.json >/dev/null
           python3 -m json.tool media/public-release-art-ledger.json >/dev/null
           python3 -m json.tool agents/yumeArtOni/templates/public-release-art-manifest-v1.template.json >/dev/null
           python3 -m json.tool doctrine/codingRoleplayDirectorV2.json >/dev/null
@@ -58,7 +61,9 @@ jobs:
           python3 -m json.tool doctrine/publicReleaseCastReadinessV1.json >/dev/null
           python3 -m py_compile tools/publicArtBrandReleaseAudit.py
       - name: Run public art brand release audit
-        run: python3 tools/publicArtBrandReleaseAudit.py
+        run: |
+          python3 tools/publicArtBrandReleaseAudit.py
+          python3 tools/artRepositoryNameMapAudit.py
       - name: Prove no live infrastructure mutation workflow entered candidate
         shell: bash
         run: |

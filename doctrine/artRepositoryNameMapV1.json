@@ -1,0 +1,113 @@
+{
+  "schema": "luhmOs.artRepositoryNameMap.v1",
+  "status": "SOURCE_ONLY_DNS_AND_REPO_PROPOSAL",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "intent": {
+    "rawRequestedPattern": "art.eggiebagelface.*",
+    "purpose": "map GitHub repository identities to an optional read-only art portal hostname without pretending DNS hosts repositories",
+    "ambiguity": "TRAILING_TLD_WILDCARD_IS_NOT_A_LITERAL_DNS_RECORD",
+    "exactLiveFqdnProposed": "art.eggiebagelface.art",
+    "exactFqdnConfirmedByProfessor": false
+  },
+  "cabinet": {
+    "boss": "lum",
+    "research": "skuldResearch",
+    "records": "belldandySecretary",
+    "diagnosis": "urdDoctorGoddess",
+    "authority": "Professor",
+    "realIndependentBackgroundDispatch": false
+  },
+  "sourceReferences": {
+    "namingNamespace": "doctrine/namingNamespaceCanonV1.json",
+    "staticEdge": "doctrine/staticPublicEdgeV1.json",
+    "cloudflare": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "renderOriginService": "luhm-os-publication-site",
+    "renderOriginUrl": "https://luhm-os-publication-site.onrender.com",
+    "repositoryOwner": "eggie-admin",
+    "repositoryInventorySize": 19,
+    "repositoryInventoryEvidence": "GitHub connected account list_repositories current-turn observation"
+  },
+  "namespace": {
+    "historicalInternalExample": "art.eggiebagelface.LuHmOS.*",
+    "historicalExampleIsDnsRecord": false,
+    "repositorySlugStyle": "lowercase-kebab-case",
+    "internalObjectStyle": "camelHump",
+    "stateTokenStyle": "UPPERCASE_DRAGONTAIL",
+    "preserveExistingExternalRepoCasing": true,
+    "disallowWildcardTldInLiveRecord": true
+  },
+  "proposal": {
+    "dnsProvider": "cloudflare",
+    "authoritativeZoneCandidate": "eggiebagelface.art",
+    "record": {
+      "name": "art",
+      "type": "CNAME",
+      "target": "luhm-os-publication-site.onrender.com",
+      "proxied": false,
+      "ttl": "auto",
+      "status": "PROPOSED_ONLY"
+    },
+    "renderCustomDomainRequired": true,
+    "renderManagedTlsRequired": true,
+    "cloudflareProxy": false,
+    "nameserverDelegation": false,
+    "reverseDnsPtr": false,
+    "cloudflareTunnel": false,
+    "autoDnsMutation": false,
+    "originServingMode": "renderStaticSiteGitHubBacked",
+    "noRepositoryDirectNsTarget": true,
+    "noUnboundedRepoWebExposure": true,
+    "siteContentMustBeSeparatelyApproved": true
+  },
+  "repos": {
+    "discovered": [
+      "eggie-admin/amplify-godot-engine-template",
+      "eggie-admin/termux-app",
+      "eggie-admin/hydra-shell-android",
+      "eggie-admin/Shizuku",
+      "eggie-admin/YagniLauncher",
+      "eggie-admin/chatgpt-github-plugin",
+      "eggie-admin/MiniMax-H3",
+      "eggie-admin/godot_rl_agents",
+      "eggie-admin/stable-baselines3",
+      "eggie-admin/sbx",
+      "eggie-admin/android-foss",
+      "eggie-admin/vue-headless-cms",
+      "eggie-admin/3d-chat-interface",
+      "eggie-admin/Stable-Diffusion-KMP",
+      "eggie-admin/termux-x11",
+      "eggie-admin/flask-python-boilerplate",
+      "eggie-admin/godot_2D_procedural_dungeon_gen",
+      "eggie-admin/godot-procedural3d",
+      "eggie-admin/LuHm-OS"
+    ],
+    "candidateIndexLinks": [
+      "eggie-admin/LuHm-OS",
+      "eggie-admin/3d-chat-interface",
+      "eggie-admin/vue-headless-cms",
+      "eggie-admin/godot-procedural3d"
+    ],
+    "indexState": "PROPOSED_LINKS_ONLY_NOT_PUBLISHED",
+    "allOtherRepos": "INVENTORY_ONLY_NO_AUTOMATIC_HOSTING"
+  },
+  "proofGates": [
+    "Professor confirms intended FQDN and repository selection",
+    "Render custom domain attached to chosen static site",
+    "Cloudflare DNS zone and existing record collision checked",
+    "CNAME DNS-only set only with Professor approval",
+    "Render managed TLS hostname checked",
+    "HTTPS host page and repo links smoke-tested",
+    "no sensitive or unapproved generated media published",
+    "source and runtime receipts kept separate"
+  ],
+  "authorityBoundary": {
+    "changeNameservers": false,
+    "changeDnsRecords": false,
+    "changeRenderCustomDomains": false,
+    "changeGithubRepoVisibility": false,
+    "deployWebsite": false,
+    "publishContent": false,
+    "crownStatus": "STOP"
+  }
+}
