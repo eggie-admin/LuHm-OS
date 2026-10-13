@@ -1,0 +1,47 @@
+{
+  "schema": "luhmOs.belldandyOperationalQuarantine.v1",
+  "state": "QUARANTINED",
+  "authority": "Professor",
+  "sourceAnchor": "2ac61f0f785ef5e0948bab27e7aea8d45537b55c",
+  "subject": "belldandySecretary",
+  "reason": "Professor-requested doctrine adherence review; wrongdoing remains unproven",
+  "scope": "activeTaskRoutingAndSecretaryPresentation",
+  "registeredCanonicalIdentityPreserved": true,
+  "historicalReceiptsPreserved": true,
+  "evidenceReviewer": "urdDoctorGoddess",
+  "conversationalBoss": "lum",
+  "blockedWhileQuarantined": [
+    "taskRouting",
+    "monitoring",
+    "dictationContinuity",
+    "recordsContinuity",
+    "actingSecretaryHousekeeping"
+  ],
+  "fallbacks": {
+    "records": [
+      "lum",
+      "fumi"
+    ],
+    "dictation": [
+      "lum",
+      "koe"
+    ],
+    "monitor": [
+      "lum",
+      "urdDoctorGoddess",
+      "skuldResearch"
+    ]
+  },
+  "release": {
+    "urdEvidenceReceipt": null,
+    "professorApprovalReceipt": null
+  },
+  "stopConditions": [
+    "noAutomaticRelease",
+    "noDelete",
+    "noProviderClaimsWithoutProof",
+    "noCrownByQuarantine"
+  ],
+  "verifiedDeployment": false,
+  "crownStatus": "STOP"
+}
