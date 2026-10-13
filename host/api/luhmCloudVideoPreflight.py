@@ -33,10 +33,9 @@ def probe(projectId, getJson):
                 valid = payload.get("projectId") == projectId and type(enabled) is bool
                 result[kind] = ("ENABLED" if enabled else "DISABLED") if valid else "INVALID_PROVIDER_RESPONSE"
             else:
-                # Google may return project number rather than project ID.
+                # Numeric project aliases require separately verified identity; fail closed here.
                 name = payload.get("name", "")
-                valid = isinstance(name, str) and re.fullmatch(
-                    r"projects/(?:[a-z][a-z0-9-]{4,28}[a-z0-9]|[0-9]+)/services/aiplatform[.]googleapis[.]com", name)
+                valid = name == "projects/" + projectId + "/services/aiplatform.googleapis.com"
                 state = payload.get("state")
                 result[kind] = state if valid and state in ("ENABLED", "DISABLED") else "INVALID_PROVIDER_RESPONSE"
         except HTTPError as error:
@@ -96,3 +95,4 @@ def main(argv=None):
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

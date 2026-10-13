@@ -15,7 +15,7 @@ def fakeGet(url):
     calls.append(url)
     if "cloudbilling.googleapis.com" in url:
         return {"projectId": projectId, "billingEnabled": True}
-    return {"name":"projects/123456789012/services/aiplatform.googleapis.com","state":"ENABLED"}
+    return {"name":"projects/"+projectId+"/services/aiplatform.googleapis.com","state":"ENABLED"}
 report = module.probe(projectId, fakeGet)
 assert len(calls) == 2 and all(url.startswith("https://") for url in calls)
 assert report["billing"] == "ENABLED" and report["vertexApi"] == "ENABLED"

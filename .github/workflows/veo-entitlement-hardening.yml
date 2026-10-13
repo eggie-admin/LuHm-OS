@@ -1,0 +1,19 @@
+name: Veo Entitlement Hardening
+on:
+  pull_request:
+    paths:
+      - 'tools/yumeVertexVeoQueue.py'
+      - 'host/api/luhmCloudVideoPreflight.py'
+      - 'tests/veoEntitlementHardeningTest.py'
+      - '.github/workflows/veo-entitlement-hardening.yml'
+permissions:
+  contents: read
+jobs:
+  offlineBoundaryTests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify offline spend and identity boundaries
+        run: |
+          python3 tests/yumeVertexVeoQueueTest.py
+          python3 tests/veoEntitlementHardeningTest.py

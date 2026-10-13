@@ -7,11 +7,7 @@ Uses the Google Cloud developer/API route, NEVER consumer Gemini or a proxy serv
 """
 import argparse
 import json
-import os
-import subprocess
 import sys
-import urllib.error
-import urllib.request
 from pathlib import Path
 
 veoModel = "veo-3.1-fast-generate-001"
@@ -65,23 +61,7 @@ def make_request(doc: dict, shot: dict, storage_uri: str = "") -> dict:
 
 
 def submit_one(project: str, shot_id: str, request: dict) -> str:
-    # Never print access tokens, even during errors.
-    raw = subprocess.run(["gcloud", "auth", "print-access-token"], capture_output=True, text=True, check=True)
-    token = raw.stdout.strip()
-    if not token:
-        raise RuntimeError("Google ADC/gcloud login unavailable")
-    url = f"https://{googleRegion}-aiplatform.googleapis.com/v1/projects/{project}/locations/{googleRegion}/publishers/google/models/{veoModel}:predictLongRunning"
-    req = urllib.request.Request(url, data=json.dumps(request).encode("utf-8"), method="POST", headers={
-        "Authorization": "Bearer " + token,
-        "Content-Type": "application/json; charset=utf-8"
-    })
-    try:
-        with urllib.request.urlopen(req, timeout=30) as f:
-            response = json.load(f)
-    except urllib.error.HTTPError as error:
-        # Body could contain sensitive provider detail; return only status.
-        raise RuntimeError(f"Cloud returned HTTP {error.code}; check billing, service, IAM, quota") from None
-    return response["name"]
+    raise PermissionError('CROWN_STOP_LEGACY_SUBMIT_DISABLED_USE_SQL_VIDEO_WORKER')
 
 
 def main(argv=None) -> int:
@@ -93,9 +73,11 @@ def main(argv=None) -> int:
     p.add_argument("--cost-ceiling-usd", type=float, default=0.0)
     p.add_argument("--output", type=Path)
     args = p.parse_args(argv)
+    if args.submit:
+        raise SystemExit('CROWN_STOP_LEGACY_SUBMIT_DISABLED_USE_SQL_VIDEO_WORKER')
     manifest = load_manifest(args.manifest)
     shot = next(x for x in manifest["shots"] if x["id"] == args.shot)
-    storage_uri = os.getenv("LUHM_VERTEX_GCS_OUTPUT", "") if args.submit else ""
+    storage_uri = ""
     request = make_request(manifest, shot, storage_uri)
     if not args.submit:
         result = {"status": "DRY_RUN_NO_NETWORK_NO_CHARGE", "sourceRef": manifest["sourceRef"],
@@ -107,21 +89,9 @@ def main(argv=None) -> int:
         else:
             print(content)
         return 0
-    estimated_ceiling = maxCostPerSecondUsd * manifest["output"]["durationSeconds"]
-    if not args.approve_spend or args.cost_ceiling_usd < estimated_ceiling:
-        raise SystemExit(f"CROWN_STOP: one shot requires --approve-spend and --cost-ceiling-usd >= {estimated_ceiling:.2f}")
-    if os.getenv("LUHM_CROWN_VIDEO_COST_APPROVED") != "yes":
-        raise SystemExit("CROWN_STOP: LUHM_CROWN_VIDEO_COST_APPROVED=yes required")
-    if os.getenv("LUHM_GOOGLE_BILLING_CURRENT_CONFIRMED") != "yes":
-        raise SystemExit("CROWN_STOP: LUHM_GOOGLE_BILLING_CURRENT_CONFIRMED=yes required")
-    project = os.getenv("GOOGLE_CLOUD_PROJECT", "")
-    if not project or not storage_uri:
-        raise SystemExit("CROWN_STOP: GOOGLE_CLOUD_PROJECT and LUHM_VERTEX_GCS_OUTPUT required")
-    operation = submit_one(project, args.shot, request)
-    # Operation name is not a secret; do not automatically fetch/export completed video.
-    print(json.dumps({"status": "SUBMITTED_NOT_COMPLETED", "shot": args.shot, "operation": operation, "project": project}))
-    return 0
+
 
 
 if __name__ == "__main__":
     sys.exit(main())
+
