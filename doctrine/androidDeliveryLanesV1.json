@@ -1,0 +1,121 @@
+{
+  "schema": "luhmOs.androidDeliveryLanes.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Ship an isolated virgin-install Android prototype quickly, then progressively harden beta and release without treating one build as proof of the next lane.",
+  "naming": {
+    "canon": "doctrine/namingNamespaceCanonV1.json",
+    "transportSlugConvention": "all lowercase kebab-case",
+    "transportSlugPattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+    "examples": [
+      "android-proposed-debug",
+      "android-beta-smoke",
+      "android-release-candidate"
+    ],
+    "internalCodeConvention": "camelHump",
+    "androidApplicationIdConvention": "lowercase dotted identifiers, never hyphens",
+    "androidApplicationIdPattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9]*)+$",
+    "exceptions": [
+      "historical names and required externally registered identifiers stay unchanged"
+    ]
+  },
+  "platform": {
+    "nativeBridge": "androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt",
+    "gradleLibrary": "androidWeb3Plugin/plugin/build.gradle.kts",
+    "androidWebViewPolicy": "doctrine/androidWeb3BridgeV2.json",
+    "targetSdkForNewHandsetPlaySubmissionFrom20260831": 36,
+    "compileSdkDoesNotProveTargetSdk": true,
+    "endApplicationTargetSdkCurrentEvidence": "UNKNOWN_UNTIL_EXPORTED_APK_OR_AAB_VERIFIED",
+    "existingLibraryCompileSdk": 36,
+    "deviceProof": "PENDING",
+    "externalProviderEntitlements": "UNVERIFIED"
+  },
+  "lanes": {
+    "proposed": {
+      "id": "proposed",
+      "goal": "shortest working first-time demo, throwaway setup, rapid iteration",
+      "isolated": true,
+      "buildVariant": "debug",
+      "allowedArtifact": "disposableDebugSignedApkOrAar",
+      "localAutomatedBuildDesired": true,
+      "forgeFastPathImplementation": "PENDING_FOCUSED_CHANGE_TO_CAST_GATE",
+      "noIndividualCastAfterPolicyImplementation": true,
+      "destination": "ephemeralLocalOrPrivateCiOnly",
+      "disposableDebugSignerOnly": true,
+      "allowTemporaryInstrumentation": true,
+      "externalPublication": false,
+      "productionSecrets": false,
+      "personalData": false,
+      "privilegedShell": false,
+      "publicNetworkExposure": false,
+      "providerSpend": false,
+      "gate": [
+        "compileOrRunFromKnownSource",
+        "captureFailureOrSmokeReceipt",
+        "retainSourceIdentity"
+      ],
+      "status": "DESIGN_ONLY_FAST_PATH_NOT_YET_ACTIVE"
+    },
+    "beta": {
+      "id": "beta",
+      "goal": "harden the successful prototype for controlled testers",
+      "buildVariant": "betaOrStaging",
+      "requiresDistinctApplicationIdOrCompatibleIsolatedInstall": true,
+      "noDebugOnlyPermissions": true,
+      "enforceHttpsAndTrustedLocalWebViewOrigins": true,
+      "requireSecureMessageBoundary": true,
+      "requireMinimumRuntimeTests": true,
+      "requirePermissionAndExportedComponentReview": true,
+      "requireDependencyAndSecretScanning": true,
+      "requireAccessibilityAndResponsiveUiReview": true,
+      "requireSignedTesterArtifactAndCertificateLineage": true,
+      "requireVersionAndUpgradeRollbackEvidence": true,
+      "requirePrivacyAndDataHandlingReview": true,
+      "requirePhysicalSamsungDeviceSmoke": true,
+      "externalDistribution": "privateTestersOnlyAfterReview",
+      "status": "GATED"
+    },
+    "release": {
+      "id": "release",
+      "goal": "reproducible user-facing Android delivery",
+      "artifactForGooglePlay": "signedAndroidAppBundleAabWithPlayAppSigning",
+      "artifactForDirectInstallation": "signedApkWithStableReleaseCertificate",
+      "prohibitDebugCertificate": true,
+      "requireGooglePlayTargetSdkAtLeast": 36,
+      "requireLintUnitInstrumentationAndUiTests": true,
+      "requireSecurityAndDependencyReview": true,
+      "requireNoKnownCriticalVulnerabilities": true,
+      "requireProvenUpdatePath": true,
+      "requireReviewerApproval": true,
+      "requireArtifactSha256AndProvenance": true,
+      "requireReproducibleBuildInputs": true,
+      "requirePrivacyDisclosuresAndPolicyCompliance": true,
+      "requireFinalProfessorPublicationApproval": true,
+      "status": "GATED"
+    }
+  },
+  "invariants": {
+    "proposedFastPathNeverImpliesBetaReady": true,
+    "betaNeverImpliesPublicRelease": true,
+    "firstInstallIsNotAnUpgrade": true,
+    "sourceCiDoesNotProveInstalledApp": true,
+    "debugSignerMustNeverBecomePublicSigner": true,
+    "originalRepoAndAssetsUnchangedByPrototypeBuild": true,
+    "agentQuarantineUnchanged": true,
+    "noAutomaticPublication": true,
+    "noCredentialsInGit": true,
+    "noUntrustedDownloadedExecutableWithoutVerification": true,
+    "policyDoesNotBypassExistingForgeGateUntilImplemented": true
+  },
+  "proof": {
+    "policySourceAudit": "tools/androidDeliveryLanesAudit.py",
+    "actualAarBuild": "PENDING",
+    "actualApkExport": "PENDING",
+    "targetSdkExport": "UNVERIFIED",
+    "physicalDeviceInstall": "PENDING",
+    "nativeCockpitInteraction": "PENDING",
+    "publicDistribution": "STOP"
+  },
+  "crownStatus": "STOP"
+}
