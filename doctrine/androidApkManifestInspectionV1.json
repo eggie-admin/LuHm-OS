@@ -1,0 +1,32 @@
+{
+  "schema": "luhmOs.androidApkManifestInspection.v1",
+  "status": "GREEN_VERIFIED_DEBUG_APK_MANIFEST",
+  "authority": "Professor",
+  "sourceRef": "3dcaf235986ed489cbdda91d86c38091680e0250",
+  "artifactName": "LuHmOS-AndroidWeb3-android-web3-3dcaf235-r38498260953-arm64-v8a.apk",
+  "sizeBytes": 95714553,
+  "sha256": "0b0fdfbe25e8937abfe6e647cb23de53838e0189fc545d062aee73f57edd4f0e",
+  "integrity": "PASS",
+  "inspectionMethod": "Read APK bytes, check ZIP CRC, decode compiled AndroidManifest.xml string pool and start-element typed attributes",
+  "inspectionExecution": "localBinaryInspection",
+  "packageName": "art.eggiebagelface.luhmos.testing",
+  "versionCode": 116,
+  "versionName": "1.0.16-samsunglayout.1",
+  "compileSdk": 36,
+  "minSdk": 24,
+  "targetSdk": 36,
+  "debuggable": true,
+  "allowBackup": false,
+  "nativeAbis": [
+    "arm64-v8a"
+  ],
+  "runtimeEvidence": "PENDING_PHYSICAL_INSTALL",
+  "signerEvidence": "DISPOSABLE_DEBUG_ONLY",
+  "physicalDeviceInstallProved": false,
+  "releaseCertificateProved": false,
+  "fullPublicReleaseProved": false,
+  "browserProof": "doctrine/chromeCanaryFirstNightBrowserProofV1.json",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "buildReceipt": "doctrine/proposedAndroidCastEvidenceV1.json",
+  "crownStatus": "STOP"
+}
