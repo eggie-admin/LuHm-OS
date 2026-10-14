@@ -2,8 +2,11 @@ name: LuHm OS Full Source Truth Audit
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
   pull_request:
     paths:
+      - 'doctrine/currentSourceTruthV3.json'
       - 'doctrine/SOURCE_OF_TRUTH.json'
       - 'doctrine/RELEASE_BOUNDARY.json'
       - 'doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json'
