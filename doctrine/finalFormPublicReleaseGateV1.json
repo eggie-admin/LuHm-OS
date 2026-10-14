@@ -68,10 +68,17 @@
     "provenanceRunId": "PENDING",
     "independentVerification": "PENDING",
     "signingKeyStoredInGit": false,
-    "signingKeyContinuityProven": false
+    "signingKeyContinuityProven": false,
+    "targetSdkVerified": null,
+    "targetSdkManifestReceipt": "PENDING",
+    "deviceRuntimeReceipt": "PENDING",
+    "externalDistributionReceipt": "PENDING",
+    "stableBuildRequired": true,
+    "debugArtifactSha256Excluded": "0b0fdfbe25e8937abfe6e647cb23de53838e0189fc545d062aee73f57edd4f0e"
   },
   "releaseArtifactMayNotReuseDebugSigner": true,
   "preflightScope": "SOURCE_CONTRACT_AND_RECEIPT_INVENTORY_ONLY",
   "offlineStaticAuditMayGrantPublication": false,
-  "verifiedExternalPublicationProofRequired": true
+  "verifiedExternalPublicationProofRequired": true,
+  "releaseProofIdentityLaw": "Final public artifact must have its own exact-source SHA256, stable certificate, tested version upgrade, targetSdk, third-party publication and Professor artifact review. Historical debug artifact cannot satisfy any of these independently."
 }
