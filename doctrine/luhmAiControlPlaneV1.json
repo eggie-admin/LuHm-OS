@@ -950,5 +950,15 @@
     ],
     "model": "fourByFour",
     "authorityEffect": "NONE"
+  },
+  "cloudflareLumOrchestration": {
+    "contract": "doctrine/cloudflareLumOrchestrationV1.json",
+    "planner": "tools/cloudflareLumRoute.py",
+    "role": "traffic-and-capability-routing-source-plan-only",
+    "openAiAgentsSdkAdapter": "PROPOSED_UNINSTALLED",
+    "authority": "sourceOnly",
+    "companyQuarantine": "QUARANTINED",
+    "liveAgentRuntime": false,
+    "boss": "lum"
   }
 }

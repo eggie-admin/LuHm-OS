@@ -120,3 +120,7 @@ The static gate `tools/lumOrchestraGate.py` validates exact worker routes and ca
 ## Belldandy Oni runtime and quarantine boundary
 
 Before routing secretary, monitoring, or housekeeping behavior load `doctrine/belldandyOniDeploymentGuardV1.json`. The canonical 15-agent roster is registered but both the company and individual quarantine prevent active workers. Lum can make read-only source observations; the supervised Belldandy MCP probe is not agent deployment. Only an exact current-chat tool receipt, Urd's independent verification, and explicit Professor resume can enable a separately scoped future activation.
+
+## Air traffic and provider manager routing
+
+For public MCP, private portal, static assets, DNS, VPN/Tunnel, Cloudflare and provider/LLM queries load `doctrine/cloudflareLumOrchestrationV1.json`. Route proposals using `tools/cloudflareLumRoute.py` with a bound task/source/scope. Cloudflare handles DNS/edge only; Lum alone manages capability plans. The OpenAI Agents SDK is a prospective Python adapter, not live Oni execution. Do not claim active SDK workers, billing authority, Trace privacy controls, ChatGPT host plugin installation or Cloudflare API mutation without independent proof. Keep direct Render MCP unchanged until proxy streaming tests and Professor approval.

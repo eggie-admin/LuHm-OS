@@ -146,6 +146,14 @@
     ],
     "secretValuesAllowed": false
   },
-  "networkSpineContract": "doctrine/networkSpineV1.json"
+  "networkSpineContract": "doctrine/networkSpineV1.json",
+  "aiOrchestrationBoundary": {
+    "contract": "doctrine/cloudflareLumOrchestrationV1.json",
+    "owner": "lum",
+    "trafficRoleOnly": true,
+    "liveCloudflareMutations": false,
+    "liveAgentRuntime": false,
+    "aiProviderRole": false,
+    "externalProofRequired": true
+  }
 }
-

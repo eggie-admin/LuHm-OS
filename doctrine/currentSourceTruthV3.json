@@ -398,7 +398,8 @@
     "belldandyOniDeploymentGuard": "doctrine/belldandyOniDeploymentGuardV1.json",
     "belldandyOniStatus": "SOURCE_GUARD_CONFIGURED_LIVE_QUARANTINED",
     "belldandyActingSecretary": false,
-    "companyActiveOniWorkers": 0
+    "companyActiveOniWorkers": 0,
+    "cloudflareOrchestration": "doctrine/cloudflareLumOrchestrationV1.json"
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
@@ -523,7 +524,19 @@
     "staticPublicEdge": "doctrine/staticPublicEdgeV1.json",
     "spineContract": "doctrine/networkSpineV1.json",
     "spineStatus": "SOURCE_HARDENING_CANDIDATE",
-    "runtimeProven": false
+    "runtimeProven": false,
+    "airTrafficOrchestration": {
+      "contract": "doctrine/cloudflareLumOrchestrationV1.json",
+      "planner": "tools/cloudflareLumRoute.py",
+      "audit": "tools/cloudflareLumOrchestrationAudit.py",
+      "status": "SOURCE_ROUTING_STAGED",
+      "cloudflareDnsChanged": false,
+      "tunnelChanged": false,
+      "openAiAgentProviderRuntime": false,
+      "agentQuarantine": "QUARANTINED",
+      "currentMcpPath": "directRenderManagedTls",
+      "crownStatus": "STOP"
+    }
   },
   "housekeepingLayer": {
     "contract": "doctrine/belldandyHousekeepingV1.json",

@@ -187,3 +187,7 @@ Require independent cloudflared origin-certificate verification; zone FullStrict
 Reject unsupported hostnames, spoofed forwarded-header trust, unbounded upstreams, repository-root serving, shell/SQL-admin exposure and claims that symlinks unify source versions.
 Treat missing, stale, mismatched or failed checks as unproven. A valid Certbot path proves neither certificate validity nor successful renewal. Return the smallest failing check to Lum; never execute infrastructure changes.
 
+
+## Air traffic and model tool evidence review
+
+For Cloudflare/LLM changes evaluate `doctrine/cloudflareLumOrchestrationV1.json` and `tools/cloudflareLumOrchestrationAudit.py`. Validate the exact source identity, DNS delegation and target, TLS certificate, proxy/Tunnel lane, identity gates, streaming MCP behavior, provider entitlement and budget independently. A model response, OpenAI SDK agent run, Cloudflare routing status or CI success cannot self-attest GREEN or Crown. Require tool-level side-effect guardrails in addition to model input/output checks and independently verified public-facing receipts. A source planner never proves a live invocation.

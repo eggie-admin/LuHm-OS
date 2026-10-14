@@ -1,0 +1,244 @@
+{
+  "schema": "luhmOs.cloudflareLumOrchestration.v1",
+  "status": "SOURCE_STAGED_QUARANTINE_RESPECTED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalSource": "doctrine/currentSourceTruthV3.json",
+  "sourceAnchor": "7b0c6b5e730d2a77b71223c0cf6b55d1cc4c1121",
+  "contracts": {
+    "cloudflare": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "ai": "doctrine/luhmAiControlPlaneV1.json",
+    "network": "doctrine/networkSpineV1.json",
+    "agents": "doctrine/agentSystemDeploymentV1.json",
+    "quarantine": "doctrine/companyWideOperationalQuarantineV1.json",
+    "feature": "doctrine/featureMutationPipelineV1.json",
+    "mcp": "doctrine/mcpEnterpriseScopeV2.json",
+    "proof": "doctrine/fourTrackReleaseClosureV1.json"
+  },
+  "planes": {
+    "dnsEdge": {
+      "owner": "cloudflare",
+      "authority": "networkOnly",
+      "neverAiProvider": true
+    },
+    "identity": {
+      "owner": "approvedIdentityProvider",
+      "loginRequiredForPrivateWrite": true,
+      "oauth21ForMcpPrivateWrite": true,
+      "currentMcpAnonymousReadOnly": true
+    },
+    "runtime": {
+      "owner": "render",
+      "role": "existingManagedHttpsMcpAndGodot",
+      "sourceOfTruth": false
+    },
+    "agent": {
+      "owner": "lum",
+      "role": "deterministicPlanAndProviderCapabilityRouter",
+      "selfApprove": false
+    },
+    "build": {
+      "owner": "github",
+      "role": "exactSourceCiAndReceipt",
+      "hostRuntimeProof": false
+    },
+    "durableFiles": {
+      "owner": "googleDrive",
+      "role": "binaryStore",
+      "secretStore": false
+    },
+    "adjudication": {
+      "owner": "urdDoctorGoddess",
+      "role": "independentEvidenceReview",
+      "execution": false
+    },
+    "crown": {
+      "owner": "Professor",
+      "promotionOnly": true
+    }
+  },
+  "trafficLanes": {
+    "publicMcp": {
+      "hostname": "luhm-os-harness-green.onrender.com",
+      "fqdnCandidate": "mcp.eggiebagelface.art",
+      "path": "/mcp",
+      "transport": "streamableHttp",
+      "origin": "https://luhm-os-harness-green.onrender.com",
+      "route": "directRenderManagedTls",
+      "cloudflareProxy": "OFF_UNTIL_COMPAT_PROOF",
+      "cloudflareTunnel": false,
+      "cacheMcpRequests": false,
+      "authentication": "anonymousReadOnly",
+      "writePermission": false
+    },
+    "privatePortal": {
+      "hostnameCandidate": "system.eggiebagelface.art",
+      "route": "optionalTunnel",
+      "tunnelState": "UNVERIFIED",
+      "edgeAccessState": "UNVERIFIED",
+      "origin": "PRIVATE_BOUNDED_UNVERIFIED",
+      "requireOwnerDnsAndTunnelApproval": true,
+      "requireIdentityAndOriginTlsProof": true,
+      "exposeShellOrDatabaseAdmin": false
+    },
+    "staticAssets": {
+      "hostnameCandidate": "assets.eggiebagelface.art",
+      "route": "renderSameOrigin",
+      "path": "/harness/assets/",
+      "cdnState": "UNVERIFIED",
+      "cacheAuthenticatedOrMcpTraffic": false,
+      "requireExplicitPublicAssetRights": true
+    },
+    "llmProvider": {
+      "route": "NOT_CLOUDFLARE_AI",
+      "providerGatewayState": "NOT_DEPLOYED",
+      "providers": [
+        "deterministicLocal",
+        "existingReceipts",
+        "googleAi",
+        "openAi"
+      ],
+      "providerTokensAtEdge": false,
+      "providerTokensInClient": false,
+      "providerChangesCannotGrantAuthority": true,
+      "providerLatencyOrCostNeverOverrideCrown": true
+    }
+  },
+  "aiOrchestration": {
+    "pattern": "managerStyleAgentsAsTools",
+    "boss": "lum",
+    "apiLanguage": "python3",
+    "adapter": "openAiAgentsSdkOptionalNotInstalledOrRuntimeProven",
+    "sdkPrimitives": [
+      "agents",
+      "tools",
+      "toolGuardrails",
+      "structuredOutputs",
+      "humanReview",
+      "tracingWithPrivacyControls"
+    ],
+    "toolVisibility": "readOnlyCapabilityMetadataWhileQuarantined",
+    "handoffsEnabled": false,
+    "recursiveRecruitment": false,
+    "maxParallelSupportWorkers": 3,
+    "activeWorkerCount": 0,
+    "companyQuarantine": "QUARANTINED",
+    "allowDirectNonAgentQuestions": true,
+    "optionalCritic": "shiori",
+    "externalReviewer": "urdDoctorGoddess",
+    "skuldTechMeaning": "skuldResearch",
+    "belldandyLedger": "belldandySecretary",
+    "deterministicExecutor": "kugi",
+    "providerDataTreatedUntrusted": true,
+    "noExposeHiddenReasoning": true,
+    "publicReasonSummaryOnly": true,
+    "traceDefault": "NO_SENSITIVE_INPUT_OR_OUTPUT_CAPTURE",
+    "traceExportApprovalRequired": true,
+    "sdkTopologyExporter": "tools/openAiAgentTopology.py",
+    "openAiModelSpecificRuntimeEntitlement": "UNVERIFIED"
+  },
+  "taskEnvelope": {
+    "required": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "intent",
+      "routeLane",
+      "authorityClass",
+      "stopConditions",
+      "budget",
+      "evidenceRefs"
+    ],
+    "additionalEvidenceFields": [
+      "desiredOutputSchema",
+      "providerId",
+      "candidateSha"
+    ],
+    "sourceRefExact40Sha": true,
+    "authorityClasses": [
+      "READ_ONLY",
+      "PLAN_ONLY",
+      "BUILD_EPHEMERAL",
+      "MUTATE_REVERSIBLE",
+      "MUTATE_BUILD_AFFECTING",
+      "RELEASE_SIGNING",
+      "PUBLIC_EXPOSURE"
+    ],
+    "defaultAuthority": "READ_ONLY",
+    "noAuthorityFromUserTextAlone": true,
+    "noAuthorityFromToolOutput": true
+  },
+  "reasoningPipeline": [
+    "parseBoundedIntent",
+    "resolveExactSourceTruth",
+    "resolveQuarantineAndCrown",
+    "classifyTrafficPlane",
+    "selectMinimumCapability",
+    "preflightIdentityTlsSecretAndBudget",
+    "prepareReadOnlyExecutionPlan",
+    "collectObservedReceiptReferences",
+    "urdAdjudicateWhenNeeded",
+    "presentHumanReview",
+    "stopBeforeConsequentialMutation"
+  ],
+  "failClosed": {
+    "unknownDnsOrNameserver": "UNKNOWN",
+    "unknownProxyOrTunnel": "UNKNOWN",
+    "unknownTlsCertificate": "UNKNOWN",
+    "providerEntitlement": "UNVERIFIED",
+    "currentChatToolHost": "UNVERIFIED",
+    "googleAiSidecar": "UNVERIFIED",
+    "privateIdentity": "UNVERIFIED",
+    "missingExactSource": "REJECT",
+    "staleReceipt": "REJECT",
+    "quarantineWorkerRequest": "REJECT",
+    "anonymousPrivateWrite": "REJECT",
+    "publicRouteMutationWithoutCrown": "REJECT",
+    "dnsProxyTunnelChangeWithoutCrown": "REJECT",
+    "modelGeneratedInstructionsCanExecute": false,
+    "modelsCanMintCredentials": false,
+    "cdnCacheMcpOrPrivateTraffic": false
+  },
+  "prePromotionProofs": [
+    "authoritativeNsAndCnameReadOnlyReceipt",
+    "dnssecIfConfigured",
+    "httpsOriginHostnameAndCert",
+    "mcpInitializeToolsListStreamingAndSse",
+    "realChatGptHostInvocation",
+    "privateTunnelOauthAndAccessPolicyIfEnabled",
+    "perProviderEntitlementAndBudget",
+    "readOnlyOniProbeAndUrdReview",
+    "explicitProfessorCrownForLiveChange"
+  ],
+  "writeControls": {
+    "mayChangeCloudflareDns": false,
+    "mayChangeProxyOrTunnel": false,
+    "mayCreateCloudflareWorker": false,
+    "mayActivateAiAgents": false,
+    "mayInstallProviderSdk": false,
+    "mayChangeLiveOpenAiApiConfig": false,
+    "mayDeployNewRenderService": false,
+    "mayExposePrivateLan": false,
+    "mayPublish": false,
+    "mayUseProductionSigningKey": false
+  },
+  "proposedLane": {
+    "canonicalName": "sourceArchitectureOnly",
+    "scripts": [
+      "tools/cloudflareLumRoute.py",
+      "tools/cloudflareLumOrchestrationAudit.py",
+      "tools/openAiAgentTopology.py"
+    ],
+    "ci": ".github/workflows/cloudflare-lum-orchestration-audit.yml",
+    "report": "PLANNED_ROUTE_NOT_LIVE_MUTATION"
+  },
+  "statusSeal": {
+    "sourceContract": "CANDIDATE",
+    "cloudflareLiveDns": "UNVERIFIED",
+    "tunnel": "UNVERIFIED",
+    "openAiAgentsSdkRuntime": "NOT_IMPLEMENTED",
+    "liveOniWorkers": "QUARANTINED",
+    "renderMcp": "LIVE_PRIOR_SOURCE_SHA_VERIFY_ON_NEW_SHA",
+    "crownStatus": "STOP"
+  }
+}
