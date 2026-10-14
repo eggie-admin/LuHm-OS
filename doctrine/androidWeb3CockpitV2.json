@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.androidWeb3Cockpit.v2",
-  "status": "AMBER_ANDROID_WEB3_COCKPIT_SOURCE_READY_CAST_BUILD_PENDING",
+  "status": "AMBER_ANDROID_WEB3_COCKPIT_DEBUG_BUILT_DEVICE_PENDING",
   "authority": "Professor",
   "canonicalRepository": "eggie-admin/LuHm-OS",
   "milestoneCodename": "androidWeb3Cockpit",
@@ -24,10 +24,12 @@
     "pinnedJquery": "3.7.1",
     "frontEndEntry": "frontEnd/index.html",
     "wrapperSource": "IMPLEMENTED_STATIC_CANDIDATE",
-    "wrapperAar": "PENDING_CAST_BUILD",
-    "apkIntegration": "PENDING_CAST_BUILD",
+    "wrapperAar": "GREEN_EXACT_CAST_SOURCE_DEBUG_AAR",
+    "apkIntegration": "GREEN_EXACT_CAST_SOURCE_DEBUG_APK",
     "physicalSamsungWebViewProof": "PENDING",
-    "installedWebViewVersion": "UNKNOWN"
+    "installedWebViewVersion": "UNKNOWN",
+    "buildReceipt": "doctrine/proposedAndroidCastEvidenceV1.json",
+    "builtSourceRef": "3dcaf235986ed489cbdda91d86c38091680e0250"
   },
   "bridgeContract": "doctrine/androidWeb3BridgeV2.json",
   "releaseBoundary": "doctrine/releaseBoundaryV2.json",
