@@ -43,6 +43,14 @@ class DebugReadinessTests(unittest.TestCase):
         with patch.object(debug.subprocess, "run", side_effect=subprocess.TimeoutExpired(["x"], 1)):
             self.assertEqual(debug.run_check("slow", ("x",))["failureKind"], "timeout")
 
+    def test_godot_composition_budget_negative_control(self):
+        gate_spec = importlib.util.spec_from_file_location("candidate_gate", ROOT / "tools/candidateGate.py")
+        gate = importlib.util.module_from_spec(gate_spec)
+        gate_spec.loader.exec_module(gate)
+        self.assertTrue(gate.check_orchestrator_budget("line\\n" * 325) <= 350)
+        with self.assertRaises(ValueError):
+            gate.check_orchestrator_budget("line\\n" * 351)
+
     def test_failure_classification(self):
         self.assertEqual(debug.failure_kind("Traceback (most recent call last)", 1), "python-exception")
         self.assertEqual(debug.failure_kind("Parse Error: broken", 1), "parse-failure")
