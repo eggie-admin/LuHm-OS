@@ -3,6 +3,9 @@ on:
   pull_request:
     paths:
       - 'tools/samsung-lite-beta.py'
+      - 'tools/samsung-lite-signed-beta-audit.py'
+      - '.github/workflows/samsung-lite-signed-beta.yml'
+      - 'manual/samsung-lite-signed-beta.md'
       - 'tests/test-samsung-lite-beta.py'
       - 'manual/samsung-lite-public-beta.md'
       - '.github/workflows/samsung-lite-public-beta.yml'
@@ -26,6 +29,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 tests/test-samsung-lite-beta.py
+          python3 tools/samsung-lite-signed-beta-audit.py
           python3 tools/samsung-lite-beta.py
       - name: Preserve source receipt
         if: always()
