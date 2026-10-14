@@ -26,10 +26,11 @@
     "androidWebViewPolicy": "doctrine/androidWeb3BridgeV2.json",
     "targetSdkForNewHandsetPlaySubmissionFrom20260831": 36,
     "compileSdkDoesNotProveTargetSdk": true,
-    "endApplicationTargetSdkCurrentEvidence": "UNKNOWN_UNTIL_EXPORTED_APK_OR_AAB_VERIFIED",
+    "endApplicationTargetSdkCurrentEvidence": "VERIFIED_DEBUG_APK_TARGET_36",
     "existingLibraryCompileSdk": 36,
     "deviceProof": "PENDING",
-    "externalProviderEntitlements": "UNVERIFIED"
+    "externalProviderEntitlements": "UNVERIFIED",
+    "debugApkManifestEvidence": "doctrine/androidApkManifestInspectionV1.json"
   },
   "lanes": {
     "proposed": {
@@ -112,14 +113,17 @@
     "policySourceAudit": "tools/androidDeliveryLanesAudit.py",
     "actualAarBuild": "GREEN_CI_BUILD_38498269472",
     "actualApkExport": "GREEN_CI_BUILD_38498269472",
-    "targetSdkExport": "UNVERIFIED",
+    "targetSdkExport": "GREEN_VERIFIED_DEBUG_APK_36",
     "physicalDeviceInstall": "PENDING",
     "nativeCockpitInteraction": "PENDING",
     "publicDistribution": "STOP",
     "actualApkVerification": "GREEN_CI_BUILD_38498269472",
     "observedEvidenceContract": "doctrine/proposedAndroidCastEvidenceV1.json",
     "builtSourceRef": "3dcaf235986ed489cbdda91d86c38091680e0250",
-    "proposedBuildApkSha256": "0b0fdfbe25e8937abfe6e647cb23de53838e0189fc545d062aee73f57edd4f0e"
+    "proposedBuildApkSha256": "0b0fdfbe25e8937abfe6e647cb23de53838e0189fc545d062aee73f57edd4f0e",
+    "binaryManifestInspection": "doctrine/androidApkManifestInspectionV1.json",
+    "binaryManifestDebuggable": true,
+    "binaryManifestReleaseEligible": false
   },
   "crownStatus": "STOP"
 }
