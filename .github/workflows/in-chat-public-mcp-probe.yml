@@ -3,6 +3,9 @@ name: LuHm Public MCP / Cathedral Runtime Observation
 on:
   pull_request:
     paths:
+      - 'doctrine/fourTrackReleaseClosureV1.json'
+      - 'tools/fourTrackReleaseAudit.py'
+      - 'host/mcp/luhmHarness.py'
       - 'tools/inChatLiveMcpProbe.py'
       - 'tests/testInChatLiveMcpProbe.py'
       - '.github/workflows/in-chat-public-mcp-probe.yml'
