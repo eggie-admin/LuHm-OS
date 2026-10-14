@@ -223,5 +223,18 @@
     "publicOpeningDayPromotion": false
   },
   "operationalQuarantineContract": "doctrine/companyWideOperationalQuarantineV1.json",
-  "statusQualifier": "registered roster preserved while all active agent work routes are quarantined pending in-chat app proof"
+  "statusQualifier": "registered roster preserved while all active agent work routes are quarantined pending in-chat app proof",
+  "belldandyOniDeployment": {
+    "contract": "doctrine/belldandyOniDeploymentGuardV1.json",
+    "status": "SOURCE_CONFIGURED_QUARANTINED",
+    "registration": "CANONICAL_ROSTER_ONLY",
+    "activeTaskExecution": false,
+    "liveAgentExecutionProven": false,
+    "allowedProbe": "readOnlySupervisedMcpToolResponseNotAgent",
+    "activationBlockedBy": [
+      "doctrine/companyWideOperationalQuarantineV1.json",
+      "doctrine/belldandyOperationalQuarantineV1.json"
+    ],
+    "crownStatus": "STOP"
+  }
 }
