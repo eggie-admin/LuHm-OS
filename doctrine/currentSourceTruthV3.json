@@ -800,5 +800,15 @@
     "fullPublicReleaseGreen": false,
     "companyOniQuarantine": "RETAINED",
     "crownStatus": "STOP"
+  },
+  "finalGoalHardening": {
+    "contract": "doctrine/finalGoalHardeningV1.json",
+    "audit": "tools/finalGoalHardeningAudit.py",
+    "status": "SOURCE_EXECUTION_CANDIDATE",
+    "newApkRequiredAfterCodeChange": true,
+    "stableReleaseProved": false,
+    "externalDeviceAndHostProofPending": true,
+    "liveAgentWorkers": 0,
+    "crownStatus": "STOP"
   }
 }

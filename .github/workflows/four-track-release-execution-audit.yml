@@ -26,7 +26,7 @@ jobs:
           git diff --check
       - name: Compile all four-track execution programs
         run: |
-          python3 -m py_compile tools/captureAndroidProof.py tools/godotBrowserSmoke.py tools/publicDistributionGate.py tools/fourTrackReleaseAudit.py
+          python3 -m py_compile tools/captureAndroidProof.py tools/godotBrowserSmoke.py tools/publicDistributionGate.py tools/fourTrackReleaseAudit.py tools/finalGoalHardeningAudit.py
       - name: Test Android non-root package proof capture
         run: python3 tools/captureAndroidProof.py --self-test
       - name: Test Godot export integrity against corrupt bytes
@@ -35,6 +35,8 @@ jobs:
         run: python3 tools/publicDistributionGate.py --self-test
       - name: Audit cross-surface launch truth and negative controls
         run: python3 tools/fourTrackReleaseAudit.py --self-test
+      - name: Cross-layer final goal and forged-proof regression
+        run: python3 tools/finalGoalHardeningAudit.py --self-test
       - name: Verify existing current source and release guards
         run: |
           python3 tools/finalFormPublicReleaseAudit.py --self-test
