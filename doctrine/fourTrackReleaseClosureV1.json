@@ -1,0 +1,102 @@
+{
+  "schema": "luhmOs.fourTrackReleaseClosure.v1",
+  "status": "FOUR_TRACK_EXECUTION_CANDIDATE",
+  "authority": "Professor",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "baselineSourceRef": "12aef02b9763b5c0e1d1f0a47bbaf97fb44031b0",
+  "pipeline": "doctrine/featureMutationPipelineV1.json",
+  "safety": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "goal": "native Samsung runtime, ChatGPT-hosted in-chat cockpit, playable Godot Web, safe public Android distribution",
+  "tracks": {
+    "androidRuntime": {
+      "current": "DEBUG_BINARY_GREEN_DEVICE_SCREEN_SCOPED_PACKAGE_UNBOUND",
+      "manifest": "doctrine/androidApkManifestInspectionV1.json",
+      "video": {
+        "sha256": "9d3028711dad1944ad768cc3a49021e9ce6eca7043eed9930d0aa52fb8c88c65",
+        "observed": "LuHm branded cockpit shown on Samsung before Wallet",
+        "installedPackageBound": false,
+        "rawVideoPublished": false
+      },
+      "debugApkSha256": "0b0fdfbe25e8937abfe6e647cb23de53838e0189fc545d062aee73f57edd4f0e",
+      "expectedPackageName": "art.eggiebagelface.luhmos.testing",
+      "requires": [
+        "installedApkSha256SameAsKnownArtifact",
+        "adbPackageIdentityAndVersion",
+        "actualAppLaunchAndUiProof"
+      ],
+      "tool": "tools/captureAndroidProof.py",
+      "claimFirstLaunch": false
+    },
+    "chatGptCockpit": {
+      "current": "SOURCE_AND_RENDER_ONLY_HOST_UNVERIFIED",
+      "tools": [
+        "luhm_open_cockpit",
+        "luhm_open_godot_player"
+      ],
+      "resources": [
+        "ui://luhm-os/cockpit-v2.html",
+        "ui://luhm-os/godot-player-v1.html"
+      ],
+      "externalProbe": "tools/inChatLiveMcpProbe.py",
+      "requires": [
+        "mcpInitialize",
+        "toolsListAndResourcesRead",
+        "currentChatGptPluginHostInstall",
+        "currentConversationSuccessfulToolInvocationAndUiMount"
+      ],
+      "cannotBeProvedByExternalMcpProbe": true
+    },
+    "godotWeb": {
+      "current": "BUILD_SCRIPT_AND_HISTORICAL_LOADER_PROVEN_PLAYABLE_INPUT_UNVERIFIED",
+      "builder": "tools/buildGodotWebHarness.sh",
+      "exactCastWorkflow": ".github/workflows/godot-web-harness.yml",
+      "smoke": "tools/godotBrowserSmoke.py",
+      "requires": [
+        "exportHtmlWasmPckHashes",
+        "headlessChromiumCanvasWebglAndInput",
+        "actualPhoneGameplayTouch"
+      ],
+      "webExportHostedByExistingRenderOnly": true
+    },
+    "stableDistribution": {
+      "current": "PUBLIC_RELEASE_AMBER",
+      "debugApkExcluded": true,
+      "androidStableSignerOwnerControlled": true,
+      "fdroidIndexSignerDistinct": true,
+      "fdroidIndexPrivateKeyInGit": false,
+      "ownerReviewRequired": true,
+      "releaseContract": "doctrine/finalFormPublicReleaseGateV1.json",
+      "preflight": "tools/publicDistributionGate.py",
+      "requires": [
+        "stableSignedNondebugApk",
+        "sameCertificateUpdates",
+        "signedFdroidRepoIndex",
+        "reviewedPrivacyAndArtRights",
+        "httpsInstallRouteAndSmoke",
+        "ProfessorExactFinalArtifactApproval"
+      ],
+      "publish": false
+    }
+  },
+  "releaseStatuses": {
+    "source": "CANDIDATE",
+    "builds": "EXISTING_DEBUG_GREEN",
+    "androidDevice": "PENDING",
+    "chatGptHost": "PENDING",
+    "godotPlayability": "PENDING",
+    "publicDistribution": "PENDING"
+  },
+  "immutableGate": {
+    "sourceCiDoesNotProvePhysicalDevice": true,
+    "mcpEndpointDoesNotProvePluginInstall": true,
+    "godotLoaderDoesNotProveInput": true,
+    "debugSignerCannotPublish": true,
+    "releaseKeysStayOffRepo": true,
+    "rawPrivateMediaStaysOffRepo": true,
+    "companyOniQuarantineUnchanged": true,
+    "oneMutableSourceLane": true,
+    "fullGreenRequiresIndependentReceipts": true,
+    "noAutoRelease": true
+  },
+  "crownStatus": "STOP"
+}

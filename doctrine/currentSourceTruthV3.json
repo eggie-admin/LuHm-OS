@@ -774,5 +774,18 @@
     "publicReleaseGreen": false,
     "liveRuntimeProofsRemainIndependent": true,
     "crownStatus": "STOP"
+  },
+  "releaseExecution": {
+    "contract": "doctrine/fourTrackReleaseClosureV1.json",
+    "audit": "tools/fourTrackReleaseAudit.py",
+    "status": "STAGED_EXACT_SOURCE_PROOF_GATES",
+    "androidExactArtifactInstall": "PENDING",
+    "samsungVideoEvidenceSha256": "9d3028711dad1944ad768cc3a49021e9ce6eca7043eed9930d0aa52fb8c88c65",
+    "chatGptPluginHostInvocation": "PENDING",
+    "godotBrowserInput": "PENDING_CAST_CHROMIUM_SMOKE",
+    "publicFdroidIndexAndSigning": "PENDING_OWNER_KEYS",
+    "fullPublicReleaseGreen": false,
+    "companyOniQuarantine": "RETAINED",
+    "crownStatus": "STOP"
   }
 }
