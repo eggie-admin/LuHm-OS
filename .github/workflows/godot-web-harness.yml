@@ -90,6 +90,24 @@ jobs:
           print('GODOT_WEB_ARTIFACTS=PASS')
           PY
 
+      - name: Test the exported Godot canvas in headless Chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/godotBrowserSmoke.py --self-test
+          python3 -m pip install --user playwright==1.55.0
+          python3 -m playwright install --with-deps chromium
+          python3 tools/godotBrowserSmoke.py --run
+
+      - name: Upload Godot browser runtime receipt and screenshot
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-os-godot-browser-smoke-${{ inputs.milestoneId }}
+          path: build/godot-browser/
+          if-no-files-found: warn
+          retention-days: 3
+
       - name: Upload CAST-scoped Godot Web artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
