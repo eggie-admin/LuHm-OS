@@ -1,0 +1,133 @@
+{
+  "schema": "luhmOs.belldandyOniDeploymentGuard.v1",
+  "status": "SOURCE_CONFIGURED_QUARANTINED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonId": "belldandySecretary",
+  "role": "secretaryStateAndRecordsSteward",
+  "boss": "lum",
+  "evidenceAdjudicator": "urdDoctorGoddess",
+  "technicalConsult": "skuldResearch",
+  "scribe": "koe",
+  "registrar": "fumi",
+  "deterministicExecutor": "kugi",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "agentRegistry": "doctrine/agentSystemDeploymentV1.json",
+  "controlPlane": "doctrine/luhmAiControlPlaneV1.json",
+  "companyHold": "doctrine/companyWideOperationalQuarantineV1.json",
+  "individualHold": "doctrine/belldandyOperationalQuarantineV1.json",
+  "continuityGate": "tools/belldandyContinuityGate.py",
+  "deploymentAudit": "tools/belldandyOniDeploymentGate.py",
+  "snapshotPolicy": "doctrine/belldandyHousekeepingV1.json",
+  "snapshotResolver": "tools/belldandyCheckpointWindow.py",
+  "taskEnvelope": [
+    "taskId",
+    "sourceRef",
+    "scopeId"
+  ],
+  "sourceIdentity": {
+    "exact40CharShaRequired": true,
+    "candidateShaMayDifferOnlyWithSeparateEvidence": true,
+    "staleOrMissingMeans": "UNKNOWN"
+  },
+  "readOnlyCapabilities": [
+    "sourceTruthInventory",
+    "checkpointSelection",
+    "workflowReceiptIndex",
+    "artifactHashAndReferenceIndex",
+    "sourceNamingCanon",
+    "dictationCorrectionLedger",
+    "conflictAndDriftReport",
+    "singleNextSafeAction",
+    "supervisedMcpPresentationOnly"
+  ],
+  "handoff": {
+    "writer": "lumFallback",
+    "verifiedStatus": "SOURCE_ONLY",
+    "maxUiActions": 1,
+    "allowStateWrites": false,
+    "rawPrivateMediaInPublicGit": false
+  },
+  "deploymentSurfaces": {
+    "github": {
+      "state": "SOURCE_CONFIGURED",
+      "mayExecute": false
+    },
+    "pluginSkill": {
+      "state": "SOURCE_CONFIGURED",
+      "mayExecute": false
+    },
+    "renderMcp": {
+      "state": "ADAPTER_PRESENT_RUNTIME_PROOF_REQUIRED",
+      "mayExecute": false
+    },
+    "chatGptHost": {
+      "state": "UNVERIFIED_CURRENT_CHAT_INVOCATION",
+      "mayExecute": false
+    },
+    "android": {
+      "state": "PRESENTATION_ONLY_NATIVE_PROOF_PENDING",
+      "mayExecute": false
+    },
+    "googleAi": {
+      "state": "UNVERIFIED",
+      "mayExecute": false
+    }
+  },
+  "stateMachine": {
+    "registered": "SOURCE_CONFIGURED",
+    "quarantined": "QUARANTINED",
+    "supervisedProbe": "READ_ONLY_EXCEPTION",
+    "readyToResume": "REQUIRES_PROOF_AND_PROFESSOR",
+    "active": "DENIED_WHILE_QUARANTINED",
+    "parked": "NON_EXECUTING"
+  },
+  "priorityOrder": [
+    "companyWideQuarantine",
+    "belldandyOperationalQuarantine",
+    "exactTaskEnvelope",
+    "verifiedEvidenceAndUrd",
+    "ProfessorExplicitResume",
+    "surfaceCapability"
+  ],
+  "resumeRequirements": [
+    "exactLuHmAppToolInvocationObservedInCurrentChat",
+    "BelldandySupervisedPacketValidated",
+    "UrdEvidenceReviewAccepted",
+    "ExplicitProfessorResume",
+    "individualUrdEvidenceReceipt",
+    "individualProfessorApprovalReceipt"
+  ],
+  "whileQuarantined": {
+    "activeWorkers": 0,
+    "secretaryWork": "DENIED",
+    "allowReadOnlySourceAndCiAudit": true,
+    "allowDeterministicSupervisedProbe": true,
+    "supervisedProbeIsNotExecution": true,
+    "agentRecruitment": false,
+    "backgroundMonitoring": false,
+    "providerApiSpend": false
+  },
+  "safety": {
+    "noRecursiveRecruitment": true,
+    "maxParallelSupportWorkers": 3,
+    "oneMutableSourceLane": true,
+    "privateKeysAndTokensNotCollected": true,
+    "noAutoMerge": true,
+    "noAutoDelete": true,
+    "noAutoSigning": true,
+    "noAutoPublish": true,
+    "noSelfCrown": true,
+    "ciGreenIsSourceOnly": true,
+    "renderLiveIsNotChatGptHostProof": true,
+    "browserVideoIsNotAppProof": true
+  },
+  "observedEvidence": {
+    "latestMergedMainAtDesign": "998547e0a29e9b36ef0ab27fbab27817be2a42d5",
+    "protectedSnapshot": "snapshot/belldandy-oni-hardening-20261013-998547e0",
+    "samsungEvidenceScopedNotInstalled": "doctrine/samsungCockpitScreenProofV1.json"
+  },
+  "promotion": false,
+  "liveOniExecutionProven": false,
+  "crownStatus": "STOP"
+}
