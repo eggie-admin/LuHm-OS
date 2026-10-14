@@ -243,7 +243,11 @@
       "physicalInstall": "PENDING",
       "firstLaunch": "PENDING",
       "publicRelease": "STOP",
-      "crownStatus": "STOP"
+      "crownStatus": "STOP",
+      "binaryManifestInspection": "doctrine/androidApkManifestInspectionV1.json",
+      "targetSdk36": "GREEN_VERIFIED_DEBUG_APK_ONLY",
+      "debuggable": true,
+      "releaseCertificateProof": "PENDING"
     }
   },
   "mcpLayer": {
@@ -746,6 +750,7 @@
     "chatGptInChatInvocationProof": "PENDING",
     "deploymentAuthority": "PROPOSED_CANDIDATE_ONLY",
     "crownStatus": "STOP",
-    "browserUiVideoEvidence": "doctrine/chromeCanaryFirstNightBrowserProofV1.json"
+    "browserUiVideoEvidence": "doctrine/chromeCanaryFirstNightBrowserProofV1.json",
+    "androidDebugManifestEvidence": "doctrine/androidApkManifestInspectionV1.json"
   }
 }
