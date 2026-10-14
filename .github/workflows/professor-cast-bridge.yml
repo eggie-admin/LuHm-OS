@@ -34,13 +34,13 @@ jobs:
           test -n "$mainSha"
 
           if [[ "$commentBody" == "CAST" || "$commentBody" == "castBridge" ]]; then
-            echo "::error title=CAST authorization incomplete::Use /cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage> $mainSha"
+            echo "::error title=CAST authorization incomplete::Use /cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage|godotWebHarness> $mainSha"
             echo "Short CAST aliases are diagnostic only. Exact milestone + current-main SHA are required before dispatch." >&2
             exit 2
           fi
 
-          if [[ ! "$commentBody" =~ ^/cast[[:space:]]+(androidProposedDebug|androidWeb3Cockpit|publicPluginPackage)[[:space:]]+([0-9a-f]{40})$ ]]; then
-            echo "::error title=Invalid CAST syntax::Use /cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage> $mainSha"
+          if [[ ! "$commentBody" =~ ^/cast[[:space:]]+(androidProposedDebug|androidWeb3Cockpit|publicPluginPackage|godotWebHarness)[[:space:]]+([0-9a-f]{40})$ ]]; then
+            echo "::error title=Invalid CAST syntax::Use /cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage|godotWebHarness> $mainSha"
             exit 2
           fi
 
@@ -56,6 +56,8 @@ jobs:
             taskId="android-proposed-debug-cast-${GITHUB_RUN_ID}"
           elif [[ "$requestedMilestone" == "androidWeb3Cockpit" ]]; then
             taskId="android-web3-cockpit-cast-${GITHUB_RUN_ID}"
+          elif [[ "$requestedMilestone" == "godotWebHarness" ]]; then
+            taskId="godot-web-harness-cast-${GITHUB_RUN_ID}"
           else
             taskId="public-plugin-package-cast-${GITHUB_RUN_ID}"
           fi
@@ -146,3 +148,25 @@ jobs:
             -f castOriginRunId="$castOriginRunId"
 
           echo "PUBLIC_PLUGIN_CAST_DISPATCHED sourceRef=$sourceRef taskId=$taskId"
+
+      - name: Dispatch one exact-source Godot Web gameplay proof CAST
+        if: steps.cast.outputs.requestedMilestone == 'godotWebHarness'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          sourceRef: ${{ steps.cast.outputs.sourceRef }}
+          taskId: ${{ steps.cast.outputs.taskId }}
+          professorActor: ${{ steps.cast.outputs.professorActor }}
+          castOriginRunId: ${{ steps.cast.outputs.castOriginRunId }}
+        run: |
+          set -euo pipefail
+          gh workflow run godot-web-harness.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --ref main \
+            -f cast=cast \
+            -f milestoneId=godotWebHarness \
+            -f taskId="$taskId" \
+            -f sourceRef="$sourceRef" \
+            -f professorActor="$professorActor" \
+            -f castOriginRunId="$castOriginRunId"
+          echo "GODOT_WEB_CAST_DISPATCHED sourceRef=$sourceRef taskId=$taskId"
