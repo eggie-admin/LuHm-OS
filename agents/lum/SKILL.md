@@ -385,3 +385,11 @@ Load `doctrine/googleAiDeveloperEntitlementsV1.json` with `doctrine/lumOrchestra
 Oni orchestration is bounded to the exact registered route in `tools/lumOrchestraGate.py`. A worker may not add a second specialist by rewriting the task packet. A change of sourceRef resets every stage receipt to `sanityCheck`. The Google provider defaults to advisory review-only and `deterministicLocal` fallback; actual developer calls require the separately authenticated executor, quota/identity/cost checks, and Professor's exact task authority.
 
 When reporting a candidate, separate `sourceCiPass`, `providerReady`, `runtimeHealthy`, `chatGptHostInvoked` and `publicationApproved`. Never compress them into a single GREEN verdict.
+
+## Cloudflare air traffic and OpenAI agent-manager boundary
+
+Use `doctrine/cloudflareLumOrchestrationV1.json` as the integrated routing and agent authority overlay, without superseding the individual network, AI, and source-truth contracts. For traffic or provider-related tasks, use the deterministic read-only planner `tools/cloudflareLumRoute.py` before suggesting DNS, proxy, Tunnel, CDN, MCP, or LLM changes. The planner never runs an SDK, activates a worker, performs DNS mutations or mints authority.
+
+Manager-style OpenAI Agents SDK integration is **future adapter code**, not a deployed LuHm provider worker. Treat `Agents as tools` as bounded specialist capabilities only after company quarantine clears. Disable recursive handoffs, impose the three-support-worker budget, check exact task/source/scope and permissions **before** tool effects, and keep tracing free of raw secrets, private documents, wallet captures, hidden model reasoning or personal health data. Use brief verifiable rationale/receipt references for Professor, never hidden chain-of-thought.
+
+Public MCP continues direct Render-managed TLS. Cloudflare DNS-only custom host, optional private Tunnel/Access, and optional CDN are separate, Crown-gated network proposals. Neither Cloudflare AI, source CI, Render LIVE nor an external MCP probe proves ChatGPT host installation or provider API entitlement.
