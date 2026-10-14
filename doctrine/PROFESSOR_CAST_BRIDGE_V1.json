@@ -9,7 +9,7 @@
     "event": "issue_comment.created",
     "requiresPullRequestContext": true,
     "requiredActor": "github.repository_owner",
-    "syntax": "/cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage> <40-char-current-main-sha>",
+    "syntax": "/cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage|godotWebHarness> <40-char-current-main-sha>",
     "exactMainMatch": true,
     "diagnosticAliases": [
       "CAST",
@@ -20,7 +20,8 @@
     "allowedMilestones": [
       "androidProposedDebug",
       "androidWeb3Cockpit",
-      "publicPluginPackage"
+      "publicPluginPackage",
+      "godotWebHarness"
     ]
   },
   "dispatch": {
@@ -57,6 +58,24 @@
       "virginInstall": true,
       "buildScope": "android-testing-apk",
       "betaReleaseAuthority": false
+    },
+    "godotWebHarness": {
+      "workflow": "godot-web-harness.yml",
+      "ref": "main",
+      "cast": "cast",
+      "milestoneId": "godotWebHarness",
+      "publish": false,
+      "artifactKind": "nonProductionGodotWebExportAndChromiumReceipt",
+      "exactSourceRefRequired": true,
+      "professorOriginRunVerification": true,
+      "requirements": [
+        "verifiedProfessorGitHubActor",
+        "exactCurrentMain",
+        "singleCastBridgeRun",
+        "browserCanvasAndInputSmoke",
+        "noPublicPromotion"
+      ],
+      "completionMeaning": "WEB_BUILD_AND_BROWSER_SMOKE_ONLY"
     }
   },
   "safety": {
@@ -71,7 +90,9 @@
     "botMayTransportAuthorizationOnlyWithVerifiedOrigin": true,
     "noImplicitShortAliasDispatch": true,
     "noPackageEqualsFinalPluginCast": true,
-    "noForgedChatGptHostReceipt": true
+    "noForgedChatGptHostReceipt": true,
+    "noGodotBuildWithoutVerifiedOwnerOrigin": true,
+    "godotBrowserSmokeIsNotProofOfPhoneTouchOrInChatPlayback": true
   },
   "crownStatus": "STOP",
   "provenance": {
