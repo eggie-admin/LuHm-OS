@@ -335,7 +335,7 @@ jobs:
 
 
   publish-prerelease:
-    if: ${{ inputs.publishPrerelease }}
+    if: ${{ inputs.publishPrerelease && inputs.milestoneId != 'androidProposedDebug' }}
     needs: android-testing
     runs-on: ubuntu-24.04
     timeout-minutes: 10
