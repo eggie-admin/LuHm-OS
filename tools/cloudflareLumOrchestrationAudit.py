@@ -4,7 +4,7 @@ from __future__ import annotations
 import copy
 import json
 from pathlib import Path
-from tools.cloudflareLumRoute import make_plan, test as route_test
+from cloudflareLumRoute import test as route_test
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -45,8 +45,7 @@ def audit(policy, cloud, truth, ai, network, registry, hold):
             "traffic lane count")
     mcp=lanes.get("publicMcp",{})
     cloud_mcp=cloud.get("lanes",{}).get("publicChatPluginMcp",{})
-    require(mcp.get("origin")+" /mcp"==cloud_mcp.get("currentEndpoint")+" /mcp" if False
-            else mcp.get("origin")+"/mcp"==cloud_mcp.get("currentEndpoint"),
+    require(mcp.get("origin")+"/mcp"==cloud_mcp.get("currentEndpoint"),
             "MCP direct origin drift")
     require(mcp.get("route")=="directRenderManagedTls" and
             cloud_mcp.get("cloudflareDependencyForCurrentEndpoint") is False and
