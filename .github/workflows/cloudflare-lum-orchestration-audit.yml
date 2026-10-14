@@ -1,0 +1,38 @@
+name: Cloudflare Lum Agent Orchestration Audit
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  air-traffic-and-agent-truth:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Confirm exact source
+        env:
+          sourceRef: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" == "$sourceRef"
+          git diff --check
+      - name: Compile deterministic traffic and provider planner
+        run: |
+          python3 -m py_compile tools/cloudflareLumRoute.py tools/cloudflareLumOrchestrationAudit.py tools/openAiAgentTopology.py
+      - name: Verify DNS, MCP, Tunnel, CDN and provider authority boundary
+        run: python3 tools/cloudflareLumOrchestrationAudit.py
+      - name: Verify OpenAI manager topology keeps all Oni parked
+        run: python3 tools/openAiAgentTopology.py --self-test
+      - name: Preserve existing network and source-truth gates
+        run: |
+          python3 tools/networkSpineAudit.py
+          python3 tools/featureMutationGate.py --self-test
+          python3 tools/companyWideQuarantineAudit.py
