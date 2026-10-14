@@ -137,6 +137,19 @@ for row in precision.get("examples",[]):
             errors.append(f"precision alias collision: {value} -> {prior}/{canonical}")
         seen[value]=canonical
 
+binding=naming.get("codingRoleplayBinding",{})
+roleplay=json.loads((root/"doctrine/codingRoleplayDirectorV2.json").read_text(encoding="utf-8"))
+manual=json.loads((root/"doctrine/manualPluginVirginInstallV1.json").read_text(encoding="utf-8"))
+source=json.loads((root/"doctrine/currentSourceTruthV3.json").read_text(encoding="utf-8"))
+need(binding.get("canonicalMachineId")=="codingRoleplay","roleplay canonical camelHump drift")
+need(bool(camel.fullmatch(binding.get("canonicalMachineId",""))),"roleplay camelHump syntax drift")
+need(binding.get("transportSlug")=="coding-roleplay" and bool(kebab.fullmatch(binding.get("transportSlug",""))),"roleplay kebab slug drift")
+need(binding.get("dragonTailState")=="PROPOSED_ONLY" and bool(dragon.fullmatch(binding.get("dragonTailState",""))),"roleplay state namespace drift")
+need(binding.get("historicalTriggerAlias")=="mgcCdngRlplay" and binding.get("historicalTriggerAuthority")=="compatibilityAliasOnly","roleplay historic alias identity drift")
+need(binding.get("resolvedIdentity")==binding.get("canonicalMachineId") and binding.get("aliasMayChangeAuthority") is False and binding.get("aliasMayActivateBuild") is False,"roleplay alias acquired authority")
+need(roleplay.get("proposedLane",{}).get("id")=="proposed" and manual.get("firstBoot",{}).get("operatingLane")=="proposed","proposed roleplay first-boot lane drift")
+need(source.get("pluginLayer",{}).get("proposedVirginInstall",{}).get("lane")=="proposed","source-truth proposed lane drift")
+
 print(json.dumps({
   "schema":"luhmOs.namingNamespaceAudit.v1",
   "status":"GREEN_NAMING_NAMESPACE_CANDIDATE" if not errors else "RED_NAMING_NAMESPACE_CANDIDATE",
