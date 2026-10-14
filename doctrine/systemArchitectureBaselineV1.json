@@ -1,0 +1,79 @@
+{
+  "schema": "luhmOs.systemArchitectureBaseline.v1",
+  "status": "STAGED_CANONICAL_SOURCE_BASELINE",
+  "canonicalSourceTruth": "doctrine/currentSourceTruthV3.json",
+  "sourceRepo": "eggie-admin/LuHm-OS",
+  "authority": "Professor",
+  "architectureLaw": "One source truth, evidence by exact reference, Lum one boss, bounded Oni, human promotion.",
+  "layers": {
+    "governance": {
+      "canon": "doctrine/everlastingCovenantV1.json",
+      "truth": "SOURCE_CANON",
+      "runtimeClaim": false
+    },
+    "featureMutation": {
+      "canon": "doctrine/featureMutationPipelineV1.json",
+      "truth": "STAGED_SOURCE_ONLY",
+      "runtimeClaim": false
+    },
+    "agentMesh": {
+      "canon": "doctrine/agentSystemDeploymentV1.json",
+      "guard": "doctrine/belldandyOniDeploymentGuardV1.json",
+      "truth": "QUARANTINED_REGISTERED",
+      "runtimeClaim": false
+    },
+    "chatGptPlugin": {
+      "canon": "doctrine/pluginPublicationV2.json",
+      "truth": "HOST_INVOCATION_UNVERIFIED",
+      "runtimeClaim": false
+    },
+    "android": {
+      "canon": "doctrine/androidDeliveryLanesV1.json",
+      "debugArtifact": "doctrine/androidApkManifestInspectionV1.json",
+      "truth": "DEBUG_BUILD_GREEN_PHYSICAL_INSTALL_PENDING",
+      "runtimeClaim": false
+    },
+    "webCockpit": {
+      "canon": "doctrine/chromeCanaryFirstNightBrowserProofV1.json",
+      "truth": "GREEN_SCOPED_MOBILE_BROWSER_UI",
+      "runtimeClaim": true
+    },
+    "godot": {
+      "canon": "doctrine/godot4AssetArchitectureDecisionV1.json",
+      "truth": "PLAYABLE_WEB_RUNTIME_UNVERIFIED",
+      "runtimeClaim": false
+    },
+    "fourModeUi": {
+      "canon": "doctrine/fourTierOperatingModelV1.json",
+      "truth": "SOURCE_CONFIGURED_BROWSER_PRESENTATION_PROVED",
+      "runtimeClaim": false
+    },
+    "publicDistribution": {
+      "canon": "doctrine/finalFormPublicReleaseGateV1.json",
+      "truth": "AMBER_RELEASE_HOLD",
+      "runtimeClaim": false
+    },
+    "network": {
+      "canon": "doctrine/networkSpineV1.json",
+      "truth": "SOURCE_CONFIGURED_SEPARATE_HOST_PROOF",
+      "runtimeClaim": false
+    },
+    "storage": {
+      "canon": "doctrine/storageTopologyV1.json",
+      "truth": "DOCTRINE_CONFIGURED",
+      "runtimeClaim": false
+    },
+    "renderHarness": {
+      "canon": "doctrine/githubRenderSidecarV1.json",
+      "truth": "LIVE_PRIOR_MAIN_RECHECK_AFTER_PROMOTION",
+      "runtimeClaim": false
+    }
+  },
+  "noFakeGreen": true,
+  "noRuntimeClaimFromSourceCi": true,
+  "sourceVsHostVsDeviceProofIndependent": true,
+  "unverifiedExternalCapabilitiesRemainUnverified": true,
+  "noProductionSignInGit": true,
+  "noAutoPublicRelease": true,
+  "crownStatus": "STOP"
+}

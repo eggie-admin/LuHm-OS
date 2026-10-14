@@ -1,0 +1,43 @@
+name: Feature Mutation Architecture Gate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  architecture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Check exact source identity
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" == "$SOURCE_SHA"
+          git diff --check
+      - name: Compile deterministic gates
+        run: |
+          python3 -m py_compile tools/belldandyOniDeploymentGate.py tools/belldandyCheckpointWindow.py tools/featureMutationGate.py tools/systemArchitectureAudit.py
+      - name: Check source and agent quarantine boundaries
+        run: |
+          python3 tools/belldandyOniDeploymentGate.py --self-test
+          python3 tools/featureMutationGate.py --self-test
+          python3 tools/systemArchitectureAudit.py --self-test
+          python3 tools/companyWideQuarantineAudit.py
+      - name: Check ancestral checkpoint selection
+        run: python3 tools/belldandyCheckpointWindow.py --self-test
+      - name: Verify feature staging and original release boundary
+        run: |
+          python3 tools/finalFormPublicReleaseAudit.py --self-test
+          python3 tools/chromeCanaryBrowserProofAudit.py

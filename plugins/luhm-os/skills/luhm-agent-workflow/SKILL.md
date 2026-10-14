@@ -116,3 +116,7 @@ Use `doctrine/inChatOniRecoveryV1.json` to distinguish `luhm_open_cockpit` from 
 For Google AI / Gemini Developer API / Vertex AI orchestration, resolve `doctrine/googleAiDeveloperEntitlementsV1.json` and `doctrine/lumOrchestraHardeningV1.json` in addition to the API Spine. Published Google AI Pro developer-credit benefits, current account redemption, billing good standing, identity, model quotas and authenticated API execution are distinct evidence axes. The Cloud billing warning remains unresolved without fresh current receipt. No consumer Gemini automation, secrets in plugin payloads, browser-side keys, or implied paid calls.
 
 The static gate `tools/lumOrchestraGate.py` validates exact worker routes and candidate receipts only. Its passing result is `AMBER_CANDIDATE`, not live Google or ChatGPT plugin invocation proof. Missing provider entitlement falls back to local deterministic analysis or stops. Consequential execution still requires current authenticated provider checks and exact Professor authority.
+
+## Belldandy Oni runtime and quarantine boundary
+
+Before routing secretary, monitoring, or housekeeping behavior load `doctrine/belldandyOniDeploymentGuardV1.json`. The canonical 15-agent roster is registered but both the company and individual quarantine prevent active workers. Lum can make read-only source observations; the supervised Belldandy MCP probe is not agent deployment. Only an exact current-chat tool receipt, Urd's independent verification, and explicit Professor resume can enable a separately scoped future activation.

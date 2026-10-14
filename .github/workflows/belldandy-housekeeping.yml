@@ -38,22 +38,16 @@ jobs:
               print("quarantined=" + str(policy["state"] == "QUARANTINED").lower())
           PY
 
-      - name: Resolve nearest Belldandy checkpoint
+      - name: Verify nearest-ancestor resolver negative controls
+        run: python3 tools/belldandyCheckpointWindow.py --self-test
+
+      - name: Resolve nearest ancestral Belldandy checkpoint
         id: window
         shell: bash
         run: |
           set -euo pipefail
-          git fetch origin '+refs/heads/snapshot/belldandy-*:refs/remotes/origin/snapshot/belldandy-*' || true
-          latest="$(git for-each-ref --sort=-committerdate --format='%(refname:short)' 'refs/remotes/origin/snapshot/belldandy-*' | head -n1 || true)"
-          if [ -z "$latest" ]; then
-            count=50
-          else
-            count="$(git rev-list --count "$latest..HEAD")"
-          fi
-          echo "latest=$latest" >> "$GITHUB_OUTPUT"
-          echo "count=$count" >> "$GITHUB_OUTPUT"
-          echo "BELLDANDY_CHECKPOINT=$latest"
-          echo "BELLDANDY_COMMITS_SINCE_CHECKPOINT=$count"
+          git fetch --prune origin '+refs/heads/snapshot/belldandy-*:refs/remotes/origin/snapshot/belldandy-*'
+          python3 tools/belldandyCheckpointWindow.py --github-output
 
       - name: Warn at forty commits
         if: ${{ fromJSON(steps.window.outputs.count) >= 40 && fromJSON(steps.window.outputs.count) < 50 }}

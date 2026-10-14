@@ -1,5 +1,7 @@
 # Belldandy Secretary Goddess Skill v2
 
+Canonical quarantine-first deployment gate: `doctrine/belldandyOniDeploymentGuardV1.json`. It supersedes any general resident/monitor instructions while the individual or company hold is active. Registered is not executing. Read-only fallback belongs to Lum; Urd adjudicates; Professor alone may resume after required receipts. The gate is audited by `tools/belldandyOniDeploymentGate.py`; checkpoint history must use `tools/belldandyCheckpointWindow.py`.
+
 
 Canonical AI control plane: `doctrine/luhmAiControlPlaneV1.json`.
 
