@@ -19,9 +19,18 @@ on:
         description: "Exact commit SHA to build"
         required: true
         type: string
+      professorActor:
+        description: "Professor GitHub owner username from verified bridge, or direct dispatcher"
+        required: false
+        type: string
+      castOriginRunId:
+        description: "Verified CAST bridge run ID, or direct for owner"
+        required: false
+        type: string
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ inputs.milestoneId }}-${{ inputs.sourceRef }}
@@ -38,6 +47,46 @@ jobs:
           persist-credentials: false
           ref: ${{ inputs.sourceRef }}
 
+      - name: Verify Professor origin for both direct and bridge CAST
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_REF: ${{ inputs.sourceRef }}
+          PROFESSOR_ACTOR: ${{ inputs.professorActor }}
+          CAST_ORIGIN_RUN_ID: ${{ inputs.castOriginRunId }}
+        run: |
+          set -euo pipefail
+          OWNER="$(gh api "repos/$GITHUB_REPOSITORY" --jq '.owner.login')"
+          if [[ "$GITHUB_ACTOR" == "$OWNER" ]]; then
+            if [[ -n "$PROFESSOR_ACTOR" && "$PROFESSOR_ACTOR" != "$OWNER" ]]; then
+              echo "RED_OWNER_ACTOR_MISMATCH" >&2
+              exit 2
+            fi
+            if [[ -n "$CAST_ORIGIN_RUN_ID" && "$CAST_ORIGIN_RUN_ID" != "direct" ]]; then
+              echo "RED_OWNER_ORIGIN_MARKER" >&2
+              exit 2
+            fi
+          elif [[ "$GITHUB_ACTOR" == "github-actions[bot]" ]]; then
+            if [[ "$PROFESSOR_ACTOR" != "$OWNER" || ! "$CAST_ORIGIN_RUN_ID" =~ ^[0-9]+$ ]]; then
+              echo "RED_BRIDGE_ACTOR_OR_RUN_ID" >&2
+              exit 2
+            fi
+            ORIGIN="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$CAST_ORIGIN_RUN_ID")"
+            ORIGIN_ACTOR="$(jq -r '.actor.login' <<< "$ORIGIN")"
+            ORIGIN_EVENT="$(jq -r '.event' <<< "$ORIGIN")"
+            ORIGIN_SHA="$(jq -r '.head_sha' <<< "$ORIGIN")"
+            ORIGIN_PATH="$(jq -r '.path' <<< "$ORIGIN")"
+            if [[ "$ORIGIN_ACTOR" != "$OWNER" || "$ORIGIN_EVENT" != "issue_comment" ||
+                  "$ORIGIN_SHA" != "$SOURCE_REF" ||
+                  "$ORIGIN_PATH" != *"professor-cast-bridge.yml"* ]]; then
+              echo "RED_BRIDGE_ORIGIN_PROVENANCE" >&2
+              exit 2
+            fi
+          else
+            echo "RED_CAST_DISPATCHER_NOT_PROFESSOR" >&2
+            exit 2
+          fi
+
       - name: CAST gate
         shell: bash
         env:
@@ -45,6 +94,7 @@ jobs:
           MILESTONE_ID: ${{ inputs.milestoneId }}
           TASK_ID: ${{ inputs.taskId }}
           SOURCE_REF: ${{ inputs.sourceRef }}
+          PROFESSOR_ACTOR: ${{ inputs.professorActor }}
         run: |
           set -euo pipefail
           ACTUAL_REF="$(git rev-parse HEAD)"
@@ -55,7 +105,7 @@ jobs:
             --source-ref "$SOURCE_REF" \
             --actual-source-ref "$ACTUAL_REF" \
             --build-scope 'godot-web-harness' \
-            --actor "$GITHUB_ACTOR" \
+            --actor "${PROFESSOR_ACTOR:-$GITHUB_ACTOR}" \
             --receipt "$RUNNER_TEMP/forge-cast-receipt.json"
 
       - name: Bind exact head
