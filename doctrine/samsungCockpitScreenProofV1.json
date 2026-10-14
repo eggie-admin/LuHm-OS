@@ -1,0 +1,51 @@
+{
+  "schema": "luhmOs.samsungCockpitScreenProof.v1",
+  "status": "GREEN_SCOPED_DEVICE_SCREEN_RENDER_ONLY",
+  "authority": "Professor",
+  "recording": {
+    "fileName": "Screen_Recording_20261013_224439_Samsung Wallet.mp4",
+    "durationSeconds": 130.5214,
+    "width": 1080,
+    "height": 2340,
+    "sha256": "9d3028711dad1944ad768cc3a49021e9ce6eca7043eed9930d0aa52fb8c88c65",
+    "sizeBytes": 49697431,
+    "rawVideoStoredInPublicGit": false,
+    "rawVideoPublicationApproved": false
+  },
+  "observations": {
+    "startSecond": 0,
+    "cockpitVisibleUntilApproxSecond": 9,
+    "visibleIdentity": "LuHm OS",
+    "visibleSubtitle": "LuHm Android Web3 cockpit · candidate",
+    "visibleChatControl": true,
+    "visibleMessageComposer": true,
+    "visibleGodotBoundaryLabel": true,
+    "androidNavigationBarVisible": true,
+    "browserAddressBarVisible": false,
+    "sourceOfVisibleUi": "NOT_CRYPTOGRAPHICALLY_BOUND_TO_INSTALLED_APK",
+    "samsungWalletSplashAtApproxSecond": 10,
+    "samsungWalletNavigationFromApproxSecond": 15,
+    "drivePickerInsideWalletNearEnd": true,
+    "apkInstallationPromptShown": false,
+    "androidPackageSettingsShown": false,
+    "luHmExecutableVersionShown": false,
+    "playableGodotSceneShown": false,
+    "chatGptPluginToolInvocationShown": false
+  },
+  "scope": {
+    "physicalSamsungDisplayEvidence": true,
+    "standaloneAppLikePresentation": true,
+    "exactPackageIdProven": false,
+    "apkInstalledFromKnownBuildProven": false,
+    "appFirstLaunchFromInstallerProven": false,
+    "samsungWebViewNativeBridgeProven": false,
+    "proposedDebugApkShaBoundToRecording": false,
+    "realGodotRuntimeProven": false,
+    "publicReleaseProven": false
+  },
+  "linkedExistingSource": "doctrine/androidApkManifestInspectionV1.json",
+  "releaseImpact": "mobile device rendered LuHm-branded cockpit; no promotion of physical APK installation or stable public distribution",
+  "sourceAtReview": "998547e0a29e9b36ef0ab27fbab27817be2a42d5",
+  "privacy": "hash_and_observation_only_no_wallet_account_or_raw_frames_in_git",
+  "crownStatus": "STOP"
+}
