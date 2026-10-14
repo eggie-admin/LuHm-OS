@@ -1,0 +1,62 @@
+name: debug-readiness-virgin-install
+
+on:
+  pull_request:
+    paths:
+      - 'tools/debug-readiness.py'
+      - 'tests/test-debug-readiness.py'
+      - 'manual/debug-first-run.md'
+      - '.github/workflows/debug-readiness.yml'
+      - 'tools/candidateGate.py'
+      - 'tools/captureAndroidProof.py'
+      - 'tools/androidWeb3CockpitAudit.py'
+      - 'tools/androidDeliveryLanesAudit.py'
+      - 'tools/finalGoalHardeningAudit.py'
+      - 'tools/manualPluginVirginInstallAudit.py'
+      - 'frontEnd/**'
+      - 'androidWeb3Plugin/**'
+      - 'doctrine/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: debug-readiness-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  debug-source:
+    name: exact-head-debug-source
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact head
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Negative controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tests/test-debug-readiness.py
+      - name: Diagnose integrated source
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXPECTED="${{ github.event.pull_request.head.sha || github.sha }}"
+          test "$(git rev-parse HEAD)" == "$EXPECTED"
+          python3 tools/debug-readiness.py --source-ref "$EXPECTED"
+      - name: Show source gate failure without external logs
+        if: failure()
+        shell: bash
+        run: python3 tools/candidateGate.py
+      - name: Upload source diagnosis even on failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: debug-readiness-exact-head
+          path: build/debug-readiness/receipt.json
+          if-no-files-found: warn
+          retention-days: 14
