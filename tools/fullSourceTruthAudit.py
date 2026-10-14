@@ -37,7 +37,7 @@ def normalized_good(value: object) -> bool:
         return True
     if isinstance(value, str):
         upper = value.upper()
-        return upper in GOOD or upper.startswith("GREEN_") or upper.endswith("_GREEN")
+        return upper in GOOD
     return False
 
 
@@ -134,11 +134,19 @@ def main() -> int:
             state = "GREEN"
         audit_passes.append({"pass": entry.get("pass"), "name": name, "status": state})
 
-    readiness = "GREEN_FULL_SOURCE_TRUTH_READY" if not blockers else "AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING"
-    milestone_complete = not blockers
+    readiness = ("RED_FULL_SOURCE_TRUTH_CONTRACT_ERROR" if errors else
+                 "AMBER_FULL_SOURCE_TRUTH_SEAL_PENDING" if blockers else
+                 "GREEN_FULL_SOURCE_TRUTH_READY")
+    milestone_complete = not errors and not blockers
+    if errors:
+        for audit_pass in audit_passes:
+            audit_pass["status"] = "RED"
 
     report = {
         "schema": "luhm-os.full-source-truth-audit-report.v1",
+        "scope": "historicalCompatibilityReadinessOnly",
+        "currentCanonicalSource": "doctrine/currentSourceTruthV3.json",
+        "fullSystemReadinessProven": False,
         "status": readiness,
         "milestoneMutationComplete": milestone_complete,
         "nextState": "PREPARE_FINAL_SEAL" if milestone_complete else "ENTER_LUM_ONI_REPAIR_LOOP",
