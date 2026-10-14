@@ -32,6 +32,7 @@ def load_json(rel: str) -> dict:
 contract = load_json("doctrine/androidWeb3CockpitV2.json")
 bridge = load_json("doctrine/androidWeb3BridgeV2.json")
 source = load_json("doctrine/currentSourceTruthV3.json")
+receipt = load_json("doctrine/proposedAndroidCastEvidenceV1.json")
 
 html = read("frontEnd/index.html")
 app = read("frontEnd/app.js")
@@ -55,8 +56,8 @@ cast_gate = read("tools/forgeCastGate.py")
 forge = load_json("doctrine/FORGE_TWINS_V3.json")
 
 # Milestone and authority.
-require(contract.get("status") == "AMBER_ANDROID_WEB3_COCKPIT_SOURCE_READY_CAST_BUILD_PENDING",
-        "milestone must remain source-ready / CAST-build-pending")
+require(contract.get("status") == "AMBER_ANDROID_WEB3_COCKPIT_DEBUG_BUILT_DEVICE_PENDING",
+        "milestone must remain debug-built / physical-device-pending")
 require(contract.get("authority") == "Professor", "Professor authority drift")
 require(contract.get("crownStatus") == "STOP", "Crown must remain STOP")
 require(contract.get("promotion") is False, "promotion must remain false")
@@ -68,10 +69,10 @@ require(contract.get("targetArchitecture", {}).get("shellAuthority") is False,
         "shell authority forbidden")
 require(contract.get("currentEvidence", {}).get("wrapperSource") ==
         "IMPLEMENTED_STATIC_CANDIDATE", "wrapper source state drift")
-require(contract.get("currentEvidence", {}).get("wrapperAar") == "PENDING_CAST_BUILD",
-        "AAR must remain pending until CAST build")
-require(contract.get("currentEvidence", {}).get("apkIntegration") == "PENDING_CAST_BUILD",
-        "APK integration must remain pending until CAST build")
+require(contract.get("currentEvidence", {}).get("wrapperAar") == "GREEN_EXACT_CAST_SOURCE_DEBUG_AAR",
+        "AAR must reference observed exact CAST build")
+require(contract.get("currentEvidence", {}).get("apkIntegration") == "GREEN_EXACT_CAST_SOURCE_DEBUG_APK",
+        "APK integration must reference observed exact CAST build")
 require(contract.get("currentEvidence", {}).get("physicalSamsungWebViewProof") == "PENDING",
         "must not fake Samsung WebView proof")
 
@@ -88,6 +89,26 @@ require(android.get("physicalSamsungProof") == "PENDING",
         "physical Samsung proof must remain pending")
 require(android.get("crownStatus") == "STOP",
         "current source truth Crown must remain STOP")
+
+# Bind the exact historical build receipt; a passing static audit does not certify an installed device.
+require(receipt.get("schema") == "luhmOs.proposedAndroidCastEvidence.v1",
+        "observed exact CAST receipt schema missing")
+require(receipt.get("builtSourceRef") == contract.get("currentEvidence", {}).get("builtSourceRef"),
+        "cockpit build source drift")
+require(contract.get("currentEvidence", {}).get("buildReceipt") == "doctrine/proposedAndroidCastEvidenceV1.json",
+        "cockpit build evidence path drift")
+require(receipt.get("androidBuild", {}).get("runId") == 38498269472 and
+        receipt.get("androidBuild", {}).get("conclusion") == "success",
+        "historical exact CAST build receipt drift")
+require(receipt.get("artifact", {}).get("sha256") ==
+        source.get("androidLayer", {}).get("proposedDebugBuild", {}).get("artifactSha256"),
+        "source truth APK digest mismatches receipt")
+require(source.get("androidLayer", {}).get("proposedDebugBuild", {}).get("status") ==
+        "GREEN_DEBUG_ARTIFACT_ONLY",
+        "source truth wrongly promoted debug artifact")
+for k in ("androidPhysicalInstallProven", "nativeCockpitInteractionProven", "stableReleaseCertificateProven",
+          "releaseTargetSdkProven", "publicPublicationAuthorized"):
+    require(receipt.get("claims", {}).get(k) is False, "release proof incorrectly claimed: " + k)
 
 # Browser surface.
 require("jquery-3.7.1.min.js" in html, "pinned local jQuery missing")
@@ -232,8 +253,10 @@ print(json.dumps({
     "errors": errors,
     "warnings": warnings,
     "wrapperSource": "IMPLEMENTED_STATIC_CANDIDATE",
-    "aarBuild": "PENDING_CAST",
-    "apkIntegration": "PENDING_CAST",
+    "aarBuild": contract.get("currentEvidence", {}).get("wrapperAar"),
+    "apkIntegration": contract.get("currentEvidence", {}).get("apkIntegration"),
+    "evidenceSourceRef": receipt.get("builtSourceRef"),
+    "deviceInstallProven": False,
     "physicalSamsungProof": "PENDING",
     "installedWebViewVersion": "UNKNOWN_UNTIL_DEVICE",
     "crownStatus": "STOP"

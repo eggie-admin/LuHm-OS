@@ -74,6 +74,22 @@ def validate(policy: dict, proposed: dict, naming: dict, native: str, gradle: st
                  "requireNoKnownCriticalVulnerabilities", "requireProvenUpdatePath",
                  "requireFinalProfessorPublicationApproval", "requireArtifactSha256AndProvenance"):
         require(release.get(name) is True, "release gate missing: " + name)
+    # Observe pinned historical CI evidence without treating it as physical-device or release proof.
+    receipt = read_json("doctrine/proposedAndroidCastEvidenceV1.json")
+    proof = policy.get("proof", {})
+    require(proof.get("observedEvidenceContract") == "doctrine/proposedAndroidCastEvidenceV1.json",
+            "missing observed build receipt link")
+    require(proof.get("builtSourceRef") == receipt.get("builtSourceRef") and
+            receipt.get("builtSourceRef") == "3dcaf235986ed489cbdda91d86c38091680e0250",
+            "actual built source identity drift")
+    require(proof.get("proposedBuildApkSha256") == receipt.get("artifact", {}).get("sha256"),
+            "actual build digest drift")
+    require(proof.get("actualAarBuild") == "GREEN_CI_BUILD_38498269472" and
+            proof.get("actualApkExport") == "GREEN_CI_BUILD_38498269472",
+            "actual CAST build receipt state drift")
+    require(proof.get("physicalDeviceInstall") == "PENDING" and
+            proof.get("publicDistribution") == "STOP",
+            "runtime or public release promoted without proof")
     platform = policy.get("platform", {})
     require(platform.get("compileSdkDoesNotProveTargetSdk") is True and
             platform.get("targetSdkForNewHandsetPlaySubmissionFrom20260831") == 36 and
@@ -140,7 +156,8 @@ def main() -> int:
         "schema": "luhmOs.androidDeliveryLanesAudit.v1",
         "status": "GREEN_SOURCE_ONLY" if not errors else "RED_SOURCE_ONLY",
         "scope": "naming, source policy and static WebView guards only",
-        "runtimeApkBuilt": False,
+        "buildExecutedByThisStaticAudit": False,
+        "historicalApkBuildReceiptReferenced": True,
         "physicalDeviceProven": False,
         "prototypeForgeGateModified": False,
         "issues": errors,

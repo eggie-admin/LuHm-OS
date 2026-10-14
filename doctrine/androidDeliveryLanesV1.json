@@ -110,12 +110,16 @@
   },
   "proof": {
     "policySourceAudit": "tools/androidDeliveryLanesAudit.py",
-    "actualAarBuild": "PENDING",
-    "actualApkExport": "PENDING",
+    "actualAarBuild": "GREEN_CI_BUILD_38498269472",
+    "actualApkExport": "GREEN_CI_BUILD_38498269472",
     "targetSdkExport": "UNVERIFIED",
     "physicalDeviceInstall": "PENDING",
     "nativeCockpitInteraction": "PENDING",
-    "publicDistribution": "STOP"
+    "publicDistribution": "STOP",
+    "actualApkVerification": "GREEN_CI_BUILD_38498269472",
+    "observedEvidenceContract": "doctrine/proposedAndroidCastEvidenceV1.json",
+    "builtSourceRef": "3dcaf235986ed489cbdda91d86c38091680e0250",
+    "proposedBuildApkSha256": "0b0fdfbe25e8937abfe6e647cb23de53838e0189fc545d062aee73f57edd4f0e"
   },
   "crownStatus": "STOP"
 }

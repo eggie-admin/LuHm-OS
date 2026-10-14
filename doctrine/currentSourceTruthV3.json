@@ -220,8 +220,10 @@
       "autoBuildActive": false,
       "buildGate": "FORGE_CAST_UNCHANGED_PENDING_FOCUSED_MIGRATION",
       "hostInstallProof": "UNVERIFIED",
-      "debugArtifactProof": "PENDING",
-      "crownStatus": "STOP"
+      "debugArtifactProof": "GREEN_DEBUG_CI_38498269472",
+      "crownStatus": "STOP",
+      "debugBuildSourceRef": "3dcaf235986ed489cbdda91d86c38091680e0250",
+      "actualDebugReceipt": "doctrine/proposedAndroidCastEvidenceV1.json"
     }
   },
   "androidLayer": {
@@ -230,7 +232,19 @@
     "antennaContract": "doctrine/samsungAntennaV1.json",
     "releaseBoundary": "doctrine/releaseBoundaryV2.json",
     "physicalSamsungProof": "PENDING",
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "proposedDebugBuild": {
+      "contract": "doctrine/proposedAndroidCastEvidenceV1.json",
+      "status": "GREEN_DEBUG_ARTIFACT_ONLY",
+      "buildRunId": 38498269472,
+      "sourceRef": "3dcaf235986ed489cbdda91d86c38091680e0250",
+      "artifactSha256": "0b0fdfbe25e8937abfe6e647cb23de53838e0189fc545d062aee73f57edd4f0e",
+      "driveRootFileId": "1j9bXaToRlkZUeP1INAePioUGTmWD5F1L",
+      "physicalInstall": "PENDING",
+      "firstLaunch": "PENDING",
+      "publicRelease": "STOP",
+      "crownStatus": "STOP"
+    }
   },
   "mcpLayer": {
     "enterpriseScope": "doctrine/mcpEnterpriseScopeV2.json",
