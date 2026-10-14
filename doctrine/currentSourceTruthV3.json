@@ -810,5 +810,19 @@
     "externalDeviceAndHostProofPending": true,
     "liveAgentWorkers": 0,
     "crownStatus": "STOP"
+  },
+  "debugReadiness": {
+    "entryPoint": "tools/debug-readiness.py",
+    "negativeTests": "tests/test-debug-readiness.py",
+    "ciWorkflow": ".github/workflows/debug-readiness.yml",
+    "fieldGuide": "manual/debug-first-run.md",
+    "baseIntegrationPr": 281,
+    "status": "SOURCE_DEBUG_WORKFLOW_MERGED_DEVICE_PENDING",
+    "physicalSamsungProof": "PENDING",
+    "screenTouchProof": false,
+    "chatGptHostInvocationProven": false,
+    "productionSigningAuthority": false,
+    "publicReleaseAuthority": false,
+    "crownStatus": "STOP"
   }
 }

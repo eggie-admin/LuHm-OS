@@ -13,6 +13,19 @@ debug = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(debug)
 
 class DebugReadinessTests(unittest.TestCase):
+    def test_source_truth_indexes_debugger(self):
+        import json
+        truth = json.loads((ROOT / "doctrine/currentSourceTruthV3.json").read_text(encoding="utf-8"))
+        index = truth.get("debugReadiness", {})
+        self.assertEqual(index.get("entryPoint"), "tools/debug-readiness.py")
+        self.assertEqual(index.get("negativeTests"), "tests/test-debug-readiness.py")
+        self.assertEqual(index.get("ciWorkflow"), ".github/workflows/debug-readiness.yml")
+        self.assertEqual(index.get("fieldGuide"), "manual/debug-first-run.md")
+        self.assertEqual(index.get("physicalSamsungProof"), "PENDING")
+        self.assertIs(index.get("screenTouchProof"), False)
+        self.assertIs(index.get("publicReleaseAuthority"), False)
+        self.assertEqual(index.get("crownStatus"), "STOP")
+
     def test_exact_source_and_apk_required(self):
         self.assertEqual(debug.require_exact_source("a" * 40), "a" * 40)
         self.assertEqual(debug.require_exact_apk("b" * 64), "b" * 64)
