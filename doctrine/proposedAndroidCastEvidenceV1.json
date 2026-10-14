@@ -51,5 +51,11 @@
   },
   "releaseLane": "GATED",
   "betaLane": "GATED",
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "protectiveSourceSnapshot": {
+    "branch": "snapshot/belldandy-proposed-release-20261013-3dcaf235",
+    "exactMainBeforeCandidate": "3dcaf235986ed489cbdda91d86c38091680e0250",
+    "purpose": "named protective checkpoint before release evidence reconciliation; snapshot creates no release or Crown authority",
+    "source": "doctrine/belldandyHousekeepingV1.json"
+  }
 }
