@@ -79,6 +79,25 @@ def run_check(name: str, command: tuple[str, ...], timeout: int = 120) -> dict:
         return {"id": name, "status": "FAIL", "failureKind": "missing-executable",
                 "elapsedSeconds": round(time.monotonic() - started, 2)}
 
+def summarize_device(receipt_path: Path, check: dict) -> dict:
+    missing = {"status": "RED_DEVICE_PROOF_NOT_COLLECTED", "artifactMatched": False,
+               "screenProven": False, "touchProven": False}
+    if check.get("status") != "PASS" or not receipt_path.is_file():
+        return missing
+    try:
+        observed = json.loads(receipt_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return missing
+    if observed.get("exactInstalledArtifactMatched") is not True:
+        return missing
+    return {
+        "status": observed.get("status", "RED_DEVICE_PROOF"),
+        "artifactMatched": True,
+        "screenProven": False,
+        "touchProven": False,
+        "launchCommandAccepted": observed.get("launchCommandAccepted") is True,
+    }
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-ref", help="expected full exact checkout SHA")
@@ -111,6 +130,8 @@ def main() -> int:
               "screenProven": False, "touchProven": False}
     if args.device:
         device_path = Path(args.output).parent / "device-proof.json"
+        # Discard previous runs: only this execution may supply device evidence.
+        device_path.unlink(missing_ok=True)
         command = [
             sys.executable, "tools/captureAndroidProof.py", "--capture",
             "--source-ref", head, "--expected-sha256", args.expected_apk_sha,
@@ -120,17 +141,7 @@ def main() -> int:
             command.append("--launch")
         check = run_check("exact-samsung-artifact", tuple(command))
         results.append(check)
-        if device_path.exists():
-            receipt = json.loads(device_path.read_text(encoding="utf-8"))
-            device = {
-                "status": receipt.get("status", "RED_DEVICE_PROOF"),
-                "artifactMatched": receipt.get("exactInstalledArtifactMatched") is True,
-                "screenProven": False,
-                "touchProven": False,
-                "launchCommandAccepted": receipt.get("launchCommandAccepted") is True,
-            }
-        else:
-            device["status"] = "RED_DEVICE_PROOF_NOT_COLLECTED"
+        device = summarize_device(device_path, check)
 
     failed = [row["id"] for row in results if row["status"] != "PASS"]
     receipt = {
