@@ -718,5 +718,21 @@
     "promotion": false,
     "publicationAuthority": false,
     "crownStatus": "STOP"
+  },
+  "finalFormRelease": {
+    "schema": "luhmOs.finalFormSourceTruth.v1",
+    "gate": "doctrine/finalFormPublicReleaseGateV1.json",
+    "audit": "tools/finalFormPublicReleaseAudit.py",
+    "historicalDebugBuild": "doctrine/proposedAndroidCastEvidenceV1.json",
+    "requestedFinalGoal": "finalLuhmOsProjectHydraGoal",
+    "requestedCast": "FINAL_FORM",
+    "status": "AMBER_RELEASE_HOLD",
+    "publicReleaseGreen": false,
+    "productionSigningProof": "PENDING",
+    "physicalFirstLaunchProof": "PENDING",
+    "fdroidRepositoryProof": "PENDING",
+    "chatGptInChatInvocationProof": "PENDING",
+    "deploymentAuthority": "PROPOSED_CANDIDATE_ONLY",
+    "crownStatus": "STOP"
   }
 }

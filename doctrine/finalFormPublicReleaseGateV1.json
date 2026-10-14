@@ -1,0 +1,77 @@
+{
+  "schema": "luhmOs.finalFormPublicReleaseGate.v1",
+  "status": "PROPOSED_RELEASE_CANDIDATE_AUDIT",
+  "authority": "Professor",
+  "scopeId": "finalLuhmOsProjectHydraGoal",
+  "taskId": "finalFormFinalBossCast20261013",
+  "requestedCast": "FINAL_FORM",
+  "requestedOutcome": "fully usable public LuHm OS Project Hydra across Android, ChatGPT and public web distribution",
+  "entrySourceRef": "cbc5a9cf3eea73eb61e79838e6ca6c0727dbb2c1",
+  "sourceOfTruth": "doctrine/currentSourceTruthV3.json",
+  "governingContracts": [
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/proposedWorkingLaneV1.json",
+    "doctrine/androidDeliveryLanesV1.json",
+    "doctrine/releaseBoundaryV2.json",
+    "doctrine/publicArtReleaseReadinessV1.json",
+    "doctrine/pluginPublicationV2.json",
+    "doctrine/proposedAndroidCastEvidenceV1.json"
+  ],
+  "professorAuthority": {
+    "releaseIntentAuthorized": true,
+    "exactStableSignedArtifactReviewed": false,
+    "approvalCannotSupplyMissingMachineEvidence": true
+  },
+  "historicalEvidence": {
+    "androidDebugBuild": "doctrine/proposedAndroidCastEvidenceV1.json",
+    "buildStatus": "GREEN_EXACT_SOURCE_DEBUG_BUILD_ONLY",
+    "debugBuildIsNotStableRelease": true
+  },
+  "requiredProofs": {
+    "androidPhysicalFirstLaunch": "PENDING",
+    "androidStableReleaseSignerLineage": "PENDING",
+    "androidEndApplicationTargetSdk36": "UNVERIFIED",
+    "androidUpgradeRollbackPath": "PENDING",
+    "publicArtRightsAndProvenance": "UNKNOWN",
+    "publicHttpsInstallAndUpdateRoute": "PENDING",
+    "fdroidRepositorySigningAndIndex": "PENDING",
+    "chatGptHostInstallAndCurrentChatInvocation": "UNVERIFIED",
+    "releasePackageExactCurrentSource": "PENDING",
+    "finalReleaseAssetReview": "PENDING"
+  },
+  "distribution": {
+    "releasePage": "candidateOnly",
+    "androidStore": "notSubmitted",
+    "fdroid": "notActivated",
+    "chatGptDirectory": "notSubmitted",
+    "productionSecretsInRepository": false
+  },
+  "checks": {
+    "sourceIntegrity": "required",
+    "releaseReceiptHashes": "required",
+    "noSelfAttestedGreen": "required",
+    "strictEvidenceStateComparison": true,
+    "noDebugSigningAsRelease": true,
+    "noPublicationByCiAudit": true
+  },
+  "fullPublicReleaseGreen": false,
+  "fullPublicReleasePublished": false,
+  "crownStatus": "STOP",
+  "promotion": false,
+  "saveSealBehavior": "reportObservedFactsOnly",
+  "nextAction": "stage stable signing identity in owner-controlled secure system, install/launch on Samsung, record receipts, then publish exact verified final artifact",
+  "releaseArtifact": {
+    "type": "signedStableReleaseApk",
+    "sourceRef": "PENDING",
+    "sha256": "PENDING",
+    "signingCertificateSha256": "PENDING",
+    "provenanceRunId": "PENDING",
+    "independentVerification": "PENDING",
+    "signingKeyStoredInGit": false,
+    "signingKeyContinuityProven": false
+  },
+  "releaseArtifactMayNotReuseDebugSigner": true,
+  "preflightScope": "SOURCE_CONTRACT_AND_RECEIPT_INVENTORY_ONLY",
+  "offlineStaticAuditMayGrantPublication": false,
+  "verifiedExternalPublicationProofRequired": true
+}
