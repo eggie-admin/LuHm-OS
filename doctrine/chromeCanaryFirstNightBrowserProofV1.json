@@ -1,0 +1,53 @@
+{
+  "schema": "luhmOs.chromeCanaryFirstNightBrowserProof.v1",
+  "state": "GREEN_SCOPED_MOBILE_BROWSER_UI",
+  "authority": "Professor",
+  "recording": {
+    "filename": "Screen_Recording_20261013_222530_Chrome Canary.mp4",
+    "durationSeconds": 56.117,
+    "width": 1080,
+    "height": 2340,
+    "sha256": "72b0b8aea7aa936ef9aa4c28fa3c037df7ea7ad9f488c662daacd731ac0d6fd4",
+    "rawVideoStoredInPublicRepo": false,
+    "rawVideoPublicationApproved": false
+  },
+  "visibleEvidence": {
+    "publicHttpsOnrenderComPage": true,
+    "exactHostnameReadable": false,
+    "pageTitle": "LuHm OS · First Night Demo",
+    "responsiveMobileLayout": true,
+    "scroll": true,
+    "modeButtons": [
+      "Default",
+      "IC",
+      "OOC",
+      "IRL"
+    ],
+    "modeStateSelectionVisiblyWorks": true,
+    "workflowButtons": [
+      "0 · Sanity check",
+      "1 · Build",
+      "2 · Merge",
+      "3 · Deploy"
+    ],
+    "workflowSelectionVisiblyWorks": true,
+    "workspaceTreeVisible": true,
+    "assetDeskVisible": true,
+    "assetFileUploadExecuted": false,
+    "godotViewportPlaceholderVisible": true,
+    "godotWebExport": "WEB_EXPORT_PENDING",
+    "jQueryBundledByDefault": false
+  },
+  "limits": {
+    "androidApkInstalled": false,
+    "physicalNativeWebViewRuntime": false,
+    "godotPlayableWebRuntime": false,
+    "chatGptHostPluginInvocation": false,
+    "publicStorePublication": false
+  },
+  "sourceAtReview": "f049aa89ccf03d8b23c8c7e5107ab6b47e9bbd5c",
+  "sourceOfRecording": "UNVERIFIED_BY_VIDEO",
+  "finalFormGate": "doctrine/finalFormPublicReleaseGateV1.json",
+  "fullPublicRelease": "AMBER_RELEASE_HOLD",
+  "crownStatus": "STOP"
+}

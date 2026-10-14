@@ -475,7 +475,19 @@
     "publicOpeningDayStillExternal": true,
     "runtimeToolCanonical": "luhmOpenCockpit",
     "runtimeToolLegacyCompatibility": "luhm_open_cockpit",
-    "runtimeToolMigrationStatus": "PENDING_CHATGPT_WORKFLOW_STREAM"
+    "runtimeToolMigrationStatus": "PENDING_CHATGPT_WORKFLOW_STREAM",
+    "mobileChromeCanaryVideo": {
+      "contract": "doctrine/chromeCanaryFirstNightBrowserProofV1.json",
+      "status": "GREEN_SCOPED_MOBILE_BROWSER_UI",
+      "capturedView": "First Night Demo",
+      "modePresentation": "VISIBLE_AND_SELECTABLE",
+      "webExport": "PENDING",
+      "videoSha256": "72b0b8aea7aa936ef9aa4c28fa3c037df7ea7ad9f488c662daacd731ac0d6fd4",
+      "exactDeployedSourceFromVideo": "UNVERIFIED",
+      "chatGptHostRuntime": "UNVERIFIED",
+      "androidApkInstall": "UNVERIFIED",
+      "crownStatus": "STOP"
+    }
   },
   "studyLayer": {
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",
@@ -733,6 +745,7 @@
     "fdroidRepositoryProof": "PENDING",
     "chatGptInChatInvocationProof": "PENDING",
     "deploymentAuthority": "PROPOSED_CANDIDATE_ONLY",
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "browserUiVideoEvidence": "doctrine/chromeCanaryFirstNightBrowserProofV1.json"
   }
 }
