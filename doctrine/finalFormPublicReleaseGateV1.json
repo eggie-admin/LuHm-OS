@@ -59,5 +59,19 @@
   "crownStatus": "STOP",
   "promotion": false,
   "saveSealBehavior": "reportObservedFactsOnly",
-  "nextAction": "stage stable signing identity in owner-controlled secure system, install/launch on Samsung, record receipts, then publish exact verified final artifact"
+  "nextAction": "stage stable signing identity in owner-controlled secure system, install/launch on Samsung, record receipts, then publish exact verified final artifact",
+  "releaseArtifact": {
+    "type": "signedStableReleaseApk",
+    "sourceRef": "PENDING",
+    "sha256": "PENDING",
+    "signingCertificateSha256": "PENDING",
+    "provenanceRunId": "PENDING",
+    "independentVerification": "PENDING",
+    "signingKeyStoredInGit": false,
+    "signingKeyContinuityProven": false
+  },
+  "releaseArtifactMayNotReuseDebugSigner": true,
+  "preflightScope": "SOURCE_CONTRACT_AND_RECEIPT_INVENTORY_ONLY",
+  "offlineStaticAuditMayGrantPublication": false,
+  "verifiedExternalPublicationProofRequired": true
 }
