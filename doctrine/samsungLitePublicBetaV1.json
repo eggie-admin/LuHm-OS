@@ -1,0 +1,37 @@
+{
+  "schema": "luhmOs.samsungLitePublicBeta.v1",
+  "authority": "Professor",
+  "platform": {
+    "model": "SM-X400",
+    "androidMajor": 16,
+    "androidSdk": 36,
+    "abi": "arm64-v8a",
+    "rootRequiredForPublicTester": false
+  },
+  "source": {
+    "preflight": "tools/samsung-lite-beta.py",
+    "negativeTests": "tests/test-samsung-lite-beta.py",
+    "workflow": ".github/workflows/samsung-lite-public-beta.yml",
+    "guide": "manual/samsung-lite-public-beta.md"
+  },
+  "distribution": {
+    "fastest": "githubRelease",
+    "currentSafeLabel": "developer-preview-debug-nonupdatable",
+    "betaPackageIdentity": "PENDING_OWNER_DECISION",
+    "persistentBetaSigner": "PENDING_OWNER_CUSTODY",
+    "publicBetaUpgradeContinuity": "PENDING",
+    "physicalTabletLaunch": "PENDING",
+    "portraitLandscapeAndTouch": "PENDING",
+    "privacyAndAssetRights": "PENDING",
+    "publication": "PENDING"
+  },
+  "invariants": {
+    "noRootForPublicTesters": true,
+    "noUninstallOrDataClear": true,
+    "noDebugSignerAsStableBeta": true,
+    "physicalRuntimeProofSeparate": true,
+    "releaseRequiresExactArtifactApproval": true
+  },
+  "status": "SOURCE_PREFLIGHT_STAGED_NOT_PUBLIC_BETA",
+  "crownStatus": "STOP"
+}

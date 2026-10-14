@@ -1,0 +1,37 @@
+name: samsung-lite-public-beta-source
+on:
+  pull_request:
+    paths:
+      - 'tools/samsung-lite-beta.py'
+      - 'tests/test-samsung-lite-beta.py'
+      - 'manual/samsung-lite-public-beta.md'
+      - '.github/workflows/samsung-lite-public-beta.yml'
+      - 'doctrine/samsungLitePublicBetaV1.json'
+      - 'export_presets.cfg'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+jobs:
+  preflight:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Source + negative controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tests/test-samsung-lite-beta.py
+          python3 tools/samsung-lite-beta.py
+      - name: Preserve source receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: samsung-lite-source-preflight
+          path: build/samsung-lite-beta/receipt.json
+          if-no-files-found: warn
+          retention-days: 14
