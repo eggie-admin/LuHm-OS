@@ -1,0 +1,81 @@
+{
+  "schema": "luhmOs.finalGoalHardening.v1",
+  "status": "SOURCE_HARDENING_CANDIDATE_NO_PUBLIC_RELEASE",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalRepo": "eggie-admin/LuHm-OS",
+  "canonicalTruth": "doctrine/currentSourceTruthV3.json",
+  "entryCommit": "35c4456e0924fd21a16978fe32a90ffa51077b41",
+  "auditScope": "PROJECT_WIDE_RELEASE_BOUNDARY_AND_ARTIFACT_IDENTITY_ONLY",
+  "notAnExhaustivePenTest": true,
+  "layers": {
+    "source": {
+      "contract": "doctrine/featureMutationPipelineV1.json",
+      "requiresExactCurrentCommit": true,
+      "status": "GATED_BY_CI"
+    },
+    "cloudflare": {
+      "contract": "doctrine/cloudflareLumOrchestrationV1.json",
+      "currentPublicMcp": "directRenderManagedTls",
+      "liveDnsChanged": false,
+      "privateTunnelProven": false,
+      "cdnRightsProven": false
+    },
+    "agents": {
+      "contract": "doctrine/companyWideOperationalQuarantineV1.json",
+      "activeWorkers": 0,
+      "quarantine": "QUARANTINED",
+      "providerSdkExecutionProven": false
+    },
+    "chatGptHost": {
+      "contract": "doctrine/chatGptPluginRuntimeReceiptV1.json",
+      "packageBuiltIsHostInstall": false,
+      "hostInvocationProven": false
+    },
+    "godotWeb": {
+      "contract": "doctrine/fourTrackReleaseClosureV1.json",
+      "sourceAndRenderIsPlayableProof": false,
+      "gameplayAndTouchProven": false
+    },
+    "android": {
+      "contract": "doctrine/androidDeliveryLanesV1.json",
+      "collector": "tools/captureAndroidProof.py",
+      "requiresExactBuildShaFromCi": true,
+      "requiresExactSourceRef": true,
+      "appInstallNotInferredFromVideo": true,
+      "knownDebugSourceRef": "35c4456e0924fd21a16978fe32a90ffa51077b41",
+      "knownDebugApkSha256": "c3b74d094babadf38d2739c02c3fec4eac74a4a2b0a9d227acd08496cdf6a4eb",
+      "knownDebugSignerSha256": "b89d997edc2d3c03047291e897c6a957eb193dddbbc71ac5979c98334febe085",
+      "knownArtifactIsProductionSigned": false,
+      "physicalInstallProof": false
+    },
+    "publicDistribution": {
+      "contract": "doctrine/finalFormPublicReleaseGateV1.json",
+      "preflight": "tools/publicDistributionGate.py",
+      "ownerReleaseKeyCustody": "EXTERNAL_REQUIRED",
+      "fdroidSignedIndexProven": false,
+      "fullPublicReleaseGreen": false,
+      "publicationAllowed": false
+    }
+  },
+  "promotion": {
+    "separateTruthForSourceCiRenderDeviceHostAndPublic": true,
+    "noModelSelfApproval": true,
+    "noAutoSecrets": true,
+    "noAutoOniActivation": true,
+    "noPublicReleaseFromDebug": true,
+    "professorCrownMaintained": true,
+    "buildOnlyAllowed": true
+  },
+  "nextSteps": [
+    "runExactSourceCi",
+    "buildNewAndroidTestApkWithOneTimeCast",
+    "verifyApkBytesAndManifestAndSigner",
+    "captureNativeDeviceInstallAndLaunch",
+    "obtainProductionStableSignerOutsideRepository",
+    "verifySignedUpdateAndFdroidIndex",
+    "invokeChatGptToolInsideHost",
+    "verifyPlayableGodotRuntimeOnSamsung"
+  ],
+  "crownStatus": "STOP"
+}
