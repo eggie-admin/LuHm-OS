@@ -12,7 +12,7 @@ def read(name):
 
 def check(gate, truth, delivery, art, plugin, debug, head):
     checks = {
-        "exactBuiltRelease": debug["builtSourceRef"] == head and debug["claims"]["stableReleaseCertificateProven"],
+        "exactBuiltRelease": gate["releaseArtifact"]["sourceRef"] == head and gate["releaseArtifact"]["independentVerification"] == "PROVEN",
         "physicalSamsung": truth["androidLayer"]["physicalSamsungProof"] == "GREEN" and gate["requiredProofs"]["androidPhysicalFirstLaunch"] == "PROVEN",
         "releaseSigning": gate["requiredProofs"]["androidStableReleaseSignerLineage"] == "PROVEN",
         "targetSdk36": delivery["platform"]["endApplicationTargetSdkCurrentEvidence"] == "PROVEN_TARGET_36",
