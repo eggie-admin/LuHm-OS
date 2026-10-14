@@ -95,8 +95,30 @@ def validate(policy: dict, proposed: dict, naming: dict, native: str, gradle: st
             platform.get("targetSdkForNewHandsetPlaySubmissionFrom20260831") == 36 and
             release.get("requireGooglePlayTargetSdkAtLeast") == 36,
             "Google Play handset target SDK check missing")
+    manifest = read_json("doctrine/androidApkManifestInspectionV1.json")
+    require(manifest.get("schema") == "luhmOs.androidApkManifestInspection.v1" and
+            manifest.get("status") == "GREEN_VERIFIED_DEBUG_APK_MANIFEST",
+            "missing binary APK manifest receipt")
     require(platform.get("endApplicationTargetSdkCurrentEvidence") ==
-            "UNKNOWN_UNTIL_EXPORTED_APK_OR_AAB_VERIFIED", "target SDK improperly claimed")
+            "VERIFIED_DEBUG_APK_TARGET_36" and
+            platform.get("debugApkManifestEvidence") == "doctrine/androidApkManifestInspectionV1.json",
+            "verified debug target SDK source-truth link missing")
+    require(proof.get("targetSdkExport") == "GREEN_VERIFIED_DEBUG_APK_36" and
+            proof.get("binaryManifestInspection") == "doctrine/androidApkManifestInspectionV1.json",
+            "observed binary manifest proof link missing")
+    require(manifest.get("sourceRef") == receipt.get("builtSourceRef") and
+            manifest.get("sha256") == receipt.get("artifact", {}).get("sha256") and
+            manifest.get("targetSdk") == 36 and manifest.get("compileSdk") == 36 and
+            manifest.get("packageName") == "art.eggiebagelface.luhmos.testing",
+            "binary manifest identity/target SDK disagrees with CAST receipt")
+    require(manifest.get("debuggable") is True and
+            proof.get("binaryManifestDebuggable") is True and
+            proof.get("binaryManifestReleaseEligible") is False,
+            "debuggable APK was improperly treated as public release")
+    require(manifest.get("physicalDeviceInstallProved") is False and
+            manifest.get("releaseCertificateProved") is False and
+            manifest.get("fullPublicReleaseProved") is False,
+            "binary manifest receipt asserts unobserved public runtime")
     require("compileSdk = 36" in gradle, "Android library compile SDK drift")
     for marker in ("MAX_BRIDGE_MESSAGE_CHARS = 512", "raw.length > MAX_BRIDGE_MESSAGE_CHARS",
                    '"bridge_payload_too_large"', '"bridge_keys_rejected"',
