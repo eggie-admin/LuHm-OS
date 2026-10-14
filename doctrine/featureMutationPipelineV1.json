@@ -1,0 +1,158 @@
+{
+  "schema": "luhmOs.featureMutationPipeline.v1",
+  "status": "STAGED_SOURCE_ONLY",
+  "authority": "Professor",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "canonicalRepo": "eggie-admin/LuHm-OS",
+  "project": "LuHm OS Project Hydra",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "governingContracts": [
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/proposedWorkingLaneV1.json",
+    "doctrine/agentSystemDeploymentV1.json",
+    "doctrine/belldandyOniDeploymentGuardV1.json",
+    "doctrine/finalFormPublicReleaseGateV1.json",
+    "doctrine/androidDeliveryLanesV1.json",
+    "doctrine/fourTierOperatingModelV1.json",
+    "doctrine/namingNamespaceCanonV1.json"
+  ],
+  "stages": [
+    "sanityCheck",
+    "audit",
+    "ingest",
+    "mutation",
+    "test",
+    "apply",
+    "continue",
+    "deploy"
+  ],
+  "featurePacketRequired": [
+    "featureId",
+    "taskId",
+    "scopeId",
+    "sourceRef",
+    "lane",
+    "targetSurface",
+    "proofRefs",
+    "crownDecision"
+  ],
+  "supportedSurfaces": [
+    "source",
+    "chatGptHost",
+    "renderHarness",
+    "godotWeb",
+    "android",
+    "browserCockpit",
+    "googleAiAdapter",
+    "assetCanon",
+    "jQueryUi",
+    "pythonKeyboard"
+  ],
+  "lanes": {
+    "proposed": {
+      "allowed": [
+        "sourcePatch",
+        "isolatedBuild",
+        "staticAudit",
+        "reviewPacket"
+      ],
+      "publish": false,
+      "mayUseDebugSigner": true
+    },
+    "beta": {
+      "allowed": [
+        "controlledRuntimeSmoke",
+        "limitedTesterArtifact",
+        "rollbackValidation"
+      ],
+      "requireHumanPromotion": true
+    },
+    "release": {
+      "allowed": [
+        "publishExactSignedArtifactAfterEvidence"
+      ],
+      "requireHumanPromotion": true,
+      "prohibitDebugCertificate": true
+    }
+  },
+  "scopeProofs": {
+    "source": "exactPrHeadCi",
+    "renderHarness": "exactCommitRenderLiveAndEndpointCheck",
+    "browserCockpit": "realBrowserInteractionEvidence",
+    "chatGptHost": "actualCurrentChatToolInvocation",
+    "godotWeb": "binaryExportAndPlayableBrowserRun",
+    "android": "exactPackageInstallLaunchAndSignerReceipt",
+    "googleAiAdapter": "providerEntitlementAndAuthenticatedInvocation",
+    "assetCanon": "hashAndRightsApproval",
+    "jQueryUi": "interactiveUiBehavior",
+    "pythonKeyboard": "nativeKeyboardSmokeAndAccessibilityReview"
+  },
+  "mutationControls": {
+    "defaultLane": "proposed",
+    "requireExact40Sha": true,
+    "oneMutableSourceLane": true,
+    "maxParallelSupportWorkers": 3,
+    "autoMerge": false,
+    "autoDeployProduction": false,
+    "autoPublish": false,
+    "autoSignProduction": false,
+    "autoEnableOni": false,
+    "autoLiftQuarantine": false,
+    "automaticReleasePromotion": false,
+    "noHiddenAsync": true,
+    "secretBytesInGit": false,
+    "requiredNegativeTests": true
+  },
+  "observedMilestones": {
+    "repositoryMainAtStaging": "998547e0a29e9b36ef0ab27fbab27817be2a42d5",
+    "androidDebugApk": "GREEN_VERIFIED_DEBUG_BUILD",
+    "chromeCanaryCockpit": "GREEN_SCOPED_BROWSER_UI",
+    "samsungCockpit": "UNMERGED_CANDIDATE_SCREEN_EVIDENCE",
+    "render": "PREVIOUSLY_LIVE_REVERIFY_ON_NEW_MAIN",
+    "publicAndroidRelease": "AMBER",
+    "chatGptHostPlugin": "UNVERIFIED",
+    "oniRuntime": "QUARANTINED"
+  },
+  "futureFeatureQueue": [
+    {
+      "featureId": "pythonKeyboardGui",
+      "lane": "proposed",
+      "targetSurface": "pythonKeyboard",
+      "status": "NOT_BUILT"
+    },
+    {
+      "featureId": "godotWebPlayable",
+      "lane": "proposed",
+      "targetSurface": "godotWeb",
+      "status": "PROOF_PENDING"
+    },
+    {
+      "featureId": "androidProductionRelease",
+      "lane": "release",
+      "targetSurface": "android",
+      "status": "RELEASE_GATED"
+    },
+    {
+      "featureId": "chatGptInChatCockpit",
+      "lane": "proposed",
+      "targetSurface": "chatGptHost",
+      "status": "HOST_PROOF_PENDING"
+    },
+    {
+      "featureId": "fdroidSignedRepository",
+      "lane": "release",
+      "targetSurface": "android",
+      "status": "SIGNING_AND_INDEX_PENDING"
+    },
+    {
+      "featureId": "assetCanonAndArtRights",
+      "lane": "proposed",
+      "targetSurface": "assetCanon",
+      "status": "APPROVAL_PENDING"
+    }
+  ],
+  "completionMeaning": "SOURCE_MUTATION_WORKFLOW_STAGED_ONLY",
+  "liveRuntimeClaim": false,
+  "publicReleaseClaim": false,
+  "crownStatus": "STOP"
+}
