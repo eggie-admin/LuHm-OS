@@ -1,0 +1,43 @@
+name: Four Track Release Execution Source Audit
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-gates:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact audited source
+        env:
+          expectedHead: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" == "$expectedHead"
+          git diff --check
+      - name: Compile all four-track execution programs
+        run: |
+          python3 -m py_compile tools/captureAndroidProof.py tools/godotBrowserSmoke.py tools/publicDistributionGate.py tools/fourTrackReleaseAudit.py
+      - name: Test Android non-root package proof capture
+        run: python3 tools/captureAndroidProof.py --self-test
+      - name: Test Godot export integrity against corrupt bytes
+        run: python3 tools/godotBrowserSmoke.py --self-test
+      - name: Test production signer and F-Droid fraud boundaries
+        run: python3 tools/publicDistributionGate.py --self-test
+      - name: Audit cross-surface launch truth and negative controls
+        run: python3 tools/fourTrackReleaseAudit.py --self-test
+      - name: Verify existing current source and release guards
+        run: |
+          python3 tools/finalFormPublicReleaseAudit.py --self-test
+          python3 tools/featureMutationGate.py --self-test
+      - name: Keep external MCP observation separate from host proof
+        run: python3 -m unittest tests/testInChatLiveMcpProbe.py -v
