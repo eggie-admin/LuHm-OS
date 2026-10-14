@@ -4,12 +4,23 @@
   const fallbackRooms = Object.freeze(["surface","sourceTruth","doctrine","receipts","memoryCrypt","contradictionVault","dependencyDepth","dungeonMap"]);
   const fallbackEvents = Object.freeze(["professorIntent","workflowSummoned","oniEntered","vendorCapabilityResult","evidenceFound","memoryRecovered","contradictionFound","repairProposed","checkpoint","professorNeeded","workflowReleased","goalGap","boundedMutation","proofReceipt","softwareCandidate","professorGate","castReached","postCastPhysicalProof"]);
 
+  const fallbackProposed = Object.freeze({
+    id: "proposed",
+    installMode: "virginInstall",
+    betaAcceptanceRequired: false,
+    releaseAcceptanceRequired: false,
+    autoBuildActive: false,
+    authority: "presentationOnly",
+    prototypeAccept: Object.freeze(["compileOrRunFromKnownSource", "captureFailureOrSmokeReceipt", "retainSourceIdentity"])
+  });
+
   let contractState = {
     schema: "builtInCompatibility",
     configured: false,
     sourceRef: "",
     rooms: fallbackRooms,
-    allowed: new Set(fallbackEvents)
+    allowed: new Set(fallbackEvents),
+    proposed: fallbackProposed
   };
 
   function freezeList(value) {
@@ -26,6 +37,7 @@
     const roomList = Array.isArray(value.deepDungeonPresentation?.rooms) ? value.deepDungeonPresentation.rooms.filter(Boolean) : [];
     const bubbleLaw = value.bubbleLaw || {};
     const modeRouting = value.modeRouting || {};
+    const proposed = value.proposedLane || {};
 
     if (eventSpine.length === 0 || roomList.length === 0) {
       throw new Error("coding roleplay doctrine is incomplete");
@@ -37,12 +49,20 @@
       throw new Error("coding roleplay mode boundary drift");
     }
 
+    if (proposed.id !== "proposed" || proposed.installMode !== "virginInstall" || proposed.priorPluginStateRequired !== false ||
+        proposed.betaAcceptanceRequired !== false || proposed.releaseAcceptanceRequired !== false || proposed.autoBuildActive !== false ||
+        proposed.authority !== "presentationOnly" || !Array.isArray(proposed.prototypeAccept) ||
+        proposed.prototypeAccept.join("|") !== fallbackProposed.prototypeAccept.join("|")) {
+      throw new Error("proposed virgin-install lane contract drift");
+    }
+
     contractState = {
       schema: value.schema,
       configured: true,
       sourceRef: String(sourceRef || ""),
       rooms: Object.freeze(roomList.slice()),
-      allowed: new Set(eventSpine)
+      allowed: new Set(eventSpine),
+      proposed: Object.freeze({ ...proposed, prototypeAccept: freezeList(proposed.prototypeAccept) })
     };
 
     const receipt = Object.freeze({
@@ -105,7 +125,16 @@
     });
   }
 
-  const roleplay = Object.freeze({ configure, emit, dungeon, status });
+  function proposedLane() {
+    return Object.freeze({
+      ...contractState.proposed,
+      sourceRef: contractState.sourceRef,
+      machineState: "UNKNOWN",
+      roleplayAuthority: "presentationOnly"
+    });
+  }
+
+  const roleplay = Object.freeze({ configure, emit, dungeon, status, proposedLane });
   $.codingRoleplay = roleplay;
 
   $(document).on("luhm:roleplay:configure", function (_event, contract, sourceRef) {
