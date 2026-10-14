@@ -200,6 +200,28 @@
       "godotInChat": "UNVERIFIED",
       "promotionScope": "sourcePackageAndMcpDeploymentOnly",
       "crownStatus": "STOP"
+    },
+    "proposedVirginInstall": {
+      "contract": "doctrine/manualPluginVirginInstallV1.json",
+      "codingRoleplay": "doctrine/codingRoleplayDirectorV2.json",
+      "namingNamespace": "doctrine/namingNamespaceCanonV1.json",
+      "deliveryLanes": "doctrine/androidDeliveryLanesV1.json",
+      "lane": "proposed",
+      "status": "SOURCE_CONFIGURED_CANDIDATE",
+      "firstInstall": true,
+      "priorPluginStateRequired": false,
+      "prototypeAccept": [
+        "compileOrRunFromKnownSource",
+        "captureFailureOrSmokeReceipt",
+        "retainSourceIdentity"
+      ],
+      "betaAcceptanceRequired": false,
+      "releaseAcceptanceRequired": false,
+      "autoBuildActive": false,
+      "buildGate": "FORGE_CAST_UNCHANGED_PENDING_FOCUSED_MIGRATION",
+      "hostInstallProof": "UNVERIFIED",
+      "debugArtifactProof": "PENDING",
+      "crownStatus": "STOP"
     }
   },
   "androidLayer": {
@@ -684,4 +706,3 @@
     "crownStatus": "STOP"
   }
 }
-
