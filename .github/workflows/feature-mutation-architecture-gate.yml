@@ -28,11 +28,12 @@ jobs:
           git diff --check
       - name: Compile deterministic gates
         run: |
-          python3 -m py_compile tools/belldandyOniDeploymentGate.py tools/belldandyCheckpointWindow.py tools/featureMutationGate.py
+          python3 -m py_compile tools/belldandyOniDeploymentGate.py tools/belldandyCheckpointWindow.py tools/featureMutationGate.py tools/systemArchitectureAudit.py
       - name: Check source and agent quarantine boundaries
         run: |
           python3 tools/belldandyOniDeploymentGate.py --self-test
           python3 tools/featureMutationGate.py --self-test
+          python3 tools/systemArchitectureAudit.py --self-test
           python3 tools/companyWideQuarantineAudit.py
       - name: Check ancestral checkpoint selection
         run: python3 tools/belldandyCheckpointWindow.py --self-test
