@@ -34,13 +34,13 @@ jobs:
           test -n "$mainSha"
 
           if [[ "$commentBody" == "CAST" || "$commentBody" == "castBridge" ]]; then
-            echo "::error title=CAST authorization incomplete::Use /cast <androidWeb3Cockpit|publicPluginPackage> $mainSha"
+            echo "::error title=CAST authorization incomplete::Use /cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage> $mainSha"
             echo "Short CAST aliases are diagnostic only. Exact milestone + current-main SHA are required before dispatch." >&2
             exit 2
           fi
 
-          if [[ ! "$commentBody" =~ ^/cast[[:space:]]+(androidWeb3Cockpit|publicPluginPackage)[[:space:]]+([0-9a-f]{40})$ ]]; then
-            echo "::error title=Invalid CAST syntax::Use /cast <androidWeb3Cockpit|publicPluginPackage> $mainSha"
+          if [[ ! "$commentBody" =~ ^/cast[[:space:]]+(androidProposedDebug|androidWeb3Cockpit|publicPluginPackage)[[:space:]]+([0-9a-f]{40})$ ]]; then
+            echo "::error title=Invalid CAST syntax::Use /cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage> $mainSha"
             exit 2
           fi
 
@@ -52,7 +52,9 @@ jobs:
           fi
 
           releaseTag="android-web3-${requestedSha:0:8}-r${GITHUB_RUN_ID}"
-          if [[ "$requestedMilestone" == "androidWeb3Cockpit" ]]; then
+          if [[ "$requestedMilestone" == "androidProposedDebug" ]]; then
+            taskId="android-proposed-debug-cast-${GITHUB_RUN_ID}"
+          elif [[ "$requestedMilestone" == "androidWeb3Cockpit" ]]; then
             taskId="android-web3-cockpit-cast-${GITHUB_RUN_ID}"
           else
             taskId="public-plugin-package-cast-${GITHUB_RUN_ID}"
@@ -93,6 +95,33 @@ jobs:
             -f publishPrerelease=true
 
           echo "CAST_DISPATCHED sourceRef=$sourceRef releaseTag=$releaseTag taskId=$taskId"
+
+
+      - name: Dispatch one exact-source virgin PROPOSED debug CAST
+        if: steps.cast.outputs.requestedMilestone == 'androidProposedDebug'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          sourceRef: ${{ steps.cast.outputs.sourceRef }}
+          releaseTag: ${{ steps.cast.outputs.releaseTag }}
+          taskId: ${{ steps.cast.outputs.taskId }}
+          professorActor: ${{ steps.cast.outputs.professorActor }}
+          castOriginRunId: ${{ steps.cast.outputs.castOriginRunId }}
+        run: |
+          set -euo pipefail
+          gh workflow run android-testing-build.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --ref main \
+            -f cast=cast \
+            -f milestoneId=androidProposedDebug \
+            -f taskId="$taskId" \
+            -f sourceRef="$sourceRef" \
+            -f professorActor="$professorActor" \
+            -f castOriginRunId="$castOriginRunId" \
+            -f releaseTag="$releaseTag" \
+            -f publishPrerelease=false
+
+          echo "PROPOSED_DEBUG_CAST_DISPATCHED sourceRef=$sourceRef taskId=$taskId privateArtifactOnly=true"
 
 
       - name: Dispatch one exact-source Public Plugin Package CAST

@@ -44,6 +44,14 @@ for token in (
 ):
     require(token in workflow, f"bridge missing required guard/control: {token}")
 
+require("steps.cast.outputs.requestedMilestone == 'androidProposedDebug'" in workflow, "missing PROPOSED exact CAST route")
+require("-f milestoneId=androidProposedDebug" in workflow, "missing private PROPOSED build milestone")
+require("-f publishPrerelease=false" in workflow, "PROPOSED build must not publish a prerelease")
+require(doctrine.get("dispatch",{}).get("androidProposedDebug",{}).get("publishPrerelease") is False, "PROPOSED doctrine unexpectedly publishes")
+require(doctrine.get("dispatch",{}).get("androidProposedDebug",{}).get("destination") == "ephemeralPrivateGitHubActionsArtifactOnly", "PROPOSED output destination drift")
+android_build = (ROOT / ".github/workflows/android-testing-build.yml").read_text(encoding="utf-8")
+require("inputs.publishPrerelease && inputs.milestoneId != 'androidProposedDebug'" in android_build, "PROPOSED publish guard missing at build workflow")
+
 require("actions: write" in workflow, "bridge needs scoped actions: write to dispatch")
 require(workflow.count("actions: write") == 1, "actions write permission must appear exactly once")
 require("contents: write" not in workflow, "bridge may not write repository contents")
@@ -52,7 +60,7 @@ require("push:" not in workflow, "push trigger forbidden")
 require("schedule:" not in workflow, "scheduled CAST forbidden")
 for bad in ("MAIN_SHA", "REQUESTED_SHA", "SOURCE_REF", "RELEASE_TAG", "TASK_ID", "PROFESSOR_ACTOR", "CAST_ORIGIN_RUN_ID"):
     require(bad not in workflow, f"non-camelHump internal shell variable forbidden: {bad}")
-require(re.search(r"\^/cast\[\[:space:\]\]\+\(androidWeb3Cockpit\|publicPluginPackage\)", workflow) is not None,
+require(re.search(r"\^/cast\[\[:space:\]\]\+\(androidProposedDebug\|androidWeb3Cockpit\|publicPluginPackage\)", workflow) is not None,
         "exact multi-milestone CAST syntax regex missing")
 require("requested=$requestedSha currentMain=$mainSha" in workflow,
         "source drift failure path missing")
@@ -83,7 +91,7 @@ require(doctrine.get("completionContract") == "doctrine/chatGptPluginCastComplet
         "CAST completion contract pointer missing")
 trigger = doctrine.get("trigger", {})
 require(trigger.get("requiredActor") == "github.repository_owner", "owner-only actor rule drift")
-require(trigger.get("allowedMilestones") == ["androidWeb3Cockpit","publicPluginPackage"], "allowed CAST milestones drift")
+require(trigger.get("allowedMilestones") == ["androidProposedDebug","androidWeb3Cockpit","publicPluginPackage"], "allowed CAST milestones drift")
 require(trigger.get("exactMainMatch") is True, "exact-main rule drift")
 safety = doctrine.get("safety", {})
 for key in (
