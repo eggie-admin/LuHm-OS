@@ -48,6 +48,10 @@ jobs:
           EXPECTED="${{ github.event.pull_request.head.sha || github.sha }}"
           test "$(git rev-parse HEAD)" == "$EXPECTED"
           python3 tools/debug-readiness.py --source-ref "$EXPECTED"
+      - name: Show source gate failure without external logs
+        if: failure()
+        shell: bash
+        run: python3 tools/candidateGate.py
       - name: Upload source diagnosis even on failure
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
