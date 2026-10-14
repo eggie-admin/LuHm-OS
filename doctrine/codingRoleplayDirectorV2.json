@@ -16,7 +16,10 @@
     "semanticDomainHardening": "doctrine/semanticDomainHardeningV1.json",
     "pkiSecretary": "doctrine/belldandyPkiCorporateSecretaryV1.json",
     "corporateEscalation": "doctrine/corporateEscalationProfileV1.json",
-    "virginInstall": "doctrine/manualPluginVirginInstallV1.json"
+    "virginInstall": "doctrine/manualPluginVirginInstallV1.json",
+    "proposedWorkingLane": "doctrine/proposedWorkingLaneV1.json",
+    "androidDeliveryLanes": "doctrine/androidDeliveryLanesV1.json",
+    "namingNamespaceCanon": "doctrine/namingNamespaceCanonV1.json"
   },
   "eventSpine": [
     "professorIntent",
@@ -166,5 +169,24 @@
     "defaultAuthority": "presentationOnly",
     "persistentBrowserState": false,
     "localStorageRequired": false
+  },
+  "proposedLane": {
+    "id": "proposed",
+    "status": "SOURCE_CONFIGURED_CANDIDATE",
+    "installMode": "virginInstall",
+    "priorPluginStateRequired": false,
+    "roleplayDefault": "normalChat",
+    "optionalSceneEntry": "explicitIntentOnly",
+    "prototypeAccept": [
+      "compileOrRunFromKnownSource",
+      "captureFailureOrSmokeReceipt",
+      "retainSourceIdentity"
+    ],
+    "betaAcceptanceRequired": false,
+    "releaseAcceptanceRequired": false,
+    "buildGate": "FORGE_CAST_UNCHANGED_PENDING_FOCUSED_MIGRATION",
+    "autoBuildActive": false,
+    "authority": "presentationOnly",
+    "meaning": "one disposable proposed demo from pinned source; gameplay theater cannot convert build or evidence state"
   }
 }

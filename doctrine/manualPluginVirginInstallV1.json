@@ -58,7 +58,17 @@
     "codingRoleplaySkill": "skills/luhm-coding-roleplay/SKILL.md",
     "workflowSkill": "skills/luhm-agent-workflow/SKILL.md",
     "authority": "readOnly",
-    "unknownState": "UNKNOWN"
+    "unknownState": "UNKNOWN",
+    "operatingLane": "proposed",
+    "virginProposedBoot": true,
+    "prototypeAccept": [
+      "compileOrRunFromKnownSource",
+      "captureFailureOrSmokeReceipt",
+      "retainSourceIdentity"
+    ],
+    "betaAcceptanceRequired": false,
+    "releaseAcceptanceRequired": false,
+    "autoBuildActive": false
   },
   "roleplayContract": {
     "chatOutsideScene": "normalChat",
@@ -75,7 +85,8 @@
     "roleplayMayGrantAuthority": false,
     "roleplayMayGrantGreen": false,
     "roleplayMayGrantCrown": false,
-    "roleplayMayTriggerHiddenAsync": false
+    "roleplayMayTriggerHiddenAsync": false,
+    "proposedLane": "doctrine/codingRoleplayDirectorV2.json#proposedLane"
   },
   "network": {
     "mcpConfig": "plugins/luhm-os/mcp.json",

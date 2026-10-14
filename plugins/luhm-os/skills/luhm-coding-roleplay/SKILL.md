@@ -70,3 +70,13 @@ When consequential work reaches a Professor boundary, report the proved candidat
 This plugin skill must work in a brand-new install with no prior LuHm plugin state and no remembered migration context.
 
 Do not assume a previous plugin version exists. Do not tell the user to migrate settings from an old plugin. Use the bundled plugin manifest, MCP connection, skills, and connected source-truth tools as the complete starting point.
+
+## Virgin PROPOSED lane
+
+On a virgin install, treat **PROPOSED** as the default development lane. No older plugin state, migration, saved chat, beta acceptance, production signer, or public release setup is required for a disposable first-run demo.
+
+The entire prototype acceptance list is: known source identity; compile or run result; and one short failure-or-smoke receipt. Do not import BETA or RELEASE checklists into this first-run session. Use the existing exact CAST requirement for a compile until a separately implemented fast-build path is proven; policy wording alone is not build execution.
+
+Load `doctrine/codingRoleplayDirectorV2.json#proposedLane`, `doctrine/androidDeliveryLanesV1.json#lanes/proposed`, and `doctrine/namingNamespaceCanonV1.json#codingRoleplayBinding`. The `codingRoleplay` machine identity and `coding-roleplay` transport slug are current; `mgcCdngRlplay` is a compatibility alias, not a second worker or build trigger.
+
+Presentation can show a build attempt and its outcome, but only an actual artifact receipt makes it a built demo. Keep coding roleplay separate from source execution and preserve the existing company agent hold.
