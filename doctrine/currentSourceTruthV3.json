@@ -395,7 +395,10 @@
       "crownStatus": "CROWNED_SOURCE_ROLE_ONLY",
       "crownReceipt": "doctrine/yumeArtDirectionCrownReceiptV1.json"
     },
-    "belldandyOniDeploymentGuard": "doctrine/belldandyOniDeploymentGuardV1.json"
+    "belldandyOniDeploymentGuard": "doctrine/belldandyOniDeploymentGuardV1.json",
+    "belldandyOniStatus": "SOURCE_GUARD_CONFIGURED_LIVE_QUARANTINED",
+    "belldandyActingSecretary": false,
+    "companyActiveOniWorkers": 0
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
@@ -753,5 +756,23 @@
     "crownStatus": "STOP",
     "browserUiVideoEvidence": "doctrine/chromeCanaryFirstNightBrowserProofV1.json",
     "androidDebugManifestEvidence": "doctrine/androidApkManifestInspectionV1.json"
+  },
+  "featureMutation": {
+    "contract": "doctrine/featureMutationPipelineV1.json",
+    "audit": "tools/featureMutationGate.py",
+    "ci": ".github/workflows/feature-mutation-architecture-gate.yml",
+    "status": "STAGED_SOURCE_ONLY",
+    "defaultLane": "proposed",
+    "autoMerge": false,
+    "autoPublish": false,
+    "liveFeatureMutationProven": false,
+    "crownStatus": "STOP"
+  },
+  "architectureBaseline": {
+    "contract": "doctrine/systemArchitectureBaselineV1.json",
+    "status": "SOURCE_ARCHITECTURE_MAPPED",
+    "publicReleaseGreen": false,
+    "liveRuntimeProofsRemainIndependent": true,
+    "crownStatus": "STOP"
   }
 }
