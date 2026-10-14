@@ -2,6 +2,7 @@
 """Offline negative tests for the integrated virgin-install debug lane."""
 import importlib.util
 import subprocess
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -50,6 +51,18 @@ class DebugReadinessTests(unittest.TestCase):
         self.assertTrue(gate.check_orchestrator_budget("line\n" * 325) <= 350)
         with self.assertRaises(ValueError):
             gate.check_orchestrator_budget("line\n" * 351)
+
+    def test_stale_device_receipt_never_grants_proof(self):
+        with tempfile.TemporaryDirectory() as dirname:
+            receipt_path = Path(dirname) / "device-proof.json"
+            receipt_path.write_text('{"status":"EXACT_ARTIFACT_MATCHED_SCREEN_PROOF_PENDING",'
+                                    '"exactInstalledArtifactMatched":true}', encoding="utf-8")
+            denied = debug.summarize_device(receipt_path, {"status": "FAIL"})
+            self.assertFalse(denied["artifactMatched"])
+            observed = debug.summarize_device(receipt_path, {"status": "PASS"})
+            self.assertTrue(observed["artifactMatched"])
+            receipt_path.write_text("not json", encoding="utf-8")
+            self.assertFalse(debug.summarize_device(receipt_path, {"status": "PASS"})["artifactMatched"])
 
     def test_failure_classification(self):
         self.assertEqual(debug.failure_kind("Traceback (most recent call last)", 1), "python-exception")
