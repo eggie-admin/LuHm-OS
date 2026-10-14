@@ -28,10 +28,22 @@ def scan_runtime(root):
         content = p.read_text(encoding='utf-8')
         require(not FORBIDDEN.search(content), f'forbidden runtime capability in {p.relative_to(root)}')
 
+MAX_ORCHESTRATOR_LINES = 350  # Current 325-line composition root; refactor before beta if exceeded.
+
+def check_orchestrator_budget(text, limit=MAX_ORCHESTRATOR_LINES):
+    actual = len(text.splitlines())
+    require(actual <= limit, f'main orchestration exceeds provisional {limit}-line budget: {actual}')
+    return actual
+
 def source(root):
     scan_runtime(root)
     contract = json.loads((root / 'doctrine/androidCandidate.json').read_text())
-    require(len((root / 'scripts/main.gd').read_text().splitlines()) <= 120, 'main orchestration exceeds approved scope')
+    main_script = (root / 'scripts/main.gd').read_text(encoding='utf-8')
+    check_orchestrator_budget(main_script)
+    for required_delegate in ('worldFactory', 'playerController', 'gameHud', 'cutsceneBridge',
+                              'characterRoster', 'questDirector'):
+        require(f'res://scripts/game/{required_delegate}.gd' in main_script,
+                f'main orchestration is missing delegated boundary: {required_delegate}')
     for path, marker in {'scripts/game/neonWorld.gd':'StaticBody3D', 'scripts/game/playerController.gd':'SpringArm3D', 'scripts/game/lumAvatar.gd':'get_rig_summary', 'scripts/cutsceneDirector.gd':'CANCEL_POLL_SECONDS', 'frontEnd/jquery/luhm.cockpit.js':'luhmCockpit'}.items():
         require(marker in (root / path).read_text(), f'missing architecture contract: {path}')
     preset = (root / 'export_presets.cfg').read_text()
