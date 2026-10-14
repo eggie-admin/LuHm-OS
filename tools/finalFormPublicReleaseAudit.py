@@ -67,7 +67,7 @@ def main():
     if result["errors"]:result["status"]="RED_CONTRACT"
     out=root / "build/final-form/release-audit.json"
     out.parent.mkdir(parents=True,exist_ok=True)
-    out.write_text(json.dumps(result,indent=2)+"\\n",encoding="utf-8")
+    out.write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(result,indent=2))
     raise SystemExit(1 if result["errors"] else 0)
 if __name__=="__main__":main()
