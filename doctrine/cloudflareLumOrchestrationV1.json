@@ -133,7 +133,9 @@
     "noExposeHiddenReasoning": true,
     "publicReasonSummaryOnly": true,
     "traceDefault": "NO_SENSITIVE_INPUT_OR_OUTPUT_CAPTURE",
-    "traceExportApprovalRequired": true
+    "traceExportApprovalRequired": true,
+    "sdkTopologyExporter": "tools/openAiAgentTopology.py",
+    "openAiModelSpecificRuntimeEntitlement": "UNVERIFIED"
   },
   "taskEnvelope": {
     "required": [
@@ -224,7 +226,8 @@
     "canonicalName": "sourceArchitectureOnly",
     "scripts": [
       "tools/cloudflareLumRoute.py",
-      "tools/cloudflareLumOrchestrationAudit.py"
+      "tools/cloudflareLumOrchestrationAudit.py",
+      "tools/openAiAgentTopology.py"
     ],
     "ci": ".github/workflows/cloudflare-lum-orchestration-audit.yml",
     "report": "PLANNED_ROUTE_NOT_LIVE_MUTATION"
