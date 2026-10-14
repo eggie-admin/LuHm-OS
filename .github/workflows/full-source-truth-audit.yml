@@ -14,6 +14,7 @@ on:
       - 'doctrine/PRE_GREEN_SNAPSHOT_20260930.json'
       - 'doctrine/CURRENT_MAIN_SOURCE_TRUTH_GREEN_20260930.json'
       - 'tools/fullSourceTruthAudit.py'
+      - 'tests/testFullSourceTruthFailClosed.py'
       - 'tools/currentMainSourceTruthMilestoneAudit.py'
       - 'tests/testCurrentMainSourceTruthMilestone.py'
       - '.github/workflows/full-source-truth-audit.yml'
@@ -57,6 +58,9 @@ jobs:
           if test -f doctrine/CURRENT_MAIN_SOURCE_TRUTH_GREEN_20260930.json; then
             python3 -m json.tool doctrine/CURRENT_MAIN_SOURCE_TRUTH_GREEN_20260930.json >/dev/null
           fi
+
+      - name: Reject misleading readiness reports
+        run: python3 -m unittest tests.testFullSourceTruthFailClosed -v
 
       - name: Run deterministic full source truth audit
         shell: bash
