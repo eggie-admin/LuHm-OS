@@ -394,7 +394,8 @@
       "liveProviderWorkerProven": false,
       "crownStatus": "CROWNED_SOURCE_ROLE_ONLY",
       "crownReceipt": "doctrine/yumeArtDirectionCrownReceiptV1.json"
-    }
+    },
+    "belldandyOniDeploymentGuard": "doctrine/belldandyOniDeploymentGuardV1.json"
   },
   "yumeBatchImageWorkflow": {
     "contract": "doctrine/yumeBatchImageWorkflowV1.json",
