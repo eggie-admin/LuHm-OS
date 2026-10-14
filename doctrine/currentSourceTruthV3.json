@@ -248,6 +248,16 @@
       "targetSdk36": "GREEN_VERIFIED_DEBUG_APK_ONLY",
       "debuggable": true,
       "releaseCertificateProof": "PENDING"
+    },
+    "deviceScreenProof": {
+      "contract": "doctrine/samsungCockpitScreenProofV1.json",
+      "status": "GREEN_SCOPED_LUHM_DISPLAY_ON_SAMSUNG",
+      "videoSha256": "9d3028711dad1944ad768cc3a49021e9ce6eca7043eed9930d0aa52fb8c88c65",
+      "liveAndroidAppIdentity": "UNVERIFIED",
+      "packageInstallationFromExactDebugApk": "PENDING",
+      "samsungWalletInterruption": "OBSERVED",
+      "rawVideoPublic": false,
+      "crownStatus": "STOP"
     }
   },
   "mcpLayer": {
@@ -751,6 +761,7 @@
     "deploymentAuthority": "PROPOSED_CANDIDATE_ONLY",
     "crownStatus": "STOP",
     "browserUiVideoEvidence": "doctrine/chromeCanaryFirstNightBrowserProofV1.json",
-    "androidDebugManifestEvidence": "doctrine/androidApkManifestInspectionV1.json"
+    "androidDebugManifestEvidence": "doctrine/androidApkManifestInspectionV1.json",
+    "samsungScreenEvidence": "doctrine/samsungCockpitScreenProofV1.json"
   }
 }
