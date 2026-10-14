@@ -130,5 +130,18 @@
       "functionRef": "LuHmOS.fn.operationTitan",
       "buildVersion": 7
     }
+  },
+  "codingRoleplayBinding": {
+    "canonicalMachineId": "codingRoleplay",
+    "transportSlug": "coding-roleplay",
+    "dragonTailState": "PROPOSED_ONLY",
+    "frontEndEntry": "$.codingRoleplay",
+    "historicalTriggerAlias": "mgcCdngRlplay",
+    "historicalTriggerAuthority": "compatibilityAliasOnly",
+    "resolvedIdentity": "codingRoleplay",
+    "aliasMayChangeAuthority": false,
+    "aliasMayActivateBuild": false,
+    "sourceContract": "doctrine/codingRoleplayDirectorV2.json",
+    "virginInstallContract": "doctrine/manualPluginVirginInstallV1.json"
   }
 }
