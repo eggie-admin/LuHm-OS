@@ -12,6 +12,7 @@ import threading
 from pathlib import Path
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
+    extensions_map = {**http.server.SimpleHTTPRequestHandler.extensions_map, ".wasm": "application/wasm", ".pck": "application/octet-stream"}
     def log_message(self,*args):
         pass
 
