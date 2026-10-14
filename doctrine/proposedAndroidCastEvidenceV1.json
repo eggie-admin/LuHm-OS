@@ -1,0 +1,55 @@
+{
+  "schema": "luhmOs.proposedAndroidCastEvidence.v1",
+  "status": "GREEN_EXACT_SOURCE_DEBUG_BUILD_ONLY",
+  "authority": "Professor",
+  "observedAtUtc": "2026-10-14T01:58:00Z",
+  "repository": "eggie-admin/LuHm-OS",
+  "builtSourceRef": "3dcaf235986ed489cbdda91d86c38091680e0250",
+  "milestoneId": "androidProposedDebug",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "bridge": {
+    "runId": 38498260953,
+    "conclusion": "success",
+    "url": "https://github.com/eggie-admin/LuHm-OS/actions/runs/38498260953"
+  },
+  "androidBuild": {
+    "runId": 38498269472,
+    "conclusion": "success",
+    "url": "https://github.com/eggie-admin/LuHm-OS/actions/runs/38498269472",
+    "nativeWeb3Aar": "GREEN_BUILD",
+    "googleDriveRiggedLumStage": "GREEN_CI_STEP",
+    "godotImport": "GREEN_CI_STEP",
+    "apkExport": "GREEN_CI_STEP",
+    "apkVerification": "GREEN_CI_STEP",
+    "publicPrereleaseJob": "SKIPPED"
+  },
+  "artifact": {
+    "type": "ANDROID_DEBUG_APK",
+    "fileName": "LuHmOS-AndroidWeb3-android-web3-3dcaf235-r38498260953-arm64-v8a.apk",
+    "sizeBytes": 95714553,
+    "sha256": "0b0fdfbe25e8937abfe6e647cb23de53838e0189fc545d062aee73f57edd4f0e",
+    "githubArtifactId": 11864259634,
+    "driveRootFileId": "1j9bXaToRlkZUeP1INAePioUGTmWD5F1L",
+    "driveRootFileUrl": "https://drive.google.com/file/d/1j9bXaToRlkZUeP1INAePioUGTmWD5F1L/view?usp=drivesdk",
+    "driveSharedPublicly": false
+  },
+  "claims": {
+    "historicalBuildReceipt": true,
+    "proposedSourceAndApkBuilt": true,
+    "oneExistingRiggedLumAssetIngestedInCi": true,
+    "allDriveAssetsIngested": false,
+    "apkVerifiedForInstallCandidate": true,
+    "androidPhysicalInstallProven": false,
+    "firstLaunchProven": false,
+    "nativeCockpitInteractionProven": false,
+    "stableReleaseCertificateProven": false,
+    "releaseTargetSdkProven": false,
+    "upgradePathProven": false,
+    "fdroidReady": false,
+    "googlePlayReady": false,
+    "publicPublicationAuthorized": false
+  },
+  "releaseLane": "GATED",
+  "betaLane": "GATED",
+  "crownStatus": "STOP"
+}
