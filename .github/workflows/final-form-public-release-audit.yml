@@ -1,0 +1,43 @@
+name: FINAL FORM Public Release Truth Gate
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/finalFormPublicReleaseGateV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/androidDeliveryLanesV1.json'
+      - 'doctrine/publicArtReleaseReadinessV1.json'
+      - 'doctrine/pluginPublicationV2.json'
+      - 'doctrine/proposedAndroidCastEvidenceV1.json'
+      - 'tools/finalFormPublicReleaseAudit.py'
+      - '.github/workflows/final-form-public-release-audit.yml'
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  evidence:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Bind exact source
+        env:
+          expectedHead: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" == "$expectedHead"
+          git diff --check
+      - name: Audit final form, including forgery negative controls
+        run: python3 tools/finalFormPublicReleaseAudit.py --self-test
+      - name: Upload evidence-only packet
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: final-form-public-release-evidence
+          path: build/final-form/release-audit.json
+          if-no-files-found: error
+          retention-days: 30
