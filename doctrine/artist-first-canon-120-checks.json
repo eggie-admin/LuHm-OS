@@ -1,0 +1,1097 @@
+{
+  "schema": "luhm.artist-first-canon-audit.v1",
+  "status": "PROPOSED_ONLY",
+  "sourceBaseline": "8b507584cdebd9b91ca6ab4c56b478a63a47833a",
+  "mission": "Audit 120 distinct product-and-canon controls; only source assertions can pass without runtime receipts.",
+  "count": 120,
+  "domains": [
+    "100-artist-first-mission",
+    "200-human-authorship-and-editable-masters",
+    "300-two-dimensional-art-and-sprites",
+    "400-timeline-storyboard-and-animation",
+    "500-ffmpeg-and-reusable-video-production",
+    "600-godot-blender-and-three-dimensional-art",
+    "700-creative-ui-and-wysiwyg",
+    "800-yume-agents-and-lum-orchestration",
+    "900-private-storage-authorship-and-asset-lineage",
+    "1000-into-the-warp-pilot-and-repeatable-posts",
+    "1100-remote-workstations-and-mobile-compatibility",
+    "1200-releases-rights-and-hard-crown-gates"
+  ],
+  "checks": [
+    {
+      "id": "100-artist-first-mission-01",
+      "domain": "100-artist-first-mission",
+      "label": "Prime product mission recorded",
+      "kind": "json-eq",
+      "path": "doctrine/currentSourceTruthV3.json",
+      "key": "productPurpose",
+      "value": "ARTIST_FIRST_CREATIVE_WORKSTATION_AND_PRODUCTION_TOOL",
+      "critical": true
+    },
+    {
+      "id": "100-artist-first-mission-02",
+      "domain": "100-artist-first-mission",
+      "label": "Working canon is not falsely promoted",
+      "kind": "json-eq",
+      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "key": "status",
+      "value": "PROPOSED_ONLY",
+      "critical": true
+    },
+    {
+      "id": "100-artist-first-mission-03",
+      "domain": "100-artist-first-mission",
+      "label": "Art tool authority remains with Professor",
+      "kind": "json-eq",
+      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "key": "authority",
+      "value": "Professor",
+      "critical": true
+    },
+    {
+      "id": "100-artist-first-mission-04",
+      "domain": "100-artist-first-mission",
+      "label": "Source of truth points to art tool canon",
+      "kind": "json-eq",
+      "path": "doctrine/currentSourceTruthV3.json",
+      "key": "creativeLayer.artistFirstPrimeCanon",
+      "value": "doctrine/artist-first-art-tool-canon-v1.json",
+      "critical": true
+    },
+    {
+      "id": "100-artist-first-mission-05",
+      "domain": "100-artist-first-mission",
+      "label": "First creative priority is human intent",
+      "kind": "json-eq",
+      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "key": "priorityOrder.0",
+      "value": "human creative intent",
+      "critical": true
+    },
+    {
+      "id": "100-artist-first-mission-06",
+      "domain": "100-artist-first-mission",
+      "label": "Creative views include studio",
+      "kind": "json-includes",
+      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "key": "surfaceContract.primaryViews",
+      "value": "studio",
+      "critical": true
+    },
+    {
+      "id": "100-artist-first-mission-07",
+      "domain": "100-artist-first-mission",
+      "label": "Creative views include timeline",
+      "kind": "json-includes",
+      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "key": "surfaceContract.primaryViews",
+      "value": "timeline",
+      "critical": true
+    },
+    {
+      "id": "100-artist-first-mission-08",
+      "domain": "100-artist-first-mission",
+      "label": "README leads with artist purpose",
+      "kind": "text-includes",
+      "path": "README.md",
+      "value": "LuHm-OS exists first as an artist-controlled creative workstation",
+      "critical": true
+    },
+    {
+      "id": "100-artist-first-mission-09",
+      "domain": "100-artist-first-mission",
+      "label": "Publication remains gated",
+      "kind": "json-eq",
+      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "key": "gates.automaticRelease",
+      "value": false,
+      "critical": true
+    },
+    {
+      "id": "100-artist-first-mission-10",
+      "domain": "100-artist-first-mission",
+      "label": "Actual artist-first landing viewport",
+      "kind": "runtime",
+      "proof": "Browser proof of studio view as primary interaction; README copy alone cannot pass",
+      "critical": false
+    },
+    {
+      "id": "200-human-authorship-and-editable-masters-01",
+      "domain": "200-human-authorship-and-editable-masters",
+      "label": "Yume role protects original artwork",
+      "kind": "json-includes",
+      "path": "doctrine/yumeArtDirectionCanonV1.json",
+      "key": "canonizedResponsibilities",
+      "value": "preserve Professor original artwork voice and editable masters",
+      "critical": true
+    },
+    {
+      "id": "200-human-authorship-and-editable-masters-02",
+      "domain": "200-human-authorship-and-editable-masters",
+      "label": "Approved art-direction role is scoped",
+      "kind": "json-eq",
+      "path": "doctrine/yumeArtDirectionCanonV1.json",
+      "key": "canonicalRolePromotion",
+      "value": true,
+      "critical": true
+    },
+    {
+      "id": "200-human-authorship-and-editable-masters-03",
+      "domain": "200-human-authorship-and-editable-masters",
+      "label": "No AI overwrites originals without approval",
+      "kind": "json-eq",
+      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "key": "preservedArtLaw.originalSketchesPaintingsMusicAndIntentRemainHumanAuthored",
+      "value": true,
+      "critical": true
+    },
+    {
+      "id": "200-human-authorship-and-editable-masters-04",
+      "domain": "200-human-authorship-and-editable-masters",
+      "label": "Provenance ledger honors human artists",
+      "kind": "json-includes",
+      "path": "doctrine/artistCreditLedgerV1.json",
+      "key": "humanPolicy",
+      "value": "artists_are_people_not_asset_vending_machines",
+      "critical": true
+    },
+    {
+      "id": "200-human-authorship-and-editable-masters-05",
+      "domain": "200-human-authorship-and-editable-masters",
+      "label": "Known creator receives credit",
+      "kind": "json-includes",
+      "path": "doctrine/artistCreditLedgerV1.json",
+      "key": "humanPolicy",
+      "value": "credit_the_human_when_identity_is_known_even_if_the_license_does_not_require_attribution",
+      "critical": true
+    },
+    {
+      "id": "200-human-authorship-and-editable-masters-06",
+      "domain": "200-human-authorship-and-editable-masters",
+      "label": "Public AI-art default remains blocked",
+      "kind": "json-eq",
+      "path": "doctrine/yumeArtistWorkstationV1.json",
+      "key": "publicAuthorshipLaw.publicGenerativeAiDefault",
+      "value": "FORBIDDEN_UNLESS_PROFESSOR_CHANGES_POLICY",
+      "critical": true
+    },
+    {
+      "id": "200-human-authorship-and-editable-masters-07",
+      "domain": "200-human-authorship-and-editable-masters",
+      "label": "Master preservation required in creative work",
+      "kind": "json-includes",
+      "path": "doctrine/yumeCreativePipelineV1.json",
+      "key": "professionalInterpretationLaw",
+      "value": "preserve_professor_source_before_cleanup",
+      "critical": true
+    },
+    {
+      "id": "200-human-authorship-and-editable-masters-08",
+      "domain": "200-human-authorship-and-editable-masters",
+      "label": "Human artist decides finish",
+      "kind": "json-includes",
+      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "key": "priorityOrder",
+      "value": "direct artist controls and review",
+      "critical": true
+    },
+    {
+      "id": "200-human-authorship-and-editable-masters-09",
+      "domain": "200-human-authorship-and-editable-masters",
+      "label": "Artist credit structured source exists",
+      "kind": "file",
+      "path": "doctrine/artistCreditLedgerV1.json",
+      "critical": true
+    },
+    {
+      "id": "200-human-authorship-and-editable-masters-10",
+      "domain": "200-human-authorship-and-editable-masters",
+      "label": "Round-trip editability of protected source",
+      "kind": "runtime",
+      "proof": "Byte-evidence that layers, project files, metadata and human edits survive export/import",
+      "critical": false
+    },
+    {
+      "id": "300-two-dimensional-art-and-sprites-01",
+      "domain": "300-two-dimensional-art-and-sprites",
+      "label": "Yume curated reference catalog",
+      "kind": "file",
+      "path": "media/yumeReferenceGalleryV1.json",
+      "critical": true
+    },
+    {
+      "id": "300-two-dimensional-art-and-sprites-02",
+      "domain": "300-two-dimensional-art-and-sprites",
+      "label": "Reference gallery source renderer",
+      "kind": "file",
+      "path": "tools/renderYumeReferenceGallery.py",
+      "critical": true
+    },
+    {
+      "id": "300-two-dimensional-art-and-sprites-03",
+      "domain": "300-two-dimensional-art-and-sprites",
+      "label": "Reference gallery static UI",
+      "kind": "file",
+      "path": "frontEnd/yumeReferenceGallery.html",
+      "critical": true
+    },
+    {
+      "id": "300-two-dimensional-art-and-sprites-04",
+      "domain": "300-two-dimensional-art-and-sprites",
+      "label": "Batch image queue source",
+      "kind": "file",
+      "path": "tools/yumeBatchImageQueue.py",
+      "critical": true
+    },
+    {
+      "id": "300-two-dimensional-art-and-sprites-05",
+      "domain": "300-two-dimensional-art-and-sprites",
+      "label": "Batch image manifest",
+      "kind": "file",
+      "path": "agents/yumeArtOni/templates/batch-image-manifest-v1.template.json",
+      "critical": true
+    },
+    {
+      "id": "300-two-dimensional-art-and-sprites-06",
+      "domain": "300-two-dimensional-art-and-sprites",
+      "label": "Contact sheet script",
+      "kind": "file",
+      "path": "tools/luHmVisualContactSheet.py",
+      "critical": true
+    },
+    {
+      "id": "300-two-dimensional-art-and-sprites-07",
+      "domain": "300-two-dimensional-art-and-sprites",
+      "label": "Sprite art family registered",
+      "kind": "json-includes",
+      "path": "doctrine/mediaAssetFactoryV1.json",
+      "key": "assetFamilies",
+      "value": "spriteSet",
+      "critical": true
+    },
+    {
+      "id": "300-two-dimensional-art-and-sprites-08",
+      "domain": "300-two-dimensional-art-and-sprites",
+      "label": "Animation keyframes registered",
+      "kind": "json-includes",
+      "path": "doctrine/mediaAssetFactoryV1.json",
+      "key": "assetFamilies",
+      "value": "animationKeyframes",
+      "critical": true
+    },
+    {
+      "id": "300-two-dimensional-art-and-sprites-09",
+      "domain": "300-two-dimensional-art-and-sprites",
+      "label": "Editable drawing canvas in primary cockpit",
+      "kind": "text-includes",
+      "path": "frontEnd/index.html",
+      "value": "data-luhm-paint-canvas",
+      "critical": false
+    },
+    {
+      "id": "300-two-dimensional-art-and-sprites-10",
+      "domain": "300-two-dimensional-art-and-sprites",
+      "label": "Pixel sprite atlas alpha and animation runtime",
+      "kind": "runtime",
+      "proof": "Actual per-frame alpha, 50px icon, frame-grid and responsive scaling proof",
+      "critical": false
+    },
+    {
+      "id": "400-timeline-storyboard-and-animation-01",
+      "domain": "400-timeline-storyboard-and-animation",
+      "label": "Storyboard guide source",
+      "kind": "file",
+      "path": "agents/yumeArtOni/templates/filmProductionBible.md",
+      "critical": true
+    },
+    {
+      "id": "400-timeline-storyboard-and-animation-02",
+      "domain": "400-timeline-storyboard-and-animation",
+      "label": "Cutscene factory shot schema",
+      "kind": "file",
+      "path": "cutscenes/yumeCutsceneFactoryProof.json",
+      "critical": true
+    },
+    {
+      "id": "400-timeline-storyboard-and-animation-03",
+      "domain": "400-timeline-storyboard-and-animation",
+      "label": "Godot cutscene scene source",
+      "kind": "file",
+      "path": "scenes/YumeCutsceneFactoryProof.tscn",
+      "critical": true
+    },
+    {
+      "id": "400-timeline-storyboard-and-animation-04",
+      "domain": "400-timeline-storyboard-and-animation",
+      "label": "Cutscene camera controller source",
+      "kind": "file",
+      "path": "scripts/cutsceneDirector.gd",
+      "critical": true
+    },
+    {
+      "id": "400-timeline-storyboard-and-animation-05",
+      "domain": "400-timeline-storyboard-and-animation",
+      "label": "Cutscene shot script source",
+      "kind": "file",
+      "path": "scripts/yumeCutsceneShot.gd",
+      "critical": true
+    },
+    {
+      "id": "400-timeline-storyboard-and-animation-06",
+      "domain": "400-timeline-storyboard-and-animation",
+      "label": "Cutscene factory audit script",
+      "kind": "file",
+      "path": "tools/yumeCutsceneFactoryAudit.py",
+      "critical": true
+    },
+    {
+      "id": "400-timeline-storyboard-and-animation-07",
+      "domain": "400-timeline-storyboard-and-animation",
+      "label": "Cutscene CI workflow",
+      "kind": "file",
+      "path": ".github/workflows/yume-cutscene-factory-proof.yml",
+      "critical": true
+    },
+    {
+      "id": "400-timeline-storyboard-and-animation-08",
+      "domain": "400-timeline-storyboard-and-animation",
+      "label": "Editorial project structure",
+      "kind": "file",
+      "path": "media/pirate-daddy-film/into-the-warp-project-template-v3.json",
+      "critical": true
+    },
+    {
+      "id": "400-timeline-storyboard-and-animation-09",
+      "domain": "400-timeline-storyboard-and-animation",
+      "label": "Editor timeline affordance in primary UI",
+      "kind": "text-includes",
+      "path": "frontEnd/index.html",
+      "value": "data-luhm-timeline",
+      "critical": false
+    },
+    {
+      "id": "400-timeline-storyboard-and-animation-10",
+      "domain": "400-timeline-storyboard-and-animation",
+      "label": "Frame-by-frame edit, inbetweens and keyframe undo",
+      "kind": "runtime",
+      "proof": "Live animation edit and render receipt including retained source frames",
+      "critical": false
+    },
+    {
+      "id": "500-ffmpeg-and-reusable-video-production-01",
+      "domain": "500-ffmpeg-and-reusable-video-production",
+      "label": "Guarded FFmpeg worker source",
+      "kind": "file",
+      "path": "host/ai-ffmpeg/ai-ffmpeg.py",
+      "critical": true
+    },
+    {
+      "id": "500-ffmpeg-and-reusable-video-production-02",
+      "domain": "500-ffmpeg-and-reusable-video-production",
+      "label": "Real FFmpeg negative-control render tests",
+      "kind": "file",
+      "path": "tests/test-ai-ffmpeg.py",
+      "critical": true
+    },
+    {
+      "id": "500-ffmpeg-and-reusable-video-production-03",
+      "domain": "500-ffmpeg-and-reusable-video-production",
+      "label": "FFmpeg GitHub runner workflow",
+      "kind": "file",
+      "path": ".github/workflows/ai-ffmpeg-audit.yml",
+      "critical": true
+    },
+    {
+      "id": "500-ffmpeg-and-reusable-video-production-04",
+      "domain": "500-ffmpeg-and-reusable-video-production",
+      "label": "Remote Garage Codespaces starter",
+      "kind": "file",
+      "path": "scripts/ai-ffmpeg-codespaces.sh",
+      "critical": true
+    },
+    {
+      "id": "500-ffmpeg-and-reusable-video-production-05",
+      "domain": "500-ffmpeg-and-reusable-video-production",
+      "label": "FFmpeg manifest",
+      "kind": "file",
+      "path": "media/pirate-daddy-film/episode-template.json",
+      "critical": true
+    },
+    {
+      "id": "500-ffmpeg-and-reusable-video-production-06",
+      "domain": "500-ffmpeg-and-reusable-video-production",
+      "label": "Audio deferral remains locked",
+      "kind": "json-eq",
+      "path": "media/pirate-daddy-film/into-the-warp-project-template-v3.json",
+      "key": "locks.audioDeferred",
+      "value": true,
+      "critical": true
+    },
+    {
+      "id": "500-ffmpeg-and-reusable-video-production-07",
+      "domain": "500-ffmpeg-and-reusable-video-production",
+      "label": "Production workflow template",
+      "kind": "file",
+      "path": "media/pirate-daddy-film/production-workflow-template.md",
+      "critical": true
+    },
+    {
+      "id": "500-ffmpeg-and-reusable-video-production-08",
+      "domain": "500-ffmpeg-and-reusable-video-production",
+      "label": "Render blocks count remains seven",
+      "kind": "json-eq",
+      "path": "media/pirate-daddy-film/into-the-warp-project-template-v3.json",
+      "key": "counts.renderBlocks",
+      "value": 7,
+      "critical": true
+    },
+    {
+      "id": "500-ffmpeg-and-reusable-video-production-09",
+      "domain": "500-ffmpeg-and-reusable-video-production",
+      "label": "Artist render queue executable in UI",
+      "kind": "text-includes",
+      "path": "frontEnd/index.html",
+      "value": "data-luhm-render-queue",
+      "critical": false
+    },
+    {
+      "id": "500-ffmpeg-and-reusable-video-production-10",
+      "domain": "500-ffmpeg-and-reusable-video-production",
+      "label": "Persistent remote FFmpeg worker and finished art output",
+      "kind": "runtime",
+      "proof": "Live authenticated worker receipt and approved real-media render, not synthetic CI sample",
+      "critical": false
+    },
+    {
+      "id": "600-godot-blender-and-three-dimensional-art-01",
+      "domain": "600-godot-blender-and-three-dimensional-art",
+      "label": "Godot project source",
+      "kind": "file",
+      "path": "project.godot",
+      "critical": true
+    },
+    {
+      "id": "600-godot-blender-and-three-dimensional-art-02",
+      "domain": "600-godot-blender-and-three-dimensional-art",
+      "label": "Runtime primary scene source",
+      "kind": "file",
+      "path": "scenes/Main.tscn",
+      "critical": true
+    },
+    {
+      "id": "600-godot-blender-and-three-dimensional-art-03",
+      "domain": "600-godot-blender-and-three-dimensional-art",
+      "label": "Godot 3D candidate matrix",
+      "kind": "file",
+      "path": "media/goddess3d-production-matrix-v1.json",
+      "critical": true
+    },
+    {
+      "id": "600-godot-blender-and-three-dimensional-art-04",
+      "domain": "600-godot-blender-and-three-dimensional-art",
+      "label": "Goddess lineup rehearsal scene",
+      "kind": "file",
+      "path": "scenes/GoddessLineupProof.tscn",
+      "critical": true
+    },
+    {
+      "id": "600-godot-blender-and-three-dimensional-art-05",
+      "domain": "600-godot-blender-and-three-dimensional-art",
+      "label": "Yume Godot asset prep plan",
+      "kind": "file",
+      "path": "tools/yumeGodotAssetPrep.py",
+      "critical": true
+    },
+    {
+      "id": "600-godot-blender-and-three-dimensional-art-06",
+      "domain": "600-godot-blender-and-three-dimensional-art",
+      "label": "Godot asset toolbox contract",
+      "kind": "file",
+      "path": "doctrine/yumeGodotArtToolboxV1.json",
+      "critical": true
+    },
+    {
+      "id": "600-godot-blender-and-three-dimensional-art-07",
+      "domain": "600-godot-blender-and-three-dimensional-art",
+      "label": "Yume goddess 3D source contract",
+      "kind": "file",
+      "path": "doctrine/yumeGoddess3dProductionV1.json",
+      "critical": true
+    },
+    {
+      "id": "600-godot-blender-and-three-dimensional-art-08",
+      "domain": "600-godot-blender-and-three-dimensional-art",
+      "label": "Workstation recognizes Blender role",
+      "kind": "json-includes",
+      "path": "doctrine/yumeArtistWorkstationV1.json",
+      "key": "capabilityClasses.modeling3d.0.toolId",
+      "value": "blender",
+      "critical": false
+    },
+    {
+      "id": "600-godot-blender-and-three-dimensional-art-09",
+      "domain": "600-godot-blender-and-three-dimensional-art",
+      "label": "Blender-to-Godot source editability",
+      "kind": "runtime",
+      "proof": "Import/extract actual GLB, verify rig, deformations, face identity, licensing and in-engine motion",
+      "critical": false
+    },
+    {
+      "id": "600-godot-blender-and-three-dimensional-art-10",
+      "domain": "600-godot-blender-and-three-dimensional-art",
+      "label": "Production grade three-dimensional runtime",
+      "kind": "runtime",
+      "proof": "Exact published preview and dynamic scene control proven, not concept sheet",
+      "critical": false
+    },
+    {
+      "id": "700-creative-ui-and-wysiwyg-01",
+      "domain": "700-creative-ui-and-wysiwyg",
+      "label": "Primary HTML artist cockpit candidate",
+      "kind": "file",
+      "path": "frontEnd/index.html",
+      "critical": true
+    },
+    {
+      "id": "700-creative-ui-and-wysiwyg-02",
+      "domain": "700-creative-ui-and-wysiwyg",
+      "label": "jQuery UI shell implementation",
+      "kind": "file",
+      "path": "frontEnd/jquery/luhm.cockpit.js",
+      "critical": true
+    },
+    {
+      "id": "700-creative-ui-and-wysiwyg-03",
+      "domain": "700-creative-ui-and-wysiwyg",
+      "label": "User-facing app orchestration",
+      "kind": "file",
+      "path": "frontEnd/app.js",
+      "critical": true
+    },
+    {
+      "id": "700-creative-ui-and-wysiwyg-04",
+      "domain": "700-creative-ui-and-wysiwyg",
+      "label": "UI styles source",
+      "kind": "file",
+      "path": "frontEnd/styles.css",
+      "critical": true
+    },
+    {
+      "id": "700-creative-ui-and-wysiwyg-05",
+      "domain": "700-creative-ui-and-wysiwyg",
+      "label": "Current shell includes Factory menu",
+      "kind": "text-includes",
+      "path": "frontEnd/index.html",
+      "value": "data-luhm-factory-button",
+      "critical": true
+    },
+    {
+      "id": "700-creative-ui-and-wysiwyg-06",
+      "domain": "700-creative-ui-and-wysiwyg",
+      "label": "Factory gate reports candidate",
+      "kind": "text-includes",
+      "path": "frontEnd/index.html",
+      "value": "data-factory-status",
+      "critical": true
+    },
+    {
+      "id": "700-creative-ui-and-wysiwyg-07",
+      "domain": "700-creative-ui-and-wysiwyg",
+      "label": "Browser asset-drop input exists",
+      "kind": "text-includes",
+      "path": "host/harness/index.html",
+      "value": "id=\"assetInput\"",
+      "critical": true
+    },
+    {
+      "id": "700-creative-ui-and-wysiwyg-08",
+      "domain": "700-creative-ui-and-wysiwyg",
+      "label": "Current layout reserves live Godot viewport",
+      "kind": "text-includes",
+      "path": "frontEnd/index.html",
+      "value": "data-luhm-lum-viewport",
+      "critical": true
+    },
+    {
+      "id": "700-creative-ui-and-wysiwyg-09",
+      "domain": "700-creative-ui-and-wysiwyg",
+      "label": "WYSIWYG undo control exists",
+      "kind": "text-includes",
+      "path": "frontEnd/index.html",
+      "value": "data-luhm-undo",
+      "critical": false
+    },
+    {
+      "id": "700-creative-ui-and-wysiwyg-10",
+      "domain": "700-creative-ui-and-wysiwyg",
+      "label": "Studio usability from mobile and keyboard",
+      "kind": "runtime",
+      "proof": "Real painting/storyboarding UI in browser with touch, screen reader and rollback proof",
+      "critical": false
+    },
+    {
+      "id": "800-yume-agents-and-lum-orchestration-01",
+      "domain": "800-yume-agents-and-lum-orchestration",
+      "label": "Yume is art-direction source role",
+      "kind": "json-eq",
+      "path": "doctrine/yumeArtDirectionCanonV1.json",
+      "key": "meshBinding.canonicalAgentId",
+      "value": "yume",
+      "critical": true
+    },
+    {
+      "id": "800-yume-agents-and-lum-orchestration-02",
+      "domain": "800-yume-agents-and-lum-orchestration",
+      "label": "Lum remains only boss",
+      "kind": "json-eq",
+      "path": "doctrine/yumeCreativePipelineV1.json",
+      "key": "boss",
+      "value": "Lum",
+      "critical": false
+    },
+    {
+      "id": "800-yume-agents-and-lum-orchestration-03",
+      "domain": "800-yume-agents-and-lum-orchestration",
+      "label": "Yume creative pipeline named lead",
+      "kind": "json-eq",
+      "path": "doctrine/yumeCreativePipelineV1.json",
+      "key": "creativeLead",
+      "value": "yumeArtOni",
+      "critical": true
+    },
+    {
+      "id": "800-yume-agents-and-lum-orchestration-04",
+      "domain": "800-yume-agents-and-lum-orchestration",
+      "label": "Yume may not self-approve",
+      "kind": "json-eq",
+      "path": "doctrine/yumeArtDirectionCanonV1.json",
+      "key": "meshBinding.maySelfApprove",
+      "value": false,
+      "critical": true
+    },
+    {
+      "id": "800-yume-agents-and-lum-orchestration-05",
+      "domain": "800-yume-agents-and-lum-orchestration",
+      "label": "Yume has no proven independent worker",
+      "kind": "json-eq",
+      "path": "doctrine/yumeArtDirectionCanonV1.json",
+      "key": "meshBinding.independentProviderWorkerProven",
+      "value": false,
+      "critical": true
+    },
+    {
+      "id": "800-yume-agents-and-lum-orchestration-06",
+      "domain": "800-yume-agents-and-lum-orchestration",
+      "label": "Agent bootstrap source",
+      "kind": "file",
+      "path": "AGENTS.md",
+      "critical": true
+    },
+    {
+      "id": "800-yume-agents-and-lum-orchestration-07",
+      "domain": "800-yume-agents-and-lum-orchestration",
+      "label": "Sumi asset provenance skill",
+      "kind": "file",
+      "path": "agents/sumiAssetOni/SKILL.md",
+      "critical": true
+    },
+    {
+      "id": "800-yume-agents-and-lum-orchestration-08",
+      "domain": "800-yume-agents-and-lum-orchestration",
+      "label": "Yume art-production skill",
+      "kind": "file",
+      "path": "agents/yumeArtOni/SKILL.md",
+      "critical": true
+    },
+    {
+      "id": "800-yume-agents-and-lum-orchestration-09",
+      "domain": "800-yume-agents-and-lum-orchestration",
+      "label": "Belldandy secretary proof skill",
+      "kind": "file",
+      "path": "agents/belldandyQualityOni/SKILL.md",
+      "critical": true
+    },
+    {
+      "id": "800-yume-agents-and-lum-orchestration-10",
+      "domain": "800-yume-agents-and-lum-orchestration",
+      "label": "Real multi-agent execution",
+      "kind": "runtime",
+      "proof": "Task-scoped provider receipts demonstrating Yume/Sumi/Skuld outputs actually ran",
+      "critical": false
+    },
+    {
+      "id": "900-private-storage-authorship-and-asset-lineage-01",
+      "domain": "900-private-storage-authorship-and-asset-lineage",
+      "label": "GitHub source has canonical authority",
+      "kind": "json-eq",
+      "path": "doctrine/storageTopologyV1.json",
+      "key": "roles.github.canonicalSourceAuthority",
+      "value": true,
+      "critical": true
+    },
+    {
+      "id": "900-private-storage-authorship-and-asset-lineage-02",
+      "domain": "900-private-storage-authorship-and-asset-lineage",
+      "label": "Drive holds durable binary storage",
+      "kind": "json-eq",
+      "path": "doctrine/storageTopologyV1.json",
+      "key": "roles.googleDrive.canonicalBinaryStorage",
+      "value": true,
+      "critical": true
+    },
+    {
+      "id": "900-private-storage-authorship-and-asset-lineage-03",
+      "domain": "900-private-storage-authorship-and-asset-lineage",
+      "label": "GitHub not a durable binary server",
+      "kind": "json-eq",
+      "path": "doctrine/storageTopologyV1.json",
+      "key": "roles.github.durableBinaryStorage",
+      "value": false,
+      "critical": true
+    },
+    {
+      "id": "900-private-storage-authorship-and-asset-lineage-04",
+      "domain": "900-private-storage-authorship-and-asset-lineage",
+      "label": "Database not a binary file server",
+      "kind": "json-eq",
+      "path": "doctrine/storageTopologyV1.json",
+      "key": "rules.databaseMayStoreCanonicalBinary",
+      "value": false,
+      "critical": true
+    },
+    {
+      "id": "900-private-storage-authorship-and-asset-lineage-05",
+      "domain": "900-private-storage-authorship-and-asset-lineage",
+      "label": "Asset integrity hash required",
+      "kind": "json-eq",
+      "path": "doctrine/storageTopologyV1.json",
+      "key": "rules.artifactDigestRequired",
+      "value": true,
+      "critical": true
+    },
+    {
+      "id": "900-private-storage-authorship-and-asset-lineage-06",
+      "domain": "900-private-storage-authorship-and-asset-lineage",
+      "label": "Creator ID required in credits",
+      "kind": "json-includes",
+      "path": "doctrine/artistCreditLedgerV1.json",
+      "key": "requiredFields",
+      "value": "creatorDisplayName",
+      "critical": true
+    },
+    {
+      "id": "900-private-storage-authorship-and-asset-lineage-07",
+      "domain": "900-private-storage-authorship-and-asset-lineage",
+      "label": "Derivative provenance required",
+      "kind": "json-includes",
+      "path": "doctrine/artistCreditLedgerV1.json",
+      "key": "requiredFields",
+      "value": "derivativeOf",
+      "critical": true
+    },
+    {
+      "id": "900-private-storage-authorship-and-asset-lineage-08",
+      "domain": "900-private-storage-authorship-and-asset-lineage",
+      "label": "Art lane forbids public private references",
+      "kind": "json-eq",
+      "path": "doctrine/yumeArtDirectionCanonV1.json",
+      "key": "rightsAndPrivacy.publicDriveFileOrFolderIdentifiers",
+      "value": false,
+      "critical": true
+    },
+    {
+      "id": "900-private-storage-authorship-and-asset-lineage-09",
+      "domain": "900-private-storage-authorship-and-asset-lineage",
+      "label": "Audit receipt marks media link exposure",
+      "kind": "json-eq",
+      "path": "media/pirate-daddy-film/into-the-warp-cast-receipt-20261015.json",
+      "key": "artifact.driveAnyoneWithLinkReader",
+      "value": true,
+      "critical": true
+    },
+    {
+      "id": "900-private-storage-authorship-and-asset-lineage-10",
+      "domain": "900-private-storage-authorship-and-asset-lineage",
+      "label": "Drive folder restricted and checked",
+      "kind": "runtime",
+      "proof": "Permission proof of private media vault; previous anyone-with-link reader is RED",
+      "critical": false
+    },
+    {
+      "id": "1000-into-the-warp-pilot-and-repeatable-posts-01",
+      "domain": "1000-into-the-warp-pilot-and-repeatable-posts",
+      "label": "Director's storyboard source",
+      "kind": "file",
+      "path": "media/pirate-daddy-film/into-the-warp-directors-notes-v3.md",
+      "critical": true
+    },
+    {
+      "id": "1000-into-the-warp-pilot-and-repeatable-posts-02",
+      "domain": "1000-into-the-warp-pilot-and-repeatable-posts",
+      "label": "Machine episode manifest",
+      "kind": "file",
+      "path": "media/pirate-daddy-film/into-the-warp-project-template-v3.json",
+      "critical": true
+    },
+    {
+      "id": "1000-into-the-warp-pilot-and-repeatable-posts-03",
+      "domain": "1000-into-the-warp-pilot-and-repeatable-posts",
+      "label": "Five film sections",
+      "kind": "json-eq",
+      "path": "media/pirate-daddy-film/into-the-warp-project-template-v3.json",
+      "key": "counts.sections",
+      "value": 5,
+      "critical": true
+    },
+    {
+      "id": "1000-into-the-warp-pilot-and-repeatable-posts-04",
+      "domain": "1000-into-the-warp-pilot-and-repeatable-posts",
+      "label": "Three movements in sealed source",
+      "kind": "json-eq",
+      "path": "media/pirate-daddy-film/into-the-warp-project-template-v3.json",
+      "key": "script.status",
+      "value": "sealed",
+      "critical": true
+    },
+    {
+      "id": "1000-into-the-warp-pilot-and-repeatable-posts-05",
+      "domain": "1000-into-the-warp-pilot-and-repeatable-posts",
+      "label": "Storyboard panels accounted",
+      "kind": "json-eq",
+      "path": "media/pirate-daddy-film/into-the-warp-project-template-v3.json",
+      "key": "counts.storyboardPanels",
+      "value": 23,
+      "critical": true
+    },
+    {
+      "id": "1000-into-the-warp-pilot-and-repeatable-posts-06",
+      "domain": "1000-into-the-warp-pilot-and-repeatable-posts",
+      "label": "Belldandy primary Codex owner",
+      "kind": "json-eq",
+      "path": "media/pirate-daddy-film/into-the-warp-project-template-v3.json",
+      "key": "codex.owner",
+      "value": "belldandy",
+      "critical": true
+    },
+    {
+      "id": "1000-into-the-warp-pilot-and-repeatable-posts-07",
+      "domain": "1000-into-the-warp-pilot-and-repeatable-posts",
+      "label": "Lore occurs in Shot 401",
+      "kind": "json-eq",
+      "path": "media/pirate-daddy-film/into-the-warp-project-template-v3.json",
+      "key": "codex.primaryAppearance.shot",
+      "value": "401",
+      "critical": true
+    },
+    {
+      "id": "1000-into-the-warp-pilot-and-repeatable-posts-08",
+      "domain": "1000-into-the-warp-pilot-and-repeatable-posts",
+      "label": "Outro is not new lookup",
+      "kind": "json-eq",
+      "path": "media/pirate-daddy-film/into-the-warp-project-template-v3.json",
+      "key": "codex.finalCallback.newLookup",
+      "value": false,
+      "critical": true
+    },
+    {
+      "id": "1000-into-the-warp-pilot-and-repeatable-posts-09",
+      "domain": "1000-into-the-warp-pilot-and-repeatable-posts",
+      "label": "Canon continuity regression test",
+      "kind": "file",
+      "path": "tests/test-into-the-warp-production.py",
+      "critical": true
+    },
+    {
+      "id": "1000-into-the-warp-pilot-and-repeatable-posts-10",
+      "domain": "1000-into-the-warp-pilot-and-repeatable-posts",
+      "label": "Actual complete Into the Warp MP4 exists",
+      "kind": "runtime",
+      "proof": "Non-synthetic shot-render proof with Professor-approved art and sound rights, explicit review",
+      "critical": false
+    },
+    {
+      "id": "1100-remote-workstations-and-mobile-compatibility-01",
+      "domain": "1100-remote-workstations-and-mobile-compatibility",
+      "label": "Remote studio Codespaces devcontainer",
+      "kind": "file",
+      "path": ".devcontainer/devcontainer.json",
+      "critical": true
+    },
+    {
+      "id": "1100-remote-workstations-and-mobile-compatibility-02",
+      "domain": "1100-remote-workstations-and-mobile-compatibility",
+      "label": "Remote service script",
+      "kind": "file",
+      "path": "scripts/ai-ffmpeg-codespaces.sh",
+      "critical": true
+    },
+    {
+      "id": "1100-remote-workstations-and-mobile-compatibility-03",
+      "domain": "1100-remote-workstations-and-mobile-compatibility",
+      "label": "Remote studio manual",
+      "kind": "file",
+      "path": "manual/professor-garage-lab.md",
+      "critical": true
+    },
+    {
+      "id": "1100-remote-workstations-and-mobile-compatibility-04",
+      "domain": "1100-remote-workstations-and-mobile-compatibility",
+      "label": "Android Web3 wrapper candidate",
+      "kind": "file",
+      "path": "androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt",
+      "critical": true
+    },
+    {
+      "id": "1100-remote-workstations-and-mobile-compatibility-05",
+      "domain": "1100-remote-workstations-and-mobile-compatibility",
+      "label": "Android build recipe",
+      "kind": "file",
+      "path": "androidWeb3Plugin/plugin/build.gradle.kts",
+      "critical": true
+    },
+    {
+      "id": "1100-remote-workstations-and-mobile-compatibility-06",
+      "domain": "1100-remote-workstations-and-mobile-compatibility",
+      "label": "Godot Android export configuration",
+      "kind": "file",
+      "path": "export_presets.cfg",
+      "critical": true
+    },
+    {
+      "id": "1100-remote-workstations-and-mobile-compatibility-07",
+      "domain": "1100-remote-workstations-and-mobile-compatibility",
+      "label": "Local front end integrity checker",
+      "kind": "file",
+      "path": "frontEnd/tools/check.mjs",
+      "critical": true
+    },
+    {
+      "id": "1100-remote-workstations-and-mobile-compatibility-08",
+      "domain": "1100-remote-workstations-and-mobile-compatibility",
+      "label": "Remote harness server source",
+      "kind": "file",
+      "path": "host/mcp/luhmHarnessServer.py",
+      "critical": true
+    },
+    {
+      "id": "1100-remote-workstations-and-mobile-compatibility-09",
+      "domain": "1100-remote-workstations-and-mobile-compatibility",
+      "label": "Connected running Codespace worker",
+      "kind": "runtime",
+      "proof": "Actual same-source remote private worker health probe",
+      "critical": false
+    },
+    {
+      "id": "1100-remote-workstations-and-mobile-compatibility-10",
+      "domain": "1100-remote-workstations-and-mobile-compatibility",
+      "label": "Android physical device creative workflow",
+      "kind": "runtime",
+      "proof": "Actual Samsung asset-edit export receipt and touch interaction, not source build",
+      "critical": false
+    },
+    {
+      "id": "1200-releases-rights-and-hard-crown-gates-01",
+      "domain": "1200-releases-rights-and-hard-crown-gates",
+      "label": "Everlasting covenant status remains law",
+      "kind": "json-eq",
+      "path": "doctrine/everlastingCovenantV1.json",
+      "key": "status",
+      "value": "canonicalLaw",
+      "critical": true
+    },
+    {
+      "id": "1200-releases-rights-and-hard-crown-gates-02",
+      "domain": "1200-releases-rights-and-hard-crown-gates",
+      "label": "Working doctrine default stays proposed",
+      "kind": "json-eq",
+      "path": "doctrine/proposedWorkingLaneV1.json",
+      "key": "status",
+      "value": "PROPOSED_ONLY",
+      "critical": true
+    },
+    {
+      "id": "1200-releases-rights-and-hard-crown-gates-03",
+      "domain": "1200-releases-rights-and-hard-crown-gates",
+      "label": "Unapproved public output prohibited",
+      "kind": "json-eq",
+      "path": "doctrine/proposedWorkingLaneV1.json",
+      "key": "publicationAuthority",
+      "value": false,
+      "critical": true
+    },
+    {
+      "id": "1200-releases-rights-and-hard-crown-gates-04",
+      "domain": "1200-releases-rights-and-hard-crown-gates",
+      "label": "Source-of-truth Crown currently STOP",
+      "kind": "json-eq",
+      "path": "doctrine/currentSourceTruthV3.json",
+      "key": "crownStatus",
+      "value": "STOP",
+      "critical": true
+    },
+    {
+      "id": "1200-releases-rights-and-hard-crown-gates-05",
+      "domain": "1200-releases-rights-and-hard-crown-gates",
+      "label": "Public AI artwork forbidden by default",
+      "kind": "json-eq",
+      "path": "doctrine/yumeArtDirectionCanonV1.json",
+      "key": "rightsAndPrivacy.publicGenerativeAiArtDefaultAllowed",
+      "value": false,
+      "critical": true
+    },
+    {
+      "id": "1200-releases-rights-and-hard-crown-gates-06",
+      "domain": "1200-releases-rights-and-hard-crown-gates",
+      "label": "No automatic asset canon sealing",
+      "kind": "json-eq",
+      "path": "doctrine/mediaAssetFactoryV1.json",
+      "key": "automaticCanonSeal",
+      "value": false,
+      "critical": true
+    },
+    {
+      "id": "1200-releases-rights-and-hard-crown-gates-07",
+      "domain": "1200-releases-rights-and-hard-crown-gates",
+      "label": "No automatic publication",
+      "kind": "json-eq",
+      "path": "doctrine/mediaAssetFactoryV1.json",
+      "key": "automaticPublication",
+      "value": false,
+      "critical": true
+    },
+    {
+      "id": "1200-releases-rights-and-hard-crown-gates-08",
+      "domain": "1200-releases-rights-and-hard-crown-gates",
+      "label": "Art source tool itself not release approval",
+      "kind": "json-eq",
+      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "key": "gates.neverCallUIOrAssetFullGreenFromSourceOnly",
+      "value": true,
+      "critical": true
+    },
+    {
+      "id": "1200-releases-rights-and-hard-crown-gates-09",
+      "domain": "1200-releases-rights-and-hard-crown-gates",
+      "label": "Music and third-party art licenses cleared",
+      "kind": "runtime",
+      "proof": "License, permission and platform publication receipts for exact media sources",
+      "critical": false
+    },
+    {
+      "id": "1200-releases-rights-and-hard-crown-gates-10",
+      "domain": "1200-releases-rights-and-hard-crown-gates",
+      "label": "Public film/render package approved",
+      "kind": "runtime",
+      "proof": "Professor review plus final media checksum and publication decision",
+      "critical": false
+    }
+  ],
+  "truthLaw": [
+    "PASS is source-only assertion unless a runtime receipt exists.",
+    "GAP means missing or inconsistent feature in inspected source, not proof of absence across all devices.",
+    "UNVERIFIED is mandatory for runtime checks without an explicit proof source.",
+    "A failing critical source invariant must fail CI; missing aspirational editor controls are published as gaps.",
+    "No number of green source checks promotes product canon or public release."
+  ]
+}
