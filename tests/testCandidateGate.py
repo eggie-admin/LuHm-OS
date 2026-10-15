@@ -16,6 +16,8 @@ class GateTests(unittest.TestCase):
                 (root / name).mkdir()
             fixture = root / 'scripts/main.gd'
             fixture.write_text('extends Node\n')
+            (root / 'scripts/remote-worker.sh').write_text('remote endpoint ' + 'local' + 'host')
+            gate.scan_runtime(root)
             gate.scan_runtime(root)
             fixture.write_text('var command = "RUN_COMMAND"\n')
             with self.assertRaises(ValueError):
