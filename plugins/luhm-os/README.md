@@ -1,5 +1,9 @@
 # LuHm OS ChatGPT Plugin
 
+## Android / F-Droid distribution is a different lane
+
+The `art.eggiebagelface.*` Android package identifier family does not itself deliver remote APK updates. The separately proposed `https://art.eggiebagelface.art/fdroid/repo/` location would host a stable-signed LuHm-OS APK and independently signed F-Droid repository index **only after** exact FQDN, TLS, signing, upgrade and Professor-publication proof. Neither this repository location nor the ChatGPT MCP plugin is currently authorized to auto-update or auto-publish the Android app. The existing testing/beta application IDs are not stable public APK identities.
+
 ## The actual product: art creation inside ChatGPT
 
 LuHm-OS is an **artist-first creation tool**, not primarily a deployment dashboard or MUD. The existing `luhm_open_cockpit` MCP App resource is the ChatGPT-facing studio surface. On the current **proposed branch**, it hosts a seven-shot *Into the Warp* storyboard editor. The Professor can alter visual direction and durations, undo/redo, reset and explicitly export the private working draft as JSON. Edits are deliberately in-widget memory only, not cloud persistence. The sealed source script is never sent in the widget payload. Belldandy's Codex history stays in shot 401, while shot 500 is a callback to the same record.
