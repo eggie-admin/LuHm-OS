@@ -734,7 +734,20 @@
     "frontendLockfile": "frontEnd/package-lock.json",
     "apkWorkflow": ".github/workflows/android-testing-build.yml",
     "promotion": false,
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "publicFdroidUpdateLane": {
+      "contract": "doctrine/artRepositoryNameMapV1.json",
+      "role": "REMOTE_PUBLIC_SIGNED_APK_UPDATE_REPOSITORY",
+      "candidateHttpsRepo": "https://art.eggiebagelface.art/fdroid/repo/",
+      "exactDnsConfirmed": false,
+      "stableApkReleaseProof": "PENDING",
+      "signedRepositoryIndexProof": "PENDING",
+      "publicDistributionProof": "PENDING",
+      "separateFromChatGptPlugin": true,
+      "publicMediaPrivateArtExclusion": true,
+      "publicationAuthority": false,
+      "crownStatus": "STOP"
+    }
   },
   "typedSqlLayer": {
     "contract": "doctrine/typedFourLaneSqlV1.json",
