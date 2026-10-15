@@ -98,7 +98,11 @@
     "yumeArtDirectionCanon": "doctrine/yumeArtDirectionCanonV1.json",
     "yumeGoddess3dProduction": "doctrine/yumeGoddess3dProductionV1.json",
     "yumeReferenceGallery": "media/yumeReferenceGalleryV1.json",
-    "goddess3dWorkMatrix": "media/goddess3d-production-matrix-v1.json"
+    "goddess3dWorkMatrix": "media/goddess3d-production-matrix-v1.json",
+    "artistFirstPrimeCanon": "doctrine/artist-first-art-tool-canon-v1.json",
+    "artistFirstPrimeCanonStatus": "PROPOSED_ONLY",
+    "artistOutputAuthority": "PROFESSOR",
+    "runtimeProofNotImplied": true
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
@@ -824,5 +828,6 @@
     "productionSigningAuthority": false,
     "publicReleaseAuthority": false,
     "crownStatus": "STOP"
-  }
+  },
+  "productPurpose": "ARTIST_FIRST_CREATIVE_WORKSTATION_AND_PRODUCTION_TOOL"
 }
