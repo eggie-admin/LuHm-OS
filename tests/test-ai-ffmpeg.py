@@ -81,6 +81,14 @@ with tempfile.TemporaryDirectory() as scratch:
     assert 3.4 <= receipt["durationSeconds"] <= 3.8, receipt
     assert (outputRoot / "pirate-daddy-pilot-001.receipt.json").is_file()
     assert mod.probe(movie)["streams"][0]["codec_type"] == "video"
+    proofDir = os.getenv("LUHM_FFMPEG_PROOF_DIR", "")
+    if proofDir:
+        import shutil
+        destination = Path(proofDir).resolve()
+        destination.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(movie, destination / movie.name)
+        shutil.copy2(outputRoot / "pirate-daddy-pilot-001.receipt.json", destination / "pirate-daddy-pilot-001.receipt.json")
+        (destination / "readme.txt").write_text("Synthetic 7-shot FFmpeg CI preview. Not approved Pirate Daddy canon or production footage.\\n")
     reject(candidate, inputRoot, outputRoot, "RED_OUTPUT_EXISTS_OR_TYPE")
 
     with socket.socket() as sock:
