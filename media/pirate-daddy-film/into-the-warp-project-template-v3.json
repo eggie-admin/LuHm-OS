@@ -42,7 +42,8 @@
       ],
       "renderBlocks": [
         "200"
-      ]
+      ],
+      "direction": "Visual signal and glitch only. Belldandy's spoken INCOMING TRANSMISSION cue occurs later with the Codex lore at shot 401, per sealed script."
     },
     {
       "id": "300",
@@ -57,7 +58,8 @@
       ],
       "renderBlocks": [
         "300"
-      ]
+      ],
+      "direction": "World and Professor's opening address to Anti-Daddy, ending with the growl before Movement II. Belldandy's lore has not started."
     },
     {
       "id": "400",
@@ -71,11 +73,12 @@
         "401",
         "402",
         "403"
-      ]
+      ],
+      "direction": "Shot 401 opens Movement II with Belldandy's INCOMING TRANSMISSION and DADDY Codex search: Class Anti-Daddy / Filter LORE / DEPLOY. She begins the two-wars/history entry; Eggie interrupts at 'And we raised ourselves…'. 402 and 403 advance the escalation and Witching Hour using sealed script order."
     },
     {
       "id": "500",
-      "name": "daddy-codex-wiki",
+      "name": "root-access-outro-stinger",
       "panels": [
         "501",
         "502",
@@ -85,7 +88,8 @@
       ],
       "renderBlocks": [
         "500"
-      ]
+      ],
+      "direction": "No new Codex lookup or invented lore narration. Return briefly to the record Belldandy opened at 401: fictional -kill -all -purge -y archival string; final field ROOT ACCESS: ANTI-DADDY; cut to black."
     }
   ],
   "locks": {
@@ -95,8 +99,10 @@
     "fourMonitorsFixed": true,
     "approvedScriptUntouched": true,
     "audioDeferred": true,
-    "finalCodexIsWiki": true,
-    "autoPublish": false
+    "autoPublish": false,
+    "belldandyReadsCodexLoreAt401": true,
+    "noCodexOpeningAt500": true,
+    "outroIsExistingCodexCallback": true
   },
   "storage": {
     "sourceAuthority": "github",
@@ -136,5 +142,27 @@
     "current": "OOC-preproduction",
     "IC": "fictional script/scene",
     "IRL": "real production consequences require human approval"
+  },
+  "codex": {
+    "owner": "belldandy",
+    "primaryAppearance": {
+      "movement": "old-guard",
+      "section": "400",
+      "shot": "401",
+      "scriptCue": "BELLDANDY: INCOMING TRANSMISSION. Accessing DADDY Codex… Class: Anti-Daddy. Filter: LORE. DEPLOY.",
+      "function": "read anti-daddy history until Eggie interrupts"
+    },
+    "finalCallback": {
+      "section": "500",
+      "panels": [
+        "501",
+        "502",
+        "503",
+        "504",
+        "505"
+      ],
+      "newLookup": false,
+      "description": "Return to previously accessed archive; fictional purge string and root-access sting without new spoken lore"
+    }
   }
 }
