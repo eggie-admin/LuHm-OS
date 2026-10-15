@@ -50,6 +50,15 @@
       "commandSchema": "doctrine/chatPrecisionCommandV1.json",
       "inChatFirst": true,
       "providerPlumbingHidden": true
+    },
+    "artistStudio": {
+      "contract": "doctrine/artistStudioPluginV1.json",
+      "primaryProductSurface": true,
+      "stage": "inChatStoryboardDraft",
+      "writesToServer": false,
+      "exportUserInitiated": true,
+      "scriptProtected": true,
+      "rendererProven": false
     }
   },
   "turnModel": {
