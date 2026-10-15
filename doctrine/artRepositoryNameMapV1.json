@@ -5,10 +5,15 @@
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "intent": {
     "rawRequestedPattern": "art.eggiebagelface.*",
-    "purpose": "map GitHub repository identities to an optional read-only art portal hostname without pretending DNS hosts repositories",
+    "purpose": "Proposed public signed F-Droid APK repository and remote update index for LuHm-OS Android distribution; never confuse the Android package namespace with the HTTPS repository hostname, ChatGPT plugin or an unrelated art-portfolio portal.",
     "ambiguity": "TRAILING_TLD_WILDCARD_IS_NOT_A_LITERAL_DNS_RECORD",
     "exactLiveFqdnProposed": "art.eggiebagelface.art",
-    "exactFqdnConfirmedByProfessor": false
+    "exactFqdnConfirmedByProfessor": false,
+    "latestProfessorClarification": "2026-10-15: art.egguebagelface.* is intended for remote repository updates to the public F-Droid APK.",
+    "transcribedAlias": "art.egguebagelface.*",
+    "canonicalExistingNamespace": "art.eggiebagelface.*",
+    "aliasSpellingVerified": false,
+    "publicUpdateOriginStillUnverified": true
   },
   "cabinet": {
     "boss": "lum",
@@ -55,7 +60,7 @@
     "reverseDnsPtr": false,
     "cloudflareTunnel": false,
     "autoDnsMutation": false,
-    "originServingMode": "renderStaticSiteGitHubBacked",
+    "originServingMode": "candidateStaticSignedFdroidRepoPublicationNotActivated",
     "noRepositoryDirectNsTarget": true,
     "noUnboundedRepoWebExposure": true,
     "siteContentMustBeSeparatelyApproved": true
@@ -99,7 +104,12 @@
     "Render managed TLS hostname checked",
     "HTTPS host page and repo links smoke-tested",
     "no sensitive or unapproved generated media published",
-    "source and runtime receipts kept separate"
+    "source and runtime receipts kept separate",
+    "Separate Android stable package ID from public F-Droid repo hostname and existing debug/beta IDs",
+    "Prove owner-controlled stable release APK signer and repository-index signer independently",
+    "Publish only stable signed APKs plus signed repository indexes after exact-version rollback/upgrade proof",
+    "Check published HTTPS repository index, signing fingerprint and real F-Droid client acceptance",
+    "Never silently replace the ChatGPT plugin or install Android updates without app/user approval"
   ],
   "authorityBoundary": {
     "changeNameservers": false,
@@ -109,5 +119,31 @@
     "deployWebsite": false,
     "publishContent": false,
     "crownStatus": "STOP"
+  },
+  "publicAndroidUpdateLane": {
+    "purpose": "public stable-signed LuHm-OS APK updates through an independently signed F-Droid-compatible custom repository",
+    "state": "PROPOSED_NOT_PUBLISHED",
+    "candidateHttpsRepository": "https://art.eggiebagelface.art/fdroid/repo/",
+    "requiresExactFqdnReview": true,
+    "hostRecordConfigured": false,
+    "publicTlsVerified": false,
+    "signedIndexVerified": false,
+    "repositoryFingerprintVerified": false,
+    "releaseApkSha256Verified": false,
+    "releaseSignerContinuityVerified": false,
+    "deviceUpgradeProven": false,
+    "apkApplicationId": "PENDING_STABLE_RELEASE_PACKAGE",
+    "existingDebugPackage": "art.eggiebagelface.luhmos.testing",
+    "existingBetaPackage": "art.eggiebagelface.luhmos.beta",
+    "existingDebugOrBetaArtifactsMayPublishToStableRepository": false,
+    "githubResponsibility": "approved source plus public build receipts; not production signing key storage",
+    "hostingResponsibility": "serve only reviewed signed F-Droid repository metadata and public release APKs by HTTPS",
+    "privateArtOrFamilyMediaAllowed": false,
+    "signingKeyStorage": "OWNER_CONTROLLED_OUTSIDE_GIT_AND_PUBLIC_HOST",
+    "mcpUpdateSpineIsDifferent": true,
+    "browserArtStudioIsDifferent": true,
+    "selfHostedFdroidRepoNotSameAsOfficialFdroidCatalog": true,
+    "publicationAuthority": "PROFESSOR_ONLY",
+    "automaticPublication": false
   }
 }
