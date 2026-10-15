@@ -56,7 +56,7 @@
       "kind": "json-eq",
       "path": "doctrine/currentSourceTruthV3.json",
       "key": "creativeLayer.artistFirstPrimeCanon",
-      "value": "doctrine/artist-first-art-tool-canon-v1.json",
+      "value": "doctrine/artistFirstArtToolCanonV1.json",
       "critical": true
     },
     {
