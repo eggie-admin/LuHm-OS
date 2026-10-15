@@ -109,8 +109,9 @@
     "durableBinaryAuthority": "google-drive",
     "mediaRoot": "20_HYDRA_MEDIA",
     "projectPath": "50_PROJECT_FILES/into-the-warp",
-    "mediaFolderUrl": "https://drive.google.com/drive/folders/1fiS7H6BCbt7v7hsgUC7b7_vWGafs_05D",
-    "previousDraft002Url": "https://drive.google.com/file/d/10SLOl70xsDGhccudl_D42MlCqgLEGF6d/view"
+    "privateMediaLocator": "owner-ledger/20_HYDRA_MEDIA/50_PROJECT_FILES/into-the-warp",
+    "previousDraft002Locator": "owner-ledger/into-the-warp/draft-002",
+    "publicDriveIdsAllowed": false
   },
   "runtime": {
     "githubActions": "bounded synthetic ffmpeg proof passed",
