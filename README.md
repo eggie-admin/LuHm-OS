@@ -1,5 +1,11 @@
 # LuHm OS
 
+## Product purpose: the Professor's art tool
+
+**LuHm-OS exists first as an artist-controlled creative workstation and production tool.** The Professor draws, composes, directs, models, animates and decides what becomes finished art. Yume assists with production planning, continuity, masking, in-betweens, retiming, reusable assets and non-destructive transformations. Blender, GIMP, Godot, SVG/CSS/jQuery and FFmpeg are working tools; GitHub, Drive, Render and ChatGPT are infrastructure around the artist.
+
+The detailed [artist-first prime canon](doctrine/artist-first-art-tool-canon-v1.json) is a **proposed reconciliation**, not an automatic canon promotion. The [120-point source/reality audit](doctrine/artist-first-canon-120-checks.json) distinguishes existing source contracts, absent editor features, and unverified runtime behavior. The present cockpit, Godot demo and Factory status cards do **not** prove a full drawing or video-editing workstation.
+
 Canonical repository: `eggie-admin/LuHm-OS`.
 
 This main line is the clean playable LuHm OS spine. The old Hydra/KAI/Vue/Termux repositories remain migration references, not runtime authorities.
