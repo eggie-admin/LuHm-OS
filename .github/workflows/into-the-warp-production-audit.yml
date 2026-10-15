@@ -1,0 +1,30 @@
+name: into-the-warp-preproduction-source
+on:
+  pull_request:
+    paths:
+      - 'media/pirate-daddy-film/into-the-warp-**'
+      - 'tests/test-into-the-warp-production.py'
+      - '.github/workflows/into-the-warp-production-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  storyboard-and-doctrine-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Validate producer's episode manifest and authority
+        run: |
+          python3 -m json.tool media/pirate-daddy-film/into-the-warp-project-template-v3.json >/dev/null
+          python3 tests/test-into-the-warp-production.py
+      - name: Ensure no binary assets or private screen media entered public source
+        run: |
+          set -euo pipefail
+          if find media/pirate-daddy-film -type f \( -iname '*.mp4' -o -iname '*.mov' -o -iname '*.wav' -o -iname '*.glb' -o -iname '*.png' -o -iname '*.jpg' \) | grep -q .; then
+            echo 'RED_PRIVATE_MEDIA_IN_PUBLIC_REPO'
+            exit 1
+          fi
+          echo 'SOURCE_ONLY_ASSET_PRIVACY_PASS'
