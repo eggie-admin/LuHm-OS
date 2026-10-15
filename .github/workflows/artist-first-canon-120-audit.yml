@@ -3,6 +3,12 @@ on:
   pull_request:
     paths:
       - 'doctrine/artistFirstArtToolCanonV1.json'
+      - 'doctrine/artistStudioPluginV1.json'
+      - 'doctrine/inChatExperienceV1.json'
+      - 'host/harness/widget.html'
+      - 'host/mcp/luhmHarness.py'
+      - 'plugins/luhm-os/plugin.json'
+      - 'tools/artistStudioPluginAudit.py'
       - 'doctrine/artist-first-canon-120-checks.json'
       - 'doctrine/currentSourceTruthV3.json'
       - 'tools/artist-first-canon-audit.py'
@@ -22,6 +28,7 @@ jobs:
       - name: Run 120 control audit
         run: |
           python3 -m json.tool doctrine/artist-first-canon-120-checks.json > /dev/null
+          python3 tools/artistStudioPluginAudit.py
           python3 tools/artist-first-canon-audit.py --output-dir "$RUNNER_TEMP/artist-first"
       - name: Upload precise source and unknown receipts
         if: always()
