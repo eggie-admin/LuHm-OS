@@ -1,0 +1,15 @@
+{
+  "schema": "luhm.aiFfmpegJob.v1",
+  "jobId": "pirate-daddy-pilot-001",
+  "reviewApproved": false,
+  "output": "pirate-daddy-pilot-001.mp4",
+  "shots": [
+    {"id": "100", "source": "100-brand.png", "seconds": 2, "fit": "contain"},
+    {"id": "200", "source": "200-transmission.png", "seconds": 2, "fit": "cover"},
+    {"id": "300", "source": "300-world.png", "seconds": 3, "fit": "cover"},
+    {"id": "401", "source": "401-old-guard.png", "seconds": 3, "fit": "cover"},
+    {"id": "402", "source": "402-berserker.png", "seconds": 3, "fit": "cover"},
+    {"id": "403", "source": "403-witching-hour.png", "seconds": 3, "fit": "cover"},
+    {"id": "500", "source": "500-daddy-codex.png", "seconds": 2, "fit": "contain"}
+  ]
+}
