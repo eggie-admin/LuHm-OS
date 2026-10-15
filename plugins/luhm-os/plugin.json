@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "luhm-os",
   "version": "0.5.2",
-  "description": "Virgin-install LuHm OS MCP plugin for the in-chat Godot 4 Cathedral, source truth, and explicit coding roleplay.",
+  "description": "LuHm OS artist-first ChatGPT plugin candidate: editable storyboard drafting for human-directed film/art, with read-only source truth and bounded Godot preview.",
   "author": {
     "name": "Eggie Bagelface",
     "url": "https://luhm-os-publication-site.onrender.com/"
@@ -24,8 +24,8 @@
     "com.openai": {
       "interface": {
         "displayName": "LuHm OS",
-        "shortDescription": "Godot Cathedral + LuHm cockpit",
-        "longDescription": "Clean-install LuHm OS plugin. Normal ChatGPT stays the default; explicit LuHm coding roleplay adds the tiny goth MUD presentation layer while Lum routes bounded read-only source-truth, evidence, housekeeping, escalation, and cockpit workflows. Roleplay never grants merge, release, signing, publication, secret, GREEN, or Crown authority. Includes a read-only Godot 4 Web player tool backed by the Godot HTTPS export. Host installation and in-chat playback must be verified.",
+        "shortDescription": "Artist-first studio",
+        "longDescription": "LuHm OS exists to help the Professor create original artwork and films inside ChatGPT. The existing read-only MCP cockpit now includes an in-session, reversible Into the Warp seven-shot storyboard draft editor with explicit copy/export, preserving sealed dialogue and the artist's originals. No private asset uploads, remote rendering, server-side edits, or publication authority are granted by this interface. Godot and remote FFmpeg remain separately evidenced tools; ChatGPT host interaction of this candidate requires proof.",
         "developerName": "Eggie Bagelface",
         "category": "Developer Tools",
         "capabilities": [
@@ -39,6 +39,7 @@
         "composerIcon": "./assets/logo.svg",
         "logo": "./assets/logo.svg",
         "defaultPrompt": [
+          "Open LuHm Artist Studio in this chat and edit the Into the Warp storyboard shots with Yume while keeping the approved script locked.",
           "Use LuHm OS to open the Godot 4 Cathedral player in this chat.",
           "Use LuHm OS to inspect the current source truth and explain what is actually proven.",
           "Open the LuHm OS in-chat cockpit and show the current clean-install experience contract.",

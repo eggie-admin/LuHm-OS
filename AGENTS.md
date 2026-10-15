@@ -2,6 +2,8 @@
 
 This file is an interoperability adapter for coding agents that automatically read `AGENTS.md`. It is not the canonical doctrine itself.
 
+**Product orientation:** LuHm-OS exists primarily as the Professor's art creation and editing workstation. Protect original art, music, authorship, editable masters and human creative direction. Agents, Android, GitHub, FFmpeg, Godot, and Render support that mission; they do not displace it. Proposed detail: `doctrine/artistFirstArtToolCanonV1.json`; no new canon authority is granted by this adapter.
+
 For every LuHm OS / Project Hydra task:
 
 1. Load `doctrine/projectChatCanonV1.json`, `doctrine/everlastingCovenantV1.json`, and `doctrine/agentSystemDeploymentV1.json`.

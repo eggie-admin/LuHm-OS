@@ -1,0 +1,161 @@
+{
+  "schema": "luhm.artist-first-art-tool-canon.v1",
+  "status": "PROPOSED_ONLY",
+  "authority": "Professor",
+  "intentRecorded": "2026-10-15",
+  "sourceBaseline": "8b507584cdebd9b91ca6ab4c56b478a63a47833a",
+  "productIdentity": "LuHm-OS is an artist-first, artist-controlled creative workstation and production tool for Project Hydra and Pirate Daddy's Film.",
+  "primaryUser": "Professor",
+  "mission": "Make original artwork, animations, scenes, game worlds and short films easier to create, edit, preview, version and export without displacing the human artist.",
+  "priorityOrder": [
+    "human creative intent",
+    "editable source artwork and recoverable masters",
+    "direct artist controls and review",
+    "reproducible local or remote production tools",
+    "asset provenance and private storage",
+    "Godot scene preview and interactive use",
+    "AI copilots, harness, testing, plugins and deployment as supporting infrastructure"
+  ],
+  "preservedArtLaw": {
+    "originalSketchesPaintingsMusicAndIntentRemainHumanAuthored": true,
+    "humanDirectorDecidesCompositionActingStoryAndFinish": true,
+    "aiMayAssist": [
+      "inbetweenFrames",
+      "masking",
+      "rotoscoping",
+      "cleanup",
+      "timing",
+      "batchRenaming",
+      "formatConversion",
+      "spriteCutting",
+      "metadata",
+      "testRendering",
+      "cameraPrevisualization",
+      "referenceOrganization"
+    ],
+    "aiCannot": [
+      "overwriteCreativeMastersWithoutVersionedApproval",
+      "selfApproveCanon",
+      "selfPublish",
+      "replaceArtistIdentityOrSourceAttribution",
+      "claimCompleted3dAnimationFromStaticReferences",
+      "treatProviderGeneratedConceptAsHumanOriginal"
+    ]
+  },
+  "surfaceContract": {
+    "defaultMentalModel": "artDesk",
+    "primaryViews": [
+      "studio",
+      "assets",
+      "storyboard",
+      "timeline",
+      "scene",
+      "render",
+      "review"
+    ],
+    "secondaryViews": [
+      "chat",
+      "codex",
+      "gamePreview",
+      "system",
+      "agents"
+    ],
+    "requiredOperations": [
+      "newProject",
+      "importProtectedAssets",
+      "openEditableMaster",
+      "inspectLayers",
+      "arrangeStoryboards",
+      "editTiming",
+      "previewScene",
+      "queueReviewRender",
+      "compareVersions",
+      "exportCandidate",
+      "approveManually"
+    ],
+    "approach": "One artist-facing UI may combine native Godot, HTML/CSS/SVG, jQuery widgets, Python3 tools, Blender/GIMP interchange, FFmpeg and optional providers.",
+    "currentImplementationTruth": "UI is a candidate shell with asset preview and factory status panel; full paint, animation timeline and end-to-end studio execution are not proved.",
+    "inChatStudio": {
+      "tool": "luhm_open_cockpit",
+      "contract": "doctrine/artistStudioPluginV1.json",
+      "firstImplementedSlice": "seven-shot in-memory storyboard editor",
+      "limits": [
+        "no image paint canvas",
+        "no server asset saves",
+        "no actual frame timeline or MP4 render queue",
+        "no proof of in-ChatGPT host interaction"
+      ]
+    }
+  },
+  "canonHierarchy": [
+    "Professor's exact creative approval and protected original masters",
+    "approved manuscript and approval seal for each film",
+    "doctrine/yumeArtDirectionCanonV1.json (scoped approved behavior)",
+    "doctrine/currentSourceTruthV3.json and doctrine/everlastingCovenantV1.json",
+    "doctrine/yumeCreativePipelineV1.json, doctrine/contentLaneDoctrineV1.json and doctrine/mediaAssetFactoryV1.json (working-lane candidate contracts)",
+    "verified assets and per-shot import, provenance and performance evidence",
+    "candidate directions, experimental prompts and vendor suggestions"
+  ],
+  "domains": {
+    "drawing": "GIMP/artist master, layer-preserving edit and mask handoff",
+    "sprite": "pixel/vector source, authentic transparency, atlas grid and >=50px head proofs",
+    "animation": "keyframe/inbetween/sequence timing, frames and timeline are editable",
+    "scene3d": "Blender source, GLB or Godot import plus deformation and runtime proof",
+    "film": "Yume storyboard, silent animatic, FFmpeg assembly, grade/caption/audio later",
+    "ui": "artist-facing WYSIWYG jQuery/Godot controls, touch/mouse/keyboard accessible",
+    "archives": "source plus hashes in GitHub; private media bytes in owner-controlled Drive",
+    "delivery": "render candidate first; public-social publication only after Professor review"
+  },
+  "productionTemplate": {
+    "project": "into-the-warp",
+    "sections": [
+      "100",
+      "200",
+      "300",
+      "400",
+      "500"
+    ],
+    "movementCount": 3,
+    "renderSlots": [
+      "100",
+      "200",
+      "300",
+      "401",
+      "402",
+      "403",
+      "500"
+    ],
+    "daddyCodex": "Belldandy reads Anti-Daddy lore at 401; ending revisits the same archive entry",
+    "sealedScriptNeverAutoRewritten": true,
+    "audioDeferred": true
+  },
+  "remoteTruth": {
+    "github": "source and temporary CPU FFmpeg build jobs, not durable artwork",
+    "codespaces": "configurable cloud studio, running existence requires proof",
+    "render": "API sidecar and harness, not automatically a remote media render farm",
+    "drive": "durable binary vault; current link-readable media hierarchy not private until repaired",
+    "runtimeClaimsRequireSameSourceEvidence": true
+  },
+  "gates": {
+    "newArtistMasterNeverAutoOverwritten": true,
+    "rawPrivateArtNeverPublishedByAutomation": true,
+    "publicGenerativeArtworkDefault": "FORBIDDEN_UNLESS_PROFESSOR_CHANGES_POLICY",
+    "namingPolicy": "new transport filenames and branch slugs use lowercase kebab-case; existing internal machine identities preserved until explicit migration",
+    "proposalDoesNotPromoteCanon": true,
+    "noNewAlwaysOnServiceWithoutRuntimeAndPermissionReceipt": true,
+    "neverCallUIOrAssetFullGreenFromSourceOnly": true,
+    "automaticRelease": false,
+    "crown": "STOP"
+  },
+  "auditContract": {
+    "tool": "tools/artist-first-canon-audit.py",
+    "manifest": "doctrine/artist-first-canon-120-checks.json",
+    "checksRequired": 120,
+    "proofClasses": [
+      "source",
+      "gap",
+      "runtime-unverified"
+    ],
+    "requireExactHeadCI": true
+  }
+}

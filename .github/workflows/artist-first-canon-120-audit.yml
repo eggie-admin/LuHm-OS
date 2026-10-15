@@ -1,0 +1,40 @@
+name: artist-first-canon-120-source-audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/artistFirstArtToolCanonV1.json'
+      - 'doctrine/artistStudioPluginV1.json'
+      - 'doctrine/inChatExperienceV1.json'
+      - 'host/harness/widget.html'
+      - 'host/mcp/luhmHarness.py'
+      - 'plugins/luhm-os/plugin.json'
+      - 'tools/artistStudioPluginAudit.py'
+      - 'doctrine/artist-first-canon-120-checks.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'tools/artist-first-canon-audit.py'
+      - 'README.md'
+      - '.github/workflows/artist-first-canon-120-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  artist-first-canon:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Run 120 control audit
+        run: |
+          python3 -m json.tool doctrine/artist-first-canon-120-checks.json > /dev/null
+          python3 tools/artistStudioPluginAudit.py
+          python3 tools/artist-first-canon-audit.py --output-dir "$RUNNER_TEMP/artist-first"
+      - name: Upload precise source and unknown receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: artist-first-canon-120
+          path: ${{ runner.temp }}/artist-first/
+          if-no-files-found: warn
+          retention-days: 14

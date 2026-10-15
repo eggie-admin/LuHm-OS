@@ -1,0 +1,117 @@
+{
+  "schema": "luhmOs.artistStudioPlugin.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "pluginTool": "luhm_open_cockpit",
+  "resourceUri": "ui://luhm-os/cockpit-v2.html",
+  "purpose": "Give the Professor a real in-chat artist-facing preproduction surface: editable storyboard cards with timing and versioned in-session undo/redo; AI/remote rendering are later separate gates.",
+  "identity": {
+    "product": "LuHm-OS",
+    "role": "artist-first creative workstation",
+    "boss": "lum",
+    "creativeLead": "yume",
+    "creativeAuthority": "Professor"
+  },
+  "stage": "local-ephemeral-storyboard-edit",
+  "stateBoundary": {
+    "serverWrites": false,
+    "providerWrites": false,
+    "driveUpload": false,
+    "githubMutations": false,
+    "renderExecution": false,
+    "publication": false,
+    "exportRequiresUserAction": true,
+    "manualApprovalRequired": true,
+    "sourceOnlyNotRuntime": true
+  },
+  "project": {
+    "id": "into-the-warp",
+    "title": "Into the Warp",
+    "brand": "Pirate Daddy's Film",
+    "scriptSealed": true,
+    "scriptNeverIncludedInWidget": true,
+    "movementCount": 3,
+    "sections": [
+      "100",
+      "200",
+      "300",
+      "400",
+      "500"
+    ],
+    "audioDeferred": true,
+    "codexOwner": "belldandy",
+    "codexLoreShot": "401",
+    "codexCallbackShot": "500",
+    "shots": [
+      {
+        "id": "100",
+        "title": "Pirate Daddy's Film",
+        "visual": "Film leader, logo and captain insignia",
+        "canon": "Branding; no spoken Codex lore",
+        "seconds": 3
+      },
+      {
+        "id": "200",
+        "title": "Incoming signal / glitch",
+        "visual": "Dune Scroll distortion and ship warp",
+        "canon": "Visual signal only; Belldandy spoken cue occurs at 401",
+        "seconds": 3
+      },
+      {
+        "id": "300",
+        "title": "World establishment",
+        "visual": "Ship exterior to cyberpunk workshop and Professor",
+        "canon": "Set fixed lab geography, four background monitors",
+        "seconds": 3
+      },
+      {
+        "id": "401",
+        "title": "Old Guard / Belldandy Codex",
+        "visual": "Belldandy opens DADDY Codex, reads Anti-Daddy lore; Professor interrupts",
+        "canon": "PRIMARY CODEX LORE ENTRY. Do not move, paraphrase, or rewrite sealed dialogue",
+        "seconds": 3
+      },
+      {
+        "id": "402",
+        "title": "Berserker",
+        "visual": "Professor pacing and staged armor progression; Lum follows",
+        "canon": "Same Big Daddy identity, no automatic character substitution",
+        "seconds": 3
+      },
+      {
+        "id": "403",
+        "title": "Witching Hour",
+        "visual": "Professor stops, lighting and transformation crescendo",
+        "canon": "Sealed dialogue timing awaits human review",
+        "seconds": 3
+      },
+      {
+        "id": "500",
+        "title": "Root-access stinger",
+        "visual": "Return to the SAME already-open DADDY Codex page",
+        "canon": "No second search or lore narration; ROOT ACCESS: ANTI-DADDY",
+        "seconds": 3
+      }
+    ]
+  },
+  "operations": [
+    "editVisualDirection",
+    "editDurations",
+    "undo",
+    "redo",
+    "reset",
+    "copyPortableDraft",
+    "downloadPortableDraft"
+  ],
+  "editor": {
+    "maxSecondsPerShot": 20,
+    "minSecondsPerShot": 0.5,
+    "maxVisualChars": 400,
+    "maxTitleChars": 90,
+    "undoDepth": 32,
+    "format": "luhmOs.artistStudioDraft.v1",
+    "draftState": "UNSAVED_IN_MEMORY",
+    "rightsStatus": "UNREVIEWED",
+    "publicationApproved": false
+  }
+}

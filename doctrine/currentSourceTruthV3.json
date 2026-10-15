@@ -98,7 +98,11 @@
     "yumeArtDirectionCanon": "doctrine/yumeArtDirectionCanonV1.json",
     "yumeGoddess3dProduction": "doctrine/yumeGoddess3dProductionV1.json",
     "yumeReferenceGallery": "media/yumeReferenceGalleryV1.json",
-    "goddess3dWorkMatrix": "media/goddess3d-production-matrix-v1.json"
+    "goddess3dWorkMatrix": "media/goddess3d-production-matrix-v1.json",
+    "artistFirstPrimeCanon": "doctrine/artistFirstArtToolCanonV1.json",
+    "artistFirstPrimeCanonStatus": "PROPOSED_ONLY",
+    "artistOutputAuthority": "PROFESSOR",
+    "runtimeProofNotImplied": true
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
@@ -496,7 +500,10 @@
       "chatGptHostRuntime": "UNVERIFIED",
       "androidApkInstall": "UNVERIFIED",
       "crownStatus": "STOP"
-    }
+    },
+    "artistStudio": "doctrine/artistStudioPluginV1.json",
+    "artDeskSurface": "inChatStudioLocalDraftCandidate",
+    "studioRuntimeVerified": false
   },
   "studyLayer": {
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",
@@ -727,7 +734,20 @@
     "frontendLockfile": "frontEnd/package-lock.json",
     "apkWorkflow": ".github/workflows/android-testing-build.yml",
     "promotion": false,
-    "crownStatus": "STOP"
+    "crownStatus": "STOP",
+    "publicFdroidUpdateLane": {
+      "contract": "doctrine/artRepositoryNameMapV1.json",
+      "role": "REMOTE_PUBLIC_SIGNED_APK_UPDATE_REPOSITORY",
+      "candidateHttpsRepo": "https://art.eggiebagelface.art/fdroid/repo/",
+      "exactDnsConfirmed": false,
+      "stableApkReleaseProof": "PENDING",
+      "signedRepositoryIndexProof": "PENDING",
+      "publicDistributionProof": "PENDING",
+      "separateFromChatGptPlugin": true,
+      "publicMediaPrivateArtExclusion": true,
+      "publicationAuthority": false,
+      "crownStatus": "STOP"
+    }
   },
   "typedSqlLayer": {
     "contract": "doctrine/typedFourLaneSqlV1.json",
@@ -824,5 +844,6 @@
     "productionSigningAuthority": false,
     "publicReleaseAuthority": false,
     "crownStatus": "STOP"
-  }
+  },
+  "productPurpose": "ARTIST_FIRST_CREATIVE_WORKSTATION_AND_PRODUCTION_TOOL"
 }
