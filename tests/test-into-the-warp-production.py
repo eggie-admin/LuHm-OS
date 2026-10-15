@@ -17,7 +17,16 @@ blocks = [p for s in v["sections"] for p in s["renderBlocks"]]
 assert len(set(panels)) == len(panels) == 23
 assert blocks == ["100", "200", "300", "401", "402", "403", "500"]
 assert v["locks"]["approvedScriptUntouched"]
-assert v["locks"]["audioDeferred"] and v["locks"]["finalCodexIsWiki"]
+assert v["locks"]["audioDeferred"]
+assert v["locks"]["belldandyReadsCodexLoreAt401"]
+assert v["locks"]["noCodexOpeningAt500"]
+assert v["locks"]["outroIsExistingCodexCallback"]
+assert v["sections"][4]["name"] == "root-access-outro-stinger"
+assert "no new codex lookup" in v["sections"][4]["direction"].lower()
+assert v["codex"]["owner"] == "belldandy"
+assert v["codex"]["primaryAppearance"]["shot"] == "401"
+assert v["codex"]["primaryAppearance"]["movement"] == "old-guard"
+assert v["codex"]["finalCallback"]["newLookup"] is False
 assert v["locks"]["lumPhysicallyFollows"] and v["locks"]["fourMonitorsFixed"]
 assert v["locks"]["autoPublish"] is False
 assert v["storage"]["sourceAuthority"] == "github"
