@@ -34,7 +34,7 @@
       "domain": "100-artist-first-mission",
       "label": "Working canon is not falsely promoted",
       "kind": "json-eq",
-      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "path": "doctrine/artistFirstArtToolCanonV1.json",
       "key": "status",
       "value": "PROPOSED_ONLY",
       "critical": true
@@ -44,7 +44,7 @@
       "domain": "100-artist-first-mission",
       "label": "Art tool authority remains with Professor",
       "kind": "json-eq",
-      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "path": "doctrine/artistFirstArtToolCanonV1.json",
       "key": "authority",
       "value": "Professor",
       "critical": true
@@ -64,7 +64,7 @@
       "domain": "100-artist-first-mission",
       "label": "First creative priority is human intent",
       "kind": "json-eq",
-      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "path": "doctrine/artistFirstArtToolCanonV1.json",
       "key": "priorityOrder.0",
       "value": "human creative intent",
       "critical": true
@@ -74,7 +74,7 @@
       "domain": "100-artist-first-mission",
       "label": "Creative views include studio",
       "kind": "json-includes",
-      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "path": "doctrine/artistFirstArtToolCanonV1.json",
       "key": "surfaceContract.primaryViews",
       "value": "studio",
       "critical": true
@@ -84,7 +84,7 @@
       "domain": "100-artist-first-mission",
       "label": "Creative views include timeline",
       "kind": "json-includes",
-      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "path": "doctrine/artistFirstArtToolCanonV1.json",
       "key": "surfaceContract.primaryViews",
       "value": "timeline",
       "critical": true
@@ -103,7 +103,7 @@
       "domain": "100-artist-first-mission",
       "label": "Publication remains gated",
       "kind": "json-eq",
-      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "path": "doctrine/artistFirstArtToolCanonV1.json",
       "key": "gates.automaticRelease",
       "value": false,
       "critical": true
@@ -141,7 +141,7 @@
       "domain": "200-human-authorship-and-editable-masters",
       "label": "No AI overwrites originals without approval",
       "kind": "json-eq",
-      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "path": "doctrine/artistFirstArtToolCanonV1.json",
       "key": "preservedArtLaw.originalSketchesPaintingsMusicAndIntentRemainHumanAuthored",
       "value": true,
       "critical": true
@@ -191,7 +191,7 @@
       "domain": "200-human-authorship-and-editable-masters",
       "label": "Human artist decides finish",
       "kind": "json-includes",
-      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "path": "doctrine/artistFirstArtToolCanonV1.json",
       "key": "priorityOrder",
       "value": "direct artist controls and review",
       "critical": true
@@ -523,11 +523,11 @@
       "id": "600-godot-blender-and-three-dimensional-art-08",
       "domain": "600-godot-blender-and-three-dimensional-art",
       "label": "Workstation recognizes Blender role",
-      "kind": "json-includes",
+      "kind": "json-eq",
       "path": "doctrine/yumeArtistWorkstationV1.json",
       "key": "capabilityClasses.modeling3d.0.toolId",
       "value": "blender",
-      "critical": false
+      "critical": true
     },
     {
       "id": "600-godot-blender-and-three-dimensional-art-09",
@@ -1065,7 +1065,7 @@
       "domain": "1200-releases-rights-and-hard-crown-gates",
       "label": "Art source tool itself not release approval",
       "kind": "json-eq",
-      "path": "doctrine/artist-first-art-tool-canon-v1.json",
+      "path": "doctrine/artistFirstArtToolCanonV1.json",
       "key": "gates.neverCallUIOrAssetFullGreenFromSourceOnly",
       "value": true,
       "critical": true
