@@ -616,10 +616,10 @@
     {
       "id": "700-creative-ui-and-wysiwyg-09",
       "domain": "700-creative-ui-and-wysiwyg",
-      "label": "WYSIWYG undo control exists",
+      "label": "In-chat storyboard editor exposes session Undo and Redo",
       "kind": "text-includes",
-      "path": "frontEnd/index.html",
-      "value": "data-luhm-undo",
+      "path": "host/harness/widget.html",
+      "value": "function studioUndo()",
       "critical": false
     },
     {
