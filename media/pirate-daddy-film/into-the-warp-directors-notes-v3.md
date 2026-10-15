@@ -6,7 +6,7 @@
 
 - The approved original `into-the-warp-approved-script.md` has sealed digest `6f6054e86f6f6dd74ffc9355a34f86d2ff4c3822f1c8c4f2d20b8a701b38f9ef`. The source has three movements: transmission, old guard, witching hour. It is **not rewritten here**.
 - The five editorial sections are 100 film branding, 200 transmission/glitch, 300 world establishment, 400 three-shot crescendo, 500 root-access stinger returning to Belldandy's already-opened Codex. They are production wrappers, **not** replacement dialogue.
-- The reference [Draft 002](https://drive.google.com/file/d/10SLOl70xsDGhccudl_D42MlCqgLEGF6d/view) is preserved in LuHm Audit Vault. The real canonical media project folder is [20_HYDRA_MEDIA / 50_PROJECT_FILES / into-the-warp](https://drive.google.com/drive/folders/1fiS7H6BCbt7v7hsgUC7b7_vWGafs_05D). The new director pass is a separate review candidate; absence of a Drive archive receipt is not a green archive.
+- The reference Draft 002 (`private-creative-ledger/into-the-warp/production-bible-draft-002.md`) is preserved in LuHm Audit Vault. The real canonical media project folder is `20_HYDRA_MEDIA/50_PROJECT_FILES/into-the-warp` (resolve only through owner-controlled Drive). The new director pass is a separate review candidate; absence of a Drive archive receipt is not a green archive.
 - Source hierarchy: exact Professor seals and directions, `doctrine/currentSourceTruthV3.json`, `doctrine/everlastingCovenantV1.json`, `doctrine/yumeCreativePipelineV1.json`, `doctrine/mediaAssetFactoryV1.json`, `doctrine/storageTopologyV1.json`, verified `LuHm Art Magic Character Bible v0.1`, then candidate art. Repository bootstrap is `AGENTS.md`.
 
 ## Director's on-set huddle (rehearsal notes, not screenplay)
@@ -63,6 +63,6 @@
 
 `pirate-daddy-film` brand identity and Belldandy's reusable `daddy-codex-lore` lookup are recurring devices. The optional `root-access-stinger` revisits that same record for the episode's last twist, not a fresh lookup. New episodes may vary the lore subject, world/actors, crescendo and final revelation after script approval. A short `codex-flash` may use fewer blocks; never alter the sealed pilot just to fit a template.
 
-**Source file:** `media/pirate-daddy-film/into-the-warp-project-template-v3.json`. **Mode:** proposed-only. **Professor Crown:** STOP until review.
+**Source file:** `media/pirate-daddy-film/into-the-warp-project-template-v3.json`. Private Drive IDs must never be committed, logged, or copied to public receipts. **Mode:** proposed-only. **Professor Crown:** STOP until review.
 
 *This is a remotely stored source-candidate producer's index; the expanded Draft 003 production bible remains a separate deliverable until its Drive upload is verified.*
