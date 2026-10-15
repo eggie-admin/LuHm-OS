@@ -74,7 +74,18 @@
       "approveManually"
     ],
     "approach": "One artist-facing UI may combine native Godot, HTML/CSS/SVG, jQuery widgets, Python3 tools, Blender/GIMP interchange, FFmpeg and optional providers.",
-    "currentImplementationTruth": "UI is a candidate shell with asset preview and factory status panel; full paint, animation timeline and end-to-end studio execution are not proved."
+    "currentImplementationTruth": "UI is a candidate shell with asset preview and factory status panel; full paint, animation timeline and end-to-end studio execution are not proved.",
+    "inChatStudio": {
+      "tool": "luhm_open_cockpit",
+      "contract": "doctrine/artistStudioPluginV1.json",
+      "firstImplementedSlice": "seven-shot in-memory storyboard editor",
+      "limits": [
+        "no image paint canvas",
+        "no server asset saves",
+        "no actual frame timeline or MP4 render queue",
+        "no proof of in-ChatGPT host interaction"
+      ]
+    }
   },
   "canonHierarchy": [
     "Professor's exact creative approval and protected original masters",
