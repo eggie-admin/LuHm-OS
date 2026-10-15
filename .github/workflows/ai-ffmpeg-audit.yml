@@ -4,6 +4,7 @@ on:
     paths:
       - 'host/ai-ffmpeg/**'
       - 'tests/test-ai-ffmpeg.py'
+      - 'scripts/ai-ffmpeg-user-service.sh'
       - 'manual/ai-ffmpeg-local-first.md'
       - 'media/pirate-daddy-film/episode-template.json'
       - '.github/workflows/ai-ffmpeg-audit.yml'
@@ -30,6 +31,7 @@ jobs:
         run: |
           python3 -m json.tool media/pirate-daddy-film/episode-template.json > /dev/null
           python3 -m py_compile host/ai-ffmpeg/ai-ffmpeg.py tests/test-ai-ffmpeg.py
+          bash -n scripts/ai-ffmpeg-user-service.sh
       - name: Host capabilities (not remote GPU proof)
         run: python3 host/ai-ffmpeg/ai-ffmpeg.py doctor
       - name: Negative controls and silent seven-shot render
