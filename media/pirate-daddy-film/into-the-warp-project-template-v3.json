@@ -1,0 +1,169 @@
+{
+  "schema": "luhm.into-the-warp.project-draft.v3",
+  "state": "candidate-director-review",
+  "publication": "crown-stop",
+  "script": {
+    "artifact": "into-the-warp-approved-script.md",
+    "sha256": "6f6054e86f6f6dd74ffc9355a34f86d2ff4c3822f1c8c4f2d20b8a701b38f9ef",
+    "status": "sealed",
+    "movements": [
+      "transmission",
+      "old-guard",
+      "witching-hour"
+    ],
+    "modify": false
+  },
+  "studio": "pirate-daddys-film",
+  "project": "into-the-warp",
+  "repo": "eggie-admin/LuHm-OS",
+  "sections": [
+    {
+      "id": "100",
+      "name": "pirate-daddy-film",
+      "panels": [
+        "101",
+        "102",
+        "103",
+        "104"
+      ],
+      "renderBlocks": [
+        "100"
+      ]
+    },
+    {
+      "id": "200",
+      "name": "incoming-transmission-glitch",
+      "panels": [
+        "201",
+        "202",
+        "203",
+        "204",
+        "205"
+      ],
+      "renderBlocks": [
+        "200"
+      ],
+      "direction": "Visual signal and glitch only. Belldandy's spoken INCOMING TRANSMISSION cue occurs later with the Codex lore at shot 401, per sealed script."
+    },
+    {
+      "id": "300",
+      "name": "world-establishment",
+      "panels": [
+        "301",
+        "302",
+        "303",
+        "304",
+        "305",
+        "306"
+      ],
+      "renderBlocks": [
+        "300"
+      ],
+      "direction": "World and Professor's opening address to Anti-Daddy, ending with the growl before Movement II. Belldandy's lore has not started."
+    },
+    {
+      "id": "400",
+      "name": "three-shot-crescendo",
+      "panels": [
+        "401",
+        "402",
+        "403"
+      ],
+      "renderBlocks": [
+        "401",
+        "402",
+        "403"
+      ],
+      "direction": "Shot 401 opens Movement II with Belldandy's INCOMING TRANSMISSION and DADDY Codex search: Class Anti-Daddy / Filter LORE / DEPLOY. She begins the two-wars/history entry; Eggie interrupts at 'And we raised ourselves…'. 402 and 403 advance the escalation and Witching Hour using sealed script order."
+    },
+    {
+      "id": "500",
+      "name": "root-access-outro-stinger",
+      "panels": [
+        "501",
+        "502",
+        "503",
+        "504",
+        "505"
+      ],
+      "renderBlocks": [
+        "500"
+      ],
+      "direction": "No new Codex lookup or invented lore narration. Return briefly to the record Belldandy opened at 401: fictional -kill -all -purge -y archival string; final field ROOT ACCESS: ANTI-DADDY; cut to black."
+    }
+  ],
+  "locks": {
+    "sameBigDaddyIdentity": true,
+    "lumPhysicallyFollows": true,
+    "belldandyTransmission": true,
+    "fourMonitorsFixed": true,
+    "approvedScriptUntouched": true,
+    "audioDeferred": true,
+    "autoPublish": false,
+    "belldandyReadsCodexLoreAt401": true,
+    "noCodexOpeningAt500": true,
+    "outroIsExistingCodexCallback": true
+  },
+  "storage": {
+    "sourceAuthority": "github",
+    "durableBinaryAuthority": "google-drive",
+    "mediaRoot": "20_HYDRA_MEDIA",
+    "projectPath": "50_PROJECT_FILES/into-the-warp",
+    "privateMediaLocator": "owner-ledger/20_HYDRA_MEDIA/50_PROJECT_FILES/into-the-warp",
+    "previousDraft002Locator": "owner-ledger/into-the-warp/draft-002",
+    "publicDriveIdsAllowed": false
+  },
+  "runtime": {
+    "githubActions": "bounded synthetic ffmpeg proof passed",
+    "codespaces": "remote workshop source-configured not currently verified live",
+    "render": "existing sidecar not confirmed production ffmpeg worker",
+    "gpu": "unverified"
+  },
+  "artReview": {
+    "bigDaddyTurnaround": "pending",
+    "oldGuardFireMutation": "reference-only",
+    "lumGoddessDesign": "visual bible approved within lane; assets need per-shot approval",
+    "privateFamilyImagery": "protected not cleared for publication"
+  },
+  "authority": {
+    "boss": "lum",
+    "director": "professor",
+    "art": "yume",
+    "continuity": "belldandy",
+    "technical": "skuld",
+    "risk": "urd",
+    "publication": "professor-only"
+  },
+  "counts": {
+    "sections": 5,
+    "storyboardPanels": 23,
+    "renderBlocks": 7
+  },
+  "modes": {
+    "current": "OOC-preproduction",
+    "IC": "fictional script/scene",
+    "IRL": "real production consequences require human approval"
+  },
+  "codex": {
+    "owner": "belldandy",
+    "primaryAppearance": {
+      "movement": "old-guard",
+      "section": "400",
+      "shot": "401",
+      "scriptCue": "BELLDANDY: INCOMING TRANSMISSION. Accessing DADDY Codex… Class: Anti-Daddy. Filter: LORE. DEPLOY.",
+      "function": "read anti-daddy history until Eggie interrupts"
+    },
+    "finalCallback": {
+      "section": "500",
+      "panels": [
+        "501",
+        "502",
+        "503",
+        "504",
+        "505"
+      ],
+      "newLookup": false,
+      "description": "Return to previously accessed archive; fictional purge string and root-access sting without new spoken lore"
+    }
+  }
+}
