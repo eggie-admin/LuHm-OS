@@ -40,3 +40,19 @@ Authenticated rendering is only `POST /render` with a bearer token and `reviewAp
 - Add constrained audio mixing, captions, loudness normalization, subtitles, image-sequence and proxy presets individually, each with tests and Professor review. Audio stays deferred for *Into the Warp*.
 - Connect the local cockpit through a verified authenticated local adapter. An Android or cloud client cannot directly access the workstation's loopback address.
 - Render three distinct approved episodes, archive final binaries in Drive and record SHA/Drive pointers in GitHub. The renderer never publishes anything to Facebook automatically.
+
+## Optional persistent Ubuntu user service
+
+From this same checked-out candidate repository, after explicitly choosing to install a local systemd user service, run:
+
+```bash
+bash scripts/ai-ffmpeg-user-service.sh install
+```
+
+It creates a private random bearer token, a user-level systemd unit (not a root daemon), restricts filesystem writes and network to the local machine, enables automatic start while the user session is active, and attempts to start the service now. It refuses to overwrite an existing unit. Check status:
+
+```bash
+bash scripts/ai-ffmpeg-user-service.sh status
+```
+
+The installer must be run on the Professor's Ubuntu workstation. CI checks shell syntax only and does not claim the desktop service was installed or started. GPU access is intentionally disabled for this CPU-preview systemd candidate until separately tested.
