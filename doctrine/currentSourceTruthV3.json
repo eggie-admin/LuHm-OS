@@ -99,7 +99,7 @@
     "yumeGoddess3dProduction": "doctrine/yumeGoddess3dProductionV1.json",
     "yumeReferenceGallery": "media/yumeReferenceGalleryV1.json",
     "goddess3dWorkMatrix": "media/goddess3d-production-matrix-v1.json",
-    "artistFirstPrimeCanon": "doctrine/artist-first-art-tool-canon-v1.json",
+    "artistFirstPrimeCanon": "doctrine/artistFirstArtToolCanonV1.json",
     "artistFirstPrimeCanonStatus": "PROPOSED_ONLY",
     "artistOutputAuthority": "PROFESSOR",
     "runtimeProofNotImplied": true
