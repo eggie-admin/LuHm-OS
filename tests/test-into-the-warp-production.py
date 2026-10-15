@@ -41,4 +41,14 @@ assert "drive.google.com/" not in path.read_text()
 assert "drive.google.com/" not in notes
 assert "Belldandy" in notes and "no second history read" in notes
 assert "shot 401" in notes.lower()
+# Once the Garage Lab branch is integrated, test the seven render slots against the story slate.
+remoteManifest = path.parent / "episode-template.json"
+remoteWorkflow = path.parent / "production-workflow-template.md"
+if remoteManifest.exists() and remoteWorkflow.exists():
+    episode = json.loads(remoteManifest.read_text())
+    assert episode["schema"] == "luhm.aiFfmpegJob.v1"
+    assert [shot["id"] for shot in episode["shots"]] == blocks
+    renderDoc = remoteWorkflow.read_text()
+    assert "**Movement II, shot 401**" in renderDoc
+    assert "Return to the **same** Anti-Daddy record" in renderDoc
 print("INTO_THE_WARP_SOURCE_CANDIDATE_GREEN_NOT_ARTWORK_OR_RUNTIME_GREEN")
