@@ -4,6 +4,7 @@ on:
     paths:
       - 'media/pirate-daddy-film/into-the-warp-**'
       - 'tests/test-into-the-warp-production.py'
+      - 'tests/test-into-the-warp-cast-receipt.py'
       - '.github/workflows/into-the-warp-production-audit.yml'
   workflow_dispatch:
 permissions:
@@ -20,6 +21,7 @@ jobs:
         run: |
           python3 -m json.tool media/pirate-daddy-film/into-the-warp-project-template-v3.json >/dev/null
           python3 tests/test-into-the-warp-production.py
+          python3 tests/test-into-the-warp-cast-receipt.py
           if test -f tests/test-pirate-production-continuity.py; then python3 tests/test-pirate-production-continuity.py; fi
       - name: Ensure no binary assets or private screen media entered public source
         run: |
