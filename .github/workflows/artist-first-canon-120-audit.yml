@@ -2,7 +2,7 @@ name: artist-first-canon-120-source-audit
 on:
   pull_request:
     paths:
-      - 'doctrine/artist-first-art-tool-canon-v1.json'
+      - 'doctrine/artistFirstArtToolCanonV1.json'
       - 'doctrine/artist-first-canon-120-checks.json'
       - 'doctrine/currentSourceTruthV3.json'
       - 'tools/artist-first-canon-audit.py'
