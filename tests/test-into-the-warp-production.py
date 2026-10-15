@@ -31,6 +31,14 @@ assert v["locks"]["lumPhysicallyFollows"] and v["locks"]["fourMonitorsFixed"]
 assert v["locks"]["autoPublish"] is False
 assert v["storage"]["sourceAuthority"] == "github"
 assert v["storage"]["durableBinaryAuthority"] == "google-drive"
+assert v["storage"]["publicDriveIdsAllowed"] is False
+assert "mediaFolderUrl" not in v["storage"]
+assert "previousDraft002Url" not in v["storage"]
 assert v["runtime"]["gpu"] == "unverified"
 assert v["authority"]["publication"] == "professor-only"
+notes = (path.parent / "into-the-warp-directors-notes-v3.md").read_text()
+assert "drive.google.com/" not in path.read_text()
+assert "drive.google.com/" not in notes
+assert "Belldandy" in notes and "no second history read" in notes
+assert "shot 401" in notes.lower()
 print("INTO_THE_WARP_SOURCE_CANDIDATE_GREEN_NOT_ARTWORK_OR_RUNTIME_GREEN")
