@@ -1,0 +1,155 @@
+{
+  "schema": "luhm.into-the-warp.cast-receipt.v1",
+  "status": "CANDIDATE_SOURCE_MERGED_NOT_PUBLIC_RELEASE",
+  "date": "2026-10-15",
+  "authority": {
+    "actor": "Professor",
+    "instruction": "ten-pass hard doctrine audit; reconcile merge deploy cast",
+    "workingLane": "PROPOSED_ONLY",
+    "automaticPublication": false,
+    "globalCrownPromotion": false
+  },
+  "sealedScript": {
+    "filename": "into-the-warp-approved-script.md",
+    "sha256": "6f6054e86f6f6dd74ffc9355a34f86d2ff4c3822f1c8c4f2d20b8a701b38f9ef",
+    "readbackVerified": true,
+    "modify": false
+  },
+  "studio": {
+    "pilot": "into-the-warp",
+    "narrativeMovements": 3,
+    "productionSections": 5,
+    "storyboardPanels": 23,
+    "renderBlocks": 7,
+    "belldandyLoreShot": "401",
+    "closingCodexIsSameRecord": true,
+    "audioDeferred": true
+  },
+  "repository": {
+    "repo": "eggie-admin/LuHm-OS",
+    "merges": [
+      {
+        "pullRequest": 285,
+        "squashCommit": "23c2e7e3fd99f40f474a9985b6efdd2bfe9fc020",
+        "result": "merged"
+      },
+      {
+        "pullRequest": 286,
+        "squashCommit": "697e6690ee98b2dad2aea62a2de63b2710db136a",
+        "result": "merged"
+      }
+    ],
+    "latestVerifiedMergedSourceRef": "697e6690ee98b2dad2aea62a2de63b2710db136a",
+    "ci": {
+      "garageRun": 38779973659,
+      "studioRun": 38780562183,
+      "garageConclusion": "success",
+      "studioConclusion": "success",
+      "syntheticFfmpegProof": true
+    },
+    "noRawPrivateMediaInPublicSource": true,
+    "currentHeadPrivateDriveIdsRedacted": true,
+    "historicalCandidateMetadataNotErased": true
+  },
+  "artifact": {
+    "artifactId": "pirate-daddy-synthetic-proof-20261015",
+    "filename": "pirate-daddy-synthetic-proof-20261015.zip",
+    "sha256": "bb093af32ad8d263b8f38d1a985e7b23f7b3462076d3180def95c1e01ae4e3fd",
+    "sourceRef": "2f3176646b54fa03bf5b5b76c8e067c30b188055",
+    "buildRun": 38779973659,
+    "createdAt": "2026-10-15",
+    "driveFileIdOrLogicalRef": "owner-ledger/20_HYDRA_MEDIA/60_RENDER_INTERMEDIATES/pirate-daddy-synthetic-proof-20261015.zip",
+    "mimeType": "application/zip",
+    "sizeBytes": 10107,
+    "status": "ARCHIVED_SYNTHETIC_CANDIDATE",
+    "readbackSha256Verified": true,
+    "driveAnyoneWithLinkReader": true,
+    "containsPersonalMedia": false,
+    "unpublished": true,
+    "renderedMp4": {
+      "filename": "pirate-daddy-pilot-001.mp4",
+      "sha256": "150ed77dde341aec5c7316baf063687660c76f8235b0a2124c583e224789aa6e",
+      "bytes": 25144,
+      "durationSeconds": 3.5
+    }
+  },
+  "ownerVault": {
+    "logicalRef": "owner-ledger/luHmAuditVault/into-the-warp",
+    "roleVisibility": "OWNER_ONLY_CONFIRMED",
+    "files": [
+      "into-the-warp-production-bible-draft-003.md",
+      "into-the-warp-approved-script.md",
+      "into-the-warp-seal.md",
+      "yume-into-the-warp-art-dungeon-audit-2026-10-15.md"
+    ],
+    "draft003Sha256": "e40f3f18d8acfea6f6e91491a7e4de85813fb08a96939f68677fd3668702c404"
+  },
+  "render": {
+    "service": "luhm-os-harness-green",
+    "deployId": "dep-db8h6iu7bikc73e46qp0",
+    "deployedSourceRef": "697e6690ee98b2dad2aea62a2de63b2710db136a",
+    "providerReportedStatus": "live",
+    "publicHttpProbe": "UNVERIFIED_TOOL_NETWORK_UNAVAILABLE",
+    "aiFfmpegPersistentWorker": "NOT_DEPLOYED",
+    "createdNewPublicWorker": false
+  },
+  "passes": [
+    {
+      "pass": 100,
+      "topic": "governance",
+      "verdict": "SOURCE_CANDIDATE_APPROVED_NOT_GLOBAL_CROWN"
+    },
+    {
+      "pass": 200,
+      "topic": "script_integrity",
+      "verdict": "GREEN"
+    },
+    {
+      "pass": 300,
+      "topic": "codex_lore_chronology",
+      "verdict": "GREEN"
+    },
+    {
+      "pass": 400,
+      "topic": "individual_art_assets",
+      "verdict": "AMBER"
+    },
+    {
+      "pass": 500,
+      "topic": "remote_codespace_runtime",
+      "verdict": "AMBER"
+    },
+    {
+      "pass": 600,
+      "topic": "ffmpeg_synthetic_safety_and_encode",
+      "verdict": "GREEN_CI_ONLY"
+    },
+    {
+      "pass": 700,
+      "topic": "drive_private_media_permissions",
+      "verdict": "RED_ANYONE_LINK_READER_ON_MEDIA_TREE"
+    },
+    {
+      "pass": 800,
+      "topic": "combined_source_ci",
+      "verdict": "GREEN"
+    },
+    {
+      "pass": 900,
+      "topic": "synthetic_artifact_archive",
+      "verdict": "GREEN_SYNTHETIC_ONLY"
+    },
+    {
+      "pass": 1000,
+      "topic": "github_merge_and_render_harness_deploy",
+      "verdict": "GREEN_PROVIDER_LIVE_MEDIA_WORKER_AMBER"
+    }
+  ],
+  "nextGates": [
+    "Harden the media-tree anyone-with-link reader permission through an authorized Drive permissions workflow before private media upload.",
+    "Verify Codespace worker startup or separately approve authenticated nonpublic persistent media worker.",
+    "Approve individual Yume art assets and real media source lineage.",
+    "Approve and clear licensed audio, final MP4, and Facebook publication."
+  ],
+  "proofIsNotPublication": true
+}
