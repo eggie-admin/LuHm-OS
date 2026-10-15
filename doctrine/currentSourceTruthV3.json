@@ -500,7 +500,10 @@
       "chatGptHostRuntime": "UNVERIFIED",
       "androidApkInstall": "UNVERIFIED",
       "crownStatus": "STOP"
-    }
+    },
+    "artistStudio": "doctrine/artistStudioPluginV1.json",
+    "artDeskSurface": "inChatStudioLocalDraftCandidate",
+    "studioRuntimeVerified": false
   },
   "studyLayer": {
     "professorOldMagic": "doctrine/professorOldMagicStudyMeshV2.json",
