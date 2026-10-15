@@ -18,6 +18,24 @@ h1{font-size:14px;margin:0}.sub{font-size:11px;color:var(--muted);margin-top:2px
 footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}
 @media(max-width:430px){.grid{grid-template-columns:1fr}}
 .commandDeck{margin:0 10px 10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#0d1017}.commandDeck pre{white-space:pre-wrap;margin:7px 0;padding:10px;border:1px solid var(--line);border-radius:9px;background:#080a0f;color:var(--cyan);font-size:13px}.commandActions{display:flex;flex-wrap:wrap;gap:6px}.commandActions button{border:1px solid var(--line);border-radius:8px;background:#0a0d13;color:var(--ink);padding:7px 9px}.networkTitle{margin-top:12px}.networkTruth{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;margin-top:7px;font-size:10px;color:var(--muted)}.networkTruth span{border:1px solid var(--line);border-radius:7px;padding:6px}.networkTruth .ok{color:#78f0a7}.networkTruth .verify{color:#ffd36c}.precisionDeck{margin:0 10px 10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#0d1017}.precisionGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:8px}.precisionCommand{border:1px solid var(--line);border-radius:10px;background:#090c12;color:var(--ink);padding:9px;text-align:left}.precisionCommand b{display:block;color:var(--cyan);font-size:12px}.precisionCommand small{display:block;color:var(--muted);margin-top:3px}.parallaxBand{height:70px;margin:0 10px 10px;border:1px solid var(--line);border-radius:12px;background-image:radial-gradient(circle at 20% 35%,#b07cff55 0 3px,transparent 4px),radial-gradient(circle at 70% 55%,#5ee7ff44 0 2px,transparent 3px),linear-gradient(160deg,#15192a,#090b12);background-attachment:fixed;position:relative;overflow:hidden}.parallaxBand:after{content:"STAGE TWO · IN-CHAT VERTICAL PARALLAX";position:absolute;left:12px;bottom:10px;font-size:10px;letter-spacing:.1em;color:var(--muted)}@media(max-width:430px){.networkTruth,.precisionGrid{grid-template-columns:1fr}}.afterHoursDeck{margin:0 10px 10px;border:1px solid #5a294f;border-radius:14px;background:linear-gradient(180deg,#160e17,#0b0910);overflow:hidden}.afterHoursTop{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid #5a294f}.afterHoursTop strong{color:#f2a6df}.afterHoursTop button,.afterHoursActions button{border:1px solid #5a294f;border-radius:8px;background:#120b14;color:var(--ink);padding:7px 9px}.afterHoursShell{display:none;padding:12px}.afterHoursShell.active{display:block}.mudScreen{white-space:pre-wrap;border:1px solid #3a2638;border-radius:10px;background:#070609;padding:10px;color:#e8d7e6;min-height:150px;font-size:12px}.afterHoursActions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.afterHoursInput{display:flex;gap:6px;margin-top:8px}.afterHoursInput input{flex:1;min-width:0;border:1px solid #3a2638;border-radius:8px;background:#08070a;color:var(--ink);padding:8px}.modeBadge{font-size:10px;color:#f2a6df}
+<style>
+/* Artist studio: direct creative controls; no remote writes or media upload. */
+.artistStudio{margin:12px 10px;padding:12px;border:1px solid #39535b;border-radius:14px;background:linear-gradient(160deg,#101c22,#0c1018)}
+.artistStudio h2{font-size:14px;color:var(--cyan);margin:4px 0}.artistStudio .sub{line-height:1.4}
+.studioActions{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.studioActions button,.studioSelect button{border:1px solid #37505c;border-radius:8px;background:#0c151e;color:var(--ink);padding:8px 10px;cursor:pointer}
+.studioActions button:disabled{opacity:.38;cursor:not-allowed}
+.studioTimeline{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.studioSelect button[aria-pressed="true"]{border-color:var(--cyan);color:var(--cyan);background:#122633}
+.studioEdit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:10px;border:1px solid var(--line);border-radius:10px;background:#090e15;padding:10px}
+.studioEdit label{display:grid;gap:4px;font-size:11px;color:var(--muted)}
+.studioEdit textarea,.studioEdit input,.studioExport textarea{width:100%;border:1px solid #34424f;border-radius:7px;background:#060a10;color:var(--ink);padding:8px;font:12px ui-monospace,monospace}
+.studioEdit textarea{min-height:100px;resize:vertical}
+.studioPreview{border-left:2px solid var(--cyan);padding:7px 10px;margin:8px 0;white-space:pre-wrap;font-size:12px}
+.studioLock{color:#ffd36c;font-size:11px;margin:7px 0}
+.studioExport{display:none;margin-top:9px}.studioExport.active{display:block}.studioExport textarea{min-height:120px;resize:vertical}
+@media(max-width:430px){.studioEdit{grid-template-columns:1fr}}
+</style>
 </style>
 </head>
 <body>
@@ -26,6 +44,28 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <div class="pet" id="pet">L</div>
 <div><h1>LuHm OS · Lum/Oni Cockpit</h1><div class="sub" id="surface">read-only MCP Apps frame</div></div>
 </header>
+<section class="artistStudio" data-luhm-studio aria-label="LuHm artist studio storyboard">
+<div class="k">PROJECT HYDRA / PIRATE DADDY'S FILM</div>
+<h2>🎬 Artist Studio · Into the Warp</h2>
+<p class="sub">Director's editable seven-shot preproduction slate. Nothing uploads or publishes. Draft exists only in this widget session until exported.</p>
+<div class="studioActions">
+<button type="button" id="studioUndo" disabled>↶ Undo</button>
+<button type="button" id="studioRedo" disabled>↷ Redo</button>
+<button type="button" id="studioCopy" disabled>▣ Copy draft</button>
+<button type="button" id="studioDownload" disabled>↓ Export JSON</button>
+<button type="button" id="studioReset" disabled>Reset</button>
+</div>
+<div class="sub" id="studioStatus" role="status" aria-live="polite">VERIFY · studio source contract pending</div>
+<div class="studioTimeline studioSelect" id="studioTimeline" role="group" aria-label="Storyboard shot selector"></div>
+<div class="studioEdit" id="studioEdit">
+<label>Shot timing in seconds<input id="studioSeconds" type="number" min="0.5" max="20" step="0.5" disabled></label>
+<label>Visual direction<textarea id="studioVisual" maxlength="400" disabled></textarea></label>
+</div>
+<div class="studioPreview" id="studioPreview" aria-live="polite">Storyboard text only. No animation or MP4 has been rendered.</div>
+<div class="studioLock" id="studioLock">LOCK: Belldandy reads Anti-Daddy lore at 401; 500 recalls the same record. Approved dialogue is not editable here.</div>
+<div class="studioExport" id="studioExport"><label for="studioJson" class="k">Portable draft JSON · select/copy if download is blocked</label><textarea readonly id="studioJson" aria-label="Portable project draft JSON"></textarea></div>
+</section>
+
 <section class="commandDeck" data-luhm-chat-modes aria-label="Conversation modes">
 <div class="k">Conversation modes</div><div class="commandActions" role="group" aria-label="Presentation mode">
 <button type="button" data-luhm-chat-mode="default" aria-pressed="true">Default</button>
@@ -75,6 +115,103 @@ Normal chat remains literal outside this shell.</pre>
 <footer id="foot">UI never grants GREEN, signing, merge, or publication authority.</footer>
 </main>
 <script>
+
+/* In-chat artist studio: client-memory only, deliberately no upload or remote render. */
+const studioState={contract:null,shots:[],selected:0,undo:[],redo:[]};
+function studioClone(v){return JSON.parse(JSON.stringify(v))}
+function studioValid(v){
+ return v?.schema==="luhmOs.artistStudioPlugin.v1"&&v?.pluginTool==="luhm_open_cockpit"&&
+ v?.resourceUri==="ui://luhm-os/cockpit-v2.html"&&v?.stateBoundary?.serverWrites===false&&
+ v?.stateBoundary?.publication===false&&v?.project?.scriptSealed===true&&
+ v?.project?.codexLoreShot==="401"&&v?.project?.codexCallbackShot==="500"&&
+ Array.isArray(v?.project?.shots)&&v.project.shots.map(x=>x.id).join(",")==="100,200,300,401,402,403,500";
+}
+function studioRender(){
+ const ready=Boolean(studioState.contract),shot=studioState.shots[studioState.selected];
+ $("studioTimeline").replaceChildren();
+ if(ready){
+  for(let i=0;i<studioState.shots.length;i++){
+   const item=studioState.shots[i],wrap=document.createElement("span"),button=document.createElement("button");
+   wrap.className="studioSelect";button.type="button";button.textContent=item.id+" · "+item.title;
+   button.setAttribute("aria-pressed",String(i===studioState.selected));
+   button.onclick=()=>{studioState.selected=i;studioRender()};wrap.append(button);$("studioTimeline").append(wrap);
+  }
+ }
+ $("studioUndo").disabled=!ready||studioState.undo.length===0;
+ $("studioRedo").disabled=!ready||studioState.redo.length===0;
+ for(const id of ["studioCopy","studioDownload","studioReset"])$(id).disabled=!ready;
+ $("studioSeconds").disabled=!ready;$("studioVisual").disabled=!ready;
+ $("studioSeconds").value=shot?String(shot.seconds):"";
+ $("studioVisual").value=shot?shot.visual:"";
+ $("studioPreview").textContent=shot?"SHOT "+shot.id+" · "+shot.title+"\n"+shot.visual+"\n\nText storyboard, not a rendered scene.":"Waiting for source contract.";
+ $("studioLock").textContent=shot?"CANON LOCK: "+shot.canon:"CANON LOCK: sealed script stays protected.";
+ $("studioStatus").textContent=ready?"LOCAL DRAFT · "+studioState.shots.length+" shots · "+studioState.shots.reduce((n,x)=>n+x.seconds,0).toFixed(1)+"s · UNSAVED IN MEMORY":"VERIFY · studio source contract pending";
+}
+function studioInitialize(source){
+ if(!studioValid(source)){if(!studioState.contract)studioRender();return}
+ if(studioState.contract?.schema===source.schema)return; // Tool refresh cannot overwrite edits.
+ studioState.contract=source;
+ studioState.shots=source.project.shots.map(x=>({id:x.id,title:x.title,canon:x.canon,visual:x.visual,seconds:Number(x.seconds)}));
+ studioState.undo=[];studioState.redo=[];studioState.selected=0;studioRender();
+}
+function studioSet(field,value){
+ if(!studioState.contract)return;
+ const shot=studioState.shots[studioState.selected];
+ if(field==="visual"){value=String(value).slice(0,400)}
+ if(field==="seconds"){value=Number(value);if(!Number.isFinite(value)||value<0.5||value>20){studioRender();return}}
+ if(shot[field]===value)return;
+ studioState.undo.push(studioClone(studioState.shots));
+ if(studioState.undo.length>32)studioState.undo.shift();
+ studioState.redo=[];shot[field]=value;studioRender();
+}
+function studioUndo(){
+ if(!studioState.undo.length)return;
+ studioState.redo.push(studioClone(studioState.shots));
+ studioState.shots=studioState.undo.pop();studioRender();
+}
+function studioRedo(){
+ if(!studioState.redo.length)return;
+ studioState.undo.push(studioClone(studioState.shots));
+ studioState.shots=studioState.redo.pop();studioRender();
+}
+function studioPortable(){
+ return JSON.stringify({
+ schema:"luhmOs.artistStudioDraft.v1",project:"into-the-warp",state:"UNAPPROVED_PRIVATE_DRAFT",
+ scriptSealed:true,audioDeferred:true,publicationApproved:false,
+ sourceStatus:"IN_CHAT_UNVERIFIED_ART_DIRECTOR_DRAFT",
+ shotOrder:studioState.shots.map(s=>s.id),
+ codex:{owner:"belldandy",loreShot:"401",closingCallbackShot:"500",newLookupAtEnd:false},
+ shots:studioState.shots.map(s=>({id:s.id,title:s.title,visual:s.visual,seconds:s.seconds}))
+ },null,2);
+}
+function studioShowExport(){
+ if(!studioState.contract)return "";
+ const text=studioPortable();$("studioJson").value=text;$("studioExport").classList.add("active");return text;
+}
+function studioWire(){
+ $("studioVisual").addEventListener("change",e=>studioSet("visual",e.target.value));
+ $("studioSeconds").addEventListener("change",e=>studioSet("seconds",e.target.value));
+ $("studioUndo").onclick=studioUndo;$("studioRedo").onclick=studioRedo;
+ $("studioReset").onclick=()=>{
+  if(!studioState.contract||!window.confirm("Reset only this unsaved in-chat storyboard draft?"))return;
+  studioState.undo.push(studioClone(studioState.shots));studioState.redo=[];
+  studioState.shots=studioState.contract.project.shots.map(x=>({id:x.id,title:x.title,canon:x.canon,visual:x.visual,seconds:Number(x.seconds)}));studioRender();
+ };
+ $("studioCopy").onclick=async()=>{
+  const value=studioShowExport();if(!value)return;
+  try{if(!navigator.clipboard?.writeText)throw Error("Clipboard unavailable");await navigator.clipboard.writeText(value);$("studioStatus").textContent="Draft copied. Not uploaded or saved to Drive."}
+  catch(_){$("studioJson").focus();$("studioJson").select();$("studioStatus").textContent="Clipboard unavailable; JSON selected for manual copy."}
+ };
+ $("studioDownload").onclick=()=>{
+  const value=studioShowExport();if(!value)return;
+  const url=URL.createObjectURL(new Blob([value],{type:"application/json"}));
+  const link=document.createElement("a");link.href=url;link.download="into-the-warp-storyboard-draft.json";document.body.append(link);link.click();link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),0);
+  $("studioStatus").textContent="Browser export requested. Verify that the JSON file downloaded; nothing was sent to a server.";
+ };
+ studioRender();
+}
+
 let rpcId=0;const pending=new Map();let latest=null;
 const $=id=>document.getElementById(id);
 function render(data){
@@ -105,6 +242,7 @@ function render(data){
   renderNetworkTruth();
   renderPrecisionCommands();
   renderAfterHoursContract();
+  studioInitialize(payload?.artistStudio);
   if(openai?.setOpenInAppUrl&&origin&&origin!=="LOCAL_ONLY"){
     openai.setOpenInAppUrl({href:origin+"/harness/"});
   }
@@ -131,7 +269,7 @@ window.addEventListener("message",e=>{
   if(m.method==="ui/notifications/tool-result")render(m.params);
 },{passive:true});
 (async()=>{
-  render(window.openai?.toolOutput); wireCommands(); wireAfterHours(); setAfterHoursMode("OUTSIDE");
+  wireStudio();render(window.openai?.toolOutput); wireCommands(); wireAfterHours(); setAfterHoursMode("OUTSIDE");
   if(window.parent===window)return;
   try{
     await request("ui/initialize",{appInfo:{name:"luhm-os-cockpit",version:"1.0.0"},appCapabilities:{},protocolVersion:"2026-01-26"});
