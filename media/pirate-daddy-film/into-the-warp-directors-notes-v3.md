@@ -5,7 +5,7 @@
 ## Locked origin
 
 - The approved original `into-the-warp-approved-script.md` has sealed digest `6f6054e86f6f6dd74ffc9355a34f86d2ff4c3822f1c8c4f2d20b8a701b38f9ef`. The source has three movements: transmission, old guard, witching hour. It is **not rewritten here**.
-- The five editorial sections are 100 film branding, 200 transmission/glitch, 300 world establishment, 400 three-shot crescendo, 500 final DADDY Codex wiki reveal. They are production wrappers, **not** replacement dialogue.
+- The five editorial sections are 100 film branding, 200 transmission/glitch, 300 world establishment, 400 three-shot crescendo, 500 root-access stinger returning to Belldandy's already-opened Codex. They are production wrappers, **not** replacement dialogue.
 - The reference [Draft 002](https://drive.google.com/file/d/10SLOl70xsDGhccudl_D42MlCqgLEGF6d/view) is preserved in LuHm Audit Vault. The real canonical media project folder is [20_HYDRA_MEDIA / 50_PROJECT_FILES / into-the-warp](https://drive.google.com/drive/folders/1fiS7H6BCbt7v7hsgUC7b7_vWGafs_05D). The new director pass is a separate review candidate; absence of a Drive archive receipt is not a green archive.
 - Source hierarchy: exact Professor seals and directions, `doctrine/currentSourceTruthV3.json`, `doctrine/everlastingCovenantV1.json`, `doctrine/yumeCreativePipelineV1.json`, `doctrine/mediaAssetFactoryV1.json`, `doctrine/storageTopologyV1.json`, verified `LuHm Art Magic Character Bible v0.1`, then candidate art. Repository bootstrap is `AGENTS.md`.
 
@@ -17,7 +17,7 @@
 
 **LUM / BLOCKING:** The Professor starts at the workbench, turns to the camera, walks between consoles and the four rear screens, and comes to stillness during his protective confession. Lum follows physically, not as a static screen-only character. She remains an original adult teal-and-black goth oni executive with auburn updo and subtle horns.
 
-**BELLDANDY / TRANSMISSION:** Her existing approved transmission cue brings up DADDY Codex lore. The fixed monitors may change video feeds, not their physical location.
+**BELLDANDY / TRANSMISSION:** In **shot 401 / Movement II**, Belldandy announces the incoming transmission, accesses DADDY Codex, filters for Anti-Daddy's LORE, and begins reading their history. The Professor interrupts her at 'And we raised ourselves…'. This is the PRIMARY encyclopedia lookup, not an end-card search. The fixed monitors may change video feeds, not their physical location.
 
 **SKULD / CAMERA:** Warm brass practicals and cyan CRT fill for the lab; memory is charcoal, rust and ember. Keep transparent sprite, background, foreground, text, and effect layers separate for editable cuts.
 
@@ -25,17 +25,20 @@
 
 **This table dialogue is invented as direction notes. Do not splice it into the Professor's approved screenplay.**
 
+
+**Continuity correction, Professor's direction (2026-10-15):** The DADDY Codex is the encyclopedia **Belldandy opens while narrating Anti-Daddy's lore in Movement II at shot 401**. The end section is only a return to that same page for the root-access reveal. The literal 'INCOMING TRANSMISSION' dialogue must not be placed early in section 200, although the visual incoming-signal glitch begins there. This supersedes the erroneous final-wiki-lookup wording in Draft 002. No screenplay edits made.
+
 ## Five-section slate
 
 | Section | Panels | Director instruction |
 |---|---|---|
 | 100 | 101–104 | Projector scratches, Pirate Daddy's Film logo, captain emblem, burning film turning digital. |
-| 200 | 201–205 | Dune Scroll freezes, fake social feed corrupts, Belldandy transmission, GitHub-inspired warp, ship emerges. |
-| 300 | 301–306 | Diesel-goth world, battered ship exterior, laboratory geography, Professor lens address, Lum companion and Belldandy monitor, turn into memory. |
-| 400 | 401 | Old Guard: war and raised-ourselves imagery, hearth, spear/shield. The camera grants the actor stillness and unbroken eye contact. |
+| 200 | 201–205 | Dune Scroll freezes, fake social feed corrupts, incoming signal is foreshadowed visually (no Belldandy spoken cue yet), GitHub-inspired warp, ship emerges. |
+| 300 | 301–306 | Diesel-goth world, battered ship exterior, laboratory geography, Professor's direct-to-camera Anti-Daddy address and growl, Lum following physically; hold Belldandy's dialogue for 401. |
+| 400 | 401 | Open Movement II: Belldandy's 'INCOMING TRANSMISSION' and **DADDY Codex Anti-Daddy LORE** search/read (two wars, Reagan-era HIV crisis denial, L.A. riots). Eggie interrupts at 'And we raised ourselves…'. Then Old Guard memory, hearth, spear/shield, still eye contact. |
 | 400 | 402 | Berserker: one traveling camera sees the Professor pace past fixed monitors and progressively acquire military/knight silhouettes. |
 | 400 | 403 | Witching Hour: he stops, summons visually distinct Goddesses, completes sealed speech and gives the dry final line; cut to black. |
-| 500 | 501–505 | Search DADDY Codex wiki, inspect Anti-Daddy profile and history, fictional `-kill -all -purge -y` appears as lore text, reveal `ROOT ACCESS: ANTI-DADDY`, end. |
+| 500 | 501–505 | No second search and no second history read. After sealed dialogue ends, return to the **same** DADDY Codex entry previously opened by Belldandy at 401. Show fictional `-kill -all -purge -y` as archival interface text, reveal `ROOT ACCESS: ANTI-DADDY`, cut to black. |
 
 **Storyboard count:** 23 panels, reduced to seven named FFmpeg render blocks. The field `seconds` in an FFmpeg manifest remains a placeholder.
 
@@ -58,7 +61,7 @@
 
 ## Repeatable post format
 
-`pirate-daddy-film` brand identity and `daddy-codex-wiki` end card are reusable once visually approved. New episodes replace the transmission, world/actor performance, three escalating story shots and wiki revelation. A short `codex-flash` may use fewer blocks; never alter the sealed pilot just to fit a template.
+`pirate-daddy-film` brand identity and Belldandy's reusable `daddy-codex-lore` lookup are recurring devices. The optional `root-access-stinger` revisits that same record for the episode's last twist, not a fresh lookup. New episodes may vary the lore subject, world/actors, crescendo and final revelation after script approval. A short `codex-flash` may use fewer blocks; never alter the sealed pilot just to fit a template.
 
 **Source file:** `media/pirate-daddy-film/into-the-warp-project-template-v3.json`. **Mode:** proposed-only. **Professor Crown:** STOP until review.
 
