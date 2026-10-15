@@ -24,7 +24,7 @@
     "com.openai": {
       "interface": {
         "displayName": "LuHm OS",
-        "shortDescription": "Artist-first storyboards + Lum/Yume art desk",
+        "shortDescription": "Artist-first studio",
         "longDescription": "LuHm OS exists to help the Professor create original artwork and films inside ChatGPT. The existing read-only MCP cockpit now includes an in-session, reversible Into the Warp seven-shot storyboard draft editor with explicit copy/export, preserving sealed dialogue and the artist's originals. No private asset uploads, remote rendering, server-side edits, or publication authority are granted by this interface. Godot and remote FFmpeg remain separately evidenced tools; ChatGPT host interaction of this candidate requires proof.",
         "developerName": "Eggie Bagelface",
         "category": "Developer Tools",
