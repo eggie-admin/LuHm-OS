@@ -1,0 +1,36 @@
+name: ai-ffmpeg-source-audit
+on:
+  pull_request:
+    paths:
+      - 'host/ai-ffmpeg/**'
+      - 'tests/test-ai-ffmpeg.py'
+      - 'manual/ai-ffmpeg-local-first.md'
+      - 'media/pirate-daddy-film/episode-template.json'
+      - '.github/workflows/ai-ffmpeg-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ai-ffmpeg-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  local-render-negative-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Install Linux FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+      - name: Verify manifest and Python syntax
+        run: |
+          python3 -m json.tool media/pirate-daddy-film/episode-template.json > /dev/null
+          python3 -m py_compile host/ai-ffmpeg/ai-ffmpeg.py tests/test-ai-ffmpeg.py
+      - name: Host capabilities (not remote GPU proof)
+        run: python3 host/ai-ffmpeg/ai-ffmpeg.py doctor
+      - name: Negative controls and silent seven-shot render
+        run: python3 tests/test-ai-ffmpeg.py
