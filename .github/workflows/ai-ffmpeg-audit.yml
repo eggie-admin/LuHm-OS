@@ -4,11 +4,13 @@ on:
     paths:
       - 'host/ai-ffmpeg/**'
       - 'tests/test-ai-ffmpeg.py'
+      - 'tests/test-pirate-production-continuity.py'
       - 'scripts/ai-ffmpeg-user-service.sh'
       - 'scripts/ai-ffmpeg-codespaces.sh'
       - '.devcontainer/devcontainer.json'
       - 'manual/ai-ffmpeg-local-first.md'
       - 'media/pirate-daddy-film/episode-template.json'
+      - 'media/pirate-daddy-film/production-workflow-template.md'
       - '.github/workflows/ai-ffmpeg-audit.yml'
   workflow_dispatch:
 permissions:
@@ -32,7 +34,8 @@ jobs:
       - name: Verify manifest and Python syntax
         run: |
           python3 -m json.tool media/pirate-daddy-film/episode-template.json > /dev/null
-          python3 -m py_compile host/ai-ffmpeg/ai-ffmpeg.py tests/test-ai-ffmpeg.py
+          python3 -m py_compile host/ai-ffmpeg/ai-ffmpeg.py tests/test-ai-ffmpeg.py tests/test-pirate-production-continuity.py
+          python3 tests/test-pirate-production-continuity.py
           bash -n scripts/ai-ffmpeg-user-service.sh
           bash -n scripts/ai-ffmpeg-codespaces.sh
           python3 -m json.tool .devcontainer/devcontainer.json > /dev/null
