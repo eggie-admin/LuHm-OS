@@ -1,5 +1,11 @@
 # LuHm OS ChatGPT Plugin
 
+## The actual product: art creation inside ChatGPT
+
+LuHm-OS is an **artist-first creation tool**, not primarily a deployment dashboard or MUD. The existing `luhm_open_cockpit` MCP App resource is the ChatGPT-facing studio surface. On the current **proposed branch**, it hosts a seven-shot *Into the Warp* storyboard editor. The Professor can alter visual direction and durations, undo/redo, reset and explicitly export the private working draft as JSON. Edits are deliberately in-widget memory only, not cloud persistence. The sealed source script is never sent in the widget payload. Belldandy's Codex history stays in shot 401, while shot 500 is a callback to the same record.
+
+This candidate does not yet provide drawing/painting tools, actual multi-frame motion editing, media file persistence, a running remote FFmpeg queue, or verified ChatGPT-host visual interaction. The published/manual-upload package remains 0.5.2 until separately approved and packaged. Creative use does not authorize a new transport, OAuth bypass, account writes, provider uploads or public posting.
+
 LuHm OS 0.5.2 is built for a clean manual upload. It packages portable LuHm workflow skills, explicit coding-roleplay behavior, and the canonical read-only MCP connection.
 
 ## Virgin install
