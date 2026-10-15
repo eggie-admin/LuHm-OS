@@ -20,6 +20,7 @@ jobs:
         run: |
           python3 -m json.tool media/pirate-daddy-film/into-the-warp-project-template-v3.json >/dev/null
           python3 tests/test-into-the-warp-production.py
+          if test -f tests/test-pirate-production-continuity.py; then python3 tests/test-pirate-production-continuity.py; fi
       - name: Ensure no binary assets or private screen media entered public source
         run: |
           set -euo pipefail
