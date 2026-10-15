@@ -26,7 +26,7 @@ def reject(value, inputRoot, outputRoot, marker):
         mod.validate(value, inputRoot, outputRoot)
         raise AssertionError("negative control missed: " + marker)
     except (ValueError, PermissionError) as exc:
-        assert marker in str(exc), str(exc
+        assert marker in str(exc), str(exc)
 
 
 def png(color):
