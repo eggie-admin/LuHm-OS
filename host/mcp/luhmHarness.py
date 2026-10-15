@@ -102,6 +102,7 @@ def register_harness(
     godot_root = harness_root / "godot-export"
     godot_player_path = harness_root / "godotPlayerWidget.html"
     experience_path = root / "doctrine" / "inChatExperienceV1.json"
+    artist_studio_path = root / "doctrine" / "artistStudioPluginV1.json"
     crown_flow_path = root / "doctrine" / "chatGptPluginCrownFlowV1.json"
     runtime_receipt_path = root / "doctrine" / "chatGptPluginRuntimeReceiptV1.json"
     opening_day_path = root / "doctrine" / "openingDayStaffTrainingV1.json"
@@ -112,7 +113,7 @@ def register_harness(
     coding_roleplay_path = root / "doctrine" / "codingRoleplayDirectorV2.json"
     virgin_install_path = root / "doctrine" / "manualPluginVirginInstallV1.json"
 
-    if not all(path.is_file() for path in (widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path)):
+    if not all(path.is_file() for path in (widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, artist_studio_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     resource_meta: dict[str, Any] = {
@@ -126,12 +127,13 @@ def register_harness(
         "openai/ui": {
             "availableDisplayModes": ["inline", "fullscreen"],
         },
-        "openai/widgetDescription": "LuHm OS in-chat cockpit for Lum/Oni activity, roleplay, pet status, source truth, and the bounded Godot handoff.",
+        "openai/widgetDescription": "LuHm OS artist-first in-chat storyboard and creative studio candidate, with Lum/Yume continuity, source truth and bounded Godot handoff.",
     }
     public_origin = _origin()
     remote_godot_candidate = public_origin == MCP_COCKPIT_PUBLIC_ORIGIN
     godot_frame_origin = EXISTING_GODOT_PUBLIC_ORIGIN if remote_godot_candidate else public_origin
     experience = json.loads(experience_path.read_text(encoding="utf-8"))
+    artist_studio = json.loads(artist_studio_path.read_text(encoding="utf-8"))
     crown_flow = json.loads(crown_flow_path.read_text(encoding="utf-8"))
     runtime_receipt = json.loads(runtime_receipt_path.read_text(encoding="utf-8"))
     opening_day = json.loads(opening_day_path.read_text(encoding="utf-8"))
@@ -145,6 +147,10 @@ def register_harness(
         raise RuntimeError("RED_CODING_ROLEPLAY_SCHEMA")
     if virgin_install.get("schema") != "luhmOs.manualPluginVirginInstall.v1":
         raise RuntimeError("RED_VIRGIN_INSTALL_SCHEMA")
+    if artist_studio.get("schema") != "luhmOs.artistStudioPlugin.v1" or artist_studio.get("pluginTool") != "luhm_open_cockpit" or artist_studio.get("resourceUri") != UI_RESOURCE_URI:
+        raise RuntimeError("RED_ARTIST_STUDIO_CONTRACT")
+    if artist_studio.get("stateBoundary", {}).get("serverWrites") is not False or artist_studio.get("stateBoundary", {}).get("publication") is not False:
+        raise RuntimeError("RED_ARTIST_STUDIO_PRIVILEGE")
     if experience.get("schema") != "luhmOs.inChatExperience.v1":
         raise RuntimeError("RED_IN_CHAT_EXPERIENCE_SCHEMA")
     if experience.get("runtime", {}).get("resourceUri") != UI_RESOURCE_URI:
@@ -169,8 +175,8 @@ def register_harness(
     @server.resource(
         UI_RESOURCE_URI,
         name="luhm-os-cockpit",
-        title="LuHm OS Cockpit",
-        description="Read-only LuHm status and Lum/Oni cockpit rendered inside MCP Apps hosts.",
+        title="LuHm OS Artist Studio",
+        description="LuHm artist-first in-chat preproduction studio; local draft editing only, no server mutation or publication.",
         mime_type=APP_MIME_TYPE,
         meta=resource_meta,
     )
@@ -253,8 +259,8 @@ def register_harness(
 
     @server.tool(
         name="luhm_open_cockpit",
-        title="Open LuHm OS cockpit",
-        description="Render the read-only LuHm OS cockpit. This never mutates source, deploys, signs, publishes, or grants GREEN authority.",
+        title="Open LuHm OS Artist Studio",
+        description="Open the artist-first in-chat storyboard studio with in-session edits and read-only system status. No remote writes or publication.",
         annotations=annotations,
         meta={
             "ui": {"resourceUri": UI_RESOURCE_URI, "visibility": ["model", "app"]},
@@ -268,6 +274,7 @@ def register_harness(
             "schema": "luhmOs.inChatExperiencePayload.v1",
             "surface": "mcp-app",
             "experience": experience,
+            "artistStudio": artist_studio,
             "crownFlow": crown_flow,
             "runtimeReceipt": runtime_receipt,
             "openingDay": opening_day,
@@ -335,6 +342,7 @@ def register_harness(
             {
                 "schema": "luhmOs.harnessConfig.v2",
                 "experience": experience,
+                "artistStudio": artist_studio,
                 "crownFlow": crown_flow,
                 "runtimeReceipt": runtime_receipt,
                 "openingDay": opening_day,
