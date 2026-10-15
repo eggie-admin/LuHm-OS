@@ -18,10 +18,13 @@ def require(ok, message):
 
 def scan_runtime(root):
     files = []
+    # Audit what is packaged/interpreted by Godot, not unrelated remote workshop
+    # shell scripts that happen to live under scripts/. Retain strict content scans.
+    runtime_suffixes = {'.gd', '.tscn', '.tres', '.gdshader', '.json'}
     for name in ('scripts', 'scenes', 'cutscenes'):
         folder = root / name
         require(folder.is_dir(), f'missing runtime directory: {name}')
-        files.extend(p for p in folder.rglob('*') if p.is_file())
+        files.extend(p for p in folder.rglob('*') if p.is_file() and p.suffix.lower() in runtime_suffixes)
     require(bool(files), 'empty runtime scope')
     for p in files:
         require(not p.is_symlink(), f'symlink in runtime: {p.name}')
