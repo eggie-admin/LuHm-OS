@@ -18,12 +18,12 @@
 | Section | Narrative job | Pilot direction | Reusable slot |
 |---|---|---|---|
 | 100 | Branding | 35mm pirate-film leader, Mr. Buttons insignia, film burn | Company ident |
-| 200 | Incoming transmission / glitch | Fictional Dune Scroll interrupted, Belldandy signal, digital warp | Incoming event |
+| 200 | Incoming transmission / glitch | Fictional Dune Scroll interrupted, visual signal glitch, digital warp; Belldandy's spoken announcement waits until 401 | Incoming event |
 | 300 | World establishment | Battered pirate ship over diesel-goth Detroit, Professor's lived-in CRT laboratory | Location reveal |
-| 400 | Three-shot crescendo | 401 Old Guard / 402 Berserker / 403 Witching Hour | Emotional setup / escalation / payoff |
-| 500 | DADDY Codex | Look up Anti-Daddy's **wiki entry**; archived fictional `-kill -all -purge -y` string; `ROOT ACCESS: ANTI-DADDY` | Lore, joke or mystery |
+| 400 | Three-shot crescendo | 401 Belldandy opens Anti-Daddy's Codex LORE, reads the history, Eggie interrupts and enters Old Guard; 402 Berserker / 403 Witching Hour | Emotional setup / escalation / payoff |
+| 500 | Codex callback | Return to the **same** Anti-Daddy record Belldandy accessed at 401; archived fictional `-kill -all -purge -y`; final field `ROOT ACCESS: ANTI-DADDY` | Closing revelation (not another lookup) |
 
-The DADDY Codex is a character encyclopedia **not** a command terminal. The slash/dash phrase is on-screen fiction, never an executable shell operation.
+Belldandy is the reader/owner of the DADDY Codex encyclopedia in **Movement II, shot 401**, at her scripted `INCOMING TRANSMISSION` cue. Her historical reading is interrupted when Eggie says `And we raised ourselves…`. Section 200's glitch has no earlier Belldandy spoken lore and section 500 has no new wiki lookup. The DADDY Codex is a character encyclopedia **not** a command terminal. The slash/dash phrase is on-screen fiction, never an executable shell operation.
 
 ## On-set direction board
 
