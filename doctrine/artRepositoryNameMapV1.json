@@ -51,7 +51,8 @@
       "target": "luhm-os-publication-site.onrender.com",
       "proxied": false,
       "ttl": "auto",
-      "status": "PROPOSED_ONLY"
+      "status": "PROPOSED_ONLY",
+      "existingDestinationIsNotProvenFdroidServer": true
     },
     "renderCustomDomainRequired": true,
     "renderManagedTlsRequired": true,
@@ -144,6 +145,13 @@
     "browserArtStudioIsDifferent": true,
     "selfHostedFdroidRepoNotSameAsOfficialFdroidCatalog": true,
     "publicationAuthority": "PROFESSOR_ONLY",
-    "automaticPublication": false
+    "automaticPublication": false,
+    "identityContract": "doctrine/publicApkUpdateIdentityV1.json",
+    "historicalPublicationSiteCnameMustBeProvenToServeSignedRepo": true,
+    "providerDnsNsAndTlsIndependentOfAppId": true,
+    "ptrIsNotAppIdentity": true,
+    "srvNotUsedForClientRepositoryUrl": true,
+    "httpsRedirectRequiredOnlyAfterCertificateVerified": true,
+    "noAutomaticReleaseOrDnsChange": true
   }
 }
