@@ -863,7 +863,7 @@
   },
   "productPurpose": "ARTIST_FIRST_CREATIVE_WORKSTATION_AND_PRODUCTION_TOOL",
   "continuityLifecycle": {
-    "contract": "doctrine/continuity-release-lifecycle-v1.json",
+    "contract": "doctrine/continuityReleaseLifecycleV1.json",
     "law": "PROVE → SEAL → PRESERVE → RESUME → ADVANCE",
     "ratifiedBy": "Professor",
     "establishedClaimsRetainedUnlessContradicted": true,
@@ -873,7 +873,7 @@
     "status": "SOURCE_CANDIDATE_PENDING_CI"
   },
   "commercialReleaseModel": {
-    "contract": "doctrine/continuity-release-lifecycle-v1.json",
+    "contract": "doctrine/continuityReleaseLifecycleV1.json",
     "sequence": [
       "FREE_OPEN_BETA",
       "COMMUNITY_GROWTH",
