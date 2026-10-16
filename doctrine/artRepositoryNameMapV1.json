@@ -5,7 +5,7 @@
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "intent": {
     "rawRequestedPattern": "art.eggiebagelface.*",
-    "purpose": "Proposed public signed F-Droid APK repository and remote update index for LuHm-OS Android distribution; never confuse the Android package namespace with the HTTPS repository hostname, ChatGPT plugin or an unrelated art-portfolio portal.",
+    "purpose": "Map LuHm-OS Android reverse-domain package namespace to its candidate public signed F-Droid repository URL, through Cloudflare managed DNS/CDN and existing external static hosting. No self-hosted registrar, authoritative NS, reverse NS, or PTR setup.",
     "ambiguity": "TRAILING_TLD_WILDCARD_IS_NOT_A_LITERAL_DNS_RECORD",
     "exactLiveFqdnProposed": "art.eggiebagelface.art",
     "exactFqdnConfirmedByProfessor": false,
@@ -48,23 +48,27 @@
     "record": {
       "name": "art",
       "type": "CNAME",
-      "target": "luhm-os-publication-site.onrender.com",
+      "target": "PENDING_VERIFIED_HTTPS_STATIC_REPOSITORY_ORIGIN",
       "proxied": false,
       "ttl": "auto",
-      "status": "PROPOSED_ONLY",
+      "status": "NO_DNS_CHANGE_PROPOSED_UNTIL_ORIGIN_VERIFIED",
       "existingDestinationIsNotProvenFdroidServer": true
     },
-    "renderCustomDomainRequired": true,
-    "renderManagedTlsRequired": true,
-    "cloudflareProxy": false,
+    "renderCustomDomainRequired": false,
+    "renderManagedTlsRequired": false,
+    "cloudflareProxy": "OPTIONAL_AFTER_EDGE_AND_ORIGIN_TLS_TEST",
     "nameserverDelegation": false,
     "reverseDnsPtr": false,
     "cloudflareTunnel": false,
     "autoDnsMutation": false,
-    "originServingMode": "candidateStaticSignedFdroidRepoPublicationNotActivated",
+    "originServingMode": "approvedStaticSignedFdroidRepoViaCloudflareManagedDns",
     "noRepositoryDirectNsTarget": true,
     "noUnboundedRepoWebExposure": true,
-    "siteContentMustBeSeparatelyApproved": true
+    "siteContentMustBeSeparatelyApproved": true,
+    "renderIfSelectedRequiresManagedTls": true,
+    "userOperatesRegistrar": false,
+    "userOperatesNameservers": false,
+    "userOperatesPtrInfrastructure": false
   },
   "repos": {
     "discovered": [
@@ -99,10 +103,6 @@
   },
   "proofGates": [
     "Professor confirms intended FQDN and repository selection",
-    "Render custom domain attached to chosen static site",
-    "Cloudflare DNS zone and existing record collision checked",
-    "CNAME DNS-only set only with Professor approval",
-    "Render managed TLS hostname checked",
     "HTTPS host page and repo links smoke-tested",
     "no sensitive or unapproved generated media published",
     "source and runtime receipts kept separate",
@@ -110,7 +110,10 @@
     "Prove owner-controlled stable release APK signer and repository-index signer independently",
     "Publish only stable signed APKs plus signed repository indexes after exact-version rollback/upgrade proof",
     "Check published HTTPS repository index, signing fingerprint and real F-Droid client acceptance",
-    "Never silently replace the ChatGPT plugin or install Android updates without app/user approval"
+    "Never silently replace the ChatGPT plugin or install Android updates without app/user approval",
+    "Inspect approved Cloudflare DNS hostname and existing zone records, read-only before review",
+    "Verify actually selected HTTPS hosting origin and relevant provider-managed certificates",
+    "Do not modify registrar delegation, run private authoritative nameservers or create PTR/SRV infrastructure for APK updates"
   ],
   "authorityBoundary": {
     "changeNameservers": false,
@@ -152,6 +155,10 @@
     "ptrIsNotAppIdentity": true,
     "srvNotUsedForClientRepositoryUrl": true,
     "httpsRedirectRequiredOnlyAfterCertificateVerified": true,
-    "noAutomaticReleaseOrDnsChange": true
+    "noAutomaticReleaseOrDnsChange": true,
+    "managedDnsProvider": "cloudflare",
+    "registrarProviderChangeNotRequired": true,
+    "customNameserverSetupNotRequired": true,
+    "ptrAndSrvAreNotReleaseDependencies": true
   }
 }
