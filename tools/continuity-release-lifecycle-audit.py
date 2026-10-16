@@ -43,7 +43,7 @@ def violations(doc, truth):
     crown = doc.get("crown") or {}
     for flag in ("publicReleaseExplicitApproval","billingExplicitApproval","agentsNeverSelfPromote"):
         need(crown.get(flag) is True, "HUMAN_AUTHORITY_"+flag)
-    need(truth.get("continuityLifecycle",{}).get("contract") == "doctrine/continuity-release-lifecycle-v1.json", "SOURCE_TRUTH_POINTER")
+    need(truth.get("continuityLifecycle",{}).get("contract") == "doctrine/continuityReleaseLifecycleV1.json", "SOURCE_TRUTH_POINTER")
     need(truth.get("commercialReleaseModel",{}).get("publicBetaFree") is True, "SOURCE_TRUTH_FREE_BETA")
     need(truth.get("commercialReleaseModel",{}).get("noAutomaticCharges") is True, "SOURCE_TRUTH_NO_BILLING")
     need(truth.get("commercialReleaseModel",{}).get("publicBetaPublishProven") is False, "SOURCE_TRUTH_FALSE_LAUNCH")
@@ -52,7 +52,7 @@ def violations(doc, truth):
     return issues
 
 def main():
-    doc = loadDoc("doctrine/continuity-release-lifecycle-v1.json")
+    doc = loadDoc("doctrine/continuityReleaseLifecycleV1.json")
     truth = loadDoc("doctrine/currentSourceTruthV3.json")
     errors = violations(doc, truth)
     import copy
