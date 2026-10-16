@@ -861,5 +861,30 @@
     "publicReleaseAuthority": false,
     "crownStatus": "STOP"
   },
-  "productPurpose": "ARTIST_FIRST_CREATIVE_WORKSTATION_AND_PRODUCTION_TOOL"
+  "productPurpose": "ARTIST_FIRST_CREATIVE_WORKSTATION_AND_PRODUCTION_TOOL",
+  "continuityLifecycle": {
+    "contract": "doctrine/continuity-release-lifecycle-v1.json",
+    "law": "PROVE → SEAL → PRESERVE → RESUME → ADVANCE",
+    "ratifiedBy": "Professor",
+    "establishedClaimsRetainedUnlessContradicted": true,
+    "historicalProofNotFreshRuntimeProof": true,
+    "nextDependency": "verified public signed APK update repository + installed-device upgrade",
+    "sourceDoesNotCertifyPublicLaunch": true,
+    "status": "SOURCE_CANDIDATE_PENDING_CI"
+  },
+  "commercialReleaseModel": {
+    "contract": "doctrine/continuity-release-lifecycle-v1.json",
+    "sequence": [
+      "FREE_OPEN_BETA",
+      "COMMUNITY_GROWTH",
+      "PUBLIC_VERSION_1_0",
+      "OPTIONAL_MONETIZATION"
+    ],
+    "publicBetaFree": true,
+    "noAutomaticCharges": true,
+    "publicCoreIntent": "FREE_ART_CREATION_CORE",
+    "pricingAndPremiumScope": "NOT_SET",
+    "publicBetaPublishProven": false,
+    "exactArtifactAndPublicReleaseRequiresProfessor": true
+  }
 }
