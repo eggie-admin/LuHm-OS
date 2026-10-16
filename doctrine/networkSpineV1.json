@@ -33,21 +33,27 @@
       "isPtrRecord": false,
       "wildcardTldIsPublicDns": false,
       "mayGrantNetworkOrExecutionAuthority": false,
-      "publicApkUpdateContract": "doctrine/publicApkUpdateIdentityV1.json"
+      "publicApkUpdateContract": "doctrine/publicApkUpdateIdentityV1.json",
+      "reverseFqdnIsAndroidNamespaceNotDnsAuthority": true
     },
     "authoritativeNameservers": {
       "expectedProvider": "cloudflare",
-      "delegationState": "UNVERIFIED",
-      "confirmParentZoneDelegation": true,
-      "confirmAuthoritativeNsAndSoa": true,
-      "checkDnssecChainWhenEnabled": true,
+      "delegationState": "CLOUDFLARE_EXISTING_AUTHORITY_OPERATOR_AND_HISTORICAL_PROOF",
+      "confirmParentZoneDelegation": false,
+      "confirmAuthoritativeNsAndSoa": false,
+      "checkDnssecChainWhenEnabled": false,
       "nameserverNamesMustBeObservedNotGuessed": true,
       "mayChangeRegistrarDelegation": false,
       "sourceExampleMayNotClaimLiveAuthority": true,
       "operationalModel": "Cloudflare provides managed authoritative nameservers for the existing zone; LuHm does not run NS infrastructure",
       "userRunsOwnNameserver": false,
       "createOrReplaceZoneDelegationForApkUpdates": false,
-      "existingDelegationMayBeObservedReadOnly": true
+      "existingDelegationMayBeObservedReadOnly": true,
+      "proofScope": "EXISTING_PROVIDER_CONFIRMED; CURRENT_ASSIGNED_NS_HOSTS_NOT_REMEASURED",
+      "currentAssignedNameserverHosts": "NOT_REQUERIED; NEVER_GUESS",
+      "noRegistrarOrAuthoritativeNameserverServiceImplementation": true,
+      "noDelegationChangePlanned": true,
+      "confirmOnlyOnRelevantIncidentOrApprovedDnsChange": true
     },
     "reverseDnsPtrWhenApplicable": {
       "meaning": "resolvedIpToHostViaInAddrArpaOrIp6Arpa",
@@ -58,7 +64,9 @@
       "optionalForPublicMcpTlsReadiness": true,
       "mayMutatePtr": false,
       "notApkReleaseDependency": true,
-      "noReverseZoneOrPtrProvisioningByLuhm": true
+      "noReverseZoneOrPtrProvisioningByLuhm": true,
+      "outOfScopeForApkUpdates": true,
+      "upstreamIpPrefixHolderControlsPtr": true
     },
     "proxyLane": {
       "mcp": "dnsOnlyDirectRenderManagedTlsUntilStreamingProof",
@@ -137,9 +145,9 @@
       "candidateUrl": "https://art.eggiebagelface.art/fdroid/repo/",
       "packageNamespace": "art.eggiebagelface",
       "contract": "doctrine/publicApkUpdateIdentityV1.json",
-      "status": "SOURCE_ONLY_ENDPOINT_ORIGIN_AND_SIGNED_INDEX_UNVERIFIED",
-      "cloudflareEdge": "MANAGED_DNS_CDN_OPTIONAL_NOT_SELF_HOSTED_NS",
-      "origin": "PENDING_VERIFIED_HTTPS_STATIC_REPOSITORY_PROVIDER",
+      "status": "AUTHORITATIVE_DNS_BASELINE_PRESERVED_SIGNED_REPO_ROUTE_NOT_PROVEN",
+      "cloudflareEdge": "ESTABLISHED_CLOUDFLARE_DNS_PROVIDER_EXISTING_BASELINE",
+      "origin": "F_DROID_REPOSITORY_HOST_UNPROVEN_NOT_NAMESERVER_WORK",
       "tls": "HTTPS_WITH_HOSTNAME_TRUST",
       "reverseDnsPtr": "NOT_APK_UPDATE_DEPENDENCY",
       "srv": "OPTIONAL_SERVICE_METADATA_NOT_FDROID_DISCOVERY",
@@ -230,5 +238,6 @@
     "cdnMode": "OPTIONAL_AFTER_SIGNED_REPO_AND_TLS_ROUTE_PROOF",
     "applicationId": "art.eggiebagelface.luhmos (candidate only)",
     "repositoryUrl": "https://art.eggiebagelface.art/fdroid/repo/ (candidate only)"
-  }
+  },
+  "publicDnsProviderBaseline": "CLOUDFLARE_EXISTING_AUTHORITY_PREVIOUSLY_PROVED"
 }
