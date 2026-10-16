@@ -543,7 +543,9 @@
       "agentQuarantine": "QUARANTINED",
       "currentMcpPath": "directRenderManagedTls",
       "crownStatus": "STOP"
-    }
+    },
+    "publicApkUpdateIdentity": "doctrine/publicApkUpdateIdentityV1.json",
+    "publicApkHostStatus": "FQDN_TLS_INDEX_UNVERIFIED"
   },
   "housekeepingLayer": {
     "contract": "doctrine/belldandyHousekeepingV1.json",
@@ -746,7 +748,11 @@
       "separateFromChatGptPlugin": true,
       "publicMediaPrivateArtExclusion": true,
       "publicationAuthority": false,
-      "crownStatus": "STOP"
+      "crownStatus": "STOP",
+      "identityContract": "doctrine/publicApkUpdateIdentityV1.json",
+      "reverseDomainNamespace": "art.eggiebagelface",
+      "dnsPtrNotApkIdentity": true,
+      "signerAndVersionUpdateGate": "PENDING_STABLE_SIGNER_AND_INSTALLED_UPGRADE"
     }
   },
   "typedSqlLayer": {
