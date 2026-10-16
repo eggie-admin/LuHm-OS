@@ -545,11 +545,16 @@
       "crownStatus": "STOP"
     },
     "publicApkUpdateIdentity": "doctrine/publicApkUpdateIdentityV1.json",
-    "publicApkHostStatus": "FQDN_TLS_INDEX_UNVERIFIED",
+    "publicApkHostStatus": "CLOUDFLARE_DNS_BASELINE_PRESERVED_SIGNED_FDROID_ROUTE_NOT_PROVEN",
     "publicApkNetworkOperator": "CLOUDFLARE_MANAGED_DNS_EDGE_EXISTING_DOMAIN",
     "ownRegistrarOrNameservers": false,
     "createPtrForApkUpdate": false,
-    "existingNsDelegationMutation": "NOT_IN_SCOPE"
+    "existingNsDelegationMutation": "NOT_IN_SCOPE",
+    "publicDnsAuthority": "CLOUDFLARE_EXISTING_BASELINE_OPERATOR_CONFIRMED_WITH_HISTORICAL_FQDN_PROOFS",
+    "reonboardingOrOwnNameserverFleetRequired": false,
+    "apexAndSpecificHostHealthDistinct": true,
+    "previousHttpsAiHostnameProof": "HISTORICAL_HTTP_200_ROOT_AND_API_HEALTH",
+    "currentSpecificPublicFdroidHostProof": "NOT_ESTABLISHED"
   },
   "housekeepingLayer": {
     "contract": "doctrine/belldandyHousekeepingV1.json",
