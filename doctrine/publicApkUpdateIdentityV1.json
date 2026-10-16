@@ -111,7 +111,9 @@
     "cloudflareCdnOnlyForPublicImmutableHashedApksAndVersionedStaticAssets": true,
     "signedIndexRevalidationMustNotBeIndefinitelyCached": true,
     "privateArtAndPrivateTokensNeverCdnCached": true,
-    "authenticatedMcpResponsesNeverCdnCached": true
+    "authenticatedMcpResponsesNeverCdnCached": true,
+    "cloudflareProxyCannotImproveUnreachableOrigin": true,
+    "cloudflareDedicatedTunnelRouteRequiresLiveTunnelAndOriginReceipt": true
   },
   "reversePtr": {
     "meaning": "IP address reverse DNS in in-addr.arpa or ip6.arpa controlled by IP prefix holder",
@@ -136,7 +138,6 @@
       "DNS-01 with narrowly scoped Cloudflare token when supported and approved",
       "HTTP-01 only when public port 80 and challenge route intentionally enabled"
     ],
-    "tlsPrivateKeysOutsideGitDriveAndPublicServer": true,
     "certbotNotRunInAndroidApkOrChatGptPlugin": true,
     "certificateRenewalDryRunAndExpiryAlertRequired": true,
     "cloudflareOriginCaCertificatesNotSubstituteForPublicDirectClientTrust": true,
@@ -152,7 +153,9 @@
       "acmeHttp01MustRemainReachableWhenSelected": true,
       "hstsEnabledOnlyAfterFullHostCoverageProof": true,
       "hstsPreloadRequiresSeparateHumanApproval": true
-    }
+    },
+    "privateKeyCustody": "approved persistent TLS origin or managed secret store only; never Git, ChatGPT, Android APK, public document root, or client-side JavaScript",
+    "renewalIdentity": "certificate SAN, key custodianship, renewal job, and live post-renewal HTTPS observation are separate receipts"
   },
   "socketAndProxy": {
     "publicIngress": [
