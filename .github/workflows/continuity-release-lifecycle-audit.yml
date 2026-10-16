@@ -3,14 +3,14 @@ name: Continuity + Free Open Beta Source Audit
 on:
   pull_request:
     paths:
-      - "doctrine/continuity-release-lifecycle-v1.json"
+      - "doctrine/continuityReleaseLifecycleV1.json"
       - "doctrine/currentSourceTruthV3.json"
       - "tools/continuity-release-lifecycle-audit.py"
       - ".github/workflows/continuity-release-lifecycle-audit.yml"
   push:
     branches: [main]
     paths:
-      - "doctrine/continuity-release-lifecycle-v1.json"
+      - "doctrine/continuityReleaseLifecycleV1.json"
       - "doctrine/currentSourceTruthV3.json"
       - "tools/continuity-release-lifecycle-audit.py"
       - ".github/workflows/continuity-release-lifecycle-audit.yml"
