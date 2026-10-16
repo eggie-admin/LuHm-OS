@@ -80,10 +80,10 @@
   },
   "dns": {
     "candidateZone": "eggiebagelface.art",
-    "intendedAuthority": "Cloudflare-managed authoritative DNS provider; do not run LuHm nameservers",
-    "actualRegistrarDelegation": "UNKNOWN_CHECK_EXISTING_ONLY_NO_CHANGE",
-    "authoritativeNsSoa": "PROVIDER_MANAGED_OBSERVATION_ONLY",
-    "dnssecDsDnskeyIfEnabled": "VERIFY_EXISTING_POLICY_ONLY",
+    "intendedAuthority": "cloudflare",
+    "actualRegistrarDelegation": "EXISTING_CLOUDFLARE_AUTHORITY_ACCEPTED_FROM_OPERATOR_AND_PREVIOUS_PROOFS",
+    "authoritativeNsSoa": "CLOUDFLARE_MANAGED_DO_NOT_REPLACE_OR_SELF_HOST",
+    "dnssecDsDnskeyIfEnabled": "RETAIN_EXISTING_RECORDS; INSPECT_ONLY_IF_ISSUE",
     "forwardRecords": [
       "A",
       "AAAA",
@@ -91,7 +91,7 @@
     ],
     "fqdnRecordsStatus": "UNVERIFIED",
     "cnameCannotCoexistWithOtherTypesAtSameOwnerName": true,
-    "cnameTargetChoice": "PENDING_VERIFIED_HTTPS_STATIC_REPOSITORY_ORIGIN",
+    "cnameTargetChoice": "RETAIN_EXISTING_ROUTING_UNTIL_CHOSEN_REPO_HOST_IS_PROVEN",
     "historicalRenderSiteTarget": "luhm-os-publication-site.onrender.com",
     "historicalRenderSiteIsConfirmedFdroidRepoServer": false,
     "acceptedOriginModels": [
@@ -118,7 +118,32 @@
     "existingNameserverSetupNeverRecreatedForUpdate": true,
     "newDelegationNeverRequiredForLocalApkUpdate": true,
     "reverseZoneManagementExcluded": true,
-    "srvCreationUnnecessaryForFdroid": true
+    "srvCreationUnnecessaryForFdroid": true,
+    "operatorEstablishedAuthority": true,
+    "doNotRequireReOnboardingOrNewNameservers": true,
+    "doNotAssumeNameserverHostnames": true,
+    "providerControlsAuthoritativeNameserverFleet": true,
+    "registrarMigrationOutOfScope": true,
+    "selfHostedNameserversOutOfScope": true,
+    "delegateChildZoneOutOfScope": true,
+    "reverseDnsHostingOutOfScope": true,
+    "existingApexAvailabilityDistinctFromZoneAuthority": true,
+    "historicalVerifiedFqdn": {
+      "hostname": "ai.eggiebagelface.art",
+      "httpsRoot": "HTTP_200_PREVIOUSLY_RECORDED",
+      "healthPath": "/hydra-api/health",
+      "healthResponse": "HTTP_200_PREVIOUSLY_RECORDED",
+      "priorCloudflaredService": "ACTIVE_IN_HISTORICAL_RECEIPT",
+      "proofScope": "HISTORICAL_HOST_HTTP_NOT_INDEPENDENT_CURRENT_NS_TRANSCRIPT",
+      "currentHealth": "NOT_RETESTED_THIS_TURN"
+    },
+    "historicalApex": {
+      "hostname": "eggiebagelface.art",
+      "status": "HTTP_523_PREVIOUSLY_OBSERVED_BEFORE_DNS_ROUTE_CORRECTION",
+      "resolved": "NOT_PROVED_FROM_AVAILABLE_HISTORICAL_RECEIPT",
+      "doesNotInvalidateHostSpecific200": true
+    },
+    "runtimeProofPolicy": "Reuse named exact-host receipts where applicable; fresh probe only when a hostname or release route materially changes."
   },
   "reversePtr": {
     "meaning": "IP address reverse DNS in in-addr.arpa or ip6.arpa controlled by IP prefix holder",
@@ -132,7 +157,8 @@
     "neverClaimPtrControlOfCloudflareOrRenderSharedIps": true,
     "providerResponsibility": "IP prefix holder, not LuHm-OS or Cloudflare forward-zone operator",
     "userMustOperateReverseZones": false,
-    "mandatoryForPublicRelease": false
+    "mandatoryForPublicRelease": false,
+    "administration": "UPSTREAM_IP_HOLDER_ONLY_OUT_OF_SCOPE"
   },
   "tls": {
     "publicClient": "HTTPS with correctly trusted hostname-valid certificate and chain",
@@ -209,13 +235,13 @@
       "running authoritative DNS or reverse NS servers",
       "creating IP PTR records",
       "adding SRV records for HTTPS F-Droid"
-    ]
+    ],
+    "providerBaselineMustNotBeResetByUnrelatedReleaseAudit": true
   },
   "upstreamReferences": [
     "https://developer.android.com/studio/publish/app-signing",
     "https://f-droid.org/docs/Setup_an_F-Droid_App_Repo/",
     "https://f-droid.org/docs/Signing_Process/",
-    "https://developers.cloudflare.com/dns/additional-options/reverse-zones/",
     "https://developers.cloudflare.com/dns/manage-dns-records/reference/dns-record-types/",
     "https://developers.cloudflare.com/ssl/edge-certificates/additional-options/always-use-https/",
     "https://letsencrypt.org/docs/challenge-types/",
