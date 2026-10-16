@@ -21,7 +21,8 @@
       "staticAssets": "assets.eggiebagelface.art",
       "status": "UNVERIFIED",
       "normalization": "lowercaseIdnaWithCanonicalTrailingDotForDnsQueries",
-      "recordsAreNotProofOfLiveTraffic": true
+      "recordsAreNotProofOfLiveTraffic": true,
+      "publicApkRepository": "art.eggiebagelface.art"
     },
     "reverseFqdnNamespace": {
       "meaning": "reversedDnsLabelsAsInternalIdentityOnly",
@@ -31,7 +32,8 @@
       "isDnsRecord": false,
       "isPtrRecord": false,
       "wildcardTldIsPublicDns": false,
-      "mayGrantNetworkOrExecutionAuthority": false
+      "mayGrantNetworkOrExecutionAuthority": false,
+      "publicApkUpdateContract": "doctrine/publicApkUpdateIdentityV1.json"
     },
     "authoritativeNameservers": {
       "expectedProvider": "cloudflare",
@@ -122,6 +124,22 @@
       "activationState": "UNVERIFIED",
       "currentMount": "/harness/assets/",
       "mode": "sameOriginUntilSeparateCdnProof"
+    },
+    "publicApkUpdates": {
+      "fqdn": "art.eggiebagelface.art",
+      "path": "/fdroid/repo/",
+      "candidateUrl": "https://art.eggiebagelface.art/fdroid/repo/",
+      "packageNamespace": "art.eggiebagelface",
+      "contract": "doctrine/publicApkUpdateIdentityV1.json",
+      "status": "SOURCE_ONLY_ENDPOINT_ORIGIN_AND_SIGNED_INDEX_UNVERIFIED",
+      "cloudflareEdge": "CANDIDATE",
+      "origin": "PENDING_VERIFIED_FDROID_REPOSITORY_HOST",
+      "tls": "HTTPS_WITH_HOSTNAME_TRUST",
+      "reverseDnsPtr": "NOT_APK_UPDATE_DEPENDENCY",
+      "srv": "OPTIONAL_SERVICE_METADATA_NOT_FDROID_DISCOVERY",
+      "socket": "HTTPS_443_WITH_LOOPBACK_OR_UNIX_BACKEND",
+      "runtimeProof": false,
+      "crownStatus": "STOP"
     }
   },
   "reverseProxy": {
@@ -189,5 +207,6 @@
     "https://httpd.apache.org/docs/2.4/mod/mod_proxy.html",
     "https://eff-certbot.readthedocs.io/en/stable/using.html"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "publicApkUpdateContract": "doctrine/publicApkUpdateIdentityV1.json"
 }
