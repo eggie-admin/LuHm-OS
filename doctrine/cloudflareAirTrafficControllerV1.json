@@ -68,9 +68,9 @@
       "candidateFqdn": "art.eggiebagelface.art",
       "candidateUrl": "https://art.eggiebagelface.art/fdroid/repo/",
       "status": "CANDIDATE_UNVERIFIED",
-      "dnsProvider": "cloudflareManagedAuthoritativeDns",
-      "parentNsDelegation": "EXISTING_EXTERNAL_REGISTRAR_READ_ONLY_VERIFY_IF_NEEDED",
-      "cnameTarget": "PENDING_VERIFIED_HTTPS_STATIC_ORIGIN",
+      "dnsProvider": "cloudflare",
+      "parentNsDelegation": "EXISTING_CLOUDFLARE_DNS_AUTHORITY_OPERATOR_CONFIRMED",
+      "cnameTarget": "DO_NOT_OVERWRITE_EXISTING_RECORDS_UNTIL_FDROID_HOST_CONFIRMED",
       "cnameMayNotTargetAssumedFdroidContent": true,
       "tunnel": "OPTIONAL_SEPARATE_CROWN_GATED_ORIGIN_MODEL",
       "proxyMode": "PENDING_SITE_HOSTED_TLS_AND_CACHE_PROOF",
@@ -88,7 +88,13 @@
       "changeExistingNsDelegation": false,
       "externalRegistrarDoesNotHostRepo": true,
       "edgeCertificate": "CLOUDFLARE_MANAGED_WHEN_PROXIED",
-      "originCertificate": "MANAGED_HOSTING_TLS_OR_VERIFIED_INDEPENDENT_ORIGIN"
+      "originCertificate": "MANAGED_HOSTING_TLS_OR_VERIFIED_INDEPENDENT_ORIGIN",
+      "registrationTransferPlanned": false,
+      "newNameserverHosting": false,
+      "newReverseDnsZone": false,
+      "currentExactAssignedNsHosts": "NOT_REQUERIED",
+      "newCloudflareZoneRequired": false,
+      "existingCloudflareZoneReused": true
     }
   },
   "dnsLaw": {
@@ -102,7 +108,10 @@
     "publicFdroidHttpsCannotBeDiscoveredFromSrvAlone": true,
     "cloudflareManagedNameserversNotLocallyOperated": true,
     "registrarMigrationNotRequiredForApkRelease": true,
-    "ptrAndSrvNotReleasePrerequisites": true
+    "ptrAndSrvNotReleasePrerequisites": true,
+    "existingCloudflareAuthorityIsBaseline": true,
+    "noNameserverFleetHostingOrRegistrarWork": true,
+    "reversePtrNotRequiredForApkInstallUpdate": true
   },
   "tlsLaw": {
     "directRenderLane": "RenderManagedTls",
@@ -141,14 +150,14 @@
     "networkFailureMayNotRewriteSourceTruth": true
   },
   "operationalChecks": [
-    "resolveExpectedDnsTarget",
     "rejectUnexpectedAaaaOnDirectRenderLane",
     "verifyTlsHostname",
     "verifyHttpsHealth",
     "verifyMcpInitialization",
     "verifyHostFiltering",
     "verifyNoSecretsInLogs",
-    "verifyProxyOrTunnelModeMatchesLane"
+    "verifyProxyOrTunnelModeMatchesLane",
+    "checkActualFqdnRouteWhenPromotedWithoutReonboardingCloudflare"
   ],
   "crownStatus": "STOP",
   "perimeterModel": {
