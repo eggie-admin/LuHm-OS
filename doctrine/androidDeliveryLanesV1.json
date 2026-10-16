@@ -125,5 +125,15 @@
     "binaryManifestDebuggable": true,
     "binaryManifestReleaseEligible": false
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "releaseUpdateIdentity": {
+    "contract": "doctrine/publicApkUpdateIdentityV1.json",
+    "fixedAppIdMustBeProven": true,
+    "releaseCertificateLineageMustBeProven": true,
+    "monotonicVersionCodeMustBeProven": true,
+    "fdroidIndexSigningIndependent": true,
+    "exactPublicRepoHostIsNotPackageId": true,
+    "testBetaCannotOverwriteStable": true,
+    "sourceOnlyNotPublicProof": true
+  }
 }
