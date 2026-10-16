@@ -62,6 +62,26 @@
       "assetFqdnCandidate": "assets.eggiebagelface.art",
       "activationProofRequired": true,
       "publicGeneratedContentPolicyUnchanged": true
+    },
+    "publicApkUpdates": {
+      "contract": "doctrine/publicApkUpdateIdentityV1.json",
+      "candidateFqdn": "art.eggiebagelface.art",
+      "candidateUrl": "https://art.eggiebagelface.art/fdroid/repo/",
+      "status": "CANDIDATE_UNVERIFIED",
+      "dnsProvider": "cloudflare",
+      "parentNsDelegation": "UNVERIFIED",
+      "cnameTarget": "PENDING_VERIFIED_ORIGIN",
+      "cnameMayNotTargetAssumedFdroidContent": true,
+      "tunnel": "OPTIONAL_SEPARATE_CROWN_GATED_ORIGIN_MODEL",
+      "proxyMode": "PENDING_SITE_HOSTED_TLS_AND_CACHE_PROOF",
+      "httpsRedirect": "ONE_LAYER_ONLY_AFTER_TLS",
+      "cloudflareSslMode": "FullStrictWhenProxied",
+      "publicCache": "PUBLIC_SIGNED_APK_HASHED_ARTIFACTS_ONLY",
+      "mutableIndexCache": "REVALIDATE_AND_NEVER_CACHE_FOREVER",
+      "cloudflareAcme": "DNS01_SCOPED_TOKEN_ONLY_FOR_OWNER_ORIGIN_IF_NEEDED",
+      "ptr": "ONLY_PREFIX_OWNER_MAY_SET",
+      "srv": "NOT_NEEDED_FOR_FDROID_HTTPS",
+      "releaseSigningAuthority": false
     }
   },
   "dnsLaw": {
@@ -71,7 +91,8 @@
     "cloudflareTunnelHostnameUsesCfargotunnelCname": true,
     "txtAndSrvAreMetadataOnly": true,
     "liveDnsStateRequiresRuntimeReceipt": true,
-    "exampleConfigMayNotClaimLiveState": true
+    "exampleConfigMayNotClaimLiveState": true,
+    "publicFdroidHttpsCannotBeDiscoveredFromSrvAlone": true
   },
   "tlsLaw": {
     "directRenderLane": "RenderManagedTls",
