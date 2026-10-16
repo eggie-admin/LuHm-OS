@@ -1,0 +1,168 @@
+{
+  "schema": "luhmOs.continuityReleaseLifecycle.v1",
+  "status": "PROFESSOR_RATIFIED_SOURCE_CANDIDATE",
+  "authority": "Professor",
+  "scope": "LuHm-OS Project Hydra source-of-truth, session continuity, art-first public beta and eventual commercial 1.0",
+  "motto": "PROVE → SEAL → PRESERVE → RESUME → ADVANCE",
+  "systemPurpose": "artist-controlled creative workstation and production tool; the infrastructure serves art",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "phases": [
+    {
+      "step": 100,
+      "id": "PROVE",
+      "rule": "Attach external or deterministic evidence to the exact claim and scope. CI PASS means test PASS, not necessarily deployed runtime or published release.",
+      "requires": [
+        "exact source ref or artifact digest",
+        "observable result",
+        "date and scope",
+        "evidence reference"
+      ]
+    },
+    {
+      "step": 200,
+      "id": "SEAL",
+      "rule": "Commit or record a non-secret receipt with immutable provenance, including negative or unknown results. Do not invent promotion authority.",
+      "requires": [
+        "receipt ID",
+        "proof classification",
+        "claim and boundaries",
+        "Professor approval only if consequential"
+      ]
+    },
+    {
+      "step": 300,
+      "id": "PRESERVE",
+      "rule": "Keep prior approved architectural decisions and evidence intact. Never re-open settled work unless contradicting evidence, an expired applicability window, or a material route/requirements change exists.",
+      "requires": [
+        "historical source and receipts retained",
+        "no retrospective rewriting of failure",
+        "contradiction recorded explicitly"
+      ]
+    },
+    {
+      "step": 400,
+      "id": "RESUME",
+      "rule": "At session or agent handoff, load latest verified source truth, active PRs, immutable receipts, known blockers and next unproven dependency. Do not repeat onboarding unnecessarily.",
+      "requires": [
+        "latest main SHA observed",
+        "active candidate refs",
+        "separate source/runtime/release states",
+        "next actionable unresolved gate"
+      ]
+    },
+    {
+      "step": 500,
+      "id": "ADVANCE",
+      "rule": "Change only what is needed to prove the next unresolved dependency. Keep work in a reviewable candidate until appropriate Crown/CI gates permit promotion.",
+      "requires": [
+        "bounded change",
+        "exact-head CI",
+        "rollback ref",
+        "explicit publication control"
+      ]
+    }
+  ],
+  "continuityRules": {
+    "factStateValues": [
+      "PROVEN",
+      "HISTORICALLY_PROVEN",
+      "UNVERIFIED",
+      "FAILED",
+      "SUPERSEDED"
+    ],
+    "proofClassification": [
+      "SOURCE",
+      "CI",
+      "PROVIDER_DEPLOY",
+      "LIVE_HTTP",
+      "DEVICE_RUNTIME",
+      "SIGNED_APK",
+      "SIGNED_REPO",
+      "PUBLIC_RELEASE"
+    ],
+    "evidenceNotAutomaticallyTransitive": true,
+    "priorProofMustNotBeErasedWhenSuperseded": true,
+    "historicalProofCanBeStaleForCurrentRoute": true,
+    "noRestatingProvenFoundationAsUnverifiedWithoutReason": true,
+    "contradictionMayReopenSpecificClaimOnly": true,
+    "anHttp200ForOneHostDoesNotProveAnotherHost": true,
+    "greenAuditDoesNotProvePublicRelease": true,
+    "noBackgroundAgentRuntimeImplied": true,
+    "existingInfrastructurePreferred": true,
+    "noNewRegistrarOrNameserverOperations": true,
+    "cloudflareManagedDnsBaseline": "PRESERVE_EXISTING_PROVEN_PROVIDER",
+    "directRenderMcpExistingDeployment": "PRESERVE_EXACT_PROVIDER_RECEIPT",
+    "androidPublicUpdates": "NEXT_UNPROVEN_ENDPOINT_AND_SIGNING_CHAIN"
+  },
+  "releaseBusinessCanon": {
+    "sequence": [
+      "FREE_OPEN_BETA",
+      "COMMUNITY_GROWTH",
+      "PUBLIC_VERSION_1_0",
+      "OPTIONAL_MONETIZATION"
+    ],
+    "openBeta": {
+      "costToTesters": "FREE",
+      "publicSignupFees": false,
+      "automaticCharges": false,
+      "requiresSignedUpdatesAndBasicPrivacySecurity": true,
+      "requiresEveryFutureFeature": false
+    },
+    "community": {
+      "userFeedback": "VOLUNTARY",
+      "shareUserArtOnlyWithArtistApproval": true,
+      "privateAssetsNotPublishedWithoutExplicitRightsReview": true
+    },
+    "versionOne": {
+      "priceAndLicensing": "NOT_SELECTED",
+      "commercialOffer": "CAN_BE_INTRODUCED_ONLY_AFTER_EXPLICIT_REVIEW",
+      "existingBetaUsersAutomaticallyCharged": false,
+      "coreArtAccess": "INTENDED_FREE_CORE"
+    },
+    "optionalOfferings": [
+      "voluntary support or donations",
+      "commissioned video and creative services",
+      "original premium art/template packs",
+      "optional paid additions after release review"
+    ],
+    "noUnreviewedArtworkCommercialization": true,
+    "noPromisedRevenue": true,
+    "productNotYetPubliclyReleased": true,
+    "noAutomaticPublicBetaPromotion": true,
+    "finalPriceDecision": "Professor"
+  },
+  "nextKnownDependency": {
+    "scope": "PUBLIC_SIGNED_APK_UPDATE_ROUTE",
+    "currentVerifiedFoundation": [
+      "historical GitHub debug APK and 13 prereleases",
+      "existing Cloudflare DNS provider established in prior receipts",
+      "existing LuHm MCP harness provider LIVE as separately recorded"
+    ],
+    "unverifiedForPublicBeta": [
+      "stable package and release signer lineage",
+      "public HTTPS signed F-Droid index on chosen host",
+      "installed Samsung package + update test",
+      "art privacy and exact artifact review"
+    ],
+    "preserveSeparateReleaseTypes": true,
+    "noRegistrarMigrationNeeded": true
+  },
+  "seal": {
+    "kind": "SOURCE_CONTRACT_ONLY_NOT_RELEASE_RECEIPT",
+    "assertedMainAtDraftStart": "b70345c4c085d8f1abe5acc9e1d56903467fcfdb",
+    "candidateBranch": "candidate/public-apk-update-fqdn-reconciliation-20261016",
+    "releaseState": "AMBER",
+    "protectedWorkNotMergedByThisDocument": true,
+    "noCredentialsStored": true,
+    "noPublicationOrBillingAuthority": true
+  },
+  "crown": {
+    "decisionOwner": "Professor",
+    "approveMergeDeployAfterExactChecks": true,
+    "artPublicationRequiresExactReview": true,
+    "appSigningKeysOwnerControlled": true,
+    "publicReleaseExplicitApproval": true,
+    "billingExplicitApproval": true,
+    "agentsNeverSelfPromote": true
+  }
+}
