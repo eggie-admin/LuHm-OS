@@ -46,8 +46,11 @@ def audit(rootPath):
         for keyValue in ("isDnsRecord", "isPtrRecord", "wildcardTldIsPublicDns", "mayGrantNetworkOrExecutionAuthority"):
             need(revDoc[keyValue] is False, "reverse namespace treated as DNS or authority: " + keyValue)
         nsDoc = chainDoc["authoritativeNameservers"]
-        need(nsDoc["expectedProvider"] == "cloudflare" and nsDoc["delegationState"] == "UNVERIFIED", "nameserver authority claimed without delegation receipt")
-        for keyValue in ("confirmParentZoneDelegation", "confirmAuthoritativeNsAndSoa", "nameserverNamesMustBeObservedNotGuessed", "sourceExampleMayNotClaimLiveAuthority"):
+        need(nsDoc["expectedProvider"] == "cloudflare" and nsDoc["delegationState"] == "CLOUDFLARE_EXISTING_AUTHORITY_OPERATOR_AND_HISTORICAL_PROOF", "established Cloudflare DNS authority was erased or replaced")
+        need(nsDoc.get("proofScope") == "EXISTING_PROVIDER_CONFIRMED; CURRENT_ASSIGNED_NS_HOSTS_NOT_REMEASURED", "historical provider evidence overstated as current NS query")
+        need(nsDoc.get("noRegistrarOrAuthoritativeNameserverServiceImplementation") is True and nsDoc.get("noDelegationChangePlanned") is True and nsDoc.get("confirmOnlyOnRelevantIncidentOrApprovedDnsChange") is True, "new registrar or nameserver project invented")
+        need(all(nsDoc.get(k) is False for k in ("confirmParentZoneDelegation", "confirmAuthoritativeNsAndSoa", "checkDnssecChainWhenEnabled")), "established Cloudflare DNS re-onboarding wrongly required")
+        for keyValue in ("nameserverNamesMustBeObservedNotGuessed", "sourceExampleMayNotClaimLiveAuthority"):
             need(nsDoc[keyValue] is True, "nameserver proof boundary missing: " + keyValue)
         need(nsDoc["mayChangeRegistrarDelegation"] is False, "source grants registrar mutation")
         ptrDoc = chainDoc["reverseDnsPtrWhenApplicable"]

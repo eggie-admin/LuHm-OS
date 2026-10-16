@@ -4,6 +4,10 @@ on:
   pull_request:
     paths:
       - "doctrine/networkSpineV1.json"
+      - "doctrine/publicApkUpdateIdentityV1.json"
+      - "doctrine/artRepositoryNameMapV1.json"
+      - "doctrine/androidDeliveryLanesV1.json"
+      - "tools/publicApkUpdateIdentityAudit.py"
       - "doctrine/cloudflareAirTrafficControllerV1.json"
       - "doctrine/belldandyPkiCorporateSecretaryV1.json"
       - "doctrine/currentSourceTruthV3.json"
@@ -18,6 +22,10 @@ on:
     branches: ["main", "candidate/**"]
     paths:
       - "doctrine/networkSpineV1.json"
+      - "doctrine/publicApkUpdateIdentityV1.json"
+      - "doctrine/artRepositoryNameMapV1.json"
+      - "doctrine/androidDeliveryLanesV1.json"
+      - "tools/publicApkUpdateIdentityAudit.py"
       - "doctrine/cloudflareAirTrafficControllerV1.json"
       - "doctrine/belldandyPkiCorporateSecretaryV1.json"
       - "doctrine/currentSourceTruthV3.json"
@@ -44,6 +52,8 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Check shared spine contracts
         run: python3 tools/networkSpineAudit.py
+      - name: Keep Cloudflare and public APK identity canonical
+        run: python3 tools/publicApkUpdateIdentityAudit.py
       - name: Exercise drift and filesystem negative controls
         run: python3 tools/networkSpineTests.py
       - name: Verify existing PKI contract compatibility
