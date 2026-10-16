@@ -3,7 +3,7 @@
   "status": "SOURCE_RECONCILED_NOT_NETWORK_OR_RELEASE_PROVEN",
   "authority": "Professor",
   "product": "LuHm-OS artist-first Android creative app",
-  "purpose": "Bind the planned public F-Droid-compatible repository, canonical reverse-domain Android application namespace, production APK signature lineage and network PKI evidence without treating any DNS or CI contract as a live signed update.",
+  "purpose": "Canonical LuHm-OS Android package identity and Cloudflare-managed DNS/CDN route for a separately signed public F-Droid-compatible update repository. The Professor is neither domain registrar nor operator of authoritative or reverse DNS nameservers.",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Professor promotes.",
   "pointers": {
     "networkSpine": "doctrine/networkSpineV1.json",
@@ -80,10 +80,10 @@
   },
   "dns": {
     "candidateZone": "eggiebagelface.art",
-    "intendedAuthority": "cloudflare",
-    "actualRegistrarDelegation": "UNVERIFIED",
-    "authoritativeNsSoa": "UNVERIFIED",
-    "dnssecDsDnskeyIfEnabled": "UNVERIFIED",
+    "intendedAuthority": "Cloudflare-managed authoritative DNS provider; do not run LuHm nameservers",
+    "actualRegistrarDelegation": "UNKNOWN_CHECK_EXISTING_ONLY_NO_CHANGE",
+    "authoritativeNsSoa": "PROVIDER_MANAGED_OBSERVATION_ONLY",
+    "dnssecDsDnskeyIfEnabled": "VERIFY_EXISTING_POLICY_ONLY",
     "forwardRecords": [
       "A",
       "AAAA",
@@ -91,14 +91,14 @@
     ],
     "fqdnRecordsStatus": "UNVERIFIED",
     "cnameCannotCoexistWithOtherTypesAtSameOwnerName": true,
-    "cnameTargetChoice": "PENDING_VERIFIED_PUBLIC_FDROID_HOST",
+    "cnameTargetChoice": "PENDING_VERIFIED_HTTPS_STATIC_REPOSITORY_ORIGIN",
     "historicalRenderSiteTarget": "luhm-os-publication-site.onrender.com",
     "historicalRenderSiteIsConfirmedFdroidRepoServer": false,
     "acceptedOriginModels": [
       "approved HTTPS static hosting with only signed public repo bytes",
       "approved Cloudflare Tunnel to a bounded private Apache/loopback origin with externally verified HTTPS"
     ],
-    "chosenOrigin": "PENDING_OPERATOR_AND_HOST_EVIDENCE",
+    "chosenOrigin": "PENDING_EXISTING_APPROVED_STATIC_HOST_NOT_SELF_HOSTED_NS",
     "routeMayNotBeActivatedBySourceOnly": true,
     "publicOriginIpUnknownNeverInventAOrAaaa": true,
     "srvRecordsMayAdvertiseProtocolAwareServicesOnly": true,
@@ -113,18 +113,26 @@
     "privateArtAndPrivateTokensNeverCdnCached": true,
     "authenticatedMcpResponsesNeverCdnCached": true,
     "cloudflareProxyCannotImproveUnreachableOrigin": true,
-    "cloudflareDedicatedTunnelRouteRequiresLiveTunnelAndOriginReceipt": true
+    "cloudflareDedicatedTunnelRouteRequiresLiveTunnelAndOriginReceipt": true,
+    "cloudflareZoneOperatorRole": "Manage reviewed DNS records in existing Cloudflare zone, not registrar or nameserver operation",
+    "existingNameserverSetupNeverRecreatedForUpdate": true,
+    "newDelegationNeverRequiredForLocalApkUpdate": true,
+    "reverseZoneManagementExcluded": true,
+    "srvCreationUnnecessaryForFdroid": true
   },
   "reversePtr": {
     "meaning": "IP address reverse DNS in in-addr.arpa or ip6.arpa controlled by IP prefix holder",
-    "current": "UNVERIFIED_AND_NOT_REQUIRED_FOR_APK_UPDATE",
+    "current": "NOT_IN_RELEASE_PATH",
     "explicitPrefixAuthorityRequired": true,
     "neverCreatePtrInForwardEggiebagelfaceZoneForSharedRenderIp": true,
     "notRequiredForDomainControlValidationOrAndroidApkUpdate": true,
     "dualStackWhenRealAddressOwnedOnly": true,
     "forwardConfirmedReverseForMailOrOwnedHostIfNeeded": true,
     "ptrHostnameDoesNotDeriveAndroidApplicationId": true,
-    "neverClaimPtrControlOfCloudflareOrRenderSharedIps": true
+    "neverClaimPtrControlOfCloudflareOrRenderSharedIps": true,
+    "providerResponsibility": "IP prefix holder, not LuHm-OS or Cloudflare forward-zone operator",
+    "userMustOperateReverseZones": false,
+    "mandatoryForPublicRelease": false
   },
   "tls": {
     "publicClient": "HTTPS with correctly trusted hostname-valid certificate and chain",
@@ -132,8 +140,8 @@
     "preferredVersion": "TLS1.3",
     "forbidPlaintextOnPublicReleaseRepository": true,
     "edgeProxyMode": "FullStrict when Cloudflare proxy is enabled",
-    "directOrigin": "publicly trusted managed certificate (Render if chosen) or approved Let's Encrypt ACME on durable owner-controlled origin",
-    "letsEncrypt": "ACME issuance and automated renewal on owner-controlled TLS origin only when managed certificate is not already provided",
+    "directOrigin": "hosting-provider managed valid certificate; Let's Encrypt ACME only if owning an origin that needs independent TLS",
+    "letsEncrypt": "Optional origin TLS implementation only when managed hosting TLS is unavailable; not a release prerequisite or standalone nameserver project",
     "acmeChallenges": [
       "DNS-01 with narrowly scoped Cloudflare token when supported and approved",
       "HTTP-01 only when public port 80 and challenge route intentionally enabled"
@@ -155,7 +163,8 @@
       "hstsPreloadRequiresSeparateHumanApproval": true
     },
     "privateKeyCustody": "approved persistent TLS origin or managed secret store only; never Git, ChatGPT, Android APK, public document root, or client-side JavaScript",
-    "renewalIdentity": "certificate SAN, key custodianship, renewal job, and live post-renewal HTTPS observation are separate receipts"
+    "renewalIdentity": "certificate SAN, key custodianship, renewal job, and live post-renewal HTTPS observation are separate receipts",
+    "edgeCertificateManager": "Cloudflare when hostname record is proxied; HTTPS origin manages TLS when DNS-only"
   },
   "socketAndProxy": {
     "publicIngress": [
@@ -177,7 +186,6 @@
   },
   "releaseAndRuntimeProof": {
     "required": [
-      "actual parent-delegated NS+SOA",
       "correct record target and DNSSEC if enabled",
       "HTTPS public cert chain + SNI",
       "HTTP downgrade redirect policy tested",
@@ -195,7 +203,13 @@
     "certificateMutationAuthority": false,
     "signingAuthority": false,
     "releasePublicationAuthority": false,
-    "canCallPublicFinalFormGreen": false
+    "canCallPublicFinalFormGreen": false,
+    "excludedAsReleasePrerequisites": [
+      "creating a registrar account",
+      "running authoritative DNS or reverse NS servers",
+      "creating IP PTR records",
+      "adding SRV records for HTTPS F-Droid"
+    ]
   },
   "upstreamReferences": [
     "https://developer.android.com/studio/publish/app-signing",
@@ -204,7 +218,34 @@
     "https://developers.cloudflare.com/dns/additional-options/reverse-zones/",
     "https://developers.cloudflare.com/dns/manage-dns-records/reference/dns-record-types/",
     "https://developers.cloudflare.com/ssl/edge-certificates/additional-options/always-use-https/",
-    "https://letsencrypt.org/docs/challenge-types/"
+    "https://letsencrypt.org/docs/challenge-types/",
+    "https://developers.cloudflare.com/dns/nameservers/"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "topology": {
+    "sequence": [
+      "existingExternalDomainRegistrar",
+      "existingDelegationToCloudflareIfAlreadyConfigured",
+      "cloudflareManagedAuthoritativeDns",
+      "cloudflareEdgeWhenApproved",
+      "approvedHttpsStaticOrigin",
+      "signedFdroidRepoIndexAndApk",
+      "androidInstallAndVerifiedUpdate"
+    ],
+    "registrar": "EXTERNAL_EXISTING_PROVIDER_NOT_AN_ENGINEERING_WORKSTREAM",
+    "userOperatesRegistrar": false,
+    "userOperatesAuthoritativeNameservers": false,
+    "userOperatesReverseDnsNameservers": false,
+    "nameserverDeploymentPlanned": false,
+    "registrarMigrationPlanned": false,
+    "changingDelegationRequiredForApkUpdates": false,
+    "cloudflareRole": "MANAGED_DNS_AND_OPTIONAL_CDN_TLS_EDGE",
+    "providerManagedNameServers": true,
+    "existingDelegationReadOnlyCheckIfTroubleshooting": true,
+    "dnsRecordMutationAllowedOnlyWithProfessorApproval": true,
+    "apexZone": "eggiebagelface.art",
+    "candidateUpdateFqdn": "art.eggiebagelface.art",
+    "verifiedSignedRepositoryOrigin": "PENDING",
+    "cloudflareCdnNotARepositorySigner": true
+  }
 }
