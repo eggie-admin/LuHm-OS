@@ -113,7 +113,8 @@
     "Never silently replace the ChatGPT plugin or install Android updates without app/user approval",
     "Inspect approved Cloudflare DNS hostname and existing zone records, read-only before review",
     "Verify actually selected HTTPS hosting origin and relevant provider-managed certificates",
-    "Do not modify registrar delegation, run private authoritative nameservers or create PTR/SRV infrastructure for APK updates"
+    "Do not modify registrar delegation, run private authoritative nameservers or create PTR/SRV infrastructure for APK updates",
+    "Reuse the established Cloudflare zone; check only record collision for the exact proposed F-Droid repository host"
   ],
   "authorityBoundary": {
     "changeNameservers": false,
@@ -159,6 +160,10 @@
     "managedDnsProvider": "cloudflare",
     "registrarProviderChangeNotRequired": true,
     "customNameserverSetupNotRequired": true,
-    "ptrAndSrvAreNotReleaseDependencies": true
+    "ptrAndSrvAreNotReleaseDependencies": true,
+    "existingCloudflareDnsHostAuthority": "PRESERVE_ESTABLISHED_PROVIDER",
+    "noRegistrarOrNameserverChanges": true,
+    "fqdnHttpServiceProofIndependentFromDnsAuthority": true,
+    "existingAssignedNsNotFabricated": true
   }
 }
