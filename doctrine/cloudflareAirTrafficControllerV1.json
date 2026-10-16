@@ -68,9 +68,9 @@
       "candidateFqdn": "art.eggiebagelface.art",
       "candidateUrl": "https://art.eggiebagelface.art/fdroid/repo/",
       "status": "CANDIDATE_UNVERIFIED",
-      "dnsProvider": "cloudflare",
-      "parentNsDelegation": "UNVERIFIED",
-      "cnameTarget": "PENDING_VERIFIED_ORIGIN",
+      "dnsProvider": "cloudflareManagedAuthoritativeDns",
+      "parentNsDelegation": "EXISTING_EXTERNAL_REGISTRAR_READ_ONLY_VERIFY_IF_NEEDED",
+      "cnameTarget": "PENDING_VERIFIED_HTTPS_STATIC_ORIGIN",
       "cnameMayNotTargetAssumedFdroidContent": true,
       "tunnel": "OPTIONAL_SEPARATE_CROWN_GATED_ORIGIN_MODEL",
       "proxyMode": "PENDING_SITE_HOSTED_TLS_AND_CACHE_PROOF",
@@ -79,9 +79,16 @@
       "publicCache": "PUBLIC_SIGNED_APK_HASHED_ARTIFACTS_ONLY",
       "mutableIndexCache": "REVALIDATE_AND_NEVER_CACHE_FOREVER",
       "cloudflareAcme": "DNS01_SCOPED_TOKEN_ONLY_FOR_OWNER_ORIGIN_IF_NEEDED",
-      "ptr": "ONLY_PREFIX_OWNER_MAY_SET",
-      "srv": "NOT_NEEDED_FOR_FDROID_HTTPS",
-      "releaseSigningAuthority": false
+      "ptr": "NOT_IN_APK_UPDATE_PATH",
+      "srv": "NOT_IN_FDROID_REPOSITORY_DISCOVERY_PATH",
+      "releaseSigningAuthority": false,
+      "manageOwnNameservers": false,
+      "becomeRegistrar": false,
+      "createReverseNsZone": false,
+      "changeExistingNsDelegation": false,
+      "externalRegistrarDoesNotHostRepo": true,
+      "edgeCertificate": "CLOUDFLARE_MANAGED_WHEN_PROXIED",
+      "originCertificate": "MANAGED_HOSTING_TLS_OR_VERIFIED_INDEPENDENT_ORIGIN"
     }
   },
   "dnsLaw": {
@@ -92,7 +99,10 @@
     "txtAndSrvAreMetadataOnly": true,
     "liveDnsStateRequiresRuntimeReceipt": true,
     "exampleConfigMayNotClaimLiveState": true,
-    "publicFdroidHttpsCannotBeDiscoveredFromSrvAlone": true
+    "publicFdroidHttpsCannotBeDiscoveredFromSrvAlone": true,
+    "cloudflareManagedNameserversNotLocallyOperated": true,
+    "registrarMigrationNotRequiredForApkRelease": true,
+    "ptrAndSrvNotReleasePrerequisites": true
   },
   "tlsLaw": {
     "directRenderLane": "RenderManagedTls",
