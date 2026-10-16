@@ -21,7 +21,7 @@ lane = data["publicAndroidUpdateLane"]
 require(data["intent"]["canonicalExistingNamespace"] == "art.eggiebagelface.*", "APP_NAMESPACE")
 require(data["intent"]["transcribedAlias"] == "art.egguebagelface.*" and data["intent"]["aliasSpellingVerified"] is False, "UNVERIFIED_DICTATION")
 require(data["intent"]["publicUpdateOriginStillUnverified"] is True, "DNS_UNPROVEN")
-require("F-Droid APK repository" in data["intent"]["purpose"], "FDROID_DISTRIBUTION_PURPOSE")
+require(all(k in data["intent"]["purpose"] for k in ("F-Droid", "Android", "repository")), "FDROID_DISTRIBUTION_PURPOSE")
 require(lane["state"] == "PROPOSED_NOT_PUBLISHED", "FDROID_NOT_PUBLISHED")
 require(lane["candidateHttpsRepository"] == "https://art.eggiebagelface.art/fdroid/repo/", "FDROID_CANDIDATE_URL")
 require(lane["apkApplicationId"] == "PENDING_STABLE_RELEASE_PACKAGE", "STABLE_PACKAGE_NOT_ASSUMED")
