@@ -545,7 +545,11 @@
       "crownStatus": "STOP"
     },
     "publicApkUpdateIdentity": "doctrine/publicApkUpdateIdentityV1.json",
-    "publicApkHostStatus": "FQDN_TLS_INDEX_UNVERIFIED"
+    "publicApkHostStatus": "FQDN_TLS_INDEX_UNVERIFIED",
+    "publicApkNetworkOperator": "CLOUDFLARE_MANAGED_DNS_EDGE_EXISTING_DOMAIN",
+    "ownRegistrarOrNameservers": false,
+    "createPtrForApkUpdate": false,
+    "existingNsDelegationMutation": "NOT_IN_SCOPE"
   },
   "housekeepingLayer": {
     "contract": "doctrine/belldandyHousekeepingV1.json",
@@ -752,7 +756,8 @@
       "identityContract": "doctrine/publicApkUpdateIdentityV1.json",
       "reverseDomainNamespace": "art.eggiebagelface",
       "dnsPtrNotApkIdentity": true,
-      "signerAndVersionUpdateGate": "PENDING_STABLE_SIGNER_AND_INSTALLED_UPGRADE"
+      "signerAndVersionUpdateGate": "PENDING_STABLE_SIGNER_AND_INSTALLED_UPGRADE",
+      "domainTopology": "EXTERNAL_REGISTRAR_CLOUDFLARE_DNS_APPROVED_HTTPS_STATIC_HOST"
     }
   },
   "typedSqlLayer": {
