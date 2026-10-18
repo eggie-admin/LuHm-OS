@@ -143,12 +143,20 @@ def probe(path):
 def render(manifest, inputRoot, outputRoot):
     validated, output, audio, videoFadeOut = validate(manifest, inputRoot, outputRoot)
     # All source files must be valid before any encoding work begins.
+    totalDuration = sum(float(shot["seconds"]) for shot in validated)
     for shot in validated:
         streams = probe(shot["inputPath"]).get("streams", [])
         if not any(s.get("codec_type") == "video" for s in streams):
             raise ValueError("RED_INPUT_NO_VIDEO")
-    if audio and not any(s.get("codec_type") == "audio" for s in probe(audio["inputPath"]).get("streams", [])):
-        raise ValueError("RED_INPUT_NO_AUDIO")
+    if audio:
+        audioInfo = probe(audio["inputPath"])
+        if not any(s.get("codec_type") == "audio" for s in audioInfo.get("streams", [])):
+            raise ValueError("RED_INPUT_NO_AUDIO")
+        audioDuration = float(audioInfo.get("format", {}).get("duration", 0))
+        if float(audio["startSeconds"]) + totalDuration > audioDuration + 0.05:
+            raise ValueError("RED_AUDIO_TOO_SHORT")
+        if float(audio["fadeOutSeconds"]) > totalDuration:
+            raise ValueError("RED_AUDIO_FADE")
     if not jobLock.acquire(blocking=False):
         raise ValueError("RED_RENDER_BUSY")
     try:
@@ -197,6 +205,7 @@ def render(manifest, inputRoot, outputRoot):
                 muxedOutput = stage / "episode-with-audio.mp4"
                 execute([ffmpeg, "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
                          "-i", str(temporaryOutput), "-ss", f"{float(audio['startSeconds']):.3f}",
+                         "-protocol_whitelist", "file,pipe",
                          "-i", str(audio["inputPath"]), "-filter_complex", audioFilter,
                          "-map", "0:v:0", "-map", "[aout]", "-c:v", "copy", "-c:a", "aac",
                          "-b:a", "192k", "-t", f"{duration:.3f}", "-movflags", "+faststart",
