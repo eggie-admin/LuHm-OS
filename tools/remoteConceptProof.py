@@ -25,8 +25,10 @@ def main():
     parts = []
     for index, (shot, title, seconds, color) in enumerate(STORY):
         part = out / ("shot-" + shot + ".mp4")
-        video_filter = ("drawtext=fontfile=" + font + ":text='" + title +
-                        "':fontcolor=white:fontsize=32:x=(w-text_w)/2:y=(h-text_h)/2")
+        title_file = out / ("title-" + shot + ".txt")
+        title_file.write_text(title, encoding="utf-8")
+        video_filter = ("drawtext=fontfile=" + font + ":textfile=" + str(title_file) +
+                        ":fontcolor=white:fontsize=32:x=(w-text_w)/2:y=(h-text_h)/2")
         call(["ffmpeg", "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
               "-f", "lavfi", "-i", f"color=c={color}:s=720x1280:r=30:d={seconds}",
               "-vf", video_filter, "-an", "-c:v", "libx264", "-threads", "2",
