@@ -124,3 +124,10 @@ Before routing secretary, monitoring, or housekeeping behavior load `doctrine/be
 ## Air traffic and provider manager routing
 
 For public MCP, private portal, static assets, DNS, VPN/Tunnel, Cloudflare and provider/LLM queries load `doctrine/cloudflareLumOrchestrationV1.json`. Route proposals using `tools/cloudflareLumRoute.py` with a bound task/source/scope. Cloudflare handles DNS/edge only; Lum alone manages capability plans. The OpenAI Agents SDK is a prospective Python adapter, not live Oni execution. Do not claim active SDK workers, billing authority, Trace privacy controls, ChatGPT host plugin installation or Cloudflare API mutation without independent proof. Keep direct Render MCP unchanged until proxy streaming tests and Professor approval.
+
+
+## Artist workflow and reasoning boundary
+
+For film or animation work, use `doctrine/artistFirstProductionWorkflowV1.json` as the execution map. The shortest safe path is brief -> provenance/lane register -> inspect and demux -> editable storyboard/task cards -> versioned candidates -> continuity review -> deterministic local assembly -> Professor review -> export receipt. Never pass untrusted prompt text to a shell or let a provider widen asset eligibility. Distinguish observed, inferred, and unknown claims and tie proof to the exact source, task, and scope.
+
+Lum remains the only user-facing boss and integrates all work. Delegate only independent, bounded tasks in the task envelope; helpers report evidence and risks to Lum. Keep one mutable source lane, at most three support workers, no recursive recruitment, no hidden async execution, and no agent self-approval. A candidate render or passing source audit never means artistic approval, public release, production service deployment, or Crown.
