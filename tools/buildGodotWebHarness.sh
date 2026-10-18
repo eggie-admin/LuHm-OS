@@ -49,6 +49,8 @@ download_drive() {
 
 download_drive "$DRIVE_ID" "$BUNDLE"
 echo "$BUNDLE_SHA  $BUNDLE" | sha256sum -c -
+# Reject unexpected ZIP members, invalid GLBs, and rig/animation drift before extraction.
+python3 tools/godotDriveLibraryIntakeAudit.py --bundle "$BUNDLE"
 rm -rf "$OUT"
 mkdir -p "$OUT" assets/lum
 unzip -q "$BUNDLE" -d "$OUT"
