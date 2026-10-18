@@ -1,0 +1,20 @@
+name: Social Video Orchestrator
+
+on:
+  pull_request:
+    paths:
+      - 'tools/socialVideoOrchestrator.py'
+      - 'tests/socialVideoOrchestratorTest.py'
+      - '.github/workflows/social-video-orchestrator.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m py_compile tools/socialVideoOrchestrator.py tests/socialVideoOrchestratorTest.py
+      - run: python3 tests/socialVideoOrchestratorTest.py
