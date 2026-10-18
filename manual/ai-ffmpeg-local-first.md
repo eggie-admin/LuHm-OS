@@ -22,7 +22,7 @@ python3 host/ai-ffmpeg/ai-ffmpeg.py render --manifest "$HOME/hydra/media/episode
 
 It produces an H.264/yuv420p vertical MP4 and a SHA-256 receipt next to the output. Both remain private candidates. The manifest accepts only local media with bounded paths, clip lengths and source file sizes. This is a CPU review renderer, not a full finishing pipeline.
 
-For a reviewed music-backed cut, add this optional object to the manifest. `source` must be a local audio file under the input root. The start offset selects where the soundtrack begins; volume is limited to 0–1; the fade duration is bounded to 10 seconds.
+For a reviewed music-backed cut, add this optional object to the manifest. `source` must be a local audio file under the input root, and the selected track segment must cover the full cut. The start offset selects where the soundtrack begins; volume is limited to 0–1; the fade duration is bounded to 10 seconds and the cut length.
 
 ```json
 "audioBed": {
