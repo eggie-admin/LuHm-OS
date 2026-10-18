@@ -1,0 +1,271 @@
+{
+  "schema": "luhm.artistFirstProductionWorkflow.v1",
+  "status": "PROPOSED_ONLY",
+  "authority": "Professor",
+  "owner": "lum",
+  "sourceLaw": "AI proposes. Policy authorizes. Deterministic evidence proves. Professor promotes.",
+  "purpose": "A small, reversible path from an art brief and donor media to a reviewable, editable MP4 candidate.",
+  "follows": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/artistFirstArtToolCanonV1.json",
+    "doctrine/yumeCreativePipelineV1.json",
+    "doctrine/contentLaneDoctrineV1.json",
+    "doctrine/assetEligibilityMatrixV1.json",
+    "doctrine/mediaAssetFactoryV1.json",
+    "doctrine/ONI_MESH_CONTROL_PLANE_V2.json",
+    "host/ai-ffmpeg/ai-ffmpeg.py"
+  ],
+  "roleAuthority": {
+    "humanIntent": "Professor",
+    "conversationalBoss": "lum",
+    "creativeLead": "yumeArtOni",
+    "deterministicExecution": "kugiToolOni",
+    "provenance": "sumiAssetOni",
+    "technicalResearch": "skuldResearch",
+    "riskAndEvidence": "urdDoctorGoddess",
+    "records": "belldandySecretary",
+    "aiCanPromote": false,
+    "providerCanWidenEligibility": false,
+    "agentCanSelfApprove": false
+  },
+  "taskEnvelope": {
+    "required": [
+      "taskId",
+      "intent",
+      "projectId",
+      "sourceRef",
+      "contentLane",
+      "authorityClass",
+      "allowedCapabilities",
+      "forbiddenCapabilities",
+      "assetIds",
+      "evidenceRefs",
+      "budget",
+      "stopConditions"
+    ],
+    "oneMutableSourceLane": true,
+    "evidenceMustBindToSameTaskSourceAndScope": true,
+    "unknownOrMissingRightsFailClosed": true
+  },
+  "stages": [
+    {
+      "id": "brief",
+      "outputs": [
+        "creativeIntent",
+        "audienceAndFormat",
+        "storyBeats",
+        "reviewer"
+      ],
+      "stopIf": [
+        "creativeIntentContradictsSealedScript",
+        "requiredHumanChoiceIsMissing"
+      ]
+    },
+    {
+      "id": "register",
+      "outputs": [
+        "protectedMasterRegister",
+        "assetProvenanceRegister",
+        "contentLaneDecision",
+        "sourceHashes"
+      ],
+      "requirements": [
+        "preserveOriginalsReadOnly",
+        "recordOwnerAndOrigin",
+        "recordRightsAndConsentStatus",
+        "recordParentAssetAndDerivation"
+      ],
+      "stopIf": [
+        "provenanceMissing",
+        "rightsUnknownForPlannedUse",
+        "laneEligibilityUnknown"
+      ]
+    },
+    {
+      "id": "inspect-and-demux",
+      "outputs": [
+        "ffprobeInventory",
+        "streamMap",
+        "demuxCommands",
+        "demuxHashes"
+      ],
+      "requirements": [
+        "inspectBeforeDecode",
+        "useExplicitStreamMap",
+        "useLocalAllowlistedPaths",
+        "keepSourceReadOnly",
+        "recordToolVersionAndArguments"
+      ],
+      "law": [
+        "demuxingCreatesAWorkingCopyNotRightsOrApproval",
+        "neverFetchRemoteUrlsFromAnAiTask"
+      ]
+    },
+    {
+      "id": "storyboard-and-task-cards",
+      "outputs": [
+        "shotList",
+        "timing",
+        "referenceBindings",
+        "providerNeutralTaskCards"
+      ],
+      "requirements": [
+        "editableShotList",
+        "eachReferenceHasAssetIdAndLane",
+        "generatedConceptsRemainCandidates"
+      ],
+      "stopIf": [
+        "privateReferenceWouldEnterPublicLane",
+        "providerTaskHasNoBoundedBudget"
+      ]
+    },
+    {
+      "id": "candidate-generation",
+      "outputs": [
+        "versionedShotCandidates",
+        "generationReceipts"
+      ],
+      "requirements": [
+        "writeNewVersionedFiles",
+        "retainPromptAndProviderReceipt",
+        "useOnlyEligibleReferences",
+        "capParallelJobsAtThree"
+      ],
+      "law": [
+        "neverOverwriteProtectedMaster",
+        "providerSuccessDoesNotPromoteCanon",
+        "noHiddenBackgroundAgents"
+      ]
+    },
+    {
+      "id": "continuity-review",
+      "outputs": [
+        "continuityFindings",
+        "contaminationFindings",
+        "humanEditNotes"
+      ],
+      "requirements": [
+        "compareAgainstApprovedCharacterAndSceneReferences",
+        "reportObservedInferredAndUnknownSeparately"
+      ],
+      "stopIf": [
+        "identityMismatchIsUnresolved",
+        "referenceLeakageIsDetected",
+        "reviewEvidenceDoesNotMatchCandidateHash"
+      ]
+    },
+    {
+      "id": "deterministic-assembly",
+      "outputs": [
+        "silentAnimatic",
+        "candidateMp4",
+        "renderReceipt"
+      ],
+      "requirements": [
+        "useAllowlistedRendererPreset",
+        "useArgumentArraysNotShellText",
+        "renderToNewOutputPath",
+        "hashEveryInputAndOutput",
+        "recordExactSourceAndToolVersions",
+        "verifyCodecDimensionsFrameRateDurationAndAudioStreams"
+      ],
+      "law": [
+        "rendererIsLocalLoopbackReviewOnly",
+        "llmTextNeverBecomesACommand",
+        "renderDoesNotGrantPublishOrCrown"
+      ]
+    },
+    {
+      "id": "professor-review",
+      "outputs": [
+        "approvalOrRevisionReceipt"
+      ],
+      "requirements": [
+        "showExactCandidateAndHash",
+        "supportFrameAndAudioReview",
+        "recordChangesAsNewVersion"
+      ],
+      "stopIf": [
+        "approvalMissing",
+        "approvalHashMismatch"
+      ]
+    },
+    {
+      "id": "export",
+      "outputs": [
+        "finalFormCandidate",
+        "exportReceipt"
+      ],
+      "requirements": [
+        "applyApprovedTitleCardAndFade",
+        "verifyFinalFrameBlackWhenRequested",
+        "keepUploadFilenameAndMetadataFreeOfPrivateDetails"
+      ],
+      "law": [
+        "exportMeansLocalCandidateOnly",
+        "publicationRequiresSeparatePolicyAndHumanAction"
+      ]
+    }
+  ],
+  "reasoningPolicy": {
+    "orderedSources": [
+      "currentDoctrine",
+      "sealedHumanIntent",
+      "versionedAssetsAndReceipts",
+      "providerDocumentation",
+      "modelInference"
+    ],
+    "requiredLabels": [
+      "observed",
+      "inferred",
+      "unknown"
+    ],
+    "rules": [
+      "cite the source or receipt for consequential claims",
+      "keep uncertainty explicit and choose a reversible next step",
+      "resolve contradictions by authority and source freshness, then report unresolved conflicts",
+      "use the smallest sufficient model or tool; do not introduce a cloud service without a measured need and entitlement proof",
+      "ask for input only when a missing human choice changes the creative result or authorization boundary"
+    ]
+  },
+  "mesh": {
+    "boss": "lum",
+    "helpersSpeakTo": "lum",
+    "maxParallelSupportWorkers": 3,
+    "maxMutableSourceLanes": 1,
+    "recursiveRecruitment": false,
+    "hiddenAsyncExecution": false,
+    "delegateOnlyIndependentReadOnlyOrBoundedTasks": true,
+    "mutableWorkRequiresExplicitTaskEnvelopeCapability": true,
+    "handoffRequires": [
+      "sourceRef",
+      "finding",
+      "evidenceRef",
+      "confidence",
+      "remainingRisk"
+    ],
+    "allChangesIntegratedAndVerifiedByLum": true
+  },
+  "releaseGates": {
+    "candidateReviewRequired": true,
+    "professorApprovalRequired": true,
+    "rightsAndLaneChecksRequired": true,
+    "publicPublicationAutomatic": false,
+    "serviceDeploymentAutomatic": false,
+    "canonicalPromotionAutomatic": false,
+    "crownStatus": "STOP"
+  },
+  "audit": {
+    "classification": "source-contract-only",
+    "test": "tests/test-artist-workflow-contract.py",
+    "doesNotProve": [
+      "interactiveArtistUI",
+      "providerEntitlement",
+      "privateStorageAccess",
+      "liveAgentExecution",
+      "deployedRenderer",
+      "artisticApproval",
+      "publicationRights"
+    ]
+  }
+}

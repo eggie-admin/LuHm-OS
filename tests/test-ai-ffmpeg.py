@@ -72,6 +72,48 @@ with tempfile.TemporaryDirectory() as scratch:
     copyJob["arbitraryCommand"] = "rm -rf /"
     reject(copyJob, inputRoot, outputRoot, "RED_MANIFEST_FIELDS")
 
+    audioPath = inputRoot / "review-track.wav"
+    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
+                    "-f", "lavfi", "-i", "sine=frequency=440:duration=5",
+                    "-c:a", "pcm_s16le", str(audioPath)], check=True)
+    audioCandidate = copy.deepcopy(candidate)
+    audioCandidate["jobId"] = "pirate-daddy-audio-test"
+    audioCandidate["output"] = "pirate-daddy-audio-test.mp4"
+    audioCandidate["audioBed"] = {"source": "review-track.wav", "startSeconds": 0.25,
+                                   "volume": 0.5, "fadeOutSeconds": 0.5}
+    audioCandidate["videoFadeOutSeconds"] = 0.5
+    copyJob = copy.deepcopy(audioCandidate)
+    copyJob["audioBed"]["source"] = "../outside.wav"
+    reject(copyJob, inputRoot, outputRoot, "RED_PATH_ESCAPE")
+    copyJob = copy.deepcopy(audioCandidate)
+    copyJob["audioBed"]["volume"] = 1.1
+    reject(copyJob, inputRoot, outputRoot, "RED_AUDIO_VOLUME")
+    copyJob = copy.deepcopy(audioCandidate)
+    copyJob["videoFadeOutSeconds"] = 1
+    reject(copyJob, inputRoot, outputRoot, "RED_VIDEO_FADE")
+    shortAudioPath = inputRoot / "short-track.wav"
+    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
+                    "-f", "lavfi", "-i", "sine=frequency=440:duration=0.5",
+                    "-c:a", "pcm_s16le", str(shortAudioPath)], check=True)
+    shortAudioCandidate = copy.deepcopy(audioCandidate)
+    shortAudioCandidate["jobId"] = "pirate-daddy-short-audio-test"
+    shortAudioCandidate["output"] = "pirate-daddy-short-audio-test.mp4"
+    shortAudioCandidate["audioBed"]["source"] = "short-track.wav"
+    try:
+        mod.render(shortAudioCandidate, inputRoot, outputRoot)
+        raise AssertionError("short soundtrack must be rejected")
+    except ValueError as exc:
+        assert "RED_AUDIO_TOO_SHORT" in str(exc), str(exc)
+    longFadeCandidate = copy.deepcopy(audioCandidate)
+    longFadeCandidate["jobId"] = "pirate-daddy-long-fade-test"
+    longFadeCandidate["output"] = "pirate-daddy-long-fade-test.mp4"
+    longFadeCandidate["audioBed"]["fadeOutSeconds"] = 10
+    try:
+        mod.render(longFadeCandidate, inputRoot, outputRoot)
+        raise AssertionError("audio fade longer than cut must be rejected")
+    except ValueError as exc:
+        assert "RED_AUDIO_FADE" in str(exc), str(exc)
+
     # Distinct output from true FFmpeg execution, never a fake GREEN.
     receipt = mod.render(candidate, inputRoot, outputRoot)
     movie = outputRoot / "pirate-daddy-pilot-001.mp4"
@@ -81,6 +123,16 @@ with tempfile.TemporaryDirectory() as scratch:
     assert 3.4 <= receipt["durationSeconds"] <= 3.8, receipt
     assert (outputRoot / "pirate-daddy-pilot-001.receipt.json").is_file()
     assert mod.probe(movie)["streams"][0]["codec_type"] == "video"
+    audioReceipt = mod.render(audioCandidate, inputRoot, outputRoot)
+    audioMovie = outputRoot / audioCandidate["output"]
+    audioStreams = mod.probe(audioMovie)["streams"]
+    assert audioReceipt["audioBedIncluded"] is True and audioReceipt["videoFadeOutSeconds"] == 0.5
+    assert {stream["codec_type"] for stream in audioStreams} == {"video", "audio"}
+    assert (outputRoot / "pirate-daddy-audio-test.receipt.json").is_file()
+    tailFrame = subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-sseof", "-0.05",
+                                "-i", str(audioMovie), "-frames:v", "1", "-f", "rawvideo",
+                                "-pix_fmt", "rgb24", "pipe:1"], check=True, stdout=subprocess.PIPE).stdout
+    assert tailFrame and max(tailFrame) <= 16, "final shot must fade to black"
     proofDir = os.getenv("LUHM_FFMPEG_PROOF_DIR", "")
     if proofDir:
         import shutil

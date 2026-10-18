@@ -414,3 +414,10 @@ Canonical law: `doctrine/yumeArtDirectionCanonV1.json`. This **scoped source-rol
 The scoped canonical art-director role remains `doctrine/yumeArtDirectionCanonV1.json`. The separate **proposed production implementation** is `doctrine/yumeGoddess3dProductionV1.json`, with a protected `media/yumeReferenceGalleryV1.json` reference catalog and `scenes/GoddessLineupProof.tscn` Godot blockout.
 
 A missing required body must block and clear stale character geometry. Yume directs the original adult design and cannot promote model, preview, rig, or runtime truth by writing doctrine. Urd checks rights/evidence, Skuld verifies Godot execution, Sumi handles creator credit, Belldandy records identity/receipts, and Lum returns approval to the Professor. Source-gate GREEN is not model-art GREEN. Urd, Belldandy and Skuld remain **BODY UNASSIGNED** until real rights-cleared, hash-bound candidates pass Blender/Godot and Professor visual review.
+
+
+## Guarded video production path
+
+Follow `doctrine/artistFirstProductionWorkflowV1.json` alongside the existing creative pipeline. Start with the human brief and sealed intent, register every reference and rights/lane status, inspect donor files before demux, and keep extracted streams as private working copies. Demux does not grant reuse rights. Generate versioned shot candidates from bounded task cards; retain provenance and never overwrite an artist master. Assemble with the allowlisted local FFmpeg worker, an editable shot manifest, explicit stream mapping, and a hash-bound receipt. Show the exact MP4 and receipt for Professor review. A render is a candidate: it does not publish, deploy a public service, or promote canon.
+
+Use evidence-first reasoning: separate observed facts, inference, and unknowns; bind findings to source and candidate hashes; route only independent bounded support work; all helpers report to Lum. Keep one mutable source lane, no recursive recruitment or hidden workers, and stop on unknown rights, lane eligibility, hash mismatch, or missing approval.

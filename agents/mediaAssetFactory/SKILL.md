@@ -107,3 +107,10 @@ The cockpit must not display GREEN merely because generation completed.
 ## Film-production handoff
 
 For narrative video, use `doctrine/yumeCreativePipelineV1.json` and Yume's production-bible workflow before batch generation. The media factory consumes approved task cards; it does not invent screenplay, canon or provider readiness.
+
+
+## Guarded video production path
+
+Follow `doctrine/artistFirstProductionWorkflowV1.json` alongside the existing creative pipeline. Start with the human brief and sealed intent, register every reference and rights/lane status, inspect donor files before demux, and keep extracted streams as private working copies. Demux does not grant reuse rights. Generate versioned shot candidates from bounded task cards; retain provenance and never overwrite an artist master. Assemble with the allowlisted local FFmpeg worker, an editable shot manifest, explicit stream mapping, and a hash-bound receipt. Show the exact MP4 and receipt for Professor review. A render is a candidate: it does not publish, deploy a public service, or promote canon.
+
+Use evidence-first reasoning: separate observed facts, inference, and unknowns; bind findings to source and candidate hashes; route only independent bounded support work; all helpers report to Lum. Keep one mutable source lane, no recursive recruitment or hidden workers, and stop on unknown rights, lane eligibility, hash mismatch, or missing approval.

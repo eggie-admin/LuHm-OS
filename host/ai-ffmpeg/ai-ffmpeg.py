@@ -19,6 +19,7 @@ sections = {"100", "200", "300", "400", "500"}
 shotIds = ("100", "200", "300", "401", "402", "403", "500")
 allowedExtensions = {".png", ".jpg", ".jpeg", ".webp", ".mp4", ".mov", ".mkv"}
 imageExtensions = {".png", ".jpg", ".jpeg", ".webp"}
+audioExtensions = {".mp3", ".wav", ".m4a", ".aac", ".flac", ".ogg"}
 capabilityFlags = ("-encoders", "-decoders", "-filters", "-formats", "-protocols", "-hwaccels", "-codecs", "-pix_fmts", "-sample_fmts", "-layouts", "-devices", "-bsfs", "-muxers", "-demuxers")
 jobLock = threading.Lock()
 
@@ -75,7 +76,9 @@ def childPath(root, relative, mustExist):
 def validate(manifest, inputRoot, outputRoot):
     if not isinstance(manifest, dict) or manifest.get("schema") != schema:
         raise ValueError("RED_SCHEMA")
-    if set(manifest) != {"schema", "jobId", "shots", "output", "reviewApproved"}:
+    required = {"schema", "jobId", "shots", "output", "reviewApproved"}
+    optional = {"audioBed", "videoFadeOutSeconds"}
+    if not required.issubset(manifest) or set(manifest) - required - optional:
         raise ValueError("RED_MANIFEST_FIELDS")
     if not isinstance(manifest["jobId"], str) or not re.fullmatch(r"[a-z0-9][a-z0-9-]{2,63}", manifest["jobId"]):
         raise ValueError("RED_JOB_ID")
@@ -106,10 +109,28 @@ def validate(manifest, inputRoot, outputRoot):
         validated.append({**shot, "inputPath": filePath})
     if total > 120:
         raise ValueError("RED_TOTAL_DURATION")
+    fadeOut = manifest.get("videoFadeOutSeconds", 0)
+    if type(fadeOut) not in (float, int) or not 0 <= fadeOut <= 10 or fadeOut > shots[-1]["seconds"]:
+        raise ValueError("RED_VIDEO_FADE")
+    audio = None
+    if "audioBed" in manifest:
+        audio = manifest["audioBed"]
+        if not isinstance(audio, dict) or set(audio) != {"source", "startSeconds", "volume", "fadeOutSeconds"}:
+            raise ValueError("RED_AUDIO_FIELDS")
+        audioPath = childPath(inputRoot, audio["source"], True)
+        if audioPath.suffix.lower() not in audioExtensions or audioPath.stat().st_size > 500 * 1024 * 1024:
+            raise ValueError("RED_AUDIO_TYPE_OR_SIZE")
+        if type(audio["startSeconds"]) not in (float, int) or not 0 <= audio["startSeconds"] <= 3600:
+            raise ValueError("RED_AUDIO_START")
+        if type(audio["volume"]) not in (float, int) or not 0 <= audio["volume"] <= 1:
+            raise ValueError("RED_AUDIO_VOLUME")
+        if type(audio["fadeOutSeconds"]) not in (float, int) or not 0 <= audio["fadeOutSeconds"] <= 10:
+            raise ValueError("RED_AUDIO_FADE")
+        audio = {**audio, "inputPath": audioPath}
     output = childPath(outputRoot, manifest["output"], False)
     if output.suffix.lower() != ".mp4" or output.exists():
         raise ValueError("RED_OUTPUT_EXISTS_OR_TYPE")
-    return validated, output
+    return validated, output, audio, float(fadeOut)
 
 
 def probe(path):
@@ -120,12 +141,22 @@ def probe(path):
 
 
 def render(manifest, inputRoot, outputRoot):
-    validated, output = validate(manifest, inputRoot, outputRoot)
+    validated, output, audio, videoFadeOut = validate(manifest, inputRoot, outputRoot)
     # All source files must be valid before any encoding work begins.
+    totalDuration = sum(float(shot["seconds"]) for shot in validated)
     for shot in validated:
         streams = probe(shot["inputPath"]).get("streams", [])
         if not any(s.get("codec_type") == "video" for s in streams):
             raise ValueError("RED_INPUT_NO_VIDEO")
+    if audio:
+        audioInfo = probe(audio["inputPath"])
+        if not any(s.get("codec_type") == "audio" for s in audioInfo.get("streams", [])):
+            raise ValueError("RED_INPUT_NO_AUDIO")
+        audioDuration = float(audioInfo.get("format", {}).get("duration", 0))
+        if float(audio["startSeconds"]) + totalDuration > audioDuration + 0.05:
+            raise ValueError("RED_AUDIO_TOO_SHORT")
+        if float(audio["fadeOutSeconds"]) > totalDuration:
+            raise ValueError("RED_AUDIO_FADE")
     if not jobLock.acquire(blocking=False):
         raise ValueError("RED_RENDER_BUSY")
     try:
@@ -144,9 +175,13 @@ def render(manifest, inputRoot, outputRoot):
                           "scale=1080:1920:force_original_aspect_ratio=increase,"
                           "crop=1080:1920")
                 inp = (["-loop", "1", "-framerate", "30"] if shot["inputPath"].suffix.lower() in imageExtensions else [])
+                filters = aspect + ",fps=30,format=yuv420p"
+                if index == len(validated) - 1 and videoFadeOut > 0:
+                    fadeStart = max(0.0, float(shot["seconds"]) - videoFadeOut)
+                    filters += f",fade=t=out:st={fadeStart:.3f}:d={videoFadeOut:.3f}:color=black"
                 arguments = [ffmpeg, "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
                              "-protocol_whitelist", "file,pipe", *inp, "-i", str(shot["inputPath"]),
-                             "-t", f"{shot['seconds']:.3f}", "-vf", aspect + ",fps=30,format=yuv420p",
+                             "-t", f"{shot['seconds']:.3f}", "-vf", filters,
                              "-an", "-threads", "2", "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
                              "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(part)]
                 execute(arguments, timeout=180)
@@ -159,14 +194,36 @@ def render(manifest, inputRoot, outputRoot):
                      "-safe", "0", "-protocol_whitelist", "file,pipe", "-i", str(concatFile),
                      "-c", "copy", "-movflags", "+faststart", str(temporaryOutput)], 60)
             outputInfo = probe(temporaryOutput)
+            if audio:
+                duration = float(outputInfo.get("format", {}).get("duration", 0))
+                audioFilter = (f"[1:a]apad=whole_dur={duration:.3f},atrim=duration={duration:.3f},"
+                               f"asetpts=PTS-STARTPTS,volume={float(audio['volume']):.3f}")
+                if audio["fadeOutSeconds"] > 0:
+                    fadeStart = max(0.0, duration - float(audio["fadeOutSeconds"]))
+                    audioFilter += f",afade=t=out:st={fadeStart:.3f}:d={float(audio['fadeOutSeconds']):.3f}"
+                audioFilter += "[aout]"
+                muxedOutput = stage / "episode-with-audio.mp4"
+                execute([ffmpeg, "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
+                         "-i", str(temporaryOutput), "-ss", f"{float(audio['startSeconds']):.3f}",
+                         "-protocol_whitelist", "file,pipe",
+                         "-i", str(audio["inputPath"]), "-filter_complex", audioFilter,
+                         "-map", "0:v:0", "-map", "[aout]", "-c:v", "copy", "-c:a", "aac",
+                         "-b:a", "192k", "-t", f"{duration:.3f}", "-movflags", "+faststart",
+                         str(muxedOutput)], 180)
+                temporaryOutput = muxedOutput
+                outputInfo = probe(temporaryOutput)
             if not any(s.get("codec_type") == "video" for s in outputInfo.get("streams", [])):
                 raise ValueError("RED_OUTPUT_NO_VIDEO")
+            if audio and not any(s.get("codec_type") == "audio" for s in outputInfo.get("streams", [])):
+                raise ValueError("RED_OUTPUT_NO_AUDIO")
             sha = hashlib.sha256(temporaryOutput.read_bytes()).hexdigest()
             shutil.move(str(temporaryOutput), str(output))
             receipt = {"schema": "luhm.aiFfmpegReceipt.v1", "jobId": manifest["jobId"],
                        "status": "CANDIDATE_RENDERED", "sha256": sha,
                        "bytes": output.stat().st_size, "shots": list(shotIds),
                        "durationSeconds": float(outputInfo.get("format", {}).get("duration", 0)),
+                       "audioBedIncluded": audio is not None,
+                       "videoFadeOutSeconds": videoFadeOut,
                        "publicationApproved": False, "driveArchived": False, "crown": "STOP"}
             # Kept next to the output, never inside the repo or public HTTP response.
             output.with_suffix(".receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
@@ -200,8 +257,9 @@ def serve(host, port, inputRoot, outputRoot):
             elif self.path == "/capabilities":
                 self.reply(200, capabilities())
             elif self.path == "/presets":
-                self.reply(200, {"profiles": ["portrait-seven-shot-silent"], "sections": sorted(sections),
-                                 "order": list(shotIds), "audioDeferred": True})
+                self.reply(200, {"profiles": ["portrait-seven-shot-review"], "sections": sorted(sections),
+                                 "order": list(shotIds), "optionalAudioBed": True,
+                                 "optionalFinalShotFadeToBlack": True})
             else:
                 self.reply(404, {"error": "NOT_FOUND"})
 

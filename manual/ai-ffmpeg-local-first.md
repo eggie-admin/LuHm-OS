@@ -13,14 +13,28 @@ This enumerates the actual host build's encoders, decoders, formats, muxers, dem
 ## One review candidate
 
 1. Keep source images and clips under `$HOME/hydra/media`; keep MP4 candidates under `$HOME/hydra/media/candidates`.
-2. Copy `media/pirate-daddy-film/episode-template.json` to a private working location. Fill in seven local shot inputs, which cover five sections (400 has three shots). Do **not** add audio yet.
+2. Copy `media/pirate-daddy-film/episode-template.json` to a private working location. Fill in seven local shot inputs, which cover five sections (400 has three shots). Keep any title-card still as the final shot input.
 3. After Professor has reviewed the job and selected assets, set `reviewApproved` to `true` and run:
 
 ```bash
 python3 host/ai-ffmpeg/ai-ffmpeg.py render --manifest "$HOME/hydra/media/episode.json" --approve-render
 ```
 
-It produces an H.264/yuv420p silent vertical MP4 and a SHA-256 receipt next to the output. Both remain private candidates. The manifest accepts only local media with bounded paths, clip lengths and source file sizes. This is a CPU preview, not a full finishing pipeline.
+It produces an H.264/yuv420p vertical MP4 and a SHA-256 receipt next to the output. Both remain private candidates. The manifest accepts only local media with bounded paths, clip lengths and source file sizes. This is a CPU review renderer, not a full finishing pipeline.
+
+For a reviewed music-backed cut, add this optional object to the manifest. `source` must be a local audio file under the input root, and the selected track segment must cover the full cut. The start offset selects where the soundtrack begins; volume is limited to 0–1; the fade duration is bounded to 10 seconds and the cut length.
+
+```json
+"audioBed": {
+  "source": "blessed-is-the-swarm-review.wav",
+  "startSeconds": 0,
+  "volume": 0.75,
+  "fadeOutSeconds": 1.5
+},
+"videoFadeOutSeconds": 1.5
+```
+
+`videoFadeOutSeconds` fades the final shot to black. Use the final shot for the title-card image, so the card fades with the picture. Rendering still requires both explicit `reviewApproved: true` in the manifest and the local `--approve-render` switch. A soundtrack is a private local input; the renderer does not fetch music, infer licensing, publish, or approve the result.
 
 ## Local worker service (never deploy to a public Render URL)
 
@@ -37,7 +51,7 @@ Authenticated rendering is only `POST /render` with a bearer token and `reviewAp
 ## Next gates
 
 - Verify Ubuntu's installed FFmpeg and NVIDIA GPU acceleration with an encode/decode smoke receipt before enabling a GPU preset.
-- Add constrained audio mixing, captions, loudness normalization, subtitles, image-sequence and proxy presets individually, each with tests and Professor review. Audio stays deferred for *Into the Warp*.
+- Add captions, loudness normalization, subtitles, image-sequence and proxy presets individually, each with tests and Professor review.
 - Connect the local cockpit through a verified authenticated local adapter. An Android or cloud client cannot directly access the workstation's loopback address.
 - Render three distinct approved episodes, archive final binaries in Drive and record SHA/Drive pointers in GitHub. The renderer never publishes anything to Facebook automatically.
 

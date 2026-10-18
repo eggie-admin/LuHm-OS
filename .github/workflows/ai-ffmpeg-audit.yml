@@ -12,6 +12,11 @@ on:
       - 'media/pirate-daddy-film/episode-template.json'
       - 'media/pirate-daddy-film/production-workflow-template.md'
       - '.github/workflows/ai-ffmpeg-audit.yml'
+      - 'doctrine/artistFirstProductionWorkflowV1.json'
+      - 'tests/test-artist-workflow-contract.py'
+      - 'agents/yumeArtOni/SKILL.md'
+      - 'agents/mediaAssetFactory/SKILL.md'
+      - 'plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md'
   workflow_dispatch:
 permissions:
   contents: read
@@ -34,6 +39,8 @@ jobs:
       - name: Verify manifest and Python syntax
         run: |
           python3 -m json.tool media/pirate-daddy-film/episode-template.json > /dev/null
+          python3 -m json.tool doctrine/artistFirstProductionWorkflowV1.json > /dev/null
+          python3 tests/test-artist-workflow-contract.py
           python3 -m py_compile host/ai-ffmpeg/ai-ffmpeg.py tests/test-ai-ffmpeg.py tests/test-pirate-production-continuity.py
           python3 tests/test-pirate-production-continuity.py
           bash -n scripts/ai-ffmpeg-user-service.sh
