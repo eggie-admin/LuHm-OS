@@ -1,0 +1,22 @@
+name: Media Release Packet Gate
+
+on:
+  pull_request:
+    paths:
+      - 'tools/mediaReleaseGate.py'
+      - 'tests/mediaReleaseGateTest.py'
+      - '.github/workflows/media-release-packet-gate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  negative-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile gate
+        run: python3 -m py_compile tools/mediaReleaseGate.py tests/mediaReleaseGateTest.py
+      - name: Reject incomplete release packets
+        run: python3 tests/mediaReleaseGateTest.py
