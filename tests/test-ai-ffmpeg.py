@@ -91,6 +91,28 @@ with tempfile.TemporaryDirectory() as scratch:
     copyJob = copy.deepcopy(audioCandidate)
     copyJob["videoFadeOutSeconds"] = 1
     reject(copyJob, inputRoot, outputRoot, "RED_VIDEO_FADE")
+    shortAudioPath = inputRoot / "short-track.wav"
+    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
+                    "-f", "lavfi", "-i", "sine=frequency=440:duration=0.5",
+                    "-c:a", "pcm_s16le", str(shortAudioPath)], check=True)
+    shortAudioCandidate = copy.deepcopy(audioCandidate)
+    shortAudioCandidate["jobId"] = "pirate-daddy-short-audio-test"
+    shortAudioCandidate["output"] = "pirate-daddy-short-audio-test.mp4"
+    shortAudioCandidate["audioBed"]["source"] = "short-track.wav"
+    try:
+        mod.render(shortAudioCandidate, inputRoot, outputRoot)
+        raise AssertionError("short soundtrack must be rejected")
+    except ValueError as exc:
+        assert "RED_AUDIO_TOO_SHORT" in str(exc), str(exc)
+    longFadeCandidate = copy.deepcopy(audioCandidate)
+    longFadeCandidate["jobId"] = "pirate-daddy-long-fade-test"
+    longFadeCandidate["output"] = "pirate-daddy-long-fade-test.mp4"
+    longFadeCandidate["audioBed"]["fadeOutSeconds"] = 10
+    try:
+        mod.render(longFadeCandidate, inputRoot, outputRoot)
+        raise AssertionError("audio fade longer than cut must be rejected")
+    except ValueError as exc:
+        assert "RED_AUDIO_FADE" in str(exc), str(exc)
 
     # Distinct output from true FFmpeg execution, never a fake GREEN.
     receipt = mod.render(candidate, inputRoot, outputRoot)
