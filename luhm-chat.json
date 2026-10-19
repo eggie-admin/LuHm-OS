@@ -101,5 +101,18 @@
     "render": "private candidate until review",
     "publication": "manual and destination-specific approval",
     "secrets": "never print, commit, or forward"
+  },
+  "networkRouting": {
+    "status": "INTENDED_ROUTING_NOT_DNS_VERIFIED",
+    "publicWebsite": "eggiebagelface.art",
+    "publicArtHost": "art.eggiebagelface.art",
+    "gitRemote": "https://github.com/eggie-admin/LuHm-OS.git",
+    "notes": [
+      "The root domain is for approved public website content.",
+      "The art subdomain is for approved public art delivery, not private source storage or Git repository hosting.",
+      "GitHub Actions checks out the repository from GitHub; DNS names do not perform pulls.",
+      "Do not expose local FFmpeg workers or private Drive masters on public DNS.",
+      "DNS records, HTTPS certificate, deployed web origin, and redirect behavior require independent verification."
+    ]
   }
 }
