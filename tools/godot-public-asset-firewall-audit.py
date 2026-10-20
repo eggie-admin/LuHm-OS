@@ -25,6 +25,12 @@ for filename in ("luhm.glb", "luhmRunning.glb"):
 if not asset_root.is_dir():
     raise SystemExit("RED_PUBLIC_GODOT_ASSET_FIREWALL: stable Lum fallback socket missing")
 
+if "lumRigV2Phase1Smoke" in builder:
+    raise SystemExit("RED_PUBLIC_GODOT_ASSET_FIREWALL: private donor smoke is wired into public build")
+
+if "SKIP_LUM_DONOR_SMOKE=PRIVATE_REVIEW_WORKFLOW_ONLY" not in builder:
+    raise SystemExit("RED_PUBLIC_GODOT_ASSET_FIREWALL: private review boundary is not explicit")
+
 if "python3 tools/godot-public-asset-firewall-audit.py" not in builder:
     raise SystemExit("RED_PUBLIC_GODOT_ASSET_FIREWALL: build audit is not invoked")
 
