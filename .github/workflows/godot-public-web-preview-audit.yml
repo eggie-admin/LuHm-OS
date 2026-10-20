@@ -34,7 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           bash -n tools/buildGodotWebHarness.sh
-          tools/buildGodotWebHarness.sh
+          bash tools/buildGodotWebHarness.sh
 
       - name: Verify exported bundle and checksums
         run: |
