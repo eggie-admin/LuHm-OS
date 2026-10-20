@@ -16,7 +16,7 @@ This is an additive architecture proposal. Existing source-of-truth doctrine rem
 - The current artist-first production workflow already frames intake, rights/provenance, reference binding, silent animatic, continuity review, hash-bound receipts, Drive archival, and Professor review as explicit stages.
 - Python 3 is the proposed canonical language for orchestration, audit, and evidence tools.
 - SQL source is a local SQLite STRICT stub with contract tests. The typed SQL lane explicitly does not establish a live database service or authorize production DDL.
-- Blender is catalogued as a workstation capability, but the audited CI surface has no pinned Blender runtime/render proof.
+- Yume 3D hardening is already merged in PR #239. Its exact-head CI installed Blender, ran it headlessly, generated six review frames from an ephemeral hash-pinned Lum candidate, and kept Professor visual approval pending. Blender came from the Ubuntu package feed rather than an immutable version pin, so runtime reproducibility can still be improved.
 - No GIMP Python-Fu plug-in or GIMP runtime test was found in the audited source. GIMP 3's official plug-in guide documents Python 3 plug-ins; that is a candidate target to validate, not a current project capability claim.
 - Existing neighboring media workflows differ in runner/action pinning. Consolidating the lane should reduce configuration drift.
 
@@ -26,11 +26,23 @@ This is an additive architecture proposal. Existing source-of-truth doctrine rem
 |---|---|---|---|
 | Python 3 | manifests, timing sheets, receipts, audit tools, orchestration | run existing contract/unit tests under the project-selected interpreter; emit interpreter/version receipt | provider access, production orchestration |
 | FFmpeg | demux, synthetic clip assembly, probe and encode checks | retain existing synthetic seven-shot test; assert stream map, duration, dimensions, codec, output hash | private footage rights, final music synchronization |
-| Blender | deterministic 3D scene/asset preparation | hash-pinned Blender distribution; headless factory-startup Python smoke test; open a tiny generated fixture and render one frame | GPU performance, artist approval, full project scene |
+| Blender | deterministic 3D review and asset preparation | reuse the existing headless Blender review-frame proof; record exact version, candidate hash, arguments, and output hashes; later pin the Blender distribution | GPU performance, canon approval, redistribution, a general-purpose workstation runtime |
 | GIMP Python-Fu | image/texture batch helpers | pinned GIMP 3 runtime; register a minimal Python 3 plug-in and export a synthetic image; record GIMP/Python/API versions | workstation installation, compatibility with GIMP 2 plug-ins |
 | SQL | local manifests/indexes and job/receipt metadata | SQLite STRICT schema and existing rollback/type/FK tests; no media binaries in DB | remote PostgreSQL existence, deployment, production DDL |
 
 Blender and GIMP checks may begin as explicit/manual or scheduled jobs if runtime images make normal PR checks too slow. Keep the Python/FFmpeg/SQLite gates as the quick path. A unified workflow may use independent jobs, or separate workflow files sharing one documented version/receipt contract; choose the simpler structure after measuring CI run time.
+
+## Blender-to-Godot in-chat preview path
+
+The sane integration is a staged handoff, not Blender running inside the ChatGPT iframe:
+
+1. Private Yume masters stay in Drive. Blender headless runs in an isolated CI review job against a hash-bound candidate and emits short-lived contact sheets and a receipt.
+2. Godot 4.7.2 headless imports a candidate and checks scene/rig/morph behavior. The merged Yume Phase 2 proof already demonstrates this for one candidate; three other goddess bodies remain unassigned.
+3. The public Godot Web build is a separate lane. It must contain only approved public assets. The current source had coupled donor download and public export; PR #299 removes that coupling and serves the procedural fallback until an asset is cleared for redistribution.
+4. The existing `luhm_open_godot_player` MCP Apps tool opens the separately hosted, same-origin Godot Web player in ChatGPT. The tool/widget source is present; actual host acceptance, Android embedded playback, fullscreen/touch behavior, and the exact deployed player still require their own receipts.
+5. A task manifest binds the Blender review, Godot import, public export, and ChatGPT viewer to the same task ID, source ref, asset hash, content lane, and approval state.
+
+This keeps Blender as the headless authoring/review engine, Godot as the interactive player, and the ChatGPT plugin as the bounded cockpit surface. It prevents a successful render or build from silently promoting a private Yume asset into a public player.
 
 ## GitHub spell sequence for this forge
 
