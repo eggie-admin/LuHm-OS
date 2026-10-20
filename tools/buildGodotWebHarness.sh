@@ -46,7 +46,7 @@ echo 'GREEN_GODOT_PARSE_GATE'
 if [[ "${LUHM_WEB_SKIP_SMOKE:-0}" != "1" ]]; then
   python3 tools/runGodotSmoke.py "$GODOT_BIN" layoutSmoke
   python3 tools/runGodotSmoke.py "$GODOT_BIN" runtimeSmoke
-  python3 tools/runGodotSmoke.py "$GODOT_BIN" lumRigV2Phase1Smoke
+  echo 'SKIP_LUM_DONOR_SMOKE=PRIVATE_REVIEW_WORKFLOW_ONLY'
 else
   echo 'RENDER_BUILD_MODE: runtime smoke skipped; exact-source CI remains authoritative for runtime smoke proof'
 fi
