@@ -51,10 +51,17 @@ def main():
     asset = bridge["asset"]
     need(asset["rightsState"] == "PROVENANCE_AND_REDISTRIBUTION_REVIEW_PENDING", "rightsOverclaim")
     buildText = buildPath.read_text(encoding="utf-8")
-    need("BUNDLE_SHA='" + asset["bundleSha256"] + "'" in buildText, "bundleSourcePin")
-    need("BASE_SHA='" + asset["members"][0]["sha256"] + "'" in buildText, "characterSourcePin")
-    need("RUN_SHA='" + asset["members"][1]["sha256"] + "'" in buildText, "runningSourcePin")
-    need(buildText.index('echo "$BUNDLE_SHA  $BUNDLE" | sha256sum -c -') < buildText.index('unzip -q "$BUNDLE"'), "verifyBeforeExtract")
+    need(asset.get("privateReviewLane") == "ephemeralWorkflowOnly", "privateReviewLane")
+    need(asset.get("publicWebBuilder") == "tools/buildGodotWebHarness.sh", "publicWebBuilder")
+    need(asset.get("publicRuntimeEligible") is False, "rightsOverclaim")
+    need(len(asset["bundleSha256"]) == 64, "bundleDigestPin")
+    need(all(len(member["sha256"]) == 64 for member in asset["members"]), "memberDigestPins")
+    need(not any(marker in buildText for marker in (
+        "DRIVE_ID=", "BUNDLE_SHA=", "download_drive",
+        "drive.usercontent.google.com", "drive.google.com/uc",
+        "Meshy_AI_Lum_Midnight_1996_biped",
+    )), "privateDonorInPublicBuilder")
+    need("python3 tools/godot-public-asset-firewall-audit.py" in buildText, "publicAssetFirewall")
     if args.bundle is not None:
         inspectBundle(asset, args.bundle)
         print("GODOT_DRIVE_BRIDGE_GREEN_BINARY_AND_SOURCE")
