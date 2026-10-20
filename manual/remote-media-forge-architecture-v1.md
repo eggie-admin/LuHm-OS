@@ -32,6 +32,20 @@ This is an additive architecture proposal. Existing source-of-truth doctrine rem
 
 Blender and GIMP checks may begin as explicit/manual or scheduled jobs if runtime images make normal PR checks too slow. Keep the Python/FFmpeg/SQLite gates as the quick path. A unified workflow may use independent jobs, or separate workflow files sharing one documented version/receipt contract; choose the simpler structure after measuring CI run time.
 
+## GitHub spell sequence for this forge
+
+“Python-Fu” names GIMP's Python plug-in runtime; “GitHub spells” are the repo's existing source-control and evidence practices. The forge must use both:
+
+1. `sourceSight` + `historyLantern`: bind the task to the exact source/ref and inspect prior tool, licensing, and production decisions before changing scripts or tool versions.
+2. `branchWard`: keep all workflow, GIMP plug-in, Blender script, and doctrine proposals on a review branch until Professor review.
+3. `artistNameplate` + `contaminationBell`: capture source artist/rights/hash/derivation and screen candidate inputs/outputs for private references, rejected parents, and lane crossover before any public eligibility is considered.
+4. `receiptRune`: bind every proof to task ID, source ref, scope, tool versions, arguments, input/output hashes, and outcome; an Actions green check alone is not the asset receipt.
+5. `diffMirror`: review changed paths and ensure a media-toolchain proposal did not touch signing, networking, runtime, secrets, or publication surfaces outside scope.
+6. `campaignSeal`: keep clips, graphics, copy, and social crops as draft candidates; publication authority remains Professor-only.
+7. `godotGate`: run only when an approved candidate is handed to Godot; static eligibility and an import/runtime receipt remain distinct.
+
+The GIMP smoke lane proves that the plug-in registers and exports a synthetic image under the pinned GIMP 3 runtime. It does not grant the plug-in authority to ingest arbitrary paths, overwrite protected masters, self-approve art, or publish results.
+
 ## Human-centered project flow
 
 1. **Intake and intent:** Professor supplies the creative brief; Belldandy keeps the readable project log, script, teleprompter, shot timing, and decision ledger.
