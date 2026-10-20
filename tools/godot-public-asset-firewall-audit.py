@@ -25,6 +25,12 @@ for filename in ("luhm.glb", "luhmRunning.glb"):
 if not asset_root.is_dir():
     raise SystemExit("RED_PUBLIC_GODOT_ASSET_FIREWALL: stable Lum fallback socket missing")
 
+if "python3 tools/godot-public-asset-firewall-audit.py" not in builder:
+    raise SystemExit("RED_PUBLIC_GODOT_ASSET_FIREWALL: build audit is not invoked")
+
+if "res://tools/godot-public-asset-firewall-smoke.gd" not in builder:
+    raise SystemExit("RED_PUBLIC_GODOT_ASSET_FIREWALL: runtime smoke is not invoked")
+
 if "tools/buildGodotWebHarness.sh" not in render:
     raise SystemExit("RED_PUBLIC_GODOT_ASSET_FIREWALL: Render no longer uses audited builder")
 
