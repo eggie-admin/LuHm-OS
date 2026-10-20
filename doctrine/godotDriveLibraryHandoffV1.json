@@ -15,7 +15,6 @@
     "assetId": "lumMidnight1996RigCandidate",
     "logicalSource": "Meshy_AI_Lum_Midnight_1996_biped.zip",
     "bundleSha256": "fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da",
-    "sourceBuildScript": "tools/buildGodotWebHarness.sh",
     "members": [
       {
         "role": "character",
@@ -37,7 +36,10 @@
       }
     ],
     "rightsState": "PROVENANCE_AND_REDISTRIBUTION_REVIEW_PENDING",
-    "runtimeState": "HASH_PINNED_BUILD_INPUT_NOT_NEW_PUBLIC_PROMOTION"
+    "runtimeState": "HASH_PINNED_BUILD_INPUT_NOT_NEW_PUBLIC_PROMOTION",
+    "privateReviewLane": "ephemeralWorkflowOnly",
+    "publicWebBuilder": "tools/buildGodotWebHarness.sh",
+    "publicRuntimeEligible": false
   },
   "safety": {
     "noPublicDriveIds": true,

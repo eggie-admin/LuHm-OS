@@ -30,3 +30,7 @@ Future reviewed Lum assets should preserve the same filename/socket and may add:
 - hair/accessory secondary-motion bones
 
 The runtime deliberately discovers optional animation and expression features instead of requiring them for boot. This keeps the game playable while the art asset evolves.
+
+## Public web player boundary
+
+The public Godot web-export build uses the procedural fallback. It must not download or package the rights-pending external donor GLBs. Private donor inspection and Blender review renders stay in isolated review-only workflows until Professor approves the named asset's rights, content lane, and public redistribution. The web-export firewall audits the clean source tree before Godot imports or exports it.

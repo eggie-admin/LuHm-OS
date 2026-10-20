@@ -24,42 +24,12 @@ unzip -q "$TEMPLATES_TPZ" -d /tmp/luhm-godot-web-tpl
 chmod +x "$GODOT_BIN"
 cp -a /tmp/luhm-godot-web-tpl/templates/. "$TEMPLATE_DIR/"
 
-DRIVE_ID='1FenqwXoCWTkcwvv-2ANUloMaTC7zVSen'
-BUNDLE_SHA='fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da'
-BASE_SHA='06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69'
-RUN_SHA='750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0'
-BUNDLE=/tmp/luhm-web-lum-biped.zip
-OUT=/tmp/luhm-web-lum-biped
-
-download_drive() {
-  local id="$1" out="$2"
-  local urls=(
-    "https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t"
-    "https://drive.google.com/uc?export=download&id=${id}&confirm=t"
-  )
-  for url in "${urls[@]}"; do
-    rm -f "$out"
-    if curl -fL --retry 4 --retry-all-errors --connect-timeout 20 --max-time 240 \
-      -A 'Mozilla/5.0 LuHmOS-Web-CI' -o "$out" "$url" && test -s "$out"; then
-      return 0
-    fi
-  done
-  return 1
-}
-
-download_drive "$DRIVE_ID" "$BUNDLE"
-echo "$BUNDLE_SHA  $BUNDLE" | sha256sum -c -
-# Reject unexpected ZIP members, invalid GLBs, and rig/animation drift before extraction.
-python3 tools/godotDriveLibraryIntakeAudit.py --bundle "$BUNDLE"
-rm -rf "$OUT"
-mkdir -p "$OUT" assets/lum
-unzip -q "$BUNDLE" -d "$OUT"
-BASE="$OUT/Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Character_output.glb"
-RUN="$OUT/Meshy_AI_Lum_Midnight_1996_biped/Meshy_AI_Lum_Midnight_1996_biped_Animation_Running_withSkin.glb"
-echo "$BASE_SHA  $BASE" | sha256sum -c -
-echo "$RUN_SHA  $RUN" | sha256sum -c -
-cp "$BASE" assets/lum/luhm.glb
-cp "$RUN" assets/lum/luhmRunning.glb
+# Public web export firewall:
+# Keep private/right-uncleared donor GLBs out of the hosted Godot player.
+# Private donor inspection remains in isolated, review-only CI workflows.
+mkdir -p assets/lum
+python3 tools/godot-public-asset-firewall-audit.py
+echo 'PUBLIC_GODOT_ASSETS=PROCEDURAL_FALLBACK_ONLY'
 
 PARSE_LOG=/tmp/luhm-godot-parse.log
 set +e
@@ -71,11 +41,12 @@ if [[ "$GODOT_EDITOR_STATUS" -ne 0 ]] || grep -Eq 'SCRIPT ERROR:|ERROR: Failed t
   exit 1
 fi
 echo 'GREEN_GODOT_PARSE_GATE'
+"$GODOT_BIN" --headless --path . --script res://tools/godot-public-asset-firewall-smoke.gd
 
 if [[ "${LUHM_WEB_SKIP_SMOKE:-0}" != "1" ]]; then
   python3 tools/runGodotSmoke.py "$GODOT_BIN" layoutSmoke
   python3 tools/runGodotSmoke.py "$GODOT_BIN" runtimeSmoke
-  python3 tools/runGodotSmoke.py "$GODOT_BIN" lumRigV2Phase1Smoke
+  echo 'SKIP_LUM_DONOR_SMOKE=PRIVATE_REVIEW_WORKFLOW_ONLY'
 else
   echo 'RENDER_BUILD_MODE: runtime smoke skipped; exact-source CI remains authoritative for runtime smoke proof'
 fi

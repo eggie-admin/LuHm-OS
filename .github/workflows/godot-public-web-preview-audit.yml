@@ -1,0 +1,45 @@
+name: Godot Public Web Preview Asset Firewall
+
+on:
+  pull_request:
+    paths:
+      - 'assets/lum/**'
+      - 'tools/buildGodotWebHarness.sh'
+      - 'tools/godot-public-asset-firewall-audit.py'
+      - 'tools/godot-public-asset-firewall-smoke.gd'
+      - 'render.yaml'
+      - 'export_presets.cfg'
+      - '.github/workflows/godot-public-web-preview-audit.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: godot-public-web-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  public-preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+
+      - name: Audit public asset boundary
+        run: python3 tools/godot-public-asset-firewall-audit.py
+
+      - name: Build and smoke test public-safe Godot Web preview
+        run: |
+          set -euo pipefail
+          bash -n tools/buildGodotWebHarness.sh
+          bash tools/buildGodotWebHarness.sh
+
+      - name: Verify exported bundle and checksums
+        run: |
+          set -euo pipefail
+          test -s host/harness/godot-export/index.html
+          test -s host/harness/godot-export/SHA256SUMS.txt
+          (cd host/harness/godot-export && sha256sum -c SHA256SUMS.txt)
+          python3 tools/godot-public-asset-firewall-audit.py
