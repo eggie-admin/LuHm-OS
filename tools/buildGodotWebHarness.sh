@@ -28,7 +28,6 @@ cp -a /tmp/luhm-godot-web-tpl/templates/. "$TEMPLATE_DIR/"
 # Keep private/right-uncleared donor GLBs out of the hosted Godot player.
 # Private donor inspection remains in isolated, review-only CI workflows.
 mkdir -p assets/lum
-rm -f assets/lum/luhm.glb assets/lum/luhmRunning.glb
 python3 tools/godotPublicAssetFirewallAudit.py
 echo 'PUBLIC_GODOT_ASSETS=PROCEDURAL_FALLBACK_ONLY'
 
@@ -42,6 +41,7 @@ if [[ "$GODOT_EDITOR_STATUS" -ne 0 ]] || grep -Eq 'SCRIPT ERROR:|ERROR: Failed t
   exit 1
 fi
 echo 'GREEN_GODOT_PARSE_GATE'
+"$GODOT_BIN" --headless --path . --script res://tools/godotPublicAssetFirewallSmoke.gd
 
 if [[ "${LUHM_WEB_SKIP_SMOKE:-0}" != "1" ]]; then
   python3 tools/runGodotSmoke.py "$GODOT_BIN" layoutSmoke
