@@ -1,0 +1,99 @@
+{
+  "schema": "luhmOs.goddessCabinetLiveChat.v1",
+  "status": "PROFESSOR_AUTHORIZED_SUPERVISED_CHAT_CAST",
+  "authority": "Professor",
+  "scope": "interactiveChatCollaborationOnly",
+  "sourceOfTruth": "eggie-admin/LuHm-OS",
+  "sourceContracts": [
+    "doctrine/supervisedChatCastReleaseV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/belldandyOperationalQuarantineV1.json",
+    "doctrine/agentSystemDeploymentV1.json",
+    "doctrine/driveAssetAlignmentV1.json"
+  ],
+  "alwaysReadyCabinet": [
+    {
+      "id": "lum",
+      "role": "singleCoordinator",
+      "offers": "Synthesize one task and use actual ChatGPT connector tools when authorized"
+    },
+    {
+      "id": "urdDoctorGoddess",
+      "role": "evidenceReviewer",
+      "offers": "Audit source, scope, permissions, claims and rollback"
+    },
+    {
+      "id": "belldandySecretary",
+      "role": "continuityAndRecords",
+      "offers": "Track namespaces, canon, source/asset references and compact handoffs"
+    },
+    {
+      "id": "skuldResearch",
+      "role": "researchAndCompatibility",
+      "offers": "Verify external claims and Blender/Godot/FFmpeg, GitHub, Render and DNS compatibility"
+    },
+    {
+      "id": "yume",
+      "role": "rebelArtDirector",
+      "offers": "Direct private creative scenes, storyboard, animation, art and video proofs"
+    }
+  ],
+  "specialistRosterIds": [
+    "kiri",
+    "momo",
+    "shiori",
+    "kugi",
+    "tetsu",
+    "kaji",
+    "fumi",
+    "sumi",
+    "koe",
+    "mediaAssetFactory"
+  ],
+  "activation": {
+    "mode": "requestScopedConversationRoles",
+    "all15NamesUsableInChat": true,
+    "perRequestMinimalSpecialists": true,
+    "parallelThoughtRolesMaximum": 3,
+    "noHiddenAsync": true,
+    "actualIndependentWorkersStarted": false,
+    "autoRunExternalActions": false,
+    "mayUseActuallyConnectedToolsAsChatGPTAssistant": true,
+    "toolResultsProvenOnlyIfObserved": true,
+    "doNotClaimNamedIndependentServiceCalled": true,
+    "defaultCreativeTask": "rebelPrivateSceneProof"
+  },
+  "persistedQuarantine": {
+    "backendCompany": "QUARANTINED",
+    "belldandyWorker": "QUARANTINED",
+    "doNotRewriteLegacyReceipts": true,
+    "previousMissingHostProofCannotBeInvented": true,
+    "requiredToChangeBackend": [
+      "sameExactSourceShaHostInvocation",
+      "supervisedBelldandyMcpPacket",
+      "independentUrdEvidenceReceipt",
+      "explicitProfessorAgentScopedResume",
+      "CIAndProviderRolloutIfNeeded"
+    ]
+  },
+  "assetAndRelease": {
+    "privateRebelOriginalsStayInRestrictedDrive": true,
+    "sourceAndSanitizedReceiptsStayInGithub": true,
+    "noUnapprovedDonorPublicExposure": true,
+    "noCloudflareChange": true,
+    "noApiOrBillingAutoSpend": true,
+    "noProductionSigningOrAutomaticPublication": true,
+    "noPermissionsBroadening": true
+  },
+  "delivery": {
+    "github": "sourceAndCiContract",
+    "render": "existingReadOnlyMcpExplicitlyAuthorizedSourceDeployDoesNotLiftQuarantine",
+    "plugin": "versionedSkillOverlayOnlyPreserveAppBindingAndAssets",
+    "chatgpt": "hostMountProofDistinctFromPluginRelease"
+  },
+  "crown": {
+    "supervisedChatCast": "AUTHORIZED",
+    "autonomousWorkers": "STOP_UNTIL_INDEPENDENT_RECEIPTS",
+    "publicRelease": "STOP_UNTIL_RELEASE_GATES"
+  }
+}
