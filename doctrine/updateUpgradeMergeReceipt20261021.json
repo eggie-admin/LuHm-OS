@@ -1,0 +1,83 @@
+{
+  "schema": "luhmOs.updateUpgradeMergeReceipt.v1",
+  "status": "SOURCE_MERGED_PRIVATE_BRIDGE_LIVE_RENDER_UPGRADE_BLOCKED",
+  "observedAt": "2026-10-21",
+  "authority": "Professor",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "sourceRef": "d30bbaab3c7fcd7543b01a325e9f6034f1a546ab",
+  "merged": [
+    {
+      "pr": 329,
+      "commit": "4fafaf07bc945149cd66c81c02e0e7e2baddab73",
+      "testedHead": "f4d76c0a9d988529847ab31f854343d1d9f6ea66",
+      "returnedCiSuccess": 35,
+      "scope": "tabletDeliveryAndSignedReceiptContracts"
+    },
+    {
+      "pr": 330,
+      "commit": "3ed93e9ea938e8437d409460a8ae597364051042",
+      "testedHead": "e942ce224613a9a2185de17e6950517d73763b8a",
+      "returnedCiSuccess": 18,
+      "scope": "sourceSecurityAndSqlNegativeControls"
+    },
+    {
+      "pr": 331,
+      "commit": "d30bbaab3c7fcd7543b01a325e9f6034f1a546ab",
+      "testedHead": "8eae7d621a99d90f5aef76ed0621dcccea5f1ec4",
+      "returnedCiSuccess": 23,
+      "scope": "sharedEmbeddedStudioPreservingGodotIntegrity"
+    }
+  ],
+  "ciEnumeration": "Connector-returned PR workflow runs; not exhaustive branch-protection enumeration.",
+  "supersededPrs": [
+    301,
+    307
+  ],
+  "privateBridge": {
+    "sourceRef": "d1a901b208ba6374b965a36365d8d46d1cea2082",
+    "previousSourceRef": "36508ba1f841c28370fe5a589034a1d53dc3268f",
+    "serverVersion": "1.1.3",
+    "audienceChanged": false,
+    "rootCause": "Cloudflare Workers rejects redirect:error before upstream request.",
+    "repair": "Use manual redirect mode and reject non-2xx responses; retain fixed upstream, authentication, bounded reads and authority checks.",
+    "tests": {
+      "transport": 10,
+      "workersRuntimeFixture": 1
+    },
+    "currentChatToolInvocation": "OBSERVED_SUCCESS",
+    "tool": "luhm_open_cockpit",
+    "payloadSchema": "luhmOs.inChatExperiencePayload.v1",
+    "resourceUri": "ui://luhm-os/cockpit-v2.html",
+    "uiMountProof": "UNVERIFIED",
+    "independentAgentExecution": false
+  },
+  "render": {
+    "serviceName": "luhm-os-harness-green",
+    "lastObservedLiveCommit": "dd26117074d0ccdba2e73e73fc4912738068c69c",
+    "lastObservedLiveDeploy": "dep-dbc4oc6q1p3s73ca07cg",
+    "desiredCommit": "d30bbaab3c7fcd7543b01a325e9f6034f1a546ab",
+    "deployRequest": "REJECTED_NO_WORKSPACE_SELECTED",
+    "newDeployStarted": false,
+    "nextAction": "Professor confirms Render workspace; deploy exact intended main and verify provider commit and live HTTP."
+  },
+  "android": {
+    "ownerSignedBetaArtifact": "UNVERIFIED",
+    "physicalInstall": "PENDING",
+    "sameSignerUpgrade": "PENDING",
+    "publicFdroid": "NOT_PROVEN",
+    "newBuildRun": false
+  },
+  "checkpoint": {
+    "branch": "snapshot/belldandy-manual-20261021-d30bbaab",
+    "sourceRef": "d30bbaab3c7fcd7543b01a325e9f6034f1a546ab",
+    "protectiveOnly": true,
+    "thresholdsChanged": false
+  },
+  "publicationAuthority": false,
+  "releaseAuthority": false,
+  "productionSigningAuthority": false,
+  "promotion": false,
+  "companyAgentQuarantine": "RETAINED",
+  "fullGreen": false,
+  "crownStatus": "STOP"
+}
