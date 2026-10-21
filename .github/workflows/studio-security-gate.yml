@@ -1,0 +1,40 @@
+name: Studio Security Gate
+
+on:
+  pull_request:
+    paths:
+      - '.github/copilot-instructions.md'
+      - '.github/workflows/studio-security-gate.yml'
+      - '.gitignore'
+      - 'doctrine/studioSecurityBaselineV1.json'
+      - 'doctrine/studioSecurityBaselineV1.schema.json'
+      - 'host/api/typedLanesV1.sql'
+      - 'render.yaml'
+      - 'tests/testTypedSqlStub.py'
+      - 'tools/studioSecurityGate.py'
+      - 'tools/typedSqlStub.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: studio-security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  studio-security:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate without persisted credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Security policy and provider boundary contract
+        run: python3 tools/studioSecurityGate.py
+      - name: Execute SQLite strict schema negative tests
+        run: python3 -m unittest discover -s tests -p 'testTypedSqlStub.py' -v
+      - name: Verify working tree
+        run: git diff --check
