@@ -1,0 +1,146 @@
+{
+  "schema": "luhmOs.studioCompatibilityFastMesh.v1",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "authority": "Professor",
+  "purpose": "Two ChatGPT/GitHub compatibility layers for Pirate Daddies Film R&D, with Google AI workhorse, Hugging Face specialist, and free Render runtime sidecar.",
+  "studio": {
+    "displayName": "Pirate Daddies Film",
+    "legalBusinessStatus": "UNVERIFIED",
+    "canonicalWorkspace": "github",
+    "canonicalRepository": "eggie-admin/LuHm-OS",
+    "sourceAuthority": "gitCommitAndCiReceiptsOnly",
+    "openAiOrganizationDisplayName": "Pirate Daddy Film",
+    "openAiOrganizationIsNotCompanyRegistrationProof": true
+  },
+  "compatibilityLayers": {
+    "chatGptOpenAi": {
+      "role": "interactiveSidecar",
+      "surfaces": [
+        "chatGpt",
+        "siteOrApp",
+        "mcp",
+        "openAiPlatformProject"
+      ],
+      "interfaceAuthority": false,
+      "sourceAuthority": false,
+      "organizationAndProjectsReachable": true,
+      "billingTierVerified": false,
+      "developerPerksVerified": false,
+      "billableExecutionAllowed": false
+    },
+    "github": {
+      "role": "primaryResearchAndDevelopmentStudio",
+      "repository": "eggie-admin/LuHm-OS",
+      "connector": "directGitHub",
+      "owns": [
+        "canonicalSource",
+        "versionHistory",
+        "pullRequests",
+        "tests",
+        "ciEvidence"
+      ],
+      "ownsRuntime": false,
+      "browserChatDoesNotSupersedeGitHub": true
+    }
+  },
+  "workhorse": {
+    "googleAi": {
+      "providerId": "googleAi",
+      "adapterId": "bigBrother",
+      "role": "heavyResearchAndCandidateProxy",
+      "tasks": [
+        "bulkResearch",
+        "largeContextReview",
+        "compatibilityResearch",
+        "candidateReview"
+      ],
+      "entitlement": "UNKNOWN_ACCOUNT_BOUND_RECEIPT_REQUIRED",
+      "permittedBillableCalls": false,
+      "outputAuthority": "candidateEvidenceOnly",
+      "routesThrough": "lum"
+    }
+  },
+  "sidecars": {
+    "huggingFace": {
+      "providerId": "huggingFace",
+      "role": "modelDatasetSpecialist",
+      "connectionObserved": "AUTHENTICATED",
+      "accountTierObserved": "FREE",
+      "onlyFor": [
+        "modelMetadata",
+        "datasetMetadata",
+        "boundedSpecialistResearch"
+      ],
+      "executionRequiresSeparateEntitlementAndCostCheck": true,
+      "outputAuthority": "candidateEvidenceOnly"
+    },
+    "render": {
+      "role": "freeTierRuntimeSidecar",
+      "workspaceObserved": "CONNECTED",
+      "canonicalServices": [
+        "luhm-os-harness-green",
+        "luhm-os-godot-harness-green"
+      ],
+      "planCeiling": "free",
+      "buildAndDeployAuthority": false,
+      "ownsSourceTruth": false,
+      "productionHealthProven": false,
+      "requireSameCommitDeploymentReceipt": true,
+      "automaticPaidUpgrade": false
+    },
+    "fastApiCloud": {
+      "role": "optionalAlternativeTransport",
+      "authenticatedDeploymentVerified": false,
+      "defaultDeploymentTarget": false,
+      "cannotOverrideRenderFreeTierPolicy": true
+    }
+  },
+  "fastMesh": {
+    "router": "tools/lumTaskRouter.py",
+    "roster": "doctrine/agentSystemDeploymentV1.json",
+    "boss": "lum",
+    "plannedOnly": true,
+    "companyHold": "doctrine/companyWideOperationalQuarantineV1.json",
+    "quarantinePreserved": true,
+    "maxParallelSupportWorkers": 3,
+    "maxParallelBuilds": 2,
+    "singleMutableSourceLane": true,
+    "recursiveRecruitment": false,
+    "hiddenAsyncAgents": false,
+    "fastPath": [
+      "bindExactGitHubSourceRef",
+      "reuseVerifiedReceipts",
+      "routeMinimumCanonicalWorkers",
+      "preferDeterministicGitHubEvidence",
+      "selectOptionalProviderByCapability",
+      "verifyEntitlementAndBudget",
+      "recordCandidateEvidence",
+      "stopBeforeUnapprovedExecution"
+    ],
+    "routeTargets": {
+      "direct": "chatGptOpenAi",
+      "repository": "github",
+      "broadResearch": "googleAi",
+      "modelOrDataset": "huggingFace",
+      "runtimePreview": "render"
+    },
+    "neverInferExecutionFromRoute": true
+  },
+  "releaseBoundary": {
+    "companyOperationalQuarantineState": "QUARANTINED",
+    "sourceBranchChangesMayBeProposed": true,
+    "workerActivation": false,
+    "merge": false,
+    "deploy": false,
+    "publish": false,
+    "spend": false,
+    "sign": false,
+    "professorApprovalRequiredForPromotion": true
+  },
+  "binding": {
+    "sourceTruth": "doctrine/currentSourceTruthV3.json",
+    "providerEconomy": "doctrine/providerEconomyV1.json",
+    "apiSpine": "doctrine/apiSpineV1.json",
+    "githubMesh": "doctrine/chatGptPluginWorkflowStreamV1.json"
+  }
+}
