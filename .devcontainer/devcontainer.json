@@ -1,6 +1,9 @@
 {
-  "name": "LuHm OS | Professor Garage Lab",
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "name": "LuHm OS | Professor Ubuntu 26.04 LTS Basement",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
   "remoteUser": "codespace",
   "customizations": {
     "vscode": {
@@ -11,13 +14,14 @@
       ]
     }
   },
-  "postCreateCommand": "bash scripts/ai-ffmpeg-codespaces.sh setup && python --version && node --version && git --version",
   "containerEnv": {
     "LUHM_WORKBENCH": "codespaces",
     "LUHM_CROWN_STATUS": "STOP",
     "LUHM_GARAGE_RUNTIME": "github-codespaces",
-    "LUHM_FFMPEG_PUBLICATION": "STOP"
+    "LUHM_FFMPEG_PUBLICATION": "STOP",
+    "LUHM_PRIVATE_SERVICES": "MANUAL_ONLY"
   },
+  "postCreateCommand": "bash scripts/ai-ffmpeg-codespaces.sh setup && bash scripts/professorGarageSmoke.sh",
   "postStartCommand": "bash scripts/ai-ffmpeg-codespaces.sh start",
   "forwardPorts": [
     8797
@@ -25,7 +29,8 @@
   "portsAttributes": {
     "8797": {
       "label": "AI-FFmpeg private garage worker",
-      "onAutoForward": "silent"
+      "onAutoForward": "silent",
+      "protocol": "http"
     }
   }
 }
