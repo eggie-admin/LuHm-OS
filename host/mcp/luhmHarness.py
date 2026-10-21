@@ -58,6 +58,7 @@ def _headers(*, html: bool = False, production: bool = False, godot_embed: bool 
             "frame-ancestors 'self' https://*.web-sandbox.oaiusercontent.com https://luhm-os-publication-site.onrender.com"
             if godot_embed else "frame-ancestors 'self'"
         )
+        frame_policy = "frame-src 'self'; " if godot_embed else "frame-src 'self' https://www.youtube-nocookie.com; "
         headers["Content-Security-Policy"] = (
             "default-src 'self'; "
             + script_policy
@@ -65,7 +66,7 @@ def _headers(*, html: bool = False, production: bool = False, godot_embed: bool 
             + "img-src 'self' data: blob:; "
             + "media-src 'self' blob:; "
             + "connect-src 'self'; "
-            + "frame-src 'self'; "
+            + frame_policy
             + "object-src 'none'; "
             + "base-uri 'none'; "
             + "form-action 'none'; "
@@ -118,6 +119,29 @@ def _inspect_godot_bundle(root: Path) -> dict[str, Any]:
         return {"ready": True, "fileCount": len(names), "wasmCount": wasm, "pckCount": pck, "integrity": "SHA256_PASS"}
     except (OSError, UnicodeError, ValueError):
         return unavailable
+def _studio_page(harness_root: Path, page: str, *, widget: bool = False) -> str:
+    """One set of studio controls for the browser and MCP Apps resource."""
+    deck = (harness_root / "studioDeck.html").read_text(encoding="utf-8")
+    if widget:
+        css = (harness_root / "studioDeck.css").read_text(encoding="utf-8")
+        script = (harness_root / "studioDeck.js").read_text(encoding="utf-8")
+        deck = "<style>" + css + "</style>" + deck + "<script>" + script + "</script>"
+    return page.replace("<!-- LUHM_STUDIO_DECK -->", deck)
+
+
+def _studio_contract(root: Path) -> dict[str, Any]:
+    value = json.loads((root / "doctrine" / "embeddedStudioV1.json").read_text(encoding="utf-8"))
+    quarantine = json.loads((root / "doctrine" / "companyWideOperationalQuarantineV1.json").read_text(encoding="utf-8"))
+    # Contract updates require a source review; a browser switch cannot promote a lane.
+    if value.get("schema") != "luhmOs.embeddedStudio.v1" or value.get("lane") != "testing":
+        raise RuntimeError("RED_STUDIO_CONTRACT")
+    if value.get("serverWrites") is not False or value.get("productionPromotion") is not False:
+        raise RuntimeError("RED_STUDIO_AUTHORITY")
+    value["quarantine"] = {"state": quarantine.get("state", "UNKNOWN"),
+                           "activeTaskWorkersAllowed": quarantine.get("activeTaskWorkersAllowed", False)}
+    value["sourceRef"] = os.environ.get("RENDER_GIT_COMMIT", "UNKNOWN")
+    return value
+
 
 def register_harness(
     server: Any,
@@ -152,12 +176,18 @@ def register_harness(
     if not all(path.is_file() for path in (widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, artist_studio_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
+    for name in ("studioDeck.html", "studioDeck.css", "studioDeck.js"):
+        if not (harness_root / name).is_file():
+            raise RuntimeError("RED_STUDIO_SOURCE_MISSING")
+    _studio_contract(root)
+
     resource_meta: dict[str, Any] = {
         "ui": {
             "prefersBorder": True,
             "csp": {
                 "connectDomains": [],
                 "resourceDomains": [],
+                "frameDomains": ["https://www.youtube-nocookie.com"],
             },
         },
         "openai/ui": {
@@ -217,7 +247,7 @@ def register_harness(
         meta=resource_meta,
     )
     def luhm_cockpit_resource() -> str:
-        return widget_path.read_text(encoding="utf-8")
+        return _studio_page(harness_root, widget_path.read_text(encoding="utf-8"), widget=True)
 
     @server.resource(
         GODOT_PLAYER_RESOURCE_URI,
@@ -297,6 +327,7 @@ def register_harness(
             "surface": "mcp-app",
             "experience": experience,
             "artistStudio": artist_studio,
+            "embeddedStudio": _studio_contract(root),
             "crownFlow": crown_flow,
             "runtimeReceipt": runtime_receipt,
             "openingDay": opening_day,
@@ -329,8 +360,8 @@ def register_harness(
 
     @server.custom_route("/harness/", methods=["GET", "HEAD"])
     async def harness_index(_: Request) -> Response:
-        return FileResponse(
-            index_path,
+        return Response(
+            _studio_page(harness_root, index_path.read_text(encoding="utf-8")),
             media_type="text/html; charset=utf-8",
             headers=_headers(html=True, production=profile_provider() == "production"),
         )
@@ -338,7 +369,7 @@ def register_harness(
     @server.custom_route("/harness/assets/{asset_path:path}", methods=["GET", "HEAD"])
     async def harness_asset(request: Request) -> Response:
         relative = request.path_params.get("asset_path", "")
-        allowed = {"cockpit.css", "cockpit.js", "titan7Cockpit.js", "jquery-3.7.1.min.js", "jquery-ui-1.14.2.min.js", "agent-loading-sprites.json", "agent-roster-v1.png"}
+        allowed = {"studioDeck.css", "studioDeck.js", "cockpit.css", "cockpit.js", "titan7Cockpit.js", "jquery-3.7.1.min.js", "jquery-ui-1.14.2.min.js", "agent-loading-sprites.json", "agent-roster-v1.png"}
         parts = Path(relative).parts
         pet_asset = (
             len(parts) == 4
@@ -365,6 +396,7 @@ def register_harness(
                 "schema": "luhmOs.harnessConfig.v2",
                 "experience": experience,
                 "artistStudio": artist_studio,
+                "embeddedStudio": _studio_contract(root),
                 "crownFlow": crown_flow,
                 "runtimeReceipt": runtime_receipt,
                 "openingDay": opening_day,
