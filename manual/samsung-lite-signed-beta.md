@@ -33,6 +33,12 @@ Required GitHub Actions **secrets**, configured only by the owner from the secur
 
 If secrets are missing, it must fail closed. Never paste private keys/passwords into GitHub files, chat, a public gist, the public Android APK or an F-Droid index. Download the **private workflow artifact** named `samsung-lite-signed-beta-candidate`, which includes `samsung-lite-beta.apk` and `receipt.json`. CI must report owner signer match, nondedug release mode, correct package ID, 64-bit ABI, target SDK and digest. Keep its receipt and exact source SHA.
 
+## 4. F-Droid staging is now part of the same signed build
+
+After the APK signature, digest, SDK, ABI and package checks pass, the **same owner-signed GitHub Actions run** executes `tools/stageFdroidTabletBeta.py` followed by `tools/prepareFdroidRepoCandidate.py`. The `samsung-lite-signed-beta-candidate` workflow artifact then contains `build/signed-beta/` (actual APK and signing proof) and `build/fdroid-beta-stage/` (only that APK, a private metadata draft, and fail-closed receipts). Nothing in this step signs or publishes an F-Droid index or grants public release authority.
+
+The independent source preflight runs both tools with `--self-test` and fails on mismatched hashes, signer, source, version or publication claims. The signing credentials remain in protected GitHub Actions secrets, never in the staged files. If the owner needs to repeat this check offline from an independently acquired APK, the following manual commands remain supported.
+
 ## 4. Stage it into an independent F-Droid repository
 
 On an owner-controlled Linux workstation with Android `aapt` and `apksigner`, and the workflow artifact unpacked:
