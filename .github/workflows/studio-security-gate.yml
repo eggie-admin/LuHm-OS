@@ -9,8 +9,11 @@ on:
       - 'doctrine/studioSecurityBaselineV1.json'
       - 'doctrine/studioSecurityBaselineV1.schema.json'
       - 'host/api/typedLanesV1.sql'
+      - 'host/api/yumeVideoJobSchemaV1.sql'
+      - 'host/api/luhmVideoJobWorker.py'
       - 'render.yaml'
       - 'tests/testTypedSqlStub.py'
+      - 'tests/yumeVideoJobWorkerTest.py'
       - 'tools/studioSecurityGate.py'
       - 'tools/typedSqlStub.py'
   workflow_dispatch:
@@ -36,5 +39,7 @@ jobs:
         run: python3 tools/studioSecurityGate.py
       - name: Execute SQLite strict schema negative tests
         run: python3 -m unittest discover -s tests -p 'testTypedSqlStub.py' -v
+      - name: Execute Yume SQL worker negative tests without network
+        run: python3 tests/yumeVideoJobWorkerTest.py
       - name: Verify working tree
         run: git diff --check
