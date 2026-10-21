@@ -108,3 +108,15 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @media(prefers-reduced-motion:reduce){.lum2dStage *, .lum2dArt *{animation:none!important;transition:none!important}.lum2dHead,.lum2dBangs,.lum2dBackground,.lum2dBody{transform:none!important}}
 .lum2dPanel.is-motion-paused .lum2dStage *{animation:none!important;transition:none!important}
 .lum2dPanel.is-motion-paused .lum2dHead,.lum2dPanel.is-motion-paused .lum2dBangs,.lum2dPanel.is-motion-paused .lum2dBackground,.lum2dPanel.is-motion-paused .lum2dBody{transform:none!important}
+
+/* Human supervised-cast status cabinet. Display presence != independent worker deployment. */
+.humanCastPanel{margin:14px 12px;padding:14px}
+.humanCastGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.humanCastMember{display:flex;flex-direction:column;gap:5px;min-height:78px;padding:12px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(135deg,#161326,#0c131d);overflow-wrap:anywhere}
+.humanCastMember strong{color:var(--cyan);font-weight:750}
+.humanCastMember small{font-size:12px;line-height:1.45}
+.humanCastAuthority{border-color:var(--amber);background:linear-gradient(135deg,#292015,#141114)}
+.humanCastAuthority strong{color:var(--amber)}
+.humanCastFootnote{margin:10px 0 0;line-height:1.5}
+@media(max-width:760px){.humanCastGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:400px){.humanCastGrid{grid-template-columns:1fr}}
