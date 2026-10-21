@@ -1,0 +1,25 @@
+name: Private Art Integrity Gate
+on:
+  pull_request:
+    paths:
+      - 'tools/artAssetIntegrity.py'
+      - 'manual/yumePrivateArtHardening.md'
+      - '.github/workflows/private-art-integrity.yml'
+permissions:
+  contents: read
+jobs:
+  private-intake-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify reproducible private asset intake without reading private source assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/artAssetIntegrity.py
+          python3 tools/artAssetIntegrity.py --self-test
+          test ! -f assets/lum/luhm.glb
+          echo 'ART_INTEGRITY_SOURCE_GREEN_PRIVATE_ASSETS_NOT_ACCESSED'
