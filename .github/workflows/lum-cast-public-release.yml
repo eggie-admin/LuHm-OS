@@ -1,0 +1,46 @@
+name: Lum Cast Public Release Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/soloStudioCastReleaseV1.json'
+      - 'doctrine/agentSystemDeploymentV1.json'
+      - 'doctrine/companyWideOperationalQuarantineV1.json'
+      - 'doctrine/lumGoddessCabinetV1.json'
+      - 'doctrine/soloStudioOperatingProfileV1.json'
+      - 'doctrine/tenPassHardeningV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'publicationSite/**'
+      - 'tools/castReleaseAudit.py'
+      - 'AGENTS.md'
+      - '.github/copilot-instructions.md'
+      - '.github/workflows/lum-cast-public-release.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cast-public-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Exact immutable source and whitespace
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+          git diff --check
+      - name: Run 60-plus real source and tester checks
+        run: python3 tools/castReleaseAudit.py
+      - name: Assert quarantined agent routes remain inactive
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          q=json.loads(Path("doctrine/companyWideOperationalQuarantineV1.json").read_text())
+          assert q["state"] == "QUARANTINED"
+          assert q["activeTaskWorkersAllowed"] is False
+          assert q["supervisedProbe"]["hostInvocationReceipt"] is None
+          print("CAST_AUTONOMOUS_ACTIVATION=BLOCKED")
+          PY
