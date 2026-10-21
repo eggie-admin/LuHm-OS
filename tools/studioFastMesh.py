@@ -52,11 +52,19 @@ def audit() -> list[str]:
     require(studio.get("canonicalRepository") == github.get("repository") == source.get("canonicalRepository") == "eggie-admin/LuHm-OS", "source identity")
     require(github.get("role") == "primaryResearchAndDevelopmentStudio", "GitHub studio role")
     require(openai.get("role") == "interactiveSidecar", "OpenAI sidecar role")
+    require(openai.get("priority") == 1 and github.get("priority") == 2, "RED_COMPATIBILITY_ORDER")
+    require([row.get("id") for row in contract.get("compatibilityPriority", [])] == ["chatGptOpenAi", "github"], "RED_COMPATIBILITY_PRIORITY")
     require(openai.get("sourceAuthority") is False and openai.get("billableExecutionAllowed") is False, "OpenAI cannot grant source authority or spending")
     require(openai.get("billingTierVerified") is False, "unverified OpenAI billing must remain unverified")
     require(workhorse.get("providerId") == economy.get("bigBrother", {}).get("providerId") == "googleAi", "Google workhorse identity")
     require(workhorse.get("adapterId") == spine.get("providers", {}).get("googleAi", {}).get("adapterId") == "bigBrother", "Google adapter")
     require(workhorse.get("permittedBillableCalls") is False and workhorse.get("outputAuthority") == "candidateEvidenceOnly", "Google entitlement boundary")
+    require(workhorse.get("activeCompatibilityLayer") is False and workhorse.get("enabledForArtWorkflow") is False, "RED_GOOGLE_ACTIVE_LANE")
+    require(mesh.get("routeTargets", {}).get("broadResearch") == "chatGptOpenAi" and mesh.get("defaultProviderCandidate") == "chatGptOpenAi", "RED_DEFAULT_OPENAI")
+    require(mesh.get("googleAiAutoFallback") is False, "RED_GOOGLE_AUTOFALLBACK")
+    vertex = contract.get("providerExclusions", {}).get("vertexAi", {})
+    require(vertex.get("status") == "DISABLED_LEGACY_ARCHIVAL_ONLY" and all(vertex.get(key) is False for key in ("networkSubmission", "networkPolling", "billableCalls", "automaticFallback")), "RED_VERTEX_ACTIVE")
+    require(boundary.get("noImplicitGoogleOrVertexExecution") is True, "RED_VERTEX_BOUNDARY")
     require(hf.get("providerId") == "huggingFace" and economy.get("specialistProviders", {}).get("huggingFace", {}).get("role") == "specialistTrainer", "Hugging Face specialist identity")
     require(hf.get("executionRequiresSeparateEntitlementAndCostCheck") is True, "Hugging Face execution gate")
     require(render.get("role") == "freeTierRuntimeSidecar" and render.get("planCeiling") == "free", "Render free-tier sidecar")
@@ -89,12 +97,10 @@ def plan(kind: str, *, heavy: bool = False, specialist: bool = False) -> dict[st
     provider = "deterministicLocal"
     if specialist:
         provider = "huggingFace"
-    elif heavy:
-        provider = "googleAi"
-    elif kind in ("research", "external"):
-        provider = "googleAi"
-    if provider == "googleAi":
-        entitlement = "UNKNOWN_ACCOUNT_BOUND_RECEIPT_REQUIRED"
+    elif heavy or kind in ("research", "external"):
+        provider = "chatGptOpenAi"
+    if provider == "chatGptOpenAi":
+        entitlement = "OPENAI_SESSION_ONLY_NO_BILLABLE_EXECUTION"
     elif provider == "huggingFace":
         entitlement = "SPECIALIST_SCOPE_AND_COST_CHECK_REQUIRED"
     else:
@@ -105,6 +111,8 @@ def plan(kind: str, *, heavy: bool = False, specialist: bool = False) -> dict[st
         "sourceRepository": "eggie-admin/LuHm-OS",
         "compatibilityLayers": ["chatGptOpenAi", "github"],
         "providerCandidate": provider,
+        "vertexAllowed": False,
+        "autoVertexFallback": False,
         "entitlementGate": entitlement,
         "proposedWorkers": proposed,
         "activeWorkers": [],

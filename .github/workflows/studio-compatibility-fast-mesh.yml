@@ -4,9 +4,13 @@ on:
   pull_request:
     paths:
       - "doctrine/studioCompatibilityFastMeshV1.json"
+      - "doctrine/currentSourceTruthV3.json"
+      - "host/api/luhmVideoJobWorker.py"
+      - "tools/yumeVertexVeoQueue.py"
       - "tools/studioFastMesh.py"
       - "tools/lumTaskRouter.py"
       - "tests/testStudioFastMesh.py"
+      - "tests/testActiveCompatibilityOrder.py"
       - ".github/workflows/studio-compatibility-fast-mesh.yml"
       - "doctrine/providerEconomyV1.json"
       - "doctrine/apiSpineV1.json"
@@ -15,8 +19,12 @@ on:
   push:
     paths:
       - "doctrine/studioCompatibilityFastMeshV1.json"
+      - "doctrine/currentSourceTruthV3.json"
+      - "host/api/luhmVideoJobWorker.py"
+      - "tools/yumeVertexVeoQueue.py"
       - "tools/studioFastMesh.py"
       - "tests/testStudioFastMesh.py"
+      - "tests/testActiveCompatibilityOrder.py"
       - ".github/workflows/studio-compatibility-fast-mesh.yml"
 
 permissions:
@@ -34,7 +42,9 @@ jobs:
       - name: Validate studio topology
         run: python3 tools/studioFastMesh.py --check
       - name: Test every route and provider gate
-        run: python3 -m unittest discover -s tests -p "testStudioFastMesh.py" -v
+        run: |
+          python3 -m unittest discover -s tests -p "testStudioFastMesh.py" -v
+          python3 -m unittest discover -s tests -p "testActiveCompatibilityOrder.py" -v
       - name: Fast-path quarantine smoke
         run: |
           python3 tools/studioFastMesh.py --kind research --heavy

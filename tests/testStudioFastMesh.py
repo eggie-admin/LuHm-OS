@@ -25,11 +25,15 @@ class StudioFastMeshTests(unittest.TestCase):
                 self.assertFalse(route["maySpend"])
                 self.assertFalse(route["mayInvokeProvider"])
 
-    def test_google_is_workhorse_not_authority(self):
+    def test_openai_is_first_and_google_is_not_default(self):
         route = studioFastMesh.plan("research", heavy=True)
-        self.assertEqual(route["providerCandidate"], "googleAi")
-        self.assertEqual(route["entitlementGate"], "UNKNOWN_ACCOUNT_BOUND_RECEIPT_REQUIRED")
+        self.assertEqual(route["providerCandidate"], "chatGptOpenAi")
+        self.assertEqual(route["compatibilityLayers"], ["chatGptOpenAi", "github"])
+        self.assertEqual(route["entitlementGate"], "OPENAI_SESSION_ONLY_NO_BILLABLE_EXECUTION")
+        self.assertFalse(route["vertexAllowed"])
+        self.assertFalse(route["autoVertexFallback"])
         self.assertEqual(route["companyOperationalHold"], "QUARANTINED")
+        self.assertEqual(studioFastMesh.plan("external")["providerCandidate"], "chatGptOpenAi")
 
     def test_hugging_face_remains_specialist(self):
         route = studioFastMesh.plan("research", specialist=True)
@@ -40,6 +44,12 @@ class StudioFastMeshTests(unittest.TestCase):
         route = studioFastMesh.plan("patch")
         self.assertEqual(route["sourceRepository"], "eggie-admin/LuHm-OS")
         self.assertEqual(route["compatibilityLayers"], ["chatGptOpenAi", "github"])
+
+    def test_vertex_is_not_in_active_compatibility_order(self):
+        studio = studioFastMesh.load("doctrine/studioCompatibilityFastMeshV1.json")
+        self.assertEqual([v["id"] for v in studio["compatibilityPriority"]], ["chatGptOpenAi", "github"])
+        self.assertEqual(studio["providerExclusions"]["vertexAi"]["status"], "DISABLED_LEGACY_ARCHIVAL_ONLY")
+        self.assertFalse(studio["workhorse"]["googleAi"]["enabledForArtWorkflow"])
 
     def test_no_unknown_route(self):
         with self.assertRaises(ValueError):

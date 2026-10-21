@@ -309,6 +309,10 @@ def main(argv=None):
     parser.add_argument('--approve-spend',action='store_true')
     parser.add_argument('--cost-ceiling-usd',type=float,default=0.0)
     args=parser.parse_args(argv)
+    # Professor's OpenAI-first/GitHub-second correction: legacy Vertex may be
+    # inspected offline, but never submitted or polled by this CLI.
+    if args.action in ('submit', 'poll'):
+        raise PermissionError('CROWN_STOP_VERTEX_DISABLED_OPENAI_FIRST_GITHUB_SECOND')
     doc=validateManifest(args.manifest)
     if args.action=='doctor':
         info={'status':'CHECK_ONLY_NO_NETWORK','sourceRef':doc['sourceRef'],
