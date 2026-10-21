@@ -16,7 +16,7 @@ class TestPluginReuse(unittest.TestCase):
         self.path.parent.mkdir(parents=True)
         self.path.write_bytes(b"(function ($) { return $; }(jQuery));\n")
         raw = self.path.read_bytes()
-        sha = hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\\0" + raw).hexdigest()
+        sha = hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\x00" + raw).hexdigest()
         self.entry = {"path": "frontEnd/jquery/demo.js", "gitBlobSha": sha}
 
     def tearDown(self):
