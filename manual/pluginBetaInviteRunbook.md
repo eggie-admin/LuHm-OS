@@ -50,8 +50,20 @@ Current rollback anchors, independently observed 2026-10-21: cockpit `870661cecc
 
 ## First outside tester, minimal script
 
-Invite **one person privately only after selecting a supported distribution route**. Never store their account name, email, phone, or token in this public repository. A standalone Render preview link is publicly reachable, **not a private ChatGPT plugin invite**, and is an option only when the Professor consciously accepts public-link reachability and the demo contains approved public-safe assets.
+Invite **one person privately only after selecting a supported distribution route**. Never store their account name, email, phone, or token in this public repository. A standalone Render preview link is publicly reachable and **not eligible as the requested first-tester experience**. The Professor explicitly requires ChatGPT in-chat interaction. Do not offer web playback as substitute acceptance.
 
 Give the tester a short opt-in checklist: open on their own device; report whether Lum, cast, pet controls and the 3D link appear; try portrait and landscape; report any blank screen or touch issue; don't upload private photos, medical information, songs, account keys or others' assets. Allow voluntary feedback by a privately agreed channel. Never request the tester's ChatGPT credentials. Log only an anonymous receipt in public CI; private feedback stays in an approved private channel.
 
 **Stop conditions:** an unexpected write tool, sensitive data disclosure, unsupported plugin availability, nonworking exit/feedback flow, unsafe media permissions or unverifiable rollback. No beta promotion, no public plugin listing, no external access until the owner reviews the actual distribution target.
+
+## Professor correction: ChatGPT in-chat beta only
+
+**Primary acceptance is NOT a website or Render demo.** The tester must find and install an authorized Project Hydra/LuHm-OS plugin from the ChatGPT Plugins experience, invoke `luhm_open_cockpit` in their ChatGPT conversation, and see the `ui://luhm-os/cockpit-v2.html` resource with the read-only four-lane beta board. On mobile, confirm the actual interactive card mounts, controls respond, and returning to the conversation is possible. A valid MCP JSON payload is not proof that the host displayed the widget.
+
+**Supported private route when available:** create or publish an eligible *workspace* plugin with permission for the tester, use `Share plugin → Only those invited`, and grant the same tester **viewer access to the underlying ChatGPT Site**. Tester's account must meet both sets of requirements. The existing owner **USER/PRIVATE** plugin does not become shareable just because we copied a link. A personal-only account may not have workspace-specific sharing capabilities. An unreviewed public directory package is not a one-person private invite.
+
+**No website escape:** do not set ChatGPT in-chat widget's `openInAppUrl` to the external Render harness or present a Render website as the beta delivery destination. Keep Godot web exports as a separate optional link for owner troubleshooting; never count them as in-chat gameplay. The invited tester has to experience the chat-native surface.
+
+**Current source evidence:** The owner-only plugin is 1.0.8. The latest owner invocation of `luhm_open_cockpit` returned **cockpit unavailable**, while `luhmConnectionStatus` returned only `bridge=reachable`; this is a live-host issue to resolve before any external invitation. Render LIVE does not override that blocker. Keep `beta` and `betaLts` blocked until an actual ChatGPT tool invocation and UI mount work in the target account.
+
+Official access guides: https://help.openai.com/en/articles/20001256-plugins-in-chatgpt and https://help.openai.com/en/articles/20001339-creating-and-using-chatgpt-sites.
