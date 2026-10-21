@@ -5,6 +5,14 @@
   "canonicalRepository": "eggie-admin/LuHm-OS",
   "authority": "Professor",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "activeCompatibilityOrder": {
+    "first": "chatGptOpenAi",
+    "second": "github",
+    "sourceAuthority": "github",
+    "vertexAi": "DISABLED_LEGACY_ARCHIVAL_ONLY",
+    "noProviderFallbackToVertex": true,
+    "operationalContract": "doctrine/studioCompatibilityFastMeshV1.json"
+  },
   "promotion": false,
   "namingLaw": {
     "contract": "doctrine/namingNamespaceCanonV1.json",
