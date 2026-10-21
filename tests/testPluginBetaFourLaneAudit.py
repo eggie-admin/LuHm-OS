@@ -57,6 +57,21 @@ class FourLaneBetaSafetyTests(unittest.TestCase):
         changed["target"]="Alex@example.com"
         self.assertTrue(self.check(policy=changed))
 
+    def test_chatgpt_inline_target_not_web_demo(self):
+        contract=copy.deepcopy(self.policy)
+        contract["inChatTarget"]["primarySurface"]="EXTERNAL_WEB_BROWSER"
+        self.assertTrue(self.check(policy=contract))
+        contract=copy.deepcopy(self.policy)
+        contract["inChatTarget"]["standaloneRenderAsTesterDelivery"]=True
+        self.assertTrue(self.check(policy=contract))
+        contract=copy.deepcopy(self.policy)
+        contract["inChatTarget"]["inChatUiMountProvenForTester"]=True
+        self.assertTrue(self.check(policy=contract))
+        contract=copy.deepcopy(self.policy)
+        contract["inChatTarget"]["workspacePluginSharingAndSiteViewerRightsBothRequiredWhenApplicable"]=False
+        self.assertTrue(self.check(policy=contract))
+        self.assertIn("data-luhm-in-chat-beta", (ROOT/"host/harness/widget.html").read_text(encoding="utf-8"))
+
     def test_no_invites_workers_or_unaudited_upgrade(self):
         changed=copy.deepcopy(self.policy)
         changed["release"]["betaInviteSent"]=True
