@@ -71,8 +71,8 @@ def main():
     html, css, js, jquery, vue, frontend = values
     mutations = [
         ("html", (html.replace('id="lum2dStage"', 'id="broken"'), css, js, jquery, vue, frontend)),
-        ("motion", (html, css.replaceAll("@media(prefers-reduced-motion:reduce)", "@media(min-width:1px)"), js, jquery, vue, frontend)),
-        ("pointer", (html, css, js.replaceAll("Number.isFinite(event.clientX)", "true"), jquery, vue, frontend)),
+        ("motion", (html, css.replace("@media(prefers-reduced-motion:reduce)", "@media(min-width:1px)"), js, jquery, vue, frontend)),
+        ("pointer", (html, css, js.replace("Number.isFinite(event.clientX)", "true"), jquery, vue, frontend)),
         ("remote", (html, css, js.replace("const root = byId", "fetch('https://unexpected.invalid'); const root = byId"), jquery, vue, frontend)),
         ("vue_vendor", (html, css, js, jquery, vue + "<script src='https://invalid.example'></script>", frontend)),
         ("jquery_cleanup", (html, css, js, jquery.replace("$.removeData(el, KEY)", "void 0"), vue, frontend))
