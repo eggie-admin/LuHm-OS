@@ -86,3 +86,7 @@ For the browser front-end concept, serve `frontEnd/` over a local static HTTP se
 ## Source law
 
 AI proposes. Policy authorizes. CI proves. Human promotes.
+
+## The human front desk
+
+For branding, writing, and field documentation, start with the [field-manual index](manual/README.md), [brand and voice guide](campaign/brandAndVoiceGuide.md), [Professor original-writing register](manual/professorWritingRegister.md), and [supervised Belldandy secretary desk](manual/belldandySecretaryDesk.md). Private illustrated masters and raw writing stay in owner-controlled Drive until explicitly approved for publication.
