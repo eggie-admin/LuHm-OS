@@ -11,6 +11,7 @@ on:
       - 'doctrine/assetRegisterV1.schema.json'
       - 'tests/testEmbeddedStudio.py'
       - 'tests/embeddedStudio.test.cjs'
+      - 'tests/desktopCockpitBrowserInteraction.test.cjs'
       - 'doctrine/openingDayStaffTrainingV1.json'
       - 'doctrine/apiSpineV1.json'
       - 'doctrine/python3ControlPlaneLawV1.json'
@@ -87,7 +88,17 @@ jobs:
           export NODE_PATH="$RUNNER_TEMP/luhm-browser/node_modules"
           export LUHM_STUDIO_EXPORT="$RUNNER_TEMP/luhm-studio-export.json"
           node tests/embeddedStudio.test.cjs
+          node tests/desktopCockpitBrowserInteraction.test.cjs
           python tests/testEmbeddedStudio.py
+
+      - name: Upload safe local Chromium desktop interaction proof
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-desktop-browser-interaction-${{ github.run_id }}
+          path: build/desktop-browser-proof/
+          if-no-files-found: warn
+          retention-days: 3
 
       - name: Boot-time harness contract check
         shell: bash
