@@ -21,16 +21,22 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git show dd26117074d0ccdba2e73e73fc4912738068c69c:publicationSite/pocketLab.html > "$RUNNER_TEMP/approvedPocket.html"
+          git show babe2c2cd2f9c0c9f8044ffee9ce21c1b4bd45a8:publicationSite/pocketLab.html > "$RUNNER_TEMP/approvedPocket.html"
           cmp publicationSite/pocketLab.html "$RUNNER_TEMP/approvedPocket.html"
           python3 - <<'PY'
           from pathlib import Path
           s=Path('publicationSite/pocketLab.html').read_text()
           assert 'id="live3dframe"' in s
           assert 'id="launch3d"' in s
-          assert 'https://luhm-os-harness-green.onrender.com/harness/godot-export/index.html' in s
+          assert s.count('https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html') == 2
+          assert 'https://luhm-os-harness-green.onrender.com/harness/godot-export/index.html' not in s
           assert 'sandbox="allow-scripts allow-same-origin allow-pointer-lock"' in s
           assert 'private Rebel models' in s
           assert 'rebelDrive' not in s
           print('GREEN_POCKET_3D_PUBLICATION_MATCHES_REVIEWED_MAIN')
           PY
+      - name: Re-run independent Godot and Pocket Alpha source gates
+        run: |
+          python3 tools/godotEmbedReadinessAudit.py
+          python3 tools/pocketLabAudit.py
+          
