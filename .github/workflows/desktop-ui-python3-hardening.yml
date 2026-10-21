@@ -1,0 +1,30 @@
+name: Desktop UI JavaScript Python3 Hardening
+on:
+  pull_request:
+    paths:
+      - 'host/harness/index.html'
+      - 'host/harness/cockpit.css'
+      - 'host/harness/cockpit.js'
+      - 'host/mcp/luhmHarness.py'
+      - 'tools/desktopPythonJsAudit.py'
+      - 'tests/desktopCockpitHardening.test.cjs'
+      - '.github/workflows/desktop-ui-python3-hardening.yml'
+permissions:
+  contents: read
+jobs:
+  desktop-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Python3 and JavaScript syntax plus behavioral adversarial tests
+        run: |
+          set -euo pipefail
+          python3 -m py_compile host/mcp/luhmHarness.py tools/desktopPythonJsAudit.py
+          python3 tools/desktopPythonJsAudit.py
+          node --check host/harness/cockpit.js
+          node --check host/harness/studioDeck.js
+          node --check host/harness/titan7Cockpit.js
+          node tests/desktopCockpitHardening.test.cjs

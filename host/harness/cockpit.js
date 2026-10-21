@@ -1,6 +1,16 @@
 "use strict";
 
 const byId = id => document.getElementById(id);
+const MAX_DESK_FILES = 24;
+const MAX_DESK_BYTES = 128 * 1024 * 1024;
+const MAX_ASSET_BYTES = 32 * 1024 * 1024;
+const DESK_MIME = Object.freeze({
+  ".png": ["image/png", "image"], ".jpg": ["image/jpeg", "image"],
+  ".jpeg": ["image/jpeg", "image"], ".gif": ["image/gif", "image"],
+  ".webp": ["image/webp", "image"], ".mp4": ["video/mp4", "video"],
+  ".webm": ["video/webm", "video"], ".pdf": ["application/pdf", "pdf"]
+});
+const BOOT_TIMEOUT_MS = 10000;
 const state = {
   pets: [],
   loadingManifest: null,
@@ -104,10 +114,24 @@ function onPointerMove(event) {
 }
 
 function classify(file) {
-  if (file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf")) return "pdf";
-  if (file.type.startsWith("image/")) return "image";
-  if (file.type.startsWith("video/")) return "video";
-  return "other";
+  const name = typeof file?.name === "string" ? file.name.toLowerCase() : "";
+  const extension = name.slice(name.lastIndexOf("."));
+  const expected = DESK_MIME[extension];
+  if (!expected || file.type !== expected[0]) return "other";
+  return expected[1];
+}
+
+function setDeskStatus(message) {
+  const status = byId("deskStatus");
+  if (status) status.textContent = message;
+}
+
+async function fetchJson(url) {
+  const response = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(BOOT_TIMEOUT_MS) });
+  if (!response.ok) throw new Error("Desktop dependency not available: " + url);
+  const raw = await response.text();
+  if (raw.length > 512 * 1024) throw new Error("Oversized desktop config: " + url);
+  return JSON.parse(raw);
 }
 
 function safeAssetRecord(file) {
@@ -127,24 +151,34 @@ function revokeAllObjectUrls() {
 }
 
 function addFiles(files) {
-  for (const file of files) {
+  let accepted = 0, rejected = 0;
+  let totalBytes = state.assets.reduce((sum, item) => sum + item.size, 0);
+  for (const file of Array.from(files || [])) {
     const kind = classify(file);
-    if (!["image", "video", "pdf"].includes(kind)) continue;
+    if (kind === "other" || !Number.isSafeInteger(file.size) || file.size < 1 ||
+        file.size > MAX_ASSET_BYTES || state.assets.length >= MAX_DESK_FILES ||
+        totalBytes + file.size > MAX_DESK_BYTES) {
+      rejected += 1;
+      continue;
+    }
     const record = safeAssetRecord(file);
     state.objectUrls.add(record.url);
     state.assets.push(record);
+    totalBytes += file.size;
+    accepted += 1;
   }
   if (state.assetIndex >= state.assets.length) state.assetIndex = Math.max(0, state.assets.length - 1);
   renderAssetDesk();
+  setDeskStatus(accepted + " added, " + rejected + " skipped. Local only; max 24 files, 32 MiB each, 128 MiB total. PNG, JPG, GIF, WebP, MP4, WebM, PDF.");
 }
 
 function clearPreview() {
+  byId("videoPreview").pause();
   for (const id of ["imagePreview", "videoPreview", "pdfPreview"]) {
     const el = byId(id);
     el.removeAttribute("src");
     el.style.display = "none";
   }
-  byId("videoPreview").pause();
 }
 
 function selectAsset(index) {
@@ -258,13 +292,14 @@ function clearAssets() {
   state.assets = [];
   state.assetIndex = 0;
   renderAssetDesk();
+  setDeskStatus("Local media cleared and preview URLs revoked.");
 }
 
 async function probeGodot() {
   const playButton = byId("playFirstNight");
   const playStatus = byId("playStatus");
   try {
-    const response = await fetch("/harness/godot-readiness.json", { method: "GET", cache: "no-store" });
+    const response = await fetch("/harness/godot-readiness.json", { method: "GET", cache: "no-store", signal: AbortSignal.timeout(BOOT_TIMEOUT_MS) });
     if (!response.ok) throw new Error("3D readiness endpoint unavailable");
     const proof = await response.json();
     if (proof?.schema !== "luhmOs.godotEmbedReadiness.v1" || proof?.ready !== true || proof?.integrity !== "SHA256_PASS" || proof?.wasmCount < 1 || proof?.pckCount < 1) throw new Error("3D bundle not proven");
@@ -303,7 +338,7 @@ function wirePlayButton() {
 function wireDropZone() {
   const input = byId("assetInput");
   const zone = byId("dropZone");
-  input.addEventListener("change", () => addFiles(input.files || []));
+  input.addEventListener("change", () => { addFiles(input.files || []); input.value = ""; });
   for (const eventName of ["dragenter", "dragover"]) {
     zone.addEventListener(eventName, event => {
       event.preventDefault();
@@ -320,25 +355,27 @@ function wireDropZone() {
 }
 
 async function boot() {
+  // Local creative desk stays usable even if the network/config stage fails.
+  renderNetwork();
+  renderAssetDesk();
+  wireDropZone();
+  wirePlayButton();
   const [cfg, pets, spriteManifest] = await Promise.all([
-    fetch("/harness/config.json", { cache: "no-store" }).then(r => r.json()),
-    fetch("/harness/pets.json", { cache: "no-store" }).then(r => r.json()),
-    fetch("/harness/assets/agent-loading-sprites.json", { cache: "no-store" }).then(r => r.json())
+    fetchJson("/harness/config.json"),
+    fetchJson("/harness/pets.json"),
+    fetchJson("/harness/assets/agent-loading-sprites.json")
   ]);
   window.luhmStudioDeck?.configure(cfg.embeddedStudio);
   state.loadingManifest = spriteManifest;
   setLoadingAgent("belldandySecretary", "Loading the verified agent roster");
   validateLoadingManifest(spriteManifest);
   setLoadingAgent("sumi", "Checking the large sprite atlas");
-  const atlasResponse = await fetch(spriteManifest.assetUrl, { method: "HEAD", cache: "no-store" });
+  if (typeof spriteManifest.assetUrl !== "string" || !/^\/harness\/assets\/agent-roster-v1\.png$/.test(spriteManifest.assetUrl)) throw new Error("Unexpected sprite atlas URL");
+  const atlasResponse = await fetch(spriteManifest.assetUrl, { method: "HEAD", cache: "no-store", signal: AbortSignal.timeout(BOOT_TIMEOUT_MS) });
   if (!atlasResponse.ok) throw new Error("agent sprite atlas unavailable");
   state.pets = pets.pets || [];
-  renderNetwork();
   renderLibraries(cfg.libraries || {});
   showPet();
-  renderAssetDesk();
-  wireDropZone();
-  wirePlayButton();
 
   byId("petDock").addEventListener("click", () => {
     state.petIndex = (state.petIndex + 1) % Math.max(state.pets.length, 1);
@@ -357,11 +394,13 @@ async function boot() {
 
   setLoadingAgent("kugi", "Checking the Godot web viewer");
   await probeGodot();
-  byId("agentLoadingScreen").hidden = true;
+  byId("edgeBadge").textContent = "SOURCE-VERIFIED DEMO";
 }
 
 boot().catch(error => {
-  byId("edgeBadge").textContent = "HARNESS ERROR";
-  setLoadingAgent("urdDoctorGoddess", "Startup could not be verified");
-  console.error(error);
+  byId("edgeBadge").textContent = "DESKTOP OFFLINE / UNVERIFIED";
+  setDeskStatus("Configuration unavailable. Local media desk remains usable; hosted 3D is unverified.");
+  console.error("LuHm desktop dependency unavailable", error);
+}).finally(() => {
+  byId("agentLoadingScreen").hidden = true;
 });

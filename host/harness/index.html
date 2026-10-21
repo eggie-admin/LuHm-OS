@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#10131a">
 <title>LuHm OS First Night Demo</title>
 <link rel="stylesheet" href="/harness/assets/cockpit.css">
 <link rel="stylesheet" href="/harness/assets/studioDeck.css">
@@ -69,9 +71,10 @@
     <div id="assetTree" class="tree" role="tree" aria-label="Local asset tree"></div>
     <label class="dropZone" id="dropZone" for="assetInput">
       <strong>Drop assets here</strong>
-      <span>image · video · PDF</span>
-      <input id="assetInput" type="file" multiple accept="image/*,video/*,application/pdf">
+      <span>PNG · JPG · GIF · WebP · MP4 · WebM · PDF (max 24 files)</span>
+      <input id="assetInput" type="file" multiple accept=".png,.jpg,.jpeg,.gif,.webp,.mp4,.webm,.pdf" aria-describedby="deskStatus">
     </label>
+    <p class="tiny" id="deskStatus" role="status" aria-live="polite">Local-only preview. Max 32 MiB per file; 128 MiB total. Files are never uploaded.</p>
     <button class="ghostButton" id="clearAssets" type="button">Clear local desk</button>
   </aside>
 
@@ -80,7 +83,7 @@
       <div class="panelHead"><h2>Godot 4 Web viewport</h2><span class="badge" id="godotBadge">probing…</span></div>
       <div class="godotStage" id="godotStage">
         <div class="emptyState" id="godotEmpty">No staged Web export yet. Target: <code>host/harness/godot-export/index.html</code>.</div>
-        <iframe id="godotFrame" title="LuHm OS First Night playable Godot 4 Web viewer" sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-downloads" referrerpolicy="no-referrer"></iframe>
+        <iframe id="godotFrame" title="LuHm OS First Night playable Godot 4 Web viewer" sandbox="allow-scripts allow-same-origin allow-pointer-lock" referrerpolicy="no-referrer" loading="lazy"></iframe>
       </div>
     </article>
 
@@ -97,7 +100,7 @@
         <div class="emptyState" id="previewEmpty">Drop an image, video, or PDF. Nothing leaves this browser.</div>
         <img id="imagePreview" alt="Selected local asset preview">
         <video id="videoPreview" controls playsinline></video>
-        <iframe id="pdfPreview" title="Local PDF preview" sandbox></iframe>
+        <iframe id="pdfPreview" title="Local PDF preview" sandbox referrerpolicy="no-referrer" loading="lazy"></iframe>
       </div>
       <div id="thumbRail" class="thumbRail" aria-label="Asset carousel thumbnails"></div>
     </article>

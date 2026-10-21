@@ -41,9 +41,9 @@ def _origin() -> str:
     return value
 
 
-def _headers(*, html: bool = False, production: bool = False, godot_embed: bool = False) -> dict[str, str]:
+def _headers(*, html: bool = False, production: bool = False, godot_embed: bool = False, dynamic: bool = False) -> dict[str, str]:
     headers = {
-        "Cache-Control": "no-store" if html else "public, max-age=300",
+        "Cache-Control": "no-store" if html or dynamic else "public, max-age=300",
         "X-Content-Type-Options": "nosniff",
         "Referrer-Policy": "no-referrer",
         "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
@@ -58,7 +58,7 @@ def _headers(*, html: bool = False, production: bool = False, godot_embed: bool 
             "frame-ancestors 'self' https://*.web-sandbox.oaiusercontent.com https://luhm-os-publication-site.onrender.com"
             if godot_embed else "frame-ancestors 'self'"
         )
-        frame_policy = "frame-src 'self'; " if godot_embed else "frame-src 'self' https://www.youtube-nocookie.com; "
+        frame_policy = "frame-src 'self'; " if godot_embed else "frame-src 'self' blob: https://www.youtube-nocookie.com; "
         headers["Content-Security-Policy"] = (
             "default-src 'self'; "
             + script_policy
@@ -78,11 +78,21 @@ def _headers(*, html: bool = False, production: bool = False, godot_embed: bool 
 
 
 def _safe_file(root: Path, relative: str) -> Path | None:
-    root = root.resolve()
-    candidate = (root / relative).resolve()
-    if candidate != root and root not in candidate.parents:
+    # Serve only plain files below the allowlisted root; reject path aliases
+    # and symlink traversal, even if the link resolves to an internal file.
+    if not isinstance(relative, str) or not relative or chr(0) in relative or chr(92) in relative:
         return None
-    if not candidate.is_file():
+    path = Path(relative)
+    if path.is_absolute() or any(part in {"", ".", ".."} for part in relative.split("/")):
+        return None
+    root = root.resolve()
+    current = root
+    for part in path.parts:
+        current = current / part
+        if current.is_symlink():
+            return None
+    candidate = current.resolve()
+    if root not in candidate.parents or not candidate.is_file():
         return None
     return candidate
 
@@ -430,12 +440,12 @@ def register_harness(
                     "greenAuthority": False,
                 },
             },
-            headers=_headers(),
+            headers=_headers(dynamic=True),
         )
 
     @server.custom_route("/harness/pets.json", methods=["GET"])
     async def harness_pets(_: Request) -> Response:
-        return JSONResponse(json.loads(pets_path.read_text(encoding="utf-8")), headers=_headers())
+        return JSONResponse(json.loads(pets_path.read_text(encoding="utf-8")), headers=_headers(dynamic=True))
 
     @server.custom_route("/harness/godot-readiness.json", methods=["GET", "HEAD"])
     async def godot_readiness(_: Request) -> Response:
@@ -447,7 +457,7 @@ def register_harness(
             "browserRuntimeProven": False,
             "androidDeviceProven": False,
             "privateDonorIncluded": False,
-        }, headers=_headers(html=False, production=profile_provider() == "production"))
+        }, headers=_headers(dynamic=True, production=profile_provider() == "production"))
     @server.custom_route("/harness/godot-export/{asset_path:path}", methods=["GET", "HEAD"])
     async def godot_asset(request: Request) -> Response:
         relative = request.path_params.get("asset_path", "")
