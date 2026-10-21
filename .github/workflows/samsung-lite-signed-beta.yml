@@ -183,14 +183,22 @@ jobs:
           test "$OBSERVED" == "$TRUSTED_SIGNER"
           sha256sum "$APK" > build/signed-beta/sha256.txt
           python3 - <<'PY'
-          import hashlib,json,os
+          import hashlib,json,os,re
           from pathlib import Path
           apk=Path("build/signed-beta/samsung-lite-beta.apk")
+          badging=Path("build/signed-beta/badging.txt").read_text()
+          certs=Path("build/signed-beta/signature.txt").read_text()
+          version_match=re.search(r"versionCode='([0-9]+)'",badging)
+          cert_match=re.search(r"Signer #1 certificate SHA-256 digest: ([0-9a-fA-F]{64})",certs)
+          assert version_match and cert_match, "MISSING_ANDROID_RECEIPT_FIELDS"
           data={"schema":"luhmOs.signedSamsungBeta.v1","sourceRef":os.environ["SOURCE_REF"],
                 "apkSha256":hashlib.sha256(apk.read_bytes()).hexdigest(),
                 "runId":os.environ["GITHUB_RUN_ID"],
                 "applicationId":"art.eggiebagelface.luhmos.beta",
-                "releaseMode":True,"deviceProof":False,"betaUpgradeProof":False,
+                "appSignerCertificateSha256":cert_match.group(1).lower(),
+                "versionCode":int(version_match.group(1)),
+                "targetSdk":36,"abi":"arm64-v8a","assetProfile":"sourceOnlyProceduralLum",
+                "debuggable":False,"releaseMode":True,"deviceProof":False,"betaUpgradeProof":False,
                 "publicPublished":False,"crownStatus":"STOP"}
           Path("build/signed-beta/receipt.json").write_text(json.dumps(data,indent=2)+"\n")
           PY
