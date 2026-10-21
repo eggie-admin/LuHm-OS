@@ -44,4 +44,33 @@ class TypedStubTests(unittest.TestCase):
                 putText(self.db,'firstEvent','label','transient')
                 putNumeric(self.db,'firstEvent','rate','fixed','0.0000001',6)
         self.assertEqual(self.db.execute('SELECT count(*) FROM textStream').fetchone()[0],0)
+
+    def test_sql_rejects_non_hex_source_ref(self):
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                'INSERT INTO streamEvent(eventId,taskId,sourceRef,scopeId,workerId,sequenceId,eighthNote,observedAt) VALUES (?,?,?,?,?,?,?,?)',
+                ('badEvent','testTask','g'*40,'testScope','lum',2,1,'2026-10-12T15:00:00Z')
+            )
+
+    def test_sql_rejects_non_utc_observed_time(self):
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                'INSERT INTO streamEvent(eventId,taskId,sourceRef,scopeId,workerId,sequenceId,eighthNote,observedAt) VALUES (?,?,?,?,?,?,?,?)',
+                ('badEvent','testTask',S,'testScope','lum',2,1,'2026-10-12T15:00:00')
+            )
+
+    def test_sql_rejects_bad_artifact_hash(self):
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                'INSERT INTO artifactPointer(artifactId,eventId,fileName,sha256,storageLane,logicalFileRef,sizeBytes) VALUES (?,?,?,?,?,?,?)',
+                ('artifactOne','firstEvent','sample.glb','z'*64,'googleDriveDurable','privateAssetRef',12)
+            )
+
+    def test_parameterized_text_is_not_sql(self):
+        original = "x'); DROP TABLE streamEvent; --"
+        putText(self.db,'firstEvent','untrustedLabel',original)
+        self.assertEqual(self.db.execute(
+            "SELECT textValue FROM textStream WHERE fieldName=?", ('untrustedLabel',)).fetchone()[0],original)
+        self.assertEqual(self.db.execute("SELECT count(*) FROM streamEvent").fetchone()[0],1)
+
 if __name__=='__main__': unittest.main()
