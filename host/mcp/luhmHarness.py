@@ -55,7 +55,7 @@ def _headers(*, html: bool = False, production: bool = False, godot_embed: bool 
         script_policy = "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; " if godot_embed else "script-src 'self'; "
         style_policy = "style-src 'self' 'unsafe-inline'; " if godot_embed else "style-src 'self'; "
         ancestors = (
-            "frame-ancestors 'self' https://*.web-sandbox.oaiusercontent.com"
+            "frame-ancestors 'self' https://*.web-sandbox.oaiusercontent.com https://luhm-os-publication-site.onrender.com"
             if godot_embed else "frame-ancestors 'self'"
         )
         headers["Content-Security-Policy"] = (
