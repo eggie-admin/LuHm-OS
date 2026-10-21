@@ -1,0 +1,122 @@
+{
+  "schema": "luhmOs.contextCheckpoint.v1",
+  "checkpointId": "projectHydra-20261021-lum2d-parallax-production",
+  "date": "2026-10-21",
+  "owner": "Professor",
+  "objective": "Seal the verified LuHm OS/Project Hydra HTML, CSS, JavaScript, parallax and layered 2D production checkpoint without promoting pending Vue, Android, ChatGPT or Cloudflare work.",
+  "sourceRef": "e98faaeb9874676b7dc0f5960c1466b17400f2d5",
+  "source": {
+    "repository": "eggie-admin/LuHm-OS",
+    "branch": "main",
+    "commit": "e98faaeb9874676b7dc0f5960c1466b17400f2d5",
+    "sourceOfTruth": "doctrine/currentSourceTruthV3.json"
+  },
+  "status": "HOST_DEPLOYED",
+  "confirmedFacts": [
+    "GitHub PR #342: Render Python3/npm/static/Godot boundary hardening merged; publication and Cloudflare dashboard are separate.",
+    "GitHub PR #343: Pocket Art Studio 3D Play link corrected to dedicated Godot service, merged into publication branch; Render static site deployment dep-dbcafn1srm7s7385qaqg LIVE at dbd32092715bf5785b6d0f893765cb4256d3e0d9.",
+    "GitHub PR #344: original Lum-inspired layered SVG 2D character plus Blink, Smile, Wave and Pause controls, bounded parallax, reduced-motion handling, and source-only Vue 3 candidate merged into main.",
+    "Exact-head candidate aff16e8c8346100dd005cc9d8198580cc308c72b completed 26 of 26 GitHub pull-request workflows successfully.",
+    "Existing Render Python harness service srv-daubsi1srm7s73bl5lh0 completed deployment dep-dbcb0poae00c73969b7g with status LIVE, exact main commit e98faaeb9874676b7dc0f5960c1466b17400f2d5.",
+    "New source route for the layered character is https://luhm-os-harness-green.onrender.com/harness/; this is a deploy receipt, not an independent visual browser test."
+  ],
+  "evidenceRefs": [
+    {
+      "type": "githubPullRequest",
+      "uri": "https://github.com/eggie-admin/LuHm-OS/pull/342",
+      "claim": "merged infrastructure source hardening"
+    },
+    {
+      "type": "githubPullRequest",
+      "uri": "https://github.com/eggie-admin/LuHm-OS/pull/343",
+      "claim": "merged production static 3D link repair"
+    },
+    {
+      "type": "githubPullRequest",
+      "uri": "https://github.com/eggie-admin/LuHm-OS/pull/344",
+      "claim": "merged original layered 2D parallax Vue source"
+    },
+    {
+      "type": "githubCommit",
+      "uri": "https://github.com/eggie-admin/LuHm-OS/commit/e98faaeb9874676b7dc0f5960c1466b17400f2d5",
+      "claim": "exact production source commit"
+    },
+    {
+      "type": "githubWorkflowCommit",
+      "uri": "https://github.com/eggie-admin/LuHm-OS/commit/aff16e8c8346100dd005cc9d8198580cc308c72b",
+      "claim": "26/26 PR workflows successful for reviewed head"
+    },
+    {
+      "type": "renderDeploy",
+      "serviceId": "srv-daubsi1srm7s73bl5lh0",
+      "deployId": "dep-dbcb0poae00c73969b7g",
+      "sourceCommit": "e98faaeb9874676b7dc0f5960c1466b17400f2d5",
+      "status": "live"
+    },
+    {
+      "type": "renderDeploy",
+      "serviceId": "srv-dauan1mgekts73dm91c0",
+      "deployId": "dep-dbcafn1srm7s7385qaqg",
+      "sourceCommit": "dbd32092715bf5785b6d0f893765cb4256d3e0d9",
+      "status": "live"
+    }
+  ],
+  "claims": {
+    "htmlCssJsLayeredPuppet": {
+      "state": "PROVEN",
+      "scope": "CI+source+Render production deployment, not independent device render"
+    },
+    "jqueryParallaxAdapter": {
+      "state": "SOURCE_DERIVED",
+      "scope": "frontEnd local-source adapter and pinned jquery dry run, no Samsung app test"
+    },
+    "vue3SingleFileComponent": {
+      "state": "SOURCE_DERIVED",
+      "scope": "real Vue 3 SFC source, not yet bundled into production"
+    },
+    "live2dCubismRuntime": {
+      "state": "UNKNOWN",
+      "scope": "not installed or proven; original Live2D-style SVG rather than Cubism"
+    },
+    "chatGptVisualMount": {
+      "state": "UNKNOWN",
+      "scope": "private plugin app visual interactivity not independently proven"
+    },
+    "samsungTabletInstall": {
+      "state": "UNKNOWN",
+      "scope": "no physical-device proof for current package"
+    },
+    "cloudflareCdnDashboard": {
+      "state": "UNKNOWN",
+      "scope": "Cloudflare DNS, TLS, proxy and cache rules not changed in this checkpoint"
+    },
+    "fullPublicRelease": {
+      "state": "UNKNOWN",
+      "scope": "final distribution/art rights/signing and host gates remain separate"
+    }
+  },
+  "pendingDecisions": [
+    "User visually confirm the new Lum Layered 2D Studio renders and buttons respond in Chrome.",
+    "Bundle Vue 3 in an isolated, locked npm build and browser-verify it before any production integration.",
+    "Perform independent ChatGPT in-chat widget render proof, not just MCP tool invocation.",
+    "Physical Samsung tablet install/interaction test and signed stable APK proof before F-Droid claims.",
+    "Cloudflare edge only after explicit live zone/DNS/TLS/cache validation and approval."
+  ],
+  "conflicts": [
+    "Do not mistake the Python-only harness Godot placeholder for the separate deployed Godot Web runtime.",
+    "Source-only Vue SFC is not a Vue production bundle or a licensed Live2D Cubism rig.",
+    "Successful CI and a LIVE Render deploy do not prove physical device playback or in-chat host rendering."
+  ],
+  "proposedMutations": [],
+  "executionAuthorized": false,
+  "crownStatus": "stop",
+  "promotion": false,
+  "documentationSeal": "RECORDED_SOURCE_RECEIPTS_NOT_RUNTIME_PROMOTION",
+  "storage": {
+    "github": "canonical sanitized checkpoint",
+    "googleDrive": "not copied in this operation",
+    "sql": "not written",
+    "chatMemory": "advisory only"
+  },
+  "resume": "Open main at e98faaeb, read this checkpoint plus doctrine/chatContinuityResumeV1.json, then perform live browser proof of Lum layered 2D without changing release authority."
+}
