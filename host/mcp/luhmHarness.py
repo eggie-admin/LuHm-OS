@@ -80,7 +80,7 @@ def _headers(*, html: bool = False, production: bool = False, godot_embed: bool 
 def _safe_file(root: Path, relative: str) -> Path | None:
     # Serve only plain files below the allowlisted root; reject path aliases
     # and symlink traversal, even if the link resolves to an internal file.
-    if not isinstance(relative, str) or not relative or "\\x00" in relative or "\\\\" in relative:
+    if not isinstance(relative, str) or not relative or chr(0) in relative or chr(92) in relative:
         return None
     path = Path(relative)
     if path.is_absolute() or any(part in {"", ".", ".."} for part in relative.split("/")):
