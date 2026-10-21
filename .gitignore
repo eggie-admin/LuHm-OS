@@ -29,3 +29,13 @@ __pycache__/
 *.token
 *.credentials
 service-account*.json
+# Local databases and disposable caches, never public project source
+*.py[cod]
+*.log
+# Local signing, key, account credentials
+*.hf_token
+*.asc
+# Unreviewed compressed donor media and backup Blender revisions
+*.rar
+*.blend1
+*.blend2
