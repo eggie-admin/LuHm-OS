@@ -1,0 +1,47 @@
+name: Render Python npm Static CDN Boundary Gate
+on:
+  pull_request:
+    paths:
+      - 'render.yaml'
+      - 'publicationSite/pocketLab.html'
+      - 'host/harness/libraryPolicy.json'
+      - 'frontEnd/package.json'
+      - 'frontEnd/package-lock.json'
+      - 'doctrine/cloudflareEdgeHardeningV1.json'
+      - 'tools/renderEdgeStackAudit.py'
+      - '.github/workflows/render-edge-stack-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render-edge-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Exact candidate SHA and Python3 edge negative controls
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$HEAD_SHA"
+          git diff --check
+          python3 -m py_compile tools/renderEdgeStackAudit.py
+          python3 tools/renderEdgeStackAudit.py
+          python3 tools/godotEmbedReadinessAudit.py
+          python3 tools/pocketLabAudit.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontEnd/package-lock.json
+      - name: Verify npm lock and bundled local JavaScript
+        working-directory: frontEnd
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run check
+          npm run stage:jquery
+          test -s vendor/jquery-3.7.1.min.js
+          test -s vendor/jquery-LICENSE.txt
