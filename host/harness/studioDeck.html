@@ -1,7 +1,18 @@
-<section class="studioDeck" id="luhmStudioDeck" aria-label="Creative workspace">
+<section class="studioDeck" id="luhmStudioDeck" aria-label="Creative workspace" data-studio-depth-host>
+  <!-- Four decorative depth planes. Interactive glass UI lives between middle and foreground. -->
+  <div class="scenery" aria-hidden="true" data-studio-depth-stack>
+    <div class="scenerySky" data-studio-depth="embeddedBackdrop">
+      <iframe id="studioBackdropFrame" title="Optional LuHm Godot scene background" referrerpolicy="no-referrer" sandbox="allow-scripts allow-pointer-lock" loading="lazy" tabindex="-1" hidden></iframe>
+    </div>
+    <div class="sceneryClouds" data-studio-depth="rearParallax"></div>
+    <div class="sceneryMountains" data-studio-depth="middleParallax"></div>
+    <div class="sceneryTrees" data-studio-depth="frontParallax"></div>
+  </div>
   <section class="studioLevel studioWorld" aria-labelledby="studioWorldTitle">
-    <div class="scenery" aria-hidden="true"><div class="scenerySky"></div><div class="sceneryClouds"></div><div class="sceneryMountains"></div><div class="sceneryTrees"></div></div>
-    <div class="studioWorldCopy"><span class="studioEyebrow">LuHm · creative workspace</span><h2 id="studioWorldTitle">A little world for your work.</h2><p>Keep the music close, the originals safe, and the next shot in sight.</p></div>
+    
+    <div class="studioWorldCopy"><span class="studioEyebrow">LuHm · creative workspace</span><h2 id="studioWorldTitle">A little world for your work.</h2><p>Keep the music close, the originals safe, and the next shot in sight.</p>
+    <div class="studioButtons"><button type="button" id="studioBackdropLoad">Enable embedded scene</button><button type="button" id="studioBackdropStop">Use static background</button></div>
+    <p id="studioBackdropStatus" role="status" aria-live="polite">Static background active. Embedded scene loads only when requested.</p></div>
   </section>
   <section class="studioLevel" aria-labelledby="studioMusicTitle">
     <h2 id="studioMusicTitle">Music desk</h2><p>Paste a YouTube or YouTube Music video or playlist link. Load when you want to connect to YouTube.</p>
