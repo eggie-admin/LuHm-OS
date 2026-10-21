@@ -52,6 +52,15 @@ class TenPassSqlTests(unittest.TestCase):
                 ("firstEvent", "durationMs", "float", None, float("inf"), None, None),
             )
 
+    def test_missing_float_cannot_bypass_check_via_null(self):
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                """INSERT INTO numericStream
+                (eventId, fieldName, valueKind, integerValue, floatValue, scaledValue, decimalScale)
+                VALUES (?, ?, ?, ?, ?, ?, ?)""",
+                ("firstEvent", "durationMs", "float", None, None, None, None),
+            )
+
     def test_artifact_hash_requires_lower_hex(self):
         for sha in ("g" * 64, "A" * 64, "0" * 63):
             with self.subTest(sha=sha[:8]):
