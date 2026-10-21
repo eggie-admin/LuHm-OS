@@ -1,0 +1,46 @@
+{
+  "schema": "luhmOs.jqueryPluginContinuity.v1",
+  "authority": "Professor",
+  "baseline": "PROFESSOR_ACCEPTED_SOURCE_REUSE",
+  "appliesTo": "Professor-accepted jQuery source artifacts; identities below are the observed GitHub copies, not a claim about unlocated uploads.",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "jqueryVersion": "3.7.1",
+  "exactSourceRefAtAcceptance": "9c917b6c8e36077a354bb56da402ed6cee6d322b",
+  "acceptedObservedSources": [
+    {
+      "id": "luhmCockpit",
+      "path": "frontEnd/jquery/luhm.cockpit.js",
+      "gitBlobSha": "081a0bdd86c4cdca9f4027a26da0297df8e1bed1",
+      "lane": "existingCockpit",
+      "professorAcceptance": "GREEN_SOURCE_REUSE",
+      "runtimeInstallation": "NOT_INFERRED"
+    },
+    {
+      "id": "luhmCodingRoleplay",
+      "path": "frontEnd/jquery/luhm.codingRoleplay.js",
+      "gitBlobSha": "d729f778706276fcd931bedabd7ab0c8f4121c1a",
+      "lane": "existingCockpit",
+      "professorAcceptance": "GREEN_SOURCE_REUSE",
+      "runtimeInstallation": "NOT_INFERRED"
+    },
+    {
+      "id": "luhmOniSummoner",
+      "path": "frontEnd/plugins/incoming/luhm-oni-summoner/jquery.luhmOniSummoner.js",
+      "gitBlobSha": "c74c5212bec0a7090120dd46978d427e0229dbc7",
+      "lane": "incomingNotRuntimeApproved",
+      "professorAcceptance": "GREEN_SOURCE_REUSE",
+      "runtimeInstallation": "NOT_INFERRED"
+    }
+  ],
+  "fastPath": {
+    "unchanged": "Reuse Professor's acceptance. Check exact Git blob identities and JavaScript syntax once per changed PR, not on every chat handoff.",
+    "changed": "Check the delta and affected tests only. Keep previous accepted fingerprint for rollback.",
+    "missingUpload": "Reuse Professor acceptance as a decision, but do not claim possession or verification until exact files and hashes are located.",
+    "publicationOrPrivilege": "Separate runtime, credential, external network, production, agent activation, or distribution approval remains required.",
+    "skipRepeatedFullReaudits": true,
+    "noAutomaticExecutionFromIncoming": true,
+    "noAdditionalCloudService": true,
+    "noAutonomousAgentRelease": true
+  },
+  "crownStatus": "STOP_FOR_PUBLIC_OR_PRIVILEGED_ACTIONS"
+}
