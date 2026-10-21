@@ -1,0 +1,45 @@
+name: Pocket Studio Final Boss Asset Gate
+on:
+  pull_request:
+    paths:
+      - 'plugins/luhm-os/assets/assetCatalog.json'
+      - 'plugins/luhm-os/assets/pocketArtPackV1.json'
+      - 'tools/pocketAssetIntegrityAudit.py'
+      - 'tools/pocketLabAudit.py'
+      - 'publicationSite/pocketLab.html'
+      - '.github/workflows/pocket-final-boss-assets.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  catalog-and-asset-rights:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact candidate commit
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          git diff --check
+      - name: 750+ checked claims from 110 original draft asset records
+        run: python3 tools/pocketAssetIntegrityAudit.py
+      - name: Public browser source and permissions language
+        run: python3 tools/pocketLabAudit.py
+      - name: Character canon/worker quarantine still held
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          read=lambda p:json.loads(Path(p).read_text())
+          c=read("doctrine/currentSourceTruthV3.json")
+          q=read("doctrine/companyWideOperationalQuarantineV1.json")
+          assert c["promotion"] is False
+          assert q["state"]=="QUARANTINED"
+          assert q["activeTaskWorkersAllowed"] is False
+          print("DRAFT_ASSET_SOURCE_GREEN; AGENTS_NOT_ACTIVATED")
+          PY
