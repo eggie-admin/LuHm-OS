@@ -1,0 +1,32 @@
+{
+  "schema": "luhmOs.pocketAssetIntegrityReceipt.v1",
+  "status": "PASS",
+  "assetCount": 110,
+  "checksTotal": 557,
+  "checksPassed": 557,
+  "errors": [],
+  "archive": "LuHmAssetStudioStarterV1.zip",
+  "archiveSha256": "8a04dd61413317e2ffe24d9143697d7956958f1b9a9111d673347da75539a7f2",
+  "sizeBytes": 355761,
+  "categoryCounts": {
+    "ui": 34,
+    "backdrops": 6,
+    "vfx": 16,
+    "sprites": 27,
+    "audio": 12,
+    "models": 1,
+    "godot": 11,
+    "docs": 2,
+    "web": 1
+  },
+  "sources": "original generated draft files; reference-only, not approved published character canon",
+  "provenanceState": "draft",
+  "publicApproval": false,
+  "runtimeProof": {
+    "godot": false,
+    "android": false,
+    "inChat": false,
+    "autonomousAgents": false
+  },
+  "method": "Actual 111-entry ZIP opened, CRC read, 110 sizes, SHA-256, signatures, safe names and approval flags verified. Source runtime tests separate."
+}
