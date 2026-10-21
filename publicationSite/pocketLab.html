@@ -54,7 +54,7 @@ body.reduced #mascot,body.reduced .heart{animation:none!important}
 <p class="small">This loads the actual Godot Web export from the existing LuHm OS harness when you choose Play. It uses the public procedural Lum fallback, not private Rebel models. Internet is required for this optional embedded viewer.</p>
 <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:12px 0">
 <button id="launch3d" type="button">▶ Play the 3D world</button>
-<a href="https://luhm-os-harness-green.onrender.com/harness/godot-export/index.html" target="_blank" rel="noopener noreferrer">Open 3D in a new tab ↗</a></div>
+<a href="https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html" target="_blank" rel="noopener noreferrer">Open 3D in a new tab ↗</a></div>
 <p class="small" id="launch3dstatus" role="status">3D is idle. No network request is made until you press Play.</p>
 <iframe id="live3dframe" title="Playable LuHm OS Godot 4 First Night world" hidden loading="lazy"
  referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-pointer-lock" allow="fullscreen;gamepad" allowfullscreen
@@ -76,7 +76,7 @@ $("cast").addEventListener("click",()=>{tone(880);speak("Sparkle spell! Just a v
 $("pause").addEventListener("click",e=>{const v=document.body.classList.toggle("reduced");e.currentTarget.setAttribute("aria-pressed",String(v));e.currentTarget.textContent=v?"▶ Resume motion":"Ⅱ Pause motion"});
 $("launch3d").addEventListener("click",()=>{
   const player=$("live3dframe");
-  if(!player.src) player.src="https://luhm-os-harness-green.onrender.com/harness/godot-export/index.html";
+  if(!player.src) player.src="https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html";
   player.hidden=false;
   $("launch3dstatus").textContent="3D player requested. If WebGL is unavailable, open it in a new tab.";
   $("launch3d").disabled=true;
