@@ -108,7 +108,7 @@ audit("repositoryFeedbackLink", "https://github.com/eggie-admin/LuHm-OS/issues/n
 audit("publicSourceLink", "https://github.com/eggie-admin/LuHm-OS" in parser.links)
 audit("homeTesterLink", "/tester.html" in home)
 audit("releaseTesterLink", "/tester.html" in release)
-audit("publicReleaseHonesty", "not live AI agents" in site.lower())
+audit("publicReleaseHonesty", "not live ai agents" in site.lower())
 audit("daybreakNoEndorsement", "No OpenAI endorsement" in site)
 audit("privatePluginSeparated", "connected ChatGPT plugin" in site)
 audit("readOnlyClarity", "Read-only preview" in site)
