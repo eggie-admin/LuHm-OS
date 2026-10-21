@@ -11,6 +11,26 @@ const DESK_MIME = Object.freeze({
   ".webm": ["video/webm", "video"], ".pdf": ["application/pdf", "pdf"]
 });
 const BOOT_TIMEOUT_MS = 10000;
+const PET_SELECTION_KEY = "luhm.petSelection.v1";
+const DEFAULT_PETS = Object.freeze([{ name: "Lum", role: "Companion", glyph: "L" }]);
+function safePetSelection() {
+  try { return sessionStorage.getItem(PET_SELECTION_KEY) || ""; } catch (_) { return ""; }
+}
+function rememberPetSelection(name) {
+  try { sessionStorage.setItem(PET_SELECTION_KEY, name); } catch (_) { /* private browsing */ }
+}
+function validatePets(input) {
+  if (!Array.isArray(input) || input.length < 1 || input.length > 32) throw new Error("invalid pet roster");
+  const names = new Set();
+  return input.map(item => {
+    if (!item || typeof item.name !== "string" || !/^[\w -]{1,40}$/.test(item.name) || names.has(item.name) ||
+        typeof item.role !== "string" || item.role.length > 100 ||
+        (item.glyph != null && (typeof item.glyph !== "string" || [...item.glyph].length > 3))) throw new Error("invalid pet entry");
+    names.add(item.name);
+    return { name: item.name, role: item.role, glyph: item.glyph || item.name.slice(0, 1) };
+  });
+}
+
 const state = {
   pets: [],
   loadingManifest: null,
@@ -92,6 +112,7 @@ function showPet() {
   byId("petGlyph").textContent = pet.glyph || pet.name.slice(0, 1);
   byId("petName").textContent = pet.name;
   byId("petRole").textContent = pet.role;
+  rememberPetSelection(pet.name);
 }
 
 function scheduleParallax() {
@@ -357,6 +378,8 @@ function wireDropZone() {
 async function boot() {
   // Local creative desk stays usable even if the network/config stage fails.
   renderNetwork();
+  state.pets = DEFAULT_PETS.map(p => ({ ...p }));
+  showPet();
   renderAssetDesk();
   wireDropZone();
   wirePlayButton();
@@ -389,7 +412,10 @@ async function boot() {
   if (typeof spriteManifest.assetUrl !== "string" || !/^\/harness\/assets\/agent-roster-v1\.png$/.test(spriteManifest.assetUrl)) throw new Error("Unexpected sprite atlas URL");
   const atlasResponse = await fetch(spriteManifest.assetUrl, { method: "HEAD", cache: "no-store", signal: AbortSignal.timeout(BOOT_TIMEOUT_MS) });
   if (!atlasResponse.ok) throw new Error("agent sprite atlas unavailable");
-  state.pets = pets.pets || [];
+  const validatedPets = validatePets(pets.pets);
+  const previousSelection = safePetSelection();
+  state.pets = validatedPets;
+  state.petIndex = Math.max(0, validatedPets.findIndex(p => p.name === previousSelection));
   renderLibraries(cfg.libraries || {});
   showPet();
 
