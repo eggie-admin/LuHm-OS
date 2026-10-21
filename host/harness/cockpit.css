@@ -81,3 +81,30 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   :root{--muted:#c0cee0;--line:#79859c}
   .dropZone{border-style:solid}
 }
+
+
+/* Original layered parallax, all CSS variables bounded by in-browser pointer input. */
+.lum2dPanel{margin:0 12px 12px;contain:layout style}
+.lum2dLayout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(230px,.85fr);gap:16px;margin-top:12px;align-items:center}
+.lum2dStage{--l2x:0px;--l2y:0px;--l2rot:0deg;--l2bx:0px;--l2by:0px;min-width:0;min-height:290px;position:relative;isolation:isolate;overflow:hidden;display:grid;place-items:center;border:1px solid #4d3a70;border-radius:16px;background:radial-gradient(circle at 50% 38%,#613bae55,#151224 58%,#0b0b17 92%);touch-action:pan-y}
+.lum2dStage:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 95%,#5ee7ff0d 100%);background-size:100% 8px}
+.lum2dArt{width:min(96%,390px);max-height:345px;height:auto;overflow:visible;filter:drop-shadow(0 13px 18px #0008)}
+.lum2dBackground{transform:translate(var(--l2bx),var(--l2by))}
+.lum2dBody{transform:translate(var(--l2bx),var(--l2by))}
+.lum2dHead{transform:translate(var(--l2x),var(--l2y)) rotate(var(--l2rot));transform-origin:180px 186px}
+.lum2dBangs{transform:translate(var(--l2bx),var(--l2by))}
+.lum2dClosedEyes{display:none}.lum2dStage.is-blinking .lum2dOpenEyes{display:none}.lum2dStage.is-blinking .lum2dClosedEyes{display:inline}
+.lum2dHand{transform-origin:290px 312px}
+.lum2dStage.is-waving .lum2dHand{animation:lum2dWave .68s ease-in-out 1}
+@keyframes lum2dWave{0%,100%{transform:rotate(0deg)}30%,70%{transform:rotate(-15deg)}50%{transform:rotate(13deg)}}
+.lum2dStamp{position:absolute;left:12px;bottom:10px;letter-spacing:.1em;font:10px ui-monospace,monospace;color:#d7c6ee}
+.lum2dControls{display:flex;flex-direction:column;justify-content:center;gap:12px;min-width:0}
+.lum2dControls h3{font-size:20px;margin:0}.lum2dControls p{margin:0;line-height:1.5}
+.lum2dButtons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.lum2dButtons button{min-height:44px;min-width:0;border:1px solid #61537b;border-radius:10px;background:#18142a;color:var(--ink);padding:9px 11px;cursor:pointer}
+.lum2dButtons button:hover,.lum2dButtons button[aria-pressed=true]{border-color:var(--cyan);background:#272043}
+#lum2dMessage{min-height:34px;color:#e6d8ff}
+@media(max-width:700px){.lum2dLayout{grid-template-columns:1fr}.lum2dStage{min-height:270px}.lum2dArt{max-height:285px}.lum2dPanel{margin:0 8px 8px}}
+@media(prefers-reduced-motion:reduce){.lum2dStage *, .lum2dArt *{animation:none!important;transition:none!important}.lum2dHead,.lum2dBangs,.lum2dBackground,.lum2dBody{transform:none!important}}
+.lum2dPanel.is-motion-paused .lum2dStage *{animation:none!important;transition:none!important}
+.lum2dPanel.is-motion-paused .lum2dHead,.lum2dPanel.is-motion-paused .lum2dBangs,.lum2dPanel.is-motion-paused .lum2dBackground,.lum2dPanel.is-motion-paused .lum2dBody{transform:none!important}

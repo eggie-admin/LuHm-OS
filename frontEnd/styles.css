@@ -202,3 +202,8 @@ button { color: inherit; }
 @media (max-width: 520px) {
   .assetFactoryGrid { grid-template-columns: 1fr; }
 }
+
+/* Light, same-origin jQuery depth layer. */
+.lumViewport{--luhm-px:0px;--luhm-py:0px}
+.lumViewport .viewportLabel{transform:translate3d(var(--luhm-px),var(--luhm-py),0);transition:transform .1s ease-out}
+@media(prefers-reduced-motion:reduce){.lumViewport .viewportLabel{transform:none!important;transition:none!important}}
