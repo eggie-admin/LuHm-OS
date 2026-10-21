@@ -48,7 +48,8 @@ def check():
     assert "LUHM_GODOT_FRAME" in html
     assert 'id="live3dframe"' in pocket
     assert 'id="launch3d"' in pocket
-    assert 'https://luhm-os-harness-green.onrender.com/harness/godot-export/index.html' in pocket
+    assert pocket.count('https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html') == 2
+    assert 'https://luhm-os-harness-green.onrender.com/harness/godot-export/index.html' not in pocket
     assert 'sandbox="allow-scripts allow-same-origin allow-pointer-lock"' in pocket
     assert 'private Rebel models' in pocket
     verify=verifier()
