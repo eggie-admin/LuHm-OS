@@ -4,6 +4,7 @@ on:
     paths:
       - 'plugins/luhm-os/assets/assetCatalog.json'
       - 'plugins/luhm-os/assets/pocketArtPackV1.json'
+      - 'plugins/luhm-os/assets/pocketAssetIntegrityReceipt.json'
       - 'tools/pocketAssetIntegrityAudit.py'
       - 'tools/pocketLabAudit.py'
       - 'publicationSite/pocketLab.html'
