@@ -1,0 +1,111 @@
+{
+  "schema": "luhmOs.soloStudioOperatingProfile.v1",
+  "status": "PROPOSED_OPERATIONAL_PROFILE",
+  "purpose": "Default small-scale operation for one independent artist or a small business, not an enterprise fleet.",
+  "authority": "Professor",
+  "appliesTo": [
+    "LuHm-OS",
+    "Project Hydra",
+    "Rebel",
+    "Pets"
+  ],
+  "precedence": "This profile simplifies routine task selection but does not override existing security, source-truth, ownership, quarantine, rights, or publication gates.",
+  "operatingModes": {
+    "personal": {
+      "default": true,
+      "intent": "Private art, prototypes, experiments, local play and iterative design",
+      "workflow": [
+        "inspect relevant source",
+        "make one small reversible change",
+        "run targeted smoke",
+        "record short factual result"
+      ],
+      "prefer": "Local-first with direct GitHub connector; use existing Render service only when browser/mobile verification needs it",
+      "requiresFullReleaseChecklist": false
+    },
+    "smallBusiness": {
+      "intent": "Portfolio, client deliverables, invoiced art, reusable products and small-scale sales",
+      "workflow": [
+        "define deliverable and rights",
+        "create scoped source change",
+        "run relevant tests",
+        "verify output and backups",
+        "obtain approval before client/public distribution"
+      ],
+      "separateClientAndPrivateData": true,
+      "requiresFullReleaseChecklist": false
+    },
+    "publicOrSensitive": {
+      "intent": "Publishing, paid integrations, rights-pending assets, authentication changes, secrets, production deployment, destructive operations",
+      "workflow": [
+        "retain existing canonical audit, permission and release gates",
+        "verify target/source/authorization",
+        "test",
+        "deploy only with explicit authority",
+        "verify and preserve rollback"
+      ],
+      "requiresFullReleaseChecklist": true
+    }
+  },
+  "costs": {
+    "newRecurringSpendUsdDefault": 0,
+    "rule": "Do not create paid resources or recurring subscriptions without cost, limits and Professor approval.",
+    "defaultInfra": "Existing GitHub repository plus existing Render services plus local development",
+    "avoidByDefault": [
+      "Kubernetes",
+      "microservice fleet",
+      "24-hour GPU servers",
+      "multiple cloud environments",
+      "enterprise data warehouses",
+      "paid observability stacks",
+      "always-on model inference",
+      "unnecessary CI reruns"
+    ],
+    "optimize": "Reuse existing hosting; avoid duplicate deployments; batch external calls; use local tools and caches for creative previews."
+  },
+  "collaboration": {
+    "executionPath": "GitHub Direct plus supported connected tools; no Codex for the current chat workflow",
+    "roles": [
+      "lum",
+      "skuldResearch",
+      "yume",
+      "belldandySecretary"
+    ],
+    "semantics": "Role assignments are labels and guidance. Do not claim separate running agents or background workers without runtime proof.",
+    "parallelism": "Independent read-only checks may run together; one mutable GitHub branch or target at a time.",
+    "agentRoster": "Keep canonical 15-role registry for compatibility, but load only relevant roles for active tasks."
+  },
+  "development": {
+    "language": "Python 3",
+    "creativeStack": [
+      "Blender headless",
+      "FFmpeg",
+      "Godot 4",
+      "HTML/CSS",
+      "jQuery"
+    ],
+    "gitPolicy": "Small focused commits, PR when collaboration or release risk warrants; no automatic merge or deploy.",
+    "CI": "Targeted tests for changed code; reusable workflows and path filters where safe; do not delete existing protections without proof.",
+    "proof": "Separate source configured, tests passed, Render live, plugin installed, browser working, and physical device verified."
+  },
+  "assets": {
+    "sourceStorage": "Keep private Blender masters and donor archives in authorized private storage, not in the public repository or plugin package.",
+    "package": "Bundle tiny icons, manifests, and safe starter art only.",
+    "delivery": "Load approved optimized GLB/WebP/audio/video assets on demand; cache per browser limits.",
+    "publication": "Rights-pending EVE/Rebel materials remain private until approved."
+  },
+  "privacyAndSafety": {
+    "access": "Least privilege, no secret in Git or published JavaScript, and consent before external client delivery.",
+    "backup": "Keep editable masters and a recovery copy before destructive changes.",
+    "businessBoundary": "Separate client media, contracts, tax/payment records and personal art files; public GitHub is not a private archive.",
+    "auth": "Retain validated authentication for any user-specific or mutating remote tool; the current public read-only MCP must not gain write rights implicitly."
+  },
+  "statusReporting": [
+    "what changed",
+    "what was actually tested",
+    "what remains uncertain",
+    "one next action"
+  ],
+  "deployPolicy": "No automatic production, paid, business-client, public or signing actions from this profile alone.",
+  "notes": "Lean does not mean insecure; avoid company theater, but keep safe defaults."
+}

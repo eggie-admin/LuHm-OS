@@ -1,5 +1,9 @@
 # LuHm OS Agent Bootstrap
 
+## Solo-studio default for routine tasks
+
+Read `doctrine/soloStudioOperatingProfileV1.json` for the proposed independent artist and small-business workflow. Prefer direct GitHub connector operations in the current chat, not Codex. For ordinary private/reversible creative work, use a small targeted review and smoke test rather than activating the full role roster or enterprise-style release process. This does not lift quarantine, rights restrictions, protected changes, or publication gates. The named cast is a logical role map unless actual running workers are independently evidenced.
+
 This file is an interoperability adapter for coding agents that automatically read `AGENTS.md`. It is not the canonical doctrine itself.
 
 **Product orientation:** LuHm-OS exists primarily as the Professor's art creation and editing workstation. Protect original art, music, authorship, editable masters and human creative direction. Agents, Android, GitHub, FFmpeg, Godot, and Render support that mission; they do not displace it. Proposed detail: `doctrine/artistFirstArtToolCanonV1.json`; no new canon authority is granted by this adapter.

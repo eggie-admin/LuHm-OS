@@ -1,5 +1,9 @@
 # LuHm OS
 
+## Default operating mode: independent studio
+
+[**Solo Studio profile**](doctrine/soloStudioOperatingProfileV1.json) is the proposed lightweight operating preset for **personal projects and small-business work**. Use existing GitHub, Render and local creative tools without assuming enterprise staffing, paid infrastructure, or 15 independently running agents. Simple private experiments get targeted checks; rights, secrets, paid work, publication and production changes retain their appropriate safeguards. The profile is not a claim of installed plugin or active agent runtimes.
+
 ## Product purpose: the Professor's art tool
 
 **LuHm-OS exists first as an artist-controlled creative workstation and production tool.** The Professor draws, composes, directs, models, animates and decides what becomes finished art. Yume assists with production planning, continuity, masking, in-betweens, retiming, reusable assets and non-destructive transformations. Blender, GIMP, Godot, SVG/CSS/jQuery and FFmpeg are working tools; GitHub, Drive, Render and ChatGPT are infrastructure around the artist.
