@@ -94,4 +94,6 @@ onBeforeUnmount(() => {
 .luhmVueButtons{display:flex;flex-wrap:wrap;gap:8px}
 .luhmVueButtons button{min-height:44px;padding:9px;background:#251738;color:#f6e9ff;border:1px solid #5ee7ff;border-radius:8px}
 @media(prefers-reduced-motion:reduce){.puppetHead,.outerAura{transform:none!important;animation:none!important;transition:none!important}}
+.luhmVueStage.waving .puppetBody{animation:vuePuppetWave .7s ease-in-out 1;transform-origin:150px 240px}
+@keyframes vuePuppetWave{0%,100%{transform:rotate(0)}40%,70%{transform:rotate(-5deg)}}
 </style>

@@ -32,6 +32,21 @@ async function inspect(browser,width){
  await page.reload({waitUntil:"domcontentloaded"});
  await page.locator("#agentLoadingScreen").waitFor({state:"hidden",timeout:20000});
  assert.equal(await page.locator("#petName").innerText(),"Kiri","pet selection must survive same-tab reload");
+ assert.equal(await page.locator("#lum2dStage").count(),1,"Original 2D puppet should mount");
+ assert.match(await page.locator("#lum2dMessage").innerText(),/Lum is ready/);
+ await page.locator("#lum2dBlink").click();
+ assert.match(await page.locator("#lum2dMessage").innerText(),/blinked/i);
+ await page.locator("#lum2dSmile").click();
+ assert.equal(await page.locator("#lum2dSmile").getAttribute("aria-pressed"),"false");
+ assert.equal(await page.locator("#lum2dStage").getAttribute("data-mood"),"neutral");
+ await page.locator("#lum2dWave").click();
+ assert.match(await page.locator("#lum2dMessage").innerText(),/Motion is reduced/);
+ await page.locator("#lum2dPause").click();
+ assert.equal(await page.locator("#lum2dPause").getAttribute("aria-pressed"),"true");
+ assert.equal(await page.locator("#lum2dStage").evaluate(el=>el.style.getPropertyValue("--l2x")),"0px");
+ await page.locator("#lum2dPause").click();
+ assert.equal(await page.locator("#lum2dPause").getAttribute("aria-pressed"),"false");
+
  await page.locator('[data-luhm-mode="ic"]').click();
  assert.equal(await page.locator('[data-luhm-mode="ic"]').getAttribute("aria-pressed"),"true");
  assert.equal(await page.locator('[data-luhm-mode="default"]').getAttribute("aria-pressed"),"false");
