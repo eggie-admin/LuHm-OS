@@ -9,15 +9,19 @@
     "canonicalTruth": "doctrine/currentSourceTruthV3.json",
     "pluginReconciliation": "doctrine/hydraPublicBetaReconciliation20261021.json",
     "releaseManifest": "plugins/luhm-os/plugin.json",
-    "mcpConfig": "plugins/luhm-os/mcp.json"
+    "mcpConfig": "plugins/luhm-os/mcp.json",
+    "fourLanePolicy": "doctrine/pluginBetaFourLaneV1.json"
   },
   "identity": {
     "personalPlugin": {
-      "version": "1.0.7",
+      "version": "1.0.8",
       "scope": "USER",
       "discoverability": "PRIVATE",
       "sourceMapping": "UNPROVEN",
-      "externalSharing": "UNVERIFIED"
+      "externalSharing": "UNVERIFIED",
+      "releaseIdObserved": "pluginrel_6ad8f8a812308191b272074657851d97",
+      "historicalReconciliationVersion": "1.0.7",
+      "updateStatus": "OWNER_ONLY_CURRENT_RELEASE"
     },
     "repoPlugin": {
       "version": "0.5.2",
@@ -97,6 +101,9 @@
   "rollback": {
     "baselineMain": "c5864ce10aaa72a3b4984fec3aab269c6d287fae",
     "keepExistingPersonalPlugin": true,
-    "avoidDestructiveInstallation": true
+    "avoidDestructiveInstallation": true,
+    "verifiedCockpitSource": "870661cecc3ac68701ad2e1301b4f1e0a6300f98",
+    "verifiedGodotSource": "2b8348a8b83b8176a8b72a79da9726463c10264b",
+    "rollbackReceiptsTime": "2026-10-21"
   }
 }
