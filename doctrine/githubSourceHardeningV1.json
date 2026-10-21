@@ -1,0 +1,79 @@
+{
+  "schema": "luhmOs.githubSourceHardening.v1",
+  "status": "CANDIDATE_GOVERNANCE_NOT_BRANCH_PROTECTION_APPLIED",
+  "asOf": "2026-10-21",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "repository": "eggie-admin/LuHm-OS",
+  "inherited": [
+    "doctrine/featureMutationPipelineV1.json",
+    "doctrine/releaseBoundaryV2.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/remoteSidecarHardeningV1.json"
+  ],
+  "invariants": {
+    "canonicalBranch": "main",
+    "mutationsViaReviewedPr": true,
+    "oneMutableSourceLane": true,
+    "requiredExactPrHeadCi": true,
+    "requiredNegativeTests": true,
+    "unknownNotGreen": true,
+    "providerOutputNotAuthority": true,
+    "companyQuarantine": "QUARANTINED",
+    "automaticMerge": false,
+    "automaticDeploy": false,
+    "automaticStableRelease": false,
+    "automaticProductionSigning": false,
+    "secretInRepo": false,
+    "productionApproval": "Professor"
+  },
+  "recommendedGitHubSettings": {
+    "branchProtectionOrRuleset": [
+      "requirePullRequestBeforeMerge",
+      "requireStatusChecksOnCurrentHead",
+      "blockForcePushAndDeletion",
+      "requireConversationResolution",
+      "restrictBypassToApprovedMaintainers",
+      "requireLinearHistoryWhenCompatible"
+    ],
+    "actions": [
+      "defaultGITHUB_TOKENReadOnly",
+      "explicitPerJobPermissions",
+      "pinThirdPartyActionsToImmutableCommitSHA",
+      "forkPrUntrustedNoSecrets",
+      "avoidPullRequestTargetWithUntrustedCheckout",
+      "concurrencyCancelSupersededNonDeployBuilds",
+      "timeoutAllJobs",
+      "limitArtifactRetention"
+    ],
+    "supplyChain": [
+      "lockDependencies",
+      "verifyArtifactHashes",
+      "generateSbomForRelease",
+      "signReleaseArtifactsOnlyAfterHumanApproval",
+      "scanForSecretsAndCredentials",
+      "checkLicenseAndAssetProvenance"
+    ],
+    "release": [
+      "manualExactCommitPromotion",
+      "recordDeployShaAndRollback",
+      "noDebugSigningForStable",
+      "noPublicPrivateAssetMixing"
+    ]
+  },
+  "verification": [
+    "Read current branch rulesets and collaborator access via authorized GitHub admin interface",
+    "Inspect existing workflow permissions and pull_request_target uses",
+    "Check default token permission and secret exposure in fork PRs",
+    "Run offline doctrine guard tests on exact PR head",
+    "Check all required GitHub Actions runs on exact SHA",
+    "Prove main protection and admin bypass restrictions",
+    "Confirm production Render deploy identity and rollback separately"
+  ],
+  "settingsVerified": false,
+  "settingsChanged": false,
+  "productionDeployed": false,
+  "agentActivation": false,
+  "crownStatus": "STOP"
+}
