@@ -1,0 +1,36 @@
+name: Pocket Studio Verified 3D Publication
+on:
+  pull_request:
+    branches:
+      - publication/plugin-full-green-20260930
+    paths:
+      - 'publicationSite/pocketLab.html'
+      - '.github/workflows/pocket-3d-publication-proof.yml'
+permissions:
+  contents: read
+jobs:
+  exact-approved-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Byte-for-byte comparison against approved main + basic 3D guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          git show dd26117074d0ccdba2e73e73fc4912738068c69c:publicationSite/pocketLab.html > "$RUNNER_TEMP/approvedPocket.html"
+          cmp publicationSite/pocketLab.html "$RUNNER_TEMP/approvedPocket.html"
+          python3 - <<'PY'
+          from pathlib import Path
+          s=Path('publicationSite/pocketLab.html').read_text()
+          assert 'id="live3dframe"' in s
+          assert 'id="launch3d"' in s
+          assert 'https://luhm-os-harness-green.onrender.com/harness/godot-export/index.html' in s
+          assert 'sandbox="allow-scripts allow-same-origin allow-pointer-lock"' in s
+          assert 'private Rebel models' in s
+          assert 'rebelDrive' not in s
+          print('GREEN_POCKET_3D_PUBLICATION_MATCHES_REVIEWED_MAIN')
+          PY
