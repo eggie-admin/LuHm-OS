@@ -42,10 +42,103 @@
     const digest = await cryptoApi.subtle.digest("SHA-256", await file.arrayBuffer());
     return Array.from(new Uint8Array(digest), x => x.toString(16).padStart(2, "0")).join("");
   }
+  // Scroll-driven depth is a presentation effect. It never changes runtime state.
+  function depthOffsets(scrollTop, reducedMotion = false) {
+    const n = Number(scrollTop);
+    const scroll = reducedMotion || !Number.isFinite(n) ? 0 : Math.max(0, Math.min(n, 1600));
+    return {
+      rear: -Math.round(scroll * 0.10) + "px",
+      middle: -Math.round(scroll * 0.22) + "px",
+      front: -Math.round(scroll * 0.38) + "px"
+    };
+  }
+  function mountDepth(el, win) {
+    if (!el || !win || !win.document) return null;
+    const ownerDoc = el.ownerDocument || win.document;
+    const motion = typeof win.matchMedia === "function"
+      ? win.matchMedia("(prefers-reduced-motion: reduce)") : null;
+    let raf = 0, disposed = false;
+    function render() {
+      raf = 0;
+      if (disposed) return;
+      const scroller = ownerDoc.scrollingElement || ownerDoc.documentElement || ownerDoc.body;
+      const value = depthOffsets(scroller?.scrollTop || 0, !!motion?.matches || !!ownerDoc.hidden);
+      el.style.setProperty("--studioRearY", value.rear);
+      el.style.setProperty("--studioMiddleY", value.middle);
+      el.style.setProperty("--studioFrontY", value.front);
+    }
+    function schedule() {
+      if (!raf && !disposed) raf = win.requestAnimationFrame(render);
+    }
+    function destroy() {
+      if (disposed) return;
+      disposed = true;
+      win.removeEventListener("scroll", schedule);
+      win.removeEventListener("resize", schedule);
+      win.removeEventListener("orientationchange", schedule);
+      win.removeEventListener("pagehide", destroy);
+      ownerDoc.removeEventListener("visibilitychange", schedule);
+      motion?.removeEventListener?.("change", schedule);
+      if (raf) win.cancelAnimationFrame(raf);
+      for (const name of ["--studioRearY", "--studioMiddleY", "--studioFrontY"]) {
+        el.style.removeProperty(name);
+      }
+    }
+    win.addEventListener("scroll", schedule, {passive:true});
+    win.addEventListener("resize", schedule);
+    win.addEventListener("orientationchange", schedule);
+    win.addEventListener("pagehide", destroy, {once:true});
+    ownerDoc.addEventListener("visibilitychange", schedule);
+    motion?.addEventListener?.("change", schedule);
+    render();
+    return {render, destroy};
+  }
+  // In the standalone cockpit this is a real jQuery plugin. The MCP resource
+  // has a native no-remote-script fallback, so its controls still function.
+  function installJQueryBridge(jq) {
+    if (!jq?.fn || jq.fn.luhmStudioParallax) return;
+    const DATA_KEY = "luhmStudioParallax";
+    jq.fn.luhmStudioParallax = function (command) {
+      return this.each(function () {
+        const old = jq.data(this, DATA_KEY);
+        if (command === "destroy") {
+          if (old) { old.destroy(); jq.removeData(this, DATA_KEY); }
+        } else if (!old && (!command || command === "start")) {
+          jq.data(this, DATA_KEY, mountDepth(this, this.ownerDocument.defaultView));
+        }
+      });
+    };
+    jq.fn.luhmStudioParallax.version = "1.0.0";
+  }
+  function embedTarget(win) {
+    // Exact known Godot origin; never accept untrusted user URLs or scripts.
+    const host = String(win?.location?.hostname || "").toLowerCase();
+    if (host === "localhost" || host === "127.0.0.1" || host.endsWith(".localhost")) {
+      return new URL("/harness/godot-export/index.html", win.location.origin).href;
+    }
+    return "https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html";
+  }
   function mount(doc) {
     if (!doc.getElementById("luhmStudioDeck")) return null;
     const get = id => doc.getElementById(id);
     let records = [], busy = false, sourceRef = "UNKNOWN";
+    const stage = get("luhmStudioDeck");
+    installJQueryBridge(root.jQuery);
+    if (root.jQuery?.fn?.luhmStudioParallax) root.jQuery(stage).luhmStudioParallax();
+    else mountDepth(stage, doc.defaultView || root);
+    // A full-viewport frame stays inert until the Professor explicitly opts in.
+    const backdrop = get("studioBackdropFrame");
+    get("studioBackdropLoad").addEventListener("click", () => {
+      if (!backdrop) return;
+      backdrop.src = embedTarget(doc.defaultView || root);
+      backdrop.hidden = false;
+      get("studioBackdropStatus").textContent =
+        "Embedded Godot scene requested. Runtime rendering and input remain unverified; use static mode if it fails.";
+    });
+    get("studioBackdropStop").addEventListener("click", () => {
+      if (backdrop) { backdrop.hidden = true; backdrop.removeAttribute("src"); }
+      get("studioBackdropStatus").textContent = "Static background active. No embedded scene connection.";
+    });
     function showRegister() {
       const groups = new Map();
       for (const row of records) groups.set(row.category, (groups.get(row.category) || 0) + 1);
@@ -122,7 +215,7 @@
     configure(null);
     return {configure, addFiles, register:() => records.map(row => ({...row}))};
   }
-  const api = {musicTarget, category, validContract, fingerprint, mount, hashLimit, maxFiles};
+  const api = {musicTarget, category, validContract, fingerprint, depthOffsets, mountDepth, embedTarget, installJQueryBridge, mount, hashLimit, maxFiles};
   if (typeof module === "object" && module.exports) module.exports = api;
   root.LuHmStudio = api;
   if (root.document) root.luhmStudioDeck = mount(root.document);
