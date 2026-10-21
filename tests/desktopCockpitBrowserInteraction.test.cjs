@@ -29,6 +29,9 @@ async function inspect(browser,width){
  assert.equal(await page.locator("#petName").innerText(),"Lum");
  await page.locator("#petDock").click();
  assert.equal(await page.locator("#petName").innerText(),"Kiri");
+ await page.reload({waitUntil:"domcontentloaded"});
+ await page.locator("#agentLoadingScreen").waitFor({state:"hidden",timeout:20000});
+ assert.equal(await page.locator("#petName").innerText(),"Kiri","pet selection must survive same-tab reload");
  await page.locator('[data-luhm-mode="ic"]').click();
  assert.equal(await page.locator('[data-luhm-mode="ic"]').getAttribute("aria-pressed"),"true");
  assert.equal(await page.locator('[data-luhm-mode="default"]').getAttribute("aria-pressed"),"false");
@@ -85,6 +88,7 @@ async function inspectOffline(browser){
  }));
  await page.goto(HOST,{waitUntil:"domcontentloaded"});
  await page.locator("#agentLoadingScreen").waitFor({state:"hidden",timeout:18000});
+ assert.equal(await page.locator("#petName").innerText(),"Lum","offline fallback companion must remain visible");
  assert.match(await page.locator("#edgeBadge").innerText(),/OFFLINE/);
  await page.locator("#assetInput").setInputFiles([
    file("offline.png","image/png",validPng),
