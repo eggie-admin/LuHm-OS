@@ -23,7 +23,9 @@ class StudioTests(unittest.TestCase):
 
     def test_narrow_csp(self):
         policy = _headers(html=True)["Content-Security-Policy"]
-        self.assertIn("frame-src 'self' https://www.youtube-nocookie.com;", policy)
+        self.assertIn("frame-src 'self' blob: https://www.youtube-nocookie.com;", policy)
+        self.assertIn("frame-ancestors 'self'", policy)
+        self.assertNotIn("unsafe-inline", policy.split("script-src",1)[1].split(";",1)[0])
         self.assertIn("script-src 'self';", policy)
         self.assertNotIn("youtube.com", policy)
         self.assertNotIn("youtube-nocookie", _headers(html=True, godot_embed=True)["Content-Security-Policy"])
