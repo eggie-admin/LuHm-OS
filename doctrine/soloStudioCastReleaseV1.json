@@ -1,0 +1,18 @@
+{
+  "schema": "luhmOs.soloStudioCastRelease.v1",
+  "status": "SOURCE_CANDIDATE",
+  "authority": "Professor",
+  "boss": "lum",
+  "members": [
+    "lum",
+    "urdDoctorGoddess",
+    "belldandySecretary",
+    "skuldResearch",
+    "yume"
+  ],
+  "quarantineRef": "doctrine/companyWideOperationalQuarantineV1.json",
+  "publicPreviewOnly": true,
+  "autonomousAgentsClaimed": false,
+  "releaseTarget": "public static tester portal",
+  "publicLink": "https://luhm-os-publication-site.onrender.com/tester.html"
+}
