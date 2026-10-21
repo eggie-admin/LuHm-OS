@@ -1,0 +1,40 @@
+name: LuHm OS Plugin Beta Access Hardening Gate
+on:
+  pull_request:
+    paths:
+      - 'doctrine/pluginBetaInviteGateV1.json'
+      - 'tools/pluginBetaInviteAudit.py'
+      - 'tests/testPluginBetaInviteAudit.py'
+      - 'manual/pluginBetaInviteRunbook.md'
+      - 'plugins/luhm-os/plugin.json'
+      - 'plugins/luhm-os/mcp.json'
+      - 'doctrine/hydraPublicBetaReconciliation20261021.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - '.github/workflows/plugin-beta-access-hardening.yml'
+permissions:
+  contents: read
+jobs:
+  fail-closed-beta-source-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Schema and source audit
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/pluginBetaInviteGateV1.json >/dev/null
+          python3 -m py_compile tools/pluginBetaInviteAudit.py tests/testPluginBetaInviteAudit.py
+          python3 tools/pluginBetaInviteAudit.py
+      - name: Negative proofs must reject forged invitation or fake beta GREEN
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests -p testPluginBetaInviteAudit.py -v
+          if python3 tools/pluginBetaInviteAudit.py --require-beta-ready; then
+            echo "UNEXPECTED_BETA_PROMOTION" >&2
+            exit 1
+          fi
+      - name: Report boundary
+        run: |
+          echo "CI proves code policy only. It does NOT invite a tester, publish a plugin, attest a host device or authorize a release."

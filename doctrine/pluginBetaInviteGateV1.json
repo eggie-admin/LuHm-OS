@@ -1,0 +1,102 @@
+{
+  "schema": "luhmOs.pluginBetaInviteGate.v1",
+  "status": "CANDIDATE_SOURCE_ONLY_NOT_INVITE_READY",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "baselineMain": "c5864ce10aaa72a3b4984fec3aab269c6d287fae",
+  "sources": {
+    "repository": "eggie-admin/LuHm-OS",
+    "canonicalTruth": "doctrine/currentSourceTruthV3.json",
+    "pluginReconciliation": "doctrine/hydraPublicBetaReconciliation20261021.json",
+    "releaseManifest": "plugins/luhm-os/plugin.json",
+    "mcpConfig": "plugins/luhm-os/mcp.json"
+  },
+  "identity": {
+    "personalPlugin": {
+      "version": "1.0.7",
+      "scope": "USER",
+      "discoverability": "PRIVATE",
+      "sourceMapping": "UNPROVEN",
+      "externalSharing": "UNVERIFIED"
+    },
+    "repoPlugin": {
+      "version": "0.5.2",
+      "source": "plugins/luhm-os/plugin.json",
+      "capabilities": [
+        "Read"
+      ],
+      "endpoint": "https://luhm-os-harness-green.onrender.com/mcp"
+    },
+    "crossVersionPromotionAllowed": false
+  },
+  "intendedExperience": {
+    "surface": "ChatGPT in-conversation cockpit",
+    "currentHostTools": [
+      "luhmConnectionStatus",
+      "luhm_open_cockpit"
+    ],
+    "runtimeProof": "CURRENT_CHAT_INVOCATION_ONLY",
+    "interactiveGuiOnTesterDevice": "UNVERIFIED",
+    "inChatGodotInteractive": "UNVERIFIED",
+    "independentWorkers": "QUARANTINED"
+  },
+  "access": {
+    "github": {
+      "repositoryVisibility": "PUBLIC",
+      "publicReadNeedsCollaboratorInvite": false,
+      "writeInvitationState": "NOT_SENT",
+      "githubHandleVerified": false,
+      "minimumPermission": "triage_or_read_only_where_supported"
+    },
+    "chatgpt": {
+      "personalUserPrivatePluginNotPublicRelease": true,
+      "externalTesterAccess": "NOT_GRANTED",
+      "distributionChannel": "NOT_SELECTED",
+      "directoryStatus": "NOT_PUBLISHED"
+    },
+    "inviteTarget": "NAMED_TESTER_PRIVATE_CHAT_ONLY",
+    "testerEmailInPublicRepository": false,
+    "allowAutomaticInvites": false,
+    "allowAutomaticPublication": false,
+    "explicitOwnerApprovalForExternalAccess": true
+  },
+  "security": {
+    "noPrivateMedia": true,
+    "noSecretsInPackage": true,
+    "noUserSpecificDataInAnonymousMcp": true,
+    "noWriteTools": true,
+    "oauth21RequiredBeforePrivateUserData": true,
+    "rightsAndPrivacyReviewRequired": true,
+    "receiptMustBindExactSource": true,
+    "hostToolInvocationCannotBeInferredFromCi": true,
+    "deploymentMatchCannotBeInferredFromCi": true,
+    "denyClaimOfProductionGreenWithoutExternalProof": true
+  },
+  "gates": {
+    "sourceCandidateChecks": "PENDING_EXACT_PR_HEAD_CI",
+    "personalToRepoReleaseMapping": "PENDING",
+    "currentLiveMcpCommit": "PENDING_INDEPENDENT_RELEASE_RECEIPT",
+    "cleanExternalHostInstall": "PENDING",
+    "externalTesterToolInvocation": "PENDING",
+    "actualInteractiveGuiRender": "PENDING",
+    "privacyTermsRightsReview": "PENDING",
+    "distributionAndAccessEligibility": "PENDING",
+    "professorExactArtifactApproval": "PENDING"
+  },
+  "release": {
+    "candidateBranchOnly": true,
+    "repositoryMainMutation": false,
+    "personalPluginMutation": false,
+    "pluginInviteSent": false,
+    "githubInviteSent": false,
+    "publicBetaReleased": false,
+    "directoryPublished": false,
+    "promoted": false,
+    "crownStatus": "STOP"
+  },
+  "rollback": {
+    "baselineMain": "c5864ce10aaa72a3b4984fec3aab269c6d287fae",
+    "keepExistingPersonalPlugin": true,
+    "avoidDestructiveInstallation": true
+  }
+}
