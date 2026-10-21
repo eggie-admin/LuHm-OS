@@ -1,0 +1,177 @@
+{
+  "schema": "luhmOs.cloudflareEdgeHardening.v1",
+  "status": "CANONICAL_SOURCE_POLICY_ONLY",
+  "authority": "Professor",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "canonicalZone": "eggiebagelface.art",
+  "purpose": "Bound public DNS/authoritative Cloudflare zone, managed TLS, CDN, reverse-proxy and Zero Trust without deploying credentials or leaking LAN/internal production assets.",
+  "inherits": [
+    "doctrine/cloudflareAirTrafficControllerV1.json",
+    "doctrine/cloudflareLumOrchestrationV1.json",
+    "doctrine/networkSpineV1.json",
+    "doctrine/staticPublicEdgeV1.json",
+    "doctrine/belldandyPkiCorporateSecretaryV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json"
+  ],
+  "authorityAndDelegation": {
+    "existingProvider": "Cloudflare",
+    "currentAssignedNsHostnames": "LIVE_PROVIDER_LOOKUP_REQUIRED",
+    "preserveExistingRegistrarDelegation": true,
+    "noSelfHostedNameserverFleet": true,
+    "noReversePtrForSharedRenderOrCloudflareIp": true,
+    "zoneApexRouting": "UNCHANGED_UNTIL_CURRENT_ORIGIN_CONFIRMED",
+    "dnssec": "VERIFY_WITH_REGISTRAR_DS_AND_AUTHORITATIVE_DNSKEY_BEFORE_ANY_CHANGE",
+    "dnsRecordsRequireLiveEvidence": true,
+    "noPublicLanSuffix": true,
+    "splitHorizonLanManagedBy": "dnsmasq",
+    "noRawWanIpToLan": true,
+    "noRouterPortForwarding": true,
+    "noWildcardPublicRecordsByDefault": true,
+    "noInferredIpv6Aaaa": true,
+    "noUnverifiedCaaLocks": true
+  },
+  "lanes": {
+    "chatGptMcp": {
+      "activeOrigin": "https://luhm-os-harness-green.onrender.com/mcp",
+      "activeTransport": "directRenderManagedTls",
+      "candidateFqdn": "mcp.eggiebagelface.art",
+      "desiredCandidateDns": "DNS_ONLY_CNAME_TO_VERIFIED_RENDER_SERVICE",
+      "plannedCloudflareProxy": false,
+      "plannedCloudflareTunnel": false,
+      "allowProxyOnlyAfter": "MCP_INITIALIZE_STREAMING_SSE_AND_CHATGPT_HOST_CONTRACT_PROVEN",
+      "publicReadOnly": true,
+      "noCache": true,
+      "doNotRewriteHostOrOrigin": true,
+      "noCloudflareAccessRedirectOnCurrentMcp": true
+    },
+    "privateSystemPortal": {
+      "candidateFqdn": "system.eggiebagelface.art",
+      "route": "CLOUDFLARE_OUTBOUND_ONLY_TUNNEL_IF_EXPLICITLY_ENABLED",
+      "currentTunnelState": "NOT_VERIFIED",
+      "tunnelTarget": "PRIVATE_BOUNDED_NGINX_ORIGIN_UNVERIFIED",
+      "zeroTrustAccessRequired": true,
+      "loginPolicy": "EXPLICIT_OWNER_ALLOW_AND_MFA",
+      "serviceTokens": "INDIVIDUALLY_SCOPED_FOR_MACHINE_CLIENTS",
+      "defaultDeny": true,
+      "cloudflaredValidateAccessJwt": true,
+      "originTlsVerify": true,
+      "forbidRawShellAdminAndDatabaseAdmin": true,
+      "noPortForward": true
+    },
+    "publicAssets": {
+      "candidateFqdn": "assets.eggiebagelface.art",
+      "currentRoute": "RENDER_SAME_ORIGIN_HARNESS_ASSETS",
+      "externalCdnState": "NOT_VERIFIED",
+      "optionalCloudflareProxyAfterRightsAndTlsProof": true,
+      "immutableOnly": "PUBLIC_RIGHTS_APPROVED_VERSIONED_HASHED_ARTIFACTS",
+      "noPrivateArt": true,
+      "noCredentials": true,
+      "noCacheSignedInOrPrivate": true
+    },
+    "androidFdroid": {
+      "candidateFqdn": "art.eggiebagelface.art",
+      "currentOrigin": "UNSELECTED",
+      "status": "HOLD_UNTIL_SIGNED_APK_INDEX_TLS_AND_ORIGIN_PROVEN",
+      "keepExistingDnsUntilApproved": true,
+      "apkImmutableAfterSigning": true,
+      "repositoryIndexMustRevalidate": true,
+      "noAutomaticPublication": true
+    },
+    "apexAndLegacy": {
+      "existingFqdn": "eggiebagelface.art",
+      "legacyAiFqdn": "ai.eggiebagelface.art",
+      "proxyStatus": "VERIFY_CURRENT_BEFORE_CHANGING",
+      "migration": "NONE_REQUESTED",
+      "noRedirectsUntilTargetAndTlsKnown": true,
+      "oldRoutesMustNotBeOverwritten": true
+    }
+  },
+  "tls": {
+    "modeWhenCloudflareProxied": "FullStrict",
+    "cloudflareEdgeCertificate": "CLOUDFLARE_MANAGED_FOR_PROXIED_HOSTNAMES_AFTER_VERIFICATION",
+    "directRenderCertificate": "RENDER_MANAGED",
+    "cloudflaredOriginCertificate": "VERIFY_TRUST_CHAIN_HOSTNAME_AND_EXPIRY",
+    "allowNoTlsVerify": false,
+    "certificateDetailsRequired": [
+      "hostname",
+      "issuer",
+      "san",
+      "notBefore",
+      "notAfter",
+      "fingerprintSha256",
+      "renewalEvidence",
+      "custodianNoSecretValue"
+    ],
+    "privateKeysInGithub": false,
+    "privateKeysInAndroid": false,
+    "checkCaaAgainstActualSelectedIssuers": true,
+    "dns01TokensLeastPrivilegeWhenUsed": true,
+    "noCompetingCertbotInsideManagedRender": true,
+    "hstsPreloadRequiresSeparateAllSubdomainsReview": true,
+    "noHstsPreloadByDefault": true,
+    "redirectHttpToHttpsOnlyWhenTlsGreen": true,
+    "minimumTls": "TLSv1.2_OR_HIGHER_WITH_TLSv1.3_PREFERRED"
+  },
+  "reverseProxy": {
+    "publicMcp": "DIRECT_RENDER_TLS_UNTIL_STREAMING_PROOF",
+    "privateSystem": "CLOUDFLARE_ACCESS_TO_TUNNEL_TO_BOUNDED_NGINX_ORIGIN",
+    "noUntrustedClientForwardedHeaders": true,
+    "noAdminDatabaseFromPublicHost": true,
+    "preserveHostAndOriginCertValidation": true,
+    "noExposeLanThroughPublicDns": true,
+    "preserveMethodAndStreamingHeadersForMcp": true,
+    "doNotCacheSetCookieOrAuthenticatedResponses": true
+  },
+  "cdn": {
+    "onlyForProxiedStaticPublicAssets": true,
+    "publicHashedAssetMaxAgeSeconds": 31536000,
+    "immutablePublicHashedOnly": true,
+    "appIndexAndSignedFdroidIndexRevalidation": true,
+    "bypassPaths": [
+      "/mcp",
+      "/healthz",
+      "/harness/status",
+      "/private",
+      "/api"
+    ],
+    "bypassAuthorizationAndSetCookie": true,
+    "noCachePrivateRebelMedia": true,
+    "noCacheAuthOrPersonalData": true,
+    "cacheRulesNotEffectiveOnDnsOnlyHosts": true
+  },
+  "networkDefenses": {
+    "wafManagedRules": "REVIEW_BEFORE_ENABLE",
+    "rateLimits": "ENDPOINT_SPECIFIC_AFTER_REAL_CLIENT_COMPATIBILITY_TESTS",
+    "disableCacheForMcp": true,
+    "noGlobalChallengeOnMcpBeforeChatGptClientTest": true,
+    "dnssecMode": "OBSERVE_BEFORE_CHANGE",
+    "zeroTrustPortalDefaultDeny": true,
+    "noUnboundedPublicIngress": true,
+    "avoidNewRecurringSpend": true
+  },
+  "evidence": {
+    "accountZoneRead": "NOT_AVAILABLE_IN_THIS_CHAT",
+    "currentNsDelegation": "UNVERIFIED",
+    "liveDnsRecords": "UNVERIFIED",
+    "liveDnssec": "UNVERIFIED",
+    "liveTlsCerts": "UNVERIFIED",
+    "liveCloudflareTunnel": "UNVERIFIED",
+    "liveZeroTrustAccessPolicies": "UNVERIFIED",
+    "liveCdnCacheRules": "UNVERIFIED",
+    "currentRenderMcpOrigin": "SOURCE_AND_SEPARATE_RENDER_RECEIPT",
+    "inChatCockpit": "FAILED_DIRECT_HOST_INVOCATION_PREVIOUS_AUDIT",
+    "sourceChecksAreRuntimeProof": false
+  },
+  "changes": {
+    "mayMutateCloudflareZone": false,
+    "mayAlterNsDelegation": false,
+    "mayIssueOrRotateCertificates": false,
+    "mayEnableCloudflareProxy": false,
+    "mayExposeLan": false,
+    "mayAutoPublishAssets": false,
+    "mayLiftAgentQuarantine": false,
+    "mayDeployNewPaidResources": false,
+    "mayDeclareWholeZoneGreen": false
+  },
+  "crownStatus": "STOP_FOR_NETWORK_CHANGES"
+}
