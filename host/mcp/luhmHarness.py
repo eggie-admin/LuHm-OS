@@ -173,6 +173,7 @@ def register_harness(
     godot_player_path = harness_root / "godotPlayerWidget.html"
     experience_path = root / "doctrine" / "inChatExperienceV1.json"
     artist_studio_path = root / "doctrine" / "artistStudioPluginV1.json"
+    rebel_studio_path = root / "doctrine" / "rebelInChatStudioV1.json"
     crown_flow_path = root / "doctrine" / "chatGptPluginCrownFlowV1.json"
     runtime_receipt_path = root / "doctrine" / "chatGptPluginRuntimeReceiptV1.json"
     opening_day_path = root / "doctrine" / "openingDayStaffTrainingV1.json"
@@ -184,7 +185,7 @@ def register_harness(
     virgin_install_path = root / "doctrine" / "manualPluginVirginInstallV1.json"
     beta_lane_path = root / "doctrine" / "pluginBetaFourLaneV1.json"
 
-    if not all(path.is_file() for path in (widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, artist_studio_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path, beta_lane_path)):
+    if not all(path.is_file() for path in (widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, artist_studio_path, rebel_studio_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path, beta_lane_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     for name in ("studioDeck.html", "studioDeck.css", "studioDeck.js"):
@@ -211,6 +212,7 @@ def register_harness(
     godot_frame_origin = public_origin  # same exact-commit Render build
     experience = json.loads(experience_path.read_text(encoding="utf-8"))
     artist_studio = json.loads(artist_studio_path.read_text(encoding="utf-8"))
+    rebel_studio = json.loads(rebel_studio_path.read_text(encoding="utf-8"))
     crown_flow = json.loads(crown_flow_path.read_text(encoding="utf-8"))
     runtime_receipt = json.loads(runtime_receipt_path.read_text(encoding="utf-8"))
     opening_day = json.loads(opening_day_path.read_text(encoding="utf-8"))
@@ -231,6 +233,16 @@ def register_harness(
         raise RuntimeError("RED_IN_CHAT_BETA_AUTHORITY_DRIFT")
     if virgin_install.get("schema") != "luhmOs.manualPluginVirginInstall.v1":
         raise RuntimeError("RED_VIRGIN_INSTALL_SCHEMA")
+    if (rebel_studio.get("schema") != "luhmOs.rebelInChatStudio.v1" or
+        rebel_studio.get("resourceUri") != UI_RESOURCE_URI or
+        rebel_studio.get("tool") != "luhm_open_cockpit" or
+        rebel_studio.get("project", {}).get("id") != "rebel" or
+        rebel_studio.get("stateBoundary", {}).get("serverWrites") is not False or
+        rebel_studio.get("stateBoundary", {}).get("publication") is not False or
+        rebel_studio.get("stateBoundary", {}).get("clientMemoryOnly") is not True or
+        rebel_studio.get("stateBoundary", {}).get("userInitiatedChatHandoffOnly") is not True or
+        rebel_studio.get("crownStatus") != "STOP"):
+        raise RuntimeError("RED_REBEL_CHAT_STUDIO_CONTRACT")
     if artist_studio.get("schema") != "luhmOs.artistStudioPlugin.v1" or artist_studio.get("pluginTool") != "luhm_open_cockpit" or artist_studio.get("resourceUri") != UI_RESOURCE_URI:
         raise RuntimeError("RED_ARTIST_STUDIO_CONTRACT")
     if artist_studio.get("stateBoundary", {}).get("serverWrites") is not False or artist_studio.get("stateBoundary", {}).get("publication") is not False:
@@ -345,6 +357,7 @@ def register_harness(
             "surface": "mcp-app",
             "experience": experience,
             "artistStudio": artist_studio,
+            "rebelStudio": rebel_studio,
             "embeddedStudio": _studio_contract(root),
             "crownFlow": crown_flow,
             "runtimeReceipt": runtime_receipt,
