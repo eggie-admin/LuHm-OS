@@ -1,0 +1,70 @@
+{
+  "schema": "luhmOs.samsungTabletInstall.v1",
+  "status": "PROPOSED_CONTRACT_SCHEMA_ALIGNMENT",
+  "authority": "Professor",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "auditBaseSourceRef": "98922d1032f655c57209b487c8db965cc8be5248",
+  "targetDevice": "SM-X400",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "deliveryLanes": "doctrine/androidDeliveryLanesV1.json",
+  "bridgeContract": "doctrine/androidWeb3BridgeV2.json",
+  "lanes": {
+    "debugVirginInstall": {
+      "contract": "doctrine/androidCandidate.json",
+      "applicationId": "art.eggiebagelface.luhmos.testing",
+      "signing": "DISPOSABLE_DEBUG_ONLY",
+      "evidence": "doctrine/androidApkManifestInspectionV1.json",
+      "deviceProof": "PENDING",
+      "publicDistribution": false
+    },
+    "ownerSignedBeta": {
+      "applicationId": "art.eggiebagelface.luhmos.beta",
+      "receiptSchema": "doctrine/schemas/signedSamsungBetaV1.schema.json",
+      "buildWorkflow": ".github/workflows/samsung-lite-signed-beta.yml",
+      "stager": "tools/stageFdroidTabletBeta.py",
+      "expectedSourceRequired": true,
+      "expectedSignerRequired": true,
+      "artifactProof": "PENDING",
+      "deviceProof": "PENDING",
+      "upgradeProof": "PENDING",
+      "assetProfile": "sourceOnlyProceduralLum",
+      "networkMode": "OFFLINE_CORE",
+      "versionRule": "Version floor is not proof of a monotonic installed update; compare installed version and certificate separately."
+    },
+    "publicFdroid": {
+      "status": "NOT_PUBLISHED",
+      "androidSignerAndIndexSignerDistinct": true,
+      "requires": [
+        "verifiedOwnerSignedBeta",
+        "signedRepositoryIndex",
+        "verifiedHttpsRepository",
+        "physicalInstallAndSameSignerUpgrade",
+        "privacyAndArtReview",
+        "ProfessorExactArtifactApproval"
+      ]
+    }
+  },
+  "chatGptPlugin": {
+    "separateInstallation": true,
+    "bridgeReachabilityDoesNotProveCockpitMount": true,
+    "toolInvocationDoesNotProveNativeInstall": true,
+    "offlineBetaDoesNotProveRemoteAiIntegration": true
+  },
+  "legacyTermux": {
+    "contract": "doctrine/rootedTermuxGitHubReleaseInstallV1.json",
+    "purpose": "Preserved optional historical installer; not required for the beta F-Droid route."
+  },
+  "invariants": {
+    "noAutomaticSigning": true,
+    "noAutomaticPublication": true,
+    "noPrivateDonorAssets": true,
+    "noAgentRuntimeRelease": true,
+    "sourceSchemaPassDoesNotProveArtifactOrDevice": true,
+    "receiptSourceMustMatchIndependentlySelectedSource": true
+  },
+  "promotion": false,
+  "publicationAuthority": false,
+  "releaseAuthority": false,
+  "productionSigningAuthority": false,
+  "crownStatus": "STOP"
+}

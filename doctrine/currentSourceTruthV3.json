@@ -253,7 +253,8 @@
       "targetSdk36": "GREEN_VERIFIED_DEBUG_APK_ONLY",
       "debuggable": true,
       "releaseCertificateProof": "PENDING"
-    }
+    },
+    "tabletInstallContract": "doctrine/samsungTabletInstallV1.json"
   },
   "mcpLayer": {
     "enterpriseScope": "doctrine/mcpEnterpriseScopeV2.json",

@@ -34,7 +34,7 @@
   "bridgeContract": "doctrine/androidWeb3BridgeV2.json",
   "releaseBoundary": "doctrine/releaseBoundaryV2.json",
   "releaseInstallContract": "doctrine/rootedTermuxGitHubReleaseInstallV1.json",
-  "delivery": "githubPrereleaseToRootedTermux",
+  "delivery": "laneSpecificSeeSamsungTabletInstallContract",
   "rootedTermuxInstaller": "tools/termuxVirginInstall.sh",
   "legacyLanPortal": "historicalOnlyForThisMilestone",
   "promotion": false,
@@ -42,5 +42,7 @@
   "publicationAuthority": false,
   "productionSigningAuthority": false,
   "legacySource": "doctrine/ANDROID_WEB3_COCKPIT_SWITCH_V1.json",
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "tabletInstallContract": "doctrine/samsungTabletInstallV1.json",
+  "legacyTermuxDelivery": "githubPrereleaseToRootedTermux"
 }
