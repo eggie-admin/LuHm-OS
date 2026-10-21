@@ -38,7 +38,7 @@ def format_error(path: Path, ext: str) -> bool:
         with path.open("rb") as stream:
             header = stream.read(20)
             if ext == "png":
-                return not header.startswith(b"\\x89PNG\\r\\n\\x1a\\n")
+                return not header.startswith(b"\x89PNG\r\n\x1a\n")
             if ext == "webp":
                 return not (header.startswith(b"RIFF") and header[8:12] == b"WEBP")
             if ext == "glb":
@@ -145,7 +145,7 @@ def evaluate_candidate(manifest, root: Path, toolbox: dict, lanes: dict) -> dict
     source_path = manifest.get("sourcePath")
     candidate = None
     if (not isinstance(source_path, str) or not source_path.strip()
-            or "\\\\" in source_path or "\\x00" in source_path
+            or "\\" in source_path or "\x00" in source_path
             or Path(source_path).is_absolute()):
         errors.append("invalidSourcePath")
     else:
