@@ -1,0 +1,19 @@
+name: LuHm Drive Asset Routing Contract
+on:
+  pull_request:
+    paths:
+      - 'doctrine/driveAssetAlignmentV1.json'
+      - 'manual/driveAssetAlignment.md'
+      - 'tools/driveAssetAlignmentAudit.py'
+      - '.github/workflows/drive-asset-alignment.yml'
+permissions:
+  contents: read
+jobs:
+  routing:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - run: python3 tools/driveAssetAlignmentAudit.py
