@@ -202,11 +202,38 @@ jobs:
                 "publicPublished":False,"crownStatus":"STOP"}
           Path("build/signed-beta/receipt.json").write_text(json.dumps(data,indent=2)+"\n")
           PY
+      - name: Prepare offline F-Droid beta workspace (no publication)
+        shell: bash
+        env:
+          SOURCE_REF: ${{ inputs.sourceRef }}
+          TRUSTED_SIGNER: ${{ secrets.LUHM_BETA_SIGNER_SHA256 }}
+        run: |
+          set -euo pipefail
+          APK=build/signed-beta/samsung-lite-beta.apk
+          BT="$ANDROID_HOME/build-tools/36.1.0"
+          VERSION="$(python3 -c 'import json;print(json.load(open("build/signed-beta/receipt.json"))["versionCode"])')"
+          APK_SHA="$(sha256sum "$APK" | cut -d' ' -f1)"
+          python3 tools/stageFdroidTabletBeta.py \\
+            --apk "$APK" \\
+            --receipt build/signed-beta/receipt.json \\
+            --expected-source "$SOURCE_REF" \\
+            --expected-signer "$TRUSTED_SIGNER" \\
+            --aapt "$BT/aapt" \\
+            --apksigner "$BT/apksigner"
+          python3 tools/prepareFdroidRepoCandidate.py \\
+            --stage build/fdroid-beta-stage \\
+            --expected-source "$SOURCE_REF" \\
+            --expected-signer "$TRUSTED_SIGNER" \\
+            --expected-version "$VERSION" \\
+            --expected-apk-sha256 "$APK_SHA"
+          echo 'FDROID_OFFLINE_CANDIDATE_READY_NOT_SIGNED_NOT_PUBLISHED'
       - name: Upload private signed beta candidate
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: samsung-lite-signed-beta-candidate
-          path: build/signed-beta/
+          path: |
+            build/signed-beta/
+            build/fdroid-beta-stage/
           if-no-files-found: error
           retention-days: 14
       - name: Remove keystore from runner
