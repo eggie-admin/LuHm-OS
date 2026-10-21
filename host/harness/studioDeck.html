@@ -1,0 +1,25 @@
+<section class="studioDeck" id="luhmStudioDeck" aria-label="Creative workspace">
+  <section class="studioLevel studioWorld" aria-labelledby="studioWorldTitle">
+    <div class="scenery" aria-hidden="true"><div class="scenerySky"></div><div class="sceneryClouds"></div><div class="sceneryMountains"></div><div class="sceneryTrees"></div></div>
+    <div class="studioWorldCopy"><span class="studioEyebrow">LuHm · creative workspace</span><h2 id="studioWorldTitle">A little world for your work.</h2><p>Keep the music close, the originals safe, and the next shot in sight.</p></div>
+  </section>
+  <section class="studioLevel" aria-labelledby="studioMusicTitle">
+    <h2 id="studioMusicTitle">Music desk</h2><p>Paste a YouTube or YouTube Music video or playlist link. Load when you want to connect to YouTube.</p>
+    <label for="studioMusicUrl">Track or playlist</label><input id="studioMusicUrl" type="url" maxlength="2048" placeholder="https://music.youtube.com/watch?v=…" autocomplete="off">
+    <div class="studioButtons"><button id="studioMusicLoad" type="button">Load YouTube player</button><button id="studioMusicStop" type="button">Disconnect player</button></div>
+    <p id="studioMusicStatus" role="status">YouTube is disconnected. No autoplay.</p>
+    <div id="studioMusicStage"></div><a id="studioMusicExternal" hidden target="_blank" rel="noopener" referrerpolicy="strict-origin-when-cross-origin">Open on YouTube</a>
+  </section>
+  <section class="studioLevel" aria-labelledby="studioAssetsTitle">
+    <h2 id="studioAssetsTitle">Asset register</h2><p>Choose originals to sort and fingerprint locally. Nothing is uploaded or unpacked. Rights and canon stay awaiting review.</p>
+    <label for="studioAssetInput">Add files to the register</label><input id="studioAssetInput" type="file" multiple>
+    <div class="studioButtons"><button id="studioAssetExport" type="button">Export register</button><button id="studioAssetClear" type="button">Clear register</button></div>
+    <p id="studioAssetStatus" role="status" aria-live="polite">No registered assets. This register lasts for this page session.</p>
+    <ul id="studioAssetList" aria-label="Registered asset groups"></ul>
+  </section>
+  <section class="studioLevel" aria-labelledby="studioLaneTitle">
+    <h2 id="studioLaneTitle">Workspace state</h2><p id="studioLaneStatus">Testing draft · production is a separate approved release.</p>
+    <p id="studioCrewStatus">Agent execution status has not been received.</p>
+    <details><summary>Evidence and handoff</summary><p id="studioSourceStatus">Source: UNKNOWN</p><p>The scenery, conversation modes, architecture tiers and testing lane are separate controls. None grants execution or release authority.</p></details>
+  </section>
+</section>
