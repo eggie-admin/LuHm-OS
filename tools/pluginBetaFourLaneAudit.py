@@ -34,6 +34,20 @@ def validate(policy: dict, invite: dict, quarantine: dict, plugin: dict) -> list
     need(personal.get("scope") == "USER" and personal.get("discoverability") == "PRIVATE", "owner private boundary")
     need(personal.get("shareableExternally") is False and personal.get("appBindingPreserved") is True, "unsupported personal plugin distribution")
     need(plugin.get("version") == "0.5.2" and plugin.get("name") == "luhm-os", "repository package identity")
+    in_chat = policy.get("inChatTarget", {})
+    need(in_chat.get("primarySurface") == "CHATGPT_APP_IN_CONVERSATION", "website substituted for chat experience")
+    need(in_chat.get("resourceUri") == "ui://luhm-os/cockpit-v2.html" and in_chat.get("tool") == "luhm_open_cockpit", "in-chat MCP identity drift")
+    for key in ("outsideTesterNeedsChatGptPluginInstall", "openInAppMustStayInChat", "currentOwnerPrivatePluginNotShareableByLink", "workspacePluginSharingAndSiteViewerRightsBothRequiredWhenApplicable", "noWebPreviewSubstitution", "visualStatusOnlyNoAuthority"):
+        need(in_chat.get(key) is True, "in-chat distribution guard disabled: "+key)
+    for key in ("standaloneRenderAsTesterDelivery","inChatUiMountProvenForTester"):
+        need(in_chat.get(key) is False, "external website or invented UI mount proof: "+key)
+    need(in_chat.get("preferredDistribution") == "eligibleInvitedWorkspacePluginWithSiteViewerAccess", "invitation route unsupported")
+    # Source gates prevent a policy green light when the actual MCP host UI is missing.
+    widget = (ROOT / "host/harness/widget.html").read_text(encoding="utf-8")
+    harness = (ROOT / "host/mcp/luhmHarness.py").read_text(encoding="utf-8")
+    need('data-luhm-in-chat-beta' in widget and 'data-luhm-beta-lane="betaLts"' in widget, "in-chat four-lane UI absent")
+    need('betaLanes": beta_lanes' in harness, "MCP tool response omits beta lane policy")
+    need("setOpenInAppUrl" not in widget, "web harness selected as ChatGPT open-in-app")
     snapshots = policy.get("sourceSnapshots", {})
     sha = lambda v: isinstance(v, str) and re.fullmatch(r"[0-9a-f]{40}", v) is not None
     main = snapshots.get("cockpitLiveCommit")
