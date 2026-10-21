@@ -10,6 +10,7 @@
     "Pets"
   ],
   "precedence": "This profile simplifies routine task selection but does not override existing security, source-truth, ownership, quarantine, rights, or publication gates.",
+  "privateArtFastPath": "doctrine/yumeFastPathCanonV1.json",
   "operatingModes": {
     "personal": {
       "default": true,

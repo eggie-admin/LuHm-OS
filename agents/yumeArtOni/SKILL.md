@@ -59,6 +59,12 @@ Current default provider states:
 
 If a requested provider is unconfigured, Yume automatically falls back to the provider-neutral production bible + local/GitHub planning lane and marks the provider step `pendingProviderSetup` instead of stopping the whole creative workflow.
 
+## Canonical Tier-0 private art fast path
+
+For private, reversible Yume work, resolve `doctrine/yumeFastPathCanonV1.json` and evaluate a task envelope through `tools/yumeFastPath.py`. A `FAST_PATH_ELIGIBLE_PLAN_ONLY` receipt replaces the lengthy studio planning ritual with **four steps**: check source and rights; make one isolated private concept/draft; run only the relevant smoke check; record one short result. Yume owns creative direction; Lum coordinates. Belldandy tracks the short receipt; ask Urd or Skuld only when real uncertainty warrants review. Never represent the goddess roles as active workers during company-wide quarantine.
+
+An explicit `FULL_GATE_REQUIRED` routes rights uncertainty, public distribution, credentials, spending, cloud/provider calls, nonreversible changes, production modifications or actual agent execution back to the existing full gate. Fast path grants no publication, remote provider access, source promotion or Crown. Default art stays `privateMutation` with `publicAllowed=false`, original masters protected, and a human review before any visibility increase. The global proposal/agent quarantine contracts remain unchanged. This **canonical source-routing rule** is not an unconditional promotion of all Yume artwork or a runtime release.
+
 ## Hollywood-style production workflow
 
 1. `intakeBrief`
@@ -236,6 +242,16 @@ For Pirate Daddies Film clips use `doctrine/yumeVideoAutomationBridgeV1.json`, `
 Load `doctrine/yumeBigBrotherArtDeskV1.json` and use `agents/yumeArtOni/templates/big-brother-art-task-v1.template.json` for Google AI / Big Brother assistance.
 
 Big Brother is a helpful external capability provider, not Yume's replacement. It may research, critique, review, plan, and create bounded private candidates when an exact provider execution path is proven. It may not seal canon, widen content lanes, grant GREEN, publish, or grant Crown.
+
+## Fast-path Yume + Goddess Cabinet handoff (source-only)
+
+Read `doctrine/yumeArtCabinetHandoffV1.json` with the existing creative pipeline and active quarantine. **One Lum task packet**, not fifteen independent agents: Yume proposes the visual asset; Skuld researches Blender/GLB/Godot/FFmpeg compatibility; Urd challenges provenance, continuity and failing asset checks; Belldandy records filename, original hash, derivative hash, credit, license and review state; Lum reconciles and presents one Professor decision. Sumi may assist provenance within task scope. No role activation while `companyWideOperationalQuarantineV1.json` is active. These are specialist responsibilities, not running workers.
+
+**Minimal viable visual production:** prioritize one editable, high-detail 3D main character at a time. Compose inexpensive 2D sprites, matte paintings and FFmpeg-pre-rendered background plates around it. Keep original Blender files and donor archives private; use approved GLB/WebP derivatives for the Godot/browser path. Character rig topology, skinning, alpha behavior, materials, animation names, texture sizes, and device budgets must have task-specific evidence before a runtime claim. No 24/7 GPU or paid provider is assumed.
+
+Run `python3 tools/yumeGodotAssetPrep.py candidate.json` as a **read-only candidate check**. The tool must reject repository escape paths and symlinks, bad hashes, wrong file signatures, missing 3D policy fields, unknown provenance and public rights gaps. A `GREEN_PLAN_ONLY` result means the source and proposed handoff are structurally valid; it is not Blender export proof, Godot import proof, moving character proof, Android performance proof, publication permission, or autonomous agent execution.
+
+Public promotion requires `cathedralPublic`, publicAllowed **true**, approved artist rights and requested creator credit, non-private reference lineage and an explicit Professor review receipt. Default generative-image drafts stay private; never import an unapproved donor/EVE/Rebel archive into the public repo to satisfy a smoke test. Skuld may verify compatibility; Yume does not mutate network, billing, plugin credentials or deployment settings.
 
 ## Godot art toolbox
 

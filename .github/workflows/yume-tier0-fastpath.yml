@@ -1,0 +1,57 @@
+name: Yume Tier-0 Canon Fast Path
+on:
+  pull_request:
+    paths:
+      - 'doctrine/yumeFastPathCanonV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/yumeArtCabinetHandoffV1.json'
+      - 'doctrine/yumeCreativePipelineV1.json'
+      - 'doctrine/soloStudioOperatingProfileV1.json'
+      - 'tools/yumeFastPath.py'
+      - 'tests/testYumeFastPath.py'
+      - 'agents/yumeArtOni/SKILL.md'
+      - 'agents/goddessSharedSystemsPractice/SKILL.md'
+      - 'AGENTS.md'
+      - '.github/workflows/yume-tier0-fastpath.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-only-fastpath:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Exact source and whitespace
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          git diff --check
+      - name: Exercise Tier-0 fastpath and negative gates
+        run: python3 -m unittest tests.testYumeFastPath -v
+      - name: Run cabinet consistency and original creative source checks
+        run: |
+          python3 tools/yumeArtCabinetAudit.py
+          python3 tools/yumeCreativePipelineAudit.py
+          python3 tools/yumeWorkbenchAudit.py
+      - name: Verify original company hold remains unchanged
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          read=lambda path: json.loads(Path(path).read_text())
+          q=read('doctrine/companyWideOperationalQuarantineV1.json')
+          c=read('doctrine/currentSourceTruthV3.json')
+          fast=read('doctrine/yumeFastPathCanonV1.json')
+          assert q['state']=='QUARANTINED'
+          assert q['activeTaskWorkersAllowed'] is False
+          assert c['promotion'] is False
+          assert fast['defaultTier']==0
+          assert fast['automaticPublish'] is False
+          assert fast['automaticMutation'] is False
+          print('YUME_ROUTING_CANON_SOURCE_GREEN; WORKER_QUARANTINE_ON')
+          PY

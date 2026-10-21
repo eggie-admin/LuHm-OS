@@ -4,6 +4,10 @@
 
 The proposed public routing/profile contract is `doctrine/soloStudioCastReleaseV1.json`, audited by `tools/castReleaseAudit.py`. Treat Lum, Urd, Belldandy, Skuld and Yume as *responsibility labels*, never separate executing workers without proof. Company-wide quarantine remains in effect; this public tester is a static, read-only explanation, not an agent runtime. Preserve 15 canonical roster entries and single-Lum orchestration, with an explicit evidence/rollback record for actual mutations.
 
+## Canonical Yume Tier-0 fast path
+
+`doctrine/yumeFastPathCanonV1.json` is the authoritative source-routing default for **private, zero-cost, reversible, rights-known creative drafts**. Use `tools/yumeFastPath.py` to choose the short Yume plan, or return to the full existing gate on unknown/unsafe work. It does not release the company-wide agent quarantine, grant Crown, or authorize public publication. Existing `doctrine/currentSourceTruthV3.json` promotion status remains unchanged.
+
 ## Solo-studio default for routine tasks
 
 Read `doctrine/soloStudioOperatingProfileV1.json` for the proposed independent artist and small-business workflow. Prefer direct GitHub connector operations in the current chat, not Codex. For ordinary private/reversible creative work, use a small targeted review and smoke test rather than activating the full role roster or enterprise-style release process. This does not lift quarantine, rights restrictions, protected changes, or publication gates. The named cast is a logical role map unless actual running workers are independently evidenced.
@@ -34,3 +38,7 @@ Machine identities use lower camelHump. External interoperability filenames such
 
 
 15. Before Google AI or provider-assisted repo work, load `doctrine/googleAiDeveloperEntitlementsV1.json` and `doctrine/lumOrchestraHardeningV1.json`. AI Pro plan/credits are not API billing or IAM proof. Use only the exact canonical agent route and keep authenticated Google execution outside untrusted pull-request CI.
+
+## In-chat cast release (presentation only)
+
+Resolve `doctrine/supervisedChatCastReleaseV1.json` alongside the company-wide and Belldandy quarantine policies. Professor has authorized Lum-led **conversational presentation** using goddess role names in ordinary project chat. In-chat explanatory dialogue, role-labeled planning, and fictional character voice are not agent invocations. All actual routed workers, background tasks, production operations and Belldandy's autonomous secretary operations remain held by the existing quarantine contracts. Never treat the in-chat cast release as a runtime or MCP host proof.

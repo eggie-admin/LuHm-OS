@@ -1,0 +1,22 @@
+name: LuHm supervised in-chat cast release gate
+on:
+  pull_request:
+    paths:
+      - 'doctrine/supervisedChatCastReleaseV1.json'
+      - 'tools/supervisedChatCastReleaseAudit.py'
+      - 'AGENTS.md'
+      - 'agents/projectChatBootstrap/SKILL.md'
+      - '.github/workflows/supervised-chat-cast-release.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  separation-of-authority:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify chat released and 16 runtime routes remain held
+        run: python3 tools/supervisedChatCastReleaseAudit.py

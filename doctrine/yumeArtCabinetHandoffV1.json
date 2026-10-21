@@ -1,0 +1,95 @@
+{
+  "schema": "luhmOs.yumeArtCabinetHandoff.v1",
+  "status": "SOURCE_CONTRACT_QUARANTINED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "boss": "lum",
+  "creativeOwner": "yume",
+  "fastPathPolicy": "doctrine/yumeFastPathCanonV1.json",
+  "quarantineRef": "doctrine/companyWideOperationalQuarantineV1.json",
+  "registeredAgentExecution": false,
+  "autonomousWorkerClaims": false,
+  "cabinet": {
+    "lum": {
+      "responsibility": "Single task intake, route approved responsibilities, reconcile evidence, present Professor decision",
+      "mayGrantCrown": false
+    },
+    "yume": {
+      "responsibility": "Art direction, character identity, animation/editorial composition and candidate manifest",
+      "mayPublish": false
+    },
+    "urdDoctorGoddess": {
+      "responsibility": "Investigate failed asset checks, contamination and evidence drift",
+      "mayRunUnapprovedMutations": false
+    },
+    "belldandySecretary": {
+      "responsibility": "Naming, source/derivative hash ledger, creator credit, license and approval receipt continuity",
+      "mayInventRights": false
+    },
+    "skuldResearch": {
+      "responsibility": "Blender/GLB Godot4 FFmpeg import compatibility, performance target and dependency license review",
+      "mayClaimRuntimeFromSource": false
+    },
+    "sumi": {
+      "responsibility": "Source provenance and original creator attribution, activated by task only",
+      "mayGrantPublicRights": false
+    }
+  },
+  "contentLaneRef": "doctrine/contentLaneDoctrineV1.json",
+  "toolboxRef": "doctrine/yumeGodotArtToolboxV1.json",
+  "creativeProfile": {
+    "primary": "one foreground rigged high-detail 3D character per scene by default",
+    "secondary": "2D sprites, static illustrations, background plates or pre-rendered video",
+    "masters": "Original editable source kept private and backed up with creator identity and rights",
+    "runtimeDerivative": "GLB with application-specific material, mesh and texture budgets, not universal polygon limits",
+    "mobile": "Performance is UNKNOWN until same-device test",
+    "clip": "FFmpeg concept/render is not model output or live agent output"
+  },
+  "handoffStages": [
+    "sourceProtected",
+    "identityAndRightsChecked",
+    "yumeArtPlan",
+    "skuldFormatReview",
+    "urdAdversarialReview",
+    "belldandyReceipt",
+    "lumReconciles",
+    "professorApproval",
+    "separateRuntimeAndPublicationGates"
+  ],
+  "receiptFields": [
+    "taskId",
+    "sourceRef",
+    "scopeId",
+    "assetId",
+    "characterId",
+    "sourcePath",
+    "sourceSha256",
+    "contentLane",
+    "provenance",
+    "creatorCredit",
+    "licenseEvidence",
+    "publicAllowed",
+    "godotProfile",
+    "profilePolicies",
+    "reviewState",
+    "knownUnknowns"
+  ],
+  "publicationGuards": {
+    "privateSourceMayShip": false,
+    "hiddenCredentialsMayShip": false,
+    "unknownLicenseMayShip": false,
+    "generatedPublicDefaultAllowed": false,
+    "quarantineMayAutoRelease": false,
+    "sourceGreenIsDeviceGreen": false,
+    "aiExecutionMayAuthorizePublish": false
+  },
+  "tools": {
+    "assetPrep": "tools/yumeGodotAssetPrep.py",
+    "assetPrepAdversarialTests": "tests/testYumeAssetPrepSecurity.py",
+    "cabinetAudit": "tools/yumeArtCabinetAudit.py"
+  },
+  "singleMutableSourceLane": true,
+  "maxSupportWorkerRoles": 3,
+  "costPolicy": "Existing GitHub and Render, local tools first; no paid inference without explicit approval",
+  "crownStatus": "STOP"
+}

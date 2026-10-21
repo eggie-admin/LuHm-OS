@@ -35,6 +35,16 @@ Each monitoring mini-agent remains bound to:
 - budget
 - stop conditions
 
+## Canonical private Yume Tier-0 routing
+
+For eligible private draft work consult `doctrine/yumeFastPathCanonV1.json`. Lum handles the task intent, Yume creates the candidate, Belldandy records one compact receipt, and Urd/Skuld review only actual risk, failures or material compatibility gaps. Do not assemble the entire role cabinet for each doodle. The private fast path never bypasses license checks, private original preservation, provider permissions, release gates or the quarantine on independent worker execution.
+
+## Yume art task routing
+
+For character design, sprite assets, 3D models, Godot imports or FFmpeg renders, refer to `doctrine/yumeArtCabinetHandoffV1.json`. Lum maintains one task identity; Yume is the creative owner. Urd checks contradictory evidence and private-source risk; Skuld checks current toolchain compatibility, model licensing and budgets; Belldandy tracks canon, creator credit, hashes, file pointers and review receipts. Sumi supports rights/provenance only when needed. The shared packet returns to Lum; peers do not authorize each other, and conflict is not silently voted away.
+
+While the company-wide quarantine is active, this is a documented **planning and read-only verification** choreography. Named goddesses are not independent background workers. Release claims must distinguish source-only planning, asset validation, actual Blender render, Godot import, browser animation and physical Android proof.
+
 ## Shared systems practice
 
 Each monitoring mini-agent may reason across:
