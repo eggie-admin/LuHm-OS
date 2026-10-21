@@ -887,5 +887,20 @@
     "pricingAndPremiumScope": "NOT_SET",
     "publicBetaPublishProven": false,
     "exactArtifactAndPublicReleaseRequiresProfessor": true
+  },
+  "chatArchiveHandoff": {
+    "contract": "doctrine/chatArchiveVirginInstallHandoff20261021.json",
+    "checkpointDate": "2026-10-21",
+    "auditBaseSourceRef": "9a3792a1a4a32f221a7705fac18e9d7e1f23b2e1",
+    "status": "DEBUG_APK_BYTES_VERIFIED_INSTALL_PENDING",
+    "verifiedArtifactSha256": "0b0fdfbe25e8937abfe6e647cb23de53838e0189fc545d062aee73f57edd4f0e",
+    "deviceProof": "PENDING",
+    "stableSignedBeta": "PENDING_OWNER_KEYS_AND_BUILD",
+    "publicFdroid": "NOT_PUBLISHED",
+    "existingCompanyQuarantine": "RETAINED",
+    "autoRelease": false,
+    "automaticDeployment": false,
+    "fullGreen": false,
+    "resume": "Read checkpoint, then device-install verified APK before any new public release claims."
   }
 }
