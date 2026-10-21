@@ -56,8 +56,14 @@ def check() -> None:
             "owner-only dispatch missing")
     require("test \"$SOURCE_REF\" ==" in content,
             "exact-current-main source gate missing")
-    require("GODOT_ANDROID_KEYSTORE_RELEASE_PATH=" in content,
-            "persistent release keystore not configured")
+    require("GODOT_ANDROID_KEYSTORE_RELEASE_PATH:" in content
+            and "GODOT_ANDROID_KEYSTORE_RELEASE_USER:" in content
+            and "GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD:" in content,
+            "step-scoped release signing variables missing")
+    require("GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD=$BETA_PASSWORD" not in content,
+            "signing password must not enter GITHUB_ENV")
+    require("-storepass:env BETA_PASSWORD" in content,
+            "keytool must not receive password in process command line")
     require('export/android/android_sdk_path = "$ANDROID_HOME"' in content
             and 'export/android/java_sdk_path = "$JAVA_HOME"' in content,
             "Godot Android SDK locations not set")
