@@ -264,13 +264,15 @@ async function probeGodot() {
   const playButton = byId("playFirstNight");
   const playStatus = byId("playStatus");
   try {
-    const response = await fetch("/harness/godot-export/index.html", { method: "HEAD", cache: "no-store" });
-    if (!response.ok) throw new Error("not staged");
+    const response = await fetch("/harness/godot-readiness.json", { method: "GET", cache: "no-store" });
+    if (!response.ok) throw new Error("3D readiness endpoint unavailable");
+    const proof = await response.json();
+    if (proof?.schema !== "luhmOs.godotEmbedReadiness.v1" || proof?.ready !== true || proof?.integrity !== "SHA256_PASS" || proof?.wasmCount < 1 || proof?.pckCount < 1) throw new Error("3D bundle not proven");
     state.godotReady = true;
     byId("godotFrame").src = "/harness/godot-export/index.html";
     byId("godotFrame").style.display = "block";
     byId("godotEmpty").style.display = "none";
-    byId("godotBadge").textContent = "WEB EXPORT READY";
+    byId("godotBadge").textContent = "3D ASSET INTEGRITY PASS";
     if (playButton) {
       playButton.disabled = false;
       playButton.textContent = "▶ PLAY FIRST NIGHT";
@@ -283,7 +285,7 @@ async function probeGodot() {
       playButton.disabled = true;
       playButton.textContent = "WEB EXPORT PENDING";
     }
-    if (playStatus) playStatus.textContent = "This host has not staged the Godot browser build yet.";
+    if (playStatus) playStatus.textContent = "The 3D Web bundle has not passed the hosted integrity gate yet.";
   }
 }
 
