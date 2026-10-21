@@ -55,7 +55,7 @@ async function inspect(browser,width){
    width:innerWidth,
    scroll:document.documentElement.scrollWidth,
    reduced:matchMedia("(prefers-reduced-motion: reduce)").matches,
-   focus:outline => getComputedStyle(document.querySelector(outline)).outlineStyle,
+   focusOutline:getComputedStyle(document.querySelector("#petDock")).outlineStyle,
    bg:getComputedStyle(document.querySelector("body")).backgroundColor,
    offlineStatus:document.getElementById("edgeBadge").textContent
  }));
