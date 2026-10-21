@@ -715,6 +715,37 @@ def luhm_proof_contract() -> dict[str, Any]:
 
 
 @server.tool(annotations=READ_ONLY_INTERNAL)
+def luhm_google_ai_proxy_status() -> dict[str, Any]:
+    """Read-only Google AI proxy readiness. NEVER calls Google or spends tokens."""
+    gate = _load_json(ROOT / "doctrine/googleAiProxyDeploymentV1.json")
+    source = _load_json(ROOT / "doctrine/googleAiDeveloperEntitlementsV1.json")
+    quarantine = _load_json(ROOT / "doctrine/companyWideOperationalQuarantineV1.json")
+    if quarantine.get("state") != "QUARANTINED" or quarantine.get("activeTaskWorkersAllowed"):
+        return {"schema": gate["schema"], "state": "STOP_POLICY_DRIFT", "providerCalled": False,
+                "workerStarted": False, "runtimeMutationAuthority": False}
+    if (source.get("executionLaw", {}).get("defaultAction") != "DENY"
+            or source.get("executionLaw", {}).get("noAutomaticDeploy") is not True):
+        return {"schema": gate["schema"], "state": "STOP_GOOGLE_AUTHORITY_DRIFT", "providerCalled": False,
+                "workerStarted": False, "runtimeMutationAuthority": False}
+    return {
+        "schema": gate["schema"],
+        "state": gate["status"],
+        "providerId": gate["providerId"],
+        "adapterId": gate["adapterId"],
+        "currentMode": "READ_ONLY_STATUS_ONLY",
+        "authenticatedGoogleDeveloperApiProof": False,
+        "providerCalled": False,
+        "workerStarted": False,
+        "billingTriggered": False,
+        "fallback": "deterministicLocal",
+        "humanAuthority": "Professor",
+        "runtimeMutationAuthority": False,
+        "googleAiReleaseReady": False,
+        "crownStatus": "STOP",
+    }
+
+
+@server.tool(annotations=READ_ONLY_INTERNAL)
 def luhm_api_spine() -> dict[str, Any]:
     """Return the stable capability-first provider spine and Cloudflare traffic-controller contract."""
     return _api_spine_payload()
