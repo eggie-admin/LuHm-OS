@@ -1,0 +1,60 @@
+{
+  "schema": "luhmOs.artLaneManifest.v1",
+  "lane": "backdrops",
+  "sourceArchive": "LuHmAssetStudioStarterV1.zip",
+  "sourceArchiveSha256": "8a04dd61413317e2ffe24d9143697d7956958f1b9a9111d673347da75539a7f2",
+  "records": [
+    {
+      "path": "backdrops/cathedral.webp",
+      "bytes": 19054,
+      "sha256": "f5353d01fc0fdada673684aacd56f3e2041a9fd489875c4d9b61f10b64b4c857",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "backdrops/midnight-mountain.webp",
+      "bytes": 3594,
+      "sha256": "92acb561e9208257b6cd0e8936c394378ea64e87f1fcf61172baf8af14527f87",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "backdrops/neon-city.webp",
+      "bytes": 22898,
+      "sha256": "d079ae4b977c65e9059f004ff312e3d2ad7fe513c0629a6540979640094a650f",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "backdrops/portal-chamber.webp",
+      "bytes": 44872,
+      "sha256": "39eec87e0c1ad77c15cb0acfd4c021bc45c122778576b7bdc1c9cae061b7b24b",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "backdrops/professor-workshop.webp",
+      "bytes": 12984,
+      "sha256": "5c35a32f16deda9906c450c0b91eab858bbd7454a6c7f470b3b673516edfe663",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "backdrops/starship-bay.webp",
+      "bytes": 47744,
+      "sha256": "c70322eaf14f46c0fa76d53a6dd7e98674d6d20ac0be2b9a56734748fd013df5",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    }
+  ],
+  "sourceCount": 6,
+  "publicApproved": false,
+  "storage": "PRIVATE_DRIVE_OWNER_ONLY",
+  "productionDeployProven": false
+}

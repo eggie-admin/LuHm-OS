@@ -1,0 +1,100 @@
+{
+  "schema": "luhmOs.artLaneManifest.v1",
+  "lane": "godot",
+  "sourceArchive": "LuHmAssetStudioStarterV1.zip",
+  "sourceArchiveSha256": "8a04dd61413317e2ffe24d9143697d7956958f1b9a9111d673347da75539a7f2",
+  "records": [
+    {
+      "path": "godot/Main.gd",
+      "bytes": 711,
+      "sha256": "9f1f32970b81d78068c00403ba9dac189cdccc43397eb9d74d1e3b46df3e4cf0",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/Main.tscn",
+      "bytes": 160,
+      "sha256": "4a4b72f8d2618141352b46f47b38cfb2913e5b9e62ffb645766bb2609fb8f1ea",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/project.godot",
+      "bytes": 281,
+      "sha256": "8f84d8de0662868cc91a30ce882168b026da1e93b10f87e0c449dff698b81f37",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-00.png",
+      "bytes": 1182,
+      "sha256": "f3afc44529a9d6fe544616e64dde1645a7cddcd91817fad28be8891ab481208c",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-01.png",
+      "bytes": 1182,
+      "sha256": "e94e40ce6feedbf32422842f8bf84ac0c7498e7ea1cd2133cf9ec515faf87a03",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-02.png",
+      "bytes": 1161,
+      "sha256": "1633b6edacfe30cf98fb093cd48723adf7942ab3ff1c1caf78809a6d9130a3fe",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-03.png",
+      "bytes": 1182,
+      "sha256": "e94e40ce6feedbf32422842f8bf84ac0c7498e7ea1cd2133cf9ec515faf87a03",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-04.png",
+      "bytes": 1182,
+      "sha256": "f3afc44529a9d6fe544616e64dde1645a7cddcd91817fad28be8891ab481208c",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-05.png",
+      "bytes": 1303,
+      "sha256": "8557b8e58f7af1385ce5e1947df626fb97eda907aa4f4f512c9936e17edf065c",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-06.png",
+      "bytes": 1294,
+      "sha256": "84b90492764987a530d6276612178de09880025f1ed355ec6fdb62077aed8acb",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-07.png",
+      "bytes": 1303,
+      "sha256": "8557b8e58f7af1385ce5e1947df626fb97eda907aa4f4f512c9936e17edf065c",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    }
+  ],
+  "sourceCount": 11,
+  "publicApproved": false,
+  "storage": "PRIVATE_DRIVE_OWNER_ONLY",
+  "productionDeployProven": false
+}

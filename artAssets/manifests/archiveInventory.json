@@ -1,0 +1,72 @@
+{
+  "schema": "luhmOs.artArchiveMap.v1",
+  "githubMainAtInventory": "6772ac14a71f22e651dd9a00eb10cf99bffe70bd",
+  "repositoryVisibility": "public",
+  "zipsInGitHubAtInspection": 0,
+  "verifiedArchive": {
+    "label": "LuHmAssetStudioStarterV1.zip",
+    "sha256": "8a04dd61413317e2ffe24d9143697d7956958f1b9a9111d673347da75539a7f2",
+    "entries": 111,
+    "assetCount": 110,
+    "allCatalogHashesMatched": true,
+    "rights": "UNREVIEWED",
+    "publicApproved": 0
+  },
+  "privateDriveRootLabel": "LuHmOS_Rebel_PrivateProduction_20261020",
+  "extractedSourceFolder": "05_FreeAssetStudioStarterV1",
+  "stagingFolder": "06_ExtractedArtCandidates_20261021",
+  "categories": [
+    {
+      "lane": "audio",
+      "files": 12,
+      "bytes": 125538
+    },
+    {
+      "lane": "backdrops",
+      "files": 6,
+      "bytes": 151146
+    },
+    {
+      "lane": "docs",
+      "files": 2,
+      "bytes": 3208
+    },
+    {
+      "lane": "godot",
+      "files": 11,
+      "bytes": 10941
+    },
+    {
+      "lane": "models",
+      "files": 1,
+      "bytes": 15328
+    },
+    {
+      "lane": "sprites",
+      "files": 27,
+      "bytes": 43738
+    },
+    {
+      "lane": "ui",
+      "files": 34,
+      "bytes": 12474
+    },
+    {
+      "lane": "vfx",
+      "files": 16,
+      "bytes": 47475
+    },
+    {
+      "lane": "web",
+      "files": 1,
+      "bytes": 3962
+    }
+  ],
+  "knownPrivateDonors": [
+    "EVE Blender RAR5 and .blend original",
+    "Rebel bar scene GLB",
+    "Lum rigged GLB candidate"
+  ],
+  "publicationDisabled": true,
+  "independentAgentsQuarantined": true
+}

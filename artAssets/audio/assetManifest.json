@@ -1,0 +1,108 @@
+{
+  "schema": "luhmOs.artLaneManifest.v1",
+  "lane": "audio",
+  "sourceArchive": "LuHmAssetStudioStarterV1.zip",
+  "sourceArchiveSha256": "8a04dd61413317e2ffe24d9143697d7956958f1b9a9111d673347da75539a7f2",
+  "records": [
+    {
+      "path": "audio/ui-alert.wav",
+      "bytes": 11288,
+      "sha256": "c514c3bef5703b0f2a81f347243a6d8a00683fdc3a9ed2feaa388c3d0f074227",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-back.wav",
+      "bytes": 9304,
+      "sha256": "ef85bb8da8a15cf435ccff7f49797fe61d4fb8d7ab5d702d7091782d76ec4138",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-bond.wav",
+      "bytes": 11288,
+      "sha256": "caabe8022492609831e67d404308022c34bfa4ece87d232c0791e9f3f3953291",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-boot.wav",
+      "bytes": 11288,
+      "sha256": "9c99e0f4c1bc6bc4fef794599bad667ea37c6b8d4a32925ace8d57e492c82f8e",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-cast.wav",
+      "bytes": 11288,
+      "sha256": "54c01aab4fd411cc4e660f77e68b5c10624f56b9c27ebdb17aa485013287dedf",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-close.wav",
+      "bytes": 9304,
+      "sha256": "86ec3e82d9f16fd7c71e8693245ee1bfa3bb068036df686a536b25079e0a0fba",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-confirm.wav",
+      "bytes": 11288,
+      "sha256": "dceff93c7cde0f9cec7a0eeaad5dc8dddc52fb0edf540e49710208073b054b71",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-levelup.wav",
+      "bytes": 13274,
+      "sha256": "a9a7bcc7955c445525bf21124d17dd2beb75a7e2570daa1719502709db8e09ff",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-open.wav",
+      "bytes": 9304,
+      "sha256": "e711885dd63963e995ef1b5250bb0fd06bbed8ccf855c53ab7e7634e2c153774",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-save.wav",
+      "bytes": 9304,
+      "sha256": "c63147991a4174e1f5c12b3cbc599d8c321646cde7cfc7e1709aa1e198a2f554",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-select.wav",
+      "bytes": 9304,
+      "sha256": "f35833dfa7e51748e605ca2d62aa21d26652e35ec9f7187667ea625b1f63f26d",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-spark.wav",
+      "bytes": 9304,
+      "sha256": "179b7e6fbeafeed0652125c315a50fbc7959f5ac3b7deed4ef92a3315c541e6f",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    }
+  ],
+  "sourceCount": 12,
+  "publicApproved": false,
+  "storage": "PRIVATE_DRIVE_OWNER_ONLY",
+  "productionDeployProven": false
+}

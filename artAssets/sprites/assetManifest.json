@@ -1,0 +1,228 @@
+{
+  "schema": "luhmOs.artLaneManifest.v1",
+  "lane": "sprites",
+  "sourceArchive": "LuHmAssetStudioStarterV1.zip",
+  "sourceArchiveSha256": "8a04dd61413317e2ffe24d9143697d7956958f1b9a9111d673347da75539a7f2",
+  "records": [
+    {
+      "path": "sprites/lum-pet-ember-00.png",
+      "bytes": 1177,
+      "sha256": "27ef7b0bf13b8ffa5d77e33a48b8eaa9be314194f94a6f30eb75f0bfaf7ea393",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-01.png",
+      "bytes": 1177,
+      "sha256": "1eb68da2a6dc8ebd931c91b707d5e3d1ee3ac1cdc7d16246052339b3fba7cc06",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-02.png",
+      "bytes": 1159,
+      "sha256": "73c9b5f81dce72d7cb61aefeef7f0b814dfe460194c88be3c98569dacce20ce2",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-03.png",
+      "bytes": 1177,
+      "sha256": "1eb68da2a6dc8ebd931c91b707d5e3d1ee3ac1cdc7d16246052339b3fba7cc06",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-04.png",
+      "bytes": 1177,
+      "sha256": "27ef7b0bf13b8ffa5d77e33a48b8eaa9be314194f94a6f30eb75f0bfaf7ea393",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-05.png",
+      "bytes": 1300,
+      "sha256": "59dca1d88415db0a183550aea5d757a48777d516cf8879f69fd0c78282042375",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-06.png",
+      "bytes": 1286,
+      "sha256": "757a44f34df8f0fa69dd8bd2e5ca4580f63230729cfdd7e57bfa67d2315096a5",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-07.png",
+      "bytes": 1300,
+      "sha256": "59dca1d88415db0a183550aea5d757a48777d516cf8879f69fd0c78282042375",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-sheet.png",
+      "bytes": 4843,
+      "sha256": "1aa1e2c573a97c9c53ac531d25a65fa9b4b0b7095cedce1b79b4ed45c9c89d80",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-00.png",
+      "bytes": 1182,
+      "sha256": "f3afc44529a9d6fe544616e64dde1645a7cddcd91817fad28be8891ab481208c",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-01.png",
+      "bytes": 1182,
+      "sha256": "e94e40ce6feedbf32422842f8bf84ac0c7498e7ea1cd2133cf9ec515faf87a03",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-02.png",
+      "bytes": 1161,
+      "sha256": "1633b6edacfe30cf98fb093cd48723adf7942ab3ff1c1caf78809a6d9130a3fe",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-03.png",
+      "bytes": 1182,
+      "sha256": "e94e40ce6feedbf32422842f8bf84ac0c7498e7ea1cd2133cf9ec515faf87a03",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-04.png",
+      "bytes": 1182,
+      "sha256": "f3afc44529a9d6fe544616e64dde1645a7cddcd91817fad28be8891ab481208c",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-05.png",
+      "bytes": 1303,
+      "sha256": "8557b8e58f7af1385ce5e1947df626fb97eda907aa4f4f512c9936e17edf065c",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-06.png",
+      "bytes": 1294,
+      "sha256": "84b90492764987a530d6276612178de09880025f1ed355ec6fdb62077aed8acb",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-07.png",
+      "bytes": 1303,
+      "sha256": "8557b8e58f7af1385ce5e1947df626fb97eda907aa4f4f512c9936e17edf065c",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-sheet.png",
+      "bytes": 4838,
+      "sha256": "eef1fcefb3f4d63aee795a3ee7cc9942870437238393106b3c11bb018ed4fbe6",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-00.png",
+      "bytes": 1168,
+      "sha256": "965b5ff0d1ce01b65f755da383f8fd6307e3a6c9de58a3161ea76803fcc44d33",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-01.png",
+      "bytes": 1168,
+      "sha256": "7d16bfa698301ce90dd54ec1cdcc4fabd4a6c5f28181951c52df32185fe86257",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-02.png",
+      "bytes": 1150,
+      "sha256": "c3d77ecc796fe7be2a9e17df32c52a77cb3dbbc6174c63b782a81965db3f67b9",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-03.png",
+      "bytes": 1168,
+      "sha256": "7d16bfa698301ce90dd54ec1cdcc4fabd4a6c5f28181951c52df32185fe86257",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-04.png",
+      "bytes": 1168,
+      "sha256": "965b5ff0d1ce01b65f755da383f8fd6307e3a6c9de58a3161ea76803fcc44d33",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-05.png",
+      "bytes": 1292,
+      "sha256": "33852e4b8db50afa8f92f5378eefbe0b0479652cf34e5e548f571d2730e11196",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-06.png",
+      "bytes": 1280,
+      "sha256": "a08fabef07aa15f5a7a4060127b87dfacac8daaf2546779b4ec260c5e787a453",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-07.png",
+      "bytes": 1292,
+      "sha256": "33852e4b8db50afa8f92f5378eefbe0b0479652cf34e5e548f571d2730e11196",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-sheet.png",
+      "bytes": 4829,
+      "sha256": "00fa73b2dcf1909a2dbc10aaa84e489876ea833f4ebd4147e459eac4bf66d1f7",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    }
+  ],
+  "sourceCount": 27,
+  "publicApproved": false,
+  "storage": "PRIVATE_DRIVE_OWNER_ONLY",
+  "productionDeployProven": false
+}

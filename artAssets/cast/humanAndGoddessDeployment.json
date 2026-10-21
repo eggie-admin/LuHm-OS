@@ -1,0 +1,62 @@
+{
+  "schema": "luhmOs.artCastHumanGate.v1",
+  "sourceRef": "6772ac14a71f22e651dd9a00eb10cf99bffe70bd",
+  "studio": "LuHm OS",
+  "cast": [
+    {
+      "id": "lum",
+      "role": "supervisedCoordinator",
+      "doctrine": "doctrine/goddessCabinetLiveChatV1.json",
+      "status": "sourceConfigured",
+      "workerProof": "independentWorkerNotDeployed"
+    },
+    {
+      "id": "urd",
+      "role": "evidenceAndAssetHealth",
+      "doctrine": "doctrine/goddessCabinetLiveChatV1.json",
+      "status": "sourceConfigured",
+      "workerProof": "independentWorkerNotDeployed"
+    },
+    {
+      "id": "belldandy",
+      "role": "artRecordsAndNaming",
+      "doctrine": "doctrine/goddessCabinetLiveChatV1.json",
+      "status": "sourceConfigured",
+      "workerProof": "independentWorkerNotDeployed"
+    },
+    {
+      "id": "skuld",
+      "role": "rightsAndReferenceResearch",
+      "doctrine": "doctrine/goddessCabinetLiveChatV1.json",
+      "status": "sourceConfigured",
+      "workerProof": "independentWorkerNotDeployed"
+    },
+    {
+      "id": "yume",
+      "role": "creativeArtProduction",
+      "doctrine": "doctrine/yumeGoddess3dProductionV1.json",
+      "status": "sourceConfigured",
+      "workerProof": "independentWorkerNotDeployed"
+    },
+    {
+      "id": "human",
+      "role": "ProfessorApprovalAndCanonAuthority",
+      "doctrine": "doctrine/humanCenteredIntentRouterV2.json",
+      "status": "humanInLoop",
+      "workerProof": "notARobotOrBackgroundWorker"
+    }
+  ],
+  "activeChatRoleplay": "SUPERVISED_SOURCE_CONFIGURED",
+  "independentWorkers": "QUARANTINED",
+  "gameBlockout": "scenes/GoddessLineupProof.tscn",
+  "gameBlockoutCharacters": [
+    "lum",
+    "urd",
+    "belldandy",
+    "skuld"
+  ],
+  "humanApproval": "REQUIRED_FOR_CANON_AND_RELEASE",
+  "yumeAssetBodyApproved": false,
+  "publicPromotion": false,
+  "physicalDeploymentProven": false
+}

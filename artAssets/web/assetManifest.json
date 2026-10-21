@@ -1,0 +1,20 @@
+{
+  "schema": "luhmOs.artLaneManifest.v1",
+  "lane": "web",
+  "sourceArchive": "LuHmAssetStudioStarterV1.zip",
+  "sourceArchiveSha256": "8a04dd61413317e2ffe24d9143697d7956958f1b9a9111d673347da75539a7f2",
+  "records": [
+    {
+      "path": "web/index.html",
+      "bytes": 3962,
+      "sha256": "7a0afe98c35fc3bb3517c5dc3dee8fa134814c74a68471d8889f931a8b7fb3a3",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    }
+  ],
+  "sourceCount": 1,
+  "publicApproved": false,
+  "storage": "PRIVATE_DRIVE_OWNER_ONLY",
+  "productionDeployProven": false
+}
