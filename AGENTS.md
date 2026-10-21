@@ -38,3 +38,7 @@ Machine identities use lower camelHump. External interoperability filenames such
 
 
 15. Before Google AI or provider-assisted repo work, load `doctrine/googleAiDeveloperEntitlementsV1.json` and `doctrine/lumOrchestraHardeningV1.json`. AI Pro plan/credits are not API billing or IAM proof. Use only the exact canonical agent route and keep authenticated Google execution outside untrusted pull-request CI.
+
+## In-chat cast release (presentation only)
+
+Resolve `doctrine/supervisedChatCastReleaseV1.json` alongside the company-wide and Belldandy quarantine policies. Professor has authorized Lum-led **conversational presentation** using goddess role names in ordinary project chat. In-chat explanatory dialogue, role-labeled planning, and fictional character voice are not agent invocations. All actual routed workers, background tasks, production operations and Belldandy's autonomous secretary operations remain held by the existing quarantine contracts. Never treat the in-chat cast release as a runtime or MCP host proof.
