@@ -45,9 +45,6 @@ async function main() {
       await page.goto("http://localhost:8788/harness/");
       await page.locator("#agentLoadingScreen").waitFor({state:"hidden"});
       assert.equal(await page.locator("#luhmStudioDeck").count(),1);
-    await page.evaluate(()=>scrollTo(0,400));
-    await page.waitForFunction(()=>document.getElementById("luhmStudioDeck").style.getPropertyValue("--studioMiddleY")==="-88px");
-    assert.equal(await page.locator('#studioBackdropFrame').getAttribute('src'),null,"ChatGPT frame must not fetch scene automatically");
 
       assert.equal(await page.locator(".scenery > div").count(),4);
       assert.equal(await page.locator("#studioBackdropFrame").isHidden(),true,"Background iframe must be lazy and inert");
@@ -102,6 +99,9 @@ async function main() {
     widget=widget.replace("<!-- LUHM_STUDIO_DECK -->","<style>"+file("studioDeck.css")+"</style>"+file("studioDeck.html")+"<script>"+file("studioDeck.js")+"</script>");
     await page.setContent(widget);
     assert.equal(await page.locator("#studioStatus").textContent(),"VERIFY · studio source contract pending");
+    await page.evaluate(()=>scrollTo(0,400));
+    await page.waitForFunction(()=>document.getElementById("luhmStudioDeck").style.getPropertyValue("--studioMiddleY")==="-88px");
+    assert.equal(await page.locator('#studioBackdropFrame').getAttribute('src'),null,"ChatGPT frame must not fetch scene automatically");
     assert.equal(await page.locator("#luhmStudioDeck").count(),1);
     assert.deepEqual(errors,[],"MCP widget must start without undefined initializer");
     assert.equal(await page.locator("#studioUndo").isDisabled(),true);
