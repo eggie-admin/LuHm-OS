@@ -28,3 +28,7 @@ The normal lifecycle is:
 ## Authority
 
 Storage location does not grant GREEN, publication authority, signing authority, or Crown. Professor remains final authority. Unknown storage identity remains UNKNOWN.
+
+## Project-level Drive alignment
+
+For **Hydra, Rebel, Yume and Pets** resolve `doctrine/driveAssetAlignmentV1.json` and `manual/driveAssetAlignment.md`. This is Professor-authorized storage/production routing, not a license to import private assets, change Drive permissions, start autonomous workers, deploy services or publish media. Keep private Drive identifiers out of the public repository. Verify current sharing permissions before every protected asset transfer.
