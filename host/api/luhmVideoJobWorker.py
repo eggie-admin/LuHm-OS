@@ -157,6 +157,8 @@ class VideoSqlStore:
             raise ValueError('RED_TASK_ID')
         if shotId not in shotIds or not re.fullmatch('[0-9a-f]{40}', sourceRef):
             raise ValueError('RED_SOURCE_OR_SHOT')
+        if type(requestHash) is not str or not re.fullmatch('[0-9a-f]{64}', requestHash):
+            raise ValueError('RED_REQUEST_HASH')
         stamp = nowUtc()
         with self.connect() as conn:
             self.execute(conn, '''INSERT INTO yumeVideoJob
