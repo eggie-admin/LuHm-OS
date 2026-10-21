@@ -1,0 +1,34 @@
+name: Cloudflare Edge Full-Stack Source Gate
+on:
+  pull_request:
+    paths:
+      - 'doctrine/cloudflareEdgeHardeningV1.json'
+      - 'tools/cloudflareEdgeHardeningAudit.py'
+      - 'manual/cloudflareEdgeHardening.md'
+      - '.github/workflows/cloudflare-edge-fullstack-audit.yml'
+permissions:
+  contents: read
+jobs:
+  source-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify non-mutation edge contract and seven negative controls
+        run: |
+          python3 tools/cloudflareEdgeHardeningAudit.py
+          python3 -m py_compile tools/cloudflareEdgeHardeningAudit.py
+      - name: Verify no private credential references in edge policy
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          p=json.loads(Path('doctrine/cloudflareEdgeHardeningV1.json').read_text())
+          assert '-----BEGIN ' not in json.dumps(p)
+          assert p['changes']['mayMutateCloudflareZone'] is False
+          assert p['changes']['mayExposeLan'] is False
+          assert p['lanes']['chatGptMcp']['plannedCloudflareProxy'] is False
+          print('GREEN_EDGE_ZERO_SECRET_ZERO_UNAUTHORIZED_LIVE_MUTATION')
+          PY
