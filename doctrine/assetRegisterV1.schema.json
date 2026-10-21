@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "luhmOs.assetRegister.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "sourceRef",
+    "createdAt",
+    "serverWrites",
+    "productionPromotion",
+    "assets"
+  ],
+  "properties": {
+    "schema": {
+      "const": "luhmOs.assetRegister.v1"
+    },
+    "sourceRef": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "serverWrites": {
+      "const": false
+    },
+    "productionPromotion": {
+      "const": false
+    },
+    "assets": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "originalName",
+          "bytes",
+          "mime",
+          "category",
+          "sha256",
+          "rights",
+          "canon",
+          "lane"
+        ],
+        "properties": {
+          "originalName": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "mime": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "category": {
+            "enum": [
+              "models",
+              "archivesPendingInspection",
+              "audio",
+              "video",
+              "visualReferences",
+              "documentsAndOther"
+            ]
+          },
+          "sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rights": {
+            "const": "UNKNOWN"
+          },
+          "canon": {
+            "const": "UNAPPROVED"
+          },
+          "lane": {
+            "const": "needsReview"
+          }
+        }
+      }
+    }
+  }
+}
