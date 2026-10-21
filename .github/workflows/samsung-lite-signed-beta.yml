@@ -119,17 +119,12 @@ jobs:
           KEYSTORE="$RUNNER_TEMP/luhm-owner-beta.p12"
           printf '%s' "$BETA_P12_B64" | base64 --decode > "$KEYSTORE"
           test -s "$KEYSTORE"
-          keytool -list -v -keystore "$KEYSTORE" -storepass "$BETA_PASSWORD" -alias "$BETA_ALIAS" \
+          keytool -list -v -keystore "$KEYSTORE" -storepass:env BETA_PASSWORD -alias "$BETA_ALIAS" \
             > "$RUNNER_TEMP/owner-beta-cert.txt"
           OBSERVED="$(sed -n 's/^[[:space:]]*SHA256: //p' "$RUNNER_TEMP/owner-beta-cert.txt" \
             | head -n1 | tr -d ':' | tr '[:upper:]' '[:lower:]')"
           test "$OBSERVED" == "$TRUSTED_SIGNER"
           rm -f "$RUNNER_TEMP/owner-beta-cert.txt"
-          {
-            echo "GODOT_ANDROID_KEYSTORE_RELEASE_PATH=$KEYSTORE"
-            echo "GODOT_ANDROID_KEYSTORE_RELEASE_USER=$BETA_ALIAS"
-            echo "GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD=$BETA_PASSWORD"
-          } >> "$GITHUB_ENV"
           echo "OWNER_SIGNING_IDENTITY=VERIFIED"
       - name: Enforce private-asset-free source release
         shell: bash
@@ -167,6 +162,10 @@ jobs:
         run: '"$GODOT" --headless --editor --path . --quit'
       - name: Export ARM64 non-debug beta
         shell: bash
+        env:
+          GODOT_ANDROID_KEYSTORE_RELEASE_PATH: ${{ runner.temp }}/luhm-owner-beta.p12
+          GODOT_ANDROID_KEYSTORE_RELEASE_USER: ${{ secrets.LUHM_BETA_SIGNING_ALIAS }}
+          GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD: ${{ secrets.LUHM_BETA_SIGNING_PASSWORD }}
         run: |
           set -euo pipefail
           mkdir -p build/signed-beta
