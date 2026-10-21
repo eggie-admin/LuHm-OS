@@ -10,6 +10,14 @@ on:
         description: Exact current main commit SHA
         required: true
         type: string
+      assetMode:
+        description: Source-only F-Droid candidate by default. Private donor prototype cannot be distributed.
+        required: true
+        default: sourceOnly
+        type: choice
+        options:
+          - sourceOnly
+          - privatePrototype
 permissions:
   contents: read
 concurrency:
@@ -35,6 +43,7 @@ jobs:
           set -euo pipefail
           test "$(printf '%s' "$CAST_WORD" | tr '[:upper:]' '[:lower:]')" == "cast"
           test "$GITHUB_ACTOR" == "$(gh api "repos/$GITHUB_REPOSITORY" --jq '.owner.login')"
+          case "${{ inputs.assetMode }}" in sourceOnly|privatePrototype) ;; *) echo "RED_ASSET_MODE" >&2; exit 2;; esac
           [[ "$SOURCE_REF" =~ ^[a-f0-9]{40}$ ]]
           test "$(git rev-parse HEAD)" == "$SOURCE_REF"
           test "$SOURCE_REF" == "$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq '.commit.sha')"
@@ -117,7 +126,8 @@ jobs:
             echo "GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD=$BETA_PASSWORD"
           } >> "$GITHUB_ENV"
           echo "OWNER_SIGNING_IDENTITY=VERIFIED"
-      - name: Stage rigged Lum from Google Drive
+      - name: Stage rigged Lum from Google Drive (private prototype only)
+        if: ${{ inputs.assetMode == 'privatePrototype' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -197,6 +207,15 @@ jobs:
           print('DRIVE 3D GLB AUDIT GREEN', {'base': base, 'run': run})
           PY
 
+      - name: Enforce private-asset-free source release
+        if: ${{ inputs.assetMode == 'sourceOnly' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -f assets/lum/luhm.glb
+          test ! -f assets/lum/luhmRunning.glb
+          python3 tools/fdroidTabletSourceAudit.py
+          echo 'SOURCE_ONLY_ANDROID_ASSET_FIREWALL_GREEN'
       - name: Stage isolated non-debug beta preset
         shell: bash
         run: |
@@ -236,6 +255,7 @@ jobs:
         env:
           TRUSTED_SIGNER: ${{ secrets.LUHM_BETA_SIGNER_SHA256 }}
           SOURCE_REF: ${{ inputs.sourceRef }}
+          ASSET_MODE: ${{ inputs.assetMode }}
         run: |
           set -euo pipefail
           APK=build/signed-beta/samsung-lite-beta.apk
@@ -262,7 +282,7 @@ jobs:
                 "apkSha256":hashlib.sha256(apk.read_bytes()).hexdigest(),
                 "runId":os.environ["GITHUB_RUN_ID"],
                 "applicationId":"art.eggiebagelface.luhmos.beta",
-                "releaseMode":True,"deviceProof":False,"betaUpgradeProof":False,
+                "releaseMode":True,"assetMode":os.environ["ASSET_MODE"],"deviceProof":False,"betaUpgradeProof":False,
                 "publicPublished":False,"crownStatus":"STOP"}
           Path("build/signed-beta/receipt.json").write_text(json.dumps(data,indent=2)+"\n")
           PY
