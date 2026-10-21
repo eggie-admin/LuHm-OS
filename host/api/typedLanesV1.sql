@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS numericStream(
   integerValue INTEGER,floatValue REAL,scaledValue INTEGER,decimalScale INTEGER CHECK(decimalScale BETWEEN 0 AND 9),
   PRIMARY KEY(eventId,fieldName),
   CHECK((valueKind='integer' AND integerValue IS NOT NULL AND floatValue IS NULL AND scaledValue IS NULL AND decimalScale IS NULL)
-     OR (valueKind='float' AND floatValue BETWEEN -1.7976931348623157e308 AND 1.7976931348623157e308 AND integerValue IS NULL AND scaledValue IS NULL AND decimalScale IS NULL)
+     OR (valueKind='float' AND floatValue IS NOT NULL AND floatValue BETWEEN -1.7976931348623157e308 AND 1.7976931348623157e308 AND integerValue IS NULL AND scaledValue IS NULL AND decimalScale IS NULL)
      OR (valueKind='fixed' AND scaledValue IS NOT NULL AND decimalScale IS NOT NULL AND integerValue IS NULL AND floatValue IS NULL))
 ) STRICT;
 CREATE INDEX IF NOT EXISTS numericSortInteger ON numericStream(fieldName,integerValue,eventId) WHERE valueKind='integer';
