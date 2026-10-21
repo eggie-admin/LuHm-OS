@@ -1,0 +1,51 @@
+{
+  "schema": "luhmOs.githubGatedAutoDeployment.v1",
+  "state": "SOURCE_CONFIGURED_REQUIRES_RENDER_API_KEY_SECRET",
+  "authority": "Professor",
+  "sourceOfTruth": "eggie-admin/LuHm-OS#main",
+  "trigger": "push main after independently re-running source CI; manual dispatch with CAST and exact SHA allowed",
+  "githubWorkflow": ".github/workflows/lum-goddess-gated-render-deploy.yml",
+  "deployer": "tools/autoDeployRenderSidecar.py",
+  "providerSecretName": "RENDER_API_KEY",
+  "providerSecretConfigured": "UNKNOWN",
+  "renderNativeAutoDeploy": "OFF_PRESERVED",
+  "renderTargets": [
+    {
+      "service": "luhm-os-harness-green",
+      "serviceId": "srv-daubsi1srm7s73bl5lh0",
+      "role": "LumGoddessMcpPreview",
+      "existing": true,
+      "plan": "free"
+    },
+    {
+      "service": "luhm-os-godot-harness-green",
+      "serviceId": "srv-dauc8lnavr4c738kfd0g",
+      "role": "GodotPreview",
+      "existing": true,
+      "plan": "free"
+    }
+  ],
+  "staticPublicationTarget": "luhm-os-publication-site",
+  "staticPublicationAutomatic": false,
+  "guardrails": [
+    "Exact GitHub main SHA match before every deploy",
+    "Only these two existing Render service IDs",
+    "GitHub source gate required; one SHA passed as commitId to Render",
+    "Render native autoDeploy remains OFF",
+    "Only deploy source approved by main merge, never PR branches",
+    "No new Render service or paid plan",
+    "No cloud secrets committed",
+    "No independent workers; company quarantine stays QUARANTINED",
+    "Never publish private art assets or promote canon",
+    "No Gemini/GCP/Google AI calls or billing",
+    "Never report LIVE without provider commit/status evidence"
+  ],
+  "receipts": {
+    "sourceAndCi": "GitHub Actions exact-run",
+    "provider": "Render deploy get status",
+    "runtime": "MCP health plus human browser proof separately"
+  },
+  "promotion": "HUMAN_REVIEWED_MAIN_ONLY",
+  "operationalState": "NOT_ACTIVATED_UNTIL_GITHUB_SECRET_AND_FIRST_AUTOMATED_RUN_PROVEN",
+  "crownStatus": "STOP"
+}

@@ -1,0 +1,113 @@
+name: Lum and Goddesses GitHub-Gated Render Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'host/mcp/**'
+      - 'host/harness/**'
+      - 'doctrine/goddessCabinetLiveChatV1.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'doctrine/agentSystemDeploymentV1.json'
+      - 'doctrine/googleAiDeveloperEntitlementsV1.json'
+      - 'doctrine/googleAiProxyDeploymentV1.json'
+      - 'doctrine/githubGatedDeploymentV1.json'
+      - 'agents/lum/**'
+      - 'scenes/**'
+      - 'scripts/game/**'
+      - 'game/assets/**'
+      - 'assets/lum/**'
+      - 'render.yaml'
+      - 'tools/autoDeployRenderSidecar.py'
+      - 'tools/googleAiProxyDeploymentAudit.py'
+      - '.github/workflows/lum-goddess-gated-render-deploy.yml'
+  pull_request:
+    paths:
+      - 'host/mcp/luhmMcpServer.py'
+      - 'doctrine/googleAiProxyDeploymentV1.json'
+      - 'doctrine/githubGatedDeploymentV1.json'
+      - 'tools/autoDeployRenderSidecar.py'
+      - 'tools/googleAiProxyDeploymentAudit.py'
+      - '.github/workflows/lum-goddess-gated-render-deploy.yml'
+  workflow_dispatch:
+    inputs:
+      cast:
+        required: true
+        type: string
+        description: Enter exactly cast
+      sourceRef:
+        required: true
+        type: string
+        description: Enter the exact current main 40-character SHA
+
+permissions:
+  contents: read
+
+concurrency:
+  group: luhm-github-gated-render-main
+  cancel-in-progress: false
+
+jobs:
+  github-green:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify exact source, cast, and main branch
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          CAST_WORD: ${{ inputs.cast }}
+          REQUESTED_SOURCE: ${{ inputs.sourceRef }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            test "$CAST_WORD" = "cast"
+            test "$REQUESTED_SOURCE" = "$GITHUB_SHA"
+            test "$GITHUB_REF" = "refs/heads/main"
+          fi
+      - name: Python3 source, Google AI boundary, and supervised cast gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/autoDeployRenderSidecar.py tools/googleAiProxyDeploymentAudit.py host/mcp/luhmMcpServer.py
+          python3 tools/autoDeployRenderSidecar.py --self-test
+          python3 tools/googleAiProxyDeploymentAudit.py
+          python3 tools/githubRenderSidecarAudit.py
+          python3 tools/goddessCabinetLiveChatAudit.py
+          python3 tools/agentSystemDeploymentAudit.py
+      - name: Existing MCP source contract
+        run: |
+          set -euo pipefail
+          python3 -m pip install -r host/mcp/requirements.txt
+          python3 host/mcp/luhmHarnessServer.py --check
+
+  promote-existing-render:
+    needs: github-green
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify and promote exact main commit (no secret means AMBER, no deploy)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          set -euo pipefail
+          python3 tools/autoDeployRenderSidecar.py --source "$GITHUB_SHA" --service mcp --service godot --output renderDeployReceipt.json
+          cat renderDeployReceipt.json >> "$GITHUB_STEP_SUMMARY"
+      - name: Archive SHA-bound deployment receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-github-green-render-${{ github.run_id }}
+          path: renderDeployReceipt.json
+          if-no-files-found: warn
+          retention-days: 7
