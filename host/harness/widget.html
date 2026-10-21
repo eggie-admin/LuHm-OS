@@ -16,6 +16,7 @@ h1{font-size:14px;margin:0}.sub{font-size:11px;color:var(--muted);margin-top:2px
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}.card{border:1px solid var(--line);background:#0d1017;border-radius:12px;padding:10px;min-height:72px}
 .k{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.v{margin-top:6px;font-size:12px;word-break:break-word}.green{color:#78f0a7}.amber{color:#ffd36c}.cyan{color:var(--cyan)}
 footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}
+.inChatBeta{margin:0 10px 10px;border:1px solid var(--line);background:#0d1017;border-radius:12px;padding:12px}.inChatBeta h2{font-size:14px;margin:0 0 7px}.inChatBeta .sub{line-height:1.45}.inChatBetaGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}.inChatBetaItem{padding:10px;border:1px solid #3a4258;border-radius:10px;background:#10151e;min-width:0}.inChatBetaItem strong{display:block;color:var(--ink);font-size:12px}.inChatBetaItem span{display:block;color:var(--muted);font-size:11px;overflow-wrap:anywhere;margin-top:4px}@media(max-width:430px){.inChatBetaGrid{grid-template-columns:1fr}}
 @media(max-width:430px){.grid{grid-template-columns:1fr}}
 .commandDeck{margin:0 10px 10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#0d1017}.commandDeck pre{white-space:pre-wrap;margin:7px 0;padding:10px;border:1px solid var(--line);border-radius:9px;background:#080a0f;color:var(--cyan);font-size:13px}.commandActions{display:flex;flex-wrap:wrap;gap:6px}.commandActions button{border:1px solid var(--line);border-radius:8px;background:#0a0d13;color:var(--ink);padding:7px 9px}.networkTitle{margin-top:12px}.networkTruth{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;margin-top:7px;font-size:10px;color:var(--muted)}.networkTruth span{border:1px solid var(--line);border-radius:7px;padding:6px}.networkTruth .ok{color:#78f0a7}.networkTruth .verify{color:#ffd36c}.precisionDeck{margin:0 10px 10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#0d1017}.precisionGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:8px}.precisionCommand{border:1px solid var(--line);border-radius:10px;background:#090c12;color:var(--ink);padding:9px;text-align:left}.precisionCommand b{display:block;color:var(--cyan);font-size:12px}.precisionCommand small{display:block;color:var(--muted);margin-top:3px}.parallaxBand{height:70px;margin:0 10px 10px;border:1px solid var(--line);border-radius:12px;background-image:radial-gradient(circle at 20% 35%,#b07cff55 0 3px,transparent 4px),radial-gradient(circle at 70% 55%,#5ee7ff44 0 2px,transparent 3px),linear-gradient(160deg,#15192a,#090b12);background-attachment:fixed;position:relative;overflow:hidden}.parallaxBand:after{content:"STAGE TWO · IN-CHAT VERTICAL PARALLAX";position:absolute;left:12px;bottom:10px;font-size:10px;letter-spacing:.1em;color:var(--muted)}@media(max-width:430px){.networkTruth,.precisionGrid{grid-template-columns:1fr}}.afterHoursDeck{margin:0 10px 10px;border:1px solid #5a294f;border-radius:14px;background:linear-gradient(180deg,#160e17,#0b0910);overflow:hidden}.afterHoursTop{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid #5a294f}.afterHoursTop strong{color:#f2a6df}.afterHoursTop button,.afterHoursActions button{border:1px solid #5a294f;border-radius:8px;background:#120b14;color:var(--ink);padding:7px 9px}.afterHoursShell{display:none;padding:12px}.afterHoursShell.active{display:block}.mudScreen{white-space:pre-wrap;border:1px solid #3a2638;border-radius:10px;background:#070609;padding:10px;color:#e8d7e6;min-height:150px;font-size:12px}.afterHoursActions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.afterHoursInput{display:flex;gap:6px;margin-top:8px}.afterHoursInput input{flex:1;min-width:0;border:1px solid #3a2638;border-radius:8px;background:#08070a;color:var(--ink);padding:8px}.modeBadge{font-size:10px;color:#f2a6df}
 /* Artist studio: direct creative controls; no remote writes or media upload. */
@@ -72,6 +73,17 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <button type="button" data-luhm-chat-mode="irl" aria-pressed="false">IRL</button></div>
 <p class="sub" data-luhm-chat-mode-status role="status" aria-live="polite">Default · normal ChatGPT. Presentation only.</p>
 <details><summary>Operation Titan 7 · four steps</summary><p class="sub">0 Sanity check: exact Canon and PR audit. 1 Build: clean-install package and CI. 2 Merge: exact-head proof and Professor authorization. 3 Deploy: Render source, ChatGPT host and directory receipts. No self-GREEN.</p></details>
+</section>
+<section class="inChatBeta" aria-labelledby="inChatBetaTitle" data-luhm-in-chat-beta>
+<h2 id="inChatBetaTitle">💜 Project Hydra · In-Chat Beta Lanes</h2>
+<p class="sub">ChatGPT plugin experience only. These are supervised release states, not invitations or working autonomous agents.</p>
+<div class="inChatBetaGrid" role="list" aria-label="Testing, Proposed, Beta and Beta LTS">
+<article class="inChatBetaItem" role="listitem" data-luhm-beta-lane="testing"><strong>Testing</strong><span>VERIFY · source status loading</span></article>
+<article class="inChatBetaItem" role="listitem" data-luhm-beta-lane="proposed"><strong>Proposed</strong><span>VERIFY · source status loading</span></article>
+<article class="inChatBetaItem" role="listitem" data-luhm-beta-lane="beta"><strong>Beta</strong><span>BLOCKED · external access not granted</span></article>
+<article class="inChatBetaItem" role="listitem" data-luhm-beta-lane="betaLts"><strong>Beta LTS</strong><span>FROZEN CANDIDATE · not promoted</span></article>
+</div>
+<p class="sub" id="inChatBetaAccess" role="status" aria-live="polite">External tester access: NOT GRANTED. Invites: NOT SENT. Human approval required.</p>
 </section>
 <!-- LUHM_STUDIO_DECK -->
 <section class="grid">
@@ -237,15 +249,23 @@ function render(data){
   $("crownAction").textContent=current?.action||"Machine gate or no user action required.";
   const origin=payload?.harness?.publicOrigin;
   if(origin&&origin!=="LOCAL_ONLY") $("foot").textContent=`Full harness: ${origin}/harness/ · read-only`;
-  const openai=window.openai;
+  renderInChatBeta(payload.betaLanes);
   renderNetworkTruth();
   renderPrecisionCommands();
   renderAfterHoursContract();
   studioInitialize(payload?.artistStudio);
   window.luhmStudioDeck?.configure(payload?.embeddedStudio);
-  if(openai?.setOpenInAppUrl&&origin&&origin!=="LOCAL_ONLY"){
-    openai.setOpenInAppUrl({href:origin+"/harness/"});
-  }
+  // The invited beta target is the in-chat MCP resource, never an external website.
+}
+function renderInChatBeta(beta){
+ const slots=["testing","proposed","beta","betaLts"];
+ const safe=beta?.schema==="luhmOs.pluginBetaFourLane.v1"&&beta?.inChatTarget?.primarySurface==="CHATGPT_APP_IN_CONVERSATION"&&
+  beta?.inChatTarget?.resourceUri==="ui://luhm-os/cockpit-v2.html"&&beta?.release?.betaInviteSent===false&&
+  beta?.release?.betaReleased===false&&beta?.release?.crownStatus==="STOP"&&
+  Array.isArray(beta?.lanes)&&beta.lanes.length===4&&slots.every((id,i)=>beta.lanes[i]?.id===id&&beta.lanes[i]?.externalAccess===false);
+ slots.forEach(id=>{const node=document.querySelector('[data-luhm-beta-lane="'+id+'"] span');if(node)node.textContent=safe?beta.lanes.find(x=>x.id===id).stage:"VERIFY · in-chat lane evidence unavailable"});
+ const status=document.getElementById("inChatBetaAccess");
+ if(status)status.textContent=safe?"Alex is not connected. External tester plugin install and ChatGPT in-chat mount remain unverified. Invites NOT SENT.":"BLOCKED · no verified ChatGPT in-chat tester proof; no invitation or release.";
 }
 const command="FAST_PATH ✔️➡️🟢👑👹⛪";
 function sendFollowUp(message){const api=window.openai;if(api?.sendFollowUpMessage)return api.sendFollowUpMessage({prompt:message});return request("ui/message",{role:"user",content:[{type:"text",text:message}]})}

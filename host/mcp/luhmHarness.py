@@ -182,8 +182,9 @@ def register_harness(
     after_hours_path = root / "doctrine" / "afterHoursExperienceV1.json"
     coding_roleplay_path = root / "doctrine" / "codingRoleplayDirectorV2.json"
     virgin_install_path = root / "doctrine" / "manualPluginVirginInstallV1.json"
+    beta_lane_path = root / "doctrine" / "pluginBetaFourLaneV1.json"
 
-    if not all(path.is_file() for path in (widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, artist_studio_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path)):
+    if not all(path.is_file() for path in (widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, artist_studio_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path, beta_lane_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     for name in ("studioDeck.html", "studioDeck.css", "studioDeck.js"):
@@ -219,8 +220,15 @@ def register_harness(
     after_hours = json.loads(after_hours_path.read_text(encoding="utf-8"))
     coding_roleplay = json.loads(coding_roleplay_path.read_text(encoding="utf-8"))
     virgin_install = json.loads(virgin_install_path.read_text(encoding="utf-8"))
+    beta_lanes = json.loads(beta_lane_path.read_text(encoding="utf-8"))
     if coding_roleplay.get("schema") != "luhmOs.codingRoleplayDirector.v2":
         raise RuntimeError("RED_CODING_ROLEPLAY_SCHEMA")
+    if (beta_lanes.get("schema") != "luhmOs.pluginBetaFourLane.v1" or
+        beta_lanes.get("inChatTarget", {}).get("resourceUri") != UI_RESOURCE_URI or
+        beta_lanes.get("inChatTarget", {}).get("primarySurface") != "CHATGPT_APP_IN_CONVERSATION" or
+        beta_lanes.get("release", {}).get("betaInviteSent") is not False or
+        beta_lanes.get("release", {}).get("betaReleased") is not False):
+        raise RuntimeError("RED_IN_CHAT_BETA_AUTHORITY_DRIFT")
     if virgin_install.get("schema") != "luhmOs.manualPluginVirginInstall.v1":
         raise RuntimeError("RED_VIRGIN_INSTALL_SCHEMA")
     if artist_studio.get("schema") != "luhmOs.artistStudioPlugin.v1" or artist_studio.get("pluginTool") != "luhm_open_cockpit" or artist_studio.get("resourceUri") != UI_RESOURCE_URI:
@@ -347,6 +355,7 @@ def register_harness(
             "afterHours": after_hours,
             "codingRoleplay": coding_roleplay,
             "virginInstall": virgin_install,
+            "betaLanes": beta_lanes,
             "status": status_provider(),
             "roster": roster_provider(),
             "harness": {
