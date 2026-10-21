@@ -25,6 +25,13 @@ async function inspect(browser,width){
  await page.route("https://**",route=>route.abort());
  await page.goto(HOST,{waitUntil:"domcontentloaded"});
  await page.locator("#agentLoadingScreen").waitFor({state:"hidden",timeout:20000});
+ const crew=page.locator("[data-luhm-cast]");
+ assert.equal(await crew.count(),6,"Lum, 4 art goddesses and the human Professor must be visible");
+ for (const id of ["lum","urd","belldandy","skuld","yume","human"]) {
+   assert.equal(await page.locator('[data-luhm-cast="'+id+'"]').count(),1,"Missing art cabinet member "+id);
+ }
+ assert.match(await page.locator('[data-luhm-cast="human"]').innerText(),/approval.*REQUIRED/i);
+ assert.match(await page.locator("#humanCastPanel").innerText(),/worker routes remain quarantined/i);
  assert.equal(await page.locator("#assetCounter").innerText(),"0 / 0");
  assert.equal(await page.locator("#petName").innerText(),"Lum");
  await page.locator("#petDock").click();
