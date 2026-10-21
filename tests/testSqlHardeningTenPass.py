@@ -94,7 +94,11 @@ class TenPassSqlTests(unittest.TestCase):
         self.assertIn("CREATE TABLE artifactPointer", sql)
         self.assertIn("sourceRef ~ '^[0-9a-f]{40}$'", sql)
         self.assertIn("sha256 ~ '^[0-9a-f]{64}$'", sql)
-        self.assertIn("CHECK((valueKind='integer'", sql)
+        self.assertEqual(sql.count("CREATE TABLE streamEvent"), 1)
+        self.assertEqual(sql.count("CREATE TABLE numericStream"), 1)
+        self.assertEqual(sql.count("CREATE TABLE artifactPointer"), 1)
+        self.assertNotIn(");),", sql)
+        self.assertIn("  CHECK(", sql)
 
 
 if __name__ == "__main__":
