@@ -86,9 +86,16 @@ async function inspectOffline(browser){
  await page.goto(HOST,{waitUntil:"domcontentloaded"});
  await page.locator("#agentLoadingScreen").waitFor({state:"hidden",timeout:18000});
  assert.match(await page.locator("#edgeBadge").innerText(),/OFFLINE/);
- await page.locator("#assetInput").setInputFiles([file("offline.png","image/png",validPng)]);
- await page.getByText(/1 added, 0 skipped/).waitFor();
- assert.equal(await page.locator("#assetCounter").innerText(),"1 / 1");
+ await page.locator("#assetInput").setInputFiles([
+   file("offline.png","image/png",validPng),
+   file("offlineTwo.png","image/png",validPng)
+ ]);
+ await page.getByText(/2 added, 0 skipped/).waitFor();
+ assert.equal(await page.locator("#assetCounter").innerText(),"1 / 2");
+ await page.locator("#nextAsset").click();
+ assert.equal(await page.locator("#assetCounter").innerText(),"2 / 2");
+ await page.locator("#prevAsset").click();
+ assert.equal(await page.locator("#assetCounter").innerText(),"1 / 2");
  await page.locator("#clearAssets").click();
  assert.equal(await page.locator("#assetCounter").innerText(),"0 / 0");
  fs.mkdirSync(OUT,{recursive:true});
