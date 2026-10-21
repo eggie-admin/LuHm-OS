@@ -1,0 +1,30 @@
+name: Pocket Art Studio Public Alpha Gate
+on:
+  pull_request:
+    paths:
+      - 'publicationSite/pocketLab.html'
+      - 'publicationSite/index.html'
+      - 'plugins/luhm-os/assets/pocketArtPackV1.json'
+      - 'plugins/luhm-os/assets/POCKET_ART_STUDIO.md'
+      - 'tools/pocketLabAudit.py'
+      - '.github/workflows/pocket-art-studio.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Confirm exact candidate commit
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$HEAD_SHA"
+          git diff --check
+      - name: Verify offline interaction, rights, privacy and asset manifest
+        run: python3 tools/pocketLabAudit.py

@@ -1,0 +1,33 @@
+{
+  "schema": "luhmOs.pocketArtAssetPack.v1",
+  "status": "ORIGINAL_DRAFT_PRIVATE_PLUGIN",
+  "targetPluginVersion": "1.0.4",
+  "sourceOfTruth": "Google Drive owner-only Rebel production vault",
+  "sourcePack": "LuHmAssetStudioStarterV1.zip",
+  "sourcePackSha256": "8a04dd61413317e2ffe24d9143697d7956958f1b9a9111d673347da75539a7f2",
+  "assetCount": 110,
+  "counts": {
+    "ui": 34,
+    "backdrops": 6,
+    "vfx": 16,
+    "sprites": 27,
+    "audio": 12,
+    "models": 1,
+    "godot": 11,
+    "docs": 2,
+    "web": 1
+  },
+  "publicDemo": "publicationSite/pocketLab.html",
+  "rights": "Generated art/sounds/proxy, not approved public character canon",
+  "externalAssets": "Kenney and Poly Haven CC0 source links only; no downloaded binaries",
+  "modelStatus": "Unrigged GLB mascot PROXY, tested structural decode only; not tested in Godot",
+  "audioStatus": "12 generated PCM WAV cues",
+  "platformProof": "Local ZIP archive integrity and GLB syntax verified; browser and physical Android not yet verified",
+  "autonomousAgents": "No autonomous workers invoked or enabled",
+  "safety": {
+    "secrets": false,
+    "privateRebelMedia": false,
+    "liveModelCalls": false,
+    "autoRelease": false
+  }
+}
