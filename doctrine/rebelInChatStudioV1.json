@@ -1,0 +1,54 @@
+{
+  "schema": "luhmOs.rebelInChatStudio.v1",
+  "status": "SOURCE_CONFIGURED_PRIVATE_DRAFT",
+  "tool": "luhm_open_cockpit",
+  "resourceUri": "ui://luhm-os/cockpit-v2.html",
+  "project": {
+    "id": "rebel",
+    "title": "Rebel",
+    "label": "Pirate Daddy's Film / Rebel",
+    "product": "musicVideo",
+    "shotUnitSeconds": 8,
+    "maxDraftShots": 12,
+    "audioSourceStatus": "PENDING_EXACT_RECORDING",
+    "canonStatus": "NOT_LOCKED",
+    "visualAssetsStatus": "PRIVATE_IN_REVIEW",
+    "renderStatus": "NOT_RENDERED",
+    "initialShot": {
+      "id": "rebel-shot-001",
+      "seconds": 8,
+      "visual": ""
+    }
+  },
+  "stateBoundary": {
+    "clientMemoryOnly": true,
+    "serverWrites": false,
+    "driveWrites": false,
+    "githubMutations": false,
+    "publication": false,
+    "externalAssetUploads": false,
+    "userInitiatedChatHandoffOnly": true,
+    "privateMediaExcluded": true
+  },
+  "preservation": {
+    "rawDictationVerbatim": true,
+    "sourceAndEditedSeparate": true,
+    "originalAssetsUntouched": true,
+    "intoTheWarpSeparateProject": true,
+    "rightsBeforePublicDerivatives": true
+  },
+  "roles": {
+    "director": "Professor",
+    "coordinator": "lum",
+    "art": "yume",
+    "canon": "belldandySecretary",
+    "verification": "urdDoctorGoddess",
+    "compatibility": "skuldResearch"
+  },
+  "firstSession": {
+    "objective": "Capture first Rebel video beat as raw dictation, then sketch one eight-second shot",
+    "action": "Click Start Rebel in ChatGPT or dictate into the Rebel panel",
+    "available": "IN_CHAT_DRAFT_ONLY"
+  },
+  "crownStatus": "STOP"
+}
