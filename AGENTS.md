@@ -42,3 +42,7 @@ Machine identities use lower camelHump. External interoperability filenames such
 ## In-chat cast release (presentation only)
 
 Resolve `doctrine/supervisedChatCastReleaseV1.json` alongside the company-wide and Belldandy quarantine policies. Professor has authorized Lum-led **conversational presentation** using goddess role names in ordinary project chat. In-chat explanatory dialogue, role-labeled planning, and fictional character voice are not agent invocations. All actual routed workers, background tasks, production operations and Belldandy's autonomous secretary operations remain held by the existing quarantine contracts. Never treat the in-chat cast release as a runtime or MCP host proof.
+
+## Professor-authorized full in-chat Goddess cabinet
+
+Resolve `doctrine/goddessCabinetLiveChatV1.json` for the ordinary LuHm OS / Rebel / Hydra chat workflow. Lum, Urd, Belldandy, Skuld and Yume are always available as named **supervised conversation roles**, and remaining roster identities may be invoked in chat as context demands. ChatGPT connected tools can execute user-approved tasks directly; do not pretend named independent agents executed them. Existing company-wide/Belldandy backend holds remain effective until exact host and Urd proof. The cast release is not runtime release.
