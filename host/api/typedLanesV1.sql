@@ -1,9 +1,9 @@
 -- LuHm OS: SQLite STRICT local stub only, never live production DDL.
 PRAGMA foreign_keys = ON;
 CREATE TABLE IF NOT EXISTS streamEvent(
-  eventId TEXT PRIMARY KEY,taskId TEXT NOT NULL,sourceRef TEXT NOT NULL CHECK(length(sourceRef)=40),
+  eventId TEXT PRIMARY KEY,taskId TEXT NOT NULL,sourceRef TEXT NOT NULL CHECK(length(sourceRef)=40 AND sourceRef NOT GLOB '*[^0-9a-f]*'),
   scopeId TEXT NOT NULL,workerId TEXT NOT NULL,sequenceId INTEGER UNIQUE NOT NULL CHECK(sequenceId>=0),
-  eighthNote INTEGER NOT NULL CHECK(eighthNote BETWEEN 1 AND 8),observedAt TEXT NOT NULL,
+  eighthNote INTEGER NOT NULL CHECK(eighthNote BETWEEN 1 AND 8),observedAt TEXT NOT NULL CHECK(length(observedAt) BETWEEN 20 AND 40 AND substr(observedAt,-1)='Z'),
   evidenceRef TEXT
 ) STRICT;
 CREATE INDEX IF NOT EXISTS eventTaskOrder ON streamEvent(taskId,sourceRef,scopeId,sequenceId,eventId);
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS aiManifestStream(
 CREATE INDEX IF NOT EXISTS manifestRoute ON aiManifestStream(providerId,capabilityId,eventId);
 CREATE TABLE IF NOT EXISTS artifactPointer(
   artifactId TEXT PRIMARY KEY,eventId TEXT NOT NULL REFERENCES streamEvent(eventId),
-  fileName TEXT NOT NULL,sha256 TEXT NOT NULL CHECK(length(sha256)=64),
+  fileName TEXT NOT NULL,sha256 TEXT NOT NULL CHECK(length(sha256)=64 AND sha256 NOT GLOB '*[^0-9a-f]*'),
   storageLane TEXT NOT NULL CHECK(storageLane IN ('githubSource','chatLibraryCache','googleDriveDurable')),
   logicalFileRef TEXT NOT NULL,sizeBytes INTEGER NOT NULL CHECK(sizeBytes>=0)
 ) STRICT;
