@@ -24,3 +24,19 @@ jobs:
           bash -n scripts/professorGarageSmoke.sh
           bash -n scripts/ai-ffmpeg-codespaces.sh
           python3 -m json.tool .devcontainer/devcontainer.json > /dev/null
+
+  image-build-smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Build actual Ubuntu 26.04 workshop image
+        run: |
+          set -euo pipefail
+          docker build --pull --progress=plain -f .devcontainer/Dockerfile -t professor-basement:${{ github.sha }} .devcontainer
+      - name: Probe real installed tools inside build
+        run: |
+          set -euo pipefail
+          docker run --rm --entrypoint bash -v "$PWD":/work:ro -w /work professor-basement:${{ github.sha }} scripts/professorGarageSmoke.sh
