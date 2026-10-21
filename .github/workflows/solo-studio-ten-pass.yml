@@ -1,0 +1,42 @@
+name: Solo Studio Ten-Pass Security Gate
+on:
+  pull_request:
+    paths:
+      - '.gitignore'
+      - '.github/copilot-instructions.md'
+      - '.github/workflows/solo-studio-ten-pass.yml'
+      - 'doctrine/tenPassHardeningV1.json'
+      - 'host/api/typedLanesV1.sql'
+      - 'host/api/typedPostgresReviewV1.sql'
+      - 'tools/typedSqlStub.py'
+      - 'tools/tenPassHardeningAudit.py'
+      - 'tests/testTypedSqlStub.py'
+      - 'tests/testSqlHardeningTenPass.py'
+      - 'render.yaml'
+      - 'plugins/luhm-os/plugin.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  scope-and-schema:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify bounded source-only ten-pass contract
+        run: python3 tools/tenPassHardeningAudit.py
+      - name: Verify SQLite schema and adversarial direct-SQL controls
+        run: python3 -m unittest tests/testTypedSqlStub.py tests/testSqlHardeningTenPass.py -v
+      - name: Assert no deployment, provider credentials, or live DDL
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path("doctrine/tenPassHardeningV1.json").read_text())
+          assert manifest["localChangesOnly"] is True
+          assert manifest["liveProviderChangesPerformed"] is False
+          assert manifest["providerCostsAddedUsd"] == 0
+          print("NO_LIVE_MUTATION=GREEN")
+          PY
