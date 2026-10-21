@@ -73,6 +73,7 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <p class="sub" data-luhm-chat-mode-status role="status" aria-live="polite">Default · normal ChatGPT. Presentation only.</p>
 <details><summary>Operation Titan 7 · four steps</summary><p class="sub">0 Sanity check: exact Canon and PR audit. 1 Build: clean-install package and CI. 2 Merge: exact-head proof and Professor authorization. 3 Deploy: Render source, ChatGPT host and directory receipts. No self-GREEN.</p></details>
 </section>
+<!-- LUHM_STUDIO_DECK -->
 <section class="grid">
 <div class="card"><div class="k">source truth</div><div class="v green" id="truth">loading…</div></div>
 <div class="card"><div class="k">authority</div><div class="v amber">READ ONLY · Crown stays human</div></div>
@@ -241,6 +242,7 @@ function render(data){
   renderPrecisionCommands();
   renderAfterHoursContract();
   studioInitialize(payload?.artistStudio);
+  window.luhmStudioDeck?.configure(payload?.embeddedStudio);
   if(openai?.setOpenInAppUrl&&origin&&origin!=="LOCAL_ONLY"){
     openai.setOpenInAppUrl({href:origin+"/harness/"});
   }
@@ -267,7 +269,7 @@ window.addEventListener("message",e=>{
   if(m.method==="ui/notifications/tool-result")render(m.params);
 },{passive:true});
 (async()=>{
-  wireStudio();render(window.openai?.toolOutput); wireCommands(); wireAfterHours(); setAfterHoursMode("OUTSIDE");
+  studioWire();render(window.openai?.toolOutput); wireCommands(); wireAfterHours(); setAfterHoursMode("OUTSIDE");
   if(window.parent===window)return;
   try{
     await request("ui/initialize",{appInfo:{name:"luhm-os-cockpit",version:"1.0.0"},appCapabilities:{},protocolVersion:"2026-01-26"});
