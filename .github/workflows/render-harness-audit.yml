@@ -7,6 +7,10 @@ on:
       - 'host/harness/**'
       - 'host/api/**'
       - 'doctrine/inChatExperienceV1.json'
+      - 'doctrine/embeddedStudioV1.json'
+      - 'doctrine/assetRegisterV1.schema.json'
+      - 'tests/testEmbeddedStudio.py'
+      - 'tests/embeddedStudio.test.cjs'
       - 'doctrine/openingDayStaffTrainingV1.json'
       - 'doctrine/apiSpineV1.json'
       - 'doctrine/python3ControlPlaneLawV1.json'
@@ -52,6 +56,7 @@ jobs:
           set -euo pipefail
           python -m pip install --upgrade pip
           pip install -r host/mcp/requirements.txt
+          pip install 'jsonschema==4.25.1'
 
       - name: Run harness source audit
         shell: bash
@@ -63,6 +68,26 @@ jobs:
           python tools/openingDayStaffTrainingAudit.py
           python tools/apiSpineAudit.py
           python tools/chatGptPluginCrownFlowAudit.py
+          python tests/testEmbeddedStudio.py
+          python tools/artistStudioPluginAudit.py
+
+      - name: Test shared studio in a real browser without external media playback
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/luhm-browser" --ignore-scripts --no-audit --no-fund 'playwright@1.55.0'
+          node "$RUNNER_TEMP/luhm-browser/node_modules/playwright/cli.js" install --with-deps chromium
+          python host/mcp/luhmHarnessServer.py streamable-http > "$RUNNER_TEMP/luhm-studio-server.log" 2>&1 &
+          studio_pid=$!
+          trap 'kill "$studio_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://localhost:8788/harness/ > /dev/null; then break; fi
+            sleep 1
+          done
+          export NODE_PATH="$RUNNER_TEMP/luhm-browser/node_modules"
+          export LUHM_STUDIO_EXPORT="$RUNNER_TEMP/luhm-studio-export.json"
+          node tests/embeddedStudio.test.cjs
+          python tests/testEmbeddedStudio.py
 
       - name: Boot-time harness contract check
         shell: bash

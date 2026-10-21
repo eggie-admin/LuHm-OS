@@ -17,13 +17,15 @@
     },
     {
       "name": "jQuery",
-      "purpose": "optional compatibility layer for future desktop plugins",
-      "load": "not-bundled-by-default"
+      "purpose": "pinned same-origin cockpit compatibility",
+      "load": "bundled",
+      "version": "3.7.1"
     },
     {
       "name": "jQuery UI",
-      "purpose": "optional draggable/resizable desktop controls",
-      "load": "not-bundled-by-default"
+      "purpose": "pinned same-origin cockpit compatibility",
+      "load": "bundled",
+      "version": "1.14.2"
     },
     {
       "name": "Vue 3",
@@ -38,5 +40,13 @@
     "Local file intake uses browser File/Blob APIs only and never grants server write authority.",
     "Unknown or absent donor licenses are concept-only and are not copied.",
     "Production dependencies must be vendored/self-hosted and pinned before activation."
-  ]
+  ],
+  "embeddedMedia": {
+    "provider": "youtube",
+    "frameOrigin": "https://www.youtube-nocookie.com",
+    "load": "userInitiatedOnly",
+    "autoplay": false,
+    "remoteScriptInParent": false,
+    "nativeYouTubeMusicAppEmbed": false
+  }
 }
