@@ -1,0 +1,26 @@
+name: Professor Basement Ubuntu 26.04 Source Gate
+on:
+  pull_request:
+    paths:
+      - '.devcontainer/**'
+      - 'scripts/professorGarageSmoke.sh'
+      - 'scripts/ai-ffmpeg-codespaces.sh'
+      - 'tools/professorGarageContractAudit.py'
+      - '.github/workflows/professor-basement-source-gate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Validate the exact source and private runtime boundary
+        run: |
+          python3 tools/professorGarageContractAudit.py
+          bash -n scripts/professorGarageSmoke.sh
+          bash -n scripts/ai-ffmpeg-codespaces.sh
+          python3 -m json.tool .devcontainer/devcontainer.json > /dev/null
