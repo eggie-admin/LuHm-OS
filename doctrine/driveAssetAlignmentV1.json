@@ -1,0 +1,108 @@
+{
+  "schema": "luhmOs.driveAssetAlignment.v1",
+  "authority": "Professor",
+  "status": "CANONICAL_ROUTING_POLICY",
+  "repository": "eggie-admin/LuHm-OS",
+  "sourceContracts": [
+    "doctrine/storageTopologyV1.json",
+    "doctrine/artistFirstProductionWorkflowV1.json",
+    "doctrine/jqueryPluginContinuityV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json"
+  ],
+  "purpose": "One working pipeline for LuHm OS, Project Hydra, Rebel, Yume and Pets without copying private Drive asset bytes to public GitHub.",
+  "assetClasses": {
+    "sourceCode": {
+      "canonical": "github",
+      "treatment": "reviewed PR, exact immutable commit; no binary donor intake"
+    },
+    "originalMedia": {
+      "canonical": "googleDrive",
+      "treatment": "owner-controlled originals, no in-place edit; hash before production"
+    },
+    "visualReferences": {
+      "canonical": "googleDrive",
+      "treatment": "reference-only until creator, provenance and rights are reviewed"
+    },
+    "codeOrDonorArchives": {
+      "canonical": "googleDrive",
+      "treatment": "quarantine and list/scan without running embedded code or extracting blindly"
+    },
+    "previewCandidate": {
+      "canonical": "googleDrive",
+      "treatment": "versioned, private working render; check SHA-256 and format"
+    },
+    "approvedPublicDerivative": {
+      "canonical": "googleDrive",
+      "treatment": "only after explicit rights, art and release approval; deployment handled separately"
+    },
+    "metadataReceipts": {
+      "canonical": "github",
+      "treatment": "sanitized logical keys and hashes only; no personal Drive IDs or private source paths"
+    },
+    "runtimeInstalledApk": {
+      "canonical": "androidDevice",
+      "treatment": "exact installed package, signer, version and physical device proof"
+    }
+  },
+  "projects": {
+    "rebel": {
+      "preferredDriveCollection": "rebelPrivateProduction",
+      "sharedLegacyTreatment": "readOnlyUntilRestricted",
+      "inputPolicy": "privateOriginalsOnly",
+      "primaryOutput": "privateMp4Candidate",
+      "realVideoStatus": "NOT_PROVEN"
+    },
+    "yume": {
+      "preferredDriveCollection": "privateArtVault",
+      "inputPolicy": "sourceVerifiedCandidateOnly",
+      "primaryOutput": "privateBlenderRenderOrGodotProof",
+      "publicMediaStatus": "NOT_PROVEN"
+    },
+    "pets": {
+      "preferredDriveCollection": "privateArtVault",
+      "inputPolicy": "originalOrLicensedSpriteSources",
+      "primaryOutput": "privateSpriteProof",
+      "publicMediaStatus": "NOT_INFERRED"
+    },
+    "hydra": {
+      "preferredDriveCollection": "privateArtifactArchive",
+      "inputPolicy": "exactSourceAndBuildIdentity",
+      "primaryOutput": "versionedApkOrMediaReceipt",
+      "deviceInstallStatus": "NOT_INFERRED"
+    }
+  },
+  "knownVisibilityClasses": {
+    "rebelPrivateProduction": "OWNER_ONLY_OBSERVED",
+    "rebelSharedLegacy": "ANYONE_WRITER_OBSERVED_BLOCK_PRIVATE_INTAKE",
+    "legacyPrivateControl": "ANYONE_READER_OBSERVED_NOT_PRIVATE",
+    "legacyPublicWrite": "ANYONE_WRITER_OBSERVED_UNTRUSTED"
+  },
+  "studioRoles": {
+    "director": "ChatGPT LuHm cockpit and Professor",
+    "remoteStudio": "GitHub Codespaces Ubuntu 26.04; headless Blender, GIMP 3, FFmpeg, Python 3",
+    "godot": "Godot 4 model/rig/3D proof viewer only",
+    "samsung": "installed APK cockpit and physical preview, separate device test",
+    "assets": "Google Drive durable private originals and exports"
+  },
+  "rebelFirstUsableCut": [
+    "resolve private source and allowed rights",
+    "confirm trusted source file format and SHA-256",
+    "make one Blender still or Godot 3D proof",
+    "assemble seven-shot private H264 MP4 with FFmpeg",
+    "Professor reviews exact file and checksum",
+    "archive reviewed candidate in owner-controlled Drive"
+  ],
+  "securityRules": {
+    "driveItemsNeverExecuteByListing": true,
+    "untrustedDriveRootNeverCanonical": true,
+    "existingPermissionRiskMustBeFixedBeforePrivateIntake": true,
+    "noPrivateIdsInPublicRepo": true,
+    "noPrivateMastersInPublicGit": true,
+    "noImplicitChatGptPluginInstallation": true,
+    "noAutomaticPublication": true,
+    "noAutonomousAgentResume": true,
+    "noDefaultNewSpend": true
+  },
+  "releaseCrownStatus": "STOP",
+  "runtimeClaim": "SOURCE_ROUTING_ONLY"
+}
