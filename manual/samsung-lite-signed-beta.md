@@ -41,7 +41,8 @@ On an owner-controlled Linux workstation with Android `aapt` and `apksigner`, an
 python3 tools/stageFdroidTabletBeta.py \
   --apk ./samsung-lite-beta.apk \
   --receipt ./receipt.json \
-  --expected-signer YOUR_PUBLIC_64_HEX_CERT_SHA256
+  --expected-signer YOUR_PUBLIC_64_HEX_CERT_SHA256 \
+  --expected-source YOUR_VERIFIED_40_HEX_SOURCE_SHA
 ```
 
 This verifies actual APK bytes and signature, and stages only the approved beta APK into `build/fdroid-beta-stage/repo/art.eggiebagelface.luhmos.beta_<versionCode>.apk`. The sidecar `stagingReceipt.json` is outside `repo/`.
@@ -55,3 +56,7 @@ On actual SM-X400 (Android 16) install the candidate through the owner's chosen 
 **Current blockers:** owner-held signer existence/CI secrets, real signed artifact, F-Droid index signer, chosen HTTPS host, device launch/upgrade receipts and exact publication approval. No DNS, Cloudflare, Render or ChatGPT plugin changes are prerequisites for this source branch.
 
 **Separate later enhancement:** A remote AI/Render harness session on the tablet requires a scoped authenticated HTTPS client and network permission. The source-only offline Android proof does not claim that integration already functions.
+
+## Receipt and doctrine contract
+
+`doctrine/samsungTabletInstallV1.json` separates the historical debug virgin install, owner-signed offline beta, public F-Droid route, and ChatGPT plugin installation. The beta receipt is checked against `doctrine/schemas/signedSamsungBetaV1.schema.json`; malformed types, missing/unknown fields and unsupported schema constraints fail closed. Select `--expected-source` independently from the approved build source, not by copying the untrusted receipt. A matching SHA does not itself prove CI or installed runtime. The version floor is a staging constraint; a monotonic update still requires comparing the installed version and signer. Existing rooted Termux delivery remains an optional historical route.
