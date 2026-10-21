@@ -139,6 +139,7 @@
   },
   "creativeEscalation": "doctrine/yumeCreativeEscalationV1.json",
   "creativeTierDefault": 0,
+  "fastPathPolicy": "doctrine/yumeFastPathCanonV1.json",
   "creativeTierLaw": [
     "startAtFineArtDevelopmentUnlessDeliveryOrToolEvidenceRequiresHigherTier",
     "escalateOnlyWhenCurrentCreativeTierCannotCloseTheNeed",
