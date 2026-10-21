@@ -1,0 +1,40 @@
+name: Rebel In-Chat Studio Safety
+on:
+  pull_request:
+    paths:
+      - 'doctrine/rebelInChatStudioV1.json'
+      - 'host/harness/widget.html'
+      - 'host/mcp/luhmHarness.py'
+      - 'tests/testRebelInChatStudio.py'
+      - '.github/workflows/rebel-in-chat-studio.yml'
+permissions:
+  contents: read
+jobs:
+  rebel-draft-source-and-safety:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Validate read-only Rebel source
+        run: |
+          python3 -m json.tool doctrine/rebelInChatStudioV1.json >/dev/null
+          python3 -m py_compile host/mcp/luhmHarness.py
+          python3 -m unittest tests/testRebelInChatStudio.py -v
+      - name: Verify widget script
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import subprocess
+          import tempfile
+          text=Path('host/harness/widget.html').read_text(encoding='utf-8')
+          js=re.findall(r'<script(?:\\s[^>]*)?>(.*?)</script>',text,re.I|re.S)
+          if len(js)!=1:raise SystemExit('RED_WIDGET_SCRIPT_COUNT')
+          with tempfile.TemporaryDirectory() as td:
+              p=Path(td)/'widget.js'
+              p.write_text(js[0],encoding='utf-8')
+              subprocess.run(['node','--check',str(p)],check=True)
+          print('REBEL_WIDGET_PARSE_GREEN_SOURCE_ONLY')
+          PY

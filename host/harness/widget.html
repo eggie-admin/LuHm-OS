@@ -35,6 +35,18 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 .studioLock{color:#ffd36c;font-size:11px;margin:7px 0}
 .studioExport{display:none;margin-top:9px}.studioExport.active{display:block}.studioExport textarea{min-height:120px;resize:vertical}
 @media(max-width:430px){.studioEdit{grid-template-columns:1fr}}
+
+.rebelDesk{margin:10px;padding:14px;border:1px solid #73529c;border-radius:14px;background:#1c1229;color:var(--ink)}
+.rebelDesk h2{font-size:18px;color:#f3caff}.rebelDesk label{display:block;margin-top:10px;font-size:12px}
+.rebelDesk textarea{width:100%;min-height:85px;resize:vertical;background:#0c0b16;color:var(--ink);border:1px solid #675777;border-radius:8px;padding:10px;font:13px/1.5 system-ui}
+.rebelDesk input{width:90px;background:#0c0b16;color:var(--ink);border:1px solid #675777;border-radius:8px;padding:10px}
+.rebelActions,.rebelShots{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.rebelDesk button{min-height:44px;padding:9px 12px;border:1px solid #b07cff;background:#2d1a3c;color:#f3e7fa;border-radius:10px;cursor:pointer}
+.rebelDesk button:disabled{opacity:.5;cursor:default}.rebelShots button[aria-pressed=true]{border-color:var(--cyan);color:var(--cyan)}
+.rebelDesk :is(button,input,textarea):focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.rebelExport{display:none}.rebelExport.active{display:block}
+@media(max-width:430px){.rebelDesk{padding:11px;margin:8px}.rebelActions button{flex:1 1 140px}}
+
 </style>
 </head>
 <body>
@@ -43,6 +55,27 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <div class="pet" id="pet">L</div>
 <div><h1>LuHm OS · Lum/Oni Cockpit</h1><div class="sub" id="surface">read-only MCP Apps frame</div></div>
 </header>
+
+<section class="rebelDesk" id="rebelDesk" data-luhm-rebel-project aria-labelledby="rebelTitle">
+<div class="k">PROJECT HYDRA / REBEL · PRIVATE DRAFT</div><h2 id="rebelTitle">🎬 Rebel · In-Chat Director's Desk</h2>
+<p class="sub">Rebel is separate from Into the Warp. Raw words stay verbatim; eight-second shots are drafts. No automatic uploads or publication.</p>
+<div id="rebelStatus" class="sub" role="status" aria-live="polite">Loading Rebel contract…</div>
+<label for="rebelRaw">Original dictation (never rewritten automatically)
+<textarea id="rebelRaw" maxlength="5000" disabled placeholder="Tell us what happens in the opening scene…"></textarea></label>
+<div class="rebelActions">
+<button id="rebelStart" type="button" disabled>▶ Work on Rebel in ChatGPT</button>
+<button id="rebelAdd" type="button" disabled>＋ Add eight-second shot</button>
+<button id="rebelCopy" type="button" disabled>▣ Copy draft JSON</button>
+<button id="rebelReset" type="button" disabled>Reset local draft</button>
+</div>
+<div class="k">Rebel shot board</div>
+<div id="rebelShots" class="rebelShots" role="group" aria-label="Rebel shot selection"></div>
+<label>Shot duration in seconds <input id="rebelSeconds" type="number" min="0.5" max="20" step="0.5" value="8" disabled></label>
+<label for="rebelVisual">Visual direction<textarea id="rebelVisual" maxlength="400" disabled placeholder="What should the camera show?"></textarea></label>
+<div id="rebelExport" class="rebelExport"><label for="rebelJson">Private draft JSON for manual copy</label><textarea id="rebelJson" readonly></textarea></div>
+<p class="sub">Use “Work on Rebel in ChatGPT” to preserve this draft in the conversation. Otherwise it stays in widget memory; copy it before closing.</p>
+</section>
+
 <section class="artistStudio" data-luhm-studio aria-label="LuHm artist studio storyboard">
 <div class="k">PROJECT HYDRA / PIRATE DADDY'S FILM</div>
 <h2>🎬 Artist Studio · Into the Warp</h2>
@@ -126,6 +159,83 @@ Normal chat remains literal outside this shell.</pre>
 <footer id="foot">UI never grants GREEN, signing, merge, or publication authority.</footer>
 </main>
 <script>
+
+
+/* Separate Rebel music-video draft. All user-triggered; no server-side writes. */
+const rebelState={contract:null,raw:"",shots:[],selected:0};
+function rebelIsSafe(c){return c?.schema==="luhmOs.rebelInChatStudio.v1"&&c?.status==="SOURCE_CONFIGURED_PRIVATE_DRAFT"&&
+c?.resourceUri==="ui://luhm-os/cockpit-v2.html"&&c?.project?.id==="rebel"&&
+c?.project?.shotUnitSeconds===8&&c?.project?.maxDraftShots===12&&
+c?.stateBoundary?.clientMemoryOnly===true&&c?.stateBoundary?.serverWrites===false&&
+c?.stateBoundary?.publication===false&&c?.stateBoundary?.userInitiatedChatHandoffOnly===true&&
+c?.preservation?.intoTheWarpSeparateProject===true&&c?.crownStatus==="STOP"}
+function rebelInitialize(c){
+ if(!rebelIsSafe(c)){rebelRender();return}
+ if(rebelState.contract)return;
+ rebelState.contract=c;rebelState.shots=[Object.assign({},c.project.initialShot)];
+ rebelState.selected=0;rebelRender();
+}
+function rebelRender(){
+ const valid=!!rebelState.contract;
+ for(const name of ["rebelStart","rebelAdd","rebelCopy","rebelReset","rebelSeconds","rebelVisual","rebelRaw"])$(name).disabled=!valid;
+ const list=$("rebelShots");list.textContent="";
+ if(valid)rebelState.shots.forEach((item,i)=>{
+  const b=document.createElement("button");b.type="button";b.textContent=item.id;
+  b.setAttribute("aria-pressed",String(i===rebelState.selected));
+  b.onclick=()=>{rebelState.selected=i;rebelRender()};list.appendChild(b);
+ });
+ const shot=rebelState.shots[rebelState.selected];
+ $("rebelSeconds").value=String(shot?.seconds||8);$("rebelVisual").value=shot?.visual||"";
+ $("rebelAdd").disabled=!valid||rebelState.shots.length>=12;
+ $("rebelStatus").textContent=valid?"REBEL DRAFT · "+rebelState.shots.length+" shot(s) · exact song/rights pending · unsaved in memory":
+  "VERIFY · Rebel source is unavailable. Do not enter private work.";
+}
+function rebelPortable(){return JSON.stringify({
+ schema:"luhmOs.rebelInChatDraft.v1",project:"rebel",state:"PRIVATE_UNAPPROVED",
+ rawDictation:rebelState.raw,sourceSong:"PENDING_EXACT_RECORDING",rights:"PENDING",
+ publicationApproved:false,intoTheWarpCanonUntouched:true,targetShotSeconds:8,
+ shots:rebelState.shots.map(s=>({id:s.id,seconds:s.seconds,visual:s.visual}))
+},null,2)}
+function rebelExportDraft(){
+ if(!rebelState.contract)return "";
+ const t=rebelPortable();$("rebelJson").value=t;$("rebelExport").classList.add("active");return t;
+}
+function rebelWire(){
+ $("rebelRaw").addEventListener("input",e=>{rebelState.raw=String(e.target.value).slice(0,5000)});
+ $("rebelVisual").addEventListener("change",e=>{
+  const shot=rebelState.shots[rebelState.selected];if(shot)shot.visual=String(e.target.value).slice(0,400);
+  rebelRender();
+ });
+ $("rebelSeconds").addEventListener("change",e=>{
+  const shot=rebelState.shots[rebelState.selected],n=Number(e.target.value);
+  if(shot&&Number.isFinite(n)&&n>=0.5&&n<=20)shot.seconds=n;rebelRender();
+ });
+ $("rebelAdd").onclick=()=>{
+  if(!rebelState.contract||rebelState.shots.length>=12)return;
+  rebelState.shots.push({id:"rebel-shot-"+String(rebelState.shots.length+1).padStart(3,"0"),seconds:8,visual:""});
+  rebelState.selected=rebelState.shots.length-1;rebelRender();
+ };
+ $("rebelReset").onclick=()=>{
+  if(!rebelState.contract||!window.confirm("Discard only the unsaved Rebel draft?"))return;
+  rebelState.raw="";$("rebelRaw").value="";rebelState.shots=[Object.assign({},rebelState.contract.project.initialShot)];
+  rebelState.selected=0;rebelRender();
+ };
+ $("rebelCopy").onclick=async()=>{
+  const value=rebelExportDraft();if(!value)return;
+  try{if(!navigator.clipboard?.writeText)throw Error("no clipboard");await navigator.clipboard.writeText(value);
+   $("rebelStatus").textContent="Draft copied. Nothing uploaded or saved to Drive."}
+  catch(_){$("rebelJson").focus();$("rebelJson").select();$("rebelStatus").textContent="Select/copy draft from JSON field."}
+ };
+ $("rebelStart").onclick=async()=>{
+  if(!rebelState.contract)return;
+  const prompt="Work with me on the existing private Rebel music-video project in Project Hydra. "+
+  "Preserve original dictation exactly and keep Into the Warp separate. Here is my current draft:\\n"+
+  rebelPortable()+"\\nHelp me plan the opening eight-second shot, while keeping unapproved media private.";
+  $("rebelStatus").textContent="Sending Rebel draft to this ChatGPT conversation…";
+  try{await sendFollowUp(prompt);$("rebelStatus").textContent="Rebel draft submitted to chat; copy it until verified there."}
+  catch(_){rebelExportDraft();$("rebelStatus").textContent="Chat send unavailable; draft selected for manual copy."}
+ };
+}
 
 /* In-chat artist studio: client-memory only, deliberately no upload or remote render. */
 const studioState={contract:null,shots:[],selected:0,undo:[],redo:[]};
@@ -254,6 +364,7 @@ function render(data){
   renderPrecisionCommands();
   renderAfterHoursContract();
   studioInitialize(payload?.artistStudio);
+  rebelInitialize(payload?.rebelStudio);
   window.luhmStudioDeck?.configure(payload?.embeddedStudio);
   // The invited beta target is the in-chat MCP resource, never an external website.
 }
@@ -289,7 +400,7 @@ window.addEventListener("message",e=>{
   if(m.method==="ui/notifications/tool-result")render(m.params);
 },{passive:true});
 (async()=>{
-  studioWire();render(window.openai?.toolOutput); wireCommands(); wireAfterHours(); setAfterHoursMode("OUTSIDE");
+  rebelWire();studioWire();render(window.openai?.toolOutput); wireCommands(); wireAfterHours(); setAfterHoursMode("OUTSIDE");
   if(window.parent===window)return;
   try{
     await request("ui/initialize",{appInfo:{name:"luhm-os-cockpit",version:"1.0.0"},appCapabilities:{},protocolVersion:"2026-01-26"});
