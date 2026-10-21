@@ -115,7 +115,7 @@ function showPet() {
   rememberPetSelection(pet.name);
 }
 
-const reducedHeaderMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const reducedHeaderMotion = typeof window.matchMedia === "function" ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false, addEventListener() {} };
 function resetParallax() {
   if (state.raf) cancelAnimationFrame(state.raf);
   state.raf = 0;
@@ -391,7 +391,7 @@ function initLumLive2d() {
   const root = byId("lum2dPanel"), stage = byId("lum2dStage");
   if (!root || !stage || root.dataset.initialized === "true") return;
   root.dataset.initialized = "true";
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const reduced = typeof window.matchMedia === "function" ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false, addEventListener() {}, removeEventListener() {} };
   let raf = 0, blinkTimer = 0, waveTimer = 0, disposed = false;
   let x = 0, y = 0, manualPause = false, mood = "smile";
   const clamp = n => Number.isFinite(n) ? Math.max(-1, Math.min(1, n)) : 0;
