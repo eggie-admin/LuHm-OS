@@ -1,0 +1,44 @@
+name: Lum Layered 2D Parallax Vue Candidate Gate
+on:
+  pull_request:
+    paths:
+      - 'host/harness/index.html'
+      - 'host/harness/cockpit.js'
+      - 'host/harness/cockpit.css'
+      - 'frontEnd/**'
+      - 'tools/live2dParallaxAudit.py'
+      - 'tests/desktopCockpitBrowserInteraction.test.cjs'
+      - '.github/workflows/live2d-parallax-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-negative-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Exact head and Python3 negative controls
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$HEAD_SHA"
+          git diff --check
+          python3 -m py_compile tools/live2dParallaxAudit.py
+          python3 tools/live2dParallaxAudit.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontEnd/package-lock.json
+      - name: JavaScript syntax and pinned npm
+        run: |
+          node --check host/harness/cockpit.js
+          node --check frontEnd/jquery/luhm.parallax.js
+          node --check frontEnd/app.js
+          cd frontEnd
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run check

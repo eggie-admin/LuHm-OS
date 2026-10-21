@@ -18,6 +18,7 @@
     if (!$cockpit.length) return;
 
     $cockpit.luhmCockpit({ initialView: "chat" });
+    $cockpit.find("[data-luhm-lum-viewport]").luhmParallax();
 
     $cockpit.on("click", "[data-luhm-factory-button]", function () {
       $cockpit.find("[data-luhm-menu]").prop("hidden", true);

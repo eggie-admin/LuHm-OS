@@ -115,19 +115,30 @@ function showPet() {
   rememberPetSelection(pet.name);
 }
 
+const reducedHeaderMotion = typeof window.matchMedia === "function" ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false, addEventListener() {} };
+function resetParallax() {
+  if (state.raf) cancelAnimationFrame(state.raf);
+  state.raf = 0;
+  state.pointerX = 0;
+  state.pointerY = 0;
+  byId("pixelPet").style.transform = "";
+  byId("parallaxHeader").style.setProperty("--px", "0px");
+  byId("parallaxHeader").style.setProperty("--py", "0px");
+}
 function scheduleParallax() {
+  if (reducedHeaderMotion.matches || document.hidden) { resetParallax(); return; }
   if (state.raf) return;
   state.raf = requestAnimationFrame(() => {
     state.raf = 0;
     const x = Math.max(-1, Math.min(1, state.pointerX));
     const y = Math.max(-1, Math.min(1, state.pointerY));
-    byId("pixelPet").style.transform = `translate3d(${x * 8}px,${y * 6}px,0) rotate(${x * 2}deg)`;
-    byId("parallaxHeader").style.setProperty("--px", `${x * 10}px`);
-    byId("parallaxHeader").style.setProperty("--py", `${y * 6}px`);
+    byId("pixelPet").style.transform = "translate3d(" + x * 8 + "px," + y * 6 + "px,0) rotate(" + x * 2 + "deg)";
+    byId("parallaxHeader").style.setProperty("--px", x * 10 + "px");
+    byId("parallaxHeader").style.setProperty("--py", y * 6 + "px");
   });
 }
-
 function onPointerMove(event) {
+  if (event.pointerType === "touch" || reducedHeaderMotion.matches || document.hidden || !Number.isFinite(event.clientX) || !Number.isFinite(event.clientY)) return;
   const rect = byId("parallaxHeader").getBoundingClientRect();
   state.pointerX = ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2;
   state.pointerY = ((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2;
@@ -375,9 +386,109 @@ function wireDropZone() {
   zone.addEventListener("drop", event => addFiles(event.dataTransfer?.files || []));
 }
 
+
+function initLumLive2d() {
+  const root = byId("lum2dPanel"), stage = byId("lum2dStage");
+  if (!root || !stage || root.dataset.initialized === "true") return;
+  root.dataset.initialized = "true";
+  const reduced = typeof window.matchMedia === "function" ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false, addEventListener() {}, removeEventListener() {} };
+  let raf = 0, blinkTimer = 0, waveTimer = 0, disposed = false;
+  let x = 0, y = 0, manualPause = false, mood = "smile";
+  const clamp = n => Number.isFinite(n) ? Math.max(-1, Math.min(1, n)) : 0;
+  const motionAllowed = () => !disposed && !manualPause && !reduced.matches && !document.hidden;
+  const announce = value => { byId("lum2dMessage").textContent = value; };
+  function draw() {
+    raf = 0;
+    const px = motionAllowed() ? clamp(x) : 0;
+    const py = motionAllowed() ? clamp(y) : 0;
+    stage.style.setProperty("--l2x", px * 8 + "px");
+    stage.style.setProperty("--l2y", py * 5 + "px");
+    stage.style.setProperty("--l2rot", px * 2 + "deg");
+    stage.style.setProperty("--l2bx", px * -4 + "px");
+    stage.style.setProperty("--l2by", py * -3 + "px");
+    stage.dispatchEvent(new CustomEvent("luhm:live2d:pose", {
+      detail: { x: px, y: py, mood: mood, motion: motionAllowed() }
+    }));
+  }
+  function schedule() {
+    if (!raf && !disposed) raf = requestAnimationFrame(draw);
+  }
+  function reset() {
+    x = 0; y = 0;
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    if (!disposed) draw();
+  }
+  function pointerMove(event) {
+    if (!motionAllowed() || event.pointerType === "touch" || !Number.isFinite(event.clientX) || !Number.isFinite(event.clientY)) return;
+    const rect = stage.getBoundingClientRect();
+    x = clamp(((event.clientX - rect.left) / Math.max(rect.width, 1) - .5) * 2);
+    y = clamp(((event.clientY - rect.top) / Math.max(rect.height, 1) - .5) * 2);
+    schedule();
+  }
+  function blink() {
+    if (blinkTimer) clearTimeout(blinkTimer);
+    stage.classList.add("is-blinking");
+    announce("Lum blinked. ◡");
+    blinkTimer = setTimeout(() => { blinkTimer = 0; stage.classList.remove("is-blinking"); }, 230);
+  }
+  function wave() {
+    if (waveTimer) clearTimeout(waveTimer);
+    stage.classList.remove("is-waving");
+    if (motionAllowed()) {
+      void stage.offsetWidth;
+      stage.classList.add("is-waving");
+    }
+    announce(motionAllowed() ? "Lum waves from the 2D stage. ✧" : "Wave selected. Motion is reduced.");
+    waveTimer = setTimeout(() => { waveTimer = 0; stage.classList.remove("is-waving"); }, 760);
+  }
+  function smile() {
+    mood = mood === "smile" ? "neutral" : "smile";
+    stage.dataset.mood = mood;
+    byId("lum2dMouth").setAttribute("d", mood === "smile" ? "M160 229Q181 245 202 229" : "M165 230Q181 229 198 230");
+    byId("lum2dSmile").setAttribute("aria-pressed", String(mood === "smile"));
+    announce(mood === "smile" ? "Lum smiles. ♡" : "Lum is listening.");
+    schedule();
+  }
+  function toggleMotion() {
+    manualPause = !manualPause;
+    root.classList.toggle("is-motion-paused", manualPause);
+    byId("lum2dPause").setAttribute("aria-pressed", String(manualPause));
+    byId("lum2dPause").textContent = manualPause ? "Resume motion" : "Pause motion";
+    announce(manualPause ? "Motion paused. Buttons still work." : "Motion respects your accessibility settings.");
+    reset();
+  }
+  function visibility() { if (document.hidden) reset(); }
+  function destroy() {
+    if (disposed) return;
+    disposed = true;
+    stage.removeEventListener("pointermove", pointerMove);
+    stage.removeEventListener("pointerleave", reset);
+    document.removeEventListener("visibilitychange", visibility);
+    window.removeEventListener("blur", reset);
+    reduced.removeEventListener("change", reset);
+    if (raf) cancelAnimationFrame(raf);
+    clearTimeout(blinkTimer);
+    clearTimeout(waveTimer);
+    stage.classList.remove("is-waving", "is-blinking");
+  }
+  stage.addEventListener("pointermove", pointerMove);
+  stage.addEventListener("pointerleave", reset);
+  document.addEventListener("visibilitychange", visibility);
+  window.addEventListener("blur", reset);
+  reduced.addEventListener("change", reset);
+  window.addEventListener("pagehide", destroy, { once: true });
+  byId("lum2dBlink").addEventListener("click", blink);
+  byId("lum2dWave").addEventListener("click", wave);
+  byId("lum2dSmile").addEventListener("click", smile);
+  byId("lum2dPause").addEventListener("click", toggleMotion);
+  draw();
+}
+
 async function boot() {
   // Local creative desk stays usable even if the network/config stage fails.
   renderNetwork();
+  initLumLive2d();
   state.pets = DEFAULT_PETS.map(p => ({ ...p }));
   renderAssetDesk();
   wireDropZone();
@@ -388,11 +499,11 @@ async function boot() {
     showPet();
   });
   byId("parallaxHeader").addEventListener("pointermove", onPointerMove);
-  byId("parallaxHeader").addEventListener("pointerleave", () => {
-    state.pointerX = 0;
-    state.pointerY = 0;
-    scheduleParallax();
-  });
+  byId("parallaxHeader").addEventListener("pointerleave", resetParallax);
+  window.addEventListener("blur", resetParallax);
+  document.addEventListener("visibilitychange", () => { if (document.hidden) resetParallax(); });
+  reducedHeaderMotion.addEventListener("change", resetParallax);
+  window.addEventListener("pagehide", resetParallax, { once: true });
   byId("prevAsset").addEventListener("click", () => selectAsset(state.assetIndex - 1));
   byId("nextAsset").addEventListener("click", () => selectAsset(state.assetIndex + 1));
   byId("clearAssets").addEventListener("click", clearAssets);
