@@ -37,7 +37,7 @@ def verify_entry(root: Path, entry: dict) -> tuple[bool, str]:
     if path.is_symlink():
         return False, "symlinkNotAllowed"
     data = path.read_bytes()
-    actual = hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\\0" + data).hexdigest()
+    actual = hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\x00" + data).hexdigest()
     if actual != fingerprint:
         return False, "changedSourceNeedsDeltaReview"
     return True, "sameSourceAccepted"
