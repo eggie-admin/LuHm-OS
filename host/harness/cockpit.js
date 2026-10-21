@@ -379,7 +379,6 @@ async function boot() {
   // Local creative desk stays usable even if the network/config stage fails.
   renderNetwork();
   state.pets = DEFAULT_PETS.map(p => ({ ...p }));
-  showPet();
   renderAssetDesk();
   wireDropZone();
   wirePlayButton();
@@ -399,6 +398,8 @@ async function boot() {
   byId("clearAssets").addEventListener("click", clearAssets);
   window.addEventListener("beforeunload", revokeAllObjectUrls, { once: true });
 
+  const previousSelection = safePetSelection();
+  showPet();
   const [cfg, pets, spriteManifest] = await Promise.all([
     fetchJson("/harness/config.json"),
     fetchJson("/harness/pets.json"),
@@ -413,7 +414,6 @@ async function boot() {
   const atlasResponse = await fetch(spriteManifest.assetUrl, { method: "HEAD", cache: "no-store", signal: AbortSignal.timeout(BOOT_TIMEOUT_MS) });
   if (!atlasResponse.ok) throw new Error("agent sprite atlas unavailable");
   const validatedPets = validatePets(pets.pets);
-  const previousSelection = safePetSelection();
   state.pets = validatedPets;
   state.petIndex = Math.max(0, validatedPets.findIndex(p => p.name === previousSelection));
   renderLibraries(cfg.libraries || {});
