@@ -1,0 +1,60 @@
+{
+  "schema": "luhmOs.publicBetaReconciliation.v1",
+  "recordDate": "2026-10-21",
+  "status": "CANDIDATE_NOT_PUBLIC_RELEASE",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "repository": "eggie-admin/LuHm-OS",
+  "baseRef": "7f1e05be8df58c941f634f8a0bcf75f2428d5531",
+  "chatGptPersonalPlugin": {
+    "pluginId": "plugin_asdk_app_sites_02c066d0b6bc8191ad41051ed5878040",
+    "versionObserved": "1.0.7",
+    "releaseId": "pluginrel_6ad89ec1604881919a25154708b39209",
+    "discoverability": "PRIVATE",
+    "toolInvocationObserved": [
+      "luhmConnectionStatus",
+      "luhm_open_cockpit"
+    ],
+    "runtimeStatus": "SOURCE_CONFIGURED_CANDIDATE",
+    "publicationProven": false
+  },
+  "repositoryPlugin": {
+    "manifest": "plugins/luhm-os/plugin.json",
+    "versionObserved": "0.5.2",
+    "identityDistinctFromPersonalPlugin": true,
+    "mcpConfig": "plugins/luhm-os/mcp.json",
+    "endpointConfigured": "https://luhm-os-harness-green.onrender.com/mcp"
+  },
+  "android": {
+    "packageId": "art.eggiebagelface.luhmos.beta",
+    "sourceGuide": "manual/samsung-lite-signed-beta.md",
+    "signedApkEvidence": "NOT_OBSERVED",
+    "physicalDeviceEvidence": "NOT_OBSERVED",
+    "fdroidIndexEvidence": "NOT_OBSERVED"
+  },
+  "supervisedCast": {
+    "presentation": "AVAILABLE",
+    "autonomousWorkerRuntime": "QUARANTINED",
+    "quarantineContract": "doctrine/companyWideOperationalQuarantineV1.json"
+  },
+  "reconciliation": {
+    "rule": "Keep personal plugin 1.0.7 identity and repo manifest 0.5.2 as distinct artifacts until exact release mapping is proven.",
+    "doNotBumpRepositoryManifestToPersonalPluginVersion": true,
+    "doNotDeclarePublicListing": true,
+    "doNotEnableWrites": true
+  },
+  "gates": {
+    "repoHeadPinned": true,
+    "pluginManifestMapping": "PENDING",
+    "exactHeadCI": "PENDING",
+    "currentRenderDeployCommit": "PENDING",
+    "rightsPrivacyReview": "PENDING",
+    "ownerSigning": "PENDING",
+    "tabletInstallUpgrade": "PENDING",
+    "externalPluginPublication": "PENDING"
+  },
+  "promotion": false,
+  "publicRelease": false,
+  "crownStatus": "STOP",
+  "rollbackRef": "7f1e05be8df58c941f634f8a0bcf75f2428d5531"
+}
