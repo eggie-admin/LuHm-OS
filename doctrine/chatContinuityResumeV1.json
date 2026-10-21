@@ -1,0 +1,91 @@
+{
+  "schema": "luhmOs.chatContinuityResume.v1",
+  "status": "SOURCE_CONTRACT_CANDIDATE",
+  "authority": "Professor",
+  "purpose": "Bounded, evidence-backed recovery of LuHm-OS/Project Hydra project state in a fresh chat, not infinite transcript memory or agent execution.",
+  "source": {
+    "repository": "eggie-admin/LuHm-OS",
+    "defaultBranch": "main",
+    "releaseBranch": "publication/plugin-full-green-20260930",
+    "readOrder": [
+      "AGENTS.md",
+      "agents/projectChatBootstrap/SKILL.md",
+      "doctrine/currentSourceTruthV3.json",
+      "doctrine/contextTourniquetV1.json",
+      "doctrine/companyWideOperationalQuarantineV1.json"
+    ]
+  },
+  "checkpoint": {
+    "schema": "luhmOs.contextCheckpoint.v1",
+    "required": [
+      "sourceRef",
+      "objective",
+      "confirmedFacts",
+      "evidenceRefs",
+      "pendingDecisions",
+      "conflicts",
+      "proposedMutations",
+      "executionAuthorized"
+    ],
+    "executionAuthorized": false,
+    "crownStatus": "stop",
+    "claimClasses": [
+      "PROVEN",
+      "SOURCE_DERIVED",
+      "OBSERVED",
+      "INFERENCE",
+      "PROPOSAL",
+      "MEMORY_ONLY",
+      "UNKNOWN",
+      "CONTRADICTED"
+    ],
+    "verifiedClaimsRequireEvidence": true,
+    "sourceIdentity": "exactCommitWhenClaimingVerified"
+  },
+  "storage": {
+    "github": "publicCodeAndSanitizedEvidenceOnly",
+    "googleDrive": "approvedPrivateDurableFiles",
+    "sql": "typedMetadataAndPointersNotBinaryArchive",
+    "chatMemory": "advisoryOnlyNotAuthority",
+    "publicChatTranscriptStorage": false,
+    "privateArtifactsOnPublicRepo": false
+  },
+  "resumeStatus": [
+    "SOURCE_PRESENT",
+    "CI_VERIFIED",
+    "MERGED",
+    "HOST_DEPLOYED",
+    "APP_INSTALLED",
+    "CHAT_TOOL_INVOKED",
+    "DEVICE_TESTED"
+  ],
+  "roles": {
+    "lum": "conversationalCoordinator",
+    "skuld": "researchAndCompatibility",
+    "urd": "evidenceReview",
+    "belldandy": "checkpointAndNamespace",
+    "yume": "artWhenNeeded",
+    "independentWorkersProven": false,
+    "quarantineGovernsRuntime": true
+  },
+  "release": {
+    "requiresExactHeadChecks": true,
+    "doNotMergeUnrelatedBranches": true,
+    "doNotExposeSecrets": true,
+    "doNotUnquarantineByDocumentation": true,
+    "allowScopedVirginPrototypeFastPath": true,
+    "explicitHumanCrownForProtectedChanges": true
+  },
+  "negativeControls": [
+    "rejectCheckpointSelfAuthorization",
+    "rejectUnsourcedProvenFacts",
+    "rejectInvalidClaimClasses",
+    "doNotInferRuntimeFromSource",
+    "doNotTreatHistoricalGreenAsCurrent"
+  ],
+  "statusClaims": {
+    "sourceContractGreenMayBeProven": true,
+    "fullCrossChatHostRecoveryProven": false,
+    "autonomousExecutionProven": false
+  }
+}
