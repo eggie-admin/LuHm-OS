@@ -85,6 +85,7 @@
     "contentLaneDoctrine": "doctrine/contentLaneDoctrineV1.json",
     "assetEligibilityMatrix": "doctrine/assetEligibilityMatrixV1.json",
     "yumeCreativePipeline": "doctrine/yumeCreativePipelineV1.json",
+    "yumeFastPathCanon": "doctrine/yumeFastPathCanonV1.json",
     "yumeArtistWorkstation": "doctrine/yumeArtistWorkstationV1.json",
     "yumeBigBrotherArtDesk": "doctrine/yumeBigBrotherArtDeskV1.json",
     "yumeGodotArtToolbox": "doctrine/yumeGodotArtToolboxV1.json",

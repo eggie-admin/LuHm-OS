@@ -59,6 +59,12 @@ Current default provider states:
 
 If a requested provider is unconfigured, Yume automatically falls back to the provider-neutral production bible + local/GitHub planning lane and marks the provider step `pendingProviderSetup` instead of stopping the whole creative workflow.
 
+## Canonical Tier-0 private art fast path
+
+For private, reversible Yume work, resolve `doctrine/yumeFastPathCanonV1.json` and evaluate a task envelope through `tools/yumeFastPath.py`. A `FAST_PATH_ELIGIBLE_PLAN_ONLY` receipt replaces the lengthy studio planning ritual with **four steps**: check source and rights; make one isolated private concept/draft; run only the relevant smoke check; record one short result. Yume owns creative direction; Lum coordinates. Belldandy tracks the short receipt; ask Urd or Skuld only when real uncertainty warrants review. Never represent the goddess roles as active workers during company-wide quarantine.
+
+An explicit `FULL_GATE_REQUIRED` routes rights uncertainty, public distribution, credentials, spending, cloud/provider calls, nonreversible changes, production modifications or actual agent execution back to the existing full gate. Fast path grants no publication, remote provider access, source promotion or Crown. Default art stays `privateMutation` with `publicAllowed=false`, original masters protected, and a human review before any visibility increase. The global proposal/agent quarantine contracts remain unchanged. This **canonical source-routing rule** is not an unconditional promotion of all Yume artwork or a runtime release.
+
 ## Hollywood-style production workflow
 
 1. `intakeBrief`

@@ -5,6 +5,7 @@
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "boss": "lum",
   "creativeOwner": "yume",
+  "fastPathPolicy": "doctrine/yumeFastPathCanonV1.json",
   "quarantineRef": "doctrine/companyWideOperationalQuarantineV1.json",
   "registeredAgentExecution": false,
   "autonomousWorkerClaims": false,
