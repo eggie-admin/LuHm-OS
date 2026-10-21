@@ -1,0 +1,38 @@
+name: Yume Art Tools and Goddess Cabinet Security
+on:
+  pull_request:
+    paths:
+      - 'tools/yumeGodotAssetPrep.py'
+      - 'tools/yumeArtCabinetAudit.py'
+      - 'tests/testYumeAssetPrepSecurity.py'
+      - 'doctrine/yumeArtCabinetHandoffV1.json'
+      - 'doctrine/yumeGodotArtToolboxV1.json'
+      - 'agents/yumeArtOni/SKILL.md'
+      - 'agents/goddessSharedSystemsPractice/SKILL.md'
+      - '.github/workflows/yume-art-cabinet-security.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  guarded-creative-intake:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Check exact source identity and whitespace
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          git diff --check
+      - name: Adversarial candidate model and artwork input checks
+        run: python3 -m unittest tests/testYumeAssetPrepSecurity.py -v
+      - name: Cabinet cross-source and quarantine gate
+        run: python3 tools/yumeArtCabinetAudit.py
+      - name: Preserve Yume production source contract
+        run: python3 tools/yumeCreativePipelineAudit.py
+      - name: Existing source-only Godot role handoff gate
+        run: python3 tools/goddessGodotCanonHandoffAudit.py

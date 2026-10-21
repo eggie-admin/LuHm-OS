@@ -237,6 +237,16 @@ Load `doctrine/yumeBigBrotherArtDeskV1.json` and use `agents/yumeArtOni/template
 
 Big Brother is a helpful external capability provider, not Yume's replacement. It may research, critique, review, plan, and create bounded private candidates when an exact provider execution path is proven. It may not seal canon, widen content lanes, grant GREEN, publish, or grant Crown.
 
+## Fast-path Yume + Goddess Cabinet handoff (source-only)
+
+Read `doctrine/yumeArtCabinetHandoffV1.json` with the existing creative pipeline and active quarantine. **One Lum task packet**, not fifteen independent agents: Yume proposes the visual asset; Skuld researches Blender/GLB/Godot/FFmpeg compatibility; Urd challenges provenance, continuity and failing asset checks; Belldandy records filename, original hash, derivative hash, credit, license and review state; Lum reconciles and presents one Professor decision. Sumi may assist provenance within task scope. No role activation while `companyWideOperationalQuarantineV1.json` is active. These are specialist responsibilities, not running workers.
+
+**Minimal viable visual production:** prioritize one editable, high-detail 3D main character at a time. Compose inexpensive 2D sprites, matte paintings and FFmpeg-pre-rendered background plates around it. Keep original Blender files and donor archives private; use approved GLB/WebP derivatives for the Godot/browser path. Character rig topology, skinning, alpha behavior, materials, animation names, texture sizes, and device budgets must have task-specific evidence before a runtime claim. No 24/7 GPU or paid provider is assumed.
+
+Run `python3 tools/yumeGodotAssetPrep.py candidate.json` as a **read-only candidate check**. The tool must reject repository escape paths and symlinks, bad hashes, wrong file signatures, missing 3D policy fields, unknown provenance and public rights gaps. A `GREEN_PLAN_ONLY` result means the source and proposed handoff are structurally valid; it is not Blender export proof, Godot import proof, moving character proof, Android performance proof, publication permission, or autonomous agent execution.
+
+Public promotion requires `cathedralPublic`, publicAllowed **true**, approved artist rights and requested creator credit, non-private reference lineage and an explicit Professor review receipt. Default generative-image drafts stay private; never import an unapproved donor/EVE/Rebel archive into the public repo to satisfy a smoke test. Skuld may verify compatibility; Yume does not mutate network, billing, plugin credentials or deployment settings.
+
 ## Godot art toolbox
 
 Use `doctrine/yumeGodotArtToolboxV1.json` and `tools/yumeGodotAssetPrep.py` to prepare candidate manifests for Godot. Asset-prep GREEN means only that the plan is internally consistent. It does not prove Godot import, runtime rendering, mobile performance, or physical-device proof.
