@@ -229,6 +229,14 @@
       "crownStatus": "STOP",
       "debugBuildSourceRef": "3dcaf235986ed489cbdda91d86c38091680e0250",
       "actualDebugReceipt": "doctrine/proposedAndroidCastEvidenceV1.json"
+    },
+    "latestBridgeInvocation": {
+      "receipt": "doctrine/updateUpgradeMergeReceipt20261021.json",
+      "status": "OBSERVED_CURRENT_CHAT_TOOL_SUCCESS_UI_MOUNT_UNVERIFIED",
+      "bridgeSourceRef": "d1a901b208ba6374b965a36365d8d46d1cea2082",
+      "payloadSchema": "luhmOs.inChatExperiencePayload.v1",
+      "uiMountProven": false,
+      "agentRuntimeReleased": false
     }
   },
   "androidLayer": {
@@ -903,5 +911,11 @@
     "automaticDeployment": false,
     "fullGreen": false,
     "resume": "Read checkpoint, then device-install verified APK before any new public release claims."
+  },
+  "latestUpdateUpgradeMerge": {
+    "receipt": "doctrine/updateUpgradeMergeReceipt20261021.json",
+    "sourceRef": "d30bbaab3c7fcd7543b01a325e9f6034f1a546ab",
+    "status": "SOURCE_MERGED_PRIVATE_BRIDGE_LIVE_RENDER_UPGRADE_BLOCKED",
+    "fullPublicReleaseGreen": false
   }
 }
