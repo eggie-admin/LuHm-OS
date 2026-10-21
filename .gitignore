@@ -10,3 +10,22 @@ build/
 .env
 .env.*
 __pycache__/
+
+# Local-only caches, databases, provider authentication, and generated outputs
+.venv/
+.uv/
+.pytest_cache/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.db-wal
+*.db-shm
+.secrets/
+.hf/
+.cloudflared/
+*.token
+*.credentials
+service-account*.json
