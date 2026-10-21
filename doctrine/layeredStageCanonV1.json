@@ -1,0 +1,97 @@
+{
+  "schema": "luhmOs.layeredStageCanon.v1",
+  "status": "PROPOSED_SOURCE_CANDIDATE",
+  "asOf": "2026-10-21",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "relatedProposal": "doctrine/embeddedStudioV1.json",
+  "purpose": "Seven ordered visual planes in one viewport, with shared JavaScript event bus and Python3 backend.",
+  "planes": [
+    {
+      "depth": 0,
+      "id": "embeddedMedia",
+      "behavior": "Godot4 Web export, video, WebGL; opt-in and static fallback"
+    },
+    {
+      "depth": 1,
+      "id": "farField",
+      "behavior": "CSS distant FOV blur and vanishing point"
+    },
+    {
+      "depth": 2,
+      "id": "sharpBackground",
+      "behavior": "CSS perspective vertical parallax"
+    },
+    {
+      "depth": 3,
+      "id": "liveCharacter",
+      "behavior": "Vue3 Live2D rig or sprite sheet adapter, independent expressions"
+    },
+    {
+      "depth": 4,
+      "id": "vectorEffects",
+      "behavior": "SVG Canvas particle and sprite overlays"
+    },
+    {
+      "depth": 5,
+      "id": "glassWidgetDock",
+      "behavior": "Interactive glass Vue/HTML UI, LuHmAMP and Rebel Desk"
+    },
+    {
+      "depth": 6,
+      "id": "foregroundAtmosphere",
+      "behavior": "CSS blurred non-interactive overlay"
+    }
+  ],
+  "runtime": {
+    "eventBus": "JavaScript",
+    "backend": "Python3",
+    "headlessWorkers": [
+      "Godot4",
+      "FFmpeg",
+      "Blender",
+      "GIMP3",
+      "Python3",
+      "npm"
+    ],
+    "androidShell": "Optional Java/Gradle",
+    "browserWorkerSeparation": true
+  },
+  "compatibility": {
+    "fourDecorativeCssPlanesPreserved": true,
+    "sevenCompositorPlanesAreVisualNotArchitectureTiers": true,
+    "pr357": "candidateOnly",
+    "standaloneAndroidChrome": "USER_OBSERVED_GREEN"
+  },
+  "assets": {
+    "source": "GoogleDrive",
+    "destinyChildFoldersFound": true,
+    "moreoChronicleArchiveFound": false,
+    "rigFormat": "UNVERIFIED",
+    "preserveOriginals": true,
+    "rights": "UNKNOWN",
+    "publicRedistribution": false
+  },
+  "guards": {
+    "userInitiated3d": true,
+    "noAutoplay": true,
+    "reducedMotion": true,
+    "foregroundPointerEvents": "none",
+    "responsiveAndroid": true,
+    "privateMediaNotPublic": true,
+    "productionPromotion": false,
+    "sqlMigration": false,
+    "agentActivation": false,
+    "cloudflareChanges": false
+  },
+  "acceptance": [
+    "Exact-head CI",
+    "Android touch/keyboard/viewport",
+    "Godot opt-in and static fallback",
+    "Live2D model format and rights inspection",
+    "Vue3 compositor smoke",
+    "Professor production approval"
+  ],
+  "crownStatus": "STOP"
+}
