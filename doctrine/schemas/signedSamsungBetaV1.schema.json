@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LuHm owner-signed Samsung beta receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "sourceRef",
+    "apkSha256",
+    "runId",
+    "applicationId",
+    "appSignerCertificateSha256",
+    "versionCode",
+    "targetSdk",
+    "abi",
+    "assetProfile",
+    "debuggable",
+    "releaseMode",
+    "deviceProof",
+    "betaUpgradeProof",
+    "publicPublished",
+    "crownStatus"
+  ],
+  "properties": {
+    "schema": {
+      "const": "luhmOs.signedSamsungBeta.v1"
+    },
+    "sourceRef": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "apkSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*$"
+    },
+    "applicationId": {
+      "const": "art.eggiebagelface.luhmos.beta"
+    },
+    "appSignerCertificateSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "versionCode": {
+      "type": "integer",
+      "minimum": 200001
+    },
+    "targetSdk": {
+      "const": 36
+    },
+    "abi": {
+      "const": "arm64-v8a"
+    },
+    "assetProfile": {
+      "const": "sourceOnlyProceduralLum"
+    },
+    "debuggable": {
+      "const": false
+    },
+    "releaseMode": {
+      "const": true
+    },
+    "deviceProof": {
+      "const": false
+    },
+    "betaUpgradeProof": {
+      "const": false
+    },
+    "publicPublished": {
+      "const": false
+    },
+    "crownStatus": {
+      "const": "STOP"
+    }
+  }
+}
