@@ -38,6 +38,7 @@ ALLOWED = {
 def inspect(archive: Path | None) -> dict:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
+    approved_receipt = json.loads((ROOT / "plugins/luhm-os/assets/pocketAssetIntegrityReceipt.json").read_text(encoding="utf-8"))
     checks = 0
     errors = []
 
@@ -66,6 +67,16 @@ def inspect(archive: Path | None) -> dict:
     require("noRemoteModels", manifest.get("safety", {}).get("liveModelCalls") is False)
     require("noCredentialClaim", manifest.get("safety", {}).get("secrets") is False)
     require("onlyOriginalDrafts", catalog.get("files") is not None)
+    require("targetPrivatePluginVersion", manifest.get("targetPluginVersion") == "1.0.5")
+    require("privatePluginReadback", manifest.get("privatePluginReleaseState") == "UPDATED_AND_READBACK_VERIFIED")
+    require("receiptSourceLink", manifest.get("localIntegrityReceipt") == "plugins/luhm-os/assets/pocketAssetIntegrityReceipt.json")
+    require("receiptStatus", approved_receipt.get("status") == "PASS")
+    require("receiptByteChecks", approved_receipt.get("checksTotal") == approved_receipt.get("checksPassed") == 557)
+    require("receiptCount", approved_receipt.get("assetCount") == 110)
+    require("receiptArchiveHash", approved_receipt.get("archiveSha256") == manifest.get("sourcePackSha256"))
+    require("receiptNoPublicAuthority", approved_receipt.get("publicApproval") is False)
+    require("receiptRuntimeNotClaimed", approved_receipt.get("runtimeProof") == {"godot": False, "android": False, "inChat": False, "autonomousAgents": False})
+
 
     counts = Counter()
     paths = set()
