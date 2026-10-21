@@ -325,6 +325,7 @@ async function boot() {
     fetch("/harness/pets.json", { cache: "no-store" }).then(r => r.json()),
     fetch("/harness/assets/agent-loading-sprites.json", { cache: "no-store" }).then(r => r.json())
   ]);
+  window.luhmStudioDeck?.configure(cfg.embeddedStudio);
   state.loadingManifest = spriteManifest;
   setLoadingAgent("belldandySecretary", "Loading the verified agent roster");
   validateLoadingManifest(spriteManifest);

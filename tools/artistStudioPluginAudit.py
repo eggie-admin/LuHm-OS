@@ -55,7 +55,9 @@ assert "function studioSet(" in html and "function studioUndo(" in html and "fun
 assert "studioState.undo.push" in html and "studioState.redo.push" in html
 assert "function studioPortable(" in html and "publicationApproved:false" in html
 assert "studioInitialize(payload?.artistStudio)" in html
-assert "wireStudio();render(window.openai?.toolOutput)" in html
+assert "function studioWire()" in html
+assert "studioWire();render(window.openai?.toolOutput)" in html
+assert "wireStudio();" not in html
 # Artist-entered text must go through textContent or value, not an injection sink.
 studio = html[html.index("/* In-chat artist studio:"):html.index("let rpcId=0;")]
 assert ".innerHTML" not in studio and ".outerHTML" not in studio

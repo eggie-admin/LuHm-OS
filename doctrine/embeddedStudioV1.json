@@ -1,0 +1,109 @@
+{
+  "schema": "luhmOs.embeddedStudio.v1",
+  "status": "PROPOSED_SOURCE_CANDIDATE",
+  "lane": "testing",
+  "serverWrites": false,
+  "productionPromotion": false,
+  "canonicalArchitecture": "doctrine/luHmOSFourLayerArchitectureV1.json",
+  "composition": {
+    "coreLibrary": "validated music target, fingerprint and register contracts",
+    "pluginExtension": "music and local asset extensions",
+    "classWidgetOrganization": "four vertical workspace panels and four decorative depth planes",
+    "stubAdapterBoundary": "standalone same-origin harness and existing MCP Apps resource"
+  },
+  "axesSeparate": [
+    "architectureComposition",
+    "decorativeDepth",
+    "conversationMode",
+    "operationalEscalation",
+    "testingAndProduction"
+  ],
+  "sharedSource": [
+    "host/harness/studioDeck.html",
+    "host/harness/studioDeck.css",
+    "host/harness/studioDeck.js"
+  ],
+  "assetRegisterSchema": "doctrine/assetRegisterV1.schema.json",
+  "assetRules": {
+    "preserveOriginals": true,
+    "serverUploads": false,
+    "archiveExecution": false,
+    "rightsDefault": "UNKNOWN",
+    "canonDefault": "UNAPPROVED",
+    "generatedPublicArt": false,
+    "hashLimitBytes": 33554432,
+    "maximumFiles": 128,
+    "duplicateRule": "matchingSHA256Only",
+    "largeFiles": "indexOnlyHashUnverified"
+  },
+  "music": {
+    "adapter": "officialYouTubeIframe",
+    "acceptsYouTubeMusicLinks": true,
+    "frameOrigin": "https://www.youtube-nocookie.com",
+    "parentRemoteScripts": false,
+    "userInitiatedLoad": true,
+    "autoplay": false,
+    "visiblePlayer": true,
+    "minimumWidth": 200,
+    "minimumHeight": 200,
+    "referrerPolicy": "strict-origin-when-cross-origin",
+    "audioExtraction": false,
+    "nativeMusicAppEmbed": false,
+    "hostPlayback": "REQUIRES_SEPARATE_TEST"
+  },
+  "lanes": {
+    "testing": {
+      "source": "candidateBranchAndExactCommit",
+      "assetState": "needsReview",
+      "promotionAllowed": false
+    },
+    "production": {
+      "source": "separatelyApprovedReleaseCommit",
+      "requires": [
+        "passingExactSourceCI",
+        "approvedAssetRegister",
+        "explicitProfessorPromotion",
+        "deploymentAndRollbackReceipt",
+        "affectedHostVerification"
+      ],
+      "uiSwitchMayPromote": false
+    }
+  },
+  "crew": {
+    "boss": "lum",
+    "evidence": "urdDoctorGoddess",
+    "records": "belldandySecretary",
+    "architecture": "skuldResearch",
+    "artDirection": "yume",
+    "provenance": "sumi",
+    "activationContract": "doctrine/companyWideOperationalQuarantineV1.json",
+    "activityRequires": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "workerId",
+      "eventId",
+      "observedAt"
+    ],
+    "loadingSpritesAreWorkerProof": false
+  },
+  "continuity": {
+    "establishedWorkingGodotRetained": true,
+    "userCorrection": "2026-10-20: Godot4 already loaded and project farther advanced; a lighter-harness recording does not invalidate other established proof.",
+    "currentMainHarnessMerge": "05e23225d7541f479155ca47183f849259c0b8d1",
+    "mainHarnessLiveDeploy": "dep-dbbvmv8m7kps73auf250",
+    "existingGodotLiveSource": "00690c7ad5dbbbc9d960428ee4b4018b85eda381",
+    "existingGodotLiveDeploy": "dep-dbbsbubrjlhs73fhcu90",
+    "priorProofIsHistoricalNotReset": true
+  },
+  "driftGuards": [
+    "singleSharedUiModule",
+    "strictMusicOriginAndIdValidation",
+    "assetSha256AndExplicitUnknowns",
+    "orthogonalLayerAndLaneContracts",
+    "actualQuarantineStateProjection",
+    "exactSourceTestsAndReview",
+    "humanProductionPromotion"
+  ],
+  "crownStatus": "STOP"
+}
