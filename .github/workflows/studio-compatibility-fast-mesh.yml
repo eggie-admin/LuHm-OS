@@ -1,0 +1,42 @@
+name: Studio Compatibility Fast Mesh
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/studioCompatibilityFastMeshV1.json"
+      - "tools/studioFastMesh.py"
+      - "tools/lumTaskRouter.py"
+      - "tests/testStudioFastMesh.py"
+      - ".github/workflows/studio-compatibility-fast-mesh.yml"
+      - "doctrine/providerEconomyV1.json"
+      - "doctrine/apiSpineV1.json"
+      - "doctrine/companyWideOperationalQuarantineV1.json"
+      - "doctrine/agentSystemDeploymentV1.json"
+  push:
+    paths:
+      - "doctrine/studioCompatibilityFastMeshV1.json"
+      - "tools/studioFastMesh.py"
+      - "tests/testStudioFastMesh.py"
+      - ".github/workflows/studio-compatibility-fast-mesh.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate studio topology
+        run: python3 tools/studioFastMesh.py --check
+      - name: Test every route and provider gate
+        run: python3 -m unittest discover -s tests -p "testStudioFastMesh.py" -v
+      - name: Fast-path quarantine smoke
+        run: |
+          python3 tools/studioFastMesh.py --kind research --heavy
+          python3 tools/studioFastMesh.py --kind research --specialist
+          python3 tools/studioFastMesh.py --kind patch
