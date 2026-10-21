@@ -3,8 +3,11 @@ on:
   pull_request:
     paths:
       - 'doctrine/pluginBetaInviteGateV1.json'
+      - 'doctrine/pluginBetaFourLaneV1.json'
       - 'tools/pluginBetaInviteAudit.py'
+      - 'tools/pluginBetaFourLaneAudit.py'
       - 'tests/testPluginBetaInviteAudit.py'
+      - 'tests/testPluginBetaFourLaneAudit.py'
       - 'manual/pluginBetaInviteRunbook.md'
       - 'plugins/luhm-os/plugin.json'
       - 'plugins/luhm-os/mcp.json'
@@ -25,12 +28,15 @@ jobs:
         run: |
           set -euo pipefail
           python3 -m json.tool doctrine/pluginBetaInviteGateV1.json >/dev/null
-          python3 -m py_compile tools/pluginBetaInviteAudit.py tests/testPluginBetaInviteAudit.py
+          python3 -m json.tool doctrine/pluginBetaFourLaneV1.json >/dev/null
+          python3 -m py_compile tools/pluginBetaInviteAudit.py tests/testPluginBetaInviteAudit.py tools/pluginBetaFourLaneAudit.py tests/testPluginBetaFourLaneAudit.py
           python3 tools/pluginBetaInviteAudit.py
+          python3 tools/pluginBetaFourLaneAudit.py
       - name: Negative proofs must reject forged invitation or fake beta GREEN
         run: |
           set -euo pipefail
           python3 -m unittest discover -s tests -p testPluginBetaInviteAudit.py -v
+          python3 -m unittest discover -s tests -p testPluginBetaFourLaneAudit.py -v
           if python3 tools/pluginBetaInviteAudit.py --require-beta-ready; then
             echo "UNEXPECTED_BETA_PROMOTION" >&2
             exit 1
