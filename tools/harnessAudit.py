@@ -68,7 +68,7 @@ def main() -> int:
     require(donors.get("serverUploadAuthority") is False, "RED_DONOR_UPLOAD_AUTHORITY")
     require(all(item.get("copyCode") is False for item in donors.get("donors", [])), "RED_DONOR_CODE_COPY")
 
-    require('type="file"' in index and 'application/pdf' in index, "RED_LOCAL_FILE_INTAKE")
+    require('type="file"' in index and 'accept=".png,.jpg,.jpeg,.gif,.webp,.mp4,.webm,.pdf"' in index and "MAX_DESK_FILES = 24" in script and "MAX_DESK_BYTES" in script, "RED_LOCAL_FILE_INTAKE")
     require(re.search(r'<iframe id="pdfPreview"[^>]*\bsandbox\b', index) is not None, "RED_PDF_SANDBOX")
     require("URL.createObjectURL" in script and "URL.revokeObjectURL" in script, "RED_BLOB_LIFECYCLE")
     require("requestAnimationFrame" in script and "pointermove" in script, "RED_PARALLAX_REIMPLEMENTATION")
