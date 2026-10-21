@@ -35,6 +35,7 @@ def check():
     py=HARNESS.read_text(encoding="utf8")
     js=COCKPIT.read_text(encoding="utf8")
     html=PAGE.read_text(encoding="utf8")
+    pocket=(ROOT/"publicationSite/pocketLab.html").read_text(encoding="utf8")
     assert 'godot_frame_origin = public_origin' in py
     assert 'EXTERNAL_GODOT_FRAME_CANDIDATE' not in py
     assert '"/harness/godot-readiness.json"' in py
@@ -45,6 +46,11 @@ def check():
     assert 'fetch("/harness/godot-readiness.json"' in js
     assert 'proof?.integrity !== "SHA256_PASS"' in js
     assert "LUHM_GODOT_FRAME" in html
+    assert 'id="live3dframe"' in pocket
+    assert 'id="launch3d"' in pocket
+    assert 'https://luhm-os-harness-green.onrender.com/harness/godot-export/index.html' in pocket
+    assert 'sandbox="allow-scripts allow-same-origin allow-pointer-lock"' in pocket
+    assert 'private Rebel models' in pocket
     verify=verifier()
     with tempfile.TemporaryDirectory() as tmp:
         root=Path(tmp)
