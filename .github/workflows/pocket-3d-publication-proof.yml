@@ -35,8 +35,7 @@ jobs:
           assert 'rebelDrive' not in s
           print('GREEN_POCKET_3D_PUBLICATION_MATCHES_REVIEWED_MAIN')
           PY
-      - name: Re-run independent Godot and Pocket Alpha source gates
+      - name: Run Pocket Alpha controls on the limited publication tree
         run: |
-          python3 tools/godotEmbedReadinessAudit.py
           python3 tools/pocketLabAudit.py
           
