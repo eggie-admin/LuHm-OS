@@ -360,6 +360,22 @@ async function boot() {
   renderAssetDesk();
   wireDropZone();
   wirePlayButton();
+  // The entire local media desk must remain functional if config or sprites fail.
+  byId("petDock").addEventListener("click", () => {
+    state.petIndex = (state.petIndex + 1) % Math.max(state.pets.length, 1);
+    showPet();
+  });
+  byId("parallaxHeader").addEventListener("pointermove", onPointerMove);
+  byId("parallaxHeader").addEventListener("pointerleave", () => {
+    state.pointerX = 0;
+    state.pointerY = 0;
+    scheduleParallax();
+  });
+  byId("prevAsset").addEventListener("click", () => selectAsset(state.assetIndex - 1));
+  byId("nextAsset").addEventListener("click", () => selectAsset(state.assetIndex + 1));
+  byId("clearAssets").addEventListener("click", clearAssets);
+  window.addEventListener("beforeunload", revokeAllObjectUrls, { once: true });
+
   const [cfg, pets, spriteManifest] = await Promise.all([
     fetchJson("/harness/config.json"),
     fetchJson("/harness/pets.json"),
@@ -376,21 +392,6 @@ async function boot() {
   state.pets = pets.pets || [];
   renderLibraries(cfg.libraries || {});
   showPet();
-
-  byId("petDock").addEventListener("click", () => {
-    state.petIndex = (state.petIndex + 1) % Math.max(state.pets.length, 1);
-    showPet();
-  });
-  byId("parallaxHeader").addEventListener("pointermove", onPointerMove);
-  byId("parallaxHeader").addEventListener("pointerleave", () => {
-    state.pointerX = 0;
-    state.pointerY = 0;
-    scheduleParallax();
-  });
-  byId("prevAsset").addEventListener("click", () => selectAsset(state.assetIndex - 1));
-  byId("nextAsset").addEventListener("click", () => selectAsset(state.assetIndex + 1));
-  byId("clearAssets").addEventListener("click", clearAssets);
-  window.addEventListener("beforeunload", revokeAllObjectUrls, { once: true });
 
   setLoadingAgent("kugi", "Checking the Godot web viewer");
   await probeGodot();
