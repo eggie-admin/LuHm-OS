@@ -11,34 +11,60 @@
   "tools": {
     "assetPrep": "tools/yumeGodotAssetPrep.py",
     "sourceAudit": "tools/godotGameSourceAudit.py",
-    "runtimeSmoke": "tools/runGodotSmoke.py"
+    "runtimeSmoke": "tools/runGodotSmoke.py",
+    "assetPrepAdversarialTests": "tests/testYumeAssetPrepSecurity.py"
   },
   "profiles": {
     "portrait2d": {
-      "formats": ["png", "webp"],
+      "formats": [
+        "png",
+        "webp"
+      ],
       "destinationFamily": "portrait",
       "requiresAlphaDecision": true
     },
     "sprite2d": {
-      "formats": ["png", "webp"],
+      "formats": [
+        "png",
+        "webp"
+      ],
       "destinationFamily": "spriteSet",
       "requiresFrameMetadata": true
     },
     "character3d": {
-      "formats": ["glb"],
+      "formats": [
+        "glb"
+      ],
       "destinationFamily": "threeDBrief",
-      "requires": ["scalePolicy", "rigPolicy", "materialPolicy", "animationPolicy"],
+      "requires": [
+        "scalePolicy",
+        "rigPolicy",
+        "materialPolicy",
+        "animationPolicy"
+      ],
       "preferredHandoff": "BlenderToGlbToGodot"
     },
     "environment3d": {
-      "formats": ["glb"],
+      "formats": [
+        "glb"
+      ],
       "destinationFamily": "environment",
-      "requires": ["scalePolicy", "materialPolicy", "collisionPolicy"]
+      "requires": [
+        "scalePolicy",
+        "materialPolicy",
+        "collisionPolicy"
+      ]
     },
     "animationLibrary": {
-      "formats": ["res", "tres"],
+      "formats": [
+        "res",
+        "tres"
+      ],
       "destinationFamily": "animationLibrary",
-      "requires": ["characterId", "rigCompatibility"]
+      "requires": [
+        "characterId",
+        "rigCompatibility"
+      ]
     }
   },
   "modelingAndImportChecks": [
@@ -69,5 +95,19 @@
     "providerReviewIsNotCanon",
     "publicLaneRequiresSeparateEligibilityAndProfessorApproval"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "cabinetHandoff": "doctrine/yumeArtCabinetHandoffV1.json",
+  "assetSecurity": {
+    "sourcePaths": "repoRelativeAndSymlinkBounded",
+    "hash": "strictLowerHexSha256",
+    "fileSignatures": [
+      "png",
+      "webp",
+      "glb"
+    ],
+    "profileRequirements": "failClosed",
+    "publicRights": "licenseCreatorApprovalAndNoPrivateRefs",
+    "generation": "privateByDefault",
+    "authority": "neverFromAssetPrep"
+  }
 }
