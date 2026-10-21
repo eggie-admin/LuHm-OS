@@ -6,6 +6,7 @@ on:
       - 'tools/samsung-lite-signed-beta-audit.py'
       - 'tools/fdroidTabletSourceAudit.py'
       - 'tools/stageFdroidTabletBeta.py'
+      - 'tools/prepareFdroidRepoCandidate.py'
       - 'doctrine/schemas/signedSamsungBetaV1.schema.json'
       - 'doctrine/samsungTabletInstallV1.json'
       - 'doctrine/androidWeb3CockpitV2.json'
@@ -37,6 +38,7 @@ jobs:
           python3 tools/samsung-lite-signed-beta-audit.py
           python3 tools/fdroidTabletSourceAudit.py
           python3 tools/stageFdroidTabletBeta.py --self-test
+          python3 tools/prepareFdroidRepoCandidate.py --self-test
           python3 tools/samsung-lite-beta.py
       - name: Preserve source receipt
         if: always()
