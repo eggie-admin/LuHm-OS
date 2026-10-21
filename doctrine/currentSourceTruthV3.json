@@ -925,5 +925,27 @@
     "sourceRef": "d30bbaab3c7fcd7543b01a325e9f6034f1a546ab",
     "status": "SOURCE_MERGED_PRIVATE_BRIDGE_LIVE_RENDER_UPGRADE_BLOCKED",
     "fullPublicReleaseGreen": false
+  },
+  "layeredStage": {
+    "contract": "doctrine/layeredStageCanonV1.json",
+    "status": "CANONICAL_SOURCE_ARCHITECTURE",
+    "effectiveDate": "2026-10-21",
+    "visualPlanes": 7,
+    "decorativeCssDepthPlanes": 4,
+    "viewport": "singleFullViewport",
+    "characterStage": "Vue3Live2DOrSpriteAdapter",
+    "background": "Godot4WebOrMediaOptIn",
+    "glassGui": "WidgetDockLuHmAMPRebelDesk",
+    "eventBus": "JavaScript",
+    "backend": "Python3",
+    "androidShell": "JavaGradleOptional",
+    "assetSource": "GoogleDrive",
+    "rigFormat": "UNVERIFIED",
+    "assetRights": "UNKNOWN",
+    "runtimeImplementation": "PENDING",
+    "productionPromotion": false,
+    "releaseAuthority": false,
+    "relatedCandidatePr": 357,
+    "sourceCanonAuthority": "Professor"
   }
 }
