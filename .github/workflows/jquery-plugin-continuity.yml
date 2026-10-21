@@ -1,0 +1,24 @@
+name: jQuery Accepted Source Continuity
+on:
+  pull_request:
+    paths:
+      - 'frontEnd/jquery/**'
+      - 'frontEnd/plugins/**'
+      - 'doctrine/jqueryPluginContinuityV1.json'
+      - 'tools/jqueryPluginContinuity.py'
+      - 'tests/testJqueryPluginContinuity.py'
+      - '.github/workflows/jquery-plugin-continuity.yml'
+permissions:
+  contents: read
+jobs:
+  targeted-reuse:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Fingerprint + syntax check only, no code execution
+        run: |
+          python3 tools/jqueryPluginContinuity.py
+          python3 -m unittest discover -s tests -p testJqueryPluginContinuity.py -v

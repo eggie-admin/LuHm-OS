@@ -41,3 +41,14 @@ The baseline front end deliberately runs without jQuery. When jQuery is introduc
 ```
 
 One `$.fn` slot, chainable behavior, namespaced events, explicit `destroy` where needed, no hidden network calls, no credentials, and no privileged action execution.
+
+## Professor-approved jQuery continuity fast path
+
+Professor has accepted the previously uploaded jQuery plugins for **source reuse**. Do not require a new blanket review in every chat. The observed repo file identities and exact Git blob hashes are recorded in [`doctrine/jqueryPluginContinuityV1.json`](../../doctrine/jqueryPluginContinuityV1.json).
+
+- **Unchanged recognized source:** reuse existing acceptance; run the single fingerprint + JavaScript syntax check only when relevant code changes or a PR is reviewed. No repetitive approval ceremony.
+- **Edited source:** check the changed plugin and affected behavior only. The previously accepted fingerprint stays available for rollback.
+- **Uploads not yet in GitHub:** Professor's source acceptance carries forward, but locate the actual file and bind a fingerprint before claiming it is present, executable, or installed.
+- **Activation / publication:** `incoming/` never autoloads, and existing independent runtime, credentials, external network, agent quarantine, and publication gates remain unchanged.
+
+Fast source check: `python3 tools/jqueryPluginContinuity.py`. Its result is **source identity only**, not a browser, APK, ChatGPT, or deployed plugin receipt.
