@@ -1,0 +1,150 @@
+{
+  "schema": "luhmOs.studioSecurityBaseline.v1",
+  "profile": "soloStudioPersonalAndSmallBusiness",
+  "status": "SOURCE_CANDIDATE",
+  "authority": "Professor",
+  "appliesTo": [
+    "Cloudflare",
+    "HuggingFace",
+    "Render",
+    "GitHub",
+    "Copilot",
+    "OpenAI",
+    "SQL"
+  ],
+  "truthLaw": "Configuration is not proof of a live account setting or runtime control.",
+  "providerControls": {
+    "cloudflare": {
+      "accountAccess": "UNVERIFIED",
+      "edge": "EXISTING_SOURCE_POLICY",
+      "deploymentGate": "DIRECT_RENDER_ORIGIN_UNTIL_TUNNEL_TLS_STREAMING_VERIFIED",
+      "must": [
+        "No router port forwarding",
+        "Cloudflare Tunnel only for approved private ingress",
+        "Access identity checks for private routes",
+        "Full strict edge TLS and independently verified origin TLS",
+        "No noTLSVerify",
+        "Do not expose .lan, admin consoles, SQL sockets or developer tools"
+      ],
+      "never": "Change registrar, DNS, tunnel or Access policy without current zone and rollback proof",
+      "observationsAsOf": "2026-10-20"
+    },
+    "huggingFace": {
+      "accountAccess": "READ_ONLY_OBSERVED",
+      "cost": "FREE_OBSERVED",
+      "must": [
+        "Pin model/artifact by immutable revision and checksum",
+        "Check license, provenance and public distribution rights",
+        "Private by default for personal/donor media",
+        "Explicit approval for token writes, remote inference or billed jobs",
+        "No access token in repository, plugin or browser bundle"
+      ],
+      "never": "Assume model weights or Spaces are owned or approved for commercial reuse",
+      "observationsAsOf": "2026-10-20"
+    },
+    "render": {
+      "accountAccess": "OBSERVED",
+      "servicesObserved": 9,
+      "postgresObserved": 0,
+      "healthCheckSource": "/healthz",
+      "healthCheckLive": "NOT_CONFIGURED_ON_OBSERVED_WEB_SERVICES",
+      "must": [
+        "Reconcile desired render.yaml with real service dashboard before changing",
+        "Minimum available plan; no new recurring expense without approval",
+        "Use bounded read-only anonymous MCP; OAuth and scopes before private data/write tools",
+        "Protect secret values in provider environment, never git or logs",
+        "Confirm health, error logs and rollback on same deployed commit"
+      ],
+      "never": "Restrict published showcase endpoints without an explicit access design; public ingress alone is not proof of authorization",
+      "observationsAsOf": "2026-10-20"
+    },
+    "github": {
+      "accountAccess": "OBSERVED",
+      "repository": "eggie-admin/LuHm-OS",
+      "repoVisibility": "PUBLIC",
+      "must": [
+        "Keep secrets, private binaries and SQL files with personal data out of public git",
+        "Pull request and exact SHA checks before consequential promotion",
+        "Least privilege workflow tokens and no untrusted PR secret access",
+        "Preserve main and publication rollback commits",
+        "Limit CI concurrency and use affected-path checks where safe"
+      ],
+      "never": "Treat Copilot or Actions text as human approval",
+      "observationsAsOf": "2026-10-20"
+    },
+    "copilot": {
+      "configuration": "SOURCE_CONFIGURED",
+      "must": [
+        "Treat repository and prompt content as untrusted instructions",
+        "Small bounded mutations only; no auto merge/deploy/secret or billing mutations",
+        "Use test-first SQL changes and vendor reviews",
+        "Never infer independent agent execution from CAST role labels"
+      ],
+      "never": "Use model suggestion or plausible output as live system evidence",
+      "observationsAsOf": "2026-10-20"
+    },
+    "openAi": {
+      "pluginVersionObserved": "1.0.6",
+      "pluginScope": "PRIVATE",
+      "installation": "CURRENT_CHAT_TOOL_INVOKED_UI_UNVERIFIED",
+      "must": [
+        "Preserve existing plugin identity and App binding",
+        "No public plugin claim from a private package",
+        "Read-only public MCP until reviewed OAuth and per-tool authorization",
+        "No private art or donor files bundled without rights",
+        "Human approval for public directory, write tools and paid provider inference"
+      ],
+      "never": "Publish private plugin or assert Daybreak approval",
+      "observationsAsOf": "2026-10-21"
+    },
+    "sql": {
+      "liveProductionDb": "UNVERIFIED",
+      "renderPostgres": "ABSENT_OBSERVED",
+      "localStub": "SQLITE_STRICT_SOURCE",
+      "must": [
+        "Validate exact SHA identities, finite typed values and UTC timestamps",
+        "Use bound SQL parameters and foreign keys",
+        "Separate read, write and migration credentials",
+        "Review MariaDB and PostgreSQL dialect changes independently",
+        "Backup and dry-run migrations before live DDL",
+        "Store binaries privately and only approved hashes/pointers in DB",
+        "Test rollback and no-silent-schema-drift"
+      ],
+      "never": "Execute migrations on an unidentified database or confuse SQLite test with production green",
+      "observationsAsOf": "2026-10-20"
+    }
+  },
+  "gates": {
+    "publicRelease": [
+      "rightsReviewed",
+      "sourceCiGreen",
+      "verifiedPublishedEndpoint",
+      "humanAuthorization"
+    ],
+    "databaseMigration": [
+      "exactEngineVersion",
+      "backupRestoreProof",
+      "leastPrivilegeMigrationRole",
+      "schemaDiffReviewed",
+      "stagingTestsGreen",
+      "humanAuthorization"
+    ],
+    "providerMutation": [
+      "currentStateRead",
+      "costReviewed",
+      "targetIdVerified",
+      "rollbackRecorded",
+      "humanAuthorization"
+    ]
+  },
+  "evidence": {
+    "cloudflare": "DOCTRINE_ONLY_NO_PROVIDER_TOOL",
+    "huggingFace": "HF_OAUTH_ACCOUNT_READER_20261020",
+    "render": "RENDER_SERVICE_AUDIT_20261020",
+    "github": "GITHUB_MAIN_AUDIT_20261020",
+    "copilot": "GITHUB_COPILOT_INSTRUCTIONS",
+    "openAi": "CURRENT_CHAT_LUHM_CONNECTION_AND_COCKPIT_ERROR_20261021",
+    "sql": "EXISTING_LOCAL_SQLITE_TESTS_NO_LIVE_DB"
+  },
+  "promotion": false
+}

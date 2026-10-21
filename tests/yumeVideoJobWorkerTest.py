@@ -35,6 +35,10 @@ with tempfile.TemporaryDirectory() as tempDir:
     reqHash=worker.sha256(json.dumps(request,sort_keys=True).encode())
     row=store.enqueue('yume-Lum-20261012',manifest['sourceRef'],'lum',reqHash)
     assert row['state']=='QUEUED'
+    try:
+        store.enqueue('yume-Hash-20261012',manifest['sourceRef'],'lum','not-a-sha256')
+        raise AssertionError('unvalidated request hash allowed')
+    except ValueError as e: assert 'REQUEST_HASH' in str(e)
     assert store.enqueue('yume-Lum-20261012',manifest['sourceRef'],'lum',reqHash)['state']=='QUEUED'
     try:
         store.enqueue('yume-Lum-20261012',manifest['sourceRef'],'urd',reqHash)

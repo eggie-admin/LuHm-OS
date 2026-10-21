@@ -1,0 +1,311 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eggie-admin/LuHm-OS/blob/main/doctrine/studioSecurityBaselineV1.schema.json",
+  "title": "LuHm OS studio security baseline",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "profile",
+    "status",
+    "authority",
+    "appliesTo",
+    "truthLaw",
+    "providerControls",
+    "gates",
+    "evidence",
+    "promotion"
+  ],
+  "properties": {
+    "schema": {
+      "const": "luhmOs.studioSecurityBaseline.v1"
+    },
+    "profile": {
+      "const": "soloStudioPersonalAndSmallBusiness"
+    },
+    "status": {
+      "enum": [
+        "SOURCE_CANDIDATE",
+        "SOURCE_REVIEWED",
+        "SOURCE_MERGED"
+      ]
+    },
+    "authority": {
+      "const": "Professor"
+    },
+    "appliesTo": {
+      "type": "array",
+      "minItems": 7,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "truthLaw": {
+      "type": "string",
+      "minLength": 20
+    },
+    "providerControls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cloudflare",
+        "huggingFace",
+        "render",
+        "github",
+        "copilot",
+        "openAi",
+        "sql"
+      ],
+      "properties": {
+        "cloudflare": {
+          "type": "object",
+          "required": [
+            "must",
+            "never"
+          ],
+          "properties": {
+            "must": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 5
+              },
+              "minItems": 3
+            },
+            "never": {
+              "type": "string",
+              "minLength": 12
+            }
+          },
+          "additionalProperties": true
+        },
+        "huggingFace": {
+          "type": "object",
+          "required": [
+            "must",
+            "never"
+          ],
+          "properties": {
+            "must": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 5
+              },
+              "minItems": 3
+            },
+            "never": {
+              "type": "string",
+              "minLength": 12
+            }
+          },
+          "additionalProperties": true
+        },
+        "render": {
+          "type": "object",
+          "required": [
+            "must",
+            "never"
+          ],
+          "properties": {
+            "must": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 5
+              },
+              "minItems": 3
+            },
+            "never": {
+              "type": "string",
+              "minLength": 12
+            }
+          },
+          "additionalProperties": true
+        },
+        "github": {
+          "type": "object",
+          "required": [
+            "must",
+            "never"
+          ],
+          "properties": {
+            "must": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 5
+              },
+              "minItems": 3
+            },
+            "never": {
+              "type": "string",
+              "minLength": 12
+            }
+          },
+          "additionalProperties": true
+        },
+        "copilot": {
+          "type": "object",
+          "required": [
+            "must",
+            "never"
+          ],
+          "properties": {
+            "must": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 5
+              },
+              "minItems": 3
+            },
+            "never": {
+              "type": "string",
+              "minLength": 12
+            }
+          },
+          "additionalProperties": true
+        },
+        "openAi": {
+          "type": "object",
+          "required": [
+            "must",
+            "never"
+          ],
+          "properties": {
+            "must": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 5
+              },
+              "minItems": 3
+            },
+            "never": {
+              "type": "string",
+              "minLength": 12
+            }
+          },
+          "additionalProperties": true
+        },
+        "sql": {
+          "type": "object",
+          "required": [
+            "must",
+            "never"
+          ],
+          "properties": {
+            "must": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 5
+              },
+              "minItems": 3
+            },
+            "never": {
+              "type": "string",
+              "minLength": 12
+            }
+          },
+          "additionalProperties": true
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publicRelease",
+        "databaseMigration",
+        "providerMutation"
+      ],
+      "properties": {
+        "publicRelease": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 5
+          },
+          "contains": {
+            "const": "humanAuthorization"
+          }
+        },
+        "databaseMigration": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 5
+          },
+          "contains": {
+            "const": "humanAuthorization"
+          }
+        },
+        "providerMutation": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 5
+          },
+          "contains": {
+            "const": "humanAuthorization"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cloudflare",
+        "huggingFace",
+        "render",
+        "github",
+        "copilot",
+        "openAi",
+        "sql"
+      ],
+      "properties": {
+        "cloudflare": {
+          "type": "string",
+          "minLength": 10
+        },
+        "huggingFace": {
+          "type": "string",
+          "minLength": 10
+        },
+        "render": {
+          "type": "string",
+          "minLength": 10
+        },
+        "github": {
+          "type": "string",
+          "minLength": 10
+        },
+        "copilot": {
+          "type": "string",
+          "minLength": 10
+        },
+        "openAi": {
+          "type": "string",
+          "minLength": 10
+        },
+        "sql": {
+          "type": "string",
+          "minLength": 10
+        }
+      }
+    },
+    "promotion": {
+      "const": false
+    }
+  }
+}
