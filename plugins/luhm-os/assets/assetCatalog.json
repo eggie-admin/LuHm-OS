@@ -1,0 +1,901 @@
+{
+  "schema": "luhmOs.assetStudioCatalog.v1",
+  "generated": "2026-10-20",
+  "files": [
+    {
+      "path": "audio/ui-alert.wav",
+      "bytes": 11288,
+      "sha256": "c514c3bef5703b0f2a81f347243a6d8a00683fdc3a9ed2feaa388c3d0f074227",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-back.wav",
+      "bytes": 9304,
+      "sha256": "ef85bb8da8a15cf435ccff7f49797fe61d4fb8d7ab5d702d7091782d76ec4138",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-bond.wav",
+      "bytes": 11288,
+      "sha256": "caabe8022492609831e67d404308022c34bfa4ece87d232c0791e9f3f3953291",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-boot.wav",
+      "bytes": 11288,
+      "sha256": "9c99e0f4c1bc6bc4fef794599bad667ea37c6b8d4a32925ace8d57e492c82f8e",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-cast.wav",
+      "bytes": 11288,
+      "sha256": "54c01aab4fd411cc4e660f77e68b5c10624f56b9c27ebdb17aa485013287dedf",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-close.wav",
+      "bytes": 9304,
+      "sha256": "86ec3e82d9f16fd7c71e8693245ee1bfa3bb068036df686a536b25079e0a0fba",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-confirm.wav",
+      "bytes": 11288,
+      "sha256": "dceff93c7cde0f9cec7a0eeaad5dc8dddc52fb0edf540e49710208073b054b71",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-levelup.wav",
+      "bytes": 13274,
+      "sha256": "a9a7bcc7955c445525bf21124d17dd2beb75a7e2570daa1719502709db8e09ff",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-open.wav",
+      "bytes": 9304,
+      "sha256": "e711885dd63963e995ef1b5250bb0fd06bbed8ccf855c53ab7e7634e2c153774",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-save.wav",
+      "bytes": 9304,
+      "sha256": "c63147991a4174e1f5c12b3cbc599d8c321646cde7cfc7e1709aa1e198a2f554",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-select.wav",
+      "bytes": 9304,
+      "sha256": "f35833dfa7e51748e605ca2d62aa21d26652e35ec9f7187667ea625b1f63f26d",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "audio/ui-spark.wav",
+      "bytes": 9304,
+      "sha256": "179b7e6fbeafeed0652125c315a50fbc7959f5ac3b7deed4ef92a3315c541e6f",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "backdrops/cathedral.webp",
+      "bytes": 19054,
+      "sha256": "f5353d01fc0fdada673684aacd56f3e2041a9fd489875c4d9b61f10b64b4c857",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "backdrops/midnight-mountain.webp",
+      "bytes": 3594,
+      "sha256": "92acb561e9208257b6cd0e8936c394378ea64e87f1fcf61172baf8af14527f87",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "backdrops/neon-city.webp",
+      "bytes": 22898,
+      "sha256": "d079ae4b977c65e9059f004ff312e3d2ad7fe513c0629a6540979640094a650f",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "backdrops/portal-chamber.webp",
+      "bytes": 44872,
+      "sha256": "39eec87e0c1ad77c15cb0acfd4c021bc45c122778576b7bdc1c9cae061b7b24b",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "backdrops/professor-workshop.webp",
+      "bytes": 12984,
+      "sha256": "5c35a32f16deda9906c450c0b91eab858bbd7454a6c7f470b3b673516edfe663",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "backdrops/starship-bay.webp",
+      "bytes": 47744,
+      "sha256": "c70322eaf14f46c0fa76d53a6dd7e98674d6d20ac0be2b9a56734748fd013df5",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "docs/README.md",
+      "bytes": 1501,
+      "sha256": "b0c84eb542e530096bc96263814b90d224ed767abeec523f3a478edcb7f514f7",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "docs/verifiedFreeAssetSources.json",
+      "bytes": 1707,
+      "sha256": "e99d23f760be363839e5cff250d95ed9b68c478d99800971e16f5403d64e5a6e",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/Main.gd",
+      "bytes": 711,
+      "sha256": "9f1f32970b81d78068c00403ba9dac189cdccc43397eb9d74d1e3b46df3e4cf0",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/Main.tscn",
+      "bytes": 160,
+      "sha256": "4a4b72f8d2618141352b46f47b38cfb2913e5b9e62ffb645766bb2609fb8f1ea",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/project.godot",
+      "bytes": 281,
+      "sha256": "8f84d8de0662868cc91a30ce882168b026da1e93b10f87e0c449dff698b81f37",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-00.png",
+      "bytes": 1182,
+      "sha256": "f3afc44529a9d6fe544616e64dde1645a7cddcd91817fad28be8891ab481208c",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-01.png",
+      "bytes": 1182,
+      "sha256": "e94e40ce6feedbf32422842f8bf84ac0c7498e7ea1cd2133cf9ec515faf87a03",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-02.png",
+      "bytes": 1161,
+      "sha256": "1633b6edacfe30cf98fb093cd48723adf7942ab3ff1c1caf78809a6d9130a3fe",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-03.png",
+      "bytes": 1182,
+      "sha256": "e94e40ce6feedbf32422842f8bf84ac0c7498e7ea1cd2133cf9ec515faf87a03",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-04.png",
+      "bytes": 1182,
+      "sha256": "f3afc44529a9d6fe544616e64dde1645a7cddcd91817fad28be8891ab481208c",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-05.png",
+      "bytes": 1303,
+      "sha256": "8557b8e58f7af1385ce5e1947df626fb97eda907aa4f4f512c9936e17edf065c",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-06.png",
+      "bytes": 1294,
+      "sha256": "84b90492764987a530d6276612178de09880025f1ed355ec6fdb62077aed8acb",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "godot/sprites/lum-pet-neon-07.png",
+      "bytes": 1303,
+      "sha256": "8557b8e58f7af1385ce5e1947df626fb97eda907aa4f4f512c9936e17edf065c",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "models/lum-orb-PROXY-not-canon.glb",
+      "bytes": 15328,
+      "sha256": "4ca22e3ce3ec2df35c9c933c9ac8decadf91d17baddbda03bee52dfbf670831b",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-00.png",
+      "bytes": 1177,
+      "sha256": "27ef7b0bf13b8ffa5d77e33a48b8eaa9be314194f94a6f30eb75f0bfaf7ea393",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-01.png",
+      "bytes": 1177,
+      "sha256": "1eb68da2a6dc8ebd931c91b707d5e3d1ee3ac1cdc7d16246052339b3fba7cc06",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-02.png",
+      "bytes": 1159,
+      "sha256": "73c9b5f81dce72d7cb61aefeef7f0b814dfe460194c88be3c98569dacce20ce2",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-03.png",
+      "bytes": 1177,
+      "sha256": "1eb68da2a6dc8ebd931c91b707d5e3d1ee3ac1cdc7d16246052339b3fba7cc06",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-04.png",
+      "bytes": 1177,
+      "sha256": "27ef7b0bf13b8ffa5d77e33a48b8eaa9be314194f94a6f30eb75f0bfaf7ea393",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-05.png",
+      "bytes": 1300,
+      "sha256": "59dca1d88415db0a183550aea5d757a48777d516cf8879f69fd0c78282042375",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-06.png",
+      "bytes": 1286,
+      "sha256": "757a44f34df8f0fa69dd8bd2e5ca4580f63230729cfdd7e57bfa67d2315096a5",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-07.png",
+      "bytes": 1300,
+      "sha256": "59dca1d88415db0a183550aea5d757a48777d516cf8879f69fd0c78282042375",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-ember-sheet.png",
+      "bytes": 4843,
+      "sha256": "1aa1e2c573a97c9c53ac531d25a65fa9b4b0b7095cedce1b79b4ed45c9c89d80",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-00.png",
+      "bytes": 1182,
+      "sha256": "f3afc44529a9d6fe544616e64dde1645a7cddcd91817fad28be8891ab481208c",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-01.png",
+      "bytes": 1182,
+      "sha256": "e94e40ce6feedbf32422842f8bf84ac0c7498e7ea1cd2133cf9ec515faf87a03",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-02.png",
+      "bytes": 1161,
+      "sha256": "1633b6edacfe30cf98fb093cd48723adf7942ab3ff1c1caf78809a6d9130a3fe",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-03.png",
+      "bytes": 1182,
+      "sha256": "e94e40ce6feedbf32422842f8bf84ac0c7498e7ea1cd2133cf9ec515faf87a03",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-04.png",
+      "bytes": 1182,
+      "sha256": "f3afc44529a9d6fe544616e64dde1645a7cddcd91817fad28be8891ab481208c",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-05.png",
+      "bytes": 1303,
+      "sha256": "8557b8e58f7af1385ce5e1947df626fb97eda907aa4f4f512c9936e17edf065c",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-06.png",
+      "bytes": 1294,
+      "sha256": "84b90492764987a530d6276612178de09880025f1ed355ec6fdb62077aed8acb",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-07.png",
+      "bytes": 1303,
+      "sha256": "8557b8e58f7af1385ce5e1947df626fb97eda907aa4f4f512c9936e17edf065c",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-neon-sheet.png",
+      "bytes": 4838,
+      "sha256": "eef1fcefb3f4d63aee795a3ee7cc9942870437238393106b3c11bb018ed4fbe6",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-00.png",
+      "bytes": 1168,
+      "sha256": "965b5ff0d1ce01b65f755da383f8fd6307e3a6c9de58a3161ea76803fcc44d33",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-01.png",
+      "bytes": 1168,
+      "sha256": "7d16bfa698301ce90dd54ec1cdcc4fabd4a6c5f28181951c52df32185fe86257",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-02.png",
+      "bytes": 1150,
+      "sha256": "c3d77ecc796fe7be2a9e17df32c52a77cb3dbbc6174c63b782a81965db3f67b9",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-03.png",
+      "bytes": 1168,
+      "sha256": "7d16bfa698301ce90dd54ec1cdcc4fabd4a6c5f28181951c52df32185fe86257",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-04.png",
+      "bytes": 1168,
+      "sha256": "965b5ff0d1ce01b65f755da383f8fd6307e3a6c9de58a3161ea76803fcc44d33",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-05.png",
+      "bytes": 1292,
+      "sha256": "33852e4b8db50afa8f92f5378eefbe0b0479652cf34e5e548f571d2730e11196",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-06.png",
+      "bytes": 1280,
+      "sha256": "a08fabef07aa15f5a7a4060127b87dfacac8daaf2546779b4ec260c5e787a453",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-07.png",
+      "bytes": 1292,
+      "sha256": "33852e4b8db50afa8f92f5378eefbe0b0479652cf34e5e548f571d2730e11196",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "sprites/lum-pet-sanctuary-sheet.png",
+      "bytes": 4829,
+      "sha256": "00fa73b2dcf1909a2dbc10aaa84e489876ea833f4ebd4147e459eac4bf66d1f7",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/button-01.svg",
+      "bytes": 328,
+      "sha256": "bfa6d3ea355923db62644a0a698585119fabeda644b852087db52042b3c31d30",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/button-02.svg",
+      "bytes": 328,
+      "sha256": "01a63083c8c785ef0940b559477c2234b31c597ba6c912c69b4cd973b91bed28",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/button-03.svg",
+      "bytes": 328,
+      "sha256": "78e599360a86c679018b9994c11f70c537d3ab53d9100febcd5509e1a68a81f6",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/button-04.svg",
+      "bytes": 328,
+      "sha256": "1a446828a4a19903960cd659bb95eaae9d862fb9926557292f601b49eb5bce9c",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/button-05.svg",
+      "bytes": 328,
+      "sha256": "4c7aafd1e22209520e6cb634f3ca9d438be2458b3d688bc480d1846f3e966f4b",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/button-06.svg",
+      "bytes": 328,
+      "sha256": "5f57b4f6bf1d0b7c87eeb176699aa62d3f968c0b395f411fb36b5c5b5f1b6d4c",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/button-07.svg",
+      "bytes": 328,
+      "sha256": "1e71963b81d389831b4ed080aef75230f35aefe67f36ff2a8090f544b5bdeb44",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/button-08.svg",
+      "bytes": 328,
+      "sha256": "0d8d9fccaaa85e25d580b5039a7398db37cf7e56db2a5f1f69b5a71fa5d8d608",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/cockpit-panel-01.svg",
+      "bytes": 518,
+      "sha256": "725aff5f6c6d9ae863b959e57e85ab2e8ce9c6549153ced04774e89755a3a226",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/cockpit-panel-02.svg",
+      "bytes": 518,
+      "sha256": "3f5e2046da26050521b1c332a064d53347e95d7dc8f63ec2d132bbdcf2cf4e5c",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/cockpit-panel-03.svg",
+      "bytes": 518,
+      "sha256": "75659d642c53145807d60d94b7f47688132e57d1d2b123ea121dee2b07885ef0",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/cockpit-panel-04.svg",
+      "bytes": 518,
+      "sha256": "eae7108ee3e7daec44e129baaa377077ff72317ef97dce05cdefb66ea5646f9e",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/cockpit-panel-05.svg",
+      "bytes": 518,
+      "sha256": "0e4e0e44fafcccfa4eeaf0be95e40cc489ce26b3cc9eac2f9be29a6f72e6710f",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/cockpit-panel-06.svg",
+      "bytes": 518,
+      "sha256": "4fbaaed74f97d46e698fdd0547d3f817b5d7f370fe66fcf43696c7383aac6c61",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/cockpit-panel-07.svg",
+      "bytes": 518,
+      "sha256": "9ee09ce97dfe7bbdeba34ae0ad6640d2673271aea6bfb503eee3585babf9a93f",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/frames/cockpit-panel-08.svg",
+      "bytes": 518,
+      "sha256": "6316b57a69b077e605f94e64da2a1a98420e1b2d169ab44b71bb26641ab1c1c8",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/approve-check.svg",
+      "bytes": 294,
+      "sha256": "2a9106592d812df0809cef147620f4b3b5d735b0d600372e69d33799fb076875",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/asset-sparkle.svg",
+      "bytes": 293,
+      "sha256": "be3e651339f575278ea42b933a9fbc0591a92f23f51d6111d07147bf0472fd9d",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/audio-wave.svg",
+      "bytes": 308,
+      "sha256": "b3458dd8539809fb85005dff53433b72fff89d7ea50f39c68f15b61f74cc74f0",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/belldandy-book.svg",
+      "bytes": 338,
+      "sha256": "658a0790a32e9fbb1be2e97a5651b0602d717b6b387806a9c6210154a54c9a55",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/big-daddy-crown.svg",
+      "bytes": 314,
+      "sha256": "0b2b2e8c25c815ed80e741b52370989b844b9d4ac9b6b53c5b96395f68c79dc4",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/blender-cube.svg",
+      "bytes": 307,
+      "sha256": "f0d3c991eaebc87e9fdad57e057b2e41f212a47c7e4a39b35532ca80824ff515",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/brush.svg",
+      "bytes": 298,
+      "sha256": "f1f82fcda250cf17631d9d08ba2f1b07186b1d44504a3914d29de47d669421c6",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/camera.svg",
+      "bytes": 345,
+      "sha256": "14566f63a29616c5d3f2702b2a71032ff7d478dc6ca90d6916e0030187502d4f",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/film-clapper.svg",
+      "bytes": 330,
+      "sha256": "8ff3ff1982ac71657c3098343f1032316453cf72164ca4f87c5b99e1ce096473",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/godot-gamepad.svg",
+      "bytes": 334,
+      "sha256": "90d6ffc490c3a45db97e4e7fecb73847735e7bcc96be311aad346e987eb40ca3",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/lock.svg",
+      "bytes": 348,
+      "sha256": "8d83f09f944be05f93ab0f6e14245e1c5d6016cb9ce4cc9d3d35d301cdf9aae6",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/lum-heart.svg",
+      "bytes": 292,
+      "sha256": "c589d2fe155fdb2c01df428e49dc9261ec29ef3f9d2384e6ee810d0b7915eb9e",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/pet-orb.svg",
+      "bytes": 327,
+      "sha256": "2d9c02ad7768b87394609520b8555bd931c6dcdd4fa417cd384e3343a2f1cda1",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/professor-flask.svg",
+      "bytes": 295,
+      "sha256": "d7b6153214f6ee86aadd5e9059e253695003480d3ae41f65593784b296ef9c1f",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/skuld-gear.svg",
+      "bytes": 376,
+      "sha256": "91746cda56b4c4306a5cdbc8d4004ca31bb4bfc5d6a6e2cb9af35d682910b579",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/upload.svg",
+      "bytes": 283,
+      "sha256": "05ef91a68a13644fea8f401e21a3ad20e4a3de38cf46e24095d36e9f54be3c12",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/urd-shield.svg",
+      "bytes": 318,
+      "sha256": "cc74985b78df6678a5d0859fb0da982d9e11bf8febd4b2379ca70345e81fb583",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "ui/icons/yume-star.svg",
+      "bytes": 306,
+      "sha256": "0c8ca25159aa04ccffe52931792d60eeba4e8bc2b46e1ba6040b8cef6108dbbe",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/heart-f0.png",
+      "bytes": 2813,
+      "sha256": "5485efc9bde1abd1c26d654846b338e37a5091566add6e0b9a964d41b08e579a",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/heart-f1.png",
+      "bytes": 2797,
+      "sha256": "0f0540a8de137433382dfda03a586ea4a3b9677112308bf68b5f6c7e70851b97",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/heart-f2.png",
+      "bytes": 2837,
+      "sha256": "bdba5314060aed08730b08088a299afb35ce9ee4586f0f4712f8932cc8d86124",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/heart-f3.png",
+      "bytes": 2806,
+      "sha256": "392d0a33e3ea3b0557b533044f07360835ae5183dc96389f012b527951e0bdda",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/orb-f0.png",
+      "bytes": 2618,
+      "sha256": "0877d6f0762fb894521b69bb4ffed06a3d102a63a14154bb4020929d052dd1b3",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/orb-f1.png",
+      "bytes": 2621,
+      "sha256": "374b6996a4fdf38bfa561819dac2a181eef49198bf1568ac5e4667e68701f72b",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/orb-f2.png",
+      "bytes": 2618,
+      "sha256": "0877d6f0762fb894521b69bb4ffed06a3d102a63a14154bb4020929d052dd1b3",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/orb-f3.png",
+      "bytes": 2621,
+      "sha256": "374b6996a4fdf38bfa561819dac2a181eef49198bf1568ac5e4667e68701f72b",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/spark-f0.png",
+      "bytes": 3185,
+      "sha256": "951515a53ad043cfe4a645393bd26e8513d1ea89f014e886c45d258c18b6d470",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/spark-f1.png",
+      "bytes": 3187,
+      "sha256": "b353dc02ef546b2504af05bfa58d4dbbb82917454a4f4a77033aa78babb67218",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/spark-f2.png",
+      "bytes": 3185,
+      "sha256": "951515a53ad043cfe4a645393bd26e8513d1ea89f014e886c45d258c18b6d470",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/spark-f3.png",
+      "bytes": 3187,
+      "sha256": "b353dc02ef546b2504af05bfa58d4dbbb82917454a4f4a77033aa78babb67218",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/star-f0.png",
+      "bytes": 3250,
+      "sha256": "bbe920b08a9dd031d6cc7cf168194643e731abcd67f5cf9456d2969d65e6ca41",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/star-f1.png",
+      "bytes": 3250,
+      "sha256": "c239a58e954924571ac5481a97356be52e0744ea1e564b1b974b82068a27a022",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/star-f2.png",
+      "bytes": 3250,
+      "sha256": "bbe920b08a9dd031d6cc7cf168194643e731abcd67f5cf9456d2969d65e6ca41",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/star-f3.png",
+      "bytes": 3250,
+      "sha256": "c239a58e954924571ac5481a97356be52e0744ea1e564b1b974b82068a27a022",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    },
+    {
+      "path": "web/index.html",
+      "bytes": 3962,
+      "sha256": "7a0afe98c35fc3bb3517c5dc3dee8fa134814c74a68471d8889f931a8b7fb3a3",
+      "status": "originalDraftCandidate",
+      "licenseReview": "projectGenerated",
+      "publicApproved": false
+    }
+  ],
+  "categories": {
+    "ui": 34,
+    "backdrops": 6,
+    "vfx": 16,
+    "sprites": 27,
+    "audio": 12,
+    "models": 1,
+    "godot": 11,
+    "docs": 2,
+    "web": 1
+  },
+  "rights": "no third-party binaries included",
+  "canonStatus": "NOT_FINAL_CANON",
+  "runtimeProof": "NOT_TESTED",
+  "autonomousAgents": "NOT_EXECUTED"
+}
