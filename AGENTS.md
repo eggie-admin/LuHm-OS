@@ -1,5 +1,9 @@
 # LuHm OS Agent Bootstrap
 
+## Public cast and release routing
+
+The proposed public routing/profile contract is `doctrine/soloStudioCastReleaseV1.json`, audited by `tools/castReleaseAudit.py`. Treat Lum, Urd, Belldandy, Skuld and Yume as *responsibility labels*, never separate executing workers without proof. Company-wide quarantine remains in effect; this public tester is a static, read-only explanation, not an agent runtime. Preserve 15 canonical roster entries and single-Lum orchestration, with an explicit evidence/rollback record for actual mutations.
+
 ## Solo-studio default for routine tasks
 
 Read `doctrine/soloStudioOperatingProfileV1.json` for the proposed independent artist and small-business workflow. Prefer direct GitHub connector operations in the current chat, not Codex. For ordinary private/reversible creative work, use a small targeted review and smoke test rather than activating the full role roster or enterprise-style release process. This does not lift quarantine, rights restrictions, protected changes, or publication gates. The named cast is a logical role map unless actual running workers are independently evidenced.
