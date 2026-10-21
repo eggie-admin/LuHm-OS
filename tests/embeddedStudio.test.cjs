@@ -17,6 +17,16 @@ async function main() {
   assert.match(studio.musicTarget("https://www.youtube.com/playlist?list=PL1234567890").embed,/videoseries/);
   assert.equal(studio.category("sisters.rar"),"archivesPendingInspection");
   assert.equal(studio.category("scene.GLB"),"models");
+  // Four scenery planes + one interactive glass layer, all scroll vertically.
+  assert.deepEqual(studio.depthOffsets(1000),{rear:"-100px",middle:"-220px",front:"-380px"});
+  assert.deepEqual(studio.depthOffsets(1000,true),{rear:"0px",middle:"0px",front:"0px"});
+  assert.deepEqual(studio.depthOffsets(-100),{rear:"0px",middle:"0px",front:"0px"});
+  assert.equal(studio.embedTarget({location:{hostname:"example.invalid",origin:"https://example.invalid"}}),
+    "https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html");
+  assert.equal(contract.visualDepthStack.decorativePlanes,4);
+  assert.deepEqual(contract.visualDepthStack.orderedCompositing.map(row=>row.id),
+    ["embeddedBackdrop","rearParallax","middleParallax","glassGui","frontParallax"]);
+
   assert.equal(studio.validContract(contract),true);
   assert.equal(studio.validContract({...contract,lane:"production"}),false);
   assert.equal(studio.validContract({...contract,quarantine:{activeTaskWorkersAllowed:true}}),false);
@@ -35,10 +45,30 @@ async function main() {
       await page.goto("http://localhost:8788/harness/");
       await page.locator("#agentLoadingScreen").waitFor({state:"hidden"});
       assert.equal(await page.locator("#luhmStudioDeck").count(),1);
+    await page.evaluate(()=>scrollTo(0,400));
+    await page.waitForFunction(()=>document.getElementById("luhmStudioDeck").style.getPropertyValue("--studioMiddleY")==="-88px");
+    assert.equal(await page.locator('#studioBackdropFrame').getAttribute('src'),null,"ChatGPT frame must not fetch scene automatically");
+
       assert.equal(await page.locator(".scenery > div").count(),4);
+      assert.equal(await page.locator("#studioBackdropFrame").isHidden(),true,"Background iframe must be lazy and inert");
+      assert.equal(await page.locator("#studioBackdropFrame").getAttribute("src"),null,"No remote scene before user action");
+      assert.equal(await page.evaluate(()=>typeof jQuery.fn.luhmStudioParallax),"function","Standalone jQuery plugin wired");
+      assert.equal(await page.locator('[data-studio-depth="frontParallax"]').evaluate(el=>getComputedStyle(el).pointerEvents),"none");
+      assert.equal(await page.locator('[data-studio-depth="embeddedBackdrop"]').evaluate(el=>getComputedStyle(el).position),"fixed");
+
       assert.equal(await page.locator("#studioMusicStage iframe").count(),0);
       assert.equal(external.length,0,"No external player request before click");
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),"No horizontal overflow at "+width);
+
+      await page.evaluate(()=>scrollTo(0,450));
+      await page.waitForTimeout(75);
+      assert.equal(await page.locator("#luhmStudioDeck").evaluate(el=>el.style.getPropertyValue("--studioRearY")),"0px","Reduced motion has no parallax");
+      await page.locator("#studioBackdropLoad").click();
+      assert.equal(await page.locator("#studioBackdropFrame").isHidden(),false);
+      assert.match(await page.locator("#studioBackdropFrame").getAttribute("src"),/\/harness\/godot-export\/index\.html$/);
+      await page.locator("#studioBackdropStop").click();
+      assert.equal(await page.locator("#studioBackdropFrame").isHidden(),true);
+      assert.equal(await page.locator("#studioBackdropFrame").getAttribute("src"),null);
       await page.locator("#studioMusicUrl").fill("https://evil.example/x");
       await page.locator("#studioMusicLoad").click();
       assert.equal(await page.locator("#studioMusicStage iframe").count(),0);
