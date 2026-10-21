@@ -40,6 +40,7 @@ jobs:
           test "$SOURCE_REF" == "$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq '.commit.sha')"
           python3 tools/samsung-lite-beta.py
           python3 tests/test-samsung-lite-beta.py
+          python3 tests/testSignedBetaWorkflow.py
       - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
         with:
           distribution: temurin
@@ -53,6 +54,19 @@ jobs:
           yes | "$SDKMANAGER" --licenses >/dev/null || true
           "$SDKMANAGER" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
 
+      - name: Configure Godot Android SDK paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d "$ANDROID_HOME"
+          test -d "$JAVA_HOME"
+          mkdir -p "$HOME/.config/godot"
+          cat > "$HOME/.config/godot/editor_settings-4.tres" <<SETTINGS
+          [gd_resource type="EditorSettings" format=3]
+          [resource]
+          export/android/android_sdk_path = "$ANDROID_HOME"
+          export/android/java_sdk_path = "$JAVA_HOME"
+          SETTINGS
       - name: Build Android Web3 cockpit plugin from exact CAST source
         shell: bash
         run: |
@@ -213,18 +227,18 @@ jobs:
           BT="$ANDROID_HOME/build-tools/36.1.0"
           VERSION="$(python3 -c 'import json;print(json.load(open("build/signed-beta/receipt.json"))["versionCode"])')"
           APK_SHA="$(sha256sum "$APK" | cut -d' ' -f1)"
-          python3 tools/stageFdroidTabletBeta.py \\
-            --apk "$APK" \\
-            --receipt build/signed-beta/receipt.json \\
-            --expected-source "$SOURCE_REF" \\
-            --expected-signer "$TRUSTED_SIGNER" \\
-            --aapt "$BT/aapt" \\
+          python3 tools/stageFdroidTabletBeta.py \
+            --apk "$APK" \
+            --receipt build/signed-beta/receipt.json \
+            --expected-source "$SOURCE_REF" \
+            --expected-signer "$TRUSTED_SIGNER" \
+            --aapt "$BT/aapt" \
             --apksigner "$BT/apksigner"
-          python3 tools/prepareFdroidRepoCandidate.py \\
-            --stage build/fdroid-beta-stage \\
-            --expected-source "$SOURCE_REF" \\
-            --expected-signer "$TRUSTED_SIGNER" \\
-            --expected-version "$VERSION" \\
+          python3 tools/prepareFdroidRepoCandidate.py \
+            --stage build/fdroid-beta-stage \
+            --expected-source "$SOURCE_REF" \
+            --expected-signer "$TRUSTED_SIGNER" \
+            --expected-version "$VERSION" \
             --expected-apk-sha256 "$APK_SHA"
           echo 'FDROID_OFFLINE_CANDIDATE_READY_NOT_SIGNED_NOT_PUBLISHED'
       - name: Upload private signed beta candidate
