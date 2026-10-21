@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'tools/samsung-lite-beta.py'
+      - 'tools/provisionOwnerBetaSigner.sh'
       - 'tools/samsung-lite-signed-beta-audit.py'
       - 'tools/fdroidTabletSourceAudit.py'
       - 'tools/stageFdroidTabletBeta.py'
@@ -34,6 +35,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          bash -n tools/provisionOwnerBetaSigner.sh
           python3 tests/test-samsung-lite-beta.py
           python3 tools/samsung-lite-signed-beta-audit.py
           python3 tools/fdroidTabletSourceAudit.py
