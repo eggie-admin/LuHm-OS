@@ -103,7 +103,7 @@ def _inspect_godot_bundle(root: Path) -> dict[str, Any]:
             if match is None:
                 return unavailable
             digest, name = match.groups()
-            if name in names:
+            if name in names or name.endswith((".glb", ".gltf", ".rar", ".zip", ".7z")):
                 return unavailable
             names.add(name)
             asset = root / name
