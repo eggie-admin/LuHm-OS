@@ -2,7 +2,7 @@
   "schema": "luhmOs.studioCompatibilityFastMesh.v1",
   "status": "CANDIDATE_NOT_DEPLOYED",
   "authority": "Professor",
-  "purpose": "Two ChatGPT/GitHub compatibility layers for Pirate Daddies Film R&D, with Google AI workhorse, Hugging Face specialist, and free Render runtime sidecar.",
+  "purpose": "OpenAI/ChatGPT first compatibility layer; GitHub second compatibility layer and canonical source. Vertex is not an active capability route.",
   "studio": {
     "displayName": "Pirate Daddies Film",
     "legalBusinessStatus": "UNVERIFIED",
@@ -26,7 +26,8 @@
       "organizationAndProjectsReachable": true,
       "billingTierVerified": false,
       "developerPerksVerified": false,
-      "billableExecutionAllowed": false
+      "billableExecutionAllowed": false,
+      "priority": 1
     },
     "github": {
       "role": "primaryResearchAndDevelopmentStudio",
@@ -40,7 +41,8 @@
         "ciEvidence"
       ],
       "ownsRuntime": false,
-      "browserChatDoesNotSupersedeGitHub": true
+      "browserChatDoesNotSupersedeGitHub": true,
+      "priority": 2
     }
   },
   "workhorse": {
@@ -57,7 +59,10 @@
       "entitlement": "UNKNOWN_ACCOUNT_BOUND_RECEIPT_REQUIRED",
       "permittedBillableCalls": false,
       "outputAuthority": "candidateEvidenceOnly",
-      "routesThrough": "lum"
+      "routesThrough": "lum",
+      "activeCompatibilityLayer": false,
+      "enabledForArtWorkflow": false,
+      "status": "HISTORICAL_OPTIONAL_ADAPTER_NOT_SELECTED"
     }
   },
   "sidecars": {
@@ -120,11 +125,13 @@
     "routeTargets": {
       "direct": "chatGptOpenAi",
       "repository": "github",
-      "broadResearch": "googleAi",
+      "broadResearch": "chatGptOpenAi",
       "modelOrDataset": "huggingFace",
       "runtimePreview": "render"
     },
-    "neverInferExecutionFromRoute": true
+    "neverInferExecutionFromRoute": true,
+    "defaultProviderCandidate": "chatGptOpenAi",
+    "googleAiAutoFallback": false
   },
   "releaseBoundary": {
     "companyOperationalQuarantineState": "QUARANTINED",
@@ -135,12 +142,38 @@
     "publish": false,
     "spend": false,
     "sign": false,
-    "professorApprovalRequiredForPromotion": true
+    "professorApprovalRequiredForPromotion": true,
+    "noImplicitGoogleOrVertexExecution": true
   },
   "binding": {
     "sourceTruth": "doctrine/currentSourceTruthV3.json",
     "providerEconomy": "doctrine/providerEconomyV1.json",
     "apiSpine": "doctrine/apiSpineV1.json",
     "githubMesh": "doctrine/chatGptPluginWorkflowStreamV1.json"
+  },
+  "compatibilityPriority": [
+    {
+      "priority": 1,
+      "id": "chatGptOpenAi",
+      "responsibility": "ProfessorAndGoddessInteractiveHarness"
+    },
+    {
+      "priority": 2,
+      "id": "github",
+      "responsibility": "CanonicalSourceCIAndGitHistory"
+    }
+  ],
+  "providerExclusions": {
+    "vertexAi": {
+      "status": "DISABLED_LEGACY_ARCHIVAL_ONLY",
+      "networkSubmission": false,
+      "networkPolling": false,
+      "billableCalls": false,
+      "automaticFallback": false
+    },
+    "googleAi": {
+      "defaultResearchRoute": false,
+      "automaticProviderSelection": false
+    }
   }
 }
