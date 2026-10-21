@@ -35,7 +35,7 @@ on:
         description: "Publish exact built APK + SHA256 as a GitHub prerelease"
         required: true
         type: boolean
-        default: true
+        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ inputs.milestoneId }}-${{ inputs.sourceRef }}
@@ -335,7 +335,9 @@ jobs:
 
 
   publish-prerelease:
-    if: ${{ inputs.publishPrerelease && inputs.milestoneId != 'androidProposedDebug' }}
+    # FAIL CLOSED: disposable CI debug signing cannot be published as an upgrade-safe beta.
+    # Enable only after adding a separate durable signing + release provenance lane.
+    if: ${{ false }}
     needs: android-testing
     runs-on: ubuntu-24.04
     timeout-minutes: 10
