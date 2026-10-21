@@ -53,3 +53,31 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .titanAccordion .ui-accordion-content{border:1px solid var(--line);border-top:0;border-radius:0 0 9px 9px;padding:12px;background:#0a0d13;color:var(--muted);font-size:12px;line-height:1.55}
 .titanAccordion p{margin:0 0 7px}.titanAccordion strong{color:var(--ink)}.titanHold{margin:12px 0 0}
 @media(max-width:520px){.titanDeck{margin:0 8px 8px;padding:12px}}
+
+/* LuHm desktop hardening: generous editor canvas, keyboard clarity and low-motion safety. */
+:where(button, input, select, a, [tabindex]):focus-visible{
+  outline:3px solid var(--cyan);outline-offset:3px;
+}
+#deskStatus{margin:10px 0;line-height:1.55;overflow-wrap:anywhere}
+.dropZone:focus-within{outline:3px solid var(--cyan);outline-offset:3px}
+.dropZone input[type=file]{max-width:100%;color:var(--ink)}
+.treeItem,.treeToggle,.thumb{min-height:36px}
+#assetTree{max-height:60vh;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+.previewStage img,.previewStage video{object-fit:contain}
+@media(min-width:1350px){
+  .shell{max-width:min(96vw,1760px)}
+  .desk{grid-template-columns:minmax(270px,340px) minmax(0,1fr)}
+  .mainDesk{grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr)}
+  .previewStage,.previewStage img,.previewStage video,.previewStage iframe,
+  .godotStage,.godotStage iframe{height:clamp(370px,55vh,720px)}
+}
+@media(hover:none){.toolbar button,.ghostButton,.treeToggle,.treeItem,.thumb{min-height:44px}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:0.01ms!important;
+    animation-iteration-count:1!important;transition-duration:0.01ms!important}
+  .pixelPet,.topbar{will-change:auto}
+}
+@media(prefers-contrast:more){
+  :root{--muted:#c0cee0;--line:#79859c}
+  .dropZone{border-style:solid}
+}
