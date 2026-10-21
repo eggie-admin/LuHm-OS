@@ -49,6 +49,17 @@ body.reduced #mascot,body.reduced .heart{animation:none!important}
 <h2>🎭 The cast</h2><div class="pills"><span class="pill">Lum · Coordinator</span><span class="pill">Yume · Art</span><span class="pill">Skuld · Engineering</span><span class="pill">Urd · Evidence</span><span class="pill">Belldandy · Continuity</span></div>
 <p class="small">Their roles are a source-defined workflow, not proof of independently running workers.</p></div>
 <div class="source"><strong>What's behind the toy?</strong><p class="small">The associated Pocket Art Studio kit contains 110 original files including animated sprite frames, backgrounds, UI SVGs, simple audio, an unapproved GLB proxy, and a Godot 4 scene. The private ChatGPT plugin has the asset catalog, but its installation is separate from this public page.</p><a href="https://kenney.nl/assets/ui-pack">Browse CC0 interface assets from Kenney ↗</a></div></section></div>
+<section class="card" id="live3D" aria-label="Godot 4 playable 3D preview" style="margin:22px 0">
+<div class="cardcontent"><p class="eyebrow">Optional · Godot 4 WebGL</p><h2>🎮 Launch First Night in 3D</h2>
+<p class="small">This loads the actual Godot Web export from the existing LuHm OS harness when you choose Play. It uses the public procedural Lum fallback, not private Rebel models. Internet is required for this optional embedded viewer.</p>
+<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:12px 0">
+<button id="launch3d" type="button">▶ Play the 3D world</button>
+<a href="https://luhm-os-harness-green.onrender.com/harness/godot-export/index.html" target="_blank" rel="noopener noreferrer">Open 3D in a new tab ↗</a></div>
+<p class="small" id="launch3dstatus" role="status">3D is idle. No network request is made until you press Play.</p>
+<iframe id="live3dframe" title="Playable LuHm OS Godot 4 First Night world" hidden loading="lazy"
+ referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-pointer-lock" allow="fullscreen;gamepad" allowfullscreen
+ style="width:100%;height:min(70vh,600px);min-height:320px;border:1px solid #4b3b77;border-radius:12px;background:#09070d"></iframe>
+<p class="small">Hosted Web export availability is separate from a ChatGPT in-chat mount or an installed Samsung APK.</p></div></section>
 <p class="callout"><strong>Release honesty:</strong> This is a working client-side interaction demo. It does not execute model inference, authenticate users, operate cloud workers, expose the private Rebel Drive archive, or demonstrate a finished Godot/Blender rig.</p>
 </main><footer><p>LuHm-OS · Independent studio prototype. <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/support.html">Support</a>. No OpenAI program approval or endorsement claimed.</p></footer>
 <script>(()=>{"use strict";
@@ -63,5 +74,12 @@ $("blink").addEventListener("click",()=>{blink();speak("A tiny wink from Lum.");
 $("bond").addEventListener("click",()=>{bondCount++;speak("Bond level "+bondCount+": Lum sends a heart back! ♥");tone(660);const e=document.createElement("span");e.className="heart";e.textContent="♥";e.style.left=(25+Math.random()*50)+"%";e.style.top=(26+Math.random()*50)+"%";$("bondHearts").append(e);setTimeout(()=>e.remove(),1350)});
 $("cast").addEventListener("click",()=>{tone(880);speak("Sparkle spell! Just a visual effect, no model or API calls.");$("aura").style.opacity=".8";setTimeout(()=>$("aura").style.opacity=".25",450)});
 $("pause").addEventListener("click",e=>{const v=document.body.classList.toggle("reduced");e.currentTarget.setAttribute("aria-pressed",String(v));e.currentTarget.textContent=v?"▶ Resume motion":"Ⅱ Pause motion"});
+$("launch3d").addEventListener("click",()=>{
+  const player=$("live3dframe");
+  if(!player.src) player.src="https://luhm-os-harness-green.onrender.com/harness/godot-export/index.html";
+  player.hidden=false;
+  $("launch3dstatus").textContent="3D player requested. If WebGL is unavailable, open it in a new tab.";
+  $("launch3d").disabled=true;
+});
 })();</script>
 </body></html>
