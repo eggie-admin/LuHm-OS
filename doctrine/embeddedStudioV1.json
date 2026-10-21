@@ -105,5 +105,74 @@
     "exactSourceTestsAndReview",
     "humanProductionPromotion"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "visualDepthStack": {
+    "schema": "luhmOs.glassVerticalParallax.v1",
+    "status": "PROPOSED_SOURCE_CANDIDATE",
+    "viewport": "fullScreen",
+    "scrollDirection": "vertical",
+    "orderedCompositing": [
+      {
+        "depth": 0,
+        "id": "embeddedBackdrop",
+        "selector": ".studioDeck .scenerySky",
+        "mode": "fixedFullViewportStaticFallback",
+        "iframe": "studioBackdropFrame",
+        "userInitiatedLoad": true
+      },
+      {
+        "depth": 1,
+        "id": "rearParallax",
+        "selector": ".studioDeck .sceneryClouds",
+        "scrollRate": 0.1
+      },
+      {
+        "depth": 2,
+        "id": "middleParallax",
+        "selector": ".studioDeck .sceneryMountains",
+        "scrollRate": 0.22
+      },
+      {
+        "depth": 3,
+        "id": "glassGui",
+        "selector": ".studioDeck .studioLevel",
+        "interaction": "realMusicAndAssetWorkspaces"
+      },
+      {
+        "depth": 4,
+        "id": "frontParallax",
+        "selector": ".studioDeck .sceneryTrees",
+        "scrollRate": 0.38,
+        "pointerEvents": "none"
+      }
+    ],
+    "decorativePlanes": 4,
+    "interactivePlanes": 1,
+    "scrollDriver": "requestAnimationFramePassiveScroll",
+    "controlAdapter": "jQueryPluginWhenBundledNativeFallbackInMcpApp",
+    "cssGlass": "backdropFilterWithOpaqueFallback",
+    "embeds": {
+      "approvedGodotUrl": "https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html",
+      "untrustedUrlAccepted": false,
+      "autoLoad": false,
+      "sandbox": "allow-scripts allow-pointer-lock",
+      "userClickToActivate": true,
+      "gameplayProof": "UNVERIFIED"
+    },
+    "guards": {
+      "reducedMotionRespected": true,
+      "foregroundPointerEvents": "none",
+      "keyboardAndScrollingUnblocked": true,
+      "noServerWrites": true,
+      "noCloudflareChanges": true,
+      "noPrivateMediaExposure": true,
+      "productionPromotion": false
+    },
+    "compatibility": {
+      "sharedWidgetAndStandaloneFiles": true,
+      "originalAssetRegisterAndMusicUnchanged": true,
+      "depthCompositionNotArchitectureTier": true,
+      "laneNotPromoted": true
+    }
+  }
 }
