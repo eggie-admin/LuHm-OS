@@ -40,8 +40,20 @@ require(android.get("cockpitContract") == "doctrine/androidWeb3CockpitV2.json",
         "current source truth cockpit contract drift")
 require(android.get("releaseBoundary") == "doctrine/releaseBoundaryV2.json",
         "current source truth release boundary drift")
-require(cockpit.get("delivery") == "githubPrereleaseToRootedTermux",
-        "cockpit delivery must be GitHub prerelease -> rooted Termux")
+require(cockpit.get("delivery") == "laneSpecificSeeSamsungTabletInstallContract",
+        "cockpit must resolve delivery by explicit lane")
+require(cockpit.get("legacyTermuxDelivery") == "githubPrereleaseToRootedTermux",
+        "historical rooted Termux route must remain preserved")
+require(cockpit.get("tabletInstallContract") == "doctrine/samsungTabletInstallV1.json" and
+        android.get("tabletInstallContract") == cockpit.get("tabletInstallContract"),
+        "tablet install contract pointers must agree")
+tabletInstall = load_json("doctrine/samsungTabletInstallV1.json")
+require(tabletInstall.get("schema") == "luhmOs.samsungTabletInstall.v1" and
+        tabletInstall.get("crownStatus") == "STOP" and tabletInstall.get("promotion") is False,
+        "tablet delivery must retain versioned candidate authority")
+require(tabletInstall.get("legacyTermux", {}).get("contract") ==
+        "doctrine/rootedTermuxGitHubReleaseInstallV1.json",
+        "tablet contract must preserve historical installer identity")
 require(cockpit.get("releaseInstallContract") == "doctrine/rootedTermuxGitHubReleaseInstallV1.json",
         "cockpit rooted install contract missing")
 require(cockpit.get("rootedTermuxInstaller") == "tools/termuxVirginInstall.sh",
