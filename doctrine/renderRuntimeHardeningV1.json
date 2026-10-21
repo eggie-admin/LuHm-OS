@@ -1,0 +1,81 @@
+{
+  "schema": "luhmOs.renderRuntimeHardening.v1",
+  "status": "CANDIDATE_NOT_APPLIED",
+  "asOf": "2026-10-21",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "observed": {
+    "workspace": "tea-daspq0h7lnhs73a91tcg",
+    "production": {
+      "serviceId": "srv-daubsi1srm7s73bl5lh0",
+      "branch": "main",
+      "autoDeploy": "off",
+      "healthCheckPath": "",
+      "liveDeployId": "dep-dbcg8ujrjlhs73bc37a0",
+      "liveSha": "a5ca2ad5b7573a5279a2967e19e1a1b3d90e1383"
+    },
+    "godot": {
+      "serviceId": "srv-dauc8lnavr4c738kfd0g",
+      "autoDeploy": "off",
+      "healthCheckPath": ""
+    },
+    "yumeAutoBeta": {
+      "serviceId": "srv-db006bqd0e5s739jrm00",
+      "autoDeploy": "commit",
+      "healthCheckPath": ""
+    },
+    "candidate": {
+      "serviceId": "srv-db0nh5e0tbcc738kmapg",
+      "autoDeploy": "off",
+      "healthCheckPath": ""
+    },
+    "note": "Read-only Render API service/deploy/event receipts; runtime HTTP behavior and env secrets not inspected."
+  },
+  "desired": {
+    "production": {
+      "autoDeploy": "off",
+      "healthCheckPath": "/healthz",
+      "release": "manualExactShaAndRollback",
+      "mcp": "/mcp direct managed HTTPS, no Cloudflare proxy",
+      "publicWrites": "denyByApplicationCapability"
+    },
+    "godot": {
+      "autoDeploy": "off",
+      "healthCheckPath": "/healthz",
+      "webExport": "optIn, same-origin policy and CSP reviewed"
+    },
+    "yumeAutoBeta": {
+      "autoDeploy": "off",
+      "reason": "Avoid unreviewed branch pushes bypassing quarantine and source approval"
+    },
+    "allServices": {
+      "productionSecrets": "Render environment only, least privilege",
+      "noTokensInBuildLogs": true,
+      "noUnexpectedPreviewDeployment": true,
+      "requestSizeLimit": true,
+      "explicitHostValidation": true,
+      "readOnlyMcpAnonymousOnly": true,
+      "noPrivateAssetPublication": true,
+      "doNotCreateDuplicateBlueprintServices": true
+    }
+  },
+  "gates": [
+    "Confirm /healthz actually responds 200 from each intended service before configuring Render HTTP health check",
+    "Audit public MCP initialize/tools/list and error-path behavior, including streaming and JSON response",
+    "Confirm current source SHA and rollback deployment per service",
+    "Review CORS, Origin/Host, forwarded headers, CSP, iframe and MIME types",
+    "Check HTTP logs for 5xx, startup restarts, memory exhaustion and latency without printing secrets",
+    "Audit Yume autobeta autoDeploy and turn off only after owner-approved change window",
+    "Keep SQL private and Cloudflare direct Render MCP lane unchanged",
+    "Run exact-head CI and smoke tests for Godot, Android, Vue and Live2D candidates"
+  ],
+  "mutation": {
+    "serviceSettingsChanged": false,
+    "envChanged": false,
+    "deployed": false,
+    "sqlChanged": false,
+    "cloudflareChanged": false,
+    "agentsActivated": false
+  },
+  "crownStatus": "STOP"
+}
