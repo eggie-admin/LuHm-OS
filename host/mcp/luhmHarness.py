@@ -11,10 +11,13 @@ It does not grant merge, release, signing, publication, or source-truth authorit
 """
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import mimetypes
 import os
+import re
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Callable
 
@@ -52,7 +55,7 @@ def _headers(*, html: bool = False, production: bool = False, godot_embed: bool 
         script_policy = "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; " if godot_embed else "script-src 'self'; "
         style_policy = "style-src 'self' 'unsafe-inline'; " if godot_embed else "style-src 'self'; "
         ancestors = (
-            "frame-ancestors 'self' https://*.web-sandbox.oaiusercontent.com"
+            "frame-ancestors 'self' https://*.web-sandbox.oaiusercontent.com https://luhm-os-publication-site.onrender.com"
             if godot_embed else "frame-ancestors 'self'"
         )
         headers["Content-Security-Policy"] = (
@@ -82,6 +85,39 @@ def _safe_file(root: Path, relative: str) -> Path | None:
         return None
     return candidate
 
+
+@lru_cache(maxsize=4)
+def _inspect_godot_bundle(root: Path) -> dict[str, Any]:
+    """Verify local Godot HTML, WASM and PCK bytes against build SHA256SUMS."""
+    unavailable = {"ready": False, "fileCount": 0, "wasmCount": 0, "pckCount": 0, "integrity": "UNVERIFIED"}
+    manifest = root / "SHA256SUMS.txt"
+    if not manifest.is_file():
+        return unavailable
+    try:
+        lines = manifest.read_text(encoding="utf-8").splitlines()
+        if not lines or len(lines) > 100:
+            return unavailable
+        names = set()
+        for line in lines:
+            match = re.fullmatch(r"([0-9a-f]{64})\s+\*?(?:\./)?([A-Za-z0-9][A-Za-z0-9._-]*)", line)
+            if match is None:
+                return unavailable
+            digest, name = match.groups()
+            if name in names or name.endswith((".glb", ".gltf", ".rar", ".zip", ".7z")):
+                return unavailable
+            names.add(name)
+            asset = root / name
+            if not asset.is_file() or asset.is_symlink() or asset.stat().st_size == 0:
+                return unavailable
+            if hashlib.sha256(asset.read_bytes()).hexdigest() != digest:
+                return unavailable
+        wasm = sum(name.endswith(".wasm") for name in names)
+        pck = sum(name.endswith(".pck") for name in names)
+        if "index.html" not in names or not wasm or not pck:
+            return unavailable
+        return {"ready": True, "fileCount": len(names), "wasmCount": wasm, "pckCount": pck, "integrity": "SHA256_PASS"}
+    except (OSError, UnicodeError, ValueError):
+        return unavailable
 
 def register_harness(
     server: Any,
@@ -131,7 +167,7 @@ def register_harness(
     }
     public_origin = _origin()
     remote_godot_candidate = public_origin == MCP_COCKPIT_PUBLIC_ORIGIN
-    godot_frame_origin = EXISTING_GODOT_PUBLIC_ORIGIN if remote_godot_candidate else public_origin
+    godot_frame_origin = public_origin  # same exact-commit Render build
     experience = json.loads(experience_path.read_text(encoding="utf-8"))
     artist_studio = json.loads(artist_studio_path.read_text(encoding="utf-8"))
     crown_flow = json.loads(crown_flow_path.read_text(encoding="utf-8"))
@@ -205,12 +241,8 @@ def register_harness(
     )
     def luhm_godot_player_resource() -> str:
         page = godot_player_path.read_text(encoding="utf-8")
-        staged = (
-            (godot_root / "index.html").is_file()
-            and any(godot_root.glob("*.wasm"))
-            and any(godot_root.glob("*.pck"))
-        )
-        if not public_origin or (not staged and not remote_godot_candidate):
+        staged = _inspect_godot_bundle(godot_root)["ready"]
+        if not public_origin or not staged:
             frame = '<p class="pending">Godot Web export not staged on this HTTPS origin. Player is waiting for exact-source CAST proof.</p>'
         else:
             url = html.escape(godot_frame_origin + "/harness/godot-export/index.html", quote=True)
@@ -219,11 +251,6 @@ def register_harness(
                 ' sandbox="allow-scripts allow-same-origin allow-pointer-lock"'
                 ' allow="fullscreen; gamepad" allowfullscreen loading="eager" referrerpolicy="no-referrer"></iframe>'
             )
-            if remote_godot_candidate:
-                frame += (
-                    '<p class="pending">External Godot frame is a ChatGPT-host candidate, not proof of gameplay. '
-                    '<a href="' + url + '" target="_blank" rel="noopener noreferrer">Open existing Godot Web player</a></p>'
-                )
         return page.replace("<!-- LUHM_GODOT_FRAME -->", frame)
 
     @server.tool(
@@ -239,17 +266,12 @@ def register_harness(
         },
     )
     def luhm_open_godot_player() -> dict[str, Any]:
-        staged = (
-            (godot_root / "index.html").is_file()
-            and any(godot_root.glob("*.wasm"))
-            and any(godot_root.glob("*.pck"))
-        )
+        staged = _inspect_godot_bundle(godot_root)["ready"]
         return {
             "schema": "luhmOs.inChatGodotPlayer.v1",
             "resourceUri": GODOT_PLAYER_RESOURCE_URI,
-            "state": ("WEB_EXPORT_FILES_STAGED" if staged and public_origin else
-                      "EXTERNAL_GODOT_FRAME_CANDIDATE" if remote_godot_candidate else
-                      "PENDING_EXPORT_OR_HTTPS_ORIGIN"),
+            "state": "WEB_EXPORT_FILES_STAGED" if staged and public_origin else "PENDING_EXPORT_OR_HTTPS_ORIGIN",
+            "bundleIntegrity": "SHA256_PASS" if staged else "UNVERIFIED",
             "runtimeVerifiedInChat": False,
             "sourceRef": "EXACT_BUILD_RECEIPT_REQUIRED",
             "readOnly": True,
@@ -383,11 +405,22 @@ def register_harness(
     async def harness_pets(_: Request) -> Response:
         return JSONResponse(json.loads(pets_path.read_text(encoding="utf-8")), headers=_headers())
 
+    @server.custom_route("/harness/godot-readiness.json", methods=["GET", "HEAD"])
+    async def godot_readiness(_: Request) -> Response:
+        result = _inspect_godot_bundle(godot_root)
+        return JSONResponse({
+            "schema": "luhmOs.godotEmbedReadiness.v1",
+            **result,
+            "exactOrigin": public_origin or "LOCAL_ONLY",
+            "browserRuntimeProven": False,
+            "androidDeviceProven": False,
+            "privateDonorIncluded": False,
+        }, headers=_headers(html=False, production=profile_provider() == "production"))
     @server.custom_route("/harness/godot-export/{asset_path:path}", methods=["GET", "HEAD"])
     async def godot_asset(request: Request) -> Response:
         relative = request.path_params.get("asset_path", "")
         target = _safe_file(godot_root, relative)
-        if target is None:
+        if target is None or not _inspect_godot_bundle(godot_root)["ready"]:
             return PlainTextResponse(
                 "Godot 4 Web export is not staged in this build.",
                 status_code=404,

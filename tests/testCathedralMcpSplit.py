@@ -1,4 +1,4 @@
-"""Static contract: current MCP service owns HTML, existing Godot service owns Web export."""
+"""Compatibility: same exact-commit MCP serves verified public Godot Web export."""
 import ast
 import json
 import unittest
@@ -21,19 +21,23 @@ class CathedralSplitContract(unittest.TestCase):
         self.assertEqual(INSTALL["package"]["packageVersion"], PLUGIN["version"])
         self.assertEqual(INSTALL["network"]["canonicalEndpoint"],
                          CONFIG["mcpServers"]["luhm"]["url"])
-    def testExistingPlayerOriginIsExplicit(self):
-        self.assertIn('EXISTING_GODOT_PUBLIC_ORIGIN = "https://luhm-os-godot-harness-green.onrender.com"', HOST)
-        self.assertIn('remote_godot_candidate = public_origin == MCP_COCKPIT_PUBLIC_ORIGIN', HOST)
+    def testSameOriginPlayerAndSourceIdentity(self):
+        self.assertIn('godot_frame_origin = public_origin', HOST)
         self.assertIn('"frameDomains": [godot_frame_origin] if godot_frame_origin else []', HOST)
+        self.assertIn('_inspect_godot_bundle(godot_root)', HOST)
+        self.assertNotIn('godot_frame_origin = EXISTING_GODOT_PUBLIC_ORIGIN if', HOST)
     def testMcpDoesNotClaimBuild(self):
-        self.assertIn('"EXTERNAL_GODOT_FRAME_CANDIDATE"', HOST)
+        self.assertIn('"bundleIntegrity": "SHA256_PASS" if staged else "UNVERIFIED"', HOST)
+        self.assertIn('"PENDING_EXPORT_OR_HTTPS_ORIGIN"', HOST)
         self.assertIn('"runtimeVerifiedInChat": False', HOST)
         self.assertIn('"buildAuthority": False', HOST)
         self.assertIn('"crownStatus": "STOP"', HOST)
-    def testFrameSandboxAndFallback(self):
+    def testFrameSandboxAndFailClosedFallback(self):
         self.assertIn('sandbox="allow-scripts allow-same-origin allow-pointer-lock"', HOST)
-        self.assertIn('rel="noopener noreferrer"', HOST)
-        self.assertIn('frame += (', HOST)
+        self.assertIn('if not public_origin or not staged:', HOST)
+        self.assertIn('not _inspect_godot_bundle(godot_root)["ready"]', HOST)
+        self.assertIn('SHA256SUMS.txt', HOST)
+        self.assertIn('https://luhm-os-publication-site.onrender.com', HOST)
     def testNoSecondMcpClientOrNewService(self):
         self.assertEqual(list(CONFIG["mcpServers"]), ["luhm"])
     def testReadOnlyPlugin(self):
