@@ -1,0 +1,175 @@
+{
+  "schema": "luhmOs.fullHydraOrchestrationHardening.v1",
+  "status": "HARDENING_CANDIDATE_SOURCE_ONLY",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "authority": "Professor",
+  "orchestrator": "lum",
+  "asOf": "2026-10-21",
+  "inherit": [
+    "doctrine/luhmAiControlPlaneV1.json",
+    "doctrine/lumGoddessCabinetV1.json",
+    "doctrine/agentSystemDeploymentV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/cloudflareLumOrchestrationV1.json",
+    "doctrine/layeredStageCanonV1.json"
+  ],
+  "registeredAgents": [
+    "lum",
+    "urdDoctorGoddess",
+    "belldandySecretary",
+    "skuldResearch",
+    "kiri",
+    "momo",
+    "shiori",
+    "kugi",
+    "tetsu",
+    "kaji",
+    "fumi",
+    "sumi",
+    "koe",
+    "yume",
+    "mediaAssetFactory"
+  ],
+  "residentCabinet": [
+    "lum",
+    "urdDoctorGoddess",
+    "belldandySecretary",
+    "skuldResearch"
+  ],
+  "roles": {
+    "lum": "Single boss and routing coordinator, no self-approval",
+    "urdDoctorGoddess": "Independent safety and evidence adjudication, no execution",
+    "belldandySecretary": "Continuity, naming, receipt indexing and dictation correction, read-only under quarantine",
+    "skuldResearch": "Architecture, compatibility, upstream and licensing research",
+    "yume": "Art direction and candidate visual assets; no publication or rights upgrade",
+    "tetsu": "Twin specialty Oni; task-bound only",
+    "kaji": "Twin specialty Oni; task-bound only",
+    "kiri": "Lazy task-bound Oni",
+    "momo": "Lazy task-bound Oni",
+    "shiori": "Optional critic and test review",
+    "kugi": "Deterministic executor only after bounded authorization",
+    "fumi": "Registration and record support",
+    "sumi": "Asset provenance",
+    "koe": "Dictation scribe",
+    "mediaAssetFactory": "Headless media preparation, private and isolated"
+  },
+  "execution": {
+    "companyQuarantine": "QUARANTINED",
+    "activeWorkersAllowed": false,
+    "readOnlyExceptions": [
+      "sourceAndCiAudit",
+      "statusAndRosterInspection",
+      "supervisedBelldandyMcpProof",
+      "inChatEvidenceReview"
+    ],
+    "noHiddenAsync": true,
+    "noRecursiveRecruitment": true,
+    "maxParallelSupportWorkers": 3,
+    "maxParallelBuilds": 2,
+    "oneMutableSourceLane": true
+  },
+  "sidecars": [
+    {
+      "id": "pythonApi",
+      "boundary": "Python3 MCP/FastAPI",
+      "network": "authenticated writes only, existing read-only MCP stays read-only"
+    },
+    {
+      "id": "render",
+      "boundary": "existing managed HTTPS runtime",
+      "network": "no implicit production deployment"
+    },
+    {
+      "id": "godot4",
+      "boundary": "isolated web export, opt-in",
+      "network": "no untrusted iframe URLs"
+    },
+    {
+      "id": "media",
+      "boundary": "FFmpeg Blender GIMP3 worker sandbox",
+      "network": "no browser execution of native tools"
+    },
+    {
+      "id": "vueLive2d",
+      "boundary": "Vue3 stage and rig/sprite adapters",
+      "network": "no automatic private asset publication"
+    },
+    {
+      "id": "android",
+      "boundary": "Java Gradle thin client",
+      "network": "no bundled provider secrets"
+    },
+    {
+      "id": "sql",
+      "boundary": "private datastore, migrations gated",
+      "network": "no public DB ingress"
+    },
+    {
+      "id": "drive",
+      "boundary": "original binary archive",
+      "network": "hash and rights provenance"
+    },
+    {
+      "id": "github",
+      "boundary": "canonical source and CI",
+      "network": "exact-head test receipts"
+    },
+    {
+      "id": "cloudflare",
+      "boundary": "optional edge/static only",
+      "network": "no port forwards or private LAN exposure"
+    }
+  ],
+  "taskEnvelope": {
+    "required": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "intent",
+      "authorityClass",
+      "allowedCapabilities",
+      "forbiddenCapabilities",
+      "stopConditions",
+      "budget",
+      "evidenceRefs"
+    ],
+    "sourceRefExact40Sha": true,
+    "defaultAuthority": "READ_ONLY",
+    "denyUnknown": true
+  },
+  "stateMachine": [
+    "registered",
+    "quarantined",
+    "supervisedReadOnly",
+    "eligibleForResume",
+    "taskActive",
+    "verifying",
+    "parked"
+  ],
+  "guards": [
+    "unknownNeverGreen",
+    "agentOutputNeverSelfAuthorizes",
+    "noSecretInPromptRepoOrApk",
+    "noAutoMergeSigningPublication",
+    "privateAssetsNotPublic",
+    "CIIsNotRuntimeProof",
+    "ChatGptHostMountRequiresHostReceipt",
+    "UrdReviewBeforeQuarantineRelease",
+    "ProfessorExplicitPerAgentResume"
+  ],
+  "verification": [
+    "Validate 15 unique canonical agent IDs and matching roster",
+    "Verify every referenced doctrine exists",
+    "Test quarantine deny for every write capability",
+    "Test sidecar network boundary and secret redaction",
+    "Test source SHA mismatch denial and idempotent task IDs",
+    "Test cancellation timeout rollback and audit event correlation",
+    "Check Render and GitHub exact source receipts",
+    "Verify Android browser and ChatGPT host separately"
+  ],
+  "productionPromotion": false,
+  "agentActivation": false,
+  "sqlMigration": false,
+  "cloudflareChanges": false,
+  "crownStatus": "STOP"
+}
