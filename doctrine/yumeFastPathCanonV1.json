@@ -1,0 +1,90 @@
+{
+  "schema": "luhmOs.yumeFastPathCanon.v1",
+  "status": "CANONICAL_ROUTING_SOURCE",
+  "authority": "Professor",
+  "boss": "lum",
+  "creativeLead": "yume",
+  "purpose": "Make zero-cost private Tier-0 creative drafts the routine fast path while retaining rights, source integrity and publication/production stop gates.",
+  "sourceOfTruth": "doctrine/currentSourceTruthV3.json",
+  "creativeEscalation": "doctrine/yumeCreativeEscalationV1.json",
+  "studioProfile": "doctrine/soloStudioOperatingProfileV1.json",
+  "cabinet": "doctrine/yumeArtCabinetHandoffV1.json",
+  "quarantineRef": "doctrine/companyWideOperationalQuarantineV1.json",
+  "defaultTier": 0,
+  "fastPathToken": "FAST_PATH_ELIGIBLE_PLAN_ONLY",
+  "escalationToken": "FULL_GATE_REQUIRED",
+  "evidenceToken": "REVIEW_REQUIRED",
+  "publicReleasePermission": false,
+  "autonomousWorkerExecution": false,
+  "automaticMutation": false,
+  "automaticPublish": false,
+  "automaticCrown": false,
+  "newRecurringCostUsd": 0,
+  "requiredPacketFields": [
+    "taskId",
+    "scopeId",
+    "sourceRef",
+    "projectLane",
+    "workType",
+    "contentLane",
+    "publicAllowed",
+    "sourceProtected",
+    "provenanceState",
+    "rightsState",
+    "privateOnly",
+    "reversible",
+    "localOnly",
+    "externalProviderCall",
+    "usesCredentials",
+    "changesProduction",
+    "writesOutsideScratch",
+    "agentExecution",
+    "estimatedNewCostUsd"
+  ],
+  "privateProjectLane": "personal",
+  "privateContentLane": "privateMutation",
+  "eligibleWorkTypes": [
+    "concept",
+    "storyboard",
+    "spriteDraft",
+    "modelPrepPlan",
+    "animaticPlan",
+    "privateArtEdit"
+  ],
+  "allowedProvenanceStates": [
+    "verifiedOwnerOriginal",
+    "verifiedLicensed"
+  ],
+  "allowedRightsStates": [
+    "owned",
+    "licensedForPrivateUse"
+  ],
+  "fastPathSteps": [
+    "check source and rights identity",
+    "create isolated private draft candidate",
+    "run task-scoped lightweight smoke when relevant",
+    "record outcome and next action"
+  ],
+  "fullGateConditions": [
+    "public or invite-only distribution",
+    "private or donor provenance uncertain",
+    "new billed model or cloud calls",
+    "secrets or authenticated provider changes",
+    "deployment, merge, signing or destructive writes",
+    "production pipeline alteration",
+    "agent runtime activation",
+    "shared client data or legal/licensing obligations",
+    "irreversible edits or unprotected masters"
+  ],
+  "cabinetDisplay": {
+    "lum": "one task coordinator and human-facing decision",
+    "yume": "visual direction and editable candidate",
+    "urdDoctorGoddess": "adversarial review only on flagged risk or failed smoke",
+    "belldandySecretary": "one compact canonical source/rights/receipt index",
+    "skuldResearch": "compatibility only when dependency or runtime ambiguity is material"
+  },
+  "rule": "Does not override registered worker quarantine, global proposed-only lane, artwork rights constraints or exact-source CI and human release approvals.",
+  "cli": "tools/yumeFastPath.py",
+  "tests": "tests/testYumeFastPath.py",
+  "crownStatus": "STOP"
+}
