@@ -102,6 +102,25 @@ async function inspect(browser,width){
   pageErrors:errors,networkWrites:unsafeWrites};
 }
 
+async function inspectSeparateGodotService(browser){
+ const page=await browser.newPage({viewport:{width:390,height:850},reducedMotion:"reduce"});
+ page.setDefaultTimeout(18000);
+ await page.route("**/harness/godot-readiness.json",route=>route.fulfill({
+   status:200,contentType:"application/json",body:JSON.stringify({schema:"luhmOs.godotEmbedReadiness.v1",ready:false,integrity:"UNVERIFIED",wasmCount:0,pckCount:0})
+ }));
+ await page.goto(HOST,{waitUntil:"domcontentloaded"});
+ await page.locator("#agentLoadingScreen").waitFor({state:"hidden",timeout:18000});
+ const link=page.locator("#godotExternalLink");
+ assert.equal(await link.isVisible(),true,"separate Godot service must be usable when MCP origin has no export");
+ assert.equal(await link.getAttribute("href"),"https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html");
+ assert.equal(await link.getAttribute("target"),"_blank");
+ assert.equal(await link.getAttribute("rel"),"noopener noreferrer");
+ assert.equal(await page.locator("#playFirstNight").isDisabled(),true,"unverified embed must remain blocked");
+ assert.match(await page.locator("#playStatus").innerText(),/separate Godot service/i);
+ await page.close();
+ return {safeSeparateServiceHandoff:true,unverifiedEmbedStillBlocked:true};
+}
+
 async function inspectOffline(browser){
  const page=await browser.newPage({viewport:{width:1366,height:820},reducedMotion:"reduce"});
  page.setDefaultTimeout(18000);
@@ -136,11 +155,12 @@ async function inspectOffline(browser){
    const layouts=[];
    for(const width of [390,1440])layouts.push(await inspect(browser,width));
    const offline=await inspectOffline(browser);
+   const separateGodot=await inspectSeparateGodotService(browser);
    const result={schema:"luhmOs.desktopBrowserInteraction.v1",
     status:"BROWSER_UI_CONTROLS_PASS",
     sourceRef:process.env.GITHUB_SHA||"LOCAL_HEAD",
     browser:"Playwright Chromium on GitHub Actions Ubuntu",
-    layouts,offline,scriptErrors:apiErrors,
+    layouts,offline,separateGodot,scriptErrors:apiErrors,
     liveRenderInteractionProven:false,
     actualCinnamonDesktopProven:false,
     samsungAppProven:false,

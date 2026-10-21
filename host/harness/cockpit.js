@@ -336,6 +336,8 @@ async function probeGodot() {
     const proof = await response.json();
     if (proof?.schema !== "luhmOs.godotEmbedReadiness.v1" || proof?.ready !== true || proof?.integrity !== "SHA256_PASS" || proof?.wasmCount < 1 || proof?.pckCount < 1) throw new Error("3D bundle not proven");
     state.godotReady = true;
+    const externalLink = byId("godotExternalLink");
+    if (externalLink) externalLink.hidden = true;
     byId("godotFrame").src = "/harness/godot-export/index.html";
     byId("godotFrame").style.display = "block";
     byId("godotEmpty").style.display = "none";
@@ -347,12 +349,17 @@ async function probeGodot() {
     if (playStatus) playStatus.textContent = "Riverwalk is ready. Click to jump into the game.";
   } catch (_) {
     state.godotReady = false;
-    byId("godotBadge").textContent = "EXPORT PENDING";
+    // The MCP cockpit and Godot 3D player are separate Render services.
+    // Offer an explicit user-initiated cross-origin handoff without bypassing
+    // the same-origin SHA256 gate or claiming the remote player is proven.
+    const externalLink = byId("godotExternalLink");
+    if (externalLink) externalLink.hidden = false;
+    byId("godotBadge").textContent = "LOCAL EXPORT PENDING";
     if (playButton) {
       playButton.disabled = true;
       playButton.textContent = "WEB EXPORT PENDING";
     }
-    if (playStatus) playStatus.textContent = "The 3D Web bundle has not passed the hosted integrity gate yet.";
+    if (playStatus) playStatus.textContent = "This origin has no verified embedded 3D export. Use the separate Godot service link and verify it there.";
   }
 }
 
