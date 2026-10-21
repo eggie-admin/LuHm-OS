@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#141026"><meta name="description" content="Play with Lum's original offline-first neon pet and explore Project Hydra's Pocket Art Studio. No login or AI calls."><title>LuHm-OS · Pocket Art Studio</title>
+<style>
+:root{--bg:#0c101a;--panel:#15192d;--cyan:#5ee3eb;--pink:#e95cb5;--purple:#6b35db;--white:#ede9ff;--world:radial-gradient(ellipse at 50% 35%,#5832a9,#141026 70%);color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--white)}
+a{color:var(--cyan);text-underline-offset:3px}header,main,footer{max-width:1060px;margin:auto;padding:20px 24px}header{display:flex;gap:20px;justify-content:space-between;align-items:center;flex-wrap:wrap}header a{text-decoration:none}
+h1{font-size:clamp(2.2rem,6vw,4.1rem);margin:8px 0;line-height:1.1;letter-spacing:-.04em}h2{font-size:1.35rem;margin:.2em 0}.eyebrow{color:var(--cyan);text-transform:uppercase;letter-spacing:.15em;font-weight:700;font-size:.83rem}
+.lead{max-width:650px;color:#d7d3ea;font-size:1.12rem}.small{font-size:.91rem;color:#c8c3e6}.layout{display:grid;grid-template-columns:minmax(250px,1.25fr) minmax(260px,1fr);gap:20px;margin-top:30px}
+.card{background:var(--panel);border:1px solid #4b3b77;border-radius:20px;box-shadow:0 12px 36px #090712;overflow:hidden}.cardcontent{padding:23px}
+.world{min-height:365px;background:var(--world);position:relative;display:flex;align-items:center;justify-content:center;isolation:isolate;overflow:hidden}
+.world::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 80px,#65e0e710 81px 82px);pointer-events:none}
+.world::after{content:'';height:230px;width:230px;border:3px solid #e95cb5;position:absolute;border-radius:50%;box-shadow:0 0 20px #e95cb588,0 0 100px #6b35db;transform:rotateX(65deg);bottom:10px}
+#mascot{position:relative;z-index:2;width:min(64%,290px);filter:drop-shadow(0 0 35px #6b35db);transform-origin:center;animation:hover 2.8s ease-in-out infinite}
+@keyframes hover{50%{transform:translateY(-19px) rotate(4deg)}}@keyframes flash{50%{opacity:.4;transform:scale(1.2)}}#aura{filter:blur(3px)}
+#faceEyeL,#faceEyeR{transition:transform .15s}#expression{letter-spacing:.06em}
+button,select{font:inherit;color:var(--white);background:#262039;border:1px solid #7264a5;border-radius:10px;padding:10px 13px;margin:5px 4px 5px 0;cursor:pointer;min-height:44px}
+button:hover,button[aria-pressed=true]{background:#3b2462;border-color:var(--cyan)}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.controls{display:flex;flex-wrap:wrap;gap:4px}label{display:block;font-weight:700;margin-top:15px}select{width:100%}#bondHearts{position:absolute;z-index:4;inset:0;pointer-events:none}
+.heart{position:absolute;font-size:24px;color:var(--pink);animation:rise 1.3s ease-out forwards}@keyframes rise{to{transform:translateY(-100px) scale(1.5);opacity:0}}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.pill{font-size:.81rem;border:1px solid #5a4b83;border-radius:25px;padding:6px 9px}.callout{margin:23px 0;padding:16px;border-left:3px solid var(--cyan);background:#181a30}.source{padding:20px;background:#10172a}
+footer{border-top:1px solid #40385d;margin-top:40px;font-size:.92rem;color:#d0c9e2}
+@media(max-width:735px){.layout{grid-template-columns:1fr}.world{min-height:290px}}
+@media(prefers-reduced-motion:reduce){#mascot,.heart{animation:none!important;transition:none!important}}
+body.reduced #mascot,body.reduced .heart{animation:none!important}
+</style></head>
+<body><header><a href="/" aria-label="LuHm-OS home">← LuHm-OS / Project Hydra</a><nav aria-label="Resources"><a href="/tester.html">Tester lab</a> · <a href="/release.html">Alpha notes</a> · <a href="https://github.com/eggie-admin/LuHm-OS">GitHub</a></nav></header>
+<main><p class="eyebrow">Free visual preview · Public alpha</p><h1>Pocket Art Studio <span aria-hidden="true">✦</span></h1>
+<p class="lead">Lum has arrived with a tiny neon pet, a pocketful of scene magic, and a surprisingly organized team of goddesses. Try the buttons. It's a real offline-friendly front-end prototype, not an autonomous AI agent.</p>
+<div class="layout"><section class="card" aria-label="Interactive pet">
+<div id="world" class="world"><div id="bondHearts" aria-hidden="true"></div>
+<svg id="mascot" viewBox="0 0 250 260" role="img" aria-label="Friendly original Lum-inspired floating oni-orb pet with horns and expressive face">
+<ellipse id="aura" cx="125" cy="130" rx="96" ry="104" fill="#6b35db" opacity=".25"/>
+<path d="M50 96 Q42 62 56 24 L99 77 M151 77 194 24 Q208 62 200 96" fill="#6b35db" stroke="#ede9ff" stroke-width="6" stroke-linejoin="round"/>
+<ellipse id="petBody" cx="125" cy="135" rx="86" ry="86" fill="#5ee3eb" stroke="#ede9ff" stroke-width="6"/>
+<path d="M74 149 Q125 190 176 149" fill="none" stroke="#6b35db" stroke-width="9" opacity=".6"/>
+<g id="openEyes" fill="#0c101a"><ellipse cx="92" cy="121" rx="11" ry="18"/><ellipse cx="158" cy="121" rx="11" ry="18"/></g>
+<g id="shutEyes" stroke="#0c101a" stroke-width="6" fill="none" stroke-linecap="round" style="display:none"><path d="M76 125 Q92 136 107 125 M142 125 Q158 136 174 125"/></g>
+<path id="mouth" d="M109 156 Q125 177 142 156" fill="none" stroke="#0c101a" stroke-width="6" stroke-linecap="round"/>
+<path d="M125 177 C90 151 102 137 125 151 C148 137 161 151 125 177Z" fill="#e95cb5" stroke="#ede9ff" stroke-width="3"/>
+<ellipse cx="64" cy="151" rx="13" ry="8" fill="#e95cb5" opacity=".58"/><ellipse cx="186" cy="151" rx="13" ry="8" fill="#e95cb5" opacity=".58"/>
+</svg></div>
+<div class="cardcontent"><h2>♡ Bond with Lum</h2><p id="expression" role="status" aria-live="polite">Lum is hovering. She's ready to play.</p>
+<div class="controls"><button id="bond" type="button">♥ Bond</button><button id="blink" type="button">◡ Blink</button><button id="cast" type="button">✧ Cast</button><button id="pause" type="button" aria-pressed="false">Ⅱ Pause motion</button></div>
+</div></section>
+<section class="card"><div class="cardcontent"><h2>☾ Design console</h2>
+<label for="palette">Costume palette</label><select id="palette"><option value="cyan">Hydra Neon · cyan</option><option value="pink">Ember · magenta</option><option value="purple">Sanctuary · purple</option></select>
+<label for="scene">Scene atmosphere</label><select id="scene"><option value="cathedral">Cathedral</option><option value="city">Neon city</option><option value="lab">Professor's lab</option><option value="stars">Starship bay</option><option value="portal">Portal chamber</option><option value="forest">Midnight forest</option></select>
+<p class="small">Choose a style, send a heart, or cast a little neon magic. Your interactions stay in this browser; no forms, storage, accounts, uploads, or analytics.</p>
+<h2>🎭 The cast</h2><div class="pills"><span class="pill">Lum · Coordinator</span><span class="pill">Yume · Art</span><span class="pill">Skuld · Engineering</span><span class="pill">Urd · Evidence</span><span class="pill">Belldandy · Continuity</span></div>
+<p class="small">Their roles are a source-defined workflow, not proof of independently running workers.</p></div>
+<div class="source"><strong>What's behind the toy?</strong><p class="small">The associated Pocket Art Studio kit contains 110 original files including animated sprite frames, backgrounds, UI SVGs, simple audio, an unapproved GLB proxy, and a Godot 4 scene. The private ChatGPT plugin has the asset catalog, but its installation is separate from this public page.</p><a href="https://kenney.nl/assets/ui-pack">Browse CC0 interface assets from Kenney ↗</a></div></section></div>
+<p class="callout"><strong>Release honesty:</strong> This is a working client-side interaction demo. It does not execute model inference, authenticate users, operate cloud workers, expose the private Rebel Drive archive, or demonstrate a finished Godot/Blender rig.</p>
+</main><footer><p>LuHm-OS · Independent studio prototype. <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/support.html">Support</a>. No OpenAI program approval or endorsement claimed.</p></footer>
+<script>(()=>{"use strict";
+const $=id=>document.getElementById(id);const palette={cyan:"#5ee3eb",pink:"#e95cb5",purple:"#6b35db"};let timer=null,bondCount=0;
+function speak(t){$("expression").textContent=t}
+function tone(freq=620){try{let A=window.AudioContext||window.webkitAudioContext;let ctx=new A(),o=ctx.createOscillator(),g=ctx.createGain();o.type="sine";o.frequency.setValueAtTime(freq,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(freq*1.29,ctx.currentTime+.13);g.gain.setValueAtTime(.05,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.18);o.connect(g).connect(ctx.destination);o.start();o.stop(ctx.currentTime+.19);o.onended=()=>ctx.close()}catch(_){}}
+$("palette").addEventListener("change",e=>{$("petBody").setAttribute("fill",palette[e.target.value]);speak("Lum changed her neon coat.");tone(550)});
+const scenes={cathedral:"radial-gradient(ellipse at 50% 35%,#5832a9,#141026 70%)",city:"repeating-linear-gradient(90deg,#161132 0 35px,#2c1749 35px 45px,#0c101a 45px 72px)",lab:"repeating-linear-gradient(0deg,#101827 0 38px,#1a3652 40px 43px,#12102a 44px 80px)",stars:"radial-gradient(circle at 20% 18%,#5ee3eb 1px,transparent 3px),radial-gradient(circle at 75% 25%,#ede9ff 2px,transparent 4px),linear-gradient(125deg,#070d1d,#2d2561)",portal:"radial-gradient(circle at center,#e95cb5,#6b35db 23%,#0c101a 65%)",forest:"repeating-linear-gradient(104deg,#0b1525 0 46px,#152e3b 48px 60px,#0c101a 61px 96px)"};
+$("scene").addEventListener("change",e=>{$("world").style.background=scenes[e.target.value];speak("New scene: "+e.target.options[e.target.selectedIndex].text+".")});
+function blink(){clearTimeout(timer);$("openEyes").style.display="none";$("shutEyes").style.display="block";timer=setTimeout(()=>{$("openEyes").style.display="block";$("shutEyes").style.display="none"},260)}
+$("blink").addEventListener("click",()=>{blink();speak("A tiny wink from Lum.");tone(460)});
+$("bond").addEventListener("click",()=>{bondCount++;speak("Bond level "+bondCount+": Lum sends a heart back! ♥");tone(660);const e=document.createElement("span");e.className="heart";e.textContent="♥";e.style.left=(25+Math.random()*50)+"%";e.style.top=(26+Math.random()*50)+"%";$("bondHearts").append(e);setTimeout(()=>e.remove(),1350)});
+$("cast").addEventListener("click",()=>{tone(880);speak("Sparkle spell! Just a visual effect, no model or API calls.");$("aura").style.opacity=".8";setTimeout(()=>$("aura").style.opacity=".25",450)});
+$("pause").addEventListener("click",e=>{const v=document.body.classList.toggle("reduced");e.currentTarget.setAttribute("aria-pressed",String(v));e.currentTarget.textContent=v?"▶ Resume motion":"Ⅱ Pause motion"});
+})();</script>
+</body></html>
