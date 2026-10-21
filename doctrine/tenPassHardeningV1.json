@@ -1,0 +1,97 @@
+{
+  "schema": "luhmOs.tenPassHardening.v1",
+  "status": "SOURCE_HARDENING_CANDIDATE",
+  "scope": "independent studio personal and small-business project; no enterprise infrastructure or new paid accounts",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "localChangesOnly": true,
+  "liveProviderChangesPerformed": false,
+  "providerCostsAddedUsd": 0,
+  "reviewDate": "2026-10-20",
+  "passes": [
+    {
+      "pass": 1,
+      "name": "identityAndAuthority",
+      "state": "SOURCE_REVIEWED",
+      "evidence": "GitHub repo eggie-admin/LuHm-OS is public; single human release authority; no worker role is autonomous without a process receipt.",
+      "gate": "Private keys and identity must remain outside GitHub/Android/public static pages.",
+      "liveVerified": false
+    },
+    {
+      "pass": 2,
+      "name": "cloudflare",
+      "state": "UNKNOWN_LIVE_CONFIGURATION",
+      "evidence": "doctrine/networkSpineV1.json tracks edge TLS and optional Tunnel. No Cloudflare control-plane access in connected tools.",
+      "gate": "Read DNS delegation, zone Full (strict), WAF/Access, Tunnel hostname and independent origin TLS validation before changes; never disable verification, expose .lan, or port forward.",
+      "liveVerified": false
+    },
+    {
+      "pass": 3,
+      "name": "huggingFace",
+      "state": "READ_SCOPES_OBSERVED",
+      "evidence": "OAuth user connection reported read-repos/read-mcp and jobs; no Pro subscription. No account settings mutation.",
+      "gate": "Use private repos for private models, pinned revisions, model-license and unsafe pickle review; no job run, publish or billing change without approval.",
+      "liveVerified": false
+    },
+    {
+      "pass": 4,
+      "name": "render",
+      "state": "LIVE_CONFIG_DRIFT_IDENTIFIED",
+      "evidence": "Nine configured services; eight web services reported public ingress 0.0.0.0/0 and empty healthCheckPath in API; checked-in render.yaml declares /healthz.",
+      "gate": "Probe live /healthz and actual MCP routing, separate public read-only endpoints from private control planes, verify allowed ingress and rollback before modifying live services.",
+      "liveVerified": true
+    },
+    {
+      "pass": 5,
+      "name": "github",
+      "state": "SOURCE_GATES_STAGED",
+      "evidence": "Public GitHub source, existing PR workflows and typed SQL tests. Source ignore policy expanded for caches and local SQL; tracked secrets still require a separate review.",
+      "gate": "Minimize workflow permissions, pin third-party actions, constrain untrusted PR jobs and enforce branch review as available. Do not assume branch protection enforced.",
+      "liveVerified": false
+    },
+    {
+      "pass": 6,
+      "name": "copilot",
+      "state": "SOURCE_GUARD_STAGED",
+      "evidence": "Copilot bootstrap guards secrecy, least privilege, SQL boundaries, production writes and provider authorization.",
+      "gate": "Instruction file is advisory. Actual Copilot product entitlement and repository settings remain unverified.",
+      "liveVerified": false
+    },
+    {
+      "pass": 7,
+      "name": "openAi",
+      "state": "PRIVATE_PLUGIN_NOT_INSTALLED",
+      "evidence": "Project Hydra plugin v1.0.1 exists as PRIVATE in account; current ChatGPT Plugin Management reports not installed.",
+      "gate": "No claiming host tool execution or published directory approval; verify installed host, per-tool auth/OAuth and server-side permissions before private reads or writes.",
+      "liveVerified": false
+    },
+    {
+      "pass": 8,
+      "name": "sqlAuthority",
+      "state": "SCHEMA_SOURCE_STAGED",
+      "evidence": "Disposable SQLite STRICT local stub with foreign keys and guarded authority fields. No Render Postgres instances found. Remote MariaDB not queried.",
+      "gate": "Prepared statements, least-privilege per-app identities, no remote SQL admin/public port, backup/snapshot before DDL; no production SQL mutation from CI.",
+      "liveVerified": false
+    },
+    {
+      "pass": 9,
+      "name": "schemaAndAdversarialTests",
+      "state": "PR_CI_PENDING",
+      "evidence": "New direct SQL negative controls for sha, UTC, identity, finite floats, manifest authority, and injection text. PostgreSQL review-only schema parity.",
+      "gate": "Run tests/testTypedSqlStub.py and tests/testSqlHardeningTenPass.py in PR CI; exact source SHA required before claiming PASS.",
+      "liveVerified": false
+    },
+    {
+      "pass": 10,
+      "name": "releaseAndRollback",
+      "state": "PENDING_EXACT_CI",
+      "evidence": "This change is source hardening only. No live provider bill, key rotation, Cloudflare mutation, Render deploy, plugin audience change or database migration.",
+      "gate": "Merge only after relevant green CI; report separately source green vs Render live vs browser checked vs private plugin installed vs SQL deployed.",
+      "liveVerified": false
+    }
+  ],
+  "costPolicy": "Keep existing free-tier services unless explicit approved upgrade. Avoid extra always-on inference or duplicate providers.",
+  "sqlLane": "SQLite STRICT local test; PostgreSQL review-only DDL, no active production DB evidenced",
+  "customerSafety": "Public repo/site show only approved portfolio content, never donor archives, customer files, secrets or unapproved private models.",
+  "releaseAction": "PR CI and review; no live-provider mutation until independently authenticated and scoped."
+}
