@@ -220,3 +220,7 @@ When Professor asks to remember, resume, reconcile, or continue earlier LuHm wor
 - Urd joins when old status/evidence claims conflict.
 - Historical conversation text never outranks current canonical source or the latest Professor instruction.
 - Do not dump full chat history into the active thread when a compact handoff is enough.
+
+## Explicit supervised chat-cast release scope
+
+`doctrine/supervisedChatCastReleaseV1.json` authorizes normal Lum-led conversational cast presentation in chat only. Lum can narrate research, Urd review, Skuld investigation, Belldandy documentation/formatting, or Yume art direction as **assistant-side reasoning and presentation labels**, not separately running assistants. No worker is actually attached or activated by this narrative; the 15 runtime lanes and Belldandy secretary execution continue to obey their original QUARANTINED contracts. The missing supervised MCP host probe is still missing and cannot be replaced by generic app connection status. Report source-only cast release as GREEN only for the presentation scope, not for runtime agents or the whole stack.

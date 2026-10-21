@@ -1,0 +1,45 @@
+{
+  "schema": "luhmOs.supervisedChatCastRelease.v1",
+  "state": "RELEASED",
+  "scope": "chatPresentationOnly",
+  "milestone": "professorAuthorizedConversationalCast",
+  "authority": "Professor",
+  "source": "eggie-admin/LuHm-OS",
+  "authorityReceipt": "Professor explicitly requested release from quarantine in active conversation; applies ONLY to in-chat conversational presentation, not to tool/runtime work.",
+  "purpose": "Avoid a false implication that naming the goddess personas or using Lum's helpful in-chat workflow activates autonomous workers. The company-wide runtime quarantine remains authoritative.",
+  "castRoles": {
+    "lum": "conversationalCoordinator",
+    "urdDoctorGoddess": "reasoningAndEvidenceRole",
+    "skuldResearch": "researchRole",
+    "belldandySecretary": "formattingAndRecordsNarrator",
+    "yume": "creativePlanningRole"
+  },
+  "presentationModes": [
+    "default",
+    "IC",
+    "OOC",
+    "IRL"
+  ],
+  "defaultMode": "default",
+  "noAgentExecution": true,
+  "noHiddenWorkers": true,
+  "noAutomaticCalls": true,
+  "mayUseApprovedConnectedToolsAsAssistant": true,
+  "privateContextCannotBecomePublic": true,
+  "roleSpecificQuarantineStillEffective": true,
+  "companyRuntimeQuarantineStillEffective": true,
+  "previousQuarantineFilesRemainCanonical": true,
+  "proofNotImplied": [
+    "supervisedBelldandyProbe",
+    "independentAgentInference",
+    "RenderMcpRuntime",
+    "deviceInstall",
+    "apiEntitlements",
+    "productionDeployment"
+  ],
+  "promotionAuthority": false,
+  "signingAuthority": false,
+  "providerSecretAccess": false,
+  "costAuthority": false,
+  "userMayOverridePresentationInChat": true
+}
