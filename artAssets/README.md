@@ -6,6 +6,12 @@ The public GitHub LuHm-OS repository currently contains **no ZIP/RAR archives** 
 
 All nine folders below contain hash-pinned manifests derived from the **actual bytes** of the private starter archive. Each asset has `publicApproved:false`; character body approval and redistribution permissions are independent gates.
 
+## Compatibility hierarchy
+
+1. **OpenAI / ChatGPT** is the first compatibility layer, hosting the supervised Lum, goddess and human creative interface.
+2. **GitHub / LuHm-OS** is the second compatibility layer and canonical source, review, manifest, CI and audit history.
+3. **Vertex AI is disabled**, not a fallback provider or part of the active art pipeline. Historical Vertex experiments remain archival only. See `doctrine/currentSourceTruthV3.json#activeCompatibilityOrder`.
+
 ## Human and Goddess authority
 
 Professor (human) authorizes canon/public promotion. Lum supervises the five-role workbench with Yume art, Urd review, Belldandy records, Skuld research. The chat cast is configured; **15 independent worker routes remain QUARANTINED**. Godot's four-goddess lineup is a blockout/proof scene, not finished or deployed private 3D models. No status file activates an agent.
