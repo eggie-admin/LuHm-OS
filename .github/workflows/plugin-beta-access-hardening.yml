@@ -9,6 +9,8 @@ on:
       - 'tests/testPluginBetaInviteAudit.py'
       - 'tests/testPluginBetaFourLaneAudit.py'
       - 'manual/pluginBetaInviteRunbook.md'
+      - 'host/harness/widget.html'
+      - 'host/mcp/luhmHarness.py'
       - 'plugins/luhm-os/plugin.json'
       - 'plugins/luhm-os/mcp.json'
       - 'doctrine/hydraPublicBetaReconciliation20261021.json'
