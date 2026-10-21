@@ -1,0 +1,28 @@
+{
+  "schema": "luhmOs.artLaneManifest.v1",
+  "lane": "docs",
+  "sourceArchive": "LuHmAssetStudioStarterV1.zip",
+  "sourceArchiveSha256": "8a04dd61413317e2ffe24d9143697d7956958f1b9a9111d673347da75539a7f2",
+  "records": [
+    {
+      "path": "docs/README.md",
+      "bytes": 1501,
+      "sha256": "b0c84eb542e530096bc96263814b90d224ed767abeec523f3a478edcb7f514f7",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "docs/verifiedFreeAssetSources.json",
+      "bytes": 1707,
+      "sha256": "e99d23f760be363839e5cff250d95ed9b68c478d99800971e16f5403d64e5a6e",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    }
+  ],
+  "sourceCount": 2,
+  "publicApproved": false,
+  "storage": "PRIVATE_DRIVE_OWNER_ONLY",
+  "productionDeployProven": false
+}

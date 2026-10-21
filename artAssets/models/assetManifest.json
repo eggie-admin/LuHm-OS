@@ -1,0 +1,20 @@
+{
+  "schema": "luhmOs.artLaneManifest.v1",
+  "lane": "models",
+  "sourceArchive": "LuHmAssetStudioStarterV1.zip",
+  "sourceArchiveSha256": "8a04dd61413317e2ffe24d9143697d7956958f1b9a9111d673347da75539a7f2",
+  "records": [
+    {
+      "path": "models/lum-orb-PROXY-not-canon.glb",
+      "bytes": 15328,
+      "sha256": "4ca22e3ce3ec2df35c9c933c9ac8decadf91d17baddbda03bee52dfbf670831b",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    }
+  ],
+  "sourceCount": 1,
+  "publicApproved": false,
+  "storage": "PRIVATE_DRIVE_OWNER_ONLY",
+  "productionDeployProven": false
+}

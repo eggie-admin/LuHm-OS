@@ -1,0 +1,46 @@
+name: Private Art Folder and ZIP Extraction Gate
+on:
+  pull_request:
+    paths:
+      - 'artAssets/**'
+      - 'tools/sortArtArchives.py'
+      - '.github/workflows/private-art-folder-gate.yml'
+permissions:
+  contents: read
+jobs:
+  folder-integrity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Check safe ZIP processing, source-only registers and all nine folders
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/sortArtArchives.py
+          python3 tools/sortArtArchives.py --self-test
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          catalog=json.loads(Path('plugins/luhm-os/assets/assetCatalog.json').read_text())
+          lanes=('audio','backdrops','docs','godot','models','sprites','ui','vfx','web')
+          total=0
+          for lane in lanes:
+              m=json.loads(Path(f'artAssets/{lane}/assetManifest.json').read_text())
+              expected=[r for r in catalog['files'] if r['path'].split('/')[0]==lane]
+              assert len(expected)==m['sourceCount']==len(m['records'])
+              assert {(e['path'],e['bytes'],e['sha256']) for e in expected}=={(r['path'],r['bytes'],r['sha256']) for r in m['records']}
+              assert m['publicApproved'] is False
+              assert all(r['publicApproved'] is False for r in m['records'])
+              total+=len(expected)
+          assert total==110
+          cast=json.loads(Path('artAssets/cast/humanAndGoddessDeployment.json').read_text())
+          assert {'lum','urd','belldandy','skuld','yume','human'}=={x['id'] for x in cast['cast']}
+          assert cast['independentWorkers']=='QUARANTINED'
+          assert cast['publicPromotion'] is False
+          inventory=json.loads(Path('artAssets/manifests/archiveInventory.json').read_text())
+          assert inventory['zipsInGitHubAtInspection']==0
+          assert inventory['verifiedArchive']['allCatalogHashesMatched'] is True
+          print('GREEN_PRIVATE_ART_NINE_LANES_110_HASH_PINNED_CANDIDATES_HUMAN_GATED')
+          PY

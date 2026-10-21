@@ -1,0 +1,140 @@
+{
+  "schema": "luhmOs.artLaneManifest.v1",
+  "lane": "vfx",
+  "sourceArchive": "LuHmAssetStudioStarterV1.zip",
+  "sourceArchiveSha256": "8a04dd61413317e2ffe24d9143697d7956958f1b9a9111d673347da75539a7f2",
+  "records": [
+    {
+      "path": "vfx/heart-f0.png",
+      "bytes": 2813,
+      "sha256": "5485efc9bde1abd1c26d654846b338e37a5091566add6e0b9a964d41b08e579a",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/heart-f1.png",
+      "bytes": 2797,
+      "sha256": "0f0540a8de137433382dfda03a586ea4a3b9677112308bf68b5f6c7e70851b97",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/heart-f2.png",
+      "bytes": 2837,
+      "sha256": "bdba5314060aed08730b08088a299afb35ce9ee4586f0f4712f8932cc8d86124",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/heart-f3.png",
+      "bytes": 2806,
+      "sha256": "392d0a33e3ea3b0557b533044f07360835ae5183dc96389f012b527951e0bdda",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/orb-f0.png",
+      "bytes": 2618,
+      "sha256": "0877d6f0762fb894521b69bb4ffed06a3d102a63a14154bb4020929d052dd1b3",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/orb-f1.png",
+      "bytes": 2621,
+      "sha256": "374b6996a4fdf38bfa561819dac2a181eef49198bf1568ac5e4667e68701f72b",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/orb-f2.png",
+      "bytes": 2618,
+      "sha256": "0877d6f0762fb894521b69bb4ffed06a3d102a63a14154bb4020929d052dd1b3",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/orb-f3.png",
+      "bytes": 2621,
+      "sha256": "374b6996a4fdf38bfa561819dac2a181eef49198bf1568ac5e4667e68701f72b",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/spark-f0.png",
+      "bytes": 3185,
+      "sha256": "951515a53ad043cfe4a645393bd26e8513d1ea89f014e886c45d258c18b6d470",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/spark-f1.png",
+      "bytes": 3187,
+      "sha256": "b353dc02ef546b2504af05bfa58d4dbbb82917454a4f4a77033aa78babb67218",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/spark-f2.png",
+      "bytes": 3185,
+      "sha256": "951515a53ad043cfe4a645393bd26e8513d1ea89f014e886c45d258c18b6d470",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/spark-f3.png",
+      "bytes": 3187,
+      "sha256": "b353dc02ef546b2504af05bfa58d4dbbb82917454a4f4a77033aa78babb67218",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/star-f0.png",
+      "bytes": 3250,
+      "sha256": "bbe920b08a9dd031d6cc7cf168194643e731abcd67f5cf9456d2969d65e6ca41",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/star-f1.png",
+      "bytes": 3250,
+      "sha256": "c239a58e954924571ac5481a97356be52e0744ea1e564b1b974b82068a27a022",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/star-f2.png",
+      "bytes": 3250,
+      "sha256": "bbe920b08a9dd031d6cc7cf168194643e731abcd67f5cf9456d2969d65e6ca41",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    },
+    {
+      "path": "vfx/star-f3.png",
+      "bytes": 3250,
+      "sha256": "c239a58e954924571ac5481a97356be52e0744ea1e564b1b974b82068a27a022",
+      "rights": "PROJECT_GENERATED_CLAIM_REVIEW",
+      "canon": "DRAFT_CANDIDATE",
+      "publicApproved": false
+    }
+  ],
+  "sourceCount": 16,
+  "publicApproved": false,
+  "storage": "PRIVATE_DRIVE_OWNER_ONLY",
+  "productionDeployProven": false
+}
