@@ -157,5 +157,20 @@
     "betaReleased": false,
     "betaLtsPromoted": false,
     "crownStatus": "STOP"
+  },
+  "inChatTarget": {
+    "primarySurface": "CHATGPT_APP_IN_CONVERSATION",
+    "resourceUri": "ui://luhm-os/cockpit-v2.html",
+    "tool": "luhm_open_cockpit",
+    "outsideTesterNeedsChatGptPluginInstall": true,
+    "standaloneRenderAsTesterDelivery": false,
+    "openInAppMustStayInChat": true,
+    "inChatUiMountProvenForTester": false,
+    "currentOwnerPrivatePluginNotShareableByLink": true,
+    "workspacePluginSharingAndSiteViewerRightsBothRequiredWhenApplicable": true,
+    "preferredDistribution": "eligibleInvitedWorkspacePluginWithSiteViewerAccess",
+    "publicDirectoryFallback": "separateReviewAndPublicationOnly",
+    "noWebPreviewSubstitution": true,
+    "visualStatusOnlyNoAuthority": true
   }
 }
