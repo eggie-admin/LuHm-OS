@@ -22,6 +22,8 @@ on:
       - 'doctrine/chatGptPluginCrownFlowV1.json'
       - 'host/mcp/luhmHarness.py'
       - 'host/mcp/luhmHarnessServer.py'
+      - 'host/mcp/luhmMcpServer.py'
+      - 'tests/testMcpRouteKindSchema.py'
       - 'export_presets.cfg'
       - 'tools/harnessAudit.py'
       - 'tools/inChatExperienceAudit.py'
@@ -64,6 +66,7 @@ jobs:
         run: |
           set -euo pipefail
           python tools/harnessAudit.py
+          python -m unittest tests/testMcpRouteKindSchema.py -v
           python tests/godotInChatEdgeBridgeAudit.py
           python tools/inChatExperienceAudit.py
           python tools/openingDayStaffTrainingAudit.py
