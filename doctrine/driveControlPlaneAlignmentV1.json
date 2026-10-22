@@ -1,0 +1,42 @@
+{
+  "schema": "luhmOs.driveControlPlaneAlignment.v1",
+  "status": "CANONICAL_DRIVE_TREE_MAPPED_TO_GITHUB_SOURCE",
+  "authority": "Professor",
+  "canonicalDriveRoot": {
+    "title": "LuHm OS • PRIVATE CONTROL PLANE",
+    "url": "https://drive.google.com/drive/folders/1ROXWJ6Npn950prddTSGfcdyJknrAwAE5",
+    "tree": [
+      {"name": "00_CURRENT", "driveFolderId": "1ebywuhWLT4jnqu_1RZEiV4cqqZKlOUD2", "githubPath": "doctrine/currentSourceTruthV3.json", "role": "current source and operational pointers"},
+      {"name": "10_CROWN", "driveFolderId": "1BG3AwW2cmtlaI2xy-9AnBmgC52nKAEcR", "githubPath": "doctrine/releaseBoundaryV2.json", "role": "promotion boundary and authority"},
+      {"name": "20_RELEASE_EVIDENCE", "driveFolderId": "1dJRYrXxd18cK2iIUnlE_8YbTrtMRvXFz", "githubPath": "receipts/", "role": "reviewable source and deployment evidence"},
+      {"name": "30_INSTALL_BUILDS", "driveFolderId": "1GPbzrahFhqdLvllGqqjGrrSshTcW12DS", "githubPath": null, "role": "Drive-held install artifacts; never bulk-imported into public source"},
+      {"name": "40_ASSET_VAULT", "driveFolderId": "1m6y7wxkKavkP7MJ15J4d9y2Rixzgg7nX", "githubPath": null, "role": "Drive-held assets; publish only after rights and hash review"},
+      {"name": "50_PRIVATE", "driveFolderId": "180sUGDI5eQhUrVrtIczjy3vxpYiqzIEa", "githubPath": null, "role": "private material excluded from public GitHub"},
+      {"name": "90_ARCHIVE", "driveFolderId": "1p9p38hwhygdbtiCKLwVzTyb2s6ui1HJK", "githubPath": "Git history and immutable source refs", "role": "historical evidence retained without reactivating superseded builds"}
+    ]
+  },
+  "githubSource": {
+    "repository": "eggie-admin/LuHm-OS",
+    "branch": "main",
+    "directoryAlignmentMode": "explicitReviewedMapping",
+    "publicSourceOwner": "GitHub",
+    "driveFileHandoffOwner": "Google Drive",
+    "mirrorDriveFolderNamesAsRepositoryDirectories": false,
+    "copyPrivateOrUnreviewedDriveAssets": false,
+    "copyInstallBuildArtifactsByDefault": false,
+    "preserveCleanRepoBootstrapSelectiveTransplant": true,
+    "preciseLocatorComponents": ["repository", "ref", "path", "commitSha"]
+  },
+  "promotion": {
+    "crownStatus": "STOP",
+    "releasePromotion": false,
+    "runtimePromotion": false,
+    "driveFolderMutation": false,
+    "privateAssetPublication": false
+  },
+  "sourceEvidence": {
+    "driveCanonSnapshot": "https://docs.google.com/document/d/1CiBWk-WNgL-soRrnaDJpYP7AI2TSM7NhCkWuryFkddE/edit",
+    "driveBootstrapLaw": "https://docs.google.com/document/d/11TKwWzUoTaDsI1okj-uVLGviEz19n1H6n4spEp7BX0w/edit",
+    "reviewedAt": "2026-10-22"
+  }
+}
