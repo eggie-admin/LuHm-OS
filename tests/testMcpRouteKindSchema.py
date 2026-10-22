@@ -26,7 +26,8 @@ class RouteKindSchemaContract(unittest.TestCase):
             self.assertFalse(alignment["githubSource"]["driveFolderIdsOrUrlsStoredInPublicRepository"])
             serialized = json.dumps(alignment)
             self.assertNotIn("drive.google.com", serialized)
-            self.assertNotIn("driveFolderId", serialized)
+            for row in alignment["driveTree"]:
+                self.assertFalse(any("id" in key.lower() or "url" in key.lower() for key in row))
         asyncio.run(inspect())
 
 
