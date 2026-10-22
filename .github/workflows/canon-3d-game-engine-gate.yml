@@ -1,0 +1,35 @@
+name: Canon 3D Game Engine Gate
+on:
+  pull_request:
+    paths:
+      - 'game/assets/canonRuntimeAssetsV1.json'
+      - 'game/canon/**'
+      - 'scripts/game/canonAssetRegistry.gd'
+      - 'scripts/main.gd'
+      - 'tools/canonAssetBuildAudit.py'
+      - 'tools/buildGodotWebHarness.sh'
+      - 'tests/testCanonAssetBuildAudit.py'
+      - '.github/workflows/canon-3d-game-engine-gate.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'game/assets/canonRuntimeAssetsV1.json'
+      - 'game/canon/**'
+      - 'scripts/game/canonAssetRegistry.gd'
+      - 'scripts/main.gd'
+      - 'tools/canonAssetBuildAudit.py'
+      - 'tools/buildGodotWebHarness.sh'
+      - 'tests/testCanonAssetBuildAudit.py'
+      - '.github/workflows/canon-3d-game-engine-gate.yml'
+permissions:
+  contents: read
+jobs:
+  asset-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Validate source asset provenance and public eligibility
+        run: |
+          python3 tools/canonAssetBuildAudit.py
+          python3 -m unittest discover -s tests -p 'testCanonAssetBuildAudit.py' -v
