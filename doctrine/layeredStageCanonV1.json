@@ -128,6 +128,12 @@
     "androidDeviceInstall": "UNVERIFIED",
     "rights": "PENDING_APPROVAL",
     "releaseAuthority": false,
-    "productionPromotion": false
+    "productionPromotion": false,
+    "renderRuntimeReceipt": "doctrine/renderRuntimeReceipt20261022T144924Z.json",
+    "renderRuntimeStatus": "LIVE_RENDER_EXACT_MAIN_HTTP_200",
+    "renderDeployedSourceRef": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
+    "renderDeployId": "dep-dbd24f6q1p3s73dmdjcg",
+    "renderHarnessHttpStatus": 200,
+    "chatGptToolPayloadObserved": true
   }
 }
