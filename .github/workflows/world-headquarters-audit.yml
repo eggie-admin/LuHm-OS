@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - 'doctrine/worldHeadquartersOrchestrationV1.json'
+      - 'tools/archiveIntake.py'
+      - 'tests/testArchiveIntake.py'
       - 'tools/worldHeadquartersAudit.py'
       - 'tests/testWorldHeadquartersAudit.py'
       - 'manual/worldHeadquartersFinalForm.md'
@@ -31,3 +33,5 @@ jobs:
         run: python3 tools/worldHeadquartersAudit.py
       - name: Negative control tests
         run: python3 -m unittest tests/testWorldHeadquartersAudit.py
+      - name: Archive intake offline safety tests
+        run: python3 -m unittest tests/testArchiveIntake.py
