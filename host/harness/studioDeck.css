@@ -14,3 +14,124 @@
 @media(max-width:480px){.studioDeck{margin:8px;gap:8px}.studioLevel{padding:14px}.studioWorld{min-height:220px}.studioLevel h2{font-size:18px}}
 
 .studioDeck{--studioCloud:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20220%20100%22%3E%3Cpath%20fill%3D%22%239da9d6%22%20d%3D%22M20%2063a18%2018%200%200%201%2015-30%2024%2024%200%200%201%2047-8%2018%2018%200%200%201%2026%2018h12a12%2012%200%200%201%200%2024H28z%22%2F%3E%3C%2Fsvg%3E");--studioMountain:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20450%20210%22%3E%3Cpath%20fill%3D%22%23304469%22%20d%3D%22M0%20210%2080%2063%20135%20134%20236%2012%20333%20129%20387%2074%20450%20210z%22%2F%3E%3Cpath%20fill%3D%22%235e76a1%22%20d%3D%22m236%2012-41%2050%2039-16%2023%2020z%22%2F%3E%3Cpath%20fill%3D%22%23162a43%22%20d%3D%22M0%20210%20143%2095%20240%20210%20352%20114%20450%20210z%22%2F%3E%3C%2Fsvg%3E");--studioTree:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20190%20110%22%3E%3Cg%20fill%3D%22%23091b2a%22%3E%3Cpath%20d%3D%22M19%20110V75H1l22-34H10L33%203l23%2038H43l22%2034H45v35zM103%20110V65H81l19-25h-11L111%205l22%2035h-12l20%2025h-22v45zM161%20110V85h-15l18-27h-9l20-30%2015%2030h-8l8%2027h-13v25z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");}
+
+
+/* LuHm four-plane full-viewport compositing: embedded background (0),
+   rear (1), middle (2), interactive glass GUI (3), foreground (4).
+   Four scenery planes, not four overlapping interactive scroll containers. */
+.studioDeck{
+  --studioRearY:0px;--studioMiddleY:0px;--studioFrontY:0px;
+  --studioGlassFill:rgba(11,17,32,.68);--studioGlassBorder:rgba(146,204,246,.34);
+  position:relative;z-index:0;isolation:isolate;overflow:visible;min-height:100svh;
+  grid-template-columns:minmax(0,1fr);
+}
+.studioDeck .scenery{display:contents;pointer-events:none}
+.studioDeck .scenery>div{
+  position:fixed;inset:-12vh -8vw;pointer-events:none;will-change:transform;
+  background-repeat:repeat-x;backface-visibility:hidden;
+}
+.studioDeck .scenerySky{
+  inset:0;z-index:0;transform:none;
+  background:radial-gradient(ellipse at 75% 18%,rgba(108,74,179,.52),transparent 49%),
+    radial-gradient(ellipse at 18% 80%,rgba(26,132,157,.34),transparent 48%),
+    linear-gradient(180deg,#090c1b,#101627 60%,#080c17);
+}
+.studioDeck .scenerySky iframe{
+  position:absolute;inset:0;width:100%;height:100%;display:block;
+  border:0;pointer-events:none;opacity:.6;
+  filter:saturate(1.05) brightness(.6);
+}
+.studioDeck .scenerySky iframe[hidden]{display:none}
+.studioDeck .sceneryClouds{
+  z-index:1;opacity:.33;background:var(--studioCloud) repeat-x 0 22%/260px 120px;
+  transform:translate3d(0,var(--studioRearY),0);
+  animation:studioCloudDrift 75s linear infinite;
+}
+.studioDeck .sceneryMountains{
+  z-index:2;opacity:.48;background:var(--studioMountain) repeat-x center 95%/520px 240px;
+  transform:translate3d(0,var(--studioMiddleY),0);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 35%,black 85%);
+  mask-image:linear-gradient(to bottom,transparent 35%,black 85%);
+}
+.studioDeck .sceneryTrees{
+  z-index:4;opacity:.35;
+  background:var(--studioTree) repeat-x center 100%/240px 150px;
+  transform:translate3d(0,var(--studioFrontY),0);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 58%,black 100%);
+  mask-image:linear-gradient(to bottom,transparent 58%,black 100%);
+}
+/* The foreground intentionally floats over the interface yet never intercepts
+   clicks, scrolling, text selection, keyboard focus, or the music iframe. */
+.studioDeck .studioLevel{
+  z-index:3;position:relative;overflow:visible;
+  background:linear-gradient(140deg,rgba(18,27,46,.76),var(--studioGlassFill));
+  border:1px solid var(--studioGlassBorder);
+  -webkit-backdrop-filter:blur(18px) saturate(135%);
+  backdrop-filter:blur(18px) saturate(135%);
+  box-shadow:0 14px 46px rgba(0,0,0,.38),inset 0 1px 0 rgba(207,238,255,.12);
+}
+.studioDeck .studioWorld{min-height:270px;background:rgba(12,20,39,.46);isolation:auto}
+.studioDeck .studioWorldCopy{z-index:auto;text-shadow:0 2px 16px #020714}
+.studioDeck .studioLevel input,
+.studioDeck .studioButtons button{
+  background:rgba(6,14,29,.66);
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+}
+.studioDeck #studioBackdropStatus{font-size:12px;color:#d1e2f3;max-width:440px}
+.studioDeck .studioLevel:is(:focus-within,:hover){border-color:rgba(139,227,249,.53)}
+/* Both standalone and in-chat shells remain readable while revealing the
+   full-screen background. No remote background fetch occurs until a click. */
+.shell:has(> .studioDeck),main:has(> .studioDeck){
+  background:rgba(7,11,21,.40);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .studioDeck .studioLevel{background:rgba(12,18,32,.93)}
+}
+@media(max-width:480px){
+  .studioDeck .studioLevel{padding:14px;-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px)}
+  .studioDeck .studioWorld{min-height:260px}
+  .studioDeck .sceneryClouds{background-size:190px 95px}
+  .studioDeck .sceneryTrees{opacity:.24}
+}
+@media(prefers-reduced-motion:reduce){
+  .studioDeck .scenery>div{will-change:auto;animation:none!important;transform:none!important}
+}
+
+/* Canonical seven-plane compositor. Portrait atlas is the existing sprite fallback. */
+.studioDeck .sceneryClouds{filter:blur(3px)}
+.studioDeck .sceneryTrees{z-index:6;filter:blur(3px)}
+.studioDeck .studioLevel{z-index:5}
+.studioCharacters{position:relative;z-index:3;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;min-height:230px;align-items:end;padding:32px 0 12px;pointer-events:none}
+.studioCharacters figure{margin:0;width:clamp(100px,16vw,190px);text-align:center}
+.studioPortrait{width:100%;aspect-ratio:1;background-image:url("/harness/assets/agent-roster-v1.png");background-size:400% 400%;border-radius:22px;border:1px solid #b7abda80;box-shadow:0 8px 35px #9c4bdd35}
+.studioCharacters figcaption{color:#f4e6ff;font:600 14px/2 system-ui;text-shadow:0 2px 8px #000}
+.studioEffects{position:fixed;inset:0;z-index:4;pointer-events:none}
+.studioEffects svg{width:100%;height:100%}
+@media(max-width:480px){.studioCharacters{gap:8px;padding-top:18px}.studioCharacters figure{width:29%}}
+
+.lum2dPanel{margin:0 12px 12px;contain:layout style}
+.lum2dLayout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(230px,.85fr);gap:16px;margin-top:12px;align-items:center}
+.lum2dStage{--l2x:0px;--l2y:0px;--l2rot:0deg;--l2bx:0px;--l2by:0px;min-width:0;min-height:290px;position:relative;isolation:isolate;overflow:hidden;display:grid;place-items:center;border:1px solid #4d3a70;border-radius:16px;background:radial-gradient(circle at 50% 38%,#613bae55,#151224 58%,#0b0b17 92%);touch-action:pan-y}
+.lum2dStage:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 95%,#5ee7ff0d 100%);background-size:100% 8px}
+.lum2dArt{width:min(96%,390px);max-height:345px;height:auto;overflow:visible;filter:drop-shadow(0 13px 18px #0008)}
+.lum2dBackground{transform:translate(var(--l2bx),var(--l2by))}
+.lum2dBody{transform:translate(var(--l2bx),var(--l2by))}
+.lum2dHead{transform:translate(var(--l2x),var(--l2y)) rotate(var(--l2rot));transform-origin:180px 186px}
+.lum2dBangs{transform:translate(var(--l2bx),var(--l2by))}
+.lum2dClosedEyes{display:none}.lum2dStage.is-blinking .lum2dOpenEyes{display:none}.lum2dStage.is-blinking .lum2dClosedEyes{display:inline}
+.lum2dHand{transform-origin:290px 312px}
+.lum2dStage.is-waving .lum2dHand{animation:lum2dWave .68s ease-in-out 1}
+@keyframes lum2dWave{0%,100%{transform:rotate(0deg)}30%,70%{transform:rotate(-15deg)}50%{transform:rotate(13deg)}}
+.lum2dStamp{position:absolute;left:12px;bottom:10px;letter-spacing:.1em;font:10px ui-monospace,monospace;color:#d7c6ee}
+.lum2dControls{display:flex;flex-direction:column;justify-content:center;gap:12px;min-width:0}
+.lum2dControls h3{font-size:20px;margin:0}.lum2dControls p{margin:0;line-height:1.5}
+.lum2dButtons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.lum2dButtons button{min-height:44px;min-width:0;border:1px solid #61537b;border-radius:10px;background:#18142a;color:var(--ink);padding:9px 11px;cursor:pointer}
+.lum2dButtons button:hover,.lum2dButtons button[aria-pressed=true]{border-color:var(--cyan);background:#272043}
+#lum2dMessage{min-height:34px;color:#e6d8ff}
+@media(max-width:700px){.lum2dLayout{grid-template-columns:1fr}.lum2dStage{min-height:270px}.lum2dArt{max-height:285px}.lum2dPanel{margin:0 8px 8px}}
+@media(prefers-reduced-motion:reduce){.lum2dStage *, .lum2dArt *{animation:none!important;transition:none!important}.lum2dHead,.lum2dBangs,.lum2dBackground,.lum2dBody{transform:none!important}}
+.lum2dPanel.is-motion-paused .lum2dStage *{animation:none!important;transition:none!important}
+.lum2dPanel.is-motion-paused .lum2dHead,.lum2dPanel.is-motion-paused .lum2dBangs,.lum2dPanel.is-motion-paused .lum2dBackground,.lum2dPanel.is-motion-paused .lum2dBody{transform:none!important}
+.studioDeck .lum2dPanel{z-index:3;margin:0}
