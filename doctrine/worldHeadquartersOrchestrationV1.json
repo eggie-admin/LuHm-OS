@@ -1,0 +1,242 @@
+{
+  "schema": "luhmOs.worldHeadquartersOrchestration.v1",
+  "status": "SOURCE_CANDIDATE_NOT_RUNTIME_DEPLOYED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Unify headquarters, air traffic, R&D garage, Forge Twins, artistic production, and exactly two priority-ordered compatibility layers without spawning a competing source authority or live autonomous workforce.",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "canonicalBranch": "main",
+  "sourceSnapshotForCandidate": "9550701a1dab0830900118ea4cc7f7116c620be9",
+  "studio": "Pirate Daddy's Film",
+  "singleAuthorityChain": [
+    "Professor",
+    "lum",
+    "supervisedSpecialists",
+    "GitHubExactSourceCI",
+    "independentEvidence",
+    "ProfessorCrown"
+  ],
+  "headquarters": {
+    "identity": "luhmOs",
+    "title": "World Headquarters",
+    "chairman": "Professor",
+    "president": "lum",
+    "role": "humanGovernedStudioAndEngineeringControlPlane",
+    "aiControlPlane": "doctrine/luhmAiControlPlaneV1.json",
+    "cabinet": "doctrine/lumGoddessCabinetV1.json",
+    "roster": "doctrine/agentSystemDeploymentV1.json",
+    "quarantine": "doctrine/companyWideOperationalQuarantineV1.json",
+    "soloStudio": "doctrine/soloStudioOperatingProfileV1.json",
+    "notEnterpriseInfrastructure": true
+  },
+  "compatibilityLayers": [
+    {
+      "priority": 1,
+      "id": "chatGptOpenAi",
+      "title": "OpenAI/ChatGPT Compatibility",
+      "contract": "doctrine/studioCompatibilityFastMeshV1.json",
+      "function": "userChatWorkMcpSiteCockpitAndSupervisedCast",
+      "surfaces": [
+        "chatGpt",
+        "workWhenEntitled",
+        "mcpApps",
+        "pluginSite"
+      ],
+      "canOwnCanonicalSource": false,
+      "accountWorkModeSwitchBySchema": false,
+      "paidApiCallsWithoutSeparateApproval": false,
+      "requiresCodex": false,
+      "evidenceRequirement": "hostAccessAndActualRuntimeReceipt",
+      "authority": "interactionOnly"
+    },
+    {
+      "priority": 2,
+      "id": "github",
+      "title": "GitHub Compatibility",
+      "contract": "doctrine/studioCompatibilityFastMeshV1.json",
+      "function": "canonicalSourceCiPrBranchesReceiptsCodespacesAndForge",
+      "repository": "eggie-admin/LuHm-OS",
+      "branch": "main",
+      "directGitHubConnector": true,
+      "sourceAuthority": true,
+      "automaticallyMerge": false,
+      "sourceProof": "immutableExact40Sha",
+      "mirrorIsSecondSourceAuthority": false
+    }
+  ],
+  "roles": {
+    "singleBoss": "lum",
+    "goddessCabinet": {
+      "urdDoctorGoddess": "evidenceDiagnosticsSecurityAndFailClosedAdjudication",
+      "belldandySecretary": "archiveRecordsProvenanceCrownAndHandoffLedger",
+      "skuldResearch": "researchArchitectureDependencyAndUpstreamCompatibility"
+    },
+    "creativeLead": "yume",
+    "forgeTwins": {
+      "tetsu": "sourceForgeIngestProtectPrepareCandidate",
+      "kaji": "compileForgeOnlyAfterExactSingleUseCast"
+    },
+    "oniSpecialists": [
+      "kiri",
+      "momo",
+      "shiori",
+      "kugi",
+      "fumi",
+      "sumi",
+      "koe",
+      "mediaAssetFactory"
+    ],
+    "registeredRosterCount": 15,
+    "supervisedChatPresentationAllowed": true,
+    "liveAgentExecutionEnabled": false,
+    "hiddenAsyncExecution": false,
+    "recursiveRecruitment": false,
+    "maxParallelSupportWorkers": 3,
+    "oneMutableSourceLane": true,
+    "noRoleMayGrantCrown": true
+  },
+  "airTraffic": {
+    "controller": "cloudflare",
+    "contract": "doctrine/cloudflareAirTrafficControllerV1.json",
+    "orchestration": "doctrine/cloudflareLumOrchestrationV1.json",
+    "role": "dnsTlsOptionalTunnelZeroTrustEdgeOnly",
+    "mayBeAiBoss": false,
+    "mayBeSourceAuthority": false,
+    "mayExposeLan": false,
+    "publicMcpRoute": "directRenderTlsCurrently",
+    "cloudflareForPublicMcp": "optionalAfterCompatibilityProof",
+    "privatePortalActivationRequiresSeparateProof": true
+  },
+  "researchAndDevelopment": {
+    "lead": "skuldResearch",
+    "creativeStudio": "yume",
+    "canonicalWorkspace": "GitHub Codespaces",
+    "sourceOfTruth": "githubMain",
+    "secondSourceOfTruthInterpretation": {
+      "type": "readOnlyWorkspaceMirrorAndEvidenceIndex",
+      "stores": "checkedOutCanonicalGitCommitPlusWorkingReceipts",
+      "writableCandidateOnly": true,
+      "sourceAuthority": false,
+      "conflictingSourceRef": "STOP"
+    },
+    "basementWorkshop": {
+      "title": "Professor's Basement Workshop",
+      "contract": "manual/professor-ubuntu2604-basement.md",
+      "devcontainer": ".devcontainer/devcontainer.json",
+      "operatingSystem": "ubuntu2604UserlandCodespaces",
+      "sourceCheckout": "exactGitHubSha",
+      "tools": [
+        "python3",
+        "headlessBlender",
+        "gimp3BatchUnderXvfb",
+        "ffmpeg",
+        "godot4Headless",
+        "nginx",
+        "mariaDbSocketOnly"
+      ],
+      "servicesDefault": "notAssumedRunning",
+      "smokeReceipt": "scripts/professorGarageSmoke.sh",
+      "noPublicPortOrUnboundedShell": true,
+      "hardwareAndRuntimeStatus": "NOT_VERIFIED_IN_THIS_CHANGE"
+    },
+    "forge": {
+      "contract": "doctrine/forgeTwinsV3.json",
+      "sourceForge": "tetsu",
+      "compileForge": "kaji",
+      "deterministicMutationBridge": "kugi",
+      "sourceChangeLocation": "candidateBranchOnly",
+      "castSingleUse": true,
+      "castRequiresExactTaskIdSourceRefMilestoneAndScope": true,
+      "genericPhraseIsNotAValidCastEnvelope": true,
+      "executionRequiresSeparatePermissionAndRuntimeProof": true
+    }
+  },
+  "sidecars": {
+    "render": {
+      "contract": "doctrine/githubRenderSidecarV1.json",
+      "services": [
+        "luhm-os-harness-green",
+        "luhm-os-godot-harness-green"
+      ],
+      "authority": "previewRuntimeHealthAndMcpTransportOnly",
+      "sameShaReceipt": true,
+      "noAutomaticDeployment": true,
+      "noPaidResources": true
+    },
+    "nginx": {
+      "scope": "boundedLocalOptionalGate",
+      "defaultStart": false,
+      "noPublicLan": false
+    },
+    "mariaDb": {
+      "scope": "socketOnlyMetadataAndLocalJobs",
+      "isBinaryArchive": false
+    },
+    "googleDrive": {
+      "contract": "doctrine/storageTopologyV1.json",
+      "authority": "durableBinaryStorageNotSource",
+      "originalArtPrivate": true,
+      "privateDriveIdsInPublicRepo": false,
+      "archiveIntake": "candidateStagingOnlyNotCanon",
+      "extractedFilesRequireRightsAndHashCheck": true
+    },
+    "fastApiCloud": {
+      "status": "ALTERNATIVE_UNVERIFIED",
+      "defaultTarget": false
+    }
+  },
+  "pipeline": {
+    "commandAlias": "RECONCILE MERGE DEPLOY CAST FINAL FORM FINAL BOSS",
+    "aliasMeaning": "requestFullStructuralReconciliationAndAllDistinctGates",
+    "orderedStates": [
+      "sanityCheck",
+      "audit",
+      "ingest",
+      "mutation",
+      "test",
+      "apply",
+      "continue",
+      "deploy"
+    ],
+    "mandatoryChecks": [
+      "exactMainSource",
+      "compatibilityPair",
+      "quarantine",
+      "rightsAndPrivacy",
+      "diffReview",
+      "targetedTests",
+      "exactShaCI",
+      "castEnvelopeIfBuild",
+      "runtimeHealthForDeploy",
+      "independentUrdReview",
+      "ProfessorCrownIfPromotion"
+    ],
+    "noAutomaticMerge": true,
+    "noAutomaticBuild": true,
+    "noAutomaticCast": true,
+    "noAutomaticDeployment": true,
+    "noAutomaticPublicRelease": true,
+    "noAutomaticSigning": true,
+    "noAutomaticQuarantineRelease": true,
+    "candidateBranchWorkflow": "sourceTestThenReviewThenSeparateScopedAction",
+    "evidenceLaw": "sourceConfiguredNotRuntimeProven"
+  },
+  "references": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/studioCompatibilityFastMeshV1.json",
+    "doctrine/luhmAiControlPlaneV1.json",
+    "doctrine/lumGoddessCabinetV1.json",
+    "doctrine/agentSystemDeploymentV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/cloudflareAirTrafficControllerV1.json",
+    "doctrine/cloudflareLumOrchestrationV1.json",
+    "doctrine/forgeTwinsV3.json",
+    "doctrine/storageTopologyV1.json",
+    "doctrine/githubRenderSidecarV1.json",
+    "doctrine/fourTierOperatingModelV1.json",
+    "doctrine/soloStudioOperatingProfileV1.json"
+  ],
+  "deploymentStatus": "SOURCE_ONLY",
+  "crownStatus": "STOP",
+  "promotion": false
+}

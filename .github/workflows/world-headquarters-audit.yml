@@ -1,0 +1,33 @@
+name: world-headquarters-source-audit
+on:
+  push:
+    paths:
+      - 'doctrine/worldHeadquartersOrchestrationV1.json'
+      - 'tools/worldHeadquartersAudit.py'
+      - 'tests/testWorldHeadquartersAudit.py'
+      - 'manual/worldHeadquartersFinalForm.md'
+      - '.github/workflows/world-headquarters-audit.yml'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/studioCompatibilityFastMeshV1.json'
+      - 'doctrine/companyWideOperationalQuarantineV1.json'
+  pull_request:
+    paths:
+      - 'doctrine/worldHeadquartersOrchestrationV1.json'
+      - 'tools/worldHeadquartersAudit.py'
+      - 'tests/testWorldHeadquartersAudit.py'
+      - 'manual/worldHeadquartersFinalForm.md'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/studioCompatibilityFastMeshV1.json'
+      - 'doctrine/companyWideOperationalQuarantineV1.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate dual compatibility and authority
+        run: python3 tools/worldHeadquartersAudit.py
+      - name: Negative control tests
+        run: python3 -m unittest tests/testWorldHeadquartersAudit.py
