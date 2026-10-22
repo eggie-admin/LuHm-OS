@@ -134,9 +134,6 @@ def _studio_page(harness_root: Path, page: str, *, widget: bool = False) -> str:
     deck = (harness_root / "studioDeck.html").read_text(encoding="utf-8")
     if widget:
         css = (harness_root / "studioDeck.css").read_text(encoding="utf-8")
-        import base64
-        atlas = base64.b64encode((harness_root / "agent-roster-v1.png").read_bytes()).decode("ascii")
-        css = css.replace("/harness/assets/agent-roster-v1.png", "data:image/png;base64," + atlas)
         script = (harness_root / "studioDeck.js").read_text(encoding="utf-8")
         deck = "<style>" + css + "</style>" + deck + "<script>" + script + "</script>"
     return page.replace("<!-- LUHM_STUDIO_DECK -->", deck)
