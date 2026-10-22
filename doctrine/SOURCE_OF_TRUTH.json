@@ -451,5 +451,8 @@
     "sourcePreservationRequired": true,
     "publicOutputsStillContentLaneBound": true,
     "crownStatus": "STOP"
-  }
+  },
+  "currentSourceTruth": "doctrine/currentSourceTruthV3.json",
+  "recordRole": "historicalCompatibilityIndex",
+  "historicalReceiptPolicy": "Embedded deployment and build observations retain their original source identities; resolve currentSourceTruth for current operational pointers."
 }

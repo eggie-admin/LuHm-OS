@@ -924,7 +924,9 @@
     "receipt": "doctrine/updateUpgradeMergeReceipt20261021.json",
     "sourceRef": "d30bbaab3c7fcd7543b01a325e9f6034f1a546ab",
     "status": "SOURCE_MERGED_PRIVATE_BRIDGE_LIVE_RENDER_UPGRADE_BLOCKED",
-    "fullPublicReleaseGreen": false
+    "fullPublicReleaseGreen": false,
+    "historicalOnly": true,
+    "supersededRuntimeObservation": "layeredStage.latestRenderObservation"
   },
   "layeredStage": {
     "contract": "doctrine/layeredStageCanonV1.json",
@@ -942,7 +944,7 @@
     "assetSource": "GoogleDrive",
     "rigFormat": "UNVERIFIED",
     "assetRights": "UNKNOWN",
-    "runtimeImplementation": "RENDER_LIVE_EXACT_MAIN_HTTP_200_AND_CHAT_TOOL_PAYLOAD_OBSERVED_VISUAL_RENDERING_UNVERIFIED",
+    "runtimeImplementation": "RENDER_DEPLOYMENT_REPORTED_LIVE_HTTP_AND_VISUAL_RUNTIME_UNVERIFIED",
     "productionPromotion": false,
     "releaseAuthority": false,
     "relatedCandidatePr": 357,
@@ -956,11 +958,29 @@
     "connectedProjectHydraPlugin": "READ_ONLY_TOOL_INVOKED",
     "resourceIdentityReconciliation": "SOURCE_V2_CONNECTED_HOST_SITE_V3_UNVERIFIED_VISUAL_MOUNT",
     "canonProof": "doctrine/layeredStageCanonV1.json#currentSource",
-    "renderRuntimeReceipt": "doctrine/renderRuntimeReceipt20261022T144924Z.json",
-    "renderDeployedSourceRef": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
-    "renderDeployId": "dep-dbd24f6q1p3s73dmdjcg",
-    "renderHarnessHttpStatus": 200,
+    "renderDeployedSourceRef": "d058fa93b7f927fc1150ac0fd2e9091078fd200c",
+    "renderDeployId": "dep-dbd2s3oae00c738fcei0",
     "chatGptToolPayloadObserved": true,
-    "visualMount": "UNVERIFIED"
+    "visualMount": "UNVERIFIED",
+    "historicalRenderObservation": {
+      "receipt": "doctrine/renderRuntimeReceipt20261022T144924Z.json",
+      "sourceRef": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
+      "deployId": "dep-dbd24f6q1p3s73dmdjcg",
+      "httpStatus": 200
+    },
+    "latestRenderObservation": {
+      "observedDate": "2026-10-22",
+      "source": "Render list_deploys and GitHub main",
+      "repository": "eggie-admin/LuHm-OS",
+      "sourceRef": "d058fa93b7f927fc1150ac0fd2e9091078fd200c",
+      "serviceId": "srv-daubsi1srm7s73bl5lh0",
+      "deployId": "dep-dbd2s3oae00c738fcei0",
+      "deployStatus": "live",
+      "scope": "providerReportedDeploymentAndSourceAlignmentOnly",
+      "httpHealth": "UNVERIFIED_CURRENT_PROBE_TIMED_OUT",
+      "visualMount": "UNVERIFIED",
+      "androidDevice": "UNVERIFIED",
+      "releaseAuthority": false
+    }
   }
 }
