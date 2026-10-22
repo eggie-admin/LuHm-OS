@@ -64,6 +64,12 @@ def audit(rootPath):
         canonDoc = chainDoc["canonicalRepository"]
         need(canonDoc["source"] == repoDoc["canonicalPrimary"] and canonDoc["registryRef"] == "doctrine/activeRepositorySetV1.json", "repo identity drift")
         need(canonDoc["migration"] == "selectiveReviewedTransplant" and canonDoc["artMappingDraftPr"] == 216, "repo mapping lineage drift")
+        remoteIdentityDoc = canonDoc["remoteSourceIdentity"]
+        need(remoteIdentityDoc["identity"] == "art.eggiebagelface.mcp.LuHm-OS" and remoteIdentityDoc["reverseNamespace"] == "art.eggiebagelface.mcp" and remoteIdentityDoc["repository"] == "eggie-admin/LuHm-OS", "remote repository identity drift")
+        need(remoteIdentityDoc["forwardHttpsFqdn"] == forwardDoc["publicMcp"] and remoteIdentityDoc["publicHttpsUsesForwardFqdn"] is True, "public HTTPS route conflated with reverse identity")
+        need(remoteIdentityDoc["wildcardSortingPattern"] == "art.eggiebagelface.*" and remoteIdentityDoc["wildcardSortingPatternIsLiteralDns"] is False, "sorting pattern presented as live wildcard DNS")
+        need(remoteIdentityDoc["isDnsRecord"] is False and remoteIdentityDoc["isPtrRecord"] is False, "remote source identity treated as DNS or PTR")
+        need(remoteIdentityDoc["route"] == "CloudflareManagedDns -> RenderManagedTls -> LuHmMcp" and remoteIdentityDoc["cloudflareProxy"] == "disabledUntilSeparateStreamingProof", "MCP proxy route changed without proof")
         need(canonDoc["donorHistoryAutoMerge"] is False and canonDoc["githubRepositoryIsDnsNameserver"] is False and canonDoc["dnsDoesNotServeRepositorySource"] is True, "GitHub/repo authority confused with DNS")
         need(chainDoc["runtimeState"] == "UNVERIFIED" and chainDoc["liveMutation"] is False, "identity spine claimed live authority")
         policyDoc = spineDoc["reverseProxy"]
