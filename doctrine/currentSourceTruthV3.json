@@ -942,7 +942,7 @@
     "assetSource": "GoogleDrive",
     "rigFormat": "UNVERIFIED",
     "assetRights": "UNKNOWN",
-    "runtimeImplementation": "MERGED_MAIN_SOURCE_BROWSER_TESTED_NOT_LIVE_HOST_VERIFIED",
+    "runtimeImplementation": "RENDER_LIVE_EXACT_MAIN_HTTP_200_AND_CHAT_TOOL_PAYLOAD_OBSERVED_VISUAL_RENDERING_UNVERIFIED",
     "productionPromotion": false,
     "releaseAuthority": false,
     "relatedCandidatePr": 357,
@@ -955,6 +955,12 @@
     "private3dGoddesses": "DRIVE_ASSETS_NOT_PUBLIC_OR_RUNTIME_PROVED",
     "connectedProjectHydraPlugin": "READ_ONLY_TOOL_INVOKED",
     "resourceIdentityReconciliation": "SOURCE_V2_CONNECTED_HOST_SITE_V3_UNVERIFIED_VISUAL_MOUNT",
-    "canonProof": "doctrine/layeredStageCanonV1.json#currentSource"
+    "canonProof": "doctrine/layeredStageCanonV1.json#currentSource",
+    "renderRuntimeReceipt": "doctrine/renderRuntimeReceipt20261022T144924Z.json",
+    "renderDeployedSourceRef": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
+    "renderDeployId": "dep-dbd24f6q1p3s73dmdjcg",
+    "renderHarnessHttpStatus": 200,
+    "chatGptToolPayloadObserved": true,
+    "visualMount": "UNVERIFIED"
   }
 }
