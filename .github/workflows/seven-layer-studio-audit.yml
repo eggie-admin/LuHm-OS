@@ -1,0 +1,29 @@
+name: Project Hydra Seven-Layer In-Chat Studio
+on:
+  pull_request:
+    paths:
+      - 'host/harness/studioDeck.*'
+      - 'tests/embeddedStudio.test.cjs'
+      - 'doctrine/layeredStageCanonV1.json'
+      - 'tools/sevenLayerStudioAudit.py'
+      - '.github/workflows/seven-layer-studio-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Exact-head seven-plane negative controls
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$HEAD_SHA"
+          git diff --check
+          python3 tools/sevenLayerStudioAudit.py
+          node --check host/harness/studioDeck.js

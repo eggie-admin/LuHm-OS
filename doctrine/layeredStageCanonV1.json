@@ -93,5 +93,33 @@
     "Vue3 compositor smoke",
     "Professor production approval"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "implementation": {
+    "sharedSource": [
+      "host/harness/studioDeck.html",
+      "host/harness/studioDeck.css",
+      "host/harness/studioDeck.js"
+    ],
+    "inChatResource": "ui://luhm-os/cockpit-v2.html",
+    "standaloneHarness": "/harness/",
+    "planeAttribute": "data-stage-plane",
+    "exactPlaneIds": [
+      "embeddedMedia",
+      "farField",
+      "sharpBackground",
+      "liveCharacter",
+      "vectorEffects",
+      "glassWidgetDock",
+      "foregroundAtmosphere"
+    ],
+    "baselineEffect": "originalGothCharacterSvg",
+    "clientRendering": "NATIVE_SVG_FALLBACK_NOT_VUE",
+    "vue3Component": "frontEnd/vue/LumLayeredPuppet.vue",
+    "vue3Runtime": "SOURCE_ONLY_NOT_BUNDLED",
+    "private3dModelRuntime": "NOT_CONNECTED_TO_PUBLIC_WIDGET",
+    "privateArtUpload": false,
+    "usesSharedStudioSource": true,
+    "evidence": "AWAITING_EXACT_HEAD_CI_AND_HOST_PROOF",
+    "sourceCandidateOnly": true
+  }
 }

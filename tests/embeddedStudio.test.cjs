@@ -17,6 +17,9 @@ async function main() {
   assert.match(studio.musicTarget("https://www.youtube.com/playlist?list=PL1234567890").embed,/videoseries/);
   assert.equal(studio.category("sisters.rar"),"archivesPendingInspection");
   assert.equal(studio.category("scene.GLB"),"models");
+  assert.deepEqual(studio.depthOffsets(1000),{far:"-60.0px",near:"-140.0px",front:"-260.0px"});
+  assert.deepEqual(studio.depthOffsets(1000,true),{far:"0.0px",near:"0.0px",front:"0.0px"});
+  assert.deepEqual(studio.depthOffsets(Infinity),{far:"0.0px",near:"0.0px",front:"0.0px"});
   assert.equal(studio.validContract(contract),true);
   assert.equal(studio.validContract({...contract,lane:"production"}),false);
   assert.equal(studio.validContract({...contract,quarantine:{activeTaskWorkersAllowed:true}}),false);
@@ -35,7 +38,20 @@ async function main() {
       await page.goto("http://localhost:8788/harness/");
       await page.locator("#agentLoadingScreen").waitFor({state:"hidden"});
       assert.equal(await page.locator("#luhmStudioDeck").count(),1);
+    assert.equal(await page.locator("[data-stage-plane]").count(),7);
+    await page.locator("#studioStageExpression").click();
+    assert.equal(await page.locator("#studioStageExpression").getAttribute("aria-pressed"),"true");
       assert.equal(await page.locator(".scenery > div").count(),4);
+      assert.deepEqual(await page.locator("[data-seven-layer-stage] [data-stage-plane]").evaluateAll(nodes=>nodes.map(n=>n.dataset.stagePlane)),
+        ["embeddedMedia","farField","sharpBackground","foregroundAtmosphere","liveCharacter","vectorEffects","glassWidgetDock"]);
+      assert.equal(await page.locator("#studioStageBlink").isVisible(),true);
+      await page.locator("#studioStageExpression").click();
+      assert.equal(await page.locator("#studioStageExpression").getAttribute("aria-pressed"),"true");
+      await page.locator("#studioStageBlink").click();
+      assert.equal(await page.locator("#studioCharacter").evaluate(el=>el.classList.contains("is-blinking")),true);
+      await page.locator("#studioStageMotion").click();
+      assert.equal(await page.locator("#studioStageMotion").getAttribute("aria-pressed"),"true");
+      assert.equal(await page.locator("#studioSevenLayerStage").evaluate(el=>el.style.getPropertyValue("--stage-front")),"0.0px");
       assert.equal(await page.locator("#studioMusicStage iframe").count(),0);
       assert.equal(external.length,0,"No external player request before click");
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),"No horizontal overflow at "+width);

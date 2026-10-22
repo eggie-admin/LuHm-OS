@@ -42,10 +42,76 @@
     const digest = await cryptoApi.subtle.digest("SHA-256", await file.arrayBuffer());
     return Array.from(new Uint8Array(digest), x => x.toString(16).padStart(2, "0")).join("");
   }
+
+  // Pure vertical-depth planner; no media fetch or runtime mutation.
+  function depthOffsets(scrollY, reducedMotion = false) {
+    const safe = Number.isFinite(Number(scrollY)) ? Math.min(1200, Math.max(0, Number(scrollY))) : 0;
+    const distance = reducedMotion ? 0 : safe;
+    return {far: (-distance * .06).toFixed(1) + "px", near: (-distance * .14).toFixed(1) + "px", front: (-distance * .26).toFixed(1) + "px"};
+  }
+  function initializeSevenLayerStage(doc) {
+    const stage = doc.getElementById("studioSevenLayerStage");
+    if (!stage) return null;
+    const win = doc.defaultView;
+    const find = id => doc.getElementById(id);
+    const figure = find("studioCharacter");
+    const media = win?.matchMedia?.("(prefers-reduced-motion: reduce)") || {matches:true,addEventListener() {},removeEventListener() {}};
+    let paused = false, frame = 0, blinkTimer = 0, waveTimer = 0, disposed = false;
+    function draw() {
+      frame = 0;
+      if (disposed) return;
+      const offsets = depthOffsets(win?.scrollY || 0, paused || media.matches || !!doc.hidden);
+      stage.style.setProperty("--stage-far", offsets.far);
+      stage.style.setProperty("--stage-near", offsets.near);
+      stage.style.setProperty("--stage-front", offsets.front);
+    }
+    function queue() { if (!frame && !disposed) frame = win.requestAnimationFrame(draw); }
+    function stopMotion() { paused = !paused; stage.classList.toggle("is-motion-paused",paused); find("studioStageMotion").setAttribute("aria-pressed", String(paused)); find("studioStageMotion").textContent=paused?"Resume motion":"Pause motion"; draw(); }
+    function blink() {
+      if (disposed) return;
+      win.clearTimeout(blinkTimer);
+      figure.classList.add("is-blinking");
+      blinkTimer=win.setTimeout(()=>figure.classList.remove("is-blinking"),180);
+    }
+    function wave() {
+      if (disposed || paused || media.matches) return;
+      win.clearTimeout(waveTimer);
+      figure.classList.add("is-waving");
+      waveTimer=win.setTimeout(()=>figure.classList.remove("is-waving"),850);
+    }
+    function expression() {
+      const neutral = figure.classList.toggle("is-neutral");
+      find("studioStageExpression").setAttribute("aria-pressed",String(neutral));
+    }
+    find("studioStageBlink").addEventListener("click",blink);
+    find("studioStageWave").addEventListener("click",wave);
+    find("studioStageExpression").addEventListener("click",expression);
+    find("studioStageMotion").addEventListener("click",stopMotion);
+    function cleanup() {
+      disposed=true;
+      if(frame)win.cancelAnimationFrame(frame);
+      win.clearTimeout(blinkTimer);win.clearTimeout(waveTimer);
+      win.removeEventListener("scroll",queue);
+      doc.removeEventListener("visibilitychange",queue);
+      media.removeEventListener?.("change",queue);
+      find("studioStageBlink").removeEventListener("click",blink);
+      find("studioStageWave").removeEventListener("click",wave);
+      find("studioStageExpression").removeEventListener("click",expression);
+      find("studioStageMotion").removeEventListener("click",stopMotion);
+    }
+    win.addEventListener("scroll",queue,{passive:true});
+    doc.addEventListener("visibilitychange",queue);
+    media.addEventListener?.("change",queue);
+    win.addEventListener("pagehide",cleanup,{once:true});
+    draw();
+    return {draw,cleanup};
+  }
+
   function mount(doc) {
     if (!doc.getElementById("luhmStudioDeck")) return null;
     const get = id => doc.getElementById(id);
     let records = [], busy = false, sourceRef = "UNKNOWN";
+    const stageController = initializeSevenLayerStage(doc);
     function showRegister() {
       const groups = new Map();
       for (const row of records) groups.set(row.category, (groups.get(row.category) || 0) + 1);
@@ -122,7 +188,7 @@
     configure(null);
     return {configure, addFiles, register:() => records.map(row => ({...row}))};
   }
-  const api = {musicTarget, category, validContract, fingerprint, mount, hashLimit, maxFiles};
+  const api = {musicTarget, category, validContract, fingerprint, mount, depthOffsets, initializeSevenLayerStage, hashLimit, maxFiles};
   if (typeof module === "object" && module.exports) module.exports = api;
   root.LuHmStudio = api;
   if (root.document) root.luhmStudioDeck = mount(root.document);

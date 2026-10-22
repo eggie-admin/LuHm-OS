@@ -1,7 +1,45 @@
 <section class="studioDeck" id="luhmStudioDeck" aria-label="Creative workspace">
-  <section class="studioLevel studioWorld" aria-labelledby="studioWorldTitle">
-    <div class="scenery" aria-hidden="true"><div class="scenerySky"></div><div class="sceneryClouds"></div><div class="sceneryMountains"></div><div class="sceneryTrees"></div></div>
-    <div class="studioWorldCopy"><span class="studioEyebrow">LuHm · creative workspace</span><h2 id="studioWorldTitle">A little world for your work.</h2><p>Keep the music close, the originals safe, and the next shot in sight.</p></div>
+    <section class="studioLevel studioWorld" id="studioSevenLayerStage" data-seven-layer-stage aria-labelledby="studioWorldTitle">
+    <!-- One viewport, exactly seven ordered compositor planes. Four legacy scenery elements remain. -->
+    <div class="scenery" aria-hidden="true">
+      <div class="scenerySky" data-stage-plane="embeddedMedia" data-depth="0"></div>
+      <div class="sceneryClouds" data-stage-plane="farField" data-depth="1"></div>
+      <div class="sceneryMountains" data-stage-plane="sharpBackground" data-depth="2"></div>
+      <div class="sceneryTrees" data-stage-plane="foregroundAtmosphere" data-depth="6"></div>
+    </div>
+    <div class="studioCharacter" id="studioCharacter" data-stage-plane="liveCharacter" data-depth="3"
+         role="img" aria-label="Original adult gothic Lum-inspired 2D SVG character, not a 3D rig or Cubism model">
+      <svg viewBox="0 0 320 350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="gothHair" x2="1" y2="1"><stop stop-color="#433568"/><stop offset="1" stop-color="#21172f"/></linearGradient>
+        </defs>
+        <path d="M72 350 Q41 259 65 145 Q51 54 158 37 Q264 45 249 145 Q275 260 249 350Z" fill="url(#gothHair)" stroke="#e37fd8" stroke-width="3"/>
+        <path d="M115 83 L99 20 L140 71 M183 72 L219 20 L211 90" fill="#f4edff" stroke="#75e7f8" stroke-width="4"/>
+        <path d="M51 350 Q69 247 127 238 Q151 249 164 247 Q231 237 268 350Z" fill="#161420" stroke="#d66cd7" stroke-width="5"/>
+        <path d="M102 266 Q125 249 147 283 Q166 304 183 277 Q217 248 240 275 L244 350 H76Z" fill="#36213b" stroke="#9c6dbc" stroke-width="3"/>
+        <path d="M124 284 L148 336 L168 291 L188 336 L207 285" fill="none" stroke="#5ee7ff" stroke-width="3" opacity=".7"/>
+        <ellipse cx="161" cy="165" rx="76" ry="93" fill="#e1b5cd" stroke="#67456e" stroke-width="3"/>
+        <path d="M86 145 Q86 69 158 67 Q233 64 238 142 Q196 112 177 101 Q127 139 86 145Z" fill="#242039" stroke="#e783cf" stroke-width="3"/>
+        <g id="studioCharacterEyes" fill="#2a1b3a"><ellipse cx="132" cy="165" rx="10" ry="14"/><ellipse cx="191" cy="165" rx="10" ry="14"/></g>
+        <path id="studioCharacterMouth" d="M142 211 Q160 226 181 209" fill="none" stroke="#77334c" stroke-width="4" stroke-linecap="round"/>
+        <path d="M121 134 L144 126 M180 128 L205 139" stroke="#392339" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="studioEffects" data-stage-plane="vectorEffects" data-depth="4" aria-hidden="true">
+      <svg viewBox="0 0 320 230" preserveAspectRatio="none"><circle cx="31" cy="43" r="2" fill="#b6f9ff"/><circle cx="265" cy="32" r="3" fill="#d787ee"/><circle cx="290" cy="181" r="2" fill="#fff"/><path d="M24 188Q115 74 288 121" stroke="#6f66e0" stroke-width="2" fill="none" opacity=".6"/></svg>
+    </div>
+    <div class="studioWorldCopy" data-stage-plane="glassWidgetDock" data-depth="5">
+      <span class="studioEyebrow">LuHm OS · Project Hydra · Seven-plane studio</span>
+      <h2 id="studioWorldTitle">Goth Character Stage</h2>
+      <p>Original 2D fallback. Vue 3 source is not bundled; private 3D models are not published.</p>
+      <div class="studioStageControls" role="group" aria-label="Original 2D character controls">
+        <button id="studioStageBlink" type="button">Blink</button>
+        <button id="studioStageExpression" type="button" aria-pressed="false">Expression</button>
+        <button id="studioStageWave" type="button">Wave</button>
+        <button id="studioStageMotion" type="button" aria-pressed="false">Pause motion</button>
+      </div>
+      <p class="studioStageStatus" id="studioStageStatus" role="status" aria-live="polite">Seven planes · local 2D preview · no model or render uploaded.</p>
+    </div>
   </section>
   <section class="studioLevel" aria-labelledby="studioMusicTitle">
     <h2 id="studioMusicTitle">Music desk</h2><p>Paste a YouTube or YouTube Music video or playlist link. Load when you want to connect to YouTube.</p>
