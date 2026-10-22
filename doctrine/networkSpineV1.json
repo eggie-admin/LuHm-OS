@@ -82,7 +82,21 @@
       "githubRepositoryIsDnsNameserver": false,
       "dnsDoesNotServeRepositorySource": true,
       "registryRef": "doctrine/activeRepositorySetV1.json",
-      "artMappingDraftPr": 216
+      "artMappingDraftPr": 216,
+      "remoteSourceIdentity": {
+        "identity": "art.eggiebagelface.mcp.LuHm-OS",
+        "reverseNamespace": "art.eggiebagelface.mcp",
+        "repository": "eggie-admin/LuHm-OS",
+        "forwardHttpsFqdn": "mcp.eggiebagelface.art",
+        "wildcardSortingPattern": "art.eggiebagelface.*",
+        "purpose": "remoteRepositoryAlignmentAndFqdnSorting",
+        "wildcardSortingPatternIsLiteralDns": false,
+        "isDnsRecord": false,
+        "isPtrRecord": false,
+        "publicHttpsUsesForwardFqdn": true,
+        "route": "CloudflareManagedDns -> RenderManagedTls -> LuHmMcp",
+        "cloudflareProxy": "disabledUntilSeparateStreamingProof"
+      }
     },
     "runtimeState": "UNVERIFIED",
     "liveMutation": false
