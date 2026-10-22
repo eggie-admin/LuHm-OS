@@ -95,7 +95,7 @@ def assess(policy, contracts=None):
     need(traffic.get("authorityBoundary", {}).get("sourceTruthOwner") is False and traffic.get("authorityBoundary", {}).get("aiProvider") is False, "trafficAuthorityDrift")
     need(storage.get("roles", {}).get("github", {}).get("canonicalSourceAuthority") is True and storage.get("roles", {}).get("googleDrive", {}).get("canonicalBinaryStorage") is True, "storageAuthorityDrift")
     need(twins.get("twins", {}).get("Tetsu", {}).get("role") == "SOURCE_FORGE" and twins.get("twins", {}).get("Kaji", {}).get("role") == "COMPILE_FORGE", "forgeTwinsDrift")
-    need(twins.get("castEnvelope", {}).get("singleUse") is True, "singleUseCastDrift")
+    need("singleUse" in twins.get("castEnvelope", {}).get("requiredFields", []) and twins.get("castEnvelope", {}).get("consumedOnAttempt") is True and twins.get("castEnvelope", {}).get("persistentAuthorizationAllowed") is False, "singleUseCastDrift")
     need(sidecar.get("githubPrimary", {}).get("canonicalBranch") == "main" and sidecar.get("renderSidecar", {}).get("autoDeployCanonical") is False, "githubRenderDrift")
     need(len(tiers.get("tiers", [])) == 4 and tiers.get("primeLaw") == "oneAuthorityChainManyPresentationAndWorkLayers", "fourTierDrift")
     return sorted(set(errors))
