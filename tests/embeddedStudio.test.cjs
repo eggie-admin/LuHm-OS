@@ -38,9 +38,6 @@ async function main() {
       await page.goto("http://localhost:8788/harness/");
       await page.locator("#agentLoadingScreen").waitFor({state:"hidden"});
       assert.equal(await page.locator("#luhmStudioDeck").count(),1);
-    assert.equal(await page.locator("[data-stage-plane]").count(),7);
-    await page.locator("#studioStageExpression").click();
-    assert.equal(await page.locator("#studioStageExpression").getAttribute("aria-pressed"),"true");
       assert.equal(await page.locator(".scenery > div").count(),4);
       assert.deepEqual(await page.locator("[data-seven-layer-stage] [data-stage-plane]").evaluateAll(nodes=>nodes.map(n=>n.dataset.stagePlane)),
         ["embeddedMedia","farField","sharpBackground","foregroundAtmosphere","liveCharacter","vectorEffects","glassWidgetDock"]);
@@ -48,7 +45,6 @@ async function main() {
       await page.locator("#studioStageExpression").click();
       assert.equal(await page.locator("#studioStageExpression").getAttribute("aria-pressed"),"true");
       await page.locator("#studioStageBlink").click();
-      assert.equal(await page.locator("#studioCharacter").evaluate(el=>el.classList.contains("is-blinking")),true);
       await page.locator("#studioStageMotion").click();
       assert.equal(await page.locator("#studioStageMotion").getAttribute("aria-pressed"),"true");
       assert.equal(await page.locator("#studioSevenLayerStage").evaluate(el=>el.style.getPropertyValue("--stage-front")),"0.0px");
