@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.layeredStageCanon.v1",
-  "status": "PROPOSED_SOURCE_CANDIDATE",
+  "status": "CANONICAL_SOURCE_ARCHITECTURE",
   "asOf": "2026-10-21",
   "authority": "Professor",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
@@ -129,11 +129,30 @@
     "rights": "PENDING_APPROVAL",
     "releaseAuthority": false,
     "productionPromotion": false,
-    "renderRuntimeReceipt": "doctrine/renderRuntimeReceipt20261022T144924Z.json",
-    "renderRuntimeStatus": "LIVE_RENDER_EXACT_MAIN_HTTP_200",
-    "renderDeployedSourceRef": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
-    "renderDeployId": "dep-dbd24f6q1p3s73dmdjcg",
-    "renderHarnessHttpStatus": 200,
-    "chatGptToolPayloadObserved": true
-  }
+    "renderRuntimeStatus": "PROVIDER_REPORTED_LIVE_HTTP_AND_VISUAL_RUNTIME_UNVERIFIED",
+    "renderDeployedSourceRef": "d058fa93b7f927fc1150ac0fd2e9091078fd200c",
+    "renderDeployId": "dep-dbd2s3oae00c738fcei0",
+    "chatGptToolPayloadObserved": true,
+    "historicalRenderObservation": {
+      "receipt": "doctrine/renderRuntimeReceipt20261022T144924Z.json",
+      "sourceRef": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
+      "deployId": "dep-dbd24f6q1p3s73dmdjcg",
+      "httpStatus": 200
+    },
+    "latestRenderObservation": {
+      "observedDate": "2026-10-22",
+      "source": "Render list_deploys and GitHub main",
+      "repository": "eggie-admin/LuHm-OS",
+      "sourceRef": "d058fa93b7f927fc1150ac0fd2e9091078fd200c",
+      "serviceId": "srv-daubsi1srm7s73bl5lh0",
+      "deployId": "dep-dbd2s3oae00c738fcei0",
+      "deployStatus": "live",
+      "scope": "providerReportedDeploymentAndSourceAlignmentOnly",
+      "httpHealth": "UNVERIFIED_CURRENT_PROBE_TIMED_OUT",
+      "visualMount": "UNVERIFIED",
+      "androidDevice": "UNVERIFIED",
+      "releaseAuthority": false
+    }
+  },
+  "statusScope": "Merged source architecture only; runtime acceptance and production promotion remain separate."
 }
