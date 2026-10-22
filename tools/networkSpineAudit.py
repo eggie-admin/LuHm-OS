@@ -70,6 +70,15 @@ def audit(rootPath):
         need(remoteIdentityDoc["wildcardSortingPattern"] == "art.eggiebagelface.*" and remoteIdentityDoc["wildcardSortingPatternIsLiteralDns"] is False, "sorting pattern presented as live wildcard DNS")
         need(remoteIdentityDoc["isDnsRecord"] is False and remoteIdentityDoc["isPtrRecord"] is False, "remote source identity treated as DNS or PTR")
         need(remoteIdentityDoc["route"] == "CloudflareManagedDns -> RenderManagedTls -> LuHmMcp" and remoteIdentityDoc["cloudflareProxy"] == "disabledUntilSeparateStreamingProof", "MCP proxy route changed without proof")
+        pullDoc = remoteIdentityDoc["directoryPullLocator"]
+        need(pullDoc["provider"] == "github" and pullDoc["repository"] == repoDoc["canonicalPrimary"], "remote pull provider or repository drift")
+        need(pullDoc["components"] == ["repository", "ref", "path", "commitSha"] and pullDoc["requiresExactRepositoryRefPathAndCommitSha"] is True, "precise GitHub pull locator is incomplete")
+        need(pullDoc["reverseNamespaceIsLookupSortingKeyOnly"] is True and pullDoc["maySubstituteForGitHubRefPathOrCommit"] is False, "reverse namespace substituted for a GitHub pull locator")
+        dnsDoc = remoteIdentityDoc["forwardDns"]
+        need(dnsDoc["fqdn"] == forwardDoc["publicMcp"] and dnsDoc["httpsPath"] == "/mcp", "forward HTTPS host/path drift")
+        need(dnsDoc["recordType"] == "CNAME" and dnsDoc["recordName"] == "mcp" and dnsDoc["targetCandidate"] == "luhm-os-harness-green.onrender.com", "Render custom-host CNAME candidate drift")
+        need(dnsDoc["proxy"] == "DNS_ONLY" and dnsDoc["aRecord"] == "notUsedForThisRenderSubdomain" and dnsDoc["aaaaRecord"] == "mustBeAbsent", "Render DNS record contract drift")
+        need(dnsDoc["runtimeState"] == "UNVERIFIED_UNTIL_RENDER_DOMAIN_DNS_TLS_AND_MCP_PROBES_PASS" and dnsDoc["currentPublishedEndpoint"] == "https://luhm-os-harness-green.onrender.com/mcp", "candidate FQDN promoted or endpoint pointer drift")
         need(canonDoc["donorHistoryAutoMerge"] is False and canonDoc["githubRepositoryIsDnsNameserver"] is False and canonDoc["dnsDoesNotServeRepositorySource"] is True, "GitHub/repo authority confused with DNS")
         need(chainDoc["runtimeState"] == "UNVERIFIED" and chainDoc["liveMutation"] is False, "identity spine claimed live authority")
         policyDoc = spineDoc["reverseProxy"]
