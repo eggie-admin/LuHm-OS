@@ -23,6 +23,9 @@
     "doctrine/projectChatCanonV1.json",
     "doctrine/everlastingCovenantV1.json",
     "doctrine/currentSourceTruthV3.json",
+    "doctrine/worldHeadquartersOrchestrationV1.json",
+    "doctrine/studioCompatibilityFastMeshV1.json",
+    "doctrine/currentCanonSnapshot20261022.json",
     "doctrine/chatGptPluginWorkflowStreamV1.json",
     "doctrine/activeRepositorySetV1.json",
     "doctrine/storageTopologyV1.json",
@@ -74,7 +77,10 @@
     "chatHistoryStewardship": "doctrine/chatHistoryStewardshipV1.json",
     "activeRepositorySet": "doctrine/activeRepositorySetV1.json",
     "chatGptPluginWorkflowStream": "doctrine/chatGptPluginWorkflowStreamV1.json",
-    "semanticDomainHardening": "doctrine/semanticDomainHardeningV1.json"
+    "semanticDomainHardening": "doctrine/semanticDomainHardeningV1.json",
+    "worldHeadquarters": "doctrine/worldHeadquartersOrchestrationV1.json",
+    "compatibilityLayers": "doctrine/studioCompatibilityFastMeshV1.json",
+    "canonSnapshot": "doctrine/currentCanonSnapshot20261022.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -160,7 +166,17 @@
       "status": "STANDBY_CANDIDATE",
       "activatesAfter": "reconciliationMergeAndExactMainReproof"
     },
-    "semanticDomainHardening": "doctrine/semanticDomainHardeningV1.json"
+    "semanticDomainHardening": "doctrine/semanticDomainHardeningV1.json",
+    "worldHeadquartersSource": "doctrine/worldHeadquartersOrchestrationV1.json",
+    "compatibilityLayerOrder": [
+      "chatGptOpenAi",
+      "github"
+    ],
+    "secondGitHubCompatibilityLayerIsSourceAuthority": true,
+    "codespacesSecondSourceOfTruthIsWorkingMirrorOnly": true,
+    "companyWideAgentsStayQuarantined": true,
+    "personalStudioNoEnterpriseRequired": true,
+    "archiveIntakeCannotGrantArtRights": true
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
@@ -313,5 +329,11 @@
     "roleplayMayChangeAuthority": false,
     "taskBound": true,
     "hiddenAsyncExecution": false
+  },
+  "snapshotContinuity": {
+    "receipt": "doctrine/currentCanonSnapshot20261022.json",
+    "status": "SOURCE_CANDIDATE_ONLY",
+    "noPromotionFromSnapshot": true,
+    "crownStatus": "STOP"
   }
 }
