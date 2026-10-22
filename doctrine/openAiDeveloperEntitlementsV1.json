@@ -46,10 +46,15 @@
       "purpose": "participatingToolMayUseIncludedAllowanceOnlyAfterUserSharingApproval",
       "explicitConsentRequired": true,
       "availableOnEveryPlugin": false,
-      "notApiBilling": false,
+      "notApiBilling": true,
       "alwaysGrantsCredits": false,
       "grantsUnlimitedUsage": false,
-      "proofSource": "hostConsentAndApprovedToolReceipt"
+      "proofSource": "hostConsentAndApprovedToolReceipt",
+      "usesSharedWorkCodexAllowance": true,
+      "doesNotShareChatOrMemoryByDefault": true,
+      "appWeeklyLimit": "UNKNOWN_UNTIL_ACCOUNT_UI",
+      "allowAppCreditUseWithoutOptIn": false,
+      "automaticallyPurchasesCredits": false
     },
     "apiPlatform": {
       "product": "OpenAI API Platform",
@@ -156,7 +161,8 @@
       "https://help.openai.com/en/articles/20001516-managing-usage-with-gpt-6-astra-in-work-and-codex",
       "https://help.openai.com/en/articles/9039756-managing-billing-for-chatgpt-and-the-api-platform",
       "https://developers.openai.com/community",
-      "https://openai.com/startups"
+      "https://openai.com/startups",
+      "https://help.openai.com/en/articles/20001542-using-your-chatgpt-plan-in-other-apps-and-sites"
     ],
     "mutableDocumentation": true
   },
