@@ -101,6 +101,15 @@ def validate(root: Path = ROOT) -> dict:
                 raise ValueError("APPROVED_ASSET_SYMLINK")
             if resource.is_file() and resource.suffix.lower() in {".glb", ".tscn"} and resource.resolve() not in claimed:
                 raise ValueError("UNREGISTERED_PUBLIC_3D_BINARY")
+    # Godot's default resource export may include unlisted models anywhere in the repo.
+    # Do not trust a registry that only scans the designated approved folder.
+    forbidden_formats = {".glb", ".gltf", ".fbx", ".obj", ".dae", ".blend"}
+    for resource in root.rglob("*"):
+        if ".git" in resource.parts or ".godot" in resource.parts:
+            continue
+        if resource.is_file() and resource.suffix.lower() in forbidden_formats:
+            if resource.resolve() not in claimed:
+                raise ValueError("UNREGISTERED_3D_SOURCE_IN_PUBLIC_BUILD")
     for forbidden in ("assets/lum/luhm.glb", "assets/lum/luhmRunning.glb"):
         if (root / forbidden).exists():
             raise ValueError("PRIVATE_LUM_DONOR_IN_PUBLIC_SOURCE")
