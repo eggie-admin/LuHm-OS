@@ -10,6 +10,10 @@ on:
       - 'manual/worldHeadquartersFinalForm.md'
       - '.github/workflows/world-headquarters-audit.yml'
       - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/currentCanonSnapshot20261022.json'
+      - 'doctrine/activeRepositorySetV1.json'
+      - 'doctrine/projectChatCanonV1.json'
+      - 'tools/canonSnapshotAudit.py'
       - 'doctrine/studioCompatibilityFastMeshV1.json'
       - 'doctrine/companyWideOperationalQuarantineV1.json'
   pull_request:
@@ -19,6 +23,10 @@ on:
       - 'tests/testWorldHeadquartersAudit.py'
       - 'manual/worldHeadquartersFinalForm.md'
       - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/currentCanonSnapshot20261022.json'
+      - 'doctrine/activeRepositorySetV1.json'
+      - 'doctrine/projectChatCanonV1.json'
+      - 'tools/canonSnapshotAudit.py'
       - 'doctrine/studioCompatibilityFastMeshV1.json'
       - 'doctrine/companyWideOperationalQuarantineV1.json'
   workflow_dispatch:
@@ -35,3 +43,5 @@ jobs:
         run: python3 -m unittest tests/testWorldHeadquartersAudit.py
       - name: Archive intake offline safety tests
         run: python3 -m unittest tests/testArchiveIntake.py
+      - name: Canon snapshot source cross-check
+        run: python3 tools/canonSnapshotAudit.py
