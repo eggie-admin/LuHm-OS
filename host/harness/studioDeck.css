@@ -135,3 +135,13 @@
 .lum2dPanel.is-motion-paused .lum2dStage *{animation:none!important;transition:none!important}
 .lum2dPanel.is-motion-paused .lum2dHead,.lum2dPanel.is-motion-paused .lum2dBangs,.lum2dPanel.is-motion-paused .lum2dBackground,.lum2dPanel.is-motion-paused .lum2dBody{transform:none!important}
 .studioDeck .lum2dPanel{z-index:3;margin:0}
+
+.pocketWorld{position:relative;display:grid;place-items:center;min-height:260px;border-radius:18px;overflow:hidden;background:radial-gradient(ellipse at 50% 35%,#5832a9,#141026 70%)}
+#pocketmascot{width:min(70%,260px);animation:pocketHover 2.8s ease-in-out infinite;filter:drop-shadow(0 0 24px #6b35db)}
+#pocketbondHearts{position:absolute;inset:0;pointer-events:none;z-index:1}
+.pocketHeart{position:absolute;color:#e95cb5;font-size:26px;animation:pocketRise 1.3s ease-out forwards}
+.pocketCompanion select{width:100%;min-height:44px;background:#18142a;color:#edf2fa;border:1px solid #7264a5;border-radius:10px;padding:10px}
+@keyframes pocketHover{50%{transform:translateY(-12px) rotate(3deg)}}
+@keyframes pocketRise{to{transform:translateY(-80px);opacity:0}}
+.pocketCompanion.reduced *{animation:none!important}
+@media(prefers-reduced-motion:reduce){#pocketmascot,.pocketHeart{animation:none!important}}

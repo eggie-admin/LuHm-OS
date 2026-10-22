@@ -58,6 +58,17 @@
     <div class="studioButtons"><button type="button" id="studioBackdropLoad">Enable embedded scene</button><button type="button" id="studioBackdropStop">Use static background</button></div>
     <p id="studioBackdropStatus" role="status" aria-live="polite">Static background active. Embedded scene loads only when requested.</p></div>
   </section>
+<section class="studioLevel pocketCompanion" aria-label="Pocket vector pet"><h2>Pocket companion</h2><div id="pocketworld" class="pocketWorld"><div id="pocketbondHearts" aria-hidden="true"></div><svg id="pocketmascot" viewBox="0 0 250 260" role="img" aria-label="Friendly original Lum-inspired floating oni-orb pet with horns and expressive face">
+<ellipse id="pocketaura" cx="125" cy="130" rx="96" ry="104" fill="#6b35db" opacity=".25"/>
+<path d="M50 96 Q42 62 56 24 L99 77 M151 77 194 24 Q208 62 200 96" fill="#6b35db" stroke="#ede9ff" stroke-width="6" stroke-linejoin="round"/>
+<ellipse id="pocketpetBody" cx="125" cy="135" rx="86" ry="86" fill="#5ee3eb" stroke="#ede9ff" stroke-width="6"/>
+<path d="M74 149 Q125 190 176 149" fill="none" stroke="#6b35db" stroke-width="9" opacity=".6"/>
+<g id="pocketopenEyes" fill="#0c101a"><ellipse cx="92" cy="121" rx="11" ry="18"/><ellipse cx="158" cy="121" rx="11" ry="18"/></g>
+<g id="pocketshutEyes" stroke="#0c101a" stroke-width="6" fill="none" stroke-linecap="round" style="display:none"><path d="M76 125 Q92 136 107 125 M142 125 Q158 136 174 125"/></g>
+<path id="pocketmouth" d="M109 156 Q125 177 142 156" fill="none" stroke="#0c101a" stroke-width="6" stroke-linecap="round"/>
+<path d="M125 177 C90 151 102 137 125 151 C148 137 161 151 125 177Z" fill="#e95cb5" stroke="#ede9ff" stroke-width="3"/>
+<ellipse cx="64" cy="151" rx="13" ry="8" fill="#e95cb5" opacity=".58"/><ellipse cx="186" cy="151" rx="13" ry="8" fill="#e95cb5" opacity=".58"/>
+</svg></div><p id="pocketexpression" role="status" aria-live="polite">Lum · idle · Ready to play.</p><div class="studioButtons"><button id="pocketbond" type="button">Bond ♥</button><button id="pocketblink" type="button">Blink</button><button id="pocketcast" type="button">Cast ✧</button><button id="pocketpause" type="button" aria-pressed="false">Pause motion</button></div><label for="pocketpalette">Costume palette</label><select id="pocketpalette"><option value="cyan">Hydra Neon · cyan</option><option value="pink">Ember · magenta</option><option value="purple">Sanctuary · purple</option></select><label for="pocketscene">Scene atmosphere</label><select id="pocketscene"><option value="cathedral">Cathedral</option><option value="city">Neon city</option><option value="lab">Professor's lab</option><option value="stars">Starship bay</option><option value="portal">Portal chamber</option><option value="forest">Midnight forest</option></select></section>
   <section class="studioLevel" aria-labelledby="studioMusicTitle">
     <h2 id="studioMusicTitle">Music desk</h2><p>Paste a YouTube or YouTube Music video or playlist link. Load when you want to connect to YouTube.</p>
     <label for="studioMusicUrl">Track or playlist</label><input id="studioMusicUrl" type="url" maxlength="2048" placeholder="https://music.youtube.com/watch?v=…" autocomplete="off">

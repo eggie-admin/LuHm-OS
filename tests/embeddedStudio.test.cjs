@@ -46,6 +46,10 @@ async function main() {
       await page.locator("#agentLoadingScreen").waitFor({state:"hidden"});
       assert.equal(await page.locator("#luhmStudioDeck").count(),1);
       assert.equal(await page.locator("[data-stage-plane]").count(),7);
+      await page.locator("#pocketbond").click();
+      assert.match(await page.locator("#pocketexpression").textContent(),/Bond level 1/);
+      await page.locator("#pocketpalette").selectOption("pink");
+      assert.equal(await page.locator("#pocketpetBody").getAttribute("fill"),"#e95cb5");
       assert.equal(await page.locator("#lum2dStage").count(),1);
       await page.locator("#lum2dSmile").click();
       assert.equal(await page.locator("#lum2dStage").getAttribute("data-mood"),"neutral");
@@ -110,6 +114,10 @@ async function main() {
     assert.equal(await page.locator('#studioBackdropFrame').getAttribute('src'),null,"ChatGPT frame must not fetch scene automatically");
     assert.equal(await page.locator("#luhmStudioDeck").count(),1);
       assert.equal(await page.locator("[data-stage-plane]").count(),7);
+      await page.locator("#pocketbond").click();
+      assert.match(await page.locator("#pocketexpression").textContent(),/Bond level 1/);
+      await page.locator("#pocketpalette").selectOption("pink");
+      assert.equal(await page.locator("#pocketpetBody").getAttribute("fill"),"#e95cb5");
       assert.equal(await page.locator("#lum2dStage").count(),1);
       await page.locator("#lum2dSmile").click();
       assert.equal(await page.locator("#lum2dStage").getAttribute("data-mood"),"neutral");

@@ -218,7 +218,22 @@ function initLumLive2d() {
 }
 
   root.initLumLive2d = initLumLive2d;
+  function mountPocketCompanion(){
+const $=id=>document.getElementById("pocket"+id);const palette={cyan:"#5ee3eb",pink:"#e95cb5",purple:"#6b35db"};let timer=null,bondCount=0;
+function speak(t){$("expression").textContent=t}
+function tone(freq=620){try{let A=window.AudioContext||window.webkitAudioContext;let ctx=new A(),o=ctx.createOscillator(),g=ctx.createGain();o.type="sine";o.frequency.setValueAtTime(freq,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(freq*1.29,ctx.currentTime+.13);g.gain.setValueAtTime(.05,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.18);o.connect(g).connect(ctx.destination);o.start();o.stop(ctx.currentTime+.19);o.onended=()=>ctx.close()}catch(_){}}
+$("palette").addEventListener("change",e=>{$("petBody").setAttribute("fill",palette[e.target.value]);speak("Lum changed her neon coat.");tone(550)});
+const scenes={cathedral:"radial-gradient(ellipse at 50% 35%,#5832a9,#141026 70%)",city:"repeating-linear-gradient(90deg,#161132 0 35px,#2c1749 35px 45px,#0c101a 45px 72px)",lab:"repeating-linear-gradient(0deg,#101827 0 38px,#1a3652 40px 43px,#12102a 44px 80px)",stars:"radial-gradient(circle at 20% 18%,#5ee3eb 1px,transparent 3px),radial-gradient(circle at 75% 25%,#ede9ff 2px,transparent 4px),linear-gradient(125deg,#070d1d,#2d2561)",portal:"radial-gradient(circle at center,#e95cb5,#6b35db 23%,#0c101a 65%)",forest:"repeating-linear-gradient(104deg,#0b1525 0 46px,#152e3b 48px 60px,#0c101a 61px 96px)"};
+$("scene").addEventListener("change",e=>{$("world").style.background=scenes[e.target.value];speak("New scene: "+e.target.options[e.target.selectedIndex].text+".")});
+function blink(){clearTimeout(timer);$("openEyes").style.display="none";$("shutEyes").style.display="block";timer=setTimeout(()=>{$("openEyes").style.display="block";$("shutEyes").style.display="none"},260)}
+$("blink").addEventListener("click",()=>{blink();speak("A tiny wink from Lum.");tone(460)});
+$("bond").addEventListener("click",()=>{bondCount++;speak("Bond level "+bondCount+": Lum sends a heart back! ♥");tone(660);const e=document.createElement("span");e.className="pocketHeart";e.textContent="♥";e.style.left=(25+Math.random()*50)+"%";e.style.top=(26+Math.random()*50)+"%";$("bondHearts").append(e);setTimeout(()=>e.remove(),1350)});
+$("cast").addEventListener("click",()=>{tone(880);speak("Sparkle spell! Just a visual effect, no model or API calls.");$("aura").style.opacity=".8";setTimeout(()=>$("aura").style.opacity=".25",450)});
+$("pause").addEventListener("click",e=>{const v=document.querySelector(".pocketCompanion").classList.toggle("reduced");e.currentTarget.setAttribute("aria-pressed",String(v));e.currentTarget.textContent=v?"▶ Resume motion":"Ⅱ Pause motion"});
+
+  }
   function mount(doc) {
+    mountPocketCompanion();
     initLumLive2d();
     if (!doc.getElementById("luhmStudioDeck")) return null;
     const get = id => doc.getElementById(id);
