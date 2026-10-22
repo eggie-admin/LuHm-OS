@@ -1,4 +1,5 @@
 import asyncio
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -18,6 +19,14 @@ class RouteKindSchemaContract(unittest.TestCase):
             self.assertEqual(core.ROUTE_KINDS, set(core.get_args(core.RouteKind)))
             self.assertTrue(route.annotations.read_only_hint)
             self.assertFalse(route.annotations.destructive_hint)
+
+            alignment = json.loads(
+                (Path(__file__).resolve().parents[1] / "doctrine" / "driveControlPlaneAlignmentV1.json").read_text()
+            )
+            self.assertFalse(alignment["githubSource"]["driveFolderIdsOrUrlsStoredInPublicRepository"])
+            serialized = json.dumps(alignment)
+            self.assertNotIn("drive.google.com", serialized)
+            self.assertNotIn("driveFolderId", serialized)
         asyncio.run(inspect())
 
 
