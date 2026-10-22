@@ -1,0 +1,24 @@
+name: Current Seven-Layer Canon Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/layeredStageCanonV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'tools/sevenLayerMainAudit.py'
+      - 'host/harness/studioDeck.*'
+      - '.github/workflows/seven-layer-main-canon.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  canon-check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify exact-source seven-plane contract
+        run: |
+          git diff --check
+          python3 tools/sevenLayerMainAudit.py
+          node --check host/harness/studioDeck.js

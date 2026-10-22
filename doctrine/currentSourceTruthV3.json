@@ -942,10 +942,19 @@
     "assetSource": "GoogleDrive",
     "rigFormat": "UNVERIFIED",
     "assetRights": "UNKNOWN",
-    "runtimeImplementation": "PENDING",
+    "runtimeImplementation": "MERGED_MAIN_SOURCE_BROWSER_TESTED_NOT_LIVE_HOST_VERIFIED",
     "productionPromotion": false,
     "releaseAuthority": false,
     "relatedCandidatePr": 357,
-    "sourceCanonAuthority": "Professor"
+    "sourceCanonAuthority": "Professor",
+    "mergedPullRequest": 371,
+    "mergedMainSourceRef": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
+    "pr357": "HISTORICAL_PROPOSED_ONLY",
+    "vue3Runtime": "SFC_SOURCE_ONLY_UNBUNDLED",
+    "original2dSvg": "MAIN_SOURCE_MERGED",
+    "private3dGoddesses": "DRIVE_ASSETS_NOT_PUBLIC_OR_RUNTIME_PROVED",
+    "connectedProjectHydraPlugin": "READ_ONLY_TOOL_INVOKED",
+    "resourceIdentityReconciliation": "SOURCE_V2_CONNECTED_HOST_SITE_V3_UNVERIFIED_VISUAL_MOUNT",
+    "canonProof": "doctrine/layeredStageCanonV1.json#currentSource"
   }
 }
