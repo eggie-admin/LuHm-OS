@@ -20,7 +20,7 @@ import re
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal, get_args
 
 from mcp.server import MCPServer
 from mcp.server.transport_security import TransportSecuritySettings
@@ -44,10 +44,11 @@ PRECISION_COMMAND = ROOT / "doctrine" / "chatPrecisionCommandV1.json"
 ROUTER = ROOT / "tools" / "lumTaskRouter.py"
 ESCALATION_RESOLVER = ROOT / "tools" / "escalationKernel.py"
 API_SPINE_RESOLVER = ROOT / "host" / "api" / "luhmApiSpine.py"
-ROUTE_KINDS = {
+RouteKind = Literal[
     "direct", "read", "records", "proof", "patch", "build", "external",
     "diagnose", "research", "monitor", "release", "art", "media", "dictation", "asset",
-}
+]
+ROUTE_KINDS = frozenset(get_args(RouteKind))
 TRUTH_SCOPE_KINDS = {"patch", "build", "release"}
 
 SERVER_NAME = "luhm-os"
@@ -618,7 +619,7 @@ def luhm_validate_scope(
 
 @server.tool(annotations=READ_ONLY_INTERNAL)
 def luhm_route_task(
-    kind: str,
+    kind: RouteKind,
     truth_sensitive: bool = False,
     contested: bool = False,
     external_fact: bool = False,

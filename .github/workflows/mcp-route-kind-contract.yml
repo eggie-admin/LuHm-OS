@@ -1,0 +1,36 @@
+name: LuHm MCP Route Contract
+
+on:
+  pull_request:
+    paths:
+      - 'host/mcp/luhmMcpServer.py'
+      - 'tests/testMcpRouteKindSchema.py'
+      - 'doctrine/driveControlPlaneAlignmentV1.json'
+      - '.github/workflows/mcp-route-kind-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  route-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Bind exact head
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Install pinned MCP runtime
+        run: python -m pip install -r host/mcp/requirements.txt
+      - name: Check canonical route schema and public Drive manifest
+        run: |
+          set -euo pipefail
+          git diff --check
+          python -m unittest tests/testMcpRouteKindSchema.py -v
