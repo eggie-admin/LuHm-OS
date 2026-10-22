@@ -1,0 +1,190 @@
+{
+  "schema": "luhmOs.renderHarnessRuntimeReceipt.v1",
+  "status": "LIVE_RENDER_AND_INCHAT_DATA_OBSERVED",
+  "authority": "Professor",
+  "repository": "eggie-admin/LuHm-OS",
+  "sourceRef": {
+    "branch": "main",
+    "commit": "b52db4eb2dbc394001cdd8a220458150041fb7d4"
+  },
+  "sourceProof": {
+    "githubActions": {
+      "total": 12,
+      "allSuccessful": true,
+      "exactCommit": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
+      "runs": [
+        {
+          "name": "Four Track Release Execution Source Audit",
+          "runId": 39732310407,
+          "conclusion": "success"
+        },
+        {
+          "name": "Belldandy Secretary Practice Audit",
+          "runId": 39732310317,
+          "conclusion": "success"
+        },
+        {
+          "name": "Titan7 jQuery Modes Candidate Gate",
+          "runId": 39732310400,
+          "conclusion": "success"
+        },
+        {
+          "name": "Belldandy Housekeeping",
+          "runId": 39732310388,
+          "conclusion": "success"
+        },
+        {
+          "name": "FINAL FORM Public Release Truth Gate",
+          "runId": 39732310236,
+          "conclusion": "success"
+        },
+        {
+          "name": "Feature Mutation Architecture Gate",
+          "runId": 39732310271,
+          "conclusion": "success"
+        },
+        {
+          "name": "Static Transfer Mount Audit",
+          "runId": 39732310439,
+          "conclusion": "success"
+        },
+        {
+          "name": "Naming Namespace Canon Audit",
+          "runId": 39732310275,
+          "conclusion": "success"
+        },
+        {
+          "name": "LuHm OS Full Source Truth Audit",
+          "runId": 39732310315,
+          "conclusion": "success"
+        },
+        {
+          "name": "Cloudflare Lum Agent Orchestration Audit",
+          "runId": 39732310414,
+          "conclusion": "success"
+        },
+        {
+          "name": "LuHm Mobile Cockpit Layout Audit",
+          "runId": 39732310422,
+          "conclusion": "success"
+        },
+        {
+          "name": "Lum and Goddesses GitHub-Gated Render Deploy",
+          "runId": 39732310413,
+          "conclusion": "success"
+        }
+      ]
+    }
+  },
+  "render": {
+    "service": "luhm-os-harness-green",
+    "serviceId": "srv-daubsi1srm7s73bl5lh0",
+    "plan": "free",
+    "autoDeploy": false,
+    "deployedCommit": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
+    "deployId": "dep-dbd24f6q1p3s73dmdjcg",
+    "deployStatus": "live",
+    "trigger": "api",
+    "startedAt": "2026-10-22T14:48:29.009Z",
+    "finishedAt": "2026-10-22T14:49:24.258Z",
+    "url": "https://luhm-os-harness-green.onrender.com",
+    "harnessPath": "/harness/",
+    "httpStatus": 200,
+    "checkedMarkers": {
+      "layered2d": "present",
+      "glassDeck": "present",
+      "vectorPetControls": "present"
+    },
+    "httpHealthCheckPath": "notConfigured"
+  },
+  "chatGptHost": {
+    "invocation": "luhm_open_cockpit",
+    "result": "success",
+    "payloadSchema": "luhmOs.inChatExperiencePayload.v1",
+    "experienceStatus": "SOURCE_CONFIGURED_CANDIDATE",
+    "deviceRendering": "UNVERIFIED"
+  },
+  "observedAt": "2026-10-22T14:49:24.258Z",
+  "limits": {
+    "visualInteractionBrowserTest": "NOT_PERFORMED",
+    "deploymentDoesNotProvePublicPluginPublication": true
+  },
+  "crownStatus": "STOP",
+  "liveMcpProtocolRecheck": {
+    "observedAt": "2026-10-22T14:54:40Z/2026-10-22T14:56:05Z",
+    "endpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+    "deployment": {
+      "serviceId": "srv-daubsi1srm7s73bl5lh0",
+      "deployId": "dep-dbd24f6q1p3s73dmdjcg",
+      "sourceCommit": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
+      "status": "live"
+    },
+    "initialize": {
+      "observedAt": "2026-10-22T14:54:40Z",
+      "httpStatus": 200,
+      "contentType": "application/json",
+      "protocolVersion": "2025-03-26",
+      "serverInfo": {
+        "name": "luhm-os",
+        "version": "0.5.3-beta"
+      },
+      "jsonRpcError": false
+    },
+    "toolsList": {
+      "observedAt": "2026-10-22T14:55:06Z",
+      "httpStatus": 200,
+      "jsonRpcError": false,
+      "toolCount": 19,
+      "readOnlyStatusToolPresent": true,
+      "readOnlyTransportContractToolPresent": true
+    },
+    "readOnlyCalls": {
+      "luhmStatus": {
+        "httpStatus": 200,
+        "jsonRpcError": false,
+        "readOnly": true,
+        "sourceTruthStatus": "AMBER_PROPOSED_SEAL_OF_TRUTH",
+        "promotion": false,
+        "publicationAuthority": false,
+        "greenAuthority": false
+      },
+      "luhmTransportContract": {
+        "httpStatus": 200,
+        "jsonRpcError": false,
+        "readOnly": true,
+        "currentPublishedPluginEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+        "customFqdnIsOptionalPerimeterUpgrade": true
+      }
+    },
+    "healthz": {
+      "observedAt": "2026-10-22T14:56:01Z",
+      "httpStatus": 200,
+      "service": "luhm-os",
+      "version": "0.5.3-beta",
+      "role": "github-sidecar",
+      "contentType": "application/json"
+    },
+    "separateHarnessRoute": {
+      "observedAt": "2026-10-22T14:56:05Z",
+      "path": "/harness/",
+      "httpStatus": 200,
+      "contentType": "text/html; charset=utf-8",
+      "meaning": "HTML UI route; not used as MCP protocol evidence"
+    },
+    "customHostname": {
+      "forwardFqdn": "mcp.eggiebagelface.art",
+      "mcpProbeStatus": 503,
+      "directDnsProbe": "UNRESOLVED_FROM_RUNNER",
+      "tlsAndMcpReadiness": "NOT_PROVEN",
+      "proxyLane": "Cloudflare DNS-only direct Render Managed TLS until separate streaming proof"
+    },
+    "identityMapping": {
+      "reverseNamespace": "art.eggiebagelface.mcp",
+      "repositoryScopedSourceIdentity": "art.eggiebagelface.mcp.LuHm-OS",
+      "wildcardSortingPattern": "art.eggiebagelface.*",
+      "wildcardIsLiteralDns": false,
+      "githubRepository": "eggie-admin/LuHm-OS"
+    },
+    "conclusion": "Render-hosted MCP JSON-RPC backend is live on the GitHub main commit. This does not prove ChatGPT embedded UI rendering or custom-FQDN routing."
+  }
+}

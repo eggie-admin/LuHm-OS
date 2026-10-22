@@ -93,5 +93,47 @@
     "Vue3 compositor smoke",
     "Professor production approval"
   ],
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "currentSource": {
+    "observedDate": "2026-10-22",
+    "primaryRepository": "eggie-admin/LuHm-OS",
+    "branch": "main",
+    "mergedPullRequest": 371,
+    "mergedSourceRef": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
+    "sharedStudioSources": [
+      "host/harness/studioDeck.html",
+      "host/harness/studioDeck.css",
+      "host/harness/studioDeck.js"
+    ],
+    "sevenVisualPlaneAttribute": "data-stage-plane",
+    "sevenPlaneSourceState": "MERGED_MAIN_CI_GREEN",
+    "fourDecorativeCssPlanesPreserved": true,
+    "sourceComponent": "originalSelfHostedSvgLumPuppet",
+    "interactive2dControls": [
+      "blink",
+      "smile",
+      "wave",
+      "pause"
+    ],
+    "pocketCompanion": "originalVectorSvg",
+    "jqueryParallax": "BUNDLED_SAME_ORIGIN_OR_NATIVE_FALLBACK",
+    "godotBackground": "OPT_IN_NO_AUTOPLAY",
+    "vue3Source": "frontEnd/vue/LumLayeredPuppet.vue",
+    "vue3Runtime": "NOT_BUNDLED_IN_CURRENT_PRODUCTION",
+    "licensedCubismRuntime": "NOT_PROVEN",
+    "originalGlbAssets": "PRIVATE_DRIVE_CANDIDATES_NO_PUBLIC_WIDGET_INJECTION",
+    "cspSafeMedia": "REQUIRES_DEPLOYED_HOST_CHECK",
+    "chatGptPluginBridge": "TOOL_INVOKED_RESOURCE_MISMATCH_WITH_SOURCE_PENDING_HOST_RECONCILIATION",
+    "liveChatGptUiMount": "UNVERIFIED",
+    "androidDeviceInstall": "UNVERIFIED",
+    "rights": "PENDING_APPROVAL",
+    "releaseAuthority": false,
+    "productionPromotion": false,
+    "renderRuntimeReceipt": "doctrine/renderRuntimeReceipt20261022T144924Z.json",
+    "renderRuntimeStatus": "LIVE_RENDER_EXACT_MAIN_HTTP_200",
+    "renderDeployedSourceRef": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
+    "renderDeployId": "dep-dbd24f6q1p3s73dmdjcg",
+    "renderHarnessHttpStatus": 200,
+    "chatGptToolPayloadObserved": true
+  }
 }
