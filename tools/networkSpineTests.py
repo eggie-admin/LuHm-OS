@@ -71,6 +71,26 @@ class NetworkSpineTests(unittest.TestCase):
                 self.assertTrue(audit(self.rootValue)["errors"])
                 self.docValue = originalValue
 
+    def testRemoteSourceIdentitySeparatesForwardRouteAndReverseNamespace(self):
+        resultValue = audit(self.rootValue)
+        self.assertEqual(resultValue["errors"], [])
+        identityValue = self.docValue["identityChain"]["canonicalRepository"]["remoteSourceIdentity"]
+        self.assertEqual(identityValue["identity"], "art.eggiebagelface.mcp.LuHm-OS")
+        self.assertEqual(identityValue["forwardHttpsFqdn"], "mcp.eggiebagelface.art")
+        self.assertFalse(identityValue["wildcardSortingPatternIsLiteralDns"])
+        self.assertFalse(identityValue["isDnsRecord"])
+        self.assertFalse(identityValue["isPtrRecord"])
+        self.assertEqual(identityValue["cloudflareProxy"], "disabledUntilSeparateStreamingProof")
+
+    def testRemoteSourceIdentityDriftRejected(self):
+        for keyValue, wrongValue in (("identity", "mcp.eggiebagelface.art"), ("forwardHttpsFqdn", "art.eggiebagelface.mcp"), ("wildcardSortingPatternIsLiteralDns", True), ("isPtrRecord", True), ("cloudflareProxy", "enabled")):
+            with self.subTest(keyValue=keyValue):
+                originalValue = copy.deepcopy(self.docValue)
+                self.docValue["identityChain"]["canonicalRepository"]["remoteSourceIdentity"][keyValue] = wrongValue
+                self.saveDoc()
+                self.assertTrue(audit(self.rootValue)["errors"])
+                self.docValue = originalValue
+
     def testNameserverAndPtrClaimsRejected(self):
         changes = (
             ("authoritativeNameservers", "delegationState", "LIVE"),
