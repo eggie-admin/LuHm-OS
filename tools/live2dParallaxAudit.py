@@ -42,7 +42,7 @@ def verify(html, css, js, jquery, vue, frontend):
                  'Math.max(-1, Math.min(1, n))', 'clearTimeout(blinkTimer)',
                  'stage.removeEventListener("pointermove", pointerMove)']:
         need(item in js, "puppet_lifecycle_" + item)
-    start, end = js.find("function initLumLive2d()"), js.find("async function boot()")
+    start, end = js.find("function initLumLive2d()"), js.find("root.initLumLive2d = initLumLive2d")
     need(start >= 0 and end > start, "puppet_scope")
     source = js[start:end] if 0 <= start < end else ""
     for unsafe in ("fetch(", "XMLHttpRequest", "WebSocket(", "eval(", "Function(", "innerHTML", "localStorage"):
@@ -62,8 +62,8 @@ def verify(html, css, js, jquery, vue, frontend):
 def main():
     read = lambda filename: (ROOT / filename).read_text(encoding="utf8")
     values = (
-        read("host/harness/index.html"), read("host/harness/cockpit.css"),
-        read("host/harness/cockpit.js"), read("frontEnd/jquery/luhm.parallax.js"),
+        read("host/harness/index.html").replace("<!-- LUHM_STUDIO_DECK -->", read("host/harness/studioDeck.html")), read("host/harness/cockpit.css"),
+        read("host/harness/studioDeck.js") + read("host/harness/cockpit.js"), read("frontEnd/jquery/luhm.parallax.js"),
         read("frontEnd/vue/LumLayeredPuppet.vue"), read("frontEnd/index.html")
     )
     failures = verify(*values)
