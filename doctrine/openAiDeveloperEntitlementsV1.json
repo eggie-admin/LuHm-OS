@@ -1,0 +1,166 @@
+{
+  "schema": "luhmOs.openAiDeveloperEntitlements.v1",
+  "status": "SOURCE_CONFIGURED_CANDIDATE",
+  "authority": "Professor",
+  "studio": "Pirate Daddy's Film",
+  "operatingProfile": "doctrine/soloStudioOperatingProfileV1.json",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "canonicalBaseSourceRef": "9550701a1dab0830900118ea4cc7f7116c620be9",
+  "boss": "lum",
+  "purpose": "Use individual-plan OpenAI and developer-program access efficiently inside LuHm Work/chat without misrepresenting account grants or enabling paid API calls.",
+  "accountScope": {
+    "kind": "independentPrivateArtStudio",
+    "enterpriseSeatRequired": false,
+    "businessPlanRequired": false,
+    "assumedCurrentPlan": "PERSONAL_PLUS_CLAIM_UNVERIFIED_BY_ACCOUNT_TOOL",
+    "accountEntitlementReadAvailable": false,
+    "doNotInferAccountAccessFromGitHubOrPlugin": true
+  },
+  "entitlementAxes": {
+    "chatGptPersonal": {
+      "product": "ChatGPT",
+      "eligiblePlans": [
+        "Plus",
+        "Pro"
+      ],
+      "publicDocumentation": "https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex",
+      "status": "PUBLIC_POLICY_ONLY_ACCOUNT_ACCESS_UNVERIFIED",
+      "apiCreditsIncluded": false,
+      "mayTreatPlusAsApiFunding": false,
+      "proofSource": "signedInChatGptAccountPlanView"
+    },
+    "workSessions": {
+      "product": "ChatGPT Work",
+      "planPolicy": "ELIGIBLE_PLUS_PRO_SUBJECT_TO_ACCOUNT_ROLLOUT_AND_LIMITS",
+      "usesSharedWorkCodexAllowance": true,
+      "requiresCodex": false,
+      "codexExecutionRequested": false,
+      "taskRouting": "nativeChatGptWorkWhenUserSelectsMode",
+      "cannotProgrammaticallySwitchMode": true,
+      "accountAvailability": "UNKNOWN_UNTIL_ACCOUNT_UI",
+      "allowanceRemaining": "UNKNOWN_UNTIL_SETTINGS_USAGE",
+      "proofSource": "ChatGptModeSelectorAndSettingsUsage",
+      "modelAndEffort": "accountOptionsOnly"
+    },
+    "signInWithChatGpt": {
+      "purpose": "participatingToolMayUseIncludedAllowanceOnlyAfterUserSharingApproval",
+      "explicitConsentRequired": true,
+      "availableOnEveryPlugin": false,
+      "notApiBilling": false,
+      "alwaysGrantsCredits": false,
+      "grantsUnlimitedUsage": false,
+      "proofSource": "hostConsentAndApprovedToolReceipt"
+    },
+    "apiPlatform": {
+      "product": "OpenAI API Platform",
+      "independentBilling": true,
+      "separateFromChatGptSubscription": true,
+      "billingAndRateLimitState": "UNKNOWN_UNTIL_PROVIDER_RECEIPT",
+      "creditBalance": "UNKNOWN_UNTIL_PROVIDER_RECEIPT",
+      "organizationAndProjectIdentity": "PRIVATE_PROVIDER_SIDE_ONLY",
+      "allowPaidCalls": false,
+      "allowBillingActivation": false,
+      "allowKeyCreation": false,
+      "proofSource": "authenticatedApiOrganizationProjectBillingAndModelLimits"
+    },
+    "developerCommunity": {
+      "product": "OpenAI Developer Community",
+      "publicResourcesPublished": true,
+      "membership": "UNVERIFIED",
+      "programGrant": "NOT_ASSUMED",
+      "automaticallyAddsWorkAllowance": false,
+      "automaticallyAddsApiCredits": false,
+      "publicDocumentation": "https://developers.openai.com/community"
+    },
+    "startupPartnerBenefits": {
+      "program": "OpenAI for Startups",
+      "eligibility": "REQUIRES_PROGRAM_SPECIFIC_VERIFICATION",
+      "vcPartnerReferralMayBeRequired": true,
+      "creditsGranted": "UNVERIFIED",
+      "specialSupportGranted": "UNVERIFIED",
+      "automaticallyAddsWorkAllowance": false,
+      "publicDocumentation": "https://openai.com/startups"
+    },
+    "accountVerification": {
+      "independentFromEntitlement": true,
+      "providerDecisionRequired": true,
+      "status": "NOT_CHECKED",
+      "approvalForOneScopeMayUnlockAnother": false,
+      "publicDocumentation": "https://help.openai.com/en/articles/10910291-api-organization-verification"
+    }
+  },
+  "sessionEconomy": {
+    "noCodex": true,
+    "nativeChatAndWorkPreferred": true,
+    "noExtraEnterpriseWorkspace": true,
+    "reuseCanonicalGitHubAndProjectReferences": true,
+    "evidenceByReference": true,
+    "noRepeatedBulkContextUpload": true,
+    "keepPrivateArtOutOfPublicGitHub": true,
+    "noUnapprovedPluginAllowanceSharing": true,
+    "smallTaskFirst": true,
+    "useAvailableModelAccordingToAccountControls": true
+  },
+  "receiptContract": {
+    "schema": "luhmOs.openAiEntitlementObservation.v1",
+    "evidenceFields": [
+      "observedAt",
+      "product",
+      "accountScopeAlias",
+      "accessPath",
+      "evidenceState",
+      "capabilityId",
+      "sourceRef",
+      "scopeId",
+      "expiresAt",
+      "limitOrAllowanceIfVisible",
+      "evidenceRef"
+    ],
+    "allowedEvidenceStates": [
+      "USER_REPORTED",
+      "PUBLIC_POLICY_ONLY",
+      "PROVIDER_OBSERVED",
+      "HOST_INVOKED",
+      "UNKNOWN"
+    ],
+    "activationRequires": [
+      "sameAccountAndProductScope",
+      "currentProviderOrHostEvidence",
+      "explicitUserAuthorizationWhenNeeded"
+    ],
+    "neverInclude": [
+      "apiKey",
+      "accessToken",
+      "password",
+      "governmentId",
+      "paymentCard",
+      "privateArtwork",
+      "exactAccountEmail"
+    ]
+  },
+  "failClosedGates": {
+    "unknownNeverGreen": true,
+    "noEnterpriseImpersonation": true,
+    "noEntitlementEscalationBySchema": true,
+    "noApiCreditClaimsWithoutGrantReceipt": true,
+    "noPaidApiCallsWithoutSeparateApproval": true,
+    "noUnattendedWorkAfterSessionWithoutScheduledTask": true,
+    "noPluginInstallOrPermissionMutationWithoutUserAction": true,
+    "noAgentQuarantineRelease": true,
+    "noAutomaticMergeDeployPublishSignOrCrown": true
+  },
+  "externalSourceChecks": {
+    "checkedOn": "2026-10-21",
+    "urls": [
+      "https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex",
+      "https://help.openai.com/en/articles/20001516-managing-usage-with-gpt-6-astra-in-work-and-codex",
+      "https://help.openai.com/en/articles/9039756-managing-billing-for-chatgpt-and-the-api-platform",
+      "https://developers.openai.com/community",
+      "https://openai.com/startups"
+    ],
+    "mutableDocumentation": true
+  },
+  "deployment": "SOURCE_ONLY_NOT_ACCOUNT_ACTIVATION",
+  "promotion": false,
+  "crownStatus": "STOP"
+}
