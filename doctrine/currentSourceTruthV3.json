@@ -942,10 +942,22 @@
     "assetSource": "GoogleDrive",
     "rigFormat": "UNVERIFIED",
     "assetRights": "UNKNOWN",
-    "runtimeImplementation": "PENDING",
+    "runtimeImplementation": "SOURCE_TESTED_CANDIDATE_NOT_DEPLOYED",
     "productionPromotion": false,
     "releaseAuthority": false,
-    "relatedCandidatePr": 357,
-    "sourceCanonAuthority": "Professor"
+    "relatedCandidatePr": 370,
+    "sourceCanonAuthority": "Professor",
+    "previousCandidatePr": 357,
+    "sourceCandidateSha": "8d13e725fbcc126d0af3b2a2ca193c554f2da2ac",
+    "sameStudioSourceForMcpAndStandalone": true,
+    "sharedMarkup": "host/harness/studioDeck.html",
+    "sharedStyle": "host/harness/studioDeck.css",
+    "sharedScript": "host/harness/studioDeck.js",
+    "browserRenderer": "ORIGINAL_SVG_FALLBACK_INTERACTIVE",
+    "vue3Runtime": "SFC_SOURCE_PRESENT_RUNTIME_NOT_BUNDLED",
+    "model3dRights": "PRIVATE_DRIVE_RIGHTS_PENDING",
+    "canonRebelDraft": "doctrine/rebelInChatStudioV1.json",
+    "liveChatGptHostProof": "PENDING_DEPLOYED_RESOURCE_CHECK",
+    "observedHostResourceDifference": "CONNECTED_SITE_V3_MAIN_CONTRACT_V2"
   }
 }
