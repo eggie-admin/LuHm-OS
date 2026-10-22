@@ -1,0 +1,91 @@
+{
+  "schema": "luhmOs.currentCanonSnapshot.v1",
+  "status": "SOURCE_SNAPSHOT_VERIFIED_CANDIDATE_NOT_PROMOTED",
+  "snapshotDate": "2026-10-22",
+  "studio": "Pirate Daddy's Film",
+  "canonicalSource": "eggie-admin/LuHm-OS#main",
+  "sourceOfTruth": "doctrine/currentSourceTruthV3.json",
+  "chatCanon": "doctrine/projectChatCanonV1.json",
+  "headquarters": "doctrine/worldHeadquartersOrchestrationV1.json",
+  "compatibilityOrder": [
+    "chatGptOpenAi",
+    "github"
+  ],
+  "sourceAuthority": "github",
+  "snapshots": [
+    {
+      "repository": "eggie-admin/LuHm-OS",
+      "kind": "canonicalMainPreUpdate",
+      "branch": "snapshot/luhm-world-headquarters-main-20261022-a795edac",
+      "sha": "a795edac042f968e439ecd93293c99d48d40c696",
+      "verified": true
+    },
+    {
+      "repository": "eggie-admin/LuHm-OS",
+      "kind": "worldHeadquartersCandidatePreCanonUpdate",
+      "branch": "snapshot/luhm-world-headquarters-candidate-20261022-e0bf1018",
+      "sha": "e0bf1018af860fe59d2dee37c79da384d1cbc906",
+      "verified": true
+    },
+    {
+      "repository": "eggie-admin/hydra-shell-android",
+      "kind": "supportingRepository",
+      "branch": "snapshot/luhm-world-headquarters-20261022-08644e2d",
+      "sha": "08644e2dbb032b1804e260c8ece1060597a22ae0",
+      "verified": true
+    },
+    {
+      "repository": "eggie-admin/vue-headless-cms",
+      "kind": "supportingRepository",
+      "branch": "snapshot/luhm-world-headquarters-20261022-1d51c5b9",
+      "sha": "1d51c5b90266f7beb8236cf07acfb17a085a4134",
+      "verified": true
+    }
+  ],
+  "candidateReview": {
+    "pullRequest": 369,
+    "branch": "candidate/world-headquarters-two-layer-final-form-20261022",
+    "previousHead": "bec22bcbb04ae26212754b9c94c94694f8e67647",
+    "workflowCountPriorHead": 30,
+    "workflowFailuresObservedPriorHead": 0,
+    "ciScope": "SOURCE_CI_ONLY",
+    "reviewState": "DRAFT_OPEN",
+    "mergeState": "NOT_MERGED"
+  },
+  "observedDriveIntake": {
+    "status": "FOLDER_COUNT_VERIFIED_NOT_RIGHTS_APPROVED",
+    "completeArchivesExtracted": 16,
+    "legacySplitArchiveComplete": false,
+    "extractedFileCount": 164,
+    "fileTypeFolderCount": 18,
+    "originalArchivesPreserved": true,
+    "shaRecheckedAfterDriveUpload": false,
+    "privateDriveIdsInPublicGit": false,
+    "permissionRemediation": "DEFERRED",
+    "automaticDriveSync": "NOT_PROVEN",
+    "eligibleForCanonicalSourceOrPublishing": false
+  },
+  "runtime": {
+    "githubMainSnapshot": "VERIFIED",
+    "candidateCiPriorHead": "VERIFIED_SOURCE_ONLY",
+    "codespacesGarage": "NOT_VERIFIED_LIVE",
+    "githubRsyncToGoogleDrive": "NOT_VERIFIED_AUTHENTICATED",
+    "chatGptWorkAccountEntitlement": "NOT_ACCOUNT_VERIFIED",
+    "chatGptAndroidCockpitMount": "NOT_VERIFIED",
+    "agentBackend": "QUARANTINED",
+    "androidPhysicalInstall": "NOT_VERIFIED",
+    "renderExistingSidecars": "PRIOR_MAIN_DEPLOY_NOT_NEW_CANON_DEPLOY"
+  },
+  "immutableIdentityRule": "Exact 40-char SHA is the immutable recovery anchor; snapshot branch pointers may later move.",
+  "authority": {
+    "automaticMerge": false,
+    "automaticBuild": false,
+    "automaticCast": false,
+    "automaticDeploy": false,
+    "automaticPublish": false,
+    "automaticAgentActivation": false,
+    "automaticCrown": false
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}
