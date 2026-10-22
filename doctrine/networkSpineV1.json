@@ -95,7 +95,32 @@
         "isPtrRecord": false,
         "publicHttpsUsesForwardFqdn": true,
         "route": "CloudflareManagedDns -> RenderManagedTls -> LuHmMcp",
-        "cloudflareProxy": "disabledUntilSeparateStreamingProof"
+        "cloudflareProxy": "disabledUntilSeparateStreamingProof",
+        "directoryPullLocator": {
+          "provider": "github",
+          "repository": "eggie-admin/LuHm-OS",
+          "components": [
+            "repository",
+            "ref",
+            "path",
+            "commitSha"
+          ],
+          "requiresExactRepositoryRefPathAndCommitSha": true,
+          "reverseNamespaceIsLookupSortingKeyOnly": true,
+          "maySubstituteForGitHubRefPathOrCommit": false
+        },
+        "forwardDns": {
+          "fqdn": "mcp.eggiebagelface.art",
+          "httpsPath": "/mcp",
+          "recordType": "CNAME",
+          "recordName": "mcp",
+          "targetCandidate": "luhm-os-harness-green.onrender.com",
+          "proxy": "DNS_ONLY",
+          "aRecord": "notUsedForThisRenderSubdomain",
+          "aaaaRecord": "mustBeAbsent",
+          "runtimeState": "UNVERIFIED_UNTIL_RENDER_DOMAIN_DNS_TLS_AND_MCP_PROBES_PASS",
+          "currentPublishedEndpoint": "https://luhm-os-harness-green.onrender.com/mcp"
+        }
       }
     },
     "runtimeState": "UNVERIFIED",
