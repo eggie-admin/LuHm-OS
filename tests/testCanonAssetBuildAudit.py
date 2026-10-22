@@ -63,6 +63,14 @@ class CanonAssetGateTests(unittest.TestCase):
         self.save()
         with self.assertRaisesRegex(ValueError, "UNREGISTERED"):
             validate(self.root)
+    def test_unregistered_model_outside_approved_root_blocks(self):
+        self.asset.unlink()
+        rogue = self.root / "assets/goddesses/privateDonor.glb"
+        rogue.parent.mkdir(parents=True)
+        rogue.write_bytes(b"donor remains private")
+        self.save()
+        with self.assertRaisesRegex(ValueError, "UNREGISTERED_3D_SOURCE"):
+            validate(self.root)
     def test_traversal_blocks(self):
         row = self.approved()
         row["path"] = "res://assets/approved3d/../../../private.glb"
