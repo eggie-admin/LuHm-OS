@@ -63,6 +63,7 @@ def _headers(*, html: bool = False, production: bool = False, godot_embed: bool 
             "default-src 'self'; "
             + script_policy
             + style_policy
+            + "font-src 'self'; "
             + "img-src 'self' data: blob:; "
             + "media-src 'self' blob:; "
             + "connect-src 'self'; "
@@ -417,7 +418,10 @@ def register_harness(
         if target is None:
             return PlainTextResponse("not found", status_code=404, headers=_headers())
         media_type = {".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json", ".png": "image/png", ".webp": "image/webp", ".svg": "image/svg+xml"}.get(target.suffix, "application/octet-stream")
-        return FileResponse(target, media_type=media_type, headers=_headers())
+        response_headers = _headers()
+        if target.suffix == ".svg":
+            response_headers["Content-Security-Policy"] = "default-src 'none'; sandbox"
+        return FileResponse(target, media_type=media_type, headers=response_headers)
 
     @server.custom_route("/harness/config.json", methods=["GET"])
     async def harness_config(_: Request) -> Response:

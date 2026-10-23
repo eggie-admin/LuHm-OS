@@ -1040,5 +1040,21 @@
     "publicChatGptDirectoryListing": false,
     "automaticPromotion": false,
     "crownStatus": "STOP"
+  },
+  "selfHostedRemoteUpdates": {
+    "contract": "doctrine/selfHostedRemoteUpdatesV1.json",
+    "status": "CANDIDATE_SOURCE_TESTED_NOT_DEPLOYED",
+    "interface": "/harness/updates/v2/manifest.json",
+    "transport": "RENDER_HTTPS_SAME_ORIGIN_ONLY",
+    "originalPluginV1Preserved": true,
+    "signedAndroidRepositoryLive": false,
+    "remoteCodeExecution": false,
+    "automaticInstall": false,
+    "productionMcpSourceAlignedToCandidate": false,
+    "cdnActive": false,
+    "systemFontsFallback": true,
+    "approvedWoff2Available": false,
+    "currentProof": "SOURCE_CI_ONLY",
+    "crownStatus": "STOP"
   }
 }

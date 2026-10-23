@@ -48,5 +48,18 @@
     "autoplay": false,
     "remoteScriptInParent": false,
     "nativeYouTubeMusicAppEmbed": false
+  },
+  "selfHostedRemoteUpdatePolicy": {
+    "contract": "doctrine/selfHostedRemoteUpdatesV1.json",
+    "updateManifest": "/harness/updates/v2/manifest.json",
+    "contentHashedAssets": true,
+    "CDNActive": false,
+    "fontCss": "/harness/assets/fontStack.css",
+    "fontsFallbackOnly": true,
+    "svgOriginal": "/harness/assets/luhmSigil.svg",
+    "runtimeThirdPartyCdnScripts": false,
+    "remoteScriptsExecutedFromManifest": false,
+    "versionUpdateByApprovedHostDeployOnly": true,
+    "automaticApkInstall": false
   }
 }
