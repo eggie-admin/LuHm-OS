@@ -1,7 +1,6 @@
 {
   "schema": "luhmOs.androidReleaseEvidence.v1",
   "taskId": "fdroidReleaseEvidence20261022",
-  "observedAt": "2026-10-23T03:55:00Z",
   "scope": "ownerSignedBetaAndIndependentFdroidRepository",
   "observedMain": "e472bd76042003759c1157fb3aaaea1d9fa92ef1",
   "status": "BLOCKED_SIGNING_AND_ARTIFACT_IDENTITY",
@@ -53,5 +52,7 @@
     "upgrade": "PENDING"
   },
   "nextAction": "Owner configures persistent signing inputs through GitHub Actions secrets, then dispatches samsung-lite-signed-beta.yml against freshly resolved current main. Verify APK receipt before separate F-Droid index signing and hosting.",
-  "mainPromotion": false
+  "mainPromotion": false,
+  "observedOn": "2026-10-22",
+  "observationTimezone": "America/Detroit"
 }
