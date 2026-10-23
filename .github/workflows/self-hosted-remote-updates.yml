@@ -1,0 +1,32 @@
+name: LuHm Self Hosted Remote Update Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/selfHostedRemoteUpdatesV1.json'
+      - 'host/mcp/luhmUpdateSpine.py'
+      - 'host/mcp/luhmHarnessServer.py'
+      - 'host/mcp/luhmHarness.py'
+      - 'host/harness/fontStack.css'
+      - 'host/harness/luhmSigil.svg'
+      - 'host/harness/index.html'
+      - 'tests/testSelfHostedRemoteUpdates.py'
+      - '.github/workflows/self-hosted-remote-updates.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  read-only-update-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Install pinned test transport
+        run: python3 -m pip install 'starlette==0.50.0'
+      - name: Verify exact-source v1 and v2
+        run: |
+          git diff --check
+          python3 -m py_compile host/mcp/luhmUpdateSpine.py host/mcp/luhmHarnessServer.py
+          python3 -m unittest tests/testLuhmUpdateSpine.py tests/testSelfHostedRemoteUpdates.py -v
+          python3 tools/sevenLayerMainAudit.py

@@ -401,7 +401,7 @@ def register_harness(
     @server.custom_route("/harness/assets/{asset_path:path}", methods=["GET", "HEAD"])
     async def harness_asset(request: Request) -> Response:
         relative = request.path_params.get("asset_path", "")
-        allowed = {"studioDeck.css", "studioDeck.js", "cockpit.css", "cockpit.js", "titan7Cockpit.js", "jquery-3.7.1.min.js", "jquery-ui-1.14.2.min.js", "agent-loading-sprites.json", "agent-roster-v1.png"}
+        allowed = {"studioDeck.css", "studioDeck.js", "fontStack.css", "luhmSigil.svg", "cockpit.css", "cockpit.js", "titan7Cockpit.js", "jquery-3.7.1.min.js", "jquery-ui-1.14.2.min.js", "agent-loading-sprites.json", "agent-roster-v1.png"}
         parts = Path(relative).parts
         pet_asset = (
             len(parts) == 4
@@ -416,7 +416,7 @@ def register_harness(
         target = _safe_file(harness_root, relative)
         if target is None:
             return PlainTextResponse("not found", status_code=404, headers=_headers())
-        media_type = {".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json", ".png": "image/png", ".webp": "image/webp"}.get(target.suffix, "application/octet-stream")
+        media_type = {".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json", ".png": "image/png", ".webp": "image/webp", ".svg": "image/svg+xml"}.get(target.suffix, "application/octet-stream")
         return FileResponse(target, media_type=media_type, headers=_headers())
 
     @server.custom_route("/harness/config.json", methods=["GET"])

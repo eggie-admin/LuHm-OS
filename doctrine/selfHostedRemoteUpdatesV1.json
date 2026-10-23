@@ -35,7 +35,7 @@
   "fontPolicy": {
     "production": "system-fonts-with-self-hosted-approved-woff2-optional",
     "bundledWoff2Files": 0,
-    "noGoogleFonts": false,
+    "noGoogleFonts": true,
     "remoteFontCdn": false,
     "thirdPartyFontUploads": false,
     "requireCommercialFontRightsReview": true,
