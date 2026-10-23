@@ -20,6 +20,35 @@ python3 tools/samsung-lite-signed-beta-audit.py
 
 The GitHub `samsung-lite-public-beta-source` PR workflow runs this same static gate without downloading Android SDK, Godot, private assets or keys. This test does **not** build or sign an APK.
 
+## Signing governance inspection (current required procedure)
+
+Run this **on the owner-controlled authenticated checkout**, never in a public
+workflow or by pasting credentials into chat:
+
+```bash
+gh auth status
+bash tools/auditBetaSigningPolicy.sh
+```
+
+The helper reads only GitHub configuration and *secret names*, checks protected
+`main`, required independent environment reviewers, no self-review and
+protected branch deployment policy. It rejects repository-scoped copies of
+release secrets. It does **not** inspect secret values or claim signing, an APK,
+a Samsung install or F-Droid publication.
+
+The signed build also requires a fifth **environment-only secret**:
+`LUHM_SIGNING_POLICY_READ_TOKEN`, a fine-grained, short-lived token scoped to
+`eggie-admin/LuHm-OS` with **Administration: read-only** and no write
+permissions. GitHub's default `github.token` cannot attest protected
+environment administrative settings. Rotate the policy token if exposed;
+do not paste its value into source or chat. The job checks for independent
+reviewers and a protected `main` before accessing the actual beta signer.
+
+The repository owner's GitHub UI is needed to set the release-signing
+environment, protection and private secrets. These settings cannot be inferred
+from passing source tests. The owner must approve/review the exact intended
+release and preserve the same signing identity for all in-place updates.
+
 ## 3. Owner approval of signing infrastructure and upgrade history
 
 The owner must configure `luhm-beta-signing` as a **protected GitHub
@@ -50,7 +79,7 @@ not prove** tablet upgrade behavior.
 
 At `https://github.com/eggie-admin/LuHm-OS/actions/workflows/samsung-lite-signed-beta.yml`, run the workflow on **current main**. Provide `cast` and that full 40-character main SHA. This manually gated build has auto-deploy disabled and uses no public release action.
 
-Required protected **environment secrets**, configured only by the owner from the secure keystore:
+Required protected **environment secrets**, configured only by the owner from the secure keystore (and the separate policy-inspection token above):
 
 - `LUHM_BETA_SIGNING_P12_B64`
 - `LUHM_BETA_SIGNING_PASSWORD`
