@@ -94,6 +94,17 @@ def check() -> None:
     require('SIGNING_ENV="luhm-beta-signing"' in bootstrap
             and '--repo "$REPO" --env "$SIGNING_ENV"' in bootstrap,
             "owner signer bootstrap must use environment-only secrets")
+    require("secrets.LUHM_SIGNING_POLICY_READ_TOKEN" in content,
+            "read-only governance token missing")
+    require("GH_TOKEN: ${{ github.token }}\n        run: |\n          set -euo pipefail\n          ENV_INFO" not in content,
+            "default workflow token cannot inspect admin governance")
+    require("(.reviewers // []) | length > 0" in content,
+            "require actual independent reviewer assignment")
+    require((ROOT / "tools/auditBetaSigningPolicy.sh").is_file(),
+            "owner policy inspection helper missing")
+    require("VERIFIED_FIRST_BETA" in bootstrap
+            and "repo_secret_names=" in bootstrap,
+            "first-beta signing key must never be minted without verified history")
     print("GREEN_SIGNED_BETA_SOURCE_AND_STAGING_CONTRACT")
     print("NO_OWNER_KEY_OR_REAL_APK_OR_DEVICE_PROOF_FROM_SOURCE_TEST")
 
