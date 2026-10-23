@@ -1,0 +1,159 @@
+{
+  "schema": "luhmOs.driveTreeCanonAudit.v1",
+  "observedAt": "2026-10-21",
+  "status": "VERIFIED_TOP_LEVEL_METADATA_ONLY",
+  "canonicalSource": "doctrine/currentSourceTruthV3.json",
+  "sourceRepository": "eggie-admin/LuHm-OS",
+  "driveRole": "PRIVATE_ASSET_AND_EVIDENCE_VAULT_NOT_SOURCE_AUTHORITY",
+  "driveRootId": "0AHPOSRSPN_76Uk9PVA",
+  "projectFolder": {
+    "id": "1nyWR7znMFt84TCcHk7Ch2PP3f1kNxs2t",
+    "name": "LuHm-OS",
+    "verifiedImmediateChildren": 15
+  },
+  "root": {
+    "verifiedImmediateChildren": 4,
+    "items": [
+      {
+        "name": "LuHm-OS",
+        "id": "1nyWR7znMFt84TCcHk7Ch2PP3f1kNxs2t",
+        "classification": "PROJECT"
+      },
+      {
+        "name": "ChatGPT",
+        "id": "1dGxGAYYAZXXZgSS81kRXr6mYmpyTLQnm",
+        "classification": "SEPARATE"
+      },
+      {
+        "name": "LuHm OS • PUBLIC-WRITE WORKSPACE • UNTRUSTED • NOT SOURCE OF TRUTH",
+        "id": "1UT3FVbbZKgq-BzYklgY1zLMaO3lEmg8p",
+        "classification": "UNTRUSTED_SEPARATE"
+      },
+      {
+        "name": "EMPTY PUBLIC-WRITE SHELL • RESTRICT OR DELETE MANUALLY",
+        "id": "17SEblnKbYTUnG7gXeR7vYukE7RcfJO4K",
+        "classification": "UNTRUSTED_SEPARATE"
+      }
+    ]
+  },
+  "projectChildren": [
+    {
+      "id": "1CiBWk-WNgL-soRrnaDJpYP7AI2TSM7NhCkWuryFkddE",
+      "name": "Canon Snapshot & Alex Beta Invitation Plan",
+      "role": "document"
+    },
+    {
+      "id": "1AmQfX8Ha95giDEA9ceNeLJ3VLj7w5rS-",
+      "name": "LuHmOS_Rebel_PrivateProduction_20261020",
+      "role": "privateAssetProduction"
+    },
+    {
+      "id": "1-fDTzn1wqMWId70kdJBV8X27UYU2k7NR",
+      "name": "BarAgentReasoning.docx",
+      "role": "document"
+    },
+    {
+      "id": "1FSGw30NnenbXbF_-lnIGWTkQSZvl50gG",
+      "name": "Pirate Daddy's Film",
+      "role": "filmAssets"
+    },
+    {
+      "id": "1Tik_21sdSP3Ie0kVxQQAHe0HOVqSlHPF3rwflR368TM",
+      "name": "pirate-daddies-film-and-luhm-os-checkpoint-2026-10-17",
+      "role": "document"
+    },
+    {
+      "id": "15uF68Kh2e7XN4Zo0RPsgzAGnj6i5U5w-",
+      "name": "Google AI Studio",
+      "role": "externalProviderWorkspace"
+    },
+    {
+      "id": "1jvFGhQYPbLRUooPhHcQBfxIPFAc5P9lH",
+      "name": "Raw",
+      "role": "rawEvidenceAndDocuments"
+    },
+    {
+      "id": "1NBmm3blmXwuBuOjLxYUEbWI1fl8rL9YH",
+      "name": "CAST_20261012",
+      "role": "cast"
+    },
+    {
+      "id": "1j_vbjUAkALUjHOz3RvBfeXQDrmni1n8v",
+      "name": "PROPOSED_SOURCE_OF_TRUTH_MUTATION",
+      "role": "proposedNotCanon"
+    },
+    {
+      "id": "1gIJWPn7g3NN5DtT5QZVUN-aimUaDJ9fm",
+      "name": "LuHm Audit Vault",
+      "role": "audit"
+    },
+    {
+      "id": "1chk4nTdEAg2AdHTJiL81Q5iVEEsOX0Ok",
+      "name": "LuHm Art Magic Coating System",
+      "role": "artTools"
+    },
+    {
+      "id": "1MGhjZoyeIomyipn_Z0auu8JlS8XML2mu",
+      "name": "LuHm-recovery-checkpoint-20260930-1538",
+      "role": "recovery"
+    },
+    {
+      "id": "1ROXWJ6Npn950prddTSGfcdyJknrAwAE5",
+      "name": "LuHm OS • PRIVATE CONTROL PLANE",
+      "role": "privateControl"
+    },
+    {
+      "id": "1qHF74TQW2qYbdk3wlJKqs3BvDyA-GLom",
+      "name": "LuHm OS",
+      "role": "legacyNestedTree"
+    },
+    {
+      "id": "1wj8hV8kpA2PeVaKBtc5pbwajrD8Zphdi",
+      "name": "builds",
+      "role": "builds"
+    }
+  ],
+  "invariants": {
+    "githubCanonical": true,
+    "driveFolderLocationDoesNotPromoteCanon": true,
+    "assetPublicationRequiresRightsAndCreditReview": true,
+    "privateControlPlaneNeverPublic": true,
+    "publicWriteWorkspaceUntrusted": true,
+    "originalNamesPreserved": true,
+    "filesDeleted": false,
+    "productionDeployment": false,
+    "agentExecution": false,
+    "companyQuarantine": "QUARANTINED",
+    "humanPromotionRequired": true
+  },
+  "verifiedScope": [
+    "Drive root immediate children via connector",
+    "Project folder immediate children via connector",
+    "Source truth current status and authority via GitHub",
+    "Company quarantine state via GitHub"
+  ],
+  "notVerified": [
+    "Recursive child inventory",
+    "Exact counts of all descendants",
+    "File bytes and hash identity",
+    "Per-file sharing ACL and inherited access changes after folder moves",
+    "Asset license and provenance",
+    "Duplicate detection",
+    "Live runtime or production deployment"
+  ],
+  "findings": [
+    {
+      "severity": "AMBER",
+      "issue": "Moving folders into a parent can change effective inherited sharing permissions; no per-file ACL audit has been performed."
+    },
+    {
+      "severity": "AMBER",
+      "issue": "Multiple historical LuHm OS trees exist; preserve originals and reconcile internal semantics before deduplication."
+    },
+    {
+      "severity": "AMBER",
+      "issue": "Raw folder includes doctrine, field manuals, and creative documents; treat as mixed-content until classified."
+    }
+  ],
+  "crownStatus": "STOP"
+}
