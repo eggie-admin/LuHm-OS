@@ -1,0 +1,40 @@
+name: Supervised source task
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, candidate/supervised-execution-receipt-20261023]
+    paths:
+      - tools/supervisedSourceTask.py
+      - tests/testSupervisedSourceTask.py
+      - .github/workflows/supervised-source-task.yml
+permissions:
+  contents: read
+concurrency:
+  group: supervised-source-task-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Test source binding and failure behavior
+        run: python3 -m unittest discover -s tests -p testSupervisedSourceTask.py
+      - name: Execute one source inspection
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+          TASK_RUN: ${{ github.run_id }}
+        run: |
+          mkdir -p build/supervisedSourceTask
+          python3 tools/supervisedSourceTask.py --source "$SOURCE_SHA" --task-id "sourceInspection-$TASK_RUN" > build/supervisedSourceTask/receipt.json
+      - name: Preserve execution receipt even on failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: supervised-source-task-${{ github.sha }}
+          path: build/supervisedSourceTask/receipt.json
+          if-no-files-found: error
+          retention-days: 14
