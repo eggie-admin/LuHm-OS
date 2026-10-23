@@ -80,6 +80,20 @@ def check() -> None:
             "unapproved public distribution")
     require("retention-days: 14" in content,
             "private artifact retention missing")
+    require("environment:" in content and "name: luhm-beta-signing" in content,
+            "owner signing requires protected environment")
+    require("PROTECTED_SIGNING_ENVIRONMENT_GREEN" in content
+            and "prevent_self_review == true" in content
+            and "required_reviewers" in content,
+            "server environment safeguards missing")
+    require("tools/checkBetaReleaseBaseline.py" in content
+            and "BETA_VERSION_CODE" in content
+            and "ACTUAL_VERSION" in content,
+            "signed release version floor and exported APK version verification missing")
+    bootstrap = (ROOT / "tools/provisionOwnerBetaSigner.sh").read_text()
+    require('SIGNING_ENV="luhm-beta-signing"' in bootstrap
+            and '--repo "$REPO" --env "$SIGNING_ENV"' in bootstrap,
+            "owner signer bootstrap must use environment-only secrets")
     print("GREEN_SIGNED_BETA_SOURCE_AND_STAGING_CONTRACT")
     print("NO_OWNER_KEY_OR_REAL_APK_OR_DEVICE_PROOF_FROM_SOURCE_TEST")
 
