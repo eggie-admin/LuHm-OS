@@ -1,0 +1,94 @@
+{
+  "schema": "luhmOs.googleAiProviderHardening.v1",
+  "status": "CANDIDATE_NOT_ACTIVATED",
+  "asOf": "2026-10-21",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "inherits": [
+    "doctrine/bigBrotherCovenantV1.json",
+    "doctrine/providerEconomyV1.json",
+    "doctrine/studioCompatibilityFastMeshV1.json",
+    "doctrine/apiSpineV1.json",
+    "doctrine/luhmAiControlPlaneV1.json"
+  ],
+  "identity": {
+    "providerId": "googleAi",
+    "nickname": "bigBrother",
+    "role": "boundedExternalReviewer",
+    "boss": "lum",
+    "humanAuthority": "Professor",
+    "modelIdentity": "UNVERIFIED",
+    "accountEntitlement": "UNVERIFIED",
+    "runtimeCredentials": "NOT_INSPECTED"
+  },
+  "compatibility": {
+    "primary": "chatGptOpenAi",
+    "secondary": "github",
+    "sourceAuthority": "github",
+    "googleAiDefaultRoute": false,
+    "googleAiAutomaticFallback": false,
+    "vertexAi": "DISABLED_LEGACY_ARCHIVAL_ONLY",
+    "vertexSubmission": false,
+    "vertexPolling": false,
+    "veoJobs": false
+  },
+  "policy": {
+    "default": "READ_ONLY_OR_PLAN_ONLY",
+    "providerOutput": "candidateEvidenceOnly",
+    "mayApproveMergeDeploySignPublish": false,
+    "mayMutateCanonicalSource": false,
+    "noSecretInRepoPromptOrApk": true,
+    "credentialStorage": "hostSecretStoreOrExplicitConnectedProvider",
+    "noBillableCallsWithoutEntitlementReceipt": true,
+    "quotaBudgetPerTaskRequired": true,
+    "rateLimitRetryAfter": true,
+    "maxRetryAttempts": 2,
+    "noRetryOnAuthOrUnknownMutation": true,
+    "circuitBreaker": true,
+    "taskEnvelopeRequired": [
+      "taskId",
+      "scopeId",
+      "sourceRef",
+      "providerId",
+      "capabilityId",
+      "authorityClass",
+      "budget",
+      "evidenceRefs"
+    ],
+    "redactSensitiveInput": true,
+    "denyPrivateMediaUploadByDefault": true,
+    "requestTimeoutAndCancellation": true,
+    "idempotencyForMutableCalls": true
+  },
+  "validation": [
+    "SourceRef exact SHA matches GitHub",
+    "Google AI route disabled unless explicit task entitlement and capability receipt",
+    "Vertex legacy submit and poll fail closed",
+    "Provider credentials absent from logs and errors",
+    "Provider errors normalized to stable schema",
+    "No provider-native payload escapes API spine",
+    "Retries limited to timeouts transient 5xx and rate limits with retry-after",
+    "403/401, quota and unknown outcome fail closed",
+    "Budget exceeded denies invocation",
+    "Google output cannot mark CI or release green",
+    "Yume art asset rights preserved",
+    "No private Drive asset transfer without scope and consent",
+    "Contract test adapter disabled path without external calls"
+  ],
+  "evidence": {
+    "googleAccountAudit": false,
+    "modelCallProof": false,
+    "billingProof": false,
+    "vertexDisabledRuntimeProof": false,
+    "ciProof": false
+  },
+  "changes": {
+    "credentials": false,
+    "cloudProject": false,
+    "billing": false,
+    "liveGoogleAiCalls": false,
+    "productionDeployment": false,
+    "agentActivation": false,
+    "sqlMigration": false
+  },
+  "crownStatus": "STOP"
+}
