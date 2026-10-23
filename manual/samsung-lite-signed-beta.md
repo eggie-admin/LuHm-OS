@@ -20,11 +20,37 @@ python3 tools/samsung-lite-signed-beta-audit.py
 
 The GitHub `samsung-lite-public-beta-source` PR workflow runs this same static gate without downloading Android SDK, Godot, private assets or keys. This test does **not** build or sign an APK.
 
+## 3. Owner approval of signing infrastructure and upgrade history
+
+The owner must configure `luhm-beta-signing` as a **protected GitHub
+environment** with required independent reviewers, prevent-self-review enabled,
+and deployment restricted to protected branches. The canonical `main` branch
+must also be protected. The workflow now checks the live environment and branch,
+then fails closed until those settings exist.
+
+Only environment secrets may hold the four stable signing inputs. The owner
+provisioning script writes to `--env luhm-beta-signing`, not repo secrets.
+Never generate a replacement signer if any prior `.beta` installation might
+need upgrading. Keep the keystore and passphrase in owner-held secure custody.
+
+Review `doctrine/androidBetaReleaseBaselineV1.json` and choose exactly one:
+- `VERIFIED_FIRST_BETA`: affirm no `art.eggiebagelface.luhmos.beta`
+  APK has ever been distributed for upgrading, set `initialReleaseApproved`
+  true, keep prior fields null, and record a real evidenceRef.
+- `VERIFIED_PREVIOUS_BETA`: record the prior distributed `.beta`
+  APK's real versionCode, certificate SHA-256, APK SHA-256 and evidenceRef.
+  The candidate versionCode must be **greater**, and the signer identical.
+
+The committed baseline is `UNVERIFIED`, purposely preventing a signed
+build until independently reviewed and approved. The guard is run before
+export and again against the actual APK version. This static check **does
+not prove** tablet upgrade behavior.
+
 ## 3. Build one signed candidate using the existing Actions workflow
 
 At `https://github.com/eggie-admin/LuHm-OS/actions/workflows/samsung-lite-signed-beta.yml`, run the workflow on **current main**. Provide `cast` and that full 40-character main SHA. This manually gated build has auto-deploy disabled and uses no public release action.
 
-Required GitHub Actions **secrets**, configured only by the owner from the secure keystore:
+Required protected **environment secrets**, configured only by the owner from the secure keystore:
 
 - `LUHM_BETA_SIGNING_P12_B64`
 - `LUHM_BETA_SIGNING_PASSWORD`
