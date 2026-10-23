@@ -1,0 +1,39 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "author": {
+    "name": "Geoffrey Ward",
+    "url": "https://github.com/eggie-admin/LuHm-OS"
+  },
+  "description": "Read-only companion for checking the LuHm OS Samsung beta and its signed install proofs.",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "capabilities": [
+          "Read"
+        ],
+        "category": "Developer Tools",
+        "defaultPrompt": [
+          "Check the current LuHm OS Android beta lane and tell me which install proofs are still missing.",
+          "Verify the signed APK and F-Droid repository signing requirements from the current source of truth.",
+          "Check whether the custom LuHm MCP server and current source are aligned."
+        ],
+        "developerName": "Geoffrey Ward",
+        "displayName": "LuHm Android Beta",
+        "longDescription": "A read-only companion for inspecting LuHm OS Android beta policy, exact-source receipts, MCP status, and public repository signing requirements. It does not build, sign, publish, or install an APK.",
+        "shortDescription": "Samsung beta readiness"
+      }
+    }
+  },
+  "keywords": [
+    "luhm",
+    "android",
+    "samsung",
+    "beta",
+    "mcp",
+    "signing"
+  ],
+  "license": "GPL-3.0-only",
+  "name": "luhm-android-beta",
+  "repository": "https://github.com/eggie-admin/LuHm-OS",
+  "version": "0.1.0"
+}

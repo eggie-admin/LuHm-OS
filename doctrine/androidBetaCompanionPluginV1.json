@@ -1,0 +1,49 @@
+{
+  "schema": "luhmOs.androidBetaCompanionPlugin.v1",
+  "status": "PRIVATE_PLUGIN_CREATED_SOURCE_CANON_CANDIDATE",
+  "authority": {
+    "pluginMayInspectEvidence": true,
+    "pluginMayBuildSignPublishInstallOrChangeDns": false,
+    "automaticPromotion": false,
+    "crownStatus": "STOP"
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "package": {
+    "path": "plugins/luhm-android-beta/",
+    "name": "luhm-android-beta",
+    "version": "0.1.0",
+    "audience": "PRIVATE_USER_PLUGIN",
+    "capabilities": [
+      "Read"
+    ],
+    "runtime": "ChatGPT plugin connected to read-only LuHm OS MCP server",
+    "publishToPublicChatGptDirectory": false
+  },
+  "mcp": {
+    "transport": "streamable-http",
+    "configuredEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+    "liveProtocolProbe": "INITIALIZE_AND_TOOLS_LIST_SUCCEEDED",
+    "sourceShaObservedAtRuntime": "a795edac042f968e439ecd93293c99d48d40c696",
+    "canonicalMainAtRecord": "98572e8842d9f39d5bb1e3a6076d8c19bb765de2",
+    "sourceAlignment": "PENDING_DEPLOY_OF_CANONICAL_MAIN",
+    "customFqdn": "https://mcp.eggiebagelface.art/mcp",
+    "customFqdnContract": "doctrine/networkSpineV1.json",
+    "customFqdnStatus": "PENDING_DNS_TLS_AND_MCP_PROBE"
+  },
+  "betaRelease": {
+    "laneContract": "doctrine/androidDeliveryLanesV1.json",
+    "installIdentityContract": "doctrine/samsungTabletInstallV1.json",
+    "publicRepositoryIdentityContract": "doctrine/publicApkUpdateIdentityV1.json",
+    "signedBetaWorkflow": ".github/workflows/samsung-lite-signed-beta.yml",
+    "workflowRequiresOwnerCastInputAndExactSourceRef": true,
+    "secretsRemainInGithubActionsOnly": true,
+    "artifactPublication": "PRIVATE_CANDIDATE_ONLY; PUBLIC_FDROID_INDEX_NOT_PUBLISHED",
+    "indexSignerSeparateFromAndroidApkSigner": true,
+    "publicHttpsRepository": "PENDING",
+    "pinnedIndexCertificateFingerprint": "PENDING",
+    "physicalSamsungInstall": "PENDING",
+    "sameSignerUpgrade": "PENDING",
+    "publicReleaseGreen": false
+  }
+}

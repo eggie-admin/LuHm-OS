@@ -23,6 +23,7 @@
     "doctrine/projectChatCanonV1.json",
     "doctrine/everlastingCovenantV1.json",
     "doctrine/currentSourceTruthV3.json",
+    "doctrine/androidBetaCompanionPluginV1.json",
     "doctrine/currentCanonSnapshot20261022.json",
     "doctrine/studioCompatibilityFastMeshV1.json",
     "doctrine/worldHeadquartersOrchestrationV1.json",
@@ -80,7 +81,8 @@
     "semanticDomainHardening": "doctrine/semanticDomainHardeningV1.json",
     "worldHeadquarters": "doctrine/worldHeadquartersOrchestrationV1.json",
     "compatibilityLayers": "doctrine/studioCompatibilityFastMeshV1.json",
-    "canonSnapshot": "doctrine/currentCanonSnapshot20261022.json"
+    "canonSnapshot": "doctrine/currentCanonSnapshot20261022.json",
+    "androidBetaCompanionPlugin": "doctrine/androidBetaCompanionPluginV1.json"
   },
   "monitoringMiniAgents": {
     "lum": {
@@ -176,7 +178,17 @@
     "codespacesSecondSourceOfTruthIsWorkingMirrorOnly": true,
     "companyWideAgentsStayQuarantined": true,
     "personalStudioNoEnterpriseRequired": true,
-    "archiveIntakeCannotGrantArtRights": true
+    "archiveIntakeCannotGrantArtRights": true,
+    "androidBetaCompanionPlugin": {
+      "contract": "doctrine/androidBetaCompanionPluginV1.json",
+      "status": "PRIVATE_READ_ONLY_PLUGIN_SOURCE_CANON_CANDIDATE",
+      "pluginName": "luhm-android-beta",
+      "compatibilityLayer": "chatGptOpenAi",
+      "customMcpEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+      "customFqdnContract": "doctrine/networkSpineV1.json",
+      "customFqdnStatus": "PENDING_DNS_TLS_AND_MCP_PROBE",
+      "noBuildSignPublishInstallAuthority": true
+    }
   },
   "contextLaw": {
     "doNotDumpFullHistory": true,
