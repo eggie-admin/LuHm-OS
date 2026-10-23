@@ -12,7 +12,7 @@ import os
 import luhmMcpServer as core
 from luhmHarness import register_harness
 from luhmOniSummoner import register_oni_summoner
-from luhmUpdateSpine import register_update_spine
+from luhmUpdateSpine import register_update_spine, register_remote_update_routes
 
 register_harness(
     core.server,
@@ -34,6 +34,7 @@ register_oni_summoner(
 
 # Update metadata is read-only, same-origin and independent from plugin reinstallation.
 register_update_spine(core.server, root=core.ROOT)
+register_remote_update_routes(core.server, root=core.ROOT)
 
 def main() -> int:
     parser = argparse.ArgumentParser()

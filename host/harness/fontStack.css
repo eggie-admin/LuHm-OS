@@ -1,0 +1,6 @@
+/* LuHm OS self-hosted font policy: no external font requests or proprietary font redistribution. */
+/* Licensed WOFF2 may be added only through a reviewed, hashed asset + rights receipt. */
+:root{--luhmFontUi:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+--luhmFontMono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+--luhmFontDisplay:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+html{font-synthesis:weight style;font-optical-sizing:auto;}
