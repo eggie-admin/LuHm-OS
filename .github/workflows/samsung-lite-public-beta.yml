@@ -6,6 +6,7 @@ on:
       - 'tools/provisionOwnerBetaSigner.sh'
       - 'tools/samsung-lite-signed-beta-audit.py'
       - 'tools/checkBetaReleaseBaseline.py'
+      - 'tools/auditBetaSigningPolicy.sh'
       - 'tests/testBetaReleaseBaseline.py'
       - 'doctrine/androidBetaReleaseBaselineV1.json'
       - 'tests/testSignedBetaWorkflow.py'
@@ -41,6 +42,7 @@ jobs:
         run: |
           set -euo pipefail
           bash -n tools/provisionOwnerBetaSigner.sh
+          bash -n tools/auditBetaSigningPolicy.sh
           python3 tests/test-samsung-lite-beta.py
           python3 tests/testBetaReleaseBaseline.py
           python3 tests/testSignedBetaWorkflow.py
