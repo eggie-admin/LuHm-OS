@@ -9,6 +9,7 @@ on:
       - 'tests/testBetaReleaseBaseline.py'
       - 'doctrine/androidBetaReleaseBaselineV1.json'
       - 'tests/testSignedBetaWorkflow.py'
+      - 'tests/mobileCockpitBrowserAudit.py'
       - 'tools/fdroidTabletSourceAudit.py'
       - 'tools/stageFdroidTabletBeta.py'
       - 'tools/prepareFdroidRepoCandidate.py'
@@ -48,6 +49,13 @@ jobs:
           python3 tools/stageFdroidTabletBeta.py --self-test
           python3 tools/prepareFdroidRepoCandidate.py --self-test
           python3 tools/samsung-lite-beta.py
+      - name: Playwright real-browser cockpit regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --user 'playwright==1.55.0'
+          python3 tests/mobileCockpitBrowserAudit.py
+          echo 'PLAYWRIGHT_SOURCE_UI_GREEN_NOT_ANDROID_DEVICE_PROOF'
       - name: Preserve source receipt
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
