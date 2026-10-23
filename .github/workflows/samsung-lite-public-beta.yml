@@ -5,6 +5,10 @@ on:
       - 'tools/samsung-lite-beta.py'
       - 'tools/provisionOwnerBetaSigner.sh'
       - 'tools/samsung-lite-signed-beta-audit.py'
+      - 'tools/checkBetaReleaseBaseline.py'
+      - 'tests/testBetaReleaseBaseline.py'
+      - 'doctrine/androidBetaReleaseBaselineV1.json'
+      - 'tests/testSignedBetaWorkflow.py'
       - 'tools/fdroidTabletSourceAudit.py'
       - 'tools/stageFdroidTabletBeta.py'
       - 'tools/prepareFdroidRepoCandidate.py'
@@ -37,6 +41,8 @@ jobs:
           set -euo pipefail
           bash -n tools/provisionOwnerBetaSigner.sh
           python3 tests/test-samsung-lite-beta.py
+          python3 tests/testBetaReleaseBaseline.py
+          python3 tests/testSignedBetaWorkflow.py
           python3 tools/samsung-lite-signed-beta-audit.py
           python3 tools/fdroidTabletSourceAudit.py
           python3 tools/stageFdroidTabletBeta.py --self-test
