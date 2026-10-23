@@ -30,6 +30,23 @@ jq -e '.prevent_self_review == true and (.protection_rules | any(.type == "requi
   die "Signing environment needs independent reviewer, no self-approval and protected branches"
 [[ "$(gh api "repos/$REPO/branches/main" --jq '.protected')" == "true" ]] ||
   die "Protect main before creating/signing releases"
+python3 - <<'PY' || die "Do not generate new signer without VERIFIED_FIRST_BETA owner baseline"
+import json
+from pathlib import Path
+r = json.loads(Path("doctrine/androidBetaReleaseBaselineV1.json").read_text(encoding="utf-8"))
+assert r.get("status") == "VERIFIED_FIRST_BETA"
+assert r.get("initialReleaseApproved") is True
+assert all(r.get(k) is None for k in ("previousVersionCode","previousSignerCertificateSha256","previousApkSha256"))
+assert isinstance(r.get("evidenceRef"),str) and len(r["evidenceRef"].strip()) >= 12
+PY
+repo_secret_names="$(gh secret list --repo "$REPO" --json name --jq '.[].name')" ||
+  die "Cannot inspect repository secret NAMES"
+for key in "${required[@]}" LUHM_SIGNING_POLICY_READ_TOKEN; do
+  if grep -Fxq "$key" <<<"$repo_secret_names"; then
+    die "Signing secret already in repository scope; review custody/migrate before provisioning: $key"
+  fi
+done
+
 [[ ! -e "$P12" && ! -L "$P12" ]] || die "Durable signer already exists. Do NOT replace it: $P12"
 existing="$(gh secret list --repo "$REPO" --env "$SIGNING_ENV" --json name --jq '.[].name')" || die "Cannot inspect secret names"
 for key in "${required[@]}"; do
