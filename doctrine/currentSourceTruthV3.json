@@ -1010,5 +1010,35 @@
     "stage": "DRAFT_PR_369",
     "promotion": false,
     "crownStatus": "STOP"
+  },
+  "androidBetaCompanionPlugin": {
+    "contract": "doctrine/androidBetaCompanionPluginV1.json",
+    "name": "luhm-android-beta",
+    "version": "0.1.0",
+    "status": "PRIVATE_READ_ONLY_PLUGIN_CREATED_SOURCE_CANON_CANDIDATE",
+    "discoverability": "PRIVATE",
+    "packagePath": "plugins/luhm-android-beta/",
+    "mcpTransport": "streamable-http",
+    "configuredEndpoint": "https://luhm-os-harness-green.onrender.com/mcp",
+    "endpointScope": "LIVE_RENDER_ENDPOINT; deployed source SHA a795edac042f968e439ecd93293c99d48d40c696; new canonical main is 98572e8842d9f39d5bb1e3a6076d8c19bb765de2",
+    "preferredCustomFqdn": "https://mcp.eggiebagelface.art/mcp",
+    "customFqdnStatus": "PENDING_DNS_TLS_AND_MCP_PROBE",
+    "capabilities": [
+      "read"
+    ],
+    "mayBuildSignPublishInstallOrChangeDns": false,
+    "sourceAuthority": "eggie-admin/LuHm-OS#main",
+    "publicBetaInstallLane": "doctrine/androidDeliveryLanesV1.json",
+    "publicRepositorySigning": "doctrine/publicApkUpdateIdentityV1.json",
+    "separateProofs": [
+      "androidApkSigner",
+      "fdroidIndexSigner",
+      "githubCommitSignature",
+      "ciProvenance"
+    ],
+    "physicalInstallAndUpgrade": "PENDING",
+    "publicChatGptDirectoryListing": false,
+    "automaticPromotion": false,
+    "crownStatus": "STOP"
   }
 }
