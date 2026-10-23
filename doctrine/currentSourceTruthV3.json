@@ -982,5 +982,33 @@
       "androidDevice": "UNVERIFIED",
       "releaseAuthority": false
     }
+  },
+  "worldHeadquarters": {
+    "contract": "doctrine/worldHeadquartersOrchestrationV1.json",
+    "snapshot": "doctrine/currentCanonSnapshot20261022.json",
+    "reviewPullRequest": 369,
+    "status": "SOURCE_CONFIGURED_CANDIDATE_NOT_MERGED",
+    "president": "lum",
+    "compatibilityLayers": [
+      "chatGptOpenAi",
+      "github"
+    ],
+    "canonicalSourceOwner": "github",
+    "secondSourceTruthIsOnlyMirror": true,
+    "driveIntake": "VERIFIED_164_FILES_18_TYPE_FOLDERS_CANDIDATE",
+    "runtimeDeploymentFromCandidate": "NOT_PERFORMED",
+    "agentBackendQuarantined": true,
+    "releaseApproval": false,
+    "crownStatus": "STOP"
+  },
+  "currentCanonSnapshot": {
+    "contract": "doctrine/currentCanonSnapshot20261022.json",
+    "status": "SNAPSHOTS_VERIFIED_PROPOSED_CANON_UPDATE",
+    "snapshotCount": 4,
+    "baseMainSha": "a795edac042f968e439ecd93293c99d48d40c696",
+    "sourceAuthority": "eggie-admin/LuHm-OS@main",
+    "stage": "DRAFT_PR_369",
+    "promotion": false,
+    "crownStatus": "STOP"
   }
 }

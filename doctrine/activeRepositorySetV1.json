@@ -8,20 +8,26 @@
     {
       "repository": "eggie-admin/LuHm-OS",
       "defaultBranch": "main",
-      "observedHead": "c6096b398eb226a2936c2332689dd87d034f39f7",
-      "snapshotRef": "snapshot/titan7-final-form-20261007-c6096b39"
+      "observedHead": "a795edac042f968e439ecd93293c99d48d40c696",
+      "snapshotRef": "snapshot/luhm-world-headquarters-main-20261022-a795edac",
+      "observedAt": "2026-10-22",
+      "observationScope": "SNAPSHOT_NOT_LIVE_MOVING_MAIN"
     },
     {
       "repository": "eggie-admin/hydra-shell-android",
       "defaultBranch": "main",
       "observedHead": "08644e2dbb032b1804e260c8ece1060597a22ae0",
-      "snapshotRef": "snapshot/titan7-final-form-20261007-08644e2d"
+      "snapshotRef": "snapshot/luhm-world-headquarters-20261022-08644e2d",
+      "observedAt": "2026-10-22",
+      "observationScope": "SNAPSHOT_NOT_LIVE_MOVING_MAIN"
     },
     {
       "repository": "eggie-admin/vue-headless-cms",
       "defaultBranch": "main",
       "observedHead": "1d51c5b90266f7beb8236cf07acfb17a085a4134",
-      "snapshotRef": "snapshot/titan7-final-form-20261007-1d51c5b9"
+      "snapshotRef": "snapshot/luhm-world-headquarters-20261022-1d51c5b9",
+      "observedAt": "2026-10-22",
+      "observationScope": "SNAPSHOT_NOT_LIVE_MOVING_MAIN"
     }
   ],
   "historicalUnavailableRepositories": [
@@ -42,5 +48,30 @@
     "snapshotDoesNotGrantMergeDeployOrCrown": true
   },
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "previousSnapshotObservations": [
+    {
+      "repository": "eggie-admin/LuHm-OS",
+      "observedHead": "c6096b398eb226a2936c2332689dd87d034f39f7",
+      "snapshotRef": "snapshot/titan7-final-form-20261007-c6096b39"
+    },
+    {
+      "repository": "eggie-admin/hydra-shell-android",
+      "observedHead": "08644e2dbb032b1804e260c8ece1060597a22ae0",
+      "snapshotRef": "snapshot/titan7-final-form-20261007-08644e2d"
+    },
+    {
+      "repository": "eggie-admin/vue-headless-cms",
+      "observedHead": "1d51c5b90266f7beb8236cf07acfb17a085a4134",
+      "snapshotRef": "snapshot/titan7-final-form-20261007-1d51c5b9"
+    }
+  ],
+  "latestVerifiedSnapshot": "doctrine/currentCanonSnapshot20261022.json",
+  "snapshotPolicy": {
+    "sourceRefIsExactSha": true,
+    "branchesAreRecoveryPointersOnly": true,
+    "noAutomaticRelease": true,
+    "noAutoMergeFromSnapshot": true,
+    "secondSourceOfTruth": false
+  }
 }
