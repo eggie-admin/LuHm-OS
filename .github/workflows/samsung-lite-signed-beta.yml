@@ -47,12 +47,21 @@ jobs:
       - name: Verify protected signing environment and main branch
         shell: bash
         env:
-          GH_TOKEN: ${{ github.token }}
+          # Fine-grained token: this repository only, Administration: READ.
+          # Ordinary github.token cannot query environment protection settings.
+          GH_TOKEN: ${{ secrets.LUHM_SIGNING_POLICY_READ_TOKEN }}
         run: |
           set -euo pipefail
+          if test -z "$GH_TOKEN"; then
+            echo "::error title=Signing governance not attested::Missing protected environment secret LUHM_SIGNING_POLICY_READ_TOKEN" >&2
+            exit 2
+          fi
           ENV_INFO="$(gh api "repos/$GITHUB_REPOSITORY/environments/luhm-beta-signing")"
           jq -e '.prevent_self_review == true and
-                 (.protection_rules | any(.type == "required_reviewers")) and
+                 (.protection_rules | any(
+                    .type == "required_reviewers" and
+                    ((.reviewers // []) | length > 0)
+                 )) and
                  (.deployment_branch_policy.protected_branches == true)' <<<"$ENV_INFO" >/dev/null
           test "$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq '.protected')" == "true"
           echo 'PROTECTED_SIGNING_ENVIRONMENT_GREEN'
