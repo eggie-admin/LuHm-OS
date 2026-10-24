@@ -5,6 +5,8 @@ on:
     paths:
       - 'tools/lumCabinetReadiness.py'
       - 'tests/testLumCabinetReadiness.py'
+      - 'tools/skuldVendorWatch.py'
+      - 'tests/testSkuldVendorWatch.py'
       - 'manual/lumCabinetOperations.md'
       - '.github/workflows/lum-cabinet-readiness.yml'
   workflow_dispatch:
@@ -39,19 +41,27 @@ jobs:
       - name: Run cabinet negative controls
         run: |
           python3 -m py_compile tools/lumCabinetReadiness.py
-          python3 -m unittest tests/testLumCabinetReadiness.py -v
+          python3 -m unittest tests/testLumCabinetReadiness.py tests/testSkuldVendorWatch.py -v
       - name: Run ten real source audits in five bounded lanes
         env:
           EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           python3 tools/lumCabinetReadiness.py --source-ref "$EXPECTED" \
             --run-source-checks --output "$RUNNER_TEMP/lumCabinetReceipt.json"
+      - name: Skuld upstream release metadata observation
+        if: github.event_name != 'pull_request'
+        run: |
+          python3 tools/skuldVendorWatch.py --live --output "$RUNNER_TEMP/skuldVendorReceipt.json"
+          echo "UPSTREAM_METADATA_OBSERVATION_ONLY"
+          echo "DEPENDENCY_UPDATE=NOT_AUTHORIZED"
       - name: Upload source-only receipt
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: lum-five-lead-cabinet-source-receipt
-          path: ${{ runner.temp }}/lumCabinetReceipt.json
+          path: |
+            ${{ runner.temp }}/lumCabinetReceipt.json
+            ${{ runner.temp }}/skuldVendorReceipt.json
           if-no-files-found: warn
           retention-days: 7
       - name: Confirm runtime boundary
