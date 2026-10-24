@@ -3,11 +3,16 @@
 These tests DO NOT claim that a ChatGPT Android/iPhone app mounted the UI.
 """
 from pathlib import Path
+import ast
+import copy
+import json
+import os
 import re
 import shutil
 import subprocess
 import tempfile
 import unittest
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 HTML = (ROOT / "host/harness/mobileCockpitWidget.html").read_text(encoding="utf-8")
@@ -81,6 +86,94 @@ class MobileCockpitEvidenceContract(unittest.TestCase):
             script = Path(directory) / "mobileCockpit.js"
             script.write_text(scripts[0], encoding="utf-8")
             subprocess.run(["node", "--check", str(script)], check=True, capture_output=True, text=True)
+
+
+    def test_mobile_tool_real_function_returns_readonly_roster(self):
+        tool = self._tool_function({"state": "QUARANTINED", "registeredCount": 15,
+                                   "activeTaskWorkersAllowed": False})
+        out = tool()
+        self.assertEqual(out["schema"], "luhmOs.mobileCockpitPayload.v1")
+        self.assertEqual(out["resourceUri"], MOBILE_URI)
+        self.assertEqual(out["roster"]["roles"][0]["agentId"], "lum")
+        self.assertEqual(out["companyQuarantine"]["state"], "QUARANTINED")
+        self.assertFalse(out["companyQuarantine"]["activeTaskWorkersAllowed"])
+        self.assertTrue(out["authority"]["readOnly"])
+        self.assertFalse(out["authority"]["mutationAuthority"])
+        self.assertFalse(out["authority"]["publicationAuthority"])
+        self.assertFalse(out["authority"]["crownAuthority"])
+        self.assertEqual(out["testerDeviceMount"], "NOT_VERIFIED")
+        self.assertEqual(out["sourceRef"], "SOURCE_NOT_DEPLOYED")
+
+    def test_mobile_tool_rejects_count_and_state_drift(self):
+        for policy in (
+            {"state": "QUARANTINED", "registeredCount": 16},
+            {"state": "UNKNOWN", "registeredCount": 15},
+            {"state": "PUBLISHED", "registeredCount": 15},
+        ):
+            with self.subTest(policy=policy):
+                tool = self._tool_function(policy)
+                with self.assertRaisesRegex(RuntimeError, "RED_MOBILE_AGENT_QUARANTINE_CONTRACT"):
+                    tool()
+
+    def test_mobile_resource_body_matches_host_file(self):
+        tree = ast.parse(SERVER)
+        registration = next(
+            node for node in tree.body
+            if isinstance(node, ast.FunctionDef) and node.name == "register_harness"
+        )
+        resource = next(
+            node for node in registration.body
+            if isinstance(node, ast.FunctionDef) and node.name == "luhm_mobile_cockpit_resource"
+        )
+        isolated = copy.deepcopy(resource)
+        isolated.decorator_list = []
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "mobileCockpitWidget.html"
+            path.write_text(HTML, encoding="utf-8")
+            scope = {"mobile_widget_path": path}
+            exec(compile(ast.fix_missing_locations(ast.Module(body=[isolated], type_ignores=[])),
+                         "host/mcp/luhmHarness.py", "exec"), scope)
+            self.assertEqual(scope["luhm_mobile_cockpit_resource"](), HTML)
+
+    @staticmethod
+    def _tool_function(policy):
+        """Execute the actual undecorated GitHub tool body, not a source-text mock."""
+        tree = ast.parse(SERVER)
+        registration = next(
+            node for node in tree.body
+            if isinstance(node, ast.FunctionDef) and node.name == "register_harness"
+        )
+        fn = next(
+            node for node in registration.body
+            if isinstance(node, ast.FunctionDef) and node.name == "luhm_open_mobile_cockpit"
+        )
+        body = copy.deepcopy(fn)
+        body.decorator_list = []
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            doctrine = root / "doctrine"
+            doctrine.mkdir()
+            (doctrine / "companyWideOperationalQuarantineV1.json").write_text(
+                json.dumps(policy), encoding="utf-8")
+            # The function consumes policy before returning. Bind a callable
+            # which retains a concrete rooted fixture after this context exits.
+            original_read = Path.read_text
+            policy_bytes = json.dumps(policy)
+            class FixturePath:
+                def __truediv__(self, part):
+                    return self
+                def read_text(self, encoding="utf-8"):
+                    return policy_bytes
+            scope = {
+                "root": FixturePath(), "json": json, "os": os, "Any": Any,
+                "MOBILE_COCKPIT_RESOURCE_URI": MOBILE_URI,
+                "status_provider": lambda: {"sourceRef": "SOURCE_NOT_DEPLOYED",
+                                            "sourceTruthStatus": "SOURCE_ONLY"},
+                "roster_provider": lambda: {"roles": [{"agentId": "lum", "displayName": "Lum"}]},
+            }
+            exec(compile(ast.fix_missing_locations(ast.Module(body=[body], type_ignores=[])),
+                         "host/mcp/luhmHarness.py", "exec"), scope)
+            return scope["luhm_open_mobile_cockpit"]
 
 
 if __name__ == "__main__":
