@@ -56,10 +56,10 @@ def _headers(*, html: bool = False, production: bool = False, godot_embed: bool 
         script_policy = "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; " if godot_embed else "script-src 'self'; "
         style_policy = "style-src 'self' 'unsafe-inline'; " if godot_embed else "style-src 'self'; "
         ancestors = (
-            "frame-ancestors 'self' https://*.web-sandbox.oaiusercontent.com https://luhm-os-publication-site.onrender.com"
+            "frame-ancestors 'self' https://*.web-sandbox.oaiusercontent.com https://luhm-os-publication-site.onrender.com https://luhm-os-harness-green.onrender.com"
             if godot_embed else "frame-ancestors 'self'"
         )
-        frame_policy = "frame-src 'self'; " if godot_embed else "frame-src 'self' blob: https://www.youtube-nocookie.com; "
+        frame_policy = "frame-src 'self'; " if godot_embed else "frame-src 'self' blob: https://www.youtube-nocookie.com https://luhm-os-godot-harness-green.onrender.com; "
         headers["Content-Security-Policy"] = (
             "default-src 'self'; "
             + script_policy
