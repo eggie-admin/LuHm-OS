@@ -167,6 +167,12 @@ jobs:
         run: |
           set -euo pipefail
           DIST="$RUNNER_TEMP/plugin-dist"
+          # Preserve the original CAST ZIP and its digest, then publish under
+          # the release-index's independently verifiable channel asset name.
+          PUBLIC_PACKAGE="LuHmOS-ChatGPT-${CHANNEL}-v${VERSION}-s${SOURCE_REF:0:8}.zip"
+          cp -- "$DIST/$PACKAGE" "$DIST/$PUBLIC_PACKAGE"
+          printf '%s  %s\n' "$EXPECTED_SHA" "$PUBLIC_PACKAGE" > "$DIST/$PUBLIC_PACKAGE.sha256"
+          ( cd "$DIST" && sha256sum -c "$PUBLIC_PACKAGE.sha256" )
           cat > "$RUNNER_TEMP/notes.md" <<EOF
           LUHM_PLUGIN_CHANNEL=$CHANNEL
           LUHM_PLUGIN_SOURCE_SHORT=${SOURCE_REF:0:8}
@@ -180,14 +186,14 @@ jobs:
           current-chat UI mount or outside tester acceptance.
           Promotion was explicitly dispatched by repository owner; Crown remains STOP.
           EOF
-          gh release create "$TAG" "$DIST/$PACKAGE" "$DIST/$PACKAGE.sha256" \
+          gh release create "$TAG" "$DIST/$PUBLIC_PACKAGE" "$DIST/$PUBLIC_PACKAGE.sha256" \
             -R "$REPO" --target "$SOURCE_REF" --title "LuHm ChatGPT Plugin $CHANNEL v$VERSION" \
             --draft --latest=false --notes-file "$RUNNER_TEMP/notes.md"
           r="$(gh api "repos/$REPO/releases/tags/$TAG")"
           test "$(jq -r '.draft' <<< "$r")" = true
           test "$(jq -r '.target_commitish' <<< "$r")" = "$SOURCE_REF"
-          test "$(jq --arg n "$PACKAGE" '[.assets[]|select(.name==$n)]|length' <<< "$r")" -eq 1
-          test "$(jq --arg n "$PACKAGE.sha256" '[.assets[]|select(.name==$n)]|length' <<< "$r")" -eq 1
+          test "$(jq --arg n "$PUBLIC_PACKAGE" '[.assets[]|select(.name==$n)]|length' <<< "$r")" -eq 1
+          test "$(jq --arg n "$PUBLIC_PACKAGE.sha256" '[.assets[]|select(.name==$n)]|length' <<< "$r")" -eq 1
           if test "$CHANNEL" = stable; then
             gh release edit "$TAG" -R "$REPO" --draft=false --prerelease=false --latest
           else
@@ -199,8 +205,10 @@ jobs:
         env:
           TAG: ${{ steps.gate.outputs.tag }}
           PACKAGE: ${{ steps.gate.outputs.package }}
+          VERSION: ${{ steps.gate.outputs.version }}
         run: |
           set -euo pipefail
+          PUBLIC_PACKAGE="LuHmOS-ChatGPT-${CHANNEL}-v${VERSION}-s${SOURCE_REF:0:8}.zip"
           # GitHub Release metadata is checked afresh; we never purge other users' CDN.
           result="$(gh api -H 'Cache-Control: no-cache' "repos/$REPO/releases/tags/$TAG")"
           test "$(jq -r .draft <<< "$result")" = false
@@ -209,8 +217,8 @@ jobs:
           else
             test "$(jq -r .prerelease <<< "$result")" = true
           fi
-          url="$(jq -r --arg n "$PACKAGE" '.assets[]|select(.name==$n)|.browser_download_url' <<< "$result")"
-          test "$url" = "https://github.com/$REPO/releases/download/$TAG/$PACKAGE"
+          url="$(jq -r --arg n "$PUBLIC_PACKAGE" '.assets[]|select(.name==$n)|.browser_download_url' <<< "$result")"
+          test "$url" = "https://github.com/$REPO/releases/download/$TAG/$PUBLIC_PACKAGE"
           curl --fail --location --silent --show-error --retry 3 \
             -H 'Cache-Control: no-cache' -o "$RUNNER_TEMP/public-package.zip" "$url"
           echo "$EXPECTED_SHA  $RUNNER_TEMP/public-package.zip" | sha256sum -c -
