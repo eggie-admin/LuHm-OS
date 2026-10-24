@@ -1056,5 +1056,24 @@
     "approvedWoff2Available": false,
     "currentProof": "SOURCE_CI_ONLY",
     "crownStatus": "STOP"
+  },
+  "twoTaskSamsungDelivery": {
+    "contract": "doctrine/twoTaskSamsungDeliveryV1.json",
+    "status": "PROFESSOR_APPROVED_EXECUTION_RELEASE_UNPROVEN",
+    "issues": [
+      388,
+      389
+    ],
+    "parentMilestoneIssue": 379,
+    "approvalScope": "TASK_EXECUTION_WITH_EXISTING_GATES",
+    "signingCandidateRef": "76b7a40af886f5457d4048ede54878f40e30bb53",
+    "taskOrder": [
+      "canonSigningClosure",
+      "samsungBetaDelivery"
+    ],
+    "nativeChatGptTasks": "CREATED_EXECUTION_RECEIPTS_PENDING",
+    "hydraOneClickApprovalUi": "UNVERIFIED",
+    "autonomousRuntimeQuarantine": "RETAINED_SEPARATE_FROM_ASSISTANT_WORK",
+    "publicReleaseGreen": false
   }
 }

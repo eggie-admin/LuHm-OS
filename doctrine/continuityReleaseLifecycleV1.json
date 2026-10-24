@@ -164,5 +164,16 @@
     "publicReleaseExplicitApproval": true,
     "billingExplicitApproval": true,
     "agentsNeverSelfPromote": true
+  },
+  "twoTaskSamsungDelivery": {
+    "contract": "doctrine/twoTaskSamsungDeliveryV1.json",
+    "approvalCarriesForwardWithinScope": true,
+    "taskOrder": [
+      "canonSigningClosure",
+      "samsungBetaDelivery"
+    ],
+    "taskCreationIsNotExecution": true,
+    "quarantineIsNotBlanketAssistantWorkBlock": true,
+    "nativeTaskCreationDoesNotProveHydraApprovalUi": true
   }
 }
