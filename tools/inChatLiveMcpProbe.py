@@ -22,6 +22,12 @@ TOOLS = {
     "luhm_open_cockpit": "ui://luhm-os/cockpit-v2.html",
     "luhm_open_godot_player": "ui://luhm-os/godot-player-v1.html",
 }
+MOBILE_TOOLS = {"luhm_open_mobile_cockpit": "ui://luhm-os/mobile-cockpit-v1.html"}
+
+def expected_tools(origin: str) -> dict[str, str]:
+    # The Godot preview may lag the primary MCP service; never fabricate a shared deploy.
+    return {**TOOLS, **(MOBILE_TOOLS if origin == ORIGINS["mcp"] else {})}
+
 PROTOCOL = "2025-06-18"
 MAX_BYTES = 2 * 1024 * 1024
 
@@ -109,11 +115,12 @@ def observe(origin: str) -> dict:
             "protocol": handshake.get("protocolVersion", "UNKNOWN")}
     tools = checked("toolsList", lambda: rpc(origin, "tools/list", 2))
     discovered = {}
+    required = expected_tools(origin)
     if tools is not None:
         for item in tools.get("tools", []):
-            if item.get("name") in TOOLS:
+            if item.get("name") in required:
                 discovered[item["name"]] = (item.get("_meta") or {}).get("ui", {}).get("resourceUri")
-        for name, expected in TOOLS.items():
+        for name, expected in required.items():
             if discovered.get(name) != expected:
                 result["errors"].append(f"missingOrDrift:{name}")
         result["checks"]["toolsList"]["detail"] = discovered
@@ -121,6 +128,17 @@ def observe(origin: str) -> dict:
     if cockpit is not None:
         pages = [p.get("text", "") for p in cockpit.get("contents", []) if p.get("uri") == TOOLS["luhm_open_cockpit"]]
         checked("cockpitJavaScript", lambda: parse_script(pages[0]) if pages else (_ for _ in ()).throw(ValueError("EMPTY_COCKPIT_UI")))
+    if origin == ORIGINS["mcp"]:
+        mobile = checked("mobileUiResource", lambda: rpc(origin, "resources/read", 5, {"uri": MOBILE_TOOLS["luhm_open_mobile_cockpit"]}))
+        if mobile is not None:
+            pages = [p.get("text", "") for p in mobile.get("contents", []) if p.get("uri") == MOBILE_TOOLS["luhm_open_mobile_cockpit"]]
+            checked("mobileJavaScript", lambda: parse_script(pages[0]) if pages else (_ for _ in ()).throw(ValueError("EMPTY_MOBILE_UI")))
+            checked("mobileMountTest", lambda: (
+                {"userGestureSource": "PRESENT_NOT_HOST_PROOF"} if pages and
+                'id="nativeChatProofButton"' in pages[0] and
+                "LUHM_CHAT_MOUNT_CANDIDATE userClicked=true" in pages[0]
+                else (_ for _ in ()).throw(ValueError("MOBILE_MOUNT_GESTURE_MISSING"))
+            ))
     player = checked("godotUiResource", lambda: rpc(origin, "resources/read", 4, {"uri": TOOLS["luhm_open_godot_player"]}))
     if player is not None:
         pages = [p.get("text", "") for p in player.get("contents", []) if p.get("uri") == TOOLS["luhm_open_godot_player"]]
