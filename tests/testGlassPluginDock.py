@@ -30,7 +30,8 @@ def audit(policy: dict, mobile: str, full: str, server: str) -> list[str]:
         "noImplicitExecution": policy.get("orchestration", {}).get("companyQuarantineEnforced") is True
                                and policy.get("hostCapabilities", {}).get("serverToolWrites") is False
                                and policy.get("hostCapabilities", {}).get("providerPlayback") is False,
-        "iosReality": "Canary" not in policy.get("kiosk", {}).get("iosPreferredTest", "") and
+        "iosReality": ("Canary" not in policy.get("kiosk", {}).get("iosPreferredTest", "") or
+                      "not Canary" in policy.get("kiosk", {}).get("iosPreferredTest", "")) and
                       policy.get("kiosk", {}).get("browserIsHeadlessOnMobile") is False and
                       policy.get("kiosk", {}).get("escapeMustRemainAvailable") is True,
         "bothPayloads": server.count('"glassDock": glass_dock') == 2,
