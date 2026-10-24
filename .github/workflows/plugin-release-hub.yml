@@ -91,6 +91,16 @@ jobs:
           test "$GITHUB_ACTOR" = "$owner"
           current="$(gh api "repos/$REPO/branches/main" --jq '.commit.sha')"
           test "$SOURCE_REF" = "$current"
+          # Canon publication stops if the GitHub main ruleset has been relaxed.
+          # Administration read access is required; failed reads also deny release.
+          ruleset="$(gh api "repos/$REPO/rulesets/25699963")"
+          jq -e '
+            .enforcement == "active"
+            and ((.conditions.ref_name.include // []) | index("refs/heads/main") != null)
+            and ([.rules[]?.type] | (index("pull_request") != null)
+                and (index("non_fast_forward") != null)
+                and (index("deletion") != null))
+          ' <<< "$ruleset" > /dev/null
           run="$(gh api "repos/$REPO/actions/runs/$PACKAGE_RUN")"
           test "$(jq -r '.name' <<< "$run")" = "Public Plugin Package CAST"
           test "$(jq -r '.conclusion' <<< "$run")" = "success"
