@@ -8,6 +8,7 @@ on:
       - 'host/mcp/luhmHarness.py'
       - 'tests/testMobileCockpitEvidenceContract.py'
       - 'tests/testGlassPluginDock.py'
+      - 'tests/mobileGlassDockCanarySmoke.py'
       - 'doctrine/glassPluginDockV1.json'
       - 'tests/testInChatWidgetEvidenceContract.py'
       - '.github/workflows/in-chat-widget-evidence-gate.yml'
@@ -24,7 +25,13 @@ jobs:
       - name: Checkout exact candidate
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
+      - name: Verify exact source checkout
+        shell: bash
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED"
       - name: Verify widget source contract and negative controls
         run: python3 -m unittest tests/testInChatWidgetEvidenceContract.py -v
       - name: Parse actual embedded widget JavaScript
@@ -49,6 +56,18 @@ jobs:
         run: |
           python3 -m py_compile host/mcp/luhmHarness.py
           python3 -m unittest tests/testMobileCockpitEvidenceContract.py tests/testGlassPluginDock.py -v
+      - name: Install pinned headless Chrome driver
+        run: python3 -m pip install --user 'playwright==1.55.0'
+      - name: Exercise real mobile glass dock in headless Chrome
+        run: python3 tests/mobileGlassDockCanarySmoke.py
+      - name: Preserve browser interaction proof
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-canary-glass-dock-${{ github.event.pull_request.head.sha || github.sha }}
+          path: build/canaryKioskBrowserProof/
+          if-no-files-found: warn
+          retention-days: 7
       - name: Record exact check identity
         shell: bash
         run: |
