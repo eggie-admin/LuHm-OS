@@ -42,6 +42,19 @@ class PublicMcpProbeContract(unittest.TestCase):
     def test_parseSmallJs(self):
         self.assertEqual(parse_script("<script>const x = 1;</script>"), "PARSE_PASS")
 
+    def test_parseAssembledCockpitTwoInlineScripts(self):
+        page = "<html><script>const root = 1;</script><script>const deck = 2;</script></html>"
+        self.assertEqual(parse_script(page), "PARSE_PASS")
+
+    def test_rejectExternalScriptEvenWithInline(self):
+        page = '<script src="https://bad.example/evil.js"></script><script>const ok = 1;</script>'
+        with self.assertRaisesRegex(ValueError, "WIDGET_EXTERNAL_SCRIPT_FORBIDDEN"):
+            parse_script(page)
+
+    def test_rejectSecondScriptSyntax(self):
+        with self.assertRaisesRegex(ValueError, "COCKPIT_JAVASCRIPT_PARSE_FAIL:2"):
+            parse_script("<script>const valid=1;</script><script>function {bad}</script>")
+
     def test_rejectSyntax(self):
         with self.assertRaisesRegex(ValueError, "COCKPIT_JAVASCRIPT_PARSE_FAIL"):
             parse_script("<script>function {bad}</script>")
