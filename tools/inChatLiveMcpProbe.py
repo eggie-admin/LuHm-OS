@@ -72,16 +72,21 @@ def rpc(origin: str, method: str, rpc_id: int, params: dict | None = None) -> di
     return envelope["result"]
 
 def parse_script(html: str) -> str:
+    # The ChatGPT widget assembles one cockpit script and a second studioDeck
+    # script. Parse each block; requiring exactly one is a false runtime failure.
+    if re.search(r"<script\b[^>]*\bsrc\s*=", html, re.I):
+        raise ValueError("WIDGET_EXTERNAL_SCRIPT_FORBIDDEN")
     scripts = re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", html, re.I | re.S)
-    if len(scripts) != 1:
+    if not 1 <= len(scripts) <= 4:
         raise ValueError("COCKPIT_SCRIPT_COUNT")
     with tempfile.TemporaryDirectory() as path:
-        target = Path(path) / "widget.js"
-        target.write_text(scripts[0], encoding="utf-8")
-        check = subprocess.run(["node", "--check", str(target)],
-                               capture_output=True, text=True, timeout=10)
-        if check.returncode:
-            raise ValueError("COCKPIT_JAVASCRIPT_PARSE_FAIL")
+        for number, source in enumerate(scripts, start=1):
+            target = Path(path) / f"widget-{number}.js"
+            target.write_text(source, encoding="utf-8")
+            check = subprocess.run(["node", "--check", str(target)],
+                                   capture_output=True, text=True, timeout=10)
+            if check.returncode:
+                raise ValueError(f"COCKPIT_JAVASCRIPT_PARSE_FAIL:{number}")
     return "PARSE_PASS"
 
 def observe(origin: str) -> dict:
