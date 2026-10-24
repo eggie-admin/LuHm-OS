@@ -1,0 +1,251 @@
+{
+  "schema": "luhmOs.milestoneTaskQueue.v1",
+  "authority": "Professor",
+  "approvedDate": "2026-10-24",
+  "status": "CROWNED_SCOPED_CONTINUITY",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Persistent cross-chat ChatGPT Tasks wakeup backed by GitHub source and task evidence, not a fictional always-on agent or infinite chat.",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "continuityIssue": 310,
+  "bootstrap": "agents/projectChatBootstrap/SKILL.md",
+  "checkpointContract": "doctrine/contextTourniquetV1.json",
+  "quarantine": "doctrine/companyWideOperationalQuarantineV1.json",
+  "scheduler": {
+    "type": "CHATGPT_TASKS",
+    "maxCadence": "HOURLY",
+    "runnerCount": 1,
+    "observedInstalledScheduledTasks": "HISTORICAL_DISABLED_REQUIRES_EXPLICIT_SINGLE_RUNNER_ENABLE",
+    "automaticExecutionGuaranteed": false,
+    "toolAvailabilityPerRun": "MUST_RECHECK",
+    "scheduledPromptVersion": "luhmOsMilestoneRunner.v1",
+    "displayRule": "NOTIFY_ONLY_ON_VERIFIED_MILESTONE_OR_NEW_HARD_RED"
+  },
+  "taskLaw": {
+    "onlyOneMutationLane": true,
+    "claimSourceIdentity": "EXACT_HEAD_AND_LIVE_SOURCE",
+    "maxRetryBeforeEscalation": 3,
+    "boundedAttemptsPerTick": 2,
+    "continueThrough": [
+      "GREEN",
+      "AMBER",
+      "SOFT_RED",
+      "WAIT_DEPENDENCY",
+      "WATCH",
+      "UNKNOWN"
+    ],
+    "hardRedScope": "BLOCK_AFFECTED_TASK_NOT_ENTIRE_INDEPENDENT_QUEUE",
+    "hardRedReasons": [
+      "REQUIRED_HUMAN_DEVICE_ACTION",
+      "SECRET_OR_OWNER_PROTECTED_SETTING",
+      "INSUFFICIENT_AUTHORITY",
+      "RIGHTS_OR_PRIVATE_MEDIA_RELEASE",
+      "DESTRUCTIVE_OR_UNSAFE_OPERATION",
+      "PROVIDER_OR_HOST_FEATURE_UNAVAILABLE_AFTER_BOUNDED_RETRY",
+      "UNRECOVERABLE_SECURITY_FAILURE"
+    ],
+    "noGlobalStopOnUnrelatedHardRed": true,
+    "neverInferSuccessFrom": [
+      "CI_ONLY",
+      "DOC_ONLY",
+      "HISTORICAL_RECEIPT",
+      "ROSTER_ONLY",
+      "HTTP_200_ONLY",
+      "AUTO_TASK_TICK_ONLY"
+    ],
+    "autoAllowed": [
+      "READ_LIVE_SOURCE",
+      "READ_RELEVANT_ISSUES_AND_HOST_STATUS",
+      "VERIFY_EXACT_CI",
+      "RETRY_READ_ONLY_TRANSIENT",
+      "OPEN_BOUNDED_SOURCE_PR",
+      "WRITE_SANITIZED_ISSUE_CHECKPOINT"
+    ],
+    "guarded": [
+      "MERGE_ONLY_WITH_APPLICABLE_INDEPENDENT_PROTECTED_CHECKS_AND_PROFESSOR_SCOPE",
+      "EXISTING_FREE_HOST_DEPLOY_ONLY_AFTER_PROTECTED_SOURCE_AND_CONSENT",
+      "DEVICE_MUTATION_REQUIRES_OWNER_PRESENT",
+      "SIGNED_RELEASE_NEEDS_OWNER_PROTECTED_ENVIRONMENT",
+      "PUBLIC_MEDIA_REQUIRES_FILE_RIGHTS_AND_ART_APPROVAL"
+    ],
+    "forbidden": [
+      "BYPASS_BRANCH_RULES",
+      "UNQUARANTINE_AGENTS",
+      "ROTATE_OR_REQUEST_SECRET_VALUES",
+      "PUBLISH_PRIVATE_MEDIA",
+      "CREATE_PAID_SERVICE",
+      "AUTOMATIC_PUBLIC_APK_RELEASE",
+      "DEVICE_LOCK_OUT",
+      "INVENT_PHYSICAL_PROOF"
+    ]
+  },
+  "freshness": {
+    "recheckMainShaEveryTick": true,
+    "recheckCurrentIssueStateEveryTick": true,
+    "recheckRenderBeforePromotion": true,
+    "historicalSnapshotsAdvisoryOnly": true,
+    "privateUserDataNotInPublicIssues": true
+  },
+  "tasks": [
+    {
+      "id": "mobileMainHost",
+      "priority": 10,
+      "issue": 310,
+      "dependsOn": [],
+      "lane": "renderAndMcp",
+      "mode": "READ_OBSERVE_THEN_SCOPED_HOST_REPAIR",
+      "initialState": "WATCH",
+      "evidenceRequired": [
+        "exact main SHA",
+        "matching live Render deploy ID",
+        "HTTP or MCP host confirmation"
+      ],
+      "next": "Resolve deployment dep-dbejamhsrm7s73cb0blg on existing main free service; retry/diagnose if not live, do not repeat deploy while in flight"
+    },
+    {
+      "id": "androidCockpitProof",
+      "priority": 20,
+      "issue": 310,
+      "dependsOn": [
+        "mobileMainHost"
+      ],
+      "lane": "physicalDevice",
+      "mode": "HUMAN_DEVICE_RECEIPT",
+      "initialState": "UNKNOWN",
+      "evidenceRequired": [
+        "visible Android Chrome Canary first screen",
+        "Godot opt-in touch",
+        "glass five-button navigation",
+        "no unexpected network"
+      ],
+      "next": "Prepare single owner touch-proof step; continue independent source tasks while owner action pending"
+    },
+    {
+      "id": "godotMusicRuntime",
+      "priority": 30,
+      "issue": 310,
+      "dependsOn": [
+        "mobileMainHost"
+      ],
+      "lane": "mediaRuntime",
+      "mode": "SCOPED_DIAGNOSIS",
+      "initialState": "SOFT_RED",
+      "evidenceRequired": [
+        "dedicated Godot export reachable and scene rendered",
+        "touch controls respond on phone",
+        "music frame loads and playback actually starts"
+      ],
+      "next": "Inspect existing dedicated Godot service and YouTube embed support, fix bounded reproducible source failures; user device proof separate"
+    },
+    {
+      "id": "chatGptInlineMount",
+      "priority": 40,
+      "issue": 317,
+      "dependsOn": [],
+      "lane": "mcpAppsAndroid",
+      "mode": "SCOPED_DIAGNOSIS",
+      "initialState": "SOFT_RED",
+      "evidenceRequired": [
+        "resources/read MIME",
+        "host app visible mount",
+        "user-clicked interaction on Android"
+      ],
+      "next": "Diagnose observed failed ChatGPT cards without conflating MCP resource availability with app iframe compatibility"
+    },
+    {
+      "id": "privateLumAndSprites",
+      "priority": 50,
+      "issue": 310,
+      "dependsOn": [
+        "mobileMainHost"
+      ],
+      "lane": "privateCreative",
+      "mode": "PRIVATE_ART_PREVIEW",
+      "initialState": "AMBER",
+      "evidenceRequired": [
+        "source GIF SHA from private bytes",
+        "rights/creator receipt",
+        "local GIF and sprite actual Android preview"
+      ],
+      "next": "Verify first original GIF in phone-local preview and pet sprite sample; keep original Drive bytes owner-only"
+    },
+    {
+      "id": "samsungCanonSigning",
+      "priority": 60,
+      "issue": 388,
+      "dependsOn": [],
+      "lane": "androidSigning",
+      "mode": "OWNER_REVIEW_PLUS_SOURCE_REPAIR",
+      "initialState": "AMBER",
+      "evidenceRequired": [
+        "PR and workflow exact source",
+        "independent protected environment review",
+        "owner-held key presence without disclosure"
+      ],
+      "next": "Inspect Task 1 current PR and owner-safe signing env; fix source-side issues only, escalate inaccessible environment action once"
+    },
+    {
+      "id": "samsungBetaDelivery",
+      "priority": 70,
+      "issue": 389,
+      "dependsOn": [
+        "samsungCanonSigning"
+      ],
+      "lane": "androidApk",
+      "mode": "PROTECTED_SIGNING_AND_DEVICE_RECEIPTS",
+      "initialState": "WAIT_DEPENDENCY",
+      "evidenceRequired": [
+        "signed artifact fingerprint and SHA-256",
+        "physical Samsung install, launch, upgrade",
+        "F-Droid update acceptance separately"
+      ],
+      "next": "Progress once signing prerequisites verified; never generate disposable release keys, uninstall or clear data"
+    },
+    {
+      "id": "finalProductCrown",
+      "priority": 90,
+      "issue": 379,
+      "dependsOn": [
+        "androidCockpitProof",
+        "godotMusicRuntime",
+        "chatGptInlineMount",
+        "privateLumAndSprites",
+        "samsungBetaDelivery"
+      ],
+      "lane": "finalAcceptance",
+      "mode": "HUMAN_FINAL_PROMOTION",
+      "initialState": "WAIT_DEPENDENCY",
+      "evidenceRequired": [
+        "complete dependent task receipts",
+        "stable signing/publishing authority",
+        "Professor final acceptance"
+      ],
+      "next": "Assemble exact-source crown docket; do not self-authorize public signing, distribution or overall GREEN"
+    }
+  ],
+  "security": {
+    "registeredAgentsStillQuarantined": true,
+    "runtimeWorkerActivationAllowed": false,
+    "userOriginalArtOnPublicHost": false,
+    "noNewPaidServices": true,
+    "roleNamesAreNotIndependentExecutors": true
+  },
+  "continuityReceipt": {
+    "required": [
+      "taskId",
+      "checkedAt",
+      "sourceRef",
+      "observedStatus",
+      "evidenceRefs",
+      "blockedReason",
+      "lastAttempt",
+      "nextAction",
+      "actionScope",
+      "authority"
+    ],
+    "storage": "GITHUB_SANITIZED_ISSUE_CHECKPOINT",
+    "noSecretsOrPrivateURLs": true,
+    "taskCheckpointsExecutionAuthorized": false
+  },
+  "productCrown": "NOT_PROVEN_FROM_QUEUE_ONLY"
+}
