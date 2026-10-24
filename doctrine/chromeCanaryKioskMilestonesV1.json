@@ -96,5 +96,15 @@
     "noNewPaidServices": true,
     "noUserMediaPublication": true,
     "crownScope": "PROFESSOR_APPROVED_SOURCE_AND_EXISTING_HOST_DEPLOYMENT_PENDING_INDEPENDENT_DEVICE_CONFIRMATION"
+  },
+  "driveStudioAssetReconciliation": {
+    "contract": "doctrine/driveStudioReconciliationV1.json",
+    "professorApprovedContinuation": true,
+    "firstTarget": "lumPrivateAnimatedPreview",
+    "secondTarget": "lumPetSprites",
+    "driveMediaImportPerformed": false,
+    "driveAssetVerifiedInPhysicalCanary": false,
+    "publicMediaApproved": false,
+    "nextStep": "Hash and review selected private Lum GIF, test private studio sprite/animation playback, then request exact-artifact acceptance"
   }
 }

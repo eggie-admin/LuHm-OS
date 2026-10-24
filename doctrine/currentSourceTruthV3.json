@@ -111,7 +111,10 @@
     "artistFirstPrimeCanon": "doctrine/artistFirstArtToolCanonV1.json",
     "artistFirstPrimeCanonStatus": "PROPOSED_ONLY",
     "artistOutputAuthority": "PROFESSOR",
-    "runtimeProofNotImplied": true
+    "runtimeProofNotImplied": true,
+    "driveStudioReconciliation": "doctrine/driveStudioReconciliationV1.json",
+    "driveStudioFirstAsset": "lumPrivateAnimatedPreview",
+    "driveAssetApprovalStatus": "PROFESSOR_SCOPED_DISCOVERY_CROWN_FILE_RIGHTS_AND_PREVIEW_PENDING"
   },
   "campaignLayer": {
     "patronageCampaign": "doctrine/patronageCampaignV1.json",
