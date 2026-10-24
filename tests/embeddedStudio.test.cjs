@@ -45,6 +45,30 @@ async function main() {
       await page.goto("http://localhost:8788/harness/");
       await page.locator("#agentLoadingScreen").waitFor({state:"hidden"});
       assert.equal(await page.locator("#luhmStudioDeck").count(),1);
+      // The first-screen mobile app must display real, routed features instead of an audit wall.
+      assert.equal(await page.locator("#crownStart").isVisible(),true,"Professor launch deck visible");
+      assert.equal(await page.locator("#crownStart [data-crown-plane]").count(),7,"Seven CSS planes in first-screen launch");
+      assert.equal(await page.locator("#crownStart .crownQuickActions button").count(),5,"Five obvious touch actions");
+      assert.equal(await page.locator("#crownViewportSlot .godot #godotFrame").count(),1,"The ONE real Godot viewport is in the first screen");
+      assert.equal(await page.locator("#godotFrame").getAttribute("src"),null,"No remote 3D requests on arrival");
+      assert.equal(await page.locator("#playFirstNight").isEnabled(),true,"Play action no longer incorrectly disabled");
+      await page.locator("#crownLaunchLum").click();
+      assert.equal(await page.locator("#studioPrivateLumFile").evaluate(el=>document.activeElement===el),true,"Private Lum picker is one tap away");
+      await page.locator("#crownLaunchMusic").click();
+      assert.equal(await page.locator("#studioMusicUrl").evaluate(el=>document.activeElement===el),true,"Music plugin is one tap away");
+      await page.locator("#crownLaunchGlass").click();
+      assert.equal(await page.locator("#studioGlassDock").isVisible(),true,"Actual glass dock from launch");
+      await page.locator("#crownLaunchLayers").click();
+      assert.equal(await page.locator("#studioPlaneInspector").getAttribute("open"),"","Seven studio layer inspector is opened");
+      await page.locator("#studioGlassClose").click();
+      await page.locator("#crownLaunchGodot").click();
+      assert.equal(await page.locator("#playGodotRemote").getAttribute("aria-pressed"),"true","Primary Play opens the existing Godot host");
+      assert.equal(await page.locator("#godotFrame").getAttribute("src"),
+        "https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html","Pinned Godot embed");
+      assert.match(await page.locator("#crownLaunchStatus").textContent(),/not verified/,"Never claim unproven gameplay");
+      await page.locator("#playGodotRemote").click();
+      assert.equal(await page.locator("#godotFrame").getAttribute("src"),null,"Player closes without a leftover iframe source");
+
       assert.equal(await page.locator("[data-stage-plane]").count(),7);
       await page.locator("#pocketbond").click();
       assert.match(await page.locator("#pocketexpression").textContent(),/Bond level 1/);
