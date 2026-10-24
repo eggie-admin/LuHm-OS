@@ -111,7 +111,9 @@ def google_readiness(*, key: str | None = None, probe=None) -> dict:
     if not key:
         return {"state": "NOT_VERIFIED_NO_CREDENTIAL",
                 "metadataApi": "models.list", "modelGenerationCalled": False,
-                "identityAndEntitlementVerified": False, "costApproval": False}
+                "modelMetadataAccessVerified": False,
+                "identityAndEntitlementVerified": False,
+                "billingEntitlementVerified": False, "costApproval": False}
     probe = probe or request_status
     try:
         code, body = probe(GOOGLE_MODELS, api_key=key)
@@ -129,7 +131,9 @@ def google_readiness(*, key: str | None = None, probe=None) -> dict:
     except (URLError, TimeoutError, OSError, ValueError, TypeError):
         state = "NOT_VERIFIED_NETWORK_OR_FORMAT"
     return {"state": state, "metadataApi": "models.list", "modelGenerationCalled": False,
-            "identityAndEntitlementVerified": state == "AUTHENTICATED_MODEL_METADATA",
+            "modelMetadataAccessVerified": state == "AUTHENTICATED_MODEL_METADATA",
+            "identityAndEntitlementVerified": False,
+            "billingEntitlementVerified": False,
             "costApproval": False, "modelWorkerDeployed": False}
 
 
