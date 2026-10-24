@@ -6,7 +6,7 @@
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#10131a">
-<title>LuHm OS First Night Demo</title>
+<title>LuHm OS · Professor Cockpit</title>
 <link rel="stylesheet" href="/harness/assets/fontStack.css">
 <link rel="stylesheet" href="/harness/assets/cockpit.css">
 <link rel="stylesheet" href="/harness/assets/studioDeck.css">
@@ -23,11 +23,34 @@
     <div class="pixelPet" id="pixelPet"><span id="petGlyph">L</span></div>
   </button>
   <div class="titleBlock">
-    <h1>LuHm OS · First Night Demo</h1>
-    <div class="subtitle">playable Godot world · Lum cockpit · local asset desk · ChatGPT frame</div>
+    <h1>LuHm OS · Professor Cockpit</h1>
+    <div class="subtitle">Godot 4 · Lum · glass dock · music · seven layers</div>
   </div>
   <div class="badge" id="edgeBadge">checking edge…</div>
 </header>
+<section class="crownStart panel" id="crownStart" aria-labelledby="crownStartTitle">
+  <div class="crownStagePlane crownFar" data-crown-plane="farField" aria-hidden="true"></div>
+  <div class="crownStagePlane crownMiddle" data-crown-plane="midField" aria-hidden="true"></div>
+  <div class="crownStagePlane crownVisual" data-crown-plane="visualEffects" aria-hidden="true"></div>
+  <div class="crownStagePlane crownFigure" data-crown-plane="liveCharacter" aria-hidden="true"></div>
+  <div class="crownStagePlane crownGlass" data-crown-plane="glassControls" aria-hidden="true"></div>
+  <div class="crownStagePlane crownForeground" data-crown-plane="foreground" aria-hidden="true"></div>
+  <div class="crownStagePlane crownMedia" data-crown-plane="embeddedMedia" aria-hidden="true"></div>
+  <div class="crownStartContent">
+    <span class="label">PROFESSOR · ONE APP</span>
+    <h2 id="crownStartTitle">The LuHm studio is right here.</h2>
+    <p>Play Godot, open the glass dock, work with your private Lum animation or connect music. Select what you want; nothing uploads or starts a paid agent.</p>
+    <div class="crownQuickActions" role="group" aria-label="LuHm main experiences">
+      <button id="crownLaunchGodot" type="button">🎮 Play Godot 4</button>
+      <button id="crownLaunchGlass" type="button">⚙ Glass dock</button>
+      <button id="crownLaunchLum" type="button">💜 Lum artwork</button>
+      <button id="crownLaunchMusic" type="button">♫ Music desk</button>
+      <button id="crownLaunchLayers" type="button">◈ Seven layers</button>
+    </div>
+    <p class="crownLaunchStatus" id="crownLaunchStatus" role="status" aria-live="polite">Ready for a touch. Godot embeds only after you select Play.</p>
+    <div id="crownViewportSlot" class="crownViewportSlot" aria-label="Godot 4 embedded web player"></div>
+  </div>
+</section>
 
 <!-- LUHM_STUDIO_DECK -->
 <section class="statusGrid">
@@ -55,12 +78,12 @@
 
 <section class="playHero panel" aria-labelledby="playTitle">
   <div class="playCopy">
-    <span class="label">playable demo</span>
+    <span class="label">Godot 4 · separate existing export</span>
     <h2 id="playTitle">First Night Circuit</h2>
     <p>Meet Lum on the Riverwalk, recover the signal shard, make the Coffee House run, clear the static wisp, and unlock fast travel.</p>
   </div>
   <div class="playActions">
-    <button id="playFirstNight" type="button" disabled>Checking Godot export…</button>
+    <button id="playFirstNight" type="button">▶ Open Godot 4 player</button>
     <button id="playGodotRemote" type="button" aria-controls="godotFrame" aria-pressed="false">🎮 Embed existing Godot 4 service</button>
     <a id="godotExternalLink" hidden href="https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">🎮 Open separate Godot 3D service ↗</a>
     <span class="tiny" id="playStatus">Verifying the staged browser build.</span>
