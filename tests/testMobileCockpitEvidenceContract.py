@@ -52,7 +52,7 @@ def audit_mobile(html: str, server: str) -> list[str]:
             'data-lane="testing"', 'data-lane="proposed"',
             'data-lane="beta"', 'data-lane="betaLts"',
         )),
-        "compact": len(html.encode("utf-8")) <= 12000,
+        "compact": len(html.encode("utf-8")) <= 16000,
     }
     return [name for name, passed in checks.items() if not passed]
 
@@ -103,6 +103,9 @@ class MobileCockpitEvidenceContract(unittest.TestCase):
         self.assertFalse(out["authority"]["crownAuthority"])
         self.assertEqual(out["testerDeviceMount"], "NOT_VERIFIED")
         self.assertEqual(out["sourceRef"], "SOURCE_NOT_DEPLOYED")
+        self.assertEqual(out["glassDock"]["schema"], "luhmOs.glassPluginDock.v1")
+        self.assertEqual([x["id"] for x in out["glassDock"]["modules"]],
+                         ["music", "avatars", "yume", "social", "admin"])
 
     def test_mobile_tool_rejects_count_and_state_drift(self):
         for policy in (
@@ -167,6 +170,7 @@ class MobileCockpitEvidenceContract(unittest.TestCase):
             scope = {
                 "root": FixturePath(), "json": json, "os": os, "Any": Any,
                 "MOBILE_COCKPIT_RESOURCE_URI": MOBILE_URI,
+                "glass_dock": json.loads((ROOT / "doctrine/glassPluginDockV1.json").read_text(encoding="utf-8")),
                 "status_provider": lambda: {"sourceRef": "SOURCE_NOT_DEPLOYED",
                                             "sourceTruthStatus": "SOURCE_ONLY"},
                 "roster_provider": lambda: {"roles": [{"agentId": "lum", "displayName": "Lum"}]},
