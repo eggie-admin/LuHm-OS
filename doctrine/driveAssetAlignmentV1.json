@@ -104,5 +104,15 @@
     "noDefaultNewSpend": true
   },
   "releaseCrownStatus": "STOP",
-  "runtimeClaim": "SOURCE_ROUTING_ONLY"
+  "runtimeClaim": "SOURCE_ROUTING_ONLY",
+  "currentAssetReconciliation": {
+    "contract": "doctrine/driveStudioReconciliationV1.json",
+    "status": "PROFESSOR_APPROVED_SCOPED_DRIVE_DISCOVERY",
+    "observationDate": "2026-10-24",
+    "firstPrivateProof": "lumPrivateAnimatedPreview",
+    "snapshotPrivacy": "SANITIZED_LOGICAL_KEYS_ONLY",
+    "folderInventoryNotByteIntegrity": true,
+    "physicalAssetPreviewProven": false,
+    "publicMediaApproval": false
+  }
 }
