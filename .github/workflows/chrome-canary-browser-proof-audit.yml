@@ -5,6 +5,9 @@ on:
     paths:
       - 'doctrine/chromeCanaryFirstNightBrowserProofV1.json'
       - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/chromeCanaryDeviceProof20261024V1.json'
+      - 'doctrine/chromeCanaryKioskMilestonesV1.json'
+      - 'tests/testCanaryKioskCrownMilestones.py'
       - 'tools/chromeCanaryBrowserProofAudit.py'
       - '.github/workflows/chrome-canary-browser-proof-audit.yml'
   push:
@@ -12,6 +15,9 @@ on:
     paths:
       - 'doctrine/chromeCanaryFirstNightBrowserProofV1.json'
       - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/chromeCanaryDeviceProof20261024V1.json'
+      - 'doctrine/chromeCanaryKioskMilestonesV1.json'
+      - 'tests/testCanaryKioskCrownMilestones.py'
       - 'tools/chromeCanaryBrowserProofAudit.py'
       - '.github/workflows/chrome-canary-browser-proof-audit.yml'
 
