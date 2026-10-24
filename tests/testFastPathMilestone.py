@@ -47,6 +47,20 @@ class FastPathMilestoneTests(unittest.TestCase):
         s, p = fixture()
         return fast.reconcile(snapshot or s, policy or p, source_ref=SHA)
 
+    def test_four_plane_canon_is_preserved(self):
+        topology = self.report()["topology"]
+        self.assertEqual(
+            [(layer["priority"], layer["id"]) for layer in topology["compatibilityLayers"]],
+            [(1, "chatGptOpenAi"), (2, "github")],
+        )
+        self.assertEqual(topology["heavyWorkhorse"]["providerId"], "googleAi")
+        self.assertEqual(topology["heavyWorkhorse"]["adapterId"], "bigBrother")
+        self.assertFalse(topology["heavyWorkhorse"]["automaticBillableExecution"])
+        self.assertEqual(topology["edge"]["providerId"], "cloudflare")
+        self.assertFalse(topology["edge"]["aiProvider"])
+        self.assertTrue(topology["edge"]["currentDirectMcpProxyUnchanged"])
+        self.assertTrue(topology["modelExecutionNotInferredFromCompatibilityOrder"])
+
     def test_real_unprotected_main_is_hard_blocker(self):
         result = self.report()
         self.assertEqual(result["stage"], "P0_ADMIN_GATE")
