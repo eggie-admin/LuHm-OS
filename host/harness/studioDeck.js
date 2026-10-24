@@ -6,7 +6,9 @@
   const maxFiles = 128, hashLimit = 32 * 1024 * 1024;
   const hosts = new Set(["youtube.com", "www.youtube.com", "m.youtube.com", "music.youtube.com", "youtu.be"]);
   function musicTarget(value) {
-    const url = new URL(String(value).trim());
+    const input = String(value).trim();
+    if (!input) throw Error("Paste a YouTube video or playlist link first. Nothing is playing.");
+    const url = new URL(input);
     if (url.protocol !== "https:" || !hosts.has(url.hostname) || url.username || url.password || url.port) throw Error("Use an HTTPS YouTube or YouTube Music link.");
     let video = url.hostname === "youtu.be" ? url.pathname.slice(1) : url.searchParams.get("v");
     if (!video && /^\/(shorts|embed)\//.test(url.pathname)) video = url.pathname.split("/")[2];
@@ -109,6 +111,98 @@
       });
     };
     jq.fn.luhmStudioParallax.version = "1.0.0";
+  }
+  function attachMusicDeck(doc) {
+    const get = id => doc.getElementById(id);
+    const input = get("studioMusicUrl"), stage = get("studioMusicStage");
+    const status = get("studioMusicStatus"), link = get("studioMusicExternal");
+    if (!input || !stage || !status || !link || input.dataset.musicWired === "true") return false;
+    input.dataset.musicWired = "true";
+    get("studioMusicLoad").addEventListener("click", () => {
+      const value = input.value.trim();
+      if (!value) {
+        status.textContent = "Paste a YouTube video or playlist link first. Nothing is playing.";
+        input.focus();
+        return;
+      }
+      try {
+        const target = musicTarget(value);
+        const frame = doc.createElement("iframe");
+        frame.title = "User-requested YouTube video or playlist";
+        frame.referrerPolicy = "strict-origin-when-cross-origin";
+        frame.loading = "lazy";
+        frame.allow = "encrypted-media; picture-in-picture; fullscreen";
+        frame.allowFullscreen = true;
+        frame.src = target.embed;
+        stage.replaceChildren(frame);
+        link.href = target.external; link.hidden = false;
+        status.textContent = "YouTube embed requested, not playback verified. Use its play control or open YouTube.";
+      } catch (error) {
+        status.textContent = String(error?.message || "Invalid link.").slice(0, 180);
+      }
+    });
+    get("studioMusicStop").addEventListener("click", () => {
+      stage.replaceChildren(); link.removeAttribute("href"); link.hidden = true;
+      status.textContent = "Music player disconnected. No autoplay.";
+    });
+    return true;
+  }
+  function installJQueryMusicBridge(jq) {
+    if (!jq?.fn || jq.fn.luhmMusicDeck) return;
+    jq.fn.luhmMusicDeck = function () {
+      return this.each(function () { attachMusicDeck(this.ownerDocument); });
+    };
+    jq.fn.luhmMusicDeck.version = "1.0.0";
+  }
+  function mountGlassDock(doc) {
+    const get = id => doc.getElementById(id);
+    const toggle = get("studioGlassToggle"), panel = get("studioGlassDock");
+    if (!toggle || !panel || toggle.dataset.glassWired === "true") return false;
+    toggle.dataset.glassWired = "true";
+    const status = get("studioGlassStatus");
+    function setOpen(open, returnFocus) {
+      panel.hidden = !open;
+      toggle.setAttribute("aria-expanded", String(open));
+      if (open) get("studioGlassClose").focus();
+      else if (returnFocus) toggle.focus();
+    }
+    toggle.addEventListener("click", () => setOpen(panel.hidden, false));
+    get("studioGlassClose").addEventListener("click", () => setOpen(false, true));
+    panel.addEventListener("keydown", e => {
+      if (e.key === "Escape") { e.preventDefault(); setOpen(false, true); }
+    });
+    const targets = {
+      music: "studioMusicUrl", avatars: "lum2dStage", yume: "studioAssetInput"
+    };
+    for (const control of panel.querySelectorAll("[data-studio-route]")) {
+      control.addEventListener("click", () => {
+        const route = control.dataset.studioRoute;
+        if (route === "social") {
+          status.textContent = "Social publishing needs an approved account and separate review. No posting tool is connected to this web cockpit.";
+          return;
+        }
+        if (route === "admin") {
+          get("studioPlaneInspector").open = true;
+          status.textContent = "Seven visual planes are source-wired. Host, media and agent capabilities remain individually evidenced.";
+          get("studioPlaneInspector").querySelector("summary").focus();
+          return;
+        }
+        const target = get(targets[route]);
+        if (!target) {
+          status.textContent = "Module source is unavailable on this page.";
+          return;
+        }
+        setOpen(false, false);
+        target.scrollIntoView({behavior:"auto",block:"center"});
+        target.focus({preventScroll:true});
+        status.textContent = route === "music"
+          ? "Music deck focused. Paste an authorized YouTube link to request an embed."
+          : route === "avatars"
+          ? "Lum 2D expression controls are available. Licensed Live2D rig is not claimed."
+          : "Local asset registration focused. Rights and exports remain under review.";
+      });
+    }
+    return true;
   }
   function embedTarget(win) {
     // Exact known Godot origin; never accept untrusted user URLs or scripts.
@@ -242,6 +336,10 @@ $("pause").addEventListener("click",e=>{const v=document.querySelector(".pocketC
     installJQueryBridge(root.jQuery);
     if (root.jQuery?.fn?.luhmStudioParallax) root.jQuery(stage).luhmStudioParallax();
     else mountDepth(stage, doc.defaultView || root);
+    mountGlassDock(doc);
+    installJQueryMusicBridge(root.jQuery);
+    if (root.jQuery?.fn?.luhmMusicDeck) root.jQuery(get("studioMusicStage")).luhmMusicDeck();
+    else attachMusicDeck(doc);
     // A full-viewport frame stays inert until the Professor explicitly opts in.
     const backdrop = get("studioBackdropFrame");
     get("studioBackdropLoad").addEventListener("click", () => {
@@ -280,24 +378,6 @@ $("pause").addEventListener("click",e=>{const v=document.querySelector(".pocketC
       get("studioSourceStatus").textContent = "Source: " + sourceRef;
       return true;
     }
-    get("studioMusicLoad").onclick = () => {
-      try {
-        const target = musicTarget(get("studioMusicUrl").value);
-        const frame = doc.createElement("iframe");
-        frame.title = "YouTube music video or playlist player";
-        frame.referrerPolicy = "strict-origin-when-cross-origin";
-        frame.allow = "encrypted-media; picture-in-picture; fullscreen";
-        frame.allowFullscreen = true; frame.src = target.embed;
-        get("studioMusicStage").replaceChildren(frame);
-        const link = get("studioMusicExternal"); link.href = target.external; link.hidden = false;
-        get("studioMusicStatus").textContent = "YouTube player requested. Use its play control; if embedding is unavailable, open on YouTube.";
-      } catch (error) { get("studioMusicStatus").textContent = error.message; }
-    };
-    get("studioMusicStop").onclick = () => {
-      get("studioMusicStage").replaceChildren();
-      get("studioMusicExternal").hidden = true;
-      get("studioMusicStatus").textContent = "YouTube disconnected.";
-    };
     async function addFiles(files) {
       if (busy) return;
       busy = true;

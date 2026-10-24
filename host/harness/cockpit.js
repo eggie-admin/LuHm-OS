@@ -363,6 +363,40 @@ async function probeGodot() {
   }
 }
 
+function wireRemoteGodot() {
+  const button = byId("playGodotRemote");
+  const frame = byId("godotFrame");
+  const empty = byId("godotEmpty");
+  const status = byId("playStatus");
+  if (!button || !frame || button.dataset.wired === "true") return;
+  button.dataset.wired = "true";
+  const target = "https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html";
+  button.addEventListener("click", () => {
+    const loaded = button.getAttribute("aria-pressed") === "true";
+    if (loaded) {
+      frame.removeAttribute("src");
+      frame.style.display = "none";
+      if (empty) empty.style.display = "grid";
+      button.textContent = "🎮 Embed existing Godot 4 service";
+      button.setAttribute("aria-pressed", "false");
+      byId("godotBadge").textContent = "REMOTE PLAYER DISCONNECTED";
+      if (status) status.textContent = "Existing Godot service disconnected. No hidden video or game session.";
+    } else {
+      frame.src = target; frame.style.display = "block";
+      if (empty) empty.style.display = "none";
+      button.textContent = "✕ Close embedded Godot";
+      button.setAttribute("aria-pressed", "true");
+      byId("godotBadge").textContent = "REMOTE GODOT REQUESTED";
+      if (status) status.textContent = "Existing Godot 4 service requested inside the frame. WebAssembly, gameplay and touch remain unverified here.";
+      frame.scrollIntoView({behavior:"auto",block:"center"});
+    }
+  });
+  frame.addEventListener("error", () => {
+    if (button.getAttribute("aria-pressed") === "true")
+      byId("godotBadge").textContent = "REMOTE FRAME LOAD ERROR";
+  });
+}
+
 function wirePlayButton() {
   const button = byId("playFirstNight");
   if (!button) return;
@@ -441,6 +475,7 @@ async function boot() {
   showPet();
 
   setLoadingAgent("kugi", "Checking the Godot web viewer");
+  wireRemoteGodot();
   await probeGodot();
   byId("edgeBadge").textContent = "SOURCE-VERIFIED DEMO";
 }
