@@ -1,0 +1,83 @@
+name: LuHm Fast Path Continuity Gate
+
+on:
+  pull_request:
+    paths:
+      - 'tools/fastPathMilestone.py'
+      - 'tests/testFastPathMilestone.py'
+      - '.github/workflows/fast-path-continuity.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '27 10 * * *'
+
+permissions:
+  contents: read
+  pull-requests: read
+  checks: read
+
+concurrency:
+  group: luhm-fast-path-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  continuity-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Exact source checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Fail-closed continuity unit tests
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          python3 -m py_compile tools/fastPathMilestone.py
+          python3 -m unittest tests/testFastPathMilestone.py -v
+      - name: Read-only fresh GitHub checkpoint
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p build/fastPath
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          repo="eggie-admin/LuHm-OS"
+          head=os.environ["EXPECTED"]
+          def fetch(suffix):
+              req=Request("https://api.github.com/repos/"+repo+"/"+suffix,
+                  headers={"Authorization":"Bearer "+os.environ["GH_TOKEN"],
+                           "Accept":"application/vnd.github+json",
+                           "Cache-Control":"no-cache",
+                           "User-Agent":"LuHm-FastPath-GitHub"})
+              try:
+                  with urlopen(req,timeout=12) as r:
+                      return json.load(r)
+              except Exception:
+                  return {}
+          data={"main":fetch("branches/main"),
+                "ruleset":fetch("rulesets/25699963"),
+                "pr":fetch("pulls/386"),
+                "checks":fetch("commits/"+head+"/check-runs?per_page=100")}
+          data["checks"]["verifiedCommit"]=head
+          Path("build/fastPath/snapshot.json").write_text(json.dumps(data))
+          PY
+          python3 tools/fastPathMilestone.py \
+            --snapshot build/fastPath/snapshot.json --source-ref "$EXPECTED" \
+            --output build/fastPath/continuity.json
+          echo "CONTINUITY_CROWN=STOP"
+          echo "HOST_AND_WORKERS_NOT_INFERRED_FROM_GITHUB=TRUE"
+      - name: Preserve bounded current-stage receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-fast-path-${{ github.event.pull_request.head.sha || github.sha }}
+          path: build/fastPath/continuity.json
+          retention-days: 14
+          if-no-files-found: warn
