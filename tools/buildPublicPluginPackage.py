@@ -25,6 +25,7 @@ MEMBERS = (
     "skills/luhm-coding-roleplay/SKILL.md",
     "skills/belldandy-housekeeping/SKILL.md",
 )
+REPO_MEMBERS = ("LICENSE",)  # Include the GPLv3 text in distributable fork archives.
 GENERATED = ("SOURCE_MAP.json", "BUILD_RECEIPT.json")
 PRIVATE_NAMES = ("mcp.local.json", "mcp.private.json", "mcp.remote.example.json")
 ENDPOINT = "https://luhm-os-harness-green.onrender.com/mcp"
@@ -57,6 +58,17 @@ def collect(source_ref: str) -> tuple[dict[str, bytes], str]:
             raise ValueError(f"private MCP file not allowed: {name}")
         payload[name] = resolved.read_bytes()
 
+    # Reuse the immutable repository license, not an inconsistent package copy.
+    # Files under third-party licenses retain their own provenance obligations.
+    for name in REPO_MEMBERS:
+        license_path = ROOT / name
+        if not license_path.is_file() or license_path.is_symlink():
+            raise ValueError("missing or symlinked repository license")
+        raw = license_path.read_bytes()
+        if len(raw) < 1024 or len(raw) > 128 * 1024 or b"GNU GENERAL PUBLIC LICENSE" not in raw:
+            raise ValueError("unexpected repository license")
+        payload[name] = raw
+
     manifest = json.loads(payload["plugin.json"].decode("utf-8"))
     mcp = json.loads(payload["mcp.json"].decode("utf-8"))
     if manifest.get("name") != "luhm-os" or not manifest.get("version"):
@@ -76,14 +88,14 @@ def collect(source_ref: str) -> tuple[dict[str, bytes], str]:
         "schema": "luhmOs.pluginBuildReceipt.v1",
         "sourceRef": source_ref,
         "version": version,
-        "memberCount": len(MEMBERS) + len(GENERATED),
+        "memberCount": len(MEMBERS) + len(REPO_MEMBERS) + len(GENERATED),
         "scope": "publicPluginPackage",
         "status": "PACKAGE_READY_ONLY",
         "hostInstalled": False,
         "inChatToolInvoked": False,
         "crownStatus": "STOP",
     })
-    if sorted(payload) != sorted((*MEMBERS, *GENERATED)):
+    if sorted(payload) != sorted((*MEMBERS, *REPO_MEMBERS, *GENERATED)):
         raise ValueError("payload manifest drift")
     return payload, version
 
