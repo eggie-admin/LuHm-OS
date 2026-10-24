@@ -26,7 +26,7 @@ ACTOR="$(gh api user --jq .login)"
 OWNER="$(gh api "repos/$REPO" --jq .owner.login)"
 [[ "$OWNER" == "$ACTOR" ]] || die "GitHub repository owner mismatch"
 env_info="$(gh api "repos/$REPO/environments/$SIGNING_ENV")" || die "Protected signing environment missing"
-jq -e '.prevent_self_review == true and (.protection_rules | any(.type == "required_reviewers")) and (.deployment_branch_policy.protected_branches == true)' <<<"$env_info" >/dev/null ||
+jq -e '(.protection_rules | any(.type == "required_reviewers" and .prevent_self_review == true and ((.reviewers // []) | length > 0))) and (.deployment_branch_policy.protected_branches == true)' <<<"$env_info" >/dev/null ||
   die "Signing environment needs independent reviewer, no self-approval and protected branches"
 [[ "$(gh api "repos/$REPO/branches/main" --jq '.protected')" == "true" ]] ||
   die "Protect main before creating/signing releases"

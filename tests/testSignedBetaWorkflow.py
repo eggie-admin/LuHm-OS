@@ -4,9 +4,49 @@
 Source-level checks only: never claims a real APK, owner secret, or tablet proof.
 """
 from pathlib import Path
+import copy
+import json
+import re
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = ROOT / ".github/workflows/samsung-lite-signed-beta.yml"
+
+
+def check_environment_policy() -> None:
+    # GitHub GET responses put prevent_self_review inside required_reviewers,
+    # unlike the top-level field accepted by the environment PUT endpoint.
+    valid = {
+        "protection_rules": [{"type": "required_reviewers",
+                              "prevent_self_review": True,
+                              "reviewers": [{"type": "User", "reviewer": {"login": "reviewer"}}]}],
+        "deployment_branch_policy": {"protected_branches": True},
+    }
+    cases = [("real GET shape", valid, True)]
+    for label, mutate in (
+        ("self-review enabled", lambda p: p["protection_rules"][0].update(prevent_self_review=False)),
+        ("missing self-review field", lambda p: p["protection_rules"][0].pop("prevent_self_review")),
+        ("empty reviewer list", lambda p: p["protection_rules"][0].update(reviewers=[])),
+        ("missing reviewer list", lambda p: p["protection_rules"][0].pop("reviewers")),
+        ("no reviewer rule", lambda p: p.update(protection_rules=[])),
+        ("unprotected branches", lambda p: p["deployment_branch_policy"].update(protected_branches=False)),
+        ("missing branch policy", lambda p: p.pop("deployment_branch_policy")),
+    ):
+        candidate = copy.deepcopy(valid)
+        mutate(candidate)
+        # A top-level lookalike must not override an unsafe nested rule.
+        candidate["prevent_self_review"] = True
+        cases.append((label, candidate, False))
+    for path in (WORKFLOW, ROOT / "tools/auditBetaSigningPolicy.sh",
+                 ROOT / "tools/provisionOwnerBetaSigner.sh"):
+        filters = re.findall(r"jq -e '([^']+)'", path.read_text())
+        filters = [f for f in filters if "required_reviewers" in f]
+        require(len(filters) == 1, "one environment policy filter:" + path.name)
+        for label, policy, expected in cases:
+            result = subprocess.run(["jq", "-e", filters[0]], input=json.dumps(policy),
+                                    text=True, capture_output=True, timeout=5)
+            require((result.returncode == 0) == expected,
+                    "environment policy:" + path.name + ":" + label)
 
 
 def require(condition: bool, reason: str) -> None:
@@ -15,6 +55,7 @@ def require(condition: bool, reason: str) -> None:
 
 
 def check() -> None:
+    check_environment_policy()
     content = WORKFLOW.read_text(encoding="utf-8")
     for marker in (
         "      - name: Owner CAST and source gate",

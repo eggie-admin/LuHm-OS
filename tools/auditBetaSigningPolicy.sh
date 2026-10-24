@@ -13,8 +13,8 @@ gh api "repos/$REPO/branches/main" --jq '.protected' | grep -qx true ||
   fail "main has no active branch protection/ruleset"
 policy="$(gh api "repos/$REPO/environments/$ENV")" ||
   fail "cannot read environment protection (gh account needs admin read)"
-jq -e '.prevent_self_review == true and
-       (.protection_rules | any(.type == "required_reviewers" and
+jq -e '(.protection_rules | any(.type == "required_reviewers" and
+          .prevent_self_review == true and
           ((.reviewers // []) | length > 0))) and
        (.deployment_branch_policy.protected_branches == true)' <<<"$policy" >/dev/null ||
   fail "environment needs independent required reviewer, prevent-self-review and protected branches"
