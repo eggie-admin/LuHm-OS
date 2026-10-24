@@ -25,6 +25,7 @@ from starlette.requests import Request
 from starlette.responses import FileResponse, JSONResponse, PlainTextResponse, RedirectResponse, Response
 
 UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"
+MOBILE_COCKPIT_RESOURCE_URI = "ui://luhm-os/mobile-cockpit-v1.html"
 GODOT_PLAYER_RESOURCE_URI = "ui://luhm-os/godot-player-v1.html"
 MCP_COCKPIT_PUBLIC_ORIGIN = "https://luhm-os-harness-green.onrender.com"
 EXISTING_GODOT_PUBLIC_ORIGIN = "https://luhm-os-godot-harness-green.onrender.com"
@@ -165,6 +166,7 @@ def register_harness(
 ) -> None:
     harness_root = root / "host" / "harness"
     widget_path = harness_root / "widget.html"
+    mobile_widget_path = harness_root / "mobileCockpitWidget.html"
     index_path = harness_root / "index.html"
     pets_path = harness_root / "pets.json"
     loading_sprites_path = harness_root / "agent-loading-sprites.json"
@@ -186,7 +188,7 @@ def register_harness(
     virgin_install_path = root / "doctrine" / "manualPluginVirginInstallV1.json"
     beta_lane_path = root / "doctrine" / "pluginBetaFourLaneV1.json"
 
-    if not all(path.is_file() for path in (widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, artist_studio_path, rebel_studio_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path, beta_lane_path)):
+    if not all(path.is_file() for path in (widget_path, mobile_widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, artist_studio_path, rebel_studio_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path, beta_lane_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     for name in ("studioDeck.html", "studioDeck.css", "studioDeck.js"):
@@ -268,6 +270,68 @@ def register_harness(
         raise RuntimeError("RED_AFTER_HOURS_BOUNDARY")
     if public_origin:
         resource_meta["ui"]["domain"] = public_origin
+
+    # Small standards-first fallback for phone-sized ChatGPT MCP Apps hosts.
+    # Additive entry point: the existing full studio URI and tool stay unchanged.
+    @server.resource(
+        MOBILE_COCKPIT_RESOURCE_URI,
+        name="luhm-os-mobile-cockpit",
+        title="LuHm OS Mobile Cockpit",
+        description="Minimal private in-chat dashboard; no remote writes, builds, publication or agent activation.",
+        mime_type=APP_MIME_TYPE,
+        meta={
+            "ui": {
+                "prefersBorder": True,
+                "csp": {"connectDomains": [], "resourceDomains": [], "frameDomains": []},
+            },
+            "openai/ui": {"availableDisplayModes": ["inline", "fullscreen"]},
+            "openai/widgetDescription": "Lightweight Lum agent and Canon status for mobile ChatGPT hosts.",
+        },
+    )
+    def luhm_mobile_cockpit_resource() -> str:
+        return mobile_widget_path.read_text(encoding="utf-8")
+
+    @server.tool(
+        name="luhm_open_mobile_cockpit",
+        title="Open LuHm OS Mobile Cockpit",
+        description="Lightweight in-chat mobile cockpit for phone testing, with a readable status response if the client cannot display the UI.",
+        annotations=annotations,
+        meta={
+            "ui": {"resourceUri": MOBILE_COCKPIT_RESOURCE_URI, "visibility": ["model", "app"]},
+            "openai/outputTemplate": MOBILE_COCKPIT_RESOURCE_URI,
+            "openai/toolInvocation/invoking": "Checking LuHm mobile cockpit…",
+            "openai/toolInvocation/invoked": "LuHm mobile status received (display must be verified).",
+        },
+    )
+    def luhm_open_mobile_cockpit() -> dict[str, Any]:
+        company = json.loads(
+            (root / "doctrine/companyWideOperationalQuarantineV1.json").read_text(encoding="utf-8")
+        )
+        if company.get("state") not in ("QUARANTINED", "CLEARED") or company.get("registeredCount") != 15:
+            raise RuntimeError("RED_MOBILE_AGENT_QUARANTINE_CONTRACT")
+        status = status_provider()
+        return {
+            "schema": "luhmOs.mobileCockpitPayload.v1",
+            "surface": "mcp-app",
+            "resourceUri": MOBILE_COCKPIT_RESOURCE_URI,
+            "sourceRef": status.get("sourceRef") or os.environ.get("RENDER_GIT_COMMIT") or "UNVERIFIED",
+            "sourceTruth": status.get("sourceTruthStatus", "UNKNOWN"),
+            "sourceEvidence": "serverReportedNotClientMountProof",
+            "roster": roster_provider(),
+            "companyQuarantine": {
+                "state": company["state"],
+                "activeTaskWorkersAllowed": company.get("activeTaskWorkersAllowed", False),
+            },
+            "authority": {
+                "readOnly": True,
+                "mutationAuthority": False,
+                "promotionAuthority": False,
+                "publicationAuthority": False,
+                "crownAuthority": False,
+            },
+            "testerDeviceMount": "NOT_VERIFIED",
+            "fallbackText": "LuHm mobile tool responded. If the card fails to open, ChatGPT UI mounting remains unverified; no agents were executed.",
+        }
 
     @server.resource(
         UI_RESOURCE_URI,
