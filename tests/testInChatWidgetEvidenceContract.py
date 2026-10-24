@@ -26,6 +26,13 @@ def auditWidget(source: str) -> list[str]:
             'renderOrigin:origin.includes?.("onrender.com")?"PRESENT"',
             'x.className=v==="PRESENT"?"ok":"verify"',
         )),
+        "mountReceipt": all(part in source for part in (
+            'id="nativeChatProofButton"',
+            'if(!latest||window.parent===window)',
+            'LUHM_CHAT_MOUNT_CANDIDATE userClicked=true',
+            'device acceptance remains pending',
+            'wireNativeChatProof();',
+        )),
         "hostBridge": all(part in source for part in (
             'window.openai?.toolOutput',
             'ui/initialize',
@@ -38,6 +45,9 @@ def auditWidget(source: str) -> list[str]:
 class InChatWidgetEvidenceContract(unittest.TestCase):
     def test_currentWidget(self):
         self.assertEqual(auditWidget(SOURCE), [])
+
+    def test_reject_ungated_mount_receipt(self):
+        self.assertIn("mountReceipt", auditWidget(SOURCE.replace("if(!latest||window.parent===window)", "if(false)")))
 
     def test_rejectUnsafeSink(self):
         self.assertIn("htmlSink", auditWidget(SOURCE + "\nb.innerHTML=untrusted;"))

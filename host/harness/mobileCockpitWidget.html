@@ -54,8 +54,8 @@ header{justify-content:space-between}header>div:nth-child(2){flex:1;min-width:0}
 <p id="laneDetail" role="status">Testing: source and host-mount proof pending. No external tester access.</p></section>
 <section class="panel"><h2>Diagnostics</h2>
 <p class="muted">A successful tool call is not proof this UI mounted on a tester's phone. No server writes, builds, invitations, or agents run from this card.</p>
-<div class="actions"><button id="copy" type="button">Copy status</button><button id="rosterToggle" type="button" aria-expanded="true">Hide crew</button></div>
-<p id="feedback" aria-live="polite"></p></section>
+<div class="actions"><button id="nativeChatProofButton" type="button" disabled>Send in-chat mount test</button><button id="copy" type="button">Copy status</button><button id="rosterToggle" type="button" aria-expanded="true">Hide crew</button></div>
+<p id="nativeChatProofStatus" aria-live="polite">VERIFY · mount receipt pending</p><p id="feedback" aria-live="polite"></p></section>
 </main>
 <script>
 "use strict";
@@ -73,9 +73,9 @@ for(const btn of document.querySelectorAll("[data-lane]")){
 function render(value){
  const d=value?.structuredContent||value?.result?.structuredContent||value;
  if(!d||d.schema!=="luhmOs.mobileCockpitPayload.v1"||d?.authority?.readOnly!==true||d?.authority?.mutationAuthority!==false||d?.authority?.promotionAuthority!==false){
-  byId("bridge").textContent="VERIFY · no valid mobile tool receipt";return;
+  byId("bridge").textContent="VERIFY · no valid mobile tool receipt";byId("nativeChatProofButton").disabled=true;return;
  }
- current=d;
+ current=d;byId("nativeChatProofButton").disabled=false;
  byId("bridge").textContent="MCP tool response received · mobile display acceptance pending";
  byId("source").textContent="Source: "+(d.sourceRef||"UNKNOWN");
  byId("truth").textContent="Canon: "+(d.sourceTruth||"UNKNOWN");
@@ -128,6 +128,17 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!byId("glassDock").
 byId("glassExpand").addEventListener("click",async()=>{
  if(!window.openai?.requestDisplayMode){byId("glassStatus").textContent="Fullscreen host mode unavailable";return;}
  try{await window.openai.requestDisplayMode({mode:"fullscreen"});}catch(_){byId("glassStatus").textContent="Fullscreen request declined by host";}
+});
+byId("nativeChatProofButton").addEventListener("click",async()=>{
+ if(!current||window.parent===window){byId("nativeChatProofStatus").textContent="BLOCKED · no embedded MCP tool context";return;}
+ const source=String(current.sourceRef||"UNVERIFIED").slice(0,64);
+ const prompt="LUHM_CHAT_MOUNT_CANDIDATE userClicked=true resource=ui://luhm-os/mobile-cockpit-v1.html widthPx="+Math.round(window.innerWidth)+" sourceRef="+source+". This is a user-clicked in-chat handoff, NOT physical phone acceptance, independent worker proof, publication or Crown. Verify host and device separately.";
+ byId("nativeChatProofStatus").textContent="Sending user-requested mount check…";
+ try{
+  if(window.openai?.sendFollowUpMessage)await window.openai.sendFollowUpMessage({prompt});
+  else await call("ui/message",{role:"user",content:[{type:"text",text:prompt}]});
+  byId("nativeChatProofStatus").textContent="Chat handoff requested. Confirm the message arrived; device acceptance remains pending.";
+ }catch(_){byId("nativeChatProofStatus").textContent="BLOCKED · host chat handoff unavailable";}
 });
 byId("copy").addEventListener("click",async()=>{
  const text=["LuHm mobile in-chat",byId("bridge").textContent,byId("source").textContent,byId("truth").textContent,byId("workers").textContent].join("\n");

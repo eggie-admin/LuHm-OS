@@ -43,6 +43,12 @@ def audit_mobile(html: str, server: str) -> list[str]:
         "touchTargets": "min-height:44px" in html,
         "noExternalResources": not re.search(r'<(?:script|link|img|iframe)[^>]+(?:src|href)\s*=\s*["\']https?://', html),
         "noExternalNetwork": "fetch(" not in html and "XMLHttpRequest" not in html,
+        "mountReceipt": all(part in html for part in (
+            'id="nativeChatProofButton"',
+            'if(!current||window.parent===window)',
+            'LUHM_CHAT_MOUNT_CANDIDATE userClicked=true',
+            'device acceptance remains pending',
+        )),
         "eventBridge": '"ui/initialize"' in html
                        and '"ui/notifications/tool-result"' in html
                        and '"ui/notifications/initialized"' in html,
@@ -60,6 +66,9 @@ def audit_mobile(html: str, server: str) -> list[str]:
 class MobileCockpitEvidenceContract(unittest.TestCase):
     def test_current_source(self):
         self.assertEqual(audit_mobile(HTML, SERVER), [])
+
+    def test_reject_ungated_mount_receipt(self):
+        self.assertIn("mountReceipt", audit_mobile(HTML.replace("if(!current||window.parent===window)", "if(false)"), SERVER))
 
     def test_reject_fake_privilege(self):
         self.assertIn("noPrivilege", audit_mobile(HTML, SERVER.replace('"mutationAuthority": False', '"mutationAuthority": True')))

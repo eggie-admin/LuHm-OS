@@ -49,6 +49,13 @@ jobs:
         run: |
           python3 -m py_compile host/mcp/luhmHarness.py
           python3 -m unittest tests/testMobileCockpitEvidenceContract.py tests/testGlassPluginDock.py -v
+      - name: Fail-closed 15-agent mesh and quarantine checks
+        run: |
+          python3 tools/agentSystemDeploymentAudit.py
+          python3 tools/companyWideQuarantineAudit.py
+          python3 tools/belldandyOperationalQuarantineAudit.py
+      - name: Source-only MCP discovery and mobile tool expectations
+        run: python3 -m unittest tests/testInChatLiveMcpProbe.py -v
       - name: Record exact check identity
         shell: bash
         run: |
