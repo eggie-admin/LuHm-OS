@@ -1,0 +1,61 @@
+name: Google AI and Cloudflare MCP Readiness
+
+on:
+  pull_request:
+    paths:
+      - 'tools/googleAiCloudflareReadiness.py'
+      - 'tests/testGoogleAiCloudflareReadiness.py'
+      - '.github/workflows/google-ai-cloudflare-readiness.yml'
+      - 'doctrine/studioCompatibilityFastMeshV1.json'
+      - 'doctrine/providerEconomyV1.json'
+      - 'doctrine/apiSpineV1.json'
+      - 'doctrine/cloudflareAirTrafficControllerV1.json'
+      - 'doctrine/cloudflareLumOrchestrationV1.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: google-cloudflare-readiness-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  provider-edge-readiness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Exact source checkout with no persistent credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify source and hostile controls
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          python3 -m py_compile tools/googleAiCloudflareReadiness.py
+          python3 -m unittest tests/testGoogleAiCloudflareReadiness.py -v
+      - name: Run harmless public network and origin probes
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          python3 tools/googleAiCloudflareReadiness.py \
+            --source-ref "$EXPECTED" --probe-public \
+            --output "$RUNNER_TEMP/googleCloudflareReadiness.json"
+          echo "GOOGLE_MODELS_GENERATION=NOT_ATTEMPTED"
+          echo "GOOGLE_KEY=NOT_REQUESTED_FROM_GITHUB"
+          echo "CLOUDFLARE_CONFIG_MUTATION=NOT_ATTEMPTED"
+          echo "MCP_SESSION=NOT_VERIFIED_BY_HEAD"
+          echo "CROWN=STOP"
+      - name: Preserve sanitized source/network receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: google-cloudflare-readiness-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/googleCloudflareReadiness.json
+          if-no-files-found: warn
+          retention-days: 14
