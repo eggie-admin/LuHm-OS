@@ -56,6 +56,25 @@ async function main() {
       await page.locator("#lum2dPause").click();
       assert.equal(await page.locator("#lum2dPause").getAttribute("aria-pressed"),"true");
 
+      // No original art in public CI: a tiny generated GIF exercises private local selection.
+      const proofPicker=page.locator("#studioPrivateLumFile");
+      assert.equal(await page.locator("#studioPrivateLumStage").isHidden(),true,"No background asset loading");
+      await proofPicker.setInputFiles({name:"synthetic.gif",mimeType:"image/gif",
+        buffer:Buffer.from("R0lGODdhAgACAIEAAP8A/wAAAAAAAAAAACwAAAAAAgACAAAIBgABCAQQEAA7","base64")});
+      await page.getByText(/DIFFERENT LOCAL CANDIDATE/).waitFor();
+      assert.equal(await page.locator("#studioPrivateLumStage").isVisible(),true,"Synthetic GIF decoded locally");
+      assert.equal(await page.locator("#studioPrivateLumImage").evaluate(el=>el.naturalWidth),2);
+      assert.equal(await page.locator("#studioPrivateLumPause").getAttribute("aria-pressed"),"true","Reduced motion is static");
+      await page.locator("#studioPrivateLumPause").click();
+      assert.equal(await page.locator("#studioPrivateLumPause").getAttribute("aria-pressed"),"false","Playback requires tap");
+      await page.locator("#studioPrivateLumPause").click();
+      assert.equal(await page.locator("#studioPrivateLumPause").getAttribute("aria-pressed"),"true","Pause restores still");
+      await page.locator("#studioPrivateLumClear").click();
+      assert.equal(await page.locator("#studioPrivateLumStage").isHidden(),true,"Clear revokes local preview");
+      await proofPicker.setInputFiles({name:"fake.gif",mimeType:"image/gif",buffer:Buffer.from("not-a-real-gif")});
+      await page.getByText(/GIF inspection failed/).waitFor();
+      assert.equal(await page.locator("#studioPrivateLumStage").isHidden(),true,"Reject spoofed GIF");
+      assert.equal(external.length,0,"No remote requests from private art picker");
       assert.equal(await page.locator(".scenery > div").count(),4);
       assert.equal(await page.locator("#studioBackdropFrame").isHidden(),true,"Background iframe must be lazy and inert");
       assert.equal(await page.locator("#studioBackdropFrame").getAttribute("src"),null,"No remote scene before user action");
