@@ -1,0 +1,80 @@
+{
+  "schema": "luhmOs.chromeCanaryKioskMilestones.v1",
+  "authority": "Professor",
+  "professorApprovedContinuation": true,
+  "crownStatus": "CROWNED_SCOPED_PROGRESS_AUTHORITY",
+  "status": "ACTIVE_CONTINUOUS_AMBER_REPAIR",
+  "scope": "chromeCanaryStandalonePlusChatGptMcpKiosk",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "deviceReceipt": "doctrine/chromeCanaryDeviceProof20261024V1.json",
+  "historicalBrowserReceipt": "doctrine/chromeCanaryFirstNightBrowserProofV1.json",
+  "promotionRule": "AMBER_CONTINUES_WITH_SCOPED_REVERSIBLE_ACTIONS; RED_TARGETS_GET_FOCUSED_REPAIR; GREEN_REQUIRES_EVIDENCE",
+  "stages": [
+    {
+      "id": "protectedGithubSource",
+      "state": "GREEN",
+      "proof": "PR_391_MERGED_SHA_da90e856d9b89535a7af18dc455b09606c39fe50"
+    },
+    {
+      "id": "headlessCanarySourceSmoke",
+      "state": "GREEN_SCOPED",
+      "proof": "PR_391_PLAYWRIGHT_320_390_640_AND_FIVE_DOCK_MODULES"
+    },
+    {
+      "id": "existingRenderMcpDeployment",
+      "state": "GREEN",
+      "proof": "dep-dbei1q8m7kps73dva7j0_LIVE_EXACT_SHA"
+    },
+    {
+      "id": "externalMcpMobileResource",
+      "state": "GREEN_SCOPED",
+      "proof": "PR_392_PUBLIC_RESOURCES_READ_MIME_AND_MOBILE_JS_PASSED"
+    },
+    {
+      "id": "physicalChromeCanaryStandalone",
+      "state": "GREEN_SCOPED",
+      "proof": "SANITIZED_VIDEO_SHA256_974233a470f7f09b8ce19620075769cef8ab090d3ba8d615f752e40766866ee4"
+    },
+    {
+      "id": "chatGptAndroidInlineWidget",
+      "state": "RED_OBSERVED",
+      "proof": "USER_SCREENSHOT_TWO_FAILED_OPEN_LUHM_CARDS",
+      "nextAction": "Host capability negotiation and sandbox UI-client mount test; retain standalone entry path"
+    },
+    {
+      "id": "musicDeckPlayback",
+      "state": "RED_OBSERVED",
+      "proof": "VIDEO_INVALID_URL_MESSAGE",
+      "nextAction": "validate URL inputs and permitted media provider embed before playback"
+    },
+    {
+      "id": "godotEmbeddedGameplay",
+      "state": "AMBER_NOT_STAGED",
+      "proof": "VIDEO_NO_GODOT_EXPORT_ON_SAME_ORIGIN",
+      "nextAction": "separate existing Godot web export and touch proof; no fabricated asset signing"
+    },
+    {
+      "id": "managedDeviceKiosk",
+      "state": "UNVERIFIED",
+      "proof": "NO_DEVICE_OWNER_LOCK_TASK_TEST",
+      "nextAction": "separate owner-authorized physical pinning or managed lock task with exit"
+    },
+    {
+      "id": "publicAndStableDistribution",
+      "state": "NOT_APPROVED",
+      "proof": "NO_SIGNED_STABLE_ARTIFACT_AND_DEVICE_INSTALL"
+    }
+  ],
+  "governance": {
+    "humanCrown": "Professor",
+    "oneSourceMutationLane": true,
+    "noNewPaidServices": true,
+    "noPublicUserRecording": true,
+    "releaseWithoutProof": false,
+    "companyAgentQuarantine": "QUARANTINED",
+    "independentUserHostMountRequired": true,
+    "preserveExistingRenderService": true
+  },
+  "nextPromotionTarget": "CHATGPT_ANDROID_INLINE_WIDGET_MOUNT_REPAIR",
+  "productCrown": "NOT_YET_PROVEN"
+}

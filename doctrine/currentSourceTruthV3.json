@@ -247,6 +247,25 @@
       "agentRuntimeReleased": false
     }
   },
+  "chromeCanaryKioskCurrentMilestone": {
+    "contract": "doctrine/chromeCanaryKioskMilestonesV1.json",
+    "deviceEvidence": "doctrine/chromeCanaryDeviceProof20261024V1.json",
+    "observedDate": "2026-10-24",
+    "authority": "Professor",
+    "professorApprovedContinuation": true,
+    "crownScope": "SCOPED_CANARY_DEVICE_EVIDENCE_AND_AMBER_CONTINUATION",
+    "canaryStandalone": "GREEN_SCOPED_DEVICE_TOUCH",
+    "mcpMobileResource": "GREEN_SCOPED_RESOURCE_READ",
+    "renderMcpExactMain": "da90e856d9b89535a7af18dc455b09606c39fe50",
+    "renderMcpDeployId": "dep-dbei1q8m7kps73dva7j0",
+    "chatGptAndroidInlineMount": "RED_OBSERVED",
+    "godotPlayability": "NOT_PROVEN",
+    "musicPlayback": "RED_INVALID_URL",
+    "kioskLock": "NOT_PROVEN",
+    "professorCrownContinuation": "AUTHORIZED_SCOPED_REVIEW_MERGE_EXISTING_HOST",
+    "finalProductCrown": "NOT_GRANTED",
+    "rawPrivateMediaPublished": false
+  },
   "androidLayer": {
     "cockpitContract": "doctrine/androidWeb3CockpitV2.json",
     "bridgeContract": "doctrine/androidWeb3BridgeV2.json",

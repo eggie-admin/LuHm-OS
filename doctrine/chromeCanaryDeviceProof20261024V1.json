@@ -1,0 +1,89 @@
+{
+  "schema": "luhmOs.chromeCanaryDeviceProof.v1",
+  "observationDate": "2026-10-24",
+  "authority": "Professor",
+  "professorApproval": true,
+  "crownStatus": "CROWNED_SCOPED_CANARY_DEVICE_EVIDENCE",
+  "crownScope": "recordObservedStandaloneDeviceTouchAndProceedOnAmber",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "publicDisclosure": "SANITIZED_TEXT_ONLY",
+  "rawVideoPublished": false,
+  "rawScreenshotPublished": false,
+  "privateVideo": {
+    "sha256": "974233a470f7f09b8ce19620075769cef8ab090d3ba8d615f752e40766866ee4",
+    "durationSeconds": 74.620256,
+    "width": 1080,
+    "height": 2340,
+    "sourceCommitVisiblyInVideo": false
+  },
+  "priorChatGptScreenshot": {
+    "sha256": "b32f107c288b999beaed9ea0ba86aa74017d004c7dc34dbb4913037a282fe5bb",
+    "observation": "TWO_COULD_NOT_OPEN_LUHM_RETRY_CARDS",
+    "sameCaptureAsCanaryVideo": false
+  },
+  "canaryStandalone": {
+    "status": "GREEN_SCOPED_DEVICE_TOUCH",
+    "browser": "Android Chrome Canary",
+    "httpsVisible": true,
+    "touchInteractionObserved": true,
+    "observed": [
+      "Lum avatar states respond to tap",
+      "Companion controls and theme selector respond",
+      "Responsive mobile scroll observed",
+      "Studio asset desk controls visible, but file import not proven",
+      "Embedded scene control acknowledges request, not Godot gameplay"
+    ]
+  },
+  "blocked": {
+    "chatGptInlineWidget": "RED_OBSERVED",
+    "musicPlayback": "RED_INVALID_URL",
+    "godotExportOnObservedOrigin": "NOT_STAGED",
+    "secureKioskLock": "UNVERIFIED",
+    "godotGameplay": "UNVERIFIED",
+    "actualChatGptFullscreen": "UNVERIFIED",
+    "androidApk": "UNVERIFIED"
+  },
+  "mcpServer": {
+    "scope": "EXTERNAL_RESOURCE_TRANSPORT_ONLY",
+    "sourceRef": "da90e856d9b89535a7af18dc455b09606c39fe50",
+    "renderDeploy": "dep-dbei1q8m7kps73dva7j0",
+    "probePullRequest": 392,
+    "probeActionRun": 40134194705,
+    "resourceUri": "ui://luhm-os/mobile-cockpit-v1.html",
+    "resourceRead": "PASS",
+    "mimeType": "text/html;profile=mcp-app",
+    "htmlBytes": 12455,
+    "mobileJavaScriptParse": "PASS",
+    "clientIframeMount": "RED_OBSERVED",
+    "godotServiceIsDistinctOlderHost": true
+  },
+  "professorProgression": {
+    "amberIsNotAutomaticStop": true,
+    "authorizedNow": [
+      "sanitizedDoctrineEvidencePromotion",
+      "failClosedDiagnosticsAndSourceRepair",
+      "boundedGitHubReviewAndProtectedMerge",
+      "existingFreeRenderMcpDeployAfterExactShaAndCi",
+      "repeatPhysicalCanaryAcceptance"
+    ],
+    "noFabricatedPromotion": [
+      "inChatWidgetMounted",
+      "musicPlaybackWorking",
+      "GodotPlayable",
+      "managedKioskLocked",
+      "publicStableOrApkSigned",
+      "15ModelWorkersExecuting"
+    ],
+    "disallowedUntilIndependentProof": [
+      "stableOrPublicProductRelease",
+      "productionSigning",
+      "silentAndroidDeviceManagement",
+      "unapprovedProviderSpend",
+      "agentQuarantineRelease"
+    ]
+  },
+  "milestonesContract": "doctrine/chromeCanaryKioskMilestonesV1.json",
+  "releaseGate": "doctrine/finalFormPublicReleaseGateV1.json",
+  "fullProductCrown": "NOT_GRANTED_BY_THIS_EVIDENCE",
+  "evidenceContinuity": "https://github.com/eggie-admin/LuHm-OS/issues/310#issuecomment-6389793631"
+}

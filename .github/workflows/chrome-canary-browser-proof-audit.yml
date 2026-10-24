@@ -5,6 +5,9 @@ on:
     paths:
       - 'doctrine/chromeCanaryFirstNightBrowserProofV1.json'
       - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/chromeCanaryDeviceProof20261024V1.json'
+      - 'doctrine/chromeCanaryKioskMilestonesV1.json'
+      - 'tests/testCanaryKioskCrownMilestones.py'
       - 'tools/chromeCanaryBrowserProofAudit.py'
       - '.github/workflows/chrome-canary-browser-proof-audit.yml'
   push:
@@ -12,6 +15,9 @@ on:
     paths:
       - 'doctrine/chromeCanaryFirstNightBrowserProofV1.json'
       - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/chromeCanaryDeviceProof20261024V1.json'
+      - 'doctrine/chromeCanaryKioskMilestonesV1.json'
+      - 'tests/testCanaryKioskCrownMilestones.py'
       - 'tools/chromeCanaryBrowserProofAudit.py'
       - '.github/workflows/chrome-canary-browser-proof-audit.yml'
 
@@ -29,3 +35,5 @@ jobs:
           persist-credentials: false
       - name: Verify scoped screenshot evidence contract
         run: python3 tools/chromeCanaryBrowserProofAudit.py
+      - name: Verify current Canary milestone evidence
+        run: python3 -m unittest tests/testCanaryKioskCrownMilestones.py -v
