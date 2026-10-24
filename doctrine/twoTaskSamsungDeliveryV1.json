@@ -1,0 +1,111 @@
+{
+  "schema": "luhmOs.twoTaskSamsungDelivery.v1",
+  "status": "PROFESSOR_APPROVED_EXECUTION_RELEASE_UNPROVEN",
+  "authority": "Professor",
+  "observedAt": "2026-10-24T18:46:19Z",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "observedMainRef": "271823df1d62c462e3c03fc87adcd8c1b367be9b",
+  "signingCandidateRef": "76b7a40af886f5457d4048ede54878f40e30bb53",
+  "rollbackRef": "snapshot/task1-signing-20261024-76b7a40a",
+  "parentMilestoneIssue": 379,
+  "objective": "Deliver a verified release-signed LuHm OS beta running on Samsung with a proven same-signer update path.",
+  "approval": {
+    "scope": "Task 1 canon/signing closure and Task 2 Samsung beta delivery",
+    "explicitProfessorApproval": true,
+    "repeatedApprovalForSameScope": false,
+    "approvalIsNotExecutionEvidence": true,
+    "continueUntilCompletedOrConcreteExternalBlocker": true,
+    "independentReviewAndProtectedChecksRemainRequired": true,
+    "privateSignerCustodyRemainsOwnerControlled": true,
+    "exactArtifactPublicationReviewStillRequired": true,
+    "billingOrUnrelatedInfrastructureAuthorized": false
+  },
+  "tasks": [
+    {
+      "taskId": "canonSigningClosure",
+      "issue": 388,
+      "implementationPr": 378,
+      "status": "IN_PROGRESS",
+      "mutationOwner": true,
+      "evidence": {
+        "repositoryChecksPassed": 10,
+        "cloudflareWorkersBuild": "FAILED_EXTERNAL_CHECK_DIAGNOSTIC_UNAVAILABLE",
+        "merge": "PENDING",
+        "prReviewsObserved": 0,
+        "mainProtected": true,
+        "mainRulesetRequiredApprovals": 0,
+        "signingEnvironmentReviewer": "USER_REPORTED_NOT_INDEPENDENTLY_VERIFIED",
+        "releaseHistoryBaseline": "UNVERIFIED"
+      },
+      "doneWhen": [
+        "environment-bound signing workflow merged after applicable gates",
+        "post-merge exact-main source checks verified",
+        "first-or-previous beta distribution history evidenced",
+        "protected environment and usable signing prerequisites verified"
+      ]
+    },
+    {
+      "taskId": "samsungBetaDelivery",
+      "issue": 389,
+      "status": "WAITING_FOR_TASK_1",
+      "dependsOn": [
+        "canonSigningClosure"
+      ],
+      "mutationOwner": false,
+      "applicationId": "art.eggiebagelface.luhmos.beta",
+      "doneWhen": [
+        "exact source/run/package/version/signer/APK digest/ARM64/SDK36/non-debug receipt verified",
+        "physical Samsung install and first launch proven",
+        "same-signer greater-version update proven without uninstall or data clearing",
+        "separately signed F-Droid index HTTPS route and real client install/update proven"
+      ]
+    }
+  ],
+  "evidenceLaw": {
+    "sequence": [
+      "intent",
+      "source",
+      "ci",
+      "merge",
+      "signedApk",
+      "deviceRuntime",
+      "signedRepository",
+      "publicRelease"
+    ],
+    "laterStateNeverInferredFromEarlier": true,
+    "historicalReceiptsRemainHistorical": true,
+    "failedChecksRemainFailed": true
+  },
+  "taskSurfaces": {
+    "githubIssues": {
+      "issues": [
+        388,
+        389
+      ],
+      "creationIsNotExecution": true
+    },
+    "nativeChatGptTasks": {
+      "created": true,
+      "executionEvidence": "PENDING_RUN_RECEIPTS"
+    },
+    "projectHydra": {
+      "bridge": "READ_ONLY",
+      "taskCreationAction": "NOT_EXPOSED",
+      "oneClickApprovalUi": "UNVERIFIED"
+    }
+  },
+  "runtimeBoundary": {
+    "autonomousAgents": "QUARANTINED",
+    "assistantConnectedWorkWithinApprovedScope": "ALLOWED",
+    "noHiddenWorkerClaim": true
+  },
+  "currentBlockers": [
+    "PR 378 merge pending",
+    "Cloudflare Workers external build failed with no connected diagnostic access",
+    "release-history baseline unverified",
+    "protected signing secret usability unverified",
+    "signed APK and device/repository proofs pending"
+  ],
+  "publicReleaseGreen": false,
+  "crownStatus": "STOP_PUBLIC_RELEASE_UNPROVEN"
+}

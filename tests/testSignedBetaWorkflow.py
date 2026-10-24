@@ -4,9 +4,49 @@
 Source-level checks only: never claims a real APK, owner secret, or tablet proof.
 """
 from pathlib import Path
+import copy
+import json
+import re
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = ROOT / ".github/workflows/samsung-lite-signed-beta.yml"
+
+
+def check_environment_policy() -> None:
+    # GitHub GET responses put prevent_self_review inside required_reviewers,
+    # unlike the top-level field accepted by the environment PUT endpoint.
+    valid = {
+        "protection_rules": [{"type": "required_reviewers",
+                              "prevent_self_review": True,
+                              "reviewers": [{"type": "User", "reviewer": {"login": "reviewer"}}]}],
+        "deployment_branch_policy": {"protected_branches": True},
+    }
+    cases = [("real GET shape", valid, True)]
+    for label, mutate in (
+        ("self-review enabled", lambda p: p["protection_rules"][0].update(prevent_self_review=False)),
+        ("missing self-review field", lambda p: p["protection_rules"][0].pop("prevent_self_review")),
+        ("empty reviewer list", lambda p: p["protection_rules"][0].update(reviewers=[])),
+        ("missing reviewer list", lambda p: p["protection_rules"][0].pop("reviewers")),
+        ("no reviewer rule", lambda p: p.update(protection_rules=[])),
+        ("unprotected branches", lambda p: p["deployment_branch_policy"].update(protected_branches=False)),
+        ("missing branch policy", lambda p: p.pop("deployment_branch_policy")),
+    ):
+        candidate = copy.deepcopy(valid)
+        mutate(candidate)
+        # A top-level lookalike must not override an unsafe nested rule.
+        candidate["prevent_self_review"] = True
+        cases.append((label, candidate, False))
+    for path in (WORKFLOW, ROOT / "tools/auditBetaSigningPolicy.sh",
+                 ROOT / "tools/provisionOwnerBetaSigner.sh"):
+        filters = re.findall(r"jq -e '([^']+)'", path.read_text())
+        filters = [f for f in filters if "required_reviewers" in f]
+        require(len(filters) == 1, "one environment policy filter:" + path.name)
+        for label, policy, expected in cases:
+            result = subprocess.run(["jq", "-e", filters[0]], input=json.dumps(policy),
+                                    text=True, capture_output=True, timeout=5)
+            require((result.returncode == 0) == expected,
+                    "environment policy:" + path.name + ":" + label)
 
 
 def require(condition: bool, reason: str) -> None:
@@ -15,6 +55,7 @@ def require(condition: bool, reason: str) -> None:
 
 
 def check() -> None:
+    check_environment_policy()
     content = WORKFLOW.read_text(encoding="utf-8")
     for marker in (
         "      - name: Owner CAST and source gate",
@@ -80,6 +121,31 @@ def check() -> None:
             "unapproved public distribution")
     require("retention-days: 14" in content,
             "private artifact retention missing")
+    require("environment:" in content and "name: luhm-beta-signing" in content,
+            "owner signing requires protected environment")
+    require("PROTECTED_SIGNING_ENVIRONMENT_GREEN" in content
+            and "prevent_self_review == true" in content
+            and "required_reviewers" in content,
+            "server environment safeguards missing")
+    require("tools/checkBetaReleaseBaseline.py" in content
+            and "BETA_VERSION_CODE" in content
+            and "ACTUAL_VERSION" in content,
+            "signed release version floor and exported APK version verification missing")
+    bootstrap = (ROOT / "tools/provisionOwnerBetaSigner.sh").read_text()
+    require('SIGNING_ENV="luhm-beta-signing"' in bootstrap
+            and '--repo "$REPO" --env "$SIGNING_ENV"' in bootstrap,
+            "owner signer bootstrap must use environment-only secrets")
+    require("secrets.LUHM_SIGNING_POLICY_READ_TOKEN" in content,
+            "read-only governance token missing")
+    require("GH_TOKEN: ${{ github.token }}\n        run: |\n          set -euo pipefail\n          ENV_INFO" not in content,
+            "default workflow token cannot inspect admin governance")
+    require("(.reviewers // []) | length > 0" in content,
+            "require actual independent reviewer assignment")
+    require((ROOT / "tools/auditBetaSigningPolicy.sh").is_file(),
+            "owner policy inspection helper missing")
+    require("VERIFIED_FIRST_BETA" in bootstrap
+            and "repo_secret_names=" in bootstrap,
+            "first-beta signing key must never be minted without verified history")
     print("GREEN_SIGNED_BETA_SOURCE_AND_STAGING_CONTRACT")
     print("NO_OWNER_KEY_OR_REAL_APK_OR_DEVICE_PROOF_FROM_SOURCE_TEST")
 

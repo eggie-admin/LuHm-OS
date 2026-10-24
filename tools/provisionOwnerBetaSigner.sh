@@ -5,6 +5,7 @@
 set -euo pipefail
 umask 077
 REPO="eggie-admin/LuHm-OS"
+SIGNING_ENV="luhm-beta-signing"
 ALIAS="luhmBetaRelease"
 P12="${XDG_DATA_HOME:-$HOME/.local/share}/luhmOs/privateSigning/ownerBeta.p12"
 required=(
@@ -14,7 +15,7 @@ required=(
   LUHM_BETA_SIGNER_SHA256
 )
 die() { printf 'RED_OWNER_BETA_SIGNER: %s\n' "$*" >&2; exit 2; }
-for tool in gh keytool base64; do
+for tool in gh keytool base64 jq; do
   command -v "$tool" >/dev/null 2>&1 || die "Install $tool on the trusted owner workstation"
 done
 [[ -t 0 ]] || die "Interactive owner terminal required; no noninteractive key creation"
@@ -24,8 +25,30 @@ ACTOR="$(gh api user --jq .login)"
 [[ "$ACTOR" == "eggie-admin" ]] || die "Must be authenticated as repository owner"
 OWNER="$(gh api "repos/$REPO" --jq .owner.login)"
 [[ "$OWNER" == "$ACTOR" ]] || die "GitHub repository owner mismatch"
+env_info="$(gh api "repos/$REPO/environments/$SIGNING_ENV")" || die "Protected signing environment missing"
+jq -e '(.protection_rules | any(.type == "required_reviewers" and .prevent_self_review == true and ((.reviewers // []) | length > 0))) and (.deployment_branch_policy.protected_branches == true)' <<<"$env_info" >/dev/null ||
+  die "Signing environment needs independent reviewer, no self-approval and protected branches"
+[[ "$(gh api "repos/$REPO/branches/main" --jq '.protected')" == "true" ]] ||
+  die "Protect main before creating/signing releases"
+python3 - <<'PY' || die "Do not generate new signer without VERIFIED_FIRST_BETA owner baseline"
+import json
+from pathlib import Path
+r = json.loads(Path("doctrine/androidBetaReleaseBaselineV1.json").read_text(encoding="utf-8"))
+assert r.get("status") == "VERIFIED_FIRST_BETA"
+assert r.get("initialReleaseApproved") is True
+assert all(r.get(k) is None for k in ("previousVersionCode","previousSignerCertificateSha256","previousApkSha256"))
+assert isinstance(r.get("evidenceRef"),str) and len(r["evidenceRef"].strip()) >= 12
+PY
+repo_secret_names="$(gh secret list --repo "$REPO" --json name --jq '.[].name')" ||
+  die "Cannot inspect repository secret NAMES"
+for key in "${required[@]}" LUHM_SIGNING_POLICY_READ_TOKEN; do
+  if grep -Fxq "$key" <<<"$repo_secret_names"; then
+    die "Signing secret already in repository scope; review custody/migrate before provisioning: $key"
+  fi
+done
+
 [[ ! -e "$P12" && ! -L "$P12" ]] || die "Durable signer already exists. Do NOT replace it: $P12"
-existing="$(gh secret list --repo "$REPO" --json name --jq '.[].name')" || die "Cannot inspect secret names"
+existing="$(gh secret list --repo "$REPO" --env "$SIGNING_ENV" --json name --jq '.[].name')" || die "Cannot inspect secret names"
 for key in "${required[@]}"; do
   if grep -Fxq "$key" <<<"$existing"; then
     die "$key already exists. Do NOT rotate an upgrade signer from this script."
@@ -36,7 +59,7 @@ printf '%s\n' \
   "OWNER-ONLY NEW SIGNER. Do not run if an older .beta APK is already installed" \
   "or if an older certificate must continue to sign upgrades." \
   "Key will be encrypted at: $P12" \
-  "GitHub will receive encrypted Actions secret values, never the raw source file."
+  "GitHub will receive encrypted environment-only Actions secrets, never the raw source file."
 read -r -p "Type CREATE to make a new durable signer: " APPROVAL
 [[ "$APPROVAL" == CREATE ]] || die "Signer creation not authorized"
 read -r -s -p "New keystore passphrase (16+ characters, save in password manager): " LUHM_KEY_PASS
@@ -69,10 +92,10 @@ printf 'BACKUP REQUIRED: copy %s to offline encrypted storage.\n' "$P12"
 printf '%s\n' "Save the passphrase separately in your password manager."
 read -r -p "Type BACKED_UP after securing both, before uploading secrets: " BACKUP
 [[ "$BACKUP" == BACKED_UP ]] || die "Private signer stays local; GitHub secrets not uploaded"
-base64 -w0 "$P12" | gh secret set LUHM_BETA_SIGNING_P12_B64 --repo "$REPO"
-printf '%s' "$LUHM_KEY_PASS" | gh secret set LUHM_BETA_SIGNING_PASSWORD --repo "$REPO"
-printf '%s' "$ALIAS" | gh secret set LUHM_BETA_SIGNING_ALIAS --repo "$REPO"
-printf '%s' "$FINGERPRINT" | gh secret set LUHM_BETA_SIGNER_SHA256 --repo "$REPO"
+base64 -w0 "$P12" | gh secret set LUHM_BETA_SIGNING_P12_B64 --repo "$REPO" --env "$SIGNING_ENV"
+printf '%s' "$LUHM_KEY_PASS" | gh secret set LUHM_BETA_SIGNING_PASSWORD --repo "$REPO" --env "$SIGNING_ENV"
+printf '%s' "$ALIAS" | gh secret set LUHM_BETA_SIGNING_ALIAS --repo "$REPO" --env "$SIGNING_ENV"
+printf '%s' "$FINGERPRINT" | gh secret set LUHM_BETA_SIGNER_SHA256 --repo "$REPO" --env "$SIGNING_ENV"
 printf '\nOWNER_BETA_SIGNER_SECRETS_UPLOADED\n'
 printf '%s\n' "No APK, F-Droid index, or tablet install has yet been proved."
 

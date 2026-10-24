@@ -17,6 +17,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
+    environment:
+      name: luhm-beta-signing
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -41,6 +43,28 @@ jobs:
           python3 tools/samsung-lite-beta.py
           python3 tests/test-samsung-lite-beta.py
           python3 tests/testSignedBetaWorkflow.py
+          python3 tests/testBetaReleaseBaseline.py
+      - name: Verify protected signing environment and main branch
+        shell: bash
+        env:
+          # Fine-grained token: this repository only, Administration: READ.
+          # Ordinary github.token cannot query environment protection settings.
+          GH_TOKEN: ${{ secrets.LUHM_SIGNING_POLICY_READ_TOKEN }}
+        run: |
+          set -euo pipefail
+          if test -z "$GH_TOKEN"; then
+            echo "::error title=Signing governance not attested::Missing protected environment secret LUHM_SIGNING_POLICY_READ_TOKEN" >&2
+            exit 2
+          fi
+          ENV_INFO="$(gh api "repos/$GITHUB_REPOSITORY/environments/luhm-beta-signing")"
+          jq -e '(.protection_rules | any(
+                    .type == "required_reviewers" and
+                    .prevent_self_review == true and
+                    ((.reviewers // []) | length > 0)
+                 )) and
+                 (.deployment_branch_policy.protected_branches == true)' <<<"$ENV_INFO" >/dev/null
+          test "$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq '.protected')" == "true"
+          echo 'PROTECTED_SIGNING_ENVIRONMENT_GREEN'
       - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
         with:
           distribution: temurin
@@ -126,6 +150,16 @@ jobs:
           test "$OBSERVED" == "$TRUSTED_SIGNER"
           rm -f "$RUNNER_TEMP/owner-beta-cert.txt"
           echo "OWNER_SIGNING_IDENTITY=VERIFIED"
+      - name: Verify version floor and previous distributed beta signer
+        shell: bash
+        env:
+          TRUSTED_SIGNER: ${{ secrets.LUHM_BETA_SIGNER_SHA256 }}
+        run: |
+          set -euo pipefail
+          NEXT_CODE="$((200000 + GITHUB_RUN_NUMBER))"
+          python3 tools/checkBetaReleaseBaseline.py \
+            --next-version-code "$NEXT_CODE" --expected-signer "$TRUSTED_SIGNER"
+          echo "BETA_VERSION_CODE=$NEXT_CODE" >> "$GITHUB_ENV"
       - name: Enforce private-asset-free source release
         shell: bash
         run: |
@@ -148,7 +182,7 @@ jobs:
               'package/unique_name="art.eggiebagelface.luhmos.beta"',
             'package/name="LuHm OS Samsung Candidate"':
               'package/name="LuHm OS Tablet Beta"',
-            'version/code=116': 'version/code='+str(200000+int(os.environ["GITHUB_RUN_NUMBER"])),
+            'version/code=116': 'version/code='+os.environ["BETA_VERSION_CODE"],
             'version/name="1.0.16-samsunglayout.1"':
               'version/name="0.1.0-beta.'+os.environ["GITHUB_RUN_NUMBER"]+'"',
           }
@@ -194,6 +228,10 @@ jobs:
           OBSERVED="$(sed -n 's/^Signer #1 certificate SHA-256 digest: //p' \
             build/signed-beta/signature.txt | head -n1 | tr '[:upper:]' '[:lower:]')"
           test "$OBSERVED" == "$TRUSTED_SIGNER"
+          ACTUAL_VERSION="$(sed -n "s/.*versionCode='\\([0-9]*\\)'.*/\\1/p" build/signed-beta/badging.txt | head -n1)"
+          test "$ACTUAL_VERSION" == "$BETA_VERSION_CODE"
+          python3 tools/checkBetaReleaseBaseline.py \
+            --next-version-code "$ACTUAL_VERSION" --expected-signer "$TRUSTED_SIGNER"
           sha256sum "$APK" > build/signed-beta/sha256.txt
           python3 - <<'PY'
           import hashlib,json,os,re
