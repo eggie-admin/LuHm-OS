@@ -1,0 +1,62 @@
+name: LuHm Five-Lead Cabinet Readiness
+
+on:
+  pull_request:
+    paths:
+      - 'tools/lumCabinetReadiness.py'
+      - 'tests/testLumCabinetReadiness.py'
+      - 'manual/lumCabinetOperations.md'
+      - '.github/workflows/lum-cabinet-readiness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: luhm-cabinet-readiness-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  cabinet-readiness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Fetch exact source without preserved credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact checkout
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          git diff --check
+      - name: Run cabinet negative controls
+        run: |
+          python3 -m py_compile tools/lumCabinetReadiness.py
+          python3 -m unittest tests/testLumCabinetReadiness.py -v
+      - name: Run ten real source audits in five bounded lanes
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          python3 tools/lumCabinetReadiness.py --source-ref "$EXPECTED" \
+            --run-source-checks --output "$RUNNER_TEMP/lumCabinetReceipt.json"
+      - name: Upload source-only receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lum-five-lead-cabinet-source-receipt
+          path: ${{ runner.temp }}/lumCabinetReceipt.json
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Confirm runtime boundary
+        run: |
+          echo "CABINET_SOURCE_AUDITS_ONLY"
+          echo "PROVIDER_AGENT_EXECUTION=NOT_ATTEMPTED"
+          echo "MODEL_TRAINING=NOT_ATTEMPTED"
+          echo "VENDOR_WEB_MONITORING=NOT_ATTEMPTED"
+          echo "MEDICAL_MONITORING=NOT_ATTEMPTED"
+          echo "LIVE_DOCUMENT_OR_MEDIA_PRODUCTION=NOT_ATTEMPTED"
+          echo "CROWN=STOP"
