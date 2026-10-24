@@ -29,3 +29,5 @@ jobs:
           persist-credentials: false
       - name: Verify scoped screenshot evidence contract
         run: python3 tools/chromeCanaryBrowserProofAudit.py
+      - name: Verify current Canary milestone evidence
+        run: python3 -m unittest tests/testCanaryKioskCrownMilestones.py -v
