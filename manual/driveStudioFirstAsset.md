@@ -8,6 +8,16 @@ The connected Drive inventory established a private, owner-controlled animated L
 
 These are *private working inputs*, not approved commercial art. This document contains deliberately no private Drive IDs, private source URLs, exact private filenames or raw binary art.
 
+## First exact-file proof completed on 2026-10-24
+
+The selected owner-only GIF is **GIF89a**, 5,596,161 bytes, 512 by 640, with **30 decoded frames** lasting a total of **6,140 ms**. The actual source SHA-256 is `a9df1d2b5c63d5740be8c476b59f389171b99609a14cd02fc8ae7568d27b2aba`. The separate state manifest specifies a nominal eight FPS and nine named entries (eight states plus idle return); actual GIF frame delays vary, and the mapping of states onto frame boundaries is NOT verified. No source has been edited, public media shipped or creator attribution cleared.
+
+### Browser-local private preview entry
+
+The existing shared LuHm studio now provides **Private Lum animation proof**. Download the original from your own restricted Drive, then choose the GIF locally in that section. The browser checks the GIF signature, size, actual SHA-256 and decoded dimensions, marking an exact candidate match but **never asserting art rights or release approval**. It creates an in-session blob preview with local pause/resume and a PNG first-frame fallback for reduced-motion settings. Clearing or leaving the page revokes the blob URL. No form upload, remote Drive token, media endpoint or public binary is added.
+
+Playwright uses a tiny **synthetic generated GIF** as its test fixture. That test is intentionally NOT a duplicate of the private original. Successful source tests do not establish that the Professor saw the animation on Android Chrome Canary.
+
 ## Operator proof sequence
 
 1. **Read-only source identity:** From connected Drive, select one exact private GIF + associated manifest, confirm current individual file permission and creator/rights classification; preserve master unchanged. Do not trust a folder title, historical GREEN seal, or a third-party donor license as final art approval.
