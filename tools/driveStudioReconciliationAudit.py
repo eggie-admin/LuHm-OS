@@ -44,18 +44,18 @@ def audit(contract, alignment, truth, kiosk):
     }
     check(set(keys) == allowed, "laneInventory")
     for lane in lanes:
-        check(lane.get("assetBytesHashed") is False, "unhashed:" + str(lane.get("key")))
+        check(lane.get("assetBytesHashed") is (lane.get("key") == "lumAnimated"), "hashEvidence:" + str(lane.get("key")))
         check(lane.get("artistCanonApproved") is False, "unapprovedArt:" + str(lane.get("key")))
         check(lane.get("formatImportTest") is False, "noImportedAsset:" + str(lane.get("key")))
         check(lane.get("runtime") not in {"APPROVED", "LIVE", "GREEN"}, "falseRuntime:" + str(lane.get("key")))
 
     first = contract.get("firstVerticalSlice", {})
     check(first.get("id") == "lumPrivateAnimatedPreview", "firstSlice")
-    check(first.get("phase") == "DISCOVERED_NOT_IMPORTED", "importFalsePositive")
-    check(first.get("sha256") == "UNCOMPUTED", "hashFalsePositive")
+    check(first.get("phase") == "SOURCE_GIF_BYTES_DECODED_PREVIEW_PENDING", "importFalsePositive")
+    check(first.get("sha256") == "a9df1d2b5c63d5740be8c476b59f389171b99609a14cd02fc8ae7568d27b2aba", "hashFalsePositive")
     check(first.get("publicMediaRelease") is False, "publicDerivativeLeak")
     check(first.get("physicalAndroid") == "PENDING", "physicalFalsePositive")
-    check(first.get("preview") == "PENDING", "previewFalsePositive")
+    check(first.get("preview") == "BROWSER_SOURCE_CANDIDATE_NOT_DEVICE_PROVEN", "previewFalsePositive")
 
     guards = contract.get("security", {})
     for k in ("doNotExposePrivateDriveIdsOrUrls", "doNotExposeRawFileNames",
