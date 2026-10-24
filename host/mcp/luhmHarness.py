@@ -187,8 +187,9 @@ def register_harness(
     coding_roleplay_path = root / "doctrine" / "codingRoleplayDirectorV2.json"
     virgin_install_path = root / "doctrine" / "manualPluginVirginInstallV1.json"
     beta_lane_path = root / "doctrine" / "pluginBetaFourLaneV1.json"
+    glass_dock_path = root / "doctrine" / "glassPluginDockV1.json"
 
-    if not all(path.is_file() for path in (widget_path, mobile_widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, artist_studio_path, rebel_studio_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path, beta_lane_path)):
+    if not all(path.is_file() for path in (widget_path, mobile_widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, artist_studio_path, rebel_studio_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path, beta_lane_path, glass_dock_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     for name in ("studioDeck.html", "studioDeck.css", "studioDeck.js"):
@@ -226,6 +227,23 @@ def register_harness(
     coding_roleplay = json.loads(coding_roleplay_path.read_text(encoding="utf-8"))
     virgin_install = json.loads(virgin_install_path.read_text(encoding="utf-8"))
     beta_lanes = json.loads(beta_lane_path.read_text(encoding="utf-8"))
+    glass_dock = json.loads(glass_dock_path.read_text(encoding="utf-8"))
+    glass_modules = glass_dock.get("modules", [])
+    if (glass_dock.get("schema") != "luhmOs.glassPluginDock.v1" or
+        glass_dock.get("status") != "SOURCE_CANDIDATE_NOT_HOST_MOUNTED" or
+        glass_dock.get("crownStatus") != "STOP" or
+        glass_dock.get("promotion") is not False or
+        glass_dock.get("launcher", {}).get("icon") != "settings" or
+        glass_dock.get("presentation", {}).get("hostPageOverlay") is not False or
+        glass_dock.get("orchestration", {}).get("companyQuarantineEnforced") is not True or
+        not isinstance(glass_modules, list) or
+        [item.get("id") for item in glass_modules] !=
+        ["music", "avatars", "yume", "social", "admin"] or
+        any(not isinstance(item.get("chatIntent"), str) or
+            len(item["chatIntent"]) > 1000 or
+            item.get("status") != "SOURCE_BOUNDARY_ONLY"
+            for item in glass_modules)):
+        raise RuntimeError("RED_GLASS_DOCK_CONTRACT")
     if coding_roleplay.get("schema") != "luhmOs.codingRoleplayDirector.v2":
         raise RuntimeError("RED_CODING_ROLEPLAY_SCHEMA")
     if (beta_lanes.get("schema") != "luhmOs.pluginBetaFourLane.v1" or
@@ -318,6 +336,7 @@ def register_harness(
             "sourceTruth": status.get("sourceTruthStatus", "UNKNOWN"),
             "sourceEvidence": "serverReportedNotClientMountProof",
             "roster": roster_provider(),
+            "glassDock": glass_dock,
             "companyQuarantine": {
                 "state": company["state"],
                 "activeTaskWorkersAllowed": company.get("activeTaskWorkersAllowed", False),
@@ -434,6 +453,7 @@ def register_harness(
             "codingRoleplay": coding_roleplay,
             "virginInstall": virgin_install,
             "betaLanes": beta_lanes,
+            "glassDock": glass_dock,
             "status": status_provider(),
             "roster": roster_provider(),
             "harness": {
