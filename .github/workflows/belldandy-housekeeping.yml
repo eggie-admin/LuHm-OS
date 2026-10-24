@@ -2,6 +2,16 @@ name: Belldandy Housekeeping
 
 on:
   pull_request:
+    paths:
+      - '.github/workflows/belldandy-housekeeping.yml'
+      - 'doctrine/belldandyHousekeepingV1.json'
+      - 'doctrine/belldandyOperationalQuarantineV1.json'
+      - 'doctrine/luhmAiControlPlaneV1.json'
+      - 'doctrine/agentTrainingSealV1.json'
+      - 'agents/belldandyQualityOni/SKILL.md'
+      - 'plugins/luhm-os/skills/belldandy-housekeeping/SKILL.md'
+      - 'tools/belldandyHousekeepingAudit.py'
+      - 'tools/belldandyCheckpointWindow.py'
   push:
     branches: [main]
   workflow_dispatch:

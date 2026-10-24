@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>LuHm OS | Mobile Cockpit</title>
+<style>
+:root{color-scheme:dark;font:14px/1.45 system-ui,-apple-system,sans-serif;--ink:#eff5fc;--muted:#bac6dc;--line:#41506a;--cyan:#7be9ff;--surface:#141a27}
+*{box-sizing:border-box}html,body{margin:0;min-width:0;max-width:100%;color:var(--ink);background:#0b0d15}
+body{padding:10px;padding-bottom:calc(12px + env(safe-area-inset-bottom));overflow-wrap:anywhere}
+main{width:100%;max-width:640px;margin:auto;display:grid;gap:10px}
+header,.panel{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:12px}
+header{display:flex;align-items:center;gap:12px}h1{font-size:18px;margin:0}h2{font-size:14px;margin:0 0 8px;color:var(--cyan)}
+.pet{width:45px;height:45px;flex:none;border-radius:13px;background:#231b39;border:1px solid #867ac5;display:grid;place-items:center;font-size:25px}
+p{margin:4px 0}small,.muted{color:var(--muted)}.status{padding:7px 9px;background:#252033;border-radius:8px}
+#roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;list-style:none;margin:8px 0 0;padding:0}
+#roster li{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:12px}
+#lanes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+#lanes button{min-width:0;min-height:44px;text-align:left;padding:9px;border:1px solid var(--line);border-radius:9px;background:#1b2637;color:var(--ink);font:inherit}
+#lanes button[aria-pressed=true]{border-color:var(--cyan);background:#183143}
+#laneDetail{margin-top:8px;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}.actions button{min-height:44px;border-radius:9px;background:#252e43;color:var(--ink);border:1px solid var(--line);padding:9px;font:inherit}
+code{font-size:11px;word-break:break-all}
+@media(max-width:300px){#roster,#lanes{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main>
+<header><div class="pet" aria-hidden="true">👹</div><div><h1>LuHm OS · Mobile</h1><small>In-chat cockpit · testing source candidate</small></div></header>
+<section class="panel" aria-live="polite"><h2>Bridge and Canon</h2>
+<p class="status" id="bridge">VERIFY · waiting for a ChatGPT tool result</p>
+<p id="source">Exact source: unverified</p><p id="truth">Canon: unknown</p>
+<p id="workers">Lum workers: not proven active</p></section>
+<section class="panel"><h2>Agent crew</h2><p class="muted" id="rosterState">No live roster receipt yet</p>
+<ul id="roster" aria-label="Registered LuHm agents"></ul></section>
+<section class="panel"><h2>Release lanes</h2>
+<div id="lanes"><button type="button" data-lane="testing" aria-pressed="true">Testing</button><button type="button" data-lane="proposed" aria-pressed="false">Proposed</button><button type="button" data-lane="beta" aria-pressed="false">Beta</button><button type="button" data-lane="betaLts" aria-pressed="false">Beta LTS</button></div>
+<p id="laneDetail" role="status">Testing: source and host-mount proof pending. No external tester access.</p></section>
+<section class="panel"><h2>Diagnostics</h2>
+<p class="muted">A successful tool call is not proof this UI mounted on a tester's phone. No server writes, builds, invitations, or agents run from this card.</p>
+<div class="actions"><button id="copy" type="button">Copy status</button><button id="rosterToggle" type="button" aria-expanded="true">Hide crew</button></div>
+<p id="feedback" aria-live="polite"></p></section>
+</main>
+<script>
+"use strict";
+const byId=id=>document.getElementById(id);
+let current=null;let rpcId=0;const pending=new Map();
+const laneText={
+ testing:"Testing · private in-chat mobile mount check; iPhone and Android acceptance must be observed on device.",
+ proposed:"Proposed · reviewed exact-source candidate only. No external install assumed.",
+ beta:"Beta · blocked until approved distribution, rights/privacy, real tester invocation and mobile UI proof.",
+ betaLts:"Beta LTS · frozen, reviewed, rollback-ready release after successful beta acceptance."
+};
+for(const btn of document.querySelectorAll("[data-lane]")){
+ btn.addEventListener("click",()=>{document.querySelectorAll("[data-lane]").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));byId("laneDetail").textContent=laneText[btn.dataset.lane];});
+}
+function render(value){
+ const d=value?.structuredContent||value?.result?.structuredContent||value;
+ if(!d||d.schema!=="luhmOs.mobileCockpitPayload.v1"||d?.authority?.readOnly!==true||d?.authority?.mutationAuthority!==false||d?.authority?.promotionAuthority!==false){
+  byId("bridge").textContent="VERIFY · no valid mobile tool receipt";return;
+ }
+ current=d;
+ byId("bridge").textContent="MCP tool response received · mobile display acceptance pending";
+ byId("source").textContent="Source: "+(d.sourceRef||"UNKNOWN");
+ byId("truth").textContent="Canon: "+(d.sourceTruth||"UNKNOWN");
+ const held=d?.companyQuarantine?.state==="QUARANTINED";
+ byId("workers").textContent=held?"Agents: quarantined · 0 active":"Agents: state not independently verified";
+ const agents=Array.isArray(d?.roster?.roles)?d.roster.roles:[];
+ byId("rosterState").textContent=agents.length+" registered identities (not proof of independent workers)";
+ const list=byId("roster");list.textContent="";
+ agents.slice(0,15).forEach(a=>{const li=document.createElement("li");li.textContent=String(a.displayName||a.agentId||"UNKNOWN");list.append(li);});
+}
+byId("copy").addEventListener("click",async()=>{
+ const text=["LuHm mobile in-chat",byId("bridge").textContent,byId("source").textContent,byId("truth").textContent,byId("workers").textContent].join("\n");
+ try{if(!navigator.clipboard?.writeText)throw Error("clipboard unavailable");await navigator.clipboard.writeText(text);byId("feedback").textContent="Status copied";}catch(_){byId("feedback").textContent="Clipboard unavailable. Read status above.";}
+});
+byId("rosterToggle").addEventListener("click",()=>{
+ const hidden=byId("roster").hidden;byId("roster").hidden=!hidden;byId("rosterToggle").setAttribute("aria-expanded",String(hidden));byId("rosterToggle").textContent=hidden?"Hide crew":"Show crew";
+});
+window.addEventListener("message",event=>{
+ if(event.source!==window.parent)return;const m=event.data;if(!m||m.jsonrpc!=="2.0")return;
+ if(m.id!==undefined&&pending.has(m.id)){const cb=pending.get(m.id);pending.delete(m.id);cb(m.result,m.error);return;}
+ if(m.method==="ui/notifications/tool-result")render(m.params);
+});
+function call(method,params){
+ const id=++rpcId;return new Promise((resolve,reject)=>{
+  pending.set(id,(result,error)=>error?reject(error):resolve(result));
+  window.parent.postMessage({jsonrpc:"2.0",id,method,params},"*");
+ });
+}
+render(window.openai?.toolOutput);
+if(window.parent!==window){
+ call("ui/initialize",{appInfo:{name:"luhm-mobile-cockpit",version:"1.0.0"},appCapabilities:{},protocolVersion:"2026-01-26"})
+ .then(result=>{if(result?.hostContext?.displayMode)byId("feedback").textContent="Host display mode: "+result.hostContext.displayMode;window.parent.postMessage({jsonrpc:"2.0",method:"ui/notifications/initialized",params:{}},"*");})
+ .catch(()=>{byId("feedback").textContent="VERIFY · host handshake unavailable";});
+}
+</script>
+</body></html>

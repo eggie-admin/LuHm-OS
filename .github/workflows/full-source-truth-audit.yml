@@ -4,6 +4,22 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    paths:
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/SOURCE_OF_TRUTH.json'
+      - 'doctrine/RELEASE_BOUNDARY.json'
+      - 'doctrine/DOCUMENT_MUTATION_AUDIT_WORKFLOW.json'
+      - 'doctrine/fullSourceTruthOrchestrator-20260926.json'
+      - 'doctrine/samsungLayoutSeal-20260926.json'
+      - 'doctrine/s24FeCockpitAuditSwitchSeal-20260926.json'
+      - 'doctrine/fqdnInstallPortalSeal-20260926.json'
+      - 'doctrine/PRE_GREEN_SNAPSHOT_20260930.json'
+      - 'doctrine/CURRENT_MAIN_SOURCE_TRUTH_GREEN_20260930.json'
+      - 'tools/fullSourceTruthAudit.py'
+      - 'tests/testFullSourceTruthFailClosed.py'
+      - 'tools/currentMainSourceTruthMilestoneAudit.py'
+      - 'tests/testCurrentMainSourceTruthMilestone.py'
+      - '.github/workflows/full-source-truth-audit.yml'
   pull_request:
     paths:
       - 'doctrine/currentSourceTruthV3.json'
