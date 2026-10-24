@@ -61,13 +61,16 @@ async function main() {
       await page.locator("#crownLaunchLayers").click();
       assert.equal(await page.locator("#studioPlaneInspector").getAttribute("open"),"","Seven studio layer inspector is opened");
       await page.locator("#studioGlassClose").click();
+      assert.equal(external.length,0,"No external fetch until Professor explicitly presses Play");
       await page.locator("#crownLaunchGodot").click();
       assert.equal(await page.locator("#playGodotRemote").getAttribute("aria-pressed"),"true","Primary Play opens the existing Godot host");
       assert.equal(await page.locator("#godotFrame").getAttribute("src"),
         "https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html","Pinned Godot embed");
       assert.match(await page.locator("#crownLaunchStatus").textContent(),/not verified/,"Never claim unproven gameplay");
+      assert.ok(external.every(url=>url.startsWith("https://luhm-os-godot-harness-green.onrender.com/")),"Only the pinned service may be requested");
       await page.locator("#playGodotRemote").click();
       assert.equal(await page.locator("#godotFrame").getAttribute("src"),null,"Player closes without a leftover iframe source");
+      external.length=0; // From here, test that local private artwork and music remain no-network until consent.
 
       assert.equal(await page.locator("[data-stage-plane]").count(),7);
       await page.locator("#pocketbond").click();
