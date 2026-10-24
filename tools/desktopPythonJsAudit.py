@@ -53,7 +53,7 @@ def audit():
     assert headers(html=True)["Cache-Control"]=="no-store"
     assert headers()["Cache-Control"]=="public, max-age=300"
     csp=headers(html=True)["Content-Security-Policy"]
-    assert "frame-src 'self' blob: https://www.youtube-nocookie.com;" in csp
+    assert "frame-src 'self' blob: https://www.youtube-nocookie.com https://luhm-os-godot-harness-green.onrender.com;" in csp
     assert "script-src 'self';" in csp
     assert "unsafe-inline" not in csp.split("script-src",1)[1].split(";",1)[0]
     assert "base-uri 'none'" in csp and "object-src 'none'" in csp
