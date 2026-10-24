@@ -122,11 +122,23 @@
     "sourceMediaStillPrivate": true,
     "phase": "SOURCE_GIF_BYTES_DECODED_PREVIEW_PENDING",
     "sha256": "a9df1d2b5c63d5740be8c476b59f389171b99609a14cd02fc8ae7568d27b2aba",
-    "fileRights": "PENDING",
+    "fileRights": "FILE_OWNER_ONLY_METADATA;ART_AUTHOR_RIGHTS_PENDING",
     "preview": "BROWSER_SOURCE_CANDIDATE_NOT_DEVICE_PROVEN",
     "physicalAndroid": "PENDING",
     "publicMediaRelease": false,
-    "publishingAutomatic": false
+    "publishingAutomatic": false,
+    "gifProof": {
+      "format": "GIF89a",
+      "byteCount": 5596161,
+      "width": 512,
+      "height": 640,
+      "frames": 30,
+      "durationMs": 6140,
+      "manifestNominalFps": 8,
+      "frameTimingVariable": true,
+      "stateFrameMapping": "UNVERIFIED"
+    },
+    "privateLocalPreview": "BROWSER_PICKER_SOURCE_ONLY;ANDROID_CANARY_PENDING"
   },
   "security": {
     "doNotExposePrivateDriveIdsOrUrls": true,
