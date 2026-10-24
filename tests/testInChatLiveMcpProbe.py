@@ -53,6 +53,15 @@ class PublicMcpProbeContract(unittest.TestCase):
     def test_parseSmallJs(self):
         self.assertEqual(parse_script("<script>const x = 1;</script>"), "PARSE_PASS")
 
+    def test_composedWidgetTwoScripts(self):
+        html = '<script>const a=1;</script><script>const b=2;</script>'
+        self.assertEqual(parse_script(html), "PARSE_PASS")
+
+    def test_composedWidgetSecondScriptSyntaxRejected(self):
+        html = '<script>const a=1;</script><script>function {bad}</script>'
+        with self.assertRaisesRegex(ValueError, "COCKPIT_JAVASCRIPT_PARSE_FAIL"):
+            parse_script(html)
+
     def test_rejectSyntax(self):
         with self.assertRaisesRegex(ValueError, "COCKPIT_JAVASCRIPT_PARSE_FAIL"):
             parse_script("<script>function {bad}</script>")
