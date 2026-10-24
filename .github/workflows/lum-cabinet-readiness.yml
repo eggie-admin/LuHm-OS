@@ -8,6 +8,9 @@ on:
       - 'manual/lumCabinetOperations.md'
       - '.github/workflows/lum-cabinet-readiness.yml'
   workflow_dispatch:
+  # One visible daily read-only audit, not an always-on provider agent.
+  schedule:
+    - cron: '19 09 * * *'
 
 permissions:
   contents: read
