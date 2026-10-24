@@ -356,10 +356,10 @@ async function probeGodot() {
     if (externalLink) externalLink.hidden = false;
     byId("godotBadge").textContent = "LOCAL EXPORT PENDING";
     if (playButton) {
-      playButton.disabled = true;
-      playButton.textContent = "WEB EXPORT PENDING";
+      playButton.disabled = false;
+      playButton.textContent = "▶ OPEN EXISTING GODOT 4";
     }
-    if (playStatus) playStatus.textContent = "This origin has no verified embedded 3D export. Use the separate Godot service link and verify it there.";
+    if (playStatus) playStatus.textContent = "Local export absent on this origin. Tap Play to request the existing dedicated Godot service; actual scene and touch still need device proof.";
   }
 }
 
@@ -401,13 +401,59 @@ function wirePlayButton() {
   const button = byId("playFirstNight");
   if (!button) return;
   button.addEventListener("click", () => {
-    if (!state.godotReady) return;
+    if (!state.godotReady && byId("playGodotRemote")?.getAttribute("aria-pressed") !== "true") {
+      byId("playGodotRemote")?.click();
+    }
     const stage = byId("godotStage");
     if (stage) stage.scrollIntoView({ behavior: "smooth", block: "center" });
     window.setTimeout(() => byId("godotFrame")?.focus(), 350);
   });
 }
 
+function wireCrownLaunch() {
+  const slot = byId("crownViewportSlot");
+  const godot = document.querySelector(".desk .godot");
+  if (!slot || !godot || slot.dataset.wired === "true") return;
+  slot.dataset.wired = "true";
+  slot.appendChild(godot); // Move ONE real Godot viewport above the fold; no duplicate iframe.
+  const note = byId("crownLaunchStatus");
+  const focus = id => {
+    const target = byId(id);
+    if (!target) { note.textContent = "That feature is not available on this source build."; return false; }
+    target.scrollIntoView({behavior:"auto",block:"center"});
+    target.focus({preventScroll:true});
+    return true;
+  };
+  byId("crownLaunchGodot").addEventListener("click", () => {
+    const action = byId("playFirstNight");
+    if (!action) { note.textContent = "Godot control is missing from this build."; return; }
+    action.click();
+    note.textContent = "Godot 4 service requested inside the real viewport. Gameplay and touch are not verified yet.";
+    focus("godotFrame");
+  });
+  byId("crownLaunchGlass").addEventListener("click", () => {
+    const toggle = byId("studioGlassToggle"), dock = byId("studioGlassDock");
+    if (!toggle || !dock) { note.textContent = "Glass module not connected."; return; }
+    if (dock.hidden) toggle.click();
+    dock.scrollIntoView({behavior:"auto",block:"center"});
+    note.textContent = "Five real glass routes opened. The crew remains supervised.";
+  });
+  byId("crownLaunchLum").addEventListener("click", () => {
+    if (focus("studioPrivateLumFile")) note.textContent = "Choose your original GIF locally; no artwork is uploaded.";
+  });
+  byId("crownLaunchMusic").addEventListener("click", () => {
+    if (focus("studioMusicUrl")) note.textContent = "Paste an authorized YouTube link. Playback requires a separate user action.";
+  });
+  byId("crownLaunchLayers").addEventListener("click", () => {
+    const details = byId("studioPlaneInspector"), toggle = byId("studioGlassToggle");
+    if (!details || !toggle) { note.textContent = "Seven-plane inspector not connected."; return; }
+    if (byId("studioGlassDock")?.hidden) toggle.click();
+    details.open = true;
+    details.scrollIntoView({behavior:"auto",block:"center"});
+    details.querySelector("summary")?.focus({preventScroll:true});
+    note.textContent = "The seven compositor planes are visible in the glass inspector.";
+  });
+}
 function wireDropZone() {
   const input = byId("assetInput");
   const zone = byId("dropZone");
@@ -432,11 +478,13 @@ function wireDropZone() {
 async function boot() {
   // Local creative desk stays usable even if the network/config stage fails.
   renderNetwork();
+  wireRemoteGodot();
+  wirePlayButton();
+  wireCrownLaunch();
   initLumLive2d();
   state.pets = DEFAULT_PETS.map(p => ({ ...p }));
   renderAssetDesk();
   wireDropZone();
-  wirePlayButton();
   // The entire local media desk must remain functional if config or sprites fail.
   byId("petDock").addEventListener("click", () => {
     state.petIndex = (state.petIndex + 1) % Math.max(state.pets.length, 1);
@@ -475,7 +523,6 @@ async function boot() {
   showPet();
 
   setLoadingAgent("kugi", "Checking the Godot web viewer");
-  wireRemoteGodot();
   await probeGodot();
   byId("edgeBadge").textContent = "SOURCE-VERIFIED DEMO";
 }
