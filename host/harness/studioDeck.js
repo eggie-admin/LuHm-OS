@@ -326,6 +326,78 @@ $("cast").addEventListener("click",()=>{tone(880);speak("Sparkle spell! Just a v
 $("pause").addEventListener("click",e=>{const v=document.querySelector(".pocketCompanion").classList.toggle("reduced");e.currentTarget.setAttribute("aria-pressed",String(v));e.currentTarget.textContent=v?"▶ Resume motion":"Ⅱ Pause motion"});
 
   }
+  function wirePrivateLum(doc) {
+    const element = id => doc.getElementById(id);
+    const picker = element("studioPrivateLumFile");
+    if (!picker || picker.dataset.wired) return;
+    picker.dataset.wired = "true";
+    const img = element("studioPrivateLumImage"), holder = element("studioPrivateLumStage");
+    const status = element("studioPrivateLumStatus"), digest = element("studioPrivateLumDigest");
+    const pause = element("studioPrivateLumPause"), clear = element("studioPrivateLumClear");
+    const browser = doc.defaultView;
+    let address, still, token = 0, stopped = false;
+    const reset = () => {
+      token++;
+      img.removeAttribute("src");
+      if (address) browser.URL.revokeObjectURL(address);
+      address = null; still = null; stopped = false;
+      holder.hidden = true; pause.disabled = true; clear.disabled = true;
+      pause.textContent = "Pause animation";
+      pause.setAttribute("aria-pressed", "false");
+      digest.textContent = "No SHA-256 computed. Private session only.";
+    };
+    picker.addEventListener("change", async () => {
+      reset();
+      const file = picker.files && picker.files[0], request = token;
+      if (!file) return;
+      if (!file.size || file.size > 16 * 1024 * 1024) {
+        status.textContent = "File rejected: GIF must be under 16 MiB."; return;
+      }
+      status.textContent = "Verifying selected GIF locally. Nothing is uploaded.";
+      try {
+        const header = new Uint8Array(await file.slice(0, 6).arrayBuffer());
+        const signature = String.fromCharCode(...header);
+        if (signature !== "GIF89a" && signature !== "GIF87a") throw Error("Not a GIF file.");
+        const sha = await fingerprint(file, browser.crypto);
+        if (!sha) throw Error("SHA-256 not available.");
+        if (request !== token) return;
+        address = browser.URL.createObjectURL(file);
+        img.onload = () => {
+          if (request !== token) return;
+          const width = img.naturalWidth, height = img.naturalHeight;
+          if (!width || !height || width > 2048 || height > 2048) {
+            reset(); status.textContent = "Unsupported frame dimensions."; return;
+          }
+          const canvas = doc.createElement("canvas");
+          canvas.width = width; canvas.height = height;
+          canvas.getContext("2d").drawImage(img, 0, 0);
+          still = canvas.toDataURL("image/png");
+          const match = sha === "a9df1d2b5c63d5740be8c476b59f389171b99609a14cd02fc8ae7568d27b2aba" &&
+            width === 512 && height === 640;
+          digest.textContent = "Local SHA-256: " + sha + " · " + width + " × " + height +
+            " · " + (match ? "SELECTED CANDIDATE MATCH" : "DIFFERENT LOCAL CANDIDATE");
+          status.textContent = match
+            ? "Matching private Lum animation preview. Rights and Canon art approval pending."
+            : "Local GIF testing only. This is not the selected Lum candidate.";
+          holder.hidden = false; pause.disabled = false; clear.disabled = false;
+          if (browser.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches) pause.click();
+        };
+        img.onerror = () => { reset(); status.textContent = "GIF failed to decode."; };
+        img.src = address;
+      } catch (_) { reset(); status.textContent = "GIF inspection failed. Nothing uploaded."; }
+    });
+    pause.addEventListener("click", () => {
+      if (!address || !still) return;
+      stopped = !stopped;
+      img.src = stopped ? still : address;
+      pause.setAttribute("aria-pressed", String(stopped));
+      pause.textContent = stopped ? "Resume animation" : "Pause animation";
+    });
+    clear.addEventListener("click", () => {
+      reset(); picker.value = ""; status.textContent = "Private preview cleared.";
+    });
+    browser.addEventListener("pagehide", reset, {once:true});
+  }
   function mount(doc) {
     mountPocketCompanion();
     initLumLive2d();
@@ -337,6 +409,7 @@ $("pause").addEventListener("click",e=>{const v=document.querySelector(".pocketC
     if (root.jQuery?.fn?.luhmStudioParallax) root.jQuery(stage).luhmStudioParallax();
     else mountDepth(stage, doc.defaultView || root);
     mountGlassDock(doc);
+    wirePrivateLum(doc);
     installJQueryMusicBridge(root.jQuery);
     if (root.jQuery?.fn?.luhmMusicDeck) root.jQuery(get("studioMusicStage")).luhmMusicDeck();
     else attachMusicDeck(doc);
