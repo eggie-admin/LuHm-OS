@@ -23,6 +23,8 @@ class PublicPackageLicenseTests(unittest.TestCase):
         self.assertIn(b"GNU GENERAL PUBLIC LICENSE", payload["LICENSE"])
         self.assertIn("SOURCE_MAP.json", payload)
         self.assertIn("BUILD_RECEIPT.json", payload)
+        self.assertIn("skills/luhm-glass-module-dock/SKILL.md", payload)
+        self.assertIn(b"luhm-glass-module-dock", payload["skills/luhm-glass-module-dock/SKILL.md"])
         self.assertEqual(len(payload), len(package.MEMBERS) + 3)
         self.assertTrue(version)
 
