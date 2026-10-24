@@ -98,6 +98,28 @@ def reconcile(snapshot: dict, hold: dict, *, source_ref: str) -> dict:
         "integrationPr": f"https://github.com/{REPO}/pull/386",
         "stage": stage,
         "oneNextAction": action,
+        "topology": {
+            "compatibilityLayers": [
+                {"priority": 1, "id": "chatGptOpenAi",
+                 "role": "interactiveChatGptMcpHarness"},
+                {"priority": 2, "id": "github",
+                 "role": "canonicalSourceReviewAndCi"},
+            ],
+            "heavyWorkhorse": {"providerId": "googleAi", "adapterId": "bigBrother",
+                               "liveEntitlement": "UNVERIFIED",
+                               "automaticBillableExecution": False},
+            "edge": {"providerId": "cloudflare",
+                     "role": "authoritativeDnsOptionalProxyTunnelTrafficPolicy",
+                     "aiProvider": False, "ownsRuntime": False,
+                     "currentDirectMcpProxyUnchanged": True},
+            "modelExecutionNotInferredFromCompatibilityOrder": True,
+            "references": [
+                "doctrine/studioCompatibilityFastMeshV1.json",
+                "doctrine/providerEconomyV1.json",
+                "doctrine/cloudflareAirTrafficControllerV1.json",
+                "doctrine/apiSpineV1.json",
+            ],
+        },
         "facts": {
             "mainHead": (main.get("commit") or {}).get("sha", "UNKNOWN"),
             "mainProtectionVerified": protected,
