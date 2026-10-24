@@ -24,11 +24,14 @@
   "sourceCi": {
     "githubActionsSuccess": 15,
     "githubActionsFailed": 0,
-    "cloudflareWorkersBuild": "success",
-    "totalChecks": 16,
-    "allChecksPassed": true,
+    "cloudflareWorkersBuild": "failure",
+    "totalChecks": 17,
+    "allChecksPassed": false,
     "run": "https://github.com/eggie-admin/LuHm-OS/actions/runs/40059442585",
-    "note": "Passing checks verify source and build stages, not running AI workers."
+    "note": "Passing checks verify source and build stages, not running AI workers.",
+    "githubActionsSkipped": 1,
+    "observation": "Fresh exact-main check readback: 15 GitHub Actions success, 1 GitHub Actions skipped, 1 external Cloudflare Workers Builds failure. Earlier successful Cloudflare status was transient or superseded; no live edge or runtime proof.",
+    "checkEvidence": "https://github.com/eggie-admin/LuHm-OS/commit/271823df1d62c462e3c03fc87adcd8c1b367be9b/checks"
   },
   "render": {
     "existingServicesOnly": true,
@@ -79,11 +82,13 @@
   },
   "cloudflare": {
     "role": "NetworkEdgeOnly",
-    "workersBuildOnMergedMain": "success",
+    "workersBuildOnMergedMain": "failure",
     "liveEdgeConfiguration": "NOT_VERIFIED",
     "customMcpCname": "NO_PUBLIC_CNAME_OBSERVED_IN_PRIOR_CI",
     "dnsChanged": false,
-    "proxyChanged": false
+    "proxyChanged": false,
+    "workersBuildPreviouslyObservedSuccess": true,
+    "edgeBuildStateNote": "Latest external check on the exact merged main commit is failure. The earlier success observation is superseded for current status; Cloudflare live deployment still unverified."
   },
   "quarantine": {
     "contract": "doctrine/companyWideOperationalQuarantineV1.json",
