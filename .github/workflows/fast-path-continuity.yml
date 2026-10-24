@@ -49,7 +49,7 @@ jobs:
           from pathlib import Path
           from urllib.request import Request,urlopen
           repo="eggie-admin/LuHm-OS"
-          head=os.environ["EXPECTED"]
+          checkout=os.environ["EXPECTED"]
           def fetch(suffix):
               req=Request("https://api.github.com/repos/"+repo+"/"+suffix,
                   headers={"Authorization":"Bearer "+os.environ["GH_TOKEN"],
@@ -61,15 +61,20 @@ jobs:
                       return json.load(r)
               except Exception:
                   return {}
+          pr=fetch("pulls/386")
+          candidate=(pr.get("head") or {}).get("sha",checkout)
+          if not isinstance(candidate,str) or len(candidate)!=40:
+              candidate=checkout
           data={"main":fetch("branches/main"),
                 "ruleset":fetch("rulesets/25699963"),
-                "pr":fetch("pulls/386"),
-                "checks":fetch("commits/"+head+"/check-runs?per_page=100")}
-          data["checks"]["verifiedCommit"]=head
+                "pr":pr,
+                "checks":fetch("commits/"+candidate+"/check-runs?per_page=100")}
+          data["checks"]["verifiedCommit"]=candidate
           Path("build/fastPath/snapshot.json").write_text(json.dumps(data))
+          Path("build/fastPath/sourceRef").write_text(candidate)
           PY
           python3 tools/fastPathMilestone.py \
-            --snapshot build/fastPath/snapshot.json --source-ref "$EXPECTED" \
+            --snapshot build/fastPath/snapshot.json --source-ref "$(cat build/fastPath/sourceRef)" \
             --output build/fastPath/continuity.json
           echo "CONTINUITY_CROWN=STOP"
           echo "HOST_AND_WORKERS_NOT_INFERRED_FROM_GITHUB=TRUE"
