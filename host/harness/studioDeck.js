@@ -372,6 +372,7 @@ $("pause").addEventListener("click",e=>{const v=document.querySelector(".pocketC
           canvas.width = width; canvas.height = height;
           canvas.getContext("2d").drawImage(img, 0, 0);
           still = canvas.toDataURL("image/png");
+          img.onload = null; // Switching between animated/static sources must not repeat initialization.
           const match = sha === "a9df1d2b5c63d5740be8c476b59f389171b99609a14cd02fc8ae7568d27b2aba" &&
             width === 512 && height === 640;
           digest.textContent = "Local SHA-256: " + sha + " · " + width + " × " + height +
