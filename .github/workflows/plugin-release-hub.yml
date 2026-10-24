@@ -5,6 +5,9 @@ on:
     paths:
       - 'tools/pluginReleaseHub.py'
       - 'tools/pluginReleasePromotionGate.py'
+      - 'tools/buildPublicPluginPackage.py'
+      - 'tests/testPublicPluginPackageLicense.py'
+      - 'LICENSE'
       - 'tests/testPluginReleaseHub.py'
       - 'tests/testPluginReleasePromotionGate.py'
       - '.github/workflows/plugin-release-hub.yml'
@@ -57,7 +60,7 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED"
           python3 -m py_compile tools/pluginReleaseHub.py tools/pluginReleasePromotionGate.py
-          python3 -m unittest tests/testPluginReleaseHub.py tests/testPluginReleasePromotionGate.py -v
+          python3 -m unittest tests/testPluginReleaseHub.py tests/testPluginReleasePromotionGate.py tests/testPublicPluginPackageLicense.py -v
           git diff --check
           echo "SOURCE_ONLY_GREEN; no GitHub Release published"
 
