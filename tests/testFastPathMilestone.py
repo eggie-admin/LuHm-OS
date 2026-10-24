@@ -55,6 +55,11 @@ class FastPathMilestoneTests(unittest.TestCase):
         self.assertEqual(result["modelWorkersStarted"], 0)
         self.assertFalse(result["agentReleaseAuthorized"])
 
+    def test_missing_admin_api_is_unknown_not_proven_unprotected(self):
+        s, p = fixture()
+        s["ruleset"] = {}
+        self.assertEqual(self.report(s, p)["stage"], "P0_ADMIN_VERIFY")
+
     def test_fake_boolean_protection_without_rules_denied(self):
         s, p = fixture()
         s["main"]["protected"] = True
