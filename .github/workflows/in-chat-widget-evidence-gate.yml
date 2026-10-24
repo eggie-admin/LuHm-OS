@@ -4,6 +4,11 @@ on:
   pull_request:
     paths:
       - 'host/harness/widget.html'
+      - 'host/harness/mobileCockpitWidget.html'
+      - 'host/mcp/luhmHarness.py'
+      - 'tests/testMobileCockpitEvidenceContract.py'
+      - 'tests/testGlassPluginDock.py'
+      - 'doctrine/glassPluginDockV1.json'
       - 'tests/testInChatWidgetEvidenceContract.py'
       - '.github/workflows/in-chat-widget-evidence-gate.yml'
   workflow_dispatch:
@@ -40,6 +45,10 @@ jobs:
               subprocess.run(["node", "--check", str(source)], check=True)
           print("GREEN_WIDGET_JAVASCRIPT_PARSE")
           PY
+      - name: Validate mobile MCP resource and negative controls
+        run: |
+          python3 -m py_compile host/mcp/luhmHarness.py
+          python3 -m unittest tests/testMobileCockpitEvidenceContract.py tests/testGlassPluginDock.py -v
       - name: Record exact check identity
         shell: bash
         run: |

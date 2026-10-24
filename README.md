@@ -1,5 +1,11 @@
 # LuHm OS
 
+## Plugin downloads: Proposed · Beta · Stable
+
+[GitHub Releases](https://github.com/eggie-admin/LuHm-OS/releases) · [Latest Proposed search](https://github.com/eggie-admin/LuHm-OS/releases?q=luhm-plugin-proposed) · [Latest Beta search](https://github.com/eggie-admin/LuHm-OS/releases?q=luhm-plugin-beta) · [Latest Stable search](https://github.com/eggie-admin/LuHm-OS/releases?q=luhm-plugin-stable)
+
+The permanent, verified **current download per channel** is resolved from published GitHub Release assets and their SHA-256 companions by `python3 tools/pluginReleaseHub.py --format markdown`. The [release hub runbook](manual/pluginReleaseHub.md) defines guarded CAST publication, checksum reconciliation, cache refresh and public download ping. **Channels with no approved release say NOT PUBLISHED rather than linking to a false package.** Existing Android APK prereleases are a separate download family. A plugin ZIP does not install itself in ChatGPT on iPhone.
+
 ## Default operating mode: independent studio
 
 [**Solo Studio profile**](doctrine/soloStudioOperatingProfileV1.json) is the proposed lightweight operating preset for **personal projects and small-business work**. Use existing GitHub, Render and local creative tools without assuming enterprise staffing, paid infrastructure, or 15 independently running agents. Simple private experiments get targeted checks; rights, secrets, paid work, publication and production changes retain their appropriate safeguards. The profile is not a claim of installed plugin or active agent runtimes.

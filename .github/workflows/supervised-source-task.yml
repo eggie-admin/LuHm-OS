@@ -1,5 +1,15 @@
 name: Supervised source task
 on:
+  pull_request:
+    paths:
+      - 'tools/supervisedSourceTask.py'
+      - 'tools/urdSupervisedSourceReview.py'
+      - 'tests/testSupervisedSourceTask.py'
+      - 'tests/testUrdSupervisedSourceReview.py'
+      - 'tests/testFastPathMilestone.py'
+      - 'tools/fastPathMilestone.py'
+      - '.github/workflows/fast-path-continuity.yml'
+      - '.github/workflows/supervised-source-task.yml'
   workflow_dispatch:
   push:
     branches: [main, candidate/supervised-execution-receipt-20261023]
@@ -19,22 +29,48 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
-      - name: Test source binding and failure behavior
-        run: python3 -m unittest discover -s tests -p testSupervisedSourceTask.py
+      - name: Verify exact non-mutating checkout
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          test -z "$(git status --porcelain --untracked-files=no)"
+      - name: Test source binding and hostile receipt behavior
+        run: |
+          python3 -m py_compile tools/supervisedSourceTask.py tools/urdSupervisedSourceReview.py
+          python3 -m unittest tests/testSupervisedSourceTask.py tests/testUrdSupervisedSourceReview.py tests/testFastPathMilestone.py -v
       - name: Execute one source inspection
         env:
-          SOURCE_SHA: ${{ github.sha }}
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           TASK_RUN: ${{ github.run_id }}
         run: |
           mkdir -p build/supervisedSourceTask
           python3 tools/supervisedSourceTask.py --source "$SOURCE_SHA" --task-id "sourceInspection-$TASK_RUN" > build/supervisedSourceTask/receipt.json
+      - name: Urd-style deterministic independent-codepath source verification
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          TASK_RUN: ${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          python3 tools/urdSupervisedSourceReview.py \
+            --source "$SOURCE_SHA" \
+            --task-id "sourceInspection-$TASK_RUN" \
+            --task-receipt build/supervisedSourceTask/receipt.json \
+            --output build/supervisedSourceTask/urdReview.json
+          echo "SOURCE_TASK_REVIEW=ACCEPTED"
+          echo "AGENT_EXECUTION=NOT_ATTEMPTED"
+          echo "CHATGPT_SUPERVISED_PROBE=NOT_OBSERVED"
+          echo "CROWN=STOP"
       - name: Preserve execution receipt even on failure
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: supervised-source-task-${{ github.sha }}
-          path: build/supervisedSourceTask/receipt.json
+          name: supervised-source-task-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            build/supervisedSourceTask/receipt.json
+            build/supervisedSourceTask/urdReview.json
           if-no-files-found: error
           retention-days: 14

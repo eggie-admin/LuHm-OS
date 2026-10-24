@@ -47,10 +47,20 @@ The manual upload contains:
 - `skills/luhm-agent-workflow/`
 - `skills/belldandy-housekeeping/`
 - `skills/luhm-coding-roleplay/`
+- `skills/luhm-glass-module-dock/` (modular music/avatar/Yume/social/admin chat workflows, source-only)
+- `LICENSE` (canonical GPLv3 text)
 - generated `SOURCE_MAP.json`
 - generated `BUILD_RECEIPT.json`
 
 Developer-only local/private MCP profiles and deployment/review working files are intentionally excluded from the manual upload artifact.
+
+## Cross-device glass plugin dock (candidate only)
+
+The mobile and full in-chat MCP widgets use a **single gear button** to reveal five source-registered cards: music, avatars/Python, Yume art, social publishing and admin. A card sends a requested workflow into the ChatGPT conversation when the host provides MCP Apps `ui/message` or the compatible ChatGPT helper. It does not embed unauthorized YouTube/Spotify playback, install a Python executor, post to social networks or activate quarantined Oni.
+
+Android Chrome Canary is an optional compatibility target; iPhone Chrome Stable/Beta is the supported testing assumption. There is no official Canary iPhone release channel. iPhone single-app confinement uses Guided Access/approved MDM, not a hidden unsupported headless Chromium build. The drawer is **inside** the sandboxed ChatGPT MCP App, not a global browser-page injection.
+
+The GitHub package skill is portable instructions only. The actual installed Project Hydra private Site backend must independently receive the new source and pass Android/iPhone ChatGPT mount tests before claiming the feature is live.
 
 ## Coding roleplay boundary
 

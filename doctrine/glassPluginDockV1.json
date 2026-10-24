@@ -1,0 +1,100 @@
+{
+  "schema": "luhmOs.glassPluginDock.v1",
+  "status": "SOURCE_CANDIDATE_NOT_HOST_MOUNTED",
+  "authority": "Professor",
+  "boss": "lum",
+  "purpose": "One accessible glass flyout inside LuHm MCP Apps, backed by modular chat intent cards and supervised execution gates.",
+  "launcher": {
+    "icon": "settings",
+    "label": "LuHm system settings",
+    "position": "singleLauncherInPluginFrame",
+    "defaultOpen": false
+  },
+  "presentation": {
+    "surface": "chatGptMcpAppsSandbox",
+    "availableModes": [
+      "inline",
+      "fullscreen",
+      "pipWhenHostSupports"
+    ],
+    "hostPageOverlay": false,
+    "gestureRequired": true,
+    "offlineTextFallback": true,
+    "focusReturn": true,
+    "escapeCloses": true
+  },
+  "kiosk": {
+    "webUi": "sameResponsiveHtmlForMobileAndDesktop",
+    "androidPreferredTest": "Chrome Canary (optional) or Chrome Stable",
+    "iosPreferredTest": "Chrome Stable or Beta, not Canary",
+    "iosConfinement": "GuidedAccessOrManagedSingleAppMode",
+    "browserIsHeadlessOnMobile": false,
+    "kioskInstallationAutomatic": false,
+    "loginSessionPreservedOnlyByBrowser": false,
+    "escapeMustRemainAvailable": true
+  },
+  "orchestration": {
+    "onlyLumRoutes": true,
+    "companyQuarantineEnforced": true,
+    "modelWorkersUnproven": true,
+    "maxParallelSpecialists": 3,
+    "oneMutationLane": true,
+    "humanApprovesPublish": true
+  },
+  "modules": [
+    {
+      "id": "music",
+      "label": "Music deck",
+      "owner": "lum",
+      "description": "jQuery music player, YouTube and Spotify planning; playback requires licensed provider and user interaction.",
+      "actionLabel": "Plan music workflow in chat",
+      "chatIntent": "Lum, open the LuHm music-deck planning workflow in this ChatGPT conversation. Check whether the existing jQuery media player and supported YouTube/Spotify integrations are actually available; propose the next bounded action. Do not claim playback, connect a music account or open an unauthorized stream.",
+      "status": "SOURCE_BOUNDARY_ONLY"
+    },
+    {
+      "id": "avatars",
+      "label": "Avatar lab",
+      "owner": "skuldResearch",
+      "description": "GoDaddy-labeled avatar/Python modular tools; exact capability and provider identity require verification.",
+      "actionLabel": "Inspect avatar module in chat",
+      "chatIntent": "Skuld, inspect the LuHm GoDaddy avatar and Python plugin module against current Canon. Determine the exact provider/tool identity, present available avatar actions and source gaps, and request approval before executing code or opening network access.",
+      "status": "SOURCE_BOUNDARY_ONLY"
+    },
+    {
+      "id": "yume",
+      "label": "Yume art studio",
+      "owner": "yume",
+      "description": "Art direction, image production, CSS, design assets and video/storyboard handoffs.",
+      "actionLabel": "Plan art task in chat",
+      "chatIntent": "Yume, open an in-chat LuHm art-studio workflow for brand, CSS, images or video. Choose a specific task from the current conversation and outline the approved asset pipeline with provenance and rights checks. Do not publish or invent a completed render.",
+      "status": "SOURCE_BOUNDARY_ONLY"
+    },
+    {
+      "id": "social",
+      "label": "Publishing desk",
+      "owner": "belldandySecretary",
+      "description": "Social, YouTube and art post drafting with review, permissions and publishing approval.",
+      "actionLabel": "Draft a post in chat",
+      "chatIntent": "Belldandy and Yume, open the LuHm social publishing desk inside this chat. Prepare a reviewed draft for Instagram, TikTok, YouTube or a related art post from material I explicitly provide; separate draft approval from posting. Do not access private accounts or publish without a specific authorized action.",
+      "status": "SOURCE_BOUNDARY_ONLY"
+    },
+    {
+      "id": "admin",
+      "label": "Admin and Canon",
+      "owner": "urdDoctorGoddess",
+      "description": "Audit agent runtime, doctrine drift, releases, permissions and kiosk deployment.",
+      "actionLabel": "Audit system in chat",
+      "chatIntent": "Lum, Urd and Skuld, inspect LuHm's active system state, GitHub Canon, mobile ChatGPT plugin host, release channels, worker quarantine and kiosk capability evidence. Fix bounded source defects when authorized; do not bypass Crown, signing, rights or independent runtime proof.",
+      "status": "SOURCE_BOUNDARY_ONLY"
+    }
+  ],
+  "hostCapabilities": {
+    "followUp": "optionalWindowOpenAiOrMcpUiMessage",
+    "fullscreen": "optionalWindowOpenAiRequestDisplayMode",
+    "serverToolWrites": false,
+    "providerPlayback": false,
+    "kioskCommands": false
+  },
+  "crownStatus": "STOP",
+  "promotion": false
+}
