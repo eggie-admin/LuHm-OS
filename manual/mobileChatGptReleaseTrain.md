@@ -36,6 +36,31 @@ GitHub PR merge is source promotion only; it cannot publish a ChatGPT directory 
 
 Lum coordinates task envelopes and explicitly scoped dispatch. Urd adjudicates live receipts and security; Belldandy records source hashes, tester evidence and rollback; Skuld handles iOS/Android/MCP protocol compatibility; Yume handles functional mobile UI; Tetsu prepares source candidates without compiling; Kaji packages **only** after an exact scoped single-use CAST. Other Oni may take real work only after their runtime capabilities, task scopes and company quarantine release are independently proven. Max three support workers in parallel, one mutable source lane. Never represent display animations, roleplay or training files as autonomous workers.
 
+## Owner's phone acceptance and host refresh gate (October 24)
+
+The connected Project Hydra personal Site currently exposes only `luhmConnectionStatus` and
+`luhm_open_cockpit`, even though the exact live Render `main` service has source for
+`luhm_open_mobile_cockpit` and `luhm_open_oni_summoner`. A GitHub/Render deployment
+**cannot update the independently managed Site connector tool list**. Refresh or repair
+the existing Site's MCP connection in the ChatGPT plugin settings without deleting the
+private plugin or changing its Site binding. First compare the current Site-visible tool
+names with the endpoint `tools/list` result and inspect the UI resource metadata.
+Do not offer desktop mode as Android acceptance.
+
+When the full or mobile cockpit card *actually displays inside the current ChatGPT
+conversation*, press **Send in-chat mount test**. The widget requests a follow-up message
+with resource URI, source reference, viewport width, and `userClicked=true`. This is
+a **candidate receipt** for a visible interactive widget, not platform identity
+attestation: the Professor must also report whether the card was in the ChatGPT mobile
+client, portrait/touch worked, and no browser harness navigation occurred. If the
+button is missing or no message returns, retain `HOST_MOUNT_BLOCKED` and investigate
+resource discovery/client mount instead of promoting green.
+
+The 15-agent Canon registry remains held by `companyWideOperationalQuarantineV1.json`;
+no runtime mesh activation is allowed until the specified supervised Belldandy/Urd
+receipts, explicit scoped Professor release, and verified provider-side task route.
+Source-only tests and animation cannot stand in for real agent mesh deployment.
+
 ## What remains to be proven
 
 - [ ] Host that serves GitHub MCP resources includes the new mobile route/tool, with exact deployed source SHA
