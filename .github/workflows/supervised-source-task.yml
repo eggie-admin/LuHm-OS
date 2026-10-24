@@ -6,6 +6,9 @@ on:
       - 'tools/urdSupervisedSourceReview.py'
       - 'tests/testSupervisedSourceTask.py'
       - 'tests/testUrdSupervisedSourceReview.py'
+      - 'tests/testFastPathMilestone.py'
+      - 'tools/fastPathMilestone.py'
+      - '.github/workflows/fast-path-continuity.yml'
       - '.github/workflows/supervised-source-task.yml'
   workflow_dispatch:
   push:
@@ -38,7 +41,7 @@ jobs:
       - name: Test source binding and hostile receipt behavior
         run: |
           python3 -m py_compile tools/supervisedSourceTask.py tools/urdSupervisedSourceReview.py
-          python3 -m unittest tests/testSupervisedSourceTask.py tests/testUrdSupervisedSourceReview.py -v
+          python3 -m unittest tests/testSupervisedSourceTask.py tests/testUrdSupervisedSourceReview.py tests/testFastPathMilestone.py -v
       - name: Execute one source inspection
         env:
           SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
