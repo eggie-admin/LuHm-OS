@@ -69,8 +69,15 @@ def reconcile(snapshot: dict, hold: dict, *, source_ref: str) -> dict:
         pr.get("state") == "closed" and pr.get("merged") is True
         and bool(SHA.fullmatch(pr.get("merge_commit_sha") or ""))
     )
+    admin_observed = (
+        isinstance(main.get("protected"), bool)
+        and rules.get("id") == RULESET_ID
+        and isinstance(rules.get("rules"), list)
+    )
     if not held:
         stage, action = "POLICY_DRIFT_STOP", "RECONCILE_QUARANTINE_CONTRACT"
+    elif not admin_observed:
+        stage, action = "P0_ADMIN_VERIFY", "RETRY_MAIN_PROTECTION_EVIDENCE_READ"
     elif not protected:
         stage, action = "P0_ADMIN_GATE", "RESTORE_MAIN_PROTECTION_RULESET_25699963"
     elif not source_match:
