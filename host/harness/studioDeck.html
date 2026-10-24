@@ -93,6 +93,21 @@
 <path d="M125 177 C90 151 102 137 125 151 C148 137 161 151 125 177Z" fill="#e95cb5" stroke="#ede9ff" stroke-width="3"/>
 <ellipse cx="64" cy="151" rx="13" ry="8" fill="#e95cb5" opacity=".58"/><ellipse cx="186" cy="151" rx="13" ry="8" fill="#e95cb5" opacity=".58"/>
 </svg></div><p id="pocketexpression" role="status" aria-live="polite">Lum · idle · Ready to play.</p><div class="studioButtons"><button id="pocketbond" type="button">Bond ♥</button><button id="pocketblink" type="button">Blink</button><button id="pocketcast" type="button">Cast ✧</button><button id="pocketpause" type="button" aria-pressed="false">Pause motion</button></div><label for="pocketpalette">Costume palette</label><select id="pocketpalette"><option value="cyan">Hydra Neon · cyan</option><option value="pink">Ember · magenta</option><option value="purple">Sanctuary · purple</option></select><label for="pocketscene">Scene atmosphere</label><select id="pocketscene"><option value="cathedral">Cathedral</option><option value="city">Neon city</option><option value="lab">Professor's lab</option><option value="stars">Starship bay</option><option value="portal">Portal chamber</option><option value="forest">Midnight forest</option></select></section>
+  <section class="studioLevel" id="studioPrivateLumSection" aria-labelledby="studioPrivateLumTitle">
+    <h2 id="studioPrivateLumTitle">Private Lum animation proof</h2>
+    <p>Choose your original GIF from your device. It stays in this browser session, never uploads or replaces the public Lum character.</p>
+    <label for="studioPrivateLumFile">Choose original Lum GIF (maximum 16 MiB)</label>
+    <input id="studioPrivateLumFile" type="file" accept=".gif,image/gif" aria-describedby="studioPrivateLumStatus">
+    <p id="studioPrivateLumStatus" role="status" aria-live="polite">No original selected. File-level rights and art approval are pending.</p>
+    <div id="studioPrivateLumStage" class="studioPrivateLumStage" hidden>
+      <img id="studioPrivateLumImage" alt="User-selected private Lum candidate, unapproved" width="512" height="640" decoding="async">
+    </div>
+    <div class="studioButtons">
+      <button id="studioPrivateLumPause" type="button" disabled aria-pressed="false">Pause animation</button>
+      <button id="studioPrivateLumClear" type="button" disabled>Remove private preview</button>
+    </div>
+    <p id="studioPrivateLumDigest" class="studioPrivateLumDigest">No SHA-256 computed. Real preview proof is local and does not authorize publication.</p>
+  </section>
   <section class="studioLevel" aria-labelledby="studioMusicTitle">
     <h2 id="studioMusicTitle">Music desk</h2><p>Paste a YouTube or YouTube Music video or playlist link. Load when you want to connect to YouTube.</p>
     <label for="studioMusicUrl">Track or playlist</label><input id="studioMusicUrl" type="url" maxlength="2048" placeholder="https://music.youtube.com/watch?v=…" autocomplete="off">
