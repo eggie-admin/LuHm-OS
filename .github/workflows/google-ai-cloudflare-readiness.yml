@@ -12,6 +12,12 @@ on:
       - 'doctrine/cloudflareAirTrafficControllerV1.json'
       - 'doctrine/cloudflareLumOrchestrationV1.json'
   workflow_dispatch:
+    inputs:
+      verify_google_metadata:
+        type: boolean
+        description: 'Owner-only metadata read after main protection, no model generation'
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -59,3 +65,55 @@ jobs:
           path: ${{ runner.temp }}/googleCloudflareReadiness.json
           if-no-files-found: warn
           retention-days: 14
+
+  owner-google-model-metadata:
+    if: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && github.actor == 'eggie-admin' && inputs.verify_google_metadata == true }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    permissions:
+      contents: read
+    steps:
+      - name: Exact protected main checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Deny if Main Protection is not effective
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          EXPECTED: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          gh api "repos/$REPO/branches/main" | jq -e '.protected == true' > /dev/null
+          gh api "repos/$REPO/rulesets/25699963" | jq -e '
+            .enforcement == "active" and
+            ((.conditions.ref_name.include // []) | index("refs/heads/main") != null) and
+            ([.rules[]?.type] | index("pull_request") != null and
+             index("non_fast_forward") != null and index("deletion") != null)
+          ' > /dev/null
+      - name: Google AI authenticated models.list only
+        env:
+          EXPECTED: ${{ github.sha }}
+          GOOGLE_AI_API_KEY: ${{ secrets.GOOGLE_AI_API_KEY }}
+        run: |
+          set -euo pipefail
+          python3 tools/googleAiCloudflareReadiness.py \
+            --source-ref "$EXPECTED" --probe-google-key \
+            --output "$RUNNER_TEMP/googleAuthenticatedModels.json"
+          jq -e '.googleAi.state == "AUTHENTICATED_MODEL_METADATA" and
+            .googleAi.modelGenerationCalled == false and
+            .googleAi.costApproval == false and
+            .googleAi.modelWorkerDeployed == false' \
+            "$RUNNER_TEMP/googleAuthenticatedModels.json" > /dev/null
+          echo "GOOGLE_METADATA_VERIFIED_NON_GENERATIVE=TRUE"
+          echo "WORKER_ACTIVATION=NOT_AUTHORIZED"
+      - name: Preserve credential-free readiness receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: google-ai-owner-metadata-${{ github.sha }}
+          path: ${{ runner.temp }}/googleAuthenticatedModels.json
+          retention-days: 7
+          if-no-files-found: warn
