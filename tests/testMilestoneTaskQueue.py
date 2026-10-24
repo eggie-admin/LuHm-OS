@@ -69,10 +69,16 @@ class MilestoneTaskQueueTest(unittest.TestCase):
             }}, SOURCE)
 
     def test_phone_cannot_be_proven_from_web_check(self):
-        obs = {"androidCockpitProof": {
-            "state": "PROVEN", "sourceRef": SOURCE, "checkedAt": "2026-10-24",
-            "evidenceRefs": ["ci:headlessChromium"]
-        }}
+        obs = {
+            "mobileMainHost": {
+                "state": "PROVEN", "sourceRef": SOURCE, "checkedAt": "2026-10-24",
+                "evidenceRefs": ["render:verified-live"]
+            },
+            "androidCockpitProof": {
+                "state": "PROVEN", "sourceRef": SOURCE, "checkedAt": "2026-10-24",
+                "evidenceRefs": ["ci:headlessChromium"]
+            }
+        }
         with self.assertRaisesRegex(ValueError, "OWNER_RECEIPT_REQUIRED"):
             evaluate(self.queue, obs, SOURCE)
 
