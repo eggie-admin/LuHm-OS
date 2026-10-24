@@ -1,8 +1,19 @@
 import json
 import unittest
-from tools.inChatLiveMcpProbe import parse_rpc, parse_script, read_public, ORIGINS
+from tools.inChatLiveMcpProbe import parse_rpc, parse_script, read_public, ORIGINS, TOOLS, MOBILE_TOOLS, expected_tools
 
 class PublicMcpProbeContract(unittest.TestCase):
+    def test_primaryMcpRequiresMobileTool(self):
+        required = expected_tools(ORIGINS["mcp"])
+        self.assertEqual(required["luhm_open_mobile_cockpit"], "ui://luhm-os/mobile-cockpit-v1.html")
+        self.assertIn("luhm_open_cockpit", required)
+
+    def test_godotPreviewNotFalselyEquatedWithPrimary(self):
+        required = expected_tools(ORIGINS["godot"])
+        self.assertEqual(required, TOOLS)
+        self.assertNotIn("luhm_open_mobile_cockpit", required)
+        self.assertEqual(len(MOBILE_TOOLS), 1)
+
     def test_plainJson(self):
         response = {"jsonrpc": "2.0", "id": 3, "result": {"tools": []}}
         self.assertEqual(parse_rpc(json.dumps(response).encode(), "application/json"), response)
