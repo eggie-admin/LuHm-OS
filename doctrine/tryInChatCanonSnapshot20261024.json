@@ -1,0 +1,116 @@
+{
+  "schema": "luhmOs.tryInChatCanonSnapshot.v1",
+  "status": "STAGED_HOST_ACCEPTANCE_PENDING",
+  "observedAt": "2026-10-24T20:57:54.140Z",
+  "sourceRef": "271823df1d62c462e3c03fc87adcd8c1b367be9b",
+  "objective": "Stage current Canon and deployed private mobile bridge for owner Try in chat acceptance.",
+  "scopeId": "personalPluginTryInChat",
+  "authority": "Professor",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "candidate": {
+    "pullRequest": 390,
+    "testedSourceRef": "4bce65b6ae79e6163376d62a9517e42869f5f79e",
+    "snapshotEditsRequireFreshCi": true,
+    "merged": false
+  },
+  "rollback": {
+    "canonicalSavepoint": "snapshot/try-in-chat-canon-20261024",
+    "siteSource": "c910441bae4d539043b5d2a6b52c14e6b2cc72f6"
+  },
+  "confirmedFacts": [
+    {
+      "claim": "Canonical main pinned; candidate PR remains open",
+      "classification": "OBSERVED",
+      "evidenceRef": "https://github.com/eggie-admin/LuHm-OS/pull/390"
+    },
+    {
+      "claim": "18 returned PR workflow runs succeeded for the tested candidate; not a claim about subsequent receipt commits",
+      "classification": "OBSERVED",
+      "evidenceRefs": [
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617737",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617606",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617642",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617650",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617615",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617673",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617630",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617638",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617618",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617608",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617622",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617687",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617629",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617636",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617686",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617722",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617610",
+        "https://github.com/eggie-admin/LuHm-OS/actions/runs/40131617580"
+      ]
+    },
+    {
+      "claim": "Existing owner-private Project Hydra Site version 9 deployed successfully at source 6a8d643a38494267b3f5ad328e989a829290ebd5",
+      "classification": "OBSERVED",
+      "evidenceRef": "Project Hydra Sites version 9 deployment receipt, 2026-10-24T20:53:53.220713Z"
+    },
+    {
+      "claim": "Live bridge lists luhmConnectionStatus, luhm_open_cockpit and luhm_open_mobile_cockpit",
+      "classification": "OBSERVED",
+      "evidenceRef": "Current-chat luhmConnectionStatus invocation on 2026-10-24"
+    },
+    {
+      "claim": "Site source tests: 18 passed, including Workers runtime; build artifact validated",
+      "classification": "OBSERVED",
+      "evidenceRef": "Project Hydra Site source 6a8d643a38494267b3f5ad328e989a829290ebd5: tests and worker/mobileCockpitResourceReceipt.json"
+    },
+    {
+      "claim": "All 15 backend agent work routes remain quarantined",
+      "classification": "SOURCE_DERIVED",
+      "evidenceRef": "https://github.com/eggie-admin/LuHm-OS/blob/271823df1d62c462e3c03fc87adcd8c1b367be9b/doctrine/companyWideOperationalQuarantineV1.json"
+    }
+  ],
+  "evidenceRefs": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/projectChatCanonV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/agentSystemDeploymentV1.json"
+  ],
+  "hostAcceptance": {
+    "status": "PENDING",
+    "currentChatMobileToolExposed": false,
+    "mobileToolInvoked": false,
+    "phoneUiMounted": false,
+    "userGestureReturned": false,
+    "androidInstalled": false,
+    "nextAction": "Open the existing Project Hydra personal plugin and choose Try in chat.",
+    "prompt": "Open the LuHm mobile cockpit here using luhm_open_mobile_cockpit. Stay inside this conversation.",
+    "expectedTitle": "LuHm OS · Mobile",
+    "expectedButton": "Send in-chat mount test",
+    "expectedMessagePrefix": "LUHM_CHAT_MOUNT_CANDIDATE",
+    "acceptance": [
+      "New chat discovers and invokes luhm_open_mobile_cockpit",
+      "Mobile card visibly mounts inside ChatGPT",
+      "Owner taps Send in-chat mount test and message arrives in that conversation",
+      "Owner confirms portrait, touch and return-to-chat behavior"
+    ],
+    "onMissingTool": "Record tool discovery blocked; do not redirect to website or claim successful mount.",
+    "onMissingCard": "Record UI mount blocked; tool success alone is not acceptance."
+  },
+  "pendingDecisions": [
+    "Owner host acceptance after Try in chat",
+    "Separate reviewed source promotion after fresh exact-head CI"
+  ],
+  "conflicts": [
+    "Server advertises mobile tool, but current conversation tool registry has not exposed it.",
+    "Website preview is not the mobile MCP cockpit."
+  ],
+  "proposedMutations": [
+    "Add snapshot and update candidate source-truth/bootstrap pointers; preserve historical receipts"
+  ],
+  "executionAuthorized": false,
+  "stagingAuthorized": true,
+  "agentActivation": false,
+  "publicationAuthority": false,
+  "promotion": false,
+  "fullGreen": false,
+  "crownStatus": "STOP"
+}
