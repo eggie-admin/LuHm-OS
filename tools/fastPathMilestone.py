@@ -67,9 +67,11 @@ def reconcile(snapshot: dict, hold: dict, *, source_ref: str) -> dict:
     )
     merged = (
         pr.get("state") == "closed" and pr.get("merged") is True
-        and (pr.get("merge_commit_sha") or "") == main.get("commit", {}).get("sha")
+        and bool(SHA.fullmatch(pr.get("merge_commit_sha") or ""))
     )
-    if not protected:
+    if not held:
+        stage, action = "POLICY_DRIFT_STOP", "RECONCILE_QUARANTINE_CONTRACT"
+    elif not protected:
         stage, action = "P0_ADMIN_GATE", "RESTORE_MAIN_PROTECTION_RULESET_25699963"
     elif not source_match:
         stage, action = "P1_SOURCE_GATE", "RECONCILE_EXACT_PR386_SOURCE"
