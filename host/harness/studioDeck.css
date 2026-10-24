@@ -157,3 +157,11 @@
 @media(max-width:480px){.studioDeck .studioGlassDock{padding:12px}.studioDeck .studioGlassRoutes{grid-template-columns:1fr 1fr}}
 @media(prefers-reduced-transparency:reduce){.studioDeck .studioGlassDock{background:#14203a}}
 @media(prefers-reduced-motion:reduce){.studioDeck .studioGlassDock{transition:none;animation:none}}
+
+/* Local-only private art review: no network background, no automatic file intake. */
+.studioDeck .studioPrivateLumStage{margin-top:12px;max-width:560px;width:100%;padding:12px;border:1px solid #95b7e3a3;border-radius:16px;background:linear-gradient(130deg,#0e1b33,#2d1645);box-shadow:0 12px 28px #05071188}
+.studioDeck .studioPrivateLumStage[hidden]{display:none}
+.studioDeck .studioPrivateLumStage img{display:block;max-width:100%;width:auto;max-height:60vh;height:auto;object-fit:contain;border-radius:12px;margin-inline:auto}
+.studioDeck .studioPrivateLumDigest{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;overflow-wrap:anywhere}
+.studioDeck #studioPrivateLumFile{cursor:pointer;max-width:100%}
+@media(max-width:480px){.studioDeck .studioPrivateLumStage img{max-height:48vh}}
