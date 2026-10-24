@@ -115,10 +115,18 @@ async function inspectSeparateGodotService(browser){
  assert.equal(await link.getAttribute("href"),"https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html");
  assert.equal(await link.getAttribute("target"),"_blank");
  assert.equal(await link.getAttribute("rel"),"noopener noreferrer");
- assert.equal(await page.locator("#playFirstNight").isDisabled(),true,"unverified embed must remain blocked");
- assert.match(await page.locator("#playStatus").innerText(),/separate Godot service/i);
+ assert.equal(await page.locator("#playFirstNight").isEnabled(),true,"Explicit remote Godot fallback is available");
+ assert.equal(await page.locator("#godotFrame").getAttribute("src"),null,"No remote request until user taps Play");
+ await page.locator("#playFirstNight").click();
+ assert.equal(await page.locator("#playGodotRemote").getAttribute("aria-pressed"),"true","Play requests remote Godot");
+ assert.equal(await page.locator("#godotFrame").getAttribute("src"),
+   "https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html","Exact Godot host only");
+ assert.match(await page.locator("#playStatus").innerText(),/unverified/,"Gameplay never inferred from iframe creation");
+ await page.locator("#playGodotRemote").click();
+ assert.equal(await page.locator("#godotFrame").getAttribute("src"),null,"Disconnect clears frame");
+ assert.match(await page.locator("#playStatus").innerText(),/disconnected/i);
  await page.close();
- return {safeSeparateServiceHandoff:true,unverifiedEmbedStillBlocked:true};
+ return {safeSeparateServiceHandoff:true,explicitRemoteGodotUserControl:true,noFalseGameplayGreen:true};
 }
 
 async function inspectOffline(browser){
