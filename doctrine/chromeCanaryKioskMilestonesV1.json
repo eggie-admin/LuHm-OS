@@ -76,5 +76,25 @@
     "preserveExistingRenderService": true
   },
   "nextPromotionTarget": "CHATGPT_ANDROID_INLINE_WIDGET_MOUNT_REPAIR",
-  "productCrown": "NOT_YET_PROVEN"
+  "productCrown": "NOT_YET_PROVEN",
+  "visualIntegrationHardening": {
+    "candidatePullRequest": 393,
+    "sourceGoal": "Make the existing Seven-Layer Glass+Music+Godot integration visibly actionable on standalone Canary",
+    "previousUserObservation": "NOT_VISIBLE_OR_NOT_WORKING",
+    "inScope": {
+      "glass": "VISIBLE_FIVE_MODULE_LOCAL_CONTROL_DOCK",
+      "sevenLayers": "SEVEN_PLANE_INSPECTOR_AND_EXISTING_CSS_COMPOSITOR",
+      "music": "JQUERY_MUSIC_PLUGIN_WITH_NATIVE_MCP_FALLBACK_AND_URL_VALIDATION",
+      "godot": "EXPLICIT_EXISTING_SERVICE_IFRAME_REQUEST_WITH_RESTRICTED_CSP"
+    },
+    "exactSourceBrowserEvidence": "GITHUB_PR_393_HEADLESS_320_390_960_AND_MCP_WIDGET_CI",
+    "soundPlaybackProven": false,
+    "godotGameplayProven": false,
+    "physicalCanaryVisualAcceptProven": false,
+    "chatGptAndroidInlineHostMountProven": false,
+    "noAutomaticAutoplay": true,
+    "noNewPaidServices": true,
+    "noUserMediaPublication": true,
+    "crownScope": "PROFESSOR_APPROVED_SOURCE_AND_EXISTING_HOST_DEPLOYMENT_PENDING_INDEPENDENT_DEVICE_CONFIRMATION"
+  }
 }
