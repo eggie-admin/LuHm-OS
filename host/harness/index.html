@@ -61,6 +61,7 @@
   </div>
   <div class="playActions">
     <button id="playFirstNight" type="button" disabled>Checking Godot export…</button>
+    <button id="playGodotRemote" type="button" aria-controls="godotFrame" aria-pressed="false">🎮 Embed existing Godot 4 service</button>
     <a id="godotExternalLink" hidden href="https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">🎮 Open separate Godot 3D service ↗</a>
     <span class="tiny" id="playStatus">Verifying the staged browser build.</span>
   </div>
@@ -104,7 +105,7 @@
       <div class="panelHead"><h2>Godot 4 Web viewport</h2><span class="badge" id="godotBadge">probing…</span></div>
       <div class="godotStage" id="godotStage">
         <div class="emptyState" id="godotEmpty">No staged Web export yet. Target: <code>host/harness/godot-export/index.html</code>.</div>
-        <iframe id="godotFrame" title="LuHm OS First Night playable Godot 4 Web viewer" sandbox="allow-scripts allow-same-origin allow-pointer-lock" referrerpolicy="no-referrer" loading="lazy"></iframe>
+        <iframe id="godotFrame" title="LuHm OS Godot 4 Web viewer (click to embed)" sandbox="allow-scripts allow-same-origin allow-pointer-lock" allow="fullscreen; gamepad" allowfullscreen referrerpolicy="no-referrer" loading="lazy"></iframe>
       </div>
     </article>
 
