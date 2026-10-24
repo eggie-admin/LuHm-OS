@@ -56,7 +56,31 @@
     
     <div class="studioWorldCopy"><span class="studioEyebrow">LuHm · creative workspace</span><h2 id="studioWorldTitle">Your cast. Your studio.</h2><p>Lum, Urd, Belldandy, Skuld and Yume — your creative cast in one glass workspace.</p>
     <div class="studioButtons"><button type="button" id="studioBackdropLoad">Enable embedded scene</button><button type="button" id="studioBackdropStop">Use static background</button></div>
-    <p id="studioBackdropStatus" role="status" aria-live="polite">Static background active. Embedded scene loads only when requested.</p></div>
+    <p id="studioBackdropStatus" role="status" aria-live="polite">Static background active. Embedded scene loads only when requested.</p>
+    <button id="studioGlassToggle" type="button" aria-expanded="false" aria-controls="studioGlassDock" class="studioGlassToggle">⚙ Open glass control dock</button>
+    <div id="studioGlassDock" class="studioGlassDock" hidden aria-label="LuHm glass control dock">
+      <div class="studioGlassHead"><strong>LuHm · Seven-layer glass cockpit</strong><button id="studioGlassClose" type="button" aria-label="Close glass control dock">✕ Close</button></div>
+      <p class="studioGlassSub">Real touch routes into this existing studio, not hidden workers or automatic playback.</p>
+      <div class="studioGlassRoutes">
+        <button type="button" data-studio-route="music">♫ Music · jQuery deck</button>
+        <button type="button" data-studio-route="avatars">◈ Avatar · Lum 2D</button>
+        <button type="button" data-studio-route="yume">✧ Yume · art desk</button>
+        <button type="button" data-studio-route="social">▤ Social · review only</button>
+        <button type="button" data-studio-route="admin">⚙ Admin · source truth</button>
+      </div>
+      <p id="studioGlassStatus" role="status" aria-live="polite">Select a module to focus its real controls or show its availability.</p>
+      <details id="studioPlaneInspector"><summary>Inspect seven compositor planes</summary>
+        <ol class="studioPlaneLegend">
+          <li>0 · Embedded media · Godot on explicit request</li>
+          <li>1 · Far field · CSS clouds</li>
+          <li>2 · Sharp background · perspective mountains</li>
+          <li>3 · Live character · interactive Lum puppet</li>
+          <li>4 · Vector effects · decorative SVG</li>
+          <li>5 · Glass widget dock · interactive controls</li>
+          <li>6 · Foreground atmosphere · inert scenery</li>
+        </ol>
+      </details>
+    </div></div>
   </section>
 <section class="studioLevel pocketCompanion" aria-label="Pocket vector pet"><h2>Pocket companion</h2><div id="pocketworld" class="pocketWorld"><div id="pocketbondHearts" aria-hidden="true"></div><svg id="pocketmascot" viewBox="0 0 250 260" role="img" aria-label="Friendly original Lum-inspired floating oni-orb pet with horns and expressive face">
 <ellipse id="pocketaura" cx="125" cy="130" rx="96" ry="104" fill="#6b35db" opacity=".25"/>
