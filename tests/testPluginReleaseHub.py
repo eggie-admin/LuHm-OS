@@ -78,5 +78,15 @@ class PluginReleaseHubTest(unittest.TestCase):
         self.assertIsNone(hub.reconcile([data])["channels"]["proposed"])
 
 
+    def test_publication_asset_names_match_channel_index(self):
+        """Guard against publishing a valid ZIP that our index never lists."""
+        workflow = (Path(__file__).resolve().parents[1] / ".github/workflows/plugin-release-hub.yml").read_text(encoding="utf-8")
+        canonical = 'PUBLIC_PACKAGE="LuHmOS-ChatGPT-${CHANNEL}-v${VERSION}-s${SOURCE_REF:0:8}.zip"'
+        self.assertEqual(workflow.count(canonical), 2)
+        self.assertIn('gh release create "$TAG" "$DIST/$PUBLIC_PACKAGE" "$DIST/$PUBLIC_PACKAGE.sha256"', workflow)
+        self.assertIn('test "$url" = "https://github.com/$REPO/releases/download/$TAG/$PUBLIC_PACKAGE"', workflow)
+        self.assertNotIn('gh release create "$TAG" "$DIST/$PACKAGE" "$DIST/$PACKAGE.sha256"', workflow)
+
+
 if __name__ == "__main__":
     unittest.main()
