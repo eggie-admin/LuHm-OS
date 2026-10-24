@@ -118,6 +118,8 @@ def evaluate(queue: dict, observations: dict, source_ref: str) -> dict:
         exact = observed_source == source_ref and bool(HEX_SHA.fullmatch(str(observed_source)))
         fresh_proof = exact and bool(checked) and bool(evidence)
         if state == "PROVEN":
+            if any(p["state"] != "DONE" for p in parents):
+                raise ValueError("DEPENDENCY_NOT_PROVEN:" + key)
             # A source-verified claim is still NOT automatically phone/owner proof.
             if task["lane"] in HUMAN_LANES and obs.get("ownerReceipt") is not True:
                 raise ValueError("OWNER_RECEIPT_REQUIRED:" + key)
