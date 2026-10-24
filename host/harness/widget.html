@@ -61,6 +61,7 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 .studioGlassCard small{color:#f3c778}
 #studioGlassDock :focus-visible,#studioGlassToggle:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 @media(prefers-reduced-transparency:reduce){#studioGlassDock{background:#111d32;backdrop-filter:none;-webkit-backdrop-filter:none}}
+#nativeChatProofButton{min-height:44px;padding:9px 12px;border:1px solid var(--cyan);border-radius:9px;background:#152d37;color:var(--ink);font:inherit}#nativeChatProofButton:disabled{opacity:.55}
 </style>
 </head>
 <body>
@@ -176,6 +177,12 @@ Normal chat remains literal outside this shell.</pre>
 </div>
 <div class="k networkTitle">network truth</div>
 <div class="networkTruth" id="networkTruth"></div>
+</section>
+<section class="inChatBeta" id="nativeChatProof" aria-labelledby="nativeChatProofTitle">
+<h2 id="nativeChatProofTitle">📱 Confirm this is inside ChatGPT</h2>
+<p class="sub">Only a tap on this embedded card can request an in-chat receipt. A separate desktop harness is not accepted. This does not approve a device, runtime workers, a release or Crown.</p>
+<button id="nativeChatProofButton" type="button" disabled>Send in-chat mount test</button>
+<p class="sub" id="nativeChatProofStatus" role="status" aria-live="polite">VERIFY · waiting for a valid embedded tool payload</p>
 </section>
 <footer id="foot">UI never grants GREEN, signing, merge, or publication authority.</footer>
 </main>
@@ -357,7 +364,7 @@ function studioWire(){
 let rpcId=0;const pending=new Map();let latest=null;
 const $=id=>document.getElementById(id);
 function render(data){
-  const candidate=data?.structuredContent||data;if(!candidate||candidate.schema!=="luhmOs.inChatExperiencePayload.v1"||candidate.surface!=="mcp-app"||candidate?.experience?.runtime?.resourceUri!=="ui://luhm-os/cockpit-v2.html"||candidate?.authority?.readOnly!==true||candidate?.authority?.mutationAuthority!==false||candidate?.authority?.publicationAuthority!==false||candidate?.authority?.greenAuthority!==false){latest=null;$("surface").textContent="MCP CONTRACT VERIFY · no live cockpit proof";$("truth").textContent="VERIFY";return;}latest=candidate;
+  const candidate=data?.structuredContent||data;if(!candidate||candidate.schema!=="luhmOs.inChatExperiencePayload.v1"||candidate.surface!=="mcp-app"||candidate?.experience?.runtime?.resourceUri!=="ui://luhm-os/cockpit-v2.html"||candidate?.authority?.readOnly!==true||candidate?.authority?.mutationAuthority!==false||candidate?.authority?.publicationAuthority!==false||candidate?.authority?.greenAuthority!==false){latest=null;$("nativeChatProofButton").disabled=true;$("surface").textContent="MCP CONTRACT VERIFY · no live cockpit proof";$("truth").textContent="VERIFY";return;}latest=candidate;$("nativeChatProofButton").disabled=false;
   const payload=latest;
   $("truth").textContent=payload?.status?.sourceTruthStatus||"UNKNOWN";
   const roles=payload?.roster?.roles||[];
@@ -444,6 +451,16 @@ function wireFullGlass(){
 
 const command="FAST_PATH ✔️➡️🟢👑👹⛪";
 function sendFollowUp(message){const api=window.openai;if(api?.sendFollowUpMessage)return api.sendFollowUpMessage({prompt:message});return request("ui/message",{role:"user",content:[{type:"text",text:message}]})}
+function wireNativeChatProof(){
+ $("nativeChatProofButton").onclick=async()=>{
+  if(!latest||window.parent===window){$("nativeChatProofStatus").textContent="BLOCKED · no embedded MCP tool context";return;}
+  const source=String(latest?.embeddedStudio?.sourceRef||latest?.status?.sourceSha||"UNVERIFIED").slice(0,64);
+  const prompt="LUHM_CHAT_MOUNT_CANDIDATE userClicked=true resource=ui://luhm-os/cockpit-v2.html widthPx="+Math.round(window.innerWidth)+" sourceRef="+source+". This is a user-clicked in-chat handoff, NOT proof of Android installation, independent agent execution, publication or Crown. Reconcile host and device separately.";
+  $("nativeChatProofStatus").textContent="Sending user-requested mount check to this conversation…";
+  try{await sendFollowUp(prompt);$("nativeChatProofStatus").textContent="Chat handoff requested. Confirm the message arrived; device acceptance remains pending.";}
+  catch(_){$("nativeChatProofStatus").textContent="BLOCKED · host chat handoff unavailable";}
+ };
+}
 function selectCommand(){const el=$("commandText"),range=document.createRange();range.selectNodeContents(el);const sel=getSelection();sel.removeAllRanges();sel.addRange(range)}
 async function copyCommand(){selectCommand();try{if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(command);else document.execCommand?.("copy");$("copyCommand").textContent="✓ Copied"}catch(_){$("copyCommand").textContent="⌖ Selected"}}
 function renderNetworkTruth(){const origin=latest?.harness?.publicOrigin||"VERIFY";const traffic=latest?.trafficController||{};const lane=traffic?.lanes?.publicChatPluginMcp||{};const staticLane=traffic?.lanes?.staticAssets||{};const rows={fqdn:origin,dns:lane?.customFqdnMode||"VERIFY",cname:lane?.bootstrapRecord?.target||"VERIFY",https:origin.startsWith?.("https://")?"URL_CONFIGURED_NOT_PROVED":"VERIFY",tls:lane?.tlsTermination||"VERIFY",cloudflare:traffic?.status||"VERIFY",staticMount:staticLane?.sourceMountState||"VERIFY",staticCdn:staticLane?.cloudflareCdnState||"VERIFY",csp:"SOURCE_POLICY_CONFIGURED_NOT_PROVED",renderOrigin:origin.includes?.("onrender.com")?"SOURCE_CONFIGURED_NOT_PROVED":"VERIFY",mcp:lane?.currentEndpoint||"VERIFY",sourceSha:latest?.status?.sourceTruthSha||latest?.status?.sourceSha||"VERIFY"};const box=$("networkTruth");box.textContent="";for(const [k,v] of Object.entries(rows)){const x=document.createElement("span");x.className=v==="LIVE_PROVED_WITH_RECEIPT"?"ok":"verify";x.textContent=k+": "+v;box.appendChild(x)}}
@@ -464,7 +481,7 @@ window.addEventListener("message",e=>{
   if(m.method==="ui/notifications/tool-result")render(m.params);
 },{passive:true});
 (async()=>{
-  rebelWire();studioWire();render(window.openai?.toolOutput); wireFullGlass(); wireCommands(); wireAfterHours(); setAfterHoursMode("OUTSIDE");
+  rebelWire();studioWire();render(window.openai?.toolOutput); wireFullGlass(); wireCommands(); wireNativeChatProof(); wireAfterHours(); setAfterHoursMode("OUTSIDE");
   if(window.parent===window)return;
   try{
     await request("ui/initialize",{appInfo:{name:"luhm-os-cockpit",version:"1.0.0"},appCapabilities:{},protocolVersion:"2026-01-26"});
