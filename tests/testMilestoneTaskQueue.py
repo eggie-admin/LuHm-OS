@@ -76,6 +76,15 @@ class MilestoneTaskQueueTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "OWNER_RECEIPT_REQUIRED"):
             evaluate(self.queue, obs, SOURCE)
 
+    def test_dependency_proof_required(self):
+        obs = {"samsungBetaDelivery": {
+            "state": "PROVEN", "sourceRef": SOURCE,
+            "checkedAt": "2026-10-24",
+            "ownerReceipt": True, "evidenceRefs": ["device:receipt"]
+        }}
+        with self.assertRaisesRegex(ValueError, "DEPENDENCY_NOT_PROVEN"):
+            evaluate(self.queue, obs, SOURCE)
+
     def test_no_dependency_cycles_or_unknown_deps(self):
         a = copy.deepcopy(self.queue)
         a["tasks"][0]["dependsOn"] = ["finalProductCrown"]
