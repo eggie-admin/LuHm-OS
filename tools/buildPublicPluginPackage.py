@@ -24,6 +24,7 @@ MEMBERS = (
     "skills/luhm-agent-workflow/SKILL.md",
     "skills/luhm-coding-roleplay/SKILL.md",
     "skills/belldandy-housekeeping/SKILL.md",
+    "skills/luhm-glass-module-dock/SKILL.md",
 )
 REPO_MEMBERS = ("LICENSE",)  # Include the GPLv3 text in distributable fork archives.
 GENERATED = ("SOURCE_MAP.json", "BUILD_RECEIPT.json")
