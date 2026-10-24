@@ -3,6 +3,10 @@ on:
   pull_request:
     paths:
       - 'doctrine/driveAssetAlignmentV1.json'
+      - 'doctrine/driveStudioReconciliationV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/chromeCanaryKioskMilestonesV1.json'
+      - 'tools/driveStudioReconciliationAudit.py'
       - 'manual/driveAssetAlignment.md'
       - 'tools/driveAssetAlignmentAudit.py'
       - '.github/workflows/drive-asset-alignment.yml'
@@ -17,3 +21,5 @@ jobs:
         with:
           persist-credentials: false
       - run: python3 tools/driveAssetAlignmentAudit.py
+      - name: Verify private-asset boundaries and Professor scoped Crown
+        run: python3 tools/driveStudioReconciliationAudit.py
