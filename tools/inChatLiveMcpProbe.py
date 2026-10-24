@@ -20,6 +20,7 @@ ORIGINS = {
 }
 TOOLS = {
     "luhm_open_cockpit": "ui://luhm-os/cockpit-v2.html",
+    "luhm_open_mobile_cockpit": "ui://luhm-os/mobile-cockpit-v1.html",
     "luhm_open_godot_player": "ui://luhm-os/godot-player-v1.html",
 }
 PROTOCOL = "2025-06-18"
@@ -78,6 +79,26 @@ def parse_script(html: str) -> str:
             raise ValueError("COCKPIT_JAVASCRIPT_PARSE_FAIL")
     return "PARSE_PASS"
 
+def verify_ui_resource(contents: list, uri: str) -> dict:
+    """Check the exact remote MIME/HTML contract; no private payloads recorded."""
+    pages = [x for x in contents if x.get("uri") == uri]
+    if len(pages) != 1:
+        raise ValueError("UI_RESOURCE_NOT_EXACTLY_ONCE")
+    page = pages[0]
+    if page.get("mimeType") != "text/html;profile=mcp-app":
+        raise ValueError("UI_RESOURCE_WRONG_MIME:" + str(page.get("mimeType", "MISSING"))[:70])
+    markup = page.get("text")
+    if not isinstance(markup, str) or not markup.lstrip().lower().startswith("<!doctype html"):
+        raise ValueError("UI_RESOURCE_NOT_HTML")
+    if len(markup.encode("utf-8")) > 100000:
+        raise ValueError("UI_RESOURCE_TOO_LARGE")
+    if "<script" not in markup or "ui/initialize" not in markup:
+        raise ValueError("UI_RESOURCE_MISSING_HOST_BRIDGE")
+    return {"uri": uri, "mimeType": page["mimeType"],
+            "htmlBytes": len(markup.encode("utf-8")),
+            "resourceMetaPresent": isinstance(page.get("_meta"), dict)}
+
+
 def observe(origin: str) -> dict:
     result: dict = {"origin": origin, "scope": "EXTERNAL_PUBLIC_MCP_ONLY",
                     "chatGptHost": "UNVERIFIED", "godotInteractive": "UNVERIFIED",
@@ -121,6 +142,14 @@ def observe(origin: str) -> dict:
     if cockpit is not None:
         pages = [p.get("text", "") for p in cockpit.get("contents", []) if p.get("uri") == TOOLS["luhm_open_cockpit"]]
         checked("cockpitJavaScript", lambda: parse_script(pages[0]) if pages else (_ for _ in ()).throw(ValueError("EMPTY_COCKPIT_UI")))
+    mobile = checked("mobileUiResource", lambda: rpc(origin, "resources/read", 5, {"uri": TOOLS["luhm_open_mobile_cockpit"]}))
+    if mobile is not None:
+        checked("mobileUiContract", lambda: verify_ui_resource(
+            mobile.get("contents", []), TOOLS["luhm_open_mobile_cockpit"]))
+        mobile_pages = [p.get("text", "") for p in mobile.get("contents", [])
+                        if p.get("uri") == TOOLS["luhm_open_mobile_cockpit"]]
+        checked("mobileJavaScript", lambda: parse_script(mobile_pages[0])
+                if mobile_pages else (_ for _ in ()).throw(ValueError("EMPTY_MOBILE_UI")))
     player = checked("godotUiResource", lambda: rpc(origin, "resources/read", 4, {"uri": TOOLS["luhm_open_godot_player"]}))
     if player is not None:
         pages = [p.get("text", "") for p in player.get("contents", []) if p.get("uri") == TOOLS["luhm_open_godot_player"]]
