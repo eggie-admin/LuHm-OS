@@ -3,6 +3,9 @@ on:
   pull_request:
     paths:
       - 'doctrine/chatContinuityResumeV1.json'
+      - 'doctrine/milestoneTaskQueueV1.json'
+      - 'tools/milestoneTaskQueue.py'
+      - 'tests/testMilestoneTaskQueue.py'
       - 'tools/contextTourniquet.py'
       - 'tests/testChatContinuityResume.py'
       - '.github/workflows/chat-continuity-resume.yml'
@@ -21,3 +24,5 @@ jobs:
         run: test -n "$(git rev-parse HEAD)"
       - name: Run checkpoint tests and negative controls
         run: python3 -m unittest tests/testChatContinuityResume.py -v
+      - name: Validate ChatGPT Task milestone queue, negative controls and dependency isolation
+        run: python3 -m unittest tests/testMilestoneTaskQueue.py -v
