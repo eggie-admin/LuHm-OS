@@ -47,6 +47,20 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 .rebelExport{display:none}.rebelExport.active{display:block}
 @media(max-width:430px){.rebelDesk{padding:11px;margin:8px}.rebelActions button{flex:1 1 140px}}
 
+/* One safe glass control INSIDE the MCP Apps iframe, never host-page injection. */
+#studioGlassToggle{margin-left:auto;min-width:44px;min-height:44px;background:#22283f;border:1px solid #7f8cb5;border-radius:11px;color:#fff;font-size:21px}
+#studioGlassDock[hidden]{display:none}
+#studioGlassDock{position:fixed;z-index:110;inset:0 0 0 auto;width:min(92vw,390px);height:100%;max-height:100dvh;overflow:auto;overscroll-behavior:contain;box-shadow:-15px 0 44px #000a;border-left:1px solid #879de5aa;background:linear-gradient(145deg,#23324be6,#0f1528f2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:14px;padding-top:calc(14px + env(safe-area-inset-top));padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+.studioGlassTop{display:flex;align-items:center;justify-content:space-between;gap:7px}
+.studioGlassTop h2{font-size:16px;margin:0;color:var(--cyan)}
+.studioGlassTop button{min-height:44px;min-width:44px;background:#26314c;border:1px solid #8aa3da;color:#fff;border-radius:9px;font-size:19px}
+#studioGlassCards{display:grid;gap:9px;margin-top:12px}
+.studioGlassCard{border:1px solid #637b9c;background:#142437aa;border-radius:11px;padding:10px}
+.studioGlassCard b{font-size:13px}.studioGlassCard p{font-size:12px;color:#c5d6e4;line-height:1.45}
+.studioGlassCard button{min-height:44px;width:100%;background:#174358;color:#eefaff;border:1px solid #68a9c1;border-radius:8px}
+.studioGlassCard small{color:#f3c778}
+#studioGlassDock :focus-visible,#studioGlassToggle:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+@media(prefers-reduced-transparency:reduce){#studioGlassDock{background:#111d32;backdrop-filter:none;-webkit-backdrop-filter:none}}
 </style>
 </head>
 <body>
@@ -54,7 +68,14 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <header>
 <div class="pet" id="pet">L</div>
 <div><h1>LuHm OS · Lum/Oni Cockpit</h1><div class="sub" id="surface">read-only MCP Apps frame</div></div>
+<button id="studioGlassToggle" type="button" aria-label="LuHm system settings" aria-controls="studioGlassDock" aria-expanded="false">⚙</button>
 </header>
+<aside id="studioGlassDock" hidden aria-label="LuHm modular glass dock">
+<div class="studioGlassTop"><h2>LuHm plugins</h2><div><button id="studioGlassExpand" type="button" aria-label="Expand cockpit">⛶</button><button id="studioGlassClose" type="button" aria-label="Close plugins">×</button></div></div>
+<p class="sub">Choose a task. Each action enters ChatGPT; no worker, playback or publishing is automatic.</p>
+<p id="studioGlassStatus" role="status">VERIFY · waiting for module contract</p>
+<div id="studioGlassCards"></div>
+</aside>
 
 <section class="rebelDesk" id="rebelDesk" data-luhm-rebel-project aria-labelledby="rebelTitle">
 <div class="k">PROJECT HYDRA / REBEL · PRIVATE DRAFT</div><h2 id="rebelTitle">🎬 Rebel · In-Chat Director's Desk</h2>
@@ -360,6 +381,7 @@ function render(data){
   const origin=payload?.harness?.publicOrigin;
   if(origin&&origin!=="LOCAL_ONLY") $("foot").textContent=`Full harness: ${origin}/harness/ · read-only`;
   renderInChatBeta(payload.betaLanes);
+  renderFullGlass(payload.glassDock);
   renderNetworkTruth();
   renderPrecisionCommands();
   renderAfterHoursContract();
@@ -378,6 +400,48 @@ function renderInChatBeta(beta){
  const status=document.getElementById("inChatBetaAccess");
  if(status)status.textContent=safe?"Alex is not connected. External tester plugin install and ChatGPT in-chat mount remain unverified. Invites NOT SENT.":"BLOCKED · no verified ChatGPT in-chat tester proof; no invitation or release.";
 }
+
+function validFullGlass(d){
+ return d?.schema==="luhmOs.glassPluginDock.v1"&&d?.crownStatus==="STOP"&&d?.promotion===false&&
+ d?.presentation?.hostPageOverlay===false&&d?.orchestration?.companyQuarantineEnforced===true&&
+ Array.isArray(d.modules)&&d.modules.map(m=>m.id).join(",")==="music,avatars,yume,social,admin"&&
+ d.modules.every(m=>m.status==="SOURCE_BOUNDARY_ONLY"&&typeof m.chatIntent==="string"&&m.chatIntent.length<=1000);
+}
+function renderFullGlass(d){
+ const dock=$("studioGlassCards");dock.textContent="";
+ if(!validFullGlass(d)){$("studioGlassStatus").textContent="VERIFY · no valid Canon module contract";return;}
+ $("studioGlassStatus").textContent="Five module cards · proposals only";
+ for(const item of d.modules){
+  const card=document.createElement("div");card.className="studioGlassCard";
+  const head=document.createElement("b");head.textContent=item.label;
+  const desc=document.createElement("p");desc.textContent=item.description;
+  const btn=document.createElement("button");btn.type="button";btn.textContent=item.actionLabel;
+  btn.addEventListener("click",async()=>{
+   if(!latest||!validFullGlass(latest.glassDock)){$("studioGlassStatus").textContent="BLOCKED · Canon unavailable";return;}
+   $("studioGlassStatus").textContent="Sending request to ChatGPT…";
+   try{await sendFollowUp(item.chatIntent);$("studioGlassStatus").textContent="Sent to chat · proof required for execution";}
+   catch(_){$("studioGlassStatus").textContent="BLOCKED · chat handoff unavailable";}
+  });
+  const status=document.createElement("small");status.textContent=item.status;
+  card.append(head,desc,btn,status);dock.append(card);
+ }
+}
+function setFullGlass(open){
+ $("studioGlassDock").hidden=!open;
+ $("studioGlassToggle").setAttribute("aria-expanded",String(open));
+ if(open)$("studioGlassClose").focus();else $("studioGlassToggle").focus();
+}
+function wireFullGlass(){
+ $("studioGlassToggle").onclick=()=>setFullGlass($("studioGlassDock").hidden);
+ $("studioGlassClose").onclick=()=>setFullGlass(false);
+ document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!$("studioGlassDock").hidden)setFullGlass(false)});
+ $("studioGlassExpand").onclick=async()=>{
+  if(!window.openai?.requestDisplayMode){$("studioGlassStatus").textContent="Fullscreen host mode unavailable";return;}
+  try{await window.openai.requestDisplayMode({mode:"fullscreen"});}
+  catch(_){$("studioGlassStatus").textContent="Fullscreen request declined";}
+ };
+}
+
 const command="FAST_PATH ✔️➡️🟢👑👹⛪";
 function sendFollowUp(message){const api=window.openai;if(api?.sendFollowUpMessage)return api.sendFollowUpMessage({prompt:message});return request("ui/message",{role:"user",content:[{type:"text",text:message}]})}
 function selectCommand(){const el=$("commandText"),range=document.createRange();range.selectNodeContents(el);const sel=getSelection();sel.removeAllRanges();sel.addRange(range)}
@@ -400,7 +464,7 @@ window.addEventListener("message",e=>{
   if(m.method==="ui/notifications/tool-result")render(m.params);
 },{passive:true});
 (async()=>{
-  rebelWire();studioWire();render(window.openai?.toolOutput); wireCommands(); wireAfterHours(); setAfterHoursMode("OUTSIDE");
+  rebelWire();studioWire();render(window.openai?.toolOutput); wireFullGlass(); wireCommands(); wireAfterHours(); setAfterHoursMode("OUTSIDE");
   if(window.parent===window)return;
   try{
     await request("ui/initialize",{appInfo:{name:"luhm-os-cockpit",version:"1.0.0"},appCapabilities:{},protocolVersion:"2026-01-26"});
