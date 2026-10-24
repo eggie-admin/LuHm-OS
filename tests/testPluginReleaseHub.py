@@ -86,6 +86,10 @@ class PluginReleaseHubTest(unittest.TestCase):
         self.assertIn('gh release create "$TAG" "$DIST/$PUBLIC_PACKAGE" "$DIST/$PUBLIC_PACKAGE.sha256"', workflow)
         self.assertIn('test "$url" = "https://github.com/$REPO/releases/download/$TAG/$PUBLIC_PACKAGE"', workflow)
         self.assertNotIn('gh release create "$TAG" "$DIST/$PACKAGE" "$DIST/$PACKAGE.sha256"', workflow)
+        self.assertIn('ruleset="$(gh api "repos/$REPO/rulesets/25699963")"', workflow)
+        for guard in ('"pull_request"', '"non_fast_forward"', '"deletion"',
+                      '.enforcement == "active"'):
+            self.assertIn(guard, workflow)
 
 
 if __name__ == "__main__":
