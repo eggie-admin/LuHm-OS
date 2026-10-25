@@ -20,7 +20,7 @@ head = "a" * 40
 class FnCastVoiceTests(unittest.TestCase):
     def testYamlSubsetSchemaAndExistingGlobalAlias(self):
         self.assertEqual(contract["entryPoint"], "LuHmOS.fn.cast")
-        self.assertEqual(contract["sqlCast"]["result"], "boolean")
+        self.assertEqual(contract["sqlCast"]["result"], "tunedJsonDocumentAndSqlReceipt")
         self.assertTrue(contract["sqlCast"]["executesSql"])
         self.assertEqual(contract["sqlCast"]["operation"], "SQLITE_JSON1_PARAMETERIZED_JSON_SET")
         self.assertEqual(contract["sqlCast"]["databaseWrites"], "candidateLocalOnlyWhenApply")
