@@ -24,13 +24,13 @@
     "exactWholeCommand": true,
     "requiresArmedInput": true,
     "requiresFnCastContext": true,
-    "shortAliasRequiresConfirmation": true,
     "collisionPolicy": "scopedOnly",
     "existingGlobalAliases": {
       "cst": "currentSourceTruth",
       "c": "continue"
     },
-    "noAutomaticBuildOrRelease": true
+    "noAutomaticBuildOrRelease": true,
+    "singleLetterRequiresConfirmation": true
   },
   "tier": {
     "id": "forFuckSake",
