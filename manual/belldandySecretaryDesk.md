@@ -4,7 +4,7 @@
 
 ## Four desks
 
-**Brand desk:** consistent LuHm OS, Project Hydra, Eggie Bagelface and PIRATE DADDIES FILM identities; collect marks, variants, credits, rights and review status.
+**Brand desk:** consistent LuHm OS, Project Premonition (legacy Project Hydra), Eggie Bagelface and PIRATE DADDIES FILM identities; collect marks, variants, credits, rights and review status.
 
 **Field manual desk:** chapter routes, source links, version labels, print-edition references, clear examples and handoff notes.
 
