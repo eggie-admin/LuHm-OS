@@ -1,0 +1,115 @@
+{
+  "schema": "luhmOs.legacyNamespaceSnapshot.v1",
+  "snapshotDate": "2026-10-25",
+  "title": "LuHm-OS Canonical Namespace Legacy Cutoff",
+  "brand": "LuHm-OS",
+  "brandExactMatchRequired": true,
+  "brandIdentityLaw": {
+    "canonicalBrand": "LuHm-OS",
+    "caseAndHyphenSensitive": true,
+    "canonicalBrandIsNotCodeIdentifier": true,
+    "doNotReplaceBrandWithProjectLabel": true,
+    "developmentNamesAreNotBrandAuthority": true
+  },
+  "baseline": {
+    "repository": "eggie-admin/LuHm-OS",
+    "branch": "main",
+    "sourceRef": "b60ac4ef0299c267df06638e505109bae9af8713",
+    "classificationCutoff": "2026-10-25",
+    "scope": "allExistingSystemArtifacts",
+    "scopeIsPolicyNotCompletedInventory": true,
+    "currentCheckoutRequiredForNewClaims": true
+  },
+  "authority": "Professor",
+  "status": "PROPOSED_LEGACY_SNAPSHOT",
+  "namingLaw": "doctrine/namingNamespaceCanonV1.json",
+  "machineNamingLaw": "doctrine/camelHumpDoctrineLawV1.json",
+  "classificationRule": {
+    "snapshotAppliesToExistingArtifacts": true,
+    "criterion": "classify by the namespace selected by the artifact contract",
+    "defaultCanonicalInternalNames": "camelHump",
+    "canonicalInternalPattern": "^[a-z][A-Za-z0-9]*$",
+    "repositoryTransportNames": "kebabCase",
+    "repositoryTransportPattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+    "statusStateSentinels": "dragonTail",
+    "statusStatePattern": "^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$",
+    "externalProtocolIdentifiers": "preserveExactRequiredSpelling",
+    "missingOrAmbiguousNamespace": "LEGACY_REVIEW_REQUIRED",
+    "preexistingNonconformingName": "LEGACY",
+    "preexistingConformingName": "CURRENT_NAMING_CANDIDATE",
+    "newlyIntroducedNonconformingName": "BLOCK_NEW_DRIFT",
+    "referenceOrMentionDoesNotEstablishCompliance": true,
+    "filenameRule": "an existing authored filename in a form outside its selected namespace is LEGACY; names mandated by an external protocol retain exact spellings",
+    "mixedFileContentsRule": "an existing file containing locally authored internal identifiers outside canonical namespace is LEGACY even when its filename conforms",
+    "noAutomaticRenames": true,
+    "noAutomaticDelete": true,
+    "noAutomaticCodeExecution": true,
+    "historicalReceiptsRemainImmutable": true,
+    "legacyMayRemainOperational": true,
+    "legacyIsNotApprovedForNewCanonicalAuthority": true,
+    "migrationRequiresSuccessorAndProof": true
+  },
+  "examples": {
+    "canonical": [
+      "legacyNamespaceSnapshotV1.json",
+      "sourceRef",
+      "currentSourceTruth",
+      "PROPOSED_ONLY",
+      "public-plugin-package"
+    ],
+    "legacyExamples": [
+      "package_workflow",
+      "android_build",
+      "plugin_dispatch",
+      "SOURCE_OF_TRUTH.json"
+    ],
+    "protocolExceptions": [
+      "GITHUB_RUN_ID",
+      "GITHUB_REPOSITORY",
+      "GH_TOKEN",
+      "__name__",
+      "README.md",
+      "AGENTS.md"
+    ],
+    "brandException": [
+      "LuHm-OS"
+    ]
+  },
+  "githubOrganizationProposal": {
+    "labels": [
+      "namespace:legacy",
+      "namespace:canonical",
+      "namespace:review",
+      "migration:blocked",
+      "proof:pending"
+    ],
+    "milestone": "Namespace Legacy Migration",
+    "projectFields": [
+      "namespaceStatus",
+      "owner",
+      "sourceRef",
+      "migrationPriority",
+      "proofStatus"
+    ],
+    "branchPrefix": "doctrine/",
+    "gitTagCandidate": "namespace-legacy-cutoff-20261025",
+    "releaseRequired": false,
+    "noTagOrLabelOrMilestoneCreatedByThisSnapshot": true
+  },
+  "auditEvidence": {
+    "snapshotDefinesClassificationLawOnly": true,
+    "wholeSystemInventoryCompleted": false,
+    "auditCoverage": "notYetEstablished",
+    "requireExactSourceRefForEachFinding": true,
+    "requireNamespaceContextForEachFinding": true,
+    "auditSuccessDoesNotGrantCrown": true
+  },
+  "governance": {
+    "noMergeWithoutReview": true,
+    "noBuildDispatch": true,
+    "noCrownPromotion": true,
+    "noPublicRelease": true,
+    "preserveCurrentSecurityBoundaries": true,
+    "crownStatus": "STOP"
+  }
+}
