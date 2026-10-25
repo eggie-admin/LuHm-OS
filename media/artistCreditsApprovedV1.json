@@ -19,5 +19,10 @@
     "noAccountKeys": true,
     "noExternalMediaFetch": true
   },
-  "promotion": false
+  "promotion": false,
+  "correctionHoldAssetIds": [],
+  "creditsMustNeverImplyCreatorEndorsement": true,
+  "artistCorrectionProtocol": "doctrine/artistCreditLedgerV1.json#creatorRespectAndCorrection",
+  "licenseSource": "specificAssetPageNotPlatformDefault",
+  "externalIdentityOrContactDataAllowed": false
 }
