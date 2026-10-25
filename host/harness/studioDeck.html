@@ -108,12 +108,16 @@
     </div>
     <p id="studioPrivateLumDigest" class="studioPrivateLumDigest">No SHA-256 computed. Real preview proof is local and does not authorize publication.</p>
   </section>
-  <section class="studioLevel" aria-labelledby="studioMusicTitle">
-    <h2 id="studioMusicTitle">Music desk</h2><p>Paste a YouTube or YouTube Music video or playlist link. Load when you want to connect to YouTube.</p>
-    <label for="studioMusicUrl">Track or playlist</label><input id="studioMusicUrl" type="url" maxlength="2048" placeholder="https://music.youtube.com/watch?v=…" autocomplete="off">
-    <div class="studioButtons"><button id="studioMusicLoad" type="button">Load YouTube player</button><button id="studioMusicStop" type="button">Disconnect player</button></div>
-    <p id="studioMusicStatus" role="status">YouTube is disconnected. No autoplay.</p>
-    <div id="studioMusicStage"></div><a id="studioMusicExternal" hidden target="_blank" rel="noopener" referrerpolicy="strict-origin-when-cross-origin">Open on YouTube</a>
+  <section class="studioLevel studioRadio" aria-labelledby="studioMusicTitle">
+    <div class="studioRadioHeader"><span class="studioEyebrow">LuHm airwaves / station 01</span><span class="studioRadioBadge">PUBLIC PLAYLIST</span></div>
+    <h2 id="studioMusicTitle">ONI RADIO</h2>
+    <p class="studioRadioTagline">Professor's frequency. Neon nights, loud company.</p>
+    <div class="studioRadioDial" aria-hidden="true"><span>88</span><span>96</span><span class="studioRadioFrequency">ONI / 01</span><span>104</span><span>108</span></div>
+    <p>One station, your shared playlist. Tune in, then press play in the YouTube player.</p>
+    <label for="studioMusicUrl">Station playlist</label><input id="studioMusicUrl" type="url" maxlength="2048" value="https://music.youtube.com/playlist?list=PLe-qrCeWHNIs" autocomplete="off">
+    <div class="studioButtons"><button id="studioMusicLoad" type="button">Tune in · ONI RADIO</button><button id="studioMusicStop" type="button">Radio off</button></div>
+    <p id="studioMusicStatus" role="status">Radio off. Tune in when you're ready.</p>
+    <div id="studioMusicStage"></div><a id="studioMusicExternal" hidden target="_blank" rel="noopener" referrerpolicy="strict-origin-when-cross-origin">Open playlist on YouTube</a>
   </section>
   <section class="studioLevel" aria-labelledby="studioAssetsTitle">
     <h2 id="studioAssetsTitle">Asset register</h2><p>Choose originals to sort and fingerprint locally. Nothing is uploaded or unpacked. Rights and canon stay awaiting review.</p>
