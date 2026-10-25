@@ -31,6 +31,9 @@ progress{width:100%;height:12px;accent-color:var(--pink)}
 #status{color:var(--blue);min-height:26px}
 footer{border-top:1px solid #454563;padding-top:11px;margin-top:17px;color:var(--soft);font-size:12px}
 @media(prefers-reduced-motion:no-preference){.stage[aria-busy=true] .glass{animation:glow 1.2s ease-in-out infinite alternate}@keyframes glow{to{opacity:.5}}}
+.gag{display:none}.gag.playing{display:block;animation:stageExit 2.9s ease-in-out forwards;transform:translateX(480px)}
+@keyframes stageExit{0%{transform:translateX(480px)}24%{transform:translateX(190px)}52%{transform:translateX(185px)}100%{transform:translateX(-560px)}}
+@media(prefers-reduced-motion:reduce){.gag.playing{animation:none;transform:translateX(135px)}}
 </style>
 </head>
 <body><main>
@@ -56,6 +59,29 @@ footer{border-top:1px solid #454563;padding-top:11px;margin-top:17px;color:var(-
 <path d="M290 337H410" stroke="#e5b69b" stroke-width="5"/>
 <g fill="#7cdef1"><circle cx="147" cy="230" r="9"/><circle cx="555" cy="230" r="9"/></g>
 <g fill="#e8a0d0"><circle cx="195" cy="290" r="5"/><circle cx="505" cy="290" r="5"/></g>
+<!-- Fictional chibi comedy. Original vector art; no borrowed superhero likeness or user-supplied assets. -->
+<g id="earGag" class="gag" aria-hidden="true">
+<g transform="translate(80 198)">
+<path d="M5 124L19 57L66 55L88 124Z" fill="#212b39" stroke="#63d3df" stroke-width="5"/>
+<ellipse cx="41" cy="32" rx="30" ry="35" fill="#ecc3b4"/>
+<path d="M12 23L11 4L26 12L27 -9L42 5L58 -14L58 12L71 4L70 32" fill="#783b35" stroke="#9e6c60" stroke-width="3"/>
+<path d="M28 36L35 34M49 34L56 36" stroke="#432a38" stroke-width="3"/>
+<path d="M36 52Q43 58 52 51" stroke="#714350" stroke-width="3" fill="none"/>
+<path d="M59 69Q94 74 122 37" stroke="#ecc3b4" stroke-width="12" fill="none" stroke-linecap="round"/>
+<circle cx="121" cy="37" r="8" fill="#ecc3b4"/>
+<path d="M84 69L107 45" stroke="#43d8e7" stroke-width="7"/>
+</g>
+<g transform="translate(191 218)">
+<path d="M8 104L9 55L69 55L93 104Z" fill="#4f343f" stroke="#d78bb3" stroke-width="4"/>
+<ellipse cx="39" cy="35" rx="30" ry="33" fill="#f1c7af"/>
+<path d="M9 19L0 2L24 10L21 -12L41 5L53 -11L61 12L82 4L67 25" fill="#29252f" stroke="#a49aa8" stroke-width="3"/>
+<path d="M26 38L32 42M50 42L55 38" stroke="#4a303b" stroke-width="4"/>
+<path d="M30 55Q43 46 54 57" stroke="#8d4963" stroke-width="3" fill="none"/>
+<circle cx="65" cy="47" r="9" fill="#e8b19d" stroke="#bd7d7b" stroke-width="3"/>
+<path d="M74 49L85 48" stroke="#ecb5ac" stroke-width="5"/>
+<path d="M15 77L-12 63" stroke="#f1c7af" stroke-width="12" stroke-linecap="round"/>
+</g>
+</g>
 </svg>
 <div class="verse" id="verse">The Cathedral is waiting.</div>
 </div>
@@ -80,6 +106,7 @@ footer{border-top:1px solid #454563;padding-top:11px;margin-top:17px;color:var(-
 <div class="row">
 <button type="button" id="advance">1 · Ring the bell</button>
 <button type="button" id="reset">Start over</button>
+<button type="button" id="playGag">Play a silly stage gag</button>
 </div>
 <footer>LOCAL FICTION ONLY · No accounts, ads, subscriptions, user identifiers, external artwork, or network requests. Any real CAST action requires a separate authorized workflow. Not a public release or proof of ChatGPT installation.</footer>
 </main>
@@ -119,6 +146,15 @@ $("dialogue").textContent=description;
 $("status").textContent=step===3?"Finished. This is still only a local game.":"Step "+step+" of 3 complete.";
 $("progress").value=step;$("advance").textContent=next;
 $("advance").disabled=step===3;$("stage").setAttribute("aria-busy",String(step===2));
+});
+$("playGag").addEventListener("click",()=>{
+const actor=$("earGag");
+actor.classList.remove("playing");
+void actor.getBoundingClientRect();
+actor.classList.add("playing");
+$("speaker").textContent="Lum";
+$("dialogue").textContent="Uncle Eggy, the dramatic monologue is over. Your ear and I have discussed it. Offstage, please!";
+$("status").textContent="Just a cartoon joke. No real person or artwork is used.";
 });
 $("reset").addEventListener("click",()=>{
 step=0;$("progress").value=0;$("advance").disabled=false;
