@@ -81,27 +81,27 @@ def inspect(document: dict, *, checkPaths: bool = True) -> dict:
             "ONE_SHARED_EXPERIENCE_MULTIPLE_PLATFORM_DELIVERY_ADAPTERS", "UNIVERSALITY")
     require(mobile.get("zeroInstallInterpretation") == "BROWSER_LINK_WITH_NO_NATIVE_PACKAGE_INSTALL", "ZERO_INSTALL")
     require(mobile.get("userGestureMayStillBeRequired") is True, "HUMAN_GESTURE")
-    levels = mobile.get("threeLevels", [])
-    require(isinstance(levels, list) and len(levels) == 3, "THREE_LEVELS")
-    require([x.get("index") for x in levels] == [0, 1, 2], "LEVEL_ORDER")
-    require([x.get("id") for x in levels] ==
+    mobileLevels = mobile.get("threeLevels", [])
+    require(isinstance(levels, list) and len(mobileLevels) == 3, "THREE_LEVELS")
+    require([x.get("index") for x in mobileLevels] == [0, 1, 2], "LEVEL_ORDER")
+    require([x.get("id") for x in mobileLevels] ==
             ["deviceHardwareDelivery", "machineAbiFirmwareKernel", "appRuntimePackaging"], "LEVEL_IDS")
-    require([x.get("displaySlug") for x in levels] ==
+    require([x.get("displaySlug") for x in mobileLevels] ==
             ["device-hardware-delivery", "machine-abi-firmware-kernel", "app-runtime-packaging"], "LEVEL_SLUGS")
-    for level in levels:
+    for level in mobileLevels:
         require(isinstance(level.get("objective"), str) and len(level["objective"]) > 30, "LEVEL_OBJECTIVE")
-    require([x.get("target") for x in levels[0].get("crossPlatform", [])] ==
+    require([x.get("target") for x in mobileLevels[0].get("crossPlatform", [])] ==
             ["android", "samsung", "iphone"], "DEVICE_TARGETS")
-    require(levels[0].get("iPhoneCanInstallApk") is False, "IOS_APK")
-    require(levels[0].get("nativePackageOutputIsNotUniversal") is True, "NATIVE_FORMAT_SPLIT")
-    require(levels[1].get("androidPolicy") == "PRESERVE_OEM_STOCK_KERNEL_GKI_KMI_VENDOR_MODULES", "KERNEL_POLICY")
-    require(levels[1].get("iosPolicy") == "NO_KERNEL_OR_FIRMWARE_MUTATION_APP_SANDBOX_ONLY", "IOS_KERNEL_POLICY")
+    require(mobileLevels[0].get("iPhoneCanInstallApk") is False, "IOS_APK")
+    require(mobileLevels[0].get("nativePackageOutputIsNotUniversal") is True, "NATIVE_FORMAT_SPLIT")
+    require(mobileLevels[1].get("androidPolicy") == "PRESERVE_OEM_STOCK_KERNEL_GKI_KMI_VENDOR_MODULES", "KERNEL_POLICY")
+    require(mobileLevels[1].get("iosPolicy") == "NO_KERNEL_OR_FIRMWARE_MUTATION_APP_SANDBOX_ONLY", "IOS_KERNEL_POLICY")
     for field in ("neverFlashFirmware", "neverReplaceVendorKernel", "noBlindMainlineMigration"):
-        require(levels[1].get(field) is True, "FIRMWARE_GUARD_" + field)
-    require(levels[2].get("initialNativeIosStatus") == "PARKED", "IOS_NATIVE_STATE")
+        require(mobileLevels[1].get(field) is True, "FIRMWARE_GUARD_" + field)
+    require(mobileLevels[2].get("initialNativeIosStatus") == "PARKED", "IOS_NATIVE_STATE")
     for field in ("noAutomaticInstall", "noSecretInBrowser", "noUserVisibleCliRequired",
                   "noDuplicateRenderEngineByDefault"):
-        require(levels[2].get(field) is True, "APP_GUARD_" + field)
+        require(mobileLevels[2].get(field) is True, "APP_GUARD_" + field)
     note = mobile.get("fourthNote", {})
     require(note.get("id") == "groundZeroReprise" and
             note.get("displaySlug") == "ground-zero-reprise", "FOURTH_NOTE")
