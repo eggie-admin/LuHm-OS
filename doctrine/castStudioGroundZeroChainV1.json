@@ -269,5 +269,161 @@
   "hostMountVerified": false,
   "runtimeVerified": false,
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "mobileComposition": {
+    "schema": "luhmOs.castCrossPlatformComposition.v1",
+    "status": "SOURCE_POLICY_ONLY_NO_PLATFORM_RELEASE_PROOF",
+    "creativeRule": "Three foundational levels rise to the studio; the fourth note is the final downward verification.",
+    "universalProductPrinciple": "ONE_SHARED_EXPERIENCE_MULTIPLE_PLATFORM_DELIVERY_ADAPTERS",
+    "zeroInstallInterpretation": "BROWSER_LINK_WITH_NO_NATIVE_PACKAGE_INSTALL",
+    "userGestureMayStillBeRequired": true,
+    "threeLevels": [
+      {
+        "index": 0,
+        "id": "deviceHardwareDelivery",
+        "displaySlug": "device-hardware-delivery",
+        "objective": "Fingerprint capability profiles of Android, Samsung OEM Android, and iPhone; define a low-friction browser path before native packages",
+        "probes": [
+          "cpuArchitecture",
+          "arm64Availability",
+          "gpuWebgl2Support",
+          "memoryBudget",
+          "storageBudget",
+          "touchAndAccessibility",
+          "safeArea",
+          "physicalDeviceVersion"
+        ],
+        "crossPlatform": [
+          {
+            "target": "android",
+            "delivery": "browserFirstPlusSignedApkOrPlayAabOption",
+            "installAuthority": "OS_OR_DISTRIBUTOR"
+          },
+          {
+            "target": "samsung",
+            "delivery": "androidCoreWithSamsungCapabilityAdapterNotSeparateApk",
+            "installAuthority": "ANDROID_OEM_POLICY"
+          },
+          {
+            "target": "iphone",
+            "delivery": "browserFirstNoApkOptionalAppleSignedNativeArtifact",
+            "installAuthority": "APPLE_DISTRIBUTION"
+          }
+        ],
+        "releaseProofRequired": [
+          "real physical model and OS",
+          "browser first-run and navigation",
+          "device-specific graphics degradation",
+          "native signing and update proof only if separate native target authorized"
+        ],
+        "nativePackageOutputIsNotUniversal": true,
+        "iPhoneCanInstallApk": false
+      },
+      {
+        "index": 1,
+        "id": "machineAbiFirmwareKernel",
+        "displaySlug": "machine-abi-firmware-kernel",
+        "objective": "Read machine compatibility and OS/hardware boundary before choosing engine flags, kernel assumptions or driver dependencies",
+        "probes": [
+          "instructionSetArm64V8AndX86_64Targets",
+          "ElfAndNativeLibraryAbiOnAndroid",
+          "IosBinaryFormatAndSigningBoundary",
+          "vendorFirmwareStateReadOnly",
+          "osKernelVersion",
+          "androidGkiKmiVersion",
+          "vendorKernelModuleCompatibility",
+          "graphicsDriverAndWebglSupport",
+          "communityMainlineResearchOnly"
+        ],
+        "androidPolicy": "PRESERVE_OEM_STOCK_KERNEL_GKI_KMI_VENDOR_MODULES",
+        "iosPolicy": "NO_KERNEL_OR_FIRMWARE_MUTATION_APP_SANDBOX_ONLY",
+        "codespacesPolicy": "UBUNTU_USERLAND_HOST_KERNEL_PROVIDER_CONTROLLED",
+        "neverFlashFirmware": true,
+        "neverReplaceVendorKernel": true,
+        "noBlindMainlineMigration": true,
+        "assemblyScope": "INSPECT_BINARY_ARCHITECTURE_ABI_AND_SYMBOLS_ONLY"
+      },
+      {
+        "index": 2,
+        "id": "appRuntimePackaging",
+        "displaySlug": "app-runtime-packaging",
+        "objective": "Compose one browser-first UI and separately verified native wrappers where platform requirements justify them",
+        "targets": [
+          "htmlCssJquery",
+          "npmPinnedModules",
+          "optionalLazy3dWebgl",
+          "existingGodotScene",
+          "mcpInChatHarness",
+          "androidWebViewWrapperOptional",
+          "iosNativeWrapperLaterSeparateApproval"
+        ],
+        "androidOutputs": [
+          "webExperience",
+          "signedUniversalApkCandidateAfterIndependentGate",
+          "playAabCandidateSeparateGate"
+        ],
+        "iosOutputs": [
+          "webExperience",
+          "optionalIosNativeAppOnlyAfterAppleSigningAndDistributionApproval"
+        ],
+        "noAutomaticInstall": true,
+        "noSecretInBrowser": true,
+        "noUserVisibleCliRequired": true,
+        "noDuplicateRenderEngineByDefault": true,
+        "initialNativeIosStatus": "PARKED",
+        "deploymentStatus": "NO_NEW_LIVE_DEPLOY"
+      }
+    ],
+    "fourthNote": {
+      "id": "groundZeroReprise",
+      "displaySlug": "ground-zero-reprise",
+      "purpose": "Start from final polished studio output and verify down through packaged runtime, signed platform policy, machine ABI, vendor kernel/firmware, and actual hardware",
+      "checks": [
+        "sameExactSourceRefAndArtifactDigest",
+        "independentlySupportedAndroidAndIphoneTargets",
+        "nativePackageNeverMislabelledUniversalAcrossOs",
+        "authorizedOsSigningAndStoreOrMdmPolicy",
+        "realWebglTouchSafeAreaAndOfflineFallback",
+        "noUnauthorizedKernelFirmwareMutation",
+        "rollbackNoUserDataLoss",
+        "humanCreativeAcceptanceAndSingleUseCastGate"
+      ],
+      "notClaimedUntilRuntimeEvidence": true,
+      "finalGate": "PROFESSOR_HUMAN_APPROVAL_NO_AUTOMATIC_CROWN"
+    },
+    "distribution": {
+      "browserFirst": "OPEN_LINK_NO_NATIVE_INSTALL_REQUIRED",
+      "androidApk": "ANDROID_ONLY_INSTALLABLE_ARTIFACT",
+      "googlePlay": "AAB_DISTRIBUTION_ANDROID_ONLY",
+      "iosBrowser": "SAFARI_WEB_CORE",
+      "iosNative": "SEPARATE_IOS_SIGNING_APPLE_DISTRIBUTION_IF_LATER_APPROVED",
+      "iosCannotExecuteApk": true,
+      "unownedDeviceSilentNativeInstallPromised": false,
+      "ownedManagedDeviceSilentNativeInstallRequiresApprovedMdm": true
+    },
+    "runtimeEvidence": {
+      "androidPhysicalProof": false,
+      "samsungPhysicalProof": false,
+      "iphoneBrowserProof": false,
+      "iphoneNativeBuildProof": false,
+      "iosDistributionApproved": false,
+      "firmwareChangeApproved": false,
+      "liveDeploymentReady": false
+    },
+    "referenceLaw": [
+      "doctrine/samsungAntennaV1.json",
+      "manual/professor-ubuntu2604-basement.md",
+      "doctrine/luHmOSFourLayerArchitectureV1.json"
+    ],
+    "sourceReferences": [
+      "https://developer.android.com/guide/app-bundle",
+      "https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases",
+      "https://source.android.com/docs/core/architecture/kernel",
+      "https://support.apple.com/guide/deployment/distribute-managed-apps-dep575bfed86/web"
+    ],
+    "userMustNotFlashOrInstallKernel": true,
+    "buildDispatched": false,
+    "promotion": false,
+    "crownStatus": "STOP"
+  }
 }
