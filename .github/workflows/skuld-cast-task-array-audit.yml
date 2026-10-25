@@ -3,6 +3,9 @@ on:
   pull_request:
     paths:
       - doctrine/castTaskArrayV1.json
+      - doctrine/guestOnboardingWizardV1.json
+      - plugins/luhm-os/guestWizard/index.html
+      - tools/guestOnboardingWizardAudit.py
       - doctrine/castStudioGroundZeroChainV1.json
       - tools/castStudioGroundZeroChainAudit.py
       - doctrine/castHumanCenteredBridgeV1.yaml
@@ -38,7 +41,7 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$expectedHead"
           git diff --check
-          python3 -m py_compile tools/castTaskArray.py tools/castHumanCenteredBridge.py tools/castStudioGroundZeroChainAudit.py
+          python3 -m py_compile tools/castTaskArray.py tools/castHumanCenteredBridge.py tools/castStudioGroundZeroChainAudit.py tools/guestOnboardingWizardAudit.py
           python3 -m json.tool doctrine/castTaskArrayV1.json >/dev/null
       - name: Run deterministic refusal and Canon axis checks
         run: |
@@ -46,6 +49,7 @@ jobs:
           python3 tools/castTaskArray.py --self-test
           python3 tools/castHumanCenteredBridge.py --self-test
           python3 tools/castStudioGroundZeroChainAudit.py --self-test
+          python3 tools/guestOnboardingWizardAudit.py
       - name: Prove multi-task queue never dispatches a CAST
         run: |
           set -euo pipefail
