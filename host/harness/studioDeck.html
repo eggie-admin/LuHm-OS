@@ -108,12 +108,24 @@
     </div>
     <p id="studioPrivateLumDigest" class="studioPrivateLumDigest">No SHA-256 computed. Real preview proof is local and does not authorize publication.</p>
   </section>
-  <section class="studioLevel" aria-labelledby="studioMusicTitle">
-    <h2 id="studioMusicTitle">Music desk</h2><p>Paste a YouTube or YouTube Music video or playlist link. Load when you want to connect to YouTube.</p>
-    <label for="studioMusicUrl">Track or playlist</label><input id="studioMusicUrl" type="url" maxlength="2048" placeholder="https://music.youtube.com/watch?v=…" autocomplete="off">
-    <div class="studioButtons"><button id="studioMusicLoad" type="button">Load YouTube player</button><button id="studioMusicStop" type="button">Disconnect player</button></div>
-    <p id="studioMusicStatus" role="status">YouTube is disconnected. No autoplay.</p>
-    <div id="studioMusicStage"></div><a id="studioMusicExternal" hidden target="_blank" rel="noopener" referrerpolicy="strict-origin-when-cross-origin">Open on YouTube</a>
+  <section class="studioLevel studioRetroPlayer" aria-labelledby="studioMusicTitle">
+    <div class="retroMusicShell" id="retroMusicShell">
+      <div class="retroMusicTitlebar"><strong id="studioMusicTitle">♫ LUHM AMP</strong><span class="retroMusicBuild">EGGIE BAGELFACE · STUDIO EDITION</span><span class="retroMusicLed" aria-hidden="true"></span></div>
+      <div class="retroMusicDisplay">
+        <div class="retroMusicReadout"><span>STEREO · WEB STREAM</span><strong>LUHM // READY</strong><small>CONNECT YOUR OWN TRACK · NO AUTOPLAY</small></div>
+        <div class="retroMusicSpectrum" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="retroMusicPanel">
+        <p class="retroMusicNote">Your soundtrack, your choice. Paste a YouTube or YouTube Music video or playlist link. Loading is always explicit.</p>
+        <label for="studioMusicUrl">Track or playlist URL</label>
+        <input id="studioMusicUrl" type="url" inputmode="url" maxlength="2048" placeholder="https://music.youtube.com/watch?v=…" autocomplete="off">
+        <div class="studioButtons retroMusicTransport" role="group" aria-label="Music player controls"><button id="studioMusicLoad" type="button" aria-label="Connect YouTube music player">▶ CONNECT PLAYER</button><button id="studioMusicStop" type="button" aria-label="Disconnect music player">■ STOP / EJECT</button></div>
+        <p id="studioMusicStatus" role="status" aria-live="polite">YouTube is disconnected. No autoplay.</p>
+        <div id="studioMusicStage"></div>
+        <a id="studioMusicExternal" hidden target="_blank" rel="noopener noreferrer" referrerpolicy="strict-origin-when-cross-origin">Open on YouTube</a>
+      </div>
+      <div class="retroMusicFooter">LUHM OS · CLASSIC DESK · NO TRACKING SCRIPTS</div>
+    </div>
   </section>
   <section class="studioLevel" aria-labelledby="studioAssetsTitle">
     <h2 id="studioAssetsTitle">Asset register</h2><p>Choose originals to sort and fingerprint locally. Nothing is uploaded or unpacked. Rights and canon stay awaiting review.</p>
