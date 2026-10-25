@@ -136,6 +136,39 @@ require(completion.get("automationLaw", {}).get("packageSuccessMustNotBeReported
 require(completion.get("chatGptHost", {}).get("requiredRuntimeTool") == "luhm_open_cockpit",
         "completion contract runtime tool drift")
 
+
+# Additional private PR411 route. This deliberately does not expand the
+# generic current-main public/package milestone allowlist.
+godotWebWorkflow = (ROOT / ".github/workflows/godot-web-harness.yml").read_text(encoding="utf-8")
+expectedSourceRef = "55a10a74f4101ae557d37081cc671de1ceb74ff1"
+for expectedToken in (
+    "github.event.comment.user.login == github.repository_owner",
+    'approvedSha="' + expectedSourceRef + '"',
+    'prHead="$(gh api "repos/$GITHUB_REPOSITORY/pulls/411" --jq \'.head.sha\')"',
+    'firstOwnerCommandId="$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/411/comments?per_page=100"',
+    'if: steps.cast.outputs.requestedMilestone == \'witchingHourWeb\'',
+    '-f milestoneId=proposedWitchingHourWeb20261025',
+    '-f castOriginCommentId="$castOriginCommentId"',
+    "privateArtifactOnly=true",
+):
+    require(expectedToken in workflow, "PR411 owner-bound CAST Bridge route missing: " + expectedToken)
+
+for expectedToken in (
+    "approvedPr=411",
+    'approvedCommentId="$castOriginCommentId"',
+    'expectedCommand="/cast witchingHourWeb $sourceRef"',
+    'expectedMilestone="proposedWitchingHourWeb20261025"',
+    'expectedTask="proposedWitchingHourFinalBoss"',
+    '[[ "$approvalBody" == "$expectedCommand" ]]',
+    '[[ "$firstOwnerCommandId" == "$castOriginCommentId" ]]',
+    '[[ "$(gh api "repos/$GITHUB_REPOSITORY/pulls/$approvedPr" --jq \'.head.sha\')" == "$sourceRef" ]]',
+):
+    require(expectedToken in godotWebWorkflow, "PR411 delegated Godot gate missing: " + expectedToken)
+
+require(expectedSourceRef in godotWebWorkflow, "PR411 exact source SHA not pinned in Godot gate")
+require("noImplicitShortAliasDispatch" in safety and safety.get("noImplicitShortAliasDispatch") is True,
+        "short diagnostic alias must not grant new PR411 CAST authority")
+
 print(json.dumps({
     "schema":"luhm-os.professor-cast-bridge-audit.v2",
     "status":"GREEN_PROFESSOR_CAST_BRIDGE" if not errors else "RED_PROFESSOR_CAST_BRIDGE",
