@@ -230,6 +230,15 @@ def register_harness(
     glass_dock = json.loads(glass_dock_path.read_text(encoding="utf-8"))
     cast_bridge = json.loads((root / "doctrine/castHumanCenteredBridgeV1.yaml").read_text(encoding="utf-8"))
     cast_queue = json.loads((root / "doctrine/milestoneTaskQueueV1.json").read_text(encoding="utf-8"))
+    studio_chain = json.loads((root / "doctrine/castStudioGroundZeroChainV1.json").read_text(encoding="utf-8"))
+    if (studio_chain.get("schema") != "luhmOs.castStudioGroundZeroChain.v1"
+        or studio_chain.get("crownStatus") != "STOP"
+        or studio_chain.get("runtimeVerified") is not False
+        or studio_chain.get("buildDispatched") is not False
+        or studio_chain.get("sourceWritesAllowed") is not False
+        or [t.get("layer") for t in studio_chain.get("tasks", [])] != [0,1,2,3,2,1,0]
+        or [t.get("leg") for t in studio_chain.get("tasks", [])] != ["UP","UP","UP","APEX","DOWN","DOWN","DOWN"]):
+        raise RuntimeError("RED_CAST_STUDIO_GROUND_ZERO_CHAIN")
     if (cast_bridge.get("schema") != "luhmOs.castHumanCenteredBridge.v1"
         or cast_bridge.get("presentationOnly") is not True
         or cast_bridge.get("zeroAutomaticDispatch") is not True
@@ -263,6 +272,23 @@ def register_harness(
                 "buildDispatched": False,
             } for t in tasks],
             "taskFreshness": "SOURCE_QUEUE_ONLY_RECHECK_CURRENT_RECEIPTS",
+            "studioChain": {
+                "schema": studio_chain["schema"],
+                "status": "SOURCE_ARRAY_ONLY_CODESPACE_RUNTIME_UNVERIFIED",
+                "target": "GitHub Codespaces Ubuntu 26.04",
+                "tasks": [{
+                    "id": item["id"], "slug": item["slug"],
+                    "leg": item["leg"], "layer": item["layer"],
+                    "next": item["next"],
+                    "evidenceCount": len(item["evidence"]),
+                    "verified": False
+                } for item in studio_chain["tasks"]],
+                "runtimeVerified": False,
+                "codespaceRunningProven": False,
+                "hostMountVerified": False,
+                "buildDispatched": False,
+                "crownStatus": "STOP",
+            },
             "buildDispatched": False, "castEnvelopesGranted": 0, "agentWorkersStarted": 0,
             "hostMountVerified": False, "promotion": False, "crownStatus": "STOP",
         }
