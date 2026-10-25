@@ -1,0 +1,66 @@
+name: npm CAST Human Boundary Audit
+on:
+  pull_request:
+    paths:
+      - "frontEnd/package.json"
+      - "frontEnd/tools/cast-bridge.mjs"
+      - "frontEnd/tools/cast-bridge.test.mjs"
+      - "tools/castHumanCenteredBridge.py"
+      - "tools/castTaskArray.py"
+      - "doctrine/castHumanCenteredBridgeV1.yaml"
+      - "doctrine/castTaskArrayV1.json"
+      - "doctrine/milestoneTaskQueueV1.json"
+      - ".github/workflows/npm-cast-human-bridge-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  npm-cast-read-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - name: Exact PR source checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: \${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Node runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Test syntax and exact source
+        env:
+          expectedHead: \${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$expectedHead"
+          node --check frontEnd/tools/cast-bridge.mjs
+          node --check frontEnd/tools/cast-bridge.test.mjs
+          python3 -m py_compile tools/castTaskArray.py tools/castHumanCenteredBridge.py
+      - name: Type guards and full read-only bridge
+        working-directory: frontEnd
+        run: npm run cast:check
+      - name: npm -f cannot dispatch CAST
+        working-directory: frontEnd
+        run: |
+          set -euo pipefail
+          npm run cast:preview -- --json --force --tier 3 \
+            --tasks mobileMainHost,chatGptInlineMount \
+            --source-ref "$(git rev-parse HEAD)" > /tmp/luhmNpmCastPreview.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path("/tmp/luhmNpmCastPreview.json").read_text())
+          assert receipt["schema"] == "luhmOs.npmCastHumanBoundary.v1"
+          assert receipt["status"] == "READ_ONLY_REVIEW_REQUIRED"
+          assert receipt["forceRequested"] is True
+          assert receipt["forceApplied"] is False
+          assert receipt["dispatchAuthority"] is False
+          assert receipt["humanDecisionRequired"] is True
+          assert receipt["canonicalPreview"]["castEnvelopesGranted"] == 0
+          assert receipt["canonicalPreview"]["buildDispatched"] is False
+          assert receipt["crownStatus"] == "STOP"
+          print("npm CAST boundary refuses force; no build dispatched")
+          PY
