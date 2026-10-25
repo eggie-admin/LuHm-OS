@@ -72,6 +72,56 @@ def inspect(document: dict, *, checkPaths: bool = True) -> dict:
     ):
         require(stage.get(key) is True, "PROOF_" + key)
     require(stage.get("initialClaim") == "UNVERIFIED_NOT_STAGED_FOR_LIVE_DEPLOYMENT", "INITIAL_CLAIM")
+    # Device composition has three levels and a fourth, downward proof note.
+    # One cross-platform experience NEVER implies a cross-platform Android APK.
+    mobile = document.get("mobileComposition", {})
+    require(mobile.get("schema") == "luhmOs.castCrossPlatformComposition.v1", "MOBILE_SCHEMA")
+    require(mobile.get("status") == "SOURCE_POLICY_ONLY_NO_PLATFORM_RELEASE_PROOF", "MOBILE_STATUS")
+    require(mobile.get("universalProductPrinciple") ==
+            "ONE_SHARED_EXPERIENCE_MULTIPLE_PLATFORM_DELIVERY_ADAPTERS", "UNIVERSALITY")
+    require(mobile.get("zeroInstallInterpretation") == "BROWSER_LINK_WITH_NO_NATIVE_PACKAGE_INSTALL", "ZERO_INSTALL")
+    require(mobile.get("userGestureMayStillBeRequired") is True, "HUMAN_GESTURE")
+    levels = mobile.get("threeLevels", [])
+    require(isinstance(levels, list) and len(levels) == 3, "THREE_LEVELS")
+    require([x.get("index") for x in levels] == [0, 1, 2], "LEVEL_ORDER")
+    require([x.get("id") for x in levels] ==
+            ["deviceHardwareDelivery", "machineAbiFirmwareKernel", "appRuntimePackaging"], "LEVEL_IDS")
+    require([x.get("displaySlug") for x in levels] ==
+            ["device-hardware-delivery", "machine-abi-firmware-kernel", "app-runtime-packaging"], "LEVEL_SLUGS")
+    for level in levels:
+        require(isinstance(level.get("objective"), str) and len(level["objective"]) > 30, "LEVEL_OBJECTIVE")
+    require([x.get("target") for x in levels[0].get("crossPlatform", [])] ==
+            ["android", "samsung", "iphone"], "DEVICE_TARGETS")
+    require(levels[0].get("iPhoneCanInstallApk") is False, "IOS_APK")
+    require(levels[0].get("nativePackageOutputIsNotUniversal") is True, "NATIVE_FORMAT_SPLIT")
+    require(levels[1].get("androidPolicy") == "PRESERVE_OEM_STOCK_KERNEL_GKI_KMI_VENDOR_MODULES", "KERNEL_POLICY")
+    require(levels[1].get("iosPolicy") == "NO_KERNEL_OR_FIRMWARE_MUTATION_APP_SANDBOX_ONLY", "IOS_KERNEL_POLICY")
+    for field in ("neverFlashFirmware", "neverReplaceVendorKernel", "noBlindMainlineMigration"):
+        require(levels[1].get(field) is True, "FIRMWARE_GUARD_" + field)
+    require(levels[2].get("initialNativeIosStatus") == "PARKED", "IOS_NATIVE_STATE")
+    for field in ("noAutomaticInstall", "noSecretInBrowser", "noUserVisibleCliRequired",
+                  "noDuplicateRenderEngineByDefault"):
+        require(levels[2].get(field) is True, "APP_GUARD_" + field)
+    note = mobile.get("fourthNote", {})
+    require(note.get("id") == "groundZeroReprise" and
+            note.get("displaySlug") == "ground-zero-reprise", "FOURTH_NOTE")
+    require(note.get("notClaimedUntilRuntimeEvidence") is True and
+            note.get("finalGate") == "PROFESSOR_HUMAN_APPROVAL_NO_AUTOMATIC_CROWN",
+            "FOURTH_NOTE_AUTHORITY")
+    require(len(note.get("checks", [])) >= 7, "REPRISE_EVIDENCE")
+    distribution = mobile.get("distribution", {})
+    require(distribution.get("androidApk") == "ANDROID_ONLY_INSTALLABLE_ARTIFACT", "APK_SCOPE")
+    require(distribution.get("iosNative") ==
+            "SEPARATE_IOS_SIGNING_APPLE_DISTRIBUTION_IF_LATER_APPROVED", "APPLE_SCOPE")
+    require(distribution.get("iosCannotExecuteApk") is True, "IOS_BINARY_BOUNDARY")
+    require(distribution.get("unownedDeviceSilentNativeInstallPromised") is False, "SILENT_INSTALL_CLAIM")
+    require(distribution.get("ownedManagedDeviceSilentNativeInstallRequiresApprovedMdm") is True, "MDM_POLICY")
+    require(all(value is False for value in mobile.get("runtimeEvidence", {}).values()), "RUNTIME_CLAIMS")
+    for field in ("userMustNotFlashOrInstallKernel",):
+        require(mobile.get(field) is True, "USER_KERNEL_GUARD")
+    for field in ("buildDispatched", "promotion"):
+        require(mobile.get(field) is False, "MOBILE_AUTHORITY_" + field)
+    require(mobile.get("crownStatus") == "STOP", "MOBILE_CROWN")
     tasks = document.get("tasks")
     require(isinstance(tasks, list) and len(tasks) == 7, "TASK_COUNT")
     require([t.get("id") for t in tasks] == taskIds, "TASK_ORDER")
@@ -117,6 +167,21 @@ def preview(sourceRef: str, scopeId: str, *, document: dict | None = None) -> di
         "platform": "GitHub Codespaces",
         "osImageTarget": "ubuntu:26.04",
         "taskCount": info["taskCount"],
+        "mobileComposition": {
+            "schema": data["mobileComposition"]["schema"],
+            "status": data["mobileComposition"]["status"],
+            "threeLevels": [
+                {"index": level["index"], "id": level["id"], "displaySlug": level["displaySlug"]}
+                for level in data["mobileComposition"]["threeLevels"]
+            ],
+            "fourthNote": data["mobileComposition"]["fourthNote"]["displaySlug"],
+            "iphoneCanExecuteApk": False,
+            "zeroNativeInstallWebTarget": True,
+            "nativeInstallSilentWithoutManagement": False,
+            "livePlatformProof": False,
+            "buildDispatched": False,
+            "crownStatus": "STOP",
+        },
         "tasks": [
             {
                 "id": t["id"], "slug": t["slug"], "leg": t["leg"], "layer": t["layer"],
@@ -161,6 +226,22 @@ def selfTest() -> None:
         try: inspect(bad)
         except ValueError: pass
         else: raise AssertionError("Unsafe layer/task claim accepted")
+    for mutate in (
+        lambda obj: obj["mobileComposition"]["threeLevels"].pop(),
+        lambda obj: obj["mobileComposition"]["threeLevels"][0].__setitem__("iPhoneCanInstallApk", True),
+        lambda obj: obj["mobileComposition"]["threeLevels"][1].__setitem__("neverReplaceVendorKernel", False),
+        lambda obj: obj["mobileComposition"]["distribution"].__setitem__("iosCannotExecuteApk", False),
+        lambda obj: obj["mobileComposition"]["distribution"].__setitem__("unownedDeviceSilentNativeInstallPromised", True),
+        lambda obj: obj["mobileComposition"]["runtimeEvidence"].__setitem__("iphoneNativeBuildProof", True),
+        lambda obj: obj["mobileComposition"]["fourthNote"].__setitem__("notClaimedUntilRuntimeEvidence", False)
+    ):
+        bad = copy.deepcopy(original)
+        mutate(bad)
+        try: inspect(bad)
+        except ValueError: pass
+        else: raise AssertionError("Cross-platform binary/kernel/user control drift accepted")
+    assert sample["mobileComposition"]["iphoneCanExecuteApk"] is False
+    assert sample["mobileComposition"]["livePlatformProof"] is False
     for candidate in ("main", "f" * 39):
         try: preview(candidate, "professor/ubuntu-cast-studio")
         except ValueError: pass
