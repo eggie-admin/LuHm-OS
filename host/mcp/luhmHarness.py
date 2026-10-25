@@ -548,6 +548,47 @@ def register_harness(
             response_headers["Content-Security-Policy"] = "default-src 'none'; sandbox"
         return FileResponse(target, media_type=media_type, headers=response_headers)
 
+    # One optional, plugin-local npm build. No second backend, CDN, dynamic import
+    # registry, CAST worker or privilege-bearing browser route is created here.
+    @server.custom_route("/harness/cast-demo/", methods=["GET", "HEAD"])
+    async def cast_demo_root(_: Request) -> Response:
+        return RedirectResponse(
+            "/harness/cast-demo/index.html", status_code=307, headers=_headers()
+        )
+
+    @server.custom_route("/harness/cast-demo/{asset_path:path}", methods=["GET", "HEAD"])
+    async def cast_demo_asset(request: Request) -> Response:
+        relative = request.path_params.get("asset_path", "")
+        allowlist = {
+            "index.html", "main.mjs",
+            "vendor/three.module.js", "vendor/three.core.js",
+            "asset-manifest.json",
+        }
+        if relative not in allowlist:
+            return PlainTextResponse("not found", status_code=404, headers=_headers())
+        demo_root = root / "plugins" / "luhm-os" / "demo" / "dist"
+        target = _safe_file(demo_root, relative)
+        if target is None:
+            return PlainTextResponse(
+                "CAST demo source candidate not built on this host",
+                status_code=503, headers=_headers(dynamic=True)
+            )
+        media_type = (
+            "text/html; charset=utf-8" if relative == "index.html" else
+            "text/javascript; charset=utf-8" if relative.endswith((".mjs", ".js")) else
+            "application/json"
+        )
+        headers = _headers(html=relative == "index.html", dynamic=True)
+        if relative == "index.html":
+            headers["Content-Security-Policy"] = (
+                "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; "
+                "connect-src 'none'; img-src 'self' data:; worker-src 'none'; "
+                "object-src 'none'; frame-src 'none'; frame-ancestors 'self'; "
+                "base-uri 'none'; form-action 'none'"
+            )
+        headers["X-LuHm-Demo-Stage"] = "source-candidate-not-live-cast"
+        return FileResponse(target, media_type=media_type, headers=headers)
+
     @server.custom_route("/harness/config.json", methods=["GET"])
     async def harness_config(_: Request) -> Response:
         libraries = json.loads(libraries_path.read_text(encoding="utf-8"))
