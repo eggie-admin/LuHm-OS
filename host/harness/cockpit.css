@@ -147,3 +147,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @media(max-width:840px){.crownQuickActions{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:520px){.crownStart{margin:8px;padding:12px}.crownQuickActions{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.crownQuickActions button{min-height:48px}.crownViewportSlot .godotStage,.crownViewportSlot .godotStage iframe{min-height:250px;max-height:58vh}}
 @media(prefers-reduced-motion:reduce){.crownStagePlane{animation:none!important;transition:none!important;will-change:auto}}
+
+/* Source-only unified brand candidate: tiny cached SVG, no new scripts or network calls. */
+.agentLoadingMark{width:54px;height:54px;display:block;object-fit:contain;filter:drop-shadow(0 0 10px #9f7aea35)}
+@media(prefers-reduced-motion:reduce){.agentLoadingMark{filter:none}}

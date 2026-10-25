@@ -164,11 +164,13 @@ async function main() {
       await page.locator("#studioMusicUrl").fill("https://music.youtube.com/watch?v=M7lc1UVf-VE");
       await page.locator("#studioMusicLoad").click();
       assert.match(await page.locator("#studioMusicStage iframe").getAttribute("src"),/^https:\/\/www.youtube-nocookie.com\/embed\//);
+      assert.equal(await page.locator("#retroMusicShell").getAttribute("class"),"retroMusicShell is-loaded","Retro music skin responds to connect");
       const box=await page.locator("#studioMusicStage iframe").boundingBox();
       assert.ok(box.width>=200&&box.height>=200,"Visible player minimum");
       assert.equal(await page.locator("#studioMusicStage iframe").getAttribute("referrerpolicy"),"strict-origin-when-cross-origin");
       await page.locator("#studioMusicStop").click();
       assert.equal(await page.locator("#studioMusicStage iframe").count(),0);
+      assert.equal(await page.locator("#retroMusicShell").getAttribute("class"),"retroMusicShell","Retro music skin resets on eject");
       await page.locator("#studioAssetInput").setInputFiles([
         {name:"one.glb",mimeType:"model/gltf-binary",buffer:Buffer.from("abc")},
         {name:"duplicate.glb",mimeType:"model/gltf-binary",buffer:Buffer.from("abc")},
