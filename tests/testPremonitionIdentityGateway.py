@@ -45,6 +45,32 @@ def assess(doc):
     expect(bound.get("crownStatus") == "STOP", "crownStop")
     budget = doc.get("freeProviderBudget", {})
     expect(budget.get("unknownQuotaMeansNoPaidOrAssumedFreeCalls") is True, "budgetUnknownStop")
+    beta = doc.get("firstExternalTesterSafety", {})
+    require_true = (
+        "guestModeRequired", "noAccountLinkingByDefault",
+        "existingThirdPartyIdentityNeverAssumed", "noLinkedInAuthenticationOrScraping",
+        "noFinancialServiceOrBankConnection", "noMicrophoneOrCameraDefault",
+        "readOnlyCapabilitiesOnly", "noWriteAgents",
+        "unknownCostMeansDisableFeature", "requiresPrivateProjectImport",
+    )
+    for field in require_true:
+        if field == "requiresPrivateProjectImport":
+            expect(beta.get(field) is False, "firstTesterNoProjectImport")
+        else:
+            expect(beta.get(field) is True, "firstTester_" + field)
+    for field in (
+        "requiredSubscription", "billedAiCallsDefaultEnabled", "autoPurchase", "autoUpgrade",
+        "loginRequiredForPreview", "requiresTesterOwnSocialOrWorkAccountAccess",
+        "requiresRepositoryAccess", "requiresCloudDriveAccess", "noDeviceWidePermissions",
+        "externalTesterInvitationAuthorized", "hostUiMountedAndTested",
+    ):
+        expected = True if field == "noDeviceWidePermissions" else False
+        expect(beta.get(field) is expected, "firstTester_" + field)
+    expect(beta.get("maxUserCostUsd") == 0, "firstTesterZeroCost")
+    expect(beta.get("doNotAssumeLinkedInIsAnAppIdentityProvider") is True, "firstTesterNoSocialIdentityAssumption")
+    expect(beta.get("doNotClaimAbsoluteSafety") is True, "firstTesterNoGuarantee")
+    expect(beta.get("status") == "SOURCE_POLICY_ONLY_NO_EXTERNAL_ACCESS", "firstTesterNoLiveClaim")
+    expect(beta.get("crownStatus") == "STOP", "firstTesterCrownStop")
     expect(doc.get("acceptance",{}).get("loginSessionEndToEnd") is False, "noUnprovenLiveSignIn")
     return problems
 
@@ -80,6 +106,24 @@ class IdentityGatewayTests(unittest.TestCase):
         bad = copy.deepcopy(self.doc)
         bad["authorizationBoundary"]["systemPortal"] = "LuHm login automatically opens admin"
         self.assertIn("ownerPortalSeparate", assess(bad))
+
+    def test_first_tester_zero_cost_and_private_project_protection(self):
+        bad = copy.deepcopy(self.doc)
+        bad["firstExternalTesterSafety"]["maxUserCostUsd"] = 1
+        bad["firstExternalTesterSafety"]["requestsPrivateProjectImport"] = True
+        bad["firstExternalTesterSafety"]["noAccountLinkingByDefault"] = False
+        bad["firstExternalTesterSafety"]["externalTesterInvitationAuthorized"] = True
+        bad["firstExternalTesterSafety"]["noLinkedInAuthenticationOrScraping"] = False
+        problems = assess(bad)
+        self.assertIn("firstTesterZeroCost", problems)
+        self.assertIn("firstTester_noAccountLinkingByDefault", problems)
+        self.assertIn("firstTester_externalTesterInvitationAuthorized", problems)
+        self.assertIn("firstTester_noLinkedInAuthenticationOrScraping", problems)
+
+    def test_first_tester_private_files_banned(self):
+        bad = copy.deepcopy(self.doc)
+        bad["firstExternalTesterSafety"]["requiresPrivateProjectImport"] = True
+        self.assertIn("firstTesterNoProjectImport", assess(bad))
 
     def test_no_unproved_auth_runtime(self):
         bad = copy.deepcopy(self.doc)
