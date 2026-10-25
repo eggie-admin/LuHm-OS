@@ -31,4 +31,19 @@ assert text.count("func _dance()") == 1
 assert text.count("func _talk()") == 1
 assert text.count("ProposedSparkles") == 1
 assert "HTTPClient" not in text and "load_external_asset" not in text
-print("PROPOSED_GODDESS_SOURCE_CONTRACT=PASS (SOURCE ONLY, NOT GODOT RUNTIME)")
+
+# First real session interaction loop: not just static dialogue or HUD skeleton.
+for token in ("var _bond_points := [0, 0, 0, 0]",
+    "const ROUTE_LINES :=",
+    "func _route_status() -> String:",
+    "\"CATHEDRAL CIRCLE COMPLETE\"",
+    "mini(9, _bond_points[active_index] + 1)",
+    "_action_grid.columns = 1 if narrow else 3",
+    "elif event.keycode == KEY_T:",
+    "elif event.keycode == KEY_D:",
+    "elif event.keycode == KEY_ESCAPE:",):
+    assert token in text, f"Missing playable interaction: {token}"
+assert text.count("func _route_status()") == 1
+assert "FileAccess.open_encrypted" not in text
+
+print("PROPOSED_GODDESS_INTERACTION_SOURCE=PASS (SOURCE ONLY, NO EXPORT OR DEVICE PROOF)")
