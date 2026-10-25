@@ -199,4 +199,4 @@ jobs:
             -f professorActor="$professorActor" \
             -f castOriginRunId="$castOriginRunId" \
             -f castOriginCommentId="$castOriginCommentId"
-          echo "PROPOSED_GODDESS_CAST_DISPATCHED sourceRef=$sourceRef privateArtifactOnly=true"
+          echo "proposedGoddessCastDispatched sourceRef=$sourceRef privateArtifactOnly=true"
