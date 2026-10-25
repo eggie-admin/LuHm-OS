@@ -13,7 +13,8 @@
     "doctrine/cloudflareEdgeHardeningV1.json",
     "doctrine/networkSpineV1.json",
     "doctrine/belldandyPkiCorporateSecretaryV1.json",
-    "manual/selfHostedRemoteUpdates20261022.md"
+    "manual/selfHostedRemoteUpdates20261022.md",
+    "doctrine/premonitionStageDirectorV1.json"
   ],
   "voice": {
     "lead": "lum",
@@ -242,5 +243,21 @@
       "iosRuntime": "NOT_IMPLEMENTED",
       "ownerCrown": "STOP"
     }
+  },
+  "stageOrchestration": {
+    "primaryDirector": "Godot 4.7.2",
+    "sceneDirectorScript": "scripts/game/witchingHourDirector.gd",
+    "sceneBoot": [
+      "scripts/main.gd",
+      "scripts/game/goddessRehearsal.gd"
+    ],
+    "sevenPlaneVisualLaw": "doctrine/layeredStageCanonV1.json",
+    "typedJsonWire": "doctrine/premonitionStageDirectorV1.json#typedWire",
+    "networkPlan": "Netplan is optional OS network provisioning only; never scene/audio/director runtime; preserve existing NetworkManager and Cloudflare/dnsmasq TLS Zero Trust law",
+    "audioBusesCreatedAtRuntime": true,
+    "onlyActualVoiceAudioDucksMusic": true,
+    "ffmpegOfflineMediaWorker": "host/ai-ffmpeg/ai-ffmpeg.py",
+    "independentAiWorkersStarted": false,
+    "physicalDeviceAudioTest": "PENDING"
   }
 }
