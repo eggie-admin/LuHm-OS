@@ -371,6 +371,16 @@ function wireRemoteGodot() {
   if (!button || !frame || button.dataset.wired === "true") return;
   button.dataset.wired = "true";
   const target = "https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html";
+  byId("inspectGodot")?.addEventListener("click", () => {
+    frame.src = target + "?studio=inspect";
+    frame.style.display = "block";
+    if (empty) empty.style.display = "none";
+    button.textContent = "✕ Close embedded Godot";
+    button.setAttribute("aria-pressed", "true");
+    byId("godotBadge").textContent = "3D INSPECTOR REQUESTED";
+    if (status) status.textContent = "Inspection requested. Technical proxy is not an approved Goddess model; device input remains unverified.";
+    frame.scrollIntoView({behavior:"auto",block:"center"});
+  });
   button.addEventListener("click", () => {
     const loaded = button.getAttribute("aria-pressed") === "true";
     if (loaded) {

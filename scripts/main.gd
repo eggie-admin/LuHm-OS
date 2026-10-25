@@ -39,6 +39,13 @@ var active_oni_companion: Node3D
 var lum_banter_index := 0
 
 func _ready() -> void:
+    # Additive inspection entry; the existing game remains the default route.
+    if OS.has_feature("web"):
+        var browserWindow = JavaScriptBridge.get_interface("window")
+        var query = JavaScriptBridge.create_object("URLSearchParams", browserWindow.location.search)
+        if str(query.get("studio")) == "inspect":
+            get_tree().change_scene_to_file.call_deferred("res://scenes/CharacterInspector.tscn")
+            return
     _build_runtime()
     _wire_runtime()
     _wire_android_web3()
