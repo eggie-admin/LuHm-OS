@@ -1,0 +1,66 @@
+name: Premonition fnCast Voice Truth Gate
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/fnCastV1.yaml'
+      - 'tools/fnCast.py'
+      - 'tests/testFnCast.py'
+      - 'manual/premonitionFnCast.md'
+      - 'doctrine/finalFormPublicReleaseGateV1.json'
+      - '.github/workflows/premonition-fn-cast-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fnCastSourceGate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Validate bound source
+        shell: bash
+        env:
+          expectedHead: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$expectedHead"
+          git diff --check
+      - name: Verify voice, alias collision, and final Crown negative controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests -p testFnCast.py -v
+      - name: Test read-only FINAL_FORM CAST receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/fnCast.py \
+            --voice "CAST!" \
+            --armed \
+            --context fnCast \
+            --source-ref "$(git rev-parse HEAD)" > /tmp/fnCastReceipt.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path('/tmp/fnCastReceipt.json').read_text())
+          assert receipt['voiceTrigger']['castBoolean'] is True
+          assert receipt['milestone']['display'] == 'FINAL_FORM'
+          assert receipt['tier']['display'] == 'FFS!'
+          assert receipt['finalCast']['state'] == 'HOLD_FINAL_FORM_EVIDENCE'
+          assert receipt['finalCast']['buildDispatched'] is False
+          assert receipt['finalCast']['releasePublished'] is False
+          assert receipt['finalCast']['crownGranted'] is False
+          print('PREMONITION_FN_CAST_INTENT_GREEN_CROWN_HOLD')
+          PY
+      - name: Independently audit existing FINAL_FORM release truth
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/finalFormPublicReleaseAudit.py --self-test
