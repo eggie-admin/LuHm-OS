@@ -14,7 +14,7 @@
         "naming-namespace-canon",
         "android-web3-cockpit"
       ],
-      "use": "repository/transport slugs, branch/file instance names, route/package names, and fields whose contract selects the kebab namespace"
+      "use": "repository/transport slugs, branch/file instance names, route/package names, and fields whose contract selects the kebab namespace; never mixed-case repository slug output"
     },
     "dragonTail": {
       "displayName": "DRAGONTAIL",
@@ -143,5 +143,64 @@
     "aliasMayActivateBuild": false,
     "sourceContract": "doctrine/codingRoleplayDirectorV2.json",
     "virginInstallContract": "doctrine/manualPluginVirginInstallV1.json"
+  },
+  "brandCaseLaw": {
+    "canonicalBrand": "LuHm-OS",
+    "exactSpellingRequired": true,
+    "onlyProjectOwnedCaseSensitiveHumanIdentity": true,
+    "automaticLowercaseBrandForbidden": true,
+    "brandNotATransportSlug": true,
+    "examples": {
+      "exactBrand": "LuHm-OS",
+      "nonBrandSlugs": [
+        "cast-bridge",
+        "public-plugin-package",
+        "android-web3-cockpit"
+      ]
+    }
+  },
+  "caseResolutionLaw": {
+    "scope": "projectOwnedHumanFacingNamesCommandsAndRegisteredAliases",
+    "caseSensitiveUserLookup": false,
+    "compareUsing": "unicodeCasefoldThenRegisteredAliasLookup",
+    "originalTextKeptForDisplayAndAudit": true,
+    "canonicalizeOnlyAfterUniqueResolution": true,
+    "lowercaseKebabCaseOutput": true,
+    "uppercaseDragonTailOutput": true,
+    "preserveCanonicalCamelHumpInternalSpelling": true,
+    "userInputCaseMayNotCreateDistinctIdentity": true,
+    "normalizedAliasCollision": "REJECT_AMBIGUOUS",
+    "unknownAlias": "VERIFY",
+    "shorthandMayNotGrantAuthority": true,
+    "caseNormalizationMayNotTriggerCastBuildDeployOrPublication": true,
+    "externalProtocolFieldAndCodeIdentifierSpelling": "preserveExactContractRequiredSpellingAtIntegrationBoundary",
+    "externalExceptionDoesNotCreateSecondProjectBrand": true,
+    "examples": [
+      {
+        "input": "CAST-BRIDGE",
+        "canonical": "cast-bridge",
+        "kind": "kebabCase"
+      },
+      {
+        "input": "Cast-Bridge",
+        "canonical": "cast-bridge",
+        "kind": "kebabCase"
+      },
+      {
+        "input": "PUBLIC-PLUGIN-PACKAGE",
+        "canonical": "public-plugin-package",
+        "kind": "kebabCase"
+      },
+      {
+        "input": "CurrentSourceTruth",
+        "canonical": "currentSourceTruth",
+        "kind": "registeredCamelHumpAlias"
+      },
+      {
+        "input": "PROPOSED_ONLY",
+        "canonical": "PROPOSED_ONLY",
+        "kind": "dragonTail"
+      }
+    ]
   }
 }

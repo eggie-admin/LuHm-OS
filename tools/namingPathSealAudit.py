@@ -62,8 +62,19 @@ for line in wrapper.splitlines():
     if re.match(r"^[A-Z][A-Z0-9_]*=",line):
         bad.append({"kind":"undeclaredDragonTailShellVariable","path":"tools/smX400OneBashInstall.sh","line":line.split("=",1)[0]})
 
+def displaySlug(kind: str) -> str:
+    """Human-facing lowercase kebab; do not rename stable diagnostic kind codes."""
+    label = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "-", kind).lower()
+    if not kebab.fullmatch(label):
+        raise ValueError("Invalid diagnostic display slug")
+    return label
+
+
+assert displaySlug("kebabNamespaceDrift") == "kebab-namespace-drift"
+
 if bad:
-    print(json.dumps({"status":"RED_NAMING_PATH_SEAL","violations":bad},indent=2))
+    displayViolations = [{**item, "displaySlug": displaySlug(item["kind"])} for item in bad]
+    print(json.dumps({"status":"RED_NAMING_PATH_SEAL","violations":displayViolations},indent=2))
     sys.exit(1)
 
 print(json.dumps({

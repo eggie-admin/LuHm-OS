@@ -32,6 +32,34 @@ dragon=re.compile(ns["dragonTail"]["regex"])
 camel=re.compile(ns["camelHump"]["regex"])
 short=re.compile(naming["personCenteredDegradation"]["shorthandLayer"]["regex"])
 
+# The brand is the sole project-owned case-sensitive human identity.
+brand=naming.get("brandCaseLaw",{})
+case=naming.get("caseResolutionLaw",{})
+need(brand.get("canonicalBrand")=="LuHm-OS","brand exact spelling drift")
+need(brand.get("exactSpellingRequired") is True,"brand-case exception missing")
+need(brand.get("onlyProjectOwnedCaseSensitiveHumanIdentity") is True,"unexpected case-sensitive identity")
+need(brand.get("automaticLowercaseBrandForbidden") is True,"brand cannot be lowercased")
+need("LuHm-OS"!="LuHm-OS".lower(),"brand is not a lowercase slug")
+need(case.get("caseSensitiveUserLookup") is False,"human command lookup must ignore case")
+need(case.get("compareUsing")=="unicodeCasefoldThenRegisteredAliasLookup","casefold resolution law missing")
+need(case.get("lowercaseKebabCaseOutput") is True,"lowercase kebab output required")
+need(case.get("preserveCanonicalCamelHumpInternalSpelling") is True,"source identifier case changed")
+need(case.get("normalizedAliasCollision")=="REJECT_AMBIGUOUS","casefold collisions must fail")
+need(case.get("caseNormalizationMayNotTriggerCastBuildDeployOrPublication") is True,"alias granted authority")
+need(case.get("externalProtocolFieldAndCodeIdentifierSpelling")=="preserveExactContractRequiredSpellingAtIntegrationBoundary","protocol compatibility contract missing")
+for row in case.get("examples",[]):
+    user=row["input"]
+    canonical=row["canonical"]
+    need(user.casefold()==canonical.casefold(),f"case-insensitive alias resolution drift: {user}")
+    if row["kind"]=="kebabCase":
+        need(bool(kebab.fullmatch(canonical)),f"non-lowercase kebab output: {canonical}")
+    elif row["kind"]=="registeredCamelHumpAlias":
+        need(bool(camel.fullmatch(canonical)),f"invalid preserved camelHump: {canonical}")
+    elif row["kind"]=="dragonTail":
+        need(bool(dragon.fullmatch(canonical)),f"invalid preserved DRAGONTAIL: {canonical}")
+    else:
+        need(False,f"unknown case resolution kind: {row['kind']}")
+
 for value in ns["kebabCase"]["examples"]:
     need(bool(kebab.fullmatch(value)),f"kebab drift: {value}")
 for value in ns["dragonTail"]["examples"]:
@@ -115,10 +143,10 @@ for row in help_doc.get("builtins",[]):
     if "shorthand" in aliases:
         need(bool(short.fullmatch(aliases["shorthand"])),f"help shorthand drift: {aliases['shorthand']}")
     for value in [canonical,*aliases.values()]:
-        prior=seen.get(value)
+        prior=seen.get(value.casefold())
         if prior and prior!=canonical:
             errors.append(f"help alias collision: {value} -> {prior}/{canonical}")
-        seen[value]=canonical
+        seen[value.casefold()]=canonical
 
 for row in precision.get("examples",[]):
     canonical=row["camelHump"]
@@ -132,10 +160,10 @@ for row in precision.get("examples",[]):
         "shorthand":shorthand(canonical)
     }
     for value in [canonical,*generated.values()]:
-        prior=seen.get(value)
+        prior=seen.get(value.casefold())
         if prior and prior!=canonical:
             errors.append(f"precision alias collision: {value} -> {prior}/{canonical}")
-        seen[value]=canonical
+        seen[value.casefold()]=canonical
 
 binding=naming.get("codingRoleplayBinding",{})
 roleplay=json.loads((root/"doctrine/codingRoleplayDirectorV2.json").read_text(encoding="utf-8"))
