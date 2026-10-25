@@ -1,0 +1,74 @@
+{
+  "schema": "luhmOs.fnCast.v1",
+  "project": "Project Premonition",
+  "product": "LuHm OS",
+  "entryPoint": "LuHmOS.fn.cast",
+  "fileFormat": "YAML 1.2 JSON-compatible subset (Python stdlib parser)",
+  "status": "SOURCE_CANDIDATE_NO_AUTOMATIC_DISPATCH",
+  "sqlCast": {
+    "input": "voiceTranscript",
+    "result": "boolean",
+    "operation": "CAST(boolean)",
+    "executesSql": false,
+    "databaseWrites": false,
+    "neverEvaluateInput": true
+  },
+  "voiceTrigger": {
+    "aliases": [
+      "cast",
+      "cst",
+      "c"
+    ],
+    "caseInsensitive": true,
+    "punctuationWrapper": ".,!?;:/\\\"'*",
+    "exactWholeCommand": true,
+    "requiresArmedInput": true,
+    "requiresFnCastContext": true,
+    "shortAliasRequiresConfirmation": true,
+    "collisionPolicy": "scopedOnly",
+    "existingGlobalAliases": {
+      "cst": "currentSourceTruth",
+      "c": "continue"
+    },
+    "noAutomaticBuildOrRelease": true
+  },
+  "tier": {
+    "id": "forFuckSake",
+    "display": "FFS!",
+    "auditPassTarget": 25,
+    "contract": "doctrine/operationTitan7ChatTriggerV2.json",
+    "changesAuthority": false
+  },
+  "milestone": {
+    "id": "finalForm",
+    "display": "FINAL_FORM",
+    "contract": "doctrine/finalFormPublicReleaseGateV1.json",
+    "bindSourceRef": true
+  },
+  "crownCondition": {
+    "mode": "ALL",
+    "nonNullFieldsRequired": true,
+    "proofValue": "PROVEN",
+    "sourceRefMustEqualCheckout": true,
+    "allExternalProofsRequired": true,
+    "signedStableReleaseRequired": true,
+    "independentVerificationRequired": true,
+    "explicitArtifactReviewRequired": true,
+    "rejectBooleanOrShortcut": true,
+    "allowUnknown": false,
+    "missingProofAction": "HOLD",
+    "publicationViaThisFunction": false
+  },
+  "finalCast": {
+    "type": "INTENT_AND_EVIDENCE_PREFLIGHT_ONLY",
+    "requiresSeparateProfessorGitHubCast": true,
+    "oneUseForBuilds": true,
+    "voiceNeverDispatchesGitHubActions": true,
+    "noAutomaticRelease": true,
+    "noAutomaticPublication": true,
+    "noAutomaticSigning": true,
+    "noAutomaticCrown": true,
+    "existingBuildGate": "tools/forgeCastGate.py",
+    "currentCrownStatus": "STOP"
+  }
+}
