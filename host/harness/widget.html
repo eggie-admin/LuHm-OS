@@ -152,6 +152,9 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
   <p id="castBridgeState" role="status">VERIFY · waiting for exact source queue</p>
   <p id="castBridgeSource">Source: unverified</p>
   <ol id="castBridgeTasks" aria-label="Next source-only queue tasks"></ol>
+  <h2>Ground zero ↗ Ubuntu studio ↘ ground zero</h2>
+  <p id="castStudioChainStatus" role="status">7-step source array · live Codespaces proof pending</p>
+  <ol id="castStudioChainTasks" aria-label="Ground-zero to studio and back proof chain"></ol>
   <p>Preview only. Queue state is not live task completion proof. No CAST grant, build, agent activation, or Crown.</p>
 </section>
 <section class="grid">
@@ -387,6 +390,25 @@ function renderCastBridge(d){
     head.textContent=task.displaySlug+" · "+(task.reportedInitialState||"UNKNOWN")+" (source baseline)";
     note.textContent="Next: "+(task.next||"Recheck evidence")+" · receipt required";
     item.append(head,note);items.append(item);
+  }
+  const chain=d.studioChain;
+  const chainStatus=$("castStudioChainStatus"),chainItems=$("castStudioChainTasks");
+  chainItems.replaceChildren();
+  const expectedLayers=[0,1,2,3,2,1,0],expectedLegs=["UP","UP","UP","APEX","DOWN","DOWN","DOWN"];
+  const chainSafe=chain?.schema==="luhmOs.castStudioGroundZeroChain.v1"&&
+    chain?.status==="SOURCE_ARRAY_ONLY_CODESPACE_RUNTIME_UNVERIFIED"&&
+    chain?.runtimeVerified===false&&chain?.codespaceRunningProven===false&&
+    chain?.hostMountVerified===false&&chain?.buildDispatched===false&&chain?.crownStatus==="STOP"&&
+    Array.isArray(chain.tasks)&&chain.tasks.length===7&&
+    chain.tasks.every((x,i)=>x.layer===expectedLayers[i]&&x.leg===expectedLegs[i]&&
+      x.verified===false&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(x.slug||""));
+  if(!chainSafe){chainStatus.textContent="VERIFY · studio chain unavailable or untrusted";return;}
+  chainStatus.textContent="7 stages · source proposed · Codespace runtime unverified · Crown STOP";
+  for(const task of chain.tasks){
+    const item=document.createElement("li"),head=document.createElement("strong"),note=document.createElement("small");
+    head.textContent=task.leg+" / L"+task.layer+" · "+task.slug;
+    note.textContent=task.next+" · "+task.evidenceCount+" evidence requirements · not yet verified";
+    item.append(head,note);chainItems.append(item);
   }
 }
 function render(data){
