@@ -20,6 +20,7 @@ var music_volume := 0.65
 var duck_factor := 0.26
 var active_turns: Dictionary = {}
 var queued_turns: Array[Dictionary] = []
+var external_speech_live := false
 
 var lead_player: AudioStreamPlayer
 var guest_player: AudioStreamPlayer
@@ -196,11 +197,15 @@ func set_json_tuning(variables: Dictionary) -> bool:
 func _update_mix() -> void:
     if lead_player == null or guest_player == null or music_player == null:
         return
-    var voice_live := lead_player.playing or guest_player.playing
+    var voice_live := lead_player.playing or guest_player.playing or external_speech_live
     var factor := duck_factor if voice_live else 1.0
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index(BUS_NAMES[0]), linear_to_db(maxf(voice_gain, 0.0001)))
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index(BUS_NAMES[1]), linear_to_db(maxf(voice_gain, 0.0001)))
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index(BUS_NAMES[2]), linear_to_db(maxf(music_volume * factor, 0.0001)))
+
+func set_external_speech_active(active: bool) -> void:
+    external_speech_live = active
+    _update_mix()
 
 func _on_lead_finished() -> void:
     end_turn("lum")
