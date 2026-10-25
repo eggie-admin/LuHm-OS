@@ -90,9 +90,18 @@ def run_browser(root,output):
             box=canvas.bounding_box()
             if box is None or box["width"] < 300 or box["height"] < 180:
                 raise RuntimeError("Godot canvas position not observable")
-            page.mouse.click(box["x"]+box["width"]*0.5,box["y"]+box["height"]*0.555)
-            page.wait_for_timeout(1400)
+            # One-tap public demo deep link replaces fragile pixel-guessing
+            # at the Godot menu; preserve the menu as a separate screenshot.
+            page.goto(f"http://127.0.0.1:{port}/index.html?luhmScene=rehearsal",
+                      wait_until="domcontentloaded",timeout=60000)
+            page.wait_for_function("() => !!document.querySelector('canvas')",timeout=120000)
+            for _ in range(180):
+                if any("LUHM_REHEARSAL_STAGE_READY" in msg for msg in runtime_markers):
+                    break
+                page.wait_for_timeout(500)
             page.screenshot(path=str(rehearsalProof),full_page=True)
+            # Key events must reach the actual Godot scene after it loaded.
+            page.evaluate("() => {const c=document.querySelector('canvas'); if(c)c.focus();}")
             page.keyboard.press("t")
             page.wait_for_timeout(220)
             page.keyboard.press("d")
@@ -104,18 +113,19 @@ def run_browser(root,output):
             stage_verified=any("LUHM_REHEARSAL_STAGE_READY" in msg for msg in runtime_markers)
             talk_verified=any("LUHM_REHEARSAL_TALK_ROUTE:" in msg for msg in runtime_markers)
             dance_verified=any("LUHM_REHEARSAL_DANCE_ROUTE:" in msg for msg in runtime_markers)
-            if not stage_verified: failures.append("rehearsal scene was not observed")
+            if not stage_verified: failures.append("one-tap deep link never opened the rehearsal scene")
             if not talk_verified: failures.append("TALK handler was not observed")
             if not dance_verified: failures.append("DANCE handler was not observed")
             report={"schema":"luhmOs.godotBrowserSmoke.v1","status":"GREEN_REHEARSAL_RUNTIME_INTERACTIONS" if not failures else "RED_REHEARSAL_NOT_PROVEN",
                     "browser":"Chromium headless","canvasVisible":True,
-                    "keyboardEventsDispatched":True,"rehearsalClickDispatched":True,
+                    "keyboardEventsDispatched":True,"rehearsalDeepLinkRequested":True,
+                    "rehearsalClickDispatched":False,
                     "rehearsalSceneVerified":stage_verified,"talkRouteVerified":talk_verified,"danceRouteVerified":dance_verified,
                     "playableQuestProgressProven":False,
                     "touchOnSamsungProven":False,"chatGptHostProven":False,
                     "errors":failures,"observedRuntimeMarkers":runtime_markers[-12:],"screenshot":interactionProof.name,
                     "additionalScreenshots":[menuProof.name,rehearsalProof.name],
-                    "proofLimit":"runtime markers prove scene entry and handler dispatch only; screenshot, quest, Samsung and ChatGPT acceptance remain independent",
+                    "proofLimit":"marker receipt proves actual scene and TALK/DANCE dispatch; rendered 3D acceptance, quests, Samsung touch, and ChatGPT remain separate",
                     "crownStatus":"STOP"}
             output.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
             browser.close()
