@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - doctrine/castTaskArrayV1.json
+      - doctrine/castStudioGroundZeroChainV1.json
+      - tools/castStudioGroundZeroChainAudit.py
       - doctrine/castHumanCenteredBridgeV1.yaml
       - tools/castHumanCenteredBridge.py
       - tools/castTaskArray.py
@@ -36,13 +38,14 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$expectedHead"
           git diff --check
-          python3 -m py_compile tools/castTaskArray.py tools/castHumanCenteredBridge.py
+          python3 -m py_compile tools/castTaskArray.py tools/castHumanCenteredBridge.py tools/castStudioGroundZeroChainAudit.py
           python3 -m json.tool doctrine/castTaskArrayV1.json >/dev/null
       - name: Run deterministic refusal and Canon axis checks
         run: |
           set -euo pipefail
           python3 tools/castTaskArray.py --self-test
           python3 tools/castHumanCenteredBridge.py --self-test
+          python3 tools/castStudioGroundZeroChainAudit.py --self-test
       - name: Prove multi-task queue never dispatches a CAST
         run: |
           set -euo pipefail
@@ -84,4 +87,23 @@ jobs:
           assert receipt['originalArtworkAccessed'] is False
           assert receipt['crownGranted'] is False
           print('HUMAN_CAST_REGISTER_AND_ART_GUARD_PASS')
+          PY
+
+      - name: Verify the studio round-trip array never grants runtime or CAST
+        run: |
+          set -euo pipefail
+          python3 tools/castStudioGroundZeroChainAudit.py \
+            --source-ref "$(git rev-parse HEAD)" \
+            --scope-id professor/ubuntu-cast-studio > /tmp/castStudioRoundTrip.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          packet=json.loads(Path('/tmp/castStudioRoundTrip.json').read_text())
+          assert packet['taskCount']==7
+          assert [x['layer'] for x in packet['tasks']]==[0,1,2,3,2,1,0]
+          assert packet['codespaceRunningProven'] is False
+          assert packet['buildDispatched'] is False
+          assert packet['castEnvelopesGranted']==0
+          assert packet['crownStatus']=='STOP'
+          print('CAST_STUDIO_ROUND_TRIP_ONLY_SOURCE_PROVEN')
           PY
