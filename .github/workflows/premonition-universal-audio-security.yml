@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'doctrine/premonitionUniversalAudioV1.json'
+      - 'doctrine/premonitionIdentityGatewayV1.json'
+      - 'tests/testPremonitionIdentityGateway.py'
       - 'tests/testPremonitionUniversalAudioSecurity.py'
       - 'doctrine/premonitionStageDirectorV1.json'
       - 'scripts/game/witchingHourDirector.gd'
@@ -31,6 +33,8 @@ jobs:
         run: |
           python3 -m json.tool doctrine/premonitionUniversalAudioV1.json > /dev/null
           python3 -m unittest discover -s tests -p 'testPremonitionUniversalAudioSecurity.py' -v
+          python3 -m json.tool doctrine/premonitionIdentityGatewayV1.json > /dev/null
+          python3 -m unittest discover -s tests -p 'testPremonitionIdentityGateway.py' -v
       - name: Keep proof scope explicit
         run: |
           echo SOURCE_CONTRACT_ONLY_NO_DEVICE_NO_CODESPACE_NO_TLS_NO_RELEASE
