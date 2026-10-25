@@ -1,5 +1,7 @@
 extends Node3D
-## PRIVATE STAGED FX: original primitive effects in the existing Godot Cathedral.
+## FICTIONAL MIDSUMMER COURT: a matriarchal fairy masque in the existing Cathedral.
+## Lum presides with the three goddess keepers; Oberon is a visiting guest.
+## Original theatrical verse, not a Catholic Mass or claim to perform a sacrament.
 ## Does not activate Oni workers, invoke providers, change quests, or deploy.
 ## Optional original audio belongs at res://media/witchingHourFinalBoss/fourFlamesCeremony.ogg.
 
@@ -33,32 +35,32 @@ func _cast_sequence() -> void:
             _audio.stream = stream
             _audio.play()
 
-    _announce("SKULD · BLUE WISDOM")
+    _announce("SKULD · KEEPER OF STARLIGHT\nLet wisdom kindle what our hands shall make.")
     _summon("SkuldLightCandidate", Vector3(-3.2, 1.45, -11.2), BLUE, 0.62)
     _altar_flame(Vector3(-1.35, 2.0, -14.0), BLUE)
     await get_tree().create_timer(3.0).timeout
     if not is_inside_tree(): return
 
-    _announce("URD · RED COURAGE")
+    _announce("URD · KEEPER OF EMBERS\nLet courage shelter every heart that wakes.")
     _summon("UrdLightCandidate", Vector3(-4.9, 1.45, -11.7), RED, 0.72)
     _altar_flame(Vector3(-0.45, 2.0, -14.0), RED)
     await get_tree().create_timer(3.0).timeout
     if not is_inside_tree(): return
 
-    _announce("BELLDANDY · WHITE GRACE")
+    _announce("BELLDANDY · KEEPER OF BLOSSOMS\nLet kindness crown the gifts we freely bring.")
     _summon("BelldandyLightCandidate", Vector3(4.6, 1.45, -11.7), WHITE, 0.72)
     _altar_flame(Vector3(0.45, 2.0, -14.0), WHITE)
     await get_tree().create_timer(3.0).timeout
     if not is_inside_tree(): return
 
-    _announce("THE ONI ASSEMBLE · VISUAL STAND-INS")
+    _announce("THE ONI ENTER THE MIDSUMMER COURT\nBy root and branch, let all the lanterns sing.")
     _summon("OniForgeLightCandidate", Vector3(-7.0, 1.2, -8.4), VIOLET, 0.62)
     _summon("OniGuardLightCandidate", Vector3(7.0, 1.2, -8.4), VIOLET, 0.62)
     _altar_flame(Vector3(1.35, 2.0, -14.0), VIOLET)
     await get_tree().create_timer(3.0).timeout
     if not is_inside_tree(): return
 
-    _announce("LUM · FINAL FORM")
+    _announce("LUM · SOVEREIGN OF THE MIDSUMMER COURT\nFour lights awaken; let the masque begin.")
     var cathedral := get_parent()
     if cathedral != null and cathedral.has_method("pulse_lum"):
         cathedral.call("pulse_lum", 4.0)
@@ -67,7 +69,7 @@ func _cast_sequence() -> void:
     await get_tree().create_timer(4.0).timeout
     if not is_inside_tree(): return
 
-    _announce("FOUR-FLAME ABSOLUTION · CLEAR THE STATIC WISP")
+    _announce("FOUR-FLAME REVEL · UNWEAVE THE WISP\nWe weave the dawn and welcome wonder in.")
     for position in [Vector3(-1.35, 2.0, -14.0), Vector3(-0.45, 2.0, -14.0), Vector3(0.45, 2.0, -14.0), Vector3(1.35, 2.0, -14.0)]:
         _summon("CovenantSpark", position, WHITE, 0.16)
     if is_instance_valid(_wisp):
@@ -76,7 +78,7 @@ func _cast_sequence() -> void:
     await get_tree().create_timer(4.0).timeout
     if not is_inside_tree(): return
 
-    _announce("THE CATHEDRAL STANDS · CROWN STOP")
+    _announce("THE MIDSUMMER COURT STANDS\nThe gifts are craft; the magic is our story.")
     if cathedral != null and cathedral.has_method("restore_lum"):
         cathedral.call("restore_lum")
     if _audio != null and is_instance_valid(_audio):
