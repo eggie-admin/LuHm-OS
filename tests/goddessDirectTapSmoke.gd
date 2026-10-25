@@ -105,9 +105,9 @@ func _run() -> void:
     _check(float(scene.get("_dance_until")) >= previousDance, "keyboardDanceRoute")
 
     # The mobile action grid must remain tappable on a narrow Android viewport.
-    root.size = Vector2i(320, 700)
-    await process_frame
-    scene.call("_refresh_hud_layout")
+    # Headless display backends ignore OS window resize; call the same
+    # deterministic helper used by the real viewport resize callback.
+    scene.call("applyHudWidth", 320.0)
     var actionGrid: GridContainer = scene.get("_action_grid") as GridContainer
     var selectorGrid: GridContainer = scene.get("_selector_grid") as GridContainer
     _check(actionGrid != null and actionGrid.columns == 1, "narrowTouchActionStack")
