@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>LuHm-OS · Guest Onboarding Candidate</title>
+<style>
+:root{font:15px/1.5 system-ui,sans-serif;color-scheme:dark;--cyan:#9aeaff;--magenta:#f6a2df;--bg:#101526;--card:#1b2337;--line:#465570;--ink:#f1f7ff}
+*{box-sizing:border-box}body{background:#0a101e;color:var(--ink);margin:0;padding:16px}
+main{max-width:740px;margin:auto;display:grid;gap:14px}
+h1{font-size:clamp(21px,5vw,29px);margin:0}h2{font-size:16px;margin:0 0 8px}
+p{margin:8px 0;color:#c7d4e8}.muted,small{color:#b5c9e3}
+section{border:1px solid var(--line);background:var(--bg);padding:16px;border-radius:15px}
+.step{display:flex;gap:11px}.stepNo{flex:none;color:var(--cyan);font-size:20px;font-weight:750;width:29px}
+label{display:block;margin:10px 0 5px;font-weight:600}
+select{width:100%;font:inherit;padding:12px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px}
+input{accent-color:#9aeaff}button{font:inherit;font-weight:700;min-height:47px;border-radius:11px;padding:10px 16px;background:var(--cyan);border:0;color:#081321;cursor:pointer}
+button.secondary{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+.tag{display:inline-block;border-radius:8px;background:#2a364f;color:#d8e7fc;padding:3px 8px;font-size:12px}
+#plan{white-space:pre-wrap;word-break:break-word;background:#0b1222;padding:14px;border:1px solid #485779;border-radius:10px}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+</style></head><body><main>
+<header><p class="tag">PRIVATE GUEST · SOURCE PREVIEW ONLY</p><h1>LuHm-OS guest setup</h1><p>One-click preparation for an invited adult collaborator. No one signs in, receives an invitation, or gains access from this static preview.</p></header>
+<section><div class="step"><span class="stepNo">01</span><div><h2>Identity</h2>
+<p>Google sign-in will establish the guest's own LuHm-OS identity only when the approved OAuth backend and callback exist. It does not sign the guest into Instagram or grant Google project permissions.</p>
+<span class="tag">Google OAuth: not configured or proven</span></div></div></section>
+<section><div class="step"><span class="stepNo">02</span><div><h2>Requested LuHm role</h2>
+<label for="role">Select the proposed role</label><select id="role" name="role">
+<option value="creativeCollaborator" selected>Creative collaborator · approved projects</option>
+<option value="betaReviewer">Beta reviewer · preview and feedback</option>
+</select><p><small>Even a full creative collaborator does not automatically become account owner, billing admin, repository administrator or publisher.</small></p>
+</div></div></section>
+<section><div class="step"><span class="stepNo">03</span><div><h2>Optional Instagram connection</h2>
+<label for="instagram"><input type="checkbox" id="instagram"> Include a separate Instagram connection step</label>
+<p>Only the account owner can authorize Meta's official flow, where supported. A professional Business/Creator account and separate permission review may be required. No passwords, browser cookies or credentials are collected.</p></div></div></section>
+<section><div class="actions">
+<button type="button" id="prepare">Prepare guest access plan</button>
+<button type="button" class="secondary" id="copy" disabled>Copy plan</button></div>
+<p role="status" id="status">Ready to preview. No live login or permissions.</p>
+<div id="plan" hidden aria-label="Candidate access plan"></div>
+</section><footer><small>Professor approval and guest consent are separate. Existing owner-private ChatGPT plugins cannot be shared by copying a GitHub link. Access remains revocable, scope-limited and pending platform support.</small></footer>
+</main><script>
+"use strict";
+// Static candidate. No provider OAuth endpoint, password field, network or persistence.
+// Backend enforcement must exist before this is enabled for real identities.
+const role=document.getElementById("role");
+const instagram=document.getElementById("instagram");
+const plan=document.getElementById("plan");
+const status=document.getElementById("status");
+const copy=document.getElementById("copy");
+let current="";
+const names={
+creativeCollaborator:"Creative collaborator for separately approved LuHm-OS project content",
+betaReviewer:"Read-only beta reviewer for approved demos and voluntary feedback"
+};
+document.getElementById("prepare").addEventListener("click",()=>{
+  const scope=names[role.value];
+  if(!scope){status.textContent="Invalid role. No request prepared.";return}
+  current=[
+    "GUEST ACCESS PROPOSAL · NOT SENT",
+    "Role requested: "+scope,
+    "Google login: PENDING registered OAuth consent and validated backend session",
+    "Instagram: "+(instagram.checked?"OPTIONAL owner-authorized Meta professional-account connection requested":"NOT REQUESTED"),
+    "GitHub: separate account-specific permission if needed",
+    "ChatGPT plugin: distribution/support verification required",
+    "Authority: no other person's account, secrets, billing, private masters, publishing or CAST dispatch",
+    "Next: Professor reviews scope; invited adult guest accepts privately with their own account.",
+    "Crown: STOP"
+  ].join("\n");
+  plan.textContent=current;
+  plan.hidden=false;
+  copy.disabled=false;
+  status.textContent="Plan ready for Professor review. No invitation sent.";
+});
+copy.addEventListener("click",async()=>{
+  if(!current)return;
+  try{await navigator.clipboard.writeText(current);status.textContent="Candidate plan copied. Still not an invitation."}
+  catch{status.textContent="Clipboard unavailable; select the visible plan to copy manually."}
+});
+</script></body></html>
