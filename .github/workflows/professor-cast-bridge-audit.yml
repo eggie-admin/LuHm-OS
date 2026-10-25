@@ -7,6 +7,8 @@ on:
       - '.github/workflows/public-plugin-package-cast.yml'
       - '.github/workflows/professor-cast-bridge-audit.yml'
       - 'tools/professorCastBridgeAudit.py'
+      - 'tools/castStudioGroundZeroChainAudit.py'
+      - 'doctrine/castStudioGroundZeroChainV1.json'
       - 'tools/chatGptPluginCastCompletionAudit.py'
       - 'doctrine/PROFESSOR_CAST_BRIDGE_V1.json'
       - 'doctrine/chatGptPluginCastCompletionV1.json'
@@ -44,3 +46,27 @@ jobs:
         run: |
           set -euo pipefail
           python3 tools/chatGptPluginCastCompletionAudit.py
+
+      - name: Audit three-level device root and seven-step CAST round trip
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/castStudioGroundZeroChainAudit.py
+          python3 tools/castStudioGroundZeroChainAudit.py --self-test
+          python3 tools/castStudioGroundZeroChainAudit.py             --source-ref "$(git rev-parse HEAD)"             --scope-id professor/cast-studio-root > /tmp/castStudioRoot.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          result=json.loads(Path('/tmp/castStudioRoot.json').read_text())
+          assert result['taskCount']==7
+          assert [t['layer'] for t in result['tasks']]==[0,1,2,3,2,1,0]
+          mobile=result['mobileComposition']
+          assert [x['index'] for x in mobile['threeLevels']]==[0,1,2]
+          assert mobile['fourthNote']=='ground-zero-reprise'
+          assert mobile['iphoneCanExecuteApk'] is False
+          assert mobile['nativeInstallSilentWithoutManagement'] is False
+          assert mobile['livePlatformProof'] is False
+          assert result['buildDispatched'] is False
+          assert result['crownStatus']=='STOP'
+          print('CAST_COMPOSITION_SOURCE_PROOF_ONLY_CROWN_STOP')
+          PY
