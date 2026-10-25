@@ -6,8 +6,7 @@
   "description": "Read-only opt-in procedural Three.js demo packaged inside the existing LuHm-OS MCP plugin",
   "scripts": {
     "demo:build": "node tools/build.mjs",
-    "demo:check": "node --test tools/demo.test.mjs",
-    "demo:preview": "node tools/preview.mjs"
+    "demo:check": "node --test tools/demo.test.mjs"
   },
   "dependencies": {
     "three": "0.186.1"
