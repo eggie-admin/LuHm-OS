@@ -39,16 +39,45 @@ jobs:
             exit 2
           fi
 
-          if [[ ! "$commentBody" =~ ^/cast[[:space:]]+(androidProposedDebug|androidWeb3Cockpit|publicPluginPackage)[[:space:]]+([0-9a-f]{40})$ ]]; then
-            echo "::error title=Invalid CAST syntax::Use /cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage> $mainSha"
-            exit 2
-          fi
-
-          requestedMilestone="${BASH_REMATCH[1]}"
-          requestedSha="${BASH_REMATCH[2]}"
-          if [[ "$requestedSha" != "$mainSha" ]]; then
-            echo "::error title=CAST source drift::requested=$requestedSha currentMain=$mainSha"
-            exit 2
+          # Single-use private Godot CAST. This command is issued once by the
+          # authenticated Professor, and every field is resolved from the
+          # immutable approval recorded on PR #400. No user-entered SHA needed.
+          if [[ "$commentBody" == "/cast goddessWebProposed" ]]; then
+            approvedSha="3ddfe062b9cd0e220908c0c80d9dffa76d5a890d"
+            if [[ "${{ github.event.issue.number }}" != "400" || "$GITHUB_RUN_ATTEMPT" != "1" ]]; then
+              echo "::error title=Invalid CAST origin::One first-attempt owner comment on PR #400 required"
+              exit 2
+            fi
+            prHead="$(gh api "repos/$GITHUB_REPOSITORY/pulls/400" --jq '.head.sha')"
+            approvalJson="$(gh api "repos/$GITHUB_REPOSITORY/issues/comments/6392733353")"
+            approvalAuthor="$(jq -r '.user.login' <<<"$approvalJson")"
+            approvalBody="$(jq -r '.body' <<<"$approvalJson")"
+            if [[ "$prHead" != "$approvedSha" || "$approvalAuthor" != "$GITHUB_REPOSITORY_OWNER" ]] ||
+               ! grep -Fq "sourceRef: $approvedSha" <<<"$approvalBody" ||
+               ! grep -Fq "PROFESSOR CAST" <<<"$approvalBody"; then
+              # The checked-in authorization is not a substitute for the real
+              # author-written CAST comment; fail closed if it changed.
+              echo "::error title=CAST identity drift::PR #400 approval not verified"
+              exit 2
+            fi
+            firstOwnerCommandId="$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/400/comments?per_page=100" --jq '.[] | select(.body == "/cast goddessWebProposed" and .user.login == "eggie-admin") | .id' | sed -n '1p')"
+            if [[ -z "$firstOwnerCommandId" || "$firstOwnerCommandId" != "${{ github.event.comment.id }}" ]]; then
+              echo "::error title=CAST already consumed::Only the first exact Professor command may dispatch"
+              exit 2
+            fi
+            requestedMilestone="goddessWebProposed"
+            requestedSha="$approvedSha"
+          else
+            if [[ ! "$commentBody" =~ ^/cast[[:space:]]+(androidProposedDebug|androidWeb3Cockpit|publicPluginPackage)[[:space:]]+([0-9a-f]{40})$ ]]; then
+              echo "::error title=Invalid CAST syntax::Use /cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage> $mainSha"
+              exit 2
+            fi
+            requestedMilestone="${BASH_REMATCH[1]}"
+            requestedSha="${BASH_REMATCH[2]}"
+            if [[ "$requestedSha" != "$mainSha" ]]; then
+              echo "::error title=CAST source drift::requested=$requestedSha currentMain=$mainSha"
+              exit 2
+            fi
           fi
 
           releaseTag="android-web3-${requestedSha:0:8}-r${GITHUB_RUN_ID}"
@@ -56,6 +85,8 @@ jobs:
             taskId="android-proposed-debug-cast-${GITHUB_RUN_ID}"
           elif [[ "$requestedMilestone" == "androidWeb3Cockpit" ]]; then
             taskId="android-web3-cockpit-cast-${GITHUB_RUN_ID}"
+          elif [[ "$requestedMilestone" == "goddessWebProposed" ]]; then
+            taskId="proposed-four-goddess-sparks-dance-talk"
           else
             taskId="public-plugin-package-cast-${GITHUB_RUN_ID}"
           fi
@@ -146,3 +177,26 @@ jobs:
             -f castOriginRunId="$castOriginRunId"
 
           echo "PUBLIC_PLUGIN_CAST_DISPATCHED sourceRef=$sourceRef taskId=$taskId"
+
+      - name: Dispatch one previously approved Godot Web rehearsal CAST
+        if: steps.cast.outputs.requestedMilestone == 'goddessWebProposed'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          sourceRef: ${{ steps.cast.outputs.sourceRef }}
+          professorActor: ${{ steps.cast.outputs.professorActor }}
+          castOriginRunId: ${{ steps.cast.outputs.castOriginRunId }}
+          castOriginCommentId: ${{ github.event.comment.id }}
+        run: |
+          set -euo pipefail
+          gh workflow run godot-web-harness.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --ref main \
+            -f cast=cast \
+            -f milestoneId=proposedGoddessRehearsalWeb20261024 \
+            -f taskId=proposed-four-goddess-sparks-dance-talk \
+            -f sourceRef="$sourceRef" \
+            -f professorActor="$professorActor" \
+            -f castOriginRunId="$castOriginRunId" \
+            -f castOriginCommentId="$castOriginCommentId"
+          echo "proposedGoddessCastDispatched sourceRef=$sourceRef privateArtifactOnly=true"

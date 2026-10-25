@@ -50,7 +50,14 @@ require("-f publishPrerelease=false" in workflow, "PROPOSED build must not publi
 require(doctrine.get("dispatch",{}).get("androidProposedDebug",{}).get("publishPrerelease") is False, "PROPOSED doctrine unexpectedly publishes")
 require(doctrine.get("dispatch",{}).get("androidProposedDebug",{}).get("destination") == "ephemeralPrivateGitHubActionsArtifactOnly", "PROPOSED output destination drift")
 android_build = (ROOT / ".github/workflows/android-testing-build.yml").read_text(encoding="utf-8")
-require("inputs.publishPrerelease && inputs.milestoneId != 'androidProposedDebug'" in android_build, "PROPOSED publish guard missing at build workflow")
+require(
+    "inputs.publishPrerelease && inputs.milestoneId != 'androidProposedDebug'" in android_build
+    or (
+        "\n  publish-prerelease:" in android_build
+        and "    if: ${{ false }}" in android_build.split("\n  publish-prerelease:", 1)[1].split("\n    steps:", 1)[0]
+    ),
+    "PROPOSED publish guard missing at build workflow",
+)
 
 require("actions: write" in workflow, "bridge needs scoped actions: write to dispatch")
 require(workflow.count("actions: write") == 1, "actions write permission must appear exactly once")

@@ -19,9 +19,27 @@ on:
         description: "Exact commit SHA to build"
         required: true
         type: string
+      professorActor:
+        description: "Verified GitHub owner when relayed by Professor CAST Bridge"
+        required: false
+        type: string
+        default: ""
+      castOriginRunId:
+        description: "Trusted one-shot CAST bridge Actions run ID"
+        required: false
+        type: string
+        default: ""
+      castOriginCommentId:
+        description: "Trusted PR #400 exact owner command comment ID"
+        required: false
+        type: string
+        default: ""
 
 permissions:
   contents: read
+  actions: read
+  issues: read
+  pull-requests: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ inputs.milestoneId }}-${{ inputs.sourceRef }}
@@ -38,24 +56,62 @@ jobs:
           persist-credentials: false
           ref: ${{ inputs.sourceRef }}
 
+      - name: Verify direct or delegated Professor CAST identity
+        id: ownerCast
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          professorActor: ${{ inputs.professorActor }}
+          castOriginRunId: ${{ inputs.castOriginRunId }}
+          castOriginCommentId: ${{ inputs.castOriginCommentId }}
+          sourceRef: ${{ inputs.sourceRef }}
+        run: |
+          set -euo pipefail
+          owner="$(gh api "repos/$GITHUB_REPOSITORY" --jq '.owner.login')"
+          if [[ "$GITHUB_ACTOR" == "$owner" ]]; then
+            # Original direct workflow_dispatch remains supported and unchanged.
+            echo "verifiedProfessorActor=$owner" >> "$GITHUB_OUTPUT"
+          elif [[ "$GITHUB_ACTOR" == "github-actions[bot]" ]]; then
+            [[ "$professorActor" == "$owner" ]]
+            [[ "$sourceRef" == "3ddfe062b9cd0e220908c0c80d9dffa76d5a890d" ]]
+            [[ "$castOriginRunId" =~ ^[0-9]+$ ]]
+            [[ "$castOriginCommentId" =~ ^[0-9]+$ ]]
+            origin="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$castOriginRunId")"
+            [[ "$(jq -r '.event' <<<"$origin")" == "issue_comment" ]]
+            [[ "$(jq -r '.actor.login' <<<"$origin")" == "$owner" ]]
+            [[ "$(jq -r '.name' <<<"$origin")" == "Professor CAST Bridge" ]]
+            command="$(gh api "repos/$GITHUB_REPOSITORY/issues/comments/$castOriginCommentId")"
+            [[ "$(jq -r '.user.login' <<<"$command")" == "$owner" ]]
+            [[ "$(jq -r '.body' <<<"$command")" == "/cast goddessWebProposed" ]]
+            [[ "$(jq -r '.issue_url' <<<"$command")" == "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/400" ]]
+            approval="$(gh api "repos/$GITHUB_REPOSITORY/issues/comments/6392733353")"
+            [[ "$(jq -r '.user.login' <<<"$approval")" == "$owner" ]]
+            grep -Fq "sourceRef: $sourceRef" <<<"$(jq -r '.body' <<<"$approval")"
+            echo "verifiedProfessorActor=$owner" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error title=CAST actor denied::Neither Professor nor verified Professor bridge" >&2
+            exit 2
+          fi
+
       - name: CAST gate
         shell: bash
         env:
-          CAST_WORD: ${{ inputs.cast }}
-          MILESTONE_ID: ${{ inputs.milestoneId }}
-          TASK_ID: ${{ inputs.taskId }}
-          SOURCE_REF: ${{ inputs.sourceRef }}
+          castWord: ${{ inputs.cast }}
+          milestoneId: ${{ inputs.milestoneId }}
+          taskId: ${{ inputs.taskId }}
+          sourceRef: ${{ inputs.sourceRef }}
+          verifiedProfessorActor: ${{ steps.ownerCast.outputs.verifiedProfessorActor }}
         run: |
           set -euo pipefail
-          ACTUAL_REF="$(git rev-parse HEAD)"
+          actualRef="$(git rev-parse HEAD)"
           python3 tools/forgeCastGate.py \
-            --cast-word "$CAST_WORD" \
-            --milestone-id "$MILESTONE_ID" \
-            --task-id "$TASK_ID" \
-            --source-ref "$SOURCE_REF" \
-            --actual-source-ref "$ACTUAL_REF" \
+            --cast-word "$castWord" \
+            --milestone-id "$milestoneId" \
+            --task-id "$taskId" \
+            --source-ref "$sourceRef" \
+            --actual-source-ref "$actualRef" \
             --build-scope 'godot-web-harness' \
-            --actor "$GITHUB_ACTOR" \
+            --actor "$verifiedProfessorActor" \
             --receipt "$RUNNER_TEMP/forge-cast-receipt.json"
 
       - name: Bind exact head
