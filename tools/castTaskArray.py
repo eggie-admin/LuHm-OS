@@ -51,8 +51,8 @@ def loadCanon(root: Path = repoRoot) -> dict:
     if twins["Kaji"]["compileAuthorityRequiresCast"] is not True:
         raise ValueError("Kaji CAST constraint missing")
     envelope = twins["castEnvelope"]
-    if not envelope["singleUse"] if "singleUse" in envelope else False:
-        raise ValueError("CAST single-use policy drift")
+    if "singleUse" not in envelope.get("requiredFields", []):
+        raise ValueError("CAST single-use envelope field missing")
     if envelope["consumedOnAttempt"] is not True or envelope["persistentAuthorizationAllowed"] is not False:
         raise ValueError("CAST must be consumed per task on attempt")
     budget = documents["agents"]["activationLaw"]
