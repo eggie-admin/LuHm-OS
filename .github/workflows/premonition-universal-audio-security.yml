@@ -5,6 +5,11 @@ on:
       - 'doctrine/premonitionUniversalAudioV1.json'
       - 'doctrine/premonitionIdentityGatewayV1.json'
       - 'doctrine/oldMagicSpeechV1.json'
+      - 'doctrine/artistCreditLedgerV1.json'
+      - 'media/artistCreditsApprovedV1.json'
+      - 'media/yumeReferenceGalleryV1.json'
+      - 'tools/buildArtistCreditsPage.py'
+      - 'tests/testArtistCreditPage.py'
       - 'tools/oldMagicCastInterpreter.py'
       - 'tests/testOldMagicCastInterpreter.py'
       - 'doctrine/nexusCommunityForgePriorityV1.json'
@@ -44,6 +49,8 @@ jobs:
           python3 -m unittest discover -s tests -p 'testPremonitionIdentityGateway.py' -v
           python3 -m json.tool doctrine/oldMagicSpeechV1.json >/dev/null
           python3 -m unittest discover -s tests -p 'testOldMagicCastInterpreter.py' -v
+          python3 -m json.tool media/artistCreditsApprovedV1.json >/dev/null
+          python3 -m unittest discover -s tests -p 'testArtistCreditPage.py' -v
           python3 -m json.tool doctrine/nexusCommunityForgePriorityV1.json > /dev/null
           python3 -m unittest discover -s tests -p 'testNexusAssetAdmission.py' -v
       - name: Keep proof scope explicit
