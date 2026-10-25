@@ -6,12 +6,27 @@
   "fileFormat": "YAML 1.2 JSON-compatible subset (Python stdlib parser)",
   "status": "SOURCE_CANDIDATE_NO_AUTOMATIC_DISPATCH",
   "sqlCast": {
-    "input": "voiceTranscript",
-    "result": "boolean",
-    "operation": "CAST(boolean)",
-    "executesSql": false,
-    "databaseWrites": false,
-    "neverEvaluateInput": true
+    "input": "typedJsonSystemVariablePatches",
+    "result": "tunedJsonDocumentAndSqlReceipt",
+    "operation": "SQLITE_JSON1_PARAMETERIZED_JSON_SET",
+    "executesSql": true,
+    "databaseWrites": "candidateLocalOnlyWhenApply",
+    "backend": "sqlite3Json1",
+    "databasePath": "build/fnCastTuning/systemVariables.sqlite3",
+    "implementation": "tools/fnCastSqlJson.py",
+    "neverEvaluateInput": true,
+    "prohibitsRawSql": true,
+    "appliesTo": [
+      "systemVariables"
+    ],
+    "leavesUntouched": [
+      "crownCondition",
+      "finalCast",
+      "tier",
+      "milestone",
+      "identity",
+      "releaseAuthority"
+    ]
   },
   "voiceTrigger": {
     "aliases": [
@@ -70,5 +85,69 @@
     "noAutomaticCrown": true,
     "existingBuildGate": "tools/forgeCastGate.py",
     "currentCrownStatus": "STOP"
+  },
+  "sqlJsonTuning": {
+    "schema": "luhmOs.fnCastJsonTuning.v1",
+    "engine": "sqlite3Json1",
+    "recordName": "projectPremonition",
+    "defaultVariables": {
+      "ui": {
+        "glassOpacity": 0.72
+      },
+      "audio": {
+        "voiceGain": 1,
+        "musicVolume": 0.65
+      },
+      "gameplay": {
+        "dialogueSpeed": 1
+      },
+      "render": {
+        "frameCap": 60
+      }
+    },
+    "allowedPaths": {
+      "ui.glassOpacity": {
+        "type": "number",
+        "minimum": 0.1,
+        "maximum": 1
+      },
+      "audio.voiceGain": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 2
+      },
+      "audio.musicVolume": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "gameplay.dialogueSpeed": {
+        "type": "number",
+        "minimum": 0.5,
+        "maximum": 3
+      },
+      "render.frameCap": {
+        "type": "integer",
+        "minimum": 24,
+        "maximum": 120
+      }
+    },
+    "sqlQueries": [
+      "json_valid",
+      "json_set",
+      "json_extract",
+      "json_type"
+    ],
+    "strictParameterBinding": true,
+    "updatesAtomic": true,
+    "previewReadOnly": true,
+    "applyRequiresArmedVoiceContext": true,
+    "persistedOnlyUnder": "build/fnCastTuning/",
+    "rejectsUnknownKeys": true,
+    "rejectsNullBooleansOrNaN": true,
+    "rejectsSqlFragments": true,
+    "noCanonicalDoctrineMutation": true,
+    "noExternalDatabaseMutation": true,
+    "noCrownPromotion": true
   }
 }
