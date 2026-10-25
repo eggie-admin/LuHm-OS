@@ -1,0 +1,60 @@
+name: Skuld CAST Task Array Source Audit
+on:
+  pull_request:
+    paths:
+      - doctrine/castTaskArrayV1.json
+      - tools/castTaskArray.py
+      - doctrine/milestoneTaskQueueV1.json
+      - doctrine/escalationKernelV1.json
+      - doctrine/fourTierOperatingModelV1.json
+      - doctrine/pluginBetaFourLaneV1.json
+      - doctrine/typedFourLaneSqlV1.json
+      - doctrine/forgeTwinsV3.json
+      - doctrine/agentSystemDeploymentV1.json
+      - .github/workflows/skuld-cast-task-array-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  readOnlySourceAudit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact source and syntax
+        env:
+          expectedHead: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$expectedHead"
+          git diff --check
+          python3 -m py_compile tools/castTaskArray.py
+          python3 -m json.tool doctrine/castTaskArrayV1.json >/dev/null
+      - name: Run deterministic refusal and Canon axis checks
+        run: |
+          set -euo pipefail
+          python3 tools/castTaskArray.py --self-test
+      - name: Prove multi-task queue never dispatches a CAST
+        run: |
+          set -euo pipefail
+          python3 tools/castTaskArray.py --tasks mobileMainHost,chatGptInlineMount --tier 2 \
+            --scope-id professor/cast-bridge \
+            --source-ref "$(git rev-parse HEAD)" > /tmp/castTaskArrayReceipt.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          receipt=json.loads(Path("/tmp/castTaskArrayReceipt.json").read_text())
+          assert receipt["taskCount"] == 2
+          assert receipt["castEnvelopesGranted"] == 0
+          assert receipt["buildsDispatched"] == 0
+          assert receipt["agentWorkersStarted"] == 0
+          assert receipt["crownStatus"] == "STOP"
+          assert all(x["sourceRef"] == receipt["sourceRef"] for x in receipt["tasks"])
+          print("GREEN_QUEUE_PREVIEW_ZERO_CAST_AUTHORITY")
+          PY
