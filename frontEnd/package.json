@@ -6,7 +6,10 @@
   "scripts": {
     "stage:jquery": "node tools/stage-jquery.mjs",
     "check": "node --check jquery/luhm.cockpit.js && node --check app.js && node --check tools/stage-jquery.mjs && node --check tools/check.mjs && node tools/check.mjs",
-    "ci": "npm ci --ignore-scripts && npm run stage:jquery && npm run check"
+    "ci": "npm ci --ignore-scripts && npm run stage:jquery && npm run check",
+    "cast:preview": "node tools/cast-bridge.mjs",
+    "cast:docs": "node tools/cast-bridge.mjs --docs",
+    "cast:check": "node --test tools/cast-bridge.test.mjs"
   },
   "dependencies": {
     "jquery": "3.7.1"
