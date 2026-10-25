@@ -9,7 +9,8 @@
     "caseAndHyphenSensitive": true,
     "canonicalBrandIsNotCodeIdentifier": true,
     "doNotReplaceBrandWithProjectLabel": true,
-    "developmentNamesAreNotBrandAuthority": true
+    "developmentNamesAreNotBrandAuthority": true,
+    "onlyProjectOwnedCaseSensitiveHumanIdentity": true
   },
   "baseline": {
     "repository": "eggie-admin/LuHm-OS",
@@ -47,7 +48,13 @@
     "historicalReceiptsRemainImmutable": true,
     "legacyMayRemainOperational": true,
     "legacyIsNotApprovedForNewCanonicalAuthority": true,
-    "migrationRequiresSuccessorAndProof": true
+    "migrationRequiresSuccessorAndProof": true,
+    "humanFacingResolution": "caseInsensitiveRegisteredLookup",
+    "kebabInputNormalization": "casefoldThenEmitStrictLowercaseKebab",
+    "projectBrandException": "LuHm-OS",
+    "machineProtocolBoundary": "preserveExplicitExternalProtocolOrCodeSpellingWithoutGrantingNewProjectIdentity",
+    "caseVariantNamesNeverBecomeNewProjectIdentity": true,
+    "ambiguousAfterCasefold": "BLOCK_ALIAS_COLLISION"
   },
   "examples": {
     "canonical": [
