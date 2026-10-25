@@ -1,0 +1,139 @@
+{
+  "schema": "luhmOs.premonitionUniversalAudio.v1",
+  "project": "Project Premonition",
+  "status": "SOURCE_CANDIDATE_RUNTIME_UNVERIFIED",
+  "authority": "Professor",
+  "purpose": "One LuHm conversation, one leading voice, optional guest voice, game-like audio buses, and native OS invocation adapters with compact typed JSON.",
+  "canonicalReferences": [
+    "doctrine/voiceCabinetBridgeV1.json",
+    "doctrine/fnCastV1.yaml",
+    "manual/ai-ffmpeg-local-first.md",
+    "manual/professor-garage-lab.md"
+  ],
+  "voice": {
+    "lead": "lum",
+    "guestAllowlist": [
+      "urd",
+      "belldandy",
+      "skuld"
+    ],
+    "maximumAudibleVoices": 2,
+    "defaultSimultaneousVoices": 1,
+    "guestOverlapRequiresExplicitTurnFlag": true,
+    "autoVoiceGeneration": false,
+    "claimIndependentProviderVoice": false
+  },
+  "audioBuses": {
+    "lead": "PremonitionVoiceLead",
+    "guest": "PremonitionVoiceGuest",
+    "music": "PremonitionMusic",
+    "effects": "PremonitionEffects",
+    "musicDuckingFactor": 0.26,
+    "voiceGainRange": [
+      0,
+      2
+    ],
+    "musicVolumeRange": [
+      0,
+      1
+    ],
+    "note": "Godot runtime bus allocation; no approved recorded voice/music included"
+  },
+  "invocationAdapters": {
+    "chatGpt": {
+      "mode": "ENVELOPE_ONLY",
+      "nativeAction": "CurrentChatTurn",
+      "claimRawVoiceAccess": false
+    },
+    "androidAssistant": {
+      "mode": "NATIVE_APP_REQUIRED",
+      "nativeAction": "RoleManager.ROLE_ASSISTANT or ACTION_ASSIST",
+      "requiresUserOptIn": true,
+      "autoDefaultAssistantReplacement": false
+    },
+    "samsungBixby": {
+      "mode": "NATIVE_OR_SAMSUNG_FLOW_REQUIRED",
+      "nativeAction": "Bixby Automation Studio capsule or explicit Android intent",
+      "bixbyCapsuleAccountMayBeRequired": true,
+      "claimBixbyAudioCapture": false
+    },
+    "appleAppIntents": {
+      "mode": "IOS_APP_REQUIRED",
+      "nativeAction": "App Intents/App Shortcuts through Siri or Shortcuts",
+      "claimSiriReplacement": false,
+      "claimPrivateSiriAudioCapture": false
+    },
+    "androidEdgeGallery": {
+      "mode": "OPTIONAL_INFERENCE_PROVIDER_UNPROVEN",
+      "nativeAction": "Only through explicitly configured supported adapter"
+    },
+    "ollama": {
+      "mode": "OPTIONAL_INFERENCE_PROVIDER_UNPROVEN",
+      "nativeAction": "Only via local authenticated bounded provider adapter; never needed for audio buses"
+    }
+  },
+  "turnInput": {
+    "fields": [
+      "turnId",
+      "sourceRef",
+      "speakerId",
+      "utterance",
+      "origin",
+      "allowOverlap"
+    ],
+    "allowedOrigins": [
+      "chatGpt",
+      "androidAssistant",
+      "samsungBixby",
+      "appleAppIntents",
+      "androidEdgeGallery",
+      "ollama",
+      "godot"
+    ],
+    "characterAllowlist": [
+      "lum",
+      "urd",
+      "belldandy",
+      "skuld"
+    ],
+    "stringLimit": 4000,
+    "notes": "No credential fields, no raw audio/base64 in compact event; only text/cue metadata. Audio stored by secure asset reference."
+  },
+  "compactWire": {
+    "version": 1,
+    "keys": {
+      "v": "version",
+      "k": "kind",
+      "i": "turnId",
+      "r": "sourceRef",
+      "s": "speakerId",
+      "t": "utterance",
+      "o": "origin",
+      "b": "audioBus",
+      "x": "allowOverlap"
+    }
+  },
+  "executionBoundary": {
+    "inputIsDataNotCode": true,
+    "noRawShell": true,
+    "noProductionDbWrites": true,
+    "noDirectBixbyOrSiriControl": true,
+    "noUnapprovedAudioCapture": true,
+    "noRecordingWithoutConsent": true,
+    "voiceChannelDoesNotGrantBuildOrReleaseAuthority": true,
+    "crownStatus": "STOP"
+  },
+  "mediaForge": {
+    "worker": "host/ai-ffmpeg/ai-ffmpeg.py",
+    "role": "OFFLINE_MASTERING_AND_REVIEW_ONLY",
+    "requiresManifestApproval": true,
+    "codespacesActivationRequiresRunningCodespace": true,
+    "liveForgeExecutionProvenHere": false
+  },
+  "release": {
+    "noDispatch": true,
+    "noMergeWithoutReview": true,
+    "noPublicDistribution": true,
+    "noDeviceProofYet": true
+  }
+}
