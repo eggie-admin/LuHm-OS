@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """LuHmOS.fn.cast: voice-transcript CAST intent and FINAL_FORM evidence preflight.
 
-This is not a microphone service, SQL interpreter, workflow dispatcher, or Crown grant.
+This is not a microphone service, raw SQL interpreter, workflow dispatcher, or Crown grant.
+It does execute parameterized SQLite JSON1 for candidate-only system variable tuning.
 A separate exact-source, owner-authored GitHub CAST remains mandatory for builds.
 """
 from __future__ import annotations
@@ -187,14 +188,44 @@ def main() -> int:
     parser.add_argument("--context", default="global", choices=["global", "fnCast"])
     parser.add_argument("--confirm-single-letter", action="store_true", dest="confirmSingleLetter")
     parser.add_argument("--source-ref", default="", dest="sourceRef", help="Exact candidate commit (40 lowercase hex)")
+    parser.add_argument("--set", dest="tuningAssignments", action="append", default=[],
+                        help='Typed JSON setting, for example --set ui.glassOpacity=0.82')
+    parser.add_argument("--apply-tuning", action="store_true", dest="applyTuning",
+                        help="Commit JSON1 changes only to the local candidate SQLite database")
     args = parser.parse_args()
     receipt = buildReceipt(
         args.voice, armed=args.armed, context=args.context,
         confirmSingleLetter=args.confirmSingleLetter,
         requestedSourceRef=args.sourceRef, checkedOutSourceRef=localHead(),
     )
+    if args.applyTuning and not args.tuningAssignments:
+        parser.error("--apply-tuning requires at least one --set")
+    if args.tuningAssignments:
+        if not receipt["voiceTrigger"]["castBoolean"]:
+            receipt["sqlJsonTuning"] = {
+                "status": "HOLD_VOICE_CAST_NOT_ARMED_OR_NOT_CONFIRMED",
+                "sqlExecuted": False,
+                "databaseWritten": False,
+            }
+            print(json.dumps(receipt, indent=2))
+            return 2
+        from fnCastSqlJson import parseJsonAssignments, tuneSqlJson
+        try:
+            updates = parseJsonAssignments(args.tuningAssignments)
+            receipt["sqlJsonTuning"] = tuneSqlJson(
+                updates, loadContract(),
+                apply=args.applyTuning, authorized=receipt["voiceTrigger"]["castBoolean"],
+            )
+        except (ValueError, TypeError, PermissionError, RuntimeError) as error:
+            receipt["sqlJsonTuning"] = {
+                "status": "RED_TUNING_REJECTED",
+                "reason": str(error),
+                "databaseWritten": False,
+            }
+            print(json.dumps(receipt, indent=2))
+            return 2
     print(json.dumps(receipt, indent=2))
-    # Not a build gate or deploy program. Safe read-only refusal is a normal result.
+    # An accepted local tuning intent does not authorize any build or Crown.
     return 0
 
 
