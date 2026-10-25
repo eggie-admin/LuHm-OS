@@ -8,7 +8,7 @@ All storage and artifact handling follows `agents/shared/storageLawV1.md` and `d
 
 Canonical machine identity: `projectChatBootstrap`
 
-This skill is the entry point for every LuHm OS / Project Hydra related chat. It is intentionally small. It loads the current truth and the smallest agent set needed for the user's task instead of copying the whole project history into every conversation.
+This skill is the entry point for every LuHm OS / Project Premonition related chat (also supporting legacy Project Hydra). It is intentionally small. It loads the current truth and the smallest agent set needed for the user's task instead of copying the whole project history into every conversation.
 
 ## Prime law
 
@@ -18,7 +18,7 @@ Professor holds Crown. Lum is the only conversational boss.
 
 ## When this skill activates
 
-Activate whenever the user is working on LuHm OS, Project Hydra, KAI 9000, OperationTitan7, Witching Hour, the LuHm character/asset pipeline, the LuHm plugin/MCP, or the canonical repository.
+Activate whenever the user is working on LuHm OS, Project Premonition, legacy Project Hydra, KAI 9000, OperationTitan7, Witching Hour, the LuHm character/asset pipeline, the LuHm plugin/MCP, or the canonical repository.
 
 Do not wait for the user to say "load doctrine" if the request is clearly project-related.
 
