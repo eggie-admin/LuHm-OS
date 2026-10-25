@@ -1,0 +1,30 @@
+{
+  "schema": "luhm.into-the-warp.lab-previs.v1",
+  "status": "CANDIDATE_PROXY_ONLY",
+  "target": "Godot existing LuHm-OS",
+  "scene": "res://scenes/into-the-warp-lab-previs.tscn",
+  "fps": 30,
+  "resolution": [
+    1080,
+    1920
+  ],
+  "durationSeconds": 4.5,
+  "sceneId": "300",
+  "actors": {
+    "eggie": "HUMAN_PROXY_NOT_CANON",
+    "lum": "ADULT_ONI_PROXY_NOT_CANON"
+  },
+  "monitors": 4,
+  "layout": [
+    "workbench_left",
+    "hatch_rear_left",
+    "windows_right",
+    "monitors_fixed_rear_wall"
+  ],
+  "publicRelease": false,
+  "autoMerge": false,
+  "externalArtUsed": false,
+  "soundtrack": "NONE",
+  "review": "PROFESSOR_ONLY",
+  "crown": "STOP"
+}
