@@ -50,8 +50,6 @@ def loadHumanBridge(root: Path = repoRoot) -> dict:
         raise ValueError("Relationship cannot change authority")
     if bridge["artFirstPrecondition"]["originalArtReadOnlyByDefault"] is not True:
         raise ValueError("Original artwork protection required")
-    if artist["preservedArtLaw"]["newArtistMasterNeverAutoOverwritten"] if "newArtistMasterNeverAutoOverwritten" in artist["preservedArtLaw"] else False:
-        raise ValueError("Unexpected art law contract value")
     if artist["preservedArtLaw"]["humanDirectorDecidesCompositionActingStoryAndFinish"] is not True:
         raise ValueError("Human artist must direct")
     if any(bridge[key] is not True for key in ["presentationOnly", "zeroAutomaticDispatch", "finalBossIsOutcomeNotTier"]):
