@@ -425,5 +425,219 @@
     "buildDispatched": false,
     "promotion": false,
     "crownStatus": "STOP"
+  },
+  "studioMediaReverse": {
+    "schema": "luhmOs.castStudioMediaReverse.v1",
+    "status": "SOURCE_DESIGN_ONLY_NO_LIVE_STUDIO_OR_NGINX_PROOF",
+    "product": "LuHm-OS",
+    "director": "Professor",
+    "composition": "HUMAN_TO_PYTHON_TO_BLENDER_AND_MEDIA_TO_APPROVED_DELIVERY_AND_REVERSE_HARDWARE_PROOF",
+    "directorSurface": {
+      "intentInterface": "NATURAL_LANGUAGE_AND_SMALL_IN_CHAT_GUI",
+      "requiredHumanDecisions": [
+        "creativeIntent",
+        "originalAssetRights",
+        "compositionAndActing",
+        "renderReview",
+        "releasePromotion"
+      ],
+      "noUserShellOrJsonRequired": true,
+      "aiDoesNotSelfApprove": true,
+      "clientCannotDispatchPrivilegedShell": true
+    },
+    "pythonMixCenter": {
+      "language": "python3",
+      "role": "TYPED_TASK_ROUTER_NOT_PUBLIC_RAW_SHELL",
+      "source": [
+        "tools/castHumanCenteredBridge.py",
+        "tools/castStudioGroundZeroChainAudit.py",
+        "doctrine/artistFirstProductionWorkflowV1.json",
+        "host/ai-ffmpeg/ai-ffmpeg.py"
+      ],
+      "handoffRequired": [
+        "taskId",
+        "sourceRef",
+        "scopeId",
+        "assetIds",
+        "provenance",
+        "rightsState",
+        "toolVersions",
+        "outputDigest",
+        "reviewState",
+        "rollbackRef"
+      ],
+      "allowedCandidateActions": [
+        "READ_ONLY_ASSET_INSPECTION",
+        "PLAN_RENDER_JOB",
+        "HASH_AND_COMPARE",
+        "REVIEWABLE_BLENDER_BATCH",
+        "FFMPEG_CANDIDATE_ASSEMBLY"
+      ],
+      "noLLMTextAsExecutableCommand": true,
+      "argumentArrayToolsOnly": true,
+      "noCredentialInReceipt": true,
+      "parallelReadOnlyLanesMax": 3,
+      "mutableSourceLanesMax": 1,
+      "workerAutoUnquarantine": false
+    },
+    "studio": {
+      "target": "GitHub Codespaces Ubuntu 26.04 userland",
+      "sourceConfiguredOnly": true,
+      "runtimeSmokeRequired": true,
+      "hardwareOrGpuNotAssumed": true,
+      "tools": [
+        "python3",
+        "blenderHeadless",
+        "gimpHeadlessOrBatchWhenVerified",
+        "ffmpeg",
+        "godotHeadless",
+        "npm"
+      ],
+      "headlessGuiNotAssumed": true,
+      "protectedMastersReadOnly": true,
+      "writeOnlyNewVersionedCandidate": true,
+      "sourceAndPreviewSeparate": true
+    },
+    "assetFidelity": {
+      "policy": "KEEP_FULL_FIDELITY_EDITABLE_MASTERS_AND_RENDER_DERIVATIVES",
+      "priority": "FULL_QUALITY_MASTER_OVER_STREAMING_OPTIMIZATION",
+      "uncompressedRequested": true,
+      "losslessCompressionAcceptable": true,
+      "lossyMasterSubstitutionForbidden": true,
+      "masters": [
+        {
+          "id": "editableScene",
+          "format": ".blend",
+          "property": "ORIGINAL_EDITABLE_PROJECT_WITH_LINKED_INPUTS_PRESERVED"
+        },
+        {
+          "id": "frameMaster",
+          "format": "OpenEXR",
+          "property": "16_OR_32_BIT_FLOAT_CHANNELS_WITH_APPROPRIATE_LINEAR_COLOR_SETTINGS_AND_LOSSLESS_ENCODING"
+        },
+        {
+          "id": "rasterStill",
+          "format": "PNG",
+          "property": "LOSSLESS_WITH_DECLARED_BIT_DEPTH_AND_ALPHA"
+        },
+        {
+          "id": "pcmAudioMaster",
+          "format": "WAV",
+          "property": "UNCOLLAPSED_ORIGINAL_PCM_OR_FLOAT_PRECISION"
+        },
+        {
+          "id": "archivalPcmAudio",
+          "format": "FLAC",
+          "property": "LOSSLESS_PCM_ONLY_NO_PRETEND_FLOAT_PRESERVATION"
+        },
+        {
+          "id": "videoIntermediates",
+          "format": "FFV1_MKV",
+          "property": "LOSSLESS_INTEGER_VIDEO_WHEN_APPROPRIATE_CODEC_PIXEL_FORMAT_IS_VERIFIED"
+        }
+      ],
+      "checks": [
+        "bitDepthAndAlpha",
+        "linearColorAndOCIO",
+        "sourceHashes",
+        "textureAndRigLinks",
+        "audioSampleRateAndChannelLayout",
+        "frameRateAndTimeline",
+        "decodeFidelityAndVersionedMaster"
+      ],
+      "privateStorage": "OWNER_CONTROLLED_GOOGLE_DRIVE_DURABLE_ARTIFACTS",
+      "metadataStorage": "GITHUB_PUBLIC_SOURCE_SANITIZED_HASHES_ONLY",
+      "noPrivateAssetBytesInGitHub": true,
+      "noOriginalOverwrite": true,
+      "backupNotAssumedUntilRestoredAndHashed": true,
+      "storageAndBandwidthBudgetMeasuredBeforeUncompressedExport": true
+    },
+    "webDelivery": {
+      "strategy": "DERIVE_OPTIMIZED_PREVIEW_FROM_HASHED_MASTER",
+      "renderRoles": "THREE_OR_GODOT_CHOSEN_PER_SCENE_NOT_BOTH_BY_DEFAULT",
+      "cdnOptionalNotRequired": true,
+      "previewFormats": [
+        "rights-approved hashed low-footprint textures",
+        "feature-detected WebGL scene",
+        "browser-compatible transcoded video after codec test",
+        "thumbnail/contact sheet"
+      ],
+      "browserNeverDownloadsFullEditableMasterByDefault": true,
+      "clientDeliveryIsNotCanonStorage": true,
+      "offlineFallbackRequired": true,
+      "deviceMemoryAndNetworkBudgetChecked": true
+    },
+    "nginx": {
+      "role": "OPTIONAL_SMALL_STATIC_GATE_AND_REVERSE_PROXY_TO_EXISTING_LOCAL_PYTHON_MCP",
+      "installedDoesNotImplyStarted": true,
+      "serviceRunningProven": false,
+      "newInternetFacingOriginAuthorized": false,
+      "serveOnlyApprovedDerivativeHashes": true,
+      "excludePrivateMastersAndArchives": true,
+      "denyDirectoryListing": true,
+      "blockTraversalAndSymlinkEscape": true,
+      "apiAuthOutsidePublicStaticRoute": true,
+      "pythonBoundLoopbackOrPrivateUnixSocket": true,
+      "noRawIpPublicBind": true,
+      "noLanPublicExposure": true,
+      "noRouterPortForward": true,
+      "neverProxySqlOrCredentials": true,
+      "cacheOnlyPublicImmutableHashedAssets": true,
+      "tlsIsSeparatelyVerified": false,
+      "releaseNeedsIndependentEndpointAndSecurityReceipts": true
+    },
+    "communityFallback": {
+      "principle": "OFFICIAL_PRIMARY_THEN_VETTED_MAINTAINED_COMMUNITY_THEN_STD_LIB_SAFE_FALLBACK",
+      "upstreamRef": "doctrine/skuldUpstreamCabinetV1.json",
+      "approvedAutomaticThirdPartyScriptExecution": false,
+      "requiredEvidence": [
+        "maintainerAndUpstreamIdentity",
+        "licenseAndUsageRights",
+        "exactVersionDigestAndDependencies",
+        "securityAndMaintenanceReview",
+        "compatibilityWithBlenderPythonAndMediaVersions",
+        "rollbackOrDisablePath"
+      ],
+      "doNotMistakeCommunityFallbackForBackup": true,
+      "dataBackupNeedsIndependentRestoreTest": true,
+      "unknownThirdPartyCodeRuns": false
+    },
+    "reverseProof": [
+      {
+        "id": "mediaMaster",
+        "require": "EDITABLE_MASTER_HASH_RIGHTS_COLOR_AND_LOSSLESS_CANDIDATE_RECEIPT"
+      },
+      {
+        "id": "renderDerivative",
+        "require": "SOURCE_AND_RENDER_HASH_PROVENANCE_PERFORMANCE_TEST"
+      },
+      {
+        "id": "pythonControl",
+        "require": "TYPED_SCOPE_DENY_GATES_LOGGED_ARGUMENT_ARRAYS"
+      },
+      {
+        "id": "nginxDelivery",
+        "require": "PRIVATE_SAFE_PATHS_AND_INDEPENDENT_ACTUAL_HOST_ROUTE_TEST"
+      },
+      {
+        "id": "mobileGroundZero",
+        "require": "ANDROID_SAMSUNG_AND_IPHONE_WEB_BROWER_OR_DEVICE_PROOF_SEPARATE"
+      }
+    ],
+    "runtimeEvidence": {
+      "codespaceRunning": false,
+      "blenderMasterProduced": false,
+      "gimpBatchProven": false,
+      "nginxStarted": false,
+      "serverRouteMounted": false,
+      "backupsRestored": false,
+      "androidVisualVerified": false,
+      "iphoneVisualVerified": false
+    },
+    "buildDispatched": false,
+    "publicMediaPublished": false,
+    "hostMounted": false,
+    "promotion": false,
+    "crownStatus": "STOP"
   }
 }
