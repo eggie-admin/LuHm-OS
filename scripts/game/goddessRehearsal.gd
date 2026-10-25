@@ -320,9 +320,13 @@ func _talk() -> void:
 
 
 func _refresh_hud_layout() -> void:
-    if _hud_column == null or _selector_grid == null:
+    applyHudWidth(get_viewport().get_visible_rect().size.x)
+
+
+# Deterministic width layout for real window resize and headless test.
+func applyHudWidth(width: float) -> void:
+    if _hud_column == null or _selector_grid == null or _action_grid == null:
         return
-    var width := get_viewport().get_visible_rect().size.x
     var portrait := width < 630.0
     var narrow := width < 350.0
     _selector_grid.columns = 2 if portrait else 4
