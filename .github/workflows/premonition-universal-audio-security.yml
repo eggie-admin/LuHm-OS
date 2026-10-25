@@ -4,6 +4,11 @@ on:
     paths:
       - 'doctrine/premonitionUniversalAudioV1.json'
       - 'tests/testPremonitionUniversalAudioSecurity.py'
+      - 'doctrine/premonitionStageDirectorV1.json'
+      - 'scripts/game/witchingHourDirector.gd'
+      - 'scripts/game/goddessRehearsal.gd'
+      - 'scripts/main.gd'
+      - 'tests/witchingHourDirectorSmoke.gd'
       - '.github/workflows/premonition-universal-audio-security.yml'
   workflow_dispatch:
 
@@ -26,3 +31,38 @@ jobs:
       - name: Keep proof scope explicit
         run: |
           echo SOURCE_CONTRACT_ONLY_NO_DEVICE_NO_CODESPACE_NO_TLS_NO_RELEASE
+
+  godot-stage-director:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout bounded source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Validate stage and existing game contracts
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/premonitionStageDirectorV1.json > /dev/null
+          python3 tools/godotGameSourceAudit.py
+      - name: Download pinned Godot
+        run: |
+          set -euo pipefail
+          curl -fL --retry 4 -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          echo 'cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip' | sha256sum -c -
+          mkdir -p /tmp/godot
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+      - name: Parse Godot project and stage scripts
+        run: |
+          set -euo pipefail
+          godot=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          "$godot" --headless --editor --path . --quit 2>&1 | tee /tmp/witching-hour-parse.log
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:|ERROR: Failed to load script' /tmp/witching-hour-parse.log; then exit 1; fi
+      - name: Run Godot orchestration smoke test
+        run: |
+          set -euo pipefail
+          godot=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          timeout 45s "$godot" --headless --path . --script res://tests/witchingHourDirectorSmoke.gd 2>&1 | tee /tmp/witching-hour-smoke.log
+          grep -Fq WITCHING_HOUR_GODOT_STAGE_DIRECTOR_GREEN_SOURCE_SCOPE /tmp/witching-hour-smoke.log
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:|ERROR: Failed to load script|WITCHING_HOUR_STAGE_RED' /tmp/witching-hour-smoke.log; then exit 1; fi
