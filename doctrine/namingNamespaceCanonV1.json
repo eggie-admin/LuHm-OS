@@ -7,7 +7,7 @@
   "namespaces": {
     "kebabCase": {
       "displayName": "kebab-case",
-      "law": "all lowercase canonical output; any letter case in human-entered input resolves case-insensitively before strict validation",
+      "law": "all lowercase",
       "regex": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
       "examples": [
         "public-plugin-package",
