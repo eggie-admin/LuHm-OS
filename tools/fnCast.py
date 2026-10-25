@@ -174,7 +174,7 @@ def buildReceipt(
 
 def localHead() -> str:
     result = subprocess.run(
-        ["git", "rev-parse", "head"],
+        ["git", "rev-parse", "HEAD"],
         cwd=root, text=True, capture_output=True, check=False,
     )
     return result.stdout.strip() if result.returncode == 0 else ""
