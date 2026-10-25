@@ -1,0 +1,111 @@
+{
+  "schema": "luhmOs.agentDeploymentReadinessReceipt.v1",
+  "status": "AMBER_SOURCE_AND_PLUGIN_VERIFIED_RUNTIME_AGENT_NOT_DEPLOYED",
+  "observedDateUtc": "2026-10-24",
+  "repository": "eggie-admin/LuHm-OS",
+  "authority": "Professor",
+  "scope": "nonSensitiveSourceAndHostObservationOnly",
+  "source": {
+    "branch": "main",
+    "exactCommit": "271823df1d62c462e3c03fc87adcd8c1b367be9b",
+    "mergedPullRequest": 386,
+    "reviewedPullRequestHead": "3065094672412a8fade9ff52f9043eb6752186ce",
+    "mainProtection": {
+      "active": true,
+      "rules": [
+        "pull_request",
+        "non_fast_forward",
+        "deletion"
+      ],
+      "requiredApprovals": 0,
+      "integrationsWithBypass": 8
+    }
+  },
+  "sourceCi": {
+    "githubActionsSuccess": 15,
+    "githubActionsFailed": 0,
+    "cloudflareWorkersBuild": "failure",
+    "totalChecks": 17,
+    "allChecksPassed": false,
+    "run": "https://github.com/eggie-admin/LuHm-OS/actions/runs/40059442585",
+    "note": "Passing checks verify source and build stages, not running AI workers.",
+    "githubActionsSkipped": 1,
+    "observation": "Fresh exact-main check readback: 15 GitHub Actions success, 1 GitHub Actions skipped, 1 external Cloudflare Workers Builds failure. Earlier successful Cloudflare status was transient or superseded; no live edge or runtime proof.",
+    "checkEvidence": "https://github.com/eggie-admin/LuHm-OS/commit/271823df1d62c462e3c03fc87adcd8c1b367be9b/checks"
+  },
+  "render": {
+    "existingServicesOnly": true,
+    "previousVerifiedMcpDeployCommit": "b52db4eb2dbc394001cdd8a220458150041fb7d4",
+    "previousRuntimeReceipt": "doctrine/renderRuntimeReceipt20261022T144924Z.json",
+    "newMainDeployRequested": false,
+    "newMainDeployVerified": false,
+    "deployPipelineState": "AMBER_MISSING_RENDER_API_KEY",
+    "deployEvidence": "https://github.com/eggie-admin/LuHm-OS/actions/runs/40059442585",
+    "renderWorkspaceSelected": false,
+    "workspaceSelectionRequired": true,
+    "deviceSmokeTest": "NOT_PERFORMED"
+  },
+  "chatGpt": {
+    "pluginId": "plugin_asdk_app_sites_02c066d0b6bc8191ad41051ed5878040",
+    "pluginVersion": "1.0.12",
+    "privateScopePreserved": true,
+    "glassRoutingSkillInstalled": true,
+    "bridgeReachable": true,
+    "availableTools": [
+      "luhmConnectionStatus",
+      "luhm_open_cockpit"
+    ],
+    "inChatCockpitToolInvoked": true,
+    "experienceSchema": "luhmOs.inChatExperiencePayload.v1",
+    "experienceStatus": "SOURCE_CONFIGURED_CANDIDATE",
+    "supervisedBelldandyProbeToolAvailable": false,
+    "hostedIndependentAgentRuntime": "NOT_VERIFIED"
+  },
+  "smokeTests": {
+    "sourceTask": "ACCEPTED_SOURCE_ONLY",
+    "sourceTaskTestsPassed": 26,
+    "sourceTaskEvidence": "https://github.com/eggie-admin/LuHm-OS/actions/runs/40059442544",
+    "independentUrdModelReview": "NOT_EXECUTED",
+    "deterministicUrdCodepathReview": "ACCEPTED_SOURCE_ONLY",
+    "agentExecution": "NOT_ATTEMPTED",
+    "mcpPublicObservation": "EXTERNAL_MCP_VERIFY_NOT_SESSION_PROOF",
+    "mcpObservationEvidence": "https://github.com/eggie-admin/LuHm-OS/actions/runs/40059005525",
+    "directHostProbeFromAutomation": "NETWORK_UNAVAILABLE_NOT_AN_OUTAGE_PROOF"
+  },
+  "googleAi": {
+    "role": "BigBrotherWorkhorse",
+    "authenticatedModelsList": "NOT_VERIFIED_NO_CREDENTIAL",
+    "providerModelGeneration": "NOT_ATTEMPTED",
+    "billingEntitlement": "NOT_VERIFIED",
+    "workerDeployed": false,
+    "preflightEvidence": "https://github.com/eggie-admin/LuHm-OS/actions/runs/40059005896"
+  },
+  "cloudflare": {
+    "role": "NetworkEdgeOnly",
+    "workersBuildOnMergedMain": "failure",
+    "liveEdgeConfiguration": "NOT_VERIFIED",
+    "customMcpCname": "NO_PUBLIC_CNAME_OBSERVED_IN_PRIOR_CI",
+    "dnsChanged": false,
+    "proxyChanged": false,
+    "workersBuildPreviouslyObservedSuccess": true,
+    "edgeBuildStateNote": "Latest external check on the exact merged main commit is failure. The earlier success observation is superseded for current status; Cloudflare live deployment still unverified."
+  },
+  "quarantine": {
+    "contract": "doctrine/companyWideOperationalQuarantineV1.json",
+    "state": "QUARANTINED",
+    "registeredAgents": 15,
+    "activeTaskWorkersAllowed": false,
+    "hostSupervisedProbeReceipt": null,
+    "urdIndependentRuntimeReceipt": null,
+    "professorAgentSpecificResumeReceipt": null
+  },
+  "release": {
+    "canonSourceTruth": "doctrine/currentSourceTruthV3.json",
+    "sourceTruthNotMutatedByReceipt": true,
+    "proofScope": "OBSERVED_SOURCE_CI_AND_READ_ONLY_CHAT_HOST_ONLY",
+    "runtimeSeal": "NOT_ELIGIBLE",
+    "promotion": false,
+    "crownStatus": "STOP",
+    "requiredNextAction": "Confirm existing Render GitHub Workspace selection, then inspect service deploy SHA and provision verified credential/approval path without disclosing secrets."
+  }
+}
