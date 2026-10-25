@@ -23,6 +23,9 @@ textures/vram_compression/import_etc2_astc=true
 
 audio/driver/enable_input=false
 
+[audio]
+general/text_to_speech=true
+
 
 [editor_plugins]
 
