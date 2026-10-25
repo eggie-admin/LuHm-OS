@@ -67,6 +67,32 @@ jobs:
             fi
             requestedMilestone="goddessWebProposed"
             requestedSha="$approvedSha"
+          elif [[ "$commentBody" == "/cast goddessWebPlay" ]]; then
+            # Fresh Professor CAST is bound to PR #401, not the already-consumed #400 authorization.
+            approvedSha="61c1109fa219d359b1f422e61205b838d93f1308"
+            if [[ "${{ github.event.issue.number }}" != "401" || "$GITHUB_RUN_ATTEMPT" != "1" ]]; then
+              echo "::error title=Invalid gameplay CAST origin::PR #401 first attempt only"
+              exit 2
+            fi
+            prHead="$(gh api "repos/$GITHUB_REPOSITORY/pulls/401" --jq '.head.sha')"
+            approvalJson="$(gh api "repos/$GITHUB_REPOSITORY/issues/comments/6393313215")"
+            approvalAuthor="$(jq -r '.user.login' <<<"$approvalJson")"
+            approvalBody="$(jq -r '.body' <<<"$approvalJson")"
+            if [[ "$prHead" != "$approvedSha" || "$approvalAuthor" != "$GITHUB_REPOSITORY_OWNER" ]] ||
+               ! grep -Fq "sourceRef: $approvedSha" <<<"$approvalBody" ||
+               ! grep -Fq "milestoneId: proposedGoddessPlayWeb20261025" <<<"$approvalBody" ||
+               ! grep -Fq "taskId: proposedGoddessDialogueBondQuest" <<<"$approvalBody" ||
+               ! grep -Fq "PROFESSOR CAST" <<<"$approvalBody"; then
+              echo "::error title=Gameplay CAST authorization drift::Exact Professor approval/PR SHA absent"
+              exit 2
+            fi
+            firstOwnerCommandId="$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/401/comments?per_page=100" --jq '.[] | select(.body == "/cast goddessWebPlay" and .user.login == "eggie-admin") | .id' | sed -n '1p')"
+            if [[ -z "$firstOwnerCommandId" || "$firstOwnerCommandId" != "${{ github.event.comment.id }}" ]]; then
+              echo "::error title=Gameplay CAST consumed::Only first owner command can dispatch"
+              exit 2
+            fi
+            requestedMilestone="goddessWebPlay"
+            requestedSha="$approvedSha"
           else
             if [[ ! "$commentBody" =~ ^/cast[[:space:]]+(androidProposedDebug|androidWeb3Cockpit|publicPluginPackage)[[:space:]]+([0-9a-f]{40})$ ]]; then
               echo "::error title=Invalid CAST syntax::Use /cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage> $mainSha"
@@ -87,6 +113,8 @@ jobs:
             taskId="android-web3-cockpit-cast-${GITHUB_RUN_ID}"
           elif [[ "$requestedMilestone" == "goddessWebProposed" ]]; then
             taskId="proposed-four-goddess-sparks-dance-talk"
+          elif [[ "$requestedMilestone" == "goddessWebPlay" ]]; then
+            taskId="proposedGoddessDialogueBondQuest"
           else
             taskId="public-plugin-package-cast-${GITHUB_RUN_ID}"
           fi
@@ -200,3 +228,27 @@ jobs:
             -f castOriginRunId="$castOriginRunId" \
             -f castOriginCommentId="$castOriginCommentId"
           echo "proposedGoddessCastDispatched sourceRef=$sourceRef privateArtifactOnly=true"
+
+      - name: Dispatch single CAST for PR401 gameplay Web proof
+        if: steps.cast.outputs.requestedMilestone == 'goddessWebPlay'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          sourceRef: ${{ steps.cast.outputs.sourceRef }}
+          taskId: ${{ steps.cast.outputs.taskId }}
+          professorActor: ${{ steps.cast.outputs.professorActor }}
+          castOriginRunId: ${{ steps.cast.outputs.castOriginRunId }}
+          castOriginCommentId: ${{ github.event.comment.id }}
+        run: |
+          set -euo pipefail
+          gh workflow run godot-web-harness.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --ref main \
+            -f cast=cast \
+            -f milestoneId=proposedGoddessPlayWeb20261025 \
+            -f taskId="$taskId" \
+            -f sourceRef="$sourceRef" \
+            -f professorActor="$professorActor" \
+            -f castOriginRunId="$castOriginRunId" \
+            -f castOriginCommentId="$castOriginCommentId"
+          echo "goddessPlayCastDispatched sourceRef=$sourceRef privateArtifactOnly=true"
