@@ -51,10 +51,10 @@ def assess(doc):
         "existingThirdPartyIdentityNeverAssumed", "noLinkedInAuthenticationOrScraping",
         "noFinancialServiceOrBankConnection", "noMicrophoneOrCameraDefault",
         "readOnlyCapabilitiesOnly", "noWriteAgents",
-        "unknownCostMeansDisableFeature", "requiresPrivateProjectImport",
+        "unknownCostMeansDisableFeature", "requestsPrivateProjectImport",
     )
     for field in require_true:
-        if field == "requiresPrivateProjectImport":
+        if field == "requestsPrivateProjectImport":
             expect(beta.get(field) is False, "firstTesterNoProjectImport")
         else:
             expect(beta.get(field) is True, "firstTester_" + field)
@@ -122,7 +122,7 @@ class IdentityGatewayTests(unittest.TestCase):
 
     def test_first_tester_private_files_banned(self):
         bad = copy.deepcopy(self.doc)
-        bad["firstExternalTesterSafety"]["requiresPrivateProjectImport"] = True
+        bad["firstExternalTesterSafety"]["requestsPrivateProjectImport"] = True
         self.assertIn("firstTesterNoProjectImport", assess(bad))
 
     def test_no_unproved_auth_runtime(self):
