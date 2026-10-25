@@ -122,6 +122,101 @@ def inspect(document: dict, *, checkPaths: bool = True) -> dict:
     for field in ("buildDispatched", "promotion"):
         require(mobile.get(field) is False, "MOBILE_AUTHORITY_" + field)
     require(mobile.get("crownStatus") == "STOP", "MOBILE_CROWN")
+    # Human-led Python media work flows to private lossless masters; Nginx serves
+    # only approved web derivatives. This is source law, NOT runtime proof.
+    media = document.get("studioMediaReverse", {})
+    require(media.get("schema") == "luhmOs.castStudioMediaReverse.v1", "MEDIA_SCHEMA")
+    require(media.get("status") == "SOURCE_DESIGN_ONLY_NO_LIVE_STUDIO_OR_NGINX_PROOF", "MEDIA_STATUS")
+    require(media.get("composition") ==
+            "HUMAN_TO_PYTHON_TO_BLENDER_AND_MEDIA_TO_APPROVED_DELIVERY_AND_REVERSE_HARDWARE_PROOF",
+            "MEDIA_COMPOSITION")
+    human = media.get("directorSurface", {})
+    require(human.get("intentInterface") == "NATURAL_LANGUAGE_AND_SMALL_IN_CHAT_GUI", "HUMAN_INTENT")
+    for key in ("noUserShellOrJsonRequired", "aiDoesNotSelfApprove",
+                "clientCannotDispatchPrivilegedShell"):
+        require(human.get(key) is True, "HUMAN_GUARD_" + key)
+    python = media.get("pythonMixCenter", {})
+    require(python.get("language") == "python3" and
+            python.get("role") == "TYPED_TASK_ROUTER_NOT_PUBLIC_RAW_SHELL", "PYTHON_ROLE")
+    require(python.get("parallelReadOnlyLanesMax") == 3 and
+            python.get("mutableSourceLanesMax") == 1, "PYTHON_BUDGET")
+    for field in ("noLLMTextAsExecutableCommand", "argumentArrayToolsOnly", "noCredentialInReceipt"):
+        require(python.get(field) is True, "PYTHON_GUARD_" + field)
+    require(python.get("workerAutoUnquarantine") is False, "PYTHON_QUARANTINE")
+    require(all(isinstance(f, str) for f in python.get("handoffRequired", [])), "PYTHON_HANDOFF")
+    for ref in python.get("source", []):
+        require(isinstance(ref, str) and re.fullmatch(r"[A-Za-z0-9_./-]+", ref) is not None and
+                ".." not in Path(ref).parts and (root / ref).is_file(), "PYTHON_SOURCE")
+    studioMedia = media.get("studio", {})
+    require(studioMedia.get("target") == "GitHub Codespaces Ubuntu 26.04 userland", "MEDIA_STUDIO")
+    for key in ("sourceConfiguredOnly", "runtimeSmokeRequired", "hardwareOrGpuNotAssumed",
+                "headlessGuiNotAssumed", "protectedMastersReadOnly",
+                "writeOnlyNewVersionedCandidate", "sourceAndPreviewSeparate"):
+        require(studioMedia.get(key) is True, "MEDIA_STUDIO_GUARD_" + key)
+    fidelity = media.get("assetFidelity", {})
+    require(fidelity.get("policy") == "KEEP_FULL_FIDELITY_EDITABLE_MASTERS_AND_RENDER_DERIVATIVES",
+            "FidelityPolicy".upper())
+    require(fidelity.get("privateStorage") == "OWNER_CONTROLLED_GOOGLE_DRIVE_DURABLE_ARTIFACTS",
+            "PRIVATE_MASTER_STORAGE")
+    require(fidelity.get("metadataStorage") == "GITHUB_PUBLIC_SOURCE_SANITIZED_HASHES_ONLY",
+            "PUBLIC_METADATA")
+    for key in ("uncompressedRequested", "losslessCompressionAcceptable",
+                "lossyMasterSubstitutionForbidden", "noPrivateAssetBytesInGitHub",
+                "noOriginalOverwrite", "backupNotAssumedUntilRestoredAndHashed",
+                "storageAndBandwidthBudgetMeasuredBeforeUncompressedExport"):
+        require(fidelity.get(key) is True, "MASTER_GUARD_" + key)
+    masters = fidelity.get("masters", [])
+    require([x.get("format") for x in masters] ==
+            [".blend", "OpenEXR", "PNG", "WAV", "FLAC", "FFV1_MKV"], "MASTER_FORMATS")
+    require(all(isinstance(m.get("property"), str) and len(m["property"]) > 15 for m in masters),
+            "MASTER_PROPERTIES")
+    require(all(k in fidelity.get("checks", []) for k in
+                ("bitDepthAndAlpha", "linearColorAndOCIO", "sourceHashes",
+                 "audioSampleRateAndChannelLayout", "decodeFidelityAndVersionedMaster")),
+            "MASTER_FIDELITY_CHECKS")
+    delivery = media.get("webDelivery", {})
+    require(delivery.get("strategy") == "DERIVE_OPTIMIZED_PREVIEW_FROM_HASHED_MASTER",
+            "PREVIEW_GENERATION")
+    for key in ("browserNeverDownloadsFullEditableMasterByDefault",
+                "offlineFallbackRequired", "deviceMemoryAndNetworkBudgetChecked"):
+        require(delivery.get(key) is True, "PREVIEW_GUARD_" + key)
+    require(delivery.get("renderRoles") == "THREE_OR_GODOT_CHOSEN_PER_SCENE_NOT_BOTH_BY_DEFAULT",
+            "DUPLICATE_ENGINE")
+    edge = media.get("nginx", {})
+    require(edge.get("role") ==
+            "OPTIONAL_SMALL_STATIC_GATE_AND_REVERSE_PROXY_TO_EXISTING_LOCAL_PYTHON_MCP",
+            "NGINX_ROLE")
+    for key in ("installedDoesNotImplyStarted", "serveOnlyApprovedDerivativeHashes",
+                "excludePrivateMastersAndArchives", "denyDirectoryListing",
+                "blockTraversalAndSymlinkEscape", "apiAuthOutsidePublicStaticRoute",
+                "pythonBoundLoopbackOrPrivateUnixSocket", "noRawIpPublicBind",
+                "noLanPublicExposure", "noRouterPortForward",
+                "neverProxySqlOrCredentials", "cacheOnlyPublicImmutableHashedAssets",
+                "releaseNeedsIndependentEndpointAndSecurityReceipts"):
+        require(edge.get(key) is True, "NGINX_GUARD_" + key)
+    for key in ("serviceRunningProven", "newInternetFacingOriginAuthorized",
+                "tlsIsSeparatelyVerified"):
+        require(edge.get(key) is False, "NGINX_RUNTIME_" + key)
+    community = media.get("communityFallback", {})
+    require(community.get("upstreamRef") == "doctrine/skuldUpstreamCabinetV1.json",
+            "UPSTREAM_POLICY")
+    require(community.get("approvedAutomaticThirdPartyScriptExecution") is False,
+            "COMMUNITY_EXECUTION")
+    require(community.get("doNotMistakeCommunityFallbackForBackup") is True and
+            community.get("dataBackupNeedsIndependentRestoreTest") is True and
+            community.get("unknownThirdPartyCodeRuns") is False, "BACKUP_FALLBACK")
+    require(len(community.get("requiredEvidence", [])) >= 5, "UPSTREAM_EVIDENCE")
+    reverse = media.get("reverseProof", [])
+    require([x.get("id") for x in reverse] ==
+            ["mediaMaster", "renderDerivative", "pythonControl",
+             "nginxDelivery", "mobileGroundZero"], "MEDIA_REVERSE_ORDER")
+    require(all(isinstance(x.get("require"), str) and len(x["require"]) > 16 for x in reverse),
+            "MEDIA_REVERSE_PROOF")
+    require(media.get("runtimeEvidence") and all(
+        value is False for value in media["runtimeEvidence"].values()), "MEDIA_RUNTIME_PROOF")
+    for key in ("buildDispatched", "publicMediaPublished", "hostMounted", "promotion"):
+        require(media.get(key) is False, "MEDIA_AUTHORITY_" + key)
+    require(media.get("crownStatus") == "STOP", "MEDIA_CROWN")
     tasks = document.get("tasks")
     require(isinstance(tasks, list) and len(tasks) == 7, "TASK_COUNT")
     require([t.get("id") for t in tasks] == taskIds, "TASK_ORDER")
@@ -167,6 +262,25 @@ def preview(sourceRef: str, scopeId: str, *, document: dict | None = None) -> di
         "platform": "GitHub Codespaces",
         "osImageTarget": "ubuntu:26.04",
         "taskCount": info["taskCount"],
+        "mediaReverse": {
+            "schema": data["studioMediaReverse"]["schema"],
+            "status": data["studioMediaReverse"]["status"],
+            "director": data["studioMediaReverse"]["director"],
+            "sourceMasterFormats": [
+                master["format"]
+                for master in data["studioMediaReverse"]["assetFidelity"]["masters"]
+            ],
+            "deliveryOnlyApprovedDerivatives": True,
+            "reverseProofIds": [
+                proof["id"] for proof in data["studioMediaReverse"]["reverseProof"]
+            ],
+            "codespaceMediaRuntimeProven": False,
+            "nginxRunningProven": False,
+            "backupRestoreProven": False,
+            "hostMounted": False,
+            "buildDispatched": False,
+            "crownStatus": "STOP",
+        },
         "mobileComposition": {
             "schema": data["mobileComposition"]["schema"],
             "status": data["mobileComposition"]["status"],
@@ -242,6 +356,26 @@ def selfTest() -> None:
         else: raise AssertionError("Cross-platform binary/kernel/user control drift accepted")
     assert sample["mobileComposition"]["iphoneCanExecuteApk"] is False
     assert sample["mobileComposition"]["livePlatformProof"] is False
+    for mutate in (
+        lambda obj: obj["studioMediaReverse"]["assetFidelity"].__setitem__("lossyMasterSubstitutionForbidden", False),
+        lambda obj: obj["studioMediaReverse"]["assetFidelity"].__setitem__("noPrivateAssetBytesInGitHub", False),
+        lambda obj: obj["studioMediaReverse"]["assetFidelity"].__setitem__("noOriginalOverwrite", False),
+        lambda obj: obj["studioMediaReverse"]["webDelivery"].__setitem__("browserNeverDownloadsFullEditableMasterByDefault", False),
+        lambda obj: obj["studioMediaReverse"]["nginx"].__setitem__("excludePrivateMastersAndArchives", False),
+        lambda obj: obj["studioMediaReverse"]["nginx"].__setitem__("serviceRunningProven", True),
+        lambda obj: obj["studioMediaReverse"]["communityFallback"].__setitem__("approvedAutomaticThirdPartyScriptExecution", True),
+        lambda obj: obj["studioMediaReverse"]["communityFallback"].__setitem__("dataBackupNeedsIndependentRestoreTest", False),
+        lambda obj: obj["studioMediaReverse"]["runtimeEvidence"].__setitem__("blenderMasterProduced", True),
+        lambda obj: obj["studioMediaReverse"]["reverseProof"].reverse()
+    ):
+        bad = copy.deepcopy(original)
+        mutate(bad)
+        try: inspect(bad)
+        except ValueError: pass
+        else: raise AssertionError("Studio fidelity, Nginx or backup authority bypass accepted")
+    assert sample["mediaReverse"]["nginxRunningProven"] is False
+    assert sample["mediaReverse"]["backupRestoreProven"] is False
+    assert sample["mediaReverse"]["deliveryOnlyApprovedDerivatives"] is True
     for candidate in ("main", "f" * 39):
         try: preview(candidate, "professor/ubuntu-cast-studio")
         except ValueError: pass
