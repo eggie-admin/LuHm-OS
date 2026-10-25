@@ -7,6 +7,7 @@ const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
 const CutsceneBridgeScript := preload("res://scripts/game/cutsceneBridge.gd")
 const CharacterRosterScript := preload("res://scripts/game/characterRoster.gd")
 const QuestDirectorScript := preload("res://scripts/game/questDirector.gd")
+const WitchingHourDirectorScript := preload("res://scripts/game/witchingHourDirector.gd")
 const OniSummonBeaconScript := preload("res://scripts/game/oniSummonBeacon.gd")
 const OniEchoCompanionScript := preload("res://scripts/game/oniEchoCompanion.gd")
 
@@ -30,6 +31,7 @@ var cutscene_director: Node
 var cutscene_bridge: Node
 var character_roster: Node
 var quest_director: Node
+var witching_hour_director: Node
 var nearest_interactable: Area3D
 var intro_played := false
 var android_web3_plugin = null
@@ -78,6 +80,10 @@ func _build_runtime() -> void:
     character_roster.name = "CharacterRoster"
     add_child(character_roster)
 
+    witching_hour_director = WitchingHourDirectorScript.new()
+    witching_hour_director.name = "WitchingHourDirector"
+    add_child(witching_hour_director)
+
     quest_director = QuestDirectorScript.new()
     quest_director.name = "QuestDirector"
     add_child(quest_director)
@@ -89,6 +95,7 @@ func _wire_runtime() -> void:
     game_hud.backend_requested.connect(_enter_backend)
     game_hud.world_destination_requested.connect(switchWorld)
     game_hud.lum_talk_requested.connect(_on_lum_talk_requested)
+    witching_hour_director.caption_ready.connect(_on_witching_hour_caption)
     game_hud.interact_requested.connect(_interact)
     game_hud.move_axis_changed.connect(player_controller.set_touch_axis)
 
@@ -105,8 +112,12 @@ func _enter_goddess_rehearsal() -> void:
 func _on_lum_talk_requested() -> void:
     if game_hud == null or LUM_BANTER.is_empty():
         return
-    game_hud.show_dialogue(str(LUM_BANTER[lum_banter_index % LUM_BANTER.size()]))
+    witching_hour_director.show_local_caption("lum", str(LUM_BANTER[lum_banter_index % LUM_BANTER.size()]))
     lum_banter_index = (lum_banter_index + 1) % LUM_BANTER.size()
+
+func _on_witching_hour_caption(_speaker_id: String, words: String) -> void:
+    if game_hud != null:
+        game_hud.show_dialogue(words)
 
 func _wire_android_web3() -> void:
     if OS.get_name() != "Android":
