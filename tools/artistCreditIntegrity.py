@@ -31,7 +31,10 @@ TRUE_TO_PUBLISH = (
 def safe_link(url):
     if not isinstance(url, str):
         return False
-    link = urlsplit(url)
+    try:
+        link = urlsplit(url)
+    except ValueError:
+        return False
     return (link.scheme == "https" and bool(link.hostname)
             and not link.username and not link.password and not link.port
             and not any(ord(char) < 32 for char in url))
@@ -98,7 +101,7 @@ def validate(used, references):
         for key in ("sourceUrl", "licenseEvidenceUrl", "exactFilePermissionSource"):
             if not safe_link(item.get(key)):
                 errors_for_asset.append("UNSAFE_OR_MISSING_" + key)
-        if item.get("license", "").strip().lower() in ("", "unknown", "free", "cc", "creative commons"):
+        if str(item.get("license") or "").strip().lower() in ("", "unknown", "free", "cc", "creative commons"):
             errors_for_asset.append("LICENSE_NOT_SPECIFIC")
         if item.get("derivativeCreated") is True and item.get("modificationAllowed") is not True:
             errors_for_asset.append("DERIVATIVE_PERMISSION_MISSING")
