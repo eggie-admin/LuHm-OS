@@ -1,0 +1,153 @@
+{
+  "schema": "luhmOs.fnCast.v1",
+  "project": "Project Premonition",
+  "product": "LuHm OS",
+  "entryPoint": "LuHmOS.fn.cast",
+  "fileFormat": "YAML 1.2 JSON-compatible subset (Python stdlib parser)",
+  "status": "SOURCE_CANDIDATE_NO_AUTOMATIC_DISPATCH",
+  "sqlCast": {
+    "input": "typedJsonSystemVariablePatches",
+    "result": "tunedJsonDocumentAndSqlReceipt",
+    "operation": "SQLITE_JSON1_PARAMETERIZED_JSON_SET",
+    "executesSql": true,
+    "databaseWrites": "candidateLocalOnlyWhenApply",
+    "backend": "sqlite3Json1",
+    "databasePath": "build/fnCastTuning/systemVariables.sqlite3",
+    "implementation": "tools/fnCastSqlJson.py",
+    "neverEvaluateInput": true,
+    "prohibitsRawSql": true,
+    "appliesTo": [
+      "systemVariables"
+    ],
+    "leavesUntouched": [
+      "crownCondition",
+      "finalCast",
+      "tier",
+      "milestone",
+      "identity",
+      "releaseAuthority"
+    ]
+  },
+  "voiceTrigger": {
+    "aliases": [
+      "cast",
+      "cst",
+      "c"
+    ],
+    "caseInsensitive": true,
+    "punctuationWrapper": ".,!?;:/\\\"'*",
+    "exactWholeCommand": true,
+    "requiresArmedInput": true,
+    "requiresFnCastContext": true,
+    "collisionPolicy": "scopedOnly",
+    "existingGlobalAliases": {
+      "cst": "currentSourceTruth",
+      "c": "continue"
+    },
+    "noAutomaticBuildOrRelease": true,
+    "singleLetterRequiresConfirmation": true
+  },
+  "tier": {
+    "id": "forFuckSake",
+    "display": "FFS!",
+    "auditPassTarget": 25,
+    "contract": "doctrine/operationTitan7ChatTriggerV2.json",
+    "changesAuthority": false
+  },
+  "milestone": {
+    "id": "finalForm",
+    "display": "FINAL_FORM",
+    "contract": "doctrine/finalFormPublicReleaseGateV1.json",
+    "bindSourceRef": true
+  },
+  "crownCondition": {
+    "mode": "ALL",
+    "nonNullFieldsRequired": true,
+    "proofValue": "PROVEN",
+    "sourceRefMustEqualCheckout": true,
+    "allExternalProofsRequired": true,
+    "signedStableReleaseRequired": true,
+    "independentVerificationRequired": true,
+    "explicitArtifactReviewRequired": true,
+    "rejectBooleanOrShortcut": true,
+    "allowUnknown": false,
+    "missingProofAction": "HOLD",
+    "publicationViaThisFunction": false
+  },
+  "finalCast": {
+    "type": "INTENT_AND_EVIDENCE_PREFLIGHT_ONLY",
+    "requiresSeparateProfessorGitHubCast": true,
+    "oneUseForBuilds": true,
+    "voiceNeverDispatchesGitHubActions": true,
+    "noAutomaticRelease": true,
+    "noAutomaticPublication": true,
+    "noAutomaticSigning": true,
+    "noAutomaticCrown": true,
+    "existingBuildGate": "tools/forgeCastGate.py",
+    "currentCrownStatus": "STOP"
+  },
+  "sqlJsonTuning": {
+    "schema": "luhmOs.fnCastJsonTuning.v1",
+    "engine": "sqlite3Json1",
+    "recordName": "projectPremonition",
+    "defaultVariables": {
+      "ui": {
+        "glassOpacity": 0.72
+      },
+      "audio": {
+        "voiceGain": 1,
+        "musicVolume": 0.65
+      },
+      "gameplay": {
+        "dialogueSpeed": 1
+      },
+      "render": {
+        "frameCap": 60
+      }
+    },
+    "allowedPaths": {
+      "ui.glassOpacity": {
+        "type": "number",
+        "minimum": 0.1,
+        "maximum": 1
+      },
+      "audio.voiceGain": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 2
+      },
+      "audio.musicVolume": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "gameplay.dialogueSpeed": {
+        "type": "number",
+        "minimum": 0.5,
+        "maximum": 3
+      },
+      "render.frameCap": {
+        "type": "integer",
+        "minimum": 24,
+        "maximum": 120
+      }
+    },
+    "sqlQueries": [
+      "json_valid",
+      "json_set",
+      "json_extract",
+      "json_type"
+    ],
+    "strictParameterBinding": true,
+    "updatesAtomic": true,
+    "previewReadOnly": true,
+    "applyRequiresArmedVoiceContext": true,
+    "persistedOnlyUnder": "build/fnCastTuning/",
+    "rejectsUnknownKeys": true,
+    "rejectsNullBooleansOrNaN": true,
+    "rejectsSqlFragments": true,
+    "noCanonicalDoctrineMutation": true,
+    "noExternalDatabaseMutation": true,
+    "noCrownPromotion": true
+  }
+}
