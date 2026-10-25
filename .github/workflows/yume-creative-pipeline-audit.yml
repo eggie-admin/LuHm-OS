@@ -10,6 +10,8 @@ on:
       - 'doctrine/artistCreditLedgerV1.json'
       - 'media/artistCreditsApprovedV1.json'
       - 'media/yumeReferenceGalleryV1.json'
+      - 'frontEnd/yumeReferenceGallery.template.html'
+      - 'frontEnd/yumeReferenceGallery.html'
       - 'tools/artistCreditIntegrity.py'
       - 'tests/testArtistCreditIntegrity.py'
       - 'doctrine/githubWorkflowBudgetV1.json'
