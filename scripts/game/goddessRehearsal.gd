@@ -53,6 +53,9 @@ func _ready() -> void:
         _build_actor(i)
     _build_hud()
     _select(0)
+    # Actual runtime markers for CAST browser smoke, not a client-side proof claim.
+    if OS.has_feature("web"):
+        print("LUHM_REHEARSAL_STAGE_READY")
 
 func _build_stage() -> void:
     var camera := Camera3D.new()
@@ -307,6 +310,8 @@ func _dance() -> void:
     _bond_points[active_index] = mini(9, _bond_points[active_index] + 1)
     if message != null:
         message.text = "%s: Four beats, one ridiculous victory dance. ♡\n%s" % [IDS[active_index].capitalize(), _route_status()]
+    if OS.has_feature("web"):
+        print("LUHM_REHEARSAL_DANCE_ROUTE:", IDS[active_index])
 
 
 func _talk() -> void:
@@ -317,6 +322,8 @@ func _talk() -> void:
     _bond_points[active_index] = mini(9, _bond_points[active_index] + 1)
     if message != null:
         message.text = next_line + "\n" + _route_status()
+    if OS.has_feature("web"):
+        print("LUHM_REHEARSAL_TALK_ROUTE:", IDS[active_index])
 
 
 func _refresh_hud_layout() -> void:
