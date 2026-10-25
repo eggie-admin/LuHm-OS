@@ -21,7 +21,9 @@ class FnCastVoiceTests(unittest.TestCase):
     def testYamlSubsetSchemaAndExistingGlobalAlias(self):
         self.assertEqual(contract["entryPoint"], "LuHmOS.fn.cast")
         self.assertEqual(contract["sqlCast"]["result"], "boolean")
-        self.assertFalse(contract["sqlCast"]["executesSql"])
+        self.assertTrue(contract["sqlCast"]["executesSql"])
+        self.assertEqual(contract["sqlCast"]["operation"], "SQLITE_JSON1_PARAMETERIZED_JSON_SET")
+        self.assertEqual(contract["sqlCast"]["databaseWrites"], "candidateLocalOnlyWhenApply")
         self.assertEqual(contract["voiceTrigger"]["existingGlobalAliases"]["cst"], "currentSourceTruth")
         self.assertEqual(contract["voiceTrigger"]["existingGlobalAliases"]["c"], "continue")
 
