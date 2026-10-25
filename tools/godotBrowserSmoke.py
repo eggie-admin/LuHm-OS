@@ -78,19 +78,35 @@ def run_browser(root,output):
             page.goto(f"http://127.0.0.1:{port}/index.html",wait_until="domcontentloaded",timeout=60000)
             page.wait_for_function("() => {const c=document.querySelector('canvas');return !!c && c.width >= 300 && c.height >= 180 && c.offsetWidth > 0}",timeout=120000)
             canvas=page.locator("canvas").first
-            canvas.click(timeout=15000)
-            page.keyboard.down("ArrowUp")
-            page.wait_for_timeout(700)
-            page.keyboard.up("ArrowUp")
-            page.keyboard.press("Space")
-            page.wait_for_timeout(900)
             output.parent.mkdir(parents=True,exist_ok=True)
-            page.screenshot(path=str(output.with_suffix(".png")),full_page=True)
+            # Previous smoke only photographed the Cathedral menu. Preserve
+            # it, then explicitly attempt to enter the rehearsal scene.
+            menuProof=output.parent/"cathedralMenu.png"
+            rehearsalProof=output.parent/"rehearsalStage.png"
+            interactionProof=output.parent/"rehearsalInteractions.png"
+            page.screenshot(path=str(menuProof),full_page=True)
+            box=canvas.bounding_box()
+            if box is None or box["width"] < 300 or box["height"] < 180:
+                raise RuntimeError("Godot canvas position not observable")
+            page.mouse.click(box["x"]+box["width"]*0.5,box["y"]+box["height"]*0.555)
+            page.wait_for_timeout(1400)
+            page.screenshot(path=str(rehearsalProof),full_page=True)
+            page.keyboard.press("t")
+            page.wait_for_timeout(220)
+            page.keyboard.press("d")
+            page.wait_for_timeout(220)
+            page.keyboard.press("ArrowRight")
+            page.keyboard.press("t")
+            page.wait_for_timeout(450)
+            page.screenshot(path=str(interactionProof),full_page=True)
             report={"schema":"luhmOs.godotBrowserSmoke.v1","status":"BROWSER_CANVAS_AND_INPUT_DISPATCH_OBSERVED" if not failures else "RED_BROWSER_SCRIPT_ERROR",
                     "browser":"Chromium headless","canvasVisible":True,
-                    "keyboardEventsDispatched":True,"playableQuestProgressProven":False,
+                    "keyboardEventsDispatched":True,"rehearsalClickDispatched":True,
+                    "rehearsalSceneVerified":False,"playableQuestProgressProven":False,
                     "touchOnSamsungProven":False,"chatGptHostProven":False,
-                    "errors":failures,"screenshot":output.with_suffix(".png").name,
+                    "errors":failures,"screenshot":interactionProof.name,
+                    "additionalScreenshots":[menuProof.name,rehearsalProof.name],
+                    "proofLimit":"screenshots are reviewable evidence, not a DOM-scene-state assertion",
                     "crownStatus":"STOP"}
             output.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
             browser.close()
