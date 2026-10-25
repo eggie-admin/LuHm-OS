@@ -1,5 +1,8 @@
 # LuHm OS
 
+<p align="center"><img src="host/harness/brandMark.svg" alt="LuHm OS horned-L logo" width="104" height="104"></p>
+<p align="center"><strong>LuHm OS</strong> · An Eggie Bagelface production<br>Artist-first · Godot 4 · Seven-layer cockpit</p>
+
 ## Plugin downloads: Proposed · Beta · Stable
 
 [GitHub Releases](https://github.com/eggie-admin/LuHm-OS/releases) · [Latest Proposed search](https://github.com/eggie-admin/LuHm-OS/releases?q=luhm-plugin-proposed) · [Latest Beta search](https://github.com/eggie-admin/LuHm-OS/releases?q=luhm-plugin-beta) · [Latest Stable search](https://github.com/eggie-admin/LuHm-OS/releases?q=luhm-plugin-stable)
