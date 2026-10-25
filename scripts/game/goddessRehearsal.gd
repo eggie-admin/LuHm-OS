@@ -16,6 +16,7 @@ var active_index := 0
 var elapsed := 0.0
 var _hud_column: VBoxContainer
 var _selector_grid: GridContainer
+var _action_grid: GridContainer
 var _canon_roles: Dictionary = {}
 var _focus_markers: Array[Node3D] = []
 var _lum_rig_loaded := false
@@ -256,7 +257,9 @@ func _build_hud() -> void:
         button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
         button.pressed.connect(func(): _select(index))
         row.add_child(button)
-    var playbar := HBoxContainer.new()
+    var playbar := GridContainer.new()
+    playbar.columns = 3
+    _action_grid = playbar
     playbar.name = "ProposedPlayControls"
     playbar.add_theme_constant_override("separation", 8)
     column.add_child(playbar)
@@ -319,9 +322,12 @@ func _talk() -> void:
 func _refresh_hud_layout() -> void:
     if _hud_column == null or _selector_grid == null:
         return
-    var portrait := get_viewport().get_visible_rect().size.x < 630.0
+    var width := get_viewport().get_visible_rect().size.x
+    var portrait := width < 630.0
+    var narrow := width < 350.0
     _selector_grid.columns = 2 if portrait else 4
-    _hud_column.offset_top = -265 if portrait else -205
+    _action_grid.columns = 1 if narrow else 3
+    _hud_column.offset_top = -430 if narrow else (-315 if portrait else -250)
 
 func _select(i: int) -> void:
     active_index = i
