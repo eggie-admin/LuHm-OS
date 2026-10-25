@@ -1,0 +1,58 @@
+{
+  "schema": "luhmOs.androidReleaseEvidence.v1",
+  "taskId": "fdroidReleaseEvidence20261022",
+  "scope": "ownerSignedBetaAndIndependentFdroidRepository",
+  "observedMain": "e472bd76042003759c1157fb3aaaea1d9fa92ef1",
+  "status": "BLOCKED_SIGNING_AND_ARTIFACT_IDENTITY",
+  "userRequestedBuild": true,
+  "videoEvidence": {
+    "sha256": "7db28717104a9fcfe291ec152f512e63b12e53cd8ee9a4bbfe47657f9b0a6fa7",
+    "durationSeconds": 24.772567,
+    "observation": "User-supplied screen recording shows a LuHm launcher entry followed by the LuHm Android Web3 cockpit candidate screen.",
+    "scope": "VISUAL_LAUNCH_ONLY_UNBOUND_TO_APK",
+    "packageId": null,
+    "versionCode": null,
+    "apkSha256": null,
+    "appSignerCertificateSha256": null,
+    "deviceModel": null,
+    "firstInstallProven": false,
+    "sameSignerUpgradeProven": false,
+    "fdroidEnrollmentProven": false,
+    "privateMediaPublished": false
+  },
+  "lastSignedRun": {
+    "runId": 39561807626,
+    "jobId": 119094602475,
+    "sourceRef": "15e09b8aec72aba4ddbafd135f8e9dfcafcbdc5c",
+    "result": "FAILURE",
+    "failedStep": "Owner-held beta keystore",
+    "evidence": "Run log has empty BETA_P12_B64, BETA_PASSWORD, BETA_ALIAS and TRUSTED_SIGNER; exits 1 before APK export.",
+    "secretAvailabilityNow": "UNVERIFIED",
+    "url": "https://github.com/eggie-admin/LuHm-OS/actions/runs/39561807626"
+  },
+  "sourceValidation": {
+    "sourceRef": "e472bd76042003759c1157fb3aaaea1d9fa92ef1",
+    "allExitCodes": 0,
+    "commands": [
+      "python3 tools/samsung-lite-beta.py",
+      "python3 tests/test-samsung-lite-beta.py",
+      "python3 tests/testSignedBetaWorkflow.py",
+      "python3 tools/fdroidTabletSourceAudit.py",
+      "python3 tools/stageFdroidTabletBeta.py --self-test",
+      "python3 tools/prepareFdroidRepoCandidate.py --self-test"
+    ],
+    "proves": "Source preflight and fixture-based staging validation only; no new APK built."
+  },
+  "delivery": {
+    "applicationId": "art.eggiebagelface.luhmos.beta",
+    "signedApkAvailableForObservedMain": false,
+    "publicIndexSignature": "NOT_VERIFIED",
+    "publicHttpsRepository": "NOT_VERIFIED",
+    "physicalArtifactBoundLaunch": "PENDING",
+    "upgrade": "PENDING"
+  },
+  "nextAction": "Owner configures persistent signing inputs through GitHub Actions secrets, then dispatches samsung-lite-signed-beta.yml against freshly resolved current main. Verify APK receipt before separate F-Droid index signing and hosting.",
+  "mainPromotion": false,
+  "observedOn": "2026-10-22",
+  "observationTimezone": "America/Detroit"
+}
