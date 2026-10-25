@@ -93,6 +93,27 @@ jobs:
             fi
             requestedMilestone="goddessWebPlay"
             requestedSha="$approvedSha"
+
+          elif [[ "$commentBody" =~ ^/cast[[:space:]]+witchingHourWeb[[:space:]]+([0-9a-f]{40})$ ]]; then
+            # New private-only candidate, bound to an owner-authored PR #411 comment.
+            # No prior CAST comment or older Goddess approval can authorize this SHA.
+            approvedSha="55a10a74f4101ae557d37081cc671de1ceb74ff1"
+            requestedSha="${BASH_REMATCH[1]}"
+            if [[ "${{ github.event.issue.number }}" != "411" || "$GITHUB_RUN_ATTEMPT" != "1" ]]; then
+              echo "::error title=Invalid Witching Hour CAST origin::PR #411 first attempt only"
+              exit 2
+            fi
+            prHead="$(gh api "repos/$GITHUB_REPOSITORY/pulls/411" --jq '.head.sha')"
+            if [[ "$prHead" != "$approvedSha" || "$requestedSha" != "$approvedSha" ]]; then
+              echo "::error title=Witching Hour CAST source drift::Exact approved PR #411 SHA required"
+              exit 2
+            fi
+            firstOwnerCommandId="$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/411/comments?per_page=100" | jq -r --arg owner "$GITHUB_REPOSITORY_OWNER" '.[] | select(.user.login == $owner and (.body | startswith("/cast witchingHourWeb "))) | .id' | sed -n '1p')"
+            if [[ -z "$firstOwnerCommandId" || "$firstOwnerCommandId" != "${{ github.event.comment.id }}" ]]; then
+              echo "::error title=Witching Hour CAST already consumed::Only the first owner command may dispatch"
+              exit 2
+            fi
+            requestedMilestone="witchingHourWeb"
           else
             if [[ ! "$commentBody" =~ ^/cast[[:space:]]+(androidProposedDebug|androidWeb3Cockpit|publicPluginPackage)[[:space:]]+([0-9a-f]{40})$ ]]; then
               echo "::error title=Invalid CAST syntax::Use /cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage> $mainSha"
@@ -115,6 +136,8 @@ jobs:
             taskId="proposed-four-goddess-sparks-dance-talk"
           elif [[ "$requestedMilestone" == "goddessWebPlay" ]]; then
             taskId="proposedGoddessDialogueBondQuest"
+          elif [[ "$requestedMilestone" == "witchingHourWeb" ]]; then
+            taskId="proposedWitchingHourFinalBoss"
           else
             taskId="public-plugin-package-cast-${GITHUB_RUN_ID}"
           fi
@@ -252,3 +275,27 @@ jobs:
             -f castOriginRunId="$castOriginRunId" \
             -f castOriginCommentId="$castOriginCommentId"
           echo "goddessPlayCastDispatched sourceRef=$sourceRef privateArtifactOnly=true"
+
+      - name: Dispatch single-use PR411 private Godot Web candidate
+        if: steps.cast.outputs.requestedMilestone == 'witchingHourWeb'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          sourceRef: ${{ steps.cast.outputs.sourceRef }}
+          taskId: ${{ steps.cast.outputs.taskId }}
+          professorActor: ${{ steps.cast.outputs.professorActor }}
+          castOriginRunId: ${{ steps.cast.outputs.castOriginRunId }}
+          castOriginCommentId: ${{ github.event.comment.id }}
+        run: |
+          set -euo pipefail
+          gh workflow run godot-web-harness.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --ref main \
+            -f cast=cast \
+            -f milestoneId=proposedWitchingHourWeb20261025 \
+            -f taskId="$taskId" \
+            -f sourceRef="$sourceRef" \
+            -f professorActor="$professorActor" \
+            -f castOriginRunId="$castOriginRunId" \
+            -f castOriginCommentId="$castOriginCommentId"
+          echo "witchingHourWebCastDispatched sourceRef=$sourceRef privateArtifactOnly=true"

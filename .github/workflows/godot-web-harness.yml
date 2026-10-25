@@ -92,6 +92,14 @@ jobs:
                 expectedMilestone="proposedGoddessPlayWeb20261025"
                 expectedTask="proposedGoddessDialogueBondQuest"
                 ;;
+
+              55a10a74f4101ae557d37081cc671de1ceb74ff1)
+                approvedPr=411
+                approvedCommentId="$castOriginCommentId"
+                expectedCommand="/cast witchingHourWeb $sourceRef"
+                expectedMilestone="proposedWitchingHourWeb20261025"
+                expectedTask="proposedWitchingHourFinalBoss"
+                ;;
               *)
                 echo "::error title=CAST unauthorized source::Source not in explicit Professor approvals"
                 exit 2
@@ -110,9 +118,17 @@ jobs:
             approval="$(gh api "repos/$GITHUB_REPOSITORY/issues/comments/$approvedCommentId")"
             [[ "$(jq -r '.user.login' <<<"$approval")" == "$owner" ]]
             approvalBody="$(jq -r '.body' <<<"$approval")"
-            grep -Fq "sourceRef: $sourceRef" <<<"$approvalBody"
-            grep -Fq "milestoneId: $expectedMilestone" <<<"$approvalBody"
-            grep -Fq "taskId: $expectedTask" <<<"$approvalBody"
+            if [[ "$approvedPr" == "411" ]]; then
+              # For this scoped route the exact first owner-authored command is
+              # itself the authorization. Never consume older PR400/401 approvals.
+              [[ "$approvalBody" == "$expectedCommand" ]]
+              firstOwnerCommandId="$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/411/comments?per_page=100" | jq -r --arg owner "$owner" '.[] | select(.user.login == $owner and (.body | startswith("/cast witchingHourWeb "))) | .id' | sed -n '1p')"
+              [[ "$firstOwnerCommandId" == "$castOriginCommentId" ]]
+            else
+              grep -Fq "sourceRef: $sourceRef" <<<"$approvalBody"
+              grep -Fq "milestoneId: $expectedMilestone" <<<"$approvalBody"
+              grep -Fq "taskId: $expectedTask" <<<"$approvalBody"
+            fi
             [[ "$(gh api "repos/$GITHUB_REPOSITORY/pulls/$approvedPr" --jq '.head.sha')" == "$sourceRef" ]]
             echo "verifiedProfessorActor=$owner" >> "$GITHUB_OUTPUT"
           else
