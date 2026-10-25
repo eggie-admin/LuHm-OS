@@ -50,7 +50,7 @@ def loadCanon(root: Path = repoRoot) -> dict:
         raise ValueError("Forge permissions drift")
     if twins["Kaji"]["compileAuthorityRequiresCast"] is not True:
         raise ValueError("Kaji CAST constraint missing")
-    envelope = twins["castEnvelope"]
+    envelope = documents["twins"]["castEnvelope"]
     if "singleUse" not in envelope.get("requiredFields", []):
         raise ValueError("CAST single-use envelope field missing")
     if envelope["consumedOnAttempt"] is not True or envelope["persistentAuthorizationAllowed"] is not False:
