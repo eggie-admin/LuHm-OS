@@ -58,8 +58,10 @@ def loadCanon(root: Path = repoRoot) -> dict:
     budget = documents["agents"]["activationLaw"]
     if budget["maxParallelSupportWorkers"] != 3 or budget["oneMutableSourceLane"] is not True:
         raise ValueError("Staffing budget drift")
-    if budget["recursiveRecruitment"] is not False or budget["hiddenAsyncExecution"] is not False:
+    if budget["recursiveRecruitment"] is not False or budget["residentCoreHiddenAsync"] is not False:
         raise ValueError("Unbounded worker activation prohibited")
+    if contract["workerBudget"]["hiddenAsyncExecution"] is not False:
+        raise ValueError("Planner must not claim hidden asynchronous workers")
     if contract["workerBudget"]["parallelSupportMaximum"] != 3 or contract["workerBudget"]["mutableSourceLanes"] != 1:
         raise ValueError("Planner budget drift")
     if contract["castArrayLaw"]["taskArrayNeverDispatchesBuild"] is not True:
