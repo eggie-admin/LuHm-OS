@@ -24,7 +24,7 @@ jobs:
       - name: Exact PR source checkout
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
-          ref: \${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
       - name: Node runtime
         uses: actions/setup-node@v4
@@ -32,7 +32,7 @@ jobs:
           node-version: "24"
       - name: Test syntax and exact source
         env:
-          expectedHead: \${{ github.event.pull_request.head.sha || github.sha }}
+          expectedHead: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$expectedHead"
