@@ -4,13 +4,27 @@
   "authority": "professor",
   "boss": "lum",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
-  "purpose": "Canonical bootstrap contract for every LuHm OS / Project Hydra related chat.",
+  "purpose": "Canonical bootstrap contract for LuHm OS / Project Premonition, including legacy Project Hydra references.",
   "machineNamingLaw": "lowerCamelHump",
   "humanDisplayNamesAllowed": true,
+  "developmentIdentity": {
+    "machineName": "projectPremonition",
+    "displayName": "Project Premonition",
+    "formerName": "Project Hydra",
+    "formerMachineName": "projectHydra",
+    "productName": "LuHm OS",
+    "authority": "professor",
+    "approvedOn": "2026-10-25",
+    "scope": "developmentProjectName",
+    "preserveLegacyRoutes": true,
+    "preserveHistoricalReceipts": true,
+    "doesNotGrantDeploymentOrRelease": true
+  },
   "historicalReceiptNamesRemainHistorical": true,
   "bootstrapTrigger": {
     "projectNames": [
       "LuHm OS",
+      "Project Premonition",
       "Project Hydra",
       "KAI 9000",
       "OperationTitan7",
