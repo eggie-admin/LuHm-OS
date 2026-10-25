@@ -1,0 +1,159 @@
+{
+  "schema": "luhmOs.remoteSidecarHardening.v1",
+  "status": "SOURCE_CANDIDATE",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "asOf": "2026-10-21",
+  "authority": "Professor",
+  "sidecars": [
+    {
+      "id": "render",
+      "class": "runtime",
+      "access": "existing public read-only MCP and approved static exports",
+      "mutation": "manual exact SHA only"
+    },
+    {
+      "id": "cloudflare",
+      "class": "edge",
+      "access": "DNS/TLS/Access for approved routes",
+      "mutation": "no DNS/tunnel/proxy without verified account and rollback"
+    },
+    {
+      "id": "googleAi",
+      "class": "provider",
+      "access": "explicit scoped candidate review only",
+      "mutation": "disabled by default, no automatic Vertex"
+    },
+    {
+      "id": "openAi",
+      "class": "provider",
+      "access": "interactive scoped requests only",
+      "mutation": "no autonomous deployment or paid execution"
+    },
+    {
+      "id": "github",
+      "class": "source",
+      "access": "canonical code/CI",
+      "mutation": "reviewed PR, exact SHA and human release"
+    },
+    {
+      "id": "googleDrive",
+      "class": "assets",
+      "access": "private original binaries",
+      "mutation": "no public transfer by default"
+    },
+    {
+      "id": "huggingFace",
+      "class": "specialist",
+      "access": "bounded model/dataset metadata",
+      "mutation": "no unapproved inference or training"
+    },
+    {
+      "id": "gcpIap",
+      "class": "remoteVm",
+      "access": "staged private VM via IAP only",
+      "mutation": "four-approval gate, no public ingress"
+    },
+    {
+      "id": "fastApiCloud",
+      "class": "optionalTransport",
+      "access": "unverified",
+      "mutation": "disabled until runtime evidence"
+    }
+  ],
+  "invariants": {
+    "companyQuarantine": "QUARANTINED",
+    "activeAgentsAllowed": false,
+    "denyUnknown": true,
+    "providerTextAuthority": false,
+    "sourceTruthOwnedBy": "github",
+    "lumRoutes": true,
+    "urdAdjudicates": true,
+    "professorPromotes": true,
+    "noSecretInClientRepoLogs": true,
+    "noPrivateMediaPublication": true,
+    "noImplicitPaidUpgrade": true,
+    "noPortForwarding": true,
+    "noPublicLan": true,
+    "taskIdentityRequired": [
+      "taskId",
+      "scopeId",
+      "sourceRef",
+      "capabilityId",
+      "authorityClass"
+    ],
+    "failureHandling": [
+      "timeout",
+      "rateLimit",
+      "authDeny",
+      "sourceDrift",
+      "replay",
+      "circuitOpen",
+      "cancel",
+      "unknownMutationOutcome"
+    ],
+    "defaultRemoteWrite": false,
+    "defaultExternalAiExecution": false
+  },
+  "testCases": [
+    {
+      "id": "denyUnknownSidecar",
+      "sidecar": "unknown",
+      "expected": "DENY"
+    },
+    {
+      "id": "denyUnapprovedWrite",
+      "sidecar": "render",
+      "action": "deploy",
+      "expected": "DENY"
+    },
+    {
+      "id": "denyVertexFallback",
+      "sidecar": "googleAi",
+      "action": "vertexSubmit",
+      "expected": "DENY"
+    },
+    {
+      "id": "denyPrivateAssetPublish",
+      "sidecar": "googleDrive",
+      "action": "publishPrivate",
+      "expected": "DENY"
+    },
+    {
+      "id": "denyCloudflareTunnel",
+      "sidecar": "cloudflare",
+      "action": "createTunnel",
+      "expected": "DENY"
+    },
+    {
+      "id": "denyRemoteVmApply",
+      "sidecar": "gcpIap",
+      "action": "apply",
+      "expected": "DENY"
+    },
+    {
+      "id": "allowSourceInspection",
+      "sidecar": "github",
+      "action": "inspect",
+      "expected": "ALLOW"
+    },
+    {
+      "id": "allowPublicMcpRead",
+      "sidecar": "render",
+      "action": "publicReadOnly",
+      "expected": "ALLOW"
+    }
+  ],
+  "liveVerification": {
+    "render": "PARTIAL_API_OBSERVED",
+    "cloudflare": "UNVERIFIED",
+    "googleAi": "UNVERIFIED",
+    "openAi": "UNVERIFIED",
+    "github": "CONNECTED",
+    "googleDrive": "CONNECTED",
+    "huggingFace": "CONNECTED",
+    "gcpIap": "STAGED_ONLY",
+    "fastApiCloud": "UNVERIFIED"
+  },
+  "productionChanged": false,
+  "crownStatus": "STOP"
+}
