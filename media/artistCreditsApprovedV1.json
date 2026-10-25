@@ -1,0 +1,23 @@
+{
+  "schema": "luhmOs.artistCreditsApproved.v1",
+  "status": "EMPTY_UNTIL_EXACT_ASSET_USE_APPROVED",
+  "purpose": "Public-safe machine-readable records of real THIRD-PARTY assets used in the game. Study/reference links never enter this collection automatically.",
+  "doctrine": "doctrine/artistCreditLedgerV1.json",
+  "sourceType": "actualRuntimeAssetUsageOnly",
+  "approvedAssets": [],
+  "requiredForPromotion": [
+    "originalCreatorVerified",
+    "specificFileLicenseAndPermissionsReviewed",
+    "publicAllowed",
+    "professorArtApproval",
+    "exactAssetHash",
+    "appropriateCreatorAttribution"
+  ],
+  "privacy": {
+    "publicOnly": true,
+    "noPrivateCreatorContact": true,
+    "noAccountKeys": true,
+    "noExternalMediaFetch": true
+  },
+  "promotion": false
+}
