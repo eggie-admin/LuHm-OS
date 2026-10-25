@@ -2,6 +2,7 @@ extends Node3D
 ## Source-only playable rehearsal; stylized stand-ins are not approved 3D models.
 const CANON_PATH := "res://game/canon/CHARACTER_CANON_V1.json"
 const LumAvatarScene := preload("res://scenes/LumAvatar.tscn")
+const WitchingHourDirectorScript := preload("res://scripts/game/witchingHourDirector.gd")
 const IDS := ["lum", "urd", "belldandy", "skuld"]
 const COLORS := [Color("#19b4af"), Color("#a346af"), Color("#d3a578"), Color("#6e9fc8")]
 const LINES := [
@@ -19,6 +20,7 @@ var _selector_grid: GridContainer
 var _canon_roles: Dictionary = {}
 var _focus_markers: Array[Node3D] = []
 var _lum_rig_loaded := false
+var witching_hour_director: Node
 
 func _ready() -> void:
     var file := FileAccess.open(CANON_PATH, FileAccess.READ)
@@ -37,6 +39,9 @@ func _ready() -> void:
     for id in IDS:
         _canon_roles[id] = str((characters[id] as Dictionary).get("role", "Goddess"))
     _build_stage()
+    witching_hour_director = WitchingHourDirectorScript.new()
+    witching_hour_director.name = "WitchingHourDirector"
+    add_child(witching_hour_director)
     for i in IDS.size():
         _build_actor(i)
     _build_hud()
@@ -239,6 +244,7 @@ func _refresh_hud_layout() -> void:
 
 func _select(i: int) -> void:
     active_index = i
+    witching_hour_director.show_local_caption(IDS[i], LINES[i])
     for index in actor_roots.size():
         actor_roots[index].scale = Vector3.ONE * (1.10 if index == i else 1.0)
         _focus_markers[index].visible = index == i
