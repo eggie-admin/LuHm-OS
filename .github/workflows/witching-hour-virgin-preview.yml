@@ -32,9 +32,13 @@ jobs:
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Show exact candidate and guard private art
+        env:
+          expectedSourceRef: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$expectedSourceRef"
           git rev-parse HEAD | tee /tmp/luhm-virgin-source-ref
           python3 tools/godot-public-asset-firewall-audit.py
           if test -e assets/lum/luhm.glb || test -e assets/lum/luhmRunning.glb; then
