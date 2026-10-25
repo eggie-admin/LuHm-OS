@@ -21,6 +21,15 @@ var _focus_markers: Array[Node3D] = []
 var _lum_rig_loaded := false
 var _spark_emitters: Array[CPUParticles3D] = []
 var _dance_until := 0.0
+# Local session progression only; no server data or publication authority.
+var _bond_points := [0, 0, 0, 0]
+var _dialogue_turns := [0, 0, 0, 0]
+const ROUTE_LINES := [
+    ["Lum: You found the Cathedral. Now let's make an actual memory.", "Lum: Professor, the neon river feels almost like home.", "Lum: Back again? Let's make this night ours."],
+    ["Urd: Try not to trip the breakers. I only just painted these runes.", "Urd: Dramatic lighting is a science. A very attractive science.", "Urd: See? You survived a conversation with me."],
+    ["Belldandy: I saved us a seat beneath the stained glass.", "Belldandy: The best quests begin with listening.", "Belldandy: Everyone has a place at this table."],
+    ["Skuld: This circuit does not test itself, you know.", "Skuld: The prototype isn't perfect, but at least it is interactive!", "Skuld: Congratulations. Your bond variable survived another frame."]
+]
 
 func _ready() -> void:
     var file := FileAccess.open(CANON_PATH, FileAccess.READ)
@@ -280,17 +289,31 @@ func _cast_sparks() -> void:
         emitter.emitting = true
 
 
+func _route_status() -> String:
+    var met_all := true
+    for points in _bond_points:
+        if points < 1:
+            met_all = false
+    var quest := "CATHEDRAL CIRCLE COMPLETE" if met_all else "Meet every goddess to complete the circle"
+    return "BOND %d/9 · %s · Session only" % [_bond_points[active_index], quest]
+
+
 func _dance() -> void:
     _dance_until = elapsed + 4.0
     _cast_sparks()
+    _bond_points[active_index] = mini(9, _bond_points[active_index] + 1)
     if message != null:
-        message.text = "%s: Four beats, one ridiculous victory dance. The art can stay in Proposed. ♡" % IDS[active_index].capitalize()
+        message.text = "%s: Four beats, one ridiculous victory dance. ♡\n%s" % [IDS[active_index].capitalize(), _route_status()]
 
 
 func _talk() -> void:
     _cast_sparks()
+    var lines: Array = ROUTE_LINES[active_index]
+    var next_line: String = str(lines[_dialogue_turns[active_index] % lines.size()])
+    _dialogue_turns[active_index] += 1
+    _bond_points[active_index] = mini(9, _bond_points[active_index] + 1)
     if message != null:
-        message.text = LINES[active_index] + "\n3D rehearsal · original source · private Proposed"
+        message.text = next_line + "\n" + _route_status()
 
 
 func _refresh_hud_layout() -> void:
@@ -309,7 +332,7 @@ func _select(i: int) -> void:
         var art_state := "IMPORTED 3D RIG" if _lum_rig_loaded else "AVATAR FALLBACK"
         if i != 0:
             art_state = "PROTOTYPE STAND-IN · MODEL PENDING"
-        message.text = LINES[i] + "\n" + str(_canon_roles.get(IDS[i], "Goddess")) + " · " + art_state
+        message.text = LINES[i] + "\n" + str(_canon_roles.get(IDS[i], "Goddess")) + " · " + art_state + "\n" + _route_status()
     _cast_sparks()
 
 func _process(delta: float) -> void:
@@ -347,3 +370,11 @@ func _unhandled_input(event: InputEvent) -> void:
             _select((active_index + IDS.size() - 1) % IDS.size())
         elif event.keycode == KEY_RIGHT:
             _select((active_index + 1) % IDS.size())
+        elif event.keycode == KEY_T:
+            _talk()
+        elif event.keycode == KEY_D:
+            _dance()
+        elif event.keycode == KEY_S:
+            _cast_sparks()
+        elif event.keycode == KEY_ESCAPE:
+            get_tree().change_scene_to_file("res://scenes/Main.tscn")
