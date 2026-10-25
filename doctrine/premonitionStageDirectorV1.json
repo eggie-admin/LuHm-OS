@@ -1,0 +1,119 @@
+{
+  "schema": "luhmOs.premonitionStageDirector.v1",
+  "status": "SOURCE_CANDIDATE_NO_DEVICE_PROOF",
+  "authority": "Professor",
+  "scope": "Witching Hour one in-app Godot 4 stage coordinator, not a replacement DNS daemon or network orchestrator",
+  "composition": {
+    "core": "doctrine/luHmOSFourLayerArchitectureV1.json",
+    "visual": "doctrine/layeredStageCanonV1.json",
+    "gameSource": "doctrine/GODOT4_GAME_SOURCE_V1.json",
+    "universalAudio": "doctrine/premonitionUniversalAudioV1.json",
+    "fourDataLanes": "doctrine/typedFourLaneSqlV1.json",
+    "voice": "doctrine/voiceCabinetBridgeV1.json"
+  },
+  "stageDirector": {
+    "engine": "Godot 4.7.2 source target",
+    "script": "scripts/game/witchingHourDirector.gd",
+    "boot": [
+      "create four named AudioServer buses if absent",
+      "create separate voice/music/sfx players",
+      "await explicit typed turn and approved playable local asset",
+      "duck music only while audible speech is active"
+    ],
+    "sceneBoot": [
+      "scripts/main.gd",
+      "scripts/game/goddessRehearsal.gd"
+    ],
+    "noExternalProviderInvocations": true,
+    "noAIWorkerSpawn": true,
+    "oneLeadingVoice": true,
+    "guestOverlapExplicitOnly": true,
+    "subtitlesWithoutAudioProofAllowed": true
+  },
+  "network": {
+    "linuxNetplan": {
+      "role": "optional host OS network configuration layer when actually installed and in use",
+      "notFor": "Godot gameplay scene scheduling or model orchestration",
+      "networkManagerMayAlreadyOwnLinks": true,
+      "noUnverifiedNetplanApply": true,
+      "noRendererPrivileges": true
+    },
+    "DNS": "doctrine/networkSpineV1.json",
+    "zeroTrust": "doctrine/cloudflareEdgeHardeningV1.json",
+    "transport": "approved authenticated adapter over existing TLS endpoints only",
+    "noOpenPorts": true,
+    "noPublicLanDns": true,
+    "noRouterPortForwarding": true,
+    "noKeyExposure": true
+  },
+  "runtimeAudio": {
+    "buses": [
+      "PremonitionVoiceLead",
+      "PremonitionVoiceGuest",
+      "PremonitionMusic",
+      "PremonitionEffects"
+    ],
+    "voiceDucksMusic": true,
+    "musicDuckingFactor": 0.26,
+    "canQueueSpeech": true,
+    "maxConcurrentSpeaking": 2,
+    "maxQueuedTurns": 12,
+    "voiceSource": "consented, user-supplied or licensed local audio streams only",
+    "youtubePlayback": "official iframe separately outside Godot sound bus; autoplay/audio capture not guaranteed",
+    "ffmpeg": "offline approved render path host/ai-ffmpeg/ai-ffmpeg.py"
+  },
+  "typedWire": {
+    "wireVersion": 1,
+    "messageKinds": [
+      "speech",
+      "stageCue"
+    ],
+    "allowedOrigins": [
+      "chatGpt",
+      "godot",
+      "androidAssistant",
+      "samsungBixby",
+      "appleAppIntents",
+      "androidEdgeGallery",
+      "ollama"
+    ],
+    "speakerIds": [
+      "lum",
+      "urd",
+      "belldandy",
+      "skuld"
+    ],
+    "requiredSpeechKeys": [
+      "v",
+      "k",
+      "i",
+      "r",
+      "s",
+      "t",
+      "o"
+    ],
+    "maxTextCharacters": 4000,
+    "needsAuthenticatedBridgeForRemote": true,
+    "doesNotTransferCredentials": true,
+    "doesNotTriggerShell": true,
+    "mediaNeverSentAsBase64InWire": true
+  },
+  "visualLanes": [
+    "embeddedMedia",
+    "farField",
+    "sharpBackground",
+    "liveCharacter",
+    "vectorEffects",
+    "glassWidgetDock",
+    "foregroundAtmosphere"
+  ],
+  "proof": {
+    "sourceReady": false,
+    "godotHeadlessSmokeRequired": true,
+    "interactivePhoneProof": false,
+    "actualMusicAssetIncluded": false,
+    "recordedIndependentAIvoices": false,
+    "automaticRelease": false,
+    "crown": "STOP"
+  }
+}
