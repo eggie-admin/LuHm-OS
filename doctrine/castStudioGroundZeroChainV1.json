@@ -1,0 +1,273 @@
+{
+  "schema": "luhmOs.castStudioGroundZeroChain.v1",
+  "status": "SOURCE_CANDIDATE_NOT_RUNTIME_VERIFIED",
+  "authority": "Professor",
+  "purpose": "One staged CAST up-chain/down-chain task array: ground-zero machine resources to Ubuntu Codespaces human studio, then verify the whole chain back to ground zero.",
+  "ownerRepository": "eggie-admin/LuHm-OS",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "exactSource": "RESOLVE_AT_EACH_INSPECTION_NO_STALE_SHA",
+  "targetStudio": {
+    "platform": "GitHub Codespaces",
+    "image": "ubuntu:26.04",
+    "role": "headless editable studio, source builds, private candidate renders, supervised polish",
+    "canonicalDocs": [
+      "manual/professor-ubuntu2604-basement.md",
+      ".devcontainer/devcontainer.json"
+    ],
+    "claimRunning": false,
+    "claimHardwareAccess": false,
+    "claimPhysicalHost": false,
+    "githubCodespacesKernelIsProviderHosted": true,
+    "alwaysOnGuaranteed": false,
+    "standaloneUbuntuVm": false,
+    "renderIsDifferentHost": true,
+    "historicalDebian12GcpStageIsNotThisCodespace": true
+  },
+  "chainLaw": {
+    "foundationalLayers": [
+      {
+        "index": 0,
+        "id": "groundHardware"
+      },
+      {
+        "index": 1,
+        "id": "ubuntuTrust"
+      },
+      {
+        "index": 2,
+        "id": "toolchainRuntime"
+      },
+      {
+        "index": 3,
+        "id": "remoteStudio"
+      }
+    ],
+    "ascent": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "descent": [
+      3,
+      2,
+      1,
+      0
+    ],
+    "softwareCompositionAxesIndependent": true,
+    "technologyEscalation0To3GrantsNoAuthority": true,
+    "evidenceRecheckedOnReturn": true,
+    "maxSupportParallelInspections": 3,
+    "concurrentMutableSourceLanes": 1,
+    "attemptsPerTick": 2,
+    "oneScheduledRunner": true,
+    "noAutomaticHostAction": true,
+    "noAutomaticCastDispatch": true,
+    "noPublicRelease": true,
+    "noUnquarantine": true,
+    "noPaidResources": true,
+    "noSecretExposure": true,
+    "noReformatOrDeviceInstall": true
+  },
+  "stageReadiness": {
+    "outcome": "STAGING_PREPARATION_ONLY",
+    "allSevenStageEvidenceRequired": true,
+    "exactSourceCIBeforeReview": true,
+    "codespaceBuildAndSmokeRequired": true,
+    "renderAndChatGptMountIndependentlyVerified": true,
+    "samsungProofSeparatelyRequired": true,
+    "explicitProfessorScopedCastNeededForActualBuild": true,
+    "originalMediaRightsHumanReviewed": true,
+    "developerCannotSelfPromote": true,
+    "initialClaim": "UNVERIFIED_NOT_STAGED_FOR_LIVE_DEPLOYMENT"
+  },
+  "tasks": [
+    {
+      "id": "groundHardware",
+      "slug": "ground-hardware",
+      "leg": "UP",
+      "layer": 0,
+      "dependsOn": [],
+      "target": "Current Codespaces compute allocation and physical-device separation",
+      "evidence": [
+        "live Codespace identifier and provider-hosted CPU/RAM/disk receipt",
+        "disk free and memory headroom measured on current runtime",
+        "GPU capability explicitly reported as available or unavailable, not guessed",
+        "network and restart/persistence limits recorded"
+      ],
+      "refs": [
+        ".devcontainer/devcontainer.json",
+        "manual/professor-ubuntu2604-basement.md"
+      ],
+      "next": "Read actual Codespace resource and hardware evidence; if inaccessible, mark UNKNOWN and continue independent source checks.",
+      "order": 0,
+      "initialState": "UNKNOWN_REQUIRES_CURRENT_EVIDENCE",
+      "executionAllowed": false,
+      "buildDispatched": false
+    },
+    {
+      "id": "ubuntuTrust",
+      "slug": "ubuntu-trust",
+      "leg": "UP",
+      "layer": 1,
+      "dependsOn": [
+        "groundHardware"
+      ],
+      "target": "Ubuntu 26.04 Codespaces userland and isolation",
+      "evidence": [
+        "Codespace image build and exact source digest",
+        "actual /etc/os-release plus provider-kernel boundary",
+        "codespace user, private forwarded ports, database socket-only rules",
+        "codespace startup/stop and credential boundary receipt"
+      ],
+      "refs": [
+        ".devcontainer/Dockerfile",
+        ".devcontainer/devcontainer.json",
+        "scripts/professorGarageSmoke.sh"
+      ],
+      "next": "Run or obtain current Codespaces smoke receipt without exposing SSH, databases, secrets or ports.",
+      "order": 1,
+      "initialState": "UNKNOWN_REQUIRES_CURRENT_EVIDENCE",
+      "executionAllowed": false,
+      "buildDispatched": false
+    },
+    {
+      "id": "toolchainRuntime",
+      "slug": "toolchain-runtime",
+      "leg": "UP",
+      "layer": 2,
+      "dependsOn": [
+        "ubuntuTrust"
+      ],
+      "target": "Reproducible Python/npm/MCP/Godot/Blender/GIMP/FFmpeg toolchain",
+      "evidence": [
+        "installed executable versions and real smoke output from Codespace",
+        "npm locked build and read-only CAST refusal tests",
+        "MCP read-only handoff and headless Godot/media asset proof",
+        "private MariaDB runtime separately verified if needed, never inferred from package install"
+      ],
+      "refs": [
+        "scripts/professorGarageSmoke.sh",
+        "frontEnd/package.json",
+        "plugins/luhm-os/demo/package.json",
+        "tools/castHumanCenteredBridge.py"
+      ],
+      "next": "Verify exact-head npm and Python CI, then distinguish source/build evidence from actual Codespace tool execution.",
+      "order": 2,
+      "initialState": "UNKNOWN_REQUIRES_CURRENT_EVIDENCE",
+      "executionAllowed": false,
+      "buildDispatched": false
+    },
+    {
+      "id": "remoteStudio",
+      "slug": "remote-studio",
+      "leg": "APEX",
+      "layer": 3,
+      "dependsOn": [
+        "toolchainRuntime"
+      ],
+      "target": "Human-directed Ubuntu Codespaces creative studio and CAST staging integration",
+      "evidence": [
+        "actual headless edit/render/import command and resulting candidate hash",
+        "original-media rights/provenance and Drive-backed source protected",
+        "plugin Godot/Three demo builds traceable to exact source",
+        "reviewable human-facing cockpit, studio action, rollback and one-use CAST eligibility evidence"
+      ],
+      "refs": [
+        "doctrine/artistFirstArtToolCanonV1.json",
+        "doctrine/driveAssetAlignmentV1.json",
+        "host/mcp/luhmHarness.py",
+        "doctrine/castHumanCenteredBridgeV1.yaml"
+      ],
+      "next": "Polish one representative reversible studio scene and review output; don't claim polished live cast or ChatGPT mount without device and host acceptance.",
+      "order": 3,
+      "initialState": "UNKNOWN_REQUIRES_CURRENT_EVIDENCE",
+      "executionAllowed": false,
+      "buildDispatched": false
+    },
+    {
+      "id": "runtimeReverse",
+      "slug": "runtime-reverse",
+      "leg": "DOWN",
+      "layer": 2,
+      "dependsOn": [
+        "remoteStudio"
+      ],
+      "target": "Verify the deployed artifact chain is identical to reviewed toolchain output",
+      "evidence": [
+        "exact checked-in source SHA and artifact SHA256 matched to deployment receipt",
+        "Render service revision and actual MCP response matched (not only HTTP 200)",
+        "no unapproved Node backend, duplicate JavaScript engine or mutable CDN dependency",
+        "reproducible rollback source, scoped task and independent negative controls"
+      ],
+      "refs": [
+        "doctrine/castTaskArrayV1.json",
+        "plugins/luhm-os/demo/README.md",
+        "host/mcp/luhmHarness.py"
+      ],
+      "next": "Compare candidate hashes with current target runtime; keep live deployment and device proof UNVERIFIED until real receipts exist.",
+      "order": 4,
+      "initialState": "UNKNOWN_REQUIRES_CURRENT_EVIDENCE",
+      "executionAllowed": false,
+      "buildDispatched": false
+    },
+    {
+      "id": "trustReverse",
+      "slug": "trust-reverse",
+      "leg": "DOWN",
+      "layer": 1,
+      "dependsOn": [
+        "runtimeReverse"
+      ],
+      "target": "Verify every production-facing path honors trust and authority boundaries",
+      "evidence": [
+        "secret absence in browser/client/build outputs",
+        "Codespaces port forwarding private and MariaDB socket-only",
+        "MCP authority readOnly; no silent worker, merge, DNS or signing promotion",
+        "human approval and one-use CAST scoped to exact source and single task"
+      ],
+      "refs": [
+        "doctrine/companyWideOperationalQuarantineV1.json",
+        ".devcontainer/devcontainer.json",
+        "doctrine/castHumanCenteredBridgeV1.yaml"
+      ],
+      "next": "Recheck network, permission, trust and rollback refusal controls from output toward operating-system boundary.",
+      "order": 5,
+      "initialState": "UNKNOWN_REQUIRES_CURRENT_EVIDENCE",
+      "executionAllowed": false,
+      "buildDispatched": false
+    },
+    {
+      "id": "hardwareReverse",
+      "slug": "hardware-reverse",
+      "leg": "DOWN",
+      "layer": 0,
+      "dependsOn": [
+        "trustReverse"
+      ],
+      "target": "Ground-zero replay, capacity, recoverability and physical acceptance",
+      "evidence": [
+        "repeatable cold-start Codespace bootstrap on approved source",
+        "measured CPU/RAM/disk/runtime compatibility without invented GPU",
+        "private assets preserved and rollback/recovery verified",
+        "separately recorded Samsung touch and ChatGPT widget acceptance, or explicit pending blocker"
+      ],
+      "refs": [
+        "scripts/professorGarageSmoke.sh",
+        "doctrine/milestoneTaskQueueV1.json",
+        "manual/professor-ubuntu2604-basement.md"
+      ],
+      "next": "Review ground-zero recovery and remaining device/host proof; report final staging verdict and exactly one owner action if necessary.",
+      "order": 6,
+      "initialState": "UNKNOWN_REQUIRES_CURRENT_EVIDENCE",
+      "executionAllowed": false,
+      "buildDispatched": false
+    }
+  ],
+  "sourceWritesAllowed": false,
+  "buildDispatched": false,
+  "hostMountVerified": false,
+  "runtimeVerified": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}
