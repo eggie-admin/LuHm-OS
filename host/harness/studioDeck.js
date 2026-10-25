@@ -135,6 +135,7 @@
         frame.allowFullscreen = true;
         frame.src = target.embed;
         stage.replaceChildren(frame);
+        get("retroMusicShell")?.classList.add("is-loaded");
         link.href = target.external; link.hidden = false;
         status.textContent = "YouTube embed requested, not playback verified. Use its play control or open YouTube.";
       } catch (error) {
@@ -142,7 +143,7 @@
       }
     });
     get("studioMusicStop").addEventListener("click", () => {
-      stage.replaceChildren(); link.removeAttribute("href"); link.hidden = true;
+      stage.replaceChildren(); get("retroMusicShell")?.classList.remove("is-loaded"); link.removeAttribute("href"); link.hidden = true;
       status.textContent = "Music player disconnected. No autoplay.";
     });
     return true;
