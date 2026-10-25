@@ -71,10 +71,12 @@ def run_browser(root,output):
         thread=threading.Thread(target=server.serve_forever,daemon=True)
         thread.start()
         failures=[]
+        runtime_markers=[]
         with sync_playwright() as p:
             browser=p.chromium.launch(headless=True,args=["--enable-webgl","--use-angle=swiftshader","--enable-unsafe-swiftshader"])
             page=browser.new_page(viewport={"width":1280,"height":800},device_scale_factor=1)
             page.on("pageerror",lambda error:failures.append(str(error)[:240]))
+            page.on("console",lambda message: runtime_markers.append(message.text) if "LUHM_REHEARSAL_" in message.text else None)
             page.goto(f"http://127.0.0.1:{port}/index.html",wait_until="domcontentloaded",timeout=60000)
             page.wait_for_function("() => {const c=document.querySelector('canvas');return !!c && c.width >= 300 && c.height >= 180 && c.offsetWidth > 0}",timeout=120000)
             canvas=page.locator("canvas").first
@@ -99,19 +101,26 @@ def run_browser(root,output):
             page.keyboard.press("t")
             page.wait_for_timeout(450)
             page.screenshot(path=str(interactionProof),full_page=True)
-            report={"schema":"luhmOs.godotBrowserSmoke.v1","status":"BROWSER_CANVAS_AND_INPUT_DISPATCH_OBSERVED" if not failures else "RED_BROWSER_SCRIPT_ERROR",
+            stage_verified=any("LUHM_REHEARSAL_STAGE_READY" in msg for msg in runtime_markers)
+            talk_verified=any("LUHM_REHEARSAL_TALK_ROUTE:" in msg for msg in runtime_markers)
+            dance_verified=any("LUHM_REHEARSAL_DANCE_ROUTE:" in msg for msg in runtime_markers)
+            if not stage_verified: failures.append("rehearsal scene was not observed")
+            if not talk_verified: failures.append("TALK handler was not observed")
+            if not dance_verified: failures.append("DANCE handler was not observed")
+            report={"schema":"luhmOs.godotBrowserSmoke.v1","status":"GREEN_REHEARSAL_RUNTIME_INTERACTIONS" if not failures else "RED_REHEARSAL_NOT_PROVEN",
                     "browser":"Chromium headless","canvasVisible":True,
                     "keyboardEventsDispatched":True,"rehearsalClickDispatched":True,
-                    "rehearsalSceneVerified":False,"playableQuestProgressProven":False,
+                    "rehearsalSceneVerified":stage_verified,"talkRouteVerified":talk_verified,"danceRouteVerified":dance_verified,
+                    "playableQuestProgressProven":False,
                     "touchOnSamsungProven":False,"chatGptHostProven":False,
-                    "errors":failures,"screenshot":interactionProof.name,
+                    "errors":failures,"observedRuntimeMarkers":runtime_markers[-12:],"screenshot":interactionProof.name,
                     "additionalScreenshots":[menuProof.name,rehearsalProof.name],
-                    "proofLimit":"screenshots are reviewable evidence, not a DOM-scene-state assertion",
+                    "proofLimit":"runtime markers prove scene entry and handler dispatch only; screenshot, quest, Samsung and ChatGPT acceptance remain independent",
                     "crownStatus":"STOP"}
             output.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
             browser.close()
         server.shutdown()
-        if failures:raise RuntimeError("Godot browser page error: "+"; ".join(failures))
+        if failures:raise RuntimeError("Godot rehearsal browser acceptance failed: "+"; ".join(failures))
         return report
 
 
