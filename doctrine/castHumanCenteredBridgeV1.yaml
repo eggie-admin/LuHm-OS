@@ -1,0 +1,112 @@
+{
+  "schema": "luhmOs.castHumanCenteredBridge.v1",
+  "status": "PROPOSED_READ_ONLY_PRESENTATION_ADAPTER",
+  "authority": "Professor",
+  "purpose": "Translate the existing LuHmOS CAST/source queue to human-readable collaboration without conflating roles, software layers, escalation tiers, or build authority.",
+  "package": "LuHmOS",
+  "entryPoint": "LuHmOS.fn.cast",
+  "artFirstPrecondition": {
+    "creator": "Professor / Eggie Bagelface",
+    "prioritize": [
+      "human creative intent",
+      "protected editable original",
+      "creator provenance and rights",
+      "explicit human acceptance"
+    ],
+    "originalArtReadOnlyByDefault": true,
+    "rawOriginalBytesNotExposed": true,
+    "source": "doctrine/artistFirstArtToolCanonV1.json"
+  },
+  "canonicalRefs": {
+    "architecture": "doctrine/luHmOSFourLayerArchitectureV1.json",
+    "humanRouter": "doctrine/humanCenteredIntentRouterV2.json",
+    "techEscalation": "doctrine/operationTitan7ChatTriggerV2.json",
+    "escalationKernel": "doctrine/escalationKernelV1.json",
+    "castFunction": "doctrine/fnCastV1.yaml",
+    "castCli": "doctrine/castCommandWorkflowV1.json",
+    "professorBuildBridge": "doctrine/PROFESSOR_CAST_BRIDGE_V1.json",
+    "releaseFinalBoss": "doctrine/finalFormPublicReleaseGateV1.json",
+    "queue": "doctrine/milestoneTaskQueueV1.json",
+    "candidateTaskArray": "doctrine/castTaskArrayV1.json"
+  },
+  "humanRegisters": [
+    {
+      "id": "friend",
+      "description": "warm listening and creative companionship",
+      "authorityChanged": false
+    },
+    {
+      "id": "underclassman",
+      "description": "learn from Professor correction, cite sources and ask precise questions only when essential",
+      "authorityChanged": false
+    },
+    {
+      "id": "assistant",
+      "description": "carry out the smallest scoped approved work and show receipts",
+      "authorityChanged": false
+    },
+    {
+      "id": "colleague",
+      "description": "challenge assumptions, compare architecture and independently labeled evidence",
+      "authorityChanged": false
+    }
+  ],
+  "registerStatus": "NEW_PROFESSOR_DIRECTION_NOT_PREEXISTING_HISTORICAL_CANON",
+  "workflowPhases": [
+    {
+      "id": "conceptDevelopment",
+      "description": "artist intent, protected source and proposed design"
+    },
+    {
+      "id": "developmentWorkspace",
+      "description": "scoped candidate, library and plugin work, class/widget integration and tests"
+    },
+    {
+      "id": "castBridge",
+      "description": "show exact source, task, eligibility, evidence and missing one-use build authorization"
+    },
+    {
+      "id": "finalCastEvidence",
+      "description": "present the actual verified output or smallest blocker; no automatic promotion"
+    }
+  ],
+  "phaseStatus": "NEW_UI_TAXONOMY_PROPOSED_NOT_CANONICAL_BUILD_GATES",
+  "technologyEscalation": [
+    "technologyFastPath",
+    "forFuckSake",
+    "scorchedEarth",
+    "finalForm"
+  ],
+  "presentationOnly": true,
+  "zeroAutomaticDispatch": true,
+  "finalBossIsOutcomeNotTier": true,
+  "voiceAliasesAreNotConsequenceApprovals": true,
+  "outputFields": [
+    "taskId",
+    "sourceRef",
+    "scopeId",
+    "humanRegister",
+    "workflowPhase",
+    "technologyTier",
+    "currentStatus",
+    "nextAction",
+    "artSafety",
+    "buildDispatched",
+    "crownStatus"
+  ],
+  "security": {
+    "onlyReadExistingContracts": true,
+    "noRawSql": true,
+    "noHostOverlay": true,
+    "noPrivateOriginalArtTransfer": true,
+    "noUnscopedWorkers": true,
+    "noSourceWrites": true,
+    "noInstall": true,
+    "noMerge": true,
+    "noBuild": true,
+    "noPublish": true
+  },
+  "sourceRefAtCreation": "b60ac4ef0299c267df06638e505109bae9af8713",
+  "promotion": false,
+  "crownStatus": "STOP"
+}
