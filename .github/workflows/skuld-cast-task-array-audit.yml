@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - doctrine/castTaskArrayV1.json
+      - doctrine/castHumanCenteredBridgeV1.yaml
+      - tools/castHumanCenteredBridge.py
       - tools/castTaskArray.py
       - doctrine/milestoneTaskQueueV1.json
       - doctrine/escalationKernelV1.json
@@ -34,12 +36,13 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$expectedHead"
           git diff --check
-          python3 -m py_compile tools/castTaskArray.py
+          python3 -m py_compile tools/castTaskArray.py tools/castHumanCenteredBridge.py
           python3 -m json.tool doctrine/castTaskArrayV1.json >/dev/null
       - name: Run deterministic refusal and Canon axis checks
         run: |
           set -euo pipefail
           python3 tools/castTaskArray.py --self-test
+          python3 tools/castHumanCenteredBridge.py --self-test
       - name: Prove multi-task queue never dispatches a CAST
         run: |
           set -euo pipefail
@@ -57,4 +60,28 @@ jobs:
           assert receipt["crownStatus"] == "STOP"
           assert all(x["sourceRef"] == receipt["sourceRef"] for x in receipt["tasks"])
           print("GREEN_QUEUE_PREVIEW_ZERO_CAST_AUTHORITY")
+          PY
+      - name: Check human register and escalation never dispatch build or art promotion
+        run: |
+          set -euo pipefail
+          python3 tools/castHumanCenteredBridge.py \
+            --tasks chatGptInlineMount,privateLumAndSprites \
+            --source-ref "$(git rev-parse HEAD)" \
+            --scope-id professor/cast-bridge \
+            --register colleague \
+            --phase castBridge \
+            --tier 3 > /tmp/castHumanCenteredReceipt.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          receipt=json.loads(Path('/tmp/castHumanCenteredReceipt.json').read_text())
+          assert receipt['taskCount']==2
+          assert receipt['humanRegister']=='colleague'
+          assert receipt['technologyTier']=='finalForm'
+          assert receipt['castEnvelopesGranted']==0
+          assert receipt['buildDispatched'] is False
+          assert receipt['hostMountVerified'] is False
+          assert receipt['originalArtworkAccessed'] is False
+          assert receipt['crownGranted'] is False
+          print('HUMAN_CAST_REGISTER_AND_ART_GUARD_PASS')
           PY
