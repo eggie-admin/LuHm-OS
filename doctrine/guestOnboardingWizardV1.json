@@ -1,0 +1,152 @@
+{
+  "schema": "luhmOs.guestOnboardingWizard.v1",
+  "status": "SOURCE_ONLY_NO_INVITATION_NO_LOGIN_NO_PERMISSION_GRANT",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "scope": "one-private-voluntary-adult-guest-candidate",
+  "guestIdentity": "NOT_STORED_IN_PUBLIC_REPOSITORY",
+  "recipientChange": "PREVIOUS_CANDIDATE_ON_HOLD_NO_AUTOMATIC_REVOCATION_OR_INVITE",
+  "identityFlow": {
+    "primary": "GOOGLE_OIDC_CODE_PKCE_CONSENT_VERIFIED_BACKEND_ONLY",
+    "purpose": "OPTIONAL_SINGLE_SIGN_ON_TO_LUHM_OS_NOT_INSTAGRAM",
+    "identityIsNotAuthorization": true,
+    "googleDoesNotAuthorizeInstagram": true,
+    "requirements": [
+      "registeredOAuthClient",
+      "exactHttpsRedirect",
+      "authorizationCodePlusPkceS256",
+      "stateAndNonceBoundToSession",
+      "verifyIssuerAudienceExpirySignature",
+      "serverSideCodeExchange",
+      "secureHttpOnlySameSiteSession",
+      "csrfProtection",
+      "logoutAndRevocation",
+      "userConsent"
+    ],
+    "loginClientIdConfigured": false,
+    "backendOauthImplemented": false,
+    "realSignInProven": false
+  },
+  "accountConnections": {
+    "instagram": {
+      "purpose": "OPTIONAL_SEPARATE_ACCOUNT_OWNER_CONSENT_NOT_LUHM_ACCOUNT_LOGIN",
+      "connection": "META_OFFICIAL_INSTAGRAM_LOGIN_FOR_ELIGIBLE_PROFESSIONAL_ACCOUNT",
+      "eligibleAccountTypes": [
+        "business",
+        "creator"
+      ],
+      "personalAccountApiAccessPromised": false,
+      "googleLoginIsInstagramLogin": false,
+      "neverCollectPassword": true,
+      "neverCopySessionCookies": true,
+      "apiScopes": "MINIMUM_NEEDED_PER_USER_APPROVED_FEATURE",
+      "oauthAppReviewed": false,
+      "registeredRedirectConfigured": false,
+      "connected": false,
+      "mayImportOtherPeoplesAccounts": false
+    },
+    "github": {
+      "purpose": "OPTIONAL_SOURCE_COLLABORATION_PRIVATE_INVITE_AFTER_OWNER_REVIEW",
+      "publicRepositoryReadableWithoutInvitation": true,
+      "separateProviderInvitation": true,
+      "invited": false
+    },
+    "chatgpt": {
+      "purpose": "OPTIONAL_IN_CHAT_BETA_ACCESS_ONLY_IF_SUPPORTED_DISTRIBUTION_EXISTS",
+      "privatePersonalPluginNotAutomaticallyShareable": true,
+      "hostMembershipVerified": false,
+      "installed": false
+    },
+    "googleAi": {
+      "purpose": "OPTIONAL_PROJECT_GOOGLE_AI_ROLE_INDIVIDUALLY_APPROVED",
+      "googleSignInAloneGrantsProjectAccess": false,
+      "granted": false
+    }
+  },
+  "roleRequest": {
+    "default": "creativeCollaborator",
+    "allowed": [
+      {
+        "id": "betaReviewer",
+        "label": "Beta reviewer",
+        "capabilities": [
+          "viewApprovedDemo",
+          "submitFeedback"
+        ]
+      },
+      {
+        "id": "creativeCollaborator",
+        "label": "Creative collaborator",
+        "capabilities": [
+          "viewApprovedDemo",
+          "submitFeedback",
+          "contributeApprovedProjectDrafts",
+          "reviewApprovedCreativeWork"
+        ]
+      }
+    ],
+    "deniedByDefault": [
+      "ownerAdmin",
+      "billing",
+      "secrets",
+      "allGoogleProjects",
+      "allInstagramAccounts",
+      "privateDriveMasters",
+      "productionPublishing",
+      "autoMerge",
+      "releaseSigning",
+      "CASTDispatch",
+      "rawAgentExecution"
+    ],
+    "fullProjectAccessRequiresSeparateExplicitOwnerAndProviderAuthorization": true,
+    "accountOwnerPermissionIndependent": true,
+    "revocable": true,
+    "leastPrivilege": true
+  },
+  "handoff": {
+    "oneClickMeaning": "PREPARE_SCOPED_INVITE_PROPOSAL_ONLY",
+    "nextRealActions": [
+      "professorReviewsRequestedCapabilities",
+      "professorChoosesSupportedDistributionAndSendsInvitePrivately",
+      "guestAcceptsUsingOwnIdentity",
+      "verifiedBackendCompletesGoogleOAuth",
+      "optionalInstagramAccountOwnerCompletesSeparateMetaConsent",
+      "platformAuthorizationAppliesSelectedRole",
+      "guestVerifiesRealChatGptAndDeviceAccess"
+    ],
+    "neverStorePersonalContactInPublicArtifacts": true,
+    "unconfiguredProviderButtonMustNeverPretendToLogIn": true,
+    "noAutomaticInvites": true,
+    "noAutomaticActivation": true,
+    "offlineSafeUi": true,
+    "candidatePlanMayBeCopiedLocally": true
+  },
+  "boundaries": {
+    "noDirectAccountAccess": true,
+    "noThirdPartyCredentialCapture": true,
+    "noSharedPasswords": true,
+    "noPasswordField": true,
+    "noSessionCookieScraping": true,
+    "noOauthTokensInBrowserPlan": true,
+    "noDirectExternalAccountInheritance": true,
+    "noConsentByParentAloneForAdultAccount": true,
+    "noRightsToPrivateMediaGranted": true,
+    "noPublicAssetUpload": true,
+    "noHostMountClaim": true,
+    "noBackendOrTokenStorageImplemented": true
+  },
+  "proof": {
+    "currentGuestSignIn": false,
+    "googleOauthBackend": false,
+    "instagramAccountConnected": false,
+    "githubCollaboratorAdded": false,
+    "chatgptPluginInstalledForGuest": false,
+    "realDeviceAcceptance": false,
+    "liveInviteSent": false
+  },
+  "buildDispatched": false,
+  "invitationSent": false,
+  "productionDeployed": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}
