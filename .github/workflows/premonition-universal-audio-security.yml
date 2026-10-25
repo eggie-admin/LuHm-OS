@@ -1,0 +1,28 @@
+name: Premonition Universal Audio and Security Contract
+on:
+  pull_request:
+    paths:
+      - 'doctrine/premonitionUniversalAudioV1.json'
+      - 'tests/testPremonitionUniversalAudioSecurity.py'
+      - '.github/workflows/premonition-universal-audio-security.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fail-closed-source-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Validate typed JSON and its security invariants
+        run: |
+          python3 -m json.tool doctrine/premonitionUniversalAudioV1.json > /dev/null
+          python3 -m unittest discover -s tests -p 'testPremonitionUniversalAudioSecurity.py' -v
+      - name: Keep proof scope explicit
+        run: |
+          echo SOURCE_CONTRACT_ONLY_NO_DEVICE_NO_CODESPACE_NO_TLS_NO_RELEASE
