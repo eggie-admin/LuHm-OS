@@ -11,6 +11,8 @@ on:
       - 'doctrine/openPrReconciliationV2.json'
       - 'doctrine/agentSystemDeploymentV1.json'
       - 'tools/operationTitan7FinalFormAudit.py'
+      - 'lib/luhmOs.py'
+      - 'tests/testOperationTitanLibrary.py'
       - 'tools/chatGptPluginWorkflowStreamAudit.py'
       - '.github/workflows/titan7-final-form-reconciliation-audit.yml'
   pull_request:
@@ -22,6 +24,8 @@ on:
       - 'doctrine/openPrReconciliationV2.json'
       - 'doctrine/agentSystemDeploymentV1.json'
       - 'tools/operationTitan7FinalFormAudit.py'
+      - 'lib/luhmOs.py'
+      - 'tests/testOperationTitanLibrary.py'
       - 'tools/chatGptPluginWorkflowStreamAudit.py'
       - '.github/workflows/titan7-final-form-reconciliation-audit.yml'
   workflow_dispatch:
@@ -51,6 +55,9 @@ jobs:
 
       - name: Audit canonical 15-agent mesh
         run: python3 tools/agentSystemDeploymentAudit.py
+
+      - name: Verify Operation Titan library function and safety contract
+        run: python3 -m unittest discover -s tests -p 'testOperationTitanLibrary.py' -v
 
       - name: Audit Operation Titan Final Form
         run: python3 tools/operationTitan7FinalFormAudit.py
