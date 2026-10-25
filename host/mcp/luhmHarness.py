@@ -228,6 +228,45 @@ def register_harness(
     virgin_install = json.loads(virgin_install_path.read_text(encoding="utf-8"))
     beta_lanes = json.loads(beta_lane_path.read_text(encoding="utf-8"))
     glass_dock = json.loads(glass_dock_path.read_text(encoding="utf-8"))
+    cast_bridge = json.loads((root / "doctrine/castHumanCenteredBridgeV1.yaml").read_text(encoding="utf-8"))
+    cast_queue = json.loads((root / "doctrine/milestoneTaskQueueV1.json").read_text(encoding="utf-8"))
+    if (cast_bridge.get("schema") != "luhmOs.castHumanCenteredBridge.v1"
+        or cast_bridge.get("presentationOnly") is not True
+        or cast_bridge.get("zeroAutomaticDispatch") is not True
+        or cast_bridge.get("promotion") is not False
+        or cast_bridge.get("crownStatus") != "STOP"
+        or not any(x.get("id") == "castBridge" for x in cast_bridge.get("workflowPhases", []))
+        or cast_queue.get("schema") != "luhmOs.milestoneTaskQueue.v1"):
+        raise RuntimeError("RED_CAST_BRIDGE_PRESENTATION_CONTRACT")
+
+    def cast_bridge_snapshot(status: dict[str, Any]) -> dict[str, Any]:
+        tasks = sorted(cast_queue.get("tasks", []), key=lambda x: (x.get("priority", 999), x.get("id", "")))
+        if not tasks or any(not isinstance(t.get("id"), str) or not isinstance(t.get("next"), str) for t in tasks):
+            raise RuntimeError("RED_CAST_BRIDGE_TASK_QUEUE")
+        def display_slug(value: str) -> str:
+            slug = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "-", value).lower()
+            if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
+                raise RuntimeError("RED_CAST_BRIDGE_DISPLAY_SLUG")
+            return slug
+        return {
+            "schema": "luhmOs.castBridgeCockpitPreview.v1",
+            "status": "READ_ONLY_SOURCE_CANDIDATE_NOT_HOST_MOUNTED",
+            "phase": "castBridge",
+            "sourceRef": status.get("sourceRef") or os.environ.get("RENDER_GIT_COMMIT") or "UNVERIFIED",
+            "sourceIdentity": "SERVER_REPORTED_NOT_CURRENT_HEAD_PROOF",
+            "taskCount": len(tasks),
+            "tasks": [{
+                "taskId": t["id"], "displaySlug": display_slug(t["id"]),
+                "priority": t["priority"], "reportedInitialState": t.get("initialState", "UNKNOWN"),
+                "next": t["next"], "evidenceRequired": t.get("evidenceRequired", []),
+                "dependsOn": t.get("dependsOn", []),
+                "buildDispatched": False,
+            } for t in tasks],
+            "taskFreshness": "SOURCE_QUEUE_ONLY_RECHECK_CURRENT_RECEIPTS",
+            "buildDispatched": False, "castEnvelopesGranted": 0, "agentWorkersStarted": 0,
+            "hostMountVerified": False, "promotion": False, "crownStatus": "STOP",
+        }
+
     glass_modules = glass_dock.get("modules", [])
     if (glass_dock.get("schema") != "luhmOs.glassPluginDock.v1" or
         glass_dock.get("status") != "SOURCE_CANDIDATE_NOT_HOST_MOUNTED" or
@@ -436,6 +475,7 @@ def register_harness(
         },
     )
     def luhm_open_cockpit() -> dict[str, Any]:
+        current_status = status_provider()
         return {
             "schema": "luhmOs.inChatExperiencePayload.v1",
             "surface": "mcp-app",
@@ -454,7 +494,8 @@ def register_harness(
             "virginInstall": virgin_install,
             "betaLanes": beta_lanes,
             "glassDock": glass_dock,
-            "status": status_provider(),
+            "castBridge": cast_bridge_snapshot(current_status),
+            "status": current_status,
             "roster": roster_provider(),
             "harness": {
                 "publicOrigin": public_origin or "LOCAL_ONLY",
