@@ -73,20 +73,47 @@ jobs:
             echo "verifiedProfessorActor=$owner" >> "$GITHUB_OUTPUT"
           elif [[ "$GITHUB_ACTOR" == "github-actions[bot]" ]]; then
             [[ "$professorActor" == "$owner" ]]
-            [[ "$sourceRef" == "3ddfe062b9cd0e220908c0c80d9dffa76d5a890d" ]]
             [[ "$castOriginRunId" =~ ^[0-9]+$ ]]
             [[ "$castOriginCommentId" =~ ^[0-9]+$ ]]
+            # Distinct immutable approved source, milestone and comment for each
+            # single-use CAST. Old PR400 cannot authorize newer PR401.
+            case "$sourceRef" in
+              3ddfe062b9cd0e220908c0c80d9dffa76d5a890d)
+                approvedPr=400
+                approvedCommentId=6392733353
+                expectedCommand="/cast goddessWebProposed"
+                expectedMilestone="proposedGoddessRehearsalWeb20261024"
+                expectedTask="proposed-four-goddess-sparks-dance-talk"
+                ;;
+              61c1109fa219d359b1f422e61205b838d93f1308)
+                approvedPr=401
+                approvedCommentId=6393313215
+                expectedCommand="/cast goddessWebPlay"
+                expectedMilestone="proposedGoddessPlayWeb20261025"
+                expectedTask="proposedGoddessDialogueBondQuest"
+                ;;
+              *)
+                echo "::error title=CAST unauthorized source::Source not in explicit Professor approvals"
+                exit 2
+                ;;
+            esac
+            [[ "${{ inputs.milestoneId }}" == "$expectedMilestone" ]]
+            [[ "${{ inputs.taskId }}" == "$expectedTask" ]]
             origin="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$castOriginRunId")"
             [[ "$(jq -r '.event' <<<"$origin")" == "issue_comment" ]]
             [[ "$(jq -r '.actor.login' <<<"$origin")" == "$owner" ]]
             [[ "$(jq -r '.name' <<<"$origin")" == "Professor CAST Bridge" ]]
             command="$(gh api "repos/$GITHUB_REPOSITORY/issues/comments/$castOriginCommentId")"
             [[ "$(jq -r '.user.login' <<<"$command")" == "$owner" ]]
-            [[ "$(jq -r '.body' <<<"$command")" == "/cast goddessWebProposed" ]]
-            [[ "$(jq -r '.issue_url' <<<"$command")" == "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/400" ]]
-            approval="$(gh api "repos/$GITHUB_REPOSITORY/issues/comments/6392733353")"
+            [[ "$(jq -r '.body' <<<"$command")" == "$expectedCommand" ]]
+            [[ "$(jq -r '.issue_url' <<<"$command")" == "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$approvedPr" ]]
+            approval="$(gh api "repos/$GITHUB_REPOSITORY/issues/comments/$approvedCommentId")"
             [[ "$(jq -r '.user.login' <<<"$approval")" == "$owner" ]]
-            grep -Fq "sourceRef: $sourceRef" <<<"$(jq -r '.body' <<<"$approval")"
+            approvalBody="$(jq -r '.body' <<<"$approval")"
+            grep -Fq "sourceRef: $sourceRef" <<<"$approvalBody"
+            grep -Fq "milestoneId: $expectedMilestone" <<<"$approvalBody"
+            grep -Fq "taskId: $expectedTask" <<<"$approvalBody"
+            [[ "$(gh api "repos/$GITHUB_REPOSITORY/pulls/$approvedPr" --jq '.head.sha')" == "$sourceRef" ]]
             echo "verifiedProfessorActor=$owner" >> "$GITHUB_OUTPUT"
           else
             echo "::error title=CAST actor denied::Neither Professor nor verified Professor bridge" >&2
