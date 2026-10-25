@@ -47,6 +47,14 @@ class ArtistCreditIntegrityTests(unittest.TestCase):
         self.assertEqual(issues, [])
         self.assertEqual(credits, [])
 
+    def test_study_pages_disclaim_affiliation_and_asset_approval(self):
+        for rel in ("frontEnd/yumeReferenceGallery.template.html",
+                    "frontEnd/yumeReferenceGallery.html"):
+            with self.subTest(path=rel):
+                page = (ROOT / rel).read_text(encoding="utf-8")
+                self.assertIn("not presented as LuHm contributors, collaborators, sponsors, or endorsers", page)
+                self.assertIn("does not approve assets for LuHm runtime use", page)
+
     def test_verified_usage_generates_attribution_without_endorsement(self):
         used, refs = fixture()
         used["approvedAssets"] = [approved_sample()]
