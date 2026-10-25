@@ -4,6 +4,10 @@ on:
     paths:
       - 'doctrine/premonitionUniversalAudioV1.json'
       - 'doctrine/premonitionIdentityGatewayV1.json'
+      - 'doctrine/nexusCommunityForgePriorityV1.json'
+      - 'doctrine/yumeCommunityArtResourcesV1.json'
+      - 'tools/nexusAssetAdmission.py'
+      - 'tests/testNexusAssetAdmission.py'
       - 'tests/testPremonitionIdentityGateway.py'
       - 'tests/testPremonitionUniversalAudioSecurity.py'
       - 'doctrine/premonitionStageDirectorV1.json'
@@ -35,6 +39,8 @@ jobs:
           python3 -m unittest discover -s tests -p 'testPremonitionUniversalAudioSecurity.py' -v
           python3 -m json.tool doctrine/premonitionIdentityGatewayV1.json > /dev/null
           python3 -m unittest discover -s tests -p 'testPremonitionIdentityGateway.py' -v
+          python3 -m json.tool doctrine/nexusCommunityForgePriorityV1.json > /dev/null
+          python3 -m unittest discover -s tests -p 'testNexusAssetAdmission.py' -v
       - name: Keep proof scope explicit
         run: |
           echo SOURCE_CONTRACT_ONLY_NO_DEVICE_NO_CODESPACE_NO_TLS_NO_RELEASE
