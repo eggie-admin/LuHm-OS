@@ -2,6 +2,7 @@ extends CanvasLayer
 
 signal world_requested
 signal rehearsal_requested
+signal final_cast_requested
 signal backend_requested
 signal world_destination_requested(worldId: String)
 signal lum_talk_requested
@@ -91,6 +92,14 @@ func _build_backend() -> void:
     rehearsal.add_theme_font_size_override("font_size", 21)
     rehearsal.pressed.connect(func(): rehearsal_requested.emit())
     _panel.add_child(rehearsal)
+
+    var finale := Button.new()
+    finale.name = "WitchingHourFinalBoss"
+    finale.text = "CAST · WITCHING HOUR · FINAL BOSS"
+    finale.custom_minimum_size = Vector2(0, 76)
+    finale.add_theme_font_size_override("font_size", 20)
+    finale.pressed.connect(func(): final_cast_requested.emit())
+    _panel.add_child(finale)
 
     _audit_switch = CheckButton.new()
     _audit_switch.name = "AuditSealSwitch"
