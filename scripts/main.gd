@@ -43,6 +43,16 @@ func _ready() -> void:
     _wire_runtime()
     _wire_android_web3()
     _enter_backend()
+    _open_rehearsal_deep_link()
+
+
+func _open_rehearsal_deep_link() -> void:
+    # Opt-in one-tap demo route for Web only. No hidden account or build authority.
+    if not OS.has_feature("web"):
+        return
+    var selected = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('luhmScene')")
+    if selected is String and selected == "rehearsal":
+        call_deferred("_enter_goddess_rehearsal")
 
 func _process(_delta: float) -> void:
     _update_interaction_target()
