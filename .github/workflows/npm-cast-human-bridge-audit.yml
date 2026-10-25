@@ -46,7 +46,7 @@ jobs:
         working-directory: frontEnd
         run: |
           set -euo pipefail
-          npm run cast:preview -- --json --force --tier 3 \
+          npm run --silent cast:preview -- --json --force --tier 3 \
             --tasks mobileMainHost,chatGptInlineMount \
             --source-ref "$(git rev-parse HEAD)" > /tmp/luhmNpmCastPreview.json
           python3 - <<'PY'
