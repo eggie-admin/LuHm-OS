@@ -1,0 +1,117 @@
+schema: luhmOs.kai9000SamsungDexAcodeX.v1
+asOf: "2026-10-26"
+authority: Professor
+status: SOURCE_CANDIDATE_NOT_RELEASED
+product: LuHm OS
+buildCodename: KAI 9000
+projectTransition:
+  closing: Project Hydra
+  following: Project Premonition
+  keepHistoricalNamesAndRoutes: true
+  doesNotRenameExistingAndroidPackage: true
+operationalHierarchy:
+  liveState: existingApprovedPrivateSql
+  portableConfiguration: reviewedYaml
+  markdown: humanRecoveryOrToolRequiredOnly
+deviceProfiles:
+  samsungTablet:
+    targetModel: SM-X400
+    requestedExperience: DeXDesktopOrTabletLandscape
+    actualDexSupport: NOT_VERIFIED_ON_DEVICE
+    defaultCockpit: packagedOfflineWebView
+    desktopViewportThresholdPx: 980
+    landscapeSidebarChat: true
+    inputModes: [touch, keyboard, mouse]
+    fullscreenAndroidHost: existingGodotHost
+    noDesktopUserAgentSpoofing: true
+    noTermuxOrAcodeDependency: true
+  samsungPhone:
+    targetFamily: SM-S721
+    protectedInstance: samsungSecureFolder
+    apkInstall: userConfirmedSamsungPackageInstaller
+    sharedInstalledApkBinary: true
+    secureFolderDataSeparate: true
+    actualInstallVerified: false
+    localAppDataCopiedAcrossProfiles: false
+    targetCockpit: packagedOfflineWebView
+    optionalDeveloperEditor: AcodeWithAcodeXPlugin
+    optionalOutsideProfileEngine: Termux
+appIdentity:
+  proposedBetaPackage: art.eggiebagelface.luhmos.beta
+  signedFinalStablePackage: PENDING_OWNER_PROOF
+  historicalKAI9000AppFamily: art.eggiebagelface.luhmos
+  historicalCathedralToyPackage: art.eggiebagelface.luhmos.cathedraltoy.atelier
+  historicalCathedralBuildVersion: 1.0.27-professor.approval.1
+  historicalCathedralVersionIsNotUniversalUpgradeProof: true
+  noSilentPackageIdSwitch: true
+  noNewSigningKeyGenerated: true
+  requiresSameSignerPlusHigherVersionCodeForUpdate: true
+  physicalInstallTabletAndPhone: NOT_VERIFIED
+webView:
+  existingPlugin: androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt
+  origin: https://appassets.androidplatform.net
+  startPath: /assets/index.html
+  javascriptToNative: exactOriginMainFrameAllowlistOnly
+  remoteScriptAndNavigation: blocked
+  htmlSource: frontEnd/index.html
+  styling: frontEnd/styles.css
+  noShellOrSecretsInWebView: true
+  androidHostAndWindowResizableProof: PENDING_DEVICE_TEST
+  chatGptInlineAppIsSeparateSurface: true
+  noClaimChatGptMcpAppMounted: true
+acodeXHistorical:
+  evidenceScope: historicDriveSavepoints20260911And20260915
+  ownerProfileTermuxIsLocalServiceOwner: true
+  secureFolderAcodeIsDevelopmentClientOnly: true
+  sameDeviceLoopbackOnly: true
+  sameDeviceAcodeXAndTermuxBridgeConfirmedHistorically: true
+  latestRevalidation: PENDING
+  survivesInteractiveTerminalClosureHistoric: true
+  rebootPersistence: NOT_VERIFIED
+  noAndroidOrLinuxPrivateDevicePortsSharedPublicly: true
+  services:
+    - {id: axs, loopbackPort: 8767, purpose: protectedTerminalClientBridge}
+    - {id: tigerVnc, loopbackPort: 5901, purpose: optionalLocalGraphicalDisplay}
+    - {id: websockify, loopbackPort: 6080, purpose: optionalLocalVncWebSocketAdapter}
+  noXfceChromiumFullDesktopDependency: true
+  noCurlPipeShellAutoInstall: true
+  noAXSPublicBind: true
+  doNotAssumeSecureFolderHasSharedFilesystem: true
+  differentDevicesCannotShareLocalhost: true
+antenna:
+  localSamePhoneBridge: optionalOnly
+  tabletToPhoneTransport: NOT_IMPLEMENTED
+  doNotProxyLocalhostAcrossDevices: true
+  publicInboundTermuxVncOllama: FORBIDDEN
+  edge: outboundAuthenticatedWssTlsOnlyAfterAuthorization
+  destinationAllowlistRequired: true
+  remotePayloads: typedLimitedProposalsNoShell
+  remoteActionsNeedLocalPolicyAndCrown: true
+  noSecretOrSignerEgress: true
+  noNewWebhooksOrPorts: true
+  offKillSwitch: requiredBeforeNetworkActivation
+vendorReferences:
+  acode: https://docs.acode.app/docs/getting-started/intro
+  acodeX: https://github.com/wimalab/acodex-plugin
+  termuxX11: https://github.com/termux/termux-x11
+  samsungSecureFolder: https://www.samsung.com/ca/support/mobile-devices/use-secure-folder-on-your-samsung-galaxy/
+  samsungDex: https://www.samsung.com/us/support/answer/ANS10004611/
+buildProof:
+  historicalApkAvailableInPrivateDrive: true
+  historicalApkSignatureReceiptNotReverified: true
+  currentSourceApkBuiltByThisPr: false
+  currentSourceSignerVerified: false
+  currentSourceSmokeTestOnly: true
+  manualDeviceAcceptance:
+    - installSupportedSdkArm64AndSignature
+    - noDataLossWhenUpdatingCompatiblePackage
+    - landscapeTouchMouseKeyboard
+    - desktopResizeAndRotation
+    - coldBootOfflineNoRemoteJs
+    - WebViewRendererRecovery
+    - SecureFolderSeparateDataAndManualInstall
+    - AcodeXOptionalNotAppDependency
+  physicalAcceptance: NOT_VERIFIED
+  publicRelease: false
+  sourceCIIsNotDeviceProof: true
+crownStatus: STOP
