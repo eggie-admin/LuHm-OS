@@ -28,6 +28,12 @@ class DriverSourceTests(TestCase):
                      "noRootRequired", "noSystemwideAngleSwitch", "noArbitraryGlesDriverInjection"):
             self.assertTrue(config["driverBoundaries"][name], name)
         self.assertTrue(config["driverBoundaries"]["linuxKernelDriversAreNotNpmModules"])
+        maintenance = config["userHardwareMaintenanceLaw"]
+        for required in ("noHexEditorAsPrerequisite", "noBiosRewriteAsPrerequisite",
+                         "noFirmwarePatchingAsPrerequisite", "noOdinRecoveryAsPrerequisite",
+                         "neverConvertHistoricalHexHackingExpertiseIntoMaintenanceObligation"):
+            self.assertTrue(maintenance[required], required)
+        self.assertEqual(maintenance["ifOnlyUnsupportedFirmwareFixRemains"], "STOP_AND_REPORT_UNSUPPORTED")
         self.assertEqual(config["shipping"]["crownStatus"], "STOP")
         self.assertTrue(config["shipping"]["noLiveDeviceMutation"])
 
