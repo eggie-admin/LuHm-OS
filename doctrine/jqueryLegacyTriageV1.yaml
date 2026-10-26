@@ -4,6 +4,11 @@ status: SOURCE_CANDIDATE_REVIEW
 authority: Professor
 legacyFile: frontEnd/jquery/luhm.cockpit.js
 newCore: frontEnd/lib/luhmUiCore.js
+candidatePlugin: frontEnd/jquery/luhm.cockpit.slimCandidate.js
+acceptedLegacyBlob: 081a0bdd86c4cdca9f4027a26da0297df8e1bed1
+acceptedLegacyUntouched: true
+candidateRuntimeLoaded: false
+reasonForIsolation: originalFingerprintContinuityGateRequiresByteForByteAcceptance
 license:
   upstreamJqueryUnmodified: true
   npmPackagePrivate: true
@@ -11,32 +16,32 @@ license:
 inventory:
   - feature: vendorAliases
     decision: extract
-    oldState: commentedHistoricalImplementation
+    oldState: commentedInsideIsolatedCandidateOnly
     newOwner: frontEnd/lib/luhmUiCore.js
     reason: pureProviderDisplayAliasMapNoDomRequired
   - feature: normalizeMagicText
     decision: extract
-    oldState: commentedHistoricalImplementation
+    oldState: commentedInsideIsolatedCandidateOnly
     newOwner: frontEnd/lib/luhmUiCore.js
     reason: deterministicInputNormalizationNoExecution
   - feature: matchesMagicTrigger
     decision: extractWithShim
-    oldState: existingJqueryApiRemains
+    oldState: acceptedJqueryApiRemainsCandidateShimsPresent
     newOwner: frontEnd/lib/luhmUiCore.js
     reason: retainExactTwoPhraseGuardAndExistingMgcCdngRlplayPublicMethod
   - feature: normalizeDebugCommand
     decision: extract
-    oldState: commentedHistoricalImplementation
+    oldState: commentedInsideIsolatedCandidateOnly
     newOwner: frontEnd/lib/luhmUiCore.js
     reason: uppercaseDebugParsingIsPureInputLogic
   - feature: parseVendorDebugCommand
     decision: extractWithShim
-    oldState: existingJqueryApiRemains
+    oldState: acceptedJqueryApiRemainsCandidateShimsPresent
     newOwner: frontEnd/lib/luhmUiCore.js
     reason: preserveVendorAliasesWithoutAnyExecutionAuthority
   - feature: clockIntervalMs
     decision: extractAndHarden
-    oldState: historicalClockArithmeticReplaced
+    oldState: historicalClockStillActiveCandidateHasBoundedReplacement
     newOwner: frontEnd/lib/luhmUiCore.js
     reason: clampInterval15000To120000ForIdlePowerAndTimerSafety
   - feature: renderChatMessages
@@ -75,7 +80,8 @@ definitionOfDone:
   - npmCiAndExistingChecksPass
   - originalPublicJqueryApiAndEventContractRemain
   - parserCoreWorksWithoutJqueryDomAndNetwork
-  - legacyParserBlockCommentedForRollback
+  - legacyParserBlockCommentedInCandidateForRollback
+  - acceptedCockpitBlobMatchesHistoricalFingerprint
   - noCredentialsPaidCallsOrRuntimeCdnAdded
   - nativeSamsungInChatProofRemainsSeparate
   - loadedLibraryAndDeployedArtifactSizeMustBeMeasuredBeforeClaimingFatRemoved
