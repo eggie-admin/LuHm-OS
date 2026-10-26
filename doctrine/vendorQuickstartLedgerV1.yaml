@@ -1,0 +1,153 @@
+schema: luhmOs.vendorQuickstartLedger.v1
+asOf: "2026-10-26"
+authority: Professor
+status: SOURCE_CANDIDATE_REFERENCE_ONLY
+transition:
+  closingProject: projectHydra
+  nextProject: projectPremonition
+  publicPromotionAuthorized: false
+sourceFilesInspected:
+  - frontEnd/package.json
+  - frontEnd/jquery/luhm.cockpit.js
+  - frontEnd/tools/stage-jquery.mjs
+  - frontEnd/tools/check.mjs
+  - frontEnd/index.html
+  - frontEnd/app.js
+  - host/harness/libraryPolicy.json
+  - host/mcp/requirements.txt
+  - render.yaml
+namingLaw: doctrine/namingNamespaceCanonV1.json
+libraryRules:
+  preserveUpstreamVendoredDependencies: true
+  onlyCommentOwnedLegacyCode: true
+  doNotEditMinifiedJquery: true
+  noRuntimeCdnScripts: true
+  keepLegalNotices: true
+  noUnreviewedPluginPublication: true
+  noAutomaticDependencyUpgrade: true
+  npmIsDependencySourceNotProofOfCustomPluginPublication: true
+vendors:
+  openAi:
+    use: ChatGPT plugin host, MCP Apps UI and Python MCP transport
+    verifiedDocs:
+      - https://developers.openai.com/plugins/quickstart
+      - https://developers.openai.com/plugins/build/app-quickstart
+      - https://developers.openai.com/plugins/build/chatgpt-ui
+      - https://developers.openai.com/plugins/build/mcp-server
+    quickstart: connectExistingHttpsMcpThenVerifyToolThenBindUiResource
+    observedRepo: host/mcp/luhmHarness.py
+    action: resolvePrivateProjectHydraSiteResourceAndActualAndroidHostMount
+    evidence: ownerAndroidGuiRedPriorObservation
+    hostAcceptance: RED
+  jquery:
+    use: existing original luhmCockpit plugin and parallax compatibility
+    pinnedVersionObserved: 3.7.1
+    verifiedDocs:
+      - https://learn.jquery.com/plugins/basic-plugin-creation/
+      - https://learn.jquery.com/plugins/advanced-plugin-concepts/
+    quickstart: fnPluginReturnsEachWithNamespacedEventsConfigAndDestroy
+    observedRepo: frontEnd/jquery/luhm.cockpit.js
+    action: extractPureParsersAndClockBoundsWithoutBreakingExistingSelectors
+    publicationStatus: LOCAL_CUSTOM_PLUGIN_NOT_NPM_PUBLISHED
+  npm:
+    use: reproducible upstream dependency install and license-preserving copy
+    verifiedDocs:
+      - https://docs.npmjs.com/creating-a-package-json-file/
+      - https://docs.npmjs.com/cli/commands/npm-ci/
+    quickstart: npmCiFromCommittedLockfileThenStageExactJqueryDependency
+    observedRepo: frontEnd/tools/stage-jquery.mjs
+    productionPackagedCustomPlugin: false
+    action: preservePackagePrivateFlagAndDoNotClaimPublicNpmDistribution
+  mdnWeb:
+    use: semantic HTML5, native web components, browser capability and consent
+    verifiedDocs:
+      - https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements
+    quickstart: standardsHtmlThenRegisterDashNamedCustomElementAndDestroyListeners
+    observedRepo: host/harness/index.html
+    action: preserveAccessibleMobileMarkupWithReducedMotionAndSecureOrigin
+  python:
+    use: server-side APIs, codec tests, bounded SQL adapter
+    verifiedDocs:
+      - https://docs.python.org/3/library/venv.html
+    quickstart: isolatedEnvironmentWithPinnedRequirementsAndReadOnlySmoke
+    observedRepo: host/mcp/requirements.txt
+    action: noServerCredentialsInBrowserBundleOrPublicGit
+  mariaDb:
+    use: approvedExistingPrivateSqlRuntime
+    verifiedDocs:
+      - https://mariadb.com/docs/connectors/connectors-quickstart-guides/connector-python-guide
+    quickstart: scopedPythonDbApiConnectionAndParameterizedTransactions
+    observedRepo: host/api/typedLanesV1.sql
+    runtimeSchemaApplied: NOT_VERIFIED
+    action: noPublicPortAndNoNewDatabaseOrUnreviewedMigration
+  github:
+    use: canonical Git source, PR and exact-head CI
+    verifiedDocs:
+      - https://docs.github.com/en/actions/get-started/quickstart
+    quickstart: smallDraftPrWithPinnedCheckoutAndScopedPermissions
+    observedRepo: .github/workflows
+    action: noMergeWithIncompleteChecksOrAbove50CommitBudget
+  render:
+    use: existing remote harness and preview
+    verifiedDocs:
+      - https://render.com/docs/web-services
+      - https://render.com/docs/deploy-fastapi
+    quickstart: reuseExistingConfiguredPythonWebServiceWithHealthCheckAndExactDeploySha
+    observedRepo: render.yaml
+    action: noNewServiceNoAutomaticProductionDeploy
+  cloudflare:
+    use: approved DNS and Zero Trust private ingress
+    verifiedDocs:
+      - https://developers.cloudflare.com/tunnel/get-started/
+    quickstart: stagedAuthenticatedTunnelOnlyAfterDnsTlsAndOriginProof
+    observedRepo: doctrine/cloudflareAirTrafficControllerV1.json
+    action: noRouterForwardingOrPublicLanAndNoSilentTunnelMutation
+  googleAi:
+    use: optional provider-adapter capability under entitlement checks
+    verifiedDocs:
+      - https://ai.google.dev/gemini-api/cookbook
+    quickstart: providerKeyOnServerAndApprovedScopedApiCallAfterEntitlementCheck
+    observedRepo: doctrine/apiSpineV1.json
+    action: noUnapprovedProviderInferenceSpend
+  youtube:
+    use: user-initiated embedded video controls not a native music-app clone
+    verifiedDocs:
+      - https://developers.google.com/youtube/iframe_api_reference
+    quickstart: officialIframeApiOnExplicitUserActionWithAppropriateOriginAndCsp
+    observedRepo: host/harness/libraryPolicy.json
+    action: doNotAssumeYouTubeMusicPlaybackApiOrEmbedRights
+  godot:
+    use: deferred web 3D scene on Samsung with actual WebGL2 compatibility
+    verifiedDocs:
+      - https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html
+    quickstart: tinySingleThreadedWebExportThenTestActualDeviceBeforeAssets
+    observedRepo: host/harness/index.html
+    action: inspectWebGl2AndCrossOriginIsolationInsteadOfAssumingThreadsWork
+  babylon:
+    use: deferred lighter WebGL 3D viewer option
+    verifiedDocs:
+      - https://doc.babylonjs.com/setup/
+    quickstart: bundledStarterTemplateAndLazyRenderOnlyWhenOpened
+    observedRepo: doctrine/jqueryFourLayerArchitectureV1.json
+    action: deferFull3dLibraryUntilMcpHostAndTouchVerified
+  blender:
+    use: deferred offline asset preparation and Python headless render
+    verifiedDocs:
+      - https://docs.blender.org/api/main/info_quickstart.html
+    quickstart: pythonApiMinimalSceneAssetTestThenExport
+    observedRepo: .devcontainer/Dockerfile
+    action: pinSourceLicenseAndExportDigestBeforeAnyDistribution
+  huggingFace:
+    use: optional model/artifact reference and source provenance
+    verifiedDocs:
+      - https://huggingface.co/docs/hub/en/security-tokens
+    quickstart: leastPrivilegeTokenNeverPublishedAndImmutableAssetRevision
+    observedRepo: doctrine/vendorAiDebugV1.json
+    action: noAssumedRightsOrInferenceEntitlement
+unverified:
+  - "Private installed Project Hydra Site backend HTML editor"
+  - "Samsung Lite native ChatGPT UI mount or touch acceptance"
+  - "Actual provider subscription entitlements and current billing"
+  - "Godot and Babylon on-device GPU performance"
+  - "Historic third-party donor plugin license and provenance"
+crownStatus: STOP

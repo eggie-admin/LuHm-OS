@@ -1,0 +1,103 @@
+schema: luhmOs.hydraCloseoutToPremonition.v1
+asOf: "2026-10-26"
+authority: Professor
+sourceRepository: eggie-admin/LuHm-OS
+status: SOURCE_CANDIDATE_HYDRA_CLOSEOUT
+projectTransition:
+  formerDisplay: Project Hydra
+  currentDevelopmentDisplay: Project Premonition
+  formerMachine: projectHydra
+  nextMachine: projectPremonition
+  productDisplay: LuHm OS
+  preserveProjectHydraPluginIdentity: true
+  noPublicPremonitionPromotionBeforeHydraCloseout: true
+namespace:
+  canonical: witchingHour
+  exactAliases:
+    - Witching Hour
+    - witching hour
+    - witching-hour
+    - wh
+    - wtchngHr
+    - witchingHour
+    - WITCHING_HOUR
+  aliasesNeverGrantExecution: true
+storage:
+  liveOperationalState: existingApprovedSqlFirst
+  portableConfigAndTasks: reviewedYaml
+  requiredMarkdown: platformAdapterOrEmergencyHumanRecovery
+  approvedSqlAvailability: NOT_VERIFIED
+execution:
+  safeCandidateSourceWorkWithoutReapproval: true
+  noProductionMergeOrExternalInvitation: true
+  noPublicBuildOrServiceProvisioning: true
+  noPaidJobs: true
+  crownStatus: STOP
+observedAtStart:
+  openGitHubPrCount: 27
+  observedPrScope: latest30OpenPullRequests
+  notAFullRepositoryCommitExhaustiveAudit: true
+  majorCurrentPrs:
+    - "414"
+    - "415"
+    - "416"
+  overlapHold:
+    - simultaneousGodotAndMobileCandidates
+    - privateSiteVsGithubHarnessResourceVersions
+    - publicPackageVsInstalledPluginIdentity
+  androidInChatHostMount: RED_OBSERVED_SCREENSHOT
+  renderWebRouteDoesNotProveChatGptMount: true
+tasks:
+  - id: vendorQuickstartLedger
+    priority: 0
+    state: STAGED_SOURCE
+    artifact: doctrine/vendorQuickstartLedgerV1.yaml
+    acceptance: officialVendorDocsMappedToExistingQuickstartsWithProviderStateUnverified
+  - id: legacyJqueryInventory
+    priority: 1
+    state: IN_PROGRESS
+    artifacts:
+      - doctrine/jqueryLegacyTriageV1.yaml
+      - frontEnd/jquery/luhm.cockpit.js
+    acceptance: classifiedCodePathsRetainExtractDeferRetireNoVendorSourceMutation
+  - id: luHmJavaScriptCore
+    priority: 2
+    state: IN_PROGRESS
+    artifacts:
+      - frontEnd/lib/luhmUiCore.js
+      - frontEnd/tools/coreAudit.mjs
+    acceptance: pureHelpersUnitTestedLegacyPublicEventsPreservedNoUnsafeInnerHtml
+  - id: sourcePythonMcpHarden
+    priority: 3
+    state: PENDING
+    references:
+      - host/mcp/luhmHarness.py
+      - host/mcp/luhmMcpServer.py
+      - host/mcp/requirements.txt
+    acceptance: verifyMatchingRegisteredUiResourceAndMcpToolsAgainstOpenAiQuickstart
+  - id: nativeSamsungLiteChatAcceptance
+    priority: 4
+    state: RED_PENDING_SITE_BACKEND_ACCESS
+    acceptance: visibleChatGptCardToolCallTouchControlsAndDegradedFallbackOnRealAndroidClient
+  - id: gitHubPrReconciliation
+    priority: 5
+    state: OPEN
+    acceptance: eachRelevantOpenPrDeduplicatedOrScopedWithExactShaCiAndRollbackNoBlindMerge
+  - id: projectHydraCloseout
+    priority: 6
+    state: BLOCKED_BY_GUI_AND_PR_EVIDENCE
+    acceptance: preservedPluginIdentityVersionReceiptKnownGoodAndNoUnresolvedOwnerMountRed
+  - id: projectPremonitionPublicDevelopment
+    priority: 7
+    state: PARKED_UNTIL_HYDRA_CLOSEOUT
+    acceptance: reviewedPublicSafeSourceArtRightsTesterAccessAndIndependentProductionPromotion
+  - id: threeDHardening
+    priority: 8
+    state: DEFERRED
+    references:
+      - Godot4
+      - BabylonJs
+      - BlenderPython
+    acceptance: smallWebGlProofThenAssetLicensesMemoryFpsAndTouchPerformanceOnActualDevice
+noAutomaticAsyncExecutionOutsideChat: true
+crownStatus: STOP

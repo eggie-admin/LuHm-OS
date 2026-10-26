@@ -1,0 +1,89 @@
+schema: luhmOs.jqueryLegacyTriage.v1
+asOf: "2026-10-26"
+status: SOURCE_CANDIDATE_REVIEW
+authority: Professor
+legacyFile: frontEnd/jquery/luhm.cockpit.js
+newCore: frontEnd/lib/luhmUiCore.js
+candidatePlugin: frontEnd/jquery/luhm.cockpit.slimCandidate.js
+acceptedLegacyBlob: 081a0bdd86c4cdca9f4027a26da0297df8e1bed1
+acceptedLegacyUntouched: true
+candidateRuntimeLoaded: false
+reasonForIsolation: originalFingerprintContinuityGateRequiresByteForByteAcceptance
+license:
+  upstreamJqueryUnmodified: true
+  npmPackagePrivate: true
+  licenseCopyPreserved: frontEnd/tools/stage-jquery.mjs
+inventory:
+  - feature: vendorAliases
+    decision: extract
+    oldState: commentedInsideIsolatedCandidateOnly
+    newOwner: frontEnd/lib/luhmUiCore.js
+    reason: pureProviderDisplayAliasMapNoDomRequired
+  - feature: normalizeMagicText
+    decision: extract
+    oldState: commentedInsideIsolatedCandidateOnly
+    newOwner: frontEnd/lib/luhmUiCore.js
+    reason: deterministicInputNormalizationNoExecution
+  - feature: matchesMagicTrigger
+    decision: extractWithShim
+    oldState: acceptedJqueryApiRemainsCandidateShimsPresent
+    newOwner: frontEnd/lib/luhmUiCore.js
+    reason: retainExactTwoPhraseGuardAndExistingMgcCdngRlplayPublicMethod
+  - feature: normalizeDebugCommand
+    decision: extract
+    oldState: commentedInsideIsolatedCandidateOnly
+    newOwner: frontEnd/lib/luhmUiCore.js
+    reason: uppercaseDebugParsingIsPureInputLogic
+  - feature: parseVendorDebugCommand
+    decision: extractWithShim
+    oldState: acceptedJqueryApiRemainsCandidateShimsPresent
+    newOwner: frontEnd/lib/luhmUiCore.js
+    reason: preserveVendorAliasesWithoutAnyExecutionAuthority
+  - feature: clockIntervalMs
+    decision: extractAndHarden
+    oldState: historicalClockStillActiveCandidateHasBoundedReplacement
+    newOwner: frontEnd/lib/luhmUiCore.js
+    reason: clampInterval15000To120000ForIdlePowerAndTimerSafety
+  - feature: renderChatMessages
+    decision: retainForNow
+    oldState: activeLegacyJqueryDom
+    reason: escapeWithJqueryTextAndDoNotDeleteWorkingChat
+  - feature: scopedEventsAndDestroy
+    decision: retain
+    oldState: activeLegacyJqueryDom
+    reason: noListenerOrTimerLeaksDuringViewUnmount
+  - feature: backendOpenClose
+    decision: retain
+    oldState: uiEventOnly
+    reason: publicNativeAndGodotBridgeContractMustNotBreak
+  - feature: roleplayDisplayEvents
+    decision: retainButIsolateNext
+    oldState: presentationOnly
+    reason: exactTriggerContractsAndQuarantineBoundaryPreserved
+  - feature: parallaxPointerPlugin
+    decision: deferFurtherOptimization
+    oldState: existingSeparatePlugin
+    reason: actualSamsungTouchAndMotionProofNotYetAvailable
+  - feature: thirdPartyCdnScripts
+    decision: retireAsDefault
+    oldState: alreadyDisallowedByLibraryPolicy
+    reason: sameOriginVendoredDepsAndMcpCspRequired
+  - feature: godotBabylonBlenderRender
+    decision: defer
+    oldState: separateAssetsOrAdapters
+    reason: stabilizeInChatMountBeforeLoadingExpensive3d
+  - feature: autoWebhooksFromBrowserOrSql
+    decision: neverEnable
+    oldState: notImplemented
+    reason: privateAuthenticatedPythonAdapterAndApprovedSqlOnly
+definitionOfDone:
+  - npmCiAndExistingChecksPass
+  - originalPublicJqueryApiAndEventContractRemain
+  - parserCoreWorksWithoutJqueryDomAndNetwork
+  - legacyParserBlockCommentedInCandidateForRollback
+  - acceptedCockpitBlobMatchesHistoricalFingerprint
+  - noCredentialsPaidCallsOrRuntimeCdnAdded
+  - nativeSamsungInChatProofRemainsSeparate
+  - loadedLibraryAndDeployedArtifactSizeMustBeMeasuredBeforeClaimingFatRemoved
+sourcePromotionAuthorized: false
+crownStatus: STOP

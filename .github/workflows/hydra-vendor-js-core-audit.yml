@@ -1,0 +1,53 @@
+name: LuHm Hydra Closeout Vendor and JavaScript Core Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/vendorQuickstartLedgerV1.yaml'
+      - 'doctrine/hydraCloseoutPremonitionTasksV1.yaml'
+      - 'doctrine/jqueryLegacyTriageV1.yaml'
+      - 'frontEnd/lib/luhmUiCore.js'
+      - 'frontEnd/jquery/luhm.cockpit.js'
+      - 'frontEnd/jquery/luhm.cockpit.slimCandidate.js'
+      - 'frontEnd/index.html'
+      - 'frontEnd/package.json'
+      - 'frontEnd/tools/coreAudit.mjs'
+      - 'frontEnd/tools/check.mjs'
+      - 'tests/testHydraVendorCloseout.py'
+      - '.github/workflows/hydra-vendor-js-core-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  vendor-core:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact PR candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact head
+        shell: bash
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+      - name: Install YAML reader
+        run: python3 -m pip install --break-system-packages 'PyYAML==6.0.2'
+      - name: Test vendor and namespace doctrine
+        run: python3 -m unittest discover -s tests -p 'testHydraVendorCloseout.py' -v
+      - name: Run existing npm pinned-install and focused compatibility suite
+        working-directory: frontEnd
+        run: |
+          npm ci --ignore-scripts
+          npm run stage:jquery
+          npm run check
+      - name: Preserve role, deployment and device evidence boundaries
+        run: |
+          echo 'UPSTREAM_JQUERY=UNMODIFIED'
+          echo 'NEW_LUHM_UI_CORE=SOURCE_ONLY'
+          echo 'CUSTOM_NPM_PLUGIN_PUBLISHED=FALSE'
+          echo 'PROJECT_HYDRA_CLOSEOUT=AMBER'
+          echo 'PROJECT_PREMONITION_PUBLIC_PROMOTION=STOP'
+          echo 'CHATGPT_SAMSUNG_MOUNT=RED'
+          echo 'CROWN=STOP'
