@@ -1,5 +1,7 @@
 # LuHm OS Agent Bootstrap
 
+**Machine-state storage priority:** SQL (approved existing private database) → reviewed YAML config/doctrine → Markdown only as human-readable recovery or platform-required adapter. Canonical source commits still live in GitHub. Resolve `doctrine/statePrecedenceV1.yaml` before writing new machine-state documentation. Do not create a Markdown file as the primary state ledger; never treat a `SKILL.md` or `AGENTS.md` as runtime database truth. The SQL migration is staged, not applied. Use parameterized queries, no secrets, no public SQL sockets.
+
 ## OpenAI remote MCP Apps debug lane
 
 Before LuHm ChatGPT UI source changes or attempts to recover failed inline CAST, read `manual/chatGptRemoteCompatibilityDebugLane.md` and `doctrine/chatGptRemoteCompatibilityDebugLaneV1.json`. Run `python3 tools/chatGptRemoteCompatibilityAudit.py` and the dedicated exact-head compatibility tests. Keep the **installed Project Hydra Site** separate from the GitHub-managed MCP server. Use the new tiny mount-probe UI only when that resource is actually registered in the targeted MCP server; an installed Site skill cannot add backend tools/resources. Native ChatGPT Android widget mounting remains RED until shown working by the owner. Source/Render tests do not override device evidence. A GitHub package has **at most three** starter prompts; preserve archive examples without publishing them as metadata.
