@@ -1,0 +1,148 @@
+schema: luhmOs.universalPackageMatrix.v1
+asOf: "2026-10-26"
+status: SOURCE_CANDIDATE_NOT_BUILT
+authority: Professor
+reason: "One LuHm-owned application contract, several smallest correct distro/vendor package adapters."
+product: LuHm OS
+transition:
+  current: Project Hydra closeout
+  following: Project Premonition
+  noInstalledProjectHydraIdentityRewrite: true
+architecture:
+  canonicalVersionAndCapabilities: reviewedYaml
+  realRuntimeData: existingApprovedPrivateSql
+  buildReceipts: contentAddressedSha256
+  immutablePayloadComponents:
+    - frontEnd/index.html
+    - frontEnd/styles.css
+    - frontEnd/app.js
+    - frontEnd/jquery/luhm.cockpit.js
+    - frontEnd/jquery/luhm.codingRoleplay.js
+    - frontEnd/jquery/luhm.parallax.js
+  generatedLocallyPinnedNotGitTracked:
+    - frontEnd/vendor/jquery-3.7.1.min.js
+  platformSpecificElements:
+    - androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt
+    - host/mcp/luhmHarness.py
+  sharedWireSchema: doctrine/duplexTypedBusV1.yaml
+  wireSchemaReferenceOnDraftBranch: "candidate/sql-remote-webhook-outbox-20261026"
+  neverAssumeDraftAlreadyOnMain: true
+  uiArtifactIsBytesNotSystemPackage: true
+  compileJsOnceIfTranspilationRequired: false
+  nativeBinariesRebuildPerTargetOsAndCpuAbi: true
+  cssHtmlJsCanBeContentHashIdenticalAcrossTargets: true
+  noPlatformDriversBundledInsideWebPayload: true
+  proprietaryApiAdaptersOnlyServerSideAndOptIn: true
+outputs:
+  browser:
+    format: staticAssetDirectory
+    platform: anyStandardsBrowserWithTestedApis
+    installedUsing: webHostOrLocalAssetLoader
+    shared: frontend
+    distributionEnabled: false
+    boundary: "No privileged JS; browser cannot write SQL, flash drivers or run host shell."
+  npm:
+    format: tgz
+    tool: npmPackDryRun
+    source: frontEnd/package.json
+    publicPublication: false
+    currentPackagePrivate: true
+    shared: frontendModulesOnly
+    boundary: "npm resolves JS modules/dependencies, it is not an OS package manager or kernel driver installer."
+    docs: https://docs.npmjs.com/cli/v11/commands/npm-pack/
+  python:
+    format: wheelAndSdist
+    tool: pythonBuild
+    source: futurePyprojectTomlNotYetAdded
+    shared: serverSideProtocolAndApiOnly
+    generated: false
+    boundary: "Pure Python can be portable; compiled extensions require target Python/OS/CPU matching."
+    docs: https://packaging.python.org/en/latest/flow/
+  deb:
+    format: deb
+    tool: debhelperDpkgBuildpackage
+    source: proposedDebianPackagingMetadataNotYetAdded
+    shared: frontendPlusPythonServiceWhenOnLinux
+    generated: false
+    boundary: "Deb packages use apt/dpkg metadata, dependencies, architecture and system integration, not npm binaries."
+    docs: https://ubuntu.com/developers/docs/explanation/packaging/
+  snap:
+    format: snap
+    tool: snapcraft
+    base: core26
+    source: proposedSnapcraftYamlNotYetAdded
+    shared: frontendPlusPythonServiceWithConfinedAdapter
+    generated: false
+    boundary: "snapd confinement, interfaces, device support and authenticated refresh must be tested."
+    docs: https://snapcraft.io/docs/base-snaps/
+  oci:
+    format: ociImage
+    tool: rockcraftOrContainerBuilder
+    source: proposedRockcraftYamlNotYetAdded
+    shared: backendOnlyHeadless
+    generated: false
+    boundary: "OCI is a container image; container uses host Linux kernel and does not provide Android application privileges."
+    docs: https://documentation.ubuntu.com/rockcraft/en/1.7.0/explanation/chisel/
+  android:
+    format: signedApkOrAab
+    tool: gradleAndroidPlugin
+    source: androidWeb3Plugin
+    shared: sameFrontendAssetContentHash
+    packaging: nativeAndroidWebViewAssetLoaderAndGodotHost
+    generated: false
+    signingProven: false
+    packageIdMatchExistingInstall: NOT_VERIFIED
+    androidSecureFolderProof: NOT_VERIFIED
+    boundary: "Package name, versionCode, signer, ABI, targetSdk, Android sandbox and WebView are required. No deb/npm install in Secure Folder."
+    docs: https://developer.android.com/build/build-variants
+  chatGpt:
+    format: mcpAppsRegisteredToolPlusResource
+    tool: existingPrivateSiteApp
+    source: existingInstalledProjectHydraSite
+    shared: portableUIConceptOnly
+    generated: false
+    nativeHostMount: RED_PREVIOUS_OWNER_SCREENSHOT
+    boundary: "ChatGPT MCP Apps is not an APK/deb/npm distribution. HTML resource must be host-compatible."
+    docs: https://developers.openai.com/plugins/build/chatgpt-ui
+abis:
+  hostAmd64: linuxGnuX86_64
+  linuxArm64: linuxGnuAarch64
+  androidArm64: androidBionicAarch64
+  ubuntuAndAndroidShareKernelFamily: true
+  ubuntuAndAndroidShareUserspaceAbi: false
+  linuxGlibcIsAndroidBionic: false
+  androidKernelAckGkiVendorModulesSeparate: true
+  osSpecificNativeSharedObjectsMustNotBeCopiedUnchanged: true
+  officialDocs:
+    - https://developer.android.com/guide/platform
+    - https://developer.android.com/ndk/guides/stable_apis
+    - https://source.android.com/docs/core/architecture/kernel
+deployment:
+  keepServerProvidersOutsideApk: true
+  noHardCodedAccountsKeysOrPaidVendorEntitlements: true
+  remoteServicesUseOneVersionedTlsApiGateway: true
+  sqlOnPrivateHostOnly: true
+  optionalVendorFeaturesMustDegradeToOfflineCockpit: true
+  secureFolderDataProfileIsolation: true
+  noExternalCdnAtRuntime: true
+  allowlistLicensesAndSourceDigests: true
+  updateSafety: signerIdentityPlusMonotonicVersionAndRollbackReceipt
+  releaseGates: [sourceAudit, dependencyProvenance, licenseScan, deterministicAssetDigests, androidBuildAndSignature, deviceInstallAndDex, secureFolderInstall, actualChatGptHostMount]
+  requireActualBuildAndDeviceTestsBeforeGreen: true
+  noFirmwareHexEditorOdinRootOrUnsupportedKernel: true
+measurement:
+  - artifactCompressedAndUncompressedBytes
+  - startupTime
+  - runtimePssMemory
+  - cpuAndGpuFrameTime
+  - dependencyCount
+  - permissionsAndNetworkCalls
+  - rollbackResult
+researchNotes:
+  - "Ubuntu official guidance distinguishes deb for OS integration, snap for Linux cross-distro, and OCI for cloud containers."
+  - "Android NDK links against Bionic; Linux/glibc and Android native binaries are not drop-in equivalents."
+  - "Python wheel distributions with native extensions are interpreter/ABI/OS constrained."
+  - "Shared web assets and protocol schemas are the portability win; wrappers must remain platform-native."
+  - "Chisel creates slices of deb files for container images, not a universal kernel or driver."
+  - "No output format here is declared published, installed or signed."
+crownStatus: STOP
