@@ -7,6 +7,10 @@ on:
       - 'tools/fourTrackReleaseAudit.py'
       - 'host/mcp/luhmHarness.py'
       - 'tools/inChatLiveMcpProbe.py'
+      - 'doctrine/chatGptRemoteCompatibilityDebugLaneV1.json'
+      - 'tools/chatGptRemoteCompatibilityAudit.py'
+      - 'plugins/luhm-os/plugin.json'
+      - 'plugins/luhm-os/mcp.json'
       - 'tests/testInChatLiveMcpProbe.py'
       - '.github/workflows/in-chat-public-mcp-probe.yml'
   workflow_dispatch:
@@ -21,7 +25,13 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
+      - name: Verify probed source checkout
+        shell: bash
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -41,3 +51,4 @@ jobs:
           echo "NO_DEPLOY_NO_BUILD_NO_SECRETS"
           echo "CI_SUCCESS_IS_NOT_MCP_OR_CHATGPT_HOST_GREEN"
           echo "CHATGPT_HOST_AND_ANDROID_REQUIRE_REAL_CLIENT_PROOF"
+          echo "PROBED_MCP_HOST=GITHUB_MANAGED_RENDER_NOT_PERSONAL_SITE"
