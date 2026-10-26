@@ -57,6 +57,15 @@ webView:
   styling: frontEnd/styles.css
   noShellOrSecretsInWebView: true
   androidHostAndWindowResizableProof: PENDING_DEVICE_TEST
+  rendererCrashPolicy:
+    appOnlyNativeFallback: true
+    fallbackIndependentOfJavaScript: true
+    autoRetry: false
+    retryRequiresExplicitUserTap: true
+    maximumPerSessionRetries: 1
+    afterSecondCrash: visibleRestartInstructions
+    appRestartRequiresNoDriverOrFirmwareChange: true
+    physicalRecoveryTest: NOT_VERIFIED
   chatGptInlineAppIsSeparateSurface: true
   noClaimChatGptMcpAppMounted: true
 acodeXHistorical:
