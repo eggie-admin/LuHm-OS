@@ -1,0 +1,36 @@
+name: LuHm Default Brand + Session Candidate Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/defaultBrandSessionTrustCandidateV1.json'
+      - 'tests/testDefaultBrandSessionTrustCandidate.py'
+      - 'host/harness/mobileCockpitWidget.html'
+      - 'tests/testMobileCockpitEvidenceContract.py'
+      - '.github/workflows/default-brand-session-source-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact source
+        shell: bash
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED"
+      - name: Check proposed branding and auth boundaries
+        run: python3 -m unittest tests/testDefaultBrandSessionTrustCandidate.py tests/testMobileCockpitEvidenceContract.py -v
+      - name: Report proof limits
+        run: |
+          echo "LUHM_BRAND_DEFAULT=SOURCE_CANDIDATE"
+          echo "REMOTE_AUTH_SESSION_IMPLEMENTATION=NOT_DEPLOYED"
+          echo "CHATGPT_NATIVE_HOST_SKIN=NOT_CONTROLLED"
+          echo "ANDROID_WIDGET_DISPLAY=UNVERIFIED"
+          echo "CROWN=STOP"
