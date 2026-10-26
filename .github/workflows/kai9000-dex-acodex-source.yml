@@ -4,6 +4,9 @@ on:
     paths:
       - 'doctrine/kai9000SamsungDexAcodeXV1.yaml'
       - 'doctrine/kai9000RomHackingGraphicsResearchV1.yaml'
+      - 'doctrine/ubuntuKioskKernelVmStudyV1.yaml'
+      - 'doctrine/minimumViableKernelAndServicesV1.yaml'
+      - 'tests/testUbuntuKioskKernelVmStudy.py'
       - 'tools/kai9000GraphicsProbe.py'
       - 'tests/testKai9000GraphicsProbe.py'
       - 'frontEnd/styles.css'
@@ -35,11 +38,15 @@ jobs:
         run: |
           python3 -m unittest discover -s tests -p 'testKai9000DexAcodeX.py' -v
           python3 -m unittest discover -s tests -p 'testKai9000GraphicsProbe.py' -v
+          python3 -m unittest discover -s tests -p 'testUbuntuKioskKernelVmStudy.py' -v
           python3 tools/kai9000GraphicsProbe.py
       - name: Preserve build and real-device truth
         run: |
           echo 'DEX_COCKPIT=SOURCE_ONLY'
           echo 'ROMHACKING_GPU_TOOLS=RESEARCH_ONLY'
+          echo 'UBUNTU_26_KIOSK_MINIMAL_CORE_LXD_KVM=RESEARCH_ONLY'
+          echo 'UNSUPPORTED_MAINLINE_PRODUCTION=FORBIDDEN'
+          echo 'GUEST_VM_OR_HOST_INSTALL=NONE'
           echo 'ADB_GRAPHICS_PROBE=EXPLICIT_OPT_IN_REQUIRED'
           echo 'FIRMWARE_FLASH_OR_GPU_DRIVER_REPLACEMENT=NONE'
           echo 'WEBVIEW_SANDBOX=UNCHANGED'
