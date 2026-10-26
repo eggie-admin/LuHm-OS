@@ -1,5 +1,9 @@
 # LuHm OS Agent Bootstrap
 
+## OpenAI remote MCP Apps debug lane
+
+Before LuHm ChatGPT UI source changes or attempts to recover failed inline CAST, read `manual/chatGptRemoteCompatibilityDebugLane.md` and `doctrine/chatGptRemoteCompatibilityDebugLaneV1.json`. Run `python3 tools/chatGptRemoteCompatibilityAudit.py` and the dedicated exact-head compatibility tests. Keep the **installed Project Hydra Site** separate from the GitHub-managed MCP server. Use the new tiny mount-probe UI only when that resource is actually registered in the targeted MCP server; an installed Site skill cannot add backend tools/resources. Native ChatGPT Android widget mounting remains RED until shown working by the owner. Source/Render tests do not override device evidence. A GitHub package has **at most three** starter prompts; preserve archive examples without publishing them as metadata.
+
 ## CAST and one outside tester
 
 Resolve `doctrine/castOwnerTesterActivationV1.json` and run `python3 tools/castOwnerTesterAudit.py` before claiming owner/tester readiness. The Professor's connected **Project Hydra** Site remains separately versioned from the GitHub LuHm portable plugin. Its packaged `luhm-cast-bridge` skill governs fast operator conduct, but it cannot itself edit the Site backend, create a shared workspace plugin, or produce an inline HTML widget. A failed actual Android ChatGPT host mount remains RED even after GitHub CI and private plugin skill releases pass. Keep the source gate, Site host gate, owner touch acceptance and invited tester acceptance separate. Do not disclose the outside tester's identity in this public repository.
