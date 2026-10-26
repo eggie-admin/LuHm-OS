@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LuHm OS · MCP App Mount Test</title><style>
+:root{font:16px/1.45 system-ui,sans-serif;color-scheme:dark}*{box-sizing:border-box}
+body{margin:0;padding:16px;color:#ecf5ff;background:#151a2b}
+section{border:1px solid #89c6e0;border-radius:12px;padding:14px;max-width:480px;margin:auto}
+h1{font-size:19px;margin:0 0 8px}p{margin:8px 0}small{color:#bbcade}
+button{font:inherit;min-height:44px;border:1px solid #76dfff;background:#29485b;color:#fff;border-radius:8px;padding:8px 12px}
+button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+</style></head><body><section aria-label="LuHm OS display diagnosis">
+<h1>◈ LuHm OS · display test</h1>
+<p id="visible" role="status">If you can read this inside ChatGPT, the HTML frame rendered.</p>
+<button type="button" id="tap">Tap to prove touch</button>
+<p id="touch" role="status">Touch: not tested.</p>
+<small id="bridge">MCP host handshake: checking. This is diagnostic, not a release.</small>
+</section><script>
+"use strict";
+const touch=document.getElementById("touch");
+document.getElementById("tap").addEventListener("click",()=>touch.textContent="Touch: PASS on this screen.");
+const bridge=document.getElementById("bridge");
+let timeout;
+if(window.parent!==window){
+  const id=1;
+  const listener=e=>{
+    if(e.source!==window.parent||e.data?.jsonrpc!=="2.0"||e.data?.id!==id)return;
+    window.removeEventListener("message",listener);clearTimeout(timeout);
+    if(e.data.error){bridge.textContent="MCP host handshake: failed.";return;}
+    bridge.textContent="MCP host handshake: response received.";
+    window.parent.postMessage({jsonrpc:"2.0",method:"ui/notifications/initialized",params:{}},"*");
+  };
+  window.addEventListener("message",listener);
+  window.parent.postMessage({jsonrpc:"2.0",id,method:"ui/initialize",
+    params:{appInfo:{name:"luhm-mount-diagnostic",version:"1.0.0"},appCapabilities:{},protocolVersion:"2026-01-26"}},"*");
+  timeout=setTimeout(()=>{window.removeEventListener("message",listener);bridge.textContent="MCP host handshake: no response.";},4500);
+}else{bridge.textContent="Standalone preview, not proof of ChatGPT mounting.";}
+</script></body></html>
