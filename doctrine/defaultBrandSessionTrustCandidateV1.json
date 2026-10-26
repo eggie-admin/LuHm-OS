@@ -147,7 +147,7 @@
   "promotion": {
     "educationEndOfClassNotCalled": true,
     "freezeRequestedAsCandidateNotFinal": true,
-    "sourceChecksDoNotProvePlatformSkinningOrAuth": false,
+    "sourceChecksDoNotProvePlatformSkinningOrAuth": true,
     "requireExactSourceCi": true,
     "requireActiveDeviceProof": true,
     "requireProfessorCrownForLiveAuthOrHostChanges": true,
