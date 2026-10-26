@@ -21,6 +21,15 @@ async function main() {
   assert.deepEqual(studio.depthOffsets(1000),{rear:"-100px",middle:"-220px",front:"-380px"});
   assert.deepEqual(studio.depthOffsets(1000,true),{rear:"0px",middle:"0px",front:"0px"});
   assert.deepEqual(studio.depthOffsets(-100),{rear:"0px",middle:"0px",front:"0px"});
+  assert.deepEqual([0,600,1400,2800].map(n => studio.depthQuality(n)),["full","balanced","lite","static"]);
+  assert.equal(studio.depthQuality(0,true),"static","Reduced motion turns off decorative parallax");
+  assert.equal(studio.depthQuality(0,false,true),"static","Hidden tab turns off decorative parallax");
+  assert.equal(studio.depthQuality(NaN),"static","Unknown position cannot start animation");
+  for (const marker of ['data-studio-quality="balanced"','data-studio-quality="lite"','data-studio-quality="static"'])
+    assert.ok(file("studioDeck.css").includes(marker),marker);
+  const deckMarkup=file("studioDeck.html");
+  for (const label of ["Blink","Smile","Wave","Pause motion","Enable optional Godot backdrop","Disable Godot backdrop"])
+    assert.ok(deckMarkup.includes('aria-label="'+label+'"'),"Icon buttons need accessible names: "+label);
   assert.equal(studio.embedTarget({location:{hostname:"example.invalid",origin:"https://example.invalid"}}),
     "https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html");
   assert.equal(contract.visualDepthStack.decorativePlanes,4);
