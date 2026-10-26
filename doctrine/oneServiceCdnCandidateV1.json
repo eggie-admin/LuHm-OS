@@ -72,7 +72,7 @@
     "privateResolver": "existing dnsmasq for eggiebagelface.lan; BIND9 optional not reverse proxy"
   },
   "encryption": {
-    "requireHttpsClient": "true",
+    "requireHttpsClient": true,
     "requireTlsForEveryNetworkHop": true,
     "publicHttp": "edge redirect only after valid matching edge certificate; application-generated MCP URLs always https",
     "redirectOwner": "one verified edge redirect owner, avoid loops and redirects of sensitive streaming MCP requests",
