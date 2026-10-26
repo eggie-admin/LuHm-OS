@@ -32,6 +32,13 @@ header{justify-content:space-between}header>div:nth-child(2){flex:1;min-width:0}
 @media(prefers-reduced-transparency:reduce){.glassDock{background:#172031;backdrop-filter:none;-webkit-backdrop-filter:none}}
 @media(max-width:300px){#roster,#lanes{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+/* In-chat correction desk: user-sent proposals, never direct execution. */
+.correctionDesk textarea{display:block;width:100%;min-height:104px;resize:vertical;border:1px solid #697da1;border-radius:10px;padding:12px;font:inherit;color:var(--ink);background:#0a1321;line-height:1.5}
+.correctionDesk textarea:focus-visible,.correctionDesk button:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.correctionDesk .actions{margin-top:10px}.correctionDesk .actions button{flex:1 1 75px}
+.correctionDesk .actions #correctionSend{background:#105168;border-color:#82e3f3;font-weight:700}
+.correctionDesk .muted{overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -43,6 +50,19 @@ header{justify-content:space-between}header>div:nth-child(2){flex:1;min-width:0}
 <p id="glassStatus" role="status">Waiting for a verified module contract</p>
 <div id="glassModules"></div>
 </aside>
+<section class="panel correctionDesk" aria-label="Correct a LuHm instruction">
+<h2>✏️ Correct my last instruction</h2>
+<p class="muted">Your original chat stays untouched. Dictate the correction, review it here, then tap Send. Nothing runs automatically.</p>
+<label for="correctionDraft">Latest correction</label>
+<textarea id="correctionDraft" maxlength="1200" placeholder="I meant the classroom office, not R&D. Keep this in the testing lane."></textarea>
+<p class="muted" id="correctionPreview" role="status" aria-live="polite">Nothing to send yet.</p>
+<div class="actions">
+<button id="correctionUndo" type="button" disabled aria-label="Undo draft edit">↶ Undo</button>
+<button id="correctionClear" type="button" aria-label="Clear draft">✕ Clear</button>
+<button id="correctionSend" type="button" disabled>↪ Send correction</button>
+</div>
+<p class="muted" id="correctionStatus" role="status" aria-live="polite">Private draft. Sending only changes the chat request, not GitHub or any running agent.</p>
+</section>
 <section class="panel" aria-live="polite"><h2>Bridge and Canon</h2>
 <p class="status" id="bridge">VERIFY · waiting for a ChatGPT tool result</p>
 <p id="source">Exact source: unverified</p><p id="truth">Canon: unknown</p>
@@ -122,6 +142,65 @@ async function sendDockIntent(item){
   byId("glassStatus").textContent="Action sent into chat · execution requires evidence";
  }catch(_){byId("glassStatus").textContent="BLOCKED · chat handoff unavailable";}
 }
+// Correction transactions are staged in the existing in-chat GUI before ChatGPT sees them.
+const correctionDraft=byId("correctionDraft");
+const correctionHistory=[""];let correctionIndex=0;let correctionTimer=0;
+function correctionPayload(){
+ const text=correctionDraft.value.trim();
+ return "LUHM CORRECTION ONLY. Replace the previous unexecuted interpretation; do not execute the older instruction.\nLatest correction: "+text+"\nReturn the corrected interpretation. Require separate permission for consequential work.";
+}
+function correctionUi(message){
+ const value=correctionDraft.value.trim();
+ byId("correctionSend").disabled=!value;
+ byId("correctionUndo").disabled=correctionIndex===0&&correctionDraft.value===correctionHistory[0];
+ byId("correctionPreview").textContent=value?"Preview · "+value:"Nothing to send yet.";
+ if(message)byId("correctionStatus").textContent=message;
+}
+function checkpointCorrection(){
+ clearTimeout(correctionTimer);
+ const value=correctionDraft.value;
+ if(value===correctionHistory[correctionIndex])return;
+ correctionHistory.splice(correctionIndex+1);
+ correctionHistory.push(value);
+ if(correctionHistory.length>16)correctionHistory.shift();
+ correctionIndex=correctionHistory.length-1;
+ correctionUi();
+}
+correctionDraft.addEventListener("input",()=>{
+ correctionUi("Draft changed. Review before sending.");
+ clearTimeout(correctionTimer);
+ correctionTimer=setTimeout(checkpointCorrection,650);
+});
+correctionDraft.addEventListener("blur",checkpointCorrection);
+byId("correctionUndo").addEventListener("click",()=>{
+ clearTimeout(correctionTimer);
+ if(correctionDraft.value!==correctionHistory[correctionIndex])correctionDraft.value=correctionHistory[correctionIndex];
+ else if(correctionIndex>0)correctionDraft.value=correctionHistory[--correctionIndex];
+ correctionUi("Previous draft restored. Nothing was sent.");
+});
+byId("correctionClear").addEventListener("click",()=>{
+ checkpointCorrection();correctionDraft.value="";checkpointCorrection();
+ correctionUi("Draft cleared. Undo can restore it.");
+});
+byId("correctionSend").addEventListener("click",async()=>{
+ if(!correctionDraft.value.trim())return;
+ checkpointCorrection();
+ const prompt=correctionPayload();
+ const button=byId("correctionSend");button.disabled=true;
+ correctionUi("Sending correction to ChatGPT…");
+ try{
+  if(window.openai?.sendFollowUpMessage)await window.openai.sendFollowUpMessage({prompt});
+  else if(window.parent!==window)await call("ui/message",{role:"user",content:[{type:"text",text:prompt}]});
+  else throw Error("Host unavailable");
+  correctionUi("Correction sent to chat. Draft preserved so Undo stays available.");
+ }catch(_){
+  try{
+   await navigator.clipboard.writeText(prompt);
+   correctionUi("Host handoff unavailable. Correction copied. Paste it into chat.");
+  }catch(__){correctionUi("Host handoff unavailable. Your draft is preserved. Copy it manually.");}
+ }finally{button.disabled=!correctionDraft.value.trim();}
+});
+correctionUi();
 byId("glassToggle").addEventListener("click",()=>toggleGlass(byId("glassDock").hidden));
 byId("glassClose").addEventListener("click",()=>toggleGlass(false));
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!byId("glassDock").hidden)toggleGlass(false)});
