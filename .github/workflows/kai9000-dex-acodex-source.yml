@@ -3,6 +3,9 @@ on:
   pull_request:
     paths:
       - 'doctrine/kai9000SamsungDexAcodeXV1.yaml'
+      - 'doctrine/kai9000RomHackingGraphicsResearchV1.yaml'
+      - 'tools/kai9000GraphicsProbe.py'
+      - 'tests/testKai9000GraphicsProbe.py'
       - 'frontEnd/styles.css'
       - 'frontEnd/index.html'
       - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
@@ -29,10 +32,16 @@ jobs:
       - name: Install safe YAML parser
         run: python3 -m pip install --break-system-packages 'PyYAML==6.0.2'
       - name: Test DeX and AcodeX security boundaries
-        run: python3 -m unittest discover -s tests -p 'testKai9000DexAcodeX.py' -v
+        run: |
+          python3 -m unittest discover -s tests -p 'testKai9000DexAcodeX.py' -v
+          python3 -m unittest discover -s tests -p 'testKai9000GraphicsProbe.py' -v
+          python3 tools/kai9000GraphicsProbe.py
       - name: Preserve build and real-device truth
         run: |
           echo 'DEX_COCKPIT=SOURCE_ONLY'
+          echo 'ROMHACKING_GPU_TOOLS=RESEARCH_ONLY'
+          echo 'ADB_GRAPHICS_PROBE=EXPLICIT_OPT_IN_REQUIRED'
+          echo 'FIRMWARE_FLASH_OR_GPU_DRIVER_REPLACEMENT=NONE'
           echo 'WEBVIEW_SANDBOX=UNCHANGED'
           echo 'ACODEX_LOCAL_BRIDGE=HISTORICAL_NOT_REPROBED'
           echo 'UNIVERSAL_SIGNED_APK=NOT_BUILT'
