@@ -534,3 +534,21 @@ boot().catch(error => {
 }).finally(() => {
   byId("agentLoadingScreen").hidden = true;
 });
+
+// LuHm original HTML custom element; JSON is an untrusted display projection.
+if (typeof customElements !== "undefined" && !customElements.get("luhm-runtime-badge")) {
+  customElements.define("luhm-runtime-badge", class extends HTMLElement {
+    connectedCallback() {
+      try {
+        const raw = document.getElementById("luhmUiProjection");
+        const item = JSON.parse(raw?.textContent || "{}");
+        if (item.schema !== "luhmOs.uiProjection.v1" ||
+            item.authority !== "displayOnly" ||
+            !["SOURCE_CANDIDATE", "READ_ONLY"].includes(item.state)) throw Error("invalid display metadata");
+        this.textContent = "◈ " + item.state.replace("_", " ").toLowerCase();
+      } catch (_) {
+        this.textContent = "◈ state unavailable";
+      }
+    }
+  });
+}
