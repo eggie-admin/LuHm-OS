@@ -56,6 +56,21 @@ class HydraVendorCloseoutTest(unittest.TestCase):
         self.assertEqual(states["godotBabylonBlenderRender"],"defer")
         self.assertFalse(r["sourcePromotionAuthorized"])
 
+    def test_fingerprinted_cockpit_is_unchanged_and_candidate_is_isolated(self):
+        import hashlib
+        triage=read("doctrine/jqueryLegacyTriageV1.yaml")
+        self.assertTrue(triage["acceptedLegacyUntouched"])
+        self.assertFalse(triage["candidateRuntimeLoaded"])
+        original=(ROOT/"frontEnd/jquery/luhm.cockpit.js").read_bytes()
+        blob=hashlib.sha1(b"blob "+str(len(original)).encode("ascii")+b"\\0"+original).hexdigest()
+        self.assertEqual(blob,triage["acceptedLegacyBlob"])
+        candidate=(ROOT/"frontEnd/jquery/luhm.cockpit.slimCandidate.js").read_text()
+        self.assertIn("HISTORICAL COMPATIBILITY REFERENCE",candidate)
+        self.assertIn("RED_LUHM_UI_CORE_NOT_LOADED",candidate)
+        html=(ROOT/"frontEnd/index.html").read_text()
+        self.assertNotIn("luhm.cockpit.slimCandidate.js",html)
+        self.assertNotIn("lib/luhmUiCore.js",html)
+
     def test_openai_host_mount_remains_red_and_npm_private(self):
         t=read("doctrine/hydraCloseoutPremonitionTasksV1.yaml")
         self.assertEqual(t["observedAtStart"]["androidInChatHostMount"],"RED_OBSERVED_SCREENSHOT")
