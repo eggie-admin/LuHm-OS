@@ -1,0 +1,42 @@
+name: LuHm SQL-First YAML-State Source Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/statePrecedenceV1.yaml'
+      - 'host/api/stateResolutionV1.sql'
+      - 'host/api/stateResolution.py'
+      - 'tests/testStateResolutionAudit.py'
+      - '.github/workflows/state-resolution-source-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sql-yaml-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact source SHA
+        shell: bash
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+      - name: Install audited YAML reader for offline source tests
+        run: python3 -m pip install --break-system-packages 'PyYAML==6.0.2'
+      - name: Compile candidate resolver and test in-memory SQL precedence
+        run: |
+          python3 -m py_compile host/api/stateResolution.py
+          python3 -m unittest discover -s tests -p testStateResolutionAudit.py -v
+      - name: Preserve live-database and publication boundary
+        run: |
+          echo 'FIRST_OPERATIONAL_LOOKUP=SQL_DATABASE'
+          echo 'REVIEWED_DEFAULTS=YAML'
+          echo 'MARKDOWN=MACHINE_BACKUP_ONLY'
+          echo 'MARIA_DB_MIGRATION=NOT_APPLIED'
+          echo 'REAL_DB_SOCKET_READ=UNVERIFIED'
+          echo 'PROTECTED_AUTH_AND_CROWN=FAIL_CLOSED'
+          echo 'CROWN=STOP'
