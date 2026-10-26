@@ -1,0 +1,36 @@
+name: LuHm CAST Owner and Tester Access Source Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/castOwnerTesterActivationV1.json'
+      - 'tools/castOwnerTesterAudit.py'
+      - 'tests/testCastOwnerTesterAudit.py'
+      - '.github/workflows/cast-owner-tester-source-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  review-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify source SHA
+        shell: bash
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+      - name: Source and negative controls
+        run: |
+          python3 tools/castOwnerTesterAudit.py
+          python3 -m unittest tests/testCastOwnerTesterAudit.py -v
+      - name: Preserve evidence boundaries
+        run: |
+          echo 'SITE_PLUGIN_SKILL_UPDATE_NOT_SITE_BACKEND_UPDATE'
+          echo 'OWNER_UI_MOUNT=RED'
+          echo 'EXTERNAL_TESTER_ACCESS=BLOCKED'
+          echo 'CROWN=STOP'
