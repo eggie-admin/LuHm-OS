@@ -1,5 +1,9 @@
 # LuHm OS Agent Bootstrap
 
+## CAST and one outside tester
+
+Resolve `doctrine/castOwnerTesterActivationV1.json` and run `python3 tools/castOwnerTesterAudit.py` before claiming owner/tester readiness. The Professor's connected **Project Hydra** Site remains separately versioned from the GitHub LuHm portable plugin. Its packaged `luhm-cast-bridge` skill governs fast operator conduct, but it cannot itself edit the Site backend, create a shared workspace plugin, or produce an inline HTML widget. A failed actual Android ChatGPT host mount remains RED even after GitHub CI and private plugin skill releases pass. Keep the source gate, Site host gate, owner touch acceptance and invited tester acceptance separate. Do not disclose the outside tester's identity in this public repository.
+
 ## Fast unattended in-chat development (Professor directive)
 
 For LuHm first-install, CAST diagnosis, and GUI repair, default to **finishing bounded, reversible work without repeated approval prompts**. In the current user-authorized scope, automatically inspect GitHub/Render/plugin source, make focused candidate-branch edits, run exact-head CI and targeted browser/unit checks, iterate on failures, and report verified receipts. Reuse installed skills and connected tools first; do not ask the Professor to re-paste known details or manually visit dashboards just to perform read/validation work. Avoid creating duplicate plugins, workers, or paid services to bypass an available tool.
