@@ -1,0 +1,165 @@
+{
+  "schema": "luhmOs.defaultBrandSessionTrustCandidate.v1",
+  "status": "PROPOSED_SOURCE_ONLY_UNSEALED",
+  "asOf": "2026-10-26",
+  "authority": "Professor",
+  "purpose": "Make approved original LuHm art and visual semantics the default from first paint, while providing four server-enforced remote session-risk tiers and a separately persistent trusted-local-device experience.",
+  "sources": [
+    "doctrine/organizationBrandRegistryV1.json",
+    "game/canon/CHARACTER_CANON_V1.json",
+    "game/assets/ASSET_MANIFEST_V1.json",
+    "doctrine/characterPetPresentationV1.json",
+    "doctrine/agentLoadingSpriteManifestV1.json",
+    "host/harness/agent-loading-sprites.json",
+    "doctrine/inChatAdaptiveDisplayV1.json",
+    "doctrine/unifiedPublicOriginCandidateV1.json"
+  ],
+  "visualLaw": {
+    "defaultBrandedFromFirstPaint": true,
+    "ownerControlledOnly": true,
+    "brandOwner": "LuHm OS",
+    "assetCanon": "Original approved character masters remain immutable references; responsive derived variants must preserve identity and carry source hashes/licensing/approval status.",
+    "petPresentation": "Reuse existing pet dock and actual loading sprite manifest; pet messages are UI, never fabricated independent-agent thoughts or proof.",
+    "fallback": "Small accessible inline LuHmOS vector monogram when approved character art is unavailable, not an invented final character design.",
+    "noUnapprovedReferenceTransplants": true,
+    "states": [
+      "IDLE",
+      "WORKING",
+      "VERIFY",
+      "PASS",
+      "BLOCKED"
+    ],
+    "statusTruth": "A mascot may animate during actual loading, but PASS or percentages require independently verified evidence.",
+    "surfaces": [
+      {
+        "id": "firstPaint",
+        "owner": "LuHm HTML and responsive app shell",
+        "contract": "Fast inline vector/monogram, branded title, CSS, window borders, colors and icons before any remote asset loads."
+      },
+      {
+        "id": "serverLoading",
+        "owner": "LuHm service/edge-controlled HTML only",
+        "contract": "Deliver branded lightweight preflight UI and loading status where hosting allows; provider-owned Render cold-start screen is not replaceable by service CSS."
+      },
+      {
+        "id": "godotBoot",
+        "owner": "LuHm Godot project and exported web shell",
+        "contract": "Set project boot splash color/image and custom web HTML loading screen; export image format must meet engine requirements; reuse approved brand assets."
+      },
+      {
+        "id": "inChat",
+        "owner": "LuHm MCP App iframe/resource only",
+        "contract": "Show pet/loading and branded controls within installed plugin resource; native ChatGPT thinking indicator, host controls and first-party UI are outside plugin's authority."
+      }
+    ],
+    "displayModes": [
+      "fullscreen",
+      "floatingWindowWhenHostAllows",
+      "widgetWhenHostAllows",
+      "chatBubbleWhenHostAllows",
+      "backgroundWhenPlatformAllows"
+    ],
+    "styling": {
+      "chrome": "Winamp-inspired compact skins on owned surfaces",
+      "icons": "SVG first with high-contrast reduced-motion fallback",
+      "characterArt": "Final approved render/Live2D only after manifest approval, integrity and rights validation",
+      "copyright": "Record provenance and approvals, do not assume ownership of external copyrighted designs."
+    },
+    "availability": "Do not block first paint on Render warmup, CDN, Cloudflare, Godot loading or model inference. Do not show fake percentage progress.",
+    "boundaries": {
+      "cannotStyleChatGptNativeThinking": true,
+      "cannotReplaceRenderManagedColdStartPage": true,
+      "hostingProviderPermissionsApply": true,
+      "recordActualWidgetMountSeparately": true
+    }
+  },
+  "sessionLaw": {
+    "reference": "NIST SP 800-63B-4 reauthentication and OWASP Session Management Cheat Sheet are guidance, not automatic regulatory certification. Values below are LuHm proposals.",
+    "cloudflareAccess": "Global/application session duration between 15 minutes and one month, default 24 hours; app/front-door token and application session are separate.",
+    "requireServerSideExpiry": true,
+    "requireRevocationOnLogoutOrCompromise": true,
+    "requireSessionIdRotation": true,
+    "requireMfaForSensitiveRemote": true,
+    "requireHttpsAndSecureHttpOnlyCookies": true,
+    "requireCsrfControlsForCookieAuthenticatedMutations": true,
+    "idleAndAbsoluteSeparate": true,
+    "oauthTokenLifecycleNotSameAsBrowserSession": true,
+    "noArbitraryPeriodicPasswordChanges": true,
+    "passwordRotation": "Change if compromised, user-requested, or required by explicit external policy; favor rotating short-lived access and refresh tokens with revocation.",
+    "fourRemoteTiers": [
+      {
+        "tier": 0,
+        "id": "publicMember",
+        "label": "Public low-risk member",
+        "rememberDeviceDays": 30,
+        "absoluteSessionHours": 720,
+        "idleMinutes": 10080,
+        "auth": "Ordinary authenticated access, optional stronger sign-in",
+        "scope": "public account and low-risk personalization only",
+        "accessPolicy": "Cloudflare Access may use up to one month if explicitly configured; never assume default changed."
+      },
+      {
+        "tier": 1,
+        "id": "privateWorkspace",
+        "label": "Private workspace / approved collaborator",
+        "rememberDeviceDays": 7,
+        "absoluteSessionHours": 24,
+        "idleMinutes": 60,
+        "auth": "MFA on private sign-in, device recognition does not replace authorization",
+        "scope": "private files and collaboration; writes still require scoped policy."
+      },
+      {
+        "tier": 2,
+        "id": "remoteOperations",
+        "label": "Remote operational controls",
+        "rememberDeviceDays": 1,
+        "absoluteSessionHours": 12,
+        "idleMinutes": 30,
+        "auth": "MFA and scoped roles; step-up for significant state changes",
+        "scope": "server configuration, reviewed source mutation and deployment candidates."
+      },
+      {
+        "tier": 3,
+        "id": "crownPrivilege",
+        "label": "Crown / signing / security / public publishing",
+        "rememberDeviceDays": 0,
+        "absoluteSessionHours": 1,
+        "idleMinutes": 15,
+        "auth": "Fresh phishing-resistant authentication and explicit action approval, owner-only authority",
+        "scope": "signing, DNS/certs, production promotion, credentials and public release."
+      }
+    ],
+    "indefiniteLocalDeviceTrust": {
+      "userGoal": "Open the LuHm UI on one specifically enrolled personal home workstation without repeated provider passwords.",
+      "deviceRegistrationTtl": "UNTIL_USER_REVOKES_OR_DEVICE_LOST",
+      "authenticationSessionTtl": "BOUNDED_RENEWABLE",
+      "noForeverBearerTokens": true,
+      "recommended": "OS-protected device-bound credential, hardware-backed key when available, OS screen lock, per-action reauthentication for private remote or crown tasks.",
+      "neverAssumePrivateHomeIsAutomaticallyTrusted": true,
+      "remoteGateAppliesToLocalDeviceOnRemoteNetwork": true,
+      "credentialRevocationOnCompromise": true,
+      "backupRecovery": "Keep owner-managed fallback recovery separate from browser cache."
+    },
+    "escalation": "Escalation adds authorization checks and shorter reauthentication windows; prior low-risk session never automatically becomes owner-level permission.",
+    "providerConstraint": "Actual Cloudflare Access, OpenAI/ChatGPT and other vendor-controlled sessions retain their own enforceable limits; LuHm controls only sessions it owns."
+  },
+  "phase": "ProfessorBasementClassOne",
+  "promotion": {
+    "educationEndOfClassNotCalled": true,
+    "freezeRequestedAsCandidateNotFinal": true,
+    "sourceChecksDoNotProvePlatformSkinningOrAuth": false,
+    "requireExactSourceCi": true,
+    "requireActiveDeviceProof": true,
+    "requireProfessorCrownForLiveAuthOrHostChanges": true,
+    "companyAgentQuarantinePreserved": true
+  },
+  "liveChanges": {
+    "none": true,
+    "sessionCookieWrites": false,
+    "cloudflareAccessChanges": false,
+    "renderDeploy": false,
+    "githubMerge": false,
+    "pluginInstall": false
+  },
+  "crownStatus": "STOP"
+}
