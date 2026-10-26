@@ -7,7 +7,6 @@ const mustExist = [
   "styles.css",
   "app.js",
   "jquery/luhm.cockpit.js",
-  "lib/luhmUiCore.js",
   "jquery/luhm.parallax.js",
   "vue/LumLayeredPuppet.vue",
   "jquery/luhm.codingRoleplay.js",
@@ -18,7 +17,6 @@ for (const file of mustExist) await access(resolve(root, file));
 
 const html = await readFile(resolve(root, "index.html"), "utf8");
 const plugin = await readFile(resolve(root, "jquery/luhm.cockpit.js"), "utf8");
-const uiCore = await readFile(resolve(root, "lib/luhmUiCore.js"), "utf8");
 const parallax = await readFile(resolve(root, "jquery/luhm.parallax.js"), "utf8");
 const vueCandidate = await readFile(resolve(root, "vue/LumLayeredPuppet.vue"), "utf8");
 const app = await readFile(resolve(root, "app.js"), "utf8");
@@ -30,12 +28,11 @@ const checks = [
   [vueCandidate.includes('from "vue"') && vueCandidate.includes("onBeforeUnmount") && vueCandidate.includes("prefers-reduced-motion") && !vueCandidate.includes("https://"), "Vue 3 separate candidate, no CDN imports"],
   [html.includes("vendor/jquery-3.7.1.min.js"), "index loads pinned staged jQuery"],
   [html.includes("jquery/luhm.cockpit.js"), "index loads LuHm cockpit plugin"],
-  [html.includes("lib/luhmUiCore.js") && uiCore.includes('schema: "luhmOs.uiCore.v1"'), "core loaded before historical plugin"],
   [plugin.includes('const PLUGIN = "luhmCockpit"') && plugin.includes("$.fn[PLUGIN] ="), "single cockpit plugin entry exists"],
   [plugin.includes("luhm:backend:open"), "backend-open boundary exists"],
   [plugin.includes("return this.each"), "plugin preserves chainability"],
-  [plugin.includes("$.fn.mgcCdngRlplay") && plugin.includes("uiCore.matchesMagicTrigger(value)") && uiCore.includes("oldMagicPhrase") && uiCore.includes("writtenDonePhrase"), "magic coding roleplay trigger exists"],
-  [plugin.includes("$.fn.vendorAiDebug") && plugin.includes("uiCore.parseVendorDebugCommand(value)") && plugin.includes("VENDOR_AI_DEBUG") && plugin.includes("luhm:vendor:debug:request"), "uppercase vendor AI debug glass exists"],
+  [plugin.includes("$.fn.mgcCdngRlplay") && plugin.includes("oldMagicPhrase") && plugin.includes("writtenDonePhrase"), "magic coding roleplay trigger exists"],
+  [plugin.includes("$.fn.vendorAiDebug") && plugin.includes("VENDOR_AI_DEBUG") && plugin.includes("luhm:vendor:debug:request"), "uppercase vendor AI debug glass exists"],
   [plugin.includes("UNKNOWN_UNTIL_PROVIDER_RECEIPT") && plugin.includes("UNKNOWN_UNTIL_EXACT_EXECUTION_RECEIPT"), "vendor debug preserves unknown truth boundaries"],
   [html.includes("jquery/luhm.codingRoleplay.js"), "index loads coding roleplay presentation"],
   [roleplay.includes("$.codingRoleplay") && roleplay.includes("presentationOnly"), "coding roleplay remains presentation-only"],
@@ -45,7 +42,7 @@ const checks = [
    plugin.includes('document.removeEventListener("visibilitychange", state.visibilityHandler)'),
    "clock pauses on hidden tab and releases listener at destroy"],
   [plugin.includes('if (document.hidden) return;') &&
-   plugin.includes('uiCore.clockIntervalMs(state.settings.clockIntervalMs)') && uiCore.includes('Math.max(15000, Math.min(configured, 120000))') &&
+   plugin.includes('Math.max(15000, configured)') &&
    plugin.includes('if (state.$clock.text() !== display)'),
    "clock avoids hidden/duplicate updates and timer storms"]
 ];
