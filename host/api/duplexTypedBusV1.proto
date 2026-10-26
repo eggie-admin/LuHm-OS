@@ -1,0 +1,55 @@
+syntax = "proto3";
+package luhm.v1;
+
+// Internal trusted-service transport ONLY. ChatGPT-facing MCP remains JSON-RPC.
+enum Lane {
+  NUMERIC_STREAM = 0;
+  TEXT_STREAM = 1;
+  BOOLEAN_STREAM = 2;
+  AI_MANIFEST_STREAM = 3;
+}
+enum Kind {
+  KIND_UNSPECIFIED = 0;
+  DATA = 1;
+  ACK = 2;
+  RESPONSE = 3;
+  NACK = 4;
+  PING = 5;
+  RESUME = 6;
+}
+message Frame {
+  uint32 version = 1;
+  Lane lane = 2;
+  Kind kind = 3;
+  uint32 stream_id = 4;
+  uint64 sequence_id = 5;
+  uint64 ack_sequence = 6;
+  uint64 correlation_id = 7;
+  bytes payload = 8;
+}
+message NumericPayload {
+  oneof value {
+    sint64 signed_integer = 1;
+    double finite_float = 2;
+    FixedPoint exact_fixed = 3;
+  }
+}
+message FixedPoint {
+  sint64 scaled_integer = 1;
+  uint32 decimal_scale = 2;
+}
+message TextPayload {
+  bytes utf8 = 1;
+}
+message BooleanPayload {
+  enum BoolState {
+    FALSE = 0;
+    TRUE = 1;
+    UNKNOWN = 2;
+  }
+  BoolState value = 1;
+}
+message ManifestReference {
+  bytes sha256 = 1;
+  uint32 capability_id = 2;
+}
