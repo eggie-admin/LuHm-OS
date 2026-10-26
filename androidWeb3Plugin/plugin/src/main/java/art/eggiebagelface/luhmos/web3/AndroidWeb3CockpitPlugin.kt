@@ -4,12 +4,15 @@ import android.app.Activity
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
+import android.view.Gravity
 import android.webkit.RenderProcessGoneDetail
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.FrameLayout
+import android.widget.Button
+import android.widget.TextView
 import androidx.webkit.WebMessageCompat
 import androidx.webkit.WebViewAssetLoader
 import androidx.webkit.WebViewClientCompat
@@ -29,6 +32,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
         private const val START_URL = "$LOCAL_ORIGIN$LOCAL_PREFIX" + "index.html"
         private const val BRIDGE_OBJECT = "LuHmNative"
         private const val MAX_BRIDGE_MESSAGE_CHARS = 512
+        private const val MAX_RENDERER_RETRY = 1
 
         private val WORLD_REQUESTED = SignalInfo("world_requested")
         private val ONI_REQUESTED = SignalInfo("oni_requested", String::class.java)
@@ -43,6 +47,8 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
 
     private var cockpitView: WebView? = null
     private var cockpitContainer: FrameLayout? = null
+    private var recoveryOverlay: View? = null
+    private var rendererRetryCount = 0
 
     override fun getPluginName() = BuildConfig.GODOT_PLUGIN_NAME
 
@@ -55,6 +61,8 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
 
     override fun onMainCreate(activity: Activity?): View? {
         val hostActivity = activity ?: return super.onMainCreate(activity)
+        rendererRetryCount = 0
+        recoveryOverlay = null
         val container = FrameLayout(hostActivity)
         val webView = WebView(hostActivity)
 
@@ -84,6 +92,11 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
             view.removeAllViews()
             view.destroy()
         }
+        recoveryOverlay?.let { overlay ->
+            cockpitContainer?.removeView(overlay)
+        }
+        recoveryOverlay = null
+        rendererRetryCount = 0
         cockpitView = null
         cockpitContainer = null
         super.onMainDestroy()
@@ -142,8 +155,12 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                     BRIDGE_ERROR.name,
                     if (detail.didCrash()) "renderer_crashed" else "renderer_killed",
                 )
-                cockpitContainer?.removeView(view)
-                cockpitView = null
+                // Android requires the renderer-dead WebView be discarded.
+                val container = cockpitContainer
+                container?.removeView(view)
+                if (cockpitView === view) cockpitView = null
+                view.destroy()
+                if (container != null) showRendererRecovery(activity, container)
                 return true
             }
         }
@@ -169,6 +186,63 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
             }
             handleBridgeMessage(raw)
         }
+    }
+
+    // No driver patching, loops or silent process resurrection. The native
+    // fallback remains usable when the WebView renderer cannot start.
+    private fun showRendererRecovery(activity: Activity, container: FrameLayout) {
+        recoveryOverlay?.let { container.removeView(it) }
+        val overlay: View
+        if (rendererRetryCount < MAX_RENDERER_RETRY) {
+            overlay = Button(activity).apply {
+                text = "LuHm display stopped. Retry cockpit once"
+                contentDescription = "Retry LuHm cockpit after Android renderer stopped"
+                setOnClickListener {
+                    if (cockpitContainer !== container || cockpitView != null ||
+                        rendererRetryCount >= MAX_RENDERER_RETRY
+                    ) return@setOnClickListener
+                    rendererRetryCount += 1
+                    container.removeView(this)
+                    recoveryOverlay = null
+                    // Rebuild only this app's WebView, never firmware, drivers,
+                    // application permissions, the database or external services.
+                    var replacement: WebView? = null
+                    try {
+                        replacement = WebView(activity)
+                        replacement.layoutParams = FrameLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                        )
+                        configureWebView(activity, replacement)
+                        container.addView(replacement, 0)
+                        cockpitView = replacement
+                        replacement.loadUrl(START_URL)
+                    } catch (_: RuntimeException) {
+                        replacement?.let {
+                            container.removeView(it)
+                            it.destroy()
+                        }
+                        cockpitView = null
+                        emitSignal(BRIDGE_ERROR.name, "renderer_restart_failed")
+                        showRendererRecovery(activity, container)
+                    }
+                }
+            }
+        } else {
+            overlay = TextView(activity).apply {
+                text = "LuHm display could not recover. Close and reopen the app; no firmware changes are needed."
+                textSize = 16f
+                setPadding(24, 24, 24, 24)
+                setTextColor(android.graphics.Color.WHITE)
+                setBackgroundColor(android.graphics.Color.rgb(18, 15, 30))
+            }
+        }
+        val params = FrameLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+        ).apply { gravity = Gravity.CENTER }
+        container.addView(overlay, params)
+        recoveryOverlay = overlay
     }
 
     private fun handleBridgeMessage(raw: String) {
