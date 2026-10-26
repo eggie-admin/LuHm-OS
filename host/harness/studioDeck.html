@@ -42,10 +42,10 @@
       <h3>Expression Console</h3>
       <p class="tiny">Move the pointer to tilt her head and hair. Reduced-motion, touch and keyboard controls remain accessible.</p>
       <div class="lum2dButtons" role="group" aria-label="Lum expression controls">
-        <button id="lum2dBlink" type="button">Blink ◡</button>
-        <button id="lum2dSmile" type="button" aria-pressed="true">Smile ♡</button>
-        <button id="lum2dWave" type="button">Wave ✧</button>
-        <button id="lum2dPause" type="button" aria-pressed="false">Pause motion</button>
+        <button id="lum2dBlink" type="button" aria-label="Blink" title="Blink">◡</button>
+        <button id="lum2dSmile" type="button" aria-pressed="true" aria-label="Smile" title="Smile">♡</button>
+        <button id="lum2dWave" type="button" aria-label="Wave" title="Wave">✧</button>
+        <button id="lum2dPause" type="button" aria-pressed="false" aria-label="Pause motion" title="Pause motion">⏸</button>
       </div>
       <p id="lum2dMessage" class="tiny" role="status" aria-live="polite">Lum is ready. No AI inference or server write needed.</p>
       <p class="tiny">This is a self-hosted Live2D-style puppet, not a licensed Cubism rig or autonomous agent.</p>
@@ -55,7 +55,7 @@
   <section class="studioLevel studioWorld" data-stage-plane="glassWidgetDock" aria-labelledby="studioWorldTitle">
     
     <div class="studioWorldCopy"><span class="studioEyebrow">LuHm · creative workspace</span><h2 id="studioWorldTitle">Your cast. Your studio.</h2><p>Lum, Urd, Belldandy, Skuld and Yume — your creative cast in one glass workspace.</p>
-    <div class="studioButtons"><button type="button" id="studioBackdropLoad">Enable embedded scene</button><button type="button" id="studioBackdropStop">Use static background</button></div>
+    <div class="studioButtons"><button type="button" id="studioBackdropLoad" aria-label="Enable optional Godot backdrop" title="Enable optional Godot backdrop">▶</button><button type="button" id="studioBackdropStop" aria-label="Disable Godot backdrop" title="Disable Godot backdrop">■</button></div>
     <p id="studioBackdropStatus" role="status" aria-live="polite">Static background active. Embedded scene loads only when requested.</p>
     <button id="studioGlassToggle" type="button" aria-expanded="false" aria-controls="studioGlassDock" class="studioGlassToggle">⚙ Open glass control dock</button>
     <div id="studioGlassDock" class="studioGlassDock" hidden aria-label="LuHm glass control dock">
