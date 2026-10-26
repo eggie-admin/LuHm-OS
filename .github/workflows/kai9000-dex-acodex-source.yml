@@ -1,0 +1,40 @@
+name: KAI9000 DeX Secure Folder AcodeX Source Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/kai9000SamsungDexAcodeXV1.yaml'
+      - 'frontEnd/styles.css'
+      - 'frontEnd/index.html'
+      - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
+      - 'tests/testKai9000DexAcodeX.py'
+      - '.github/workflows/kai9000-dex-acodex-source.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-head-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify source SHA
+        shell: bash
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+      - name: Install safe YAML parser
+        run: python3 -m pip install --break-system-packages 'PyYAML==6.0.2'
+      - name: Test DeX and AcodeX security boundaries
+        run: python3 -m unittest discover -s tests -p 'testKai9000DexAcodeX.py' -v
+      - name: Preserve build and real-device truth
+        run: |
+          echo 'DEX_COCKPIT=SOURCE_ONLY'
+          echo 'WEBVIEW_SANDBOX=UNCHANGED'
+          echo 'ACODEX_LOCAL_BRIDGE=HISTORICAL_NOT_REPROBED'
+          echo 'UNIVERSAL_SIGNED_APK=NOT_BUILT'
+          echo 'SECURE_FOLDER_INSTALL=NOT_TESTED'
+          echo 'CROWN=STOP'
