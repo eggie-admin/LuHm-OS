@@ -113,6 +113,22 @@ samsungDiagnosis:
   profileBaselineAndRegression: required
   currentTabletEvidence: NOT_CAPTURED
   currentPhoneEvidence: NOT_CAPTURED
+userHardwareMaintenanceLaw:
+  rule: "The owner must never be required to edit BIOS/ROM/firmware bytes to build, install, debug, or use KAI9000."
+  noHexEditorAsPrerequisite: true
+  noBiosRewriteAsPrerequisite: true
+  noFirmwarePatchingAsPrerequisite: true
+  noOdinRecoveryAsPrerequisite: true
+  avoidKernelOrBootloaderModification: true
+  ifOnlyUnsupportedFirmwareFixRemains: STOP_AND_REPORT_UNSUPPORTED
+  preferInOrder:
+    - supportedAppAndWebViewConfiguration
+    - reducedEffectsAndSupportedGraphicsBackend
+    - officialVendorSystemAndDriverUpdates
+    - userSpaceDiagnosticsAndRollback
+    - holdFeatureUntilSupported
+  proofRequiredForUpdate: currentOfficialPackageDeviceModelBackupAndRollback
+  neverConvertHistoricalHexHackingExpertiseIntoMaintenanceObligation: true
 driverBoundaries:
   linuxKernelDriversAreNotNpmModules: true
   androidSystemDriversAreDeviceSpecificAndTypicallyVendorSupplied: true
