@@ -1,0 +1,40 @@
+name: LuHm HTML5 Web Components Source Audit
+on:
+  pull_request:
+    paths:
+      - 'host/harness/index.html'
+      - 'host/harness/cockpit.js'
+      - 'doctrine/webShellInteropV1.yaml'
+      - 'tests/testWebShellInterop.py'
+      - '.github/workflows/html5-web-components-source-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  html5-interop:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout PR exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify requested commit
+        shell: bash
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+      - name: Install safe YAML reader for offline test
+        run: python3 -m pip install --break-system-packages 'PyYAML==6.0.2'
+      - name: Syntax and bounded component tests
+        run: |
+          node --check host/harness/cockpit.js
+          python3 -m unittest discover -s tests -p 'testWebShellInterop.py' -v
+      - name: Scope proof
+        run: |
+          echo 'STANDALONE_HARNESS_SOURCE=CHECKED'
+          echo 'EXTERNAL_CDN_SCRIPTS=NOT_ADDED'
+          echo 'WEBHOOK_HTTP_ENDPOINT=NOT_INSTALLED'
+          echo 'MCP_SITE_HTML_MOUNT=NOT_VERIFIED'
+          echo 'EXISTING_DB=NOT_CHANGED'
