@@ -7,6 +7,7 @@ on:
       - 'doctrine/jqueryLegacyTriageV1.yaml'
       - 'frontEnd/lib/luhmUiCore.js'
       - 'frontEnd/jquery/luhm.cockpit.js'
+      - 'frontEnd/jquery/luhm.cockpit.slimCandidate.js'
       - 'frontEnd/index.html'
       - 'frontEnd/package.json'
       - 'frontEnd/tools/coreAudit.mjs'
