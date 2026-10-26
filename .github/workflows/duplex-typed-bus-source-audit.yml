@@ -1,0 +1,40 @@
+name: LuHm Duplex Typed Binary Bus Candidate Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/duplexTypedBusV1.yaml'
+      - 'host/api/duplexTypedBusV1.proto'
+      - 'host/api/duplexTypedBusV1.sql'
+      - 'host/api/duplexTypedBusCodec.py'
+      - 'tests/testDuplexTypedBus.py'
+      - '.github/workflows/duplex-typed-bus-source-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-protocol:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact source SHA
+        shell: bash
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+      - name: Run binary packet protocol and duplex transport proof
+        run: |
+          python3 -m py_compile host/api/duplexTypedBusCodec.py
+          python3 -m unittest discover -s tests -p 'testDuplexTypedBus.py' -v
+      - name: Record proof boundary
+        run: |
+          echo 'BINARY_DUPLEX=SOURCE_ONLY'
+          echo 'MCP_STREAMABLE_HTTP=UNCHANGED'
+          echo 'DATABASE_MIGRATION=NOT_APPLIED'
+          echo 'REMOTE_WEBSOCKET=NOT_OPENED'
+          echo 'AUTHENTICATED_PEER_TRANSPORT=UNVERIFIED'
+          echo 'CROWN=STOP'
