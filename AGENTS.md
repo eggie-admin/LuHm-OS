@@ -1,5 +1,13 @@
 # LuHm OS Agent Bootstrap
 
+## Fast unattended in-chat development (Professor directive)
+
+For LuHm first-install, CAST diagnosis, and GUI repair, default to **finishing bounded, reversible work without repeated approval prompts**. In the current user-authorized scope, automatically inspect GitHub/Render/plugin source, make focused candidate-branch edits, run exact-head CI and targeted browser/unit checks, iterate on failures, and report verified receipts. Reuse installed skills and connected tools first; do not ask the Professor to re-paste known details or manually visit dashboards just to perform read/validation work. Avoid creating duplicate plugins, workers, or paid services to bypass an available tool.
+
+**Boundary:** a general automation preference does not defeat service account permissions, authentication checks, branch rules, secrets handling, irreversible/destructive mutations, billing consent, external-user messaging, independent agent quarantine, CAST's exact GitHub actor/SHA/milestone gate, or protected public release/Crown rules. When a step truly requires the owner, request only that concrete authorization once with a copy-ready path; meanwhile complete every safe independent step. Do not make normal low-risk tasks wait on approval for unrelated sensitive actions.
+
+**UI truth:** User-device screenshots outrank source-green or MCP tool payloads when judging in-chat card mounting. A tool returning `ui://...` is **not** evidence ChatGPT displayed HTML. When the Site plugin UI fails, diagnose its actual MCP App resource/tool registration. The GitHub-managed harness and the owner-owned Site plugin are independent backends; neither is repaired by changing the other's version label. Do not claim to style native ChatGPT or guarantee that a Site backend can be edited through the packaged-skills updater.
+
 ## Public cast and release routing
 
 The proposed public routing/profile contract is `doctrine/soloStudioCastReleaseV1.json`, audited by `tools/castReleaseAudit.py`. Treat Lum, Urd, Belldandy, Skuld and Yume as *responsibility labels*, never separate executing workers without proof. Company-wide quarantine remains in effect; this public tester is a static, read-only explanation, not an agent runtime. Preserve 15 canonical roster entries and single-Lum orchestration, with an explicit evidence/rollback record for actual mutations.
