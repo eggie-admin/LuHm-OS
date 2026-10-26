@@ -62,7 +62,7 @@ class HydraVendorCloseoutTest(unittest.TestCase):
         self.assertTrue(triage["acceptedLegacyUntouched"])
         self.assertFalse(triage["candidateRuntimeLoaded"])
         original=(ROOT/"frontEnd/jquery/luhm.cockpit.js").read_bytes()
-        blob=hashlib.sha1(b"blob "+str(len(original)).encode("ascii")+b"\\0"+original).hexdigest()
+        blob=hashlib.sha1(b"blob "+str(len(original)).encode("ascii")+bytes([0])+original).hexdigest()
         self.assertEqual(blob,triage["acceptedLegacyBlob"])
         candidate=(ROOT/"frontEnd/jquery/luhm.cockpit.slimCandidate.js").read_text()
         self.assertIn("HISTORICAL COMPATIBILITY REFERENCE",candidate)
