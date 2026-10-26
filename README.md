@@ -1,5 +1,12 @@
 # LuHm OS
 
+## First-install foundation · do this before debugging
+
+**One short gate, no duplicate installs:** [Four-foundation setup and status](manual/firstInstallFoundation.md) · [Third-party notices and asset rights](THIRD_PARTY_NOTICES.md) · [Virgin-install runbook](plugins/luhm-os/VIRGIN_INSTALL.md).
+
+Run `python3 tools/firstInstallFoundationAudit.py` for the offline, source-only baseline: brand canon, existing ChatGPT plugin and five skills, pinned Python/jQuery/Godot pipeline, and license/README/privacy/terms. The **separate** private Project Hydra Site plugin is never replaced by this GitHub package. Do not call a successful source check an installed mobile widget, working Cloudflare route, approved art license, or launched worker. `CROWN=STOP` until the separate runtime and release receipts exist.
+
+
 ## Plugin downloads: Proposed · Beta · Stable
 
 [GitHub Releases](https://github.com/eggie-admin/LuHm-OS/releases) · [Latest Proposed search](https://github.com/eggie-admin/LuHm-OS/releases?q=luhm-plugin-proposed) · [Latest Beta search](https://github.com/eggie-admin/LuHm-OS/releases?q=luhm-plugin-beta) · [Latest Stable search](https://github.com/eggie-admin/LuHm-OS/releases?q=luhm-plugin-stable)
