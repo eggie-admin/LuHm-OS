@@ -1,0 +1,66 @@
+schema: luhmOs.webShellInterop.v1
+status: SOURCE_CANDIDATE_UNDEPLOYED
+authority: Professor
+canonicalSource: GitHub
+operationalState: existingApprovedSqlFirst
+portableConfiguration: reviewedYaml
+markdown: emergencyDocumentationOnly
+html:
+  doctype: "<!doctype html>"
+  lang: en
+  metadataInHead:
+    - charset
+    - viewport
+    - description
+    - themeColor
+    - applicationName
+    - icon
+    - sameOriginStylesheets
+  javascript:
+    loading: deferSameOriginStatic
+    externalCdnRuntimeScripts: false
+    endpointForApprovedAssets: /harness/assets/
+    candidateUnifiedBrandPath: /assets/
+    candidateUnifiedBrandPathActive: false
+  body:
+    semanticHtml5: true
+    customElement: luhm-runtime-badge
+    registrationScript: /harness/assets/luhmCustomElements.js
+    jsonProjectionId: luhmUiProjection
+    jsonProjectionType: application/json
+    jsonProjectionIsPresentationOnly: true
+  xml:
+    requiredForCustomTags: false
+    htmlCustomElementsUseDashNames: true
+    doNotTreatArbitraryXmlAsExecutable: true
+aiJsonPipeline:
+  futureSource: existingApprovedSql
+  transport: reviewedServerJsonProjection
+  schema: luhmOs.uiProjection.v1
+  containsSecrets: false
+  browserCanApproveMutations: false
+  renderSourceFallback: staticSafeCandidateOnly
+webhooks:
+  enabled: false
+  publicEndpointInstalled: false
+  plannedHandler: privatePythonServiceOnly
+  transport: verifiedHttps
+  eventSchema: luhmOs.event.v1
+  signature: requiredHmacSha256OrVerifiedProviderSignature
+  timestampAndReplayDefense: required
+  payloadSizeAndIdempotencyLimits: required
+  rawXmlExecution: forbidden
+  databaseLedger: existingApprovedSqlOnly
+media:
+  audio: userInitiatedWebAudio
+  camera: permissionsAndSecureContextRequired
+  threeD: onDemandWebGlOrApprovedGodotExport
+  youtube: approvedIframeApiOnlyWithHostPermissionsAndProviderTerms
+  youtubeMusicNativeApiAssumed: false
+hosting:
+  standaloneHarness: separateFromChatGptHostApp
+  existingSitePluginUnchanged: true
+  newRenderDeploy: false
+  cloudflareMutation: false
+  androidMountProof: RED
+crownStatus: STOP
