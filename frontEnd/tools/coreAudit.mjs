@@ -8,7 +8,7 @@ import core from "../lib/luhmUiCore.js";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const [script, plugin, html, pkg] = await Promise.all([
   readFile(resolve(root, "lib/luhmUiCore.js"), "utf8"),
-  readFile(resolve(root, "jquery/luhm.cockpit.js"), "utf8"),
+  readFile(resolve(root, "jquery/luhm.cockpit.slimCandidate.js"), "utf8"),
   readFile(resolve(root, "index.html"), "utf8"),
   readFile(resolve(root, "package.json"), "utf8")
 ]);
@@ -66,17 +66,18 @@ check(context.window.LuHmUiCore &&
 const coreTag = html.indexOf('src="./lib/luhmUiCore.js"');
 const jqueryTag = html.indexOf('src="./vendor/jquery-3.7.1.min.js"');
 const pluginTag = html.indexOf('src="./jquery/luhm.cockpit.js"');
-check(coreTag >= 0 && jqueryTag > coreTag && pluginTag > jqueryTag,
-      "browser load order preserves existing plugin APIs");
+const nextTag = html.indexOf('src="./jquery/luhm.cockpit.slimCandidate.js"');
+check(coreTag === -1 && nextTag === -1 && jqueryTag >= 0 && pluginTag > jqueryTag,
+      "accepted browser runtime remains unchanged while new core is candidate-only");
 check(plugin.includes('const matchesMagicTrigger = value => uiCore.matchesMagicTrigger(value)') &&
       plugin.includes('const parseVendorDebugCommand = value => uiCore.parseVendorDebugCommand(value)') &&
       plugin.includes('uiCore.clockIntervalMs(state.settings.clockIntervalMs)'),
-      "legacy plugin delegates only pure helpers to core");
+      "candidate plugin delegates pure helpers without changing accepted runtime");
 check(plugin.includes("HISTORICAL COMPATIBILITY REFERENCE") &&
       plugin.includes("$.fn.mgcCdngRlplay") &&
       plugin.includes("$.fn.vendorAiDebug") &&
       plugin.includes("$.fn[PLUGIN]"),
-      "historical source commented but public names preserved");
+      "candidate historical source commented and future public API preserved");
 check(pkg.includes('"private": true') &&
       pkg.includes('"jquery": "3.7.1"'),
       "upstream jQuery still pinned and npm package remains private");
