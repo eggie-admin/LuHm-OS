@@ -1,0 +1,147 @@
+{
+  "schema": "luhmOs.castOwnerTesterActivation.v1",
+  "status": "SOURCE_CANDIDATE_PRIVATE_TESTER_NOT_INVITED",
+  "asOf": "2026-10-26",
+  "mission": "One LuHm OS in-chat cockpit that works for the Professor and a separately authorized single outside tester; no duplicate user apps, secret disclosures or false host-mount claims.",
+  "ownership": {
+    "sourceRepository": "eggie-admin/LuHm-OS",
+    "currentSourceBranch": "candidate/in-chat-adaptive-vector-fastpath-20261026",
+    "sitePlugin": "Project Hydra",
+    "sitePluginScope": "USER",
+    "sitePluginAudience": "PRIVATE",
+    "sitePluginVersionAtInspection": "1.0.12",
+    "siteAppBindingMustBePreserved": true,
+    "githubPortablePlugin": "luhm-os 0.5.2",
+    "independentVersionStreams": true,
+    "hostedMcpOrigin": "https://luhm-os-harness-green.onrender.com/mcp"
+  },
+  "operatorMode": {
+    "safeTasksAutoAuthorized": true,
+    "noRoutineApprovalLoops": true,
+    "allowed": [
+      "readOnlyProviderInspection",
+      "candidateBranchSourceEdits",
+      "additiveDoctrineUpdates",
+      "boundedDeterministicTests",
+      "exactHeadGitHubActionsReceipts",
+      "privateSkillOnlyPatchWithPreservedSiteAppBinding"
+    ],
+    "askOnlyFor": [
+      "missingAuthenticatedCapability",
+      "unapprovedOutsideInvitationOrPermissionGrant",
+      "paidCapacity",
+      "protectedProductionPromotion",
+      "publicPublishingOrNewDistributionAudience",
+      "privateCredentialsOrSecretKeys",
+      "irreversibleRemoval"
+    ],
+    "noDuplicateSiteApps": true,
+    "noSiteScopeMutationFromSkillUpdate": true,
+    "noAutonomousAgentElevation": true
+  },
+  "cast": {
+    "toolSet": [
+      "luhmConnectionStatus",
+      "luhm_open_cockpit",
+      "luhm_open_mobile_cockpit"
+    ],
+    "ownerToolInvocation": "SUPPORTED_DATA_RETURNED",
+    "ownerChatGptAndroidInlineMount": "RED_SOMETHING_WENT_WRONG_SCREENSHOT_OBSERVED",
+    "failedHostMountOverridesCiSuccess": true,
+    "gitHubHarnessUri": "ui://luhm-os/cockpit-v2.html",
+    "connectedSiteUri": "ui://luhm-os/cockpit-site-v3.html",
+    "currentSiteBackendEditor": "NOT_EXPOSED_BY_CONNECTED_TOOLS",
+    "resourceRegistrationRequires": [
+      "toolMetaUiResourceUri",
+      "resourcesReadUriMatch",
+      "textHtmlProfileMcpApp",
+      "permittedCsp",
+      "registeredHostUiSurface"
+    ],
+    "failureClassification": "ROOT_CAUSE_UNPROVEN",
+    "noBlindRetry": true,
+    "renderWebPageIsNotInChatAcceptance": true
+  },
+  "access": {
+    "owner": {
+      "status": "PLUGIN_INSTALLED_BUT_GUI_RED",
+      "role": "owner"
+    },
+    "firstTester": {
+      "status": "NO_INDEPENDENT_CHATGPT_ACCESS_PROVED",
+      "scope": "singleConsentingExternalTester",
+      "identityStorage": "PRIVATE_APPROVED_CHANNEL_ONLY",
+      "privateUserPluginShareableByLink": false,
+      "acceptableDistribution": [
+        "supportedSharedWorkspacePluginAndSiteViewerPermission",
+        "separatelyReviewedApprovedReadOnlyPublicDirectoryApp"
+      ],
+      "unacceptable": [
+        "sharePersonalPluginLinkAsGrant",
+        "giveOutOwnerCredentials",
+        "addTesterToGitHubAndAssumeChatGptAccess",
+        "publishPrivateAssets",
+        "claimStandaloneWebsiteAsInChatSuccess"
+      ],
+      "sendInviteAutomatically": false
+    }
+  },
+  "releaseGates": [
+    {
+      "id": "source",
+      "requires": "exact-head CI, plugin manifest/license/privacy, rights safe",
+      "current": "PASS_AT_PRIOR_HEAD_REVERIFY_AFTER_CHANGES"
+    },
+    {
+      "id": "host",
+      "requires": "resource URI, registered HTML, CSP, tool/response metadata, ChatGPT phone interactive mount",
+      "current": "RED"
+    },
+    {
+      "id": "owner",
+      "requires": "Professor can open branded cockpit and use correction/Undo without Android host failure",
+      "current": "RED"
+    },
+    {
+      "id": "tester",
+      "requires": "supported distribution, tester opt-in/account install and phone interactive proof",
+      "current": "BLOCKED_BY_HOST_AND_ACCESS"
+    }
+  ],
+  "releaseTrain": [
+    "testing",
+    "proposed",
+    "beta",
+    "betaLts"
+  ],
+  "futureStable": "separateReviewedMilestoneNotFifthLane",
+  "assets": {
+    "doNotExposePrivateDrive": true,
+    "onlyRightsApprovedCharacterArt": true,
+    "reuseOfficialSpriteManifest": true,
+    "rightsReviewBeforeAnyPublicPackaging": true
+  },
+  "providerLimits": {
+    "siteToolsNowReadOnly": true,
+    "pluginCreatorEditsSkillsNotSiteBackend": true,
+    "githubBranchUpdatesDoNotReconfigureSite": true,
+    "renderLiveDoesNotProveHostGui": true,
+    "chatGptNativeUiUnskinnable": true
+  },
+  "doctrineLinks": [
+    "doctrine/firstInstallFoundationV1.json",
+    "doctrine/defaultBrandSessionTrustCandidateV1.json",
+    "doctrine/stablePluginUpdateSpineV1.json",
+    "manual/pluginBetaInviteRunbook.md",
+    "manual/mobileChatGptReleaseTrain.md"
+  ],
+  "blockedActions": [
+    "liveSiteBackendChangeWithoutAvailableSiteEditor",
+    "externalShareWithoutSupportedDistribution",
+    "publicDirectorySubmitWithoutReview",
+    "protectedMainMergeWithUnknownChecks",
+    "newSignedPublicAndroidRelease"
+  ],
+  "rollback": "Keep current private Site App identity/version and direct Render MCP endpoint, record exact before/after source and provider release; rollback candidates by exact SHA/previous release if allowed.",
+  "crownStatus": "STOP"
+}
