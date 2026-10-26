@@ -12,6 +12,9 @@
   const ROLEPLAY_CONTRACT = "doctrine/luhmChatMagicTriggerV1.json";
   const VENDOR_DEBUG_CONTRACT = "doctrine/vendorAiDebugV1.json";
 
+  /* HISTORICAL COMPATIBILITY REFERENCE, inactive after extracting to
+   * frontEnd/lib/luhmUiCore.js. Kept commented for safe rollback and
+   * doctrine/code archaeology. Do not re-enable duplicate parsers.
   const vendorAliases = Object.freeze({
     "OPENAI": "openAi",
     "OPEN DADDY": "openAi",
@@ -68,6 +71,15 @@
     const providerId = vendorAliases[providerText];
     return providerId ? { providerId: providerId, command: command } : null;
   }
+
+   */
+  const uiCore = typeof window === "object" && window.LuHmUiCore;
+  if (!uiCore || uiCore.schema !== "luhmOs.uiCore.v1") {
+    throw new Error("RED_LUHM_UI_CORE_NOT_LOADED");
+  }
+  // Existing public interfaces remain stable; the core owns the pure parsers.
+  const matchesMagicTrigger = value => uiCore.matchesMagicTrigger(value);
+  const parseVendorDebugCommand = value => uiCore.parseVendorDebugCommand(value);
 
   function getState($root) {
     return $root.data(DATA_KEY);
@@ -199,10 +211,7 @@
     }
     if (document.hidden) return;
     updateClock($root);
-    const configured = Number(state.settings.clockIntervalMs);
-    const interval = Number.isFinite(configured) && configured > 0
-      ? Math.max(15000, configured)
-      : 30000;
+    const interval = uiCore.clockIntervalMs(state.settings.clockIntervalMs);
     state.clockTimer = window.setInterval(function () { updateClock($root); }, interval);
   }
 
