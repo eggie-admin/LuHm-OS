@@ -1,0 +1,103 @@
+{
+  "schema": "luhmOs.unifiedPublicOriginCandidate.v1",
+  "status": "PROPOSED_SOURCE_ONLY_NOT_PROMOTED",
+  "dateLocal": "2026-10-26",
+  "authority": "Professor",
+  "purpose": "One publicly branded HTTPS site, path-mounted services and assets, without revealing backend/asset delivery vendor URLs in normal site UI.",
+  "coexistence": "Additive proposal; does not override networkSpineV1, cloudflareAirTrafficControllerV1, plugin mcp.json, deployed Render config, or currentSourceTruthV3 until review and verified cutover.",
+  "publicNames": {
+    "canonical": "eggiebagelface.art",
+    "alias": "www.eggiebagelface.art",
+    "aliasBehavior": "redirect_to_canonical_after_certificate_and_existing_site_verification",
+    "newPublicSubdomainsForUsers": false,
+    "backendNamesNeverEmbeddedInNormalPages": true,
+    "hostRestriction": "unrecognized Host/SNI reject"
+  },
+  "proposedSameOriginRoutes": [
+    {
+      "path": "/",
+      "owner": "public static HTML application and artist-first entry point",
+      "cache": "revalidate public HTML",
+      "notes": "no privileged admin, no user secrets"
+    },
+    {
+      "path": "/mcp",
+      "owner": "read-only Python3 MCP service",
+      "cache": "never",
+      "notes": "preserve streamable HTTP POST/GET as required, streaming headers, host validation, origin authorization; verify ChatGPT MCP client compatibility"
+    },
+    {
+      "path": "/assets/",
+      "owner": "approved and versioned vector, CSS, JS, WebP assets",
+      "cache": "long-lived only for rights-approved content-hashed names",
+      "notes": "self-hosted path hides backend CDN URL from address bar; do not claim CDN addresses cannot be discovered by inspecting network activity"
+    },
+    {
+      "path": "/studio/",
+      "owner": "artist/studio static HTML viewer",
+      "cache": "html short-lived, hashed assets immutable only when approved",
+      "notes": "character motion defaults to lightweight vector; heavy 3D on explicit user action"
+    },
+    {
+      "path": "/updates/",
+      "owner": "optional future signed application update descriptors",
+      "cache": "signed artifact immutable by hash, index revalidates",
+      "notes": "private beta/public distribution not authorized"
+    }
+  ],
+  "publicVsPrivate": "Internal services and resolver names stay under eggiebagelface.lan, never exposed through Cloudflare public DNS; reverse proxy can resolve or use loopback/Unix sockets. Do not expose LAN, DB admin, SSH or local file roots.",
+  "proposedPath": "ChatGPT plugin -> canonical HTTPS hostname -> Cloudflare public perimeter -> persistent verified origin -> Nginx path-based reverse proxy -> independent bounded backend service",
+  "identityAndCerts": {
+    "dnsProvider": "Cloudflare existing authoritative DNS",
+    "cloudflareEdgeCertificate": "Cloudflare-managed edge certificate; CA may vary, not assumed Let's Encrypt",
+    "originTLS": "Managed TLS at Render until alternate persistent origin is certified; persistent Ubuntu may use separate origin HTTPS cert",
+    "ubuntuOriginLetsEncrypt": "Certbot DNS-01 via least-privilege Cloudflare DNS token scoped to zone; generate and renew origin key and certificate at origin; never copy edge key from Cloudflare",
+    "ubuntuOriginPrivateKey": "only local approved persistent origin or managed private secret store; never repository, plugin bundle, browser, logs, Codespace Git tree",
+    "tlsStack": "OpenSSL/verified OS trust store serve or validate appropriate local cert chain, not a mechanism to pull private keys from Cloudflare",
+    "tunnelOrigin": "If outbound-only Cloudflare Tunnel used, verify origin name/trust separately and keep noTLSVerify false",
+    "authTokens": "Signed authentication tokens are verified with public keys or trusted authorization metadata. Token signing private key remains in approved private custody. Public TLS key and token-signing key need not be the same.",
+    "encryptionPolicy": "Full strict when proxied to public HTTPS origin with matching valid certificate; path /mcp no caching/challenges after tested compatibility"
+  },
+  "dnsServices": {
+    "public": "Cloudflare remains authoritative",
+    "private": "Existing dnsmasq .lan split-horizon resolver",
+    "bind9": "Optional only if specifically required to replace/augment private resolver; not reverse proxy, not required for Cloudflare authoritative DNS",
+    "reverseProxyCandidate": "Nginx available in Ubuntu development image; current networkSpineV1 names apache2, so deliberate canonical owner selection and configuration review required"
+  },
+  "hosting": {
+    "codespace": "Ubuntu 26.04 userland devcontainer source only; not a guaranteed persistent server or full Ubuntu Server VM",
+    "persistentOrigin": "REQUIRES_SELECTION_AND_LIVE_RUNTIME_RECEIPT",
+    "currentWorkingPlugin": "https://luhm-os-harness-green.onrender.com/mcp",
+    "currentMcpCustomFqdnCandidate": "mcp.eggiebagelface.art",
+    "conflict": "Current canonical MCP plan uses dedicated custom mcp subdomain; root /mcp consolidation is proposed, not an automatic redirect or installed plugin migration."
+  },
+  "installImpact": {
+    "sameOriginAssetUpdates": "May update behind an already installed compatible shell without host reinstall when provider serves updated resource",
+    "mcpHostnameChange": "An existing ChatGPT plugin connector may require reconfiguration/reconnection if its backend URL changes; not a transparent HTML-only update",
+    "chatHostCustomUI": "Only inside MCP App sandbox, cannot replace ChatGPT native interface"
+  },
+  "stagedValidation": [
+    "record existing public site and MCP direct Render health and rollback deployment SHA",
+    "choose actual stable origin and source configuration; reconcile Nginx vs Apache policy",
+    "validate apex and www DNS, HTTPS SNI and certificate chain; avoid editing current records before approved cutover",
+    "validate path routing for /mcp streaming and tool discovery without redirects, caching, WAF challenge or Access interstitial",
+    "verify CSS/JS/media same-origin requests only approved /assets/ and no private or user-specific cache",
+    "verify signed tokens in private-scope routes only if needed; no conflation with TLS private key",
+    "verify connected ChatGPT MCP app renders HTML and correction desk on user device",
+    "only after explicit Professor approved cutover update installed plugin URL and deploy, with rollback receipt"
+  ],
+  "forbiddenDuringProposal": [
+    "liveDnsWrite",
+    "proxyActivation",
+    "certificateIssuance",
+    "tunnelActivation",
+    "pluginConnectorChange",
+    "agentActivation",
+    "githubMerge",
+    "renderDeploy",
+    "publicApkPublishing",
+    "storeCredentialsOrPrivateKeys"
+  ],
+  "rollback": "Keep working Render endpoint and previous site deployment intact; use exact prior commit and route receipts if approved migration fails.",
+  "crownStatus": "STOP"
+}
