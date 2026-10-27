@@ -42,3 +42,11 @@ For an approved actual Site edit: repair the existing MCP server in place so the
 - Prepare only no-secret, rights-safe demo text and metadata for review. Do not expose private character assets, create guest access, switch plugin visibility, submit a public listing or incur paid usage without separate authorization.
 - Keep `CHATGPT_INLINE_MOUNT=UNVERIFIED` and `CROWN=STOP` until the independent owner-host and release gates are met.
 
+### Rights-safe metadata and demo draft (review only, not installed)
+
+- **Existing compatibility display name:** Project Hydra. **Product identity:** LuHm OS / Project Premonition. Do not rename the installed app as part of a mount repair.
+- **Proposed short description:** "Private LuHm OS studio cockpit for read-only project status and supervised creative planning."
+- **Proposed longer description:** "Inspect connected LuHm OS project status and open the mobile studio cockpit inside ChatGPT when supported. Creative actions, device operations and publishing require separately verified capabilities and approval."
+- **Demo script:** In the existing owner account, call `luhmConnectionStatus`, open `luhm_open_cockpit`, then `luhm_open_mobile_cockpit`; distinguish tool text from an actually rendered ChatGPT card. If a card appears, use a visible non-destructive control, keyboard focus/Escape and Undo, and record a sanitized owner-only acceptance receipt. If no card appears, show the read-only text fallback and report `RED_HOST_MOUNT` rather than staging a fake success.
+- **Media and permissions:** Use generic original text and blank/synthetic demo content only. No private goddess art, Drive originals, access tokens, visitor identities, guest invites, scope changes, paid provider calls, public listing or promotional claims of a verified host mount.
+
