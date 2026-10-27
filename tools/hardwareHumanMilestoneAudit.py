@@ -42,7 +42,7 @@ def check() -> None:
         name = item.get("id", str(idx))
         need("dependencies:" + name, item.get("dependsOn") == expectedDependencies[idx])
         need("proofsRequired:" + name, isinstance(item.get("requiredProof"), list) and len(item["requiredProof"]) >= 3)
-        need("notLiveClaim:" + name, "VERIFIED" not in item.get("status", "") and item.get("currentlyObserved", {}).get("device") != "DEVICE_PROVEN")
+        need("notLiveClaim:" + name, item.get("status") in {"SOURCE_PRESENT_RUNTIME_UNVERIFIED", "SIGNED_ARTIFACT_AND_DEVICE_PENDING", "SOURCE_CANDIDATE_HUMAN_TEST_PENDING", "CONSENT_RIGHTS_AND_RELEASE_PENDING"} and item.get("currentlyObserved", {}).get("device") != "DEVICE_PROVEN")
         need("sourceReferences:" + name, all((ROOT / p).is_file() for p in item.get("sourcePaths", [])) and len(item.get("sourcePaths", [])) >= 3)
         need("humanMeaning:" + name, bool(item.get("humanMeaning")) and bool(item.get("next")))
     axes = source.get("separateAxes", {})
