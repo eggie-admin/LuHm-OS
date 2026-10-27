@@ -10,7 +10,7 @@
 
 ## Real Site MCP evidence collection
 
-Only an authorized backend/Sites editor or introspection tool for the **same actual Site MCP endpoint** can collect matching sanitized `tools/list`, `resources/list` and `resources/read` outputs. Never commit host tokens, cookies, private media, raw personal information, server secrets, or unreviewed proprietary artwork. Obtain exact tool metadata (especially `_meta.ui.resourceUri` or `_meta["openai/outputTemplate"]`), resource MIME `text/html;profile=mcp-app`, nonempty HTML and supported `_meta.ui.csp` object. The resource must be registered on the same connected endpoint advertised by the tool.
+Only an authorized backend/Sites editor or introspection tool for the **same actual Site MCP endpoint** can collect matching sanitized `tools/list`, `resources/list` and `resources/read` outputs. Never commit host tokens, cookies, private media, raw personal information, server secrets, or unreviewed proprietary artwork. Obtain exact tool metadata (especially `_meta.ui.resourceUri` or `_meta["openai/outputTemplate"]`), resource MIME `text/html;profile=mcp-app`, and nonempty HTML from `text` **or base64 `blob`**. MCP Apps allows `ui.csp` to be omitted (the host applies restrictive defaults); when supplied, CSP must be a valid object of domain lists. The resource must be registered on the same connected endpoint advertised by the tool. A `<script>` tag is only a structural hint and **never proof of a working MCP bridge**.
 
 The local guard checks consistency and fails closed:
 
@@ -22,7 +22,7 @@ python3 tools/siteCastMountGuard.py \
   --resource-read /path/to/sanitized-resource-read.json
 ```
 
-Without all three captured inputs it reports `UNKNOWN_SITE_ENDPOINT_NOT_CAPTURED`. With consistent metadata it reports **CAPTURE_CONSISTENT**, not a ChatGPT in-app mount or mobile touch pass. Actual ChatGPT owner inline card appearance, controls, Undo/Redo, and Samsung UI proof must be separately observed.
+Without all three captured inputs it reports `UNKNOWN_SITE_ENDPOINT_NOT_CAPTURED`. With consistent metadata it reports **CAPTURE_CONSISTENT**, not a ChatGPT in-app mount or mobile touch pass. Structural checks alone cannot prove JavaScript initialization or visible interactions; this is governed by the official [MCP Apps specification](https://github.com/modelcontextprotocol/ext-apps/blob/main/specification/2026-01-26/apps.mdx). Actual ChatGPT owner inline card appearance, controls, Undo/Redo, and Samsung UI proof must be separately observed.
 
 ## Blocker and authorized repair
 
