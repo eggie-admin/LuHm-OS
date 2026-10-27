@@ -46,6 +46,20 @@ class LinuxStudioAppleCollaborationCanonTest(unittest.TestCase):
         self.assertFalse(self.contract["releaseAuthority"])
         self.assertEqual(self.contract["crownStatus"], "STOP")
 
+    def test_python_lemp_stack_is_not_php(self):
+        stack = self.contract["runtimeStack"]
+        self.assertEqual(stack["definition"], {
+            "L": "Linux", "E": "NGINX (Engine-X)",
+            "M": "MariaDB", "P": "Python 3",
+        })
+        self.assertEqual(stack["backendRuntime"], "python3")
+        self.assertFalse(stack["phpRequirement"])
+        self.assertTrue(stack["noAutomaticServiceStart"])
+        self.assertTrue(stack["noProductionServiceProof"])
+        runbook = (ROOT / "manual/professor-ubuntu2604-basement.md").read_text(encoding="utf-8")
+        self.assertIn("LuHm-OS LEMP (Python variant)", runbook)
+        self.assertIn("PHP-FPM and Apache are not required", runbook)
+
     def test_unverified_hardware_remains_unverified(self):
         proof = self.contract["deviceProof"]
         self.assertEqual(proof["linuxAndroidWirelessDebug"]["pairingState"], "UNVERIFIED")

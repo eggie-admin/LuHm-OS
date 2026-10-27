@@ -119,5 +119,29 @@
   "publicationAuthority": false,
   "signingAuthority": false,
   "releaseAuthority": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "runtimeStack": {
+    "displayName": "LuHm-OS LEMP (Python variant)",
+    "definition": {
+      "L": "Linux",
+      "E": "NGINX (Engine-X)",
+      "M": "MariaDB",
+      "P": "Python 3"
+    },
+    "status": "SOURCE_CONFIGURED_RUNTIME_NOT_VERIFIED",
+    "deployment": "Linux Codespaces Ubuntu 26.04 candidate",
+    "implementedBy": [
+      ".devcontainer/Dockerfile",
+      "manual/professor-ubuntu2604-basement.md"
+    ],
+    "backendRuntime": "python3",
+    "reverseProxy": "nginxOptionalManualOnly",
+    "database": "mariadbUnixSocketOnlyNoTcpListener",
+    "phpRequirement": false,
+    "phpPackagesInstalledByDesign": false,
+    "aiControlPlaneLaw": "doctrine/python3ControlPlaneLawV1.json",
+    "namingNote": "Project-specific Python variant; conventional LEMP references may also describe PHP, Perl, or Python.",
+    "noAutomaticServiceStart": true,
+    "noProductionServiceProof": true
+  }
 }
