@@ -77,6 +77,15 @@ class MobileCockpitEvidenceContract(unittest.TestCase):
         self.assertIn("payloadValidation", audit_mobile(HTML.replace(
             'd.schema!=="luhmOs.mobileCockpitPayload.v1"', 'd.schema!=="wrong.schema"'), SERVER))
 
+    def test_mobile_resource_has_declared_widget_origin_when_hosted(self):
+        # A resource URI in a JSON tool result is not renderable UI metadata.
+        # On a hosted MCP app, include the exact configured origin in resource _meta.ui.
+        start = SERVER.index('    @server.resource(\n        MOBILE_COCKPIT_RESOURCE_URI,')
+        end = SERVER.index('    @server.tool(', start)
+        resource_registration = SERVER[start:end]
+        self.assertIn('"domain": public_origin', resource_registration)
+        self.assertIn('"csp": {"connectDomains": [], "resourceDomains": [], "frameDomains": []}', resource_registration)
+
     def test_embedded_javascript_parses(self):
         if not shutil.which("node"):
             self.skipTest("Node unavailable for syntax-only check")

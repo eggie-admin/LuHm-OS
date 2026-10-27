@@ -301,6 +301,7 @@ def register_harness(
             "ui": {
                 "prefersBorder": True,
                 "csp": {"connectDomains": [], "resourceDomains": [], "frameDomains": []},
+                **({"domain": public_origin} if public_origin else {}),
             },
             "openai/ui": {"availableDisplayModes": ["inline", "fullscreen"]},
             "openai/widgetDescription": "Lightweight Lum agent and Canon status for mobile ChatGPT hosts.",
