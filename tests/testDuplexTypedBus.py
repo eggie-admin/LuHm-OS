@@ -83,6 +83,22 @@ class DuplexBusTests(unittest.TestCase):
         with self.assertRaisesRegex(mod.WireError,"RED_SEQUENCE_GAP"):
             p.receive(pkt,durable_commit=True)
 
+    def test_rejected_sequence_cannot_consume_outstanding_ack(self):
+        sender = mod.DuplexPeer()
+        original = sender.send(stream_id=4, lane=0,
+                               payload=mod.int_payload(17), correlation_id=17)
+        self.assertTrue(original)
+        pending_before = dict(sender.pending)
+        # Malicious/out-of-order inbound packet claims ACK=1 for the original.
+        # The invalid sequence must not silently release the sender window.
+        future = mod.encode_frame(mod.Frame(
+            stream_id=4, lane=0, kind=1, sequence_id=2, ack_sequence=1,
+            correlation_id=18, payload=mod.int_payload(18)))
+        with self.assertRaisesRegex(mod.WireError, "RED_SEQUENCE_GAP"):
+            sender.receive(future, durable_commit=True)
+        self.assertEqual(sender.pending, pending_before)
+        self.assertEqual(sender.received[4], 0)
+
     def test_corruption_and_unrecognized_version_rejected(self):
         x=mod.encode_frame(mod.Frame(payload=mod.int_payload(5)))
         for broken in (x + b"\xff",b"",b"\x08\x02"+x[2:],x + b"\x08\x01",x + b"\x40\x01"):
