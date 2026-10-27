@@ -5,6 +5,8 @@ on:
       - 'infrastructure/google-cloud-vm/**'
       - 'doctrine/crown-single-proof-v1.json'
       - 'tools/google-cloud-vm-one-proof-audit.py'
+      - 'host/api/google-ai-candidate-proxy.py'
+      - 'tests/test_google_ai_candidate_proxy.py'
       - '.github/workflows/google-cloud-vm-one-proof.yml'
   workflow_dispatch:
 permissions:
@@ -22,6 +24,8 @@ jobs:
         run: |
           set -euo pipefail
           python3 tools/google-cloud-vm-one-proof-audit.py
+          python3 -m unittest discover -s tests -p 'test_google_ai_candidate_proxy.py' -v
+          python3 host/api/google-ai-candidate-proxy.py --check | grep -Fq '"executionAllowed": false'
           bash -n infrastructure/google-cloud-vm/install-web.sh
           bash -n infrastructure/google-cloud-vm/provision.sh
           bash -n infrastructure/google-cloud-vm/snapshot.sh

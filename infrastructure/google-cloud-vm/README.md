@@ -49,3 +49,68 @@ First verify account-owned Google Compute Engine in the matching Google
 project, then private VM boot/NGINX through authorized IAP, then Site owner
 editor and real Android touch + Undo, then review paid DNS alternative and
 private beta distribution separately. No need to recreate the existing app.
+
+## Final proposed Crown Cathedral closeout
+
+The single SQL/JSON proof envelope at `doctrine/crown-single-proof-v1.json`
+now contains the **whole creative company's closeout catalog**, not only VM
+infrastructure: publisher/product identity, business records and operations,
+illustrated field manuals, original comics (Rebel, Into the Warp, Crown Cathedral
+scene plates), character artwork/Blender masters, campaign and partner assets.
+These are **logical references** to private Drive content; source discovery is
+not export/rights or public release permission. Originals, credits and original
+dictation are preserved. Read `doctrine/organizationBrandRegistryV1.json`,
+`doctrine/yumeCreativePipelineV1.json`, `manual/README.md`, and
+`doctrine/continuityReleaseLifecycleV1.json` before promoting any content.
+
+Existing two **product delivery lanes** (APP and PLUGIN) remain independent
+of the existing four **company operating tiers**. They are not competing
+classification schemes. Machine identifiers are camelHump, transport slugs
+lowercase kebab-case, status tokens DRAGONTAIL, SQL keywords UPPERCASE.
+
+### Google AI Big Brother executor
+
+`host/api/google-ai-candidate-proxy.py` implements an explicitly gated,
+server-side **Gemini Developer API** candidate-review request through the
+existing `bigBrother` provider identity. It supports a source-only plan with
+no Google key, network, cloud VM, or credits:
+
+```bash
+python3 host/api/google-ai-candidate-proxy.py --check
+python3 host/api/google-ai-candidate-proxy.py --input /path/to/sanitized-task.json
+```
+
+For a real single `--execute` request, an operator-controlled trusted host
+must inject `GEMINI_API_KEY`, an explicitly verified `GOOGLE_AI_MODEL`, and
+all six current `GOOGLE_AI_*` gate values documented in `readiness()` as
+`YES` (plus `GOOGLE_AI_MAX_REQUESTS=1`). These values represent checks
+performed outside this repository; setting them is not evidence they were
+truthfully verified. The executor is **not automatically deployed** or
+reachable via public HTTP. It does not accept raw Drive files, private art,
+email addresses, bearer tokens, account identifiers or tool-execution requests.
+Its output remains advisory. The minimal signed-off provider smoke receipt is
+needed before enabling persistent use.
+
+Google Gemini API generation is distinct from Google Cloud DNS or Google
+Cloud Compute Engine. An AI subscription, Drive storage, or code in GitHub
+cannot create a Google Developer API key/role or prove that it is valid.
+The authorized key belongs in an approved host secret manager, never in
+GitHub files, ChatGPT chats, client JS, screenshots, or public issues.
+Google Gemini API documentation: https://ai.google.dev/api/generate-content .
+Current authentication guidance: https://ai.google.dev/gemini-api/docs/api-key .
+
+### Network, proxy and publication freeze
+
+Continue using existing Cloudflare-managed DNS and optional approved edge
+policy; maintain current Render-managed HTTPS service and existing private
+Project Hydra Site. Cloudflare should act as a **thin proxy when compatible**,
+but its CURRENT authoritative DNS role cannot disappear without a separate
+nameserver migration. Keep Google Cloud DNS and Hurricane Electric on hold.
+The private NGINX VM is an optional test origin, not a replacement for Site
+MCP registration. No auto-beta, app-identity replacement or external invite
+until an actual Samsung ChatGPT inline touch+Undo receipt, privacy/rights
+checks and supported external install path exist.
+
+**Proposed → Canon → Doctrine** uses the existing everlasting covenant and
+exact-source approvals. Passing source/CI may close the *proposed candidate*
+only; it never grants public release, independent AI agent activation or Crown.

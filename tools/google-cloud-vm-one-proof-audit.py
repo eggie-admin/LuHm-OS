@@ -26,6 +26,19 @@ assert proof["evidence"]["site"]["cacheBridgeGreen"] is False
 assert proof["security"]["newRecurringSpend"] is False
 assert proof["evidence"]["beta"]["externalInstallProven"] is False
 assert proof["gate"]["crown"]=="STOP"
+company=proof["companyCloseout"]
+assert company["schema"]=="luhmOs.finalProposedCompanyCloseout.v1"
+assert [x["id"] for x in company["productLanes"]]==["app","plugin"]
+assert len(company["inventory"])==6 and all(x["sourceRefs"] for x in company["inventory"])
+assert company["network"]["currentDns"]=="CLOUDFLARE_MANAGED_EXISTING"
+assert company["network"]["cloudDns"]=="ON_HOLD_NOT_PROVISIONED"
+assert company["network"]["hurricaneElectric"]=="ON_HOLD_NO_DELEGATION"
+assert company["providerLane"]["networkCallsMade"] is False
+assert company["promotion"]["publicBeta"].startswith("BLOCKED")
+assert company["promotion"]["crown"]=="STOP"
+assert vm["name"]=="luhm-web-strict-01"
+assert profile["routing"]["providerLane"]["adapterId"]=="bigBrother"
+assert profile["routing"]["providerLane"]["operationalMode"].startswith("OFFLINE")
 installer=(root/"infrastructure/google-cloud-vm/install-web.sh").read_text()
 provision=(root/"infrastructure/google-cloud-vm/provision.sh").read_text()
 assert "127.0.0.1:8080" in installer and "/healthz" in installer

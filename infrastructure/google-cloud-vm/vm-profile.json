@@ -47,7 +47,18 @@
     "currentMcp": "EXISTING_RENDER_HTTPS",
     "newVm": "PRIVATE_TEST_ONLY",
     "cloudflareEdge": "PRESERVED",
-    "reverseProxy": "NGINX_PRIVATE_LOOPBACK"
+    "reverseProxy": "NGINX_PRIVATE_LOOPBACK",
+    "providerLane": {
+      "modelProvider": "googleAi",
+      "adapterId": "bigBrother",
+      "sourceExecutor": "host/api/google-ai-candidate-proxy.py",
+      "operationalMode": "OFFLINE_PLAN_UNTIL_CANONICAL_ACCOUNT_AND_GEMINI_API_PROOFS",
+      "dnsAndProviderNotInterchangeable": true,
+      "fallback": "deterministicLocal",
+      "cloudflareRole": "DNS_EXISTING_OPTIONAL_APPROVED_PROXY",
+      "hurricaneElectric": "HOLD",
+      "googleCloudDns": "HOLD"
+    }
   },
   "gate": {
     "cost": "NO_NEW_BILLABLE_SPEND",
