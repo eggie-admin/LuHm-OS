@@ -46,7 +46,19 @@ public final class MainActivity extends Activity {
 
         webView.setWebViewClient(new WebViewClient() {
             @Override public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                return local.shouldInterceptRequest(request.getUrl());
+                Uri url = request.getUrl();
+                // The existing publicationSite uses root-relative links (/logo.svg,
+                // /release.html, /privacy.html). Mirror those paths into /assets/
+                // so offline navigation stays inside the packaged application.
+                if ("https".equalsIgnoreCase(url.getScheme()) && LOCAL_HOST.equalsIgnoreCase(url.getHost())) {
+                    String path = url.getEncodedPath();
+                    if (path == null || path.isEmpty() || "/".equals(path)) {
+                        url = url.buildUpon().encodedPath("/assets/index.html").build();
+                    } else if (!path.startsWith("/assets/")) {
+                        url = url.buildUpon().encodedPath("/assets" + path).build();
+                    }
+                }
+                return local.shouldInterceptRequest(url);
             }
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri uri = request.getUrl();
