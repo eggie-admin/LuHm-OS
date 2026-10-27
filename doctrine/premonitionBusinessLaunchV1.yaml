@@ -23,7 +23,7 @@ publicSourcePrivacy:
   privateEvidenceManagedByOwnerOutsidePublicSource: true
   allowOnlyOpaqueProofStateWithoutIdentifiers: true
 businessIdentity:
-  ownerReportedExistingDba: PRIVATE_OWNER_CONTEXT_NO_PUBLIC_PROOF
+  privateDbaEvidence: NOT_REPRODUCED_IN_PUBLIC_SOURCE
   dbaIsTradeNameNotAutomaticallySeparateLegalEntity: true
   originalRegistrationAndCurrentGoodStanding: OWNER_PRIVATE_REVIEW
   underlyingBusinessEntityAndFinancialNameMatch: OWNER_PRIVATE_REVIEW
@@ -31,7 +31,7 @@ businessIdentity:
   noPublicDocumentUploadOrBusinessVerificationAutomation: true
   sellerRepresentationMustBeAccurate: true
 instagram:
-  currentState: OWNER_REPORTED_VERIFIED_IN_CHAT
+  currentState: PRIVATE_ACCOUNT_EVIDENCE_NOT_REPRODUCED_IN_PUBLIC_SOURCE
   verificationEvidence: PRIVATE_OWNER_CONTEXT_NOT_READ_THROUGH_META
   verificationMethod: UNKNOWN_BADGE_OR_SUBSCRIPTION
   badgeDoesNotConferFacebookVerification: true
@@ -43,7 +43,7 @@ instagram:
   ownedCreativeRights: REQUIRE_VERIFIED_RIGHTS
   noPasswordOrSessionCookieCollection: true
 facebook:
-  existingPresenceReportedByOwner: true
+  existingPresence: OWNER_PRIVATE_CONTEXT_NOT_REPRODUCED_IN_PUBLIC_SOURCE
   contentMonetization2026: INVITE_ONLY
   creatorFastTrack: ELIGIBILITY_AND_APPLICATION_UNVERIFIED
   accountVerification: NOT_READ
