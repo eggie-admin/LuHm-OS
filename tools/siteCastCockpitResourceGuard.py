@@ -120,7 +120,12 @@ def inspect(tools: object, resources: object, resource_read: object) -> dict:
         list_meta = matches[0].get("_meta", {}) if len(matches) == 1 else {}
         for where, meta in (("resources/read", read_meta),
                             ("resources/list", list_meta)):
-            ui = meta.get("ui") if isinstance(meta, dict) else None
+            # An absent _meta is valid, but a supplied non-object _meta
+            # must never be silently treated as absent CSP evidence.
+            if not isinstance(meta, dict):
+                issues.append(where + " _meta is malformed")
+                continue
+            ui = meta.get("ui")
             # MCP Apps specifies a restrictive default when CSP is omitted.
             # If a CSP is present, validate its structure; presence is not
             # mandatory and does not establish runtime or UI safety.
@@ -189,6 +194,16 @@ def self_test() -> None:
     no_csp = {**read, "_meta": {}}
     assert not inspect({"tools": [tool]}, {"resources": [resource]},
                        {"contents": [no_csp]})["issues"]
+    # Explicit malformed metadata must fail closed even if HTML and URI
+    # otherwise match. An omitted _meta remains permitted.
+    bad_read_meta = {**read, "_meta": "invalid"}
+    assert any("resources/read _meta is malformed" in x for x in inspect(
+        {"tools": [tool]}, {"resources": [resource]},
+        {"contents": [bad_read_meta]})["issues"])
+    bad_list_meta = {**resource, "_meta": ["invalid"]}
+    assert any("resources/list _meta is malformed" in x for x in inspect(
+        {"tools": [tool]}, {"resources": [bad_list_meta]},
+        {"contents": [read]})["issues"])
     bad_csp = {**read, "_meta": {"ui": {"csp": {"connectDomains": "*"}}}}
     assert any("CSP" in x for x in inspect({"tools": [tool]},
         {"resources": [resource]}, {"contents": [bad_csp]})["issues"])
