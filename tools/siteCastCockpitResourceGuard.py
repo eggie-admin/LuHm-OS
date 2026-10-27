@@ -74,6 +74,14 @@ def inspect(tools: object, resources: object, resource_read: object) -> dict:
     # The MCP Apps specification permits UI-only resources to be omitted
     # from resources/list. A tool's advertised resourceUri plus successful
     # resources/read is authoritative; listing is optional discovery.
+    # Optional discovery is not a license to silently accept a malformed
+    # capture. None means not collected; an explicitly supplied capture must
+    # have a valid resources array (an empty array is allowed).
+    if resources is not None and not (
+        isinstance(resources, list) or
+        (isinstance(resources, dict) and isinstance(resources.get("resources"), list))
+    ):
+        issues.append("resources/list capture is malformed")
     matches = [x for x in collection(resources, "resources") if x.get("uri") == SITE_URI]
     if len(matches) > 1:
         issues.append("Site resource duplicated in resources/list")
@@ -174,6 +182,9 @@ def self_test() -> None:
     no_list_endpoint = inspect({"tools": [tool]}, None,
                                {"contents": [read]})
     assert not no_list_endpoint["issues"]
+    malformed_listing = inspect({"tools": [tool]},
+        {"resources": "invalid"}, {"contents": [read]})
+    assert any("malformed" in issue for issue in malformed_listing["issues"])
     duplicated_listing = inspect({"tools": [tool]},
         {"resources": [resource, resource]}, {"contents": [read]})
     assert any("duplicated" in issue for issue in duplicated_listing["issues"])
