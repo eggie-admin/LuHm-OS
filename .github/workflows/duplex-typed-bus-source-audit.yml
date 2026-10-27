@@ -7,6 +7,8 @@ on:
       - 'host/api/duplexTypedBusV1.sql'
       - 'host/api/duplexTypedBusCodec.py'
       - 'tests/testDuplexTypedBus.py'
+      - 'host/api/ai-manifest-duplex-bridge.py'
+      - 'tests/test_ai_manifest_duplex_bridge.py'
       - '.github/workflows/duplex-typed-bus-source-audit.yml'
   workflow_dispatch:
 permissions:
@@ -30,6 +32,8 @@ jobs:
         run: |
           python3 -m py_compile host/api/duplexTypedBusCodec.py
           python3 -m unittest discover -s tests -p 'testDuplexTypedBus.py' -v
+          python3 -m py_compile host/api/ai-manifest-duplex-bridge.py
+          python3 -m unittest discover -s tests -p 'test_ai_manifest_duplex_bridge.py' -v
       - name: Record proof boundary
         run: |
           echo 'BINARY_DUPLEX=SOURCE_ONLY'
