@@ -1,10 +1,10 @@
 # LuHm-OS · Existing Site App in-chat MCP resource repair gate
 
-**Status:** source-only diagnostic candidate. The installed private Project Hydra Site App has working read-only tool calls, but a successful MCP tool response is **not** proof that ChatGPT mounted its interactive widget. Prior user-visible failures must remain RED until a new owner click/touch receipt is observed.
+**Status:** source-only diagnostic candidate. The existing Project Hydra integration has working read-only tool calls, but a successful MCP tool response is **not** proof that ChatGPT mounted its interactive widget. Prior user-visible failures must remain RED until a new owner click/touch receipt is observed.
 
 ## Distinguish the two independent surfaces
 
-- **Existing private Site App:** private Plugin Creator / Sites-bound identity `plugin_asdk_app_sites_02c066d0b6bc8191ad41051ed5878040`, version 1.0.14 when last inspected. Its Site `luhm_open_cockpit` runtime contract points at `ui://luhm-os/cockpit-site-v3.html`. The owner-private website/server is not editable via a GitHub PR or Plugin Creator skill archive.
+- **Existing Site integration:** the installed Plugin Creator binding `plugin_asdk_app_sites_02c066d0b6bc8191ad41051ed5878040` remains **USER / PRIVATE**, version 1.0.14 when last inspected, with rollback releases retained. The **separate Site backend** was observed with a **PUBLIC Site audience** in an owner-side receipt on 2026-10-27; do not confuse that with plugin discoverability or publish private assets. Its `luhm_open_cockpit` contract points at `ui://luhm-os/cockpit-site-v3.html`. Neither a GitHub PR nor a Plugin Creator skill update edits this backend.
 - **Portable GitHub MCP/Render harness:** `host/mcp/luhmHarness.py` registers `ui://luhm-os/cockpit-v2.html` as its own resource with `text/html;profile=mcp-app`. That distinct URI is not by itself an error. Do not deploy the portable harness as a substitute for diagnosing the Site.
 - **Mobile Site tool:** `luhm_open_mobile_cockpit` currently returns source data with a `ui://luhm-os/mobile-cockpit-v1.html` locator; successful transport is not owner visual-touch proof.
 
@@ -29,6 +29,16 @@ Without the required **tools/list and resources/read** captures, it reports `UNK
 
 ## Blocker and authorized repair
 
-The currently connected Project Hydra tools are **read only**; they do not expose an authenticated Site backend editor or raw MCP `resources/read`. Therefore a GitHub code-only change cannot repair a broken Site runtime. Label this `BLOCKED_SITE_EDITOR_UNAVAILABLE` until a supported Sites editor is connected or the owner uses the actual site editor. Do not create a duplicate app, change permissions, claim public listing, or substitute a Render URL for the genuine ChatGPT experience.
+**Access correction (owner-side receipt, 2026-10-27 18:02Z):** the existing Site was owner-editable using Sites `get_site`, `create_source_repository_write_credential`, and its source helper. `BLOCKED_SITE_EDITOR_UNAVAILABLE` is superseded for that observed surface. The Project Hydra cockpit tools in this ChatGPT connector surface remain **read only** and do not themselves expose those Sites editor actions or raw same-endpoint MCP capture. If Sites actions are absent in a given run, record `SITE_EDITOR_NOT_EXPOSED_IN_CURRENT_TOOL_SURFACE`, not a global assertion that no editor exists. Site version 12 was saved and a deployment was still **publishing** at the previous receipt; inspect its terminal status before any additional deployment. A direct `resources/read` HTTP 401 from a service-access token without visitor identity is **not** proof that the host's registered resource is broken. Collect an authenticated, same-endpoint capture instead. Do not create a duplicate app, change permissions, claim public listing, or substitute Render for the actual Site.
 
 For an approved actual Site edit: repair the existing MCP server in place so the tool resource URI matches the registered UI resource, MIME, CSP and MCP UI bridge; then test the existing owner account in ChatGPT and collect one visible touch/Undo receipt. Public invitation/discovery is an entirely separate review gate. CROWN remains STOP.
+
+## Private test and publication checklist (unfulfilled until separately evidenced)
+
+- Preserve the installed plugin ID, USER/PRIVATE visibility, release 1.0.14, previous release rollback and original Site binding. Do not alter the Site's separately observed audience without specific permission.
+- Confirm the existing Site deployment reaches a terminal healthy state; record version, exact source SHA, deployment ID and rollback before another candidate deploy.
+- Capture same-endpoint `tools/list`, optional `resources/list`, authenticated `resources/read`, exact `ui://` match, `text/html;profile=mcp-app`, valid optional CSP and initialized MCP bridge. An HTTP 401 from an unauthenticated caller is inconclusive.
+- Test actual ChatGPT owner inline mount and mobile 320/390/960 widths, readable labels, no overlap, at least 44px touch targets, keyboard focus, Escape, and visible touch/Undo. Source fixtures and DIL previews cannot replace host evidence.
+- Prepare only no-secret, rights-safe demo text and metadata for review. Do not expose private character assets, create guest access, switch plugin visibility, submit a public listing or incur paid usage without separate authorization.
+- Keep `CHATGPT_INLINE_MOUNT=UNVERIFIED` and `CROWN=STOP` until the independent owner-host and release gates are met.
+
