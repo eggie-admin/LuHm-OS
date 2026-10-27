@@ -56,8 +56,14 @@ def inspect(tools: object, resources: object, resource_read: object) -> dict:
         if view.get("mimeType") != MIME:
             issues.append("Site UI resource MIME does not match MCP Apps")
         html = view.get("text", "")
-        if not isinstance(html, str) or not html.strip() or "<" not in html:
-            issues.append("Site HTML body is empty or not HTML-like")
+        if not isinstance(html, str) or not html.lstrip().lower().startswith(
+                ("<!doctype html", "<html")):
+            issues.append("Site UI resource is not a full HTML document")
+        elif "<script" not in html.lower():
+            # The Site must supply an app bundle or inline bridge script;
+            # static markup alone cannot initialize an interactive MCP App.
+            # This is a structural check, NOT a runtime bridge or mount proof.
+            issues.append("Site UI resource has no application script")
         meta = view.get("_meta", {})
         ui = meta.get("ui") if isinstance(meta, dict) else None
         # Some hosts return CSP in resources/list rather than resources/read.
@@ -84,7 +90,8 @@ def self_test() -> None:
     tool = {"name": SITE_TOOL, "_meta": {"ui": {"resourceUri": SITE_URI},
             "openai/outputTemplate": SITE_URI}}
     resource = {"uri": SITE_URI}
-    read = {"uri": SITE_URI, "mimeType": MIME, "text": "<html>Site app</html>",
+    read = {"uri": SITE_URI, "mimeType": MIME,
+            "text": '<!doctype html><html><script src="app.js"></script></html>',
             "_meta": {"ui": {"csp": {"connectDomains": [], "resourceDomains": []}}}}
     good = inspect({"tools": [tool]}, {"resources": [resource]}, {"contents": [read]})
     assert not good["issues"] and not good["chatGptInlineMountProven"]
@@ -103,6 +110,12 @@ def self_test() -> None:
     no_resource = inspect({"tools": [tool]}, {"resources": []},
                           {"contents": [read]})
     assert no_resource["issues"]
+    static_only = {**read, "text": "<html><h1>status JSON is not an app</h1></html>"}
+    assert any("script" in x for x in inspect({"tools": [tool]},
+        {"resources": [resource]}, {"contents": [static_only]})["issues"])
+    not_html = {**read, "text": '{"tool":"ok"}'}
+    assert any("HTML" in x for x in inspect({"tools": [tool]},
+        {"resources": [resource]}, {"contents": [not_html]})["issues"])
     print("SITE_CAST_RESOURCE_GUARD_NEGATIVE_TESTS=PASS")
 
 
