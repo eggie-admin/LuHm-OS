@@ -6,6 +6,9 @@ on:
       - 'tools/siteCastCockpitResourceGuard.py'
       - 'tools/siteCastMountGuard.py'
       - 'tests/testSiteCastMountGuard.py'
+      - 'host/harness/site-static-recovery.html'
+      - 'host/mcp/site-static-recovery.py'
+      - 'tests/test_site_static_recovery.py'
       - 'manual/siteCastMountEvidence.md'
       - '.github/workflows/site-cast-mount-guard.yml'
   workflow_dispatch:
@@ -29,4 +32,6 @@ jobs:
           grep -Fq 'UNKNOWN_SITE_ENDPOINT_NOT_CAPTURED' site-cast-guard.log
           grep -Fq '"chatGptInlineMountProven": false' site-cast-guard.log
           python3 -m unittest discover -s tests -p 'testSiteCastMountGuard.py' -v
+          python3 -m py_compile host/mcp/site-static-recovery.py
+          python3 -m unittest discover -s tests -p 'test_site_static_recovery.py' -v
           echo 'SITE_MOUNT_SOURCE_CHECK_ONLY=PASS'
