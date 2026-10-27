@@ -13,10 +13,39 @@ import binascii
 import json
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlsplit
 
 SITE_URI = "ui://luhm-os/cockpit-site-v3.html"
 SITE_TOOL = "luhm_open_cockpit"
 MIME = "text/html;profile=mcp-app"
+CSP_ORIGIN_FIELDS = {"connectDomains", "resourceDomains",
+                     "frameDomains", "baseUriDomains"}
+
+
+def valid_csp_origin(value: object, field: str) -> bool:
+    """CSP metadata contains origins, never raw directives or arbitrary URLs."""
+    if not isinstance(value, str) or not value or any(
+            ch.isspace() for ch in value) or any(
+            ch in value for ch in ("'", '"', ";", "?", "#", "\\")):
+        return False
+    try:
+        parsed = urlsplit(value)
+        if parsed.scheme not in ("https", "http", "wss", "ws"):
+            return False
+        if not parsed.netloc or not parsed.hostname or parsed.path:
+            return False
+        if parsed.username is not None or parsed.password is not None:
+            return False
+        host = parsed.hostname
+        if "*" in host and not (
+                field == "resourceDomains" and host.startswith("*.")
+                and host.count("*") == 1 and len(host) > 2):
+            return False
+        if parsed.port is not None and not 1 <= parsed.port <= 65535:
+            return False
+        return True
+    except ValueError:
+        return False
 
 
 def collection(payload: object, key: str) -> list[dict]:
@@ -152,10 +181,13 @@ def inspect(tools: object, resources: object, resource_read: object) -> dict:
                 csp = ui["csp"]
                 if not isinstance(csp, dict):
                     issues.append(where + " CSP metadata is malformed")
-                elif any(not isinstance(value, list) or
-                         not all(isinstance(domain, str) for domain in value)
-                         for value in csp.values()):
-                    issues.append(where + " CSP domain lists are malformed")
+                elif any(
+                        field not in CSP_ORIGIN_FIELDS or
+                        not isinstance(domains, list) or
+                        not all(valid_csp_origin(domain, field)
+                                for domain in domains)
+                        for field, domains in csp.items()):
+                    issues.append(where + " CSP domain lists contain invalid origins")
 
     return {
         "schema": "luhmOs.siteCastCockpitResourceGuard.v1",
@@ -250,6 +282,27 @@ def self_test() -> None:
     bad_csp = {**read, "_meta": {"ui": {"csp": {"connectDomains": "*"}}}}
     assert any("CSP" in x for x in inspect({"tools": [tool]},
         {"resources": [resource]}, {"contents": [bad_csp]})["issues"])
+    # A string array alone is insufficient: CSP requires explicit origins.
+    for bad_origin in ("*", "data:", "'unsafe-inline'",
+                       "https://cdn.example.com/path",
+                       "https://cdn.example.com;script-src *",
+                       "https://user:pass@cdn.example.com"):
+        bad_csp_origin = {**read, "_meta": {"ui": {"csp": {
+            "resourceDomains": [bad_origin]}}}}
+        assert any("CSP" in x for x in inspect(
+            {"tools": [tool]}, {"resources": [resource]},
+            {"contents": [bad_csp_origin]})["issues"])
+    unknown_csp_field = {**read, "_meta": {"ui": {"csp": {
+        "script-src": ["https://cdn.example.com"]}}}}
+    assert any("CSP" in x for x in inspect(
+        {"tools": [tool]}, {"resources": [resource]},
+        {"contents": [unknown_csp_field]})["issues"])
+    good_csp = {**read, "_meta": {"ui": {"csp": {
+        "resourceDomains": ["https://*.example.com"],
+        "connectDomains": ["https://api.example.com", "wss://ws.example.com"],
+        "frameDomains": [], "baseUriDomains": []}}}}
+    assert not inspect({"tools": [tool]}, {"resources": [resource]},
+                       {"contents": [good_csp]})["issues"]
     blob_read = {**read}
     blob_read.pop("text")
     blob_read["blob"] = base64.b64encode(read["text"].encode()).decode()
