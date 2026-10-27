@@ -61,8 +61,8 @@ def packet_for(root: Path, head: str, lane: str) -> dict:
     return {
         "schema": contract["schema"], "providerId": "googleAi",
         "capabilityId": "candidateReview",
-        "taskId": "castSqlCandidateReview",
-        "sourceRef": head, "scopeId": "finalProposed" + lane.capitalize(),
+        "taskId": "cast-sql-candidate-review",
+        "sourceRef": head, "scopeId": "final-proposed-" + lane,
         "inputRefs": [f"github:eggie-admin/LuHm-OS@{head}:{PROOF}"],
         "requiredOutputSchema": "luhmOs.providerExecutionReceipt.v1",
         "budget": {"maxRequests": 1, "maxParallel": 1, "maxPasses": 1},
@@ -136,7 +136,7 @@ def align(db: sqlite3.Connection, root: Path, head: str) -> dict:
                                eighthNote,observedAt,evidenceRef)
                               VALUES(?,?,?,?,?,?,?,?,?)""",
                            (eid, manifest["taskId"], head, manifest["scopeId"],
-                            "gitSqlCastAlignment", int(head[:15], 16)*2+idx, idx+1,
+                            "git-sql-cast-alignment", int(head[:15], 16)*2+idx, idx+1,
                             datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
                             "GIT_HEAD_SOURCE_ONLY"))
             if not found:
@@ -157,7 +157,7 @@ def align(db: sqlite3.Connection, root: Path, head: str) -> dict:
                         JSON_EXTRACT(m.manifestJson,'$.authority.crown'),m.crownAuthority
                         FROM streamEvent s JOIN aiManifestStream m USING(eventId)
                         WHERE s.sourceRef=? AND s.workerId=? ORDER BY s.scopeId""",
-                      (head, "gitSqlCastAlignment")).fetchall()
+                      (head, "git-sql-cast-alignment")).fetchall()
     if (count != 4 or len(rows) != 2 or
         any(r[1] != head or r[2] != "googleAi" or r[3] != 0 or r[4] != 0 for r in rows)):
         raise RuntimeError("RED_SQL_ALIGNMENT_RECHECK")

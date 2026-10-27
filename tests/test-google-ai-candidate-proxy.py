@@ -30,7 +30,7 @@ GATES = {
 }
 
 
-class FakeResponse:
+class fake_response:
     status = 200
     def __enter__(self):
         return self
@@ -42,7 +42,7 @@ class FakeResponse:
         }).encode("utf-8")
 
 
-class ProxyTests(unittest.TestCase):
+class proxy_tests(unittest.TestCase):
     def test_dry_run_requires_no_key_and_never_runs(self):
         out = proxy.proposal(PACKET, environ={})
         self.assertFalse(out["providerCalled"])
@@ -58,7 +58,7 @@ class ProxyTests(unittest.TestCase):
                 called = []
                 def fake(req, timeout):
                     called.append(True)
-                    return FakeResponse()
+                    return fake_response()
                 with self.assertRaisesRegex(RuntimeError, "RED_GOOGLE_AI_ENTITLEMENT"):
                     proxy.execute(PACKET, environ=env, opener=fake)
                 self.assertFalse(called)
@@ -78,7 +78,7 @@ class ProxyTests(unittest.TestCase):
         def fake(request, timeout):
             seen.append((request.full_url, request.get_method(), timeout,
                          dict(request.header_items()), request.data))
-            return FakeResponse()
+            return fake_response()
         receipt = proxy.execute(PACKET, environ=GATES, opener=fake)
         self.assertEqual(len(seen), 1)
         self.assertEqual(seen[0][1:3], ("POST", 15))

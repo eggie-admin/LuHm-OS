@@ -6,9 +6,9 @@ on:
       - 'doctrine/crown-single-proof-v1.json'
       - 'tools/google-cloud-vm-one-proof-audit.py'
       - 'host/api/google-ai-candidate-proxy.py'
-      - 'tests/test_google_ai_candidate_proxy.py'
+      - 'tests/test-google-ai-candidate-proxy.py'
       - 'tools/git-sql-cast-align.py'
-      - 'tests/test_git_sql_cast_align.py'
+      - 'tests/test-git-sql-cast-align.py'
       - '.github/workflows/google-cloud-vm-one-proof.yml'
   workflow_dispatch:
 permissions:
@@ -26,11 +26,11 @@ jobs:
         run: |
           set -euo pipefail
           python3 tools/google-cloud-vm-one-proof-audit.py
-          python3 -m unittest discover -s tests -p 'test_git_sql_cast_align.py' -v
+          python3 tests/test-git-sql-cast-align.py -v
           python3 tools/git-sql-cast-align.py --check | tee /tmp/luhm-git-sql-check.txt
           grep -Fq '"typedPacketCount": 2' /tmp/luhm-git-sql-check.txt
           grep -Fq '"crown": "STOP"' /tmp/luhm-git-sql-check.txt
-          python3 -m unittest discover -s tests -p 'test_google_ai_candidate_proxy.py' -v
+          python3 tests/test-google-ai-candidate-proxy.py -v
           python3 host/api/google-ai-candidate-proxy.py --check | grep -Fq '"executionAllowed": false'
           bash -n infrastructure/google-cloud-vm/install-web.sh
           bash -n infrastructure/google-cloud-vm/provision.sh
