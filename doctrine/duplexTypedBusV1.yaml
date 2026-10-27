@@ -1,0 +1,109 @@
+schema: luhmOs.duplexTypedBus.v1
+status: SOURCE_CANDIDATE_NOT_DEPLOYED
+authority: Professor
+architecture: bidirectionalMultiplexedTypedDataBus
+statement: SQL persists state and events; Python transports; JavaScript presents; no SQL-embedded JavaScript execution
+canonicalReferences:
+  - doctrine/typedFourLaneSqlV1.json
+  - doctrine/apiSpineV1.json
+  - doctrine/fnCastV1.yaml
+  - host/api/typedLanesV1.sql
+dataPlanes:
+  numericStream: 0
+  textStream: 1
+  booleanStream: 2
+  aiManifestStream: 3
+frame:
+  schema: host/api/duplexTypedBusV1.proto
+  wireFormat: protocolBuffers
+  version: 1
+  maxPayloadBytes: 4096
+  maxFrameBytes: 8192
+  hexUsage: diagnosticDisplayOnly
+  binaryTransport: true
+  envelopeFields:
+    - version
+    - lane
+    - kind
+    - streamId
+    - sequenceId
+    - ackSequence
+    - correlationId
+    - payload
+  kinds:
+    DATA: 1
+    ACK: 2
+    RESPONSE: 3
+    NACK: 4
+    PING: 5
+    RESUME: 6
+  semantics:
+    orderedWithinStream: true
+    independentStreamCounters: true
+    responseCorrelatesToRequest: true
+    ackOnlyAfterDurableAcceptance: true
+    versionNegotiationRequired: true
+    unknownVersionReject: true
+    ackSequenceZeroMeansNone: true
+    noGenericCodeExecution: true
+    noImplicitGreenAuthority: true
+transport:
+  applicationMcp: existingJsonRpcStreamableHttpUnchanged
+  internalRemoteAdapter: authenticatedWssOrHttp2
+  serverPush: enabledOnlyAfterExplicitAdapterActivation
+  hostCanExposeArbitrarySocket: false
+  newPublicEndpoint: false
+  webhooks: optionalSignedEdgeAdapterNotPrimaryDuplexBus
+  browserMayReadSqlDirectly: false
+  remoteDestinations: explicitConfiguredAllowlistOnly
+  disallowPrivateNetworkViaPublicRelay: true
+  noUntrustedDestinationUrls: true
+security:
+  tlsRequired: true
+  authenticatedPeerIdentityRequired: true
+  perScopeAuthorizationRequired: true
+  replayAndDedupRequired: true
+  rejectUnknownFieldsInV1ReferenceCodec: true
+  noCredentialsOrPrivateBinaryInFrames: true
+  mediaTransfer: sendContentAddressedPointerNotBulkPayload
+flowControl:
+  maxInFlightPerStream: 32
+  maxActiveStreamsPerConnection: 16
+  ackTimeoutMs: 5000
+  retryPolicy: boundedExponentialBackoffWithJitter
+  maxAttempts: 6
+  heartbeatSeconds: 30
+  clientBufferedAmountCeilingBytes: 262144
+  backpressure: requiredEvenWhenWebSocketApiHasNoAutomaticBackpressure
+  recovery: reconnectResumeFromPersistedLastAck
+  deliveryGuarantee: atLeastOnceIdempotent
+  exactOnceClaim: false
+database:
+  firstOperationalLookup: existingApprovedPrivateSql
+  migrations: host/api/duplexTypedBusV1.sql
+  applied: false
+  outbox: luhm_duplex_outbox
+  inbox: luhm_duplex_inbox
+  cursor: luhm_duplex_cursor
+  transaction: businessStateMutationPlusOutgoingEventCommitTogether
+  inboundAcceptance: validateThenDeduplicateAndCommitBeforeAck
+  eventIdsUniquePerPeerAndStream: true
+  rollbackSafety: migrationManualReviewRequired
+  noPublicSqlPort: true
+  noNewDatabaseProvisioning: true
+  secretsInGit: false
+  sqlCanExecuteJavaScript: false
+safety:
+  companyAgentQuarantinePreserved: true
+  publicationAuthority: false
+  productionMutation: false
+  installedChatGptAppChanged: false
+  crownStatus: STOP
+verification:
+  referenceCodec: host/api/duplexTypedBusCodec.py
+  tests: tests/testDuplexTypedBus.py
+  offlineOnly: true
+  noRemotePacketsSent: true
+  noLiveWebSocketOpened: true
+  noSqlMigrationApplied: true
+  noMobileUiProof: true
