@@ -56,8 +56,8 @@ def inspect_export(root):
 
 
 def observed_after(messages, marker, offset=0):
-    """Require runtime evidence emitted within the current navigation/action window."""
-    return any(marker in message for message in messages[offset:])
+    """Require an exact standalone marker within the current action window."""
+    return any(message.strip() == marker for message in messages[offset:])
 
 
 def observed_route_after(messages, action, character, offset=0):
@@ -124,11 +124,14 @@ def self_test():
     # A menu/previous navigation marker cannot satisfy a new stage or action.
     old = ["LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_TALK_ROUTE:lum", "LUHM_REHEARSAL_DANCE_ROUTE:lum"]
     boundary = len(old)
-    for token in ("LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_TALK_ROUTE:", "LUHM_REHEARSAL_DANCE_ROUTE:"):
-        assert not observed_after(old, token, boundary), "stale browser marker accepted"
+    assert not observed_after(old, "LUHM_REHEARSAL_STAGE_READY", boundary), "stale stage marker accepted"
     old.extend(["LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_TALK_ROUTE:urd", "LUHM_REHEARSAL_DANCE_ROUTE:urd"])
-    for token in ("LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_TALK_ROUTE:", "LUHM_REHEARSAL_DANCE_ROUTE:"):
-        assert observed_after(old, token, boundary), "current browser marker missed"
+    assert observed_after(old, "LUHM_REHEARSAL_STAGE_READY", boundary), "current stage marker missed"
+    # A console message containing the marker is not a standalone stage receipt.
+    spoofed = ["PREFIX_LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_STAGE_READY:spoof"]
+    assert not observed_after(spoofed, "LUHM_REHEARSAL_STAGE_READY"), "spoofed stage marker accepted"
+    spoofed.append("LUHM_REHEARSAL_STAGE_READY")
+    assert observed_after(spoofed, "LUHM_REHEARSAL_STAGE_READY", 2), "exact stage marker missed"
     # Generic TALK/DANCE markers cannot prove which character was selected.
     prior = ["LUHM_REHEARSAL_TALK_ROUTE:lum", "LUHM_REHEARSAL_DANCE_ROUTE:lum"]
     boundary = len(prior)
@@ -183,6 +186,9 @@ def run_browser(root,output):
                 if observed_after(runtime_markers, "LUHM_REHEARSAL_STAGE_READY"):
                     break
                 page.wait_for_timeout(500)
+            # Freeze the stage verdict before sending any interaction keys.
+            # Later console output must not retroactively prove scene entry.
+            stage_verified=observed_after(runtime_markers, "LUHM_REHEARSAL_STAGE_READY")
             page.screenshot(path=str(rehearsalProof),full_page=True)
             # TALK/DANCE evidence must be emitted after the keyboard actions,
             # not during startup or an earlier menu navigation.
@@ -203,7 +209,6 @@ def run_browser(root,output):
             page.wait_for_timeout(450)
             urd_talk_verified = observed_route_after(runtime_markers, "TALK", "urd", urd_talk_start)
             page.screenshot(path=str(interactionProof),full_page=True)
-            stage_verified=observed_after(runtime_markers, "LUHM_REHEARSAL_STAGE_READY")
             talk_verified=lum_talk_verified and urd_talk_verified
             dance_verified=lum_dance_verified
             if not stage_verified: failures.append("one-tap deep link never opened the rehearsal scene")
