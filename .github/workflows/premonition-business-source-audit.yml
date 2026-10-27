@@ -4,6 +4,8 @@ on:
     paths:
       - 'doctrine/premonitionBusinessLaunchV1.yaml'
       - 'doctrine/metaBusinessConnectorV1.yaml'
+      - 'doctrine/creatorPrivacyShieldV1.yaml'
+      - 'tests/testCreatorPrivacyShield.py'
       - 'tests/testMetaBusinessConnector.py'
       - 'tests/testPremonitionBusinessLaunch.py'
       - '.github/workflows/premonition-business-source-audit.yml'
@@ -31,6 +33,7 @@ jobs:
         run: |
           python3 -m unittest discover -s tests -p 'testPremonitionBusinessLaunch.py' -v
           python3 -m unittest discover -s tests -p 'testMetaBusinessConnector.py' -v
+          python3 -m unittest discover -s tests -p 'testCreatorPrivacyShield.py' -v
       - name: Print evidence ceiling
         run: |
           echo 'PRIVATE_OWNER_INSTAGRAM_VERIFICATION=REPORTED_NOT_COPIED_TO_PUBLIC_SOURCE'
@@ -39,6 +42,10 @@ jobs:
           echo 'META_OWNER_OAUTH=REQUIRES_CONNECTION_IN_CHAT'
           echo 'INSTAGRAM_LOGIN_MINIMUM_SCOPE=instagram_business_basic'
           echo 'META_PUBLISH_SPEND_AND_DM_WRITE=OFF'
+          echo 'PUBLIC_OWNER_IDENTITY_AND_CONTACT_DETAILS=NOT_STORED'
+          echo 'VERIFIED_NAME_CHANGES=BLOCKED_PENDING_OWNER_PREFLIGHT'
+          echo 'SOCIAL_PRIVACY_SETTINGS=NOT_READ_OR_MUTATED'
+          echo 'PERSONAL_TO_CREATOR_BRAND_LINKAGE=OWNER_CONTROLLED'
           echo 'DBA_DOCUMENTS_AND_SIGNING_KEYS=PRIVATE_NOT_READ'
           echo 'BUSINESS_ACCOUNT_CONNECTIONS_AND_PUBLICATION=NONE'
           echo 'SOURCE_REVIEW_ONLY=TRUE'
