@@ -64,11 +64,60 @@ func _run() -> void:
             _check(focus.visible, "focusVisible:" + IDS[i])
         var message: Label = scene.get("message") as Label
         _check(message != null and message.text.to_lower().contains(IDS[i]), "dialogueIdentity:" + IDS[i])
+
+    # In-process Godot behavior assertions, not just source token checks.
+    # No donor upload, Web build, release, or external API call.
+    var stageMessage: Label = scene.get("message") as Label
+    _check(stageMessage != null, "interactionMessageExists")
+    var bondValues: Array = scene.get("_bond_points")
+    var dialogueTurns: Array = scene.get("_dialogue_turns")
+    _check(bondValues.size() == IDS.size(), "fourBondRoutes")
+    _check(dialogueTurns.size() == IDS.size(), "fourDialogueRoutes")
+    for i in IDS.size():
+        scene.call("_select", i)
+        scene.call("_talk")
+        _check(int(bondValues[i]) == 1, "talkEarnsBond:" + IDS[i])
+        _check(int(dialogueTurns[i]) == 1, "talkAdvancesRoute:" + IDS[i])
+        _check(stageMessage.text.to_lower().contains(IDS[i]), "talkIdentifiesCast:" + IDS[i])
+        scene.call("_dance")
+        _check(int(bondValues[i]) == 2, "danceEarnsBond:" + IDS[i])
+        _check(str(scene.call("_route_status")).contains("BOND 2/9"), "visibleBondStatus:" + IDS[i])
+
+    _check(str(scene.call("_route_status")).contains("CATHEDRAL CIRCLE COMPLETE"), "fourRouteQuestComplete")
+    scene.call("_select", 0)
+    for turn in 8:
+        scene.call("_talk")
+    _check(int(bondValues[0]) == 9, "bondCappedAtNine")
+    _check(int(dialogueTurns[0]) == 9, "dialogueRepeatsSafely")
+
+    var talkKey := InputEventKey.new()
+    talkKey.keycode = KEY_T
+    talkKey.pressed = true
+    var previousTurn := int(dialogueTurns[0])
+    scene._unhandled_input(talkKey)
+    _check(int(dialogueTurns[0]) == previousTurn + 1, "keyboardTalkRoute")
+
+    var danceKey := InputEventKey.new()
+    danceKey.keycode = KEY_D
+    danceKey.pressed = true
+    var previousDance := float(scene.get("_dance_until"))
+    scene._unhandled_input(danceKey)
+    _check(float(scene.get("_dance_until")) >= previousDance, "keyboardDanceRoute")
+
+    # The mobile action grid must remain tappable on a narrow Android viewport.
+    # Headless display backends ignore OS window resize; call the same
+    # deterministic helper used by the real viewport resize callback.
+    scene.call("applyHudWidth", 320.0)
+    var actionGrid: GridContainer = scene.get("_action_grid") as GridContainer
+    var selectorGrid: GridContainer = scene.get("_selector_grid") as GridContainer
+    _check(actionGrid != null and actionGrid.columns == 1, "narrowTouchActionStack")
+    _check(selectorGrid != null and selectorGrid.columns == 2, "narrowTouchSelectorPairs")
     _finish()
 
 func _finish() -> void:
     if failures.is_empty():
         print("GODDESS_DIRECT_TAP_SMOKE_GREEN")
+        print("GODDESS_INTERACTION_LOOP_GREEN")
         if ResourceLoader.exists("res://assets/lum/luhm.glb"):
             print("GODDESS_LUM_RIG_IN_REHEARSAL_GREEN")
         quit(0)

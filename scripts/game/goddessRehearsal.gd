@@ -16,11 +16,22 @@ var active_index := 0
 var elapsed := 0.0
 var _hud_column: VBoxContainer
 var _selector_grid: GridContainer
+var _action_grid: GridContainer
 var _canon_roles: Dictionary = {}
 var _focus_markers: Array[Node3D] = []
 var _lum_rig_loaded := false
 var _spark_emitters: Array[CPUParticles3D] = []
 var _dance_until := 0.0
+# Local session progression only; no server data or publication authority.
+var _bond_points := [0, 0, 0, 0]
+var _dialogue_turns := [0, 0, 0, 0]
+var _quest_completion_reported := false
+const ROUTE_LINES := [
+    ["Lum: You found the Cathedral. Now let's make an actual memory.", "Lum: Professor, the neon river feels almost like home.", "Lum: Back again? Let's make this night ours."],
+    ["Urd: Try not to trip the breakers. I only just painted these runes.", "Urd: Dramatic lighting is a science. A very attractive science.", "Urd: See? You survived a conversation with me."],
+    ["Belldandy: I saved us a seat beneath the stained glass.", "Belldandy: The best quests begin with listening.", "Belldandy: Everyone has a place at this table."],
+    ["Skuld: This circuit does not test itself, you know.", "Skuld: The prototype isn't perfect, but at least it is interactive!", "Skuld: Congratulations. Your bond variable survived another frame."]
+]
 
 func _ready() -> void:
     var file := FileAccess.open(CANON_PATH, FileAccess.READ)
@@ -43,6 +54,9 @@ func _ready() -> void:
         _build_actor(i)
     _build_hud()
     _select(0)
+    # Actual runtime markers for CAST browser smoke, not a client-side proof claim.
+    if OS.has_feature("web"):
+        print("LUHM_REHEARSAL_STAGE_READY")
 
 func _build_stage() -> void:
     var camera := Camera3D.new()
@@ -247,7 +261,9 @@ func _build_hud() -> void:
         button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
         button.pressed.connect(func(): _select(index))
         row.add_child(button)
-    var playbar := HBoxContainer.new()
+    var playbar := GridContainer.new()
+    playbar.columns = 3
+    _action_grid = playbar
     playbar.name = "ProposedPlayControls"
     playbar.add_theme_constant_override("separation", 8)
     column.add_child(playbar)
@@ -280,25 +296,54 @@ func _cast_sparks() -> void:
         emitter.emitting = true
 
 
+func _route_status() -> String:
+    var met_all := true
+    for points in _bond_points:
+        if points < 1:
+            met_all = false
+    if met_all and not _quest_completion_reported:
+        _quest_completion_reported = true
+        if OS.has_feature("web"):
+            print("LUHM_REHEARSAL_QUEST_COMPLETE")
+    var quest := "CATHEDRAL CIRCLE COMPLETE" if met_all else "Meet every goddess to complete the circle"
+    return "BOND %d/9 · %s · Session only" % [_bond_points[active_index], quest]
+
+
 func _dance() -> void:
     _dance_until = elapsed + 4.0
     _cast_sparks()
+    _bond_points[active_index] = mini(9, _bond_points[active_index] + 1)
     if message != null:
-        message.text = "%s: Four beats, one ridiculous victory dance. The art can stay in Proposed. ♡" % IDS[active_index].capitalize()
+        message.text = "%s: Four beats, one ridiculous victory dance. ♡\n%s" % [IDS[active_index].capitalize(), _route_status()]
+    if OS.has_feature("web"):
+        print("LUHM_REHEARSAL_DANCE_ROUTE:", IDS[active_index])
 
 
 func _talk() -> void:
     _cast_sparks()
+    var lines: Array = ROUTE_LINES[active_index]
+    var next_line: String = str(lines[_dialogue_turns[active_index] % lines.size()])
+    _dialogue_turns[active_index] += 1
+    _bond_points[active_index] = mini(9, _bond_points[active_index] + 1)
     if message != null:
-        message.text = LINES[active_index] + "\n3D rehearsal · original source · private Proposed"
+        message.text = next_line + "\n" + _route_status()
+    if OS.has_feature("web"):
+        print("LUHM_REHEARSAL_TALK_ROUTE:", IDS[active_index])
 
 
 func _refresh_hud_layout() -> void:
-    if _hud_column == null or _selector_grid == null:
+    applyHudWidth(get_viewport().get_visible_rect().size.x)
+
+
+# Deterministic width layout for real window resize and headless test.
+func applyHudWidth(width: float) -> void:
+    if _hud_column == null or _selector_grid == null or _action_grid == null:
         return
-    var portrait := get_viewport().get_visible_rect().size.x < 630.0
+    var portrait := width < 630.0
+    var narrow := width < 350.0
     _selector_grid.columns = 2 if portrait else 4
-    _hud_column.offset_top = -265 if portrait else -205
+    _action_grid.columns = 1 if narrow else 3
+    _hud_column.offset_top = -430 if narrow else (-315 if portrait else -250)
 
 func _select(i: int) -> void:
     active_index = i
@@ -309,7 +354,7 @@ func _select(i: int) -> void:
         var art_state := "IMPORTED 3D RIG" if _lum_rig_loaded else "AVATAR FALLBACK"
         if i != 0:
             art_state = "PROTOTYPE STAND-IN · MODEL PENDING"
-        message.text = LINES[i] + "\n" + str(_canon_roles.get(IDS[i], "Goddess")) + " · " + art_state
+        message.text = LINES[i] + "\n" + str(_canon_roles.get(IDS[i], "Goddess")) + " · " + art_state + "\n" + _route_status()
     _cast_sparks()
 
 func _process(delta: float) -> void:
@@ -347,3 +392,11 @@ func _unhandled_input(event: InputEvent) -> void:
             _select((active_index + IDS.size() - 1) % IDS.size())
         elif event.keycode == KEY_RIGHT:
             _select((active_index + 1) % IDS.size())
+        elif event.keycode == KEY_T:
+            _talk()
+        elif event.keycode == KEY_D:
+            _dance()
+        elif event.keycode == KEY_S:
+            _cast_sparks()
+        elif event.keycode == KEY_ESCAPE:
+            get_tree().change_scene_to_file("res://scenes/Main.tscn")

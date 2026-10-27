@@ -19,13 +19,23 @@ class QuietHandler(http.server.SimpleHTTPRequestHandler):
 
 def inspect_export(root):
     html=root/"index.html"
+    if html.is_symlink():
+        raise ValueError("symlinked HTML export")
     if not html.is_file() or not html.stat().st_size:
         raise ValueError("missing nonempty HTML")
+    # The Godot HTML cannot boot without its JS loader, even when WASM/PCK hash correctly.
+    js=root/"index.js"
+    if js.is_symlink():
+        raise ValueError("symlinked Godot JS loader")
+    if not js.is_file() or not js.stat().st_size:
+        raise ValueError("missing nonempty Godot JS loader")
     wasm=sorted(root.glob("*.wasm"))
     pck=sorted(root.glob("*.pck"))
     if not wasm or not pck or any(not p.stat().st_size for p in wasm+pck):
         raise ValueError("missing nonempty wasm or pck")
     record=root/"SHA256SUMS.txt"
+    if record.is_symlink():
+        raise ValueError("symlinked export integrity list")
     if not record.is_file():
         raise ValueError("missing exported file integrity list")
     entries={}
@@ -35,12 +45,25 @@ def inspect_export(root):
         rel=match.group(2).removeprefix("./")
         if Path(rel).name!=rel or rel in entries:raise ValueError("invalid export path")
         item=root/rel
+        if item.is_symlink():
+            raise ValueError("symlinked export asset:"+rel)
         if not item.is_file() or hashlib.sha256(item.read_bytes()).hexdigest()!=match.group(1):
             raise ValueError("export hash mismatch:"+rel)
         entries[rel]=match.group(1)
-    if not all(p.name in entries for p in wasm+pck+[html]):
+    if not all(p.name in entries for p in wasm+pck+[html,js]):
         raise ValueError("export not fully included in hash manifest")
-    return {"html":html.name,"wasm":[p.name for p in wasm],"pck":[p.name for p in pck],"checkedFiles":len(entries)}
+    return {"html":html.name,"js":js.name,"wasm":[p.name for p in wasm],"pck":[p.name for p in pck],"checkedFiles":len(entries)}
+
+
+def observed_after(messages, marker, offset=0):
+    """Require an exact standalone marker within the current action window."""
+    return any(message.strip() == marker for message in messages[offset:])
+
+
+def observed_route_after(messages, action, character, offset=0):
+    """Only an exact character route in this action window is admissible."""
+    expected = f"LUHM_REHEARSAL_{action}_ROUTE:{character}"
+    return any(message.strip() == expected for message in messages[offset:])
 
 
 def self_test():
@@ -50,15 +73,96 @@ def self_test():
         try:inspect_export(root)
         except ValueError:pass
         else:raise AssertionError("empty export accepted")
-        for name in ("index.html","index.wasm","index.pck"):
+        for name in ("index.html","index.js","index.wasm","index.pck"):
             (root/name).write_bytes(b"x")
-        content="".join(hashlib.sha256((root/n).read_bytes()).hexdigest()+"  "+n+"\n" for n in ("index.html","index.wasm","index.pck"))
+        content="".join(hashlib.sha256((root/n).read_bytes()).hexdigest()+"  "+n+"\n" for n in ("index.html","index.js","index.wasm","index.pck"))
         (root/"SHA256SUMS.txt").write_text(content,encoding="utf-8")
-        assert inspect_export(root)["checkedFiles"]==3
+        assert inspect_export(root)["checkedFiles"]==4
+        # Hash-valid symlinks are not safe: the local HTTP server follows them.
+        # This catches links even when they point to an identical byte sequence.
+        (root/"index.js").unlink()
+        (root/"index.js").symlink_to("index.wasm")
+        try:inspect_export(root)
+        except ValueError as exc:assert "symlink" in str(exc)
+        else:raise AssertionError("symlinked Godot JS loader accepted")
+        (root/"index.js").unlink()
+        (root/"index.js").write_bytes(b"x")
+        (root/"index.wasm").unlink()
+        (root/"index.wasm").symlink_to("index.js")
+        try:inspect_export(root)
+        except ValueError as exc:assert "symlink" in str(exc)
+        else:raise AssertionError("symlinked WASM asset accepted")
+        (root/"index.wasm").unlink()
+        (root/"index.wasm").write_bytes(b"x")
+        record=root/"SHA256SUMS.txt"
+        record.rename(root/"manifest.txt")
+        record.symlink_to("manifest.txt")
+        try:inspect_export(root)
+        except ValueError as exc:assert "symlink" in str(exc)
+        else:raise AssertionError("symlinked integrity manifest accepted")
+        record.unlink()
+        (root/"manifest.txt").rename(record)
+        assert inspect_export(root)["checkedFiles"]==4
+        # A valid HTML/WASM/PCK bundle with no JS loader is not a bootable export.
+        (root/"index.js").unlink()
+        try:inspect_export(root)
+        except ValueError as exc:assert "JS loader" in str(exc)
+        else:raise AssertionError("missing Godot JS loader accepted")
+        (root/"index.js").write_bytes(b"")
+        try:inspect_export(root)
+        except ValueError as exc:assert "JS loader" in str(exc)
+        else:raise AssertionError("empty Godot JS loader accepted")
+        (root/"index.js").write_bytes(b"spoof")
+        try:inspect_export(root)
+        except ValueError as exc:assert "index.js" in str(exc)
+        else:raise AssertionError("corrupted Godot JS loader accepted")
+        (root/"index.js").write_bytes(b"x")
         (root/"index.pck").write_bytes(b"spoof")
         try:inspect_export(root)
         except ValueError:pass
         else:raise AssertionError("corrupted Godot pack accepted")
+    # A menu/previous navigation marker cannot satisfy a new stage or action.
+    old = ["LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_TALK_ROUTE:lum", "LUHM_REHEARSAL_DANCE_ROUTE:lum"]
+    boundary = len(old)
+    assert not observed_after(old, "LUHM_REHEARSAL_STAGE_READY", boundary), "stale stage marker accepted"
+    old.extend(["LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_TALK_ROUTE:urd", "LUHM_REHEARSAL_DANCE_ROUTE:urd"])
+    assert observed_after(old, "LUHM_REHEARSAL_STAGE_READY", boundary), "current stage marker missed"
+    # A console message containing the marker is not a standalone stage receipt.
+    spoofed = ["PREFIX_LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_STAGE_READY:spoof"]
+    assert not observed_after(spoofed, "LUHM_REHEARSAL_STAGE_READY"), "spoofed stage marker accepted"
+    spoofed.append("LUHM_REHEARSAL_STAGE_READY")
+    assert observed_after(spoofed, "LUHM_REHEARSAL_STAGE_READY", 2), "exact stage marker missed"
+    # Generic TALK/DANCE markers cannot prove which character was selected.
+    prior = ["LUHM_REHEARSAL_TALK_ROUTE:lum", "LUHM_REHEARSAL_DANCE_ROUTE:lum"]
+    boundary = len(prior)
+    assert not observed_route_after(prior, "TALK", "lum", boundary)
+    prior.extend(["LUHM_REHEARSAL_TALK_ROUTE:lum:spoof", "LUHM_REHEARSAL_TALK_ROUTE:belldandy"])
+    assert not observed_route_after(prior, "TALK", "urd", boundary)
+    assert not observed_route_after(prior, "TALK", "lum", boundary)
+    prior.extend(["LUHM_REHEARSAL_TALK_ROUTE:urd", "LUHM_REHEARSAL_DANCE_ROUTE:urd"])
+    assert observed_route_after(prior, "TALK", "urd", boundary)
+    assert observed_route_after(prior, "DANCE", "urd", boundary)
+    # Completion must occur after the final character action, not at menu or earlier routes.
+    quest_messages = ["LUHM_REHEARSAL_QUEST_COMPLETE"]
+    quest_boundary = len(quest_messages)
+    assert not observed_after(quest_messages, "LUHM_REHEARSAL_QUEST_COMPLETE", quest_boundary)
+    quest_messages.extend(["LUHM_REHEARSAL_QUEST_COMPLETE:spoof", "prefix_LUHM_REHEARSAL_QUEST_COMPLETE"])
+    assert not observed_after(quest_messages, "LUHM_REHEARSAL_QUEST_COMPLETE", quest_boundary)
+    quest_messages.append("LUHM_REHEARSAL_QUEST_COMPLETE")
+    assert observed_after(quest_messages, "LUHM_REHEARSAL_QUEST_COMPLETE", quest_boundary)
+    # Escape must observe a fresh Main marker, not a prior startup marker.
+    return_messages = ["LUHM_MAIN_SCENE_READY", "LUHM_REHEARSAL_STAGE_READY"]
+    return_boundary = len(return_messages)
+    assert not observed_after(return_messages, "LUHM_MAIN_SCENE_READY", return_boundary)
+    return_messages.extend(["LUHM_MAIN_SCENE_READY:spoof", "LUHM_MAIN_SCENE_READY"])
+    assert observed_after(return_messages, "LUHM_MAIN_SCENE_READY", return_boundary)
+    assert not observed_after(return_messages, "LUHM_REHEARSAL_STAGE_READY", return_boundary)
+    return_messages.append("LUHM_REHEARSAL_STAGE_READY")
+    assert observed_after(return_messages, "LUHM_REHEARSAL_STAGE_READY", return_boundary)
+    print("GREEN_GODOT_BROWSER_RETURN_MARKER_NEGATIVE_TESTS")
+    print("GREEN_GODOT_BROWSER_QUEST_COMPLETION_NEGATIVE_TESTS")
+    print("GREEN_GODOT_BROWSER_CHARACTER_ROUTE_NEGATIVE_TESTS")
+    print("GREEN_GODOT_BROWSER_MARKER_SCOPE_NEGATIVE_TESTS")
     print("GREEN_GODOT_WEB_ASSET_NEGATIVE_TESTS")
 
 
@@ -71,31 +175,121 @@ def run_browser(root,output):
         thread=threading.Thread(target=server.serve_forever,daemon=True)
         thread.start()
         failures=[]
+        runtime_markers=[]
         with sync_playwright() as p:
             browser=p.chromium.launch(headless=True,args=["--enable-webgl","--use-angle=swiftshader","--enable-unsafe-swiftshader"])
             page=browser.new_page(viewport={"width":1280,"height":800},device_scale_factor=1)
             page.on("pageerror",lambda error:failures.append(str(error)[:240]))
+            page.on("console",lambda message: runtime_markers.append(message.text) if ("LUHM_REHEARSAL_" in message.text or "LUHM_MAIN_SCENE_READY" in message.text) else None)
             page.goto(f"http://127.0.0.1:{port}/index.html",wait_until="domcontentloaded",timeout=60000)
             page.wait_for_function("() => {const c=document.querySelector('canvas');return !!c && c.width >= 300 && c.height >= 180 && c.offsetWidth > 0}",timeout=120000)
             canvas=page.locator("canvas").first
-            canvas.click(timeout=15000)
-            page.keyboard.down("ArrowUp")
-            page.wait_for_timeout(700)
-            page.keyboard.up("ArrowUp")
-            page.keyboard.press("Space")
-            page.wait_for_timeout(900)
             output.parent.mkdir(parents=True,exist_ok=True)
-            page.screenshot(path=str(output.with_suffix(".png")),full_page=True)
-            report={"schema":"luhmOs.godotBrowserSmoke.v1","status":"BROWSER_CANVAS_AND_INPUT_DISPATCH_OBSERVED" if not failures else "RED_BROWSER_SCRIPT_ERROR",
+            # Previous smoke only photographed the Cathedral menu. Preserve
+            # it, then explicitly attempt to enter the rehearsal scene.
+            menuProof=output.parent/"cathedralMenu.png"
+            rehearsalProof=output.parent/"rehearsalStage.png"
+            interactionProof=output.parent/"rehearsalInteractions.png"
+            questProof=output.parent/"rehearsalQuestComplete.png"
+            returnProof=output.parent/"cathedralReturn.png"
+            page.screenshot(path=str(menuProof),full_page=True)
+            box=canvas.bounding_box()
+            if box is None or box["width"] < 300 or box["height"] < 180:
+                raise RuntimeError("Godot canvas position not observable")
+            # One-tap public demo deep link replaces fragile pixel-guessing
+            # at the Godot menu; preserve the menu as a separate screenshot.
+            # Discard menu-phase console markers before measuring the deep link.
+            runtime_markers.clear()
+            page.goto(f"http://127.0.0.1:{port}/index.html?luhmScene=rehearsal",
+                      wait_until="domcontentloaded",timeout=60000)
+            page.wait_for_function("() => !!document.querySelector('canvas')",timeout=120000)
+            for _ in range(180):
+                if observed_after(runtime_markers, "LUHM_REHEARSAL_STAGE_READY"):
+                    break
+                page.wait_for_timeout(500)
+            # Freeze the stage verdict before sending any interaction keys.
+            # Later console output must not retroactively prove scene entry.
+            stage_verified=observed_after(runtime_markers, "LUHM_REHEARSAL_STAGE_READY")
+            deep_link_consumed=observed_after(runtime_markers, "LUHM_REHEARSAL_DEEPLINK_CONSUMED")
+            page.screenshot(path=str(rehearsalProof),full_page=True)
+            # TALK/DANCE evidence must be emitted after the keyboard actions,
+            # not during startup or an earlier menu navigation.
+            # Key events must reach the actual Godot scene after it loaded.
+            page.evaluate("() => {const c=document.querySelector('canvas'); if(c)c.focus();}")
+            lum_talk_start = len(runtime_markers)
+            page.keyboard.press("t")
+            page.wait_for_timeout(300)
+            lum_talk_verified = observed_route_after(runtime_markers, "TALK", "lum", lum_talk_start)
+            lum_dance_start = len(runtime_markers)
+            page.keyboard.press("d")
+            page.wait_for_timeout(300)
+            lum_dance_verified = observed_route_after(runtime_markers, "DANCE", "lum", lum_dance_start)
+            page.keyboard.press("ArrowRight")
+            page.wait_for_timeout(150)
+            urd_talk_start = len(runtime_markers)
+            page.keyboard.press("t")
+            page.wait_for_timeout(450)
+            urd_talk_verified = observed_route_after(runtime_markers, "TALK", "urd", urd_talk_start)
+            page.screenshot(path=str(interactionProof),full_page=True)
+            # Complete the remaining two character routes in this same browser session.
+            # A quest marker from startup or any earlier action is inadmissible.
+            page.keyboard.press("ArrowRight")
+            page.wait_for_timeout(150)
+            belldandy_talk_start = len(runtime_markers)
+            page.keyboard.press("t")
+            page.wait_for_timeout(450)
+            belldandy_talk_verified = observed_route_after(runtime_markers, "TALK", "belldandy", belldandy_talk_start)
+            page.keyboard.press("ArrowRight")
+            page.wait_for_timeout(150)
+            skuld_talk_start = len(runtime_markers)
+            page.keyboard.press("t")
+            page.wait_for_timeout(450)
+            skuld_talk_verified = observed_route_after(runtime_markers, "TALK", "skuld", skuld_talk_start)
+            quest_verified = observed_after(runtime_markers, "LUHM_REHEARSAL_QUEST_COMPLETE", skuld_talk_start)
+            page.screenshot(path=str(questProof),full_page=True)
+            # A one-shot deep link must not reopen rehearsal when Escape returns.
+            return_start=len(runtime_markers)
+            page.keyboard.press("Escape")
+            for _ in range(40):
+                if observed_after(runtime_markers, "LUHM_MAIN_SCENE_READY", return_start):
+                    break
+                page.wait_for_timeout(500)
+            main_return_verified=observed_after(runtime_markers, "LUHM_MAIN_SCENE_READY", return_start)
+            page.wait_for_timeout(1500)
+            no_reentry=not observed_after(runtime_markers, "LUHM_REHEARSAL_STAGE_READY", return_start)
+            query_consumed=page.evaluate("() => !new URLSearchParams(window.location.search).has('luhmScene')")
+            page.screenshot(path=str(returnProof),full_page=True)
+            talk_verified=lum_talk_verified and urd_talk_verified and belldandy_talk_verified and skuld_talk_verified
+            dance_verified=lum_dance_verified
+            if not stage_verified: failures.append("one-tap deep link never opened the rehearsal scene")
+            if not deep_link_consumed or not query_consumed: failures.append("one-shot rehearsal deep link was not consumed")
+            if not main_return_verified: failures.append("Escape did not return to the Cathedral Main scene")
+            if not no_reentry: failures.append("rehearsal reopened after Escape; deep link was not one-shot")
+            if not lum_talk_verified: failures.append("Lum TALK route was not observed after T")
+            if not lum_dance_verified: failures.append("Lum DANCE route was not observed after D")
+            if not urd_talk_verified: failures.append("Urd TALK route was not observed after character selection")
+            if not belldandy_talk_verified: failures.append("Belldandy TALK route was not observed after character selection")
+            if not skuld_talk_verified: failures.append("Skuld TALK route was not observed after character selection")
+            if not quest_verified: failures.append("Cathedral Circle completion was not observed after the final TALK")
+            report={"schema":"luhmOs.godotBrowserSmoke.v1","status":"GREEN_REHEARSAL_RUNTIME_INTERACTIONS" if not failures else "RED_REHEARSAL_NOT_PROVEN",
                     "browser":"Chromium headless","canvasVisible":True,
-                    "keyboardEventsDispatched":True,"playableQuestProgressProven":False,
+                    "keyboardEventsDispatched":True,"rehearsalDeepLinkRequested":True,
+                    "rehearsalClickDispatched":False,
+                    "rehearsalSceneVerified":stage_verified,"talkRouteVerified":talk_verified,"danceRouteVerified":dance_verified,
+                    "deepLinkConsumed":deep_link_consumed and query_consumed,
+                    "escapeReturnedToMain":main_return_verified,"noReentryAfterEscape":no_reentry,
+                    "secondCharacterRouteVerified":urd_talk_verified,
+                    "questRuntimeMarkerVerified":quest_verified,
+                    "playableQuestProgressProven":False,
                     "touchOnSamsungProven":False,"chatGptHostProven":False,
-                    "errors":failures,"screenshot":output.with_suffix(".png").name,
+                    "errors":failures,"observedRuntimeMarkers":runtime_markers[-16:],"screenshot":questProof.name,
+                    "additionalScreenshots":[menuProof.name,rehearsalProof.name,interactionProof.name,returnProof.name],
+                    "proofLimit":"character-scoped browser runtime markers cover all four TALK routes, Lum DANCE, quest completion and one-shot Escape return; rendered 3D and visible quest acceptance, Samsung touch, and ChatGPT remain separate",
                     "crownStatus":"STOP"}
             output.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
             browser.close()
         server.shutdown()
-        if failures:raise RuntimeError("Godot browser page error: "+"; ".join(failures))
+        if failures:raise RuntimeError("Godot rehearsal browser acceptance failed: "+"; ".join(failures))
         return report
 
 
