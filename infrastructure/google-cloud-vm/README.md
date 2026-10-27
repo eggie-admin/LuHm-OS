@@ -21,7 +21,7 @@ delegation, authenticated Site fix, or released beta.
   is also required to access the VM; this candidate creates neither.
 - The private NGINX test intentionally does not expose a ChatGPT MCP endpoint.
   Existing Render and the owner-private ChatGPT Site remain the current services.
-- **Google Cloud DNS is NOT activated**: canonical Cloudflare zone/NS, existing
+- `snapshot.sh --dry-run` plans a disk snapshot with zero API calls. An actual disk\n  snapshot is a separately billable GCE operation, gated behind VM boot and\n  exact-source verification, approved account identity and snapshot-cost authority.\n- **Google Cloud DNS is NOT activated**: canonical Cloudflare zone/NS, existing
   `mcp.`, `system.`, `assets.`, and `art.eggiebagelface.art` routes remain intact.
   A Google Cloud DNS migration is a separate paid, verified and reversible plan.
 - Network routing order: client → current Cloudflare DNS/optional reviewed edge

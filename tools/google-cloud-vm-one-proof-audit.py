@@ -32,5 +32,8 @@ assert "nginx -t" in installer and "systemctl enable --now nginx" in installer
 assert "--no-service-account" in provision and "no-address" in provision
 assert "EXPECTED_GOOGLE_ACCOUNT" in provision and "ALLOW_VM_COSTS" in provision
 assert "PRIVATE_APT_EGRESS_VERIFIED" in provision
+snapshot=(root/"infrastructure/google-cloud-vm/snapshot.sh").read_text()
+assert "NO_SNAPSHOT_CREATED=TRUE" in snapshot and "ALLOW_SNAPSHOT_COSTS" in snapshot
+assert "VM_BOOT_PROOF" in snapshot and "EXACT_SOURCE_VERIFIED" in snapshot
 assert "compute dns" not in provision and "firewall-rules create" not in provision
 print("PASS_ONE_PROOF_FOUR_CANON_TIERS_SOURCE_ONLY_PRIVATE_VM")

@@ -24,6 +24,9 @@ jobs:
           python3 tools/google-cloud-vm-one-proof-audit.py
           bash -n infrastructure/google-cloud-vm/install-web.sh
           bash -n infrastructure/google-cloud-vm/provision.sh
+          bash -n infrastructure/google-cloud-vm/snapshot.sh
+          bash infrastructure/google-cloud-vm/snapshot.sh --dry-run | tee /tmp/luhm-snapshot-dry-run.txt
+          grep -Fq 'NO_SNAPSHOT_CREATED=TRUE' /tmp/luhm-snapshot-dry-run.txt
           bash infrastructure/google-cloud-vm/provision.sh --dry-run | tee /tmp/luhm-vm-dry-run.txt
           grep -Fq 'NO_PROVIDER_CALLS=TRUE' /tmp/luhm-vm-dry-run.txt
           echo CLOUD_VM_SOURCE_ONLY_PASS
