@@ -1,0 +1,81 @@
+name: Witching Hour Final Boss · Private Candidate
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/game/witchingHourFinalBoss.gd'
+      - 'scripts/game/witchingHourFinalBossScene.gd'
+      - 'scenes/WitchingHourFinalBoss.tscn'
+      - 'scripts/game/gameHud.gd'
+      - 'scripts/main.gd'
+      - 'tests/witchingHourCastSmoke.gd'
+      - '.github/workflows/witching-hour-final-boss-candidate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  candidate-cast:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Check source and fixed authority boundaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          fx = Path('scripts/game/witchingHourFinalBoss.gd').read_text()
+          scene = Path('scripts/game/witchingHourFinalBossScene.gd').read_text()
+          main = Path('scripts/main.gd').read_text()
+          hud = Path('scripts/game/gameHud.gd').read_text()
+          assert 'ResourceLoader.exists(MUSIC)' in fx, 'audio must remain optional'
+          assert 'FourFlameLightCandidate' in fx and 'FictionalStaticWisp' in fx
+          assert 'CathedralWorldScript.new()' in scene
+          assert 'return_to_main' in scene and 'scenes/Main.tscn' in scene
+          assert 'final_cast_requested.connect(_enter_witching_hour_cast)' in main
+          assert 'final_cast_requested.emit()' in hud
+          forbidden = ('OS.execute(', 'HTTPClient.new(', 'HTTPRequest.new(', 'FileAccess.open(', 'DirAccess.remove_absolute(', 'JavaScriptBridge.eval(', 'shell(', 'worker.start(', 'api_key', 'Authorization:')
+          assert not any(term in fx + scene for term in forbidden), 'unapproved execution surface'
+          assert Path('scenes/WitchingHourFinalBoss.tscn').is_file()
+          print('WITCHING_HOUR_BOUNDARY_GREEN')
+          PY
+      - name: Download checksum-pinned Godot 4.7.2
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 4 -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          echo 'cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip' | sha256sum -c -
+          mkdir -p /tmp/godot
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+      - name: Parse full project including Final Boss
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          set +e
+          "$godot" --headless --editor --path . --quit 2>&1 | tee /tmp/parse.log
+          status=${PIPESTATUS[0]}
+          set -e
+          test "$status" -eq 0
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:|ERROR: Failed to load script' /tmp/parse.log; then exit 1; fi
+          echo WITCHING_HOUR_PARSE_GREEN
+      - name: Exercise Cathedral altar and one-button cast in Godot
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          set +e
+          timeout 60s "$godot" --headless --path . --script res://tests/witchingHourCastSmoke.gd 2>&1 | tee /tmp/cast.log
+          status=${PIPESTATUS[0]}
+          set -e
+          test "$status" -eq 0
+          grep -Fq WITCHING_HOUR_CAST_SCOPED_GREEN /tmp/cast.log
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:|WITCHING_HOUR_CAST_RED:' /tmp/cast.log; then exit 1; fi
+          echo WITCHING_HOUR_PRIVATE_CANDIDATE_GREEN
