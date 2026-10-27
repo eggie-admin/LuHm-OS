@@ -16,18 +16,34 @@ MOBILE_TOOL = "luhm_open_mobile_cockpit"
 APP_MIME = "text/html;profile=mcp-app"
 
 
-def validate(tools_reply: dict, resource_reply: dict) -> dict:
+def validate(tools_reply: object, resource_reply: object) -> dict:
     problems: list[str] = []
+    # Untrusted, sanitized captures must produce RED evidence, not exceptions.
+    if not isinstance(tools_reply, dict):
+        tools_reply = {}
+        problems.append("SITE_TOOLS_REPLY_MALFORMED")
+    if not isinstance(resource_reply, dict):
+        resource_reply = {}
+        problems.append("SITE_RESOURCE_REPLY_MALFORMED")
     tools = tools_reply.get("tools")
     if not isinstance(tools, list):
         tools = []
         problems.append("SITE_TOOLS_LIST_MISSING")
+    if any(not isinstance(t, dict) for t in tools):
+        problems.append("SITE_TOOLS_LIST_MALFORMED_ENTRY")
     found = [t for t in tools if isinstance(t, dict) and t.get("name") == MOBILE_TOOL]
     if len(found) != 1:
         problems.append("SITE_MOBILE_TOOL_NOT_UNIQUE")
     else:
-        metadata = found[0].get("_meta") or {}
-        if (metadata.get("ui") or {}).get("resourceUri") != MOBILE_URI:
+        metadata = found[0].get("_meta")
+        if not isinstance(metadata, dict):
+            if "_meta" in found[0]:
+                problems.append("SITE_TOOL_META_MALFORMED")
+            metadata = {}
+        ui_meta = metadata.get("ui")
+        if ui_meta is not None and not isinstance(ui_meta, dict):
+            problems.append("SITE_TOOL_UI_META_MALFORMED")
+        if (ui_meta.get("resourceUri") if isinstance(ui_meta, dict) else None) != MOBILE_URI:
             problems.append("SITE_TOOL_UI_RESOURCE_URI_MISSING")
         if metadata.get("openai/outputTemplate") != MOBILE_URI:
             problems.append("SITE_TOOL_OUTPUT_TEMPLATE_MISSING")
@@ -35,6 +51,8 @@ def validate(tools_reply: dict, resource_reply: dict) -> dict:
     if not isinstance(contents, list):
         contents = []
         problems.append("SITE_RESOURCE_READ_MISSING")
+    if any(not isinstance(p, dict) for p in contents):
+        problems.append("SITE_RESOURCE_READ_MALFORMED_ENTRY")
     found_pages = [p for p in contents if isinstance(p, dict) and p.get("uri") == MOBILE_URI]
     if len(found_pages) != 1:
         problems.append("SITE_MOBILE_UI_RESOURCE_NOT_UNIQUE")
@@ -50,8 +68,15 @@ def validate(tools_reply: dict, resource_reply: dict) -> dict:
                 problems.append("SITE_MOBILE_UI_OVERSIZED")
             if "<script" not in html.lower() or "ui/initialize" not in html:
                 problems.append("SITE_MOBILE_UI_HOST_BRIDGE_MISSING")
-        ui_meta = (page.get("_meta") or {}).get("ui") or {}
-        if not isinstance(ui_meta.get("csp"), dict):
+        read_meta = page.get("_meta")
+        if not isinstance(read_meta, dict):
+            if "_meta" in page:
+                problems.append("SITE_RESOURCE_META_MALFORMED")
+            read_meta = {}
+        ui_meta = read_meta.get("ui")
+        if ui_meta is not None and not isinstance(ui_meta, dict):
+            problems.append("SITE_RESOURCE_UI_META_MALFORMED")
+        if not isinstance(ui_meta.get("csp") if isinstance(ui_meta, dict) else None, dict):
             problems.append("SITE_MOBILE_UI_CSP_META_MISSING")
     return {
         "schema": "luhmOs.siteCastMountGuard.v1",
