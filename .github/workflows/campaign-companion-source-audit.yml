@@ -1,0 +1,48 @@
+name: campaign-companion-source-audit
+on:
+  pull_request:
+    paths:
+      - 'androidCampaignCompanion/**'
+      - 'publicationSite/**'
+      - 'tools/campaignCompanionSourceAudit.py'
+      - '.github/workflows/campaign-companion-source-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-and-unsigned-android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Read-only source check
+        run: python3 tools/campaignCompanionSourceAudit.py
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install Android SDK 36
+        shell: bash
+        run: |
+          set -euo pipefail
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-36' 'build-tools;36.1.0'
+      - name: Download pinned Gradle 8.13
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 3 -o "$RUNNER_TEMP/gradle.zip" https://services.gradle.org/distributions/gradle-8.13-bin.zip
+          echo "20f1b1176237254a6fc204d8434196fa11a4cfb387567519c61556e8710aed78  $RUNNER_TEMP/gradle.zip" | sha256sum -c -
+          unzip -q "$RUNNER_TEMP/gradle.zip" -d "$RUNNER_TEMP"
+      - name: Compile unsigned candidate only
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$RUNNER_TEMP/gradle-8.13/bin/gradle" --no-daemon -p androidCampaignCompanion :app:assembleRelease
+          test -s androidCampaignCompanion/app/build/outputs/apk/release/app-release-unsigned.apk
+          "$ANDROID_HOME/build-tools/36.1.0/aapt" dump badging androidCampaignCompanion/app/build/outputs/apk/release/app-release-unsigned.apk | tee "$RUNNER_TEMP/companion-badging.txt"
+          grep -Fq "package: name='art.eggiebagelface.luhmos.campaignpreview'" "$RUNNER_TEMP/companion-badging.txt"
+          sha256sum androidCampaignCompanion/app/build/outputs/apk/release/app-release-unsigned.apk
+          echo "UNSIGNED_ONLY_BUILD_NOT_INSTALLABLE"
