@@ -57,6 +57,23 @@ def collection(payload: object, key: str) -> list[dict]:
     return [x for x in value if isinstance(x, dict)] if isinstance(value, list) else []
 
 
+def unwrap_mcp_result(payload: object) -> object:
+    """Accept bare captures or JSON-RPC result envelopes; reject error replies.
+
+    Real MCP tools/list and resources/read can be saved as full JSON-RPC
+    responses. Never let an error or contradictory sibling entries masquerade
+    as a successful capture.
+    """
+    if not isinstance(payload, dict) or not any(
+            key in payload for key in ("jsonrpc", "result", "error")):
+        return payload
+    if ("error" in payload or not isinstance(payload.get("result"), dict)
+            or payload.get("jsonrpc", "2.0") != "2.0"
+            or any(key in payload for key in ("tools", "resources", "contents"))):
+        return {"_invalid_mcp_envelope": True}
+    return payload["result"]
+
+
 class ResourceHtmlParser(HTMLParser):
     """Structural HTML check; cannot prove JavaScript execution or app mounting."""
 
@@ -83,6 +100,9 @@ def html_from_content(view: dict) -> str | None:
 
 
 def inspect(tools: object, resources: object, resource_read: object) -> dict:
+    tools = unwrap_mcp_result(tools)
+    resources = unwrap_mcp_result(resources)
+    resource_read = unwrap_mcp_result(resource_read)
     issues = []
     # A valid matching entry cannot launder malformed siblings in an MCP
     # capture. Preserve optional resources/list and sanitized array captures,
@@ -211,6 +231,36 @@ def self_test() -> None:
             "_meta": {"ui": {"csp": {"connectDomains": [], "resourceDomains": []}}}}
     good = inspect({"tools": [tool]}, {"resources": [resource]}, {"contents": [read]})
     assert not good["issues"] and not good["chatGptInlineMountProven"]
+
+    # Real endpoint captures often include JSON-RPC 2.0 result envelopes.
+    # Accept the successful envelope without weakening malformed/error gates.
+    def rpc(payload: dict) -> dict:
+        return {"jsonrpc": "2.0", "id": 7, "result": payload}
+
+    wrapped = inspect(rpc({"tools": [tool]}),
+                      rpc({"resources": [resource]}),
+                      rpc({"contents": [read]}))
+    assert wrapped["captureStatus"] == "CAPTURE_CONSISTENT"
+    assert not wrapped["chatGptInlineMountProven"]
+    assert not inspect(rpc({"tools": [tool]}), None,
+                       rpc({"contents": [read]}))["issues"]
+    assert not inspect({"result": {"tools": [tool]}}, None,
+                       {"result": {"contents": [read]}})["issues"]
+    for invalid in (
+        {"jsonrpc": "2.0", "id": 7,
+         "error": {"code": -32603, "message": "read failed"}},
+        {"jsonrpc": "2.0", "id": 7, "result": []},
+        {"jsonrpc": "1.0", "result": {"tools": [tool]}},
+        {"result": {"tools": [tool]}, "tools": [tool]},
+    ):
+        assert inspect(invalid, None, {"contents": [read]})["issues"]
+    assert inspect({"tools": [tool]},
+                   {"jsonrpc": "2.0", "id": 7,
+                    "error": {"code": -32603, "message": "list failed"}},
+                   {"contents": [read]})["issues"]
+    assert inspect({"tools": [tool]}, None,
+                   {"jsonrpc": "2.0", "id": 7,
+                    "error": {"code": -32603, "message": "read failed"}})["issues"]
 
     # Valid matching entries must not hide malformed siblings in any
     # supplied MCP collection. UI-only resources/list may still be absent.
