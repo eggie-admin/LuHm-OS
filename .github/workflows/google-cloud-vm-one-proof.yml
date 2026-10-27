@@ -9,6 +9,12 @@ on:
       - 'tests/test-google-ai-candidate-proxy.py'
       - 'tools/git-sql-cast-align.py'
       - 'tests/test-git-sql-cast-align.py'
+      - 'host/harness/index.html'
+      - 'host/harness/samsung-art-desk.js'
+      - 'host/harness/samsung-art-desk.css'
+      - 'host/mcp/luhmHarness.py'
+      - 'infrastructure/samsung-art-desk/**'
+      - 'tests/test-samsung-art-desk.cjs'
       - '.github/workflows/google-cloud-vm-one-proof.yml'
   workflow_dispatch:
 permissions:
@@ -26,6 +32,8 @@ jobs:
         run: |
           set -euo pipefail
           python3 tools/google-cloud-vm-one-proof-audit.py
+          node --check host/harness/samsung-art-desk.js
+          node tests/test-samsung-art-desk.cjs
           python3 tests/test-git-sql-cast-align.py -v
           python3 tools/git-sql-cast-align.py --check | tee /tmp/luhm-git-sql-check.txt
           grep -Fq '"typedPacketCount": 2' /tmp/luhm-git-sql-check.txt
