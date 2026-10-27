@@ -90,7 +90,9 @@ def inspect(tools: object, resources: object, resource_read: object) -> dict:
             issues.append("site tool outputTemplate is malformed")
         if ui_uri != SITE_URI and fallback_uri != SITE_URI:
             issues.append("tool does not advertise the exact Site UI URI")
-        if ui_uri and fallback_uri and ui_uri != fallback_uri:
+        # A present but empty URI is contradictory evidence, not absence.
+        # Never let a valid fallback mask a supplied empty MCP Apps URI.
+        if ui_uri is not None and fallback_uri is not None and ui_uri != fallback_uri:
             issues.append("tool UI URI and outputTemplate disagree")
 
     # The MCP Apps specification permits UI-only resources to be omitted
@@ -209,6 +211,19 @@ def self_test() -> None:
                                          "openai/outputTemplate": 42}}
     assert any("outputTemplate is malformed" in x for x in inspect(
         {"tools": [bad_template_type]}, {"resources": [resource]},
+        {"contents": [read]})["issues"])
+
+    # Both metadata fields may be supported for compatibility, but a
+    # supplied empty value must not be laundered by the valid peer.
+    empty_ui_uri = {**tool, "_meta": {"ui": {"resourceUri": ""},
+                                    "openai/outputTemplate": SITE_URI}}
+    assert any("disagree" in x for x in inspect(
+        {"tools": [empty_ui_uri]}, {"resources": [resource]},
+        {"contents": [read]})["issues"])
+    empty_template = {**tool, "_meta": {"ui": {"resourceUri": SITE_URI},
+                                      "openai/outputTemplate": ""}}
+    assert any("disagree" in x for x in inspect(
+        {"tools": [empty_template]}, {"resources": [resource]},
         {"contents": [read]})["issues"])
 
     other = json.loads(json.dumps(tool))
