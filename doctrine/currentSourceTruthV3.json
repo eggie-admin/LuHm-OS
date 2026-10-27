@@ -1080,7 +1080,7 @@
     "crownStatus": "STOP"
   },
   "linuxStudioCollaboration": {
-    "contract": "doctrine/linux-studio-apple-collaboration-v1.json",
+    "contract": "doctrine/linuxStudioAppleCollaborationV1.json",
     "status": "PROPOSED_CANON_RECONCILIATION_NOT_PROMOTED",
     "sourceAuthority": "github",
     "developerWorkstations": "PROFESSOR_REPORTED_BOTH_LINUX_UNVERIFIED_HOST",

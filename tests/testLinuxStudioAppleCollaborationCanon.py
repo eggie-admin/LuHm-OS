@@ -7,7 +7,7 @@ import pathlib
 import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-CONTRACT = ROOT / "doctrine/linux-studio-apple-collaboration-v1.json"
+CONTRACT = ROOT / "doctrine/linuxStudioAppleCollaborationV1.json"
 TRUTH = ROOT / "doctrine/currentSourceTruthV3.json"
 
 
@@ -19,7 +19,7 @@ class LinuxStudioAppleCollaborationCanonTest(unittest.TestCase):
 
     def test_source_of_truth_pointer(self):
         pointer = self.truth["linuxStudioCollaboration"]
-        self.assertEqual(pointer["contract"], "doctrine/linux-studio-apple-collaboration-v1.json")
+        self.assertEqual(pointer["contract"], "doctrine/linuxStudioAppleCollaborationV1.json")
         self.assertFalse(pointer["promotion"])
         self.assertEqual(pointer["crownStatus"], "STOP")
         self.assertEqual(self.truth["crownStatus"], "STOP")
