@@ -108,7 +108,7 @@ def audit(presets: list[dict], gate: dict, identity: dict) -> dict:
 
 def self_test(presets: list[dict], gate: dict, identity: dict) -> None:
     base = audit(presets, gate, identity)
-    assert base["source"]["existingSourceTargetSdk"] == 36, "unexpected source SDK baseline"
+    assert base["source"]["existingSourceTargetSdk"] is not None and base["source"]["existingSourceTargetSdk"] >= 36, "source target SDK below Google Play floor"
     assert base["evidence"]["sourceTargetSdkAtLeast36"], "SDK 36 no longer configured"
     assert not base["googlePlayReady"], "source alone cannot prove public release"
     assert not base["evidence"]["playAabBuiltAndIndependentlyVerified"]
