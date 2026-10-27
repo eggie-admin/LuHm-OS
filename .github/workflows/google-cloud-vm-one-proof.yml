@@ -1,0 +1,29 @@
+name: LuHm Google Cloud Private VM + One Proof · Offline Audit
+on:
+  pull_request:
+    paths:
+      - 'infrastructure/google-cloud-vm/**'
+      - 'doctrine/crown-single-proof-v1.json'
+      - 'tools/google-cloud-vm-one-proof-audit.py'
+      - '.github/workflows/google-cloud-vm-one-proof.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-vm-guard:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify zero-mutation VM, DNS, single proof and shell syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/google-cloud-vm-one-proof-audit.py
+          bash -n infrastructure/google-cloud-vm/install-web.sh
+          bash -n infrastructure/google-cloud-vm/provision.sh
+          bash infrastructure/google-cloud-vm/provision.sh --dry-run | tee /tmp/luhm-vm-dry-run.txt
+          grep -Fq 'NO_PROVIDER_CALLS=TRUE' /tmp/luhm-vm-dry-run.txt
+          echo CLOUD_VM_SOURCE_ONLY_PASS

@@ -1,0 +1,93 @@
+{
+  "schema": "luhmOs.crownSingleProof.v1",
+  "status": "SOURCE_TEMPLATE_ONLY",
+  "sourceAuthority": "eggie-admin/LuHm-OS",
+  "sourceRef": "ca369e6925406e9a00008bbc629bb5db67a7d02c",
+  "purpose": "One append-only SQL/JSON-compatible evidence envelope; no competing tier authorities or proof files",
+  "proofId": "cloud-vm-strict-web-candidate-20261027",
+  "taskId": "googleCloudStrictVmPreview",
+  "scopeId": "privateCloudWebCandidate",
+  "tiers": [
+    {
+      "tier": 1,
+      "id": "mythicRitualLayer",
+      "evidenceRefs": [],
+      "state": "SOURCE_INTENT_ONLY"
+    },
+    {
+      "tier": 2,
+      "id": "corporateResearchAndGameDevelopment",
+      "evidenceRefs": [],
+      "state": "SOURCE_CANDIDATE"
+    },
+    {
+      "tier": 3,
+      "id": "yumeProofStudio",
+      "evidenceRefs": [],
+      "state": "NO_RUNTIME_SHOWCASE_PROOF"
+    },
+    {
+      "tier": 4,
+      "id": "partnerPublicShowcase",
+      "evidenceRefs": [],
+      "state": "BLOCKED_EXTERNAL_INVITE"
+    }
+  ],
+  "evidence": {
+    "source": {
+      "commitSha": null,
+      "ciRunUrl": null,
+      "state": "PENDING"
+    },
+    "cloud": {
+      "projectIdentityVerified": false,
+      "billingVerified": false,
+      "instanceCreated": false,
+      "bootReceipt": null,
+      "diskSnapshotCreated": false,
+      "state": "UNVERIFIED"
+    },
+    "web": {
+      "nginxHttpReceipt": null,
+      "sslReceipt": null,
+      "domainVerified": false,
+      "state": "UNVERIFIED"
+    },
+    "site": {
+      "uiMountAndroid": false,
+      "cacheBridgeGreen": false,
+      "touchUndoProven": false,
+      "state": "RED"
+    },
+    "beta": {
+      "externalChatGptPluginShareSupported": false,
+      "inviteApprovedForCurrentArtifact": false,
+      "rightsAndPrivacyCleared": false,
+      "externalInstallProven": false,
+      "state": "BLOCKED"
+    }
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "security": {
+    "providerSecretsInGit": false,
+    "publicBeta": false,
+    "newRecurringSpend": false,
+    "mutableSourceLaneCount": 1,
+    "sourceAndHostAreSeparate": true
+  },
+  "gate": {
+    "crown": "STOP",
+    "reason": "DO_NOT_PROMOTE_SOURCE_FIX_AS_LIVE_PROVIDER_OR_CHATGPT_DEVICE_PROOF"
+  },
+  "repeatWorkAvoidance": [
+    "doNotRepeatManualAppCreation",
+    "doNotRecreateSiteOrRenderServices",
+    "doNotAskToResubmitConfirmedEntitlementEmails",
+    "doNotDuplicateAgentThreads",
+    "doNotRequireManualInstallWhenAuthorizedAutomationIsAvailable",
+    "doNotCopyPrivateMediaIntoPublicRepository",
+    "doNotMultiplyProofDocuments",
+    "doNotChangeLegacyDnsWithoutProof",
+    "doNotInviteAlexUntilSupportedTesterInstall"
+  ]
+}
