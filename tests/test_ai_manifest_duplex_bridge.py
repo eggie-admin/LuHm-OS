@@ -31,6 +31,39 @@ class AiManifestDuplexBridgeTests(unittest.TestCase):
                 self.assertEqual(mod.decode_frame(wire).lane, 3)
                 self.assertEqual(mod.decode_frame(wire).stream_id, mod.STREAM_IDS[track])
 
+    def test_live_in_memory_duplex_with_two_tracks_and_durable_acks(self):
+        # This is an offline proof of traffic BOTH directions, not provider I/O.
+        from duplexTypedBusCodec import DuplexPeer
+        app_peer = DuplexPeer(max_in_flight=1)
+        plugin_peer = DuplexPeer(max_in_flight=1)
+        app_packet = task("app")
+        plugin_packet = task("plugin")
+        app_wire = app_peer.send(
+            stream_id=mod.STREAM_IDS["app"], lane=3,
+            payload=mod.validate_manifest(app_packet), correlation_id=416)
+        plugin_wire = plugin_peer.send(
+            stream_id=mod.STREAM_IDS["plugin"], lane=3,
+            payload=mod.validate_manifest(plugin_packet), correlation_id=427)
+        self.assertEqual(app_peer.receive(plugin_wire)[0], "needsDurableCommit")
+        self.assertEqual(plugin_peer.receive(app_wire)[0], "needsDurableCommit")
+        self.assertEqual(len(app_peer.pending), 1)
+        self.assertEqual(len(plugin_peer.pending), 1)
+        status_app, app_ack, app_received = plugin_peer.receive(app_wire, durable_commit=True)
+        status_plugin, plugin_ack, plugin_received = app_peer.receive(
+            plugin_wire, durable_commit=True)
+        self.assertEqual((status_app, status_plugin), ("accepted", "accepted"))
+        self.assertEqual((app_received.correlation_id, plugin_received.correlation_id),
+                         (416, 427))
+        self.assertEqual(mod.decode_offline_frame(
+            app_wire, expected_track="app", expected_sha=SOURCE), app_packet)
+        self.assertEqual(mod.decode_offline_frame(
+            plugin_wire, expected_track="plugin", expected_sha=SOURCE), plugin_packet)
+        app_peer.receive(app_ack)
+        plugin_peer.receive(plugin_ack)
+        self.assertFalse(app_peer.pending)
+        self.assertFalse(plugin_peer.pending)
+        self.assertEqual((app_peer.received[12], plugin_peer.received[11]), (1, 1))
+
     def test_cross_track_and_source_replay_rejected(self):
         wire = mod.offline_frame(task("app"), track="app", correlation_id=1)
         with self.assertRaisesRegex(ValueError, "RED_WRONG_MANIFEST_STREAM"):
