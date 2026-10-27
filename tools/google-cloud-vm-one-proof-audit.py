@@ -2,6 +2,7 @@
 """Offline strict-security and one-proof gate; never contact Google or DNS."""
 from pathlib import Path
 import json
+import sqlite3
 
 root=Path(__file__).resolve().parents[1]
 profile=json.loads((root/"infrastructure/google-cloud-vm/vm-profile.json").read_text())
@@ -36,4 +37,13 @@ snapshot=(root/"infrastructure/google-cloud-vm/snapshot.sh").read_text()
 assert "NO_SNAPSHOT_CREATED=TRUE" in snapshot and "ALLOW_SNAPSHOT_COSTS" in snapshot
 assert "VM_BOOT_PROOF" in snapshot and "EXACT_SOURCE_VERIFIED" in snapshot
 assert "compute dns" not in provision and "firewall-rules create" not in provision
+# Real SQLite JSON1 proof table, in memory only; no VM, network or disk mutation.
+db=sqlite3.connect(":memory:")
+db.executescript((root/"infrastructure/google-cloud-vm/one-proof.sql").read_text())
+db.execute("INSERT INTO crownProof(proofId, taskId, scopeId, sourceRef, envelopeJson) VALUES (?, ?, ?, ?, ?)",
+           (proof["proofId"],proof["taskId"],proof["scopeId"],proof["sourceRef"],json.dumps(proof)))
+row=db.execute("SELECT JSON_VALID(envelopeJson), JSON_ARRAY_LENGTH(JSON_EXTRACT(envelopeJson, '$.tiers')), sourceRef FROM crownProof WHERE proofId = ?",
+               (proof["proofId"],)).fetchone()
+assert row==(1,4,proof["sourceRef"])
+db.close()
 print("PASS_ONE_PROOF_FOUR_CANON_TIERS_SOURCE_ONLY_PRIVATE_VM")
