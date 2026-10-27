@@ -142,6 +142,15 @@ def self_test():
     prior.extend(["LUHM_REHEARSAL_TALK_ROUTE:urd", "LUHM_REHEARSAL_DANCE_ROUTE:urd"])
     assert observed_route_after(prior, "TALK", "urd", boundary)
     assert observed_route_after(prior, "DANCE", "urd", boundary)
+    # Completion must occur after the final character action, not at menu or earlier routes.
+    quest_messages = ["LUHM_REHEARSAL_QUEST_COMPLETE"]
+    quest_boundary = len(quest_messages)
+    assert not observed_after(quest_messages, "LUHM_REHEARSAL_QUEST_COMPLETE", quest_boundary)
+    quest_messages.extend(["LUHM_REHEARSAL_QUEST_COMPLETE:spoof", "prefix_LUHM_REHEARSAL_QUEST_COMPLETE"])
+    assert not observed_after(quest_messages, "LUHM_REHEARSAL_QUEST_COMPLETE", quest_boundary)
+    quest_messages.append("LUHM_REHEARSAL_QUEST_COMPLETE")
+    assert observed_after(quest_messages, "LUHM_REHEARSAL_QUEST_COMPLETE", quest_boundary)
+    print("GREEN_GODOT_BROWSER_QUEST_COMPLETION_NEGATIVE_TESTS")
     print("GREEN_GODOT_BROWSER_CHARACTER_ROUTE_NEGATIVE_TESTS")
     print("GREEN_GODOT_BROWSER_MARKER_SCOPE_NEGATIVE_TESTS")
     print("GREEN_GODOT_WEB_ASSET_NEGATIVE_TESTS")
@@ -171,6 +180,7 @@ def run_browser(root,output):
             menuProof=output.parent/"cathedralMenu.png"
             rehearsalProof=output.parent/"rehearsalStage.png"
             interactionProof=output.parent/"rehearsalInteractions.png"
+            questProof=output.parent/"rehearsalQuestComplete.png"
             page.screenshot(path=str(menuProof),full_page=True)
             box=canvas.bounding_box()
             if box is None or box["width"] < 300 or box["height"] < 180:
@@ -209,23 +219,43 @@ def run_browser(root,output):
             page.wait_for_timeout(450)
             urd_talk_verified = observed_route_after(runtime_markers, "TALK", "urd", urd_talk_start)
             page.screenshot(path=str(interactionProof),full_page=True)
-            talk_verified=lum_talk_verified and urd_talk_verified
+            # Complete the remaining two character routes in this same browser session.
+            # A quest marker from startup or any earlier action is inadmissible.
+            page.keyboard.press("ArrowRight")
+            page.wait_for_timeout(150)
+            belldandy_talk_start = len(runtime_markers)
+            page.keyboard.press("t")
+            page.wait_for_timeout(450)
+            belldandy_talk_verified = observed_route_after(runtime_markers, "TALK", "belldandy", belldandy_talk_start)
+            page.keyboard.press("ArrowRight")
+            page.wait_for_timeout(150)
+            skuld_talk_start = len(runtime_markers)
+            page.keyboard.press("t")
+            page.wait_for_timeout(450)
+            skuld_talk_verified = observed_route_after(runtime_markers, "TALK", "skuld", skuld_talk_start)
+            quest_verified = observed_after(runtime_markers, "LUHM_REHEARSAL_QUEST_COMPLETE", skuld_talk_start)
+            page.screenshot(path=str(questProof),full_page=True)
+            talk_verified=lum_talk_verified and urd_talk_verified and belldandy_talk_verified and skuld_talk_verified
             dance_verified=lum_dance_verified
             if not stage_verified: failures.append("one-tap deep link never opened the rehearsal scene")
             if not lum_talk_verified: failures.append("Lum TALK route was not observed after T")
             if not lum_dance_verified: failures.append("Lum DANCE route was not observed after D")
             if not urd_talk_verified: failures.append("Urd TALK route was not observed after character selection")
+            if not belldandy_talk_verified: failures.append("Belldandy TALK route was not observed after character selection")
+            if not skuld_talk_verified: failures.append("Skuld TALK route was not observed after character selection")
+            if not quest_verified: failures.append("Cathedral Circle completion was not observed after the final TALK")
             report={"schema":"luhmOs.godotBrowserSmoke.v1","status":"GREEN_REHEARSAL_RUNTIME_INTERACTIONS" if not failures else "RED_REHEARSAL_NOT_PROVEN",
                     "browser":"Chromium headless","canvasVisible":True,
                     "keyboardEventsDispatched":True,"rehearsalDeepLinkRequested":True,
                     "rehearsalClickDispatched":False,
                     "rehearsalSceneVerified":stage_verified,"talkRouteVerified":talk_verified,"danceRouteVerified":dance_verified,
                     "secondCharacterRouteVerified":urd_talk_verified,
+                    "questRuntimeMarkerVerified":quest_verified,
                     "playableQuestProgressProven":False,
                     "touchOnSamsungProven":False,"chatGptHostProven":False,
-                    "errors":failures,"observedRuntimeMarkers":runtime_markers[-12:],"screenshot":interactionProof.name,
-                    "additionalScreenshots":[menuProof.name,rehearsalProof.name],
-                    "proofLimit":"exact character-scoped runtime markers prove Lum TALK/DANCE and Urd TALK after selection; rendered 3D acceptance, quests, Samsung touch, and ChatGPT remain separate",
+                    "errors":failures,"observedRuntimeMarkers":runtime_markers[-16:],"screenshot":questProof.name,
+                    "additionalScreenshots":[menuProof.name,rehearsalProof.name,interactionProof.name],
+                    "proofLimit":"character-scoped browser runtime markers cover all four TALK routes, Lum DANCE and quest completion; rendered 3D and visible quest acceptance, Samsung touch, and ChatGPT remain separate",
                     "crownStatus":"STOP"}
             output.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
             browser.close()

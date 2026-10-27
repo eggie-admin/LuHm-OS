@@ -25,6 +25,7 @@ var _dance_until := 0.0
 # Local session progression only; no server data or publication authority.
 var _bond_points := [0, 0, 0, 0]
 var _dialogue_turns := [0, 0, 0, 0]
+var _quest_completion_reported := false
 const ROUTE_LINES := [
     ["Lum: You found the Cathedral. Now let's make an actual memory.", "Lum: Professor, the neon river feels almost like home.", "Lum: Back again? Let's make this night ours."],
     ["Urd: Try not to trip the breakers. I only just painted these runes.", "Urd: Dramatic lighting is a science. A very attractive science.", "Urd: See? You survived a conversation with me."],
@@ -300,6 +301,10 @@ func _route_status() -> String:
     for points in _bond_points:
         if points < 1:
             met_all = false
+    if met_all and not _quest_completion_reported:
+        _quest_completion_reported = true
+        if OS.has_feature("web"):
+            print("LUHM_REHEARSAL_QUEST_COMPLETE")
     var quest := "CATHEDRAL CIRCLE COMPLETE" if met_all else "Meet every goddess to complete the circle"
     return "BOND %d/9 · %s · Session only" % [_bond_points[active_index], quest]
 
