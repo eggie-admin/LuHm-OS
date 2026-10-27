@@ -55,6 +55,11 @@ def inspect_export(root):
     return {"html":html.name,"js":js.name,"wasm":[p.name for p in wasm],"pck":[p.name for p in pck],"checkedFiles":len(entries)}
 
 
+def observed_after(messages, marker, offset=0):
+    """Require runtime evidence emitted within the current navigation/action window."""
+    return any(marker in message for message in messages[offset:])
+
+
 def self_test():
     from tempfile import TemporaryDirectory
     with TemporaryDirectory() as folder:
@@ -110,6 +115,15 @@ def self_test():
         try:inspect_export(root)
         except ValueError:pass
         else:raise AssertionError("corrupted Godot pack accepted")
+    # A menu/previous navigation marker cannot satisfy a new stage or action.
+    old = ["LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_TALK_ROUTE:lum", "LUHM_REHEARSAL_DANCE_ROUTE:lum"]
+    boundary = len(old)
+    for token in ("LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_TALK_ROUTE:", "LUHM_REHEARSAL_DANCE_ROUTE:"):
+        assert not observed_after(old, token, boundary), "stale browser marker accepted"
+    old.extend(["LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_TALK_ROUTE:urd", "LUHM_REHEARSAL_DANCE_ROUTE:urd"])
+    for token in ("LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_TALK_ROUTE:", "LUHM_REHEARSAL_DANCE_ROUTE:"):
+        assert observed_after(old, token, boundary), "current browser marker missed"
+    print("GREEN_GODOT_BROWSER_MARKER_SCOPE_NEGATIVE_TESTS")
     print("GREEN_GODOT_WEB_ASSET_NEGATIVE_TESTS")
 
 
@@ -143,14 +157,19 @@ def run_browser(root,output):
                 raise RuntimeError("Godot canvas position not observable")
             # One-tap public demo deep link replaces fragile pixel-guessing
             # at the Godot menu; preserve the menu as a separate screenshot.
+            # Discard menu-phase console markers before measuring the deep link.
+            runtime_markers.clear()
             page.goto(f"http://127.0.0.1:{port}/index.html?luhmScene=rehearsal",
                       wait_until="domcontentloaded",timeout=60000)
             page.wait_for_function("() => !!document.querySelector('canvas')",timeout=120000)
             for _ in range(180):
-                if any("LUHM_REHEARSAL_STAGE_READY" in msg for msg in runtime_markers):
+                if observed_after(runtime_markers, "LUHM_REHEARSAL_STAGE_READY"):
                     break
                 page.wait_for_timeout(500)
             page.screenshot(path=str(rehearsalProof),full_page=True)
+            # TALK/DANCE evidence must be emitted after the keyboard actions,
+            # not during startup or an earlier menu navigation.
+            action_start = len(runtime_markers)
             # Key events must reach the actual Godot scene after it loaded.
             page.evaluate("() => {const c=document.querySelector('canvas'); if(c)c.focus();}")
             page.keyboard.press("t")
@@ -161,9 +180,9 @@ def run_browser(root,output):
             page.keyboard.press("t")
             page.wait_for_timeout(450)
             page.screenshot(path=str(interactionProof),full_page=True)
-            stage_verified=any("LUHM_REHEARSAL_STAGE_READY" in msg for msg in runtime_markers)
-            talk_verified=any("LUHM_REHEARSAL_TALK_ROUTE:" in msg for msg in runtime_markers)
-            dance_verified=any("LUHM_REHEARSAL_DANCE_ROUTE:" in msg for msg in runtime_markers)
+            stage_verified=observed_after(runtime_markers, "LUHM_REHEARSAL_STAGE_READY")
+            talk_verified=observed_after(runtime_markers, "LUHM_REHEARSAL_TALK_ROUTE:", action_start)
+            dance_verified=observed_after(runtime_markers, "LUHM_REHEARSAL_DANCE_ROUTE:", action_start)
             if not stage_verified: failures.append("one-tap deep link never opened the rehearsal scene")
             if not talk_verified: failures.append("TALK handler was not observed")
             if not dance_verified: failures.append("DANCE handler was not observed")
