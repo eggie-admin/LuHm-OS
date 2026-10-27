@@ -21,6 +21,10 @@ def inspect_export(root):
     html=root/"index.html"
     if not html.is_file() or not html.stat().st_size:
         raise ValueError("missing nonempty HTML")
+    # The Godot HTML cannot boot without its JS loader, even when WASM/PCK hash correctly.
+    js=root/"index.js"
+    if not js.is_file() or not js.stat().st_size:
+        raise ValueError("missing nonempty Godot JS loader")
     wasm=sorted(root.glob("*.wasm"))
     pck=sorted(root.glob("*.pck"))
     if not wasm or not pck or any(not p.stat().st_size for p in wasm+pck):
@@ -38,9 +42,9 @@ def inspect_export(root):
         if not item.is_file() or hashlib.sha256(item.read_bytes()).hexdigest()!=match.group(1):
             raise ValueError("export hash mismatch:"+rel)
         entries[rel]=match.group(1)
-    if not all(p.name in entries for p in wasm+pck+[html]):
+    if not all(p.name in entries for p in wasm+pck+[html,js]):
         raise ValueError("export not fully included in hash manifest")
-    return {"html":html.name,"wasm":[p.name for p in wasm],"pck":[p.name for p in pck],"checkedFiles":len(entries)}
+    return {"html":html.name,"js":js.name,"wasm":[p.name for p in wasm],"pck":[p.name for p in pck],"checkedFiles":len(entries)}
 
 
 def self_test():
@@ -50,11 +54,25 @@ def self_test():
         try:inspect_export(root)
         except ValueError:pass
         else:raise AssertionError("empty export accepted")
-        for name in ("index.html","index.wasm","index.pck"):
+        for name in ("index.html","index.js","index.wasm","index.pck"):
             (root/name).write_bytes(b"x")
-        content="".join(hashlib.sha256((root/n).read_bytes()).hexdigest()+"  "+n+"\n" for n in ("index.html","index.wasm","index.pck"))
+        content="".join(hashlib.sha256((root/n).read_bytes()).hexdigest()+"  "+n+"\n" for n in ("index.html","index.js","index.wasm","index.pck"))
         (root/"SHA256SUMS.txt").write_text(content,encoding="utf-8")
-        assert inspect_export(root)["checkedFiles"]==3
+        assert inspect_export(root)["checkedFiles"]==4
+        # A valid HTML/WASM/PCK bundle with no JS loader is not a bootable export.
+        (root/"index.js").unlink()
+        try:inspect_export(root)
+        except ValueError as exc:assert "JS loader" in str(exc)
+        else:raise AssertionError("missing Godot JS loader accepted")
+        (root/"index.js").write_bytes(b"")
+        try:inspect_export(root)
+        except ValueError as exc:assert "JS loader" in str(exc)
+        else:raise AssertionError("empty Godot JS loader accepted")
+        (root/"index.js").write_bytes(b"spoof")
+        try:inspect_export(root)
+        except ValueError as exc:assert "index.js" in str(exc)
+        else:raise AssertionError("corrupted Godot JS loader accepted")
+        (root/"index.js").write_bytes(b"x")
         (root/"index.pck").write_bytes(b"spoof")
         try:inspect_export(root)
         except ValueError:pass
