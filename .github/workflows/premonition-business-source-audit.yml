@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'doctrine/premonitionBusinessLaunchV1.yaml'
+      - 'doctrine/metaBusinessConnectorV1.yaml'
+      - 'tests/testMetaBusinessConnector.py'
       - 'tests/testPremonitionBusinessLaunch.py'
       - '.github/workflows/premonition-business-source-audit.yml'
   workflow_dispatch:
@@ -26,12 +28,17 @@ jobs:
       - name: Parse reviewed YAML
         run: python3 -m pip install --break-system-packages 'PyYAML==6.0.2'
       - name: Validate business source only
-        run: python3 -m unittest discover -s tests -p 'testPremonitionBusinessLaunch.py' -v
+        run: |
+          python3 -m unittest discover -s tests -p 'testPremonitionBusinessLaunch.py' -v
+          python3 -m unittest discover -s tests -p 'testMetaBusinessConnector.py' -v
       - name: Print evidence ceiling
         run: |
           echo 'PRIVATE_OWNER_INSTAGRAM_VERIFICATION=REPORTED_NOT_COPIED_TO_PUBLIC_SOURCE'
           echo 'SAMSUNG_COMMERCIAL_SELLER_APPROVAL=UNVERIFIED'
           echo 'META_MONETIZATION_ELIGIBILITY=UNVERIFIED'
+          echo 'META_OWNER_OAUTH=REQUIRES_CONNECTION_IN_CHAT'
+          echo 'INSTAGRAM_LOGIN_MINIMUM_SCOPE=instagram_business_basic'
+          echo 'META_PUBLISH_SPEND_AND_DM_WRITE=OFF'
           echo 'DBA_DOCUMENTS_AND_SIGNING_KEYS=PRIVATE_NOT_READ'
           echo 'BUSINESS_ACCOUNT_CONNECTIONS_AND_PUBLICATION=NONE'
           echo 'SOURCE_REVIEW_ONLY=TRUE'
