@@ -62,10 +62,17 @@ def inspect(tools: object, resources: object, resource_read: object) -> dict:
     else:
         meta = tool_matches[0].get("_meta", {})
         if not isinstance(meta, dict):
+            issues.append("site tool _meta is malformed")
             meta = {}
-        ui = meta.get("ui", {})
+        ui = meta.get("ui")
+        if ui is not None and not isinstance(ui, dict):
+            issues.append("site tool UI metadata is malformed")
         ui_uri = ui.get("resourceUri") if isinstance(ui, dict) else None
+        if isinstance(ui, dict) and "resourceUri" in ui and not isinstance(ui_uri, str):
+            issues.append("site tool resourceUri is malformed")
         fallback_uri = meta.get("openai/outputTemplate")
+        if "openai/outputTemplate" in meta and not isinstance(fallback_uri, str):
+            issues.append("site tool outputTemplate is malformed")
         if ui_uri != SITE_URI and fallback_uri != SITE_URI:
             issues.append("tool does not advertise the exact Site UI URI")
         if ui_uri and fallback_uri and ui_uri != fallback_uri:
@@ -150,6 +157,26 @@ def self_test() -> None:
             "_meta": {"ui": {"csp": {"connectDomains": [], "resourceDomains": []}}}}
     good = inspect({"tools": [tool]}, {"resources": [resource]}, {"contents": [read]})
     assert not good["issues"] and not good["chatGptInlineMountProven"]
+
+    # A valid legacy outputTemplate must not conceal malformed MCP Apps
+    # metadata in an otherwise successful same-endpoint capture.
+    bad_meta = {**tool, "_meta": "invalid"}
+    assert any("_meta" in x for x in inspect({"tools": [bad_meta]},
+        {"resources": [resource]}, {"contents": [read]})["issues"])
+    bad_ui = {**tool, "_meta": {"ui": "invalid",
+                               "openai/outputTemplate": SITE_URI}}
+    assert any("UI metadata" in x for x in inspect({"tools": [bad_ui]},
+        {"resources": [resource]}, {"contents": [read]})["issues"])
+    bad_uri_type = {**tool, "_meta": {"ui": {"resourceUri": 42},
+                                    "openai/outputTemplate": SITE_URI}}
+    assert any("resourceUri is malformed" in x for x in inspect(
+        {"tools": [bad_uri_type]}, {"resources": [resource]},
+        {"contents": [read]})["issues"])
+    bad_template_type = {**tool, "_meta": {"ui": {"resourceUri": SITE_URI},
+                                         "openai/outputTemplate": 42}}
+    assert any("outputTemplate is malformed" in x for x in inspect(
+        {"tools": [bad_template_type]}, {"resources": [resource]},
+        {"contents": [read]})["issues"])
 
     other = json.loads(json.dumps(tool))
     other["_meta"]["ui"]["resourceUri"] = "ui://luhm-os/cockpit-v2.html"
