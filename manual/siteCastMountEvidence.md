@@ -12,15 +12,15 @@
 
 Only an authorized backend/Sites editor or introspection tool for the **same actual Site MCP endpoint** can collect matching sanitized `tools/list` and `resources/read` outputs. A `resources/list` capture is optional: the MCP Apps specification explicitly permits UI-only resources to be omitted from discovery listings. Never commit host tokens, cookies, private media, raw personal information, server secrets, or unreviewed proprietary artwork. Obtain exact tool metadata (especially `_meta.ui.resourceUri` or `_meta["openai/outputTemplate"]`), resource MIME `text/html;profile=mcp-app`, and nonempty HTML from `text` **or base64 `blob`**. MCP Apps allows `ui.csp` to be omitted (the host applies restrictive defaults); when supplied, CSP must be a valid object of domain lists. The resource must be registered on the same connected endpoint advertised by the tool. A `<script>` tag is only a structural hint and **never proof of a working MCP bridge**.
 
-The local guard checks consistency and fails closed:
+The cockpit guard supplements the already-merged **mobile** Site guard (`tools/siteCastMountGuard.py`). It deliberately does not replace its `luhm_open_mobile_cockpit` validations or regression tests. Both tools require real same-Site endpoint evidence, but examine distinct resource URIs. The cockpit guard checks consistency and fails closed:
 
 ```bash
-python3 tools/siteCastMountGuard.py --self-test
-python3 tools/siteCastMountGuard.py \
+python3 tools/siteCastCockpitResourceGuard.py --self-test
+python3 tools/siteCastCockpitResourceGuard.py \
   --tools /path/to/sanitized-tools-list.json \
   --resource-read /path/to/sanitized-resource-read.json
 # Optional, only if the Site MCP endpoint exposes UI resource discovery:
-python3 tools/siteCastMountGuard.py --tools /path/to/sanitized-tools-list.json \
+python3 tools/siteCastCockpitResourceGuard.py --tools /path/to/sanitized-tools-list.json \
   --resources /path/to/sanitized-resources-list.json \
   --resource-read /path/to/sanitized-resource-read.json
 ```
