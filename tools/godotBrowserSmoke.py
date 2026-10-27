@@ -19,10 +19,14 @@ class QuietHandler(http.server.SimpleHTTPRequestHandler):
 
 def inspect_export(root):
     html=root/"index.html"
+    if html.is_symlink():
+        raise ValueError("symlinked HTML export")
     if not html.is_file() or not html.stat().st_size:
         raise ValueError("missing nonempty HTML")
     # The Godot HTML cannot boot without its JS loader, even when WASM/PCK hash correctly.
     js=root/"index.js"
+    if js.is_symlink():
+        raise ValueError("symlinked Godot JS loader")
     if not js.is_file() or not js.stat().st_size:
         raise ValueError("missing nonempty Godot JS loader")
     wasm=sorted(root.glob("*.wasm"))
@@ -30,6 +34,8 @@ def inspect_export(root):
     if not wasm or not pck or any(not p.stat().st_size for p in wasm+pck):
         raise ValueError("missing nonempty wasm or pck")
     record=root/"SHA256SUMS.txt"
+    if record.is_symlink():
+        raise ValueError("symlinked export integrity list")
     if not record.is_file():
         raise ValueError("missing exported file integrity list")
     entries={}
@@ -39,6 +45,8 @@ def inspect_export(root):
         rel=match.group(2).removeprefix("./")
         if Path(rel).name!=rel or rel in entries:raise ValueError("invalid export path")
         item=root/rel
+        if item.is_symlink():
+            raise ValueError("symlinked export asset:"+rel)
         if not item.is_file() or hashlib.sha256(item.read_bytes()).hexdigest()!=match.group(1):
             raise ValueError("export hash mismatch:"+rel)
         entries[rel]=match.group(1)
@@ -58,6 +66,31 @@ def self_test():
             (root/name).write_bytes(b"x")
         content="".join(hashlib.sha256((root/n).read_bytes()).hexdigest()+"  "+n+"\n" for n in ("index.html","index.js","index.wasm","index.pck"))
         (root/"SHA256SUMS.txt").write_text(content,encoding="utf-8")
+        assert inspect_export(root)["checkedFiles"]==4
+        # Hash-valid symlinks are not safe: the local HTTP server follows them.
+        # This catches links even when they point to an identical byte sequence.
+        (root/"index.js").unlink()
+        (root/"index.js").symlink_to("index.wasm")
+        try:inspect_export(root)
+        except ValueError as exc:assert "symlink" in str(exc)
+        else:raise AssertionError("symlinked Godot JS loader accepted")
+        (root/"index.js").unlink()
+        (root/"index.js").write_bytes(b"x")
+        (root/"index.wasm").unlink()
+        (root/"index.wasm").symlink_to("index.js")
+        try:inspect_export(root)
+        except ValueError as exc:assert "symlink" in str(exc)
+        else:raise AssertionError("symlinked WASM asset accepted")
+        (root/"index.wasm").unlink()
+        (root/"index.wasm").write_bytes(b"x")
+        record=root/"SHA256SUMS.txt"
+        record.rename(root/"manifest.txt")
+        record.symlink_to("manifest.txt")
+        try:inspect_export(root)
+        except ValueError as exc:assert "symlink" in str(exc)
+        else:raise AssertionError("symlinked integrity manifest accepted")
+        record.unlink()
+        (root/"manifest.txt").rename(record)
         assert inspect_export(root)["checkedFiles"]==4
         # A valid HTML/WASM/PCK bundle with no JS loader is not a bootable export.
         (root/"index.js").unlink()
