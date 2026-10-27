@@ -161,10 +161,10 @@ def self_test() -> None:
                        {"contents": [blob_read]})["issues"]
     broken_blob = {**blob_read, "blob": "not_base64!"}
     assert any("HTML" in x for x in inspect({"tools": [tool]},
-        {"resources": [resource]}, {"contents": [broken_blob]})["issues"]
+        {"resources": [resource]}, {"contents": [broken_blob]})["issues"])
     wrong_listing_mime = {**resource, "mimeType": "text/html"}
     assert any("MIME" in x for x in inspect({"tools": [tool]},
-        {"resources": [wrong_listing_mime]}, {"contents": [read]})["issues"])
+        {"resources": [wrong_listing_mime]}, {"contents": [read]})["issues"]))
     no_resource = inspect({"tools": [tool]}, {"resources": []},
                           {"contents": [read]})
     assert no_resource["issues"]
