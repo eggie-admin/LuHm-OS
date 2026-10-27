@@ -71,10 +71,13 @@ def inspect(tools: object, resources: object, resource_read: object) -> dict:
         if ui_uri and fallback_uri and ui_uri != fallback_uri:
             issues.append("tool UI URI and outputTemplate disagree")
 
+    # The MCP Apps specification permits UI-only resources to be omitted
+    # from resources/list. A tool's advertised resourceUri plus successful
+    # resources/read is authoritative; listing is optional discovery.
     matches = [x for x in collection(resources, "resources") if x.get("uri") == SITE_URI]
-    if len(matches) != 1:
-        issues.append("Site resource missing or duplicated in resources/list")
-    elif matches[0].get("mimeType") not in (None, MIME):
+    if len(matches) > 1:
+        issues.append("Site resource duplicated in resources/list")
+    elif len(matches) == 1 and matches[0].get("mimeType") not in (None, MIME):
         issues.append("Site resources/list MIME does not match MCP Apps")
 
     contents = collection(resource_read, "contents")
@@ -167,7 +170,13 @@ def self_test() -> None:
         {"resources": [wrong_listing_mime]}, {"contents": [read]})["issues"])
     no_resource = inspect({"tools": [tool]}, {"resources": []},
                           {"contents": [read]})
-    assert no_resource["issues"]
+    assert not no_resource["issues"]  # UI-only listing may be omitted.
+    no_list_endpoint = inspect({"tools": [tool]}, None,
+                               {"contents": [read]})
+    assert not no_list_endpoint["issues"]
+    duplicated_listing = inspect({"tools": [tool]},
+        {"resources": [resource, resource]}, {"contents": [read]})
+    assert any("duplicated" in issue for issue in duplicated_listing["issues"])
     static_only = {**read, "text": "<html><h1>status JSON is not an app</h1></html>"}
     assert any("script" in x for x in inspect({"tools": [tool]},
         {"resources": [resource]}, {"contents": [static_only]})["issues"])
@@ -181,25 +190,27 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--self-test", action="store_true")
     parser.add_argument("--tools", type=Path)
-    parser.add_argument("--resources", type=Path)
+    parser.add_argument("--resources", type=Path, help="optional UI resource listing")
     parser.add_argument("--resource-read", type=Path)
     args = parser.parse_args()
     if args.self_test:
         self_test()
-    sources = [args.tools, args.resources, args.resource_read]
-    if not any(sources):
+    if args.tools is None and args.resource_read is None and args.resources is None:
         print(json.dumps({
             "schema": "luhmOs.siteCastMountGuard.v1",
             "captureStatus": "UNKNOWN_SITE_ENDPOINT_NOT_CAPTURED",
-            "reason": "Three matching sanitized Site endpoint captures are required",
+            "reason": "Matching sanitized Site tools/list and resources/read captures required; resources/list optional",
             "githubOrRenderCanSubstitute": False,
             "chatGptInlineMountProven": False,
             "crownStatus": "STOP",
         }, indent=2))
         return 0 if args.self_test else 2
-    if not all(sources):
-        parser.error("provide --tools, --resources, and --resource-read together")
-    result = inspect(*[json.loads(path.read_text(encoding="utf-8")) for path in sources])
+    if args.tools is None or args.resource_read is None:
+        parser.error("provide --tools and --resource-read together; --resources optional")
+    def read_json(path: Path | None) -> object:
+        return json.loads(path.read_text(encoding="utf-8")) if path else None
+    result = inspect(read_json(args.tools), read_json(args.resources),
+                     read_json(args.resource_read))
     print(json.dumps(result, indent=2))
     return 0 if not result["issues"] else 2
 
