@@ -7,6 +7,8 @@ on:
       - 'host/harness/mobileCockpitWidget.html'
       - 'host/mcp/luhmHarness.py'
       - 'tests/testMobileCockpitEvidenceContract.py'
+      - 'tests/testSiteCastMountGuard.py'
+      - 'tools/siteCastMountGuard.py'
       - 'tests/testGlassPluginDock.py'
       - 'tests/mobileGlassDockCanarySmoke.py'
       - 'doctrine/glassPluginDockV1.json'
@@ -56,6 +58,8 @@ jobs:
         run: |
           python3 -m py_compile host/mcp/luhmHarness.py
           python3 -m unittest tests/testMobileCockpitEvidenceContract.py tests/testGlassPluginDock.py -v
+      - name: Fail closed on missing Site MCP App metadata
+        run: python3 -m unittest tests/testSiteCastMountGuard.py -v
       - name: Install pinned headless Chrome driver
         run: python3 -m pip install --user 'playwright==1.55.0'
       - name: Exercise real mobile glass dock in headless Chrome
