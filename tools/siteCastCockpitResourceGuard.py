@@ -55,6 +55,21 @@ def html_from_content(view: dict) -> str | None:
 
 def inspect(tools: object, resources: object, resource_read: object) -> dict:
     issues = []
+    # A valid matching entry cannot launder malformed siblings in an MCP
+    # capture. Preserve optional resources/list and sanitized array captures,
+    # but reject any supplied collection with non-object members.
+    for where, payload, key in (
+        ("tools/list", tools, "tools"),
+        ("resources/read", resource_read, "contents"),
+        ("resources/list", resources, "resources"),
+    ):
+        if where == "resources/list" and payload is None:
+            continue
+        entries = (payload if isinstance(payload, list) else
+                   payload.get(key) if isinstance(payload, dict) else None)
+        if not isinstance(entries, list) or any(
+                not isinstance(entry, dict) for entry in entries):
+            issues.append(where + " capture has malformed entries")
     tool_matches = [item for item in collection(tools, "tools")
                     if item.get("name") == SITE_TOOL]
     if len(tool_matches) != 1:
@@ -162,6 +177,19 @@ def self_test() -> None:
             "_meta": {"ui": {"csp": {"connectDomains": [], "resourceDomains": []}}}}
     good = inspect({"tools": [tool]}, {"resources": [resource]}, {"contents": [read]})
     assert not good["issues"] and not good["chatGptInlineMountProven"]
+
+    # Valid matching entries must not hide malformed siblings in any
+    # supplied MCP collection. UI-only resources/list may still be absent.
+    for where, bad_tools, bad_resources, bad_read in (
+        ("tools/list", {"tools": [tool, "invalid"]},
+         {"resources": [resource]}, {"contents": [read]}),
+        ("resources/read", {"tools": [tool]},
+         {"resources": [resource]}, {"contents": [read, "invalid"]}),
+        ("resources/list", {"tools": [tool]},
+         {"resources": [resource, "invalid"]}, {"contents": [read]}),
+    ):
+        problems = inspect(bad_tools, bad_resources, bad_read)["issues"]
+        assert where + " capture has malformed entries" in problems
 
     # A valid legacy outputTemplate must not conceal malformed MCP Apps
     # metadata in an otherwise successful same-endpoint capture.
