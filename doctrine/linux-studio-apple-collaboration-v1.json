@@ -1,0 +1,123 @@
+{
+  "schema": "luhmOs.linuxStudioAppleCollaboration.v1",
+  "status": "PROPOSED_CANON_RECONCILIATION_NOT_PROMOTED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "observedMainAtIntake": "ca369e6925406e9a00008bbc629bb5db67a7d02c",
+  "sourceAuthority": "exactReviewedGitCommitAndCiReceipts",
+  "developerWorkstations": {
+    "professor": {
+      "platform": "linux",
+      "source": "professorReported",
+      "hostVerified": false,
+      "role": "canonicalSourceOwnerAndFinalApprover"
+    },
+    "alex": {
+      "platform": "linux",
+      "source": "professorReported",
+      "hostVerified": false,
+      "role": "appleEngineeringAdmin"
+    },
+    "macBuildHost": {
+      "platform": "macos",
+      "status": "REQUIRED_FOR_NATIVE_DMG_BUILD_AND_APPLE_SIGNING",
+      "availability": "UNVERIFIED",
+      "role": "separateTrustedRunnerOrMac"
+    },
+    "note": "Linux workstation use does not prove a local Mac or a notarized DMG."
+  },
+  "gitSync": {
+    "publicUpstream": "https://github.com/eggie-admin/LuHm-OS.git",
+    "alexMayCloneOrForkPublicSource": true,
+    "privateCollaboratorIdentity": "UNVERIFIED_NOT_REQUIRED_FOR_PUBLIC_CLONE",
+    "workflow": [
+      "fetchCanonicalUpstream",
+      "createScopedWorkBranch",
+      "makeSmallReviewedChange",
+      "runScopedChecks",
+      "submitPullRequest",
+      "professorReviewExactSource",
+      "promoteOnlyWithSeparateApproval"
+    ],
+    "noForcePushToCanonicalMain": true,
+    "oneMutableCanonicalSourceLane": true,
+    "privateArtifactsStayInApprovedPrivateStorage": true,
+    "neverShareOwnerCredentials": true,
+    "noAutoMerge": true
+  },
+  "releaseMatrix": {
+    "android": {
+      "owner": "professor",
+      "distribution": "F_DROID_COMPATIBLE_INDEPENDENT_REPOSITORY_PROPOSED",
+      "existingContract": "doctrine/samsungTabletInstallV1.json",
+      "nativeBuildOn": "linuxOrSupportedGithubRunner",
+      "signing": "ownerHeldAndroidSignerAndSeparateFdroidIndexSigner",
+      "releaseEvidence": "PENDING_DEVICE_AND_SIGNATURE_PROOF"
+    },
+    "apple": {
+      "engineeringAdmin": "alex",
+      "proposedDmg": "ALEX_ADMIN_PRIVATE_CANDIDATE_DEVELOPMENT",
+      "betaDmg": "ALEX_ADMIN_AFTER_PROFESSOR_GRANTS_PROTECTED_ACCESS",
+      "buildOn": "macosRunnerRequiredForNativeMacBuild",
+      "appShell": "WKWebViewCandidateSourceOnly",
+      "signedNotarizedDmg": "NOT_PROVEN",
+      "stableMerge": "REQUIRES_EXPLICIT_PROFESSOR_APPROVAL_PER_EXACT_PR_AND_SHA",
+      "stableDeploy": "REQUIRES_SEPARATE_PROFESSOR_APPROVAL_PER_ARTIFACT_VERSION_AND_DESTINATION",
+      "privateKeyCustody": "OWNER_CONTROLLED_SECURE_RUNNER_OR_APPROVED_CUSTODIAN",
+      "noAndroidReleaseAuthorityFromAppleRole": true
+    }
+  },
+  "deviceProof": {
+    "linuxAndroidWirelessDebug": {
+      "target": "Android11Plus",
+      "required": "pairAuthorizedHostOnTrustedSameNetworkThenProveAdbDeviceList",
+      "enabledState": "UNVERIFIED",
+      "pairingState": "UNVERIFIED",
+      "noPairingSecretsOrDeviceIdentifiersInRepo": true,
+      "pairingDoesNotMeanAgentOrReleaseAuthority": true
+    },
+    "bluetoothVoice": {
+      "status": "PRIVATE_USER_OBSERVATION_NOT_PUBLISHED_IN_PUBLIC_CANON",
+      "exactSelectionLabelPrivate": true,
+      "outputAndMicInputMustBeIndependentlyProven": true,
+      "dualMicWithoutCaptureProof": "UNVERIFIED",
+      "noAmbientCommandExecution": true,
+      "contract": "doctrine/voiceAmbientIntentV1.json"
+    },
+    "phoneReset": {
+      "status": "NOT_CONFIRMED",
+      "publicUserSpecificDeviceStateOmitted": true,
+      "neverInferDataWipeOrSdkReinstall": true
+    }
+  },
+  "integration": {
+    "baseline": "doctrine/currentSourceTruthV3.json",
+    "existingVoice": "doctrine/voiceCabinetBridgeV1.json",
+    "webview": "doctrine/androidWeb3CockpitV2.json",
+    "naming": "doctrine/namingNamespaceCanonV1.json",
+    "releaseBoundary": "doctrine/releaseBoundaryV2.json",
+    "oldHistoricalSnapshotsPreserved": true,
+    "noRetroactiveHistoricalReceiptRewrite": true
+  },
+  "privacy": {
+    "noLocalMacOrLinuxAuthCredentialsInSource": true,
+    "noBluetoothDeviceNamesInPublicSource": true,
+    "noAdbPairingCodesSerialsIpsInPublicSource": true,
+    "noPrivateCharacterAssetsInSource": true
+  },
+  "verification": {
+    "sourceContractPresent": true,
+    "linuxHostConnectionProven": false,
+    "adbPairingProven": false,
+    "bluetoothInputRoutingProven": false,
+    "macNativeDmgBuilt": false,
+    "signedFdroidRepoPublished": false,
+    "crossPlatformInstallerAccepted": false
+  },
+  "promotion": false,
+  "publicationAuthority": false,
+  "signingAuthority": false,
+  "releaseAuthority": false,
+  "crownStatus": "STOP"
+}
