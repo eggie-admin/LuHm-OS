@@ -46,6 +46,14 @@ if omitted: https://developers.openai.com/plugins/reference .
 | Same-Site metadata passes; desktop works but Android fails | RED_MOBILE_HOST | Examine Android ChatGPT WebView or app version, client logs and mobile sandbox differences. |
 | Same-Site metadata passes; both Android and desktop fail | RED_HOST_OR_BUNDLE | Isolate JS bridge initialization and ChatGPT host iframe errors, preserving the server's exact resource response. |
 
+**UI cache separation:** The MCP App UI `ui://` template URI is a cache key.
+If the actual Site backend has served broken HTML at its current URI, the
+Site editor should consider a new versioned resource URI for a breaking widget
+change, updating the Site tool metadata to the exact same new URI atomically.
+Do not change only the JSON payload's `resourceUri` or re-point to the separate
+Render server. Preserve the old URI for rollback while testing the new one.
+This cache rule follows the official MCP UI docs, not an observed Site cache bug.
+
 The `siteCastMountGuard.py` tests the first three server-side conditions.
 It does **not** test real Android/WebView embedding. When the Site's MCP resource
 or tool metadata changes, refresh that *same* Site-backed connection if its
