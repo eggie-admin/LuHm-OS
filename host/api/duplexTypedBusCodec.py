@@ -180,6 +180,10 @@ class DuplexPeer:
         stream_id = frame.stream_id
         if frame.ack_sequence > self.sent[stream_id]:
             raise WireError("RED_ACK_AHEAD_OF_SENT")
+        # Validate inbound ordering BEFORE applying a piggyback ACK.
+        # A rejected future sequence must never discard an outstanding packet.
+        if frame.kind in (1, 3) and frame.sequence_id > self.received[stream_id] + 1:
+            raise WireError("RED_SEQUENCE_GAP")
         for key in list(self.pending):
             if key[0] == stream_id and key[1] <= frame.ack_sequence:
                 del self.pending[key]
