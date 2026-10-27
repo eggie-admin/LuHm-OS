@@ -1,0 +1,121 @@
+schema: luhmOs.metaBusinessConnector.v1
+asOf: "2026-10-26"
+authority: Professor
+status: SOURCE_CANDIDATE_OWNER_OAUTH_REQUIRED
+purpose: "Connect an existing Instagram professional account, then separately opt into Facebook/Meta analytics and approved publication without changing any existing account settings."
+project:
+  publicWorkingTitle: Project Premonition
+  parentBusinessDoctrine: doctrine/premonitionBusinessLaunchV1.yaml
+  closeoutHistoricalIdentity: Project Hydra
+  installationOrDistribution: NONE
+sourceOfTruth:
+  businessAccountProof: PRIVATE_ACCOUNT_OWNER
+  accountIdsAndTokensNeverStoredInGitHub: true
+  operationalLedger: PRIVATE_APPROVED_SQL
+  portablePolicy: YAML_SOURCE_ONLY
+  evidenceReferencesOnly: true
+  publicVerifiedBadgeAndDbaDetails: NOT_STORED
+availableIntegrationRoutes:
+  - id: pluginConnector
+    description: "Existing third-party marketing-analytics/social app via ChatGPT with normal owner-permission flow"
+    currentLiveConnection: NOT_CONFIRMED
+    vendorSelection: OWNER_APPROVAL_PENDING
+    userAction: "Connect approved plugin then use its supported read-only account discovery and analytics functions"
+    directSecretsInChat: false
+  - id: metaInstagramLogin
+    description: "Meta Instagram API with Instagram Login; existing Professional Business/Creator IG account; does not require connected Facebook Page"
+    currentLiveConnection: NOT_CONFIRMED
+    authHost: api.instagram.com
+    apiHost: graph.instagram.com
+    exactInitialScope: [instagram_business_basic]
+    optionalConsentScopes:
+      - instagram_business_manage_insights
+      - instagram_business_content_publish
+      - instagram_business_manage_comments
+      - instagram_business_manage_messages
+    scopesUseOfficial2025NamesOnly: true
+    staleScopesForbidden: [business_basic, business_content_publish, business_manage_comments, business_manage_messages]
+    appIdOrSecretPresentInRepository: false
+    redirectAllowlistAndPkceOrStateRequired: true
+    serverSideTokenExchangeAndRefreshOnly: true
+    grantsBoundToExactAccountAndUser: true
+    doNotAssumeProfileAgeGrantsScopes: true
+  - id: metaFacebookLogin
+    description: "Meta Instagram API with Facebook Login; only when an existing linked Facebook Page and appropriate owner rights are confirmed"
+    currentLiveConnection: NOT_CONFIRMED
+    authHost: www.facebook.com
+    apiHost: graph.facebook.com
+    pageRequiredForThisPath: true
+    linkedPageKnown: false
+    minimumReadScopesWhenApplicable: [pages_show_list, pages_read_engagement, instagram_basic]
+    optionalPublishScope: instagram_content_publish
+    appIdOrSecretPresentInRepository: false
+  - id: facebookPagesOrMetaAds
+    description: "Additional Page, ad account and Meta Business tooling through a separately authorized connector"
+    currentLiveConnection: NOT_CONFIRMED
+    paidAdvertising: OFF
+    campaignMutation: OFF
+    adsScopes: NOT_REQUESTED
+    metaBusinessSuiteIdentity: NOT_READ
+oauthBoundaries:
+  accountConnectionRequiresOwnerAction: true
+  neverAskForPasswordsCodesCookiesOrRawTokensInChat: true
+  permissionScopesStartReadOnly: true
+  allowPublishingOnlyWithExactApprovedAssetCaptionAccountTimingAndLicenseProof: true
+  allowBudgetOrCampaignChangesOnlyWithExactUserConfirmation: true
+  ownerMayRevokeConnectionIndependently: true
+  noSilentReauthOrProfileConversion: true
+  encryptedServerSideTokenStorageIfBuildingCustomAdapter: true
+  tokenRefreshNeverLogged: true
+  smallestAuthorizedDataSet: true
+  noPersonalDmAccessByDefault: true
+  noAutomatedMassMessagingFollowerScrapingOrUnsolicitedReplies: true
+  noPaidVendorApiOrBusinessVerificationWithoutExplicitConsent: true
+  distinctAppReviewIfConnectingThirdPartyUsers: true
+monetization:
+  checkedThroughNativeDashboard: true
+  inferredFromVerificationBadge: false
+  currentAccountEligibility: NOT_READ
+  facebookContentMonetizationInvite: NOT_READ
+  instagramCreatorPrograms: NOT_READ
+  payoutAccountSetup: NOT_READ
+  automaticallyApplyingForMonetization: false
+  automaticallyEnrollingInBusinessVerification: false
+  autoPublishingOrEditingProfile: false
+  commercialMusicRightsNeedSeparateReview: true
+  platformLicensedAudioDoesNotAutomaticallyPermitAllCommercialAdsOrReexports: true
+  originalOwnedArtAndContentOnlyForPublicCampaign: true
+stageSequence:
+  - {id: chooseConnector, status: USER_CONNECTION_REQUIRED}
+  - {id: authorizeMetaScope, status: BLOCKED_NO_OAUTH}
+  - {id: discoverProfessionalAccount, status: BLOCKED_NO_OAUTH}
+  - {id: confirmActualLinkedPageIfNeeded, status: BLOCKED_NO_OAUTH}
+  - {id: privateAnalyticsReadback, status: BLOCKED_NO_OAUTH}
+  - {id: monetizationEligibilityReadback, status: MANUAL_OR_SUPPORTED_CONNECTOR_ONLY}
+  - {id: buildContentAndRightsInventory, status: SOURCE_ONLY}
+  - {id: firstDraftCampaign, status: HOLD_FOR_CREATIVE_APPROVAL}
+  - {id: approvedPublish, status: CROWN_STOP}
+verifiedObservationsAtTime:
+  instagramConnectedInVidiq: false
+  vidiqReadWasAuthorizedNoTokensReturned: true
+  windsorAiConnection: NOT_CONFIRMED
+  privateInstagramOwnerDataFetched: false
+  facebookBusinessPageStatus: NOT_READ
+  confirmedMetaDeveloperAppForThisProject: false
+  monetizationProgramMembership: NOT_READ
+sources:
+  metaInstagramLogin: https://www.postman.com/meta/instagram/folder/6raa77c/instagram-api-with-instagram-login
+  metaInstagramFacebookLogin: https://www.postman.com/meta/instagram/folder/9cgqucg/instagram-api-with-facebook-login
+  metaInstagramApi: https://www.postman.com/meta/instagram/documentation/6yqw8pt/instagram-api
+  metaContentMonetization2026: https://about.fb.com/news/2026/03/creator-fast-track-grow-your-audience-earn-money-on-facebook/
+execution:
+  credentialsRead: false
+  userAccountsMutated: false
+  oauthStartedByCandidate: false
+  publicationPerformed: false
+  messagesReadOrSent: false
+  adsSpend: false
+  payoutsReadOrChanged: false
+  productionWebhookCreated: false
+  publicLaunchAuthorized: false
+  crownStatus: STOP

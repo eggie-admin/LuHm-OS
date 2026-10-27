@@ -1,0 +1,127 @@
+schema: luhmOs.creatorPrivacyShield.v1
+asOf: "2026-10-26"
+authority: Professor
+status: SOURCE_CANDIDATE_NOT_APPLIED
+goal: "Public professional creator brands with legal/private personal identities minimized; no identity or account deletion by automation."
+project: Project Premonition
+linkage:
+  legalIdentityToPublicBrandMapping: OWNER_PRIVATE_ACCOUNT_ONLY
+  personalSocialHandlesInPublicRepo: FORBIDDEN
+  exactPublicBrandNamesAndExistingUsernameSpelling: PRESERVE_UNTIL_OWNER_REVIEW
+  doNotAssertAnOldAliasEqualsANewDisplayNameWithoutOwnerCheck: true
+identities:
+  primaryCreatorBrand:
+    scope: publicCreatorPortfolioAndStorefront
+    publicName: OWNER_PRIVATE_CANON_PENDING
+    businessLegalIdentity: PRIVATE_META_AND_SELLER_PORTAL_ONLY
+    doNotRecreateAccountOrResetHistory: true
+  filmProductionBrand:
+    scope: approvedFilmProductionCreditsAndCollaborations
+    publicName: OWNER_PRIVATE_CANON_PENDING
+    legalEntityAutomaticallySharedWithCreatorBrand: false
+    publicCrossLinkingRequiresOwnerConsent: true
+  ownerPersonal:
+    scope: privateAccountRecoveryTaxBankingAndRequiredIdentityChecks
+    neverAddToPublicAboutBioOrBrandAssets: true
+    keepRecoveryAndTwoFactorAccess: true
+    doNotImpersonateOrMisrepresentBusinessEntity: true
+truthAndLimits:
+  instagramBusinessIsPublicFacing: true
+  cannotMakeBusinessAccountFullyPrivateWithoutChangingAccountType: true
+  noAutomaticBusinessToPersonalSwitch: true
+  verifiedBadgeMethodUnknown: true
+  verifiedAccountDisplayNameOrHandleChangeRequiresPreflightReview: true
+  noVerifiedBadgeRetentionGuaranteeAfterProfileChange: true
+  facebookPersonalProfileMayRemainNeededForPageAdministration: true
+  facebookPageAccessShouldUseLeastPrivilegeForThirdParties: true
+  stateAndCountryTransparencyMayBeVisible: true
+  sellersPaymentProcessorsMayRequireLegalIdentityPrivately: true
+  publicDbaRegistrationsOrAdsDisclosuresMayRevealLegalBusinessLinks: true
+  hidingContactButtonDoesNotRemovePreviouslyPublishedDetails: true
+  contentCachedOrRepublishedCannotBeGuaranteedRemoved: true
+  currentLivePrivacySettings: NOT_READ
+  completeAnonymityPromise: false
+priority:
+  - id: verifyOwnerControl
+    status: OWNER_OAUTH_PENDING
+    check: "Existing verified creator and connected Facebook assets; no username or verified badge changes."
+    sideEffects: NONE
+  - id: protectAccessFirst
+    status: NEEDS_OWNER_REVIEW
+    check: "Passkeys or strong two-factor, recovery codes, device sessions, authorized administrators, suspicious OAuth apps."
+    sideEffects: NO_REVOKE_OR_PASSWORD_CHANGE_WITHOUT_EXACT_OWNER_APPROVAL
+  - id: publicProfileContact
+    status: NEEDS_OWNER_REVIEW
+    check: "Instagram Edit Profile > Public Business Information > Contact Options and Profile Display. Check phone, email, address, WhatsApp and action buttons."
+    goal: "Do not publish home, personal phone, personal email, personal WhatsApp, or identifying map pin. Use separate business contact when desired."
+    sideEffects: NO_EDIT_UNTIL_REAL_ACCOUNT_PROOF_AND_PREVIEW
+  - id: accountCenterCrossLink
+    status: NEEDS_OWNER_REVIEW
+    check: "Meta Accounts Center cross-profile info sync, cross-posting, linked login, contact syncing, ad personalization and suggested accounts."
+    sideEffects: NO_UNLINK_AUTOMATICALLY_ACCOUNT_RECOVERY_OR_VERIFICATION_COULD_BREAK
+  - id: facebookPersonalSeparation
+    status: NEEDS_OWNER_REVIEW
+    check: "Personal Facebook profile privacy, friend list, birth date, relatives, old posts, location, contact search and tagging; Page public About/Transparency."
+    sideEffects: NO_BULK_POST_VISIBILITY_CHANGE_OR_PAGE_ADMIN_REMOVAL
+  - id: mediaAndMetadata
+    status: NEEDS_OWNER_REVIEW
+    check: "Old photos/Reels/stories/highlights and collaborator credits for faces, voices, interiors, uniforms, vehicle plates, workplaces, family, home location, travel plans and EXIF."
+    sideEffects: CANDIDATE_REDACTIONS_REQUIRE_OWNER_PREVIEW
+  - id: portfolioDomainsAndDocs
+    status: NEEDS_OWNER_REVIEW
+    check: "Link-in-bio pages, WHOIS or RDAP, developer pages, domain contacts, business documents, PDF metadata and exported screenshot filenames."
+    sideEffects: NO_DOMAIN_TRANSFER_OR_ACCOUNT_RENAME
+  - id: commercialRequirements
+    status: NEEDS_OWNER_REVIEW
+    check: "DBA/public filing visibility, Meta and Samsung identity verification, ad sponsor transparency, copyright/credits, privacy policy contact and payout compliance."
+    sideEffects: NO_FALSE_BUSINESS_NAME_OR_VERIFICATION_WORKAROUND
+  - id: brandPresentation
+    status: SAFE_DRAFT_ONLY
+    check: "Produce two consistent brand bios, graphics/brand palette, link hub and original rights-clean film portfolio without disclosing legal owner."
+    sideEffects: NO_PUBLISH_WITHOUT_APPROVAL
+  - id: publicViewVerification
+    status: BLOCKED_ACCOUNT_ACCESS
+    check: "Check each connected profile as logged-out visitor, search visibility and public contact buttons; repeat after explicit changes."
+    sideEffects: NO_SCRAPING_PRIVATE_FOLLOWERS
+automationRules:
+  readOnlyInventoryFirst: true
+  eachAccountMustBeIdentifiedThroughOwnerAuthorizedConnector: true
+  allowBulkReadWithDataMinimization: true
+  approvedLowRiskProfileHidingActionsMayBeGroupedAfterPreview: true
+  doNotEditVerifiedNameUsernameProfilePictureWithoutSeparateOwnerApproval: true
+  doNotDestroyPostsMessagesFollowersOrLinkedPagesWithoutSeparateOwnerApproval: true
+  doNotRemoveAccountRecoveryMethodsAutomatically: true
+  noAutomaticUnlinkOrPageTransfer: true
+  noPasswordCookieOtpOrAccessTokenInChat: true
+  noPublishingFollowingDmsLikesOrAdSpend: true
+  noNewAccountsOrDuplicatePages: true
+  noBusinessDocumentsUploadedToPublicGithub: true
+  noSecretScreenshotsInIssuesPrsOrBuildLogs: true
+  noMassSearchEngineRemovalWithoutPerUrlValidation: true
+  doNotChangeAccountTypeToMakeProfessionalProfilePrivate: true
+  respectPublisherContentAndImageRights: true
+  durablePrivateAuditReceipt: ENCRYPTED_OWNER_CONTROLLED_STORAGE_ONLY
+  rollbackEachApprovedSettingChange: true
+  noTimeLimitedAuthShareOnPublicPreview: true
+verifiedVendorDocs:
+  metaVerificationChangeRisk: https://www.facebook.com/help/461238577687001
+  metaCreatorIdentity: https://www.facebook.com/help/2419286908233223
+  instagramNamePolicy: https://www.facebook.com/help/477434105621119
+  facebookPrivacySettings: https://www.facebook.com/help/193677450678703/
+  facebookPrivacyCheckup: https://www.facebook.com/help/411239642246274/
+  accountsCenter: https://www.facebook.com/help/943858526073065
+  pageDelegation: https://www.facebook.com/help/289207354498410/
+  facebookPageSearchAndContacts: https://www.facebook.com/help/463983701520800
+  pageTransparency: https://about.fb.com/news/2020/04/page-and-account-transparency/
+  instagramContactDisplay: https://www.facebook.com/help/instagram/454502981253053
+sourceOnly:
+  noLiveMetaConnection: true
+  noProfileSettingsRead: true
+  noProfileEdited: true
+  noBrandRenamed: true
+  noBusinessLegalIdentityPublished: true
+  noContentDeleted: true
+  noAdsOrSponsoredPosts: true
+  noCredentialsOrPayoutDataRead: true
+  publicLaunchAuthorized: false
+  crownStatus: STOP
