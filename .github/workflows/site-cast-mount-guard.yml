@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'tools/siteCastCockpitResourceGuard.py'
+      - 'tools/siteCastMountGuard.py'
+      - 'tests/testSiteCastMountGuard.py'
       - 'manual/siteCastMountEvidence.md'
       - '.github/workflows/site-cast-mount-guard.yml'
   workflow_dispatch:
