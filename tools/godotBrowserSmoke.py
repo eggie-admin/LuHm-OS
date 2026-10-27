@@ -150,6 +150,16 @@ def self_test():
     assert not observed_after(quest_messages, "LUHM_REHEARSAL_QUEST_COMPLETE", quest_boundary)
     quest_messages.append("LUHM_REHEARSAL_QUEST_COMPLETE")
     assert observed_after(quest_messages, "LUHM_REHEARSAL_QUEST_COMPLETE", quest_boundary)
+    # Escape must observe a fresh Main marker, not a prior startup marker.
+    return_messages = ["LUHM_MAIN_SCENE_READY", "LUHM_REHEARSAL_STAGE_READY"]
+    return_boundary = len(return_messages)
+    assert not observed_after(return_messages, "LUHM_MAIN_SCENE_READY", return_boundary)
+    return_messages.extend(["LUHM_MAIN_SCENE_READY:spoof", "LUHM_MAIN_SCENE_READY"])
+    assert observed_after(return_messages, "LUHM_MAIN_SCENE_READY", return_boundary)
+    assert not observed_after(return_messages, "LUHM_REHEARSAL_STAGE_READY", return_boundary)
+    return_messages.append("LUHM_REHEARSAL_STAGE_READY")
+    assert observed_after(return_messages, "LUHM_REHEARSAL_STAGE_READY", return_boundary)
+    print("GREEN_GODOT_BROWSER_RETURN_MARKER_NEGATIVE_TESTS")
     print("GREEN_GODOT_BROWSER_QUEST_COMPLETION_NEGATIVE_TESTS")
     print("GREEN_GODOT_BROWSER_CHARACTER_ROUTE_NEGATIVE_TESTS")
     print("GREEN_GODOT_BROWSER_MARKER_SCOPE_NEGATIVE_TESTS")
@@ -170,7 +180,7 @@ def run_browser(root,output):
             browser=p.chromium.launch(headless=True,args=["--enable-webgl","--use-angle=swiftshader","--enable-unsafe-swiftshader"])
             page=browser.new_page(viewport={"width":1280,"height":800},device_scale_factor=1)
             page.on("pageerror",lambda error:failures.append(str(error)[:240]))
-            page.on("console",lambda message: runtime_markers.append(message.text) if "LUHM_REHEARSAL_" in message.text else None)
+            page.on("console",lambda message: runtime_markers.append(message.text) if ("LUHM_REHEARSAL_" in message.text or "LUHM_MAIN_SCENE_READY" in message.text) else None)
             page.goto(f"http://127.0.0.1:{port}/index.html",wait_until="domcontentloaded",timeout=60000)
             page.wait_for_function("() => {const c=document.querySelector('canvas');return !!c && c.width >= 300 && c.height >= 180 && c.offsetWidth > 0}",timeout=120000)
             canvas=page.locator("canvas").first
@@ -181,6 +191,7 @@ def run_browser(root,output):
             rehearsalProof=output.parent/"rehearsalStage.png"
             interactionProof=output.parent/"rehearsalInteractions.png"
             questProof=output.parent/"rehearsalQuestComplete.png"
+            returnProof=output.parent/"cathedralReturn.png"
             page.screenshot(path=str(menuProof),full_page=True)
             box=canvas.bounding_box()
             if box is None or box["width"] < 300 or box["height"] < 180:
@@ -199,6 +210,7 @@ def run_browser(root,output):
             # Freeze the stage verdict before sending any interaction keys.
             # Later console output must not retroactively prove scene entry.
             stage_verified=observed_after(runtime_markers, "LUHM_REHEARSAL_STAGE_READY")
+            deep_link_consumed=observed_after(runtime_markers, "LUHM_REHEARSAL_DEEPLINK_CONSUMED")
             page.screenshot(path=str(rehearsalProof),full_page=True)
             # TALK/DANCE evidence must be emitted after the keyboard actions,
             # not during startup or an earlier menu navigation.
@@ -235,9 +247,24 @@ def run_browser(root,output):
             skuld_talk_verified = observed_route_after(runtime_markers, "TALK", "skuld", skuld_talk_start)
             quest_verified = observed_after(runtime_markers, "LUHM_REHEARSAL_QUEST_COMPLETE", skuld_talk_start)
             page.screenshot(path=str(questProof),full_page=True)
+            # A one-shot deep link must not reopen rehearsal when Escape returns.
+            return_start=len(runtime_markers)
+            page.keyboard.press("Escape")
+            for _ in range(40):
+                if observed_after(runtime_markers, "LUHM_MAIN_SCENE_READY", return_start):
+                    break
+                page.wait_for_timeout(500)
+            main_return_verified=observed_after(runtime_markers, "LUHM_MAIN_SCENE_READY", return_start)
+            page.wait_for_timeout(1500)
+            no_reentry=not observed_after(runtime_markers, "LUHM_REHEARSAL_STAGE_READY", return_start)
+            query_consumed=page.evaluate("() => !new URLSearchParams(window.location.search).has('luhmScene')")
+            page.screenshot(path=str(returnProof),full_page=True)
             talk_verified=lum_talk_verified and urd_talk_verified and belldandy_talk_verified and skuld_talk_verified
             dance_verified=lum_dance_verified
             if not stage_verified: failures.append("one-tap deep link never opened the rehearsal scene")
+            if not deep_link_consumed or not query_consumed: failures.append("one-shot rehearsal deep link was not consumed")
+            if not main_return_verified: failures.append("Escape did not return to the Cathedral Main scene")
+            if not no_reentry: failures.append("rehearsal reopened after Escape; deep link was not one-shot")
             if not lum_talk_verified: failures.append("Lum TALK route was not observed after T")
             if not lum_dance_verified: failures.append("Lum DANCE route was not observed after D")
             if not urd_talk_verified: failures.append("Urd TALK route was not observed after character selection")
@@ -249,13 +276,15 @@ def run_browser(root,output):
                     "keyboardEventsDispatched":True,"rehearsalDeepLinkRequested":True,
                     "rehearsalClickDispatched":False,
                     "rehearsalSceneVerified":stage_verified,"talkRouteVerified":talk_verified,"danceRouteVerified":dance_verified,
+                    "deepLinkConsumed":deep_link_consumed and query_consumed,
+                    "escapeReturnedToMain":main_return_verified,"noReentryAfterEscape":no_reentry,
                     "secondCharacterRouteVerified":urd_talk_verified,
                     "questRuntimeMarkerVerified":quest_verified,
                     "playableQuestProgressProven":False,
                     "touchOnSamsungProven":False,"chatGptHostProven":False,
                     "errors":failures,"observedRuntimeMarkers":runtime_markers[-16:],"screenshot":questProof.name,
-                    "additionalScreenshots":[menuProof.name,rehearsalProof.name,interactionProof.name],
-                    "proofLimit":"character-scoped browser runtime markers cover all four TALK routes, Lum DANCE and quest completion; rendered 3D and visible quest acceptance, Samsung touch, and ChatGPT remain separate",
+                    "additionalScreenshots":[menuProof.name,rehearsalProof.name,interactionProof.name,returnProof.name],
+                    "proofLimit":"character-scoped browser runtime markers cover all four TALK routes, Lum DANCE, quest completion and one-shot Escape return; rendered 3D and visible quest acceptance, Samsung touch, and ChatGPT remain separate",
                     "crownStatus":"STOP"}
             output.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
             browser.close()
