@@ -1,0 +1,113 @@
+{
+  "schema": "luhmOs.samsungFirstUsbPortrait.v1",
+  "status": "PROPOSED_SOURCE_ONLY_NOT_DEVICE_VERIFIED",
+  "authority": "Professor",
+  "declaredAt": "2026-10-26",
+  "goal": "Reuse the private studio hardware source of truth, prioritize Samsung Android, and control approved USB hardware with upstream open standards rather than proprietary intermediary control services.",
+  "privateInventory": {
+    "source": "Owner-controlled Google Drive: PRIVATE_CANONICAL_LUHM_OS_HARDWARE_SOURCE_OF_TRUTH_20260916",
+    "exportToPublicGit": false,
+    "identifiersForbidden": [
+      "legalIdentity",
+      "serial",
+      "IMEI",
+      "MEID",
+      "phoneNumber",
+      "homeAddress",
+      "signingKeys",
+      "accountTokens",
+      "recoveryCodes"
+    ],
+    "liveDeviceEvidenceOutranksInventory": true
+  },
+  "activePlatforms": {
+    "samsungAndroid": {
+      "status": "ACTIVE_PRIMARY",
+      "roles": [
+        "stockUnrootedPhoneAntennaAndRuntime",
+        "stockUnrootedSPenTabletPortraitPhoneModeAndArt",
+        "stockUnrootedSecondaryDisplay"
+      ],
+      "onePackageFamily": "art.eggiebagelface.luhmos",
+      "noVendorKernelReplacement": true
+    },
+    "linuxStudioHost": {
+      "status": "SUPPORTING_BUILD_AND_USB_HOST",
+      "purpose": "Studio source, asset processing, USB tools, Android builds, and source-backed kernel experiments with bootable fallback."
+    },
+    "appleIos": {
+      "status": "PARKED_SEPARATE_TESTER_LANE",
+      "testerRole": "Alex helps test when owner separately authorizes",
+      "noIosBuildOrDeviceMutationInThisMilestone": true
+    }
+  },
+  "openHardwareControl": {
+    "default": "Native Android public USB Host APIs, upstream standard USB class support, and trusted local Linux utilities",
+    "candidateUsbClasses": [
+      "HID keyboard mouse controller where OS exposes input",
+      "USB Audio Class input and output",
+      "USB MIDI",
+      "USB Video Class on host when supported",
+      "MTP/PTP media transfers",
+      "USB CDC serial only where allowed and actually identified"
+    ],
+    "androidMode": "USB host: enumerate device, display capability, request per-device runtime permission, bound interface and transfer; do not assume class capabilities or kernel access",
+    "linuxHostMode": "Prefer in-tree Linux USB/HID/audio/video/serial support and userspace libusb/udev where needed; restrict uinput to trusted studio user if explicitly enabled",
+    "debugOnly": "Android Platform Tools ADB over an owner-authorized USB connection; USB debugging must be explicitly enabled and device trust approved; no public ADB listener",
+    "localBridge": "Use direct wired connection and approved ADB reverse/tether options where supported; fallback to authenticated LAN only when necessary",
+    "vendorDeviceModules": "Keep Samsung Android GKI/KMI and signed vendor modules unmodified; never deploy a Linux desktop kernel image to stock Samsung",
+    "thirdPartyPolicy": "No proprietary hardware-control broker, cloud relay, or paid middleware is required for base USB operation. Optional popular open-source components must be reviewed for source, permissions and license before addition.",
+    "forbidden": [
+      "rootOrBootloaderUnlockAssumption",
+      "silentDevicePermissionGrant",
+      "unverifiedUsbDriverLoad",
+      "kernelFlashWithoutExactModelRecoveryAndOwnerApproval",
+      "globalUnattendedUsbInputInjection",
+      "deviceIdsOrUsbSerialsInLogs",
+      "publicBindingOfADBOrCaptureServices"
+    ]
+  },
+  "uiAcceptance": {
+    "primary": "Portrait Samsung phone mode on both phone and tablet",
+    "responsive": "One adaptive cockpit source, portrait default; desktop and web reuse the same permission-aware module contracts",
+    "controls": [
+      "touchTargetsAtLeast44CssPx",
+      "screenReaderLabels",
+      "keyboardAndSPenCoexistence",
+      "viewportSafeAreasAndSoftKeyboard",
+      "reducedMotion",
+      "explicitUsbConnectionConsent",
+      "clearDisconnectedFallback"
+    ],
+    "proof": [
+      "actualSamsungPhoneUsbEnumerationAndPermission",
+      "actualSamsungTabletPortraitMountAndScroll",
+      "tabletSPenTouchAndKeyboardIfPresent",
+      "hostBrowserDesktopSmokeTest",
+      "McpAppsInChatMountNotInferredFromSourceCheck",
+      "noThirdPartyCloudRelayNeeded",
+      "usbDisconnectAndDeniedPermissionFailClosed"
+    ]
+  },
+  "kernelGate": {
+    "host": "Custom mainline-oriented Linux studio kernel is an independent host project; backup current known-good boot and validate DKMS/NVIDIA, USB audio/video/input, Wi-Fi and Bluetooth before adoption",
+    "phone": "Stock Samsung vendor Android kernel remains unchanged; Android GKI/vendor compatibility is not a desktop mainline kernel replacement",
+    "currentState": "BUILD_NOT_STARTED_DEVICE_PROOF_PENDING"
+  },
+  "relatedExistingCanon": [
+    "doctrine/samsungAntennaV1.json",
+    "doctrine/modularSourceArchitectureV1.json",
+    "doctrine/glassPluginDockV1.json",
+    "manual/mobileChatGptReleaseTrain.md"
+  ],
+  "proof": {
+    "sourceCandidateCreated": true,
+    "deviceObservedThisTurn": false,
+    "usbPhysicalTestPassed": false,
+    "desktopMainlineKernelInstalled": false,
+    "chatGptMobileWidgetMounted": false
+  },
+  "publicationAuthority": false,
+  "promotion": false,
+  "crownStatus": "STOP"
+}
