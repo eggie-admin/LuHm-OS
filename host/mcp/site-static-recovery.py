@@ -58,8 +58,8 @@ def register_site_static_recovery(
             meta={"ui": {"prefersBorder": True, "csp": dict(CSP)},
                   "openai/widgetDescription": "Minimal Project Hydra mobile/static recovery."},
         )
-        def _html_resource(_page=page) -> str:
-            return _page
+        def _html_resource() -> str:
+            return page
 
         @server.tool(
             name=tool_name,
