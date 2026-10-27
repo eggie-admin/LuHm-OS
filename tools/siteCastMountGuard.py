@@ -8,7 +8,10 @@ A matched capture does not prove that ChatGPT displayed the visual card.
 from __future__ import annotations
 
 import argparse
+import base64
+import binascii
 import json
+from html.parser import HTMLParser
 from pathlib import Path
 
 SITE_URI = "ui://luhm-os/cockpit-site-v3.html"
@@ -23,6 +26,31 @@ def collection(payload: object, key: str) -> list[dict]:
         return []
     value = payload.get(key, [])
     return [x for x in value if isinstance(x, dict)] if isinstance(value, list) else []
+
+
+class ResourceHtmlParser(HTMLParser):
+    """Structural HTML check; cannot prove JavaScript execution or app mounting."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.tags: set[str] = set()
+
+    def handle_starttag(self, tag: str, attrs: list) -> None:
+        self.tags.add(tag)
+
+
+def html_from_content(view: dict) -> str | None:
+    """MCP Apps permits text HTML or base64-encoded blob HTML."""
+    raw_text = view.get("text")
+    if isinstance(raw_text, str) and raw_text.strip():
+        return raw_text
+    blob = view.get("blob")
+    if not isinstance(blob, str) or len(blob) > 2_800_000:
+        return None
+    try:
+        return base64.b64decode(blob, validate=True).decode("utf-8")
+    except (binascii.Error, ValueError, UnicodeDecodeError):
+        return None
 
 
 def inspect(tools: object, resources: object, resource_read: object) -> dict:
@@ -46,6 +74,8 @@ def inspect(tools: object, resources: object, resource_read: object) -> dict:
     matches = [x for x in collection(resources, "resources") if x.get("uri") == SITE_URI]
     if len(matches) != 1:
         issues.append("Site resource missing or duplicated in resources/list")
+    elif matches[0].get("mimeType") not in (None, MIME):
+        issues.append("Site resources/list MIME does not match MCP Apps")
 
     contents = collection(resource_read, "contents")
     views = [x for x in contents if x.get("uri") == SITE_URI]
@@ -55,23 +85,37 @@ def inspect(tools: object, resources: object, resource_read: object) -> dict:
         view = views[0]
         if view.get("mimeType") != MIME:
             issues.append("Site UI resource MIME does not match MCP Apps")
-        html = view.get("text", "")
-        if not isinstance(html, str) or not html.lstrip().lower().startswith(
+        html = html_from_content(view)
+        if html is None or not html.lstrip().lower().startswith(
                 ("<!doctype html", "<html")):
-            issues.append("Site UI resource is not a full HTML document")
-        elif "<script" not in html.lower():
-            # The Site must supply an app bundle or inline bridge script;
-            # static markup alone cannot initialize an interactive MCP App.
-            # This is a structural check, NOT a runtime bridge or mount proof.
-            issues.append("Site UI resource has no application script")
-        meta = view.get("_meta", {})
-        ui = meta.get("ui") if isinstance(meta, dict) else None
-        # Some hosts return CSP in resources/list rather than resources/read.
-        candidates = [ui, matches[0].get("_meta", {}).get("ui") if matches and
-                      isinstance(matches[0].get("_meta"), dict) else None]
-        if not any(isinstance(v, dict) and isinstance(v.get("csp"), dict)
-                   for v in candidates):
-            issues.append("Site UI CSP metadata absent from resource payload")
+            issues.append("Site UI resource is not an HTML document (text or blob)")
+        elif len(html.encode("utf-8")) > 2_000_000:
+            issues.append("Site UI document exceeds 2 MB safety limit")
+        else:
+            parser = ResourceHtmlParser()
+            parser.feed(html)
+            if "html" not in parser.tags:
+                issues.append("Site UI resource lacks an HTML document element")
+            if "script" not in parser.tags:
+                issues.append("Site UI resource has no application script")
+        read_meta = view.get("_meta", {})
+        list_meta = matches[0].get("_meta", {}) if len(matches) == 1 else {}
+        for where, meta in (("resources/read", read_meta),
+                            ("resources/list", list_meta)):
+            ui = meta.get("ui") if isinstance(meta, dict) else None
+            # MCP Apps specifies a restrictive default when CSP is omitted.
+            # If a CSP is present, validate its structure; presence is not
+            # mandatory and does not establish runtime or UI safety.
+            if ui is not None and not isinstance(ui, dict):
+                issues.append(where + " UI metadata is malformed")
+            elif isinstance(ui, dict) and "csp" in ui:
+                csp = ui["csp"]
+                if not isinstance(csp, dict):
+                    issues.append(where + " CSP metadata is malformed")
+                elif any(not isinstance(value, list) or
+                         not all(isinstance(domain, str) for domain in value)
+                         for value in csp.values()):
+                    issues.append(where + " CSP domain lists are malformed")
 
     return {
         "schema": "luhmOs.siteCastMountGuard.v1",
@@ -105,8 +149,22 @@ def self_test() -> None:
     assert any("MIME" in x for x in inspect({"tools": [tool]},
         {"resources": [resource]}, {"contents": [no_mime]})["issues"])
     no_csp = {**read, "_meta": {}}
+    assert not inspect({"tools": [tool]}, {"resources": [resource]},
+                       {"contents": [no_csp]})["issues"]
+    bad_csp = {**read, "_meta": {"ui": {"csp": {"connectDomains": "*"}}}}
     assert any("CSP" in x for x in inspect({"tools": [tool]},
-        {"resources": [resource]}, {"contents": [no_csp]})["issues"])
+        {"resources": [resource]}, {"contents": [bad_csp]})["issues"])
+    blob_read = {**read}
+    blob_read.pop("text")
+    blob_read["blob"] = base64.b64encode(read["text"].encode()).decode()
+    assert not inspect({"tools": [tool]}, {"resources": [resource]},
+                       {"contents": [blob_read]})["issues"]
+    broken_blob = {**blob_read, "blob": "not_base64!"}
+    assert any("HTML" in x for x in inspect({"tools": [tool]},
+        {"resources": [resource]}, {"contents": [broken_blob]})["issues"]
+    wrong_listing_mime = {**resource, "mimeType": "text/html"}
+    assert any("MIME" in x for x in inspect({"tools": [tool]},
+        {"resources": [wrong_listing_mime]}, {"contents": [read]})["issues"])
     no_resource = inspect({"tools": [tool]}, {"resources": []},
                           {"contents": [read]})
     assert no_resource["issues"]
