@@ -60,6 +60,12 @@ def observed_after(messages, marker, offset=0):
     return any(marker in message for message in messages[offset:])
 
 
+def observed_route_after(messages, action, character, offset=0):
+    """Only an exact character route in this action window is admissible."""
+    expected = f"LUHM_REHEARSAL_{action}_ROUTE:{character}"
+    return any(message.strip() == expected for message in messages[offset:])
+
+
 def self_test():
     from tempfile import TemporaryDirectory
     with TemporaryDirectory() as folder:
@@ -123,6 +129,17 @@ def self_test():
     old.extend(["LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_TALK_ROUTE:urd", "LUHM_REHEARSAL_DANCE_ROUTE:urd"])
     for token in ("LUHM_REHEARSAL_STAGE_READY", "LUHM_REHEARSAL_TALK_ROUTE:", "LUHM_REHEARSAL_DANCE_ROUTE:"):
         assert observed_after(old, token, boundary), "current browser marker missed"
+    # Generic TALK/DANCE markers cannot prove which character was selected.
+    prior = ["LUHM_REHEARSAL_TALK_ROUTE:lum", "LUHM_REHEARSAL_DANCE_ROUTE:lum"]
+    boundary = len(prior)
+    assert not observed_route_after(prior, "TALK", "lum", boundary)
+    prior.extend(["LUHM_REHEARSAL_TALK_ROUTE:lum:spoof", "LUHM_REHEARSAL_TALK_ROUTE:belldandy"])
+    assert not observed_route_after(prior, "TALK", "urd", boundary)
+    assert not observed_route_after(prior, "TALK", "lum", boundary)
+    prior.extend(["LUHM_REHEARSAL_TALK_ROUTE:urd", "LUHM_REHEARSAL_DANCE_ROUTE:urd"])
+    assert observed_route_after(prior, "TALK", "urd", boundary)
+    assert observed_route_after(prior, "DANCE", "urd", boundary)
+    print("GREEN_GODOT_BROWSER_CHARACTER_ROUTE_NEGATIVE_TESTS")
     print("GREEN_GODOT_BROWSER_MARKER_SCOPE_NEGATIVE_TESTS")
     print("GREEN_GODOT_WEB_ASSET_NEGATIVE_TESTS")
 
@@ -169,33 +186,41 @@ def run_browser(root,output):
             page.screenshot(path=str(rehearsalProof),full_page=True)
             # TALK/DANCE evidence must be emitted after the keyboard actions,
             # not during startup or an earlier menu navigation.
-            action_start = len(runtime_markers)
             # Key events must reach the actual Godot scene after it loaded.
             page.evaluate("() => {const c=document.querySelector('canvas'); if(c)c.focus();}")
+            lum_talk_start = len(runtime_markers)
             page.keyboard.press("t")
-            page.wait_for_timeout(220)
+            page.wait_for_timeout(300)
+            lum_talk_verified = observed_route_after(runtime_markers, "TALK", "lum", lum_talk_start)
+            lum_dance_start = len(runtime_markers)
             page.keyboard.press("d")
-            page.wait_for_timeout(220)
+            page.wait_for_timeout(300)
+            lum_dance_verified = observed_route_after(runtime_markers, "DANCE", "lum", lum_dance_start)
             page.keyboard.press("ArrowRight")
+            page.wait_for_timeout(150)
+            urd_talk_start = len(runtime_markers)
             page.keyboard.press("t")
             page.wait_for_timeout(450)
+            urd_talk_verified = observed_route_after(runtime_markers, "TALK", "urd", urd_talk_start)
             page.screenshot(path=str(interactionProof),full_page=True)
             stage_verified=observed_after(runtime_markers, "LUHM_REHEARSAL_STAGE_READY")
-            talk_verified=observed_after(runtime_markers, "LUHM_REHEARSAL_TALK_ROUTE:", action_start)
-            dance_verified=observed_after(runtime_markers, "LUHM_REHEARSAL_DANCE_ROUTE:", action_start)
+            talk_verified=lum_talk_verified and urd_talk_verified
+            dance_verified=lum_dance_verified
             if not stage_verified: failures.append("one-tap deep link never opened the rehearsal scene")
-            if not talk_verified: failures.append("TALK handler was not observed")
-            if not dance_verified: failures.append("DANCE handler was not observed")
+            if not lum_talk_verified: failures.append("Lum TALK route was not observed after T")
+            if not lum_dance_verified: failures.append("Lum DANCE route was not observed after D")
+            if not urd_talk_verified: failures.append("Urd TALK route was not observed after character selection")
             report={"schema":"luhmOs.godotBrowserSmoke.v1","status":"GREEN_REHEARSAL_RUNTIME_INTERACTIONS" if not failures else "RED_REHEARSAL_NOT_PROVEN",
                     "browser":"Chromium headless","canvasVisible":True,
                     "keyboardEventsDispatched":True,"rehearsalDeepLinkRequested":True,
                     "rehearsalClickDispatched":False,
                     "rehearsalSceneVerified":stage_verified,"talkRouteVerified":talk_verified,"danceRouteVerified":dance_verified,
+                    "secondCharacterRouteVerified":urd_talk_verified,
                     "playableQuestProgressProven":False,
                     "touchOnSamsungProven":False,"chatGptHostProven":False,
                     "errors":failures,"observedRuntimeMarkers":runtime_markers[-12:],"screenshot":interactionProof.name,
                     "additionalScreenshots":[menuProof.name,rehearsalProof.name],
-                    "proofLimit":"marker receipt proves actual scene and TALK/DANCE dispatch; rendered 3D acceptance, quests, Samsung touch, and ChatGPT remain separate",
+                    "proofLimit":"exact character-scoped runtime markers prove Lum TALK/DANCE and Urd TALK after selection; rendered 3D acceptance, quests, Samsung touch, and ChatGPT remain separate",
                     "crownStatus":"STOP"}
             output.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
             browser.close()
