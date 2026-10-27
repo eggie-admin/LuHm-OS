@@ -1,0 +1,169 @@
+schema: luhmOs.premonitionBusinessLaunch.v1
+asOf: "2026-10-26"
+authority: Professor
+status: SOURCE_CANDIDATE_NO_ACCOUNT_ACTIONS
+purpose: "Carry the completed Project Hydra private technology into an original, rights-cleared Project Premonition business distribution and monetization lane."
+project:
+  closeoutFrom: Project Hydra
+  publicDevelopmentTitle: Project Premonition
+  publicReleaseAuthorized: false
+  repoSource: eggie-admin/LuHm-OS
+  noInstalledHydraPluginRename: true
+  noExistingAndroidPackageIdentityRename: true
+  androidDexCandidateReference: candidate/kai9000-dex-acodex-handoff-20261026
+  universalPackagingReference: doctrine/universalPackageMatrixV1.yaml
+publicSourcePrivacy:
+  repositoryAssumedPublic: true
+  personalAccountVerificationMustRemainPrivate: true
+  noSocialAccountHandlesInThisFile: true
+  noDbaLegalNamesAddressesOrRegistrationNumbersInThisFile: true
+  noTaxOrPayoutDocumentsInGitHub: true
+  noIdDocumentsOrPrivateMetaScreenshotsInGitHub: true
+  noSignerPrivateKeysOrCredentialsInRepoAppOrBrowser: true
+  privateEvidenceManagedByOwnerOutsidePublicSource: true
+  allowOnlyOpaqueProofStateWithoutIdentifiers: true
+businessIdentity:
+  ownerReportedExistingDba: PRIVATE_OWNER_CONTEXT_NO_PUBLIC_PROOF
+  dbaIsTradeNameNotAutomaticallySeparateLegalEntity: true
+  originalRegistrationAndCurrentGoodStanding: OWNER_PRIVATE_REVIEW
+  underlyingBusinessEntityAndFinancialNameMatch: OWNER_PRIVATE_REVIEW
+  countryAndSellerAccountIdentityMatch: NOT_PROVEN
+  noPublicDocumentUploadOrBusinessVerificationAutomation: true
+  sellerRepresentationMustBeAccurate: true
+instagram:
+  currentState: OWNER_REPORTED_VERIFIED_IN_CHAT
+  verificationEvidence: PRIVATE_OWNER_CONTEXT_NOT_READ_THROUGH_META
+  verificationMethod: UNKNOWN_BADGE_OR_SUBSCRIPTION
+  badgeDoesNotConferFacebookVerification: true
+  badgeDoesNotConferMetaBusinessPortfolioVerification: true
+  badgeDoesNotConferMonetizationEligibility: true
+  doNotChangeCurrentProfileTypeForIntegrationWithoutOwnerReview: true
+  currentProfessionalDashboardState: NOT_READ
+  linkedFacebookPageOrBusinessPortfolio: NOT_READ
+  ownedCreativeRights: REQUIRE_VERIFIED_RIGHTS
+  noPasswordOrSessionCookieCollection: true
+facebook:
+  existingPresenceReportedByOwner: true
+  contentMonetization2026: INVITE_ONLY
+  creatorFastTrack: ELIGIBILITY_AND_APPLICATION_UNVERIFIED
+  accountVerification: NOT_READ
+  pageOrProfessionalMode: NOT_READ
+  metaBusinessSuite: NOT_READ
+  monetizationDashboard: NOT_READ
+  payoutEligibilityAndCountry: NOT_READ
+  followerCountsAndViewMetrics: NOT_READ
+  noGuaranteedRevenueFromVerification: true
+samsungGalaxyStore:
+  officialDeveloperOnboarding:
+    - SamsungAccount
+    - SellerPortalRegistration
+    - CommercialSellerStatus
+    - AppRegistration
+    - AndroidPackageReview
+  currentCommercialSellerStatus: NOT_READ
+  dunsOrDbaBusinessVerification: DOCUMENTATION_CAN_BE_USED_SUBJECT_TO_SAMSUNG_REVIEW
+  dunsNotAssumedMandatory: true
+  sellerNameMustMatchProvidedFinancialAndIdentityDocuments: true
+  partnerApprovalNotGuaranteed: true
+  existingPersistentReleaseSigner: NOT_PROVEN
+  signerCertFingerprintStoredWithoutPrivateKey: false
+  packageApplicationIdAndVersionProof: NOT_PROVEN
+  appSignatureAndDataSafeUpgradeTest: NOT_PROVEN
+  reviewerContactAndPrivacyPolicy: PENDING
+  contentAndTrademarkRightsClearance: PENDING
+  webviewAndSecureFolderAcceptance: NOT_PROVEN
+  optionalGalaxyStoreInAppPurchase: OFF_PENDING_SELLER_ACCOUNT_AND_POLICY
+  sellerApi:
+    enabled: false
+    requiresApprovedServiceAccountAndOauth: true
+    appMustFirstBeRegisteredInSellerPortal: true
+    noTokensInGitHub: true
+monetizationOptions:
+  - id: ownProduct
+    description: "LuHm/Premonition owned digital products and appropriate paid software"
+    status: RESEARCH
+    payments: NONE_SELECTED
+    gate: independentRightsPricingTaxPolicyAndPurchaseFlowReview
+  - id: samsungPaidApp
+    description: "Galaxy Store paid app or Samsung IAP"
+    status: BLOCKED
+    gate: commercialSellerApprovalSignedAppReviewAndApprovedIap
+  - id: instagramBrandPartnerships
+    description: "Owner-controlled authentic brand collaboration and properly disclosed sponsored content"
+    status: ELIGIBILITY_NOT_READ
+    gate: eligibleProfessionalToolsPartnerDisclosureRightsAndApproval
+  - id: instagramCreatorFeatures
+    description: "Instagram gifts, subscriptions and eligible creator payouts where offered"
+    status: ELIGIBILITY_NOT_READ
+    gate: professionalDashboardProgramAndPayoutEligibility
+  - id: facebookContentMonetization
+    description: "Invite-only Meta program for eligible original posts, photos, stories, short and long-form videos"
+    status: INVITATION_NOT_VERIFIED
+    gate: dashboardInvitationOnboardingAndPolicyCompliance
+  - id: facebookCreatorFastTrack
+    description: "Application pathway for qualifying established creators using cross-platform audience signals"
+    status: THRESHOLDS_AND_INVITATION_NOT_VERIFIED
+    gate: currentOfficialProgramTermsFollowerVerificationAndApplication
+revenueSafety:
+  conservativeBaseCaseRevenue: UNKNOWN_NOT_ZERO_OR_POSITIVE
+  noGuaranteedMonetizationOrPaidAccountBenefits: true
+  creatorAccountAndBrandPrivacySeparation: true
+  rightsMustCoverAudioFontsCharactersGraphicsCodeAndMarketingAssets: true
+  noPrivateReferenceAnimeOrGameDonorsInPublicRelease: true
+  originalContentAndSponsoredDisclosuresRequired: true
+  storeBillingRulesVaryByDistributionChannel: true
+  taxesAndDbaTreatmentNeedQualifiedReviewWhenNecessary: true
+  noAutoPostingAdvertisingAudienceScrapingOrMassMessaging: true
+  noCredentialSharingOrAccountDelegationWithoutExplicitOwnerConsent: true
+  noReputationalUseOfSamsungOrMetaBadgesBeyondActualEvidence: true
+launchGates:
+  - id: protectExistingAccounts
+    state: READY_POLICY_ONLY
+    requires: preserveVerifiedAccountAndCredentialsInOwnerControl
+  - id: privatelyConfirmBusinessIdentity
+    state: PENDING
+    requires: compareDbaLegalBusinessNamePayoutIdentityAndDocumentationOutsidePublicRepo
+  - id: lockSigningAndAndroidUpdates
+    state: PENDING
+    requires: preserveAppIdSignerVersionCodeAndSecureFolderIsolation
+  - id: verifySellerPortalStatus
+    state: PENDING
+    requires: ownerReadsCurrentSamsungCommercialSellerState
+  - id: privatelyReviewMetaTools
+    state: PENDING
+    requires: ownerReadsInstagramProfessionalDashboardFacebookMonetizationAndBusinessPortfolio
+  - id: evaluatePrograms
+    state: PENDING
+    requires: accountSpecificEligibilityNotBadgeAssumptions
+  - id: buildOriginalLaunchCatalog
+    state: PENDING
+    requires: rightsClearedPortfolioProductsPricingSupportPrivacyPolicy
+  - id: publicBeta
+    state: BLOCKED
+    requires: realSignedBuildSamsungInstallAccessibilityAndDistributionApprovals
+  - id: creatorCampaign
+    state: BLOCKED
+    requires: approvedOriginalAssetsDisclosureApprovedPublishingAndMetrics
+sourceReferences:
+  samsungSeller: https://developer.samsung.com/galaxy-store/prepare.html
+  samsungSellerApi: https://developer.samsung.com/galaxy-store/galaxy-store-developer-api/get-started-with-the-gsd-api.html
+  samsungRegistration: https://developer.samsung.com/galaxy-store/launch.html
+  androidSigning: https://developer.android.com/studio/publish/app-signing
+  androidUpdates: https://developer.android.com/google/play/app-updates
+  instagramBadge: https://www.facebook.com/help/461238577687001
+  metaCreatorVerification: https://www.facebook.com/help/2419286908233223
+  metaFacebookMonetization2026: https://about.fb.com/news/2026/03/creator-fast-track-grow-your-audience-earn-money-on-facebook/
+  metaOriginalContent: https://about.fb.com/news/2026/03/rewarding-original-creators-on-facebook/
+  metaCopyright: https://www.facebook.com/help/354736791367645/
+runtime:
+  accountsConnectedByThisCandidate: false
+  userPrivacySettingsChanged: false
+  signingKeysReadOrCreated: false
+  verificationAppliedFor: false
+  storeSellerStatusAppliedFor: false
+  productsPricedOrListed: false
+  socialPostsPublished: false
+  paidCampaignStarted: false
+  payoutsOrFinancialAccountsRead: false
+  mergePerformed: false
+  crownStatus: STOP
