@@ -6,6 +6,9 @@ on:
       - 'doctrine/kai9000RomHackingGraphicsResearchV1.yaml'
       - 'doctrine/ubuntuKioskKernelVmStudyV1.yaml'
       - 'doctrine/universalPackageMatrixV1.yaml'
+      - 'doctrine/minimalInstallerWizardV1.yaml'
+      - 'frontEnd/installWizard/preview.html'
+      - 'tests/testMinimalInstallerWizard.py'
       - 'tools/luhmPortablePackageAudit.py'
       - 'tests/testLuhmPortablePackageAudit.py'
       - 'doctrine/minimumViableKernelAndServicesV1.yaml'
@@ -43,6 +46,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'testKai9000GraphicsProbe.py' -v
           python3 -m unittest discover -s tests -p 'testUbuntuKioskKernelVmStudy.py' -v
           python3 -m unittest discover -s tests -p 'testLuhmPortablePackageAudit.py' -v
+          python3 -m unittest discover -s tests -p 'testMinimalInstallerWizard.py' -v
           python3 tools/luhmPortablePackageAudit.py
           python3 tools/kai9000GraphicsProbe.py
       - name: Preserve build and real-device truth
@@ -51,6 +55,9 @@ jobs:
           echo 'ROMHACKING_GPU_TOOLS=RESEARCH_ONLY'
           echo 'UBUNTU_26_KIOSK_MINIMAL_CORE_LXD_KVM=RESEARCH_ONLY'
           echo 'UNIVERSAL_PACKAGE_MATRIX=SOURCE_ONLY'
+          echo 'DEBIAN_GRUB_MINIMAL_WIZARD=OFFLINE_MOCK_ONLY'
+          echo 'CALAMARES_ENGINE=NOT_CONNECTED'
+          echo 'DISKS_BOOTLOADER_FIRMWARE=UNMODIFIED'
           echo 'DEB_SNAP_OCI_NPM_WHEEL_APK=NO_NEW_RELEASES'
           echo 'UNSUPPORTED_MAINLINE_PRODUCTION=FORBIDDEN'
           echo 'GUEST_VM_OR_HOST_INSTALL=NONE'
