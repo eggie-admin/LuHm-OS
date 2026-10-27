@@ -30,7 +30,7 @@ try:
     check("userGestureMedia", "setMediaPlaybackRequiresUserGesture(true)" in main)
     check("noCleartext", 'android:usesCleartextTraffic="false"' in manifest)
     check("notSignedOrAutoDeployed", "signingConfig" not in gradle and "signingConfigs" not in gradle)
-    check("developmentStatusTransparent", "not a signed APK" in guide.lower() and "interim fallback" in guide.lower())
+    check("developmentStatusTransparent", "not a signed apk" in guide.lower() and "interim fallback" in guide.lower())
     check("notGodotWorkflow", "samsung-lite-signed-beta" not in gradle)
 except (OSError, ET.ParseError, ValueError) as exc:
     check("allInputsReadableAndValid", False)
