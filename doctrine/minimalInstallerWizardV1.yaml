@@ -1,0 +1,162 @@
+schema: luhmOs.minimalInstallerWizard.v1
+asOf: "2026-10-26"
+authority: Professor
+status: SOURCE_CANDIDATE_NO_INSTALL_ENGINE
+purpose: "Graphical full-install planning shell over existing supported Debian installer machinery, GRUB and a small hardware-specific LuHm system."
+productionBase:
+  preferred: Debian13TrixieStable
+  currentPointReleaseAsOfDate: 13.7
+  alternateResearch: Ubuntu2604LtsServerMinimal
+  biosOrUefiFirmwareOwnership: hardwareVendor
+  noManualHexFirmwareEdits: true
+  noBIOSRewrite: true
+  noOdinOrAndroidBootloaderFlashing: true
+  androidApkIsSeparateDeliveryLane: true
+  noInstallOnSamsungPhoneOrTablet: true
+  directBareMetalInstallPermitted: false
+bootStack:
+  uefiBootPolicy: useSignedShimAndGrubWhenSecureBootEnabledAndSupported
+  legacyBiosPolicy: onlyIfTargetActuallyUsesLegacyBiosAndApproved
+  bootloader: grub2
+  linuxKernel: supportedDistributionKernelOnly
+  initramfs: generatedByDistributionHooks
+  secureBoot: preserveWhenAvailable
+  preserveExistingEfiEntries: true
+  neverOverwriteAnotherOsWithoutVerifiedExplicitSelection: true
+  recoveryEntryRequired: true
+firmwareAndDriverSupport:
+  linuxFirmware: distributionPackagedPerDetectedHardware
+  DebianComponent: non-free-firmwareWhenRequired
+  packageFirmwareNotSameAsFlashingBios: true
+  proprietaryDriverAudit: requiredForActualGpuWifiBtAndOtherHardware
+  driverSelectionByHardwareModaliasAndSupportedPackages: true
+  unknownFirmware: stopShowMissingDriverAndOfferSupportedVendorPath
+  updateAssistant:
+    provider: fwupdAndLvfsIfVendorSupported
+    mode: INVENTORY_ONLY
+    firmwareUpdatesNeverPartOfInstallAutomatically: true
+    needsSeparateApprovalAndPowerRecoveryProof: true
+  samsungOemAndroidDriverStack: NEVER_REPLACE
+displayProfiles:
+  serverOnly:
+    components: [distributionKernel, systemd, networking, opensshIfApproved, pythonApi]
+    desktop: none
+  kiosk:
+    components: [distributionKernel, systemd, gpuDrivers, waylandMirOrSupportedKioskCompositor, localHtmlCssJavascript, pythonApi]
+    desktop: noFullDesktopRequired
+    optional: [voice, microphone, camera, webGl, 3d, accessibleVirtualKeyboard]
+    status: NOT_PROVEN_ON_HARDWARE
+  studioDevelopment:
+    components: [distributionKernel, systemd, guiForDevelopment, pythonApi, git, localMedia]
+    deployment: SEPARATE_DEBUG_PROFILE
+  vmTest:
+    components: [qemuKvm, disposableDiskImage, DebianInstaller, softwareGraphicsIfNoPassThrough]
+    deployment: FIRST_PROOF_ONLY
+serviceReduction:
+  strategy: startSmallThenAddMeasuredFeatures
+  doNotDisableUnknownServices: true
+  preserveMandatory:
+    - aptAndSecurityUpdates
+    - coreBootAndUdev
+    - storageFilesystemEncryption
+    - networkAndDNSIfUsed
+    - authLogsTimeSyncAndAccess
+    - accessibilityInputAndAudioWhenRequired
+    - approvedRecoveryAccess
+  optionalByExplicitPlan:
+    - bluetooth
+    - printing
+    - avahiDiscovery
+    - GUIComponents
+    - camera
+    - mediaRendering
+    - remoteAdapters
+    - SQLIfNoLocalStore
+  neverDisableSecurityUpdatesForPerformance: true
+wizard:
+  identity: luhmOs.installWizard
+  htmlCandidate: frontEnd/installWizard/preview.html
+  backendMode: NONE_PREVIEW_ONLY
+  installationEngineCandidate: DebianInstallerPreseedOrOfficialCalamaresConfig
+  noPrivilegedCallsFromBrowser: true
+  noRootTerminalViaJavascript: true
+  noAutoinstallGeneratedOrApplied: true
+  noDiskPartitioningPerformed: true
+  order:
+    - welcomeAndLicense
+    - compatibilityScan
+    - chooseInstallEnvironment
+    - storageAndBackup
+    - encryptionAndBoot
+    - selectDriversAndServices
+    - networkAndOptionalConnectors
+    - fullSummary
+    - explicitCrownConsent
+    - verifiedInstallerExecution
+    - rebootAndRecoveryProof
+  statuses:
+    - sourceCandidate
+    - deviceScanned
+    - backupVerified
+    - installPlanReviewed
+    - crownApproved
+    - installerExecuted
+    - firstBootProven
+  liveTransitionState: sourceCandidate
+  previewFinalAction: BLOCKED_SIMULATION_ONLY
+  stepExecution:
+    compatibilityScan: READ_ONLY_FUTURE_ADAPTER
+    chooseInstallEnvironment: CONFIG_ONLY
+    storageAndBackup: CONFIG_ONLY_NO_FORMAT
+    encryptionAndBoot: CONFIG_ONLY
+    selectDriversAndServices: CONFIG_ONLY
+    networkAndOptionalConnectors: CONFIG_ONLY
+    fullSummary: CONFIG_ONLY
+    explicitCrownConsent: REQUIRES_OWNER_OUTSIDE_DEMO
+    verifiedInstallerExecution: ENGINE_NOT_CONNECTED
+    rebootAndRecoveryProof: PHYSICAL_OR_VM_ATTESTATION_REQUIRED
+  diskGates:
+    noDiskPreselected: true
+    matchTargetPersistentIdAndCapacity: true
+    targetChoiceRequiresExplicitUserSelection: true
+    detectExistingOsAndProtectedVolumes: true
+    showBeforeAfterPartitionMap: true
+    confirmedBackupRestorePoint: true
+    encryptionPassphrasesNeverWrittenToYamlOrLogs: true
+    destructiveActionRequiresTypedExactTargetAndFreshOwnerApproval: true
+    neverExecuteBasedOnNarrativeRoleplay: true
+    abortIfDeviceStateChangedSincePlan: true
+    vmOnlyUntilSeparateCastAuthorization: true
+  finishingProofs:
+    - signedInstallerAndImageDigest
+    - targetHardwareAndDriversInventory
+    - packageManifestAndKernelVersion
+    - grubSignedBootAndRecoveryPath
+    - encryptedStorageAndKeyRecoveryIfChosen
+    - firstBootNetworkingAndKiosk
+    - updateAndRollbackTest
+    - noSecretsInPlanOrBuildLogs
+    - ownerAcceptsVisualAndInputBehavior
+sourceReferences:
+  debianStable: https://www.debian.org/releases/trixie/
+  debianInstaller: https://www.debian.org/releases/trixie/amd64/ch06s03.en.html
+  debianPreseed: https://www.debian.org/releases/stable/amd64/apbs04.en.html
+  debianCalamaresLive: https://www.debian.org/CD/live/index.en.html
+  grubAndSecureBoot: https://wiki.debian.org/SecureBoot
+  firmwarePackages: https://wiki.debian.org/Firmware
+  fwupdVendorUpdates: https://lvfs.readthedocs.io/en/latest/intro.html
+  ubuntuServerAlternative: https://canonical-subiquity.readthedocs-hosted.com/en/latest/reference/autoinstall-reference.html
+  ubuntuFrameKiosk: https://mir-server.io/docs/run-ubuntu-frame-on-your-device
+vendorAndCrown:
+  approvedPrivateSqlRemainsOperationalSource: true
+  yamlStoresOnlyDeclarativeConfigNoCredentials: true
+  noNewPublicServices: true
+  noKernelCompiled: true
+  noVmCreated: true
+  noInstallerBuild: true
+  noIsoProduced: true
+  noFirmwareFlashed: true
+  noSystemServicesDisabled: true
+  noOSInstalled: true
+  noAutomaticPromotion: true
+  crownStatus: STOP

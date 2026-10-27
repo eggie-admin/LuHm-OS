@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101221">
+<title>LuHm OS · Minimal Debian Installer Planning Preview</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui;background:#0b0e1c;color:#edf5ff}
+*{box-sizing:border-box}body{margin:0;padding:clamp(12px,3vw,30px)}
+main{margin:auto;max-width:820px}h1{font-size:clamp(26px,5vw,40px)}
+aside,.panel{border:1px solid #3b5270;background:#171e31;padding:18px;border-radius:14px;margin:18px 0}
+small{color:#b1c4e1}strong{color:#86e4f9}
+label{display:block;cursor:pointer;border:1px solid #445577;padding:12px;margin:12px 0;border-radius:9px}
+input{margin-right:9px;accent-color:#6adeff}
+button{padding:12px 16px;border:1px solid #74e2ff;background:#214260;color:#fff;border-radius:8px;min-height:48px;cursor:pointer}
+button:disabled{opacity:.4;cursor:not-allowed}button:focus-visible,input:focus-visible{outline:3px solid #fff;outline-offset:3px}
+menu{padding:0;display:flex;justify-content:space-between;gap:12px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0b1024;padding:12px;border-radius:7px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<header><strong>◈ LuHm OS</strong> <small>· Project Premonition · Preview only</small></header>
+<h1>Minimum Debian. Maximum control.</h1>
+<aside><strong>CROWN STOP</strong><p>Read-only planning preview. No hardware detection, disk selection, partition changes, GRUB installation, firmware writes, network calls or installer execution.</p></aside>
+<div class="panel">
+<p id="progress" aria-live="polite"></p>
+<section id="page" aria-live="polite"></section>
+<menu><button id="back" type="button">← Back</button><button id="next" type="button">Continue →</button></menu>
+</div>
+<footer><small>Future engine: Debian Installer / Calamares; never replace UEFI BIOS or GRUB by running browser JavaScript.</small></footer>
+</main>
+<script>
+(() => {
+"use strict";
+const choices={profile:"vm",disk:"none",boot:"uefi",network:"offline",sound:"off",graphics:"basic"};
+const steps=[
+["Welcome","The installed system will be minimal Debian, signed GRUB when supported, necessary firmware packages and the LuHm application."],
+["Compatibility","Device probe NOT CONNECTED. A production installer must identify the real CPU, storage controllers, graphics, network, firmware and Secure Boot capability before offering a plan."],
+["Profile", "profile", [["vm","Disposable virtual machine"],["kiosk","Single-purpose local cockpit"],["headless","Headless server"],["studio","Separate studio workbench"]]],
+["Disk protection","disk",[["none","No disk selected (default)"],["later","Require offline, verified backup and a manual disk review"]]],
+["Boot mode","boot",[["uefi","UEFI signed shim and GRUB when supported"],["legacy","Legacy boot only when verified by hardware detection"]]],
+["Hardware services","graphics",[["basic","Basic 2D cockpit fallback"],["deferred","3D only after GPU capability proof"]]],
+["Audio/Accessibility","sound",[["off","Minimum standard dependencies; do not forcibly disable required accessibility"],["on","Include user-requested audio and input dependencies"]]],
+["Network","network",[["offline","Offline first"],["private","Private authenticated adapter, configured later"]]],
+["Plan","review"],
+["Finish","Installer ENGINE NOT CONNECTED. Export nothing privileged. No disks formatted, no bootloader written and no firmware touched."]
+];
+let pageIndex=0;
+const page=document.getElementById("page"),progress=document.getElementById("progress");
+const back=document.getElementById("back"),next=document.getElementById("next");
+function show(){
+progress.textContent="Step "+(pageIndex+1)+" of "+steps.length;
+const step=steps[pageIndex];
+page.replaceChildren();
+const heading=document.createElement("h2");heading.textContent=step[0];page.appendChild(heading);
+if(step.length===2 && step[1]!=="review"){
+const p=document.createElement("p");p.textContent=step[1];page.appendChild(p);
+}else if(step[1]==="review"){
+const pre=document.createElement("pre");
+pre.textContent=[
+"schema: luhmOs.installWizardPreview.v1","status: SOURCE_CANDIDATE_ONLY",
+"profile: "+choices.profile,"storageTarget: UNSELECTED",
+"diskSelection: "+choices.disk,"boot: "+choices.boot,
+"graphics: "+choices.graphics,"audio: "+choices.sound,
+"network: "+choices.network,"installerEngine: NOT_CONNECTED",
+"approvedForDiskWrites: false","crownStatus: STOP"].join("\n");page.appendChild(pre);
+}else{
+for(const [id,label] of step[2]){
+const line=document.createElement("label"),radio=document.createElement("input");
+radio.type="radio";radio.name=step[1];radio.value=id;radio.checked=choices[step[1]]===id;
+radio.addEventListener("change",()=>{choices[step[1]]=id});
+line.append(radio,document.createTextNode(label));page.appendChild(line);
+}
+}
+back.disabled=pageIndex===0;
+next.textContent=pageIndex===steps.length-1?"Start preview again ↺":"Continue →";
+}
+back.addEventListener("click",()=>{pageIndex=Math.max(0,pageIndex-1);show()});
+next.addEventListener("click",()=>{pageIndex=(pageIndex+1)%steps.length;show()});
+show();
+})();
+</script>
+</body>
+</html>

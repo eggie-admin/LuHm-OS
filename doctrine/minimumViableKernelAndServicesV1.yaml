@@ -1,0 +1,79 @@
+schema: luhmOs.minimumViableKernelAndServices.v1
+asOf: "2026-10-26"
+authority: Professor
+status: SOURCE_CANDIDATE_NOT_APPLIED
+purpose: "Smallest supported and recoverable runtime for actual hardware, not a stripped kernel at any cost."
+targets:
+  futureUniversalLinux:
+    status: DESIGN_RESEARCH_ONLY
+    customKernelPermittedAfterVerifiedHardwareInventory: true
+    compileOnlyNeededHardwareDriversWhereSafe: true
+    useModulesForHotPlugAndOptionalHardware: true
+    preserveGenericRecoveryKernel: true
+    neverAssumeSingleKernelFitsAllDevices: true
+    requireDeviceTreeOrFirmwareDependenciesWhenApplicable: true
+    stagedServices:
+      default: serviceInventoryBeforeChanges
+      dormantOrOptional: disableOnlyAfterDependencyAndSecurityReview
+      essential: [networkConnectivity, dnsAndTls, storageAndFilesystem, keyboardAndInput, audioAndAccessibility, securityUpdates, remoteRecovery]
+    kernelConfigReview:
+      - cpuArchitectureAndMicrocode
+      - gpuSupportedKernelAndUserspaceApis
+      - inputWifiBluetoothAudioUsb
+      - storageFilesystemAndEncryption
+      - tlsNetworkAndFirewall
+      - containersOnlyIfUsed
+      - securityModulesAndModuleSigning
+      - optionalFeaturesBenchmarkedBeforeRemoving
+    benchmarks: [bootTime, idleMemory, cpuWakeups, startupLatency, frameTime, energyUse, storageFootprint]
+    upgradeRule: "Apply security and compatibility fixes for enabled components; preserve ABI and rollback kernel."
+    noBlindDependencyRemoval: true
+    secureBootModuleSigningReviewed: true
+    recovery:
+      keepKnownGoodBootEntry: true
+      offlineRescueMedia: true
+      snapshotBeforeMutation: true
+  samsungAndroid:
+    status: OEM_VENDOR_CONTROLLED
+    customSystemKernel: NOT_PART_OF_KAI9000_BUILD
+    userSpaceOnlyFirst: true
+    preserve:
+      - OEMGraphicsAndRadioDrivers
+      - AndroidWebViewProvider
+      - SystemUIAndPackageInstaller
+      - KnoxAndSecureFolder
+      - SamsungDexCapabilities
+      - AccessibilityAudioAndInput
+      - CryptographyAndKeystore
+      - VerifiedBootAndOTAUpdates
+    supportedAppTuning:
+      - localWebViewAndCss
+      - reducedGraphicsEffects
+      - optional3dLazyLoading
+      - backgroundJobAndWakeupBudget
+      - permissionAndNetworkMinimization
+      - performanceProfiling
+    noADBPackageDisableAutomation: true
+    noOEMPackageRemoval: true
+    noShizukuPrivilegeEscalation: true
+    noFirmwareOrBootloaderOrOdinChanges: true
+    noHexEditorOrBiosDependency: true
+    unsupportedOnlyFirmwareFix: HOLD_FEATURE_REPORT_LIMITATION
+safeOptimizationMethod:
+  - inventoryExactDeviceAndCurrentConfigurationReadOnly
+  - classifyRequiredOptionalAndUnknownDriversOrServices
+  - measureBaselineBeforeAnySwitch
+  - proposeOneFeatureOrServiceChangeWithDependencyAndSecurityEvidence
+  - proveExpectedImprovementAndRollbackPath
+  - requireOwnerAuthorizationForLiveSystemMutations
+  - testBootWifiBluetoothCameraAudioAccessibilitySecureFolderAndDeX
+  - recordActualPerformanceAndRegressionReceipts
+  - returnToKnownGoodOnFailure
+unknownDependenciesPolicy: KEEP_AND_INVESTIGATE
+securityPatchCadence: NEVER_DISABLE_UPDATES_TO_SAVE_CPU
+vendoredKernelDrivers: NEVER_INGEST_THIRD_PARTY_ROM_PATCH_AS_SAMSUNG_DRIVER
+publicRelease: false
+liveServiceChangesPerformed: false
+kernelCompiled: false
+firmwareModified: false
+crownStatus: STOP

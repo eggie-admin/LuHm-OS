@@ -1,0 +1,235 @@
+schema: luhmOs.ubuntuKioskKernelVmStudy.v1
+asOf: "2026-10-26"
+authority: Professor
+status: SOURCE_CANDIDATE_RESEARCH_ONLY
+scope: "Canonical-first Ubuntu headless server, minimal kiosk, supported kernel, custom kernel, VM encapsulation and vendor reduction"
+relationship:
+  currentProject: Project Hydra closeout
+  nextProject: Project Premonition
+  target: futureUniversalLuhmRuntime
+  currentKAI9000SamsungApkUnaffected: true
+  crossReference: doctrine/minimumViableKernelAndServicesV1.yaml
+sourceLaw:
+  ubuntuAndCanonicalOfficialFirst: true
+  sql: firstApprovedPrivateOperationalStore
+  yaml: reviewedPortableConfiguration
+  markdown: toolMandatedOrHumanRecoveryOnly
+  urlsLiveReviewed: true
+  downloadedBinaries: false
+  accountsAndSubscriptionsVerified: false
+  noUnsupportedBootOrFirmwareExperiments: true
+officialSources:
+  lts26:
+    url: https://documentation.ubuntu.com/release-notes/26.04/
+    state: UBUNTU_26_04_LTS_2026_04_23
+    kernel: supportedLinux7_0GA
+    support: standardSecurityThroughApril2031
+    evidence: officialReleaseNotes
+  interim2610:
+    url: https://documentation.ubuntu.com/release-notes/26.10/
+    state: UBUNTU_26_10_2026_10_15
+    support: untilJuly2027
+    lifecycle: nineMonths
+  core26:
+    url: https://documentation.ubuntu.com/core/uc26/
+    state: LATEST_UBUNTU_CORE_26_RELEASE_2026_05_14
+    notes: "Immutable minimal appliance operating system; 10 years standard security maintenance, optional additional five with Legacy."
+    buildArchitecture: chiselBasedSnapComposition
+    supportDetail: https://documentation.ubuntu.com/core/reference/support-duration/
+  minimalServer:
+    url: https://canonical-subiquity.readthedocs-hosted.com/en/latest/reference/autoinstall-reference.html
+    supportedSourceId: ubuntu-server-minimal
+    isoSpecificSourceIdVerification: casper/install-sources.yaml
+    noAutoinstallDestructiveApply: true
+  linuxSecurity:
+    url: https://documentation.ubuntu.com/security/security-updates/
+    unattendedUpgradesShouldRemainEnabled: true
+  frame:
+    url: https://mir-server.io/docs/run-ubuntu-frame-on-your-device
+    serverModeExtraSteps: "On classic Ubuntu, the Frame and WPE kiosk daemons do not start by default; explicitly configure daemon=true and connect Wayland."
+    compositor: MirWayland
+    loginDesktopManagerRequired: false
+    headlessServerWithAttachedDisplay: true
+  frameOSK:
+    url: https://mir-server.io/docs/ubuntu-frame-osk-documentation
+    purpose: kioskTouchKeyboard
+  frameDiagnostics:
+    url: https://mir-server.io/docs/how-to-use-the-ubuntu-frame-diagnostic-feature
+    purpose: visibleErrorWithoutFullDesktop
+  coreKioskQuickstart:
+    url: https://documentation.ubuntu.com/core/how-to-guides/using-ubuntu-core/
+    sampleSnaps: [ubuntu-frame, wpe-webkit-mir-kiosk]
+    note: "The sample renders a remote website; a LuHm-owned packaged/offline shell needs a separate supported packaging/URI design."
+  coreImaging:
+    url: https://documentation.ubuntu.com/core/how-to-guides/image-creation/
+    requirements: [supportedTargetBoard, kernelSnap, gadgetSnap, modelAssertion, updateAndRecoveryTests]
+  coreVirtualTest:
+    url: https://documentation.ubuntu.com/core/tutorials/try-pre-built-images/install-on-a-vm/
+    sampleMultipassImage: core26
+  stableKernel:
+    url: https://ubuntu.com/kernel/docs/reference/ubuntu-kernels/
+    supportedTracks: [GA, HWE, OEM, lowlatency]
+    maintainedSRUAndSecurityPatches: true
+  hweLifecycle:
+    url: https://ubuntu.com/kernel/lifecycle
+    twentyFourLtsRollingEnablementAvailable: true
+    gaAndHwePackageIdentityMustBeExact: true
+  customKernel:
+    url: https://ubuntu.com/kernel/docs/how-to/develop-customise/build-kernel/
+    guideStatesProductionNotIntended: true
+    baselineBuildResources: "at least 8GB RAM and 40GB free disk"
+    separateVmOnly: true
+  mainlineUnsupported:
+    url: https://canonical-kernel-docs.readthedocs-hosted.com/explanation/about-mainline-builds/
+    categorization: DIAGNOSTIC_ONLY
+    unsupported: true
+    securityUpdates: none
+    productionPermitted: false
+    moduleCompatibilityRisk: true
+  lxd:
+    url: https://documentation.ubuntu.com/lxd/en/stable-5.21/explanation/instances/
+    containersShareHostKernel: true
+    vmsBootIndependentKernel: true
+  qemu:
+    url: https://ubuntu.com/server/docs/
+    hypervisor: QEMU_KVM_LIBVIRT
+    purpose: trueKernelIsolationAndRepeatableBootTest
+  chiseling:
+    url: https://documentation.ubuntu.com/rockcraft/en/1.7.0/explanation/chisel/
+    purpose: minimalSelectedPackageSlicesInsideOCIImages
+    notAKernelOrSamsungDriverMechanism: true
+  frameWindowTest:
+    url: https://mir-server.io/docs/run-ubuntu-frame-on-your-desktop
+    caveat: "Can test inside an existing X11 session before taking over the display. Particularly useful before NVIDIA direct DRM/KMS testing."
+strategy:
+  selectedBaseline: existingSupportedLinuxMintUbuntuBaseUntouched
+  nextProof: disposableUbuntu2604MinimalVm
+  futureApplianceCandidate: UbuntuCore26PlusUbuntuFrame
+  fallbackClassicServerCandidate: UbuntuServer2604MinimalPlusUbuntuFrame
+  notSelected: "Damn Small Linux until driver, lifecycle, browser, accessibility and update benchmarks are measured"
+  noBareMetalReplacement: true
+  noMainlineKernelProduction: true
+  noStandaloneExperimentalKernelOnExistingHost: true
+  noDirectUbuntuCoreInstallOnSamsungOEMDevice: true
+  noBlindRemoveServices: true
+  noCustomFirmwareRequirement: true
+comparison:
+  - id: existingMint
+    category: workhorseAndKnownGood
+    advantages: [currentToolsAndDrivers, desktopRecovery, familiarWorkflow]
+    costs: [desktopFootprint]
+    disposition: PRESERVE
+  - id: ubuntuServer2604Minimal
+    category: headlessOSCandidate
+    advantages: [supportedLtsKernel, minimalPackageSelection, autoinstall, sshHeadless, existingAptEcosystem]
+    costs: [manualAppPackaging, kernelAndGpuDeviceSpecificTesting]
+    disposition: TEST_IN_VM
+  - id: ubuntuFrameWpeKiosk
+    category: singlePurposeDisplayShell
+    advantages: [noFullDesktop, MirWayland, onscreenKeyboardAndDisplayControls]
+    costs: [WebKitVsChromiumEngineDifferences, mediaPermissions, graphicsAndTouchProof]
+    disposition: TEST_IN_VM_AND_WINDOWED_ON_HOST
+  - id: ubuntuCore26
+    category: immutableAppliance
+    advantages: [snapConfinement, OTAAndRollback, curatedModel, chiselComposition]
+    costs: [hardwareBoardEnablement, kernelGadgetAndSnapPackaging, differentMaintenanceModel]
+    disposition: VM_FIRST_WHEN_READY
+  - id: lxdContainer
+    category: lightweightServiceIsolation
+    advantages: [fastStartup, sharedKernel, lowOverhead]
+    costs: [cannotTestNewKernel, remoteAdminSecurityReview]
+    disposition: OPTIONAL_PYTHON_SERVICE_LANE
+  - id: qemuKvmVm
+    category: kernelAndOSIsolation
+    advantages: [independentGuestKernel, snapshotAndRollback, customBootResearch]
+    costs: [memoryAndDisk, oftenLimitedGpuAndDrmAccess]
+    disposition: PREFERRED_EXPERIMENT_SANDBOX
+  - id: mainlineKernel
+    category: unsupportedDiagnostic
+    advantages: [compareUpstreamDriverBug]
+    costs: [noSecurityPatches, mismatchedModules, potentialBootRisk]
+    disposition: NO_PRODUCTION
+  - id: selfCompiledKernel
+    category: exactHardwareCustom
+    advantages: [measuredModuleConfigControl]
+    costs: [securityAndAbiMaintenance, secureBootSigning, dkmsOutOfTreeDrivers]
+    disposition: VM_DIAGNOSTIC_ONLY_UNTIL_LONGTERM_STEWARDSHIP_PROVEN
+kioskCompatibilityGates:
+  - exactlyIdentifyChromiumVsWpeApiNeeds
+  - noCrossOriginUnreviewedCdns
+  - proveOfflineStaticHtmlCssJavascriptAtKioskUri
+  - verifyTouchMouseKeyboardAndOnscreenKeyboard
+  - testVoiceCameraAndMediaPermissionsOnlyWhenUserInitiated
+  - verifyWebGLWebGL2AudioGpuLatencyAndGraceful2dFallback
+  - measureColdBootRendererStartupIdleRamAndCpuWakeups
+  - showNativeFailureCardWhenBrowserCrashed
+  - verifyAuthLocalSqlAndPrivateApiViaServerAdapterNotEmbeddedSecrets
+  - verifyNvidiaOrOtherGpuDriverAccessWithoutHostKernelReplacement
+  - verifySnapConfinementAndPermissionBoundaries
+  - verifyUpdatesRebootRecoveryAndKnownGoodRollback
+kernelAndServiceSafety:
+  firstPreferred: CanonicalSupportedGAKernelAndSRU
+  nextWhenNeeded: supportedHWEOrOEMWithExactHardwareEligibility
+  lowlatencyWhenNeeded: measuredVoiceAudioNotAutomatic
+  customOnlyWhenNeeded: measuredHardwareGapInDisposableVmWithReview
+  mainlineUsage: temporaryVmBugIsolationOnlyRemoveAfterTest
+  disableUnknownServices: false
+  preserveEssential:
+    - aptAndAutomaticSecurityUpdates
+    - NetworkManagerOrNetworkdDnsAndFirewall
+    - sshRecoveryOnlyWhenAuthorized
+    - StorageEncryptionAndFilesystemServices
+    - AudioInputAndAccessibility
+    - SecureBootAndSignedModules
+    - RequiredNvidiaDkmsOrOtherGpuDriver
+    - LogsMetricsAndBackup
+  neverExpose:
+    - localMariaDbSocket
+    - deviceCamera
+    - x11WaylandSocket
+    - kioskDebugProtocol
+    - sshVncOnPublicInternet
+  noBiosOrRomHexEdit: true
+  noOdinFlashing: true
+  noLiveChangesWithoutSeparateApproval: true
+researchProcedure:
+  - id: recordBaseline
+    action: readOnlyPackageKernelServicesAndHardwareInventory
+    proof: versionedHostHardwareAndServiceListNoPrivateIdentifiers
+  - id: benchmarkVm
+    action: useDisposableVmWithUbuntu2604ServerMinimalIsoAndNoHostFilesystemShare
+    proof: exactIsoHashInstallationSourceIdAndGuestBoot
+  - id: minimizeServices
+    action: changeOneOptionalGuestServicePerExperimentThenMeasure
+    proof: baselineVsAfterRamCpuBootAndNetwork
+  - id: evaluateFrame
+    action: compareWpeKioskToExistingChromiumBasedLuHmFrontEnd
+    proof: offlineUiTouchMediaWebGLAndAccessibility
+  - id: evaluateCore
+    action: bootCore26InDedicatedVmThenBuildModelBoundDisposableApplianceImage
+    proof: otaRollbackAndSignedImageLifecycle
+  - id: modelKernel
+    action: diffSupportedGuestConfigAndOnlyPrototypeNecessaryKernelModules
+    proof: exactBinariesAndSecurityUpdateChainBenchmarks
+  - id: decide
+    action: chooseLowestCostSupportedStackWithRealMeasurements
+    proof: goNoGoAndRollbackReceipt
+readOnlyStarterInventory:
+  examples:
+    - "lsb_release -a"
+    - "uname -a"
+    - "cat /proc/version_signature"
+    - "dpkg-query -W"
+    - "systemctl list-unit-files --type=service"
+    - "systemd-analyze blame"
+    - "systemd-analyze critical-chain"
+    - "lsmod"
+    - "lspci -nnk"
+  note: "Review command output for hostnames and identifiers before distributing."
+noCommandsExecuted: true
+noVmCreated: true
+noKernelBuilt: true
+noServiceDisabled: true
+noRemoteOrDeviceMutations: true
+noAutoinstallRun: true
+crownStatus: STOP

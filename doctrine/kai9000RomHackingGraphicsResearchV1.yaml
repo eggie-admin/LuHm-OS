@@ -1,0 +1,159 @@
+schema: luhmOs.kai9000RomHackingGraphicsResearch.v1
+asOf: "2026-10-26"
+status: SOURCE_CANDIDATE_RESEARCH_ONLY
+authority: Professor
+purpose: "Use historic ROM-hacking toolchain ideas to reduce dependencies and diagnose Samsung GPU/API compatibility, not to modify firmware or third-party game code."
+researchMethod:
+  romHackingSite: https://www.romhacking.net/
+  directUtilityCatalogAccess: BLOCKED_403
+  history: "2024 moved to news and read-only archive; reference archived utilities, not a live curated security feed"
+  thirdPartyDownloadsAutoInstalled: false
+  archivesAreUntrustedInputs: true
+  preserveAuthorLicenseAndVersion: true
+  noThirdPartyGameAssetsIncluded: true
+  noCopyrightOrDeviceSecurityCircumvention: true
+  candidateDonorsAreResearchNotRuntimeDependencies: true
+sourceEvidence:
+  romHackingArchive:
+    url: https://www.timeextension.com/news/2024/08/romhacking-net-is-winding-down-after-almost-20-years
+    explains: historicalUtilityAndSourceReference
+  romPatcherJs:
+    url: https://github.com/marcrobledo/RomPatcher.js/
+    npm: rom-patcher
+    licenseObserved: MIT
+    referencePurpose: "Client-side version-checked binary patch pipeline, no APK dependency"
+    adoption: REFERENCE_ONLY
+    noAutomaticDevicePatching: true
+  imHex:
+    url: https://github.com/WerWolv/ImHex
+    licenseObserved: GPL-2.0-ONLY_MAIN_PROGRAM_WITH_LGPL_PARTS
+    referencePurpose: "Pattern-language binary structures, ARM and MIPS disassembly, diff/checksum"
+    adoption: OPTIONAL_DEVELOPER_WORKSTATION_TOOL
+    packageIntoPublicApk: false
+  ghidra:
+    url: https://github.com/NationalSecurityAgency/ghidra
+    licenseObserved: Apache-2.0
+    referencePurpose: "Authorized source and own binaries, ARM/MIPS disassembly and static analysis"
+    adoption: OPTIONAL_DEVELOPER_WORKSTATION_TOOL
+  pcsx2:
+    url: https://pcsx2.net/docs/configuration/general/
+    historicalGsdxUrl: https://wiki.pcsx2.net/GSDX
+    referencePurpose: "Renderer fallback and per-device accuracy/performance profiles; no PS2 ROM/BIOS/plugins bundled"
+    adoption: DESIGN_REFERENCE_ONLY
+  samsungRenderDoc:
+    url: https://developer.samsung.com/galaxy-gamedev/resources/tool-guides/renderdoc.html
+    licenseObserved: MIT
+    referencePurpose: "Android Vulkan and OpenGL ES frame capture in dev builds"
+    adoption: DEBUG_SIDE_TOOL_IF_SUPPORTED
+  androidPerformanceAnalyzer:
+    url: https://developer.android.com/blog/posts/introducing-android-performance-analyzer-the-next-evolution-in-profiling-for-android
+    status: PUBLIC_BETA_2026
+    referencePurpose: "CPU GPU RAM power Perfetto profiling without shipping profiler in APK"
+    adoption: DEBUG_SIDE_TOOL_IF_SUPPORTED
+  perfettoSql:
+    url: https://perfetto.dev/docs/analysis/perfetto-sql-getting-started
+    referencePurpose: "Low-overhead traces queried with SQL, optionally processed with Python or R"
+    adoption: OFFLINE_DEVELOPMENT_ONLY
+  androidAngle:
+    url: https://developer.android.com/games/develop/vulkan/overview
+    referencePurpose: "Per-app supported GLES-on-Vulkan compatibility experiment, not a replacement for OEM kernel/GPU driver"
+    adoption: OPT_IN_DEBUG_ONLY
+  androidGpuStack:
+    url: https://source.android.com/docs/core/graphics/arch-vulkan
+    referencePurpose: "OEM GPU driver versus application graphics API boundary"
+    adoption: POLICY_SOURCE
+  samsungKernelSource:
+    url: https://opensource.samsung.com/
+    referencePurpose: "Official released kernel source and GPL compliance for exact model and release"
+    adoption: READ_ONLY_REFERENCE
+toolchainTriage:
+  - {category: binaryHexPattern, bestFit: ImHex, action: OPTIONAL_OFF_DEVICE_INSPECTION}
+  - {category: binaryDiffAndChecksums, bestFit: PythonStdlibPlusApprovedPatchFormat, action: NO_NEW_APK_RUNTIME_LIBRARY}
+  - {category: disassembler, bestFit: Ghidra, action: OFF_DEVICE_AUTHORIZED_BINARY_ONLY}
+  - {category: patchProof, bestFit: RomPatcherJsReference, action: SOURCE_HASH_AND_OUTPUT_HASH_REQUIRED}
+  - {category: shaderFrameCapture, bestFit: SamsungRenderDoc, action: DEBUG_ONLY}
+  - {category: systemGpuProfiling, bestFit: AndroidPerformanceAnalyzerPerfettoSql, action: DEBUG_ONLY}
+  - {category: rendererSelection, bestFit: GodotOrNativeSupportedRenderer, action: HARDWARE_CAPABILITY_PROBE_FIRST}
+  - {category: legacyGsdxPluginPorting, bestFit: NONE, action: DO_NOT_EMBED_EMULATOR_DRIVER_IN_ANDROID_APK}
+  - {category: firmwareOdinHexModification, bestFit: NONE, action: EXCLUDED}
+samsungDiagnosis:
+  requiresExactDeviceEvidence: true
+  noAssumedSnapdragonOrAdreno: true
+  firstReadOnlyProbe: tools/kai9000GraphicsProbe.py
+  fromHostByConsent: ADB_READ_ONLY
+  collect:
+    - ro.product.model
+    - ro.product.device
+    - ro.build.version.release
+    - ro.build.version.sdk
+    - ro.build.fingerprintHashOnly
+    - ro.hardware
+    - ro.soc.model
+    - ro.board.platform
+    - ro.opengles.version
+    - WebViewProviderPackageAndVersion
+    - VulkanAndGlesFeatureDeclarations
+  neverCollect:
+    - imei
+    - accountCredentials
+    - serialNumber
+    - AndroidId
+    - rawBuildFingerprint
+    - userFiles
+  debugSequence:
+    - inventoryModelSocGpuApiOsAndWebViewProvider
+    - testExistingPackagedKAI9000WebViewWithoutOptional3d
+    - testSmallGodotGpuSceneInDebugBuild
+    - capturePerfettoOrApaFrameWithUserConsent
+    - reproduceWithSupportedBackendAndReducedEffects
+    - inspectRenderDocIfGraphicsApiAndDeviceSupportIt
+    - considerPerAppANGLEExperimentOnlyWithReversion
+    - considerOEMDriverUpdateOnlyViaOfficialReleaseAndSeparateReview
+  userSpacePerformanceTuningBeforeDrivers: true
+  profileBaselineAndRegression: required
+  currentTabletEvidence: NOT_CAPTURED
+  currentPhoneEvidence: NOT_CAPTURED
+userHardwareMaintenanceLaw:
+  rule: "The owner must never be required to edit BIOS/ROM/firmware bytes to build, install, debug, or use KAI9000."
+  noHexEditorAsPrerequisite: true
+  noBiosRewriteAsPrerequisite: true
+  noFirmwarePatchingAsPrerequisite: true
+  noOdinRecoveryAsPrerequisite: true
+  avoidKernelOrBootloaderModification: true
+  ifOnlyUnsupportedFirmwareFixRemains: STOP_AND_REPORT_UNSUPPORTED
+  preferInOrder:
+    - supportedAppAndWebViewConfiguration
+    - reducedEffectsAndSupportedGraphicsBackend
+    - officialVendorSystemAndDriverUpdates
+    - userSpaceDiagnosticsAndRollback
+    - holdFeatureUntilSupported
+  proofRequiredForUpdate: currentOfficialPackageDeviceModelBackupAndRollback
+  neverConvertHistoricalHexHackingExpertiseIntoMaintenanceObligation: true
+driverBoundaries:
+  linuxKernelDriversAreNotNpmModules: true
+  androidSystemDriversAreDeviceSpecificAndTypicallyVendorSupplied: true
+  termuxMesaIsNotGlobalSamsungGpuDriver: true
+  pcsx2GraphicsPluginIsNotAndroidKernelDriver: true
+  browserWebViewCannotInstallKernelModules: true
+  noKernelFlash: true
+  noOdinFlash: true
+  noUnlockBootloader: true
+  noRootRequired: true
+  noSystemwideAngleSwitch: true
+  noArbitraryGlesDriverInjection: true
+  noUntrustedBlobs: true
+  productionBinaryMustBeSignedWithApprovedPersistentSigner: true
+  secureFolderIsolationMustRemain: true
+minimalRuntime:
+  mandatory: [HTML5, CSS, leanJavaScript, existingNativeWebView, boundedAndroidBridge]
+  serverOnly: [Python, approvedSql]
+  noPackagedDependenciesFromHistoricalTools: true
+  optionalOffDevice: [ImHex, Ghidra, AndroidPerformanceAnalyzer, RenderDoc, Perfetto, R]
+  dormantExtras: [AcodeX, TermuxX11, Godot3d, Babylon3d]
+  historicJqueryLicensePreserved: true
+shipping:
+  noPublicPromotion: true
+  noProductionSign: true
+  noLiveDeviceMutation: true
+  noChatGptHostMountClaim: true
+  crownStatus: STOP

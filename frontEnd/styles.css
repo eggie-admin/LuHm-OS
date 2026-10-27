@@ -207,3 +207,46 @@ button { color: inherit; }
 .lumViewport{--luhm-px:0px;--luhm-py:0px}
 .lumViewport .viewportLabel{transform:translate3d(var(--luhm-px),var(--luhm-py),0);transition:transform .1s ease-out}
 @media(prefers-reduced-motion:reduce){.lumViewport .viewportLabel{transform:none!important;transition:none!important}}
+
+
+/* KAI 9000 desktop/tablet landscape candidate.
+ * Responsive CSS only: no DeX spoofing, no new network surface and no
+ * dependency on Acode/Termux. Applied by actual CSS viewport, not user agent.
+ */
+@media (min-width: 980px) and (min-height: 600px) {
+  :root { --topPanelH: 52px; }
+  .topPanel { gap: 16px; padding-inline: 18px; }
+  .nav { min-width: 0; }
+  .navItem { min-height: 44px; padding: 10px 13px; }
+  .appButton, .systemButton { min-width: 44px; min-height: 44px; }
+  .scene { right: 34%; bottom: 0; }
+  .chatDock {
+    top: var(--topPanelH);
+    left: auto;
+    right: 0;
+    bottom: 0;
+    width: 34%;
+    height: auto;
+    min-height: 0;
+    padding: 14px clamp(12px, 1.5vw, 24px);
+    border-top: 0;
+    border-left: 1px solid rgba(255,44,145,.56);
+  }
+  .message { grid-template-columns: 34px minmax(0,1fr); }
+  .avatar { width: 34px; height: 34px; }
+  .assetFactoryShell { width: min(1200px, 96vw); }
+}
+@media (max-height: 539px) {
+  .cockpit { min-height: 0; }
+  .scene { bottom: 44%; }
+  .chatDock { min-height: 0; height: 44%; padding-block: 5px; }
+  .composer { min-height: 44px; }
+}
+@media (pointer: coarse) {
+  .navItem, .systemButton, .appButton, .appMenu button,
+  .assetFactoryHead button, .systemLayer button { min-height: 44px; }
+}
+:where(button, input):focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 2px;
+}
