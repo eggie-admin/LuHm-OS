@@ -44,6 +44,7 @@ func _ready() -> void:
     _wire_android_web3()
     _enter_backend()
     _open_rehearsal_deep_link()
+    print("LUHM_MAIN_SCENE_READY")
 
 
 func _open_rehearsal_deep_link() -> void:
@@ -52,7 +53,14 @@ func _open_rehearsal_deep_link() -> void:
         return
     var selected = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('luhmScene')")
     if selected is String and selected == "rehearsal":
-        call_deferred("_enter_goddess_rehearsal")
+        # Consume the one-shot route before changing scenes; otherwise Escape
+        # returns to Main and immediately reopens rehearsal forever.
+        var consumed = JavaScriptBridge.eval("(() => { const u = new URL(window.location.href); if (u.searchParams.get('luhmScene') !== 'rehearsal') return false; u.searchParams.delete('luhmScene'); history.replaceState(history.state, '', u.pathname + u.search + u.hash); return new URLSearchParams(window.location.search).get('luhmScene') !== 'rehearsal'; })()")
+        if consumed is bool and consumed:
+            print("LUHM_REHEARSAL_DEEPLINK_CONSUMED")
+            call_deferred("_enter_goddess_rehearsal")
+        else:
+            push_warning("Rehearsal deep link was not consumed; refusing automatic scene change")
 
 func _process(_delta: float) -> void:
     _update_interaction_target()
