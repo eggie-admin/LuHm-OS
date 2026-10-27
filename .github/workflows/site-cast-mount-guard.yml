@@ -1,0 +1,29 @@
+name: Site CAST Resource Binding · Fail Closed
+
+on:
+  pull_request:
+    paths:
+      - 'tools/siteCastMountGuard.py'
+      - 'manual/siteCastMountEvidence.md'
+      - '.github/workflows/site-cast-mount-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-resource-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Fail-closed Site tool/resource fixture checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/siteCastMountGuard.py --self-test | tee site-cast-guard.log
+          grep -Fq 'UNKNOWN_SITE_ENDPOINT_NOT_CAPTURED' site-cast-guard.log
+          grep -Fq '"chatGptInlineMountProven": false' site-cast-guard.log
+          echo 'SITE_MOUNT_SOURCE_CHECK_ONLY=PASS'
