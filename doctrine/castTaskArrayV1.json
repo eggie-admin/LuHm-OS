@@ -1,0 +1,108 @@
+{
+  "schema": "luhmOs.castTaskArray.v1",
+  "status": "SOURCE_CANDIDATE_NOT_EXECUTING",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "taskArraySource": "doctrine/milestoneTaskQueueV1.json#tasks",
+  "singleTaskGate": "tools/forgeCastGate.py",
+  "sourceForge": "tetsu",
+  "compileForge": "kaji",
+  "architecturalResearch": "skuldResearch",
+  "orchestra": "lum",
+  "evidenceAdjudicator": "urdDoctorGoddess",
+  "records": "belldandySecretary",
+  "creativeDemo": "yume",
+  "mutationExecutor": "kugi",
+  "sourceRefAtCreation": "b60ac4ef0299c267df06638e505109bae9af8713",
+  "fourIndependentAxes": {
+    "escalation": [
+      "default",
+      "coordinated",
+      "specialist",
+      "closure"
+    ],
+    "operating": [
+      "mythicRitualLayer",
+      "corporateResearchAndGameDevelopment",
+      "yumeProofStudio",
+      "partnerPublicShowcase"
+    ],
+    "release": [
+      "testing",
+      "proposed",
+      "beta",
+      "betaLts"
+    ],
+    "sql": [
+      "numericStream",
+      "textStream",
+      "booleanStream",
+      "aiManifestStream"
+    ]
+  },
+  "taskEnvelopeFields": [
+    "taskId",
+    "milestoneId",
+    "sourceRef",
+    "scopeId",
+    "escalationTier",
+    "requestedBuildScope",
+    "evidenceRefs",
+    "currentState",
+    "blocker",
+    "smallestNextAction",
+    "rollbackRef"
+  ],
+  "fourBeatRhythm": [
+    "hear",
+    "resolve",
+    "act",
+    "verify"
+  ],
+  "workerBudget": {
+    "parallelSupportMaximum": 3,
+    "mutableSourceLanes": 1,
+    "spawnUnregisteredWorkers": false,
+    "companyQuarantineHonored": true,
+    "hiddenAsyncExecution": false
+  },
+  "redOni": {
+    "agentId": "tetsu",
+    "display": "Tetsu | Red Oni",
+    "roleplayFocus": "stubborn snapshot and Beta LTS advocate",
+    "machineAuthority": "SOURCE_FORGE",
+    "buildAllowed": false
+  },
+  "blueOni": {
+    "agentId": "kaji",
+    "display": "Kaji | Blue Oni",
+    "roleplayFocus": "development velocity and reproducibility advocate",
+    "machineAuthority": "COMPILE_FORGE",
+    "buildAllowedOnlyWithSingleUseCast": true
+  },
+  "castArrayLaw": {
+    "queueMayHoldMultipleTasks": true,
+    "eachBuildRequiresOwnCast": true,
+    "castGrantIsSingleTaskSingleScopeSingleSource": true,
+    "castGrantNeverReused": true,
+    "taskArrayNeverDispatchesBuild": true,
+    "castTokenArrayUnsupported": true,
+    "escalationNeverChangesAuthority": true,
+    "noImplicitReleaseOrPromotion": true
+  },
+  "adminBoundary": {
+    "machineNames": "lowerCamelHump",
+    "environmentVariables": "uppercaseOnlyWhereExternalEnvContractsSpecify",
+    "sqlNames": "followTypedSqlSchemaNotDisplayLabels",
+    "humanLabels": "kebab-case permissible for URL slug/human legibility only",
+    "phpMyAdmin": "optional private MariaDB admin competency only; not verified installed",
+    "noPublicSql": true
+  },
+  "hostProof": {
+    "mcpPayloadIsHostMountProof": false,
+    "requiredAndroidPhysicalProof": true,
+    "requiredChatGptVisibleHostProof": true
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}

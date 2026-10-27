@@ -1,0 +1,55 @@
+name: Plugin-local Three CAST Demo Audit
+on:
+  pull_request:
+    paths:
+      - 'plugins/luhm-os/demo/**'
+      - 'host/mcp/luhmHarness.py'
+      - '.github/workflows/plugin-cast-demo-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  plugin-demo-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Pin exact candidate source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Set up Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: plugins/luhm-os/demo/package-lock.json
+      - name: Install only exact pinned Three.js
+        working-directory: plugins/luhm-os/demo
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Build private demo files
+        working-directory: plugins/luhm-os/demo
+        run: npm run demo:build
+      - name: Verify static engine and refusals
+        working-directory: plugins/luhm-os/demo
+        run: npm run demo:check
+      - name: Verify exact source and no public deployment
+        env:
+          expectedHead: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$expectedHead"
+          git diff --exit-code
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('plugins/luhm-os/demo/dist/asset-manifest.json')
+          r=json.loads(p.read_text())
+          assert r['liveHostMounted'] is False
+          assert r['additionalRuntimeBackend'] is False
+          assert r['crownStatus']=='STOP'
+          assert len(r['files'])==4
+          print('PLUGIN_DEMO_BUILT_SOURCE_ONLY_NOT_HOST_MOUNTED')
+          PY

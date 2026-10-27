@@ -61,6 +61,13 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 .studioGlassCard small{color:#f3c778}
 #studioGlassDock :focus-visible,#studioGlassToggle:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 @media(prefers-reduced-transparency:reduce){#studioGlassDock{background:#111d32;backdrop-filter:none;-webkit-backdrop-filter:none}}
+.castBridgePanel{margin:10px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#0d1017}
+.castBridgePanel h2{margin:0 0 6px;color:var(--cyan);font-size:14px}
+.castBridgePanel p{margin:6px 0;font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+.castBridgePanel ol{margin:8px 0;padding-left:20px;display:grid;gap:8px}
+.castBridgePanel li{padding:7px;border:1px solid #354154;border-radius:8px;font-size:12px}
+.castBridgePanel strong{color:var(--ink)}
+.castBridgePanel small{display:block;margin-top:3px;color:var(--muted);line-height:1.4}
 </style>
 </head>
 <body>
@@ -140,6 +147,16 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <p class="sub" id="inChatBetaAccess" role="status" aria-live="polite">External tester access: NOT GRANTED. Invites: NOT SENT. Human approval required.</p>
 </section>
 <!-- LUHM_STUDIO_DECK -->
+<section class="castBridgePanel" aria-label="CAST bridge read-only task queue">
+  <h2>👑 CAST bridge · task and evidence view</h2>
+  <p id="castBridgeState" role="status">VERIFY · waiting for exact source queue</p>
+  <p id="castBridgeSource">Source: unverified</p>
+  <ol id="castBridgeTasks" aria-label="Next source-only queue tasks"></ol>
+  <h2>Ground zero ↗ Ubuntu studio ↘ ground zero</h2>
+  <p id="castStudioChainStatus" role="status">7-step source array · live Codespaces proof pending</p>
+  <ol id="castStudioChainTasks" aria-label="Ground-zero to studio and back proof chain"></ol>
+  <p>Preview only. Queue state is not live task completion proof. No CAST grant, build, agent activation, or Crown.</p>
+</section>
 <section class="grid">
 <div class="card"><div class="k">source truth</div><div class="v green" id="truth">loading…</div></div>
 <div class="card"><div class="k">authority</div><div class="v amber">READ ONLY · Crown stays human</div></div>
@@ -356,6 +373,44 @@ function studioWire(){
 
 let rpcId=0;const pending=new Map();let latest=null;
 const $=id=>document.getElementById(id);
+function renderCastBridge(d){
+  const state=$("castBridgeState"),source=$("castBridgeSource"),items=$("castBridgeTasks");
+  items.textContent="";
+  const safe=d?.schema==="luhmOs.castBridgeCockpitPreview.v1"&&d?.phase==="castBridge"&&
+    d?.status==="READ_ONLY_SOURCE_CANDIDATE_NOT_HOST_MOUNTED"&&
+    d?.buildDispatched===false&&d?.castEnvelopesGranted===0&&
+    d?.hostMountVerified===false&&d?.promotion===false&&d?.crownStatus==="STOP"&&
+    Array.isArray(d.tasks);
+  if(!safe){state.textContent="VERIFY · CAST source contract unavailable";source.textContent="Source: unverified";return;}
+  state.textContent="SOURCE PREVIEW · "+d.taskCount+" queued milestones · Crown STOP";
+  source.textContent="Server-reported source: "+(d.sourceRef||"UNVERIFIED")+" · client mount unverified";
+  for(const task of d.tasks.slice(0,4)){
+    if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(task.displaySlug||""))continue;
+    const item=document.createElement("li"),head=document.createElement("strong"),note=document.createElement("small");
+    head.textContent=task.displaySlug+" · "+(task.reportedInitialState||"UNKNOWN")+" (source baseline)";
+    note.textContent="Next: "+(task.next||"Recheck evidence")+" · receipt required";
+    item.append(head,note);items.append(item);
+  }
+  const chain=d.studioChain;
+  const chainStatus=$("castStudioChainStatus"),chainItems=$("castStudioChainTasks");
+  chainItems.replaceChildren();
+  const expectedLayers=[0,1,2,3,2,1,0],expectedLegs=["UP","UP","UP","APEX","DOWN","DOWN","DOWN"];
+  const chainSafe=chain?.schema==="luhmOs.castStudioGroundZeroChain.v1"&&
+    chain?.status==="SOURCE_ARRAY_ONLY_CODESPACE_RUNTIME_UNVERIFIED"&&
+    chain?.runtimeVerified===false&&chain?.codespaceRunningProven===false&&
+    chain?.hostMountVerified===false&&chain?.buildDispatched===false&&chain?.crownStatus==="STOP"&&
+    Array.isArray(chain.tasks)&&chain.tasks.length===7&&
+    chain.tasks.every((x,i)=>x.layer===expectedLayers[i]&&x.leg===expectedLegs[i]&&
+      x.verified===false&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(x.slug||""));
+  if(!chainSafe){chainStatus.textContent="VERIFY · studio chain unavailable or untrusted";return;}
+  chainStatus.textContent="7 stages · source proposed · Codespace runtime unverified · Crown STOP";
+  for(const task of chain.tasks){
+    const item=document.createElement("li"),head=document.createElement("strong"),note=document.createElement("small");
+    head.textContent=task.leg+" / L"+task.layer+" · "+task.slug;
+    note.textContent=task.next+" · "+task.evidenceCount+" evidence requirements · not yet verified";
+    item.append(head,note);chainItems.append(item);
+  }
+}
 function render(data){
   const candidate=data?.structuredContent||data;if(!candidate||candidate.schema!=="luhmOs.inChatExperiencePayload.v1"||candidate.surface!=="mcp-app"||candidate?.experience?.runtime?.resourceUri!=="ui://luhm-os/cockpit-v2.html"||candidate?.authority?.readOnly!==true||candidate?.authority?.mutationAuthority!==false||candidate?.authority?.publicationAuthority!==false||candidate?.authority?.greenAuthority!==false){latest=null;$("surface").textContent="MCP CONTRACT VERIFY · no live cockpit proof";$("truth").textContent="VERIFY";return;}latest=candidate;
   const payload=latest;
@@ -382,6 +437,7 @@ function render(data){
   if(origin&&origin!=="LOCAL_ONLY") $("foot").textContent=`Full harness: ${origin}/harness/ · read-only`;
   renderInChatBeta(payload.betaLanes);
   renderFullGlass(payload.glassDock);
+  renderCastBridge(payload.castBridge);
   renderNetworkTruth();
   renderPrecisionCommands();
   renderAfterHoursContract();

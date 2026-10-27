@@ -228,6 +228,71 @@ def register_harness(
     virgin_install = json.loads(virgin_install_path.read_text(encoding="utf-8"))
     beta_lanes = json.loads(beta_lane_path.read_text(encoding="utf-8"))
     glass_dock = json.loads(glass_dock_path.read_text(encoding="utf-8"))
+    cast_bridge = json.loads((root / "doctrine/castHumanCenteredBridgeV1.yaml").read_text(encoding="utf-8"))
+    cast_queue = json.loads((root / "doctrine/milestoneTaskQueueV1.json").read_text(encoding="utf-8"))
+    studio_chain = json.loads((root / "doctrine/castStudioGroundZeroChainV1.json").read_text(encoding="utf-8"))
+    if (studio_chain.get("schema") != "luhmOs.castStudioGroundZeroChain.v1"
+        or studio_chain.get("crownStatus") != "STOP"
+        or studio_chain.get("runtimeVerified") is not False
+        or studio_chain.get("buildDispatched") is not False
+        or studio_chain.get("sourceWritesAllowed") is not False
+        or [t.get("layer") for t in studio_chain.get("tasks", [])] != [0,1,2,3,2,1,0]
+        or [t.get("leg") for t in studio_chain.get("tasks", [])] != ["UP","UP","UP","APEX","DOWN","DOWN","DOWN"]):
+        raise RuntimeError("RED_CAST_STUDIO_GROUND_ZERO_CHAIN")
+    if (cast_bridge.get("schema") != "luhmOs.castHumanCenteredBridge.v1"
+        or cast_bridge.get("presentationOnly") is not True
+        or cast_bridge.get("zeroAutomaticDispatch") is not True
+        or cast_bridge.get("promotion") is not False
+        or cast_bridge.get("crownStatus") != "STOP"
+        or not any(x.get("id") == "castBridge" for x in cast_bridge.get("workflowPhases", []))
+        or cast_queue.get("schema") != "luhmOs.milestoneTaskQueue.v1"):
+        raise RuntimeError("RED_CAST_BRIDGE_PRESENTATION_CONTRACT")
+
+    def cast_bridge_snapshot(status: dict[str, Any]) -> dict[str, Any]:
+        tasks = sorted(cast_queue.get("tasks", []), key=lambda x: (x.get("priority", 999), x.get("id", "")))
+        if not tasks or any(not isinstance(t.get("id"), str) or not isinstance(t.get("next"), str) for t in tasks):
+            raise RuntimeError("RED_CAST_BRIDGE_TASK_QUEUE")
+        def display_slug(value: str) -> str:
+            slug = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "-", value).lower()
+            if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
+                raise RuntimeError("RED_CAST_BRIDGE_DISPLAY_SLUG")
+            return slug
+        return {
+            "schema": "luhmOs.castBridgeCockpitPreview.v1",
+            "status": "READ_ONLY_SOURCE_CANDIDATE_NOT_HOST_MOUNTED",
+            "phase": "castBridge",
+            "sourceRef": status.get("sourceRef") or os.environ.get("RENDER_GIT_COMMIT") or "UNVERIFIED",
+            "sourceIdentity": "SERVER_REPORTED_NOT_CURRENT_HEAD_PROOF",
+            "taskCount": len(tasks),
+            "tasks": [{
+                "taskId": t["id"], "displaySlug": display_slug(t["id"]),
+                "priority": t["priority"], "reportedInitialState": t.get("initialState", "UNKNOWN"),
+                "next": t["next"], "evidenceRequired": t.get("evidenceRequired", []),
+                "dependsOn": t.get("dependsOn", []),
+                "buildDispatched": False,
+            } for t in tasks],
+            "taskFreshness": "SOURCE_QUEUE_ONLY_RECHECK_CURRENT_RECEIPTS",
+            "studioChain": {
+                "schema": studio_chain["schema"],
+                "status": "SOURCE_ARRAY_ONLY_CODESPACE_RUNTIME_UNVERIFIED",
+                "target": "GitHub Codespaces Ubuntu 26.04",
+                "tasks": [{
+                    "id": item["id"], "slug": item["slug"],
+                    "leg": item["leg"], "layer": item["layer"],
+                    "next": item["next"],
+                    "evidenceCount": len(item["evidence"]),
+                    "verified": False
+                } for item in studio_chain["tasks"]],
+                "runtimeVerified": False,
+                "codespaceRunningProven": False,
+                "hostMountVerified": False,
+                "buildDispatched": False,
+                "crownStatus": "STOP",
+            },
+            "buildDispatched": False, "castEnvelopesGranted": 0, "agentWorkersStarted": 0,
+            "hostMountVerified": False, "promotion": False, "crownStatus": "STOP",
+        }
+
     glass_modules = glass_dock.get("modules", [])
     if (glass_dock.get("schema") != "luhmOs.glassPluginDock.v1" or
         glass_dock.get("status") != "SOURCE_CANDIDATE_NOT_HOST_MOUNTED" or
@@ -437,6 +502,7 @@ def register_harness(
         },
     )
     def luhm_open_cockpit() -> dict[str, Any]:
+        current_status = status_provider()
         return {
             "schema": "luhmOs.inChatExperiencePayload.v1",
             "surface": "mcp-app",
@@ -455,7 +521,8 @@ def register_harness(
             "virginInstall": virgin_install,
             "betaLanes": beta_lanes,
             "glassDock": glass_dock,
-            "status": status_provider(),
+            "castBridge": cast_bridge_snapshot(current_status),
+            "status": current_status,
             "roster": roster_provider(),
             "harness": {
                 "publicOrigin": public_origin or "LOCAL_ONLY",
@@ -507,6 +574,47 @@ def register_harness(
         if target.suffix == ".svg":
             response_headers["Content-Security-Policy"] = "default-src 'none'; sandbox"
         return FileResponse(target, media_type=media_type, headers=response_headers)
+
+    # One optional, plugin-local npm build. No second backend, CDN, dynamic import
+    # registry, CAST worker or privilege-bearing browser route is created here.
+    @server.custom_route("/harness/cast-demo/", methods=["GET", "HEAD"])
+    async def cast_demo_root(_: Request) -> Response:
+        return RedirectResponse(
+            "/harness/cast-demo/index.html", status_code=307, headers=_headers()
+        )
+
+    @server.custom_route("/harness/cast-demo/{asset_path:path}", methods=["GET", "HEAD"])
+    async def cast_demo_asset(request: Request) -> Response:
+        relative = request.path_params.get("asset_path", "")
+        allowlist = {
+            "index.html", "main.mjs",
+            "vendor/three.module.js", "vendor/three.core.js",
+            "asset-manifest.json",
+        }
+        if relative not in allowlist:
+            return PlainTextResponse("not found", status_code=404, headers=_headers())
+        demo_root = root / "plugins" / "luhm-os" / "demo" / "dist"
+        target = _safe_file(demo_root, relative)
+        if target is None:
+            return PlainTextResponse(
+                "CAST demo source candidate not built on this host",
+                status_code=503, headers=_headers(dynamic=True)
+            )
+        media_type = (
+            "text/html; charset=utf-8" if relative == "index.html" else
+            "text/javascript; charset=utf-8" if relative.endswith((".mjs", ".js")) else
+            "application/json"
+        )
+        headers = _headers(html=relative == "index.html", dynamic=True)
+        if relative == "index.html":
+            headers["Content-Security-Policy"] = (
+                "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; "
+                "connect-src 'none'; img-src 'self' data:; worker-src 'none'; "
+                "object-src 'none'; frame-src 'none'; frame-ancestors 'self'; "
+                "base-uri 'none'; form-action 'none'"
+            )
+        headers["X-LuHm-Demo-Stage"] = "source-candidate-not-live-cast"
+        return FileResponse(target, media_type=media_type, headers=headers)
 
     @server.custom_route("/harness/config.json", methods=["GET"])
     async def harness_config(_: Request) -> Response:

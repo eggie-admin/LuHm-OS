@@ -1,0 +1,113 @@
+name: Skuld CAST Task Array Source Audit
+on:
+  pull_request:
+    paths:
+      - doctrine/castTaskArrayV1.json
+      - doctrine/guestOnboardingWizardV1.json
+      - plugins/luhm-os/guestWizard/index.html
+      - tools/guestOnboardingWizardAudit.py
+      - doctrine/castStudioGroundZeroChainV1.json
+      - tools/castStudioGroundZeroChainAudit.py
+      - doctrine/castHumanCenteredBridgeV1.yaml
+      - tools/castHumanCenteredBridge.py
+      - tools/castTaskArray.py
+      - doctrine/milestoneTaskQueueV1.json
+      - doctrine/escalationKernelV1.json
+      - doctrine/fourTierOperatingModelV1.json
+      - doctrine/pluginBetaFourLaneV1.json
+      - doctrine/typedFourLaneSqlV1.json
+      - doctrine/forgeTwinsV3.json
+      - doctrine/agentSystemDeploymentV1.json
+      - .github/workflows/skuld-cast-task-array-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  readOnlySourceAudit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact source and syntax
+        env:
+          expectedHead: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$expectedHead"
+          git diff --check
+          python3 -m py_compile tools/castTaskArray.py tools/castHumanCenteredBridge.py tools/castStudioGroundZeroChainAudit.py tools/guestOnboardingWizardAudit.py
+          python3 -m json.tool doctrine/castTaskArrayV1.json >/dev/null
+      - name: Run deterministic refusal and Canon axis checks
+        run: |
+          set -euo pipefail
+          python3 tools/castTaskArray.py --self-test
+          python3 tools/castHumanCenteredBridge.py --self-test
+          python3 tools/castStudioGroundZeroChainAudit.py --self-test
+          python3 tools/guestOnboardingWizardAudit.py
+      - name: Prove multi-task queue never dispatches a CAST
+        run: |
+          set -euo pipefail
+          python3 tools/castTaskArray.py --tasks mobileMainHost,chatGptInlineMount --tier 2 \
+            --scope-id professor/cast-bridge \
+            --source-ref "$(git rev-parse HEAD)" > /tmp/castTaskArrayReceipt.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          receipt=json.loads(Path("/tmp/castTaskArrayReceipt.json").read_text())
+          assert receipt["taskCount"] == 2
+          assert receipt["castEnvelopesGranted"] == 0
+          assert receipt["buildsDispatched"] == 0
+          assert receipt["agentWorkersStarted"] == 0
+          assert receipt["crownStatus"] == "STOP"
+          assert all(x["sourceRef"] == receipt["sourceRef"] for x in receipt["tasks"])
+          print("GREEN_QUEUE_PREVIEW_ZERO_CAST_AUTHORITY")
+          PY
+      - name: Check human register and escalation never dispatch build or art promotion
+        run: |
+          set -euo pipefail
+          python3 tools/castHumanCenteredBridge.py \
+            --tasks chatGptInlineMount,privateLumAndSprites \
+            --source-ref "$(git rev-parse HEAD)" \
+            --scope-id professor/cast-bridge \
+            --register colleague \
+            --phase castBridge \
+            --tier 3 > /tmp/castHumanCenteredReceipt.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          receipt=json.loads(Path('/tmp/castHumanCenteredReceipt.json').read_text())
+          assert receipt['taskCount']==2
+          assert receipt['humanRegister']=='colleague'
+          assert receipt['technologyTier']=='finalForm'
+          assert receipt['castEnvelopesGranted']==0
+          assert receipt['buildDispatched'] is False
+          assert receipt['hostMountVerified'] is False
+          assert receipt['originalArtworkAccessed'] is False
+          assert receipt['crownGranted'] is False
+          print('HUMAN_CAST_REGISTER_AND_ART_GUARD_PASS')
+          PY
+
+      - name: Verify the studio round-trip array never grants runtime or CAST
+        run: |
+          set -euo pipefail
+          python3 tools/castStudioGroundZeroChainAudit.py \
+            --source-ref "$(git rev-parse HEAD)" \
+            --scope-id professor/ubuntu-cast-studio > /tmp/castStudioRoundTrip.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          packet=json.loads(Path('/tmp/castStudioRoundTrip.json').read_text())
+          assert packet['taskCount']==7
+          assert [x['layer'] for x in packet['tasks']]==[0,1,2,3,2,1,0]
+          assert packet['codespaceRunningProven'] is False
+          assert packet['buildDispatched'] is False
+          assert packet['castEnvelopesGranted']==0
+          assert packet['crownStatus']=='STOP'
+          print('CAST_STUDIO_ROUND_TRIP_ONLY_SOURCE_PROVEN')
+          PY

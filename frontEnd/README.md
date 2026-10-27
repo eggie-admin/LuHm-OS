@@ -32,3 +32,24 @@ The baseline works without jQuery. Community jQuery plugins are quarantined unde
 ## Trust boundary
 
 Front-end code must never contain API keys, credentials, model secrets, arbitrary shell execution, direct database credentials, or privileged device actions. Consequential actions remain Crown-gated behind the typed native/Godot boundary. The WebView cockpit itself has no shell, signing, publication, release, or Crown authority.
+
+
+## npm CAST human-in-the-loop preview
+
+This repo reuses the existing `frontEnd` npm workspace, its locked jQuery version, and its existing Python source gates. No extra npm dependency, production service, or runner is installed for CAST.
+
+From `frontEnd/`:
+
+```bash
+npm run cast:preview
+npm run cast:preview -- -v --tier 0 --intent "review the phone cockpit"
+npm run cast:preview -- -d
+npm run cast:preview -- -h
+npm run cast:preview -- -f --tier 3
+npm run cast:check
+npm run --silent cast:preview -- --json
+```
+
+The default is read-only `castBridge` phase, tier `0`, using the exact local Git checkout HEAD, with canonical existing queue tasks `mobileMainHost` and `chatGptInlineMount`. The tool shows source identity, queued tasks, required evidence, and the next approval boundary. `--intent` labels a human request for review; it is not evaluated as code. `--verbose` includes expected evidence. `--docs` displays the authority contract.
+
+`-f` / `--force` records an escalation **request**, never an override; `--tier 3` raises audit depth, not privileges. No npm command here dispatches a GitHub CAST, installs the ChatGPT plugin, deploys, signs, publishes, or grants Crown. The live release requires its independently approved exact-source CAST, host proof, device proof, and human promotion. For machine-readable JSON use `npm run --silent` to suppress npm's standard script banner.
