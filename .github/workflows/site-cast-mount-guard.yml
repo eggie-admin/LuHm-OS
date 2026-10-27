@@ -3,7 +3,7 @@ name: Site CAST Resource Binding · Fail Closed
 on:
   pull_request:
     paths:
-      - 'tools/siteCastMountGuard.py'
+      - 'tools/siteCastCockpitResourceGuard.py'
       - 'manual/siteCastMountEvidence.md'
       - '.github/workflows/site-cast-mount-guard.yml'
   workflow_dispatch:
@@ -23,7 +23,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/siteCastMountGuard.py --self-test | tee site-cast-guard.log
+          python3 tools/siteCastCockpitResourceGuard.py --self-test | tee site-cast-guard.log
           grep -Fq 'UNKNOWN_SITE_ENDPOINT_NOT_CAPTURED' site-cast-guard.log
           grep -Fq '"chatGptInlineMountProven": false' site-cast-guard.log
+          python3 -m unittest discover -s tests -p 'testSiteCastMountGuard.py' -v
           echo 'SITE_MOUNT_SOURCE_CHECK_ONLY=PASS'
