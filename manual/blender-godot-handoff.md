@@ -39,6 +39,22 @@ New files and directory paths follow lowercase kebab-case:
 
 Engine-defined Python and GDScript identifiers, environment variables, and JSON wire keys follow their respective language/API contracts. Existing legacy code is not renamed casually.
 
+## Single-cockpit creative studio
+
+`host/blender/luhm-cockpit.py` is the **one Blender entrypoint** for an artist workstation. Its expandable LuHm sidebar now mounts:
+
+- **Studio Workspaces:** native Blender Layout, Modeling, Sculpting, UV Editing, Texture Paint, Shading, Animation, Rendering, Compositing, Geometry Nodes, Scripting and Video Editing workspaces.
+- **Python + IDE + Terminal:** opens the three known repository Python files in Blender's native Text Editor **without executing them**; provides explicit launch buttons for an already-installed VS Code/VSCodium, `xterm`, Godot 4 editor, and GIMP.
+- **Video + Animation:** entry to Blender's built-in Video Sequence Editor, character animation, rendering and compositor. Edit/render operations remain normal deliberate Blender UI actions.
+- **Community + Plugins:** opens Blender Preferences for extensions, and fixed official links for Blender Extensions, Blender Manual, and Godot docs. It **does not download, install, activate or execute a community extension**.
+- **Existing proof checks:** environment probe, local-only MariaDB probe, Godot availability, and the disposable procedural-GLB handoff.
+
+This is intentionally a **single control surface, not a single giant process**. Blender hosts native editors. An installed IDE, terminal, Godot or GIMP opens as a local user application when explicitly clicked. It may show a separate desktop window. Launch buttons do not grant subprocess execution to arbitrary downloaded scripts, internet add-ons, AI workers or plugins.
+
+To open the cockpit, start Blender in an interactive display session, load `host/blender/luhm-cockpit.py` in the native Text Editor, click **Run Script**, return to the 3D View and open the **LuHm** sidebar. The installed Blender workstation image is headless by default. The remote display, Samsung tablet interaction, Codespace GUI and full video-production acceptance **remain unverified**.
+
+Native **Scripting** provides Text Editor and Python Console. The Python Console is a full local Python interpreter, **not a restricted sandbox**; use only code you trust. The optional terminal is a local full shell for the signed-in machine user, not a remotely exposed service. New community material should be reviewed for license, source, version, checksum and API permission before anyone enables it.
+
 ## Blender cockpit button
 
 The **Export Demo Marker (Local)** button on the existing LuHm Blender sidebar invokes the same procedural exporter only when clicked. It refuses to operate in Edit/Pose/Sculpt mode, never exports the user's selected objects, and creates an out-of-repo temporary directory. The Blender console prints the resulting `LUHM_HANDOFF_MANIFEST=...` path for a separately authorized Godot verification. No command silently runs Godot or deploys a game.
