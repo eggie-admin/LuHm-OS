@@ -55,6 +55,17 @@ def review(folder: Path, *, source: str, signer: str, version: int, digest: str)
         except (OSError,ValueError): errors.append("notAnArchive")
     others=[p for p in (folder/"repo").glob("*.apk") if p.name!=filename]
     need(not others,"unexpectedAPK")
+    # A staging directory is NOT a signed F-Droid repository. Allow only the
+    # independently verified APK, including no hidden files, legacy index.jar,
+    # private artwork, config, symlinks, or nested directories.
+    repoDir=folder/"repo"
+    if not repoDir.is_dir() or repoDir.is_symlink():
+        errors.append("unsafeRepoDirectory")
+    else:
+        entries=list(repoDir.iterdir())
+        need(len(entries)==1 and entries[0].name==filename
+             and entries[0].is_file() and not entries[0].is_symlink(),
+             "unexpectedRepoContents")
     forbidden=[
         folder/"repo"/"config.yml",
         folder/"repo"/"config.py",
@@ -132,6 +143,16 @@ def test():
         assert not review(folder,source=source,signer=signer,version=version,digest=digest)[0]
         build(folder,source=source,signer=signer,version=version,digest=digest)
         assert (folder/"metadata"/f"{APP}.yml").is_file()
+        # These would be unsafe to upload even if the expected APK is valid.
+        for name in ("index.jar", "index-v2.json", ".hidden-key", "private-master.glb"):
+            extra=repo/name
+            extra.write_bytes(b"UNAPPROVED")
+            assert review(folder,source=source,signer=signer,version=version,digest=digest)[0], "unexpectedRepoFile:"+name
+            extra.unlink()
+        extraDir=repo/"private-art"
+        extraDir.mkdir()
+        assert review(folder,source=source,signer=signer,version=version,digest=digest)[0], "unexpectedRepoDirectory"
+        extraDir.rmdir()
         checks=[
           ("badSource",dict(source="c"*40)),
           ("badSigner",dict(signer="c"*64)),
