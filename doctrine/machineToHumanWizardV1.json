@@ -1,0 +1,87 @@
+{
+  "schema": "luhmOs.machineToHumanWizard.v1",
+  "displayIdentity": "LuHm-OS: Project Premonition",
+  "status": "SOURCE_CANDIDATE_READ_ONLY",
+  "purpose": "A hardware-first hardware/vendor/service/human capability and escalation inspection wizard for Samsung Android and controlled desktop hosts.",
+  "phases": [
+    {
+      "id": "machine",
+      "meaning": "hardware CPU/architecture, kernel and memory, optionally read-only block-device inventory"
+    },
+    {
+      "id": "vendor",
+      "meaning": "OS, firmware and verified-boot vendor facts; preserve Samsung GKI, Knox and Android secure boot"
+    },
+    {
+      "id": "services",
+      "meaning": "Python, npm, Git, Godot, Blender, optional SQLite/MariaDB/DNSmasq/NGINX as capability data only"
+    },
+    {
+      "id": "human",
+      "meaning": "explain smallest local-first next step and optional authenticated remote escalation; no privileged mutation"
+    }
+  ],
+  "hostProfiles": [
+    "androidSamsung",
+    "androidGeneric",
+    "linuxHost",
+    "windowsHost",
+    "macHost"
+  ],
+  "protectedActions": [
+    "formatDisk",
+    "partitionDisk",
+    "writeBootMedia",
+    "changeBootloader",
+    "unlockSamsungBootloader",
+    "flashFirmware",
+    "installSystemPackage",
+    "sudo",
+    "startNetworkDaemon",
+    "enablePublicPort"
+  ],
+  "readOnlyDefault": true,
+  "fixtureDoesNotProvePhysicalDevice": true,
+  "noPrivilegedCalls": true,
+  "noAutoInstall": true,
+  "noFirmwareWrites": true,
+  "noRootRequired": true,
+  "samsungBootloaderPolicy": "preserveLockedKnoxState",
+  "gparted": {
+    "scope": "hostLinuxPartitionEditor",
+    "neverCalledByWizard": true,
+    "source": "https://gparted.org/display-doc.php?name=help-manual",
+    "caution": "partition creation/movement may erase data; backup and owner approval required"
+  },
+  "rufus": {
+    "scope": "windowsBootableMediaWriter",
+    "neverCalledByWizard": true,
+    "source": "https://github.com/pbatard/rufus/wiki/FAQ",
+    "caution": "USB formatting is destructive; never infer selected target"
+  },
+  "androidBoot": {
+    "scope": "vendorVerifiedBoot",
+    "source": "https://source.android.com/docs/security/features/verifiedboot",
+    "caution": "No Android bootloader changes inferred or performed"
+  },
+  "privacy": {
+    "doNotCollect": [
+      "diskSerial",
+      "macAddress",
+      "userFiles",
+      "storageContents",
+      "credentials",
+      "hardwareId",
+      "imeis"
+    ],
+    "fixturesMarkedSynthetic": true
+  },
+  "escalation": [
+    "observe",
+    "verifyVendorCompatibility",
+    "testLocalUserland",
+    "proposeRemoteCapability"
+  ],
+  "approvalBoundary": "Professor must explicitly authorize actual disk, firmware, boot-media or privileged changes in a separate tool with validated physical context",
+  "crownStatus": "STOP"
+}

@@ -1,0 +1,36 @@
+name: Premonition Machine-to-Human Read-Only Wizard
+on:
+  pull_request:
+    paths:
+      - 'doctrine/machineToHumanWizardV1.json'
+      - 'tools/machineToHumanWizard.py'
+      - 'tests/testMachineToHumanWizard.py'
+      - 'manual/machine-to-human-wizard.md'
+      - '.github/workflows/premonition-machine-wizard-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  readOnlyWizardGate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Validate contract and Python source
+        run: |
+          python3 -m json.tool doctrine/machineToHumanWizardV1.json > /dev/null
+          python3 -m py_compile tools/machineToHumanWizard.py tests/testMachineToHumanWizard.py
+      - name: Run synthetic host and no-mutation tests
+        run: python3 -m unittest discover -s tests -p 'testMachineToHumanWizard.py' -v
+      - name: Emit runner-safe read-only sample
+        run: |
+          python3 tools/machineToHumanWizard.py --json > "$RUNNER_TEMP/wizard-receipt.json"
+          python3 - "$RUNNER_TEMP/wizard-receipt.json" <<'PY'
+          import json,sys
+          data=json.load(open(sys.argv[1],encoding="utf-8"))
+          assert data["diskWritesPerformed"] is False
+          assert data["physicalDeviceVerified"] is False
+          assert data["crownStatus"] == "STOP"
+          PY
