@@ -18,3 +18,10 @@ button:focus-visible{outline:2px solid #ff84ce}.danger{background:#633451}
 .num input{width:75px;padding:.4rem;border-radius:6px;background:#202442;border:1px solid #6c7397;color:white}
 .output{word-break:break-all;font-size:.8rem}footer{padding:.8rem;background:#151428;color:#a8bbd3;font-size:.8rem}
 @media(max-width:770px){.workbench{grid-template-columns:1fr}.world{height:55dvh;min-height:350px}.inspector{min-height:300px;border-left:none}.avatar-dock{width:165px;padding:.65rem;bottom:.5rem;left:.5rem}.avatar-dock p{font-size:.65rem}}
+
+.media-preview { padding:1rem; color:#eef1ff; background:#111a2e;border-left:1px solid #535378 }
+.media-preview h2{margin:0 0 .5rem;font-size:1rem}.media-preview p{font-size:.78rem;line-height:1.4}
+.media-preview input{display:block;margin:.5rem 0;max-width:100%;font-size:.75rem}
+.media-preview video,.media-preview audio{width:100%;max-height:220px;margin:.7rem 0}
+@media(max-width:1000px){.workbench{grid-template-columns:minmax(0,1fr) 220px 270px}}
+@media(max-width:770px){.workbench{grid-template-columns:1fr}.media-preview{border-left:none}}

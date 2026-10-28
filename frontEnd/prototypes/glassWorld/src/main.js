@@ -3,6 +3,7 @@ import { createApp, h, ref } from "vue";
 import { newScene, placeObject, removeObject, moveObject, restoreScene, sceneReceipt } from "./scene-state.mjs";
 import { sceneSignal } from "./jquery-bridge.js";
 import { startBabylonWorld } from "./babylon-world.js";
+import { mountLocalMediaDeck } from "./media-deck.js";
 const root = document.getElementById("glass-world");
 const active = ref(newScene());
 const selection = ref(null);
@@ -83,6 +84,7 @@ world = startBabylonWorld(document.getElementById("babylon-stage"),id=>{
   selection.value=id;sceneSignal(root,"selected",{objectId:id,revision:active.value.revision});
 });
 world.applyScene(active.value);
+const unmountMediaDeck = mountLocalMediaDeck(document.getElementById("local-media-deck"));
 const vue = createApp(Inspector);
 vue.mount("#vue-inspector");
-window.addEventListener("pagehide",()=>{vue.unmount();world.destroy();},{once:true});
+window.addEventListener("pagehide",()=>{unmountMediaDeck();vue.unmount();world.destroy();},{once:true});

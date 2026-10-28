@@ -42,11 +42,12 @@ jobs:
           PY
       - name: Pure scene/editor contract tests
         working-directory: frontEnd/prototypes/glassWorld
-        run: npm test
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm test
       - name: Build standalone Babylon/Vue/jQuery candidate
         working-directory: frontEnd/prototypes/glassWorld
         run: |
-          npm ci --ignore-scripts --no-audit --no-fund
           npm run build
           test -s dist/index.html
           test "$(find dist/assets -name 'index-*.js' -printf '%s\n' | sort -nr | head -1)" -lt 1600000

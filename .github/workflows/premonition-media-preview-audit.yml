@@ -1,0 +1,41 @@
+name: Premonition Local Media Preview Source Gate
+on:
+  pull_request:
+    paths:
+      - 'tools/premonitionMediaPreview.py'
+      - 'tests/testPremonitionMediaPreview.py'
+      - 'frontEnd/prototypes/glassWorld/**'
+      - 'doctrine/premonitionMediaPreviewV1.json'
+      - 'manual/premonition-media-preview.md'
+      - '.github/workflows/premonition-media-preview-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  media-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Inspect Python and media boundaries
+        run: |
+          python3 -m json.tool doctrine/premonitionMediaPreviewV1.json > /dev/null
+          python3 -m py_compile tools/premonitionMediaPreview.py
+          python3 -m unittest discover -s tests -p 'testPremonitionMediaPreview.py' -v
+          python3 tools/premonitionMediaPreview.py -h >/dev/null
+      - name: Run browser media tests and build
+        working-directory: frontEnd/prototypes/glassWorld
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm test
+          npm run build
+      - name: Enforce existing vendor footprint gate
+        run: python3 tools/vendorReductionAudit.py --dist frontEnd/prototypes/glassWorld/dist --output "${RUNNER_TEMP}/media-footprint.json"
+      - name: Source-only explicit truth
+        run: |
+          echo "MEDIA_SOURCE_GREEN_NOT_VLC_RUNTIME_NOT_FDROID_NOT_ANDROID_APK"
