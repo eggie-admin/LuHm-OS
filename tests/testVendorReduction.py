@@ -60,6 +60,17 @@ class VendorReductionTests(unittest.TestCase):
             (assets/"index-abc123.js").write_bytes(b"x"*1600001)
             problems,_=module.inspectBuild(self.policy,path)
             self.assertIn("MAIN_JAVASCRIPT_SIZE_BUDGET",problems)
+    def testAggregateJavaScriptBudgetCatchesGrowth(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)
+            (path/"index.html").write_text("stub",encoding="utf-8")
+            assets=path/"assets"
+            assets.mkdir()
+            (assets/"index-tester.js").write_bytes(b"x"*1200000)
+            (assets/"shader-tester.js").write_bytes(b"x"*700001)
+            problems,_=module.inspectBuild(self.policy,path)
+            self.assertIn("TOTAL_JAVASCRIPT_SIZE_BUDGET",problems)
+
     def testOnlySourcePolicyNeverClaimsVendorRuntime(self):
         self.assertTrue(self.policy["npm"]["buildOnlyOnDeveloperOrCi"])
         self.assertIn("Termux",self.policy["architectureProfiles"]["samsungClient"]["forbiddenRuntimeRequirements"])
