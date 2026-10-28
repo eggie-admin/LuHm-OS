@@ -36,6 +36,8 @@ def output_location(specified):
 
 
 def make_marker(folder):
+    if bpy.context.mode != "OBJECT":
+        raise RuntimeError("Leave Edit/Pose/Sculpt mode before exporting a marker; no artwork changed")
     created = []
     original_selected = tuple(bpy.context.selected_objects)
     original_active = bpy.context.view_layer.objects.active
