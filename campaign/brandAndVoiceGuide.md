@@ -10,13 +10,13 @@
 | --- | --- | --- |
 | **LuHm-OS** | Product: artist-controlled creative workstation | Public product name |
 | **Eggie Bagelface** | Publisher and creator identity | Preserve human credits |
-| **Project Premonition** | Current working software development name for LuHm OS | Professor-directed identity; code and release boundaries unchanged |
+| **Project Premonition** | Current working software development name for LuHm-OS | Professor-directed identity; code and release boundaries unchanged |
 | **Project Hydra** | Previous development name and field-manual lineage | Legacy alias only; preserve existing routes and historical receipts |
 | **PIRATE DADDIES FILM** | Film studio / creative imprint | Per-project asset and release review |
 | **Big Daddy** | Professor-controlled fictional persona | Likeness and art approval required |
 | **Lum, Urd, Belldandy, Skuld, Yume** | Conversational roles and creative cast | Not proof of independent running agents or third-party character rights |
 
-**Name transition (October 25, 2026):** Project Premonition supersedes Project Hydra as the development label. This does not rename the LuHm OS product, its repository, API identifiers, database names, connected plugin IDs, or past artifact paths. Public launch and asset rights still require separate verification.
+**Name transition (October 25, 2026):** Project Premonition supersedes Project Hydra as the development label. This does not change the LuHm-OS product identity, its repository, API identifiers, database names, connected plugin IDs, or past artifact paths. Public launch and asset rights still require separate verification.
 
 Canonical registry: [organizationBrandRegistryV1](../doctrine/organizationBrandRegistryV1.json). Internal nicknames for vendors are not public co-brands, partnerships or permission to use their logos.
 

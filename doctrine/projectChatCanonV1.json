@@ -12,17 +12,20 @@
     "displayName": "Project Premonition",
     "formerName": "Project Hydra",
     "formerMachineName": "projectHydra",
-    "productName": "LuHm OS",
+    "productName": "LuHm-OS",
     "authority": "professor",
     "approvedOn": "2026-10-25",
     "scope": "developmentProjectName",
     "preserveLegacyRoutes": true,
     "preserveHistoricalReceipts": true,
-    "doesNotGrantDeploymentOrRelease": true
+    "doesNotGrantDeploymentOrRelease": true,
+    "legacyProductName": "LuHm OS",
+    "productFullName": "LuHm-OS: Project Premonition"
   },
   "historicalReceiptNamesRemainHistorical": true,
   "bootstrapTrigger": {
     "projectNames": [
+      "LuHm-OS",
       "LuHm OS",
       "Project Premonition",
       "Project Hydra",

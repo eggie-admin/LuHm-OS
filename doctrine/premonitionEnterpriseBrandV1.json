@@ -1,0 +1,69 @@
+{
+  "schema": "luhmOs.premonitionEnterpriseBrand.v1",
+  "state": "SOURCE_INTEGRATED_NOT_PUBLICLY_RELEASED",
+  "displayIdentity": "LuHm-OS: Project Premonition",
+  "product": "LuHm-OS",
+  "productNameCaseSensitive": true,
+  "developmentProject": "Project Premonition",
+  "legacyProject": "Project Hydra",
+  "legacyProductLabel": "LuHm OS",
+  "publisher": "Eggie Bagelface",
+  "creativeImprint": "PIRATE DADDIES FILM",
+  "artistFirstDescription": "An artist-controlled creative platform for interactive 3D worlds, original character performances, video and game production.",
+  "independentJqueryInspiration": {
+    "source": "jQuery library design tradition",
+    "treatment": "INSPIRATION_ONLY_NO_HOMAGE_DERIVATIVE_OR_AFFILIATION",
+    "apiStyle": "lowerCamelHump"
+  },
+  "workstreams": [
+    "Samsung Android APK",
+    "Universal Android and optional F-Droid",
+    "Linux Blender/Godot studio",
+    "macOS DMG"
+  ],
+  "currentVisualStack": {
+    "world": "Babylon.js",
+    "controls": "Vue 3 and jQuery",
+    "avatar": "Godot 4 source candidate",
+    "media": "FFmpeg and optional VLC",
+    "controlPlane": "Python 3"
+  },
+  "labels": {
+    "androidBeta": "LuHm-OS: Project Premonition Beta",
+    "defaultFDRoidAppId": "art.eggiebagelface.luhmos.beta",
+    "officialFdroidListed": false,
+    "privateFdroidPublished": false
+  },
+  "licenses": {
+    "sourceRoot": "GPL-3.0",
+    "dependencies": "PER_DISTRIBUTION_REVIEW_REQUIRED",
+    "thirdPartyCharacterRights": "UNVERIFIED",
+    "thirdPartyMusicRights": "UNVERIFIED"
+  },
+  "platformTrust": {
+    "androidApkSigner": "OWNER_KEY_REQUIRED_NOT_PROVEN",
+    "fdroidIndexSigner": "INDEPENDENT_OWNER_KEY_REQUIRED_NOT_PROVEN",
+    "macosDeveloperID": "NOTARIZATION_REQUIRED_NOT_PROVEN",
+    "httpsEndpoint": "SEPARATE_VERIFICATION_REQUIRED"
+  },
+  "publicProof": {
+    "playableSamsung": "UNVERIFIED",
+    "signedCurrentApk": "UNVERIFIED",
+    "sameSignerUpgrade": "UNVERIFIED",
+    "verifiedArtwork": "UNVERIFIED",
+    "verifiedFundingAgreements": "NONE_ASSERTED",
+    "fundingAsk": "DRAFT_ONLY"
+  },
+  "authorizations": {
+    "sourceDocumentation": true,
+    "privateArtRelease": false,
+    "publicMarketing": false,
+    "sponsorClaims": false,
+    "publicRepositoryPublication": false,
+    "productionSigning": false
+  },
+  "noAutoRenamePackageId": true,
+  "noRewriteHistoricalArtifacts": true,
+  "noProviderTrademarkCoBrand": true,
+  "crownStatus": "STOP"
+}
