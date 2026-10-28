@@ -6,7 +6,7 @@
 - Babylon.js draws one live WebGL scene with orbit/touch camera and selected, placeable 3D primitives.
 - Vue 3 renders the world object inspector. UI supports placing four object kinds, selecting, editing X/Y/Z, removing, and saving/restoring validated JSON in *this browser only*.
 - jQuery's standalone `luhmSceneBridge` emits typed `luhm:scene:*` UI events without privilege. The accepted cockpit remains unchanged.
-- Godot 4 is the **avatar-only candidate render role**, to be integrated through a separately validated glass/compositor bridge. Current pane intentionally displays a placeholder, **not an active model**.
+- Godot 4 is the **avatar-only candidate render role**. `scenes/avatar-glass.tscn` includes a transparent-background `SubViewport`, camera, lights, and an empty mount for a reviewed, high-detail `PackedScene` character. `scripts/avatar-glass.gd` offers bounded pose/expression methods. Current browser pane intentionally displays a placeholder, **not a live Godot model**. Native transparent compositing remains unverified.
 - Blender remains high-detail model authoring. Godot owns avatar materials, hair physics, expressions and animation previews; it does not author the primary world geometry.
 - Python/SQL and FFmpeg/VLC remain distinct authority and media routes. No remote scripts or content fetches.
 
@@ -33,3 +33,7 @@ The isolated prototype dependencies are pinned, and **the npm lockfile is now co
 ### Build-size gate
 
 The initial barrel import built ~7 MB of JavaScript uncompressed. This candidate now uses Babylon deep module imports and emits a real asset-size receipt in CI; no performance claim until an actual Samsung WebView render/FPS test. Relative asset paths are enabled for packaged WebView sources. This is a **prototype optimization**, not a signed installer.
+
+### Build artifact
+
+GitHub Actions uploads a `premonition-babylon-glass-world-candidate` ZIP of the Vite `dist/` directory for 14 days, tied to the exact PR build. It can be served by a local static HTTP server or later packaged via the Android WebView asset loader. Downloaded ZIP is **not** an APK and does not include approved character models.

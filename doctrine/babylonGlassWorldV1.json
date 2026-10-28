@@ -11,7 +11,10 @@
     "avatar": "godot4AvatarOnlyRendererCandidate",
     "authoring": "blenderHighFidelityModels",
     "persistence": "pythonAndSqlAuthorityNotYetConnected",
-    "media": "ffmpegVlcSeparateCandidate"
+    "media": "ffmpegVlcSeparateCandidate",
+    "avatarSource": "scenes/avatar-glass.tscn",
+    "avatarController": "scripts/avatar-glass.gd",
+    "avatarRuntimeProof": "NO_AVATAR_MOUNTED_OR_RENDERED_ON_PHYSICAL_SAMSUNG"
   },
   "android": {
     "nativeGodotFragmentCompositing": "UNVERIFIED",
@@ -36,7 +39,9 @@
     "mainFrontendUntouched": true,
     "versionPinning": true,
     "lockfile": "EXACT_NPM_PACKAGE_LOCK_COMMITTED_AND_CI_ENFORCED",
-    "runtimeProof": "PENDING"
+    "runtimeProof": "PENDING",
+    "artifact": "premonition-babylon-glass-world-candidate",
+    "artifactNotApk": true
   },
   "userRights": {
     "privateModelsNotBundled": true,

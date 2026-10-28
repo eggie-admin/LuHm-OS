@@ -5,6 +5,8 @@ on:
       - 'frontEnd/prototypes/glassWorld/**'
       - 'doctrine/babylonGlassWorldV1.json'
       - 'manual/babylon-glass-world.md'
+      - 'scenes/avatar-glass.tscn'
+      - 'scripts/avatar-glass.gd'
       - '.github/workflows/premonition-glass-world-audit.yml'
   workflow_dispatch:
 permissions:
@@ -26,6 +28,18 @@ jobs:
           node --check frontEnd/prototypes/glassWorld/src/scene-state.mjs
           node --check frontEnd/prototypes/glassWorld/src/main.js
           node --check frontEnd/prototypes/glassWorld/src/babylon-world.js
+      - name: Verify Godot avatar-only source and transparency intent
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          scene = Path("scenes/avatar-glass.tscn").read_text()
+          script = Path("scripts/avatar-glass.gd").read_text()
+          assert "type=\"SubViewport\"" in scene and "transparent_bg = true" in scene
+          assert "@export var avatarScene: PackedScene" in script
+          assert "setExpression" in script and "setPose" in script
+          assert "Godot" not in Path("frontEnd/prototypes/glassWorld/src/babylon-world.js").read_text()
+          print("GODOT_AVATAR_ONLY_SOURCE_CONTRACT_NO_NATIVE_RUNTIME_PROOF")
+          PY
       - name: Pure scene/editor contract tests
         working-directory: frontEnd/prototypes/glassWorld
         run: npm test
@@ -39,3 +53,11 @@ jobs:
           find dist -type f -printf '%P %s bytes\n'
           echo "SOURCE_ONLY_NO_SAMSUNG_NO_GODOT_RENDER_PROOF"
           du -b dist/assets/*.js | sort -nr | head -8
+      - name: Upload standalone static web demo
+        if: success()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: premonition-babylon-glass-world-candidate
+          path: frontEnd/prototypes/glassWorld/dist/
+          retention-days: 14
+          if-no-files-found: error

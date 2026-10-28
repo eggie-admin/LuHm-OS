@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/avatar-glass.gd" id="1_script"]
+
+[node name="AvatarGlassViewport" type="SubViewport"]
+size = Vector2i(512, 768)
+transparent_bg = true
+render_target_update_mode = 2
+
+[node name="AvatarRoot" type="Node3D" parent="."]
+script = ExtResource("1_script")
+
+[node name="AvatarMount" type="Node3D" parent="AvatarRoot"]
+
+[node name="AvatarCamera" type="Camera3D" parent="AvatarRoot"]
+position = Vector3(0, 1.6, 4)
+current = true
+
+[node name="AvatarKeyLight" type="DirectionalLight3D" parent="AvatarRoot"]
+rotation_degrees = Vector3(-45, 35, 0)
+light_energy = 1.6
+
+[node name="AvatarFillLight" type="OmniLight3D" parent="AvatarRoot"]
+position = Vector3(-2, 2, 2)
+light_energy = 0.5
