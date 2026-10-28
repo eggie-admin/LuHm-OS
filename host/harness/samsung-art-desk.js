@@ -6,6 +6,16 @@
   const maxStrokes = 360, maxPoints = 20000, maxBytes = 1024 * 1024;
   const colorPattern = /^#[0-9a-fA-F]{6}$/;
   const cleanText = (v, limit, fallback) => typeof v === "string" && v.trim() && v.length <= limit ? v : fallback;
+  function countPoints(packet) {
+    return packet.shots.reduce((sum, shot) => sum + shot.strokes.reduce((n, stroke) => n + stroke.points.length, 0), 0);
+  }
+  function appendPoint(stroke, next, remainingBudget) {
+    if (remainingBudget <= 0 || stroke.points.length >= 2000) return false;
+    const last = stroke.points[stroke.points.length - 1];
+    if (last[0] === next[0] && last[1] === next[1]) return false;
+    stroke.points.push(next);
+    return true;
+  }
   function blankShot(slot) { return {slot, notes:"", speaker:"none", strokes:[]}; }
   function fresh() {
     return {schema, project:"into-the-warp", artist:"Professor", sourceRef:"UNKNOWN",
@@ -55,7 +65,7 @@
     canvas.dataset.wired = "true";
     const context=canvas.getContext("2d");
     if (!context) {status.textContent="This browser cannot open the drawing canvas.";return false;}
-    let packet=fresh(), active=0, drawing=null, tool="pen", changed=false;
+    let packet=fresh(), active=0, drawing=null, tool="pen", changed=false, pointBudget=0;
     const announce = text => {status.textContent=text;};
     function renderCanvas() {
       context.clearRect(0,0,720,405);
@@ -93,18 +103,16 @@
       if(event.button!==0 && event.pointerType==="mouse")return;
       const current=packet.shots[active];
       if(current.strokes.length>=maxStrokes)return announce("This shot has reached its stroke limit. Export a copy.");
-      if(packet.shots.reduce((n,s)=>n+s.strokes.reduce((m,t)=>m+t.points.length,0),0)>=maxPoints)return announce("Point limit reached. Export a copy.");
+      if(pointBudget>=maxPoints)return announce("Point limit reached. Export a copy.");
       drawing={color:get("samsung-color").value,width:Number(get("samsung-width").value),
         erase:tool==="eraser",points:[point(event)]};
-      current.strokes.push(drawing);canvas.setPointerCapture(event.pointerId);
+      current.strokes.push(drawing);pointBudget++;canvas.setPointerCapture(event.pointerId);
       renderCanvas();changed=true;
     });
     canvas.addEventListener("pointermove",event=>{
       if(!drawing || !canvas.hasPointerCapture(event.pointerId))return;
-      const p=point(event),last=drawing.points[drawing.points.length-1];
-      if(p[0]===last[0]&&p[1]===last[1])return;
-      if(drawing.points.length>=2000)return;
-      drawing.points.push(p);renderCanvas();
+      if(!appendPoint(drawing,point(event),maxPoints-pointBudget))return;
+      pointBudget++;renderCanvas();
     });
     function finish(){if(!drawing)return;drawing=null;renderShots();announce("Local drawing changed. Export before leaving.");}
     canvas.addEventListener("pointerup",finish);
@@ -114,11 +122,13 @@
       tool=t;for(const x of ["pen","eraser"])get("samsung-"+x).setAttribute("aria-pressed",String(x===t));
     });
     get("samsung-undo").addEventListener("click",()=>{
-      if(packet.shots[active].strokes.pop()){changed=true;renderCanvas();renderShots();announce("Last stroke removed. Export to preserve changes.");}
+      const undone=packet.shots[active].strokes.pop();
+      if(undone){pointBudget-=undone.points.length;changed=true;renderCanvas();renderShots();announce("Last stroke removed. Export to preserve changes.");}
     });
     get("samsung-clear").addEventListener("click",()=>{
       if(!packet.shots[active].strokes.length)return;
       if(!root.confirm("Clear only this shot? Your exported files will remain unchanged."))return;
+      pointBudget-=packet.shots[active].strokes.reduce((sum,stroke)=>sum+stroke.points.length,0);
       packet.shots[active].strokes=[];changed=true;renderCanvas();renderShots();announce("Shot cleared locally.");
     });
     get("samsung-notes").addEventListener("input",event=>{packet.shots[active].notes=event.target.value.slice(0,1200);changed=true;});
@@ -152,7 +162,7 @@
       try {
         const parsed=cleanPacket(JSON.parse(await file.text()));
         if(changed && !root.confirm("Replace the current unsaved storyboard with this team handoff?"))return;
-        packet=parsed;active=0;drawing=null;changed=false;
+        packet=parsed;active=0;drawing=null;changed=false;pointBudget=countPoints(packet);
         get("samsung-project").value=packet.project;get("samsung-artist").value=packet.artist;
         renderShots();renderDetails();announce("Editable team storyboard imported locally. No files uploaded.");
       }catch(_){announce("Import rejected: invalid or unsafe storyboard JSON.");}
@@ -161,7 +171,7 @@
     renderShots();renderDetails();announce("Touch or draw with a pen. Your work stays on this device until exported.");
     return true;
   }
-  const api={schema,slotIds,cleanPacket,fresh,mount};
+  const api={schema,slotIds,cleanPacket,fresh,countPoints,appendPoint,mount};
   if(typeof module==="object" && module.exports)module.exports=api;
   root.LuHmSamsungArtDesk=api;
   if(root.document){
