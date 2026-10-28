@@ -13,12 +13,12 @@
 ### Desktop/source smoke (Node 22.12+)
 ```bash
 cd frontEnd/prototypes/glassWorld
-npm install --ignore-scripts --no-audit --no-fund
+npm ci --ignore-scripts --no-audit --no-fund
 npm test
 npm run build
 npm run dev
 ```
-The isolated prototype dependencies are pinned, but **no lockfile was committed in the initial source pass**. A subsequent source review must generate and commit a vetted lockfile and use `npm ci --ignore-scripts` before this qualifies as reproducible production packaging. Build outputs are not APKs.
+The isolated prototype dependencies are pinned, and **the npm lockfile is now committed, validated in GitHub CI with `npm ci --ignore-scripts`**. CI enforces the committed lockfile with `npm ci --ignore-scripts`. Distribution, F-Droid and signed APK acceptance remain separate. Build outputs are not APKs.
 
 ### Runtime acceptance not implied by CI
 1. Visually verify real 3D object placement and selection in Chrome desktop.

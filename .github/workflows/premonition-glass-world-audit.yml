@@ -32,10 +32,10 @@ jobs:
       - name: Build standalone Babylon/Vue/jQuery candidate
         working-directory: frontEnd/prototypes/glassWorld
         run: |
-          npm install --ignore-scripts --no-audit --no-fund
-          node -e 'const s=require("node:fs").readFileSync("package-lock.json","base64");for(let i=0;i<s.length;i+=1500)console.log("LOCK_CHUNK:"+String(i).padStart(6,"0")+":"+s.slice(i,i+1500))'
+          npm ci --ignore-scripts --no-audit --no-fund
           npm run build
           test -s dist/index.html
+          test "$(find dist/assets -name 'index-*.js' -printf '%s\n' | sort -nr | head -1)" -lt 1600000
           find dist -type f -printf '%P %s bytes\n'
           echo "SOURCE_ONLY_NO_SAMSUNG_NO_GODOT_RENDER_PROOF"
           du -b dist/assets/*.js | sort -nr | head -8

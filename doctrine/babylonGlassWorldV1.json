@@ -35,7 +35,7 @@
     "isolatedNpmPackage": true,
     "mainFrontendUntouched": true,
     "versionPinning": true,
-    "lockfile": "PENDING_GENERATE_AND_COMMIT_BY_CI",
+    "lockfile": "EXACT_NPM_PACKAGE_LOCK_COMMITTED_AND_CI_ENFORCED",
     "runtimeProof": "PENDING"
   },
   "userRights": {
