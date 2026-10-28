@@ -5,35 +5,35 @@ set -euo pipefail
 usage() {
   echo "Usage: mac-companion-release.sh --self-test | <40-char-source-sha> <output-dir>"
 }
-if [[ "$1" == "--self-test" ]]; then
+if [[ "${1:-}" == "--self-test" ]]; then
   command -v python3 >/dev/null
   bash -n "$0"
   echo "MAC_COMPANION_STATIC=GREEN BUILD=NOT_RUN"
   exit 0
 fi
 [[ "$#" -eq 2 ]] || { usage >&2; exit 2; }
-source_ref="$1"
-[[ "$source_ref" =~ ^[0-9a-f]{40}$ ]] || { echo RED_SOURCE_SHA >&2; exit 2; }
+sourceRef="$1"
+[[ "$sourceRef" =~ ^[0-9a-f]{40}$ ]] || { echo RED_SOURCE_SHA >&2; exit 2; }
 [[ "$(uname -s)" == Darwin ]] || { echo RED_REQUIRES_MACOS >&2; exit 2; }
 for cmd in git tar python3 codesign hdiutil xcrun shasum ditto; do
   command -v "$cmd" >/dev/null || { echo "RED_MISSING_$cmd" >&2; exit 2; }
 done
 : "${LUHM_MAC_DEVELOPER_ID:?RED_DEVELOPER_ID_REQUIRED}"
 : "${LUHM_MAC_NOTARY_PROFILE:?RED_NOTARY_PROFILE_REQUIRED}"
-godot_bin="${GODOT_BIN:-godot}"
-command -v "$godot_bin" >/dev/null || { echo RED_GODOT_MISSING >&2; exit 2; }
-[[ "$(git rev-parse HEAD)" == "$source_ref" ]] || { echo RED_HEAD_DRIFT >&2; exit 2; }
+godotBin="${GODOT_BIN:-godot}"
+command -v "$godotBin" >/dev/null || { echo RED_GODOT_MISSING >&2; exit 2; }
+[[ "$(git rev-parse HEAD)" == "$sourceRef" ]] || { echo RED_HEAD_DRIFT >&2; exit 2; }
 [[ -z "$(git status --porcelain)" ]] || { echo RED_DIRTY_SOURCE >&2; exit 2; }
 [[ -f project.godot && -f export_presets.cfg ]] || { echo RED_NOT_GODOT_PROJECT >&2; exit 2; }
 mkdir -p "$2"
 out="$(cd "$2" && pwd -P)"
 [[ "$out" != "$(pwd -P)" ]] || { echo RED_OUTPUT_REPO_ROOT >&2; exit 2; }
-dmg="$out/LuHm-OS-Companion.dmg"
+dmg="$out/luhm-os-companion.dmg"
 [[ ! -e "$dmg" ]] || { echo RED_ARTIFACT_ALREADY_EXISTS >&2; exit 2; }
 tmp="$(mktemp -d "${TMPDIR:-/tmp}/luhm-mac.XXXXXXXX")"
 trap 'rm -rf "$tmp"' EXIT
 mkdir -p "$tmp/source" "$tmp/image"
-git archive "$source_ref" | tar -x -C "$tmp/source"
+git archive "$sourceRef" | tar -x -C "$tmp/source"
 [[ ! -f "$tmp/source/assets/lum/luhm.glb" && ! -f "$tmp/source/assets/lum/luhmRunning.glb" ]] || {
   echo RED_PRIVATE_ASSET_SOURCE >&2; exit 2;
 }
@@ -74,9 +74,9 @@ codesign/codesign=0
 """
 path.write_text(original+"\n"+preset,encoding="utf-8")
 PY
-app="$tmp/LuHm OS Companion.app"
-"$godot_bin" --headless --editor --path "$tmp/source" --quit
-"$godot_bin" --headless --path "$tmp/source" --export-release "macOS Companion" "$app"
+app="$tmp/luhm-os-companion.app"
+"$godotBin" --headless --editor --path "$tmp/source" --quit
+"$godotBin" --headless --path "$tmp/source" --export-release "macOS Companion" "$app"
 [[ -d "$app/Contents/MacOS" && -f "$app/Contents/Info.plist" ]] || { echo RED_APP_NOT_EXPORTED >&2; exit 2; }
 /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$app/Contents/Info.plist" |
   grep -Fx "art.eggiebagelface.luhmos.companion"
@@ -89,7 +89,7 @@ while IFS= read -r -d '' obj; do
 done < <(find "$app/Contents" -depth -type d \( -name "*.framework" -o -name "*.app" -o -name "*.xpc" \) -print0)
 codesign --force --options runtime --timestamp --sign "$LUHM_MAC_DEVELOPER_ID" "$app"
 codesign --verify --deep --strict --verbose=2 "$app"
-ditto "$app" "$tmp/image/LuHm OS Companion.app"
+ditto "$app" "$tmp/image/luhm-os-companion.app"
 ln -s /Applications "$tmp/image/Applications"
 hdiutil create -quiet -volname "LuHm OS Companion" -srcfolder "$tmp/image" \
   -format UDZO -ov "$dmg"
@@ -104,7 +104,7 @@ PY
 xcrun stapler staple "$dmg"
 xcrun stapler validate "$dmg"
 shasum -a 256 "$dmg" > "$out/mac-companion-sha256.txt"
-python3 - "$dmg" "$out" "$source_ref" <<'PY'
+python3 - "$dmg" "$out" "$sourceRef" <<'PY'
 import hashlib,json,sys
 from pathlib import Path
 dmg,out,source=Path(sys.argv[1]),Path(sys.argv[2]),sys.argv[3]
