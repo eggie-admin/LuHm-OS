@@ -7,6 +7,7 @@ const mustExist = [
   "styles.css",
   "app.js",
   "jquery/luhm.cockpit.js",
+  "jquery/luhm.cast.js",
   "jquery/luhm.parallax.js",
   "vue/LumLayeredPuppet.vue",
   "jquery/luhm.codingRoleplay.js",
@@ -17,6 +18,7 @@ for (const file of mustExist) await access(resolve(root, file));
 
 const html = await readFile(resolve(root, "index.html"), "utf8");
 const plugin = await readFile(resolve(root, "jquery/luhm.cockpit.js"), "utf8");
+const castPlugin = await readFile(resolve(root, "jquery/luhm.cast.js"), "utf8");
 const parallax = await readFile(resolve(root, "jquery/luhm.parallax.js"), "utf8");
 const vueCandidate = await readFile(resolve(root, "vue/LumLayeredPuppet.vue"), "utf8");
 const app = await readFile(resolve(root, "app.js"), "utf8");
@@ -41,6 +43,9 @@ const checks = [
   [plugin.includes('document.addEventListener("visibilitychange", state.visibilityHandler)') &&
    plugin.includes('document.removeEventListener("visibilitychange", state.visibilityHandler)'),
    "clock pauses on hidden tab and releases listener at destroy"],
+  [castPlugin.includes('$.fn.luhmCastIntent = function (request)') && castPlugin.includes('luhm:cast:intent') &&
+   castPlugin.includes('pythonValidationRequired: true') && castPlugin.includes('crownGranted: false'),
+   "4x4x4 CAST UI adapter emits typed candidate only"],
   [plugin.includes('if (document.hidden) return;') &&
    plugin.includes('Math.max(15000, configured)') &&
    plugin.includes('if (state.$clock.text() !== display)'),

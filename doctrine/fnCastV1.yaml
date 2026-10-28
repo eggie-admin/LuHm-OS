@@ -149,5 +149,50 @@
     "noCanonicalDoctrineMutation": true,
     "noExternalDatabaseMutation": true,
     "noCrownPromotion": true
+  },
+  "displayBrand": "LuHm-OS",
+  "castMatrix": {
+    "schema": "luhmOs.castMatrix.v1",
+    "description": "4 CAST stages × 4 interaction beats × 4 technology tiers = 64 typed candidate coordinates; audit intensity does not change authority",
+    "stages": [
+      "castTesting",
+      "castProposed",
+      "castBridge",
+      "cast"
+    ],
+    "legacyStageAliases": {
+      "devCast": "castTesting",
+      "castDev": "castTesting"
+    },
+    "beats": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "tiers": [
+      "technologyFastPath",
+      "forFuckSake",
+      "scorchedEarth",
+      "finalForm"
+    ],
+    "transitions": "sameOrNextOnly",
+    "initialStage": "castTesting",
+    "defaultBeat": "hear",
+    "defaultTier": "technologyFastPath",
+    "runtimeClaimsAllowed": false,
+    "automatedBuildOrRelease": false,
+    "requireArmedScopedVoice": true,
+    "requireExactSourceRef": true,
+    "requireTaskIdAndScopeId": true,
+    "uiEvent": "luhm:cast:intent",
+    "pythonCompiler": "tools/fnCastMatrix.py",
+    "javascriptAuthority": "presentationOnly",
+    "crownStatus": "STOP",
+    "references": [
+      "doctrine/fourBeatInteractionRhythmV1.json",
+      "doctrine/escalationKernelV1.json",
+      "doctrine/jqueryFourLayerArchitectureV1.json"
+    ]
   }
 }

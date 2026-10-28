@@ -188,6 +188,12 @@ def main() -> int:
     parser.add_argument("--context", default="global", choices=["global", "fnCast"])
     parser.add_argument("--confirm-single-letter", action="store_true", dest="confirmSingleLetter")
     parser.add_argument("--source-ref", default="", dest="sourceRef", help="Exact candidate commit (40 lowercase hex)")
+    parser.add_argument("--cast-stage", choices=["castTesting", "castProposed", "castBridge", "cast", "devCast", "castDev"], default=None)
+    parser.add_argument("--cast-beat", choices=["hear", "resolve", "act", "verify"], default="hear")
+    parser.add_argument("--cast-tier", choices=["technologyFastPath", "forFuckSake", "scorchedEarth", "finalForm"], default="technologyFastPath")
+    parser.add_argument("--from-stage", default=None, dest="fromStage")
+    parser.add_argument("--task-id", default=None, dest="taskId")
+    parser.add_argument("--scope-id", default=None, dest="scopeId")
     parser.add_argument("--set", dest="tuningAssignments", action="append", default=[],
                         help='Typed JSON setting, for example --set ui.glassOpacity=0.82')
     parser.add_argument("--apply-tuning", action="store_true", dest="applyTuning",
@@ -198,6 +204,28 @@ def main() -> int:
         confirmSingleLetter=args.confirmSingleLetter,
         requestedSourceRef=args.sourceRef, checkedOutSourceRef=localHead(),
     )
+    if args.cast_stage is not None:
+        from fnCastMatrix import compileMatrixIntent
+        try:
+            if not args.taskId or not args.scopeId:
+                raise ValueError("--task-id and --scope-id required for CAST matrix")
+            receipt["castMatrix"] = compileMatrixIntent(
+                loadContract(), stage=args.cast_stage, beat=args.cast_beat,
+                tier=args.cast_tier, fromStage=args.fromStage,
+                taskId=args.taskId, scopeId=args.scopeId,
+                requestedSourceRef=args.sourceRef, checkedOutSourceRef=localHead(),
+                voiceAccepted=receipt["voiceTrigger"]["castBoolean"],
+            )
+        except (ValueError, TypeError, KeyError) as error:
+            parser.error(str(error))
+    if (args.cast_stage is not None and args.tuningAssignments
+            and receipt["castMatrix"]["status"] != "INTENT_ACCEPTED_CANDIDATE_ONLY"):
+        receipt["sqlJsonTuning"] = {
+            "status": "HOLD_MATRIX_INTENT_NOT_ACCEPTED",
+            "sqlExecuted": False, "databaseWritten": False
+        }
+        print(json.dumps(receipt, indent=2))
+        return 2
     if args.applyTuning and not args.tuningAssignments:
         parser.error("--apply-tuning requires at least one --set")
     if args.tuningAssignments:
