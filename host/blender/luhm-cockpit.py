@@ -1,5 +1,6 @@
 """LuHm local Blender cockpit. Load in Blender's Text Editor and Run Script."""
 import json
+import runpy
 from pathlib import Path
 import shutil
 import subprocess
@@ -69,6 +70,26 @@ class LUHM_OT_godot(bpy.types.Operator):
         self.report({"INFO"}, STATUS)
         return {"FINISHED"}
 
+class LUHM_OT_handoff(bpy.types.Operator):
+    bl_idname = "luhm.export_proof_marker"
+    bl_label = "Export Demo Marker (Local)"
+
+    def execute(self, context):
+        global STATUS
+        try:
+            script = ROOT / "host/blender/blender-godot-handoff.py"
+            helpers = runpy.run_path(str(script), run_name="luhm_handoff_helpers")
+            folder = helpers["output_location"](None)
+            helpers["make_marker"](folder)
+            STATUS = "Procedural marker exported; path printed to console."
+            self.report({"INFO"}, "Handoff proof: " + str(folder))
+            return {"FINISHED"}
+        except (OSError, ValueError, RuntimeError) as exc:
+            STATUS = "Handoff export failed; check Blender console."
+            self.report({"WARNING"}, str(exc)[:160])
+            return {"CANCELLED"}
+
+
 class LUHM_PT_cockpit(bpy.types.Panel):
     bl_label = "LuHm Artist Cockpit"
     bl_idname = "LUHM_PT_cockpit"
@@ -81,12 +102,13 @@ class LUHM_PT_cockpit(bpy.types.Panel):
         layout.operator("luhm.check_local")
         layout.operator("luhm.check_database")
         layout.operator("luhm.check_godot")
+        layout.operator("luhm.export_proof_marker")
         layout.separator()
         layout.label(text=STATUS)
         layout.label(text="Save masters with Blender Save As.")
         layout.label(text="Runtime/device acceptance pending.")
 
-CLASSES = (LUHM_OT_check, LUHM_OT_database, LUHM_OT_godot, LUHM_PT_cockpit)
+CLASSES = (LUHM_OT_check, LUHM_OT_database, LUHM_OT_godot, LUHM_OT_handoff, LUHM_PT_cockpit)
 
 def register():
     for cls in CLASSES:
