@@ -11,18 +11,38 @@
   "purpose": "Give every LuHm organization, public project brand, character-persona brand, and internal provider nickname exactly one machine-readable identity without implying vendor sponsorship or affiliation.",
   "publicBrands": {
     "luhmOs": {
-      "displayName": "LuHm OS",
+      "displayName": "LuHm-OS",
       "class": "product",
       "brandRoot": "EggieBagelface",
       "publicUse": true,
       "publisher": "Eggie Bagelface",
-      "requiredFamilies": ["logoMark", "wordmark", "favicon", "appIcon", "socialAvatar", "socialBanner", "thumbnailFrame", "endCard", "colorTokens", "typeTokens"]
+      "requiredFamilies": [
+        "logoMark",
+        "wordmark",
+        "favicon",
+        "appIcon",
+        "socialAvatar",
+        "socialBanner",
+        "thumbnailFrame",
+        "endCard",
+        "colorTokens",
+        "typeTokens"
+      ],
+      "legacyDisplayName": "LuHm OS",
+      "currentProject": "Project Premonition"
     },
     "eggieBagelface": {
       "displayName": "Eggie Bagelface",
       "class": "publisherOrganization",
       "publicUse": true,
-      "requiredFamilies": ["wordmark", "publisherLockup", "socialAvatar", "socialBanner", "colorTokens", "typeTokens"]
+      "requiredFamilies": [
+        "wordmark",
+        "publisherLockup",
+        "socialAvatar",
+        "socialBanner",
+        "colorTokens",
+        "typeTokens"
+      ]
     },
     "pirateDaddiesFilm": {
       "displayName": "PIRATE DADDIES FILM",
@@ -30,7 +50,15 @@
       "publicUse": true,
       "tagline": "Remember... All Daddies Love You",
       "source": "media/daddys-princess-date/edit-manifest.json",
-      "requiredFamilies": ["studioMark", "wordmark", "endCard", "lowerThird", "socialAvatar", "socialBanner", "thumbnailFrame"]
+      "requiredFamilies": [
+        "studioMark",
+        "wordmark",
+        "endCard",
+        "lowerThird",
+        "socialAvatar",
+        "socialBanner",
+        "thumbnailFrame"
+      ]
     },
     "bigDaddy": {
       "displayName": "Big Daddy",
@@ -38,7 +66,14 @@
       "publicUse": "ONLY_AFTER_EXPLICIT_PROFESSOR_LIKENESS_AND_ASSET_APPROVAL",
       "source": "media/daddys-princess-date/edit-manifest.json",
       "realPersonReferencePolicy": "protectedReferencePrivate; no generative public replacement; public derivative requires Professor-approved authorship and likeness treatment",
-      "requiredFamilies": ["characterLockup", "portrait", "fullBody", "expressionSheet", "socialPortrait", "titleCard"]
+      "requiredFamilies": [
+        "characterLockup",
+        "portrait",
+        "fullBody",
+        "expressionSheet",
+        "socialPortrait",
+        "titleCard"
+      ]
     }
   },
   "internalProviderRoleplay": {

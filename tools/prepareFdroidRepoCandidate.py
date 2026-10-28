@@ -17,7 +17,7 @@ from zipfile import ZipFile
 APP="art.eggiebagelface.luhmos.beta"
 HEX40=re.compile(r"[0-9a-f]{40}\Z")
 HEX64=re.compile(r"[0-9a-f]{64}\Z")
-NAME="LuHm OS Tablet Beta"
+NAME="LuHm-OS: Project Premonition Beta"
 
 def review(folder: Path, *, source: str, signer: str, version: int, digest: str) -> tuple[list[str], Path]:
     errors=[]
@@ -75,7 +75,7 @@ def build(folder: Path, *, source: str, signer: str, version: int, digest: str):
         "Name: "+NAME+"\n"
         "Summary: Original 3D and interactive art prototype\n"
         "Description: |-\n"
-        "  LuHm OS is an interactive art and Godot 4 3D beta for Android tablets.\n"
+        "  LuHm-OS: Project Premonition is an artist-first Android game and creative studio beta.\n"
         "  This build uses approved local assets and procedural Lum, without\n"
         "  publishing private Rebel character or film master files.\n"
         "SourceCode: https://github.com/eggie-admin/LuHm-OS\n"
