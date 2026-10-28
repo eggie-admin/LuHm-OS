@@ -1,12 +1,14 @@
-# LuHm OS | Brand and human-voice guide
+# LuHm-OS: Project Premonition | Brand and human-voice guide
 
 **Status: source-backed editorial guide. NOT a new trademark grant, image license, or final art approval.**
+
+**Case-sensitive product identity:** `LuHm-OS`. The complete current creative-development identity is **LuHm-OS: Project Premonition**. Its camelHump coding language draws inspiration from jQuery's expressive library design, without claiming derivation, homage, affiliation, or endorsement.
 
 ## Canonical names
 
 | Display name | Function | Publication boundary |
 | --- | --- | --- |
-| **LuHm OS** | Product: artist-controlled creative workstation | Public product name |
+| **LuHm-OS** | Product: artist-controlled creative workstation | Public product name |
 | **Eggie Bagelface** | Publisher and creator identity | Preserve human credits |
 | **Project Premonition** | Current working software development name for LuHm OS | Professor-directed identity; code and release boundaries unchanged |
 | **Project Hydra** | Previous development name and field-manual lineage | Legacy alias only; preserve existing routes and historical receipts |

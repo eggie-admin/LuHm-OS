@@ -1,8 +1,8 @@
-# LuHm OS / Project Premonition Field Manual
+# LuHm-OS: Project Premonition | Field Manual
 
 ## Start here, Professor
 
-This is the human-readable front door for the LuHm OS documentation. **Project Premonition** is the current development name; **Project Hydra** is the original working name retained in historical manuals and stable file paths. **The manual is real source text, not merely a planned product.** Release, signing, hardware and private art approvals are separate.
+This is the human-readable front door for the LuHm-OS documentation. **Project Premonition** is the current development name; **Project Hydra** is the original working name retained in historical manuals and stable file paths. **The manual is real source text, not merely a planned product.** Release, signing, hardware and private art approvals are separate.
 
 **[Read the original field manual](LUHM_OS_PROJECT_HYDRA_FIELD_MANUAL.md).** It includes the Professor's teaching voice, technical lessons, jokes and the source law: AI proposes. Policy authorizes. CI proves. Human promotes.
 

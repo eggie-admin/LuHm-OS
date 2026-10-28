@@ -1,0 +1,81 @@
+{
+  "schema": "luhmOs.premonitionCathedralCast.v1",
+  "status": "PROPOSED_EXACT_SOURCE_CAST",
+  "authority": "Professor",
+  "displayIdentity": "LuHm-OS: Project Premonition",
+  "productBrand": "LuHm-OS",
+  "caseSensitiveBrand": true,
+  "machineIdentity": "luhmOs",
+  "developmentProject": "Project Premonition",
+  "formerDevelopmentProject": "Project Hydra",
+  "formerNameIsLegacyAlias": true,
+  "brandTransitionRecorded": "2026-10-25",
+  "purpose": "Ship an artist-first creative workstation and a genuinely playable Godot game/film studio with an evidence-backed funding story.",
+  "inspiration": {
+    "ecosystem": "jQuery",
+    "relationship": "INSPIRATION_NOT_HOMAGE_NOT_AFFILIATION",
+    "machineIdentifiers": "camelHump",
+    "humanAuthorship": "Professor"
+  },
+  "deliveryPriority": [
+    "Samsung SM-X400 signed APK and real first launch",
+    "portable Android/F-Droid update path",
+    "Linux Blender/Godot studio and AI Edge experiments",
+    "macOS notarized companion DMG"
+  ],
+  "controlPlane": {
+    "language": "Python 3",
+    "javascript": "presentationAdapterOnly",
+    "androidBuild": "Gradle/Godot",
+    "npm": "lockedFrontEndCandidateNotApkSigner"
+  },
+  "creativeMission": [
+    "editable original art",
+    "Rebel and Into the Warp game/film prototypes",
+    "playable touch cockpit",
+    "repeatable demo reel and funding-ready evidence"
+  ],
+  "fundingBoundary": {
+    "campaign": "proposalsAndVerifiedReceipts",
+    "sponsorsMustNotBeInvented": true,
+    "publicClaimsRequireRightsAndRuntimeEvidence": true
+  },
+  "source": {
+    "repository": "eggie-admin/LuHm-OS",
+    "baselineMain": "ca369e6925406e9a00008bbc629bb5db67a7d02c",
+    "workingBranch": "candidate/premonition-cathedral-cast-2026-10-28",
+    "upstreamCanon": "doctrine/projectChatCanonV1.json",
+    "projectGuide": "campaign/brandAndVoiceGuide.md"
+  },
+  "professorAuthorization": {
+    "received": "2026-10-28",
+    "scope": "prepare CAST and Crown candidate and remote source audit; release execution requires artifact, secret custody and physical proof",
+    "intent": "APPROVED",
+    "candidateReview": "PENDING_EVIDENCE"
+  },
+  "audit": {
+    "hardSystem200": "tools/hardSystemAudit200.py",
+    "artistFirst120": "tools/artist-first-canon-audit.py",
+    "inventory180": "doctrine/premonition-titan-500-inventory-v1.json",
+    "runner": "tools/premonitionTitan500Audit.py",
+    "sourceChecks": 500
+  },
+  "releaseProof": {
+    "samsungInstalled": "UNVERIFIED",
+    "persistentApkSigner": "UNVERIFIED",
+    "sameSignerUpgrade": "UNVERIFIED",
+    "fDroidSignedIndex": "UNVERIFIED",
+    "gamePlayable": "UNVERIFIED",
+    "videoRender": "UNVERIFIED",
+    "fundingAgreement": "UNVERIFIED"
+  },
+  "policy": {
+    "oneSourceAuthority": true,
+    "originalAssetsPrivateByDefault": true,
+    "neverAutoSignOrPublish": true,
+    "sourceGreenIsNotRuntimeGreen": true,
+    "doNotRewriteHistoricalNames": true,
+    "mergeRequiresExactHeadAndGreen": true
+  },
+  "crownStatus": "STOP"
+}

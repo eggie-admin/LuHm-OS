@@ -1,4 +1,10 @@
-# LuHm OS
+# LuHm-OS: Project Premonition
+
+**LuHm-OS: Project Premonition** is an independent, artist-first creative workstation and playable-game production project. Its purpose is to help the Professor create original art, Godot games, Blender/FFmpeg video, and credible, evidence-backed funding demonstrations. Hardware, AI, npm, Python, cloud services, and the GitHub workflows serve that artistic mission.
+
+**Identity:** `LuHm-OS` is case-sensitive. `Project Premonition` is the current development project; `Project Hydra` remains a historical name. Our expressive camelHump APIs are inspired by the jQuery programming tradition, not an homage, affiliation, or claim of sponsorship.
+
+**Current state:** Source candidates and audits are not proof of a playable Samsung APK, signed F-Droid updates, a notarized Mac DMG, or confirmed funding. See the [CAST Cathedral source checkpoint](manual/premonition-cathedral-cast-2026-10-28.md) and [500-check audit runner](tools/premonitionTitan500Audit.py).
 
 ## Plugin downloads: Proposed · Beta · Stable
 

@@ -1,0 +1,1101 @@
+{
+  "schema": "luhmOs.premonitionTitan500Inventory.v1",
+  "status": "SOURCE_INVENTORY_ONLY",
+  "baselineSourceRef": "ca369e6925406e9a00008bbc629bb5db67a7d02c",
+  "definition": "180 distinct tracked paths; existence and basic syntax, never runtime capability",
+  "count": 180,
+  "domains": [
+    "identity",
+    "android",
+    "game",
+    "art",
+    "video",
+    "funding",
+    "linux",
+    "python",
+    "javascript",
+    "proof"
+  ],
+  "checks": [
+    {
+      "id": "inventory-001",
+      "domain": "identity",
+      "path": "manual/LUHM_OS_PROJECT_HYDRA_FIELD_MANUAL.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-002",
+      "domain": "identity",
+      "path": "manual/premonitionFnCast.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-003",
+      "domain": "identity",
+      "path": "manual/projectChatInstructionAnchor.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-004",
+      "domain": "identity",
+      "path": "manual/README.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-005",
+      "domain": "identity",
+      "path": "tools/artist-first-canon-audit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-006",
+      "domain": "identity",
+      "path": "tools/artOniCamelHumpAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-007",
+      "domain": "identity",
+      "path": "tools/canonSnapshotAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-008",
+      "domain": "identity",
+      "path": "tools/currentMainSourceTruthMilestoneAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-009",
+      "domain": "identity",
+      "path": "tools/fullSourceTruthAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-010",
+      "domain": "identity",
+      "path": "tools/goddessGodotCanonHandoffAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-011",
+      "domain": "identity",
+      "path": "tools/namingNamespaceAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-012",
+      "domain": "identity",
+      "path": "tools/namingPathSealAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-013",
+      "domain": "identity",
+      "path": "tools/publicApkUpdateIdentityAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-014",
+      "domain": "identity",
+      "path": "tools/publicArtBrandReleaseAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-015",
+      "domain": "identity",
+      "path": "tools/titan7CurrentCanonAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-016",
+      "domain": "identity",
+      "path": "tools/yumeArtDirectionCanonAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-017",
+      "domain": "identity",
+      "path": ".github/workflows/artist-first-canon-120-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-018",
+      "domain": "identity",
+      "path": ".github/workflows/naming-namespace-canon-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-019",
+      "domain": "android",
+      "path": "manual/finalGoalAndroidInChat.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-020",
+      "domain": "android",
+      "path": "manual/samsung-lite-public-beta.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-021",
+      "domain": "android",
+      "path": "manual/samsung-lite-signed-beta.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-022",
+      "domain": "android",
+      "path": "tools/androidDebugCast.sh",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-023",
+      "domain": "android",
+      "path": "tools/androidDeliveryLanesAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-024",
+      "domain": "android",
+      "path": "tools/androidWeb3CockpitAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-025",
+      "domain": "android",
+      "path": "tools/captureAndroidProof.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-026",
+      "domain": "android",
+      "path": "tools/fdroidTabletSourceAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-027",
+      "domain": "android",
+      "path": "tools/prepareFdroidRepoCandidate.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-028",
+      "domain": "android",
+      "path": "tools/samsung-lite-beta.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-029",
+      "domain": "android",
+      "path": "tools/samsung-lite-signed-beta-audit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-030",
+      "domain": "android",
+      "path": "tools/stageFdroidTabletBeta.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-031",
+      "domain": "android",
+      "path": ".github/workflows/android-delivery-lanes-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-032",
+      "domain": "android",
+      "path": ".github/workflows/android-testing-build.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-033",
+      "domain": "android",
+      "path": ".github/workflows/android-web3-cockpit-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-034",
+      "domain": "android",
+      "path": ".github/workflows/samsung-lite-public-beta.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-035",
+      "domain": "android",
+      "path": ".github/workflows/samsung-lite-signed-beta.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-036",
+      "domain": "android",
+      "path": "doctrine/ANDROID_WEB3_SOURCE_READY_RECEIPT_20261001.json",
+      "kind": "json-syntax"
+    },
+    {
+      "id": "inventory-037",
+      "domain": "game",
+      "path": "manual/bbso-merge-deploy-cast-20261015.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-038",
+      "domain": "game",
+      "path": "manual/castMilestoneRecovery20261012.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-039",
+      "domain": "game",
+      "path": "manual/siteCastMountRepair.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-040",
+      "domain": "game",
+      "path": "manual/worldHeadquartersFinalForm.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-041",
+      "domain": "game",
+      "path": "tools/buildGodotWebHarness.sh",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-042",
+      "domain": "game",
+      "path": "tools/castMilestoneDeliveryAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-043",
+      "domain": "game",
+      "path": "tools/castReleaseAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-044",
+      "domain": "game",
+      "path": "tools/chatGptPluginCastCompletionAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-045",
+      "domain": "game",
+      "path": "tools/fnCast.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-046",
+      "domain": "game",
+      "path": "tools/fnCastSqlJson.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-047",
+      "domain": "game",
+      "path": "tools/forgeCastGate.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-048",
+      "domain": "game",
+      "path": "tools/gameplayVerticalSliceAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-049",
+      "domain": "game",
+      "path": "tools/godot-public-asset-firewall-audit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-050",
+      "domain": "game",
+      "path": "tools/godot-public-asset-firewall-smoke.gd",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-051",
+      "domain": "game",
+      "path": "tools/godotBrowserSmoke.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-052",
+      "domain": "game",
+      "path": "tools/godotDriveLibraryIntakeAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-053",
+      "domain": "game",
+      "path": "tools/godotEmbedReadinessAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-054",
+      "domain": "game",
+      "path": "tools/godotGameSourceAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-055",
+      "domain": "art",
+      "path": "manual/artist-first-workbench-reconciliation-20261015.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-056",
+      "domain": "art",
+      "path": "manual/driveAssetAlignment.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-057",
+      "domain": "art",
+      "path": "manual/driveStudioFirstAsset.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-058",
+      "domain": "art",
+      "path": "manual/yumePrivateArtHardening.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-059",
+      "domain": "art",
+      "path": "tools/artAssetIntegrity.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-060",
+      "domain": "art",
+      "path": "tools/artistStudioPluginAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-061",
+      "domain": "art",
+      "path": "tools/artRepositoryNameMapAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-062",
+      "domain": "art",
+      "path": "tools/driveAssetAlignmentAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-063",
+      "domain": "art",
+      "path": "tools/driveStudioReconciliationAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-064",
+      "domain": "art",
+      "path": "tools/pocketAssetIntegrityAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-065",
+      "domain": "art",
+      "path": "tools/registerStudioAssets.cjs",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-066",
+      "domain": "art",
+      "path": "tools/renderYumeReferenceGallery.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-067",
+      "domain": "art",
+      "path": "tools/sortArtArchives.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-068",
+      "domain": "art",
+      "path": "tools/studioFastMesh.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-069",
+      "domain": "art",
+      "path": "tools/studioSecurityGate.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-070",
+      "domain": "art",
+      "path": "tools/worldHeadquartersAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-071",
+      "domain": "art",
+      "path": "tools/yumeArtCabinetAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-072",
+      "domain": "art",
+      "path": "tools/yumeArtEducationAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-073",
+      "domain": "video",
+      "path": "manual/ai-ffmpeg-local-first.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-074",
+      "domain": "video",
+      "path": "manual/renderNpmVueStaticCdnHardening.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-075",
+      "domain": "video",
+      "path": "tools/autoDeployRenderSidecar.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-076",
+      "domain": "video",
+      "path": "tools/githubRenderSidecarAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-077",
+      "domain": "video",
+      "path": "tools/renderEdgeStackAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-078",
+      "domain": "video",
+      "path": "tools/renderHarnessLiveAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-079",
+      "domain": "video",
+      "path": "tools/socialVideoOrchestrator.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-080",
+      "domain": "video",
+      "path": "tools/yumeCutsceneFactoryAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-081",
+      "domain": "video",
+      "path": "tools/yumeCutsceneSmoke.gd",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-082",
+      "domain": "video",
+      "path": ".github/workflows/ai-ffmpeg-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-083",
+      "domain": "video",
+      "path": ".github/workflows/github-render-sidecar-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-084",
+      "domain": "video",
+      "path": ".github/workflows/into-the-warp-production-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-085",
+      "domain": "video",
+      "path": ".github/workflows/lum-goddess-gated-render-deploy.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-086",
+      "domain": "video",
+      "path": ".github/workflows/render-edge-stack-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-087",
+      "domain": "video",
+      "path": ".github/workflows/render-harness-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-088",
+      "domain": "video",
+      "path": ".github/workflows/render-harness-live-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-089",
+      "domain": "video",
+      "path": ".github/workflows/social-video-orchestrator.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-090",
+      "domain": "video",
+      "path": ".github/workflows/yume-cutscene-factory-proof.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-091",
+      "domain": "funding",
+      "path": "manual/mobileChatGptReleaseTrain.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-092",
+      "domain": "funding",
+      "path": "manual/pluginReleaseHub.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-093",
+      "domain": "funding",
+      "path": "tools/companyWideQuarantineAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-094",
+      "domain": "funding",
+      "path": "tools/continuity-release-lifecycle-audit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-095",
+      "domain": "funding",
+      "path": "tools/enterpriseCampaignAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-096",
+      "domain": "funding",
+      "path": "tools/finalFormPublicReleaseAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-097",
+      "domain": "funding",
+      "path": "tools/fourTrackReleaseAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-098",
+      "domain": "funding",
+      "path": "tools/mediaReleaseGate.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-099",
+      "domain": "funding",
+      "path": "tools/patronageCampaignAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-100",
+      "domain": "funding",
+      "path": "tools/pluginReleaseHub.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-101",
+      "domain": "funding",
+      "path": "tools/pluginReleasePromotionGate.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-102",
+      "domain": "funding",
+      "path": "tools/rootedTermuxReleaseAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-103",
+      "domain": "funding",
+      "path": "tools/supervisedChatCastReleaseAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-104",
+      "domain": "funding",
+      "path": "tools/termuxCastReleaseInstall.sh",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-105",
+      "domain": "funding",
+      "path": ".github/workflows/continuity-release-lifecycle-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-106",
+      "domain": "funding",
+      "path": ".github/workflows/final-form-public-release-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-107",
+      "domain": "funding",
+      "path": ".github/workflows/four-track-release-execution-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-108",
+      "domain": "funding",
+      "path": ".github/workflows/lum-cast-public-release.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-109",
+      "domain": "linux",
+      "path": "manual/cloudflareEdgeHardening.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-110",
+      "domain": "linux",
+      "path": "manual/cloudflareLumOrchestrationFieldCard.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-111",
+      "domain": "linux",
+      "path": "manual/professor-ubuntu2604-basement.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-112",
+      "domain": "linux",
+      "path": "tools/cloudflareEdgeHardeningAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-113",
+      "domain": "linux",
+      "path": "tools/cloudflareLumOrchestrationAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-114",
+      "domain": "linux",
+      "path": "tools/cloudflareLumRoute.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-115",
+      "domain": "linux",
+      "path": "tools/googleAiCloudflareReadiness.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-116",
+      "domain": "linux",
+      "path": "tools/networkSpineAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-117",
+      "domain": "linux",
+      "path": "tools/networkSpineTests.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-118",
+      "domain": "linux",
+      "path": "tools/storageTopologyAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-119",
+      "domain": "linux",
+      "path": "tools/tenPassHardeningAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-120",
+      "domain": "linux",
+      "path": ".github/workflows/cloudflare-edge-fullstack-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-121",
+      "domain": "linux",
+      "path": ".github/workflows/cloudflare-lum-orchestration-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-122",
+      "domain": "linux",
+      "path": ".github/workflows/google-ai-cloudflare-readiness.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-123",
+      "domain": "linux",
+      "path": ".github/workflows/network-spine-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-124",
+      "domain": "linux",
+      "path": ".github/workflows/professor-basement-source-gate.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-125",
+      "domain": "linux",
+      "path": ".github/workflows/storage-topology-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-126",
+      "domain": "linux",
+      "path": "doctrine/cloudflareAirTrafficControllerV1.json",
+      "kind": "json-syntax"
+    },
+    {
+      "id": "inventory-127",
+      "domain": "python",
+      "path": "tools/agentSystemDeploymentAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-128",
+      "domain": "python",
+      "path": "tools/agentTrainingAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-129",
+      "domain": "python",
+      "path": "tools/apiSpineAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-130",
+      "domain": "python",
+      "path": "tools/inChatLiveMcpProbe.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-131",
+      "domain": "python",
+      "path": "tools/lumTaskRouter.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-132",
+      "domain": "python",
+      "path": "tools/openAiAgentTopology.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-133",
+      "domain": "python",
+      "path": ".github/workflows/agent-system-deployment-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-134",
+      "domain": "python",
+      "path": ".github/workflows/cathedral-mcp-static-split.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-135",
+      "domain": "python",
+      "path": ".github/workflows/desktop-ui-python3-hardening.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-136",
+      "domain": "python",
+      "path": ".github/workflows/in-chat-public-mcp-probe.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-137",
+      "domain": "python",
+      "path": ".github/workflows/mcp-route-kind-contract.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-138",
+      "domain": "python",
+      "path": "doctrine/agentLoadingSpriteManifestV1.json",
+      "kind": "json-syntax"
+    },
+    {
+      "id": "inventory-139",
+      "domain": "python",
+      "path": "doctrine/agentSystemDeploymentV1.json",
+      "kind": "json-syntax"
+    },
+    {
+      "id": "inventory-140",
+      "domain": "python",
+      "path": "doctrine/agentTrainingSealV1.json",
+      "kind": "json-syntax"
+    },
+    {
+      "id": "inventory-141",
+      "domain": "python",
+      "path": "doctrine/aiManifestFormatV1.json",
+      "kind": "json-syntax"
+    },
+    {
+      "id": "inventory-142",
+      "domain": "python",
+      "path": "doctrine/aiTaskManifestV2.template.json",
+      "kind": "json-syntax"
+    },
+    {
+      "id": "inventory-143",
+      "domain": "python",
+      "path": "doctrine/androidApkManifestInspectionV1.json",
+      "kind": "json-syntax"
+    },
+    {
+      "id": "inventory-144",
+      "domain": "python",
+      "path": "doctrine/apiSpineV1.json",
+      "kind": "json-syntax"
+    },
+    {
+      "id": "inventory-145",
+      "domain": "javascript",
+      "path": "manual/glassPluginCockpit.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-146",
+      "domain": "javascript",
+      "path": "manual/pluginBetaInviteRunbook.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-147",
+      "domain": "javascript",
+      "path": "manual/stablePluginUpdateArchitecture20261012.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-148",
+      "domain": "javascript",
+      "path": "tools/buildManualPluginPackage.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-149",
+      "domain": "javascript",
+      "path": "tools/buildPublicPluginPackage.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-150",
+      "domain": "javascript",
+      "path": "tools/chatGptPluginCrownFlowAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-151",
+      "domain": "javascript",
+      "path": "tools/chatGptPluginWorkflowStreamAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-152",
+      "domain": "javascript",
+      "path": "tools/chromeCanaryBrowserProofAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-153",
+      "domain": "javascript",
+      "path": "tools/jqueryPluginContinuity.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-154",
+      "domain": "javascript",
+      "path": "tools/manualPluginVirginInstallAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-155",
+      "domain": "javascript",
+      "path": "tools/pluginBetaFourLaneAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-156",
+      "domain": "javascript",
+      "path": "tools/pluginBetaInviteAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-157",
+      "domain": "javascript",
+      "path": "tools/pluginPublicationAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-158",
+      "domain": "javascript",
+      "path": ".github/workflows/chrome-canary-browser-proof-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-159",
+      "domain": "javascript",
+      "path": ".github/workflows/frontend-jquery-dryrun.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-160",
+      "domain": "javascript",
+      "path": ".github/workflows/in-chat-widget-evidence-gate.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-161",
+      "domain": "javascript",
+      "path": ".github/workflows/jquery-plugin-continuity.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-162",
+      "domain": "javascript",
+      "path": ".github/workflows/luhm-final-plugin-package-source-audit.yml",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-163",
+      "domain": "proof",
+      "path": "manual/LUHM_OS_LUM_ONI_FULL_SOURCE_TRUTH_WORKFLOW.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-164",
+      "domain": "proof",
+      "path": "manual/LUHM_OS_MUTATION_AUDIT_SEAL_WORKFLOW.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-165",
+      "domain": "proof",
+      "path": "manual/milestoneTaskContinuity.md",
+      "kind": "tracked-file-presence"
+    },
+    {
+      "id": "inventory-166",
+      "domain": "proof",
+      "path": "tools/aiSanityAuthorityGate.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-167",
+      "domain": "proof",
+      "path": "tools/architectureRhythmAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-168",
+      "domain": "proof",
+      "path": "tools/belldandyContinuityGate.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-169",
+      "domain": "proof",
+      "path": "tools/belldandyHousekeepingAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-170",
+      "domain": "proof",
+      "path": "tools/belldandyOniDeploymentGate.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-171",
+      "domain": "proof",
+      "path": "tools/belldandyOperationalQuarantineAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-172",
+      "domain": "proof",
+      "path": "tools/belldandyPkiCorporateSecretaryAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-173",
+      "domain": "proof",
+      "path": "tools/belldandySecretaryPracticeAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-174",
+      "domain": "proof",
+      "path": "tools/candidateGate.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-175",
+      "domain": "proof",
+      "path": "tools/certbotWorkspaceSymlinkAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-176",
+      "domain": "proof",
+      "path": "tools/chatHistoryStewardshipAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-177",
+      "domain": "proof",
+      "path": "tools/chatLikeTermFoldAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-178",
+      "domain": "proof",
+      "path": "tools/contentLaneAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-179",
+      "domain": "proof",
+      "path": "tools/conversationModeDeliveryAudit.py",
+      "kind": "python-syntax"
+    },
+    {
+      "id": "inventory-180",
+      "domain": "proof",
+      "path": "tools/corporatePanelMilestonesAudit.py",
+      "kind": "python-syntax"
+    }
+  ]
+}
