@@ -20,7 +20,7 @@ jobs:
       - name: Install Blender runtime
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends blender
       - name: Parse handoff and cockpit Python without executing asset export
-        run: python3 -m py_compile host/blender/blender-godot-handoff.py host/blender/luhm-cockpit.py
+        run: python3 -m py_compile host/blender/blender-godot-handoff.py host/blender/luhm-cockpit.py host/blender/studio-hub.py
       - name: Register panel and execute tool probe in real Blender
         run: blender --background --factory-startup --python-exit-code 1 --python host/blender/luhm-cockpit.py -- --luhm-selftest
 
