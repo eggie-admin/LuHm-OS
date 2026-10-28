@@ -1,0 +1,225 @@
+{
+  "schema": "luhmOs.crownSingleProof.v1",
+  "status": "SOURCE_TEMPLATE_ONLY",
+  "sourceAuthority": "eggie-admin/LuHm-OS",
+  "sourceRef": "ca369e6925406e9a00008bbc629bb5db67a7d02c",
+  "purpose": "One append-only SQL/JSON-compatible evidence envelope; no competing tier authorities or proof files",
+  "proofId": "cloud-vm-strict-web-candidate-20261027",
+  "taskId": "googleCloudStrictVmPreview",
+  "scopeId": "privateCloudWebCandidate",
+  "tiers": [
+    {
+      "tier": 1,
+      "id": "mythicRitualLayer",
+      "evidenceRefs": [],
+      "state": "SOURCE_INTENT_ONLY"
+    },
+    {
+      "tier": 2,
+      "id": "corporateResearchAndGameDevelopment",
+      "evidenceRefs": [],
+      "state": "SOURCE_CANDIDATE"
+    },
+    {
+      "tier": 3,
+      "id": "yumeProofStudio",
+      "evidenceRefs": [],
+      "state": "NO_RUNTIME_SHOWCASE_PROOF"
+    },
+    {
+      "tier": 4,
+      "id": "partnerPublicShowcase",
+      "evidenceRefs": [],
+      "state": "BLOCKED_EXTERNAL_INVITE"
+    }
+  ],
+  "evidence": {
+    "source": {
+      "commitSha": null,
+      "ciRunUrl": null,
+      "state": "PENDING"
+    },
+    "cloud": {
+      "projectIdentityVerified": false,
+      "billingVerified": false,
+      "instanceCreated": false,
+      "bootReceipt": null,
+      "diskSnapshotCreated": false,
+      "state": "UNVERIFIED"
+    },
+    "web": {
+      "nginxHttpReceipt": null,
+      "sslReceipt": null,
+      "domainVerified": false,
+      "state": "UNVERIFIED"
+    },
+    "site": {
+      "uiMountAndroid": false,
+      "cacheBridgeGreen": false,
+      "touchUndoProven": false,
+      "state": "RED"
+    },
+    "beta": {
+      "externalChatGptPluginShareSupported": false,
+      "inviteApprovedForCurrentArtifact": false,
+      "rightsAndPrivacyCleared": false,
+      "externalInstallProven": false,
+      "state": "BLOCKED"
+    }
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "security": {
+    "providerSecretsInGit": false,
+    "publicBeta": false,
+    "newRecurringSpend": false,
+    "mutableSourceLaneCount": 1,
+    "sourceAndHostAreSeparate": true
+  },
+  "gate": {
+    "crown": "STOP",
+    "reason": "DO_NOT_PROMOTE_SOURCE_FIX_AS_LIVE_PROVIDER_OR_CHATGPT_DEVICE_PROOF"
+  },
+  "repeatWorkAvoidance": [
+    "doNotRepeatManualAppCreation",
+    "doNotRecreateSiteOrRenderServices",
+    "doNotAskToResubmitConfirmedEntitlementEmails",
+    "doNotDuplicateAgentThreads",
+    "doNotRequireManualInstallWhenAuthorizedAutomationIsAvailable",
+    "doNotCopyPrivateMediaIntoPublicRepository",
+    "doNotMultiplyProofDocuments",
+    "doNotChangeLegacyDnsWithoutProof",
+    "doNotInviteAlexUntilSupportedTesterInstall"
+  ],
+  "companyCloseout": {
+    "schema": "luhmOs.finalProposedCompanyCloseout.v1",
+    "status": "SOURCE_CATALOGED_RELEASE_GATES_PENDING",
+    "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+    "identity": {
+      "product": "LuHm-OS",
+      "publisher": "Eggie Bagelface",
+      "developmentCodename": "Project Premonition",
+      "historicalSiteIdentity": "Project Hydra",
+      "sourceRepository": "eggie-admin/LuHm-OS",
+      "googleAccountRole": "canonicalEggieBagelFaceOnly",
+      "legacyAccountRule": "Canceled Pirate Daddy's account is separate from canonical provider entitlements.",
+      "filmStudio": "PIRATE DADDIES FILM historical creative imprint; business operating status requires verification",
+      "antiOverwrite": "Preserve archival brand voice, names, credits and prior deliverables."
+    },
+    "productLanes": [
+      {
+        "id": "app",
+        "scope": "Godot 4, Blender assets, Android/Samsung, browser delivery, asset forge",
+        "status": "DEVICE_AND_RUNTIME_ACCEPTANCE_PENDING"
+      },
+      {
+        "id": "plugin",
+        "scope": "Existing Project Hydra ChatGPT Site MCP and private cockpit",
+        "status": "RED_INLINE_MOUNT"
+      }
+    ],
+    "inventory": [
+      {
+        "id": "publisherBrand",
+        "sourceRefs": [
+          "doctrine/organizationBrandRegistryV1.json",
+          "campaign/brandAndVoiceGuide.md",
+          "doctrine/publicArtReleaseReadinessV1.json"
+        ],
+        "privateAssetRoot": "approvedDriveOriginalBrandMasters",
+        "state": "NEEDS_FINAL_BRAND_ASSET_PROVENANCE_AND_APPROVAL"
+      },
+      {
+        "id": "businessOperations",
+        "sourceRefs": [
+          "doctrine/corporatePanelMilestonesV1.json",
+          "doctrine/soloStudioOperatingProfileV1.json",
+          "doctrine/continuityReleaseLifecycleV1.json"
+        ],
+        "privateAssetRoot": "approvedDriveBusinessRecords",
+        "state": "COMPANY_TITLE_ROLES_ARE_NOT_LEGAL_BUSINESS_PROOF"
+      },
+      {
+        "id": "manualsDocumentation",
+        "sourceRefs": [
+          "manual/README.md",
+          "manual/LUHM_OS_PROJECT_HYDRA_FIELD_MANUAL.md",
+          "manual/professorWritingRegister.md"
+        ],
+        "privateAssetRoot": "approvedDriveIllustratedManualMasterExports",
+        "state": "ORIGINAL_TEXT_AND_DRIVE_MASTERS_PRESERVED_EXPORT_REVIEW_PENDING"
+      },
+      {
+        "id": "comicsOriginalWorks",
+        "sourceRefs": [
+          "doctrine/yumeCreativePipelineV1.json",
+          "doctrine/yumeArtDirectionCanonV1.json",
+          "doctrine/assetEligibilityMatrixV1.json"
+        ],
+        "privateAssetRoot": "approvedDriveRebelIntoTheWarpComicScenePlates",
+        "state": "DISCOVERED_PRIVATE_REVIEW_AUTHORSHIP_AND_RIGHTS_PENDING"
+      },
+      {
+        "id": "charactersArtwork",
+        "sourceRefs": [
+          "game/canon/CHARACTER_CANON_V1.json",
+          "doctrine/contentLaneDoctrineV1.json",
+          "doctrine/publicArtReleaseReadinessV1.json"
+        ],
+        "privateAssetRoot": "approvedDriveOriginalBlenderMastersCharacterBibles",
+        "state": "PROVENANCE_HASH_RUNTIME_IMPORT_AND_PUBLIC_ELIGIBILITY_PENDING"
+      },
+      {
+        "id": "campaignPartners",
+        "sourceRefs": [
+          "doctrine/campaignLaunchKitV1.json",
+          "campaign/brandAndVoiceGuide.md",
+          "doctrine/pluginPublicationV2.json"
+        ],
+        "privateAssetRoot": "approvedDriveMarketingMasters",
+        "state": "PUBLIC_CLAIMS_SPONSORSHIP_AND_DISTRIBUTION_APPROVAL_PENDING"
+      }
+    ],
+    "titlePriority": "Existing visual/source assets belong to the creator. Infrastructure exists to serve them, not substitute for them.",
+    "providerLane": {
+      "adapterId": "bigBrother",
+      "provider": "googleAi",
+      "endpointKind": "geminiDeveloperApi",
+      "executor": "host/api/google-ai-candidate-proxy.py",
+      "auth": "HOST_SECRET_REQUIRED_ACCOUNT_BOUND_COST_CEILING",
+      "connectedGoogleApi": "UNVERIFIED",
+      "networkCallsMade": false,
+      "sourceMode": "DRY_RUN_BY_DEFAULT",
+      "vendorDnsDistinctFromAi": true,
+      "vertexLegacyFallback": "DISABLED_BY_CURRENT_SOURCE"
+    },
+    "network": {
+      "currentDns": "CLOUDFLARE_MANAGED_EXISTING",
+      "currentProxy": "CLOUDFLARE_OPTIONAL_EDGE_EXISTING_RENDER_DIRECT_HTTPS",
+      "cloudDns": "ON_HOLD_NOT_PROVISIONED",
+      "hurricaneElectric": "ON_HOLD_NO_DELEGATION",
+      "newVm": "PRIVATE_SOURCE_CANDIDATE",
+      "namespaceLaw": "doctrine/namingNamespaceCanonV1.json",
+      "artNamespace": "art.eggiebagelface.* IS REVERSE_NAMING_ALIAS_NOT_PUBLIC_WILDCARD_DNS"
+    },
+    "promotion": {
+      "finalProposedBuild": "REQUIRES_EXACT_HEAD_TESTS_AND_SOURCE_REVIEW",
+      "proposedToCanon": "EXACT_ARTIFACT_SOURCE_AND_PROFESSOR_PROMOTION_REQUIRED",
+      "proposedToDoctrine": "EVERLASTING_COVENANT_GUARD_RAIL_REQUIRED",
+      "publicBeta": "BLOCKED_SITE_AND_TESTER_RIGHTS_PRIVACY",
+      "Alex": "PREVIEW_EMAIL_SENT_INSTALL_NOT_VERIFIED",
+      "crown": "STOP"
+    },
+    "noRepeat": [
+      "doNotRecreateOriginalAppSiteOrServices",
+      "doNotRepeatConfirmedSubscriptionEvidence",
+      "doNotRebuildApprovedArtOrRewriteOriginalManuscripts",
+      "doNotMisreadClearVoiceTyposWhenDoctrineResolvesThem",
+      "doNotMixLegacyPirateAccountWithCanonicalGoogleAccount",
+      "doNotMakeFourCompetingProofLedgers",
+      "doNotPublishPrivateDriveMediaOrPrivateIdentifiers",
+      "doNotAutoPurchaseCloudComputeOrDns",
+      "doNotInviteExternalPluginTesterWithoutActualSupportedAccess",
+      "doNotClaimSourceTestMeansAndroidMountOrCloudProviderExecution"
+    ]
+  }
+}

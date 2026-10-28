@@ -1079,6 +1079,20 @@
     "currentProof": "SOURCE_CI_ONLY",
     "crownStatus": "STOP"
   },
+  "linuxStudioCollaboration": {
+    "contract": "doctrine/linuxStudioAppleCollaborationV1.json",
+    "status": "PROPOSED_CANON_RECONCILIATION_NOT_PROMOTED",
+    "sourceAuthority": "github",
+    "developerWorkstations": "PROFESSOR_REPORTED_BOTH_LINUX_UNVERIFIED_HOST",
+    "alexAppleEngineeringRole": "PROPOSED_AND_BETA_DMG_ADMIN",
+    "sensitiveTestingAccess": "PROFESSOR_EXPLICIT_APPROVAL_REQUIRED",
+    "stableMergeAndDeploy": "SEPARATE_PROFESSOR_EXACT_ARTIFACT_APPROVALS_REQUIRED",
+    "macBuildHost": "MACOS_RUNNER_REQUIRED_AVAILABILITY_UNVERIFIED",
+    "androidFdroidAndDmg": "SEPARATE_SIGNATURE_AND_PROOF_LANES",
+    "deviceBluetoothAndWirelessDebug": "PRIVATE_INTAKE_NOT_DEVICE_VERIFIED",
+    "promotion": false,
+    "crownStatus": "STOP"
+  },
   "milestoneTaskQueue": {
     "contract": "doctrine/milestoneTaskQueueV1.json",
     "continuityIssue": 310,

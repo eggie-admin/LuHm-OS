@@ -1,0 +1,61 @@
+schema: luhm-os/samsung-art-desk/v1
+status: PROPOSED_ONLY
+product: LuHm-OS
+environment:
+  service: existing-render-harness
+  url-path: /harness/
+  target-client: samsung-android-16
+  frontend: same-origin-html-css-javascript
+  existing-jquery-version: 3.7.1
+  network-writes: false
+  real-time-collaboration: false
+  mode: private-local-draft
+identity:
+  repository: eggie-admin/LuHm-OS
+  git-owner: eggie-admin
+  linux-admin-expected: eggie
+  codespace-user-existing: codespace
+  sudo-group-expected: sudo
+  linux-account-is-not-github-account: true
+  requires-live-host-proof: true
+  no-plaintext-passwords: true
+  no-passwords-or-ssh-keys-in-git: true
+  password-and-key-provisioning: approved-host-secret-store-only
+machine:
+  operating-system-candidate: ubuntu-26.04-lts
+  codespace-is-host-kernel: false
+  no-root-password-in-source: true
+  do-not-overwrite-netplan: true
+  do-not-overwrite-grub: true
+  no-automatic-sudoers-mutation: true
+  no-kernel-or-hypervisor-changes: true
+  no-vm-created: true
+environment-to-sql:
+  LUHM_SOURCE_REF:
+    sql-schema: host/api/typedLanesV1.sql
+    sql-table: streamEvent
+    sql-column: sourceRef
+    expected: git-sha-40-lowercase-hex
+  LUHM_TASK_ID:
+    sql-schema: host/api/typedLanesV1.sql
+    sql-table: streamEvent
+    sql-column: taskId
+    expected: task-identity
+  LUHM_SCOPE_ID:
+    sql-schema: host/api/typedLanesV1.sql
+    sql-table: streamEvent
+    sql-column: scopeId
+    expected: scope-identity
+  LUHM_PROOF_ID:
+    sql-schema: infrastructure/google-cloud-vm/one-proof.sql
+    sql-table: crownProof
+    sql-column: proofId
+    expected: unique-proof-reference
+release:
+  upload-endpoint-created: false
+  cloudflare-dns-change: false
+  google-provider-activation: false
+  public-beta: false
+  approved-art-export: false
+  same-source-device-touch-proof: PENDING
+  crown: STOP

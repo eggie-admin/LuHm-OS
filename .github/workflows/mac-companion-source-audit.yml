@@ -1,0 +1,27 @@
+name: Mac Companion Source Gate (no release build)
+on:
+  pull_request:
+    paths:
+      - 'tools/mac-companion-release.sh'
+      - 'tests/test-mac-companion-release.py'
+      - '.github/workflows/mac-companion-source-audit.yml'
+permissions:
+  contents: read
+jobs:
+  static-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Read exact PR candidate source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Verify source identity
+        env:
+          SOURCE_REF: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$SOURCE_REF"
+      - name: Audit manual release lane without building or signing
+        run: python3 tests/test-mac-companion-release.py
