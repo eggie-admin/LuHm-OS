@@ -1,0 +1,46 @@
+{
+  "schema": "luhmOs.babylonGlassWorld.v1",
+  "status": "ISOLATED_SOURCE_PROTOTYPE_NOT_SAMSUNG_PROVEN",
+  "brand": "LuHm-OS",
+  "developmentProject": "Project Premonition",
+  "sevenPlaneSource": "doctrine/layeredStageCanonV1.json",
+  "renderRoles": {
+    "world": "babylonJsWebGl2Primary",
+    "sceneEditor": "vue3ScopedInspector",
+    "eventBridge": "jqueryPluginCandidateOnly",
+    "avatar": "godot4AvatarOnlyRendererCandidate",
+    "authoring": "blenderHighFidelityModels",
+    "persistence": "pythonAndSqlAuthorityNotYetConnected",
+    "media": "ffmpegVlcSeparateCandidate"
+  },
+  "android": {
+    "nativeGodotFragmentCompositing": "UNVERIFIED",
+    "alphaAndZOrder": "UNVERIFIED",
+    "webViewPerformance": "UNVERIFIED",
+    "nativeBridge": "NOT_IMPLEMENTED",
+    "stockKnox": "PRESERVE"
+  },
+  "fallback": [
+    "singleBabylonWorldWithStaticAvatarGlass",
+    "approvedAlphaAvatarVideoOrSprites",
+    "avatarGlbInBabylonIfDualGpuTooExpensive"
+  ],
+  "environment": {
+    "network": false,
+    "cdn": false,
+    "externalModels": false,
+    "localBrowserSaveOnly": true
+  },
+  "build": {
+    "isolatedNpmPackage": true,
+    "mainFrontendUntouched": true,
+    "versionPinning": true,
+    "lockfile": "PENDING_GENERATE_AND_COMMIT_BY_CI",
+    "runtimeProof": "PENDING"
+  },
+  "userRights": {
+    "privateModelsNotBundled": true,
+    "publicArtReleaseRequiresApproval": true
+  },
+  "crownStatus": "STOP"
+}

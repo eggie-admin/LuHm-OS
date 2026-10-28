@@ -1,0 +1,39 @@
+name: Premonition Babylon Glass World Prototype
+on:
+  pull_request:
+    paths:
+      - 'frontEnd/prototypes/glassWorld/**'
+      - 'doctrine/babylonGlassWorldV1.json'
+      - 'manual/babylon-glass-world.md'
+      - '.github/workflows/premonition-glass-world-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  babylon-world:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Validate isolated source
+        run: |
+          python3 -m json.tool doctrine/babylonGlassWorldV1.json > /dev/null
+          node --check frontEnd/prototypes/glassWorld/src/scene-state.mjs
+          node --check frontEnd/prototypes/glassWorld/src/main.js
+          node --check frontEnd/prototypes/glassWorld/src/babylon-world.js
+      - name: Pure scene/editor contract tests
+        working-directory: frontEnd/prototypes/glassWorld
+        run: npm test
+      - name: Build standalone Babylon/Vue/jQuery candidate
+        working-directory: frontEnd/prototypes/glassWorld
+        run: |
+          npm install --ignore-scripts --no-audit --no-fund
+          npm run build
+          test -s dist/index.html
+          find dist -type f -printf '%P %s bytes\n'
+          echo "SOURCE_ONLY_NO_SAMSUNG_NO_GODOT_RENDER_PROOF"
