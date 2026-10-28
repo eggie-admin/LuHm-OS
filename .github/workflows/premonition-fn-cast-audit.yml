@@ -5,8 +5,12 @@ on:
     paths:
       - 'doctrine/fnCastV1.yaml'
       - 'tools/fnCast.py'
+      - 'tools/fnCastMatrix.py'
+      - 'frontEnd/jquery/luhm.cockpit.js'
+      - 'frontEnd/tools/check.mjs'
       - 'tools/fnCastSqlJson.py'
       - 'tests/testFnCast.py'
+      - 'tests/testFnCastMatrix.py'
       - 'tests/testFnCastSqlJson.py'
       - 'manual/premonitionFnCast.md'
       - 'doctrine/finalFormPublicReleaseGateV1.json'
@@ -39,6 +43,12 @@ jobs:
         run: |
           set -euo pipefail
           python3 -m unittest discover -s tests -p 'testFnCast*.py' -v
+      - name: Validate candidate jQuery CAST presentation adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check frontEnd/jquery/luhm.cockpit.js
+          node frontEnd/tools/check.mjs
       - name: Test read-only FINAL_FORM CAST receipt
         shell: bash
         run: |

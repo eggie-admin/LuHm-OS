@@ -41,6 +41,9 @@ const checks = [
   [plugin.includes('document.addEventListener("visibilitychange", state.visibilityHandler)') &&
    plugin.includes('document.removeEventListener("visibilitychange", state.visibilityHandler)'),
    "clock pauses on hidden tab and releases listener at destroy"],
+  [plugin.includes('castIntent: function (request)') && plugin.includes('luhm:cast:intent') &&
+   plugin.includes('pythonValidationRequired: true') && plugin.includes('crownGranted: false'),
+   "4x4x4 CAST UI adapter emits typed candidate only"],
   [plugin.includes('if (document.hidden) return;') &&
    plugin.includes('Math.max(15000, configured)') &&
    plugin.includes('if (state.$clock.text() !== display)'),

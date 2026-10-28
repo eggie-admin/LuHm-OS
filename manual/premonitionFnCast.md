@@ -44,3 +44,28 @@ The resulting receipt contains the before/after JSON SHA-256, changed paths, rev
 Current release evidence is incomplete, so an armed voice CAST is valid **intent** but produces `HOLD_FINAL_FORM_EVIDENCE`, not a published binary or approval. Test with `python3 -m unittest discover -s tests -p 'testFnCast*.py' -v`.
 
 Human-facing historical label: `LuHm-OS.fn.cast.yaml`. Canonical repository path: `doctrine/fnCastV1.yaml`, using the current camelHump machine namespace. JSON syntax is deliberately used as a valid YAML 1.2 subset so only Python's standard library is needed and custom YAML tags cannot execute.
+
+## CAST matrix candidate: four by four by four
+
+The case-sensitive product identity is **LuHm-OS: Project Premonition**. An explicit 4×4×4 coordination contract now records 64 *source-only candidate coordinates* without adding 64 workers.
+
+| Axis | Four entries |
+| --- | --- |
+| CAST stage | `castTesting`, `castProposed`, `castBridge`, `cast` |
+| Interaction beat | `hear`, `resolve`, `act`, `verify` |
+| Titan audit tier | `technologyFastPath`, `forFuckSake`, `scorchedEarth`, `finalForm` |
+
+The earlier `devCast` and `castDev` spellings are compatibility aliases for `castTesting`. Movement is initial `castTesting`, then same-stage or one-stage forward only. A stage never grants signing or release authority. The `cst` global alias still resolves to currentSourceTruth.
+
+Python `tools/fnCastMatrix.py` validates stage/beat/tier, exact checked-out source SHA, task/scope identity and explicit armed CAST intent. `frontEnd/jquery/luhm.cockpit.js` exposes `$(root).luhmCockpit("castIntent", request)`, which emits only `luhm:cast:intent` for separately validated Python processing. No network or release mutation is performed by that jQuery method.
+
+Example **candidate-only** read:
+
+```bash
+python3 tools/fnCast.py --voice "cast" --armed --context fnCast \
+  --source-ref "$(git rev-parse HEAD)" \
+  --cast-stage castTesting --cast-beat hear --cast-tier technologyFastPath \
+  --task-id premonitionCastMatrix --scope-id samsungStudio
+```
+
+The returned `castMatrix` is not a runnable action or deployment approval. Python negative tests enumerate all 64 coordinates and illegal stage jumps; the existing SQL JSON1 tuner remains isolated.
