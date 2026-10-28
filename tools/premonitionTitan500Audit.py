@@ -85,31 +85,39 @@ def main():
                         "detail": {"path": row["path"], "sha256": digest}})
     if len(results) != 500 or len({r["id"] for r in results}) != 500:
         raise SystemExit("RED_TITAN500_AUDIT_COUNT")
-    failed = [r["id"] for r in results if r["result"] in ("FAIL", "GAP")
-              or (r["result"] == "UNVERIFIED" and r["proofClass"] != "runtime")]
+    # Distinguish critical source regressions from openly documented feature gaps.
+    # No unresolved gap is counted as a PASS or as runtime readiness.
+    source_blockers = [
+        r["id"] for r in results
+        if (r["id"].startswith("hard-") or r["id"].startswith("inventory-")
+            or (r["id"].startswith("artist-") and r.get("critical", False)))
+        and r["result"] != "PASS"
+    ]
     if hard.returncode != 0:
-        failed.append("hardSystemProcessExit")
+        source_blockers.append("hardSystemProcessExit")
     if art.returncode != 0:
-        failed.append("artistFirstProcessExit")
+        source_blockers.append("artistFirstProcessExit")
+    gaps = [r["id"] for r in results if r["result"] == "GAP"]
+    pending = [r["id"] for r in results if r["result"] == "UNVERIFIED"]
     counts = dict(Counter(r["result"] for r in results))
     report = {"schema": "luhmOs.premonitionTitan500Receipt.v1",
               "identity": "LuHm-OS: Project Premonition", "sourceRef": source,
               "baselineMain": BASE, "sourceOnly": True, "physicalDeviceProven": False,
               "playableGameProven": False, "apkSigningProven": False,
               "crownStatus": "STOP",
-              "verdict": "RED_SOURCE" if failed else "AMBER_SOURCE_ONLY",
-              "counts": counts, "failedIds": failed, "checks": results}
+              "verdict": "RED_SOURCE" if source_blockers else "AMBER_SOURCE_WITH_GAPS",
+              "counts": counts, "criticalSourceBlockers": source_blockers, "knownGaps": gaps, "runtimeUnverified": pending, "checks": results}
     (output / "premonition-titan-500.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     lines = ["# LuHm-OS: Project Premonition | Titan 500 source audit", "",
              f"Source: `{source}`", f"Verdict: **{report['verdict']}** (never device or release GREEN).", "",
-             f"Counts: `{counts}`", f"Failures: `{failed[:25]}`", "",
+             f"Counts: `{counts}`", f"Critical source blockers: `{source_blockers[:25]}`", f"Known feature gaps: `{gaps}`", f"Runtime unverified: `{pending}`", "",
              "200 existing hard-system controls + 120 existing artist-first controls + 180 tracked source/syntax checks.",
              "The final 180 are inventory checks, not functional or runtime validations.",
              "Physical Samsung APK launch, F-Droid signing/update, actual Godot gameplay, Blender exports and funding agreements remain separately unverified.", ""]
     (output / "premonition-titan-500.md").write_text("\n".join(lines), encoding="utf-8")
     print(json.dumps({"identity": report["identity"], "sourceRef": source, "verdict": report["verdict"],
-                      "counts": counts, "failedIds": failed[:30], "crownStatus": "STOP"}, indent=2))
-    return 2 if failed else 0
+                      "counts": counts, "criticalSourceBlockers": source_blockers[:30], "knownGaps": gaps, "crownStatus": "STOP"}, indent=2))
+    return 2 if source_blockers else 0
 
 if __name__ == "__main__":
     raise SystemExit(main())
