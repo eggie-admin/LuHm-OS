@@ -39,6 +39,10 @@ New files and directory paths follow lowercase kebab-case:
 
 Engine-defined Python and GDScript identifiers, environment variables, and JSON wire keys follow their respective language/API contracts. Existing legacy code is not renamed casually.
 
+## Blender cockpit button
+
+The **Export Demo Marker (Local)** button on the existing LuHm Blender sidebar invokes the same procedural exporter only when clicked. It refuses to operate in Edit/Pose/Sculpt mode, never exports the user's selected objects, and creates an out-of-repo temporary directory. The Blender console prints the resulting `LUHM_HANDOFF_MANIFEST=...` path for a separately authorized Godot verification. No command silently runs Godot or deploys a game.
+
 This initial smoke is **not** proof of a usable Blender-to-Lum rig, animation export, Godot playable viewport, Samsung touch, in-chat Project Hydra rendering, a public rights-clean release, signing, or deployment. Existing public Godot asset firewall and private-art quarantine remain authoritative.
 
 **CROWN: STOP. Build/runtime acceptance: NOT EXECUTED in this source preparation step.**
