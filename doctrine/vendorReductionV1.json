@@ -1,0 +1,120 @@
+{
+  "schema": "luhmOs.vendorReduction.v1",
+  "status": "SOURCE_PROFILE_AND_BUILD_SIZE_GUARD",
+  "displayIdentity": "LuHm-OS: Project Premonition",
+  "priority": "Ship lean playable art/game and video demo on Samsung without a local Linux server fleet.",
+  "sourceBaseline": "b1ec72e508819e6d5f8532fdb96931826b867c29",
+  "architectureProfiles": {
+    "samsungClient": {
+      "runtime": [
+        "signed Android wrapper",
+        "Android vendor System WebView",
+        "bundled static Babylon/Vue/jQuery UI",
+        "optional native avatar after measured testing"
+      ],
+      "forbiddenRuntimeRequirements": [
+        "Termux",
+        "Node.js/npm interpreter",
+        "MariaDB server",
+        "DNSmasq",
+        "NGINX",
+        "Blender",
+        "full VLC desktop",
+        "GParted",
+        "Rufus"
+      ],
+      "nativeSigning": "separateGradleGodotReleaseGate",
+      "proof": "NOT_PHYSICALLY_TESTED"
+    },
+    "universalAndroid": {
+      "runtime": [
+        "same bounded Android app without hardcoded Samsung-only drivers"
+      ],
+      "sameSourcePackages": true,
+      "proof": "NOT_PHYSICALLY_TESTED"
+    },
+    "linuxHeadless": {
+      "minimum": [
+        "host-provided Linux kernel",
+        "Python3 standard library including sqlite3",
+        "Git optional for source management"
+      ],
+      "optional": [
+        "ffmpeg/ffprobe on media worker",
+        "MariaDB client for approved shared DB",
+        "NGINX when proxy is required",
+        "DNSmasq on controlled LAN only"
+      ],
+      "neverStartServiceByImport": true,
+      "notASecondKernel": true,
+      "proof": "SOURCE_POLICY_ONLY"
+    },
+    "linuxStudio": {
+      "type": "separateOptInHeavyProfile",
+      "currentSource": ".devcontainer/Dockerfile",
+      "mayUse": [
+        "Godot4",
+        "Blender",
+        "FFmpeg",
+        "GIMP",
+        "MariaDB server on local socket",
+        "npm build tools"
+      ],
+      "notSamsungRuntime": true
+    },
+    "macCompanion": {
+      "runtime": [
+        "native signed/notarized application",
+        "optional media codecs"
+      ],
+      "buildToolsOnMacOnly": true,
+      "notSamsungRuntime": true
+    }
+  },
+  "npm": {
+    "directory": "frontEnd/prototypes/glassWorld",
+    "requirePrivate": true,
+    "lockfileVersion": 3,
+    "exactDirectDependencies": {
+      "@babylonjs/core": "9.32.0",
+      "jquery": "3.7.1",
+      "vue": "3.5.44"
+    },
+    "exactBuildDependencies": {
+      "vite": "8.3.5"
+    },
+    "allowLifecycleScripts": false,
+    "requiredLicenseMetadata": true,
+    "requiredIntegrity": true,
+    "requireDeepBabylonImports": true,
+    "prohibitCDNScripts": true,
+    "minNode": "22",
+    "buildOnlyOnDeveloperOrCi": true
+  },
+  "budgets": {
+    "mainBundleJsBytesMax": 1600000,
+    "totalJavascriptBytesMax": 1900000,
+    "cssBytesMax": 20000,
+    "reason": "CI emitted ~1.80 MB aggregate including Babylon shader/texture dynamic chunks while main JS is 1.22 MB; 1.90 MB total allows narrow 5.6% headroom and triggers on substantive vendor drift. Not Android runtime proof."
+  },
+  "baselineObserved": {
+    "firstUnoptimizedMainJsBytes": 7002826,
+    "optimizedMainJsBytes": 1220288,
+    "optimizedMainJsGzipApproxBytes": 312940,
+    "source": "GitHub PR 440 CI source build logs; not Samsung runtime"
+  },
+  "supplyChain": {
+    "lockfileIntegrityNotAnAudit": true,
+    "licensesNeedDistributionReview": true,
+    "networkVulnerabilityAuditSeparate": true,
+    "noRuntimeNodeOnAndroid": true
+  },
+  "publication": {
+    "Crown": "STOP",
+    "signing": "UNVERIFIED",
+    "fDroid": "UNVERIFIED",
+    "samsungFrameRates": "UNVERIFIED",
+    "actualVlc": "NOT_INSTALLED",
+    "funding": "NOT_ESTABLISHED"
+  }
+}
