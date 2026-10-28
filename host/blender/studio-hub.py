@@ -79,11 +79,18 @@ class LUHM_OT_studio_workspace(bpy.types.Operator):
             self.report({"WARNING"}, "Unknown studio workspace")
             return {"CANCELLED"}
         workspace = bpy.data.workspaces.get(self.workspace_name)
-        if workspace is None or context.window is None:
-            self.report({"WARNING"}, "Workspace unavailable in this Blender session")
-            return {"CANCELLED"}
-        context.window.workspace = workspace
-        return {"FINISHED"}
+        if workspace is not None and context.window is not None:
+            context.window.workspace = workspace
+            return {"FINISHED"}
+        # Startup files may omit these workspaces; the native editor still exists.
+        fallback = {"Video Editing": "SEQUENCE_EDITOR", "Scripting": "TEXT_EDITOR"}
+        area_type = fallback.get(self.workspace_name)
+        if area_type is not None and context.area is not None:
+            context.area.type = area_type
+            self.report({"INFO"}, "Native editor opened. Shift-F5 returns to 3D View.")
+            return {"FINISHED"}
+        self.report({"WARNING"}, "Workspace unavailable in this Blender session")
+        return {"CANCELLED"}
 
 
 class LUHM_OT_studio_script(bpy.types.Operator):
