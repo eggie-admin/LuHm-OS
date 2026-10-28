@@ -14,6 +14,22 @@ const roundTrip=desk.cleanPacket(JSON.parse(JSON.stringify(good)));
 assert.deepEqual(roundTrip,good);
 assert.equal(roundTrip.approved,false);
 assert.equal(roundTrip.serverWrites,false);
+assert.equal(desk.countPoints(good),2);
+const strokeBudget={points:[[1,1]]};
+assert.equal(desk.appendPoint(strokeBudget,[2,2],0),false,"global budget blocks move");
+assert.equal(desk.appendPoint(strokeBudget,[1,1],1),false,"duplicate points do not consume budget");
+assert.equal(desk.appendPoint(strokeBudget,[2,2],1),true,"available budget accepts move");
+assert.deepEqual(strokeBudget.points,[[1,1],[2,2]]);
+const maxStroke={points:Array.from({length:2000},()=>[1,1])};
+assert.equal(desk.appendPoint(maxStroke,[2,2],1),false,"per-stroke budget blocks move");
+const globalLimit=desk.fresh();
+globalLimit.shots[0].strokes=Array.from({length:10},()=>({
+  color:"#112233",width:2,erase:false,points:Array.from({length:2000},()=>[1,1])
+}));
+assert.equal(desk.countPoints(globalLimit),20000);
+assert.deepEqual(desk.cleanPacket(globalLimit),globalLimit);
+globalLimit.shots[0].strokes.push({color:"#112233",width:2,erase:false,points:[[1,1]]});
+assert.throws(()=>desk.cleanPacket(globalLimit),/Too many points/);
 for(const bad of [
   {...good,approved:true},
   {...good,serverWrites:true},
