@@ -26,7 +26,7 @@ class VendorReductionTests(unittest.TestCase):
         self.assertIn("Apache-2.0",info["licenseMetadata"])
         self.assertFalse(info["missingLicenseOrIntegrity"])
     def testBarrelImportsAreRejected(self):
-        bad=self.world+'\\nimport { Engine } from "@babylonjs/core";'
+        bad=self.world+'\nimport { Engine } from "@babylonjs/core";'
         failures,_=module.inspectDependencies(self.policy,self.pkg,self.lock,bad,self.html)
         self.assertIn("BABYLON_BARREL_IMPORT_REGRESSION",failures)
     def testCDNScriptsAreRejected(self):
