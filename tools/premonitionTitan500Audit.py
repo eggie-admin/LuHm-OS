@@ -14,7 +14,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "ca369e6925406e9a00008bbc629bb5db67a7d02c"
-HARD_RE = re.compile(r"^(PASS|FAIL) (\\d{3})/200 (\\S+)$")
+HARD_RE = re.compile(r"^(PASS|FAIL) (\d{3})/200 (\S+)$")
 
 def load(path):
     return json.loads((ROOT / path).read_text(encoding="utf-8"))
@@ -101,8 +101,8 @@ def main():
               "counts": counts, "failedIds": failed, "checks": results}
     (output / "premonition-titan-500.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     lines = ["# LuHm-OS: Project Premonition | Titan 500 source audit", "",
-             f"Source: \`{source}\`", f"Verdict: **{report['verdict']}** (never device or release GREEN).", "",
-             f"Counts: \`{counts}\`", f"Failures: \`{failed[:25]}\`", "",
+             f"Source: `{source}`", f"Verdict: **{report['verdict']}** (never device or release GREEN).", "",
+             f"Counts: `{counts}`", f"Failures: `{failed[:25]}`", "",
              "200 existing hard-system controls + 120 existing artist-first controls + 180 tracked source/syntax checks.",
              "The final 180 are inventory checks, not functional or runtime validations.",
              "Physical Samsung APK launch, F-Droid signing/update, actual Godot gameplay, Blender exports and funding agreements remain separately unverified.", ""]
