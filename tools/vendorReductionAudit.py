@@ -40,9 +40,9 @@ def inspectDependencies(policy: dict, package: dict, lock: dict, worldSource: st
         problems.append("BABYLON_BARREL_IMPORT_REGRESSION")
     if '@babylonjs/core/Engines/engine.js' not in worldSource:
         problems.append("BABYLON_DEEP_IMPORT_MISSING")
-    if re.search(r'<script[^>]+src\s*=\s*["\\'](?:https?:)?//', html, re.I):
+    if re.search(r"""<script[^>]+src\s*=\s*["'](?:https?:)?//""", html, re.I):
         problems.append("EXTERNAL_SCRIPT_NOT_ALLOWED")
-    if re.search(r'<link[^>]+href\s*=\s*["\\'](?:https?:)?//', html, re.I):
+    if re.search(r"""<link[^>]+href\s*=\s*["'](?:https?:)?//""", html, re.I):
         problems.append("EXTERNAL_STYLESHEET_NOT_ALLOWED")
     byLicense: Counter[str] = Counter()
     byDev: Counter[str] = Counter()
