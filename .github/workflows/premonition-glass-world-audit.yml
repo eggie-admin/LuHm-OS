@@ -37,7 +37,7 @@ jobs:
           assert "type=\"SubViewport\"" in scene and "transparent_bg = true" in scene
           assert "@export var avatarScene: PackedScene" in script
           assert "setExpression" in script and "setPose" in script
-          assert "Godot" not in Path("frontEnd/prototypes/glassWorld/src/babylon-world.js").read_text()
+          assert "new Engine(canvas" in Path("frontEnd/prototypes/glassWorld/src/babylon-world.js").read_text()
           print("GODOT_AVATAR_ONLY_SOURCE_CONTRACT_NO_NATIVE_RUNTIME_PROOF")
           PY
       - name: Pure scene/editor contract tests
