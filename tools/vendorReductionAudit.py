@@ -40,9 +40,9 @@ def inspectDependencies(policy: dict, package: dict, lock: dict, worldSource: st
         problems.append("BABYLON_BARREL_IMPORT_REGRESSION")
     if '@babylonjs/core/Engines/engine.js' not in worldSource:
         problems.append("BABYLON_DEEP_IMPORT_MISSING")
-    if re.search(r'<script[^>]+src\\s*=\\s*["\\\'](?:https?:)?//', html, re.I):
+    if re.search(r'<script[^>]+src\s*=\s*["\\'](?:https?:)?//', html, re.I):
         problems.append("EXTERNAL_SCRIPT_NOT_ALLOWED")
-    if re.search(r'<link[^>]+href\\s*=\\s*["\\\'](?:https?:)?//', html, re.I):
+    if re.search(r'<link[^>]+href\s*=\s*["\\'](?:https?:)?//', html, re.I):
         problems.append("EXTERNAL_STYLESHEET_NOT_ALLOWED")
     byLicense: Counter[str] = Counter()
     byDev: Counter[str] = Counter()
@@ -61,7 +61,7 @@ def inspectDependencies(policy: dict, package: dict, lock: dict, worldSource: st
             missing.append(name)
         if record.get("hasInstallScript"):
             installScripts.append(name)
-        if not re.fullmatch(r"[0-9]+(?:\\.[0-9]+){2}(?:[-+][A-Za-z0-9.+-]+)?", str(record.get("version") or "")):
+        if not re.fullmatch(r"[0-9]+(?:\.[0-9]+){2}(?:[-+][A-Za-z0-9.+-]+)?", str(record.get("version") or "")):
             problems.append("UNPINNED_LOCKED_PACKAGE_VERSION")
     if not packages or len(packages) < 4:
         problems.append("LOCKFILE_INCOMPLETE")
@@ -96,7 +96,7 @@ def inspectBuild(policy: dict, dist: Path | None) -> tuple[list[str], dict]:
                         "sha256": sha256(data), "gzipBytes": len(gzip.compress(data, mtime=0))})
     js = [p for p in entries if p["asset"].endswith(".js")]
     css = [p for p in entries if p["asset"].endswith(".css")]
-    main = [p for p in js if re.search(r"(?:^|/)index-[A-Za-z0-9_-]+\\.js$", p["asset"])]
+    main = [p for p in js if re.search(r"(?:^|/)index-[A-Za-z0-9_-]+\.js$", p["asset"])]
     problems = []
     budgets = policy["budgets"]
     if len(main) != 1 or main[0]["bytes"] > budgets["mainBundleJsBytesMax"]:
@@ -142,7 +142,7 @@ def main() -> int:
     parser.add_argument("--output",type=Path,default=None,help="Write audit receipt JSON locally")
     args=parser.parse_args()
     receipt=audit(args.dist)
-    payload=json.dumps(receipt,sort_keys=True,indent=2)+"\\n"
+    payload=json.dumps(receipt,sort_keys=True,indent=2)+"\n"
     if args.output is not None:
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(payload,encoding="utf-8")
