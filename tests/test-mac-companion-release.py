@@ -26,10 +26,10 @@ checks = [
 ]
 # Repository artifact slugs are lowercase kebab-case. Machine names are camelHump.
 # Status sentinels and external platform-required environment variables are DRAGONTAIL.
-assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*\\.dmg", "luhm-os-companion.dmg")
+assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*\.dmg", "luhm-os-companion.dmg")
 if 'LuHm-OS-Companion.dmg' in text or 'LuHm OS Companion.app' in text:
     raise SystemExit("RED_NONKEBAB_ARTIFACT_NAMESPACE")
-if re.search(r"\\b(source_ref|godot_bin)\\b", text):
+if re.search(r"\b(source_ref|godot_bin)\b", text):
     raise SystemExit("RED_NONCAMEL_MACHINE_NAMESPACE")
 missing = [term for term in checks if term not in text]
 if missing:
