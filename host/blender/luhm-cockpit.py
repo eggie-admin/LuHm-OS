@@ -108,7 +108,15 @@ class LUHM_PT_cockpit(bpy.types.Panel):
         layout.label(text="Save masters with Blender Save As.")
         layout.label(text="Runtime/device acceptance pending.")
 
-CLASSES = (LUHM_OT_check, LUHM_OT_database, LUHM_OT_godot, LUHM_OT_handoff, LUHM_PT_cockpit)
+STUDIO_CLASSES = tuple(
+    runpy.run_path(
+        str(ROOT / "host/blender/studio-hub.py"), run_name="luhm_studio_hub"
+    )["CLASSES"]
+)
+CLASSES = (
+    LUHM_OT_check, LUHM_OT_database, LUHM_OT_godot,
+    LUHM_OT_handoff, LUHM_PT_cockpit, *STUDIO_CLASSES,
+)
 
 def register():
     for cls in CLASSES:
@@ -125,6 +133,9 @@ def selftest():
         assert (ROOT / "project.godot").is_file()
         assert bpy.ops.luhm.check_local() == {"FINISHED"}
         assert bpy.types.LUHM_PT_cockpit.bl_category == "LuHm"
+        assert len(STUDIO_CLASSES) == 9
+        assert bpy.types.LUHM_PT_studio_workspaces.bl_parent_id == "LUHM_PT_cockpit"
+        assert bpy.types.LUHM_PT_studio_media.bl_parent_id == "LUHM_PT_cockpit"
         print(json.dumps({"test": "blender-cockpit-registration",
                           "blender": bpy.app.version_string,
                           "result": "PASS", "interactiveTouch": "UNVERIFIED"}))
