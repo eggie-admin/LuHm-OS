@@ -55,9 +55,9 @@ class LUHM_OT_godot(bpy.types.Operator):
     def execute(self, context):
         global STATUS
         try:
-            project = ROOT / "game" / "project.godot"
+            project = ROOT / "project.godot"
             if not project.is_file():
-                raise RuntimeError("Missing game/project.godot")
+                raise RuntimeError("Missing project.godot")
             version = run_local(["godot", "--headless", "--version"])
             if not version.startswith("4."):
                 raise RuntimeError("Godot 4 required")
@@ -100,6 +100,7 @@ def selftest():
     """Actual Blender registration/operator smoke; no assets/network/DB required."""
     register()
     try:
+        assert (ROOT / "project.godot").is_file()
         assert bpy.ops.luhm.check_local() == {"FINISHED"}
         assert bpy.types.LUHM_PT_cockpit.bl_category == "LuHm"
         print(json.dumps({"test": "blender-cockpit-registration",
