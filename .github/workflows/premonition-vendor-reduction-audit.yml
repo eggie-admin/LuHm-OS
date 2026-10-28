@@ -1,0 +1,54 @@
+name: Premonition Vendor Footprint Gate
+on:
+  pull_request:
+    paths:
+      - 'doctrine/vendorReductionV1.json'
+      - 'tools/vendorReductionAudit.py'
+      - 'tests/testVendorReduction.py'
+      - 'manual/vendor-reduction.md'
+      - 'frontEnd/prototypes/glassWorld/**'
+      - '.github/workflows/premonition-vendor-reduction-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  vendor-footprint:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Verify profile and run source negative tests
+        run: |
+          python3 -m json.tool doctrine/vendorReductionV1.json > /dev/null
+          python3 -m py_compile tools/vendorReductionAudit.py
+          python3 -m unittest discover -s tests -p 'testVendorReduction.py' -v
+      - name: Build web candidate with exact dependency lock
+        working-directory: frontEnd/prototypes/glassWorld
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run build
+      - name: Measure exact-source asset budgets and report manifest
+        run: |
+          python3 tools/vendorReductionAudit.py --dist frontEnd/prototypes/glassWorld/dist --output "${RUNNER_TEMP}/vendor-reduction/receipt.json"
+          python3 - "${RUNNER_TEMP}/vendor-reduction/receipt.json" <<'PY'
+          import json,sys
+          data=json.load(open(sys.argv[1],encoding="utf-8"))
+          assert data["verdict"]=="AMBER_SOURCE_ONLY"
+          assert data["build"]["mainJavaScriptBytes"] < 1600000
+          assert data["apkSigned"]=="UNVERIFIED"
+          assert data["crownStatus"]=="STOP"
+          print("VENDOR_FOOTPRINT_SOURCE_BUDGET_GREEN_RUNTIME_UNKNOWN")
+          PY
+      - name: Upload measured BOM and bundle receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: premonition-vendor-reduction-receipt
+          path: ${{ runner.temp }}/vendor-reduction/
+          retention-days: 14
+          if-no-files-found: warn
