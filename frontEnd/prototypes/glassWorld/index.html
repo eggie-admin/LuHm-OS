@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LuHm-OS: Project Premonition | Glass World Prototype</title>
+<meta name="description" content="Babylon 3D scene with Vue controls, jQuery event bridge and candidate Godot avatar dock.">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar"><strong>LuHm-OS</strong><span>Project Premonition · Glass World</span><small>PROTOTYPE · NOT AN APK</small></header>
+<main id="glass-world" class="workbench">
+  <section class="world" aria-label="Babylon interactive 3D scene">
+    <canvas id="babylon-stage" aria-label="Interactive 3D object stage"></canvas>
+    <div class="world-label">BABYLON WORLD · Orbit via touch or pointer · Select props</div>
+    <aside class="avatar-dock" aria-label="Godot avatar glass rendering boundary">
+      <div class="avatar-orb" aria-hidden="true">◇</div>
+      <strong>GODOT 4 · AVATAR GLASS</strong>
+      <p>Avatar-render bridge not connected. This is a placeholder, not a live character.</p>
+    </aside>
+  </section>
+  <aside id="vue-inspector" class="inspector" aria-label="Vue 3 scene controls"></aside>
+</main>
+<footer>Blender models → Godot character fidelity · Babylon props/world · Vue/jQuery controls · Python receipts · FFmpeg/VLC media</footer>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

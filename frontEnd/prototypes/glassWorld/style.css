@@ -1,0 +1,20 @@
+:root { font-family: system-ui, sans-serif; color: #eef1ff; background: #090916; }
+* { box-sizing: border-box; } body { margin: 0; }
+.topbar { display:flex; gap:1rem; align-items:center; background:#17152a; padding:.8rem 1.2rem; border-bottom:1px solid #5a467e;}
+.topbar strong { color:#ff77c9; font-size:1.2rem; }.topbar small {margin-left:auto; color:#a8dbf2;}
+.workbench { display:grid; grid-template-columns:minmax(0, 1fr) minmax(250px, 325px); min-height:calc(100dvh - 108px);}
+.world { position:relative; overflow:hidden; min-height:460px; background:radial-gradient(circle at center,#273054,#090916); }
+#babylon-stage { display:block; width:100%; height:100%; touch-action:none; outline: none;}
+.world-label {position:absolute;top:1rem;left:1rem;background:#10132abf;padding:.45rem .8rem;border-radius:8px;font-size:.75rem;pointer-events:none;}
+.avatar-dock {position:absolute;bottom:1.1rem;left:1rem;width:200px;padding:1rem;border:1px solid #ee77cc78;border-radius:18px;background:linear-gradient(135deg,#34234cad,#131b3cb8);backdrop-filter:blur(14px);pointer-events:none;}
+.avatar-dock p{font-size:.76rem;color:#b7b7d8;line-height:1.4}.avatar-orb{font-size:3rem;color:#ff91df;text-align:center;}
+.inspector{padding:1rem 1.2rem;background:#121327;border-left:1px solid #535378;overflow:auto}
+.inspector h2 {margin-top:0}.controls {display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
+button{padding:.55rem .8rem;border-radius:8px;border:1px solid #7380ac;background:#273151;color:white;cursor:pointer}
+button:focus-visible{outline:2px solid #ff84ce}.danger{background:#633451}
+.object {display:block;margin:.3rem 0;width:100%;text-align:left}
+.object.active{border-color:#fc7ccd;background:#423254}
+.small{font-size:.79rem;color:#b4bad5}.num{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin:.7rem 0}
+.num input{width:75px;padding:.4rem;border-radius:6px;background:#202442;border:1px solid #6c7397;color:white}
+.output{word-break:break-all;font-size:.8rem}footer{padding:.8rem;background:#151428;color:#a8bbd3;font-size:.8rem}
+@media(max-width:770px){.workbench{grid-template-columns:1fr}.world{height:55dvh;min-height:350px}.inspector{min-height:300px;border-left:none}.avatar-dock{width:165px;padding:.65rem;bottom:.5rem;left:.5rem}.avatar-dock p{font-size:.65rem}}
