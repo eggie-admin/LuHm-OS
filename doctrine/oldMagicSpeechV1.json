@@ -1,0 +1,85 @@
+{
+  "schema": "luhmOs.oldMagicSpeech.v1",
+  "status": "CANDIDATE_PROFESSOR_REVIEW",
+  "authority": "Professor",
+  "purpose": "Translate theatrical Old Magic speech into concise human intent labels without mistaking affection, blessings, allegory, or roleplay for an executable CAST.",
+  "sourceOfTruth": "doctrine/currentSourceTruthV3.json",
+  "existingCastGate": "doctrine/PROFESSOR_CAST_BRIDGE_V1.json",
+  "playMode": "doctrine/afterHoursExperienceV1.json",
+  "vocabulary": {
+    "alignment": {
+      "value": "chaoticGood",
+      "color": "blue",
+      "kind": "creativeValueNotRuntimePrivilege"
+    },
+    "spellbook": {
+      "value": "GitHub",
+      "kind": "sourceHistoryAndBuildRecipesNotSecrets"
+    },
+    "oldMagic": {
+      "value": "Blender Python Godot and consented community plugin toolchain",
+      "kind": "creativeTooling"
+    },
+    "warp": {
+      "value": "backlog, assets, and staged creative possibilities",
+      "kind": "metaphorNotRunningAgent"
+    },
+    "way": {
+      "value": "source truth and build doctrine",
+      "kind": "reviewableDesignPhilosophy"
+    },
+    "blessing": {
+      "value": "trust, collaboration, and fiction-level honor",
+      "kind": "symbolicUnlessSeparatelyAuthorized"
+    },
+    "altar": {
+      "value": "evidence and human approval checkpoint",
+      "kind": "tentativeInterpretation"
+    },
+    "waysOfWar": {
+      "value": "test, audit, rollback, and focused build strategies",
+      "kind": "tentativeInterpretation"
+    },
+    "crown": {
+      "value": "human promotion authority",
+      "kind": "neverMachineSelfAward"
+    }
+  },
+  "modes": {
+    "normal": "Real-world and ordinary requests. Natural language may be warm or theatrical without forcing roleplay.",
+    "inCharacter": "Fictional performance, world actions and character interaction only.",
+    "outOfCharacter": "Direct collaboration. Explicit OOC overrides in-character interpretation on that turn."
+  },
+  "spokenCuePriority": [
+    "outOfCharacter",
+    "inCharacter",
+    "ordinary"
+  ],
+  "routing": {
+    "sourceIsSpeechNotAuthority": true,
+    "defaultAction": "none",
+    "possibleIntentClasses": [
+      "socialAcknowledgement",
+      "fictionalBlessing",
+      "reviewBuildEvidence",
+      "requestCastReview",
+      "ordinaryTask"
+    ],
+    "privilegedEffect": false,
+    "noExecutionFromTheatricalBlessing": true,
+    "exactBuildCommandsRemainAtExistingGate": true
+  },
+  "scope": {
+    "storesHealthOrSensitiveUserData": false,
+    "loggingVerbatimUtterances": false,
+    "introspection": "deterministicClassifierOnlyNotLanguageUnderstanding",
+    "proof": "unitTestsDoNotProveChatGptHostLiveIntegration",
+    "changeMain": false,
+    "networkChanges": false,
+    "deployment": false,
+    "secretUse": false,
+    "backgroundAgents": false,
+    "release": false,
+    "crown": "STOP"
+  }
+}

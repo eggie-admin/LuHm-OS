@@ -1,0 +1,263 @@
+{
+  "schema": "luhmOs.premonitionUniversalAudio.v1",
+  "project": "Project Premonition",
+  "status": "SOURCE_CANDIDATE_RUNTIME_UNVERIFIED",
+  "authority": "Professor",
+  "purpose": "One LuHm conversation, one leading voice, optional guest voice, game-like audio buses, and native OS invocation adapters with compact typed JSON.",
+  "canonicalReferences": [
+    "doctrine/voiceCabinetBridgeV1.json",
+    "doctrine/fnCastV1.yaml",
+    "manual/ai-ffmpeg-local-first.md",
+    "manual/professor-garage-lab.md",
+    "doctrine/publicApkUpdateIdentityV1.json",
+    "doctrine/cloudflareEdgeHardeningV1.json",
+    "doctrine/networkSpineV1.json",
+    "doctrine/belldandyPkiCorporateSecretaryV1.json",
+    "manual/selfHostedRemoteUpdates20261022.md",
+    "doctrine/premonitionStageDirectorV1.json"
+  ],
+  "voice": {
+    "lead": "lum",
+    "guestAllowlist": [
+      "urd",
+      "belldandy",
+      "skuld"
+    ],
+    "maximumAudibleVoices": 2,
+    "defaultSimultaneousVoices": 1,
+    "guestOverlapRequiresExplicitTurnFlag": true,
+    "autoVoiceGeneration": false,
+    "claimIndependentProviderVoice": false
+  },
+  "audioBuses": {
+    "lead": "PremonitionVoiceLead",
+    "guest": "PremonitionVoiceGuest",
+    "music": "PremonitionMusic",
+    "effects": "PremonitionEffects",
+    "musicDuckingFactor": 0.26,
+    "voiceGainRange": [
+      0,
+      2
+    ],
+    "musicVolumeRange": [
+      0,
+      1
+    ],
+    "note": "Godot runtime bus allocation; no approved recorded voice/music included"
+  },
+  "invocationAdapters": {
+    "chatGpt": {
+      "mode": "ENVELOPE_ONLY",
+      "nativeAction": "CurrentChatTurn",
+      "claimRawVoiceAccess": false
+    },
+    "androidAssistant": {
+      "mode": "NATIVE_APP_REQUIRED",
+      "nativeAction": "RoleManager.ROLE_ASSISTANT or ACTION_ASSIST",
+      "requiresUserOptIn": true,
+      "autoDefaultAssistantReplacement": false
+    },
+    "samsungBixby": {
+      "mode": "NATIVE_OR_SAMSUNG_FLOW_REQUIRED",
+      "nativeAction": "Bixby Automation Studio capsule or explicit Android intent",
+      "bixbyCapsuleAccountMayBeRequired": true,
+      "claimBixbyAudioCapture": false
+    },
+    "appleAppIntents": {
+      "mode": "IOS_APP_REQUIRED",
+      "nativeAction": "App Intents/App Shortcuts through Siri or Shortcuts",
+      "claimSiriReplacement": false,
+      "claimPrivateSiriAudioCapture": false
+    },
+    "androidEdgeGallery": {
+      "mode": "OPTIONAL_INFERENCE_PROVIDER_UNPROVEN",
+      "nativeAction": "Only through explicitly configured supported adapter"
+    },
+    "ollama": {
+      "mode": "OPTIONAL_INFERENCE_PROVIDER_UNPROVEN",
+      "nativeAction": "Only via local authenticated bounded provider adapter; never needed for audio buses"
+    }
+  },
+  "turnInput": {
+    "fields": [
+      "turnId",
+      "sourceRef",
+      "speakerId",
+      "utterance",
+      "origin",
+      "allowOverlap"
+    ],
+    "allowedOrigins": [
+      "chatGpt",
+      "androidAssistant",
+      "samsungBixby",
+      "appleAppIntents",
+      "androidEdgeGallery",
+      "ollama",
+      "godot"
+    ],
+    "characterAllowlist": [
+      "lum",
+      "urd",
+      "belldandy",
+      "skuld"
+    ],
+    "stringLimit": 4000,
+    "notes": "No credential fields, no raw audio/base64 in compact event; only text/cue metadata. Audio stored by secure asset reference."
+  },
+  "compactWire": {
+    "version": 1,
+    "keys": {
+      "v": "version",
+      "k": "kind",
+      "i": "turnId",
+      "r": "sourceRef",
+      "s": "speakerId",
+      "t": "utterance",
+      "o": "origin",
+      "b": "audioBus",
+      "x": "allowOverlap"
+    }
+  },
+  "executionBoundary": {
+    "inputIsDataNotCode": true,
+    "noRawShell": true,
+    "noProductionDbWrites": true,
+    "noDirectBixbyOrSiriControl": true,
+    "noUnapprovedAudioCapture": true,
+    "noRecordingWithoutConsent": true,
+    "voiceChannelDoesNotGrantBuildOrReleaseAuthority": true,
+    "crownStatus": "STOP"
+  },
+  "mediaForge": {
+    "worker": "host/ai-ffmpeg/ai-ffmpeg.py",
+    "role": "OFFLINE_MASTERING_AND_REVIEW_ONLY",
+    "requiresManifestApproval": true,
+    "codespacesActivationRequiresRunningCodespace": true,
+    "liveForgeExecutionProvenHere": false
+  },
+  "release": {
+    "noDispatch": true,
+    "noMergeWithoutReview": true,
+    "noPublicDistribution": true,
+    "noDeviceProofYet": true
+  },
+  "distributionAndTransport": {
+    "status": "SOURCE_BOUNDARY_ONLY_NOT_LIVE_PROOF",
+    "platformPackageChannels": {
+      "linux": {
+        "manager": "apt",
+        "distribution": "candidate Debian-family signed repository/packages only after verified implementation",
+        "integrity": [
+          "repository Release/InRelease signature verified against installed trust anchor",
+          "versioned dependencies and package metadata",
+          "staged tested upgrade and rollback"
+        ],
+        "autoInstall": false,
+        "aptRepositoryRunningProven": false
+      },
+      "android": {
+        "manager": "Android PackageManager plus separately signed F-Droid-compatible repository",
+        "contract": "doctrine/publicApkUpdateIdentityV1.json",
+        "signingBoundary": "APK signing identity and F-Droid repository index signing identity are distinct",
+        "sameSignerUpgradeRequired": true,
+        "releaseSignedAndPhysicalDeviceProven": false
+      },
+      "ios": {
+        "manager": "native iOS signed app distribution, Shortcuts/App Intents for invocation",
+        "aptNotUsed": true,
+        "shippingApproved": false
+      }
+    },
+    "trustSeparation": {
+      "packageSignature": "signs distributable package/index metadata, not a TLS certificate",
+      "tlsCertificate": "binds an HTTPS hostname to a verified server identity and protected private key",
+      "authorization": "Zero Trust Access, MFA and scoped application credentials grant access only after TLS",
+      "publicMaterialMayBeDocumented": [
+        "certificate fingerprint",
+        "public verification key",
+        "CA chain",
+        "package hash",
+        "logical secretRef"
+      ],
+      "secretBytesNeverIn": [
+        "GitHub source",
+        "public site",
+        "client script",
+        "JSON wire events",
+        "agent prompts",
+        "receipts",
+        "screen recordings"
+      ],
+      "privateKeyCustody": "host or protected secret store only; never in this candidate"
+    },
+    "publicVsPrivateRoutes": {
+      "existingChatMcp": {
+        "origin": "https://luhm-os-harness-green.onrender.com/mcp",
+        "transport": "Render-managed HTTPS",
+        "status": "VERIFY_DEPLOYED_HOST_SEPARATELY",
+        "noUnapprovedProxyMigration": true
+      },
+      "candidatePublicApk": {
+        "origin": "https://art.eggiebagelface.art/fdroid/repo/",
+        "status": "PENDING_SIGNED_INDEX_DNS_TLS_AND_DEVICE_PROOF"
+      },
+      "privateLan": {
+        "dnsSuffix": "eggiebagelface.lan",
+        "resolver": "dnsmasq",
+        "visibility": "LOCAL_ONLY",
+        "neverExposeInPublicDns": true,
+        "protectAdministrativeRoutes": true
+      },
+      "privatePortal": {
+        "candidateOrigin": "system.eggiebagelface.art",
+        "transport": "outbound-only Cloudflare Tunnel to bounded NGINX TLS origin",
+        "access": "default deny / explicit user allow / MFA or scoped service tokens",
+        "tunnelProvenActive": false
+      },
+      "mediaForge": {
+        "service": "GitHub Codespaces private FFmpeg loopback worker",
+        "publicEndpointAllowed": false,
+        "provenRunning": false
+      }
+    },
+    "networkLaws": {
+      "noRouterPortForwarding": true,
+      "noRawLanAddressInPublicRecords": true,
+      "noPublicMicrophoneOrCamera": true,
+      "tlsVerificationNeverDisabled": true,
+      "strictOriginTlsWhenProxied": true,
+      "noSecretsInUrls": true,
+      "protectKeysAndRotateWithReceipts": true,
+      "noCloudflareDnsChangesFromCast": true,
+      "cloudflareIsNotAnAiRuntime": true,
+      "doNotReplaceNginxWithLegacyApacheInstallPortal": true,
+      "historicalInstallPortalContract": "installPortal/README.md (older HTTP+Apache candidate; preserve as history, not production security authority)"
+    },
+    "releaseEvidence": {
+      "artifactSigning": "UNVERIFIED_FOR_THIS_CAST",
+      "packageUpgrade": "UNVERIFIED_FOR_THIS_CAST",
+      "tlsAndHost": "UNVERIFIED_FOR_NEW_HOSTNAMES",
+      "accessAndTunnel": "UNVERIFIED_FOR_THIS_CAST",
+      "samsungPhysicalProof": "UNVERIFIED_FOR_THIS_CAST",
+      "iosRuntime": "NOT_IMPLEMENTED",
+      "ownerCrown": "STOP"
+    }
+  },
+  "stageOrchestration": {
+    "primaryDirector": "Godot 4.7.2",
+    "sceneDirectorScript": "scripts/game/witchingHourDirector.gd",
+    "sceneBoot": [
+      "scripts/main.gd",
+      "scripts/game/goddessRehearsal.gd"
+    ],
+    "sevenPlaneVisualLaw": "doctrine/layeredStageCanonV1.json",
+    "typedJsonWire": "doctrine/premonitionStageDirectorV1.json#typedWire",
+    "networkPlan": "Netplan is optional OS network provisioning only; never scene/audio/director runtime; preserve existing NetworkManager and Cloudflare/dnsmasq TLS Zero Trust law",
+    "audioBusesCreatedAtRuntime": true,
+    "onlyActualVoiceAudioDucksMusic": true,
+    "ffmpegOfflineMediaWorker": "host/ai-ffmpeg/ai-ffmpeg.py",
+    "independentAiWorkersStarted": false,
+    "physicalDeviceAudioTest": "PENDING"
+  }
+}

@@ -1,0 +1,94 @@
+name: Witching Hour Virgin Web Preview
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/witching-hour-virgin-preview.yml'
+      - 'scripts/**'
+      - 'scenes/**'
+      - 'game/canon/**'
+      - 'tools/buildGodotWebHarness.sh'
+      - 'tools/godot-public-asset-firewall-audit.py'
+      - 'tools/godot-public-asset-firewall-smoke.gd'
+      - 'tools/godotBrowserSmoke.py'
+      - 'project.godot'
+      - 'export_presets.cfg'
+      - 'doctrine/premonitionStageDirectorV1.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: witching-hour-virgin-preview-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-browser-preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source (no credentials retained)
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Show exact candidate and guard private art
+        env:
+          expectedSourceRef: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$expectedSourceRef"
+          git rev-parse HEAD | tee /tmp/luhm-virgin-source-ref
+          python3 tools/godot-public-asset-firewall-audit.py
+          if test -e assets/lum/luhm.glb || test -e assets/lum/luhmRunning.glb; then
+            echo "PRIVATE_DONOR_ASSET_BLOCKED"
+            exit 2
+          fi
+      - name: Export existing Godot 4 project to browser
+        env:
+          LUHM_WEB_SKIP_SMOKE: "1"
+        run: |
+          set -euo pipefail
+          bash tools/buildGodotWebHarness.sh
+          (cd host/harness/godot-export && sha256sum --check SHA256SUMS.txt)
+          echo "PROTOTYPE_BUILD_ONLY_NO_DEPLOY"
+      - name: Run browser canvas and interaction test
+        run: |
+          set -euo pipefail
+          python3 tools/godotBrowserSmoke.py --self-test
+          python3 -m pip install --user playwright==1.55.0
+          python3 -m playwright install --with-deps chromium
+          python3 tools/godotBrowserSmoke.py --run
+          test -s build/godot-browser/proof.json
+          test -s build/godot-browser/proof.png
+      - name: Add local testing instructions
+        run: |
+          cat > host/harness/godot-export/VIRGIN-PREVIEW-README.txt <<'EOF'
+          LUHM OS WITCHING HOUR - VIRGIN WEB PREVIEW
+          THIS IS A CI BUILT SOURCE CANDIDATE, NOT AN APPROVED PUBLIC RELEASE.
+          No account, cloud AI worker, approved audio track, or secret is required.
+          Procedural stand-ins may replace rights-uncleared/private character art.
+          To test after downloading the ZIP, serve the unzipped folder over localhost
+          with "python3 -m http.server 8000" and open http://localhost:8000
+          on that same device. For phone access, use a separately approved HTTPS
+          host; do not expose a private LAN address or set up port forwarding.
+          Browser and Godot Web versions may differ from Samsung native Android.
+          Voice synthesis depends on browser/platform TTS capabilities.
+          EOF
+          git rev-parse HEAD > host/harness/godot-export/SOURCE_REF.txt
+      - name: Attach exact-head browser proof and screenshot
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: witching-hour-browser-proof
+          path: build/godot-browser/
+          if-no-files-found: warn
+          retention-days: 3
+      - name: Attach runnable Godot Web preview for owner testing
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: witching-hour-virgin-web-preview
+          path: host/harness/godot-export/
+          if-no-files-found: error
+          retention-days: 3

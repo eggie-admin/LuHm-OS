@@ -20,26 +20,58 @@
     "reusePolicy": "port discipline and metadata patterns only; do not resurrect stale branch wholesale"
   },
   "sourceFamilies": {
+    "nexusMods": {
+      "mode": "TOP_PRIORITY_REFERENCE_DISCOVERY; VERIFIED_OFF_GAME_LICENSE_FOR_IMPORT",
+      "officialUrl": "https://www.nexusmods.com/",
+      "permissionsPolicy": "https://help.nexusmods.com/article/28-file-submission-guidelines",
+      "siteTerms": "https://help.nexusmods.com/article/18-terms-of-service",
+      "preferredFor": [
+        "costume and body morph engineering",
+        "Blender and Godot plugin references",
+        "original environment props when separately licensed",
+        "game audio and FX research"
+      ],
+      "assetDownloadNotAutomatic": true,
+      "offPlatformAssetUseRequiresExplicitEvidence": true,
+      "authorCreditAloneInsufficient": true
+    },
     "kenney": {
       "mode": "CC0_FAST_LANE",
       "officialUrl": "https://kenney.nl/assets",
       "licenseClass": "CC0",
       "licenseCheck": "verify included or current official license before staging",
-      "preferredFor": ["2d", "ui", "icons", "prototypeTextures", "simple3d"]
+      "preferredFor": [
+        "2d",
+        "ui",
+        "icons",
+        "prototypeTextures",
+        "simple3d"
+      ]
     },
     "polyHaven": {
       "mode": "CC0_FAST_LANE",
       "officialUrl": "https://polyhaven.com/",
       "licenseClass": "CC0",
       "licenseCheck": "verify current official asset license before staging",
-      "preferredFor": ["hdris", "textures", "materials", "3dEnvironmentProps"]
+      "preferredFor": [
+        "hdris",
+        "textures",
+        "materials",
+        "3dEnvironmentProps"
+      ]
     },
     "godotAssetStore": {
       "mode": "PER_ASSET_REVIEW",
       "officialUrl": "https://store.godotengine.org/",
       "licenseClass": "PER_ASSET",
       "licenseCheck": "record exact listed license and upstream repository license",
-      "preferredFor": ["godotTools", "shaders", "2d", "3d", "editorHelpers"],
+      "preferredFor": [
+        "godotTools",
+        "shaders",
+        "2d",
+        "3d",
+        "editorHelpers"
+      ],
       "executableCodeRequiresSeparateReview": true
     },
     "openGameArt": {
@@ -47,7 +79,13 @@
       "officialUrl": "https://opengameart.org/",
       "licenseClass": "PER_ASSET",
       "licenseCheck": "record exact asset license, attribution obligations, share-alike implications, and author/source metadata",
-      "preferredFor": ["2d", "pixel", "textures", "audio", "ui"]
+      "preferredFor": [
+        "2d",
+        "pixel",
+        "textures",
+        "audio",
+        "ui"
+      ]
     }
   },
   "discoveryLaw": [
@@ -60,7 +98,8 @@
     "no_franchise_or_copied_character_art",
     "no_executable_plugin_or_script_ingest_without_separate_code_review",
     "no_public_generative_ai_art_by_default",
-    "reference_inspiration_may_not_become_identity_copy"
+    "reference_inspiration_may_not_become_identity_copy",
+    "nexus_link_does_not_grant_redistribution_or_off_game_use"
   ],
   "requiredReceiptFields": [
     "assetId",
@@ -132,5 +171,10 @@
     "targetDevicePerformanceRequiresReceipt": true
   },
   "crownStatus": "STOP",
-  "promotion": false
+  "promotion": false,
+  "priorityIntegration": {
+    "target": "doctrine/nexusCommunityForgePriorityV1.json",
+    "professorInstruction": "Nexus Mods high-volume community ecosystem is absolute discovery priority for Old Magic; importing or publishing any mod remains per-file rights gated",
+    "firstPass": "Nexus discovery and rights classification, then engine-native and CC0 fallback sourcing; provenance before asset bytes"
+  }
 }

@@ -8,6 +8,12 @@ on:
       - 'doctrine/yumeCreativePipelineV1.json'
       - 'doctrine/yumeCommunityArtResourcesV1.json'
       - 'doctrine/artistCreditLedgerV1.json'
+      - 'media/artistCreditsApprovedV1.json'
+      - 'media/yumeReferenceGalleryV1.json'
+      - 'frontEnd/yumeReferenceGallery.template.html'
+      - 'frontEnd/yumeReferenceGallery.html'
+      - 'tools/artistCreditIntegrity.py'
+      - 'tests/testArtistCreditIntegrity.py'
       - 'doctrine/githubWorkflowBudgetV1.json'
       - 'doctrine/SOURCE_OF_TRUTH.json'
       - 'media/daddys-princess-date/**'
@@ -32,3 +38,7 @@ jobs:
           python -m json.tool media/daddys-princess-date/edit-manifest.json >/dev/null
       - name: Run 20-pass Yume audit
         run: python tools/yumeCreativePipelineAudit.py
+      - name: Test creator credits and complaint holds
+        run: python3 -m unittest discover -s tests -p 'testArtistCreditIntegrity.py' -v
+      - name: Enforce separate source references and approved asset credits
+        run: python3 tools/artistCreditIntegrity.py

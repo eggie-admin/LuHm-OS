@@ -1,0 +1,90 @@
+{
+  "schema": "luhmOs.nexusCommunityForgePriority.v1",
+  "status": "SOURCE_CANDIDATE_NOT_ASSET_APPROVAL",
+  "owner": "Professor",
+  "priority": "TOP_DISCOVERY_PRIORITY_FOR_OLD_MAGIC",
+  "purpose": "Make Nexus Mods a first-class reference and authorized-asset discovery input for original Witching Hour 3D game production, alongside Blender/Eevee, Meshy candidate workflows, Godot 4 and the Python/FFmpeg Forge.",
+  "canon": [
+    "doctrine/yumeCommunityArtResourcesV1.json",
+    "media/fallout-body-mutation-source-registry-v1.json",
+    "doctrine/assetEligibilityMatrixV1.json",
+    "doctrine/godot4AssetArchitectureDecisionV1.json",
+    "doctrine/contentLaneDoctrineV1.json",
+    "doctrine/premonitionStageDirectorV1.json"
+  ],
+  "officialSources": {
+    "permissions": "https://help.nexusmods.com/article/28-file-submission-guidelines",
+    "siteTerms": "https://help.nexusmods.com/article/18-terms-of-service",
+    "api": "https://help.nexusmods.com/article/114-api-acceptable-use-policy",
+    "homepage": "https://www.nexusmods.com/"
+  },
+  "discoveryOrder": [
+    "nexusMods metadata/creator permissions and code projects",
+    "clearly-licensed open community source: original Blender/Godot tools",
+    "CC0 Kenney and Poly Haven fast-lane for shippable set dressing",
+    "per-asset OpenGameArt/Godot plugins with upstream licenses"
+  ],
+  "targetFamilies": [
+    "original gothic adult outfit construction studies",
+    "cloth hair accessories and physics architecture",
+    "mesh blendshapes slider/preset tools",
+    "rigging/weight transfer workflows",
+    "gothic props and environment staging",
+    "VFX shader audio ambient texture sources",
+    "mod management and plugin architecture code"
+  ],
+  "assetPipeline": [
+    "1. Discover exact Nexus mod page and creator without scraping or copying",
+    "2. Record per-file rights, author, upstream-game IP and any separate executable code license",
+    "3. Keep Nexus references and unsuitable donor binaries in private quarantined storage only if access/storage itself is permitted",
+    "4. Check author authorization for *off-game* reuse and modification before any mesh import",
+    "5. Check game/publisher IP and third-party dependencies independently",
+    "6. Use Blender Python/Eevee to create or adapt only authorized original assets, preserve source and notices",
+    "7. Export signed-off candidate as GLB/audio/image only after runtime/content-lane admission",
+    "8. Import into Godot 4, confirm deformation/motion + phone/HTML performance",
+    "9. Record immutable hashes, owner approval, attribution/notice and distribution rights before beta/public CAST"
+  ],
+  "rightsLaw": {
+    "freeDownloadIsNotCC": true,
+    "attributionAloneNotPermission": true,
+    "metadataReferencesDoNotConveyAssetRights": true,
+    "nexusSiteTermsMayLimitOffPlatformUses": true,
+    "fileAuthorMustGrantRelevantPermissions": true,
+    "upstreamPublisherThirdPartyRightsSeparatelyRequired": true,
+    "noAutoBulkMirroring": true,
+    "noScraping": true,
+    "noCredentialOrApiKeysInGame": true,
+    "nexusApiPersonalKeysOnlyDuringPrivateTestingIfConfigured": true,
+    "publicAppApiRequiresRegisteredApplicationReview": true,
+    "ccByRequiresAppropriateAttributionAndLicenseTerms": true,
+    "ccNcNotEligibleForCommercialPublicRelease": true,
+    "gplSoftwareLicenseDoesNotAuthorizeBundledGameMeshes": true,
+    "aiTransformationsNeedApplicableRights": true,
+    "noNexusMeshesInPublicGitHub": true,
+    "doNotGenerateUnauthorizedDerivativeGameCharacters": true,
+    "noUnlicensedRedistribution": true
+  },
+  "evidenceGate": {
+    "source": "https://www.nexusmods.com/<game>/mods/<id>",
+    "modIdRequired": true,
+    "authorRequired": true,
+    "exactAssetAndFileVersionRequired": true,
+    "permissionEvidenceRequiredForImport": true,
+    "rightsHolderForAllIncludedComponentsRequired": true,
+    "sourceSha256ForAnyArchiveImport": true,
+    "professorApprovalRequiredForDistribution": true
+  },
+  "adapterModes": {
+    "referenceOnly": "Store metadata and link (not binary); no runtime import permission implied.",
+    "permittedPrivatePrototype": "Requires verified legal authorization to use the selected file beyond its original game, including adaptation and any relevant site conditions; store privately.",
+    "distributionCandidate": "Requires all private prototype evidence PLUS explicit redistribution and commercial rights appropriate to the planned build and source-game licenses; remains unshipped."
+  },
+  "currentProof": {
+    "verifiedShippableNexusAssets": 0,
+    "verifiedProductionNexusPlugins": 0,
+    "apiConfigured": false,
+    "gameRuntimeAssetsModified": false,
+    "releasesAuthorized": false,
+    "crown": "STOP"
+  }
+}

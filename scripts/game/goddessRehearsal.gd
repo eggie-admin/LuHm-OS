@@ -2,6 +2,8 @@ extends Node3D
 ## Source-only playable rehearsal; stylized stand-ins are not approved 3D models.
 const CANON_PATH := "res://game/canon/CHARACTER_CANON_V1.json"
 const LumAvatarScene := preload("res://scenes/LumAvatar.tscn")
+const WitchingHourDirectorScript := preload("res://scripts/game/witchingHourDirector.gd")
+const WitchingHourDeviceVoiceScript := preload("res://scripts/game/witchingHourDeviceVoice.gd")
 const IDS := ["lum", "urd", "belldandy", "skuld"]
 const COLORS := [Color("#19b4af"), Color("#a346af"), Color("#d3a578"), Color("#6e9fc8")]
 const LINES := [
@@ -19,6 +21,10 @@ var _selector_grid: GridContainer
 var _canon_roles: Dictionary = {}
 var _focus_markers: Array[Node3D] = []
 var _lum_rig_loaded := false
+var witching_hour_director: Node
+var witching_hour_device_voice: Node
+var _device_voice_button: Button
+var _device_voice_status: Label
 
 func _ready() -> void:
     var file := FileAccess.open(CANON_PATH, FileAccess.READ)
@@ -37,6 +43,14 @@ func _ready() -> void:
     for id in IDS:
         _canon_roles[id] = str((characters[id] as Dictionary).get("role", "Goddess"))
     _build_stage()
+    witching_hour_director = WitchingHourDirectorScript.new()
+    witching_hour_director.name = "WitchingHourDirector"
+    add_child(witching_hour_director)
+    witching_hour_device_voice = WitchingHourDeviceVoiceScript.new()
+    witching_hour_device_voice.name = "WitchingHourDeviceVoice"
+    add_child(witching_hour_device_voice)
+    witching_hour_device_voice.configure(witching_hour_director)
+    witching_hour_device_voice.speech_unavailable.connect(_on_device_speech_unavailable)
     for i in IDS.size():
         _build_actor(i)
     _build_hud()
@@ -222,6 +236,18 @@ func _build_hud() -> void:
         button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
         button.pressed.connect(func(): _select(index))
         row.add_child(button)
+    _device_voice_button = Button.new()
+    _device_voice_button.name = "HearCharacterVoice"
+    _device_voice_button.text = "HEAR HER VOICE · DEVICE TTS"
+    _device_voice_button.tooltip_text = "Play a short character line using your phone’s installed voice. No cloud AI or microphone required."
+    _device_voice_button.custom_minimum_size = Vector2(0, 50)
+    _device_voice_button.pressed.connect(_speak_selected_character)
+    column.add_child(_device_voice_button)
+    _device_voice_status = Label.new()
+    _device_voice_status.name = "DeviceVoiceStatus"
+    _device_voice_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    _device_voice_status.text = "Tap to hear a character. Device speech may be unavailable."
+    column.add_child(_device_voice_status)
     var back := Button.new()
     back.text = "RETURN TO CATHEDRAL"
     back.custom_minimum_size = Vector2(0, 44)
@@ -238,7 +264,10 @@ func _refresh_hud_layout() -> void:
     _hud_column.offset_top = -265 if portrait else -205
 
 func _select(i: int) -> void:
+    if witching_hour_device_voice != null:
+        witching_hour_device_voice.stop()
     active_index = i
+    witching_hour_director.show_local_caption(IDS[i], LINES[i])
     for index in actor_roots.size():
         actor_roots[index].scale = Vector3.ONE * (1.10 if index == i else 1.0)
         _focus_markers[index].visible = index == i
@@ -247,6 +276,18 @@ func _select(i: int) -> void:
         if i != 0:
             art_state = "PROTOTYPE STAND-IN · MODEL PENDING"
         message.text = LINES[i] + "\n" + str(_canon_roles.get(IDS[i], "Goddess")) + " · " + art_state
+
+func _speak_selected_character() -> void:
+    if witching_hour_device_voice == null:
+        return
+    # Only the user pressing the button enables native device speech.
+    witching_hour_device_voice.set_user_enabled(true)
+    if witching_hour_device_voice.speak_on_user_action(IDS[active_index], LINES[active_index]):
+        _device_voice_status.text = "Speaking through device voice · " + IDS[active_index].capitalize()
+
+func _on_device_speech_unavailable(reason: String) -> void:
+    if _device_voice_status != null:
+        _device_voice_status.text = "Text dialogue remains available · " + reason
 
 func _process(delta: float) -> void:
     elapsed += delta

@@ -85,5 +85,35 @@
     "publicCreatorLinksOnlyWhenAlreadyPublicOrExplicitlyApproved": true
   },
   "crownStatus": "STOP",
-  "promotion": false
+  "promotion": false,
+  "creatorRespectAndCorrection": {
+    "assetPageAsEvidence": "Copy exact author credit, license version, permissions and source revision from the specific asset listing. Do not infer universal license from Sketchfab, Nexus Mods, the word free, or search metadata.",
+    "scopeSeparation": {
+      "studiedSource": "reference-only with explicit no affiliation and no game inclusion claim",
+      "runtimeUsedSource": "exact verified asset receipt",
+      "redistributableSource": "per-file rights evidence plus human publication review"
+    },
+    "credits": "TASL-style title, author, source, license and modification notice when relevant; artist spelling and source requested attribution respected.",
+    "avoidFalseAssociations": [
+      "do not imply authors endorsed or collaborated with LuHm OS",
+      "never invent an asset creator or CC license",
+      "do not expose private contact details",
+      "do not publicize unreviewed human reports"
+    ],
+    "creatorConcernFlow": [
+      "receive private correction or rights concern",
+      "bind the exact source URL and asset ID",
+      "place affected asset on correction hold promptly",
+      "stop future publication of the affected asset and its credit claim while reviewed",
+      "check exact listing, recorded license, changes and claimed authorship",
+      "correct source attribution or remove/swap disputed asset with human review",
+      "clear hold only with documented review and reproof"
+    ],
+    "removalPreference": "If artist asks not to be named, review license-required attribution first. Where legally permitted, remove optional name/link. If attribution is required for continuing reuse and cannot be honored, stop using/distributing the affected asset rather than silently stripping attribution.",
+    "noGuarantee": "Source checks do not guarantee absence of all copyright disputes; humans respond and fix errors.",
+    "implementation": "tools/artistCreditIntegrity.py",
+    "approvedUseReceipt": "media/artistCreditsApprovedV1.json",
+    "noNewPaidSaasRequired": true,
+    "publicRuntimeImplementationProven": false
+  }
 }

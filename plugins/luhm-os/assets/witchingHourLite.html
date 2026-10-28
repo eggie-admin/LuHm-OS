@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; font-src 'none'; form-action 'none'; base-uri 'none'">
+<title>Witching Hour | Cathedral Mini-Demo</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;--bg:#090b19;--ink:#f6eefb;--soft:#c6c1d8;--blue:#7cdaed;--pink:#eaa4cf;--gold:#f2ca8d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}
+main{width:min(100%,740px);padding:16px;margin:auto}
+h1{font:normal clamp(28px,5vw,42px)/1.12 Georgia,serif;margin:14px 0 5px}
+h2{font:normal 23px Georgia,serif;color:var(--pink);margin:5px 0}
+p{margin:7px 0}small,.soft{color:var(--soft)}
+strong{color:var(--gold)}
+header{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:var(--gold);font-size:13px}
+.notice{border:1px solid #5d7296;background:#142039;border-radius:10px;padding:11px;margin:13px 0}
+.stage{height:clamp(210px,52vw,350px);position:relative;border:1px solid #6e5b85;border-radius:12px;overflow:hidden;background:#100d24}
+.stage svg{width:100%;height:100%}
+.stage[aria-busy=true]{box-shadow:inset 0 0 50px #a54caf}
+.verse{position:absolute;top:10px;left:10px;background:#080918da;color:var(--gold);padding:7px;border-radius:8px;font:15px Georgia,serif}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+button{font:inherit;cursor:pointer;border:1px solid #747fac;border-radius:10px;background:#252b47;color:var(--ink);padding:10px;min-height:48px;flex:1 1 135px}
+button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+button[aria-pressed=true]{background:#5a305f;border-color:var(--pink)}
+button:disabled{opacity:.44;cursor:not-allowed}
+.card{border:1px solid #615175;border-radius:12px;padding:12px;background:#14172a;min-height:95px}
+.card p{margin:5px 0}
+progress{width:100%;height:12px;accent-color:var(--pink)}
+#status{color:var(--blue);min-height:26px}
+footer{border-top:1px solid #454563;padding-top:11px;margin-top:17px;color:var(--soft);font-size:12px}
+@media(prefers-reduced-motion:no-preference){.stage[aria-busy=true] .glass{animation:glow 1.2s ease-in-out infinite alternate}@keyframes glow{to{opacity:.5}}}
+.gag{display:none}.gag.playing{display:block;animation:stageExit 2.9s ease-in-out forwards;transform:translateX(480px)}
+@keyframes stageExit{0%{transform:translateX(480px)}24%{transform:translateX(190px)}52%{transform:translateX(185px)}100%{transform:translateX(-560px)}}
+@media(prefers-reduced-motion:reduce){.gag.playing{animation:none;transform:translateX(135px)}}
+</style>
+</head>
+<body><main>
+<header><b>✦ LUHM OS · WITCHING HOUR</b><span>Offline mini-game · Free · No uploads</span></header>
+<h1>Welcome to the Cathedral</h1>
+<p class="soft">A short fictional game with four adult characters. Play at your own pace. Nothing in this demo needs an account or access to your files.</p>
+<div class="notice" role="note"><strong>You are in control.</strong> This is just for fun. Playing is optional. This demo does not access your artwork, documents, other projects, camera or microphone. It does not send information to a server or charge money. Close it whenever you want. Playing does not make you a collaborator, character, or public supporter.</div>
+<div class="stage" id="stage" aria-busy="false">
+<svg viewBox="0 0 700 380" role="img" aria-label="Gothic cathedral interior with vaulted arches and a purple stained-glass window">
+<defs><radialGradient id="wall"><stop stop-color="#292047"/><stop offset="1" stop-color="#0b1125"/></radialGradient></defs>
+<rect width="700" height="380" fill="url(#wall)"/>
+<path d="M0 0L120 22L160 360L0 380M700 0L580 22L540 360L700 380" fill="#111025"/>
+<path d="M65 345V145Q160 -35 255 145V345M445 345V145Q540 -35 635 145V345" fill="none" stroke="#625475" stroke-width="18"/>
+<path d="M145 340V155Q350 -120 555 155V340" fill="none" stroke="#8c709d" stroke-width="7" opacity=".65"/>
+<path d="M265 360V175Q350 35 435 175V360" fill="#132039" stroke="#71608b" stroke-width="16"/>
+<circle cx="350" cy="132" r="65" fill="#543269" stroke="#d4a7c8" stroke-width="9" class="glass"/>
+<circle cx="350" cy="132" r="43" fill="#b361a8" opacity=".7"/>
+<circle cx="350" cy="132" r="18" fill="#f5c7db"/>
+<g stroke="#efd5dc" stroke-width="4"><path d="M350 68V196M285 132H415M305 87L395 177M395 87L305 177"/></g>
+<path d="M0 380L260 268H440L700 380" fill="#352c49"/>
+<path d="M350 268L235 380H465Z" fill="#574769"/>
+<path d="M315 295H385L409 345H291Z" fill="#876480"/>
+<path d="M290 337H410" stroke="#e5b69b" stroke-width="5"/>
+<g fill="#7cdef1"><circle cx="147" cy="230" r="9"/><circle cx="555" cy="230" r="9"/></g>
+<g fill="#e8a0d0"><circle cx="195" cy="290" r="5"/><circle cx="505" cy="290" r="5"/></g>
+<!-- Fictional chibi comedy. Original vector art; no borrowed superhero likeness or user-supplied assets. -->
+<g id="earGag" class="gag" aria-hidden="true">
+<g transform="translate(80 198)">
+<path d="M5 124L19 57L66 55L88 124Z" fill="#212b39" stroke="#63d3df" stroke-width="5"/>
+<ellipse cx="41" cy="32" rx="30" ry="35" fill="#ecc3b4"/>
+<path d="M12 23L11 4L26 12L27 -9L42 5L58 -14L58 12L71 4L70 32" fill="#783b35" stroke="#9e6c60" stroke-width="3"/>
+<path d="M28 36L35 34M49 34L56 36" stroke="#432a38" stroke-width="3"/>
+<path d="M36 52Q43 58 52 51" stroke="#714350" stroke-width="3" fill="none"/>
+<path d="M59 69Q94 74 122 37" stroke="#ecc3b4" stroke-width="12" fill="none" stroke-linecap="round"/>
+<circle cx="121" cy="37" r="8" fill="#ecc3b4"/>
+<path d="M84 69L107 45" stroke="#43d8e7" stroke-width="7"/>
+</g>
+<g transform="translate(191 218)">
+<path d="M8 104L9 55L69 55L93 104Z" fill="#4f343f" stroke="#d78bb3" stroke-width="4"/>
+<ellipse cx="39" cy="35" rx="30" ry="33" fill="#f1c7af"/>
+<path d="M9 19L0 2L24 10L21 -12L41 5L53 -11L61 12L82 4L67 25" fill="#29252f" stroke="#a49aa8" stroke-width="3"/>
+<path d="M26 38L32 42M50 42L55 38" stroke="#4a303b" stroke-width="4"/>
+<path d="M30 55Q43 46 54 57" stroke="#8d4963" stroke-width="3" fill="none"/>
+<circle cx="65" cy="47" r="9" fill="#e8b19d" stroke="#bd7d7b" stroke-width="3"/>
+<path d="M74 49L85 48" stroke="#ecb5ac" stroke-width="5"/>
+<path d="M15 77L-12 63" stroke="#f1c7af" stroke-width="12" stroke-linecap="round"/>
+</g>
+</g>
+</svg>
+<div class="verse" id="verse">The Cathedral is waiting.</div>
+</div>
+<p class="soft">Choose a season. Each season changes the mood. You can replay the ritual as many times as you like.</p>
+<div class="row" id="seasons" role="group" aria-label="Game season">
+<button type="button" data-season="ordinary" aria-pressed="true">Ordinary Time</button>
+<button type="button" data-season="lent" aria-pressed="false">Quiet Season</button>
+<button type="button" data-season="festival" aria-pressed="false">Festival Night</button>
+</div>
+<h2>Meet the characters</h2>
+<div class="row" id="characters" role="group" aria-label="Talk to a fictional character">
+<button type="button" data-character="lum" aria-pressed="true">Lum</button>
+<button type="button" data-character="urd" aria-pressed="false">Urd</button>
+<button type="button" data-character="belldandy" aria-pressed="false">Belldandy</button>
+<button type="button" data-character="skuld" aria-pressed="false">Skuld</button>
+</div>
+<section class="card" aria-live="polite"><p><strong id="speaker">Lum</strong></p><p id="dialogue">Welcome. Tap a character to hear a line, or begin the Closing Ritual. There are no hidden steps.</p></section>
+<h2>The Closing Ritual</h2>
+<p class="soft">Three simple game steps. This prepares a fictional CAST Bridge. It does not build, deploy, send, or publish anything.</p>
+<progress id="progress" max="3" value="0" aria-label="Ritual progress"></progress>
+<p id="status" role="status">Ready. Nothing has been started.</p>
+<div class="row">
+<button type="button" id="advance">1 · Ring the bell</button>
+<button type="button" id="reset">Start over</button>
+<button type="button" id="playGag">Play a silly stage gag</button>
+</div>
+<footer>LOCAL FICTION ONLY · No accounts, ads, subscriptions, user identifiers, external artwork, or network requests. Any real CAST action requires a separate authorized workflow. Not a public release or proof of ChatGPT installation.</footer>
+</main>
+<script>
+"use strict";
+const lines={
+lum:["Lum","Welcome to the Cathedral. The coffee is real only in spirit. The safety switch is very real."],
+urd:["Urd","Who approved this many glowing candles? Never mind. I did. Enjoy the show."],
+belldandy:["Belldandy","You can explore, stop, or start over. This game does not ask for your work."],
+skuld:["Skuld","Engineering report: exactly zero doors lead to your computer files. That's my favorite number."]
+};
+const ritual=[
+["CALL TO MASS · The bell rings.","2 · Gather the cast","The bell has rung. Your only job is to enjoy the scene."],
+["GATHER THE CAST · Everyone takes a place.","3 · Prepare CAST Bridge","Four characters, four very different opinions about lighting."],
+["CAST BRIDGE PREPARED · In-game ritual complete.","Ritual complete","Game ritual complete. No build, account action, deployment, or publication occurred."]
+];
+let step=0,season="ordinary";
+const $=id=>document.getElementById(id);
+document.getElementById("characters").addEventListener("click",event=>{
+const button=event.target.closest("button[data-character]");if(!button)return;
+document.querySelectorAll("[data-character]").forEach(el=>el.setAttribute("aria-pressed",String(el===button)));
+const pair=lines[button.dataset.character];$("speaker").textContent=pair[0];$("dialogue").textContent=pair[1];
+});
+document.getElementById("seasons").addEventListener("click",event=>{
+const button=event.target.closest("button[data-season]");if(!button)return;
+season=button.dataset.season;
+document.querySelectorAll("[data-season]").forEach(el=>el.setAttribute("aria-pressed",String(el===button)));
+const mood={ordinary:"Ordinary Time · Midnight preparations.",lent:"Quiet Season · Soft lights and calm voices.",festival:"Festival Night · The cathedral becomes a dance floor."};
+$("verse").textContent=mood[season];
+});
+$("advance").addEventListener("click",()=>{
+if(step>=ritual.length)return;
+const [heading,next,description]=ritual[step];step++;
+$("verse").textContent=heading;
+$("speaker").textContent="Cathedral";
+$("dialogue").textContent=description;
+$("status").textContent=step===3?"Finished. This is still only a local game.":"Step "+step+" of 3 complete.";
+$("progress").value=step;$("advance").textContent=next;
+$("advance").disabled=step===3;$("stage").setAttribute("aria-busy",String(step===2));
+});
+$("playGag").addEventListener("click",()=>{
+const actor=$("earGag");
+actor.classList.remove("playing");
+void actor.getBoundingClientRect();
+actor.classList.add("playing");
+$("speaker").textContent="Lum";
+$("dialogue").textContent="Uncle Eggy, the dramatic monologue is over. Your ear and I have discussed it. Offstage, please!";
+$("status").textContent="Just a cartoon joke. No real person or artwork is used.";
+});
+$("reset").addEventListener("click",()=>{
+step=0;$("progress").value=0;$("advance").disabled=false;
+$("advance").textContent="1 · Ring the bell";$("status").textContent="Ready. Nothing has been started.";
+$("speaker").textContent="Lum";$("dialogue").textContent="Welcome back. You can replay the game or close it.";
+$("verse").textContent="The Cathedral is waiting.";$("stage").setAttribute("aria-busy","false");
+});
+</script></body></html>
