@@ -71,6 +71,15 @@ class CastMatrixTests(unittest.TestCase):
         row=matrix.compileMatrixIntent(contract,stage="castTesting",beat="hear",
                                        tier="technologyFastPath",**args)
         self.assertEqual(row["status"],"HOLD_EXACT_SOURCE_REQUIRED")
+    def testSourceFingerprintAndTierNeverGrantPermission(self):
+        first = matrix.compileMatrixIntent(contract,stage="castTesting",beat="act",
+                                           tier="finalForm",**base)
+        second = matrix.compileMatrixIntent(contract,stage="castTesting",beat="act",
+                                            tier="technologyFastPath",**base)
+        self.assertNotEqual(first["fingerprintSha256"],second["fingerprintSha256"])
+        self.assertEqual(first["authorityEffect"],"none")
+        self.assertFalse(first["releasePublished"])
+
     def testInvalidCoordinatesAndIdentityRejected(self):
         cases=[
           dict(stage="CAST",beat="hear",tier="finalForm"),

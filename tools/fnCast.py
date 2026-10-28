@@ -218,6 +218,14 @@ def main() -> int:
             )
         except (ValueError, TypeError, KeyError) as error:
             parser.error(str(error))
+    if (args.cast_stage is not None and args.tuningAssignments
+            and receipt["castMatrix"]["status"] != "INTENT_ACCEPTED_CANDIDATE_ONLY"):
+        receipt["sqlJsonTuning"] = {
+            "status": "HOLD_MATRIX_INTENT_NOT_ACCEPTED",
+            "sqlExecuted": False, "databaseWritten": False
+        }
+        print(json.dumps(receipt, indent=2))
+        return 2
     if args.applyTuning and not args.tuningAssignments:
         parser.error("--apply-tuning requires at least one --set")
     if args.tuningAssignments:

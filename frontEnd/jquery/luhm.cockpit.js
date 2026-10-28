@@ -312,12 +312,13 @@
         ? "castTesting" : request.fromStage;
       const sourceOk = typeof request.sourceRef === "string" && /^[a-f0-9]{40}$/.test(request.sourceRef);
       const nameOk = (value) => typeof value === "string" && /^[a-z][A-Za-z0-9]{0,79}$/.test(value);
+      const previousKnown = fromStage == null || stages.includes(fromStage);
       const stageIndex = stages.indexOf(stage);
       const previousIndex = fromStage == null ? -1 : stages.indexOf(fromStage);
       const transitionOk = previousIndex === -1 ? stageIndex === 0
         : stageIndex === previousIndex || stageIndex === previousIndex + 1;
       if (!request.armed || !sourceOk || !nameOk(request.taskId) || !nameOk(request.scopeId)
-          || !transitionOk || !beats.includes(request.beat) || !tiers.includes(request.tier)) return this;
+          || !previousKnown || !transitionOk || !beats.includes(request.beat) || !tiers.includes(request.tier)) return this;
       return this.each(function () {
         const $root = $(this);
         if (!getState($root)) return;
