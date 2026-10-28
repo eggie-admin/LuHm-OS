@@ -2,7 +2,9 @@
 
 This package is built for a clean manual upload.
 
-Uninstall the older LuHm OS plugin first. The new package does not migrate or depend on old plugin state.
+**Do not uninstall an existing Project Hydra Site plugin.** The private Project Hydra Site/App plugin is a separate installed identity and its App binding must be preserved. This standalone GitHub-managed `luhm-os` portable package has its own identity and MCP configuration. For a true first install, install the approved package through the supported ChatGPT plugin flow. For an upgrade of the *same* standalone package, use that existing plugin's supported update/reconnect process, not a duplicate installation.
+
+A successful plugin package upload is not a live MCP Apps HTML mount. See [remote ChatGPT debug lane](../../manual/chatGptRemoteCompatibilityDebugLane.md) and inspect host tools/resources, CSP, and mobile acceptance before claiming completion.
 
 The archive root contains `plugin.json`. Upload the archive exactly as built.
 

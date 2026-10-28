@@ -1,0 +1,105 @@
+{
+  "schema": "luhmOs.chatGptRemoteCompatibilityDebugLane.v1",
+  "status": "SOURCE_CANDIDATE_DEBUG_NOT_DEPLOYED",
+  "asOf": "2026-10-26",
+  "authority": "Professor",
+  "references": [
+    "https://developers.openai.com/plugins/build/mcp-server",
+    "https://developers.openai.com/plugins/build/chatgpt-ui",
+    "https://developers.openai.com/plugins/deploy/troubleshooting",
+    "https://developers.openai.com/plugins/deploy/submission-errors",
+    "https://developers.openai.com/plugins/plugin-guidelines"
+  ],
+  "target": {
+    "product": "LuHm OS",
+    "publicSource": "eggie-admin/LuHm-OS",
+    "sourceBranch": "candidate/in-chat-adaptive-vector-fastpath-20261026",
+    "portablePackage": "plugins/luhm-os/plugin.json",
+    "mcpConfig": "plugins/luhm-os/mcp.json",
+    "livePublicMcpUrl": "https://luhm-os-harness-green.onrender.com/mcp",
+    "sameOriginWebFallback": "https://luhm-os-harness-green.onrender.com/harness/",
+    "independentOwnedSitePlugin": {
+      "name": "Project Hydra",
+      "versionObserved": "1.0.13",
+      "sharing": "USER_PRIVATE",
+      "appBinding": "PRESERVE",
+      "backendEditor": "NOT_EXPOSED_IN_CURRENT_TOOLSET"
+    }
+  },
+  "sourceChecks": {
+    "metadata": "three single-line starter prompts, review five positive and three negative, stable name/legal URLs, existing GPL",
+    "transport": "HTTPS+streamable-http+/mcp, public MCP server, no DNS cutover or tunnel required for development",
+    "tools": "bounded read-only schemas, accurate annotations, same tool/resource URI, meaningful text fallback",
+    "mcpApp": "text/html;profile=mcp-app, _meta.ui.resourceUri, optional openai/outputTemplate, inline UI bridge handshake and restrictive CSP",
+    "privacy": "public site policy, terms, support; retention/recipient/rights disclosures require human-verifiable provider facts",
+    "maintenance": "versioned UI URI for breaking changes, refresh/rescan connector after tool metadata changes"
+  },
+  "hostMount": {
+    "userObserved": "RED_ANDROID_SOMETHING_WENT_WRONG",
+    "sourceHarnessFull": "ui://luhm-os/cockpit-v2.html",
+    "installedSiteFull": "ui://luhm-os/cockpit-site-v3.html",
+    "sourceHarnessMobile": "ui://luhm-os/mobile-cockpit-v1.html",
+    "siteMobile": "ui://luhm-os/mobile-cockpit-v1.html",
+    "uriMismatchInterpretation": "DISTINCT_SERVER_IDENTITIES_NOT_ROOT_CAUSE_PROOF",
+    "diagnostics": [
+      "identify connected Site service and exact tool descriptor metadata",
+      "resources/list and resources/read on that SAME connected Site MCP server",
+      "resource read returns exactly matching URI, UI MIME, HTML and CSP",
+      "check host's iframe bridge initialization and script errors on Android",
+      "verify no generic proxy or cached stale plugin descriptor",
+      "retest owner native ChatGPT Android only after repair"
+    ],
+    "realDeviceAcceptance": "NOT_PASSED"
+  },
+  "stagedProof": {
+    "offlineSourceAudit": "tools/chatGptRemoteCompatibilityAudit.py",
+    "negativeControls": "tests/testChatGptRemoteCompatibilityAudit.py",
+    "githubCi": ".github/workflows/chatgpt-remote-compatibility-debug.yml",
+    "readOnlyExternalProbe": "tools/inChatLiveMcpProbe.py",
+    "externalProbeScope": "EXISTING_GITHUB_MANAGED_RENDER_MCP_NOT_PERSONAL_SITE",
+    "sourcePassCannotOverrideHostRed": true,
+    "runtimeVerificationRequired": true,
+    "noSecretsInReports": true
+  },
+  "submissionBlockers": [
+    {
+      "key": "androidMcpAppMount",
+      "state": "RED"
+    },
+    {
+      "key": "siteResourceToolLinkVerified",
+      "state": "UNKNOWN"
+    },
+    {
+      "key": "publisherOrganizationVerificationAndDomainChallenge",
+      "state": "UNKNOWN"
+    },
+    {
+      "key": "currentSubmissionToolScan",
+      "state": "NOT_OBSERVED"
+    },
+    {
+      "key": "reviewerDemoVideo",
+      "state": "NOT_OBSERVED"
+    },
+    {
+      "key": "privacyRetentionActualHostingTerms",
+      "state": "REVIEW_REQUIRED"
+    },
+    {
+      "key": "finalArtworkRightsAndAssets",
+      "state": "REVIEW_REQUIRED"
+    },
+    {
+      "key": "externalTesterAccountSharing",
+      "state": "BLOCKED_USER_PRIVATE"
+    }
+  ],
+  "safeNextAction": "Fix only the registered existing Site backend or host binding after supported Site editor becomes available; owner acceptance before inviting outside tester.",
+  "sourceCiIsNotPublishedProof": true,
+  "noAutomaticDomainOrProviderMutation": true,
+  "noPublicPublishing": true,
+  "noNewSitePlugin": true,
+  "noConnectedSiteVersionBumpFromRepoOnly": true,
+  "crownStatus": "STOP"
+}

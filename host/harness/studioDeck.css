@@ -165,3 +165,26 @@
 .studioDeck .studioPrivateLumDigest{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;overflow-wrap:anywhere}
 .studioDeck #studioPrivateLumFile{cursor:pointer;max-width:100%}
 @media(max-width:480px){.studioDeck .studioPrivateLumStage img{max-height:48vh}}
+
+
+/* Four adaptive visual-budget tiers for long in-chat scrolls.
+   Three decorative layers sit behind the interface; the tree layer floats above it.
+   This changes presentation only, never execution or release authority. */
+.studioDeck[data-studio-quality="balanced"] .sceneryClouds{animation:none!important;will-change:auto}
+.studioDeck[data-studio-quality="balanced"] .sceneryTrees{opacity:.23;will-change:auto}
+.studioDeck[data-studio-quality="lite"] .sceneryClouds,
+.studioDeck[data-studio-quality="lite"] .studioEffects{display:none}
+.studioDeck[data-studio-quality="lite"] .sceneryTrees{opacity:.15;will-change:auto}
+.studioDeck[data-studio-quality="lite"] .sceneryMountains{opacity:.27;will-change:auto}
+.studioDeck[data-studio-quality="static"] .sceneryClouds,
+.studioDeck[data-studio-quality="static"] .sceneryMountains,
+.studioDeck[data-studio-quality="static"] .sceneryTrees,
+.studioDeck[data-studio-quality="static"] .studioEffects{display:none}
+.studioDeck[data-studio-quality="static"] .scenerySky{will-change:auto;transform:none}
+.studioDeck .lum2dButtons{grid-template-columns:repeat(4,minmax(44px,1fr));max-width:300px}
+.studioDeck .lum2dButtons button{font-size:22px;line-height:1;min-width:44px;min-height:44px;padding:9px}
+.studioDeck .lum2dButtons button:focus-visible{outline:3px solid #6fe4ff;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){
+  .studioDeck .sceneryClouds{animation:none!important}
+  .studioDeck .scenery>div{will-change:auto!important}
+}

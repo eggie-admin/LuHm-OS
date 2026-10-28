@@ -1,0 +1,132 @@
+{
+  "schema": "luhmOs.firstInstallFoundation.v1",
+  "status": "SOURCE_AUDIT_CANDIDATE_NOT_INSTALLED",
+  "dateLocal": "2026-10-26",
+  "authority": "Professor",
+  "scope": "public-safe repository first-install contracts; not private user, email or cloud account mutation",
+  "foundations": [
+    {
+      "id": "identity",
+      "source": [
+        "doctrine/organizationBrandRegistryV1.json",
+        "game/canon/CHARACTER_CANON_V1.json",
+        "doctrine/characterPetPresentationV1.json",
+        "host/harness/agent-loading-sprites.json",
+        "doctrine/defaultBrandSessionTrustCandidateV1.json"
+      ],
+      "proofScope": "source inventory only",
+      "runtimeState": "UNVERIFIED"
+    },
+    {
+      "id": "plugins",
+      "source": [
+        "plugins/luhm-os/plugin.json",
+        "plugins/luhm-os/mcp.json",
+        "plugins/luhm-os/skills/luhm-agent-workflow/SKILL.md",
+        "plugins/luhm-os/skills/luhm-coding-roleplay/SKILL.md",
+        "plugins/luhm-os/skills/luhm-glass-module-dock/SKILL.md",
+        "plugins/luhm-os/skills/solo-studio-default/SKILL.md",
+        "plugins/luhm-os/skills/belldandy-housekeeping/SKILL.md"
+      ],
+      "proofScope": "repository package only, not separately installed personal Site",
+      "runtimeState": "UNVERIFIED"
+    },
+    {
+      "id": "architecture",
+      "source": [
+        "frontEnd/package.json",
+        "frontEnd/package-lock.json",
+        "host/harness/jquery-3.7.1.min.js",
+        "host/harness/jquery-ui-1.14.2.min.js",
+        "host/mcp/luhmMcpServer.py",
+        "host/harness/mobileCockpitWidget.html",
+        "doctrine/networkSpineV1.json",
+        "doctrine/oneServiceCdnCandidateV1.json"
+      ],
+      "proofScope": "source and pinned runtime inputs",
+      "runtimeState": "UNVERIFIED"
+    },
+    {
+      "id": "legalDocumentation",
+      "source": [
+        "README.md",
+        "LICENSE",
+        "CONTRIBUTING.md",
+        "SECURITY.md",
+        "THIRD_PARTY_NOTICES.md",
+        "plugins/luhm-os/PRIVACY.md",
+        "plugins/luhm-os/TERMS.md",
+        "plugins/luhm-os/VIRGIN_INSTALL.md",
+        "manual/firstInstallFoundation.md"
+      ],
+      "proofScope": "existence not legal sign-off",
+      "runtimeState": "RELEASE_CLEARANCE_PENDING"
+    }
+  ],
+  "pluginTopology": {
+    "githubPackage": {
+      "name": "luhm-os",
+      "sourceVersion": "0.5.2",
+      "authority": "GitHub source + dedicated supported package/update path"
+    },
+    "separateSite": {
+      "name": "Project Hydra",
+      "authority": "Plugin Creator-owned private Site; never silently replace/duplicate",
+      "version": "EXTERNAL_READ_RECEIPT_NOT_GITHUB_CANON"
+    },
+    "androidCompanion": {
+      "name": "luhm-android-beta",
+      "purpose": "read-only beta proof",
+      "notMainRuntime": true
+    },
+    "supportingApps": [
+      "Plugin Creator",
+      "Plugin Management",
+      "GitHub",
+      "Gmail",
+      "Google Drive",
+      "Render"
+    ],
+    "privateProviderDataStoredInPublicRepo": false,
+    "agents": "15 registered role identities not automatically independently running workers"
+  },
+  "legal": {
+    "repoCodeLicense": "GPL-3.0-only",
+    "preserveExistingLicense": true,
+    "pinnedVendoredNotices": [
+      "host/harness/jquery-LICENSE.txt",
+      "host/harness/jquery-ui-LICENSE.txt"
+    ],
+    "doNotAssumeAllAssetsApproved": true,
+    "rightsSource": "plugins/luhm-os/assets/assetCatalog.json",
+    "externalSourceLicenseMayDiffer": true,
+    "publicReleaseRequiresFileByFileClearance": true
+  },
+  "quality": {
+    "existingActionsRetained": true,
+    "targetedOneGate": ".github/workflows/first-install-foundation-audit.yml",
+    "script": "tools/firstInstallFoundationAudit.py",
+    "test": "tests/testFirstInstallFoundationAudit.py",
+    "exactHeadRequired": true,
+    "sourceProofNotRuntimeProof": true
+  },
+  "release": {
+    "automatedPluginPublish": false,
+    "gitHubMainMutation": false,
+    "cloudflareDnsChange": false,
+    "renderDeploy": false,
+    "secretWrite": false,
+    "publicArtPublication": false,
+    "ownerApprovalRequiredForPromotion": true,
+    "companyQuarantinePreserved": true,
+    "crownStatus": "STOP"
+  },
+  "nextNeeded": [
+    "exact-head source audit",
+    "real host resource mount",
+    "origin deploy SHA alignment",
+    "actual user device GUI acceptance",
+    "art file-specific rights confirmation",
+    "network cutover only after proof"
+  ]
+}

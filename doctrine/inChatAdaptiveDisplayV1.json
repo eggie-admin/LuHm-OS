@@ -1,0 +1,99 @@
+{
+  "schema": "luhmOs.inChatAdaptiveDisplay.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "purpose": "Keep the LuHm MCP Apps static HTML and vector cast visually primary in long chats using four reversible rendering-budget modes.",
+  "scope": {
+    "host": "installedChatGptPluginMcpApps",
+    "renderSurface": "insidePluginResourceOnly",
+    "nativeChatUiOverride": false,
+    "defaultHostAutoInvocation": "HOST_CONTROLLED_UNPROVEN",
+    "pluginShellReinstallForCompatibleStaticChanges": false
+  },
+  "visualLayers": {
+    "underInterface": [
+      "embeddedBackdrop",
+      "rearParallax",
+      "middleParallax"
+    ],
+    "overInterface": [
+      "frontParallax"
+    ],
+    "crossingLayerPointerEvents": "none",
+    "compositorContract": "doctrine/layeredStageCanonV1.json",
+    "artPriority": "originalAnimatedVectorCharacter",
+    "heavyAssets": "neverLoadBeforeUserActionAndVerifiedRights"
+  },
+  "degradation": {
+    "driver": "pluginDocumentScrollAndMotionPreferences",
+    "tiers": [
+      {
+        "tier": 0,
+        "id": "full",
+        "minimumScrollPx": 0,
+        "description": "three background planes, foreground overlay, animated original vector cast"
+      },
+      {
+        "tier": 1,
+        "id": "balanced",
+        "minimumScrollPx": 600,
+        "description": "pause nonessential cloud drift; continue bounded parallax and cast"
+      },
+      {
+        "tier": 2,
+        "id": "lite",
+        "minimumScrollPx": 1400,
+        "description": "hide cloud and small decorative effects; reduce foreground and mountain opacity"
+      },
+      {
+        "tier": 3,
+        "id": "static",
+        "minimumScrollPx": 2800,
+        "description": "hide scroll decorations; keep the interactive cast and content legible"
+      }
+    ],
+    "reducedMotionTier": "static",
+    "hiddenDocumentTier": "static",
+    "doesNotMeasureHostConversationScroll": true,
+    "oneRequestAnimationFramePerScrollFrame": true,
+    "cleanupOnPagehide": true
+  },
+  "iconFirst": {
+    "touchTargetMinPx": 44,
+    "accessibleNameRequired": true,
+    "lumControls": [
+      "blink",
+      "smile",
+      "wave",
+      "pause"
+    ],
+    "allActionsInsidePluginSandbox": true
+  },
+  "assetDelivery": {
+    "current": "sameOriginRender",
+    "manifest": "/harness/update-manifest.json",
+    "productionScripts": "locallyBundledAuditedOnly",
+    "contentHashesRequiredForImmutableCache": true,
+    "cloudflare": "OPTIONAL_NOT_ACTIVATED_BY_THIS_CHANGE",
+    "hostPackageOrSchemaBreakingChanges": "separatePluginInstallOrRefreshGate",
+    "csp": "noExternalScriptInject"
+  },
+  "tierAxis": "visualBudgetOnlyDifferentFromEscalationSecurityEducationClassesAndUpdateLanes",
+  "release": {
+    "proposedSourceOnly": true,
+    "companyQuarantinePreserved": true,
+    "agentExecution": false,
+    "automaticGitHubMerge": false,
+    "automaticDeploy": false,
+    "automaticPublicPublish": false,
+    "pluginAutoInstallation": false,
+    "professorApprovalForPromotion": true,
+    "crownStatus": "STOP"
+  },
+  "evidence": {
+    "sourceRef": "REQUIRES_EXACT_CANDIDATE_HEAD_CI",
+    "inChatResourceMounted": "UNVERIFIED",
+    "sameOriginLiveUpdate": "NOT_PROVED_BY_SOURCE_ONLY",
+    "observedResourceUriDrift": "Connected tool response reports cockpit-site-v3 while main harness source uses cockpit-v2; reconcile before claiming deployed parity"
+  }
+}

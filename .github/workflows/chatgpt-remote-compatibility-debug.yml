@@ -1,0 +1,47 @@
+name: LuHm OpenAI Remote MCP Apps Compatibility Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/chatGptRemoteCompatibilityDebugLaneV1.json'
+      - 'tools/chatGptRemoteCompatibilityAudit.py'
+      - 'tests/testChatGptRemoteCompatibilityAudit.py'
+      - 'plugins/luhm-os/plugin.json'
+      - 'plugins/luhm-os/mcp.json'
+      - 'host/mcp/luhmHarness.py'
+      - 'host/harness/mobileCockpitWidget.html'
+      - 'host/harness/mountProbeWidget.html'
+      - 'tests/testLuhmMountProbeContract.py'
+      - 'publicationSite/privacy.html'
+      - 'publicationSite/terms.html'
+      - '.github/workflows/chatgpt-remote-compatibility-debug.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact proposed source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Prevent stale checkout
+        shell: bash
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+      - name: Validate official source fields and host UI boundaries
+        run: |
+          python3 -m py_compile tools/chatGptRemoteCompatibilityAudit.py
+          python3 tools/chatGptRemoteCompatibilityAudit.py
+          python3 -m unittest tests/testChatGptRemoteCompatibilityAudit.py tests/testLuhmMountProbeContract.py -v
+      - name: Record proof separation
+        run: |
+          echo 'MCP_APPS_SOURCE_CANDIDATE=CHECKED'
+          echo 'OWNER_SITE_TOOL_BINDING=UNVERIFIED'
+          echo 'ANDROID_CHATGPT_INLINE_UI=RED_SCREENSHOT_OBSERVED'
+          echo 'MOUNT_PROBE=SOURCE_ONLY_NO_INSTALLED_HOST_TOOL'
+          echo 'DIRECTORY_PUBLICATION=NOT_AUTHORIZED'
+          echo 'CROWN=STOP'

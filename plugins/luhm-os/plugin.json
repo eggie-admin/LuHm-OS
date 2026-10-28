@@ -39,13 +39,9 @@
         "composerIcon": "./assets/logo.svg",
         "logo": "./assets/logo.svg",
         "defaultPrompt": [
-          "Open LuHm Artist Studio in this chat and edit the Into the Warp storyboard shots with Yume while keeping the approved script locked.",
-          "Use LuHm OS to open the Godot 4 Cathedral player in this chat.",
-          "Use LuHm OS to inspect the current source truth and explain what is actually proven.",
-          "Open the LuHm OS in-chat cockpit and show the current clean-install experience contract.",
-          "Enter LuHm coding roleplay and continue only inside the explicit scene boundary.",
-          "Ask Belldandy for the current housekeeping window and checkpoint status.",
-          "Use LuHm OS escalation planning to tell me whether this blocked task should continue, escalate, hold, or close."
+          "Open my LuHm OS mobile cockpit in ChatGPT and verify whether the interactive card mounts.",
+          "Open the LuHm OS artist studio for a reversible storyboard draft.",
+          "Check LuHm OS source truth and remote MCP readiness without claiming an unverified ChatGPT GUI."
         ]
       },
       "review": {

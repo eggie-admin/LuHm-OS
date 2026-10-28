@@ -1,0 +1,91 @@
+# LuHm OS operational state resolution. Source candidate, no database migration executed.
+schema: luhmOs.statePrecedence.v1
+status: SOURCE_CANDIDATE_NOT_DEPLOYED
+authority: Professor
+sourceLaw: "AI proposes. Policy authorizes. CI proves. Human promotes."
+canonicalSource:
+  provider: GitHub
+  repository: eggie-admin/LuHm-OS
+  sourcePurpose: versioned code, reviewed doctrine, migrations and hashes
+  dbCannotApproveSourcePromotion: true
+lookup:
+  order:
+    - sqlDatabase
+    - yamlDefaults
+    - markdownRecoveryOnly
+  sqlDatabase:
+    role: firstGoToForLiveOperationalState
+    engine: existingApprovedMariaDb
+    access: unixSocketOnly
+    publicPorts: false
+    requireExistingApprovedDatabase: true
+    newDatabaseProvisioning: false
+    secretsInGit: false
+    migration: host/api/stateResolutionV1.sql
+    ddlApplied: false
+    serverState: NOT_VERIFIED
+    records:
+      - luhm_runtime_state
+      - luhm_state_event
+    parameterizedQueriesOnly: true
+    ownerScopedRolesRequired: true
+    secretsOrPrivateKeysAsStateValues: false
+    immutableGitCommitNotSetByDatabase: true
+  yamlDefaults:
+    role: firstPortableDeclarativeSource
+    scope: Git-reviewed config and safe offline UI defaults
+    parser: yaml.safe_load
+    forbidExecutableYamlTags: true
+    runtimePrecedence: belowAuthorizedSqlRows
+    allowedValuesOnly: true
+  markdownRecoveryOnly:
+    role: humanReadableEmergencyBackup
+    runtimeMachineAuthority: false
+    neverParsedAsRuntimeConfig: true
+    requiredHostFilesRemain:
+      - AGENTS.md
+      - README.md
+      - "skills/*/SKILL.md"
+      - "plugins/*/skills/*/SKILL.md"
+fallbackRules:
+  onSqlMissingRow: useReviewedYamlForAllowedNonSensitiveKeys
+  onSqlOutage: failClosedForSensitiveState
+  onSqlOutagePublicUi: allowReviewedYamlOnlyWithVisibleDegradedStatus
+  onYamlMissingOrInvalid: failClosedNoMarkdownRuntimeRead
+  onConflictingReleaseAuthority: holdForHumanReview
+  noImplicitOverwriteFromBackup: true
+runtimeDefaults:
+  ui:
+    theme: dark
+    density: compact
+    motion: reduced
+boundedKeys:
+  ui.theme:
+    - dark
+    - light
+  ui.density:
+    - compact
+    - comfortable
+  ui.motion:
+    - full
+    - reduced
+    - static
+neverFallbackFor:
+  - authentication
+  - crownAuthority
+  - signingKeys
+  - credentials
+  - privateArtRights
+  - protectedRelease
+  - externalUserPermissions
+rollout:
+  branchOnly: true
+  noPublicSqlPorts: true
+  noGitSecretWrites: true
+  noProductionDdl: true
+  noPluginReinstall: true
+  noCloudflareMutation: true
+  existingJsonDoctrineNotAutoRewritten: true
+  sourceAudit: tools/stateResolutionAudit.py
+  test: tests/testStateResolutionAudit.py
+crownStatus: STOP

@@ -26,6 +26,7 @@ from starlette.responses import FileResponse, JSONResponse, PlainTextResponse, R
 
 UI_RESOURCE_URI = "ui://luhm-os/cockpit-v2.html"
 MOBILE_COCKPIT_RESOURCE_URI = "ui://luhm-os/mobile-cockpit-v1.html"
+MOUNT_PROBE_RESOURCE_URI = "ui://luhm-os/mount-probe-v1.html"
 GODOT_PLAYER_RESOURCE_URI = "ui://luhm-os/godot-player-v1.html"
 MCP_COCKPIT_PUBLIC_ORIGIN = "https://luhm-os-harness-green.onrender.com"
 EXISTING_GODOT_PUBLIC_ORIGIN = "https://luhm-os-godot-harness-green.onrender.com"
@@ -167,6 +168,7 @@ def register_harness(
     harness_root = root / "host" / "harness"
     widget_path = harness_root / "widget.html"
     mobile_widget_path = harness_root / "mobileCockpitWidget.html"
+    mount_probe_path = harness_root / "mountProbeWidget.html"
     index_path = harness_root / "index.html"
     pets_path = harness_root / "pets.json"
     loading_sprites_path = harness_root / "agent-loading-sprites.json"
@@ -189,7 +191,7 @@ def register_harness(
     beta_lane_path = root / "doctrine" / "pluginBetaFourLaneV1.json"
     glass_dock_path = root / "doctrine" / "glassPluginDockV1.json"
 
-    if not all(path.is_file() for path in (widget_path, mobile_widget_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, artist_studio_path, rebel_studio_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path, beta_lane_path, glass_dock_path)):
+    if not all(path.is_file() for path in (widget_path, mobile_widget_path, mount_probe_path, godot_player_path, index_path, pets_path, libraries_path, loading_sprites_path, loading_atlas_path, experience_path, artist_studio_path, rebel_studio_path, crown_flow_path, runtime_receipt_path, opening_day_path, api_spine_path, traffic_controller_path, precision_command_path, after_hours_path, coding_roleplay_path, virgin_install_path, beta_lane_path, glass_dock_path)):
         raise RuntimeError("RED_HARNESS_SOURCE_MISSING")
 
     for name in ("studioDeck.html", "studioDeck.css", "studioDeck.js"):
@@ -288,6 +290,49 @@ def register_harness(
         raise RuntimeError("RED_AFTER_HOURS_BOUNDARY")
     if public_origin:
         resource_meta["ui"]["domain"] = public_origin
+
+    # Minimal diagnostic-only MCP App resource. It cannot approve a release or
+    # repair a distinct private Site plugin, but isolates host mounting from
+    # full studio art, nested frames, third-party assets and heavy scripts.
+    @server.resource(
+        MOUNT_PROBE_RESOURCE_URI,
+        name="luhm-os-mount-probe",
+        title="LuHm OS Mount Probe",
+        description="Tiny self-contained MCP Apps display and touch diagnostic.",
+        mime_type=APP_MIME_TYPE,
+        meta={
+            "ui": {
+                "prefersBorder": True,
+                "csp": {"connectDomains": [], "resourceDomains": [], "frameDomains": []},
+            },
+            "openai/ui": {"availableDisplayModes": ["inline"]},
+        },
+    )
+    def luhm_mount_probe_resource() -> str:
+        return mount_probe_path.read_text(encoding="utf-8")
+
+    @server.tool(
+        name="luhm_open_mount_probe",
+        title="Diagnose LuHm OS In-Chat Display",
+        description="Show a tiny read-only MCP App HTML frame with a single touch button. "
+                    "Diagnostic only: a tool response without a visible card does not prove a host mount.",
+        annotations=annotations,
+        meta={
+            "ui": {"resourceUri": MOUNT_PROBE_RESOURCE_URI, "visibility": ["model", "app"]},
+            "openai/outputTemplate": MOUNT_PROBE_RESOURCE_URI,
+            "openai/toolInvocation/invoking": "Checking LuHm display connection…",
+            "openai/toolInvocation/invoked": "Mount test data returned; screen acceptance still required.",
+        },
+    )
+    def luhm_open_mount_probe() -> dict[str, Any]:
+        return {
+            "schema": "luhmOs.mountProbe.v1",
+            "surface": "mcp-app",
+            "resourceUri": MOUNT_PROBE_RESOURCE_URI,
+            "readOnly": True,
+            "deviceMount": "NOT_VERIFIED",
+            "note": "Only a visible and user-touched in-chat card proves host acceptance.",
+        }
 
     # Small standards-first fallback for phone-sized ChatGPT MCP Apps hosts.
     # Additive entry point: the existing full studio URI and tool stay unchanged.

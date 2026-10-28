@@ -1,0 +1,126 @@
+{
+  "schema": "luhmOs.oneServiceCdnCandidate.v1",
+  "status": "PROPOSED_SOURCE_ONLY_UNDEPLOYED",
+  "authority": "Professor",
+  "intent": "One compact LuHmOS JavaScript entry point behind the canonical apex HTTPS URL; serve approved static UI modules and art through directory paths with edge caching and reproducible signed-off release receipts.",
+  "inherits": [
+    "doctrine/unifiedPublicOriginCandidateV1.json",
+    "doctrine/inChatAdaptiveDisplayV1.json",
+    "doctrine/stablePluginUpdateSpineV1.json",
+    "doctrine/cloudflareAirTrafficControllerV1.json"
+  ],
+  "publicPresentation": {
+    "visibleHttpsHosts": [
+      "eggiebagelface.art",
+      "www.eggiebagelface.art"
+    ],
+    "canonicalHost": "eggiebagelface.art",
+    "customCdnBranding": "directoryOnly",
+    "oneStaticEntry": "/assets/luhmos.<contentHash>.min.js",
+    "lookupManifest": "/assets/luhmos-manifest.json",
+    "moduleUrls": "/assets/<approved-name>.<contentHash>.<js|css|svg|webp|png>",
+    "staticHtml": "/studio/",
+    "chatMcp": "/mcp",
+    "noThirdPartyCdnUrlsInBrandedHtml": true,
+    "note": "Browser developer tools can reveal network delivery infrastructure. URLs can be branded, but the origin/provider cannot be made completely secret by URL rewriting."
+  },
+  "oneServiceModel": {
+    "cloudflareWorkerCandidate": "ONE_ASSET_DELIVERY_WORKER_ON_APEX_PATH_ROUTE_ONLY",
+    "workerRoute": "eggiebagelface.art/assets/*",
+    "deployment": "Cloudflare Workers with static assets under matching /assets/ directory or approved HTTPS origin with Cloudflare Cache Rules",
+    "notDeployed": true,
+    "noWorkerOverMcp": true,
+    "noNewAssetCdnSubdomain": true,
+    "noDnsOnlyCachingClaim": true,
+    "originResponsibility": "Render currently; persistent Ubuntu origin later only with confirmed runtime, certificate and owner-approved cutover",
+    "buildPipeline": "pinned npm lockfile -> minify or bundle via reviewed build -> content-hash -> immutable approved static upload -> atomic small manifest update",
+    "publicAssetsOnly": true,
+    "notAJavaScriptUpdateFromArbitraryRemoteUrl": true
+  },
+  "fourMinimalModules": [
+    {
+      "tier": 0,
+      "id": "loader",
+      "role": "tiny deterministic bootstrap and plugin registry, no provider secrets, no data writes"
+    },
+    {
+      "tier": 1,
+      "id": "presentation",
+      "role": "original vector, CSS, jQuery compatibility and four-layer parallax, loaded only if needed"
+    },
+    {
+      "tier": 2,
+      "id": "assetIndex",
+      "role": "short-revalidating manifest with approved content hashes, names and optional SRI; on-demand heavy media"
+    },
+    {
+      "tier": 3,
+      "id": "backendAdapter",
+      "role": "typed call to /mcp or verified host tool only, with no caching and per-tool authority"
+    }
+  ],
+  "dnsScope": {
+    "cloudflare": "managed public DNS, optional proxied edge/Workers, TLS and cache",
+    "recordsPerRealNeed": {
+      "A_AAAA_CNAME": "only validated public hostname mappings",
+      "TXT": "ownership proof, ACME DNS-01 or custom metadata when required",
+      "MX": "only if email is actually hosted for domain",
+      "PTR": "IP-prefix operator controlled reverse DNS, not required for static assets",
+      "SRV": "only if a client/service protocol needs explicit discovery"
+    },
+    "mustNotUseDnsToServeJavaScript": true,
+    "privateResolver": "existing dnsmasq for eggiebagelface.lan; BIND9 optional not reverse proxy"
+  },
+  "encryption": {
+    "requireHttpsClient": true,
+    "requireTlsForEveryNetworkHop": true,
+    "publicHttp": "edge redirect only after valid matching edge certificate; application-generated MCP URLs always https",
+    "redirectOwner": "one verified edge redirect owner, avoid loops and redirects of sensitive streaming MCP requests",
+    "edgeOrigin": "Cloudflare Full (strict) when proxied, verified matching certificate",
+    "tunnelOrigin": "cloudflared verifies CA and originServerName if HTTPS Tunnel later",
+    "privateServiceTransport": "TLS when TCP/networked; use permission-bounded Unix sockets for intra-host non-network IPC when appropriate",
+    "noMixedContent": true,
+    "noPrivateKeysOrApiTokensInPublicJs": true,
+    "noTransportOrTokenPrivateKeysInGithub": true,
+    "minimumTls": "organization-supported TLS versions; TLS1.3 preferred",
+    "hsts": "propose only after verifying all in-scope hosts and rollback consequences"
+  },
+  "cache": {
+    "immutable": "only approved content-hashed public JS/CSS/vector art and static images",
+    "manifest": "ETag and no-cache/must-revalidate",
+    "html": "revalidate",
+    "mcp": "no-store, no CDN caching, preserve streaming/POST headers",
+    "authenticated": "no-store and never edge cached",
+    "userPrivateArt": "not public",
+    "thirdPartyLibraries": "pin and inspect at build time; do not execute floating latest code at runtime",
+    "integrity": "SHA-256 release manifest and optional SHA-384 subresource integrity for cross-origin permitted usage"
+  },
+  "vendorPortability": {
+    "sameOriginFirst": true,
+    "otherWebApps": "Load branded HTTPS entry only if app controls HTML and CSP allows it; otherwise bundle assets or use approved host extension/MCP resource",
+    "chatGpt": "Inside MCP App resource sandbox only; cannot inject code across native ChatGPT interface",
+    "worksOnEveryVendorHtmlByDefault": false,
+    "offlineFallback": "local small vector and accessible text controls",
+    "mobileDegradation": "reuse existing full/balanced/lite/static render budget while preserving corrective draft and Undo"
+  },
+  "release": {
+    "packageCompatibleUpdateWithoutReinstall": "possible for static resource body without new host contract",
+    "breakingConnectorHostnameOrToolContract": "requires independent compatibility and possible reconnection",
+    "requireExactShaCi": true,
+    "requireBrowserProof": true,
+    "requireActualCloudflareDnsTlsCacheProofBeforeLiveClaim": true,
+    "professorApprovesPromotion": true,
+    "noDnsMutation": true,
+    "noTunnelMutation": true,
+    "noRenderMutation": true,
+    "noPluginInstallMutation": true,
+    "noAutoPublish": true,
+    "noAgentActivation": true,
+    "crownStatus": "STOP"
+  },
+  "openQuestionsForNextClass": [
+    "confirm whether one Worker delivers static asset paths or the reverse proxy alone handles them",
+    "reconcile current mcp.eggiebagelface.art candidate with proposed apex /mcp",
+    "verify Cloudflare zone and Worker deployment permissions and budget before activation"
+  ]
+}

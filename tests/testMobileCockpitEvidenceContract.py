@@ -52,7 +52,16 @@ def audit_mobile(html: str, server: str) -> list[str]:
             'data-lane="testing"', 'data-lane="proposed"',
             'data-lane="beta"', 'data-lane="betaLts"',
         )),
-        "compact": len(html.encode("utf-8")) <= 16000,
+        "brandedFirstPaint": 'class="luhmFirstPaintGlyph"' in html
+                              and "viewBox=\"0 0 48 48\"" in html
+                              and '<div class="pet" aria-hidden="true">👹</div>' not in html,
+        "compact": len(html.encode("utf-8")) <= 18432,
+        "correctionDesk": all(token in html for token in (
+            'id="correctionDraft"', 'id="correctionUndo"', 'id="correctionClear"',
+            'id="correctionSend"', 'id="correctionPreview"',
+            'window.openai?.sendFollowUpMessage', 'LUHM CORRECTION ONLY',
+            'correctionHistory', 'checkpointCorrection',
+        )),
     }
     return [name for name, passed in checks.items() if not passed]
 
@@ -60,6 +69,18 @@ def audit_mobile(html: str, server: str) -> list[str]:
 class MobileCockpitEvidenceContract(unittest.TestCase):
     def test_current_source(self):
         self.assertEqual(audit_mobile(HTML, SERVER), [])
+
+    def test_first_paint_brand_is_always_local(self):
+        self.assertEqual(audit_mobile(HTML, SERVER), [])
+        self.assertIn("brandedFirstPaint", audit_mobile(
+            HTML.replace('class="luhmFirstPaintGlyph"', 'class="genericPet"'), SERVER))
+
+    def test_correction_desk_guarded(self):
+        self.assertEqual(audit_mobile(HTML, SERVER), [])
+        self.assertIn("correctionDesk", audit_mobile(
+            HTML.replace('id="correctionSend"', 'id="unsafeSend"'), SERVER))
+        self.assertIn("correctionDesk", audit_mobile(
+            HTML.replace('LUHM CORRECTION ONLY', 'EXECUTE NOW'), SERVER))
 
     def test_reject_fake_privilege(self):
         self.assertIn("noPrivilege", audit_mobile(HTML, SERVER.replace('"mutationAuthority": False', '"mutationAuthority": True')))

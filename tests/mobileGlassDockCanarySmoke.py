@@ -129,6 +129,26 @@ def run() -> None:
                             "focus did not return to launcher")
                     require(launcher.get_attribute("aria-expanded") == "false",
                             "closed launcher not reflected")
+                    # Editing alone must never dispatch anything into ChatGPT.
+                    correction = page.locator("#correctionDraft")
+                    correction.fill("I meant the classroom, not headquarters.")
+                    require(page.evaluate("window.__luhmIntents.length") == 5,
+                            "typing a correction must not dispatch")
+                    require("classroom" in page.locator("#correctionPreview").inner_text(),
+                            "correction preview missing")
+                    page.locator("#correctionUndo").click()
+                    require(correction.input_value() == "", "draft undo must restore previous revision")
+                    correction.fill("I meant the classroom, not headquarters.")
+                    page.locator("#correctionSend").click()
+                    page.wait_for_function("()=>window.__luhmIntents.length===6")
+                    sent = page.evaluate("window.__luhmIntents[5]")
+                    require(sent.startswith("LUHM CORRECTION ONLY.") and
+                            "I meant the classroom" in sent and
+                            "separate permission" in sent, "correction handoff semantics")
+                    page.locator("#correctionClear").click()
+                    require(correction.input_value() == "", "clear did not clear draft")
+                    page.locator("#correctionUndo").click()
+                    require("classroom" in correction.input_value(), "clear could not be undone")
                     require(page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"),
                             "horizontal overflow")
                     require(not requests, "unexpected external network requests: " + str(requests))

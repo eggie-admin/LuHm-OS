@@ -54,6 +54,15 @@
       front: -Math.round(scroll * 0.38) + "px"
     };
   }
+  // Rendering complexity is a UI-only budget, never a task or authority tier.
+  function depthQuality(scrollTop, reducedMotion = false, hidden = false) {
+    const n = Number(scrollTop);
+    if (reducedMotion || hidden || !Number.isFinite(n)) return "static";
+    if (n >= 2800) return "static";
+    if (n >= 1400) return "lite";
+    if (n >= 600) return "balanced";
+    return "full";
+  }
   function mountDepth(el, win) {
     if (!el || !win || !win.document) return null;
     const ownerDoc = el.ownerDocument || win.document;
@@ -64,7 +73,10 @@
       raf = 0;
       if (disposed) return;
       const scroller = ownerDoc.scrollingElement || ownerDoc.documentElement || ownerDoc.body;
-      const value = depthOffsets(scroller?.scrollTop || 0, !!motion?.matches || !!ownerDoc.hidden);
+      const position = scroller?.scrollTop || 0;
+      const quality = depthQuality(position, !!motion?.matches, !!ownerDoc.hidden);
+      el.dataset.studioQuality = quality;
+      const value = depthOffsets(position, quality === "static");
       el.style.setProperty("--studioRearY", value.rear);
       el.style.setProperty("--studioMiddleY", value.middle);
       el.style.setProperty("--studioFrontY", value.front);
@@ -82,6 +94,7 @@
       ownerDoc.removeEventListener("visibilitychange", schedule);
       motion?.removeEventListener?.("change", schedule);
       if (raf) win.cancelAnimationFrame(raf);
+      delete el.dataset.studioQuality;
       for (const name of ["--studioRearY", "--studioMiddleY", "--studioFrontY"]) {
         el.style.removeProperty(name);
       }
@@ -485,7 +498,7 @@ $("pause").addEventListener("click",e=>{const v=document.querySelector(".pocketC
     configure(null);
     return {configure, addFiles, register:() => records.map(row => ({...row}))};
   }
-  const api = {musicTarget, category, validContract, fingerprint, depthOffsets, mountDepth, embedTarget, installJQueryBridge, mount, hashLimit, maxFiles};
+  const api = {musicTarget, category, validContract, fingerprint, depthOffsets, depthQuality, mountDepth, embedTarget, installJQueryBridge, mount, hashLimit, maxFiles};
   if (typeof module === "object" && module.exports) module.exports = api;
   root.LuHmStudio = api;
   if (root.document) root.luhmStudioDeck = mount(root.document);
