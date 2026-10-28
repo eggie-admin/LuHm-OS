@@ -1,0 +1,38 @@
+{
+  "schema": "luhmOs.premonitionMediaPreview.v1",
+  "brand": "LuHm-OS",
+  "developmentProject": "Project Premonition",
+  "status": "SOURCE_PREVIEW_CANDIDATE",
+  "webDefault": "HTML5-local-file-previews-only",
+  "supportedExtensions": [
+    ".mp4",
+    ".webm",
+    ".mp3",
+    ".wav",
+    ".ogg",
+    ".m4a"
+  ],
+  "mediaNetworkUpload": false,
+  "vlc": {
+    "backend": "OPTIONAL_LOCAL_DESKTOP_CLI",
+    "requireHumanApproval": true,
+    "interface": "NONE_HTTP",
+    "binaryBundledInApk": false,
+    "runtimeTested": false
+  },
+  "python": {
+    "entry": "tools/premonitionMediaPreview.py",
+    "probe": "ffprobe",
+    "userApprovalRequiredForVlc": true,
+    "noAutonomousPublication": true
+  },
+  "ffmpeg": {
+    "integration": "accept approved exported local files",
+    "productionRenderer": "host/ai-ffmpeg/ai-ffmpeg.py",
+    "realApprovedExportTest": "UNVERIFIED"
+  },
+  "godot": {
+    "avatarAndWorldRenderUnchanged": true
+  },
+  "crownStatus": "STOP"
+}
