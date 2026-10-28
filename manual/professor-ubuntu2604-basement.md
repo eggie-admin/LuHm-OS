@@ -23,3 +23,25 @@ Run `bash scripts/professorGarageSmoke.sh` after creating or rebuilding Codespac
 A failed migration can return to the prior devcontainer definition at source `96d426108347c8c17e9c462806479279ef835822` without deleting private media or changing Render/Cloudflare.
 
 **Release status:** source candidate only, no Codespace host invocation or runtime validation yet. Crown: STOP.
+
+## Blender single-cockpit candidate
+Open `host/blender/luhm-cockpit.py` in Blender's Text Editor, choose Run Script,
+then use the 3D View sidebar's **LuHm** tab. Run once per Blender session.
+The panel checks installed production tools, probes MariaDB through its local
+UNIX socket with read-only SELECT 1, and checks Godot 4 plus the existing game
+project. It starts no daemons and performs no provider calls.
+
+Blender remains the editor for private masters. Use Blender's existing Save As
+and glTF export tools for explicit file output; the checks do not export or
+import artwork. The Godot check is readiness only, not an import/play receipt.
+
+Headless smoke:
+`blender --background --factory-startup --python-exit-code 1 --python host/blender/luhm-cockpit.py -- --luhm-selftest`
+
+CI uses Ubuntu 24.04's Blender to test registration and operator execution.
+It does not prove the Ubuntu 26.04 devcontainer builds, interactive remote
+display exists, MariaDB is running, or Samsung input works. Headless Blender
+cannot display an interactive cockpit without a separately available display
+session. Canary remains the browser delivery layer; this patch does not
+decompose Chromium or replace its engine. Those runtime integration steps
+remain open.
