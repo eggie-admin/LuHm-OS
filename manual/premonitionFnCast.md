@@ -57,7 +57,7 @@ The case-sensitive product identity is **LuHm-OS: Project Premonition**. An expl
 
 The earlier `devCast` and `castDev` spellings are compatibility aliases for `castTesting`. Movement is initial `castTesting`, then same-stage or one-stage forward only. A stage never grants signing or release authority. The `cst` global alias still resolves to currentSourceTruth.
 
-Python `tools/fnCastMatrix.py` validates stage/beat/tier, exact checked-out source SHA, task/scope identity and explicit armed CAST intent. `frontEnd/jquery/luhm.cockpit.js` exposes `$(root).luhmCockpit("castIntent", request)`, which emits only `luhm:cast:intent` for separately validated Python processing. No network or release mutation is performed by that jQuery method.
+Python `tools/fnCastMatrix.py` validates stage/beat/tier, exact checked-out source SHA, task/scope identity and explicit armed CAST intent. `frontEnd/jquery/luhm.cockpit.js` exposes `$(root).luhmCastIntent(request)`, which emits only `luhm:cast:intent` for separately validated Python processing. No network or release mutation is performed by that jQuery method.
 
 Example **candidate-only** read:
 

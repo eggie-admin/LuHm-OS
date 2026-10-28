@@ -301,38 +301,6 @@
     closeBackend: function () {
       return this.each(function () { closeBackend($(this)); });
     },
-    castIntent: function (request) {
-      const stages = ["castTesting", "castProposed", "castBridge", "cast"];
-      const beats = ["hear", "resolve", "act", "verify"];
-      const tiers = ["technologyFastPath", "forFuckSake", "scorchedEarth", "finalForm"];
-      if (!request || typeof request !== "object") return this;
-      const stage = request.stage === "devCast" || request.stage === "castDev"
-        ? "castTesting" : request.stage;
-      const fromStage = request.fromStage === "devCast" || request.fromStage === "castDev"
-        ? "castTesting" : request.fromStage;
-      const sourceOk = typeof request.sourceRef === "string" && /^[a-f0-9]{40}$/.test(request.sourceRef);
-      const nameOk = (value) => typeof value === "string" && /^[a-z][A-Za-z0-9]{0,79}$/.test(value);
-      const previousKnown = fromStage == null || stages.includes(fromStage);
-      const stageIndex = stages.indexOf(stage);
-      const previousIndex = fromStage == null ? -1 : stages.indexOf(fromStage);
-      const transitionOk = previousIndex === -1 ? stageIndex === 0
-        : stageIndex === previousIndex || stageIndex === previousIndex + 1;
-      if (!request.armed || !sourceOk || !nameOk(request.taskId) || !nameOk(request.scopeId)
-          || !previousKnown || !transitionOk || !beats.includes(request.beat) || !tiers.includes(request.tier)) return this;
-      return this.each(function () {
-        const $root = $(this);
-        if (!getState($root)) return;
-        emit($root, "luhm:cast:intent", {
-          schema: "luhmOs.castMatrixRequest.v1",
-          product: "LuHm-OS", project: "Project Premonition",
-          stage: stage, fromStage: fromStage || null,
-          beat: request.beat, tier: request.tier,
-          sourceRef: request.sourceRef, taskId: request.taskId, scopeId: request.scopeId,
-          armed: true, authorityEffect: "none", pythonValidationRequired: true,
-          buildDispatched: false, releasePublished: false, crownGranted: false
-        });
-      });
-    },
     destroy: function () {
       return this.each(function () {
         const $root = $(this);
