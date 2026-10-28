@@ -1,0 +1,35 @@
+name: premonition-cathedral-cast-source-audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/premonitionCathedralCastV1.json'
+      - 'doctrine/premonition-titan-500-inventory-v1.json'
+      - 'tools/premonitionTitan500Audit.py'
+      - 'manual/premonition-cathedral-cast-2026-10-28.md'
+      - '.github/workflows/premonition-cathedral-cast-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  titan-500:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify candidate manifest
+        run: |
+          python3 -m json.tool doctrine/premonitionCathedralCastV1.json > /dev/null
+          python3 -m json.tool doctrine/premonition-titan-500-inventory-v1.json > /dev/null
+          python3 -m py_compile tools/premonitionTitan500Audit.py
+      - name: Run 500 distinct source and receipt checks
+        run: python3 tools/premonitionTitan500Audit.py --output-dir "${RUNNER_TEMP}/premonition-cast"
+      - name: Upload exact-source receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: premonition-titan-500
+          path: ${{ runner.temp }}/premonition-cast/
+          if-no-files-found: warn
+          retention-days: 14
