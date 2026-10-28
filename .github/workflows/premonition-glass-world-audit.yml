@@ -37,3 +37,4 @@ jobs:
           test -s dist/index.html
           find dist -type f -printf '%P %s bytes\n'
           echo "SOURCE_ONLY_NO_SAMSUNG_NO_GODOT_RENDER_PROOF"
+          du -b dist/assets/*.js | sort -nr | head -8

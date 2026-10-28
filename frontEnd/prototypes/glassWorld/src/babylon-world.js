@@ -1,7 +1,14 @@
 /* Babylon owns WORLD ONLY. Godot live avatar compositing is not claimed. */
-import { Engine, Scene, ArcRotateCamera, Vector3, Color3, Color4,
-  HemisphericLight, PointLight, StandardMaterial, MeshBuilder, PointerEventTypes
-} from "@babylonjs/core";
+import { Engine } from "@babylonjs/core/Engines/engine.js";
+import { Scene } from "@babylonjs/core/scene.js";
+import { ArcRotateCamera } from "@babylonjs/core/Cameras/arcRotateCamera.js";
+import { Vector3 } from "@babylonjs/core/Maths/math.vector.js";
+import { Color3, Color4 } from "@babylonjs/core/Maths/math.color.js";
+import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight.js";
+import { PointLight } from "@babylonjs/core/Lights/pointLight.js";
+import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial.js";
+import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder.js";
+import { PointerEventTypes } from "@babylonjs/core/Events/pointerEvents.js";
 import { validateScene } from "./scene-state.mjs";
 
 export function startBabylonWorld(canvas, onSelected) {

@@ -18,7 +18,7 @@ npm test
 npm run build
 npm run dev
 ```
-The isolated prototype dependencies are pinned, but **no lockfile was committed in the first source pass**. A subsequent source review must generate and commit a vetted lockfile and use `npm ci --ignore-scripts` before this qualifies as reproducible production packaging. Build outputs are not APKs.
+The isolated prototype dependencies are pinned, but **no lockfile was committed in the initial source pass**. A subsequent source review must generate and commit a vetted lockfile and use `npm ci --ignore-scripts` before this qualifies as reproducible production packaging. Build outputs are not APKs.
 
 ### Runtime acceptance not implied by CI
 1. Visually verify real 3D object placement and selection in Chrome desktop.
@@ -29,3 +29,7 @@ The isolated prototype dependencies are pinned, but **no lockfile was committed 
 6. Review artist credits, licensing, signing and distribution. Never publish original/private media without Professor authorization.
 
 **Crown STOP:** no native APK build, no real Godot avatar, no Samsung compatibility proof, no funding claim.
+
+### Build-size gate
+
+The initial barrel import built ~7 MB of JavaScript uncompressed. This candidate now uses Babylon deep module imports and emits a real asset-size receipt in CI; no performance claim until an actual Samsung WebView render/FPS test. Relative asset paths are enabled for packaged WebView sources. This is a **prototype optimization**, not a signed installer.
