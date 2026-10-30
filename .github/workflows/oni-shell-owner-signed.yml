@@ -1,0 +1,133 @@
+name: oni-shell-owner-signed-candidate
+
+on:
+  workflow_dispatch:
+    inputs:
+      cast:
+        description: Professor's exact approval word for a PRIVATE signed candidate
+        required: true
+        type: string
+      sourceRef:
+        description: Exact current main SHA (40 lowercase hex)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oni-shell-owner-${{ inputs.sourceRef }}
+  cancel-in-progress: false
+
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Exact source checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.sourceRef }}
+      - name: Fail closed on missing Crown or drifting main
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CAST_WORD: ${{ inputs.cast }}
+          SOURCE_REF: ${{ inputs.sourceRef }}
+        run: |
+          set -euo pipefail
+          test "$CAST_WORD" = cast
+          test "$GITHUB_ACTOR" = "$(gh api "repos/$GITHUB_REPOSITORY" --jq '.owner.login')"
+          [[ "$SOURCE_REF" =~ ^[0-9a-f]{40}$ ]]
+          test "$(git rev-parse HEAD)" = "$SOURCE_REF"
+          test "$SOURCE_REF" = "$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq '.commit.sha')"
+          python3 oniShell/tools/sourceAudit.py
+      - name: Configure Java
+        uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Configure Android SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
+      - name: Build UNSIGNED release from exact source
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP="$RUNNER_TEMP/gradle-8.13-bin.zip"
+          curl -fL --retry 5 -o "$ZIP" https://services.gradle.org/distributions/gradle-8.13-bin.zip
+          echo "20f1b1176237254a6fc204d8434196fa11a4cfb387567519c61556e8710aed78  $ZIP" | sha256sum -c -
+          unzip -q "$ZIP" -d "$RUNNER_TEMP"
+          "$RUNNER_TEMP/gradle-8.13/bin/gradle" --no-daemon -p oniShell :app:assembleRelease
+          test -s oniShell/app/build/outputs/apk/release/app-release-unsigned.apk
+      - name: Sign with the existing OWNER Android certificate, verify fingerprint
+        shell: bash
+        env:
+          BETA_P12_B64: ${{ secrets.LUHM_BETA_SIGNING_P12_B64 }}
+          BETA_PASSWORD: ${{ secrets.LUHM_BETA_SIGNING_PASSWORD }}
+          BETA_ALIAS: ${{ secrets.LUHM_BETA_SIGNING_ALIAS }}
+          TRUSTED_SIGNER: ${{ secrets.LUHM_BETA_SIGNER_SHA256 }}
+          SOURCE_REF: ${{ inputs.sourceRef }}
+        run: |
+          set -euo pipefail
+          umask 077
+          test -n "$BETA_P12_B64"
+          test -n "$BETA_PASSWORD"
+          test -n "$BETA_ALIAS"
+          [[ "$TRUSTED_SIGNER" =~ ^[0-9a-f]{64}$ ]]
+          KEYSTORE="$RUNNER_TEMP/luhm-owner-oni.p12"
+          printf '%s' "$BETA_P12_B64" | base64 --decode > "$KEYSTORE"
+          test -s "$KEYSTORE"
+          OBSERVED="$(keytool -list -v -storetype PKCS12 -keystore "$KEYSTORE" -alias "$BETA_ALIAS" -storepass:env BETA_PASSWORD | sed -n 's/^[[:space:]]*SHA256: //p' | head -n1 | tr -d ':' | tr '[:upper:]' '[:lower:]')"
+          test "$OBSERVED" = "$TRUSTED_SIGNER"
+          mkdir -p build/oni-shell-release
+          APK=build/oni-shell-release/oni-shell.apk
+          BT="$ANDROID_HOME/build-tools/36.1.0"
+          "$BT/zipalign" -c -P 16 -v 4 oniShell/app/build/outputs/apk/release/app-release-unsigned.apk >/dev/null
+          "$BT/apksigner" sign --ks "$KEYSTORE" --ks-type PKCS12 --ks-key-alias "$BETA_ALIAS" --ks-pass env:BETA_PASSWORD --key-pass env:BETA_PASSWORD --out "$APK" oniShell/app/build/outputs/apk/release/app-release-unsigned.apk
+          "$BT/apksigner" verify --verbose --print-certs "$APK" > build/oni-shell-release/signature.txt
+          "$BT/aapt" dump badging "$APK" > build/oni-shell-release/badging.txt
+          grep -q "package: name='art.eggiebagelface.luhmos.onishell' versionCode='1'" build/oni-shell-release/badging.txt
+          grep -q "targetSdkVersion:'36'" build/oni-shell-release/badging.txt
+          ! grep -q 'application-debuggable' build/oni-shell-release/badging.txt
+          SIGNER="$(sed -n 's/^Signer #1 certificate SHA-256 digest: //p' build/oni-shell-release/signature.txt | head -n1 | tr '[:upper:]' '[:lower:]')"
+          test "$SIGNER" = "$TRUSTED_SIGNER"
+          sha256sum "$APK" > build/oni-shell-release/SHA256SUMS.txt
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          path=Path("build/oni-shell-release/oni-shell.apk")
+          receipt={
+            "schema":"luhmOs.oniShellPrivateCandidate.v1",
+            "sourceRef":os.environ["SOURCE_REF"],
+            "runId":os.environ["GITHUB_RUN_ID"],
+            "applicationId":"art.eggiebagelface.luhmos.onishell",
+            "versionCode":1,
+            "signerCertificateSha256":os.environ["TRUSTED_SIGNER"],
+            "apkSha256":hashlib.sha256(path.read_bytes()).hexdigest(),
+            "releaseMode":True,
+            "debuggable":False,
+            "signedFroidIndex":False,
+            "hosted":False,
+            "samsungDeviceProven":False,
+            "publicPublished":False,
+            "crownStatus":"STOP"
+          }
+          Path("build/oni-shell-release/receipt.json").write_text(json.dumps(receipt,indent=2)+"\n")
+          PY
+          rm -f "$KEYSTORE"
+      - name: Upload private signing receipt and APK only
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: oni-shell-owner-signed-candidate
+          path: build/oni-shell-release/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Remove transient key even after failure
+        if: always()
+        shell: bash
+        run: rm -f "$RUNNER_TEMP/luhm-owner-oni.p12"
