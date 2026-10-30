@@ -11,6 +11,13 @@ class Tests(unittest.TestCase):
         self.assertEqual(a['hashes'][0],'b'*64)
         self.assertEqual(CathedralEnvelope(good).canonical(),json.dumps(a,separators=(',',':')))
         self.assertFalse(source_snapshot(good)['executable'])
+        frozen=CathedralEnvelope(good)
+        out=frozen.to_dict()
+        out['crown']='GREEN'
+        self.assertEqual(frozen.to_dict()['crown'],'STOP')
+        with self.assertRaises(Exception):
+            frozen.canonical_json='modified'
+
         for row in V['invalid']:
             with self.subTest(row=row['name']),self.assertRaises(ValueError):
                 normalize_envelope({**good,**row['patch']})
@@ -23,5 +30,7 @@ class Tests(unittest.TestCase):
             c.execute('UPDATE sourceReceipt SET approval=1')
         with self.assertRaises(sqlite3.IntegrityError):
             c.execute('UPDATE sourceReceipt SET costCents=1')
+        with self.assertRaises(sqlite3.IntegrityError):
+            c.execute('UPDATE sourceReceipt SET canonical=?',(json.dumps({**good,'approval':True}),))
         c.close()
 if __name__=='__main__':unittest.main()
