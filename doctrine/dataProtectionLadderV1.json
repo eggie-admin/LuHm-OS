@@ -1,0 +1,180 @@
+{
+  "schema": "luhmOs.dataProtectionLadder.v1",
+  "status": "SOURCE_HARDENING_CANDIDATE_NOT_DEPLOYED",
+  "reviewDate": "2026-10-30",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "foundation": [
+    "doctrine/studioSecurityBaselineV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/contentLaneDoctrineV1.json",
+    "doctrine/PROFESSOR_CAST_BRIDGE_V1.json",
+    "doctrine/universalFourLaneV1.json"
+  ],
+  "note": "Cryptography follows information classification, not release-channel names. Unencrypted local is limited to disposable synthetic data without credentials or identifying content.",
+  "classes": {
+    "publicApproved": {
+      "label": "PUBLIC_APPROVED",
+      "data": "Published, rights-approved static assets and public non-secret manifests",
+      "localAtRest": "PLAIN_ALLOWED",
+      "remoteAtRest": "PLAIN_ALLOWED_WHERE_NO_PERSONAL_DATA",
+      "inTransit": "HTTPS_FOR_REMOTE",
+      "examples": [
+        "hashed public JS bundle",
+        "public logo approved for release"
+      ]
+    },
+    "internalStudio": {
+      "label": "INTERNAL_STUDIO",
+      "data": "Unpublished source and developer planning without sensitive identifiers",
+      "localAtRest": "FULL_DISK_ENCRYPTION_REQUIRED_ON_PORTABLE_HOSTS",
+      "remoteAtRest": "PROVIDER_MANAGED_ENCRYPTION_AND_ACL",
+      "inTransit": "TLS_REQUIRED_FOR_REMOTE",
+      "examples": [
+        "draft storyboard without personal media"
+      ]
+    },
+    "restrictedPersonal": {
+      "label": "RESTRICTED_PERSONAL",
+      "data": "Private media, family or minor-related assets, addresses, exact hardware inventory, private art originals, donor records",
+      "localAtRest": "ENCRYPTED_STORAGE_AND_ACCESS_CONTROL_REQUIRED",
+      "remoteAtRest": "ENCRYPTION_ACL_MINIMUM_ACCESS_AND_PRIVATE_LINKS",
+      "inTransit": "TLS_REQUIRED_FOR_REMOTE",
+      "examples": [
+        "unreleased voice and camera footage"
+      ]
+    },
+    "secretsSigning": {
+      "label": "SECRETS_SIGNING",
+      "data": "Passwords, OAuth tokens, API keys, certificates' private keys and signing material",
+      "localAtRest": "OS_KEYSTORE_OR_SECRETS_VAULT_NOT_PLAINTEXT_PROJECT",
+      "remoteAtRest": "MANAGED_SECRET_STORE_LEAST_PRIVILEGE",
+      "inTransit": "TLS_REQUIRED_FOR_REMOTE",
+      "examples": [
+        "release signing keystore",
+        "provider API token"
+      ]
+    }
+  },
+  "environments": {
+    "basement": {
+      "allowUnencryptedLocalDataOnly": "PUBLIC_APPROVED_OR_DISPOSABLE_SYNTHETIC_NON_IDENTIFYING",
+      "secretsNeverPlainInRepo": true,
+      "isolatedOfflineTestsPreferred": true,
+      "networkIngress": "NONE_BY_DEFAULT"
+    },
+    "dev": {
+      "allowUnencryptedLocalDataOnly": "PUBLIC_APPROVED_OR_DISPOSABLE_SYNTHETIC_NON_IDENTIFYING",
+      "deviceEncryptionRequiredForRealPrivateData": true,
+      "networkIngress": "AUTHENTICATED_ONLY"
+    },
+    "beta": {
+      "realPrivateDataEncryptionRequired": true,
+      "consentAndRetentionProofRequired": true,
+      "publicExportDefaultDeny": true
+    },
+    "lts": {
+      "realPrivateDataEncryptionRequired": true,
+      "backupsEncryptedAndRestoreTested": true,
+      "tlsForRemoteConnections": true,
+      "signedArtifactsOwnerApproved": true
+    }
+  },
+  "api": {
+    "defaultDenyPrivateWrite": true,
+    "publicAnonymousScope": "READ_ONLY_PUBLIC_APPROVED_AND_BOUNDED",
+    "authentication": "PASSKEY_OR_SCOPED_OAUTH_WITH_PROVEN_PROVIDER_CONFIGURATION",
+    "authorization": "EVERY_PRIVATE_OR_WRITE_REQUEST_SCOPED_BY_SUBJECT_ACTION_RESOURCE",
+    "session": "SHORT_LIVED_REVOCABLE_TOKENS_HTTPS_ONLY",
+    "requestSecurity": [
+      "validate strict schema length method and content type",
+      "bound payload media and event streaming",
+      "replay and idempotency guard for writes",
+      "CSRF protection where cookie session applies",
+      "bounded CORS explicit approved origins",
+      "do not trust forwarded headers from unverified proxies",
+      "per-actor quotas, connection and timeout limits",
+      "deny arbitrary shell commands, SQL, FFmpeg filtergraphs and filesystems"
+    ],
+    "logging": "REDACT_TOKENS_PERSONAL_CONTENT_AND_PRIVATE_MEDIA; RETAIN_MINIMUM_EVIDENCE",
+    "secretStorage": "SERVER_SIDE_ONLY_NO_JS_WEBVIEW_PUBLIC_REPO_OR_ACTIONS_LOGS",
+    "base64urlIsEncryption": false,
+    "privateSqlAdminPublic": false,
+    "securityHeaders": true,
+    "remoteTransport": "HTTPS_TLS_1_3_PREFERRED_TLS_1_2_MINIMUM_WHERE_REQUIRED",
+    "localLoopback": "MAY_BE_CLEAR_ONLY_ON_LOOPBACK_FOR_NON_SENSITIVE_SYNTHETIC_TESTS; NOT_A_BYPASS_FOR_AUTHORIZATION"
+  },
+  "agentAI": {
+    "activeWorkersAllowed": false,
+    "companyQuarantine": "QUARANTINED",
+    "sourceProviderTextIsUntrusted": true,
+    "capabilityFirstBoundedTasks": true,
+    "oneMutableSourceLane": true,
+    "manifestRequirements": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "capability",
+      "authority",
+      "consent",
+      "evidenceRefs",
+      "costBudget"
+    ],
+    "blocked": [
+      "selfAuthorization",
+      "implicitProviderSpending",
+      "recursiveWorkerSpawn",
+      "secretExposureInPrompts",
+      "unapprovedPrivateMediaUpload",
+      "toolSelectionByUntrustedContent",
+      "silentBackgroundMicrophoneOrCamera"
+    ],
+    "publicAiOutputRequiresRightsReview": true
+  },
+  "github": {
+    "canonicalRepository": "eggie-admin/LuHm-OS",
+    "publicRepository": true,
+    "workflowTokens": "MINIMUM_PER_JOB",
+    "checkout": "IMMUTABLE_SHA_PIN_PERSIST_CREDENTIALS_FALSE",
+    "prohibitUntrustedPrSecrets": true,
+    "noProductionAutoMerge": true,
+    "noProductionAutoDeploy": true,
+    "ownerCast": "OWNER_AUTHORED_MILESTONE_EXACT_CURRENT_MAIN_SHA",
+    "signing": "OWNER_HELD_SECRETS_AND_VERIFIED_SIGNER",
+    "auditHistory": "REPOSITORY_CREATED_2026_09_25; SIX_MONTH_REVIEW_LIMITED_BY_AVAILABLE_HISTORY"
+  },
+  "privacy": {
+    "ownerDrivePermissionsAudit": "FIVE_OF_SIX_SCOPED_FILES_HAVE_LINK_WIDE_WRITER_ACCESS_OBSERVED_2026_10_30",
+    "observedMetadataOnly": true,
+    "publicRepoMayContainPrivateDriveIds": false,
+    "permissionMutationAuthorized": false,
+    "actionRequired": "OWNER_APPROVED_REMOVE_ANYONE_WRITER_AND_REVIEW_HISTORY",
+    "noSensitiveValuesInReceipts": true,
+    "familyAndAdultCatalogIsolation": "SERVER_SIDE_ACL_SEPARATE_PRIVATE_ADULT_AND_PUBLIC_FAMILY_CONTENT",
+    "platformAgeAndChildPrivacy": "REQUIRES_PLATFORM_SPECIFIC_LEGAL_AND_PARENTAL_REVIEW",
+    "voiceAndVideo": "CONSENT_FIRST_PRIVATE_DEFAULT_METADATA_STRIP_BEFORE_PUBLIC_EXPORT"
+  },
+  "brandRelease": {
+    "mayDraftBranding": true,
+    "mayPrepareSocialPosts": true,
+    "publicPublish": false,
+    "publicRequired": [
+      "privateDocumentSharingFixedAndVerified",
+      "publicAssetsRightsAndProvenanceApproved",
+      "socialAccountAccessAndPlatformRulesReviewed",
+      "familyPrivacyAndAgeGatesReviewed",
+      "finalArtifactHumanApproval"
+    ],
+    "ownerCrown": "STOP"
+  },
+  "runtimeProof": {
+    "apiAuthorization": "UNVERIFIED",
+    "atRestEncryption": "UNVERIFIED",
+    "liveTls": "UNVERIFIED",
+    "renderDeployment": "UNVERIFIED",
+    "deviceCapture": "UNVERIFIED",
+    "socialPublishing": "NOT_AUTHORIZED",
+    "fullSixMonthRepoCoverage": false
+  },
+  "crownStatus": "STOP"
+}
