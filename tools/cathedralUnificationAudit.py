@@ -3,6 +3,9 @@
 import argparse,json,subprocess,hashlib,re
 from pathlib import Path
 from collections import Counter
+import sys
+ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT))
 from tools.crownEscalationMatrix import assess as crown
 from tools.freeFirstWorkspaceAudit import assess as free
 ROOT=Path(__file__).resolve().parents[1]

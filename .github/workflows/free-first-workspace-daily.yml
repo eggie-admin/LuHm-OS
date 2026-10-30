@@ -40,6 +40,8 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED"
           python3 -m py_compile tools/freeFirstWorkspaceAudit.py tests/testFreeFirstWorkspaceAudit.py
           python3 -m unittest tests.testFreeFirstWorkspaceAudit -v
+          python3 -m unittest tests.testCathedralKernel -v
+          python3 tools/cathedralUnificationAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/cathedral-unification.json"
           python3 tools/freeFirstWorkspaceAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/workspace-snapshot.json"
           python3 - "$RUNNER_TEMP/workspace-snapshot.json" <<'PY'
           import json,sys
@@ -55,6 +57,8 @@ jobs:
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '22'
+      - name: Shared source-only kernel contract tests
+        run: node --test packages/cathedral-kernel/tests/envelope.test.mjs
       - name: Deterministic static world test and build
         working-directory: frontEnd/prototypes/glassWorld
         shell: bash
@@ -83,6 +87,7 @@ jobs:
           name: free-first-workspace-source-receipts-${{ github.event.pull_request.head.sha || github.sha }}
           path: |
             ${{ runner.temp }}/workspace-snapshot.json
+            ${{ runner.temp }}/cathedral-unification.json
             ${{ runner.temp }}/daily-vendor-reduction.json
           retention-days: 7
           if-no-files-found: warn
