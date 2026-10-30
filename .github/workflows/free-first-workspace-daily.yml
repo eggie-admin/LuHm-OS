@@ -1,0 +1,88 @@
+name: Free-First Daily Workspace Snapshot
+
+on:
+  schedule:
+    # UTC; GitHub scheduled starts may be delayed. Executes only after merge to default main.
+    - cron: '37 14 * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'doctrine/freeFirstFourSourceWorkspaceV1.json'
+      - 'tools/freeFirstWorkspaceAudit.py'
+      - 'tests/testFreeFirstWorkspaceAudit.py'
+      - 'manual/freeFirstWorkspaceProxy20261030.md'
+      - 'frontEnd/prototypes/glassWorld/**'
+      - '.github/workflows/free-first-workspace-daily.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: free-first-snapshot-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-snapshot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 14
+    env:
+      EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout exact source, no persisted credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact commit and deny automatic side effects
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          python3 -m py_compile tools/freeFirstWorkspaceAudit.py tests/testFreeFirstWorkspaceAudit.py
+          python3 -m unittest tests.testFreeFirstWorkspaceAudit -v
+          python3 tools/freeFirstWorkspaceAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/workspace-snapshot.json"
+          python3 - "$RUNNER_TEMP/workspace-snapshot.json" <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1],encoding="utf8"))
+          assert r["total"]==96 and r["policyErrors"]==[]
+          assert r["status"]=="PASS_SOURCE_ONLY_SECURITY_HOLD"
+          assert r["counts"]["BLOCKED"]==16
+          assert r["driveAclOwnerOnly"] is False
+          assert r["spendApproved"] is False and r["crown"]=="STOP"
+          print("FREE_FIRST_4x4x6_SOURCE_ONLY_NO_CLOUD_SPEND")
+          PY
+      - name: Prepare public-source Node toolchain
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Deterministic static world test and build
+        working-directory: frontEnd/prototypes/glassWorld
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm test
+          npm run build
+      - name: Measure bundle and preserve no-authority source receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/vendorReductionAudit.py --dist frontEnd/prototypes/glassWorld/dist --output "$RUNNER_TEMP/daily-vendor-reduction.json"
+          python3 - "$RUNNER_TEMP/daily-vendor-reduction.json" <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1],encoding="utf8"))
+          assert r["verdict"]=="AMBER_SOURCE_ONLY"
+          assert r["crownStatus"]=="STOP"
+          assert r["apkSigned"]=="UNVERIFIED"
+          print("DAILY_WORLD_BUNDLE_MEASURED_NOT_SAMSUNG_PROOF")
+          PY
+      - name: Upload sanitized snapshots, never asset masters
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: free-first-workspace-source-receipts-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/workspace-snapshot.json
+            ${{ runner.temp }}/daily-vendor-reduction.json
+          retention-days: 7
+          if-no-files-found: warn
