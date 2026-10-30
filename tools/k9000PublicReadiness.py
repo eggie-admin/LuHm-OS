@@ -16,7 +16,7 @@ def inspect(root: Path) -> dict:
         if not p.is_file():
             return None
         data=p.read_bytes()[:24]
-        if len(data)!=24 or data[:8]!=b"\\x89PNG\\r\\n\\x1a\\n" or data[12:16]!=b"IHDR":
+        if len(data)!=24 or data[:8]!=b"\x89PNG\r\n\x1a\n" or data[12:16]!=b"IHDR":
             return None
         return struct.unpack(">II",data[16:24])
     license_text=read("LICENSE")
