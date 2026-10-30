@@ -40,6 +40,11 @@ class ExchangeTests(unittest.TestCase):
         with self.assertRaises(exchange.ExchangeError):
             exchange.rss_to_json(RSS + b"x" * exchange.MAX_RSS_BYTES, SHA)
 
+    def test_utf16_dtd_rejected(self):
+        raw = ('<!DOCTYPE rss><rss version="2.0"><channel/></rss>').encode("utf-16")
+        with self.assertRaises(exchange.ExchangeError):
+            exchange.rss_to_json(raw, SHA)
+
     def test_source_sha_rejected(self):
         with self.assertRaises(exchange.ExchangeError):
             exchange.rss_to_json(RSS, "main")
@@ -69,6 +74,13 @@ class ExchangeTests(unittest.TestCase):
             path = Path(tmp) / "bad.jar"
             with zipfile.ZipFile(path, "w") as z:
                 z.writestr("../escaping.class", b"bad")
+            with self.assertRaises(exchange.ExchangeError):
+                exchange.inspect_archive(path, SHA)
+
+    def test_corrupt_jar_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "corrupt.jar"
+            path.write_bytes(b"not a jar")
             with self.assertRaises(exchange.ExchangeError):
                 exchange.inspect_archive(path, SHA)
 
