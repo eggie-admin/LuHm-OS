@@ -3,6 +3,7 @@
   const headings = Object.freeze({
     studio: ["THE CREATOR'S COCKPIT", "One canvas. A whole universe of tools. Powered by your ideas."],
     cameras: ["THE CAMERA MATRIX", "Discover hardware first. Preview and recording need separate consent."],
+    hardware: ["THE HARDWARE LAB", "Canonical roles, read-only diagnostics and no invented driver support."],
     models: ["HEADLESS AI LAB", "One cockpit, optional local inference, no invented provider access."],
     vault: ["THE CREATOR VAULT", "Private assets stay private until intentionally exported."],
     world: ["THE WORLD PORTAL", "Enter the shared Godot world engine."]
@@ -12,6 +13,9 @@
   const deviceDetail = document.querySelector("[data-camera-detail]");
   const deviceList = document.querySelector("[data-camera-list]");
   const worldStatus = document.querySelector("[data-world-status]");
+  const hardwareCount = document.querySelector("[data-hardware-count]");
+  const hardwareDetail = document.querySelector("[data-hardware-detail]");
+  const hardwareList = document.querySelector("[data-hardware-list]");
   let ready = false;
 
   function nativeMessage(type) {
@@ -38,7 +42,30 @@
     if (clock && !document.hidden) clock.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   }
   function receiveNative(message) {
-    if (!message || message.type !== "camera_inventory" || !Array.isArray(message.devices)) return;
+    if (!message || !Array.isArray(message.devices)) return;
+    if (message.type === "hardware_inventory") {
+      const devices = message.devices.slice(0, 32);
+      hardwareCount.textContent = devices.length + " USB DEVICE(S) PRESENT";
+      hardwareDetail.textContent = "Descriptors only. Vendor identification does not confirm an exact scanner or camera model.";
+      hardwareList.replaceChildren();
+      if (!devices.length) {
+        const p = document.createElement("p");
+        p.textContent = "No connected USB devices enumerated by Android.";
+        hardwareList.append(p);
+      }
+      devices.forEach(function (device) {
+        const vid = Number(device.vendorId), pid = Number(device.productId);
+        const vendor = vid === 0x04b8 ? "Epson vendor candidate" :
+          vid === 0x04b0 ? "Nikon vendor candidate" :
+          vid === 0x046d ? "Logitech vendor candidate" : "Other USB vendor";
+        const p = document.createElement("p");
+        p.textContent = vendor + " · VID " + (Number.isInteger(vid) ? vid : "?") +
+          " · PID " + (Number.isInteger(pid) ? pid : "?") + " · DETECTED, NOT OPENED";
+        hardwareList.append(p);
+      });
+      return;
+    }
+    if (message.type !== "camera_inventory") return;
     const devices = message.devices.slice(0, 32);
     deviceCount.textContent = devices.length + " UVC CANDIDATE" + (devices.length === 1 ? "" : "S");
     deviceDetail.textContent = "USB device inventory only. No feed has been opened and no capture permission granted.";
@@ -68,6 +95,15 @@
     } else {
       deviceCount.textContent = "SCANNING...";
       deviceDetail.textContent = "Waiting for native USB inventory (no camera access requested).";
+    }
+  });
+  document.querySelector("[data-hardware-probe]").addEventListener("click", function () {
+    if (!nativeMessage("hardware_probe_requested")) {
+      hardwareCount.textContent = "BRIDGE UNAVAILABLE";
+      hardwareDetail.textContent = "Native hardware probe unavailable in this preview. No scan performed.";
+    } else {
+      hardwareCount.textContent = "CHECKING...";
+      hardwareDetail.textContent = "Waiting for read-only USB inventory. No hardware access or permission requested.";
     }
   });
   document.querySelector("[data-native-world]").addEventListener("click", function () {
