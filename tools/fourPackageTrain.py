@@ -79,6 +79,8 @@ def inspect(policy, files, root=ROOT):
     check('name="Android Crown Cathedral Public Candidate"' in presets.get(3,"") and 'package/unique_name="art.eggiebagelface.luhmos.cathedral"' in presets.get(3,""),"PUBLIC_ANDROID_PRESET_ID")
     check("permissions/internet=false" in presets.get(0,"") and "permissions/internet=false" in presets.get(3,""),"ANDROID_OFFLINE_PERMISSION")
     gradle=files["gradle"]
+    gradle_root=files["gradleRoot"]
+    check('version "8.13.2"' in gradle_root and 'version "2.2.21"' in gradle_root,"ANDROID_GRADLE_KOTLIN_PINS")
     check('implementation("org.godotengine:godot:4.7.2.stable")' in gradle,"GODOT_ANDROID_DEP_PIN")
     check('implementation("androidx.webkit:webkit:1.17.1")' in gradle,"ANDROID_WEBKIT_PIN")
     check("compileSdk = 36" in gradle and "minSdk = 24" in gradle,"ANDROID_SDK_PINS")
@@ -90,6 +92,10 @@ def inspect(policy, files, root=ROOT):
     check("workflow_dispatch" in workflow and "build_dmg" in workflow,"DMG_EXPLICIT_DISPATCH")
     check("github.actor == 'eggie-admin'" in workflow,"DMG_OWNER_CHECK")
     check("npm publish" not in workflow and "gh release create" not in workflow,"NO_REGISTRY_OR_GH_PUBLICATION")
+    check('node-version: \'22\'' in workflow,"CI_NODE_22")
+    check(policy["dependencies"]["dmg"]["macGodotZipSha256"] in workflow and
+          policy["dependencies"]["dmg"]["godotTemplateSha256"] in workflow,"DMG_PINNED_SHA256")
+    check(policy["dependencies"]["apk"]["gradleDistSha256"] in files["apkWorkflow"],"GRADLE_DISTRIBUTION_SHA256")
     return sorted(set(errors))
 
 def audit(root=ROOT):
@@ -100,6 +106,7 @@ def audit(root=ROOT):
            "webPkg":"packages/k9000-web/package.json",
            "presets":"export_presets.cfg",
            "gradle":"androidWeb3Plugin/plugin/build.gradle.kts",
+           "gradleRoot":"androidWeb3Plugin/build.gradle.kts",
            "apkWorkflow":".github/workflows/android-testing-build.yml",
            "trainWorkflow":".github/workflows/four-package-train.yml"}
     files={k:(root/p).read_text(encoding="utf-8") for k,p in names.items()}
@@ -125,6 +132,7 @@ def build_dev(root=ROOT, destination=None):
        "webPkg":"packages/k9000-web/package.json",
        "presets":"export_presets.cfg",
        "gradle":"androidWeb3Plugin/plugin/build.gradle.kts",
+           "gradleRoot":"androidWeb3Plugin/build.gradle.kts",
        "apkWorkflow":".github/workflows/android-testing-build.yml",
        "trainWorkflow":".github/workflows/four-package-train.yml"}.items()},root):
         raise ValueError("SOURCE_CONTRACT_RED")
