@@ -1,0 +1,164 @@
+{
+  "schema": "luhmOs.crownEscalationMatrix.v1",
+  "status": "SOURCE_AUDIT_ONLY",
+  "product": "LuHm-OS: Project Premonition",
+  "legacy": "Project Hydra",
+  "sourceBaseline": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d",
+  "fourByFour": {
+    "rows": [
+      "identity",
+      "vendor",
+      "security",
+      "release"
+    ],
+    "columns": [
+      "source",
+      "lock",
+      "boundary",
+      "proof"
+    ]
+  },
+  "eightByEight": {
+    "contracts": [
+      "exists",
+      "sourceBound",
+      "manifest",
+      "dependencyPin",
+      "licenseReview",
+      "sandbox",
+      "runtime",
+      "rollback"
+    ],
+    "components": [
+      {
+        "id": "frontEnd",
+        "path": "frontEnd/index.html"
+      },
+      {
+        "id": "npmShell",
+        "path": "frontEnd/package.json"
+      },
+      {
+        "id": "glassWorld",
+        "path": "frontEnd/prototypes/glassWorld/package.json"
+      },
+      {
+        "id": "mcpHost",
+        "path": "host/mcp/requirements.txt"
+      },
+      {
+        "id": "typedSql",
+        "path": "host/api/typedLanesV1.sql"
+      },
+      {
+        "id": "godotGame",
+        "path": "project.godot"
+      },
+      {
+        "id": "androidWebView",
+        "path": "androidWeb3Plugin/plugin/build.gradle.kts"
+      },
+      {
+        "id": "distributionContract",
+        "path": "doctrine/finalFormPublicReleaseGateV1.json"
+      }
+    ]
+  },
+  "sixteenBySixteen": {
+    "proofs": [
+      "sourceAnchor",
+      "contentDigest",
+      "ownedLicense",
+      "upstreamProvenance",
+      "dependencyGraph",
+      "syntaxOrSchema",
+      "negativeTests",
+      "inputSandbox",
+      "secretIsolation",
+      "networkBoundary",
+      "buildArtifact",
+      "runtimeAcceptance",
+      "rollbackExercise",
+      "signerCustody",
+      "distributionAcceptance",
+      "crownApproval"
+    ],
+    "surfaces": [
+      {
+        "id": "sourceRepository",
+        "path": "README.md"
+      },
+      {
+        "id": "governance",
+        "path": "doctrine/communityForkChannelsV1.json"
+      },
+      {
+        "id": "vendorRegistry",
+        "path": "doctrine/vendorReductionV1.json"
+      },
+      {
+        "id": "webFrontEnd",
+        "path": "frontEnd/index.html"
+      },
+      {
+        "id": "glassWorld",
+        "path": "frontEnd/prototypes/glassWorld/package.json"
+      },
+      {
+        "id": "mcpHarness",
+        "path": "host/mcp/luhmHarnessServer.py"
+      },
+      {
+        "id": "sqliteApi",
+        "path": "host/api/typedLanesV1.sql"
+      },
+      {
+        "id": "godotGame",
+        "path": "scenes/Main.tscn"
+      },
+      {
+        "id": "blenderForge",
+        "path": "tools/yumeGodotAssetPrep.py"
+      },
+      {
+        "id": "ffmpegRender",
+        "path": "scripts/render-yume-cutscene-proof.sh"
+      },
+      {
+        "id": "androidApk",
+        "path": "androidWeb3Plugin/plugin/build.gradle.kts"
+      },
+      {
+        "id": "androidUpgrade",
+        "path": "doctrine/androidDeliveryLanesV1.json"
+      },
+      {
+        "id": "fdroidRepository",
+        "path": "manual/pluginReleaseHub.md"
+      },
+      {
+        "id": "chatGptMount",
+        "path": "host/harness/mobileCockpitWidget.html"
+      },
+      {
+        "id": "cloudflareWorker",
+        "path": null
+      },
+      {
+        "id": "renderService",
+        "path": null
+      }
+    ]
+  },
+  "invariants": {
+    "readOnly": true,
+    "blockCrown": true,
+    "autoMerge": false,
+    "autoDeploy": false,
+    "autoSign": false,
+    "autoPublish": false,
+    "vendorSourceExecuted": false,
+    "deviceObserved": false,
+    "externalReceiptsAssumed": false
+  }
+}
