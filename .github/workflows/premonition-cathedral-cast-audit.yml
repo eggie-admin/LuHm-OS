@@ -5,6 +5,8 @@ on:
       - 'doctrine/premonitionCathedralCastV1.json'
       - 'doctrine/premonition-titan-500-inventory-v1.json'
       - 'tools/premonitionTitan500Audit.py'
+      - 'tools/candidateGate.py'
+      - 'doctrine/openAiDeploymentV3.json'
       - 'manual/premonition-cathedral-cast-2026-10-28.md'
       - '.github/workflows/premonition-cathedral-cast-audit.yml'
   workflow_dispatch:
@@ -18,11 +20,33 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Verify candidate manifest
         run: |
           python3 -m json.tool doctrine/premonitionCathedralCastV1.json > /dev/null
           python3 -m json.tool doctrine/premonition-titan-500-inventory-v1.json > /dev/null
           python3 -m py_compile tools/premonitionTitan500Audit.py
+      - name: Parse all tracked Python 3 source without executing imports
+        run: |
+          python3 - <<'PY'
+          import ast
+          import subprocess
+          from pathlib import Path
+          paths = subprocess.check_output(["git", "ls-files", "-z", "--", "*.py"]).split(bytes([0]))
+          checked = 0
+          for raw in paths:
+              if raw:
+                  path = Path(raw.decode("utf-8"))
+                  ast.parse(path.read_text(encoding="utf-8-sig"), filename=str(path))
+                  checked += 1
+          print("TRACKED_PYTHON_AST_PASS", checked)
+          PY
+      - name: CAST Bridge and OpenAI source reconciliation
+        run: |
+          python3 tools/professorCastBridgeAudit.py
+          python3 tools/openAiWorkspaceHygieneAudit.py
+          python3 tools/apiSpineAudit.py
+          python3 tools/companyWideQuarantineAudit.py
       - name: Run 500 distinct source and receipt checks
         run: python3 tools/premonitionTitan500Audit.py --output-dir "${RUNNER_TEMP}/premonition-cast"
       - name: Upload exact-source receipts

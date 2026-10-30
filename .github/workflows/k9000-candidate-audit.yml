@@ -1,0 +1,114 @@
+name: K9000 Candidate Source and 200 Audit
+on:
+  push:
+    branches:
+      - candidate/k9000-one-app-goth-cockpit-20261030
+    paths:
+      - 'frontEnd/k9000.*'
+      - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
+      - 'export_presets.cfg'
+      - 'doctrine/k9000DualPlatformCanonV1.json'
+      - 'doctrine/k9000CrownCathedralReleaseV1.json'
+      - 'doctrine/kaiBlenderCockpitV1.json'
+      - 'host/harness/index.html'
+      - 'manual/kaiBlenderCockpit20261030.md'
+      - 'doctrine/k9000UniversalHardwareV1.json'
+      - 'doctrine/k9000UniversalVendorSurfaceV1.json'
+      - 'host/api/k9000HeadlessCore.py'
+      - 'tools/k9000UniversalHardwareAudit.py'
+      - 'tools/k9000LocalDriverProbe.py'
+      - 'tests/testK9000UniversalHardware.py'
+      - 'tools/k9000PublicReadiness.py'
+      - 'tests/testK9000PublicReadiness.py'
+      - 'frontEnd/brand/**'
+      - 'fastlane/metadata/android/en-US/**'
+      - 'manual/k9000DualPlatformPlan20261030.md'
+      - 'tools/k9000CandidateAudit.py'
+      - 'tests/testK9000CandidateAudit.py'
+      - '.github/workflows/k9000-candidate-audit.yml'
+  pull_request:
+    paths:
+      - 'frontEnd/k9000.*'
+      - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
+      - 'export_presets.cfg'
+      - 'doctrine/k9000DualPlatformCanonV1.json'
+      - 'doctrine/k9000CrownCathedralReleaseV1.json'
+      - 'doctrine/kaiBlenderCockpitV1.json'
+      - 'host/harness/index.html'
+      - 'manual/kaiBlenderCockpit20261030.md'
+      - 'doctrine/k9000UniversalHardwareV1.json'
+      - 'doctrine/k9000UniversalVendorSurfaceV1.json'
+      - 'host/api/k9000HeadlessCore.py'
+      - 'tools/k9000UniversalHardwareAudit.py'
+      - 'tools/k9000LocalDriverProbe.py'
+      - 'tests/testK9000UniversalHardware.py'
+      - 'tools/k9000PublicReadiness.py'
+      - 'tests/testK9000PublicReadiness.py'
+      - 'frontEnd/brand/**'
+      - 'fastlane/metadata/android/en-US/**'
+      - 'manual/k9000DualPlatformPlan20261030.md'
+      - 'tools/k9000CandidateAudit.py'
+      - 'tests/testK9000CandidateAudit.py'
+      - '.github/workflows/k9000-candidate-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  k9000-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout exact candidate source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Exact source and no dirty changes
+        run: |
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+      - name: Existing real 200-check audit
+        run: python3 tools/hardSystemAudit200.py
+      - name: K9000 source candidate audit
+        run: python3 tools/k9000CandidateAudit.py
+      - name: K9000 negative controls
+        run: python3 -m unittest tests/testK9000CandidateAudit.py -v
+      - name: F-Droid public source preflight with release gates not bypassed
+        run: |
+          python3 tools/k9000PublicReadiness.py
+          python3 -m unittest tests/testK9000PublicReadiness.py -v
+      - name: Universal hardware and optional-vendor doctrine audit
+        run: python3 tools/k9000UniversalHardwareAudit.py
+      - name: Headless Python loopback and SQLite smoke
+        run: |
+          python3 host/api/k9000HeadlessCore.py --smoke
+          python3 -m unittest tests/testK9000UniversalHardware.py -v
+      - name: Python local hardware inventory without raw identifiers
+        run: python3 tools/k9000LocalDriverProbe.py
+      - name: Canonical four-layer and four-beat escalation source gates
+        run: |
+          python3 tools/architectureRhythmAudit.py
+          python3 tools/escalationKernelAudit.py
+      - name: Existing strict SQLite stream and SQL JSON1 negative tests
+        run: python3 -m unittest tests/testTypedSqlStub.py tests/testFnCastSqlJson.py -v
+      - name: Existing vendor footprint and lockfile checks
+        run: python3 tools/vendorReductionAudit.py
+      - name: YAML workflow syntax check using Ruby standard library
+        run: |
+          ruby -rpsych -e 'paths=Dir.glob(".github/workflows/*.{yml,yaml}"); paths.each { |p| Psych.parse_file(p) }; puts "WORKFLOW_YAML_PARSED=#{paths.length}"'
+      - name: Kai source manifest, accepted jQuery, and Yume rights gates
+        run: |
+          python3 -m json.tool doctrine/kaiBlenderCockpitV1.json >/dev/null
+          python3 tools/jqueryPluginContinuity.py
+          python3 tools/yumeCreativePipelineAudit.py
+      - name: Static JavaScript syntax
+        run: node --check frontEnd/k9000.js
+      - name: Honest boundary
+        if: always()
+        run: |
+          echo "SOURCE_ONLY_CANDIDATE"
+          echo "NO_ANDROID_INSTALL_NO_MAC_BUILD_NO_UVC_STREAM"
+          echo "NO_EDGE_GALLERY_SERVICE_NO_NOTARIZATION_NO_CROWN"
+          echo "NOT_SIGNED_NOT_PUBLISHED_TO_FDROID"

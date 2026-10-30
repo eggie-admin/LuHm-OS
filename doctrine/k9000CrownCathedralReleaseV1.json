@@ -1,0 +1,90 @@
+{
+  "schema": "luhmOs.k9000CrownCathedralRelease.v1",
+  "status": "PUBLIC_RELEASE_CANDIDATE_NOT_PUBLISHED",
+  "displayName": "LuHm-OS: Crown Cathedral",
+  "familyIdentity": "LuHm-OS: Project Premonition",
+  "uiIdentity": "K9000",
+  "licensing": {
+    "repo": "GPL-3.0",
+    "source": "PUBLIC",
+    "allTransitiveFoss": "UNVERIFIED",
+    "artRights": "UNVERIFIED",
+    "modelRights": "NOT_BUNDLED"
+  },
+  "android": {
+    "candidatePackage": "art.eggiebagelface.luhmos.cathedral",
+    "testingPackagePreserved": true,
+    "targetSdk": 36,
+    "minimumSdk": 24,
+    "signer": "FDROID_CONTROLLED_OR_OWNER_APPROVED_WITH_PROVEN_PROVENANCE",
+    "publicBuild": "UNBUILT",
+    "physicalSamsung": "UNVERIFIED",
+    "installUpdate": "UNVERIFIED"
+  },
+  "macos": {
+    "artifact": "DMG",
+    "build": "UNBUILT",
+    "notarization": "UNVERIFIED"
+  },
+  "backend": {
+    "hostLinux": "Ubuntu/Mint supported signed distro kernel; read-only baseline first",
+    "gparted": "HOST_OPERATOR_TOOL_ONLY",
+    "gpartedFromWebView": false,
+    "partitionWritesWithoutExplicitStandaloneApproval": false,
+    "androidGki": "PRESERVE_VENDOR_CHAIN",
+    "rootOrFlash": false
+  },
+  "screens": {
+    "androidExternalDisplay": "NATIVE_READ_ONLY_ENUMERATION_CANDIDATE",
+    "tabletCompanion": "SEPARATE_AUTHENTICATED_OR_WIRED_DISPLAY_WORKFLOW_PENDING",
+    "noSilentMirroring": true
+  },
+  "ai": {
+    "edgeGallery": "REFERENCE_APP_ONLY",
+    "litertLm": "CANDIDATE_EMBEDDED_RUNTIME_NOT_BUNDLED",
+    "modelDownloadsAutomatic": false,
+    "fDroidPackagedModel": false,
+    "headlessApiVerified": false
+  },
+  "developers": {
+    "profile": "linuxStudioOptional",
+    "androidRuntimeHeavyDependencies": false,
+    "requiredTools": [
+      "python3",
+      "git",
+      "java17",
+      "gradle8.13",
+      "androidSdk36",
+      "godot4.7.2"
+    ],
+    "optionalHostTools": [
+      "gparted",
+      "parted",
+      "lsblk",
+      "xrandr",
+      "ffmpeg",
+      "v4l2-ctl",
+      "scanimage",
+      "blender",
+      "gimp",
+      "adb"
+    ],
+    "versionsAndLicensesRequireRuntimeProof": true
+  },
+  "gates": {
+    "existing200": "tools/hardSystemAudit200.py",
+    "k9000Audit": "tools/k9000CandidateAudit.py",
+    "publicCandidate": "tools/k9000PublicReadiness.py",
+    "sourceLicenses": "PENDING",
+    "assetsApproved": "PENDING",
+    "reproducibleBuild": "PENDING",
+    "buildSigned": "PENDING",
+    "deviceProof": "PENDING",
+    "humanPromotion": false,
+    "crownStatus": "STOP",
+    "companyOperationalQuarantine": "QUARANTINED"
+  },
+  "noPrivateSourceOfTruthLeak": true,
+  "noAutomaticMerge": true,
+  "noAutomaticPublish": true
+}

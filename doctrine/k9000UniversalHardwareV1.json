@@ -1,0 +1,152 @@
+{
+  "schema": "luhmOs.k9000UniversalHardware.v1",
+  "status": "SOURCE_CANDIDATE_NOT_DEVICE_PROOF",
+  "authority": "Professor",
+  "sourceOfTruth": "PRIVATE_CANONICAL_LUHM_OS_HARDWARE_SOURCE_OF_TRUTH_20260916",
+  "privateDocumentIdsExcluded": true,
+  "targetPlatforms": {
+    "linux": {
+      "hostBaseline": "Ubuntu 26.04.1 LTS compatible headless profile",
+      "currentStudio": "Linux Mint 22.3 Zena; no host OS migration authorized",
+      "kernel": "stockSignedDistroKernel",
+      "audio": "ALSA + PipeWire + WirePlumber + BlueZ",
+      "usbCamera": "V4L2/UVC when supported",
+      "scanner": "SANE backend capability must be proven on exact device",
+      "mayUseRoot": false
+    },
+    "android": {
+      "families": [
+        "Samsung Galaxy S24 FE SM-S721U1",
+        "Samsung Galaxy Tab S10 Lite SM-X400",
+        "Samsung Galaxy Tab A8 SM-X200"
+      ],
+      "vendorKernelPreserved": true,
+      "usbAudio": "Android AudioManager and OS permission",
+      "usbCamera": "native USB/UVC probe is metadata-only",
+      "webView": "Android System WebView with local asset loader",
+      "physicalProof": "PENDING"
+    },
+    "ios": {
+      "deviceInventory": "NO_OWNER_IPHONE_CONFIRMED",
+      "nativeAudio": "AVAudioSession subject to permission",
+      "nativeCamera": "AVFoundation subject to permission",
+      "ui": "Godot iOS / WKWebView adapter candidate",
+      "buildRequirement": "macOS + Xcode + Apple signing",
+      "physicalProof": "PENDING"
+    },
+    "macos": {
+      "nativeAudio": "CoreAudio",
+      "ui": "Godot macOS",
+      "buildRequirement": "macOS runner",
+      "physicalProof": "PENDING"
+    }
+  },
+  "inventory": [
+    {
+      "id": "linuxStudio",
+      "kind": "host",
+      "model": "Linux Mint 22.3 Zena i9-12900K workstation",
+      "observed": "PRIVATE_CANON",
+      "driver": "KERNEL_AND_GPU_INVENTORY_PENDING",
+      "role": "heavyStudio",
+      "verifiedRuntime": false
+    },
+    {
+      "id": "samsungPhone",
+      "kind": "mobile",
+      "model": "Samsung Galaxy S24 FE SM-S721U1",
+      "observed": "PRIVATE_CANON",
+      "driver": "STOCK_ANDROID",
+      "role": "androidHardwareQA",
+      "verifiedRuntime": false
+    },
+    {
+      "id": "samsungTablet",
+      "kind": "mobile",
+      "model": "Samsung Galaxy Tab S10 Lite SM-X400",
+      "observed": "PRIVATE_CANON",
+      "driver": "STOCK_ANDROID",
+      "role": "penArtCockpit",
+      "verifiedRuntime": false
+    },
+    {
+      "id": "secondScreen",
+      "kind": "mobile",
+      "model": "Samsung Galaxy Tab A8 SM-X200",
+      "observed": "PRIVATE_CANON",
+      "driver": "STOCK_ANDROID",
+      "role": "companionDisplayNotPooledComputer",
+      "verifiedRuntime": false
+    },
+    {
+      "id": "logitechWebcam",
+      "kind": "usbVideo",
+      "model": "Logitech C930e",
+      "observed": "PRIVATE_CANON",
+      "driver": "UVC_V4L2_CANDIDATE",
+      "role": "cameraInput",
+      "verifiedRuntime": false
+    },
+    {
+      "id": "nikonCamera",
+      "kind": "standaloneCamera",
+      "model": "Nikon COOLPIX B500",
+      "observed": "PRIVATE_CANON",
+      "driver": "OFFLINE_IMPORT_ONLY_UNTIL_PROVEN",
+      "role": "captureAndMediaImport",
+      "verifiedRuntime": false
+    },
+    {
+      "id": "epsonScanner",
+      "kind": "usbScanner",
+      "model": "Epson Perfection V39 II",
+      "observed": "PRIVATE_CANON",
+      "driver": "SANE_EXACT_MODEL_AND_FIRMWARE_PENDING",
+      "role": "protectedArtworkIngest",
+      "verifiedRuntime": false
+    },
+    {
+      "id": "altecBluetooth",
+      "kind": "bluetoothAudio",
+      "model": "Altec Lansing HydraMotion 2.0",
+      "observed": "PRIVATE_CANON",
+      "driver": "BLUEZ_PIPEWIRE_OR_ANDROID_OS_PENDING",
+      "role": "outputPreferredMicUnverified",
+      "verifiedRuntime": false
+    },
+    {
+      "id": "yetiMicrophone",
+      "kind": "usbMicrophoneCandidate",
+      "model": "Yeti microphone (exact model not identified)",
+      "observed": "USER_REPORTED_THIS_TURN",
+      "driver": "USB_AUDIO_CLASS_SND_USB_AUDIO_CANDIDATE_NOT_VERIFIED",
+      "role": "voiceInputCandidate",
+      "verifiedRuntime": false
+    },
+    {
+      "id": "bluetoothAudioJack",
+      "kind": "bluetoothAudioInterfaceCandidate",
+      "model": "Bluetooth audio jack (transmitter/receiver/3.5 mm mode unknown)",
+      "observed": "USER_REPORTED_THIS_TURN",
+      "driver": "BLUEZ_PIPEWIRE_AND_CODEC_ROLE_PENDING",
+      "role": "audioAdapterCandidate",
+      "verifiedRuntime": false
+    }
+  ],
+  "autoInstallDrivers": false,
+  "autoModifyKernel": false,
+  "autoPairBluetooth": false,
+  "autoStartCapture": false,
+  "autoExposeSerials": false,
+  "physicalDriverPassRequires": [
+    "exactUsbOrBluetoothIdentityWithoutPublishingSerial",
+    "kernelOsAndFirmwareBaseline",
+    "enumerationOutput",
+    "permissionsAndRoutingEvidence",
+    "shortCapturePlaybackOrScanSmoke",
+    "disconnectReconnectReceipt"
+  ],
+  "webViewHardwareAccess": "TYPED_NATIVE_ADAPTER_ONLY",
+  "gparted": "HOST_OPERATOR_ONLY_NO_WEBVIEW_PARTITION_WRITES",
+  "crownStatus": "STOP"
+}

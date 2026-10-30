@@ -1,0 +1,157 @@
+{
+  "schema": "luhmOs.kaiBlenderCockpit.v1",
+  "status": "SOURCE_PROPOSAL_NO_PROVIDER_EXECUTION",
+  "authority": "Professor",
+  "product": "LuHm-OS: Crown Cathedral",
+  "project": "Project Premonition",
+  "surface": "K9000/Kai/ChatGPT candidate presentation",
+  "architecture": {
+    "core": "Python3 + SQLite STRICT typed event receipts, source identity and policy",
+    "extension": "Godot/Blender/FFmpeg offline tools + user-approved Meshy GLB import",
+    "widget": "Kai Forge workbench and Jacob family-safe studio preview",
+    "adapter": "typed read-only ChatGPT MCP/Android WebView/npm build/Blender background",
+    "fourBeats": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "escalation": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "runtimeWorkers": 0,
+    "quarantine": "QUARANTINED"
+  },
+  "vertical": [
+    {
+      "id": "disk",
+      "name": "Disk inventory",
+      "tool": "lsblk/blkid (read-only); GParted human-operated GUI only",
+      "privilege": "operatorOnly",
+      "runtime": "HOST_UNVERIFIED"
+    },
+    {
+      "id": "sql",
+      "name": "Typed evidence",
+      "tool": "Python 3 sqlite3, parameterized STRICT schemas",
+      "privilege": "localOnly",
+      "runtime": "SOURCE_TESTED"
+    },
+    {
+      "id": "python",
+      "name": "Headless creative forge",
+      "tool": "tools/yumeGodotAssetPrep.py preflight; separate reviewed Blender --background import job (not yet implemented)",
+      "privilege": "explicitOptIn",
+      "runtime": "PREFLIGHT_SOURCE_ONLY_BLENDER_NOT_RUN"
+    },
+    {
+      "id": "javascript",
+      "name": "K9000 UI",
+      "tool": "first-party vanilla JS and accepted jQuery UI presentation only",
+      "privilege": "noExecutionAuthority",
+      "runtime": "SOURCE_ONLY"
+    },
+    {
+      "id": "npm",
+      "name": "Pinned asset build",
+      "tool": "npm ci --ignore-scripts; npm run build in isolated glassWorld directory",
+      "privilege": "ciBuildOnly",
+      "runtime": "PREVIOUS_CI_PASS"
+    }
+  ],
+  "pluginRules": {
+    "incomingPath": "frontEnd/plugins/incoming",
+    "approvedPath": "frontEnd/plugins/approved",
+    "runtimeThirdPartyAutoLoad": false,
+    "pluginScriptExecutionFromUserUpload": false,
+    "jQueryVersion": "3.7.1",
+    "jQueryLicense": "MIT",
+    "acceptedSource": "doctrine/jqueryPluginContinuityV1.json",
+    "approvedPluginRequires": [
+      "sourceIdentity",
+      "SPDXLicenseEvidence",
+      "dependencyLock",
+      "sandboxReview",
+      "riskReview",
+      "negativeTests",
+      "humanApproval"
+    ]
+  },
+  "vendors": {
+    "meshy": {
+      "officialAddon": "https://www.meshy.ai/integrations/blender",
+      "license": "PLUGIN_LICENSE_NOT_VERIFIED_FOR_BUNDLING",
+      "blenderMinimum": "4.2.6",
+      "linuxOfficialSupport": false,
+      "proTierBridgeRequired": true,
+      "networkNeeded": true,
+      "publicBundle": false,
+      "apiInvocation": false,
+      "headlessBridge": "NOT_PROVEN",
+      "migration": "userApprovedGLBImportOnly",
+      "assets": "PER_ASSET_LICENSE_AND_RIGHTS_REVIEW",
+      "creds": "hostSecretStoreOnly"
+    },
+    "blenderMcp": {
+      "source": "https://github.com/ahujasid/blender-mcp",
+      "bundleStatus": "NOT_INCLUDED",
+      "networkAndPluginCode": "UNTRUSTED_UNTIL_AUDITED",
+      "agentAccess": "DISABLED"
+    },
+    "community": {
+      "source": "Blender Extensions / Godot Asset Library",
+      "bundleStatus": "NOT_INCLUDED",
+      "approval": "FOSS_AND_RIGHTS_REVIEW_REQUIRED"
+    }
+  },
+  "rights": {
+    "publicBuild": "ALLOWLIST_PENDING",
+    "approvedLicensesForReview": [
+      "CC0-1.0",
+      "CC-BY-4.0"
+    ],
+    "freePlanMeshyRequiresAttribution": true,
+    "paidPlanAssetsNotAutomaticallyOpenSource": true,
+    "privateMasterDelete": false,
+    "undocumentedAssetsNeverShip": true,
+    "publicExportRequiresHumanPromotion": true
+  },
+  "chatGpt": {
+    "goal": "Kai is part of the existing ChatGPT-facing cockpit, not a second product",
+    "sourceDisplayOnly": true,
+    "mcpHostInvocation": "NOT_PROVEN_FOR_NEW_KAI_PANEL",
+    "readOnlyUntilAuthorization": true
+  },
+  "fatCut": {
+    "doNotIncludeInApk": [
+      "gparted",
+      "blender",
+      "mariadb-server",
+      "node",
+      "npm",
+      "unapproved-community-addons",
+      "meshy-addon",
+      "meshy-credentials",
+      "model-weights"
+    ],
+    "notDeletedFromStudio": [
+      "blender",
+      "gparted",
+      "FFmpeg",
+      "Godot"
+    ],
+    "networkAtRuntime": "DISABLED_BY_DEFAULT"
+  },
+  "gates": {
+    "nativeBlenderImport": "PENDING_REAL_BUILD",
+    "userApprovedPublicAssets": "PENDING",
+    "npmAndLicenseInventory": "CI_GATE",
+    "chatGptHostInstall": "PENDING",
+    "godotPlayer": "PENDING",
+    "agentQuarantine": "QUARANTINED",
+    "crownStatus": "STOP"
+  }
+}
