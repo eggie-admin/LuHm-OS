@@ -49,7 +49,7 @@ def source(root):
                 f'main orchestration is missing delegated boundary: {required_delegate}')
     for path, marker in {'scripts/game/neonWorld.gd':'StaticBody3D', 'scripts/game/playerController.gd':'SpringArm3D', 'scripts/game/lumAvatar.gd':'get_rig_summary', 'scripts/cutsceneDirector.gd':'CANCEL_POLL_SECONDS', 'frontEnd/jquery/luhm.cockpit.js':'luhmCockpit'}.items():
         require(marker in (root / path).read_text(), f'missing architecture contract: {path}')
-    preset = (root / 'export_presets.cfg').read_text()
+    preset = (root / 'export_presets.cfg').read_text().split('[preset.1]', 1)[0]
     expected = [f'package/unique_name="{contract["package"]}"', f'version/code={contract["versionCode"]}',
                 f'version/name="{contract["versionName"]}"', 'gradle_build/min_sdk="24"',
                 'gradle_build/target_sdk="36"', 'architectures/arm64-v8a=true', 'permissions/internet=false']
