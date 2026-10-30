@@ -185,7 +185,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
             val expectedKeys = when (payload.optString("type")) {
                 "oni_requested" -> setOf("type", "name")
                 "world_requested", "cockpit_ready" -> setOf("type")
-                "camera_probe_requested" -> setOf("type")
+                "camera_probe_requested", "hardware_probe_requested" -> setOf("type")
                 else -> {
                     emitSignal(BRIDGE_ERROR.name, "bridge_type_rejected")
                     return
@@ -214,6 +214,9 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                 }
                 "camera_probe_requested" -> {
                     sendUvcInventory()
+                }
+                "hardware_probe_requested" -> {
+                    sendHardwareInventory()
                 }
                 else -> emitSignal(BRIDGE_ERROR.name, "bridge_type_rejected")
             }
@@ -247,6 +250,27 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
         val payload = JSONObject()
             .put("type", "camera_inventory")
             .put("devices", devices)
+        runOnHostThread {
+            cockpitView?.evaluateJavascript(
+                "window.K9000 && window.K9000.receiveNative(" + payload.toString() + ")",
+                null
+            )
+        }
+    }
+
+
+    /** Metadata-only USB inventory; no permission, scans, video, or serial numbers. */
+    private fun sendHardwareInventory() {
+        val manager = activity?.getSystemService(Context.USB_SERVICE) as? UsbManager
+        val devices = JSONArray()
+        manager?.deviceList?.values?.forEach { usb ->
+            if (devices.length() >= 32) return@forEach
+            val item = JSONObject()
+                .put("vendorId", usb.vendorId)
+                .put("productId", usb.productId)
+            devices.put(item)
+        }
+        val payload = JSONObject().put("type", "hardware_inventory").put("devices", devices)
         runOnHostThread {
             cockpitView?.evaluateJavascript(
                 "window.K9000 && window.K9000.receiveNative(" + payload.toString() + ")",
