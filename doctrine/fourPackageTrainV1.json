@@ -108,7 +108,10 @@
       "webkit": "androidx.webkit:webkit:1.17.1",
       "preset": "Android Proposed",
       "existingWorkflow": ".github/workflows/android-testing-build.yml",
-      "ownerCastGate": true
+      "ownerCastGate": true,
+      "agp": "8.13.2",
+      "kotlin": "2.2.21",
+      "gradleDistSha256": "20f1b1176237254a6fc204d8434196fa11a4cfb387567519c61556e8710aed78"
     }
   },
   "publication": {
