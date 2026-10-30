@@ -1,0 +1,181 @@
+name: Four Package Train - DEV npm DMG APK
+on:
+  pull_request:
+    paths:
+      - 'doctrine/fourPackageTrainV1.json'
+      - 'tools/fourPackageTrain.py'
+      - 'tests/testFourPackageTrain.py'
+      - 'packages/k9000-web/**'
+      - 'frontEnd/k9000.*'
+      - 'frontEnd/prototypes/glassWorld/**'
+      - 'export_presets.cfg'
+      - 'androidWeb3Plugin/plugin/build.gradle.kts'
+      - 'manual/fourPackageReleaseTrain20261030.md'
+      - '.github/workflows/four-package-train.yml'
+  workflow_dispatch:
+    inputs:
+      build_dmg:
+        description: "Explicit owner-only, non-notarized macOS development DMG"
+        required: true
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: four-package-train-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+jobs:
+  source-and-dev:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Exact-source checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ env.LUHM_SOURCE_REF }}
+      - name: Verify source identity
+        run: |
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+      - name: Four-lane dependency preflight
+        run: |
+          python3 tools/fourPackageTrain.py audit
+          python3 -m unittest tests/testFourPackageTrain.py -v
+          python3 tools/candidateGate.py
+      - name: Build deterministic restricted developer toolkit ZIP
+        run: python3 tools/fourPackageTrain.py build-dev
+      - name: Upload private DEV candidate and SHA-256 receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhmos-dev-source-candidate
+          path: build/fourPackage/dev/
+          retention-days: 7
+          if-no-files-found: error
+  npm:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Exact-source checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ env.LUHM_SOURCE_REF }}
+      - name: Verify source identity
+        run: test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontEnd/prototypes/glassWorld/package-lock.json
+      - name: Exact locked build and real test suite
+        working-directory: frontEnd/prototypes/glassWorld
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run check
+      - name: Source-build footprint check
+        run: python3 tools/vendorReductionAudit.py --dist frontEnd/prototypes/glassWorld/dist
+      - name: Stage first-party static bundle using file allowlist
+        run: python3 tools/fourPackageTrain.py stage-npm
+      - name: Create private npm tarball, never publish
+        working-directory: build/fourPackage/npm/stage
+        run: npm pack --ignore-scripts --json --pack-destination ..
+      - name: Verify tarball allowlist and record hash
+        run: |
+          python3 - <<'PY'
+          import json
+          import tarfile
+          from pathlib import Path
+          from tools.fourPackageTrain import load, record, source_ref
+          root=Path("build/fourPackage/npm")
+          cfg=load()
+          tarball=root/cfg["lanes"]["npm"]["artifact"]
+          assert tarball.is_file(), "npm pack tarball absent"
+          with tarfile.open(tarball,"r:gz") as z:
+              names=[x.name for x in z.getmembers()]
+              assert names and len(names)==len(set(names))
+              assert all(x.startswith(("package/dist/","package/k9000/")) or
+                         x in ("package/package.json","package/LICENSE","package/README.md") for x in names)
+              assert all(x.isfile() for x in z.getmembers())
+          (root/"receipt.json").write_text(json.dumps(record(tarball,"npm",source_ref()),indent=2)+"\n")
+          print("NPM_PACKAGE_CREATED_PRIVATE_NOT_PUBLISHED",len(names))
+          PY
+      - name: Upload private npm candidate and SHA-256 receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhmos-k9000-npm-candidate
+          path: |
+            build/fourPackage/npm/*.tgz
+            build/fourPackage/npm/receipt.json
+          retention-days: 7
+          if-no-files-found: error
+  apk-existing-cast:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Exact-source checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ env.LUHM_SOURCE_REF }}
+      - name: Verify APK dependency/source readiness only
+        run: |
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          python3 tools/fourPackageTrain.py audit
+          python3 tools/androidWeb3CockpitAudit.py
+          echo "APK_BINARIES_REQUIRE_EXISTING_OWNER_CAST_WORKFLOW"
+          echo "NO_APK_BUILD_OR_SIGNING_IN_THIS_PR_JOB"
+  dmg-owner-dev:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.build_dmg && github.actor == 'eggie-admin' }}
+    runs-on: macos-15
+    timeout-minutes: 45
+    env:
+      LUHM_SOURCE_REF: ${{ github.sha }}
+    steps:
+      - name: Exact owner-dispatched source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ env.LUHM_SOURCE_REF }}
+      - name: Verify candidate source contract
+        run: |
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          python3 tools/fourPackageTrain.py audit
+      - name: Install SHA-256 pinned Godot 4.7.2 and export templates
+        run: |
+          set -euo pipefail
+          curl -fL --retry 4 -o "$RUNNER_TEMP/godot-macos.zip" https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_macos.universal.zip
+          echo "c58a24e31d720be9d62f60cb5627c4e695fb72f21b0cfe1bc9ccaa9a3b3ba63e  $RUNNER_TEMP/godot-macos.zip" | shasum -a 256 -c
+          curl -fL --retry 4 -o "$RUNNER_TEMP/godot-templates.tpz" https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
+          echo "f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011  $RUNNER_TEMP/godot-templates.tpz" | shasum -a 256 -c
+          mkdir -p "$RUNNER_TEMP/godot-unzip" "$RUNNER_TEMP/template-unzip" "$HOME/Library/Application Support/Godot/export_templates/4.7.2.stable"
+          unzip -q "$RUNNER_TEMP/godot-macos.zip" -d "$RUNNER_TEMP/godot-unzip"
+          unzip -q "$RUNNER_TEMP/godot-templates.tpz" -d "$RUNNER_TEMP/template-unzip"
+          cp -R "$RUNNER_TEMP/template-unzip/templates/." "$HOME/Library/Application Support/Godot/export_templates/4.7.2.stable/"
+          GODOT="$(find "$RUNNER_TEMP/godot-unzip" -path '*/Contents/MacOS/Godot' -type f | head -1)"
+          test -n "$GODOT"
+          echo "GODOT=$GODOT" >> "$GITHUB_ENV"
+          "$GODOT" --headless --version
+      - name: Import and export development DMG without notarization
+        run: |
+          set -euo pipefail
+          mkdir -p build/k9000
+          "$GODOT" --headless --path . --editor --import
+          "$GODOT" --headless --path . --export-debug "macOS K9000 Candidate" "build/k9000/K9000-development.dmg"
+          test -s build/k9000/K9000-development.dmg
+          hdiutil imageinfo build/k9000/K9000-development.dmg >/dev/null
+          shasum -a 256 build/k9000/K9000-development.dmg > build/k9000/dmg-sha256.txt
+          echo "DMG_ADHOC_DEVELOPMENT_ONLY_NOT_NOTARIZED"
+      - name: Upload private unnotarized DMG
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhmos-k9000-macos-dev-dmg
+          path: build/k9000/
+          retention-days: 7
+          if-no-files-found: error
