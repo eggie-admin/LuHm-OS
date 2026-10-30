@@ -1,0 +1,83 @@
+name: Unified Goddess Orchestra Four-Quarter Gate
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/unifiedGoddessOrchestraV1.json'
+      - 'infra/unified-quarters/**'
+      - 'tools/unifiedGoddessOrchestraAudit.py'
+      - 'tools/unifiedQuarterYamlGuard.rb'
+      - 'tests/testUnifiedGoddessOrchestra.py'
+      - 'packages/unified-ops/**'
+      - 'manual/unifiedGoddessOrchestraFourQuarter20261030.md'
+      - '.github/workflows/unified-goddess-orchestra.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: unified-goddess-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-orchestra:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Exact source checkout without persisted credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ env.LUHM_SOURCE_REF }}
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Exact source, JSON/Python/Ruby/JS static validation
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+          python3 -m json.tool doctrine/unifiedGoddessOrchestraV1.json >/dev/null
+          python3 -m json.tool packages/unified-ops/package.json >/dev/null
+          python3 -m json.tool packages/unified-ops/package-lock.json >/dev/null
+          python3 -m py_compile tools/unifiedGoddessOrchestraAudit.py tests/testUnifiedGoddessOrchestra.py
+          ruby -c tools/unifiedQuarterYamlGuard.rb
+          ruby tools/unifiedQuarterYamlGuard.rb
+      - name: Synthetic SQLite, class/plugin and quarantine audit
+        run: |
+          python3 tools/unifiedGoddessOrchestraAudit.py --mode audit
+          python3 tools/unifiedGoddessOrchestraAudit.py --mode sql-smoke
+          python3 -m unittest tests/testUnifiedGoddessOrchestra.py -v
+          python3 tools/companyWideQuarantineAudit.py
+          python3 tools/castBridgeStageAudit.py
+          python3 tools/deepDungeonSecurityAudit.py
+      - name: Establish no-dependency private npm developer bridge
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: npm four-quarter source smoke
+        working-directory: packages/unified-ops
+        run: |
+          set -euo pipefail
+          npm ci --ignore-scripts --no-audit --no-fund
+          node --check src/cli.mjs
+          node --check src/orchestra.mjs
+          npm run audit
+          npm run sql-smoke
+          npm run song
+          npm run plan:local
+          npm test
+          npm run matrix > /tmp/luhm-orchestra-matrix.json
+          python3 - <<'PY'
+          import json
+          x=json.load(open('/tmp/luhm-orchestra-matrix.json',encoding='utf8'))
+          assert x['count']==64
+          assert all(i['authority']=='NONE' and not i['liveCapabilityVerified'] for i in x['cells'])
+          print('MATRIX_64_INERT_GREEN')
+          PY
+      - name: No runtime or release authority
+        run: |
+          echo 'NPM_DEVELOPER_ONLY_NO_NODE_ANDROID_NO_NETWORK_SERVICES'
+          echo 'NO_ETC_WRITES_NO_VENDOR_DOWNLOAD_NO_DB_MIGRATION'
+          echo 'NO_AGENTS_NO_CAST_DISPATCH_NO_DEPLOY_NO_SIGN_NO_CROWN'
