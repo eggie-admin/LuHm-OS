@@ -1,0 +1,20 @@
+{
+  "name": "@luhm-os/unified-ops",
+  "private": true,
+  "version": "0.1.0-candidate.0",
+  "description": "Read-only four-quarter LuHm-OS developer orchestration; no production runtime or agent activation",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "audit": "node src/cli.mjs audit",
+    "matrix": "node src/cli.mjs matrix",
+    "sql-smoke": "node src/cli.mjs sql-smoke",
+    "song": "node src/cli.mjs song",
+    "plan:local": "node src/cli.mjs plan local coreLibrary hear",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

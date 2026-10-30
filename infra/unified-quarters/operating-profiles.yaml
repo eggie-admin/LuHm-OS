@@ -1,0 +1,76 @@
+schema: luhmOs.unifiedQuarterProfiles.v1
+source: doctrine/unifiedGoddessOrchestraV1.json
+deployment: DENY
+crownStatus: STOP
+runtimeAgents: 0
+npm:
+  role: DEVELOPER_ORCHESTRATION_ONLY
+  private: true
+  androidRuntime: false
+  remoteProductionRuntime: false
+  installScriptsAllowed: false
+  publishAllowed: false
+beats:
+  - hear
+  - resolve
+  - act
+  - verify
+composition:
+  - coreLibrary
+  - pluginExtension
+  - classWidgetOrganization
+  - stubAdapterBoundary
+quarters:
+  local:
+    location: ProfessorBasement
+    adapter: AndroidBrowserOrDesktop
+    networkRequired: false
+    automaticHardwarePermissions: false
+    rootRequired: false
+    runtimeNode: false
+  remote:
+    location: AuthenticatedRemote
+    adapter: ReadOnlyMcpOrScopedPythonApi
+    networkRequired: true
+    automaticInfrastructureDeployment: false
+    publicSqlPort: false
+    trustedTransportRequired: true
+  studio:
+    location: LinuxCreativeStudio
+    adapter: PythonFFmpegBlenderGodot
+    networkRequired: false
+    automaticMediaCapture: false
+    hardwareProofRequired: true
+    cloudGpuAssumed: false
+  company:
+    location: CorporateGovernance
+    adapter: GitHubEvidenceAndReleaseGates
+    networkRequired: false
+    automaticPublish: false
+    signingSecretsInRepo: false
+    humanReleaseAuthorityRequired: true
+vendorReduction:
+  core:
+    - Godot4
+    - Blender
+    - FFmpeg
+    - Python3
+    - SQLite
+    - jQuery
+    - Vue3
+    - Babylon.js
+  optional:
+    - VLC
+    - Kodi
+    - RetroArch
+    - NGINX
+    - Apache-httpd
+    - MariaDB
+    - Three.js
+    - Unity
+    - Unreal
+    - Wine
+    - WSL
+  autoDownloadThirdPartyCode: false
+  duplicateProxyRequired: false
+  duplicateBrowserRendererRequired: false

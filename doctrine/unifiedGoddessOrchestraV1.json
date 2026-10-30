@@ -1,0 +1,268 @@
+{
+  "schema": "luhmOs.unifiedGoddessOrchestra.v1",
+  "status": "SOURCE_ONLY_CANDIDATE_NO_RUNTIME_ACTIVATION",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalSource": "eggie-admin/LuHm-OS",
+  "existingContracts": {
+    "composition": "doctrine/luHmOSFourLayerArchitectureV1.json",
+    "rhythm": "doctrine/fourBeatInteractionRhythmV1.json",
+    "sql": "host/api/typedLanesV1.sql",
+    "typedLanes": "doctrine/typedFourLaneSqlV1.json",
+    "vendorReduction": "doctrine/vendorReductionV1.json",
+    "namespace": "doctrine/namingNamespaceCanonV1.json",
+    "security": "doctrine/dataProtectionLadderV1.json",
+    "agentQuarantine": "doctrine/companyWideOperationalQuarantineV1.json",
+    "castStage": "doctrine/castBridgeStageGateV1.json",
+    "universalLayers": "doctrine/universalFourLaneV1.json"
+  },
+  "composition": [
+    "coreLibrary",
+    "pluginExtension",
+    "classWidgetOrganization",
+    "stubAdapterBoundary"
+  ],
+  "fourBeats": [
+    "hear",
+    "resolve",
+    "act",
+    "verify"
+  ],
+  "quarters": [
+    "local",
+    "remote",
+    "studio",
+    "company"
+  ],
+  "profileRoles": {
+    "local": {
+      "purpose": "offline Professor basement, stock Android and browser adapters",
+      "requires": [
+        "staticAssets"
+      ],
+      "mayUse": [
+        "Python3",
+        "SQLite",
+        "browser"
+      ],
+      "forbidden": [
+        "NodeRuntimeOnAndroid",
+        "PublicDatabase",
+        "RootRequired",
+        "AutoCameraCapture"
+      ],
+      "remoteNetworkRequired": false
+    },
+    "remote": {
+      "purpose": "approved HTTPS API and read-only MCP origin, with Cloudflare change gate",
+      "requires": [
+        "TLS",
+        "authenticatedPrivateOperations"
+      ],
+      "mayUse": [
+        "Python3",
+        "SQLite",
+        "Render"
+      ],
+      "forbidden": [
+        "PublicSqlAdmin",
+        "OpenShell",
+        "AutoCloudflareCutover"
+      ],
+      "remoteNetworkRequired": true
+    },
+    "studio": {
+      "purpose": "local Linux workstation capture and creative rendering",
+      "requires": [
+        "Python3",
+        "SQLite"
+      ],
+      "mayUse": [
+        "FFmpeg",
+        "Blender",
+        "Godot4",
+        "PipeWire",
+        "BlueZ",
+        "V4L2"
+      ],
+      "forbidden": [
+        "AutoCapture",
+        "UnapprovedModelUpload"
+      ],
+      "remoteNetworkRequired": false
+    },
+    "company": {
+      "purpose": "records, audit, build governance, rights and publishing",
+      "requires": [
+        "exactSource",
+        "evidence",
+        "review"
+      ],
+      "mayUse": [
+        "GitHubActions",
+        "Python3",
+        "SQLite"
+      ],
+      "forbidden": [
+        "AutoPublish",
+        "AutomaticCrown",
+        "AgentSelfApproval"
+      ],
+      "remoteNetworkRequired": false
+    }
+  },
+  "tasks": {
+    "manifestFields": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "capability",
+      "authority",
+      "consent",
+      "evidenceRefs",
+      "costBudget"
+    ],
+    "developerModeOnly": true,
+    "sourceStatus": "CANDIDATE",
+    "noRemoteExecution": true,
+    "mutationRequiresSeparateOwnerCast": true,
+    "noAutomaticWorkerSpawning": true
+  },
+  "agentSong": {
+    "existingSixRoleViews": [
+      "lum",
+      "skuldResearch",
+      "tetsu",
+      "kaji",
+      "yume",
+      "belldandySecretary"
+    ],
+    "reviewer": "urdDoctorGoddess",
+    "ownerByBeat": {
+      "hear": "lum",
+      "resolve": "skuldResearch",
+      "act": "kaji",
+      "verify": "belldandySecretary"
+    },
+    "actAuthority": "PROPOSED_ONLY_QUARANTINED",
+    "urdReview": "READ_ONLY_RECONCILIATION",
+    "all15WorkersQuarantined": true
+  },
+  "moduleRegistry": [
+    {
+      "id": "coreContracts",
+      "layer": "coreLibrary",
+      "language": "JSON",
+      "ref": "doctrine/luHmOSFourLayerArchitectureV1.json"
+    },
+    {
+      "id": "taskLedger",
+      "layer": "coreLibrary",
+      "language": "SQL",
+      "ref": "host/api/typedLanesV1.sql"
+    },
+    {
+      "id": "backendAudit",
+      "layer": "pluginExtension",
+      "language": "Python3",
+      "ref": "tools/deepDungeonSecurityAudit.py"
+    },
+    {
+      "id": "videoPlugin",
+      "layer": "pluginExtension",
+      "language": "Python3",
+      "ref": "host/ai-ffmpeg/ai-ffmpeg.py"
+    },
+    {
+      "id": "webWidgets",
+      "layer": "classWidgetOrganization",
+      "language": "JavaScript",
+      "ref": "frontEnd/k9000.js"
+    },
+    {
+      "id": "renderAdapter",
+      "layer": "stubAdapterBoundary",
+      "language": "YAML",
+      "ref": "render.yaml"
+    }
+  ],
+  "toolchain": {
+    "npm": {
+      "role": "DEVELOPER_ORCHESTRATION_ONLY",
+      "location": "packages/unified-ops",
+      "runtimeOnAndroid": false,
+      "runtimeOnProductionVm": false,
+      "private": true,
+      "dependencies": {},
+      "lifecycleInstallScripts": false
+    },
+    "python": {
+      "role": "STANDARD_LIBRARY_SQLITE_IN_MEMORY_AUDITS",
+      "source": "tools/unifiedGoddessOrchestraAudit.py",
+      "productionExecution": false
+    },
+    "sql": {
+      "dialect": "SQLite STRICT JSON1",
+      "schema": "host/api/typedLanesV1.sql",
+      "storage": "IN_MEMORY_TEST_ONLY",
+      "publicPort": false,
+      "liveMigration": false
+    },
+    "yaml": {
+      "role": "DECLARATIVE_FOUR_QUARTER_PROFILES",
+      "source": "infra/unified-quarters/operating-profiles.yaml",
+      "apply": false
+    },
+    "javascript": {
+      "role": "FRONTEND_AND_DEV_CLI",
+      "clientRuntime": "BUNDLED_OFFLINE_JS",
+      "devCli": "NODE22_ONLY"
+    },
+    "vendorSelection": {
+      "core": [
+        "Godot4",
+        "Blender",
+        "FFmpeg",
+        "Python3",
+        "SQLite",
+        "jQuery",
+        "Vue3",
+        "Babylon.js"
+      ],
+      "optional": [
+        "VLC",
+        "Kodi",
+        "RetroArch",
+        "NGINX",
+        "Apache-httpd",
+        "MariaDB",
+        "Three.js",
+        "Unity",
+        "Unreal",
+        "Wine",
+        "WSL"
+      ],
+      "noDuplicateRendererInstall": true,
+      "noDuplicateReverseProxyByDefault": true,
+      "noRuntimeNodeOnAndroid": true,
+      "neverAutoPullThirdPartyCode": true
+    }
+  },
+  "safety": {
+    "noPrivateDataInPublicRepo": true,
+    "noAutomaticMerge": true,
+    "noAutomaticDeploy": true,
+    "noPermissionChanges": true,
+    "noDnsChanges": true,
+    "noAutomaticSigning": true,
+    "noAgentActivation": true,
+    "noExternalCommandsFromUserInput": true,
+    "noProductionDbChanges": true,
+    "noMediaCapture": true,
+    "noNpmPublish": true,
+    "noVendorAutoDownload": true
+  },
+  "readyForBrandingDraft": true,
+  "readyForPublicBrandingPublish": false,
+  "crownStatus": "STOP"
+}
