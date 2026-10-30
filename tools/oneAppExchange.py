@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 import re
 import sys
+import zipfile
 import xml.etree.ElementTree as ET
 
 import archiveIntake
@@ -62,6 +63,8 @@ def rss_to_json(payload: bytes, source_sha: str) -> dict:
     check_source_sha(source_sha)
     if not isinstance(payload, bytes) or not 0 < len(payload) <= MAX_RSS_BYTES:
         raise ExchangeError("feed payload size invalid")
+    if b"\x00" in payload or payload.startswith((b"\xff\xfe", b"\xfe\xff")):
+        raise ExchangeError("UTF-16/XML null-byte encoding forbidden")
     low = payload.lower()
     if b"<!doctype" in low or b"<!entity" in low:
         raise ExchangeError("XML DTD/entities forbidden")
@@ -168,7 +171,7 @@ def inspect_archive(path: Path, source_sha: str) -> dict:
     try:
         members = [{"path": name, "sha256": hashlib.sha256(blob).hexdigest(), "bytes": len(blob)}
                    for name, blob in archiveIntake.zip_members(path)]
-    except (OSError, ValueError, archiveIntake.IntakeError) as exc:
+    except (OSError, ValueError, archiveIntake.IntakeError, zipfile.BadZipFile) as exc:
         raise ExchangeError("archive refused by safe ZIP intake") from exc
     receipt.update({"status": "INSPECTED_ONLY", "members": members})
     return receipt
