@@ -41,7 +41,7 @@ def inspect(root=ROOT,policy_override=None):
     ck("mcpCurrentRenderDoctrine",cloud["lanes"]["chatGptMcp"]["activeTransport"]=="directRenderManagedTls")
     ck("tunnelNotDeployed",t["candidateVm"]["deployed"] is False and t["candidateVm"]["dnsChanged"] is False)
     ck("fourSecurityStages",t["edgeFourStages"]==["edgeDdosAndWaf","authenticatedIdentityAndAccess","privateLoopbackProxy","capabilityAuthorizationAndAudit"])
-    ck("privateOrigin",t["noPublicOriginPort"] is True and t["noPublicSqlRoute"] is True)
+    ck("privateOrigin",t["noPublicOriginPort"] is True and t["noRawSqlRoute"] is True)
     ck("doNotTreatGeoAsLogin",t["noClientGeolocationWithoutConsent"] is True and t["noLocationCollection"] is True and t["ipGeoNotAuthProof"] is True)
     ck("paidBotScoreNotRequired",t["paidBotScoreRequired"] is False)
     ck("oneProxyOnly",t["nginx"].startswith("OPTIONAL_") and t["apacheHttpd"]=="ALTERNATIVE_NOT_STACKED")
