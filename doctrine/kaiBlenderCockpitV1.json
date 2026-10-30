@@ -43,9 +43,9 @@
     {
       "id": "python",
       "name": "Headless creative forge",
-      "tool": "blender --background --factory-startup --python tools/kaiBlenderInspect.py",
+      "tool": "tools/yumeGodotAssetPrep.py preflight; separate reviewed Blender --background import job (not yet implemented)",
       "privilege": "explicitOptIn",
-      "runtime": "NOT_RUN_ON_REAL_BLENDER"
+      "runtime": "PREFLIGHT_SOURCE_ONLY_BLENDER_NOT_RUN"
     },
     {
       "id": "javascript",
