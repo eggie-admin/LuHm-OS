@@ -6,6 +6,10 @@ on:
       - 'manual/vendorApacheZipInterop20261030.md'
       - 'tools/vendorApacheAudit.py'
       - 'tools/zipInteropAudit.py'
+      - 'doctrine/vendorProvenanceBoundaryV1.json'
+      - 'tools/vendorProvenanceBoundaryAudit.py'
+      - 'tests/testVendorProvenanceBoundary.py'
+      - 'manual/vendorProvenancePortableZipSnapshot20261030.md'
       - 'tools/fourPackageTrain.py'
       - 'tests/testVendorZipInterop.py'
       - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/ZipInteropInspector.java'
@@ -33,6 +37,10 @@ jobs:
           python3 -m py_compile tools/zipInteropAudit.py tools/vendorApacheAudit.py tools/fourPackageTrain.py
       - name: GPL and OS/browser vendor license safety census
         run: python3 tools/vendorApacheAudit.py
+      - name: Vendor provenance, Apache ownership and unverified runtime guards
+        run: |
+          python3 tools/vendorProvenanceBoundaryAudit.py
+          python3 -m unittest tests/testVendorProvenanceBoundary.py -v
       - name: ZIP security, determinism and negative tests
         run: |
           python3 -m unittest tests/testVendorZipInterop.py -v
@@ -59,6 +67,38 @@ jobs:
             exit 1
           fi
           echo "JAVA17_GRADLE_SOURCE_ZIP_INTEROP_PASSED_NOT_APK_INSTALLED"
+      - name: Java 17 rejects hostile but correctly hashed portable ZIP aliases
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
+          root=Path(os.environ["RUNNER_TEMP"])/"luhm-zip-java"
+          for label,names in {
+              "casefold":["luhmos-dev/A.txt","luhmos-dev/a.txt"],
+              "windows-device":["luhmos-dev/CON.txt"],
+              "alternate-stream":["luhmos-dev/a.txt:stream"],
+              "trailing-dot":["luhmos-dev/dir/a."],
+          }.items():
+              with ZipFile(root/(label+".zip"),"w") as out:
+                  for name in names:
+                      item=ZipInfo(name,(1980,1,1,0,0,0))
+                      item.compress_type=ZIP_DEFLATED
+                      item.external_attr=0o100644<<16
+                      out.writestr(item,b"safe-data")
+          PY
+          for LABEL in casefold windows-device alternate-stream trailing-dot; do
+            ZIP="${RUNNER_TEMP}/luhm-zip-java/${LABEL}.zip"
+            SHA="$(sha256sum "$ZIP" | cut -d' ' -f1)"
+            COUNT=1
+            if [ "$LABEL" = "casefold" ]; then COUNT=2; fi
+            if java -cp "${RUNNER_TEMP}/luhm-zip-java" art.eggiebagelface.luhmos.web3.ZipInteropInspector "$ZIP" "$SHA" "$COUNT" >/dev/null 2>&1; then
+              echo "RED: JAVA_ACCEPTED_PORTABLE_ZIP_ATTACK_${LABEL}" >&2
+              exit 1
+            fi
+          done
+          echo "JAVA17_REJECTED_FOUR_HOSTILE_ZIPS_WITH_CORRECT_SHA"
       - name: Upload private SHA audit receipt
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
