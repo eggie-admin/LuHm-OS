@@ -1,0 +1,11 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {witchingHour} from "../src/witching-hour.mjs";
+import {workflowPlan} from "../src/workflow.mjs";
+import {aiPlan} from "../src/ai.mjs";
+test("witching hour refuses unapproved scene",()=>assert.equal(witchingHour({mode:"company"}).mode,"normal"));
+test("roleplay does not grant authority",()=>assert.equal(witchingHour({mode:"roleplay",sceneApproved:true}).mutationAllowed,false));
+test("workflow supports bounded 2 threads",()=>assert.equal(workflowPlan({threads:2,tasks:["audit"]}).execution,"SOURCE_ONLY"));
+test("workflow rejects unbounded concurrency",()=>assert.throws(()=>workflowPlan({threads:500})));
+test("AI plan cannot execute tools",()=>assert.equal(aiPlan({capability:"coding",approved:true}).toolExecutionAllowed,false));
+test("AI plan rejects undeclared providers",()=>assert.throws(()=>aiPlan({capability:"coding",provider:"unknown"})));

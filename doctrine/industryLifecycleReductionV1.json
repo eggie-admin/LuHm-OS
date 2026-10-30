@@ -1,0 +1,174 @@
+{
+  "schema": "luhmOs.industryLifecycleReduction.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "asOf": "2026-10-30",
+  "purpose": "Consolidate Project Hydra legacy/testing sources into an evidence-gated LuHm-OS Project Premonition proposed candidate without auto release, source rewrite or claims of autonomous agents.",
+  "identity": {
+    "product": "LuHm-OS",
+    "project": "Project Premonition",
+    "legacyAlias": "Project Hydra",
+    "publisher": "Eggie Bagelface",
+    "creativeImprint": "PIRATE DADDIES FILM",
+    "repository": "eggie-admin/LuHm-OS",
+    "doNotRewriteHistoricalNames": true
+  },
+  "lanes": [
+    {
+      "id": "legacy",
+      "meaning": "preserved historical receipts, EOL/noncanonical donor source",
+      "buildAllowed": false,
+      "releaseAllowed": false
+    },
+    {
+      "id": "testing",
+      "meaning": "ephemeral compatibility and negative-regression tests only",
+      "buildAllowed": true,
+      "releaseAllowed": false
+    },
+    {
+      "id": "proposed",
+      "meaning": "reconciled exact-source CI candidate and isolated preview",
+      "buildAllowed": true,
+      "releaseAllowed": false
+    },
+    {
+      "id": "privateBeta",
+      "meaning": "owner-approved signed artifact for named testers plus rollback",
+      "buildAllowed": true,
+      "releaseAllowed": false
+    },
+    {
+      "id": "publicBeta",
+      "meaning": "separately approved supported install path with rights/privacy/device proof",
+      "buildAllowed": true,
+      "releaseAllowed": false
+    },
+    {
+      "id": "stable",
+      "meaning": "final independently reviewed publisher-approved artifact",
+      "buildAllowed": true,
+      "releaseAllowed": false
+    }
+  ],
+  "execution": {
+    "singleMutableCandidate": true,
+    "readOnlyAuditDefault": true,
+    "freezeMain": true,
+    "autoMerge": false,
+    "autoDeploy": false,
+    "autoPublish": false,
+    "autoSign": false,
+    "autoCrown": false,
+    "roleplayIsAuthority": false,
+    "agentRuntimeProven": false
+  },
+  "runtimeCandidates": {
+    "node": {
+      "legacyEol": [
+        "20",
+        "23",
+        "25"
+      ],
+      "compatibilityOnly": [
+        "22"
+      ],
+      "recommendedBaseline": "24",
+      "testing": [
+        "26"
+      ],
+      "doNotMassUpgrade": true
+    },
+    "python": {
+      "legacyEol": [
+        "3.10"
+      ],
+      "securityOnly": [
+        "3.11",
+        "3.12",
+        "3.13"
+      ],
+      "recommendedCandidate": "3.14",
+      "testing": [
+        "3.15"
+      ],
+      "doNotReplaceHostPythonWithoutCompatibilityTests": true
+    },
+    "android": {
+      "targetApiForNewGooglePlayApps": 36,
+      "storeSubmissionUnverified": true,
+      "debugArtifactNotBeta": true
+    }
+  },
+  "riskMethod": {
+    "sources": [
+      "NIST AI RMF 600-1",
+      "OWASP Top 10 for LLM Applications 2025",
+      "OWASP Top 10 for Agentic Applications 2026",
+      "SLSA v1.2 Build and Source tracks",
+      "GitHub Actions secure-use and reusable-workflow guidelines"
+    ],
+    "aiRegressionClasses": [
+      "promptInjection",
+      "toolPermissionDrift",
+      "sensitiveOutput",
+      "unsafeModelOutput",
+      "unboundedConsumption",
+      "approvalSpoofing",
+      "modelVersionDrift",
+      "deterministicMockOffline"
+    ],
+    "untrustedOutputCannotAuthorizeAction": true
+  },
+  "workflowReduction": {
+    "mainObservedWorkflowCount": 129,
+    "stackedCandidateObservedWorkflowCountBeforeThisPatch": 140,
+    "counterIsSnapshotNotInvariant": true,
+    "method": "Report exact duplicate YAML, unpinned actions, privileges, dispatch overlap and obsolete runtime references; consolidate only after source diff, independent review and measured CI equivalence.",
+    "doNotDeleteWorkflowOnFilenameSimilarity": true,
+    "doNotCreateNewWorkflow": true,
+    "preferredConsolidation": "path-scoped existing workflows and reusable job scripts, exact SHA CI, concurrency cancellation for superseded PR CI only"
+  },
+  "media": {
+    "blenderMasterPrivate": true,
+    "sourceAssetsRequireHashAndRights": true,
+    "previewRequiresRealGodotInput": true,
+    "samsungDeviceProofUnverified": true
+  },
+  "brand": {
+    "campaignWorkAllowed": "private-draft-only",
+    "publicMarketingAuthorized": false,
+    "thirdPartyCharacterRightsVerified": false,
+    "publicReleaseCopyAllowed": false,
+    "doNotClaimAffiliation": true,
+    "proofRequiredBeforeAdvertising": [
+      "currentPlayableProof",
+      "ownedArtHashes",
+      "signerAndUpdateContinuity",
+      "privacyPolicyAndDataPractices",
+      "supportAndFeedbackRoute",
+      "publisherExactCopyApproval"
+    ]
+  },
+  "proof": {
+    "requiredJoinKeys": [
+      "taskId",
+      "scopeId",
+      "sourceRef",
+      "artifactSha256",
+      "deviceOrHostId",
+      "evidenceRef"
+    ],
+    "sourceCiIsNotRuntimeProof": true,
+    "releaseProofCannotBeInferred": true
+  },
+  "sources": {
+    "nist": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+    "owasp": "https://genai.owasp.org/llm-top-10/",
+    "slsa": "https://slsa.dev/spec/v1.2/",
+    "github": "https://docs.github.com/en/actions/reference/security/secure-use",
+    "python": "https://devguide.python.org/versions/",
+    "node": "https://nodejs.org/en/about/previous-releases",
+    "googlePlay": "https://developer.android.com/google/play/requirements/target-sdk"
+  },
+  "crownStatus": "STOP"
+}

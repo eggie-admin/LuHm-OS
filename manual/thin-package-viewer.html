@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LuHm-OS | Thin Package Plan</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;color:#f7f1ff;background:#12131d}
+body{max-width:1050px;margin:auto;padding:clamp(1rem,4vw,3rem)}
+h1{font-size:clamp(1.7rem,4vw,2.7rem)}p{line-height:1.5}
+.panel{background:#202233;border:1px solid #5b527a;border-radius:1rem;padding:1.15rem;margin:1.2rem 0}
+.meta{font:0.9rem ui-monospace,monospace;overflow-wrap:anywhere}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.8rem}
+.card{background:#282a40;border:1px solid #625779;border-radius:.7rem;padding:1rem;overflow-wrap:anywhere}
+.badge{display:inline-block;border:1px solid #efb765;border-radius:3rem;padding:.35rem .8rem;color:#ffd79a}
+input{max-width:100%;padding:.8rem;border:1px dashed #aa9bd1;border-radius:.5rem}
+input:focus-visible{outline:3px solid #ffd79a}
+small{color:#c5c1d8}
+</style></head>
+<body>
+<header><p>👑 LuHm-OS · Project Premonition</p><h1>Thin Package Plan</h1>
+<p>Read-only, human-centered inspection of a proposed source receipt. No packages are installed, deleted, signed or published.</p>
+<span class="badge">SOURCE ONLY · CROWN STOP</span></header>
+<main>
+<section class="panel"><h2>Open a local JSON receipt</h2>
+<p>Choose JSON from <code>npm run pkg:plan</code> or <code>npm run pkg:try</code>. Processed in this page; never uploaded.</p>
+<input id="source" type="file" accept=".json,application/json" aria-label="Select package receipt">
+<p id="message" role="status" aria-live="polite">No receipt loaded. No actions performed.</p></section>
+<section class="panel"><h2>Source and authority</h2><div id="facts">Select a receipt to inspect its claims.</div></section>
+<section class="panel"><h2>Package dependency cards</h2><div id="cards" class="grid"></div></section>
+<section class="panel"><h2>Proof boundaries</h2><p>Names and dependencies are not proof of a cleared license, valid entitlement, physical Samsung runtime, or production signer. The source-only package planner is not APT/dpkg and does not execute ComfyUI nodes. All privileged work remains in separately approved backend services.</p></section>
+</main><footer><small>Offline static documentation. Not a deployed ChatGPT widget, Android application, or ComfyUI host.</small></footer>
+<script>
+"use strict";
+const picker=document.getElementById("source"), facts=document.getElementById("facts");
+const cards=document.getElementById("cards"), message=document.getElementById("message");
+function node(tag,value){const el=document.createElement(tag);el.textContent=String(value);return el;}
+function render(x){
+ if(x?.schema!=="luhmOs.thinPackageReceipt.v1"||!Array.isArray(x.decisions)||x.decisions.length>128)throw Error("Unsupported receipt schema");
+ if(x.releaseAuthorized!==false||x.crown!=="STOP"||x.packageActionsExecuted!==false)throw Error("Unsafe authority claims");
+ if(!/^[0-9a-f]{40}$/.test(String(x.sourceRef||"")))throw Error("Exact source reference required");
+ facts.replaceChildren();cards.replaceChildren();
+ for(const [key,value] of [
+  ["Source ref",x.sourceRef],["Mode",x.mode],["Status",x.status],
+  ["Identity independently verified",x.sourceIdentityVerified===true?"YES":"NO"],
+  ["Changes applied to host",x.hostChanged===true?"YES":"NO"],["Crown",x.crown]]){
+  const p=node("p",key+": "+String(value??"UNKNOWN"));p.className="meta";facts.append(p);
+ }
+ for(const item of x.decisions){
+  if(typeof item?.id!=="string"||item.id.length>70||!Array.isArray(item.requires))throw Error("Malformed module");
+  const card=document.createElement("article");card.className="card";
+  card.append(node("h3",item.id),node("p","Decision: "+item.decision),
+    node("p","Manager: "+item.manager),node("p","Surface: "+item.surface),
+    node("p","Dependencies: "+(item.requires.join(", ")||"none")));
+  cards.append(card);
+ }
+ message.textContent="Receipt displayed locally. No operations executed.";
+}
+picker.addEventListener("change",async()=>{
+ try{
+  const f=picker.files?.[0];if(!f)return;
+  if(f.size>256000)throw Error("Receipt exceeds 256 KB limit");
+  render(JSON.parse(await f.text()));
+ }catch(error){facts.replaceChildren();cards.replaceChildren();message.textContent=error.message;}
+});
+</script></body></html>

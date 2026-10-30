@@ -1,0 +1,106 @@
+{
+  "schema": "luhmOs.thinPackagePlan.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "client": "static HTML/CSS/jQuery and typed WebView events",
+  "backend": "separate Python MCP/SQLite, Godot, Blender/FFmpeg workers",
+  "neverExecuteVendorInstallScripts": true,
+  "neverAutoPurge": true,
+  "neverAssumeLicenseOrEntitlement": true,
+  "noEmbeddedProviderSecrets": true,
+  "autoApply": false,
+  "autoMerge": false,
+  "autoDeploy": false,
+  "autoPublish": false,
+  "crown": "STOP",
+  "modules": [
+    {
+      "id": "webGlass",
+      "surface": "client",
+      "path": "frontEnd/index.html",
+      "manager": "npm",
+      "decision": "retain",
+      "requires": []
+    },
+    {
+      "id": "glassWorldPrototype",
+      "surface": "studio",
+      "path": "frontEnd/prototypes/glassWorld/package.json",
+      "manager": "npm",
+      "decision": "isolate",
+      "requires": [
+        "webGlass"
+      ]
+    },
+    {
+      "id": "mcpHost",
+      "surface": "service",
+      "path": "host",
+      "manager": "python",
+      "decision": "retain",
+      "requires": []
+    },
+    {
+      "id": "comfyUiAdapter",
+      "surface": "studio",
+      "path": "frontEnd/plugins",
+      "manager": "apiContract",
+      "decision": "isolate",
+      "requires": [
+        "webGlass"
+      ]
+    },
+    {
+      "id": "blenderForge",
+      "surface": "studio",
+      "path": "tools",
+      "manager": "blender",
+      "decision": "retain",
+      "requires": []
+    },
+    {
+      "id": "mediaWorker",
+      "surface": "studio",
+      "path": "media",
+      "manager": "ffmpeg",
+      "decision": "retain",
+      "requires": []
+    },
+    {
+      "id": "godotGame",
+      "surface": "native",
+      "path": "project.godot",
+      "manager": "godot",
+      "decision": "retain",
+      "requires": []
+    },
+    {
+      "id": "androidHost",
+      "surface": "distribution",
+      "path": "androidWeb3Plugin",
+      "manager": "gradle",
+      "decision": "retain",
+      "requires": [
+        "webGlass",
+        "godotGame"
+      ]
+    },
+    {
+      "id": "linuxDebOptional",
+      "surface": "distribution",
+      "path": "host",
+      "manager": "dpkg",
+      "decision": "isolate",
+      "requires": [
+        "mcpHost"
+      ]
+    },
+    {
+      "id": "legacyDonors",
+      "surface": "quarantine",
+      "path": "doctrine/REPO_MIGRATION.json",
+      "manager": "none",
+      "decision": "quarantine",
+      "requires": []
+    }
+  ]
+}
