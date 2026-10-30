@@ -38,8 +38,8 @@ def sql_smoke(root: Path = ROOT) -> dict:
         )
         refused = 0
         bad_queries = [
-            ("INSERT INTO aiManifestStream(eventId,manifestJson,manifestSchema,providerId,capabilityId,mutationAuthority) VALUES(?,?,?,?,?,?)",
-             ("test-event", "{}", "test", "none", "dryRun", 1)),
+            ("UPDATE aiManifestStream SET mutationAuthority=? WHERE eventId=?",
+             (1, "test-event")),
             ("INSERT INTO booleanStream(eventId,fieldName,booleanValue) VALUES(?,?,?)",
              ("test-event", "unauthorized", 2)),
             ("INSERT INTO textStream(eventId,fieldName,textValue) VALUES(?,?,?)",
