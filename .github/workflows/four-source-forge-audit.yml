@@ -1,0 +1,75 @@
+name: Four Source Forge Kiosk Netplan SQL Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/fourSourceForgeV1.json'
+      - 'doctrine/fourSourceTask.schema.json'
+      - 'infra/four-source/**'
+      - 'tools/unifiedForgePipeline.py'
+      - 'tools/ownerImapUnreadCheck.py'
+      - 'tools/fourSourceForgeAudit.py'
+      - 'frontEnd/forgeSourceProjection.mjs'
+      - 'tests/testUnifiedForgePipeline.py'
+      - 'tests/fourSourceProjection.test.mjs'
+      - '.github/workflows/four-source-forge-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audited-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 16
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout exact candidate SHA
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ env.LUHM_SOURCE_REF }}
+      - name: Check source, JSON, Python and strict YAML syntax
+        run: |
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+          ruby -rpsych -e 'Dir.glob(".github/workflows/*.{yml,yaml}").each { |p| Psych.parse_file(p) }'
+          ruby -rpsych -e 'Psych.parse_file("infra/four-source/netplan/99-luhm-networkd.example.yaml")'
+          python3 -m json.tool doctrine/fourSourceForgeV1.json > /dev/null
+          python3 -m json.tool doctrine/fourSourceTask.schema.json > /dev/null
+          python3 -m py_compile tools/unifiedForgePipeline.py tools/ownerImapUnreadCheck.py tools/fourSourceForgeAudit.py
+      - name: Real local Python SQLite and Base64url manifest projection
+        run: |
+          python3 tools/unifiedForgePipeline.py
+          python3 tools/ownerImapUnreadCheck.py
+          python3 -m unittest tests/testUnifiedForgePipeline.py -v
+      - name: Native Netplan generate from isolated temp root without apply
+        run: |
+          set -euo pipefail
+          if ! command -v netplan >/dev/null; then
+            sudo apt-get update -qq
+            sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends netplan.io
+          fi
+          SANDBOX="$RUNNER_TEMP/four-source-netplan"
+          mkdir -p "$SANDBOX/etc/netplan"
+          cp infra/four-source/netplan/99-luhm-networkd.example.yaml "$SANDBOX/etc/netplan/99-luhm-networkd.yaml"
+          chmod 0600 "$SANDBOX/etc/netplan/99-luhm-networkd.yaml"
+          netplan generate --root-dir "$SANDBOX"
+          test -d "$SANDBOX/run/systemd/network"
+          echo "NETPLAN_GENERATED_OFFLINE_NO_APPLY_NO_HOST_INTERFACE_CHANGED"
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: HTML5 JavaScript projected source validation
+        run: |
+          node --check frontEnd/forgeSourceProjection.mjs
+          node --test tests/fourSourceProjection.test.mjs
+      - name: Plugins, four-source architecture, identity and hardware source gate
+        run: |
+          python3 tools/fourSourceForgeAudit.py
+          python3 tools/escalationKernelAudit.py
+          python3 tools/jqueryPluginContinuity.py
+          python3 tools/companyWideQuarantineAudit.py
+      - name: Explicit runtime and public-authority hold
+        run: |
+          echo "SOURCE_ONLY_CI_GITHUB; NO_ORACLE_GOOGLE_VM_ACCESS"
+          echo "NO_NETPLAN_APPLY_NO_CERTBOT_ISSUE_NO_BLUEZ_PAIR_NO_CAMERA_STREAM"
+          echo "NO_MAILBOX_CONNECTION_NO_APP_AUTH_NO_AGENT_WORKER_NO_CROWN"
