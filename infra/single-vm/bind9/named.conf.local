@@ -1,0 +1,16 @@
+// PRIVATE DESIGN EXAMPLE ONLY. No public DNS delegation or host installation.
+options {
+  directory "/var/cache/bind";
+  recursion no;
+  allow-query { 127.0.0.1; };
+  listen-on port 53 { 127.0.0.1; };
+  listen-on-v6 { none; };
+  dnssec-validation auto;
+  minimal-responses yes;
+};
+zone "vm.luhm.test" {
+  type primary;
+  file "/etc/bind/zones/db.vm.luhm.test";
+  allow-transfer { none; };
+  allow-update { none; };
+};
