@@ -1,0 +1,51 @@
+{
+  "schema": "luhmOs.castBridgeStageGate.v1",
+  "status": "STAGED_FOR_CAST_REVIEW_SOURCE_ONLY",
+  "authority": "Professor",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "baselineMainSha": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d",
+  "upstreamHeadSha": "d0e4e1b622d190380f2d0f64876c5359d9dda472",
+  "upstreamPr": 454,
+  "stack": [447, 448, 449, 450, 451, 452, 453, 454],
+  "sourceEvidence": {
+    "upstreamWorkflowCountObserved": 20,
+    "upstreamWorkflowsCompletedSuccessAtPinnedSha": true,
+    "stageHeadExactCI": "PENDING_INDEPENDENT_VERIFICATION",
+    "sourceBuildIsDeviceProof": false,
+    "sourceBuildIsDeployProof": false
+  },
+  "hostEvidence": {
+    "tool": "luhm_open_cockpit",
+    "currentChatToolResponse": "OBSERVED_IN_INTERACTIVE_CHAT_UNBOUND_TO_REVIEWED_SOURCE",
+    "visualMcpAppMount": "UNVERIFIED",
+    "mobileAcceptance": "UNVERIFIED",
+    "siteBackendVersionMatchesStage": "UNVERIFIED",
+    "chatGptPluginCastGreen": false
+  },
+  "ownerCast": {
+    "dispatchContract": "doctrine/PROFESSOR_CAST_BRIDGE_V1.json",
+    "requiredSyntax": "/cast <androidProposedDebug|androidWeb3Cockpit|publicPluginPackage> <40-char-current-main-sha>",
+    "milestoneSelected": null,
+    "ownerGitHubCommentProvided": false,
+    "dispatchTriggered": false,
+    "buildRefIsCurrentMainNotThisCandidate": true
+  },
+  "deployment": {
+    "renderWorkspaceSelection": "REQUIRES_OWNER_CONFIRMATION",
+    "renderDeployTriggered": false,
+    "cloudflareChanged": false,
+    "androidSigned": false,
+    "publicArtifactPublished": false,
+    "productionMerge": false,
+    "agentQuarantineLifted": false
+  },
+  "requirementsBeforePromotion": [
+    "exactStageHeadCiSuccess",
+    "explicitOwnerReviewOfExactStageDiffAndSha",
+    "ownerGitHubCastMilestoneCommentBoundToCurrentMainSha",
+    "separateChatGptHostResourceVisualMountAndDeviceAcceptance",
+    "exactSourceRenderDeployAndHealthReceiptIfRenderRequested",
+    "independentLicenseAndAssetRightsApprovalBeforePublicRelease"
+  ],
+  "crownStatus": "STOP"
+}
