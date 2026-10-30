@@ -66,6 +66,7 @@ def inspect(root=ROOT,policy_override=None):
     ck("yamlNotDeploy",yaml.count("    release: false")==4 and "deployment: DENY" in yaml)
     ck("projectionNoInnerHtml","innerHTML" not in read("frontEnd/universalRouteProjection.mjs"))
     ck("oneK9000Present",(root/"frontEnd/k9000.html").is_file())
+    ck("k9000FourLaneCard",'data-universal-lanes' in read("frontEnd/k9000.html") and "VM UNVERIFIED" in read("frontEnd/k9000.html"))
     errors=sorted(x for x,ok in c.items() if not ok)
     return {"schema":"luhmOs.universalFourLaneAudit.v1","checks":len(c),"passed":len(c)-len(errors),
         "errors":errors,"verdict":"SOURCE_GREEN_RUNTIME_AMBER" if not errors else "RED_SOURCE",
