@@ -55,6 +55,10 @@
         <article class="tile"><small>ART MASTER ARCHIVE</small><strong>Epson flatbed scanner</strong><p>Scan originals to archival masters. Fully open-source SANE driver support needs a real Linux test.</p><span class="badge">SCANNER DRIVER UNVERIFIED</span></article>
         <article class="tile"><small>USB VIDEO CLASS</small><strong>Logitech webcam</strong><p>UVC candidate for recording; permission and streaming must be physically proven.</p><span class="badge">VIDEO STREAM UNVERIFIED</span></article>
       </div>
+      <div class="grid two" style="margin-top:16px">
+        <article class="tile"><small>AUDIO INPUT CANDIDATE</small><strong>Yeti microphone</strong><p>Model and USB Audio Class descriptors are not yet identified. Linux ALSA/PipeWire, Android routing and a real recording test remain pending.</p><span class="badge">MIC DRIVER UNVERIFIED</span></article>
+        <article class="tile"><small>WIRELESS AUDIO ADAPTER</small><strong>Bluetooth audio jack</strong><p>Transmitter or receiver mode, codec, microphone return path and pairing are unknown. Separate from the known HydraMotion speaker.</p><span class="badge">AUDIO ROUTE UNVERIFIED</span></article>
+      </div>
       <article class="tile" style="margin-top:16px"><small>ANDROID USB INVENTORY · READ ONLY</small><strong data-hardware-count>NOT SCANNED</strong><p data-hardware-detail>Check connected USB descriptors, without reading serials or opening the hardware.</p><button class="action" data-hardware-probe>CHECK USB HARDWARE</button><div class="device-list" data-hardware-list aria-live="polite"></div></article>
     </section>
     <section class="view" data-panel="screens" aria-label="Second-screen display diagnostics">
@@ -67,7 +71,7 @@
     </section>
     <section class="view" data-panel="models" aria-label="AI lab">
       <div class="section-intro"><h2>HEADLESS AI LAB</h2><p>K9000 is the UI. LiteRT-LM is a candidate embedded engine, not an authenticated Edge Gallery service.</p></div>
-      <div class="grid two"><article class="tile"><small>MODEL RUNTIME</small><strong>LiteRT-LM</strong><p>Local inference adapter pending model, ABI, license and tablet performance proof.</p><span class="badge">UNCONFIGURED</span></article><article class="tile"><small>PROVIDER BRIDGE</small><strong>Edge Gallery</strong><p>Reference implementation only. No supported headless API has been proven.</p><span class="badge">NOT CONNECTED</span></article></div>
+      <div class="grid two"><article class="tile"><small>MODEL RUNTIME</small><strong>LiteRT-LM / optional Llama</strong><p>Local model adapter pending ABI, memory, thermal and model-rights proof. Meta Llama weights have a separate community license and are not bundled.</p><span class="badge">UNCONFIGURED</span></article><article class="tile"><small>GOOGLE + OPENAI ADAPTERS</small><strong>Optional, never required offline</strong><p>Edge Gallery is a reference app, not a proved headless API. Gmail, Docs, Cloud, Gemini, Play and OpenAI each need separate integration receipts.</p><span class="badge">NOT CONNECTED TO APP</span></article></div>
     </section>
     <section class="view" data-panel="vault" aria-label="Local asset vault">
       <div class="section-intro"><h2>CREATOR VAULT</h2><p>Original masters stay private. GitHub holds source; Google Drive is the designated durable binary server when explicitly linked.</p></div><article class="tile"><small>STORAGE TRUTH</small><strong>NO PRIVATE ASSETS BUNDLED</strong><p>This candidate contains UI code and placeholders only. Asset intake and export are pending.</p><span class="badge">SAFE DEFAULT</span></article>
