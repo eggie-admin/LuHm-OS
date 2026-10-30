@@ -1,0 +1,15 @@
+{
+  "name": "luhmos-k9000-web",
+  "version": "0.1.0-candidate.0",
+  "private": true,
+  "type": "module",
+  "license": "GPL-3.0-only",
+  "description": "Private offline K9000 HTML/CSS/JS and pinned Vite prototype build, not an npm registry release",
+  "files": [
+    "dist",
+    "k9000",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false
+}
