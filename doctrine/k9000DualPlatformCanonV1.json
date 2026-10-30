@@ -92,5 +92,19 @@
     "noAutomaticPublish": true,
     "crownStatus": "STOP",
     "companyQuarantine": "UNCHANGED"
+  },
+  "hardware": {
+    "sourceOfTruth": "PRIVATE_CANONICAL_LUHM_OS_HARDWARE_SOURCE_OF_TRUTH_20260916",
+    "storage": "privateGoogleDrive",
+    "copiesFullPrivateInventoryToPublicRepo": false,
+    "modelsInPublicUi": false,
+    "nativeAdapter": "AndroidUsbManagerDescriptorProbe",
+    "scannerDriver": "VERIFY_OPEN_SOURCE_SANE_SUPPORT_ON_LINUX",
+    "cameraLiveCapture": "VERIFY_PHYSICAL_HDMI_AND_USB_PATHS",
+    "webCamVideo": "VERIFY_USB_UVC_STREAM_ON_PHYSICAL_DEVICE",
+    "noPermissionRequestDuringProbe": true,
+    "noSerialInBridge": true,
+    "noDeviceClaimWithoutReceipt": true,
+    "privateSourceAclStatus": "OWNER_REVIEW_REQUIRED"
   }
 }
