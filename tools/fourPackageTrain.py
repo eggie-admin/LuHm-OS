@@ -10,6 +10,10 @@ import re
 import shutil
 import subprocess
 import zipfile
+try:
+    from tools.zipInteropAudit import verify_dev_archive
+except ModuleNotFoundError:
+    from zipInteropAudit import verify_dev_archive
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = "doctrine/fourPackageTrainV1.json"
@@ -150,6 +154,7 @@ def build_dev(root=ROOT, destination=None):
         archive.unlink()
         raise ValueError("DEV_ARCHIVE_TOO_LARGE")
     receipt=record(archive,"dev",ref)
+    receipt["zipInterop"]=verify_dev_archive(archive,cfg["sourceAllowlist"],source_ref=ref)
     (output/"receipt.json").write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
     return receipt
 

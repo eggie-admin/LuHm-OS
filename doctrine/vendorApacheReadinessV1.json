@@ -1,0 +1,257 @@
+{
+  "schema": "luhmOs.vendorApacheReadiness.v1",
+  "status": "RESEARCH_SOURCE_CANDIDATE",
+  "goal": "Apache-2.0 first-party eligibility with preservation of GPL/MPL/LGPL/vendor obligations",
+  "repositoryLicense": "GPL-3.0-only",
+  "rootLicense": "LICENSE",
+  "existingDeclarations": [
+    "plugins/luhm-os/plugin.json",
+    "plugins/luhm-android-beta/plugin.json",
+    "packages/k9000-web/package.json"
+  ],
+  "licenseChangeAllowed": false,
+  "thirdPartySourceRelicensingAllowed": false,
+  "licenseAuthorityGate": [
+    "identify actual copyright authors",
+    "prove rights or consent for first-party components",
+    "separate provenance/license notices for vendored derivatives",
+    "audit SPDX and dependency closure",
+    "independent counsel review for release",
+    "explicit owner approval"
+  ],
+  "distributionPolicy": {
+    "browserTargetNotBundled": true,
+    "osTargetNotBundled": true,
+    "systemKernelLicenseNotRewritten": true,
+    "allowApacheFirstPartyAfterProof": true,
+    "unreviewedExtensionQuarantined": true,
+    "allAgentsQuarantined": true,
+    "publicShip": false
+  },
+  "vendorRows": [
+    {
+      "id": "raspberryPiOs",
+      "product": "Raspberry Pi OS Lite 64-bit",
+      "licenseClass": "DEBIAN_DISTRIBUTION_MIXED",
+      "role": "OPTIONAL_HEADLESS_EDGE",
+      "note": "hardware/model and firmware unknown; GPL Linux kernel, multiple package licenses",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "debian",
+      "product": "Debian GNU/Linux",
+      "licenseClass": "MIXED_FOSS_GPL_KERNEL",
+      "role": "VM_OR_PI_HOST",
+      "note": "Debian collection cannot be Apache-relicensed",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "ubuntu",
+      "product": "Ubuntu LTS",
+      "licenseClass": "MIXED_FOSS_GPL_KERNEL",
+      "role": "VM_HOST",
+      "note": "Canonical packaging and distro trademarks separate",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "firefox",
+      "product": "Firefox / GeckoView",
+      "licenseClass": "MPL-2.0_MIXED",
+      "role": "BROWSER_COMPAT",
+      "note": "MPL-2.0 is not an Apache-only codebase; GeckoView optional",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "chromium",
+      "product": "Chromium",
+      "licenseClass": "BSD-3-CLAUSE_WITH_MIXED_THIRD_PARTY",
+      "role": "BROWSER_COMPAT",
+      "note": "audit embedded components and notices; use installed browser",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "googleChrome",
+      "product": "Google Chrome",
+      "licenseClass": "PROPRIETARY_PRODUCT",
+      "role": "BROWSER_COMPAT_ONLY",
+      "note": "not an open-source-vendor-only bundle",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "chromiumOs",
+      "product": "ChromiumOS",
+      "licenseClass": "MIXED_OPEN_SOURCE",
+      "role": "OS_COMPAT_ONLY",
+      "note": "not equivalent to Google ChromeOS shipped image",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "chromeOs",
+      "product": "Google ChromeOS",
+      "licenseClass": "PROPRIETARY_PRODUCT_WITH_OPEN_COMPONENTS",
+      "role": "OS_COMPAT_ONLY",
+      "note": "proprietary firmware and enterprise services not vendored",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "samsungInternet",
+      "product": "Samsung Internet browser",
+      "licenseClass": "PROPRIETARY_PRODUCT_CHROMIUM_BASED",
+      "role": "BROWSER_COMPAT_ONLY",
+      "note": "vendor app not bundled; test browser features",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "samsungAndroid",
+      "product": "Samsung One UI / Android",
+      "licenseClass": "PROPRIETARY_VENDOR_LAYER_ON_AOSP",
+      "role": "OS_COMPAT_ONLY",
+      "note": "AOSP mostly Apache, Linux kernel GPLv2; Samsung code separate",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "safari",
+      "product": "Safari",
+      "licenseClass": "PROPRIETARY_BROWSER",
+      "role": "BROWSER_COMPAT_ONLY",
+      "note": "WebKit engine has LGPL and BSD components",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "webkit",
+      "product": "WebKit",
+      "licenseClass": "MIXED_LGPL_BSD",
+      "role": "ENGINE_COMPAT_ONLY",
+      "note": "not blanket Apache-2.0",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "appleIos",
+      "product": "Apple iOS/iPadOS/macOS",
+      "licenseClass": "PROPRIETARY_OS_WITH_OPEN_COMPONENTS",
+      "role": "OS_COMPAT_ONLY",
+      "note": "no distribution of Apple source or signing tools",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "aosp",
+      "product": "Android Open Source Project",
+      "licenseClass": "MOSTLY_APACHE_2_WITH_GPL_KERNEL",
+      "role": "API_REFERENCE_ONLY",
+      "note": "individual dependency licenses control",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "blender",
+      "product": "Blender",
+      "licenseClass": "GPL_FAMILY",
+      "role": "OPTIONAL_STUDIO_TOOL",
+      "note": "keep external separate tool; cannot Apache-relicense Blender",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "godot",
+      "product": "Godot Engine",
+      "licenseClass": "MIT_WITH_THIRD_PARTY_NOTICES",
+      "role": "ENGINE_EXTERNAL_DEP",
+      "note": "source and dependencies require audit",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "ffmpeg",
+      "product": "FFmpeg",
+      "licenseClass": "LGPL_OR_GPL_DEPENDS_ON_BUILD",
+      "role": "OPTIONAL_MEDIA_TOOL",
+      "note": "verify exact binary codec build license flags",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "mariadb",
+      "product": "MariaDB Server",
+      "licenseClass": "GPL_FAMILY",
+      "role": "OPTIONAL_VM_DB",
+      "note": "prefer Python sqlite3 for small headless core",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "python",
+      "product": "CPython / Python zipfile",
+      "licenseClass": "PSF_LICENSE_AND_OTHER_NOTICES",
+      "role": "BUILD_AND_BACKEND",
+      "note": "Python 3.14 ZIP_ZSTANDARD not Java interoperability default",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "openjdk",
+      "product": "OpenJDK",
+      "licenseClass": "GPLV2_WITH_CLASSPATH_EXCEPTION",
+      "role": "JAVA_BUILD_TOOL",
+      "note": "do not rebrand JDK as Apache",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    },
+    {
+      "id": "node",
+      "product": "Node.js / npm toolchain",
+      "licenseClass": "MIXED_COMPONENT_NOTICES",
+      "role": "BUILD_TIME_ONLY",
+      "note": "npm registry packages require lockfile SPDX review",
+      "exactVersionInstalled": "UNVERIFIED",
+      "bundledByThisMutation": false
+    }
+  ],
+  "zipContract": {
+    "compression": "ZIP_DEFLATED",
+    "pythonMin": "3.10",
+    "java": "17",
+    "source": "tools/zipInteropAudit.py",
+    "consumer": "androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/ZipInteropInspector.java",
+    "maxArchiveBytes": 6000000,
+    "maxEntryBytes": 2000000,
+    "maxEntries": 96,
+    "prohibitExtractAll": true,
+    "base64NotEncryption": true
+  },
+  "deviceProxy": {
+    "edge": "Raspberry Pi optional",
+    "samsung": "Tab S10 Lite K9000 DeX-inspired UI, S24 FE antenna, Tab A8 companion",
+    "github": "source and CI",
+    "status": "NOT_CONNECTED_PROXY_OR_DEVICE_NOT_PROVEN"
+  },
+  "agent": {
+    "unifiedCoordinator": "Lum",
+    "all15Quarantined": true,
+    "proposalOnly": true,
+    "base44Provider": "NOT_AN_ENCODING",
+    "base64url": "source envelope transport only"
+  },
+  "sources": [
+    "https://www.apache.org/licenses/GPL-compatibility",
+    "https://source.android.com/docs/setup/contribute/licenses",
+    "https://www.mozilla.org/en-US/MPL/",
+    "https://webkit.org/licensing-webkit/",
+    "https://www.chromium.org/chromium-os/chromium-os-faq/",
+    "https://www.raspberrypi.com/software/operating-systems/",
+    "https://docs.python.org/3/library/zipfile.html"
+  ],
+  "crownStatus": "STOP"
+}

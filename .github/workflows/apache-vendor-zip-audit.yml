@@ -1,0 +1,68 @@
+name: LuHm Apache Vendor ZIP Java Gradle Source Gate
+on:
+  pull_request:
+    paths:
+      - 'doctrine/vendorApacheReadinessV1.json'
+      - 'manual/vendorApacheZipInterop20261030.md'
+      - 'tools/vendorApacheAudit.py'
+      - 'tools/zipInteropAudit.py'
+      - 'tools/fourPackageTrain.py'
+      - 'tests/testVendorZipInterop.py'
+      - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/ZipInteropInspector.java'
+      - '.github/workflows/apache-vendor-zip-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  license-and-python-zip:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout exactly reviewed commit
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ env.LUHM_SOURCE_REF }}
+      - name: Confirm source and syntax
+        run: |
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+          python3 -m json.tool doctrine/vendorApacheReadinessV1.json >/dev/null
+          python3 -m py_compile tools/zipInteropAudit.py tools/vendorApacheAudit.py tools/fourPackageTrain.py
+      - name: GPL and OS/browser vendor license safety census
+        run: python3 tools/vendorApacheAudit.py
+      - name: ZIP security, determinism and negative tests
+        run: |
+          python3 -m unittest tests/testVendorZipInterop.py -v
+          python3 -m unittest tests/testFourPackageTrain.py -v
+      - name: Build actual first-party Python DEV ZIP and SHA manifest
+        run: python3 tools/fourPackageTrain.py build-dev
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Compile actual Android Gradle-source Java ZIP inspector
+        run: |
+          mkdir -p "${RUNNER_TEMP}/luhm-zip-java"
+          javac -d "${RUNNER_TEMP}/luhm-zip-java" androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/ZipInteropInspector.java
+      - name: Verify Python ZIP with Java 17, plus wrong-hash negative control
+        run: |
+          set -euo pipefail
+          ZIP="build/fourPackage/dev/luhmos-dev-source.zip"
+          SHA="$(python3 -c 'import json; print(json.load(open("build/fourPackage/dev/receipt.json"))["zipInterop"]["sha256"])')"
+          COUNT="$(python3 -c 'import json; print(json.load(open("build/fourPackage/dev/receipt.json"))["zipInterop"]["fileCount"])')"
+          java -cp "${RUNNER_TEMP}/luhm-zip-java" art.eggiebagelface.luhmos.web3.ZipInteropInspector "$ZIP" "$SHA" "$COUNT"
+          if java -cp "${RUNNER_TEMP}/luhm-zip-java" art.eggiebagelface.luhmos.web3.ZipInteropInspector "$ZIP" "${SHA}0" "$COUNT"; then
+            echo "RED: JAVA_SHA_MUTATION_FALSE_GREEN" >&2
+            exit 1
+          fi
+          echo "JAVA17_GRADLE_SOURCE_ZIP_INTEROP_PASSED_NOT_APK_INSTALLED"
+      - name: Upload private SHA audit receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhmos-apache-vendor-zip-candidate
+          path: build/fourPackage/dev/receipt.json
+          retention-days: 7
+          if-no-files-found: error
