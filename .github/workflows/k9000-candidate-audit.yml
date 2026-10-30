@@ -13,6 +13,7 @@ on:
       - 'doctrine/k9000UniversalVendorSurfaceV1.json'
       - 'host/api/k9000HeadlessCore.py'
       - 'tools/k9000UniversalHardwareAudit.py'
+      - 'tools/k9000LocalDriverProbe.py'
       - 'tests/testK9000UniversalHardware.py'
       - 'tools/k9000PublicReadiness.py'
       - 'tests/testK9000PublicReadiness.py'
@@ -33,6 +34,7 @@ on:
       - 'doctrine/k9000UniversalVendorSurfaceV1.json'
       - 'host/api/k9000HeadlessCore.py'
       - 'tools/k9000UniversalHardwareAudit.py'
+      - 'tools/k9000LocalDriverProbe.py'
       - 'tests/testK9000UniversalHardware.py'
       - 'tools/k9000PublicReadiness.py'
       - 'tests/testK9000PublicReadiness.py'
@@ -77,6 +79,19 @@ jobs:
         run: |
           python3 host/api/k9000HeadlessCore.py --smoke
           python3 -m unittest tests/testK9000UniversalHardware.py -v
+      - name: Python local hardware inventory without raw identifiers
+        run: python3 tools/k9000LocalDriverProbe.py
+      - name: Canonical four-layer and four-beat escalation source gates
+        run: |
+          python3 tools/architectureRhythmAudit.py
+          python3 tools/escalationKernelAudit.py
+      - name: Existing strict SQLite stream and SQL JSON1 negative tests
+        run: python3 -m unittest tests/testTypedSqlStub.py tests/testFnCastSqlJson.py -v
+      - name: Existing vendor footprint and lockfile checks
+        run: python3 tools/vendorReductionAudit.py
+      - name: YAML workflow syntax check using Ruby standard library
+        run: |
+          ruby -rpsych -e 'paths=Dir.glob(".github/workflows/*.{yml,yaml}"); paths.each { |p| Psych.parse_file(p) }; puts "WORKFLOW_YAML_PARSED=#{paths.length}"'
       - name: Static JavaScript syntax
         run: node --check frontEnd/k9000.js
       - name: Honest boundary
