@@ -61,6 +61,15 @@ class ProvenanceBoundaryTests(unittest.TestCase):
         p=copy.deepcopy(self.p)
         p["devices"]["samsungLiteNativeDex"]=True
         self.assertIn("DEVICE_SAFETY",v.check(p))
+    def test_npm_metadata_does_not_grant_distribution_rights(self):
+        r=v.receipt()
+        self.assertEqual(r["npmTransitivePackages"],61)
+        self.assertEqual(r["npmMissingLicenseMetadata"],[])
+        self.assertTrue(r["npmMetadataLicenseCoverageOnly"])
+        self.assertFalse(r["npmLicenseFilesAndRightsVerified"])
+        self.assertEqual(r["firstPartyApacheEligible"],0)
+        self.assertFalse(r["releaseAllowed"])
+
     def test_source_ref_exact(self):
         self.assertRegex(v.source_ref(),r"^[a-f0-9]{40}$")
 
