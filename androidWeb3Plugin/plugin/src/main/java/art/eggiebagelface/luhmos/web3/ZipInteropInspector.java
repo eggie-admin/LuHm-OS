@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
@@ -27,8 +28,13 @@ public final class ZipInteropInspector {
         String[] parts=name.split("/",-1);
         if (parts.length<2) return false;
         for (String part:parts) {
-            if (part.isEmpty() || part.equals(".") || part.equals("..")) return false;
+            if (part.isEmpty() || part.equals(".") || part.equals("..") ||
+                part.endsWith(".") || part.endsWith(" ")) return false;
+            String stem=part.split("\\.",2)[0].toUpperCase(Locale.ROOT);
+            if (stem.equals("CON") || stem.equals("PRN") || stem.equals("AUX") ||
+                stem.equals("NUL") || stem.matches("(COM|LPT)[1-9]")) return false;
         }
+        if (!name.matches("[A-Za-z0-9._/-]+")) return false;
         return true;
     }
 
@@ -62,7 +68,7 @@ public final class ZipInteropInspector {
             while(members.hasMoreElements()) {
                 ZipEntry item=members.nextElement();
                 if(!safeName(item.getName()) || item.isDirectory() ||
-                    !seen.add(item.getName()) || item.getMethod()!=ZipEntry.DEFLATED) {
+                    !seen.add(item.getName().toLowerCase(Locale.ROOT)) || item.getMethod()!=ZipEntry.DEFLATED) {
                     throw new IOException("ZIP_MEMBER_NOT_ALLOWED");
                 }
                 long declared=item.getSize(), compressed=item.getCompressedSize();
