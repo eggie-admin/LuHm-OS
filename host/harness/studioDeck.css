@@ -165,3 +165,15 @@
 .studioDeck .studioPrivateLumDigest{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;overflow-wrap:anywhere}
 .studioDeck #studioPrivateLumFile{cursor:pointer;max-width:100%}
 @media(max-width:480px){.studioDeck .studioPrivateLumStage img{max-height:48vh}}
+
+/* Original lightweight radio styling; the official player stays visible. */
+.studioDeck .studioRadio{border-color:#ec5288;border-radius:4px 22px 4px 22px;background:radial-gradient(ellipse at top right,#54204877,transparent 65%),linear-gradient(125deg,#160e23,#090f1c);box-shadow:inset 4px 0 #ef5286}
+.studioRadioHeader{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.studioRadioBadge{font:10px/1.4 ui-monospace,monospace;letter-spacing:.08em;color:#83f1e8;border:1px solid #337c7b;padding:4px 8px}
+.studioDeck .studioRadio h2{font-size:clamp(30px,8vw,52px);font-weight:900;letter-spacing:.08em;line-height:1.1;margin:12px 0 6px;color:#ffdc73;text-shadow:3px 2px #952957}
+.studioDeck .studioRadioTagline{color:#f7bed5;margin:0 0 20px}
+.studioRadioDial{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:64px;padding:10px 12px;border-block:1px solid #527c8a;background:repeating-linear-gradient(90deg,transparent 0 11px,#67d8da33 11px 12px) center/100% 12px no-repeat;color:#9cafbe;font:11px ui-monospace,monospace}
+.studioRadioFrequency{padding:10px;background:#11222d;color:#88fff0;border:1px solid #66d8cb;font-weight:700;white-space:nowrap}
+.studioDeck .studioRadio #studioMusicLoad{background:#ffdc73;color:#201321;border-color:#ffdc73;font-weight:800}
+.studioDeck .studioRadio #studioMusicStop{background:transparent;color:#f7bed5;border-color:#a44a71}
+.studioDeck .studioRadio #studioMusicStatus{border-left:2px solid #77dacf;padding-left:10px;font-size:13px}
