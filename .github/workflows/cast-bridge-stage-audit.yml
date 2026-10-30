@@ -1,0 +1,35 @@
+name: CAST Bridge Stage Hard Reconciliation
+on:
+  pull_request:
+    paths:
+      - 'doctrine/castBridgeStageGateV1.json'
+      - 'tools/castBridgeStageAudit.py'
+      - 'tests/testCastBridgeStageAudit.py'
+      - '.github/workflows/cast-bridge-stage-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-stage-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact source (no stored credentials)
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ env.LUHM_SOURCE_REF }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify ancestry and offline stage contract
+        run: |
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git merge-base --is-ancestor d0e4e1b622d190380f2d0f64876c5359d9dda472 HEAD
+          git merge-base --is-ancestor f0cb6ee54066b490c0e80efc2c96200fec76ee2d HEAD
+          git diff --check
+          python3 -m json.tool doctrine/castBridgeStageGateV1.json > /dev/null
+          python3 -m py_compile tools/castBridgeStageAudit.py tests/testCastBridgeStageAudit.py
+          python3 tools/castBridgeStageAudit.py
+          python3 -m unittest tests/testCastBridgeStageAudit.py -v
+          echo 'SOURCE STAGED FOR REVIEW; NO CAST DISPATCH OR LIVE DEPLOY'
