@@ -8,6 +8,7 @@ on:
       - 'tools/sixCamTimingAudit.py'
       - 'tests/testSamsungCast500.py'
       - 'manual/samsungFourLaneKernelSnapshot20261030.md'
+      - 'frontEnd/k9000.html'
       - '.github/workflows/samsung-four-lane-cast500.yml'
   workflow_dispatch:
 permissions:
@@ -54,6 +55,7 @@ jobs:
           python3 tools/k9000UniversalHardwareAudit.py
           python3 tools/k9000LocalDriverProbe.py
           node --check frontEnd/k9000.js
+          grep -q 'data-samsung-four-lane' frontEnd/k9000.html
       - name: No physical or firmware operations
         run: |
           python3 tools/sixCamTimingAudit.py
