@@ -1,0 +1,52 @@
+name: Deep Dungeon Privacy API LTS Source Gate
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/dataProtectionLadderV1.json'
+      - 'tools/deepDungeonSecurityAudit.py'
+      - 'tests/testDeepDungeonSecurityAudit.py'
+      - '.github/workflows/deep-dungeon-security-audit.yml'
+      - '.github/workflows/social-video-orchestrator.yml'
+      - 'manual/deepDungeonPrivacySecurityReview20261030.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deep-dungeon-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  private-safe-security:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+      LUHM_BASE_REF: ${{ github.event.pull_request.base.sha || github.sha }}
+    steps:
+      - name: Checkout exact head with no write credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ env.LUHM_SOURCE_REF }}
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Verify immutable source and JSON
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+          python3 -m json.tool doctrine/dataProtectionLadderV1.json > /dev/null
+          python3 -m py_compile tools/deepDungeonSecurityAudit.py tests/testDeepDungeonSecurityAudit.py
+      - name: Audit protected data, API and new tracked content without disclosing values
+        run: |
+          set -euo pipefail
+          python3 tools/deepDungeonSecurityAudit.py --base-sha "$LUHM_BASE_REF" --head-sha "$LUHM_SOURCE_REF"
+          python3 -m unittest tests/testDeepDungeonSecurityAudit.py -v
+      - name: Preserve release and quarantine stop gates
+        run: |
+          python3 tools/castBridgeStageAudit.py
+          python3 tools/companyWideQuarantineAudit.py
+          python3 tools/studioSecurityGate.py
+          echo 'SOURCE_POLICY_ONLY_NO_SECRET_DISCLOSURE_NO_PROVIDER_WRITE_NO_PUBLIC_RELEASE'
