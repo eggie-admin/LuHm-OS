@@ -50,6 +50,8 @@ def plan(lane,capability,transport,task_id,source_ref,root=ROOT):
         raise ValueError("INVALID_TASK_ID")
     if not isinstance(source_ref,str) or not SHA_RE.fullmatch(source_ref):
         raise ValueError("INVALID_SOURCE_SHA")
+    if source_ref!=exact_sha(root):
+        raise ValueError("SOURCE_SHA_NOT_CURRENT")
     if policy["agents"]["workersActive"]!=0 or not policy["agents"]["allFifteenQuarantined"]:
         raise ValueError("AGENT_QUARANTINE_REQUIRED")
     if policy["safety"]["crownStatus"]!="STOP":
