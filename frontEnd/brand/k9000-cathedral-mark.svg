@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="K9000 Crown Cathedral mark">
+  <title>K9000 Crown Cathedral</title>
+  <defs><linearGradient id="crystal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#73dfff"/><stop offset="1" stop-color="#ff48ab"/></linearGradient></defs>
+  <rect x="6" y="6" width="244" height="244" rx="54" fill="#0c0918" stroke="#843d8b" stroke-width="6"/>
+  <path d="M44 106 L70 69 L100 90 L128 39 L156 90 L186 69 L212 106 L190 155 L66 155Z" fill="none" stroke="url(#crystal)" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M81 122 L128 166 L175 122 M128 166 L128 209" fill="none" stroke="#ff48ab" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="128" cy="111" r="13" fill="#73dfff"/>
+  <path d="M81 200 H175" stroke="#73dfff" stroke-width="9" stroke-linecap="round"/>
+</svg>
