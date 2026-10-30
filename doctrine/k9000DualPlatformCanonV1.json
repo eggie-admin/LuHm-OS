@@ -1,0 +1,96 @@
+{
+  "schema": "luhmOs.k9000DualPlatformCanon.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "product": "LuHm-OS: Project Premonition",
+  "shell": "K9000",
+  "sharedEngine": "Godot 4.7.2",
+  "sourceRepository": "eggie-admin/LuHm-OS",
+  "topology": {
+    "oneSourceTree": true,
+    "oneAppPerPlatform": true,
+    "android": {
+      "artifact": "APK",
+      "host": "Godot Android + local WebViewAssetLoader",
+      "physicalDeviceProof": "PENDING",
+      "camera": "UsbManager read-only inventory only"
+    },
+    "macos": {
+      "artifact": "DMG",
+      "host": "Godot macOS Universal 2",
+      "buildProof": "PENDING",
+      "codeSignAndNotarize": "PENDING"
+    },
+    "simultaneousBuildTargets": 2
+  },
+  "releaseOrder": [
+    "jacobCreator",
+    "professorStudio",
+    "faithVoxel"
+  ],
+  "profiles": {
+    "jacobCreator": {
+      "displayName": "Jacob Creator",
+      "contentLane": "familySafe",
+      "default": true,
+      "adultAssets": false,
+      "childSpecificCloudNetwork": false,
+      "parentManagedExports": true
+    },
+    "professorStudio": {
+      "displayName": "Professor After Dark",
+      "contentLane": "privateAdult",
+      "adultAssets": "privateRightsClearedOnly",
+      "separatePackageAssets": true,
+      "notBundledInJacob": true
+    },
+    "faithVoxel": {
+      "displayName": "Faith & Blocks",
+      "contentLane": "familySafe",
+      "themes": [
+        "build",
+        "explore",
+        "learn",
+        "serve",
+        "belong"
+      ],
+      "minecraftAssets": "NOT_BUNDLED",
+      "notOfficialMinecraft": true
+    }
+  },
+  "providers": {
+    "edgeGallery": {
+      "role": "referenceSourceOnly",
+      "headlessServiceProven": false,
+      "productionDependency": false
+    },
+    "liteRtLm": {
+      "role": "candidateEmbeddedBackend",
+      "operationalProof": "PENDING",
+      "modelLicenseProof": "PENDING"
+    }
+  },
+  "cameras": {
+    "androidUvcLibraryCandidate": "AUSBC",
+    "nativeUsbInventory": "sourceCandidate",
+    "streaming": "NOT_IMPLEMENTED",
+    "multiCamSix": "PHYSICAL_BANDWIDTH_AND_PERMISSION_PROOF_PENDING"
+  },
+  "kernel": {
+    "androidStockVendorKernel": "UNCHANGED",
+    "rootRequired": false,
+    "rootBridgeAllowed": false,
+    "untrustedKernelModules": false,
+    "securityBoundary": "leastPrivilegeAppPlatformAdapters"
+  },
+  "gate": {
+    "hardSystem200": "tools/hardSystemAudit200.py",
+    "candidateAudit": "tools/k9000CandidateAudit.py",
+    "noAutomaticRelease": true,
+    "noAutomaticSign": true,
+    "noAutomaticMerge": true,
+    "noAutomaticPublish": true,
+    "crownStatus": "STOP",
+    "companyQuarantine": "UNCHANGED"
+  }
+}

@@ -1,0 +1,57 @@
+name: K9000 Candidate Source and 200 Audit
+on:
+  push:
+    branches:
+      - candidate/k9000-one-app-goth-cockpit-20261030
+    paths:
+      - 'frontEnd/k9000.*'
+      - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
+      - 'export_presets.cfg'
+      - 'doctrine/k9000DualPlatformCanonV1.json'
+      - 'manual/k9000DualPlatformPlan20261030.md'
+      - 'tools/k9000CandidateAudit.py'
+      - 'tests/testK9000CandidateAudit.py'
+      - '.github/workflows/k9000-candidate-audit.yml'
+  pull_request:
+    paths:
+      - 'frontEnd/k9000.*'
+      - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
+      - 'export_presets.cfg'
+      - 'doctrine/k9000DualPlatformCanonV1.json'
+      - 'manual/k9000DualPlatformPlan20261030.md'
+      - 'tools/k9000CandidateAudit.py'
+      - 'tests/testK9000CandidateAudit.py'
+      - '.github/workflows/k9000-candidate-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  k9000-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout exact candidate source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Exact source and no dirty changes
+        run: |
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+      - name: Existing real 200-check audit
+        run: python3 tools/hardSystemAudit200.py
+      - name: K9000 source candidate audit
+        run: python3 tools/k9000CandidateAudit.py
+      - name: K9000 negative controls
+        run: python3 -m unittest tests/testK9000CandidateAudit.py -v
+      - name: Static JavaScript syntax
+        run: node --check frontEnd/k9000.js
+      - name: Honest boundary
+        if: always()
+        run: |
+          echo "SOURCE_ONLY_CANDIDATE"
+          echo "NO_ANDROID_INSTALL_NO_MAC_BUILD_NO_UVC_STREAM"
+          echo "NO_EDGE_GALLERY_SERVICE_NO_NOTARIZATION_NO_CROWN"
