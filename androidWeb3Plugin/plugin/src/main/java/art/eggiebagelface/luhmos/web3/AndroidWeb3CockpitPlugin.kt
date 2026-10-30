@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.hardware.usb.UsbConstants
 import android.hardware.usb.UsbManager
+import android.hardware.display.DisplayManager
+import android.view.Display
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
@@ -186,6 +188,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                 "oni_requested" -> setOf("type", "name")
                 "world_requested", "cockpit_ready" -> setOf("type")
                 "camera_probe_requested", "hardware_probe_requested" -> setOf("type")
+                "screen_probe_requested" -> setOf("type")
                 else -> {
                     emitSignal(BRIDGE_ERROR.name, "bridge_type_rejected")
                     return
@@ -217,6 +220,9 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                 }
                 "hardware_probe_requested" -> {
                     sendHardwareInventory()
+                }
+                "screen_probe_requested" -> {
+                    sendDisplayInventory()
                 }
                 else -> emitSignal(BRIDGE_ERROR.name, "bridge_type_rejected")
             }
@@ -271,6 +277,24 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
             devices.put(item)
         }
         val payload = JSONObject().put("type", "hardware_inventory").put("devices", devices)
+        runOnHostThread {
+            cockpitView?.evaluateJavascript(
+                "window.K9000 && window.K9000.receiveNative(" + payload.toString() + ")",
+                null
+            )
+        }
+    }
+
+
+    /** Read-only Android display inventory, never MediaProjection or screen capture. */
+    private fun sendDisplayInventory() {
+        val manager = activity?.getSystemService(Context.DISPLAY_SERVICE) as? DisplayManager
+        val all = manager?.displays ?: emptyArray<Display>()
+        val attached = all.count { it.displayId != Display.DEFAULT_DISPLAY }
+        val payload = JSONObject()
+            .put("type", "screen_inventory")
+            .put("externalDisplayCount", attached)
+            .put("verifiedMirroring", false)
         runOnHostThread {
             cockpitView?.evaluateJavascript(
                 "window.K9000 && window.K9000.receiveNative(" + payload.toString() + ")",

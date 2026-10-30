@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
   <meta name="theme-color" content="#070711">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-  <title>K9000 | LuHm-OS</title>
+  <title>K9000 | LuHm-OS: Crown Cathedral</title>
   <link rel="stylesheet" href="./k9000.css">
   <script defer src="./k9000.js"></script>
 </head>
 <body>
 <main class="shell" aria-label="K9000 cockpit">
   <header class="mast">
-    <div class="brand"><span class="brand-icon" aria-hidden="true">◇</span><div><strong>K<span>9000</span></strong><small>LuHm-OS · Project Premonition</small></div></div>
+    <div class="brand"><img class="brand-icon" src="./brand/k9000-cathedral-mark.svg" alt="" aria-hidden="true"><div><strong>K<span>9000</span></strong><small>LuHm-OS · Crown Cathedral</small></div></div>
     <div class="status"><span class="status-dot" aria-hidden="true"></span><span data-native-status>LOCAL UI · BRIDGE UNVERIFIED</span></div>
     <div class="clock" data-clock aria-label="Local time">--:--</div>
   </header>
@@ -20,6 +20,7 @@
     <button class="rail-button current" data-view="studio" aria-current="page"><span aria-hidden="true">✦</span>Studio</button>
     <button class="rail-button" data-view="cameras"><span aria-hidden="true">◉</span>Cameras</button>
     <button class="rail-button" data-view="hardware"><span aria-hidden="true">▣</span>Hardware</button>
+    <button class="rail-button" data-view="screens"><span aria-hidden="true">▧</span>Screens</button>
     <button class="rail-button" data-view="models"><span aria-hidden="true">⬡</span>AI Lab</button>
     <button class="rail-button" data-view="vault"><span aria-hidden="true">▤</span>Vault</button>
     <button class="rail-button" data-view="world"><span aria-hidden="true">☼</span>World</button>
@@ -55,6 +56,14 @@
         <article class="tile"><small>USB VIDEO CLASS</small><strong>Logitech webcam</strong><p>UVC candidate for recording; permission and streaming must be physically proven.</p><span class="badge">VIDEO STREAM UNVERIFIED</span></article>
       </div>
       <article class="tile" style="margin-top:16px"><small>ANDROID USB INVENTORY · READ ONLY</small><strong data-hardware-count>NOT SCANNED</strong><p data-hardware-detail>Check connected USB descriptors, without reading serials or opening the hardware.</p><button class="action" data-hardware-probe>CHECK USB HARDWARE</button><div class="device-list" data-hardware-list aria-live="polite"></div></article>
+    </section>
+    <section class="view" data-panel="screens" aria-label="Second-screen display diagnostics">
+      <div class="section-intro"><h2>SECOND-SCREEN MATRIX</h2><p>Read-only display discovery. No silent screen recording, casting, or remote connection.</p></div>
+      <div class="grid two">
+        <article class="tile"><small>ANDROID EXTERNAL DISPLAY</small><strong data-screen-count>NOT CHECKED</strong><p data-screen-detail>Android can report attached displays. Connected does not mean content is mirrored.</p><button class="action" data-screen-probe>CHECK DISPLAY CONNECTIONS</button></article>
+        <article class="tile"><small>GALAXY TAB A8</small><strong>COMPANION WORKSPACE</strong><p>The second Samsung tablet is a separate Android device, not a passive HDMI monitor. An authenticated, consent-based connection is needed.</p><span class="badge">NOT PAIRED</span></article>
+      </div>
+      <article class="tile" style="margin-top:16px"><small>STUDIO DESKTOP</small><strong>DUAL-MONITOR READY DESIGN</strong><p>Linux XRandR/Wayland display and macOS screen roles are separate host adapters. Kernel and display changes require actual workstation evidence.</p><span class="badge">PHYSICAL PROOF PENDING</span></article>
     </section>
     <section class="view" data-panel="models" aria-label="AI lab">
       <div class="section-intro"><h2>HEADLESS AI LAB</h2><p>K9000 is the UI. LiteRT-LM is a candidate embedded engine, not an authenticated Edge Gallery service.</p></div>

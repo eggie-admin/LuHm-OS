@@ -4,6 +4,7 @@
     studio: ["THE CREATOR'S COCKPIT", "One canvas. A whole universe of tools. Powered by your ideas."],
     cameras: ["THE CAMERA MATRIX", "Discover hardware first. Preview and recording need separate consent."],
     hardware: ["THE HARDWARE LAB", "Canonical roles, read-only diagnostics and no invented driver support."],
+    screens: ["THE SCREEN MATRIX", "Local display detection first. Pairing and mirroring require consent."],
     models: ["HEADLESS AI LAB", "One cockpit, optional local inference, no invented provider access."],
     vault: ["THE CREATOR VAULT", "Private assets stay private until intentionally exported."],
     world: ["THE WORLD PORTAL", "Enter the shared Godot world engine."]
@@ -16,6 +17,8 @@
   const hardwareCount = document.querySelector("[data-hardware-count]");
   const hardwareDetail = document.querySelector("[data-hardware-detail]");
   const hardwareList = document.querySelector("[data-hardware-list]");
+  const screenCount = document.querySelector("[data-screen-count]");
+  const screenDetail = document.querySelector("[data-screen-detail]");
   let ready = false;
 
   function nativeMessage(type) {
@@ -42,7 +45,15 @@
     if (clock && !document.hidden) clock.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   }
   function receiveNative(message) {
-    if (!message || !Array.isArray(message.devices)) return;
+    if (!message || typeof message !== "object") return;
+    if (message.type === "screen_inventory") {
+      const count = Number(message.externalDisplayCount);
+      screenCount.textContent = Number.isInteger(count) && count >= 0 && count < 32
+        ? count + " EXTERNAL DISPLAY(S) REPORTED" : "UNVERIFIED";
+      screenDetail.textContent = "Android display inventory only. Mirroring, multi-window and casting have not been tested.";
+      return;
+    }
+    if (!Array.isArray(message.devices)) return;
     if (message.type === "hardware_inventory") {
       const devices = message.devices.slice(0, 32);
       hardwareCount.textContent = devices.length + " USB DEVICE(S) PRESENT";
@@ -104,6 +115,15 @@
     } else {
       hardwareCount.textContent = "CHECKING...";
       hardwareDetail.textContent = "Waiting for read-only USB inventory. No hardware access or permission requested.";
+    }
+  });
+  document.querySelector("[data-screen-probe]").addEventListener("click", function () {
+    if (!nativeMessage("screen_probe_requested")) {
+      screenCount.textContent = "BRIDGE UNAVAILABLE";
+      screenDetail.textContent = "DisplayManager status only exists in the native Android K9000 app.";
+    } else {
+      screenCount.textContent = "CHECKING...";
+      screenDetail.textContent = "Waiting for native display inventory, without screen capture.";
     }
   });
   document.querySelector("[data-native-world]").addEventListener("click", function () {
