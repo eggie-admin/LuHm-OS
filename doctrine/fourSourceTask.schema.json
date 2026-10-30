@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LuHm source-only AI manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","taskId","sourceRef","scopeId","providerId","capabilityId","status","mode","tier","budget","authority","inputRefs","requiredOutputSchema"],
+  "properties": {
+    "schema": {"const": "luhmOs.aiTaskManifest.v2"},
+    "taskId": {"type": "string", "maxLength": 80},
+    "sourceRef": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "scopeId": {"type": "string", "maxLength": 80},
+    "providerId": {"const": "local"},
+    "capabilityId": {"const": "forgeSourceAudit"},
+    "status": {"const": "SOURCE_CANDIDATE"},
+    "mode": {"enum": ["headless","witchingHour","corporate","githubDevelopment"]},
+    "tier": {"type": "integer", "minimum": 0, "maximum": 3},
+    "budget": {"const": {"maxRequests":0,"maxParallel":0,"maxPasses":1}},
+    "authority": {"const": {"mutation":false,"green":false,"crown":false}},
+    "inputRefs": {"const": []},
+    "requiredOutputSchema": {"const": "luhmOs.forgeSourceProjection.v1"}
+  }
+}

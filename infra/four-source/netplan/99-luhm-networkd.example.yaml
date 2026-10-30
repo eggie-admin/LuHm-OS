@@ -1,0 +1,12 @@
+# EXAMPLE, NEVER installed or applied automatically. Inspect real VM NIC first.
+# On Ubuntu Server use networkd; Ubuntu desktop/Mint usually NetworkManager.
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    candidateUplink:
+      match:
+        name: "enp1s0"
+      dhcp4: true
+      dhcp6: false
+      optional: true

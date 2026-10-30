@@ -1,0 +1,22 @@
+# Physical Debian/Pi display only; never a VM headless service.
+# Template for manual local review, not installed/enabled by CI.
+[Unit]
+Description=LuHm K9000 isolated kiosk example
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=kiosk
+WorkingDirectory=/home/kiosk
+# Requires verified kiosk user login session / XDG_RUNTIME_DIR from seat manager.
+ExecStart=/usr/bin/cage -- /usr/bin/chromium --no-first-run --kiosk file:///opt/luhmos/frontEnd/k9000.html
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+
+[Install]
+WantedBy=multi-user.target
