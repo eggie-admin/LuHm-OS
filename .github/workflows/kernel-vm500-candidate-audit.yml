@@ -14,6 +14,8 @@ jobs:
   kernel-vm500-source:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - name: Checkout exact reviewed candidate SHA
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
