@@ -1,0 +1,57 @@
+# Source-only contract. An example, NOT systemd, Cloudflare or GitHub deploy config.
+schema: luhmOs.universalFourLaneYaml.v1
+source: eggie-admin/LuHm-OS
+publicAuthority: Cloudflare
+currentMcpRoute: directRenderManagedTls
+canonicalOneFrontend: K9000
+permissions:
+  defaultDeny: true
+  allowFirmware: false
+  allowSqlPublic: false
+  allowMediaWithoutConsent: false
+  allowExternalAgent: false
+  allowPaidResources: false
+  allowDnsWrite: false
+  allowHostChanges: false
+channels:
+  nightly:
+    python: stdlib-first
+    javascript: pin-reviewed-lockfile
+    device: isolated-candidate
+    release: false
+  beta:
+    python: stdlib-first
+    javascript: pin-reviewed-lockfile
+    device: authorized-debug-only
+    release: false
+  lts:
+    python: stdlib-first
+    javascript: pin-reviewed-lockfile
+    device: stable-stock-kernel
+    release: false
+  legacy:
+    python: disabled-on-mobile
+    javascript: static-html5-fallback
+    device: no-privileged-capture
+    release: false
+stack:
+  interface: HTML5-K9000-Vue-Babylon-jQuery
+  edge: Cloudflare-only-if-explicitly-cut-over
+  backend: Python3-SQLite-STRICT-JSON1
+  creative: Linux-V4L2-BlueZ-FFmpeg-Blender-Godot
+engines:
+  canonical: Godot4
+  interchange: Blender-GLB
+  web: Babylon
+  optional: [Three.js, Unity, Unreal]
+namespaces:
+  internalZone: vm.luhm.test
+  android: art.eggiebagelface.luhmos.cathedral
+  package: luhm-os
+  projectHydra: project-hydra
+sources:
+  piForge: UNRESOLVED
+  uv: OPTIONAL_NOT_INSTALLED
+  lightningScript: UNRESOLVED
+deployment: DENY
+crownStatus: STOP
