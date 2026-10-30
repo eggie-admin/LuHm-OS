@@ -24,7 +24,7 @@ def evaluate(hardware,surface,source,canon,quarantine,backendSource):
     check("noAutoRecording",hardware.get("autoStartCapture") is False)
     check("noSerialExfil",hardware.get("autoExposeSerials") is False)
     check("noGpartedBrowser",hardware.get("gparted")=="HOST_OPERATOR_ONLY_NO_WEBVIEW_PARTITION_WRITES")
-    check("linuxHostUnmodified","no host OS migration" in hardware["targetPlatforms"]["linux"]["currentStudio"].lower())
+    check("linuxHostUnmodified","no host os migration" in hardware["targetPlatforms"]["linux"]["currentStudio"].lower())
     check("ubuntuLtsTarget","26.04.1 LTS" in hardware["targetPlatforms"]["linux"]["hostBaseline"])
     check("iOSBuildHonest","macOS + Xcode" in hardware["targetPlatforms"]["ios"]["buildRequirement"])
     check("noFakeIphone",hardware["targetPlatforms"]["ios"]["deviceInventory"]=="NO_OWNER_IPHONE_CONFIRMED")
