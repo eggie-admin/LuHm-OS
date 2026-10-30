@@ -9,6 +9,11 @@ on:
       - 'export_presets.cfg'
       - 'doctrine/k9000DualPlatformCanonV1.json'
       - 'doctrine/k9000CrownCathedralReleaseV1.json'
+      - 'doctrine/k9000UniversalHardwareV1.json'
+      - 'doctrine/k9000UniversalVendorSurfaceV1.json'
+      - 'host/api/k9000HeadlessCore.py'
+      - 'tools/k9000UniversalHardwareAudit.py'
+      - 'tests/testK9000UniversalHardware.py'
       - 'tools/k9000PublicReadiness.py'
       - 'tests/testK9000PublicReadiness.py'
       - 'frontEnd/brand/**'
@@ -24,6 +29,11 @@ on:
       - 'export_presets.cfg'
       - 'doctrine/k9000DualPlatformCanonV1.json'
       - 'doctrine/k9000CrownCathedralReleaseV1.json'
+      - 'doctrine/k9000UniversalHardwareV1.json'
+      - 'doctrine/k9000UniversalVendorSurfaceV1.json'
+      - 'host/api/k9000HeadlessCore.py'
+      - 'tools/k9000UniversalHardwareAudit.py'
+      - 'tests/testK9000UniversalHardware.py'
       - 'tools/k9000PublicReadiness.py'
       - 'tests/testK9000PublicReadiness.py'
       - 'frontEnd/brand/**'
@@ -61,6 +71,12 @@ jobs:
         run: |
           python3 tools/k9000PublicReadiness.py
           python3 -m unittest tests/testK9000PublicReadiness.py -v
+      - name: Universal hardware and optional-vendor doctrine audit
+        run: python3 tools/k9000UniversalHardwareAudit.py
+      - name: Headless Python loopback and SQLite smoke
+        run: |
+          python3 host/api/k9000HeadlessCore.py --smoke
+          python3 -m unittest tests/testK9000UniversalHardware.py -v
       - name: Static JavaScript syntax
         run: node --check frontEnd/k9000.js
       - name: Honest boundary
