@@ -1,0 +1,224 @@
+{
+  "schema": "luhmOs.universalFourLaneV1",
+  "status": "SOURCE_ONLY_NOT_VM_OR_DEVICE_PROOF",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "namespace": {
+    "repo": "eggie-admin/LuHm-OS",
+    "package": "luhm-os",
+    "projectHydra": "project-hydra",
+    "androidApplicationId": "art.eggiebagelface.luhmos.cathedral",
+    "publicZone": "eggiebagelface.art",
+    "publicCandidates": [
+      "mcp.eggiebagelface.art",
+      "system.eggiebagelface.art",
+      "assets.eggiebagelface.art"
+    ],
+    "privateTestZone": "vm.luhm.test",
+    "dnsAuthority": "CLOUDFLARE_UNCHANGED",
+    "reverseAndroidNamespaceIsNotPtr": true
+  },
+  "fourByFour": {
+    "composition": [
+      "coreLibrary",
+      "pluginExtension",
+      "classWidgetOrganization",
+      "stubAdapterBoundary"
+    ],
+    "layers": [
+      "k9000Presentation",
+      "edgeSecurityTransport",
+      "pythonSqlServices",
+      "studioHardwareForge"
+    ],
+    "releaseLanes": [
+      "nightly",
+      "beta",
+      "lts",
+      "legacy"
+    ],
+    "packageFormats": [
+      "dev",
+      "npm",
+      "dmg",
+      "apk"
+    ],
+    "beats": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "escalation": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "release": {
+    "nightly": {
+      "purpose": "disposable preview from exact-source GitHub; zero auto deploy",
+      "runtime": "NONE",
+      "upgradeByDefault": false,
+      "driverUpgrade": false
+    },
+    "beta": {
+      "purpose": "controlled candidate K9000/Chrome Beta/One UI eligible research",
+      "runtime": "DEVICE_PROOF_PENDING",
+      "upgradeByDefault": false,
+      "driverUpgrade": false
+    },
+    "lts": {
+      "purpose": "stock signed kernel + stable approved app source",
+      "runtime": "PROVEN_DEVICE_REQUIRED",
+      "upgradeByDefault": false,
+      "driverUpgrade": false
+    },
+    "legacy": {
+      "purpose": "HTML5 static or read-only WebView fallback; gracefully no advanced capture",
+      "runtime": "COMPATIBILITY_ONLY",
+      "upgradeByDefault": false,
+      "driverUpgrade": false
+    }
+  },
+  "transport": {
+    "existingPublicMcp": {
+      "path": "ChatGPT>RenderManagedTls>LuHmMcp",
+      "id": "currentRenderDirect",
+      "cloudflareProxy": false,
+      "tunnel": false,
+      "keepUntilSseAndAuthProof": true
+    },
+    "candidateVm": {
+      "path": "Client>Cloudflare>DDoS/WAF>AccessIdentity>outboundCloudflared>loopbackProxy>PythonCapabilityAPI",
+      "id": "candidateCloudflareTunnel",
+      "deployed": false,
+      "dnsChanged": false
+    },
+    "privateStudio": {
+      "path": "localAuthorizedUI>loopbackAPI>consentedCaptureWorker",
+      "id": "privateStudioLoopback",
+      "deployed": false
+    },
+    "offline": {
+      "path": "SamsungOrBrowser>packagedHTML5>localReadOnlyProjection",
+      "id": "offlineFallback",
+      "deployed": false
+    },
+    "edgeFourStages": [
+      "edgeDdosAndWaf",
+      "authenticatedIdentityAndAccess",
+      "privateLoopbackProxy",
+      "capabilityAuthorizationAndAudit"
+    ],
+    "noPublicOriginPort": true,
+    "fullStrictOrAuthenticatedTunnelOriginValidation": true,
+    "cloudflareFreeBotFightModeOptional": true,
+    "paidBotScoreRequired": false,
+    "noClientGeolocationWithoutConsent": true,
+    "ipGeoNotAuthProof": true,
+    "noLocationCollection": true,
+    "noOpenProxy": true,
+    "noOpenVpnByDefault": true,
+    "openSshSftpOwnerOnly": true,
+    "httpToHttpsAtPublicEdge": true,
+    "noCacheAuth": true,
+    "noRawSqlRoute": true,
+    "nginx": "OPTIONAL_PRIVATE_LOOPBACK_PROXY",
+    "apacheHttpd": "ALTERNATIVE_NOT_STACKED",
+    "xampp": "LOCAL_TEST_ONLY_NOT_PRODUCTION",
+    "loadBalancer": "ONE_NODE_NO_PAID_LB_NEEDED"
+  },
+  "runtime": {
+    "python": "stdlib-first Python3 + sqlite3 STRICT/JSON1",
+    "uv": "OPTIONAL_LOCKED_ONLY_NOT_INSTALLED",
+    "lightningScript": "UNRESOLVED_UNMAPPED_NAMESPACE",
+    "piForge": "UNRESOLVED_NAME_NO_RENAME",
+    "go": "NO_RUNTIME_GO_REQUIRED",
+    "db": "SQLite local authoritative small data; MariaDB optional separate rights-and-restore decision",
+    "npm": "Node22 build-time; exact lock; no runtime CDN dependency",
+    "javascript": "K9000 static, jQuery3.7.1 and Vue3.5.44; Babylon9.32.0",
+    "threeJs": "OPTIONAL_ADAPTER_NOT_INSTALLED",
+    "cdn": "SELF_HOSTED_HASHED_PUBLIC_ASSETS_ONLY",
+    "certbot": "OWNER_APPROVED_DNS01_ONLY",
+    "netplan": "EXAMPLE_ONLY_NO_APPLY",
+    "cron": "SYSTEMD_TIMER_OPTION_AFTER_DEPLOYMENT",
+    "linuxOs": "current Mint studio with signed-stock LTS fallback; no universal kernel firmware",
+    "wslWine": "COMPATIBILITY_TEST_BENCH_NOT_KERNEL_SERVICE",
+    "remoteVm": "NOT_CONNECTED",
+    "googleSentry": "UNRESOLVED_PRODUCT_ID_NO_ASSUME_PROVIDES_SECURITY"
+  },
+  "hardware": {
+    "bluetooth": "BlueZ+PipeWire+WirePlumber capability discovery; multiple MIC transport profiles need real testing",
+    "sixWebcams": "V4L2/UVC + powered hubs + timestamp/calibration on Linux studio, 0/6 proven",
+    "sixMics": "individual permissioned capture channels with sample clock drift measurements, not falsely one device",
+    "motion": "Blender calibration + human-approved retarget; FFmpeg bounded filter-graph queue",
+    "android": "stock Android WebView, no root or hidden privileged shell",
+    "ios": "WKWebView/browser portable; signing gates unchanged",
+    "pi": "optional Raspberry Pi headless bridge; no internet exposed webcam",
+    "studio": "Blender EEVEE GPU-limited; Cycles CPU option subject benchmark",
+    "assetExchange": "rights-cleared glTF/GLB source-attested; no auto asset import"
+  },
+  "engines": {
+    "canonicalEditor": "Blender",
+    "canonicalRuntime": "Godot 4",
+    "browserPreview": "Babylon.js",
+    "vue": "UI_NOT_A_3D_ENGINE",
+    "optionalAdapters": [
+      "Unity",
+      "Unreal",
+      "Three.js"
+    ],
+    "optionalDoNotBundle": true,
+    "openSourceLicense": "GPL_BLENDER_MIT_GODOT_MIXED_FFMPEG",
+    "noRelicensing": true
+  },
+  "agents": {
+    "proposalSix": [
+      "lum",
+      "skuldResearch",
+      "tetsu",
+      "kaji",
+      "yume",
+      "belldandySecretary"
+    ],
+    "observedCanonical": "doctrine/companyWideOperationalQuarantineV1.json",
+    "authority": "READ_ONLY_SOURCE_RESEARCH_ONLY",
+    "workersActive": 0,
+    "allFifteenQuarantined": true,
+    "taskEnvelope": "Base64url JSON 44KiB, not encryption or signature",
+    "base44": "SEPARATE_EXTERNAL_PLATFORM_NOT_A_CODEC",
+    "modelWeightsBundled": false,
+    "llama": "OPTIONAL_WEIGHT_LICENSE_REVIEW_NO_WEIGHTS",
+    "google": "OPTIONAL_PAID_OR_ACCOUNT_DEPENDENT_NOT_CONNECTED",
+    "noBackgroundAgents": true
+  },
+  "safety": {
+    "createDns": false,
+    "configureCloudflare": false,
+    "installVpn": false,
+    "changeNetplan": false,
+    "issueCert": false,
+    "scanLocation": false,
+    "runBluetoothPair": false,
+    "runCamera": false,
+    "connectRealVm": false,
+    "releasePackage": false,
+    "publishAssets": false,
+    "alterGplLicenses": false,
+    "unquarantineAgents": false,
+    "mergeMain": false,
+    "crownStatus": "STOP"
+  },
+  "referencePolicies": [
+    "doctrine/cloudflareEdgeHardeningV1.json",
+    "doctrine/networkSpineV1.json",
+    "doctrine/fourSourceForgeV1.json",
+    "doctrine/samsungCast500V1.json",
+    "doctrine/fourPackageTrainV1.json",
+    "doctrine/vendorApacheReadinessV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "host/api/typedLanesV1.sql"
+  ]
+}
