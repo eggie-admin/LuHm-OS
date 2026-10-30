@@ -5,6 +5,8 @@ on:
       - 'doctrine/premonitionCathedralCastV1.json'
       - 'doctrine/premonition-titan-500-inventory-v1.json'
       - 'tools/premonitionTitan500Audit.py'
+      - 'tools/candidateGate.py'
+      - 'doctrine/openAiDeploymentV3.json'
       - 'manual/premonition-cathedral-cast-2026-10-28.md'
       - '.github/workflows/premonition-cathedral-cast-audit.yml'
   workflow_dispatch:
