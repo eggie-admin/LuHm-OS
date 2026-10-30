@@ -13,7 +13,14 @@ def audit_files(files):
     checks = {
         "cspLocalOnly": "default-src 'none'" in html and "connect-src 'none'" in html,
         "noRemoteScript": 'src="https://' not in html and 'src="http://' not in html,
-        "singleUiEntry": '<title>K9000 | LuHm-OS</title>' in html,
+        "cathedralBrandMark": 'brand/k9000-cathedral-mark.svg' in html,
+        "screensPanel": 'data-panel="screens"' in html and 'data-screen-probe' in html,
+        "screenReadOnly": '"screen_probe_requested" -> setOf("type")' in kotlin and 'sendDisplayInventory()' in kotlin,
+        "noMediaProjection": "MediaProjection" not in kotlin,
+        "isolatedPublicPackage": 'package/unique_name="art.eggiebagelface.luhmos.cathedral"' in presets,
+        "publicPreset": 'name="Android Crown Cathedral Public Candidate"' in presets,
+        "testingIdentityPreserved": 'package/unique_name="art.eggiebagelface.luhmos.testing"' in presets,
+        "singleUiEntry": '<title>K9000 | LuHm-OS: Crown Cathedral</title>' in html,
         "nativeScript": './k9000.js' in html and './k9000.css' in html,
         "familyFirst": "JACOB CREATOR · FAMILY SAFE" in html,
         "cameraScanLabeled": "USB/UVC discovery is read-only" in html,
@@ -72,4 +79,4 @@ if __name__ == "__main__":
     failures = audit_files(read_files())
     if failures:
         raise SystemExit("RED_K9000_CANDIDATE_SOURCE " + ",".join(failures))
-    print("GREEN_K9000_CANDIDATE_SOURCE 40/40 (SOURCE ONLY, no APK/DMG/device proof)")
+    print("GREEN_K9000_CANDIDATE_SOURCE 47/47 (SOURCE ONLY, no APK/DMG/device proof)")
