@@ -14,7 +14,10 @@
     "song": "node src/cli.mjs song",
     "plan:local": "node src/cli.mjs plan local coreLibrary hear",
     "test": "node --test tests/*.test.mjs",
-    "plan:cathedral": "node src/cathedral.mjs"
+    "plan:cathedral": "node src/cathedral.mjs",
+    "pkg:plan": "node src/thin-package.mjs plan",
+    "pkg:try": "node src/thin-package.mjs try",
+    "pkg:apply": "node src/thin-package.mjs apply"
   },
   "dependencies": {},
   "devDependencies": {}
