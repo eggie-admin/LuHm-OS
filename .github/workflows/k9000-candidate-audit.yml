@@ -8,6 +8,11 @@ on:
       - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
       - 'export_presets.cfg'
       - 'doctrine/k9000DualPlatformCanonV1.json'
+      - 'doctrine/k9000CrownCathedralReleaseV1.json'
+      - 'tools/k9000PublicReadiness.py'
+      - 'tests/testK9000PublicReadiness.py'
+      - 'frontEnd/brand/**'
+      - 'fastlane/metadata/android/en-US/**'
       - 'manual/k9000DualPlatformPlan20261030.md'
       - 'tools/k9000CandidateAudit.py'
       - 'tests/testK9000CandidateAudit.py'
@@ -18,6 +23,11 @@ on:
       - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
       - 'export_presets.cfg'
       - 'doctrine/k9000DualPlatformCanonV1.json'
+      - 'doctrine/k9000CrownCathedralReleaseV1.json'
+      - 'tools/k9000PublicReadiness.py'
+      - 'tests/testK9000PublicReadiness.py'
+      - 'frontEnd/brand/**'
+      - 'fastlane/metadata/android/en-US/**'
       - 'manual/k9000DualPlatformPlan20261030.md'
       - 'tools/k9000CandidateAudit.py'
       - 'tests/testK9000CandidateAudit.py'
@@ -47,6 +57,10 @@ jobs:
         run: python3 tools/k9000CandidateAudit.py
       - name: K9000 negative controls
         run: python3 -m unittest tests/testK9000CandidateAudit.py -v
+      - name: F-Droid public source preflight with release gates not bypassed
+        run: |
+          python3 tools/k9000PublicReadiness.py
+          python3 -m unittest tests/testK9000PublicReadiness.py -v
       - name: Static JavaScript syntax
         run: node --check frontEnd/k9000.js
       - name: Honest boundary
@@ -55,3 +69,4 @@ jobs:
           echo "SOURCE_ONLY_CANDIDATE"
           echo "NO_ANDROID_INSTALL_NO_MAC_BUILD_NO_UVC_STREAM"
           echo "NO_EDGE_GALLERY_SERVICE_NO_NOTARIZATION_NO_CROWN"
+          echo "NOT_SIGNED_NOT_PUBLISHED_TO_FDROID"
