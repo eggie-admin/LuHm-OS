@@ -1,0 +1,79 @@
+{
+  "valid": {
+    "schema": "luhmOs.cathedralEnvelope.v1",
+    "sourceRef": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "taskId": "work.001",
+    "scopeId": "public-safe",
+    "origin": "github",
+    "tier": "githubWorkspace",
+    "operation": "snapshot",
+    "costUsd": 0,
+    "hashes": [
+      "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "approval": false,
+    "crown": "STOP"
+  },
+  "invalid": [
+    {
+      "patch": {
+        "operation": "apply"
+      },
+      "name": "privileged"
+    },
+    {
+      "patch": {
+        "costUsd": 1
+      },
+      "name": "money"
+    },
+    {
+      "patch": {
+        "approval": true
+      },
+      "name": "authority"
+    },
+    {
+      "patch": {
+        "crown": "GREEN"
+      },
+      "name": "false-green"
+    },
+    {
+      "patch": {
+        "sourceRef": "main"
+      },
+      "name": "mutable"
+    },
+    {
+      "patch": {
+        "hashes": [
+          "https://drive.google.com/secret"
+        ]
+      },
+      "name": "private-ref"
+    },
+    {
+      "patch": {
+        "taskId": "../../secret"
+      },
+      "name": "path-traversal"
+    },
+    {
+      "patch": {
+        "origin": "custom-node"
+      },
+      "name": "untrusted-origin"
+    },
+    {
+      "patch": {
+        "hashes": [
+          "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        ]
+      },
+      "name": "duplicates"
+    }
+  ]
+}

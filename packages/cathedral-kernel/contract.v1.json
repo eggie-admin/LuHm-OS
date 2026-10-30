@@ -1,0 +1,37 @@
+{
+  "schema": "luhmOs.cathedralEnvelope.v1",
+  "fields": [
+    "schema",
+    "sourceRef",
+    "taskId",
+    "scopeId",
+    "origin",
+    "tier",
+    "operation",
+    "costUsd",
+    "hashes",
+    "approval",
+    "crown"
+  ],
+  "origins": [
+    "openAi",
+    "github",
+    "googleAi",
+    "sidecar"
+  ],
+  "tiers": [
+    "thinClient",
+    "localStudio",
+    "githubWorkspace",
+    "remoteSidecar"
+  ],
+  "operations": [
+    "plan",
+    "status",
+    "snapshot"
+  ],
+  "maxHashes": 32,
+  "maxId": 64,
+  "allowedSpendUsd": 0,
+  "releaseAuthorized": false
+}
