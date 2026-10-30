@@ -13,7 +13,7 @@ export function normalizeEnvelope(v){
   if(v.costUsd!==0||v.approval!==false||v.crown!=='STOP')deny('AUTHORITY');
   if(!Array.isArray(v.hashes)||v.hashes.length>C.maxHashes||v.hashes.some(h=>typeof h!=='string'||!H.test(h)))deny('HASH_ARRAY');
   if(new Set(v.hashes).size!==v.hashes.length)deny('DUPLICATE_HASH');
-  return Object.freeze(Object.fromEntries(C.fields.map(k=>[k,k==='hashes'?[...v.hashes].sort():v[k]])));
+  return Object.freeze(Object.fromEntries(C.fields.map(k=>[k,k==='hashes'?Object.freeze([...v.hashes].sort()):v[k]])));
 }
 export class CathedralEnvelope{
   constructor(value){this.value=normalizeEnvelope(value);Object.freeze(this)}

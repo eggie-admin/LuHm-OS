@@ -22,13 +22,15 @@ def normalize_envelope(v):
 
 @dataclass(frozen=True)
 class CathedralEnvelope:
-    value: dict
-    def __post_init__(self):
-        object.__setattr__(self,'value',normalize_envelope(self.value))
+    """Store immutable validated JSON bytes, not a caller-mutable dict."""
+    canonical_json: str
+    def __init__(self,value):
+        validated=normalize_envelope(value)
+        object.__setattr__(self,'canonical_json',json.dumps(validated,separators=(',',':'),ensure_ascii=False))
     def canonical(self):
-        return json.dumps(self.value,separators=(',',':'),ensure_ascii=False)
+        return self.canonical_json
     def to_dict(self):
-        return json.loads(self.canonical())
+        return json.loads(self.canonical_json)
 
 def source_snapshot(value):
     return {'canonical':CathedralEnvelope(value).canonical(),'sourceOnly':True,'executable':False}
