@@ -68,7 +68,7 @@ jobs:
           npm run song
           npm run plan:local
           npm test
-          npm run matrix > /tmp/luhm-orchestra-matrix.json
+          npm run --silent matrix > /tmp/luhm-orchestra-matrix.json
           python3 - <<'PY'
           import json
           x=json.load(open('/tmp/luhm-orchestra-matrix.json',encoding='utf8'))
