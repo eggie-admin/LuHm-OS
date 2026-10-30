@@ -19,6 +19,7 @@
   <aside class="rail" aria-label="Cockpit navigation">
     <button class="rail-button current" data-view="studio" aria-current="page"><span aria-hidden="true">✦</span>Studio</button>
     <button class="rail-button" data-view="cameras"><span aria-hidden="true">◉</span>Cameras</button>
+    <button class="rail-button" data-view="hardware"><span aria-hidden="true">▣</span>Hardware</button>
     <button class="rail-button" data-view="models"><span aria-hidden="true">⬡</span>AI Lab</button>
     <button class="rail-button" data-view="vault"><span aria-hidden="true">▤</span>Vault</button>
     <button class="rail-button" data-view="world"><span aria-hidden="true">☼</span>World</button>
@@ -44,6 +45,16 @@
       <div class="grid two"><article class="tile live"><small>LOCAL INVENTORY</small><strong data-camera-count>NOT SCANNED</strong><p data-camera-detail>Use the native Android bridge to enumerate candidate UVC devices.</p><button class="action" data-camera-probe>DISCOVER USB CAMERAS</button></article>
       <article class="tile"><small>CAPTURE PIPELINE</small><strong>6-CAMERA CAGE</strong><p>UVC streaming, bandwidth budget, USB permissions and sync calibration require physical validation.</p><span class="badge">NOT CONNECTED</span></article></div>
       <div class="device-list" data-camera-list aria-live="polite"></div>
+    </section>
+
+    <section class="view" data-panel="hardware" aria-label="Studio hardware diagnostics">
+      <div class="section-intro"><h2>PROFESSOR'S HARDWARE LAB</h2><p>Roles follow your private hardware canon; this screen does not publish its full inventory or device serials.</p></div>
+      <div class="grid three">
+        <article class="tile"><small>CAMERA / VIDEO BOSS</small><strong>Nikon camera</strong><p>Photo and movie ingest first. Direct USB webcam and live HDMI output are not verified.</p><span class="badge">LIVE CAPTURE UNVERIFIED</span></article>
+        <article class="tile"><small>ART MASTER ARCHIVE</small><strong>Epson flatbed scanner</strong><p>Scan originals to archival masters. Fully open-source SANE driver support needs a real Linux test.</p><span class="badge">SCANNER DRIVER UNVERIFIED</span></article>
+        <article class="tile"><small>USB VIDEO CLASS</small><strong>Logitech webcam</strong><p>UVC candidate for recording; permission and streaming must be physically proven.</p><span class="badge">VIDEO STREAM UNVERIFIED</span></article>
+      </div>
+      <article class="tile" style="margin-top:16px"><small>ANDROID USB INVENTORY · READ ONLY</small><strong data-hardware-count>NOT SCANNED</strong><p data-hardware-detail>Check connected USB descriptors, without reading serials or opening the hardware.</p><button class="action" data-hardware-probe>CHECK USB HARDWARE</button><div class="device-list" data-hardware-list aria-live="polite"></div></article>
     </section>
     <section class="view" data-panel="models" aria-label="AI lab">
       <div class="section-intro"><h2>HEADLESS AI LAB</h2><p>K9000 is the UI. LiteRT-LM is a candidate embedded engine, not an authenticated Edge Gallery service.</p></div>
