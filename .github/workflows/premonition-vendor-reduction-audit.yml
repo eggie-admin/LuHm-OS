@@ -3,6 +3,11 @@ on:
   pull_request:
     paths:
       - 'doctrine/vendorReductionV1.json'
+      - 'doctrine/k9000UniversalHardwareV1.json'
+      - 'doctrine/k9000UniversalVendorSurfaceV1.json'
+      - 'tools/k9000UniversalHardwareAudit.py'
+      - 'tools/k9000LocalDriverProbe.py'
+      - 'host/api/k9000HeadlessCore.py'
       - 'tools/vendorReductionAudit.py'
       - 'tests/testVendorReduction.py'
       - 'manual/vendor-reduction.md'
@@ -19,9 +24,12 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '22'
+      - name: Bind exact candidate SHA
+        run: test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
       - name: Verify profile and run source negative tests
         run: |
           python3 -m json.tool doctrine/vendorReductionV1.json > /dev/null

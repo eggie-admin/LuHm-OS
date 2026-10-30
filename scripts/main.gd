@@ -9,6 +9,7 @@ const CharacterRosterScript := preload("res://scripts/game/characterRoster.gd")
 const QuestDirectorScript := preload("res://scripts/game/questDirector.gd")
 const OniSummonBeaconScript := preload("res://scripts/game/oniSummonBeacon.gd")
 const OniEchoCompanionScript := preload("res://scripts/game/oniEchoCompanion.gd")
+const K9000DesktopShellScript := preload("res://scripts/k9000/k9000DesktopShell.gd")
 
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
 const FIRST_NIGHT_QUEST_PATH := "res://game/story/firstNightQuest.json"
@@ -32,6 +33,7 @@ var character_roster: Node
 var quest_director: Node
 var nearest_interactable: Area3D
 var intro_played := false
+var k9000_desktop_shell: CanvasLayer
 var android_web3_plugin = null
 var android_web3_version := "unavailable"
 var active_oni_beacon: Area3D
@@ -64,6 +66,12 @@ func _build_runtime() -> void:
     game_hud = GameHudScript.new()
     game_hud.name = "GameHud"
     add_child(game_hud)
+
+    if OS.get_name() == "macOS":
+        k9000_desktop_shell = K9000DesktopShellScript.new()
+        k9000_desktop_shell.name = "K9000DesktopShell"
+        add_child(k9000_desktop_shell)
+        k9000_desktop_shell.world_requested.connect(enterWorldMode)
 
     cutscene_director = CutsceneDirectorScript.new()
     cutscene_director.name = "CutsceneDirector"
@@ -173,6 +181,8 @@ func _on_android_web3_error(reason: String) -> void:
     push_error("ANDROID_WEB3_COCKPIT_ERROR: " + reason)
 
 func enterWorldMode() -> void:
+    if k9000_desktop_shell != null:
+        k9000_desktop_shell.visible = false
     if android_web3_plugin != null:
         android_web3_plugin.hideCockpit()
     game_hud.show_world()
@@ -182,6 +192,8 @@ func enterWorldMode() -> void:
         call_deferred("_play_intro")
 
 func _enter_backend() -> void:
+    if k9000_desktop_shell != null:
+        k9000_desktop_shell.visible = true
     nearest_interactable = null
     if cutscene_bridge != null:
         cutscene_bridge.cancel()
