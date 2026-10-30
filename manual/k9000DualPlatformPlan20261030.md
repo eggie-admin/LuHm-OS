@@ -38,3 +38,14 @@
 5. Record actual receipts and blockers. Do not count source checks as device/build/release proof.
 
 **Rollback:** revert the candidate commit or switch back to protected main. No release identity or signing credential changes are proposed here.
+
+## Hardware canon reconciliation
+**Single authoritative inventory:** owner's private Google Drive document `PRIVATE_CANONICAL_LUHM_OS_HARDWARE_SOURCE_OF_TRUTH_20260916`. GitHub receives no complete hardware inventory, serials, MAC addresses, private Drive IDs, USB device names or photos. K9000 shows functional roles, not a mirrored private list.
+
+- **Camera/video boss:** Nikon camera. Treat files/photos/video as master ingest. Nikon Webcam Utility's supported-camera list excludes the Canon-confirmed model. Its micro-HDMI connector alone does not prove live HDMI preview: test the actual camera/output before adding capture hardware or integrating streaming.
+- **Artwork archival input:** Epson flatbed scanner. The physical original leads to a pristine master scan, hash, protected storage and non-destructive working derivative. Open-source-only policy requires a proven free SANE-compatible backend. Legacy V39 (not V39 II) may need nonfree firmware; do not infer support for the II or silently install proprietary blobs.
+- **Webcam capture:** Logitech UVC candidate. A USB video-class descriptor establishes only enumeration. Explicit permission, frame negotiation, audio sync, capture and storage require separate device evidence.
+- **Samsung devices:** stock Android GKI/vendor boundary unmodified. Use the read-only Android USB host inventory in K9000 Hardware Lab. No recording, no permission request and no device driver installation occurs in this probe.
+- **Linux Mint workstation:** run only read-only `lsusb`, `scanimage -L`, `sane-find-scanner`, `v4l2-ctl --list-devices` and `ffmpeg -devices` before deciding on an integration. Redact hardware serials, paths and identifiers from shared logs.
+
+**Security blocker:** the private hardware source-of-truth Google Doc currently exposes `anyone:writer` according to Google Drive permission metadata. A separate owner-approved ACL restriction is needed; this candidate intentionally does not change sharing. Keep the physical inventory and unlicensed/private assets out of public GitHub.
