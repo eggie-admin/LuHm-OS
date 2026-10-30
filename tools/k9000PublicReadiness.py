@@ -2,6 +2,7 @@
 """F-Droid release gate. PASS means source preflight only, NOT publication."""
 import argparse
 import json
+import struct
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,6 +11,14 @@ def inspect(root: Path) -> dict:
     def read(path):
         p=root/path
         return p.read_text(encoding="utf-8") if p.is_file() else ""
+    def png_dimensions(path):
+        p=root/path
+        if not p.is_file():
+            return None
+        data=p.read_bytes()[:24]
+        if len(data)!=24 or data[:8]!=b"\\x89PNG\\r\\n\\x1a\\n" or data[12:16]!=b"IHDR":
+            return None
+        return struct.unpack(">II",data[16:24])
     license_text=read("LICENSE")
     html=read("frontEnd/k9000.html")
     svg=read("frontEnd/brand/k9000-cathedral-mark.svg")
@@ -36,7 +45,11 @@ def inspect(root: Path) -> dict:
         "noBundledModel":canon["ai"]["fDroidPackagedModel"] is False,
         "noSilentAiDownload":canon["ai"]["modelDownloadsAutomatic"] is False,
         "noKernelFlash":canon["backend"]["rootOrFlash"] is False,
-        "noGpartedWebBridge":canon["backend"]["gpartedFromWebView"] is False
+        "noGpartedWebBridge":canon["backend"]["gpartedFromWebView"] is False,
+        "nativeGodotBrand":'config/name="LuHm-OS: Crown Cathedral"' in read("project.godot"),
+        "launcherMainPng":png_dimensions("frontEnd/brand/k9000-main-192.png")==(192,192),
+        "launcherAdaptivePng":png_dimensions("frontEnd/brand/k9000-adaptive-432.png")==(432,432),
+        "fdroid512Icon":png_dimensions("fastlane/metadata/android/en-US/images/icon.png")==(512,512)
     }
     gates={
         "allTransitiveLicenses":canon["licensing"]["allTransitiveFoss"]=="VERIFIED",

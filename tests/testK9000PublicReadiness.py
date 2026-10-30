@@ -7,7 +7,7 @@ from tools.k9000PublicReadiness import inspect, ROOT
 class PublicReadinessTests(unittest.TestCase):
     def test_preflight_not_release(self):
         receipt=inspect(ROOT)
-        self.assertEqual(16,receipt["sourceChecks"])
+        self.assertEqual(20,receipt["sourceChecks"])
         self.assertEqual([],receipt["sourceFailures"])
         self.assertFalse(receipt["publishReady"])
         self.assertTrue(receipt["publicationBlockers"])
@@ -18,6 +18,9 @@ class PublicReadinessTests(unittest.TestCase):
           "androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt",
           "export_presets.cfg","doctrine/k9000CrownCathedralReleaseV1.json",
           "fastlane/metadata/android/en-US/short_description.txt",
+          "project.godot","frontEnd/brand/k9000-main-192.png",
+          "frontEnd/brand/k9000-adaptive-432.png",
+          "fastlane/metadata/android/en-US/images/icon.png",
           "fastlane/metadata/android/en-US/full_description.txt"
         ]
         with tempfile.TemporaryDirectory() as directory:

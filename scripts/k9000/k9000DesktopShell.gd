@@ -70,7 +70,7 @@ func _build_cockpit() -> void:
     header.add_theme_constant_override("separation", 16)
     stack.add_child(header)
     header.add_child(_make_label("◇ K9000", 30, PINK))
-    header.add_child(_make_label("LuHm-OS  /  PROJECT PREMONITION", 13, CYAN))
+    header.add_child(_make_label("LuHm-OS  /  CROWN CATHEDRAL", 13, CYAN))
     var spacer := Control.new()
     spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     header.add_child(spacer)
