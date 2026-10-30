@@ -1,0 +1,126 @@
+{
+  "schema": "luhmOs.samsungCast500.v1",
+  "status": "SOURCE_CANDIDATE",
+  "authority": "Professor",
+  "base": "candidate/apache-vendor-zip-gradle-hardening-20261030",
+  "tracks": [
+    "proposed",
+    "dataLane",
+    "lts",
+    "studioForge"
+  ],
+  "tracksAreAuthorityTiers": false,
+  "canonicalTierLevels": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "profilesYaml": "infra/four-lane/samsung-kernel-profiles.yaml",
+  "auditedDevices": [
+    "samsungS24FE",
+    "samsungTabS10Lite",
+    "samsungTabA8",
+    "linuxMintStudio",
+    "githubRunner"
+  ],
+  "auditDomains": [
+    "firmwareAndBoot",
+    "osAndDrivers",
+    "aiAndMedia",
+    "forgeAndRelease"
+  ],
+  "controlsPerDomain": 25,
+  "distinctControls": 100,
+  "assessmentSlots": 500,
+  "samsung": {
+    "s24FE": "SM-S721U1",
+    "s10Lite": "SM-X400",
+    "tabA8": "SM-X200",
+    "s10LiteDex": "UNSUPPORTED_STANDALONE_WIRELESS_AND_HDMI",
+    "officialBetaEligible": "UNKNOWN_PER_DEVICE",
+    "installedBuilds": "UNVERIFIED",
+    "stockVendorKernel": true,
+    "flashFirmware": false,
+    "bootloaderUnlock": false,
+    "rootBypass": false,
+    "adbOnlyOnExplicitConsent": true
+  },
+  "studio": {
+    "host": "Linux Mint 22.3 Zena; Intel i9-12900K",
+    "cpuCores": 16,
+    "cpuThreads": 24,
+    "npuPresent": false,
+    "intelGraphics": "UHD 770 SKU SPEC_NOT_DEVICE_PROOF",
+    "openVino": "CPU_REFERENCE_ONLY",
+    "gpuDriver": "UNVERIFIED",
+    "motherboard": "MODEL_NOT_VERIFIED_ASROCK_OR_ASUS",
+    "grub": "READ_ONLY_INSPECTION",
+    "gparted": "OPERATOR_ONLY",
+    "gdm": "OPTIONAL_DISPLAY_MANAGER_NOT_VM_DEPENDENCY",
+    "dsl": "DSL 2024 RC7 VM_RESEARCH_ONLY",
+    "blender": "LOCAL_HEADLESS_CANDIDATE",
+    "usbCameraTarget": 6,
+    "usbCameraVerified": 0
+  },
+  "motionCapture": {
+    "host": "LINUX_STUDIO_FIRST",
+    "backend": "V4L2_UVC_FFMPEG_CANDIDATE",
+    "calibration": "OpenCV ChArUco checkerboard extrinsics",
+    "synchronization": "per-device PTS + visual flash sync",
+    "streaming": false,
+    "remoteVMReceivesFrames": false,
+    "rawImageCapture": false
+  },
+  "ai": {
+    "primary": "local OpenVINO CPU candidate",
+    "gpu": "needs actual driver evidence",
+    "cloud": "explicit opt-in paid provider",
+    "taskEnvelope": "base64url-json MAX 44 KiB",
+    "base44": "NOT_ENCODING_AND_NOT_TRUST",
+    "combinedLum": "SUPERVISED_TASK_ROUTER_PROPOSAL",
+    "activeWorkers": 0
+  },
+  "app": {
+    "oneLogicalApp": true,
+    "packages": [
+      "dev",
+      "npm",
+      "dmg",
+      "apk"
+    ],
+    "samsungUi": "DEX_INSPIRED_HTML5_NOT_NATIVE_DEX",
+    "githubExactSha": true,
+    "firmwareFromWebView": false,
+    "database": "Python sqlite3 STRICT JSON1 candidate",
+    "licenses": "doctrine/vendorApacheReadinessV1.json"
+  },
+  "approval": {
+    "readOnlyAudit": true,
+    "isolatedExperimentalImages": true,
+    "grubWrite": false,
+    "gpartedWrite": false,
+    "firmwareFlash": false,
+    "customRom": false,
+    "knoxBypass": false,
+    "automaticSamsungBetaEnroll": false,
+    "cloudProvision": false,
+    "paidCalls": false,
+    "enableAgents": false,
+    "mainMerge": false,
+    "signing": false,
+    "crownStatus": "STOP"
+  },
+  "sources": [
+    "https://www.samsung.com/us/support/answer/ANS10003426/",
+    "https://developer.samsung.com/one-ui-beta",
+    "https://ubuntu.com/project/docs/release-team/list-of-releases/",
+    "https://www.intel.com/content/www/us/en/products/sku/134599/intel-core-i912900k-processor-30m-cache-up-to-5-20-ghz/specifications.html",
+    "https://docs.openvino.ai/2026/about-openvino/release-notes-openvino/system-requirements.html",
+    "https://damnsmalllinux.org/2024-download.html",
+    "https://www.gnu.org/software/grub/manual/grub/grub.html",
+    "https://www.asrock.com/support/BIOSIG.asp",
+    "https://www.asus.com/us/support/faq/1008279/",
+    "https://developer.android.com/topic/performance/benchmarking/macrobenchmark-overview"
+  ]
+}
