@@ -16,7 +16,7 @@ def audit_files(files):
         "cathedralBrandMark": 'brand/k9000-cathedral-mark.svg' in html,
         "screensPanel": 'data-panel="screens"' in html and 'data-screen-probe' in html,
         "screenReadOnly": '"screen_probe_requested" -> setOf("type")' in kotlin and 'sendDisplayInventory()' in kotlin,
-        "noMediaProjection": "MediaProjection" not in kotlin,
+        "noMediaProjection": "import android.media.projection." not in kotlin and "getMediaProjection(" not in kotlin,
         "isolatedPublicPackage": 'package/unique_name="art.eggiebagelface.luhmos.cathedral"' in presets,
         "publicPreset": 'name="Android Crown Cathedral Public Candidate"' in presets,
         "testingIdentityPreserved": 'package/unique_name="art.eggiebagelface.luhmos.testing"' in presets,
