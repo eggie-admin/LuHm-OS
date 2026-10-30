@@ -11,10 +11,26 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: social-video-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   source-preflight:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
-      - uses: actions/checkout@v4
-      - run: python3 -m py_compile tools/socialVideoOrchestrator.py tests/socialVideoOrchestratorTest.py
-      - run: python3 tests/socialVideoOrchestratorTest.py
+      - name: Exact-source checkout without persisted credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ env.LUHM_SOURCE_REF }}
+          persist-credentials: false
+      - name: Verify source identity and compile
+        run: |
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+          python3 -m py_compile tools/socialVideoOrchestrator.py tests/socialVideoOrchestratorTest.py
+      - name: Offline social video tests, no publishing
+        run: python3 tests/socialVideoOrchestratorTest.py
