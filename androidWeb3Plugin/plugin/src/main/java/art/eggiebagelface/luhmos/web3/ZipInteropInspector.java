@@ -1,13 +1,12 @@
 package art.eggiebagelface.luhmos.web3;
 
 import java.io.InputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.Enumeration;
 import java.util.HashSet;
-import java.util.HexFormat;
 import java.util.Set;
 import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
@@ -33,26 +32,31 @@ public final class ZipInteropInspector {
         return true;
     }
 
-    private static String sha256(Path path) throws Exception {
+    private static String sha256(File path) throws Exception {
         MessageDigest md=MessageDigest.getInstance("SHA-256");
-        try(InputStream in=Files.newInputStream(path)) {
+        try(InputStream in=new FileInputStream(path)) {
             byte[] buffer=new byte[65536];
             int n;
             while((n=in.read(buffer))>=0) if(n>0) md.update(buffer,0,n);
         }
-        return HexFormat.of().formatHex(md.digest());
+        StringBuilder hex=new StringBuilder(64);
+        for(byte b:md.digest()){
+            hex.append(Character.forDigit((b>>>4)&15,16));
+            hex.append(Character.forDigit(b&15,16));
+        }
+        return hex.toString();
     }
 
-    public static int verify(Path archive,String expectedDigest,int expectedEntries) throws Exception {
+    public static int verify(File archive,String expectedDigest,int expectedEntries) throws Exception {
         if(expectedDigest==null || !expectedDigest.matches("[a-f0-9]{64}") ||
             expectedEntries<1 || expectedEntries>MAX_FILES) throw new IOException("INVALID_RECEIPT_INPUT");
-        if(!Files.isRegularFile(archive) || Files.isSymbolicLink(archive) ||
-            Files.size(archive)<1 || Files.size(archive)>MAX_BYTES) throw new IOException("ARCHIVE_SIZE_OR_PATH");
+        if(!archive.isFile() || !archive.getCanonicalPath().equals(archive.getAbsolutePath()) ||
+            archive.length()<1 || archive.length()>MAX_BYTES) throw new IOException("ARCHIVE_SIZE_OR_PATH");
         if(!sha256(archive).equals(expectedDigest))throw new IOException("ARCHIVE_SHA256_MISMATCH");
         int count=0;
         long total=0;
         Set<String> seen=new HashSet<>();
-        try(ZipFile zip=new ZipFile(archive.toFile())) {
+        try(ZipFile zip=new ZipFile(archive)) {
             Enumeration<? extends ZipEntry> members=zip.entries();
             byte[] buffer=new byte[65536];
             while(members.hasMoreElements()) {
@@ -91,7 +95,7 @@ public final class ZipInteropInspector {
 
     public static void main(String[] args) throws Exception {
         if(args.length!=3)throw new IllegalArgumentException("ZIP_PATH EXPECTED_SHA256 ENTRY_COUNT");
-        int count=verify(Path.of(args[0]),args[1],Integer.parseInt(args[2]));
+        int count=verify(new File(args[0]),args[1],Integer.parseInt(args[2]));
         System.out.println("ZIP_JAVA17_SOURCE_GREEN entries="+count);
     }
 }
