@@ -19,7 +19,8 @@ class DeepDungeonSecurityTests(unittest.TestCase):
         self.assertEqual(inspect()["failedCategories"],[])
 
     def test_reject_private_key(self):
-        self.assertIn("private_key_material",scan_added_patch("diff --git a/a.txt b/a.txt\n+++ b/a.txt\n+-----BEGIN PRIVATE KEY-----"))
+        marker="-"*5+"BEGIN PRIVATE KEY"+"-"*5
+        self.assertIn("private_key_material",scan_added_patch("diff --git a/a.txt b/a.txt\n+++ b/a.txt\n+"+marker))
 
     def test_reject_private_file(self):
         self.assertIn("private_file_added",scan_added_patch("diff --git a/a b/folder/keys.p12\n+++ b/folder/keys.p12\n+dummy"))
