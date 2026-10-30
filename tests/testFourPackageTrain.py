@@ -22,6 +22,7 @@ class FourPackageTrainTests(unittest.TestCase):
            "glassLock":"frontEnd/prototypes/glassWorld/package-lock.json",
            "frontPkg":"frontEnd/package.json","webPkg":"packages/k9000-web/package.json",
            "presets":"export_presets.cfg","gradle":"androidWeb3Plugin/plugin/build.gradle.kts",
+           "gradleRoot":"androidWeb3Plugin/build.gradle.kts",
            "apkWorkflow":".github/workflows/android-testing-build.yml",
            "trainWorkflow":".github/workflows/four-package-train.yml"}
         cls.files={k:(ROOT/v).read_text(encoding="utf-8") for k,v in mapping.items()}
@@ -47,6 +48,16 @@ class FourPackageTrainTests(unittest.TestCase):
         files=dict(self.files)
         files["presets"]=files["presets"].replace("[preset.3.options]","[preset.0.options]")
         self.assertIn("ONE_OPTIONS_SECTION_PER_PRESET",self.rejected(files=files))
+
+    def test_gradle_plugin_pin_drift_rejected(self):
+        files=dict(self.files)
+        files["gradleRoot"]=files["gradleRoot"].replace('version "8.13.2"','version "9.0.0"')
+        self.assertIn("ANDROID_GRADLE_KOTLIN_PINS",self.rejected(files=files))
+
+    def test_dmg_template_hash_drift_rejected(self):
+        policy=copy.deepcopy(self.policy)
+        policy["dependencies"]["dmg"]["godotTemplateSha256"]="0"*64
+        self.assertIn("DMG_PINNED_SHA256",self.rejected(policy=policy))
 
     def test_unlocked_jquery_rejected(self):
         files=dict(self.files)
