@@ -7,7 +7,8 @@ import json
 from pathlib import Path
 import sqlite3
 import threading
-from urllib.request import urlopen
+from urllib.error import HTTPError
+from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[2]
 HARDWARE = ROOT / "doctrine/k9000UniversalHardwareV1.json"
@@ -103,6 +104,17 @@ def smoke():
             assert len(json.load(response)["devices"]) >= 10
         with urlopen(base+"/v1/providers",timeout=3) as response:
             assert json.load(response)["connectedFromThisProcess"] is False
+            assert response.headers.get("Access-Control-Allow-Origin") is None
+        for request,expected in (
+            (Request(base+"/v1/providers",data=b"{}",method="POST"),405),
+            (Request(base+"/v1/undefined"),404)
+        ):
+            try:
+                urlopen(request,timeout=3)
+                raise AssertionError("HEADLESS_READ_ONLY_BOUNDARY_BYPASSED")
+            except HTTPError as exc:
+                if exc.code != expected:
+                    raise AssertionError("UNEXPECTED_HTTP_BOUNDARY_STATUS") from exc
     finally:
         server.shutdown()
         server.server_close()
