@@ -55,6 +55,7 @@ def inspect(root=ROOT):
     pipeline=read("tools/unifiedForgePipeline.py")
     ck("manifestUsesStrictSql",'host/api/typedLanesV1.sql' in pipeline and '":memory:"' in pipeline and "aiManifestStream" in pipeline)
     ck("manifestNoProviderCalls", "subprocess.run" not in pipeline and "requests." not in pipeline and "urllib." not in pipeline)
+    ck("k9000StudioVisible","UNIVERSAL DESKTOP SOURCE" in read("frontEnd/k9000.html") and "DeX-inspired" in read("frontEnd/k9000.html"))
     frontend=read("frontEnd/forgeSourceProjection.mjs")
     ck("jsSafeUi","textContent=" in frontend and "innerHTML" not in frontend and "fetch(" not in frontend)
     failures=sorted(k for k,v in checks.items() if not v)
