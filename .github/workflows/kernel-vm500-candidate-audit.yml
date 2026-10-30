@@ -1,0 +1,64 @@
+name: LuHm Kernel 500 and Free VM DNS Research Gate
+on:
+  pull_request:
+    paths:
+      - 'doctrine/singleVmKernel500V1.json'
+      - 'infra/single-vm/**'
+      - 'tools/kernelVm500Audit.py'
+      - 'tests/testKernelVm500.py'
+      - '.github/workflows/kernel-vm500-candidate-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  kernel-vm500-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout exact reviewed candidate SHA
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify immutable source and Python AST
+        run: |
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
+          python3 -m py_compile tools/kernelVm500Audit.py tests/testKernelVm500.py
+          python3 -m json.tool doctrine/singleVmKernel500V1.json > /dev/null
+      - name: Execute five-target kernel-to-app 500 receipt
+        run: |
+          python3 tools/kernelVm500Audit.py --runner-scope --output "${RUNNER_TEMP}/kernel500/kernel500.json"
+      - name: Verify 500 slots and real fail-closed negative tests
+        run: python3 -m unittest tests/testKernelVm500.py -v
+      - name: Validate BIND9 and dnsmasq configurations using native parsers
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends bind9-utils dnsmasq-base
+          ROOT="${RUNNER_TEMP}/kernel500/chroot"
+          mkdir -p "$ROOT/etc/bind/zones" "$ROOT/var/cache/bind"
+          cp infra/single-vm/bind9/named.conf "$ROOT/etc/bind/named.conf"
+          cp infra/single-vm/bind9/named.conf.options "$ROOT/etc/bind/named.conf.options"
+          cp infra/single-vm/bind9/named.conf.local "$ROOT/etc/bind/named.conf.local"
+          cp infra/single-vm/bind9/db.vm.luhm.test "$ROOT/etc/bind/zones/db.vm.luhm.test"
+          sudo named-checkconf -z -t "$ROOT" /etc/bind/named.conf
+          named-checkzone vm.luhm.test infra/single-vm/bind9/db.vm.luhm.test
+          dnsmasq --test --conf-file=infra/single-vm/dnsmasq/k9000-lan-compat.conf
+          echo "DNS_CONFIG_SYNTAX_VALIDATED_NO_DAEMON_STARTED"
+      - name: Run existing system source audit
+        run: python3 tools/hardSystemAudit200.py
+      - name: Verify no release or runtime claims
+        run: |
+          echo "RUNNER_PROOF_ONLY_NOT_GOOGLE_OR_ORACLE_VM"
+          echo "NO_GCP_OR_OCI_API_CALL_NO_PAID_SERVICE_NO_PUBLIC_DNS_DEPLOY"
+          echo "NO_KERNEL_CHANGE_NO_RENDER_DELETION_NO_CROWN"
+      - name: Upload exact-source 500-slot evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: kernel-vm500-source-receipt
+          path: ${{ runner.temp }}/kernel500/kernel500.json
+          retention-days: 14
+          if-no-files-found: warn

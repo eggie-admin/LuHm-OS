@@ -1,0 +1,7 @@
+// Included by named.conf. DO NOT publish this localhost example zone.
+zone "vm.luhm.test" {
+  type primary;
+  file "/etc/bind/zones/db.vm.luhm.test";
+  allow-transfer { none; };
+  allow-update { none; };
+};

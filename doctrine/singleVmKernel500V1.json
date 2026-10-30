@@ -1,0 +1,194 @@
+{
+  "schema": "luhmOs.singleVmKernel500V1",
+  "status": "RESEARCH_CANDIDATE_NOT_DEPLOYED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "baseBranch": "candidate/kai-blender-headless-vendor-reduction-20261030",
+  "matrix": {
+    "composition": [
+      "coreLibrary",
+      "pluginExtension",
+      "classWidgetOrganization",
+      "stubAdapterBoundary"
+    ],
+    "escalation": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "rhythm": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "auditLayers": [
+      "kernelHost",
+      "networkDns",
+      "headlessRuntime",
+      "appAndProviders"
+    ],
+    "auditTargets": [
+      "githubActionsRunner",
+      "googleE2Micro",
+      "oracleA1",
+      "raspberryPi",
+      "samsungAndroid"
+    ],
+    "distinctChecksPerLayer": 25,
+    "assessmentsPerTarget": 100,
+    "totalAssessmentSlots": 500,
+    "classification": [
+      "PASS",
+      "GAP",
+      "UNVERIFIED",
+      "NOT_APPLICABLE"
+    ],
+    "countNotProof": true
+  },
+  "provider": {
+    "google": {
+      "tier": "Always Free e2-micro",
+      "eligibleRegions": [
+        "us-west1",
+        "us-central1",
+        "us-east1"
+      ],
+      "cpu": "2 shared vCPUs",
+      "ramGiB": 1,
+      "standardDiskGbMonth": 30,
+      "eligibleEgressGbMonth": 1,
+      "publicIpv4Billed": true,
+      "defaultDeploy": "DENY",
+      "budgetWarningNotHardCap": true,
+      "noAssumedPaidResources": true,
+      "modelInference": "EXTERNAL_OPTIONAL_PAID_OR_UNVERIFIED",
+      "headlessMcpOnFreeVm": "CAPACITY_UNVERIFIED",
+      "url": "https://docs.cloud.google.com/free/docs/free-cloud-features"
+    },
+    "oracle": {
+      "tier": "OCI Always Free",
+      "shape": "VM.Standard.A1.Flex",
+      "ocpuHoursMonth": 1500,
+      "memoryGbHoursMonth": 9000,
+      "nominalFullMonthOcpu": 2,
+      "nominalFullMonthRamGb": 12,
+      "blockTotalGb": 200,
+      "egressTbMonth": 10,
+      "accountCapacity": "UNKNOWN_HOME_REGION",
+      "idleReclamationPossible": true,
+      "defaultDeploy": "DENY",
+      "upgrade": "EXPLICIT_APPROVAL_ONLY",
+      "arm64": true,
+      "headlessMcpOnFreeVm": "BENCHMARK_REQUIRED",
+      "url": "https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm"
+    },
+    "raspberryPi": {
+      "role": "optionalARM64EdgeNode",
+      "os": "Raspberry Pi OS Lite 64-bit",
+      "headless": true,
+      "hostPurchasedAndProvisioned": "NOT_EVIDENCED",
+      "neverRequiredForMcpCloud": true,
+      "url": "https://www.raspberrypi.com/software/operating-systems/"
+    },
+    "github": {
+      "role": "canonicalSourceAndCI",
+      "codespaces": "developmentNot24x7Host",
+      "workspace": "Linux headless ephemeral",
+      "sourceAuthority": true,
+      "sitePermanentHost": false,
+      "url": "https://docs.github.com/en/billing/concepts/product-billing/github-codespaces"
+    },
+    "render": {
+      "role": "currentlyCanonicalMcpRuntimeSidecar",
+      "existingDoctrine": "doctrine/githubRenderSidecarV1.json",
+      "decommission": "BLOCKED_UNTIL_EXACT_SHA_REPLACEMENT_AND_CUTOVER_PROOF"
+    },
+    "huggingFace": {
+      "role": "optionalModelSpaceProvider",
+      "decommission": "ONLY_AFTER_ASSET_AND_ENDPOINT_INVENTORY",
+      "noAssumedActivePaidUse": true
+    },
+    "openAi": {
+      "role": "optionalMCPAndResponsesAPI",
+      "sidecarClarification": "LuHm GitHub-primary/Render-runtime sidecar, not privileged OpenAI service",
+      "providerCredentialsUnverified": true
+    },
+    "shizuku": {
+      "canonicalSpelling": "Shizuku",
+      "role": "optionalSamsungADBPermissionBridge",
+      "runsOnVm": false,
+      "androidUserConsentRequired": true,
+      "publicAppDependency": false,
+      "protectedSamsungKernel": true
+    }
+  },
+  "dns": {
+    "publicAuthoritative": "Cloudflare, unchanged; no registrar nameserver changes",
+    "bind9": {
+      "target": "VM_PRIVATE_AUTHORITATIVE_NAMESPACE",
+      "recursive": false,
+      "listen": "127.0.0.1",
+      "publicPort53": false,
+      "zone": "vm.luhm.test",
+      "demoOnly": true
+    },
+    "dnsmasq": {
+      "target": "separateLinuxLANorHostLoopbackCompatibility",
+      "androidAppEmbedded": false,
+      "listen": "127.0.0.1",
+      "port": 5353,
+      "publicPort53": false,
+      "tunnelOrLocalUseOnly": true
+    },
+    "cloudflareLaw": "doctrine/cloudflareEdgeHardeningV1.json",
+    "noOpenResolver": true,
+    "certificatesAndDnssecUnchanged": true
+  },
+  "services": {
+    "python3": true,
+    "sqlite3": true,
+    "api": "authenticated MCP behind separately approved TLS edge",
+    "bind": "127.0.0.1",
+    "modelWeightsDefault": false,
+    "containerRequired": false,
+    "blender": "optionalSeparateHeavyWorker",
+    "godot": "optionalStaticBuildPreview",
+    "gparted": "neverRemoteOperation",
+    "secrets": "VMHostSecretStoreAndGitHubActionsScoped",
+    "backups": "independentOffVMGoogleDriveOrApprovedArchive",
+    "noPublicDatabase": true
+  },
+  "migration": {
+    "phases": [
+      "inventoryExactRouteAndResource",
+      "stageParallelVmInZeroSpendOrApprovedTrial",
+      "verifyAuthTLSMcpAndAppSourceSha",
+      "proveBackupRestoreAndVolume",
+      "canaryThenHumanCutover",
+      "decommissionRenderOrHuggingFaceOnlyWhenVerified"
+    ],
+    "restoreMandatory": true,
+    "dnsFlipForbiddenWithoutCrown": true,
+    "deletionsForbiddenByDefault": true
+  },
+  "security": {
+    "createCloudResources": false,
+    "createBillingAccount": false,
+    "chargeableCalls": false,
+    "openInboundDns": false,
+    "turnOffCloudflare": false,
+    "unquarantineAgents": false,
+    "deployOrPublish": false,
+    "crownStatus": "STOP"
+  },
+  "sources": [
+    "https://docs.cloud.google.com/free/docs/free-cloud-features",
+    "https://cloud.google.com/vpc/pricing",
+    "https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm",
+    "https://kb.isc.org/docs/bind-best-practices-recursive",
+    "https://github.com/RikkaApps/Shizuku",
+    "https://docs.github.com/en/billing/concepts/product-billing/github-codespaces"
+  ]
+}
