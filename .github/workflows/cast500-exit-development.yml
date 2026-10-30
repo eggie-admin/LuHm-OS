@@ -1,0 +1,78 @@
+name: CAST500 Exit Development Evidence Gate
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/cast500ExitDevelopmentGateV1.json'
+      - 'tools/cast500ExitDevelopment.py'
+      - 'tests/testCast500ExitDevelopment.py'
+      - 'manual/cast500ExitDevelopmentHandoff20261030.md'
+      - '.github/workflows/cast500-exit-development.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cast500-exit-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-500-and-exit-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 17
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Exact immutable reviewed source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ env.LUHM_SOURCE_REF }}
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Reconcile immutable source ancestry and syntax
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git merge-base --is-ancestor 4d405a1d8c3525f446fa1f2a82a3928936a358c7 HEAD
+          git merge-base --is-ancestor f0cb6ee54066b490c0e80efc2c96200fec76ee2d HEAD
+          git diff --check
+          python3 -m json.tool doctrine/cast500ExitDevelopmentGateV1.json >/dev/null
+          python3 -m py_compile tools/cast500ExitDevelopment.py tests/testCast500ExitDevelopment.py
+      - name: Actually evaluate all 500 controls and report evidence scope
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/cast500"
+          python3 tools/samsungCast500Audit.py --runner --output "$RUNNER_TEMP/cast500/runner-slots.json"
+          python3 tools/cast500ExitDevelopment.py --runner --report "$RUNNER_TEMP/cast500/exit-readiness.json"
+          python3 -m unittest tests/testCast500ExitDevelopment.py -v
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          d = json.loads((Path(os.environ["RUNNER_TEMP"])/"cast500/exit-readiness.json").read_text())
+          assert d["slotInventory"]["evaluated"] == 500
+          assert d["sourceErrors"] == []
+          assert d["productionGo"] is False and d["castAuthorized"] is False
+          print("CAST500_INVENTORY_ASSESSED; PRODUCTION_NOT_AUTHORIZED")
+          PY
+      - name: Prove release preflight and privacy/agent boundaries remain closed
+        run: |
+          set -euo pipefail
+          python3 tools/castBridgeStageAudit.py
+          python3 tools/deepDungeonSecurityAudit.py
+          python3 tools/unifiedGoddessOrchestraAudit.py --mode audit
+          python3 tools/publicDistributionGate.py --self-test
+          python3 tools/companyWideQuarantineAudit.py
+      - name: Read-only, sanitized exact-head receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: cast500-exit-development-source-evidence
+          path: ${{ runner.temp }}/cast500/*.json
+          retention-days: 7
+          if-no-files-found: warn
+      - name: Never deploy on source CI
+        run: |
+          echo '500 ASSESSMENT SLOTS VALIDATED, NOT 500 DEVICE/PUBLIC RELEASE PASSES'
+          echo 'NO MAIN MERGE; NO OWNER CAST; NO SIGNING; NO RENDER DEPLOY'
+          echo 'NO PRIVATE DATA; NO FIRMWARE; NO CAMERA; NO AGENT UNQUARANTINE'

@@ -1,0 +1,99 @@
+{
+  "schema": "luhmOs.cast500ExitDevelopmentGate.v1",
+  "status": "CAST_PRE_RELEASE_RECONCILIATION_SOURCE_ONLY",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "entry": {
+    "canonicalRepo": "eggie-admin/LuHm-OS",
+    "baselineMainSha": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d",
+    "previousGoddessHeadSha": "4d405a1d8c3525f446fa1f2a82a3928936a358c7",
+    "previousPr": 457,
+    "previousHeadCiSuccess": 10,
+    "mergeIntoMainCompleted": false,
+    "reconciledStackStart": 448,
+    "reconciledStackEnd": 457
+  },
+  "assessment": {
+    "policy": "doctrine/samsungCast500V1.json",
+    "runner": "tools/samsungCast500Audit.py",
+    "targets": 5,
+    "domains": 4,
+    "controlsPerDomain": 25,
+    "slots": 500,
+    "metadataChecksAreRuntimeSuccess": false,
+    "sourceCiIsProductionProof": false,
+    "runnerCannotProveSamsung": true,
+    "runnerCannotProveLinuxStudio": true,
+    "cameraStreamsVerified": 0
+  },
+  "dependencyGates": {
+    "orchestra": "doctrine/unifiedGoddessOrchestraV1.json",
+    "typedSql": "host/api/typedLanesV1.sql",
+    "dataSecurity": "doctrine/dataProtectionLadderV1.json",
+    "release": "doctrine/finalFormPublicReleaseGateV1.json",
+    "castBridge": "doctrine/PROFESSOR_CAST_BRIDGE_V1.json",
+    "castStage": "doctrine/castBridgeStageGateV1.json",
+    "companyQuarantine": "doctrine/companyWideOperationalQuarantineV1.json",
+    "fourTracks": "doctrine/fourTrackReleaseClosureV1.json"
+  },
+  "promotionProof": {
+    "ownerCastExactCurrentMain": false,
+    "stageArtifactSignerVerified": false,
+    "samsungSameArtifactInstallAndLaunch": false,
+    "godotInputAndTouchVerified": false,
+    "chatGptHostUiMountVerified": false,
+    "renderExactHeadDeployedAndHealthChecked": false,
+    "privateDocumentAclRepairedAndVerified": false,
+    "publicAssetLicensesReviewed": false,
+    "familyAndAdultContentSeparatedAtApi": false,
+    "encryptedBackupsRestored": false,
+    "independentFinalArtifactReview": false
+  },
+  "releasePhases": {
+    "sourceIntegration": {
+      "readyForReview": true,
+      "automaticMerge": false
+    },
+    "privateBeta": {
+      "ready": false,
+      "requires": [
+        "ownerCastExactCurrentMain",
+        "stageArtifactSignerVerified",
+        "samsungSameArtifactInstallAndLaunch"
+      ]
+    },
+    "publicStable": {
+      "ready": false,
+      "requires": [
+        "privateDocumentAclRepairedAndVerified",
+        "publicAssetLicensesReviewed",
+        "familyAndAdultContentSeparatedAtApi",
+        "encryptedBackupsRestored",
+        "independentFinalArtifactReview"
+      ]
+    },
+    "productionCast": {
+      "ready": false,
+      "requires": [
+        "ownerCastExactCurrentMain",
+        "chatGptHostUiMountVerified",
+        "renderExactHeadDeployedAndHealthChecked"
+      ]
+    }
+  },
+  "actions": {
+    "writeMain": false,
+    "mergeCandidateBranch": false,
+    "dispatchCast": false,
+    "deployRender": false,
+    "switchCloudflare": false,
+    "upgradeOs": false,
+    "flashAndroid": false,
+    "unquarantineAgents": false,
+    "publishPublicAssets": false,
+    "migrateProductionSql": false,
+    "changePrivateDrivePermissions": false
+  },
+  "releaseExitMeaning": "Not development exited until independent device, host, release and privacy receipts are verified for the exact promoted artifact. This packet is a go/no-go review only.",
+  "crownStatus": "STOP"
+}
