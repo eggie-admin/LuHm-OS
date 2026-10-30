@@ -1,0 +1,145 @@
+{
+  "schema": "luhmOs.fourPackageTrain.v1",
+  "status": "SOURCE_CANDIDATE_NOT_PUBLISHED",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "authority": "Professor",
+  "branch": "candidate/four-package-dependency-train-20261030",
+  "order": [
+    "dev",
+    "npm",
+    "dmg",
+    "apk"
+  ],
+  "lanes": {
+    "dev": {
+      "artifact": "luhmos-dev-source.zip",
+      "builder": "python3 tools/fourPackageTrain.py build-dev",
+      "execution": "PR_CI",
+      "purpose": "approved K9000 Python/JS developer toolkit, not complete Godot game",
+      "publish": false,
+      "sign": false
+    },
+    "npm": {
+      "artifact": "luhmos-k9000-web-0.1.0-candidate.0.tgz",
+      "builder": "npm pack on curated staged files",
+      "execution": "PR_CI",
+      "purpose": "offline static web assets and compiled Vite output, not public registry",
+      "publish": false,
+      "sign": false
+    },
+    "dmg": {
+      "artifact": "K9000-development.dmg",
+      "builder": "Godot 4.7.2 macOS export on macos-15",
+      "execution": "OWNER_WORKFLOW_DISPATCH_ONLY",
+      "purpose": "development macOS disk image with built-in ad-hoc signature; not notarized",
+      "publish": false,
+      "sign": "AD_HOC_ONLY"
+    },
+    "apk": {
+      "artifact": "Android Proposed debug APK",
+      "builder": "Existing owner CAST-gated Android workflow, no duplicate release path",
+      "execution": "EXISTING_OWNER_CAST_WORKFLOW",
+      "purpose": "testing application ID, ephemeral debug signer, not F-Droid or Play",
+      "publish": false,
+      "sign": "DISPOSABLE_DEBUG_SIGNER_ONLY"
+    }
+  },
+  "sourceAllowlist": [
+    "LICENSE",
+    "README.md",
+    "project.godot",
+    "frontEnd/k9000.html",
+    "frontEnd/k9000.css",
+    "frontEnd/k9000.js",
+    "frontEnd/brand/k9000-cathedral-mark.svg",
+    "frontEnd/brand/k9000-main-192.png",
+    "frontEnd/brand/k9000-adaptive-432.png",
+    "host/api/k9000HeadlessCore.py",
+    "tools/k9000LocalDriverProbe.py",
+    "doctrine/k9000UniversalHardwareV1.json",
+    "doctrine/k9000UniversalVendorSurfaceV1.json",
+    "doctrine/fourPackageTrainV1.json",
+    "manual/fourPackageReleaseTrain20261030.md"
+  ],
+  "npm": {
+    "packageManifest": "packages/k9000-web/package.json",
+    "stagedFiles": [
+      "dist",
+      "k9000",
+      "README.md",
+      "LICENSE"
+    ],
+    "private": true,
+    "disablePublish": true,
+    "fromSource": "frontEnd/prototypes/glassWorld",
+    "jqueryVersion": "3.7.1",
+    "vueVersion": "3.5.44",
+    "babylonVersion": "9.32.0",
+    "viteVersion": "8.3.5",
+    "nodeMajor": 22
+  },
+  "dependencies": {
+    "dev": {
+      "os": "Ubuntu 26.04 LTS target; runner ubuntu-24.04 verification only",
+      "python": "3.10+",
+      "core": "stdlib/SQLite",
+      "github": "canonical source"
+    },
+    "npm": {
+      "node": "22",
+      "npm": "lockfile-v3",
+      "install": "npm ci --ignore-scripts --no-audit --no-fund",
+      "registryPublish": false
+    },
+    "dmg": {
+      "runner": "macos-15",
+      "godot": "4.7.2.stable",
+      "macGodotZipSha256": "c58a24e31d720be9d62f60cb5627c4e695fb72f21b0cfe1bc9ccaa9a3b3ba63e",
+      "godotTemplateSha256": "f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011",
+      "presets": "macOS K9000 Candidate",
+      "certificateRequiredForPublic": true
+    },
+    "apk": {
+      "java": "17",
+      "androidSdk": 36,
+      "gradle": "8.13",
+      "godot": "4.7.2.stable",
+      "godotAndroidPlugin": "org.godotengine:godot:4.7.2.stable",
+      "webkit": "androidx.webkit:webkit:1.17.1",
+      "preset": "Android Proposed",
+      "existingWorkflow": ".github/workflows/android-testing-build.yml",
+      "ownerCastGate": true
+    }
+  },
+  "publication": {
+    "noPrivateAssets": true,
+    "noModelWeights": true,
+    "noCodeSigningSecrets": true,
+    "noAutomaticNpmPublish": true,
+    "noRegistrySecrets": true,
+    "noGithubReleases": true,
+    "noLiveDeploy": true,
+    "noPublicApkSigning": true,
+    "approvedAssetAllowlist": "PENDING",
+    "sourceLicenses": "UNVERIFIED_TRANSITIVE",
+    "crownStatus": "STOP"
+  },
+  "artifactManifest": {
+    "required": [
+      "lane",
+      "sourceRef",
+      "sha256",
+      "filename",
+      "bytes",
+      "status"
+    ],
+    "sha256": true,
+    "expiresAsGithubActionsArtifact": true,
+    "durableArchiveRequiresDriveCopy": true
+  },
+  "maxDevFileBytes": 500000,
+  "maxDevArchiveBytes": 4000000,
+  "maxNpmAssetBytes": 12000000,
+  "maxNpmFiles": 200,
+  "noSymlinks": true
+}
