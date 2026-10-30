@@ -84,7 +84,7 @@ def inspect(policy, files, root=ROOT):
     check("compileSdk = 36" in gradle and "minSdk = 24" in gradle,"ANDROID_SDK_PINS")
     apk_workflow=files["apkWorkflow"]
     check("python3 tools/forgeCastGate.py" in apk_workflow and "CAST gate" in apk_workflow,"APK_OWNER_CAST_WORKFLOW")
-    check(policy["lanes"]["apk"]["execution"]=="EXISTING_OWNER_CAST_WORKFLOW","APK_NO_DUPLICATE_BYPASS")
+    check(policy.get("lanes",{}).get("apk",{}).get("execution")=="EXISTING_OWNER_CAST_WORKFLOW","APK_NO_DUPLICATE_BYPASS")
     workflow=files["trainWorkflow"]
     check("npm ci --ignore-scripts" in workflow and "npm pack" in workflow,"NPM_CI_AND_PACK")
     check("workflow_dispatch" in workflow and "build_dmg" in workflow,"DMG_EXPLICIT_DISPATCH")
