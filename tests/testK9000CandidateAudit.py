@@ -13,7 +13,7 @@ class K9000CandidateAuditTests(unittest.TestCase):
         samples = [
             ("html", lambda s: s.replace("default-src 'none'", "default-src *")),
             ("js", lambda s: s + "\nnavigator.mediaDevices.getUserMedia()"),
-            ("kotlin", lambda s: s.replace('"camera_probe_requested" -> setOf("type")', '"camera_probe_requested" -> setOf("type", "shell")')),
+            ("kotlin", lambda s: s.replace('"camera_probe_requested", "hardware_probe_requested" -> setOf("type")', '"camera_probe_requested" -> setOf("type", "shell")')),
             ("presets", lambda s: s.replace('name="macOS K9000 Candidate"', 'name="macOS Broken"')),
             ("canon", lambda c: dict(c, status="DEPLOYED")),
             ("canon", lambda c: dict(c, profiles=dict(c["profiles"], jacobCreator=dict(c["profiles"]["jacobCreator"], adultAssets=True)))),
