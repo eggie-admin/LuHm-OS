@@ -9,7 +9,7 @@
 
 ## Architecture and 'kernel hardening'
 - **Mainline kernel means app/orchestration architecture, not patching Samsung's Linux kernel.** Keep the stock signed Android kernel, sandbox, SELinux and OTA update path. No rooting, privileged daemon, shell bridge, unsigned kernel or untrusted drivers.
-- Common Godot scene/creative logic is source of truth. Android is one fullscreen local WebView overlay plus explicit allowlisted Godot bridge. macOS is the same Godot project with its native desktop UI and a DMG export. UI parity remains an open product task.
+- Common Godot scene/creative logic is source of truth. Android is one fullscreen local WebView overlay plus explicit allowlisted Godot bridge. macOS is the same Godot project with an initial native K9000 desktop overlay and a DMG export. Visual parity and all device adapters remain open product tasks.
 - Native USB inventory is **read-only enumeration**. Camera preview, user USB permissions, Camera2 fallback, AUSBC adapter, audio sync and six-camera USB bandwidth testing are separate milestones. Never silently record.
 - Edge Gallery is a reference app, not a proven headless service. Use a self-contained LiteRT-LM adapter only after licensing/model compatibility, RAM, thermals and offline behavior pass actual tests.
 - Screens are family-safe by default. Character sigil is a placeholder, not an approved asset or an AI-connected avatar.

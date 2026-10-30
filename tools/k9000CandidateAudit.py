@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 def audit_files(files):
     html, css, js, kotlin, presets, canon, readme = (files[k] for k in
         ("html", "css", "js", "kotlin", "presets", "canon", "readme"))
+    desktop = files["desktop"]
+    main = files["main"]
     checks = {
         "cspLocalOnly": "default-src 'none'" in html and "connect-src 'none'" in html,
         "noRemoteScript": 'src="https://' not in html and 'src="http://' not in html,
@@ -26,6 +28,9 @@ def audit_files(files):
         "macExportPreset": 'name="macOS K9000 Candidate"' in presets,
         "macUniqueBundle": 'application/bundle_identifier="art.eggiebagelface.k9000.candidate"' in presets,
         "macDevOnly": 'notarization/notarization=0' in presets,
+        "macNativeCockpit": "K9000 macOS native cockpit candidate" in desktop,
+        "macNativeWorldSignal": "signal world_requested" in desktop,
+        "macMainBound": 'OS.get_name() == "macOS"' in main and 'k9000_desktop_shell.world_requested.connect(enterWorldMode)' in main,
         "canonSourceOnly": canon.get("status") == "PROPOSED_SOURCE_ONLY",
         "canonSourceAuthority": canon.get("sourceRepository") == "eggie-admin/LuHm-OS",
         "sharedGodot": canon.get("sharedEngine") == "Godot 4.7.2",
@@ -49,6 +54,8 @@ def read_files():
         "kotlin": "androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt",
         "presets": "export_presets.cfg", "canon": "doctrine/k9000DualPlatformCanonV1.json",
         "readme": "manual/k9000DualPlatformPlan20261030.md",
+        "desktop": "scripts/k9000/k9000DesktopShell.gd",
+        "main": "scripts/main.gd",
     }
     data = {k: (ROOT / path).read_text(encoding="utf-8") for k, path in paths.items()}
     data["canon"] = json.loads(data["canon"])
@@ -58,4 +65,4 @@ if __name__ == "__main__":
     failures = audit_files(read_files())
     if failures:
         raise SystemExit("RED_K9000_CANDIDATE_SOURCE " + ",".join(failures))
-    print("GREEN_K9000_CANDIDATE_SOURCE 30/30 (SOURCE ONLY, no APK/DMG/device proof)")
+    print("GREEN_K9000_CANDIDATE_SOURCE 33/33 (SOURCE ONLY, no APK/DMG/device proof)")
