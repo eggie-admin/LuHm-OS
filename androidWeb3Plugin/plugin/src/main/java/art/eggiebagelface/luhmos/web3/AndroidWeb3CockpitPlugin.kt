@@ -1,6 +1,9 @@
 package art.eggiebagelface.luhmos.web3
 
 import android.app.Activity
+import android.content.Context
+import android.hardware.usb.UsbConstants
+import android.hardware.usb.UsbManager
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +22,7 @@ import org.godotengine.godot.Godot
 import org.godotengine.godot.plugin.GodotPlugin
 import org.godotengine.godot.plugin.SignalInfo
 import org.godotengine.godot.plugin.UsedByGodot
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.ByteArrayInputStream
 
@@ -26,7 +30,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
     companion object {
         private const val LOCAL_ORIGIN = "https://appassets.androidplatform.net"
         private const val LOCAL_PREFIX = "/assets/"
-        private const val START_URL = "$LOCAL_ORIGIN$LOCAL_PREFIX" + "index.html"
+        private const val START_URL = "$LOCAL_ORIGIN$LOCAL_PREFIX" + "k9000.html"
         private const val BRIDGE_OBJECT = "LuHmNative"
         private const val MAX_BRIDGE_MESSAGE_CHARS = 512
 
@@ -181,6 +185,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
             val expectedKeys = when (payload.optString("type")) {
                 "oni_requested" -> setOf("type", "name")
                 "world_requested", "cockpit_ready" -> setOf("type")
+                "camera_probe_requested" -> setOf("type")
                 else -> {
                     emitSignal(BRIDGE_ERROR.name, "bridge_type_rejected")
                     return
@@ -207,10 +212,46 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                 "cockpit_ready" -> {
                     emitSignal(COCKPIT_READY.name, getWebViewVersion())
                 }
+                "camera_probe_requested" -> {
+                    sendUvcInventory()
+                }
                 else -> emitSignal(BRIDGE_ERROR.name, "bridge_type_rejected")
             }
         } catch (_: Exception) {
             emitSignal(BRIDGE_ERROR.name, "bridge_payload_invalid")
+        }
+    }
+
+
+    /**
+     * Read-only USB Video Class enumeration. This does not grant USB permission,
+     * open a device, stream media, or bypass the Android camera privacy model.
+     * Only vendor/product IDs are passed to the local-origin cockpit.
+     */
+    private fun sendUvcInventory() {
+        val host = activity
+        val manager = host?.getSystemService(Context.USB_SERVICE) as? UsbManager
+        val devices = JSONArray()
+        manager?.deviceList?.values?.forEach { usb ->
+            if (devices.length() >= 32) return@forEach
+            val isVideo = (0 until usb.interfaceCount).any { index ->
+                usb.getInterface(index).interfaceClass == UsbConstants.USB_CLASS_VIDEO
+            }
+            if (isVideo) {
+                devices.put(
+                    JSONObject().put("vendorId", usb.vendorId)
+                        .put("productId", usb.productId)
+                )
+            }
+        }
+        val payload = JSONObject()
+            .put("type", "camera_inventory")
+            .put("devices", devices)
+        runOnHostThread {
+            cockpitView?.evaluateJavascript(
+                "window.K9000 && window.K9000.receiveNative(" + payload.toString() + ")",
+                null
+            )
         }
     }
 
