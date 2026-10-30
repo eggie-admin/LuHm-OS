@@ -9,8 +9,8 @@ Wants=network-online.target
 Type=simple
 User=kiosk
 WorkingDirectory=/home/kiosk
-Environment=XDG_RUNTIME_DIR=/run/user/1001
-ExecStart=/usr/bin/cage -- /usr/bin/chromium --no-first-run --kiosk http://127.0.0.1:8789/
+# Requires verified kiosk user login session / XDG_RUNTIME_DIR from seat manager.
+ExecStart=/usr/bin/cage -- /usr/bin/chromium --no-first-run --kiosk file:///opt/luhmos/frontEnd/k9000.html
 Restart=on-failure
 RestartSec=5
 NoNewPrivileges=true
