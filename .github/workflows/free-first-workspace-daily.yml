@@ -80,7 +80,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: free-first-workspace-source-receipts-${{ github.sha }}
+          name: free-first-workspace-source-receipts-${{ github.event.pull_request.head.sha || github.sha }}
           path: |
             ${{ runner.temp }}/workspace-snapshot.json
             ${{ runner.temp }}/daily-vendor-reduction.json
