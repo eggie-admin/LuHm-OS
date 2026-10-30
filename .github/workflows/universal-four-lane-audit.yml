@@ -1,0 +1,73 @@
+name: Universal Four-Lane Namespace Edge Forge Source Gate
+on:
+  pull_request:
+    paths:
+      - 'doctrine/universalFourLaneV1.json'
+      - 'infra/universal-four-lane/**'
+      - 'tools/universalFourLanePlan.py'
+      - 'tools/universalFourLaneAudit.py'
+      - 'tests/testUniversalFourLane.py'
+      - 'frontEnd/universalRouteProjection.mjs'
+      - 'tests/universalRouteProjection.test.mjs'
+      - 'frontEnd/k9000.html'
+      - 'manual/universalFourLaneNamespaceSnapshot20261030.md'
+      - '.github/workflows/universal-four-lane-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  four-lane-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 14
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout immutable reviewed head
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ env.LUHM_SOURCE_REF }}
+          persist-credentials: false
+      - name: Exact git identity and Python JSON YAML syntax
+        run: |
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+          python3 -m json.tool doctrine/universalFourLaneV1.json > /dev/null
+          python3 -m py_compile tools/universalFourLanePlan.py tools/universalFourLaneAudit.py tests/testUniversalFourLane.py
+          ruby -rpsych -e 'Psych.parse_file("infra/universal-four-lane/four-lane.yaml")'
+          ruby -rpsych -e '
+            y=Psych.safe_load(File.read("infra/universal-four-lane/four-lane.yaml"), aliases:false)
+            abort("wrong release lanes") unless y["channels"].keys == %w[nightly beta lts legacy]
+            abort("auto release present") unless y["channels"].values.all? { |v| v["release"] == false }
+            abort("hardware authority present") unless y["permissions"].values.all? { |v| v == false || v == true } && y["permissions"]["defaultDeny"] == true
+            abort("crown auto-release") unless y["deployment"] == "DENY" && y["crownStatus"] == "STOP"
+            puts "FOUR_LANE_YAML_SOURCE_GREEN"
+          '
+      - name: Local SQL JSON1 four lane route source receipts
+        run: |
+          python3 tools/universalFourLanePlan.py --lane lts --transport offlineFallback --capability sourceStatus
+          python3 tools/universalFourLaneAudit.py
+          python3 -m unittest tests/testUniversalFourLane.py -v
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: HTML5 safe projection and no hidden execution
+        run: |
+          node --check frontEnd/universalRouteProjection.mjs
+          node --test tests/universalRouteProjection.test.mjs
+          node --check frontEnd/k9000.js
+          grep -q 'data-universal-lanes' frontEnd/k9000.html
+      - name: Reconcile existing edge, DNS, agent, packaging and license contracts
+        run: |
+          python3 tools/networkSpineAudit.py
+          python3 tools/cloudflareEdgeHardeningAudit.py
+          python3 tools/cloudflareLumOrchestrationAudit.py
+          python3 tools/fourSourceForgeAudit.py
+          python3 tools/fourPackageTrain.py audit
+          python3 tools/vendorApacheAudit.py
+          python3 tools/samsungCast500Audit.py
+      - name: Explicit no-runtime no-promotion receipt
+        run: |
+          echo "SOURCE_ONLY_NO_CLOUDFLARE_API_OR_CLOUD_VM"
+          echo "NO_DNS_WRITE_NO_NETPLAN_APPLY_NO_CERTBOT_NO_SSH_ADMIN_NO_VPN_INSTALL"
+          echo "NO_GEOLOCATION_NO_AUDIO_CAMERA_CAPTURE_NO_AGENT_ACTIVATION"
+          echo "NO_MAIN_MERGE_NO_GPL_RELICENSE_NO_PUBLICATION_NO_CROWN"
