@@ -44,6 +44,7 @@ class MainActivity : Activity() {
     private val ticker = Handler(Looper.getMainLooper())
     private var visible = false
     private var apps: List<ResolveInfo> = emptyList()
+    private var searchQuery = ""
     private val tick = object : Runnable {
         override fun run() {
             if (!visible) return
@@ -135,7 +136,8 @@ class MainActivity : Activity() {
 
         search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                showApps(s?.toString().orEmpty())
+                searchQuery = s?.toString().orEmpty()
+                showApps(searchQuery)
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -161,7 +163,7 @@ class MainActivity : Activity() {
         apps = packageManager.queryIntentActivities(intent, 0)
             .filter { it.activityInfo?.packageName != packageName }
             .sortedBy { it.loadLabel(packageManager).toString().lowercase(Locale.getDefault()) }
-        if (::grid.isInitialized) showApps("")
+        if (::grid.isInitialized) showApps(searchQuery)
     }
 
     private fun showApps(filter: String) {
