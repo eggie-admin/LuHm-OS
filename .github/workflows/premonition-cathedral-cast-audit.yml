@@ -26,6 +26,12 @@ jobs:
           python3 -m json.tool doctrine/premonitionCathedralCastV1.json > /dev/null
           python3 -m json.tool doctrine/premonition-titan-500-inventory-v1.json > /dev/null
           python3 -m py_compile tools/premonitionTitan500Audit.py
+      - name: CAST Bridge and OpenAI source reconciliation
+        run: |
+          python3 tools/professorCastBridgeAudit.py
+          python3 tools/openAiWorkspaceHygieneAudit.py
+          python3 tools/apiSpineAudit.py
+          python3 tools/companyWideQuarantineAudit.py
       - name: Run 500 distinct source and receipt checks
         run: python3 tools/premonitionTitan500Audit.py --output-dir "${RUNNER_TEMP}/premonition-cast"
       - name: Upload exact-source receipts
