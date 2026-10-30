@@ -9,6 +9,9 @@ on:
       - 'tools/unifiedQuarterYamlGuard.rb'
       - 'tests/testUnifiedGoddessOrchestra.py'
       - 'packages/unified-ops/**'
+      - 'doctrine/luhmThinPackagePlanV1.json'
+      - 'manual/thin-client-package-manager.md'
+      - 'manual/thin-package-viewer.html'
       - 'doctrine/industryLifecycleReductionV1.json'
       - 'tools/industryLifecycleReductionAudit.py'
       - 'tests/testIndustryLifecycleReduction.py'
@@ -88,6 +91,28 @@ jobs:
           npm run song
           npm run plan:local
           npm test
+          # Thin-client manager is one bounded adapter in the existing CI gate.
+          node --check src/thin-package.mjs
+          npm run --silent pkg:plan -- "$LUHM_SOURCE_REF" > /tmp/luhm-thin-plan.json
+          npm run --silent pkg:try -- "$LUHM_SOURCE_REF" > /tmp/luhm-thin-try.json
+          if npm run --silent pkg:apply -- "$LUHM_SOURCE_REF" > /tmp/luhm-thin-apply.log 2>&1; then
+            echo 'UNAUTHORIZED_APPLY_SUCCEEDED' >&2; exit 1
+          fi
+          grep -q 'APPLY_BLOCKED_EXACT_CAST' /tmp/luhm-thin-apply.log
+          python3 - <<'PY'
+          import json,os
+          plan=json.load(open('/tmp/luhm-thin-plan.json',encoding='utf8'))
+          trial=json.load(open('/tmp/luhm-thin-try.json',encoding='utf8'))
+          assert plan['sourceRef']==os.environ['LUHM_SOURCE_REF']
+          assert plan['mode']=='plan' and trial['mode']=='try'
+          assert plan['status']=='GREEN_SOURCE_PLAN_ONLY'
+          assert trial['status']=='GREEN_TEMP_SIMULATION_ONLY'
+          assert len(plan['decisions'])==10
+          assert not plan['packageActionsExecuted'] and not trial['hostChanged']
+          assert trial['stagingRemoved'] and not plan['sourceIdentityVerified']
+          assert plan['crown']==trial['crown']=='STOP'
+          print('THIN_CLIENT_SOURCE_TRY_ROLLBACK_PASS_APPLY_STOP')
+          PY
           # Existing gate also executes the exact-head source-only Cathedral preflight.
           npm run --silent plan:cathedral -- "$LUHM_SOURCE_REF" > /tmp/luhm-cathedral-preflight.json
           python3 - <<'PY'
