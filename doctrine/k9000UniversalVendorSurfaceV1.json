@@ -1,0 +1,174 @@
+{
+  "schema": "luhmOs.k9000UniversalVendorSurface.v1",
+  "status": "SOURCE_CANDIDATE_NOT_RUNTIME_CONNECTED",
+  "authority": "Professor",
+  "product": "LuHm-OS: Crown Cathedral",
+  "currentProject": "Project Premonition",
+  "oneApp": {
+    "humanInterface": "K9000",
+    "backend": "Python3 stdlib loopback capability core",
+    "database": "SQLite3 parameterized local-only",
+    "nativeAdapters": [
+      "Android USB/audio/display",
+      "iOS AudioSession/AVFoundation",
+      "Linux ALSA/PipeWire/BlueZ/V4L2/SANE",
+      "macOS CoreAudio"
+    ],
+    "providerControls": "per-capability opt-in",
+    "heavyStudio": "separate opt-in Linux Blender/Godot/FFmpeg",
+    "headlessMustNeverNeed": [
+      "displayServer",
+      "SQLAdmin",
+      "GParted",
+      "systemdUnit",
+      "cloudAuth",
+      "modelWeights",
+      "browser",
+      "nodeRuntime"
+    ],
+    "noDirectBrowserSql": true,
+    "postRequestsDisabled": true
+  },
+  "priority": {
+    "proposed": [
+      "deterministicLocal",
+      "onDeviceLiteRtLm",
+      "approvedHostProvider"
+    ],
+    "existingCompatibilityFirst": "chatGptOpenAi",
+    "changeToPrimaryOrder": "PROPOSED_CONFLICT_PENDING_PROFESSOR_CROWN",
+    "openAiIsOptionalClientAdapter": true
+  },
+  "vendors": {
+    "google": {
+      "group": "OPTIONAL_UNBOUND_SERVICE_ADAPTERS",
+      "catalog": {
+        "gmail": {
+          "role": "email",
+          "requires": "explicit OAuth consent, scope and account connection",
+          "readiness": "NOT_CONNECTED_TO_APP"
+        },
+        "docs": {
+          "role": "document editing",
+          "requires": "Drive/Docs authorized OAuth",
+          "readiness": "NOT_CONNECTED_TO_APP"
+        },
+        "drive": {
+          "role": "binary archive",
+          "requires": "Drive authorized service/user OAuth",
+          "readiness": "CONNECTED_IN_CHAT_NOT_IN_APP"
+        },
+        "cloud": {
+          "role": "hosting/project IAM/billing",
+          "requires": "authenticated project and separate budget approval",
+          "readiness": "UNVERIFIED"
+        },
+        "gemini": {
+          "role": "optional developer inference",
+          "requires": "Gemini Developer API or Vertex authorization separate from consumer plan",
+          "readiness": "UNVERIFIED"
+        },
+        "playStore": {
+          "role": "Android distribution",
+          "requires": "signed AAB, Play Console and review",
+          "readiness": "NOT_SUBMITTED"
+        },
+        "edgeGallery": {
+          "role": "experimental separate on-device reference app",
+          "requires": "real device benchmark; no assumed third-party headless API",
+          "readiness": "REFERENCE_ONLY"
+        },
+        "liteRtLm": {
+          "role": "on-device inference library",
+          "requires": "compatible native build, weights license, thermal/memory test",
+          "readiness": "INTEGRATION_CANDIDATE"
+        }
+      }
+    },
+    "openAi": {
+      "role": "optional host-side assistant and compatibility adapter",
+      "api": "Responses API",
+      "requires": "explicit host credential + bounded scope",
+      "readiness": "SOURCE_CONFIGURED_LIVE_RUNTIME_UNVERIFIED",
+      "mustNotBeBrowserDependency": true
+    },
+    "samsung": {
+      "role": "Android hardware and distribution",
+      "requires": "stock GKI/Knox vendor runtime; Android user permissions",
+      "readiness": "PHYSICAL_RUNTIME_PENDING"
+    },
+    "apple": {
+      "role": "iOS/macOS hardware and distribution",
+      "requires": "macOS Xcode, Apple signing and iOS test device",
+      "readiness": "IPHONE_NOT_IN_INVENTORY"
+    },
+    "canonical": {
+      "role": "Ubuntu 26.04.1 LTS host userland",
+      "requires": "headless apt/package runtime smoke",
+      "readiness": "COMPATIBILITY_TARGET_NOT_INSTALLED"
+    }
+  },
+  "models": {
+    "localBackendFirst": true,
+    "defaultModelBundled": false,
+    "llama": {
+      "vendor": "Meta",
+      "license": "CUSTOM_COMMUNITY_NOT_OSI_OPEN_SOURCE",
+      "status": "OPTIONAL_REVIEW_ONLY",
+      "fDroidDistribution": false
+    },
+    "strictFreeSoftwareDefault": "REQUIRES_SEPARATE_MODEL_WEIGHTS_LICENSE",
+    "noAutoDownload": true
+  },
+  "data": {
+    "numeric": "doctrine/typedFourLaneSqlV1.json",
+    "sqlite": "memoryByDefault; on-disk user-private opt-in only",
+    "publicSqlEndpoint": false,
+    "noAdminApi": true,
+    "noDynamicSqlFromHttp": true
+  },
+  "architecture": {
+    "composition": "doctrine/luHmOSFourLayerArchitectureV1.json",
+    "columns": [
+      "coreLibrary",
+      "pluginExtension",
+      "classWidgetOrganization",
+      "stubAdapterBoundary"
+    ],
+    "rows": [
+      "hardwareDrivers",
+      "headlessData",
+      "providerAndNativeBridge",
+      "voiceAndCockpit"
+    ],
+    "rhythm": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "escalation": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "theseAreDistinctSystems": true
+  },
+  "security": {
+    "hostBind": "127.0.0.1",
+    "noWildcardBind": true,
+    "noCors": true,
+    "noCredentials": true,
+    "noWorkerAutostart": true,
+    "noDeviceWrites": true,
+    "agentQuarantine": "QUARANTINED",
+    "crownStatus": "STOP"
+  },
+  "upstream": [
+    "https://ubuntu.com/project/docs/release-team/list-of-releases/",
+    "https://developers.google.com/edge/litert-lm/overview",
+    "https://docs.godotengine.org/en/4.7/tutorials/export/exporting_for_ios.html",
+    "https://pipewire.pages.freedesktop.org/wireplumber/daemon/configuration/bluetooth.html"
+  ]
+}
