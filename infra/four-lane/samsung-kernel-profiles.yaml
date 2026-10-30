@@ -1,0 +1,61 @@
+# Candidate profiles, not deploy targets. No shell directives or install scripts.
+schema: luhmOs.samsungFourLane.v1
+status: SOURCE_ONLY_NOT_DEVICE_PROOF
+policy: "AI proposes. Policy authorizes. CI proves. Human promotes."
+composition:
+  - coreLibrary
+  - pluginExtension
+  - classWidgetOrganization
+  - stubAdapterBoundary
+rhythm: [hear, resolve, act, verify]
+escalation: [0, 1, 2, 3]
+profiles:
+  proposed:
+    channel: experimental
+    os: Ubuntu 26.10
+    browser: Chromium development and Chrome Canary candidates
+    android: Samsung official eligible beta research only
+    install: false
+    firmware: DENY
+    deviceAuthority: NONE
+  dataLane:
+    channel: beta
+    os: isolated Ubuntu 26.10 or disposable Debian test guest
+    browser: Chrome Beta and Firefox Beta candidates
+    android: official One UI Beta only with device eligibility and Smart Switch backup
+    install: false
+    firmware: DENY
+    deviceAuthority: NONE
+  lts:
+    channel: stable
+    os: Ubuntu 26.04.1 LTS compatibility
+    browser: Chromium stable and Firefox ESR
+    android: stock OTA only after owner-approved rollback
+    install: false
+    firmware: DENY
+    deviceAuthority: NONE
+  studioForge:
+    channel: host
+    os: current Linux Mint 22.3 (no migration)
+    browser: local K9000 HTML5 and installed browser
+    android: Samsung Lite remote cockpit, no native DeX claim
+    install: false
+    firmware: DENY
+    deviceAuthority: NONE
+protected:
+  - Samsung OEM Android boot chain and Knox
+  - verified GRUB recovery menu and EFI/boot state
+  - GParted partitions and personal disks
+  - ASRock/ASUS vendor UEFI without exact board identity
+  - production secrets and paid AI billing
+  - all 15 quarantined AI workers
+  - public DNS and device update channels
+benchmarks:
+  - Android cold startup TTID and TTFD
+  - frame pacing p50 p95 and jank
+  - thermal and battery energy
+  - USB host power and six-camera V4L2 jitter
+  - Blender render seconds and memory peak
+  - OpenVINO CPU baseline, GPU only after driver proof
+defaultDeployment: DENY
+crownStatus: STOP
