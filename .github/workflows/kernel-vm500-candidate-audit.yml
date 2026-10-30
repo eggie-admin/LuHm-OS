@@ -41,7 +41,7 @@ jobs:
           cp infra/single-vm/bind9/named.conf.options "$ROOT/etc/bind/named.conf.options"
           cp infra/single-vm/bind9/named.conf.local "$ROOT/etc/bind/named.conf.local"
           cp infra/single-vm/bind9/db.vm.luhm.test "$ROOT/etc/bind/zones/db.vm.luhm.test"
-          named-checkconf -z -t "$ROOT" /etc/bind/named.conf
+          sudo named-checkconf -z -t "$ROOT" /etc/bind/named.conf
           named-checkzone vm.luhm.test infra/single-vm/bind9/db.vm.luhm.test
           dnsmasq --test --conf-file=infra/single-vm/dnsmasq/k9000-lan-compat.conf
           echo "DNS_CONFIG_SYNTAX_VALIDATED_NO_DAEMON_STARTED"
