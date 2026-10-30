@@ -1,0 +1,6 @@
+$TTL 300
+@ IN SOA ns.vm.luhm.test. hostmaster.vm.luhm.test. (
+  2026103001 3600 600 86400 300 )
+@ IN NS ns.vm.luhm.test.
+ns IN A 127.0.0.1
+api IN A 127.0.0.1
