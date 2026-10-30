@@ -1,0 +1,297 @@
+{
+  "schema": "luhmOs.vendorProvenanceBoundary.v1",
+  "status": "SOURCE_ONLY_AUDIT_NOT_APPROVAL",
+  "authority": "Professor",
+  "baseReview": {
+    "repo": "eggie-admin/LuHm-OS",
+    "stackedOnPr": 458,
+    "formalGithubApprovalObserved": false,
+    "mainUnchangedRequired": true
+  },
+  "repository": {
+    "license": "GPL-3.0-only",
+    "rootLicense": "LICENSE",
+    "replaceExistingNotices": false,
+    "relicenseThirdParty": false,
+    "publicShip": false
+  },
+  "vendorRows": [
+    {
+      "id": "raspberryPiOs",
+      "licenseClass": "MIXED_DEBIAN_GPL_AND_OTHER",
+      "role": "HEADLESS_LINUX_TARGET",
+      "upstreamLicenseSource": "https://www.raspberrypi.com/documentation/computers/os.html",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "debianUbuntu",
+      "licenseClass": "MIXED_DISTRIBUTION_LICENSES",
+      "role": "HEADLESS_VM_TARGET",
+      "upstreamLicenseSource": "https://www.debian.org/legal/licenses/",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "firefoxGeckoView",
+      "licenseClass": "MPL_2_AND_THIRD_PARTY",
+      "role": "OPTIONAL_BROWSER_ADAPTER",
+      "upstreamLicenseSource": "https://www.mozilla.org/en-US/MPL/2.0/",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "chromium",
+      "licenseClass": "BSD_STYLE_AND_THIRD_PARTY",
+      "role": "BROWSER_COMPAT",
+      "upstreamLicenseSource": "https://www.chromium.org/chromium-os/licensing/",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "samsungInternet",
+      "licenseClass": "PROPRIETARY_VENDOR_BROWSER",
+      "role": "BROWSER_COMPAT",
+      "upstreamLicenseSource": "https://developer.samsung.com/internet",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "safariWebkit",
+      "licenseClass": "PROPRIETARY_SAFARI_LGPL_BSD_WEBKIT",
+      "role": "BROWSER_COMPAT",
+      "upstreamLicenseSource": "https://docs.webkit.org/Other/Licensing.html",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "chromiumOs",
+      "licenseClass": "MIXED_OPEN_SOURCE_OS",
+      "role": "OS_COMPAT",
+      "upstreamLicenseSource": "https://www.chromium.org/chromium-os/licensing/",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "chromeOs",
+      "licenseClass": "PROPRIETARY_OEM_OS_WITH_OPEN_COMPONENTS",
+      "role": "OS_COMPAT",
+      "upstreamLicenseSource": "https://www.chromium.org/chromium-os/chromium-os-faq/",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "samsungAndroid",
+      "licenseClass": "PROPRIETARY_ONE_UI_AOSP_GPL_KERNEL",
+      "role": "DEVICE_COMPAT",
+      "upstreamLicenseSource": "https://source.android.com/docs/setup/contribute/licenses",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "appleIosMacos",
+      "licenseClass": "PROPRIETARY_PLATFORM_WITH_OPEN_COMPONENTS",
+      "role": "DEVICE_COMPAT",
+      "upstreamLicenseSource": "https://opensource.apple.com/",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "pythonZipfile",
+      "licenseClass": "PSF_AND_THIRD_PARTY_NOTICES",
+      "role": "BUILD_TOOL",
+      "upstreamLicenseSource": "https://docs.python.org/3/library/zipfile.html",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "javaGradleAndroid",
+      "licenseClass": "OPENJDK_GPL_CLASSPATH_AND_GRADLE_MIXED",
+      "role": "BUILD_TOOL",
+      "upstreamLicenseSource": "https://docs.gradle.org/current/userguide/licensing.html",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "ffmpeg",
+      "licenseClass": "LGPL_OR_GPL_PER_BUILD",
+      "role": "OPTIONAL_STUDIO_TOOL",
+      "upstreamLicenseSource": "https://ffmpeg.org/legal.html",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "blender",
+      "licenseClass": "GPL_FAMILY",
+      "role": "OPTIONAL_STUDIO_TOOL",
+      "upstreamLicenseSource": "https://www.blender.org/about/license/",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "godot4",
+      "licenseClass": "MIT_WITH_THIRD_PARTY_NOTICES",
+      "role": "OPTIONAL_GAME_ENGINE",
+      "upstreamLicenseSource": "https://godotengine.org/license/",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    },
+    {
+      "id": "aiModelsProviders",
+      "licenseClass": "MODEL_AND_SERVICE_SPECIFIC",
+      "role": "OPTIONAL_API_ADAPTER",
+      "upstreamLicenseSource": "https://huggingface.co/docs/hub/repositories-licenses",
+      "sourceFilesCopied": false,
+      "bundledInMutation": false,
+      "installedVersion": "UNVERIFIED",
+      "fileLevelProvenance": "UNVERIFIED",
+      "licenseClassIsNotRelicensing": true
+    }
+  ],
+  "firstPartyCandidates": [
+    {
+      "id": "portableZipPolicy",
+      "path": "tools/zipInteropAudit.py",
+      "currentDistribution": "GPL-3.0-only",
+      "apacheCompatibleNewModule": "CANDIDATE_ONLY",
+      "ownershipProof": false,
+      "contributionClearance": false,
+      "derivativeAudit": false,
+      "apacheReleaseEligible": false
+    },
+    {
+      "id": "vendorLedger",
+      "path": "doctrine/vendorProvenanceBoundaryV1.json",
+      "currentDistribution": "GPL-3.0-only",
+      "apacheCompatibleNewModule": "CANDIDATE_ONLY",
+      "ownershipProof": false,
+      "contributionClearance": false,
+      "derivativeAudit": false,
+      "apacheReleaseEligible": false
+    },
+    {
+      "id": "studioAdapterBoundary",
+      "path": "doctrine/unifiedGoddessOrchestraV1.json",
+      "currentDistribution": "GPL-3.0-only",
+      "apacheCompatibleNewModule": "CANDIDATE_ONLY",
+      "ownershipProof": false,
+      "contributionClearance": false,
+      "derivativeAudit": false,
+      "apacheReleaseEligible": false
+    }
+  ],
+  "artifactContract": {
+    "python": "zipfile",
+    "java": "java.util.zip.ZipFile",
+    "compression": "ZIP_DEFLATED",
+    "sortedAllowlist": true,
+    "archiveSha256": true,
+    "perFileSha256InPythonReceipt": true,
+    "javaPerFileSha256Verification": false,
+    "javaArchiveSha256": true,
+    "pythonAuthoritativeArchivePolicy": true,
+    "maxEntries": 96,
+    "maxEntryBytes": 2000000,
+    "maxArchiveBytes": 6000000,
+    "portableAsciiNames": true,
+    "windowsDeviceNamesRejected": true,
+    "casefoldCollisionsRejected": true,
+    "untrustedExtractAllAllowed": false,
+    "aarOrApkInstalled": false,
+    "apkSigned": false
+  },
+  "devices": {
+    "samsungLiteOs": "UNVERIFIED",
+    "samsungLiteNativeDex": false,
+    "samsungS24FeAntennaProxy": "UNVERIFIED",
+    "piModel": "UNVERIFIED",
+    "piHeadlessRuntime": "UNVERIFIED",
+    "remoteVmHealth": "UNVERIFIED",
+    "appleRuntime": "UNVERIFIED",
+    "noRootNoFirmwareChanges": true
+  },
+  "transport": {
+    "base64urlJsonEncoding": true,
+    "base64urlIsEncryption": false,
+    "base44IsEncoding": false,
+    "base44ExternalProviderConnected": false,
+    "maxDecodedBytes": 45056,
+    "openProxy": false,
+    "cloudflareDnsChanged": false,
+    "certbotExecuted": false
+  },
+  "ai": {
+    "coordinator": "Lum",
+    "proposalOnly": true,
+    "activeAgents": 0,
+    "quarantinedAgents": 15,
+    "roles": [
+      "lum",
+      "skuldResearch",
+      "tetsu",
+      "kaji",
+      "yume",
+      "belldandySecretary"
+    ],
+    "independentReviewer": "urdDoctorGoddess",
+    "modelWeightsBundled": false,
+    "paidProviderCalls": false,
+    "remoteCodeExecution": false
+  },
+  "approvals": {
+    "deviceInstall": false,
+    "cloudProvision": false,
+    "keysUsed": false,
+    "publicPublish": false,
+    "merge": false,
+    "crownPromote": false,
+    "agentActivate": false
+  },
+  "sourcesCheckedOn": "2026-10-30",
+  "crownStatus": "STOP"
+}

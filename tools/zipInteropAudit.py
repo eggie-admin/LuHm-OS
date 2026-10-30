@@ -18,6 +18,20 @@ MAX_ARCHIVE_BYTES=6_000_000
 MAX_EXPANSION_RATIO=200
 ROOT_NAME="luhmos-dev/"
 HEX40=re.compile(r"^[a-f0-9]{40}$")
+# Cross-platform DEV source ZIPs deliberately use portable ASCII paths.
+# Windows device aliases, alternate streams, and casefold collisions are not
+# safe when an archive is later handled by Java, Android, macOS or Windows.
+PORTABLE=re.compile(r"^[A-Za-z0-9._/-]+$")
+WINDOWS_DEVICES={*(f"COM{i}" for i in range(1,10)),*(f"LPT{i}" for i in range(1,10)),
+                 "CON","PRN","AUX","NUL"}
+
+def portable_name(name:str)->bool:
+    if not isinstance(name,str) or not PORTABLE.fullmatch(name):
+        return False
+    for part in name.split("/"):
+        if part.endswith((".", " ")) or part.split(".",1)[0].upper() in WINDOWS_DEVICES:
+            return False
+    return True
 
 def safe_name(name:str)->bool:
     if not isinstance(name,str) or len(name)>240 or not name.startswith(ROOT_NAME):
@@ -47,9 +61,11 @@ def verify_dev_archive(path:Path, expected_paths:list[str], *, source_ref:str)->
             raise ValueError("ZIP_FILE_COUNT")
         if len({i.filename for i in infos})!=len(infos):
             raise ValueError("ZIP_DUPLICATE_MEMBER")
+        if len({i.filename.casefold() for i in infos})!=len(infos):
+            raise ValueError("ZIP_PORTABLE_CASE_COLLISION")
         total=0
         for info in infos:
-            if not safe_name(info.filename) or info.filename not in wanted:
+            if not safe_name(info.filename) or not portable_name(info.filename) or info.filename not in wanted:
                 raise ValueError("ZIP_UNSAFE_OR_UNLISTED_ENTRY")
             if info.is_dir():
                 raise ValueError("ZIP_DIRECTORY_DISALLOWED")

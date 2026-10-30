@@ -106,6 +106,39 @@ class ZipInteropTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 z.verify_dev_archive(p,["a.txt"],source_ref=SHA)
 
+    def test_casefold_collision_rejected(self):
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/"casefold.zip"
+            make_zip(p,["luhmos-dev/A.txt","luhmos-dev/a.txt"])
+            with self.assertRaisesRegex(ValueError,"ZIP_PORTABLE_CASE_COLLISION"):
+                z.verify_dev_archive(p,["A.txt","a.txt"],source_ref=SHA)
+
+    def test_windows_reserved_name_rejected(self):
+        for relative in ("CON.txt","dir/NUL","dir/COM1.txt","dir/LPT9.log"):
+            with self.subTest(relative=relative), tempfile.TemporaryDirectory() as d:
+                p=Path(d)/"reserved.zip"
+                make_zip(p,["luhmos-dev/"+relative])
+                with self.assertRaisesRegex(ValueError,"ZIP_UNSAFE_OR_UNLISTED_ENTRY"):
+                    z.verify_dev_archive(p,[relative],source_ref=SHA)
+
+    def test_alternate_stream_or_trailing_dot_rejected(self):
+        for relative in ("a.txt:stream","a.","dir/aux.txt","dir/a?.txt"):
+            with self.subTest(relative=relative), tempfile.TemporaryDirectory() as d:
+                p=Path(d)/"portable.zip"
+                make_zip(p,["luhmos-dev/"+relative])
+                with self.assertRaises(ValueError):
+                    z.verify_dev_archive(p,[relative],source_ref=SHA)
+
+    def test_non_ascii_path_rejected_but_contents_allowed(self):
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/"unicode.zip"
+            make_zip(p,["luhmos-dev/café.txt"],"é".encode())
+            with self.assertRaises(ValueError):
+                z.verify_dev_archive(p,["café.txt"],source_ref=SHA)
+            q=Path(d)/"unicode-content.zip"
+            make_zip(q,["luhmos-dev/utf8.txt"],"é".encode())
+            self.assertEqual(z.verify_dev_archive(q,["utf8.txt"],source_ref=SHA)["fileCount"],1)
+
     def test_source_sha_required(self):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d)/"source.zip"
