@@ -55,7 +55,8 @@
     "roleAuthorizationSeparate": true,
     "oauthCodePkceRequired": true,
     "appleNonceRequired": true,
-    "ownSystemPasskeyCandidate": true
+    "ownSystemPasskeyCandidate": true,
+    "externalOAuthCallbacksImplemented": false
   },
   "mail": {
     "type": "readOnlyImap",
@@ -71,14 +72,18 @@
     "raspberryPi": "labwc kiosk on physical display",
     "dns": "Cloudflare public authoritative unchanged",
     "certbot": "DNS-01 Cloudflare plugin requires secret token and permission",
-    "autoApply": false
+    "autoApply": false,
+    "netplanApplyBlocked": true
   },
   "hardware": {
     "webcamTargetCount": 6,
     "webcamsVerified": 0,
-    "samsungDeX": "CAPABILITY_PENDING",
+    "samsungDeX": "TAB_S10_LITE_NO_STANDALONE_WIRELESS_DEX_OR_HDMI",
     "bluetoothEmulation": "BlueZ btvirt test controller only",
-    "remoteBlender": "HEADLESS_JOB_NOT_RUNNING"
+    "remoteBlender": "HEADLESS_JOB_NOT_RUNNING",
+    "s24FeDeX": "OPTIONAL_DEVICE_PROOF_PENDING",
+    "tabletCockpit": "DEX_INSPIRED_K9000_HTML5_NOT_NATIVE_DEX",
+    "sixCameraHost": "LINUX_UVC_V4L2_POWER_BANDWIDTH_SYNC_UNVERIFIED"
   },
   "plugins": {
     "manifestPaths": [
@@ -86,7 +91,8 @@
       "plugins/luhm-android-beta/plugin.json"
     ],
     "incomingExecutable": false,
-    "githubDependencyReview": true
+    "githubDependencyReview": true,
+    "repoManifestAudit": "SOURCE_VALIDATION_ONLY"
   },
   "packageTrain": [
     "dev",
