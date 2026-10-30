@@ -1,0 +1,138 @@
+{
+  "schema": "luhmOs.communityForkChannels.v1",
+  "state": "SOURCE_CANDIDATE",
+  "sourceRef": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d",
+  "repository": "eggie-admin/LuHm-OS",
+  "project": "LuHm-OS: Project Premonition",
+  "legacyAlias": "Project Hydra",
+  "rootLicense": "GPL-3.0-only",
+  "crown": "STOP",
+  "publicSourceForking": true,
+  "officialNameDoesNotAuthorizeImpersonation": true,
+  "sourceIsNotInstallableBinary": true,
+  "autoForkVendors": false,
+  "autoMerge": false,
+  "autoRelease": false,
+  "autoDeploy": false,
+  "autoSign": false,
+  "autoUnquarantine": false,
+  "noPrivateAssetsInPublicForks": true,
+  "channels": [
+    {
+      "id": "proposed",
+      "sourceForkable": true,
+      "publication": "SOURCE_ONLY",
+      "signedRuntimeProof": false,
+      "signerVerified": false
+    },
+    {
+      "id": "beta",
+      "sourceForkable": true,
+      "publication": "BLOCKED",
+      "signedRuntimeProof": false,
+      "signerVerified": false
+    },
+    {
+      "id": "stable",
+      "sourceForkable": true,
+      "publication": "BLOCKED",
+      "signedRuntimeProof": false,
+      "signerVerified": false
+    }
+  ],
+  "vendorPins": [
+    {
+      "ecosystem": "npm",
+      "manifest": "frontEnd/package.json",
+      "name": "jquery",
+      "version": "3.7.1",
+      "category": "browserDependency"
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "frontEnd/prototypes/glassWorld/package.json",
+      "name": "@babylonjs/core",
+      "version": "9.32.0",
+      "category": "isolatedStudio"
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "frontEnd/prototypes/glassWorld/package.json",
+      "name": "jquery",
+      "version": "3.7.1",
+      "category": "isolatedStudio"
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "frontEnd/prototypes/glassWorld/package.json",
+      "name": "vue",
+      "version": "3.5.44",
+      "category": "isolatedStudio"
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "frontEnd/prototypes/glassWorld/package.json",
+      "name": "vite",
+      "version": "8.3.5",
+      "category": "buildOnly"
+    },
+    {
+      "ecosystem": "pip",
+      "manifest": "host/mcp/requirements.txt",
+      "name": "mcp",
+      "version": "2.2.0",
+      "category": "serverOnly"
+    },
+    {
+      "ecosystem": "gradle",
+      "manifest": "androidWeb3Plugin/plugin/build.gradle.kts",
+      "name": "org.godotengine:godot",
+      "version": "4.7.2.stable",
+      "category": "androidLibrary"
+    },
+    {
+      "ecosystem": "gradle",
+      "manifest": "androidWeb3Plugin/plugin/build.gradle.kts",
+      "name": "androidx.webkit:webkit",
+      "version": "1.17.1",
+      "category": "androidLibrary"
+    }
+  ],
+  "optionalVendors": [
+    {
+      "id": "comfyUi",
+      "integration": "externalWorkerOnly",
+      "sourceProven": false,
+      "customNodeExecutionAllowed": false
+    },
+    {
+      "id": "blender",
+      "integration": "studioOnly",
+      "sourceProven": false,
+      "customNodeExecutionAllowed": false
+    },
+    {
+      "id": "ffmpeg",
+      "integration": "mediaWorkerOnly",
+      "sourceProven": false,
+      "customNodeExecutionAllowed": false
+    }
+  ],
+  "forkRequirements": [
+    "officialUpstreamRepoVerified",
+    "licenseAndNoticesReviewed",
+    "hashAndTagPinned",
+    "securityReview",
+    "sourceDiffReviewed",
+    "noPrivatePayload",
+    "independentForkOwnership",
+    "noSharedTokens",
+    "upstreamUpdatePlan"
+  ],
+  "vendorForksCreated": 0,
+  "upstreamLicensesIndividuallyVerified": false,
+  "providerEntitlementsVerified": false,
+  "publicationApproved": false,
+  "securitySettingsLiveVerified": false,
+  "deviceRuntimeVerified": false
+}
