@@ -111,7 +111,7 @@ jobs:
             "apkSha256":hashlib.sha256(path.read_bytes()).hexdigest(),
             "releaseMode":True,
             "debuggable":False,
-            "signedFroidIndex":False,
+            "signedFdroidIndex":False,
             "hosted":False,
             "samsungDeviceProven":False,
             "publicPublished":False,
