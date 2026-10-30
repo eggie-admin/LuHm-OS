@@ -71,6 +71,18 @@ jobs:
           npm run song
           npm run plan:local
           npm test
+          # Existing gate also executes the exact-head source-only Cathedral preflight.
+          npm run --silent plan:cathedral -- "$LUHM_SOURCE_REF" > /tmp/luhm-cathedral-preflight.json
+          python3 - <<'PY'
+          import json, os
+          x=json.load(open('/tmp/luhm-cathedral-preflight.json', encoding='utf8'))
+          assert x['sourceRef']==os.environ['LUHM_SOURCE_REF']
+          assert x['sourcePreflight']=='PASS_SOURCE_ONLY'
+          assert x['releaseAuthorized'] is False and x['crown']=='STOP'
+          assert x['autoMerge'] is False and x['automaticCast'] is False
+          assert x['blenderExecuted'] is False and x['godotDeviceVerified'] is False
+          print('CATHEDRAL_PROPOSED_SOURCE_PRECHECK_ONLY')
+          PY
           npm run --silent matrix > /tmp/luhm-orchestra-matrix.json
           python3 - <<'PY'
           import json
