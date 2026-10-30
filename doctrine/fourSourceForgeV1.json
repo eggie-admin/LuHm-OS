@@ -1,0 +1,106 @@
+{
+  "schema": "luhmOs.fourSourceForge.v1",
+  "status": "SOURCE_CANDIDATE_NOT_DEPLOYED",
+  "authority": "Professor",
+  "sources": [
+    "vmHeadless",
+    "deviceKiosk",
+    "webUi",
+    "githubBuild"
+  ],
+  "columns": [
+    "coreLibrary",
+    "pluginExtension",
+    "classWidgetOrganization",
+    "stubAdapterBoundary"
+  ],
+  "beats": [
+    "hear",
+    "resolve",
+    "act",
+    "verify"
+  ],
+  "tiers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "profiles": [
+    "headless",
+    "witchingHour",
+    "corporate",
+    "githubDevelopment"
+  ],
+  "canonicalEscalation": "doctrine/escalationKernelV1.json",
+  "runtimeAgents": 0,
+  "encoding": {
+    "format": "base64url-json",
+    "maxDecodedBytes": 45056,
+    "base44IsEncoding": false,
+    "base44ExternalProvider": "NOT_CONNECTED",
+    "encryption": false
+  },
+  "sqlite": "host/api/typedLanesV1.sql",
+  "mariaDb": "OPTIONAL_SEPARATE_DB_REVIEW",
+  "databaseMode": "IN_MEMORY_TEST_ONLY",
+  "identity": {
+    "options": [
+      "github",
+      "google",
+      "apple",
+      "luhmNative"
+    ],
+    "connected": [],
+    "roleAuthorizationSeparate": true,
+    "oauthCodePkceRequired": true,
+    "appleNonceRequired": true,
+    "ownSystemPasskeyCandidate": true
+  },
+  "mail": {
+    "type": "readOnlyImap",
+    "configured": false,
+    "remotePollEnabled": false,
+    "messagesRead": 0,
+    "credentialsInSource": false
+  },
+  "network": {
+    "vm": "Netplan networkd opt-in after NIC evidence",
+    "desktop": "NetworkManager",
+    "debian": "keep existing network manager",
+    "raspberryPi": "labwc kiosk on physical display",
+    "dns": "Cloudflare public authoritative unchanged",
+    "certbot": "DNS-01 Cloudflare plugin requires secret token and permission",
+    "autoApply": false
+  },
+  "hardware": {
+    "webcamTargetCount": 6,
+    "webcamsVerified": 0,
+    "samsungDeX": "CAPABILITY_PENDING",
+    "bluetoothEmulation": "BlueZ btvirt test controller only",
+    "remoteBlender": "HEADLESS_JOB_NOT_RUNNING"
+  },
+  "plugins": {
+    "manifestPaths": [
+      "plugins/luhm-os/plugin.json",
+      "plugins/luhm-android-beta/plugin.json"
+    ],
+    "incomingExecutable": false,
+    "githubDependencyReview": true
+  },
+  "packageTrain": [
+    "dev",
+    "npm",
+    "dmg",
+    "apk"
+  ],
+  "safety": {
+    "paidCalls": false,
+    "networkChanges": false,
+    "dnsChanges": false,
+    "mailboxReads": false,
+    "agentActivation": false,
+    "productionDeploy": false,
+    "crownStatus": "STOP"
+  }
+}
