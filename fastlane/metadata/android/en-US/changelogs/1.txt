@@ -1,0 +1,1 @@
+Initial Crown Cathedral public-build candidate. Offline K9000 cockpit, playable Godot world, local hardware diagnostics, and a new native second-screen capability check. Source-only until public build approval.
