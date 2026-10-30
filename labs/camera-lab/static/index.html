@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08101f">
+<title>Hydra Camera Lab</title>
+<link rel="stylesheet" href="/style.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="mark">✦</div>
+  <div><small>PROJECT HYDRA / TERMUX</small><h1>Camera Lab</h1></div>
+  <span class="tag">LOCAL • PROTOTYPE</span>
+</header>
+<main>
+  <section class="card">
+    <div class="bar"><h2>📷 Camera Deck</h2><span id="cameraStatus" class="chip">Not connected</span></div>
+    <video id="preview" autoplay playsinline muted></video>
+    <div class="buttons">
+      <button type="button" id="start">Enable camera</button>
+      <button type="button" id="photo" disabled>📸 Snapshot</button>
+      <button type="button" id="record" disabled>● Record</button>
+      <button type="button" id="stop" disabled>■ Stop</button>
+    </div>
+    <label for="sources">Available browser cameras</label>
+    <select id="sources"></select>
+    <p class="hint">Camera preview uses Android Chrome. It might show only the tablet's built-in cameras, not the Logitech USB webcam. Some Bluetooth clickers send a Space key to take a photo; volume-only clickers won't work automatically.</p>
+  </section>
+  <section class="card">
+    <div class="bar"><h2>🧠 Llama Lab</h2><span id="aiStatus" class="chip">Checking Ollama</span></div>
+    <div class="chat" id="conversation" aria-live="polite">
+      <div class="bubble guide">Ask about game ideas, art, or Python. A parent should supervise this experimental local AI.</div>
+    </div>
+    <form id="chatForm">
+      <label for="question">Your question</label>
+      <textarea id="question" rows="3" placeholder="What should we build?" required maxlength="4000"></textarea>
+      <button type="submit">Ask local Llama</button>
+    </form>
+    <p class="hint">No ChatGPT login or external browser automation. This local LLM is not guaranteed child-safe. The app does not save conversation history.</p>
+  </section>
+  <section class="card full">
+    <div class="bar"><h2>🧰 Device & USB Status</h2><button id="refresh" type="button">Rescan</button></div>
+    <div class="statusgrid">
+      <div><small>OLLAMA MODEL</small><strong id="model">Checking...</strong></div>
+      <div><small>VIDEO NODES</small><strong id="devs">Checking...</strong></div>
+      <div><small>USB GADGET CONFIG</small><strong id="gadget">Checking...</strong></div>
+    </div>
+    <p class="hint">For USB host detection, run <code>bash probe-usb.sh</code> in Termux. Gadget mode and USB webcam input are different functions.</p>
+  </section>
+</main>
+<footer>HYDRA LAB • All web traffic stays on this tablet except requests to your configured Ollama server.</footer>
+</body>
+</html>
