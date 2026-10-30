@@ -19,7 +19,7 @@ def inspect(root: Path) -> dict:
     full=read("fastlane/metadata/android/en-US/full_description.txt").strip()
     canon=json.loads(read("doctrine/k9000CrownCathedralReleaseV1.json"))
     section=preset.split('name="Android Crown Cathedral Public Candidate"')
-    public=section[1].split("[preset.",1)[0] if len(section)==2 else ""
+    public=section[1] if len(section)==2 else ""
     source={
         "gpl3License":"GNU GENERAL PUBLIC LICENSE" in license_text and "Version 3" in license_text,
         "originalBrandSvg":"<svg" in svg and "K9000 Crown Cathedral" in svg,
