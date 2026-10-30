@@ -20,7 +20,14 @@ def audit_files(files):
         "noAutoCamera": "getUserMedia" not in js and "navigator.mediaDevices" not in js,
         "noFakeCameraCount": "NOT SCANNED" in html and "SCANNING..." in js,
         "noRawInnerHtml": ".innerHTML" not in js,
-        "nativeAllowlist": '"camera_probe_requested" -> setOf("type")' in kotlin,
+        "hardwareTab": 'data-panel="hardware"' in html and 'data-hardware-probe' in html,
+        "canonPrivate": "COOLPIX B500" not in html and "Perfection V39 II" not in html,
+        "hardwareProbeAllowlisted": '"hardware_probe_requested" -> {' in kotlin,
+        "hardwareProbeReadOnly": "sendHardwareInventory()" in kotlin and "requestPermission(" not in kotlin,
+        "usbNoSerials": "usb.serialNumber" not in kotlin and "getSerialNumber(" not in kotlin,
+        "hardwareJsSecureText": 'hardwareList.replaceChildren()' in js and 'p.textContent = vendor' in js,
+        "hardwareNoCapture": "getUserMedia" not in js and "scanimage" not in js,
+        "nativeAllowlist": '"camera_probe_requested", "hardware_probe_requested" -> setOf("type")' in kotlin,
         "nativeLocalOnly": 'LOCAL_ORIGIN' in kotlin and 'isAllowedLocalUrl' in kotlin,
         "usbInventoryOnly": "USB_CLASS_VIDEO" in kotlin and "requestPermission(" not in kotlin,
         "androidK9000Default": 'k9000.html' in kotlin,
@@ -65,4 +72,4 @@ if __name__ == "__main__":
     failures = audit_files(read_files())
     if failures:
         raise SystemExit("RED_K9000_CANDIDATE_SOURCE " + ",".join(failures))
-    print("GREEN_K9000_CANDIDATE_SOURCE 33/33 (SOURCE ONLY, no APK/DMG/device proof)")
+    print("GREEN_K9000_CANDIDATE_SOURCE 40/40 (SOURCE ONLY, no APK/DMG/device proof)")
