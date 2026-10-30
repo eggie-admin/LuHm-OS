@@ -43,9 +43,9 @@
 
 ## Actual versus missing evidence
 
-**Source:** policy, negative tests, archive build and Java read-only interop can run on the disposable GitHub Actions runner. `tools/vendorApacheAudit.py` reports npm dependency license metadata gaps as an **unresolved review list**, not permission to ship. No actual binary license closure, physical Android install, live antenna proxy, Pi boot, remote VM, signed AAR/APK or user-authorized Lum execution is proved.
+**Source (observed CI):** vendor provenance checks passed; 16 vendor families recorded; **61 npm transitive package entries had license metadata and zero lacked that metadata**. This is only manifest metadata, not verification of source license files, authorship, binary notices, or redistribution rights. Python ran 11 new provenance tests, 16 ZIP negative/positive tests and 12 existing package-train tests. Java 17 verified a real Python-generated 15-entry DEV ZIP against its correct archive SHA-256 and rejected four hostile archives even when their whole-archive SHA-256 was supplied correctly. No actual binary license closure, physical Android install, live antenna proxy, Pi boot, remote VM, signed AAR/APK or user-authorized Lum execution is proved.
 
-**Next smallest safe action:** on the candidate exact commit, run the expanded vendor/ZIP workflow and capture its receipt; then inventory npm packages missing license metadata by exact version and source license file, without copying external code or changing the root GPL license. Only after owner-approved device testing should the Samsung Lite and antenna proxy become a runtime gate.
+**Next smallest safe action:** on the candidate exact commit, run the expanded vendor/ZIP workflow and capture its receipt; then inventory actual npm source license files and copyright holders by exact package version, without copying external code or changing the root GPL license. Only after owner-approved device testing should the Samsung Lite and antenna proxy become a runtime gate.
 
 ## Official primary sources reviewed October 30, 2026
 
