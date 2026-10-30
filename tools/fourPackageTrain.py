@@ -10,7 +10,10 @@ import re
 import shutil
 import subprocess
 import zipfile
-from zipInteropAudit import verify_dev_archive
+try:
+    from tools.zipInteropAudit import verify_dev_archive
+except ModuleNotFoundError:
+    from zipInteropAudit import verify_dev_archive
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = "doctrine/fourPackageTrainV1.json"
