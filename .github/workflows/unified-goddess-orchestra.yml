@@ -51,6 +51,7 @@ jobs:
           python3 tools/unifiedGoddessOrchestraAudit.py --mode audit
           python3 tools/unifiedGoddessOrchestraAudit.py --mode sql-smoke
           python3 -m unittest tests/testUnifiedGoddessOrchestra.py -v
+          python3 -m unittest tools/test_two_lane_vendor_contract.py tests/test_family_lane_policy.py tests/test_remote_only_vendor_audit.py -v
           python3 tools/companyWideQuarantineAudit.py
           python3 tools/castBridgeStageAudit.py
           python3 tools/deepDungeonSecurityAudit.py
