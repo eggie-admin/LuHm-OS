@@ -54,8 +54,9 @@ def inspect_sources():
     package=json.loads((PACKAGE/"package.json").read_text(encoding="utf-8"))
     lock=json.loads((PACKAGE/"package-lock.json").read_text(encoding="utf-8"))
     d=package.get("dependencies",{})
-    if set(d)!={"@babylonjs/core","vue"} or "jquery" in lock.get("packages",{}).get("",{}).get("dependencies",{}) or
-       "node_modules/jquery" in lock.get("packages",{}):
+    if (set(d) != {"@babylonjs/core", "vue"}
+            or "jquery" in lock.get("packages", {}).get("", {}).get("dependencies", {})
+            or "node_modules/jquery" in lock.get("packages", {})):
         issues.append("ISOLATED_JQUERY_NOT_REDUCED")
     if lock.get("packages",{}).get("",{}).get("dependencies")!=d:issues.append("NPM_LOCK_MISMATCH")
     for rel in ("src/jquery-bridge.js","src/media-deck.js"):

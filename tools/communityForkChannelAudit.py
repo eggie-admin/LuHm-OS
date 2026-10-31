@@ -43,7 +43,7 @@ def evaluate(policy, root=ROOT):
         require(optional.get("sourceProven") is False and optional.get("customNodeExecutionAllowed") is False,
                 "OPTIONAL_UNTRUSTED_EXECUTION")
     pins = policy.get("vendorPins", [])
-    require(len(pins) == 8, "PIN_COUNT_DRIFT")
+    require(len(pins) == 7, "PIN_COUNT_DRIFT")
     seen = set()
     for pin in pins:
         ident = (pin.get("manifest"), pin.get("name"), pin.get("ecosystem"))

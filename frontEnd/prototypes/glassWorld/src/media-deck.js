@@ -24,6 +24,10 @@ export function classifyLocalMedia(file) {
   const mime = String(file.type || "").toLowerCase();
   const types = kind === "video" ? videoTypes : kind === "audio" ? audioTypes : imageTypes;
   if (mime && !types.has(mime)) throw Error("RED_MEDIA_TYPE");
+  if (kind === "image" && mime && ({
+    ".webp":"image/webp", ".png":"image/png",
+    ".jpg":"image/jpeg", ".jpeg":"image/jpeg", ".avif":"image/avif"
+  })[ext] !== mime) throw Error("RED_MEDIA_TYPE");
   return { kind, sizeBytes: file.size, extension: ext };
 }
 export function mountLocalMediaDeck(root) {

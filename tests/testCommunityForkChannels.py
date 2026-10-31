@@ -18,6 +18,11 @@ class ForkChannelTests(unittest.TestCase):
     def test_live_policy_source_only(self):
         self.assertEqual(evaluate(self.policy), [])
 
+    def test_isolated_jquery_pin_removed_but_legacy_retained(self):
+        pins = {(p["manifest"],p["name"]) for p in self.policy["vendorPins"]}
+        self.assertNotIn(("frontEnd/prototypes/glassWorld/package.json","jquery"),pins)
+        self.assertIn(("frontEnd/package.json","jquery"),pins)
+
     def test_no_automatic_vendor_forks(self):
         self.check_fault(lambda p: p.update(autoForkVendors=True), "UNSAFE_autoForkVendors")
 

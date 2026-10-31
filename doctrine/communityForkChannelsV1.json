@@ -58,13 +58,6 @@
     {
       "ecosystem": "npm",
       "manifest": "frontEnd/prototypes/glassWorld/package.json",
-      "name": "jquery",
-      "version": "3.7.1",
-      "category": "isolatedStudio"
-    },
-    {
-      "ecosystem": "npm",
-      "manifest": "frontEnd/prototypes/glassWorld/package.json",
       "name": "vue",
       "version": "3.5.44",
       "category": "isolatedStudio"
