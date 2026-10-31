@@ -69,12 +69,12 @@ class SpiderTests(unittest.TestCase):
             b=spider(r,self.doc,roots=["tools/main.py"])
             self.assertIn("MISSING_LOCAL_SOURCE:tools/helper.py",b["errors"])
     def test_package_root_from_import_module_is_tracked(self):
-        refs=list(references("tools/main.py", b"from tools import helper as alias\\nfrom tests import fixture\\n"))
+        refs=list(references("tools/main.py", b"from tools import helper as alias\nfrom tests import fixture\n"))
         self.assertEqual(refs, ["tools/helper.py", "tests/fixture.py"])
         with tempfile.TemporaryDirectory() as t:
             r=Path(t);(r/"tools").mkdir()
-            (r/"tools/main.py").write_text("from tools import helper\\n", encoding="utf-8")
-            (r/"tools/helper.py").write_text("value=1\\n", encoding="utf-8")
+            (r/"tools/main.py").write_text("from tools import helper\n", encoding="utf-8")
+            (r/"tools/helper.py").write_text("value=1\n", encoding="utf-8")
             good=spider(r,self.doc,roots=["tools/main.py"])
             self.assertEqual(good["status"], "PASS_LOCAL_SOURCE_ONLY", good["errors"])
             self.assertEqual(good["edgesChecked"], 1)
