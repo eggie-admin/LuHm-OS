@@ -132,6 +132,29 @@ def inspect_host(system=None, termux=None, filesystem=None):
     }
 
 
+def source_truth_identity(truth):
+    """Fail closed on the authoritative repository and source-law identity."""
+    return (truth.get("schema")=="luhmOs.currentSourceTruth.v3" and
+            truth.get("canonicalRepository")=="eggie-admin/LuHm-OS" and
+            truth.get("authority")=="Professor" and
+            truth.get("sourceLaw")=="AI proposes. Policy authorizes. CI proves. Human promotes.")
+
+
+def source_truth_crown_stop(truth):
+    """All independent promotion flags must deny release, not merely one."""
+    lane=truth.get("workingDoctrineLane",{})
+    return (truth.get("crownStatus")=="STOP" and
+            truth.get("promotion") is False and
+            truth.get("publicationAuthority") is False and
+            truth.get("releaseAuthority") is False and
+            truth.get("productionSigningAuthority") is False and
+            isinstance(lane,dict) and
+            lane.get("status")=="PROPOSED_ONLY" and
+            lane.get("crownStatus")=="STOP" and
+            lane.get("currentMutationPromotion") is False and
+            lane.get("professorPromotionRequired") is True)
+
+
 def source_checks(root,sha,crown):
     """Sixteen bounded source inspections, not firmware/device tests."""
     read=lambda path: json.loads((root/path).read_text(encoding="utf-8"))
@@ -141,7 +164,7 @@ def source_checks(root,sha,crown):
     media=read("doctrine/mediaStudioFourByFourV1.json")
     unreal=read("doctrine/unrealFinalFormBridgeV1.json")
     checks={
-      "source/canonicalRepo":truth.get("canonicalRepository")=="eggie-admin/LuHm-OS",
+      "source/canonicalRepo":source_truth_identity(truth),
       "source/exactShaShape":bool(SHA.fullmatch(sha)),
       "source/rootlessLauncher":(root/"tools/termuxRootlessCast.sh").is_file(),
       "source/noNewWorkflow":(root/".github/workflows/free-first-workspace-daily.yml").is_file(),
@@ -159,8 +182,7 @@ def source_checks(root,sha,crown):
       "decision/grubNoAndroid":rootless.get("storage",{}).get("firmwareWrite") is False,
       "decision/aiNoAutoCall":rootless.get("aiBenchmarkLaw",{}).get("noProviderAutoCalls") is True,
       "decision/unrealLicenseUnproven":unreal.get("status")!="RUNTIME_GREEN",
-      "decision/crownStop":truth.get("crownStatus")=="STOP" or
-           truth.get("promotion",False) is False
+      "decision/crownStop":source_truth_crown_stop(truth)
     }
     if len(checks)!=16:raise ValueError("R1_16_SOURCE_CHECKS_DRIFT")
     return checks

@@ -4,7 +4,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from tools.r1UnifiedFlow import POLICY,ROOT,DEPTHS,assess,depth_value,inspect_host,sample_256,validate_policy
+from tools.r1UnifiedFlow import POLICY,ROOT,DEPTHS,assess,depth_value,inspect_host,sample_256,validate_policy,source_truth_identity,source_truth_crown_stop
 
 class R1FlowTests(unittest.TestCase):
     @classmethod
@@ -39,6 +39,38 @@ class R1FlowTests(unittest.TestCase):
         self.assertEqual(r["status"],"AMBER_SOURCE_ONLY")
         self.assertFalse(r["sourceRefIndependentlyChecked"])
         self.assertFalse(r["releaseAuthorized"])
+    def test_source_truth_identity_fail_closed(self):
+        truth=json.loads((ROOT/"doctrine/currentSourceTruthV3.json").read_text(encoding="utf-8"))
+        self.assertTrue(source_truth_identity(truth))
+        for key,value in (
+            ("schema","luhmOs.currentSourceTruth.v2"),
+            ("canonicalRepository","other/repository"),
+            ("authority","bot"),
+            ("sourceLaw","AI promotes itself")):
+            changed=copy.deepcopy(truth);changed[key]=value
+            self.assertFalse(source_truth_identity(changed),key)
+
+    def test_source_truth_release_flags_are_independent(self):
+        truth=json.loads((ROOT/"doctrine/currentSourceTruthV3.json").read_text(encoding="utf-8"))
+        self.assertTrue(source_truth_crown_stop(truth))
+        for key,value in (
+            ("crownStatus","GREEN"),
+            ("promotion",True),
+            ("publicationAuthority",True),
+            ("releaseAuthority",True),
+            ("productionSigningAuthority",True)):
+            changed=copy.deepcopy(truth);changed[key]=value
+            self.assertFalse(source_truth_crown_stop(changed),key)
+        for key,value in (
+            ("status","RELEASED"),
+            ("crownStatus","GREEN"),
+            ("currentMutationPromotion",True),
+            ("professorPromotionRequired",False)):
+            changed=copy.deepcopy(truth);changed["workingDoctrineLane"][key]=value
+            self.assertFalse(source_truth_crown_stop(changed),key)
+        changed=copy.deepcopy(truth);changed.pop("workingDoctrineLane")
+        self.assertFalse(source_truth_crown_stop(changed))
+
     def test_256_sample_unique_axes(self):
         points=sample_256(self.doc)
         self.assertEqual(len(points),256)
