@@ -124,7 +124,7 @@ def plan_shot(shot):
         if shot.get("keyColor") not in ("green","blue"):raise ValueError("KEY_COLOR")
         filt=f"fps={fps},format=rgba,colorkey={shot['keyColor']}:0.12:0.05"
         out=name+"-key-%06d.png"
-    return {"status":"PLAN_ONLY_PRIVATE","mode":mode,"source":files[0]["file"],"command":["ffmpeg","-hide_banner","-nostdin","-n","-i",files[0]["file"],"-vf",filt,"-an","-frames:v","240",out],"execution":False,"sourceHash":files[0]["sha256"],"manualMaskReviewRequired":True,"crown":"STOP"}
+    return {"status":"PLAN_ONLY_PRIVATE","mode":mode,"source":files[0]["file"],"command":["ffmpeg","-hide_banner","-nostdin","-n","-i",files[0]["file"],"-vf",filt,"-an","-frames:v","240",out],"execution":False,"declaredSourceHash":files[0]["sha256"],"sourceHashVerified":False,"inputFilesExistVerified":False,"manualMaskReviewRequired":True,"crown":"STOP"}
 def fps_to_frames(fps):
     num,den=map(int,fps.split("/"));return (num+den-1)//den
 def main():
