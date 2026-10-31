@@ -1,0 +1,229 @@
+{
+  "schema": "luhmOs.hydraModAvatarMatrix.v1",
+  "state": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "product": "LuHm-OS: Project Premonition",
+  "canonicalRepo": "eggie-admin/LuHm-OS",
+  "crown": "STOP",
+  "coverage": {
+    "axes": [
+      {
+        "id": "assetOrCapture",
+        "slots": 500
+      },
+      {
+        "id": "engineOrRuntime",
+        "slots": 500
+      },
+      {
+        "id": "securityOrExperience",
+        "slots": 500
+      }
+    ],
+    "combinatorialSpace": 125000000,
+    "deterministicSamples": 500,
+    "sampleExecutedAsHardwareTests": false,
+    "sampleStatuses": "PLANNED_NOT_EXECUTED",
+    "sampling": "modularPairwiseScaffoldNotProof"
+  },
+  "stack": {
+    "unreal": "FINAL_TARGET_UNVERIFIED_LICENSE_HOLD",
+    "unity": "OPTIONAL_ADAPTER_NOT_INSTALLED",
+    "godot": "CURRENT_PLAYABLE_SPINE",
+    "web": "EXISTING_BABYLON_GLASS_WORLD",
+    "python": "STDLIB_BASELINE_OPTIONAL_VETTED_ADAPTERS",
+    "blender": "PRIVATE_EDITABLE_MASTER",
+    "ffmpeg": "STILL_AND_VIDEO_MATTE_TOOL"
+  },
+  "pythonCandidates": [
+    {
+      "id": "numpy",
+      "purpose": "numeric_pose_morph_keyframes",
+      "status": "OPTIONAL_RESEARCH"
+    },
+    {
+      "id": "scipy",
+      "purpose": "filtering_interpolation_signal_sync",
+      "status": "OPTIONAL_RESEARCH"
+    },
+    {
+      "id": "opencv-python",
+      "purpose": "camera_calibration_optical_flow_mattes",
+      "status": "OPTIONAL_RESEARCH"
+    },
+    {
+      "id": "mediapipe",
+      "purpose": "single_camera_pose_landmarks",
+      "status": "OPTIONAL_RESEARCH"
+    },
+    {
+      "id": "mmpose",
+      "purpose": "whole_body_hand_face_keypoints_gpu_optional",
+      "status": "OPTIONAL_RESEARCH"
+    },
+    {
+      "id": "scikit-image",
+      "purpose": "mask_edges_segmentation_quality",
+      "status": "OPTIONAL_RESEARCH"
+    },
+    {
+      "id": "trimesh",
+      "purpose": "geometry_sanity_and_mesh_analysis",
+      "status": "OPTIONAL_RESEARCH"
+    },
+    {
+      "id": "open3d",
+      "purpose": "optional_3d_scan_pointcloud_analysis",
+      "status": "OPTIONAL_RESEARCH"
+    }
+  ],
+  "nexus": {
+    "api": "NEXUS_MODS_API_V3_METADATA_ONLY",
+    "vortex": "CURRENT_VORTEX_REPO_SCOPED_PACKAGE",
+    "archivedVortexApiRepoUse": false,
+    "personalApiKeyInCi": false,
+    "adultContentCatalog": "OPT_IN_ADULT_ONLY",
+    "userVerifiedAdult": false,
+    "autoBrowseAdult": false,
+    "autoDownloadMods": false,
+    "redistributeMods": false,
+    "repurposeGameAssets": false,
+    "runThirdPartyInstallers": false,
+    "requirePerModAuthorRights": true,
+    "creditIsNotPermission": true,
+    "apiCredentialsConfigured": false,
+    "upstreams": [
+      {
+        "id": "nexusApiV3",
+        "url": "https://github.com/Nexus-Mods",
+        "scope": "api_documentation",
+        "licenseState": "CHECK_BEFORE_CODE_COPY"
+      },
+      {
+        "id": "vortex",
+        "url": "https://github.com/Nexus-Mods/Vortex",
+        "scope": "extension_api",
+        "licenseState": "GPL_SEPARATE_TOOL_REVIEW"
+      },
+      {
+        "id": "reFramework",
+        "url": "https://github.com/praydog/REFramework",
+        "scope": "resident_evil_modding_reference",
+        "licenseState": "MIT_SOFTWARE_ONLY_GAME_CONTENT_NOT_CLEARED"
+      },
+      {
+        "id": "bodySlide",
+        "url": "https://github.com/ousnius/BodySlide-and-Outfit-Studio",
+        "scope": "fallout_4_outfit_topology_reference",
+        "licenseState": "GPL_TOOL_GAME_ASSETS_NOT_CLEARED"
+      },
+      {
+        "id": "xEdit",
+        "url": "https://github.com/TES5Edit/TES5Edit",
+        "scope": "fallout_4_mod_conflict_reference",
+        "licenseState": "MPL_TOOL_GAME_DATA_NOT_CLEARED"
+      },
+      {
+        "id": "f4se",
+        "url": "https://f4se.silverlock.org/",
+        "scope": "fallout_4_extender_compatibility_reference",
+        "licenseState": "NO_RUNTIME_AUTOINSTALL"
+      }
+    ]
+  },
+  "avatar": {
+    "id": "originalAdultGothAvatar",
+    "developmentState": "REQUIRE_REAL_ASSET_RECEIPT",
+    "ageClassification": "ADULT_ORIGINAL_CHARACTER_ONLY",
+    "assetRightsApproved": false,
+    "modelSha256Verified": false,
+    "actualBlenderMeshInspected": false,
+    "topologyLoops": [
+      "eyes",
+      "mouth",
+      "jaw",
+      "shoulder",
+      "armpit",
+      "elbow",
+      "hip",
+      "groin",
+      "knee",
+      "ankle",
+      "tailRootOptional"
+    ],
+    "deformationTests": [
+      "eyeblink",
+      "viseme",
+      "smile",
+      "frown",
+      "jawOpen",
+      "shoulderRaise",
+      "squat",
+      "walkCycle",
+      "danceTurn",
+      "hairClothCollision"
+    ],
+    "requiredMorphTargets": [
+      "blinkLeft",
+      "blinkRight",
+      "smile",
+      "jawOpen",
+      "visemeAa",
+      "visemeOh"
+    ],
+    "weightedBoneLimitPerVertex": 4,
+    "requireUvAndNormalProof": true,
+    "materialRightsReview": true,
+    "automaticRetopologyPassIsFinal": false,
+    "secondaryMotionReviewed": false,
+    "liveMocapProven": false,
+    "allowPrivateFaceDataToCloud": false,
+    "desktopTriangleBudget": 120000,
+    "mobileTriangleBudget": 20000
+  },
+  "web": {
+    "renderer": "existingBabylonGlassWorld",
+    "additionalRendererAllowed": false,
+    "skyboxFormat": "localEnvOrHdr",
+    "hdrAssetReady": false,
+    "skyboxRightsApproved": false,
+    "allowRemoteUntrustedTextureUrls": false,
+    "allowPublicCdnsByDefault": false,
+    "requireRelativeAssetPath": true,
+    "assetPathPrefix": "assets/skyboxes/",
+    "maxSkyboxBytes": 16777216,
+    "enablePbr": true,
+    "enableTonalMapping": true,
+    "explicitGammaColorSpace": true,
+    "accessibilityReducedMotion": true,
+    "depthCorrectOcclusionRequired": true,
+    "sceneObjectFormats": [
+      "glb",
+      "gltf"
+    ],
+    "sceneRuntimeEvidence": "UNVERIFIED",
+    "thirdPartyMeshImportAllowed": false
+  },
+  "security": {
+    "autoInstallPackages": false,
+    "runUntrustedPython": false,
+    "evalRemoteJavaScript": false,
+    "autoPublish": false,
+    "autoMerge": false,
+    "autoDeploy": false,
+    "autoSpendUsd": 0,
+    "cloudProviderCalls": false,
+    "sideLoadUnverifiedMods": false,
+    "quarantineResumed": false,
+    "licenseReviewComplete": false
+  },
+  "sources": {
+    "nexus": "https://help.nexusmods.com/article/114-api-acceptable-use-policy",
+    "adult": "https://help.nexusmods.com/article/19-adult-content-policy",
+    "rights": "https://help.nexusmods.com/article/28-file-submission-guidelines",
+    "babylon": "https://doc.babylonjs.com/features/featuresDeepDive/environment/skybox/",
+    "blender": "https://studio.blender.org/training/stylized-character-workflow/7-retopo-face/",
+    "mediapipe": "https://developers.google.com/edge/mediapipe/solutions/vision/pose_landmarker/python",
+    "unreal": "https://www.unrealengine.com/eula/unreal"
+  }
+}

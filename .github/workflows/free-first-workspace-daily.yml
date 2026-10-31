@@ -13,6 +13,10 @@ on:
       - 'manual/freeFirstWorkspaceProxy20261030.md'
       - 'frontEnd/prototypes/glassWorld/**'
       - 'receipts/unrealPublicGitDonorSnapshot20261030.json'
+      - 'doctrine/hydraModAvatarMatrixV1.json'
+      - 'tools/hydraModAvatarAudit.py'
+      - 'tests/testHydraModAvatarAudit.py'
+      - 'manual/hydraModAvatarHardening20261030.md'
       - 'doctrine/hydraCastMediaBridgeV1.json'
       - 'game/datingSimPilotV1.json'
       - 'tools/hydraCastMediaBridge.py'
@@ -57,6 +61,8 @@ jobs:
           python3 -m py_compile tools/hydraCastMediaBridge.py tests/testHydraCastMediaBridge.py
           python3 -m unittest tests.testHydraCastMediaBridge -v
           python3 -m unittest tests.testDatingSimPilot -v
+          python3 -m unittest tests.testHydraModAvatarAudit -v
+          python3 tools/hydraModAvatarAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/hydra-mod-avatar.json"
           python3 -m tools.datingSimPilot --demo
           python3 tools/hydraCastMediaBridge.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/hydra-cast-media.json"
           python3 tools/unrealFinalFormAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/unreal-final-form.json"
@@ -109,6 +115,7 @@ jobs:
             ${{ runner.temp }}/cathedral-unification.json
             ${{ runner.temp }}/unreal-final-form.json
             ${{ runner.temp }}/hydra-cast-media.json
+            ${{ runner.temp }}/hydra-mod-avatar.json
             ${{ runner.temp }}/daily-vendor-reduction.json
           retention-days: 7
           if-no-files-found: warn
