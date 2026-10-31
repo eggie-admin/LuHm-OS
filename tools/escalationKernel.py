@@ -16,10 +16,34 @@ PROFILE_PATHS={
 def load(rel):
     return json.loads((ROOT/rel).read_text(encoding="utf-8"))
 
+def _check_profile_authority(domain, data):
+    """Source profiles select routing, never Crown authority."""
+    if (data.get("authority")!="Professor" or
+            data.get("kernel")!="doctrine/escalationKernelV1.json" or
+            data.get("crownStatus")!="STOP"):
+        raise RuntimeError(f"RED_{domain.upper()}_AUTHORITY")
+    if domain=="technology":
+        if (data.get("promotion") is not False or
+                data.get("escalationTierMap")!={"technologyFastPath":0,
+                  "forFuckSake":1,"scorchedEarth":2,"finalForm":3}):
+            raise RuntimeError("RED_TECHNOLOGY_PROMOTION_OR_TIERS")
+
+
+def _check_kernel_contract(kernel):
+    matrix=kernel.get("fourByFourModel",{})
+    if (kernel.get("schema")!="luhmOs.escalationKernel.v1" or
+            kernel.get("authority")!="Professor" or kernel.get("crownStatus")!="STOP" or
+            matrix.get("horizontalBeats")!=["hear","resolve","act","verify"] or
+            matrix.get("verticalTiers")!=[0,1,2,3] or
+            kernel.get("fastPathLaw",{}).get("automaticMachineContinuation") is not True):
+        raise RuntimeError("RED_ESCALATION_KERNEL_CONTRACT")
+
+
 def normalize_profile(domain):
     if domain not in PROFILE_PATHS:
         raise ValueError(f"unsupported domain: {domain}")
     data=load(PROFILE_PATHS[domain])
+    _check_profile_authority(domain,data)
 
     if domain!="technology":
         tiers=data.get("tiers",[])
@@ -28,6 +52,10 @@ def normalize_profile(domain):
         return tiers
 
     rooms=load("doctrine/escalationWorkflowRoomsV1.json")
+    fast=rooms.get("defaultFastPathRoom",{})
+    if (rooms.get("crownStatus")!="STOP" or
+            fast.get("tier")!=0 or fast.get("id")!="technologyFastPath"):
+        raise RuntimeError("RED_TECHNOLOGY_ROOM_CONTRACT")
     esc=data.get("escalations",{})
     return [
         {
@@ -66,9 +94,12 @@ def normalize_profile(domain):
 
 def plan(domain,tier,outcome):
     kernel=load("doctrine/escalationKernelV1.json")
-    tiers=normalize_profile(domain)
-    if tier<0 or tier>3:
+    _check_kernel_contract(kernel)
+    if type(tier) is not int or tier not in range(4):
         raise ValueError("tier must be 0..3")
+    if outcome not in ("working","green","blocked","unknown","conflict"):
+        raise ValueError("INVALID_OUTCOME")
+    tiers=normalize_profile(domain)
     current=tiers[tier]
 
     if outcome=="green":

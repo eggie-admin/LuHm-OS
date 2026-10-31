@@ -21,6 +21,10 @@ on:
       - 'tools/sinisterSpider.py'
       - 'tests/testSinisterSpider.py'
       - 'manual/sinisterAutonomySpider20261030.md'
+      - 'tools/escalationKernel.py'
+      - 'doctrine/escalationKernelV1.json'
+      - 'doctrine/escalationWorkflowRoomsV1.json'
+      - 'tests/testEscalationKernel.py'
       - 'doctrine/r1UnifiedFlowV1.json'
       - 'tools/r1UnifiedFlow.py'
       - 'tests/testR1UnifiedFlow.py'
@@ -90,6 +94,7 @@ jobs:
           python3 -m unittest tests.testHydraModAvatarAudit -v
           python3 -m unittest tests.testRootlessCast36 tests.testRootlessCastCockpit -v
           python3 -m unittest tests.testMediaStudioAudit -v
+          python3 -m unittest tests.testEscalationKernel -v
           python3 -m unittest tests.testR1UnifiedFlow -v
           python3 -m unittest tests.testSinisterSpider -v
           python3 -m unittest tests.testR1R4ReleaseGate -v
