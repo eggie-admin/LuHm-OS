@@ -13,6 +13,10 @@ case "$MODE" in
     python3 -m tools.rootlessCastCockpit --check
     printf 'ROOTLESS_CAST=SOURCE_CHECKED_ONLY\n'
     ;;
+  audit)
+    python3 -m tools.r1UnifiedFlow --source-ref "$(git rev-parse HEAD)" --depth 0x10
+    printf 'ROOTLESS_R1=SOURCE_CHECKED_CROWN_STOP\\n'
+    ;;
   start)
     python3 -m tools.rootlessCastCockpit --check
     printf '\nOpen http://127.0.0.1:8787/ in the Samsung browser.\n'
@@ -20,5 +24,5 @@ case "$MODE" in
     printf 'Keep this Termux session running. No root, APK install or cloud API.\n\n'
     exec python3 -m tools.rootlessCastCockpit --port 8787
     ;;
-  *) printf 'Usage: bash tools/termuxRootlessCast.sh [check|start]\n' >&2; exit 2 ;;
+  *) printf 'Usage: bash tools/termuxRootlessCast.sh [check|audit|start]\n' >&2; exit 2 ;;
 esac
