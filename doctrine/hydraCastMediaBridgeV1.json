@@ -136,5 +136,17 @@
     "automaticAgentResume": false,
     "automaticSign": false,
     "automaticPublicRelease": false
+  },
+  "unrealLicensing": {
+    "currentRepositoryLicense": "GPL-3.0",
+    "epicEulaReviewRequired": true,
+    "separateUnrealProjectAndBuildRequired": true,
+    "automaticallyLinkGplCodeIntoUnreal": false,
+    "commitEpicEngineSourceToPublicRepo": false,
+    "metahumanAssetsForAiTrainingAllowed": false,
+    "firstPartyAssetRightsReviewRequired": true,
+    "legalClearanceObtained": false,
+    "releaseGate": "HOLD_EULA_GPL_COMPATIBILITY_REVIEW",
+    "officialSource": "https://www.unrealengine.com/eula/unreal"
   }
 }
