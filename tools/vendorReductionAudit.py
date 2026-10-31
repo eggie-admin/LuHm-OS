@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import base64
+import binascii
 from collections import Counter
 import gzip
 import hashlib
@@ -10,6 +12,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / "frontEnd/prototypes/glassWorld"
@@ -20,6 +23,7 @@ def sha256(blob: bytes) -> str:
 
 def inspectDependencies(policy: dict, package: dict, lock: dict, worldSource: str, html: str) -> tuple[list[str], dict]:
     npm = policy["npm"]
+    supply = policy["supplyChain"]
     problems: list[str] = []
     if package.get("private") is not True:
         problems.append("NPM_PACKAGE_MUST_REMAIN_PRIVATE")
@@ -61,6 +65,34 @@ def inspectDependencies(policy: dict, package: dict, lock: dict, worldSource: st
             missing.append(name)
         if record.get("hasInstallScript"):
             installScripts.append(name)
+            permitted = supply["installScriptMetadataAllowlist"].get(name)
+            if not permitted or record.get("optional") is not True or record.get("os") != permitted["os"]:
+                problems.append("UNEXPECTED_LOCKFILE_INSTALL_SCRIPT")
+        resolved = record.get("resolved")
+        if not isinstance(resolved, str):
+            problems.append("MISSING_LOCKFILE_PACKAGE_ORIGIN")
+        else:
+            try:
+                origin = urlsplit(resolved)
+                trusted = (origin.scheme == "https"
+                    and origin.netloc in supply["allowedTarballHostnames"]
+                    and origin.path.endswith(".tgz")
+                    and not origin.query and not origin.fragment
+                    and chr(92) not in origin.path
+                    and not any(part in (".", "..") for part in origin.path.split("/")))
+            except ValueError:
+                trusted = False
+            if not trusted:
+                problems.append("UNTRUSTED_LOCKFILE_PACKAGE_ORIGIN")
+        integrity = record.get("integrity")
+        if integrity is not None:
+            algorithm, separator, encoded = str(integrity).partition("-")
+            try:
+                decoded = base64.b64decode(encoded, validate=True) if separator else b""
+                if algorithm != supply["requiredLockIntegrity"] or len(decoded) != 64:
+                    problems.append("INVALID_LOCKFILE_INTEGRITY")
+            except (binascii.Error, ValueError):
+                problems.append("INVALID_LOCKFILE_INTEGRITY")
         if not re.fullmatch(r"[0-9]+(?:\.[0-9]+){2}(?:[-+][A-Za-z0-9.+-]+)?", str(record.get("version") or "")):
             problems.append("UNPINNED_LOCKED_PACKAGE_VERSION")
     if not packages or len(packages) < 4:
