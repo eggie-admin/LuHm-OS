@@ -6,6 +6,9 @@ on:
       - 'host/api/typedPostgresReviewV1.sql'
       - 'tools/typedSqlStub.py'
       - 'tests/testTypedSqlStub.py'
+      - 'tests/testLegacyIpsTextBridge.py'
+      - 'tools/legacyIpsTextBridge.py'
+      - 'manual/legacy-ips-text-sql-bridge.md'
       - 'doctrine/typedFourLaneSqlV1.json'
       - 'systemPortal/**'
       - 'manual/typedFourLaneSqlV1.md'
@@ -23,6 +26,8 @@ jobs:
           persist-credentials: false
       - name: Typed database adversarial tests
         run: python3 -m unittest tests/testTypedSqlStub.py -v
+      - name: Synthetic IPS text-emote-to-SQL adversarial tests
+        run: python3 -m unittest discover -s tests -p 'testLegacyIpsTextBridge.py' -v
       - name: Local in-memory strict schema
         run: python3 tools/typedSqlStub.py
       - name: Existing static portal audit
