@@ -164,7 +164,13 @@ def references(path,raw):
                         yield item.name.replace(".","/")+".py"
             elif isinstance(node,ast.ImportFrom):
                 module=node.module or ""
-                if node.level==0 and module.startswith(("tools.","tests.")):
+                if node.level==0 and module in ("tools","tests"):
+                    # Python permits "from tools import helper" for a module.
+                    # Track each explicit module alias, not only dotted imports.
+                    for alias in node.names:
+                        if alias.name != "*" and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", alias.name):
+                            yield module+"/"+alias.name+".py"
+                elif node.level==0 and module.startswith(("tools.","tests.")):
                     yield module.replace(".","/")+".py"
                 elif node.level and module:
                     base=PurePosixPath(path).parent
