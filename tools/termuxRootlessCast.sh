@@ -14,7 +14,7 @@ case "$MODE" in
     printf 'ROOTLESS_CAST=SOURCE_CHECKED_ONLY\n'
     ;;
   audit)
-    python3 -m tools.r1UnifiedFlow --source-ref "$(git rev-parse HEAD)" --depth 0x10
+    python3 -m tools.r1UnifiedFlow --source-ref "$(git rev-parse HEAD)" --depth 0x10 --spider
     printf 'ROOTLESS_R1=SOURCE_CHECKED_CROWN_STOP\\n'
     ;;
   start)

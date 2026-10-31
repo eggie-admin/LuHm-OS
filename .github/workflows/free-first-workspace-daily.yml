@@ -17,6 +17,10 @@ on:
       - 'tools/r1r4ReleaseGate.py'
       - 'tests/testR1R4ReleaseGate.py'
       - 'manual/r1r4GothPreview20261030.md'
+      - 'doctrine/sinisterAutonomySpiderV1.json'
+      - 'tools/sinisterSpider.py'
+      - 'tests/testSinisterSpider.py'
+      - 'manual/sinisterAutonomySpider20261030.md'
       - 'doctrine/r1UnifiedFlowV1.json'
       - 'tools/r1UnifiedFlow.py'
       - 'tests/testR1UnifiedFlow.py'
@@ -87,9 +91,10 @@ jobs:
           python3 -m unittest tests.testRootlessCast36 tests.testRootlessCastCockpit -v
           python3 -m unittest tests.testMediaStudioAudit -v
           python3 -m unittest tests.testR1UnifiedFlow -v
+          python3 -m unittest tests.testSinisterSpider -v
           python3 -m unittest tests.testR1R4ReleaseGate -v
           python3 tools/r1r4ReleaseGate.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/r1r4-release-gate.json"
-          python3 -m tools.r1UnifiedFlow --source-ref "$EXPECTED" --depth 0x10 --output "$RUNNER_TEMP/r1-unified-flow.json"
+          python3 -m tools.r1UnifiedFlow --source-ref "$EXPECTED" --depth 0x10 --spider --output "$RUNNER_TEMP/r1-unified-flow.json"
           python3 tools/mediaStudioAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/media-studio.json"
           python3 -m tools.rootlessCastCockpit --check
           bash -n tools/termuxRootlessCast.sh

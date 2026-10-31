@@ -19,6 +19,7 @@ from tools.escalationKernel import plan as escalate_plan
 from tools.mediaStudioAudit import audit as media_policy_audit
 from tools.mediaStudioAudit import inspect_sources as media_source_audit
 from tools.rootlessCast36Audit import verify as rootless_policy_audit
+from tools.sinisterSpider import POLICY as SPIDER_POLICY, spider as run_spider
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "doctrine/r1UnifiedFlowV1.json"
@@ -212,6 +213,7 @@ def main():
     parser.add_argument("--source-ref",required=True)
     parser.add_argument("--depth",default="0x10",help="One of 0,2,4,8,16,32,64,128,256 or hex")
     parser.add_argument("--inspect-host",action="store_true",help="Read only coarse OS/EFI/GRUB path presence")
+    parser.add_argument("--spider",action="store_true",help="Bounded read-only source-graph reconciliation")
     parser.add_argument("--output",type=Path)
     args=parser.parse_args()
     try:depth=depth_value(args.depth)
@@ -223,6 +225,13 @@ def main():
     result=assess(policy,args.source_ref,depth=depth,host=inspect_host() if args.inspect_host else None)
     result["sourceRefIndependentlyChecked"]=True
     result["policySha256"]=hashlib.sha256(POLICY.read_bytes()).hexdigest()
+    if args.spider:
+        spider_policy=json.loads(SPIDER_POLICY.read_text(encoding="utf-8"))
+        graph=run_spider(ROOT,spider_policy)
+        result["localSourceSpider"]=graph
+        if graph["errors"]:
+            result["sourceErrors"]=sorted(set(result.get("sourceErrors",[])+graph["errors"]))
+            result["status"]="RED_SOURCE"
     payload=json.dumps(result,sort_keys=True,indent=2)+"\n"
     if args.output:
         if args.output.is_symlink():raise SystemExit("REFUSE_SYMLINK_RECEIPT")
