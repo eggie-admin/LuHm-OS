@@ -18,6 +18,9 @@ python3 -m tools.datingSimPilot --play  # interactive terminal choices
 ```
 This is an actual text-level vertical slice, **not** a built Godot, Unity or Unreal game. The script evaluates no dialogue as code; characters and all artwork are still proxy/unapproved.
 
+## Blocking Unreal EULA / GPL-3.0 review
+Root `LICENSE` on the current primary LuHm-OS repository is GPL-3.0. Epic's current Unreal EULA section 6(c) identifies GPL as a potentially non-compatible license for combining with Unreal Licensed Technology. Keep Unreal engine code, proprietary plugins, generated engine modules, and binaries **outside the GPL-3.0 runtime/linking boundary** pending a qualified rights/license review; do not assume that moving files to another directory alone solves compatibility. Share original, rights-cleared, engine-neutral media formats or data contracts only when the actual permissions permit. Epic's MetaHuman/engine assets cannot be used for prohibited model training. Mark Unreal release LEGAL_HOLD until reviewed; no public or private Unreal package claims yet.
+
 ## Same-source proof
 ```sh
 python3 -m unittest tests.testHydraCastMediaBridge -v
