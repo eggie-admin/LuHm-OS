@@ -31,8 +31,9 @@ def verify(doc):
     for k in ("riggedAsset","topologyReadyForRetarget","autoDownloadModels","nativeAPKShipped","deviceFPSMeasured"):
         need(render.get(k) is False,"RUNG_FAKE_RENDER_"+k)
     release=doc.get("release",{})
-    for k in ("protectedMainMayBeMergedAutomatically","publicDeploymentAllowed","doNotInventCrown","signingSecretsFromGit"):
+    for k in ("protectedMainMayBeMergedAutomatically","publicDeploymentAllowed","signingSecretsFromGit"):
         need(release.get(k) is False,"RUNG_RELEASE_"+k)
+    need(release.get("doNotInventCrown") is True,"RUNG_CROWN_INVARIANT")
     need(release.get("ownerPromotionRequired") is True and release.get("unrealLicenseHold") is True
          and release.get("CIIsNotDeviceProof") is True,"RUNG_OWNER")
     return sorted(set(errors))
