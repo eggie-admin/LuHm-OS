@@ -12,6 +12,7 @@ on:
       - 'tests/testFreeFirstWorkspaceAudit.py'
       - 'manual/freeFirstWorkspaceProxy20261030.md'
       - 'frontEnd/prototypes/glassWorld/**'
+      - 'receipts/unrealPublicGitDonorSnapshot20261030.json'
       - 'doctrine/unrealFinalFormBridgeV1.json'
       - 'tools/unrealFinalFormAudit.py'
       - 'tests/testUnrealFinalFormBridge.py'
