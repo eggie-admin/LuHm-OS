@@ -80,6 +80,69 @@ class TestRootlessCastCockpit(unittest.TestCase):
         self.assertEqual(code, 403)
         self.assertEqual(val['error'], 'INVALID_HOST')
 
+    def raw_call(self, method, path, headers, body=b''):
+        """Send deliberate duplicate HTTP headers without normalizing them."""
+        connection = http.client.HTTPConnection('127.0.0.1', self.port, timeout=3)
+        connection.putrequest(method, path, skip_host=True)
+        for name, value in headers:
+            connection.putheader(name, value)
+        connection.endheaders(body)
+        response = connection.getresponse()
+        status = response.status
+        raw = response.read()
+        connection.close()
+        return status, json.loads(raw)
+
+    def test_duplicate_host_fails_closed(self):
+        status, body = self.raw_call('GET', '/api/state', [
+            ('Host', f'127.0.0.1:{self.port}'), ('Host', 'attacker.example')])
+        self.assertEqual((status, body['error']), (403, 'INVALID_HOST'))
+
+    def test_duplicate_origin_fails_closed(self):
+        payload = b'{"revision":0}'
+        status, body = self.raw_call('POST', '/api/reset', [
+            ('Host', f'127.0.0.1:{self.port}'),
+            ('Origin', self.origin), ('Origin', 'http://attacker.example'),
+            ('Content-Type', 'application/json'), ('Content-Length', str(len(payload)))], payload)
+        self.assertEqual((status, body['error']), (403, 'CROSS_ORIGIN_DENIED'))
+
+    def test_duplicate_content_length_fails_closed(self):
+        payload = b'{"revision":0}'
+        status, body = self.raw_call('POST', '/api/reset', [
+            ('Host', f'127.0.0.1:{self.port}'), ('Origin', self.origin),
+            ('Content-Type', 'application/json'),
+            ('Content-Length', str(len(payload))), ('Content-Length', str(len(payload) + 1))], payload)
+        self.assertEqual((status, body['error']), (413, 'BODY_LIMIT'))
+
+    def test_transfer_encoding_is_rejected(self):
+        payload = b'{"revision":0}'
+        status, body = self.raw_call('POST', '/api/reset', [
+            ('Host', f'127.0.0.1:{self.port}'), ('Origin', self.origin),
+            ('Content-Type', 'application/json'),
+            ('Transfer-Encoding', 'chunked'), ('Content-Length', str(len(payload)))], payload)
+        self.assertEqual((status, body['error']), (400, 'TRANSFER_ENCODING_DENIED'))
+
+    def test_duplicate_content_type_fails_closed(self):
+        payload = b'{"revision":0}'
+        status, body = self.raw_call('POST', '/api/reset', [
+            ('Host', f'127.0.0.1:{self.port}'), ('Origin', self.origin),
+            ('Content-Type', 'application/json'), ('Content-Type', 'text/plain'),
+            ('Content-Length', str(len(payload)))], payload)
+        self.assertEqual((status, body['error']), (415, 'JSON_REQUIRED'))
+
+    def test_oversized_length_token_is_rejected_before_integer_parse(self):
+        status, body = self.raw_call('POST', '/api/reset', [
+            ('Host', f'127.0.0.1:{self.port}'), ('Origin', self.origin),
+            ('Content-Type', 'application/json'), ('Content-Length', '0' * 6000)])
+        self.assertEqual((status, body['error']), (413, 'BODY_LIMIT'))
+
+    def test_malformed_utf8_json_is_a_recoverable_client_error(self):
+        payload = b'{"revision":"\\xff"}'.replace(b'\\xff', bytes([255]))
+        status, body = self.raw_call('POST', '/api/reset', [
+            ('Host', f'127.0.0.1:{self.port}'), ('Origin', self.origin),
+            ('Content-Type', 'application/json'), ('Content-Length', str(len(payload)))], payload)
+        self.assertEqual((status, body['error']), (409, 'INVALID_OR_STALE_COMMAND'))
+
     def test_06_choice_and_revision(self):
         before = self.call('GET','/api/state')[1]
         self.assertIn(before['nodeId'], {'arrival','studio','practice','rehearsalEnd'})

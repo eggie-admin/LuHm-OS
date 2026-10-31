@@ -124,8 +124,14 @@ def serve(db_path: Path, port: int = 8787, story_path: Path = STORY) -> Threadin
         server_version = "LuHmRootless/0.1"
         sys_version = ""
 
+        def _single_header(self, name):
+            # Email-style headers.get() silently accepts the first of duplicates.
+            # HTTP framing, Host and Origin must never be ambiguous.
+            values = self.headers.get_all(name, [])
+            return values[0] if len(values) == 1 else None
+
         def _host_ok(self):
-            host = self.headers.get("Host", "")
+            host = self._single_header("Host")
             return host in (f"127.0.0.1:{self.server.server_port}", f"localhost:{self.server.server_port}")
 
         def _headers(self, status, mime, length):
@@ -174,14 +180,21 @@ def serve(db_path: Path, port: int = 8787, story_path: Path = STORY) -> Threadin
                 return
             valid_origins = (f"http://127.0.0.1:{self.server.server_port}",
                              f"http://localhost:{self.server.server_port}")
-            if self.headers.get("Origin") not in valid_origins:
+            if self._single_header("Origin") not in valid_origins:
                 self._send(403, {"error": "CROSS_ORIGIN_DENIED"})
                 return
-            if self.headers.get("Content-Type", "").split(";", 1)[0].strip() != "application/json":
+            # This stdlib endpoint accepts only one explicit Content-Length,
+            # never chunked/CL+TE framing or ambiguous duplicate headers.
+            if self.headers.get_all("Transfer-Encoding", []):
+                self._send(400, {"error": "TRANSFER_ENCODING_DENIED"})
+                return
+            content_type = self._single_header("Content-Type")
+            if content_type is None or content_type.split(";", 1)[0].strip() != "application/json":
                 self._send(415, {"error": "JSON_REQUIRED"})
                 return
-            length = self.headers.get("Content-Length", "")
-            if not length.isdecimal() or int(length) > 2048 or int(length) < 2:
+            length = self._single_header("Content-Length")
+            if (length is None or len(length) > 4 or not length.isascii()
+                    or not length.isdecimal() or not 2 <= int(length) <= 2048):
                 self._send(413, {"error": "BODY_LIMIT"})
                 return
             try:
@@ -196,7 +209,7 @@ def serve(db_path: Path, port: int = 8787, story_path: Path = STORY) -> Threadin
                 else:
                     raise ValueError("UNKNOWN_COMMAND")
                 self._send(200, value)
-            except (ValueError, TypeError, json.JSONDecodeError, KeyError):
+            except (ValueError, TypeError, UnicodeDecodeError, json.JSONDecodeError, KeyError):
                 self._send(409, {"error": "INVALID_OR_STALE_COMMAND"})
 
         def log_message(self, format_string, *args):
