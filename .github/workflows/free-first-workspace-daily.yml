@@ -13,6 +13,11 @@ on:
       - 'manual/freeFirstWorkspaceProxy20261030.md'
       - 'frontEnd/prototypes/glassWorld/**'
       - 'receipts/unrealPublicGitDonorSnapshot20261030.json'
+      - 'doctrine/hydraCastMediaBridgeV1.json'
+      - 'game/datingSimPilotV1.json'
+      - 'tools/hydraCastMediaBridge.py'
+      - 'tests/testHydraCastMediaBridge.py'
+      - 'manual/hydraCastMediaBridge20261030.md'
       - 'doctrine/unrealFinalFormBridgeV1.json'
       - 'tools/unrealFinalFormAudit.py'
       - 'tests/testUnrealFinalFormBridge.py'
@@ -47,6 +52,9 @@ jobs:
           python3 -m unittest tests.testFreeFirstWorkspaceAudit -v
           python3 -m unittest tests.testCathedralKernel -v
           python3 -m unittest tests.testUnrealFinalFormBridge -v
+          python3 -m py_compile tools/hydraCastMediaBridge.py tests/testHydraCastMediaBridge.py
+          python3 -m unittest tests.testHydraCastMediaBridge -v
+          python3 tools/hydraCastMediaBridge.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/hydra-cast-media.json"
           python3 tools/unrealFinalFormAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/unreal-final-form.json"
           python3 tools/cathedralUnificationAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/cathedral-unification.json"
           python3 tools/freeFirstWorkspaceAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/workspace-snapshot.json"
@@ -96,6 +104,7 @@ jobs:
             ${{ runner.temp }}/workspace-snapshot.json
             ${{ runner.temp }}/cathedral-unification.json
             ${{ runner.temp }}/unreal-final-form.json
+            ${{ runner.temp }}/hydra-cast-media.json
             ${{ runner.temp }}/daily-vendor-reduction.json
           retention-days: 7
           if-no-files-found: warn
