@@ -51,6 +51,13 @@ def verify_policy(p):
         need(ai.get(k) is False,"AI_AUTONOMY_"+k)
     need(type(ai.get("autoSpendUsd")) is int and ai.get("autoSpendUsd")==0,"AI_SPEND")
     need(p.get("story",{}).get("path")=="game/datingSimPilotV1.json" and p.get("story",{}).get("romanceParticipantsAdults") is True,"DATING_SIM_SCOPE")
+    licensing=p.get("unrealLicensing",{})
+    need(licensing.get("currentRepositoryLicense")=="GPL-3.0" and licensing.get("epicEulaReviewRequired") is True and
+         licensing.get("separateUnrealProjectAndBuildRequired") is True and licensing.get("firstPartyAssetRightsReviewRequired") is True,
+         "UNREAL_GPL_EULA_BOUNDARY")
+    for k in ("automaticallyLinkGplCodeIntoUnreal","commitEpicEngineSourceToPublicRepo","metahumanAssetsForAiTrainingAllowed","legalClearanceObtained"):
+        need(licensing.get(k) is False,"UNREAL_LICENSE_BLOCK_"+k)
+    need(licensing.get("releaseGate")=="HOLD_EULA_GPL_COMPATIBILITY_REVIEW","UNREAL_LICENSE_RELEASE_HOLD")
     release=p.get("promotion",{})
     need(len(release.get("gates",[]))>=8 and "UnrealVerticalSliceProof" in release.get("gates",[]),"CAST_GATES")
     for k in ("automaticMerge","automaticDeploy","automaticAgentResume","automaticSign","automaticPublicRelease"):
