@@ -18,10 +18,10 @@ ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "doctrine/sinisterAutonomySpiderV1.json"
 HEX = ("0x00","0x02","0x04","0x08","0x10","0x20","0x40","0x80","0x100")
 EXT = (".py",".js",".mjs",".html",".css",".json",".webmanifest",".svg",".gd",".ts",".yml",".yaml")
-JS_IMPORT = re.compile(r"""(?:\\bfrom\\s*|\\bimport\\s*)["'](\\.[^"']+)["']""")
-WORKFLOW_MODULE = re.compile(r"\\bpython3?\\s+-m\\s+((?:tools|tests)\\.[A-Za-z][A-Za-z0-9_.]*)")
-WORKFLOW_PATH = re.compile(r"\\bpython3?\\s+((?:tools|tests)/[A-Za-z0-9_./-]+\\.py)")
-NODE_PATH = re.compile(r"\\bnode\\s+--test\\s+([A-Za-z0-9_./-]+\\.(?:js|mjs))")
+JS_IMPORT = re.compile(r"""(?:\bfrom\s*|\bimport\s*)["'](\.[^"']+)["']""")
+WORKFLOW_MODULE = re.compile(r"\bpython3?\s+-m\s+((?:tools|tests)\.[A-Za-z][A-Za-z0-9_.]*)")
+WORKFLOW_PATH = re.compile(r"\bpython3?\s+((?:tools|tests)/[A-Za-z0-9_./-]+\.py)")
+NODE_PATH = re.compile(r"\bnode\s+--test\s+([A-Za-z0-9_./-]+\.(?:js|mjs))")
 
 
 def validate(doc):
