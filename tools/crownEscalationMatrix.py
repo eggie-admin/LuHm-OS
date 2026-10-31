@@ -42,7 +42,7 @@ def source_checks(root,profile):
         "identity/lock":fork.get("repository")=="eggie-admin/LuHm-OS" and profile.get("product")=="LuHm-OS: Project Premonition",
         "identity/boundary":fork.get("officialNameDoesNotAuthorizeImpersonation") is True,
         "identity/proof":fork.get("sourceIsNotInstallableBinary") is True,
-        "vendor/source":len(fork.get("vendorPins",[]))==8,
+        "vendor/source":len(fork.get("vendorPins",[]))==7,
         "vendor/lock":lock.get("lockfileVersion")==3 and jquery.get("version")=="3.7.1" and bool(jquery.get("integrity")),
         "vendor/boundary":fork.get("vendorForksCreated")==0 and fork.get("autoForkVendors") is False,
         "vendor/proof":fork.get("upstreamLicensesIndividuallyVerified") is False,
@@ -68,7 +68,7 @@ def probe_dependency(root, component):
         return p.get("dependencies",{}).get("jquery")=="3.7.1"
     if component=="glassWorld":
         p=read_json(root,"frontEnd/prototypes/glassWorld/package.json")
-        return p.get("dependencies",{})=={"@babylonjs/core":"9.32.0","jquery":"3.7.1","vue":"3.5.44"}
+        return p.get("dependencies",{})=={"@babylonjs/core":"9.32.0","vue":"3.5.44"}
     if component=="mcpHost":
         return "mcp==2.2.0" in (root/"host/mcp/requirements.txt").read_text(encoding="utf-8")
     return None
