@@ -41,6 +41,14 @@ jobs:
           python3 tools/samsung-lite-beta.py
           python3 tests/test-samsung-lite-beta.py
           python3 tests/testSignedBetaWorkflow.py
+      - name: Check signing inputs before toolchain downloads
+        shell: bash
+        env:
+          BETA_P12_B64: ${{ secrets.LUHM_BETA_SIGNING_P12_B64 }}
+          BETA_PASSWORD: ${{ secrets.LUHM_BETA_SIGNING_PASSWORD }}
+          BETA_ALIAS: ${{ secrets.LUHM_BETA_SIGNING_ALIAS }}
+          TRUSTED_SIGNER: ${{ secrets.LUHM_BETA_SIGNER_SHA256 }}
+        run: python3 tools/checkSamsungSigningInputs.py
       - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
         with:
           distribution: temurin
