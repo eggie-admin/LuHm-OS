@@ -56,6 +56,16 @@ class TestRootlessCastCockpit(unittest.TestCase):
             self.assertGreater(len(content), 20)
         self.assertNotIn(b'https://', self.call('GET','/')[1])
 
+    def test_webgl2_original_mesh_static_route(self):
+        status, code, headers = self.call('GET', '/avatar3d.mjs')
+        self.assertEqual(status,200)
+        self.assertIn('text/javascript',headers['Content-Type'])
+        self.assertIn(b'getContext("webgl2"',code)
+        html = self.call('GET','/')[1]
+        self.assertIn(b'id="avatar-3d"',html)
+        self.assertIn(b'id="avatar-2d"',html)
+        self.assertIn(b'type="module"',html)
+
     def test_03_origin_denied(self):
         code, val, _ = self.call('POST', '/api/reset', {'revision':0}, {'Origin':'https://attacker.example','Content-Type':'application/json'})
         self.assertEqual(code, 403)

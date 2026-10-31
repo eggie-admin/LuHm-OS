@@ -1,3 +1,4 @@
+import { mountAvatarPreview } from "./avatar3d.mjs";
 "use strict";
 const $ = id => document.getElementById(id);
 let currentState = null;
@@ -44,3 +45,5 @@ document.querySelectorAll(".mode").forEach(button => button.addEventListener("cl
   document.querySelectorAll(".mode").forEach(b => b.classList.toggle("selected", b === button));
 }));
 refresh();
+
+const avatarPreview = mountAvatarPreview(document.getElementById('avatar-3d'),document.getElementById('avatar-2d'),document.getElementById('avatar-render-state'));

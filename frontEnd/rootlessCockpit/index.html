@@ -11,7 +11,7 @@
   <main class="columns">
     <section class="visual" aria-label="Original animated goth character illustration">
       <div class="stars" aria-hidden="true"></div><div class="upper"><span class="eyebrow">THE GODDESS STUDIO · CONCEPT 01</span><h1>Midnight<br><em>rehearsal.</em></h1><p>The Cathedral is open. Your story begins with a choice.</p></div>
-      <div class="portrait"><svg viewBox="0 0 390 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Original adult goth oni heroine with lilac horns, black hair and ornate purple costume">
+      <canvas id="avatar-3d" class="avatar-stage" aria-label="Interactive original adult goth oni 3D character. Drag to turn." tabindex="0" hidden></canvas><div class="portrait" id="avatar-2d"><svg viewBox="0 0 390 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Original adult goth oni heroine with lilac horns, black hair and ornate purple costume">
         <defs><radialGradient id="halo"><stop stop-color="#a35dce" stop-opacity=".7"/><stop offset="1" stop-color="#5d258e" stop-opacity="0"/></radialGradient><linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f2c7cc"/><stop offset="1" stop-color="#c48eae"/></linearGradient><linearGradient id="hair"><stop stop-color="#221b40"/><stop offset=".55" stop-color="#141528"/><stop offset="1" stop-color="#493260"/></linearGradient><linearGradient id="outfit"><stop stop-color="#29223e"/><stop offset="1" stop-color="#100d23"/></linearGradient></defs>
         <ellipse cx="196" cy="243" rx="175" ry="220" fill="url(#halo)"/><g class="body"><path d="M83 500c-10-77 21-145 68-153h91c55 3 85 75 82 153" fill="url(#outfit)" stroke="#a066b8" stroke-width="3"/><path d="M160 343l39 44 39-44-15 157h-48z" fill="#432a60" stroke="#ef88c2" stroke-width="3"/><path d="M176 329h46l8 42-29 36-33-36z" fill="url(#skin)"/><path d="M146 351l54 72 54-72" fill="none" stroke="#eea6dc" stroke-width="7"/><path d="M148 367l-30 112m136-112 30 112" stroke="#7e4f9d" stroke-width="7" opacity=".7"/><path d="M126 500q17-52 45-63 25 15 51 0 29 14 44 63" fill="#1a142c" stroke="#aa67b1" stroke-width="2"/></g>
         <g class="hair"><path d="M98 189q-12-136 90-157 117-22 126 150 31 64-5 164l25 105q-49-3-65-40-22-51-20-118H146q1 91-33 127-25 26-52 24 42-103 24-161-13-48 13-94z" fill="url(#hair)" stroke="#704b8c" stroke-width="3"/><path d="M128 79Q100 28 115 3q49 14 57 60" fill="#ba8aee" stroke="#e3b5fb" stroke-width="4"/><path d="M235 60q27-51 66-55 11 25-24 83" fill="#ba8aee" stroke="#e3b5fb" stroke-width="4"/></g>
@@ -21,7 +21,7 @@
         <g class="fringe"><path d="M145 107q33-74 91-49-16 44-72 77zm68-42q52-21 71 44l-31 29q-8-41-40-73" fill="url(#hair)" stroke="#57436c" stroke-width="2"/></g>
         <path d="M172 325q31 19 59 0" fill="none" stroke="#cda9c6" stroke-width="4"/>
       </svg></div>
-      <div class="visual-bottom"><span>✦ ORIGINAL CHARACTER PROXY</span><span>DEFORMATION / RIG PENDING</span></div>
+      <div class="visual-bottom"><span>✦ ORIGINAL CHARACTER PROXY</span><span id="avatar-render-state" role="status">3D PREVIEW INITIALIZING · SVG FALLBACK READY</span></div>
     </section>
     <section class="dashboard" aria-label="Local private studio">
       <div class="dash-title"><span class="eyebrow">CAST BRIDGE / LITE</span><h2>Private <em>studio</em></h2><p>One local home for storyboards, character drafts and evidence. No vendor calls.</p></div>
@@ -32,5 +32,5 @@
       <footer><span id="connection">CONNECTING TO LOCAL PYTHON…</span><span>NO ROOT · NO CLOUD · CROWN STOP</span></footer>
     </section>
   </main>
-</div><script src="/app.js" defer></script>
+</div><script type="module" src="/app.js"></script>
 </body></html>

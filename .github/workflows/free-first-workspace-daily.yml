@@ -13,6 +13,10 @@ on:
       - 'manual/freeFirstWorkspaceProxy20261030.md'
       - 'frontEnd/prototypes/glassWorld/**'
       - 'receipts/unrealPublicGitDonorSnapshot20261030.json'
+      - 'doctrine/r1r4GothPreviewV1.json'
+      - 'tools/r1r4ReleaseGate.py'
+      - 'tests/testR1R4ReleaseGate.py'
+      - 'manual/r1r4GothPreview20261030.md'
       - 'doctrine/r1UnifiedFlowV1.json'
       - 'tools/r1UnifiedFlow.py'
       - 'tests/testR1UnifiedFlow.py'
@@ -83,6 +87,8 @@ jobs:
           python3 -m unittest tests.testRootlessCast36 tests.testRootlessCastCockpit -v
           python3 -m unittest tests.testMediaStudioAudit -v
           python3 -m unittest tests.testR1UnifiedFlow -v
+          python3 -m unittest tests.testR1R4ReleaseGate -v
+          python3 tools/r1r4ReleaseGate.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/r1r4-release-gate.json"
           python3 -m tools.r1UnifiedFlow --source-ref "$EXPECTED" --depth 0x10 --output "$RUNNER_TEMP/r1-unified-flow.json"
           python3 tools/mediaStudioAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/media-studio.json"
           python3 -m tools.rootlessCastCockpit --check
@@ -118,6 +124,8 @@ jobs:
           npm ci --ignore-scripts --no-audit --no-fund
           npm test
           npm run build
+      - name: Rootless browser procedural 3D geometry test (no GPU assertions)
+        run: node --test frontEnd/rootlessCockpit/tests/avatar3d.test.mjs
       - name: Measure bundle and preserve no-authority source receipt
         shell: bash
         run: |
@@ -145,6 +153,7 @@ jobs:
             ${{ runner.temp }}/rootless-cast-36.json
             ${{ runner.temp }}/media-studio.json
             ${{ runner.temp }}/r1-unified-flow.json
+            ${{ runner.temp }}/r1r4-release-gate.json
             ${{ runner.temp }}/daily-vendor-reduction.json
           retention-days: 7
           if-no-files-found: warn
