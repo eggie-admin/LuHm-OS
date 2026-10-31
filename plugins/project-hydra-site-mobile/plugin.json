@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "dev-02c066d0b6bc8191ad41051ed5878040",
+  "version": "1.0.16",
+  "description": "LuHm OS is a in chat fun \"Front End\"  for use in the Official ChatGpt app and with an in chat open AI custom agent Avatar and robust pet system",
+  "author": {
+    "name": "App developer"
+  },
+  "extensions": {
+    "com.openai": {
+      "apps": "./.app.json",
+      "interface": {
+        "capabilities": [],
+        "category": "Other",
+        "defaultPrompt": null,
+        "developerName": "App developer",
+        "displayName": "Project Hydra",
+        "longDescription": "LuHm OS is a in chat fun \"Front End\"  for use in the Official ChatGpt app and with an in chat open AI custom agent Avatar and robust pet system",
+        "shortDescription": "LuHm OS is a in chat fun \"Front End\"  for use in the Official ChatGpt app and with an in chat open AI custom agent Avatar and robust pet system",
+        "websiteURL": "https://project-hydra.eggiebagelface.chatgpt.site"
+      }
+    }
+  }
+}
