@@ -1,0 +1,183 @@
+{
+  "schema": "luhmOs.mediaStudioFourByFour.v1",
+  "status": "SOURCE_CANDIDATE",
+  "authority": "Professor",
+  "crown": "STOP",
+  "matrix": {
+    "rows": [
+      "AI",
+      "3D",
+      "StaticWeb",
+      "Runtime"
+    ],
+    "columns": [
+      "source",
+      "rightsAndSecurity",
+      "performance",
+      "fallback"
+    ],
+    "cells": [
+      {
+        "row": "AI",
+        "column": "source",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "AI",
+        "column": "rightsAndSecurity",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "AI",
+        "column": "performance",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "AI",
+        "column": "fallback",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "3D",
+        "column": "source",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "3D",
+        "column": "rightsAndSecurity",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "3D",
+        "column": "performance",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "3D",
+        "column": "fallback",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "StaticWeb",
+        "column": "source",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "StaticWeb",
+        "column": "rightsAndSecurity",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "StaticWeb",
+        "column": "performance",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "StaticWeb",
+        "column": "fallback",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "Runtime",
+        "column": "source",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "Runtime",
+        "column": "rightsAndSecurity",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "Runtime",
+        "column": "performance",
+        "status": "PROPOSED_SOURCE_ONLY"
+      },
+      {
+        "row": "Runtime",
+        "column": "fallback",
+        "status": "PROPOSED_SOURCE_ONLY"
+      }
+    ],
+    "realHardwareTestsByPolicy": 0
+  },
+  "stack": {
+    "engine3d": "Babylon Existing GlassWorld",
+    "staticUi": "HTML5+CSS3+VueExisting",
+    "events": "Native CustomEvent",
+    "eventAliasFile": "frontEnd/prototypes/glassWorld/src/jquery-bridge.js",
+    "python": "stdlib3+sqlite3",
+    "ai": "offlineDeterministicDefault",
+    "aiCloudCallsEnabled": false
+  },
+  "vendor": {
+    "isolatedPrototypeJqueryPackageExpected": false,
+    "legacyJqueryWorkspaceIntact": true,
+    "thirdPartyJsAdded": false,
+    "pythonPackagesAdded": 0,
+    "rendererAdded": false,
+    "sourceTreeVendorBudget": "actualCImeasurementRequired"
+  },
+  "media": {
+    "browser": "HTML5_LOCAL_BLOB_ONLY",
+    "previewFormats": [
+      ".mp4",
+      ".webm",
+      ".mp3",
+      ".wav",
+      ".ogg",
+      ".m4a",
+      ".webp",
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".avif"
+    ],
+    "imageMaxBytes": 25165824,
+    "avMaxBytes": 734003200,
+    "webpEditableMaster": false,
+    "webpPreviewCandidate": true,
+    "pngEditableMaskMaster": true,
+    "blobRevocationRequired": true,
+    "remoteUrlsAllowed": false,
+    "autoplay": false,
+    "externalAssetUploads": false,
+    "mediaDecodeVerifiedOnSamsung": false
+  },
+  "vlc": {
+    "intendedFullNativeEmbeddedProgram": true,
+    "browserPluginSupported": false,
+    "npapiEnabled": false,
+    "nativeLibrary": "libVLC",
+    "nativeAndroidModule": "videolan/vlc-android/libvlc",
+    "integration": "OPTIONAL_SEPARATE_NATIVE_AAR_AFTER_OWNER_LICENSE_REVIEW",
+    "aarInstalled": false,
+    "androidRuntimeProven": false,
+    "desktopVlcExecutableRequiredOnTablet": false,
+    "serverVlcHttpInterfaceAllowed": false,
+    "secretInBrowserAllowed": false,
+    "license": "LGPL-2.1-or-later core; additional plugin and distribution checks",
+    "officialSource": "https://videolan.videolan.me/vlc/master/libvlc.html"
+  },
+  "pings": {
+    "mode": "existing_loopback_health_only",
+    "target": "127.0.0.1:8787/api/health",
+    "remoteHostScanAllowed": false,
+    "socketOrNetworkProbeInCI": false,
+    "providerApiPingsWithoutAuthorization": false
+  },
+  "asset3d": {
+    "blenderMaster": "editablePrivate",
+    "webScene": "Babylon existing four bounded primitives",
+    "glbImportBuilt": false,
+    "skyboxAssetReady": false,
+    "mocapHardwareProof": false
+  },
+  "fourLaneTruth": {
+    "ai": "NO_PAID_OR_LIVE_MODEL_EVIDENCE",
+    "threeD": "NO_NEW_RUNTIME_ENGINE",
+    "staticWeb": "HTML5_WEBP_LOCAL_ONLY",
+    "programming": "NODE_BUILD_PYTHON_RUNTIME",
+    "signedApk": "NOT_BUILT",
+    "crown": "STOP"
+  }
+}

@@ -13,6 +13,12 @@ on:
       - 'manual/freeFirstWorkspaceProxy20261030.md'
       - 'frontEnd/prototypes/glassWorld/**'
       - 'receipts/unrealPublicGitDonorSnapshot20261030.json'
+      - 'doctrine/mediaStudioFourByFourV1.json'
+      - 'doctrine/vendorReductionV1.json'
+      - 'tools/mediaStudioAudit.py'
+      - 'tools/vendorReductionAudit.py'
+      - 'tests/testMediaStudioAudit.py'
+      - 'manual/mediaStudioVendorPruning20261030.md'
       - 'doctrine/rootlessCast36V1.json'
       - 'tools/rootlessCast36Audit.py'
       - 'tools/rootlessCastCockpit.py'
@@ -71,6 +77,8 @@ jobs:
           python3 -m unittest tests.testDatingSimPilot -v
           python3 -m unittest tests.testHydraModAvatarAudit -v
           python3 -m unittest tests.testRootlessCast36 tests.testRootlessCastCockpit -v
+          python3 -m unittest tests.testMediaStudioAudit -v
+          python3 tools/mediaStudioAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/media-studio.json"
           python3 -m tools.rootlessCastCockpit --check
           bash -n tools/termuxRootlessCast.sh
           python3 tools/rootlessCast36Audit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/rootless-cast-36.json"
@@ -129,6 +137,7 @@ jobs:
             ${{ runner.temp }}/hydra-cast-media.json
             ${{ runner.temp }}/hydra-mod-avatar.json
             ${{ runner.temp }}/rootless-cast-36.json
+            ${{ runner.temp }}/media-studio.json
             ${{ runner.temp }}/daily-vendor-reduction.json
           retention-days: 7
           if-no-files-found: warn

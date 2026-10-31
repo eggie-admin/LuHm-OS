@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LuHm-OS: Project Premonition | Glass World Prototype</title>
-<meta name="description" content="Babylon 3D scene with Vue controls, jQuery event bridge and candidate Godot avatar dock.">
+<meta name="description" content="Babylon 3D scene with Vue controls, native CustomEvent bridge and local WebP/video preview.">
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -21,15 +21,15 @@
   </section>
   <aside class="media-preview" id="local-media-deck" aria-label="Local media preview">
     <h2>Media Deck · local preview</h2>
-    <p>Choose your own MP4 or music file. Nothing is uploaded.</p>
-    <label>Local file <input type="file" data-luhm-media-file accept=".mp4,.webm,.mp3,.wav,.ogg,.m4a,video/mp4,video/webm,audio/*"></label>
+    <p>Choose local MP4, music, or WebP/PNG artwork. Browser playback uses HTML5; native libVLC requires separate Android integration. Nothing uploads.</p>
+    <label>Local file <input type="file" data-luhm-media-file accept=".mp4,.webm,.mp3,.wav,.ogg,.m4a,.webp,.png,.jpg,.jpeg,.avif,video/mp4,video/webm,image/webp,image/png,image/jpeg,image/avif,audio/*"></label>
     <video data-luhm-media-video hidden playsinline preload="metadata" aria-label="Selected local video preview"></video>
-    <audio data-luhm-media-audio hidden preload="metadata" aria-label="Selected local audio preview"></audio>
+    <audio data-luhm-media-audio hidden preload="metadata" aria-label="Selected local audio preview"></audio>\n    <img data-luhm-media-image hidden decoding="async" alt="Selected local image preview">
     <p data-luhm-media-status role="status">No media selected. VLC remains optional on the desktop studio.</p>
   </aside>
   <aside id="vue-inspector" class="inspector" aria-label="Vue 3 scene controls"></aside>
 </main>
-<footer>Blender models → Godot character fidelity · Babylon props/world · Vue/jQuery controls · Python receipts · FFmpeg/VLC media</footer>
+<footer>Blender models → Godot character fidelity · Babylon props/world · Vue/native DOM event controls · Python receipts · FFmpeg/VLC media</footer>
 <script type="module" src="./src/main.js"></script>
 </body>
 </html>

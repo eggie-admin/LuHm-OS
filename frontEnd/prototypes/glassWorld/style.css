@@ -25,3 +25,4 @@ button:focus-visible{outline:2px solid #ff84ce}.danger{background:#633451}
 .media-preview video,.media-preview audio{width:100%;max-height:220px;margin:.7rem 0}
 @media(max-width:1000px){.workbench{grid-template-columns:minmax(0,1fr) 220px 270px}}
 @media(max-width:770px){.workbench{grid-template-columns:1fr}.media-preview{border-left:none}}
+\n.media-preview img{max-width:100%;max-height:300px;object-fit:contain;border:1px solid #535378;border-radius:10px;margin:.7rem 0;background:#141226}\n
