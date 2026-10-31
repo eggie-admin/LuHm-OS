@@ -1,0 +1,169 @@
+{
+  "schema": "luhmOs.hardwareHumanMilestones.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "taskEnvelope": {
+    "taskId": "hardwareHumanProgression",
+    "sourceRef": "cfa824291c54344ae317873af5e902198aeb71c4",
+    "scopeId": "hardwareHumanProgression20261026",
+    "rollbackRef": "cfa824291c54344ae317873af5e902198aeb71c4",
+    "executionAuthorized": false
+  },
+  "purpose": "One evidence-gated route from working platform source to touchable hardware, human-friendly experiences and approved artist-centered participation; not a claim of humanoid AI or a finished operating system.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "precedence": "currentProfessorIntent > exactSource > verifiedReceipts > checkpoints > priorChat",
+  "separateAxes": {
+    "sourceModules": "doctrine/modularSourceArchitectureV1.json",
+    "packageComposition": "doctrine/luHmOSFourLayerArchitectureV1.json",
+    "visualCompositor": "doctrine/layeredStageCanonV1.json",
+    "escalation": "doctrine/escalationKernelV1.json",
+    "warning": "The four progression milestones DO NOT rename or replace four package tiers, four source modules, escalation levels or seven visual planes."
+  },
+  "laneOrder": [
+    "hardwareLayer",
+    "hardwareHumanLayer",
+    "humanSortaLayer",
+    "fullHumanLayer"
+  ],
+  "stages": [
+    {
+      "order": 0,
+      "id": "hardwareLayer",
+      "humanMeaning": "The machine foundation boots, builds and exposes deterministic interfaces.",
+      "status": "SOURCE_PRESENT_RUNTIME_UNVERIFIED",
+      "dependsOn": [],
+      "sourcePaths": [
+        "doctrine/modularSourceArchitectureV1.json",
+        "doctrine/luHmOSFourLayerArchitectureV1.json",
+        "doctrine/layeredStageCanonV1.json"
+      ],
+      "requiredProof": [
+        "exact current source SHA and passing source audit",
+        "target-specific host/kernel separation and rollback notes",
+        "reproducible boot or Android build log when claiming binary readiness"
+      ],
+      "currentlyObserved": {
+        "source": "SOURCE_PRESENT",
+        "ci": "UNVERIFIED_AT_CANDIDATE_HEAD",
+        "device": "UNVERIFIED"
+      },
+      "next": "Run the new manifest audit, then separately build only the intended Linux/Android candidate. Preserve Android GKI and supported Linux host kernel. No destructive boot or flash operation."
+    },
+    {
+      "order": 1,
+      "id": "hardwareHumanLayer",
+      "humanMeaning": "The machine meets a real person through a responsive, installable Samsung or desktop interface.",
+      "status": "SIGNED_ARTIFACT_AND_DEVICE_PENDING",
+      "dependsOn": [
+        "hardwareLayer"
+      ],
+      "sourcePaths": [
+        "doctrine/samsungTabletInstallV1.json",
+        ".github/workflows/samsung-lite-signed-beta.yml",
+        "doctrine/androidWeb3CockpitV2.json"
+      ],
+      "requiredProof": [
+        "real APK source/manifest/package identity and persistent owner signer match",
+        "actual signed APK digest, versionCode, ABI, SDK and signature verification",
+        "Samsung launch, back navigation, tap, rotate, resume and upgrade without data loss",
+        "one-click accessibility/clear error and offline fallback"
+      ],
+      "currentlyObserved": {
+        "source": "SOURCE_PRESENT",
+        "signedApk": "UNVERIFIED",
+        "device": "UNVERIFIED",
+        "inChatMount": "UNVERIFIED"
+      },
+      "next": "Do not confuse Godot beta with separate campaignpreview package; register companion source in a scoped candidate, use protected signing without regenerating owner keys, then collect physical Samsung receipts."
+    },
+    {
+      "order": 2,
+      "id": "humanSortaLayer",
+      "humanMeaning": "Human-centered voice, art, comic, accessible workflows and gentle interaction over machine capabilities.",
+      "status": "SOURCE_CANDIDATE_HUMAN_TEST_PENDING",
+      "dependsOn": [
+        "hardwareHumanLayer"
+      ],
+      "sourcePaths": [
+        "doctrine/humanCenteredIntentRouterV2.json",
+        "doctrine/inChatExperienceV1.json",
+        "doctrine/layeredStageCanonV1.json"
+      ],
+      "requiredProof": [
+        "real mobile/desktop touch and keyboard focus test",
+        "live host GUI mount or independently installed offline companion test",
+        "reduced-motion/readability and screen-reader semantics verified",
+        "original character assets with provenance or visibly labeled prototypes",
+        "Babylon/Godot opt-in and Live2D fallback without claiming unsupported rig"
+      ],
+      "currentlyObserved": {
+        "source": "SOURCE_PRESENT",
+        "visualModelApproval": "PENDING",
+        "hostMount": "UNVERIFIED",
+        "accessibility": "UNVERIFIED"
+      },
+      "next": "Review original chibi/Lum visuals with Yume role in chat, then validate real seven-plane viewport and inspect CSP/browser on Android. Do not treat bridge data as a mounted widget."
+    },
+    {
+      "order": 3,
+      "id": "fullHumanLayer",
+      "humanMeaning": "Human-owned creation, family-friendly accessibility, artist credit, informed collaborator consent and fundraising-first community.",
+      "status": "CONSENT_RIGHTS_AND_RELEASE_PENDING",
+      "dependsOn": [
+        "humanSortaLayer"
+      ],
+      "sourcePaths": [
+        "doctrine/artistFirstArtToolCanonV1.json",
+        "doctrine/patronageCampaignV1.json",
+        "doctrine/publicArtReleaseReadinessV1.json"
+      ],
+      "requiredProof": [
+        "approved human authorship, contributor and likeness consent, and license ledger",
+        "protected private originals and independently approved public derivatives",
+        "creative workflow usability and meaningful artist control",
+        "fundraising copy accurately says development support, not a finished product for sale",
+        "Professor review of exact public artifact and partner/social permissions"
+      ],
+      "currentlyObserved": {
+        "source": "SOURCE_PRESENT",
+        "artRights": "PENDING",
+        "contributors": "PENDING",
+        "fundraisingPublication": "NOT_AUTHORIZED"
+      },
+      "next": "Finalize rights-safe review drafts and real artist-controlled creative workflows. Make a separate approved public funding release only after verified consent and artifact checks."
+    }
+  ],
+  "continuation": {
+    "task1": "#421 Drive-first ACL and private evidence repair",
+    "task2": "#422 GitHub canon restoration gate",
+    "campaign": "#423 cinematic campaign source-only PR",
+    "samsungSigning": "#388",
+    "samsungDelivery": "#389",
+    "singleMutableLane": true,
+    "partialIndependentWorkAllowed": true,
+    "existingSignerMustNotRotate": true
+  },
+  "releaseBoundaries": {
+    "newKeys": false,
+    "automaticPublication": false,
+    "automaticSocialPosts": false,
+    "paidServices": false,
+    "unquarantineAgents": false,
+    "deviceFlash": false,
+    "merge": false,
+    "sign": false,
+    "publicAssetDisclosure": false,
+    "siteChanges": false
+  },
+  "portableHelp": {
+    "skill": "plugins/luhm-os/skills/hardware-human-milestones/SKILL.md",
+    "guide": "manual/hardwareHumanMilestoneGuide.md",
+    "audit": "tools/hardwareHumanMilestoneAudit.py",
+    "ci": ".github/workflows/hardware-human-milestone-audit.yml"
+  },
+  "promotion": false,
+  "publicationAuthority": false,
+  "signingAuthority": false,
+  "crownStatus": "STOP"
+}

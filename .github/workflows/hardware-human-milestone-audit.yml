@@ -1,0 +1,23 @@
+name: hardware-human-milestone-source-audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/hardwareHumanMilestonesV1.json'
+      - 'manual/hardwareHumanMilestoneGuide.md'
+      - 'plugins/luhm-os/skills/hardware-human-milestones/SKILL.md'
+      - 'tools/hardwareHumanMilestoneAudit.py'
+      - '.github/workflows/hardware-human-milestone-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Exact candidate checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Source-only four milestone audit
+        run: python3 tools/hardwareHumanMilestoneAudit.py --json
