@@ -1,0 +1,207 @@
+{
+  "schema": "luhmOs.unrealFinalFormBridge.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "product": "LuHm-OS: Project Premonition",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "authority": "Professor",
+  "engineDirection": {
+    "finalForm": "Unreal Engine 5",
+    "evaluationTrack": "UE 5.8",
+    "currentPlayableSpine": "Godot 4",
+    "migration": "parallelRightsClearedVerticalSlice",
+    "godotDeletionAllowed": false,
+    "unrealInstalledOrBuilt": false,
+    "unrealRuntimeVerified": false,
+    "editorTarget": "nativeWindowsOrLinuxDesktop",
+    "androidTarget": "thinStudioControlAndCapture",
+    "licenseReviewRequired": true,
+    "noEngineSourceVendoring": true
+  },
+  "studioPipeline": {
+    "authoritativeEditableMasters": "ownerControlledPrivateBlenderFiles",
+    "assetsRequireKnownRights": true,
+    "contentSha256Required": true,
+    "sourceToDelivery": [
+      "blender",
+      "glbOrFbxOrUsd",
+      "unrealInterchange",
+      "unrealVerticalSlice",
+      "professorAcceptance"
+    ],
+    "exportTargets": {
+      "staticAndSimpleScene": "glb",
+      "skinnedMeshes": "fbx",
+      "complexScenesOptional": "usd"
+    },
+    "conversionRequiresSandbox": true,
+    "executeUntrustedAssetScripts": false,
+    "autoUploadPrivateMasters": false,
+    "retainGodotAssetsUntilParity": true,
+    "capture": "samsungWebcamsAndMicrophonesUserInitiatedOnly",
+    "cinema": "ffmpegApprovedExportsOnly"
+  },
+  "integrationBoundaries": {
+    "unrealOwnsFinalRuntime": true,
+    "npm": "frontendBuildOnly",
+    "python": "offlineOrAuthenticatedJobsAndTools",
+    "sqlite": "typedReceiptsAndAssetPointersOnly",
+    "blender": "editableCreativeMaster",
+    "sdl3": "optionalStandaloneNativeUtilitiesNotUnrealRuntimeRequirement",
+    "vulkan": "optionalPlatformRenderingApiNotSeparateEngine",
+    "windowsWsl2": "developmentAndGpuComputeCompatibilityOnly",
+    "standaloneSecondRendererRequired": false,
+    "nodeRuntimeInsideAndroid": false,
+    "unrealEngineInsideSamsungTabletRequired": false
+  },
+  "adapters": [
+    {
+      "id": "nvidiaAce",
+      "vendor": "NVIDIA",
+      "purpose": "optionalCharacterSpeechFaceAndNpcs",
+      "hardwareProofRequired": true,
+      "status": "EVALUATE",
+      "enabledByDefault": false,
+      "licenseReviewRequired": true,
+      "networkAllowedByDefault": false
+    },
+    {
+      "id": "nvidiaDlss",
+      "vendor": "NVIDIA",
+      "purpose": "optionalUnrealUpscalingOnSupportedRtx",
+      "hardwareProofRequired": true,
+      "status": "EVALUATE",
+      "enabledByDefault": false,
+      "licenseReviewRequired": true,
+      "networkAllowedByDefault": false
+    },
+    {
+      "id": "amdFsr",
+      "vendor": "AMD",
+      "purpose": "optionalUnrealUpscalingWithFallback",
+      "hardwareProofRequired": true,
+      "status": "EVALUATE",
+      "enabledByDefault": false,
+      "licenseReviewRequired": true,
+      "networkAllowedByDefault": false
+    },
+    {
+      "id": "amdRocm",
+      "vendor": "AMD",
+      "purpose": "optionalGpuInferenceOnSupportedHostOrWsl",
+      "hardwareProofRequired": true,
+      "status": "EVALUATE",
+      "enabledByDefault": false,
+      "licenseReviewRequired": true,
+      "networkAllowedByDefault": false
+    },
+    {
+      "id": "oracleOciAi",
+      "vendor": "Oracle",
+      "purpose": "optionalAuthenticatedCloudInference",
+      "hardwareProofRequired": false,
+      "status": "EVALUATE",
+      "enabledByDefault": false,
+      "licenseReviewRequired": true,
+      "networkAllowedByDefault": false
+    },
+    {
+      "id": "nexusModsV3",
+      "vendor": "Nexus Mods",
+      "purpose": "optionalUserInitiatedMetadataImport",
+      "hardwareProofRequired": false,
+      "status": "EVALUATE",
+      "enabledByDefault": false,
+      "licenseReviewRequired": true,
+      "networkAllowedByDefault": false
+    },
+    {
+      "id": "vortexExtension",
+      "vendor": "Nexus Mods",
+      "purpose": "optionalModPackagingViaCurrentVortexExtensionApi",
+      "hardwareProofRequired": false,
+      "status": "EVALUATE",
+      "enabledByDefault": false,
+      "licenseReviewRequired": true,
+      "networkAllowedByDefault": false
+    }
+  ],
+  "moddingLaw": {
+    "versionedModManifest": true,
+    "modConflictAndLoadOrderPlan": "RESEARCH_ONLY",
+    "autoDownloadMods": false,
+    "autoRedistributeThirdPartyMods": false,
+    "allowUnknownScripts": false,
+    "publicAppRegistrationVerified": false,
+    "defaultUserKeysStoredOnServer": false
+  },
+  "repositoryInventory": {
+    "scope": "Public accessible repositories observed 2026-10-30; private repository excluded from public registry",
+    "primary": "eggie-admin/LuHm-OS",
+    "publicCandidates": [
+      "eggie-admin/amplify-godot-engine-template",
+      "eggie-admin/termux-app",
+      "eggie-admin/hydra-shell-android",
+      "eggie-admin/Shizuku",
+      "eggie-admin/YagniLauncher",
+      "eggie-admin/chatgpt-github-plugin",
+      "eggie-admin/MiniMax-H3",
+      "eggie-admin/godot_rl_agents",
+      "eggie-admin/stable-baselines3",
+      "eggie-admin/sbx",
+      "eggie-admin/android-foss",
+      "eggie-admin/vue-headless-cms",
+      "eggie-admin/3d-chat-interface",
+      "eggie-admin/Stable-Diffusion-KMP",
+      "eggie-admin/termux-x11",
+      "eggie-admin/godot_2D_procedural_dungeon_gen",
+      "eggie-admin/godot-procedural3d"
+    ],
+    "donorPolicy": "inspectExactShaLicenseAndNeededFilesBeforeSelectivePort",
+    "bulkMerge": false,
+    "rewriteOtherRepositories": false,
+    "deleteDonors": false,
+    "hiddenPrivateRepoNamesInPublicRegistry": false
+  },
+  "reduction": {
+    "mainWorkflowCountObserved": 129,
+    "workflowDecision": "behaviorDiffBeforeAnyRetirement",
+    "oneExistingCIWorkflow": ".github/workflows/free-first-workspace-daily.yml",
+    "noNewWorkflow": true,
+    "noNewRuntimePackageManager": true,
+    "noBundledThirdPartyEngineBinaries": true,
+    "prioritize": [
+      "inventory",
+      "deduplicatePolicies",
+      "proveAssetImport",
+      "buildUnrealVerticalSlice",
+      "benchmarkGpu",
+      "evaluateModPackaging",
+      "humanPromote"
+    ]
+  },
+  "safety": {
+    "autoMerge": false,
+    "autoDeploy": false,
+    "autoPublish": false,
+    "autoUnquarantineAgents": false,
+    "autoSign": false,
+    "autoChangeCloudResources": false,
+    "autoSpendUsd": 0,
+    "acceptUnverifiedRuntime": false,
+    "unknownAssetRightsAccepted": false,
+    "crown": "STOP"
+  },
+  "references": {
+    "unrealLicense": "https://www.unrealengine.com/license",
+    "interchange": "https://dev.epicgames.com/documentation/unreal-engine/importing-assets-using-interchange-in-unreal-engine",
+    "nvidia": "https://developer.nvidia.com/game-engines/unreal-engine",
+    "amd": "https://gpuopen.com/unreal-engine/",
+    "amdWsl": "https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/docs/install/installrad/wsl/howto_wsl.html",
+    "oracle": "https://docs.oracle.com/en-us/iaas/Content/generative-ai/",
+    "nexusPolicy": "https://help.nexusmods.com/article/114-api-acceptable-use-policy",
+    "nexusOrg": "https://github.com/Nexus-Mods",
+    "sdl3": "https://wiki.libsdl.org/SDL3/SDL_Vulkan_CreateSurface",
+    "wsl": "https://learn.microsoft.com/en-us/windows/wsl/tutorials/gpu-compute"
+  }
+}
