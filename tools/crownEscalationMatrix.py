@@ -30,6 +30,34 @@ def digest(root,relative):
         return None
     return hashlib.sha256((root/relative).read_bytes()).hexdigest()
 
+def git_source_verified(root,sha):
+    """Bind the claimed SHA to this exact clean checkout, never to its shape alone."""
+    root=Path(root).resolve()
+    try:
+        top=subprocess.run(["git","rev-parse","--show-toplevel"],cwd=root,
+                           capture_output=True,text=True,check=False)
+        head=subprocess.run(["git","rev-parse","HEAD"],cwd=root,
+                            capture_output=True,text=True,check=False)
+        clean=subprocess.run(["git","diff","--quiet","HEAD","--"],cwd=root,
+                             capture_output=True,check=False)
+    except OSError:
+        return False
+    return (top.returncode==0 and Path(top.stdout.strip()).resolve()==root and
+            head.returncode==0 and head.stdout.strip()==sha and clean.returncode==0)
+
+
+def git_commit_has_path(root,sha,relative):
+    """A source-bound cell must refer to a tracked blob at that commit."""
+    if not safe_file(root,relative):
+        return False
+    try:
+        found=subprocess.run(["git","cat-file","-t",f"{sha}:{relative}"],
+                             cwd=root,capture_output=True,text=True,check=False)
+    except OSError:
+        return False
+    return found.returncode==0 and found.stdout.strip()=="blob"
+
+
 def source_checks(root,profile):
     truth=read_json(root,"doctrine/currentSourceTruthV3.json")
     release=read_json(root,"doctrine/finalFormPublicReleaseGateV1.json")
@@ -73,7 +101,7 @@ def probe_dependency(root, component):
         return "mcp==2.2.0" in (root/"host/mcp/requirements.txt").read_text(encoding="utf-8")
     return None
 
-def eight_assessment(root, profile, sha):
+def eight_assessment(root, profile, sha, source_ref_verified=False):
     out=[]
     group=profile["eightByEight"]
     if len(group["components"])!=8 or len(group["contracts"])!=8:
@@ -84,7 +112,10 @@ def eight_assessment(root, profile, sha):
         for contract in group["contracts"]:
             state="UNVERIFIED"
             if contract=="exists": state="PASS_SOURCE" if exists else "FAIL_SOURCE"
-            elif contract=="sourceBound": state="PASS_SOURCE" if exists and SHA.fullmatch(sha) else "FAIL_SOURCE"
+            elif contract=="sourceBound":
+                if not exists:state="FAIL_SOURCE"
+                elif source_ref_verified and git_commit_has_path(root,sha,rel):state="PASS_SOURCE"
+                # A syntactically valid SHA alone is not proof: remain UNVERIFIED.
             elif contract=="manifest":
                 if not exists:state="FAIL_SOURCE"
                 else:
@@ -137,8 +168,9 @@ def assess(root,profile,sha):
               "deviceObserved":False,"externalReceiptsAssumed":False}
     if profile.get("schema")!="luhmOs.crownEscalationMatrix.v1" or any(invariants.get(k) is not v for k,v in required.items()):
         raise ValueError("UNSAFE_POLICY")
+    source_ref_verified=git_source_verified(root,sha)
     four=source_checks(root,profile)
-    eight=eight_assessment(root,profile,sha)
+    eight=eight_assessment(root,profile,sha,source_ref_verified)
     sixteen=sixteen_assessment(root,profile)
     all_rows=four+eight+sixteen
     if len(four)!=16 or len(eight)!=64 or len(sixteen)!=256 or len({row["id"] for row in all_rows})!=len(all_rows):
@@ -151,6 +183,7 @@ def assess(root,profile,sha):
     def count(rows):
         return {key:sum(r["status"]==key for r in rows) for key in ("PASS_SOURCE","UNVERIFIED","BLOCKED","FAIL_SOURCE")}
     return {"schema":"luhmOs.crownEscalationReceipt.v1","sourceRef":sha,
+            "sourceRefIndependentlyChecked":source_ref_verified,
             "level4x4":{"evaluated":16,"counts":count(four),"cells":four},
             "level8x8":{"evaluated":64,"counts":count(eight),"cells":eight},
             "level16x16":{"evaluated":256,"counts":count(sixteen),"cells":sixteen},

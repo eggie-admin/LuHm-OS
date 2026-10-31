@@ -96,6 +96,7 @@ jobs:
           python3 -m unittest tests.testMediaStudioAudit -v
           python3 -m unittest tests.testEscalationKernel -v
           python3 -m unittest tests.testR1UnifiedFlow -v
+          python3 -m unittest tests.testCrownEscalationMatrix -v
           python3 -m unittest tests.testSinisterSpider -v
           python3 -m unittest tests.testR1R4ReleaseGate -v
           python3 tools/r1r4ReleaseGate.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/r1r4-release-gate.json"
