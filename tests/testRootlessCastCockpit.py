@@ -6,7 +6,7 @@ import threading
 import unittest
 from pathlib import Path
 
-from tools.rootlessCastCockpit import init_db, read_state, response_state, serve, advance, reset, STORY
+from tools.rootlessCastCockpit import init_db, db_connect, read_state, response_state, serve, advance, reset, STORY
 
 
 class TestRootlessCastCockpit(unittest.TestCase):
@@ -167,6 +167,73 @@ class TestRootlessCastCockpit(unittest.TestCase):
             self.assertEqual(mode.lower(),'wal')
             version = conn.execute("SELECT count(*) FROM sqlite_master WHERE type='table' AND name='story_state'").fetchone()[0]
             self.assertEqual(version,1)
+
+    def test_sqlite_rejects_symlinked_db_without_touching_target(self):
+        with tempfile.TemporaryDirectory() as temp:
+            base = Path(temp)
+            store = base / "private"
+            store.mkdir(mode=0o700)
+            target = base / "untouched"
+            target.write_bytes(b"do not replace")
+            db = store / "story.sqlite3"
+            db.symlink_to(target)
+            with self.assertRaisesRegex(ValueError, "UNSAFE_SQLITE_SYMLINK"):
+                init_db(db, json.loads(STORY.read_text(encoding="utf-8")))
+            self.assertEqual(target.read_bytes(), b"do not replace")
+
+    def test_sqlite_rejects_symlinked_directory_without_chmod(self):
+        with tempfile.TemporaryDirectory() as temp:
+            base = Path(temp)
+            outside = base / "outside"
+            outside.mkdir(mode=0o755)
+            alias = base / "alias"
+            alias.symlink_to(outside, target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, "UNSAFE_SQLITE_SYMLINK"):
+                init_db(alias / "story.sqlite3", json.loads(STORY.read_text(encoding="utf-8")))
+            self.assertFalse((outside / "story.sqlite3").exists())
+            self.assertEqual(outside.stat().st_mode & 0o777, 0o755)
+
+    def test_sqlite_rejects_existing_shared_dir_without_chmod(self):
+        with tempfile.TemporaryDirectory() as temp:
+            store = Path(temp) / "shared"
+            store.mkdir(mode=0o755)
+            with self.assertRaisesRegex(ValueError, "INSECURE_SQLITE_DIRECTORY"):
+                init_db(store / "story.sqlite3", json.loads(STORY.read_text(encoding="utf-8")))
+            self.assertEqual(store.stat().st_mode & 0o777, 0o755)
+            self.assertFalse((store / "story.sqlite3").exists())
+
+    def test_sqlite_rejects_linked_wal_sidecar_without_mutation(self):
+        with tempfile.TemporaryDirectory() as temp:
+            base = Path(temp)
+            store = base / "private"
+            store.mkdir(mode=0o700)
+            target = base / "sentinel"
+            target.write_bytes(b"no WAL writes")
+            db = store / "story.sqlite3"
+            (store / "story.sqlite3-wal").symlink_to(target)
+            with self.assertRaisesRegex(ValueError, "UNSAFE_SQLITE_SYMLINK"):
+                init_db(db, json.loads(STORY.read_text(encoding="utf-8")))
+            self.assertEqual(target.read_bytes(), b"no WAL writes")
+            self.assertFalse(db.exists())
+
+    def test_sqlite_wal_reinit_preserves_story_revision(self):
+        with tempfile.TemporaryDirectory() as temp:
+            db = Path(temp) / "private" / "story.sqlite3"
+            story = json.loads(STORY.read_text(encoding="utf-8"))
+            init_db(db, story)
+            result = advance(db, story, 1, 0)
+            self.assertEqual(result["revision"], 1)
+            init_db(db, story)
+            with db_connect(db) as conn:
+                state = read_state(conn)
+                mode = conn.execute("PRAGMA journal_mode").fetchone()[0]
+            self.assertEqual(state["revision"], 1)
+            self.assertEqual(state["nodeId"], result["nodeId"])
+            self.assertEqual(mode.lower(), "wal")
+            with self.assertRaisesRegex(ValueError, "STALE_STORY_REVISION"):
+                reset(db, story, 0)
+            with db_connect(db) as conn:
+                self.assertEqual(read_state(conn)["revision"], 1)
 
     def test_08_no_path_traversal(self):
         code, _, _ = self.call('GET','/../../../../etc/passwd')

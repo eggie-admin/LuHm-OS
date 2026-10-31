@@ -30,7 +30,27 @@ STATIC = {
 }
 
 
+def _guard_private_db_path(path: Path) -> None:
+    """Reject linked database paths and SQLite sidecars before opening them.
+
+    This protects the rootless app from accidental writes through preexisting
+    symlinks; it does not claim protection against same-user path-swap races.
+    """
+    for component in (path, *path.parents):
+        if component.is_symlink():
+            raise ValueError("UNSAFE_SQLITE_SYMLINK")
+    for suffix in ("", "-wal", "-shm", "-journal"):
+        candidate = Path(str(path) + suffix)
+        if candidate.is_symlink():
+            raise ValueError("UNSAFE_SQLITE_SYMLINK")
+        if candidate.exists() and not candidate.is_file():
+            raise ValueError("INVALID_SQLITE_FILE")
+    if path.parent.is_dir() and path.parent.stat().st_mode & 0o077:
+        raise ValueError("INSECURE_SQLITE_DIRECTORY")
+
+
 def db_connect(path: Path):
+    _guard_private_db_path(path)
     conn = sqlite3.connect(str(path), timeout=5, isolation_level=None)
     conn.execute("PRAGMA busy_timeout=5000")
     conn.execute("PRAGMA foreign_keys=ON")
@@ -38,8 +58,11 @@ def db_connect(path: Path):
 
 
 def init_db(path: Path, story: dict) -> None:
+    _guard_private_db_path(path)
     path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
-    path.parent.chmod(0o700)
+    # Do not chmod an existing user-selected directory. Reject insecure
+    # storage instead of silently changing permissions outside our sandbox.
+    _guard_private_db_path(path)
     with closing(db_connect(path)) as conn:
         conn.execute("PRAGMA journal_mode=WAL")
         conn.execute("""CREATE TABLE IF NOT EXISTS story_state(
