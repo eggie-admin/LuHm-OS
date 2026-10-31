@@ -48,6 +48,25 @@ def evaluate(p):
         ck(z.get(k) is False,"UNAUTHORIZED_ACTION_"+k)
     ck(type(z.get("autoSpendUsd")) is int and z["autoSpendUsd"]==0,"UNAUTHORIZED_SPENDING")
     ck(z.get("crown")=="STOP","FALSE_CROWN")
+    snapshot_path=ROOT/"receipts/unrealPublicGitDonorSnapshot20261030.json"
+    try:
+        snap=json.loads(snapshot_path.read_text(encoding="utf-8"))
+        observed=snap.get("donors",[])
+        ck(snap.get("schema")=="luhmOs.unrealPublicGitDonorSnapshot.v1" and
+           snap.get("status")=="READ_ONLY_PINNED_OBSERVATION_NO_MERGE","GIT_SNAPSHOT_SCHEMA_DRIFT")
+        ck(len(observed)==17 and
+           {v.get("repository") for v in observed}==set(public) and
+           all(re.fullmatch("[a-f0-9]{40}",v.get("sha","")) is not None and
+               v.get("decision")=="INVESTIGATE" and
+               v.get("licenseReviewed") is False and
+               v.get("sourceDiffReviewed") is False for v in observed) and
+           snap.get("privateRepositoriesExcluded") is True,"GIT_DONOR_SNAPSHOT_MISMATCH")
+        ck(snap.get("canonical",{}).get("repository")=="eggie-admin/LuHm-OS" and
+           re.fullmatch("[a-f0-9]{40}",snap.get("canonical",{}).get("sha","")) is not None and
+           snap.get("automaticHistoryMutation") is False and snap.get("licensingCleared") is False and
+           snap.get("crown")=="STOP","GIT_SNAPSHOT_AUTHORITY_DRIFT")
+    except (OSError,ValueError,TypeError):
+        errors.append("GIT_SNAPSHOT_UNREADABLE")
     return sorted(set(errors))
 def main():
     a=argparse.ArgumentParser();a.add_argument("--source-ref",required=True);a.add_argument("--output",required=True)
