@@ -17,6 +17,8 @@ on:
       - 'game/datingSimPilotV1.json'
       - 'tools/hydraCastMediaBridge.py'
       - 'tests/testHydraCastMediaBridge.py'
+      - 'tools/datingSimPilot.py'
+      - 'tests/testDatingSimPilot.py'
       - 'manual/hydraCastMediaBridge20261030.md'
       - 'doctrine/unrealFinalFormBridgeV1.json'
       - 'tools/unrealFinalFormAudit.py'
@@ -54,6 +56,8 @@ jobs:
           python3 -m unittest tests.testUnrealFinalFormBridge -v
           python3 -m py_compile tools/hydraCastMediaBridge.py tests/testHydraCastMediaBridge.py
           python3 -m unittest tests.testHydraCastMediaBridge -v
+          python3 -m unittest tests.testDatingSimPilot -v
+          python3 -m tools.datingSimPilot --demo
           python3 tools/hydraCastMediaBridge.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/hydra-cast-media.json"
           python3 tools/unrealFinalFormAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/unreal-final-form.json"
           python3 tools/cathedralUnificationAudit.py --source-ref "$EXPECTED" --output "$RUNNER_TEMP/cathedral-unification.json"
