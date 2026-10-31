@@ -106,8 +106,9 @@ def plan_shot(shot):
     if shot.get("audioClapFrame") is None or type(shot.get("audioClapFrame")) is not int or shot["audioClapFrame"]<0:raise ValueError("SYNC_CLAP")
     for c in files:
         if not isinstance(c,dict) or not isinstance(c.get("cameraId"),str) or not NAME.fullmatch(c["cameraId"]):raise ValueError("CAMERA_ID")
-        if not isinstance(c.get("file"),str) or c["file"] in (".","..") or
-           Path(c["file"]).name!=c["file"] or Path(c["file"]).suffix.lower() not in (".mov",".mp4",".mkv",".webm"):
+        file=c.get("file")
+        if (not isinstance(file,str) or not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_.-]{0,127}",file)
+            or Path(file).name!=file or Path(file).suffix.lower() not in (".mov",".mp4",".mkv",".webm")):
             raise ValueError("UNSAFE_FILE")
         if not isinstance(c.get("sha256"),str) or not HEX64.fullmatch(c["sha256"]):raise ValueError("SOURCE_SHA")
         if type(c.get("frameOffset")) is not int or abs(c["frameOffset"])>fps_to_frames(fps)*3:raise ValueError("SYNC_OFFSET")
