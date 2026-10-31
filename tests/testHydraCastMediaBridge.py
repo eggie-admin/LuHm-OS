@@ -39,6 +39,10 @@ class HydraCastMediaTests(unittest.TestCase):
     def test_no_auto_video_upload(self):self.policy_fault(("ai","automaticVideoUpload"),True,"AI_AUTONOMY_automaticVideoUpload")
     def test_no_paid_model(self):self.policy_fault(("ai","autoSpendUsd"),1,"AI_SPEND")
     def test_no_fake_six_cam_proof(self):self.policy_fault(("capture","multiCameraHardwareSyncVerified"),True,"FAKE_CAMERA_PROOF_multiCameraHardwareSyncVerified")
+    def test_no_gpl_unreal_link(self):self.policy_fault(("unrealLicensing","automaticallyLinkGplCodeIntoUnreal"),True,"UNREAL_LICENSE_BLOCK_automaticallyLinkGplCodeIntoUnreal")
+    def test_no_epic_source_committed(self):self.policy_fault(("unrealLicensing","commitEpicEngineSourceToPublicRepo"),True,"UNREAL_LICENSE_BLOCK_commitEpicEngineSourceToPublicRepo")
+    def test_no_meta_ai_training(self):self.policy_fault(("unrealLicensing","metahumanAssetsForAiTrainingAllowed"),True,"UNREAL_LICENSE_BLOCK_metahumanAssetsForAiTrainingAllowed")
+    def test_no_unproven_legal_clearance(self):self.policy_fault(("unrealLicensing","legalClearanceObtained"),True,"UNREAL_LICENSE_BLOCK_legalClearanceObtained")
     def test_keep_unreal_unproven(self):self.policy_fault(("existingSpine","unrealStatus"),"BUILT","ENGINE_PROOF")
     def test_no_auto_release(self):self.policy_fault(("promotion","automaticDeploy"),True,"UNAUTHORIZED_RELEASE_automaticDeploy")
     def test_story_all_adults(self):
