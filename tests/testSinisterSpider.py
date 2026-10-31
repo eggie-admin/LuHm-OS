@@ -78,6 +78,20 @@ class SpiderTests(unittest.TestCase):
         refs=list(references("frontEnd/rootlessCockpit/index.html",b'<script src="/app.js"></script><link rel="stylesheet" href="/app.css">'))
         self.assertIn("frontEnd/rootlessCockpit/app.js",refs)
         with self.assertRaises(ValueError):list(references("frontEnd/rootlessCockpit/index.html",b'<script src="https://example.org/x.js"></script>'))
+    def test_html_multi_token_rel_external_fails_closed(self):
+        with self.assertRaises(ValueError):
+            list(references("frontEnd/rootlessCockpit/index.html",
+                 b'<link rel="preload stylesheet" href="https://cdn.example.invalid/x.css">'))
+    def test_html_modulepreload_and_script_preload(self):
+        refs=list(references("frontEnd/rootlessCockpit/index.html",
+             b'<link rel="modulepreload" href="./bootstrap.mjs"><link rel="preload" as="script" href="./boot.js">'))
+        self.assertEqual(refs,["frontEnd/rootlessCockpit/bootstrap.mjs",
+                               "frontEnd/rootlessCockpit/boot.js"])
+    def test_reject_backslash_and_control_source_paths(self):
+        for rel in ("frontEnd\\..\\escape.js","frontEnd\nescape.js"):
+            with self.subTest(rel=repr(rel)):
+                with self.assertRaises(ValueError):
+                    _canonical(ROOT,rel,200)
     def test_javascript_module_reference(self):
         refs=list(references("frontEnd/rootlessCockpit/app.js",b'import {x} from "./avatar3d.mjs";'))
         self.assertEqual(refs,["frontEnd/rootlessCockpit/avatar3d.mjs"])

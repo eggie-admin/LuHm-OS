@@ -110,7 +110,8 @@ def route(impact, confidence, *, privileged=False, repeatable=False,
 
 def _canonical(root,rel,max_length):
     """The exact relative path must stay within root and never pass through symlinks."""
-    if not isinstance(rel,str) or not rel or len(rel)>max_length or "\\\\" in rel or rel.startswith("/"):
+    if (not isinstance(rel,str) or not rel or len(rel)>max_length or
+            "\\" in rel or any(ord(char)<32 for char in rel) or rel.startswith("/")):
         raise ValueError("UNSAFE_PATH")
     parts=PurePosixPath(rel).parts
     if any(part in ("..",".") for part in parts) or not parts:
@@ -130,8 +131,11 @@ class _HtmlRefs(HTMLParser):
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
         if tag=="script" and "src" in a:self.refs.append(a["src"])
-        if tag=="link" and a.get("rel") in ("stylesheet","icon","manifest") and "href" in a:
-            self.refs.append(a["href"])
+        if tag=="link" and "href" in a:
+            rels=set(a.get("rel","").lower().split())
+            if (rels.intersection(("stylesheet","icon","manifest","modulepreload")) or
+                ("preload" in rels and a.get("as","").lower() in ("script","style"))):
+                self.refs.append(a["href"])
 
 
 def _resolve_relative(origin,target):
