@@ -19,6 +19,7 @@ class HydraCastMediaTests(unittest.TestCase):
     def test_default_luma_preview(self):
         result=plan_shot(self.shot);self.assertEqual(result["status"],"PLAN_ONLY_PRIVATE")
         self.assertIn("lutyuv=",result["command"][-5]);self.assertEqual(result["execution"],False)
+        self.assertFalse(result["sourceHashVerified"]);self.assertFalse(result["inputFilesExistVerified"])
     def test_chroma_distinct(self):
         s=copy.deepcopy(self.shot);s["mode"]="colorChromaKey";s["keyColor"]="green"
         self.assertIn("colorkey=green",plan_shot(s)["command"][-5])
