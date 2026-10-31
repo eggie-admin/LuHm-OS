@@ -1,0 +1,406 @@
+{
+  "schema": "luhmOs.rootlessCast36.v1",
+  "state": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "repo": "eggie-admin/LuHm-OS",
+  "branch": "candidate/free-first-four-source-workspace-20261030",
+  "crown": "STOP",
+  "foundation": {
+    "rows": [
+      "source",
+      "policy",
+      "test",
+      "owner"
+    ],
+    "columns": [
+      "authority",
+      "runtime",
+      "privacy",
+      "media"
+    ],
+    "cells": [
+      {
+        "row": "source",
+        "column": "authority",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "source",
+        "column": "runtime",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "source",
+        "column": "privacy",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "source",
+        "column": "media",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "policy",
+        "column": "authority",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "policy",
+        "column": "runtime",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "policy",
+        "column": "privacy",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "policy",
+        "column": "media",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "test",
+        "column": "authority",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "test",
+        "column": "runtime",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "test",
+        "column": "privacy",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "test",
+        "column": "media",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "owner",
+        "column": "authority",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "owner",
+        "column": "runtime",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "owner",
+        "column": "privacy",
+        "status": "PROPOSED_ONLY"
+      },
+      {
+        "row": "owner",
+        "column": "media",
+        "status": "PROPOSED_ONLY"
+      }
+    ]
+  },
+  "expansion": {
+    "groups": {
+      "canon": [
+        "gitMainProtected",
+        "sourceExactSha",
+        "ownerPromotion",
+        "agentQuarantine",
+        "licenseHold",
+        "vendorRights"
+      ],
+      "engines": [
+        "unrealNativeOnly",
+        "unityAdapterOptional",
+        "godotCurrentRuntime",
+        "blenderMaster",
+        "ffmpegMedia",
+        "babylonWeb"
+      ],
+      "python": [
+        "stdlibOnlyRootless",
+        "noEvalInput",
+        "noAutoPip",
+        "loopbackBinding",
+        "hostRebindingGuard",
+        "csrfOriginGate"
+      ],
+      "sqlite": [
+        "appSandboxOnly",
+        "noFirmwareWrites",
+        "preparedStatements",
+        "walMode",
+        "boundedRevision",
+        "ownerControlledBackup"
+      ],
+      "ai": [
+        "providerNeutral",
+        "noEmbeddedKeys",
+        "noUnapprovedSpend",
+        "benchmarkDatasetLineage",
+        "modelVersionRecorded",
+        "noFalseBenchmarkScores"
+      ],
+      "android": [
+        "smX400Target",
+        "unrootedSupported",
+        "existingSignedApkGate",
+        "noSilentSideload",
+        "noAutomaticPublish",
+        "manualDeviceProof"
+      ]
+    },
+    "gates": [
+      {
+        "id": "gitMainProtected",
+        "lane": "canon",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "sourceExactSha",
+        "lane": "canon",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "ownerPromotion",
+        "lane": "canon",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "agentQuarantine",
+        "lane": "canon",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "licenseHold",
+        "lane": "canon",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "vendorRights",
+        "lane": "canon",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "unrealNativeOnly",
+        "lane": "engines",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "unityAdapterOptional",
+        "lane": "engines",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "godotCurrentRuntime",
+        "lane": "engines",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "blenderMaster",
+        "lane": "engines",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "ffmpegMedia",
+        "lane": "engines",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "babylonWeb",
+        "lane": "engines",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "stdlibOnlyRootless",
+        "lane": "python",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "noEvalInput",
+        "lane": "python",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "noAutoPip",
+        "lane": "python",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "loopbackBinding",
+        "lane": "python",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "hostRebindingGuard",
+        "lane": "python",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "csrfOriginGate",
+        "lane": "python",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "appSandboxOnly",
+        "lane": "sqlite",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "noFirmwareWrites",
+        "lane": "sqlite",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "preparedStatements",
+        "lane": "sqlite",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "walMode",
+        "lane": "sqlite",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "boundedRevision",
+        "lane": "sqlite",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "ownerControlledBackup",
+        "lane": "sqlite",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "providerNeutral",
+        "lane": "ai",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "noEmbeddedKeys",
+        "lane": "ai",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "noUnapprovedSpend",
+        "lane": "ai",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "benchmarkDatasetLineage",
+        "lane": "ai",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "modelVersionRecorded",
+        "lane": "ai",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "noFalseBenchmarkScores",
+        "lane": "ai",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "smX400Target",
+        "lane": "android",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "unrootedSupported",
+        "lane": "android",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "existingSignedApkGate",
+        "lane": "android",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "noSilentSideload",
+        "lane": "android",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "noAutomaticPublish",
+        "lane": "android",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      },
+      {
+        "id": "manualDeviceProof",
+        "lane": "android",
+        "state": "CONTRACT_NOT_DEVICE_PROOF"
+      }
+    ],
+    "total": 36,
+    "hardwareProven": 0
+  },
+  "rootless": {
+    "mode": "PythonStdlibLoopback",
+    "port": 8787,
+    "host": "127.0.0.1",
+    "termuxScript": "tools/termuxRootlessCast.sh",
+    "runner": "tools/rootlessCastCockpit.py",
+    "pythonDependencies": [],
+    "cloudApisCalled": false,
+    "appInstallAutomated": false,
+    "nativeApkBuilt": false,
+    "requiresRoot": false,
+    "deviceTested": false
+  },
+  "storage": {
+    "engine": "SQLite3",
+    "layer": "UNPRIVILEGED_TERMUX_USER_DATA",
+    "firmwareWrite": false,
+    "wal": true,
+    "preparedStatements": true,
+    "migrationReviewed": false
+  },
+  "engineChain": {
+    "unreal": "FUTURE_FINAL_FORM_EULA_HOLD",
+    "unity": "OPTIONAL_BOUNDED_EXPORT",
+    "godot": "NATIVE_ANDROID_RUNTIME_CANDIDATE",
+    "browser": "OFFLINE_ROOTLESS_STUDIO",
+    "python": "PRIMARY_LOCAL_CONTROLLER"
+  },
+  "aiBenchmarkLaw": {
+    "runs": 0,
+    "crossVendorScoreClaims": false,
+    "relianceOnOpenAiEvalsApiDeprecated": false,
+    "referenceFrameworks": [
+      "UK_AISI_INSPECT",
+      "SWE_BENCH_VERIFIED",
+      "LIVE_CODE_BENCH",
+      "OS_WORLD",
+      "TERMINAL_BENCH",
+      "OPENAI_DATASETS_OPTIONAL"
+    ],
+    "localEvalAxes": [
+      "correctness",
+      "latency",
+      "cost",
+      "sourceAttribution",
+      "privacy",
+      "failureRecovery"
+    ],
+    "noProviderAutoCalls": true
+  },
+  "persona": {
+    "kind": "ORIGINAL_ADULT_GOTH_ONI_PROXY",
+    "look": "GLAM_GOTH_SULTRY_NONEXPLICIT",
+    "userControlledThemes": true,
+    "pluginAuthorityClaim": false,
+    "realAvatarRigProven": false
+  },
+  "release": {
+    "signedApkWorkflow": ".github/workflows/samsung-lite-signed-beta.yml",
+    "rootedLegacyScriptsRemainHistorical": true,
+    "ownerKeystoreRequired": true,
+    "registeredNativeInstallVerified": false,
+    "merge": false,
+    "publish": false,
+    "signAutomatically": false
+  }
+}
