@@ -1,0 +1,153 @@
+{
+  "schema": "luhmOs.unrealPublicGitDonorSnapshot.v1",
+  "observedDate": "2026-10-30",
+  "status": "READ_ONLY_PINNED_OBSERVATION_NO_MERGE",
+  "canonical": {
+    "repository": "eggie-admin/LuHm-OS",
+    "ref": "main",
+    "sha": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d"
+  },
+  "donors": [
+    {
+      "repository": "eggie-admin/amplify-godot-engine-template",
+      "ref": "main",
+      "sha": "abcc991107ad9d6b3ef413083e6906029337c94c",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/termux-app",
+      "ref": "master",
+      "sha": "121613ef1fba4002f3c6b63a254d31c6916ee1d5",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/hydra-shell-android",
+      "ref": "main",
+      "sha": "08644e2dbb032b1804e260c8ece1060597a22ae0",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/Shizuku",
+      "ref": "master",
+      "sha": "9a0b7df5fa757f295b07ba6e3c7a3dc3182a20a0",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/YagniLauncher",
+      "ref": "master",
+      "sha": "f8bbb4c1bb67e2497e7ad9b0f0274754039b844a",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/chatgpt-github-plugin",
+      "ref": "main",
+      "sha": "e6ff9635f77158c7c497d26f7635e97f181e8968",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/MiniMax-H3",
+      "ref": "Lum-Agent",
+      "sha": "05d91ff89f58b665e56424fd66db9ef0351b3015",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/godot_rl_agents",
+      "ref": "main",
+      "sha": "207b6f476f5846f33d08b92c7a350147e7b78bf5",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/stable-baselines3",
+      "ref": "master",
+      "sha": "06f613544574aa3157eba0ccee8570f5a8a8e1c9",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/sbx",
+      "ref": "master",
+      "sha": "b232099b7fbb91ae799ad207078e3a5d1f67c71d",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/android-foss",
+      "ref": "master",
+      "sha": "22226aa58659036cc8e88b632a41b4a21b3e78c9",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/vue-headless-cms",
+      "ref": "main",
+      "sha": "1d51c5b90266f7beb8236cf07acfb17a085a4134",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/3d-chat-interface",
+      "ref": "main",
+      "sha": "1cde83a6e1073bf386b60361391e8cb7413bbb69",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/Stable-Diffusion-KMP",
+      "ref": "master",
+      "sha": "4b060c7e4e55e5bc94a38f239649f59a5e2183bb",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/termux-x11",
+      "ref": "master",
+      "sha": "2147bd8fea9f865e7106ef3a94ad92652289ade4",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/godot_2D_procedural_dungeon_gen",
+      "ref": "main",
+      "sha": "abca031ac5b0faf4e622c74d20466f6a0e94b47e",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    },
+    {
+      "repository": "eggie-admin/godot-procedural3d",
+      "ref": "master",
+      "sha": "3113abadc77155e99cdc17da3efb009dd09cf0ee",
+      "decision": "INVESTIGATE",
+      "licenseReviewed": false,
+      "sourceDiffReviewed": false
+    }
+  ],
+  "privateRepositoriesExcluded": true,
+  "automaticHistoryMutation": false,
+  "licensingCleared": false,
+  "crown": "STOP",
+  "instructions": "Recheck moving refs before any decision; preserve this immutable observation; no automatic fork, merge, cherry-pick, branch deletion, artifact import, or approval."
+}

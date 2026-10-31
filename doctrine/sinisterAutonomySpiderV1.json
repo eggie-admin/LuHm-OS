@@ -1,0 +1,137 @@
+{
+  "schema": "luhmOs.sinisterAutonomySpider.v1",
+  "state": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "crown": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "entry": "tools/r1UnifiedFlow.py",
+  "helper": "tools/sinisterSpider.py",
+  "spiderMode": "LOCAL_SOURCE_ONLY_NO_EXECUTION",
+  "roots": [
+    "tools/r1UnifiedFlow.py",
+    "frontEnd/rootlessCockpit/index.html",
+    "frontEnd/prototypes/glassWorld/src/main.js",
+    ".github/workflows/free-first-workspace-daily.yml"
+  ],
+  "limits": {
+    "maxNodes": 160,
+    "maxEdges": 512,
+    "maxDepth": 3,
+    "maxFileBytes": 200000,
+    "maxPathLength": 200
+  },
+  "matrices": {
+    "twoByTwo": {
+      "rows": [
+        "source",
+        "runtime"
+      ],
+      "columns": [
+        "machine",
+        "human"
+      ],
+      "count": 4,
+      "status": "DECISION_PLAN_NOT_RUNTIME"
+    },
+    "fourByFour": {
+      "rows": [
+        "impact0",
+        "impact1",
+        "impact2",
+        "impact3"
+      ],
+      "columns": [
+        "human0",
+        "human1",
+        "human2",
+        "human3"
+      ],
+      "count": 16,
+      "status": "ROUTING_PLAN_NOT_RUNTIME"
+    },
+    "eightByEight": {
+      "rows": [
+        "source",
+        "security",
+        "network",
+        "media",
+        "studio",
+        "game",
+        "android",
+        "release"
+      ],
+      "columns": [
+        "existence",
+        "identity",
+        "integrity",
+        "permissions",
+        "dependency",
+        "rollback",
+        "runtime",
+        "owner"
+      ],
+      "count": 64,
+      "status": "EVIDENCE_PLAN_NOT_RUNTIME"
+    },
+    "hexAudits": [
+      "0x00",
+      "0x02",
+      "0x04",
+      "0x08",
+      "0x10",
+      "0x20",
+      "0x40",
+      "0x80",
+      "0x100"
+    ],
+    "fullAudit64Executed": 0,
+    "physicalDeviceAuditsExecuted": 0
+  },
+  "intervention": {
+    "machine0": "DETERMINISTIC_READONLY_CLOSE_WITH_RECEIPT",
+    "machineDraft": "DRAFT_REPAIR_PROPOSAL_ONLY_UNTIL_POLICY_GATES",
+    "human1": "HUMAN_NOTIFY_ON_UNRESOLVED_AMBIGUITY",
+    "human2": "HUMAN_DEVICE_OR_RIGHTS_APPROVAL",
+    "human3": "HUMAN_RELEASE_SIGN_MERGE_FIRMWARE_GATE",
+    "humanNeedIsNotEscalationTier": true,
+    "sourcePolicyCannotGrantRuntimeAuthority": true,
+    "unattendedDraftCandidateWritesAuthorizedByThisHelper": false,
+    "automaticDeescalationOnNewEvidence": true,
+    "ownerReviewOnlyFor": "nondelegableOrUnresolvedProofAfterDeterministicChecks"
+  },
+  "risk": {
+    "low": 0,
+    "medium": 1,
+    "high": 2,
+    "privileged": 3,
+    "minimumConfidenceForAutomation": 2
+  },
+  "existing": {
+    "escalation": "doctrine/escalationKernelV1.json",
+    "r1": "doctrine/r1UnifiedFlowV1.json",
+    "r1r4": "doctrine/r1r4GothPreviewV1.json",
+    "crown": "doctrine/crownEscalationMatrixV1.json",
+    "crownReceiptSlots": 336
+  },
+  "permissions": {
+    "autoMerge": false,
+    "autoDeploy": false,
+    "autoSign": false,
+    "autoPublish": false,
+    "autoFirmware": false,
+    "autoKernel": false,
+    "autoGrub": false,
+    "autoNetworkCrawl": false,
+    "autoUnquarantine": false,
+    "autoCallAI": false,
+    "autoCostUsd": 0,
+    "ownerPromotionRequired": true
+  },
+  "release": {
+    "proposed": "SOURCE_CANDIDATE",
+    "testing": "CI_AND_DEVICE_RECEIPTS_REQUIRED",
+    "beta": "OWNER_SIGNED_SAMSUNG_REQUIRED",
+    "public": "OWNER_PUBLICATION_GATES_UNSATISFIED",
+    "automaticPromotion": false
+  }
+}

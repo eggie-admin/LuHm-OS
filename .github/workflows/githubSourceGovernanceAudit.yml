@@ -4,19 +4,64 @@ on:
     paths:
       - 'doctrine/githubSourceHardeningV1.json'
       - 'tools/githubSourceGovernanceAudit.py'
+      - 'doctrine/communityForkChannelsV1.json'
+      - 'doctrine/crownEscalationMatrixV1.json'
+      - 'tools/crownEscalationMatrix.py'
+      - 'tests/testCrownEscalationMatrix.py'
+      - 'manual/crownEscalationMatrix20261030.md'
+      - 'tools/communityForkChannelAudit.py'
+      - 'tests/testCommunityForkChannels.py'
+      - 'manual/community-forks-and-vendors.md'
+      - 'SECURITY.md'
+      - 'CONTRIBUTING.md'
+      - '.github/dependabot.yml'
       - '.github/workflows/githubSourceGovernanceAudit.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   governance:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Exact-source checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
-          python-version: '3.12'
-      - run: |
-          python3 -m py_compile tools/githubSourceGovernanceAudit.py
+          ref: ${{ env.LUHM_SOURCE_REF }}
+          persist-credentials: false
+      - name: Offline governance and fork negative controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          python3 -m py_compile tools/githubSourceGovernanceAudit.py tools/communityForkChannelAudit.py tests/testCommunityForkChannels.py
           python3 tools/githubSourceGovernanceAudit.py
+          python3 -m unittest tests.testCommunityForkChannels -v
+          python3 -m unittest tests.testCrownEscalationMatrix -v
+          python3 tools/crownEscalationMatrix.py --source-ref "$LUHM_SOURCE_REF" --output "$RUNNER_TEMP/crown-escalation.json"
+          python3 - "$RUNNER_TEMP/crown-escalation.json" <<'PY'
+          import json,os,sys
+          r=json.load(open(sys.argv[1],encoding='utf8'))
+          assert r['sourceRef']==os.environ['LUHM_SOURCE_REF']
+          assert r['sourceGuard']=='PASS_SOURCE_ONLY'
+          assert (r['level4x4']['evaluated'],r['level8x8']['evaluated'],r['level16x16']['evaluated'])==(16,64,256)
+          assert r['level4x4']['counts']['PASS_SOURCE']==16
+          assert r['level8x8']['counts']['UNVERIFIED']>0
+          assert r['level16x16']['counts']['UNVERIFIED']>0
+          assert r['level16x16']['counts']['BLOCKED']==16
+          assert r['publicReleaseAuthorized'] is False and r['cloudflareBuildVerified'] is False
+          assert r['vendorForksCreated']==0 and r['crown']=='STOP'
+          print('CROWN_4x4_8x8_16x16_ASSESSED_SOURCE_ONLY_RELEASE_STOP')
+          PY
+          python3 tools/communityForkChannelAudit.py --source-ref "$LUHM_SOURCE_REF" > "$RUNNER_TEMP/community-fork-receipt.json"
+          python3 - "$RUNNER_TEMP/community-fork-receipt.json" <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1],encoding="utf8"))
+          assert r["sourceAudit"]=="PASS" and r["vendorForksCreated"]==0
+          assert r["securitySettingsLiveVerified"] is False
+          assert r["packagePublished"] is False and r["runtimeProven"] is False
+          assert r["releaseApproved"] is False and r["crown"]=="STOP"
+          print("FORK_CHANNEL_SOURCE_AUDIT_PASS_NO_RELEASE")
+          PY

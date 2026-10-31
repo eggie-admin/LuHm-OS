@@ -1,0 +1,208 @@
+{
+  "schema": "luhmOs.freeFirstFourSourceWorkspace.v1",
+  "status": "SOURCE_ONLY_SECURITY_HOLD",
+  "identity": {
+    "product": "LuHm-OS: Project Premonition",
+    "legacy": "Project Hydra",
+    "canonicalRepo": "eggie-admin/LuHm-OS",
+    "sourceShaAtDesign": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d"
+  },
+  "authority": "Professor",
+  "crown": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "sources": [
+    {
+      "id": "openAi",
+      "role": "conversationIntentAndSemanticReferences",
+      "codeAuthority": false,
+      "runtimeAuthority": false,
+      "liveTokenOrApiAuthority": false
+    },
+    {
+      "id": "github",
+      "role": "canonicalSourcePrCiAndImmutableReceipts",
+      "codeAuthority": true,
+      "runtimeAuthority": false,
+      "liveTokenOrApiAuthority": false
+    },
+    {
+      "id": "googleAi",
+      "role": "optionalAdvisoryReviewOfSanitizedPublicDiffOnly",
+      "codeAuthority": false,
+      "runtimeAuthority": false,
+      "liveTokenOrApiAuthority": false
+    },
+    {
+      "id": "sidecars",
+      "role": "independentRuntimePreviewAndHealthProof",
+      "codeAuthority": false,
+      "runtimeAuthority": false,
+      "liveTokenOrApiAuthority": false
+    }
+  ],
+  "notFifthCompetingAuthority": {
+    "googleDrive": "fileVaultWithConditionalPrivateAcl",
+    "physicalSamsung": "deviceRuntimeProof",
+    "googleAiCannotOverrideGithub": true
+  },
+  "tiers": [
+    {
+      "id": "thinClient",
+      "role": "AndroidWebViewAndBrowserOnly",
+      "networkBind": "CLIENT_ONLY",
+      "canBuild": false,
+      "canReceiveSigningMaterial": false
+    },
+    {
+      "id": "localStudio",
+      "role": "ownerControlledBlenderGodotFfmpeg",
+      "networkBind": "LOOPBACK_ONLY_UNTIL_EXPLICIT_TUNNEL",
+      "canBuild": true,
+      "canReceiveSigningMaterial": false
+    },
+    {
+      "id": "githubWorkspace",
+      "role": "publicSourceCiBuildAndSnapshot",
+      "networkBind": "OUTBOUND_PACKAGE_INSTALL_ONLY",
+      "canBuild": true,
+      "canReceiveSigningMaterial": false
+    },
+    {
+      "id": "remoteSidecar",
+      "role": "existingRenderPreviewOrOptInFreeVm",
+      "networkBind": "EXISTING_RENDER_MANAGED_TLS_ONLY",
+      "canBuild": false,
+      "canReceiveSigningMaterial": false
+    }
+  ],
+  "gates": [
+    "inventory",
+    "normalize",
+    "sandbox",
+    "zeroCost",
+    "proof",
+    "approve"
+  ],
+  "drive": {
+    "securityFinding": "PRIVATE_CONTROL_PLANE_CURRENTLY_ANYONE_WRITER",
+    "observedDate": "2026-10-30",
+    "formerlyPrivateControlAclVerifiedSafe": false,
+    "temporaryOwnerOnlyForgeCandidateObserved": true,
+    "globalPrivateAclSafe": false,
+    "protectedReadEnabled": false,
+    "protectedWriteEnabled": false,
+    "publicWriteWorkspaceAuthority": false,
+    "githubActionsDriveAccess": false,
+    "prohibitSecretOrMediaCopy": true,
+    "next": "Remove broad writer ACL via authenticated Drive permissions UI or scoped API, independently verify each sensitive folder and child before re-enabling"
+  },
+  "proxies": {
+    "remote": {
+      "authority": "existingRenderManagedTls",
+      "exposeNewPublicPort": false,
+      "enableCloudflareTunnel": false,
+      "allowMutableMcp": false,
+      "oidcReady": false,
+      "status": "CANDIDATE_CONFIG_NOT_APPLIED"
+    },
+    "local": {
+      "authority": "localLoopback127_0_0_1",
+      "allowLanPublicBind": false,
+      "allowAdbRoot": false,
+      "allowDirectPhoneToPrivateVault": false,
+      "status": "CANDIDATE_CONFIG_NOT_APPLIED"
+    },
+    "trust": {
+      "requireIndependentAuth": true,
+      "requireShortLivedIdentityForWrites": true,
+      "doNotTrustForwardedHeaders": true,
+      "denyRawSql": true,
+      "denyUntrustedCustomNodes": true,
+      "denyOpenProxy": true
+    }
+  },
+  "freeFirst": {
+    "policy": "ZERO_UNAPPROVED_SPEND",
+    "providerEligibleFreeTierIsAccountEntitlement": false,
+    "autoUpgradeToPaid": false,
+    "autoBuyCredits": false,
+    "githubPublicActions": {
+      "publishedFreeEligible": true,
+      "accountQuotaReceipt": "NOT_REQUIRED_FOR_STANDARD_PUBLIC_RUNNERS",
+      "publicCodeOnly": true
+    },
+    "githubCodespaces": {
+      "eligiblePersonalFreeQuota": true,
+      "accountRemainingQuota": "UNVERIFIED",
+      "autoCreate": false
+    },
+    "googleAiStudioGemini": {
+      "selectOnlyConfirmedFreeModel": true,
+      "accountModelQuota": "UNVERIFIED",
+      "consumerSubscriptionIsDeveloperEntitlement": false,
+      "sendPrivateMasters": false,
+      "autoCall": false,
+      "freeTierDataMayBeUsedForProductImprovement": true
+    },
+    "googleComputeVm": {
+      "eligibleE2MicroOneInstanceUsRegions": true,
+      "accountBillingAndRegion": "UNVERIFIED",
+      "autoProvision": false,
+      "autoKeepRunning": false
+    },
+    "renderExisting": {
+      "newServiceDefault": false,
+      "paidPlan": false,
+      "managedDb": false,
+      "paidCron": false,
+      "spendAccountVerified": false
+    },
+    "requestedSpendUsdDefault": 0,
+    "requireOneTaskOneProviderOneModelOneSourceSha": true,
+    "approvalBeforeBillableCall": "PROFESSOR_EXPLICIT_PER_ACTION_AND_PROVIDER_BUDGET",
+    "approvalReceiptCannotSubstituteForProviderQuota": true,
+    "overage": "DENY_AND_DEGRADE_TO_OFFLINE"
+  },
+  "dailyBuild": {
+    "enabledAfterMergeIntoDefaultBranch": true,
+    "source": "protected-main-only",
+    "scheduledWorkflow": ".github/workflows/free-first-workspace-daily.yml",
+    "cadence": "daily-14:37-UTC-nonSLA",
+    "standardPublicGithubRunner": true,
+    "npmPackage": "frontEnd/prototypes/glassWorld",
+    "npmIgnoreScripts": true,
+    "noPaidApi": true,
+    "noDeployment": true,
+    "noProviderSecrets": true,
+    "noDriveSync": true,
+    "receiptRetentionDays": 7,
+    "archive": "GITHUB_ACTIONS_EPHEMERAL_ARTIFACT_NOT_DURABLE_GOOGLE_DRIVE_SNAPSHOT",
+    "content": "sanitizedSourceHashPolicyDigestBundleSizeAndTestResultsOnly"
+  },
+  "studio": {
+    "antenna": "SamsungS24FEStockUnrootedRuntimeProbeOnly",
+    "tablet": "SamsungTabS10LiteDrawingTouchQAOnly",
+    "localWorker": "OwnerLinuxBlenderGodotFfmpegOptional",
+    "remoteWorker": "OneTimeEphemeralRunnerOrApprovedHeadlessVmNotGpuStudio",
+    "resolutionProfiles": [
+      "540p",
+      "720p",
+      "1080p",
+      "nativeMeasuredOnly"
+    ],
+    "sixWebcamCapture": "UNVERIFIED",
+    "sourceAssetAccess": "DENY_UNTIL_OWNER_ONLY_DRIVE_ACL_PROVEN",
+    "godotDeviceLaunch": "UNVERIFIED",
+    "cameraPermissions": "UNVERIFIED",
+    "microphones": "UNVERIFIED"
+  },
+  "safety": {
+    "sourceOnly": true,
+    "allowAutoMerge": false,
+    "allowAutoDeploy": false,
+    "allowPaidInference": false,
+    "allowSecretsInSource": false,
+    "allowDriveExport": false,
+    "allowDeviceControl": false
+  }
+}

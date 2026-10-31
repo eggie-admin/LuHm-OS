@@ -123,6 +123,15 @@ def audit(dist: Path | None = None) -> dict:
     html = (PACKAGE / "index.html").read_text(encoding="utf-8")
     problems, dependencies = inspectDependencies(policy, pkg, lock, world, html)
     bundleProblems, bundle = inspectBuild(policy, dist)
+    # Actual isolated-dependency pruning, without mutating the governed legacy frontEnd/jquery layer.
+    if "node_modules/jquery" in lock.get("packages", {}):
+        problems.append("ISOLATED_JQUERY_LOCK_REINTRODUCED")
+    for local in ("src/jquery-bridge.js", "src/media-deck.js"):
+        content = (PACKAGE / local).read_text(encoding="utf-8")
+        if re.search(r"from\\s*[\\\"']jquery[\\\"']", content):
+            problems.append("ISOLATED_JQUERY_IMPORT_REINTRODUCED:" + local)
+        if "new CustomEvent(" not in content:
+            problems.append("NATIVE_EVENT_BRIDGE_MISSING:" + local)
     problems.extend(bundleProblems)
     head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=False)
     return {

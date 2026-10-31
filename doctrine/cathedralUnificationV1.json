@@ -1,0 +1,146 @@
+{
+  "schema": "luhmOs.cathedralUnification.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "product": "LuHm-OS: Project Premonition",
+  "legacy": "Project Hydra",
+  "law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "layers": [
+    {
+      "id": "canon",
+      "threads": [
+        [
+          "source",
+          "doctrine/currentSourceTruthV3.json"
+        ],
+        [
+          "envelope",
+          "packages/cathedral-kernel/contract.v1.json"
+        ],
+        [
+          "matrix",
+          "doctrine/crownEscalationMatrixV1.json"
+        ],
+        [
+          "sql",
+          "packages/cathedral-kernel/schema.sql"
+        ]
+      ]
+    },
+    {
+      "id": "adapters",
+      "threads": [
+        [
+          "npm",
+          "frontEnd/package.json"
+        ],
+        [
+          "world",
+          "frontEnd/prototypes/glassWorld/package.json"
+        ],
+        [
+          "mcp",
+          "host/mcp/requirements.txt"
+        ],
+        [
+          "android",
+          "androidWeb3Plugin/plugin/build.gradle.kts"
+        ]
+      ]
+    },
+    {
+      "id": "studio",
+      "threads": [
+        [
+          "blender",
+          "tools/yumeGodotAssetPrep.py"
+        ],
+        [
+          "ffmpeg",
+          "scripts/render-yume-cutscene-proof.sh"
+        ],
+        [
+          "godot",
+          "project.godot"
+        ],
+        [
+          "thin",
+          "frontEnd/index.html"
+        ]
+      ]
+    },
+    {
+      "id": "release",
+      "threads": [
+        [
+          "forkSecurity",
+          "doctrine/communityForkChannelsV1.json"
+        ],
+        [
+          "driveAcl",
+          "doctrine/freeFirstFourSourceWorkspaceV1.json"
+        ],
+        [
+          "ci",
+          ".github/workflows/free-first-workspace-daily.yml"
+        ],
+        [
+          "crown",
+          "doctrine/finalFormPublicReleaseGateV1.json"
+        ]
+      ]
+    }
+  ],
+  "sourceStreams": [
+    "openAi",
+    "github",
+    "googleAi",
+    "sidecars"
+  ],
+  "executionTiers": [
+    "thinClient",
+    "localStudio",
+    "githubWorkspace",
+    "remoteSidecar"
+  ],
+  "ingestion": [
+    "inventory",
+    "quarantine",
+    "normalize",
+    "validate",
+    "evidence",
+    "propose"
+  ],
+  "sourceProvenance": {
+    "pr462": "3d5144816dc560f371b9df575963ce8167829d17",
+    "pr463": "0b14d9b18074f1c7446224c8b4eac84e61440033",
+    "pr460": "5db9f78ed80fb6eb04ab3212a44112599f63821f",
+    "pr460Ingested": false
+  },
+  "vendor": {
+    "nativeManagers": [
+      "npm",
+      "pip",
+      "Gradle",
+      "Godot",
+      "apt-optional"
+    ],
+    "noAutomaticFork": true,
+    "licenseClearance": false,
+    "sbomGenerated": false,
+    "attestationGenerated": false,
+    "doNotBundleBlenderOnPhone": true
+  },
+  "security": {
+    "driveParentAndSevenChildrenAnyoneWriter": true,
+    "driveRead": false,
+    "driveWrite": false,
+    "automaticPaidApi": false,
+    "automaticMerge": false,
+    "automaticDeploy": false,
+    "remoteProxyActivated": false,
+    "samsungRuntimeProven": false,
+    "cloudflareBuildVerified": false,
+    "publicRelease": false,
+    "crown": "STOP"
+  }
+}

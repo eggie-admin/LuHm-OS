@@ -9,7 +9,7 @@
       "runtime": [
         "signed Android wrapper",
         "Android vendor System WebView",
-        "bundled static Babylon/Vue/jQuery UI",
+        "bundled static Babylon/Vue/native browser events UI",
         "optional native avatar after measured testing"
       ],
       "forbiddenRuntimeRequirements": [
@@ -77,7 +77,6 @@
     "lockfileVersion": 3,
     "exactDirectDependencies": {
       "@babylonjs/core": "9.32.0",
-      "jquery": "3.7.1",
       "vue": "3.5.44"
     },
     "exactBuildDependencies": {
@@ -116,5 +115,29 @@
     "samsungFrameRates": "UNVERIFIED",
     "actualVlc": "NOT_INSTALLED",
     "funding": "NOT_ESTABLISHED"
+  },
+  "sourceVendorPrune": {
+    "scope": "frontEnd/prototypes/glassWorld only",
+    "beforeDirectRuntimeDependencies": 3,
+    "afterDirectRuntimeDependencies": 2,
+    "removedPackage": "jquery",
+    "otherFrontEndJqueryPreserved": true,
+    "isolatedNativeEventAdapter": "src/jquery-bridge.js (legacy filename)",
+    "noAdditionalRuntimeVendor": true,
+    "mainBundleDeltaMeasuredByThisManifest": false,
+    "buildCIWillMeasureBundle": true,
+    "mediaFormatAdditions": [
+      "WebP",
+      "PNG",
+      "JPEG",
+      "AVIF",
+      "MP4",
+      "WebM",
+      "MP3",
+      "WAV",
+      "OGG",
+      "M4A"
+    ],
+    "fullNativeLibVLCEmbedded": false
   }
 }

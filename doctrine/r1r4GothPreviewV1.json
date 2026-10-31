@@ -1,0 +1,117 @@
+{
+  "schema": "luhmOs.r1r4GothPreviewV1",
+  "state": "SOURCE_CANDIDATE",
+  "crown": "STOP",
+  "authority": "Professor",
+  "requested": "R1→R4 maturity, adult gothic 3D character on unrooted Samsung opening",
+  "rungs": [
+    {
+      "id": "R1",
+      "name": "PROPOSED",
+      "meaning": "source and topology complete",
+      "required": [
+        "exactSourceSha",
+        "r1Sanity",
+        "meshGeometryTests"
+      ],
+      "automaticProtectedMutation": false
+    },
+    {
+      "id": "R2",
+      "name": "TESTING",
+      "meaning": "CI source proof and independent browser/device smoke",
+      "required": [
+        "r1Passed",
+        "completeExactHeadCI",
+        "SamsungWebGLRenderAndInteraction"
+      ],
+      "automaticProtectedMutation": false
+    },
+    {
+      "id": "R3",
+      "name": "SIGNED_BETA",
+      "meaning": "owner-signed Android beta; native signed artifact + device evidence",
+      "required": [
+        "r2Passed",
+        "ownerSignedBetaArtifact",
+        "certificateLineage",
+        "physicalSamsungLaunch",
+        "licensedArt"
+      ],
+      "automaticProtectedMutation": false
+    },
+    {
+      "id": "R4",
+      "name": "PUBLIC_RELEASE",
+      "meaning": "owner-promoted stable release; privacy and upgrade evidence",
+      "required": [
+        "r3Passed",
+        "sameSignerUpgradeRollback",
+        "publicDistributionReceipt",
+        "legalReview",
+        "ownerExactArtifactApproval"
+      ],
+      "automaticProtectedMutation": false
+    }
+  ],
+  "source": [
+    {
+      "path": "frontEnd/rootlessCockpit/avatar3d.mjs",
+      "role": "procedural adult goth-oni mesh; offline WebGL2"
+    },
+    {
+      "path": "frontEnd/rootlessCockpit/tests/avatar3d.test.mjs",
+      "role": "real deterministic geometry and fallback source tests"
+    },
+    {
+      "path": "tools/rootlessCastCockpit.py",
+      "role": "unrooted 127.0.0.1 static app server"
+    },
+    {
+      "path": "tools/r1UnifiedFlow.py",
+      "role": "existing R1 source/evidence audit"
+    },
+    {
+      "path": "doctrine/androidDeliveryLanesV1.json",
+      "role": "existing release lane policy"
+    }
+  ],
+  "independentProof": {
+    "exactHeadCiObservedInThisPolicy": false,
+    "SamsungWebGl2Observed": false,
+    "SamsungInteractionObserved": false,
+    "signedBetaApkObserved": false,
+    "ownerCertificateObserved": false,
+    "nativeGodotAvatarObserved": false,
+    "fullyRiggedBlenderAvatarObserved": false,
+    "unrealEulaLegalClearanceObserved": false,
+    "publicReleaseObserved": false
+  },
+  "render": {
+    "source": "ORIGINAL_PROCEDURAL_GEOMETRY",
+    "adultCharacterOnly": true,
+    "riggedAsset": false,
+    "topologyReadyForRetarget": false,
+    "WebGl2Primary": true,
+    "SVG2dFallback": true,
+    "autoDownloadModels": false,
+    "externalRendererDependencies": 0,
+    "adaptiveDprMax": 1.5,
+    "reducedMotionSupport": true,
+    "opaqueCostume": true,
+    "nativeAPKShipped": false,
+    "deviceFPSMeasured": false,
+    "browserDeviceProof": "NOT_YET_TESTED"
+  },
+  "release": {
+    "repo": "eggie-admin/LuHm-OS",
+    "draftPr": 463,
+    "protectedMainMayBeMergedAutomatically": false,
+    "CIIsNotDeviceProof": true,
+    "publicDeploymentAllowed": false,
+    "doNotInventCrown": true,
+    "signingSecretsFromGit": false,
+    "ownerPromotionRequired": true,
+    "unrealLicenseHold": true
+  }
+}

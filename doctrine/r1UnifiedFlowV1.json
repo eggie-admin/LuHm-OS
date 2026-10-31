@@ -1,0 +1,200 @@
+{
+  "schema": "luhmOs.r1UnifiedFlow.v1",
+  "state": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "crown": "STOP",
+  "name": "R1 One Unit One Flow",
+  "sourceRepo": "eggie-admin/LuHm-OS",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "flow": {
+    "units": 1,
+    "entrypoint": "tools/r1UnifiedFlow.py",
+    "taskIdentity": "sourceRef+scope+policySha",
+    "beats": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "machineContinuationWithinReadOnlyAudit": true,
+    "unattendedProtectedMutations": false,
+    "sourceBeatsExecutedByCheck": [
+      "source",
+      "policy",
+      "evidence",
+      "decision"
+    ],
+    "sideEffectMode": "READ_ONLY_AND_OPTIONAL_RECEIPT_FILE",
+    "maxRuntimeSideEffects": 0
+  },
+  "existingCanon": {
+    "escalation": "doctrine/escalationKernelV1.json",
+    "resolver": "tools/escalationKernel.py",
+    "crownMatrix": "doctrine/crownEscalationMatrixV1.json",
+    "crownCode": "tools/crownEscalationMatrix.py",
+    "rootless": "doctrine/rootlessCast36V1.json",
+    "rootlessAudit": "tools/rootlessCast36Audit.py",
+    "media": "doctrine/mediaStudioFourByFourV1.json",
+    "mediaAudit": "tools/mediaStudioAudit.py",
+    "androidWorkflow": ".github/workflows/samsung-lite-signed-beta.yml",
+    "unreal": "doctrine/unrealFinalFormBridgeV1.json",
+    "rootlessLauncher": "tools/termuxRootlessCast.sh"
+  },
+  "coverage": {
+    "axes": [
+      {
+        "id": "layer",
+        "values": [
+          "firmware",
+          "kernel",
+          "runtime",
+          "studio"
+        ]
+      },
+      {
+        "id": "execution",
+        "values": [
+          "local",
+          "remote",
+          "ai",
+          "human"
+        ]
+      },
+      {
+        "id": "beat",
+        "values": [
+          "discover",
+          "normalize",
+          "sanity",
+          "hardAudit",
+          "escalate",
+          "verify",
+          "rollback",
+          "handoff"
+        ]
+      },
+      {
+        "id": "evidence",
+        "values": [
+          "source",
+          "checksum",
+          "pin",
+          "license",
+          "sandbox",
+          "permissions",
+          "network",
+          "sqlite",
+          "python",
+          "staticWeb",
+          "game",
+          "media",
+          "ci",
+          "device",
+          "owner",
+          "release"
+        ]
+      }
+    ],
+    "conceptualMatrixCells": 2048,
+    "sourceSamplesPlanned": 256,
+    "fullMatrixExecuted": 0,
+    "physicalTestsExecuted": 0,
+    "additionalAuditRunsExecuted": 0,
+    "sourceValidation": "16_CONTROLLED_CHECKS_PLUS_EXISTING_CROWN_336",
+    "sampleStatus": "ADDRESSABLE_SOURCE_PLAN_NOT_RUNTIME_PROOF",
+    "depths": [
+      {
+        "decimal": 0,
+        "hex": "0x00",
+        "intent": "baseline"
+      },
+      {
+        "decimal": 2,
+        "hex": "0x02",
+        "intent": "sourceIdentity"
+      },
+      {
+        "decimal": 4,
+        "hex": "0x04",
+        "intent": "doctrine"
+      },
+      {
+        "decimal": 8,
+        "hex": "0x08",
+        "intent": "structural"
+      },
+      {
+        "decimal": 16,
+        "hex": "0x10",
+        "intent": "sourceTests"
+      },
+      {
+        "decimal": 32,
+        "hex": "0x20",
+        "intent": "reviewPlanOnly"
+      },
+      {
+        "decimal": 64,
+        "hex": "0x40",
+        "intent": "independentFixtureRequired"
+      },
+      {
+        "decimal": 128,
+        "hex": "0x80",
+        "intent": "independentPlatformProofRequired"
+      },
+      {
+        "decimal": 256,
+        "hex": "0x100",
+        "intent": "humanReleaseReviewRequired"
+      }
+    ],
+    "maxAutomaticSourceDepth": 16,
+    "evidencePromotionFromDepthAlone": false
+  },
+  "architecture": {
+    "machineReadOnly": "envArchitectureAndSourceIntrospectionOnly",
+    "kernel": "hostKernelVersionMetadataOptionalNoModules",
+    "firmware": "EFI_DIRECTORY_PRESENCE_ONLY_ON_LINUX_NON_ANDROID",
+    "grub": "LINUX_ONLY_OPTIONAL_BOOT_PATH_EXISTENCE_NOT_CONFIG_WRITE",
+    "android": "UNROOTED_APP_SANDBOX_NO_GRUB_OR_BOOTLOADER_ACCESS",
+    "studio": "LOCAL_BLENDER_FFMPEG_GODOT_SOURCE_AND_EXISTING_BABYLON",
+    "sql": "SQLITE_USERSPACE_NEVER_FIRMWARE",
+    "python": "STANDARD_LIBRARY_ONLY",
+    "remote": "GITHUB_READ_ONLY_SOURCE_WORKFLOW",
+    "ai": "OPTIONAL_PROVIDER_RESEARCH_NO_EXECUTION",
+    "human": "OWNER_CAST_ONLY_AT_SEPARATE_PROMOTION_GATE"
+  },
+  "reduction": {
+    "newWorkflowFilesAllowed": false,
+    "newPackageDependenciesAllowed": false,
+    "newKernelScriptsAllowed": false,
+    "newRootServiceAllowed": false,
+    "newAiAgentsAllowed": false,
+    "delegateToExistingEscalationKernel": true,
+    "delegateToExistingCrown336": true,
+    "delegateToExistingRootless36": true,
+    "delegateToExistingMediaFourByFour": true,
+    "duplicateAuthoritiesAllowed": false
+  },
+  "guardrails": {
+    "autoMerge": false,
+    "autoDeploy": false,
+    "autoSign": false,
+    "autoPublish": false,
+    "autoInstall": false,
+    "autoModifyFirmware": false,
+    "autoModifyKernel": false,
+    "autoEditGrub": false,
+    "autoReboot": false,
+    "autoRoot": false,
+    "autoChangeSqlFirmware": false,
+    "autoInvokeAgent": false,
+    "autoSpendUsd": 0,
+    "autoCallProvider": false,
+    "autoRemotePing": false,
+    "autoConnectPrivateDrive": false,
+    "unknownDeviceStatus": "UNVERIFIED",
+    "ownerApproval": "UNSATISFIED"
+  }
+}

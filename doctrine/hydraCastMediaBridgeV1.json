@@ -1,0 +1,152 @@
+{
+  "schema": "luhmOs.hydraCastMediaBridge.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "product": "LuHm-OS: Project Premonition",
+  "legacy": "Project Hydra",
+  "authority": "Professor",
+  "crown": "STOP",
+  "existingSpine": {
+    "source": "eggie-admin/LuHm-OS",
+    "studio": "tools/socialVideoOrchestrator.py",
+    "assets": "tools/yumeGodotAssetPrep.py",
+    "cutscene": "tools/yumeCutsceneFactoryAudit.py",
+    "unreal": "doctrine/unrealFinalFormBridgeV1.json",
+    "unityStatus": "OPTIONAL_EXPORT_ADAPTER_NOT_INSTALLED",
+    "godot": "CURRENT_PLAYABLE_SPINE",
+    "unrealStatus": "TARGET_NOT_RUNTIME_PROVEN",
+    "singleRuntimeAuthority": "PER_BUILD_SELECTED_ENGINE"
+  },
+  "lightOs": {
+    "androidRole": "camera_microphone_control_storyboard_review",
+    "videoComputeOnTabletRequired": false,
+    "unrealEditorOnTabletRequired": false,
+    "oneExternalRenderWorkerAtATime": true,
+    "networkOptional": true,
+    "retainOriginals": true
+  },
+  "capture": {
+    "minCameras": 1,
+    "maxCameras": 6,
+    "defaultFps": "30/1",
+    "allowedFps": [
+      "24/1",
+      "25/1",
+      "30/1",
+      "30000/1001",
+      "60/1"
+    ],
+    "referenceAudioClap": true,
+    "frameOffsetsRecorded": true,
+    "sameCameraExposureAndWhiteBalanceManual": true,
+    "multiCameraHardwareSyncVerified": false,
+    "externalCameraConsentRequired": true,
+    "continuousBackgroundCameraCapture": false
+  },
+  "rotoscope": {
+    "modes": [
+      "luminanceMatte",
+      "colorChromaKey",
+      "vectorRoto",
+      "trackedMask",
+      "aiSegmentationCandidate"
+    ],
+    "defaultMode": "luminanceMatte",
+    "luminanceIsNotChroma": true,
+    "originalColorFootagePreserved": true,
+    "editableMaskMaster": "blender",
+    "matteEncoding": "8bitGrayPngSequence",
+    "sourceRequirements": [
+      "localFile",
+      "sha256",
+      "fps",
+      "cameraId",
+      "rights",
+      "ownerConsent"
+    ],
+    "opticalFlowAndAIRequireProof": true,
+    "untrustedScripts": false,
+    "remoteVideoUploadAllowed": false
+  },
+  "motionCapture": {
+    "retargetContract": "humanoidSemanticBoneMapWithRestPoseAndUnits",
+    "captureInputs": [
+      "monoWebcam",
+      "sixCameraCandidate",
+      "tabletMic",
+      "phoneMic"
+    ],
+    "calibrationRequired": true,
+    "clapAndAudioSyncRequired": true,
+    "frameRateContinuityRequired": true,
+    "temporalJitterReviewRequired": true,
+    "boneFootSlidingReviewRequired": true,
+    "facialConsentRequired": true,
+    "biometricRetentionReviewed": false,
+    "privateFaceDataToCloudAllowed": false,
+    "realTimeSixCamTriangulationProven": false
+  },
+  "vector": {
+    "coordinateSpace": "normalizedUnitSquare",
+    "pathsEditable": true,
+    "masksFrameKeyed": true,
+    "closedSplineForAlphaRequired": true,
+    "edgeFeatherSeparate": true,
+    "artistApprovalRequired": true
+  },
+  "ai": {
+    "providerRouting": [
+      "localDeterministic",
+      "openAiOptional",
+      "googleGeminiOptional"
+    ],
+    "default": "localDeterministic",
+    "requireTaskScopedConsent": true,
+    "requireEntitlementAndBudgetReceipt": true,
+    "requireModelOutputSchemaValidation": true,
+    "untrustedModelTextNotExecutable": true,
+    "automaticVideoUpload": false,
+    "automaticRemoteCalls": false,
+    "autoSpendUsd": 0,
+    "googleVertexLegacyFallback": false,
+    "cloudSecretsInCi": false,
+    "faceDataToProviderWithoutConsent": false
+  },
+  "story": {
+    "path": "game/datingSimPilotV1.json",
+    "romanceParticipantsAdults": true,
+    "characterApprovalsRequired": true,
+    "dialogueOriginalOrLicensed": true,
+    "branchStateEngineNeutral": true,
+    "noGeneratedCharacterCodeExecution": true
+  },
+  "promotion": {
+    "gates": [
+      "sameShaSourceAudit",
+      "mediaRightsAndPrivacy",
+      "singleCameraLumaFixture",
+      "twoCameraFrameSync",
+      "manualVectorMaskReview",
+      "boneRetargetImportGodot",
+      "UnrealVerticalSliceProof",
+      "UnityExportIfActuallyNeeded",
+      "ProfessorPrivateCastApproval"
+    ],
+    "automaticMerge": false,
+    "automaticDeploy": false,
+    "automaticAgentResume": false,
+    "automaticSign": false,
+    "automaticPublicRelease": false
+  },
+  "unrealLicensing": {
+    "currentRepositoryLicense": "GPL-3.0",
+    "epicEulaReviewRequired": true,
+    "separateUnrealProjectAndBuildRequired": true,
+    "automaticallyLinkGplCodeIntoUnreal": false,
+    "commitEpicEngineSourceToPublicRepo": false,
+    "metahumanAssetsForAiTrainingAllowed": false,
+    "firstPartyAssetRightsReviewRequired": true,
+    "legalClearanceObtained": false,
+    "releaseGate": "HOLD_EULA_GPL_COMPATIBILITY_REVIEW",
+    "officialSource": "https://www.unrealengine.com/eula/unreal"
+  }
+}

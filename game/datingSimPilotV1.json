@@ -1,0 +1,89 @@
+{
+  "schema": "luhmOs.datingSimPilot.v1",
+  "status": "STORYBOARD_PROXY_ONLY",
+  "title": "Crown Cathedral | First Encounter",
+  "gameplayType": "datingSim",
+  "sourceMedia": "NONE_SYNTHETIC_PROXY",
+  "creativeAuthority": "Professor",
+  "allRomanceCharactersAdult": true,
+  "characters": [
+    {
+      "id": "lum",
+      "adult": true,
+      "canonState": "PROXY_UNAPPROVED"
+    },
+    {
+      "id": "protagonist",
+      "adult": true,
+      "canonState": "PROXY_UNAPPROVED"
+    }
+  ],
+  "entry": "arrival",
+  "nodes": [
+    {
+      "id": "arrival",
+      "kind": "dialogue",
+      "speaker": "lum",
+      "line": "The Cathedral is open. Will you help rehearse the lantern dance?",
+      "choices": [
+        {
+          "label": "Help rehearse",
+          "next": "practice",
+          "affinityDelta": 1
+        },
+        {
+          "label": "Explore the studio first",
+          "next": "studio",
+          "affinityDelta": 0
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "kind": "dialogue",
+      "speaker": "lum",
+      "line": "A careful step counts more than a dramatic leap.",
+      "choices": [
+        {
+          "label": "Ask about the choreography",
+          "next": "rehearsalEnd",
+          "affinityDelta": 1
+        }
+      ]
+    },
+    {
+      "id": "studio",
+      "kind": "dialogue",
+      "speaker": "protagonist",
+      "line": "Let's see how the lights and masks work.",
+      "choices": [
+        {
+          "label": "Return for the rehearsal",
+          "next": "rehearsalEnd",
+          "affinityDelta": 0
+        }
+      ]
+    },
+    {
+      "id": "rehearsalEnd",
+      "kind": "ending",
+      "speaker": "lum",
+      "line": "The first scene is rehearsed. The story can continue later.",
+      "choices": []
+    }
+  ],
+  "state": {
+    "minAffinity": 0,
+    "maxAffinity": 10,
+    "defaultAffinity": 0
+  },
+  "exportAdapters": {
+    "godot": "CURRENT_CANDIDATE",
+    "unity": "FUTURE_OPTIONAL",
+    "unreal": "FINAL_TARGET_UNVERIFIED",
+    "html": "THIN_REVIEW_ONLY"
+  },
+  "dialogueVoiceCloningAllowed": false,
+  "autoPublish": false,
+  "crown": "STOP"
+}
