@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#11101b"><title>Plush Stage | Offline Game Studio</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#f5f0ff;background:#0c0b14;font-size:16px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 5%,#38234f 0,transparent 44%),radial-gradient(ellipse at 90% 75%,#203044 0,transparent 38%),#0c0b14;min-height:100vh}
+header{max-width:1280px;margin:auto;padding:24px 22px 12px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{display:grid;place-items:center;border-radius:17px;background:linear-gradient(135deg,#aa7cd3,#6dbac3);width:50px;height:50px;color:#171121;font-size:27px}
+header h1{font-size:clamp(1.5rem,3.6vw,2.2rem);margin:0;letter-spacing:-.04em}header p{margin:3px 0 0;color:#b6a8c6;font-size:.84rem}
+.tag{margin-left:auto;font-weight:700;font-size:.72rem;border:1px solid #668f82;color:#a4ead5;padding:8px 11px;border-radius:28px}
+main{max-width:1280px;margin:auto;padding:14px 22px 45px;display:grid;grid-template-columns:1.16fr .84fr;gap:16px}
+.card{min-width:0;background:linear-gradient(140deg,#1d192b,#111723);border:1px solid #423450;border-radius:23px;padding:19px;box-shadow:0 18px 30px #0004}
+.card h2{font-size:1.07rem;margin:0 0 12px}.muted{color:#bfb4cc;font-size:.84rem;line-height:1.55}
+.full{grid-column:1/-1}.subline{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+button,select,input,textarea{font:inherit}button{cursor:pointer;border:1px solid #624e76;border-radius:11px;background:#312841;color:#f9f1ff;padding:10px 13px;min-height:44px}
+button:hover,button:focus-visible{outline:2px solid #a68dc7;outline-offset:1px}
+button.primary{border-color:#bda0da;background:#cba5e4;color:#26122e;font-weight:800}button.small{font-size:.77rem;padding:6px 9px;min-height:38px}
+button.is-active{background:#59446b;border-color:#c9a1db}
+input,textarea,select{color:#f5f0ff;background:#100e1d;border:1px solid #6b5678;border-radius:10px;padding:11px;width:100%;margin:5px 0 12px}
+label{font-size:.8rem;color:#d6cbe4;font-weight:700}textarea{min-height:100px;resize:vertical}
+.tabs,.actions,.controls{display:flex;gap:7px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.tile{min-height:95px;display:flex;align-items:flex-start;flex-direction:column;justify-content:space-between;text-align:left;padding:12px;border-radius:14px;background:#222033}
+.tile b{font-size:.85rem}.tile span{font-size:.73rem;color:#cfc1dc}.tile em{font-style:normal;font-size:1.5rem}
+.tile.selected{border-color:#dfb6ef;background:#513c60}.tile.visited::after{content:"✦ played";font-size:.61rem;color:#a7f0cc}
+.stage{margin:12px 0;min-height:260px;border:1px solid #514565;border-radius:20px;background:linear-gradient(#20172eaa,#0c1228dd),radial-gradient(circle at 50% 20%,#683f79 0,transparent 65%);position:relative;overflow:hidden;padding:15px;display:flex;flex-direction:column;align-items:center;justify-content:space-around}
+.stage:before{content:"";position:absolute;top:-40px;width:200px;height:250px;background:#dba1ec35;clip-path:polygon(45% 0,55% 0,100% 100%,0 100%)}
+#plushFigure{position:relative;font-size:clamp(3.4rem,9vw,5.5rem);filter:drop-shadow(0 8px 6px #000a);transition:transform .35s;user-select:none}
+#plushFigure.jump{transform:translateY(-28px) rotate(-7deg)}#plushFigure.spin{transform:rotate(360deg)}#plushFigure.glow{filter:drop-shadow(0 0 15px #dca5f9)}#plushFigure.wave{transform:rotate(15deg)}
+#stageCaption{position:relative;max-width:95%;text-align:center;color:#f9efff;font-weight:650;font-size:.95rem;background:#0b0920c7;padding:10px 13px;border-radius:12px}
+.roster{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.roster button{padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0;font-size:.77rem;overflow-wrap:anywhere}
+.roster strong{font-size:1.6rem}
+.filebox{background:#191526;border:1px dashed #80658e;border-radius:14px;padding:14px;margin:12px 0}
+.filebox input{margin:7px 0 0}
+video{width:100%;background:#06060c;border-radius:12px;max-height:260px;display:none}
+#clipName{overflow-wrap:anywhere}
+hr{border:0;border-top:1px solid #423450;margin:17px 0}
+footer{text-align:center;color:#968ca4;font-size:.73rem;padding:0 20px 25px}
+#status{margin-top:11px;padding:10px;border-radius:12px;background:#241e34;color:#cbeadd;font-size:.82rem;line-height:1.4}
+.quiet{color:#e1c9f7}code{color:#b6f0e7}
+@media(max-width:820px){main{grid-template-columns:1fr}.full{grid-column:1}.tag{margin-left:0}.tile{min-height:85px;padding:9px}.grid{gap:7px}}
+@media(prefers-reduced-motion:reduce){#plushFigure{transition:none}}
+</style>
+</head><body>
+<header><div class="logo" aria-hidden="true">✦</div><div><h1>Plush Stage</h1><p>A tiny, playable movie-making studio</p></div><div class="tag">LOCAL FIRST • NO UPLOADS</div></header>
+<main>
+<section class="card">
+  <div class="subline"><h2>🗺️ The 4×4 Story Map</h2><span id="progress" class="muted">0 / 16 scenes played</span></div>
+  <p class="muted">Pick a scene, cast a plush, choose a move, and create a story. These are sample scenes, not official project canon.</p>
+  <div id="board" class="grid" role="group" aria-label="Sixteen story scenes"></div>
+  <hr>
+  <h2>🎮 Play a scene</h2>
+  <div class="stage" aria-live="polite"><div id="plushFigure" aria-hidden="true">🧸</div><div id="stageCaption">Pick a scene, then try a move.</div></div>
+  <div id="moves" class="actions" role="group" aria-label="Stage moves"></div>
+  <p class="muted">Four scenes in each of four chapters. Four plushes × four moves × four chapters gives 64 creative combinations. No battles need to be violent.</p>
+</section>
+<section class="card">
+  <h2>✍️ Story and characters</h2>
+  <label for="projectTitle">Project title</label><input id="projectTitle" maxlength="70" value="War of Plushies">
+  <label for="sceneName">Selected scene</label><input id="sceneName" maxlength="75">
+  <label for="sceneNote">What happens?</label><textarea id="sceneNote" maxlength="700" placeholder="Describe the shot, dialogue, music cue, or dramatic entrance."></textarea>
+  <label>Cast: tap a plush to select, or rename them below</label>
+  <div id="roster" class="roster"></div>
+  <label for="plushName">Rename selected plush</label><input id="plushName" maxlength="40">
+  <div class="controls"><button class="primary" id="saveScene">Save scene</button><button id="playScene">▶ Try scene</button></div>
+  <div id="status" role="status">Nothing leaves this device unless you explicitly export it.</div>
+</section>
+<section class="card">
+  <h2>📹 Film bench</h2>
+  <p class="muted">Shoot on iPhone, edit in CapCut, and select a locally exported MOV/MP4 to preview here. The file is not uploaded or saved in the storyboard JSON.</p>
+  <div class="filebox"><label for="clipFile">Choose your own video clip</label><input type="file" id="clipFile" accept="video/*"><p id="clipName" class="muted">No clip selected</p><video controls playsinline id="clipPreview"></video></div>
+  <h2>🎙️ Yeti voice booth</h2>
+  <p class="muted">Voice notes can be recorded only when your browser supports microphone capture on a trusted secure page. Test the Yeti input separately in Voice Memos first.</p>
+  <div class="actions"><button id="audioStart">🎙️ Record voice</button><button id="audioStop" disabled>■ Stop & save</button></div>
+</section>
+<section class="card">
+  <h2>💾 Save your project</h2>
+  <p class="muted">Export a tiny editable storyboard JSON. It contains characters, notes and selected moves, but no videos or recordings. Keep it private and share it with a parent when you want help editing.</p>
+  <div class="actions"><button class="primary" id="export">⬇ Export storyboard</button><button id="importBtn">⬆ Import storyboard</button><button id="reset">Reset sample</button></div>
+  <input id="importFile" type="file" accept=".json,application/json" hidden>
+  <hr>
+  <h2>🧩 Later upgrades</h2>
+  <p class="muted">CapCut handoff • linked audio tracks • stop-motion timer • touch/gamepad controls • Bluetooth clicker • parent-managed local AI. No automatic posting or remote AI accounts.</p>
+  <p class="quiet">Your story belongs to you. The default cast and chapters are placeholders you can change.</p>
+</section>
+</main><footer>PLUSH STAGE v0.1 • Source-only prototype • No account, analytics, cloud sync, tracking, ads, or third-party scripts.</footer>
+<script>
+(() => {
+"use strict";
+const $ = id => document.getElementById(id);
+const ACTS = ["The Arrival","The Plot Twist","The Challenge","The Finale"];
+const ICONS = ["🧸","🐻","🐰","🐱"];
+const MOVES = [{name:"Spotlight",icon:"✨",cls:"glow",text:"takes the spotlight"},{name:"Surprise",icon:"🎭",cls:"jump",text:"makes a dramatic entrance"},{name:"Switch",icon:"🔄",cls:"spin",text:"turns the story around"},{name:"Team Up",icon:"🤝",cls:"wave",text:"calls the crew together"}];
+const blank = () => ({version:1,title:"War of Plushies",characters:["Plush One","Plush Two","Plush Three","Plush Four"],
+  scenes:Array.from({length:16},(_,i)=>({name:ACTS[Math.floor(i/4)]+" · Scene "+(i%4+1),note:"",character:i%4,move:0,played:false}))});
+let project = blank(),selectedScene=0, selectedCharacter=0, stream=null, mediaRecorder=null, voiceChunks=[],previewUrl=null;
+const clean = value => String(value ?? "").trim();
+const notify = text => { $("status").textContent=text; };
+function download(blob,name){const url=URL.createObjectURL(blob),anchor=document.createElement("a");anchor.href=url;anchor.download=name;document.body.append(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),12000);}
+function validProject(v){return v&&v.version===1&&typeof v.title==="string"&&v.title.length<=70&&Array.isArray(v.characters)&&v.characters.length===4&&v.characters.every(s=>typeof s==="string"&&s.length<=40)&&Array.isArray(v.scenes)&&v.scenes.length===16&&v.scenes.every(s=>typeof s.name==="string"&&s.name.length<=75&&typeof s.note==="string"&&s.note.length<=700&&Number.isInteger(s.character)&&s.character>=0&&s.character<4&&Number.isInteger(s.move)&&s.move>=0&&s.move<4&&typeof s.played==="boolean");}
+function renderBoard(){const board=$("board");board.replaceChildren();project.scenes.forEach((scene,i)=>{const b=document.createElement("button");b.type="button";b.className="tile"+(i===selectedScene?" selected":"")+(scene.played?" visited":"");b.setAttribute("aria-label","Chapter "+(Math.floor(i/4)+1)+", scene "+(i%4+1)+": "+scene.name);const t=document.createElement("span");t.textContent="ACT "+(Math.floor(i/4)+1)+" • "+(i%4+1);const e=document.createElement("em");e.textContent=ICONS[scene.character];const n=document.createElement("b");n.textContent=scene.name;b.append(t,e,n);b.addEventListener("click",()=>chooseScene(i));board.append(b);});$("progress").textContent=project.scenes.filter(s=>s.played).length+" / 16 scenes played";}
+function renderRoster(){const roster=$("roster");roster.replaceChildren();project.characters.forEach((name,i)=>{const b=document.createElement("button");b.type="button";b.className=selectedCharacter===i?"is-active":"";const icon=document.createElement("strong");icon.textContent=ICONS[i];const label=document.createElement("span");label.textContent=name;b.append(icon,label);b.addEventListener("click",()=>{saveScene(false);selectedCharacter=i;project.scenes[selectedScene].character=i;chooseScene(selectedScene);});roster.append(b);});$("plushName").value=project.characters[selectedCharacter];}
+function showStage(message,moveIndex){$("plushFigure").textContent=ICONS[selectedCharacter];$("stageCaption").textContent=message;const el=$("plushFigure");el.className="";void el.offsetWidth;el.className=MOVES[moveIndex].cls;setTimeout(()=>{el.className="";},600);}
+function renderMoves(){const root=$("moves");root.replaceChildren();MOVES.forEach((move,i)=>{const b=document.createElement("button");b.type="button";b.className=i===project.scenes[selectedScene].move?"is-active":"";b.textContent=move.icon+" "+move.name;b.addEventListener("click",()=>{project.scenes[selectedScene].move=i;play(i);});root.append(b);});}
+function chooseScene(i){selectedScene=i;selectedCharacter=project.scenes[i].character;$("sceneName").value=project.scenes[i].name;$("sceneNote").value=project.scenes[i].note;$("projectTitle").value=project.title;renderBoard();renderRoster();renderMoves();showStage(project.characters[selectedCharacter]+" is ready for Act "+(Math.floor(i/4)+1)+".",project.scenes[i].move);}
+function saveScene(say=true){const scene=project.scenes[selectedScene];scene.name=clean($("sceneName").value).slice(0,75)||"Untitled Scene";scene.note=clean($("sceneNote").value).slice(0,700);scene.character=selectedCharacter;project.title=clean($("projectTitle").value).slice(0,70)||"War of Plushies";project.characters[selectedCharacter]=clean($("plushName").value).slice(0,40)||"Plush "+(selectedCharacter+1);renderBoard();renderRoster();if(say)notify("Saved in this browser session. Export JSON to keep a copy.");}
+function play(index){saveScene(false);const scene=project.scenes[selectedScene];scene.move=index;scene.played=true;renderBoard();renderMoves();showStage(project.characters[selectedCharacter]+" "+MOVES[index].text+". "+(scene.note||"What's the next shot?"),index);notify("Scene played! Try filming that beat, then edit the footage in CapCut.");}
+$("saveScene").addEventListener("click",()=>saveScene(true));$("playScene").addEventListener("click",()=>play(project.scenes[selectedScene].move));
+$("projectTitle").addEventListener("change",()=>saveScene(false));$("plushName").addEventListener("change",()=>saveScene(false));
+$("clipFile").addEventListener("change",event=>{const file=event.target.files?.[0];if(previewUrl)URL.revokeObjectURL(previewUrl);previewUrl=null;const video=$("clipPreview");video.pause();video.removeAttribute("src");video.style.display="none";if(!file)return;const ok=file.type.startsWith("video/")&&file.size<1024*1024*1024;if(!ok){notify("Choose a video under 1 GB for this preview.");return;}previewUrl=URL.createObjectURL(file);video.src=previewUrl;video.style.display="block";$("clipName").textContent=file.name+" · local preview only";});
+$("export").addEventListener("click",()=>{saveScene(false);const blob=new Blob([JSON.stringify(project,null,2)],{type:"application/json"});download(blob,"plush-stage-storyboard.json");notify("Export requested. This JSON doesn't contain the selected video.");});
+$("importBtn").addEventListener("click",()=>$("importFile").click());
+$("importFile").addEventListener("change",async event=>{const file=event.target.files?.[0];if(!file)return;if(file.size>1024*1024){notify("Storyboards must be smaller than 1 MB.");return;}try{const parsed=JSON.parse(await file.text());if(!validProject(parsed))throw Error("Schema mismatch");project=parsed;chooseScene(0);notify("Storyboard loaded locally.");}catch(e){notify("Could not load that storyboard. Check the file format.");}event.target.value="";});
+$("reset").addEventListener("click",()=>{if(!confirm("Reset the sample board? Export your changes first."))return;project=blank();chooseScene(0);notify("Sample board reset.");});
+$("audioStart").addEventListener("click",async()=>{try{if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder)throw Error("Use HTTPS in a compatible browser");stream=await navigator.mediaDevices.getUserMedia({audio:true});const type=["audio/mp4","audio/webm;codecs=opus","audio/webm"].find(t=>MediaRecorder.isTypeSupported(t));mediaRecorder=new MediaRecorder(stream,type?{mimeType:type}:undefined);voiceChunks=[];mediaRecorder.ondataavailable=e=>{if(e.data.size)voiceChunks.push(e.data);};mediaRecorder.onstop=()=>{const type=mediaRecorder.mimeType||"audio/webm";const ext=type.includes("mp4")?"m4a":"webm";download(new Blob(voiceChunks,{type}),"plush-voice-note."+ext);stream.getTracks().forEach(t=>t.stop());stream=null;$("audioStart").disabled=false;$("audioStop").disabled=true;notify("Voice note saved locally. Import it into CapCut if supported.");};mediaRecorder.start();$("audioStart").disabled=true;$("audioStop").disabled=false;notify("Recording voice with the selected browser microphone. Tap Stop & save.");}catch(e){if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;notify("Microphone unavailable: "+e.message+". Try a secure HTTPS page and check permissions.");}});
+$("audioStop").addEventListener("click",()=>{if(mediaRecorder?.state==="recording")mediaRecorder.stop();});
+chooseScene(0);
+})();
+</script></body></html>
