@@ -18,6 +18,7 @@ class UnrealFinalFormBridgeTests(unittest.TestCase):
     def test_no_fake_app_registration(self):self.failcase(lambda p:p["moddingLaw"].update(publicAppRegistrationVerified=True),"NEXUS_POLICY_publicAppRegistrationVerified")
     def test_no_bulk_merge(self):self.failcase(lambda p:p["repositoryInventory"].update(bulkMerge=True),"GIT_HISTORY_SAFETY_bulkMerge")
     def test_no_unverified_runtime(self):self.failcase(lambda p:p["safety"].update(acceptUnverifiedRuntime=True),"UNAUTHORIZED_ACTION_acceptUnverifiedRuntime")
+    def test_pinned_gits_not_silently_substituted(self):self.failcase(lambda p:p["repositoryInventory"]["publicCandidates"].__setitem__(0,"eggie-admin/notObserved"),"GIT_DONOR_SNAPSHOT_MISMATCH")
     def test_no_spend(self):self.failcase(lambda p:p["safety"].update(autoSpendUsd=1),"UNAUTHORIZED_SPENDING")
     def test_no_deploy(self):self.failcase(lambda p:p["safety"].update(autoDeploy=True),"UNAUTHORIZED_ACTION_autoDeploy")
     def test_crown_stays_stop(self):self.failcase(lambda p:p["safety"].update(crown="GREEN"),"FALSE_CROWN")
