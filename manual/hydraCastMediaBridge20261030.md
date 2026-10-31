@@ -10,6 +10,14 @@
 6. **Dating sim:** the engine-neutral `game/datingSimPilotV1.json` defines one four-node first-encounter branching rehearsal with adult, original/approved character proxies, bounded affinity, no untrusted dynamic script evaluation. Prove Godot dialogue and input first, then Unreal parity and only build a Unity adapter when a genuine requirement exists.
 7. **AI/remote:** OpenAI and Google Gemini are optional bounded review of consented asset derivatives / shot metadata. Default local deterministic; require account-bound API permissions, cost budget, prompt-injection containment, structured schema checking, privacy/retention approval and signed human review before any cloud media transfer. Existing `doctrine/googleAiDeveloperEntitlementsV1.json` blocks unproven cloud execution; Vertex legacy route stays off. Google Drive private control plane currently ACL-held, therefore do not ingest or upload private source art there until reverified secure.
 
+## Play the lightweight dating-sim slice
+The authored `game/datingSimPilotV1.json` is also directly playable as a small **offline text game** with no extra packages, network access or AI calls. It has two first-encounter routes, bounded affinity and a shared rehearsal ending:
+```sh
+python3 -m tools.datingSimPilot --demo  # deterministic smoke check
+python3 -m tools.datingSimPilot --play  # interactive terminal choices
+```
+This is an actual text-level vertical slice, **not** a built Godot, Unity or Unreal game. The script evaluates no dialogue as code; characters and all artwork are still proxy/unapproved.
+
 ## Same-source proof
 ```sh
 python3 -m unittest tests.testHydraCastMediaBridge -v
