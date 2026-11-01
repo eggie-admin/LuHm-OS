@@ -10,6 +10,8 @@ on:
       - 'scripts/main.gd'
       - 'tools/gameplayVerticalSliceAudit.py'
       - 'tools/nightShiftGeneratorSmoke.gd'
+      - 'tools/finiteDemoQueue.py'
+      - 'tests/testFiniteDemoQueue.py'
       - 'game/demo/**'
       - '.github/workflows/gameplay-vertical-slice-audit.yml'
   workflow_dispatch:
@@ -28,7 +30,11 @@ jobs:
           python3 -m json.tool doctrine/gameplayVerticalSliceCrownReceiptV1.json >/dev/null
           python3 -m json.tool game/story/firstNightQuest.json >/dev/null
       - name: Audit gameplay vertical slice source
-        run: python3 tools/gameplayVerticalSliceAudit.py
+        run: |
+          python3 tools/gameplayVerticalSliceAudit.py
+          python3 -m json.tool game/demo/demoAssetPriorityV1.json >/dev/null
+          python3 -m unittest discover -s tests -p 'testFiniteDemoQueue.py' -v
+          python3 tools/finiteDemoQueue.py > "$RUNNER_TEMP/finite-demo-queue.json"
       - name: Install Godot 4.7.2
         shell: bash
         run: |
