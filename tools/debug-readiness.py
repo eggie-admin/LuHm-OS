@@ -24,6 +24,13 @@ CHECKS = (
     ("vendor-debug-boundary", (sys.executable, "tools/vendorAiDebugAudit.py")),
     ("godot-smoke-parser-tests", (sys.executable, "tests/testSmokeRunner.py")),
     ("jquery-cockpit-contract", ("node", "frontEnd/tools/check.mjs")),
+    # Cross-layer source checks; these never establish live host/device proof.
+    ("frontend-html-safety", (sys.executable, "tools/inChatHtmlCheck.py", "frontEnd/index.html")),
+    ("rebel-in-chat-draft", (sys.executable, "-m", "unittest", "tests/testRebelInChatStudio.py", "-v")),
+    ("backend-api-routing", (sys.executable, "host/api/luhmApiSpine.py", "--check")),
+    ("mcp-host-syntax", (sys.executable, "-m", "py_compile", "host/mcp/luhmMcpServer.py", "host/mcp/luhmHarness.py")),
+    ("agent-roster-source", (sys.executable, "tools/agentSystemDeploymentAudit.py")),
+    ("agent-quarantine-source", (sys.executable, "tools/companyWideQuarantineAudit.py")),
 )
 
 def require_exact_source(value: str) -> str:
