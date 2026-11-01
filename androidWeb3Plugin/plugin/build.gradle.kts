@@ -1,5 +1,35 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
+// Explicit minimal Android assets: no prototypes, npm sources, private files,
+// remote media or arbitrary frontEnd/ trees in the release AAR.
+val cockpitAssetPaths = listOf(
+    "index.html",
+    "styles.css",
+    "app.js",
+    "vendor/jquery-3.7.1.min.js",
+    "vendor/jquery-LICENSE.txt",
+    "jquery/luhm.codingRoleplay.js",
+    "jquery/luhm.parallax.js",
+    "jquery/luhm.cockpit.js",
+    "jquery/luhm.cast.js",
+)
+val cockpitAssetsDirectory = layout.buildDirectory.dir("generated/luhmCockpitAssets")
+val stageCockpitAssets by tasks.registering(Sync::class) {
+    from(rootProject.file("../frontEnd")) {
+        include(*cockpitAssetPaths.toTypedArray())
+    }
+    into(cockpitAssetsDirectory)
+    doLast {
+        val base = cockpitAssetsDirectory.get().asFile
+        val actual = base.walkTopDown().filter { it.isFile }
+            .map { it.relativeTo(base).invariantSeparatorsPath }.toSet()
+        val expected = cockpitAssetPaths.toSet()
+        if (actual != expected) {
+            throw GradleException("RED_COCKPIT_ASSETS: missing=${expected - actual}, extra=${actual - expected}")
+        }
+    }
+}
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -26,7 +56,8 @@ android {
 
     sourceSets {
         getByName("main") {
-            assets.srcDir("../../frontEnd")
+            // Only the verified local cockpit bundle enters the Android AAR.
+            assets.srcDir(cockpitAssetsDirectory)
         }
     }
 
@@ -68,4 +99,12 @@ val copyReleaseAar by tasks.registering(Copy::class) {
 
 tasks.named("assemble").configure {
     finalizedBy(syncExportScripts, copyDebugAar, copyReleaseAar)
+}
+
+// Explicit dependency edge: staging must finish before either Android AAR
+// variant merges assets. Missing pinned jQuery or license fails closed.
+tasks.configureEach {
+    if (name.startsWith("merge") && name.endsWith("Assets")) {
+        dependsOn(stageCockpitAssets)
+    }
 }
