@@ -128,5 +128,13 @@
   "publicationAuthority": false,
   "productionSigningAuthority": false,
   "workersQuarantined": true,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "workingTitleContract": "doctrine/workingTitleCastV1.json",
+  "workingTitles": {
+    "internalProduct": "Llama",
+    "internalProject": "Project Premonition",
+    "canonicalExternalProduct": "LuHm-OS",
+    "aliasUse": "internal title only; do not relabel plugin, store or company",
+    "commercialNameReview": "PENDING_META_LLAMA_TRADEMARK_CLEARANCE"
+  }
 }
