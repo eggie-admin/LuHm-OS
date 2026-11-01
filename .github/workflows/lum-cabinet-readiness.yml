@@ -8,6 +8,13 @@ on:
       - 'tools/skuldVendorWatch.py'
       - 'tests/testSkuldVendorWatch.py'
       - 'manual/lumCabinetOperations.md'
+      - 'doctrine/artVmCabinetFourByFourV1.json'
+      - 'agents/shared/artVmCabinetFourByFour.md'
+      - 'agents/shared/ONI_PROTOCOL_V2.md'
+      - 'agents/goddessSharedSystemsPractice/SKILL.md'
+      - 'agents/yumeArtOni/SKILL.md'
+      - 'tools/artVmCabinetAudit.py'
+      - 'tests/testArtVmCabinetAudit.py'
       - '.github/workflows/lum-cabinet-readiness.yml'
   workflow_dispatch:
   # One visible daily read-only audit, not an always-on provider agent.
@@ -42,6 +49,19 @@ jobs:
         run: |
           python3 -m py_compile tools/lumCabinetReadiness.py
           python3 -m unittest tests/testLumCabinetReadiness.py tests/testSkuldVendorWatch.py -v
+      - name: Validate art-VM cabinet 4x4 and historical warning negative controls
+        run: |
+          python3 -m unittest discover -s tests -p 'testArtVmCabinetAudit.py' -v
+          python3 tools/artVmCabinetAudit.py > "$RUNNER_TEMP/artVmCabinetReceipt.json"
+          python3 - "$RUNNER_TEMP/artVmCabinetReceipt.json" <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1],encoding="utf-8"))
+          assert r["status"]=="AMBER_SOURCE_REVIEW_ONLY" and r["cells"]==16
+          assert r["warningsHistorical"]==4 and r["skillBindingsVerified"]==3
+          assert r["crownStatus"]=="STOP" and not r["workerActivated"]
+          assert not r["firmwareMutated"] and not r["actualArtVmStarted"]
+          print("CAST_ART_VM_CABINET_SOURCE_ONLY_GREEN")
+          PY
       - name: Run ten real source audits in five bounded lanes
         env:
           EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -61,6 +81,7 @@ jobs:
           name: lum-five-lead-cabinet-source-receipt
           path: |
             ${{ runner.temp }}/lumCabinetReceipt.json
+            ${{ runner.temp }}/artVmCabinetReceipt.json
             ${{ runner.temp }}/skuldVendorReceipt.json
           if-no-files-found: warn
           retention-days: 7

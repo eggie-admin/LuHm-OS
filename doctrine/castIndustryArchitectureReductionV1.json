@@ -1,0 +1,430 @@
+{
+  "schema": "luhmOs.castIndustryArchitectureReduction.v1",
+  "observedAsOf": "2026-10-31",
+  "authority": "Professor",
+  "status": "PROPOSED_SOURCE_RESEARCH_ONLY",
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Architecture comparison and conditional vendor reduction with no host or public release mutation.",
+  "platforms": [
+    {
+      "id": "apple",
+      "cpu": "arm64",
+      "legacy": "x86_64 legacy Mac binaries",
+      "kernel": "XNU; vendor-managed",
+      "acceleration": "Metal/Core ML",
+      "strategy": "native arm64; universal binaries only if supported",
+      "runtimeProof": "UNVERIFIED"
+    },
+    {
+      "id": "android",
+      "cpu": "arm64-v8a",
+      "legacy": "x86_64 for emulator/selected devices",
+      "kernel": "Android ACK/GKI and OEM vendor modules",
+      "acceleration": "Vulkan, NNAPI or vendor API only if observed",
+      "strategy": "Android HAL/SDK; 16-KiB native-page compatibility",
+      "runtimeProof": "UNVERIFIED"
+    },
+    {
+      "id": "linux",
+      "cpu": "x86_64 and aarch64",
+      "legacy": "other kernel architectures are independent",
+      "kernel": "distribution kernel; mainline for study",
+      "acceleration": "Vulkan/DRM; host-approved driver",
+      "strategy": "distro userland and container only; never modify host kernel",
+      "runtimeProof": "UNVERIFIED"
+    },
+    {
+      "id": "googleCompute",
+      "cpu": "host architecture must be observed",
+      "legacy": "not a universal TPU host ABI",
+      "kernel": "provider-managed Linux VM",
+      "acceleration": "optional Cloud TPU, not required",
+      "strategy": "portable adapter; no paid TPU or cloud activation",
+      "runtimeProof": "UNVERIFIED"
+    }
+  ],
+  "dimensions": [
+    "abi",
+    "kernel",
+    "accelerator",
+    "delivery"
+  ],
+  "matrix": [
+    {
+      "index": 0,
+      "hex": "0x00",
+      "platform": "apple",
+      "dimension": "abi",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 1,
+      "hex": "0x01",
+      "platform": "apple",
+      "dimension": "kernel",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 2,
+      "hex": "0x02",
+      "platform": "apple",
+      "dimension": "accelerator",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 3,
+      "hex": "0x03",
+      "platform": "apple",
+      "dimension": "delivery",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 4,
+      "hex": "0x04",
+      "platform": "android",
+      "dimension": "abi",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 5,
+      "hex": "0x05",
+      "platform": "android",
+      "dimension": "kernel",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 6,
+      "hex": "0x06",
+      "platform": "android",
+      "dimension": "accelerator",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 7,
+      "hex": "0x07",
+      "platform": "android",
+      "dimension": "delivery",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 8,
+      "hex": "0x08",
+      "platform": "linux",
+      "dimension": "abi",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 9,
+      "hex": "0x09",
+      "platform": "linux",
+      "dimension": "kernel",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 10,
+      "hex": "0x0A",
+      "platform": "linux",
+      "dimension": "accelerator",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 11,
+      "hex": "0x0B",
+      "platform": "linux",
+      "dimension": "delivery",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 12,
+      "hex": "0x0C",
+      "platform": "googleCompute",
+      "dimension": "abi",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 13,
+      "hex": "0x0D",
+      "platform": "googleCompute",
+      "dimension": "kernel",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 14,
+      "hex": "0x0E",
+      "platform": "googleCompute",
+      "dimension": "accelerator",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    },
+    {
+      "index": 15,
+      "hex": "0x0F",
+      "platform": "googleCompute",
+      "dimension": "delivery",
+      "proof": "SOURCE_RESEARCH_ONLY"
+    }
+  ],
+  "functionClasses": [
+    {
+      "id": "route",
+      "class": "classification",
+      "reasoning": "low",
+      "requires": [
+        "boundedInput",
+        "typedOutput"
+      ],
+      "humanPromotion": false
+    },
+    {
+      "id": "reason",
+      "class": "planning",
+      "reasoning": "mediumOrHighByEvidence",
+      "requires": [
+        "taskScope",
+        "latencyBudget",
+        "reproducibleEvaluation"
+      ],
+      "humanPromotion": false
+    },
+    {
+      "id": "execute",
+      "class": "toolExecution",
+      "reasoning": "bounded",
+      "requires": [
+        "allowlistedTools",
+        "leastPrivilege",
+        "noSelfApproval"
+      ],
+      "humanPromotion": true
+    },
+    {
+      "id": "verify",
+      "class": "audit",
+      "reasoning": "highWhenNecessary",
+      "requires": [
+        "sourceSha256",
+        "negativeTests",
+        "evidenceReceipt"
+      ],
+      "humanPromotion": true
+    }
+  ],
+  "lifecycle": [
+    {
+      "family": "Python",
+      "baseline": "3.10",
+      "eol": "2026-10-01",
+      "decision": "AVOID_NEW_BASELINE",
+      "source": "https://devguide.python.org/versions/"
+    },
+    {
+      "family": "Python",
+      "baseline": "3.14",
+      "eol": "2030-10-01",
+      "decision": "SUPPORTED_CANDIDATE",
+      "source": "https://devguide.python.org/versions/"
+    },
+    {
+      "family": "Python",
+      "baseline": "3.15",
+      "eol": "2031-10-01",
+      "decision": "TESTING_CANDIDATE",
+      "source": "https://devguide.python.org/versions/"
+    },
+    {
+      "family": "Node",
+      "baseline": "22",
+      "eol": "2027-04-30",
+      "decision": "MIGRATION_WATCH",
+      "source": "https://github.com/nodejs/Release"
+    },
+    {
+      "family": "Node",
+      "baseline": "24",
+      "eol": "2028-04-30",
+      "decision": "SUPPORTED_CANDIDATE",
+      "source": "https://github.com/nodejs/Release"
+    },
+    {
+      "family": "Node",
+      "baseline": "26",
+      "eol": "2029-04-30",
+      "decision": "TESTING_CANDIDATE",
+      "source": "https://github.com/nodejs/Release"
+    },
+    {
+      "family": "LinuxLongterm",
+      "baseline": "5.10",
+      "eol": "2026-12-31",
+      "decision": "UPSTREAM_EOL_WATCH",
+      "source": "https://www.kernel.org/releases.html"
+    },
+    {
+      "family": "LinuxLongterm",
+      "baseline": "5.15",
+      "eol": "2026-12-31",
+      "decision": "UPSTREAM_EOL_WATCH",
+      "source": "https://www.kernel.org/releases.html"
+    },
+    {
+      "family": "LinuxLongterm",
+      "baseline": "6.12",
+      "eol": "2028-12-31",
+      "decision": "DISTRO_SUPPORT_REQUIRED",
+      "source": "https://www.kernel.org/releases.html"
+    },
+    {
+      "family": "LinuxLongterm",
+      "baseline": "6.18",
+      "eol": "2028-12-31",
+      "decision": "DISTRO_SUPPORT_REQUIRED",
+      "source": "https://www.kernel.org/releases.html"
+    },
+    {
+      "family": "Ubuntu",
+      "baseline": "26.04 LTS",
+      "eol": "2031-05-31",
+      "decision": "SUPPORTED_CANDIDATE",
+      "source": "https://ubuntu.com/project/docs/release-team/list-of-releases/"
+    },
+    {
+      "family": "PostgreSQL",
+      "baseline": "14",
+      "eol": "2026-11-12",
+      "decision": "AVOID_NEW_BASELINE",
+      "source": "https://www.postgresql.org/support/versioning/"
+    }
+  ],
+  "tools": [
+    {
+      "id": "githubActions",
+      "role": "noCodeWorkflow",
+      "state": "ADOPT_EXISTING",
+      "requiresInstall": false,
+      "doc": "https://docs.github.com/en/actions"
+    },
+    {
+      "id": "n8n",
+      "role": "noCodeExploration",
+      "state": "EVALUATE_ONLY",
+      "requiresInstall": true,
+      "license": "FAIR_CODE_NOT_ASSUMED_APACHE",
+      "doc": "https://docs.n8n.io/"
+    },
+    {
+      "id": "gparted",
+      "role": "partitionRecovery",
+      "state": "READ_ONLY_RESEARCH",
+      "requiresInstall": true,
+      "needsBackup": true,
+      "doc": "https://gparted.org/livecd.php"
+    },
+    {
+      "id": "grub",
+      "role": "pcLinuxBootloader",
+      "state": "READ_ONLY_RESEARCH",
+      "requiresInstall": false,
+      "androidBootAllowed": false,
+      "doc": "https://www.gnu.org/software/grub/manual/grub/"
+    },
+    {
+      "id": "damnSmallLinux",
+      "role": "legacyX86Study",
+      "state": "EVALUATE_ONLY",
+      "requiresInstall": false,
+      "primaryBaseline": false,
+      "doc": "https://www.damnsmalllinux.org/"
+    },
+    {
+      "id": "mainlineKernel",
+      "role": "upstreamReference",
+      "state": "READ_ONLY_RESEARCH",
+      "requiresInstall": false,
+      "replaceDistroKernel": false,
+      "doc": "https://www.kernel.org/releases.html"
+    },
+    {
+      "id": "RStats",
+      "role": "statisticalComparison",
+      "state": "OPTIONAL_OFFLINE",
+      "requiresInstall": false,
+      "doc": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/wilcox.test.html"
+    },
+    {
+      "id": "perf",
+      "role": "cpuCounters",
+      "state": "PERMISSION_GATED",
+      "requiresInstall": false,
+      "doc": "https://docs.kernel.org/admin-guide/perf-security.html"
+    },
+    {
+      "id": "tracemalloc",
+      "role": "pythonHeapSnapshots",
+      "state": "ADOPT_IF_PROFILED",
+      "requiresInstall": false,
+      "doc": "https://docs.python.org/3/library/tracemalloc.html"
+    },
+    {
+      "id": "godotProfiler",
+      "role": "frameProfiling",
+      "state": "ADOPT_EXISTING",
+      "requiresInstall": false,
+      "doc": "https://docs.godotengine.org/en/latest/engine_details/development/profiling/"
+    },
+    {
+      "id": "onnxRuntime",
+      "role": "portableOptionalInference",
+      "state": "EVALUATE_ONLY",
+      "requiresInstall": true,
+      "doc": "https://onnxruntime.ai/docs/execution-providers/"
+    }
+  ],
+  "sourceRefs": [
+    "doctrine/computeFourCoreV1.json",
+    "doctrine/typedFourLaneSqlV1.json",
+    "doctrine/hardwareVendorMinimumV1.json",
+    "doctrine/processorHexCeilingsV1.json",
+    "doctrine/namingNamespaceCanonV1.json",
+    "tools/castMachineByteAudit.py"
+  ],
+  "limits": {
+    "noNewSoftwareStack": true,
+    "noNewNetworkListener": true,
+    "noBootWrite": true,
+    "noPartitionWrite": true,
+    "noFirmwareFlash": true,
+    "noKernelModuleLoad": true,
+    "noPackageInstall": true,
+    "noPaidProvider": true,
+    "noProductionMerge": true,
+    "noAgentUnquarantine": true,
+    "noNativeDeviceProof": true,
+    "releaseBlocked": true
+  },
+  "adoption": {
+    "canonicalFourCores": [
+      "gpu",
+      "cpu",
+      "memory",
+      "firmware"
+    ],
+    "applicationPayloadBytesCap": 4096,
+    "hexUsedForLogicIndexesOnly": true,
+    "noByteLabelAsKernelAddress": true,
+    "strictSqlInMemoryOnly": true,
+    "runtimeUpgradeRequiresExactHostABI": true,
+    "devicePageSizeMustBeMeasured": true,
+    "linuxKernelVersionMustNotBeInferredFromContainer": true,
+    "physicalBenchmarksStillMissing": true
+  },
+  "reviewGates": [
+    "androidNative16KiBPageAlignment",
+    "appleArm64NativeOrUniversalAppSlice",
+    "exactSourceLifecyclePinned",
+    "p95FrameTimeAndRssPerPhysicalDevice",
+    "cpuQuotaAndPerfRights",
+    "trustedOemDriverAbi",
+    "reproducibleBenchmarkBaseline",
+    "signingAndManualPromotion"
+  ]
+}

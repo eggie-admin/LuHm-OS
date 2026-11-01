@@ -1,0 +1,33 @@
+# LuHm-OS four-core compute: GPU / CPU / memory / firmware observation, not a server.
+# Separate opt-in source candidate. Does not replace the broad Codespaces image.
+FROM ubuntu:26.04
+ENV DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# CPU + memory use the host kernel. GPU access is host-provided if explicitly available.
+# Firmware, drivers and Android boot chain stay vendor/host-managed. No extra providers.
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+      ca-certificates curl git python3 python3-venv \
+      blender ffmpeg libgl1 libfontconfig1 libasound2t64 fonts-dejavu-core; \
+    rm -rf /var/lib/apt/lists/*
+
+# Existing pinned Godot 4.7.2 from the canonical studio Dockerfile; AMD64 build only.
+ARG TARGETARCH
+RUN set -eux; \
+    test "${TARGETARCH:-amd64}" = amd64; \
+    curl --fail --location --retry 3 --connect-timeout 20 \
+      -o /tmp/godot.zip \
+      https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip; \
+    echo 'cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/godot.zip' | sha256sum --check -; \
+    mkdir -p /tmp/godot; python3 -m zipfile -e /tmp/godot.zip /tmp/godot; \
+    install -m 0755 /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 /usr/local/bin/godot; \
+    rm -rf /tmp/godot /tmp/godot.zip; \
+    godot --headless --version
+
+# No ports, web/mail/database daemons, automations, paid model providers or root runtime.
+RUN useradd --create-home --shell /bin/bash studio
+USER studio
+WORKDIR /home/studio
+CMD ["/bin/bash"]

@@ -1,0 +1,274 @@
+{
+  "schema": "luhmOs.computeFourCore.v1",
+  "authority": "Professor",
+  "status": "PROPOSED_OPT_IN_COMPUTE_SOURCE",
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "stackedOn": {
+    "pr": 472,
+    "branch": "candidate/cast-processor-byte-ceilings-20261031",
+    "head": "8e66b8b86b8689c1536c3989c6b3105a2edc902d"
+  },
+  "purpose": "One tight four-core 4x4: GPU, CPU, memory, firmware. No website, email, DNS or database server. Separate opt-in studio image and read-only runner capability receipts.",
+  "namespace": "castComputeFourCore4x4V1",
+  "rows": [
+    {
+      "id": "gpu",
+      "source": "tools/yumeGodotAssetPrep.py",
+      "law": "Host-provided render device only; no inferred driver, Vulkan support or OEM firmware change"
+    },
+    {
+      "id": "cpu",
+      "source": "tools/processorHexCeilingBench.py",
+      "law": "Observe affinity/logical CPUs and use bounded synthetic hashing; never overclock or set governors"
+    },
+    {
+      "id": "memory",
+      "source": "tools/typedSqlStub.py",
+      "law": "Respect bounded in-process working sets and observed cgroup limit where available; no memory timings tuning"
+    },
+    {
+      "id": "firmware",
+      "source": "doctrine/machineToHumanWizardV1.json",
+      "law": "Observe boot-platform class only; never change BIOS/UEFI/GRUB, Android AVB/Knox or partition tables"
+    }
+  ],
+  "phases": [
+    "identify",
+    "bound",
+    "probe",
+    "verify"
+  ],
+  "matrix": [
+    {
+      "index": 0,
+      "hex": "0x00",
+      "row": "gpu",
+      "phase": "identify",
+      "source": "tools/yumeGodotAssetPrep.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 1,
+      "hex": "0x01",
+      "row": "gpu",
+      "phase": "bound",
+      "source": "tools/yumeGodotAssetPrep.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 2,
+      "hex": "0x02",
+      "row": "gpu",
+      "phase": "probe",
+      "source": "tools/yumeGodotAssetPrep.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 3,
+      "hex": "0x03",
+      "row": "gpu",
+      "phase": "verify",
+      "source": "tools/yumeGodotAssetPrep.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 4,
+      "hex": "0x04",
+      "row": "cpu",
+      "phase": "identify",
+      "source": "tools/processorHexCeilingBench.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 5,
+      "hex": "0x05",
+      "row": "cpu",
+      "phase": "bound",
+      "source": "tools/processorHexCeilingBench.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 6,
+      "hex": "0x06",
+      "row": "cpu",
+      "phase": "probe",
+      "source": "tools/processorHexCeilingBench.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 7,
+      "hex": "0x07",
+      "row": "cpu",
+      "phase": "verify",
+      "source": "tools/processorHexCeilingBench.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 8,
+      "hex": "0x08",
+      "row": "memory",
+      "phase": "identify",
+      "source": "tools/typedSqlStub.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 9,
+      "hex": "0x09",
+      "row": "memory",
+      "phase": "bound",
+      "source": "tools/typedSqlStub.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 10,
+      "hex": "0x0A",
+      "row": "memory",
+      "phase": "probe",
+      "source": "tools/typedSqlStub.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 11,
+      "hex": "0x0B",
+      "row": "memory",
+      "phase": "verify",
+      "source": "tools/typedSqlStub.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 12,
+      "hex": "0x0C",
+      "row": "firmware",
+      "phase": "identify",
+      "source": "doctrine/machineToHumanWizardV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 13,
+      "hex": "0x0D",
+      "row": "firmware",
+      "phase": "bound",
+      "source": "doctrine/machineToHumanWizardV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 14,
+      "hex": "0x0E",
+      "row": "firmware",
+      "phase": "probe",
+      "source": "doctrine/machineToHumanWizardV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 15,
+      "hex": "0x0F",
+      "row": "firmware",
+      "phase": "verify",
+      "source": "doctrine/machineToHumanWizardV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    }
+  ],
+  "image": {
+    "path": ".devcontainer/Dockerfile.compute",
+    "base": "ubuntu:26.04",
+    "architecture": "amd64",
+    "entrypoint": "/bin/bash",
+    "runAs": "studio",
+    "dependencyPackages": [
+      "ca-certificates",
+      "curl",
+      "git",
+      "python3",
+      "python3-venv",
+      "blender",
+      "ffmpeg",
+      "libgl1",
+      "libfontconfig1",
+      "libasound2t64",
+      "fonts-dejavu-core"
+    ],
+    "expectedDeclaredCount": 11,
+    "godotRelease": "4.7.2-stable",
+    "godotDownloadSha256": "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4",
+    "requiresGpuDevice": false,
+    "requiresRoot": false,
+    "exposesPorts": false,
+    "startsDaemon": false,
+    "actualImageBuilt": false,
+    "installedPackagesProven": false,
+    "forbiddenPackages": [
+      "nginx",
+      "apache2",
+      "lighttpd",
+      "mariadb-server",
+      "mysql-server",
+      "postgresql",
+      "postfix",
+      "exim4",
+      "sendmail",
+      "dovecot-core",
+      "bind9",
+      "dnsmasq",
+      "certbot",
+      "nodejs",
+      "npm"
+    ],
+    "forbiddenRuntimeDirectives": [
+      "EXPOSE",
+      "ENTRYPOINT"
+    ],
+    "notDefaultCodespaceDockerfile": true,
+    "selectableDevcontainerPath": ".devcontainer/compute/devcontainer.json",
+    "optInConfigNotDefault": true,
+    "autoStartServicesInConfig": false
+  },
+  "ceiling": {
+    "maxCpuAdvisoryWorkers": 4,
+    "maxWorkingSetAdvisoryBytes": 67108864,
+    "maxReadBytes": 64,
+    "maxCgroupClaimBytes": 1125899906842624,
+    "actualHardwareMemoryStress": false,
+    "actualGpuBenchmark": false
+  },
+  "runtime": {
+    "gpuDeviceHintOnly": true,
+    "cpuAffinityHintOnly": true,
+    "cgroupMemoryLimitHintOnly": true,
+    "uefiDirectoryHintOnly": true,
+    "physicalSamsungVerified": false,
+    "deviceDriverVerified": false,
+    "hostGpuAccelerationVerified": false,
+    "firmwareVersionVerified": false,
+    "biosChange": false,
+    "grubChange": false,
+    "cpuGovernorChange": false,
+    "memoryClockChange": false,
+    "gpuDriverInstall": false,
+    "dmaOrKernelModuleLoad": false,
+    "networkListener": false,
+    "paidProvider": false,
+    "agentActivated": false
+  },
+  "sourceRefs": [
+    "doctrine/hardwareVendorMinimumV1.json",
+    "doctrine/vendorReductionV1.json",
+    "doctrine/processorHexCeilingsV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/storageTopologyV1.json"
+  ],
+  "notRequired": [
+    "websiteHosting",
+    "mailServer",
+    "publicDatabase",
+    "dnsServer",
+    "publicProxy",
+    "gpuCloudVm",
+    "secondKernel",
+    "bareMetalFirmwareToolkit"
+  ],
+  "noHardwareMutation": true,
+  "noPackageMutation": true,
+  "noProductionDeploy": true,
+  "noAutomaticMerge": true
+}

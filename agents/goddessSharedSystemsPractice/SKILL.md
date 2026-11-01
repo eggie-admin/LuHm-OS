@@ -206,3 +206,8 @@ Examples:
 - `tsa` and `sterileArea` are Zero Trust/security-boundary metaphors only.
 
 If a consequential metaphor has no defined machine meaning, return `VERIFY` instead of guessing.
+
+
+## Art VM Cabinet 4×4 sharpening
+
+Use the proposed review rubric in `agents/shared/artVmCabinetFourByFour.md` and the exact-source manifest `doctrine/artVmCabinetFourByFourV1.json` when Google VM, Android/Samsung, Apple iOS or Linux art-studio tasks cross firmware, host/guest, creative pipeline and app delivery. Lum routes; Urd diagnoses historical/current warnings without granting GREEN; Belldandy preserves rights, source hashes and log chronology; Skuld verifies current upstream and platform support; Yume owns private editable art and runtime preview scope. Do not activate a worker because its skill was inspected. Keep the 15-role company quarantine, one mutable source lane, no paid GPU by default, no boot/partition/kernel changes and CROWN STOP. Source warnings need exact-head reproduction before a claim of repair.
