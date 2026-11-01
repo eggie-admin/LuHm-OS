@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.goddessGlassVaultReconciliation.v1",
-  "status": "PRIVATE_VAULT_INDEXED_LIVE_PLUGIN_NOT_UPDATED",
+  "status": "PRIVATE_ACTUAL_GLB_RECOVERED_NOT_PUBLIC_RELEASE_OR_PLUGIN_MOUNTED",
   "product": "LuHm-OS",
   "project": "Project Premonition",
   "authority": "Professor",
@@ -63,7 +63,7 @@
         "lumCharacter.glb",
         "lumRunning.glb"
       ],
-      "status": "EARLIER_BYTES_AUDITED_CURRENT_LOOSE_GLB_NOT_RETRIEVED",
+      "status": "HISTORIC_SOURCE_AUDIT_SUPERSEDED_BY_VERIFIED_LOOSE_DRIVE_GLBS",
       "liveGodotImportProven": false,
       "legalReleaseCleared": false
     },
@@ -90,15 +90,63 @@
         "sha256": "b5c29aadcaada35354cbc6f2a163b2c2446a5c41ed38e197c4877ca4b3f58da0"
       }
     ],
-    "skyPack": "KAI9000_LUM_CSS_PARALLAX_INGEST_20260914.zip"
+    "skyPack": "KAI9000_LUM_CSS_PARALLAX_INGEST_20260914.zip",
+    "lumLive3dModels": [
+      {
+        "id": "lum",
+        "variant": "idle",
+        "filename": "lum_idle.glb",
+        "sizeBytes": 9223892,
+        "sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
+        "meshCount": 1,
+        "skinCount": 1,
+        "animationCount": 1,
+        "materialCount": 1,
+        "embeddedImages": 1,
+        "vertexCount": 38432,
+        "faceCount": 27178,
+        "source": "PRIVATE_DRIVE",
+        "status": "EXACT_BYTES_VERIFIED_PRIVATE_ENGINE_IMPORT_UNPROVEN"
+      },
+      {
+        "id": "lum",
+        "variant": "running",
+        "filename": "lum_running.glb",
+        "sizeBytes": 9232024,
+        "sha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0",
+        "meshCount": 1,
+        "skinCount": 1,
+        "animationCount": 1,
+        "materialCount": 1,
+        "embeddedImages": 1,
+        "vertexCount": 38432,
+        "faceCount": 27178,
+        "source": "PRIVATE_DRIVE",
+        "status": "EXACT_BYTES_VERIFIED_PRIVATE_ENGINE_IMPORT_UNPROVEN"
+      }
+    ],
+    "eveBlenderReference": {
+      "kind": "PrivateRAR5AndBlender42Source",
+      "archiveSizeBytes": 53132120,
+      "archiveSHA256": "b710acf1a92eb818fad490a416357aa1a90311738a77de049dd29ed1239ee575",
+      "blenderUncompressedBytes": 76001036,
+      "blendSHA256": "d0e8950bf2e6b69b6efc811ab29cbf4580af824382e447e9d2cfed7606a9f92f",
+      "status": "SOURCE_BYTES_RECOVERED_PRIVATE_REFERENCE_UNLICENSED_FOR_PUBLIC_RUNTIME",
+      "notShippable": true,
+      "modelExportVerified": false
+    },
+    "stellarisMaterials": {
+      "status": "NOT_FOUND_IN_CURRENT_CONNECTED_DRIVE_SEARCH",
+      "notShippable": true
+    }
   },
   "roster": [
     {
       "id": "lum",
       "baseline": "EXISTING_CANDIDATE_CANON",
       "visualMaster": "ART_BIBLE_REFERENCE",
-      "liveRigStatus": "UNPROVEN",
-      "driveAssetAvailable": "2D_VIDEO_VERIFIED"
+      "liveRigStatus": "MODEL_BYTES_AND_SKELETAL_CLIPS_VERIFIED_GODOT_IMPORT_PENDING",
+      "driveAssetAvailable": "2D_VIDEO_AND_TWO_REAL_RIGGED_GLB_FILES_EXACT_BYTE_VERIFIED"
     },
     {
       "id": "urd",
@@ -136,7 +184,10 @@
     "unrealEnginePlayer": false,
     "actualCubemapHdrSkybox": false,
     "cloudflareRemoteRequired": false,
-    "sqlLiveMigrationPerformed": false
+    "sqlLiveMigrationPerformed": false,
+    "privateActualGlbGodotProjectPackCreated": true,
+    "privateThreeDimensionalPlotlyVertexMeshInspectionCreated": true,
+    "actualEngineRenderProven": false
   },
   "gates": {
     "hashReconciled": true,
@@ -147,6 +198,6 @@
     "publicReleaseAuthorized": false,
     "productionPromotion": false
   },
-  "correction": "Do not call the recovered Lum MP4 a rigged 3D model. Do not call recovered parallax sky plates 360 HDR skyboxes. Do not mark unpublished goddess rigs available from directory names or historical audit references.",
+  "correction": "Two real rigged Lum GLBs are now recovered and byte verified. Their Godot import and visible device playback remain unproven; never confuse private packed models with a live plugin/Crown release. Private EVE Blender source is recovered but copyright/usage rights remain private-only.",
   "crownStatus": "STOP"
 }
