@@ -1,0 +1,376 @@
+{
+  "schema": "luhmOs.artVmCabinetFourByFour.v1",
+  "authority": "Professor",
+  "status": "PROPOSED_ART_VM_CABINET_SOURCE_ONLY",
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Source-only four-platform art-studio VM boundary and cabinet skill sharpeners; never install or start a VM or modify firmware.",
+  "sourceRefs": [
+    "doctrine/lumGoddessCabinetV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/typedFourLaneSqlV1.json",
+    "doctrine/computeFourCoreV1.json",
+    "doctrine/artistFirstArtToolCanonV1.json",
+    "doctrine/soloStudioOperatingProfileV1.json",
+    "doctrine/namingNamespaceCanonV1.json",
+    "doctrine/castIndustryArchitectureReductionV1.json",
+    "agents/shared/ONI_PROTOCOL_V2.md",
+    "agents/goddessSharedSystemsPractice/SKILL.md",
+    "agents/yumeArtOni/SKILL.md",
+    "manual/lumCabinetOperations.md"
+  ],
+  "surfaces": [
+    {
+      "id": "googleVm",
+      "label": "Google cloud VM / browser",
+      "firmware": "providerManagedNotGuestEditable",
+      "execution": "linuxX86OrArmHostOnlyWhenObserved",
+      "art": "headlessFFmpegBlenderOrGpuOnlyIfProven",
+      "adapter": "httpsBrowserClientOptional",
+      "role": "skuldResearch"
+    },
+    {
+      "id": "androidSamsung",
+      "label": "Android / Samsung",
+      "firmware": "OEM_AVB_KNOX_AND_GKI_KMI_PRESERVED",
+      "execution": "arm64DeviceNoPcGrub",
+      "art": "nativeGodotOrWebCockpit",
+      "adapter": "androidSdkAndPermissionsOnly",
+      "role": "urdDoctorGoddess"
+    },
+    {
+      "id": "appleIos",
+      "label": "Apple iOS / iPadOS",
+      "firmware": "APPLE_SIGNED_BOOT_NOT_PUBLIC_VM_FIRMWARE",
+      "execution": "iOSAppSandboxNoGeneralPurposeGuestVM",
+      "art": "browserOrNativeClientOnly",
+      "adapter": "iosSandboxFileAndMediaApis",
+      "role": "yume"
+    },
+    {
+      "id": "openLinux",
+      "label": "Open-source Linux",
+      "firmware": "hostDistroKernelAndPcGrubOnlyWhenPresent",
+      "execution": "x86_64OrAarch64GuestWithOptInComputeImage",
+      "art": "godotBlenderFfmpegCandidate",
+      "adapter": "linuxUserlandAndOptionalVulkan",
+      "role": "skuldResearch"
+    }
+  ],
+  "dimensions": [
+    "firmware",
+    "vmExecution",
+    "artStudio",
+    "appHandoff"
+  ],
+  "matrix": [
+    {
+      "index": 0,
+      "hex": "0x00",
+      "surface": "googleVm",
+      "layer": "firmware",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 1,
+      "hex": "0x01",
+      "surface": "googleVm",
+      "layer": "vmExecution",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 2,
+      "hex": "0x02",
+      "surface": "googleVm",
+      "layer": "artStudio",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 3,
+      "hex": "0x03",
+      "surface": "googleVm",
+      "layer": "appHandoff",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 4,
+      "hex": "0x04",
+      "surface": "androidSamsung",
+      "layer": "firmware",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 5,
+      "hex": "0x05",
+      "surface": "androidSamsung",
+      "layer": "vmExecution",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 6,
+      "hex": "0x06",
+      "surface": "androidSamsung",
+      "layer": "artStudio",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 7,
+      "hex": "0x07",
+      "surface": "androidSamsung",
+      "layer": "appHandoff",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 8,
+      "hex": "0x08",
+      "surface": "appleIos",
+      "layer": "firmware",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 9,
+      "hex": "0x09",
+      "surface": "appleIos",
+      "layer": "vmExecution",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 10,
+      "hex": "0x0A",
+      "surface": "appleIos",
+      "layer": "artStudio",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 11,
+      "hex": "0x0B",
+      "surface": "appleIos",
+      "layer": "appHandoff",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 12,
+      "hex": "0x0C",
+      "surface": "openLinux",
+      "layer": "firmware",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 13,
+      "hex": "0x0D",
+      "surface": "openLinux",
+      "layer": "vmExecution",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 14,
+      "hex": "0x0E",
+      "surface": "openLinux",
+      "layer": "artStudio",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    },
+    {
+      "index": 15,
+      "hex": "0x0F",
+      "surface": "openLinux",
+      "layer": "appHandoff",
+      "sourceProof": "DOCS_AND_REPO_SOURCE_ONLY",
+      "deviceProof": false
+    }
+  ],
+  "commonThreads": [
+    {
+      "id": "python3",
+      "purpose": "deterministicOrchestrationAndSmallAudits",
+      "authority": "sourceOnly"
+    },
+    {
+      "id": "json",
+      "purpose": "versionedTypedManifestAndBoundedReceipts",
+      "authority": "dataNotPermission"
+    },
+    {
+      "id": "sqliteStrict",
+      "purpose": "localInMemoryEventIndexAndNumericTypes",
+      "authority": "notPublicSql"
+    },
+    {
+      "id": "htmlCssJs",
+      "purpose": "portableTouchFirstArtCockpit",
+      "authority": "uiNotFirmware"
+    },
+    {
+      "id": "sha256",
+      "purpose": "contentIntegrityNotIdentityOrSigning",
+      "authority": "notAuthority"
+    },
+    {
+      "id": "ai",
+      "purpose": "untrustedProposalsAndReviewAssist",
+      "authority": "neverSelfPromotes"
+    },
+    {
+      "id": "godotBlenderFfmpeg",
+      "purpose": "renderAssetsEditableMastersAndPlayableDemo",
+      "authority": "runtimeProofRequired"
+    }
+  ],
+  "pipeline": [
+    "resolveExactSource",
+    "classifyRightsAndDevice",
+    "selectMinimumSurface",
+    "boundTypedInput",
+    "renderOrSourcePlan",
+    "testAdversarialCases",
+    "collectShaAndLogEvidence",
+    "humanReviewOrStop"
+  ],
+  "roles": [
+    {
+      "id": "lum",
+      "job": "bindTaskScopeAndRouteAtMostThreeHelpers",
+      "mutates": false
+    },
+    {
+      "id": "urdDoctorGoddess",
+      "job": "diagnoseWarningsAndBlockUnsupportedGreen",
+      "mutates": false
+    },
+    {
+      "id": "belldandySecretary",
+      "job": "indexSourceLogsRightsAndReceiptChronology",
+      "mutates": false
+    },
+    {
+      "id": "skuldResearch",
+      "job": "compareCurrentFirmwareVmAbiAndUpstreamDocs",
+      "mutates": false
+    },
+    {
+      "id": "yume",
+      "job": "protectEditableMastersAndSpecifyArtRuntimeSmoke",
+      "mutates": false
+    }
+  ],
+  "historicalWarnings": [
+    {
+      "id": "runtimeDirectives",
+      "runId": 41259477459,
+      "sourceSha": "b891f61f0dba912e501d0cf5d83445f4aa8d95ac",
+      "symptom": "negative tests did not reject startup and port directives",
+      "safety": "regress EXPOSE and ENTRYPOINT and CMD controls"
+    },
+    {
+      "id": "sourceDigestShapes",
+      "runId": 41258326769,
+      "sourceSha": "a7c97cd47d60af3b1beb6cbb52d90e8b7b1b2fff",
+      "symptom": "40 hex source-ref validation differed from digest fixture",
+      "safety": "separate git sourceRef 40hex and SHA256 payload digest 64hex"
+    },
+    {
+      "id": "goddessKey",
+      "runId": 41257592445,
+      "sourceSha": "7baba7b1d9ca898cfc04e0f19c8fd8beabba1ac0",
+      "symptom": "KeyError during malformed field negative control",
+      "safety": "validate schema keys before lookup"
+    },
+    {
+      "id": "commitBudget",
+      "runId": 41202410509,
+      "sourceSha": "1be7817aab26c935c1e60ce2ffdfaa7a39c641f0",
+      "symptom": "commit budget source gate failed",
+      "safety": "small atomic changes and checkpoint budget"
+    }
+  ],
+  "sourceObservations": {
+    "candidateNotRuntime": true,
+    "physicalSamsungProven": false,
+    "iosNativeBuildProven": false,
+    "googleGpuVmStarted": false,
+    "actualDockerComputeImageBuilt": false,
+    "physicalGpuProven": false,
+    "iosVmSupportedAsGeneralGuest": false,
+    "agentWorkerReleased": false,
+    "unknownStaysUnknown": true
+  },
+  "allowedMutations": [
+    "draftSourceCandidate",
+    "targetedTests",
+    "existingWorkflowCIOnly"
+  ],
+  "forbiddenMutations": [
+    "productionMerge",
+    "firmwareFlash",
+    "grubInstall",
+    "gpartedWrite",
+    "kernelUpgrade",
+    "hostDriverLoad",
+    "androidAvbUnlock",
+    "appleIosGuestVm",
+    "newPaidGpuVm",
+    "publicPublish",
+    "agentUnquarantine",
+    "overwriteArtMasters",
+    "sqlServerStart"
+  ],
+  "referenceDocs": [
+    {
+      "surface": "googleVm",
+      "url": "https://docs.cloud.google.com/compute/docs/virtual-workstation/linux"
+    },
+    {
+      "surface": "googleVm",
+      "url": "https://docs.cloud.google.com/compute/docs/virtual-workstation/linux-gpu"
+    },
+    {
+      "surface": "androidSamsung",
+      "url": "https://source.android.com/docs/core/architecture/kernel"
+    },
+    {
+      "surface": "androidSamsung",
+      "url": "https://source.android.com/docs/core/architecture/kernel/android-common"
+    },
+    {
+      "surface": "appleIos",
+      "url": "https://developer.apple.com/documentation/virtualization"
+    },
+    {
+      "surface": "openLinux",
+      "url": "https://docs.kernel.org/"
+    },
+    {
+      "surface": "openLinux",
+      "url": "https://docs.github.com/en/actions/how-tos/secure-your-work"
+    }
+  ],
+  "promotionGates": [
+    "sourceSHAAndScopeBound",
+    "ownedArtProvenance",
+    "exactHardwareAbiOrUnknown",
+    "platformDriverCapabilityReceipt",
+    "negativeTestsGreenAtExactHead",
+    "artifactBuildAndRuntimeProof",
+    "humanReleaseApproval"
+  ],
+  "agentSkillInstructionsPath": "agents/shared/artVmCabinetFourByFour.md",
+  "noAdditionalVendorServices": true,
+  "noHiddenAsync": true,
+  "noSecretsInPublicReceipts": true,
+  "noSourceOnlyGreenRuntime": true,
+  "noSelfApproval": true
+}
