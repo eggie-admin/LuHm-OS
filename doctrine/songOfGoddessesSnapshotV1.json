@@ -1,0 +1,423 @@
+{
+  "schema": "luhmOs.songOfGoddessesSnapshot.v1",
+  "identity": "LuHm-OS: Project Premonition",
+  "status": "PROPOSED_SOURCE_INDEX_ONLY",
+  "authority": "Professor",
+  "basedOnMain": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d",
+  "governingLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canon": {
+    "architecture": "doctrine/luHmOSFourLayerArchitectureV1.json",
+    "rhythm": "doctrine/fourBeatInteractionRhythmV1.json",
+    "escalation": "doctrine/escalationKernelV1.json",
+    "typedData": "doctrine/typedFourLaneSqlV1.json",
+    "orchestra": "doctrine/lumOrchestraHardeningV1.json",
+    "quarantine": "doctrine/companyWideOperationalQuarantineV1.json",
+    "naming": "doctrine/namingNamespaceCanonV1.json",
+    "storage": "doctrine/storageTopologyV1.json"
+  },
+  "goddesses": [
+    {
+      "id": "lum",
+      "mode": "synthesizeAndRoute"
+    },
+    {
+      "id": "urdDoctorGoddess",
+      "mode": "adversarialEvidenceAndSafety"
+    },
+    {
+      "id": "belldandySecretary",
+      "mode": "archiveContinuityAndReceipts"
+    },
+    {
+      "id": "skuldResearch",
+      "mode": "toolchainVendorCompatibility"
+    }
+  ],
+  "compositionRows": [
+    "coreLibrary",
+    "pluginExtension",
+    "classWidgetOrganization",
+    "stubAdapterBoundary"
+  ],
+  "interactionBeats": [
+    "hear",
+    "resolve",
+    "act",
+    "verify"
+  ],
+  "typedSqlStreams": [
+    "numericStream",
+    "textStream",
+    "booleanStream",
+    "aiManifestStream"
+  ],
+  "runtimeSurfaces": [
+    "vmHeadless",
+    "deviceKiosk",
+    "webUi",
+    "githubBuild"
+  ],
+  "matrix": [
+    {
+      "address": "0x000",
+      "layer": "coreLibrary",
+      "beat": "hear",
+      "source": "agents/projectChatBootstrap/SKILL.md",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x001",
+      "layer": "coreLibrary",
+      "beat": "resolve",
+      "source": "doctrine/currentSourceTruthV3.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x002",
+      "layer": "coreLibrary",
+      "beat": "act",
+      "source": "tools/typedSqlStub.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x003",
+      "layer": "coreLibrary",
+      "beat": "verify",
+      "source": "tools/architectureRhythmAudit.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x004",
+      "layer": "pluginExtension",
+      "beat": "hear",
+      "source": "doctrine/apiSpineV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x005",
+      "layer": "pluginExtension",
+      "beat": "resolve",
+      "source": "doctrine/providerEconomyV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x006",
+      "layer": "pluginExtension",
+      "beat": "act",
+      "source": "tools/yumeGodotAssetPrep.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x007",
+      "layer": "pluginExtension",
+      "beat": "verify",
+      "source": "tools/vendorReductionAudit.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x008",
+      "layer": "classWidgetOrganization",
+      "beat": "hear",
+      "source": "doctrine/lumGoddessCabinetV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x009",
+      "layer": "classWidgetOrganization",
+      "beat": "resolve",
+      "source": "doctrine/yumeCreativePipelineV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x00A",
+      "layer": "classWidgetOrganization",
+      "beat": "act",
+      "source": "scripts/main.gd",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x00B",
+      "layer": "classWidgetOrganization",
+      "beat": "verify",
+      "source": "tools/gameplayVerticalSliceAudit.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x00C",
+      "layer": "stubAdapterBoundary",
+      "beat": "hear",
+      "source": "host/mcp/luhmMcpServer.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x00D",
+      "layer": "stubAdapterBoundary",
+      "beat": "resolve",
+      "source": "doctrine/storageTopologyV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x00E",
+      "layer": "stubAdapterBoundary",
+      "beat": "act",
+      "source": "tools/machineToHumanWizard.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "address": "0x00F",
+      "layer": "stubAdapterBoundary",
+      "beat": "verify",
+      "source": "tools/finalGoalHardeningAudit.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    }
+  ],
+  "environmentSqlMatrix": [
+    {
+      "address": "0x010",
+      "environment": "vmHeadless",
+      "stream": "numericStream",
+      "entry": ".devcontainer/devcontainer.json",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x011",
+      "environment": "vmHeadless",
+      "stream": "textStream",
+      "entry": ".devcontainer/devcontainer.json",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x012",
+      "environment": "vmHeadless",
+      "stream": "booleanStream",
+      "entry": ".devcontainer/devcontainer.json",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x013",
+      "environment": "vmHeadless",
+      "stream": "aiManifestStream",
+      "entry": ".devcontainer/devcontainer.json",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x014",
+      "environment": "deviceKiosk",
+      "stream": "numericStream",
+      "entry": "androidWeb3Plugin/README.md",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x015",
+      "environment": "deviceKiosk",
+      "stream": "textStream",
+      "entry": "androidWeb3Plugin/README.md",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x016",
+      "environment": "deviceKiosk",
+      "stream": "booleanStream",
+      "entry": "androidWeb3Plugin/README.md",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x017",
+      "environment": "deviceKiosk",
+      "stream": "aiManifestStream",
+      "entry": "androidWeb3Plugin/README.md",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x018",
+      "environment": "webUi",
+      "stream": "numericStream",
+      "entry": "frontEnd/index.html",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x019",
+      "environment": "webUi",
+      "stream": "textStream",
+      "entry": "frontEnd/index.html",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x01A",
+      "environment": "webUi",
+      "stream": "booleanStream",
+      "entry": "frontEnd/index.html",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x01B",
+      "environment": "webUi",
+      "stream": "aiManifestStream",
+      "entry": "frontEnd/index.html",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x01C",
+      "environment": "githubBuild",
+      "stream": "numericStream",
+      "entry": ".github/workflows/architecture-rhythm-audit.yml",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x01D",
+      "environment": "githubBuild",
+      "stream": "textStream",
+      "entry": ".github/workflows/architecture-rhythm-audit.yml",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x01E",
+      "environment": "githubBuild",
+      "stream": "booleanStream",
+      "entry": ".github/workflows/architecture-rhythm-audit.yml",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    },
+    {
+      "address": "0x01F",
+      "environment": "githubBuild",
+      "stream": "aiManifestStream",
+      "entry": ".github/workflows/architecture-rhythm-audit.yml",
+      "sqlContract": "doctrine/typedFourLaneSqlV1.json",
+      "status": "SCHEMA_ROUTE_ONLY"
+    }
+  ],
+  "addressing": {
+    "type": "logicalAliasOnly",
+    "byteOffset": false,
+    "firmwareAddress": false,
+    "start": 0,
+    "maxValue": 2047,
+    "capacity": 2048,
+    "exclusiveUpperBoundHex": "0x800",
+    "allocatedAliases": 32,
+    "unusedLogicalAliases": 2016,
+    "bitWidth": 11,
+    "paddedHexDigits": 3,
+    "rule": "0x000-0x00F architecture x rhythm; 0x010-0x01F environment x SQL; remaining slots reserved, not executed"
+  },
+  "capacityLadder": [
+    0,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    512,
+    1024,
+    2048
+  ],
+  "capacitySemantics": "logicalRoutingAddressesNotConcurrentAgentsOrVerifiedTestRuns",
+  "transport": {
+    "canonical": "UTF-8 JSON",
+    "hex": "displayOnlyForBytes",
+    "base64": "RFC4648BinaryToTextOnly",
+    "base64url": "TransportEncodingNotEncryption",
+    "base44": "SeparateOptionalAppPlatformNotRadixOrEncoding",
+    "compression": "ZIP_DEFLATE_SEPARATE",
+    "integrity": "SHA256",
+    "base64IsCompression": false,
+    "base64IsEncryption": false,
+    "base44IsEncoding": false
+  },
+  "studio": {
+    "blenderMaster": "privateRightsReviewedOnly",
+    "blenderPython": "separateLinuxStudioOptIn",
+    "assetGate": "tools/yumeGodotAssetPrep.py",
+    "glb": "approvedHandoffOnly",
+    "godot": "project.godot",
+    "ffmpeg": "scripts/render-yume-cutscene-proof.sh",
+    "samsung": "AndroidSystemWebViewThinClientNoNodeRuntime",
+    "remote": "approvedAuthenticatedMcpOnly",
+    "privacy": "noPrivateAssetBytesInPublicSource"
+  },
+  "sourceEvidence": {
+    "historicalArchiveDate": "2026-10-30",
+    "classification": "HISTORICAL_SOURCE_ONLY",
+    "matrix4x4": {
+      "sourcePass": 16,
+      "unverified": 0,
+      "blocked": 0
+    },
+    "matrix8x8": {
+      "sourcePass": 27,
+      "unverified": 37,
+      "blocked": 0
+    },
+    "matrix16x16": {
+      "sourcePass": 32,
+      "unverified": 208,
+      "blocked": 16
+    },
+    "liveEvidenceMustBeReadAfresh": true
+  },
+  "boundaries": {
+    "sourceOnly": true,
+    "activeAgentWorkers": 0,
+    "quarantineExpected": "QUARANTINED",
+    "automaticAgentLaunch": false,
+    "automaticProductionDeploy": false,
+    "automaticMerge": false,
+    "signingAuthorized": false,
+    "paidApisAuthorized": false,
+    "deviceFirmwareWrite": false,
+    "claimedSamsungProof": false,
+    "claimedBlenderRuntimeProof": false,
+    "claimedReleaseProof": false,
+    "crownStatus": "STOP"
+  },
+  "completionTargets": [
+    {
+      "id": "keepStudioSingle",
+      "reference": ".devcontainer/devcontainer.json",
+      "action": "verifyBlenderPythonVersionAndGLBExportInActualStudio",
+      "status": "RUNTIME_UNVERIFIED"
+    },
+    {
+      "id": "finishGodotBridge",
+      "reference": "project.godot",
+      "action": "reviewAndReconcileSeparateProposedGodotEmoteProof",
+      "status": "PROPOSED_UNMERGED"
+    },
+    {
+      "id": "repairCloudflare",
+      "reference": "doctrine/storageTopologyV1.json",
+      "action": "obtainActualProviderBuildLogBeforeAnyRepair",
+      "status": "BLOCKED_PROVIDER_EVIDENCE"
+    },
+    {
+      "id": "securePrivateAssets",
+      "reference": "doctrine/storageTopologyV1.json",
+      "action": "revokeBroadDriveSharingAndReviewDescendantsBeforeProtectedSync",
+      "status": "BLOCKED_EXTERNAL_ACL"
+    },
+    {
+      "id": "proveSamsung",
+      "reference": "doctrine/machineToHumanWizardV1.json",
+      "action": "ownerSignedSameSignerAndroidInstallAndUpgradeReceipt",
+      "status": "PHYSICAL_UNVERIFIED"
+    }
+  ]
+}
