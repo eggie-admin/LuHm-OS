@@ -19,6 +19,7 @@ from luhmCryptoTools import register_crypto_breathing_tools
 from luhmGpuVideoTools import register_gpu_video_planner
 from luhmLeanVmForgeTools import register_lean_vm_forge
 from luhmPlatformArtTools import register_platform_art_tools
+from luhmGithubSqlTools import register_github_sql_source_tools
 from luhmUpdateSpine import register_update_spine, register_remote_update_routes
 
 register_harness(
@@ -47,6 +48,7 @@ register_crypto_breathing_tools(core.server, root=core.ROOT, annotations=core.RE
 register_gpu_video_planner(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 register_lean_vm_forge(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 register_platform_art_tools(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
+register_github_sql_source_tools(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 
 # Update metadata is read-only, same-origin and independent from plugin reinstallation.
 register_update_spine(core.server, root=core.ROOT)
