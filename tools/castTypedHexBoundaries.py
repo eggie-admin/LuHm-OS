@@ -12,8 +12,8 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "doctrine/castTypedHexBoundariesV1.json"
-HEX40 = re.compile(r"[0-9a-f]{40}\\Z")
-HEX64 = re.compile(r"[0-9a-f]{64}\\Z")
+HEX40 = re.compile("[0-9a-f]{40}" + chr(92) + "Z")
+HEX64 = re.compile("[0-9a-f]{64}" + chr(92) + "Z")
 ROWS = ("firmwareTrust","kernelIsolation","networkScope","applicationCast")
 COLS = ("identify","verify","enforce","escalate")
 SOURCE_SYNTAX = 0x01
