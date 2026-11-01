@@ -166,7 +166,7 @@
     "artifactDigest": "lowercase64Hex",
     "evidenceFromUserOrUnverifiedAdapter": "UNTRUSTED_CLAIM",
     "stageOrderStrict": true,
-    "noSkip": false,
+    "noSkip": true,
     "onMissing": "HOLD",
     "onDifferentSource": "STOP",
     "onContradiction": "STOP",
