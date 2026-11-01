@@ -5,7 +5,8 @@ export const namespace="deviceCapability";
 export const platformIds=Object.freeze(["android","samsung","ios","webLinux"]);
 export const capabilityIds=Object.freeze(["runtime","graphics","storage","distribution"]);
 export const hexIds=Object.freeze(Array.from({length:16},(_,i)=>"0x"+i.toString(16).toUpperCase().padStart(2,"0")));
-export const orderedActions=Object.freeze(["play","edit","assets","build","audit","settings"]);
+import {orderedActions} from "./workflow-rank.mjs";
+export {orderedActions,initialCounts,sortActions,selectAction} from "./workflow-rank.mjs";
 const fields=Object.freeze(["schema","registryHex","kind","byteCount","payloadBase64","sha256","rssBytes","rightsState"]);
 const encoder=new TextEncoder();
 const allowedKinds=["artNote","buildReceipt","benchmarkReceipt"];
@@ -107,19 +108,4 @@ export function decodePacket(p){
   need(checkedUtf8(text).equals(raw),"PACKET_UTF8");
   return {value:text,registryHex:p.registryHex,kind:p.kind,byteCount:raw.length,
     sha256:p.sha256,rssBytes:p.rssBytes,rightsState:p.rightsState};
-}
-export function initialCounts(){return Object.fromEntries(orderedActions.map(x=>[x,0]));}
-export function sortActions(counts){
-  need(counts&&typeof counts==="object"&&!Array.isArray(counts) &&
-    Object.keys(counts).sort().join(",")===orderedActions.slice().sort().join(",") &&
-    orderedActions.every(id=>isUInt(counts[id])&&counts[id]<=1_000_000),
-    "GUI_COUNT_SHAPE");
-  return orderedActions.slice().sort((a,b)=>
-    counts[b]-counts[a] || orderedActions.indexOf(a)-orderedActions.indexOf(b));
-}
-export function selectAction(counts,id){
-  sortActions(counts);
-  need(orderedActions.includes(id),"GUI_ACTION_UNKNOWN");
-  need(counts[id]<1_000_000,"GUI_COUNT_LIMIT");
-  return {...counts,[id]:counts[id]+1};
 }
