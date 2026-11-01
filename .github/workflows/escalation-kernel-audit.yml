@@ -29,10 +29,19 @@ permissions:
 
 jobs:
   escalation-kernel:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact committed source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
       - name: Audit universal escalation kernel
         run: python3 tools/escalationKernelAudit.py
       - name: Test bounded CAST continuation
@@ -43,6 +52,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: cast-bridge-loop-${{ github.sha }}
+          name: cast-bridge-loop-${{ github.event.pull_request.head.sha || github.sha }}
           path: build/castBridgeLoop/state.json
           retention-days: 14
