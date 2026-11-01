@@ -49,7 +49,7 @@ def audit(policy: dict, license_text: str, gradle: str, preset: str,
          "PENDING_SOURCE_HEADER_AND_DERIVATIVE_LICENSE_REVIEW",
          "licenseNotMisrepresented")
     need(license_text.lstrip().startswith("GNU GENERAL PUBLIC LICENSE") and
-         re.search(r"Version\\s+3,\\s+29\\s+June\\s+2007", license_text) is not None,
+         re.search(r"Version\s+3,\s+29\s+June\s+2007", license_text) is not None,
          "actualRootGpl3")
     need(fdroid.get("antiFeatureClassification") == "NOT_YET_AUDITED_ON_REAL_APK" and
          fdroid.get("publicFdroid") == "NOT_PUBLISHED", "antiFeatureUnverified")
@@ -60,11 +60,11 @@ def audit(policy: dict, license_text: str, gradle: str, preset: str,
     need(fdroid.get("onlineServicePolicy") ==
          "PLAYABLE_OFFLINE_NO_REQUIRED_PROPRIETARY_BACKEND",
          "optionalBusinessService")
-    direct = set(re.findall(r'\\bimplementation\\s*\\(\\s*"([^"]+)"', gradle))
+    direct = set(re.findall(r'\bimplementation\s*\(\s*"([^"]+)"', gradle))
     need(direct == EXPECTED and
          set(fdroid.get("currentSourceCheck", {}).get("androidPluginDeclaredDependencies", []))
          == EXPECTED, "knownDirectDependenciesOnly")
-    dep_calls = re.findall(r'\\b(?:implementation|api|runtimeOnly|compileOnly)\\s*\\(\\s*([^\\n)]+)', gradle)
+    dep_calls = re.findall(r'\b(?:implementation|api|runtimeOnly|compileOnly)\s*\(\s*([^\n)]+)', gradle)
     need(len(dep_calls) == 2 and
          all(c.lstrip().startswith('"') for c in dep_calls),
          "noOpaqueDependencyDeclarations")
@@ -72,7 +72,7 @@ def audit(policy: dict, license_text: str, gradle: str, preset: str,
                "com.google.android.gms", "com.google.android.play",
                "com.samsung.android.sdk")
     need(not any(s in gradle.lower() for s in blocked), "noProprietarySdkDeclaration")
-    need(not re.search(r'\\b(fileTree|files)\\s*\\(', gradle),
+    need(not re.search(r'\b(fileTree|files)\s*\(', gradle),
          "noUnreviewedBinaryDependency")
     need("APP=\"" + PACKAGE + "\"" in fdroid_stager, "fdroidPackageStable")
     for key in ("noBackgroundWorkers", "noPublicTokenStorage", "noMetaCredentialInApk",
