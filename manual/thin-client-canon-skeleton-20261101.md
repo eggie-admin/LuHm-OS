@@ -39,9 +39,9 @@ python3 tools/fdroidTabletSourceAudit.py
 python3 -m unittest discover -s tests -p 'testVendorReduction.py' -v
 ```
 
-The first audit performs read-only source checks and **10 deliberate false-GREEN negatives**: fake kernel patch, Internet permission, ARM64 removal, remote UI script, unsafe WebView interface, extra proprietary SDK, unexpected UI dependency, renderer drift, auto-deploy, and dropped GKI/vendor ABI protections. The second already runs the Meta/Samsung service-isolation check in this PR and the thin-client audit via the existing GitHub `samsung-lite-public-beta-source` workflow. The vendor-reduction audit is independent.
+The first audit performs read-only source checks and **12 deliberate false-GREEN negatives**: fake kernel patch, Internet permission, ARM64 removal, remote UI script, unsafe WebView interface, extra proprietary SDK, unexpected UI dependency, renderer drift, auto-deploy, dropped GKI/vendor ABI protections, broad unfiltered front-end bundling, and injection of prototype assets. The second already runs the Meta/Samsung service-isolation check in this PR and the thin-client audit via the existing GitHub `samsung-lite-public-beta-source` workflow. The vendor-reduction audit is independent.
 
-**What these cannot prove:** no kernel/firmware reads, Android build, APK SBOM or binary packaging scan, stable owner signer, Samsung boot/install/upgrade test, GPU FPS, actual Meta/Google entitlement, app-store/F-Droid approval or public distribution.
+**Bundle correction in this proposed PR:** \`androidWeb3Plugin/plugin/build.gradle.kts\` no longer uses broad \`assets.srcDir(\"../../frontEnd\")\`. A Gradle \`Sync\` task stages only \`index.html\`, \`styles.css\`, \`app.js\`, four local cockpit jQuery adapters, the pinned jQuery library, and its MIT license. Both owner-CAST Android workflows now run the existing pinned npm stage before compiling an AAR. The staged file set fails closed if missing or extra files are present. This is **source configuration, not a compiled AAR/APK result**.\n\n**What these cannot prove:** no kernel/firmware reads, Android build, APK SBOM or binary packaging scan, stable owner signer, Samsung boot/install/upgrade test, GPU FPS, actual Meta/Google entitlement, app-store/F-Droid approval or public distribution.
 
 ## Go/no-go gates
 
