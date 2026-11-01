@@ -11,14 +11,17 @@
     "luhm-machine-audit": "./bin/luhm-machine-audit.mjs"
   },
   "exports": {
-    ".": "./src/index.mjs"
+    ".": "./src/index.mjs",
+    "./device-registry": "./src/device-registry.mjs",
+    "./workflow-rank": "./src/workflow-rank.mjs"
   },
   "scripts": {
     "test": "node --test",
     "audit": "node ./bin/luhm-machine-audit.mjs audit",
     "plan": "node ./bin/luhm-machine-audit.mjs plan",
     "verify": "node ./bin/luhm-machine-audit.mjs verify",
-    "remote-plan": "node ./bin/luhm-machine-audit.mjs remote-plan"
+    "remote-plan": "node ./bin/luhm-machine-audit.mjs remote-plan",
+    "audit:device": "node ./bin/luhm-machine-audit.mjs audit --with-python --with-device"
   },
   "files": [
     "src",
