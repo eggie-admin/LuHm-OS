@@ -30,6 +30,9 @@ test("bounded character action transition and granted resource are only data",()
  const m=createModule("candle-hall","b".repeat(40));
  const a=step(m,"gate",0,2026);
  assert.equal(a.from,"gate");assert.equal(a.to,"vault");
+ const failed=step(m,"gate",0,1);
+ assert.equal(failed.to,"rest");
+ assert.equal(failed.check.success,false);
  assert.equal(a.networkCalls,0);assert.equal(a.pluginCalls,0);
  assert.equal(a.productionGameProven,false);
  const b=step(m,"gate",1,2026);
@@ -42,6 +45,12 @@ test("hostile graph cannot inject imports, shell commands or reach nonexistent n
  const inject=structuredClone(base);
  inject.nodes[0].choices[0].shell="rm -rf /";
  assert.throws(()=>validateModule(inject),/RED_RPG_CHOICE_FIELDS/);
+ const badFailure=structuredClone(base);
+ badFailure.nodes[0].choices[0].failureTarget="invalid";
+ assert.throws(()=>validateModule(badFailure),/RED_RPG_MISSING_FAILURE_TARGET/);
+ const missingTest=structuredClone(base);
+ missingTest.nodes[0].choices[1].failureTarget="rest";
+ assert.throws(()=>validateModule(missingTest),/RED_RPG_FAILURE_REQUIRES_CHECK/);
  const dangling=structuredClone(base);
  dangling.nodes[0].choices[0].target="missing";
  assert.throws(()=>validateModule(dangling),/RED_RPG_MISSING_TARGET/);
