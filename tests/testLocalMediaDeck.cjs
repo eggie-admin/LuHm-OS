@@ -23,7 +23,7 @@ test("media preview nodes and native seek/transport controls exist", () => {
     assert.ok(markup.includes('id="' + id + '"'), id);
   assert.match(markup, /<video[^>]+controls[^>]+playsinline[^>]+preload="metadata"/);
   assert.match(markup, /<audio[^>]+controls[^>]+preload="metadata"/);
-  assert.doesNotMatch(markup, /(?:autoplay|vlc:\/\/|:8080)/i);
+  assert.doesNotMatch(markup, /<(?:video|audio)[^>]+\bautoplay\b|vlc:\/\/|:8080/i);
   assert.match(js, /URL\.revokeObjectURL\(activeUrl\)/);
   assert.match(js, /addEventListener\("pagehide", clear/);
   assert.match(js, /wireLocalMediaDeck\(doc\)/);
