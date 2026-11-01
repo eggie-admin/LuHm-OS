@@ -10,7 +10,8 @@
   },
   "exports": {
     ".": "./src/index.mjs",
-    "./codec": "./src/codec.mjs"
+    "./codec": "./src/codec.mjs",
+    "./machine": "./src/machine.mjs"
   },
   "bin": {
     "luhm-registry": "./bin/cli.mjs"
