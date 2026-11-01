@@ -39,3 +39,5 @@ Escalation is **0 → 2×2 → 4×4 → 8×8 → 16×16** only where independent
 ```
 
 No roster unquarantine, SDK entitlement change, paid API, merge, release signing, or publication is implied by this shared skill. **AI proposes. Policy authorizes. CI proves. Human promotes.**
+
+**Final cabinet guard: CROWN STOP.** This proposed skill overlay cannot lift registered agent quarantine or certify any physical device or art VM.
