@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#17131f">
+<meta name="description" content="Source-only CAST Bridge two-thread mock-up; no workers, deployment or live ChatGPT connection.">
+<title>LuHm-OS | CAST Bridge Two-Thread Source Preview</title>
+<style>
+:root{color-scheme:dark;--ink:#f3eeff;--muted:#cfc7e6;--line:#54496a;--cyan:#7de8eb;--pink:#ef8acb;--bg:#100f1d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:1200px;margin:auto;padding:28px clamp(18px,4vw,40px)}
+a{color:var(--cyan)}a:focus-visible,select:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+header{border-bottom:1px solid var(--line);margin-bottom:22px;padding-bottom:20px}
+h1{font-size:clamp(1.9rem,4vw,3.2rem);line-height:1.1;margin:.4em 0}
+h2{font-size:1.27rem;margin:0 0 7px}h3{font-size:1.02rem}
+.notice{padding:12px 16px;border:1px solid #9b6f44;background:#352419;border-radius:10px;color:#fff1d4}
+.tag{color:var(--cyan);font-size:.78rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+.controls{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:26px 0}
+label{display:grid;gap:6px;font-weight:600}
+select{background:#29273d;color:#f8f2ff;border:1px solid #75648e;padding:9px;border-radius:7px;font:inherit}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.thread{background:#1f1d31;border:1px solid var(--line);border-radius:15px;min-height:360px;padding:24px}
+.thread.mesh{background:#171e30;border-color:#436275}
+.status{font-size:.82rem;font-weight:700;letter-spacing:.045em;color:#fff;padding:4px 9px;border:1px solid #986b69;border-radius:20px;display:inline-block}
+.event{border-left:3px solid var(--cyan);background:#28283b;margin-top:18px;border-radius:0 8px 8px 0;padding:13px 17px}
+.mesh .event{border-left-color:var(--pink);background:#26253d}
+.event b{display:block;margin-bottom:3px}.event small{color:var(--muted)}.note{color:var(--muted);max-width:790px}
+.lanes{margin-top:26px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.lane{border:1px solid var(--line);background:#191a2d;border-radius:10px;padding:14px;overflow-wrap:anywhere}
+.lane span{font-size:.83rem;color:var(--muted)}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:15px;color:var(--muted);font-size:.91rem}
+@media(max-width:790px){.grid{grid-template-columns:1fr}.lanes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.lanes{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main>
+<header>
+<p class="tag">LuHm-OS · Project Premonition · Proposed CAST Bridge</p>
+<h1>Two threads. One source of truth.</h1>
+<p class="note">One visible conversation with Lum, one source-planned orchestration timeline. Both stay bound to the same task, source commit and scope. Nothing here starts an agent.</p>
+<p class="notice"><strong>OFFLINE UI PROTOTYPE:</strong> This page displays static, synthetic source-planning labels only. It does not connect to ChatGPT, run a worker, retrieve GitHub state, write SQL, CAST, build, deploy or grant GREEN.</p>
+</header>
+<div class="controls">
+<label for="tier">Escalation tier<select id="tier"><option value="0">R0 · default</option><option value="1">R1 · coordinated</option><option value="2">R2 · specialist</option><option value="3">R3 · closure</option></select></label>
+<label for="stage">Canon stage<select id="stage"><option>sanityCheck</option><option>audit</option><option>ingest</option><option>mutation</option><option>test</option><option>apply</option><option>continue</option><option>deploy</option></select></label>
+<span class="status" role="status">HOLD · no active mini-agents</span>
+</div>
+<div class="grid" aria-label="Two independently labeled source-only timelines">
+<section class="thread" aria-labelledby="p-title">
+<h2 id="p-title">① Professor ↔ Lum</h2>
+<p class="tag">User-control thread · presented in chat</p>
+<article class="event"><b>Professor · intent</b><small>Make the smallest source-aligned CAST Bridge plan.</small></article>
+<article class="event"><b>Lum · current plan</b><span id="humanStatus">R0: sanityCheck requested. Verify exact source first.</span></article>
+<p class="note">Human authorization remains here. Source evidence cannot silently promote or launch.</p>
+</section>
+<section class="thread mesh" aria-labelledby="m-title">
+<h2 id="m-title">② Lum ↔ orchestration</h2>
+<p class="tag">Simulated mesh transcript · not a live agent chat</p>
+<article class="event"><b>Lum · proposed handoff</b><span id="meshStatus">R0 / sanityCheck: source-only candidate. No executor connected.</span></article>
+<article class="event"><b>Urd · evidence disposition</b><span id="proofStatus">HOLD: authenticated CI + runtime receipt not supplied.</span></article>
+<p class="note">Belldandy tracks receipts and Skuld advises on compatibility as role labels; no independently running processes are claimed.</p>
+</section>
+</div>
+<h2 style="margin-top:32px">Four typed data lanes feeding four tiers</h2>
+<div class="lanes" aria-label="Machine-readable data lanes">
+<div class="lane"><strong>numericStream</strong><br><span>Tier 0..3 · stage ordinal · counters</span></div>
+<div class="lane"><strong>textStream</strong><br><span>Task, exact source, scope, digest; no raw goal</span></div>
+<div class="lane"><strong>booleanStream</strong><br><span>True / false / unknown. Unknown is never GREEN.</span></div>
+<div class="lane"><strong>aiManifestStream</strong><br><span>Bounded role plan and explicit stop conditions</span></div>
+</div>
+<footer>
+<p>Canonical path: sanityCheck → audit → ingest → mutation → test → apply → continue → deploy. Build evidence belongs with test; CAST Bridge runtime smoke proof follows separately after an approved deployment. All eight stages remain unverified in this demonstration.</p>
+<p><a href="/">LuHm-OS homepage</a> · <a href="https://github.com/eggie-admin/LuHm-OS">GitHub source</a></p>
+</footer>
+<script>
+"use strict";
+// Purely presentational mock. No fetch, storage, worker, eval or network.
+const tier=document.getElementById("tier");
+const stage=document.getElementById("stage");
+function paint(){
+  const label="R"+tier.value+" / "+stage.value;
+  document.getElementById("humanStatus").textContent=label+": exact source + scoped evidence required.";
+  document.getElementById("meshStatus").textContent=label+": source-only handoff, zero actual workers.";
+  document.getElementById("proofStatus").textContent="HOLD: no verified CI, private-host, owner or CAST smoke receipt.";
+}
+tier.addEventListener("change",paint);
+stage.addEventListener("change",paint);
+</script>
+</main></body></html>
