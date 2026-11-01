@@ -10,6 +10,7 @@ on:
       - 'tools/machineDebianSnapshot.py'
       - 'tests/testMachineDebianSnapshot.py'
       - 'manual/machine-debian-four-layer-snapshot-20261101.md'
+      - 'infra/machine-debian/**'
       - '.github/workflows/premonition-machine-wizard-audit.yml'
   workflow_dispatch:
 permissions:
@@ -46,6 +47,29 @@ jobs:
           assert r["crownStatus"] == "STOP"
           print("MACHINE_DEBIAN_4X4_SOURCE_SNAPSHOT_GREEN_RUNTIME_UNVERIFIED")
           PY
+      - name: Build isolated headless Debian userland and test no-server FFmpeg
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker build --file infra/machine-debian/Dockerfile --tag luhm-machine-debian:source-candidate .
+          test "$(docker image inspect --format '{{.Config.User}}' luhm-machine-debian:source-candidate)" = "65534:65534"
+          docker image inspect --format '{{.Id}}' luhm-machine-debian:source-candidate > "$RUNNER_TEMP/luhm-machine-image-id.txt"
+          flags=(--rm --network none --read-only --cap-drop ALL --security-opt no-new-privileges
+            --pids-limit 64 --memory 512m --cpus 1 --tmpfs /tmp:rw,nosuid,nodev,noexec,size=8m)
+          docker run "${flags[@]}" luhm-machine-debian:source-candidate > "$RUNNER_TEMP/debian-container-source-receipt.json"
+          python3 - "$RUNNER_TEMP/debian-container-source-receipt.json" <<'PY'
+          import json, sys
+          r=json.load(open(sys.argv[1],encoding="utf-8"))
+          assert r["verdict"]=="AMBER_SOURCE_ONLY" and r["hostEvidence"] is None
+          assert r["matrixCells"] == 16 and not r["kernelModified"]
+          assert r["sql"]["db"]=="SQLITE_MEMORY_STRICT"
+          assert r["crownStatus"]=="STOP"
+          PY
+          docker run "${flags[@]}" --entrypoint python3 luhm-machine-debian:source-candidate -m unittest discover -s tests -p 'testMachineDebianSnapshot.py' -v
+          docker run "${flags[@]}" --entrypoint /usr/bin/ffmpeg luhm-machine-debian:source-candidate \
+            -hide_banner -loglevel error -f lavfi -i color=c=black:s=64x64:r=1 \
+            -frames:v 1 -an -f null -
+          echo "DEBIAN_HEADLESS_FFMPEG_CPU_SMOKE_GREEN_HOST_KERNEL_UNCHANGED"
       - name: Emit runner-safe read-only sample
         run: |
           python3 tools/machineToHumanWizard.py --json > "$RUNNER_TEMP/wizard-receipt.json"
