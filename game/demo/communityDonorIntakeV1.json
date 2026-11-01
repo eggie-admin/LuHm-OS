@@ -301,6 +301,29 @@
       "runtimeProof": "NOT_TESTED",
       "priority": 2,
       "notes": "50 animated enemy models, use one original remix enemy prototype only, not exact franchise duplicates"
+    },
+    {
+      "assetId": "luhm-lum-rigged-biped",
+      "displayName": "Meshy AI Lum Midnight 1996 biped private GLB candidates",
+      "sourceFamily": "luhmOriginal",
+      "sourceUrl": "privateOwnerStorage://Meshy_AI_Lum_Midnight_1996_biped.zip",
+      "sourceRevisionOrVersion": "PRIVATE_SOURCE_INSPECTED_20261101",
+      "license": "PRIVATE_ORIGINAL_RIGHTS_AND_CANON_REVIEW_PENDING",
+      "licenseUrlOrFile": "doctrine/yumeGoddess3dProductionV1.json",
+      "authorOrOwnerWhenRequired": "LuHm private candidate",
+      "attributionTextWhenRequired": null,
+      "sourceHash": "fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da",
+      "contentLane": "privateCandidate",
+      "publicAllowed": false,
+      "assetRole": "riggedLumCandidate",
+      "destinationFamily": "characterBench",
+      "professorReviewState": "NOT_REVIEWED",
+      "downloadVerified": true,
+      "archiveIntegrity": "ZIP_CRC_AND_SHA256_PASS_PRIVATE_INSPECTION_20261101",
+      "godotImport": "NOT_TESTED",
+      "runtimeProof": "NOT_TESTED",
+      "priority": 0,
+      "notes": "Two glTF 2.0 GLBs, 24 joints/1 skin/1 animation per model, no morph targets; source archive currently anyone:writer; remains PRIVATE for Godot rig bench only."
     }
   ],
   "proof": {
@@ -311,7 +334,10 @@
     "godotRealImport": false,
     "deviceTest": false,
     "publicArtApproved": false,
-    "communitySourcesCurrentLicenseDriftFound": true
+    "communitySourcesCurrentLicenseDriftFound": true,
+    "privateLumArchiveInspected": true,
+    "privateLumStructuralRigVerification": true,
+    "privateLumGodotRuntimeProven": false
   },
   "crownStatus": "STOP",
   "knownLicenseConflicts": [
