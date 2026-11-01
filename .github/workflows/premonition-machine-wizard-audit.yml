@@ -12,6 +12,9 @@ on:
       - 'manual/machine-debian-four-layer-snapshot-20261101.md'
       - 'infra/machine-debian/**'
       - 'doctrine/machineLocalAgentAuditV1.json'
+      - 'doctrine/deviceCapabilityRegistryV1.json'
+      - 'tools/deviceRegistrySqlReceipt.py'
+      - 'manual/device-profile-registry-20261101.md'
       - 'tools/luhm-machine-agent/**'
       - '.github/workflows/premonition-machine-wizard-audit.yml'
   workflow_dispatch:
@@ -80,11 +83,13 @@ jobs:
         run: |
           set -euo pipefail
           python3 -m json.tool doctrine/machineLocalAgentAuditV1.json > /dev/null
+          python3 -m json.tool doctrine/deviceCapabilityRegistryV1.json > /dev/null
+          python3 -m py_compile tools/deviceRegistrySqlReceipt.py
           cd tools/luhm-machine-agent
           node --version
           npm test
           npm pack --dry-run --ignore-scripts --json > "$RUNNER_TEMP/machine-agent-npm-pack.json"
-          node bin/luhm-machine-audit.mjs audit --with-python > "$RUNNER_TEMP/machine-agent-source-receipt.json"
+          node bin/luhm-machine-audit.mjs audit --with-python --with-device > "$RUNNER_TEMP/machine-agent-source-receipt.json"
           node bin/luhm-machine-audit.mjs remote-plan > "$RUNNER_TEMP/machine-agent-remote-boundary.json"
           python3 - "$RUNNER_TEMP/machine-agent-source-receipt.json" "$RUNNER_TEMP/machine-agent-remote-boundary.json" <<'PY'
           import json,sys
@@ -92,6 +97,8 @@ jobs:
           remote=json.load(open(sys.argv[2],encoding="utf-8"))
           assert local["matrixCells"]==16 and local["verdict"]=="AMBER_SOURCE_ONLY"
           assert local["npmRuntimeDependencies"]==0 and local["pythonSqlInterop"]=="SOURCE_ONLY_VERIFIED"
+          assert local["deviceRegistryInterop"]=="SYNTHETIC_4X4_JS_PYTHON_SQL_VERIFIED"
+          assert local["deviceRegistryHex"]=="0x0B" and local["deviceRssSample"]=="SYNTHETIC_NOT_MEASURED"
           assert not local["networkAccessed"] and not local["agentActivated"] and not local["kernelChanged"]
           assert remote["status"]=="BLOCKED_PENDING_APPROVAL" and not remote["networkRequestMade"]
           assert not remote["modelCalled"] and not remote["receiptPromotion"]
