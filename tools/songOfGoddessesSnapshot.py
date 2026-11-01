@@ -11,7 +11,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "doctrine/songOfGoddessesSnapshotV1.json"
-SHA40 = re.compile(r"[0-9a-f]{40}\\Z")
+SHA40 = re.compile("[0-9a-f]{40}" + chr(92) + "Z")
 
 class SnapshotError(ValueError):
     pass
@@ -20,7 +20,7 @@ def stable_json(value: object) -> bytes:
     return json.dumps(value, sort_keys=True, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode("utf-8")
 
 def path_exists(path: str, root: Path) -> bool:
-    if type(path) is not str or not path or "\\\\" in path:
+    if type(path) is not str or not path or chr(92) in path:
         return False
     p = Path(path)
     if p.is_absolute() or ".." in p.parts or p.parts[0] == ".":
@@ -64,7 +64,7 @@ def validate(snapshot: dict, root: Path = ROOT) -> dict:
     roles=json.loads((root / "doctrine/lumGoddessCabinetV1.json").read_text())
     if q.get("state") != "QUARANTINED" or q.get("activeTaskWorkersAllowed") is not False:
         raise SnapshotError("WORKER_QUARANTINE")
-    if [x.get("id") for x in roles.get("members", [])] != [x.get("id") for x in snapshot.get("godddesses", [])]:
+    if [x.get("id") for x in roles.get("members", [])] != [x.get("id") for x in snapshot.get("goddesses", [])]:
         raise SnapshotError("GODDESS_IDENTITY")
     if len(snapshot.get("matrix", [])) != 16 or len(snapshot.get("environmentSqlMatrix", [])) != 16:
         raise SnapshotError("4X4_DIMENSIONS")
