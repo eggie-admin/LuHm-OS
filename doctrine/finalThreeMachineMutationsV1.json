@@ -1,0 +1,190 @@
+{
+  "schema": "luhmOs.finalThreeMachineMutations.v1",
+  "status": "SOURCE_PROPOSAL_ONLY",
+  "source": "eggie-admin/LuHm-OS",
+  "authority": "Professor",
+  "mutations": [
+    {
+      "id": "retroTileText",
+      "index": 1,
+      "goal": "original 8x8 planar tiles, palette indexes and original text, not commercial ROM processing",
+      "source": "tools/retroTileTextCodec.py",
+      "test": "tests/testRetroTileTextCodec.py",
+      "axes": [
+        "tile2bpp",
+        "tile4bpp",
+        "tileMap",
+        "textGlyph"
+      ],
+      "checks": [
+        "formatBounds",
+        "exactHex",
+        "roundTrip",
+        "artistRights"
+      ],
+      "limits": {
+        "tileSize": 8,
+        "tile2bppBytes": 16,
+        "tile4bppBytes": 32,
+        "maxTiles": 16,
+        "maxTextChars": 96
+      },
+      "ownerApproval": false
+    },
+    {
+      "id": "portableOsRecipe",
+      "index": 2,
+      "goal": "common portable software/configuration manifest, never a universal flashable BIOS",
+      "source": "tools/portableOsRecipeAudit.py",
+      "test": "tests/testPortableOsRecipeAudit.py",
+      "axes": [
+        "debian",
+        "ubuntu",
+        "androidGki",
+        "raspberryPi"
+      ],
+      "checks": [
+        "bootOwnership",
+        "kernelSeparation",
+        "devicePermissions",
+        "packageAndLicense"
+      ],
+      "ownerApproval": false
+    },
+    {
+      "id": "rTuning",
+      "index": 3,
+      "goal": "bounded synthetic R grid search and parameter-fitting receipts, never passwords or kernel auto-tuning",
+      "source": "tools/rSyntheticTuningGate.py",
+      "rSource": "tools/rSyntheticTuning.R",
+      "test": "tests/testRSyntheticTuningGate.py",
+      "axes": [
+        "numericStream",
+        "textStream",
+        "booleanStream",
+        "aiManifestStream"
+      ],
+      "checks": [
+        "sourceIdentity",
+        "boundedSearch",
+        "crossLanguageReceipt",
+        "ownerApproval"
+      ],
+      "maxTrials": 16,
+      "ownerApproval": false
+    }
+  ],
+  "existingCanon": [
+    "AGENTS.md",
+    "LICENSE",
+    "doctrine/hostileModForge4x4V1.json",
+    "doctrine/castTwoThreadBridgeV1.json",
+    "doctrine/machineFourArchitectureForgeV1.json",
+    "doctrine/creativeModuleForge4x4V1.json",
+    "doctrine/castIdentityHexRegistryV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json"
+  ],
+  "sourceReferences": [
+    {
+      "label": "NESdev CHR format",
+      "url": "https://www.nesdev.org/wiki/CHR",
+      "rights": "DOCUMENTATION_ONLY"
+    },
+    {
+      "label": "SNESdev planar tiles",
+      "url": "https://snes.nesdev.org/wiki/Tiles",
+      "rights": "DOCUMENTATION_ONLY"
+    },
+    {
+      "label": "Android GKI and vendor modules",
+      "url": "https://source.android.google.cn/docs/core/architecture/kernel",
+      "rights": "DOCUMENTATION_ONLY"
+    },
+    {
+      "label": "Debian derivatives",
+      "url": "https://www.debian.org/derivatives/index.html",
+      "rights": "LICENSE_AND_TRADEMARK_REVIEW"
+    },
+    {
+      "label": "Ubuntu IP policy",
+      "url": "https://ubuntu.com/legal/intellectual-property-policy",
+      "rights": "TRADEMARK_REVIEW"
+    },
+    {
+      "label": "Rscript official manual",
+      "url": "https://search.r-project.org/R/refmans/utils/html/Rscript.html",
+      "rights": "R_GPL_2_OR_3"
+    }
+  ],
+  "retro": {
+    "inspiredByLegacyTileFormat": true,
+    "usesNintendoIP": false,
+    "sourceImageClass": "SYNTHETIC_OR_OWNER_ORIGINAL",
+    "noRomBiosIso": true,
+    "noCommercialSprites": true,
+    "noNesPpuHardwareClaim": true,
+    "noImplicitPaletteQuantization": true
+  },
+  "platform": {
+    "commonInterface": "CAPABILITY_MANIFEST_NOT_UNIVERSAL_BIOS",
+    "androidUsesGkiAndVendorModuleSeparation": true,
+    "linuxMainlineKernelReferenceOnly": true,
+    "avoidRootAccess": true,
+    "noCustomKernelCompiled": true,
+    "noFirmwareFlash": true,
+    "noDistroIsoProduced": true,
+    "noRealImageBooted": true,
+    "noOfficialDebianUbuntuFlavorClaim": true,
+    "licenseByPackage": true,
+    "sourceGPL3Unchanged": true,
+    "apache2MayApplyOnlyToClearedOriginalComponents": true
+  },
+  "math": {
+    "implementation": "BASE_R_ONLY_NO_CRAN_DOWNLOADS",
+    "problemClass": "SYNTHETIC_BOUNDED_QUADRATIC_OBJECTIVE",
+    "notPasswordCracking": true,
+    "notAdversarialCredentialBruteForce": true,
+    "noRealKernelTuning": true,
+    "noAiModelClaim": true,
+    "noSelfApproval": true,
+    "noUnboundedLoops": true,
+    "noSideEffects": true,
+    "runtimeEvidenceNeedsCI": true
+  },
+  "fourByFour": {
+    "retroRows": [
+      "tile2bpp",
+      "tile4bpp",
+      "tileMap",
+      "textGlyph"
+    ],
+    "platformRows": [
+      "debian",
+      "ubuntu",
+      "androidGki",
+      "raspberryPi"
+    ],
+    "rRows": [
+      "numericStream",
+      "textStream",
+      "booleanStream",
+      "aiManifestStream"
+    ],
+    "phases": [
+      "sanity",
+      "audit",
+      "syntheticTest",
+      "ownerHandoff"
+    ]
+  },
+  "release": {
+    "sourceOnly": true,
+    "noAutoMerge": true,
+    "noAutoDeploy": true,
+    "noAgentResumption": true,
+    "noPaidServices": true,
+    "noPublicStoreClaim": true,
+    "noLiveFirmwareMutation": true
+  },
+  "crown": "STOP"
+}
