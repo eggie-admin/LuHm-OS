@@ -17,6 +17,43 @@ def register_wms_vm_tools(server: Any, *, root: Path, annotations: Any) -> None:
     manager = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(manager)
 
+    matrix_path = root / "tools" / "headlessMachineMatrixAudit.py"
+    matrix_spec = importlib.util.spec_from_file_location("headlessMachineMatrixAudit", matrix_path)
+    if matrix_spec is None or matrix_spec.loader is None:
+        raise RuntimeError("RED_MACHINE_MATRIX_AUDITOR_MISSING")
+    matrix = importlib.util.module_from_spec(matrix_spec)
+    matrix_spec.loader.exec_module(matrix)
+
+    @server.tool(
+        name="luhm_machine_matrix_status",
+        title="LuHm 4x4 headless VM source audit",
+        description=(
+            "Audit 16 canonical headless Pi, VM, emulation/media and capture cells for "
+            "source consistency. No real device, hypervisor, camera, or content is accessed."
+        ),
+        annotations=annotations,
+    )
+    def luhm_machine_matrix_status() -> dict[str, Any]:
+        return matrix.audit_schema()
+
+    @server.tool(
+        name="luhm_machine_matrix_plan",
+        title="LuHm R1-R4 isolated machine lane plan",
+        description=(
+            "For explicit taskId, full sourceRef, scopeId and one allowlisted lane "
+            "(foundation, virtualization, emulationMedia, captureMotion), return "
+            "a 4-gate read-only proof plan. No install, SSH, JIT, ROM/BIOS, VM, or capture action."
+        ),
+        annotations=annotations,
+    )
+    def luhm_machine_matrix_plan(
+        taskId: str,
+        sourceRef: str,
+        scopeId: str,
+        lane: str,
+    ) -> dict[str, Any]:
+        return matrix.plan(taskId, sourceRef, scopeId, lane)
+
     @server.tool(
         name="luhm_wms_status",
         title="LuHm remote WMS status",
