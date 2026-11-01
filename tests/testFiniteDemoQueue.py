@@ -26,7 +26,10 @@ class DemoQueueTest(unittest.TestCase):
         self.assertFalse(receipt["publicPublication"])
         self.assertIn("demo-02", receipt["readyNow"])
         self.assertIn("demo-01", receipt["completedWithEvidence"])
-        self.assertFalse(SOURCE["boundedWork"]["queue"][4]["stagingProof"]["copySha256Verified"])
+        self.assertTrue(SOURCE["boundedWork"]["queue"][4]["stagingProof"]["copySha256Verified"])
+        self.assertFalse(SOURCE["boundedWork"]["queue"][4]["stagingProof"]["rightsApprovedForPublicGame"])
+        self.assertFalse(SOURCE["boundedWork"]["queue"][4]["stagingProof"]["godotImportVerified"])
+        self.assertEqual(SOURCE["boundedWork"]["queue"][4]["state"], "PENDING")
         self.assertNotIn("release-01", receipt["readyNow"])
     def test_reject_false_done(self):
         doc = copy.deepcopy(SOURCE)

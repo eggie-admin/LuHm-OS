@@ -154,9 +154,19 @@
           "ownerOnlyCopy": true,
           "ownerOnlyFolder": true,
           "copyFileSizeBytes": 2683473,
-          "copySha256Verified": false,
+          "copySha256Verified": true,
           "originalWriterExposureRemains": true,
-          "publicAssetAdmission": false
+          "publicAssetAdmission": false,
+          "copySha256": "6bfc5147179c15d6a9339179ae0204bbb677ac419834ee6276f96ba476487d80",
+          "copyMatchesHistoricalCanonHash": true,
+          "imageDimensions": {
+            "width": 1055,
+            "height": 1491
+          },
+          "contentType": "FLATTENED_ART_REFERENCE_MONTAGE_NOT_PRODUCTION_SPRITES",
+          "visualInspection": "Five turnaround views, seven expression studies, hand/hip-wing/tail poses, VFX and icon concepts; requires private crop/layer extraction and Godot acceptance",
+          "rightsApprovedForPublicGame": false,
+          "godotImportVerified": false
         }
       },
       {
