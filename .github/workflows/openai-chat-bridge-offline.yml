@@ -59,8 +59,15 @@ on:
       - "doctrine/hostileModForge4x4V1.json"
       - "tools/hostileModForgeAudit.py"
       - "tests/testHostileModForge.py"
-      - "host/mcp/luhmHostileModForgeTools.py"
+      - "host/mcp/luhmHostileModForgeTools.py host/api/luhmCastTwoThreadBridge.py host/mcp/luhmCastTwoThreadTools.py"
       - "manual/hostile-mod-forge-runbook.md"
+      - "doctrine/castTwoThreadBridgeV1.json"
+      - "host/api/luhmCastTwoThreadBridge.py"
+      - "host/mcp/luhmCastTwoThreadTools.py"
+      - "tests/testCastTwoThreadBridge.py"
+      - "tests/testCastTwoThreadFastApi.py"
+      - "publicationSite/castBridgePreview.html"
+      - "manual/cast-two-thread-bridge-runbook.md"
   workflow_dispatch:
 
 permissions:
@@ -97,6 +104,10 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'testCryptoBreathing.py' -v
           python -m unittest discover -s tests -p 'testCryptoSqlite.py' -v
+      - name: Test CAST Bridge two-thread source and private FastAPI claims
+        run: |
+          python -m unittest discover -s tests -p 'testCastTwoThreadBridge.py' -v
+          python -m unittest discover -s tests -p 'testCastTwoThreadFastApi.py' -v
       - name: Test FastAPI private authentication and bounded checkpointing
         run: python -m unittest discover -s tests -p 'testCanonFastApi.py' -v
       - name: Test 4x4 source, quarantine, firmware rights, and bounded green-loop gate
