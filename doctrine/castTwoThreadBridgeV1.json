@@ -1,0 +1,207 @@
+{
+  "schema": "luhmOs.castTwoThreadBridge.v1",
+  "state": "SOURCE_ONLY_DEMONSTRATION",
+  "identity": {
+    "product": "LuHm-OS",
+    "project": "Project Premonition",
+    "controller": "lum",
+    "source": "eggie-admin/LuHm-OS",
+    "authority": "Professor"
+  },
+  "anchors": [
+    "AGENTS.md",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/escalationKernelV1.json",
+    "doctrine/typedFourLaneSqlV1.json",
+    "doctrine/lumTwoLaneFastApiOrchestrationV1.json",
+    "doctrine/eighthNoteAgentScopeV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/currentSourceTruthV3.json",
+    "host/api/typedLanesV1.sql",
+    "host/api/luhmCanonOrchestration.py"
+  ],
+  "visualThreads": [
+    {
+      "id": "professorLum",
+      "label": "Professor ↔ Lum",
+      "speakerRoles": [
+        "Professor",
+        "lum"
+      ],
+      "purpose": "intent, clarification, visible decision and owner authority",
+      "liveIntegration": "CHATGPT_UI_NOT_CONTROLLED_BY_SOURCE"
+    },
+    {
+      "id": "lumMesh",
+      "label": "Lum ↔ orchestration",
+      "speakerRoles": [
+        "lum",
+        "urdDoctorGoddess",
+        "belldandySecretary",
+        "skuldResearch"
+      ],
+      "purpose": "source-scoped deterministic receipts and explicit worker evidence",
+      "liveIntegration": "ZERO_AUTONOMOUS_AGENT_THREADS"
+    }
+  ],
+  "fourTypedDataLanes": [
+    {
+      "id": "numericStream",
+      "meaning": "tier, stage ordinal, pass counts, budgets",
+      "safeProjection": "integersOnlyNoMonetaryInFloat"
+    },
+    {
+      "id": "textStream",
+      "meaning": "task/source/scope, artifact hashes, bounded status",
+      "safeProjection": "noRawGoalOrSecrets"
+    },
+    {
+      "id": "booleanStream",
+      "meaning": "true/false/unknown source and execution proof",
+      "safeProjection": "unknownNeverBecomesTrue"
+    },
+    {
+      "id": "aiManifestStream",
+      "meaning": "bounded candidate, selected role, stop conditions",
+      "safeProjection": "noSelfApprovalNoExecution"
+    }
+  ],
+  "tiers": [
+    {
+      "id": 0,
+      "label": "default",
+      "humanEffort": "lowest",
+      "role": "lum",
+      "permission": "readOnlyLocalPlanning",
+      "need": "simple source and current receipt sanity"
+    },
+    {
+      "id": 1,
+      "label": "coordinated",
+      "humanEffort": "onlyOnGap",
+      "role": "lum+urdDoctorGoddess",
+      "permission": "reviewOnly",
+      "need": "bounded scoped reconciliation"
+    },
+    {
+      "id": 2,
+      "label": "specialist",
+      "humanEffort": "onHardBlocker",
+      "role": "skuldResearch+yume+evidence",
+      "permission": "candidateOnly",
+      "need": "deep domain audit and reversible proposal"
+    },
+    {
+      "id": 3,
+      "label": "closure",
+      "humanEffort": "humanGateForConsequentialChanges",
+      "role": "lum+Professor",
+      "permission": "noImpliedPromotion",
+      "need": "exact build/deploy/CAST proof before public claim"
+    }
+  ],
+  "canonicalStates": [
+    "sanityCheck",
+    "audit",
+    "ingest",
+    "mutation",
+    "test",
+    "apply",
+    "continue",
+    "deploy"
+  ],
+  "professorLanguage": [
+    {
+      "says": "sanity check",
+      "mapsTo": [
+        "sanityCheck"
+      ]
+    },
+    {
+      "says": "hard audit",
+      "mapsTo": [
+        "audit",
+        "ingest"
+      ]
+    },
+    {
+      "says": "adjust/mutate",
+      "mapsTo": [
+        "mutation"
+      ]
+    },
+    {
+      "says": "build",
+      "mapsTo": [
+        "test"
+      ],
+      "note": "Build/test evidence is required; a plan is not a build."
+    },
+    {
+      "says": "deploy",
+      "mapsTo": [
+        "apply",
+        "continue",
+        "deploy"
+      ],
+      "note": "Proposed-candidate only under current Canon."
+    },
+    {
+      "says": "CAST Bridge test",
+      "mapsTo": [
+        "postDeployBridgeSmoke"
+      ],
+      "note": "Separate proof after approved deployment; not one of the eight canonical states."
+    }
+  ],
+  "receiptRules": {
+    "requiredIdentity": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "stage",
+      "evidenceSha256"
+    ],
+    "sourceRef": "exactLowercase40Hex",
+    "artifactDigest": "lowercase64Hex",
+    "evidenceFromUserOrUnverifiedAdapter": "UNTRUSTED_CLAIM",
+    "stageOrderStrict": true,
+    "noSkip": false,
+    "onMissing": "HOLD",
+    "onDifferentSource": "STOP",
+    "onContradiction": "STOP",
+    "resumeAcrossChangedSource": false,
+    "goalStoredAsHashOnly": true,
+    "twoLogicalThreadsDoesNotMeanTwoExecutingAgents": true,
+    "noParallelSourceMutators": true,
+    "neverClaimGreenFromSourceOnly": true,
+    "sameTaskScopeForBothThreads": true,
+    "maximumSupportWorkersAfterApprovedRuntime": 3
+  },
+  "privacy": {
+    "noRawGoalInLogs": true,
+    "noDeviceSecrets": true,
+    "noBrowserApiToken": true,
+    "noPublicAdminRoute": true,
+    "noPrivateAssetBytes": true
+  },
+  "runtime": {
+    "activeMiniAgents": 0,
+    "backgroundWorkers": 0,
+    "connectedVm": false,
+    "castExecuted": false,
+    "productionDeployed": false,
+    "clientThreadCreation": false,
+    "sharedLiveTimeline": false
+  },
+  "policy": {
+    "companyQuarantine": true,
+    "noAutoMerge": true,
+    "noAutoDeploy": true,
+    "noSelfApproval": true,
+    "noNewPaidProvider": true,
+    "proposedHostOnlyPrivateFastApi": true,
+    "readOnlyMcp": true
+  },
+  "crownStatus": "STOP"
+}
