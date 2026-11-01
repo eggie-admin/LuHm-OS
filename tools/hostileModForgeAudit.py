@@ -273,9 +273,11 @@ def synthetic_patch_plan(payload: Mapping[str, Any]) -> dict[str, Any]:
     for key in ("inputSha256", "outputSha256", "patchSha256"):
         if type(payload[key]) is not str or HEX64.fullmatch(payload[key]) is None:
             raise ValueError("RED_PATCH_DIGEST")
-    if (payload["format"] not in ALLOWED_PATCH_FORMATS or
+    if (type(payload["format"]) is not str or
+            payload["format"] not in ALLOWED_PATCH_FORMATS or
             type(payload["offsetHex"]) is not str or
             HEX_OFFSET.fullmatch(payload["offsetHex"]) is None or
+            type(payload["originalRights"]) is not str or
             payload["originalRights"] not in ("homebrewOwned", "expresslyLicensed")):
         raise ValueError("RED_PATCH_RIGHTS_FORMAT_OR_OFFSET")
     offset = int(payload["offsetHex"], 16)
