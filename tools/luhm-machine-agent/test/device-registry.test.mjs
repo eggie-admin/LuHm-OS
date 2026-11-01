@@ -90,3 +90,32 @@ test("GUI sorting uses session selections only; ties keep curated first-time ord
  assert.throws(()=>selectAction(counts,"signAndroidRelease"),/RED_GUI_ACTION_UNKNOWN/);
  assert.throws(()=>sortActions({...counts,build:-3}),/RED_GUI_COUNT_SHAPE/);
 });
+
+test("unified local CLI uses synthetic JS Python SQLite registry receipt",()=>{
+ const cli=resolve(repoRoot,"tools/luhm-machine-agent/bin/luhm-machine-audit.mjs");
+ const res=spawnSync(process.execPath,[cli,"audit","--with-python","--with-device"],{
+    cwd:repoRoot,encoding:"utf8",timeout:20000,maxBuffer:256000});
+ assert.equal(res.status,0,res.stderr);
+ const out=JSON.parse(res.stdout);
+ assert.equal(out.deviceRegistryInterop,"SYNTHETIC_4X4_JS_PYTHON_SQL_VERIFIED");
+ assert.equal(out.deviceRegistryHex,"0x0B");
+ assert.equal(out.deviceRssSample,"SYNTHETIC_NOT_MEASURED");
+ assert.equal(out.pythonSqlInterop,"SOURCE_ONLY_VERIFIED");
+ assert.equal(out.hardwareVerified,false);
+ assert.equal(out.remoteInvocation,"DISABLED");
+});
+test("phone UI exposes no fake Play links, no scripts from CDN and no analytics",async()=>{
+ const base=resolve(repoRoot,"tools/luhm-machine-agent/demo");
+ const [html,css,js]=await Promise.all(["index.html","style.css","app.mjs"]
+   .map(x=>readFile(resolve(base,x),"utf8")));
+ assert.match(html,/default-src 'none'/);
+ assert.match(html,/connect-src 'none'/);
+ assert.match(html,/No apps, GPUs, private assets, or agents have been started/);
+ assert.match(html,/Not a live Godot or Unreal scene/);
+ assert.match(html,/script type="module" src="\.\/app\.mjs"/);
+ assert.match(js,/replaceChildren/);
+ assert.match(js,/selectAction\(counts,id\)/);
+ assert.match(js,/noopener noreferrer/);
+ assert.doesNotMatch(js,/fetch\(|XMLHttpRequest|localStorage|innerHTML\s*=/);
+ assert.match(css,/prefers-reduced-motion/);
+});
