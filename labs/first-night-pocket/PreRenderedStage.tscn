@@ -80,5 +80,10 @@ text = "← Walk"
 layout_mode = 2
 text = "Walk →"
 
+[node name="Return" type="Button" parent="HUD/Panel/Margin/VBox/MoveButtons"]
+layout_mode = 2
+text = "← Cathedral Hub"
+
+[connection signal="pressed" from="HUD/Panel/Margin/VBox/MoveButtons/Return" to="." method="_on_return_pressed"]
 [connection signal="pressed" from="HUD/Panel/Margin/VBox/MoveButtons/Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="HUD/Panel/Margin/VBox/MoveButtons/Right" to="." method="_on_right_pressed"]
