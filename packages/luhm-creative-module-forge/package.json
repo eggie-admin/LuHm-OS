@@ -1,0 +1,25 @@
+{
+  "name": "@luhm-os/creative-module-forge",
+  "version": "0.1.0-proposed.0",
+  "private": true,
+  "type": "module",
+  "description": "Project Premonition original tabletop RPG JSON scene DSL and deterministic private CLI template",
+  "license": "SEE ROOT GPL-3.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": "./src/engine.mjs"
+  },
+  "bin": {
+    "luhm-adventure": "./bin/cli.mjs"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --test tests/*.test.mjs",
+    "scaffold": "node bin/cli.mjs scaffold moonlit-archive",
+    "demo": "node bin/cli.mjs demo"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

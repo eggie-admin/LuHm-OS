@@ -1,0 +1,116 @@
+{
+  "schema": "luhmOs.lumTwoLaneFastApiOrchestration.v1",
+  "status": "PROPOSED_OFFLINE_CANDIDATE",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "baseline": {
+    "sourceTruth": "doctrine/currentSourceTruthV3.json",
+    "quarantine": "doctrine/companyWideOperationalQuarantineV1.json",
+    "eighthNotes": "doctrine/eighthNoteAgentScopeV1.json",
+    "typedSql": "doctrine/typedFourLaneSqlV1.json",
+    "sqlSchema": "host/api/typedLanesV1.sql",
+    "apiSpine": "doctrine/apiSpineV1.json",
+    "escalation": "doctrine/escalationKernelV1.json",
+    "storage": "doctrine/storageTopologyV1.json",
+    "agentRoster": "doctrine/agentSystemDeploymentV1.json"
+  },
+  "transport": {
+    "client": "existingChatGptMcpAppAndSevenVisualPlanes",
+    "fastApi": "privateHostOnlyOptionalASGIAdapter",
+    "defaultBind": "127.0.0.1",
+    "browserConnectsDirectlyToFastApi": false,
+    "auth": "hostHeaderTokenRequiredForEveryOrchestrationRoute",
+    "secretsInClient": false,
+    "publicPort": false,
+    "publicSql": false,
+    "noNewAlwaysOnService": true
+  },
+  "logicalLanes": [
+    {
+      "id": "lumCoordinator",
+      "roleLabel": "lum",
+      "eighthNote": 2,
+      "purpose": "Bind intent, task/source/scope and minimum next action",
+      "state": "PLAN_ONLY"
+    },
+    {
+      "id": "miniAgentEvidence",
+      "roleLabel": "urdDoctorGoddess",
+      "eighthNote": 6,
+      "purpose": "Inspect contradictions, source drift and missing proofs; no live agent dispatch",
+      "state": "PLAN_ONLY"
+    }
+  ],
+  "workflow": {
+    "beats": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "eighthNoteSequence": [
+      "hearProfessorGoal",
+      "bindFocusedScopeAndCurrentTaskAuthority",
+      "resolveVendorAiCapabilityAndEntitlement",
+      "routeVendorAiAndFocusedMiniAgentWork",
+      "collectVendorAndMiniAgentCandidates",
+      "goddessAuditThenLumReconcile",
+      "applyTestAndVerify",
+      "reportCloseOrReturnTask"
+    ],
+    "maxLogicalLanes": 2,
+    "activeAgentThreads": 0,
+    "actualAsyncWorkerSpawns": 0,
+    "noHiddenWork": true,
+    "escalationDefaultTier": 0,
+    "maxEscalationTier": 3,
+    "continueOnlyAfterExactSourceAndScopeEvidence": true,
+    "quarantineOverridesRouting": true,
+    "dryRunOnly": true
+  },
+  "sql": {
+    "reuseExistingTypedSqlStub": "tools/typedSqlStub.py",
+    "tables": [
+      "streamEvent",
+      "textStream",
+      "booleanStream",
+      "aiManifestStream"
+    ],
+    "twoScopedAtomicEvents": true,
+    "transaction": "BEGIN IMMEDIATE and commit both events or none",
+    "identity": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "requestSha256"
+    ],
+    "hash": "SHA256 bounded request and deterministic event labels; lowercase hexadecimal",
+    "rawGoalPersisted": false,
+    "localSqliteInMemoryByDefault": true,
+    "persistOnlyWithExplicitPrivateHostPath": true,
+    "existingSqlSchemaUnchanged": true,
+    "publicDatabaseEndpoint": false,
+    "databaseBinaryArchive": false,
+    "replayMustBeIdempotent": true
+  },
+  "monitoring": {
+    "mode": "synchronousCheckpointsOnly",
+    "sourceAndScopeDrift": "STOP",
+    "unmatchedLaneReceipt": "STOP",
+    "historicalProofNeverPromoted": true,
+    "greenIsAlwaysFalse": true,
+    "crownIsAlwaysFalse": true,
+    "remoteVmConnected": false,
+    "paidOpenAiCalls": false
+  },
+  "acceptance": [
+    "compilePython",
+    "offlineSqlUnitTests",
+    "FastApiAuthNegativeTests",
+    "exactShaGitHubActions",
+    "existingMcpHarnessAudit",
+    "separateHostAppMountProof"
+  ],
+  "promotion": false,
+  "crownStatus": "STOP"
+}

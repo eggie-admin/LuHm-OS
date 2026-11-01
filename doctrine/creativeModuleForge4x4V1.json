@@ -1,0 +1,397 @@
+{
+  "schema": "luhmOs.creativeModuleForge4x4.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "project": "LuHm-OS: Project Premonition",
+  "authority": "Professor",
+  "repo": "eggie-admin/LuHm-OS",
+  "noLiveAgentThreads": true,
+  "roots": [
+    "AGENTS.md",
+    "LICENSE",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/artistFirstArtToolCanonV1.json",
+    "doctrine/hostileModForge4x4V1.json",
+    "doctrine/castIdentityHexRegistryV1.json",
+    "doctrine/castTwoThreadBridgeV1.json",
+    "doctrine/machineFourArchitectureForgeV1.json",
+    "doctrine/typedFourLaneSqlV1.json"
+  ],
+  "lanes": [
+    {
+      "id": "rulesRoleplay",
+      "engine": "javascript",
+      "input": [
+        "originalRulePack",
+        "declaredSrdReference"
+      ],
+      "output": [
+        "diceOutcome",
+        "encounterReceipt"
+      ],
+      "noVendorGameRulesCopy": true
+    },
+    {
+      "id": "worldModules",
+      "engine": "javascriptGodot",
+      "input": [
+        "originalQuest",
+        "safeSceneDsl",
+        "factionCatalog"
+      ],
+      "output": [
+        "modulePreview",
+        "sceneHandoff"
+      ],
+      "noEval": true
+    },
+    {
+      "id": "artAvatars",
+      "engine": "blenderGimpLive2dReview",
+      "input": [
+        "licensedPsdLayers",
+        "originalSvg",
+        "approvedDazReference"
+      ],
+      "output": [
+        "blenderRetargetPlan",
+        "godotImportPlan"
+      ],
+      "noPrivateModelsInGit": true
+    },
+    {
+      "id": "communitySignals",
+      "engine": "pythonGit",
+      "input": [
+        "boundedAtomRssBytes",
+        "githubReference",
+        "nexusMetadataReference",
+        "emulatorResearchReference"
+      ],
+      "output": [
+        "sourceDigest",
+        "rightsHold"
+      ],
+      "noAutoFetch": true
+    }
+  ],
+  "phases": [
+    {
+      "id": "R1",
+      "state": "sourceIdentity",
+      "required": "exactGitSourceAndAuthor"
+    },
+    {
+      "id": "R2",
+      "state": "rightsReview",
+      "required": "licenseAndPerAssetProvenance"
+    },
+    {
+      "id": "R3",
+      "state": "offlineTest",
+      "required": "hostileBoundedParserAndOriginalFixture"
+    },
+    {
+      "id": "R4",
+      "state": "ownerRelease",
+      "required": "exactTargetHumanApprovalAndRuntimeProof"
+    }
+  ],
+  "matrix4x4": [
+    {
+      "lane": "rulesRoleplay",
+      "cells": [
+        {
+          "cell": "rulesRoleplay.R1",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        },
+        {
+          "cell": "rulesRoleplay.R2",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        },
+        {
+          "cell": "rulesRoleplay.R3",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        },
+        {
+          "cell": "rulesRoleplay.R4",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        }
+      ]
+    },
+    {
+      "lane": "worldModules",
+      "cells": [
+        {
+          "cell": "worldModules.R1",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        },
+        {
+          "cell": "worldModules.R2",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        },
+        {
+          "cell": "worldModules.R3",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        },
+        {
+          "cell": "worldModules.R4",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        }
+      ]
+    },
+    {
+      "lane": "artAvatars",
+      "cells": [
+        {
+          "cell": "artAvatars.R1",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        },
+        {
+          "cell": "artAvatars.R2",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        },
+        {
+          "cell": "artAvatars.R3",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        },
+        {
+          "cell": "artAvatars.R4",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        }
+      ]
+    },
+    {
+      "lane": "communitySignals",
+      "cells": [
+        {
+          "cell": "communitySignals.R1",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        },
+        {
+          "cell": "communitySignals.R2",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        },
+        {
+          "cell": "communitySignals.R3",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        },
+        {
+          "cell": "communitySignals.R4",
+          "status": "SOURCE_CANDIDATE_ONLY",
+          "rightsApproved": false,
+          "liveRuntimeVerified": false,
+          "releaseAuthorized": false
+        }
+      ]
+    }
+  ],
+  "scriptLanguage": {
+    "name": "Premonition Scene DSL",
+    "version": 1,
+    "representation": "JSON_ONLY_NO_EVAL",
+    "moduleTypes": [
+      "quest",
+      "encounter",
+      "dialogue"
+    ],
+    "commands": [
+      "say",
+      "check",
+      "grant",
+      "goto"
+    ],
+    "allowedDice": "NdM+/-K bounded",
+    "randomSource": "seededDeterministicForSyntheticTestOnly",
+    "noUntrustedCode": true,
+    "noImports": true,
+    "noFileSystemOps": true,
+    "noNetworkOps": true,
+    "noShellOps": true,
+    "noUserScripts": true,
+    "noRemotePackageExecution": true
+  },
+  "rss": {
+    "formats": [
+      "rss2",
+      "atom"
+    ],
+    "maxBytes": 65536,
+    "maxEntries": 32,
+    "maxTitleChars": 160,
+    "secureNoDtd": true,
+    "secureNoEntity": true,
+    "secureNoNetwork": true,
+    "allowedLinkSchemes": [
+      "https"
+    ],
+    "noSchedulerAttached": true,
+    "manualUserProvidedXmlOnly": true,
+    "noScrape": true
+  },
+  "mods": {
+    "nexus": "AUTHOR_FILE_PERMISSIONS_REQUIRED",
+    "github": "SOURCE_REFERENCE_ONLY_NOT_AUTO_FORK",
+    "emulation": "COMPATIBILITY_AND_HOMEBREW_METADATA_ONLY",
+    "ips": "REUSE_SYNTHETIC_INSPECTOR_NEVER_APPLY",
+    "noBundledBiosRomOrGameAsset": true
+  },
+  "avatars": {
+    "live2d": "LAYERED_2D_PARAMETER_MAP_ONLY",
+    "daz": "OPTIONAL_APACHE2_BRIDGE_LICENSED_ASSETS_SEPARATE",
+    "blender": "INDEPENDENT_3D_RIG_REQUIRED",
+    "gimp": "EDITABLE_2D_MASTER",
+    "godot": "REVIEWED_GLB_RUNTIME",
+    "autoConvertLive2dTo3d": false,
+    "modelRightsUnknownHold": true,
+    "executeExternalPlugins": false
+  },
+  "licensing": {
+    "rootActual": "GPL-3.0",
+    "newCodeLicenseDecision": "SEPARATE_RIGHTS_REVIEW",
+    "srd": "CC-BY-4.0_CONTENT_ONLY_AFTER_ATTRIBUTION",
+    "dazBridge": "Apache-2.0_CODE_ONLY",
+    "dazAssets": "OWNER_DEPENDENT",
+    "live2d": "LICENSE_REVIEW_REQUIRED",
+    "nexus": "AUTHOR_PERMISSION_REQUIRED",
+    "noBlanketApacheRelicense": true
+  },
+  "communityReferences": [
+    {
+      "id": "srd521",
+      "url": "https://www.dndbeyond.com/srd",
+      "status": "REFERENCE_ONLY",
+      "license": "CC-BY-4.0_SRDSPECIFIC",
+      "usage": "originalRulesInspiredByCompatibleTabletopDesign",
+      "noImport": true
+    },
+    {
+      "id": "foundryDnd5e",
+      "url": "https://github.com/foundryvtt/dnd5e",
+      "status": "REFERENCE_ONLY",
+      "license": "MIT_SOFTWARE_CC_BY_SRD_AND_MIXED_ART",
+      "usage": "JavaScriptSystemAndModuleManifestReference",
+      "noImport": true
+    },
+    {
+      "id": "openDnD",
+      "url": "https://github.com/opendnd/opendnd",
+      "status": "REFERENCE_ONLY",
+      "license": "VERIFY_PER_FILE",
+      "usage": "CommunityGeneratorCLIExamples",
+      "noImport": true
+    },
+    {
+      "id": "dazToBlender",
+      "url": "https://github.com/daz3d/DazToBlender",
+      "status": "REFERENCE_ONLY",
+      "license": "Apache-2.0_BRIDGE_ONLY_ASSET_LICENSE_SEPARATE",
+      "usage": "OptionalDazToBlenderPipeline",
+      "noImport": true
+    },
+    {
+      "id": "live2d",
+      "url": "https://www.live2d.com/en/sdk/license/",
+      "status": "RESTRICTED_PUBLICATION_REVIEW",
+      "license": "MIXED_PROPRIETARY_OPEN_SDK",
+      "usage": "PSDLayerAnd2dParameterReferenceOnly",
+      "noImport": true
+    },
+    {
+      "id": "blender",
+      "url": "https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html",
+      "status": "EXTERNAL_APPLICATION",
+      "license": "GPL_FAMILY",
+      "usage": "AuthorizedBackgroundExportOnly",
+      "noImport": true
+    },
+    {
+      "id": "nexus",
+      "url": "https://help.nexusmods.com/article/105-i-have-reached-a-daily-or-hourly-limit-api-requests-have-been-consumed-rate-limit-exceeded-what-does-this-mean",
+      "status": "METADATA_ONLY",
+      "license": "PER_AUTHOR_PER_FILE",
+      "usage": "NoAutoDownloadNoScrapeRateLimitsApply",
+      "noImport": true
+    },
+    {
+      "id": "retroarch",
+      "url": "https://docs.libretro.com/development/licenses/",
+      "status": "REFERENCE_ONLY",
+      "license": "CORE_SPECIFIC",
+      "usage": "EmulationCompatibilityNotBundledROMs",
+      "noImport": true
+    },
+    {
+      "id": "dazDesuziAmbiguity",
+      "url": "https://www.daz3d.com/daz-to-blender-overview",
+      "status": "UNVERIFIED_NAME_INTERPRETATION",
+      "license": "VERIFY",
+      "usage": "DesuziMayMeanDazStudioNotAsserted",
+      "noImport": true
+    }
+  ],
+  "package": {
+    "path": "packages/luhm-creative-module-forge",
+    "private": true,
+    "dependencies": 0,
+    "publish": false
+  },
+  "automation": {
+    "gitSourceAuthority": true,
+    "ingestNetwork": false,
+    "rssPolling": false,
+    "githubAutoFork": false,
+    "nexusApiCalls": false,
+    "emulatorLaunch": false,
+    "thirdPartyPluginExecution": false,
+    "noLiveWorkers": true,
+    "sqlWrites": false,
+    "gamePublicRelease": false
+  },
+  "crownStatus": "STOP"
+}

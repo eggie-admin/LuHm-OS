@@ -1,0 +1,343 @@
+{
+  "schema": "luhmOs.castIdentityHexRegistry.v1",
+  "status": "SOURCE_ONLY_PRIVATE_NPM_CANDIDATE",
+  "authority": "Professor",
+  "sourceRepository": "eggie-admin/LuHm-OS",
+  "scope": "identityLookupOnly",
+  "canon": [
+    "doctrine/namingNamespaceCanonV1.json",
+    "doctrine/camelHumpDoctrineLawV1.json",
+    "doctrine/commandHelpV1.json",
+    "doctrine/typedFourLaneSqlV1.json",
+    "doctrine/castTwoThreadBridgeV1.json",
+    "doctrine/hostileModForge4x4V1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json"
+  ],
+  "fourIdentityLayers": [
+    "camelHump",
+    "vowelRipped",
+    "shorthand",
+    "utf8Hex"
+  ],
+  "typedSqlLanes": [
+    "numericStream",
+    "textStream",
+    "booleanStream",
+    "aiManifestStream"
+  ],
+  "tiers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "encodings": {
+    "utf8Hex": "lowercaseHexOfCanonicalUtf8BytesReversibleNotDigest",
+    "sourceRef": "exact40LowercaseHexGitSha",
+    "evidenceSha256": "64LowercaseHexDigestNotEncryptionOrSignature",
+    "enforceEvenHexLength": true
+  },
+  "identityPolicy": {
+    "singleCanonicalIdentity": true,
+    "aliasRegistryIsExplicit": true,
+    "computedVowelAliasesNeverAcceptedAutomatically": true,
+    "allKindsCheckCollisionsAcrossEntries": true,
+    "unknownAlias": "VERIFY",
+    "aliasMayGrantAuthority": false,
+    "hexMayGrantAuthority": false,
+    "canonicalNeverRewritten": true,
+    "helpRecoversMeaning": true,
+    "noLossyReverseInference": true,
+    "noAutoMigrateHistory": true,
+    "containsNoSecrets": true,
+    "notAKeyRegistry": true,
+    "registryMutationByGitReviewOnly": true
+  },
+  "bindings": [
+    {
+      "canonical": "showHelp",
+      "humanMeaning": "show help and recover the original command name",
+      "vowelRipped": "shwHlp",
+      "shorthand": "help",
+      "utf8Hex": "73686f7748656c70",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "currentSourceTruth",
+      "humanMeaning": "the currently versioned source Canon",
+      "vowelRipped": "crrntSrcTrth",
+      "shorthand": "cst",
+      "utf8Hex": "63757272656e74536f757263655472757468",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "sourceRef",
+      "humanMeaning": "the exact Git source commit identifier",
+      "vowelRipped": "srcRf",
+      "shorthand": "sr",
+      "utf8Hex": "736f75726365526566",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "belldandySecretary",
+      "humanMeaning": "Belldandy: records and continuity role",
+      "vowelRipped": "blldndyScrtry",
+      "shorthand": "bs",
+      "utf8Hex": "62656c6c64616e6479536563726574617279",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "operationTitan",
+      "humanMeaning": "Operation Titan: controlled escalation procedure",
+      "vowelRipped": "oprtTtn",
+      "shorthand": "ot",
+      "utf8Hex": "6f7065726174696f6e546974616e",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "codingRoleplay",
+      "humanMeaning": "coding role-play interface with no implied execution",
+      "vowelRipped": "cdngRlply",
+      "shorthand": "crp",
+      "utf8Hex": "636f64696e67526f6c65706c6179",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "professorLum",
+      "humanMeaning": "Professor and Lum: human decision timeline",
+      "vowelRipped": "prfssrLm",
+      "shorthand": "pl",
+      "utf8Hex": "70726f666573736f724c756d",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "lumMesh",
+      "humanMeaning": "Lum and orchestration: evidence timeline",
+      "vowelRipped": "lmMsh",
+      "shorthand": "lmesh",
+      "utf8Hex": "6c756d4d657368",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "numericStream",
+      "humanMeaning": "typed integer and number evidence lane",
+      "vowelRipped": "nmrcStrm",
+      "shorthand": "ns",
+      "utf8Hex": "6e756d6572696353747265616d",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "textStream",
+      "humanMeaning": "bounded text and source identity lane",
+      "vowelRipped": "txtStrm",
+      "shorthand": "ts",
+      "utf8Hex": "7465787453747265616d",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "booleanStream",
+      "humanMeaning": "three-valued proof lane (true false unknown)",
+      "vowelRipped": "blnStrm",
+      "shorthand": "bls",
+      "utf8Hex": "626f6f6c65616e53747265616d",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "aiManifestStream",
+      "humanMeaning": "bounded AI task manifest evidence lane",
+      "vowelRipped": "aMnfstStrm",
+      "shorthand": "ams",
+      "utf8Hex": "61694d616e696665737453747265616d",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "taskId",
+      "humanMeaning": "scoped task identifier",
+      "vowelRipped": "tskId",
+      "shorthand": "ti",
+      "utf8Hex": "7461736b4964",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "scopeId",
+      "humanMeaning": "task authorization scope identifier",
+      "vowelRipped": "scpId",
+      "shorthand": "si",
+      "utf8Hex": "73636f70654964",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "castBridge",
+      "humanMeaning": "CAST Bridge staging and source verification",
+      "vowelRipped": "cstBrdg",
+      "shorthand": "cb",
+      "utf8Hex": "63617374427269646765",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "lum",
+      "humanMeaning": "Lum: single conversation and role coordinator",
+      "vowelRipped": "lm",
+      "shorthand": "lu",
+      "utf8Hex": "6c756d",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "urdDoctorGoddess",
+      "humanMeaning": "Urd: scoped evidence and contradiction review",
+      "vowelRipped": "rdDctrGddss",
+      "shorthand": "udg",
+      "utf8Hex": "757264446f63746f72476f6464657373",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "sanityCheck",
+      "humanMeaning": "first Canon stage: sanity check",
+      "vowelRipped": "sntyChck",
+      "shorthand": "sc",
+      "utf8Hex": "73616e697479436865636b",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "audit",
+      "humanMeaning": "second Canon stage: hard audit",
+      "vowelRipped": "adt",
+      "shorthand": "au",
+      "utf8Hex": "6175646974",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "ingest",
+      "humanMeaning": "third Canon stage: bounded input intake",
+      "vowelRipped": "ingst",
+      "shorthand": "ig",
+      "utf8Hex": "696e67657374",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "mutation",
+      "humanMeaning": "fourth Canon stage: reviewed source mutation",
+      "vowelRipped": "mttn",
+      "shorthand": "mt",
+      "utf8Hex": "6d75746174696f6e",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "test",
+      "humanMeaning": "fifth Canon stage: exact-source build/test",
+      "vowelRipped": "tst",
+      "shorthand": "te",
+      "utf8Hex": "74657374",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "apply",
+      "humanMeaning": "sixth Canon stage: candidate apply receipt",
+      "vowelRipped": "appl",
+      "shorthand": "ap",
+      "utf8Hex": "6170706c79",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "continue",
+      "humanMeaning": "seventh Canon stage: preserve scope and continue",
+      "vowelRipped": "cntn",
+      "shorthand": "ct",
+      "utf8Hex": "636f6e74696e7565",
+      "authority": "IDENTITY_ONLY"
+    },
+    {
+      "canonical": "deploy",
+      "humanMeaning": "eighth Canon stage: proposed deployment only",
+      "vowelRipped": "dply",
+      "shorthand": "dp",
+      "utf8Hex": "6465706c6f79",
+      "authority": "IDENTITY_ONLY"
+    }
+  ],
+  "legacyAliases": [
+    {
+      "alias": "mgcCdngRlplay",
+      "canonical": "codingRoleplay",
+      "source": "doctrine/namingNamespaceCanonV1.json",
+      "authority": "COMPATIBILITY_ONLY"
+    }
+  ],
+  "systemVariableRegistry": {
+    "scope": "SOURCE_PLANS_ONLY_NO_OS_ENV_READ_OR_WRITE",
+    "source": "doctrine/hostileModForge4x4V1.json",
+    "bindings": [
+      {
+        "name": "LUHM_STAGE",
+        "canonical": "stage",
+        "scope": "candidateStageOnly"
+      },
+      {
+        "name": "LUHM_DISPLAY_BACKEND",
+        "canonical": "displayBackend",
+        "scope": "headlessOrWaylandPlan"
+      },
+      {
+        "name": "LUHM_RENDER_ENGINE",
+        "canonical": "renderEngine",
+        "scope": "hostRendererPlan"
+      },
+      {
+        "name": "LUHM_INPUT_MODE",
+        "canonical": "inputMode",
+        "scope": "permissionRequestOnly"
+      },
+      {
+        "name": "LUHM_USB_ENABLED",
+        "canonical": "usbEnabled",
+        "scope": "readOnlyRequiresOsOwnerPermission"
+      },
+      {
+        "name": "LUHM_BLUETOOTH_ENABLED",
+        "canonical": "bluetoothEnabled",
+        "scope": "readOnlyRequiresOsOwnerPermission"
+      },
+      {
+        "name": "LUHM_DEBUG_PROFILE",
+        "canonical": "debugProfile",
+        "scope": "redactedOrOff"
+      },
+      {
+        "name": "LUHM_VENDOR_MODE",
+        "canonical": "vendorMode",
+        "scope": "metadataOnly"
+      }
+    ],
+    "unknownVariable": "STOP",
+    "secretOrLoaderVariablesForbidden": true,
+    "proposedOnly": true
+  },
+  "package": {
+    "path": "packages/luhm-canon-registry",
+    "name": "@luhm-os/canon-registry",
+    "private": true,
+    "dependencies": 0,
+    "publishAuthorized": false,
+    "nodeRuntime": "Node>=20",
+    "license": "SEE_ROOT_GPLV3_NO_RELICENSE"
+  },
+  "dataSql": {
+    "existingSchema": "host/api/typedLanesV1.sql",
+    "neverAlterPinnedSchema": true,
+    "textStreamFullCanonicalAndDigest": true,
+    "noNewLiveTables": true,
+    "hexIdNotAuthorization": true,
+    "sourceRefImmutable": true
+  },
+  "castThreads": [
+    "professorLum",
+    "lumMesh"
+  ],
+  "runtime": {
+    "activeWorkers": 0,
+    "actualNpmPublished": false,
+    "installedChatGptPlugin": false,
+    "osEnvironmentMutated": false
+  },
+  "crownStatus": "STOP"
+}

@@ -1,0 +1,168 @@
+name: LuHm OpenAI Bridge Offline Gate
+
+on:
+  pull_request:
+    paths:
+      - "host/api/luhmOpenAiChatBridge.py"
+      - "host/mcp/luhmOpenAiChatTools.py"
+      - "host/mcp/luhmHarnessServer.py"
+      - "plugins/luhm-os/skills/luhm-openai-chat-bridge/**"
+      - "tests/testOpenAiChatBridge.py"
+      - "host/remote/luhmWmsVmManager.py"
+      - "host/mcp/luhmWmsVmTools.py"
+      - "doctrine/remoteWmsMachineBridgeV1.json"
+      - "doctrine/remoteWmsPluginSlotsV1.json"
+      - "tests/testWmsVmManager.py"
+      - ".github/workflows/openai-chat-bridge-offline.yml"
+      - "doctrine/lumTwoLaneFastApiOrchestrationV1.json"
+      - "doctrine/cryptoBreathingEscalationV1.json"
+      - "host/api/luhmCanonOrchestration.py"
+      - "host/api/luhmClientFastApi.py"
+      - "host/api/luhmCryptoBreathing.py"
+      - "host/api/luhmCryptoSqlite.py"
+      - "host/api/luhmMariaDbReceipt.py"
+      - "host/api/luhmMariaDbReceiptV1.sql"
+      - "host/mcp/luhmOrchestrationTools.py"
+      - "host/mcp/luhmCryptoTools.py"
+      - "tests/testCryptoBreathing.py"
+      - "tests/testCryptoSqlite.py"
+      - "tests/testCanonFastApi.py"
+      - "doctrine/headlessUniversalVmMatrixV1.json"
+      - "tools/headlessMachineMatrixAudit.py"
+      - "tests/testHeadlessMachineMatrix.py"
+      - "plugins/luhm-os/skills/luhm-headless-vm-cabinet/**"
+      - "doctrine/remoteGpuVideoPipelineV1.json"
+      - "host/api/luhmGpuVideoPlanner.py"
+      - "host/mcp/luhmGpuVideoTools.py"
+      - "plugins/luhm-os/skills/luhm-gpu-video-minute-pipeline/**"
+      - "tests/testGpuVideoPlanner.py"
+      - "manual/remote-gpu-video-runbook.md"
+      - "tools/gpuVideoMinuteFixture.py"
+      - "doctrine/leanVmForgeAlignmentV1.json"
+      - "config/netplan/90-luhm-vm-dhcp.example.yaml"
+      - "tools/leanVmForgeAudit.py"
+      - "tests/testLeanVmForgeAudit.py"
+      - "host/mcp/luhmLeanVmForgeTools.py"
+      - "host/mcp/requirements.txt"
+      - "manual/lean-vm-forge-alignment.md"
+      - "doctrine/premonitionCrossPlatformArtSplitV1.json"
+      - "host/api/premonitionAssetLedgerV1.sql"
+      - "tools/premonitionPlatformArtAudit.py"
+      - "host/mcp/luhmPlatformArtTools.py"
+      - "tests/testPremonitionPlatformArtAudit.py"
+      - "manual/premonition-platform-art-separation.md"
+      - "doctrine/githubSqlSourceRegistryV1.json"
+      - "tools/githubSqlSourceAudit.py"
+      - "tests/testGithubSqlSourceAudit.py"
+      - "host/mcp/luhmGithubSqlTools.py"
+      - "manual/github-sql-source-control.md"
+      - "doctrine/hostileModForge4x4V1.json"
+      - "tools/hostileModForgeAudit.py"
+      - "tests/testHostileModForge.py"
+      - "host/mcp/luhmHostileModForgeTools.py"
+      - "manual/hostile-mod-forge-runbook.md"
+      - "doctrine/castTwoThreadBridgeV1.json"
+      - "host/api/luhmCastTwoThreadBridge.py"
+      - "host/mcp/luhmCastTwoThreadTools.py"
+      - "tests/testCastTwoThreadBridge.py"
+      - "tests/testCastTwoThreadFastApi.py"
+      - "publicationSite/castBridgePreview.html"
+      - "manual/cast-two-thread-bridge-runbook.md"
+      - "doctrine/castIdentityHexRegistryV1.json"
+      - "host/api/luhmIdentityRegistry.py"
+      - "host/mcp/luhmIdentityRegistryTools.py"
+      - "tests/testCastIdentityRegistry.py"
+      - "packages/luhm-canon-registry/**"
+      - "manual/cast-naming-hex-spine-runbook.md"
+      - "doctrine/machineFourArchitectureForgeV1.json"
+      - "tools/machineFourArchitectureAudit.py"
+      - "tests/testMachineFourArchitectureAudit.py"
+      - "host/mcp/luhmMachineArchitectureTools.py"
+      - "manual/machine-four-architecture-forge.md"
+      - "doctrine/creativeModuleForge4x4V1.json"
+      - "tools/creativeCommunityAudit.py"
+      - "tools/creativeCommunityCli.py"
+      - "tests/testCreativeCommunityAudit.py"
+      - "host/mcp/luhmCreativeModuleTools.py"
+      - "packages/luhm-creative-module-forge/**"
+      - "manual/creative-rpg-module-forge.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-bridge-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Record exact candidate source tree for rollback-backed squashing
+        if: github.event_name == 'pull_request'
+        env:
+          LUHM_PR_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          [[ "$LUHM_PR_HEAD" =~ ^[0-9a-f]{40}$ ]]
+          git fetch --no-tags -q --depth=1 origin "$LUHM_PR_HEAD"
+          echo "LUHM_EXACT_PR_HEAD=$LUHM_PR_HEAD"
+          echo "LUHM_EXACT_PR_TREE=$(git rev-parse 'FETCH_HEAD^{tree}')"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pinned local-test-only dependencies
+        run: python -m pip install 'cryptography==46.0.4' 'fastapi==0.128.2' 'httpx==0.28.1' 'PyYAML==6.0.2'
+      - name: Compile staged bridge and ASGI modules
+        run: python -m py_compile host/api/luhmOpenAiChatBridge.py host/mcp/luhmOpenAiChatTools.py host/remote/luhmWmsVmManager.py host/mcp/luhmWmsVmTools.py host/api/luhmCanonOrchestration.py host/api/luhmClientFastApi.py host/api/luhmCryptoBreathing.py host/api/luhmCryptoSqlite.py host/api/luhmMariaDbReceipt.py host/mcp/luhmOrchestrationTools.py host/mcp/luhmCryptoTools.py host/api/luhmGpuVideoPlanner.py host/mcp/luhmGpuVideoTools.py tools/gpuVideoMinuteFixture.py tools/headlessMachineMatrixAudit.py tools/leanVmForgeAudit.py host/mcp/luhmLeanVmForgeTools.py tools/premonitionPlatformArtAudit.py host/mcp/luhmPlatformArtTools.py tools/githubSqlSourceAudit.py host/mcp/luhmGithubSqlTools.py tools/hostileModForgeAudit.py host/mcp/luhmHostileModForgeTools.py tools/creativeCommunityAudit.py tools/creativeCommunityCli.py host/mcp/luhmCreativeModuleTools.py
+      - name: Test offline and quarantine gates
+        run: python -m unittest discover -s tests -p 'testOpenAiChatBridge.py' -v
+      - name: Test WMS VM manager no-network and Canon guards
+        run: python -m unittest discover -s tests -p 'testWmsVmManager.py' -v
+      - name: Test R1-R4 authenticated snapshot, MariaDB and SQLite receipt gates
+        run: |
+          python -m unittest discover -s tests -p 'testCryptoBreathing.py' -v
+          python -m unittest discover -s tests -p 'testCryptoSqlite.py' -v
+      - name: Test offline machine four-family and synthetic IPS source
+        run: |
+          python tools/machineFourArchitectureAudit.py
+          python -m unittest discover -s tests -p 'testMachineFourArchitectureAudit.py' -v
+      - name: Audit original RPG/creative community source and feed bounds
+        run: |
+          python tools/creativeCommunityAudit.py
+          python -m unittest discover -s tests -p 'testCreativeCommunityAudit.py' -v
+      - name: Test CAST name/hex registry Python parity
+        run: python -m unittest discover -s tests -p 'testCastIdentityRegistry.py' -v
+      - name: Test CAST Bridge two-thread source and private FastAPI claims
+        run: |
+          python -m unittest discover -s tests -p 'testCastTwoThreadBridge.py' -v
+          python -m unittest discover -s tests -p 'testCastTwoThreadFastApi.py' -v
+      - name: Test FastAPI private authentication and bounded checkpointing
+        run: python -m unittest discover -s tests -p 'testCanonFastApi.py' -v
+      - name: Test 4x4 source, quarantine, firmware rights, and bounded green-loop gate
+        run: |
+          python tools/headlessMachineMatrixAudit.py
+          python -m unittest discover -s tests -p 'testHeadlessMachineMatrix.py' -v
+      - name: Test GPU resource cap and sixty-second clip delivery planning
+        run: python -m unittest discover -s tests -p 'testGpuVideoPlanner.py' -v
+      - name: Install Ubuntu's unprivileged FFmpeg test binary
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Prove ephemeral 60-second procedural FFmpeg clip assembly
+        run: python tools/gpuVideoMinuteFixture.py --run
+      - name: Audit GitHub-to-Netplan source, real SQL schema, VM costs and proxy/licensing
+        run: |
+          python tools/leanVmForgeAudit.py
+          python -m unittest discover -s tests -p 'testLeanVmForgeAudit.py' -v
+      - name: Audit Premonition cross-platform art and SQL separation
+        run: |
+          python tools/premonitionPlatformArtAudit.py
+          python -m unittest discover -s tests -p 'testPremonitionPlatformArtAudit.py' -v
+      - name: Audit hostile device/display/mod/source 4x4
+        run: |
+          python tools/hostileModForgeAudit.py
+          python -m unittest discover -s tests -p 'testHostileModForge.py' -v
+      - name: Audit GitHub-locked SQL, strict SQLite source and MariaDB HOLD
+        run: |
+          python tools/githubSqlSourceAudit.py
+          python -m unittest discover -s tests -p 'testGithubSqlSourceAudit.py' -v
