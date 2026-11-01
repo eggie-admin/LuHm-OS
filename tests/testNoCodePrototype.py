@@ -1,10 +1,13 @@
 import copy
 import sqlite3
+import tempfile
+import json
+import os
 import sys
 import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-from noCodePrototype import compileCards, demoPacket
+from noCodePrototype import compileCards, demoPacket, saveDraft, loadDraft
 
 class PrototypeTests(unittest.TestCase):
     def test_repeatable_four_channels(self):
@@ -57,5 +60,48 @@ class PrototypeTests(unittest.TestCase):
         old = compileCards(p)['inputSha256']
         p['events'][0]['text'] += ' Changed.'
         self.assertNotEqual(old, compileCards(p)['inputSha256'])
+
+
+    def test_save_load_round_trip_and_private_mode(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'draft.json'
+            receipt = saveDraft(demoPacket(), path)
+            self.assertEqual(loadDraft(path), receipt)
+            self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+            with self.assertRaises(FileExistsError):
+                saveDraft(demoPacket(), path)
+
+    def test_save_load_rejects_tampering(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'draft.json'
+            saveDraft(demoPacket(), path)
+            record = json.loads(path.read_text())
+            record['packet']['events'][0]['text'] = 'tampered after save'
+            path.write_text(json.dumps(record))
+            with self.assertRaisesRegex(ValueError, 'hash mismatch'):
+                loadDraft(path)
+
+    def test_saved_draft_size_and_symlink_gate(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'oversize.json'
+            path.write_bytes(b'x' * (1048576 + 1))
+            with self.assertRaises(ValueError):
+                loadDraft(path)
+            target = Path(directory) / 'target.json'
+            saveDraft(demoPacket(), target)
+            alias = Path(directory) / 'alias.json'
+            alias.symlink_to(target)
+            with self.assertRaises(OSError):
+                loadDraft(alias)
+
+    def test_saved_draft_unknown_schema_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'draft.json'
+            saveDraft(demoPacket(), path)
+            record = json.loads(path.read_text())
+            record['schema'] = 'unknown'
+            path.write_text(json.dumps(record))
+            with self.assertRaises(ValueError):
+                loadDraft(path)
 
 if __name__ == '__main__': unittest.main()
