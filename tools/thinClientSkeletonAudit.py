@@ -126,6 +126,25 @@ def audit(p: dict, modules: dict, composition: dict, vendor: dict,
          "./vendor/jquery-3.7.1.min.js" in script_src and
          'data-luhm-cockpit' in html,
          "localUiOnly")
+    allowed = client.get("assetAllowlist", [])
+    referenced = {"index.html", "vendor/jquery-LICENSE.txt"} | {
+        x[2:] for x in (script_src + style_src)
+    }
+    need(len(allowed) == 9 and set(allowed) == referenced and
+         client.get("androidBundle") == "EXPLICIT_ALLOWLIST_GENERATED_SYNC_ONLY" and
+         client.get("javascriptSource") ==
+         "LOCAL_PINNED_JQUERY_COPIED_FROM_NPM_LOCK_BEFORE_BUILD",
+         "smallExplicitAssetInventory")
+    declared = re.search(r"val cockpitAssetPaths\\s*=\\s*listOf\\((.*?)\\n\\)", gradle, re.S)
+    actual_paths = re.findall(r'"([^"]+)"', declared.group(1)) if declared else []
+    need(actual_paths == allowed and
+         'assets.srcDir(cockpitAssetsDirectory)' in gradle and
+         'assets.srcDir("../../frontEnd")' not in gradle and
+         'include(*cockpitAssetPaths.toTypedArray())' in gradle and
+         "tasks.registering(Sync::class)" in gradle and
+         "dependsOn(stageCockpitAssets)" in gradle and
+         "RED_COCKPIT_ASSETS" in gradle,
+         "onlyCuratedAssetsInAar")
     need(frontend_package.get("private") is True and
          frontend_package.get("dependencies") == {"jquery": "3.7.1"} and
          client.get("uiLibraryPinned") == "3.7.1",
@@ -165,7 +184,7 @@ def audit(p: dict, modules: dict, composition: dict, vendor: dict,
              "publicBeta")) and release.get("crownStatus") == "STOP",
          "noFalseReleaseProof")
     need(p.get("proof", {}).get("mode") == "STATIC_SOURCE_ONLY" and
-         p.get("proof", {}).get("negativeControls") == 10,
+         p.get("proof", {}).get("negativeControls") == 12,
          "honestSourceOnlyClaim")
     return errors
 
@@ -190,6 +209,20 @@ def runSourceAudit(root: Path = ROOT) -> None:
     base = (p, modules, composition, vendor, preset, godot,
             kotlin, html, gradle, frontend_package, docker)
     errors = audit(*base)
+    # The signed and testing workflows both need lock-pinned local jquery
+    # before the AAR asset-merge. Source checks cannot prove a compiled bundle.
+    for workflow_path in (
+        ".github/workflows/samsung-lite-signed-beta.yml",
+        ".github/workflows/android-testing-build.yml",
+    ):
+        workflow = read(workflow_path)
+        start = workflow.find("- name: Stage allowlisted offline cockpit assets")
+        build = workflow.find("- name: Build Android Web3 cockpit plugin")
+        if not (0 <= start < build and
+                "npm ci --ignore-scripts --no-audit --no-fund" in workflow[start:build] and
+                "npm run stage:jquery" in workflow[start:build] and
+                "test -s vendor/jquery-LICENSE.txt" in workflow[start:build]):
+            errors.append("missingPinnedJqueryPrestage:" + workflow_path)
     if errors:
         raise SystemExit("RED_THIN_CLIENT_CANON:" + ",".join(errors))
     negatives = []
@@ -225,11 +258,20 @@ def runSourceAudit(root: Path = ROOT) -> None:
     changed = copy.deepcopy(modules)
     changed["sourceModules"][0]["preserve"] = []
     negatives.append(("lostKernelAbi", (p, changed, *base[2:])))
-    assert len(negatives) == 10
+    negatives.append(("broadAssetDirectory", (p, modules, composition,
+        vendor, preset, godot, kotlin, html,
+        gradle + '\nassets.srcDir("../../frontEnd")',
+        frontend_package, docker)))
+    negatives.append(("unreviewedPrototypeAsset", (p, modules, composition,
+        vendor, preset, godot, kotlin, html,
+        gradle.replace('"jquery/luhm.cast.js",',
+                       '"jquery/luhm.cast.js",\n    "prototypes/glassWorld/index.html",'),
+        frontend_package, docker)))
+    assert len(negatives) == 12
     for label, args in negatives:
         if not audit(*args):
             raise SystemExit("RED_FALSE_GREEN:" + label)
-    print("GREEN_THIN_CLIENT_CANON_SOURCE_10_NEGATIVE_CONTROLS")
+    print("GREEN_THIN_CLIENT_CANON_SOURCE_12_NEGATIVE_CONTROLS")
     print("SOURCE_ONLY: kernel binary, firmware, real device and APK contents NOT VERIFIED")
 
 
