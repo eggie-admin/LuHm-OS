@@ -3,6 +3,8 @@
 import argparse
 import hashlib
 import json
+import os
+import stat
 from pathlib import Path
 from typedSqlStub import openStub, addEvent, putText, putBoolean, orderedEvents
 
@@ -60,6 +62,49 @@ def compileCards(packet):
             'physicalSamsungProven': False, 'speechRecognitionProven': False,
             'executionAllowed': False, 'publicationAllowed': False}
 
+
+MAX_DRAFT_BYTES = 1048576
+DRAFT_SCHEMA = 'luhmOs.noCodeDraftSave.v1'
+
+def saveDraft(packet, path):
+    """Create-only private JSON draft. Never overwrite another revision."""
+    receipt = compileCards(packet)
+    record = {'schema': DRAFT_SCHEMA, 'packet': packet,
+              'inputSha256': receipt['inputSha256']}
+    data = (json.dumps(record, ensure_ascii=False, sort_keys=True,
+                       separators=(',', ':'), allow_nan=False) + '\n').encode('utf-8')
+    if len(data) > MAX_DRAFT_BYTES:
+        raise ValueError('draft exceeds 1 MiB')
+    flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, 'O_NOFOLLOW', 0)
+    fd = os.open(path, flags, 0o600)
+    try:
+        with os.fdopen(fd, 'wb') as stream:
+            stream.write(data)
+    except BaseException:
+        Path(path).unlink(missing_ok=True)
+        raise
+    return receipt
+
+def loadDraft(path):
+    """Verify a bounded local draft and recompile its review-only cards."""
+    flags = os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0)
+    fd = os.open(path, flags)
+    with os.fdopen(fd, 'rb') as stream:
+        if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):
+            raise ValueError('draft must be a regular file')
+        data = stream.read(MAX_DRAFT_BYTES + 1)
+    if len(data) > MAX_DRAFT_BYTES:
+        raise ValueError('draft exceeds 1 MiB')
+    record = json.loads(data.decode('utf-8'))
+    if type(record) is not dict or set(record) != {'schema', 'packet', 'inputSha256'}:
+        raise ValueError('invalid saved draft')
+    if record['schema'] != DRAFT_SCHEMA:
+        raise ValueError('unsupported saved draft schema')
+    receipt = compileCards(record['packet'])
+    if record['inputSha256'] != receipt['inputSha256']:
+        raise ValueError('saved draft hash mismatch')
+    return receipt
+
 def demoPacket():
     return {'taskId': 'premonitionPrototype', 'sourceRef': 'f0cb6ee54066b490c0e80efc2c96200fec76ee2d',
             'scopeId': 'localCardDraft', 'events': [
@@ -77,11 +122,19 @@ if __name__ == '__main__':
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--demo', action='store_true')
     group.add_argument('--input', type=Path)
+    group.add_argument('--load', type=Path)
+    parser.add_argument('--save', type=Path, help='create a new private draft; never overwrite')
     args = parser.parse_args()
-    if args.input and args.input.stat().st_size > 1048576:
+    if args.save and args.load:
+        parser.error('--save cannot be combined with --load')
+    if args.input and args.input.stat().st_size > MAX_DRAFT_BYTES:
         parser.error('packet exceeds 1 MiB')
     try:
-        packet = demoPacket() if args.demo else json.loads(args.input.read_text(encoding='utf-8'))
-        print(json.dumps(compileCards(packet), indent=2, ensure_ascii=False, allow_nan=False))
-    except (ValueError, TypeError, KeyError) as exc:
+        if args.load:
+            receipt = loadDraft(args.load)
+        else:
+            packet = demoPacket() if args.demo else json.loads(args.input.read_text(encoding='utf-8'))
+            receipt = saveDraft(packet, args.save) if args.save else compileCards(packet)
+        print(json.dumps(receipt, indent=2, ensure_ascii=False, allow_nan=False))
+    except (ValueError, TypeError, KeyError, OSError, UnicodeError) as exc:
         parser.exit(2, f'Invalid prototype input: {exc}\n')
