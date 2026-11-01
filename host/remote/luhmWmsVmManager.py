@@ -18,6 +18,7 @@ CONTRACT = ROOT / "doctrine" / "remoteWmsMachineBridgeV1.json"
 QUARANTINE = ROOT / "doctrine" / "companyWideOperationalQuarantineV1.json"
 SOURCE_TRUTH = ROOT / "doctrine" / "currentSourceTruthV3.json"
 SPINE = ROOT / "doctrine" / "apiSpineV1.json"
+CATALOG = ROOT / "doctrine" / "remoteWmsPluginSlotsV1.json"
 SAFE_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.:-]{0,79}\Z")
 SOURCE_SHA = re.compile(r"[0-9a-f]{40}\Z")
 SAFE_SCOPE = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.:/-]{0,159}\Z")
@@ -40,6 +41,8 @@ def _contracts() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
         raise RuntimeError("RED_WMS_SOURCE_SCHEMA")
     if _load(SPINE).get("schema") != "luhmOs.apiSpine.v1":
         raise RuntimeError("RED_WMS_API_SPINE_SCHEMA")
+    if _load(CATALOG).get("schema") != "luhmOs.remoteWmsPluginSlots.v1":
+        raise RuntimeError("RED_WMS_PLUGIN_CATALOG_SCHEMA")
     missing = [name for name in contract.get("sourceAnchors", [])
                if not (ROOT / name).is_file()]
     if missing:
@@ -65,12 +68,16 @@ def status() -> dict[str, Any]:
     contract, hold, truth = _contracts()
     # A ChatGPT tool response is not an authenticated remote-host inventory.
     wms = contract["wms"]
+    catalog = _load(CATALOG)
     return {
         "schema": "luhmOs.remoteWmsStatus.v1",
         "state": "CANDIDATE_PLANNER_ONLY",
         "wmsVendor": wms["vendor"],
         "wmsProtocol": wms["protocol"],
         "configuredMachineCount": 0,
+        "activeAdapterCount": len(catalog["activeAdapters"]),
+        "pluginSlots": [{"slotId": slot["id"], "status": slot["status"],
+                         "capabilities": slot["capabilities"]} for slot in catalog["slots"]],
         "remoteConnectivityVerified": False,
         "remoteExecutionProven": False,
         "companyQuarantined": hold.get("state") != "RELEASED",
