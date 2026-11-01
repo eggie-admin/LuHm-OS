@@ -72,5 +72,9 @@ jobs:
           python -m unittest discover -s tests -p 'testHeadlessMachineMatrix.py' -v
       - name: Test GPU resource cap and sixty-second clip delivery planning
         run: python -m unittest discover -s tests -p 'testGpuVideoPlanner.py' -v
+      - name: Install Ubuntu's unprivileged FFmpeg test binary
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
       - name: Prove ephemeral 60-second procedural FFmpeg clip assembly
         run: python tools/gpuVideoMinuteFixture.py --run
