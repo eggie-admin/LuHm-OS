@@ -1,0 +1,361 @@
+{
+  "schema": "luhmOs.localOpenVmKernelProfile.v1",
+  "status": "SOURCE_ONLY_UNDEPLOYED",
+  "authority": "Professor",
+  "canonicalRepo": "eggie-admin/LuHm-OS",
+  "guidingRule": "Local open-source runtime first; put heavy work in owner-controlled encapsulated Linux VM; keep external proprietary services optional, per-action and explicit.",
+  "scope": {
+    "hostKernel": "EXISTING_SUPPORTED_DISTRO_KERNEL_UNCHANGED",
+    "guestKernel": "SIGNED_OR_TRUSTED_DISTRO_GUEST_IMAGE_OWNER_SUPPLIED",
+    "hostOS": [
+      "debian",
+      "ubuntu",
+      "raspberryPiLinux"
+    ],
+    "hostArch": [
+      "x86_64",
+      "aarch64"
+    ],
+    "guestArch": [
+      "x86_64",
+      "aarch64"
+    ],
+    "android": "UNROOTED_APP_FIRST_VM_GUEST_NOT_PRESUMED",
+    "primaryInterface": "ChatGPTConnectedCockpitWithOptionalLocalBrowser",
+    "owner": "Professor"
+  },
+  "fourLanes": [
+    {
+      "id": "hostKernel",
+      "responsibility": "read-only kernel and virtualization capability; no firmware or kernel changes"
+    },
+    {
+      "id": "isolatedGuest",
+      "responsibility": "unprivileged local QEMU/KVM guest plan; disk provenance and resource caps"
+    },
+    {
+      "id": "offlineStudio",
+      "responsibility": "Python SQLite JS Godot Blender FFmpeg original assets and R; offline-first"
+    },
+    {
+      "id": "optionalRemote",
+      "responsibility": "Git source sync and selected ChatGPT presentation bridge only with user control"
+    }
+  ],
+  "phases": [
+    "source",
+    "capability",
+    "isolatedFixture",
+    "runtimeOwnerProof"
+  ],
+  "matrix4x4": [
+    {
+      "lane": "hostKernel",
+      "cells": [
+        {
+          "id": "hostKernel.source",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        },
+        {
+          "id": "hostKernel.capability",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        },
+        {
+          "id": "hostKernel.isolatedFixture",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        },
+        {
+          "id": "hostKernel.runtimeOwnerProof",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        }
+      ]
+    },
+    {
+      "lane": "isolatedGuest",
+      "cells": [
+        {
+          "id": "isolatedGuest.source",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        },
+        {
+          "id": "isolatedGuest.capability",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        },
+        {
+          "id": "isolatedGuest.isolatedFixture",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        },
+        {
+          "id": "isolatedGuest.runtimeOwnerProof",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        }
+      ]
+    },
+    {
+      "lane": "offlineStudio",
+      "cells": [
+        {
+          "id": "offlineStudio.source",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        },
+        {
+          "id": "offlineStudio.capability",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        },
+        {
+          "id": "offlineStudio.isolatedFixture",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        },
+        {
+          "id": "offlineStudio.runtimeOwnerProof",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        }
+      ]
+    },
+    {
+      "lane": "optionalRemote",
+      "cells": [
+        {
+          "id": "optionalRemote.source",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        },
+        {
+          "id": "optionalRemote.capability",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        },
+        {
+          "id": "optionalRemote.isolatedFixture",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        },
+        {
+          "id": "optionalRemote.runtimeOwnerProof",
+          "state": "HOLD_NO_HOST_RECEIPT",
+          "proofTrusted": false,
+          "hostModified": false,
+          "ownerApproved": false
+        }
+      ]
+    }
+  ],
+  "default": {
+    "executionLocation": "ON_PREMISE",
+    "engine": "QEMU_KVM_IF_VERIFIED_ELSE_TCG_SLOW_OR_NO_GUEST",
+    "vmStrategy": "UNPRIVILEGED_LIBVIRT_SESSION_WHEN_SUPPORTED",
+    "network": "OFF_BY_DEFAULT",
+    "remoteInference": "DISABLED",
+    "remoteRendering": "DISABLED",
+    "providerPaidCompute": "DISABLED",
+    "vendorTelemetry": "DISABLED",
+    "usbBluetoothPassthrough": "DISABLED",
+    "gpuPassthrough": "DISABLED",
+    "remoteDesktop": "DISABLED",
+    "sshPortForward": "DISABLED",
+    "guestMemoryMiB": 2048,
+    "guestVcpus": 2,
+    "guestDiskGiB": 16,
+    "hostResourceReceipt": "REQUIRED_BEFORE_VM_START",
+    "workloadPlacement": "Local studio in guest when VM available; Android app remains thin client",
+    "kernelPatch": "NONE",
+    "kernelImageBuild": "NONE",
+    "biosFlash": "NONE",
+    "newCloudAccounts": "NONE",
+    "localBrowserFallback": true
+  },
+  "kernel": {
+    "checks": [
+      "osNameLinux",
+      "architecture",
+      "kernelReleasePresent",
+      "devKvmExists",
+      "devKvmReadableWritable",
+      "qemuBinaryFound",
+      "libvirtUserSocketFound"
+    ],
+    "modules": [
+      "kvm",
+      "kvm_intel_or_kvm_amd_on_x86",
+      "kvm_on_arm64_where_supported"
+    ],
+    "moduleReadsDoNotAutoload": true,
+    "cpuFlagsAreNotSufficientToProveKvm": true,
+    "supportsQemuTcgWhenNoKvm": true,
+    "noUserKernelConfigMutation": true,
+    "noSysctlChanges": true,
+    "noKernelBuild": true,
+    "noBootLoaderUpdates": true,
+    "noRoot": true,
+    "noSudo": true,
+    "noGuestStartFromCI": true,
+    "noPhysicalAndroidProbe": true,
+    "noTrustInHypervisorAvailabilityUntilOwnerDeviceProbe": true
+  },
+  "vm": {
+    "explicitOwnerOptInToBoot": true,
+    "guestDiskImageRightsMustBeVerified": true,
+    "existingDiskNotReusedAutomatically": true,
+    "guestsUnprivileged": true,
+    "hostDevicePassthroughDefault": false,
+    "userSessionUri": "qemu:///session",
+    "hostSocketExposed": false,
+    "networkAccessDefault": false,
+    "remoteApiDefault": false,
+    "noAutoOpenPorts": true,
+    "noAutoPackageInstallation": true,
+    "noKernelImageBundled": true,
+    "noVendorBIOSBundled": true,
+    "resourceCapsMustBeCheckedAgainstHost": true,
+    "creationIsFutureStage": true,
+    "sourceOnlyConfigHasNoExecutionAuthority": true
+  },
+  "dependencies": {
+    "required": [
+      "Linux distro-supported kernel",
+      "Python 3 standard library"
+    ],
+    "conditionalOpenSource": [
+      "QEMU",
+      "KVM",
+      "libvirt",
+      "virtio",
+      "Debian or Ubuntu guest packages",
+      "Godot",
+      "Blender",
+      "GIMP",
+      "FFmpeg",
+      "SQLite",
+      "R"
+    ],
+    "notRequiredForOfflineStudio": [
+      "Render",
+      "Cloudflare",
+      "Google Cloud",
+      "Oracle Cloud",
+      "AWS",
+      "Azure",
+      "paid AI APIs",
+      "proprietary remote rendering"
+    ],
+    "existingRemoteExceptions": [
+      {
+        "id": "github",
+        "purpose": "Current source and CI bridge",
+        "mode": "EXISTING_USER_AUTHORIZED_NOT_LOCAL_EXECUTION_DEPENDENCY",
+        "proprietaryService": true
+      },
+      {
+        "id": "chatgpt",
+        "purpose": "User-selected in-app MCP cockpit",
+        "mode": "EXISTING_USER_AUTHORIZED_UI_OPTIONAL_FOR_LOCAL_RENDER",
+        "proprietaryService": true
+      },
+      {
+        "id": "render",
+        "purpose": "Historical hosted MCP and Godot demo",
+        "mode": "HISTORICAL_BRIDGE_ONLY_NO_NEW_DEPLOY",
+        "proprietaryService": true
+      }
+    ],
+    "noImplicitCloudFallback": true,
+    "noNewPaidPlans": true,
+    "noAutoSignIn": true,
+    "noCredentialsInRepo": true,
+    "noTelemetrySubscription": true
+  },
+  "limits": {
+    "maxGuestMemoryMiB": 8192,
+    "maxGuestVcpus": 4,
+    "maxGuestDiskGiB": 64,
+    "maxProbeOutputBytes": 4096,
+    "noMachineUniqueIdentifiers": true,
+    "noHostnamesOrMacs": true,
+    "noKernelCmdlineCapture": true,
+    "noSerials": true,
+    "noRootCertificatesOrSecrets": true
+  },
+  "references": [
+    {
+      "url": "https://wiki.debian.org/KVM",
+      "purpose": "Debian QEMU KVM session and packages"
+    },
+    {
+      "url": "https://wiki.debian.org/QEMU",
+      "purpose": "User-mode and system emulation, no kernel patches"
+    },
+    {
+      "url": "https://www.kernel.org/doc/html/latest/virt/kvm/index.html",
+      "purpose": "Upstream KVM documentation"
+    },
+    {
+      "url": "https://source.android.com/docs/core/virtualization",
+      "purpose": "Android AVF is device and privilege limited"
+    }
+  ],
+  "sourceAnchors": [
+    "AGENTS.md",
+    "LICENSE",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/headlessUniversalVmMatrixV1.json",
+    "doctrine/leanVmForgeAlignmentV1.json",
+    "doctrine/finalThreeMachineMutationsV1.json",
+    "doctrine/brandVmArchitectureSealV1.json"
+  ],
+  "promotion": {
+    "originalMainUnmodified": true,
+    "proposalOnly": true,
+    "noReleaseMerge": true,
+    "noRealVmBootProven": true,
+    "noLocalKernelProbePerformed": true,
+    "noLiveDeviceReceipt": true,
+    "noAppOnSamsungProven": true,
+    "noAgentActivation": true,
+    "noPublicEndpoint": true,
+    "noVendorLockinNewlyAdded": true
+  },
+  "crownStatus": "STOP"
+}
