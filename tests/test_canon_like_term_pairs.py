@@ -67,6 +67,31 @@ class CanonLikeTermPairsAuditTests(unittest.TestCase):
         result = self.run_audit(mutation)
         self.assertTrue(any(x.startswith("INVALID_RELATION") for x in result["errors"]))
 
+    def test_json_schema_and_historical_receipts_not_falsely_mislabeled(self):
+        result = self.run_audit()
+        self.assertEqual(len(result["reviewedJsonSchemaDefinitions"]), 4)
+        self.assertEqual(len(result["reviewedDatedHistoricalReceipts"]), 2)
+        self.assertEqual(len(result["reviewedIdenticalLegacyTemplateSchemas"]), 1)
+        self.assertEqual(result["doctrineFilesWithoutDeclaredSchema"], [])
+        self.assertEqual(result["duplicateDeclaredSchemaIds"], {})
+
+    def test_exception_misclassification_reopens_focused_review(self):
+        def mutation(data):
+            data["reviewedExceptions"]["jsonSchemaDefinitions"][0] = (
+                "doctrine/drive3dAssetMutationRollback-20260925.json"
+            )
+        result = self.run_audit(mutation)
+        self.assertIn("JSON_SCHEMA_DEFINITION_REVIEW_DRIFT", result["errors"])
+
+    def test_legacy_duplicate_registry_must_match_actual_bytes_and_schema(self):
+        def mutation(data):
+            data["reviewedExceptions"]["identicalLegacyTemplates"][0]["schemaId"] = (
+                "luhmOs.aiTaskManifest.v2"
+            )
+        result = self.run_audit(mutation)
+        self.assertTrue(any(x.startswith("LEGACY_DUPLICATE_BYTES_OR_SCHEMA_DRIFT")
+                            for x in result["errors"]))
+
 
 if __name__ == "__main__":
     unittest.main()
