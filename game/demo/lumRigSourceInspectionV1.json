@@ -67,5 +67,14 @@
     "publicLicense": "NOT_APPROVED"
   },
   "runtimePublication": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "ownerOnlyQuarantine": {
+    "copyCreated": true,
+    "copyOwnerOnlyMetadataVerified": true,
+    "copySha256Verified": true,
+    "copySha256": "fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da",
+    "copyCrcPass": true,
+    "originalShareExposureUnfixed": true,
+    "copyPublished": false
+  }
 }
