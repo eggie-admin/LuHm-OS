@@ -44,7 +44,16 @@
       "advertising": "NOT_GRANTED",
       "billing": "NOT_GRANTED"
     },
-    "applicationPolicy": "DO_NOT_CREATE_OR_APPLY_UNLESS_REQUIRED_FOR_AN_APPROVED_DELIVERABLE"
+    "applicationPolicy": "DO_NOT_CREATE_OR_APPLY_UNLESS_REQUIRED_FOR_AN_APPROVED_DELIVERABLE",
+    "reportingAdapter": {
+      "provider": "Windsor.ai",
+      "pluginInstalled": "CONFIRMED_2026_11_01",
+      "accountDataAccess": "NOT_VERIFIED_NO_PROVIDER_DATA_READ",
+      "businessSuiteAdmin": "NOT_PROVEN",
+      "allowedInitialMode": "READ_ONLY_AFTER_EXPLICIT_ACCOUNT_CONNECTION",
+      "automaticPosting": false,
+      "automaticAdSpend": false
+    }
   },
   "google": {
     "gmail": {
@@ -57,7 +66,20 @@
       ],
       "publicRepoStorage": "sanitized non-sensitive summaries only",
       "rawMessageExportToPublicRepo": false,
-      "automaticSend": false
+      "automaticSend": false,
+      "businessInboxWatch": {
+        "title": "LuHm Business Inbox Watch",
+        "state": "SCHEDULED_ENABLED_CONFIRMED_2026_11_01",
+        "recurrence": "DAILY_CONDITION_WATCH",
+        "scope": [
+          "new Meta/Instagram business notices",
+          "Google developer and Play status",
+          "Samsung developer replies"
+        ],
+        "notify": "material changes only",
+        "automaticSend": false,
+        "privacy": "no private message bodies or account IDs in public source"
+      }
     },
     "googleBusinessProfile": {
       "state": "UNVERIFIED_NOT_REQUESTED",
@@ -84,7 +106,8 @@
     "blender": "editable 3D masters",
     "ffmpeg": "video assemblies",
     "npm": "source tooling and reproducible web build",
-    "webJquery": "nonprivileged UI only"
+    "webJquery": "nonprivileged UI only",
+    "windsorAi": "INSTALLED; accessible business/Meta account sources and requested permissions UNVERIFIED"
   },
   "fourByFour": [
     {
