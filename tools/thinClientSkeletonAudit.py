@@ -132,7 +132,7 @@ def audit(p: dict, modules: dict, composition: dict, vendor: dict,
          "minimalJqueryDependency")
     direct = set(re.findall(r'\bimplementation\s*\(\s*"([^"]+)"', gradle))
     need(direct == EXPECTED_DIRECT and
-         len(re.findall(r'\\b(?:api|implementation|runtimeOnly|compileOnly)\\s*\\(', gradle)) == 2 and
+         len(re.findall(r'\b(?:api|implementation|runtimeOnly|compileOnly)\s*\(', gradle)) == 2 and
          'assets.srcDir("../../frontEnd")' in gradle,
          "thinAndroidDependencies")
     android = vendor.get("architectureProfiles", {}).get("samsungClient", {})
