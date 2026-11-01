@@ -9,6 +9,8 @@ on:
       - 'scripts/game/**'
       - 'scripts/main.gd'
       - 'tools/gameplayVerticalSliceAudit.py'
+      - 'tools/nightShiftGeneratorSmoke.gd'
+      - 'game/demo/**'
       - '.github/workflows/gameplay-vertical-slice-audit.yml'
   workflow_dispatch:
 
@@ -38,3 +40,5 @@ jobs:
           chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
       - name: Parse and import Godot project
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit
+      - name: Prove bounded procedural replay using real Godot
+        run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tools/nightShiftGeneratorSmoke.gd
