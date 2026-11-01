@@ -1,0 +1,92 @@
+{
+  "schema": "luhmOs.machineCanonFourLoop.v1",
+  "status": "DRAFT_SOURCE_CHECKLIST_ONLY",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "taskId": "machineCanonFourLoopSourceAudit",
+  "scopeId": "machineLayerFourByFour",
+  "canonicalSource": "doctrine/currentSourceTruthV3.json",
+  "sourceRefs": [
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/escalationKernelV1.json",
+    "doctrine/projectChatCanonV1.json",
+    "doctrine/agentSystemDeploymentV1.json",
+    "doctrine/storageTopologyV1.json",
+    "doctrine/unifiedMachineBaseV1.json",
+    "doctrine/machineToHumanWizardV1.json"
+  ],
+  "fourBeats": [
+    "inventory",
+    "scope",
+    "verify",
+    "propose"
+  ],
+  "lanes": [
+    "machine",
+    "service",
+    "studio",
+    "interface"
+  ],
+  "cells": 16,
+  "hexadecimal": "logicalLabelsOnly",
+  "retryCeilingPerLane": 3,
+  "tierRange": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "escalation": "blockedAdvancesOneTierWithoutExpandingAuthority",
+  "green": "reverifyOnEveryTickThenDeescalateToTierZero",
+  "unknown": "holdNotGreen",
+  "failure": "stopCurrentLaneContinueIndependentLanes",
+  "sourceChange": "resetRetryStateButReverify",
+  "checks": {
+    "machine": [
+      "machineInventory",
+      "headlessContract",
+      "sourceArchitecture",
+      "escalationCanon"
+    ],
+    "service": [
+      "networkRouting",
+      "certbotMetadata",
+      "pkiBoundary",
+      "storageLaw"
+    ],
+    "studio": [
+      "garageContract",
+      "studioContract",
+      "desktopSafety",
+      "machineRegression"
+    ],
+    "interface": [
+      "staticBrowser",
+      "piDesktopContract",
+      "androidBoundary",
+      "androidThinClient"
+    ]
+  },
+  "proof": {
+    "machineHardware": false,
+    "linuxServiceRunning": false,
+    "physicalPiKiosk": false,
+    "realAndroidInstall": false,
+    "videoStudioRendering": false,
+    "release": false
+  },
+  "approvals": {
+    "sourceAudit": true,
+    "proposeReversibleChanges": true,
+    "autoBuild": false,
+    "mergeMain": false,
+    "productionDeploy": false,
+    "signAndroid": false,
+    "partitionDisk": false,
+    "flashFirmware": false,
+    "certbotIssue": false,
+    "productionSqlMigration": false,
+    "cast": false,
+    "crownStatus": "STOP"
+  }
+}
