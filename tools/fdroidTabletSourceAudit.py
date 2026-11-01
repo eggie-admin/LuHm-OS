@@ -77,6 +77,8 @@ def main() -> None:
     # Audit the creator/business vs offline Android store boundary on the same checkout.
     from metaSamsungStoreAudit import runSourceAudit
     runSourceAudit(ROOT)
+    from thinClientSkeletonAudit import runSourceAudit as auditThinClient
+    auditThinClient(ROOT)
     print("GREEN_FDROID_TABLET_SOURCE_7_NEGATIVE_CONTROLS")
     print("SOURCE_ONLY: signed APK, F-Droid index, HTTPS hosting and tablet install unproven")
 
