@@ -18,6 +18,13 @@ a git checkout are required. Nonzero exit marks failed checks. Read
 `failedChecks`, `failureKind`, and the relevant existing audit directly.
 The aggregate packet hashes command output but never uploads raw process logs.
 
+The same one-command packet now checks the local frontend HTML, in-chat Rebel
+storyboard safety tests, capability-first Python API-spine contract, MCP server
+Python syntax, 15-agent roster source, and company-wide quarantine. These are
+**offline source checks**: they do not prove live MCP transport, independently
+running bots, production authentication, browser interaction, video rendering,
+or published media. All six failures appear as named checks; raw logs remain local.
+
 ## 200. Obtain exact build evidence
 
 Use the existing owner-authorized Android CAST flow (see
