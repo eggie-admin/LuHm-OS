@@ -110,11 +110,21 @@ def audit(root: Path = ROOT, contract: dict | None = None) -> dict:
         observed.append({"pairId": rid, "domain": domain, "relation": relation,
                          "anchorPath": a, "peerPath": b, "schemaIds": ids})
 
+    # Reconcile exception types before calling a doctrine item broken.
+    exceptions = contract.get("reviewedExceptions") or {}
+    declared_defs = set(exceptions.get("jsonSchemaDefinitions") or [])
+    declared_receipts = set(exceptions.get("datedHistoricalReceipts") or [])
+    if not declared_defs or not declared_receipts:
+        errors.append("MISSING_REVIEWED_EXCEPTION_CLASSIFICATION")
+    if declared_defs & declared_receipts:
+        errors.append("EXCEPTION_CLASSIFICATION_COLLISION")
     schema_locations = defaultdict(list)
     statuses = Counter()
     scanned = 0
     bad_json = []
     missing_schema = []
+    resolved_defs = []
+    resolved_receipts = []
     doctrine = root / "doctrine"
     if doctrine.is_dir():
         for path in sorted(doctrine.glob("*.json")):
@@ -122,25 +132,61 @@ def audit(root: Path = ROOT, contract: dict | None = None) -> dict:
                 warnings.append("SYMLINK_SKIPPED:" + path.name)
                 continue
             scanned += 1
+            rel = path.relative_to(root).as_posix()
             try:
                 obj = load_json(path)
             except (OSError, ValueError):
                 bad_json.append(path.name)
                 continue
-            if not isinstance(obj, dict) or not isinstance(obj.get("schema"), str):
+            if not isinstance(obj, dict):
                 missing_schema.append(path.name)
+                continue
+            if not isinstance(obj.get("schema"), str):
+                if (rel in declared_defs and isinstance(obj.get("$schema"), str)
+                        and isinstance(obj.get("$id"), str) and obj.get("type") == "object"):
+                    resolved_defs.append(rel)
+                elif rel in declared_receipts and path.name.endswith("-20260925.json"):
+                    resolved_receipts.append(rel)
+                else:
+                    missing_schema.append(path.name)
                 continue
             schema_locations[obj["schema"]].append(path.name)
             statuses[str(obj.get("status", "UNDECLARED"))] += 1
     else:
         warnings.append("DOCTRINE_DIRECTORY_UNAVAILABLE")
+
+    if declared_defs != set(resolved_defs):
+        errors.append("JSON_SCHEMA_DEFINITION_REVIEW_DRIFT")
+    if declared_receipts != set(resolved_receipts):
+        errors.append("HISTORICAL_RECEIPT_REVIEW_DRIFT")
     collisions = {schema: files for schema, files in schema_locations.items() if len(files) > 1}
+    reviewed_collisions = {}
+    for item in exceptions.get("identicalLegacyTemplates") or []:
+        if not isinstance(item, dict):
+            errors.append("INVALID_LEGACY_DUPLICATE_ENTRY")
+            continue
+        a, b, schema = item.get("left"), item.get("right"), item.get("schemaId")
+        pa, pb = safe_file(root, a), safe_file(root, b)
+        if not pa or not pb or not isinstance(schema, str):
+            errors.append("MISSING_LEGACY_DUPLICATE_FILE")
+            continue
+        expected = sorted([Path(a).name, Path(b).name])
+        if (schema not in collisions or sorted(collisions[schema]) != expected
+                or pa.read_bytes() != pb.read_bytes()):
+            errors.append("LEGACY_DUPLICATE_BYTES_OR_SCHEMA_DRIFT:" + schema)
+            continue
+        current_manifest = load_json(root / "doctrine/aiManifestFormatV1.json")
+        if schema in current_manifest.get("currentSchemas", []):
+            errors.append("CURRENT_SCHEMA_MUST_NOT_BE_CLASSIFIED_LEGACY:" + schema)
+            continue
+        reviewed_collisions[schema] = collisions[schema]
+    unknown_collisions = {s: v for s, v in collisions.items() if s not in reviewed_collisions}
     if bad_json:
         warnings.append(f"DOCTRINE_JSON_PARSE_REVIEW:{len(bad_json)}")
     if missing_schema:
         warnings.append(f"DOCTRINE_SCHEMA_ABSENT_REVIEW:{len(missing_schema)}")
-    if collisions:
-        warnings.append(f"NON_UNIQUE_DECLARED_SCHEMA_IDS_REVIEW:{len(collisions)}")
+    if unknown_collisions:
+        warnings.append(f"NON_UNIQUE_DECLARED_SCHEMA_IDS_REVIEW:{len(unknown_collisions)}")
 
     head = None
     p = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root,
@@ -162,7 +208,10 @@ def audit(root: Path = ROOT, contract: dict | None = None) -> dict:
         "doctrineRootStatuses": dict(sorted(statuses.items())),
         "unparsedDoctrineJson": bad_json[:15],
         "doctrineFilesWithoutDeclaredSchema": missing_schema[:15],
-        "duplicateDeclaredSchemaIds": dict(list(sorted(collisions.items()))[:15]),
+        "reviewedJsonSchemaDefinitions": sorted(resolved_defs),
+        "reviewedDatedHistoricalReceipts": sorted(resolved_receipts),
+        "reviewedIdenticalLegacyTemplateSchemas": reviewed_collisions,
+        "duplicateDeclaredSchemaIds": dict(list(sorted(unknown_collisions.items()))[:15]),
         "observedPairs": observed,
         "errors": errors,
         "warnings": warnings,
