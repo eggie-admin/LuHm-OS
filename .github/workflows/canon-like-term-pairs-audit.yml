@@ -1,0 +1,46 @@
+name: CAST Canon Like-Term 2x2 Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/canonLikeTermPairsV1.json'
+      - 'tools/canonLikeTermPairsAudit.py'
+      - 'tests/test_canon_like_term_pairs.py'
+      - 'manual/canonLikeTermPairs20261101.md'
+      - '.github/workflows/canon-like-term-pairs-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: canon-like-terms-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  pairwise-read-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Bind source and check patch
+        run: |
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
+      - name: Pairwise Canon negative controls
+        run: python3 -m unittest tests/test_canon_like_term_pairs.py -v
+      - name: Read-only doctrine inventory receipt
+        run: python3 tools/canonLikeTermPairsAudit.py --output build/canon-like-terms/receipt.json
+      - name: Upload bounded review receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: cast-canon-like-term-pairs
+          path: build/canon-like-terms/receipt.json
+          if-no-files-found: warn
+      - name: Preserve authority boundary
+        run: |
+          echo "PROPOSED_SOURCE_ONLY"
+          echo "NO_RENAMES_NO_MERGE_NO_DEPLOY_NO_RELEASE"
+          echo "NO_RUNTIME_OR_ASSET_RIGHTS_PROOF"
+          echo "CROWN_STOP"
