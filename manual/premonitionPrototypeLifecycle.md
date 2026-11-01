@@ -25,7 +25,7 @@ The caller supplies source labels; they are not speaker authentication. No label
 grants execution. Four block templates are storyboardDraft, assetReview,
 gameSceneDraft and deviceCheck. Templates describe intended inputs and output;
 they do not generate a storyboard, modify an asset or run a device test.
-An editable JSON packet is the prototype's interface. A visual block editor,
+An editable JSON packet is the prototype's interface. The optional `--save`\ncommand creates a private mode-0600 draft file and refuses overwrite; `--load`\nrecompiles its bounded JSON packet and checks the SHA-256 digest. This detects\naccidental edits, not malicious forgery or identity. The user controls the file\npath; keep private transcripts outside Git and shared directories. These are\nlocal source-only commands, not a Samsung editor or synced cloud storage. A visual block editor,
 speech recognition, audio waveform analysis and raw microphone capture remain
 unimplemented. The in-memory database is discarded after compilation; receipt
 timestamps are synthetic fixture data, not real observations.
@@ -55,6 +55,8 @@ From repository root:
 python3 tests/testNoCodePrototype.py
 python3 tools/noCodePrototype.py --demo
 python3 tools/noCodePrototype.py --input packet.json
+python3 tools/noCodePrototype.py --input packet.json --save local-draft.json
+python3 tools/noCodePrototype.py --load local-draft.json
 ```
 
 The demo should produce two DRAFT_REVIEW cards and two CONTEXT_ONLY records.
@@ -63,8 +65,7 @@ text, unknown blocks, malformed source refs, duplicate IDs, input limits and rec
 identity changes. Six local unittest methods passed during preparation. This proves
 only the local card compiler, not a full Canon audit, semantic AI or Android runtime.
 
-Next prototype increment: an editable Samsung-facing card preview that imports and
-exports this packet, with an explicit preview step. Choose local embedded Python
+Next prototype increment: an editable Samsung-facing card preview that imports and\nexports this packet, with an explicit preview step. Local CLI save/load is now\nimplemented as a candidate, pending exact-head CI and device proof. Choose local embedded Python
 versus a separately authenticated optional host adapter only after measuring a real
 need. Do not ship the Python MCP server or credentials inside the Android APK.
 
