@@ -1,0 +1,39 @@
+name: Google Play Release Readiness · Source Gate
+
+on:
+  pull_request:
+    paths:
+      - 'export_presets.cfg'
+      - 'project.godot'
+      - 'doctrine/finalFormPublicReleaseGateV1.json'
+      - 'doctrine/publicApkUpdateIdentityV1.json'
+      - 'tools/googlePlayReadiness.py'
+      - 'manual/googlePlayReleaseRunbook.md'
+      - '.github/workflows/google-play-readiness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-preflight:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - name: Check out exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Run negative controls and report actual blockers
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/googlePlayReadiness.py --self-test | tee "$RUNNER_TEMP/googlePlayReadiness.json"
+          # A red release-readiness status is the expected, honest source
+          # result while durable signing/device/Play receipts are missing.
+          # Publishing and AAB creation never occur in this workflow.
+          if grep -Fq '"googlePlayReady": true' "$RUNNER_TEMP/googlePlayReadiness.json"; then
+            echo "::error title=Unreviewed Play promotion::Source-only CI cannot establish release readiness"
+            exit 2
+          fi
+          echo 'GOOGLE_PLAY_RELEASE_NOT_YET_AUTHORIZED=true'
