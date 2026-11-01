@@ -1,0 +1,221 @@
+{
+  "schema": "luhmOs.demoAssetPriority.v1",
+  "status": "PROPOSED_SOURCE_QUEUE",
+  "authority": "Professor",
+  "sourceRefPolicy": "resolveCurrentMainBeforeAnyMutation",
+  "goal": "playableFirstNightPlusFiniteNightShiftEncoreBeforeAnyNewOSFeatures",
+  "gameSlots": [
+    {
+      "slot": 1,
+      "confirmedProject": "firstNightCircuit",
+      "confirmedTitle": "First Night Circuit",
+      "knownGameType": "3D narrative quest",
+      "source": "game/story/firstNightQuest.json",
+      "priority": 1,
+      "gameplayProof": "PENDING_REAL_DEVICE",
+      "assetProof": "PROCEDURAL_PUBLIC_FALLBACK_ONLY"
+    },
+    {
+      "slot": 2,
+      "confirmedProject": null,
+      "title": "NOT_RECOVERED_FROM_CANON",
+      "status": "IDENTITY_UNVERIFIED",
+      "priority": 2
+    },
+    {
+      "slot": 3,
+      "confirmedProject": null,
+      "title": "NOT_RECOVERED_FROM_CANON",
+      "status": "IDENTITY_UNVERIFIED",
+      "priority": 3
+    },
+    {
+      "slot": 4,
+      "confirmedProject": null,
+      "title": "NOT_RECOVERED_FROM_CANON",
+      "status": "IDENTITY_UNVERIFIED",
+      "priority": 4
+    }
+  ],
+  "confirmedSharedConcepts": [
+    {
+      "ref": "goth-industrial-bestiary",
+      "state": "PRIVATE_CANDIDATE_TEXT",
+      "units": 84,
+      "bosses": 12,
+      "rooms": 6,
+      "companions": 12,
+      "rights": "NOT_PUBLIC_APPROVED",
+      "usage": "optionalPrivateEncounterConceptsOnly"
+    },
+    {
+      "ref": "cathedral-cockpit-original",
+      "state": "HASHED_ORIGINAL_ART",
+      "publicApproval": "PENDING",
+      "sha256": "15006744bfdc286cb5afd2425f0a27c3ee3a674b7f11f06540a036cd0546c70e"
+    },
+    {
+      "ref": "lum-gothic-animation-sheet",
+      "state": "HASHED_ORIGINAL_ART",
+      "publicApproval": "PENDING",
+      "sha256": "6bfc5147179c15d6a9339179ae0204bbb677ac419834ee6276f96ba476487d80"
+    },
+    {
+      "ref": "lum-rig-24-bones",
+      "state": "HISTORICAL_IMPORT_PROOF_REQUIRES_RECHECK",
+      "publicApproval": "NOT_CONFIRMED",
+      "source": "privateOwnerArt"
+    },
+    {
+      "ref": "urd-belldandy-skuld",
+      "state": "CANON_DESIGN_REFERENCES_ONLY",
+      "gameReadyRigProof": "NOT_VERIFIED"
+    }
+  ],
+  "mediaProjects": [
+    {
+      "id": "rebel",
+      "type": "musicVideo",
+      "state": "PRIVATE_WORK_IN_PROGRESS",
+      "storageAuthority": "Pirate Daddy's Film/social-media/prjctRebel",
+      "publish": false
+    },
+    {
+      "id": "intoTheWarp",
+      "type": "film",
+      "state": "STORYBOARD_SOURCE",
+      "publish": false
+    }
+  ],
+  "generator": {
+    "kind": "seededFiniteGodotQuestRemix",
+    "source": "scripts/game/nightShiftGenerator.gd",
+    "maxNights": 3,
+    "stepsPerNight": 4,
+    "sourceEvents": "firstNightOnly",
+    "newArtRequired": false,
+    "networkRequired": false,
+    "autoPublish": false,
+    "contentExhaustion": "afterThirdEncoreNoAdditionalQuestGenerated"
+  },
+  "boundedWork": {
+    "maxQueueItems": 12,
+    "autoExecute": false,
+    "generateNewTasksWhenEmpty": false,
+    "doneRequiresEvidence": true,
+    "queue": [
+      {
+        "id": "demo-01",
+        "label": "Headless Godot parse and finite Night Shift smoke",
+        "dependsOn": [],
+        "state": "PENDING",
+        "proof": "exactHeadCi"
+      },
+      {
+        "id": "demo-02",
+        "label": "Inspect actual Web export wasm/pck and first-screen startup",
+        "dependsOn": [
+          "demo-01"
+        ],
+        "state": "PENDING",
+        "proof": "webExportIntegrityAndBrowser"
+      },
+      {
+        "id": "demo-03",
+        "label": "Prove First Night quest to completion with touch and keyboard",
+        "dependsOn": [
+          "demo-02"
+        ],
+        "state": "PENDING",
+        "proof": "independentInputReceipt"
+      },
+      {
+        "id": "demo-04",
+        "label": "Prove all three finite Encore nights in actual Web player",
+        "dependsOn": [
+          "demo-03"
+        ],
+        "state": "PENDING",
+        "proof": "runtimeQuestCompletionReceipt"
+      },
+      {
+        "id": "asset-01",
+        "label": "Verify rights-safe Lum original preview from protected master",
+        "dependsOn": [],
+        "state": "PENDING",
+        "proof": "sourceHashRightsAndOwnerApprove"
+      },
+      {
+        "id": "asset-02",
+        "label": "Import and measure Lum rig in Godot current version",
+        "dependsOn": [
+          "asset-01"
+        ],
+        "state": "PENDING",
+        "proof": "rigImportAndAnimationReceipt"
+      },
+      {
+        "id": "asset-03",
+        "label": "Review Cathedral backdrop and sprite-sheet for private demo",
+        "dependsOn": [],
+        "state": "PENDING",
+        "proof": "fileHashesVisualCanon"
+      },
+      {
+        "id": "asset-04",
+        "label": "Prioritize first adult cast trio from canon without fake final models",
+        "dependsOn": [
+          "asset-02"
+        ],
+        "state": "PENDING",
+        "proof": "perCharacterApprovedImport"
+      },
+      {
+        "id": "story-01",
+        "label": "Map four game identities to recovered source, no invented names",
+        "dependsOn": [],
+        "state": "PENDING",
+        "proof": "ProfessorApprovedFourTitles"
+      },
+      {
+        "id": "story-02",
+        "label": "Select one original bestiary encounter for replay candidate",
+        "dependsOn": [
+          "story-01"
+        ],
+        "state": "PENDING",
+        "proof": "licensedOriginalTextAndMechanic"
+      },
+      {
+        "id": "social-01",
+        "label": "Create review-only Rebel/Into the Warp demo capture plan",
+        "dependsOn": [
+          "demo-03"
+        ],
+        "state": "PENDING",
+        "proof": "shotsRightsAndPrivateReview"
+      },
+      {
+        "id": "release-01",
+        "label": "Physical Samsung playable demo and social review packet",
+        "dependsOn": [
+          "demo-04",
+          "asset-03",
+          "social-01"
+        ],
+        "state": "PENDING",
+        "proof": "deviceInputFileAndProfessorApproval"
+      }
+    ]
+  },
+  "security": {
+    "privateDriveReferenceOnly": true,
+    "unsafeLegacyDriveSharingNotCleared": true,
+    "noPrivateMediaToPublicGitHub": true,
+    "noGenerativeArtPublicDefault": true,
+    "externalSocialPosting": false,
+    "productionSigning": false,
+    "mergeOrDeployRequiresFreshExactCI": true
+  },
+  "finalGameCrown": "STOP"
+}
