@@ -22,7 +22,7 @@ val stageCockpitAssets by tasks.registering(Sync::class) {
     doLast {
         val base = cockpitAssetsDirectory.get().asFile
         val actual = base.walkTopDown().filter { it.isFile }
-            .map { it.relativeTo(base).invariantSeparatorsPath }.toSet()
+            .map { it.relativeTo(base).path.replace(java.io.File.separatorChar, '/') }.toSet()
         val expected = cockpitAssetPaths.toSet()
         if (actual != expected) {
             throw GradleException("RED_COCKPIT_ASSETS: missing=${expected - actual}, extra=${actual - expected}")
