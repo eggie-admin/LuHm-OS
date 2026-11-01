@@ -3,6 +3,11 @@ on:
   pull_request:
     paths:
       - 'doctrine/vendorReductionV1.json'
+      - 'doctrine/hardwareVendorMinimumV1.json'
+      - 'tools/hardwareVendorMinimum.py'
+      - 'tests/testHardwareVendorMinimum.py'
+      - 'manual/hardwareVendorFourByFour.md'
+      - '.devcontainer/Dockerfile'
       - 'tools/vendorReductionAudit.py'
       - 'tests/testVendorReduction.py'
       - 'manual/vendor-reduction.md'
@@ -19,6 +24,15 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact candidate checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected="${{ github.event.pull_request.head.sha || github.sha }}"
+          actual="$(git rev-parse HEAD)"
+          test "$actual" = "$expected"
+          echo "HW_VENDOR_EXACT_SOURCE_REF=$actual"
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '22'
@@ -27,6 +41,11 @@ jobs:
           python3 -m json.tool doctrine/vendorReductionV1.json > /dev/null
           python3 -m py_compile tools/vendorReductionAudit.py
           python3 -m unittest discover -s tests -p 'testVendorReduction.py' -v
+      - name: Audit hardware profiles and minimum Ubuntu package declarations
+        run: |
+          python3 -m unittest discover -s tests -p 'testHardwareVendorMinimum.py' -v
+          python3 tools/hardwareVendorMinimum.py --profile samsungCockpit
+          python3 tools/hardwareVendorMinimum.py --profile linuxStudio
       - name: Build web candidate with exact dependency lock
         working-directory: frontEnd/prototypes/glassWorld
         run: |
