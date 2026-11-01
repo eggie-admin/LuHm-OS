@@ -89,6 +89,25 @@ class PiKioskTests(unittest.TestCase):
             self.assertGreater(int(h.getheader("Content-Length")),10)
             self.assertEqual(h.read(),b"")
             conn.close()
+            # DNS rebinding/host spoof must not grant access to a loopback app.
+            for bad_host in ("evil.example",f"evil.example:{port}",f"localhost:{port}",
+                             f"127.0.0.1:{port}.evil.example"):
+                rebound=http.client.HTTPConnection("127.0.0.1",port,timeout=3)
+                rebound.putrequest("GET","/index.html",skip_host=True)
+                rebound.putheader("Host",bad_host)
+                rebound.endheaders()
+                blocked=rebound.getresponse()
+                blocked.read()
+                self.assertEqual(blocked.status,421,bad_host)
+                rebound.close()
+            conn=http.client.HTTPConnection("127.0.0.1",port,timeout=3)
+            conn.putrequest("HEAD","/index.html",skip_host=True)
+            conn.putheader("Host","evil.example")
+            conn.endheaders()
+            rejected=conn.getresponse()
+            self.assertEqual(rejected.status,421)
+            self.assertEqual(rejected.read(),b"")
+            conn.close()
             for method in ("POST","PUT","DELETE","PATCH","OPTIONS"):
                 denied=http.client.HTTPConnection("127.0.0.1",port,timeout=3)
                 denied.request(method,"/index.html",body=b"not allowed")
