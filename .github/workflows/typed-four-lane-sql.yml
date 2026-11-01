@@ -6,6 +6,8 @@ on:
       - 'host/api/typedPostgresReviewV1.sql'
       - 'tools/typedSqlStub.py'
       - 'tests/testTypedSqlStub.py'
+      - 'tools/noCodePrototype.py'
+      - 'tests/testNoCodePrototype.py'
       - 'doctrine/typedFourLaneSqlV1.json'
       - 'systemPortal/**'
       - 'manual/typedFourLaneSqlV1.md'
@@ -23,6 +25,8 @@ jobs:
           persist-credentials: false
       - name: Typed database adversarial tests
         run: python3 -m unittest tests/testTypedSqlStub.py -v
+      - name: No-code prototype draft save-load boundary
+        run: python3 -m unittest tests/testNoCodePrototype.py -v
       - name: Local in-memory strict schema
         run: python3 tools/typedSqlStub.py
       - name: Existing static portal audit
