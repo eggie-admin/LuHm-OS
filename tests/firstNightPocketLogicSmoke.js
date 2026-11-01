@@ -75,4 +75,22 @@ element("exportButton").click();
 assert.equal(downloads.length,1);
 assert.equal(downloads[0][1],"first-night-scene-draft.json");
 assert.equal(element("toast").textContent.includes("Nothing was uploaded."),true);
-console.log("FIRST_NIGHT_POCKET_GREEN: 5 canon beats, restart, palette, manual export; no external runtime");
+
+// Confirm that the alternate Godot 2.5D entrypoint is reachable from the
+// existing app hub rather than merely an unreachable source-only scene.
+const gameMain=fs.readFileSync(path.join(root,"scripts/main.gd"),"utf8");
+const gameHud=fs.readFileSync(path.join(root,"scripts/game/gameHud.gd"),"utf8");
+const stageScene=fs.readFileSync(path.join(root,"labs/first-night-pocket/PreRenderedStage.tscn"),"utf8");
+const stageScript=fs.readFileSync(path.join(root,"labs/first-night-pocket/preRenderedStage.gd"),"utf8");
+const backdrop=fs.readFileSync(path.join(root,"labs/first-night-pocket/cathedral-stage.svg"),"utf8");
+assert.ok(gameHud.includes("signal pre_rendered_stage_requested") &&
+          gameHud.includes("pre_rendered_stage_requested.emit()"));
+assert.ok(gameMain.includes("pre_rendered_stage_requested.connect(_enter_pre_rendered_stage)") &&
+          gameMain.includes('res://labs/first-night-pocket/PreRenderedStage.tscn'));
+assert.ok(stageScene.includes("Sprite3D") && stageScene.includes("CapsuleMesh") &&
+          stageScene.includes("cathedral-stage.svg"));
+assert.ok(stageScene.includes('method="_on_return_pressed"') &&
+          stageScript.includes("res://scenes/Main.tscn"));
+assert.ok(backdrop.includes("<svg") && !/<script|https?:\/\//i.test(backdrop.replace("http://www.w3.org/2000/svg","")));
+console.log("FIRST_NIGHT_POCKET_GREEN: canonical quest, HTML5 controls, reachable Godot 2.5D stage, return, safe SVG");
+
