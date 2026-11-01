@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17111f">
+<meta name="description" content="A tiny offline playable sketch of LuHm-OS Project Premonition's canonical First Night Circuit quest.">
+<title>Project Premonition · First Night</title>
+<style>
+:root{color-scheme:dark;--ink:#f9f4ff;--muted:#d1bfdc;--glow:#d9b6ff;--line:#79648b;--panel:#22162f;--edge:#3c2b4d;--sky:#120c1b;--accent:#f7b6ed}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#32213c 0,#0d0a15 65%);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+button,input,textarea{font:inherit}
+button{border-radius:15px;border:1px solid #a58ab7;background:#3a274b;color:var(--ink);min-height:51px;padding:12px 17px;cursor:pointer;touch-action:manipulation}
+button:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid #8cf7eb;outline-offset:3px}
+button:active{transform:translateY(1px)}
+button.primary{background:linear-gradient(125deg,#c997f2,#f2b2dd);color:#26152c;font-weight:750;border-color:#e9bbfb}
+button:hover{border-color:#ecd2fb}
+button[hidden],[hidden]{display:none!important}
+.shell{max-width:660px;margin:auto;padding:clamp(16px,4vw,34px)}
+.eyebrow{text-transform:uppercase;letter-spacing:.19em;font-size:.77rem;color:#e0cce7;font-weight:650;margin:0 0 8px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:21px}
+header strong{letter-spacing:.03em}
+.pill{font-size:.73rem;color:#d8c9e1;border:1px solid var(--line);padding:6px 9px;border-radius:99px;white-space:nowrap}
+.card{border:1px solid var(--edge);background:linear-gradient(145deg,#1b1325 0%,#17111f 100%);border-radius:27px;overflow:hidden;box-shadow:0 22px 70px #050307a3}
+.intro{padding:27px 26px 18px}
+h1{font-size:clamp(2.1rem,9vw,3rem);line-height:1.06;letter-spacing:-.045em;margin:8px 0 11px}
+.sub{color:var(--muted);margin:0;font-size:.96rem}
+.scene{position:relative;background:var(--sky);margin:0 18px;border:1px solid #665277;border-radius:22px;overflow:hidden}
+.scene svg{width:100%;height:auto;display:block}
+.sceneCaption{position:absolute;bottom:9px;left:15px;right:15px;text-transform:uppercase;letter-spacing:.16em;font-size:.67rem;font-weight:700;color:#e9def7;text-shadow:0 2px 9px #08040a}
+.scene .twinkle{animation:twinkle 3s ease-in-out infinite alternate}
+.scene .character{animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+@keyframes twinkle{50%{opacity:.35}}
+.statusArea{padding:17px 25px 23px}
+.progressline{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#d2c4de;font-size:.8rem}
+.meter{height:6px;border-radius:8px;background:#3b2a4b;margin:10px 0 17px;overflow:hidden}
+#progressFill{height:100%;width:0;background:linear-gradient(90deg,#8febdf,#dcb4fa);transition:width .25s}
+h2{font-size:1.16rem;margin:0 0 5px}
+#objective{margin:0;color:#e2d5e9;min-height:2.8rem}
+.dialogue{min-height:89px;border-radius:17px;background:#2a1d38;border:1px solid #5e486f;padding:13px 15px;margin:13px 0;color:#f6eafb}
+.dialogue span{display:block;color:#bdb0cb;text-transform:uppercase;font-size:.68rem;letter-spacing:.13em;margin-bottom:5px}
+#dialogueText{margin:0;white-space:pre-wrap}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.controls button.primary{grid-column:span 2}
+.options{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.options button{flex:1;min-width:130px}
+.note{font-size:.82rem;color:#bcaec9;margin:17px 0 2px}
+.editor{background:#251a32;padding:19px;border-top:1px solid #4f3b61}
+.editor h2{margin:0 0 5px}
+.editor p{color:#d0c0dc;margin:0 0 13px;font-size:.88rem}
+.editor label{display:block;margin:12px 0 7px;font-weight:600}
+.editor select,.editor textarea{width:100%;border-radius:11px;border:1px solid #937ca2;padding:11px;color:#f9f4ff;background:#191320}
+.editor textarea{min-height:70px;resize:vertical}
+.editor small{color:#d6c8df}
+.editorActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.editorActions button{flex:1}
+footer{text-align:center;color:#a99bb6;font-size:.79rem;padding:17px 6px}
+#toast{min-height:1.5em}
+.scene[data-palette=cyan]{--sky:#071c26;--accent:#7be3ed;--glow:#8be9f4}
+.scene[data-palette=ember]{--sky:#25101a;--accent:#ffb078;--glow:#ffc6a7}
+.scene[data-palette=violet]{--sky:#120c1b;--accent:#f7b6ed;--glow:#d9b6ff}
+.scene .ambient{fill:var(--sky)}
+.scene .accentStroke{stroke:var(--accent)}
+.scene .accentFill{fill:var(--accent)}
+.scene .glowFill{fill:var(--glow)}
+.scene.hideStars .star{display:none}
+@media(max-width:360px){.intro{padding:20px 18px 14px}.statusArea{padding:14px 18px 19px}.scene{margin:0 12px}.shell{padding:10px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><strong>✦ PROJECT PREMONITION</strong><span class="pill">LOCAL · NO ACCOUNT</span></header>
+<main class="card">
+<section class="intro" aria-labelledby="title">
+<p class="eyebrow">Playable sketch · First Night Circuit</p>
+<h1 id="title">First Night</h1>
+<p class="sub">One little adventure, three locations. Built to start small and grow with your art.</p>
+</section>
+<div id="world" class="scene" data-palette="violet" aria-label="Original procedural vector scene">
+<svg viewBox="0 0 520 324" role="img" aria-labelledby="sceneTitle sceneDesc" xmlns="http://www.w3.org/2000/svg">
+<title id="sceneTitle">The Riverwalk at night</title><desc id="sceneDesc">Original geometric scenery representing the quest locations. Canonical private art is not included.</desc>
+<rect class="ambient" x="0" y="0" width="520" height="324"/>
+<g class="star" fill="#e4d4fc">
+<circle class="twinkle" cx="38" cy="36" r="2.5"/><circle cx="112" cy="66" r="1.7"/><circle cx="193" cy="27" r="2.4"/><circle cx="395" cy="48" r="2.1"/><circle cx="462" cy="27" r="1.6"/>
+</g>
+<g data-location="neonRiverwalk">
+<path d="M0 214L75 176L150 199L230 157L310 184L390 149L520 184V324H0Z" fill="#2d1d40"/>
+<rect x="31" y="105" width="92" height="110" rx="5" fill="#38254a"/><rect x="142" y="74" width="69" height="140" rx="4" fill="#352347"/><rect x="321" y="97" width="90" height="119" rx="5" fill="#38264a"/><rect x="425" y="119" width="68" height="93" fill="#372447"/>
+<g fill="#d6a5f4"><rect x="47" y="124" width="11" height="18"/><rect x="77" y="124" width="11" height="18"/><rect x="165" y="94" width="14" height="15"/><rect x="349" y="120" width="13" height="16"/><rect x="442" y="143" width="12" height="19"/></g>
+<path d="M0 255Q110 232 230 258T520 243V324H0Z" fill="#22152f"/><path d="M0 285Q130 269 260 289T520 274" fill="none" stroke="#86e9ef" stroke-width="6" opacity=".65"/>
+<path d="M68 206V254M452 205V255" class="accentStroke" stroke-width="5"/><circle cx="68" cy="200" r="12" class="glowFill"/><circle cx="452" cy="199" r="12" class="glowFill"/>
+</g>
+<g data-location="lumCoffeeHouse" style="display:none">
+<rect x="80" y="89" width="360" height="195" rx="15" fill="#3b2548" stroke="#9a75a9" stroke-width="5"/>
+<path d="M78 124H442" stroke="#d9b6ff" stroke-width="9"/><rect x="111" y="147" width="105" height="136" rx="4" fill="#1a1027" stroke="#876b99" stroke-width="4"/>
+<rect x="260" y="145" width="148" height="81" rx="7" fill="#120d1d" stroke="#aa81bb" stroke-width="3"/>
+<text x="334" y="177" font-size="15" text-anchor="middle" fill="#dffaf6">LUM</text><text x="334" y="198" font-size="13" text-anchor="middle" fill="#f9dfb0">COFFEE HOUSE</text>
+<path d="M289 246H371L365 277H297Z" fill="#d4a5fb"/><path d="M371 252H384Q399 268 371 270" fill="none" stroke="#d4a5fb" stroke-width="7"/><path d="M307 237q-10 -12 0 -22m22 22q-10 -12 0 -22" stroke="#f7dfc5" stroke-width="3" fill="none"/>
+<path d="M0 289H520" stroke="#9b72b5" stroke-width="7"/>
+</g>
+<g data-location="cathedral" style="display:none">
+<path d="M89 286V105Q89 64 147 64T205 105V286Z" fill="#342241" stroke="#a18ab7" stroke-width="5"/>
+<path d="M316 286V105Q316 64 374 64T432 105V286Z" fill="#342241" stroke="#a18ab7" stroke-width="5"/>
+<path d="M227 284V165Q227 113 260 113T293 165V284Z" fill="#5c4270" stroke="#b7a1cd" stroke-width="5"/>
+<path d="M0 287H520M40 309H481" stroke="#80648e" stroke-width="6"/>
+<path d="M239 274L260 222L281 274Z" class="glowFill"/><circle cx="260" cy="210" r="7" class="accentFill"/>
+</g>
+<g class="character" aria-hidden="true">
+<ellipse cx="260" cy="292" rx="60" ry="12" fill="#07060a" opacity=".34"/>
+<path d="M226 179L214 141L242 153M278 153L306 141L294 179" fill="#b88eea" stroke="#faf2ff" stroke-width="3"/>
+<rect x="224" y="164" width="72" height="112" rx="36" class="glowFill" stroke="#f9d8ff" stroke-width="4"/>
+<circle cx="244" cy="208" r="4" fill="#1f1330"/><circle cx="276" cy="208" r="4" fill="#1f1330"/>
+<path d="M251 226Q260 236 269 226" fill="none" stroke="#33213d" stroke-width="3" stroke-linecap="round"/>
+</g>
+</svg>
+<div class="sceneCaption" id="locationLabel">01 · Neon Riverwalk</div>
+</div>
+<section class="statusArea" aria-labelledby="questHeading">
+<div class="progressline"><strong id="questIndex">STEP 1 OF 5</strong><span id="districtLabel">NEON RIVERWALK</span></div>
+<div class="meter" aria-hidden="true"><div id="progressFill"></div></div>
+<h2 id="questHeading">Objective</h2>
+<p id="objective">Meet Lum at the Riverwalk beacon.</p>
+<div class="dialogue" role="status" aria-live="polite" aria-atomic="true"><span>Story</span><p id="dialogueText">Lum waits by the river. Tap the action button to begin.</p></div>
+<div class="controls">
+<button id="actionButton" class="primary" type="button">Talk to Lum ✦</button>
+<button id="editButton" type="button" aria-expanded="false" aria-controls="sceneEditor">Edit the scene</button>
+<button id="restartButton" type="button">Restart</button>
+</div>
+<p class="note">Offline, no AI call, no mic, no sign-in. Story state lasts only while this page stays open. Export is manual.</p>
+</section>
+<section class="editor" id="sceneEditor" hidden aria-label="Edit this local scene">
+<h2>🎨 Scene desk</h2>
+<p>Try a palette and add a private director note. These are local preview edits, not approved canon artwork.</p>
+<label for="palette">Night palette</label>
+<select id="palette"><option value="violet">Cathedral violet</option><option value="cyan">Riverwalk cyan</option><option value="ember">Coffee ember</option></select>
+<label><input type="checkbox" id="stars" checked> Show night stars</label>
+<label for="directorNote">Director note (up to 120 characters)</label>
+<textarea id="directorNote" maxlength="120" placeholder="What should this shot feel like?"></textarea>
+<small>No autosave and no cloud upload. Use Export to keep your edit notes.</small>
+<div class="editorActions">
+<button id="exportButton" type="button">Export scene JSON ↓</button>
+<button id="closeEditor" type="button">Done ✓</button>
+</div>
+</section>
+</main>
+<footer><div id="toast" role="status" aria-live="polite"></div>LuHm-OS · Project Premonition · local-first concept prototype, not a signed app or public release.</footer>
+</div>
+<script type="application/json" id="questData">
+{"schema":"luhmOs.gameQuest.v1","questId":"firstNightCircuit","title":"First Night Circuit","steps":[
+{"stepId":"meetLum","worldId":"neonRiverwalk","event":"talkLumRiverwalk","objective":"Meet Lum at the Riverwalk beacon.","prompt":"Talk to Lum","response":"Lum: Good. You made it. The city loop is noisy tonight. Grab the signal shard by the river before we move."},
+{"stepId":"recoverSignalShard","worldId":"neonRiverwalk","event":"collectSignalShard","objective":"Recover the loose signal shard on the Riverwalk.","prompt":"Recover signal shard","response":"Signal shard recovered. The Cathedral can hear us again."},
+{"stepId":"coffeeRun","worldId":"lumCoffeeHouse","event":"collectCoffee","objective":"Use an in-world gate to reach Lum Coffee House and grab the night-shift coffee.","prompt":"Take the coffee","response":"Coffee acquired. Industrial-grade optimism: questionable. Caffeine: confirmed."},
+{"stepId":"clearStaticWisp","worldId":"cathedral","event":"clearStaticWisp","objective":"Travel to the Cathedral and clear the static-wisp near the nave.","prompt":"Disperse static-wisp","response":"Static-wisp dispersed. Whatever that thing was, it has stopped arguing with physics."},
+{"stepId":"cathedralSeal","worldId":"cathedral","event":"sealFirstNight","objective":"Touch the Cathedral lectern and close the first circuit.","prompt":"Touch the lectern","response":"Circuit closed. Cathedral awake. The city has officially survived one night."}
+],"completion":{"title":"First Night Complete","message":"Lum: Not bad, Professor. Three districts, one coffee, one electrical ghost, zero apocalypse."}}
+</script>
+<script>
+(function(){
+"use strict";
+var quest=JSON.parse(document.getElementById("questData").textContent);
+var stepIndex=0,responded=false,finished=false;
+var $=function(id){return document.getElementById(id);};
+var names={neonRiverwalk:"Neon Riverwalk",lumCoffeeHouse:"Lum Coffee House",cathedral:"The Cathedral"};
+var world=$("world"),action=$("actionButton"),editor=$("sceneEditor");
+function showScene(id){
+  world.querySelectorAll("[data-location]").forEach(function(group){group.style.display=group.getAttribute("data-location")===id?"":"none";});
+  $("locationLabel").textContent=(id==="neonRiverwalk"?"◈ ":id==="lumCoffeeHouse"?"☕ ":"✦ ")+names[id];
+  $("districtLabel").textContent=names[id].toUpperCase();
+  $("sceneTitle").textContent=names[id]+" at night";
+}
+function render(){
+  if(finished){
+    $("questIndex").textContent="CIRCUIT COMPLETE";
+    $("objective").textContent=quest.completion.title;
+    $("dialogueText").textContent=quest.completion.message;
+    action.textContent="Play again ↻";
+    $("progressFill").style.width="100%";
+    return;
+  }
+  var step=quest.steps[stepIndex];
+  showScene(step.worldId);
+  $("questIndex").textContent="STEP "+(stepIndex+1)+" OF "+quest.steps.length;
+  $("objective").textContent=step.objective;
+  $("progressFill").style.width=String(100*stepIndex/quest.steps.length)+"%";
+  if(!responded){
+    $("dialogueText").textContent=stepIndex===0?"Lum waits by the river. Tap the action button to begin.":"Ready when you are. The scene is yours.";
+    action.textContent=step.prompt+" ✦";
+  }else{
+    $("dialogueText").textContent=step.response;
+    action.textContent=stepIndex===quest.steps.length-1?"Finish First Night ✓":"Continue →";
+  }
+}
+function restart(){
+  stepIndex=0;responded=false;finished=false;render();
+  $("toast").textContent="Story restarted. Scene palette and note are unchanged.";
+}
+action.addEventListener("click",function(){
+  if(finished){restart();return;}
+  if(!responded){responded=true;}
+  else if(stepIndex<quest.steps.length-1){stepIndex++;responded=false;}
+  else{finished=true;}
+  render();
+});
+$("restartButton").addEventListener("click",restart);
+function setEditor(open){
+  editor.hidden=!open;
+  $("editButton").setAttribute("aria-expanded",String(open));
+  if(open){editor.scrollIntoView({block:"nearest"});$("palette").focus();}
+  else{$("editButton").focus();}
+}
+$("editButton").addEventListener("click",function(){setEditor(editor.hidden);});
+$("closeEditor").addEventListener("click",function(){setEditor(false);});
+$("palette").addEventListener("change",function(){world.dataset.palette=this.value;});
+$("stars").addEventListener("change",function(){world.classList.toggle("hideStars",!this.checked);});
+$("exportButton").addEventListener("click",function(){
+  var note=$("directorNote").value.slice(0,120);
+  var payload={schema:"luhmOs.firstNightPocketScene.v1",questId:quest.questId,stepId:finished?"complete":quest.steps[stepIndex].stepId,
+    palette:$("palette").value,stars:$("stars").checked,directorNote:note,rights:"localUserDraftNotCanon",publicApproved:false};
+  var blob=new Blob([JSON.stringify(payload,null,2)+"\n"],{type:"application/json"});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement("a");a.href=url;a.download="first-night-scene-draft.json";document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(url);},3000);
+  $("toast").textContent="Scene note exported to a JSON file. Nothing was uploaded.";
+});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!editor.hidden){setEditor(false);}});
+render();
+})();
+</script>
+</body>
+</html>
