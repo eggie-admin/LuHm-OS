@@ -135,7 +135,7 @@ def audit(p: dict, modules: dict, composition: dict, vendor: dict,
          client.get("javascriptSource") ==
          "LOCAL_PINNED_JQUERY_COPIED_FROM_NPM_LOCK_BEFORE_BUILD",
          "smallExplicitAssetInventory")
-    declared = re.search(r"val cockpitAssetPaths\\s*=\\s*listOf\\((.*?)\\n\\)", gradle, re.S)
+    declared = re.search(r"val cockpitAssetPaths\s*=\s*listOf\((.*?)\n\)", gradle, re.S)
     actual_paths = re.findall(r'"([^"]+)"', declared.group(1)) if declared else []
     need(actual_paths == allowed and
          'assets.srcDir(cockpitAssetsDirectory)' in gradle and
