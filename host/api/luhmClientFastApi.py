@@ -24,6 +24,8 @@ if str(API_DIR) not in sys.path:
     sys.path.insert(0, str(API_DIR))
 
 from luhmCanonOrchestration import CheckpointLedger, plan
+from luhmCryptoBreathing import status as crypto_status
+from luhmMariaDbReceipt import connection_plan as maria_db_plan
 
 TOKEN_HEADER = APIKeyHeader(name="X-LuHm-Control-Token", auto_error=False)
 
@@ -43,12 +45,14 @@ def create_app(*, admin_token: str | None = None,
     if not isinstance(token, str):
         raise ValueError("host token must be a string")
     private_path = ":memory:" if sqlite_path is None else sqlite_path
-    ledger = CheckpointLedger(private_path)
-
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        yield
-        ledger.close()
+        # Create SQLite connection in the ASGI event-loop thread, not the import thread.
+        app.state.ledger = CheckpointLedger(private_path)
+        try:
+            yield
+        finally:
+            app.state.ledger.close()
 
     app = FastAPI(
         title="LuHm Canon Orchestration (private host only)",
@@ -82,24 +86,33 @@ def create_app(*, admin_token: str | None = None,
             raise HTTPException(status_code=422, detail="INVALID_SCOPED_TASK") from None
 
     @app.post("/v1/checkpoint", dependencies=[Depends(authenticated)])
-    def checkpoint_route(body: TaskEnvelope) -> dict[str, Any]:
+    async def checkpoint_route(body: TaskEnvelope) -> dict[str, Any]:
         try:
-            return ledger.checkpoint(
+            return app.state.ledger.checkpoint(
                 body.taskId, body.sourceRef, body.scopeId, body.goal, body.tier)
         except ValueError:
             raise HTTPException(status_code=409, detail="SCOPE_CONFLICT_OR_INVALID_TASK") from None
 
     @app.get("/v1/ledger", dependencies=[Depends(authenticated)])
-    def ledger_route(
+    async def ledger_route(
         taskId: str = Query(min_length=1, max_length=80),
         sourceRef: str = Query(pattern=r"^[0-9a-f]{40}$"),
         scopeId: str = Query(min_length=1, max_length=80),
         limit: int = Query(default=20, ge=1, le=100),
     ) -> dict[str, Any]:
         try:
-            return ledger.events(taskId, sourceRef, scopeId, limit)
+            return app.state.ledger.events(taskId, sourceRef, scopeId, limit)
         except ValueError:
             raise HTTPException(status_code=422, detail="INVALID_LEDGER_SCOPE") from None
+
+    @app.get("/v1/crypto/status", dependencies=[Depends(authenticated)])
+    async def crypto_status_route() -> dict[str, Any]:
+        return crypto_status()
+
+    @app.get("/v1/sql/mariadb-status", dependencies=[Depends(authenticated)])
+    async def maria_db_status_route() -> dict[str, Any]:
+        # No MariaDB connection, driver import, or SQL write happens here.
+        return maria_db_plan()
 
     return app
 
