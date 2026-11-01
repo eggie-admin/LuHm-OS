@@ -11,8 +11,9 @@ import sys
 from pathlib import Path
 
 try:
-    from .escalationKernel import plan
+    from tools.escalationKernel import plan
 except ImportError:
+    # Script entry point: Python adds tools/ to sys.path, not repository root.
     from escalationKernel import plan
 
 ROOT = Path(__file__).resolve().parents[1]
