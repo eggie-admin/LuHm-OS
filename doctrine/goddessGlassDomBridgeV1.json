@@ -1,0 +1,52 @@
+{
+  "schema": "luhmOs.goddessGlassDomBridge.v1",
+  "status": "STAGED_NO_REMOTE_DEPLOY",
+  "project": "Project Premonition",
+  "ownership": "Eggie Bagelface",
+  "surface": "publicationSite/goddessGlassStudio.html",
+  "staticFixture": "publicationSite/goddessGlassCapabilities.v1.json",
+  "optionalSameOriginEndpoint": "/api/glass/capabilities",
+  "optionalEdgeSource": "host/edge/goddessGlassCapabilityWorker.mjs",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "sqlSchema": "host/api/premonitionAssetLedgerV1.sql",
+  "sqlPolicy": "SQL_BACKEND_ONLY_NEVER_DOM_CLIENT",
+  "fourLayers": [
+    "restrictedDom",
+    "jsValidatedCapability",
+    "optionalSameOriginApi",
+    "privatePythonSql"
+  ],
+  "capacity": [
+    "glassViewer",
+    "assetCatalog",
+    "renderStatus",
+    "studioReceipts"
+  ],
+  "mode": "OFFLINE_DEFAULT_EXPLICIT_USER_TAP_ONLY",
+  "externalVendor": "CLOUDFLARE_OPTIONAL_NOT_DEPLOYED",
+  "permissions": {
+    "remoteCapabilitiesCanGrantAuthority": false,
+    "staticDocumentMayFetchRemoteOnlyOnUserTap": true,
+    "credentialsInBrowser": false,
+    "directSQLFromBrowser": false,
+    "remoteWrite": false,
+    "privilegedAdminPublic": false,
+    "networkWhenOffline": false,
+    "xmlMarkupCanExecute": false,
+    "remoteHTMLInjection": false,
+    "scriptAndModExecution": false,
+    "remoteModelDownload": false,
+    "autoCloudFallback": false,
+    "scope": "PUBLIC_NON_SENSITIVE_STATUS_ONLY"
+  },
+  "release": {
+    "sitePublished": false,
+    "cloudflareWorkerDeployed": false,
+    "privatePluginUpdated": false,
+    "liveBackendAttached": false,
+    "sqlDatabaseMigrated": false,
+    "ownerApproved": false,
+    "mainMerged": false
+  },
+  "crownStatus": "HOLD"
+}
