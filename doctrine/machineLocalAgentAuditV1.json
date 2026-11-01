@@ -1,0 +1,455 @@
+{
+  "schema": "luhmOs.machineLocalAgentAudit.v1",
+  "asOf": "2026-11-01",
+  "authority": "Professor",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Local-first npm-based deterministic audit/control receipt, not local model inference or remote execution",
+  "domains": [
+    {
+      "id": "kernel",
+      "assets": [
+        "kernel",
+        "firmware",
+        "cpu",
+        "memory",
+        "driver",
+        "vulkan",
+        "pipewire",
+        "pulseAudio"
+      ],
+      "boundary": "Host-owned kernel and drivers; userspace probes only",
+      "runtime": "hostLinuxOnly",
+      "effect": "READ_ONLY"
+    },
+    {
+      "id": "data",
+      "assets": [
+        "python3",
+        "sqliteStrict",
+        "node",
+        "npm",
+        "json",
+        "sha256",
+        "ffmpeg"
+      ],
+      "boundary": "Typed manifests, local deterministic processes and in-memory SQL",
+      "runtime": "localUserspace",
+      "effect": "SOURCE_ONLY"
+    },
+    {
+      "id": "browser",
+      "assets": [
+        "html5",
+        "dom",
+        "css",
+        "javascript",
+        "webgl",
+        "webgpu"
+      ],
+      "boundary": "CSP, capability negotiation, same-origin kiosk and explicit user gesture",
+      "runtime": "unprivilegedBrowser",
+      "effect": "SOURCE_ONLY"
+    },
+    {
+      "id": "agent",
+      "assets": [
+        "route",
+        "classify",
+        "propose",
+        "audit",
+        "verify",
+        "remoteHandoff"
+      ],
+      "boundary": "No model inference bundled, zero autonomous execution or promotion",
+      "runtime": "nodeStdlibOnly",
+      "effect": "SOURCE_ONLY"
+    }
+  ],
+  "phases": [
+    "detect",
+    "bound",
+    "test",
+    "escalate"
+  ],
+  "matrix": [
+    {
+      "index": 0,
+      "hex": "0x00",
+      "domain": "kernel",
+      "phase": "detect",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 1,
+      "hex": "0x01",
+      "domain": "kernel",
+      "phase": "bound",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 2,
+      "hex": "0x02",
+      "domain": "kernel",
+      "phase": "test",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 3,
+      "hex": "0x03",
+      "domain": "kernel",
+      "phase": "escalate",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 4,
+      "hex": "0x04",
+      "domain": "data",
+      "phase": "detect",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 5,
+      "hex": "0x05",
+      "domain": "data",
+      "phase": "bound",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 6,
+      "hex": "0x06",
+      "domain": "data",
+      "phase": "test",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 7,
+      "hex": "0x07",
+      "domain": "data",
+      "phase": "escalate",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 8,
+      "hex": "0x08",
+      "domain": "browser",
+      "phase": "detect",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 9,
+      "hex": "0x09",
+      "domain": "browser",
+      "phase": "bound",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 10,
+      "hex": "0x0A",
+      "domain": "browser",
+      "phase": "test",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 11,
+      "hex": "0x0B",
+      "domain": "browser",
+      "phase": "escalate",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 12,
+      "hex": "0x0C",
+      "domain": "agent",
+      "phase": "detect",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 13,
+      "hex": "0x0D",
+      "domain": "agent",
+      "phase": "bound",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 14,
+      "hex": "0x0E",
+      "domain": "agent",
+      "phase": "test",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    },
+    {
+      "index": 15,
+      "hex": "0x0F",
+      "domain": "agent",
+      "phase": "escalate",
+      "proof": "SOURCE_ONLY",
+      "hardwareVerified": false
+    }
+  ],
+  "browserTargets": [
+    {
+      "id": "firefox",
+      "engine": "Gecko",
+      "gpu": "WebGL capability probe; no universal WebGPU assumption"
+    },
+    {
+      "id": "chromium",
+      "engine": "Blink",
+      "gpu": "WebGL2 first; WebGPU optional and host-dependent"
+    },
+    {
+      "id": "samsungInternet",
+      "engine": "Chromium-based",
+      "gpu": "Treat support as measured at runtime, not guaranteed by brand"
+    },
+    {
+      "id": "safari",
+      "engine": "WebKit",
+      "gpu": "WebGL capability probe; WebGPU optional where supported"
+    }
+  ],
+  "softwareDecisions": [
+    {
+      "id": "pipewire",
+      "role": "desktopAudioGraph",
+      "policy": "OPTIONAL_HOST_CAPABILITY"
+    },
+    {
+      "id": "pulseaudio",
+      "role": "legacyAudioClientInterface",
+      "policy": "COMPAT_VIA_PIPEWIRE_WHEN_AVAILABLE"
+    },
+    {
+      "id": "vulkan",
+      "role": "nativeGraphicsApi",
+      "policy": "HOST_DRIVER_ONLY_NOT_CONTAINER_INSTALL"
+    },
+    {
+      "id": "sqlite",
+      "role": "localTypedReceipts",
+      "policy": "REQUIRED_VIA_PYTHON_STDLIB"
+    },
+    {
+      "id": "nginx",
+      "role": "reverseProxyStaticAssetHosting",
+      "policy": "OPTIONAL_EDGE_ONLY"
+    },
+    {
+      "id": "apache2",
+      "role": "alternativeHttpReverseProxy",
+      "policy": "EXCLUDE_BY_DEFAULT"
+    },
+    {
+      "id": "php",
+      "role": "serverSideScripting",
+      "policy": "EXCLUDE_BY_DEFAULT"
+    },
+    {
+      "id": "postgres",
+      "role": "sharedSqlService",
+      "policy": "EXCLUDE_BY_DEFAULT"
+    },
+    {
+      "id": "mariadb",
+      "role": "sharedSqlService",
+      "policy": "EXCLUDE_BY_DEFAULT"
+    },
+    {
+      "id": "ffmpeg",
+      "role": "mediaProcessing",
+      "policy": "OPTIONAL_COMPUTE_JOB"
+    },
+    {
+      "id": "babylon",
+      "role": "browserWebglRenderer",
+      "policy": "DEFER_TO_BROWSER_BUNDLE"
+    },
+    {
+      "id": "vue",
+      "role": "browserSceneInspector",
+      "policy": "DEFER_TO_BROWSER_BUNDLE"
+    },
+    {
+      "id": "jquery",
+      "role": "localDomEvents",
+      "policy": "DEFER_TO_BROWSER_BUNDLE"
+    }
+  ],
+  "sourceScope": [
+    "doctrine/machineDebianFourLayerV1.json",
+    "doctrine/machineToHumanWizardV1.json",
+    "doctrine/typedFourLaneSqlV1.json",
+    "doctrine/vendorReductionV1.json",
+    "doctrine/apiSpineV1.json",
+    "doctrine/luhmAiControlPlaneV1.json",
+    ".devcontainer/Dockerfile",
+    "host/ai-ffmpeg/ai-ffmpeg.py",
+    "tools/machineDebianSnapshot.py",
+    "infra/machine-debian/Dockerfile"
+  ],
+  "allowedLocalActions": [
+    "audit",
+    "plan",
+    "verify",
+    "remote-plan"
+  ],
+  "taskIntents": [
+    {
+      "id": "art",
+      "labels": [
+        "art",
+        "scene",
+        "video",
+        "render"
+      ],
+      "output": "LOCAL_PLAN_ONLY",
+      "next": "rightsAndAssetsReview"
+    },
+    {
+      "id": "browser",
+      "labels": [
+        "browser",
+        "webgl",
+        "kiosk",
+        "html"
+      ],
+      "output": "LOCAL_PLAN_ONLY",
+      "next": "deviceCapabilityTest"
+    },
+    {
+      "id": "machine",
+      "labels": [
+        "kernel",
+        "driver",
+        "cpu",
+        "memory",
+        "vulkan",
+        "audio"
+      ],
+      "output": "LOCAL_PLAN_ONLY",
+      "next": "readOnlyHostReview"
+    },
+    {
+      "id": "ai",
+      "labels": [
+        "model",
+        "ai",
+        "agent",
+        "reasoning"
+      ],
+      "output": "LOCAL_PLAN_ONLY",
+      "next": "ownerApprovedProviderReview"
+    }
+  ],
+  "limits": {
+    "maxTaskUtf8Bytes": 1024,
+    "maxSources": 16,
+    "maxSourceBytes": 1048576,
+    "maxAgentPlanSteps": 4,
+    "maxReceiptBytes": 65536,
+    "remoteEnabled": false,
+    "networkRequestsAllowed": false,
+    "modelInferenceIncluded": false,
+    "autonomousAgentActivation": false,
+    "downloadRemoteAssets": false,
+    "writeHostKernel": false,
+    "writeUserFiles": false,
+    "rootPrivilege": false,
+    "runSqlServer": false,
+    "installSystemPackages": false,
+    "publicDeploy": false,
+    "providerSecretsIncluded": false
+  },
+  "remoteBoundary": {
+    "mode": "DRY_RUN_ONLY",
+    "allowedEndpoints": [],
+    "requires": [
+      "exactApprovedOrigin",
+      "ownerAuthorization",
+      "authenticatedTransport",
+      "scopedTaskId",
+      "sourceSha256",
+      "signedCapabilityReceipt"
+    ],
+    "directDatabasePort": false,
+    "providerCostsMustBeApproved": true
+  },
+  "warnings": [
+    "Git SHA-1 and SHA-256 payload digest are separate identities",
+    "Browser WebGL and host Vulkan are different API boundaries",
+    "PipeWire compatibility is not proof of a running audio device",
+    "SQLite in-memory is not a remote SQL server",
+    "A container shares the provider host kernel",
+    "Source-only CI does not prove Samsung performance or actual model inference",
+    "SQL WAL cannot be used safely over a network filesystem"
+  ],
+  "upstream": [
+    {
+      "role": "audio",
+      "url": "https://pipewire.pages.freedesktop.org/pipewire/page_pulseaudio.html"
+    },
+    {
+      "role": "graphics",
+      "url": "https://docs.vulkan.org/guide/latest/loader.html"
+    },
+    {
+      "role": "browser",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebGPU_API"
+    },
+    {
+      "role": "browser",
+      "url": "https://github.com/mdn/browser-compat-data"
+    },
+    {
+      "role": "db",
+      "url": "https://www.sqlite.org/stricttables.html"
+    },
+    {
+      "role": "db",
+      "url": "https://www.sqlite.org/wal.html"
+    },
+    {
+      "role": "runtime",
+      "url": "https://github.com/nodejs/Release"
+    },
+    {
+      "role": "proxy",
+      "url": "https://nginx.org/en/docs/"
+    },
+    {
+      "role": "proxy",
+      "url": "https://httpd.apache.org/docs/current/en/howto/reverse_proxy.html"
+    },
+    {
+      "role": "php",
+      "url": "https://www.php.net/manual/en/security.php"
+    }
+  ],
+  "nextGates": [
+    "exactHeadNpmSourceAudit",
+    "pythonSqlInteropReceipt",
+    "firefoxSamsungSafariChromiumMatrixOnRealClients",
+    "audioVulkanDriverOnApprovedLinuxHost",
+    "agentToolPermissionReview",
+    "remoteIdentityAndBillingReview",
+    "signedAndroidAppReview",
+    "humanReleaseApproval"
+  ]
+}
