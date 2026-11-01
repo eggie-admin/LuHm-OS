@@ -1,0 +1,109 @@
+{
+  "schema": "luhmOs.publicPrivateBrandVault.v1",
+  "status": "PROPOSED_DATA_ROUTING_ONLY",
+  "authority": "Professor",
+  "sourceTruth": [
+    "doctrine/contentLaneDoctrineV1.json",
+    "doctrine/assetEligibilityMatrixV1.json",
+    "doctrine/storageTopologyV1.json",
+    "doctrine/artistCreditLedgerV1.json",
+    "doctrine/unifiedCampaignWorkbenchV1.json"
+  ],
+  "masterStores": {
+    "github": "public safe schemas, source, digests and sanitised receipts only",
+    "googleDrive": "protected originals, editable masters and durable binaries with owner access controls",
+    "sqlite": "lightweight metadata and content pointers only, no bulk masters",
+    "instagram": "public derivative publishing endpoint only when specifically approved"
+  },
+  "lanes": {
+    "privateMutation": {
+      "visibility": "private",
+      "audience": "owner and explicitly authorized collaborators",
+      "materials": [
+        "raw photos and audio",
+        "original Blender .blend masters",
+        "private reference art",
+        "unfinished captures and adult/experimental drafts",
+        "OAuth/token/account records"
+      ],
+      "write": "new versioned source and private receipts",
+      "canPublish": false
+    },
+    "betaAfterDark": {
+      "visibility": "inviteOnly",
+      "audience": "approved adult testers when applicable",
+      "materials": [
+        "derivatives with explicit invite-only eligibility"
+      ],
+      "canPublish": false,
+      "rule": "No hidden private references inside outputs"
+    },
+    "cathedralPublic": {
+      "visibility": "public",
+      "audience": "general public",
+      "materials": [
+        "rights-cleared approved hashes",
+        "approved family-safe title cards",
+        "accurate build/devlog receipts"
+      ],
+      "canPublish": "ONLY_AFTER_SEPARATE_EXACT_POST_OR_ARTIFACT_APPROVAL",
+      "rule": "Never derive visibility authority from private link sharing"
+    }
+  },
+  "migration": {
+    "existingOldPosts": "PRESERVE_NO_BULK_DELETE",
+    "stepOrder": [
+      "capture exact public post text and URL",
+      "inspect spelling/presentation and factual claims",
+      "archive reference receipt privately",
+      "draft corrections without flattening artist voice",
+      "confirm copyright/audio/likeness and brand family",
+      "Professor approves exact post and target",
+      "perform specific provider-authorized action",
+      "verify before-after URL and archive original"
+    ],
+    "autoDelete": false,
+    "autoArchive": false,
+    "autoEdit": false,
+    "autoPost": false
+  },
+  "metadataRequired": [
+    "assetId",
+    "parentAssetId",
+    "creatorOrOwner",
+    "masterHash",
+    "derivativeHash",
+    "license",
+    "sourceRef",
+    "contentLane",
+    "maturity",
+    "publicAllowed",
+    "approvalReceipt",
+    "exportProfile",
+    "destination"
+  ],
+  "privacy": {
+    "neverCommit": [
+      "raw emails",
+      "private Drive IDs",
+      "OAuth tokens or API keys",
+      "human legal ID or address",
+      "private photo/reference bodies",
+      "unreleased scripts or audio",
+      "credentialed full account JSON"
+    ],
+    "privateMaterialInPublicChat": false,
+    "rawPublicCaptionCanBeReviewedWithoutMakingPrivateDataPublic": true,
+    "accessRightsMustBeConfirmed": true
+  },
+  "crown": {
+    "designSystemRequested": true,
+    "designSystemRatified": false,
+    "eachAssetSeparateApproval": true,
+    "eachPostSeparateApproval": true,
+    "protectedMainMergeRequiresExistingGates": true,
+    "androidSigningRequiresExactCast": true
+  },
+  "publicationAuthority": false,
+  "crownStatus": "STOP"
+}

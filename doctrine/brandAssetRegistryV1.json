@@ -1,0 +1,128 @@
+{
+  "schema": "luhmOs.brandAssetRegistry.v1",
+  "status": "REQUIRED_FAMILIES_INDEX_NOT_APPROVAL",
+  "authority": "Professor",
+  "canonicalFamilySource": "doctrine/organizationBrandRegistryV1.json",
+  "requiredBrands": [
+    {
+      "id": "luhmOs",
+      "families": [
+        "logoMark",
+        "wordmark",
+        "favicon",
+        "appIcon",
+        "socialAvatar",
+        "socialBanner",
+        "thumbnailFrame",
+        "endCard",
+        "colorTokens",
+        "typeTokens",
+        "widgetSkin",
+        "loadingCard",
+        "trailerTitle"
+      ]
+    },
+    {
+      "id": "eggieBagelface",
+      "families": [
+        "wordmark",
+        "publisherLockup",
+        "socialAvatar",
+        "socialBanner",
+        "colorTokens",
+        "typeTokens",
+        "pressKit"
+      ]
+    },
+    {
+      "id": "pirateDaddiesFilm",
+      "families": [
+        "studioMark",
+        "wordmark",
+        "endCard",
+        "lowerThird",
+        "socialAvatar",
+        "socialBanner",
+        "thumbnailFrame",
+        "filmOpener",
+        "videoWatermark"
+      ]
+    },
+    {
+      "id": "bigDaddy",
+      "families": [
+        "characterLockup",
+        "portrait",
+        "fullBody",
+        "expressionSheet",
+        "socialPortrait",
+        "titleCard",
+        "videoAppearanceConsent"
+      ]
+    }
+  ],
+  "existingCandidateSources": [
+    {
+      "assetId": "luhmOs.logoMark",
+      "path": "publicationSite/logo.svg",
+      "status": "SOURCE_EXISTS_PENDING_RIGHTS_APPROVAL",
+      "publicApproved": false
+    },
+    {
+      "assetId": "luhmOs.pluginLogo",
+      "path": "plugins/luhm-os/assets/logo.svg",
+      "status": "SOURCE_EXISTS_PENDING_RIGHTS_APPROVAL",
+      "publicApproved": false
+    },
+    {
+      "assetId": "pirateDaddiesFilm.filmEndCard",
+      "path": "media/daddys-princess-date/edit-manifest.json",
+      "status": "MANIFEST_ONLY_RENDER_PENDING",
+      "publicApproved": false
+    },
+    {
+      "assetId": "lum.visualBible",
+      "path": "media/public-release-art-ledger.json",
+      "status": "VISUAL_REFERENCE_HASHED_PUBLIC_APPROVAL_PENDING",
+      "publicApproved": false
+    }
+  ],
+  "requiredAssetReceipt": {
+    "fields": [
+      "assetId",
+      "brandId",
+      "family",
+      "sourcePathOrLogicalPrivateVaultRef",
+      "sha256",
+      "creator",
+      "licenseAndAttribution",
+      "sourceRightsEvidence",
+      "contentLane",
+      "publicAllowed",
+      "canonStatus",
+      "sizeVariant",
+      "parentSourceHash",
+      "ownerApproval",
+      "renderSmokeWhenApplicable"
+    ],
+    "publicRequired": "publicAllowed true + lane cathedralPublic + all proof fields",
+    "statusWhenUnknown": "BLOCK"
+  },
+  "publishing": {
+    "brandBibleCreationIsNotAssetApproval": true,
+    "oneParentMasterManyDerivatives": true,
+    "publicAssetRequiresLicenseAndExplicitHumanReview": true,
+    "privateMasterNeverPublished": true,
+    "updateByNewVersionNotOverwrite": true,
+    "nonPublicSourceReferencesNeverLeak": true
+  },
+  "futureExtensibility": {
+    "newDevice": "adds export profile",
+    "newWidget": "adds type and size derivative",
+    "newVideo": "adds title/caption/endCard derivative",
+    "newGame": "adds thematic campaign but not core company rename",
+    "newStudioSubproject": "gets imprint/series identity only with Professor review"
+  },
+  "sourceLaw": "PROPOSED_SOURCE_ONLY",
+  "crownStatus": "STOP"
+}

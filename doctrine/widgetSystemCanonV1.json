@@ -1,0 +1,92 @@
+{
+  "schema": "luhmOs.widgetSystemCanon.v1",
+  "status": "PROPOSED_SOURCE_ONLY_HOST_PROOF_PENDING",
+  "authority": "Professor",
+  "product": "LuHm-OS",
+  "sourcePlugin": "plugins/luhm-os/plugin.json",
+  "sourceContracts": [
+    "doctrine/glassPluginDockV1.json",
+    "doctrine/androidWeb3CockpitV2.json",
+    "doctrine/artistStudioPluginV1.json"
+  ],
+  "identityLaw": "Widget labels and appearance inherit brandCanonV1; hardware adds adapters, not new brands.",
+  "hostBoundary": {
+    "chatGptMcpApps": "within tool iframe only",
+    "pageWideOverlay": false,
+    "fullscreen": "hostPermissionAndGesture",
+    "pip": "hostPermissionAndGesture",
+    "fallback": "readable inline card",
+    "readOnlyByDefault": true,
+    "externalWritesRequireTaskApproval": true,
+    "noDirectSecretsSqlShellOrTokenInjection": true
+  },
+  "moduleFamilies": {
+    "chat": {
+      "role": "conversation/source truth",
+      "existing": "frontEnd/index.html"
+    },
+    "library": {
+      "role": "protected asset pointer navigation",
+      "existing": "frontEnd/index.html"
+    },
+    "memories": {
+      "role": "project continuity navigation",
+      "existing": "frontEnd/index.html"
+    },
+    "assetFactory": {
+      "role": "review and derived asset candidates",
+      "existing": "frontEnd/index.html"
+    },
+    "music": {
+      "role": "licensed playback plan",
+      "existing": "doctrine/glassPluginDockV1.json"
+    },
+    "avatars": {
+      "role": "rig and character review",
+      "existing": "doctrine/glassPluginDockV1.json"
+    },
+    "yume": {
+      "role": "storyboard, art and media",
+      "existing": "doctrine/glassPluginDockV1.json"
+    },
+    "social": {
+      "role": "brand-safe captions, review queue; no auto-post",
+      "existing": "doctrine/glassPluginDockV1.json"
+    },
+    "admin": {
+      "role": "Canon receipts and device gates",
+      "existing": "doctrine/glassPluginDockV1.json"
+    }
+  },
+  "componentVariants": [
+    "compactCard",
+    "drawerPanel",
+    "fullscreenOnSupportedHost"
+  ],
+  "designTokens": "doctrine/brandCanonV1.json#visualSystem",
+  "uiRequirements": {
+    "accessibleTouchTargetMinCssPx": 44,
+    "keyboardEsc": true,
+    "focusReturn": true,
+    "mobileFirst": true,
+    "highContrastReview": true,
+    "reducedMotion": true,
+    "screenReaderLabels": true,
+    "offlineTextFallback": true
+  },
+  "futureFeatureLaw": {
+    "newFeatureRequires": "registered family/id, capability claim, privacy classification and targeted test",
+    "newHardwareRequires": "adapter and evidence no brand change",
+    "newMediaRequires": "derive existing theme+titlecard",
+    "unknownCapability": "BLOCKED not simulated"
+  },
+  "proof": {
+    "pluginBuild": "HISTORICAL_SOURCE_ONLY",
+    "hostWidgetMount": "UNVERIFIED",
+    "realInteractiveAvatar": "UNVERIFIED",
+    "androidDeviceMount": "UNVERIFIED",
+    "safetyMetadata": "PROPOSED"
+  },
+  "publicationAuthority": false,
+  "crownStatus": "STOP"
+}
