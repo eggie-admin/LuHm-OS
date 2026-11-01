@@ -237,5 +237,26 @@
     }
   ],
   "promotion": false,
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "reviewedExceptions": {
+    "jsonSchemaDefinitions": [
+      "doctrine/assetRegisterV1.schema.json",
+      "doctrine/jrpgAiProposal.schema.json",
+      "doctrine/professorOldMagicStudyClassSchemaV2.json",
+      "doctrine/studioSecurityBaselineV1.schema.json"
+    ],
+    "datedHistoricalReceipts": [
+      "doctrine/drive3dAssetMutationRollback-20260925.json",
+      "doctrine/lumRigV2Phase1Seal-20260925.json"
+    ],
+    "identicalLegacyTemplates": [
+      {
+        "left": "doctrine/remote-ai-manifest-v1.template.json",
+        "right": "doctrine/remoteAiManifestV1.template.json",
+        "schemaId": "luhmOs.remoteAiManifest.v1",
+        "treatment": "preserveBothHistoricalNamesNoExecutionNoAutomaticDelete"
+      }
+    ]
+  },
+  "reviewLaw": "Classifications are verified against file structure and exact content bytes in CI. Reviewed historical and JSON Schema files are not invalid doctrine contracts; changed bytes reopen the warning. Never modify originals to silence diagnostics."
 }
