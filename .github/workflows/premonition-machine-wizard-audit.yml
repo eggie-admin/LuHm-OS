@@ -22,6 +22,15 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Validate exact source checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected="${{ github.event.pull_request.head.sha || github.sha }}"
+          actual="$(git rev-parse HEAD)"
+          test "$actual" = "$expected"
+          echo "CAST_SECURITY_EXACT_SOURCE_REF=$actual"
       - name: Validate contract and Python source
         run: |
           python3 -m json.tool doctrine/machineToHumanWizardV1.json > /dev/null
