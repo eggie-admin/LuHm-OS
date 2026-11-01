@@ -14,6 +14,13 @@ SHA40 = re.compile(r"[a-f0-9]{40}\Z")
 STAGES = ("concept", "prototype", "proposed", "beta", "final")
 CHAIN = (477, 478, 479, 480)
 ROLES = ("debianUserland", "nodePythonSql", "deviceRegistry", "piOsKiosk")
+EXPECTED_HEADS = (
+    "f44e0747944177c9c24a9a6c9b7edcad168318d8",
+    "40c0ce5f35a32127acc2e176ad41bcf9f11066dc",
+    "722730eadb7362a93f6a4660a026a60f598d4b06",
+    "d5b2947360a0c8b9ec184162b7fa4f405d8b3616",
+)
+EXPECTED_RUNS = (41275191198, 41275728802, 41276356242, 41276769982)
 LAYERS = ("piBootKernel", "headlessUserspace", "studioServices", "browserKiosk")
 COLS = ("inventory", "authority", "safeProof", "propose")
 PROVEN = ("canonSourceBound", "platformArchitectureChosen",
@@ -79,7 +86,8 @@ def validate(m: dict, root: Path = ROOT):
          "PR_CHAIN")
     for i,item in enumerate(chain):
         need(SHA40.fullmatch(item.get("sha", "")) is not None and
-             item.get("sourceRun", 0) > 1000 and
+             item["sha"] == EXPECTED_HEADS[i] and
+             item.get("sourceRun") == EXPECTED_RUNS[i] and
              type(item.get("branch")) is str and
              item["branch"].startswith("candidate/"), "PR_SOURCE_SHA")
         expected_base = "main" if i == 0 else chain[i-1]["branch"]
@@ -140,7 +148,7 @@ def validate(m: dict, root: Path = ROOT):
     cast=json.loads(safe_file("doctrine/forgeTwinsV3.json",root).read_text(encoding="utf-8"))
     envelope=cast.get("castEnvelope", {})
     need(cast.get("crownStatus")=="STOP" and
-         envelope.get("singleUse", True) is True and
+         "singleUse" in envelope.get("requiredFields", []) and
          envelope.get("persistentAuthorizationAllowed") is False and
          envelope.get("consumedOnAttempt") is True and
          "deployment" in envelope.get("doesNotAuthorize", []) and
