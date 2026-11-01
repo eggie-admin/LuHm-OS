@@ -116,7 +116,7 @@ class TestMachineForge(unittest.TestCase):
             tiny_ips()[:-1], double, oversized,
             b"PATCH"+b"\x00\x01\x00"+b"\x00\x04"+b"A"+b"EOF",
             b"PATCH"+b"\x00\x00\x01"+b"\x00\x00"+b"\x00\x00"+b"A"+b"EOF",
-            b"PATCH"+b"\x00\x00\x01"+b"\x00\x00"+b"\x00\x05"+b"A"+b"EOF",
+            b"PATCH"+b"\x00\x00\x01"+b"\x00\x00"+b"\x00\x05"+b"EOF",
         ]
         for v in bad:
             with self.subTest(raw=v[:12]), self.assertRaises(ValueError):
