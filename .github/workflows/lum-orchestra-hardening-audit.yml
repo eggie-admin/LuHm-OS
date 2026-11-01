@@ -3,6 +3,10 @@ on:
   pull_request:
     paths:
       - 'tools/lumOrchestraGate.py'
+      - 'tools/songOfGoddessesSnapshot.py'
+      - 'tests/testSongOfGoddessesSnapshot.py'
+      - 'doctrine/songOfGoddessesSnapshotV1.json'
+      - 'manual/songOfGoddesses4x4Snapshot.md'
       - 'tests/testLumOrchestraGate.py'
       - 'doctrine/lumOrchestraHardeningV1.json'
       - 'doctrine/googleAiDeveloperEntitlementsV1.json'
@@ -36,6 +40,10 @@ jobs:
           python3 -m py_compile tools/lumOrchestraGate.py tests/testLumOrchestraGate.py
           python3 -m json.tool doctrine/lumOrchestraHardeningV1.json >/dev/null
           python3 -m json.tool doctrine/googleAiDeveloperEntitlementsV1.json >/dev/null
+      - name: Audit 4x4 Song and encoded address boundaries
+        run: |
+          python3 -m unittest discover -s tests -p 'testSongOfGoddessesSnapshot.py' -v
+          python3 tools/songOfGoddessesSnapshot.py --output build/lum-orchestra/songSnapshotReceipt.json
       - name: Run fail-closed negative controls
         run: python3 -m unittest discover -s tests -p testLumOrchestraGate.py -v
       - name: Run structural orchestra candidate audit
