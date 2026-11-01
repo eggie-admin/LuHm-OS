@@ -52,7 +52,20 @@
       "androidSdkTarget": 36,
       "testingPackage": "art.eggiebagelface.luhmos.testing",
       "betaPackage": "art.eggiebagelface.luhmos.beta",
-      "deviceRuntime": "NOT_PROVEN"
+      "deviceRuntime": "NOT_PROVEN",
+      "assetAllowlist": [
+        "index.html",
+        "styles.css",
+        "app.js",
+        "vendor/jquery-3.7.1.min.js",
+        "vendor/jquery-LICENSE.txt",
+        "jquery/luhm.codingRoleplay.js",
+        "jquery/luhm.parallax.js",
+        "jquery/luhm.cockpit.js",
+        "jquery/luhm.cast.js"
+      ],
+      "androidBundle": "EXPLICIT_ALLOWLIST_GENERATED_SYNC_ONLY",
+      "javascriptSource": "LOCAL_PINNED_JQUERY_COPIED_FROM_NPM_LOCK_BEFORE_BUILD"
     },
     "remoteOptional": {
       "controlPlane": "Python 3 standard library with optional sqlite3; explicit adapters only",
@@ -189,14 +202,15 @@
     "check": "tools/thinClientSkeletonAudit.py",
     "integration": "tools/fdroidTabletSourceAudit.py",
     "mode": "STATIC_SOURCE_ONLY",
-    "negativeControls": 10,
+    "negativeControls": 12,
     "knownGaps": [
       "No physical boot chain, kernel version, firmware, driver or hardware integrity read",
       "No full APK dependency/asset/SBOM inspection",
       "No CPU GPU FPS or memory benchmark on Samsung",
       "No owner-signed APK with stable update continuity",
       "No public F-Droid, Google Play or Galaxy Store approval",
-      "No actual kernel compilation or custom 64-bit OS image"
+      "No actual kernel compilation or custom 64-bit OS image",
+      "Explicit Gradle asset-bundling configuration has not yet been compiled into an inspected AAR/APK at this PR head"
     ]
   },
   "security": {
