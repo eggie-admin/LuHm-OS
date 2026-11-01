@@ -15,6 +15,9 @@ func _move(direction: int) -> void:
     steps += 1
     status_label.text = "3D actor moved; position x=%.1f | steps=%d" % [actor.position.x, steps]
 
+func _on_return_pressed() -> void:
+    get_tree().change_scene_to_file("res://scenes/Main.tscn")
+
 func _on_left_pressed() -> void:
     _move(-1)
 
