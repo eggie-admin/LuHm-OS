@@ -19,6 +19,10 @@ on:
       - 'tools/pi-kiosk/**'
       - 'tests/testPiOsLiteKiosk.py'
       - 'manual/pi-os-lite-headless-kiosk-20261101.md'
+      - 'doctrine/castMachineCloseoutV1.json'
+      - 'tools/castMachineCloseoutAudit.py'
+      - 'tests/testCastMachineCloseout.py'
+      - 'manual/cast-machine-closeout-20261101.md'
       - 'tools/luhm-machine-agent/**'
       - '.github/workflows/premonition-machine-wizard-audit.yml'
   workflow_dispatch:
@@ -126,6 +130,28 @@ jobs:
           assert r["listenerStarted"] is False and r["crownStatus"]=="STOP"
           print("PI_OS_BOOT_TO_LOOPBACK_KIOSK_SOURCE_PASS")
           PY
+      - name: Verify CAST machine source closeout and no implicit beta promotion
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/castMachineCloseoutV1.json >/dev/null
+          python3 -m py_compile tools/castMachineCloseoutAudit.py tests/testCastMachineCloseout.py
+          python3 -m unittest discover -s tests -p 'testCastMachineCloseout.py' -v
+          python3 tools/castMachineCloseoutAudit.py > "$RUNNER_TEMP/cast-machine-closeout-source-receipt.json"
+          python3 - "$RUNNER_TEMP/cast-machine-closeout-source-receipt.json" <<'PY'
+          import json,sys
+          p=json.load(open(sys.argv[1],encoding="utf-8"))
+          assert p["status"]=="AMBER_MACHINE_SOURCE_READY_FOR_PROPOSED_REVIEW"
+          assert p["machineSourcePrototyped"] is True and p["nextOsPlanningAllowed"] is True
+          assert len(p["historicalPrChain"])==4 and len(p["sourceDigests"])==9
+          assert len(p["nextBlockers"])==5 and p["sourceChangesUntilHardwareEvidence"]=="SECURITY_FIXES_ONLY"
+          for flag in ("currentHeadReverified","actualPiBooted","kioskAccessibleFromPhone",
+                       "physicalBackendComplete","betaReleaseReady","finalReleaseReady",
+                       "castAuthorized","castDispatched","publicDeployment","liveData"):
+              assert p[flag] is False, flag
+          assert p["crownStatus"]=="STOP"
+          print("CAST_MACHINE_SOURCE_CLOSEOUT_READY_FOR_REVIEW_NOT_DEPLOYED")
+          PY
       - name: Emit runner-safe read-only sample
         run: |
           python3 tools/machineToHumanWizard.py --json > "$RUNNER_TEMP/wizard-receipt.json"
@@ -149,5 +175,6 @@ jobs:
             ${{ runner.temp }}/machine-agent-remote-boundary.json
             ${{ runner.temp }}/machine-agent-npm-pack.json
             ${{ runner.temp }}/pi-os-kiosk-source-receipt.json
+            ${{ runner.temp }}/cast-machine-closeout-source-receipt.json
           retention-days: 14
           if-no-files-found: warn
