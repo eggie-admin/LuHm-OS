@@ -1,0 +1,68 @@
+{
+  "schema": "luhmOs.localMediaDeck.v1",
+  "status": "PROPOSED_SOURCE_TESTING",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "surfaces": {
+    "standalone": "host/harness/index.html",
+    "sharedDom": "host/harness/studioDeck.html",
+    "clientLogic": "host/harness/studioDeck.js",
+    "nativePlay": "OPTIONAL_OUTSIDE_BROWSER_NOT_INSTALLED"
+  },
+  "playback": {
+    "browserDefault": "userSelectedLocalFileViaHTML5",
+    "supportedExtensions": [
+      "mp4",
+      "webm",
+      "ogv",
+      "mp3",
+      "m4a",
+      "wav",
+      "ogg"
+    ],
+    "maxBytes": 268435456,
+    "autoplay": false,
+    "inlineVideo": true,
+    "seekViaNativeControls": true,
+    "disconnectRevokesBlob": true
+  },
+  "vlc": {
+    "status": "OPTIONAL_DESKTOP_EXTERNAL_HANDOFF_NOT_EXECUTED",
+    "browserVlcPlugin": false,
+    "legacyNpapi": false,
+    "rawHttpPort": false,
+    "remoteControlListener": false,
+    "bundledAndroidLibVlc": false,
+    "linuxCliRequiresSeparateHostProof": true,
+    "libVlcLicenseCodecAuditRequired": true,
+    "androidNativeRequiresAbiSizeSignerRightsAndDeviceProof": true
+  },
+  "backend": {
+    "python3ReadOnly": true,
+    "headlessService": "EXISTING_MCP_HARNESS",
+    "newServerRoute": false,
+    "newDaemon": false,
+    "mediaUpload": false,
+    "serverFileReads": false,
+    "ffmpegRenderingUnchanged": true,
+    "sqlMetadataUnchanged": true
+  },
+  "embed": {
+    "godotOptIn": true,
+    "godotExportSha256Required": true,
+    "frameOriginsExistingAllowlistOnly": true,
+    "privateMasterPublishing": false,
+    "sameOriginDomOnly": true,
+    "chatMcpResourceDistinctFromStandalone": true
+  },
+  "evidence": {
+    "ciStatic": "PENDING",
+    "browserPlayback": "NOT_VERIFIED",
+    "vlcInstalled": "NOT_VERIFIED",
+    "headlessKernel": "NOT_VERIFIED",
+    "samsungDevice": "NOT_VERIFIED",
+    "chatGptUiMount": "NOT_VERIFIED"
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}
