@@ -1,0 +1,81 @@
+{
+  "schema": "luhmOs.motionBrandCanon.v1",
+  "status": "PROPOSED_FORMAT_SYSTEM_NOT_RENDERED",
+  "authority": "Professor",
+  "hierarchy": [
+    "Eggie Bagelface publisher credit",
+    "PIRATE DADDIES FILM production imprint",
+    "LuHm-OS product lockup when demonstrating app",
+    "Project Premonition title only for game-world media"
+  ],
+  "existingSource": "media/daddys-princess-date/edit-manifest.json",
+  "existingSocialLaw": "Pirate Daddy's Film Social Media Project Law v1.0, Professor ratified 2026-10-20",
+  "formats": {
+    "verticalShort": {
+      "aspect": "9:16",
+      "nominalPixels": "1080x1920",
+      "nominalFps": 30,
+      "state": "EXPORT_PRESET_NOT_UNIVERSAL_DELIVERY_CLAIM"
+    },
+    "landscape": {
+      "aspect": "16:9",
+      "nominalPixels": "1920x1080",
+      "nominalFps": 30,
+      "state": "CANDIDATE_EXPORT_PROFILE"
+    },
+    "square": {
+      "aspect": "1:1",
+      "nominalPixels": "1080x1080",
+      "nominalFps": 30,
+      "state": "CANDIDATE_EXPORT_PROFILE"
+    },
+    "fullMotionScene": {
+      "source": "timecoded edit manifest, camera/mocap/roto originals",
+      "render": "FFmpeg plus engine output, reversible",
+      "state": "PROJECT_SCOPED"
+    }
+  },
+  "packets": [
+    "master logo vector with provenance",
+    "studio opener",
+    "two-second title treatment as configurable draft",
+    "approved lower third",
+    "subtitles sound-off-safe",
+    "nonintrusive bug-safe watermark",
+    "trailer chapter bumpers",
+    "social end card",
+    "sound-off thumbnail",
+    "licensed music/voice credits",
+    "caption timing",
+    "vertical and landscape crop maps"
+  ],
+  "style": {
+    "motion": "cyber-goth / industrial / cathedral restrained",
+    "opening": "readable title even with sound off",
+    "subtitles": "accessible safe area with contrast",
+    "animations": "reduced-motion fallback and no flashing safety issue",
+    "type": "inherit brand tokens, no random font packs",
+    "stinger": "ORIGINAL_LICENSED_AUDIO_ONLY"
+  },
+  "renderLaw": {
+    "rawMedia": "protected Drive originals",
+    "compositing": "edit manifests and reproducible FFmpeg instructions in GitHub",
+    "exports": "new hashed version never overwrite originals",
+    "musicRights": "VERIFY_TRACK_OR_COMMISSION_OR_LICENSE_BEFORE_PUBLIC",
+    "personLikeness": "CONSENT_AND_APPROVAL_REQUIRED",
+    "thirdPartyFootage": "RIGHTS_REQUIRED",
+    "publicUse": "cathedralPublic receipts only"
+  },
+  "releaseGate": [
+    "source references and hashes",
+    "asset/music/performer rights",
+    "canon character continuity",
+    "captions/accessibility",
+    "format technical playback",
+    "Professor exact video approval",
+    "platform-specific public post review"
+  ],
+  "completedFinalVideo": false,
+  "publicUploadAuthority": false,
+  "crownStatus": "STOP"
+}
