@@ -56,6 +56,11 @@ on:
       - "tests/testGithubSqlSourceAudit.py"
       - "host/mcp/luhmGithubSqlTools.py"
       - "manual/github-sql-source-control.md"
+      - "doctrine/hostileModForge4x4V1.json"
+      - "tools/hostileModForgeAudit.py"
+      - "tests/testHostileModForge.py"
+      - "host/mcp/luhmHostileModForgeTools.py"
+      - "manual/hostile-mod-forge-runbook.md"
   workflow_dispatch:
 
 permissions:
@@ -83,7 +88,7 @@ jobs:
       - name: Install pinned local-test-only dependencies
         run: python -m pip install 'cryptography==46.0.4' 'fastapi==0.128.2' 'httpx==0.28.1' 'PyYAML==6.0.2'
       - name: Compile staged bridge and ASGI modules
-        run: python -m py_compile host/api/luhmOpenAiChatBridge.py host/mcp/luhmOpenAiChatTools.py host/remote/luhmWmsVmManager.py host/mcp/luhmWmsVmTools.py host/api/luhmCanonOrchestration.py host/api/luhmClientFastApi.py host/api/luhmCryptoBreathing.py host/api/luhmCryptoSqlite.py host/api/luhmMariaDbReceipt.py host/mcp/luhmOrchestrationTools.py host/mcp/luhmCryptoTools.py host/api/luhmGpuVideoPlanner.py host/mcp/luhmGpuVideoTools.py tools/gpuVideoMinuteFixture.py tools/headlessMachineMatrixAudit.py tools/leanVmForgeAudit.py host/mcp/luhmLeanVmForgeTools.py tools/premonitionPlatformArtAudit.py host/mcp/luhmPlatformArtTools.py tools/githubSqlSourceAudit.py host/mcp/luhmGithubSqlTools.py
+        run: python -m py_compile host/api/luhmOpenAiChatBridge.py host/mcp/luhmOpenAiChatTools.py host/remote/luhmWmsVmManager.py host/mcp/luhmWmsVmTools.py host/api/luhmCanonOrchestration.py host/api/luhmClientFastApi.py host/api/luhmCryptoBreathing.py host/api/luhmCryptoSqlite.py host/api/luhmMariaDbReceipt.py host/mcp/luhmOrchestrationTools.py host/mcp/luhmCryptoTools.py host/api/luhmGpuVideoPlanner.py host/mcp/luhmGpuVideoTools.py tools/gpuVideoMinuteFixture.py tools/headlessMachineMatrixAudit.py tools/leanVmForgeAudit.py host/mcp/luhmLeanVmForgeTools.py tools/premonitionPlatformArtAudit.py host/mcp/luhmPlatformArtTools.py tools/githubSqlSourceAudit.py host/mcp/luhmGithubSqlTools.py tools/hostileModForgeAudit.py host/mcp/luhmHostileModForgeTools.py
       - name: Test offline and quarantine gates
         run: python -m unittest discover -s tests -p 'testOpenAiChatBridge.py' -v
       - name: Test WMS VM manager no-network and Canon guards
@@ -114,6 +119,10 @@ jobs:
         run: |
           python tools/premonitionPlatformArtAudit.py
           python -m unittest discover -s tests -p 'testPremonitionPlatformArtAudit.py' -v
+      - name: Audit hostile device/display/mod/source 4x4
+        run: |
+          python tools/hostileModForgeAudit.py
+          python -m unittest discover -s tests -p 'testHostileModForge.py' -v
       - name: Audit GitHub-locked SQL, strict SQLite source and MariaDB HOLD
         run: |
           python tools/githubSqlSourceAudit.py
