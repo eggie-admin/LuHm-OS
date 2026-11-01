@@ -128,6 +128,8 @@ def main() -> int:
     receipt=validate(snapshot)
     head=subprocess.run(["git","rev-parse","HEAD"],cwd=ROOT,capture_output=True,text=True,check=False)
     receipt["sourceRef"]=head.stdout.strip() if head.returncode==0 and SHA40.fullmatch(head.stdout.strip()) else None
+    if receipt["sourceRef"] is None:
+        raise SnapshotError("MISSING_EXACT_SOURCE_REF")
     if args.output:
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(json.dumps(receipt,sort_keys=True,indent=2)+"\n",encoding="utf-8")
