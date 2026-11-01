@@ -26,10 +26,17 @@
     <video data-luhm-media-video hidden playsinline preload="metadata" aria-label="Selected local video preview"></video>
     <audio data-luhm-media-audio hidden preload="metadata" aria-label="Selected local audio preview"></audio>
     <p data-luhm-media-status role="status">No media selected. VLC remains optional on the desktop studio.</p>
+    <section class="runtime-probe" aria-label="Read-only CAST runtime inspection">
+      <h3>CAST · Browser runtime</h3>
+      <p>Local capability hints only. No permissions, uploads or OS process access.</p>
+      <button type="button" id="runtime-probe">Inspect browser locally</button>
+      <pre id="runtime-receipt" role="status" aria-live="polite">Not inspected.</pre>
+    </section>
   </aside>
   <aside id="vue-inspector" class="inspector" aria-label="Vue 3 scene controls"></aside>
 </main>
 <footer>Blender models → Godot character fidelity · Babylon props/world · Vue/jQuery controls · Python receipts · FFmpeg/VLC media</footer>
 <script type="module" src="./src/main.js"></script>
+<script type="module" src="./src/runtime-diagnostics.mjs"></script>
 </body>
 </html>
