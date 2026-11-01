@@ -5,6 +5,7 @@ on:
     paths:
       - "doctrine/creativeModuleForge4x4V1.json"
       - "tools/creativeCommunityAudit.py"
+      - "tools/creativeCommunityCli.py"
       - "tests/testCreativeCommunityAudit.py"
       - "host/mcp/luhmCreativeModuleTools.py"
       - "host/mcp/luhmHarnessServer.py"
@@ -27,8 +28,9 @@ jobs:
           python-version: "3.11"
       - name: Audit Python license registry and offline RSS/Atom intake
         run: |
-          python -m py_compile tools/creativeCommunityAudit.py host/mcp/luhmCreativeModuleTools.py
+          python -m py_compile tools/creativeCommunityAudit.py tools/creativeCommunityCli.py host/mcp/luhmCreativeModuleTools.py
           python tools/creativeCommunityAudit.py
+          python tools/creativeCommunityCli.py audit
           python -m unittest discover -s tests -p 'testCreativeCommunityAudit.py' -v
       - uses: actions/setup-node@v4
         with:
