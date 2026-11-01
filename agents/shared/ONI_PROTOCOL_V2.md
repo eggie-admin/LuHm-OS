@@ -71,3 +71,8 @@ Each stage is bound to the same `taskId + sourceRef + scopeId`. A stage advances
 A repair creates a new source identity and restarts at `sanityCheck`; GREEN never carries across source identities.
 
 In the current proposed doctrine lane, `deploy` means deploy-to-proposed-candidate only. It does not authorize runtime/public publication, merge, signing, CAST or Crown.
+
+
+## Art-first virtual machine boundary (source-only overlay)
+
+For work spanning Google-hosted VM, Android, Apple iOS/iPadOS or open-source Linux, consult `agents/shared/artVmCabinetFourByFour.md` and `doctrine/artVmCabinetFourByFourV1.json` before proposing any firmware, kernel, driver, guest, media or AI mutation. Common Python 3/JSON/SQLite/HTML contracts live *above* the platform adapter; application messages and SHA-256 are not authority over a bootloader or native driver. The contract is a proposed source-only review guide, not a released tool or live agent. Unknown rights, exact runtime, provider billing, ABI or hardware features remain UNKNOWN and stop the affected operation.
