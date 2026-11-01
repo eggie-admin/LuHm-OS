@@ -28,6 +28,13 @@ class SongOfGoddessesTests(unittest.TestCase):
             with self.subTest(value=value),self.assertRaises(song.SnapshotError):
                 song.index_slot(value)
 
+    def testAll2048LogicalIndexesUniqueAndBounded(self):
+        addresses = [song.index_slot(value) for value in range(2048)]
+        self.assertEqual(len(addresses), 2048)
+        self.assertEqual(len(set(addresses)), 2048)
+        self.assertEqual(addresses[-1], "0x7FF")
+        self.assertNotIn("0x800", addresses)
+
     def testBadHexOrDuplicateAliasesRejected(self):
         s=copy.deepcopy(self.s)
         s["matrix"][2]["address"]="0x001"
@@ -75,7 +82,7 @@ class SongOfGoddessesTests(unittest.TestCase):
 
     def testNoWrongOrchestraRoleOrder(self):
         s=copy.deepcopy(self.s)
-        s["godddesses"][0]["id"]="newGodOfWorkers"
+        s["goddesses"][0]["id"]="newGodOfWorkers"
         with self.assertRaisesRegex(song.SnapshotError,"GODDESS_IDENTITY"):
             song.validate(s)
 
