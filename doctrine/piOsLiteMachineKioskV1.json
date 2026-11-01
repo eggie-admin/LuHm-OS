@@ -1,0 +1,367 @@
+{
+  "schema": "luhmOs.piOsLiteMachineKiosk.v1",
+  "asOf": "2026-11-01",
+  "authority": "Professor",
+  "status": "DRAFT_SOURCE_ONLY",
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "scope": "Pi-first OS and kiosk source boundary only. Does not flash SD, write EEPROM, install kernel, change BIOS, create public server or activate remote AI.",
+  "baseline": {
+    "distribution": "Raspberry Pi OS Lite",
+    "release": "Debian 13 Trixie",
+    "architecture": "aarch64",
+    "upstreamKernelFamily": "6.18",
+    "referenceDate": "2026-10-06",
+    "bootPath": "Pi firmware -> boot configuration/device tree -> Pi-supported Linux kernel -> systemd -> unprivileged services",
+    "conventionalPCBIOS": false,
+    "pcGrubRequired": false,
+    "customCompiledKernelInstalled": false,
+    "physicalBoardVerified": false,
+    "osImageInstalled": false,
+    "firmwareUpdated": false
+  },
+  "hardware": [
+    {
+      "id": "pi5",
+      "mode": "target",
+      "proven": false,
+      "adaptation": "Pi 5/CM5 64-bit, actual RAM and 16K-or-4K page size measured on device; no 4K assumption"
+    },
+    {
+      "id": "pi4",
+      "mode": "fallback",
+      "proven": false,
+      "adaptation": "Pi 4/CM4 64-bit, CPU/software render fallback and live memory budget"
+    },
+    {
+      "id": "pi3",
+      "mode": "browserOnlyCandidate",
+      "proven": false,
+      "adaptation": "64-bit where supported, avoid full local Blender/Unreal stack"
+    },
+    {
+      "id": "zero2",
+      "mode": "browserOnlyCandidate",
+      "proven": false,
+      "adaptation": "Low-memory Pi OS Lite target; no assumed GPU-intensive 3D hosting"
+    }
+  ],
+  "layers": [
+    {
+      "id": "piBootKernel",
+      "hex": "0x00",
+      "minimum": "Raspberry Pi OS vendor firmware, boot config, DT, supported Pi kernel 6.18 release-family candidate",
+      "owner": "Raspberry Pi OS and board firmware",
+      "release": "NOT_OBSERVED_ON_OWNER_BOARD"
+    },
+    {
+      "id": "headlessUserspace",
+      "hex": "0x04",
+      "minimum": "Raspberry Pi OS Lite 64-bit Debian Trixie; Python3, sqlite3, Git, FFmpeg only when needed",
+      "owner": "Debian/Raspberry Pi OS",
+      "release": "NOT_DEPLOYED"
+    },
+    {
+      "id": "studioServices",
+      "hex": "0x08",
+      "minimum": "On-demand local source audits and FFmpeg; Godot/Blender only if validated on real board",
+      "owner": "unprivileged operator",
+      "release": "NOT_DEPLOYED"
+    },
+    {
+      "id": "browserKiosk",
+      "hex": "0x0C",
+      "minimum": "Headless loopback-only HTML preview; optional labwc Chromium local display, no default GDM",
+      "owner": "user session",
+      "release": "NOT_DEPLOYED"
+    }
+  ],
+  "columns": [
+    "inventory",
+    "authority",
+    "safeProof",
+    "propose"
+  ],
+  "matrix": [
+    {
+      "index": 0,
+      "hex": "0x00",
+      "namespace": "piOsMachine",
+      "layer": "piBootKernel",
+      "column": "inventory",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 1,
+      "hex": "0x01",
+      "namespace": "piOsMachine",
+      "layer": "piBootKernel",
+      "column": "authority",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 2,
+      "hex": "0x02",
+      "namespace": "piOsMachine",
+      "layer": "piBootKernel",
+      "column": "safeProof",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 3,
+      "hex": "0x03",
+      "namespace": "piOsMachine",
+      "layer": "piBootKernel",
+      "column": "propose",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 4,
+      "hex": "0x04",
+      "namespace": "piOsMachine",
+      "layer": "headlessUserspace",
+      "column": "inventory",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 5,
+      "hex": "0x05",
+      "namespace": "piOsMachine",
+      "layer": "headlessUserspace",
+      "column": "authority",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 6,
+      "hex": "0x06",
+      "namespace": "piOsMachine",
+      "layer": "headlessUserspace",
+      "column": "safeProof",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 7,
+      "hex": "0x07",
+      "namespace": "piOsMachine",
+      "layer": "headlessUserspace",
+      "column": "propose",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 8,
+      "hex": "0x08",
+      "namespace": "piOsMachine",
+      "layer": "studioServices",
+      "column": "inventory",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 9,
+      "hex": "0x09",
+      "namespace": "piOsMachine",
+      "layer": "studioServices",
+      "column": "authority",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 10,
+      "hex": "0x0A",
+      "namespace": "piOsMachine",
+      "layer": "studioServices",
+      "column": "safeProof",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 11,
+      "hex": "0x0B",
+      "namespace": "piOsMachine",
+      "layer": "studioServices",
+      "column": "propose",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 12,
+      "hex": "0x0C",
+      "namespace": "piOsMachine",
+      "layer": "browserKiosk",
+      "column": "inventory",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 13,
+      "hex": "0x0D",
+      "namespace": "piOsMachine",
+      "layer": "browserKiosk",
+      "column": "authority",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 14,
+      "hex": "0x0E",
+      "namespace": "piOsMachine",
+      "layer": "browserKiosk",
+      "column": "safeProof",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    },
+    {
+      "index": 15,
+      "hex": "0x0F",
+      "namespace": "piOsMachine",
+      "layer": "browserKiosk",
+      "column": "propose",
+      "proof": "SOURCE_ONLY",
+      "boardVerified": false
+    }
+  ],
+  "profiles": [
+    {
+      "id": "headless",
+      "default": true,
+      "displayManager": "NONE",
+      "desktop": "NONE",
+      "user": "NON_ROOT",
+      "processes": [
+        "python3SourceAudit",
+        "optionalFfmpegJob"
+      ],
+      "exposedListeners": []
+    },
+    {
+      "id": "remoteStudioPreview",
+      "default": false,
+      "displayManager": "NONE",
+      "desktop": "NONE",
+      "user": "NON_ROOT",
+      "processes": [
+        "loopbackHtmlOnly"
+      ],
+      "exposedListeners": [
+        "127.0.0.1 only"
+      ],
+      "remoteAccess": "REQUIRES_SEPARATE_APPROVED_AUTHENTICATED_TUNNEL"
+    },
+    {
+      "id": "localKiosk",
+      "default": false,
+      "displayManager": "OPTIONAL_USER_LOGIN",
+      "desktop": "labwc and Chromium on approved graphical Raspberry Pi OS image",
+      "user": "NON_ROOT",
+      "processes": [
+        "browser"
+      ],
+      "exposedListeners": [],
+      "remoteAccess": "NOT_REMOTE"
+    },
+    {
+      "id": "gnomeOrCinnamon",
+      "default": false,
+      "displayManager": "GDM_ONLY_IF_GNOME_AUTHORIZED",
+      "desktop": "NOT_MINIMAL",
+      "user": "NON_ROOT",
+      "processes": [],
+      "exposedListeners": [],
+      "remoteAccess": "NOT_REQUIRED"
+    }
+  ],
+  "preview": {
+    "source": "tools/pi-kiosk/preview.py",
+    "assetPaths": [
+      "/",
+      "/index.html",
+      "/style.css",
+      "/app.mjs",
+      "/src/workflow-rank.mjs",
+      "/healthz"
+    ],
+    "loopbackAddress": "127.0.0.1",
+    "defaultPort": 8765,
+    "portRange": [
+      1024,
+      65535
+    ],
+    "allowDynamicPortForTests": true,
+    "httpMethods": [
+      "GET",
+      "HEAD"
+    ],
+    "maxAssetBytes": 65536,
+    "noPathTraversal": true,
+    "noSymlinks": true,
+    "blockNetworkClients": true,
+    "stateless": true,
+    "uploadRoutes": false,
+    "csp": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; frame-src 'none'; object-src 'none'; form-action 'none'; base-uri 'none'",
+    "authentication": "LOOPBACK_ONLY_NOT_SAFE_TO_EXPOSE_TO_LAN",
+    "storeAssetsInGit": false,
+    "externalLinksAreReviewOnly": true
+  },
+  "optionalDisplay": {
+    "gdmDefault": false,
+    "gnomeDefault": false,
+    "cinnamonDefault": false,
+    "labwcOptional": true,
+    "policy": "NO_AUTOLOGIN_UNTIL_PHYSICAL_BOARD_AND_SESSION_REVIEW",
+    "chromiumKiosk": "OPTIONAL_NO_BROWSER_OS_LOCKDOWN",
+    "remoteFirst": true
+  },
+  "guards": {
+    "noBootOrConfigWrite": true,
+    "noEepromWrite": true,
+    "noKernelBuild": true,
+    "noFlashSd": true,
+    "noGpartedWrite": true,
+    "noGrubWrite": true,
+    "noHostAptInstall": true,
+    "noSystemdUnitInstall": true,
+    "noRootServer": true,
+    "noPublicBind": true,
+    "noTailscaleOrVpnAutomaticSetup": true,
+    "noCredentialsInSource": true,
+    "noPrivateArtExposure": true,
+    "noPaidRemoteCompute": true,
+    "noGpuOrUnrealServer": true,
+    "noAgentPromotion": true,
+    "noProtectedMainMerge": true
+  },
+  "sourceDependencies": [
+    "doctrine/machineDebianFourLayerV1.json",
+    "doctrine/machineLocalAgentAuditV1.json",
+    "doctrine/deviceCapabilityRegistryV1.json",
+    "tools/luhm-machine-agent/demo/index.html",
+    "tools/luhm-machine-agent/demo/style.css",
+    "tools/luhm-machine-agent/demo/app.mjs",
+    "tools/luhm-machine-agent/src/workflow-rank.mjs"
+  ],
+  "proofGates": [
+    "sourceContractAndHexAudit",
+    "loopbackHTTPAndCspNegativeTests",
+    "typedPythonNpmSqlCI",
+    "actualPiBoardBootAndKernelProbe",
+    "actualPiMemoryPageAndDriver",
+    "studioFfmpegGodotPreview",
+    "authenticatedPhoneNetworkPath",
+    "physicalChromiumWaylandKioskIfNeeded",
+    "ownerReleaseApproval"
+  ],
+  "refs": [
+    "https://www.raspberrypi.com/software/raspberry-pi-desktop/",
+    "https://www.raspberrypi.com/documentation/computers/config_txt.html",
+    "https://www.raspberrypi.com/documentation/computers/os.html",
+    "https://www.raspberrypi.com/tutorials/how-to-use-a-raspberry-pi-in-kiosk-mode/"
+  ]
+}
