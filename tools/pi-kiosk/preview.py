@@ -149,7 +149,9 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         self.send_response(405)
         self.send_header("Allow","GET, HEAD")
+        self.send_header("Connection","close")
         self.send_header("Content-Length","0")
+        self.close_connection=True
         self.end_headers()
     do_PUT=do_POST
     do_PATCH=do_POST
