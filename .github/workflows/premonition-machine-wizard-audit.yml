@@ -38,6 +38,17 @@ jobs:
           python3 -m json.tool doctrine/unifiedMachineBaseV1.json > /dev/null
           python3 -m py_compile tools/unifiedMachineBaseAudit.py tests/testUnifiedMachineBaseAudit.py
           python3 -m unittest discover -s tests -p 'testUnifiedMachineBaseAudit.py' -v
+      - name: Cross-language frontend and Java/Gradle source alignment
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check frontEnd/app.js
+          node --check frontEnd/jquery/luhm.cockpit.js
+          node frontEnd/tools/check.mjs
+          grep -q 'version "8.13.2"' androidWeb3Plugin/build.gradle.kts
+          grep -q 'JavaVersion.VERSION_17' androidWeb3Plugin/plugin/build.gradle.kts
+          grep -Fq 'assets.srcDir("../../frontEnd")' androidWeb3Plugin/plugin/build.gradle.kts
+          python3 tools/androidWeb3CockpitAudit.py > "$RUNNER_TEMP/android-web3-machine-source.json"
       - name: Collect four exact-source machine-profile receipts
         run: |
           mkdir -p "$RUNNER_TEMP/machine-base"
