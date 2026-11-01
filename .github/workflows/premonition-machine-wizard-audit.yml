@@ -14,6 +14,10 @@ on:
       - 'tools/machineCanonFourLoop.py'
       - 'tests/testMachineCanonFourLoop.py'
       - 'manual/machineCanonFourLoop20261101.md'
+      - 'doctrine/localMediaDeckV1.json'
+      - 'host/harness/studioDeck.html'
+      - 'host/harness/studioDeck.js'
+      - 'tests/testLocalMediaDeck.cjs'
       - '.github/workflows/premonition-machine-wizard-audit.yml'
   workflow_dispatch:
 permissions:
@@ -53,6 +57,13 @@ jobs:
           grep -q 'JavaVersion.VERSION_17' androidWeb3Plugin/plugin/build.gradle.kts
           grep -Fq 'assets.srcDir("../../frontEnd")' androidWeb3Plugin/plugin/build.gradle.kts
           python3 tools/androidWeb3CockpitAudit.py > "$RUNNER_TEMP/android-web3-machine-source.json"
+      - name: Verify opt-in HTML5 studio media with VLC disabled by default
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/localMediaDeckV1.json >/dev/null
+          node --check host/harness/studioDeck.js
+          node --test tests/testLocalMediaDeck.cjs
       - name: Verify bounded Canon loop and negative controls
         shell: bash
         run: |

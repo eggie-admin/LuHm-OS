@@ -154,6 +154,85 @@
     };
     jq.fn.luhmMusicDeck.version = "1.0.0";
   }
+
+  const localMediaTypes = Object.freeze({
+    mp4: ["video/mp4", "video"], webm: ["video/webm", "video"],
+    ogv: ["video/ogg", "video"], mp3: ["audio/mpeg", "audio"],
+    m4a: ["audio/mp4", "audio"], wav: ["audio/wav", "audio"],
+    ogg: ["audio/ogg", "audio"]
+  });
+  function localMediaCapability(file) {
+    if (!file || typeof file.name !== "string" || !Number.isSafeInteger(file.size) || file.size < 1) {
+      return {ok:false, reason:"No valid local media file was selected."};
+    }
+    if (file.size > 256 * 1024 * 1024) {
+      return {ok:false, reason:"Media over 256 MiB requires a local desktop preview outside the browser."};
+    }
+    const extension = file.name.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1] || "";
+    const expected = localMediaTypes[extension];
+    if (!expected) return {ok:false, reason:"Browser format unsupported. Use an installed VLC player manually; no files were uploaded."};
+    const suppliedMime = String(file.type || "").toLowerCase();
+    const aliases = { "audio/x-wav":"audio/wav", "audio/wave":"audio/wav", "audio/x-m4a":"audio/mp4", "application/ogg":"audio/ogg" };
+    const normalizedMime = aliases[suppliedMime] || suppliedMime;
+    if (normalizedMime && normalizedMime !== expected[0]) {
+      return {ok:false, reason:"File extension and media type disagree. Preview rejected."};
+    }
+    return {ok:true, mime:expected[0], kind:expected[1]};
+  }
+  function wireLocalMediaDeck(doc) {
+    const get = id => doc.getElementById(id);
+    const picker = get("studioLocalMediaInput"), stop = get("studioLocalMediaStop");
+    const status = get("studioLocalMediaStatus");
+    const video = get("studioLocalVideo"), audio = get("studioLocalAudio");
+    if (!picker || !stop || !status || !video || !audio || picker.dataset.mediaWired === "true") return false;
+    picker.dataset.mediaWired = "true";
+    let activeUrl = null;
+    function clear() {
+      for (const player of [video, audio]) {
+        player.pause();
+        player.removeAttribute("src");
+        player.hidden = true;
+        player.load();
+      }
+      if (activeUrl) { URL.revokeObjectURL(activeUrl); activeUrl = null; }
+    }
+    picker.addEventListener("change", () => {
+      clear();
+      const file = picker.files?.[0];
+      const plan = localMediaCapability(file);
+      if (!plan.ok) { status.textContent = plan.reason; return; }
+      const player = plan.kind === "video" ? video : audio;
+      if (!player.canPlayType(plan.mime)) {
+        status.textContent = "Browser decoder unavailable. Open this file in an installed desktop VLC player manually.";
+        return;
+      }
+      try {
+        activeUrl = URL.createObjectURL(file);
+        player.src = activeUrl;
+        player.hidden = false;
+        status.textContent = "Local " + plan.kind + " loaded for optional playback. No autoplay or network transfer.";
+      } catch (_) {
+        clear();
+        status.textContent = "Local preview could not be created; nothing was uploaded.";
+      }
+    });
+    for (const player of [video, audio]) {
+      player.addEventListener("error", () => {
+        status.textContent = "Browser decoding failed. Stop preview; optionally open your own file in installed VLC.";
+      });
+      player.addEventListener("loadedmetadata", () => {
+        const seconds = Number.isFinite(player.duration) ? player.duration.toFixed(1) + "s" : "unknown duration";
+        status.textContent = "Local media metadata: " + seconds + ". Playback and seeking require your action. No server upload.";
+      });
+    }
+    stop.addEventListener("click", () => {
+      clear(); picker.value = "";
+      status.textContent = "Local media disconnected and blob URL revoked. VLC was not invoked.";
+    });
+    (doc.defaultView || root).addEventListener("pagehide", clear, {once:true});
+    return true;
+  }
+
   function mountGlassDock(doc) {
     const get = id => doc.getElementById(id);
     const toggle = get("studioGlassToggle"), panel = get("studioGlassDock");
@@ -414,6 +493,7 @@ $("pause").addEventListener("click",e=>{const v=document.querySelector(".pocketC
     installJQueryMusicBridge(root.jQuery);
     if (root.jQuery?.fn?.luhmMusicDeck) root.jQuery(get("studioMusicStage")).luhmMusicDeck();
     else attachMusicDeck(doc);
+    wireLocalMediaDeck(doc);
     // A full-viewport frame stays inert until the Professor explicitly opts in.
     const backdrop = get("studioBackdropFrame");
     get("studioBackdropLoad").addEventListener("click", () => {
@@ -485,7 +565,7 @@ $("pause").addEventListener("click",e=>{const v=document.querySelector(".pocketC
     configure(null);
     return {configure, addFiles, register:() => records.map(row => ({...row}))};
   }
-  const api = {musicTarget, category, validContract, fingerprint, depthOffsets, mountDepth, embedTarget, installJQueryBridge, mount, hashLimit, maxFiles};
+  const api = {musicTarget, localMediaCapability, wireLocalMediaDeck, category, validContract, fingerprint, depthOffsets, mountDepth, embedTarget, installJQueryBridge, mount, hashLimit, maxFiles};
   if (typeof module === "object" && module.exports) module.exports = api;
   root.LuHmStudio = api;
   if (root.document) root.luhmStudioDeck = mount(root.document);
