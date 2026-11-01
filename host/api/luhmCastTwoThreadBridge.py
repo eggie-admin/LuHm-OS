@@ -40,6 +40,16 @@ def _load(path: Path) -> dict[str, Any]:
     return value
 
 
+def _identity_registry() -> Any:
+    source = ROOT / "host" / "api" / "luhmIdentityRegistry.py"
+    spec = importlib.util.spec_from_file_location("luhmIdentityRegistry", source)
+    if spec is None or spec.loader is None:
+        raise RuntimeError("RED_CAST_IDENTITY_MODULE")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def _source_orchestration() -> Any:
     spec = importlib.util.spec_from_file_location("luhmCanonOrchestration", ORCHESTRATION)
     if spec is None or spec.loader is None:
@@ -82,6 +92,22 @@ def source_audit() -> dict[str, Any]:
     if ([x.get("id") for x in p.get("tiers", [])] != list(range(4))
             or [x.get("tier") for x in escalation.get("tierSemantics", [])] != list(range(4))):
         issues.append("RED_CAST_TIERS")
+    naming = p.get("namingSpine", {})
+    if (naming.get("contract") != "doctrine/castIdentityHexRegistryV1.json"
+            or naming.get("pythonImplementation") != "host/api/luhmIdentityRegistry.py"
+            or naming.get("identityLayers") !=
+            ["camelHump", "vowelRipped", "shorthand", "utf8Hex"]
+            or naming.get("all16NamingCellsSourceOnly") is not True
+            or naming.get("hexNeverGrantsAuthority") is not True
+            or naming.get("noSystemEnvironmentChanges") is not True):
+        issues.append("RED_CAST_NAMING_SPINE")
+    try:
+        id_projection = _identity_registry().cast_projection()
+        if (len(id_projection["matrix4x4"]) != 16
+                or id_projection["activeWorkers"] != 0):
+            issues.append("RED_CAST_IDENTITY_MATRIX")
+    except (ValueError, TypeError, KeyError, OSError):
+        issues.append("RED_CAST_IDENTITY_MATRIX")
     if (p.get("canonicalStates") != list(STAGES)
             or covenant.get("guardRail", {}).get("orderedStates") != list(STAGES)
             or escalation.get("fourByFourModel", {}).get("horizontalBeats") != list(HEARTBEATS)):
@@ -192,6 +218,7 @@ def plan(task_id: str, source_ref: str, scope_id: str, goal: str,
     if check["issues"]:
         return {"status": "STOP_SOURCE_DRIFT", "issues": check["issues"],
                 "greenAuthority": False, "crownAuthority": False}
+    identity_projection = _identity_registry().cast_projection()
     control = _source_orchestration()
     base = control.plan(task_id, source_ref, scope_id, goal, tier)
     if (base.get("status") != "PLAN_ONLY" or base.get("runningAgentThreads") != 0
@@ -265,6 +292,7 @@ def plan(task_id: str, source_ref: str, scope_id: str, goal: str,
         "requestedStage": requested_stage, "tier": tier,
         "threads": threads, "typedLanes": lanes,
         "matrix4x4": matrix,
+        "identitySpine": identity_projection,
         "canon": canonical, "professorStageMap": _load(CONTRACT)["professorLanguage"],
         "evidenceReview": review, "nextAction": next_action,
         "bridgeSmokeState": "NOT_RUN",
