@@ -6,6 +6,10 @@ on:
       - 'tools/machineToHumanWizard.py'
       - 'tests/testMachineToHumanWizard.py'
       - 'manual/machine-to-human-wizard.md'
+      - 'doctrine/unifiedMachineBaseV1.json'
+      - 'tools/unifiedMachineBaseAudit.py'
+      - 'tests/testUnifiedMachineBaseAudit.py'
+      - 'manual/unifiedMachineBase20261101.md'
       - '.github/workflows/premonition-machine-wizard-audit.yml'
   workflow_dispatch:
 permissions:
@@ -18,12 +22,36 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify immutable source and whitespace
+        run: |
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
       - name: Validate contract and Python source
         run: |
           python3 -m json.tool doctrine/machineToHumanWizardV1.json > /dev/null
           python3 -m py_compile tools/machineToHumanWizard.py tests/testMachineToHumanWizard.py
       - name: Run synthetic host and no-mutation tests
         run: python3 -m unittest discover -s tests -p 'testMachineToHumanWizard.py' -v
+      - name: Verify unified machine base and deliberate failure cases
+        run: |
+          python3 -m json.tool doctrine/unifiedMachineBaseV1.json > /dev/null
+          python3 -m py_compile tools/unifiedMachineBaseAudit.py tests/testUnifiedMachineBaseAudit.py
+          python3 -m unittest discover -s tests -p 'testUnifiedMachineBaseAudit.py' -v
+      - name: Collect four exact-source machine-profile receipts
+        run: |
+          mkdir -p "$RUNNER_TEMP/machine-base"
+          for profile in linuxHeadless linuxStudio raspberryPiDesktop androidClient; do
+            python3 tools/unifiedMachineBaseAudit.py --profile "$profile" --source-ref "${{ github.event.pull_request.head.sha || github.sha }}" --output "$RUNNER_TEMP/machine-base/$profile.json"
+          done
+      - name: Upload machine-base source-only receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: machine-base-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/machine-base/
+          retention-days: 14
+          if-no-files-found: warn
       - name: Emit runner-safe read-only sample
         run: |
           python3 tools/machineToHumanWizard.py --json > "$RUNNER_TEMP/wizard-receipt.json"
