@@ -18,6 +18,9 @@ on:
       - 'host/harness/studioDeck.html'
       - 'host/harness/studioDeck.js'
       - 'tests/testLocalMediaDeck.cjs'
+      - 'doctrine/hydraUbuntuApplianceV1.json'
+      - 'tests/testHydraUbuntuAppliance.py'
+      - 'manual/hydraUbuntuAppliance20261101.md'
       - '.github/workflows/premonition-machine-wizard-audit.yml'
   workflow_dispatch:
 permissions:
@@ -64,6 +67,10 @@ jobs:
           python3 -m json.tool doctrine/localMediaDeckV1.json >/dev/null
           node --check host/harness/studioDeck.js
           node --test tests/testLocalMediaDeck.cjs
+      - name: Verify proposed Ubuntu appliance and bounded Hydra recovery
+        run: |
+          python3 -m json.tool doctrine/hydraUbuntuApplianceV1.json >/dev/null
+          python3 -m unittest discover -s tests -p 'testHydraUbuntuAppliance.py' -v
       - name: Verify bounded Canon loop and negative controls
         shell: bash
         run: |

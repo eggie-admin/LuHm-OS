@@ -1,0 +1,167 @@
+{
+  "schema": "luhmOs.hydraUbuntuAppliance.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "target": "One branded Ubuntu-derived personal creative appliance, one touch-friendly HTML/CSS/jQuery cockpit, modular media/game/AI services",
+  "distribution": {
+    "strategy": "ubuntuSupportedBasePlusLuHmAppOverlay",
+    "customKernelBuild": false,
+    "firmwareModification": false,
+    "bootloaderModification": false,
+    "baseImageRebuild": "FUTURE_PROPOSAL_NOT_EXECUTED",
+    "kernelProof": "REQUIRES_ACTUAL_TARGET_HOST",
+    "support": "distributionSupportedLtsKernelAndSecurityUpdates",
+    "immutableRollback": "REQUIRED_BEFORE_PRODUCTION_KIOSK",
+    "rootAccessNeededForOSInstall": true,
+    "rootlessAppRuntime": true
+  },
+  "planes": [
+    {
+      "id": "hardwareAndKernel",
+      "role": "Ubuntu OEM-supported kernel, driver/GPU and boot integrity",
+      "requiredProof": [
+        "unameReleaseAndArchitecture",
+        "distroRelease",
+        "driverAndGpuInventory",
+        "kernelUpdateAndAppArmorState",
+        "snapshotAndBootRollback"
+      ],
+      "authority": "ownerOperatorOnly"
+    },
+    {
+      "id": "headlessServices",
+      "role": "Systemd user-scoped Python3/MCP API, SQLite pointers and optional FFmpeg workers",
+      "requiredProof": [
+        "loopbackReadiness",
+        "processUidAndCgroup",
+        "fileSystemLeastPrivilege",
+        "resourceCaps",
+        "restartAndRollback"
+      ],
+      "authority": "supervisedLocalOperator"
+    },
+    {
+      "id": "webGui",
+      "role": "Single offline-first static HTML/CSS/jQuery shell in kiosk or browser with opt-in Godot iframe",
+      "requiredProof": [
+        "offlineLoad",
+        "keyboardAndTouchEscape",
+        "sameOriginCsp",
+        "reducedMotion",
+        "screenReaderStatus",
+        "noAutoplay"
+      ],
+      "authority": "humanUser"
+    },
+    {
+      "id": "gameMediaAi",
+      "role": "Godot4 game and licensed asset compositor, FFmpeg render jobs, optional local VLC, supervised AI adapter",
+      "requiredProof": [
+        "realSceneAndController",
+        "mediaDecodeAndSeek",
+        "modelEntitlement",
+        "perJobReceipt",
+        "rightsAndSigning"
+      ],
+      "authority": "sourceOnlyUntilRuntimeAcceptance"
+    }
+  ],
+  "desktop": {
+    "preferred": "kioskSingleApp",
+    "display": "WaylandOrDesktopCompositorWhenPhysicallyPresent",
+    "headless": "NoX11OrDisplayServerForBackendWorkers",
+    "browser": "ExistingVerifiedChromiumCompatibleShell",
+    "unprivileged": true,
+    "escapeAccessible": true
+  },
+  "web": {
+    "dom": "ExistingHTMLAndCSS",
+    "ui": "BundledJQueryAndJQueryUI",
+    "frame": "ExistingAllowlistedUserInitiatedGodot",
+    "offlineFallback": "LocalStaticUI",
+    "remoteScriptsDefault": false,
+    "api": "ExistingPython3McpService",
+    "nginx": "OptionalOnlyIfExistingApprovedIngressRequiresProxy"
+  },
+  "media": {
+    "html5": "BrowserDefaultNoRuntimeInstall",
+    "vlc": "OptionalLocalDesktopOrReviewedNativeLibVlcNoVlcWebPort",
+    "ffmpeg": "OptInBoundedOfflineRender",
+    "godot": "SeparateExactSourceWebExportAndDeviceProof",
+    "privateArt": "NeverImplicitlyPublished"
+  },
+  "data": {
+    "metadata": "SQLite3Default",
+    "binaryAssets": "PrivateOwnerStorage",
+    "externalSql": "OptionalApprovedSocketOnly",
+    "migrations": "BackupAndRollbackHumanGate"
+  },
+  "ai": {
+    "roster": "RegisteredRolesNotIndependentWorkers",
+    "authority": "Professor",
+    "quarantine": true,
+    "mutations": "HumanApprovedExactSourceOnly",
+    "modelExecution": "NotImpliedBySource",
+    "noPaidApiByDefault": true,
+    "network": "AllowlistedApprovedEndpointsOnly"
+  },
+  "hydraRecovery": {
+    "philosophy": "One active service, two distinct bounded fallback paths; never uncontrolled fork bomb",
+    "primary": "currentVerifiedProcess",
+    "fallbacks": [
+      "restartSamePinnedVersion",
+      "rollbackToLastKnownGoodRelease"
+    ],
+    "maxConcurrentActive": 1,
+    "maxReplacementCandidates": 2,
+    "maxRestartAttemptsPerWindow": 2,
+    "windowSeconds": 300,
+    "backoffSeconds": [
+      5,
+      30
+    ],
+    "healthProbe": "localhostReadinessPlusFunctionalSmoke",
+    "sourcePinRequired": true,
+    "rollbackProofRequired": true,
+    "logsAndReceipts": true,
+    "failedFallback": "STOP_AND_NOTIFY_OPERATOR",
+    "agentSpawnAuthority": false,
+    "autoElevatePrivileges": false,
+    "autoPublish": false
+  },
+  "proof": {
+    "kernel": "UNVERIFIED",
+    "ubuntuImage": "NOT_BUILT",
+    "headlessOnDevice": "UNVERIFIED",
+    "localGuiKiosk": "UNVERIFIED",
+    "godotGameplay": "UNVERIFIED",
+    "vlcNative": "UNVERIFIED",
+    "signedSamsung": "UNVERIFIED",
+    "githubSource": "AVAILABLE",
+    "renderMcp": "SEPARATE_HOST_PROOF",
+    "productCrown": "STOP"
+  },
+  "stages": {
+    "development": "SOURCE_AND_SYNTHETIC_TEST",
+    "proposed": "REQUIRES_EXACT_HEAD_CI_AND_PROOF_LEDGER",
+    "beta": "REQUIRES_REAL_BOOT_AND_GUI_SMOKE",
+    "public": "REQUIRES_RELEASE_RIGHTS_SIGNING_ROLLBACK"
+  },
+  "canonicalRefs": [
+    "doctrine/luHmOSFourLayerArchitectureV1.json",
+    "doctrine/unifiedMachineBaseV1.json",
+    "doctrine/machineCanonFourLoopV1.json",
+    "doctrine/embeddedStudioV1.json",
+    "doctrine/localMediaDeckV1.json",
+    "doctrine/agentSystemDeploymentV1.json",
+    "doctrine/networkSpineV1.json"
+  ],
+  "promotion": false,
+  "productionMergeAuthority": false,
+  "kernelMutationAuthority": false,
+  "agentReleaseAuthority": false,
+  "publicReleaseAuthority": false,
+  "crownStatus": "STOP"
+}
