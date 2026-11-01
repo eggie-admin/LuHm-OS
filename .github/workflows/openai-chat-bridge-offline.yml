@@ -59,7 +59,7 @@ on:
       - "doctrine/hostileModForge4x4V1.json"
       - "tools/hostileModForgeAudit.py"
       - "tests/testHostileModForge.py"
-      - "host/mcp/luhmHostileModForgeTools.py host/api/luhmCastTwoThreadBridge.py host/mcp/luhmCastTwoThreadTools.py"
+      - "host/mcp/luhmHostileModForgeTools.py host/api/luhmCastTwoThreadBridge.py host/mcp/luhmCastTwoThreadTools.py host/api/luhmIdentityRegistry.py host/mcp/luhmIdentityRegistryTools.py"
       - "manual/hostile-mod-forge-runbook.md"
       - "doctrine/castTwoThreadBridgeV1.json"
       - "host/api/luhmCastTwoThreadBridge.py"
@@ -68,6 +68,12 @@ on:
       - "tests/testCastTwoThreadFastApi.py"
       - "publicationSite/castBridgePreview.html"
       - "manual/cast-two-thread-bridge-runbook.md"
+      - "doctrine/castIdentityHexRegistryV1.json"
+      - "host/api/luhmIdentityRegistry.py"
+      - "host/mcp/luhmIdentityRegistryTools.py"
+      - "tests/testCastIdentityRegistry.py"
+      - "packages/luhm-canon-registry/**"
+      - "manual/cast-naming-hex-spine-runbook.md"
   workflow_dispatch:
 
 permissions:
@@ -104,6 +110,8 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'testCryptoBreathing.py' -v
           python -m unittest discover -s tests -p 'testCryptoSqlite.py' -v
+      - name: Test CAST name/hex registry Python parity
+        run: python -m unittest discover -s tests -p 'testCastIdentityRegistry.py' -v
       - name: Test CAST Bridge two-thread source and private FastAPI claims
         run: |
           python -m unittest discover -s tests -p 'testCastTwoThreadBridge.py' -v
