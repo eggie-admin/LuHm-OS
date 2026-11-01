@@ -140,33 +140,35 @@ def observed_cpu_context() -> dict:
        "actualClockFrequencyProven":False,"kernelGovernorChanged":False}
 
 def measure_synthetic(sizes: tuple[int,...]=SIZES, repeats: int=MAX_REPEATS) -> dict:
-    if type(repeats) is not int or repeats!=MAX_REPEATS or tuple(sizes)!=SIZES:
+    if type(repeats) is not int or repeats!=MAX_REPEATS or type(sizes) is not tuple or sizes!=SIZES:
         raise ProcessorCeilingError("BENCH_WORK_LIMIT_EXCEEDED")
+    # All candidate chunks hash the same 1 MiB payload to avoid input-size bias.
+    buffer=synthetic_payload(MAX_BUFFER)
+    expected=hashlib.sha256(buffer).digest()
+    view=memoryview(buffer)
     scores=[]
-    for size in sizes:
-        buffer=synthetic_payload(size)
-        expected=hashlib.sha256(buffer).digest()
+    for chunk in sizes:
+        checked_size(chunk)
         samples=[]
         for repetition in range(repeats):
             hash_stream=hashlib.sha256()
             start=time.perf_counter_ns()
-            view=memoryview(buffer)
-            for offset in range(0,size,size):
-                hash_stream.update(view[offset:offset+size])
+            for offset in range(0,MAX_BUFFER,chunk):
+                hash_stream.update(view[offset:offset+chunk])
             elapsed=max(1,time.perf_counter_ns()-start)
             if hash_stream.digest()!=expected:
                 raise ProcessorCeilingError("BENCH_DIGEST_MISMATCH")
             samples.append(elapsed)
         mid=int(median(samples))
-        scores.append({"sizeBytes":size,"sizeHex":f"0x{size:06X}",
-            "sampleCount":repeats,"medianDurationNs":mid,
-            "estimatedMiBPerSecond":round((size*1e9)/(1048576*mid),3),
+        scores.append({"chunkBytes":chunk,"chunkHex":f"0x{chunk:06X}",
+            "payloadBytes":MAX_BUFFER,"sampleCount":repeats,"medianDurationNs":mid,
+            "estimatedMiBPerSecond":round(1e9/mid,3),
             "syntheticPayloadSha256":expected.hex(),
             "runtimeEnvironmentScope":"THIS_PROCESS_ONLY"})
-    fastest=max(scores,key=lambda x:(x["estimatedMiBPerSecond"],-x["sizeBytes"]))
+    fastest=max(scores,key=lambda x:(x["estimatedMiBPerSecond"],-x["chunkBytes"]))
     return {"observedScores":scores,
-       "bestObservedPayloadSizeBytes":fastest["sizeBytes"],
-       "bestObservedPayloadSizeHex":fastest["sizeHex"],
+       "bestObservedChunkBytes":fastest["chunkBytes"],
+       "bestObservedChunkHex":fastest["chunkHex"],
        "advisoryOnly":True,"repeatabilityUnproven":True,
        "thermalAndCpuQuotaUnverified":True}
 
