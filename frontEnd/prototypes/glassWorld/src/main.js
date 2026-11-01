@@ -80,11 +80,24 @@ const Inspector = {
     ]);
   }
 };
-world = startBabylonWorld(document.getElementById("babylon-stage"),id=>{
+world = startBabylonWorld(document.getElementById("babylon-stage"), id => {
   selection.value=id;sceneSignal(root,"selected",{objectId:id,revision:active.value.revision});
+}, gpuState => {
+  if (gpuState === "lost") status.value = "GPU context lost; safe DOM fallback remains available.";
+  else if (gpuState === "paused") status.value = "3D rendering paused while tab is hidden.";
+  else if (gpuState === "restored") status.value = "GPU context restored. Verify artwork before continuing.";
 });
 world.applyScene(active.value);
 const unmountMediaDeck = mountLocalMediaDeck(document.getElementById("local-media-deck"));
 const vue = createApp(Inspector);
 vue.mount("#vue-inspector");
-window.addEventListener("pagehide",()=>{unmountMediaDeck();vue.unmount();world.destroy();},{once:true});
+let unmounted = false;
+function cleanup() {
+  if (unmounted) return;
+  unmounted = true;
+  unmountMediaDeck();
+  vue.unmount();
+  world.destroy();
+}
+window.addEventListener("pagehide", cleanup, { once: true });
+window.addEventListener("luhm:kiosk:exit", cleanup, { once: true });
