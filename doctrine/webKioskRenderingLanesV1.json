@@ -1,0 +1,225 @@
+{
+  "schema": "luhmOs.webKioskRenderingLanes.v1",
+  "authority": "Professor",
+  "status": "DRAFT_SOURCE_ONLY",
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "description": "Mozilla WebGL/DOM-first kiosk capability crosswalk. Browser fullscreen is optional; no OS kiosk lock, no app distribution, no remote GPU.",
+  "fourLayers": [
+    {
+      "tier": "dom",
+      "engine": "Native DOM/CSS/SVG",
+      "runsWithoutGpu": true,
+      "availableByDefault": true,
+      "proof": "CODE_AND_TEST_ONLY"
+    },
+    {
+      "tier": "illustrated2d",
+      "engine": "Static art and prerendered backdrops",
+      "runsWithoutGpu": true,
+      "availableByDefault": true,
+      "proof": "CODE_AND_TEST_ONLY"
+    },
+    {
+      "tier": "babylonWebgl",
+      "engine": "Babylon.js; Vue inspector; jQuery event bridge",
+      "runsWithoutGpu": false,
+      "availableByDefault": false,
+      "proof": "CI_BUILD_ONLY_PENDING_REAL_PHONE"
+    },
+    {
+      "tier": "remoteUnrealCandidate",
+      "engine": "Unreal Pixel Streaming WebRTC; external encoder required",
+      "runsWithoutGpu": false,
+      "availableByDefault": false,
+      "proof": "NOT_CONNECTED"
+    }
+  ],
+  "dimensions": [
+    "sourceAndRights",
+    "runtimeCapability",
+    "inputAndAccessibility",
+    "failureAndRecovery"
+  ],
+  "matrix": [
+    {
+      "hex": "0x00",
+      "tier": "dom",
+      "dimension": "sourceAndRights",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x01",
+      "tier": "dom",
+      "dimension": "runtimeCapability",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x02",
+      "tier": "dom",
+      "dimension": "inputAndAccessibility",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x03",
+      "tier": "dom",
+      "dimension": "failureAndRecovery",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x04",
+      "tier": "illustrated2d",
+      "dimension": "sourceAndRights",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x05",
+      "tier": "illustrated2d",
+      "dimension": "runtimeCapability",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x06",
+      "tier": "illustrated2d",
+      "dimension": "inputAndAccessibility",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x07",
+      "tier": "illustrated2d",
+      "dimension": "failureAndRecovery",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x08",
+      "tier": "babylonWebgl",
+      "dimension": "sourceAndRights",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x09",
+      "tier": "babylonWebgl",
+      "dimension": "runtimeCapability",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x0A",
+      "tier": "babylonWebgl",
+      "dimension": "inputAndAccessibility",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x0B",
+      "tier": "babylonWebgl",
+      "dimension": "failureAndRecovery",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x0C",
+      "tier": "remoteUnrealCandidate",
+      "dimension": "sourceAndRights",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x0D",
+      "tier": "remoteUnrealCandidate",
+      "dimension": "runtimeCapability",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x0E",
+      "tier": "remoteUnrealCandidate",
+      "dimension": "inputAndAccessibility",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "hex": "0x0F",
+      "tier": "remoteUnrealCandidate",
+      "dimension": "failureAndRecovery",
+      "receipt": "SOURCE_ONLY",
+      "deviceVerified": false
+    }
+  ],
+  "sourceRefs": [
+    "frontEnd/prototypes/glassWorld/kiosk.html",
+    "frontEnd/prototypes/glassWorld/kiosk.css",
+    "frontEnd/prototypes/glassWorld/src/kiosk-entry.mjs",
+    "frontEnd/prototypes/glassWorld/src/kiosk-core.mjs",
+    "frontEnd/prototypes/glassWorld/src/main.js",
+    "frontEnd/prototypes/glassWorld/src/babylon-world.js",
+    "frontEnd/prototypes/glassWorld/src/jquery-bridge.js",
+    "frontEnd/prototypes/glassWorld/src/scene-state.mjs",
+    "frontEnd/prototypes/glassWorld/package.json",
+    "frontEnd/prototypes/glassWorld/package-lock.json"
+  ],
+  "browserSafety": {
+    "domDefault": true,
+    "webglUserGestureOnly": true,
+    "canLeaveFullscreen": true,
+    "contextLossFallsBack": true,
+    "hiddenTabPausesGpu": true,
+    "disposeOnClose": true,
+    "strictCspMeta": true,
+    "remoteNetworkingBlockedByCsp": true,
+    "thirdPartyCdnNotRequired": true,
+    "explicitWebglFeatureProbe": true,
+    "objectCapDom": 12,
+    "objectCapWebgl": 64,
+    "frameTargetFps": 30
+  },
+  "separation": {
+    "htmlCssSvg": "always-on mobile UI and low-tier scene, not firmware or engine",
+    "jquery": "typed local DOM events; no direct remote commands",
+    "vue3": "scene inspector only, selected local bounded data",
+    "babylon": "WebGL world geometry only, no production avatar contract",
+    "godot4": "standalone gameplay and avatar scene; transparent compositor not yet proven",
+    "unreal": "remote cinematic render candidate, no active streamer, GPU host or WebRTC signalling",
+    "blenderFfmpeg": "offline asset and media forge, not mandatory for kiosk startup",
+    "ai": "human-reviewed plans; not autonomous deployment",
+    "googleDrive": "private source media, no automatic URL ingestion by browser",
+    "github": "source, exact-lock tests and candidate build receipts"
+  },
+  "dependencyPolicy": {
+    "babylon": "@babylonjs/core@9.32.0",
+    "vue": "vue@3.5.44",
+    "jquery": "jquery@3.7.1",
+    "vite": "vite@8.3.5",
+    "jquery4Review": "UPSTREAM_4_X_CURRENT_NEEDS_SEPARATE_API_MIGRATION",
+    "upgradeAutomatic": false
+  },
+  "evidence": {
+    "realFirefoxKiosk": false,
+    "realSamsungWebgl": false,
+    "physicalFrameP95": false,
+    "unrealPixelStreaming": false,
+    "godotAlphaOverlay": false,
+    "cdnHost": false,
+    "actualKioskLockdown": false,
+    "sourceGitHubActionsRequired": true,
+    "serverBuildRequired": true
+  },
+  "invariants": [
+    "Never publish or fetch private character files from public repo",
+    "No unsafe-eval or inline scripts/styles in kiosk",
+    "No network or privileged agent calls from browser kiosk",
+    "No embedded Unreal game or remote streaming until owner-approved secured backend exists",
+    "No paid GPU or driver mutation",
+    "Never claim kiosk screenshot proves native APK or hardware GPU",
+    "Do not replace playable HTML/First Night/Godot paths"
+  ]
+}
