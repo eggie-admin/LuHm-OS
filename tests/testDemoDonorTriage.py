@@ -63,6 +63,13 @@ class DonorTriageTests(unittest.TestCase):
             result = inspect_candidate(DOC, "kenney-castle", good)
             self.assertEqual(result["archiveStatus"], "FAIL_QUARANTINE")
             self.assertFalse((root / "escape.glb").exists())
+    def test_legacy_cc0_claim_is_not_current_qal_license(self):
+        conflicts = DOC["knownLicenseConflicts"]
+        self.assertEqual(len(conflicts), 1)
+        self.assertEqual(conflicts[0]["currentOfficialPageLicense"], "QAL")
+        self.assertEqual(conflicts[0]["currentState"], "HOLD_UNTIL_EXACT_QAL_TERMS_REVIEW")
+        self.assertFalse(conflicts[0]["publicAllowed"])
+        self.assertNotIn(conflicts[0]["assetId"], [a["assetId"] for a in DOC["candidates"]])
     def test_legacy_archive_hash_fails_closed(self):
         with tempfile.TemporaryDirectory() as temp:
             p = Path(temp) / "donor.zip"
