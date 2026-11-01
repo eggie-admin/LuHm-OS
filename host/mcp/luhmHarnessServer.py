@@ -15,6 +15,7 @@ from luhmOniSummoner import register_oni_summoner
 from luhmOpenAiChatTools import register_openai_chat_bridge
 from luhmWmsVmTools import register_wms_vm_tools
 from luhmOrchestrationTools import register_lum_orchestration
+from luhmCastTwoThreadTools import register_cast_two_thread
 from luhmCryptoTools import register_crypto_breathing_tools
 from luhmGpuVideoTools import register_gpu_video_planner
 from luhmLeanVmForgeTools import register_lean_vm_forge
@@ -45,6 +46,7 @@ register_oni_summoner(
 register_openai_chat_bridge(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 register_wms_vm_tools(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 register_lum_orchestration(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
+register_cast_two_thread(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 register_crypto_breathing_tools(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 register_gpu_video_planner(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 register_lean_vm_forge(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
