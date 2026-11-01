@@ -1,0 +1,241 @@
+{
+  "schema": "luhmOs.canonLikeTermPairs.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "purpose": "Exact-source, non-destructive two-by-two folding of related LuHm canon terms into bounded semantic families. An anchor is for this pair's comparison, never a blanket authority grant.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "scope": "seededContractsOnly_plusReadOnlyDoctrineJsonInventory",
+  "pairwiseProcedure": [
+    {
+      "name": "identityPair",
+      "compare": [
+        "canonical human/machine identity",
+        "alias, title or external spelling"
+      ]
+    },
+    {
+      "name": "contractPair",
+      "compare": [
+        "contract/schema",
+        "implementation/manifest/example"
+      ]
+    },
+    {
+      "name": "evidencePair",
+      "compare": [
+        "source observation",
+        "physical/runtime proof"
+      ]
+    },
+    {
+      "name": "lifecyclePair",
+      "compare": [
+        "current scoped reference",
+        "historical/superseded evidence"
+      ]
+    }
+  ],
+  "foldOrder": [
+    "verifyExactSourceRef",
+    "inventoryOneTime",
+    "pairSimilarTerms",
+    "classifyRelationNotWordSimilarity",
+    "verifyAnchorAndPeerExist",
+    "compareExplicitSchemaIdentity",
+    "isolateMissingConflicts",
+    "preserveHistory",
+    "emitReadOnlyReceipt"
+  ],
+  "allowedRelations": [
+    "supersedes",
+    "aliasOnly",
+    "specializes",
+    "differentAxes",
+    "implements",
+    "complements"
+  ],
+  "evidenceCeiling": {
+    "textualSourceProofOnly": true,
+    "liveDeviceProof": false,
+    "permissionChange": false,
+    "automaticMerge": false,
+    "automaticRename": false,
+    "deleteHistoricalReceipts": false,
+    "automaticPromotion": false
+  },
+  "domainPriority": [
+    "sourceIdentity",
+    "naming",
+    "composition",
+    "workflow",
+    "schema",
+    "storage",
+    "platform",
+    "studio",
+    "release"
+  ],
+  "pairs": [
+    {
+      "pairId": "canonPair01",
+      "domain": "sourceIdentity",
+      "anchorPath": "doctrine/currentSourceTruthV3.json",
+      "peerPath": "doctrine/SOURCE_OF_TRUTH.json",
+      "relation": "supersedes",
+      "interpretation": "Current source truth takes precedence; old September snapshot remains immutable evidence."
+    },
+    {
+      "pairId": "canonPair02",
+      "domain": "sourceIdentity",
+      "anchorPath": "doctrine/projectChatCanonV1.json",
+      "peerPath": "doctrine/workingTitleCastV1.json",
+      "relation": "aliasOnly",
+      "interpretation": "Project Premonition and Llama working labels resolve without renaming LuHm-OS source or the product."
+    },
+    {
+      "pairId": "canonPair03",
+      "domain": "naming",
+      "anchorPath": "doctrine/namingNamespaceCanonV1.json",
+      "peerPath": "doctrine/camelHumpDoctrineLawV1.json",
+      "relation": "specializes",
+      "interpretation": "General namespace law and camelHump-specific law are compatible scopes, not duplicate files."
+    },
+    {
+      "pairId": "canonPair04",
+      "domain": "naming",
+      "anchorPath": "doctrine/currentFormatLawV1.json",
+      "peerPath": "doctrine/aiManifestFormatV1.json",
+      "relation": "specializes",
+      "interpretation": "Manifest naming is a specialized dialect within general current-format policy."
+    },
+    {
+      "pairId": "canonPair05",
+      "domain": "composition",
+      "anchorPath": "doctrine/luHmOSFourLayerArchitectureV1.json",
+      "peerPath": "doctrine/jqueryFourLayerArchitectureV1.json",
+      "relation": "supersedes",
+      "interpretation": "Current LuHmOS composition takes precedence over historical jQuery metaphor."
+    },
+    {
+      "pairId": "canonPair06",
+      "domain": "composition",
+      "anchorPath": "doctrine/luHmOSFourLayerArchitectureV1.json",
+      "peerPath": "doctrine/escalationKernelV1.json",
+      "relation": "differentAxes",
+      "interpretation": "Composition tiers and operational escalation tiers both count to four but have different semantics."
+    },
+    {
+      "pairId": "canonPair07",
+      "domain": "workflow",
+      "anchorPath": "doctrine/termResolutionV1.json",
+      "peerPath": "doctrine/chatLikeTermFoldV1.json",
+      "relation": "differentAxes",
+      "interpretation": "An alias/name resolver does not perform execution batching; keep roles separate."
+    },
+    {
+      "pairId": "canonPair08",
+      "domain": "workflow",
+      "anchorPath": "doctrine/chatLikeTermFoldV1.json",
+      "peerPath": "tools/chatLikeTermFold.py",
+      "relation": "implements",
+      "interpretation": "Existing deterministic operation-folding tool implements a separate batch concern."
+    },
+    {
+      "pairId": "canonPair09",
+      "domain": "workflow",
+      "anchorPath": "doctrine/everlastingCovenantV1.json",
+      "peerPath": "doctrine/proposedWorkingLaneV1.json",
+      "relation": "specializes",
+      "interpretation": "Proposed lane inherits the covenant without creating deployment authority."
+    },
+    {
+      "pairId": "canonPair10",
+      "domain": "workflow",
+      "anchorPath": "doctrine/semanticDomainHardeningV1.json",
+      "peerPath": "doctrine/termResolutionV1.json",
+      "relation": "complements",
+      "interpretation": "Metaphor meaning and agent alias resolution are different semantic operations."
+    },
+    {
+      "pairId": "canonPair11",
+      "domain": "schema",
+      "anchorPath": "doctrine/aiManifestFormatV1.json",
+      "peerPath": "doctrine/aiTaskManifestV2.template.json",
+      "relation": "differentAxes",
+      "interpretation": "Manifest format law and task instance template must remain distinct."
+    },
+    {
+      "pairId": "canonPair12",
+      "domain": "schema",
+      "anchorPath": "doctrine/typedFourLaneSqlV1.json",
+      "peerPath": "doctrine/storageTopologyV1.json",
+      "relation": "differentAxes",
+      "interpretation": "Typed event lanes are not physical binary/file storage tiers."
+    },
+    {
+      "pairId": "canonPair13",
+      "domain": "storage",
+      "anchorPath": "doctrine/storageTopologyV1.json",
+      "peerPath": "manual/driveAssetAlignment.md",
+      "relation": "implements",
+      "interpretation": "Existing Drive/GitHub asset routing explains the storage topology without becoming a file server."
+    },
+    {
+      "pairId": "canonPair14",
+      "domain": "platform",
+      "anchorPath": "docs/thin-client-machine-pipe-v1.md",
+      "peerPath": "manual/hydraUbuntuAppliance20261101.md",
+      "relation": "complements",
+      "interpretation": "Native Linux appliance and browser thin-client targets are complementary deployment profiles."
+    },
+    {
+      "pairId": "canonPair15",
+      "domain": "studio",
+      "anchorPath": "game/canon/CHARACTER_CANON_V1.json",
+      "peerPath": "game/assets/ASSET_MANIFEST_V1.json",
+      "relation": "differentAxes",
+      "interpretation": "Character identity design and runtime asset slot manifests are separate evidence."
+    },
+    {
+      "pairId": "canonPair16",
+      "domain": "studio",
+      "anchorPath": "doctrine/driveStudioReconciliationV1.json",
+      "peerPath": "game/canon/CHARACTER_CANON_V1.json",
+      "relation": "complements",
+      "interpretation": "Private Drive discovery does not automatically approve character model rights or import."
+    },
+    {
+      "pairId": "canonPair17",
+      "domain": "release",
+      "anchorPath": "doctrine/releaseBoundaryV2.json",
+      "peerPath": "doctrine/RELEASE_BOUNDARY.json",
+      "relation": "supersedes",
+      "interpretation": "Current release boundary replaces the historical uppercase file for current decisions."
+    },
+    {
+      "pairId": "canonPair18",
+      "domain": "release",
+      "anchorPath": "doctrine/pluginPublicationV2.json",
+      "peerPath": "doctrine/PLUGIN_PUBLICATION_MILESTONE_20260930.json",
+      "relation": "supersedes",
+      "interpretation": "Current plugin publication contract is authoritative over the dated milestone."
+    },
+    {
+      "pairId": "canonPair19",
+      "domain": "release",
+      "anchorPath": "doctrine/chatGptPluginMilestoneV2.json",
+      "peerPath": "doctrine/pluginPublicationV2.json",
+      "relation": "differentAxes",
+      "interpretation": "Plugin progress milestones and publication permissions are distinct gates."
+    },
+    {
+      "pairId": "canonPair20",
+      "domain": "release",
+      "anchorPath": "doctrine/activeRepositorySetV1.json",
+      "peerPath": "doctrine/currentSourceTruthV3.json",
+      "relation": "complements",
+      "interpretation": "Repository-set snapshot does not override moving primary source truth."
+    }
+  ],
+  "promotion": false,
+  "crownStatus": "STOP"
+}
