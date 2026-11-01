@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """IPS heritage negative controls against synthetic bytes only."""
 import unittest
+import json
+from pathlib import Path
 from tools import legacyIpsTextBridge as bridge
 
 class TestLegacyIpsTextBridge(unittest.TestCase):
@@ -21,6 +23,11 @@ class TestLegacyIpsTextBridge(unittest.TestCase):
         row=bridge.projectSql(receipt,"f0cb6ee54066b490c0e80efc2c96200fec76ee2d")
         self.assertEqual(row["textFields"],5)
         self.assertFalse(row["sqlitePersisted"])
+
+    def testGodotFixtureExactlyMatchesBinaryPreview(self):
+        expected=bridge.preview(self.base,self.ips,self.sha)
+        path=Path(__file__).resolve().parents[1]/"game/story/legacyIpsEmoteDemoV1.json"
+        self.assertEqual(json.loads(path.read_text(encoding="utf-8")),expected)
 
     def testWrongSourceRejected(self):
         with self.assertRaisesRegex(ValueError,"WRONG_SOURCE_BYTES"):

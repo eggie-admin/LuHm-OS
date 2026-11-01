@@ -1,0 +1,59 @@
+{
+  "schema": "luhmOs.legacyIpsTextBridge.v1",
+  "status": "SYNTHETIC_SOURCE_ONLY",
+  "sourceSha256": "5a72de5b146432410326710619c6e791f56cc694207ce0eabbc3fdf2309e6893",
+  "patchSha256": "5c2459ad9c9a6abef129492191bc3522600fbebab37c4b30b5ea86a2f4a1887c",
+  "targetSha256": "e6ab558e7a41ba12247d9702fc281cad1f7eb1107d44ce9f15b541905c37bb82",
+  "changedBytes": 1,
+  "deviceFirmwareTouched": false,
+  "publicRelease": false,
+  "crownStatus": "STOP",
+  "before": [
+    {
+      "dialogueId": "dialogue0",
+      "offset": 16,
+      "tokens": [
+        "A",
+        "B",
+        "<EMOTE_HAPPY>",
+        "<NEWLINE>",
+        "C",
+        "<END>"
+      ]
+    },
+    {
+      "dialogueId": "dialogue1",
+      "offset": 24,
+      "tokens": [
+        "C",
+        " ",
+        "<EMOTE_ANGRY>",
+        "<END>"
+      ]
+    }
+  ],
+  "after": [
+    {
+      "dialogueId": "dialogue0",
+      "offset": 16,
+      "tokens": [
+        "A",
+        "B",
+        "<EMOTE_ANGRY>",
+        "<NEWLINE>",
+        "C",
+        "<END>"
+      ]
+    },
+    {
+      "dialogueId": "dialogue1",
+      "offset": 24,
+      "tokens": [
+        "C",
+        " ",
+        "<EMOTE_ANGRY>",
+        "<END>"
+      ]
+    }
+  ]
+}

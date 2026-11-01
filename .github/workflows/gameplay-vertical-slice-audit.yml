@@ -8,6 +8,8 @@ on:
       - 'game/story/**'
       - 'scripts/game/**'
       - 'scripts/main.gd'
+      - 'tests/legacyGodotEmoteSmoke.gd'
+      - 'manual/legacyGodotEmoteBridge.md'
       - 'tools/gameplayVerticalSliceAudit.py'
       - '.github/workflows/gameplay-vertical-slice-audit.yml'
   workflow_dispatch:
@@ -19,7 +21,18 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact candidate checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected="${{ github.event.pull_request.head.sha || github.sha }}"
+          actual="$(git rev-parse HEAD)"
+          test "$actual" = "$expected"
+          echo "GODOT_EXACT_SOURCE_REF=$actual"
       - name: Validate JSON
         run: |
           python3 -m json.tool doctrine/gameplayVerticalSliceV1.json >/dev/null
@@ -38,3 +51,5 @@ jobs:
           chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
       - name: Parse and import Godot project
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit
+      - name: Execute synthetic IPS to Godot event smoke
+        run: python3 tools/runGodotSmoke.py /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 legacyGodotEmoteSmoke

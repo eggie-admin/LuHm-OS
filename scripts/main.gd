@@ -9,9 +9,11 @@ const CharacterRosterScript := preload("res://scripts/game/characterRoster.gd")
 const QuestDirectorScript := preload("res://scripts/game/questDirector.gd")
 const OniSummonBeaconScript := preload("res://scripts/game/oniSummonBeacon.gd")
 const OniEchoCompanionScript := preload("res://scripts/game/oniEchoCompanion.gd")
+const LegacyEmoteBridgeScript := preload("res://scripts/game/legacyDialogueEmoteBridge.gd")
 
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
 const FIRST_NIGHT_QUEST_PATH := "res://game/story/firstNightQuest.json"
+const LEGACY_IPS_DEMO_PATH := "res://game/story/legacyIpsEmoteDemoV1.json"
 const INTERACTION_RANGE := 2.8
 const LUM_BANTER := [
     "Lum: Pick a door, Professor. Coffee is hot; architecture is questionable. ♡",
@@ -37,6 +39,7 @@ var android_web3_version := "unavailable"
 var active_oni_beacon: Area3D
 var active_oni_companion: Node3D
 var lum_banter_index := 0
+var legacy_emote_bridge: RefCounted
 
 func _ready() -> void:
     _build_runtime()
@@ -82,6 +85,8 @@ func _build_runtime() -> void:
     quest_director.name = "QuestDirector"
     add_child(quest_director)
 
+    legacy_emote_bridge = LegacyEmoteBridgeScript.new()
+
 
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
@@ -107,6 +112,17 @@ func _on_lum_talk_requested() -> void:
         return
     game_hud.show_dialogue(str(LUM_BANTER[lum_banter_index % LUM_BANTER.size()]))
     lum_banter_index = (lum_banter_index + 1) % LUM_BANTER.size()
+
+func previewLegacyEmote() -> bool:
+    # Explicit synthetic source fixture; not part of canonical First Night quest.
+    if legacy_emote_bridge == null or game_hud == null:
+        return false
+    if not FileAccess.file_exists(LEGACY_IPS_DEMO_PATH):
+        return false
+    var payload: Variant = JSON.parse_string(FileAccess.get_file_as_string(LEGACY_IPS_DEMO_PATH))
+    if not (payload is Dictionary):
+        return false
+    return bool(legacy_emote_bridge.call("stage_preview", payload, game_hud))
 
 func _wire_android_web3() -> void:
     if OS.get_name() != "Android":
