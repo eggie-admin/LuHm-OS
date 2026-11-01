@@ -108,8 +108,14 @@
         "id": "demo-01",
         "label": "Headless Godot parse and finite Night Shift smoke",
         "dependsOn": [],
-        "state": "PENDING",
-        "proof": "exactHeadCi"
+        "state": "DONE",
+        "proof": "exactHeadCi",
+        "evidenceRefs": [
+          "githubActions:41302489508",
+          "godotJob:124836156956",
+          "exactPrHead:f7b82bc6203021fd717891e1d22a4a0ffc656a4c"
+        ],
+        "proofStatus": "GREEN_EXACT_HEAD_SOURCE_ONLY"
       },
       {
         "id": "demo-02",
@@ -143,7 +149,15 @@
         "label": "Verify rights-safe Lum original preview from protected master",
         "dependsOn": [],
         "state": "PENDING",
-        "proof": "sourceHashRightsAndOwnerApprove"
+        "proof": "sourceHashRightsAndOwnerApprove",
+        "stagingProof": {
+          "ownerOnlyCopy": true,
+          "ownerOnlyFolder": true,
+          "copyFileSizeBytes": 2683473,
+          "copySha256Verified": false,
+          "originalWriterExposureRemains": true,
+          "publicAssetAdmission": false
+        }
       },
       {
         "id": "asset-02",
@@ -215,7 +229,9 @@
     "noGenerativeArtPublicDefault": true,
     "externalSocialPosting": false,
     "productionSigning": false,
-    "mergeOrDeployRequiresFreshExactCI": true
+    "mergeOrDeployRequiresFreshExactCI": true,
+    "privateQuarantineCopyCreated": true,
+    "legacySharedOriginalStillExposed": true
   },
   "finalGameCrown": "STOP"
 }
