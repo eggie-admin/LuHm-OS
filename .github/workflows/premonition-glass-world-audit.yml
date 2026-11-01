@@ -56,7 +56,9 @@ jobs:
           grep -q "default-src 'none'" dist/kiosk.html
           grep -q "connect-src 'none'" dist/kiosk.html
           test -n "$(find dist/assets -name 'kiosk-*.js' -print -quit)" || (echo 'Kiosk entry bundle missing' && exit 3)
-          test "$(find dist/assets -name 'index-*.js' -printf '%s\n' | sort -nr | head -1)" -lt 1600000
+          MAX_JS="$(find dist/assets -name '*.js' -printf '%s\n' | sort -nr | head -1)"
+          test -n "$MAX_JS"
+          test "$MAX_JS" -lt 1600000
           find dist -type f -printf '%P %s bytes\n'
           echo "SOURCE_ONLY_NO_SAMSUNG_NO_GODOT_RENDER_PROOF"
           du -b dist/assets/*.js | sort -nr | head -8
