@@ -4,6 +4,10 @@ on:
     paths:
       - 'doctrine/machineToHumanWizardV1.json'
       - 'tools/machineToHumanWizard.py'
+      - 'doctrine/castTypedHexBoundariesV1.json'
+      - 'tools/castTypedHexBoundaries.py'
+      - 'tests/testCastTypedHexBoundaries.py'
+      - 'manual/castTypedHexBoundaries.md'
       - 'tests/testMachineToHumanWizard.py'
       - 'manual/machine-to-human-wizard.md'
       - '.github/workflows/premonition-machine-wizard-audit.yml'
@@ -18,10 +22,23 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Validate exact source checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected="${{ github.event.pull_request.head.sha || github.sha }}"
+          actual="$(git rev-parse HEAD)"
+          test "$actual" = "$expected"
+          echo "CAST_SECURITY_EXACT_SOURCE_REF=$actual"
       - name: Validate contract and Python source
         run: |
           python3 -m json.tool doctrine/machineToHumanWizardV1.json > /dev/null
           python3 -m py_compile tools/machineToHumanWizard.py tests/testMachineToHumanWizard.py
+      - name: Typed security boundary 4x4 and negative checks
+        run: |
+          python3 -m unittest discover -s tests -p 'testCastTypedHexBoundaries.py' -v
+          python3 tools/castTypedHexBoundaries.py --self-test
       - name: Run synthetic host and no-mutation tests
         run: python3 -m unittest discover -s tests -p 'testMachineToHumanWizard.py' -v
       - name: Emit runner-safe read-only sample
