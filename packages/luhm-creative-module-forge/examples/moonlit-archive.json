@@ -17,7 +17,8 @@
           "check": {
             "formula": "1d20+2",
             "target": 12
-          }
+          },
+          "failureTarget": "rest"
         },
         {
           "label": "Rest beside the lantern",
