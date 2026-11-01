@@ -1,0 +1,162 @@
+{
+  "schema": "luhmOs.remoteWmsMachineBridge.v1",
+  "status": "PROPOSED_REVIEW_ONLY",
+  "authority": "Professor",
+  "purpose": "Canonical read-only ChatGPT to remote WMS manager to virtual machine planning contract. WMS denotes the Professor's remote virtual-manager interface; its vendor/protocol is unresolved.",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "sourceAnchors": [
+    "AGENTS.md",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/projectChatCanonV1.json",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/luhmAiControlPlaneV1.json",
+    "doctrine/agentSystemDeploymentV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/apiSpineV1.json",
+    "doctrine/storageTopologyV1.json",
+    "doctrine/escalationKernelV1.json",
+    "doctrine/fourTierOperatingModelV1.json",
+    "doctrine/openAiDeploymentV3.json"
+  ],
+  "topology": {
+    "inbound": "existingPrivateProjectHydraOrPortableLuHmMcpChatGptCockpit",
+    "control": "host/mcp/luhmWmsVmTools.py",
+    "planner": "host/remote/luhmWmsVmManager.py",
+    "virtualManager": "unresolvedWmsHostManagedAdapter",
+    "virtualMachine": "unregisteredUntilExactTargetIdentityAndReceipt",
+    "plugins": "capabilityBoundHostSideAdapters",
+    "sourceAuthority": "eggie-admin/LuHm-OS",
+    "binaryAuthority": "googleDriveAfterRightsAndDigestReview",
+    "liveProviderWorkerAuthority": false,
+    "directBrowserOrApkHypervisorConnection": false
+  },
+  "wms": {
+    "id": "remoteWms",
+    "expansion": "UNRESOLVED_USER_LABEL",
+    "vendor": "UNRESOLVED",
+    "protocol": "UNRESOLVED",
+    "endpoint": "NOT_CONFIGURED",
+    "credentials": "hostSecretStoreOnly",
+    "remoteConnectivityVerified": false,
+    "agentRuntimeVerified": false,
+    "machineInventoryVerified": false,
+    "supportedDrivers": [],
+    "requiredTransportSecurity": [
+      "TLS_CERT_VALIDATION",
+      "AUTHENTICATED_HOST_IDENTITY",
+      "NO_SSRF_URL_OVERRIDE",
+      "LEAST_PRIVILEGE_OPERATOR_ROLE"
+    ],
+    "noHardcodedCredentials": true
+  },
+  "requestEnvelope": {
+    "required": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "machineId",
+      "operation"
+    ],
+    "exactSourceRef": "full40CharacterGitCommitSha",
+    "machineIdentity": "registeredSafeOpaqueIdentifier",
+    "capabilityRouting": "allowlistOnly",
+    "requirements": [
+      "explicitRequestedMachine",
+      "specificBoundedAction",
+      "declaredEvidenceTarget",
+      "operatorRole",
+      "costBoundary",
+      "rollbackOrFallback",
+      "stopConditions"
+    ],
+    "sourceMustMatchObservedReceipt": true,
+    "cannotDeriveMachineFromFreeText": true
+  },
+  "allowedPlanningOperations": [
+    "inventory",
+    "status",
+    "capabilities",
+    "health",
+    "metrics",
+    "snapshotPlan",
+    "powerOnPlan",
+    "shutdownPlan",
+    "restartPlan",
+    "packageDeployPlan",
+    "devicePassthroughPlan"
+  ],
+  "readOnlyOperations": [
+    "inventory",
+    "status",
+    "capabilities",
+    "health",
+    "metrics"
+  ],
+  "mutationOnlyAsPlans": [
+    "snapshotPlan",
+    "powerOnPlan",
+    "shutdownPlan",
+    "restartPlan",
+    "packageDeployPlan",
+    "devicePassthroughPlan"
+  ],
+  "liveMutationsExposedViaMcp": false,
+  "credentialExposure": false,
+  "fourBeat": [
+    "hear",
+    "resolve",
+    "act",
+    "verify"
+  ],
+  "escalationTiers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "governance": {
+    "companyQuarantineUnchanged": true,
+    "activeTaskWorkersAllowed": false,
+    "providerMaySelfApprove": false,
+    "allowRemoteShell": false,
+    "allowArbitraryUrls": false,
+    "allowRawRemoteCommands": false,
+    "allowPublicOrInternetExpose": false,
+    "allowAutoMerge": false,
+    "allowAutoDeploy": false,
+    "allowAgentUnquarantine": false,
+    "allowAutoCrown": false,
+    "authorizesSpending": false,
+    "remoteWritesRequireDistinctFutureImplementationAndProfessorReceipt": true
+  },
+  "receipt": {
+    "schema": "luhmOs.remoteWmsPlan.v1",
+    "fields": [
+      "taskId",
+      "sourceRef",
+      "scopeId",
+      "machineId",
+      "operation",
+      "capabilityId",
+      "status",
+      "blockingConditions",
+      "requiredProof",
+      "machineConnectionVerified",
+      "remoteExecutionProven",
+      "greenAuthority",
+      "crownAuthority"
+    ],
+    "missingProofResult": "BLOCKED_NOT_PROVEN",
+    "unknownMachineResult": "BLOCKED_TARGET_UNREGISTERED"
+  },
+  "ownerNextProof": [
+    "identifyExactWmsProviderOrProtocol",
+    "registerExactRemoteTargetPrivately",
+    "verifyHostIdentityAndAuthenticationOutOfBand",
+    "readOnlyInventoryReceipt",
+    "proveOneInChatMcpToolResult",
+    "runExactSourceCi",
+    "seekSeparateApprovalBeforeAnyMutation"
+  ],
+  "crownStatus": "STOP"
+}
