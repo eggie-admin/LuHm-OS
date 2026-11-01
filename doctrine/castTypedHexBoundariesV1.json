@@ -1,0 +1,265 @@
+{
+  "schema": "luhmOs.castTypedHexBoundaries.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "crownStatus": "STOP",
+  "basedOnMain": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "Share one typed audit grammar across separate firmware, kernel, IPv6, and application boundaries without treating hex, keys, IP addresses, hashes or flags as interchangeable trust authorities.",
+  "namespace": "castSecurityMatrixV1",
+  "bytesOrFirmwareOffsets": false,
+  "hasLiveDeviceProof": false,
+  "rows": [
+    {
+      "id": "firmwareTrust",
+      "canon": "doctrine/machineToHumanWizardV1.json",
+      "securityMechanism": "androidVerifiedBootAndOEMPolicy",
+      "evidence": "OWNER_DEVICE_BOOT_ATTESTATION_REQUIRED",
+      "liveProof": false
+    },
+    {
+      "id": "kernelIsolation",
+      "canon": "tools/machineToHumanWizard.py",
+      "securityMechanism": "linuxPermissionsAndSelinuxPolicy",
+      "evidence": "READ_ONLY_KERNEL_MODULE_DOMAIN_PROBE_REQUIRED",
+      "liveProof": false
+    },
+    {
+      "id": "networkScope",
+      "canon": "doctrine/cloudflareEdgeHardeningV1.json",
+      "securityMechanism": "verifiedFirewallOriginTlsAndAuthz",
+      "evidence": "ACTUAL_IPV6_ROUTE_FIREWALL_AND_TLS_PROOF_REQUIRED",
+      "liveProof": false
+    },
+    {
+      "id": "applicationCast",
+      "canon": "doctrine/companyWideOperationalQuarantineV1.json",
+      "securityMechanism": "sourceIdentityPolicyRuntimeAuditHumanPromotion",
+      "evidence": "EXACT_HEAD_CI_AND_OWNER_SIGNER_REQUIRED",
+      "liveProof": false
+    }
+  ],
+  "columns": [
+    "identify",
+    "verify",
+    "enforce",
+    "escalate"
+  ],
+  "matrix": [
+    {
+      "index": 0,
+      "hex": "0x00",
+      "row": "firmwareTrust",
+      "column": "identify",
+      "canon": "doctrine/machineToHumanWizardV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 1,
+      "hex": "0x01",
+      "row": "firmwareTrust",
+      "column": "verify",
+      "canon": "doctrine/machineToHumanWizardV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 2,
+      "hex": "0x02",
+      "row": "firmwareTrust",
+      "column": "enforce",
+      "canon": "doctrine/machineToHumanWizardV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 3,
+      "hex": "0x03",
+      "row": "firmwareTrust",
+      "column": "escalate",
+      "canon": "doctrine/machineToHumanWizardV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 4,
+      "hex": "0x04",
+      "row": "kernelIsolation",
+      "column": "identify",
+      "canon": "tools/machineToHumanWizard.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 5,
+      "hex": "0x05",
+      "row": "kernelIsolation",
+      "column": "verify",
+      "canon": "tools/machineToHumanWizard.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 6,
+      "hex": "0x06",
+      "row": "kernelIsolation",
+      "column": "enforce",
+      "canon": "tools/machineToHumanWizard.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 7,
+      "hex": "0x07",
+      "row": "kernelIsolation",
+      "column": "escalate",
+      "canon": "tools/machineToHumanWizard.py",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 8,
+      "hex": "0x08",
+      "row": "networkScope",
+      "column": "identify",
+      "canon": "doctrine/cloudflareEdgeHardeningV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 9,
+      "hex": "0x09",
+      "row": "networkScope",
+      "column": "verify",
+      "canon": "doctrine/cloudflareEdgeHardeningV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 10,
+      "hex": "0x0A",
+      "row": "networkScope",
+      "column": "enforce",
+      "canon": "doctrine/cloudflareEdgeHardeningV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 11,
+      "hex": "0x0B",
+      "row": "networkScope",
+      "column": "escalate",
+      "canon": "doctrine/cloudflareEdgeHardeningV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 12,
+      "hex": "0x0C",
+      "row": "applicationCast",
+      "column": "identify",
+      "canon": "doctrine/companyWideOperationalQuarantineV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 13,
+      "hex": "0x0D",
+      "row": "applicationCast",
+      "column": "verify",
+      "canon": "doctrine/companyWideOperationalQuarantineV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 14,
+      "hex": "0x0E",
+      "row": "applicationCast",
+      "column": "enforce",
+      "canon": "doctrine/companyWideOperationalQuarantineV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    },
+    {
+      "index": 15,
+      "hex": "0x0F",
+      "row": "applicationCast",
+      "column": "escalate",
+      "canon": "doctrine/companyWideOperationalQuarantineV1.json",
+      "status": "SOURCE_ROUTE_ONLY"
+    }
+  ],
+  "levels": [
+    {
+      "name": "4x4",
+      "logicalCells": 16,
+      "sourceMapped": 16,
+      "runtimeVerified": 0
+    },
+    {
+      "name": "8x8",
+      "logicalCells": 64,
+      "sourceMapped": 0,
+      "runtimeVerified": 0
+    },
+    {
+      "name": "16x16",
+      "logicalCells": 256,
+      "sourceMapped": 0,
+      "runtimeVerified": 0
+    },
+    {
+      "name": "0to2048",
+      "logicalCells": 2048,
+      "sourceMapped": 0,
+      "runtimeVerified": 0
+    }
+  ],
+  "flags": {
+    "sourceSyntax": "0x01",
+    "fixtureDigestMatches": "0x02",
+    "boundaryClassified": "0x04",
+    "humanRelease": "0x08",
+    "sourceOnlyMaximum": "0x07",
+    "flagMeaning": "Audit observations, not kernel CPU flags, signature algorithms, device permissions, or release authority",
+    "humanReleaseCannotBeSetByThisModule": true
+  },
+  "typedIdentities": {
+    "gitSource": "40LowercaseHexCurrentRepositoryCommit",
+    "artifactDigest": "64LowercaseHexSha256",
+    "ipv6": "128BitAddressAndCIDRPrefix",
+    "ecdsa": "DigitalSignatureAlgorithmNotEscalationSystem",
+    "androidVerifiedBoot": "OEMSpecificChainWithRollbackNotArbitraryECDSAClaim",
+    "hardwareBusIds": "TypedBusVendorDeviceNotKernelPackage",
+    "debianPackage": "DpkgNameVersionArchitectureNotKernelModuleIdentity"
+  },
+  "network": {
+    "addressValidation": "PythonIpaddressCidrStrictOnly",
+    "documentationOnly": "2001:db8::/32",
+    "loopbackOnly": "::1/128",
+    "linkLocalPrefix": "fe80::/10",
+    "noUnverifiedAAAA": true,
+    "noFirewallWrites": true,
+    "ipv6PrefixDoesNotAuthorizeTraffic": true
+  },
+  "integrity": {
+    "sha256DigestIsSignature": false,
+    "signatureNeedsVerifiedSignerKeyAndAlgorithm": true,
+    "ecdsaImpliesAuthorization": false,
+    "curveAndKeyNeverInferred": true,
+    "gitShaDoesNotProveDeployment": true
+  },
+  "debian": {
+    "declaredSource": ".devcontainer/Dockerfile",
+    "packageAuthority": "doctrine/skuldUpstreamCabinetV1.json",
+    "kernelIsCodespacesHostNotContainer": true,
+    "noPackageAutoInstall": true,
+    "noDriverAutoBind": true
+  },
+  "quarantineRef": "doctrine/companyWideOperationalQuarantineV1.json",
+  "activeAgentWorkers": 0,
+  "prohibited": [
+    "flashFirmware",
+    "modifyBootloader",
+    "modifySelinuxPolicy",
+    "loadKernelModule",
+    "applyFirewall",
+    "openIpv6Port",
+    "changeDns",
+    "installPackage",
+    "startNetworkDaemon",
+    "autoMerge",
+    "signRelease",
+    "activateAgents",
+    "autoCrown"
+  ],
+  "mutationsPerformed": false,
+  "networkChanged": false,
+  "firmwareChanged": false
+}
