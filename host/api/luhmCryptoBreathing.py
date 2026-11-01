@@ -56,6 +56,28 @@ def _auth_bytes(task_id: str, source_ref: str, scope_id: str, artifact_id: str,
     }, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("ascii")
 
 
+def seal_local_snapshot(*, task_id: str, source_ref: str, scope_id: str,
+                        artifact_id: str, snapshot_ref: str,
+                        payload: bytes, encryption_key: bytes) -> dict[str, bytes]:
+    """Encrypt a bounded snapshot in memory with AES-256-GCM.
+
+    Returned nonce/ciphertext must be stored through a separately authorized
+    private binary-storage lane. A random 96-bit nonce is generated per call.
+    This does not write a file, export a key or publish an artifact.
+    """
+    import secrets
+    _bound(task_id, source_ref, scope_id, artifact_id, payload)
+    if not isinstance(snapshot_ref, str) or IDENT.fullmatch(snapshot_ref) is None:
+        raise ValueError("valid snapshotRef required")
+    if not isinstance(encryption_key, bytes) or len(encryption_key) != 32:
+        raise ValueError("AES-256 key must be 32 bytes")
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    nonce = secrets.token_bytes(12)
+    aad = _auth_bytes(task_id, source_ref, scope_id, artifact_id,
+                      snapshot_ref, hashlib.sha256(payload).hexdigest())
+    return {"nonce": nonce, "ciphertext": AESGCM(encryption_key).encrypt(nonce, payload, aad)}
+
+
 def status() -> dict[str, Any]:
     canon = load_canon()
     return {
