@@ -1,0 +1,334 @@
+{
+  "schema": "luhmOs.deviceCapabilityRegistry.v1",
+  "authority": "Professor",
+  "asOf": "2026-11-01",
+  "status": "DRAFT_SOURCE_ONLY",
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "about": "Hex labels are logical 4x4 registry keys; never Windows Registry, kernel addresses or GPU registers.",
+  "namespace": "deviceCapability",
+  "platforms": [
+    "android",
+    "samsung",
+    "ios",
+    "webLinux"
+  ],
+  "capabilities": [
+    "runtime",
+    "graphics",
+    "storage",
+    "distribution"
+  ],
+  "entries": [
+    {
+      "index": 0,
+      "hex": "0x00",
+      "namespace": "deviceCapability",
+      "platform": "android",
+      "capability": "runtime",
+      "value": "Android SDK 36 proposed target, ARM64 Godot; no OEM boot modification",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 1,
+      "hex": "0x01",
+      "namespace": "deviceCapability",
+      "platform": "android",
+      "capability": "graphics",
+      "value": "GLES/WebGL capability probe; Vulkan only if actual device supports",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 2,
+      "hex": "0x02",
+      "namespace": "deviceCapability",
+      "platform": "android",
+      "capability": "storage",
+      "value": "App sandbox; local SQLite if persistence approved",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 3,
+      "hex": "0x03",
+      "namespace": "deviceCapability",
+      "platform": "android",
+      "capability": "distribution",
+      "value": "Google Play Internal App Sharing then signed AAB internal testing",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 4,
+      "hex": "0x04",
+      "namespace": "deviceCapability",
+      "platform": "samsung",
+      "capability": "runtime",
+      "value": "Android SDK with Samsung device feature detection, OEM One UI policy",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 5,
+      "hex": "0x05",
+      "namespace": "deviceCapability",
+      "platform": "samsung",
+      "capability": "graphics",
+      "value": "Actual Galaxy device WebGL/GLES/Vulkan/thermal receipt required",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 6,
+      "hex": "0x06",
+      "namespace": "deviceCapability",
+      "platform": "samsung",
+      "capability": "storage",
+      "value": "Android app sandbox, no Knox bypass",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 7,
+      "hex": "0x07",
+      "namespace": "deviceCapability",
+      "platform": "samsung",
+      "capability": "distribution",
+      "value": "Samsung Remote Test Lab first; Galaxy Store beta via Seller Portal separately",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 8,
+      "hex": "0x08",
+      "namespace": "deviceCapability",
+      "platform": "ios",
+      "capability": "runtime",
+      "value": "iOS/iPadOS sandbox; iOS native requires macOS Xcode signing",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 9,
+      "hex": "0x09",
+      "namespace": "deviceCapability",
+      "platform": "ios",
+      "capability": "graphics",
+      "value": "Safari WebGL; native Metal only in separately built client",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 10,
+      "hex": "0x0A",
+      "namespace": "deviceCapability",
+      "platform": "ios",
+      "capability": "storage",
+      "value": "App sandbox, no Linux kernel or Android binaries",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 11,
+      "hex": "0x0B",
+      "namespace": "deviceCapability",
+      "platform": "ios",
+      "capability": "distribution",
+      "value": "Xcode archive and TestFlight, developer entitlement verified",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 12,
+      "hex": "0x0C",
+      "namespace": "deviceCapability",
+      "platform": "webLinux",
+      "capability": "runtime",
+      "value": "Firefox Chromium Samsung Internet Safari: capabilities discovered, no shared platform ABI",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 13,
+      "hex": "0x0D",
+      "namespace": "deviceCapability",
+      "platform": "webLinux",
+      "capability": "graphics",
+      "value": "DOM/SVG always; optional Babylon WebGL, remote Unreal not enabled",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 14,
+      "hex": "0x0E",
+      "namespace": "deviceCapability",
+      "platform": "webLinux",
+      "capability": "storage",
+      "value": "Browser session only; local media via user selection; no silent cloud",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    },
+    {
+      "index": 15,
+      "hex": "0x0F",
+      "namespace": "deviceCapability",
+      "platform": "webLinux",
+      "capability": "distribution",
+      "value": "Same-origin HTTPS hosting after CSP / rights and owner gate",
+      "proof": "SOURCE_REVIEW_ONLY",
+      "deviceVerified": false
+    }
+  ],
+  "typedPacket": {
+    "schema": "luhmOs.typedArtMachinePacket.v1",
+    "maxUtf8Bytes": 4096,
+    "maxRawBase64Bytes": 4096,
+    "fields": [
+      "schema",
+      "registryHex",
+      "kind",
+      "byteCount",
+      "payloadBase64",
+      "sha256",
+      "rssBytes",
+      "rightsState"
+    ],
+    "hexNamespace": "deviceCapability",
+    "kinds": [
+      "artNote",
+      "buildReceipt",
+      "benchmarkReceipt"
+    ],
+    "allowRssNull": true,
+    "rssMeaning": "Resident set size in BYTES, measured by an approved local process; null when not measured",
+    "shaMeaning": "SHA-256 integrity of decoded bytes, not certificate, signature, key, or authority",
+    "noArbitraryPaths": true,
+    "noSecretBytes": true,
+    "noPrivateArtBytes": true
+  },
+  "gui": {
+    "policy": "SESSION_ONLY_NO_TELEMETRY",
+    "defaultOrder": [
+      "play",
+      "edit",
+      "assets",
+      "build",
+      "audit",
+      "settings"
+    ],
+    "labels": {
+      "play": "Play First Night",
+      "edit": "Edit Scene",
+      "assets": "Review Assets",
+      "build": "Build & Test",
+      "audit": "Inspect Evidence",
+      "settings": "Settings"
+    },
+    "activityCountInitial": {
+      "play": 0,
+      "edit": 0,
+      "assets": 0,
+      "build": 0,
+      "audit": 0,
+      "settings": 0
+    },
+    "sort": "most selected session task first, descending count; ties preserve default order",
+    "clearOnReload": true,
+    "userMayReset": true,
+    "disableBackgroundRecording": true,
+    "brandStyle": "Minimal DOM/SVG + CSS; no Godot/Babylon start until user selects the action",
+    "protectedActions": [
+      "signAndroidRelease",
+      "submitPlayConsole",
+      "submitGalaxyStore",
+      "publishTestFlight",
+      "flashFirmware",
+      "installGpuDriver",
+      "mergeMain",
+      "remoteProviderSpend"
+    ]
+  },
+  "sdkGates": {
+    "android": {
+      "targetSdk": 36,
+      "arm64": true,
+      "agpExisting": "8.13.2",
+      "recommendedNdkr28OrLaterWhenNativeBuilt": true,
+      "check16KiBElfZipAlignment": true,
+      "checkArtifactBeforeStore": true,
+      "packageIdFromExportPreset": "art.eggiebagelface.luhmos.testing"
+    },
+    "samsung": {
+      "base": "Android SDK",
+      "optionalFeatures": "Samsung-specific APIs only if required and actual device supports",
+      "remoteTestLab": "AUTH_REQUIRED_UNVERIFIED",
+      "galaxyStoreSellerPortal": "AUTH_REQUIRED_UNVERIFIED"
+    },
+    "ios": {
+      "requiresMacOSXcodeForNative": true,
+      "requiresDeveloperProgramForTestFlight": true,
+      "iosBundleId": "UNREGISTERED",
+      "signing": "OWNER_REQUIRED_UNVERIFIED"
+    },
+    "web": {
+      "browsers": [
+        "firefox",
+        "chromium",
+        "samsungInternet",
+        "safari"
+      ],
+      "domFallback": true,
+      "webglRuntimeProbe": true,
+      "webgpuOptional": true,
+      "unrealRemote": "DISABLED"
+    }
+  },
+  "vendorUpdates": {
+    "policy": "SEPARATE_COMPATIBILITY_PRS_WITH_PINNED_LOCKS_AND_ROLLBACK",
+    "metadataSources": [
+      "developer.android.com",
+      "developer.samsung.com",
+      "developer.apple.com",
+      "developer.mozilla.org"
+    ],
+    "restrictedVendorLicensesRequireReview": true,
+    "proprietaryModulesMustNotBeCopiedIntoOpenCore": true,
+    "doNotAutoUpgradeGradle": true,
+    "doNotFlashFirmware": true,
+    "doNotChangeSigningIdentity": true,
+    "doNotAutoPublish": true
+  },
+  "sourceBindings": [
+    "doctrine/machineLocalAgentAuditV1.json",
+    "doctrine/machineDebianFourLayerV1.json",
+    "doctrine/androidDeliveryLanesV1.json",
+    "export_presets.cfg",
+    "androidWeb3Plugin/build.gradle.kts",
+    "doctrine/apiSpineV1.json",
+    "tools/luhm-machine-agent/package.json"
+  ],
+  "releaseGates": [
+    "typedJsPythonSQLiteParity",
+    "sourceOnlyCICheck",
+    "realDeviceCapabilities",
+    "rightsAndLicenseReview",
+    "androidNative16KiBArtifactCheck",
+    "signedArtifactAndUpdateIdentity",
+    "storeOwnerAuthorization",
+    "humanApproval"
+  ],
+  "safety": {
+    "realPhysicalDeviceVerified": false,
+    "iosBuildSigned": false,
+    "galaxyStoreBuildUploaded": false,
+    "playStoreBuildUploaded": false,
+    "localAiInferenceRunning": false,
+    "remoteAiAgentActivated": false,
+    "unrealGpuServerActive": false,
+    "protectedRegistryWritten": false,
+    "kernelModified": false,
+    "sourceOnly": true
+  }
+}

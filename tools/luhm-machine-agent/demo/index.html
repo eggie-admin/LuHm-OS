@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1a1026">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; frame-src 'none'; object-src 'none'; form-action 'none'; base-uri 'none'">
+<title>LuHm · Pocket Studio Tasks</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="app">
+<header><p class="eyebrow">LuHm-OS · proposed prototype</p><h1>Studio first. ⚡</h1>
+<p>Pick the thing you want to do. Your most-used actions move to the top <strong>for this tab only</strong>.</p></header>
+<section class="stage" aria-label="First Night creative-stage placeholder">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 165" role="img" aria-label="Original purple Cathedral arches">
+<rect width="520" height="165" fill="#20142f"/><g fill="#4e325f" stroke="#bca4d7" stroke-width="4">
+<path d="M30 139V70Q30 18 97 18T164 70V139Z"/>
+<path d="M357 139V70Q357 18 424 18T491 70V139Z"/>
+<path d="M206 139V85Q206 42 260 42T314 85V139Z" fill="#9572b5"/>
+</g><path d="M0 141H520" stroke="#d3b2f2" stroke-width="6"/><circle cx="260" cy="110" r="12" fill="#88e2e8"/></svg>
+<p>Offline UI sketch · Not a live Godot or Unreal scene</p>
+</section>
+<section aria-labelledby="taskHead"><div class="taskTop"><h2 id="taskHead">Studio shortcuts</h2>
+<button type="button" id="reset">Reset order</button></div>
+<div id="tasks" class="tasks" role="list"></div></section>
+<section class="notice" aria-live="polite"><strong>Selected:</strong> <span id="selection">None. Source-draft routes only.</span><p id="status">No apps, GPUs, private assets, or agents have been started.</p></section>
+<footer>Session-only counters; no localStorage, cookies, analytics, network calls, or privileged bridge. Source review is not Play Store installation.</footer>
+</main><script type="module" src="./app.mjs"></script>
+</body></html>
