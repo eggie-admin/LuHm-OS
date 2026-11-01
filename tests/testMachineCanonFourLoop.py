@@ -49,7 +49,7 @@ class MachineCanonFourLoopTests(unittest.TestCase):
 
     def test_one_failed_lane_does_not_stop_independent_lanes(self):
         def run(cmd):
-            if "networkSpineAudit.py" in cmd:
+            if any(part.endswith("networkSpineAudit.py") for part in cmd):
                 return {"status": "FAIL", "exitCode": 1}
             return green(cmd)
         result = machine.tick(SHA, CANON, {}, run, lambda: SHA)
@@ -63,7 +63,7 @@ class MachineCanonFourLoopTests(unittest.TestCase):
 
     def test_escalation_bounded_three_failures_then_no_rerun(self):
         def run(cmd):
-            return {"status": "FAIL", "exitCode": 4} if "networkSpineAudit.py" in cmd else green(cmd)
+            return {"status": "FAIL", "exitCode": 4} if any(part.endswith("networkSpineAudit.py") for part in cmd) else green(cmd)
         receipt = {}
         for n in (1, 2, 3):
             receipt = machine.tick(SHA, CANON, receipt, run, lambda: SHA)
@@ -77,12 +77,12 @@ class MachineCanonFourLoopTests(unittest.TestCase):
         held = machine.tick(SHA, CANON, receipt, spy, lambda: SHA)
         self.assertEqual(held["lanes"][1]["status"], "BLOCKED")
         self.assertEqual(held["lanes"][1]["checks"], [])
-        self.assertFalse(any("networkSpineAudit.py" in cmd for cmd in called))
+        self.assertFalse(any(any(part.endswith("networkSpineAudit.py") for part in cmd) for cmd in called))
         self.assertEqual(held["lanes"][3]["status"], "GREEN_SOURCE_ONLY")
 
     def test_recovery_deescalates_and_rechecks_prior_green(self):
         def red(cmd):
-            return {"status": "FAIL", "exitCode": 1} if "networkSpineAudit.py" in cmd else green(cmd)
+            return {"status": "FAIL", "exitCode": 1} if any(part.endswith("networkSpineAudit.py") for part in cmd) else green(cmd)
         previous = machine.tick(SHA, CANON, {}, red, lambda: SHA)
         calls = []
         def recovered(cmd):
