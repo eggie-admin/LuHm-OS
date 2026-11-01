@@ -67,9 +67,10 @@ def source_audit() -> dict[str, Any]:
         issues.append("RED_CAST_IDENTITY")
     anchors = p.get("anchors", [])
     if not isinstance(anchors, list) or len(anchors) != 10 or not all(
-            (ROOT / path).is_file() and
+            isinstance(path, str) and not Path(path).is_absolute() and
+            ".." not in Path(path).parts and (ROOT / path).is_file() and
             (ROOT / path).resolve().is_relative_to(ROOT.resolve())
-            for path in anchors if isinstance(path, str)):
+            for path in anchors):
         issues.append("RED_CAST_ANCHORS")
     if ([x.get("id") for x in p.get("visualThreads", [])] != list(THREADS)
             or any(not isinstance(x.get("label"), str) or not x.get("label")
@@ -94,7 +95,7 @@ def source_audit() -> dict[str, Any]:
         issues.append("RED_CAST_LANGUAGE_COUNT")
     rules = p.get("receiptRules", {})
     for key in (
-        "stageOrderStrict", "resumeAcrossChangedSource", "goalStoredAsHashOnly",
+        "stageOrderStrict", "noSkip", "resumeAcrossChangedSource", "goalStoredAsHashOnly",
         "twoLogicalThreadsDoesNotMeanTwoExecutingAgents", "noParallelSourceMutators",
         "neverClaimGreenFromSourceOnly", "sameTaskScopeForBothThreads"
     ):
