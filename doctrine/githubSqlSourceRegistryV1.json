@@ -1,0 +1,125 @@
+{
+  "schema": "luhmOs.githubSqlSourceRegistry.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "canonicalSource": {
+    "repo": "eggie-admin/LuHm-OS",
+    "branch": "main",
+    "draftBranch": "proposal/openai-chat-bridge-20261101",
+    "provenance": "GitCommitTreeAndExactSqlBlob",
+    "notRuntimeDatabase": true
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. Deterministic evidence proves. Professor promotes.",
+  "relation": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/typedFourLaneSqlV1.json",
+    "doctrine/storageTopologyV1.json",
+    "doctrine/premonitionCrossPlatformArtSplitV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json"
+  ],
+  "dialectOrder": [
+    "sqliteStrict",
+    "mariaDbCandidate"
+  ],
+  "schemas": [
+    {
+      "id": "fourLaneEvents",
+      "version": 1,
+      "dialect": "sqliteStrict",
+      "path": "host/api/typedLanesV1.sql",
+      "gitBlobSha1": "d50b258999d53e8db93ef830f6959a20adaea484",
+      "expectedTables": [
+        "aiManifestStream",
+        "artifactPointer",
+        "booleanStream",
+        "numericStream",
+        "streamEvent",
+        "textStream"
+      ],
+      "pythonReaders": [
+        "tools/typedSqlStub.py",
+        "host/api/luhmCryptoSqlite.py",
+        "host/api/luhmCanonOrchestration.py"
+      ],
+      "role": "boundedScopedTypedEventsAndBinaryPointers",
+      "liveApplied": false
+    },
+    {
+      "id": "premonitionArt",
+      "version": 1,
+      "dialect": "sqliteStrict",
+      "path": "host/api/premonitionAssetLedgerV1.sql",
+      "gitBlobSha1": "1651daf60899ff490738b76484a9ea5e3de9c005",
+      "expectedTables": [
+        "premonitionAssetRecord",
+        "premonitionTransformRecord"
+      ],
+      "pythonReaders": [
+        "tools/premonitionPlatformArtAudit.py"
+      ],
+      "role": "assetMetadataOnlyNoSvgGlbVideoBytes",
+      "liveApplied": false
+    },
+    {
+      "id": "mariaDbUpdateReceipts",
+      "version": 1,
+      "dialect": "mariaDbCandidate",
+      "path": "host/api/luhmMariaDbReceiptV1.sql",
+      "gitBlobSha1": "7615fc7f1900e111cc650de71810b50f8ede2b74",
+      "expectedTables": [
+        "luhm_update_receipt"
+      ],
+      "pythonReaders": [
+        "host/api/luhmMariaDbReceipt.py"
+      ],
+      "role": "optionalPrivateRemoteMetadataAndHashReceipt",
+      "liveApplied": false
+    }
+  ],
+  "receipts": {
+    "canonicalIdentity": [
+      "taskId",
+      "sourceRef",
+      "scopeId"
+    ],
+    "sourceRefFormat": "lowercaseHex40",
+    "artifactDigestFormat": "lowercaseHex64",
+    "branchIsNotRuntimeProof": true,
+    "tableDoesNotStoreMedia": true,
+    "databaseMayNotClaimCrown": true
+  },
+  "migrationPolicy": {
+    "sourceChangesRequireVersionIncrement": true,
+    "pinnedBlobShaMustChangeWithReviewedSource": true,
+    "noAutoApply": true,
+    "noRuntimeDatabaseConnectionsFromCi": true,
+    "noDdlApplyFromMcp": true,
+    "migrationExecutionNeedsExactSourceAndBackup": true,
+    "sqliteForeignKeysOn": true,
+    "mariaDbRequiresPrivateNetworkTlsIdentityAndApproval": true,
+    "sqlNotAnArtworkFileServer": true,
+    "noPublicSqlPort": true,
+    "noSecretsInGit": true,
+    "noProductionDatabaseDiscovery": true,
+    "noTableDropsOrDataDeletesInSourceGate": true,
+    "ciCanExecuteOnlyEphemeralSqlite": true,
+    "companyQuarantineOverrides": true
+  },
+  "promotionOrder": [
+    "R1_exactGitSourceAndHash",
+    "R2_sqlSyntaxAndSchema",
+    "R3_ephemeralSqliteFixture",
+    "R4_ownerReviewForRealMigration"
+  ],
+  "currentRuntimeEvidence": {
+    "sqliteHostSchemaProven": false,
+    "mariaDbServerConnected": false,
+    "migrationBackupVerified": false,
+    "realDeviceVerified": false
+  },
+  "noAutoMerge": true,
+  "noAutoDeploy": true,
+  "actualAppliedMigrations": 0,
+  "projectBrand": "LuHm-OS: Project Premonition",
+  "crownStatus": "STOP"
+}
