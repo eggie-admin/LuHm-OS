@@ -15,11 +15,29 @@ func load_quest(path: String) -> bool:
     if not parsed is Dictionary:
         push_warning("Quest document is not a Dictionary: %s" % path)
         return false
-    var steps = parsed.get("steps", [])
-    if not steps is Array or steps.is_empty():
-        push_warning("Quest has no steps: %s" % path)
+    return load_quest_data(parsed)
+
+func load_quest_data(document: Dictionary) -> bool:
+    # Runtime candidate must be shaped like an original reachable game quest.
+    var steps: Variant = document.get("steps", [])
+    if not steps is Array or steps.is_empty() or steps.size() > 12:
         return false
-    _quest = parsed.duplicate(true)
+    var allowed: Dictionary = {
+        "talkLumRiverwalk": "neonRiverwalk",
+        "collectSignalShard": "neonRiverwalk",
+        "collectCoffee": "lumCoffeeHouse",
+        "clearStaticWisp": "cathedral",
+        "sealFirstNight": "cathedral"
+    }
+    for step in steps:
+        if not step is Dictionary:
+            return false
+        var event_id := str(step.get("event", ""))
+        if not allowed.has(event_id) or str(step.get("worldId", "")) != str(allowed[event_id]):
+            return false
+        if str(step.get("objective", "")).is_empty():
+            return false
+    _quest = document.duplicate(true)
     _step_index = 0
     _complete = false
     _emit_state()
