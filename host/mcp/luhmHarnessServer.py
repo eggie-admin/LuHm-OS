@@ -13,6 +13,7 @@ import luhmMcpServer as core
 from luhmHarness import register_harness
 from luhmOniSummoner import register_oni_summoner
 from luhmOpenAiChatTools import register_openai_chat_bridge
+from luhmWmsVmTools import register_wms_vm_tools
 from luhmUpdateSpine import register_update_spine, register_remote_update_routes
 
 register_harness(
@@ -35,6 +36,7 @@ register_oni_summoner(
 
 # Status and planning only: no OpenAI model call is exposed to ChatGPT.
 register_openai_chat_bridge(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
+register_wms_vm_tools(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 
 # Update metadata is read-only, same-origin and independent from plugin reinstallation.
 register_update_spine(core.server, root=core.ROOT)
