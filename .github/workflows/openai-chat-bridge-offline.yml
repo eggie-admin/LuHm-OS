@@ -27,6 +27,10 @@ on:
       - "tests/testCryptoBreathing.py"
       - "tests/testCryptoSqlite.py"
       - "tests/testCanonFastApi.py"
+      - "doctrine/headlessUniversalVmMatrixV1.json"
+      - "tools/headlessMachineMatrixAudit.py"
+      - "tests/testHeadlessMachineMatrix.py"
+      - "plugins/luhm-os/skills/luhm-headless-vm-cabinet/**"
   workflow_dispatch:
 
 permissions:
@@ -44,7 +48,7 @@ jobs:
       - name: Install pinned local-test-only dependencies
         run: python -m pip install 'cryptography==46.0.4' 'fastapi==0.128.2' 'httpx==0.28.1'
       - name: Compile staged bridge and ASGI modules
-        run: python -m py_compile host/api/luhmOpenAiChatBridge.py host/mcp/luhmOpenAiChatTools.py host/remote/luhmWmsVmManager.py host/mcp/luhmWmsVmTools.py host/api/luhmCanonOrchestration.py host/api/luhmClientFastApi.py host/api/luhmCryptoBreathing.py host/api/luhmCryptoSqlite.py host/api/luhmMariaDbReceipt.py host/mcp/luhmOrchestrationTools.py host/mcp/luhmCryptoTools.py
+        run: python -m py_compile host/api/luhmOpenAiChatBridge.py host/mcp/luhmOpenAiChatTools.py host/remote/luhmWmsVmManager.py host/mcp/luhmWmsVmTools.py host/api/luhmCanonOrchestration.py host/api/luhmClientFastApi.py host/api/luhmCryptoBreathing.py host/api/luhmCryptoSqlite.py host/api/luhmMariaDbReceipt.py host/mcp/luhmOrchestrationTools.py host/mcp/luhmCryptoTools.py tools/headlessMachineMatrixAudit.py
       - name: Test offline and quarantine gates
         run: python -m unittest discover -s tests -p 'testOpenAiChatBridge.py' -v
       - name: Test WMS VM manager no-network and Canon guards
@@ -55,3 +59,7 @@ jobs:
           python -m unittest discover -s tests -p 'testCryptoSqlite.py' -v
       - name: Test FastAPI private authentication and bounded checkpointing
         run: python -m unittest discover -s tests -p 'testCanonFastApi.py' -v
+      - name: Test 4x4 source, quarantine, firmware rights, and bounded green-loop gate
+        run: |
+          python tools/headlessMachineMatrixAudit.py
+          python -m unittest discover -s tests -p 'testHeadlessMachineMatrix.py' -v
