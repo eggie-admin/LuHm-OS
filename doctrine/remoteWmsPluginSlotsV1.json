@@ -1,0 +1,131 @@
+{
+  "schema": "luhmOs.remoteWmsPluginSlots.v1",
+  "status": "PROPOSED_NO_ACTIVE_ADAPTERS",
+  "architecture": "capabilityBasedAdaptersSingleCanonAuthority",
+  "activeAdapters": [],
+  "slots": [
+    {
+      "id": "virtualization",
+      "capabilities": [
+        "vmInventory",
+        "vmStatus",
+        "vmMetrics"
+      ],
+      "candidateInterfaces": [
+        "libvirt",
+        "hypervisorApi"
+      ],
+      "status": "UNCONNECTED"
+    },
+    {
+      "id": "guestOs",
+      "capabilities": [
+        "osInventory",
+        "osHealth",
+        "packagesPlan"
+      ],
+      "candidateInterfaces": [
+        "linuxGuestAgent",
+        "windowsGuestAgent"
+      ],
+      "status": "UNCONNECTED"
+    },
+    {
+      "id": "network",
+      "capabilities": [
+        "dnsHealth",
+        "tlsHealth",
+        "networkPlan"
+      ],
+      "candidateInterfaces": [
+        "hostNetworkController"
+      ],
+      "status": "UNCONNECTED"
+    },
+    {
+      "id": "mediaStudio",
+      "capabilities": [
+        "ffmpegProbe",
+        "godotProjectInventory",
+        "blenderEnvironmentStatus"
+      ],
+      "candidateInterfaces": [
+        "boundedStudioWorker"
+      ],
+      "status": "UNCONNECTED"
+    },
+    {
+      "id": "captureDevices",
+      "capabilities": [
+        "cameraInventory",
+        "microphoneInventory",
+        "bluetoothDeviceStatus"
+      ],
+      "candidateInterfaces": [
+        "userAuthorizedDeviceBridge"
+      ],
+      "status": "UNCONNECTED"
+    },
+    {
+      "id": "sourceAndBuild",
+      "capabilities": [
+        "sourceHead",
+        "ciStatus",
+        "artifactDigest"
+      ],
+      "candidateInterfaces": [
+        "existingGitHubConnection"
+      ],
+      "status": "EXISTING_CONNECTOR_SEPARATE_NOT_VM_CONNECTED"
+    }
+  ],
+  "admission": {
+    "required": [
+      "adapterId",
+      "adapterVersion",
+      "slotId",
+      "capabilityIds",
+      "publisher",
+      "licenseEvidence",
+      "sourceRef",
+      "signatureOrTrustedInstallReceipt",
+      "requestedPermissions",
+      "hostAuthenticationMode",
+      "tenantAndMachineScope",
+      "transportCsp",
+      "costApproval",
+      "healthAndRollbackProof"
+    ],
+    "autoInstall": false,
+    "autoDiscoverNetwork": false,
+    "untrustedManifestMayGrantAuthority": false,
+    "browserToRemotePrivilegedPort": false,
+    "allowRawShellTool": false,
+    "allowWriteOnFirstConnection": false,
+    "replayMustBeIdempotent": true,
+    "approvalRequiredBeforeWrites": true,
+    "noRemoteSecretsInChat": true,
+    "quarantineOverridesRegistration": true
+  },
+  "operatingModel": {
+    "layers": [
+      "chatGptMcpPresentation",
+      "lumPolicyAndEvidenceControl",
+      "remoteWmsManagerAdapter",
+      "vmGuestAndPhysicalDevices"
+    ],
+    "sidecars": [
+      "githubSourceCi",
+      "googleDriveBinaryLedger",
+      "readOnlyObservability"
+    ],
+    "machineLedger": "registered privately on authorized host; only hashed opaque IDs in public receipts",
+    "canonReferences": [
+      "doctrine/remoteWmsMachineBridgeV1.json",
+      "doctrine/everlastingCovenantV1.json",
+      "doctrine/currentSourceTruthV3.json",
+      "doctrine/storageTopologyV1.json"
+    ]
+  },
+  "crownStatus": "STOP"
+}
