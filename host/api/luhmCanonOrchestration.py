@@ -13,6 +13,7 @@ import json
 import re
 import sqlite3
 import threading
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -166,8 +167,7 @@ class CheckpointLedger:
                     event_id = _event_id(packet, lane["laneId"])
                     stub.addEvent(self._db, event_id, task_id, source_ref, scope_id,
                                   lane["roleLabel"], base + offset, lane["eighthNote"],
-                                  "2026-11-01T00:00:00Z")
-                    # The timestamp is replaced by an observed current UTC clock below.
+                                  datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
                     stub.putText(self._db, event_id, "requestHash", packet["requestSha256"])
                     stub.putText(self._db, event_id, "laneLabel", lane["laneId"])
                     stub.putBoolean(self._db, event_id, "workerActive", False)
