@@ -1,0 +1,260 @@
+{
+  "schema": "luhmOs.processorHexCeilings.v1",
+  "status": "PROPOSED_SOURCE_AND_RUNNER_PROOF_ONLY",
+  "authority": "Professor",
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "stackedOn": {
+    "pr": 471,
+    "sourceSha": "094a30c70f847414a37f1f246b5c2cd7393f5b7c",
+    "branch": "candidate/hardware-4x4-vendor-minimum-20261031"
+  },
+  "purpose": "Four-by-four firmware/GRUB, kernel, network and processor data-lane evidence. Measure bounded synthetic byte buffers only; emit advisory application limits with no host tuning.",
+  "namespace": "castProcessorRuntimeFourByFourV1",
+  "rows": [
+    {
+      "id": "bootAndFirmware",
+      "reference": "doctrine/machineToHumanWizardV1.json",
+      "meaning": "PC-UEFI/GRUB-only-if-observed; Android OEM AVB/Knox"
+    },
+    {
+      "id": "kernelAndDrivers",
+      "reference": "tools/machineToHumanWizard.py",
+      "meaning": "Read-only CPU/page facts; no cpufreq or module writes"
+    },
+    {
+      "id": "hardwareNetworking",
+      "reference": "doctrine/networkSpineV1.json",
+      "meaning": "Bounded application buffers; IPv6 address not authorization"
+    },
+    {
+      "id": "processorAndMemory",
+      "reference": "doctrine/hardwareVendorMinimumV1.json",
+      "meaning": "Runner microbench and advisory application chunks"
+    }
+  ],
+  "columns": [
+    "identify",
+    "bound",
+    "measure",
+    "verify"
+  ],
+  "matrix": [
+    {
+      "address": "0x00",
+      "row": "bootAndFirmware",
+      "phase": "identify",
+      "source": "doctrine/machineToHumanWizardV1.json",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x01",
+      "row": "bootAndFirmware",
+      "phase": "bound",
+      "source": "doctrine/machineToHumanWizardV1.json",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x02",
+      "row": "bootAndFirmware",
+      "phase": "measure",
+      "source": "doctrine/machineToHumanWizardV1.json",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x03",
+      "row": "bootAndFirmware",
+      "phase": "verify",
+      "source": "doctrine/machineToHumanWizardV1.json",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x04",
+      "row": "kernelAndDrivers",
+      "phase": "identify",
+      "source": "tools/machineToHumanWizard.py",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x05",
+      "row": "kernelAndDrivers",
+      "phase": "bound",
+      "source": "tools/machineToHumanWizard.py",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x06",
+      "row": "kernelAndDrivers",
+      "phase": "measure",
+      "source": "tools/machineToHumanWizard.py",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x07",
+      "row": "kernelAndDrivers",
+      "phase": "verify",
+      "source": "tools/machineToHumanWizard.py",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x08",
+      "row": "hardwareNetworking",
+      "phase": "identify",
+      "source": "doctrine/networkSpineV1.json",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x09",
+      "row": "hardwareNetworking",
+      "phase": "bound",
+      "source": "doctrine/networkSpineV1.json",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x0A",
+      "row": "hardwareNetworking",
+      "phase": "measure",
+      "source": "doctrine/networkSpineV1.json",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x0B",
+      "row": "hardwareNetworking",
+      "phase": "verify",
+      "source": "doctrine/networkSpineV1.json",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x0C",
+      "row": "processorAndMemory",
+      "phase": "identify",
+      "source": "doctrine/hardwareVendorMinimumV1.json",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x0D",
+      "row": "processorAndMemory",
+      "phase": "bound",
+      "source": "doctrine/hardwareVendorMinimumV1.json",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x0E",
+      "row": "processorAndMemory",
+      "phase": "measure",
+      "source": "doctrine/hardwareVendorMinimumV1.json",
+      "proof": "INDEX_ONLY"
+    },
+    {
+      "address": "0x0F",
+      "row": "processorAndMemory",
+      "phase": "verify",
+      "source": "doctrine/hardwareVendorMinimumV1.json",
+      "proof": "INDEX_ONLY"
+    }
+  ],
+  "platforms": {
+    "pcLinux": {
+      "grubMayBeUsed": true,
+      "grubPresenceUnproven": true,
+      "bootWriteAuthorized": false
+    },
+    "androidSamsung": {
+      "grubMayBeUsed": false,
+      "androidVerifiedBootPreserved": true,
+      "bootWriteAuthorized": false
+    },
+    "codespaces": {
+      "kernelIsHostControlled": true,
+      "containerCannotInferHostBootloader": true,
+      "actualPhysicalCoresUnverified": true
+    }
+  },
+  "byteLadder": [
+    4096,
+    65536,
+    1048576
+  ],
+  "hexLadder": [
+    "0x001000",
+    "0x010000",
+    "0x100000"
+  ],
+  "bufferCeilings": {
+    "samplePayloadMaxBytes": 1048576,
+    "sampleCount": 3,
+    "maxCandidateWorkers": 4,
+    "maxBoundedReceiptBytes": 65536,
+    "benchmarkUsesSyntheticBytes": true,
+    "benchmarkedOnRealSamsung": false
+  },
+  "numericTypes": {
+    "bytes": "nonnegativeInteger",
+    "duration": "monotonicNanoseconds",
+    "throughput": "runnerMiBPerSecondEstimate",
+    "naming": "hexAsDisplayOnlyNotProcessorAddress",
+    "floatPrecision": "notClaimedAsPhysicalLimit"
+  },
+  "optimization": {
+    "selectedChunkAdvisoryOnly": true,
+    "performanceRegressionThresholdEnforced": false,
+    "clockGovernorChange": false,
+    "ramFrequencyChange": false,
+    "socketBufferSet": false,
+    "irqAffinityChange": false,
+    "threadsSpawned": false,
+    "backgroundServiceStarted": false
+  },
+  "allowedEvidence": [
+    "exactGitHead",
+    "hardwareSourceIndex",
+    "deterministicDigestRoundtrip",
+    "measuredRunnerTimings",
+    "observedRunnerPageSize",
+    "observedRunnerCpuAffinityCount"
+  ],
+  "missingProof": [
+    "actualAndroidSamsungBench",
+    "cpuThermalState",
+    "cpuPhysicalCoreCount",
+    "hostFrequencyPolicy",
+    "grubConfiguration",
+    "uefiFirmware",
+    "kernelDriverBinding",
+    "networkThroughput",
+    "memoryBandwidth",
+    "GPUHardware",
+    "containerCpuQuota",
+    "performanceRegressionBaseline"
+  ],
+  "neverRun": [
+    "grubInstall",
+    "updateGrub",
+    "efibootmgrWrite",
+    "flashFirmware",
+    "unlockBootloader",
+    "sysctlWrite",
+    "cpufreqGovernorWrite",
+    "loadKernelModule",
+    "irqbalanceMutation",
+    "ethtoolMutation",
+    "iptablesMutation",
+    "aptInstall",
+    "launchAutonomousAgent",
+    "deployProduction"
+  ],
+  "sourceRefs": [
+    "doctrine/machineToHumanWizardV1.json",
+    "doctrine/hardwareVendorMinimumV1.json",
+    "doctrine/vendorReductionV1.json",
+    "doctrine/networkSpineV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json"
+  ],
+  "physicalBootStateVerified": false,
+  "physicalDeviceVerified": false,
+  "hostKernelModified": false,
+  "anySystemSettingsChanged": false,
+  "protectedMainMerged": false,
+  "workersActive": 0,
+  "notes": "All 16 source routes are mapped, not 16 runtime checks. Workload microbench measures the ephemeral GitHub runner only, never the owner's Samsung or a CPU-specific optimal setting."
+}
