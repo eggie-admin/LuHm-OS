@@ -135,6 +135,27 @@ def runner_probe(root: Path=Path("/")) -> dict:
       "grubInstalledVerified":False,"samsungAvbVerified":False,
       "deviceControllerQueried":False,"hostSettingsModified":False}
 
+def validate_devcontainer(config: object, policy: dict) -> dict:
+    if type(config) is not dict:
+        raise FourCoreError("COMPUTE_CONFIG_MISSING")
+    expected={"dockerfile":"../Dockerfile.compute","context":".."}
+    if config.get("build")!=expected:
+        raise FourCoreError("COMPUTE_CONFIG_DOCKERFILE")
+    if config.get("remoteUser")!="studio":
+        raise FourCoreError("COMPUTE_CONFIG_USER")
+    if config.get("forwardPorts")!=[] or config.get("postStartCommand")!="true":
+        raise FourCoreError("COMPUTE_CONFIG_START_OR_PORT")
+    if config.get("containerEnv")!={"LUHM_COMPUTE_SCOPE":"gpu-cpu-memory-firmware",
+        "LUHM_CROWN_STATUS":"STOP","LUHM_NETWORK_SERVICES":"OFF"}:
+        raise FourCoreError("COMPUTE_CONFIG_ENVIRONMENT")
+    if config.get("postCreateCommand")!="python3 --version && blender --version && godot --headless --version && ffmpeg -hide_banner -version":
+        raise FourCoreError("COMPUTE_CONFIG_BOOTSTRAP")
+    if policy.get("image",{}).get("optInConfigNotDefault") is not True:
+        raise FourCoreError("COMPUTE_OPT_IN_BOUNDARY")
+    if policy.get("image",{}).get("autoStartServicesInConfig") is not False:
+        raise FourCoreError("COMPUTE_SERVER_START_DRIFT")
+    return {"optInSelection":True,"ports":0,"networkServicesStarted":False,"requestedRootUser":False}
+
 def audit(config: dict, root: Path=ROOT) -> dict:
     if type(config) is not dict or config.get("schema")!="luhmOs.computeFourCore.v1":
         raise FourCoreError("SCHEMA_DRIFT")
@@ -177,6 +198,10 @@ def audit(config: dict, root: Path=ROOT) -> dict:
         raise FourCoreError("FORBIDDEN_PACKAGES_EDITED")
     if image.get("forbiddenRuntimeDirectives")!=["EXPOSE","ENTRYPOINT"]:
         raise FourCoreError("RUNTIME_BOUNDARY")
+    config_path=image.get("selectableDevcontainerPath")
+    if config_path!=".devcontainer/compute/devcontainer.json" or not canonical_path(config_path,root):
+        raise FourCoreError("COMPUTE_OPT_IN_CONFIG_PATH")
+    selected=validate_devcontainer(json.loads((root/config_path).read_text(encoding="utf8")),config)
     docker=verify_dockerfile((root/image["path"]).read_text(encoding="utf8"),config)
     cap=config.get("ceiling",{})
     if (cap.get("maxCpuAdvisoryWorkers")!=4 or cap.get("maxWorkingSetAdvisoryBytes")!=67108864
@@ -202,6 +227,7 @@ def audit(config: dict, root: Path=ROOT) -> dict:
         raise FourCoreError("AGENT_QUARANTINE")
     return {"schema":"luhmOs.computeFourCoreReceipt.v1","status":"AMBER_SOURCE_ONLY",
       "matrixCells":16,"coreDimensions":list(ROWS),"computePackages":docker["declaredPackages"],
+      "optInDevcontainerConfigured":selected["optInSelection"],
       "serverPackages":0,"actualDockerBuild":False,"physicalGpuTested":False,"physicalFirmwareTested":False,
       "hostMutations":False,"crownStatus":"STOP",
       "contractSha256":hashlib.sha256(json.dumps(config,sort_keys=True,separators=(",",":")).encode("utf8")).hexdigest()}

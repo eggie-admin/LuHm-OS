@@ -218,7 +218,10 @@
       "EXPOSE",
       "ENTRYPOINT"
     ],
-    "notDefaultCodespaceDockerfile": true
+    "notDefaultCodespaceDockerfile": true,
+    "selectableDevcontainerPath": ".devcontainer/compute/devcontainer.json",
+    "optInConfigNotDefault": true,
+    "autoStartServicesInConfig": false
   },
   "ceiling": {
     "maxCpuAdvisoryWorkers": 4,

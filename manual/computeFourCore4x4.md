@@ -31,3 +31,7 @@ The workflow checks out exact PR head, runs the source and negative controls, th
 Actual next gate: build the optional image in an isolated authorized environment; verify installed packages and licenses, Godot import and Blender-to-GLB export, cap in-process memory use and run native GPU discovery with real vendor-neutral APIs. Only then consider the smallest platform-specific optimized setting.
 
 **Law:** AI proposes. Policy authorizes. CI proves. Human promotes. CROWN STOP.
+
+## Selectable, not an implicit replacement
+
+A Codespaces-compatible opt-in configuration exists at `.devcontainer/compute/devcontainer.json`. Choose that named **Four-Core Compute Studio** configuration when creating an appropriate remote development environment. It references `../Dockerfile.compute`, uses unprivileged user `studio`, has **zero forwarded ports**, and runs only non-server binary version checks on creation. It does **not** launch the former media service on start. The original default `.devcontainer/devcontainer.json` is intentionally unchanged until a genuine lean image build and studio runtime proof are available; do not claim this profile is active on any device or instance merely because the configuration exists.

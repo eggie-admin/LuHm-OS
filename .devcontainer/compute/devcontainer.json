@@ -1,0 +1,23 @@
+{
+  "name": "LuHm-OS | Four-Core Compute Studio (GPU CPU Memory Firmware)",
+  "build": {
+    "dockerfile": "../Dockerfile.compute",
+    "context": ".."
+  },
+  "remoteUser": "studio",
+  "containerEnv": {
+    "LUHM_COMPUTE_SCOPE": "gpu-cpu-memory-firmware",
+    "LUHM_CROWN_STATUS": "STOP",
+    "LUHM_NETWORK_SERVICES": "OFF"
+  },
+  "postCreateCommand": "python3 --version && blender --version && godot --headless --version && ffmpeg -hide_banner -version",
+  "postStartCommand": "true",
+  "forwardPorts": [],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python"
+      ]
+    }
+  }
+}

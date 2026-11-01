@@ -10,6 +10,7 @@ on:
       - 'tests/testComputeFourCoreAudit.py'
       - 'manual/computeFourCore4x4.md'
       - '.devcontainer/Dockerfile.compute'
+      - '.devcontainer/compute/**'
       - 'tools/processorHexCeilingBench.py'
       - 'tests/testProcessorHexCeilingBench.py'
       - 'manual/processorHexCeiling4x4.md'
