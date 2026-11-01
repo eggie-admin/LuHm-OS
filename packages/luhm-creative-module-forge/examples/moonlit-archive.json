@@ -1,0 +1,63 @@
+{
+  "schema": "luhmOs.rpgModule.v1",
+  "moduleId": "moonlit-archive",
+  "title": "Moonlit Archive",
+  "rights": "originalOwned",
+  "sourceRef": "0000000000000000000000000000000000000000",
+  "start": "gate",
+  "nodes": [
+    {
+      "id": "gate",
+      "type": "dialogue",
+      "text": "A silver bell echoes over an abandoned observatory.",
+      "choices": [
+        {
+          "label": "Examine the observatory seal",
+          "target": "vault",
+          "check": {
+            "formula": "1d20+2",
+            "target": 12
+          },
+          "failureTarget": "rest"
+        },
+        {
+          "label": "Rest beside the lantern",
+          "target": "rest",
+          "effect": {
+            "type": "grant",
+            "resource": "focus",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "vault",
+      "type": "encounter",
+      "text": "A clockwork sentinel guards a sealed archive.",
+      "choices": [
+        {
+          "label": "Stand down and review the ward",
+          "target": "ending"
+        }
+      ]
+    },
+    {
+      "id": "rest",
+      "type": "dialogue",
+      "text": "The lantern warms and reveals an alternate route.",
+      "choices": [
+        {
+          "label": "Continue into the archive",
+          "target": "ending"
+        }
+      ]
+    },
+    {
+      "id": "ending",
+      "type": "ending",
+      "text": "The archive opens. Further scenes remain to be authored.",
+      "choices": []
+    }
+  ]
+}

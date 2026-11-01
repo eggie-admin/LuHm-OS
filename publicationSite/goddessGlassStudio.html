@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#130d24">
+<title>LuHm-OS · Goddess Glass | 3D Studio</title>
+<style>
+:root{color-scheme:dark;--base:#110d21;--panel:#20152f;--ink:#f5eeff;--sub:#c2b7d6;--teal:#72f0ee;--violet:#ac77ff;--pink:#ff76bd;--line:#72608c}
+*{box-sizing:border-box}html{background:#100d1b}body{margin:0;color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 18% 2%,#472a6a 0%,transparent 43%),radial-gradient(circle at 92% 64%,#153f4b 0%,transparent 47%),#100d1b;min-height:100svh}
+button{font:inherit;cursor:pointer;color:inherit;border:1px solid #695889;background:linear-gradient(135deg,#38254f,#241b3a);border-radius:13px;padding:11px 15px;min-height:46px}button:hover{border-color:var(--teal);background:#383253}button:focus-visible{outline:2px solid var(--teal);outline-offset:3px}button[aria-pressed="true"]{background:linear-gradient(135deg,#42626e,#443161);border-color:#89f8f5;box-shadow:inset 0 0 12px #78f0e32a,0 0 14px #8c72ff24}
+.top{max-width:1500px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:20px 24px 12px}.brand{display:flex;align-items:center;gap:14px}.sigil{font-size:32px;display:grid;place-items:center;width:57px;height:57px;border-radius:18px;background:linear-gradient(140deg,#7a52c5,#20a7c4);box-shadow:0 0 26px #6988ff66;color:white}.over{color:var(--teal);letter-spacing:.19em;font-size:10px;font-weight:800}.top h1{font-size:clamp(23px,3vw,36px);line-height:1.05;margin:2px 0;letter-spacing:-.05em}.top small{font-size:12px;color:var(--sub)}.status{background:#231f31;border:1px solid #7e6d96;color:#dec2ff;border-radius:50px;padding:9px 13px;font-size:10px;font-weight:800;letter-spacing:.04em}
+.main{max-width:1500px;margin:auto;padding:12px 20px 26px;display:grid;grid-template-columns:minmax(0,1fr) 305px;gap:16px}
+.viewport{position:relative;border:1px solid #645182;border-radius:26px;overflow:hidden;min-height:610px;background:radial-gradient(ellipse at 50% 53%,#22475664,transparent 44%),radial-gradient(ellipse at 50% 65%,#2d1850,transparent 60%),linear-gradient(180deg,#16102a,#100e21 72%,#0b1424);box-shadow:0 28px 80px #040309a8, inset 0 0 75px #b178ff1e;isolation:isolate}
+.viewport:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.38;background-image:linear-gradient(transparent 96%,#8d7cf220 100%),linear-gradient(90deg,transparent 96%,#64dfd51c 100%);background-size:49px 49px;mask-image:linear-gradient(transparent 10%,#000 90%)}
+.viewport:after{content:"";position:absolute;inset:14px;border:1px solid #bfacff30;border-radius:18px;pointer-events:none;z-index:2;box-shadow:inset 0 0 35px #91edec0b}
+#gl{position:absolute;inset:0;width:100%;height:100%;touch-action:none;display:block;cursor:grab;z-index:1}#gl.drag{cursor:grabbing}
+.corner{position:absolute;z-index:3;top:24px;left:25px;pointer-events:none}.micro{font:700 11px/1.5 ui-monospace,monospace;letter-spacing:.14em;color:var(--teal)}.corner h2{font-size:clamp(21px,3vw,37px);margin:4px 0;letter-spacing:-.04em}.corner .detail{font-size:12px;color:#d0c5e5;max-width:350px;text-shadow:0 2px 4px #05030b}
+.readout{position:absolute;right:24px;top:25px;z-index:3;text-align:right;font:10px/1.9 ui-monospace,monospace;color:#b7e9eb;pointer-events:none}.live{color:#b7ffa6}
+.sceneControls{position:absolute;z-index:3;bottom:18px;left:20px;right:20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sceneControls button{backdrop-filter:blur(14px);background:#17162ace;font-size:12px;padding:9px 12px;min-height:40px}.sceneControls .tip{margin-left:auto;font-size:11px;color:#e0d5f1;background:#1c1726a8;padding:9px;border-radius:10px;max-width:240px;text-align:right}
+.cast{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px}.cast button{flex:1 1 110px;min-width:105px;padding:10px 8px;display:flex;align-items:center;justify-content:center;gap:8px}.cast .orb{width:14px;height:14px;border-radius:50%;background:var(--c,#71eff0);box-shadow:0 0 14px var(--c,#71eff0);flex:none}.cast span{font-size:12px;font-weight:800;letter-spacing:.04em}
+.side{display:flex;flex-direction:column;gap:14px}.glass{border:1px solid #806c99a8;background:linear-gradient(145deg,#34294aaf,#142538bd);backdrop-filter:blur(16px);border-radius:20px;padding:20px;box-shadow:inset 0 0 45px #a1baff0f}.glass h3{font-size:16px;letter-spacing:.05em;margin:0 0 9px}.glass p{font-size:12px;color:var(--sub);margin:7px 0 14px}.label{color:var(--teal);font:11px ui-monospace,monospace;letter-spacing:.08em}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.actions button{font-weight:750}.actions button small{font-size:10px;color:#c6d2eb;display:block}.sliderRow{display:flex;justify-content:space-between;font-size:12px;gap:10px;margin-top:16px}.sliderRow output{color:var(--teal)}input[type=range]{width:100%;accent-color:#77e9ec;cursor:pointer;min-height:26px}
+.speech{min-height:105px;border-radius:15px;background:#100f23a8;border:1px solid #6d6584;padding:12px;position:relative}.speech:before{content:"❝";position:absolute;right:12px;top:4px;color:#8f73b9;font-size:23px}.speaker{font:800 11px ui-monospace,monospace;color:#7df4ec;letter-spacing:.11em}.speech p{font-size:14px;color:#f0eaf9;line-height:1.5;margin:9px 0 0;max-width:238px}.matrix{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}.matrix span{background:#26233c;border:1px solid #514870;border-radius:7px;text-align:center;color:#84e6e5;font:10px/1.3 ui-monospace,monospace;padding:9px 0}.facts{display:grid;grid-template-columns:1fr auto;gap:8px;font-size:12px}.facts b{color:#ded2f0}.facts span{color:#a3e8df;text-align:right}.note{max-width:1500px;padding:0 24px 32px;margin:auto;color:#bdb5d0;font-size:12px}.notice{color:#ffe0a0}.fallback{position:absolute;inset:0;display:none;z-index:3;align-items:center;justify-content:center;flex-direction:column;gap:10px;background:#170f27;color:#f3defc;padding:30px;text-align:center}
+
+/* Accessible, offline 2.5D character visual when WebGL2 is blocked by the viewer */
+.fallback{z-index:1;display:none;justify-content:center;padding:80px 18px 86px;background:radial-gradient(ellipse at 50% 75%,#1d6e7870,transparent 56%),linear-gradient(180deg,#20133422,#0f1123b5);overflow:hidden;user-select:none;touch-action:pan-y}
+.fb-note{position:absolute;top:120px;left:0;right:0;text-align:center;font:700 10px ui-monospace,monospace;letter-spacing:.09em;color:#d6acff}
+.fb-help{position:absolute;bottom:77px;left:20px;right:20px;text-align:center;color:#a9e9eb;font-size:11px}
+.fb-stage{display:flex;align-items:flex-end;justify-content:space-around;gap:6px;width:100%;height:385px;position:relative;perspective:850px;transition:transform .3s}
+.fb-figure{--hair:#e66f94;--dress:#261a45;--accent:#7ce8ec;--skin:#f5bdba;flex:1;max-width:185px;height:340px;position:relative;transform-style:preserve-3d;transform:rotateY(var(--turn,0deg));transition:transform .33s ease,opacity .3s ease;filter:drop-shadow(0 8px 19px #0008)}
+.fb-figure:after{content:"";width:92%;height:25px;left:4%;bottom:1px;position:absolute;border:2px solid var(--accent);background:#36b6e322;border-radius:50%;box-shadow:0 0 24px var(--accent)}
+.fb-girl{position:absolute;inset:0;animation:fb-bob 3.6s ease-in-out infinite;transform-origin:50% 81%}.fb-figure:nth-child(2) .fb-girl{animation-delay:-.5s}.fb-figure:nth-child(3) .fb-girl{animation-delay:-1s}.fb-figure:nth-child(4) .fb-girl{animation-delay:-1.5s}.fb-figure:nth-child(5) .fb-girl{animation-delay:-2s}
+.fb-hairback{position:absolute;top:36px;width:60%;height:148px;left:20%;background:linear-gradient(90deg,#0e0f1d44,var(--hair) 30%,var(--hair) 65%,#0e0f1d66);border-radius:47% 47% 39% 39%;box-shadow:inset -13px 0 18px #1d112e55}
+.fb-neck{position:absolute;left:45%;top:129px;width:10%;height:27px;background:var(--skin)}
+.fb-face{position:absolute;top:53px;left:28%;width:44%;height:87px;border-radius:44% 44% 48% 48%;background:linear-gradient(120deg,#f3e0de,var(--skin) 74%,#b2798e);box-shadow:inset -7px 0 12px #6f40533d,0 1px 3px #0905145c}
+.fb-eyes{position:absolute;left:16%;width:68%;top:42%;display:flex;justify-content:space-between}.fb-eyes span{width:26%;height:17px;background:radial-gradient(ellipse at 50% 55%,#282649 0 24%,#e3f0f5 27% 73%,#302342 80%);border-radius:45%;border-top:2px solid #4d2b49;box-shadow:0 1px 3px #3334}
+.fb-mouth{position:absolute;top:74%;left:43%;width:14%;height:5px;border-bottom:2px solid #994e69;border-radius:50%}
+.fb-fringe{position:absolute;top:32px;left:26%;width:52%;height:40px;background:var(--hair);border-radius:50% 45% 25% 14%;clip-path:polygon(0 0,100% 0,95% 65%,64% 100%,30% 55%,0 90%)}
+.fb-dress{position:absolute;top:147px;left:16%;width:68%;height:148px;background:linear-gradient(90deg,#100d27,var(--dress) 24%,var(--dress) 72%,#110e28);clip-path:polygon(37% 0,63% 0,83% 24%,100% 96%,84% 100%,16% 100%,0 96%,17% 24%);border-bottom:4px solid var(--accent);box-shadow:inset 0 0 10px #b4f7ff22}
+.fb-chest{position:absolute;top:150px;left:40%;width:20%;height:13px;background:var(--accent);clip-path:polygon(50% 100%,0 0,100% 0)}
+.fb-arm{position:absolute;width:10%;height:96px;top:150px;background:linear-gradient(90deg,var(--dress),#63537b);border-radius:20px;transform-origin:50% 3%}.fb-arm.left{left:21%;transform:rotate(13deg)}.fb-arm.right{right:21%;transform:rotate(-13deg)}
+.fb-leg{position:absolute;bottom:31px;width:14%;height:61px;background:#21182b;border-radius:0 0 21px 21px}.fb-leg.left{left:35%}.fb-leg.right{right:35%}
+.fb-horn{position:absolute;top:13px;width:17%;height:46px;background:linear-gradient(90deg,#e2d1bc,#fffaf0);clip-path:polygon(52% 0,100% 100%,0 100%)}.fb-horn.left{left:27%;transform:rotate(-17deg)}.fb-horn.right{right:27%;transform:rotate(17deg)}
+.fb-halo{position:absolute;width:62%;height:18px;left:19%;top:13px;border:5px solid #ffe0a4;border-radius:50%;box-shadow:0 0 13px #ffdf9f}
+.fb-glasses{position:absolute;left:17%;top:42%;width:66%;height:24px;border:2px solid #f9f4de;border-radius:13px;box-shadow:inset 0 0 0 1px #1e2135}
+.fb-caption{position:absolute;bottom:-15px;left:0;right:0;display:block;text-align:center;font:700 10px ui-monospace,monospace;color:var(--accent);letter-spacing:.06em}
+.fb-figure.fb-wave .fb-arm.right{animation:fb-wave 1s ease-in-out infinite}.fb-figure.fb-dance .fb-girl{animation:fb-dance .8s ease-in-out infinite}.fb-figure.fb-bow .fb-girl{transform:rotate(9deg) translateY(6px)}.fb-figure.fb-talk .fb-mouth{animation:fb-talk .4s infinite alternate}
+@keyframes fb-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes fb-wave{0%,100%{transform:rotate(-105deg)}50%{transform:rotate(-145deg)}}
+@keyframes fb-dance{0%,100%{transform:rotate(-6deg) translateY(-5px)}50%{transform:rotate(6deg) translateY(5px)}}
+@keyframes fb-talk{from{height:4px}to{height:10px}}
+@media(max-width:650px){.readout{display:none}.corner .detail{max-width:260px}.fallback{padding:110px 12px 86px}.fb-note{top:133px;font-size:8px}.fb-figure{height:305px}.fb-stage{height:370px}.fb-figure:not(.fb-selected){max-width:100px}.fb-figure.fb-selected{max-width:190px}.fb-figure .fb-girl{transform:scale(.83);transform-origin:50% 89%}.fb-help{display:none}}
+@media(prefers-reduced-motion:reduce){.fb-girl{animation:none!important}}
+@media(max-width:1050px){.main{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}.viewport{min-height:610px}.side .glass:last-child{grid-column:1/-1}}
+@media(max-width:650px){.top{padding:14px}.main{padding:8px;gap:10px}.viewport{min-height:650px;border-radius:17px}.side{display:flex}.corner{top:18px;left:18px}.readout{right:18px;top:18px;font-size:9px}.sceneControls{left:12px;right:12px;bottom:12px}.sceneControls .tip{width:100%;max-width:none;text-align:left;order:-1;padding:5px;font-size:10px}.sceneControls button{min-height:40px;flex:1}.cast{gap:6px}.cast button{min-width:90px;flex:1 1 30%;padding:8px 6px}.status{font-size:9px}.glass{padding:15px}.viewport:after{inset:7px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand"><div class="sigil">✦</div><div><div class="over">EGGIE BAGELFACE // LUHM-OS</div><h1>Goddess Glass <span style="color:#96e6e7">3D</span></h1><small>Project Premonition · Original interactive avatar dock</small></div></div><div class="status">◆ PRIVATE WEBGL PROTOTYPE · NOT UNREAL RUNTIME</div></header>
+<main class="main">
+<section class="viewport" aria-label="Interactive goddess 3D stage">
+ <canvas id="gl" aria-label="Interactive WebGL 3D goddess cast. Drag or swipe to orbit and use buttons to interact." tabindex="0"></canvas>
+ <div id="fallback" class="fallback" role="region" aria-label="Interactive visual fallback when WebGL2 is unavailable"><div class="fb-note">◆ 2.5D VISUAL FALLBACK · ENABLE WEBGL2 FOR THE TRUE 3D VIEW</div><div id="fb-stage" class="fb-stage"></div><div class="fb-help">Tap a goddess · Wave, Dance, Talk or Bow · Swipe the stand to rotate the portrait.</div></div>
+ <div class="corner"><div class="micro">LUHM // GLASS_AVATAR.DOCK</div><h2 id="charName">THE GODDESS CAST</h2><div class="detail" id="charRole">Five original 3D character studies · tap to focus</div></div>
+ <div class="readout"><span id="rendererType">WEBGL2 // LOCAL</span><br>NO CDN · NO API<br><span class="live">● INTERACTIVE SCENE</span><br><span id="frameStats">5 AVATARS · 3D ACTIVE</span></div>
+ <div class="sceneControls"><div class="tip">↔ Drag / swipe to orbit · pinch or wheel to zoom · select a goddess below</div><button id="reset" type="button">↺ Reset</button><button id="orbit" type="button" aria-pressed="false">◌ Auto orbit</button><button id="frame" type="button">◇ Glass mode</button></div>
+</section>
+<aside class="side">
+ <section class="glass"><span class="label">CAST // INTERACTION LANE</span><h3>Choose an action</h3><p>The avatars respond with animation and scripted dialogue. These are not live AI agents.</p><div class="actions"><button type="button" data-action="wave">👋 Wave<small>greeting</small></button><button type="button" data-action="dance">✧ Dance<small>idle loop</small></button><button type="button" data-action="talk">◉ Talk<small>dialogue</small></button><button type="button" data-action="bow">♡ Bow<small>gesture</small></button></div><div class="sliderRow"><label for="glow">Glass luminance</label><output id="glowOut">72%</output></div><input type="range" id="glow" min="0" max="100" value="72" aria-label="Glass luminance"></section>
+ <section class="glass"><span class="label">CAST // SCENE DIALOGUE</span><h3>Who’s speaking?</h3><div class="speech" aria-live="polite"><div class="speaker" id="speaker">LUM · ORCHESTRATION</div><p id="dialogue">The studio is open! Pick a goddess, spin the glass dock, and try a pose. ⚡</p></div></section>
+ <section class="glass"><span class="label">CANON // TWO THREADS</span><h3>Glass cockpit status</h3><div class="facts"><b>Thread 01</b><span>You ↔ Lum</span><b>Thread 02</b><span>Lum ↔ Cast</span><b>3D graphics</b><span id="graphicsStatus">WebGL2 local</span><b>Godot / Unreal</b><span>Asset handoff pending</span><b>Real AI agents</b><span>Inactive</span></div><div class="matrix" aria-label="Four-by-four source status display"><span>4×4</span><span>HEX</span><span>ART</span><span>VM</span></div></section>
+
+ <section class="glass" aria-label="Optional remote capability gateway">
+ <span class="label">BRIDGE // RESTRICTED DOM</span>
+ <h3>Local first · Remote on demand</h3>
+ <p>3D interactions run here. Backend capabilities are optional. No direct SQL, tokens, firmware access or automatic Cloudflare connection.</p>
+ <button id="bridgeCheck" type="button">◌ Check optional bridge</button>
+ <div class="facts" style="margin-top:12px"><b>Local DOM</b><span>ACTIVE · OFFLINE</span><b>API gateway</b><span id="bridgeMode">NOT REQUESTED</span><b>Catalog</b><span id="bridgeCatalog">LOCAL ONLY</span><b>SQL</b><span>SERVER ONLY</span></div>
+ <p id="bridgeNote" role="status" aria-live="polite">Remote capability discovery requires your tap.</p>
+ </section>
+</aside>
+<nav class="cast" aria-label="Select the character or ensemble">
+<button type="button" data-char="all" aria-pressed="true" style="--c:#e6c4ff"><i class="orb"></i><span>ALL FIVE</span></button>
+<button type="button" data-char="lum" aria-pressed="false" style="--c:#69f4ed"><i class="orb"></i><span>LUM</span></button>
+<button type="button" data-char="belldandy" aria-pressed="false" style="--c:#f9dca1"><i class="orb"></i><span>BELLDANDY</span></button>
+<button type="button" data-char="urd" aria-pressed="false" style="--c:#f08da7"><i class="orb"></i><span>URD</span></button>
+<button type="button" data-char="skuld" aria-pressed="false" style="--c:#9cd7ff"><i class="orb"></i><span>SKULD</span></button>
+<button type="button" data-char="yume" aria-pressed="false" style="--c:#c09aff"><i class="orb"></i><span>YUME</span></button>
+</nav>
+</main>
+<footer class="note"><span class="notice">ART STATUS:</span> These are <b>new procedural 3D demonstration stand-ins</b>, not final Canon meshes, not actual Unreal Engine/Godot renders, and not images of completed proprietary character models. No automatic downloads, remote APIs, cameras, or agents. Optional read-only same-origin capability discovery happens only when you tap Check. 💜</footer>
+<script>
+"use strict";
+const canvas=document.getElementById('gl');const gl=canvas.getContext('webgl2',{antialias:true,alpha:true,premultipliedAlpha:false});
+const fallback=document.getElementById('fallback');
+function useFallback(){fallback.style.display='flex';document.getElementById('frameStats').textContent='2.5D FALLBACK · NO WEBGL';document.getElementById('rendererType').textContent='CSS 2.5D // LOCAL';document.getElementById('graphicsStatus').textContent='Visual fallback';startFallback();}
+if(!gl) useFallback();else try { start3D(); } catch(error) { console.warn('WebGL2 renderer unavailable, using 2.5D visual fallback');useFallback(); }
+
+function startFallback(){
+ const characters={
+ lum:{name:'LUM',role:'Orchestration · Oni host',hair:'#ee6587',dress:'#28152e',accent:'#74e8e6',horn:true,glasses:true,say:'Darling, this viewer has a soft visual backup. Open it in a WebGL2-enabled browser for full 3D. ⚡'},
+ belldandy:{name:'BELLDANDY',role:'Records · Guide',hair:'#eac88d',dress:'#e5dfed',accent:'#f7deae',halo:true,say:'I am ready to help organize the story.'},
+ urd:{name:'URD',role:'Audit · Sorceress',hair:'#dfe9f7',dress:'#ac4f72',accent:'#ff8cad',glasses:true,say:'Proof first, then drama.'},
+ skuld:{name:'SKULD',role:'Engineering · Inventor',hair:'#6dbaf1',dress:'#305797',accent:'#91d9ff',horn:true,say:'Time to test the movement controller!'},
+ yume:{name:'YUME',role:'Art · Avatar designer',hair:'#8555bd',dress:'#5a347c',accent:'#d0b3ff',glasses:true,say:'The glass dock is ready for original art.'}
+ };
+ const stage=document.getElementById('fb-stage');
+ const escape=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const entries=Object.entries(characters);
+ stage.innerHTML=entries.map(([id,c])=>`<div class="fb-figure" data-fb="${id}" style="--hair:${c.hair};--dress:${c.dress};--accent:${c.accent}"><div class="fb-girl"><div class="fb-hairback"></div><div class="fb-leg left"></div><div class="fb-leg right"></div><div class="fb-dress"></div><div class="fb-chest"></div><div class="fb-neck"></div><div class="fb-arm left"></div><div class="fb-arm right"></div><div class="fb-face"><div class="fb-eyes"><span></span><span></span></div><div class="fb-mouth"></div>${c.glasses?'<div class="fb-glasses"></div>':''}</div><div class="fb-fringe"></div>${c.horn?'<div class="fb-horn left"></div><div class="fb-horn right"></div>':''}${c.halo?'<div class="fb-halo"></div>':''}</div><div class="fb-caption">${escape(c.name)}</div></div>`).join('');
+ let chosen='all',action='idle',turn=0;
+ function update(){for(const el of stage.children){const show=chosen==='all'||chosen===el.dataset.fb;el.style.display=show?'block':'none';el.style.setProperty('--turn',turn+'deg');el.classList.toggle('fb-selected',chosen===el.dataset.fb);el.classList.remove('fb-wave','fb-dance','fb-talk','fb-bow');if(action!=='idle')el.classList.add('fb-'+action)}document.querySelectorAll('[data-char]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.char===chosen)));document.querySelectorAll('[data-action]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.action===action)));const c=characters[chosen]||characters.lum;document.getElementById('charName').textContent=chosen==='all'?'THE GODDESS CAST':c.name;document.getElementById('charRole').textContent=chosen==='all'?'Five original character studies · visual fallback':c.role;document.getElementById('speaker').textContent=c.name+' · '+action.toUpperCase();document.getElementById('dialogue').textContent=action==='idle'?c.say:`${c.name}: ${action.toUpperCase()} gesture in the fallback. WebGL2 mode adds true 3D orbit.`;}
+ document.querySelectorAll('[data-char]').forEach(x=>x.addEventListener('click',()=>{chosen=x.dataset.char;action='idle';update()}));
+ document.querySelectorAll('[data-action]').forEach(x=>x.addEventListener('click',()=>{action=x.dataset.action;update()}));
+ document.getElementById('reset').addEventListener('click',()=>{turn=0;action='idle';update()});
+ document.getElementById('orbit').addEventListener('click',e=>{turn=(turn+30)%360;e.currentTarget.setAttribute('aria-pressed','true');update()});
+ document.getElementById('frame').addEventListener('click',e=>{stage.classList.toggle('holo');e.currentTarget.textContent=stage.classList.contains('holo')?'◆ Hologram mode':'◇ Glass mode'});
+ document.getElementById('glow').addEventListener('input',e=>{document.getElementById('glowOut').textContent=e.target.value+'%';stage.style.filter=`brightness(${.7+Number(e.target.value)/100*.8})`});
+ let x0=null;stage.addEventListener('pointerdown',e=>x0=e.clientX);stage.addEventListener('pointerup',e=>{if(x0!==null){turn=Math.max(-55,Math.min(55,turn+(e.clientX-x0)*.22));update();x0=null}});
+ update();
+}
+function start3D(){
+const vertex=`#version 300 es
+in vec3 p,n;uniform mat4 mvp,world;out vec3 vN,vPos;void main(){vec4 w=world*vec4(p,1.);vPos=w.xyz;vN=normalize(mat3(world)*n);gl_Position=mvp*vec4(p,1.);}`;
+const fragment=`#version 300 es
+precision highp float;in vec3 vN,vPos;uniform vec4 color;uniform float glow;uniform vec3 cam;out vec4 frag;void main(){vec3 n=normalize(vN);vec3 l=normalize(vec3(-.42,.86,.52));float diff=max(dot(n,l),0.);float rim=pow(1.-max(dot(n,normalize(cam-vPos)),0.),2.);vec3 col=color.rgb*(.39+.65*diff)+vec3(.36,.78,1.)*rim*(.11+.3*glow)+color.rgb*glow*.2;frag=vec4(col,color.a);}`;
+function shader(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s}
+const program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);
+const A={p:gl.getAttribLocation(program,'p'),n:gl.getAttribLocation(program,'n')},U={mvp:gl.getUniformLocation(program,'mvp'),world:gl.getUniformLocation(program,'world'),color:gl.getUniformLocation(program,'color'),glow:gl.getUniformLocation(program,'glow'),cam:gl.getUniformLocation(program,'cam')};
+const I=()=>new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
+function mul(a,b){const o=new Float32Array(16);for(let c=0;c<4;c++)for(let r=0;r<4;r++)for(let k=0;k<4;k++)o[c*4+r]+=a[k*4+r]*b[c*4+k];return o}
+function trans(x=0,y=0,z=0){let o=I();o[12]=x;o[13]=y;o[14]=z;return o}
+function scale(x=1,y=1,z=1){let o=I();o[0]=x;o[5]=y;o[10]=z;return o}
+function rz(a=0){let o=I(),c=Math.cos(a),s=Math.sin(a);o[0]=c;o[1]=s;o[4]=-s;o[5]=c;return o}
+function ry(a=0){let o=I(),c=Math.cos(a),s=Math.sin(a);o[0]=c;o[2]=-s;o[8]=s;o[10]=c;return o}
+function rx(a=0){let o=I(),c=Math.cos(a),s=Math.sin(a);o[5]=c;o[6]=s;o[9]=-s;o[10]=c;return o}
+function prs(f,asp,near,far){let o=new Float32Array(16),t=1/Math.tan(f/2);o[0]=t/asp;o[5]=t;o[10]=(far+near)/(near-far);o[11]=-1;o[14]=2*far*near/(near-far);return o}
+function look(eye,target){let norm=a=>{let h=Math.hypot(...a)||1;return a.map(x=>x/h)};let z=norm(eye.map((e,i)=>e-target[i])),x=norm([z[2],0,-z[0]]),y=[z[1]*x[2]-z[2]*x[1],z[2]*x[0]-z[0]*x[2],z[0]*x[1]-z[1]*x[0]];return new Float32Array([x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-x.reduce((s,v,i)=>s+v*eye[i],0),-y.reduce((s,v,i)=>s+v*eye[i],0),-z.reduce((s,v,i)=>s+v*eye[i],0),1])}
+function mesh(vertices,normals,indices){let vao=gl.createVertexArray();gl.bindVertexArray(vao);function add(data,loc){const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,3,gl.FLOAT,false,0,0)}add(vertices,A.p);add(normals,A.n);const idx=gl.createBuffer();gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,idx);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(indices),gl.STATIC_DRAW);gl.bindVertexArray(null);return {vao,count:indices.length}}
+function sphere(){let v=[],n=[],ind=[],rows=14,cols=20;for(let i=0;i<=rows;i++){let t=i*Math.PI/rows;for(let j=0;j<=cols;j++){let p=j*2*Math.PI/cols,x=Math.sin(t)*Math.cos(p),y=Math.cos(t),z=Math.sin(t)*Math.sin(p);v.push(x,y,z);n.push(x,y,z)}}for(let i=0;i<rows;i++)for(let j=0;j<cols;j++){let a=i*(cols+1)+j,b=a+cols+1;ind.push(a,b,a+1,b,b+1,a+1)}return mesh(v,n,ind)}
+function taper(top=.5){let v=[],n=[],ind=[],segments=20;for(let i=0;i<=segments;i++){let p=i*Math.PI*2/segments,c=Math.cos(p),s=Math.sin(p);let nn=Math.hypot(c,s,1-top);v.push(c,-.5,s,top*c,.5,top*s);n.push(c/nn,(1-top)/nn,s/nn,c/nn,(1-top)/nn,s/nn)}for(let i=0;i<segments;i++){let a=i*2;ind.push(a,a+1,a+2,a+2,a+1,a+3)}return mesh(v,n,ind)}
+function torus(){let v=[],n=[],ind=[],R=20,T=9,inner=.12;for(let i=0;i<=R;i++){let a=i*2*Math.PI/R;for(let j=0;j<=T;j++){let b=j*2*Math.PI/T,c=Math.cos(a),s=Math.sin(a),cb=Math.cos(b),sb=Math.sin(b);v.push((1+inner*cb)*c,inner*sb,(1+inner*cb)*s);n.push(c*cb,sb,s*cb)}}for(let i=0;i<R;i++)for(let j=0;j<T;j++){let a=i*(T+1)+j,b=a+T+1;ind.push(a,a+1,b,a+1,b+1,b)}return mesh(v,n,ind)}
+const meshes={sphere:sphere(),cone:taper(0),dress:taper(.57),taper:taper(.46),tube:taper(.9),torus:torus()};
+const swatch={skin:'#f6c7be',darkSkin:'#c9929b',ivory:'#fff4e5',ink:'#20182d',graphite:'#39334c',teal:'#63e6d9',coral:'#ef5c7d',rose:'#fb96ae',cream:'#eadab6',gold:'#ffdb8c',silver:'#c8e5f9',white:'#f9f5ff',blue:'#63bce9',blueDark:'#295b9e',purple:'#7644b0',lavender:'#b798f4',black:'#171327',eye:'#301f52',mint:'#adf9ea',pale:'#fff6ee'};
+function rgba(hex,alpha=1){const h=hex.startsWith('#')?hex:swatch[hex];return [parseInt(h.slice(1,3),16)/255,parseInt(h.slice(3,5),16)/255,parseInt(h.slice(5,7),16)/255,alpha]}
+function part(g,x,y,z,sx,sy,sz,color,opts={}){return {g:meshes[g],x,y,z,sx,sy,sz,color:rgba(color,opts.a??1),group:opts.group||'root',rz:opts.rz||0,rx:opts.rx||0,ry:opts.ry||0,glow:opts.glow||0,tag:opts.tag||''}}
+const make=(name,hair,dress,accent,extras={})=>{
+let out=[],P=(g,x,y,z,sx,sy,sz,c,o)=>out.push(part(g,x,y,z,sx,sy,sz,c,o));
+// Character silhouette: feet and boots; layered dress and corset
+P('sphere',-.18,.18,0,.15,.23,.22,'black');P('sphere',.18,.18,0,.15,.23,.22,'black');
+P('taper',-.18,.5,0,.13,.60,.14,'graphite');P('taper',.18,.5,0,.13,.60,.14,'graphite');
+P('dress',0,1.02,-.01,.63,.87,.43,dress);P('torus',0,.65,0,.52,.06,.39,accent,{glow:.35});
+P('sphere',0,1.56,0,.36,.42,.28,extras.top||'graphite');
+P('torus',0,1.52,.26,.31,.028,.22,accent,{glow:.2});
+P('sphere',-.41,1.60,0,.15,.20,.15,dress,{group:'leftArm'});
+P('taper',-.47,1.27,.03,.14,.58,.13,dress,{group:'leftArm',rz:-.15});
+P('sphere',-.52,1.02,.04,.12,.13,.12,'skin',{group:'leftArm'});
+P('sphere',.41,1.60,0,.15,.20,.15,dress,{group:'rightArm'});
+P('taper',.47,1.27,.03,.14,.58,.13,dress,{group:'rightArm',rz:.15});
+P('sphere',.52,1.02,.04,.12,.13,.12,'skin',{group:'rightArm'});
+// hair behind face + deliberately simple original stylized portrait (not copied source art)
+P('sphere',0,2.29,-.09,.43,.53,.32,hair,{group:'head'});
+for(let i=0;i<7;i++){let x=(i-3)*.105;P('cone',x,1.98,-.10,.085,extras.longHair?.86:.43,.11,hair,{group:'head',rz:(i-3)*.07})}
+P('sphere',0,2.27,.10,.35,.41,.29,extras.skin||'skin',{group:'head'});
+P('sphere',-.16,2.28,.345,.078,.097,.043,'white',{group:'head'});
+P('sphere',.16,2.28,.345,.078,.097,.043,'white',{group:'head'});
+P('sphere',-.16,2.28,.385,.032,.067,.027,extras.eyes||'eye',{group:'head'});
+P('sphere',.16,2.28,.385,.032,.067,.027,extras.eyes||'eye',{group:'head'});
+P('sphere',-.173,2.305,.402,.012,.018,.012,'white',{group:'head'});
+P('sphere',.147,2.305,.402,.012,.018,.012,'white',{group:'head'});
+P('sphere',0,2.065,.383,.085,.024,.014,extras.lips||'rose',{group:'head',tag:'mouth'});
+P('sphere',-.16,2.56,.14,.21,.19,.20,hair,{group:'head'});P('sphere',.12,2.59,.12,.26,.16,.22,hair,{group:'head'});
+// decorative hem glows
+P('sphere',0,1.76,.235,.065,.07,.025,accent,{glow:.7});
+if(extras.horns){P('cone',-.23,2.77,.04,.105,.43,.105,'ivory',{group:'head',rz:.15});P('cone',.23,2.77,.04,.105,.43,.105,'ivory',{group:'head',rz:-.15})}
+if(extras.halo){P('torus',0,2.88,.02,.40,.4,.40,'gold',{group:'head',rx:.13,glow:1})}
+if(extras.glasses){P('torus',-.155,2.285,.38,.091,.082,.016,'cream',{group:'head',rx:Math.PI/2});P('torus',.155,2.285,.38,.091,.082,.016,'cream',{group:'head',rx:Math.PI/2});P('taper',0,2.287,.399,.045,.014,.01,'cream',{group:'head',rz:Math.PI/2})}
+if(extras.pigtails){for(let side of [-1,1]){P('sphere',side*.48,2.48,-.1,.22,.23,.23,hair,{group:'head'});P('cone',side*.55,2.11,-.04,.14,.69,.18,hair,{group:'head',rz:side*.18})}}
+if(extras.ears){P('cone',-.43,2.38,.03,.13,.24,.14,hair,{group:'head',rz:.8});P('cone',.43,2.38,.03,.13,.24,.14,hair,{group:'head',rz:-.8})}
+if(extras.book){P('sphere',.4,1.15,.27,.22,.29,.08,'gold',{group:'rightArm'})}
+if(extras.staff){P('taper',.62,1.48,.04,.04,2.0,.04,'silver',{group:'rightArm'});P('sphere',.62,2.5,.04,.14,.17,.14,accent,{group:'rightArm',glow:1})}
+if(extras.wings){for(let s of [-1,1]){P('sphere',s*.49,1.83,-.25,.42,.57,.1,'white',{rz:-s*.33});P('sphere',s*.77,1.58,-.3,.28,.38,.1,'ivory',{rz:-s*.6})}}
+return {name,parts:out,accent,role:extras.role||'Studio cast',line:extras.line||'Welcome to the studio.',wave:extras.wave||'Greetings!',dance:extras.dance||'Let the choreography begin!',talk:extras.talk||'The scene has your attention.',bow:extras.bow||'My pleasure.'}
+};
+const cast={
+lum:make('LUM','coral','ink','teal',{horns:true,glasses:true,longHair:true,role:'Orchestration · Oni host',line:'The glass dock is online! Watch the girls respond when you tap a command. ⚡',wave:'Darling! I can wave right through the glass.',dance:'Let’s test the rhythm and scene transitions!',talk:'Thread one is us. Thread two is the cast orchestration plan.',bow:'The hostess of the cathedral bows to her audience.'}),
+belldandy:make('BELLDANDY','gold','ivory','gold',{halo:true,wings:true,longHair:true,book:true,top:'white',role:'Records · Graceful guide',line:'Every character has a place in the story. Shall we explore the sanctuary?',wave:'A gentle greeting from the sanctuary.',dance:'The movement is light and balanced.',talk:'I keep the scene records readable and the cast identities intact.',bow:'May your next chapter open beautifully.'}),
+urd:make('URD','silver','coral','rose',{longHair:true,glasses:true,top:'ink',staff:true,role:'Audit · Dramatic sorceress',line:'I checked the stage lights. The glass chamber is yours.',wave:'A wave, and a little spark for style.',dance:'Make those lights earn their keep.',talk:'Proof first, then we turn up the drama.',bow:'Even the formidable know when to make an entrance.'}),
+skuld:make('SKULD','blue','blueDark','blue',{pigtails:true,horns:true,top:'graphite',role:'Engineering · Inventor',line:'Motion controls, camera angle, and shader checks ready!',wave:'Hi! The hand movement is running in WebGL.',dance:'The animation loop needs more frames, but it works!',talk:'No firmware edits. This scene is a safe original demonstration.',bow:'Prototype accepted for the next test pass!'}),
+yume:make('YUME','purple','purple','lavender',{longHair:true,glasses:true,ears:true,top:'ink',role:'Art · Avatar designer',line:'I’m shaping the visual canon: glass, silhouettes, materials, and motion.',wave:'Hello, creator. Let’s try the next pose.',dance:'Now imagine this with a polished Blender rig and hair physics.',talk:'These shapes are procedural stand-ins, not finished Unreal avatars.',bow:'The art department sends its compliments.'})
+};
+let chosen='all',act='idle',actAt=0,glassMode=true,glassLight=.72,yaw=.12,pitch=.11,dist=11,auto=false,drag=false,pt=[0,0],pointerMap=new Map(),prevTouchDistance=0,lastFrame=0;
+const names=['lum','belldandy','urd','skuld','yume'];
+const charName=document.getElementById('charName'),charRole=document.getElementById('charRole'),speaker=document.getElementById('speaker'),dialogue=document.getElementById('dialogue');
+function select(id){chosen=id;act='idle';actAt=performance.now()/1000;dist=id==='all'?11:4.5;yaw=.12;pitch=.12;document.querySelectorAll('[data-char]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.char===id)));const who=cast[id];charName.textContent=who?who.name:'THE GODDESS CAST';charRole.textContent=who?who.role:'Five original 3D character studies · tap to focus';speaker.textContent=who?who.name+' · '+who.role.toUpperCase():'LUM · ORCHESTRATION';dialogue.textContent=who?who.line:'The cathedral is assembled! Swipe the stage and try Wave, Dance, Talk, or Bow.';document.getElementById('frameStats').textContent=id==='all'?'5 AVATARS · 3D ACTIVE':'1 AVATAR · 3D ACTIVE'}
+function action(a){act=a;actAt=performance.now()/1000;let who=cast[chosen==='all'?'lum':chosen];speaker.textContent=who.name+' · '+a.toUpperCase();dialogue.textContent=who[a]||who.line;document.querySelectorAll('[data-action]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.action===a)))}
+document.querySelectorAll('[data-char]').forEach(x=>x.addEventListener('click',()=>select(x.dataset.char)));
+document.querySelectorAll('[data-action]').forEach(x=>x.addEventListener('click',()=>action(x.dataset.action)));
+document.getElementById('reset').addEventListener('click',()=>{dist=chosen==='all'?11:4.5;yaw=.12;pitch=.12;action('idle')});
+document.getElementById('orbit').addEventListener('click',e=>{auto=!auto;e.currentTarget.setAttribute('aria-pressed',String(auto))});
+document.getElementById('frame').addEventListener('click',e=>{glassMode=!glassMode;e.currentTarget.setAttribute('aria-pressed',String(glassMode));e.currentTarget.textContent=glassMode?'◇ Glass mode':'◆ Hologram mode'});
+document.getElementById('glow').addEventListener('input',e=>{glassLight=Number(e.target.value)/100;document.getElementById('glowOut').textContent=e.target.value+'%'});
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);pointerMap.set(e.pointerId,[e.clientX,e.clientY]);drag=true;canvas.classList.add('drag')});
+canvas.addEventListener('pointermove',e=>{if(!pointerMap.has(e.pointerId))return;let old=pointerMap.get(e.pointerId);pointerMap.set(e.pointerId,[e.clientX,e.clientY]);if(pointerMap.size===1){yaw+=(e.clientX-old[0])*.008;pitch=Math.max(-.3,Math.min(.55,pitch+(e.clientY-old[1])*.006))}else if(pointerMap.size===2){let p=[...pointerMap.values()],d=Math.hypot(p[0][0]-p[1][0],p[0][1]-p[1][1]);if(prevTouchDistance)dist=Math.max(chosen==='all'?7.5:2.8,Math.min(chosen==='all'?15:8,dist+(prevTouchDistance-d)*.02));prevTouchDistance=d}});
+function up(e){pointerMap.delete(e.pointerId);if(pointerMap.size<2)prevTouchDistance=0;if(!pointerMap.size){drag=false;canvas.classList.remove('drag')}}canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);
+canvas.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(chosen==='all'?7.5:2.8,Math.min(chosen==='all'?15:8,dist+e.deltaY*.004))},{passive:false});
+canvas.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){yaw-=.14;e.preventDefault()}if(e.key==='ArrowRight'){yaw+=.14;e.preventDefault()}if(e.key==='ArrowUp'){dist=Math.max(2.8,dist-.3);e.preventDefault()}if(e.key==='ArrowDown'){dist+=.3;e.preventDefault()}});
+function draw(geo,model,col,glow=0){gl.uniformMatrix4fv(U.world,false,model);gl.uniformMatrix4fv(U.mvp,false,mul(projection,mul(view,model)));gl.uniform4fv(U.color,col);gl.uniform1f(U.glow,glow*glassLight);gl.bindVertexArray(geo.vao);gl.drawElements(gl.TRIANGLES,geo.count,gl.UNSIGNED_SHORT,0)}
+let projection,view;const blend=(on)=>{if(on){gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false)}else{gl.depthMask(true);gl.disable(gl.BLEND)}};
+function charRoot(x,phase,t,ensemble){let bob=Math.sin(t*1.6+phase)*.045,bodyTilt=0;if(act==='dance')bodyTilt=Math.sin(t*4+phase)*.10;if(act==='bow')bodyTilt=Math.sin(Math.min((t-actAt)*3,Math.PI))*.10;
+let m=mul(trans(x,bob,0),mul(ry(Math.sin(t*.4+phase)*.06),rz(bodyTilt)));return ensemble?mul(m,scale(.87,.87,.87)):m}
+function drawCast(k,x,t,index,ensemble){const ch=cast[k],root=charRoot(x,index*.7,t,ensemble);const poseTime=Math.max(0,t-actAt);let right=0,left=0,tilt=0;
+if(act==='wave'){right=Math.sin(poseTime*7+index*.7)*.28+1.0;tilt=Math.sin(t*2)*.08}
+if(act==='dance'){right=.6+Math.sin(t*4+index)*.65;left=-.6-Math.cos(t*4+index)*.65;tilt=Math.sin(t*4+index)*.08}
+if(act==='talk'){right=.22+Math.sin(t*5+index)*.16;tilt=Math.sin(t*3)*.04}
+if(act==='bow'){tilt=-Math.sin(Math.min(poseTime*2,Math.PI))*.19;left=-.3;right=.3}
+for(const p of ch.parts){let pivot=I();if(p.group==='head')pivot=mul(trans(0,2.21,0),mul(rz(tilt),trans(0,-2.21,0)));if(p.group==='leftArm')pivot=mul(trans(-.42,1.6,0),mul(rz(left),trans(.42,-1.6,0)));if(p.group==='rightArm')pivot=mul(trans(.42,1.6,0),mul(rz(right),trans(-.42,-1.6,0)));
+let local=mul(pivot,mul(trans(p.x,p.y,p.z),mul(rz(p.rz),mul(rx(p.rx),mul(ry(p.ry),scale(p.sx,p.sy,p.sz))))));let tr=mul(root,local);let color=p.color;if(p.tag==='mouth'&&act==='talk')tr=mul(tr,scale(1,1+Math.abs(Math.sin(t*6))*.85,1));draw(p.g,tr,color,p.glow)}
+}
+function ground(x,ensemble){const root=mul(trans(x,-.03,0),scale(ensemble?.89:1,1,ensemble?.89:1));draw(meshes.dress,mul(root,mul(trans(0,-.11,0),scale(.82,.25,.82))),rgba('graphite'),.14);blend(true);draw(meshes.torus,mul(root,mul(trans(0,.08,0),scale(.82,.07,.82))),rgba('teal',.60),1);draw(meshes.torus,mul(root,mul(trans(0,-.0,0),scale(.66,.04,.66))),rgba('lavender',.38),.6);if(glassMode){draw(meshes.tube,mul(root,mul(trans(0,1.47,0),scale(.89,2.96,.89))),rgba('teal',.055*glassLight),.4)}blend(false)}
+let lastT=0;function frame(ms){const t=ms/1000;if(ms-lastFrame<23){requestAnimationFrame(frame);return}lastFrame=ms;const dpr=Math.min(devicePixelRatio||1,1.6),w=Math.max(2,Math.floor(canvas.clientWidth*dpr)),h=Math.max(2,Math.floor(canvas.clientHeight*dpr));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h}gl.viewport(0,0,w,h);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);gl.useProgram(program);
+if(auto&&!drag)yaw+=Math.min(.012,(t-lastT)*.23);lastT=t;
+let target=chosen==='all'?[0,1.36,0]:[0,1.42,0],eye=[target[0]+dist*Math.sin(yaw)*Math.cos(pitch),target[1]+dist*Math.sin(pitch),target[2]+dist*Math.cos(yaw)*Math.cos(pitch)];view=look(eye,target);projection=prs(.77,w/Math.max(h,1),.08,100);gl.uniform3fv(U.cam,eye);
+if(chosen==='all'){for(let i=0;i<names.length;i++){const x=(i-2)*2.1;ground(x,true);drawCast(names[i],x,t,i,true)}}else{ground(0,false);drawCast(chosen,0,t,0,false)}
+requestAnimationFrame(frame)}
+select('all');action('idle');requestAnimationFrame(frame);
+}
+</script>
+
+<script>
+/* Local-first, additive DOM-to-API boundary. No SQL in DOM and no auth tokens. */
+(()=>{
+  "use strict";
+  const button=document.getElementById('bridgeCheck');
+  const mode=document.getElementById('bridgeMode');
+  const catalog=document.getElementById('bridgeCatalog');
+  const note=document.getElementById('bridgeNote');
+  const schema='luhmOs.goddessGlassCapabilities.v1';
+  const ids=['glassViewer','assetCatalog','renderStatus','studioReceipts'];
+  const allowed={glassViewer:['localReady','notConnected'],assetCatalog:['notConnected','available'],renderStatus:['notConnected','available'],studioReceipts:['notConnected','available']};
+  function validate(body){
+    if(!body||typeof body!=='object'||Array.isArray(body)||body.schema!==schema||
+      !Array.isArray(body.capabilities)||body.capabilities.length!==4||
+      body.sqlAccess!=='BACKEND_ONLY'||body.writeAuthority!==false||
+      body.runtime!=='NOT_ATTESTED'||typeof body.cloudflareActive!=='boolean')throw Error('schema mismatch');
+    const found=new Set();
+    for(const c of body.capabilities){
+      if(!c||typeof c!=='object'||Array.isArray(c)||!ids.includes(c.id)||found.has(c.id)||
+        !allowed[c.id].includes(c.status))throw Error('capability mismatch');
+      found.add(c.id);
+    }
+    if(found.size!==ids.length)throw Error('missing capability');
+    return body;
+  }
+  async function request(path){
+    const abort=new AbortController();
+    const timeout=setTimeout(()=>abort.abort(),2000);
+    try{
+      const response=await fetch(path,{method:'GET',cache:'no-store',redirect:'error',credentials:'omit',signal:abort.signal,mode:'same-origin'});
+      if(!response.ok || !(response.headers.get('content-type')||'').includes('application/json'))throw Error('not available');
+      const length=Number(response.headers.get('content-length')||'0');
+      if(length>4096)throw Error('oversize');
+      const body=await response.text();
+      if(body.length>4096)throw Error('oversize');
+      return validate(JSON.parse(body));
+    }finally{clearTimeout(timeout)}
+  }
+  button.addEventListener('click',async()=>{
+    button.disabled=true;mode.textContent='CHECKING';note.textContent='Requesting only a public, same-origin capability descriptor…';
+    try{
+      if(location.protocol==='file:')throw Error('local file');
+      let result,source;
+      try{result=await request('./api/glass/capabilities');source='OPTIONAL BACKEND';}
+      catch{result=await request('./goddessGlassCapabilities.v1.json');source='STATIC MANIFEST';}
+      mode.textContent=source;
+      const entry=result.capabilities.find(c=>c.id==='assetCatalog');
+      catalog.textContent=entry.status==='available'?'ADVERTISED · NOT AUTHORIZED':'NOT CONNECTED';
+      note.textContent='Descriptor read only. No assets downloaded, SQL opened, or remote action authorized.';
+    }catch{
+      mode.textContent='OFFLINE';catalog.textContent='LOCAL ONLY';
+      note.textContent='The local goddess studio keeps working. No remote bridge is required.';
+    }finally{button.disabled=false}
+  });
+})();
+</script>
+</body></html>

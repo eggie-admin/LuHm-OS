@@ -1,0 +1,26 @@
+{
+  "schema": "luhmOs.goddessGlassCapabilities.v1",
+  "source": "STATIC_OFFLINE_FIXTURE",
+  "runtime": "NOT_ATTESTED",
+  "sqlAccess": "BACKEND_ONLY",
+  "cloudflareActive": false,
+  "writeAuthority": false,
+  "capabilities": [
+    {
+      "id": "glassViewer",
+      "status": "localReady"
+    },
+    {
+      "id": "assetCatalog",
+      "status": "notConnected"
+    },
+    {
+      "id": "renderStatus",
+      "status": "notConnected"
+    },
+    {
+      "id": "studioReceipts",
+      "status": "notConnected"
+    }
+  ]
+}

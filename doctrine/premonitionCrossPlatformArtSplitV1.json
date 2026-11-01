@@ -1,0 +1,457 @@
+{
+  "schema": "luhmOs.premonitionCrossPlatformArtSplit.v1",
+  "status": "PROPOSED_OFFLINE_SOURCE_CANDIDATE",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. Deterministic evidence proves. Professor promotes.",
+  "product": {
+    "name": "LuHm-OS",
+    "development": "Project Premonition",
+    "previousDevelopment": "Project Hydra",
+    "publisher": "Eggie Bagelface",
+    "sourceRegistry": "doctrine/organizationBrandRegistryV1.json",
+    "noVendorCoBrand": true,
+    "logoSource": "publicationSite/logo.svg",
+    "logoStatus": "EXISTING_SOURCE_VARIANT_NOT_FINAL_APPROVED_PALETTE"
+  },
+  "sourceAnchors": [
+    "AGENTS.md",
+    "LICENSE",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/vendorReductionV1.json",
+    "doctrine/organizationBrandRegistryV1.json",
+    "doctrine/artistFirstArtToolCanonV1.json",
+    "doctrine/yumeArtistWorkstationV1.json",
+    "doctrine/storageTopologyV1.json",
+    "doctrine/headlessUniversalVmMatrixV1.json",
+    "doctrine/leanVmForgeAlignmentV1.json",
+    "project.godot",
+    "export_presets.cfg",
+    "frontEnd/prototypes/glassWorld/package.json",
+    "assets/lum/README.md",
+    "publicationSite/logo.svg",
+    "campaign/brandAndVoiceGuide.md"
+  ],
+  "platforms": [
+    {
+      "id": "universalAndroid",
+      "os": "Android Linux kernel + GKI/HAL",
+      "source": "Android AOSP/ACK/GKI; Kotlin/Java SDK+WebView",
+      "current": "Godot Android proposed arm64-v8a / target SDK 36 export preset; never claim signed install",
+      "kernel": "UPSTREAM_AND_VENDOR_KMI_RESEARCH_ONLY",
+      "deviceProof": false
+    },
+    {
+      "id": "samsungGalaxy",
+      "os": "Samsung vendor Android device",
+      "source": "Samsung device-specific kernel source where released; Android SDK, camera/BT runtime permissions",
+      "current": "same universal Android app, tablet layout; specific tablet model/One UI/DeX support unverified",
+      "kernel": "OEM_FIRMWARE_BOOTLOADER_GPU_DRIVER_WALLED_OFF",
+      "deviceProof": false
+    },
+    {
+      "id": "appleIos",
+      "os": "Darwin/XNU architecture; protected iOS app sandbox",
+      "source": "Apple XNU/WebKit/Swift source as reference; supported iOS app SDK and browser",
+      "current": "responsive web source candidate only; no signed iOS build or entitlements",
+      "kernel": "NO_IOS_KERNEL_OR_UNSIGNED_DEVICE_MUTATION",
+      "deviceProof": false
+    },
+    {
+      "id": "linuxVm",
+      "os": "Linux host kernel with optional QEMU/libvirt guest",
+      "source": "upstream Linux user-space and isolated Python/Godot/Blender/FFmpeg worker",
+      "current": "headless VM candidate with no real machine registered",
+      "kernel": "HOST_KERNEL_REMAINS_HOST_OWNED",
+      "deviceProof": false
+    }
+  ],
+  "domains": [
+    {
+      "id": "kernelDevice",
+      "role": "Platform specific host kernel, HAL/driver, hardware-backed security; inspect not flash",
+      "extensions": [],
+      "execution": "vendorSdkOrAuthorizedHostOnly"
+    },
+    {
+      "id": "vectorBrand",
+      "role": "Editable vector and UI identity",
+      "extensions": [
+        "svg"
+      ],
+      "execution": "webRendererOrTrustedVectorImporter",
+      "binaryInSql": false
+    },
+    {
+      "id": "threeD",
+      "role": "Editable 3D master and engine-ready 3D deliverable",
+      "extensions": [
+        "blend",
+        "glb",
+        "gltf"
+      ],
+      "execution": "isolatedBlenderGodotOrWebgl",
+      "binaryInSql": false
+    },
+    {
+      "id": "dataProcessing",
+      "role": "Python transform/proof and strictly typed SQL metadata pointer separated",
+      "extensions": [
+        "png",
+        "webp",
+        "mp4",
+        "wav"
+      ],
+      "execution": "privatePythonWorkerWritesOnlyApprovedReceipts",
+      "binaryInSql": false
+    }
+  ],
+  "matrix": [
+    {
+      "platform": "universalAndroid",
+      "cells": [
+        {
+          "id": "universalAndroidkernelDevice",
+          "domain": "kernelDevice",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        },
+        {
+          "id": "universalAndroidvectorBrand",
+          "domain": "vectorBrand",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        },
+        {
+          "id": "universalAndroidthreeD",
+          "domain": "threeD",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        },
+        {
+          "id": "universalAndroiddataProcessing",
+          "domain": "dataProcessing",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        }
+      ]
+    },
+    {
+      "platform": "samsungGalaxy",
+      "cells": [
+        {
+          "id": "samsungGalaxykernelDevice",
+          "domain": "kernelDevice",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        },
+        {
+          "id": "samsungGalaxyvectorBrand",
+          "domain": "vectorBrand",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        },
+        {
+          "id": "samsungGalaxythreeD",
+          "domain": "threeD",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        },
+        {
+          "id": "samsungGalaxydataProcessing",
+          "domain": "dataProcessing",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        }
+      ]
+    },
+    {
+      "platform": "appleIos",
+      "cells": [
+        {
+          "id": "appleIoskernelDevice",
+          "domain": "kernelDevice",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        },
+        {
+          "id": "appleIosvectorBrand",
+          "domain": "vectorBrand",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        },
+        {
+          "id": "appleIosthreeD",
+          "domain": "threeD",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        },
+        {
+          "id": "appleIosdataProcessing",
+          "domain": "dataProcessing",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        }
+      ]
+    },
+    {
+      "platform": "linuxVm",
+      "cells": [
+        {
+          "id": "linuxVmkernelDevice",
+          "domain": "kernelDevice",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        },
+        {
+          "id": "linuxVmvectorBrand",
+          "domain": "vectorBrand",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        },
+        {
+          "id": "linuxVmthreeD",
+          "domain": "threeD",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        },
+        {
+          "id": "linuxVmdataProcessing",
+          "domain": "dataProcessing",
+          "status": "PROPOSED_NOT_RUNTIME_PROVEN",
+          "physicalDeviceTest": false,
+          "vendorKernelMutationAllowed": false,
+          "publicMediaPublicationAllowed": false
+        }
+      ]
+    }
+  ],
+  "domainOrder": [
+    "kernelDevice",
+    "vectorBrand",
+    "threeD",
+    "dataProcessing"
+  ],
+  "assetRouting": {
+    "sourceAuthority": "GitHubSourceMetadataAndReview",
+    "privateLargeMasters": "GoogleDriveApprovedDurableStorage",
+    "sourceAssetTypes": {
+      "svg": {
+        "content": "vectorSource",
+        "rights": "OWNER_REVIEW"
+      },
+      "blend": {
+        "content": "editableMaster",
+        "rights": "PRIVATE_DO_NOT_PUBLISH"
+      },
+      "glb": {
+        "content": "runtime3d",
+        "rights": "PRIVATE_UNTIL_APPROVED"
+      },
+      "gltf": {
+        "content": "runtimeSceneDescriptor",
+        "rights": "EXTERNAL_RESOURCES_REVIEW_REQUIRED"
+      },
+      "png": {
+        "content": "rasterTexture",
+        "rights": "PRIVATE_UNTIL_APPROVED"
+      },
+      "webp": {
+        "content": "mobilePreview",
+        "rights": "PRIVATE_UNTIL_APPROVED"
+      },
+      "mp4": {
+        "content": "motionVideo",
+        "rights": "PRIVATE_UNTIL_APPROVED"
+      },
+      "wav": {
+        "content": "audioMaster",
+        "rights": "PRIVATE_UNTIL_APPROVED"
+      }
+    },
+    "binaryNeverStoredInSql": true,
+    "sqlStoresOnly": [
+      "assetId",
+      "taskId",
+      "scopeId",
+      "sourceRef",
+      "sha256Hex",
+      "byteCount",
+      "format",
+      "assetClass",
+      "logicalPrivatePointer",
+      "rightsState",
+      "provenanceState"
+    ],
+    "pythonOwns": [
+      "boundedSourceInspection",
+      "mimeAndHeaderChecks",
+      "SHA256Digest",
+      "assetClassRouting",
+      "renderPlanNotExecution"
+    ],
+    "sqlOwns": [
+      "idempotentReceiptKey",
+      "typedMetadataConstraints",
+      "sourceAndScopeIndexes",
+      "noBinaryAndNoSecrets"
+    ],
+    "clientOwns": [
+      "displayApprovedVectorAndRuntime3d",
+      "requestUserGrantedCameraOrFiles",
+      "neverAccessKernelOrSqlDirectly"
+    ],
+    "convertMasterToDeliverable": "BlenderOrTrustedExporterAfterRightsAndIsolation",
+    "noImportPrivateDonorAutomatically": true,
+    "existingStaticAvatarNoSkinsOrAnimations": "assets/lum/README.md",
+    "noAvatarRiggedClaim": true,
+    "noBlindSvgScriptExecution": true
+  },
+  "pipeline": [
+    "assetSourceAndRights",
+    "readOnlyPythonProbe",
+    "sha256AndCanonicalMetadata",
+    "SqliteStrictReceiptOnly",
+    "optionalApprovedPrivateBinaryStorage",
+    "platformRendererCapabilityAudit",
+    "professorReleaseApproval"
+  ],
+  "license": {
+    "rootLicense": "GPL-3.0",
+    "goal": "APACHE_2_ONLY_FOR_SEPARATE_OWNED_MODULES_AFTER_REVIEW",
+    "noAutoRelicense": true,
+    "thirdPartyNotAutomaticallyCopied": true,
+    "untrustedDonorSourcesNeverMergedBlindly": true
+  },
+  "vendorResearch": [
+    {
+      "id": "aosp",
+      "repo": "aosp-mirror/kernel_common",
+      "role": "Android GKI architecture and KMI",
+      "license": "LinuxKernelGPL2ContextVerifyPerFile",
+      "action": "READ_ONLY_DESIGN_REFERENCE"
+    },
+    {
+      "id": "androidSample",
+      "repo": "android/architecture-samples",
+      "role": "Android app lifecycle and UI separation",
+      "license": "VERIFY_EXACT_SOURCE_LICENSE",
+      "action": "READ_ONLY_DESIGN_REFERENCE"
+    },
+    {
+      "id": "samsungOss",
+      "repo": "SamsungOpenSourcePortal",
+      "role": "Device-specific release center, not arbitrary kernel images",
+      "license": "MODEL_SPECIFIC_LICENSE_REVIEW",
+      "action": "MODEL_NUMBER_REQUIRED"
+    },
+    {
+      "id": "appleXnu",
+      "repo": "apple-oss-distributions/xnu",
+      "role": "Darwin/XNU architecture, not executable iOS app privilege",
+      "license": "APPLE_COMPONENT_LICENSES_VERIFY",
+      "action": "READ_ONLY_DESIGN_REFERENCE"
+    },
+    {
+      "id": "webkit",
+      "repo": "WebKit/WebKit",
+      "role": "WebKit portability, web-app parity",
+      "license": "WEBKIT_COMPONENT_LICENSES_VERIFY",
+      "action": "READ_ONLY_DESIGN_REFERENCE"
+    },
+    {
+      "id": "godot",
+      "repo": "godotengine/godot",
+      "role": "Godot portable 2D/3D engine",
+      "license": "MIT_MAIN_ENGINE_THIRD_PARTY_NOTICES",
+      "action": "USE_EXISTING_GODOT_EXPORT_CONTRACT"
+    },
+    {
+      "id": "filament",
+      "repo": "google/filament",
+      "role": "PBR glTF on Android iOS WebGL",
+      "license": "APACHE_2_VERIFY_COMPONENTS",
+      "action": "RESEARCH_OPTIONAL_RENDERER_NO_VENDOR_REPLACEMENT"
+    },
+    {
+      "id": "gltfValidator",
+      "repo": "KhronosGroup/glTF-Validator",
+      "role": "GLB/glTF validation reference",
+      "license": "VERIFY_EXACT_LICENSE",
+      "action": "READ_ONLY_REFERENCE"
+    },
+    {
+      "id": "svgSpec",
+      "repo": "w3c/svgwg",
+      "role": "SVG 2 interoperable vector graphics",
+      "license": "W3C_DOCUMENT_AND_SOURCE_LICENSE_SEPARATE",
+      "action": "USE_SAFE_SVG_SUBSET"
+    }
+  ],
+  "renderTargets": {
+    "android": "EXISTING_ARM64_PROPOSED_EXPORT_UNVERIFIED",
+    "samsung": "UNROOTED_COMPATIBILITY_ONLY",
+    "ios": "WEB_PARITY_ONLY_NATIVE_EXPORT_UNPROVEN",
+    "linuxVm": "HEADLESS_IMPORT_OPTIONAL_NO_ACTIVE_VM"
+  },
+  "security": {
+    "mustNotFlashKernel": true,
+    "mustNotUnlockBootloader": true,
+    "mustNotChangeAndroidSystemPartition": true,
+    "mustNotInstallIosKernel": true,
+    "mustNotRunUntrustedSvgScripts": true,
+    "mustNotEmbedPrivateMediaInPublicBuild": true,
+    "sourceOnlyCannotClaimRuntime": true,
+    "companyQuarantinePreserved": true,
+    "noNewPaidCompute": true,
+    "noAutoMerge": true,
+    "noAutoDeploy": true,
+    "noSigning": true,
+    "noPublication": true
+  },
+  "evidence": {
+    "stageOrder": [
+      "R1_source",
+      "R2_format",
+      "R3_metadata",
+      "R4_humanRelease"
+    ],
+    "all16CellsStart": "UNKNOWN",
+    "actualMobileProof": false,
+    "iosSignerProof": false,
+    "samsungApkProof": false,
+    "gitHubIsSourceNotBytesArchive": true
+  },
+  "crownStatus": "STOP"
+}

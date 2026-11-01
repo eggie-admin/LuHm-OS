@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">LuHm-OS Project Premonition · Vector Architecture Seal Candidate</title>
+  <desc id="desc">Unreleased vector artwork candidate with a violet four-tier architecture mandala, an L monogram, and teal accents. No vendor branding.</desc>
+  <defs>
+    <linearGradient id="night" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#17131f"/><stop offset="1" stop-color="#2c213d"/></linearGradient>
+    <linearGradient id="ion" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7ce8ec"/><stop offset="1" stop-color="#9f7aea"/></linearGradient>
+    <radialGradient id="halo"><stop stop-color="#9f7aea" stop-opacity=".26"/><stop offset="1" stop-color="#9f7aea" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" rx="34" fill="url(#night)"/>
+  <g opacity=".15" stroke="#7ce8ec" stroke-width="1">
+    <path d="M0 105H1200M0 210H1200M0 315H1200M0 420H1200M0 525H1200"/>
+    <path d="M100 0V630M200 0V630M300 0V630M400 0V630M500 0V630M600 0V630M700 0V630M800 0V630M900 0V630M1000 0V630M1100 0V630"/>
+  </g>
+  <circle cx="310" cy="315" r="290" fill="url(#halo)"/>
+  <g fill="none" stroke="url(#ion)" stroke-width="4">
+    <circle cx="310" cy="315" r="206" opacity=".27"/>
+    <circle cx="310" cy="315" r="174" opacity=".68"/>
+    <path d="M310 116V151M310 479V514M111 315H146M474 315H509" stroke-linecap="round" stroke-width="7"/>
+    <path d="M183 188L212 217M408 413L437 442M437 188L408 217M212 413L183 442" opacity=".72"/>
+  </g>
+  <circle cx="310" cy="315" r="143" fill="#17131f" stroke="#9f7aea" stroke-width="5"/>
+  <g fill="#9f7aea">
+    <path d="M201 184L245 224L224 249L187 218Z"/>
+    <path d="M419 184L375 224L396 249L433 218Z"/>
+  </g>
+  <path d="M245 233H286V366H389V407H245Z" fill="#f7f4ff"/>
+  <circle cx="390" cy="354" r="25" fill="#7ce8ec"/>
+  <g fill="#7ce8ec">
+    <circle cx="310" cy="139" r="8"/><circle cx="486" cy="315" r="8"/>
+    <circle cx="310" cy="491" r="8"/><circle cx="134" cy="315" r="8"/>
+  </g>
+  <g fill="#f7f4ff" font-family="system-ui, sans-serif">
+    <text x="600" y="203" font-size="31" font-weight="650" letter-spacing="7" fill="#7ce8ec">EGGIE BAGELFACE</text>
+    <text x="600" y="312" font-size="78" font-weight="820" letter-spacing="-2">LuHm-OS</text>
+    <text x="600" y="371" font-size="33" font-weight="650">PROJECT PREMONITION</text>
+    <text x="600" y="441" font-size="22" fill="#cecae3">Creative worlds · One source of truth</text>
+  </g>
+  <path d="M600 472H1110" stroke="#9f7aea" stroke-width="3" opacity=".55"/>
+  <text x="603" y="524" font-family="monospace" font-size="16" fill="#7ce8ec" letter-spacing="2">FOUR LANES / VERIFIED SOURCE / OWNER-LED</text>
+  <text x="600" y="567" font-family="system-ui, sans-serif" font-size="15" fill="#cecae3">UNPUBLISHED VECTOR CANDIDATE · RIGHTS REVIEW PENDING</text>
+</svg>

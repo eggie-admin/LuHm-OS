@@ -1,0 +1,279 @@
+{
+  "schema": "luhmOs.brandVmArchitectureSeal.v1",
+  "status": "DRAFT_SOURCE_SEAL_NOT_PRODUCTION_BOOT",
+  "authority": "Professor",
+  "repo": "eggie-admin/LuHm-OS",
+  "canon": [
+    "AGENTS.md",
+    "LICENSE",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/organizationBrandRegistryV1.json",
+    "doctrine/premonitionEnterpriseBrandV1.json",
+    "doctrine/castIdentityHexRegistryV1.json",
+    "doctrine/machineFourArchitectureForgeV1.json",
+    "doctrine/hostileModForge4x4V1.json",
+    "doctrine/castTwoThreadBridgeV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json"
+  ],
+  "matrix4x4": [
+    {
+      "axis": "hexCodec",
+      "cells": [
+        {
+          "id": "hexCodec.sourceIdentity",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        },
+        {
+          "id": "hexCodec.adversarialValidation",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        },
+        {
+          "id": "hexCodec.hostProof",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        },
+        {
+          "id": "hexCodec.ownerRelease",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        }
+      ]
+    },
+    {
+      "axis": "bitmapToVector",
+      "cells": [
+        {
+          "id": "bitmapToVector.sourceIdentity",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        },
+        {
+          "id": "bitmapToVector.adversarialValidation",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        },
+        {
+          "id": "bitmapToVector.hostProof",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        },
+        {
+          "id": "bitmapToVector.ownerRelease",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        }
+      ]
+    },
+    {
+      "axis": "brandIdentity",
+      "cells": [
+        {
+          "id": "brandIdentity.sourceIdentity",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        },
+        {
+          "id": "brandIdentity.adversarialValidation",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        },
+        {
+          "id": "brandIdentity.hostProof",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        },
+        {
+          "id": "brandIdentity.ownerRelease",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        }
+      ]
+    },
+    {
+      "axis": "vmCockpit",
+      "cells": [
+        {
+          "id": "vmCockpit.sourceIdentity",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        },
+        {
+          "id": "vmCockpit.adversarialValidation",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        },
+        {
+          "id": "vmCockpit.hostProof",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        },
+        {
+          "id": "vmCockpit.ownerRelease",
+          "status": "NOT_HOST_PROVEN_SOURCE_PLAN",
+          "executed": false,
+          "hostVerified": false,
+          "productionAuthorized": false
+        }
+      ]
+    }
+  ],
+  "axes": [
+    {
+      "id": "hexCodec",
+      "scope": "busIdFixedWidthSourceHexNoCrossNamespaceSort",
+      "evidence": "SOURCE_CANDIDATE_ONLY"
+    },
+    {
+      "id": "bitmapToVector",
+      "scope": "originalPixelTileToRunLengthSVGNoExternalXML",
+      "evidence": "SOURCE_CANDIDATE_ONLY"
+    },
+    {
+      "id": "brandIdentity",
+      "scope": "LuHmOSVectorSealCandidateAndProvenance",
+      "evidence": "SOURCE_CANDIDATE_ONLY"
+    },
+    {
+      "id": "vmCockpit",
+      "scope": "readOnlyPluginAndConfirmedHistoricalGodotWebService",
+      "evidence": "REMOTE_SERVICE_DEPLOY_EXISTENCE_NOT_VM_BOOT"
+    }
+  ],
+  "gates": [
+    "sourceIdentity",
+    "adversarialValidation",
+    "hostProof",
+    "ownerRelease"
+  ],
+  "hex": {
+    "source": "doctrine/machineFourArchitectureForgeV1.json",
+    "typeWidths": {
+      "usbVendorId": 4,
+      "pciVendorId": 4,
+      "cpuidLeaf": 8,
+      "ipsOffset": 6,
+      "uefiGuid": 32,
+      "sourceRef": 40,
+      "artifactSha256": 64
+    },
+    "numericSortSameNamespaceAndFixedWidth": true,
+    "uefiGuidIsTextNotWireBytes": true,
+    "gitIdentityNotAuthority": true,
+    "aliasHexNotSecurityToken": true,
+    "unknown": "HOLD"
+  },
+  "visual": {
+    "brandRoot": "doctrine/organizationBrandRegistryV1.json",
+    "currentBrand": "LuHm-OS",
+    "project": "Project Premonition",
+    "publisher": "Eggie Bagelface",
+    "existingLogo": "publicationSite/logo.svg",
+    "candidateSeal": "publicationSite/brandSealCandidate.svg",
+    "preview": "publicationSite/vmBootPreview.html",
+    "pngOrBitmapSourceMustBeOwnerSupplied": true,
+    "rasterOriginalPreserved": true,
+    "pixelToSvg": "exactRunLengthRectanglesForOriginalIndexedPixels",
+    "organicArtwork": "ExternalInkscapePotraceOnlyAfterRightsAndManualReview",
+    "canonicalSourceNotReplaced": true,
+    "svgForbiddenFeatures": [
+      "script",
+      "foreignObject",
+      "image",
+      "use",
+      "animate",
+      "set",
+      "iframe",
+      "style",
+      "onload",
+      "external href"
+    ],
+    "colors": [
+      "#17131f",
+      "#9f7aea",
+      "#7ce8ec",
+      "#f7f4ff",
+      "#ff8aca",
+      "#2c213d"
+    ],
+    "assetRights": "UNREVIEWED_CANDIDATE",
+    "approval": false,
+    "publicMarketing": false,
+    "brandColorTokenChangeRequiresReview": true,
+    "noVendorLogos": true,
+    "noPrivateReferenceImages": true
+  },
+  "host": {
+    "plugin": "Project_Hydra",
+    "pluginReachable": true,
+    "pluginHasInChatUi": true,
+    "pluginReadOnly": true,
+    "pluginVmBootToolAvailable": false,
+    "remoteWebService": "luhm-os-godot-harness-green",
+    "remoteWebHost": "https://luhm-os-godot-harness-green.onrender.com",
+    "remoteKnownDeployCommit": "ca369e6925406e9a00008bbc629bb5db67a7d02c",
+    "remoteSourceMatchesDraft": false,
+    "remoteServiceType": "RenderWebServiceNotHypervisor",
+    "runtimeVMProven": false,
+    "gameRuntimeInChatProven": false,
+    "androidTouchAccepted": false,
+    "mayOptInExistingGodotWebIframe": true,
+    "mayStartVirtualMachine": false,
+    "autoLoadRemoteGame": false,
+    "uiMode": "OFFLINE_SIMULATED_BOOT_SEQUENCE_PLUS_OPTIONAL_EXISTING_GODOT",
+    "noSecretsInBrowser": true,
+    "noPublicAdminEndpoints": true
+  },
+  "platform": {
+    "sourceArchitectureStatus": "SYNTHETIC_GREEN_CANDIDATE_ONLY",
+    "target": "Portable Debian Ubuntu Android GKI Raspberry Pi App Layer",
+    "kernel": "MAINLINE_UPSTREAM_REFERENCES_NOT_CUSTOM_PRODUCTION_KERNEL",
+    "noFirmwareFlash": true,
+    "noCustomKernelBuild": true,
+    "noSignedAndroidApkClaim": true,
+    "noUniversalBiosClaim": true
+  },
+  "release": {
+    "noAutoMerge": true,
+    "noAutoDeploy": true,
+    "noVmProvision": true,
+    "noPaidCompute": true,
+    "noUnsignedOwnerApproval": true,
+    "companyAgentQuarantinePreserved": true,
+    "notPublicFinalBrand": true,
+    "productionKernelAccepted": false,
+    "appPluginUpdateInstalled": false
+  },
+  "crownStatus": "STOP"
+}

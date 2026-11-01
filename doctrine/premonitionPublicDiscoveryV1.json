@@ -1,0 +1,104 @@
+{
+  "schema": "luhmOs.premonitionPublicDiscovery.v1",
+  "state": "STAGED_NOT_PUBLIC_RELEASE",
+  "brand": {
+    "product": "LuHm-OS",
+    "project": "Project Premonition",
+    "publisher": "Eggie Bagelface",
+    "legacy": "Project Hydra"
+  },
+  "canonicalSource": {
+    "repo": "eggie-admin/LuHm-OS",
+    "branch": "main",
+    "publicationBranch": "publication/plugin-full-green-20260930"
+  },
+  "canonicalWebsite": {
+    "origin": null,
+    "tlsVerified": false,
+    "publicDeployedSha": null,
+    "searchConsoleVerified": false
+  },
+  "flags": {
+    "publicRelease": false,
+    "activateSitemap": false,
+    "submitIndexing": false,
+    "marketing": false,
+    "enableAppDownloads": false,
+    "socialImageApproved": false,
+    "merge": false,
+    "deploy": false
+  },
+  "pages": [
+    {
+      "path": "/",
+      "title": "LuHm-OS: Project Premonition | Independent Creative Studio",
+      "type": "home"
+    },
+    {
+      "path": "/release.html",
+      "title": "Project Premonition Alpha | LuHm-OS Release Notes",
+      "type": "release"
+    },
+    {
+      "path": "/tester.html",
+      "title": "LuHm-OS | Lum & the Goddesses Tester Lab",
+      "type": "tester"
+    },
+    {
+      "path": "/pocketLab.html",
+      "title": "LuHm-OS | Pocket Art Studio",
+      "type": "demo"
+    },
+    {
+      "path": "/support.html",
+      "title": "LuHm-OS Support | Project Premonition",
+      "type": "support"
+    },
+    {
+      "path": "/privacy.html",
+      "title": "LuHm-OS Privacy | Project Premonition",
+      "type": "policy"
+    },
+    {
+      "path": "/terms.html",
+      "title": "LuHm-OS Terms | Project Premonition",
+      "type": "policy"
+    }
+  ],
+  "taxonomy": [
+    "artist-first software",
+    "Godot creative tools",
+    "interactive art",
+    "GitHub open-source development",
+    "read-only demos"
+  ],
+  "social": {
+    "cardType": "summary",
+    "imageUrl": null,
+    "sourceMark": "publicationSite/logo.svg",
+    "graphicApprovedForNewRelease": false,
+    "preview": "publicationSite/share-card-preview.html"
+  },
+  "rules": {
+    "noUnverifiedCanonical": true,
+    "noAutoIndex": true,
+    "noAutoReleases": true,
+    "previewNoindex": true,
+    "preserveExistingAlphaIndexing": true,
+    "structuredDataAfterOriginProof": true,
+    "sitemapAfterApproval": true,
+    "neverIndexPrivateMedia": true,
+    "marketingNeedsRights": true,
+    "noRankingGuarantees": true
+  },
+  "prerequisites": [
+    "exactGitSource",
+    "publicOriginTlsProof",
+    "realOGImageRasterRightsAndDimensions",
+    "accessibilityAndMetadataCheck",
+    "privacyAndArtReview",
+    "signedApplicationIfClaimed",
+    "ownerApproval"
+  ],
+  "crownStatus": "STOP"
+}
