@@ -1,0 +1,32 @@
+name: LuHm Premonition SEO Source Gate
+
+on:
+  pull_request:
+    paths:
+      - "publicationSite/**"
+      - "doctrine/premonitionPublicDiscoveryV1.json"
+      - "doctrine/organizationBrandRegistryV1.json"
+      - "doctrine/premonitionEnterpriseBrandV1.json"
+      - "tools/premonitionSeoReleaseAudit.py"
+      - "tests/testPremonitionSeoReleaseAudit.py"
+      - ".github/workflows/premonition-seo-source.yml"
+      - "manual/premonition-public-seo-release-gate.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  seo-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify syntax, brand pages, cards, tags and release flags
+        run: |
+          python -m py_compile tools/premonitionSeoReleaseAudit.py
+          python tools/premonitionSeoReleaseAudit.py
+          python -m unittest discover -s tests -p 'testPremonitionSeoReleaseAudit.py' -v
