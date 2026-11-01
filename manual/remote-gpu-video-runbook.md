@@ -48,6 +48,13 @@ Reuse the existing Python MCP host; **do not add a public FastAPI admin port** o
 
 For a real remote GPU proof, capture hardware name, drivers, exact VRAM, CPU/RAM/disk/thermal, API authentication, local model checksum, network throughput, render frames/sec, one brief privacy-safe licensed fixture, and an actual video playback receipt. Do not treat a source/CI pass as hardware verification.
 
+
+## Offline one-minute assembly proof (no generative model)
+
+Run `python tools/gpuVideoMinuteFixture.py` to inspect the dry-run without video execution. Run `python tools/gpuVideoMinuteFixture.py --run` to create ten six-second **procedural test-pattern clips** and concatenate a real 60-second MP4 inside a temporary directory. The script checks the output using FFprobe and hashes the full bytes with SHA-256. No permanent clip, user video, GPU, AI call, internet, or paid service is created. The GitHub Actions offline gate exercises this proof.
+
+This establishes the **FFmpeg packaging mechanism only**. It does not establish generative-model motion quality, continuity between generated shots, upscaling, model latency, audio sync, worker availability, device performance, remotely mounted storage or client playback. The isolated model/GPU stages are later gates.
+
 ## Research
 
 - NVIDIA `nvidia-smi` query memory fields: https://nvidia.custhelp.com/app/answers/detail/a_id/3751
