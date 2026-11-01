@@ -1,0 +1,315 @@
+{
+  "schema": "luhmOs.hardwareCastSeal.v1",
+  "state": "SOURCE_CANDIDATE_HARDWARE_RUNTIME_HOLD",
+  "source": "eggie-admin/LuHm-OS",
+  "product": "LuHm-OS",
+  "project": "Project Premonition",
+  "authority": "Professor",
+  "scope": "hardwareLayerOnlyDoNotModifyFirmware",
+  "law": "AI proposes. Policy authorizes. Deterministic CI proves source. Owner machine and Professor prove runtime promotion.",
+  "refCanon": [
+    "AGENTS.md",
+    "LICENSE",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/machineFourArchitectureForgeV1.json",
+    "doctrine/hostileModForge4x4V1.json",
+    "doctrine/localOpenVmKernelProfileV1.json",
+    "doctrine/headlessUniversalVmMatrixV1.json",
+    "doctrine/leanVmForgeAlignmentV1.json",
+    "doctrine/brandVmArchitectureSealV1.json",
+    "doctrine/castTwoThreadBridgeV1.json"
+  ],
+  "lanes": [
+    {
+      "id": "hardwareIdentity",
+      "refs": [
+        "doctrine/machineFourArchitectureForgeV1.json",
+        "doctrine/hostileModForge4x4V1.json"
+      ],
+      "role": "ISA, typed hex, CPU RAM I/O and USB/Bluetooth remain architecture declarations, not observed devices"
+    },
+    {
+      "id": "kernelBoundary",
+      "refs": [
+        "doctrine/localOpenVmKernelProfileV1.json",
+        "doctrine/headlessUniversalVmMatrixV1.json"
+      ],
+      "role": "host distro kernel unchanged; no firmware, bootloader, microcode, privileged extension or Android boot modifications"
+    },
+    {
+      "id": "guestIsolation",
+      "refs": [
+        "doctrine/localOpenVmKernelProfileV1.json",
+        "doctrine/leanVmForgeAlignmentV1.json"
+      ],
+      "role": "local optional unprivileged QEMU KVM, no cloud/network/passthrough by default, resource bounded"
+    },
+    {
+      "id": "proofAndRelease",
+      "refs": [
+        "doctrine/castTwoThreadBridgeV1.json",
+        "doctrine/brandVmArchitectureSealV1.json",
+        "doctrine/companyWideOperationalQuarantineV1.json"
+      ],
+      "role": "evidence, licensing, rollback, exact source, owner controls, source-only CAST candidate"
+    }
+  ],
+  "phases": [
+    {
+      "id": "R0",
+      "name": "sanity",
+      "law": "exact canon and typed registry; no fabricated device fields"
+    },
+    {
+      "id": "R1",
+      "name": "hardAudit",
+      "law": "adversarial checks deny kernel flash, unsigned firmware, cloud auto-fallback"
+    },
+    {
+      "id": "R2",
+      "name": "sourceTest",
+      "law": "offline tests on checked-out source tree, synthetic fixtures only"
+    },
+    {
+      "id": "R3",
+      "name": "runtimeSeal",
+      "law": "owner-host kernel, /dev/kvm, real guest boot, image license, snapshot/rollback and manual approval"
+    }
+  ],
+  "cells": [
+    {
+      "key": "hardwareIdentity.R0",
+      "lane": "hardwareIdentity",
+      "phase": "R0",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "hardwareIdentity.R1",
+      "lane": "hardwareIdentity",
+      "phase": "R1",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "hardwareIdentity.R2",
+      "lane": "hardwareIdentity",
+      "phase": "R2",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "hardwareIdentity.R3",
+      "lane": "hardwareIdentity",
+      "phase": "R3",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "kernelBoundary.R0",
+      "lane": "kernelBoundary",
+      "phase": "R0",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "kernelBoundary.R1",
+      "lane": "kernelBoundary",
+      "phase": "R1",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "kernelBoundary.R2",
+      "lane": "kernelBoundary",
+      "phase": "R2",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "kernelBoundary.R3",
+      "lane": "kernelBoundary",
+      "phase": "R3",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "guestIsolation.R0",
+      "lane": "guestIsolation",
+      "phase": "R0",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "guestIsolation.R1",
+      "lane": "guestIsolation",
+      "phase": "R1",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "guestIsolation.R2",
+      "lane": "guestIsolation",
+      "phase": "R2",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "guestIsolation.R3",
+      "lane": "guestIsolation",
+      "phase": "R3",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "proofAndRelease.R0",
+      "lane": "proofAndRelease",
+      "phase": "R0",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "proofAndRelease.R1",
+      "lane": "proofAndRelease",
+      "phase": "R1",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "proofAndRelease.R2",
+      "lane": "proofAndRelease",
+      "phase": "R2",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    },
+    {
+      "key": "proofAndRelease.R3",
+      "lane": "proofAndRelease",
+      "phase": "R3",
+      "stage": "CANDIDATE_ONLY",
+      "realHostProven": false,
+      "runtimeVmBootProven": false,
+      "firmwareRightsVerified": false,
+      "ownerPromoted": false
+    }
+  ],
+  "sourceAuditors": [
+    {
+      "path": "tools/localOpenVmKernelGate.py",
+      "entry": "source_audit",
+      "expectedField": "state",
+      "expectedValue": "SOURCE_PLAN_ONLY",
+      "expectedIssueField": "issues"
+    },
+    {
+      "path": "tools/machineFourArchitectureAudit.py",
+      "entry": "source_audit",
+      "expectedField": "state",
+      "expectedValue": "SOURCE_CANDIDATE_ONLY",
+      "expectedIssueField": "issues"
+    },
+    {
+      "path": "tools/hostileModForgeAudit.py",
+      "entry": "audit",
+      "expectedField": "status",
+      "expectedValue": "SOURCE_CANDIDATE_ONLY",
+      "expectedIssueField": "issues"
+    },
+    {
+      "path": "tools/brandVmSealAudit.py",
+      "entry": "audit",
+      "expectedField": "status",
+      "expectedValue": "SOURCE_SEALED_CANDIDATE_ONLY",
+      "expectedIssueField": "issues"
+    }
+  ],
+  "typedIdentity": {
+    "sourceRef": "exact40LowercaseGitObjectIdProvidedByRunner",
+    "artifactSha256": "64LowercaseHexDigestForCanonicalSourceBundle",
+    "devices": "typedFixedWidthBusNamespaceNoCrossBusSynthesis",
+    "memory": "nonnegativeDecimalIntegerBytes",
+    "hexNeverPermission": true,
+    "canonicalNameNeverDiscarded": true
+  },
+  "runtimeBlockers": [
+    "OWNER_HOST_KERNEL_ARCH_BUILD_RECEIPT",
+    "VERIFIED_KVM_OR_TCG_EXECUTION_RECEIPT",
+    "LICENSED_GUEST_IMAGE_AND_RESOURCE_BOUND",
+    "ACTUAL_ISOLATED_GUEST_BOOT_AND_ROLLBACK_RECEIPT",
+    "OWNER_APPROVAL_EXACT_SCOPE_SOURCE"
+  ],
+  "mandatoryBoundaries": {
+    "noFirmwareFlash": true,
+    "noBiosReplacement": true,
+    "noBootloaderMutation": true,
+    "noKernelPatch": true,
+    "noRootElevation": true,
+    "noProprietaryRemoteComputeRequired": true,
+    "noPaidProviderFallback": true,
+    "noAutomaticLiveGuestStart": true,
+    "noRemotePortExposure": true,
+    "noUsbBluetoothGpuPassthrough": true,
+    "noUnsignedImageImport": true,
+    "noMainMerge": true,
+    "noPluginDeployment": true,
+    "noAgentResumption": true,
+    "companyQuarantinePreserved": true
+  },
+  "release": {
+    "sourceStatus": "HOLD_UNTIL_EXACT_CI",
+    "liveKernelAccepted": false,
+    "realVmBooted": false,
+    "realSamsungInstallProven": false,
+    "publicReleaseAllowed": false,
+    "mainMerged": false,
+    "crownStatus": "STOP"
+  },
+  "repairPolicy": "MINIMAL_TARGETED_ONLY_NO_ARCHITECTURE_EXPANSION",
+  "receiptType": "SOURCE_BUNDLE_DIGEST_AND_EXACT_RUNNER_SHA_NOT_SIGNED_ATTESTATION"
+}
