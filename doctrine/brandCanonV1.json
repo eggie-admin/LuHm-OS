@@ -1,0 +1,132 @@
+{
+  "schema": "luhmOs.brandCanon.v1",
+  "status": "PROPOSED_BRAND_FREEZE_REVIEW",
+  "authority": "Professor",
+  "effectiveSource": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d",
+  "purpose": "Evergreen identity system for LuHm-OS, Pirate Daddies Film, original interactive characters and artist-first media that survives future hardware, providers and features without serial rebranding.",
+  "precedence": [
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/organizationBrandRegistryV1.json",
+    "doctrine/artistFirstArtToolCanonV1.json",
+    "doctrine/yumeArtDirectionCanonV1.json",
+    "game/canon/CHARACTER_CANON_V1.json",
+    "doctrine/contentLaneDoctrineV1.json",
+    "doctrine/assetEligibilityMatrixV1.json",
+    "doctrine/artistCreditLedgerV1.json",
+    "doctrine/storageTopologyV1.json"
+  ],
+  "approvalRecord": {
+    "currentRequest": "PROFESSOR_DIRECTED_BRAND_SYSTEM_STAGING_2026_11_01",
+    "newBrandSystemSourceApproval": "CANDIDATE_ONLY_NOT_CANON_RATIFICATION",
+    "previousScopedArtMagicBible": "PROFESSOR_APPROVED_VISUAL_CHARACTER_SCOPE_ONLY",
+    "previousSocialMediaProjectLaw": "PROFESSOR_RATIFIED_SHARED_PRODUCTION_WORKFLOW_ONLY",
+    "finalPublicAssetApproval": "PER_ASSET_PENDING",
+    "protectedMainMerge": "NOT_AUTHORIZED",
+    "externalPublication": "NOT_AUTHORIZED"
+  },
+  "identity": {
+    "publisher": {
+      "id": "eggieBagelface",
+      "display": "Eggie Bagelface",
+      "type": "creatorPublisher",
+      "parent": null,
+      "legalStatus": "NOT_INFERRED_FROM_BRAND"
+    },
+    "studio": {
+      "id": "pirateDaddiesFilm",
+      "display": "PIRATE DADDIES FILM",
+      "type": "filmMediaStudioImprint",
+      "parent": "eggieBagelface",
+      "historicalAliases": [
+        "Pirate Daddy's Film",
+        "Pirate Daddy Film"
+      ],
+      "renameRule": "Legacy title spelling remains evidence; current approved registry display is authoritative pending explicit conflict reconciliation."
+    },
+    "product": {
+      "id": "luhmOs",
+      "display": "LuHm-OS",
+      "type": "appChatGptWidgetCreativeCockpit",
+      "parent": "eggieBagelface",
+      "legacyAliases": [
+        "LuHm OS"
+      ],
+      "namespace": "luhmOs"
+    },
+    "world": {
+      "id": "projectPremonition",
+      "display": "Project Premonition",
+      "type": "flagshipGameWorldAndNarrative",
+      "parent": "luhmOs",
+      "legacyAliases": [
+        "Project Hydra"
+      ],
+      "rule": "World story identity does not rename software or publisher."
+    }
+  },
+  "visualSystem": {
+    "sourceMark": {
+      "path": "publicationSite/logo.svg",
+      "state": "SOURCE_EXISTS_FINAL_RIGHTS_AND_APPROVAL_PENDING",
+      "description": "geometric horned-L symbol"
+    },
+    "pluginMark": {
+      "path": "plugins/luhm-os/assets/logo.svg",
+      "state": "SOURCE_EXISTS_FINAL_RIGHTS_AND_APPROVAL_PENDING"
+    },
+    "currentExistingTokens": {
+      "background": "#17131f",
+      "mark": "#9f7aea",
+      "ink": "#f7f4ff",
+      "pluginBrandColor": "#7C3AED"
+    },
+    "candidateAccentTokens": {
+      "oniCyan": "UNSET_REQUIRES_ART_REVIEW",
+      "gothMagenta": "UNSET_REQUIRES_ART_REVIEW",
+      "studioOxblood": "UNSET_REQUIRES_ART_REVIEW"
+    },
+    "typography": {
+      "default": "system UI font stack",
+      "licenseRule": "self-host only licensed distributable fonts; no presumed proprietary font rights",
+      "tone": "retro-future cathedral + cyber-goth, readable at phone size",
+      "fontFamilyLock": "PENDING_PROFESSOR_VISUAL_REVIEW"
+    },
+    "sizing": {
+      "iconMaster": "vector SVG",
+      "appIcon": "adaptive Android raster variants after art approval",
+      "chatAvatar": "consistent crop-safe circle/square",
+      "safeArea": "preserve caption-safe areas and logo clear space",
+      "minTouchTargetCssPx": 44
+    },
+    "rules": [
+      "recognizable silhouette from 32px app icons to 4K trailers",
+      "no arbitrary rainbow theme forks or profile-specific names",
+      "motion must respect reduced-motion preferences",
+      "visual theme may adapt platform but never change canonical name",
+      "no third-party vendor badges or logos without independent permission",
+      "accessibility contrast and text size must be tested before release"
+    ]
+  },
+  "extensionLaw": {
+    "newHardware": "new vendor adapter/profile; reuse same product lockup and icon",
+    "newFeature": "new registered widget family or slot under luhmOs; no core rebrand",
+    "newPlatform": "responsive theme token profile and export receipt, no master rename",
+    "newMediaSeries": "campaign skin inherits studio publisher and master title lockup",
+    "majorRebrandRequires": "separate Professor decision + alias/migration plan, never implied by a UI tweak",
+    "legacyReceiptsNeverRewritten": true,
+    "brandVersioning": "MAJOR for intentional identity change, MINOR for approved family additions, PATCH for nonsemantic export/cropping corrections"
+  },
+  "proof": {
+    "brandArtworkApproved": false,
+    "allRequiredFormatsReady": false,
+    "allOriginalRightsVerified": false,
+    "pluginWidgetHostMounted": false,
+    "gameAssetRuntimeProven": false,
+    "publicProfilesUpdated": false
+  },
+  "publicationAuthority": false,
+  "productionSigningAuthority": false,
+  "workersQuarantined": true,
+  "crownStatus": "STOP"
+}
