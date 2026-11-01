@@ -31,7 +31,15 @@
         "height": 1.7,
         "depth": 0.518
       },
-      "godotImported": false
+      "godotImported": false,
+      "vertices": 38432,
+      "triangles": 27178,
+      "hasSkinJointAndWeightAttributes": true,
+      "materialCount": 1,
+      "embeddedImageCount": 1,
+      "textureCount": 2,
+      "animationDurationSeconds": 0.6333333333333333,
+      "mobileBudget": "UNBENCHMARKED_SAMSUNG_TARGET"
     },
     {
       "logicalName": "character",
@@ -51,7 +59,15 @@
         "height": 1.7,
         "depth": 0.518
       },
-      "godotImported": false
+      "godotImported": false,
+      "vertices": 38432,
+      "triangles": 27178,
+      "hasSkinJointAndWeightAttributes": true,
+      "materialCount": 1,
+      "embeddedImageCount": 1,
+      "textureCount": 2,
+      "animationDurationSeconds": 0,
+      "mobileBudget": "UNBENCHMARKED_SAMSUNG_TARGET"
     }
   ],
   "debugProduct": "PRIVATE_GODOT_RIG_BENCH_ZIP_CREATED_NOT_EXECUTED",
@@ -76,5 +92,6 @@
     "copyCrcPass": true,
     "originalShareExposureUnfixed": true,
     "copyPublished": false
-  }
+  },
+  "followup": "Godot 4.7 animation import; inspect static clip0 zero duration and 27k triangles/mobile frame budget. Public runtime not authorized."
 }
