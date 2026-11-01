@@ -2,6 +2,7 @@ extends CanvasLayer
 
 signal world_requested
 signal rehearsal_requested
+signal encore_requested
 signal backend_requested
 signal world_destination_requested(worldId: String)
 signal lum_talk_requested
@@ -32,6 +33,7 @@ var _talk: Button
 var _interact: Button
 var _interaction_tween: Tween
 var _audit_switch: CheckButton
+var _encore: Button
 var _audit_panel: Label
 var _pads: Array[Button] = []
 var _axes: Array[Vector2] = [Vector2.UP, Vector2.LEFT, Vector2.DOWN, Vector2.RIGHT]
@@ -91,6 +93,15 @@ func _build_backend() -> void:
     rehearsal.add_theme_font_size_override("font_size", 21)
     rehearsal.pressed.connect(func(): rehearsal_requested.emit())
     _panel.add_child(rehearsal)
+
+    _encore = Button.new()
+    _encore.name = "NightShiftEncore"
+    _encore.text = "NIGHT SHIFT ENCORE"
+    _encore.custom_minimum_size = Vector2(0, 76)
+    _encore.add_theme_font_size_override("font_size", 21)
+    _encore.visible = false
+    _encore.pressed.connect(func(): encore_requested.emit())
+    _panel.add_child(_encore)
 
     _audit_switch = CheckButton.new()
     _audit_switch.name = "AuditSealSwitch"
@@ -379,3 +390,10 @@ func set_fast_travel_enabled(enabled: bool) -> void:
     for button in _world_buttons:
         button.disabled = not enabled
         button.tooltip_text = "Complete First Night Circuit to unlock fast travel." if not enabled else "Fast travel"
+
+func set_encore_available(enabled: bool, next_night: int = 1) -> void:
+    if _encore == null:
+        return
+    _encore.visible = enabled
+    _encore.disabled = not enabled
+    _encore.text = "PLAY NIGHT SHIFT %d / 3" % next_night
