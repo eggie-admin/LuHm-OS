@@ -11,6 +11,8 @@ on:
       - 'tests/testMachineDebianSnapshot.py'
       - 'manual/machine-debian-four-layer-snapshot-20261101.md'
       - 'infra/machine-debian/**'
+      - 'doctrine/machineLocalAgentAuditV1.json'
+      - 'tools/luhm-machine-agent/**'
       - '.github/workflows/premonition-machine-wizard-audit.yml'
   workflow_dispatch:
 permissions:
@@ -70,6 +72,32 @@ jobs:
             -hide_banner -loglevel error -f lavfi -i color=c=black:s=64x64:r=1 \
             -frames:v 1 -an -f null -
           echo "DEBIAN_HEADLESS_FFMPEG_CPU_SMOKE_GREEN_HOST_KERNEL_UNCHANGED"
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '26'
+      - name: Audit local-first npm machine agent and Python SQLite bridge
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/machineLocalAgentAuditV1.json > /dev/null
+          cd tools/luhm-machine-agent
+          node --version
+          npm test
+          npm pack --dry-run --ignore-scripts --json > "$RUNNER_TEMP/machine-agent-npm-pack.json"
+          node bin/luhm-machine-audit.mjs audit --with-python > "$RUNNER_TEMP/machine-agent-source-receipt.json"
+          node bin/luhm-machine-audit.mjs remote-plan > "$RUNNER_TEMP/machine-agent-remote-boundary.json"
+          python3 - "$RUNNER_TEMP/machine-agent-source-receipt.json" "$RUNNER_TEMP/machine-agent-remote-boundary.json" <<'PY'
+          import json,sys
+          local=json.load(open(sys.argv[1],encoding="utf-8"))
+          remote=json.load(open(sys.argv[2],encoding="utf-8"))
+          assert local["matrixCells"]==16 and local["verdict"]=="AMBER_SOURCE_ONLY"
+          assert local["npmRuntimeDependencies"]==0 and local["pythonSqlInterop"]=="SOURCE_ONLY_VERIFIED"
+          assert not local["networkAccessed"] and not local["agentActivated"] and not local["kernelChanged"]
+          assert remote["status"]=="BLOCKED_PENDING_APPROVAL" and not remote["networkRequestMade"]
+          assert not remote["modelCalled"] and not remote["receiptPromotion"]
+          assert local["crownStatus"]==remote["crownStatus"]=="STOP"
+          print("MACHINE_AGENT_NPM_4X4_LOCAL_ONLY_PASS")
+          PY
       - name: Emit runner-safe read-only sample
         run: |
           python3 tools/machineToHumanWizard.py --json > "$RUNNER_TEMP/wizard-receipt.json"
@@ -89,5 +117,8 @@ jobs:
             ${{ runner.temp }}/machine-debian-source-snapshot.json
             ${{ runner.temp }}/debian-container-source-receipt.json
             ${{ runner.temp }}/luhm-machine-image-id.txt
+            ${{ runner.temp }}/machine-agent-source-receipt.json
+            ${{ runner.temp }}/machine-agent-remote-boundary.json
+            ${{ runner.temp }}/machine-agent-npm-pack.json
           retention-days: 14
           if-no-files-found: warn
