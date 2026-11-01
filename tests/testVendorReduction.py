@@ -60,6 +60,26 @@ class VendorReductionTests(unittest.TestCase):
             (assets/"index-abc123.js").write_bytes(b"x"*1600001)
             problems,_=module.inspectBuild(self.policy,path)
             self.assertIn("MAIN_JAVASCRIPT_SIZE_BUDGET",problems)
+    def testMultipageViteMainChunkAndKioskBudget(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp)
+            (path / "index.html").write_text("<!doctype html>", encoding="utf-8")
+            (path / "kiosk.html").write_text("<!doctype html>", encoding="utf-8")
+            assets = path / "assets"
+            assets.mkdir()
+            (assets / "main-goodhash.js").write_bytes(b"x" * 1220000)
+            (assets / "kiosk-goodhash.js").write_bytes(b"x" * 5100)
+            problems, info = module.inspectBuild(self.policy, path)
+            self.assertEqual(problems, [])
+            self.assertEqual(info["mainJavaScriptBytes"], 1220000)
+            self.assertEqual(info["kioskBootstrapJsBytes"], 5100)
+            (assets / "kiosk-goodhash.js").write_bytes(b"x" * 25001)
+            problems, _ = module.inspectBuild(self.policy, path)
+            self.assertIn("KIOSK_BOOTSTRAP_SIZE_BUDGET", problems)
+            (assets / "kiosk-goodhash.js").unlink()
+            problems, _ = module.inspectBuild(self.policy, path)
+            self.assertIn("KIOSK_BOOTSTRAP_SIZE_BUDGET", problems)
+
     def testAggregateJavaScriptBudgetCatchesGrowth(self):
         with tempfile.TemporaryDirectory() as tmp:
             path=Path(tmp)

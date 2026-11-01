@@ -95,7 +95,8 @@
     "mainBundleJsBytesMax": 1600000,
     "totalJavascriptBytesMax": 1900000,
     "cssBytesMax": 20000,
-    "reason": "CI emitted ~1.80 MB aggregate including Babylon shader/texture dynamic chunks while main JS is 1.22 MB; 1.90 MB total allows narrow 5.6% headroom and triggers on substantive vendor drift. Not Android runtime proof."
+    "reason": "The primary Vite chunk may be index-* or main-* in a multi-entry build. Keep primary <=1.60 MB and aggregate JS <=1.90 MB; independent DOM-first kiosk bootstrap <=25 KB. Real device performance remains unverified.",
+    "kioskBootstrapJsBytesMax": 25000
   },
   "baselineObserved": {
     "firstUnoptimizedMainJsBytes": 7002826,

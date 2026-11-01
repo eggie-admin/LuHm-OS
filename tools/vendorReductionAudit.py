@@ -96,11 +96,17 @@ def inspectBuild(policy: dict, dist: Path | None) -> tuple[list[str], dict]:
                         "sha256": sha256(data), "gzipBytes": len(gzip.compress(data, mtime=0))})
     js = [p for p in entries if p["asset"].endswith(".js")]
     css = [p for p in entries if p["asset"].endswith(".css")]
-    main = [p for p in js if re.search(r"(?:^|/)index-[A-Za-z0-9_-]+\.js$", p["asset"])]
+    main = [p for p in js if re.search(r"(?:^|/)(?:index|main)-[A-Za-z0-9_-]+\.js$", p["asset"])]
     problems = []
     budgets = policy["budgets"]
     if len(main) != 1 or main[0]["bytes"] > budgets["mainBundleJsBytesMax"]:
         problems.append("MAIN_JAVASCRIPT_SIZE_BUDGET")
+    # Vite multi-page builds still have one primary application chunk plus a
+    # small kiosk bootstrap; lazy-loading must never hide a bundle increase.
+    kiosk_html = dist / "kiosk.html"
+    kiosk = [p for p in js if re.search(r"(?:^|/)kiosk-[A-Za-z0-9_-]+\.js$", p["asset"])]
+    if kiosk_html.is_file() and (len(kiosk) != 1 or kiosk[0]["bytes"] > budgets["kioskBootstrapJsBytesMax"]):
+        problems.append("KIOSK_BOOTSTRAP_SIZE_BUDGET")
     totalJs = sum(p["bytes"] for p in js)
     cssSize = sum(p["bytes"] for p in css)
     if totalJs > budgets["totalJavascriptBytesMax"]:
@@ -111,6 +117,7 @@ def inspectBuild(policy: dict, dist: Path | None) -> tuple[list[str], dict]:
         "status": "MEASURED_SOURCE_BUILD_ONLY", "runtimeBenchmarked": False,
         "mainJavaScriptBytes": main[0]["bytes"] if main else None,
         "mainJavaScriptGzipBytes": main[0]["gzipBytes"] if main else None,
+        "kioskBootstrapJsBytes": kiosk[0]["bytes"] if len(kiosk) == 1 else None,
         "totalJavaScriptBytes": totalJs, "totalCssBytes": cssSize,
         "assetCount":len(entries), "assets":entries
     }

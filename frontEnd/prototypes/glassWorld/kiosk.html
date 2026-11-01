@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#141020">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; base-uri 'none'; form-action 'none'">
+<title>LuHm-OS | Pocket Kiosk</title>
+<link rel="stylesheet" href="./kiosk.css">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="kiosk-top"><strong>✦ LuHm-OS</strong><span>Project Premonition · Browser Studio</span><span class="kiosk-badge">LOCAL CANDIDATE</span></header>
+<main>
+  <section id="kiosk-entry" class="kiosk-entry" aria-labelledby="kiosk-title">
+    <div class="kiosk-copy">
+      <p class="kiosk-kicker">Four-layer glass cockpit</p>
+      <h1 id="kiosk-title">The Studio Door</h1>
+      <p>Build a scene without needing WebGL. When the GPU is ready, open a Babylon world. Unreal streaming is a separate, future service.</p>
+      <p class="kiosk-status" id="kiosk-capability" role="status" aria-live="polite">Checking browser capability…</p>
+    </div>
+    <div class="kiosk-fallback" aria-label="Original two-dimensional vector studio backdrop">
+      <svg viewBox="0 0 440 236" role="img" aria-labelledby="scene-title scene-description" xmlns="http://www.w3.org/2000/svg">
+        <title id="scene-title">First Night studio stage</title>
+        <desc id="scene-description">Original purple vector stage with three archways. Works without hardware graphics.</desc>
+        <rect width="440" height="236" fill="#1b142b"/>
+        <g fill="#39254b" stroke="#a08ac0" stroke-width="4">
+          <path d="M40 195V78Q40 29 101 29T162 78V195Z"/>
+          <path d="M276 195V78Q276 29 337 29T398 78V195Z"/>
+          <path d="M183 195V114Q183 68 220 68T257 114V195Z" fill="#bf9ddf"/>
+        </g>
+        <path d="M0 199H440" stroke="#87669f" stroke-width="8"/>
+        <path d="M220 192l-18 32h36Z" fill="#84e7f1"/>
+      </svg>
+      <p class="kiosk-fallback-label">SVG STAGE · NO GPU REQUIRED</p>
+      <ol id="kiosk-objects" aria-label="Placed stage objects"></ol>
+    </div>
+    <div class="kiosk-actions">
+      <button type="button" id="kiosk-add">+ Place a shape</button>
+      <button type="button" id="kiosk-clear">Clear shapes</button>
+      <button type="button" class="kiosk-primary" id="kiosk-webgl">Enter 3D studio</button>
+      <button type="button" id="kiosk-fullscreen">Optional fullscreen</button>
+    </div>
+    <p class="kiosk-note" id="kiosk-message" role="status" aria-live="polite">DOM mode is available. No camera, account, streaming service or AI worker is active.</p>
+  </section>
+  <section id="glass-world" class="workbench" hidden aria-label="Optional Babylon WebGL studio">
+    <section class="world" aria-label="Babylon interactive 3D world">
+      <canvas id="babylon-stage" tabindex="0" aria-label="Interactive Babylon 3D object stage"></canvas>
+      <div class="world-label">BABYLON WEBGL · Orbit by touch / pointer</div>
+      <aside class="avatar-dock" aria-label="Godot avatar boundary">
+        <div class="avatar-orb" aria-hidden="true">◇</div><strong>GODOT AVATAR · NOT MOUNTED</strong>
+        <p>Detailed Godot and Unreal characters are separate engines. No native avatar bridge is running here.</p>
+      </aside>
+    </section>
+    <aside id="local-media-deck" class="media-preview" aria-label="Local preview">
+      <h2>Media deck</h2><p>Preview your own local video or audio. No upload.</p>
+      <label>Local media file<input type="file" data-luhm-media-file accept=".mp4,.webm,.mp3,.wav,.ogg,.m4a,video/mp4,video/webm,audio/*"></label>
+      <video data-luhm-media-video hidden playsinline preload="metadata" aria-label="Local video preview"></video>
+      <audio data-luhm-media-audio hidden preload="metadata" aria-label="Local audio preview"></audio>
+      <p data-luhm-media-status role="status">No media selected.</p>
+    </aside>
+    <aside class="inspector" aria-label="Scene inspector and session">
+      <button type="button" id="kiosk-return">← Return to safe kiosk</button>
+      <p id="kiosk-render-status" class="small" role="status" aria-live="polite">3D studio starting…</p>
+      <div id="vue-inspector" aria-label="Vue 3 inspector"></div>
+    </aside>
+  </section>
+</main>
+<footer class="kiosk-foot">Local-first 2D → WebGL → optional remote render. Browser fullscreen is not OS kiosk lockdown. Exit is always available.</footer>
+<script type="module" src="./src/kiosk-entry.mjs"></script>
+</body>
+</html>
