@@ -13,7 +13,6 @@ import re
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "doctrine/premonitionPublicDiscoveryV1.json"
@@ -40,6 +39,7 @@ class PageParser(HTMLParser):
         self.headings: list[str] = []
         self.meta: list[dict[str, str]] = []
         self.links: list[str] = []
+        self.link_tags: list[dict[str, str]] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         a = {k.lower(): v or "" for k, v in attrs}
@@ -49,6 +49,8 @@ class PageParser(HTMLParser):
             self.headings.append("h1")
         if tag == "meta":
             self.meta.append(a)
+        if tag == "link":
+            self.link_tags.append(a)
         if tag in ("a", "link") and a.get("href"):
             self.links.append(a["href"])
 
@@ -157,7 +159,7 @@ def audit() -> dict[str, Any]:
                 _meta(page, "property", "og:image") or
                 _meta(page, "name", "twitter:image")):
             issues.append("RED_SEO_UNAPPROVED_PROMOTION_" + fname)
-        if any(x.get("rel") == "canonical" for x in page.meta):
+        if any(x.get("rel") == "canonical" for x in page.link_tags):
             issues.append("RED_SEO_INVALID_CANONICAL_" + fname)
         for href in page.links:
             if href.startswith("/"):
