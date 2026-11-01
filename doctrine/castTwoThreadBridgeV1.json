@@ -203,5 +203,21 @@
     "proposedHostOnlyPrivateFastApi": true,
     "readOnlyMcp": true
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "namingSpine": {
+    "contract": "doctrine/castIdentityHexRegistryV1.json",
+    "pythonImplementation": "host/api/luhmIdentityRegistry.py",
+    "privateNpmCandidate": "packages/luhm-canon-registry",
+    "identityLayers": [
+      "camelHump",
+      "vowelRipped",
+      "shorthand",
+      "utf8Hex"
+    ],
+    "typedSqlLanesFromExistingSchema": true,
+    "all16NamingCellsSourceOnly": true,
+    "aliasCollision": "STOP",
+    "hexNeverGrantsAuthority": true,
+    "noSystemEnvironmentChanges": true
+  }
 }
