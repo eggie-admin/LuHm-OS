@@ -6,6 +6,10 @@ on:
       - 'tools/machineToHumanWizard.py'
       - 'tests/testMachineToHumanWizard.py'
       - 'manual/machine-to-human-wizard.md'
+      - 'doctrine/machineDebianFourLayerV1.json'
+      - 'tools/machineDebianSnapshot.py'
+      - 'tests/testMachineDebianSnapshot.py'
+      - 'manual/machine-debian-four-layer-snapshot-20261101.md'
       - '.github/workflows/premonition-machine-wizard-audit.yml'
   workflow_dispatch:
 permissions:
@@ -24,6 +28,24 @@ jobs:
           python3 -m py_compile tools/machineToHumanWizard.py tests/testMachineToHumanWizard.py
       - name: Run synthetic host and no-mutation tests
         run: python3 -m unittest discover -s tests -p 'testMachineToHumanWizard.py' -v
+      - name: Validate Debian four-layer source and read-only machine snapshot
+        run: |
+          python3 -m json.tool doctrine/machineDebianFourLayerV1.json > /dev/null
+          python3 -m py_compile tools/machineDebianSnapshot.py tests/testMachineDebianSnapshot.py
+          python3 -m unittest discover -s tests -p 'testMachineDebianSnapshot.py' -v
+          python3 tools/machineDebianSnapshot.py > "$RUNNER_TEMP/machine-debian-source-snapshot.json"
+          python3 - "$RUNNER_TEMP/machine-debian-source-snapshot.json" <<'PY'
+          import json, sys
+          r=json.load(open(sys.argv[1],encoding="utf-8"))
+          assert r["matrixCells"] == 16 and r["logicalHex"] == [f"0x{i:02X}" for i in range(16)]
+          assert r["mode"] == "source" and r["verdict"] == "AMBER_SOURCE_ONLY"
+          assert r["sql"]["db"] == "SQLITE_MEMORY_STRICT" and not r["sql"]["externalDb"]
+          assert r["hostEvidence"] is None and not r["physicalDeviceVerified"]
+          assert not r["kernelBuilt"] and not r["kernelModified"]
+          assert not r["bootloaderModified"] and not r["partitionModified"]
+          assert r["crownStatus"] == "STOP"
+          print("MACHINE_DEBIAN_4X4_SOURCE_SNAPSHOT_GREEN_RUNTIME_UNVERIFIED")
+          PY
       - name: Emit runner-safe read-only sample
         run: |
           python3 tools/machineToHumanWizard.py --json > "$RUNNER_TEMP/wizard-receipt.json"
