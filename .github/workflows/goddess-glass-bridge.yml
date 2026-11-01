@@ -6,6 +6,8 @@ on:
       - "publicationSite/goddessGlassStudio.html"
       - "publicationSite/goddessGlassCapabilities.v1.json"
       - "doctrine/goddessGlassDomBridgeV1.json"
+      - "doctrine/goddessGlassVaultReconciliationV1.json"
+      - "tests/goddessVaultReconcile.test.mjs"
       - "host/edge/goddessGlassCapabilityWorker.mjs"
       - "tests/goddessGlassDomBridge.test.mjs"
       - "manual/goddess-glass-bridge.md"
@@ -25,7 +27,7 @@ jobs:
         with:
           node-version: "22"
       - name: Verify offline static studio and optional no-write edge API
-        run: node --test tests/goddessGlassDomBridge.test.mjs
+        run: node --test tests/goddessGlassDomBridge.test.mjs tests/goddessVaultReconcile.test.mjs
       - name: Validate JavaScript syntax in embedded static studio scripts
         run: |
           python - <<'PY'
