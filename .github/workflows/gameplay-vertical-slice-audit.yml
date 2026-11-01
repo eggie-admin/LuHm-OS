@@ -42,3 +42,11 @@ jobs:
           chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
       - name: Parse and import Godot project
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit
+
+      - name: Run 2.5D procedural Cathedral engine smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --quit-after 8 res://labs/first-night-pocket/PreRenderedStage.tscn | tee "$RUNNER_TEMP/first-night-2-5d.log"
+          grep -q 'FIRST_NIGHT_25D_STAGE_READY' "$RUNNER_TEMP/first-night-2-5d.log"
+          echo "FIRST_NIGHT_25D_PROCEDURAL_SCENE_HEADLESS_PASS"
