@@ -4,6 +4,10 @@ on:
     paths:
       - 'doctrine/machineToHumanWizardV1.json'
       - 'tools/machineToHumanWizard.py'
+      - 'doctrine/castTypedHexBoundariesV1.json'
+      - 'tools/castTypedHexBoundaries.py'
+      - 'tests/testCastTypedHexBoundaries.py'
+      - 'manual/castTypedHexBoundaries.md'
       - 'tests/testMachineToHumanWizard.py'
       - 'manual/machine-to-human-wizard.md'
       - '.github/workflows/premonition-machine-wizard-audit.yml'
@@ -22,6 +26,10 @@ jobs:
         run: |
           python3 -m json.tool doctrine/machineToHumanWizardV1.json > /dev/null
           python3 -m py_compile tools/machineToHumanWizard.py tests/testMachineToHumanWizard.py
+      - name: Typed security boundary 4x4 and negative checks
+        run: |
+          python3 -m unittest discover -s tests -p 'testCastTypedHexBoundaries.py' -v
+          python3 tools/castTypedHexBoundaries.py --self-test
       - name: Run synthetic host and no-mutation tests
         run: python3 -m unittest discover -s tests -p 'testMachineToHumanWizard.py' -v
       - name: Emit runner-safe read-only sample
