@@ -115,6 +115,17 @@
     <p id="studioMusicStatus" role="status">YouTube is disconnected. No autoplay.</p>
     <div id="studioMusicStage"></div><a id="studioMusicExternal" hidden target="_blank" rel="noopener" referrerpolicy="strict-origin-when-cross-origin">Open on YouTube</a>
   </section>
+
+  <section class="studioLevel" id="studioLocalMediaPanel" aria-labelledby="studioLocalMediaTitle">
+    <h2 id="studioLocalMediaTitle">Local media preview · VLC-compatible handoff</h2>
+    <p>Preview a file you choose with the browser's own decoder. No upload, autoplay, hidden VLC listener or remote playback. Unsupported formats stay local for optional desktop VLC.</p>
+    <label for="studioLocalMediaInput">Choose an owned video or audio file</label>
+    <input id="studioLocalMediaInput" type="file" accept=".mp4,.webm,.mp3,.m4a,.wav,.ogg,.ogv,.mkv,.avi,.flac,video/mp4,video/webm,audio/mpeg,audio/mp4,audio/wav,audio/ogg">
+    <div class="studioButtons"><button id="studioLocalMediaStop" type="button">Stop and forget media</button></div>
+    <p id="studioLocalMediaStatus" role="status" aria-live="polite">No local media selected. VLC is not installed or controlled by this browser.</p>
+    <video id="studioLocalVideo" controls playsinline preload="metadata" hidden aria-label="Local video preview"></video>
+    <audio id="studioLocalAudio" controls preload="metadata" hidden aria-label="Local audio preview"></audio>
+  </section>
   <section class="studioLevel" aria-labelledby="studioAssetsTitle">
     <h2 id="studioAssetsTitle">Asset register</h2><p>Choose originals to sort and fingerprint locally. Nothing is uploaded or unpacked. Rights and canon stay awaiting review.</p>
     <label for="studioAssetInput">Add files to the register</label><input id="studioAssetInput" type="file" multiple>
