@@ -15,7 +15,7 @@
     "naming": "doctrine/namingNamespaceCanonV1.json",
     "storage": "doctrine/storageTopologyV1.json"
   },
-  "godddesses": [
+  "goddesses": [
     {
       "id": "lum",
       "mode": "synthesizeAndRoute"
