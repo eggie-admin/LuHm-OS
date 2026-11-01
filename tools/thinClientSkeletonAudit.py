@@ -119,8 +119,8 @@ def audit(p: dict, modules: dict, composition: dict, vendor: dict,
          "MIXED_CONTENT_NEVER_ALLOW" in kotlin and
          "bridge_keys_rejected" in kotlin,
          "noPrivilegedJavascriptOrPersistence")
-    script_src = re.findall(r'<script\\b[^>]*\\bsrc\\s*=\\s*["\\\']([^"\\\']+)', html, re.I)
-    style_src = re.findall(r'<link\\b[^>]*\\bhref\\s*=\\s*["\\\']([^"\\\']+)', html, re.I)
+    script_src = re.findall(r"<script\b[^>]*\bsrc\s*=\s*['\"]([^'\"]+)", html, re.I)
+    style_src = re.findall(r"<link\b[^>]*\bhref\s*=\s*['\"]([^'\"]+)", html, re.I)
     need(bool(script_src) and bool(style_src) and
          all(x.startswith("./") for x in script_src + style_src) and
          "./vendor/jquery-3.7.1.min.js" in script_src and
@@ -130,7 +130,7 @@ def audit(p: dict, modules: dict, composition: dict, vendor: dict,
          frontend_package.get("dependencies") == {"jquery": "3.7.1"} and
          client.get("uiLibraryPinned") == "3.7.1",
          "minimalJqueryDependency")
-    direct = set(re.findall(r'\\bimplementation\\s*\\(\\s*"([^"]+)"', gradle))
+    direct = set(re.findall(r'\bimplementation\s*\(\s*"([^"]+)"', gradle))
     need(direct == EXPECTED_DIRECT and
          len(re.findall(r'\\b(?:api|implementation|runtimeOnly|compileOnly)\\s*\\(', gradle)) == 2 and
          'assets.srcDir("../../frontEnd")' in gradle,
