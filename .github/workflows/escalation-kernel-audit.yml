@@ -17,6 +17,8 @@ on:
       - 'agents/belldandyQualityOni/SKILL.md'
       - 'agents/skuldResearchOni/SKILL.md'
       - 'agents/yumeArtOni/SKILL.md'
+      - 'tools/castBridgeLoop.py'
+      - 'tests/testCastBridgeLoop.py'
       - 'tools/escalationKernel.py'
       - 'tools/escalationKernelAudit.py'
       - '.github/workflows/escalation-kernel-audit.yml'
@@ -28,7 +30,19 @@ permissions:
 jobs:
   escalation-kernel:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - name: Audit universal escalation kernel
         run: python3 tools/escalationKernelAudit.py
+      - name: Test bounded CAST continuation
+        run: python3 -m unittest discover -s tests -p testCastBridgeLoop.py -v
+      - name: Collect four-ladder exact-source evidence
+        run: python3 tools/castBridgeLoop.py
+      - name: Preserve CAST evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: cast-bridge-loop-${{ github.sha }}
+          path: build/castBridgeLoop/state.json
+          retention-days: 14
