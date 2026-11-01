@@ -152,7 +152,8 @@ def audit(p: dict, modules: dict, composition: dict, vendor: dict,
     direct = set(re.findall(r'\bimplementation\s*\(\s*"([^"]+)"', gradle))
     need(direct == EXPECTED_DIRECT and
          len(re.findall(r'\b(?:api|implementation|runtimeOnly|compileOnly)\s*\(', gradle)) == 2 and
-         'assets.srcDir("../../frontEnd")' in gradle,
+         'assets.srcDir(cockpitAssetsDirectory)' in gradle and
+         'assets.srcDir("../../frontEnd")' not in gradle,
          "thinAndroidDependencies")
     android = vendor.get("architectureProfiles", {}).get("samsungClient", {})
     linux = vendor.get("architectureProfiles", {}).get("linuxHeadless", {})
