@@ -55,7 +55,20 @@ async function main() {
   const receipt = auditStaticShell({ html, css, app });
   for (const source of receipt.sources) {
     try { await access(resolve(ROOT, source)); }
-    catch { receipt.failures.push("missing_local_asset:" + source); }
+    catch {
+      // Existing CI checks before stage:jquery. Only the exact pinned vendored
+      // jQuery path may be satisfied by its installed npm-lockfile source.
+      if (source === "vendor/jquery-3.7.1.min.js") {
+        try {
+          await access(resolve(ROOT, "node_modules/jquery/dist/jquery.min.js"));
+          receipt.jqueryStagePending = true;
+        } catch {
+          receipt.failures.push("missing_pinned_jquery_source");
+        }
+      } else {
+        receipt.failures.push("missing_local_asset:" + source);
+      }
+    }
   }
   if (receipt.failures.length) receipt.status = "RED_SOURCE";
   process.stdout.write(JSON.stringify(receipt, null, 2) + "\n");
