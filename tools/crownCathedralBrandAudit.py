@@ -68,9 +68,12 @@ def inspect(j: dict, site_logo: str, plugin_logo: str, html: str, license_text: 
          b.get("visualSystem", {}).get("pluginMark", {}).get("path") ==
          "plugins/luhm-os/assets/logo.svg" and
          site_logo == plugin_logo and "<svg" in site_logo, "actualLogoSource")
-    need(plugin.get("extensions", {}).get("com.openai", {}).get("interface", {}).get("brandColor") ==
+    interface = plugin.get("extensions", {}).get("com.openai", {}).get("interface", {})
+    need(interface.get("brandColor") ==
          b.get("visualSystem", {}).get("currentExistingTokens", {}).get("pluginBrandColor"),
          "existingPluginColor")
+    need(interface.get("displayName") == "LuHm-OS",
+         "canonicalChatGptPluginName")
     need(license_text.lstrip().startswith("GNU GENERAL PUBLIC LICENSE") and
          plugin.get("license") == "GPL-3.0-only", "licenseTruth")
     need(set(c.get("canonicalGameCast", {})) == CAST and
