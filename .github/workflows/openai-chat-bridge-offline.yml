@@ -105,6 +105,11 @@ on:
       - "tests/testBrandVmSealAudit.py"
       - "host/mcp/luhmBrandVmSealTools.py"
       - "manual/brand-vm-seal-runbook.md"
+      - "doctrine/localOpenVmKernelProfileV1.json"
+      - "tools/localOpenVmKernelGate.py"
+      - "tests/testLocalOpenVmKernelGate.py"
+      - "host/mcp/luhmLocalOpenVmKernelTools.py"
+      - "manual/local-open-kernel-vm-runbook.md"
   workflow_dispatch:
 
 permissions:
@@ -132,7 +137,7 @@ jobs:
       - name: Install pinned local-test-only dependencies
         run: python -m pip install 'cryptography==46.0.4' 'fastapi==0.128.2' 'httpx==0.28.1' 'PyYAML==6.0.2'
       - name: Compile staged bridge and ASGI modules
-        run: python -m py_compile host/api/luhmOpenAiChatBridge.py host/mcp/luhmOpenAiChatTools.py host/remote/luhmWmsVmManager.py host/mcp/luhmWmsVmTools.py host/api/luhmCanonOrchestration.py host/api/luhmClientFastApi.py host/api/luhmCryptoBreathing.py host/api/luhmCryptoSqlite.py host/api/luhmMariaDbReceipt.py host/mcp/luhmOrchestrationTools.py host/mcp/luhmCryptoTools.py host/api/luhmGpuVideoPlanner.py host/mcp/luhmGpuVideoTools.py tools/gpuVideoMinuteFixture.py tools/headlessMachineMatrixAudit.py tools/leanVmForgeAudit.py host/mcp/luhmLeanVmForgeTools.py tools/premonitionPlatformArtAudit.py host/mcp/luhmPlatformArtTools.py tools/githubSqlSourceAudit.py host/mcp/luhmGithubSqlTools.py tools/hostileModForgeAudit.py host/mcp/luhmHostileModForgeTools.py tools/creativeCommunityAudit.py tools/creativeCommunityCli.py host/mcp/luhmCreativeModuleTools.py tools/retroTileTextCodec.py tools/portableOsRecipeAudit.py tools/rSyntheticTuningGate.py tools/finalThreeMachineGate.py host/mcp/luhmFinalThreeMachineTools.py tools/brandVmSealAudit.py host/mcp/luhmBrandVmSealTools.py
+        run: python -m py_compile host/api/luhmOpenAiChatBridge.py host/mcp/luhmOpenAiChatTools.py host/remote/luhmWmsVmManager.py host/mcp/luhmWmsVmTools.py host/api/luhmCanonOrchestration.py host/api/luhmClientFastApi.py host/api/luhmCryptoBreathing.py host/api/luhmCryptoSqlite.py host/api/luhmMariaDbReceipt.py host/mcp/luhmOrchestrationTools.py host/mcp/luhmCryptoTools.py host/api/luhmGpuVideoPlanner.py host/mcp/luhmGpuVideoTools.py tools/gpuVideoMinuteFixture.py tools/headlessMachineMatrixAudit.py tools/leanVmForgeAudit.py host/mcp/luhmLeanVmForgeTools.py tools/premonitionPlatformArtAudit.py host/mcp/luhmPlatformArtTools.py tools/githubSqlSourceAudit.py host/mcp/luhmGithubSqlTools.py tools/hostileModForgeAudit.py host/mcp/luhmHostileModForgeTools.py tools/creativeCommunityAudit.py tools/creativeCommunityCli.py host/mcp/luhmCreativeModuleTools.py tools/retroTileTextCodec.py tools/portableOsRecipeAudit.py tools/rSyntheticTuningGate.py tools/finalThreeMachineGate.py host/mcp/luhmFinalThreeMachineTools.py tools/brandVmSealAudit.py host/mcp/luhmBrandVmSealTools.py tools/localOpenVmKernelGate.py host/mcp/luhmLocalOpenVmKernelTools.py
       - name: Test offline and quarantine gates
         run: python -m unittest discover -s tests -p 'testOpenAiChatBridge.py' -v
       - name: Test WMS VM manager no-network and Canon guards
@@ -160,6 +165,10 @@ jobs:
         run: |
           python tools/brandVmSealAudit.py
           python -m unittest discover -s tests -p 'testBrandVmSealAudit.py' -v
+      - name: Test open source local kernel and network-denied VM source
+        run: |
+          python tools/localOpenVmKernelGate.py audit
+          python -m unittest discover -s tests -p 'testLocalOpenVmKernelGate.py' -v
       - name: Test CAST name/hex registry Python parity
         run: python -m unittest discover -s tests -p 'testCastIdentityRegistry.py' -v
       - name: Test CAST Bridge two-thread source and private FastAPI claims
