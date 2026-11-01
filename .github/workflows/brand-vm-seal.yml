@@ -1,0 +1,39 @@
+name: LuHm Brand Hex Vector VM Seal
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/brandVmArchitectureSealV1.json"
+      - "publicationSite/brandSealCandidate.svg"
+      - "publicationSite/vmBootPreview.html"
+      - "tools/brandVmSealAudit.py"
+      - "tests/testBrandVmSealAudit.py"
+      - "host/mcp/luhmBrandVmSealTools.py"
+      - "host/mcp/luhmHarnessServer.py"
+      - "manual/brand-vm-seal-runbook.md"
+      - ".github/workflows/brand-vm-seal.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-verified:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile source and prohibit untrusted host proof
+        run: |
+          python -m py_compile tools/brandVmSealAudit.py host/mcp/luhmBrandVmSealTools.py
+          python tools/brandVmSealAudit.py
+          python -m unittest discover -s tests -p 'testBrandVmSealAudit.py' -v
+          python -m unittest discover -s tests -p 'testMachineFourArchitectureAudit.py' -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Cross-check private hexadecimal naming and hardware sorting
+        run: npm test --prefix packages/luhm-canon-registry

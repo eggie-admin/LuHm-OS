@@ -1,0 +1,390 @@
+{
+  "schema": "luhmOs.leanVmForgeAlignment.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "snapshotDate": "2026-11-01",
+  "sourceLaw": "AI proposes. Policy authorizes. Deterministic evidence proves. Professor promotes.",
+  "canonicalRepo": "eggie-admin/LuHm-OS",
+  "canonicalBranch": "main",
+  "desiredSourceLicense": "Apache-2.0_FOR_INDEPENDENT_ORIGINAL_MODULES_ONLY",
+  "actualRootLicense": "GPL-3.0",
+  "licenseDecision": "HOLD_FOR_COMPONENT_BY_COMPONENT_COPYRIGHT_AND_LICENSE_REVIEW",
+  "sourceAnchors": [
+    "AGENTS.md",
+    "LICENSE",
+    "render.yaml",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/githubRenderSidecarV1.json",
+    "doctrine/storageTopologyV1.json",
+    "doctrine/networkSpineV1.json",
+    "doctrine/cloudflareEdgeHardeningV1.json",
+    "doctrine/vendorReductionV1.json",
+    "doctrine/remoteWmsMachineBridgeV1.json",
+    "doctrine/remoteWmsPluginSlotsV1.json",
+    "doctrine/headlessUniversalVmMatrixV1.json",
+    "doctrine/remoteGpuVideoPipelineV1.json",
+    "doctrine/typedFourLaneSqlV1.json",
+    "doctrine/cryptoBreathingEscalationV1.json",
+    "host/api/typedLanesV1.sql",
+    "host/api/luhmMariaDbReceiptV1.sql",
+    "host/api/luhmClientFastApi.py",
+    "host/mcp/luhmHarnessServer.py"
+  ],
+  "fourLanes": [
+    {
+      "id": "source",
+      "role": "GitHub source/CI, signed provenance, exact digest; markdown documentation is evidence not executable authority",
+      "boundaries": [
+        "sourceSha40",
+        "sha256ContentDigest64",
+        "artifactBytesPointer"
+      ]
+    },
+    {
+      "id": "execution",
+      "role": "private Python MCP/FastAPI, SQLite STRICT, optional MariaDB, headless VM, isolated media GPU",
+      "boundaries": [
+        "sourceOnlyUntilHostReceipt",
+        "sqlitePrivate",
+        "mariaDbDisabledByDefault",
+        "noDeviceProof"
+      ]
+    },
+    {
+      "id": "transport",
+      "role": "existing Render HTTPS MCP, separately candidate Netplan/proxy/Tunnel/VM connectivity",
+      "boundaries": [
+        "noPublicSql",
+        "noPublicAdmin",
+        "noNewPortForward",
+        "preserveStreamingMcp"
+      ]
+    },
+    {
+      "id": "rights",
+      "role": "licenses, company worker quarantine, credentials, free-tier cost and final owner control",
+      "boundaries": [
+        "GPL3RootCannotBeRelabeled",
+        "apache2NewModulesReview",
+        "zeroNewSpendDefault",
+        "noSelfPromotion"
+      ]
+    }
+  ],
+  "fourLevels": [
+    {
+      "id": "localhost",
+      "tier": 0,
+      "exposes": "inProcessPrivateOnly",
+      "engine": "Python3SQLite",
+      "sourceOnly": true
+    },
+    {
+      "id": "privateVm",
+      "tier": 1,
+      "exposes": "hostLoopbackOnly",
+      "engine": "hostKernelPlusOptionalQemuGuest",
+      "sourceOnly": true
+    },
+    {
+      "id": "trustedProxy",
+      "tier": 2,
+      "exposes": "verifiedExistingMcpOrSeparatelyAuthorizedOutboundTunnel",
+      "engine": "existingRenderMcpFirst",
+      "sourceOnly": true
+    },
+    {
+      "id": "enterpriseCandidate",
+      "tier": 3,
+      "exposes": "explicitZeroTrustGatewayWithMtlsAndTenantScope",
+      "engine": "providerNeutralOptionalWorkers",
+      "sourceOnly": true
+    }
+  ],
+  "machineFileTypes": {
+    ".md": {
+      "kind": "humanDocumentation",
+      "role": "instructionsAndReceipts",
+      "executable": false
+    },
+    ".json": {
+      "kind": "typedContract",
+      "role": "canonMachinePolicy",
+      "executable": false
+    },
+    ".yaml": {
+      "kind": "configuration",
+      "role": "CIAndNetplanRenderExamples",
+      "executable": false
+    },
+    ".yml": {
+      "kind": "configuration",
+      "role": "GitHubActionsTrigger",
+      "executable": false
+    },
+    ".sql": {
+      "kind": "queryOrMigration",
+      "role": "schemaAndDatabaseMutationNeedsAuthorization",
+      "executable": false
+    },
+    ".py": {
+      "kind": "interpretedProgram",
+      "role": "hostLogicNeedsExplicitRunner",
+      "executable": true
+    },
+    "hex": {
+      "kind": "bytesRepresentation",
+      "role": "sourceSHAAndContentDigestNotEncryptionOrMachineCode",
+      "executable": false
+    }
+  },
+  "actualComponents": [
+    {
+      "id": "github",
+      "path": "doctrine/githubRenderSidecarV1.json",
+      "role": "canonicalSourceAndCi",
+      "state": "CONFIGURED_SOURCE_NO_LIVE_VM_PROOF"
+    },
+    {
+      "id": "render",
+      "path": "render.yaml",
+      "role": "existingSidecarsWithManualDeploy",
+      "state": "CONFIGURED_SOURCE_PRESERVE_MAIN"
+    },
+    {
+      "id": "mcp",
+      "path": "host/mcp/luhmHarnessServer.py",
+      "role": "ChatGPTToolTransport",
+      "state": "SOURCE_MODULE_NOT_PRIVATE_SITE_PLUGIN"
+    },
+    {
+      "id": "fastapi",
+      "path": "host/api/luhmClientFastApi.py",
+      "role": "tokenProtectedOptionalPrivateHostApi",
+      "state": "SOURCE_ONLY_LOCALHOST"
+    },
+    {
+      "id": "sqlite",
+      "path": "host/api/typedLanesV1.sql",
+      "role": "strictLocalReceiptAndStreamSchemas",
+      "state": "SOURCE_ONLY_PRIVATE"
+    },
+    {
+      "id": "mariadb",
+      "path": "host/api/luhmMariaDbReceiptV1.sql",
+      "role": "optionalRemotePrivateReceiptIndex",
+      "state": "DDL_NOT_APPLIED"
+    },
+    {
+      "id": "network",
+      "path": "doctrine/networkSpineV1.json",
+      "role": "dnsProxyAndZoneIdentity",
+      "state": "SOURCE_POLICY_ONLY"
+    },
+    {
+      "id": "edge",
+      "path": "doctrine/cloudflareEdgeHardeningV1.json",
+      "role": "preserveCloudflareDNSAndRenderMcpStreaming",
+      "state": "SOURCE_POLICY_NO_TUNNEL_ACTIVATION"
+    },
+    {
+      "id": "headlessVm",
+      "path": "doctrine/headlessUniversalVmMatrixV1.json",
+      "role": "PiArm64X86QemuLibvirtPlanning",
+      "state": "UNCONNECTED"
+    },
+    {
+      "id": "gpuVideo",
+      "path": "doctrine/remoteGpuVideoPipelineV1.json",
+      "role": "oneMinuteVideoDeliverablesNotWallClockGuarantee",
+      "state": "OFFLINE_TEST_ONLY"
+    },
+    {
+      "id": "license",
+      "path": "LICENSE",
+      "role": "actualRootGPL3NotApache2",
+      "state": "LEGAL_REVIEW_REQUIRED"
+    }
+  ],
+  "netplan": {
+    "examplePath": "config/netplan/90-luhm-vm-dhcp.example.yaml",
+    "status": "UNAPPLIED_EXAMPLE_ONLY",
+    "onlyOnSupportedUbuntuNetplanGuests": true,
+    "cloudInitOwnershipCheckRequired": true,
+    "mustIdentifyRealInterfaceBeforeApply": true,
+    "mayReplaceProviderCloudInitConfig": false,
+    "generateBeforeTry": true,
+    "netplanTryWithVerifiedConsoleRequired": true,
+    "localRollbackVerificationRequired": true,
+    "mayRunNetplanApply": false,
+    "neverChangeCurrentHostNetworkFromCI": true
+  },
+  "proxy": {
+    "currentMcpOrigin": "https://luhm-os-harness-green.onrender.com/mcp",
+    "currentMode": "DIRECT_RENDER_MANAGED_TLS_SOURCE_POLICY",
+    "noAutomaticCloudflareProxyOnMcp": true,
+    "websocketOrSseStreamingTestBeforeAnyProxy": true,
+    "privateAdminRoutePrefix": "/v1/",
+    "privateSqlPorts": [
+      3306,
+      5432
+    ],
+    "privateSshPort": 22,
+    "forbidPublicAdmin": true,
+    "forbidPublicSql": true,
+    "forbidPublicGpu": true,
+    "forbidBrowserSecrets": true,
+    "forbidTrustingClientForwardedHeaders": true,
+    "neverCacheMcpOrAuth": true,
+    "candidatePrivateTunnel": "outboundOnlyCloudflaredAfterSeparateIdentityMfaAndOriginTlsProof",
+    "candidatePrivateReverseProxy": "nginxOptionalOnlyWhenNeeded",
+    "avoidAddingApacheHttpdAndNginxTogether": true,
+    "noLiveProxyMutation": true
+  },
+  "sql": {
+    "sqliteDdl": "host/api/typedLanesV1.sql",
+    "mariadbDdl": "host/api/luhmMariaDbReceiptV1.sql",
+    "canonicalIdentity": [
+      "taskId",
+      "sourceRef",
+      "scopeId"
+    ],
+    "sourceRefEncoding": "lowercase40HexGitCommitIdentityForThisRepo",
+    "artifactSha256Encoding": "lowercase64Hex",
+    "noBinaryInSql": true,
+    "noSecretsInSql": true,
+    "mariaDbTlsAndAuthRequired": true,
+    "defaultDatabase": "SQLiteStrictPrivate",
+    "noProductionDdl": true
+  },
+  "freeVmResearch": {
+    "meaning": "candidateOffersNotUserEligibilityOrActiveAccounts",
+    "reviewedAt": "2026-11-01",
+    "guaranteesZeroCost": false,
+    "providers": [
+      {
+        "id": "oracle",
+        "kind": "ALWAYS_FREE_QUOTA",
+        "compute": "A1 Arm first 1500 OCPU hours + 9000 GB hours monthly (roughly 2 OCPU/12GB full month), plus eligible AMD micro quota",
+        "gpuFree": false,
+        "availability": "capacityConstrainedAndHomeRegion",
+        "requiresAccountReview": true,
+        "url": "https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm"
+      },
+      {
+        "id": "google",
+        "kind": "ALWAYS_FREE_QUOTA",
+        "compute": "one e2-micro monthly instance time in us-west1/us-central1/us-east1, plus 30GB-month standard persistent disk",
+        "gpuFree": false,
+        "availability": "egressBandwidthAndOtherChargesCanApply",
+        "requiresAccountReview": true,
+        "url": "https://docs.cloud.google.com/free/docs/free-cloud-features"
+      },
+      {
+        "id": "azure",
+        "kind": "INTRODUCTORY_FREE_12_MONTHS",
+        "compute": "eligible burstable B-series VM up to 750 hours/month for new customers; exact VM shapes and period must be verified per region/account",
+        "gpuFree": false,
+        "availability": "12MonthWindowAndSeparateDiskEgressCosts",
+        "requiresAccountReview": true,
+        "url": "https://azure.microsoft.com/en-us/pricing/free-services/"
+      },
+      {
+        "id": "aws",
+        "kind": "INTRODUCTORY_CREDIT_6_MONTHS",
+        "compute": "new-account free plan up to 200 USD promotional credits, ends after 6 months or depletion",
+        "gpuFree": false,
+        "availability": "notAlwaysFreeEc2AndCreditsRequireBillingGuardrails",
+        "requiresAccountReview": true,
+        "url": "https://aws.amazon.com/about-aws/whats-new/2025/07/aws-free-tier-credits-month-free-plan/"
+      }
+    ],
+    "notFullVm": [
+      {
+        "id": "githubActions",
+        "role": "ephemeralCiNotPersistentVm",
+        "url": "https://github.com/pricing"
+      },
+      {
+        "id": "renderFree",
+        "role": "existingWebHarnessNotGeneralPurposeFreeVm",
+        "source": "render.yaml"
+      },
+      {
+        "id": "cloudflareTunnel",
+        "role": "outboundNetworkProxyNotCompute",
+        "url": "https://developers.cloudflare.com/tunnel/"
+      }
+    ],
+    "gpuComputeForVideoFreeIncluded": false,
+    "recommendedOrder": [
+      "existingRenderHarnessReadOnly",
+      "oracleA1CandidateOnly",
+      "googleE2MicroCandidateOnly",
+      "othersAfterEntitlementVerification"
+    ]
+  },
+  "vendorWalls": [
+    {
+      "id": "githubHostedCI",
+      "owner": "GitHub",
+      "action": "useSupportedInterfacesOnlyNotMutateHostedRunner"
+    },
+    {
+      "id": "cloudProviderHypervisor",
+      "owner": "OracleGoogleAzureAws",
+      "action": "guestOsOnlyRespectIamQuotaAndToS"
+    },
+    {
+      "id": "cloudDnsTls",
+      "owner": "CloudflareRender",
+      "action": "inspectObservedManagedOriginDoNotSelfSignOrReplaceAuthority"
+    },
+    {
+      "id": "androidVendorDrivers",
+      "owner": "SamsungAndroid",
+      "action": "runtimePermissionsAndSupportedSdkOnly"
+    },
+    {
+      "id": "copyrightedMedia",
+      "owner": "thirdPartyIPOwners",
+      "action": "noAutoImportOfRomsBiosModelsPrivateAssets"
+    },
+    {
+      "id": "retroMediaLicenses",
+      "owner": "eachUpstreamLicensor",
+      "action": "separateProcessOrPackageUntilRightsReviewed"
+    },
+    {
+      "id": "repoRootGPL",
+      "owner": "actualContributorsAndThirdParties",
+      "action": "noBlanketRelicensingToApache2"
+    },
+    {
+      "id": "chatGptSitePlugin",
+      "owner": "existingPrivateSiteBackend",
+      "action": "GitHubSourceUpdateIsNotSiteBackendUpdate"
+    }
+  ],
+  "machineProof": {
+    "maxPasses": 4,
+    "onUnknown": "HOLD",
+    "onRed": "STOP",
+    "continueOnlyWhenExactSourceAndSameScope": true,
+    "testsAreNotHardwareProof": true,
+    "sourceOnlyCanGrantCrown": false,
+    "companyAgentsQuarantined": true,
+    "noAutoMerge": true,
+    "noAutoDeploy": true,
+    "noNewSpend": true
+  },
+  "references": [
+    "https://netplan.io/",
+    "https://netplan.io/faq",
+    "https://apache.org/licenses/GPL-compatibility.html",
+    "https://developers.cloudflare.com/tunnel/"
+  ],
+  "crownStatus": "STOP"
+}

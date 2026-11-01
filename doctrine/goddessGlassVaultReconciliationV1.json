@@ -1,0 +1,229 @@
+{
+  "schema": "luhmOs.goddessGlassVaultReconciliation.v1",
+  "status": "PRIVATE_ACTUAL_GLB_RECOVERED_NOT_PUBLIC_RELEASE_OR_PLUGIN_MOUNTED",
+  "product": "LuHm-OS",
+  "project": "Project Premonition",
+  "authority": "Professor",
+  "sourcePriority": [
+    "game/canon/CHARACTER_CANON_V1.json",
+    "game/assets/CHARACTER_ASSET_INGEST_V1.json",
+    "game/assets/ASSET_MANIFEST_V1.json",
+    "doctrine/goddessGlassDomBridgeV1.json"
+  ],
+  "noRawPrivateDriveIdsInPublicGit": true,
+  "noPrivateBinaryAssetsInPublicGit": true,
+  "fourLanes": [
+    {
+      "id": "characterIdentity",
+      "required": "existing game canonical silhouette and art-bible review"
+    },
+    {
+      "id": "artifactBytes",
+      "required": "original source hash, model import and texture rig verification"
+    },
+    {
+      "id": "scenery",
+      "required": "source sky parallax layers, separate actual HDR/cubemap proof"
+    },
+    {
+      "id": "chatDock",
+      "required": "existing plugin mount plus independent upgraded 3D resource proof"
+    }
+  ],
+  "availableVault": {
+    "lumAnimatedVideo": {
+      "kind": "video/mp4",
+      "dimensions": [
+        512,
+        640
+      ],
+      "fps": 8,
+      "durationSeconds": 6.25,
+      "sha256": "1a20bd7bf495ee930d2cc9dab9342d7cb29d326ce0c7f433c206581ebdddad97",
+      "status": "BYTE_VERIFIED_PRIVATE_2D_ANIMATION",
+      "threeDimensionalModel": false,
+      "importedIntoGame": false,
+      "releaseApproved": false
+    },
+    "lumAnimatedGif": {
+      "kind": "image/gif",
+      "dimensions": [
+        512,
+        640
+      ],
+      "status": "DRIVE_FILE_OBSERVED_PRIVATE_ANIMATED_ART",
+      "threeDimensionalModel": false,
+      "releaseApproved": false
+    },
+    "lumHistoricGlbPack": {
+      "kind": "historicalPrivateZipAudit",
+      "name": "yumeRaw3dHardenedCandidate.zip",
+      "sha256": "89bb095f4f8ee5865dacfb8785aceda38f57a96709e1867671b1c3f3f34e478b",
+      "reportedFiles": [
+        "lumCharacter.glb",
+        "lumRunning.glb"
+      ],
+      "status": "HISTORIC_SOURCE_AUDIT_SUPERSEDED_BY_VERIFIED_LOOSE_DRIVE_GLBS",
+      "liveGodotImportProven": false,
+      "legalReleaseCleared": false
+    },
+    "skyPlates": [
+      {
+        "scene": "steel",
+        "name": "Steel Mill Afternoon",
+        "format": "webp",
+        "role": "2D_PARALLAX_SKY_NOT_HDRI",
+        "sha256": "76af1c3cc186a00a94ad6c07e539c03a1b6ba1cdb0eeca4eb84f77971fc3174a"
+      },
+      {
+        "scene": "date",
+        "name": "Date Area Night",
+        "format": "webp",
+        "role": "2D_PARALLAX_SKY_NOT_HDRI",
+        "sha256": "ec4f3164aa739bea063d2306b30c64cd07636a502d554778adcde958d3759619"
+      },
+      {
+        "scene": "lab",
+        "name": "Dev Lab Night",
+        "format": "webp",
+        "role": "2D_PARALLAX_SKY_NOT_HDRI",
+        "sha256": "b5c29aadcaada35354cbc6f2a163b2c2446a5c41ed38e197c4877ca4b3f58da0"
+      }
+    ],
+    "skyPack": "KAI9000_LUM_CSS_PARALLAX_INGEST_20260914.zip",
+    "lumLive3dModels": [
+      {
+        "id": "lum",
+        "variant": "idle",
+        "filename": "lum_idle.glb",
+        "sizeBytes": 9223892,
+        "sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
+        "meshCount": 1,
+        "skinCount": 1,
+        "animationCount": 1,
+        "materialCount": 1,
+        "embeddedImages": 1,
+        "vertexCount": 38432,
+        "faceCount": 27178,
+        "source": "PRIVATE_DRIVE",
+        "status": "EXACT_BYTES_VERIFIED_PRIVATE_ENGINE_IMPORT_UNPROVEN"
+      },
+      {
+        "id": "lum",
+        "variant": "running",
+        "filename": "lum_running.glb",
+        "sizeBytes": 9232024,
+        "sha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0",
+        "meshCount": 1,
+        "skinCount": 1,
+        "animationCount": 1,
+        "materialCount": 1,
+        "embeddedImages": 1,
+        "vertexCount": 38432,
+        "faceCount": 27178,
+        "source": "PRIVATE_DRIVE",
+        "status": "EXACT_BYTES_VERIFIED_PRIVATE_ENGINE_IMPORT_UNPROVEN"
+      }
+    ],
+    "eveBlenderReference": {
+      "kind": "PrivateRAR5AndBlender42Source",
+      "archiveSizeBytes": 53132120,
+      "archiveSHA256": "b710acf1a92eb818fad490a416357aa1a90311738a77de049dd29ed1239ee575",
+      "blenderUncompressedBytes": 76001036,
+      "blendSHA256": "d0e8950bf2e6b69b6efc811ab29cbf4580af824382e447e9d2cfed7606a9f92f",
+      "status": "SOURCE_BYTES_RECOVERED_PRIVATE_REFERENCE_UNLICENSED_FOR_PUBLIC_RUNTIME",
+      "notShippable": true,
+      "modelExportVerified": false
+    },
+    "stellarisMaterials": {
+      "status": "NOT_FOUND_IN_CURRENT_CONNECTED_DRIVE_SEARCH",
+      "notShippable": true
+    }
+  },
+  "roster": [
+    {
+      "id": "lum",
+      "baseline": "EXISTING_CANDIDATE_CANON",
+      "visualMaster": "ART_BIBLE_REFERENCE",
+      "liveRigStatus": "MODEL_BYTES_AND_SKELETAL_CLIPS_VERIFIED_GODOT_IMPORT_PENDING",
+      "driveAssetAvailable": "2D_VIDEO_AND_TWO_REAL_RIGGED_GLB_FILES_EXACT_BYTE_VERIFIED"
+    },
+    {
+      "id": "urd",
+      "baseline": "EXISTING_CANDIDATE_CANON",
+      "visualMaster": "ART_BIBLE_REFERENCE",
+      "liveRigStatus": "NOT_FOUND"
+    },
+    {
+      "id": "belldandy",
+      "baseline": "EXISTING_CANDIDATE_CANON",
+      "visualMaster": "ART_BIBLE_REFERENCE",
+      "liveRigStatus": "NOT_FOUND"
+    },
+    {
+      "id": "skuld",
+      "baseline": "EXISTING_CANDIDATE_CANON",
+      "visualMaster": "ART_BIBLE_REFERENCE",
+      "liveRigStatus": "NOT_FOUND"
+    },
+    {
+      "id": "yume",
+      "baseline": "ART_STUDIO_ROLE_PREVIEW_ONLY",
+      "visualMaster": "UNPROVEN",
+      "liveRigStatus": "NOT_FOUND"
+    }
+  ],
+  "runtime": {
+    "privateOfflinePreviewCreated": true,
+    "privateOfflinePreviewInGit": false,
+    "pluginReadOnlyMobileCockpitInvoked": true,
+    "pluginObservedSourceRef": "27184814dbd279a2a1e8daa5cfa8a7ebcbad0472",
+    "newerDraftSourceNeedsDeployment": true,
+    "glassDockNewVersionMounted": false,
+    "realGlbRuntimeLoaded": false,
+    "unrealEnginePlayer": false,
+    "actualCubemapHdrSkybox": false,
+    "cloudflareRemoteRequired": false,
+    "sqlLiveMigrationPerformed": false,
+    "privateActualGlbGodotProjectPackCreated": true,
+    "privateThreeDimensionalPlotlyVertexMeshInspectionCreated": true,
+    "actualEngineRenderProven": false
+  },
+  "gates": {
+    "hashReconciled": true,
+    "atlasReferenceOnly": true,
+    "visualCanonOwnerApprovalRequired": true,
+    "glbSourceRightsUnverified": true,
+    "privatelyPreviewable": true,
+    "publicReleaseAuthorized": false,
+    "productionPromotion": false
+  },
+  "correction": "Two real rigged Lum GLBs are now recovered and byte verified. Their Godot import and visible device playback remain unproven; never confuse private packed models with a live plugin/Crown release. Private EVE Blender source is recovered but copyright/usage rights remain private-only.",
+  "crownStatus": "STOP",
+  "privateRealCast20261101": {
+    "authorization": "CAST",
+    "scope": "ONE_BOUND_PRIVATE_GODOT_SOURCE_IMPORT_AND_HEADLESS_LAUNCH",
+    "source": "PRIVATE_RECOVERED_ASSET_ZIP_NOT_COMMITTED",
+    "originalGlbUnmodified": true,
+    "fixes": [
+      "GDSCRIPT_NEWLINE_SYNTAX",
+      "SCENE_ROOT_SCALE_X100_TO_1_7M"
+    ],
+    "sourceProof": {
+      "passed": 36,
+      "total": 36,
+      "status": "SOURCE_PREFLIGHT_PASS_ENGINE_RUNTIME_UNPROVEN"
+    },
+    "runtimeAttempt": {
+      "exitCode": 10,
+      "result": "STOP_ENGINE_UNAVAILABLE",
+      "godotExeInstalled": false
+    },
+    "browserProof": "BLOCKED_BY_ADMINISTRATOR",
+    "artifactZipSha256": "82b867c2181205c043fcb41cb55ab57175d152c83fe4100ac8fddabbac1405bf",
+    "bundledPrivateModels": false,
+    "godotEngineRendered": false,
+    "publicReleaseAuthorized": false,
+    "crownStatus": "STOP_ENGINE_RUNTIME_NOT_PROVEN"
+  }
+}

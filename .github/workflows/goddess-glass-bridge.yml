@@ -1,0 +1,60 @@
+name: LuHm Goddess Glass DOM Bridge Source
+
+on:
+  pull_request:
+    paths:
+      - "publicationSite/goddessGlassStudio.html"
+      - "publicationSite/goddessGlassCapabilities.v1.json"
+      - "doctrine/goddessGlassDomBridgeV1.json"
+      - "doctrine/goddessGlassVaultReconciliationV1.json"
+      - "tests/goddessVaultReconcile.test.mjs"
+      - "host/edge/goddessGlassCapabilityWorker.mjs"
+      - "tests/goddessGlassDomBridge.test.mjs"
+      - "manual/goddess-glass-bridge.md"
+      - ".github/workflows/goddess-glass-bridge.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  read-only-dom-bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify offline static studio and optional no-write edge API
+        run: node --test tests/goddessGlassDomBridge.test.mjs tests/goddessVaultReconcile.test.mjs
+      - name: Validate JavaScript syntax in embedded static studio scripts
+        run: |
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          class Scripts(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.collect = False
+                  self.parts = []
+                  self.scripts = []
+              def handle_starttag(self, name, attrs):
+                  if name == 'script':
+                      self.collect = True
+                      self.parts = []
+              def handle_endtag(self, name):
+                  if name == 'script' and self.collect:
+                      self.scripts.append(''.join(self.parts))
+                      self.collect = False
+              def handle_data(self, data):
+                  if self.collect:
+                      self.parts.append(data)
+          p=Scripts()
+          p.feed(Path('publicationSite/goddessGlassStudio.html').read_text(encoding='utf8'))
+          assert len(p.scripts)==2
+          for n, script in enumerate(p.scripts):
+              Path('/tmp/goddess_script_'+str(n)+'.mjs').write_text(script)
+          PY
+          node --check /tmp/goddess_script_0.mjs
+          node --check /tmp/goddess_script_1.mjs

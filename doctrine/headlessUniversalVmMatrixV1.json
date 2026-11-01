@@ -1,0 +1,420 @@
+{
+  "schema": "luhmOs.headlessUniversalVmMatrix.v1",
+  "status": "PROPOSED_READ_ONLY_CANDIDATE",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "inputTermResolution": {
+    "wms": "UNRESOLVED_REMOTE_MANAGER_VENDOR",
+    "obc": "UNRESOLVED_USER_LABEL",
+    "obs": "CANDIDATE_ONLY_NOT_VERIFIED_SYNONYM"
+  },
+  "coreDesign": "oneThinChatGptPresentationOneCanonicalLumControlPlaneManyIsolatedGuestWorkloads",
+  "sourceAnchors": [
+    "AGENTS.md",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/remoteWmsMachineBridgeV1.json",
+    "doctrine/remoteWmsPluginSlotsV1.json",
+    "doctrine/lumTwoLaneFastApiOrchestrationV1.json",
+    "doctrine/cryptoBreathingEscalationV1.json",
+    "doctrine/typedFourLaneSqlV1.json",
+    "doctrine/storageTopologyV1.json"
+  ],
+  "architecture": {
+    "client": "Existing ChatGPT seven-visual-plane cockpit, mobile Android thin client; not local root/GDM/server",
+    "api": "Existing MCP harness and private optional FastAPI planner; no direct privileged camera/VM/SSH endpoint in browser",
+    "control": "Lum same exact taskId/sourceRef/scopeId with one read-only evidence lane",
+    "host": "Physical Pi OS Lite/Debian/Ubuntu ARM64 or x86_64 minimal Linux kernel; no forced universal kernel image",
+    "guest": "libvirt/QEMU abstraction optional, gated KVM support or slower TCG cross-CPU emulation",
+    "workload": "isolated RetroArch/Kodi/optional Plex/OBS/MediaPipe/FFmpeg units outside minimal host",
+    "storage": "SQLite metadata receipts, Google Drive for approved durable binaries, snapshots keyed by SHA256 and separate signing proof",
+    "network": "default deny, no raw hypervisor/SQL/camera/OBS WebSocket ports published",
+    "update": "existing R1-R4 SHA/HMAC/AES-GCM candidate gate plus separate publisher signature and rollback; never auto install"
+  },
+  "dimensions": {
+    "lanes": 4,
+    "stages": [
+      "R1",
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "cells": 16,
+    "meter": "hearResolveActVerify"
+  },
+  "matrix": [
+    {
+      "lane": "foundation",
+      "title": "Headless host + kernel",
+      "boundary": "Physical Pi/ARM64 or x86_64 Linux host retains kernel, firmware and drivers; VM never replaces host kernel",
+      "technology": [
+        "Raspberry Pi OS Lite",
+        "Debian/Ubuntu LTS",
+        "Linux namespaces/cgroups",
+        "systemd"
+      ],
+      "licensePolicy": "Distribution, kernel and package licenses reviewed per component",
+      "stages": [
+        {
+          "id": "foundationR1",
+          "stage": "R1",
+          "tier": 0,
+          "objective": "Verify observed arch, kernel, OS, boot firmware provenance, exact source SHA",
+          "requiredEvidence": [
+            "archReceipt",
+            "kernelReceipt",
+            "sourceRef"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        },
+        {
+          "id": "foundationR2",
+          "stage": "R2",
+          "tier": 1,
+          "objective": "Audit local-only services, rootless role, SSH host-key pinning, minimal device ACLs",
+          "requiredEvidence": [
+            "serviceInventory",
+            "networkAclReceipt",
+            "sshHostKeyAttestation"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        },
+        {
+          "id": "foundationR3",
+          "stage": "R3",
+          "tier": 2,
+          "objective": "Prove CPU/RAM/cgroup/thermal/storage limits and recoverable configuration snapshot",
+          "requiredEvidence": [
+            "resourceBenchmark",
+            "snapshotDigest",
+            "rollbackReceipt"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        },
+        {
+          "id": "foundationR4",
+          "stage": "R4",
+          "tier": 3,
+          "objective": "Review owner host changes, signing/update authority and physical Pi boot proof",
+          "requiredEvidence": [
+            "ownerReceipt",
+            "physicalBootReceipt",
+            "ciExactSha"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        }
+      ]
+    },
+    {
+      "lane": "virtualization",
+      "title": "VM and emulation substrate",
+      "boundary": "Per-architecture libvirt/QEMU feature probing; KVM only where supported; TCG CPU emulation fallback is slower",
+      "technology": [
+        "libvirt",
+        "QEMU",
+        "KVM",
+        "virtio",
+        "QEMU TCG"
+      ],
+      "licensePolicy": "GPL/LGPL component review before distribution",
+      "stages": [
+        {
+          "id": "virtualizationR1",
+          "stage": "R1",
+          "tier": 0,
+          "objective": "Distinguish host aarch64/x86_64, KVM availability and QEMU TCG compatibility",
+          "requiredEvidence": [
+            "cpuArch",
+            "devKvmReceipt",
+            "qemuCapabilities"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        },
+        {
+          "id": "virtualizationR2",
+          "stage": "R2",
+          "tier": 1,
+          "objective": "Define unprivileged libvirt session, deny network exposure and USB passthrough by default",
+          "requiredEvidence": [
+            "libvirtModeReceipt",
+            "isolationPolicy",
+            "deviceAclReview"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        },
+        {
+          "id": "virtualizationR3",
+          "stage": "R3",
+          "tier": 2,
+          "objective": "Proof isolated test guest boot, bounded resource meters, snapshot restore and verified artifacts",
+          "requiredEvidence": [
+            "guestBootProof",
+            "resourceBench",
+            "snapshotRestoreDigest"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        },
+        {
+          "id": "virtualizationR4",
+          "stage": "R4",
+          "tier": 3,
+          "objective": "Review signed guest image provenance, explicit target and rollback before VM changes",
+          "requiredEvidence": [
+            "imageSignature",
+            "ownerReceipt",
+            "rollbackProof"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        }
+      ]
+    },
+    {
+      "lane": "emulationMedia",
+      "title": "Retro + media sandbox",
+      "boundary": "RetroArch/libretro cores, Kodi and Plex are guest workloads or separate services, never privileged kernel modules",
+      "technology": [
+        "RetroArch",
+        "libretro API",
+        "Kodi JSON-RPC",
+        "Plex optional",
+        "FFmpeg"
+      ],
+      "licensePolicy": "RetroArch GPLv3; individual core licenses vary; Kodi copyleft; Plex proprietary; no copyrighted BIOS/ROM distribution",
+      "stages": [
+        {
+          "id": "emulationMediaR1",
+          "stage": "R1",
+          "tier": 0,
+          "objective": "Record emulator/core/media version, license, allowed content, BIOS/ROM provenance",
+          "requiredEvidence": [
+            "upstreamLicenseReceipt",
+            "coreInventory",
+            "contentRightsLedger"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        },
+        {
+          "id": "emulationMediaR2",
+          "stage": "R2",
+          "tier": 1,
+          "objective": "Read-only libretro capability, Kodi JSON-RPC and optional Plex APIs with no WAN exposure",
+          "requiredEvidence": [
+            "apiCapabilityMap",
+            "authNetworkReview",
+            "protocolVersion"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        },
+        {
+          "id": "emulationMediaR3",
+          "stage": "R3",
+          "tier": 2,
+          "objective": "Compare direct-play vs transcoding, ARM64 vs x86 emulation, JIT/TCG CPU budget and netplay isolation",
+          "requiredEvidence": [
+            "latencyBench",
+            "jitPolicy",
+            "mediaProof",
+            "networkIsolationReceipt"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        },
+        {
+          "id": "emulationMediaR4",
+          "stage": "R4",
+          "tier": 3,
+          "objective": "Release only rights-cleared, separately approved core/content bundles or demo media",
+          "requiredEvidence": [
+            "rightsReview",
+            "ownerApproval",
+            "exactArtifactDigest"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        }
+      ]
+    },
+    {
+      "lane": "captureMotion",
+      "title": "Camera, audio and motion capture",
+      "boundary": "Android CameraX/Open Camera or host libcamera/V4L2 with per-session consent; OBS automation and MediaPipe run as isolated consumers",
+      "technology": [
+        "Android CameraX",
+        "Open Camera/F-Droid",
+        "OBS WebSocket",
+        "libcamera/V4L2",
+        "MediaPipe Pose",
+        "Blender/FFmpeg"
+      ],
+      "licensePolicy": "Open Camera GPLv3+; OBS GPLv2+; upstream code and model terms separately reviewed",
+      "stages": [
+        {
+          "id": "captureMotionR1",
+          "stage": "R1",
+          "tier": 0,
+          "objective": "Discover cameras/mics/Bluetooth roles without opening sensors; require runtime Android grants and operator consent",
+          "requiredEvidence": [
+            "deviceInventoryReceipt",
+            "permissionModel",
+            "userConsent"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        },
+        {
+          "id": "captureMotionR2",
+          "stage": "R2",
+          "tier": 1,
+          "objective": "Plan OBS WebSocket authenticated control, bounded capture jobs and local host-only device access",
+          "requiredEvidence": [
+            "obsProtocolVersion",
+            "tlsOrTunnelProof",
+            "deviceAclReview"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        },
+        {
+          "id": "captureMotionR3",
+          "stage": "R3",
+          "tier": 2,
+          "objective": "Prove frame timestamps, multi-camera calibration, pose landmarks, FFmpeg format and storage budgets",
+          "requiredEvidence": [
+            "captureFixture",
+            "syncErrorMs",
+            "mocapBench",
+            "privacyReview"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        },
+        {
+          "id": "captureMotionR4",
+          "stage": "R4",
+          "tier": 3,
+          "objective": "Physical Samsung/Pi capture proof and explicit consent before storing, streaming, or publishing",
+          "requiredEvidence": [
+            "physicalDeviceReceipt",
+            "permissionsProof",
+            "rightsAndPrivacyApproval"
+          ],
+          "localProofState": "UNKNOWN",
+          "liveExecution": false
+        }
+      ]
+    }
+  ],
+  "sourceReferences": [
+    {
+      "id": "raspberryPi",
+      "url": "https://www.raspberrypi.com/documentation/computers/os.html",
+      "use": "Lite headless OS and supported CPU arches"
+    },
+    {
+      "id": "libvirt",
+      "url": "https://libvirt.org/drvqemu",
+      "use": "KVM vs session/system isolation and QEMU capability probing"
+    },
+    {
+      "id": "qemu",
+      "url": "https://www.qemu.org/docs/master/system/introduction.html",
+      "use": "KVM, TCG, virtio and QMP architecture"
+    },
+    {
+      "id": "retroarch",
+      "url": "https://github.com/libretro/RetroArch",
+      "use": "modular libretro core design and GPLv3 frontend"
+    },
+    {
+      "id": "libretroLicenses",
+      "url": "https://docs.libretro.com/development/licenses/",
+      "use": "per-core licensing and noncommercial blockers"
+    },
+    {
+      "id": "retroarchBios",
+      "url": "https://docs.libretro.com/guides/bios/",
+      "use": "content and firmware provenance boundaries"
+    },
+    {
+      "id": "kodi",
+      "url": "https://kodi.wiki/view/JSON-RPC_API",
+      "use": "remote media control protocol"
+    },
+    {
+      "id": "plex",
+      "url": "https://support.plex.tv/articles/200375666-plex-media-server-requirements/",
+      "use": "server resource/transcode baseline; proprietary service optional"
+    },
+    {
+      "id": "obs",
+      "url": "https://github.com/obsproject/obs-websocket",
+      "use": "versioned OBS remote-control API"
+    },
+    {
+      "id": "openCamera",
+      "url": "https://f-droid.org/en/packages/net.sourceforge.opencamera/",
+      "use": "camera permissions, external mic and APK metadata"
+    },
+    {
+      "id": "fdroid",
+      "url": "https://github.com/f-droid/fdroidserver",
+      "use": "packaging, metadata and reproducibility reference"
+    },
+    {
+      "id": "cameraX",
+      "url": "https://developer.android.com/media/camera/camerax/architecture",
+      "use": "Android camera lifecycle and permissions"
+    },
+    {
+      "id": "mediapipe",
+      "url": "https://github.com/google-ai-edge/mediapipe-samples/blob/main/examples/pose_landmarker/raspberry_pi/README.md",
+      "use": "Pi camera pose prototype"
+    }
+  ],
+  "security": {
+    "softwareLicenseSourceOnlyResearch": true,
+    "copyUpstreamSourceByDefault": false,
+    "romOrFirmwareDistributionAllowed": false,
+    "unverifiedJitAllowed": false,
+    "optionalPlexNotFoss": true,
+    "USBPassthroughAllowed": false,
+    "cameraOpenAllowed": false,
+    "streamingAllowed": false,
+    "authenticatedWebsocketRequired": true,
+    "remoteShellAllowed": false,
+    "rawNetworkUpdateAllowed": false,
+    "kernelMutationAllowed": false,
+    "VMProvisionAllowed": false,
+    "physicalBootProven": false,
+    "liveMediaCaptureProven": false,
+    "noAutonomousAgentUnquarantine": true,
+    "noAutomaticCrown": true
+  },
+  "loop": {
+    "order": [
+      "R1",
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "maxPasses": 4,
+    "continueCondition": "only same identity, stage-local PASS from externally supplied attested receipt and all earlier stages PASS",
+    "unknownOrMissing": "HOLD",
+    "contradiction": "STOP",
+    "terminal": "HOLD_FOR_PROFESSOR",
+    "noHiddenBackgroundExecution": true
+  },
+  "runtimeStatus": "UNCONNECTED_SOURCE_ONLY",
+  "crownStatus": "STOP"
+}
