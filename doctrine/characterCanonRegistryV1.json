@@ -1,0 +1,87 @@
+{
+  "schema": "luhmOs.characterCanonRegistry.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "sourceOfNames": "game/canon/CHARACTER_CANON_V1.json",
+  "sourceOfArtDirection": "doctrine/yumeArtDirectionCanonV1.json",
+  "sourceOf3dTruth": "doctrine/yumeGoddess3dProductionV1.json",
+  "priorScopedApproval": "LuHm Art Magic Character Bible v0.1: PROFESSOR_APPROVED for visual roleplay/art direction, not public release.",
+  "oneCanon": true,
+  "format": "characterId -> protected Blender master -> hash and rights receipt -> approved GLB/PBR/2D export -> Godot/import and widget/media variants",
+  "canonicalGameCast": {
+    "lum": {
+      "state": "existingDesignAndRigged3dCandidate",
+      "visual": "auburn updo, subtle horns, teal-black executive tailoring, cyan-magenta accents",
+      "mustProve": [
+        "topology",
+        "visemes",
+        "skinWeight",
+        "riggedMotion",
+        "rights",
+        "GodotImport",
+        "ProfessorPublicApproval"
+      ]
+    },
+    "urd": {
+      "state": "2dDesignCandidate3dMissing",
+      "visual": "mature vampy tech-goth, oxblood and magenta thread motifs"
+    },
+    "belldandy": {
+      "state": "2dDesignCandidate3dMissing",
+      "visual": "warm ivory black oxblood antique-gold cathedral goth"
+    },
+    "skuld": {
+      "state": "2dDesignCandidate3dMissing",
+      "visual": "adult petite tech engineer, black ivory chrome hardware accessories"
+    }
+  },
+  "separatePersonaAndRoles": {
+    "yume": "art direction agent identity, not automatically a game character",
+    "oniTwins": "planned role/cast family; individual public designs still need Canon identities",
+    "bigDaddy": "owner-inspired protected persona; no public likeness derivative without explicit approval",
+    "antiDaddy": "story villain; source/visual proof pending"
+  },
+  "masterAssetPacket": [
+    "characterId",
+    "canonicalName",
+    "originalAuthor",
+    "sourceSha256",
+    "protectedMasterRef",
+    "copyrightLicense",
+    "contentLane",
+    "adultStatusWhenRelevant",
+    "paletteTokens",
+    "turnaround",
+    "expressionSheet",
+    "spriteAtlas",
+    "meshTopologyReport",
+    "rigAndBlendshapeReport",
+    "animationSet",
+    "godotImportReceipt",
+    "professorArtApproval",
+    "publicAllowed"
+  ],
+  "technicalRules": {
+    "blenderMasterPrivate": true,
+    "format3d": "glTF2.0 GLB",
+    "godotTarget": "4.7",
+    "faceAndSilhouetteDistinct": true,
+    "motionAndDeformationTestRequired": true,
+    "noGenericCharacterReplacement": true,
+    "oneIdentityAcrossAllLanes": true,
+    "privateSourceNeverPublic": true,
+    "noPublicGeneratedReplacementDefault": true,
+    "unknownRightsBlockPublic": true,
+    "franchiseLookalikeRequiresCommercialIpReview": true
+  },
+  "statusMatrix": {
+    "lum": "AMBER_RIGGED_CANDIDATE",
+    "urd": "AMBER_VISUAL_CANDIDATE",
+    "belldandy": "AMBER_VISUAL_CANDIDATE",
+    "skuld": "AMBER_VISUAL_CANDIDATE",
+    "bigDaddy": "PRIVATE_VISUAL_REFERENCE",
+    "oniTwins": "DESIGN_PENDING"
+  },
+  "publicationAuthority": false,
+  "crownStatus": "STOP"
+}
