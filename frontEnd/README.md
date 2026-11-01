@@ -29,6 +29,21 @@ For desktop/static development only, this directory may still be served from a l
 
 The baseline works without jQuery. Community jQuery plugins are quarantined under `plugins/incoming/` until audited. Approved plugins can then be adapted behind the plugin contract described in `plugins/README.md`.
 
+## Universal browser and optional desktop kiosk (source-only)
+
+The same plain HTML, local JavaScript and CSS shell is proposed for Firefox, Safari,
+Chromium/Chrome, ChromeOS browser/PWA, Debian/Ubuntu and Raspberry Pi OS browser
+sessions. See `manual/universalStaticShellKiosk20261101.md` for system/display
+separation, legacy X11 versus recommended Pi labwc Wayland, VDM clarification,
+installation choices, security and platform receipt requirements.
+
+`npm run check` now exercises a standalone static-shell audit and deliberate
+negative controls. Its status is **source-only**, not a live rendering,
+hardware/browser certification, kiosk installation or Play-store pass. A static
+CSP meta policy is defense in depth for standalone previews; the actual
+origin must also set HTTP security headers (including frame-ancestors).
+No generic browser receives Android native privileges.
+
 ## Trust boundary
 
 Front-end code must never contain API keys, credentials, model secrets, arbitrary shell execution, direct database credentials, or privileged device actions. Consequential actions remain Crown-gated behind the typed native/Godot boundary. The WebView cockpit itself has no shell, signing, publication, release, or Crown authority.
