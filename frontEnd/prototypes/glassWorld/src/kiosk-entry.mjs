@@ -37,6 +37,11 @@ function showObjects() {
   }
 }
 function safeFallback(reason) {
+  if (launched) {
+    launched = false;
+    // Avoid disposal re-entrancy inside Babylon's WebGL context-loss callback.
+    queueMicrotask(() => window.dispatchEvent(new Event("luhm:kiosk:exit")));
+  }
   if (!kiosk.stopped) kiosk = kioskTransition(kiosk, "RENDER_FAILURE");
   entry.hidden = false;
   world.hidden = true;
