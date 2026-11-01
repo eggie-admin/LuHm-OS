@@ -59,7 +59,7 @@ on:
       - "doctrine/hostileModForge4x4V1.json"
       - "tools/hostileModForgeAudit.py"
       - "tests/testHostileModForge.py"
-      - "host/mcp/luhmHostileModForgeTools.py host/api/luhmCastTwoThreadBridge.py host/mcp/luhmCastTwoThreadTools.py host/api/luhmIdentityRegistry.py host/mcp/luhmIdentityRegistryTools.py"
+      - "host/mcp/luhmHostileModForgeTools.py host/api/luhmCastTwoThreadBridge.py host/mcp/luhmCastTwoThreadTools.py host/api/luhmIdentityRegistry.py host/mcp/luhmIdentityRegistryTools.py tools/machineFourArchitectureAudit.py host/mcp/luhmMachineArchitectureTools.py"
       - "manual/hostile-mod-forge-runbook.md"
       - "doctrine/castTwoThreadBridgeV1.json"
       - "host/api/luhmCastTwoThreadBridge.py"
@@ -74,6 +74,11 @@ on:
       - "tests/testCastIdentityRegistry.py"
       - "packages/luhm-canon-registry/**"
       - "manual/cast-naming-hex-spine-runbook.md"
+      - "doctrine/machineFourArchitectureForgeV1.json"
+      - "tools/machineFourArchitectureAudit.py"
+      - "tests/testMachineFourArchitectureAudit.py"
+      - "host/mcp/luhmMachineArchitectureTools.py"
+      - "manual/machine-four-architecture-forge.md"
   workflow_dispatch:
 
 permissions:
@@ -110,6 +115,10 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'testCryptoBreathing.py' -v
           python -m unittest discover -s tests -p 'testCryptoSqlite.py' -v
+      - name: Test offline machine four-family and synthetic IPS source
+        run: |
+          python tools/machineFourArchitectureAudit.py
+          python -m unittest discover -s tests -p 'testMachineFourArchitectureAudit.py' -v
       - name: Test CAST name/hex registry Python parity
         run: python -m unittest discover -s tests -p 'testCastIdentityRegistry.py' -v
       - name: Test CAST Bridge two-thread source and private FastAPI claims
