@@ -41,7 +41,9 @@ class DebugReadinessTests(unittest.TestCase):
         self.assertEqual(len(names), len(set(names)))
         for name in ("godot-android-source", "android-webview-boundary",
                      "plugin-first-install", "jquery-cockpit-contract",
-                     "device-collector-negative-tests", "cross-layer-release-boundary"):
+                     "device-collector-negative-tests", "cross-layer-release-boundary",
+                     "frontend-html-safety", "rebel-in-chat-draft", "backend-api-routing",
+                     "mcp-host-syntax", "agent-roster-source", "agent-quarantine-source"):
             self.assertIn(name, names)
 
     def test_nonzero_never_passes(self):
