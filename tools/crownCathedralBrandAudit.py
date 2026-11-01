@@ -21,7 +21,9 @@ CONTRACTS = {
     "canonCast": "game/canon/CHARACTER_CANON_V1.json",
     "lanes": "doctrine/contentLaneDoctrineV1.json",
     "dock": "doctrine/glassPluginDockV1.json",
-    "plugin": "plugins/luhm-os/plugin.json"
+    "plugin": "plugins/luhm-os/plugin.json",
+    "workingTitle": "doctrine/workingTitleCastV1.json",
+    "projectChat": "doctrine/projectChatCanonV1.json"
 }
 NAMES = {"publisher": "Eggie Bagelface", "studio": "PIRATE DADDIES FILM",
          "product": "LuHm-OS", "world": "Project Premonition"}
@@ -36,6 +38,58 @@ def inspect(j: dict, site_logo: str, plugin_logo: str, html: str, license_text: 
             problems.append(code)
     b, c, w, m, v, a = (j[k] for k in ("brand", "characters", "widgets", "motion", "vault", "assets"))
     org, canon, lanes, dock, plugin = (j[k] for k in ("organization", "canonCast", "lanes", "dock", "plugin"))
+    title = j["workingTitle"]
+    project_chat = j["projectChat"]
+    need(title.get("schema") == "luhmOs.workingTitleCast.v1" and
+         title.get("authority") == "Professor" and
+         title.get("status") == "PROPOSED_SOURCE_TITLE_CAST" and
+         title.get("scopeId") == "workingTitleAliasOnly" and
+         title.get("crownStatus") == "STOP",
+         "workingTitleContract")
+    tp, tg = title.get("workingTitle", {}).get("product", {}), title.get("workingTitle", {}).get("project", {})
+    need(tp.get("display") == "Llama" and tp.get("machineAlias") == "llama" and
+         tp.get("canonicalProduct") == "LuHm-OS" and
+         tp.get("publicProductName") == "LuHm-OS" and
+         tp.get("kind") == "internalWorkingTitle" and
+         tp.get("externalRegistrationOrMarketingAllowed") is False,
+         "llamaIsAliasNotPublicRename")
+    need(tg.get("display") == "Project Premonition" and
+         tg.get("machineName") == "projectPremonition" and
+         tg.get("historicalName") == "Project Hydra" and
+         tg.get("publicReleaseTitleFinal") is False,
+         "premonitionWorkingProject")
+    wt = b.get("workingTitles", {})
+    need(b.get("workingTitleContract") == "doctrine/workingTitleCastV1.json" and
+         wt.get("internalProduct") == "Llama" and
+         wt.get("internalProject") == "Project Premonition" and
+         wt.get("canonicalExternalProduct") == "LuHm-OS" and
+         wt.get("commercialNameReview") == "PENDING_META_LLAMA_TRADEMARK_CLEARANCE",
+         "brandWorkingTitleAlias")
+    development = project_chat.get("developmentIdentity", {})
+    need(development.get("productWorkingTitle") == "Llama" and
+         development.get("projectWorkingTitle") == "Project Premonition" and
+         development.get("productName") == "LuHm-OS" and
+         development.get("machineName") == "projectPremonition" and
+         development.get("workingTitleContract") == "doctrine/workingTitleCastV1.json" and
+         development.get("workingTitlePolicy") ==
+         "INTERNAL_ALIAS_ONLY_AMBIGUITY_REQUIRES_LUHM_CONTEXT",
+         "chatWorkingTitleAlias")
+    trademark = title.get("trademarkBoundary", {})
+    need(all(trademark.get(key) is True for key in (
+         "noPublicLlamaProductCoBranding", "noImpliedMetaEndorsement",
+         "noMetaLogo", "noTrademarkOrDomainRegistration",
+         "privateWorkingCodenameOnly", "commercialClearanceBeforePublicName",
+         "licenseOfLlamaModelsNotInferred")),
+         "metaLlamaTrademarkFirewall")
+    release = title.get("release", {})
+    need(release.get("titleAliasRecorded") is True and
+         all(release.get(k) is False for k in (
+             "actualPluginHostRenamed", "actualAndroidPackageRenamed",
+             "metaPartnershipVerified", "publicNameChanged", "publicGameLaunch")) and
+         release.get("crownStatus") == "STOP" and
+         title.get("publicationAuthority") is False and
+         title.get("productionSigningAuthority") is False,
+         "workingTitleDoesNotShip")
     for key, obj, schema in [
         ("brand", b, "luhmOs.brandCanon.v1"),
         ("characters", c, "luhmOs.characterCanonRegistry.v1"),
@@ -153,10 +207,22 @@ def main() -> None:
     negatives.append(("mismatchedLogo", (j, site_logo, "<svg/>", html, license_text)))
     negatives.append(("fakeLicense", (j, site_logo, plugin_logo, html,
                                       "Apache License Version 2.0")))
+    alter("titleBecomesPublicProduct", "workingTitle",
+          lambda x: x["workingTitle"]["product"].update(publicProductName="Llama"))
+    alter("titleAutoMarketing", "workingTitle",
+          lambda x: x["workingTitle"]["product"].update(externalRegistrationOrMarketingAllowed=True))
+    alter("fakeMetaAffiliation", "workingTitle",
+          lambda x: x["trademarkBoundary"].update(noImpliedMetaEndorsement=False))
+    alter("titleClaimsPluginRename", "workingTitle",
+          lambda x: x["release"].update(actualPluginHostRenamed=True))
+    alter("projectTitleDrift", "projectChat",
+          lambda x: x["developmentIdentity"].update(projectWorkingTitle="Project Hydra"))
+    alter("missingAliasContract", "brand",
+          lambda x: x.update(workingTitleContract=""))
     for label, args in negatives:
         if not inspect(*args):
             raise SystemExit("RED_CROWN_BRAND_FALSE_GREEN:" + label)
-    print("GREEN_CROWN_CATHEDRAL_BRAND_SOURCE_10_NEGATIVE_CONTROLS")
+    print("GREEN_CROWN_CATHEDRAL_BRAND_SOURCE_16_NEGATIVE_CONTROLS")
     print("SOURCE_ONLY: brand visual approvals, public post changes, 3D models, and ChatGPT host unproven")
 
 

@@ -20,7 +20,11 @@
     "preserveHistoricalReceipts": true,
     "doesNotGrantDeploymentOrRelease": true,
     "legacyProductName": "LuHm OS",
-    "productFullName": "LuHm-OS: Project Premonition"
+    "productFullName": "LuHm-OS: Project Premonition",
+    "productWorkingTitle": "Llama",
+    "projectWorkingTitle": "Project Premonition",
+    "workingTitleContract": "doctrine/workingTitleCastV1.json",
+    "workingTitlePolicy": "INTERNAL_ALIAS_ONLY_AMBIGUITY_REQUIRES_LUHM_CONTEXT"
   },
   "historicalReceiptNamesRemainHistorical": true,
   "bootstrapTrigger": {
