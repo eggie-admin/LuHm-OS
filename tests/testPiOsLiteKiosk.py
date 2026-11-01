@@ -88,12 +88,14 @@ class PiKioskTests(unittest.TestCase):
             self.assertEqual(h.status,200)
             self.assertGreater(int(h.getheader("Content-Length")),10)
             self.assertEqual(h.read(),b"")
+            conn.close()
             for method in ("POST","PUT","DELETE","PATCH","OPTIONS"):
-                conn.request(method,"/index.html",body=b"not allowed")
-                r=conn.getresponse();r.read()
+                denied=http.client.HTTPConnection("127.0.0.1",port,timeout=3)
+                denied.request(method,"/index.html",body=b"not allowed")
+                r=denied.getresponse();r.read()
                 self.assertEqual(r.status,405,method)
                 self.assertEqual(r.getheader("Allow"),"GET, HEAD")
-            conn.close()
+                denied.close()
         finally:
             server.shutdown()
             thread.join(timeout=3)
