@@ -1,0 +1,59 @@
+name: LuHm Final Three Machine Mutations
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/finalThreeMachineMutationsV1.json"
+      - "tools/retroTileTextCodec.py"
+      - "tools/portableOsRecipeAudit.py"
+      - "tools/rSyntheticTuning.R"
+      - "tools/rSyntheticTuningGate.py"
+      - "tools/finalThreeMachineGate.py"
+      - "host/mcp/luhmFinalThreeMachineTools.py"
+      - "host/mcp/luhmHarnessServer.py"
+      - "tests/testRetroTileTextCodec.py"
+      - "tests/testPortableOsRecipeAudit.py"
+      - "tests/testRSyntheticTuningGate.py"
+      - "tests/testFinalThreeMachineGate.py"
+      - "manual/final-three-machine-mutations.md"
+      - ".github/workflows/final-three-machine-mutations.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-only-python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Source compile and 3 synthetic 4x4 gates
+        run: |
+          python -m py_compile tools/retroTileTextCodec.py tools/portableOsRecipeAudit.py tools/rSyntheticTuningGate.py tools/finalThreeMachineGate.py host/mcp/luhmFinalThreeMachineTools.py
+          python tools/finalThreeMachineGate.py
+          python -m unittest discover -s tests -p 'testRetroTileTextCodec.py' -v
+          python -m unittest discover -s tests -p 'testPortableOsRecipeAudit.py' -v
+          python -m unittest discover -s tests -p 'testRSyntheticTuningGate.py' -v
+          python -m unittest discover -s tests -p 'testFinalThreeMachineGate.py' -v
+
+  base-r-synthetic-parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          use-public-rspm: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compare actual Rscript fixed synthetic grid with Python receipt
+        run: |
+          set -euo pipefail
+          Rscript tools/rSyntheticTuning.R --self-test | python tools/rSyntheticTuningGate.py --verify-stdin
+          Rscript tools/rSyntheticTuning.R --target=2 --candidates=0,1,2,3,4 | python tools/rSyntheticTuningGate.py --verify-stdin
