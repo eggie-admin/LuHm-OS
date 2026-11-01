@@ -114,6 +114,22 @@ class Handler(BaseHTTPRequestHandler):
         # Never echo paths, query strings, headers or client identifiers.
         return
     def _answer(self, send_body=True):
+        # Do not serve a DNS-rebound domain that happens to resolve to 127.0.0.1.
+        # Only the advertised local origin may receive the studio assets.
+        expected_host=f"127.0.0.1:{self.server.server_port}"
+        if self.headers.get("Host", "")!=expected_host:
+            data=b"Invalid local host"
+            self.send_response(421)
+            self.send_header("Content-Type","text/plain; charset=utf-8")
+            self.send_header("Content-Length",str(len(data)))
+            self.send_header("Cache-Control","no-store")
+            self.send_header("X-Content-Type-Options","nosniff")
+            self.send_header("Connection","close")
+            self.end_headers()
+            if send_body:
+                self.wfile.write(data)
+            self.close_connection=True
+            return
         route=self.path
         if route=="/healthz":
             data=json.dumps({
