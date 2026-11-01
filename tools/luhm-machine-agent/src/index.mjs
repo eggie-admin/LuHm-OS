@@ -99,7 +99,7 @@ export function checkPolicy(p) {
 export function classifyTask(task,policy) {
   need(typeof task==="string" && task.trim().length>0 &&
        new TextEncoder().encode(task).length<=TASK_LIMIT &&
-       !/[\u0000-\u0008\u000B-\u001F]/u.test(task), "RED_TASK_UTF8_BUDGET");
+       !/[\u0000-\u001F\u007F]/u.test(task), "RED_TASK_UTF8_BUDGET");
   const normalized=task.normalize("NFKC").toLowerCase();
   const matches=policy.taskIntents.filter(item=>
     item.labels.some(label=>new RegExp("(^|[^\\p{L}\\p{N}])"+label+"(?=$|[^\\p{L}\\p{N}])","u").test(normalized)));
