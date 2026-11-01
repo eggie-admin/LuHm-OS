@@ -8,6 +8,10 @@ on:
       - 'doctrine/computeFourCoreV1.json'
       - 'tools/computeFourCoreAudit.py'
       - 'tools/castMachineByteAudit.py'
+      - 'doctrine/castIndustryArchitectureReductionV1.json'
+      - 'tools/castIndustryArchitectureAudit.py'
+      - 'tests/testCastIndustryArchitectureAudit.py'
+      - 'manual/cast-industry-architecture-reduction-20261031.md'
       - 'tests/testCastMachineByteAudit.py'
       - 'tests/testComputeFourCoreAudit.py'
       - 'manual/computeFourCore4x4.md'
@@ -101,6 +105,20 @@ jobs:
           assert r['crownStatus']=='STOP'
           print('CAST_MACHINE_BYTE_PRIORITY_SOURCE_ONLY')
           PY
+      - name: CAST Apple Android Linux Google industry and lifecycle source audit
+        run: |
+          python3 -m unittest discover -s tests -p 'testCastIndustryArchitectureAudit.py' -v
+          python3 tools/castIndustryArchitectureAudit.py > "${RUNNER_TEMP}/cast-industry-architecture.json"
+          python3 - "${RUNNER_TEMP}/cast-industry-architecture.json" <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1],encoding='utf-8'))
+          assert r['status']=='AMBER_SOURCE_REVIEW_ONLY' and r['matrixCells']==16
+          assert r['platforms']==4 and r['functionClasses']==4
+          assert 'Python 3.10' in r['observedExpired']
+          assert not r['kernelModified'] and not r['bootDiskModified']
+          assert r['crownStatus']=='STOP'
+          print('CAST_INDUSTRY_ARCHITECTURE_REVIEW_ONLY')
+          PY
       - name: Build web candidate with exact dependency lock
         working-directory: frontEnd/prototypes/glassWorld
         run: |
@@ -128,5 +146,6 @@ jobs:
             ${{ runner.temp }}/processor-hex/
             ${{ runner.temp }}/compute-four-core.json
             ${{ runner.temp }}/cast-machine-boundary.json
+            ${{ runner.temp }}/cast-industry-architecture.json
           retention-days: 14
           if-no-files-found: warn
