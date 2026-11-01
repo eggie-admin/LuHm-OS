@@ -19,6 +19,7 @@ from luhmCastTwoThreadTools import register_cast_two_thread
 from luhmIdentityRegistryTools import register_cast_identity_registry
 from luhmMachineArchitectureTools import register_machine_architecture_forge
 from luhmCreativeModuleTools import register_creative_module_forge
+from luhmFinalThreeMachineTools import register_final_three_machine
 from luhmCryptoTools import register_crypto_breathing_tools
 from luhmGpuVideoTools import register_gpu_video_planner
 from luhmLeanVmForgeTools import register_lean_vm_forge
@@ -53,6 +54,7 @@ register_cast_two_thread(core.server, root=core.ROOT, annotations=core.READ_ONLY
 register_cast_identity_registry(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 register_machine_architecture_forge(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 register_creative_module_forge(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
+register_final_three_machine(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 register_crypto_breathing_tools(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 register_gpu_video_planner(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 register_lean_vm_forge(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
