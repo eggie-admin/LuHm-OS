@@ -2,14 +2,25 @@
   "use strict";
 
   function postNative(type, detail) {
+    // Only static, known events cross the optional Android WebView boundary.
+    const permitted = ["cockpit_ready", "world_requested", "oni_requested"];
+    if (!permitted.includes(type)) return false;
     const bridge = window.LuHmNative;
     if (!bridge || typeof bridge.postMessage !== "function") return false;
     const payload = { type: type };
     if (type === "oni_requested" && detail && typeof detail === "object") {
-      payload.name = String(detail.name || "").trim().slice(0, 32);
+      const name = String(detail.name || "").trim();
+      // Canonical lower-camel agent IDs only; never forward free-form instructions.
+      if (!/^[a-z][A-Za-z0-9]{0,31}$/.test(name)) return false;
+      payload.name = name;
     }
-    bridge.postMessage(JSON.stringify(payload));
-    return true;
+    try {
+      bridge.postMessage(JSON.stringify(payload));
+      return true;
+    } catch (_) {
+      // Desktop browsers intentionally lack a native bridge.
+      return false;
+    }
   }
 
   $(function () {
