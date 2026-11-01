@@ -80,3 +80,14 @@ jobs:
           assert data["physicalDeviceVerified"] is False
           assert data["crownStatus"] == "STOP"
           PY
+      - name: Upload bounded machine and offline Debian evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: machine-debian-4x4-source-receipts
+          path: |
+            ${{ runner.temp }}/machine-debian-source-snapshot.json
+            ${{ runner.temp }}/debian-container-source-receipt.json
+            ${{ runner.temp }}/luhm-machine-image-id.txt
+          retention-days: 14
+          if-no-files-found: warn
