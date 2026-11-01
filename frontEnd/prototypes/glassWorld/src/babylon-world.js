@@ -11,9 +11,13 @@ import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder.js";
 import { PointerEventTypes } from "@babylonjs/core/Events/pointerEvents.js";
 import { validateScene } from "./scene-state.mjs";
 
-export function startBabylonWorld(canvas, onSelected) {
-  const engine = new Engine(canvas, true, { preserveDrawingBuffer: false, stencil: false });
-  engine.setHardwareScalingLevel(Math.min(2, Math.max(1, window.devicePixelRatio / 1.6)));
+export function startBabylonWorld(canvas, onSelected, onStatus = () => {}) {
+  if (!canvas || typeof onSelected !== "function") throw new Error("RED_WEBGL_CANVAS");
+  const engine = new Engine(canvas, true, {
+    preserveDrawingBuffer: false, stencil: false, doNotHandleContextLost: false
+  });
+  const ratio = Number.isFinite(window.devicePixelRatio) ? window.devicePixelRatio : 1;
+  engine.setHardwareScalingLevel(Math.min(2, Math.max(1, ratio / 1.6)));
   const scene = new Scene(engine);
   scene.clearColor = new Color4(0.035, 0.035, 0.08, 1);
   const camera = new ArcRotateCamera("orbit", -Math.PI / 2, Math.PI / 2.75, 11,
@@ -49,7 +53,7 @@ export function startBabylonWorld(canvas, onSelected) {
     validateScene(next);
     const ids = new Set(next.objects.map(x => x.id));
     for (const [id, mesh] of meshes) {
-      if (!ids.has(id)) { mesh.dispose(); meshes.delete(id); }
+      if (!ids.has(id)) { mesh.dispose(false, true); meshes.delete(id); }
     }
     for (const item of next.objects) {
       if (!meshes.has(item.id)) spawn(item);
@@ -61,19 +65,66 @@ export function startBabylonWorld(canvas, onSelected) {
     const id = event.pickInfo?.pickedMesh?.metadata?.objectId;
     if (id) onSelected(id);
   });
-  const render = () => { if (!document.hidden) scene.render(); };
-  engine.runRenderLoop(render);
-  const resize = () => engine.resize();
-  const visible = () => { if (!document.hidden) engine.resize(); };
+  // Browser-driven rendering has a predictable 30 fps *target*, not a guarantee.
+  // Invisible tabs do no rendering work, and context loss is never ignored.
+  let disposed = false;
+  let lost = false;
+  let running = false;
+  let lastFrame = 0;
+  const frameInterval = 1000 / 30;
+  const publish = (state) => {
+    onStatus(state);
+    window.dispatchEvent(new CustomEvent("luhm:kiosk:gpu-status", { detail: { state } }));
+  };
+  const render = () => {
+    if (disposed || lost || document.hidden) return;
+    const now = performance.now();
+    if (now - lastFrame >= frameInterval) {
+      scene.render();
+      lastFrame = now;
+    }
+  };
+  function reconcile() {
+    if (disposed) return;
+    const shouldRun = !lost && !document.hidden;
+    if (shouldRun && !running) {
+      engine.resize();
+      lastFrame = 0;
+      engine.runRenderLoop(render);
+      running = true;
+    } else if (!shouldRun && running) {
+      engine.stopRenderLoop(render);
+      running = false;
+    }
+  }
+  const resize = () => { if (!disposed && !lost && !document.hidden) engine.resize(); };
+  const visible = () => { reconcile(); publish(document.hidden ? "paused" : lost ? "lost" : "active"); };
+  const onLost = engine.onContextLostObservable.add(() => {
+    lost = true;
+    reconcile();
+    publish("lost");
+  });
+  const onRestored = engine.onContextRestoredObservable.add(() => {
+    lost = false;
+    reconcile();
+    publish("restored");
+  });
   window.addEventListener("resize", resize);
   document.addEventListener("visibilitychange", visible);
+  reconcile();
   return {
     applyScene,
     destroy() {
+      if (disposed) return;
+      disposed = true;
       engine.stopRenderLoop(render);
+      running = false;
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", visible);
-      scene.dispose(); engine.dispose();
+      engine.onContextLostObservable.remove(onLost);
+      engine.onContextRestoredObservable.remove(onRestored);
+      scene.dispose();
+      engine.dispose();
     }
   };
 }
