@@ -1,0 +1,88 @@
+{
+  "schema": "luhmOs.workingTitleCast.v1",
+  "status": "PROPOSED_SOURCE_TITLE_CAST",
+  "authority": "Professor",
+  "recordedAt": "2026-11-01",
+  "sourceRef": "9ff41bc6ac60adbb58695cfaf1b38e4c414e573e",
+  "scopeId": "workingTitleAliasOnly",
+  "taskId": "cast-llama-premonition-working-title-20261101",
+  "intent": "CAST the private/in-development app working title Llama and working narrative/game title Project Premonition without discarding LuHm-OS canonical publisher, application, and source identities.",
+  "workingTitle": {
+    "product": {
+      "display": "Llama",
+      "machineAlias": "llama",
+      "kind": "internalWorkingTitle",
+      "canonicalProduct": "LuHm-OS",
+      "canonicalMachineId": "luhmOs",
+      "publicProductName": "LuHm-OS",
+      "notAProviderRuntime": true,
+      "doesNotActivateLlamaModel": true,
+      "notTrademarkApproval": true,
+      "externalRegistrationOrMarketingAllowed": false
+    },
+    "project": {
+      "display": "Project Premonition",
+      "machineName": "projectPremonition",
+      "kind": "workingTitleUnderCurrentApprovedDevelopmentIdentity",
+      "historicalName": "Project Hydra",
+      "canonicalSource": "doctrine/projectChatCanonV1.json",
+      "publicReleaseTitleFinal": false
+    }
+  },
+  "presentation": {
+    "internalShort": "Llama / Project Premonition",
+    "internalFull": "Llama (LuHm-OS working title) | Project Premonition",
+    "publicDisplay": "LuHm-OS: Project Premonition",
+    "publicPublisher": "Eggie Bagelface",
+    "publicStudio": "PIRATE DADDIES FILM"
+  },
+  "reconciliation": {
+    "canonicalBrand": "doctrine/organizationBrandRegistryV1.json",
+    "brandContinuity": "doctrine/brandCanonV1.json",
+    "chatBootstrap": "doctrine/projectChatCanonV1.json",
+    "namingLaw": "doctrine/namingNamespaceCanonV1.json",
+    "historicalReceiptNamesRemainHistorical": true,
+    "canonicalIdsNeverRenamed": true,
+    "packageIdsUnchanged": true,
+    "sourceRepositoryUnchanged": true,
+    "legacyRoutesRetained": true
+  },
+  "trademarkBoundary": {
+    "risk": "Meta lists Llama among its trademarks as of 2026-11-01",
+    "officialReference": "https://www.meta.com/brand/resources/meta/our-trademarks/",
+    "brandGuidelines": "https://www.meta.com/brand/resources/meta/company-brand/",
+    "noPublicLlamaProductCoBranding": true,
+    "noImpliedMetaEndorsement": true,
+    "noMetaLogo": true,
+    "noTrademarkOrDomainRegistration": true,
+    "privateWorkingCodenameOnly": true,
+    "commercialClearanceBeforePublicName": true,
+    "licenseOfLlamaModelsNotInferred": true
+  },
+  "castGate": {
+    "userCastRecorded": true,
+    "authorityScope": "title alias source staging and review; no unrelated runtime/public release",
+    "sourceSanityRequired": true,
+    "sourceAuditRequired": true,
+    "sourceTestsRequired": true,
+    "protectedMergeRequiresExactCurrentHeadAndBranchChecks": true,
+    "mediaAndPrivateAssetPublications": false,
+    "enableAutomatedAgents": false,
+    "signAndroidRelease": false,
+    "deployCloudProduction": false,
+    "renameInstalledPlugin": false
+  },
+  "release": {
+    "titleAliasRecorded": true,
+    "sourceOnly": true,
+    "actualPluginHostRenamed": false,
+    "actualAndroidPackageRenamed": false,
+    "metaPartnershipVerified": false,
+    "publicNameChanged": false,
+    "publicGameLaunch": false,
+    "crownStatus": "STOP"
+  },
+  "publicationAuthority": false,
+  "productionSigningAuthority": false,
+  "crownStatus": "STOP"
+}
