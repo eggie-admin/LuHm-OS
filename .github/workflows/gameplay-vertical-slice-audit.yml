@@ -6,6 +6,8 @@ on:
       - 'doctrine/gameplayVerticalSliceV1.json'
       - 'doctrine/gameplayVerticalSliceCrownReceiptV1.json'
       - 'game/story/**'
+      - 'labs/first-night-pocket/**'
+      - 'tests/firstNightPocketLogicSmoke.js'
       - 'scripts/game/**'
       - 'scripts/main.gd'
       - 'tools/gameplayVerticalSliceAudit.py'
@@ -27,6 +29,8 @@ jobs:
           python3 -m json.tool game/story/firstNightQuest.json >/dev/null
       - name: Audit gameplay vertical slice source
         run: python3 tools/gameplayVerticalSliceAudit.py
+      - name: Check First Night HTML5, JavaScript, scene editor and Canon fidelity
+        run: node tests/firstNightPocketLogicSmoke.js
       - name: Install Godot 4.7.2
         shell: bash
         run: |
@@ -38,3 +42,11 @@ jobs:
           chmod +x /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
       - name: Parse and import Godot project
         run: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --editor --path . --quit
+
+      - name: Run 2.5D procedural Cathedral engine smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 30s /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --quit-after 8 res://labs/first-night-pocket/PreRenderedStage.tscn | tee "$RUNNER_TEMP/first-night-2-5d.log"
+          grep -q 'FIRST_NIGHT_25D_STAGE_READY' "$RUNNER_TEMP/first-night-2-5d.log"
+          echo "FIRST_NIGHT_25D_PROCEDURAL_SCENE_HEADLESS_PASS"

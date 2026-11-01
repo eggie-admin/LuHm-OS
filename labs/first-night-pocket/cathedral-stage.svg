@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Original violet Cathedral stage backdrop">
+<defs><linearGradient id="night" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#120e28"/><stop offset="1" stop-color="#2c1740"/></linearGradient><linearGradient id="arch" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#522d6e"/><stop offset="1" stop-color="#291b3b"/></linearGradient></defs>
+<rect width="960" height="540" fill="url(#night)"/>
+<g fill="#e5b5ff" opacity=".65"><circle cx="75" cy="80" r="3"/><circle cx="225" cy="40" r="2"/><circle cx="790" cy="85" r="2"/><circle cx="905" cy="47" r="3"/></g>
+<g fill="url(#arch)" stroke="#a386c8" stroke-width="9">
+<path d="M105 395V147q0-105 125-105t125 105v248z"/>
+<path d="M600 395V147q0-105 125-105t125 105v248z"/>
+<path d="M389 395V193q0-75 91-75t91 75v202z" fill="#9278bc"/>
+</g>
+<path d="M480 156v225" stroke="#e5b5ff" stroke-width="8" opacity=".75"/>
+<path d="M0 400H960V540H0Z" fill="#2c2349"/>
+<path d="M0 395H960M0 460H960" stroke="#b798d3" stroke-width="7"/>
+<path d="M250 540L375 402h210L710 540" fill="#44305d" stroke="#8e70aa" stroke-width="6"/>
+<g fill="#b7def4"><path d="M470 380l10-26 10 26-10 18z"/></g>
+</svg>
