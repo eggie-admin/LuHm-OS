@@ -38,9 +38,10 @@ class ProcessorHexCeilingTests(unittest.TestCase):
         self.assertEqual(len(result["observedScores"]),3)
         self.assertTrue(result["advisoryOnly"])
         self.assertTrue(result["repeatabilityUnproven"])
-        self.assertIn(result["bestObservedPayloadSizeBytes"],bench.SIZES)
+        self.assertIn(result["bestObservedChunkBytes"],bench.SIZES)
         for score in result["observedScores"]:
             self.assertEqual(score["sampleCount"],3)
+            self.assertEqual(score["payloadBytes"],1048576)
             self.assertGreaterEqual(score["medianDurationNs"],1)
             self.assertGreaterEqual(score["estimatedMiBPerSecond"],0)
 
