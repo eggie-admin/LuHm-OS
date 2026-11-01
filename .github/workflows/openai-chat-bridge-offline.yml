@@ -49,6 +49,16 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - name: Record exact candidate source tree for rollback-backed squashing
+        if: github.event_name == 'pull_request'
+        env:
+          LUHM_PR_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          [[ "$LUHM_PR_HEAD" =~ ^[0-9a-f]{40}$ ]]
+          git fetch --no-tags -q --depth=1 origin "$LUHM_PR_HEAD"
+          echo "LUHM_EXACT_PR_HEAD=$LUHM_PR_HEAD"
+          echo "LUHM_EXACT_PR_TREE=$(git rev-parse 'FETCH_HEAD^{tree}')"
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
