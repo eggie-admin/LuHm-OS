@@ -122,6 +122,17 @@ jobs:
           yes | "$SDKMANAGER" --licenses >/dev/null || true
           "$SDKMANAGER" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
 
+      - name: Stage allowlisted offline cockpit assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd frontEnd
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run stage:jquery
+          npm run check
+          test -s vendor/jquery-3.7.1.min.js
+          test -s vendor/jquery-LICENSE.txt
+
       - name: Build Android Web3 cockpit plugin from exact CAST source
         shell: bash
         run: |
