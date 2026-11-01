@@ -35,3 +35,37 @@ Actual next gate: build the optional image in an isolated authorized environment
 ## Selectable, not an implicit replacement
 
 A Codespaces-compatible opt-in configuration exists at `.devcontainer/compute/devcontainer.json`. Choose that named **Four-Core Compute Studio** configuration when creating an appropriate remote development environment. It references `../Dockerfile.compute`, uses unprivileged user `studio`, has **zero forwarded ports**, and runs only non-server binary version checks on creation. It does **not** launch the former media service on start. The original default `.devcontainer/devcontainer.json` is intentionally unchanged until a genuine lean image build and studio runtime proof are available; do not claim this profile is active on any device or instance merely because the configuration exists.
+
+
+## Machine boundary priority audit: bytes / packets / registry / SQL
+
+The added `tools/castMachineByteAudit.py` and `tests/testCastMachineByteAudit.py` run inside the **existing** Premonition Vendor Footprint Gate. They do not install a new runtime or alter the four-core kernel/GPU/driver boundary.
+
+**4×4 escalation remains:** GPU, CPU, memory, firmware × identify, bound, probe, verify. The independent application/SQL audit is a *crosswalk*, not 16 physically proven hardware checks. Hex `0x00..0x0F` values are logical source indexes only.
+
+| Priority | Blocked evidence (not an observed defect) | Next smallest test |
+| --- | --- | --- |
+| **P0** | Real Samsung boot/OEM driver binding and actual Linux kernel/driver identity unverified | Read vendor-approved, device-scoped capabilities and exact driver/OS versions; do not flash or modprobe |
+| **P1** | GPU availability and real frame time unverified | Godot + Blender local render smoke, captured GPU API/capability receipt |
+| **P2** | Memory pressure, actual packet p95 and device transport unverified | Bounded application bytes and memory telemetry on a consented physical device |
+| **P3** | CPU thermal, cgroup quota and sustained device baseline unverified | Repeatable device benchmark against a baseline, no governor write |
+
+The P0..P3 values are **review ordering**, not CPU scheduler priorities or a claim of measured incident severity. The synthetic queue has **separate** values 0..3 (3 means urgent), a 32-item cap, stable sequence ordering and a 2,000,000,000 ns aging interval to keep older items from starving. It does not change OS scheduling policy.
+
+### Exact boundaries
+
+1. **Text:** NFC-normalized UTF-8, maximum 4,096 *bytes* per synthetic message; multi-byte characters make codepoint count insufficient for allocation estimates.
+2. **Framing:** Four-byte network-order unsigned *application* length followed by bytes. This is **not an IP/TCP packet**, network MTU, DMA descriptor, physical page size or kernel message format. Oversize, truncated, extra-byte and malformed UTF-8 cases fail closed.
+3. **Identity:** SHA-256 hashes the payload and four existing canonical source JSON files; it detects unintended byte changes but is **not authentication, signed code, a trusted driver certificate or permission to run code**.
+4. **Storage:** An **in-memory SQLite STRICT** table stores bounded integer sequence/priority/wait/payload byte count and exact lowercase hex digest. Prepared inserts and explicit ordering demonstrate typed receipts without starting MariaDB, Postgres, or a public SQL service.
+5. **Registry:** The four-item allowlist is a project **source-contract registry**, not the Windows Registry, `/proc` device-tree enumeration, npm package registry or host driver index. No registry install/write occurs.
+6. **Kernel:** CPU affinity and cgroup limits are runner hints, not real Samsung evidence. Actual bootloader, driver binding, firmware and GPU claims remain blocked until independently observed.
+
+### Verify the draft
+
+```bash
+python3 -m unittest discover -s tests -p 'testCastMachineByteAudit.py' -v
+python3 tools/castMachineByteAudit.py
+```
+
+CI verifies exact-head source and preserves **CROWN STOP**. The proposed 4 KiB payload ceiling is a deliberately bounded test fixture, not a performance optimum. Promote to 8×8 only after paired runtime/device evidence; use 16×16 only for independently reviewed workload combinations. No blind merge, production kernel tuning, USB/PCI driver binding, signing, or public release follows from a green source test.
