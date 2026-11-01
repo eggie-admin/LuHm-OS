@@ -81,6 +81,10 @@ class DonorTriageTests(unittest.TestCase):
         self.assertFalse(candidate["publicAllowed"])
         self.assertEqual(candidate["godotImport"], "NOT_TESTED")
         self.assertEqual(receipt["sourceStorageSharing"], "EXPOSED_ANYONE_WRITER_NEEDS_OWNER_RESTRICTION")
+        self.assertTrue(receipt["ownerOnlyQuarantine"]["copyOwnerOnlyMetadataVerified"])
+        self.assertTrue(receipt["ownerOnlyQuarantine"]["copySha256Verified"])
+        self.assertEqual(receipt["ownerOnlyQuarantine"]["copySha256"], receipt["archiveSha256"])
+        self.assertTrue(receipt["ownerOnlyQuarantine"]["originalShareExposureUnfixed"])
     def test_legacy_archive_hash_fails_closed(self):
         with tempfile.TemporaryDirectory() as temp:
             p = Path(temp) / "donor.zip"
