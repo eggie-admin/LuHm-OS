@@ -278,6 +278,29 @@
       "runtimeProof": "NOT_TESTED",
       "priority": 2,
       "notes": "90 3D road pieces; next after Riverwalk layout and camera boundary lock"
+    },
+    {
+      "assetId": "quaternius-ultimate-monsters",
+      "displayName": "Ultimate Monsters",
+      "sourceFamily": "quaternius",
+      "sourceUrl": "https://quaternius.com/packs/ultimatemonsters.html",
+      "sourceRevisionOrVersion": "2022_10",
+      "license": "CC0_1_0_SOURCE_PAGE_REPORTED",
+      "licenseUrlOrFile": "https://quaternius.com/faq.html",
+      "authorOrOwnerWhenRequired": "Quaternius",
+      "attributionTextWhenRequired": null,
+      "sourceHash": null,
+      "contentLane": "incomingCandidate",
+      "publicAllowed": false,
+      "assetRole": "animatedEnemy",
+      "destinationFamily": "cathedral",
+      "professorReviewState": "NOT_REVIEWED",
+      "downloadVerified": false,
+      "archiveIntegrity": "NOT_INSPECTED",
+      "godotImport": "NOT_TESTED",
+      "runtimeProof": "NOT_TESTED",
+      "priority": 2,
+      "notes": "50 animated enemy models, use one original remix enemy prototype only, not exact franchise duplicates"
     }
   ],
   "proof": {
@@ -287,7 +310,19 @@
     "sourceArchiveReinspected": false,
     "godotRealImport": false,
     "deviceTest": false,
-    "publicArtApproved": false
+    "publicArtApproved": false,
+    "communitySourcesCurrentLicenseDriftFound": true
   },
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "knownLicenseConflicts": [
+    {
+      "sourceRecord": "KAI9000_GODOT4_ASSET_SOURCE_OF_TRUTH_20260916.md",
+      "assetId": "quaternius-bestiary-dungeon-monsters",
+      "sourceUrl": "https://quaternius.com/packs/bestiarydungeonmonsterskit.html",
+      "historicalClaim": "CC0/free use",
+      "currentOfficialPageLicense": "QAL",
+      "currentState": "HOLD_UNTIL_EXACT_QAL_TERMS_REVIEW",
+      "publicAllowed": false
+    }
+  ]
 }
