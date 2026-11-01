@@ -137,6 +137,10 @@ class TestHostileModForge(unittest.TestCase):
             gate.synthetic_patch_plan({**PATCH, "romBytes": "AAEEFF"})
         with self.assertRaises(ValueError):
             gate.synthetic_patch_plan({**PATCH, "downloadUrl": "https://example.org/rom"})
+        with self.assertRaises(ValueError):
+            gate.synthetic_patch_plan({**PATCH, "format": ["BPS"]})
+        with self.assertRaises(ValueError):
+            gate.synthetic_patch_plan({**PATCH, "originalRights": {"claim": "owned"}})
 
     def test_forged_source_allows_no_autofork_x11_or_rights(self):
         original = gate.load
