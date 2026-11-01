@@ -1,0 +1,412 @@
+{
+  "schema": "luhmOs.machineDebianFourLayer.v1",
+  "title": "LuHm-OS artist-only Debian machine baseline",
+  "asOf": "2026-11-01",
+  "authority": "Professor",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "target": {
+    "physicalBackendCountTarget": 1,
+    "hostDistro": "Debian",
+    "hostRelease": "13",
+    "codename": "trixie",
+    "kernelFamily": "distribution-provided Linux 6.12 LTS candidate",
+    "kernelFork": "NOT_AUTHORIZED",
+    "kernelCustomizationScope": "userspace-first validated profile and optional reviewed configuration delta",
+    "x86_64": true,
+    "aarch64": true,
+    "sameBinaryAcrossAbis": false,
+    "actualHostVerified": false,
+    "actualKconfigVerified": false,
+    "driverBindingVerified": false,
+    "firmwareVersionVerified": false,
+    "bootSignatureVerified": false
+  },
+  "layers": [
+    {
+      "id": "kernel",
+      "hex": "0x00",
+      "authority": "HOST_DISTRO_KERNEL",
+      "minimum": "Debian 13 x86_64/aarch64 guest or physical host uses provider/distribution supported kernel; 6.12 family is research baseline",
+      "notPartOf": [
+        "GRUB inside Docker",
+        "Samsung OEM kernel replacement",
+        "Linux modules in Android app"
+      ]
+    },
+    {
+      "id": "system",
+      "hex": "0x04",
+      "authority": "DEBIAN13_TRIXIE_USERLAND",
+      "minimum": "Python3 stdlib + sqlite3, git, local file receipts; systemd only where PID1 is systemd",
+      "notPartOf": [
+        "MariaDB daemon",
+        "NGINX service",
+        "DNS/BIND mail server"
+      ]
+    },
+    {
+      "id": "studio",
+      "hex": "0x08",
+      "authority": "USERLAND_OPTIONAL",
+      "minimum": "FFmpeg/ffprobe capability check; optional headless Godot/Blender only on approved compute host",
+      "notPartOf": [
+        "Unreal/Nvidia mandatory runtime",
+        "emulators as OS services",
+        "private asset redistribution"
+      ]
+    },
+    {
+      "id": "interface",
+      "hex": "0x0C",
+      "authority": "REMOTE_FIRST",
+      "minimum": "read-only evidence to mobile HTML kiosk; optional graphical session only when local display needed",
+      "notPartOf": [
+        "GNOME and Cinnamon co-installed",
+        "browser as privileged root process",
+        "public listener by default"
+      ]
+    }
+  ],
+  "phases": [
+    "inventory",
+    "bound",
+    "verify",
+    "propose"
+  ],
+  "matrix": [
+    {
+      "index": 0,
+      "hex": "0x00",
+      "layer": "kernel",
+      "phase": "inventory",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 1,
+      "hex": "0x01",
+      "layer": "kernel",
+      "phase": "bound",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 2,
+      "hex": "0x02",
+      "layer": "kernel",
+      "phase": "verify",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 3,
+      "hex": "0x03",
+      "layer": "kernel",
+      "phase": "propose",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 4,
+      "hex": "0x04",
+      "layer": "system",
+      "phase": "inventory",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 5,
+      "hex": "0x05",
+      "layer": "system",
+      "phase": "bound",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 6,
+      "hex": "0x06",
+      "layer": "system",
+      "phase": "verify",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 7,
+      "hex": "0x07",
+      "layer": "system",
+      "phase": "propose",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 8,
+      "hex": "0x08",
+      "layer": "studio",
+      "phase": "inventory",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 9,
+      "hex": "0x09",
+      "layer": "studio",
+      "phase": "bound",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 10,
+      "hex": "0x0A",
+      "layer": "studio",
+      "phase": "verify",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 11,
+      "hex": "0x0B",
+      "layer": "studio",
+      "phase": "propose",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 12,
+      "hex": "0x0C",
+      "layer": "interface",
+      "phase": "inventory",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 13,
+      "hex": "0x0D",
+      "layer": "interface",
+      "phase": "bound",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 14,
+      "hex": "0x0E",
+      "layer": "interface",
+      "phase": "verify",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    },
+    {
+      "index": 15,
+      "hex": "0x0F",
+      "layer": "interface",
+      "phase": "propose",
+      "status": "SOURCE_CONTRACT_ONLY",
+      "physicalProof": false
+    }
+  ],
+  "profiles": [
+    {
+      "id": "headless",
+      "order": 0,
+      "alwaysRequired": true,
+      "packages": [
+        "python3",
+        "ca-certificates",
+        "git"
+      ],
+      "optional": [
+        "ffmpeg",
+        "ffprobe"
+      ],
+      "service": "on-demand jobs only; no listener",
+      "desktop": "NONE"
+    },
+    {
+      "id": "kiosk",
+      "order": 1,
+      "alwaysRequired": false,
+      "packages": [],
+      "optional": [
+        "chromium",
+        "firefox-esr"
+      ],
+      "service": "user-approved browser session only; full-screen is not OS lockdown",
+      "desktop": "NO_FULL_DESKTOP_REQUIRED"
+    },
+    {
+      "id": "studio",
+      "order": 2,
+      "alwaysRequired": false,
+      "packages": [],
+      "optional": [
+        "ffmpeg",
+        "blender",
+        "godot"
+      ],
+      "service": "on-demand offline media jobs",
+      "desktop": "OPTIONAL_WAYLAND_OR_X11"
+    },
+    {
+      "id": "rescue",
+      "order": 3,
+      "alwaysRequired": false,
+      "packages": [],
+      "optional": [
+        "gparted-live",
+        "grub-rescue"
+      ],
+      "service": "outside running app with verified backup and physical review",
+      "desktop": "SEPARATE_BOOT_MEDIA_ONLY"
+    }
+  ],
+  "optionalDesktops": [
+    {
+      "id": "none",
+      "default": true,
+      "requiresDisplay": false
+    },
+    {
+      "id": "gnome",
+      "default": false,
+      "requiresDisplay": true,
+      "scope": "full desktop comparison, never default headless"
+    },
+    {
+      "id": "cinnamon",
+      "default": false,
+      "requiresDisplay": true,
+      "scope": "alternative full desktop comparison, never default headless"
+    },
+    {
+      "id": "browserKiosk",
+      "default": false,
+      "requiresDisplay": true,
+      "scope": "session-only dedicated browser; do not enable privileged automatic login"
+    }
+  ],
+  "boundaries": {
+    "grub": "host/VM PC bootloader only if already present; NEVER install/change in CI or containers",
+    "gparted": "offline rescue or authorized operator only; NO AUTOMATIC PARTITION WRITES",
+    "android": "Samsung retains OEM/AVB/Knox/GKI and vendor modules; cannot share Debian host kernel",
+    "ios": "Apple vendor kernel/security retained; browser/native client only",
+    "nvidia": "only if actual host GPU, signed distro driver and license/toolchain verified",
+    "ffmpeg": "CPU software encoding acceptable; hardware acceleration only after measured driver/codec support",
+    "sql": "Python sqlite3 typed local receipt; no public SQL listener",
+    "ai": "manifest/agent planner separate from hardware authority; no self-executing instructions",
+    "git": "source and reproducible source receipts; not persistent raw artwork storage",
+    "googleDrive": "private rights-reviewed durable media vault; no auto-upload",
+    "webKiosk": "HTML/CSS/SVG first; Babylon on demand; Unreal remote optional after provider approval"
+  },
+  "studyOnly": [
+    {
+      "id": "dolphin",
+      "generation": "GameCube/Wii",
+      "license": "GPL-2.0-or-later",
+      "decision": "STUDY_ONLY",
+      "source": "https://github.com/dolphin-emu/dolphin",
+      "copyToLuHmCore": false
+    },
+    {
+      "id": "pcsx2",
+      "generation": "PlayStation 2",
+      "license": "GPL-3.0",
+      "decision": "STUDY_ONLY",
+      "source": "https://github.com/PCSX2/pcsx2",
+      "copyToLuHmCore": false,
+      "requiresOwnedBiosAndGames": true
+    },
+    {
+      "id": "duckstation",
+      "generation": "PlayStation 1",
+      "license": "VERIFY_LICENSE_PER_CURRENT_REVISION",
+      "decision": "STUDY_ONLY",
+      "source": "https://github.com/stenzek/duckstation",
+      "copyToLuHmCore": false
+    },
+    {
+      "id": "libretro",
+      "generation": "frontend/core interface",
+      "license": "MIT_API_VS_CORE_SPECIFIC",
+      "decision": "STUDY_ONLY",
+      "source": "https://docs.libretro.com/development/cores/developing-cores/",
+      "copyToLuHmCore": false
+    },
+    {
+      "id": "scummvm",
+      "generation": "adventure/2.5D and ResidualVM heritage",
+      "license": "GPL_FAMILY_VERIFY_FILES",
+      "decision": "STUDY_ONLY",
+      "source": "https://www.scummvm.org/",
+      "copyToLuHmCore": false
+    }
+  ],
+  "requestedReads": [
+    "doctrine/machineToHumanWizardV1.json",
+    "doctrine/typedFourLaneSqlV1.json",
+    "doctrine/vendorReductionV1.json",
+    "doctrine/artistFirstArtToolCanonV1.json",
+    ".devcontainer/Dockerfile",
+    "host/ai-ffmpeg/ai-ffmpeg.py",
+    "tools/machineToHumanWizard.py"
+  ],
+  "officialRefs": [
+    "https://www.debian.org/releases/",
+    "https://d-i.debian.org/manual/en.amd64/ch06s03.html",
+    "https://www.kernel.org/releases.html",
+    "https://docs.kernel.org/admin-guide/module-signing.html",
+    "https://www.ffmpeg.org/ffmpeg-all.html",
+    "https://docs.libretro.com/development/cores/developing-cores/"
+  ],
+  "safety": {
+    "noHostPackageChanges": true,
+    "noKernelCompile": true,
+    "noKernelInstall": true,
+    "noModprobe": true,
+    "noBiosWrite": true,
+    "noSecureBootChange": true,
+    "noGrubWrite": true,
+    "noPartitionWrite": true,
+    "noGpartedExecution": true,
+    "noNetworkListener": true,
+    "noPublicSQL": true,
+    "noEmulatorLaunch": true,
+    "noBiosRomDownload": true,
+    "noGameAssetExtraction": true,
+    "noNvidiaInstall": true,
+    "noAgentRelease": true,
+    "noMainMerge": true,
+    "noPublicDeployment": true,
+    "noPaidCloudProvision": true
+  },
+  "snapshot": {
+    "supportedModes": [
+      "source",
+      "fixture",
+      "host-read-only"
+    ],
+    "privateIdentifiersExcluded": true,
+    "sourceHashAlgorithm": "sha256",
+    "numericMeasurements": [
+      "logicalCpuCount",
+      "pageBytes",
+      "memTotalBytes",
+      "memAvailableBytes"
+    ],
+    "skipKernelCmdline": true,
+    "realDeviceProofRequired": true,
+    "unverifiedDoesNotBecomeGreen": true,
+    "sqliteInMemoryOnly": true
+  },
+  "nextGates": [
+    "exactSourceSmoke",
+    "actualDebianHostInventory",
+    "kernelConfigAndSecureBootAuthorityReadback",
+    "abiAndDriverBindings",
+    "ffmpegCodecAndSoftwareRender",
+    "headlessGodotBlenderSmoke",
+    "kioskPhysicalClient",
+    "ownedMediaRightsReview",
+    "releaseApproval"
+  ]
+}
