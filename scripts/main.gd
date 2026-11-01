@@ -7,6 +7,7 @@ const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
 const CutsceneBridgeScript := preload("res://scripts/game/cutsceneBridge.gd")
 const CharacterRosterScript := preload("res://scripts/game/characterRoster.gd")
 const QuestDirectorScript := preload("res://scripts/game/questDirector.gd")
+const NightShiftGeneratorScript := preload("res://scripts/game/nightShiftGenerator.gd")
 const OniSummonBeaconScript := preload("res://scripts/game/oniSummonBeacon.gd")
 const OniEchoCompanionScript := preload("res://scripts/game/oniEchoCompanion.gd")
 
@@ -37,6 +38,7 @@ var android_web3_version := "unavailable"
 var active_oni_beacon: Area3D
 var active_oni_companion: Node3D
 var lum_banter_index := 0
+var encore_count := 0
 
 func _ready() -> void:
     _build_runtime()
@@ -86,6 +88,7 @@ func _build_runtime() -> void:
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
     game_hud.rehearsal_requested.connect(_enter_goddess_rehearsal)
+    game_hud.encore_requested.connect(_start_next_encore)
     game_hud.backend_requested.connect(_enter_backend)
     game_hud.world_destination_requested.connect(switchWorld)
     game_hud.lum_talk_requested.connect(_on_lum_talk_requested)
@@ -316,9 +319,32 @@ func _interact() -> void:
 func _on_quest_changed(title: String, objective: String, current_step: int, total_steps: int) -> void:
     game_hud.set_quest(title, objective, current_step, total_steps)
 
-func _on_quest_completed(_quest_id: String, message: String) -> void:
-    game_hud.set_quest("First Night Complete", "Circuit closed. Fast travel unlocked.", 5, 5)
+func _start_next_encore() -> void:
+    if quest_director == null or not quest_director.is_complete():
+        return
+    var next_night := encore_count + 1
+    if next_night > NightShiftGeneratorScript.MAX_NIGHTS:
+        return
+    var candidate: Dictionary = NightShiftGeneratorScript.new().build_quest(next_night)
+    if candidate.is_empty() or not quest_director.load_quest_data(candidate):
+        game_hud.set_status("NIGHT SHIFT · CONTENT UNAVAILABLE")
+        return
+    encore_count = next_night
+    game_hud.set_encore_available(false)
     game_hud.set_fast_travel_enabled(true)
+    if not switchWorld("neonRiverwalk"):
+        game_hud.set_status("NIGHT SHIFT · WORLD UNAVAILABLE")
+        return
+    enterWorldMode()
+    game_hud.set_status("NIGHT SHIFT %d / %d · LOCAL DEMO" % [encore_count, NightShiftGeneratorScript.MAX_NIGHTS])
+
+func _on_quest_completed(_quest_id: String, message: String) -> void:
+    if encore_count == 0:
+        game_hud.set_quest("First Night Complete", "Circuit closed. Fast travel unlocked.", 5, 5)
+    else:
+        game_hud.set_quest("Night Shift Complete", "Encore %d finished. No unlimited loops." % encore_count, 4, 4)
+    game_hud.set_fast_travel_enabled(true)
+    game_hud.set_encore_available(encore_count < NightShiftGeneratorScript.MAX_NIGHTS, encore_count + 1)
     game_hud.set_interaction_prompt("", false)
     if not message.is_empty():
         game_hud.show_dialogue(message)
