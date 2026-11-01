@@ -70,6 +70,17 @@ class DonorTriageTests(unittest.TestCase):
         self.assertEqual(conflicts[0]["currentState"], "HOLD_UNTIL_EXACT_QAL_TERMS_REVIEW")
         self.assertFalse(conflicts[0]["publicAllowed"])
         self.assertNotIn(conflicts[0]["assetId"], [a["assetId"] for a in DOC["candidates"]])
+    def test_lum_private_biped_matches_historical_canon_not_game_ready(self):
+        from pathlib import Path
+        receipt = json.loads(Path("game/demo/lumRigSourceInspectionV1.json").read_text())
+        candidate = next(x for x in DOC["candidates"] if x["assetId"] == "luhm-lum-rigged-biped")
+        self.assertEqual(candidate["sourceHash"], receipt["archiveSha256"])
+        self.assertTrue(receipt["zipCrcPass"])
+        self.assertEqual(len(receipt["models"]), 2)
+        self.assertTrue(all(x["joints"] == 24 and x["skins"] == 1 and x["godotImported"] is False for x in receipt["models"]))
+        self.assertFalse(candidate["publicAllowed"])
+        self.assertEqual(candidate["godotImport"], "NOT_TESTED")
+        self.assertEqual(receipt["sourceStorageSharing"], "EXPOSED_ANYONE_WRITER_NEEDS_OWNER_RESTRICTION")
     def test_legacy_archive_hash_fails_closed(self):
         with tempfile.TemporaryDirectory() as temp:
             p = Path(temp) / "donor.zip"
