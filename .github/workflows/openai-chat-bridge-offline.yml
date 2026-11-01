@@ -8,6 +8,11 @@ on:
       - "host/mcp/luhmHarnessServer.py"
       - "plugins/luhm-os/skills/luhm-openai-chat-bridge/**"
       - "tests/testOpenAiChatBridge.py"
+      - "host/remote/luhmWmsVmManager.py"
+      - "host/mcp/luhmWmsVmTools.py"
+      - "doctrine/remoteWmsMachineBridgeV1.json"
+      - "doctrine/remoteWmsPluginSlotsV1.json"
+      - "tests/testWmsVmManager.py"
       - ".github/workflows/openai-chat-bridge-offline.yml"
   workflow_dispatch:
 
@@ -24,6 +29,8 @@ jobs:
         with:
           python-version: "3.11"
       - name: Compile new bridge modules
-        run: python -m py_compile host/api/luhmOpenAiChatBridge.py host/mcp/luhmOpenAiChatTools.py
+        run: python -m py_compile host/api/luhmOpenAiChatBridge.py host/mcp/luhmOpenAiChatTools.py host/remote/luhmWmsVmManager.py host/mcp/luhmWmsVmTools.py
       - name: Test offline and quarantine gates
         run: python -m unittest discover -s tests -p 'testOpenAiChatBridge.py' -v
+      - name: Test WMS VM manager no-network and Canon guards
+        run: python -m unittest discover -s tests -p 'testWmsVmManager.py' -v
