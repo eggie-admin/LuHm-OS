@@ -6,6 +6,7 @@ import sys
 MARKERS = {
     "layoutSmoke": "SAMSUNG ORIENTATION HARNESS PASS",
     "runtimeSmoke": "CROWN RUNTIME SMOKE GREEN",
+    "legacyGodotEmoteSmoke": "LUHM LEGACY IPS GODOT EVENT SOURCE SMOKE GREEN",
     "lumRigV2Phase1Smoke": "LUHM RIG V2 PHASE 1 GREEN",
 }
 
