@@ -1,5 +1,6 @@
 import { access, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { auditStaticShell } from "./universalShellAudit.mjs";
 
 const root = resolve(new URL("..", import.meta.url).pathname);
 const mustExist = [
@@ -17,6 +18,7 @@ const mustExist = [
 for (const file of mustExist) await access(resolve(root, file));
 
 const html = await readFile(resolve(root, "index.html"), "utf8");
+const css = await readFile(resolve(root, "styles.css"), "utf8");
 const plugin = await readFile(resolve(root, "jquery/luhm.cockpit.js"), "utf8");
 const castPlugin = await readFile(resolve(root, "jquery/luhm.cast.js"), "utf8");
 const parallax = await readFile(resolve(root, "jquery/luhm.parallax.js"), "utf8");
@@ -24,7 +26,9 @@ const vueCandidate = await readFile(resolve(root, "vue/LumLayeredPuppet.vue"), "
 const app = await readFile(resolve(root, "app.js"), "utf8");
 const roleplay = await readFile(resolve(root, "jquery/luhm.codingRoleplay.js"), "utf8");
 
+const shellReceipt = auditStaticShell({ html, css, app });
 const checks = [
+  [shellReceipt.status === "GREEN_SOURCE_ONLY", "universal static browser and native bridge boundary"],
   [html.includes("jquery/luhm.parallax.js") && app.includes(".luhmParallax()"), "local parallax plugin mounted"],
   [parallax.includes("$.fn.luhmParallax =") && parallax.includes('command === "destroy"') && parallax.includes("prefers-reduced-motion") && !parallax.includes("fetch("), "bounded parallax lifecycle"],
   [vueCandidate.includes('from "vue"') && vueCandidate.includes("onBeforeUnmount") && vueCandidate.includes("prefers-reduced-motion") && !vueCandidate.includes("https://"), "Vue 3 separate candidate, no CDN imports"],
