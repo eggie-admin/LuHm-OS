@@ -1,0 +1,33 @@
+name: Crown Cathedral brand Canon source audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/brandCanonV1.json'
+      - 'doctrine/characterCanonRegistryV1.json'
+      - 'doctrine/widgetSystemCanonV1.json'
+      - 'doctrine/motionBrandCanonV1.json'
+      - 'doctrine/publicPrivateBrandVaultV1.json'
+      - 'doctrine/brandAssetRegistryV1.json'
+      - 'tools/crownCathedralBrandAudit.py'
+      - '.github/workflows/crown-cathedral-brand-canon.yml'
+      - 'manual/crown-cathedral-brand-bible.md'
+      - 'manual/public-portfolio-restoration.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-canon:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout review source only
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Audit identity, original art, widgets and protected publishing
+        run: |
+          set -euo pipefail
+          python3 tools/crownCathedralBrandAudit.py
+      - name: No production action
+        run: |
+          echo 'Source proof only. No artwork, widget host, Meta publishing or release promotion.'
