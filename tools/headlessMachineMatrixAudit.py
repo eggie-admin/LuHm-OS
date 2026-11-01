@@ -85,7 +85,7 @@ def audit_schema(canon: Mapping[str, Any] | None = None) -> dict[str, Any]:
     if q.get("state") != "QUARANTINED" or q.get("activeTaskWorkersAllowed") is not False:
         # Changes to the hold require their own authorization and source review.
         problems.append("RED_UNEXPECTED_QUARANTINE_STATE")
-    if data.get("security", {}).get("vmProvisionAllowed") is not False:
+    if data.get("security", {}).get("VMProvisionAllowed") is not False:
         problems.append("RED_VM_PROVISION_AUTHORITY")
     if data.get("security", {}).get("cameraOpenAllowed") is not False:
         problems.append("RED_CAMERA_AUTHORITY")
