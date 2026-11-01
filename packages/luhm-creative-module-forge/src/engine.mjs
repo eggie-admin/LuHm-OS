@@ -70,8 +70,12 @@ export function validateModule(module) {
       && (node.type !== "ending" || node.choices.length === 0),
       "RED_RPG_CHOICES");
     for (const choice of node.choices) {
-      ownKeys(choice, ["label","target","check","effect"], "RED_RPG_CHOICE_FIELDS");
+      ownKeys(choice, ["label","target","failureTarget","check","effect"], "RED_RPG_CHOICE_FIELDS");
       text(choice.label,96);slug(choice.target);
+      if (Object.hasOwn(choice,"failureTarget")) {
+        ensure(Object.hasOwn(choice,"check"), "RED_RPG_FAILURE_REQUIRES_CHECK");
+        slug(choice.failureTarget);
+      }
       if (Object.hasOwn(choice,"check")) {
         ownKeys(choice.check, ["formula","target"], "RED_RPG_CHECK_FIELDS");
         rollFormula(choice.check.formula);
@@ -97,6 +101,9 @@ export function validateModule(module) {
   ensure(nodes.has(slug(module.start)), "RED_RPG_START");
   for(const node of nodes.values())for(const choice of node.choices) {
     ensure(nodes.has(choice.target), "RED_RPG_MISSING_TARGET");
+    if (Object.hasOwn(choice,"failureTarget")) {
+      ensure(nodes.has(choice.failureTarget), "RED_RPG_MISSING_FAILURE_TARGET");
+    }
   }
   const summary = {schema:SCHEMA,moduleId,title,nodeCount:nodes.size,
     start:module.start,sourceRef:module.sourceRef,
@@ -113,7 +120,7 @@ export function createModule(moduleId="moonlit-archive", sourceRef="0".repeat(40
     start:"gate",nodes:[
       {id:"gate",type:"dialogue",text:"A silver bell echoes over an abandoned observatory.",choices:[
         {label:"Examine the observatory seal",target:"vault",
-          check:{formula:"1d20+2",target:12}},
+          check:{formula:"1d20+2",target:12},failureTarget:"rest"},
         {label:"Rest beside the lantern",target:"rest",
           effect:{type:"grant",resource:"focus",amount:1}}
       ]},
@@ -137,7 +144,8 @@ export function step(module, nodeId, choiceIndex, seed=1) {
   ensure(choice, "RED_RPG_CHOICE_INDEX");
   const dice=choice.check?rollDice(choice.check.formula,seed):null;
   const success=dice ? dice.total>=choice.check.target : true;
-  return Object.freeze({moduleId:module.moduleId,from:nodeId,to:choice.target,
+  return Object.freeze({moduleId:module.moduleId,from:nodeId,
+    to:!success && choice.failureTarget ? choice.failureTarget : choice.target,
     choice:choice.label,check:dice?{...dice,target:choice.check.target,success}:null,
     effect:success&&choice.effect?{...choice.effect}:null,
     sourceOnly:true,networkCalls:0,pluginCalls:0,writeCalls:0,
