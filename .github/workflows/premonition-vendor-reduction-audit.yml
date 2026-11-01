@@ -5,6 +5,11 @@ on:
       - 'doctrine/vendorReductionV1.json'
       - 'doctrine/hardwareVendorMinimumV1.json'
       - 'doctrine/processorHexCeilingsV1.json'
+      - 'doctrine/computeFourCoreV1.json'
+      - 'tools/computeFourCoreAudit.py'
+      - 'tests/testComputeFourCoreAudit.py'
+      - 'manual/computeFourCore4x4.md'
+      - '.devcontainer/Dockerfile.compute'
       - 'tools/processorHexCeilingBench.py'
       - 'tests/testProcessorHexCeilingBench.py'
       - 'manual/processorHexCeiling4x4.md'
@@ -64,6 +69,21 @@ jobs:
           assert not r["kernelMutations"] and not r["networkMutations"] and r["crownStatus"]=="STOP"
           print("CAST_PROCESSOR_BOUNDED_RUNNER_MEASURED_NOT_DEVICE")
           PY
+      - name: CAST GPU CPU memory firmware compute-only audit
+        run: |
+          python3 -m unittest discover -s tests -p 'testComputeFourCoreAudit.py' -v
+          python3 tools/computeFourCoreAudit.py --probe-runner > "${RUNNER_TEMP}/compute-four-core.json"
+          python3 - "${RUNNER_TEMP}/compute-four-core.json" <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1],encoding="utf8"))
+          assert r["status"]=="AMBER_RUNNER_HINTS_ONLY"
+          assert r["matrixCells"]==16 and r["computePackages"]==11 and r["serverPackages"]==0
+          assert r["runnerHints"]["hostSettingsModified"] is False
+          assert r["runnerHints"]["gpuHardwareAccelerationVerified"] is False
+          assert r["physicalGpuTested"] is False and r["physicalFirmwareTested"] is False
+          assert r["actualDockerBuild"] is False and r["crownStatus"]=="STOP"
+          print("CAST_COMPUTE_4X4_SOURCE_AND_RUNNER_HINTS_NOT_DEVICE_PROOF")
+          PY
       - name: Build web candidate with exact dependency lock
         working-directory: frontEnd/prototypes/glassWorld
         run: |
@@ -89,5 +109,6 @@ jobs:
           path: |
             ${{ runner.temp }}/vendor-reduction/
             ${{ runner.temp }}/processor-hex/
+            ${{ runner.temp }}/compute-four-core.json
           retention-days: 14
           if-no-files-found: warn
