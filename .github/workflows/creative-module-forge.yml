@@ -1,0 +1,40 @@
+name: LuHm Creative Module Forge Offline Gate
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/creativeModuleForge4x4V1.json"
+      - "tools/creativeCommunityAudit.py"
+      - "tests/testCreativeCommunityAudit.py"
+      - "host/mcp/luhmCreativeModuleTools.py"
+      - "host/mcp/luhmHarnessServer.py"
+      - "packages/luhm-creative-module-forge/**"
+      - "manual/creative-rpg-module-forge.md"
+      - ".github/workflows/creative-module-forge.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  creative-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Audit Python license registry and offline RSS/Atom intake
+        run: |
+          python -m py_compile tools/creativeCommunityAudit.py host/mcp/luhmCreativeModuleTools.py
+          python tools/creativeCommunityAudit.py
+          python -m unittest discover -s tests -p 'testCreativeCommunityAudit.py' -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test original tabletop module engine and safe scene DSL
+        run: |
+          npm test --prefix packages/luhm-creative-module-forge
+          node packages/luhm-creative-module-forge/bin/cli.mjs demo
+          node packages/luhm-creative-module-forge/bin/cli.mjs scaffold moonlit-archive
