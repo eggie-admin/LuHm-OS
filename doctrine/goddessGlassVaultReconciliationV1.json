@@ -1,0 +1,152 @@
+{
+  "schema": "luhmOs.goddessGlassVaultReconciliation.v1",
+  "status": "PRIVATE_VAULT_INDEXED_LIVE_PLUGIN_NOT_UPDATED",
+  "product": "LuHm-OS",
+  "project": "Project Premonition",
+  "authority": "Professor",
+  "sourcePriority": [
+    "game/canon/CHARACTER_CANON_V1.json",
+    "game/assets/CHARACTER_ASSET_INGEST_V1.json",
+    "game/assets/ASSET_MANIFEST_V1.json",
+    "doctrine/goddessGlassDomBridgeV1.json"
+  ],
+  "noRawPrivateDriveIdsInPublicGit": true,
+  "noPrivateBinaryAssetsInPublicGit": true,
+  "fourLanes": [
+    {
+      "id": "characterIdentity",
+      "required": "existing game canonical silhouette and art-bible review"
+    },
+    {
+      "id": "artifactBytes",
+      "required": "original source hash, model import and texture rig verification"
+    },
+    {
+      "id": "scenery",
+      "required": "source sky parallax layers, separate actual HDR/cubemap proof"
+    },
+    {
+      "id": "chatDock",
+      "required": "existing plugin mount plus independent upgraded 3D resource proof"
+    }
+  ],
+  "availableVault": {
+    "lumAnimatedVideo": {
+      "kind": "video/mp4",
+      "dimensions": [
+        512,
+        640
+      ],
+      "fps": 8,
+      "durationSeconds": 6.25,
+      "sha256": "1a20bd7bf495ee930d2cc9dab9342d7cb29d326ce0c7f433c206581ebdddad97",
+      "status": "BYTE_VERIFIED_PRIVATE_2D_ANIMATION",
+      "threeDimensionalModel": false,
+      "importedIntoGame": false,
+      "releaseApproved": false
+    },
+    "lumAnimatedGif": {
+      "kind": "image/gif",
+      "dimensions": [
+        512,
+        640
+      ],
+      "status": "DRIVE_FILE_OBSERVED_PRIVATE_ANIMATED_ART",
+      "threeDimensionalModel": false,
+      "releaseApproved": false
+    },
+    "lumHistoricGlbPack": {
+      "kind": "historicalPrivateZipAudit",
+      "name": "yumeRaw3dHardenedCandidate.zip",
+      "sha256": "89bb095f4f8ee5865dacfb8785aceda38f57a96709e1867671b1c3f3f34e478b",
+      "reportedFiles": [
+        "lumCharacter.glb",
+        "lumRunning.glb"
+      ],
+      "status": "EARLIER_BYTES_AUDITED_CURRENT_LOOSE_GLB_NOT_RETRIEVED",
+      "liveGodotImportProven": false,
+      "legalReleaseCleared": false
+    },
+    "skyPlates": [
+      {
+        "scene": "steel",
+        "name": "Steel Mill Afternoon",
+        "format": "webp",
+        "role": "2D_PARALLAX_SKY_NOT_HDRI",
+        "sha256": "76af1c3cc186a00a94ad6c07e539c03a1b6ba1cdb0eeca4eb84f77971fc3174a"
+      },
+      {
+        "scene": "date",
+        "name": "Date Area Night",
+        "format": "webp",
+        "role": "2D_PARALLAX_SKY_NOT_HDRI",
+        "sha256": "ec4f3164aa739bea063d2306b30c64cd07636a502d554778adcde958d3759619"
+      },
+      {
+        "scene": "lab",
+        "name": "Dev Lab Night",
+        "format": "webp",
+        "role": "2D_PARALLAX_SKY_NOT_HDRI",
+        "sha256": "b5c29aadcaada35354cbc6f2a163b2c2446a5c41ed38e197c4877ca4b3f58da0"
+      }
+    ],
+    "skyPack": "KAI9000_LUM_CSS_PARALLAX_INGEST_20260914.zip"
+  },
+  "roster": [
+    {
+      "id": "lum",
+      "baseline": "EXISTING_CANDIDATE_CANON",
+      "visualMaster": "ART_BIBLE_REFERENCE",
+      "liveRigStatus": "UNPROVEN",
+      "driveAssetAvailable": "2D_VIDEO_VERIFIED"
+    },
+    {
+      "id": "urd",
+      "baseline": "EXISTING_CANDIDATE_CANON",
+      "visualMaster": "ART_BIBLE_REFERENCE",
+      "liveRigStatus": "NOT_FOUND"
+    },
+    {
+      "id": "belldandy",
+      "baseline": "EXISTING_CANDIDATE_CANON",
+      "visualMaster": "ART_BIBLE_REFERENCE",
+      "liveRigStatus": "NOT_FOUND"
+    },
+    {
+      "id": "skuld",
+      "baseline": "EXISTING_CANDIDATE_CANON",
+      "visualMaster": "ART_BIBLE_REFERENCE",
+      "liveRigStatus": "NOT_FOUND"
+    },
+    {
+      "id": "yume",
+      "baseline": "ART_STUDIO_ROLE_PREVIEW_ONLY",
+      "visualMaster": "UNPROVEN",
+      "liveRigStatus": "NOT_FOUND"
+    }
+  ],
+  "runtime": {
+    "privateOfflinePreviewCreated": true,
+    "privateOfflinePreviewInGit": false,
+    "pluginReadOnlyMobileCockpitInvoked": true,
+    "pluginObservedSourceRef": "27184814dbd279a2a1e8daa5cfa8a7ebcbad0472",
+    "newerDraftSourceNeedsDeployment": true,
+    "glassDockNewVersionMounted": false,
+    "realGlbRuntimeLoaded": false,
+    "unrealEnginePlayer": false,
+    "actualCubemapHdrSkybox": false,
+    "cloudflareRemoteRequired": false,
+    "sqlLiveMigrationPerformed": false
+  },
+  "gates": {
+    "hashReconciled": true,
+    "atlasReferenceOnly": true,
+    "visualCanonOwnerApprovalRequired": true,
+    "glbSourceRightsUnverified": true,
+    "privatelyPreviewable": true,
+    "publicReleaseAuthorized": false,
+    "productionPromotion": false
+  },
+  "correction": "Do not call the recovered Lum MP4 a rigged 3D model. Do not call recovered parallax sky plates 360 HDR skyboxes. Do not mark unpublished goddess rigs available from directory names or historical audit references.",
+  "crownStatus": "STOP"
+}
