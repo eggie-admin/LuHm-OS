@@ -86,6 +86,7 @@ func _build_runtime() -> void:
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
     game_hud.rehearsal_requested.connect(_enter_goddess_rehearsal)
+    game_hud.pre_rendered_stage_requested.connect(_enter_pre_rendered_stage)
     game_hud.backend_requested.connect(_enter_backend)
     game_hud.world_destination_requested.connect(switchWorld)
     game_hud.lum_talk_requested.connect(_on_lum_talk_requested)
@@ -101,6 +102,10 @@ func _wire_runtime() -> void:
 func _enter_goddess_rehearsal() -> void:
     # Optional launch of verified standalone scene; leave original First Night untouched.
     get_tree().change_scene_to_file("res://scenes/GoddessRehearsal.tscn")
+
+func _enter_pre_rendered_stage() -> void:
+    # Standalone source-verified studio proof; canonical quest source remains unchanged.
+    get_tree().change_scene_to_file("res://labs/first-night-pocket/PreRenderedStage.tscn")
 
 func _on_lum_talk_requested() -> void:
     if game_hud == null or LUM_BANTER.is_empty():
