@@ -1,0 +1,271 @@
+{
+  "schema": "luhmOs.castMachineCloseout.v1",
+  "asOf": "2026-11-01",
+  "authority": "Professor",
+  "status": "PROPOSED_MACHINE_SOURCE_RECONCILIATION",
+  "crownStatus": "STOP",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "mainBaseline": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d",
+  "milestone": {
+    "id": "piOsLiteMachineToOsProposed20261101",
+    "taskId": "machine-headless-boot-to-browser-kiosk",
+    "scopeId": "piOsMachine4x4",
+    "desiredOutput": "one lean Raspberry Pi OS machine, loopback HTML studio, next OS source review",
+    "nextLayer": "osAndStudioRuntime",
+    "buildNotRequested": true
+  },
+  "chain": [
+    {
+      "pr": 477,
+      "branch": "candidate/machine-debian-four-layer-snapshot-20261101",
+      "sha": "f44e0747944177c9c24a9a6c9b7edcad168318d8",
+      "base": "main",
+      "role": "debianUserland",
+      "sourceRun": 41275191198
+    },
+    {
+      "pr": 478,
+      "branch": "candidate/machine-local-ai-audit-npm-20261101",
+      "sha": "40c0ce5f35a32127acc2e176ad41bcf9f11066dc",
+      "base": "candidate/machine-debian-four-layer-snapshot-20261101",
+      "role": "nodePythonSql",
+      "sourceRun": 41275728802
+    },
+    {
+      "pr": 479,
+      "branch": "candidate/device-registry-typed-workflow-20261101",
+      "sha": "722730eadb7362a93f6a4660a026a60f598d4b06",
+      "base": "candidate/machine-local-ai-audit-npm-20261101",
+      "role": "deviceRegistry",
+      "sourceRun": 41276356242
+    },
+    {
+      "pr": 480,
+      "branch": "candidate/pi-os-lite-headless-kiosk-20261101",
+      "sha": "d5b2947360a0c8b9ec184162b7fa4f405d8b3616",
+      "base": "candidate/device-registry-typed-workflow-20261101",
+      "role": "piOsKiosk",
+      "sourceRun": 41276769982
+    }
+  ],
+  "lanes": [
+    {
+      "id": "concept",
+      "criteria": [
+        "canonSourceBound",
+        "platformArchitectureChosen"
+      ],
+      "authorization": "sourceReadOnly"
+    },
+    {
+      "id": "prototype",
+      "criteria": [
+        "fourByFourSourceChecks",
+        "debianContainerCi",
+        "loopbackKioskCi",
+        "typedNpmPythonSqlCi"
+      ],
+      "authorization": "readOnlyCI"
+    },
+    {
+      "id": "proposed",
+      "criteria": [
+        "parentPrShaChain",
+        "exactHeadCiRecheck",
+        "currentMainRecheck",
+        "professorReviewsSourceScope"
+      ],
+      "authorization": "humanReviewRequired"
+    },
+    {
+      "id": "beta",
+      "criteria": [
+        "physicalPiBoot",
+        "physicalKernelFirmwareAndDrivers",
+        "nonrootStudioSmoke",
+        "securePhoneTransport",
+        "rollbackRecovery",
+        "explicitOneUseCast"
+      ],
+      "authorization": "separateSingleUseCastOnly"
+    },
+    {
+      "id": "final",
+      "criteria": [
+        "betaDeviceAcceptance",
+        "rightsAndLicenses",
+        "signedDistribution",
+        "ownerReleaseApproval",
+        "productionRollbackPlan"
+      ],
+      "authorization": "releaseApprovalSeparateFromCast"
+    }
+  ],
+  "machineFourByFour": {
+    "namespace": "piOsMachine",
+    "layers": [
+      "piBootKernel",
+      "headlessUserspace",
+      "studioServices",
+      "browserKiosk"
+    ],
+    "columns": [
+      "inventory",
+      "authority",
+      "safeProof",
+      "propose"
+    ],
+    "indices": [
+      "0x00",
+      "0x01",
+      "0x02",
+      "0x03",
+      "0x04",
+      "0x05",
+      "0x06",
+      "0x07",
+      "0x08",
+      "0x09",
+      "0x0A",
+      "0x0B",
+      "0x0C",
+      "0x0D",
+      "0x0E",
+      "0x0F"
+    ]
+  },
+  "observations": {
+    "canonSourceBound": true,
+    "platformArchitectureChosen": true,
+    "fourByFourSourceChecks": true,
+    "debianContainerCi": true,
+    "loopbackKioskCi": true,
+    "typedNpmPythonSqlCi": true,
+    "parentPrShaChain": true,
+    "exactHeadCiRecheck": false,
+    "currentMainRecheck": false,
+    "professorReviewsSourceScope": false,
+    "physicalPiBoot": false,
+    "physicalKernelFirmwareAndDrivers": false,
+    "nonrootStudioSmoke": false,
+    "securePhoneTransport": false,
+    "rollbackRecovery": false,
+    "explicitOneUseCast": false,
+    "betaDeviceAcceptance": false,
+    "rightsAndLicenses": false,
+    "signedDistribution": false,
+    "ownerReleaseApproval": false,
+    "productionRollbackPlan": false
+  },
+  "sourceReceipts": [
+    {
+      "path": "doctrine/machineDebianFourLayerV1.json",
+      "role": "debianKernelBoundary"
+    },
+    {
+      "path": "doctrine/machineLocalAgentAuditV1.json",
+      "role": "typedNodeSqlPlan"
+    },
+    {
+      "path": "doctrine/deviceCapabilityRegistryV1.json",
+      "role": "fourPlatformHexRegistry"
+    },
+    {
+      "path": "doctrine/piOsLiteMachineKioskV1.json",
+      "role": "pi4x4BootToKiosk"
+    },
+    {
+      "path": "doctrine/forgeTwinsV3.json",
+      "role": "castAuthority"
+    },
+    {
+      "path": "tools/machineDebianSnapshot.py",
+      "role": "strictSqlAudit"
+    },
+    {
+      "path": "tools/luhm-machine-agent/src/index.mjs",
+      "role": "noNetworkAudit"
+    },
+    {
+      "path": "tools/pi-kiosk/preview.py",
+      "role": "loopbackOnlyPreview"
+    },
+    {
+      "path": "infra/machine-debian/Dockerfile",
+      "role": "isolatedUserland"
+    }
+  ],
+  "contractDecisions": {
+    "sourceCandidateFrozenUntilEvidence": true,
+    "doNotAddAnotherKernelFork": true,
+    "doNotAddSecondWebServer": true,
+    "doNotAddGdmToHeadless": true,
+    "doNotAutoMergeStackedBranches": true,
+    "noAutomaticCastDispatch": true,
+    "castDoesNotAuthorizeDeploy": true,
+    "noImplicitModelInference": true,
+    "noPhysicalHardwareProofFromCI": true,
+    "blockedHardwareIsEscalationNotWorkToInvent": true,
+    "remoteUnrealOutsideMachineBaseline": true,
+    "noPaidComputeOrPublicAccess": true
+  },
+  "readyToPlanNextOsLayer": true,
+  "readyForPhysicalBackend": false,
+  "fourProofKinds": [
+    "sourceContract",
+    "isolatedCiContainer",
+    "actualPiHardware",
+    "ownerRelease"
+  ],
+  "requiredNextEvidence": [
+    {
+      "id": "HARDWARE-001",
+      "ownerAction": "run approved read-only inventory on actual Pi 4/5; preserve backup",
+      "proof": "board/kernel/DT/page/RAM/thermal/driver receipt",
+      "status": "BLOCKED_PHYSICAL_DEVICE"
+    },
+    {
+      "id": "STUDIO-002",
+      "ownerAction": "test FFmpeg and Godot headless on Pi with bounded resources",
+      "proof": "exact-head frame and memory receipt",
+      "status": "BLOCKED_PHYSICAL_DEVICE"
+    },
+    {
+      "id": "NETWORK-003",
+      "ownerAction": "approve and test authenticated phone-to-Pi transport",
+      "proof": "TLS/identity/deny/revoke receipt",
+      "status": "BLOCKED_REMOTE_ACCESS"
+    },
+    {
+      "id": "CAST-004",
+      "ownerAction": "one-use exact source CAST for a named test build, then separate install approval",
+      "proof": "signed operator approval plus artifact hash and runtime proof",
+      "status": "BLOCKED_AUTHORIZATION"
+    },
+    {
+      "id": "RELEASE-005",
+      "ownerAction": "approve any public or store deployment separately after beta",
+      "proof": "rights, rollback and signed app receipts",
+      "status": "BLOCKED_RELEASE"
+    }
+  ],
+  "promotionLaw": {
+    "automaticDestination": "PROPOSED_SOURCE_REVIEW_ONLY",
+    "maximumWithoutPhysicalProof": "PROPOSED_SOURCE_REVIEW_ONLY",
+    "prohibitedActions": [
+      "productionMerge",
+      "physicalPiProvision",
+      "firmwareFlash",
+      "ownerSignedApp",
+      "googlePlayUpload",
+      "galaxyStoreUpload",
+      "remoteTunnelEnable",
+      "publicCdNDeploy",
+      "agentPromotion"
+    ],
+    "castSourceRequired": true,
+    "castSingleUse": true,
+    "buildRequiresDistinctAuthorization": true,
+    "releaseRequiresSeparateApproval": true
+  }
+}
