@@ -6,6 +6,8 @@ on:
       - 'doctrine/gameplayVerticalSliceV1.json'
       - 'doctrine/gameplayVerticalSliceCrownReceiptV1.json'
       - 'game/story/**'
+      - 'labs/first-night-pocket/**'
+      - 'tests/firstNightPocketLogicSmoke.js'
       - 'scripts/game/**'
       - 'scripts/main.gd'
       - 'tools/gameplayVerticalSliceAudit.py'
@@ -27,6 +29,8 @@ jobs:
           python3 -m json.tool game/story/firstNightQuest.json >/dev/null
       - name: Audit gameplay vertical slice source
         run: python3 tools/gameplayVerticalSliceAudit.py
+      - name: Check First Night HTML5, JavaScript, scene editor and Canon fidelity
+        run: node tests/firstNightPocketLogicSmoke.js
       - name: Install Godot 4.7.2
         shell: bash
         run: |
