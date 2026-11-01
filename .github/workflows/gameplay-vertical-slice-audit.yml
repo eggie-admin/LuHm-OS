@@ -39,7 +39,7 @@ jobs:
           python3 tools/finiteDemoQueue.py > "$RUNNER_TEMP/finite-demo-queue.json"
           python3 -m json.tool game/demo/communityDonorIntakeV1.json >/dev/null
           python3 -m unittest discover -s tests -p 'testDemoDonorTriage.py' -v
-          python3 tools/demoDonorTriage.py --scene cathedral > "$RUNNER_TEMP/community-donors.json"
+          python3 -m tools.demoDonorTriage --scene cathedral > "$RUNNER_TEMP/community-donors.json"
       - name: Install Godot 4.7.2
         shell: bash
         run: |
