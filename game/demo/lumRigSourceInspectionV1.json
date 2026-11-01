@@ -1,0 +1,71 @@
+{
+  "schema": "luhmOs.privateLumRigArchiveInspection.v1",
+  "sourceClass": "PRIVATE_CHARACTER_DONOR",
+  "disclosure": "METADATA_ONLY_NO_GLB_BYTES",
+  "archiveName": "Meshy_AI_Lum_Midnight_1996_biped.zip",
+  "archiveSha256": "fedaf37220d5f9477560fdc0b5624d30e95191db989f5b8428ca4d1a19b1d3da",
+  "archiveSizeBytes": 16410745,
+  "archiveEntryCount": 2,
+  "archiveUncompressedBytes": 18455916,
+  "zipCrcPass": true,
+  "archiveUnsafePaths": 0,
+  "archiveSpecialFiles": 0,
+  "sourceRightsPublicApproved": false,
+  "sourceStorageSharing": "EXPOSED_ANYONE_WRITER_NEEDS_OWNER_RESTRICTION",
+  "models": [
+    {
+      "logicalName": "running",
+      "sha256": "750f54b2b3618767bdad3f9399a2f0cb8be70b46e39a65affe178b4745c964f0",
+      "bytes": 9232024,
+      "glTFVersion": "2.0",
+      "meshes": 1,
+      "skins": 1,
+      "joints": 24,
+      "animations": [
+        "Armature|running|baselayer"
+      ],
+      "animationChannels": 72,
+      "morphTargets": 0,
+      "boundsMetersApprox": {
+        "width": 1.469,
+        "height": 1.7,
+        "depth": 0.518
+      },
+      "godotImported": false
+    },
+    {
+      "logicalName": "character",
+      "sha256": "06bdfcc196e147c4cb92c7c5489110a8feb30ee8a8f362fac585802eced33b69",
+      "bytes": 9223892,
+      "glTFVersion": "2.0",
+      "meshes": 1,
+      "skins": 1,
+      "joints": 24,
+      "animations": [
+        "Armature|clip0|baselayer"
+      ],
+      "animationChannels": 72,
+      "morphTargets": 0,
+      "boundsMetersApprox": {
+        "width": 1.469,
+        "height": 1.7,
+        "depth": 0.518
+      },
+      "godotImported": false
+    }
+  ],
+  "debugProduct": "PRIVATE_GODOT_RIG_BENCH_ZIP_CREATED_NOT_EXECUTED",
+  "testGates": {
+    "archiveHash": "PASS",
+    "crc": "PASS",
+    "gltfHeaderAndJson": "PASS",
+    "skinAndAnimationMetadata": "PASS",
+    "godotImport": "NOT_RUN",
+    "godotAnimatedRender": "NOT_RUN",
+    "androidDevice": "NOT_RUN",
+    "canonVisualApproval": "NOT_APPROVED",
+    "publicLicense": "NOT_APPROVED"
+  },
+  "runtimePublication": false,
+  "crownStatus": "STOP"
+}
