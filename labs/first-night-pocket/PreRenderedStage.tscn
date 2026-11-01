@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://labs/first-night-pocket/preRenderedStage.gd" id="1_stage"]
+[ext_resource type="Texture2D" path="res://labs/first-night-pocket/cathedral-stage.svg" id="2_backdrop"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_actor"]
+radius = 0.42
+height = 1.65
+
+[sub_resource type="StandardMaterial3D" id="Material_actor"]
+albedo_color = Color(0.871, 0.651, 1, 1)
+metallic = 0.0
+roughness = 0.75
+
+[sub_resource type="BoxMesh" id="BoxMesh_shadow"]
+size = Vector3(1.45, 0.03, 0.6)
+
+[node name="PreRenderedStage" type="Node3D"]
+script = ExtResource("1_stage")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+position = Vector3(0, 1.5, 10)
+projection = 1
+size = 9.0
+current = true
+
+[node name="Backdrop" type="Sprite3D" parent="."]
+position = Vector3(0, 1.5, -4.0)
+texture = ExtResource("2_backdrop")
+pixel_size = 0.018
+shaded = false
+double_sided = true
+
+[node name="Actor" type="Node3D" parent="."]
+position = Vector3(0, -0.55, 0.3)
+
+[node name="Body" type="MeshInstance3D" parent="Actor"]
+mesh = SubResource("CapsuleMesh_actor")
+surface_material_override/0 = SubResource("Material_actor")
+
+[node name="ActorShadow" type="MeshInstance3D" parent="Actor"]
+position = Vector3(0, -0.88, 0)
+mesh = SubResource("BoxMesh_shadow")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-40, -25, -5)
+light_energy = 1.25
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="PanelContainer" parent="HUD"]
+offset_left = 10.0
+offset_top = 12.0
+offset_right = 540.0
+offset_bottom = 134.0
+
+[node name="Margin" type="MarginContainer" parent="HUD/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_bottom = 9
+
+[node name="VBox" type="VBoxContainer" parent="HUD/Panel/Margin"]
+layout_mode = 2
+
+[node name="Status" type="Label" parent="HUD/Panel/Margin/VBox"]
+layout_mode = 2
+text = "First Night 2.5D"
+autowrap_mode = 2
+
+[node name="MoveButtons" type="HBoxContainer" parent="HUD/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Left" type="Button" parent="HUD/Panel/Margin/VBox/MoveButtons"]
+layout_mode = 2
+text = "← Walk"
+
+[node name="Right" type="Button" parent="HUD/Panel/Margin/VBox/MoveButtons"]
+layout_mode = 2
+text = "Walk →"
+
+[connection signal="pressed" from="HUD/Panel/Margin/VBox/MoveButtons/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="HUD/Panel/Margin/VBox/MoveButtons/Right" to="." method="_on_right_pressed"]
