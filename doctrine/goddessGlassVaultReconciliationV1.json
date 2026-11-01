@@ -199,5 +199,31 @@
     "productionPromotion": false
   },
   "correction": "Two real rigged Lum GLBs are now recovered and byte verified. Their Godot import and visible device playback remain unproven; never confuse private packed models with a live plugin/Crown release. Private EVE Blender source is recovered but copyright/usage rights remain private-only.",
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "privateRealCast20261101": {
+    "authorization": "CAST",
+    "scope": "ONE_BOUND_PRIVATE_GODOT_SOURCE_IMPORT_AND_HEADLESS_LAUNCH",
+    "source": "PRIVATE_RECOVERED_ASSET_ZIP_NOT_COMMITTED",
+    "originalGlbUnmodified": true,
+    "fixes": [
+      "GDSCRIPT_NEWLINE_SYNTAX",
+      "SCENE_ROOT_SCALE_X100_TO_1_7M"
+    ],
+    "sourceProof": {
+      "passed": 36,
+      "total": 36,
+      "status": "SOURCE_PREFLIGHT_PASS_ENGINE_RUNTIME_UNPROVEN"
+    },
+    "runtimeAttempt": {
+      "exitCode": 10,
+      "result": "STOP_ENGINE_UNAVAILABLE",
+      "godotExeInstalled": false
+    },
+    "browserProof": "BLOCKED_BY_ADMINISTRATOR",
+    "artifactZipSha256": "82b867c2181205c043fcb41cb55ab57175d152c83fe4100ac8fddabbac1405bf",
+    "bundledPrivateModels": false,
+    "godotEngineRendered": false,
+    "publicReleaseAuthorized": false,
+    "crownStatus": "STOP_ENGINE_RUNTIME_NOT_PROVEN"
+  }
 }
