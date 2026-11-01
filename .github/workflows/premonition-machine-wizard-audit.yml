@@ -6,6 +6,14 @@ on:
       - 'tools/machineToHumanWizard.py'
       - 'tests/testMachineToHumanWizard.py'
       - 'manual/machine-to-human-wizard.md'
+      - 'doctrine/unifiedMachineBaseV1.json'
+      - 'tools/unifiedMachineBaseAudit.py'
+      - 'tests/testUnifiedMachineBaseAudit.py'
+      - 'manual/unifiedMachineBase20261101.md'
+      - 'doctrine/machineCanonFourLoopV1.json'
+      - 'tools/machineCanonFourLoop.py'
+      - 'tests/testMachineCanonFourLoop.py'
+      - 'manual/machineCanonFourLoop20261101.md'
       - '.github/workflows/premonition-machine-wizard-audit.yml'
   workflow_dispatch:
 permissions:
@@ -18,12 +26,69 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify immutable source and whitespace
+        run: |
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
       - name: Validate contract and Python source
         run: |
           python3 -m json.tool doctrine/machineToHumanWizardV1.json > /dev/null
           python3 -m py_compile tools/machineToHumanWizard.py tests/testMachineToHumanWizard.py
       - name: Run synthetic host and no-mutation tests
         run: python3 -m unittest discover -s tests -p 'testMachineToHumanWizard.py' -v
+      - name: Verify unified machine base and deliberate failure cases
+        run: |
+          python3 -m json.tool doctrine/unifiedMachineBaseV1.json > /dev/null
+          python3 -m py_compile tools/unifiedMachineBaseAudit.py tests/testUnifiedMachineBaseAudit.py
+          python3 -m unittest discover -s tests -p 'testUnifiedMachineBaseAudit.py' -v
+      - name: Cross-language frontend and Java/Gradle source alignment
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check frontEnd/app.js
+          node --check frontEnd/jquery/luhm.cockpit.js
+          node frontEnd/tools/check.mjs
+          grep -q 'version "8.13.2"' androidWeb3Plugin/build.gradle.kts
+          grep -q 'JavaVersion.VERSION_17' androidWeb3Plugin/plugin/build.gradle.kts
+          grep -Fq 'assets.srcDir("../../frontEnd")' androidWeb3Plugin/plugin/build.gradle.kts
+          python3 tools/androidWeb3CockpitAudit.py > "$RUNNER_TEMP/android-web3-machine-source.json"
+      - name: Verify bounded Canon loop and negative controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/machineCanonFourLoopV1.json >/dev/null
+          python3 -m py_compile tools/machineCanonFourLoop.py tests/testMachineCanonFourLoop.py
+          python3 -m unittest discover -s tests -p 'testMachineCanonFourLoop.py' -v
+      - name: Collect four-lane 16-cell exact-source Canon tick
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/machineCanonFourLoop.py \
+            --source-ref "${{ github.event.pull_request.head.sha || github.sha }}" \
+            --output "$RUNNER_TEMP/machine-canon-loop-receipt.json"
+      - name: Collect four exact-source machine-profile receipts
+        run: |
+          mkdir -p "$RUNNER_TEMP/machine-base"
+          for profile in linuxHeadless linuxStudio raspberryPiDesktop androidClient; do
+            python3 tools/unifiedMachineBaseAudit.py --profile "$profile" --source-ref "${{ github.event.pull_request.head.sha || github.sha }}" --output "$RUNNER_TEMP/machine-base/$profile.json"
+          done
+      - name: Upload Canon 4x4 machine checklist receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: machine-canon-4x4-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/machine-canon-loop-receipt.json
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Upload machine-base source-only receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: machine-base-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/machine-base/
+          retention-days: 14
+          if-no-files-found: warn
       - name: Emit runner-safe read-only sample
         run: |
           python3 tools/machineToHumanWizard.py --json > "$RUNNER_TEMP/wizard-receipt.json"

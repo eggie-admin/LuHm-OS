@@ -1,0 +1,256 @@
+{
+  "schema": "luhmOs.unifiedMachineBase.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "purpose": "One portable source contract with isolated build/runtime/repair profiles, not one vendor kernel or host image.",
+  "logicalCells": {
+    "axes": [
+      "machine",
+      "service",
+      "studio",
+      "interface"
+    ],
+    "actions": [
+      "inventory",
+      "scope",
+      "verify",
+      "propose"
+    ],
+    "prefix": "0x",
+    "count": 16,
+    "physicalRegisters": false
+  },
+  "components": {
+    "python3": {
+      "kind": "core",
+      "source": "tools/machineToHumanWizard.py",
+      "privileged": false
+    },
+    "sqlite3": {
+      "kind": "core",
+      "source": "tools/typedSqlStub.py",
+      "privileged": false,
+      "storage": "artifactPointersNotMediaBinaries"
+    },
+    "staticHtml": {
+      "kind": "client",
+      "source": "frontEnd/index.html",
+      "privileged": false
+    },
+    "javascriptNpm": {
+      "kind": "build",
+      "source": "frontEnd/package-lock.json",
+      "privileged": false,
+      "installAtEndUser": false
+    },
+    "javaGradle": {
+      "kind": "build",
+      "source": "androidWeb3Plugin/build.gradle.kts",
+      "privileged": false,
+      "installAtEndUser": false
+    },
+    "ffmpeg": {
+      "kind": "studio",
+      "source": "scripts/ai-ffmpeg-codespaces.sh",
+      "privileged": false
+    },
+    "godot": {
+      "kind": "studio",
+      "source": "project.godot",
+      "privileged": false
+    },
+    "blender": {
+      "kind": "studio",
+      "source": ".devcontainer/Dockerfile",
+      "privileged": false
+    },
+    "nginx": {
+      "kind": "optionalHost",
+      "source": "doctrine/networkSpineV1.json",
+      "privileged": false,
+      "role": "reverseProxyOnly"
+    },
+    "apache": {
+      "kind": "legacyInterop",
+      "source": "doctrine/networkSpineV1.json",
+      "privileged": false,
+      "role": "alternativeReverseProxyOnly"
+    },
+    "mariaDb": {
+      "kind": "optionalHost",
+      "source": ".devcontainer/Dockerfile",
+      "privileged": false,
+      "role": "unixSocketOnly"
+    },
+    "certbot": {
+      "kind": "operatorOnly",
+      "source": "tools/certbotWorkspaceSymlinkAudit.py",
+      "privileged": true,
+      "role": "onlyApprovedSelfManagedOrigin"
+    },
+    "gparted": {
+      "kind": "operatorOnly",
+      "source": "manual/machine-to-human-wizard.md",
+      "privileged": true,
+      "role": "offlineHumanDiskRecovery"
+    }
+  },
+  "profiles": {
+    "linuxHeadless": {
+      "required": [
+        "python3",
+        "sqlite3"
+      ],
+      "optional": [
+        "ffmpeg",
+        "nginx"
+      ],
+      "forbidden": [
+        "apache",
+        "mariaDb",
+        "certbot",
+        "gparted",
+        "javaGradle"
+      ],
+      "network": "loopbackOrExistingApprovedHost"
+    },
+    "linuxStudio": {
+      "required": [
+        "python3",
+        "sqlite3",
+        "javascriptNpm",
+        "ffmpeg"
+      ],
+      "optional": [
+        "godot",
+        "blender",
+        "mariaDb",
+        "nginx"
+      ],
+      "forbidden": [
+        "certbot",
+        "gparted",
+        "apache"
+      ],
+      "network": "existingPrivateStudioOnly"
+    },
+    "raspberryPiDesktop": {
+      "required": [
+        "python3",
+        "sqlite3",
+        "staticHtml"
+      ],
+      "optional": [
+        "ffmpeg"
+      ],
+      "forbidden": [
+        "javaGradle",
+        "mariaDb",
+        "apache",
+        "nginx",
+        "certbot",
+        "gparted"
+      ],
+      "network": "loopbackUntilAuthenticatedTransport"
+    },
+    "androidClient": {
+      "required": [
+        "staticHtml"
+      ],
+      "optional": [],
+      "buildOnly": [
+        "javaGradle",
+        "javascriptNpm"
+      ],
+      "forbidden": [
+        "python3",
+        "sqlite3",
+        "mariaDb",
+        "nginx",
+        "apache",
+        "certbot",
+        "gparted",
+        "ffmpeg",
+        "blender"
+      ],
+      "network": "existingAndroidAppPermissionsOnly"
+    }
+  },
+  "serviceDecisions": {
+    "web": "Prefer already-managed Render TLS and direct MCP. Apache httpd and nginx are alternative reverse proxies; never run both by default or translate modules with regex.",
+    "sql": "SQLite 3 for bounded metadata and artifact pointers. MariaDB is an optional socket-only Linux service, not a transparent MySQL 8 replacement.",
+    "certificates": "Render/Cloudflare-managed TLS preferred. Certbot source inspection only; issuance and renewal require exact owned host/domain and operator approval.",
+    "disks": "GParted is recovery-only, manual, destructive-capable; no unattended disk or firmware changes.",
+    "automation": "Python 3 orchestration calls source audits and CI; Node is a build dependency; Java/Gradle package Android, not Linux daemons."
+  },
+  "migrationGates": {
+    "apacheToNginx": {
+      "automaticRewrite": false,
+      "requires": [
+        "explicitRouteInventory",
+        "vhostModuleSemantics",
+        "tlsHeaders",
+        "requestForwarding",
+        "mcpStreamingTest",
+        "rollback"
+      ],
+      "state": "NOT_EXECUTED"
+    },
+    "mysqlToMariaDb": {
+      "automaticRewrite": false,
+      "requires": [
+        "exactMySqlAndMariaDbVersions",
+        "backupAndRestoreRehearsal",
+        "jsonTypeAndSqlModeReview",
+        "authPluginReview",
+        "schemaDataDiff",
+        "rollback"
+      ],
+      "state": "NOT_EXECUTED"
+    }
+  },
+  "automationLanes": [
+    {
+      "id": "inventory",
+      "automatic": true,
+      "scope": "readOnlySource"
+    },
+    {
+      "id": "sanityCheck",
+      "automatic": true,
+      "scope": "syntheticAndSource"
+    },
+    {
+      "id": "test",
+      "automatic": true,
+      "scope": "boundedCi"
+    },
+    {
+      "id": "propose",
+      "automatic": true,
+      "scope": "draftCandidateOnly"
+    },
+    {
+      "id": "liveChange",
+      "automatic": false,
+      "scope": "operatorAndExactHostProof"
+    },
+    {
+      "id": "signDeployCast",
+      "automatic": false,
+      "scope": "ownerAndReleaseGate"
+    }
+  ],
+  "authority": {
+    "agentQuarantine": true,
+    "autonomousLiveBots": false,
+    "exposedSqlPort": false,
+    "productionCertbot": false,
+    "diskWrites": false,
+    "firmwareWrites": false,
+    "productionMerge": false,
+    "publicPublish": false,
+    "crownStatus": "STOP"
+  }
+}
