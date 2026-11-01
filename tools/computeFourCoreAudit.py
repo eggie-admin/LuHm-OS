@@ -54,9 +54,9 @@ def verify_dockerfile(text: str, policy: dict) -> dict:
     for name in policy["image"]["forbiddenPackages"]:
         if name in packages:
             raise FourCoreError("FORBIDDEN_SERVER_PACKAGE")
-    if re.search(r"(?im)^\\s*(?:EXPOSE|ENTRYPOINT|HEALTHCHECK|ONBUILD|VOLUME)\\b",text):
+    if re.search(r"(?im)^[ \t]*(?:EXPOSE|ENTRYPOINT|HEALTHCHECK|ONBUILD|VOLUME)(?:[ \t]|$)",text):
         raise FourCoreError("NETWORK_OR_AUTOSTART_DIRECTIVE")
-    if re.search(r"(?im)^\\s*CMD\\b",text) and len(re.findall(r"(?im)^\\s*CMD\\b",text))!=1:
+    if len(re.findall(r"(?im)^[ \t]*CMD(?:[ \t]|$)",text)) != 1:
         raise FourCoreError("CMD_DUPLICATE")
     for term in ("service nginx start","systemctl enable","supervisord","listen 0.0.0.0",
                  "listen [::]","sudo ","modprobe ","flashrom ","efibootmgr ","grub-install ",
@@ -192,7 +192,7 @@ def audit(config: dict, root: Path=ROOT) -> dict:
         "biosChange","grubChange","cpuGovernorChange","memoryClockChange","gpuDriverInstall",
         "dmaOrKernelModuleLoad","networkListener","paidProvider","agentActivated")):
         raise FourCoreError("FALSE_DEVICE_OR_TUNING_CLAIM")
-    if any(config.get(k) is not False for k in ("noHardwareMutation","noPackageMutation","noProductionDeploy","noAutomaticMerge")):
+    if any(config.get(k) is not True for k in ("noHardwareMutation","noPackageMutation","noProductionDeploy","noAutomaticMerge")):
         raise FourCoreError("MUTATION_FLAG_MISSING")
     if config.get("notRequired")!=["websiteHosting","mailServer","publicDatabase","dnsServer","publicProxy",
         "gpuCloudVm","secondKernel","bareMetalFirmwareToolkit"]:
