@@ -24,6 +24,7 @@ if str(API_DIR) not in sys.path:
     sys.path.insert(0, str(API_DIR))
 
 from luhmCanonOrchestration import CheckpointLedger, plan
+from luhmCastTwoThreadBridge import plan as cast_two_thread_plan, source_audit as cast_two_thread_status
 from luhmCryptoBreathing import status as crypto_status
 from luhmMariaDbReceipt import connection_plan as maria_db_plan
 from luhmGpuVideoPlanner import status as gpu_video_status, plan as gpu_video_plan
@@ -39,6 +40,29 @@ class TaskEnvelope(BaseModel):
     goal: str = Field(min_length=1, max_length=2048)
     tier: int = Field(default=0, ge=0, le=3)
 
+
+ 
+class CastBridgeEnvelope(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    taskId: str = Field(min_length=1, max_length=80)
+    sourceRef: str = Field(pattern=r"^[0-9a-f]{40}$")
+    scopeId: str = Field(min_length=1, max_length=80)
+    goal: str = Field(min_length=1, max_length=2048)
+    tier: int = Field(default=0, ge=0, le=3)
+    requestedStage: str = Field(default="sanityCheck")
+
+
+class CastBridgeEvidenceClaim(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    taskId: str = Field(min_length=1, max_length=80)
+    sourceRef: str = Field(pattern=r"^[0-9a-f]{40}$")
+    scopeId: str = Field(min_length=1, max_length=80)
+    stage: str
+    evidenceSha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+
+
+class CastBridgeReviewEnvelope(CastBridgeEnvelope):
+    evidenceClaims: list[CastBridgeEvidenceClaim] = Field(default_factory=list, max_length=8)
 
 
 class VideoMinutePlanEnvelope(BaseModel):
@@ -121,6 +145,31 @@ def create_app(*, admin_token: str | None = None,
             return app.state.ledger.events(taskId, sourceRef, scopeId, limit)
         except ValueError:
             raise HTTPException(status_code=422, detail="INVALID_LEDGER_SCOPE") from None
+
+    @app.get("/v1/cast-bridge/status", dependencies=[Depends(authenticated)])
+    async def cast_bridge_status() -> dict[str, Any]:
+        return cast_two_thread_status()
+
+    @app.post("/v1/cast-bridge/plan", dependencies=[Depends(authenticated)])
+    async def cast_bridge_plan(body: CastBridgeEnvelope) -> dict[str, Any]:
+        try:
+            return cast_two_thread_plan(
+                body.taskId, body.sourceRef, body.scopeId, body.goal,
+                body.tier, body.requestedStage,
+            )
+        except ValueError:
+            raise HTTPException(status_code=422, detail="INVALID_CAST_BRIDGE_PLAN") from None
+
+    @app.post("/v1/cast-bridge/review", dependencies=[Depends(authenticated)])
+    async def cast_bridge_review(body: CastBridgeReviewEnvelope) -> dict[str, Any]:
+        try:
+            return cast_two_thread_plan(
+                body.taskId, body.sourceRef, body.scopeId, body.goal,
+                body.tier, body.requestedStage,
+                [x.model_dump() for x in body.evidenceClaims],
+            )
+        except ValueError:
+            raise HTTPException(status_code=422, detail="INVALID_CAST_BRIDGE_RECEIPT") from None
 
     @app.get("/v1/crypto/status", dependencies=[Depends(authenticated)])
     async def crypto_status_route() -> dict[str, Any]:
