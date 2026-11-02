@@ -2,6 +2,7 @@
 """Local no-code card prototype. No model calls, microphone access or tool execution."""
 import argparse
 import hashlib
+import html
 import json
 import os
 import stat
@@ -105,6 +106,47 @@ def loadDraft(path):
         raise ValueError('saved draft hash mismatch')
     return receipt
 
+def renderPreview(receipt):
+    """Return an offline, phone-sized, read-only preview of review-only cards."""
+    if type(receipt) is not dict or receipt.get('schema') != 'luhmOs.noCodePrototype.v1':
+        raise ValueError('unsupported preview receipt')
+    sections = []
+    for card in receipt['cards']:
+        title = card['template']['title'] if card['template'] else 'Context / unselected'
+        sections.append(
+            '<article class="card"><h2>' + html.escape(title, quote=True) + '</h2>'
+            '<p class="state">' + html.escape(card['state'], quote=True) + '</p>'
+            '<p class="source">' + html.escape(card['channel'] + ' · ' + card['sourceClass'], quote=True) + '</p>'
+            '<pre>' + html.escape(card['rawText'], quote=True) + '</pre></article>')
+    return ('''<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>LuHm-OS draft card preview</title>
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0;background:#10121b;color:#f4f2fa;font:16px system-ui,sans-serif}
+main{max-width:650px;margin:auto;padding:20px 14px 44px}h1{font-size:1.4rem}h2{font-size:1.05rem;margin:0}
+.card{background:#222635;border:1px solid #50566a;border-radius:14px;padding:16px;margin:14px 0}
+.state{color:#d9b3ff;font-weight:700}.source,small{color:#c4c7d3}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
+</style></head><body><main><h1>Premonition · Draft preview</h1>
+<p>Review only. Edit the source JSON and regenerate to save changes. No scripts, network requests, model calls or execution.</p>'''
+            + ''.join(sections) + '<small>Source: '
+            + html.escape(receipt['sourceRef'], quote=True)
+            + ' · SHA-256: ' + html.escape(receipt['inputSha256'], quote=True)
+            + '</small></main></body></html>')
+
+def savePreview(receipt, path):
+    """Create a private offline preview without overwriting existing work."""
+    data = renderPreview(receipt).encode('utf-8')
+    if len(data) > MAX_DRAFT_BYTES:
+        raise ValueError('preview exceeds 1 MiB')
+    flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, 'O_NOFOLLOW', 0)
+    fd = os.open(path, flags, 0o600)
+    try:
+        with os.fdopen(fd, 'wb') as stream:
+            stream.write(data)
+    except BaseException:
+        Path(path).unlink(missing_ok=True)
+        raise
+
 def demoPacket():
     return {'taskId': 'premonitionPrototype', 'sourceRef': 'f0cb6ee54066b490c0e80efc2c96200fec76ee2d',
             'scopeId': 'localCardDraft', 'events': [
@@ -124,6 +166,7 @@ if __name__ == '__main__':
     group.add_argument('--input', type=Path)
     group.add_argument('--load', type=Path)
     parser.add_argument('--save', type=Path, help='create a new private draft; never overwrite')
+    parser.add_argument('--preview', type=Path, help='create a private offline HTML preview; never overwrite')
     args = parser.parse_args()
     if args.save and args.load:
         parser.error('--save cannot be combined with --load')
@@ -135,6 +178,8 @@ if __name__ == '__main__':
         else:
             packet = demoPacket() if args.demo else json.loads(args.input.read_text(encoding='utf-8'))
             receipt = saveDraft(packet, args.save) if args.save else compileCards(packet)
+        if args.preview:
+            savePreview(receipt, args.preview)
         print(json.dumps(receipt, indent=2, ensure_ascii=False, allow_nan=False))
     except (ValueError, TypeError, KeyError, OSError, UnicodeError) as exc:
         parser.exit(2, f'Invalid prototype input: {exc}\n')
