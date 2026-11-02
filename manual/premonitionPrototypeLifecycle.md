@@ -62,7 +62,10 @@ python3 tools/noCodePrototype.py --demo
 python3 tools/noCodePrototype.py --input packet.json
 python3 tools/noCodePrototype.py --input packet.json --save local-draft.json
 python3 tools/noCodePrototype.py --load local-draft.json
+python3 tools/noCodePrototype.py --load local-draft.json --preview private-review.html
 ```
+
+The `--preview` option creates a private mode-0600, create-only offline HTML file sized for a phone browser. Its cards are **read-only** and all untrusted text is HTML-escaped; a restrictive CSP disables scripts and network access. Edit the original JSON and regenerate a new preview filename. This is not a native Android interface or a running local server.
 
 The demo should produce two DRAFT_REVIEW cards and two CONTEXT_ONLY records.
 Tests exercise determinism, preservation, ambiguous/background input, command-like
