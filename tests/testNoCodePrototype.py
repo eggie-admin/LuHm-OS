@@ -7,7 +7,7 @@ import sys
 import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-from noCodePrototype import compileCards, demoPacket, saveDraft, loadDraft
+from noCodePrototype import compileCards, demoPacket, saveDraft, loadDraft, renderPreview, savePreview
 
 class PrototypeTests(unittest.TestCase):
     def test_repeatable_four_channels(self):
@@ -103,5 +103,29 @@ class PrototypeTests(unittest.TestCase):
             path.write_text(json.dumps(record))
             with self.assertRaises(ValueError):
                 loadDraft(path)
+
+    def test_preview_escapes_untrusted_text_and_stays_offline(self):
+        packet = demoPacket()
+        packet['events'][0]['text'] = '<script>alert("bad")</script> & <img src="https://bad.example">'
+        preview = renderPreview(compileCards(packet))
+        self.assertIn('&lt;script&gt;', preview)
+        self.assertIn('&lt;img src=', preview)
+        self.assertNotIn('<script>', preview)
+        self.assertNotIn('<img ', preview)
+        self.assertIn("default-src 'none'", preview)
+        self.assertIn('name="viewport"', preview)
+        self.assertIn('No scripts, network requests', preview)
+
+    def test_preview_private_create_only_and_invalid_receipt(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'review.html'
+            receipt = compileCards(demoPacket())
+            savePreview(receipt, path)
+            self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+            self.assertIn('Premonition', path.read_text())
+            with self.assertRaises(FileExistsError):
+                savePreview(receipt, path)
+            with self.assertRaises(ValueError):
+                renderPreview({'schema': 'unknown'})
 
 if __name__ == '__main__': unittest.main()
