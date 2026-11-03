@@ -94,6 +94,16 @@ class PrototypeTests(unittest.TestCase):
             with self.assertRaises(OSError):
                 loadDraft(alias)
 
+    def test_saved_draft_refuses_shared_permissions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'draft.json'
+            saveDraft(demoPacket(), path)
+            os.chmod(path, 0o644)
+            with self.assertRaisesRegex(ValueError, 'permissions must be private'):
+                loadDraft(path)
+            os.chmod(path, 0o600)
+            self.assertEqual(loadDraft(path)['eventCount'], 4)
+
     def test_saved_draft_unknown_schema_fails_closed(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'draft.json'
