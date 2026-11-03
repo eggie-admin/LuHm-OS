@@ -1,0 +1,131 @@
+{
+  "schema": "luhmOs.oneAgentMediaTwoLane.v1",
+  "status": "SOURCE_CANDIDATE_NOT_DEPLOYED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "scope": "LuHm-OS Project Premonition artist-first chat cockpit and local media adapters",
+  "sourceRef": "8865dc9756ede173017b56b40a2eb0760649f0a0",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "inChatExperience": "doctrine/inChatExperienceV1.json",
+  "mediaLaw": "doctrine/localMediaDeckV1.json",
+  "petCanon": "doctrine/characterPetPresentationV1.json",
+  "agentLoadingSprites": "doctrine/agentLoadingSpriteManifestV1.json",
+  "quarantineContract": "doctrine/companyWideOperationalQuarantineV1.json",
+  "identity": {
+    "product": "LuHm-OS",
+    "project": "Project Premonition",
+    "legacyAlias": "Project Hydra",
+    "publisher": "Eggie Bagelface"
+  },
+  "operator": {
+    "human": "Professor",
+    "singleConductor": "lum",
+    "conductorMode": "SUPERVISED_CONVERSATION_ROLE_ONLY",
+    "activeExternalWorkers": 0,
+    "claimedDeploy": false,
+    "companyQuarantine": "QUARANTINED",
+    "remainingAgents": "registeredNotExecuting"
+  },
+  "presentation": {
+    "sameChatSurface": true,
+    "threadsAreUiLanesNotProcesses": true,
+    "container": "LuHm MCP-App cockpit and existing standalone harness",
+    "top": {
+      "id": "monitorThread",
+      "label": "Monitor · evidence only",
+      "mode": "READ_ONLY_ON_DEMAND",
+      "polling": false,
+      "hiddenAgent": false,
+      "dataOrigins": [
+        "actualCurrentMcpToolPayload",
+        "sameOriginUserInitiatedHarnessRead"
+      ],
+      "defaultStatus": "VERIFY",
+      "failure": "UNKNOWN_DO_NOT_FAKE_GREEN",
+      "display": [
+        "sourceTruth",
+        "quarantine",
+        "lastObservedReceipt",
+        "connectionStatus"
+      ]
+    },
+    "bottom": {
+      "id": "petChatThread",
+      "label": "Lum · pet & chat",
+      "mode": "LOCAL_PRESENTATION_AND_USER_INITIATED_CHAT",
+      "pet": "lum",
+      "fallback": "original-css-pixel-oni",
+      "roleLabelsNotWorkers": true,
+      "maxBubbleLines": 3,
+      "requiresSpeaker": true,
+      "requiresExpression": true,
+      "pendingLoadingDots": "VISUAL_ONLY_WHILE_WAITING_FOR_CURRENT_READ",
+      "noNumericProgressWithoutMeasuredData": true,
+      "controls": [
+        "openUserInitiatedChat",
+        "selectPetInExistingDock"
+      ],
+      "defaultBubble": "Lum · IDLE · No worker running"
+    }
+  },
+  "media": {
+    "canonicalLocalDefault": "HTML5 local-file playback with original audio/video; FFmpeg renders separately",
+    "vlc": {
+      "role": "Optional explicit native playback handoff",
+      "html5Default": true,
+      "libVlc": "FUTURE_NATIVE_LICENSE_ABI_REVIEW",
+      "browserPlugin": false,
+      "rawHttpInterface": false,
+      "installInApk": false
+    },
+    "kodi": {
+      "name": "Kodi",
+      "legacyAlias": "XBMC",
+      "userSaidMaybe": "XMBI",
+      "role": "OPTIONAL_LOCAL_MEDIA_LIBRARY_AND_EXPLICIT_REMOTE_ADAPTER",
+      "configured": false,
+      "remoteJsonRpcDefault": false,
+      "requiresSameLanExplicitPermission": true,
+      "neverExposeRemoteControlToInternet": true,
+      "license": "GPL_COMPLIANCE_REQUIRED_IF_BUNDLED"
+    },
+    "plex": {
+      "name": "Plex",
+      "role": "OPTIONAL_EXTERNAL_OWNER_AUTH_LIBRARY_ADAPTER",
+      "configured": false,
+      "localOrRemoteOwnerAuthRequired": true,
+      "serverBundled": false,
+      "tokenStorage": "NOT_IN_BROWSER_GIT_OR_CHAT",
+      "remoteServerProvisioning": false,
+      "commercialTermsReviewBeforeShip": true
+    },
+    "providerRolesAreDistinct": true,
+    "copyRemoteMediaForbidden": true,
+    "externalPlaybackDoesNotProveRights": true,
+    "transcodeViaExistingFfmpegOnlyAfterApproval": true
+  },
+  "cody": {
+    "name": "Sourcegraph Cody",
+    "role": "OPTIONAL_EXTERNAL_IDE_CODE_REVIEW_REFERENCE_ONLY",
+    "installed": false,
+    "enterpriseEligibilityNotVerified": true,
+    "mayNotActivateAgent": true,
+    "notRequiredForLocalReview": true
+  },
+  "release": {
+    "contentPrivacy": "privateMutation remains private; cathedralPublic requires cleared assets",
+    "noSilentCrossPost": true,
+    "noNewDaemons": true,
+    "noNewServers": true,
+    "noPaidProviderByDefault": true,
+    "noConfigSecretLogging": true,
+    "noAutoMerge": true,
+    "noAutoPublish": true,
+    "noAutoDeploy": true,
+    "noAgentUnquarantine": true,
+    "physicalSamsungProofRequired": true,
+    "chatGptMobileHostProofRequired": true,
+    "crown": "STOP"
+  },
+  "rollback": "Revert this isolated candidate UI and source contract; do not touch existing media engines, agent quarantine or deployed app."
+}

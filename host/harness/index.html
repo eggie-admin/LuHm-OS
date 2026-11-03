@@ -28,6 +28,23 @@
   </div>
   <div class="badge" id="edgeBadge">checking edge…</div>
 </header>
+<section class="twoThreadDesk panel" id="twoThreadDesk" aria-label="LuHm two visible lanes; one supervised coordinator">
+  <section class="twoThreadMonitor" id="laneMonitor" aria-labelledby="laneMonitorTitle">
+    <div class="panelHead"><h2 id="laneMonitorTitle">01 · Monitor / evidence</h2><span class="badge">read-only, on demand</span></div>
+    <p class="twoThreadStatus" id="laneMonitorStatus" role="status" aria-live="polite">VERIFY · no current source check</p>
+    <p class="tiny" id="laneMonitorReceipt">Tap the check button to verify the existing harness source. No hidden monitoring agent.</p>
+    <p class="tiny" id="laneWorkerState">Workers: UNKNOWN · no agent execution assumed</p>
+    <button type="button" id="laneCheckSource" class="ghostButton">Check source connection</button>
+  </section>
+  <section class="twoThreadPet" id="lanePetChat" aria-labelledby="lanePetTitle">
+    <div class="panelHead"><h2 id="lanePetTitle">02 · Lum / pet + chat</h2><span class="badge">one coordinator</span></div>
+    <div class="twoThreadPetRow">
+      <button id="lanePetPreview" type="button" class="twoThreadPetIcon" aria-label="Talk to Lum pet preview"><span aria-hidden="true">L</span></button>
+      <div id="lanePetBubble" class="twoThreadChatBubble" role="status" aria-live="polite">Lum · IDLE · Waiting for the Professor. No worker running.</div>
+    </div>
+    <p class="tiny">The pet bubble reflects verified activity. ChatGPT conversations and actual deployment remain separate.</p>
+  </section>
+</section>
 <section class="crownStart panel" id="crownStart" aria-labelledby="crownStartTitle">
   <div class="crownStagePlane crownFar" data-crown-plane="farField" aria-hidden="true"></div>
   <div class="crownStagePlane crownMiddle" data-crown-plane="midField" aria-hidden="true"></div>
@@ -165,5 +182,6 @@
 <script src="/harness/assets/titan7Cockpit.js" defer></script>
 <script src="/harness/assets/studioDeck.js" defer></script>
 <script src="/harness/assets/cockpit.js" defer></script>
+<script src="/harness/assets/twoThreadDesk.js" defer></script>
 </body>
 </html>

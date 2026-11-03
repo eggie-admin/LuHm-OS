@@ -61,6 +61,22 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 .studioGlassCard small{color:#f3c778}
 #studioGlassDock :focus-visible,#studioGlassToggle:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 @media(prefers-reduced-transparency:reduce){#studioGlassDock{background:#111d32;backdrop-filter:none;-webkit-backdrop-filter:none}}
+
+/* Canon two-lane, one supervised coordinator. Decorative, not a worker runtime. */
+.twoThreadDesk{display:grid;gap:8px;padding:10px;background:#0b0e19}
+.twoThreadPane{border:1px solid #39445c;border-radius:12px;padding:11px;background:linear-gradient(135deg,#151c2b,#111323)}
+.twoThreadHeading{display:flex;justify-content:space-between;gap:10px;align-items:baseline;font-size:12px;font-weight:800;color:#b9efff}
+.twoThreadFlag{font-size:10px;font-weight:600;color:#ffd36c}
+.twoThreadReceipt{font:11px/1.45 ui-monospace,monospace;color:#d3dfed;overflow-wrap:anywhere;margin:7px 0 0}
+.twoThreadPetRow{display:flex;align-items:center;gap:12px}
+.twoThreadPixel{flex:none;position:relative;border:1px solid #8161a9;border-radius:14px;background:#241935;min-width:56px;height:56px;display:grid;place-items:center;font:800 23px ui-monospace,monospace;color:#8aeaff}
+.twoThreadPixel::before,.twoThreadPixel::after{content:"";position:absolute;top:4px;width:12px;height:13px;border:2px solid #b087f2;border-bottom:0;border-radius:14px 14px 0 0}
+.twoThreadPixel::before{left:5px;transform:rotate(-20deg)}
+.twoThreadPixel::after{right:5px;transform:rotate(20deg)}
+.twoThreadBubble{flex:1;background:#192337;border-radius:12px 12px 12px 2px;padding:10px;min-height:55px;font-size:12px;line-height:1.4;max-width:100%;overflow-wrap:anywhere}
+.twoThreadAction{margin-top:9px;min-height:42px;padding:9px 12px;color:#f1f9ff;background:#243956;border:1px solid #608bb0;border-radius:9px;cursor:pointer}
+.twoThreadAction:focus-visible{outline:2px solid #b2f2ff;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.twoThreadDesk *{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -70,6 +86,19 @@ footer{padding:9px 12px;border-top:1px solid var(--line);font-size:10px;color:va
 <div><h1>LuHm OS · Lum/Oni Cockpit</h1><div class="sub" id="surface">read-only MCP Apps frame</div></div>
 <button id="studioGlassToggle" type="button" aria-label="LuHm system settings" aria-controls="studioGlassDock" aria-expanded="false">⚙</button>
 </header>
+
+<section class="twoThreadDesk" id="twoThreadDesk" aria-label="Two visible Canon lanes, one supervised coordinator">
+<section class="twoThreadPane" id="monitorThread" aria-labelledby="monitorThreadTitle">
+<div class="twoThreadHeading"><span id="monitorThreadTitle">01 · MONITOR / EVIDENCE</span><span class="twoThreadFlag" id="monitorState">VERIFY · on-demand</span></div>
+<p class="twoThreadReceipt" id="monitorReceipt" role="status" aria-live="polite">No current MCP tool result. Source or host status has not been verified in this frame.</p>
+<p class="twoThreadReceipt" id="monitorQuarantine">Workers: UNKNOWN · never infer running agents.</p>
+</section>
+<section class="twoThreadPane" id="petChatThread" aria-labelledby="petChatThreadTitle">
+<div class="twoThreadHeading"><span id="petChatThreadTitle">02 · LUM / PET + CHAT</span><span class="twoThreadFlag">one coordinator · no background worker</span></div>
+<div class="twoThreadPetRow"><div class="twoThreadPixel" aria-label="Original Lum pet fallback">L</div><div class="twoThreadBubble" id="twoThreadBubble" role="status" aria-live="polite">Lum · IDLE · Waiting for the Professor. No agent task is running.</div></div>
+<button class="twoThreadAction" id="twoThreadChat" type="button">Chat with Lum about this checkpoint</button>
+</section>
+</section>
 <aside id="studioGlassDock" hidden aria-label="LuHm modular glass dock">
 <div class="studioGlassTop"><h2>LuHm plugins</h2><div><button id="studioGlassExpand" type="button" aria-label="Expand cockpit">⛶</button><button id="studioGlassClose" type="button" aria-label="Close plugins">×</button></div></div>
 <p class="sub">Choose a task. Each action enters ChatGPT; no worker, playback or publishing is automatic.</p>
@@ -356,9 +385,37 @@ function studioWire(){
 
 let rpcId=0;const pending=new Map();let latest=null;
 const $=id=>document.getElementById(id);
+
+function renderTwoThread(payload){
+  const monitor=$("monitorState"), receipt=$("monitorReceipt"), workers=$("monitorQuarantine"), bubble=$("twoThreadBubble");
+  if(!payload||payload?.authority?.readOnly!==true){
+    monitor.textContent="VERIFY · no verified tool data";
+    receipt.textContent="No verified current MCP result. This is not a live monitoring loop.";
+    workers.textContent="Workers: UNKNOWN";
+    bubble.textContent="Lum · IDLE · Tool evidence missing. The pet is a presentation only.";
+    return;
+  }
+  const source=payload?.status?.sourceTruthStatus||"UNKNOWN";
+  const hold=payload?.embeddedStudio?.quarantine;
+  const isHold=hold?.state==="QUARANTINED"&&hold?.activeTaskWorkersAllowed===false;
+  monitor.textContent="OBSERVED · read-only";
+  receipt.textContent="MCP result received · Canon "+source+" · GitHub is source authority. Not a CI or device receipt.";
+  workers.textContent=isHold?"Workers: QUARANTINED · 0 active task workers":"Workers: UNKNOWN · no worker activation verified";
+  bubble.textContent=isHold?"Lum · IDLE · Canon observed. Our little crew is on standby, not running.":"Lum · VERIFY · Worker state unverified. No execution claimed.";
+}
+function wireTwoThread(){
+  $("twoThreadChat").addEventListener("click",()=>{
+    $("twoThreadBubble").textContent="Lum · REQUESTED · Opening a supervised chat turn; not starting an agent.";
+    try{Promise.resolve(sendFollowUp("Lum, show a compact current Canon media and monitoring checkpoint for VLC, Kodi/XBMC, Plex, and the two-lane pet desk. Read-only; no worker release.")).catch(()=>{
+      $("twoThreadBubble").textContent="Lum · BLOCKED · Host chat handoff unavailable; no worker started.";
+    });}
+    catch(_){$("twoThreadBubble").textContent="Lum · BLOCKED · Host chat handoff unavailable; no worker started.";}
+  });
+}
 function render(data){
-  const candidate=data?.structuredContent||data;if(!candidate||candidate.schema!=="luhmOs.inChatExperiencePayload.v1"||candidate.surface!=="mcp-app"||candidate?.experience?.runtime?.resourceUri!=="ui://luhm-os/cockpit-v2.html"||candidate?.authority?.readOnly!==true||candidate?.authority?.mutationAuthority!==false||candidate?.authority?.publicationAuthority!==false||candidate?.authority?.greenAuthority!==false){latest=null;$("surface").textContent="MCP CONTRACT VERIFY · no live cockpit proof";$("truth").textContent="VERIFY";return;}latest=candidate;
+  const candidate=data?.structuredContent||data;if(!candidate||candidate.schema!=="luhmOs.inChatExperiencePayload.v1"||candidate.surface!=="mcp-app"||candidate?.experience?.runtime?.resourceUri!=="ui://luhm-os/cockpit-v2.html"||candidate?.authority?.readOnly!==true||candidate?.authority?.mutationAuthority!==false||candidate?.authority?.publicationAuthority!==false||candidate?.authority?.greenAuthority!==false){latest=null;renderTwoThread(null);$("surface").textContent="MCP CONTRACT VERIFY · no live cockpit proof";$("truth").textContent="VERIFY";return;}latest=candidate;
   const payload=latest;
+  renderTwoThread(payload);
   $("truth").textContent=payload?.status?.sourceTruthStatus||"UNKNOWN";
   const roles=payload?.roster?.roles||[];
   $("roster").textContent=roles.length?roles.slice(0,5).map(x=>x.name).join(" · ")+(roles.length>5?" · …":""):"UNKNOWN";
@@ -464,7 +521,7 @@ window.addEventListener("message",e=>{
   if(m.method==="ui/notifications/tool-result")render(m.params);
 },{passive:true});
 (async()=>{
-  rebelWire();studioWire();render(window.openai?.toolOutput); wireFullGlass(); wireCommands(); wireAfterHours(); setAfterHoursMode("OUTSIDE");
+  rebelWire();studioWire();wireTwoThread();render(window.openai?.toolOutput); wireFullGlass(); wireCommands(); wireAfterHours(); setAfterHoursMode("OUTSIDE");
   if(window.parent===window)return;
   try{
     await request("ui/initialize",{appInfo:{name:"luhm-os-cockpit",version:"1.0.0"},appCapabilities:{},protocolVersion:"2026-01-26"});
