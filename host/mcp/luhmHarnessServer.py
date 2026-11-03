@@ -11,6 +11,7 @@ import os
 
 import luhmMcpServer as core
 from luhmHarness import register_harness
+from luhmAntenna import register_antenna
 from luhmOniSummoner import register_oni_summoner
 from luhmUpdateSpine import register_update_spine, register_remote_update_routes
 
@@ -22,6 +23,8 @@ register_harness(
     roster_provider=core._roster_payload,
     profile_provider=core._profile,
 )
+
+register_antenna(core.server, root=core.ROOT, annotations=core.READ_ONLY_INTERNAL)
 
 register_oni_summoner(
     core.server,
