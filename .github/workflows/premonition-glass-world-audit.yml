@@ -8,6 +8,10 @@ on:
       - 'manual/kai9000-antenna-light.md'
       - 'tools/kai9000Antenna.py'
       - 'tests/testKai9000Antenna.py'
+      - 'tests/testLuhmAntenna.py'
+      - 'host/mcp/luhmAntenna.py'
+      - 'host/mcp/luhmHarnessServer.py'
+      - 'manual/antenna-animation-cockpit.md'
       - 'scenes/avatar-glass.tscn'
       - 'scripts/avatar-glass.gd'
       - '.github/workflows/premonition-glass-world-audit.yml'
@@ -32,7 +36,10 @@ jobs:
           node --check frontEnd/prototypes/glassWorld/src/main.js
           node --check frontEnd/prototypes/glassWorld/src/babylon-world.js
       - name: Test read-only antenna capability bridge
-        run: python3 -m unittest discover -s tests -p testKai9000Antenna.py -v
+        run: |
+          python3 -m pip install -r host/mcp/requirements.txt
+          python3 -m unittest discover -s tests -p testKai9000Antenna.py -v
+          python3 -m unittest discover -s tests -p testLuhmAntenna.py -v
       - name: Verify Godot avatar-only source and transparency intent
         run: |
           python3 - <<'PY'
@@ -56,6 +63,8 @@ jobs:
           npm run build
           test -s dist/index.html
           test -s dist/antenna.html
+          test -s dist/antennaWidget.html
+          test -s dist/luhm-antenna-contracts-0.1.0.tgz
           test "$(find dist/assets -name 'index-*.js' -printf '%s\n' | sort -nr | head -1)" -lt 1600000
           find dist -type f -printf '%P %s bytes\n'
           echo "SOURCE_ONLY_NO_SAMSUNG_NO_GODOT_RENDER_PROOF"
