@@ -1,0 +1,57 @@
+import {createApp,h,ref} from "vue";
+import {profiles,endpointUrl,widgetIntent} from "./antenna-policy.mjs";
+
+createApp({setup(){
+  const mode=ref("antenna"),target=ref("remoteStudio"),address=ref("");
+  const approved=ref(""),status=ref("No remote connection tested. No model or 3D engine loaded.");
+  const receipt=ref(null);
+  async function inspectLocal(){
+    status.value="Checking local Python bridge…";
+    try{
+      const response=await fetch("./api/capabilities",{signal:AbortSignal.timeout(5000),credentials:"omit",cache:"no-store"});
+      if(!response.ok)throw Error("Bridge unavailable");
+      const data=await response.json();
+      if(data.schema!=="luhmOs.antennaCapabilities.v1"||data.executionEnabled!==false)throw Error("Unsupported bridge");
+      receipt.value=data;status.value="Local process inspected. Command presence does not prove a working tool or device permission.";
+    }catch{status.value="Local Python bridge unavailable or incompatible. Use tools/kai9000Antenna.py; remote services remain untested.";}
+  }
+  function configure(){
+    approved.value="";
+    try{approved.value=endpointUrl(address.value);status.value="Address validated only. Open the service to authenticate; connectivity is unverified.";}
+    catch(error){status.value=error.message;}
+  }
+  function emit(action){
+    const request=widgetIntent(action,target.value,crypto.randomUUID());
+    receipt.value=request;
+    window.dispatchEvent(new CustomEvent("luhm:antenna:intent",{detail:request}));
+    status.value="Widget request emitted locally. Host execution is unverified.";
+  }
+  return()=>h("div",[
+    h("header",[h("h1","LuHm OS · Antenna"),h("small","SOURCE CANDIDATE")]),
+    h("p","One studio front door. Keep the tablet light; choose where the work runs."),
+    h("section",[
+      h("h2","Workspace"),
+      h("label",["Profile ",h("select",{value:mode.value,onChange:e=>mode.value=e.target.value},[
+        h("option",{value:"antenna"},"Antenna · remote controls"),h("option",{value:"light"},"Light · optional local studio")])]),
+      h("p",mode.value==="antenna"?"No local 3D, inference or media decoding starts here.":"The local Vue/Babylon studio opens only when requested. Godot is a separate service."),
+      mode.value==="light"?h("a",{href:"./index.html"},"Open local 3D / HTML5 media studio"):null,
+      h("small","Execution preference: "+profiles[mode.value].execution)
+    ]),
+    h("section",[
+      h("h2","Remote media / Godot / studio"),
+      h("p","Enter the HTTPS page supplied by VLC, your Pi or your studio host. Services open separately; this candidate does not proxy credentials or stream a desktop."),
+      h("label",["Service address",h("input",{type:"url",value:address.value,placeholder:"https://studio.example/",onInput:e=>{address.value=e.target.value;approved.value="";}})]),
+      h("div",{class:"row"},[h("button",{onClick:configure},"Validate address"),approved.value?h("a",{href:approved.value,target:"_blank",rel:"noopener noreferrer"},"Open service"):null])
+    ]),
+    h("section",[
+      h("h2","Chat widget boundary"),
+      h("button",{onClick:inspectLocal},"Inspect local Python bridge"),
+      h("label",["Execution target ",h("select",{value:target.value,onChange:e=>target.value=e.target.value},["tablet","raspberryPi","remoteStudio"].map(t=>h("option",{value:t},t)))]),
+      h("div",{class:"row"},["inspectCapabilities","openMedia","openGodot","inspectJob"].map(action=>h("button",{onClick:()=>emit(action)},action))),
+      h("p","Requests carry no shell commands or tokens. A separately implemented host adapter must authorize, execute and return evidence."),
+      receipt.value?h("pre",JSON.stringify(receipt.value,null,2)):null
+    ]),
+    h("p",{role:"status","aria-live":"polite"},status.value),
+    h("small","JSON control messages; binary assets stay files. Base64 is reserved for bounded text-only transports. No automatic remote calls, storage or publication.")
+  ]);
+}}).mount("#antenna");
