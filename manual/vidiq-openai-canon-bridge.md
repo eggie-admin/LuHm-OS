@@ -42,6 +42,10 @@ vidIQ reported 0 public videos, 0 total views and 0 subscribers, and its owned l
 
 The hexadecimal/process-level Canon stays in the app/runtime architecture, **not** in the YouTube API or identity model. We bind all cross-system transactions to explicit channel IDs and artifact hashes rather than pretending to write machine memory through vidIQ.
 
+## Android "Something went wrong" recovery
+
+Do not treat a mobile display failure as proof the vidIQ connector or LuHm source vanished. Confirm the small read-only `luhmConnectionStatus` and separately confirm the owned channel with vidIQ's `vidiq_user_channels`, rather than repeatedly mounting the full rich cockpit card. Render a short text receipt if the MCP App UI cannot load. The full cockpit payload is substantially larger, but **its size has not been established as the actual cause of the Android error**. No automated retry may post, change a video, alter account permissions or restart quarantined agents. Mobile app restarts, updates, switching Wi-Fi/mobile data, and testing the same ChatGPT account on web are user-side troubleshooting when the providers remain reachable.
+
 ## Test and promotion
 
 Run `python3 tools/vidIqCanonBridgeAudit.py` against a full checkout. Its local negative controls reject wrong channel, enabled auto-publishing, claimed host proof, mismatched long-form selection, and loss of the agent-quarantine boundary. This is source consistency only. It cannot prove YouTube publisher rights, a rendering pipeline, mobile ChatGPT app widget mounting, physical Samsung media operations or public performance.
