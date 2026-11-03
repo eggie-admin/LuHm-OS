@@ -25,3 +25,11 @@ button:focus-visible{outline:2px solid #ff84ce}.danger{background:#633451}
 .media-preview video,.media-preview audio{width:100%;max-height:220px;margin:.7rem 0}
 @media(max-width:1000px){.workbench{grid-template-columns:minmax(0,1fr) 220px 270px}}
 @media(max-width:770px){.workbench{grid-template-columns:1fr}.media-preview{border-left:none}}
+
+/* WebGL Crown environment selection: touch targets, small-screen safe, no overlay traps. */
+.world-presets{position:absolute;top:54px;left:12px;right:12px;display:flex;gap:7px;flex-wrap:wrap;z-index:3;pointer-events:auto}
+.world-presets button{font-size:12px;padding:8px 12px;min-height:44px;background:#161528d9;border-color:#ad74c4;backdrop-filter:blur(4px)}
+.world-presets button[aria-pressed=true]{background:#482d65;color:#f9deff;border-color:#f68ce7}
+.world-proof{position:absolute;right:12px;bottom:12px;color:#d2e5fd;background:#111b31ea;padding:8px;border:1px solid #495675;border-radius:9px;font-size:11px;max-width:55%;pointer-events:none}
+@media(max-width:500px){.world-label{font-size:10px;top:7px;left:7px}.world-presets{top:43px;left:7px;right:7px;gap:4px}.world-presets button{font-size:11px;padding:7px 8px}.world-proof{bottom:5px;right:5px;max-width:55%;font-size:10px}}
+@media(prefers-reduced-motion:reduce){.world-presets *{transition:none!important;animation:none!important}}
