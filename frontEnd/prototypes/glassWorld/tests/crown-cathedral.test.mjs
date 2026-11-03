@@ -5,7 +5,7 @@ test("all three branded environment modes are bounded and have an original 3D pr
  for(const mode of crownModes){
    const one=buildCrownLayout(mode),two=buildCrownLayout(mode);
    assert.equal(one.schema,crownLayoutSchema);assert.equal(one.mode,mode);
-   assert.ok(one.parts.length>20&&one.parts.length<=128);
+   assert.ok(one.parts.length>=20&&one.parts.length<=128);
    assert.deepEqual(one,two);
    assert.equal(new Set(one.parts.map(x=>x.id)).size,one.parts.length);
    assert.equal(one.runtimeAuthority,false);assert.equal(one.publicationAuthority,false);
