@@ -15,6 +15,7 @@ RECIPES = {
     "scenePreview": ("blender", "prepareScene", "renderPreview"),
     "imagePrepare": ("gimp", "prepareImage", "exportPreview"),
     "videoPreview": ("ffmpeg", "prepareTimeline", "encodePreview"),
+    "characterAnimation": ("blender", "bakeRigMotion", "exportAnimatedGlb"),
 }
 
 
@@ -36,13 +37,21 @@ def creation_plan(data):
     tool, prepare, preview = RECIPES[data["recipe"]]
     request = dict(data, brief=brief.strip())
     digest = hashlib.sha256(json.dumps(request, sort_keys=True, ensure_ascii=True).encode()).hexdigest()
-    return {"schema": "luhmOs.creationPlan.v1", "requestSha256": digest,
+    plan = {"schema": "luhmOs.creationPlan.v1", "requestSha256": digest,
             "request": request, "tool": tool, "steps": [prepare, preview, "reviewResult"],
             "planner": "deterministicTemplate", "aiInvoked": False,
             "status": "draftPlan", "encoding": "json", "executionEnabled": False,
             "providerCalls": 0, "publicationEnabled": False,
             "requiredEvidence": ["sourceCommit", "workerCapability", "assetRights", "resultSha256"],
             "assetTransfer": "fileReference", "base64Required": False}
+    if data["recipe"] == "characterAnimation":
+        plan["animationPipeline"] = {"master": "privateHighFidelityBlenderRig",
+            "motionImport": "rightsClearedMmdOrOriginalMotion",
+            "interchange": "glbWithBakedAnimationAndMorphTargets",
+            "godotRole": "characterAnimationOnly", "gameWork": "onHold",
+            "webRole": "vueControlsBabylonPreview", "antennaFallback": "renderedVideoOrStill",
+            "runtimeProof": "PENDING", "masterModification": False}
+    return plan
 
 
 def unique_object(pairs):
