@@ -16,7 +16,7 @@ vidIQ reported 0 public videos, 0 total views and 0 subscribers, and its owned l
 - The existing `social` glass-plugin card is the intended *conversation-routing surface*. No sixth UI module or new running agent is introduced.
 - YouTube is already the long-form build-proof and devlog outlet in `doctrine/unifiedCampaignWorkbenchV1.json`.
 - OpenAI/ChatGPT provides the in-chat creative desk, the GitHub repository supplies source authority, Drive holds private media masters, vidIQ supplies authorized platform evidence and optional creative analysis.
-- **No tool-to-tool vidIQ invocation from the LuHm custom MCP app has been proven.** The connected vidIQ ChatGPT plugin is not a secret-free server-to-server API automatically usable by LuHm-OS.
+- The installed **Project Hydra / LuHm read-only cockpit tool** responded inside this ChatGPT conversation and returned an MCP-App surface payload. That proves its read-only bridge is reachable, not that its exact deployed source matches current GitHub main. **No tool-to-tool vidIQ invocation from the LuHm custom MCP app has been proven.** The connected vidIQ ChatGPT plugin is not a secret-free server-to-server API automatically usable by LuHm-OS.
 - The company-wide agent operational hold stays in force. Lum, Yume, Skuld, Urd, and Belldandy here are supervised conversational responsibility labels, not separately running agents.
 
 ## One sane long-form production loop
