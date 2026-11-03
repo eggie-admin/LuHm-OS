@@ -10,6 +10,7 @@ import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial.js"
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder.js";
 import { PointerEventTypes } from "@babylonjs/core/Events/pointerEvents.js";
 import { validateScene } from "./scene-state.mjs";
+import { buildCrownLayout } from "./crown-cathedral-layout.mjs";
 
 export function startBabylonWorld(canvas, onSelected) {
   const engine = new Engine(canvas, true, { preserveDrawingBuffer: false, stencil: false });
@@ -30,6 +31,57 @@ export function startBabylonWorld(canvas, onSelected) {
   floorMaterial.specularColor = new Color3(0.12, 0.65, 0.8);
   ground.material = floorMaterial;
   const meshes = new Map();
+  // Environment is decorative, self-contained and never enters editable object/rights state.
+  let environmentMeshes = [];
+  let environmentMaterials = [];
+  function clearEnvironment() {
+    for (const mesh of environmentMeshes) mesh.dispose();
+    for (const material of environmentMaterials) material.dispose();
+    environmentMeshes = []; environmentMaterials = [];
+  }
+  function setEnvironment(mode) {
+    // Validate before disposing the visible environment.
+    const layout = buildCrownLayout(mode);
+    const materialCache = new Map();
+    const newMeshes = [], newMaterials = [];
+    try {
+      for (const spec of layout.parts) {
+        const {x,y,z} = spec.size;
+        const name = "cathedral:" + spec.id;
+        const mesh = spec.kind === "box"
+          ? MeshBuilder.CreateBox(name, {width:x, height:y, depth:z}, scene)
+          : spec.kind === "sphere"
+          ? MeshBuilder.CreateSphere(name, {diameterX:x, diameterY:y, diameterZ:z, segments:12}, scene)
+          : spec.kind === "torus"
+          ? MeshBuilder.CreateTorus(name, {diameter:x, thickness:Math.min(.14,x*.18), tessellation:20}, scene)
+          : MeshBuilder.CreateCylinder(name, {
+              diameterBottom:x, diameterTop: /(?:horn|spire)-/.test(spec.id) ? .02 : x,
+              height:y, tessellation:12}, scene);
+        newMeshes.push(mesh);
+        mesh.position.set(spec.position.x,spec.position.y,spec.position.z);
+        if(spec.kind==="torus")mesh.rotation.x=Math.PI/2;
+        const key=spec.color+":"+spec.glow;
+        let material=materialCache.get(key);
+        if(!material){
+          material=new StandardMaterial("crown:"+key,scene);
+          material.diffuseColor=Color3.FromHexString(spec.color);
+          material.specularColor=new Color3(.18,.13,.26);
+          if(spec.glow)material.emissiveColor=Color3.FromHexString(spec.color).scale(.34);
+          materialCache.set(key,material);
+          newMaterials.push(material);
+        }
+        mesh.material=material;
+      }
+    }catch(error){
+      for(const mesh of newMeshes)mesh.dispose();
+      for(const material of newMaterials)material.dispose();
+      throw error;
+    }
+    clearEnvironment();
+    environmentMeshes=newMeshes;environmentMaterials=newMaterials;
+    return {mode:layout.mode,parts:layout.parts.length,originalProxyOnly:true};
+  }
+  setEnvironment("cathedral");
   function spawn(item) {
     const mesh = item.kind === "sphere" ? MeshBuilder.CreateSphere(item.id, { diameter: 1.5, segments: 18 }, scene)
       : item.kind === "cylinder" ? MeshBuilder.CreateCylinder(item.id, { diameter: 1.4, height: 1.7 }, scene)
@@ -69,7 +121,9 @@ export function startBabylonWorld(canvas, onSelected) {
   document.addEventListener("visibilitychange", visible);
   return {
     applyScene,
+    setEnvironment,
     destroy() {
+      clearEnvironment();
       engine.stopRenderLoop(render);
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", visible);
