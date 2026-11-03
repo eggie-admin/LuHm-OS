@@ -5,6 +5,22 @@ createApp({setup(){
   const mode=ref("antenna"),target=ref("remoteStudio"),address=ref("");
   const approved=ref(""),status=ref("No remote connection tested. No model or 3D engine loaded.");
   const receipt=ref(null);
+  const brief=ref(""),recipe=ref("scenePreview"),planning=ref(false);
+  async function planCreation(){
+    if(planning.value)return;
+    planning.value=true;
+    try{
+      if(target.value==="tablet")throw Error("Choose Raspberry Pi or remote studio for creation work.");
+      const response=await fetch("./api/creation/plan",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({schema:"luhmOs.creationRequest.v1",recipe:recipe.value,target:target.value,brief:brief.value}),
+        signal:AbortSignal.timeout(6000),credentials:"omit",cache:"no-store"});
+      if(!response.ok)throw Error("Plan rejected or local Python bridge unavailable. Check the brief and server.");
+      const data=await response.json();
+      if(data.schema!=="luhmOs.creationPlan.v1"||data.executionEnabled!==false)throw Error("Unsupported plan response.");
+      receipt.value=data;status.value="Draft plan ready. No AI call, render or upload has run.";
+    }catch(error){status.value=error.message;}
+    finally{planning.value=false;}
+  }
   async function inspectLocal(){
     status.value="Checking local Python bridge…";
     try{
@@ -44,9 +60,17 @@ createApp({setup(){
       h("div",{class:"row"},[h("button",{onClick:configure},"Validate address"),approved.value?h("a",{href:approved.value,target:"_blank",rel:"noopener noreferrer"},"Open service"):null])
     ]),
     h("section",[
+      h("h2","Creation desk"),
+      h("label",["Execution target ",h("select",{value:target.value,onChange:e=>target.value=e.target.value},["tablet","raspberryPi","remoteStudio"].map(t=>h("option",{value:t},t)))]),
+      h("p","Choose a recipe and describe the result. Python prepares a draft plan for your selected remote target. Keep credentials out of the brief."),
+      h("label",["Recipe ",h("select",{value:recipe.value,onChange:e=>recipe.value=e.target.value},[
+        h("option",{value:"scenePreview"},"Blender scene preview"),h("option",{value:"imagePrepare"},"GIMP image preparation"),h("option",{value:"videoPreview"},"FFmpeg video preview")])]),
+      h("label",["Creative brief",h("textarea",{value:brief.value,maxLength:2000,rows:4,onInput:e=>brief.value=e.target.value})]),
+      h("button",{disabled:planning.value||!brief.value.trim(),onClick:planCreation},planning.value?"Preparing…":"Prepare draft plan")
+    ]),
+    h("section",[
       h("h2","Chat widget boundary"),
       h("button",{onClick:inspectLocal},"Inspect local Python bridge"),
-      h("label",["Execution target ",h("select",{value:target.value,onChange:e=>target.value=e.target.value},["tablet","raspberryPi","remoteStudio"].map(t=>h("option",{value:t},t)))]),
       h("div",{class:"row"},["inspectCapabilities","openMedia","openGodot","inspectJob"].map(action=>h("button",{onClick:()=>emit(action)},action))),
       h("p","Requests carry no shell commands or tokens. A separately implemented host adapter must authorize, execute and return evidence."),
       receipt.value?h("pre",JSON.stringify(receipt.value,null,2)):null
