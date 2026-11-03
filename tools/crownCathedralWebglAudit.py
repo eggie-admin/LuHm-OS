@@ -30,19 +30,19 @@ def verify(contract, quarantine, layout, renderer, html, main, css):
     need('export function buildCrownLayout' in layout and 'parts.length>128' in layout,"strictLayout")
     need('const allowed = new Set(["box","sphere","cylinder","torus"])' in layout,"typeAllowlist")
     need('NOT the approved rigged/Live2D Canon Lum asset' in layout,"honestArtProxy")
-    need(not re.search(r'\\b(?:fetch|XMLHttpRequest|WebSocket|Worker|eval)\\s*\\(',layout),"noCodeNetworkInLayout")
+    need(not re.search(r'\b(?:fetch|XMLHttpRequest|WebSocket|Worker|eval)\s*\(',layout),"noCodeNetworkInLayout")
     need(not re.search(r'https?://|<script|javascript:',layout,re.I),"noUrlInLayout")
     need('import { buildCrownLayout }' in renderer and 'setEnvironment("cathedral")' in renderer,"worldHook")
     need('clearEnvironment()' in renderer and 'material.dispose()' in renderer and 'mesh.dispose()' in renderer,"gpuCleanup")
     need('new Engine(canvas' in renderer and 'engine.setHardwareScalingLevel' in renderer,"singleBabylonAndMobileScale")
     need('if (!document.hidden) scene.render()' in renderer,"hiddenTabRendering")
-    need(not re.search(r'new Worker\\s*\\(|fetch\\s*\\(',renderer),"noUntrustedWorkerOrFetch")
+    need(not re.search(r'new Worker\s*\(|fetch\s*\(',renderer),"noUntrustedWorkerOrFetch")
     for mode in ("cathedral","riverwalk","workshop"):
         need('data-world-mode="'+mode+'"' in html,"button-"+mode)
     need('world.setEnvironment(button.dataset.worldMode)' in main,"typedSceneSwitch")
     need('id="world-proof"' in html and 'aria-live="polite"' in html,"visualReceipt")
     need('prefers-reduced-motion' in css and 'min-height:44px' in css,"mobileAccessibility")
-    need(not re.search(r'<script[^>]+src=["\\']https?://',html,re.I),"noCdn")
+    need(not re.search(r'<script[^>]+src=.https?://',html,re.I),"noCdn")
     return problems
 
 def main()->int:
