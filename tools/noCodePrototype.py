@@ -91,8 +91,11 @@ def loadDraft(path):
     flags = os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0)
     fd = os.open(path, flags)
     with os.fdopen(fd, 'rb') as stream:
-        if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):
+        metadata = os.fstat(stream.fileno())
+        if not stat.S_ISREG(metadata.st_mode):
             raise ValueError('draft must be a regular file')
+        if metadata.st_mode & 0o077:
+            raise ValueError('draft permissions must be private')
         data = stream.read(MAX_DRAFT_BYTES + 1)
     if len(data) > MAX_DRAFT_BYTES:
         raise ValueError('draft exceeds 1 MiB')
