@@ -52,7 +52,15 @@
     },
     "connectedVidIqInstagramAccounts": 0,
     "observationOnly": true,
-    "authenticatedAccountIdentifiersExcluded": true
+    "authenticatedAccountIdentifiersExcluded": true,
+    "existingLuHmReadOnlyCockpit": {
+      "connectedTool": "Project Hydra / luhm_open_cockpit",
+      "mcpBridgeReachable": true,
+      "readOnly": true,
+      "returnedSurface": "mcp-app",
+      "exactCurrentSourceHostAlignment": "UNVERIFIED",
+      "crossPluginVidIqAccess": false
+    }
   },
   "references": {
     "canonicalSource": "eggie-admin/LuHm-OS",
