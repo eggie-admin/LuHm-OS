@@ -7,6 +7,8 @@ on:
       - 'tests/testVendorReduction.py'
       - 'manual/vendor-reduction.md'
       - 'frontEnd/prototypes/glassWorld/**'
+      - 'doctrine/crownCathedralWebglCastV1.json'
+      - 'tools/crownCathedralWebglAudit.py'
       - '.github/workflows/premonition-vendor-reduction-audit.yml'
   workflow_dispatch:
 permissions:
@@ -25,12 +27,14 @@ jobs:
       - name: Verify profile and run source negative tests
         run: |
           python3 -m json.tool doctrine/vendorReductionV1.json > /dev/null
-          python3 -m py_compile tools/vendorReductionAudit.py
+          python3 -m py_compile tools/vendorReductionAudit.py tools/crownCathedralWebglAudit.py
+          python3 tools/crownCathedralWebglAudit.py
           python3 -m unittest discover -s tests -p 'testVendorReduction.py' -v
       - name: Build web candidate with exact dependency lock
         working-directory: frontEnd/prototypes/glassWorld
         run: |
           npm ci --ignore-scripts --no-audit --no-fund
+          npm run test
           npm run build
       - name: Measure exact-source asset budgets and report manifest
         run: |

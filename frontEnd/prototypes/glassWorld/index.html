@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LuHm-OS: Project Premonition | Glass World Prototype</title>
-<meta name="description" content="Babylon 3D scene with Vue controls, jQuery event bridge and candidate Godot avatar dock.">
+<meta name="description" content="3D Crown Cathedral, Riverwalk and Workshop scenes with Vue controls, jQuery bridge and candidate Godot avatar dock.">
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -12,11 +12,17 @@
 <main id="glass-world" class="workbench">
   <section class="world" aria-label="Babylon interactive 3D scene">
     <canvas id="babylon-stage" aria-label="Interactive 3D object stage"></canvas>
-    <div class="world-label">BABYLON WORLD · Orbit via touch or pointer · Select props</div>
+    <div class="world-label">CROWN CATHEDRAL · Live WebGL preview · touch orbit and select props</div>
+    <div class="world-presets" aria-label="Original 3D environment presets">
+      <button type="button" data-world-mode="cathedral" aria-pressed="true">⛪ Cathedral</button>
+      <button type="button" data-world-mode="riverwalk" aria-pressed="false">🌃 Riverwalk</button>
+      <button type="button" data-world-mode="workshop" aria-pressed="false">🎨 Studio</button>
+    </div>
+    <output class="world-proof" id="world-proof" role="status" aria-live="polite">Source candidate · GPU/device proof pending</output>
     <aside class="avatar-dock" aria-label="Godot avatar glass rendering boundary">
       <div class="avatar-orb" aria-hidden="true">◇</div>
       <strong>GODOT 4 · AVATAR GLASS</strong>
-      <p>Avatar-render bridge not connected. This is a placeholder, not a live character.</p>
+      <p>Procedural original 3D companion proxy is in the world. Approved Live2D/rigged Lum and Godot overlay are NOT connected.</p>
     </aside>
   </section>
   <aside class="media-preview" id="local-media-deck" aria-label="Local media preview">

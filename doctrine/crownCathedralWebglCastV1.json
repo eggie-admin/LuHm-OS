@@ -1,0 +1,144 @@
+{
+  "schema": "luhmOs.crownCathedralWebglCast.v1",
+  "status": "SOURCE_CANDIDATE_UNDEPLOYED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "authorization": {
+    "request": "Professor requested scoped Crown Cathedral CAST with merge, reconcile and deploy",
+    "scope": "3D artist environment plus static proof and CI",
+    "productionReleaseAuthorized": false,
+    "crossVendorPublishingAuthorized": false,
+    "releaseSignerOrSamsungProofWaived": false
+  },
+  "brand": {
+    "product": "LuHm-OS",
+    "workingTitle": "Project Premonition",
+    "publisher": "Eggie Bagelface",
+    "imprint": "PIRATE DADDIES FILM"
+  },
+  "source": {
+    "repository": "eggie-admin/LuHm-OS",
+    "baseMain": "8865dc9756ede173017b56b40a2eb0760649f0a0",
+    "existingWorld": "frontEnd/prototypes/glassWorld/src/babylon-world.js",
+    "sourceOfTruth": "doctrine/currentSourceTruthV3.json",
+    "creativeLaw": "doctrine/artistFirstArtToolCanonV1.json",
+    "worldContract": "doctrine/babylonGlassWorldV1.json",
+    "vendorBudget": "doctrine/vendorReductionV1.json",
+    "quarantine": "doctrine/companyWideOperationalQuarantineV1.json",
+    "covenant": "doctrine/everlastingCovenantV1.json"
+  },
+  "fourLayers": [
+    {
+      "id": "humanArtist",
+      "authority": "Professor",
+      "surface": "HTML5/CSS/Vue/jQuery",
+      "operations": [
+        "chooseScene",
+        "touchOrbit",
+        "selectProp",
+        "inspect3d",
+        "saveLocalScene"
+      ],
+      "mustNot": "publishOrModifyMasters"
+    },
+    {
+      "id": "humanMachine",
+      "authority": "typedLocalCommandOnly",
+      "surface": "scene-state and pure crown layout",
+      "operations": [
+        "validateScene",
+        "placeMoveRemove",
+        "reversiblePresetSelection",
+        "localReceipts"
+      ],
+      "mustNot": "executeProviderOrScriptFromScene"
+    },
+    {
+      "id": "machine",
+      "authority": "browserGpuSessionOnly",
+      "surface": "Babylon.js WebGL render",
+      "operations": [
+        "boundedProceduralMeshes",
+        "colorMaterial",
+        "frameBudget",
+        "disposeGpuResources"
+      ],
+      "mustNot": "claimLive2dRiggedCharacter"
+    },
+    {
+      "id": "evidenceGovernance",
+      "authority": "GitHub and Professor",
+      "surface": "Node tests Python policy GitHub CI",
+      "operations": [
+        "sourceAudit",
+        "strictNegativeControls",
+        "bundleSizeGate",
+        "provenanceGate",
+        "exactHeadReceipt"
+      ],
+      "mustNot": "selfCrownOrDeploy"
+    }
+  ],
+  "fourByFour": {
+    "axes": [
+      "artist",
+      "render",
+      "privacy",
+      "proof"
+    ],
+    "states": [
+      "proposal",
+      "sourceReviewed",
+      "testVerified",
+      "deviceVerified"
+    ],
+    "current": "sourceReviewed",
+    "requiresExactSource": true
+  },
+  "world": {
+    "engine": "existingBabylon9PinnedWebGL",
+    "presets": [
+      "cathedral",
+      "riverwalk",
+      "workshop"
+    ],
+    "geometryMaxPerPreset": 128,
+    "drawStyle": "originalProcedural3d",
+    "companion": "PROXY_NOT_APPROVED_LUM_RIG",
+    "live2dActualModelMounted": false,
+    "approvedPrivateReferenceBundled": false,
+    "downloads": false,
+    "remoteUrls": false,
+    "newServer": false
+  },
+  "performance": {
+    "nativeAndroidClaim": "NOT_PROVEN",
+    "bundleBudget": "doctrine/vendorReductionV1.json",
+    "mobileResolutionGovernedByExistingEngine": true,
+    "hiddenTabRenderSkipped": true,
+    "disposeMeshesAndMaterialsOnPresetSwitch": true,
+    "noConcurrentGodotGpuAssumed": true,
+    "webgpuUpgradeRequiresMeasurement": true
+  },
+  "rights": {
+    "protectedMastersRemainPrivate": true,
+    "originalAnimeInfluenceDoesNotGrantThirdPartyRights": true,
+    "noUseOfUnapprovedLive2dOr3dCharacterAssets": true,
+    "noCopyFromCommunityWithoutLicenseReview": true
+  },
+  "gates": {
+    "sourceCompilation": "PENDING_EXACT_PR_CI",
+    "nodeUnitTests": "PENDING_EXACT_PR_CI",
+    "bundleFootprint": "PENDING_EXACT_PR_CI",
+    "webGlBrowserRender": "NOT_PROVEN",
+    "liveChatGptHtmlMount": "NOT_PROVEN",
+    "samsungTouchGpu": "NOT_PROVEN",
+    "signedAndroidRelease": "NOT_PROVEN",
+    "deployExactHead": "NOT_PROVEN",
+    "independentWorkerExecution": "BLOCKED_BY_QUARANTINE",
+    "mergeRequiresCiAndNoPolicyConflict": true,
+    "sourceMergeNotEqualPublicRelease": true,
+    "publicCrown": "STOP"
+  },
+  "rollback": "Revert scoped PR if visual/build checks fail. Existing main and private art remain preserved."
+}
