@@ -1,15 +1,61 @@
 #!/usr/bin/env python3
-"""Loopback-only antenna assets and read-only capability discovery. No execution API."""
+"""Loopback antenna assets, capability discovery and offline creation plans. No execution API."""
 import argparse
 import json
 import mimetypes
 import platform
 import re
 import shutil
+import hashlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
+RECIPES = {
+    "scenePreview": ("blender", "prepareScene", "renderPreview"),
+    "imagePrepare": ("gimp", "prepareImage", "exportPreview"),
+    "videoPreview": ("ffmpeg", "prepareTimeline", "encodePreview"),
+}
+
+
+def creation_plan(data):
+    """Validate untrusted UI/AI output as data. Never translate a brief into code."""
+    if not isinstance(data, dict) or set(data) != {"schema", "recipe", "target", "brief"}:
+        raise ValueError("Expected creation request fields only")
+    if data["schema"] != "luhmOs.creationRequest.v1":
+        raise ValueError("Unsupported schema")
+    if not isinstance(data["recipe"], str) or data["recipe"] not in RECIPES:
+        raise ValueError("Unknown recipe")
+    if data["target"] not in ("raspberryPi", "remoteStudio"):
+        raise ValueError("Creation work requires an explicit remote target")
+    brief = data["brief"]
+    if not isinstance(brief, str) or not 1 <= len(brief.strip()) <= 2000 or len(brief) > 2000:
+        raise ValueError("Brief must contain 1..2000 characters")
+    if any(ord(char) < 32 and char not in "\n\t" for char in brief):
+        raise ValueError("Unsupported control character")
+    tool, prepare, preview = RECIPES[data["recipe"]]
+    request = dict(data, brief=brief.strip())
+    digest = hashlib.sha256(json.dumps(request, sort_keys=True, ensure_ascii=True).encode()).hexdigest()
+    return {"schema": "luhmOs.creationPlan.v1", "requestSha256": digest,
+            "request": request, "tool": tool, "steps": [prepare, preview, "reviewResult"],
+            "planner": "deterministicTemplate", "aiInvoked": False,
+            "status": "draftPlan", "encoding": "json", "executionEnabled": False,
+            "providerCalls": 0, "publicationEnabled": False,
+            "requiredEvidence": ["sourceCommit", "workerCapability", "assetRights", "resultSha256"],
+            "assetTransfer": "fileReference", "base64Required": False}
+
+
+def unique_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("Duplicate field")
+        result[key] = value
+    return result
+
+
+def reject_constant(_value):
+    raise ValueError("Non-finite JSON value")
 
 def capabilities():
     return {"schema": "luhmOs.antennaCapabilities.v1", "scope": "localProcess",
@@ -41,14 +87,19 @@ def handler_for(root):
             if not head:
                 self.wfile.write(body)
 
-        def serve(self, head=False):
+        def trusted_request(self):
             port = self.server.server_address[1]
             hosts = {f"127.0.0.1:{port}", f"localhost:{port}"}
             host = self.headers.get("Host", "")
             origin = self.headers.get("Origin")
             if host not in hosts or (origin and origin != "http://" + host):
-                return self.respond(403, b"Forbidden", head=head)
+                return False
             if self.headers.get("Sec-Fetch-Site") == "cross-site":
+                return False
+            return True
+
+        def serve(self, head=False):
+            if not self.trusted_request():
                 return self.respond(403, b"Forbidden", head=head)
             url = urlsplit(self.path)
             if url.query or url.fragment:
@@ -71,10 +122,34 @@ def handler_for(root):
             self.serve(True)
 
         def do_POST(self):
-            self.respond(405, b"Read only")
+            self.close_connection = True
+            self.connection.settimeout(5)
+            if not self.trusted_request():
+                return self.respond(403, b"Forbidden")
+            if self.path != "/api/creation/plan":
+                return self.respond(405, b"No execution API")
+            if self.headers.get("Content-Type", "").lower() != "application/json":
+                return self.respond(415, b"JSON required")
+            lengths = self.headers.get_all("Content-Length", [])
+            if len(lengths) != 1 or self.headers.get("Transfer-Encoding"):
+                return self.respond(400, b"One content length required")
+            try:
+                length = int(lengths[0])
+                if not 1 <= length <= 8192:
+                    return self.respond(413, b"Request too large or empty")
+                raw = self.rfile.read(length)
+                if len(raw) != length:
+                    return self.respond(400, b"Incomplete request")
+                data = json.loads(raw, object_pairs_hook=unique_object, parse_constant=reject_constant)
+                result = creation_plan(data)
+            except (ValueError, UnicodeError, RecursionError, TimeoutError, OSError):
+                return self.respond(400, b"Invalid creation request")
+            return self.respond(200, json.dumps(result).encode(), "application/json")
 
-        do_PUT = do_POST
-        do_DELETE = do_POST
+        def do_PUT(self):
+            self.respond(405, b"No write API")
+
+        do_DELETE = do_PUT
 
         def log_message(self, *_args):
             pass
