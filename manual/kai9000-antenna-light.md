@@ -51,12 +51,42 @@ The browser emits `luhm:antenna:intent` on `window` with schema
 No command text, credentials or execution proof is accepted by this contract.
 This event is an adapter seam, not an MCP call or an independently running worker.
 
-## Next bridge slice
+## Python bridge and no-code creation desk
 
 The included loopback Python adapter serves the built assets and exposes
 `GET /api/capabilities`. Click Inspect local Python bridge to use it. It reports
 command presence and architecture without running those commands. Host, Origin,
-cross-site requests and asset paths are restricted; there is no write or job API.
+cross-site requests and asset paths are restricted; there is no file-write or execution API.
+
+The Creation desk posts a brief, explicit recipe and target to
+`POST /api/creation/plan`. This is deterministic offline planning, not AI generation.
+It supports Blender scene preview, GIMP image preparation and FFmpeg video preview.
+All results have `aiInvoked: false`, `providerCalls: 0`, `executionEnabled: false`
+and `publicationEnabled: false`. The plan includes an SHA-256 identity of its
+normalized request; that identity is not a signature or execution receipt.
+The brief stays in memory and is treated as data, never Python, shell or a URL.
+
+The wire request is at most 8192 bytes and the brief at most 2000 characters.
+Unknown fields/actions, duplicate JSON keys, non-finite numbers, malformed JSON,
+cross-origin requests and unsupported content types are rejected. Payloads are
+not logged or persisted. The caller must use a remoteStudio or raspberryPi target;
+selecting a target does not prove its worker exists. A later AI adapter may propose
+the same typed request; Python must validate it before any separately authorized
+execution adapter consumes it. Never auto-execute AI-generated scripts.
+
+Base44, if used as the no-code product, remains an optional external client of a
+future authenticated HTTPS contract. No Base44 service, SDK, paid entitlement or
+cloud deployment is enabled here. “Base44” is not a binary encoding or processor
+architecture. This candidate neither invents a base-44 protocol nor requires one.
+Existing Vue remains the first-party no-code form surface.
+
+GoDaddy, when meant literally, is a registrar/DNS boundary, not a Python/Blender
+worker. No DNS records, nameservers, certificates or hosting subscriptions change.
+If the intended term is Godot, use the separate Godot runtime adapter described
+above; both interpretations remain outside this bounded planner change.
+
+## Next remote bridge slice
+
 Implement a separately reviewed remote adapter next.
 Use authenticated HTTPS/WSS across machines, explicit origin checks, a bounded
 operation allowlist, request IDs, timeouts and versioned JSON responses. Keep
