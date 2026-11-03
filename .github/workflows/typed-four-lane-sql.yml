@@ -6,6 +6,8 @@ on:
       - 'host/api/typedPostgresReviewV1.sql'
       - 'tools/typedSqlStub.py'
       - 'tests/testTypedSqlStub.py'
+      - 'tools/noCodePrototype.py'
+      - 'tests/testNoCodePrototype.py'
       - 'doctrine/typedFourLaneSqlV1.json'
       - 'systemPortal/**'
       - 'manual/typedFourLaneSqlV1.md'
@@ -21,8 +23,17 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact candidate source
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          echo "EXACT_SOURCE_HEAD=$EXPECTED_SHA"
       - name: Typed database adversarial tests
         run: python3 -m unittest tests/testTypedSqlStub.py -v
+      - name: No-code prototype draft save-load boundary
+        run: python3 -m unittest tests/testNoCodePrototype.py -v
       - name: Local in-memory strict schema
         run: python3 tools/typedSqlStub.py
       - name: Existing static portal audit
