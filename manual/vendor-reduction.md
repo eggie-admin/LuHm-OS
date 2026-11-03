@@ -21,6 +21,8 @@ python3 tools/vendorReductionAudit.py --dist frontEnd/prototypes/glassWorld/dist
 The audit enforces:
 - exact direct dependency and lockfile agreement; runtime/build dependency classification,
 - license and integrity fields for locked packages, refusal of unexpected lifecycle hooks,
+- exact HTTPS npm registry tarball origins and base64-decoded SHA-512 integrity length (metadata checks, not live tarball validation),
+- fail-closed unexpected transitive install-script metadata; the existing optional macOS-only `fsevents` record is documented and `npm ci` still uses `--ignore-scripts`,
 - Babylon deep imports (to prevent the earlier 7 MB barrel-import regression),
 - no CDN scripts in packaged static HTML,
 - deterministic file SHA256 and compressed-size receipt,

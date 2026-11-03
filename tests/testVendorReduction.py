@@ -45,6 +45,35 @@ class VendorReductionTests(unittest.TestCase):
         bad["packages"]["node_modules/@babylonjs/core"].pop("integrity")
         failures,_=module.inspectDependencies(self.policy,self.pkg,bad,self.world,self.html)
         self.assertIn("MISSING_LOCK_INTEGRITY_OR_LICENSE_METADATA",failures)
+    def testForeignOrInsecureTarballOriginsRejected(self):
+        for origin in ("https://registry.npmjs.org.attacker.invalid/core.tgz",
+                       "http://registry.npmjs.org/core.tgz",
+                       "https://registry.npmjs.org/pkg/../core.tgz",
+                       "file:///tmp/core.tgz"):
+            with self.subTest(origin=origin):
+                lock=json.loads(json.dumps(self.lock))
+                lock["packages"]["node_modules/@babylonjs/core"]["resolved"]=origin
+                failures,_=module.inspectDependencies(self.policy,self.pkg,lock,self.world,self.html)
+                self.assertIn("UNTRUSTED_LOCKFILE_PACKAGE_ORIGIN",failures)
+
+    def testMalformedIntegrityRejected(self):
+        for digest in ("sha512-not-base64!", "sha256-aGVsbG8=", "sha512-aGVsbG8="):
+            with self.subTest(digest=digest):
+                lock=json.loads(json.dumps(self.lock))
+                lock["packages"]["node_modules/@babylonjs/core"]["integrity"]=digest
+                failures,_=module.inspectDependencies(self.policy,self.pkg,lock,self.world,self.html)
+                self.assertIn("INVALID_LOCKFILE_INTEGRITY",failures)
+
+    def testUnexpectedPackageInstallScriptsRejected(self):
+        lock=json.loads(json.dumps(self.lock))
+        lock["packages"]["node_modules/@babylonjs/core"]["hasInstallScript"]=True
+        failures,_=module.inspectDependencies(self.policy,self.pkg,lock,self.world,self.html)
+        self.assertIn("UNEXPECTED_LOCKFILE_INSTALL_SCRIPT",failures)
+        lock=json.loads(json.dumps(self.lock))
+        lock["packages"]["node_modules/fsevents"]["optional"]=False
+        failures,_=module.inspectDependencies(self.policy,self.pkg,lock,self.world,self.html)
+        self.assertIn("UNEXPECTED_LOCKFILE_INSTALL_SCRIPT",failures)
+
     def testBuildBudgetAndAssetReceipt(self):
         with tempfile.TemporaryDirectory() as tmp:
             path=Path(tmp)

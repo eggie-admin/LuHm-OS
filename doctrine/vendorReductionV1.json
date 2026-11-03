@@ -107,7 +107,19 @@
     "lockfileIntegrityNotAnAudit": true,
     "licensesNeedDistributionReview": true,
     "networkVulnerabilityAuditSeparate": true,
-    "noRuntimeNodeOnAndroid": true
+    "noRuntimeNodeOnAndroid": true,
+    "allowedTarballHostnames": [
+      "registry.npmjs.org"
+    ],
+    "requiredLockIntegrity": "sha512",
+    "installScriptMetadataAllowlist": {
+      "node_modules/fsevents": {
+        "os": [
+          "darwin"
+        ],
+        "reason": "Optional macOS-only build-time watcher metadata; npm ci continues to use --ignore-scripts."
+      }
+    }
   },
   "publication": {
     "Crown": "STOP",
