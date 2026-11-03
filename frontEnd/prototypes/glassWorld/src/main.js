@@ -84,6 +84,18 @@ world = startBabylonWorld(document.getElementById("babylon-stage"),id=>{
   selection.value=id;sceneSignal(root,"selected",{objectId:id,revision:active.value.revision});
 });
 world.applyScene(active.value);
+const worldProof=document.getElementById("world-proof");
+for(const button of document.querySelectorAll("[data-world-mode]")){
+ button.addEventListener("click",()=>{
+   try {
+     const receipt=world.setEnvironment(button.dataset.worldMode);
+     document.querySelectorAll("[data-world-mode]").forEach(other=>other.setAttribute("aria-pressed",String(other===button)));
+     worldProof.textContent=receipt.mode+" · "+receipt.parts+" original procedural pieces · 3D avatar proxy only";
+     status.value=receipt.mode+" environment loaded locally. Not device or Crown proof.";
+   }catch(_){worldProof.textContent="BLOCKED · invalid environment preset"; }
+ });
+}
+worldProof.textContent="Cathedral ready · procedural environment, NOT a final character or device receipt";
 const unmountMediaDeck = mountLocalMediaDeck(document.getElementById("local-media-deck"));
 const vue = createApp(Inspector);
 vue.mount("#vue-inspector");
