@@ -4,7 +4,7 @@ export default defineConfig({
   base: "./",
   build: { target: "es2022", sourcemap: false, reportCompressedSize: true,
     rollupOptions: { input: {
-      studio: fileURLToPath(new URL("./index.html", import.meta.url)),
+      index: fileURLToPath(new URL("./index.html", import.meta.url)),
       antenna: fileURLToPath(new URL("./antenna.html", import.meta.url))
     }}
   }
