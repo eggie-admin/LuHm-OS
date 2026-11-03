@@ -74,6 +74,11 @@ def main() -> None:
         assert audit(changed,preset,avatar,donor), "NEGATIVE_FALSE_GREEN:"+name
     assert audit(workflow,preset,avatar,["assets/lum/luhm.glb"]),"privateDonorNotRejected"
     assert audit(workflow,preset,avatar.replace("_build_procedural_lum()",""),donor),"fallbackNotEnforced"
+    # Audit the creator/business vs offline Android store boundary on the same checkout.
+    from metaSamsungStoreAudit import runSourceAudit
+    runSourceAudit(ROOT)
+    from thinClientSkeletonAudit import runSourceAudit as auditThinClient
+    auditThinClient(ROOT)
     print("GREEN_FDROID_TABLET_SOURCE_7_NEGATIVE_CONTROLS")
     print("SOURCE_ONLY: signed APK, F-Droid index, HTTPS hosting and tablet install unproven")
 

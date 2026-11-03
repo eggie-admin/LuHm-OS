@@ -1,0 +1,240 @@
+{
+  "schema": "luhmOs.thinClientKernelBoundary.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "sourceBaseline": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d",
+  "purpose": "Stage a minimal mobile-first LuHm-OS skeleton by preserving the existing Android/vendor kernel and moving optional heavy software and business providers behind typed, permissioned adapters.",
+  "canon": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/systemArchitectureBaselineV1.json",
+    "doctrine/modularSourceArchitectureV1.json",
+    "doctrine/luHmOSFourLayerArchitectureV1.json",
+    "doctrine/vendorReductionV1.json",
+    "doctrine/androidWeb3CockpitV2.json",
+    "doctrine/storageTopologyV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json"
+  ],
+  "stack": {
+    "hardwareFirmware": {
+      "owner": "Samsung/Android hardware vendor",
+      "policy": "INHERIT_PLATFORM_UNMODIFIED",
+      "firmwareFlash": false,
+      "biosOrBootloaderWrites": false,
+      "chipsetDriverChanges": false,
+      "proof": "NOT_INSPECTED_ON_DEVICE"
+    },
+    "kernel": {
+      "android": "INHERIT_VENDOR_ANDROID_GKI_KMI_DO_NOT_REPLACE",
+      "linuxHost": "INHERIT_HOST_KERNEL_NO_CUSTOM_KERNEL",
+      "kernelModuleChanges": false,
+      "kernelPatches": false,
+      "actualKernelBuildOrIntegrityProof": "NOT_PROVEN",
+      "sourceBoundary": "doctrine/modularSourceArchitectureV1.json"
+    },
+    "operatingSystem": {
+      "android": "vendor Android 16 target only; do not claim version on physical device without receipt",
+      "runtime": "Android System WebView plus Godot native runtime",
+      "unrooted": true,
+      "desktop": "Optional Linux headless studio and kiosk on separate host"
+    },
+    "client": {
+      "source": "frontEnd/index.html",
+      "controller": "frontEnd/app.js",
+      "uiLibrary": "jquery",
+      "uiLibraryPinned": "3.7.1",
+      "webAssets": "PACKAGED_LOCAL",
+      "webviewOrigin": "https://appassets.androidplatform.net",
+      "gameScene": "res://scenes/Main.tscn",
+      "godotRenderer": "gl_compatibility",
+      "networkPermission": false,
+      "arm64": true,
+      "androidSdkTarget": 36,
+      "testingPackage": "art.eggiebagelface.luhmos.testing",
+      "betaPackage": "art.eggiebagelface.luhmos.beta",
+      "deviceRuntime": "NOT_PROVEN",
+      "assetAllowlist": [
+        "index.html",
+        "styles.css",
+        "app.js",
+        "vendor/jquery-3.7.1.min.js",
+        "vendor/jquery-LICENSE.txt",
+        "jquery/luhm.codingRoleplay.js",
+        "jquery/luhm.parallax.js",
+        "jquery/luhm.cockpit.js",
+        "jquery/luhm.cast.js"
+      ],
+      "androidBundle": "EXPLICIT_ALLOWLIST_GENERATED_SYNC_ONLY",
+      "javascriptSource": "LOCAL_PINNED_JQUERY_COPIED_FROM_NPM_LOCK_BEFORE_BUILD"
+    },
+    "remoteOptional": {
+      "controlPlane": "Python 3 standard library with optional sqlite3; explicit adapters only",
+      "studio": ".devcontainer/Dockerfile",
+      "heavyTools": [
+        "Godot",
+        "Blender",
+        "FFmpeg",
+        "GIMP",
+        "npm",
+        "NGINX",
+        "MariaDB"
+      ],
+      "startAutomatically": false,
+      "apkMustNotRequire": [
+        "Termux",
+        "Node.js",
+        "npm",
+        "Python daemon",
+        "MariaDB",
+        "NGINX",
+        "DNSmasq",
+        "Blender",
+        "FFmpeg",
+        "GParted",
+        "Rufus"
+      ],
+      "metaGoogleSamsung": "OPTIONAL_OWNER_AUTHORIZED_EXTERNAL_SERVICES_NOT_APK_KERNEL",
+      "storage": "GitHub source; private Google Drive binaries; SQLite pointers"
+    }
+  },
+  "moduleBoundary": {
+    "kernelBase": "kernelVendorPlatform",
+    "linuxBuild": "linuxBuildEssentials",
+    "control": "python3ControlPlane",
+    "game": "godot4Game",
+    "higherMayUseLower": true,
+    "lowerMustNotDependOnGameOrUi": true,
+    "appMustNotModifyFirmware": true
+  },
+  "composition": [
+    "coreLibrary",
+    "pluginExtension",
+    "classWidgetOrganization",
+    "stubAdapterBoundary"
+  ],
+  "matrix4x4": [
+    {
+      "row": "hardwareKernel",
+      "checks": [
+        {
+          "hex": "0x00",
+          "gate": "firmwareAndBootloaderInherited"
+        },
+        {
+          "hex": "0x01",
+          "gate": "vendorKernelAndKmiPreserved"
+        },
+        {
+          "hex": "0x02",
+          "gate": "noRootNoKernelReplacement"
+        },
+        {
+          "hex": "0x03",
+          "gate": "runtimeSecurityProofSeparate"
+        }
+      ]
+    },
+    {
+      "row": "osRuntime",
+      "checks": [
+        {
+          "hex": "0x04",
+          "gate": "androidVendorWebviewGodot"
+        },
+        {
+          "hex": "0x05",
+          "gate": "arm64SdkAndCompatRenderer"
+        },
+        {
+          "hex": "0x06",
+          "gate": "localOriginBridgeBlockedRemote"
+        },
+        {
+          "hex": "0x07",
+          "gate": "deviceSmokePending"
+        }
+      ]
+    },
+    {
+      "row": "thinClient",
+      "checks": [
+        {
+          "hex": "0x08",
+          "gate": "localStaticUiAndJquery"
+        },
+        {
+          "hex": "0x09",
+          "gate": "typedNativeInterfaceOnly"
+        },
+        {
+          "hex": "0x0A",
+          "gate": "noNetworkOrProviderSdkRequired"
+        },
+        {
+          "hex": "0x0B",
+          "gate": "noClientSecretsOrSqlCredentials"
+        }
+      ]
+    },
+    {
+      "row": "optionalStudio",
+      "checks": [
+        {
+          "hex": "0x0C",
+          "gate": "hostStdlibSqliteMinimal"
+        },
+        {
+          "hex": "0x0D",
+          "gate": "buildToolsNotApkRuntime"
+        },
+        {
+          "hex": "0x0E",
+          "gate": "mediaStudioAndSocialSidecarsOptIn"
+        },
+        {
+          "hex": "0x0F",
+          "gate": "signedInstallAndPublicReleaseHeld"
+        }
+      ]
+    }
+  ],
+  "proof": {
+    "check": "tools/thinClientSkeletonAudit.py",
+    "integration": "tools/fdroidTabletSourceAudit.py",
+    "mode": "STATIC_SOURCE_ONLY",
+    "negativeControls": 12,
+    "knownGaps": [
+      "No physical boot chain, kernel version, firmware, driver or hardware integrity read",
+      "No full APK dependency/asset/SBOM inspection",
+      "No CPU GPU FPS or memory benchmark on Samsung",
+      "No owner-signed APK with stable update continuity",
+      "No public F-Droid, Google Play or Galaxy Store approval",
+      "No actual kernel compilation or custom 64-bit OS image",
+      "Explicit Gradle asset-bundling configuration has not yet been compiled into an inspected AAR/APK at this PR head"
+    ]
+  },
+  "security": {
+    "noRoot": true,
+    "noFirmwareFlash": true,
+    "noKernelFork": true,
+    "noInternetRequired": true,
+    "noMetaOrGoogleSdkRequired": true,
+    "noSecretInClient": true,
+    "noAutomaticProviderSpend": true,
+    "noAutoMerge": true,
+    "noAutoSign": true,
+    "noAutoDeploy": true,
+    "noAutoPublish": true,
+    "workersQuarantined": true
+  },
+  "release": {
+    "candidateOnly": true,
+    "apkBuiltAtThisRef": false,
+    "physicalSamsungInstalled": false,
+    "stableSignerVerified": false,
+    "publicBeta": false,
+    "crownStatus": "STOP"
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. Deterministic source CI proves scoped checks. Professor promotes.",
+  "crownStatus": "STOP"
+}
