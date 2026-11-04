@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "LuHm-OS Antenna (Proposed)",
+  "version": "0.1.0",
+  "description": "Read-only Firefox antenna for the local LuHm-OS kiosk and future patch catalog. No installation or code execution.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "luhm-antenna@eggiebagelface.art",
+      "strict_min_version": "128.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
+  "action": {
+    "default_title": "LuHm-OS Antenna",
+    "default_popup": "popup.html"
+  },
+  "host_permissions": [
+    "http://127.0.0.1:8765/*"
+  ],
+  "permissions": [],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'"
+  }
+}

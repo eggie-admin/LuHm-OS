@@ -9,6 +9,14 @@ on:
       - 'host/harness/fontStack.css'
       - 'host/harness/luhmSigil.svg'
       - 'host/harness/index.html'
+      - 'doctrine/firefoxAntennaV1.json'
+      - 'plugins/luhm-firefox-antenna/**'
+      - 'host/antenna/**'
+      - 'tests/testFirefoxAntenna.py'
+      - 'tests/testFirefoxAntennaSigningPreflight.py'
+      - 'tools/firefoxAntennaSigningPreflight.py'
+      - 'manual/firefoxAntennaFirst20261104.md'
+      - 'manual/firefoxAntennaMozillaSigning20261104.md'
       - 'tests/testSelfHostedRemoteUpdates.py'
       - '.github/workflows/self-hosted-remote-updates.yml'
   workflow_dispatch:
@@ -22,6 +30,10 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact PR head
+        shell: bash
+        run: test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
       - name: Install pinned test transport
         run: python3 -m pip install 'starlette==0.50.0'
       - name: Verify exact-source v1 and v2
@@ -30,3 +42,33 @@ jobs:
           python3 -m py_compile host/mcp/luhmUpdateSpine.py host/mcp/luhmHarnessServer.py
           python3 -m unittest tests/testLuhmUpdateSpine.py tests/testSelfHostedRemoteUpdates.py -v
           python3 tools/sevenLayerMainAudit.py
+      - name: Test Debian / Firefox antenna localhost and policy
+        run: |
+          python3 -m py_compile host/antenna/luhmLocalAntenna.py
+          python3 -m unittest discover -s tests -p testFirefoxAntenna.py -v
+      - name: Check tiny shell budget and no silent install
+        run: |
+          python3 - <<'PY'
+          from host.antenna.luhmLocalAntenna import ROOT, make_status
+          s = make_status(ROOT)
+          assert s["sourceRef"] == "${{ github.event.pull_request.head.sha || github.sha }}"
+          assert s["mode"] == "READ_ONLY" and s["updateState"] == "CHECK_ONLY_NO_INSTALL"
+          assert s["shellBytes"] <= 100_000_000 and s["crownStatus"] == "STOP"
+          print("ANTENNA_SOURCE_GREEN", s["shellBytes"], s["sourceRef"])
+          PY
+      - name: Test Mozilla signing preflight (no signing, no secrets)
+        run: python3 -m unittest discover -s tests -p testFirefoxAntennaSigningPreflight.py -v
+      - name: Package reproducible AMO upload ZIP (unsigned)
+        run: |
+          python3 tools/firefoxAntennaSigningPreflight.py \
+            --expected-source-ref "${{ github.event.pull_request.head.sha || github.sha }}" \
+            --output-dir build/firefoxAntennaSigning
+      - name: Preserve unsigned AMO upload package and source receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: firefox-antenna-amo-preflight-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            build/firefoxAntennaSigning/luhm-firefox-antenna-0.1.0-unsigned.zip
+            build/firefoxAntennaSigning/signing-preflight.json
+          retention-days: 14
+          if-no-files-found: error
