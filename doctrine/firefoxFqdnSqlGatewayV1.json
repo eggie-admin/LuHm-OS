@@ -1,0 +1,89 @@
+{
+  "schema": "luhmOs.firefoxFqdnSqlGateway.v1",
+  "status": "SOURCE_CANDIDATE_NOT_DEPLOYED",
+  "baseSourceRef": "69e8d2fc7df1288aaa1665efaea2bf2674056a1b",
+  "authority": "Professor",
+  "crownStatus": "STOP",
+  "domains": {
+    "publicBrowser": "https://eggiebagelface.art",
+    "browserAlias": "https://www.eggiebagelface.art",
+    "apiCandidate": "https://api.eggiebagelface.art",
+    "existingMcp": "https://luhm-os-harness-green.onrender.com/mcp",
+    "futureMcpCandidate": "https://mcp.eggiebagelface.art/mcp",
+    "existingMcpRouteMustRemainUnchanged": true,
+    "noPtrOrReverseDnsMutation": true
+  },
+  "firefox": {
+    "target": "Firefox desktop and Android",
+    "browserFirstHttps": true,
+    "acceptance": [
+      "valid TLS SAN and chain",
+      "HTTP to HTTPS redirect after cert issuance",
+      "OIDC login, logout and session expiration",
+      "Secure HttpOnly SameSite session cookie",
+      "CSRF protection for state-changing operations",
+      "no mixed content",
+      "no user token in localStorage or URL",
+      "private API denies unauthenticated requests",
+      "mobile keyboard and touch smoke"
+    ]
+  },
+  "publicRouting": {
+    "implementation": "NGINX candidate on separately verified private origin behind approved TLS ingress",
+    "webLoopback": "127.0.0.1:8789",
+    "privateApiLoopback": "127.0.0.1:8787",
+    "authVerifierLoopback": "127.0.0.1:8790",
+    "browserApi": "https://eggiebagelface.art/api/v1/",
+    "machineApi": "https://api.eggiebagelface.art/v1/",
+    "apiFqdnActivation": "BLOCKED_UNTIL_OIDC_BEARER_VALIDATOR_PROVEN",
+    "loginActivation": "BLOCKED_UNTIL_IDENTITY_PROVIDER_AND_SESSION_SERVICE_PROVEN",
+    "defaultDeny": true,
+    "trustedForwardedHeadersOnly": true,
+    "forbidArbitraryHttpProxying": true,
+    "noPortForwarding": true,
+    "noPublicWorkstationOrigin": true,
+    "noSqlRoutes": true,
+    "noUnverifiedCloudflareModeChange": true
+  },
+  "authentication": {
+    "protocol": "OIDC authorization code + PKCE S256",
+    "provider": "UNSELECTED",
+    "clientId": "EXTERNAL_CONFIGURATION_REQUIRED",
+    "secrets": "approved private runtime store only",
+    "issuerAudienceExpiryNonceStateChecks": true,
+    "verifierLocation": "private upstream 127.0.0.1:8790",
+    "sessionTtl": "short-lived; exact policy to be approved",
+    "cookies": "__Host- host-only Secure HttpOnly SameSite; Path=/; no Domain",
+    "cors": "explicitly approved origins only; default deny",
+    "unauthenticatedPrivateAccess": "DENY"
+  },
+  "sql": {
+    "productionEngine": "UNVERIFIED",
+    "renderPostgresInventory": "NONE_VISIBLE_2026_11_04",
+    "sqlite": "local private metadata only unless explicitly approved",
+    "mariadb": "optional private Linux host service; deployment unverified",
+    "networkExposure": "DENY",
+    "runtimeDdl": "DENY",
+    "appRole": "least-privilege scoped DML; not database admin",
+    "statements": "parameterized SQL only",
+    "access": "backend only, no browser or public proxy",
+    "storage": "evidence pointers and hashes; artifacts remain files",
+    "backup": "encrypted backup and tested restore required before live migration",
+    "audit": "redacted security events without tokens or raw PII",
+    "migration": "snapshot then dry run then human-approved change",
+    "readiness": "NOT_PROVEN"
+  },
+  "requiredExternalProof": [
+    "Cloudflare owner-scoped DNS/NS/CAA receipt",
+    "Render or other chosen web-origin identity and active certificate",
+    "OIDC issuer/client configuration without secrets in repo",
+    "authenticated login/logout/CSRF/expiry tests in Firefox",
+    "API same-origin and api FQDN 401/200 authorization tests",
+    "NGINX -t and actual 443 origin proof",
+    "private DB instance/DSN/permissions evidence",
+    "parameterized-query and restore-drill proof",
+    "MCP initialize/tool-list/UI-mount regression"
+  ],
+  "promotion": false,
+  "noBuildNoDeployNoDnsChange": true
+}
