@@ -77,6 +77,9 @@ END;
 CREATE TRIGGER IF NOT EXISTS aiManifestImmutableUpdate
 BEFORE UPDATE ON aiManifestStream
 BEGIN SELECT RAISE(ABORT, 'manifest receipt is append-only'); END;
+CREATE TRIGGER IF NOT EXISTS aiManifestImmutableDelete
+BEFORE DELETE ON aiManifestStream
+BEGIN SELECT RAISE(ABORT, 'manifest receipt cannot be deleted'); END;
 CREATE TRIGGER IF NOT EXISTS aiManifestParentIdentityImmutableUpdate
 BEFORE UPDATE OF taskId,sourceRef,scopeId ON streamEvent
 WHEN EXISTS (SELECT 1 FROM aiManifestStream WHERE eventId=OLD.eventId)
