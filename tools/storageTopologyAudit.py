@@ -10,7 +10,7 @@ def need(ok, msg):
         errors.append(msg)
 
 storage_path = root / "doctrine/storageTopologyV1.json"
-source_path = root / "doctrine/SOURCE_OF_TRUTH.json"
+source_path = root / "doctrine/currentSourceTruthV3.json"
 canon_path = root / "doctrine/projectChatCanonV1.json"
 trust_path = root / "doctrine/goddessTrustSealV1.json"
 control_path = root / "doctrine/ONI_MESH_CONTROL_PLANE_V2.json"
@@ -30,10 +30,22 @@ if storage_path.is_file():
     need(roles.get("openAi", {}).get("durableBinaryStorage") is False, "OpenAI must not become binary store")
     need(storage.get("rules", {}).get("unknownStorageLocationIsNotGreen") is True, "UNKNOWN storage must fail closed")
     need(storage.get("crownStatus") == "stop", "storage doctrine Crown must stop")
+    library = roles.get("chatGptLibrary", {})
+    need(library.get("role") == "workingReviewLayer", "Library working-role missing")
+    need(library.get("canonicalSourceAuthority") is False, "Library must not be source authority")
+    need(library.get("canonicalBinaryStorage") is False, "Library must not replace Drive masters")
+    need(library.get("automaticallySynchronizedWithDrive") is False, "unproven Library-Drive sync")
+    need(storage.get("rules", {}).get("chatGptLibraryAutomaticSyncProven") is False, "unknown sync must not claim proof")
 
+
+need(source_path.is_file(), "current Canon source truth missing")
 if source_path.is_file():
     source = json.loads(source_path.read_text())
-    need(source.get("storageTopology", {}).get("contract") == "doctrine/storageTopologyV1.json", "SOURCE_OF_TRUTH missing storage contract")
+    need(source.get("schema") == "luhmOs.currentSourceTruth.v3", "source truth schema mismatch")
+    need(source.get("product") == "LuHm-OS", "product must use canonical LuHm-OS display")
+    need(source.get("storageTopology", {}).get("contract") == "doctrine/storageTopologyV1.json", "current source truth missing storage contract")
+    need(source.get("storageTopology", {}).get("automaticDriveLibrarySyncProven") is False, "unproven source sync must not be GREEN")
+    need(source.get("promotion") is False and source.get("crownStatus") == "STOP", "source authority gate changed")
 
 if canon_path.is_file():
     canon = json.loads(canon_path.read_text())
