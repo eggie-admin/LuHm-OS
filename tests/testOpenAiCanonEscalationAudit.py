@@ -26,6 +26,10 @@ class CanonEscalationTests(unittest.TestCase):
     def test_visual_fabrication_rejected(self):
         x=copy.deepcopy(self.baseline);x["externalObservations"]["visualMount"]="GREEN"
         self.assertIn("fabricatedVisualMountProof",self.check(x)["sourceErrors"])
+    def test_render_false_green_rejected(self):
+        x=copy.deepcopy(self.baseline)
+        x["externalObservations"]["renderHarness"]["matchesGitHubMain"]=True
+        self.assertIn("fabricatedRenderEquivalenceOrAuthority",self.check(x)["sourceErrors"])
     def test_mcp_drift_rejected(self):
         x=copy.deepcopy(self.baseline);x["source"]["mcpUrl"]="https://invalid.example/mcp"
         self.assertIn("mcpEndpointDrift",self.check(x)["sourceErrors"])
@@ -36,6 +40,7 @@ class CanonEscalationTests(unittest.TestCase):
         x=self.check(copy.deepcopy(self.baseline))
         self.assertIn("siteResourceDrift",[v["id"] for v in x["amberFindings"]])
         self.assertIn("historicalRuntimeReceipt",[v["id"] for v in x["amberFindings"]])
+        self.assertIn("renderLiveSourceLag",[v["id"] for v in x["amberFindings"]])
         self.assertTrue(all(v["autoFixPermitted"] is False for v in x["amberFindings"]))
 if __name__=="__main__":
     unittest.main()
