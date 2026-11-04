@@ -32,6 +32,8 @@ jobs:
       - name: Snapshot/Canon evidence report
         run: python3 tools/openAiCanonEscalationAudit.py --output build/openAiCanonEscalation/evidence.json
       - name: 200-pass hard source audit
+        env:
+          LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
         run: python3 tools/hardSystemAudit200.py
       - name: Titan7 final form source audit
         run: python3 tools/operationTitan7FinalFormAudit.py
