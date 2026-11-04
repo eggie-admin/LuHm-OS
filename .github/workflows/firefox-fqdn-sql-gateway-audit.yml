@@ -1,0 +1,18 @@
+name: Firefox FQDN SQL Gateway Candidate
+on:
+  pull_request:
+    paths:
+      - 'doctrine/firefoxFqdnSqlGatewayV1.json'
+      - 'deploy/nginx/firefox-fqdn-gateway.candidate.conf'
+      - 'tools/firefoxFqdnSqlGatewayAudit.py'
+      - '.github/workflows/firefox-fqdn-sql-gateway-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  static-boundaries:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Source-only fail-closed checks, no DNS, SQL, deploy or CAST
+        run: python3 tools/firefoxFqdnSqlGatewayAudit.py
