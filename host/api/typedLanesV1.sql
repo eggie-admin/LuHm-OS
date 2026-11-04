@@ -48,3 +48,49 @@ CREATE TABLE IF NOT EXISTS artifactPointer(
   logicalFileRef TEXT NOT NULL,sizeBytes INTEGER NOT NULL CHECK(sizeBytes>=0)
 ) STRICT;
 CREATE INDEX IF NOT EXISTS artifactEvent ON artifactPointer(eventId,storageLane);
+
+-- LamoS audit: keep raw SQL writes aligned with the guarded Python adapter.
+-- Local SQLite stub only; never automatically apply this source DDL to production.
+CREATE TRIGGER IF NOT EXISTS aiManifestGuardInsert
+BEFORE INSERT ON aiManifestStream
+BEGIN
+  SELECT RAISE(ABORT, 'invalid manifest JSON') WHERE json_valid(NEW.manifestJson) <> 1;
+  SELECT RAISE(ABORT, 'AI manifest identity/authority mismatch') WHERE
+       json_type(NEW.manifestJson, '$') IS NOT 'object'
+    OR NEW.manifestSchema IS NOT 'luhmOs.aiTaskManifest.v2'
+    OR json_extract(NEW.manifestJson,'$.schema') IS NOT NEW.manifestSchema
+    OR json_extract(NEW.manifestJson,'$.taskId') IS NOT (SELECT taskId FROM streamEvent WHERE eventId=NEW.eventId)
+    OR json_extract(NEW.manifestJson,'$.sourceRef') IS NOT (SELECT sourceRef FROM streamEvent WHERE eventId=NEW.eventId)
+    OR json_extract(NEW.manifestJson,'$.scopeId') IS NOT (SELECT scopeId FROM streamEvent WHERE eventId=NEW.eventId)
+    OR json_extract(NEW.manifestJson,'$.providerId') IS NOT NEW.providerId
+    OR json_extract(NEW.manifestJson,'$.capabilityId') IS NOT NEW.capabilityId
+    OR json_type(NEW.manifestJson,'$.authority') IS NOT 'object'
+    OR json_type(NEW.manifestJson,'$.authority.mutation') IS NOT 'false'
+    OR json_type(NEW.manifestJson,'$.authority.green') IS NOT 'false'
+    OR json_type(NEW.manifestJson,'$.authority.crown') IS NOT 'false';
+END;
+CREATE TRIGGER IF NOT EXISTS aiManifestGuardUpdate
+BEFORE UPDATE ON aiManifestStream
+BEGIN
+  SELECT RAISE(ABORT, 'invalid manifest JSON') WHERE json_valid(NEW.manifestJson) <> 1;
+  SELECT RAISE(ABORT, 'AI manifest identity/authority mismatch') WHERE
+       json_type(NEW.manifestJson, '$') IS NOT 'object'
+    OR NEW.manifestSchema IS NOT 'luhmOs.aiTaskManifest.v2'
+    OR json_extract(NEW.manifestJson,'$.schema') IS NOT NEW.manifestSchema
+    OR json_extract(NEW.manifestJson,'$.taskId') IS NOT (SELECT taskId FROM streamEvent WHERE eventId=NEW.eventId)
+    OR json_extract(NEW.manifestJson,'$.sourceRef') IS NOT (SELECT sourceRef FROM streamEvent WHERE eventId=NEW.eventId)
+    OR json_extract(NEW.manifestJson,'$.scopeId') IS NOT (SELECT scopeId FROM streamEvent WHERE eventId=NEW.eventId)
+    OR json_extract(NEW.manifestJson,'$.providerId') IS NOT NEW.providerId
+    OR json_extract(NEW.manifestJson,'$.capabilityId') IS NOT NEW.capabilityId
+    OR json_type(NEW.manifestJson,'$.authority') IS NOT 'object'
+    OR json_type(NEW.manifestJson,'$.authority.mutation') IS NOT 'false'
+    OR json_type(NEW.manifestJson,'$.authority.green') IS NOT 'false'
+    OR json_type(NEW.manifestJson,'$.authority.crown') IS NOT 'false';
+END;
+CREATE TRIGGER IF NOT EXISTS streamEventManifestIdentityFreeze
+BEFORE UPDATE OF taskId, sourceRef, scopeId ON streamEvent
+WHEN EXISTS(SELECT 1 FROM aiManifestStream WHERE eventId=OLD.eventId)
+AND (NEW.taskId IS NOT OLD.taskId OR NEW.sourceRef IS NOT OLD.sourceRef OR NEW.scopeId IS NOT OLD.scopeId)
+BEGIN
+  SELECT RAISE(ABORT, 'event identity is bound to manifest');
+END;
