@@ -28,6 +28,9 @@ def check(policy: dict, conf: str) -> None:
     for marker in (
         "server_name eggiebagelface.art www.eggiebagelface.art",
         "server_name api.eggiebagelface.art",
+        "listen 80 default_server;",
+        "listen 443 ssl default_server;",
+        "ssl_reject_handshake on;",
         "ssl_protocols TLSv1.2 TLSv1.3",
         "auth_request /__luhm_auth;",
         "proxy_pass http://127.0.0.1:8787",
@@ -71,6 +74,7 @@ def main() -> None:
     require(rejects(changed, conf), "negative Crown control failed")
     require(rejects(policy, conf.replace("127.0.0.1:8787", "0.0.0.0:8787")), "negative proxy control failed")
     require(rejects(policy, conf.replace("auth_request /__luhm_auth;", "")), "negative auth control failed")
+    require(rejects(policy, conf.replace("ssl_reject_handshake on;", "")), "negative SNI control failed")
     print("GREEN_FIREFOX_FQDN_SQL_STATIC_CANDIDATE; LIVE_DNS_TLS_LOGIN_SQL=UNVERIFIED; CROWN=STOP")
 
 if __name__ == "__main__":
