@@ -83,6 +83,9 @@ class ManifestStorageBoundaryTests(unittest.TestCase):
             self.db.execute("UPDATE aiManifestStream SET providerId=? WHERE eventId=?",
                             ("otherProvider", "firstEvent"))
         with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute("DELETE FROM aiManifestStream WHERE eventId=?",
+                            ("firstEvent",))
+        with self.assertRaises(sqlite3.IntegrityError):
             self.db.execute("UPDATE streamEvent SET sourceRef=? WHERE eventId=?",
                             ("b" * 40, "firstEvent"))
 
