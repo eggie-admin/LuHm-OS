@@ -13,6 +13,11 @@ on:
       - 'plugins/luhm-firefox-antenna/**'
       - 'host/antenna/**'
       - 'tests/testFirefoxAntenna.py'
+      - 'host/testBridge/**'
+      - 'doctrine/firefoxTestBridgeV1.json'
+      - 'tools/firefoxTestBridge2048Audit.py'
+      - 'tests/testFirefoxTestBridge.py'
+      - 'manual/firefoxTestBridgeSnapshot20261104.md'
       - 'tests/testFirefoxAntennaSigningPreflight.py'
       - 'tools/firefoxAntennaSigningPreflight.py'
       - 'manual/firefoxAntennaFirst20261104.md'
@@ -45,6 +50,32 @@ jobs:
         run: |
           python3 -m py_compile host/antenna/luhmLocalAntenna.py
           python3 -m unittest discover -s tests -p testFirefoxAntenna.py -v
+      - name: Run local TestBridge consent and SQLite negative tests
+        run: |
+          python3 -m py_compile host/testBridge/luhmTestBridge.py tools/firefoxTestBridge2048Audit.py
+          python3 -m unittest discover -s tests -p testFirefoxTestBridge.py -v
+      - name: Collect exact-source 2048 scenario snapshot (no personal records)
+        run: |
+          python3 tools/firefoxTestBridge2048Audit.py --output-dir build/testBridge2048
+          python3 - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          r=json.loads(Path("build/testBridge2048/snapshot.json").read_text())
+          head=subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()
+          assert r["sourceRef"] == head and r["passedScenarioAssertions"] == 2048
+          assert r["privateRecordsIncluded"] is False and r["crownStatus"] == "STOP"
+          print("TESTBRIDGE_SOURCE_MODEL_PASS",head)
+          PY
+      - name: Save TestBridge source snapshot
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: testbridge-2048-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            build/testBridge2048/snapshot.json
+            build/testBridge2048/testBridge2048.bin
+          if-no-files-found: warn
+          retention-days: 14
       - name: Check tiny shell budget and no silent install
         run: |
           python3 - <<'PY'
