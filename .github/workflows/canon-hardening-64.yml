@@ -2,7 +2,13 @@ name: LuHm Canon Hardening 0x00–0x3F
 on:
   pull_request:
     paths:
-      - 'doctrine/canonHardening64V1.json'
+      - 'doctrine/**'
+      - 'tools/hardSystemAudit200.py'
+      - 'tools/machineCanonFourLoop.py'
+      - 'tools/escalationKernelAudit.py'
+      - 'tools/apiSpineAudit.py'
+      - 'tools/companyWideQuarantineAudit.py'
+      - 'tools/storageTopologyAudit.py'
       - 'tools/canonHardening64Audit.py'
       - 'tests/testCanonHardening64Audit.py'
       - 'manual/canonHardening64Runbook.md'
