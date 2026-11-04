@@ -1,0 +1,231 @@
+{
+  "schema": "luhmOs.publicSurfaceInventory20261104.v1",
+  "date": "2026-11-04",
+  "status": "CONNECTED_ACCOUNT_METADATA_NOT_PUBLIC_HTTP_CRAWL",
+  "authority": "Professor",
+  "github": {
+    "source": "connected GitHub repository listing",
+    "visiblePublicRepositoryCount": 19,
+    "notAllOriginalCreativeWork": true,
+    "repositories": [
+      {
+        "id": "eggie-admin/amplify-godot-engine-template",
+        "url": "https://github.com/eggie-admin/amplify-godot-engine-template",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/termux-app",
+        "url": "https://github.com/eggie-admin/termux-app",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/hydra-shell-android",
+        "url": "https://github.com/eggie-admin/hydra-shell-android",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/Shizuku",
+        "url": "https://github.com/eggie-admin/Shizuku",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/YagniLauncher",
+        "url": "https://github.com/eggie-admin/YagniLauncher",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/chatgpt-github-plugin",
+        "url": "https://github.com/eggie-admin/chatgpt-github-plugin",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/MiniMax-H3",
+        "url": "https://github.com/eggie-admin/MiniMax-H3",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/godot_rl_agents",
+        "url": "https://github.com/eggie-admin/godot_rl_agents",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/stable-baselines3",
+        "url": "https://github.com/eggie-admin/stable-baselines3",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/sbx",
+        "url": "https://github.com/eggie-admin/sbx",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/android-foss",
+        "url": "https://github.com/eggie-admin/android-foss",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/vue-headless-cms",
+        "url": "https://github.com/eggie-admin/vue-headless-cms",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/3d-chat-interface",
+        "url": "https://github.com/eggie-admin/3d-chat-interface",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/Stable-Diffusion-KMP",
+        "url": "https://github.com/eggie-admin/Stable-Diffusion-KMP",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/termux-x11",
+        "url": "https://github.com/eggie-admin/termux-x11",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/godot_2D_procedural_dungeon_gen",
+        "url": "https://github.com/eggie-admin/godot_2D_procedural_dungeon_gen",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/godot-procedural3d",
+        "url": "https://github.com/eggie-admin/godot-procedural3d",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/LuHm-OS",
+        "url": "https://github.com/eggie-admin/LuHm-OS",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      },
+      {
+        "id": "eggie-admin/vite",
+        "url": "https://github.com/eggie-admin/vite",
+        "visibility": "PUBLIC_REPOSITORY_METADATA",
+        "originalOwnerAndLicense": "NOT_AUDITED"
+      }
+    ]
+  },
+  "render": {
+    "source": "connected Render workspace services list",
+    "configuredServiceCount": 9,
+    "livePublicHttpAndContent": "NOT_CHECKED",
+    "services": [
+      {
+        "name": "luhmOsChatCockpitV2Candidate",
+        "url": "https://luhmoschatcockpitv2candidate.onrender.com",
+        "type": "web_service",
+        "visibility": "CONFIGURED_EXTERNAL_ORIGIN_NOT_HTTP_PROVEN",
+        "publicAssetRights": "UNVERIFIED"
+      },
+      {
+        "name": "luhm-os-yume-autobeta",
+        "url": "https://luhm-os-yume-autobeta.onrender.com",
+        "type": "web_service",
+        "visibility": "CONFIGURED_EXTERNAL_ORIGIN_NOT_HTTP_PROVEN",
+        "publicAssetRights": "UNVERIFIED"
+      },
+      {
+        "name": "luhm-os-yume-beta",
+        "url": "https://luhm-os-yume-beta.onrender.com",
+        "type": "web_service",
+        "visibility": "CONFIGURED_EXTERNAL_ORIGIN_NOT_HTTP_PROVEN",
+        "publicAssetRights": "UNVERIFIED"
+      },
+      {
+        "name": "luhm-os-godot-harness-green",
+        "url": "https://luhm-os-godot-harness-green.onrender.com",
+        "type": "web_service",
+        "visibility": "CONFIGURED_EXTERNAL_ORIGIN_NOT_HTTP_PROVEN",
+        "publicAssetRights": "UNVERIFIED"
+      },
+      {
+        "name": "luhm-os-harness-green",
+        "url": "https://luhm-os-harness-green.onrender.com",
+        "type": "web_service",
+        "visibility": "CONFIGURED_EXTERNAL_ORIGIN_NOT_HTTP_PROVEN",
+        "publicAssetRights": "UNVERIFIED"
+      },
+      {
+        "name": "luhm-os-publication-site",
+        "url": "https://luhm-os-publication-site.onrender.com",
+        "type": "static_site",
+        "visibility": "CONFIGURED_EXTERNAL_ORIGIN_NOT_HTTP_PROVEN",
+        "publicAssetRights": "UNVERIFIED"
+      },
+      {
+        "name": "luhm-os-publication-green",
+        "url": "https://luhm-os-publication-green.onrender.com",
+        "type": "web_service",
+        "visibility": "CONFIGURED_EXTERNAL_ORIGIN_NOT_HTTP_PROVEN",
+        "publicAssetRights": "UNVERIFIED"
+      },
+      {
+        "name": "luhm-os-publication-candidate",
+        "url": "https://luhm-os-publication-candidate.onrender.com",
+        "type": "web_service",
+        "visibility": "CONFIGURED_EXTERNAL_ORIGIN_NOT_HTTP_PROVEN",
+        "publicAssetRights": "UNVERIFIED"
+      },
+      {
+        "name": "luhm-os-mcp",
+        "url": "https://luhm-os-mcp.onrender.com",
+        "type": "web_service",
+        "visibility": "CONFIGURED_EXTERNAL_ORIGIN_NOT_HTTP_PROVEN",
+        "publicAssetRights": "UNVERIFIED"
+      }
+    ]
+  },
+  "social": {
+    "source": "manual/public-portfolio-restoration.md; historical limited Windsor.ai scope",
+    "instagram": {
+      "handle": "eggiebagelface",
+      "observedReel": "https://www.instagram.com/reel/Dc3DAUKKtfB/",
+      "observedPostDate": "2026-09-04",
+      "scope": "ONE_REEL_IN_LIMITED_HISTORICAL_MEDIA_READ_NOT_ALL_PUBLIC_POSTS",
+      "currentHttpOrPostContent": "NOT_REVERIFIED",
+      "musicRights": "CHECK_BEFORE_REUSE"
+    }
+  },
+  "domains": {
+    "apex": "https://eggiebagelface.art",
+    "status": "NOT_VERIFIED_LIVE",
+    "mcpFqdn": "https://mcp.eggiebagelface.art",
+    "statusMcp": "CUSTOM_DOMAIN_CANDIDATE_NOT_VERIFIED"
+  },
+  "chatGptSites": {
+    "status": "PRIVATE_VS_PUBLIC_PERMISSION_NOT_VERIFIED; DO_NOT_LIST_AS_PUBLIC"
+  },
+  "copyright": {
+    "status": "NOT_VERIFIED_REGISTERED"
+  },
+  "trademark": {
+    "status": "NOT_VERIFIED_REGISTERED"
+  },
+  "publicArt": {
+    "source": "media/public-release-art-ledger.json",
+    "status": "NO_BLANKET_APPROVAL",
+    "approvedIndividualAssets": "NOT_VERIFIED",
+    "thirdPartyReferences": "DO_NOT_ASSUME_CLEARANCE"
+  },
+  "automaticPublishing": false,
+  "crownStatus": "STOP"
+}
