@@ -54,6 +54,12 @@ def adjudicate(root, ledger, sha):
     require(ext.get("connectedPluginBridge") == "REACHABLE_READ_ONLY", "bridgeClaimMismatch")
     require(ext.get("differentPluginIdentities") is True, "sitePackageIdentityConflated")
     require(ext.get("visualMount") == "UNVERIFIED", "fabricatedVisualMountProof")
+    render = ext.get("renderHarness", {})
+    require(render.get("deploymentState") == "LIVE"
+            and bool(re.fullmatch("[0-9a-f]{40}", render.get("liveSourceRef", ""))),
+            "missingRenderDeploymentEvidence")
+    require(render.get("matchesGitHubMain") is False and render.get("redeploymentAuthorized") is False,
+            "fabricatedRenderEquivalenceOrAuthority")
     require(snap.get("scope") == "GITHUB_REFS_ONLY_NOT_COMPLETE_BACKUP", "fabricatedFullBackup")
     refs = snap.get("verifiedBranches", [])
     require(isinstance(refs, list) and len(refs) == 3, "threeRepoSnapshotRequired")
@@ -76,6 +82,10 @@ def adjudicate(root, ledger, sha):
         amber("historicalRuntimeReceipt","HISTORICAL_EVIDENCE",
               "Runtime receipt source is historical; not today's exact main.",
               "Collect current Render deploy/source proof; do not rewrite historical receipt.")
+    if render.get("liveSourceRef") != source.get("baseMain"):
+        amber("renderLiveSourceLag","RUNTIME_DRIFT",
+              "Render LIVE deploy is not the current GitHub main; autoDeploy disabled",
+              "Run exact-source compatibility tests and request separate scoped redeploy approval.")
     amber("sourceTruthAmber","CANON_GATE","Current Canon status remains AMBER",
           "Document exact blockers; do not promote global source truth.")
     amber("hostRender","HOST_EVIDENCE","Tool data response is not UI display/touch evidence",
