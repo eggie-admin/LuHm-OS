@@ -66,6 +66,27 @@ jobs:
               previous=n
           print("CROWN_CATHEDRAL_SOURCE_512_1024_1536_2048=PASS; CROWN=STOP")
           PY
+      - name: Generate and independently compare exact-source 128KiB HEX64 binary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/hex64Insanus2048Audit.py --output-dir build/crownCathedral512/hex64
+          python3 - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          root=Path("build/crownCathedral512")
+          receipt=json.loads((root/"hex64/hex64-insanus2048.json").read_text())
+          raw=(root/"hex64/hex64-insanus2048.bin").read_bytes()
+          final=json.loads((root/"checkpoint-2048.json").read_text())
+          assert receipt["sourceRef"]==final["sourceRef"]==os.environ["LUHM_SOURCE_REF"]
+          assert receipt["scenarioAssertions"]==receipt["passedScenarioAssertions"]==2048
+          assert receipt["verdict"]=="SOURCE_MODEL_PASS" and receipt["crownStatus"]=="STOP"
+          assert len(raw)==2048*64 and len(final["checkpoints"])==4
+          for i,step in enumerate(final["checkpoints"]):
+              segment=raw[i*512*64:(i+1)*512*64]
+              assert hashlib.sha256(segment).hexdigest()==step["sha256"]
+          print("HEX64_131072_BINARY_BYTES_MATCH_ALL_FOUR_512_CHECKPOINTS")
+          PY
       - name: Independent existing 200-control hard audit
         shell: bash
         run: |
