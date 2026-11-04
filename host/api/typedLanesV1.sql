@@ -40,6 +40,80 @@ CREATE TABLE IF NOT EXISTS aiManifestStream(
   greenAuthority INTEGER NOT NULL DEFAULT 0 CHECK(greenAuthority=0),
   crownAuthority INTEGER NOT NULL DEFAULT 0 CHECK(crownAuthority=0)
 ) STRICT;
+
+-- Validate the AI manifest even for direct SQL writes that bypass typedSqlStub.py.
+-- These are local SQLite source-only guards, not deployment authority.
+CREATE TRIGGER IF NOT EXISTS aiManifestValidateInsert
+BEFORE INSERT ON aiManifestStream
+BEGIN
+  SELECT RAISE(ABORT, 'ai manifest authority or event identity mismatch')
+  WHERE (
+    json_valid(NEW.manifestJson)
+    AND coalesce(json_type(NEW.manifestJson, '
+CREATE TABLE IF NOT EXISTS artifactPointer(
+  artifactId TEXT PRIMARY KEY,eventId TEXT NOT NULL REFERENCES streamEvent(eventId),
+  fileName TEXT NOT NULL,sha256 TEXT NOT NULL CHECK(length(sha256)=64 AND sha256 NOT GLOB '*[^0-9a-f]*'),
+  storageLane TEXT NOT NULL CHECK(storageLane IN ('githubSource','chatLibraryCache','googleDriveDurable')),
+  logicalFileRef TEXT NOT NULL,sizeBytes INTEGER NOT NULL CHECK(sizeBytes>=0)
+) STRICT;
+CREATE INDEX IF NOT EXISTS artifactEvent ON artifactPointer(eventId,storageLane);
+), 'missing') = 'object'
+    AND coalesce(json_extract(NEW.manifestJson, '$.schema'), '') = 'luhmOs.aiTaskManifest.v2'
+    AND NEW.manifestSchema = 'luhmOs.aiTaskManifest.v2'
+    AND coalesce(json_type(NEW.manifestJson, '$.authority'), 'missing') = 'object'
+    AND coalesce(json_type(NEW.manifestJson, '$.authority.mutation'), 'missing') = 'false'
+    AND coalesce(json_type(NEW.manifestJson, '$.authority.green'), 'missing') = 'false'
+    AND coalesce(json_type(NEW.manifestJson, '$.authority.crown'), 'missing') = 'false'
+    AND length(NEW.manifestJson) <= 65536
+    AND NEW.providerId = coalesce(json_extract(NEW.manifestJson, '$.providerId'), '')
+    AND NEW.capabilityId = coalesce(json_extract(NEW.manifestJson, '$.capabilityId'), '')
+    AND EXISTS (
+      SELECT 1 FROM streamEvent AS ev WHERE ev.eventId = NEW.eventId
+       AND ev.taskId = json_extract(NEW.manifestJson, '$.taskId')
+       AND ev.sourceRef = json_extract(NEW.manifestJson, '$.sourceRef')
+       AND ev.scopeId = json_extract(NEW.manifestJson, '$.scopeId')
+    )
+  ) IS NOT 1;
+END;
+CREATE TRIGGER IF NOT EXISTS aiManifestValidateUpdate
+BEFORE UPDATE ON aiManifestStream
+BEGIN
+  SELECT RAISE(ABORT, 'ai manifest authority or event identity mismatch')
+  WHERE (
+    json_valid(NEW.manifestJson)
+    AND coalesce(json_type(NEW.manifestJson, '
+CREATE TABLE IF NOT EXISTS artifactPointer(
+  artifactId TEXT PRIMARY KEY,eventId TEXT NOT NULL REFERENCES streamEvent(eventId),
+  fileName TEXT NOT NULL,sha256 TEXT NOT NULL CHECK(length(sha256)=64 AND sha256 NOT GLOB '*[^0-9a-f]*'),
+  storageLane TEXT NOT NULL CHECK(storageLane IN ('githubSource','chatLibraryCache','googleDriveDurable')),
+  logicalFileRef TEXT NOT NULL,sizeBytes INTEGER NOT NULL CHECK(sizeBytes>=0)
+) STRICT;
+CREATE INDEX IF NOT EXISTS artifactEvent ON artifactPointer(eventId,storageLane);
+), 'missing') = 'object'
+    AND coalesce(json_extract(NEW.manifestJson, '$.schema'), '') = 'luhmOs.aiTaskManifest.v2'
+    AND NEW.manifestSchema = 'luhmOs.aiTaskManifest.v2'
+    AND coalesce(json_type(NEW.manifestJson, '$.authority'), 'missing') = 'object'
+    AND coalesce(json_type(NEW.manifestJson, '$.authority.mutation'), 'missing') = 'false'
+    AND coalesce(json_type(NEW.manifestJson, '$.authority.green'), 'missing') = 'false'
+    AND coalesce(json_type(NEW.manifestJson, '$.authority.crown'), 'missing') = 'false'
+    AND length(NEW.manifestJson) <= 65536
+    AND NEW.providerId = coalesce(json_extract(NEW.manifestJson, '$.providerId'), '')
+    AND NEW.capabilityId = coalesce(json_extract(NEW.manifestJson, '$.capabilityId'), '')
+    AND EXISTS (
+      SELECT 1 FROM streamEvent AS ev WHERE ev.eventId = NEW.eventId
+       AND ev.taskId = json_extract(NEW.manifestJson, '$.taskId')
+       AND ev.sourceRef = json_extract(NEW.manifestJson, '$.sourceRef')
+       AND ev.scopeId = json_extract(NEW.manifestJson, '$.scopeId')
+    )
+  ) IS NOT 1;
+END;
+CREATE TRIGGER IF NOT EXISTS aiManifestParentIdentityImmutable
+BEFORE UPDATE OF taskId,sourceRef,scopeId ON streamEvent
+WHEN EXISTS (SELECT 1 FROM aiManifestStream WHERE eventId = OLD.eventId)
+BEGIN
+  SELECT RAISE(ABORT, 'cannot change identity of event with ai manifest');
+END;
+
 CREATE INDEX IF NOT EXISTS manifestRoute ON aiManifestStream(providerId,capabilityId,eventId);
 CREATE TABLE IF NOT EXISTS artifactPointer(
   artifactId TEXT PRIMARY KEY,eventId TEXT NOT NULL REFERENCES streamEvent(eventId),
