@@ -16,6 +16,7 @@ on:
       - 'tests/testFirefoxAntennaSigningPreflight.py'
       - 'tools/firefoxAntennaSigningPreflight.py'
       - 'manual/firefoxAntennaFirst20261104.md'
+      - 'manual/firefoxAntennaMozillaSigning20261104.md'
       - 'tests/testSelfHostedRemoteUpdates.py'
       - '.github/workflows/self-hosted-remote-updates.yml'
   workflow_dispatch:
