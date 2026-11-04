@@ -31,6 +31,7 @@ def check(policy: dict, conf: str) -> None:
         "listen 80 default_server;",
         "listen 443 ssl default_server;",
         "ssl_reject_handshake on;",
+        "return 421;",
         "ssl_protocols TLSv1.2 TLSv1.3",
         "auth_request /__luhm_auth;",
         "proxy_pass http://127.0.0.1:8787",
