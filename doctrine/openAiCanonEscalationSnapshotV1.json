@@ -29,7 +29,18 @@
     "githubProtection": true,
     "activeRulesetsObserved": 3,
     "sqlAuthorityPr": 516,
-    "sqlAuthorityMerged": false
+    "sqlAuthorityMerged": false,
+    "renderHarness": {
+      "service": "luhm-os-harness-green",
+      "serviceId": "srv-daubsi1srm7s73bl5lh0",
+      "liveDeployId": "dep-dbji0q8473hc739tdfag",
+      "liveSourceRef": "27184814dbd279a2a1e8daa5cfa8a7ebcbad0472",
+      "deploymentState": "LIVE",
+      "autoDeploy": false,
+      "observedFrom": "Render linked workspace 2026-11-04",
+      "matchesGitHubMain": false,
+      "redeploymentAuthorized": false
+    }
   },
   "snapshot": {
     "scope": "GITHUB_REFS_ONLY_NOT_COMPLETE_BACKUP",
