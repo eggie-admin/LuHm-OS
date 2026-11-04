@@ -1,0 +1,99 @@
+{
+  "schema": "luhmOs.crownCathedral512Escalation.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "boss": "lum",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "taskId": "crownCathedral512Escalation20261104",
+  "scopeId": "hex64ScenarioCumulativeMilestones",
+  "parent": {
+    "repository": "eggie-admin/LuHm-OS",
+    "pr": 512,
+    "baseHead": "67db771ffe665c72032c9bfe64dd3511a5807808",
+    "engine": "tools/hex64Insanus2048Audit.py"
+  },
+  "checkpointSize": 512,
+  "scenarioTotal": 2048,
+  "recordBytes": 64,
+  "checkpoints": [
+    {
+      "target": 512,
+      "start": 0,
+      "endExclusive": 512,
+      "families": [
+        "sanityCheck",
+        "audit",
+        "ingest",
+        "mutation"
+      ]
+    },
+    {
+      "target": 1024,
+      "start": 512,
+      "endExclusive": 1024,
+      "families": [
+        "test",
+        "apply",
+        "continue",
+        "deploy"
+      ]
+    },
+    {
+      "target": 1536,
+      "start": 1024,
+      "endExclusive": 1536,
+      "families": [
+        "sourceIdentity",
+        "sandboxPrivilege",
+        "sqliteIsolation",
+        "binaryStorage"
+      ]
+    },
+    {
+      "target": 2048,
+      "start": 1536,
+      "endExclusive": 2048,
+      "families": [
+        "vendorBudget",
+        "agentQuarantine",
+        "rollback",
+        "crownGate"
+      ]
+    }
+  ],
+  "cumulativeReverification": true,
+  "stopAtFirstFailedChunk": true,
+  "sourceDriftResets": true,
+  "exactSourceRequired": true,
+  "noAuthorityEscalation": true,
+  "hardAuditBindings": [
+    "tools/hardSystemAudit200.py",
+    "tools/machineCanonFourLoop.py",
+    "tools/premonitionTitan500Audit.py",
+    "tools/agentSystemDeploymentAudit.py"
+  ],
+  "denied": [
+    "providerApiCalls",
+    "providerSpending",
+    "productionSqlWrites",
+    "hostRootChanges",
+    "cloudflareChanges",
+    "agentUnquarantine",
+    "productionDeploy",
+    "sourceMerge",
+    "publicPublication",
+    "releaseSigning",
+    "selfCrown"
+  ],
+  "externalProof": [
+    "cloudflareExactBuild",
+    "renderExactHostAndMcp",
+    "googleIamQuotaBillingIfUsed",
+    "samsungAndGodotRuntime",
+    "assetLicensesAndRights",
+    "backupRestore",
+    "exactReleaseCandidatePromotion"
+  ],
+  "promotion": false,
+  "crownStatus": "STOP"
+}

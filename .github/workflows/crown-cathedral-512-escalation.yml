@@ -1,0 +1,128 @@
+name: Crown Cathedral 512-chunk exact-source escalation
+on:
+  pull_request:
+    paths:
+      - 'doctrine/crownCathedral512EscalationV1.json'
+      - 'tools/crownCathedral512EscalationAudit.py'
+      - 'tests/testCrownCathedral512EscalationAudit.py'
+      - 'tools/hex64Insanus2048Audit.py'
+      - 'tests/testHex64Insanus2048Audit.py'
+      - 'manual/crownCathedral512Escalation.md'
+      - '.github/workflows/crown-cathedral-512-escalation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  source512:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Exact-head checkout; do not persist credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Sanity check exact source, policy, Python syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+          python3 -m json.tool doctrine/crownCathedral512EscalationV1.json >/dev/null
+          python3 -m py_compile tools/crownCathedral512EscalationAudit.py tests/testCrownCathedral512EscalationAudit.py
+      - name: Original HEX64 model and cumulative negative tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests -p testHex64Insanus2048Audit.py -v
+          python3 -m unittest discover -s tests -p testCrownCathedral512EscalationAudit.py -v
+      - name: Verify 512 then 1024 then 1536 then 2048
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/crownCathedral512
+          for n in 512 1024 1536 2048; do
+            python3 tools/crownCathedral512EscalationAudit.py --source-ref "$LUHM_SOURCE_REF" --target "$n" \
+              --output "build/crownCathedral512/checkpoint-$n.json"
+          done
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          previous = 0
+          for n in (512,1024,1536,2048):
+              r=json.loads(Path(f"build/crownCathedral512/checkpoint-{n}.json").read_text())
+              assert r["sourceRef"]==os.environ["LUHM_SOURCE_REF"]
+              assert r["checked"]==r["passed"]==n and r["remaining"]==2048-n
+              assert r["verdict"]=="AMBER_SOURCE_ONLY" and r["crownStatus"]=="STOP"
+              assert len(r["checkpoints"])==n//512
+              assert r["checkpoints"][-1]["start"]==previous
+              assert all(x["status"]=="SOURCE_MODEL_PASS" for x in r["checkpoints"])
+              assert not any(r[k] for k in ("runtimeGreen","cloudflareBuildProven","googleEntitlementProven","physicalDeviceProven","artRightsProven","merged","deployed","paidCalls","agentsReleased"))
+              previous=n
+          print("CROWN_CATHEDRAL_SOURCE_512_1024_1536_2048=PASS; CROWN=STOP")
+          PY
+      - name: Generate and independently compare exact-source 128KiB HEX64 binary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/hex64Insanus2048Audit.py --output-dir build/crownCathedral512/hex64
+          python3 - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          root=Path("build/crownCathedral512")
+          receipt=json.loads((root/"hex64/hex64-insanus2048.json").read_text())
+          raw=(root/"hex64/hex64-insanus2048.bin").read_bytes()
+          final=json.loads((root/"checkpoint-2048.json").read_text())
+          assert receipt["sourceRef"]==final["sourceRef"]==os.environ["LUHM_SOURCE_REF"]
+          assert receipt["scenarioAssertions"]==receipt["passedScenarioAssertions"]==2048
+          assert receipt["verdict"]=="SOURCE_MODEL_PASS" and receipt["crownStatus"]=="STOP"
+          assert len(raw)==2048*64 and len(final["checkpoints"])==4
+          for i,step in enumerate(final["checkpoints"]):
+              segment=raw[i*512*64:(i+1)*512*64]
+              assert hashlib.sha256(segment).hexdigest()==step["sha256"]
+          print("HEX64_131072_BINARY_BYTES_MATCH_ALL_FOUR_512_CHECKPOINTS")
+          PY
+      - name: Independent existing 200-control hard audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/hardSystemAudit200.py > build/crownCathedral512/hard200.log
+          grep -q 'passes=200/200' build/crownCathedral512/hard200.log
+      - name: Existing 16-cell machine audit plus negatives
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests -p testMachineCanonFourLoop.py -v
+          python3 tools/machineCanonFourLoop.py --source-ref "$LUHM_SOURCE_REF" --output build/crownCathedral512/machine4x4.json
+      - name: Existing Titan500 controls, gaps retained
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/premonitionTitan500Audit.py --output-dir build/crownCathedral512/titan500
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path("build/crownCathedral512/titan500/premonition-titan-500.json").read_text())
+          assert len(r["checks"])==500 and r["crownStatus"]=="STOP"
+          assert r["verdict"]=="AMBER_SOURCE_WITH_GAPS"
+          assert not r["criticalSourceBlockers"]
+          PY
+      - name: Independent agent quarantine and escalation checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/agentSystemDeploymentAudit.py > build/crownCathedral512/agent-audit.log
+          python3 tools/escalationKernelAudit.py > build/crownCathedral512/escalation-audit.log
+      - name: Archive non-secret bounded receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: crown-cathedral-cumulative-512-evidence
+          path: build/crownCathedral512/
+          retention-days: 14
+          if-no-files-found: warn
