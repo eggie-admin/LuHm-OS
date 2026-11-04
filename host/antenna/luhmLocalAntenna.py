@@ -66,6 +66,15 @@ def source_ref(root: Path) -> str:
 
 
 def make_status(root: Path, *, source: str | None = None) -> dict:
+    antenna = load_json(root, "doctrine/firefoxAntennaV1.json")
+    if (antenna.get("schema") != "luhmOs.firefoxAntenna.v1"
+            or antenna.get("crownStatus") != "STOP"
+            or antenna["update"]["autoInstall"] is not False
+            or antenna["backend"]["httpBind"] != HOST
+            or antenna["backend"]["port"] != PORT
+            or antenna["shell"]["budgetBytes"] != SHELL_BUDGET
+            or tuple(antenna["shell"]["sourcePaths"]) != SHELL_PATHS):
+        raise ValueError("FIREFOX_ANTENNA_DOCTRINE_DRIFT")
     canon = load_json(root, "doctrine/projectChatCanonV1.json")
     updates = load_json(root, "doctrine/selfHostedRemoteUpdatesV1.json")
     quarantine = load_json(root, "doctrine/companyWideOperationalQuarantineV1.json")
