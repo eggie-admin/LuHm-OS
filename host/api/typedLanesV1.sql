@@ -49,15 +49,7 @@ BEGIN
   SELECT RAISE(ABORT, 'ai manifest authority or event identity mismatch')
   WHERE (
     json_valid(NEW.manifestJson)
-    AND coalesce(json_type(NEW.manifestJson, '
-CREATE TABLE IF NOT EXISTS artifactPointer(
-  artifactId TEXT PRIMARY KEY,eventId TEXT NOT NULL REFERENCES streamEvent(eventId),
-  fileName TEXT NOT NULL,sha256 TEXT NOT NULL CHECK(length(sha256)=64 AND sha256 NOT GLOB '*[^0-9a-f]*'),
-  storageLane TEXT NOT NULL CHECK(storageLane IN ('githubSource','chatLibraryCache','googleDriveDurable')),
-  logicalFileRef TEXT NOT NULL,sizeBytes INTEGER NOT NULL CHECK(sizeBytes>=0)
-) STRICT;
-CREATE INDEX IF NOT EXISTS artifactEvent ON artifactPointer(eventId,storageLane);
-), 'missing') = 'object'
+    AND coalesce(json_type(NEW.manifestJson, '$'), 'missing') = 'object'
     AND coalesce(json_extract(NEW.manifestJson, '$.schema'), '') = 'luhmOs.aiTaskManifest.v2'
     AND NEW.manifestSchema = 'luhmOs.aiTaskManifest.v2'
     AND coalesce(json_type(NEW.manifestJson, '$.authority'), 'missing') = 'object'
@@ -81,15 +73,7 @@ BEGIN
   SELECT RAISE(ABORT, 'ai manifest authority or event identity mismatch')
   WHERE (
     json_valid(NEW.manifestJson)
-    AND coalesce(json_type(NEW.manifestJson, '
-CREATE TABLE IF NOT EXISTS artifactPointer(
-  artifactId TEXT PRIMARY KEY,eventId TEXT NOT NULL REFERENCES streamEvent(eventId),
-  fileName TEXT NOT NULL,sha256 TEXT NOT NULL CHECK(length(sha256)=64 AND sha256 NOT GLOB '*[^0-9a-f]*'),
-  storageLane TEXT NOT NULL CHECK(storageLane IN ('githubSource','chatLibraryCache','googleDriveDurable')),
-  logicalFileRef TEXT NOT NULL,sizeBytes INTEGER NOT NULL CHECK(sizeBytes>=0)
-) STRICT;
-CREATE INDEX IF NOT EXISTS artifactEvent ON artifactPointer(eventId,storageLane);
-), 'missing') = 'object'
+    AND coalesce(json_type(NEW.manifestJson, '$'), 'missing') = 'object'
     AND coalesce(json_extract(NEW.manifestJson, '$.schema'), '') = 'luhmOs.aiTaskManifest.v2'
     AND NEW.manifestSchema = 'luhmOs.aiTaskManifest.v2'
     AND coalesce(json_type(NEW.manifestJson, '$.authority'), 'missing') = 'object'
