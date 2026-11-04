@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer"><title>LuHm-OS · TestBridge</title>
+<link rel="stylesheet" href="testBridge.css"><script src="testBridge.js" defer></script></head>
+<body><main>
+<header><span class="sigil">◈</span><div><small>LuHm-OS · Project Premonition</small><h1>TestBridge</h1></div></header>
+<p class="muted">Antenna → Python 3 → in-memory SQLite → GitHub source receipts. <strong>Local development only.</strong></p>
+<section class="status" aria-label="TestBridge status"><h2>Machine status</h2><pre id="status">Not checked</pre>
+<button id="refresh" type="button">Check bridge</button></section>
+<section aria-labelledby="formTitle"><h2 id="formTitle">Optional local forum note</h2>
+<p>This demo collects a display name and a note <strong>only after you check consent and press Save</strong>. Records remain in the local process memory for at most one hour, or until deleted or the server stops. No data is sent to GitHub, Mozilla or OpenAI. Avoid passwords, addresses, contact information, or sensitive details. No multi-user authentication is implemented.</p>
+<form id="noteForm" autocomplete="off">
+<label for="displayName">Display name (1–40 characters)</label>
+<input id="displayName" name="displayName" maxlength="40" required autocomplete="off">
+<label for="note">Note (1–300 characters)</label>
+<textarea id="note" name="note" maxlength="300" required rows="3"></textarea>
+<label class="consent"><input type="checkbox" id="consent" required> I consent to this local, temporary record.</label>
+<button type="submit">Save locally</button></form>
+</section>
+<section aria-labelledby="notesTitle"><h2 id="notesTitle">Temporary records</h2>
+<button id="list" type="button">Refresh local records</button>
+<ul id="notes" aria-live="polite"></ul></section>
+<p id="message" role="status" aria-live="polite">No personal records collected automatically.</p>
+<footer>No admin credentials, no email harvesting, no browsing-history collection, no public forum. Production requires identity, access control, encryption, privacy review, backup and deletion policy.</footer>
+</main></body></html>
