@@ -48,14 +48,7 @@ CREATE TRIGGER IF NOT EXISTS aiManifestIdentityAuthorityInsert
 BEFORE INSERT ON aiManifestStream
 BEGIN
   SELECT CASE WHEN
-      json_type(NEW.manifestJson, '
-  artifactId TEXT PRIMARY KEY,eventId TEXT NOT NULL REFERENCES streamEvent(eventId),
-  fileName TEXT NOT NULL,sha256 TEXT NOT NULL CHECK(length(sha256)=64 AND sha256 NOT GLOB '*[^0-9a-f]*'),
-  storageLane TEXT NOT NULL CHECK(storageLane IN ('githubSource','chatLibraryCache','googleDriveDurable')),
-  logicalFileRef TEXT NOT NULL,sizeBytes INTEGER NOT NULL CHECK(sizeBytes>=0)
-) STRICT;
-CREATE INDEX IF NOT EXISTS artifactEvent ON artifactPointer(eventId,storageLane);
-) IS NOT 'object'
+      json_type(NEW.manifestJson, '$') IS NOT 'object'
       OR json_extract(NEW.manifestJson, '$.schema') IS NOT 'luhmOs.aiTaskManifest.v2'
       OR NEW.manifestSchema IS NOT 'luhmOs.aiTaskManifest.v2'
       OR json_type(NEW.manifestJson, '$.authority') IS NOT 'object'
