@@ -11,11 +11,13 @@ def need(ok, msg):
 
 storage_path = root / "doctrine/storageTopologyV1.json"
 source_path = root / "doctrine/SOURCE_OF_TRUTH.json"
+current_source_path = root / "doctrine/currentSourceTruthV3.json"
 canon_path = root / "doctrine/projectChatCanonV1.json"
 trust_path = root / "doctrine/goddessTrustSealV1.json"
 control_path = root / "doctrine/ONI_MESH_CONTROL_PLANE_V2.json"
 
 need(storage_path.is_file(), "missing storage topology")
+need(current_source_path.is_file(), "missing current V3 source truth")
 need((root / "agents/shared/storageLawV1.md").is_file(), "missing shared storage law")
 
 if storage_path.is_file():
@@ -24,12 +26,25 @@ if storage_path.is_file():
     roles = storage.get("roles", {})
     need(roles.get("openAi", {}).get("role") == "semanticDb", "OpenAI semanticDb drift")
     need(roles.get("github", {}).get("role") == "sourceDb", "GitHub sourceDb drift")
+    need(roles.get("chatGptLibrary", {}).get("role") == "workingStockroom", "Library stockroom role drift")
+    need(roles.get("chatGptLibrary", {}).get("canonicalBinaryStorage") is False, "Library is not Drive master")
+    need(roles.get("chatGptLibrary", {}).get("automaticDriveSynchronization") is False, "Library sync must be explicit")
     need(roles.get("googleDrive", {}).get("role") == "fileServer", "Drive fileServer drift")
     need(roles.get("googleDrive", {}).get("canonicalBinaryStorage") is True, "Drive durable binary authority missing")
     need(roles.get("github", {}).get("durableBinaryStorage") is False, "GitHub must not become durable binary store")
     need(roles.get("openAi", {}).get("durableBinaryStorage") is False, "OpenAI must not become binary store")
     need(storage.get("rules", {}).get("unknownStorageLocationIsNotGreen") is True, "UNKNOWN storage must fail closed")
     need(storage.get("crownStatus") == "stop", "storage doctrine Crown must stop")
+
+if current_source_path.is_file():
+    truth = json.loads(current_source_path.read_text())
+    topology = truth.get("storageTopology", {})
+    need(topology.get("contract") == "doctrine/storageTopologyV1.json", "current V3 source truth storage pointer drift")
+    need(topology.get("reviewStockroom") == "chatGptLibrary", "current V3 Library stockroom pointer drift")
+    need(topology.get("binaryMaster") == "googleDrive", "current V3 Drive archive pointer drift")
+    need(topology.get("automaticDriveLibrarySync") is False, "current V3 must not invent automatic sync")
+    need(topology.get("promotion") is False, "working stockroom cannot self-promote")
+    need(truth.get("promotion") is False and truth.get("crownStatus") == "STOP", "global Crown remains stopped")
 
 if source_path.is_file():
     source = json.loads(source_path.read_text())
