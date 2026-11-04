@@ -1,0 +1,63 @@
+{
+  "schema": "luhmOs.firefoxTestBridge.v1",
+  "status": "PROPOSED_LOCAL_SOURCE_ONLY",
+  "authority": {
+    "agentsReleased": false,
+    "webMayExecuteShell": false,
+    "storedCredentialsInGitHub": false,
+    "automaticPublication": false,
+    "sourceChangesProposedOnly": true
+  },
+  "parentSource": "doctrine/firefoxAntennaV1.json",
+  "product": "LuHm-OS: Project Premonition",
+  "purpose": "Volatile opt-in personal forum-note demo with static HTML and Python3/SQLite, local TestBridge after Firefox antenna.",
+  "network": {
+    "bind": "127.0.0.1",
+    "port": 8766,
+    "httpsPublicExposure": false,
+    "corsAllowOrigins": [],
+    "rootPrivileges": false,
+    "externalApiCalls": false,
+    "publicForum": false
+  },
+  "data": {
+    "database": ":memory:",
+    "requiresExplicitOptIn": true,
+    "fields": [
+      "displayName",
+      "note"
+    ],
+    "emailAndPasswords": false,
+    "recordLimit": 32,
+    "retentionSeconds": 3600,
+    "recordsPersistAfterRestart": false,
+    "deleteSupported": true,
+    "parameterizedSqlRequired": true,
+    "personalRecordsInGitHub": false,
+    "personalRecordsInMcp": false,
+    "personalRecordsInLogs": false
+  },
+  "frontend": {
+    "surface": "host/testBridge/index.html",
+    "format": "staticHtmlCssJavaScript",
+    "dynamicBackend": "localhostOnly",
+    "remoteScripts": false,
+    "cspRequired": true,
+    "outputViaTextContent": true,
+    "extensionRemainsIndependentStatusOnly": true
+  },
+  "release": {
+    "amoSigning": "NOT_PROVEN",
+    "publicTLPki": "NOT_INVOLVED_IN_LOCAL_ONLY",
+    "firefoxXpi": "NOT_SIGNED",
+    "mozillaDataCollectionDisclosure": "extension still reads only machine status and receives no forum records",
+    "productionPrivacyReviewed": false
+  },
+  "audit": {
+    "targetScenarios": 2048,
+    "recordBytes": 64,
+    "receiptPath": "build/testBridge2048/snapshot.json",
+    "scope": "deterministic policy scenarios not independent runtime tests"
+  },
+  "crownStatus": "STOP"
+}
