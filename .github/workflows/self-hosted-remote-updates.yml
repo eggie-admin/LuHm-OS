@@ -13,6 +13,8 @@ on:
       - 'plugins/luhm-firefox-antenna/**'
       - 'host/antenna/**'
       - 'tests/testFirefoxAntenna.py'
+      - 'tests/testFirefoxAntennaSigningPreflight.py'
+      - 'tools/firefoxAntennaSigningPreflight.py'
       - 'manual/firefoxAntennaFirst20261104.md'
       - 'tests/testSelfHostedRemoteUpdates.py'
       - '.github/workflows/self-hosted-remote-updates.yml'
@@ -53,3 +55,19 @@ jobs:
           assert s["shellBytes"] <= 100_000_000 and s["crownStatus"] == "STOP"
           print("ANTENNA_SOURCE_GREEN", s["shellBytes"], s["sourceRef"])
           PY
+      - name: Test Mozilla signing preflight (no signing, no secrets)
+        run: python3 -m unittest discover -s tests -p testFirefoxAntennaSigningPreflight.py -v
+      - name: Package reproducible AMO upload ZIP (unsigned)
+        run: |
+          python3 tools/firefoxAntennaSigningPreflight.py \
+            --expected-source-ref "${{ github.event.pull_request.head.sha || github.sha }}" \
+            --output-dir build/firefoxAntennaSigning
+      - name: Preserve unsigned AMO upload package and source receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: firefox-antenna-amo-preflight-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            build/firefoxAntennaSigning/luhm-firefox-antenna-0.1.0-unsigned.zip
+            build/firefoxAntennaSigning/signing-preflight.json
+          retention-days: 14
+          if-no-files-found: error
