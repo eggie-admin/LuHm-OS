@@ -1,0 +1,61 @@
+name: Machine 4x4 Titan7 Canon Escalation 5-12 Audits
+on:
+  pull_request:
+    paths:
+      - 'doctrine/machineEscalationFourByFourV1.json'
+      - 'tools/machineEscalationFourByFour.py'
+      - 'tests/testMachineEscalationFourByFour.py'
+      - 'manual/machineEscalationFourByFour.md'
+      - '.github/workflows/machine-escalation-four-by-four.yml'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/machineCanonFourLoopV1.json'
+      - 'doctrine/escalationKernelV1.json'
+      - 'doctrine/operationTitan7ChatTriggerV2.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  exact-source-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout exact candidate without credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact source identity
+        run: |
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
+      - name: Verify negative controls and 4x4 source matrix
+        run: python3 -m unittest discover -s tests -p testMachineEscalationFourByFour.py -v
+      - name: Five-check fast source audit
+        run: |
+          python3 tools/machineEscalationFourByFour.py --source-ref "${{ github.event.pull_request.head.sha || github.sha }}" \
+            --depth five --titan-tier 0 --output build/machine-escalation-four-by-four/five.json
+      - name: Twelve-check extended source audit
+        run: |
+          python3 tools/machineEscalationFourByFour.py --source-ref "${{ github.event.pull_request.head.sha || github.sha }}" \
+            --depth twelve --titan-tier 0 --output build/machine-escalation-four-by-four/twelve.json
+      - name: Preserve nonsecret SHA-pinned receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: machine-4x4-titan7-five-twelve-source-evidence
+          path: |
+            build/machine-escalation-four-by-four/
+            build/operation-titan7-final-form/
+            build/titan7-current-canon/audit.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Explicit safe terminal boundary
+        if: always()
+        run: |
+          echo "MACHINE_CANON_SOURCE_ONLY"
+          echo "FOUR_TIER_RELEASE_PROGRESS=NOT_AUTOMATED"
+          echo "NO_PROVIDER_AI_FINE_TUNING OR MODEL_EXECUTION"
+          echo "NO BUILD, CAST, MERGE, DEPLOY, CLOUDFLARE, SQL, SIGN, UNQUARANTINE, CROWN"
