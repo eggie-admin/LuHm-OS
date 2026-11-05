@@ -1,0 +1,38 @@
+{
+  "schema": "luhmOs.cockpitPromotionSnapshot.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "capturedAt": "2026-11-04",
+  "sourceRef": "93cc6cf65c6d8ea2ac9b26a6fe0596d85b0d5f7f",
+  "controller": {
+    "testing": "castBridge",
+    "proposed": "castBridge",
+    "beta": "cast",
+    "release": "cast"
+  },
+  "promotion": {
+    "testingToProposed": "OPT_IN_POLICY_DEFAULT_ON_FOR_EXPLICITLY_CLASSIFIED_DISPOSABLE_CANDIDATES",
+    "beta": "REVIEW_REQUIRED",
+    "release": "REVIEW_REQUIRED",
+    "unknownSensitivity": "STOP",
+    "requiredEvidence": [
+      "exactSourceRef",
+      "cleanDiff",
+      "noSecretsOrPersonalData",
+      "passingExactHeadCI",
+      "noProtectedAssets",
+      "noPrivilegedOperations"
+    ]
+  },
+  "cockpit": {
+    "desiredDefault": "ON_WHEN_CONNECTED_AND_USER_AUTHORIZED",
+    "connectionState": "UNVERIFIED",
+    "firefoxFocus": "WEB_COCKPIT_FALLBACK",
+    "firefoxAndroid": "EXTENSION_SUPPORT_SEPARATE_FROM_FOCUS"
+  },
+  "network": {
+    "mcp": "DIRECT_RENDER_HTTPS",
+    "cloudflare": "READ_ONLY_UNTIL_COMPAT_PROOF",
+    "googleAi": "UNVERIFIED_ENTITLEMENT"
+  },
+  "crownStatus": "STOP"
+}
