@@ -11,6 +11,19 @@ on:
       - 'doctrine/machineCanonFourLoopV1.json'
       - 'doctrine/escalationKernelV1.json'
       - 'doctrine/operationTitan7ChatTriggerV2.json'
+  push:
+    branches: [main]
+    paths:
+      - 'doctrine/machineEscalationFourByFourV1.json'
+      - 'tools/machineEscalationFourByFour.py'
+      - 'tests/testMachineEscalationFourByFour.py'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/machineCanonFourLoopV1.json'
+      - '.github/workflows/machine-escalation-four-by-four.yml'
+  # GitHub schedule runs only after the workflow reaches the default branch.
+  # UTC 11:13, ahead of the Professor's morning status review.
+  schedule:
+    - cron: '13 11 * * *'
   workflow_dispatch:
 permissions:
   contents: read
