@@ -1,0 +1,149 @@
+{
+  "schema": "luhmOs.gameCanon.urdGothGoddessCandidate.v1",
+  "status": "PROPOSED_ONLY",
+  "authority": "Professor",
+  "sourceRef": "69e8d2fc7df1288aaa1665efaea2bf2674056a1b",
+  "sourceOfTruth": "doctrine/currentSourceTruthV3.json",
+  "upstreamCanon": [
+    "game/canon/CHARACTER_CANON_V1.json",
+    "doctrine/characterCanonRegistryV1.json",
+    "doctrine/yumeArtDirectionCanonV1.json",
+    "doctrine/yumeGoddess3dProductionV1.json"
+  ],
+  "namespace": {
+    "canonicalCharacterId": "urd",
+    "canonicalDisplayName": "Urd",
+    "voiceAliases": [
+      "Erd"
+    ],
+    "agentRoleId": "urdDoctorGoddess",
+    "machineId": "urd",
+    "transportSlug": "urd-goth-goddess",
+    "state": "PROPOSED_ONLY",
+    "candidatePath": "game/canon/urd-goth-goddess-candidate-v1.json",
+    "independentNewCharacter": false,
+    "changesCurrentApprovedCanon": false
+  },
+  "artisticIntent": {
+    "subject": "Original adult Asian goddess, eldest and most physically imposing of the adult sister trio, with 1980s gothic rock and darkwave stage presence.",
+    "adult": true,
+    "minimumAge": 21,
+    "identity": "Clearly adult Asian face, original facial features, commanding expressions, amethyst third-eye ornament, divine aura and time-weave magic.",
+    "keepFromCurrentCanon": [
+      "weave/time goddess motif",
+      "vampy goth elder-sister confidence",
+      "oxblood and magenta thread motifs",
+      "visually distinct from Belldandy and Skuld"
+    ],
+    "keepFromDesignAnchors": [
+      "silver-white voluminous hair with crimson strands",
+      "violet eyes and centered forehead gem",
+      "mature pronounced hourglass silhouette",
+      "black lace, velvet and structured corsetry",
+      "silver ornamentation and tall boots"
+    ],
+    "mutation": [
+      "teased 1980s goth hair silhouette with asymmetry",
+      "graphic Siouxsie-era eye makeup as an era reference, no facial copying",
+      "Cyndi Lauper-inspired theatrical color accents, no costume copying",
+      "Debbie Harry-inspired effortless rock-stage charisma, no facial copying",
+      "Bauhaus and Sisters of Mercy darkwave atmosphere",
+      "divine thread/time sigils incorporated into jewelry and embroidery"
+    ],
+    "silhouette": "Adult tall, curvy and full-busted elder-sister figure, fashionable and non-explicit; maintain plausible poseability and garment fit.",
+    "wardrobe": "Fully clothed antique-black velvet and lace stage ensemble with structured bodice, wine-red drapery, layered silver chains, patterned stockings and gothic boots.",
+    "palette": [
+      "antiqueBlack",
+      "oxblood",
+      "amethystViolet",
+      "moonSilver",
+      "crimsonThread"
+    ],
+    "expressions": [
+      "knowingSmirk",
+      "goddessAuthority",
+      "dryAmusement",
+      "protectiveWarmth",
+      "castingFocus"
+    ],
+    "deliverables": [
+      "one full-body front/back fashion sheet",
+      "one face/expression sheet",
+      "one accessory and fabric detail sheet"
+    ],
+    "doNotDrift": [
+      "no real-person face or body cloning",
+      "no direct franchise costume/assets",
+      "no child-coded presentation",
+      "no generic modern e-girl/cybergoth substitution",
+      "no cross-character face copying",
+      "no unbounded soft-body motion"
+    ],
+    "generationBrief": "Original mature adult Asian goddess, dramatically voluptuous but fully dressed, 1980s gothic post-punk stage queen with voluminous silver-and-crimson hair, violet eyes, amethyst forehead jewel, black lace and velvet corseted gown, oxblood and silver accents, supernatural thread-weave aura, richly painted anime character design, full-body, consistent anatomy, fashion-first and non-explicit."
+  },
+  "privateReferenceEvidence": {
+    "logicalAssetKey": "privateDrive:quarantine/urd/20261105",
+    "existingApprovedArtSlot": "privateDrive:yume/urd/approvedArt",
+    "existingCandidateReviewSlot": "privateDrive:yume/urd/candidateReview",
+    "archiveName": "Erd_Private_Reference_Kit_2026-11-05.zip",
+    "archiveSha256": "641c9d9fb9fd8f3fd81d506f1054c9ed3fa4702977af6dbcd96840253add234b",
+    "referenceImageCount": 7,
+    "archiveCrcCheck": "PASS",
+    "sourceClassification": "PRIVATE_REFERENCE_UNCLEARED",
+    "privateSourceCopiedIntoGitHub": false,
+    "realPersonReferenceIsLikenessTemplate": false
+  },
+  "doctrine": {
+    "contentLane": "privateMutation",
+    "publicAllowed": false,
+    "related": [
+      "doctrine/contentLaneDoctrineV1.json",
+      "doctrine/assetEligibilityMatrixV1.json",
+      "doctrine/yumeCreativeEscalationV1.json",
+      "doctrine/yumeFastPathCanonV1.json",
+      "doctrine/namingNamespaceCanonV1.json",
+      "doctrine/everlastingCovenantV1.json"
+    ],
+    "creativeEscalation": [
+      {
+        "tier": 0,
+        "id": "fineArtDevelopment",
+        "state": "PRIVATE_REFERENCE_STAGED",
+        "next": "Professor visual direction and original concept candidates"
+      },
+      {
+        "tier": 1,
+        "id": "commercialArtDevelopment",
+        "state": "NOT_STARTED",
+        "next": "rights and delivery-spec review after visual approval"
+      },
+      {
+        "tier": 2,
+        "id": "creativeToolResearchAndDevelopment",
+        "state": "NOT_STARTED",
+        "next": "Blender/rig/GLB/Godot validation when needed"
+      },
+      {
+        "tier": 3,
+        "id": "provedShowcaseAndReleaseCandidate",
+        "state": "BLOCKED",
+        "next": "exact proof, lane clearance, Professor Crown"
+      }
+    ],
+    "authorityChain": "Yume proposes; Lum coordinates; Urd reviews evidence; Belldandy records; Skuld checks technical compatibility; Professor promotes.",
+    "currentTier": 0,
+    "crownStatus": "STOP",
+    "noAutoMerge": true,
+    "noAutoPublication": true,
+    "noBuildOrRuntimeClaim": true
+  },
+  "proof": {
+    "privateAssetArchiveVerified": "CRC_AND_SHA256_LOCAL",
+    "completedCharacterImage": "NOT_GENERATED",
+    "artistFinalApproval": "PENDING",
+    "legalRightsClearance": "PENDING",
+    "godotModelExists": "NOT_PROVEN",
+    "godotRuntimeProven": false,
+    "currentStatus": "AMBER_VISUAL_CANDIDATE"
+  }
+}
