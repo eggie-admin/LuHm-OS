@@ -45,3 +45,6 @@ Tuning here means **proposal-scoped adapters, prompts, routing rules and determi
 
 ## Current scope
 Track closure under [Hydra → Premonition issue #525](https://github.com/eggie-admin/LuHm-OS/issues/525), continuing historical Project Hydra Site compatibility while developing Project Premonition. Preserve source and host distinctions, no silent PR merges. Five and twelve source audit results are only one part of a release and recovery snapshot.
+
+## Automation cadence
+The proposed GitHub Actions workflow runs once daily at **11:13 UTC** and on matching `main` source changes **only after this draft PR is merged into the default branch**. It also runs on PRs changing the new policy and can be manually dispatched. All checks use GitHub-hosted `ubuntu-24.04` with read-only repository permissions, no provider tokens or basement self-hosted runner, and 14-day source receipt retention. A scheduled source run never grants merge or deployment authority. No recurring task or production execution is created by the draft PR alone.
