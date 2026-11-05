@@ -76,7 +76,7 @@ def validate_policy(policy: dict, docs: dict) -> None:
             and policy["existingMachineAudit"].get("reuseWithoutModification") is True,
             "original machine 4x4 overwritten")
     require(kernel.get("fourByFourModel", {}).get("verticalTiers") == [0, 1, 2, 3], "kernel escalation tier drift")
-    require(titan.get("escalationTierMap") == policy.get("titan7", {}).get("tiers")
+    require({str(tier): mode for mode, tier in titan.get("escalationTierMap", {}).items()} == policy.get("titan7", {}).get("tiers")
             and titan.get("buildVersion") == 7
             and policy["titan7"].get("auditIntensityNotAuthority") is True
             and policy["titan7"].get("noFleet") is True, "Titan7 authority drift")
