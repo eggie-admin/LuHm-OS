@@ -44,6 +44,12 @@ class NetworkSpineTests(unittest.TestCase):
                 self.assertTrue(audit(self.rootValue)["errors"])
                 self.docValue = originalValue
 
+    def testLegacyApacheCannotBecomePreferredProxy(self):
+        self.assertEqual(self.docValue["reverseProxy"]["preferredHostProxy"], "nginx")
+        self.docValue["reverseProxy"]["preferredHostProxy"] = "apache2"
+        self.saveDoc()
+        self.assertIn("preferred proxy drift: NGINX is canonical, Apache is not active", audit(self.rootValue)["errors"])
+
     def testRuntimeAndTlsFalseClaimsRejected(self):
         for pathValue, value in ((("runtimeProofFromStaticCi",), True), (("runtimeState",), "GREEN"), (("tls", "noTlsVerify"), True), (("tls", "tunnelOriginValidation"), "edgeModeOnly"), (("hostIdentity", "runtimeReceiptRequired"), False)):
             with self.subTest(pathValue=pathValue):
