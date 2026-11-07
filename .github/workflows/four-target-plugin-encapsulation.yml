@@ -1,0 +1,42 @@
+name: Four-Target Plugin Encapsulation Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/fourTargetPluginEncapsulationV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/stablePluginUpdateSpineV1.json'
+      - 'doctrine/selfHostedRemoteUpdatesV1.json'
+      - 'tools/fourTargetPluginEncapsulationAudit.py'
+      - 'tests/testFourTargetPluginEncapsulation.py'
+      - '.github/workflows/four-target-plugin-encapsulation.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'doctrine/fourTargetPluginEncapsulationV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/stablePluginUpdateSpineV1.json'
+      - 'doctrine/selfHostedRemoteUpdatesV1.json'
+      - 'tools/fourTargetPluginEncapsulationAudit.py'
+      - 'tests/testFourTargetPluginEncapsulation.py'
+      - '.github/workflows/four-target-plugin-encapsulation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  staticEncapsulation:
+    name: Four packages + bundled defaults + update fences
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fail closed on encapsulation drift
+        run: python3 tools/fourTargetPluginEncapsulationAudit.py
+      - name: Negative-control test suite
+        run: python3 -m unittest discover -s tests -p 'testFourTargetPluginEncapsulation.py' -v
