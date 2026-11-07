@@ -1,0 +1,92 @@
+{
+  "schema": "luhmOs.relationshipRules.v2",
+  "status": "CANDIDATE_GAMEPLAY_SOURCE",
+  "crown": "STOP",
+  "explanation": "Locally authored bounded events. No AI/model writes to relationship state.",
+  "initial": {
+    "trust": 25,
+    "affection": 15,
+    "jealousy": 0
+  },
+  "events": {
+    "talk": {
+      "trust": 1,
+      "affection": 1,
+      "jealousy": 0
+    },
+    "help": {
+      "trust": 5,
+      "affection": 2,
+      "jealousy": -1
+    },
+    "explore": {
+      "trust": 2,
+      "affection": 1,
+      "jealousy": 0
+    },
+    "flirtElsewhere": {
+      "trust": 0,
+      "affection": -1,
+      "jealousy": 3
+    },
+    "listen": {
+      "trust": 3,
+      "affection": 2,
+      "jealousy": -1
+    },
+    "questComplete": {
+      "trust": 7,
+      "affection": 4,
+      "jealousy": -2
+    },
+    "apologize": {
+      "trust": 2,
+      "affection": 0,
+      "jealousy": -4
+    }
+  },
+  "tiers": [
+    {
+      "id": "newcomer",
+      "minScore": 0
+    },
+    {
+      "id": "acquaintance",
+      "minScore": 25
+    },
+    {
+      "id": "confidant",
+      "minScore": 50
+    },
+    {
+      "id": "devoted",
+      "minScore": 75
+    }
+  ],
+  "rewards": [
+    {
+      "id": "neonAccent",
+      "minScore": 25,
+      "rarity": "COMMON"
+    },
+    {
+      "id": "moonlitWardrobe",
+      "minScore": 50,
+      "rarity": "RARE"
+    },
+    {
+      "id": "relicPortrait",
+      "minScore": 75,
+      "rarity": "RELIC"
+    }
+  ],
+  "safety": {
+    "noGambling": true,
+    "noPurchase": true,
+    "localStateOnly": true,
+    "maxJournal": 32,
+    "statsMin": 0,
+    "statsMax": 100,
+    "publicCostumeFallbackOnly": true
+  }
+}

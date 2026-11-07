@@ -28,5 +28,16 @@ func _run() -> void:
         push_error("MOD_LAB_UNSAFE_ACTION_RED")
         quit(1)
         return
+    var repair: Dictionary = instance.apply_companion_event("apologize")
+    if not repair.get("accepted", false) or repair["stats"]["jealousy"] != 0:
+        push_error("MOD_LAB_REPAIR_RED")
+        quit(1)
+        return
+    var sample = instance.companions[1]["state"]
+    var snapshot_value: Dictionary = sample.snapshot()
+    if not sample.restore(snapshot_value) or sample.restore({"id":"unknown"}):
+        push_error("MOD_LAB_SNAPSHOT_RED")
+        quit(1)
+        return
     print("COMPANION_MODLAB_SMOKE_GREEN")
     quit(0)

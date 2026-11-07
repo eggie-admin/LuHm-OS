@@ -104,9 +104,9 @@ func _controls() -> void:
     column.add_child(spacer)
     var actions := HBoxContainer.new()
     column.add_child(actions)
-    for event_id in ["talk","help","explore","flirtElsewhere"]:
+    for event_id in ["talk","help","explore","flirtElsewhere","listen","questComplete","apologize"]:
         var btn := Button.new()
-        btn.text = {"talk":"TALK","help":"HELP","explore":"EXPLORE","flirtElsewhere":"JEALOUSY"}[event_id]
+        btn.text = {"talk":"TALK","help":"HELP","explore":"EXPLORE","flirtElsewhere":"JEALOUSY","listen":"LISTEN","questComplete":"QUEST","apologize":"REPAIR"}[event_id]
         btn.custom_minimum_size = Vector2(80,58)
         btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
         var bound: String = event_id
@@ -135,6 +135,7 @@ func _status(message: String) -> void:
     if companions.is_empty() or status == null or feedback == null:
         return
     var c = companions[selected]["state"]
-    var stats: Dictionary = c.stats
-    status.text = "%s | TRUST %d / AFFECTION %d / JEALOUSY %d" % [c.display_name,stats["trust"],stats["affection"],stats["jealousy"]]
+    var state: Dictionary = c.snapshot()
+    var stats: Dictionary = state["stats"]
+    status.text = "%s | %s | TRUST %d / AFFECTION %d / JEALOUSY %d" % [c.display_name,state["bondTier"],stats["trust"],stats["affection"],stats["jealousy"]]
     feedback.text = message
