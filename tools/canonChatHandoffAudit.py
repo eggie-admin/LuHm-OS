@@ -25,7 +25,7 @@ def main():
     assert checkpoint["installedPrivateSitePlugin"]["directLibraryModify"] == "NOT_EXPOSED"
     assert checkpoint["taskCheckpoint"]["executionAuthorized"] is False
     assert "finalCanonCrown" in checkpoint["notProofOf"]
-    assert "new ChatGPT chat" in M.read_text(encoding="utf-8")
+    assert "next ChatGPT chat" in M.read_text(encoding="utf-8")
     content = H.read_text(encoding="utf-8")
     for forbidden in ("sk-proj-", "-----BEGIN PRIVATE KEY", "refresh_token", "Authorization: Bearer"):
         assert forbidden not in content
