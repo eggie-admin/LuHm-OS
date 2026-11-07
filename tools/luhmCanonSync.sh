@@ -123,7 +123,7 @@ if data["status"] != "LOCAL_VERIFIED_PENDING_REMOTE_CHECK":
     raise SystemExit("UNEXPECTED_MANIFEST_STATE")
 data["status"] = "REMOTE_HASH_CHECK_VERIFIED"
 temporary = path.with_suffix(".writing")
-temporary.write_text(json.dumps(data, indent=2) + "\\n", encoding="utf-8")
+temporary.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 os.chmod(temporary, 0o600)
 temporary.replace(path)
 PY
