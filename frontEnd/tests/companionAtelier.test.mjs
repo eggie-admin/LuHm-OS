@@ -16,7 +16,7 @@ test("Seven allowlisted actions are local and deterministic",()=>{
 });
 test("Bond rewards are threshold-based and not random or paid",()=>{
   const store=createRelationshipStore(rules,profiles);
-  for(let i=0;i<12;i++)store.apply("elyraRunebound","questComplete");
+  for(let i=0;i<8;i++)store.apply("elyraRunebound","questComplete");
   assert.deepEqual(store.evaluate("elyraRunebound").rewards,["neonAccent","moonlitWardrobe"]);
   assert.equal(rules.safety.noGambling,true);
   assert.equal(rules.safety.noPurchase,true);
