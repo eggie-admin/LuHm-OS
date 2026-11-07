@@ -94,6 +94,8 @@ class FourServiceCompatibilityTests(unittest.TestCase):
         self.assertEqual(result["tlsAndMcpHostVerification"], "NOT_CHECKED")
         self.assertEqual(result["overallNetworkReady"], "UNVERIFIED_REQUIRES_OWNER_ZONE_AND_TLS_MCP_PROOF")
         self.assertTrue(result["forward"][0]["candidateMcpCnameTargetMatch"])
+        self.assertTrue(result["nsMatchesConfiguredProviderPattern"])
+        self.assertEqual(result["forward"][1]["forwardEvidence"], "OBSERVED_NO_FORWARD_A_AAAA_CNAME")
 
     def test_dns_probe_fails_closed_on_resolver_failure(self):
         def failure(host, kind):
