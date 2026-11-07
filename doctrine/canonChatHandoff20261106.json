@@ -19,7 +19,7 @@
   "recoveryBranch": "snapshot/pre-canon-handoff-20261106-69e8d2fc",
   "installedPrivateSitePlugin": {
     "productName": "LuHm-OS",
-    "versionObserved": "1.0.20",
+    "versionObserved": "1.0.21",
     "audience": "OWNER_PRIVATE",
     "ownershipSource": "Plugin Creator owned plugin metadata",
     "toolBridge": "REACHABLE_READ_ONLY",
@@ -32,7 +32,11 @@
     "hostVisualMount": "UNVERIFIED_IN_THIS_SESSION",
     "directLibraryModify": "NOT_EXPOSED",
     "directDriveRsync": "NOT_EXPOSED",
-    "editingBoundary": "Plugin skills can be updated separately from the existing Site MCP backend"
+    "editingBoundary": "Plugin skills can be updated separately from the existing Site MCP backend",
+    "skillsOnlyRelease": "SAVED_AND_READ_BACK",
+    "newSkill": "canon-fast-operator",
+    "backendUnchanged": true,
+    "visualHostTestAfterUpdate": "NOT_RUN"
   },
   "portableGithubPlugin": {
     "path": "plugins/luhm-os",
@@ -91,6 +95,10 @@
       {
         "claim": "company worker quarantine remains active",
         "classification": "SOURCE_DERIVED"
+      },
+      {
+        "claim": "Owner-private LuHm-OS plugin skills release 1.0.21 saved and verified by readback",
+        "classification": "OBSERVED"
       }
     ],
     "conflicts": [
