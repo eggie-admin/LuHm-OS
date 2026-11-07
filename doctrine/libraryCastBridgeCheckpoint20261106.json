@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.castBridge.libraryCleanupCheckpoint.v1",
-  "recordedUtc": "2026-11-07T03:00:00Z",
+  "recordedUtc": "2026-11-07T03:05:43.058Z",
   "canonicalRepository": "eggie-admin/LuHm-OS",
   "baseMainSourceRef": "69e8d2fc7df1288aaa1665efaea2bf2674056a1b",
   "scope": "ChatGPT Library request; direct ChatGPT Library access unavailable; Google Drive cleanup and local inventory partial",
