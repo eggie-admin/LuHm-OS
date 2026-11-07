@@ -29,7 +29,7 @@ func configure(profile: Dictionary) -> bool:
         if not events.has(event_id) or not dialogue.has(event_id) or not dialogue[event_id] is String or dialogue[event_id].is_empty() or dialogue[event_id].length() > 220:
             return false
         for stat in STAT_NAMES:
-            if not events[event_id].has(stat) or not events[event_id][stat] is int:
+            if not events[event_id].has(stat) or not _valid_integer_amount(events[event_id][stat]):
                 return false
     identity = key
     display_name = title
@@ -37,6 +37,11 @@ func configure(profile: Dictionary) -> bool:
     stats = _rules["initial"].duplicate(true)
     journal.clear()
     return true
+
+func _valid_integer_amount(value: Variant) -> bool:
+    if not (value is float or value is int):
+        return false
+    return is_finite(float(value)) and floor(float(value)) == float(value) and absf(float(value)) <= 10.0
 
 func apply_event(event_id: String) -> Dictionary:
     if identity.is_empty() or not EVENT_NAMES.has(event_id) or not _rules["events"].has(event_id):
@@ -72,7 +77,7 @@ func restore(snapshot_value: Dictionary) -> bool:
     if not new_stats is Dictionary or not saved_events is Array or saved_events.size() > 32:
         return false
     for stat in STAT_NAMES:
-        if not new_stats.has(stat) or not new_stats[stat] is int or new_stats[stat] < 0 or new_stats[stat] > 100:
+        if not new_stats.has(stat) or not (new_stats[stat] is float or new_stats[stat] is int) or floor(float(new_stats[stat])) != float(new_stats[stat]) or new_stats[stat] < 0 or new_stats[stat] > 100:
             return false
     for event_id in saved_events:
         if not event_id is String or not EVENT_NAMES.has(event_id):
