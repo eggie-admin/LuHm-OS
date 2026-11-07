@@ -1,0 +1,240 @@
+{
+  "schema": "luhmOs.fourTargetPluginEncapsulation.v1",
+  "status": "SOURCE_PROPOSAL_NOT_DEPLOYED",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "sourceOfTruth": "doctrine/currentSourceTruthV3.json",
+  "namespaceCanon": "doctrine/namingNamespaceCanonV1.json",
+  "compositionCanon": "doctrine/luHmOSFourLayerArchitectureV1.json",
+  "referenceProposal": {
+    "prNumber": 521,
+    "status": "OPEN_DRAFT_NOT_CANON",
+    "rebaseRequired": true
+  },
+  "purpose": "One reusable source and content contract feeding four distinct client package families plus the installed private ChatGPT MCP front door.",
+  "runtimePackageSemantics": {
+    "chatGptPlugin": "Separate plugin package, not an APK, IPA, Linux binary or Windows executable",
+    "portablePluginManifest": "plugins/luhm-os/plugin.json",
+    "portableMcpServerConfig": "plugins/luhm-os/mcp.json",
+    "installedPrivateSiteApp": "PRESERVE_EXISTING_SITE_BINDING",
+    "installedSiteVersionObserved": "1.0.21",
+    "sourcePortablePluginVersion": "0.5.2",
+    "pluginUiSource": "host/mcp/luhmHarness.py",
+    "uiResource": "ui://luhm-os/mobile-cockpit-v1.html",
+    "startupOfflineFallback": "TARGET_BUNDLED_READ_ONLY_STATUS_AND_STATIC_UI_UNVERIFIED_LIVE",
+    "noRemoteAssetsRequiredForFirstPaint": "DESIGN_REQUIREMENT_NOT_MOUNT_PROOF",
+    "compiledNativeClientsDoNotContainOpenAiSecrets": true,
+    "openAiAppDoesNotGrantNativeDevicePermissions": true
+  },
+  "defaultAssets": {
+    "installedPrivatePack": "assets/LuHmAssetStudioStarterV1.zip",
+    "installedPrivatePackArtifact": "SITE_PLUGIN_RELEASE_ONLY_NOT_CANON_PUBLIC_ART",
+    "observedSource": "Current private Plugin Creator v1.0.21 source inventory",
+    "sha256": "8a04dd61413317e2ffe24d9143697d7956958f1b9a9111d673347da75539a7f2",
+    "bytes": 355761,
+    "assetCount": 110,
+    "integrityChecksPassed": 557,
+    "rightsStatus": "DRAFT_NOT_PUBLIC_APPROVED",
+    "runtimeProof": "UNVERIFIED",
+    "requiredBaselineClasses": [
+      "brandMark",
+      "accessibleUi",
+      "staticBackdrop",
+      "soundOffByDefault",
+      "fallbackCopy",
+      "statusCard",
+      "avatarPlaceholder",
+      "provenanceAndLicenseIndex"
+    ],
+    "releaseOnlyRightsApprovedAssets": true,
+    "privateReferencesMustNotEnterPublicPackages": true,
+    "optionalLargeContent": "HASHED_APPROVED_ASSET_PACKS_SEPARATE_FROM_FIRST_PAINT",
+    "noPrivateGoogleDriveInPublicManifest": true,
+    "noCopyrightDerivedArtworkPublishedWithoutRightsReview": true
+  },
+  "fourBuildFamilies": [
+    {
+      "id": "androidSamsung",
+      "sourceProfile": "androidClient",
+      "target": "Samsung Android arm64",
+      "packageProposed": "debug.apk",
+      "packageBeta": "signed.apk",
+      "packageStable": "signed.apk or signed.aab for Play",
+      "buildSystem": "Gradle plus existing Godot Android export",
+      "requiredProof": [
+        "exactSource",
+        "targetSdk",
+        "certificateLineage",
+        "versionCode",
+        "physicalInstallTouch",
+        "sameSignerUpgrade"
+      ]
+    },
+    {
+      "id": "iosIphone",
+      "sourceProfile": "iosClientProposed",
+      "target": "iPhone arm64",
+      "packageProposed": "Xcode export project",
+      "packageBeta": "signed.ipa via TestFlight",
+      "packageStable": "signed.ipa via Apple approved distribution",
+      "buildSystem": "macOS Xcode plus Godot iOS export",
+      "requiredProof": [
+        "macOsXcodeHost",
+        "appleSigningTeam",
+        "bundleIdentity",
+        "testFlightAcceptance",
+        "physicalIphoneTouch",
+        "upgradeAndRollback"
+      ]
+    },
+    {
+      "id": "linuxDesktop",
+      "sourceProfile": "linuxStudioAndPi",
+      "target": "Linux x86_64 and Raspberry Pi aarch64",
+      "packageProposed": "portable.tar.gz",
+      "packageBeta": "versioned.tar.gz",
+      "packageStable": "signedPackageOrSupportedRepository",
+      "buildSystem": "Godot Linux export plus packaged static cockpit",
+      "requiredProof": [
+        "linuxX64Smoke",
+        "piArm64Smoke",
+        "sha256",
+        "dependencyAudit",
+        "nonRootInstall",
+        "backupAndRollback"
+      ]
+    },
+    {
+      "id": "windowsDesktop",
+      "sourceProfile": "windowsHost",
+      "target": "Windows x86_64; WSL is developer tooling only",
+      "packageProposed": "portable.zip",
+      "packageBeta": "signedInstallerCandidate",
+      "packageStable": "signed.msix or reviewed signed installer",
+      "buildSystem": "Godot Windows export plus standard installer",
+      "requiredProof": [
+        "windowsNativeSmoke",
+        "signatureForStable",
+        "packageIdentity",
+        "upgradeAndRollback",
+        "noWslRequiredAtRuntime"
+      ]
+    }
+  ],
+  "serviceRoles": {
+    "basementUbuntu": "PRIVATE_BUILD_AND_ASSET_STUDIO_NOT_FIFTH_PUBLIC_INSTALLER",
+    "raspberryPi": "LINUX_ARM64_VARIANT_AND_OPTIONAL_HEADLESS_CANON_NODE",
+    "macOsXcode": "IOS_BUILD_PRECONDITION_NOT_SILENTLY_A_FIFTH_RELEASE",
+    "chatGptPlugin": "SINGLE_INSTALLED_SITE_FRONT_DOOR_SEPARATE_FROM_ALL_FOUR"
+  },
+  "deliveryLanes": [
+    {
+      "id": "testing",
+      "audience": "ownerOnly",
+      "requiredEvidence": [
+        "sourcePinned",
+        "fallbackWorksLocally",
+        "noSecrets",
+        "mockedMcpBridge"
+      ],
+      "publication": false
+    },
+    {
+      "id": "proposed",
+      "audience": "ownerOnly",
+      "requiredEvidence": [
+        "isolatedBuildOrSourceCandidate",
+        "staticChecks",
+        "hash",
+        "rollbackPlan",
+        "noPrivateAssets"
+      ],
+      "publication": false
+    },
+    {
+      "id": "beta",
+      "audience": "invitedTestersOnly",
+      "requiredEvidence": [
+        "signedOrProviderAcceptedBuild",
+        "deviceSmoke",
+        "permissionsReview",
+        "sourceAndBinaryHash",
+        "sameSignerUpgradeWhereApplicable"
+      ],
+      "publication": false
+    },
+    {
+      "id": "betaLts",
+      "audience": "approvedBetaTesters",
+      "requiredEvidence": [
+        "supportedPinnedBeta",
+        "securityFixOnly",
+        "repeatDeviceSmoke",
+        "rollbackDrill"
+      ],
+      "publication": false
+    },
+    {
+      "id": "stable",
+      "audience": "publicOnlyAfterCrown",
+      "requiredEvidence": [
+        "acceptedBeta",
+        "independentReview",
+        "allPlatformProof",
+        "rightsClearance",
+        "signedRelease",
+        "ProfessorFinalApproval"
+      ],
+      "publication": false
+    }
+  ],
+  "remoteUpdate": {
+    "sourceOfBuild": "GITHUB_REVIEWED_MAIN_ONLY",
+    "currentManifest": "/harness/updates/v2/manifest.json",
+    "currentAssetRoute": "/harness/updates/v2/assets/{sha256}/{filename}",
+    "sourceModule": "host/mcp/luhmUpdateSpine.py",
+    "currentPolicy": "doctrine/selfHostedRemoteUpdatesV1.json",
+    "host": "EXISTING_RENDER_HTTPS_SAME_ORIGIN",
+    "clientMayCheckForUpdates": true,
+    "clientMayDownload": [
+      "approvedStaticImages",
+      "approvedSpriteAtlases",
+      "rightsClearedAudio",
+      "boundedJsonData",
+      "approvedLayoutConfiguration"
+    ],
+    "clientMayNotLoadExecutableCodeFromManifest": true,
+    "clientMayNotFetchRawMainToExecute": true,
+    "clientMayNotAutoInstallApkIpaLinuxOrWindowsBinaries": true,
+    "manifestMustInclude": [
+      "schema",
+      "sourceRef",
+      "sha256",
+      "mime",
+      "bytes",
+      "assetSetDigest"
+    ],
+    "verifyHashBeforeUse": true,
+    "contentAddressedCache": true,
+    "offlineFallbackRequired": true,
+    "failedUpdateRetainsLastKnownGood": true,
+    "pluginSkillsAndMetadataRequireVersionedPackageUpdate": true,
+    "mcpToolChangesRequireHostCompatibilityAndRefresh": true,
+    "breakingUiChangesRequireVersionedUiResourceUri": true,
+    "nativeBinaryReleaseRequiresPlatformSignatureAndApproval": true,
+    "remoteArtifactCatalogIsNotADevicePackageManager": true,
+    "clientMayDownloadStatus": "DESIGN_TARGET_NOT_CURRENT_V2_ALLOWLIST"
+  },
+  "boundary": {
+    "privateSiteBackendChanged": false,
+    "newRemoteRepoConnectionCreated": false,
+    "privatePackRepublished": false,
+    "buildExecuted": false,
+    "liveUpdateDeployed": false,
+    "productReleaseAuthority": false,
+    "agentQuarantineReleased": false,
+    "crownStatus": "STOP"
+  },
+  "proposalBaseSourceRef": "4b9714883c4903eb7e6947b70203377b422a7799"
+}
