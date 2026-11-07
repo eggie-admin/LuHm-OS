@@ -4,7 +4,6 @@
   "authority": "Professor",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
   "canonicalRepository": "eggie-admin/LuHm-OS",
-  "canonicalSourceRef": "4b9714883c4903eb7e6947b70203377b422a7799",
   "sourceOfTruth": "doctrine/currentSourceTruthV3.json",
   "namespaceCanon": "doctrine/namingNamespaceCanonV1.json",
   "compositionCanon": "doctrine/luHmOSFourLayerArchitectureV1.json",
@@ -23,8 +22,8 @@
     "sourcePortablePluginVersion": "0.5.2",
     "pluginUiSource": "host/mcp/luhmHarness.py",
     "uiResource": "ui://luhm-os/mobile-cockpit-v1.html",
-    "startupOfflineFallback": "BUNDLED_READ_ONLY_STATUS_AND_STATIC_UI",
-    "noRemoteAssetsRequiredForFirstPaint": true,
+    "startupOfflineFallback": "TARGET_BUNDLED_READ_ONLY_STATUS_AND_STATIC_UI_UNVERIFIED_LIVE",
+    "noRemoteAssetsRequiredForFirstPaint": "DESIGN_REQUIREMENT_NOT_MOUNT_PROOF",
     "compiledNativeClientsDoNotContainOpenAiSecrets": true,
     "openAiAppDoesNotGrantNativeDevicePermissions": true
   },
@@ -224,7 +223,8 @@
     "mcpToolChangesRequireHostCompatibilityAndRefresh": true,
     "breakingUiChangesRequireVersionedUiResourceUri": true,
     "nativeBinaryReleaseRequiresPlatformSignatureAndApproval": true,
-    "remoteArtifactCatalogIsNotADevicePackageManager": true
+    "remoteArtifactCatalogIsNotADevicePackageManager": true,
+    "clientMayDownloadStatus": "DESIGN_TARGET_NOT_CURRENT_V2_ALLOWLIST"
   },
   "boundary": {
     "privateSiteBackendChanged": false,
@@ -235,5 +235,6 @@
     "productReleaseAuthority": false,
     "agentQuarantineReleased": false,
     "crownStatus": "STOP"
-  }
+  },
+  "proposalBaseSourceRef": "4b9714883c4903eb7e6947b70203377b422a7799"
 }
