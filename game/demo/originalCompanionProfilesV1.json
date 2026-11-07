@@ -1,0 +1,54 @@
+{
+  "schema": "luhmOs.originalCompanionProfiles.v1",
+  "status": "CANDIDATE_RELATIONSHIP_V2",
+  "origin": "Original adult characters; no copied mod files",
+  "crown": "STOP",
+  "externalDownloads": false,
+  "companions": [
+    {
+      "id": "vesperNocturne",
+      "displayName": "Vesper Nocturne",
+      "adult": true,
+      "hexColor": "8e4eb8",
+      "dialogue": {
+        "talk": "Vesper: The cathedral keeps its secrets.",
+        "help": "Vesper: I shall remember your kindness.",
+        "explore": "Vesper: Shall we inspect the moonlit arch?",
+        "flirtElsewhere": "Vesper: I suddenly have opinions about your priorities.",
+        "listen": "Vesper Nocturne: Thank you for hearing me out.",
+        "questComplete": "Vesper Nocturne: The Cathedral remembers our victory.",
+        "apologize": "Vesper Nocturne: We can try again. No debts owed."
+      }
+    },
+    {
+      "id": "maraIronvale",
+      "displayName": "Mara Ironvale",
+      "adult": true,
+      "hexColor": "f17b67",
+      "dialogue": {
+        "talk": "Mara: I know every service tunnel in this city.",
+        "help": "Mara: You covered my back.",
+        "explore": "Mara: Found a working tram. Want to ride?",
+        "flirtElsewhere": "Mara: Smooth. Real smooth. Now pass me the wrench.",
+        "listen": "Mara Ironvale: Thank you for hearing me out.",
+        "questComplete": "Mara Ironvale: The Cathedral remembers our victory.",
+        "apologize": "Mara Ironvale: We can try again. No debts owed."
+      }
+    },
+    {
+      "id": "elyraRunebound",
+      "displayName": "Elyra Runebound",
+      "adult": true,
+      "hexColor": "69d6cf",
+      "dialogue": {
+        "talk": "Elyra: Good stories change old dungeons.",
+        "help": "Elyra: Your kindness is written in the runes.",
+        "explore": "Elyra: Three doors, one map. Choose wisely.",
+        "flirtElsewhere": "Elyra: A charisma check? Bold. I will keep the dice.",
+        "listen": "Elyra Runebound: Thank you for hearing me out.",
+        "questComplete": "Elyra Runebound: The Cathedral remembers our victory.",
+        "apologize": "Elyra Runebound: We can try again. No debts owed."
+      }
+    }
+  ]
+}

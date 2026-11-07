@@ -1,0 +1,36 @@
+{
+  "schema": "luhmOs.destinyChildReferenceIntake.v1",
+  "status": "METADATA_REVIEW_ONLY",
+  "source": "Google Drive folder metadata and the 2026-09-16 source handoff",
+  "crown": "STOP",
+  "thirdPartyReferenceGroups": 4,
+  "publicExportAllowed": false,
+  "archiveCopiesIntoRepo": false,
+  "families": [
+    {
+      "name": "destinyChildRegionalMods",
+      "examples": "KR JP Global collections, art and audio swaps",
+      "rights": "THIRD_PARTY_PRIVATE_REFERENCE"
+    },
+    {
+      "name": "destinyChildHistoricalMods",
+      "examples": "character-named folders, wallpapers and art",
+      "rights": "THIRD_PARTY_PRIVATE_REFERENCE"
+    },
+    {
+      "name": "destinyChildPckStudies",
+      "examples": "20 private reference PCK records mapped to licensed community alternatives",
+      "rights": "THIRD_PARTY_PRIVATE_REFERENCE"
+    },
+    {
+      "name": "luhmOriginalMasterCandidates",
+      "examples": "Owner art, rig references and 3D donor proposals",
+      "rights": "OWNER_RIGHTS_REVIEW_PENDING"
+    }
+  ],
+  "noPrivateDriveIdsInPublicIndex": true,
+  "actualDriveAssetTransfer": "NOT_EXECUTED",
+  "hashVerifiedInThisPass": false,
+  "safePreview": "Original procedural CSS illustration or user-chosen local image (no upload)",
+  "gate": "No third-party music, artwork, models, .pck, .moc3 or .mtn files can ship as LuHm game assets without explicit reuse rights."
+}
