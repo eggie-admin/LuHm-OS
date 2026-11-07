@@ -1,0 +1,11 @@
+[Unit]
+Description=Schedule LuHm private Canon Drive intake every six hours
+
+[Timer]
+OnCalendar=*-*-* 00,06,12,18:20:00
+Persistent=true
+RandomizedDelaySec=10m
+Unit=luhm-canon-sync.service
+
+[Install]
+WantedBy=timers.target
