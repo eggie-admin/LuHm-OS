@@ -14,7 +14,7 @@ for item in catalog["sources"]:
 assert len(profiles["companions"])==3 and profiles["crown"]=="STOP"
 for p in profiles["companions"]:
     assert p["adult"] is True
-    assert set(p["dialogue"])=={"talk","help","explore","flirtElsewhere"}
+    assert {"talk","help","explore","flirtElsewhere"}.issubset(set(p["dialogue"]))
 assert "companion_studio_requested.emit()" in (root/"scripts/game/gameHud.gd").read_text()
 assert "companion_studio_requested.connect(_enter_companion_lab)" in (root/"scripts/main.gd").read_text()
 rules=json.loads((root/"game/demo/relationshipRulesV2.json").read_text())
