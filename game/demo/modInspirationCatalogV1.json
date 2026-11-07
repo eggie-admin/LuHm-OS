@@ -1,0 +1,117 @@
+{
+  "schema": "luhmOs.modInspirationCatalog.v1",
+  "status": "RESEARCH_ONLY",
+  "gameEngine": "Godot 4",
+  "crown": "STOP",
+  "sources": [
+    {
+      "id": "falloutHeather",
+      "game": "Fallout 4",
+      "title": "Heather Casdin",
+      "author": "llamaRCA",
+      "url": "https://www.nexusmods.com/fallout4/mods/23273",
+      "designTakeaway": "Contextual companion quest, affinity, bespoke dialogue",
+      "rights": "REFERENCE_ONLY_NOT_CLEARED_FOR_IMPORT",
+      "fileReuse": false
+    },
+    {
+      "id": "falloutEllen",
+      "game": "Fallout 4",
+      "title": "Ellen the cartographer",
+      "author": "guicool",
+      "url": "https://www.nexusmods.com/fallout4/mods/15962",
+      "designTakeaway": "Location banter and romance quest pacing",
+      "rights": "REFERENCE_ONLY_NOT_CLEARED_FOR_IMPORT",
+      "fileReuse": false
+    },
+    {
+      "id": "falloutTales",
+      "game": "Fallout 4",
+      "title": "Tales from the Commonwealth",
+      "author": "Kris Takahashi",
+      "url": "https://www.nexusmods.com/fallout4/mods/8704",
+      "designTakeaway": "Ambient NPC storytelling and short quest arcs",
+      "rights": "REFERENCE_ONLY_NOT_CLEARED_FOR_IMPORT",
+      "fileReuse": false
+    },
+    {
+      "id": "seranaDialogue",
+      "game": "Skyrim Special Edition",
+      "title": "Serana Dialogue Add-On",
+      "author": "Martimius",
+      "url": "https://www.nexusmods.com/skyrimspecialedition/mods/32161",
+      "designTakeaway": "Gothic relationship context and dialogue reactivity",
+      "rights": "REFERENCE_ONLY_NOT_CLEARED_FOR_IMPORT",
+      "fileReuse": false
+    },
+    {
+      "id": "jillCostume",
+      "game": "Resident Evil 3 Remake",
+      "title": "Jill - The Classic Redux",
+      "author": "Rain395",
+      "url": "https://www.nexusmods.com/residentevil32020/mods/610",
+      "designTakeaway": "Outfit variants and holster attachment QA",
+      "rights": "REFERENCE_ONLY_NOT_CLEARED_FOR_IMPORT",
+      "fileReuse": false
+    },
+    {
+      "id": "leonSuit",
+      "game": "Resident Evil 4 Remake",
+      "title": "Leon - Wesker Suit",
+      "author": "SILVER",
+      "url": "https://www.nexusmods.com/residentevil42023/mods/194",
+      "designTakeaway": "Cloth and holster physics clipping QA",
+      "rights": "REFERENCE_ONLY_NOT_CLEARED_FOR_IMPORT",
+      "fileReuse": false
+    },
+    {
+      "id": "villageGothic",
+      "game": "Resident Evil Village",
+      "title": "Community character mods",
+      "author": "Various",
+      "url": "https://www.nexusmods.com/games/residentevilvillage/mods",
+      "designTakeaway": "Gothic lighting and original adult vampire-inspired silhouettes",
+      "rights": "REFERENCE_ONLY_NOT_CLEARED_FOR_IMPORT",
+      "fileReuse": false
+    },
+    {
+      "id": "bg3Species",
+      "game": "Baldur's Gate 3",
+      "title": "Fantastical Multiverse",
+      "author": "Dungeons and Souls",
+      "url": "https://www.nexusmods.com/baldursgate3/mods/215",
+      "designTakeaway": "Separate dialogue tags from data-driven traits",
+      "rights": "REFERENCE_ONLY_NOT_CLEARED_FOR_IMPORT",
+      "fileReuse": false
+    }
+  ],
+  "cleanCandidates": [
+    {
+      "name": "Quaternius Universal Base Characters",
+      "url": "https://quaternius.com/packs/universalbasecharacters.html",
+      "licenseClaim": "CC0",
+      "import": "NOT_DONE"
+    },
+    {
+      "name": "Quaternius Universal Animation Library",
+      "url": "https://quaternius.itch.io/universal-animation-library",
+      "licenseClaim": "CC0",
+      "import": "NOT_DONE"
+    },
+    {
+      "name": "Kenney Graveyard Kit",
+      "url": "https://opengameart.org/content/graveyard-kit",
+      "licenseClaim": "CC0",
+      "import": "NOT_DONE"
+    },
+    {
+      "name": "Dialogue Manager 4",
+      "url": "https://github.com/nathanhoad/godot_dialogue_manager",
+      "licenseClaim": "MIT",
+      "import": "NOT_DONE"
+    }
+  ],
+  "copyAssets": false,
+  "noExternalDownloads": true,
+  "publication": false
+}
