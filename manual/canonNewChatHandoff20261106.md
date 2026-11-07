@@ -10,7 +10,7 @@
 - Source `main` pinned at `69e8d2fc7df1288aaa1665efaea2bf2674056a1b` at this checkpoint; on resume **fetch current main again** and compare.
 - Recovery branch: `snapshot/pre-canon-handoff-20261106-69e8d2fc`. This is a reference pointer, **not a verified full backup of private assets**.
 - Top-level source truth status remains **AMBER_PROPOSED_SEAL_OF_TRUTH**; `CROWN=STOP`.
-- Installed owner-private Site/App plugin was read as version **1.0.20**. Its read-only connection worked. An MCP tool response is not in-chat visual mount proof.
+- Installed owner-private Site/App plugin was read as version **1.0.21**. Its read-only connection worked. An MCP tool response is not in-chat visual mount proof.
 - Portable GitHub `plugins/luhm-os/plugin.json` remains version **0.5.2**. The portable package and installed private Site app are **not interchangeable**.
 - PR #530 is the independent read-only dedupe and rsync/rclone source candidate. Its verified source-only 10/10 checks at `473b949030e4a7c33820dd7f25d64239511de645` do **not** prove live Drive transfers.
 - All 15 registered workers remain held by `companyWideOperationalQuarantineV1.json`; conversational role names are not executing agents.
