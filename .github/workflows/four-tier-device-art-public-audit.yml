@@ -1,0 +1,44 @@
+name: Four Tier Device and Public Art Canon Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/fourTierDeviceArtPublicCanonV1.json'
+      - 'doctrine/publicSurfaceInventory20261104.json'
+      - 'tools/fourTierDeviceArtPublicAudit.py'
+      - 'tests/testFourTierDeviceArtPublicAudit.py'
+      - 'manual/fourTierDeviceArtPublicCanon20261104.md'
+      - '.github/workflows/four-tier-device-art-public-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  canon-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Assert exact SHA
+        run: test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Test false-publication and unsafe device/runner negative controls
+        run: python3 -m unittest discover -s tests -p testFourTierDeviceArtPublicAudit.py -v
+      - name: Audit current stage, platform, character and public inventory
+        run: python3 tools/fourTierDeviceArtPublicAudit.py
+      - name: Upload nonsecret source evidence only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-four-tier-device-art-public-source-receipt
+          path: build/four-tier-device-art/evidence.json
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Never build, sign, publish or expose private LAN
+        if: always()
+        run: |
+          echo "NO iOS/Android/RaspberryPi/WSL runtime; NO basement self-hosted runner; NO IP registration"
+          echo "SOURCE_ONLY PUBLIC INVENTORY; EXTERNAL PUBLIC HTTP NOT VERIFIED; CROWN STOP"
