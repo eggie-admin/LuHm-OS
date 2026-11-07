@@ -1,5 +1,4 @@
 extends Node3D
-
 const WorldFactoryScript := preload("res://scripts/game/worldFactory.gd")
 const PlayerControllerScript := preload("res://scripts/game/playerController.gd")
 const GameHudScript := preload("res://scripts/game/gameHud.gd")
@@ -10,7 +9,6 @@ const QuestDirectorScript := preload("res://scripts/game/questDirector.gd")
 const NightShiftGeneratorScript := preload("res://scripts/game/nightShiftGenerator.gd")
 const OniSummonBeaconScript := preload("res://scripts/game/oniSummonBeacon.gd")
 const OniEchoCompanionScript := preload("res://scripts/game/oniEchoCompanion.gd")
-
 const INTRO_CUTSCENE_PATH := "res://cutscenes/lumBeaconIntro.json"
 const FIRST_NIGHT_QUEST_PATH := "res://game/story/firstNightQuest.json"
 const INTERACTION_RANGE := 2.8
@@ -21,7 +19,6 @@ const LUM_BANTER := [
     "Lum: Cathedral is behaving. Coffee House is behaving less. I consider this balanced.",
     "Lum: No architecture lecture. Pinky swear. Move your little guy around and make trouble."
 ]
-
 var neon_world: Node3D
 var active_world: Node3D
 var active_world_id := "neonRiverwalk"
@@ -39,30 +36,24 @@ var active_oni_beacon: Area3D
 var active_oni_companion: Node3D
 var lum_banter_index := 0
 var encore_count := 0
-
 func _ready() -> void:
     _build_runtime()
     _wire_runtime()
     _wire_android_web3()
     _enter_backend()
-
 func _process(_delta: float) -> void:
     _update_interaction_target()
-
 func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("ui_accept") and player_controller != null and player_controller.world_active:
         _interact()
-
 func _build_runtime() -> void:
     neon_world = WorldFactoryScript.new().createWorld("neonRiverwalk")
     add_child(neon_world)
     active_world = neon_world
-
     player_controller = PlayerControllerScript.new()
     player_controller.name = "PlayerController"
     player_controller.position = neon_world.player_spawn
     add_child(player_controller)
-
     game_hud = GameHudScript.new()
     game_hud.name = "GameHud"
     add_child(game_hud)
