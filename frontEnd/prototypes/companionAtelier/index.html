@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark"><title>LuHm OS | Moonlit Companion Atelier</title>
+<link rel="stylesheet" href="./style.css"></head>
+<body><main class="shell">
+<header><p class="eyebrow">LUHM OS / PROJECT HYDRA / CANDIDATE</p><h1>MOONLIT <em>ATELIER</em></h1><p>Original adult companions • deterministic bond state • private portrait preview</p></header>
+<section class="layout">
+<div class="stage"><div class="glow" aria-hidden="true"></div>
+<div id="portrait" class="portrait" aria-label="Procedural moving companion silhouette">
+<div id="illustration" class="illustration" aria-hidden="true"><div class="hair"></div><div class="face"><i class="left-eye"></i><i class="right-eye"></i><i class="smile"></i></div><div class="cloak"></div><div class="gem"></div></div>
+<img id="userPortrait" alt="Locally selected character reference" hidden></div>
+<div class="floor-label"><span id="name">LOADING</span><small id="bond">CANON UNKNOWN</small></div></div>
+<div class="desk"><p class="eyebrow">SELECT ORIGINAL COMPANION</p><div class="roster" id="roster"></div>
+<div class="numbers" id="stats">TRUST ?</div><div class="reward" id="rewards">LOCKED</div>
+<p class="eyebrow">RELATIONSHIP ACTIONS</p><div id="actions" class="actions"></div>
+<div class="speech" aria-live="polite" id="message">Loading local Canon contract...</div>
+<p class="eyebrow">OPTIONAL LOCAL PORTRAIT • NOT UPLOADED</p><div class="local">
+<label class="pick">PREVIEW IMAGE<input id="file" type="file" accept="image/png,image/jpeg,image/webp"></label>
+<button id="fallback" type="button">CSS FALLBACK</button></div>
+<div class="local"><button id="save" type="button">SAVE HERE</button><button id="reset" type="button">RESET</button></div>
+<p id="live2d" class="gate">LIVE2D: NOT INSTALLED</p><p id="proof" class="gate">CANON: AMBER</p>
+</div></section><footer>DESTINY CHILD: DESIGN REFERENCE ONLY. PRIVATE MOD FILES ARE NOT LOADED. GODOT IS GAME AUTHORITY. CROWN STOP.</footer>
+</main><script type="module" src="./app.mjs"></script></body></html>

@@ -1,0 +1,33 @@
+name: Destiny-Inspired Original Relationship Source Audit
+on:
+  pull_request:
+    paths:
+      - 'game/demo/relationshipRulesV2.json'
+      - 'game/demo/originalCompanionProfilesV1.json'
+      - 'game/demo/destinyChildReferenceIntakeV1.json'
+      - 'scripts/game/companionAffinityState.gd'
+      - 'scripts/game/companionModLab.gd'
+      - 'frontEnd/prototypes/companionAtelier/**'
+      - 'frontEnd/tests/companionAtelier.test.mjs'
+      - 'tools/modInspirationAudit.py'
+      - '.github/workflows/destiny-inspired-relationship-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  relationship-web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Audit metadata and gameplay contracts
+        run: python3 tools/modInspirationAudit.py
+      - name: Test JavaScript relationship and Live2D fallback
+        run: |
+          set -euo pipefail
+          node --check frontEnd/prototypes/companionAtelier/app.mjs
+          node --check frontEnd/prototypes/companionAtelier/relationshipCore.mjs
+          node --check frontEnd/prototypes/companionAtelier/live2dAdapter.mjs
+          node --test frontEnd/tests/companionAtelier.test.mjs
