@@ -1,0 +1,28 @@
+{
+  "schema": "luhmOs.castBridge.libraryCleanupCheckpoint.v1",
+  "recordedUtc": "2026-11-07T03:00:00Z",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "baseMainSourceRef": "69e8d2fc7df1288aaa1665efaea2bf2674056a1b",
+  "scope": "ChatGPT Library request; direct ChatGPT Library access unavailable; Google Drive cleanup and local inventory partial",
+  "evidence": {
+    "sessionLocalFilesScanned": 64,
+    "sessionLocalExactDuplicateGroups": 0,
+    "driveMatchedDocumentsVerifiedIdentical": 2,
+    "driveRedundantNamedCopyDeleted": 1,
+    "driveDeleteVerifiedByNotFound": true,
+    "crossFolderCanonCopiesPreserved": true,
+    "chatGptLibraryEnumerated": false,
+    "chatGptLibraryFilesDeleted": 0,
+    "privateAssetsUploadedToPublicGitHub": 0
+  },
+  "boundaries": {
+    "repositoryVisibility": "PUBLIC",
+    "neverCommit": "private artwork, raw ChatGPT Library exports, secrets, rights-uncleared sources or personal file inventories",
+    "scanTool": "scripts/libraryCanonDedupe.py",
+    "scanToolBehavior": "local-only; read-only; SHA-256 exact duplicate grouping",
+    "canonState": "AMBER",
+    "crown": "STOP",
+    "mergingOrDeployment": "not authorized by this checkpoint",
+    "status": "PARTIAL_VERIFIED"
+  }
+}
