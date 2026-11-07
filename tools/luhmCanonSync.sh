@@ -80,6 +80,11 @@ rsync_flags=(
   --exclude=.git/ --exclude=.cache/ --exclude=node_modules/
   --exclude=__pycache__/ --exclude='*.tmp' --exclude='*.part'
   --exclude='*.partial' --exclude='*.crdownload'
+  --exclude='.ssh/' --exclude='secrets/' --exclude='private-keys/'
+  --exclude='.env' --exclude='.env.*' --exclude='*.pem'
+  --exclude='*.key' --exclude='*.p12' --exclude='*.pfx'
+  --exclude='*.keystore' --exclude='id_rsa' --exclude='id_ed25519'
+  --exclude='*credentials*.json' --exclude='*token*.json'
   --quiet
 )
 if [[ -n "$remote_source" ]]; then
@@ -106,6 +111,22 @@ rclone_flags=(
 rclone copy "$stage_dir/data" "$remote_dest" "${rclone_flags[@]}"
 # Mandatory proof: source files exist in Drive and match by hash when available.
 rclone check "$stage_dir/data" "$remote_dest" --one-way --checksum --checkers 2 --log-level ERROR
+# Mark only the exact private manifest whose transferred files passed remote check.
+python3 - "$index" <<'PY'
+import json
+import os
+import sys
+from pathlib import Path
+path = Path(sys.argv[1])
+data = json.loads(path.read_text(encoding="utf-8"))
+if data["status"] != "LOCAL_VERIFIED_PENDING_REMOTE_CHECK":
+    raise SystemExit("UNEXPECTED_MANIFEST_STATE")
+data["status"] = "REMOTE_HASH_CHECK_VERIFIED"
+temporary = path.with_suffix(".writing")
+temporary.write_text(json.dumps(data, indent=2) + "\\n", encoding="utf-8")
+os.chmod(temporary, 0o600)
+temporary.replace(path)
+PY
 rclone copyto "$index" "$remote_dest/_control/index-$stamp.json" \
   --immutable --log-level ERROR
 echo "CANON_SYNC_VERIFIED sourceRef=$source_ref transfer=copy-only delete=false crown=STOP"
