@@ -90,8 +90,8 @@
     "crownStatus": "STOP"
   },
   "remoteProof": {
-    "siteToolsList": "UNVERIFIED_THIS_PASS",
-    "siteResourcesRead": "UNVERIFIED_THIS_PASS",
+    "siteToolsList": "UNVERIFIED",
+    "siteResourcesRead": "UNVERIFIED",
     "chatGptAndroidUiMount": "UNVERIFIED",
     "remoteDeployment": "UNVERIFIED"
   }
