@@ -70,20 +70,29 @@ def inspect(data: dict, resolver=dns_google_query) -> dict:
             except (OSError, ValueError, TimeoutError) as err:
                 checks[typ] = {"status": "UNKNOWN", "errorType": type(err).__name__}
         observed = any(checks[typ].get("answers") for typ in ("A", "AAAA", "CNAME"))
+        observed_empty = all(checks[typ].get("rcode") == 0 and
+                             not checks[typ].get("answers") for typ in ("A", "AAAA", "CNAME"))
         expected = fqdn["publicMcpOrigin"] + "."
         cname_answers = checks["CNAME"].get("answers", [])
         candidate_cname_match = (expected in cname_answers) if row["id"] == "publicMcp" else None
         results.append({
             "id": row["id"], "hostname": host, "sourceKind": row["kind"],
-            "forwardEvidence": "OBSERVED_DNS_ANSWERS_NOT_TLS_OR_HOST_PROOF" if observed else "UNVERIFIED_FORWARD",
+            "forwardEvidence": ("OBSERVED_DNS_ANSWERS_NOT_TLS_OR_HOST_PROOF" if observed else
+                                "OBSERVED_NO_FORWARD_A_AAAA_CNAME" if observed_empty else
+                                "UNVERIFIED_FORWARD"),
             "candidateMcpCnameTargetMatch": candidate_cname_match,
             "records": checks,
         })
     reverse = fqdn["reversedLabelNamespace"]
+    ns_answers = ns.get("NS", {}).get("answers", [])
+    ns_matches_provider = bool(ns_answers) and all(
+        value.lower().endswith(".ns.cloudflare.com.") for value in ns_answers
+    )
     return {
         "schema": "luhmOs.fqdnForwardReverseProbe.v1",
         "zone": zone,
         "nameserverAndSoaEvidence": ns,
+        "nsMatchesConfiguredProviderPattern": ns_matches_provider,
         "forward": results,
         "internalReverseLabels": {
             "source": reverse["forward"], "resolvedIdentity": reverse["reverse"],
