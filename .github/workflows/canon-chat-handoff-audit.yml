@@ -1,0 +1,29 @@
+name: Canon Chat Handoff Source Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/canonChatHandoff20261106.json'
+      - 'manual/canonNewChatHandoff20261106.md'
+      - 'tools/canonChatHandoffAudit.py'
+      - '.github/workflows/canon-chat-handoff-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sanitized-checkpoint:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact source identity
+        run: |
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Read-only Canon handoff audit
+        run: python3 tools/canonChatHandoffAudit.py
