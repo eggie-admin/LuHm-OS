@@ -1,0 +1,29 @@
+{
+  "schema": "luhm.premonitionHardening.v1",
+  "nativeChecks": 29,
+  "browserLogicChecks": 17,
+  "godot": "4.6.3",
+  "visualBrowserProof": false,
+  "physicalDeviceProof": false,
+  "siteDeployed": false,
+  "sourceBaseline": "4392f0ce4ff5d8d58a67dea2354f5500a7b78e82",
+  "fixes": [
+    "combat state guards",
+    "focus loss pause",
+    "touch input reset",
+    "restart state reset",
+    "staged save and backup recovery",
+    "save type and range validation",
+    "save failure feedback",
+    "test save isolation",
+    "browser heading substitution",
+    "multi-input release",
+    "reduced-motion rain",
+    "offline CSP"
+  ],
+  "sha256": {
+    "game/scripts/arena.gd": "d0bba4d89dd1767cc7994d77ee508f5506a1ab7261bcb9ead1313200d96703f5",
+    "private-interactive-art-studio.html": "503c96a11d9b55b1519a1b2dee905dddd201dece54c7ed91c0ef2fbc3db3d2ab",
+    "Premonition-Ash-Cathedral-Godot4.zip": "cbc32da1a6fdcbc9f43cc00c1977dc96caacb33cfed5852c4a1d0ad927aab9b1"
+  }
+}
