@@ -13,6 +13,10 @@ on:
       - 'host/api/machineRegistrySqliteV1.sql'
       - 'host/api/machineRegistryMariaDbReviewV1.sql'
       - 'tools/machineSqlHex512Audit.py'
+      - 'doctrine/localDualStackGatewayV1.json'
+      - 'tools/localDualStackGatewayAudit.py'
+      - 'tools/dynamicDnsDryRun.py'
+      - 'manual/localDualStackGatewayFinalMutation.md'
       - 'doctrine/brandHexVectorProjectionV1.json'
       - 'tools/brandHexVectorAudit.py'
       - 'frontEnd/prototypes/brandVector1048/**'
@@ -50,6 +54,14 @@ jobs:
           set -euo pipefail
           python3 -m json.tool doctrine/brandHexVectorProjectionV1.json >/dev/null
           python3 tools/brandHexVectorAudit.py
+      - name: Audit Samsung iOS Debian TLS IPv4 IPv6 and one SQL
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/localDualStackGatewayV1.json >/dev/null
+          python3 -m py_compile tools/localDualStackGatewayAudit.py tools/dynamicDnsDryRun.py
+          python3 tools/localDualStackGatewayAudit.py
+          python3 tools/networkSpineAudit.py
+          python3 tools/cloudflareEdgeHardeningAudit.py
       - name: 512 in-memory SQL coordinates and negative controls
         run: python3 tools/machineSqlHex512Audit.py
       - name: AI JSON + Python CAST source-bound intent and 24 negative controls
