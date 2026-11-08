@@ -13,6 +13,12 @@ on:
       - 'host/api/machineRegistrySqliteV1.sql'
       - 'host/api/machineRegistryMariaDbReviewV1.sql'
       - 'tools/machineSqlHex512Audit.py'
+      - 'doctrine/machineCastHexBridgeV1.json'
+      - 'doctrine/machineCastHexManifestV1.schema.json'
+      - 'frontEnd/core/machineCastHexBridge.mjs'
+      - 'frontEnd/jquery/luhm.hexCastBridge.mjs'
+      - 'frontEnd/tests/machineCastHexBridge.test.mjs'
+      - 'tools/machineCastHexBridge.py'
       - '.github/workflows/machine-sql-hex512-source-audit.yml'
   workflow_dispatch:
 
@@ -37,6 +43,10 @@ jobs:
           python3 -m json.tool doctrine/machineSqlHex512EscalationV1.json >/dev/null
       - name: 512 in-memory SQL coordinates and negative controls
         run: python3 tools/machineSqlHex512Audit.py
+      - name: AI JSON + Python CAST source-bound intent and 24 negative controls
+        run: python3 tools/machineCastHexBridge.py --self-test
+      - name: Browser JS and opt-in jquery intent unit tests
+        run: node --test frontEnd/tests/machineCastHexBridge.test.mjs
       - name: No database network, PHP admin or production mutation
         shell: bash
         run: |
