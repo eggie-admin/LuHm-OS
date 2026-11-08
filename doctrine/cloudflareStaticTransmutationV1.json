@@ -228,5 +228,27 @@
     "cdnActivated": false,
     "agentsStarted": false,
     "crownStatus": "STOP"
+  },
+  "javaScriptIdentity": {
+    "publicDisplayName": "LuHm-OS",
+    "caseSensitive": true,
+    "machineNamespace": "luhmOs",
+    "jqueryApiNamespace": "$.fn",
+    "existingApiNames": [
+      "$.fn.luhmCockpit",
+      "$.fn.luhmParallax"
+    ],
+    "optionalBridge": "$.fn.luhmOsEdge",
+    "optionalBridgeSource": "frontEnd/jquery/luhm.osEdge.mjs",
+    "jqueryUiWidgetFactory": "$.widget",
+    "jqueryUiWidgetFactoryOptional": true,
+    "jqueryUiNotRequiredForCore": true,
+    "bracketedPublicKeyAccess": "jQuery[\"LuHm-OS\"]",
+    "bracketedPublicKeyAccessIsApi": false,
+    "automaticNormalization": false,
+    "jsDoesNotUseUnquotedHyphenatedIdentifier": true,
+    "pluginInstallInLiveCockpit": false,
+    "noRenamingExistingPluginSlots": true,
+    "moduleAutoInstall": false
   }
 }
