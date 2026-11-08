@@ -13,6 +13,9 @@ on:
       - 'host/api/machineRegistrySqliteV1.sql'
       - 'host/api/machineRegistryMariaDbReviewV1.sql'
       - 'tools/machineSqlHex512Audit.py'
+      - 'doctrine/brandHexVectorProjectionV1.json'
+      - 'tools/brandHexVectorAudit.py'
+      - 'frontEnd/prototypes/brandVector1048/**'
       - 'doctrine/machineCastHexBridgeV1.json'
       - 'doctrine/machineCastHexManifestV1.schema.json'
       - 'frontEnd/core/machineCastHexBridge.mjs'
@@ -42,6 +45,11 @@ jobs:
           test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
           python3 -m py_compile tools/machineSqlHex512Audit.py
           python3 -m json.tool doctrine/machineSqlHex512EscalationV1.json >/dev/null
+      - name: Audit 1048 scalable brand projection against existing vector Canon
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/brandHexVectorProjectionV1.json >/dev/null
+          python3 tools/brandHexVectorAudit.py
       - name: 512 in-memory SQL coordinates and negative controls
         run: python3 tools/machineSqlHex512Audit.py
       - name: AI JSON + Python CAST source-bound intent and 24 negative controls
