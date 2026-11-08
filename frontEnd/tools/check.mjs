@@ -17,6 +17,7 @@ const mustExist = [
 for (const file of mustExist) await access(resolve(root, file));
 
 const html = await readFile(resolve(root, "index.html"), "utf8");
+const css = await readFile(resolve(root, "styles.css"), "utf8");
 const plugin = await readFile(resolve(root, "jquery/luhm.cockpit.js"), "utf8");
 const castPlugin = await readFile(resolve(root, "jquery/luhm.cast.js"), "utf8");
 const parallax = await readFile(resolve(root, "jquery/luhm.parallax.js"), "utf8");
@@ -25,6 +26,8 @@ const app = await readFile(resolve(root, "app.js"), "utf8");
 const roleplay = await readFile(resolve(root, "jquery/luhm.codingRoleplay.js"), "utf8");
 
 const checks = [
+  [html.includes("Lum: OpenAI agent") && html.includes("runtime unverified") && html.includes("candidateDot") && !html.includes("onlineDot"), "Lum agent / LuHm-OS identity and no false green status"],
+  [css.includes("height: 100dvh;") && css.includes("min-height: 0;") && css.includes("max-height: 540px") && css.includes("safe-area-inset-bottom") && css.includes(".candidateDot"), "Samsung short-height and safe-area candidate CSS"],
   [html.includes("jquery/luhm.parallax.js") && app.includes(".luhmParallax()"), "local parallax plugin mounted"],
   [parallax.includes("$.fn.luhmParallax =") && parallax.includes('command === "destroy"') && parallax.includes("prefers-reduced-motion") && !parallax.includes("fetch("), "bounded parallax lifecycle"],
   [vueCandidate.includes('from "vue"') && vueCandidate.includes("onBeforeUnmount") && vueCandidate.includes("prefers-reduced-motion") && !vueCandidate.includes("https://"), "Vue 3 separate candidate, no CDN imports"],
