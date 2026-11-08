@@ -1,0 +1,46 @@
+name: LuHm-OS Cloudflare Static and 200-Pass Canon Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/cloudflareStaticTransmutationV1.json'
+      - 'doctrine/brandCanonV1.json'
+      - 'doctrine/cloudflareEdgeHardeningV1.json'
+      - 'doctrine/networkSpineV1.json'
+      - 'frontEnd/core/cloudflareCanon.mjs'
+      - 'frontEnd/edgeCanon.html'
+      - 'frontEnd/edgeCanonPreview.mjs'
+      - 'frontEnd/tests/cloudflareCanon.test.mjs'
+      - 'frontEnd/package.json'
+      - 'plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md'
+      - 'tools/cloudflareStatic200PassAudit.py'
+      - '.github/workflows/cloudflare-static-200-pass.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  staticEdgeSafety:
+    name: LuHm-OS brand, public keys and 200-case CDN safety matrix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run Python Canon 200-pass independent policy auditor
+        run: python3 tools/cloudflareStatic200PassAudit.py
+      - name: Run JavaScript 200-case classifier and static HTML tests
+        run: |
+          node --check frontEnd/core/cloudflareCanon.mjs
+          node --check frontEnd/edgeCanonPreview.mjs
+          cd frontEnd
+          node --test tests/cloudflareCanon.test.mjs
+      - name: Verify current baseline Cloudflare policy independently
+        run: python3 tools/cloudflareEdgeHardeningAudit.py
