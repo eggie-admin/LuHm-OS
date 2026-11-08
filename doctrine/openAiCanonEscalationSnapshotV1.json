@@ -1,0 +1,86 @@
+{
+  "schema": "luhmOs.openAiCanonEscalationSnapshot.v1",
+  "status": "SOURCE_CANDIDATE_SNAPSHOT_STAGED",
+  "authority": "Professor",
+  "observationDate": "2026-11-04",
+  "taskId": "openai-canon-hard-escalation-20261104",
+  "scopeId": "chatgpt-plugin-canon-source-truth-audit",
+  "source": {
+    "repository": "eggie-admin/LuHm-OS",
+    "baseMain": "69e8d2fc7df1288aaa1665efaea2bf2674056a1b",
+    "canonicalTruth": "doctrine/currentSourceTruthV3.json",
+    "currentProject": "Project Premonition",
+    "historicalAlias": "Project Hydra",
+    "portablePluginVersion": "0.5.2",
+    "sourceResource": "ui://luhm-os/cockpit-v2.html",
+    "mcpUrl": "https://luhm-os-harness-green.onrender.com/mcp"
+  },
+  "externalObservations": {
+    "evidenceClass": "CURRENT_CHAT_TOOL_OBSERVATION_NOT_CI_LIVE_PROOF",
+    "connectedPluginBridge": "REACHABLE_READ_ONLY",
+    "connectedToolResource": "ui://luhm-os/cockpit-site-v3.html",
+    "connectedCockpitDataReturned": true,
+    "visualMount": "UNVERIFIED",
+    "sitePluginVersion": "1.0.19",
+    "lamosPluginVersion": "0.1.0",
+    "differentPluginIdentities": true,
+    "providerEntitlement": "UNKNOWN",
+    "providerSideAgents": "NOT_PROVEN",
+    "githubProtection": true,
+    "activeRulesetsObserved": 3,
+    "sqlAuthorityPr": 516,
+    "sqlAuthorityMerged": false,
+    "renderHarness": {
+      "service": "luhm-os-harness-green",
+      "serviceId": "srv-daubsi1srm7s73bl5lh0",
+      "liveDeployId": "dep-dbji0q8473hc739tdfag",
+      "liveSourceRef": "27184814dbd279a2a1e8daa5cfa8a7ebcbad0472",
+      "deploymentState": "LIVE",
+      "autoDeploy": false,
+      "observedFrom": "Render linked workspace 2026-11-04",
+      "matchesGitHubMain": false,
+      "redeploymentAuthorized": false
+    }
+  },
+  "snapshot": {
+    "scope": "GITHUB_REFS_ONLY_NOT_COMPLETE_BACKUP",
+    "verifiedBranches": [
+      {
+        "repo": "eggie-admin/LuHm-OS",
+        "sha": "69e8d2fc7df1288aaa1665efaea2bf2674056a1b",
+        "ref": "snapshot/openai-canon-escalation-pre-20261104-69e8d2fc"
+      },
+      {
+        "repo": "eggie-admin/hydra-shell-android",
+        "sha": "08644e2dbb032b1804e260c8ece1060597a22ae0",
+        "ref": "snapshot/openai-canon-escalation-pre-20261104-08644e2d"
+      },
+      {
+        "repo": "eggie-admin/vue-headless-cms",
+        "sha": "1d51c5b90266f7beb8236cf07acfb17a085a4134",
+        "ref": "snapshot/openai-canon-escalation-pre-20261104-1d51c5b9"
+      }
+    ],
+    "localWorkstation": "UNVERIFIED",
+    "privateDrive": "UNVERIFIED",
+    "renderConfig": "NOT_SNAPSHOTTED",
+    "privatePluginArchive": "NOT_SNAPSHOTTED",
+    "restoreTest": "NOT_DONE"
+  },
+  "openAiDocs": [
+    "https://developers.openai.com/plugins/deploy/troubleshooting",
+    "https://developers.openai.com/plugins/reference",
+    "https://developers.openai.com/plugins/plugin-guidelines"
+  ],
+  "restrictions": {
+    "companyAgentQuarantine": "PRESERVE",
+    "sqlProduction": "DO_NOT_TOUCH",
+    "noAutoRepair": true,
+    "noDeploy": true,
+    "noMerge": true,
+    "noPublish": true,
+    "noCrown": true
+  },
+  "promotion": false,
+  "crownStatus": "STOP"
+}
