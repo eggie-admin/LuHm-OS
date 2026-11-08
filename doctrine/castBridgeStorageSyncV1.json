@@ -1,0 +1,66 @@
+{
+  "schema": "luhmOs.castBridge.storageSync.v1",
+  "status": "CANDIDATE_SOURCE_ONLY",
+  "authority": "Professor",
+  "sourceRef": "69e8d2fc7df1288aaa1665efaea2bf2674056a1b",
+  "milestoneId": "castBridgeGoogleDriveRsyncStorageV1",
+  "taskId": "preparePrivateCopyOnlyStoragePipeline",
+  "sourceAuthority": "eggie-admin/LuHm-OS",
+  "roles": {
+    "openAi": "semanticWorkspaceAndConnectedDriveBrowser",
+    "googleDrive": "privateDurableBinaryServer",
+    "github": "publicSourceContractsAndPrivacySafeReceipts",
+    "privateUbuntuHost": "localIngressRsyncRcloneAndPrivateManifests",
+    "castBridge": "reconcileVerifyAndReport"
+  },
+  "dataFlow": [
+    "manualChatGptLibraryExportOrDirectLocalFiles",
+    "privateHostIngress",
+    "rsyncStage",
+    "sha256PrivateInventory",
+    "rcloneImmutableCopy",
+    "rcloneOneWayCheck",
+    "privateGoogleDriveIndex",
+    "publicSourceOnlyReceipt"
+  ],
+  "chatGptLibrary": {
+    "directAutomatedApiAccess": "NOT_AVAILABLE_IN_CURRENT_CHAT",
+    "supportedWayToAvoidReupload": "connectedGoogleDriveFilesInLibraryWhereAvailable",
+    "manualExportIngestRequired": true,
+    "accountCapacity": "UNVERIFIED"
+  },
+  "driveQuota": "UNVERIFIED",
+  "github": {
+    "public": true,
+    "privateRunnerAllowed": false,
+    "driveCredentialsInRepo": false,
+    "largeBinaryArchiveAllowed": false
+  },
+  "transfer": {
+    "deleteAllowed": false,
+    "overwriteRemoteAllowed": false,
+    "immutableCopy": true,
+    "hashChecksRequired": true,
+    "retryBounded": true,
+    "remoteSource": "optionalPinnedSSH",
+    "safeDestinationConvention": "rcloneRemote:LuHm-OS-Private/[ScopedFolder]",
+    "schedule": "hostSystemdTimerNotGitHubSelfHostedRunner"
+  },
+  "activation": "NOT_ARMED",
+  "prerequisites": [
+    "approvedPrivateUbuntuHost",
+    "rcloneGoogleOAuthWithOwnClientIdOrScopedServiceAccount",
+    "privateDestinationFolderAndVerifiedPermissions",
+    "rsyncAvailable",
+    "rcloneAvailable",
+    "localGitCheckoutAtVerifiedSource",
+    "operatorArmsLocalHost"
+  ],
+  "proof": {
+    "sourceTests": "PENDING_EXACT_HEAD",
+    "privateHostTest": "NOT_RUN",
+    "liveDriveCopy": "NOT_RUN",
+    "restorationDrill": "NOT_RUN"
+  },
+  "crown": "STOP"
+}

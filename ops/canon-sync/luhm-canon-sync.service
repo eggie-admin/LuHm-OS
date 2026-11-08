@@ -1,0 +1,17 @@
+[Unit]
+Description=LuHm private Canon Drive immutable transfer (never deletes)
+Documentation=https://github.com/eggie-admin/LuHm-OS
+
+[Service]
+Type=oneshot
+EnvironmentFile=%h/.config/luhm/canon-sync.env
+WorkingDirectory=%h/LuHm-OS
+ExecStart=/usr/bin/bash %h/LuHm-OS/tools/luhmCanonSync.sh --apply
+UMask=0077
+Nice=10
+IOSchedulingClass=idle
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+RestrictSUIDSGID=true
+TimeoutStartSec=12h
