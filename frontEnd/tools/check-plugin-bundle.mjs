@@ -12,11 +12,17 @@ if (receipt.schema !== "luhmOs.npmPluginBundleReceipt.v1" ||
     receipt.displayName !== "LuHm-OS" || receipt.libraryApi !== "$.fn" ||
     receipt.jqueryVersion !== "3.7.1" || receipt.privateNpmPackage !== true ||
     receipt.outputName !== "luhm-os-jquery-ui.js" ||
+    receipt.licenseFile !== "jquery-LICENSE.txt" ||
     !Array.isArray(receipt.inputs) || receipt.inputs.length !== 6 ||
     receipt.liveSitePluginMutated !== false || receipt.mcpServerReplaced !== false ||
     receipt.inChatUiMounted !== false || receipt.cloudflareCdnPublished !== false ||
     receipt.publishingApproved !== false || receipt.crownStatus !== "STOP") {
   throw new Error("RED_BUNDLE_RECEIPT_POLICY");
+}
+const licenseBytes = await readFile(resolve(root, "dist/jquery-LICENSE.txt"));
+if (hash(licenseBytes) !== receipt.licenseSha256 ||
+    !licenseBytes.toString("utf8").includes("Permission is hereby granted, free of charge")) {
+  throw new Error("RED_JQUERY_LICENSE_RECEIPT");
 }
 const bundle = await readFile(resolve(root, "dist/luhm-os-jquery-ui.js"));
 if (receipt.outputSha256 !== hash(bundle) || receipt.outputSizeBytes !== bundle.length) {
