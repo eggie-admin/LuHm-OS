@@ -245,19 +245,50 @@ def self_test():
             "agentQuarantineLifted":False,"crown":"STOP"}
 
 
+def load_bounded_untrusted_manifest(path):
+    if not path.is_file() or path.stat().st_size > 16384:
+        raise ValueError("manifest is missing or exceeds 16 KiB")
+    def reject_duplicate_keys(pairs):
+        record = {}
+        for k, v in pairs:
+            if k in record:
+                raise ValueError("duplicate JSON key")
+            record[k] = v
+        return record
+    def reject_nonfinite(token):
+        raise ValueError("non-finite JSON number: " + token)
+    return json.loads(path.read_text(encoding="utf-8"),
+                      object_pairs_hook=reject_duplicate_keys,
+                      parse_constant=reject_nonfinite)
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--self-test",action="store_true")
     parser.add_argument("--source-ref",default="")
+    parser.add_argument("--manifest-file",type=Path)
+    parser.add_argument("--synthetic-sql",action="store_true")
     args=parser.parse_args()
     if args.self_test:
         print(json.dumps(self_test(),indent=2,sort_keys=True))
         return
     if not HEX40.fullmatch(args.source_ref):
         parser.error("full exact lowercase 40-hex sourceRef required")
-    result=validate_manifest(build_manifest(args.source_ref), args.source_ref)
-    print(json.dumps({"state":result["status"],"manifestSha256":result["sha256"],
-                      "opcode":"0xC1", "dispatchAuthorized":False, "crown":"STOP"},indent=2))
+    if args.manifest_file is None:
+        manifest=build_manifest(args.source_ref)
+    else:
+        manifest=load_bounded_untrusted_manifest(args.manifest_file)
+    result=validate_manifest(manifest, args.source_ref)
+    output={"state":result["status"],"manifestSha256":result["sha256"],
+            "opcode":"0xC1","dispatchAuthorized":False,"crown":"STOP",
+            "jsonValidated":True,"sqlStaged":False}
+    if args.synthetic_sql:
+        with open_memory_db() as db:
+            receipt=stage_in_memory(db,manifest,args.source_ref)
+            output["sqlStaged"]=True
+            output["sqlReceiptState"]=receipt["state"]
+            db.rollback()
+    print(json.dumps(output,indent=2,sort_keys=True))
 
 
 if __name__ == "__main__":
