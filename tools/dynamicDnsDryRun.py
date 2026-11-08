@@ -31,7 +31,7 @@ def public_ip(value: str, family: int) -> str:
         ip = ipaddress.ip_address(value)
     except ValueError as exc:
         raise ValueError("invalid IP address") from exc
-    if ip.version != family or not ip.is_global:
+    if (ip.version != family or not ip.is_global or ip.is_multicast or ip.is_reserved or ip.is_unspecified or ip.is_loopback or ip.is_link_local):
         raise ValueError("only a globally routable public IP of the requested family is allowed")
     if family == 6 and (ip.ipv4_mapped is not None or ip.sixtofour is not None
                          or ip.teredo is not None):
