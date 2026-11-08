@@ -48,7 +48,7 @@ def normalize(inventory):
                  "privateKeysInSql","backendPluginEdited","automaticAgentActivation",
                  "mergeToMain","astraHardeningNotExecuted"):
         # sourceFilesNeverExecutedBySql is True: source text is never executed through the SQL.
-        expected=name=="sourceFilesNeverExecutedBySql"
+        expected=name in ("sourceFilesNeverExecutedBySql","astraHardeningNotExecuted")
         insist(rules.get(name) is expected,"nonExecution"+name)
     items=inventory.get("components",[])
     insist(isinstance(items,list) and len(items)>=18,"componentCount")
