@@ -39,7 +39,11 @@ for (const p of sources) {
   inputs.push({ path: p, bytes });
 }
 const license = await readFile(resolve(root, "vendor/jquery-LICENSE.txt"), "utf8");
-if (!license.includes("MIT License")) throw new Error("RED_MISSING_JQUERY_LICENSE");
+if (!license.includes("Copyright OpenJS Foundation") ||
+    !license.includes("Permission is hereby granted, free of charge") ||
+    !license.includes('THE SOFTWARE IS PROVIDED "AS IS"')) {
+  throw new Error("RED_MISSING_JQUERY_LICENSE");
+}
 const banner = "/* LuHm-OS source-only jQuery bundle. Private npm build, no runtime CDN. */\n";
 const bundle = Buffer.concat([
   Buffer.from(banner),
@@ -58,6 +62,8 @@ const inventory = {
   outputSizeBytes: bundle.length,
   inputs: inputs.map(({path,bytes}) => ({path,sha256:sha(bytes),sizeBytes:bytes.length})),
   license: "MIT-jquery+GPL-LuHm-source-compatibility-review-required",
+  licenseFile: "jquery-LICENSE.txt",
+  licenseSha256: sha(Buffer.from(license, "utf8")),
   liveSitePluginMutated: false,
   mcpServerReplaced: false,
   inChatUiMounted: false,
@@ -67,6 +73,7 @@ const inventory = {
 };
 await mkdir(dest, {recursive:true});
 await writeFile(resolve(dest, outputName), bundle);
+await writeFile(resolve(dest, "jquery-LICENSE.txt"), license, "utf8");
 await writeFile(resolve(dest, "luhm-os-bundle-receipt.json"), JSON.stringify(inventory, null, 2) + "\n", "utf8");
 console.log(JSON.stringify({status:inventory.status, outputSha256:inventory.outputSha256,
   outputSizeBytes:inventory.outputSizeBytes, inputCount:inventory.inputs.length, crownStatus:"STOP"}));
