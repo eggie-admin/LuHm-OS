@@ -1,6 +1,7 @@
 extends Node3D
 ## Original mechanics study. No Code Vein assets or game code.
-const SAVE_PATH = "user://ash_cathedral.cfg"
+var save_path: String = "user://ash_cathedral.cfg"
+var touch_directions: Dictionary = {}
 var player: CharacterBody3D
 var companion: Node3D
 var camera: Camera3D
@@ -157,15 +158,16 @@ func build_ui() -> void:
 	pause_button.text = "PAUSE / RESUME"
 	pause_button.position = Vector2(950,20)
 	pause_button.size = Vector2(180,48)
-	pause_button.pressed.connect(func(): paused = not paused)
+	pause_button.pressed.connect(func(): set_paused(not paused))
 	layer.add_child(pause_button)
 	for spec in [["↑",90,530,Vector2(0,-1)],["←",28,590,Vector2(-1,0)],["↓",90,590,Vector2(0,1)],["→",152,590,Vector2(1,0)]]:
 		var b = Button.new()
 		b.text = spec[0]
 		b.position = Vector2(spec[1],spec[2])
 		b.size = Vector2(56,56)
-		b.button_down.connect(func(): touch_move = spec[3])
-		b.button_up.connect(func(): touch_move = Vector2.ZERO)
+		b.focus_mode = Control.FOCUS_NONE
+		b.button_down.connect(func(): touch_directions[spec[0]] = spec[3])
+		b.button_up.connect(func(): touch_directions.erase(spec[0]))
 		layer.add_child(b)
 	for spec in [["STRIKE",910,590,"strike"],["DODGE",1025,590,"dodge"],["LUM",1140,590,"pulse"],["SHRINE",1140,525,"rest"]]:
 		var b = Button.new()
@@ -174,6 +176,18 @@ func build_ui() -> void:
 		b.size = Vector2(108,56)
 		b.pressed.connect(perform.bind(spec[3]))
 		layer.add_child(b)
+
+func set_paused(value: bool) -> void:
+	paused = value
+	touch_move = Vector2.ZERO
+	touch_directions.clear()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		set_paused(true)
+
+func can_act() -> bool:
+	return not paused and hp > 0 and not victory
 
 func perform(action: String) -> void:
 	if paused or hp <= 0 or victory:
@@ -188,7 +202,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
 	match event.physical_keycode:
-		KEY_ESCAPE: paused = not paused
+		KEY_ESCAPE: set_paused(not paused)
 		KEY_J: perform("strike")
 		KEY_SPACE: perform("dodge")
 		KEY_Q: perform("pulse")
@@ -207,7 +221,7 @@ func spawn_wave() -> void:
 		foes.append({"node":body,"hp":60.0 + wave*10,"timer":1.0+i*0.3,"windup":false})
 
 func strike() -> bool:
-	if attack_cd > 0 or stamina < 22:
+	if not can_act() or attack_cd > 0 or stamina < 22:
 		return false
 	stamina -= 22
 	attack_cd = 0.45
@@ -219,7 +233,7 @@ func strike() -> bool:
 	return true
 
 func dodge() -> bool:
-	if stamina < 30 or dodge_time > 0:
+	if not can_act() or stamina < 30 or dodge_time > 0:
 		return false
 	stamina -= 30
 	dodge_time = 0.25
@@ -228,7 +242,7 @@ func dodge() -> bool:
 	return true
 
 func damage_foe(foe: Dictionary, amount: float) -> void:
-	if foe.hp <= 0:
+	if foe.hp <= 0 or amount <= 0 or not is_finite(amount):
 		return
 	foe.hp -= amount
 	if foe.hp <= 0:
@@ -237,7 +251,7 @@ func damage_foe(foe: Dictionary, amount: float) -> void:
 		ash += 10
 
 func receive_hit(amount: float) -> void:
-	if invulnerable > 0 or hp <= 0:
+	if not can_act() or invulnerable > 0 or amount <= 0 or not is_finite(amount):
 		return
 	hp = maxf(0,hp-amount)
 	invulnerable = 0.6
@@ -245,7 +259,7 @@ func receive_hit(amount: float) -> void:
 		status_text = "FALLEN — Press R to return to the shrine."
 
 func pulse() -> bool:
-	if pulse_cd > 0:
+	if not can_act() or pulse_cd > 0:
 		return false
 	pulse_cd = 9
 	hp = minf(100,hp+20)
@@ -256,6 +270,8 @@ func pulse() -> bool:
 	return true
 
 func rest() -> bool:
+	if not can_act():
+		return false
 	if player.position.distance_to(checkpoint) > 2.6:
 		status_text = "Return to the teal shrine to rest and save."
 		return false
@@ -263,23 +279,52 @@ func rest() -> bool:
 	stamina = 100
 	pulse_cd = 0
 	spawn_wave()
-	save_progress()
-	status_text = "SHRINE — Progress saved. Sentinels restored."
+	var saved = save_progress()
+	status_text = "SHRINE — Progress saved. Sentinels restored." if saved else "SHRINE — Restored, but save failed. Previous save retained."
 	return true
 
-func save_progress() -> void:
+func save_progress() -> bool:
 	var config = ConfigFile.new()
-	config.set_value("run","wave",wave)
-	config.set_value("run","ash",ash)
-	config.save(SAVE_PATH)
+	config.set_value("run", "schema", 1)
+	config.set_value("run", "wave", clampi(wave, 1, 3))
+	config.set_value("run", "ash", clampi(ash, 0, 999999))
+	var temporary = save_path + ".tmp"
+	var backup = save_path + ".bak"
+	if config.save(temporary) != OK:
+		return false
+	var had_save = FileAccess.file_exists(save_path)
+	if had_save:
+		if FileAccess.file_exists(backup):
+			if DirAccess.remove_absolute(backup) != OK:
+				return false
+		if DirAccess.rename_absolute(save_path, backup) != OK:
+			return false
+	if DirAccess.rename_absolute(temporary, save_path) != OK:
+		if had_save:
+			DirAccess.rename_absolute(backup, save_path)
+		return false
+	return true
 
 func load_progress() -> void:
-	var config = ConfigFile.new()
-	if config.load(SAVE_PATH) == OK:
-		wave = clampi(int(config.get_value("run","wave",1)),1,3)
-		ash = maxi(0,int(config.get_value("run","ash",0)))
+	for candidate in [save_path, save_path + ".bak"]:
+		var config = ConfigFile.new()
+		if config.load(candidate) != OK:
+			continue
+		var stored_wave = config.get_value("run", "wave", null)
+		var stored_ash = config.get_value("run", "ash", null)
+		var schema = config.get_value("run", "schema", 1)
+		if typeof(schema) != TYPE_INT or schema != 1:
+			continue
+		if typeof(stored_wave) != TYPE_INT or typeof(stored_ash) != TYPE_INT:
+			continue
+		wave = clampi(stored_wave, 1, 3)
+		ash = clampi(stored_ash, 0, 999999)
+		return
 
 func restart() -> void:
+	set_paused(false)
+	facing = Vector3.FORWARD
+	dodge_dir = Vector3.FORWARD
 	if victory:
 		wave = 1
 		ash = 0
@@ -287,6 +332,8 @@ func restart() -> void:
 	hp = 100
 	stamina = 100
 	player.position = checkpoint
+	player.rotation = Vector3.ZERO
+	companion.position = checkpoint + Vector3(1.8,0,1.6)
 	player.velocity = Vector3.ZERO
 	attack_cd = 0
 	dodge_time = 0
@@ -307,6 +354,8 @@ func _physics_process(delta: float) -> void:
 	pulse_cd = maxf(0,pulse_cd-delta)
 	stamina = minf(100,stamina+delta*19)
 	var axis = touch_move
+	for held in touch_directions.values():
+		axis += held
 	if Input.is_physical_key_pressed(KEY_A) or Input.is_physical_key_pressed(KEY_LEFT): axis.x -= 1
 	if Input.is_physical_key_pressed(KEY_D) or Input.is_physical_key_pressed(KEY_RIGHT): axis.x += 1
 	if Input.is_physical_key_pressed(KEY_W) or Input.is_physical_key_pressed(KEY_UP): axis.y -= 1
@@ -344,6 +393,8 @@ func _physics_process(delta: float) -> void:
 			foe.node.velocity = Vector3(velocity.x,-2,velocity.z)
 			foe.node.move_and_slide()
 			if distance > 0.1: foe.node.look_at(foe.node.position+offset)
+	if hp <= 0:
+		return
 	if alive == 0:
 		if wave < 3:
 			wave += 1

@@ -10,6 +10,7 @@ func _initialize() -> void:
 	call_deferred("run")
 func run() -> void:
 	var game = load("res://Main.tscn").instantiate()
+	game.save_path = "user://test_ash_%s.cfg" % Time.get_ticks_usec()
 	root.add_child(game)
 	game.set_physics_process(false)
 	game.wave = 1
@@ -59,6 +60,8 @@ func run() -> void:
 		await physics_frame
 	check(game.player.position.x > start.x,"movement advances player")
 	# Keep test state out of normal play.
-	DirAccess.remove_absolute(ProjectSettings.globalize_path(game.SAVE_PATH))
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(game.save_path))
+	for suffix in [".bak", ".tmp"]:
+		DirAccess.remove_absolute(game.save_path + suffix)
 	print("RESULT: ",failures," failures")
 	quit(1 if failures else 0)

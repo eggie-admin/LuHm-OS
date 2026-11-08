@@ -10,6 +10,8 @@ Implemented: 3D collision/movement, directional melee, stamina/cooldowns, dodge 
 
 Not complete: production anime models/rigs/animation, inventory, quests, full campaign, audio, lock-on camera, Android exports and embedded ChatGPT gameplay. The installed ChatGPT bridge remains read-only. A package update is not a Site deployment or a full engine embedded in chat.
 
-Validation: Godot 4.6.3 headless import and tests/smoke.gd. Run `godot --headless --path . --script tests/smoke.gd`. Visual/device testing is a separate gate. The test clears this demo's local save after completion.
+Validation: Godot 4.6.3 headless import and tests/smoke.gd. Run `godot --headless --path . --script tests/smoke.gd`. Visual/device testing is a separate gate. Tests use unique temporary save paths and clean up only their own files.
 
 Source baseline inspected: eggie-admin/LuHm-OS@4392f0ce4ff5d8d58a67dea2354f5500a7b78e82. This prototype is a review candidate, not promotion of repository Canon.
+
+Hardening: combat entry points reject paused/dead/victory states; focus loss clears touch controls and pauses; restart clears pause and resets companion/input state. Saves use a staged file plus last-good backup, strict integer validation, bounded values, backup recovery and honest write-failure messages. Run `godot --headless --path . --script tests/hardening.gd` for 13 additional regression checks.
