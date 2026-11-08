@@ -154,12 +154,22 @@ CREATE TABLE aiManifestReceipt (
   effect TEXT NOT NULL CHECK(effect='INTENT_CANDIDATE_HOLD'),
   mutationGranted INTEGER NOT NULL DEFAULT 0 CHECK(mutationGranted=0),
   crownGranted INTEGER NOT NULL DEFAULT 0 CHECK(crownGranted=0),
-  CHECK(json_extract(manifestJson,'$.schema')='luhmOs.aiTaskManifest.v2'),
-  CHECK(json_extract(manifestJson,'$.machineBridge.opcode')='0xC1'),
-  CHECK(json_extract(manifestJson,'$.machineBridge.displayName')='LuHm-OS'),
-  CHECK(json_extract(manifestJson,'$.authority.mutation')=0),
-  CHECK(json_extract(manifestJson,'$.authority.green')=0),
-  CHECK(json_extract(manifestJson,'$.authority.crown')=0)
+  CHECK(coalesce(json_extract(manifestJson,'$.schema'),'')='luhmOs.aiTaskManifest.v2'),
+  CHECK(coalesce(json_extract(manifestJson,'$.sourceRef'),'')=sourceRef),
+  CHECK(coalesce(json_extract(manifestJson,'$.taskId'),'')=taskId),
+  CHECK(coalesce(json_extract(manifestJson,'$.scopeId'),'')=scopeId),
+  CHECK(coalesce(json_extract(manifestJson,'$.machineBridge.opcode'),'')=opcode),
+  CHECK(coalesce(json_extract(manifestJson,'$.machineBridge.displayName'),'')='LuHm-OS'),
+  CHECK(coalesce(json_extract(manifestJson,'$.machineBridge.stage'),'')='castBridge'),
+  CHECK(coalesce(json_extract(manifestJson,'$.machineBridge.mode'),'')='inspectCandidate'),
+  CHECK(coalesce(json_type(manifestJson,'$.authority.mutation'),'')='false'),
+  CHECK(coalesce(json_type(manifestJson,'$.authority.green'),'')='false'),
+  CHECK(coalesce(json_type(manifestJson,'$.authority.crown'),'')='false'),
+  CHECK(coalesce(json_type(manifestJson,'$.machineBridge.dispatchAuthorized'),'')='false'),
+  CHECK(coalesce(json_type(manifestJson,'$.machineBridge.machineSqlWritable'),'')='false'),
+  CHECK(coalesce(json_extract(manifestJson,'$.budget.maxRequests'),-1)=1),
+  CHECK(coalesce(json_extract(manifestJson,'$.budget.maxParallel'),-1)=1),
+  CHECK(coalesce(json_extract(manifestJson,'$.budget.maxPasses'),-1)=1)
 ) STRICT;
 CREATE INDEX manifestTaskScope ON aiManifestReceipt(taskId,scopeId,sourceRef);
 CREATE TABLE castIntentReceipt (
