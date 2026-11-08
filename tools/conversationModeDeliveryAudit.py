@@ -58,7 +58,15 @@ need(delivery.get("crownStatus") == "STOP", "delivery:crownStop")
 
 need(package.get("private") is True, "npm:privatePackage")
 need(package.get("dependencies", {}).get("jquery") == "3.7.1", "npm:manifestPin")
-need(package.get("scripts", {}).get("ci") == "npm ci --ignore-scripts && npm run stage:jquery && npm run check", "npm:reproducibleCiScript")
+# Preserve the already-approved npm ci baseline. Allow only one exact additive,
+# source-audited plugin packaging suffix; no arbitrary npm lifecycle commands.
+baseline_npm_ci = "npm ci --ignore-scripts && npm run stage:jquery && npm run check"
+plugin_npm_ci = baseline_npm_ci + (
+    " && npm run build:plugin && npm run audit:plugin:256"
+    " && npm run check:plugin:bundle"
+)
+need(package.get("scripts", {}).get("ci") in (baseline_npm_ci, plugin_npm_ci),
+     "npm:reproducibleCiScript")
 need(lock.get("lockfileVersion") == 3, "npm:lockFormat")
 need(lock.get("packages", {}).get("node_modules/jquery", {}).get("version") == "3.7.1", "npm:lockPin")
 need(lock.get("packages", {}).get("node_modules/jquery", {}).get("integrity") == "sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==", "npm:lockIntegrity")
