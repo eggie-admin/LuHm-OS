@@ -1,0 +1,232 @@
+{
+  "schema": "luhmOs.cloudflareStaticTransmutation.v1",
+  "status": "PROPOSED_SOURCE_ONLY_NO_CDN_DEPLOY",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "sourceMainAtReview": "4b9714883c4903eb7e6947b70203377b422a7799",
+  "compatibility": [
+    "doctrine/networkSpineV1.json",
+    "doctrine/cloudflareEdgeHardeningV1.json",
+    "doctrine/staticPublicEdgeV1.json",
+    "doctrine/static-transfer-mount-v1.json",
+    "doctrine/brandCanonV1.json",
+    "doctrine/organizationBrandRegistryV1.json",
+    "doctrine/belldandyPkiCorporateSecretaryV1.json",
+    "doctrine/stablePluginUpdateSpineV1.json"
+  ],
+  "identity": {
+    "publisher": "Eggie Bagelface",
+    "product": "LuHm-OS",
+    "world": "Project Premonition",
+    "namespace": "luhmOs",
+    "logoMaster": "publicationSite/logo.svg",
+    "portablePluginLogo": "plugins/luhm-os/assets/logo.svg",
+    "logoSourceComparisonRequired": true,
+    "brandColor": "#7C3AED",
+    "background": "#17131f",
+    "mark": "#9f7aea",
+    "ink": "#f7f4ff",
+    "externalProviderLogosByDefault": false,
+    "brandArtworkPublicApproved": false
+  },
+  "presentation": {
+    "staticHtmlSource": "frontEnd/edgeCanon.html",
+    "staticHtmlScript": "frontEnd/edgeCanonPreview.mjs",
+    "javaScriptLibrary": "frontEnd/core/cloudflareCanon.mjs",
+    "pythonAudit": "tools/cloudflareStatic200PassAudit.py",
+    "pluginSkill": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+    "transformation": "DETERMINISTIC_BRANDED_STATIC_HTML_PROJECTION_ONLY",
+    "htmlRewriterWorker": "NOT_DEPLOYED_NOT_REQUIRED",
+    "noArbitraryHtmlRewriterReplacements": true,
+    "noCrossOriginRuntimeScript": true,
+    "inlineHtmlScripting": false,
+    "noRemoteCssImports": true,
+    "renderDynamicTextWithTextContent": true,
+    "iframeEmbeddingPolicy": "CHATGPT_HOST_RESOURCE_BOUNDARY_SEPARATE_FROM_PUBLIC_SITE_SECURITY_HEADERS",
+    "publicSiteHost": "luhm-os-publication-site.onrender.com",
+    "staticAssetMount": "/harness/assets/",
+    "renderMcpOrigin": "luhm-os-harness-green.onrender.com"
+  },
+  "routes": [
+    {
+      "id": "publicMcp",
+      "fqdn": "mcp.eggiebagelface.art",
+      "origin": "luhm-os-harness-green.onrender.com",
+      "mode": "DIRECT_RENDER_TLS_DO_NOT_PROXY_YET",
+      "cache": "BYPASS"
+    },
+    {
+      "id": "staticAssets",
+      "fqdn": "assets.eggiebagelface.art",
+      "origin": "luhm-os-harness-green.onrender.com",
+      "mode": "PROPOSED_CLOUDFLARE_CDN_NOT_ACTIVE",
+      "cache": "PUBLIC_HASHED_ONLY_AFTER_RIGHTS_TLS_PROXY_PROOF"
+    },
+    {
+      "id": "publicSite",
+      "fqdn": "eggiebagelface.art",
+      "origin": "luhm-os-publication-site.onrender.com",
+      "mode": "EXISTING_RENDER_STATIC_SITE_CUSTOM_DOMAIN_UNVERIFIED",
+      "cache": "HTML_REVALIDATE"
+    },
+    {
+      "id": "signedArt",
+      "fqdn": "art.eggiebagelface.art",
+      "origin": "UNSELECTED",
+      "mode": "SIGNED_FDROID_REPOSITORY_NOT_PUBLISHED",
+      "cache": "SIGNED_APK_VERSIONED_ONLY_AFTER_PROOF"
+    },
+    {
+      "id": "privateSystem",
+      "fqdn": "system.eggiebagelface.art",
+      "origin": "PRIVATE_BOUNDED_UNVERIFIED",
+      "mode": "ZERO_TRUST_TUNNEL_NOT_PROVEN",
+      "cache": "DENY_PUBLIC"
+    }
+  ],
+  "contentClasses": [
+    "staticHtml",
+    "jsonManifest",
+    "sha256Asset",
+    "publicCertificate"
+  ],
+  "conditionCases": [
+    "baseline",
+    "authorization",
+    "sessionCookie",
+    "setCookie",
+    "privateAsset",
+    "unapprovedArtwork",
+    "remoteExecutable",
+    "unhashedAsset",
+    "unknownTls",
+    "unverifiedOrigin"
+  ],
+  "decisionStates": [
+    "BYPASS_CACHE",
+    "DENY_PUBLIC",
+    "HOLD_TLS",
+    "HOLD_ORIGIN",
+    "REVALIDATE_SOURCE_ONLY",
+    "IMMUTABLE_ELIGIBLE_SOURCE_ONLY",
+    "HOLD_SIGNATURE"
+  ],
+  "decisionSemantics": {
+    "runtimeGreenNeverImplied": true,
+    "noncePublicJwkNotAuthenticationByItself": true,
+    "mcpAnonymousOrAuthenticatedNeverCdnCached": true,
+    "manifestNeverImmutable": true,
+    "htmlNeverImmutable": true,
+    "signedRepoCannotGreenWithoutIndexAndApkSigning": true,
+    "hashedPublicAssetsOnlyIfProxyAndRightsAndTlsProven": true,
+    "privateAssetsNeverCdn": true,
+    "providerAuthResponsesNeverCdn": true,
+    "publicCertificatesNoTrustByAssetPublicationAlone": true,
+    "statusDoesNotAuthorizeDeploy": true
+  },
+  "publicRecords": {
+    "zone": "eggiebagelface.art",
+    "authoritativeNsObservedViaPublicDoh20261107": [
+      "mack.ns.cloudflare.com.",
+      "tina.ns.cloudflare.com."
+    ],
+    "forwardFqdnState": "OBSERVED_NO_FORWARD_A_AAAA_CNAME_IN_LAST_READ_ONLY_PROBE",
+    "reviewedRecordClasses": [
+      "NS",
+      "SOA",
+      "A",
+      "AAAA",
+      "CNAME",
+      "CAA",
+      "DS",
+      "DNSKEY",
+      "TXT"
+    ],
+    "reverseLabels": "art.eggiebagelface.mcp",
+    "ptrState": "UPSTREAM_PREFIX_OWNER_NOT_LUHM",
+    "publicMaterialPermittedAsMetadataOnly": [
+      "certificateChain",
+      "certificateFingerprintSha256",
+      "subjectPublicKeyInfo",
+      "dnskey",
+      "ds",
+      "caa"
+    ],
+    "publicationNotGranted": [
+      "pemPrivateKey",
+      "apiToken",
+      "cloudflareApiToken",
+      "jwkPrivateParameters",
+      "acmeAccountKey",
+      "signedFsample",
+      "unverifiedJwksEndpoint"
+    ],
+    "tls": "FULL_STRICT_ONLY_AFTER_CUSTOM_DOMAIN_AND_ORIGIN_CERT_PROOF",
+    "dnsChange": false,
+    "proxyChange": false,
+    "reversePtrChange": false
+  },
+  "cache": {
+    "publicHtml": "no-cache, must-revalidate",
+    "manifests": "no-cache, must-revalidate",
+    "hashedPublicAssets": "public, max-age=31536000, immutable ONLY_AFTER_APPROVED_EDGE_PROOF",
+    "mcp": "private, no-store",
+    "privateSystem": "private, no-store",
+    "signedIndex": "no-cache, must-revalidate",
+    "signedApk": "immutable_eligible_ONLY_AFTER_SIGNATURE_HASH_URL",
+    "htmlRewriterDynamicHtmlCache": "BYPASS_UNLESS_SEPARATELY_PROVEN",
+    "cacheRulesOnlyOnProxiedHostnames": true,
+    "cdnCustomHostnameActive": false,
+    "renderManagedStaticServiceExists": true,
+    "neverCacheWithAuthorization": true,
+    "neverCacheWithSetCookie": true,
+    "neverCacheWithPersonalCookie": true
+  },
+  "audit": {
+    "lattice": {
+      "routeCount": 5,
+      "contentClassCount": 4,
+      "conditionCount": 10,
+      "expectedChecks": 200,
+      "passType": "independent_source_policy_scenarios_not_network_requests"
+    },
+    "integrationStages": [
+      "sourcePolicy",
+      "javascriptClassifier",
+      "python200Pass",
+      "staticHtmlPreview",
+      "portablePluginSkill",
+      "runCurrentCI",
+      "futureAuthenticatedCloudflareAccountReview",
+      "futureOriginTlsAndCacheProof",
+      "futureHostUiProof"
+    ],
+    "observedNetworkStatus": "PUBLIC_DNS_OBSERVATION_NOT_ZONE_AUTHORITY_OR_CDN_PROOF",
+    "cdnProofRequired": [
+      "currentCloudflareZoneRead",
+      "exactCustomHostnameRecord",
+      "proxiedStatusVerified",
+      "validOriginCertificate",
+      "edgeTlsFullStrict",
+      "immutablePublicRightsHash",
+      "varyAndCacheBehavior",
+      "noAuthCaching",
+      "mcpStreamingCompatibility"
+    ],
+    "noNewRunnerSecrets": true,
+    "permissionNoChange": true,
+    "independentReviewBeforeMain": true
+  },
+  "boundary": {
+    "liveSitePluginUpdated": false,
+    "cloudflareZoneUpdated": false,
+    "cloudflareWorkerCreated": false,
+    "jsExecutedInChatGptWidget": false,
+    "renderDeployed": false,
+    "publicKeysOrTokensUploaded": false,
+    "cdnActivated": false,
+    "agentsStarted": false,
+    "crownStatus": "STOP"
+  }
+}
