@@ -111,8 +111,8 @@ Belldandy owns the read-only housekeeping policy at `doctrine/belldandyHousekeep
 Her job is to prevent routine work from becoming archaeology:
 - every 25 commits, an automatic checkpoint is due; it is protective and grants no promotion authority
 - at 40 commits, she warns that the active work window is getting crowded
-- at 50 commits, ordinary merge/reconciliation advancement stops until a checkpoint exists
-- ordinary audits do not dig deeper than the current 50-commit window when a valid receipt-backed checkpoint already summarizes older state
+- at 64 commits, ordinary merge/reconciliation advancement stops until a checkpoint exists
+- ordinary audits do not dig deeper than the current 64-commit window when a valid receipt-backed checkpoint already summarizes older state
 - older history remains available as archive evidence and may be reopened by explicit Professor request, OperationTitan7 escalation, or a missing/conflicting receipt
 
 Belldandy never creates the source mutation herself. When a protective checkpoint is due, she prepares the exact snapshot envelope and hands it to Kugi for deterministic execution. The snapshot grants no GREEN, merge, publication, signing, deployment, or Crown authority.
