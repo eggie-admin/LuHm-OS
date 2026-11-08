@@ -87,7 +87,7 @@ CREATE TABLE auditCoordinate (
   surface TEXT NOT NULL CHECK(surface IN
     ('identity','source','device','firmware','registry','machineApi','artifact','governance')),
   cellHex TEXT NOT NULL CHECK(length(cellHex)=4 AND substr(cellHex,1,2)='0x'
-    AND substr(cellHex,3,2) NOT GLOB '*[^0-9A-F]*'),
+    AND substr(cellHex,3,1) GLOB '[0-3]' AND substr(cellHex,4,1) GLOB '[0-9A-F]'),
   castStage TEXT NOT NULL CHECK(castStage IN ('castTesting','castProposed','castBridge','cast')),
   interactionBeat TEXT NOT NULL CHECK(interactionBeat IN ('hear','resolve','act','verify')),
   auditTier TEXT NOT NULL CHECK(auditTier IN ('technologyFastPath','forFuckSake','scorchedEarth','finalForm')),
