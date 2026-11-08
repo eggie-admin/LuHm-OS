@@ -13,7 +13,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / "doctrine/localDualStackGatewayV1.json"
-HOST = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+$")
+HOST = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:[.][a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+$")
 PROTECTED = {"eggiebagelface.art", "mcp.eggiebagelface.art",
              "system.eggiebagelface.art", "assets.eggiebagelface.art",
              "art.eggiebagelface.art", "ai.eggiebagelface.art"}
