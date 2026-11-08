@@ -3,7 +3,7 @@ name: luhm-four-service-compatibility
 description: Use when the Professor asks for OpenAI front-end workflows, Google AI workhorse routing, GitHub source compatibility, Cloudflare traffic, Canon rsync, or forward/reverse FQDN checks. Source and permissions must be verified on this turn.
 ---
 
-# LuHmOS four-service compatibility: source-first, proof-bound
+# LuHm-OS four-service compatibility: source-first, proof-bound
 
 This skill belongs to the **portable GitHub plugin**. The installed private Site App has its own independent identity and must never be renamed, replaced, or called updated merely because this file changed.
 
@@ -32,3 +32,7 @@ Use `tools/fqdnForwardReverseProbe.py --probe` to query public DNS without mutat
 ## Evidence closeout
 
 Report the exact SHA, what tool actually ran, observed DNS response or UNKNOWN, provider entitlement proof, remote-sync state, original Site/MCP mount state, current blocker, and **Crown STOP** for unproven releases. Do not pretend work continues after the chat ends or independent agents were deployed.
+
+## Cloudflare and branded static rendering
+
+Public product display is **LuHm-OS**, publisher **Eggie Bagelface**, world **Project Premonition**. Internal JSON machine key remains `luhmOs` under Canon. Do not invent an acronym or rename the installed Site plugin. For edge decisions use `doctrine/cloudflareStaticTransmutationV1.json` and the pure `frontEnd/core/cloudflareCanon.mjs` classifier; its 200-case `frontEnd/tests/cloudflareCanon.test.mjs` and `tools/cloudflareStatic200PassAudit.py` are source-only checks. `frontEnd/edgeCanon.html` is a bundled local HTML preview, not a Cloudflare Worker or live ChatGPT resource. Use only reviewed public logos, approved rights-cleared hashed media, and public certificate metadata. Never expose API tokens, PEM private keys, JWK private parameters or private Google Drive assets. CDN is not active until authenticated zone, custom hostname, TLS, origin, proxy and cache behavior receipts agree. Preserve the direct Render MCP endpoint until separate OpenAI host streaming proof.
