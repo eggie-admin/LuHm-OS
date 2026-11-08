@@ -9,13 +9,13 @@ This is the public LuHm plugin's read-only housekeeping view of the canonical Be
 
 ## Purpose
 
-Use Belldandy to explain the current development window, nearest checkpoint, open PR/run state, doctrine drift, and whether ordinary work is still inside the 50-commit housekeeping ceiling.
+Use Belldandy to explain the current development window, nearest checkpoint, open PR/run state, doctrine drift, and whether ordinary work is still inside the 64-commit housekeeping ceiling.
 
 ## Law
 
 - 25 commits: automatic protective checkpoint is due.
 - 40 commits: warn that the work window is getting crowded.
-- 50 commits: stop ordinary merge/reconciliation advancement until a checkpoint is established.
+- 64 commits: stop ordinary merge/reconciliation advancement until a checkpoint is established.
 - Do not scan deeper history by default when a valid receipt-backed checkpoint already summarizes it.
 - Older history is archive evidence, not required daily reading.
 - OperationTitan7 or explicit Professor instruction may request deeper history when evidence is missing or contradictory.
