@@ -1655,8 +1655,8 @@
           "tier": "scorchedEarth",
           "hex": "0x2E",
           "assertion": {
-            "id": "plugin200NewCI",
-            "file": ".github/workflows/full-chatgpt-plugin-200-pass.yml",
+            "id": "pluginHex256NewCI",
+            "file": ".github/workflows/full-chatgpt-plugin-hex256.yml",
             "op": "fileExists"
           }
         },
@@ -2084,10 +2084,10 @@
           "tier": "finalForm",
           "hex": "0x0B",
           "assertion": {
-            "id": "npm200AuditScript",
+            "id": "npmHex256AuditScript",
             "file": "frontEnd/package.json",
             "op": "textHas",
-            "needle": "audit:plugin:200"
+            "needle": "audit:plugin:256"
           }
         },
         {
@@ -2861,7 +2861,7 @@
             "id": "uiToolReadOnly",
             "file": "host/mcp/luhmHarnessServer.py",
             "op": "textHas",
-            "needle": "readOnlyHint"
+            "needle": "annotations=core.READ_ONLY_INTERNAL"
           }
         },
         {
