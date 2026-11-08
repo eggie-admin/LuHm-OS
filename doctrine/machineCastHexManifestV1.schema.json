@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/eggie-admin/LuHm-OS/blob/main/doctrine/machineCastHexManifestV1.schema.json",
+  "title": "LuHm-OS compact hexadecimal CAST candidate JSON manifest",
+  "description": "Extension of existing aiTaskManifest.v2 with explicitly scoped, non-dispatching 0xC1 bridge intent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "providerId",
+    "capabilityId",
+    "taskId",
+    "sourceRef",
+    "scopeId",
+    "inputRefs",
+    "requiredOutputSchema",
+    "budget",
+    "stopConditions",
+    "authority",
+    "responseRequired",
+    "machineBridge"
+  ],
+  "properties": {
+    "schema": {
+      "const": "luhmOs.aiTaskManifest.v2"
+    },
+    "status": {
+      "const": "SOURCE_CANDIDATE"
+    },
+    "providerId": {
+      "const": "luhmOsLocal"
+    },
+    "capabilityId": {
+      "const": "machineCastBridge"
+    },
+    "taskId": {
+      "type": "string",
+      "pattern": "^[a-z][A-Za-z0-9]{0,79}$"
+    },
+    "sourceRef": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "scopeId": {
+      "type": "string",
+      "pattern": "^[a-z][A-Za-z0-9]{0,79}$"
+    },
+    "inputRefs": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "requiredOutputSchema": {
+      "const": "luhmOs.machineCastHexBridgeReceipt.v1"
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxRequests",
+        "maxParallel",
+        "maxPasses"
+      ],
+      "properties": {
+        "maxRequests": {
+          "const": 1
+        },
+        "maxParallel": {
+          "const": 1
+        },
+        "maxPasses": {
+          "const": 1
+        }
+      }
+    },
+    "stopConditions": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "scopeComplete"
+        },
+        {
+          "const": "evidenceConflict"
+        },
+        {
+          "const": "sourceMismatch"
+        },
+        {
+          "const": "budgetExhausted"
+        }
+      ],
+      "items": false,
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mutation",
+        "green",
+        "crown"
+      ],
+      "properties": {
+        "mutation": {
+          "const": false
+        },
+        "green": {
+          "const": false
+        },
+        "crown": {
+          "const": false
+        }
+      }
+    },
+    "responseRequired": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "providerId"
+        },
+        {
+          "const": "taskId"
+        },
+        {
+          "const": "sourceRef"
+        },
+        {
+          "const": "scopeId"
+        },
+        {
+          "const": "responseId"
+        },
+        {
+          "const": "outputRefs"
+        },
+        {
+          "const": "claims"
+        },
+        {
+          "const": "timestamp"
+        }
+      ],
+      "items": false,
+      "minItems": 8,
+      "maxItems": 8
+    },
+    "machineBridge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "displayName",
+        "asciiHex",
+        "opcode",
+        "mode",
+        "fromStage",
+        "stage",
+        "beat",
+        "tier",
+        "dispatchAuthorized",
+        "machineSqlWritable"
+      ],
+      "properties": {
+        "schema": {
+          "const": "luhmOs.machineCastHexBridgeIntent.v1"
+        },
+        "displayName": {
+          "const": "LuHm-OS"
+        },
+        "asciiHex": {
+          "const": "43415354"
+        },
+        "opcode": {
+          "const": "0xC1"
+        },
+        "mode": {
+          "const": "inspectCandidate"
+        },
+        "fromStage": {
+          "const": "castProposed"
+        },
+        "stage": {
+          "const": "castBridge"
+        },
+        "beat": {
+          "enum": [
+            "hear",
+            "resolve",
+            "act",
+            "verify"
+          ]
+        },
+        "tier": {
+          "enum": [
+            "technologyFastPath",
+            "forFuckSake",
+            "scorchedEarth",
+            "finalForm"
+          ]
+        },
+        "dispatchAuthorized": {
+          "const": false
+        },
+        "machineSqlWritable": {
+          "const": false
+        }
+      }
+    }
+  }
+}
