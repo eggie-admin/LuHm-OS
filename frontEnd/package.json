@@ -5,7 +5,7 @@
   "description": "LuHm OS jQuery front-end dry-run shell",
   "scripts": {
     "stage:jquery": "node tools/stage-jquery.mjs",
-    "check": "node --check jquery/luhm.cockpit.js && node --check app.js && node --check tools/stage-jquery.mjs && node --check tools/check.mjs && node tools/check.mjs && node --test tests/namespaceCanon.test.mjs && node --test tests/companionAtelier.test.mjs && node --test tests/cloudflareCanon.test.mjs",
+    "check": "node --check jquery/luhm.cockpit.js && node --check app.js && node --check tools/stage-jquery.mjs && node --check tools/check.mjs && node tools/check.mjs && node --test tests/namespaceCanon.test.mjs && node --test tests/companionAtelier.test.mjs && node --test tests/cloudflareCanon.test.mjs && node --test tests/luhmOsEdge.test.mjs",
     "ci": "npm ci --ignore-scripts && npm run stage:jquery && npm run check"
   },
   "dependencies": {
