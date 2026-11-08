@@ -203,11 +203,20 @@ CREATE TABLE aiManifestReceipt (
 ),
   CONSTRAINT ckManifestJsonValid CHECK(JSON_VALID(manifestJson)=1 AND CHAR_LENGTH(manifestJson)<=16384),
   CONSTRAINT ckManifestNoGrant CHECK(mutationGranted=0 AND crownGranted=0),
-  CONSTRAINT ckManifestOpcodeInJson CHECK(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.machineBridge.opcode'))='0xC1'),
-  CONSTRAINT ckManifestBrand CHECK(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.machineBridge.displayName'))='LuHm-OS'),
-  CONSTRAINT ckManifestNoSelfGrant CHECK(JSON_EXTRACT(manifestJson,'$.authority.mutation')='false'
-    AND JSON_EXTRACT(manifestJson,'$.authority.green')='false'
-    AND JSON_EXTRACT(manifestJson,'$.authority.crown')='false'),
+  CONSTRAINT ckManifestOpcodeInJson CHECK(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.machineBridge.opcode')),'')='0xC1'),
+  CONSTRAINT ckManifestBrand CHECK(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.machineBridge.displayName')),'')='LuHm-OS'),
+  CONSTRAINT ckManifestSameSource CHECK(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.sourceRef')),'')=sourceRef),
+  CONSTRAINT ckManifestSameTask CHECK(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.taskId')),'')=taskId),
+  CONSTRAINT ckManifestSameScope CHECK(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.scopeId')),'')=scopeId),
+  CONSTRAINT ckManifestStage CHECK(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.machineBridge.stage')),'')='castBridge'),
+  CONSTRAINT ckManifestNoSelfGrant CHECK(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.authority.mutation')),'')='false'
+    AND COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.authority.green')),'')='false'
+    AND COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.authority.crown')),'')='false'),
+  CONSTRAINT ckManifestNoDispatch CHECK(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.machineBridge.dispatchAuthorized')),'')='false'
+    AND COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.machineBridge.machineSqlWritable')),'')='false'),
+  CONSTRAINT ckManifestBudget CHECK(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.budget.maxRequests')),'')='1'
+    AND COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.budget.maxParallel')),'')='1'
+    AND COALESCE(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.budget.maxPasses')),'')='1'),
   INDEX manifestTaskScope(taskId,scopeId,sourceRef)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
