@@ -97,5 +97,16 @@ CREATE TABLE auditCoordinate (
 ) STRICT;
 CREATE INDEX auditByTier ON auditCoordinate(auditTier,interactionBeat,surface);
 
+
+-- One stable operator-facing projection, NOT one denormalized source table.
+CREATE VIEW machineStateOverview AS
+SELECT m.machineKey, m.displayAlias, m.hostProfile, m.identityProven,
+       d.deviceKey, d.category, d.verifiedBoot,
+       f.firmwareKey, f.firmwareKind, f.versionLabel, f.imageSha256,
+       m.sourceRef
+FROM machineIdentity AS m
+LEFT JOIN deviceRecord AS d ON d.machineKey=m.machineKey
+LEFT JOIN firmwareRecord AS f ON f.deviceKey=d.deviceKey;
+
 -- No secret, credential, physical IMEI/MAC/serial, raw firmware or media BLOB columns.
 -- No SQL trigger may grant CAST, publish software, flash a device or modify source Canon.
