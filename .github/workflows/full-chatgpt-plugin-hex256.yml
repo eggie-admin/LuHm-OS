@@ -1,0 +1,64 @@
+name: LuHm-OS Full ChatGPT Plugin Hexadecimal 256 Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/fnCastV1.yaml'
+      - 'doctrine/fullChatGptPluginHex256V1.json'
+      - 'doctrine/privateSitePluginInventorySnapshotV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/companyWideOperationalQuarantineV1.json'
+      - 'doctrine/brandCanonV1.json'
+      - 'doctrine/cloudflareStaticTransmutationV1.json'
+      - 'doctrine/cloudflareEdgeHardeningV1.json'
+      - 'doctrine/stablePluginUpdateSpineV1.json'
+      - 'doctrine/selfHostedRemoteUpdatesV1.json'
+      - 'plugins/luhm-os/**'
+      - 'frontEnd/**'
+      - 'host/mcp/**'
+      - 'host/harness/**'
+      - 'tools/fullChatGptPluginHexAudit.py'
+      - 'tools/siteCastMountGuard.py'
+      - '.github/workflows/full-chatgpt-plugin-hex256.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sourceOnlyHexAudit:
+    name: 0x00-0x3F across four ChatGPT plugin surfaces, npm + Python
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: 'frontEnd/package-lock.json'
+      - name: Python audit, 4x4x4x4 plus eight negative controls
+        run: python3 tools/fullChatGptPluginHexAudit.py --negative-controls
+      - name: npm locked jQuery, presentation checks, deterministic bundle, SHA receipts
+        working-directory: frontEnd
+        run: npm run ci
+      - name: Avoid mistaking npm build for live ChatGPT plugin
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          manifest=json.loads(Path("doctrine/fullChatGptPluginHex256V1.json").read_text())
+          assert manifest["runtimeProofs"]["chatGptInlineHostMount"] == "UNVERIFIED"
+          assert manifest["runtimeProofs"]["npmArtifactInstalled"] == "NOT_INSTALLED"
+          assert manifest["mayMutatePrivateSite"] is False
+          assert manifest["mayPromoteCrown"] is False
+          print("GREEN_SOURCE_ONLY_CROWN_STOP")
+          PY
