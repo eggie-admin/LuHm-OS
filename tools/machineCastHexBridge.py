@@ -184,6 +184,37 @@ def self_test():
     check(validate_manifest(manifest,source_ref)["validated"], "positive manifest failed")
     with open_memory_db() as db:
         success = stage_in_memory(db, manifest, source_ref)
+        sql_rejections = []
+        def sql_reject(label, mutate):
+            adversarial = deepcopy(manifest)
+            mutate(adversarial)
+            packed = canonical_json(adversarial)
+            sha = digest(packed)
+            db.execute("SAVEPOINT sqlNegative")
+            try:
+                db.execute("INSERT INTO aiManifestReceipt VALUES(?,?,?,?,?,?,?,?,?,?)",
+                           (sha[:32], "0xC1", manifest["taskId"],manifest["scopeId"],
+                            source_ref,sha,packed,"INTENT_CANDIDATE_HOLD",0,0))
+            except sqlite3.IntegrityError:
+                sql_rejections.append(label)
+            else:
+                raise ValueError("SQL guard accepted adversarial manifest: " + label)
+            finally:
+                db.execute("ROLLBACK TO sqlNegative")
+                db.execute("RELEASE sqlNegative")
+        sql_reject("missingAuthority",lambda x:x.pop("authority"))
+        sql_reject("numericFalseAuthority",lambda x:x["authority"].update(mutation=0))
+        sql_reject("sourceMismatch",lambda x:x.update(sourceRef="b"*40))
+        sql_reject("taskMismatch",lambda x:x.update(taskId="wrongTask"))
+        sql_reject("scopeMismatch",lambda x:x.update(scopeId="wrongScope"))
+        sql_reject("budgetOverflow",lambda x:x["budget"].update(maxPasses=512))
+        sql_reject("selfDispatch",lambda x:x["machineBridge"].update(dispatchAuthorized=True))
+        sql_reject("machineSqlWrite",lambda x:x["machineBridge"].update(machineSqlWritable=True))
+        sql_reject("missingIdentity",lambda x:x["machineBridge"].pop("displayName"))
+        sql_reject("wrongHexOpcode",lambda x:x["machineBridge"].update(opcode="0xC2"))
+        sql_reject("stageJump",lambda x:x["machineBridge"].update(stage="cast"))
+        sql_reject("wrongCaseBrand",lambda x:x["machineBridge"].update(displayName="luhm-os"))
+        check(len(sql_rejections)==12, "SQL itself failed to reject 12 forged manifests")
         # A replayed manifest digest cannot register as a new source event.
         try:
             stage_in_memory(db,manifest,source_ref)
@@ -240,6 +271,7 @@ def self_test():
     reject("otherSchema",lambda x:x.update(schema="luhmOs.aiTaskManifest.v3"))
     check(len(negatives)==24, "24 negative manifest controls required")
     return {"status":"GREEN_SQLITE_SOURCE_ONLY","passedManifestControls":24,
+            "directSqlRejected":len(sql_rejections),
             "componentClasses":29,"hexOpcode":"0xC1",
             "asciiHex":"43415354",**success,"sourceAuthorityChanged":False,
             "agentQuarantineLifted":False,"crown":"STOP"}
