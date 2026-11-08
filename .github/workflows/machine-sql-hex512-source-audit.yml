@@ -1,0 +1,53 @@
+name: LuHm-OS Machine SQL Hex 512 Escalation
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/machineSqlHex512EscalationV1.json'
+      - 'doctrine/fnCastV1.yaml'
+      - 'doctrine/escalationKernelV1.json'
+      - 'doctrine/currentSourceTruthV3.json'
+      - 'doctrine/storageTopologyV1.json'
+      - 'doctrine/machineToHumanWizardV1.json'
+      - 'doctrine/companyWideOperationalQuarantineV1.json'
+      - 'host/api/machineRegistrySqliteV1.sql'
+      - 'host/api/machineRegistryMariaDbReviewV1.sql'
+      - 'tools/machineSqlHex512Audit.py'
+      - '.github/workflows/machine-sql-hex512-source-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sourceOnly512:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact proposal source, no persisted credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Bind exact source and lint Python
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          python3 -m py_compile tools/machineSqlHex512Audit.py
+          python3 -m json.tool doctrine/machineSqlHex512EscalationV1.json >/dev/null
+      - name: 512 in-memory SQL coordinates and negative controls
+        run: python3 tools/machineSqlHex512Audit.py
+      - name: No database network, PHP admin or production mutation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('doctrine/machineSqlHex512EscalationV1.json').read_text())
+          assert p['count']['total']==512
+          assert p['runtimeProof']['mariaDbInstalledAndRunning'] is False
+          assert p['runtimeProof']['phpMyAdminInstalled'] is False
+          assert p['runtimeProof']['productionSchemaChanged'] is False
+          assert p['crownStatus']=='STOP'
+          print('PASS_SQL_CANDIDATE_CROWN_STOP')
+          PY
