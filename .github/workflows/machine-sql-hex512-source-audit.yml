@@ -18,6 +18,7 @@ on:
       - 'frontEnd/core/machineCastHexBridge.mjs'
       - 'frontEnd/jquery/luhm.hexCastBridge.mjs'
       - 'frontEnd/tests/machineCastHexBridge.test.mjs'
+      - 'frontEnd/tools/emit-machine-hex-manifest.mjs'
       - 'tools/machineCastHexBridge.py'
       - '.github/workflows/machine-sql-hex512-source-audit.yml'
   workflow_dispatch:
@@ -47,6 +48,25 @@ jobs:
         run: python3 tools/machineCastHexBridge.py --self-test
       - name: Browser JS and opt-in jquery intent unit tests
         run: node --test frontEnd/tests/machineCastHexBridge.test.mjs
+      - name: JS manifest to Python exact-source CAST validation and synthetic SQL receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          SOURCE_REF="$(git rev-parse HEAD)"
+          node frontEnd/tools/emit-machine-hex-manifest.mjs "$SOURCE_REF" > "$RUNNER_TEMP/luhm-cast-hex-manifest.json"
+          python3 tools/machineCastHexBridge.py --source-ref "$SOURCE_REF" --manifest-file "$RUNNER_TEMP/luhm-cast-hex-manifest.json" --synthetic-sql
+          python3 - <<'PY'
+          import json,os,pathlib
+          p=pathlib.Path(os.environ["RUNNER_TEMP"])/"luhm-cast-hex-manifest.json"
+          doc=json.loads(p.read_text())
+          doc["machineBridge"]["dispatchAuthorized"]=True
+          (p.parent/"luhm-cast-hex-invalid.json").write_text(json.dumps(doc))
+          PY
+          if python3 tools/machineCastHexBridge.py --source-ref "$SOURCE_REF" --manifest-file "$RUNNER_TEMP/luhm-cast-hex-invalid.json" --synthetic-sql; then
+            echo 'RED_MANIFEST_ESCALATION_ACCEPTED' >&2
+            exit 1
+          fi
+          echo 'GREEN_JS_PYTHON_SQL_BRIDGE_NO_DISPATCH'
       - name: No database network, PHP admin or production mutation
         shell: bash
         run: |
