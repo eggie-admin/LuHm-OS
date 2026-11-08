@@ -1,0 +1,3602 @@
+{
+  "schema": "luhmOs.fullChatGptPluginHex256.v1",
+  "status": "CANDIDATE_SOURCE_ONLY_NOT_HOST_RUNTIME",
+  "product": "LuHm-OS",
+  "privateSiteVersionObserved": "1.0.21",
+  "portableVersion": "0.5.2",
+  "foundation": "doctrine/fnCastV1.yaml",
+  "basis": "Existing Canon CAST stages × interaction beats × audit tiers, extended across four package surfaces.",
+  "meaning": "4 surfaces × 4 stages × 4 beats × 4 tiers = 256 discrete source assertions, not 256 live ChatGPT interactions.",
+  "releaseBoundary": "Existing castMatrix coordinate meanings and authority do not change. Audit use is inventory indexing only.",
+  "surfaces": [
+    {
+      "id": "privateSite",
+      "hexPrefix": "0x0",
+      "note": "private installed Site metadata snapshot only"
+    },
+    {
+      "id": "portablePlugin",
+      "hexPrefix": "0x1",
+      "note": "GitHub portable package"
+    },
+    {
+      "id": "npmFrontend",
+      "hexPrefix": "0x2",
+      "note": "npm locked jQuery artifact source"
+    },
+    {
+      "id": "pythonMcp",
+      "hexPrefix": "0x3",
+      "note": "Python MCP server/resource source"
+    }
+  ],
+  "axis": {
+    "stages": [
+      "castTesting",
+      "castProposed",
+      "castBridge",
+      "cast"
+    ],
+    "beats": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "tiers": [
+      "technologyFastPath",
+      "forFuckSake",
+      "scorchedEarth",
+      "finalForm"
+    ],
+    "coordinatesPerSurface": 64,
+    "sourceAssertions": 256
+  },
+  "checks": [
+    {
+      "surface": "privateSite",
+      "coordinates": [
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x00",
+          "assertion": {
+            "id": "privateSiteSchema",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "schema"
+            ],
+            "expected": "luhmOs.privateSitePluginInventorySnapshot.v1"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x01",
+          "assertion": {
+            "id": "privateSiteStatus",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "status"
+            ],
+            "expected": "OBSERVED_PRIVATE_PLUGIN_METADATA_ONLY_NOT_BACKEND_PROOF"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x02",
+          "assertion": {
+            "id": "privateSiteDisplayName",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "displayName"
+            ],
+            "expected": "LuHm-OS"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x03",
+          "assertion": {
+            "id": "privateSitePrivacyScope",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "scope"
+            ],
+            "expected": "USER"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x04",
+          "assertion": {
+            "id": "privateSiteDiscoverability",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "discoverability"
+            ],
+            "expected": "PRIVATE"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x05",
+          "assertion": {
+            "id": "privateSiteVersion",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "version"
+            ],
+            "expected": "1.0.21"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x06",
+          "assertion": {
+            "id": "preserveOriginalBinding",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "preservingOriginalSiteBinding"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x07",
+          "assertion": {
+            "id": "privateFileCount",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "packageFileCount"
+            ],
+            "expected": 21
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x08",
+          "assertion": {
+            "id": "privateSkillCount",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "skillFileCount"
+            ],
+            "expected": 14
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x09",
+          "assertion": {
+            "id": "privateReferenceCount",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "skillReferenceFileCount"
+            ],
+            "expected": 1
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x0A",
+          "assertion": {
+            "id": "siteAssetArchive",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "assetArchiveFileCount"
+            ],
+            "expected": 1
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x0B",
+          "assertion": {
+            "id": "siteAssetCatalog",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "assetCatalogFileCount"
+            ],
+            "expected": 1
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x0C",
+          "assertion": {
+            "id": "siteAssetReceiptFile",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "assetIntegrityReceiptFileCount"
+            ],
+            "expected": 1
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x0D",
+          "assertion": {
+            "id": "siteAssetsCount",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "assetReceipt",
+              "assetCount"
+            ],
+            "expected": 110
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x0E",
+          "assertion": {
+            "id": "siteAssetChecksPassed",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "assetReceipt",
+              "checksPassed"
+            ],
+            "expected": 557
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x0F",
+          "assertion": {
+            "id": "siteAssetsRemainDraft",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "assetReceipt",
+              "provenanceState"
+            ],
+            "expected": "draft"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x10",
+          "assertion": {
+            "id": "siteAssetsNotApproved",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "assetReceipt",
+              "publicApproval"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x11",
+          "assertion": {
+            "id": "siteToolListUnproven",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "siteBackendMcpToolsList"
+            ],
+            "expected": "NOT_AUTHENTICATED_IN_SOURCE_SNAPSHOT"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x12",
+          "assertion": {
+            "id": "siteUiReadUnproven",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "siteBackendUiResourcesRead"
+            ],
+            "expected": "NOT_AUTHENTICATED_IN_SOURCE_SNAPSHOT"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x13",
+          "assertion": {
+            "id": "siteNotMutated",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "liveSiteMutation"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x14",
+          "assertion": {
+            "id": "currentTruthAmber",
+            "file": "doctrine/currentSourceTruthV3.json",
+            "op": "jsonEquals",
+            "key": [
+              "status"
+            ],
+            "expected": "AMBER_PROPOSED_SEAL_OF_TRUTH"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x15",
+          "assertion": {
+            "id": "currentCrownStop",
+            "file": "doctrine/currentSourceTruthV3.json",
+            "op": "jsonEquals",
+            "key": [
+              "crownStatus"
+            ],
+            "expected": "STOP"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x16",
+          "assertion": {
+            "id": "agentsQuarantined",
+            "file": "doctrine/companyWideOperationalQuarantineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "state"
+            ],
+            "expected": "QUARANTINED"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x17",
+          "assertion": {
+            "id": "agentsNotActive",
+            "file": "doctrine/companyWideOperationalQuarantineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "activeTaskWorkersAllowed"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x18",
+          "assertion": {
+            "id": "skillSourceLoader",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "loadCurrentCanon"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x19",
+          "assertion": {
+            "id": "skillScopeValidator",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "validateManifest"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x1A",
+          "assertion": {
+            "id": "skillFqdnResolver",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "resolveNamespace"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x1B",
+          "assertion": {
+            "id": "skillBudget",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "checkBudget"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x1C",
+          "assertion": {
+            "id": "skillEvidence",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "collectEvidence"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x1D",
+          "assertion": {
+            "id": "skillReconcile",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "reconcile"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x1E",
+          "assertion": {
+            "id": "skillReview",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "review"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x1F",
+          "assertion": {
+            "id": "skillReport",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "report"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x20",
+          "assertion": {
+            "id": "skillOpenAiPlane",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "**OpenAI**"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x21",
+          "assertion": {
+            "id": "skillGithubPlane",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "**GitHub**"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x22",
+          "assertion": {
+            "id": "skillGooglePlane",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "**Google AI**"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x23",
+          "assertion": {
+            "id": "skillCloudflarePlane",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "**Cloudflare**"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x24",
+          "assertion": {
+            "id": "skillNoPrivateCot",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "not a hidden chain of thought"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x25",
+          "assertion": {
+            "id": "skillNpmCompatibility",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "$.fn.luhmOsEdge"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x26",
+          "assertion": {
+            "id": "skillNoSiteUpdate",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "installed owner-private Site App"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x27",
+          "assertion": {
+            "id": "skillNotCrowned",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "Crown STOP"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x28",
+          "assertion": {
+            "id": "releaseScope",
+            "file": "doctrine/pluginPublicationV2.json",
+            "op": "jsonEquals",
+            "key": [
+              "scope"
+            ],
+            "expected": "publicReadOnlyChatgptPlugin"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x29",
+          "assertion": {
+            "id": "publicationAuthorityAbsent",
+            "file": "doctrine/pluginPublicationV2.json",
+            "op": "jsonEquals",
+            "key": [
+              "publicationAuthority"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x2A",
+          "assertion": {
+            "id": "publicationNotProven",
+            "file": "doctrine/pluginPublicationV2.json",
+            "op": "jsonEquals",
+            "key": [
+              "directoryPublicationProven"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x2B",
+          "assertion": {
+            "id": "publicationCrown",
+            "file": "doctrine/pluginPublicationV2.json",
+            "op": "jsonEquals",
+            "key": [
+              "crownStatus"
+            ],
+            "expected": "STOP"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x2C",
+          "assertion": {
+            "id": "mcpPackageUrlStillRender",
+            "file": "plugins/luhm-os/mcp.json",
+            "op": "textHas",
+            "needle": "https://luhm-os-harness-green.onrender.com/mcp"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x2D",
+          "assertion": {
+            "id": "frontEndNoRemoteCdn",
+            "file": "frontEnd/index.html",
+            "op": "textHas",
+            "needle": "./vendor/jquery-3.7.1.min.js"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x2E",
+          "assertion": {
+            "id": "frontEndAuthNoExport",
+            "file": "frontEnd/app.js",
+            "op": "textHas",
+            "needle": "postNative"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x2F",
+          "assertion": {
+            "id": "widgetNpmReceipt",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "luhm-os-bundle-receipt.json"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x30",
+          "assertion": {
+            "id": "widgetNoSiteMutation",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "liveSitePluginMutated: false"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x31",
+          "assertion": {
+            "id": "widgetNoServerReplacement",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "mcpServerReplaced: false"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x32",
+          "assertion": {
+            "id": "siteCountAllReceipt",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "assetReceipt",
+              "checksTotal"
+            ],
+            "expected": 557
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x33",
+          "assertion": {
+            "id": "siteArchiveBytes",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "assetReceipt",
+              "sizeBytes"
+            ],
+            "expected": 355761
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x34",
+          "assertion": {
+            "id": "siteHostKnownRed",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "androidChatGptHostMount"
+            ],
+            "expected": "RED_PREVIOUS_OWNER_SCREENSHOT_NOT_REPROVEN"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x35",
+          "assertion": {
+            "id": "siteNpmNotEmbedded",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "npmBuildEmbeddedInSiteApp"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x36",
+          "assertion": {
+            "id": "siteTestCannotUpgrade",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "sourceOnlyTestsMayNotUpgradeSite"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x37",
+          "assertion": {
+            "id": "siteNoPrivateIdsInPublic",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "noPrivatePluginIdentifiersInPublicReceipt"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x38",
+          "assertion": {
+            "id": "siteCrownStop",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "crownStatus"
+            ],
+            "expected": "STOP"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x39",
+          "assertion": {
+            "id": "siteReceiptSchema",
+            "file": "doctrine/privateSitePluginInventorySnapshotV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "assetReceipt",
+              "status"
+            ],
+            "expected": "PASS"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x3A",
+          "assertion": {
+            "id": "quarantineRoster15",
+            "file": "doctrine/companyWideOperationalQuarantineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "registeredCount"
+            ],
+            "expected": 15
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x3B",
+          "assertion": {
+            "id": "quarantineNoHiddenAgents",
+            "file": "doctrine/companyWideOperationalQuarantineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "hiddenAsyncAgents"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x3C",
+          "assertion": {
+            "id": "quarantineNoOverwrite",
+            "file": "doctrine/companyWideOperationalQuarantineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "noDeleteOrOverwrite"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x3D",
+          "assertion": {
+            "id": "quarantinePreserveSkills",
+            "file": "doctrine/companyWideOperationalQuarantineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "preserveSkillsAndReceipts"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x3E",
+          "assertion": {
+            "id": "siteSkillNoFakeLibrarySync",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "not** a shell-mounted"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x3F",
+          "assertion": {
+            "id": "brandSitePublicProfilesNotDone",
+            "file": "doctrine/brandCanonV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "proof",
+              "publicProfilesUpdated"
+            ],
+            "expected": false
+          }
+        }
+      ]
+    },
+    {
+      "surface": "portablePlugin",
+      "coordinates": [
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x00",
+          "assertion": {
+            "id": "portablePluginId",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "name"
+            ],
+            "expected": "luhm-os"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x01",
+          "assertion": {
+            "id": "portablePluginVersion",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "version"
+            ],
+            "expected": "0.5.2"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x02",
+          "assertion": {
+            "id": "portableDisplayName",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "extensions",
+              "com.openai",
+              "interface",
+              "displayName"
+            ],
+            "expected": "LuHm-OS"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x03",
+          "assertion": {
+            "id": "portableDeveloper",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "extensions",
+              "com.openai",
+              "interface",
+              "developerName"
+            ],
+            "expected": "Eggie Bagelface"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x04",
+          "assertion": {
+            "id": "portableBrandColor",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "extensions",
+              "com.openai",
+              "interface",
+              "brandColor"
+            ],
+            "expected": "#7C3AED"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x05",
+          "assertion": {
+            "id": "portableCapabilityReadOnly",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "extensions",
+              "com.openai",
+              "interface",
+              "capabilities"
+            ],
+            "expected": [
+              "Read"
+            ]
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x06",
+          "assertion": {
+            "id": "portablePluginLicense",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "license"
+            ],
+            "expected": "GPL-3.0-only"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x07",
+          "assertion": {
+            "id": "portableRepoUrl",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "repository"
+            ],
+            "expected": "https://github.com/eggie-admin/LuHm-OS"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x08",
+          "assertion": {
+            "id": "portableLogo",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "extensions",
+              "com.openai",
+              "interface",
+              "logo"
+            ],
+            "expected": "./assets/logo.svg"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x09",
+          "assertion": {
+            "id": "portableComposerIcon",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "extensions",
+              "com.openai",
+              "interface",
+              "composerIcon"
+            ],
+            "expected": "./assets/logo.svg"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x0A",
+          "assertion": {
+            "id": "portablePrivacy",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "extensions",
+              "com.openai",
+              "interface",
+              "privacyPolicyURL"
+            ],
+            "expected": "https://luhm-os-publication-site.onrender.com/privacy.html"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x0B",
+          "assertion": {
+            "id": "portableTerms",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "extensions",
+              "com.openai",
+              "interface",
+              "termsOfServiceURL"
+            ],
+            "expected": "https://luhm-os-publication-site.onrender.com/terms.html"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x0C",
+          "assertion": {
+            "id": "transportMcpType",
+            "file": "plugins/luhm-os/mcp.json",
+            "op": "jsonEquals",
+            "key": [
+              "mcpServers",
+              "luhm",
+              "type"
+            ],
+            "expected": "streamable-http"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x0D",
+          "assertion": {
+            "id": "transportMcpUrl",
+            "file": "plugins/luhm-os/mcp.json",
+            "op": "jsonEquals",
+            "key": [
+              "mcpServers",
+              "luhm",
+              "url"
+            ],
+            "expected": "https://luhm-os-harness-green.onrender.com/mcp"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x0E",
+          "assertion": {
+            "id": "portableReviewCases",
+            "file": "plugins/luhm-os/review-tests.json",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x0F",
+          "assertion": {
+            "id": "portablePrivacyDoc",
+            "file": "plugins/luhm-os/PRIVACY.md",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x10",
+          "assertion": {
+            "id": "portableTermsDoc",
+            "file": "plugins/luhm-os/TERMS.md",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x11",
+          "assertion": {
+            "id": "portableLogoExists",
+            "file": "plugins/luhm-os/assets/logo.svg",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x12",
+          "assertion": {
+            "id": "portableMcpManifestExists",
+            "file": "plugins/luhm-os/mcp.json",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x13",
+          "assertion": {
+            "id": "portableSkillSourceExists",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x14",
+          "assertion": {
+            "id": "updateSpineStatus",
+            "file": "doctrine/stablePluginUpdateSpineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "status"
+            ],
+            "expected": "PROPOSED_SOURCE_ONLY"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x15",
+          "assertion": {
+            "id": "stablePluginVersion",
+            "file": "doctrine/stablePluginUpdateSpineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "singleInstallShell",
+              "baselineVersion"
+            ],
+            "expected": "0.5.2"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x16",
+          "assertion": {
+            "id": "stableMcpUrl",
+            "file": "doctrine/stablePluginUpdateSpineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "singleInstallShell",
+              "stableMcpUrl"
+            ],
+            "expected": "https://luhm-os-harness-green.onrender.com/mcp"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x17",
+          "assertion": {
+            "id": "stableNoReinstallForCss",
+            "file": "doctrine/stablePluginUpdateSpineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "singleInstallShell",
+              "reinstallForPresentationChange"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x18",
+          "assertion": {
+            "id": "stableToolRefreshCaveat",
+            "file": "doctrine/stablePluginUpdateSpineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "singleInstallShell",
+              "hostRefreshForNewToolSchemaMayBeRequired"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x19",
+          "assertion": {
+            "id": "stableUpdateManifestEndpoint",
+            "file": "doctrine/stablePluginUpdateSpineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "updateManifest",
+              "endpoint"
+            ],
+            "expected": "/harness/update-manifest.json"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x1A",
+          "assertion": {
+            "id": "stableEveryAssetHash",
+            "file": "doctrine/stablePluginUpdateSpineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "updateManifest",
+              "sha256ForEveryAsset"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x1B",
+          "assertion": {
+            "id": "stableNoRemoteExecutable",
+            "file": "doctrine/stablePluginUpdateSpineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "updateManifest",
+              "remoteExecutableJavaScriptFromManifestDisallowed"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x1C",
+          "assertion": {
+            "id": "stableNoManifestAsCommands",
+            "file": "doctrine/stablePluginUpdateSpineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "updateManifest",
+              "clientMayInterpretManifestAsCommands"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x1D",
+          "assertion": {
+            "id": "stableNoDriveLinks",
+            "file": "doctrine/stablePluginUpdateSpineV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "updateManifest",
+              "privateDriveLinksDisallowed"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x1E",
+          "assertion": {
+            "id": "remoteV2NotDeployed",
+            "file": "doctrine/selfHostedRemoteUpdatesV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "status"
+            ],
+            "expected": "SOURCE_CANDIDATE_NOT_DEPLOYED"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x1F",
+          "assertion": {
+            "id": "remoteManifestV2Endpoint",
+            "file": "doctrine/selfHostedRemoteUpdatesV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "endpoint"
+            ],
+            "expected": "/harness/updates/v2/manifest.json"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x20",
+          "assertion": {
+            "id": "remoteShaAlgorithm",
+            "file": "doctrine/selfHostedRemoteUpdatesV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "digest"
+            ],
+            "expected": "sha256"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x21",
+          "assertion": {
+            "id": "remoteAssetMaxBytes",
+            "file": "doctrine/selfHostedRemoteUpdatesV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "maxAssetBytes"
+            ],
+            "expected": 2000000
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x22",
+          "assertion": {
+            "id": "remoteJQueryPinnedAsset",
+            "file": "doctrine/selfHostedRemoteUpdatesV1.json",
+            "op": "jsonIncludes",
+            "key": [
+              "publicAssets"
+            ],
+            "expected": "jquery-3.7.1.min.js"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x23",
+          "assertion": {
+            "id": "remoteNoLoadJs",
+            "file": "doctrine/selfHostedRemoteUpdatesV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "mutableScriptsMustNotBeLoadedFromManifest"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x24",
+          "assertion": {
+            "id": "remotePrivateFonts",
+            "file": "doctrine/selfHostedRemoteUpdatesV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "fontPolicy",
+              "noGoogleFonts"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x25",
+          "assertion": {
+            "id": "remoteImageNoScripts",
+            "file": "doctrine/selfHostedRemoteUpdatesV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "svgPolicy",
+              "noScripts"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x26",
+          "assertion": {
+            "id": "remoteCloudflareOff",
+            "file": "doctrine/selfHostedRemoteUpdatesV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "cdnPolicy",
+              "useCloudflareCustomAssetFqdn"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x27",
+          "assertion": {
+            "id": "remoteNoApkSilentInstall",
+            "file": "doctrine/selfHostedRemoteUpdatesV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "androidPolicy",
+              "silentInstall"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x28",
+          "assertion": {
+            "id": "widgetNoLiveHost",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "inChatUiMounted: false"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x29",
+          "assertion": {
+            "id": "widgetNoCloudflare",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "cloudflareCdnPublished: false"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x2A",
+          "assertion": {
+            "id": "widgetNoPublicRelease",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "publishingApproved: false"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x2B",
+          "assertion": {
+            "id": "npmCheckFrontEnd",
+            "file": "frontEnd/package.json",
+            "op": "textHas",
+            "needle": "npm run check"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x2C",
+          "assertion": {
+            "id": "pluginCheckService",
+            "file": "tools/pluginPublicationAudit.py",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x2D",
+          "assertion": {
+            "id": "plugin200ExistingCI",
+            "file": ".github/workflows/plugin-publication-audit.yml",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x2E",
+          "assertion": {
+            "id": "plugin200NewCI",
+            "file": ".github/workflows/full-chatgpt-plugin-200-pass.yml",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x2F",
+          "assertion": {
+            "id": "npmJSUnit",
+            "file": "frontEnd/tests/luhmOsEdge.test.mjs",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x30",
+          "assertion": {
+            "id": "pluginMcpServer",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x31",
+          "assertion": {
+            "id": "pluginAllPackageDocs",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x32",
+          "assertion": {
+            "id": "pluginAuthorName",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "author",
+              "name"
+            ],
+            "expected": "Eggie Bagelface"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x33",
+          "assertion": {
+            "id": "pluginHomepage",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "homepage"
+            ],
+            "expected": "https://luhm-os-publication-site.onrender.com/"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x34",
+          "assertion": {
+            "id": "pluginShortDesc",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "extensions",
+              "com",
+              "openai",
+              "interface",
+              "shortDescription"
+            ],
+            "expected": "Artist-first studio"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x35",
+          "assertion": {
+            "id": "pluginCategory",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonEquals",
+            "key": [
+              "extensions",
+              "com",
+              "openai",
+              "interface",
+              "category"
+            ],
+            "expected": "Developer Tools"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x36",
+          "assertion": {
+            "id": "pluginPositiveReviewFive",
+            "file": "plugins/luhm-os/review-tests.json",
+            "op": "jsonArrayLength",
+            "key": [
+              "positive"
+            ],
+            "expected": 5
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x37",
+          "assertion": {
+            "id": "pluginNegativeReviewThree",
+            "file": "plugins/luhm-os/review-tests.json",
+            "op": "jsonArrayLength",
+            "key": [
+              "negative"
+            ],
+            "expected": 3
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x38",
+          "assertion": {
+            "id": "brandPluginVisualApprovalPending",
+            "file": "doctrine/brandCanonV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "approvalRecord",
+              "finalPublicAssetApproval"
+            ],
+            "expected": "PER_ASSET_PENDING"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x39",
+          "assertion": {
+            "id": "brandPluginProductDisplay",
+            "file": "doctrine/brandCanonV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "identity",
+              "product",
+              "display"
+            ],
+            "expected": "LuHm-OS"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x3A",
+          "assertion": {
+            "id": "brandPluginPublisherDisplay",
+            "file": "doctrine/brandCanonV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "identity",
+              "publisher",
+              "display"
+            ],
+            "expected": "Eggie Bagelface"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x3B",
+          "assertion": {
+            "id": "brandLogoSourceMirrored",
+            "file": "publicationSite/logo.svg",
+            "compareFile": "plugins/luhm-os/assets/logo.svg",
+            "op": "filesEqual"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x3C",
+          "assertion": {
+            "id": "pluginKeywordChatgpt",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonIncludes",
+            "key": [
+              "keywords"
+            ],
+            "expected": "chatgpt"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x3D",
+          "assertion": {
+            "id": "pluginKeywordMcp",
+            "file": "plugins/luhm-os/plugin.json",
+            "op": "jsonIncludes",
+            "key": [
+              "keywords"
+            ],
+            "expected": "mcp"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x3E",
+          "assertion": {
+            "id": "pluginNoBrandedAssetsApproval",
+            "file": "doctrine/brandCanonV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "proof",
+              "brandArtworkApproved"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x3F",
+          "assertion": {
+            "id": "pluginNoPublicPublishingAuthority",
+            "file": "doctrine/brandCanonV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "publicationAuthority"
+            ],
+            "expected": false
+          }
+        }
+      ]
+    },
+    {
+      "surface": "npmFrontend",
+      "coordinates": [
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x00",
+          "assertion": {
+            "id": "npmPrivate",
+            "file": "frontEnd/package.json",
+            "op": "jsonEquals",
+            "key": [
+              "private"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x01",
+          "assertion": {
+            "id": "npmPinnedJQuery",
+            "file": "frontEnd/package.json",
+            "op": "jsonEquals",
+            "key": [
+              "dependencies",
+              "jquery"
+            ],
+            "expected": "3.7.1"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x02",
+          "assertion": {
+            "id": "npmLockfileV3",
+            "file": "frontEnd/package-lock.json",
+            "op": "jsonEquals",
+            "key": [
+              "lockfileVersion"
+            ],
+            "expected": 3
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x03",
+          "assertion": {
+            "id": "npmRootLockedJQuery",
+            "file": "frontEnd/package-lock.json",
+            "op": "jsonEquals",
+            "key": [
+              "packages",
+              "",
+              "dependencies",
+              "jquery"
+            ],
+            "expected": "3.7.1"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x04",
+          "assertion": {
+            "id": "npmJQueryVersion",
+            "file": "frontEnd/package-lock.json",
+            "op": "jsonEquals",
+            "key": [
+              "packages",
+              "node_modules/jquery",
+              "version"
+            ],
+            "expected": "3.7.1"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x05",
+          "assertion": {
+            "id": "npmJQueryLicense",
+            "file": "frontEnd/package-lock.json",
+            "op": "jsonEquals",
+            "key": [
+              "packages",
+              "node_modules/jquery",
+              "license"
+            ],
+            "expected": "MIT"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x06",
+          "assertion": {
+            "id": "npmJQueryIntegrity",
+            "file": "frontEnd/package-lock.json",
+            "op": "textHas",
+            "needle": "\"integrity\": \"sha512-"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x07",
+          "assertion": {
+            "id": "npmCiIgnoreScripts",
+            "file": "frontEnd/package.json",
+            "op": "textHas",
+            "needle": "npm ci --ignore-scripts"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x08",
+          "assertion": {
+            "id": "npmStageJQueryScript",
+            "file": "frontEnd/package.json",
+            "op": "textHas",
+            "needle": "stage:jquery"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x09",
+          "assertion": {
+            "id": "npmExistingCi",
+            "file": "frontEnd/package.json",
+            "op": "textHas",
+            "needle": "npm run stage:jquery"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x0A",
+          "assertion": {
+            "id": "npmBundleScript",
+            "file": "frontEnd/package.json",
+            "op": "textHas",
+            "needle": "build:plugin"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x0B",
+          "assertion": {
+            "id": "npm200AuditScript",
+            "file": "frontEnd/package.json",
+            "op": "textHas",
+            "needle": "audit:plugin:200"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x0C",
+          "assertion": {
+            "id": "npmNoPublicPublish",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "privateNpmPackage: true"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x0D",
+          "assertion": {
+            "id": "npmJQueryStagePath",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "vendor/jquery-3.7.1.min.js"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x0E",
+          "assertion": {
+            "id": "npmJQueryLicenseRead",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "vendor/jquery-LICENSE.txt"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x0F",
+          "assertion": {
+            "id": "npmDigestAlgorithm",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "createHash(\"sha256\")"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x10",
+          "assertion": {
+            "id": "npmInputCockpit",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "jquery/luhm.cockpit.js"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x11",
+          "assertion": {
+            "id": "npmInputParallax",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "jquery/luhm.parallax.js"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x12",
+          "assertion": {
+            "id": "npmInputRoleplay",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "jquery/luhm.codingRoleplay.js"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x13",
+          "assertion": {
+            "id": "npmInputAppJs",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "  \"app.js\""
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x14",
+          "assertion": {
+            "id": "jqInstalled",
+            "file": "frontEnd/jquery/luhm.cockpit.js",
+            "op": "textHas",
+            "needle": "const PLUGIN = \"luhmCockpit\""
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x15",
+          "assertion": {
+            "id": "jqDataIsolation",
+            "file": "frontEnd/jquery/luhm.cockpit.js",
+            "op": "textHas",
+            "needle": "const DATA_KEY = PLUGIN"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x16",
+          "assertion": {
+            "id": "jqEventNamespace",
+            "file": "frontEnd/jquery/luhm.cockpit.js",
+            "op": "textHas",
+            "needle": "const EVENT_NS = \".\" + PLUGIN"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x17",
+          "assertion": {
+            "id": "jqFnCall",
+            "file": "frontEnd/jquery/luhm.cockpit.js",
+            "op": "textHas",
+            "needle": "$.fn[PLUGIN] = function"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x18",
+          "assertion": {
+            "id": "jqFnChainable",
+            "file": "frontEnd/jquery/luhm.cockpit.js",
+            "op": "textHas",
+            "needle": "return this.each"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x19",
+          "assertion": {
+            "id": "jqDestroy",
+            "file": "frontEnd/jquery/luhm.cockpit.js",
+            "op": "textHas",
+            "needle": "destroy: function"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x1A",
+          "assertion": {
+            "id": "jqClockCleanup",
+            "file": "frontEnd/jquery/luhm.cockpit.js",
+            "op": "textHas",
+            "needle": "clearInterval"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x1B",
+          "assertion": {
+            "id": "jqVisibilityCleanup",
+            "file": "frontEnd/jquery/luhm.cockpit.js",
+            "op": "textHas",
+            "needle": "removeEventListener(\"visibilitychange\""
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x1C",
+          "assertion": {
+            "id": "jqOffListeners",
+            "file": "frontEnd/jquery/luhm.cockpit.js",
+            "op": "textHas",
+            "needle": ".off(EVENT_NS)"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x1D",
+          "assertion": {
+            "id": "jqFnDefaults",
+            "file": "frontEnd/jquery/luhm.cockpit.js",
+            "op": "textHas",
+            "needle": "$.fn[PLUGIN].defaults"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x1E",
+          "assertion": {
+            "id": "jqRoleplayFn",
+            "file": "frontEnd/jquery/luhm.cockpit.js",
+            "op": "textHas",
+            "needle": "$.fn.mgcCdngRlplay"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x1F",
+          "assertion": {
+            "id": "jqVendorDebugFn",
+            "file": "frontEnd/jquery/luhm.cockpit.js",
+            "op": "textHas",
+            "needle": "$.fn.vendorAiDebug"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x20",
+          "assertion": {
+            "id": "jqParallaxExtension",
+            "file": "frontEnd/jquery/luhm.parallax.js",
+            "op": "textHas",
+            "needle": "$.fn.luhmParallax ="
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x21",
+          "assertion": {
+            "id": "jqParallaxDestroy",
+            "file": "frontEnd/jquery/luhm.parallax.js",
+            "op": "textHas",
+            "needle": "command === \"destroy\""
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x22",
+          "assertion": {
+            "id": "jqReducedMotion",
+            "file": "frontEnd/jquery/luhm.parallax.js",
+            "op": "textHas",
+            "needle": "prefers-reduced-motion"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x23",
+          "assertion": {
+            "id": "jqCasePublicName",
+            "file": "frontEnd/jquery/luhm.osEdge.mjs",
+            "op": "textHas",
+            "needle": "luhmOsDisplayName = \"LuHm-OS\""
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x24",
+          "assertion": {
+            "id": "jqCasePluginMethod",
+            "file": "frontEnd/jquery/luhm.osEdge.mjs",
+            "op": "textHas",
+            "needle": "luhmOsPluginMethod = \"luhmOsEdge\""
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x25",
+          "assertion": {
+            "id": "jqCaseEvent",
+            "file": "frontEnd/jquery/luhm.osEdge.mjs",
+            "op": "textHas",
+            "needle": "luhmOsEventName = \"luhmOs:edge:inspected\""
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x26",
+          "assertion": {
+            "id": "jqExplicitInstall",
+            "file": "frontEnd/jquery/luhm.osEdge.mjs",
+            "op": "textHas",
+            "needle": "export function installLuHmOsEdgePlugin"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x27",
+          "assertion": {
+            "id": "jqNoAutoInstall",
+            "file": "frontEnd/jquery/luhm.osEdge.mjs",
+            "op": "textHas",
+            "needle": "No auto-install"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x28",
+          "assertion": {
+            "id": "cdnSourceStatus",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "status"
+            ],
+            "expected": "PROPOSED_SOURCE_ONLY_NO_CDN_DEPLOY"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x29",
+          "assertion": {
+            "id": "cdnProductName",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "identity",
+              "product"
+            ],
+            "expected": "LuHm-OS"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x2A",
+          "assertion": {
+            "id": "cdnSourceJS",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "presentation",
+              "javaScriptLibrary"
+            ],
+            "expected": "frontEnd/core/cloudflareCanon.mjs"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x2B",
+          "assertion": {
+            "id": "cdnPython200",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "presentation",
+              "pythonAudit"
+            ],
+            "expected": "tools/cloudflareStatic200PassAudit.py"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x2C",
+          "assertion": {
+            "id": "cdnStillInactive",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "boundary",
+              "cdnActivated"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x2D",
+          "assertion": {
+            "id": "cdnNoZoneMutation",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "boundary",
+              "cloudflareZoneUpdated"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x2E",
+          "assertion": {
+            "id": "cdnNoWorker",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "boundary",
+              "cloudflareWorkerCreated"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x2F",
+          "assertion": {
+            "id": "cdnNoDeploy",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "boundary",
+              "renderDeployed"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x30",
+          "assertion": {
+            "id": "cdnNoPublicKeyUpload",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "boundary",
+              "publicKeysOrTokensUploaded"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x31",
+          "assertion": {
+            "id": "cdnMcpBypass",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "routes",
+              "0",
+              "cache"
+            ],
+            "expected": "BYPASS"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x32",
+          "assertion": {
+            "id": "npmLuhmOsTestSource",
+            "file": "frontEnd/tests/luhmOsEdge.test.mjs",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x33",
+          "assertion": {
+            "id": "npmCloudflareUnitSource",
+            "file": "frontEnd/tests/cloudflareCanon.test.mjs",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x34",
+          "assertion": {
+            "id": "npmBundleUiSource",
+            "file": "frontEnd/jquery/luhm.cast.js",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x35",
+          "assertion": {
+            "id": "npmBaseUiSource",
+            "file": "frontEnd/app.js",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x36",
+          "assertion": {
+            "id": "npmManifestLockExists",
+            "file": "frontEnd/package-lock.json",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x37",
+          "assertion": {
+            "id": "npmBundlerExists",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x38",
+          "assertion": {
+            "id": "npmBundleReceiptSha",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "outputSha256: sha(bundle)"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x39",
+          "assertion": {
+            "id": "npmBundleSixInputs",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "inputCount:inventory.inputs.length"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x3A",
+          "assertion": {
+            "id": "npmBundleLicenseGate",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "RED_MISSING_JQUERY_LICENSE"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x3B",
+          "assertion": {
+            "id": "npmBundleVersionGate",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "RED_NPM_LOCK_MISMATCH"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x3C",
+          "assertion": {
+            "id": "npmBundleNoRemoteCdn",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "no runtime CDN"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x3D",
+          "assertion": {
+            "id": "npmBundlePrivateNotPublish",
+            "file": "frontEnd/tools/build-plugin-bundle.mjs",
+            "op": "textHas",
+            "needle": "publishingApproved: false"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x3E",
+          "assertion": {
+            "id": "npmSourceUnitCheck",
+            "file": "frontEnd/package.json",
+            "op": "textHas",
+            "needle": "tests/luhmOsEdge.test.mjs"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x3F",
+          "assertion": {
+            "id": "npmNameCaseSensitive",
+            "file": "frontEnd/package.json",
+            "op": "jsonEquals",
+            "key": [
+              "name"
+            ],
+            "expected": "luhm-os-frontend-dryrun"
+          }
+        }
+      ]
+    },
+    {
+      "surface": "pythonMcp",
+      "coordinates": [
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x00",
+          "assertion": {
+            "id": "uiCockpitUri",
+            "file": "host/mcp/luhmHarness.py",
+            "op": "textHas",
+            "needle": "UI_RESOURCE_URI = \"ui://luhm-os/cockpit-v2.html\""
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x01",
+          "assertion": {
+            "id": "uiMobileUri",
+            "file": "host/mcp/luhmHarness.py",
+            "op": "textHas",
+            "needle": "MOBILE_COCKPIT_RESOURCE_URI = \"ui://luhm-os/mobile-cockpit-v1.html\""
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x02",
+          "assertion": {
+            "id": "uiGodotUri",
+            "file": "host/mcp/luhmHarness.py",
+            "op": "textHas",
+            "needle": "GODOT_PLAYER_RESOURCE_URI = \"ui://luhm-os/godot-player-v1.html\""
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x03",
+          "assertion": {
+            "id": "uiMcpAppMime",
+            "file": "host/mcp/luhmHarness.py",
+            "op": "textHas",
+            "needle": "APP_MIME_TYPE = \"text/html;profile=mcp-app\""
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x04",
+          "assertion": {
+            "id": "uiCockpitOutputTemplate",
+            "file": "host/mcp/luhmHarness.py",
+            "op": "textHas",
+            "needle": "\"openai/outputTemplate\": UI_RESOURCE_URI"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x05",
+          "assertion": {
+            "id": "uiMobileOutputTemplate",
+            "file": "host/mcp/luhmHarness.py",
+            "op": "textHas",
+            "needle": "\"openai/outputTemplate\": MOBILE_COCKPIT_RESOURCE_URI"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x06",
+          "assertion": {
+            "id": "uiGodotOutputTemplate",
+            "file": "host/mcp/luhmHarness.py",
+            "op": "textHas",
+            "needle": "\"openai/outputTemplate\": GODOT_PLAYER_RESOURCE_URI"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x07",
+          "assertion": {
+            "id": "uiCspUiMetadata",
+            "file": "host/mcp/luhmHarness.py",
+            "op": "textHas",
+            "needle": "\"ui\": {"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x08",
+          "assertion": {
+            "id": "uiToolReadOnly",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "readOnlyHint"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x09",
+          "assertion": {
+            "id": "uiCockpitMarkup",
+            "file": "host/harness/widget.html",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x0A",
+          "assertion": {
+            "id": "uiMobileMarkup",
+            "file": "host/harness/mobileCockpitWidget.html",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x0B",
+          "assertion": {
+            "id": "uiGodotMarkup",
+            "file": "host/harness/godotPlayerWidget.html",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x0C",
+          "assertion": {
+            "id": "uiDocMode",
+            "file": "host/harness/widget.html",
+            "op": "textHas",
+            "needle": "<!doctype html>"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x0D",
+          "assertion": {
+            "id": "uiDarkTheming",
+            "file": "host/harness/widget.html",
+            "op": "textHas",
+            "needle": "color-scheme:dark"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x0E",
+          "assertion": {
+            "id": "uiMobileResponsive",
+            "file": "host/harness/widget.html",
+            "op": "textHas",
+            "needle": "@media(max-width:430px)"
+          }
+        },
+        {
+          "stage": "castTesting",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x0F",
+          "assertion": {
+            "id": "uiCanonicalBrandPreview",
+            "file": "frontEnd/edgeCanon.html",
+            "op": "textHas",
+            "needle": "LuHm-OS"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x10",
+          "assertion": {
+            "id": "uiSourceStatusPreview",
+            "file": "frontEnd/edgeCanon.html",
+            "op": "textHas",
+            "needle": "PROPOSED, NOT DEPLOYED"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x11",
+          "assertion": {
+            "id": "uiTextOnlyRenderer",
+            "file": "frontEnd/edgeCanonPreview.mjs",
+            "op": "textHas",
+            "needle": "textContent"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x12",
+          "assertion": {
+            "id": "uiSourceNotMounted",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "textHas",
+            "needle": "\"jsExecutedInChatGptWidget\": false"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x13",
+          "assertion": {
+            "id": "uiNotAutoMounted",
+            "file": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+            "op": "textHas",
+            "needle": "not a Cloudflare Worker or live ChatGPT resource"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x14",
+          "assertion": {
+            "id": "pythonPinnedMcp",
+            "file": "host/mcp/requirements.txt",
+            "op": "textHas",
+            "needle": "mcp==2.2.0"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x15",
+          "assertion": {
+            "id": "pythonMcpImport",
+            "file": "host/mcp/luhmMcpServer.py",
+            "op": "textHas",
+            "needle": "from mcp.server import MCPServer"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x16",
+          "assertion": {
+            "id": "pythonServerDefinition",
+            "file": "host/mcp/luhmMcpServer.py",
+            "op": "textHas",
+            "needle": "server = MCPServer("
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x17",
+          "assertion": {
+            "id": "pythonStatelessHarness",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "stateless_http=True"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x18",
+          "assertion": {
+            "id": "pythonMcpRoute",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "streamable_http_path=\"/mcp\""
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x19",
+          "assertion": {
+            "id": "pythonBodySizeLimit",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "max_request_body_size=1 * 1024 * 1024"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x1A",
+          "assertion": {
+            "id": "pythonHostSecurity",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "transport_security=core._production_security()"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x1B",
+          "assertion": {
+            "id": "pythonHardenedProduction",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "core._profile() == \"production\""
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x1C",
+          "assertion": {
+            "id": "pythonLocalHost",
+            "file": "host/mcp/luhmMcpServer.py",
+            "op": "textHas",
+            "needle": "LOCAL_HOST = \"127.0.0.1\""
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x1D",
+          "assertion": {
+            "id": "pythonProductionPort",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "os.environ.get(\"PORT\", \"10000\")"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x1E",
+          "assertion": {
+            "id": "pythonReadOnlyAnnotations",
+            "file": "host/mcp/luhmMcpServer.py",
+            "op": "textHas",
+            "needle": "readOnlyHint=True"
+          }
+        },
+        {
+          "stage": "castProposed",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x1F",
+          "assertion": {
+            "id": "pythonNoDestructiveAnnotations",
+            "file": "host/mcp/luhmMcpServer.py",
+            "op": "textHas",
+            "needle": "destructiveHint=False"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x20",
+          "assertion": {
+            "id": "pythonNoOpenWorld",
+            "file": "host/mcp/luhmMcpServer.py",
+            "op": "textHas",
+            "needle": "openWorldHint=False"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x21",
+          "assertion": {
+            "id": "pythonIdempotency",
+            "file": "host/mcp/luhmMcpServer.py",
+            "op": "textHas",
+            "needle": "idempotentHint=True"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x22",
+          "assertion": {
+            "id": "pythonHarnessRegister",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "register_harness("
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x23",
+          "assertion": {
+            "id": "pythonOniRegister",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "register_oni_summoner("
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x24",
+          "assertion": {
+            "id": "pythonUpdateSpine",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "register_update_spine("
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x25",
+          "assertion": {
+            "id": "pythonUpdateRoute",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "register_remote_update_routes("
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x26",
+          "assertion": {
+            "id": "pythonNoNodeServerRequirement",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "import luhmMcpServer as core"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x27",
+          "assertion": {
+            "id": "pythonMcpDescription",
+            "file": "host/mcp/luhmMcpServer.py",
+            "op": "textHas",
+            "needle": "Read-only LuHm source-truth"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x28",
+          "assertion": {
+            "id": "cdnMcpOrigin",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "routes",
+              "0",
+              "origin"
+            ],
+            "expected": "luhm-os-harness-green.onrender.com"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x29",
+          "assertion": {
+            "id": "cdnAssetsCandidate",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "routes",
+              "1",
+              "fqdn"
+            ],
+            "expected": "assets.eggiebagelface.art"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x2A",
+          "assertion": {
+            "id": "cdnReadOnlyPublicRecords",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "publicRecords",
+              "zone"
+            ],
+            "expected": "eggiebagelface.art"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x2B",
+          "assertion": {
+            "id": "cdnPtrNotOwned",
+            "file": "doctrine/cloudflareStaticTransmutationV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "publicRecords",
+              "ptrState"
+            ],
+            "expected": "UPSTREAM_PREFIX_OWNER_NOT_LUHM"
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x2C",
+          "assertion": {
+            "id": "cdnNoProxy",
+            "file": "doctrine/cloudflareEdgeHardeningV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "lanes",
+              "chatGptMcp",
+              "plannedCloudflareProxy"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x2D",
+          "assertion": {
+            "id": "cdnNoTunnel",
+            "file": "doctrine/cloudflareEdgeHardeningV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "lanes",
+              "chatGptMcp",
+              "plannedCloudflareTunnel"
+            ],
+            "expected": false
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x2E",
+          "assertion": {
+            "id": "cdnNoPrivateArt",
+            "file": "doctrine/cloudflareEdgeHardeningV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "lanes",
+              "publicAssets",
+              "noPrivateArt"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "castBridge",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x2F",
+          "assertion": {
+            "id": "cdnTlsFullStrict",
+            "file": "doctrine/cloudflareEdgeHardeningV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "tls",
+              "modeWhenCloudflareProxied"
+            ],
+            "expected": "FullStrict"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "technologyFastPath",
+          "hex": "0x30",
+          "assertion": {
+            "id": "cdnCacheOnlyHashed",
+            "file": "doctrine/cloudflareEdgeHardeningV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "cdn",
+              "immutablePublicHashedOnly"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "forFuckSake",
+          "hex": "0x31",
+          "assertion": {
+            "id": "cdnNoAuthCache",
+            "file": "doctrine/cloudflareEdgeHardeningV1.json",
+            "op": "jsonEquals",
+            "key": [
+              "cdn",
+              "noCacheAuthOrPersonalData"
+            ],
+            "expected": true
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "scorchedEarth",
+          "hex": "0x32",
+          "assertion": {
+            "id": "pythonMcpGuardSameHost",
+            "file": "tools/siteCastMountGuard.py",
+            "op": "textHas",
+            "needle": "SAME_SITE_MCP_ENDPOINT_ONLY"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "hear",
+          "tier": "finalForm",
+          "hex": "0x33",
+          "assertion": {
+            "id": "pythonMcpGuardNoProof",
+            "file": "tools/siteCastMountGuard.py",
+            "op": "textHas",
+            "needle": "\"chatGptInlineMounted\": \"UNVERIFIED\""
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "technologyFastPath",
+          "hex": "0x34",
+          "assertion": {
+            "id": "pythonMcpGuardTemplate",
+            "file": "tools/siteCastMountGuard.py",
+            "op": "textHas",
+            "needle": "\"openai/outputTemplate\""
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "forFuckSake",
+          "hex": "0x35",
+          "assertion": {
+            "id": "pythonMcpGuardMime",
+            "file": "tools/siteCastMountGuard.py",
+            "op": "textHas",
+            "needle": "text/html;profile=mcp-app"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "scorchedEarth",
+          "hex": "0x36",
+          "assertion": {
+            "id": "pythonMcpNoRuntimeClaim",
+            "file": "host/mcp/luhmHarness.py",
+            "op": "textHas",
+            "needle": "runtime"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "resolve",
+          "tier": "finalForm",
+          "hex": "0x37",
+          "assertion": {
+            "id": "pythonMcpUiResourceOrigin",
+            "file": "host/mcp/luhmHarness.py",
+            "op": "textHas",
+            "needle": "MCP_COCKPIT_PUBLIC_ORIGIN"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "technologyFastPath",
+          "hex": "0x38",
+          "assertion": {
+            "id": "pythonMcpUiPortability",
+            "file": "host/mcp/luhmHarness.py",
+            "op": "textHas",
+            "needle": "GODOT_PLAYER_RESOURCE_URI"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "forFuckSake",
+          "hex": "0x39",
+          "assertion": {
+            "id": "pythonServerStdio",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "transport=\"stdio\""
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "scorchedEarth",
+          "hex": "0x3A",
+          "assertion": {
+            "id": "pythonServerProductionStrict",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "core._production_security()"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "act",
+          "tier": "finalForm",
+          "hex": "0x3B",
+          "assertion": {
+            "id": "pythonServerMcpImports",
+            "file": "host/mcp/luhmHarnessServer.py",
+            "op": "textHas",
+            "needle": "import luhmMcpServer as core"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "technologyFastPath",
+          "hex": "0x3C",
+          "assertion": {
+            "id": "pythonServerToolsStatus",
+            "file": "host/mcp/luhmMcpServer.py",
+            "op": "textHas",
+            "needle": "_status_payload"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "forFuckSake",
+          "hex": "0x3D",
+          "assertion": {
+            "id": "pythonServerScopedRoutes",
+            "file": "host/mcp/luhmMcpServer.py",
+            "op": "textHas",
+            "needle": "TRUTH_SCOPE_KINDS"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "scorchedEarth",
+          "hex": "0x3E",
+          "assertion": {
+            "id": "pythonMcpUpdateSpineCode",
+            "file": "host/mcp/luhmUpdateSpine.py",
+            "op": "fileExists"
+          }
+        },
+        {
+          "stage": "cast",
+          "beat": "verify",
+          "tier": "finalForm",
+          "hex": "0x3F",
+          "assertion": {
+            "id": "pythonMcpHarnessAssetsIndex",
+            "file": "host/harness/index.html",
+            "op": "fileExists"
+          }
+        }
+      ]
+    }
+  ],
+  "digest": {
+    "algorithm": "sha256",
+    "encoding": "lowercaseHex64",
+    "purpose": "source artifact identity, not authorization"
+  },
+  "base64": {
+    "use": "textSafeTransportEncodingOnly",
+    "notEncryption": true,
+    "notAuditAxis": true
+  },
+  "npm": {
+    "build": "npm run build:plugin",
+    "test": "npm run audit:plugin:256",
+    "publish": false
+  },
+  "independentControls": {
+    "invalidCoordinatesFailClosed": true,
+    "unknownPathsFailClosed": true,
+    "forbidPrivateBytes": true,
+    "all256UniqueAssertionsRequired": true
+  },
+  "runtimeProofs": {
+    "siteMcpResourcesRead": "UNVERIFIED",
+    "chatGptInlineHostMount": "UNVERIFIED",
+    "npmArtifactInstalled": "NOT_INSTALLED",
+    "cloudflareCdn": "UNVERIFIED",
+    "renderDeploy": "SEPARATE_RECEIPT_REQUIRED"
+  },
+  "mayMutatePrivateSite": false,
+  "mayActivateAgents": false,
+  "mayPromoteCrown": false,
+  "crownStatus": "STOP"
+}
