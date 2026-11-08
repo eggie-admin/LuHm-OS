@@ -501,7 +501,7 @@ def _housekeeping_payload() -> dict[str, Any]:
     window = policy.get("commitWindow", {})
     state = "UNKNOWN"
     if isinstance(count, int):
-        if count >= int(window.get("hardStopAtCommits", 50)):
+        if count >= int(window.get("hardStopAtCommits", 64)):
             state = "STOP"
         elif count >= int(window.get("warningAtCommits", 40)):
             state = "WARNING"
