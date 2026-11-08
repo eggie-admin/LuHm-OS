@@ -1,0 +1,128 @@
+{
+  "schema": "luhmOs.chatCanonHandoff.v1",
+  "kind": "READ_ONLY_CONTINUITY_INDEX",
+  "evidenceAtUtc": "2026-11-07T03:22:18.227Z",
+  "project": "LuHm-OS",
+  "world": "Project Premonition",
+  "previousAlias": "Project Hydra",
+  "authority": "Professor",
+  "canonicalSource": {
+    "repository": "eggie-admin/LuHm-OS",
+    "branch": "main",
+    "sourceRef": "69e8d2fc7df1288aaa1665efaea2bf2674056a1b",
+    "status": "AMBER_PROPOSED_SEAL_OF_TRUTH",
+    "crown": "STOP",
+    "primary": "doctrine/currentSourceTruthV3.json",
+    "storage": "doctrine/storageTopologyV1.json",
+    "quarantine": "doctrine/companyWideOperationalQuarantineV1.json"
+  },
+  "recoveryBranch": "snapshot/pre-canon-handoff-20261106-69e8d2fc",
+  "installedPrivateSitePlugin": {
+    "productName": "LuHm-OS",
+    "versionObserved": "1.0.21",
+    "audience": "OWNER_PRIVATE",
+    "ownershipSource": "Plugin Creator owned plugin metadata",
+    "toolBridge": "REACHABLE_READ_ONLY",
+    "toolsObserved": [
+      "luhmConnectionStatus",
+      "luhm_open_cockpit",
+      "luhm_open_mobile_cockpit",
+      "luhm_open_antenna"
+    ],
+    "hostVisualMount": "UNVERIFIED_IN_THIS_SESSION",
+    "directLibraryModify": "NOT_EXPOSED",
+    "directDriveRsync": "NOT_EXPOSED",
+    "editingBoundary": "Plugin skills can be updated separately from the existing Site MCP backend",
+    "skillsOnlyRelease": "SAVED_AND_READ_BACK",
+    "newSkill": "canon-fast-operator",
+    "backendUnchanged": true,
+    "visualHostTestAfterUpdate": "NOT_RUN"
+  },
+  "portableGithubPlugin": {
+    "path": "plugins/luhm-os",
+    "versionObserved": "0.5.2",
+    "sameAsInstalledSitePlugin": false
+  },
+  "storagePipelineCandidate": {
+    "pr": 530,
+    "branch": "candidate/cast-bridge-library-dedupe-20261106",
+    "lastVerifiedHead": "473b949030e4a7c33820dd7f25d64239511de645",
+    "exactHeadSurfacedChecks": "10/10 SUCCESS at last observed head",
+    "sourceOnly": true,
+    "liveDriveSync": "NOT_CONFIGURED",
+    "timer": "NOT_ARMED",
+    "privateHost": "NOT_ACCESSED",
+    "mergeState": "OPEN_DRAFT",
+    "destructiveSyncAllowed": false
+  },
+  "operatingIntent": [
+    "Use native ChatGPT as the working control surface with minimal navigation",
+    "Recover exact live GitHub truth at start of every new chat",
+    "Do one real safe supported task before writing another large plan",
+    "Preserve original art, rights boundaries and recovery archives",
+    "Google Drive is canonical durable binary storage; GitHub holds code and receipts",
+    "No repeated CAST request for work already explicitly scoped and authorized",
+    "Report current tools honestly; no imaginary agents, direct Library mutation or site UI"
+  ],
+  "taskCheckpoint": {
+    "taskId": "canonChatPluginUsabilityHardening20261106",
+    "scopeId": "existingOwnerPrivateSiteSkillsAndReadOnlyGithubHandoff",
+    "objective": "One-step Canon resume, working studio flow and bounded storage sync continuation",
+    "evidenceRefs": [
+      "doctrine/currentSourceTruthV3.json@main",
+      "doctrine/companyWideOperationalQuarantineV1.json@main",
+      "doctrine/storageTopologyV1.json@main",
+      "https://github.com/eggie-admin/LuHm-OS/pull/530"
+    ],
+    "executionAuthorized": false,
+    "confirmedFacts": [
+      {
+        "claim": "main pinned at sourceRef",
+        "classification": "OBSERVED"
+      },
+      {
+        "claim": "global Canon AMBER / Crown STOP",
+        "classification": "SOURCE_DERIVED"
+      },
+      {
+        "claim": "existing owner-private Site app version 1.0.20 available",
+        "classification": "OBSERVED"
+      },
+      {
+        "claim": "current Site bridge has read-only tool set",
+        "classification": "OBSERVED"
+      },
+      {
+        "claim": "company worker quarantine remains active",
+        "classification": "SOURCE_DERIVED"
+      },
+      {
+        "claim": "Owner-private LuHm-OS plugin skills release 1.0.21 saved and verified by readback",
+        "classification": "OBSERVED"
+      }
+    ],
+    "conflicts": [
+      "Installed private Site plugin != portable GitHub plugin",
+      "GitHub draft pipeline != live authenticated scheduled transfer"
+    ],
+    "pendingDecisions": [
+      "Private host approval and Google Drive authentication for rsync/rclone",
+      "Site UI/backend editing access for interactive mount and file operations",
+      "Review of draft PR #530 before merge; scoped restore proof"
+    ],
+    "proposedMutations": [
+      "Read-only skill behavior improvement on existing private app",
+      "Handoff candidate PR without affecting main"
+    ],
+    "blocker": "No Site MCP backend editor or ChatGPT Library delete API exposed",
+    "nextAction": "Open a fresh ChatGPT chat and ask Lum to read this checkpoint from the current GitHub source, then perform one available task.",
+    "crown": "STOP"
+  },
+  "notProofOf": [
+    "deployedPluginBackendMutation",
+    "ChatGPTLibrarySync",
+    "GoogleDriveRsyncExecution",
+    "SamsungRenderAcceptance",
+    "finalCanonCrown"
+  ]
+}
