@@ -65,6 +65,35 @@ def inspect(doc, source, edge, brand, network):
          and identity.get("product") == brand["identity"]["product"]["display"]
          and identity.get("world") == brand["identity"]["world"]["display"]
          and identity.get("namespace") == "luhmOs", "officialLuHmOsName")
+    js_identity = doc.get("javaScriptIdentity", {})
+    need(js_identity.get("publicDisplayName") == "LuHm-OS"
+         and js_identity.get("caseSensitive") is True
+         and js_identity.get("machineNamespace") == "luhmOs", "javascriptExactCase")
+    need(js_identity.get("jqueryApiNamespace") == "$.fn"
+         and js_identity.get("optionalBridge") == "$.fn.luhmOsEdge"
+         and js_identity.get("existingApiNames") ==
+         ["$.fn.luhmCockpit", "$.fn.luhmParallax"], "jqueryFnCompatibility")
+    need(js_identity.get("jqueryUiWidgetFactory") == "$.widget"
+         and js_identity.get("jqueryUiWidgetFactoryOptional") is True
+         and js_identity.get("jqueryUiNotRequiredForCore") is True, "jqueryUiOptionalNotRequired")
+    need(js_identity.get("automaticNormalization") is False
+         and js_identity.get("noRenamingExistingPluginSlots") is True
+         and js_identity.get("moduleAutoInstall") is False
+         and js_identity.get("pluginInstallInLiveCockpit") is False, "jqueryFailClosed")
+    bridge = ROOT / js_identity.get("optionalBridgeSource", "")
+    need(bridge.is_file(), "jqueryOptionalBridgeMissing")
+    if bridge.is_file():
+        bridge_src = bridge.read_text(encoding="utf-8")
+        need('luhmOsDisplayName = "LuHm-OS"' in bridge_src
+             and 'luhmOsPluginMethod = "luhmOsEdge"' in bridge_src
+             and 'luhmOsEventName = "luhmOs:edge:inspected"' in bridge_src,
+             "jqueryBridgeWrongCase")
+        need("export function installLuHmOsEdgePlugin" in bridge_src
+             and "return this.each" in bridge_src
+             and "already registered" in bridge_src, "jqueryChainAndCollision")
+        need(not re.search(r"\b(fetch|XMLHttpRequest|eval|Function)\s*\(", bridge_src)
+             and "cloudflareCdnDeployed = true" not in bridge_src, "jqueryBridgeNoNetworking")
+
     tokens = brand["visualSystem"]["currentExistingTokens"]
     need(identity.get("brandColor") == tokens["pluginBrandColor"]
          and identity.get("background") == tokens["background"]
