@@ -1,0 +1,81 @@
+{
+  "schema": "luhmOs.brandHexVectorProjection.v1",
+  "status": "SOURCE_CANDIDATE_REVIEW_ONLY",
+  "sourceAuthority": "eggie-admin/LuHm-OS",
+  "observedMainAtPreparation": "4b9714883c4903eb7e6947b70203377b422a7799",
+  "existingBrandRegistry": "doctrine/organizationBrandRegistryV1.json",
+  "existingNamingCanon": "doctrine/namingNamespaceCanonV1.json",
+  "brandMachineId": "luhmOs",
+  "displayName": "LuHm-OS",
+  "displayNameUtf8Hex": "4C75486D2D4F53",
+  "masterVector": {
+    "source": "publicationSite/logo.svg",
+    "existingPluginCopy": "plugins/luhm-os/assets/logo.svg",
+    "sha256": "db80829a92dcb97af66b0efc0aae91c474c1ee3d7c72ff2bdf7f2fdb46f37cb1",
+    "nativeViewBox": [
+      0,
+      0,
+      512,
+      512
+    ],
+    "contentFormat": "image/svg+xml",
+    "approvedFinalArtClaim": false,
+    "modifiesOriginalFiles": false
+  },
+  "presentation": {
+    "workingArtboardPx": [
+      1048,
+      1048
+    ],
+    "workingArtboardHex": [
+      "0x0418",
+      "0x0418"
+    ],
+    "dimensionInterpretation": "working-display-target-not-pixel-grid-not-texture-budget",
+    "output": "scaleExistingSVGWithoutRasterizing",
+    "responsive": true,
+    "originalViewBoxRetained": true,
+    "nesReference": "visual-inspiration-only",
+    "tileSizeMandate": null,
+    "indexedColorLimit": null,
+    "rasterMaster": false
+  },
+  "observedColorTokens": {
+    "midnight": {
+      "css": "#17131f",
+      "rgbHex": "0x17131F"
+    },
+    "violet": {
+      "css": "#9f7aea",
+      "rgbHex": "0x9F7AEA"
+    },
+    "pearl": {
+      "css": "#f7f4ff",
+      "rgbHex": "0xF7F4FF"
+    }
+  },
+  "colorLaw": "observedPaletteVariantNotUniversalFinalPalette",
+  "identityProjection": "hexEncodesIdentityAndColorsOnlyNoAuthenticationOrExecution",
+  "sql": {
+    "existingCandidate": "host/api/machineRegistrySqliteV1.sql",
+    "existingRegistry": "namespaceRegistry",
+    "storageModel": "singleFutureRegistryProjectionReferencesSVGByDigest",
+    "newDatabase": false,
+    "migrationPerformed": false,
+    "schemaMutation": false
+  },
+  "bridge": {
+    "existing": "doctrine/machineCastHexBridgeV1.json",
+    "opcode": "0xC1",
+    "noBuildDispatch": true,
+    "noPluginActivation": true,
+    "noAgentQuarantineChange": true
+  },
+  "gate": {
+    "candidateOnly": true,
+    "professorFinalApprovalPending": true,
+    "mergeToMain": false,
+    "deploy": false,
+    "crown": "STOP"
+  }
+}

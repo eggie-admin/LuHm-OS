@@ -5,8 +5,10 @@
   "description": "LuHm OS jQuery front-end dry-run shell",
   "scripts": {
     "stage:jquery": "node tools/stage-jquery.mjs",
-    "check": "node --check jquery/luhm.cockpit.js && node --check app.js && node --check tools/stage-jquery.mjs && node --check tools/check.mjs && node tools/check.mjs && node --test tests/namespaceCanon.test.mjs && node --test tests/companionAtelier.test.mjs",
-    "ci": "npm ci --ignore-scripts && npm run stage:jquery && npm run check"
+    "check": "node --check jquery/luhm.cockpit.js && node --check app.js && node --check tools/stage-jquery.mjs && node --check tools/check.mjs && node tools/check.mjs && node --test tests/namespaceCanon.test.mjs && node --test tests/companionAtelier.test.mjs && npm run test:game-layers",
+    "ci": "npm ci --ignore-scripts && npm run stage:jquery && npm run check",
+    "test:game-layers": "node --test tests/gameLayerConsole.test.mjs",
+    "fixture:game-layers": "python3 ../tools/gameLayerSqlFixture.py --self-test"
   },
   "dependencies": {
     "jquery": "3.7.1"
