@@ -63,7 +63,9 @@
     "mariaDbReviewDdl": "host/api/machineRegistryMariaDbReviewV1.sql",
     "syntheticFixtureOnly": true,
     "negativeControls": true,
-    "notLiveSql": false
+    "notLiveSql": true,
+    "sqliteOnlyInMemory": true,
+    "coordinatesAreUniqueScenariosNotIndependentPenetrationTests": true
   },
   "phpMyAdmin": {
     "role": "OPTIONAL_PRIVATE_DB_ADMIN_UI_NOT_SOURCE_AUTHORITY",
