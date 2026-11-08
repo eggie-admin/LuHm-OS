@@ -148,16 +148,22 @@ def main():
     insist(quarantine["state"] == "QUARANTINED" and
            quarantine["activeTaskWorkersAllowed"] is False, "agent quarantine drift")
     insist(policy["crownStatus"] == "STOP" and policy["productionMutation"] is False and
-           policy["phpMyAdmin"]["installed"] is False, "deployment or Crown overclaim")
+           policy["phpMyAdmin"]["installed"] is False and
+           policy["tests"]["notLiveSql"] is True and
+           policy["tests"]["sqliteOnlyInMemory"] is True, "deployment or Crown overclaim")
     maria_text = MARIA.read_text(encoding="utf-8")
     insist(maria_text.count("ENGINE=InnoDB") == 9
-           and "CREATE DATABASE" in maria_text # negated only in source header
-           and "FOREIGN KEY" in maria_text, "MariaDB review schema disappeared")
+           and "CREATE VIEW machineStateOverview" in maria_text
+           and "FOREIGN KEY" in maria_text
+           and re.search(r"(?im)^\\s*(CREATE DATABASE|GRANT|DROP DATABASE|ALTER USER)\\b", maria_text) is None,
+           "MariaDB schema drift or privileged statement found")
     source_ref = policy["sourceCanon"]["sourceRef"]
     insist(bool(HEX40.fullmatch(source_ref)), "exact source SHA format")
     db = setup()
     try:
         seed(db, source_ref)
+        insist(db.execute("SELECT COUNT(*) FROM machineStateOverview WHERE verifiedBoot='UNKNOWN' AND firmwareKind='unknown' AND sourceRef=?", (source_ref,)).fetchone()[0] == 1,
+               "operator-facing SQL view lost synthetic machine/device/firmware relationship")
         # Domain-specific FK and authority tests for each of 64 distinct
         # CAST coordinates. These are 512 materialized SQL scenarios, not
         # 512 live probes or 512 new agent processes.
