@@ -12,7 +12,7 @@ function renderSourcePolicy() {
   for (const lane of cloudflareCanonLanes) {
     const result = classifyCloudflareRequest({ lane, contentClass: "sha256Asset" });
     const item = document.createElement("li");
-    // No innerHTML, no dynamic remote URLs or scripts: text-only projection.
+    // Render reviewed policy labels as plain text nodes only.
     item.textContent = `${lane}: ${result.state} · ${result.runtime} · Crown ${result.crown}`;
     list.appendChild(item);
   }
