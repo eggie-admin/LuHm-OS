@@ -25,10 +25,10 @@ if window.get("automaticCheckpointEveryCommits") != 25:
     errors.append("automatic checkpoint interval must be 25 commits")
 if window.get("warningAtCommits") != 40:
     errors.append("warning threshold must be 40 commits")
-if window.get("hardStopAtCommits") != 50:
-    errors.append("hard stop must be 50 commits")
-if window.get("ordinaryAuditHistoryMaxCommits") != 50:
-    errors.append("ordinary audit history maximum must be 50 commits")
+if window.get("hardStopAtCommits") != 64:
+    errors.append("hard stop must be 64 commits")
+if window.get("ordinaryAuditHistoryMaxCommits") != 64:
+    errors.append("ordinary audit history maximum must be 64 commits")
 if policy.get("authorityBoundary", {}).get("belldandyMayMutate") is not False:
     errors.append("Belldandy must remain read-only")
 if policy.get("prRunCleanup", {}).get("autoMerge") is not False:
@@ -50,7 +50,7 @@ for capability in (
 
 if training.get("trainingState", {}).get("housekeepingTeaching") != "completeCandidate":
     errors.append("housekeeping training is not completeCandidate")
-for phrase in ("50-commit", "automatic checkpoint", "Kugi"):
+for phrase in ("64-commit", "automatic checkpoint", "Kugi"):
     if phrase.lower() not in skill.lower():
         errors.append(f"Belldandy skill missing housekeeping phrase: {phrase}")
 if "read-only" not in plugin_skill.lower():
@@ -64,7 +64,7 @@ print(json.dumps({
     "status":"GREEN_BELLDANDY_HOUSEKEEPING_SOURCE_CANDIDATE",
     "checkpointEveryCommits":25,
     "warningAtCommits":40,
-    "hardStopAtCommits":50,
+    "hardStopAtCommits":64,
     "belldandyMutationAuthority":False,
     "automaticMerge":False,
     "automaticDelete":False,
