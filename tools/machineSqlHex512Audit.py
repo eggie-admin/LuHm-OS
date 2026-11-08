@@ -155,7 +155,7 @@ def main():
     insist(maria_text.count("ENGINE=InnoDB") == 9
            and "CREATE VIEW machineStateOverview" in maria_text
            and "FOREIGN KEY" in maria_text
-           and re.search(r"(?im)^\\s*(CREATE DATABASE|GRANT|DROP DATABASE|ALTER USER)\\b", maria_text) is None,
+           and re.search(r"(?im)^\s*(CREATE DATABASE|GRANT|DROP DATABASE|ALTER USER)\b", maria_text) is None,
            "MariaDB schema drift or privileged statement found")
     source_ref = policy["sourceCanon"]["sourceRef"]
     insist(bool(HEX40.fullmatch(source_ref)), "exact source SHA format")
