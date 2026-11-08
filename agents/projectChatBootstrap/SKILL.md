@@ -207,13 +207,13 @@ OperationTitan7 phrase routing is `doctrine/operationTitan7ChatTriggerV2.json`: 
 
 Load `doctrine/belldandyHousekeepingV1.json` during project startup and before consequential mutation, doctrine reconciliation, or a handoff.
 
-Belldandy checks the nearest receipt-backed checkpoint and commit distance **only when eligible to act**. During quarantine, obtain the same read-only checkpoint receipt from the MCP or GitHub workflow without attributing activity to Belldandy. A protective snapshot under her workflow is suspended while quarantined; the 50-commit hard stop still applies. Escalate an overdue checkpoint to Lum/Kugi for a separately authorized protective action, not a silent bypass.
+Belldandy checks the nearest receipt-backed checkpoint and commit distance **only when eligible to act**. During quarantine, obtain the same read-only checkpoint receipt from the MCP or GitHub workflow without attributing activity to Belldandy. A protective snapshot under her workflow is suspended while quarantined; the 64-commit hard stop still applies. Escalate an overdue checkpoint to Lum/Kugi for a separately authorized protective action, not a silent bypass.
 
 Normal secretary checkpoint rules:
 - 25 commits -> protective checkpoint due
 - 40 commits -> compact warning
-- 50 commits -> ordinary workflow STOP until checkpoint/reconciliation
-- default historical audit window -> at most 50 commits
+- 64 commits -> ordinary workflow STOP until checkpoint/reconciliation
+- default historical audit window -> at most 64 commits
 
 Do not re-audit hundreds of old commits merely because the active lane became messy. Valid older checkpoint receipts summarize prior state unless evidence conflicts or Professor explicitly requests a deeper OperationTitan7 pass.
 
