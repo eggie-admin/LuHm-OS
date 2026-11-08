@@ -1,0 +1,98 @@
+{
+  "schema": "luhmOs.chatGptToolNamespaceCanon.v1",
+  "status": "SOURCE_CANDIDATE_ONLY",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "packageIdentity": "LuHmOS",
+  "sourceRefLaw": "Exact GitHub main SHA must be recorded separately with each audit receipt.",
+  "canonicalNamespace": "doctrine/namingNamespaceCanonV1.json",
+  "canonicalArchitecture": "doctrine/luHmOSFourLayerArchitectureV1.json",
+  "namespaceOrder": [
+    "machineSqlDragonTail",
+    "repositoryKebabNamespace",
+    "vowelRippedStrictCamelHump",
+    "fullHumanCenteredCamelHump"
+  ],
+  "wireLaw": "Published MCP tool names and ui:// resources are protocol identities. Never mechanically rename or infer authority from them. Only explicit reviewed bindings resolve to camelHump.",
+  "installedSiteBinding": "PRESERVE_EXISTING_PRIVATE_SITE_APP_IDENTITY",
+  "siteToolInventoryProof": "PREVIOUS_CONNECTED_TOOL_DISCOVERY_NOT_SAME_SITE_TOOLS_LIST",
+  "renderSource": "host/mcp/luhmHarness.py",
+  "bindings": [
+    {
+      "fullHumanCenteredCamelHump": "connectionStatus",
+      "machineSqlDragonTail": "CONNECTION_STATUS",
+      "repositoryKebabNamespace": "connection-status",
+      "vowelRippedStrictCamelHump": "cnnctnStts",
+      "externalWireToolName": "luhmConnectionStatus",
+      "sourceLane": "siteOnly",
+      "resourceUri": null,
+      "humanDisplayName": "Connection status"
+    },
+    {
+      "fullHumanCenteredCamelHump": "openCockpit",
+      "machineSqlDragonTail": "OPEN_COCKPIT",
+      "repositoryKebabNamespace": "open-cockpit",
+      "vowelRippedStrictCamelHump": "opnCckpt",
+      "externalWireToolName": "luhm_open_cockpit",
+      "sourceLane": "siteAndRender",
+      "resourceUri": "ui://luhm-os/cockpit-v2.html",
+      "humanDisplayName": "Open cockpit"
+    },
+    {
+      "fullHumanCenteredCamelHump": "openMobileCockpit",
+      "machineSqlDragonTail": "OPEN_MOBILE_COCKPIT",
+      "repositoryKebabNamespace": "open-mobile-cockpit",
+      "vowelRippedStrictCamelHump": "opnMblCckpt",
+      "externalWireToolName": "luhm_open_mobile_cockpit",
+      "sourceLane": "siteAndRender",
+      "resourceUri": "ui://luhm-os/mobile-cockpit-v1.html",
+      "humanDisplayName": "Open mobile cockpit"
+    },
+    {
+      "fullHumanCenteredCamelHump": "openAntenna",
+      "machineSqlDragonTail": "OPEN_ANTENNA",
+      "repositoryKebabNamespace": "open-antenna",
+      "vowelRippedStrictCamelHump": "opnAntnn",
+      "externalWireToolName": "luhm_open_antenna",
+      "sourceLane": "siteOnly",
+      "resourceUri": null,
+      "humanDisplayName": "Open antenna"
+    },
+    {
+      "fullHumanCenteredCamelHump": "openGodotPlayer",
+      "machineSqlDragonTail": "OPEN_GODOT_PLAYER",
+      "repositoryKebabNamespace": "open-godot-player",
+      "vowelRippedStrictCamelHump": "opnGdtPlyr",
+      "externalWireToolName": "luhm_open_godot_player",
+      "sourceLane": "renderOnly",
+      "resourceUri": "ui://luhm-os/godot-player-v1.html",
+      "humanDisplayName": "Open Godot player"
+    }
+  ],
+  "sqlBoundary": {
+    "schema": "host/api/typedLanesV1.sql",
+    "tables": [
+      "streamEvent",
+      "numericStream",
+      "textStream",
+      "booleanStream",
+      "aiManifestStream",
+      "artifactPointer"
+    ],
+    "migrationAuthorized": false
+  },
+  "authorityBoundary": {
+    "aliasesMayExecute": false,
+    "aliasesMayGrantPrivileges": false,
+    "siteBackendChanged": false,
+    "productionMutationAuthorized": false,
+    "agentWorkersMayResume": false,
+    "crownStatus": "STOP"
+  },
+  "remoteProof": {
+    "siteToolsList": "UNVERIFIED",
+    "siteResourcesRead": "UNVERIFIED",
+    "chatGptAndroidUiMount": "UNVERIFIED",
+    "remoteDeployment": "UNVERIFIED"
+  }
+}

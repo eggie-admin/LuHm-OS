@@ -1,0 +1,45 @@
+name: ChatGPT Tool Namespace Canon Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/chatGptToolNamespaceCanonV1.json'
+      - 'doctrine/namingNamespaceCanonV1.json'
+      - 'doctrine/luHmOSFourLayerArchitectureV1.json'
+      - 'host/mcp/luhmHarness.py'
+      - 'host/api/typedLanesV1.sql'
+      - 'tools/chatGptToolNamespaceCanon.py'
+      - 'tests/testChatGptToolNamespaceCanon.py'
+      - '.github/workflows/chatgpt-tool-namespace-canon.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'doctrine/chatGptToolNamespaceCanonV1.json'
+      - 'doctrine/namingNamespaceCanonV1.json'
+      - 'doctrine/luHmOSFourLayerArchitectureV1.json'
+      - 'host/mcp/luhmHarness.py'
+      - 'host/api/typedLanesV1.sql'
+      - 'tools/chatGptToolNamespaceCanon.py'
+      - 'tests/testChatGptToolNamespaceCanon.py'
+      - '.github/workflows/chatgpt-tool-namespace-canon.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  staticNamespace:
+    name: Four-layer aliases and MCP boundary
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify preexisting naming Canon
+        run: python3 tools/namingNamespaceAudit.py
+      - name: Verify camelHump to published tool bindings
+        run: python3 tools/chatGptToolNamespaceCanon.py --resolve luhm_open_mobile_cockpit
+      - name: Reject aliases and authority drift
+        run: python3 -m unittest discover -s tests -p 'testChatGptToolNamespaceCanon.py' -v
