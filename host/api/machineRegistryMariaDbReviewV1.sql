@@ -118,6 +118,18 @@ CREATE TABLE auditCoordinate (
   INDEX auditByTier(auditTier,interactionBeat,surface)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+-- Read-only SQL SELECT convenience in phpMyAdmin's Views/SQL tabs.
+-- Requires the same reviewed permissions as the underlying tables.
+CREATE VIEW machineStateOverview AS
+SELECT m.machineKey, m.displayAlias, m.hostProfile, m.identityProven,
+       d.deviceKey, d.category, d.verifiedBoot,
+       f.firmwareKey, f.firmwareKind, f.versionLabel, f.imageSha256,
+       m.sourceRef
+FROM machineIdentity AS m
+LEFT JOIN deviceRecord AS d ON d.machineKey=m.machineKey
+LEFT JOIN firmwareRecord AS f ON f.deviceKey=d.deviceKey;
+
 -- phpMyAdmin may display foreign-key links/Designer because these are real
 -- InnoDB constraints. Its separate pmadb tables are optional UI metadata,
 -- never LuHm machine source or permission authority. No public admin route.
