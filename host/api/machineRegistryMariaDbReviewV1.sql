@@ -130,6 +130,102 @@ FROM machineIdentity AS m
 LEFT JOIN deviceRecord AS d ON d.machineKey=m.machineKey
 LEFT JOIN firmwareRecord AS f ON f.deviceKey=d.deviceKey;
 
+-- REVIEW ONLY: compile/test exact MariaDB version and check_constraint_checks=ON
+-- before any staged migration. PHP/phpMyAdmin is not required by the Python bridge.
+CREATE TABLE machineComponent (
+  componentKey CHAR(32) CHARACTER SET ascii COLLATE ascii_bin PRIMARY KEY,
+  machineKey CHAR(32) CHARACTER SET ascii COLLATE ascii_bin NULL,
+  componentClass ENUM('cpu','gpu','memory','os','kernel','bios','uefi','bootloader',
+    'firmware','driver','storage','filesystem','partition','network','dns','certificate',
+    'process','service','package','library','plugin','api','model','runtime',
+    'container','vm','display','sensor','media') NOT NULL,
+  displayName VARCHAR(120) NOT NULL,
+  versionLabel VARCHAR(96),
+  contentSha256 CHAR(64) CHARACTER SET ascii COLLATE ascii_bin,
+  observation ENUM('UNKNOWN','SOURCE_ONLY','SYNTHETIC','DEVICE_LOCAL_REQUIRES_RECEIPT') NOT NULL,
+  sourceRef CHAR(40) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  CONSTRAINT fkComponentMachine FOREIGN KEY(machineKey) REFERENCES machineIdentity(machineKey),
+  CONSTRAINT fkComponentSource FOREIGN KEY(sourceRef) REFERENCES sourceRevision(sourceRef),
+  CONSTRAINT ckComponentKeyHex CHECK(componentKey REGEXP '^[0-9a-f]{32}
+-- InnoDB constraints. Its separate pmadb tables are optional UI metadata,
+-- never LuHm machine source or permission authority. No public admin route.
+),
+  CONSTRAINT ckComponentDigest CHECK(contentSha256 IS NULL OR contentSha256 REGEXP '^[0-9a-f]{64}
+-- InnoDB constraints. Its separate pmadb tables are optional UI metadata,
+-- never LuHm machine source or permission authority. No public admin route.
+),
+  INDEX componentByClass(componentClass,sourceRef)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE machineComponentLink (
+  componentKey CHAR(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  relatedKey CHAR(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  relationship ENUM('dependsOn','contains','runsOn','exposes','compatibleWith') NOT NULL,
+  sourceRef CHAR(40) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  PRIMARY KEY(componentKey,relatedKey,relationship),
+  CONSTRAINT fkLinkSource FOREIGN KEY(sourceRef) REFERENCES sourceRevision(sourceRef),
+  CONSTRAINT fkLinkFrom FOREIGN KEY(componentKey) REFERENCES machineComponent(componentKey),
+  CONSTRAINT fkLinkTo FOREIGN KEY(relatedKey) REFERENCES machineComponent(componentKey),
+  CONSTRAINT ckNoSelfLink CHECK(componentKey<>relatedKey)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE castOpcodeRegistry (
+  opcode CHAR(4) CHARACTER SET ascii COLLATE ascii_bin PRIMARY KEY,
+  asciiHex CHAR(8) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  commandName VARCHAR(40) NOT NULL,
+  effect ENUM('INTENT_ONLY') NOT NULL,
+  grantsAuthority TINYINT NOT NULL DEFAULT 0,
+  sourceRef CHAR(40) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  CONSTRAINT ckCastOpcode CHECK(opcode='0xC1' AND asciiHex='43415354'
+    AND commandName='castIntent' AND grantsAuthority=0),
+  CONSTRAINT fkCastOpcodeSource FOREIGN KEY(sourceRef) REFERENCES sourceRevision(sourceRef)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE aiManifestReceipt (
+  manifestKey CHAR(32) CHARACTER SET ascii COLLATE ascii_bin PRIMARY KEY,
+  opcode CHAR(4) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  taskId VARCHAR(80) NOT NULL,
+  scopeId VARCHAR(80) NOT NULL,
+  sourceRef CHAR(40) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  manifestSha256 CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL UNIQUE,
+  manifestJson LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  effect ENUM('INTENT_CANDIDATE_HOLD') NOT NULL,
+  mutationGranted TINYINT NOT NULL DEFAULT 0,
+  crownGranted TINYINT NOT NULL DEFAULT 0,
+  CONSTRAINT fkManifestOpcode FOREIGN KEY(opcode) REFERENCES castOpcodeRegistry(opcode),
+  CONSTRAINT fkManifestSource FOREIGN KEY(sourceRef) REFERENCES sourceRevision(sourceRef),
+  CONSTRAINT ckManifestHex CHECK(manifestKey REGEXP '^[0-9a-f]{32}
+-- InnoDB constraints. Its separate pmadb tables are optional UI metadata,
+-- never LuHm machine source or permission authority. No public admin route.
+
+    AND manifestSha256 REGEXP '^[0-9a-f]{64}
+-- InnoDB constraints. Its separate pmadb tables are optional UI metadata,
+-- never LuHm machine source or permission authority. No public admin route.
+),
+  CONSTRAINT ckManifestJsonValid CHECK(JSON_VALID(manifestJson)=1 AND CHAR_LENGTH(manifestJson)<=16384),
+  CONSTRAINT ckManifestNoGrant CHECK(mutationGranted=0 AND crownGranted=0),
+  CONSTRAINT ckManifestOpcodeInJson CHECK(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.machineBridge.opcode'))='0xC1'),
+  CONSTRAINT ckManifestBrand CHECK(JSON_UNQUOTE(JSON_EXTRACT(manifestJson,'$.machineBridge.displayName'))='LuHm-OS'),
+  CONSTRAINT ckManifestNoSelfGrant CHECK(JSON_EXTRACT(manifestJson,'$.authority.mutation')='false'
+    AND JSON_EXTRACT(manifestJson,'$.authority.green')='false'
+    AND JSON_EXTRACT(manifestJson,'$.authority.crown')='false'),
+  INDEX manifestTaskScope(taskId,scopeId,sourceRef)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE castIntentReceipt (
+  receiptKey VARCHAR(80) PRIMARY KEY,
+  manifestKey CHAR(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL UNIQUE,
+  sourceRef CHAR(40) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  stage ENUM('castBridge') NOT NULL,
+  beat ENUM('hear','resolve','act','verify') NOT NULL,
+  tier ENUM('technologyFastPath','forFuckSake','scorchedEarth','finalForm') NOT NULL,
+  state ENUM('HOLD_SEPARATE_PROFESSOR_CAST') NOT NULL,
+  dispatched TINYINT NOT NULL DEFAULT 0,
+  authorityEffect ENUM('none') NOT NULL,
+  CONSTRAINT fkIntentManifest FOREIGN KEY(manifestKey) REFERENCES aiManifestReceipt(manifestKey),
+  CONSTRAINT fkIntentSource FOREIGN KEY(sourceRef) REFERENCES sourceRevision(sourceRef),
+  CONSTRAINT ckIntentNoDispatch CHECK(dispatched=0)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- phpMyAdmin may display foreign-key links/Designer because these are real
 -- InnoDB constraints. Its separate pmadb tables are optional UI metadata,
 -- never LuHm machine source or permission authority. No public admin route.
