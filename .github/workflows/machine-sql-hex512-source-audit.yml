@@ -13,6 +13,15 @@ on:
       - 'host/api/machineRegistrySqliteV1.sql'
       - 'host/api/machineRegistryMariaDbReviewV1.sql'
       - 'tools/machineSqlHex512Audit.py'
+      - 'tools/gameLayerSqlFixture.py'
+      - 'game/demo/gameLayerBuildInventoryV1.json'
+      - 'game/demo/originalCompanionProfilesV1.json'
+      - 'game/demo/relationshipRulesV2.json'
+      - 'game/demo/modInspirationCatalogV1.json'
+      - 'frontEnd/package.json'
+      - 'frontEnd/prototypes/gameLayerConsole/**'
+      - 'frontEnd/tests/gameLayerConsole.test.mjs'
+      - 'manual/astraGameHardeningHandoffV1.md'
       - 'doctrine/localDualStackGatewayV1.json'
       - 'tools/localDualStackGatewayAudit.py'
       - 'tools/dynamicDnsDryRun.py'
@@ -64,6 +73,26 @@ jobs:
           python3 tools/cloudflareEdgeHardeningAudit.py
       - name: 512 in-memory SQL coordinates and negative controls
         run: python3 tools/machineSqlHex512Audit.py
+      - name: Populate existing SQL with source-bound game layers and research references
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/gameLayerSqlFixture.py
+          python3 -m json.tool game/demo/gameLayerBuildInventoryV1.json >/dev/null
+          python3 tools/gameLayerSqlFixture.py --self-test
+          python3 tools/gameLayerSqlFixture.py --source-ref "$(git rev-parse HEAD)" > "$RUNNER_TEMP/luhm-game-sql-fixture-receipt.json"
+          python3 - <<'PY'
+          import json,os,pathlib
+          r=json.loads((pathlib.Path(os.environ["RUNNER_TEMP"])/"luhm-game-sql-fixture-receipt.json").read_text())
+          assert r["componentRecords"]==19 and r["dependencyLinks"]==17
+          assert r["artifactPointers"]==19 and r["auditCoordinatesHeld"]==512
+          assert r["originalAdultCompanions"]==3 and r["modReferenceEntries"]>=8
+          assert r["sqlForeignKeyViolations"]==0 and r["crown"]=="STOP"
+          assert r["sqlProductionChanged"] is False and r["livePluginUpdated"] is False
+          print("GREEN_ONE_SQL_GAME_LAYERS_SYNTHETIC_FIXTURE_ONLY")
+          PY
+          node --check frontEnd/prototypes/gameLayerConsole/app.mjs
+          node --test frontEnd/tests/gameLayerConsole.test.mjs
       - name: AI JSON + Python CAST source-bound intent and 24 negative controls
         run: python3 tools/machineCastHexBridge.py --self-test
       - name: Browser JS and opt-in jquery intent unit tests
