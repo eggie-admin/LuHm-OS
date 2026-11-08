@@ -1735,8 +1735,7 @@
             "op": "jsonEquals",
             "key": [
               "extensions",
-              "com",
-              "openai",
+              "com.openai",
               "interface",
               "shortDescription"
             ],
@@ -1754,8 +1753,7 @@
             "op": "jsonEquals",
             "key": [
               "extensions",
-              "com",
-              "openai",
+              "com.openai",
               "interface",
               "category"
             ],
