@@ -152,7 +152,7 @@ def main():
            policy["tests"]["notLiveSql"] is True and
            policy["tests"]["sqliteOnlyInMemory"] is True, "deployment or Crown overclaim")
     maria_text = MARIA.read_text(encoding="utf-8")
-    insist(maria_text.count("ENGINE=InnoDB") == 9
+    insist(maria_text.count("ENGINE=InnoDB") == 14
            and "CREATE VIEW machineStateOverview" in maria_text
            and "FOREIGN KEY" in maria_text
            and re.search(r"(?im)^\s*(CREATE DATABASE|GRANT|DROP DATABASE|ALTER USER)\b", maria_text) is None,
