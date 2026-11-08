@@ -108,5 +108,71 @@ FROM machineIdentity AS m
 LEFT JOIN deviceRecord AS d ON d.machineKey=m.machineKey
 LEFT JOIN firmwareRecord AS f ON f.deviceKey=d.deviceKey;
 
+-- Additional machine catalogue categories are normalized facts, not raw hardware records.
+-- No live collectors, executable commands, arbitrary EAV authority, or firmware binary content.
+CREATE TABLE machineComponent (
+  componentKey TEXT PRIMARY KEY CHECK(length(componentKey)=32 AND componentKey NOT GLOB '*[^0-9a-f]*'),
+  machineKey TEXT REFERENCES machineIdentity(machineKey) ON DELETE RESTRICT,
+  componentClass TEXT NOT NULL CHECK(componentClass IN
+    ('cpu','gpu','memory','os','kernel','bios','uefi','bootloader','firmware','driver',
+     'storage','filesystem','partition','network','dns','certificate','process','service',
+     'package','library','plugin','api','model','runtime','container','vm','display','sensor','media')),
+  displayName TEXT NOT NULL CHECK(length(displayName) BETWEEN 1 AND 120),
+  versionLabel TEXT CHECK(versionLabel IS NULL OR length(versionLabel) BETWEEN 1 AND 96),
+  contentSha256 TEXT CHECK(contentSha256 IS NULL OR (length(contentSha256)=64 AND contentSha256 NOT GLOB '*[^0-9a-f]*')),
+  observation TEXT NOT NULL CHECK(observation IN ('UNKNOWN','SOURCE_ONLY','SYNTHETIC','DEVICE_LOCAL_REQUIRES_RECEIPT')),
+  sourceRef TEXT NOT NULL REFERENCES sourceRevision(sourceRef) ON DELETE RESTRICT
+) STRICT;
+CREATE INDEX componentByClass ON machineComponent(componentClass,sourceRef);
+CREATE TABLE machineComponentLink (
+  componentKey TEXT NOT NULL REFERENCES machineComponent(componentKey) ON DELETE RESTRICT,
+  relatedKey TEXT NOT NULL REFERENCES machineComponent(componentKey) ON DELETE RESTRICT,
+  relationship TEXT NOT NULL CHECK(relationship IN ('dependsOn','contains','runsOn','exposes','compatibleWith')),
+  sourceRef TEXT NOT NULL REFERENCES sourceRevision(sourceRef) ON DELETE RESTRICT,
+  PRIMARY KEY(componentKey,relatedKey,relationship),
+  CHECK(componentKey<>relatedKey)
+) STRICT;
+
+-- Opcode is a compact display/transport identifier, never an execution right.
+-- 0xC1 is distinct from the reserved 0x00..0x3F audit-coordinate namespace.
+CREATE TABLE castOpcodeRegistry (
+  opcode TEXT PRIMARY KEY CHECK(opcode='0xC1'),
+  asciiHex TEXT NOT NULL CHECK(asciiHex='43415354'),
+  commandName TEXT NOT NULL CHECK(commandName='castIntent'),
+  effect TEXT NOT NULL CHECK(effect='INTENT_ONLY'),
+  grantsAuthority INTEGER NOT NULL DEFAULT 0 CHECK(grantsAuthority=0),
+  sourceRef TEXT NOT NULL REFERENCES sourceRevision(sourceRef) ON DELETE RESTRICT
+) STRICT;
+CREATE TABLE aiManifestReceipt (
+  manifestKey TEXT PRIMARY KEY CHECK(length(manifestKey)=32 AND manifestKey NOT GLOB '*[^0-9a-f]*'),
+  opcode TEXT NOT NULL REFERENCES castOpcodeRegistry(opcode) ON DELETE RESTRICT,
+  taskId TEXT NOT NULL CHECK(length(taskId) BETWEEN 1 AND 80),
+  scopeId TEXT NOT NULL CHECK(length(scopeId) BETWEEN 1 AND 80),
+  sourceRef TEXT NOT NULL REFERENCES sourceRevision(sourceRef) ON DELETE RESTRICT,
+  manifestSha256 TEXT NOT NULL UNIQUE CHECK(length(manifestSha256)=64 AND manifestSha256 NOT GLOB '*[^0-9a-f]*'),
+  manifestJson TEXT NOT NULL CHECK(length(manifestJson) BETWEEN 2 AND 16384 AND json_valid(manifestJson)),
+  effect TEXT NOT NULL CHECK(effect='INTENT_CANDIDATE_HOLD'),
+  mutationGranted INTEGER NOT NULL DEFAULT 0 CHECK(mutationGranted=0),
+  crownGranted INTEGER NOT NULL DEFAULT 0 CHECK(crownGranted=0),
+  CHECK(json_extract(manifestJson,'$.schema')='luhmOs.aiTaskManifest.v2'),
+  CHECK(json_extract(manifestJson,'$.machineBridge.opcode')='0xC1'),
+  CHECK(json_extract(manifestJson,'$.machineBridge.displayName')='LuHm-OS'),
+  CHECK(json_extract(manifestJson,'$.authority.mutation')=0),
+  CHECK(json_extract(manifestJson,'$.authority.green')=0),
+  CHECK(json_extract(manifestJson,'$.authority.crown')=0)
+) STRICT;
+CREATE INDEX manifestTaskScope ON aiManifestReceipt(taskId,scopeId,sourceRef);
+CREATE TABLE castIntentReceipt (
+  receiptKey TEXT PRIMARY KEY CHECK(length(receiptKey) BETWEEN 1 AND 80),
+  manifestKey TEXT NOT NULL UNIQUE REFERENCES aiManifestReceipt(manifestKey) ON DELETE RESTRICT,
+  sourceRef TEXT NOT NULL REFERENCES sourceRevision(sourceRef) ON DELETE RESTRICT,
+  stage TEXT NOT NULL CHECK(stage='castBridge'),
+  beat TEXT NOT NULL CHECK(beat IN ('hear','resolve','act','verify')),
+  tier TEXT NOT NULL CHECK(tier IN ('technologyFastPath','forFuckSake','scorchedEarth','finalForm')),
+  state TEXT NOT NULL CHECK(state='HOLD_SEPARATE_PROFESSOR_CAST'),
+  dispatched INTEGER NOT NULL DEFAULT 0 CHECK(dispatched=0),
+  authorityEffect TEXT NOT NULL CHECK(authorityEffect='none')
+) STRICT;
+
 -- No secret, credential, physical IMEI/MAC/serial, raw firmware or media BLOB columns.
 -- No SQL trigger may grant CAST, publish software, flash a device or modify source Canon.
