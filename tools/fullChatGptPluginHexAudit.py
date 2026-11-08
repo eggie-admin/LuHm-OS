@@ -180,7 +180,7 @@ def self_test():
     reject(lambda x: x.update(crownStatus="GREEN"))
     reject(lambda x: x["checks"][2]["coordinates"][0]["assertion"].update(file="../../private/secrets.env"))
     reject(lambda x: x["runtimeProofs"].update(chatGptInlineHostMount="GREEN"))
-    reject(lambda x: x["checks"][3]["coordinates"][0]["assertion"].update(expected="notTheTrueSource"))
+    reject(lambda x: x["checks"][3]["coordinates"][0]["assertion"].update(needle="ABSENT_FAKE_MCP_UI_RESOURCE_NONCE"))
     reject(lambda x: x["npm"].update(publish=True))
     if not all(controls):
         errors.append("negativeControlsMissing")
