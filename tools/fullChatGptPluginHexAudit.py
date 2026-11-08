@@ -46,7 +46,7 @@ def at(value, components):
     if not isinstance(components, list) or len(components) > 10 or not components:
         raise ValueError("invalid field path")
     for comp in components:
-        if not isinstance(comp, str) or not comp or comp in ("__proto__", "__class__", ".."):
+        if not isinstance(comp, str) or comp in ("__proto__", "__class__", ".."):
             raise ValueError("invalid field component")
         if isinstance(value, dict):
             if comp not in value:
