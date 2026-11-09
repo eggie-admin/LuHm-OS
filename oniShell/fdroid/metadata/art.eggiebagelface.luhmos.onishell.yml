@@ -1,0 +1,13 @@
+Categories:
+  - System
+License: GPL-3.0-only
+Name: LuHm ONI SHELL
+Summary: Reversible cyber-goth Android home launcher and LuHm cockpit viewer
+Description: |-
+  Independent artist-first Android home shell.
+  Choose it as the Home app or switch back to One UI Home at any time.
+  Launch installed apps and use a local LuHm cockpit preview without root or network access.
+SourceCode: https://github.com/eggie-admin/LuHm-OS
+IssueTracker: https://github.com/eggie-admin/LuHm-OS/issues
+CurrentVersion: 0.1.0-candidate
+CurrentVersionCode: 1
