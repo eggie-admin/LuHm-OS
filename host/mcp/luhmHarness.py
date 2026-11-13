@@ -487,7 +487,7 @@ def register_harness(
     @server.custom_route("/harness/assets/{asset_path:path}", methods=["GET", "HEAD"])
     async def harness_asset(request: Request) -> Response:
         relative = request.path_params.get("asset_path", "")
-        allowed = {"studioDeck.css", "studioDeck.js", "fontStack.css", "luhmSigil.svg", "cockpit.css", "cockpit.js", "titan7Cockpit.js", "jquery-3.7.1.min.js", "jquery-ui-1.14.2.min.js", "agent-loading-sprites.json", "agent-roster-v1.png"}
+        allowed = {"studioDeck.css", "studioDeck.js", "fontStack.css", "luhmSigil.svg", "cockpit.css", "cockpit.js", "titan7Cockpit.js", "samsung-art-desk.js", "samsung-art-desk.css", "jquery-3.7.1.min.js", "jquery-ui-1.14.2.min.js", "agent-loading-sprites.json", "agent-roster-v1.png"}
         parts = Path(relative).parts
         pet_asset = (
             len(parts) == 4

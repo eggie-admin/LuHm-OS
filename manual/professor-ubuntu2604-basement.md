@@ -3,7 +3,7 @@
 ## Workspace contract
 The canonical development workspace is the GitHub repository `eggie-admin/LuHm-OS` inside GitHub Codespaces. `.devcontainer/Dockerfile` creates an Ubuntu **26.04 LTS userland** (headless, no GNOME or display manager). Codespaces uses its provider-hosted kernel; this is not a dedicated Ubuntu Server VM and cannot guarantee 24/7 uptime.
 
-**Professor's LAMP** = Linux + AI + MariaDB + Python. Nginx is the optional local HTTP gate. Do not install Apache/PHP merely because of the conventional acronym.
+**LuHm-OS LEMP (Python variant)** = **Linux + NGINX (Engine-X) + MariaDB + Python 3**. This is the project's chosen expansion, not a claim that all industry LEMP documentation has stopped using PHP. Python 3 remains the canonical LuHm control-plane language. NGINX is the optional, explicitly started HTTP/reverse-proxy gate. PHP-FPM and Apache are not required or provisioned; do not add them merely to match older PHP examples. The prior "Professor's LAMP" phrasing was a project shorthand, not an Apache/PHP deployment receipt.
 
 The image installs Python 3 and venv, Node/npm, Nginx, MariaDB, Certbot CLI, Blender, GIMP, FFmpeg, Xvfb, and a SHA-256-verified **Godot 4.7.2** binary (amd64). The repository contains the doctrine and project sources. This does **not** prove running AI models, active services, hardware acceleration, physical-device status, or in-chat cockpit mounting.
 

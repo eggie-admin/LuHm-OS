@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="/harness/assets/fontStack.css">
 <link rel="stylesheet" href="/harness/assets/cockpit.css">
 <link rel="stylesheet" href="/harness/assets/studioDeck.css">
+<link rel="stylesheet" href="/harness/assets/samsung-art-desk.css">
 </head>
 <body>
 <aside class="agentLoadingScreen" id="agentLoadingScreen" role="status" aria-live="polite">
@@ -152,6 +153,44 @@
   </section>
 </section>
 
+
+<section class="panel samsungArtDesk" id="samsung-art-desk" aria-labelledby="samsung-art-desk-title">
+  <div class="panelHead"><h2 id="samsung-art-desk-title">✏ Samsung Art Desk · Seven-shot storyboard</h2>
+    <span class="tiny">Local touch drawing · source candidate</span></div>
+  <p>Draw and arrange your team's seven-shot scene. Export an editable JSON handoff or PNG. No server uploads; no automatic Canon approval.</p>
+  <div class="samsungArtInputs">
+    <label>Project <input id="samsung-project" maxlength="80" value="into-the-warp" autocomplete="off"></label>
+    <label>Artist <input id="samsung-artist" maxlength="60" value="Professor" autocomplete="off"></label>
+    <label>Pen color <input id="samsung-color" type="color" value="#20202e"></label>
+    <label>Brush size <input id="samsung-width" type="range" min="1" max="24" value="5"></label>
+  </div>
+  <nav id="samsung-shots" class="samsungShots" aria-label="Storyboard shot selection"></nav>
+  <div class="samsungCanvasWrap"><canvas id="samsung-canvas" width="720" height="405" aria-label="Touch drawing canvas for selected shot">Canvas unavailable. Use the notes field below.</canvas></div>
+  <div class="samsungArtToolbar" role="group" aria-label="Sketch tools">
+    <button type="button" id="samsung-pen" aria-pressed="true">✏ Pen</button>
+    <button type="button" id="samsung-eraser" aria-pressed="false">◻ Eraser</button>
+    <button type="button" id="samsung-undo">↶ Undo stroke</button>
+    <button type="button" id="samsung-clear">Clear shot</button>
+  </div>
+  <div class="samsungArtInputs">
+    <label>Shot direction<textarea id="samsung-notes" maxlength="1200" rows="3" placeholder="Camera, pose, action, mood, composition"></textarea></label>
+    <label>Dialogue speaker
+      <select id="samsung-speaker">
+        <option value="lum">Lum</option><option value="urd">Urd</option>
+        <option value="belldandy">Belldandy</option><option value="skuld">Skuld</option>
+        <option value="yume">Yume</option><option value="professor">Professor</option>
+        <option value="none">None</option>
+      </select>
+    </label>
+  </div>
+  <div class="samsungArtToolbar" role="group" aria-label="Save and hand off">
+    <button type="button" id="samsung-save">⬇ Export editable storyboard</button>
+    <button type="button" id="samsung-png">⬇ Export shot PNG</button>
+    <label class="samsungImport">Import team storyboard <input id="samsung-import" type="file" accept=".json,application/json"></label>
+  </div>
+  <p class="tiny" id="samsung-status" role="status" aria-live="polite">Draft only. Export before leaving. Shared files may be transferred using approved private Drive; no real-time sync or host writes.</p>
+</section>
+
 <section class="panel libraryShelf">
   <div class="panelHead"><h2>Library / donor policy</h2><span class="tiny">production stays same-origin</span></div>
   <div id="libraryList" class="chips"></div>
@@ -165,5 +204,6 @@
 <script src="/harness/assets/titan7Cockpit.js" defer></script>
 <script src="/harness/assets/studioDeck.js" defer></script>
 <script src="/harness/assets/cockpit.js" defer></script>
+<script src="/harness/assets/samsung-art-desk.js" defer></script>
 </body>
 </html>
