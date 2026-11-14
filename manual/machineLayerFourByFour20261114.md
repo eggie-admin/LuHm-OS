@@ -40,6 +40,19 @@ python3 tools/machineLayerSql.py rx --db /tmp/luhm-receiver.sqlite --input /tmp/
 
 The desired Render Cron candidate is recorded in `doctrine/machineSqlCronCandidateV1.json` at 30-minute intervals, **not created or running**. Before any activation: select workspace, verify existing DB and pricing, take backups, prove TLS and DB grants, apply scoped migration with separate authority, confirm exact SHA, run one manual TX/RX and read-back, then authorize the scheduled job. A cron schedule alone is not transmission proof. The current profile's no-unapproved-paid-services rule remains in force.
 
+## Schema drift: keep event and machine artifact pointers separate
+
+The current typed-event schema `host/api/typedLanesV1.sql` defines `artifactPointer(artifactId,eventId,fileName,sha256,storageLane,logicalFileRef,sizeBytes)`, linked to `streamEvent`. The unmerged machine registry in PR #537 defines a different `artifactPointer(artifactKey,sha256,sizeBytes,storageLane,logicalRef,sourceRef,verification)`, linked to `sourceRevision`. **These names collide and their foreign keys are not equivalent**. No automatic `CREATE TABLE` or schema merge is approved. The preferred eventual route is a distinctly named `machineArtifactPointer` table and explicit, reviewed data projection. Confirm compatibility through a schema diff, FK checks, duplicate-key tests, backup and restore rehearsal, and a human-approved migration on a *chosen* database. The machine SQL cron must not run against a partially migrated schema.
+
+## Local snapshot recovery
+
+Use the existing local SQLite files, not a new SQL server. A new private backup command uses SQLite's online backup API, writes a new file without overwriting, and then independently validates SHA-256, `PRAGMA integrity_check`, `foreign_key_check`, and all 16 canonical source-mirrored typed records. This is a portable local recovery test only and **never restores over an operational DB**.
+
+```sh
+python3 tools/machineLayerSql.py backup --db /tmp/luhm-machine.sqlite --output /tmp/luhm-machine-backup.sqlite
+python3 tools/machineLayerSql.py verifyBackup --input /tmp/luhm-machine-backup.sqlite --digest <exact-sha256-from-backup-receipt>
+```
+
 ## Device and firmware path: software before hardware
 
 Never gather arbitrary firmware into a universal kernel. No device-specific model numbers, USB IDs, signed vendor packages, kernel KMI, licensing or physical smoke receipts have been verified for the requested Epson, Canon, Nikon, Wacom, wireless keyboards, displays, Raspberry Pi or NVIDIA board. Samsung SM-S721U1 is present in current app environment metadata; SM-X400 is a repository Android test target, not a physical-device receipt.
