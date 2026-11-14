@@ -107,6 +107,7 @@ func _wire_android_web3() -> void:
         return
     android_web3_plugin = Engine.get_singleton("AndroidWeb3Cockpit")
     android_web3_plugin.connect("world_requested", enterWorldMode)
+    android_web3_plugin.connect("aramoor_requested", _enter_aramoor_mode)
     android_web3_plugin.connect("oni_requested", _on_android_oni_requested)
     android_web3_plugin.connect("cockpit_ready", _on_android_web3_ready)
     android_web3_plugin.connect("bridge_error", _on_android_web3_error)
