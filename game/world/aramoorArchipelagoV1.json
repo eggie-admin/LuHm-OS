@@ -1,0 +1,225 @@
+{
+  "schema": "luhmOs.aramoorArchipelago.v1",
+  "title": "Ghost Girls of Aramoor | Twin Tides",
+  "status": "PRIVATE_SOURCE_CANDIDATE",
+  "canonWorld": "Project Premonition",
+  "seed": 1711,
+  "cellSize": 26,
+  "note": "Original archipelago expansion based on the verified coastal pirate-ghost premise. Exact one-page module map and encounters have not been ingested.",
+  "source": {
+    "title": "The Ghosts of Aramoor (system agnostic)",
+    "creator": "JunkyardTornado",
+    "url": "https://junkyardtornado.itch.io/the-ghosts-of-aramoor",
+    "adventureLicense": "CC BY-SA 4.0",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "modulePdfInspected": false,
+    "derivativeNarrativeShareAlike": true,
+    "artworkLicenseSeparate": true
+  },
+  "worlds": [
+    "livingTide",
+    "ghostTide"
+  ],
+  "zoneBudget": {
+    "maxZones": 12,
+    "maxLinks": 20,
+    "maxDecorPerZone": 7,
+    "maxShadowCasters": 1,
+    "maxLocalLights": 9
+  },
+  "artPolicy": {
+    "publicAllowed": false,
+    "privateMasterOnly": true,
+    "canonCharacterIds": [
+      "lum",
+      "urd",
+      "belldandy",
+      "skuld"
+    ],
+    "assetImportRequiresProvenance": true
+  },
+  "zones": [
+    {
+      "id": "aramoorHarbor",
+      "name": "Aramoor Harbor",
+      "grid": [
+        0,
+        0
+      ],
+      "color": "#376a74",
+      "accent": "#f8ac91",
+      "biome": "lanternCoast",
+      "beat": "The lighthouse has begun answering voices from the fog.",
+      "npc": "lum",
+      "prop": "lantern"
+    },
+    {
+      "id": "saltglassBoardwalk",
+      "name": "Saltglass Boardwalk",
+      "grid": [
+        1,
+        0
+      ],
+      "color": "#3b6b73",
+      "accent": "#80d8da",
+      "biome": "pier",
+      "beat": "A bridge of glassy salt remembers every crossing.",
+      "npc": "belldandy",
+      "prop": "lantern"
+    },
+    {
+      "id": "seabirdCliffs",
+      "name": "Seabird Cliffs",
+      "grid": [
+        2,
+        0
+      ],
+      "color": "#7d7184",
+      "accent": "#f3cf9c",
+      "biome": "seaCliff",
+      "beat": "Ancient wind chimes guide travelers toward the reef.",
+      "npc": "skuld",
+      "prop": "spire"
+    },
+    {
+      "id": "moonfernSanctuary",
+      "name": "Moonfern Sanctuary",
+      "grid": [
+        0,
+        1
+      ],
+      "color": "#456d5b",
+      "accent": "#c7a1fa",
+      "biome": "luminousGrove",
+      "beat": "The living world holds memories in midnight flowers.",
+      "npc": "belldandy",
+      "prop": "grove"
+    },
+    {
+      "id": "starlitMarket",
+      "name": "Starlit Market",
+      "grid": [
+        1,
+        1
+      ],
+      "color": "#78526a",
+      "accent": "#f4bbd8",
+      "biome": "tideTown",
+      "beat": "Market bells sound only when both tides align.",
+      "npc": "urd",
+      "prop": "lantern"
+    },
+    {
+      "id": "tideClockRuins",
+      "name": "Tideclock Ruins",
+      "grid": [
+        2,
+        1
+      ],
+      "color": "#586e81",
+      "accent": "#e8af7b",
+      "biome": "forgottenTemple",
+      "beat": "A broken clock marks passages between twin histories.",
+      "npc": "skuld",
+      "prop": "spire"
+    },
+    {
+      "id": "echoReef",
+      "name": "Echo Reef",
+      "grid": [
+        0,
+        2
+      ],
+      "color": "#376b7a",
+      "accent": "#79e5ef",
+      "biome": "shimmerReef",
+      "beat": "Ghost lights drift above submerged treasure markers.",
+      "npc": "urd",
+      "prop": "coral"
+    },
+    {
+      "id": "ghostShipCavern",
+      "name": "Ghost Ship Cavern",
+      "grid": [
+        1,
+        2
+      ],
+      "color": "#484b74",
+      "accent": "#ee91cc",
+      "biome": "pirateSeaCave",
+      "beat": "Restless pirate spirits seek the hold of a hidden ship.",
+      "npc": "urd",
+      "prop": "cave"
+    },
+    {
+      "id": "stormlightKeep",
+      "name": "Stormlight Keep",
+      "grid": [
+        2,
+        2
+      ],
+      "color": "#5b567a",
+      "accent": "#f1dfaa",
+      "biome": "stormTower",
+      "beat": "The last beacon can reconcile the living and ghost tides.",
+      "npc": "lum",
+      "prop": "spire"
+    }
+  ],
+  "links": [
+    [
+      "aramoorHarbor",
+      "saltglassBoardwalk"
+    ],
+    [
+      "aramoorHarbor",
+      "moonfernSanctuary"
+    ],
+    [
+      "saltglassBoardwalk",
+      "seabirdCliffs"
+    ],
+    [
+      "saltglassBoardwalk",
+      "starlitMarket"
+    ],
+    [
+      "seabirdCliffs",
+      "tideClockRuins"
+    ],
+    [
+      "moonfernSanctuary",
+      "starlitMarket"
+    ],
+    [
+      "moonfernSanctuary",
+      "echoReef"
+    ],
+    [
+      "starlitMarket",
+      "tideClockRuins"
+    ],
+    [
+      "starlitMarket",
+      "ghostShipCavern"
+    ],
+    [
+      "tideClockRuins",
+      "stormlightKeep"
+    ],
+    [
+      "echoReef",
+      "ghostShipCavern"
+    ],
+    [
+      "ghostShipCavern",
+      "stormlightKeep"
+    ]
+  ],
+  "gates": {
+    "automaticCanonPromotion": false,
+    "automaticPublication": false,
+    "autonomousAgents": false,
+    "crown": "STOP"
+  }
+}
