@@ -1,0 +1,365 @@
+{
+  "schema": "luhmOs.machineLayerReconciliation.v1",
+  "product": "LuHm-OS",
+  "status": "PROPOSED_SOURCE_SNAPSHOT",
+  "snapshotDate": "2026-11-14",
+  "canonicalRepo": "eggie-admin/LuHm-OS",
+  "canonicalBranch": "main",
+  "baselineSourceRef": "a6e3ce843d099361a8696eab68869dcf367c4f26",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "identity": {
+    "boss": "lum",
+    "registeredAgents": 15,
+    "agentWorkerExecution": "QUARANTINED",
+    "providerAgentsLive": false,
+    "defaultWhenPluginInvoked": "openReadOnlyCockpitIfHostSelectsTool",
+    "forcedHostWidgetPopup": false
+  },
+  "layers": [
+    {
+      "tier": 0,
+      "id": "coreLibrary"
+    },
+    {
+      "tier": 1,
+      "id": "pluginExtension"
+    },
+    {
+      "tier": 2,
+      "id": "classWidgetOrganization"
+    },
+    {
+      "tier": 3,
+      "id": "stubAdapterBoundary"
+    }
+  ],
+  "escalation": {
+    "levels": [
+      {
+        "tier": 0,
+        "id": "readOnlyProbe",
+        "meaning": "deterministic read-only evidence; no human action necessary"
+      },
+      {
+        "tier": 1,
+        "id": "localCandidate",
+        "meaning": "reversible local source or SQLite draft with review"
+      },
+      {
+        "tier": 2,
+        "id": "supervisedExternal",
+        "meaning": "explicitly selected remote workspace or physical device, scoped credentials and receipt"
+      },
+      {
+        "tier": 3,
+        "id": "professorPromotion",
+        "meaning": "production mutation, signing, custom kernel or deployment requires exact CAST source/scope and independent proof"
+      }
+    ],
+    "lanes": [
+      {
+        "id": "deviceInterface",
+        "target": "peripheral driver and firmware compatibility"
+      },
+      {
+        "id": "graphicsRuntime",
+        "target": "Godot renderer cross-platform selection"
+      },
+      {
+        "id": "dataTransport",
+        "target": "SQLite typed lanes / future TLS Postgres push-pull"
+      },
+      {
+        "id": "orchestraStudio",
+        "target": "Lum-led ChatGPT plugin plus Blender/Python art cockpit"
+      }
+    ],
+    "cells": [
+      {
+        "cellId": "readOnlyProbeDeviceInterface",
+        "tier": 0,
+        "laneId": "deviceInterface",
+        "state": "SOURCE_AUDIT_ONLY",
+        "allowedAuthority": "READ_ONLY"
+      },
+      {
+        "cellId": "readOnlyProbeGraphicsRuntime",
+        "tier": 0,
+        "laneId": "graphicsRuntime",
+        "state": "SOURCE_AUDIT_ONLY",
+        "allowedAuthority": "READ_ONLY"
+      },
+      {
+        "cellId": "readOnlyProbeDataTransport",
+        "tier": 0,
+        "laneId": "dataTransport",
+        "state": "SOURCE_AUDIT_ONLY",
+        "allowedAuthority": "READ_ONLY"
+      },
+      {
+        "cellId": "readOnlyProbeOrchestraStudio",
+        "tier": 0,
+        "laneId": "orchestraStudio",
+        "state": "SOURCE_AUDIT_ONLY",
+        "allowedAuthority": "READ_ONLY"
+      },
+      {
+        "cellId": "localCandidateDeviceInterface",
+        "tier": 1,
+        "laneId": "deviceInterface",
+        "state": "LOCAL_PROOF_PENDING",
+        "allowedAuthority": "PROFESSOR_REVIEW_REQUIRED"
+      },
+      {
+        "cellId": "localCandidateGraphicsRuntime",
+        "tier": 1,
+        "laneId": "graphicsRuntime",
+        "state": "LOCAL_PROOF_PENDING",
+        "allowedAuthority": "PROFESSOR_REVIEW_REQUIRED"
+      },
+      {
+        "cellId": "localCandidateDataTransport",
+        "tier": 1,
+        "laneId": "dataTransport",
+        "state": "LOCAL_PROOF_PENDING",
+        "allowedAuthority": "PROFESSOR_REVIEW_REQUIRED"
+      },
+      {
+        "cellId": "localCandidateOrchestraStudio",
+        "tier": 1,
+        "laneId": "orchestraStudio",
+        "state": "LOCAL_PROOF_PENDING",
+        "allowedAuthority": "PROFESSOR_REVIEW_REQUIRED"
+      },
+      {
+        "cellId": "supervisedExternalDeviceInterface",
+        "tier": 2,
+        "laneId": "deviceInterface",
+        "state": "BLOCKED_EXTERNAL_PROOF",
+        "allowedAuthority": "PROFESSOR_REVIEW_REQUIRED"
+      },
+      {
+        "cellId": "supervisedExternalGraphicsRuntime",
+        "tier": 2,
+        "laneId": "graphicsRuntime",
+        "state": "BLOCKED_EXTERNAL_PROOF",
+        "allowedAuthority": "PROFESSOR_REVIEW_REQUIRED"
+      },
+      {
+        "cellId": "supervisedExternalDataTransport",
+        "tier": 2,
+        "laneId": "dataTransport",
+        "state": "BLOCKED_EXTERNAL_PROOF",
+        "allowedAuthority": "PROFESSOR_REVIEW_REQUIRED"
+      },
+      {
+        "cellId": "supervisedExternalOrchestraStudio",
+        "tier": 2,
+        "laneId": "orchestraStudio",
+        "state": "BLOCKED_EXTERNAL_PROOF",
+        "allowedAuthority": "PROFESSOR_REVIEW_REQUIRED"
+      },
+      {
+        "cellId": "professorPromotionDeviceInterface",
+        "tier": 3,
+        "laneId": "deviceInterface",
+        "state": "BLOCKED_EXTERNAL_PROOF",
+        "allowedAuthority": "PROFESSOR_REVIEW_REQUIRED"
+      },
+      {
+        "cellId": "professorPromotionGraphicsRuntime",
+        "tier": 3,
+        "laneId": "graphicsRuntime",
+        "state": "BLOCKED_EXTERNAL_PROOF",
+        "allowedAuthority": "PROFESSOR_REVIEW_REQUIRED"
+      },
+      {
+        "cellId": "professorPromotionDataTransport",
+        "tier": 3,
+        "laneId": "dataTransport",
+        "state": "BLOCKED_EXTERNAL_PROOF",
+        "allowedAuthority": "PROFESSOR_REVIEW_REQUIRED"
+      },
+      {
+        "cellId": "professorPromotionOrchestraStudio",
+        "tier": 3,
+        "laneId": "orchestraStudio",
+        "state": "BLOCKED_EXTERNAL_PROOF",
+        "allowedAuthority": "PROFESSOR_REVIEW_REQUIRED"
+      }
+    ]
+  },
+  "deviceFamilies": [
+    {
+      "id": "samsungAndroidPhone",
+      "vendor": "Samsung",
+      "model": "SM-S721U1",
+      "record": "userSessionDeviceMetadata",
+      "proof": "NOT_PHYSICALLY_PROBED",
+      "firmwareFlashAllowed": false
+    },
+    {
+      "id": "samsungTablet",
+      "vendor": "Samsung",
+      "model": "SM-X400",
+      "record": "repositoryAndroidTarget",
+      "proof": "NOT_PHYSICALLY_PROBED",
+      "firmwareFlashAllowed": false
+    },
+    {
+      "id": "samsungLiteTablet",
+      "vendor": "Samsung",
+      "model": null,
+      "record": "userPreviouslyDescribedTablet",
+      "proof": "MODEL_UNVERIFIED",
+      "firmwareFlashAllowed": false
+    },
+    {
+      "id": "raspberryPi",
+      "vendor": "Raspberry Pi",
+      "model": null,
+      "record": "proposedLinuxDesktop",
+      "proof": "OWNERSHIP_AND_MODEL_UNVERIFIED",
+      "firmwareFlashAllowed": false
+    },
+    {
+      "id": "nvidiaDesktop",
+      "vendor": "NVIDIA",
+      "model": null,
+      "record": "preferredDesktopGpu",
+      "proof": "GPU_UNVERIFIED",
+      "firmwareFlashAllowed": false
+    },
+    {
+      "id": "epson",
+      "vendor": "Epson",
+      "model": null,
+      "record": "userRequestedCompatibility",
+      "proof": "DEVICE_UNVERIFIED",
+      "firmwareFlashAllowed": false
+    },
+    {
+      "id": "canon",
+      "vendor": "Canon",
+      "model": null,
+      "record": "userRequestedCompatibility",
+      "proof": "DEVICE_UNVERIFIED",
+      "firmwareFlashAllowed": false
+    },
+    {
+      "id": "nikon",
+      "vendor": "Nikon",
+      "model": null,
+      "record": "userRequestedCompatibility",
+      "proof": "DEVICE_UNVERIFIED",
+      "firmwareFlashAllowed": false
+    },
+    {
+      "id": "wacom",
+      "vendor": "Wacom",
+      "model": null,
+      "record": "userRequestedCompatibility",
+      "proof": "DEVICE_UNVERIFIED",
+      "firmwareFlashAllowed": false
+    },
+    {
+      "id": "wirelessKeyboard",
+      "vendor": null,
+      "model": null,
+      "record": "userRequestedCompatibility",
+      "proof": "DEVICE_UNVERIFIED",
+      "firmwareFlashAllowed": false
+    },
+    {
+      "id": "lcdMonitor",
+      "vendor": null,
+      "model": null,
+      "record": "userRequestedCompatibility",
+      "proof": "DEVICE_UNVERIFIED",
+      "firmwareFlashAllowed": false
+    },
+    {
+      "id": "webcamCage",
+      "vendor": null,
+      "model": null,
+      "record": "historicalSixWebcamProposal",
+      "proof": "DEVICES_UNVERIFIED",
+      "firmwareFlashAllowed": false
+    }
+  ],
+  "driverPolicy": {
+    "hostDriverFirst": true,
+    "noRawFirmwareDump": true,
+    "noFirmwareFlashing": true,
+    "noCustomKernelUntilDeviceMatrixAndSignedModuleProof": true,
+    "serialsMacsAndUniqueIdsExcluded": true,
+    "requiredChecks": [
+      "kernelRelease",
+      "vendorProductIdsRedactedOrApproved",
+      "driverBind",
+      "udevPermissions",
+      "SecureBootLockdown",
+      "TPMOrKeystoreCapabilities",
+      "firmwareProvenanceLicense",
+      "IOMMUCaps",
+      "vulkaninfo",
+      "inputAndDisplaySmoke"
+    ],
+    "camera": "libgphoto2/PTP for compatible Canon Nikon cameras",
+    "printers": "CUPS/driverlessIPP and vendor driver only when necessary",
+    "scanners": "SANE/eSCL when supported",
+    "tablets": "libinput+linuxwacom",
+    "input": "HID/libinput",
+    "monitors": "DRM/KMS/EDID redacted"
+  },
+  "renderProfiles": {
+    "desktopPreferred": "Forward+ Vulkan on validated NVIDIA GPU",
+    "windowsFallback": "Direct3D12",
+    "macOS": "Metal",
+    "android": "Mobile Vulkan only if device passes",
+    "web": "Compatibility OpenGL/WebGL2 required",
+    "legacyFallback": "Compatibility OpenGL",
+    "activeProjectUnchanged": "GL Compatibility",
+    "unverifiedClaim": "NVIDIA GPU model and Vulkan runtime unverified",
+    "atiBan": false
+  },
+  "database": {
+    "localExisting": "host/api/typedLanesV1.sql",
+    "localExistingAdapter": "tools/typedSqlStub.py",
+    "remoteReview": "host/api/typedPostgresReviewV1.sql",
+    "remoteState": "BLOCKED_WORKSPACE_UNSELECTED",
+    "cronState": "SOURCE_NOT_DEPLOYED",
+    "remoteSyncLaw": "least privilege TLS transaction+verified read-back, no public SQL endpoint",
+    "allowSeedingProposedData": true,
+    "allowProductionDdl": false,
+    "credentialsInGitHub": false
+  },
+  "creative": {
+    "godotMainScene": "res://scenes/Main.tscn",
+    "optionalNightglassCandidate": "PR #547",
+    "controlRoomCandidate": "PR #546",
+    "blenderPython": "OFFLINE_AUTHORING_BOUNDARY",
+    "assetStorage": "Google Drive private; hashes and pointers in GitHub",
+    "aiDrafts": "review before source",
+    "autoCutscenePublish": false
+  },
+  "requiredForFullGreen": [
+    "selectRenderWorkspace",
+    "verifyActualRemotePostgresInstanceAndPlan",
+    "approveScopedDatabaseMigrationAndBackups",
+    "proveProtectedRemoteSqlTxRx",
+    "proveCronJobRunReceipt",
+    "proveInstalledPluginAppWidgetHostInvocation",
+    "proveGodotAndBlenderIntegrationWithAssets",
+    "proveExactDeviceIdsAndFirmwareLicenses",
+    "proveGPUProfilesOnTargetPlatforms",
+    "exactSourceCIAndReview",
+    "singleUseScopedCast",
+    "physicalSamsungAndRollbackProof"
+  ],
+  "promotion": false,
+  "crownStatus": "STOP",
+  "autoMerge": false,
+  "autoDeploy": false,
+  "autoKernelMutation": false
+}
