@@ -8,6 +8,14 @@ on:
       - 'scripts/world/aramoorArchipelagoBuilder.gd'
       - 'scripts/main.gd'
       - 'game/world/aramoorArchipelagoV1.json'
+      - 'frontEnd/index.html'
+      - 'frontEnd/app.js'
+      - 'frontEnd/styles.css'
+      - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
+      - 'doctrine/androidWeb3BridgeV2.json'
+      - 'receipts/aramoorSamsungFieldObservation20261114.json'
+      - 'tools/aramoorSamsungPlayAudit.py'
+      - 'tools/androidWeb3CockpitAudit.py'
   workflow_dispatch:
 
 permissions:
@@ -38,6 +46,8 @@ jobs:
           python3 tools/candidateGate.py
           python3 tools/aramoorWorldAudit.py
           python3 tools/godot4MilestoneReconciliationAudit.py
+          python3 tools/aramoorSamsungPlayAudit.py
+          python3 tools/androidWeb3CockpitAudit.py
           python3 tools/fdroidTabletSourceAudit.py
           test ! -e assets/lum/luhm.glb
           test ! -e assets/lum/luhmRunning.glb
@@ -120,18 +130,18 @@ jobs:
           s=p.read_text()
           changes={
             'package/unique_name="art.eggiebagelface.luhmos.testing"':
-              'package/unique_name="art.eggiebagelface.luhmos.aramoorpreview"',
+              'package/unique_name="art.eggiebagelface.luhmos.aramoorplaytest"',
             'package/name="LuHm OS Samsung Candidate"':
-              'package/name="Aramoor Walkaround Preview"',
+              'package/name="Aramoor PLAY Test"',
             'version/name="1.0.16-samsunglayout.1"':
-              'version/name="0.1.0-aramoor-test"',
+              'version/name="0.2.0-aramoor-play"',
           }
           for old,new in changes.items():
               assert s.count(old)==1,("SOURCE_PRESET_DRIFT",old)
               s=s.replace(old,new)
           p.write_text(s)
           PY
-          grep -q 'package/unique_name="art.eggiebagelface.luhmos.aramoorpreview"' export_presets.cfg
+          grep -q 'package/unique_name="art.eggiebagelface.luhmos.aramoorplaytest"' export_presets.cfg
           test ! -e assets/lum/luhm.glb
           test ! -e assets/lum/luhmRunning.glb
 
@@ -175,7 +185,7 @@ jobs:
           "$BT/apksigner" verify --verbose --print-certs "$APK" > "$OUT/signature.txt"
           "$BT/zipalign" -c -P 16 -v 4 "$APK" > "$OUT/zipalign.txt"
           sha256sum "$APK" > "$OUT/apk-sha256.txt"
-          grep -q "package: name='art.eggiebagelface.luhmos.aramoorpreview'" "$OUT/badging.txt"
+          grep -q "package: name='art.eggiebagelface.luhmos.aramoorplaytest'" "$OUT/badging.txt"
           grep -q "targetSdkVersion:'36'" "$OUT/badging.txt"
           grep -q "native-code: 'arm64-v8a'" "$OUT/badging.txt"
           grep -q 'application-debuggable' "$OUT/badging.txt"
@@ -199,13 +209,15 @@ jobs:
               "status":"DEBUG_SIGNED_APK_CANDIDATE_NOT_DEVICE_PROVEN",
               "exactSourceSha":os.environ["EXACT_SOURCE_SHA"],
               "canonicalBaseSha":"cd90b6963baa0e90289ca3228e5ab220cd419714",
-              "applicationId":"art.eggiebagelface.luhmos.aramoorpreview",
+              "applicationId":"art.eggiebagelface.luhmos.aramoorplaytest",
               "apkSha256":hashlib.sha256(apk.read_bytes()).hexdigest(),
               "signerCertificateSha256":m.group(1).lower(),
               "abi":"arm64-v8a",
               "targetSdk":36,"debuggable":True,
               "disposableSigner":True,"ownerReleaseSigner":False,
               "preservesExistingLuHmInstall":True,
+              "previousPreviewPackageId":"art.eggiebagelface.luhmos.aramoorpreview",
+              "oldPreviewUnmodified":True,"inPlaceUpgradeToOldPreview":False,
               "deviceInstallProven":False,"deviceTouchProven":False,
               "privilegedSystemInstall":False,"privateDonorModelsIncluded":False,
               "publicReleasePublished":False,"crown":"STOP"}
