@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0915"><title>LuHm-OS Canon Control Room</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div class="appShell">
+  <aside class="rail" id="navRail" aria-label="XMBI navigation, swipe vertically here">
+    <div class="railBrand"><div class="sigil">◇</div><span>LuHm<small>OS</small></span></div>
+    <div class="railLabel">XMBI / CANON</div>
+    <button class="railArrow" id="navPrevious" aria-label="Previous view">⌃</button>
+    <nav id="viewNav" class="viewNav" aria-label="Control room views">
+      <button type="button" class="navButton isActive" data-view="overview"><span>◈</span><em>Overview</em></button>
+      <button type="button" class="navButton" data-view="systems"><span>⬡</span><em>System map</em></button>
+      <button type="button" class="navButton" data-view="assets"><span>▦</span><em>Assets</em></button>
+      <button type="button" class="navButton" data-view="agents"><span>✦</span><em>Agents</em></button>
+      <button type="button" class="navButton" data-view="compliance"><span>☷</span><em>Compliance</em></button>
+      <button type="button" class="navButton" data-view="gaps"><span>◬</span><em>Gap tracker</em></button>
+      <button type="button" class="navButton" data-view="audit"><span>◎</span><em>Audit pipeline</em></button>
+      <button type="button" class="navButton" data-view="deploy"><span>⇧</span><em>Build / deploy</em></button>
+    </nav>
+    <button class="railArrow" id="navNext" aria-label="Next view">⌄</button>
+    <div class="railFoot">Swipe ↑↓ or use Alt + ↑↓<br>NO AUTO CAST</div>
+  </aside>
+  <main class="workspace" id="workspace">
+    <header class="topBar"><div><div class="eyebrow">PROJECT PREMONITION / PROJECT HYDRA LEGACY</div><h1>LuHm-OS <span>Canon Control Room</span></h1></div>
+    <div class="topActions"><span class="statusPill">● CANDIDATE / NOT DEPLOYED</span><button id="exportButton" class="outlineButton">Export state ↓</button><label class="outlineButton uploadButton" for="importFile">Import state ↑</label><input type="file" id="importFile" accept=".json,application/json" hidden></div></header>
+    <div class="truthBar"><div><strong>ONE SOURCE OF TRUTH</strong><a target="_blank" rel="noopener noreferrer" href="https://github.com/eggie-admin/LuHm-OS/blob/main/doctrine/currentSourceTruthV3.json">doctrine/currentSourceTruthV3.json ↗</a></div><span id="snapshotStamp">Source snapshot / browser-local edits only</span></div>
+    <div id="liveNotice" class="notice" role="status" aria-live="polite">Changes stay in this browser until exported. No GitHub, Drive, engine, or plugin writes from this site.</div>
+    <section class="view isVisible" id="panel-overview" aria-labelledby="overviewTitle">
+      <div class="sectionHead"><div><div class="eyebrow">BRIDGE / MISSION CONTROL</div><h2 id="overviewTitle">The Cathedral, without the fog</h2><p>Source receipts are distinct from runtime, device, plugin and promotion receipts.</p></div></div>
+      <div class="metrics" id="metricCards"></div>
+      <div class="overviewGrid">
+        <article class="panel companionPanel"><div class="panelHeading"><span>LUM / COMPANION PRESENTATION</span><b>VIEWPORT PLACEHOLDER</b></div>
+        <div class="companionScene"><div class="sceneGrid"></div><div class="orb"></div><div class="figure" aria-label="Stylized placeholder for the future detailed 3D Lum avatar"><div class="horn left"></div><div class="horn right"></div><div class="hairBack"></div><div class="neck"></div><div class="face"><i class="eye left"></i><i class="eye right"></i><i class="mouth"></i></div><div class="fringe"></div><div class="torso"></div></div><div class="sceneBadge">3D LUM MOUNT: UNVERIFIED</div></div>
+        <div class="chatPreview"><div class="bubble"><b>Lum / UI concept</b><p>One Canon, one boss, reversible changes. The real model chat and 3D renderer are not connected here.</p></div><div class="inputMock">2D chat dock · illustrative, not LLM connected <span>◇</span></div></div>
+        </article>
+        <article class="panel"><div class="panelHeading"><span>IMMEDIATE PRIORITIES</span><b>SANEST PATH</b></div><ol class="actions" id="priorityActions"></ol><div class="noteLine">Local first · one mutable source lane · independent proof before CAST</div></article>
+      </div>
+      <div class="panel compactPanel"><div class="panelHeading"><span>SNAPSHOT SIGNALS</span><b>NOT LIVE TELEMETRY</b></div><div id="overviewSignals"></div></div>
+    </section>
+    <section class="view" id="panel-systems" aria-labelledby="systemsTitle"><div class="sectionHead"><div><div class="eyebrow">CANON SYSTEM MAP</div><h2 id="systemsTitle">Components & boundaries</h2><p>Existing identifiers remain intact. Status means source evidence, not silently promoted runtime.</p></div><select id="systemFilter" aria-label="Filter systems by status"><option value="all">All status states</option><option value="implemented">Implemented source</option><option value="tentative">Tentative</option><option value="missing">Missing</option><option value="blocked">Blocked</option></select></div><div class="tileGrid" id="systemsGrid"></div></section>
+    <section class="view" id="panel-assets" aria-labelledby="assetsTitle"><div class="sectionHead"><div><div class="eyebrow">STORAGE TOPOLOGY</div><h2 id="assetsTitle">Asset inventory</h2><p>GitHub keeps manifests and hashes. Owner-controlled Drive keeps private source binaries. No private media is exposed by this view.</p></div><input id="assetSearch" aria-label="Search asset inventory" placeholder="Search assets…" type="search"></div><div class="panel tablePanel"><div class="scrollTable"><table><thead><tr><th>Asset / record</th><th>Source lane</th><th>State</th><th>Rights</th><th>Next proof</th></tr></thead><tbody id="assetRows"></tbody></table></div></div></section>
+    <section class="view" id="panel-agents" aria-labelledby="agentsTitle"><div class="sectionHead"><div><div class="eyebrow">LLMOS ORCHESTRATION</div><h2 id="agentsTitle">The Lum-led cabinet</h2><p>Named roles in repo contracts are not independent AI processes until host invocation is evidenced.</p></div></div><div class="panel"><div class="agentMaster">✦ <strong>lum</strong><span>Single conversational coordinator / no autonomous promotion</span></div><div id="agentGrid" class="agentGrid"></div></div><div class="guardrailGrid"><div class="panel"><h3>Mini-agent second thread</h3><p><code>readOnlyMiniAgent</code> is defined as active-task monitoring at checkpoints. Hidden asynchronous execution after the turn is explicitly not proven.</p></div><div class="panel"><h3>Oni twins</h3><p><code>oniTwins</code> exists as a planned role/cast family. Individual Canon identities and live worker proof are open items.</p></div><div class="panel"><h3>Agent gates</h3><p>15 registered roles; max 3 support workers in a task contract; one mutable source lane. Backend workers remain quarantined without exact host, Urd, and Professor receipts.</p></div></div></section>
+    <section class="view" id="panel-compliance" aria-labelledby="complianceTitle"><div class="sectionHead"><div><div class="eyebrow">PROOF BEFORE GREEN</div><h2 id="complianceTitle">Canon compliance checklist</h2><p>Mark your local review progress; a check mark is not official source-truth or CI promotion.</p></div><span class="countTag" id="checklistProgress"></span></div><div class="panel" id="checklistRows"></div></section>
+    <section class="view" id="panel-gaps" aria-labelledby="gapsTitle"><div class="sectionHead"><div><div class="eyebrow">RECONCILIATION</div><h2 id="gapsTitle">Gap tracker</h2><p>Change local triage state and notes without renaming the canonical objects. Export your work to propose it upstream.</p></div><div><select id="gapFilter" aria-label="Filter gaps by state"><option value="all">All gaps</option><option value="implemented">Implemented source</option><option value="tentative">Tentative</option><option value="missing">Missing</option><option value="blocked">Blocked</option></select></div></div><div class="gapRows" id="gapRows"></div></section>
+    <section class="view" id="panel-audit" aria-labelledby="auditTitle"><div class="sectionHead"><div><div class="eyebrow">COVENANT WORKFLOW</div><h2 id="auditTitle">Eight staged audit gates</h2><p>Manual tracking only. No stage triggers code execution, release, signing, host activation or deployment.</p></div></div><div class="auditGrid" id="auditStages"></div><div class="panel"><h3>Release stop line</h3><p>“AI proposes. Policy authorizes. CI proves. Human promotes.” A local check cannot grant Crown. <code>deploy</code> is a proposed-candidate stage here, not production authorization.</p></div></section>
+    <section class="view" id="panel-deploy" aria-labelledby="deployTitle"><div class="sectionHead"><div><div class="eyebrow">BUILD & RELEASE REALITY</div><h2 id="deployTitle">Build / deploy status</h2><p>Separate source configured, tests executed, package built, host installed and physical-device confirmed.</p></div></div><div class="tileGrid" id="deployGrid"></div><div class="panel"><h3>Sanest local install → hardened plugin path</h3><ol class="actions" id="installActions"></ol></div></section>
+    <footer class="pageFooter"><span>LuHm-OS / Canon candidate viewer · 2026-11-14</span><span>Historical names preserved · camelHump machine identities · human Crown only</span></footer>
+  </main>
+</div>
+<script src="./app.js" defer></script>
+</body></html>
