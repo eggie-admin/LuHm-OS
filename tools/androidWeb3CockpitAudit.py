@@ -120,6 +120,7 @@ for primitive in ("fetch(", "XMLHttpRequest", "WebSocket(", "eval(", "new Functi
 require('window.LuHmNative' in app and '.postMessage' in app,
         "origin-scoped native message surface not wired from front end")
 require('postNative("world_requested")' in app, "world request bridge missing")
+require('postNative("aramoor_requested")' in app and 'data-luhm-play-aramoor' in html, "Aramoor play entry and native route missing")
 require('postNative("oni_requested", { name: name })' in app, "bounded Oni request bridge missing")
 require('postNative("cockpit_ready")' in app, "cockpit ready bridge missing")
 require("luhm:backend:open" in app, "typed Godot/system boundary event missing")
@@ -145,6 +146,7 @@ for token in (
     "assetLoader.shouldInterceptRequest(request.url) ?: blockedResponse()",
     "getCurrentWebViewPackage",
     '"world_requested"',
+    '"aramoor_requested"',
     '"oni_requested"',
     '"cockpit_ready"',
     '"bridge_payload_missing"',
@@ -153,6 +155,10 @@ for token in (
     "@UsedByGodot",
 ):
     require(token in kotlin, f"Android wrapper missing control: {token}")
+require('emitSignal(ARAMOOR_REQUESTED.name)' in kotlin and 'private val ARAMOOR_REQUESTED' in kotlin,
+        "Aramoor dedicated Godot signal missing")
+require('"world_requested", "aramoor_requested", "cockpit_ready" -> setOf("type")' in kotlin,
+        "Aramoor payload must remain exact no-argument type-only message")
 require("addJavascriptInterface" not in kotlin, "addJavascriptInterface is forbidden")
 require("loadUrl(START_URL)" in kotlin, "wrapper must load only the packaged start URL")
 require('return !allowed' in kotlin, "navigation must fail closed outside the local origin")
@@ -194,6 +200,7 @@ for token in (
     'connect("oni_requested", _on_android_oni_requested)',
     'connect("cockpit_ready", _on_android_web3_ready)',
     'connect("bridge_error", _on_android_web3_error)',
+    'connect("aramoor_requested", _enter_aramoor_mode)',
     "android_web3_plugin.hideCockpit()",
     "android_web3_plugin.showCockpit()",
 ):
@@ -216,7 +223,7 @@ for key in ("arbitraryNavigation", "networkFallback", "addJavascriptInterface",
             "shellAuthority", "crownAuthority"):
     require(security.get(key) is False, f"bridge security {key} must remain false")
 allowed_js = [x.get("type") for x in bridge.get("javascriptToNative", [])]
-require(allowed_js == ["cockpitReady", "oniRequested", "worldRequested"],
+require(allowed_js == ["cockpitReady", "oniRequested", "worldRequested", "aramoorRequested"],
         "JavaScript-to-native bridge types drifted")
 require("routing only" in bridge.get("javascriptToNative", [])[1].get("effect", ""),
         "Oni request bridge must remain routing-only")
