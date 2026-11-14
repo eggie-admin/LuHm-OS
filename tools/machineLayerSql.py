@@ -82,9 +82,9 @@ def eventsFor(data):
     return rows
 
 def _store(db, event, observedAt):
-    found = db.execute("SELECT eventId,sourceRef,taskId,scopeId,sequenceId FROM streamEvent WHERE eventId=?", (event["eventId"],)).fetchone()
+    found = db.execute("SELECT eventId,sourceRef,taskId,scopeId,workerId,sequenceId,eighthNote FROM streamEvent WHERE eventId=?", (event["eventId"],)).fetchone()
     if found is not None:
-        require(all(found[k] == event[k] for k in ("eventId", "sourceRef", "taskId", "scopeId", "sequenceId")), "conflicting immutable event")
+        require(all(found[k] == event[k] for k in ("eventId", "sourceRef", "taskId", "scopeId", "workerId", "sequenceId", "eighthNote")), "conflicting immutable event")
         for key, value in event["texts"].items():
             existing = db.execute("SELECT textValue FROM textStream WHERE eventId=? AND fieldName=?", (event["eventId"], key)).fetchone()
             require(existing is not None and existing[0] == value, "conflicting text receipt")
