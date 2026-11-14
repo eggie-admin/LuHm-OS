@@ -1,0 +1,200 @@
+{
+  "schema": "luhmOs.fourServiceCompatibilityCanon.v1",
+  "status": "SOURCE_CANDIDATE_ONLY",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "sourceRefAtProposal": "4b9714883c4903eb7e6947b70203377b422a7799",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "inherits": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/cloudflareLumOrchestrationV1.json",
+    "doctrine/networkSpineV1.json",
+    "doctrine/cloudflareAirTrafficControllerV1.json",
+    "doctrine/stablePluginUpdateSpineV1.json",
+    "doctrine/aiTaskManifestV2.template.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/storageTopologyV1.json"
+  ],
+  "providerLanes": [
+    {
+      "id": "openAi",
+      "role": "frontEndAndConversation",
+      "backend": "existingPrivateSiteApp",
+      "permissions": "ACTUAL_CONNECTED_TOOLS_ONLY",
+      "runtime": "BRIDGE_REACHABLE_HOST_UI_MOUNT_UNVERIFIED"
+    },
+    {
+      "id": "github",
+      "role": "sourceCompatibilityCiAndReleaseReceipts",
+      "backend": "eggie-admin/LuHm-OS",
+      "permissions": "PROTECTED_REVIEW_ONLY",
+      "runtime": "SOURCE_VERIFIED"
+    },
+    {
+      "id": "googleAi",
+      "role": "optionalWorkhorseForScopedTasks",
+      "backend": "existingApprovedPythonProviderAdapterOnly",
+      "permissions": "API_CREDENTIAL_AND_ENTITLEMENT_REQUIRED",
+      "runtime": "NOT_PROVEN_CONNECTED_OR_EXECUTED"
+    },
+    {
+      "id": "cloudflare",
+      "role": "managedDnsAndTrafficController",
+      "backend": "existingEggiebagelfaceArtZone",
+      "permissions": "READ_ONLY_OBSERVATION_UNTIL_EXPLICIT_CROWN",
+      "runtime": "ZONE_API_NOT_CONNECTED"
+    }
+  ],
+  "storage": {
+    "id": "googleDrive",
+    "role": "privateDurableBinaryMaster",
+    "capability": "CONNECTED_DRIVE_FILES_NOT_RSYNCD_THIS_PASS",
+    "syncCandidatePr": 530,
+    "mode": "rsyncToPrivateInboxThenRcloneCopyToDrive",
+    "defaultArmed": false,
+    "privateAssetRefsInPublicGithub": false,
+    "github": "PUBLIC_SOURCE_SCHEMAS_AND_SANITIZED_HASH_RECEIPTS_ONLY",
+    "chatGptLibrary": "CONNECTED_VIEW_AND_CHAT_CONTEXT_NOT_RSYNC_TARGET",
+    "chatGptLibraryDirectRsyncSupported": false,
+    "chatGptLibraryBulkFilesystemApiProven": false,
+    "driveDisplayInLibraryWhenEligible": true,
+    "rsyncRequires": [
+      "privateAuthorizedHost",
+      "restrictedOAuth",
+      "approvedFolder",
+      "dryRun",
+      "checksum",
+      "restoreDrill",
+      "versionedBackup"
+    ]
+  },
+  "plugin": {
+    "shape": "skillsPlusMcpServerPlusOptionalMcpAppsUi",
+    "privateSiteBinding": "PRESERVE_ORIGINAL",
+    "portablePackage": "plugins/luhm-os",
+    "backendToolListProof": "PENDING_SAME_SITE_TOOLS_LIST",
+    "runtimeUiProof": "PENDING_PHYSICAL_CHATGPT_MOUNT",
+    "skillLocation": "plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md",
+    "workflows": [
+      "sanityCheck",
+      "loadCurrentCanon",
+      "validateManifest",
+      "resolveNamespace",
+      "planProviderRoute",
+      "checkBudget",
+      "collectEvidence",
+      "reconcile",
+      "review",
+      "report"
+    ],
+    "reasoningBoundary": {
+      "method": "DETERMINISTIC_POLICY_PLUS_MODEL_SUGGESTIONS",
+      "persistPrivateChainOfThought": false,
+      "store": "DECISION_SUMMARY_AND_EVIDENCE_REFS",
+      "providerOutputUntrusted": true
+    },
+    "manifest": "doctrine/aiTaskManifestV2.template.json",
+    "noIndependentWorkersInCurrentQuarantine": true,
+    "defaultFrontEndAvailableWithoutRemoteWorkers": true,
+    "neverTreatSkillsAsExecutor": true
+  },
+  "fqdn": {
+    "zone": "eggiebagelface.art",
+    "expectedAuthoritativeProvider": "cloudflare",
+    "publicMcpOrigin": "luhm-os-harness-green.onrender.com",
+    "forward": [
+      {
+        "id": "publicMcp",
+        "fqdn": "mcp.eggiebagelface.art",
+        "kind": "CANDIDATE",
+        "bootstrapRecord": "DNS_ONLY_CNAME_TO_RENDER",
+        "origin": "luhm-os-harness-green.onrender.com",
+        "allowProxyBeforeStreamProof": false
+      },
+      {
+        "id": "privateSystem",
+        "fqdn": "system.eggiebagelface.art",
+        "kind": "CANDIDATE",
+        "bootstrapRecord": "TUNNEL_ONLY_AFTER_ACCESS_AND_ORIGIN_PROOF",
+        "origin": "UNKNOWN",
+        "allowProxyBeforeStreamProof": false
+      },
+      {
+        "id": "staticAssets",
+        "fqdn": "assets.eggiebagelface.art",
+        "kind": "CANDIDATE",
+        "bootstrapRecord": "SAME_ORIGIN_UNTIL_CDN_PROOF",
+        "origin": "luhm-os-harness-green.onrender.com",
+        "allowProxyBeforeStreamProof": false
+      },
+      {
+        "id": "signedArt",
+        "fqdn": "art.eggiebagelface.art",
+        "kind": "CANDIDATE",
+        "bootstrapRecord": "SIGNED_FDROID_REPO_NOT_LIVE",
+        "origin": "UNKNOWN",
+        "allowProxyBeforeStreamProof": false
+      },
+      {
+        "id": "legacyAi",
+        "fqdn": "ai.eggiebagelface.art",
+        "kind": "HISTORICAL_OBSERVATION_NOT_CURRENT_RECEIPT",
+        "bootstrapRecord": "PRESERVE_EXISTING_ROUTE",
+        "origin": "UNKNOWN",
+        "allowProxyBeforeStreamProof": false
+      }
+    ],
+    "reversedLabelNamespace": {
+      "id": "mcpReverseLabel",
+      "forward": "mcp.eggiebagelface.art",
+      "reverse": "art.eggiebagelface.mcp",
+      "isDnsRecord": false,
+      "isPtrRecord": false,
+      "mayGrantAuthority": false
+    },
+    "ptr": {
+      "requiresIpPrefixOwnership": true,
+      "sharedRenderCloudflareIpsOwnedByLuHm": false,
+      "queryByDefault": false,
+      "mutationAllowed": false,
+      "mandatoryForMcpOrAppUpdate": false
+    },
+    "actualNs": "PENDING_FRESH_DNS_PROBE",
+    "actualDns": "PENDING_FRESH_DNS_PROBE",
+    "actualTls": "NOT_CHECKED_BY_THIS_SOURCE_CONTRACT",
+    "prohibitedChanges": [
+      "registrarOrNsDelegation",
+      "reverseZoneCreation",
+      "sharedIpPtrMutation",
+      "cloudflareProxyActivation",
+      "privatePortalExposure",
+      "publicAssetPublication"
+    ],
+    "directMcpUntilProven": "https://luhm-os-harness-green.onrender.com/mcp"
+  },
+  "validation": {
+    "sourceOnlyAudit": "tools/fourServiceCompatibilityAudit.py",
+    "readOnlyDnsProbe": "tools/fqdnForwardReverseProbe.py",
+    "codeTests": "tests/testFourServiceCompatibility.py",
+    "runtimeSourceDrift": {
+      "githubMain": "4b9714883c4903eb7e6947b70203377b422a7799",
+      "renderMcpDeployedSha": "27184814dbd279a2a1e8daa5cfa8a7ebcbad0472",
+      "renderGodotDeployedSha": "5fe177070662ffac5231593639604c97ae438020",
+      "status": "SOURCE_DEPLOYMENT_DRIFT_OBSERVED_20261107"
+    },
+    "googleAiApiProbe": false,
+    "cloudflareZoneApiProbe": false,
+    "rsyncRun": false,
+    "ptrProbe": false,
+    "chatGptLibraryFilesystemSync": false
+  },
+  "safeMutations": {
+    "privateSiteEditorUsed": false,
+    "productionDeployment": false,
+    "dnsChanges": false,
+    "signingChanges": false,
+    "newAgentActivation": false,
+    "liveProviderSpend": false,
+    "crownStatus": "STOP"
+  }
+}

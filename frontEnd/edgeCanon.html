@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#7C3AED">
+<meta name="description" content="LuHm-OS source-only Cloudflare/CDN projection, not a live traffic console.">
+<title>LuHm-OS | Cloudflare Canon Preview</title>
+<style>
+:root{color-scheme:dark;--bg:#17131f;--mark:#9f7aea;--ink:#f7f4ff;--edge:#42334c;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+*,*::before,*::after{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.55}
+main{max-width:880px;padding:28px 20px;margin:0 auto}.masthead{display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--edge);padding-bottom:18px}
+.masthead img{width:60px;height:60px}.eyebrow{color:#c5b0ee;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.76rem}
+h1{font-size:clamp(1.5rem,6vw,2.4rem);margin:6px 0}.muted{color:#d3c9da}.card{border:1px solid var(--edge);border-radius:12px;padding:18px;margin:18px 0;background:#211b2d}
+#edgeMatrix{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;list-style:none;margin:0;padding:0}
+#edgeMatrix li{border:1px solid var(--edge);border-radius:10px;background:#15101c;padding:12px;overflow-wrap:anywhere}
+button{color:var(--ink);border:2px solid var(--mark);border-radius:9px;background:#312444;padding:10px 16px;min-height:44px;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid #cc91f5;outline-offset:3px}a{color:#b8eaff}
+@media(prefers-reduced-motion:no-preference){button{transition:background .15s ease}button:hover{background:#43315b}}
+</style>
+<script type="module" src="./edgeCanonPreview.mjs"></script>
+</head>
+<body>
+<main>
+<header class="masthead">
+<img src="../publicationSite/logo.svg" alt="" width="60" height="60">
+<div><div class="eyebrow">Eggie Bagelface · Source-only review</div><h1>LuHm-OS · Cloudflare Canon</h1><p class="muted">Project Premonition · No CDN or DNS mutation</p></div>
+</header>
+<section class="card" aria-labelledby="truthHeading">
+<h2 id="truthHeading">Actual runtime status</h2>
+<p><strong>PROPOSED, NOT DEPLOYED.</strong> This static HTML file is a local deterministic projection, not a Cloudflare Worker, CDN activation, current DNS proof or ChatGPT mounted plugin.</p>
+<p id="edgeSummary" role="status" aria-live="polite">Static fallback: direct Render HTTPS remains Canon until separate proof.</p>
+<button id="showEdge" type="button">Inspect source-only routing rules</button>
+</section>
+<section class="card" aria-labelledby="lanesHeading">
+<h2 id="lanesHeading">Five traffic lanes</h2>
+<ul id="edgeMatrix"><li>Run this page with local module support to inspect reviewed static policies. Nothing is executed remotely.</li></ul>
+</section>
+<footer><p class="muted">Network source truth: GitHub. Traffic provider: Cloudflare (candidate). Public keys and certificates are metadata only. Private keys, signed releases and approvals are never embedded here.</p>
+<p><a href="../publicationSite/index.html">LuHm-OS public site source</a></p></footer>
+</main>
+</body>
+</html>

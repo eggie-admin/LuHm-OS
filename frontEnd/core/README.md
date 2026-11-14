@@ -29,3 +29,9 @@ The registry fails closed on undeclared names, unknown aliases, invalid namespac
 Follows `doctrine/luHmOSFourLayerArchitectureV1.json` Tier 0. Existing cockpit jQuery modules, optional Vue layer, Godot, Python task router, SQL, and MCP adapters remain higher and **unchanged**. This module is not auto-mounted in the live UI; its unit tests extend `npm run check`. Source-evidence records are caller-provided observations, **not cryptographically authenticated**; GitHub CI and actual provider receipts must be independently verified before any external assertion of GREEN.
 
 The 15-agent operational quarantine, Professor promotion, private artwork boundaries and CAST release rules remain unchanged. This library never calls a provider or starts an agent.
+
+### Case-sensitive LuHm-OS jQuery architecture
+
+**LuHm-OS** is the exact public-facing product and library name. JavaScript distinguishes exact case: `LuHm-OS`, `LuHmOS`, `LUHM-OS`, and `luhmOs` are **not interchangeable** strings. `LuHm-OS` contains a hyphen, so do not write it as a bare JavaScript identifier or as `.LuHm-OS` dot-property access. If a string property must carry the display name, use bracket notation such as `record["LuHm-OS"]`, but that property is **not** a separate runtime API or an authority token.
+
+The jQuery plugin registry is **`$.fn`**; jQuery UI optionally adds the **`$.widget`** widget factory. Continue to use the existing case-sensitive `$.fn.luhmCockpit` and `$.fn.luhmParallax` registrations. The source-only Cloudflare policy has an *optional, non-automounted* `frontEnd/jquery/luhm.osEdge.mjs` bridge. It registers `$.fn.luhmOsEdge`, remains chainable, uses a case-sensitive `luhmOs:edge:inspected` custom event, and performs **no network or CDN mutations**. Importing or installing it does not enable Cloudflare, private Site plugin UI, or a Google agent. New widgets must not overwrite the established plugin slots. Test with `node --test tests/luhmOsEdge.test.mjs`.

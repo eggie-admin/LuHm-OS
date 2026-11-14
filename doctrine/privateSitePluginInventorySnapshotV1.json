@@ -1,0 +1,33 @@
+{
+  "schema": "luhmOs.privateSitePluginInventorySnapshot.v1",
+  "status": "OBSERVED_PRIVATE_PLUGIN_METADATA_ONLY_NOT_BACKEND_PROOF",
+  "observedOn": "2026-11-07",
+  "displayName": "LuHm-OS",
+  "scope": "USER",
+  "discoverability": "PRIVATE",
+  "version": "1.0.21",
+  "preservingOriginalSiteBinding": true,
+  "packageFileCount": 21,
+  "skillFileCount": 14,
+  "skillReferenceFileCount": 1,
+  "assetArchiveFileCount": 1,
+  "assetCatalogFileCount": 1,
+  "assetIntegrityReceiptFileCount": 1,
+  "assetReceipt": {
+    "status": "PASS",
+    "assetCount": 110,
+    "checksPassed": 557,
+    "checksTotal": 557,
+    "sizeBytes": 355761,
+    "provenanceState": "draft",
+    "publicApproval": false
+  },
+  "siteBackendMcpToolsList": "NOT_AUTHENTICATED_IN_SOURCE_SNAPSHOT",
+  "siteBackendUiResourcesRead": "NOT_AUTHENTICATED_IN_SOURCE_SNAPSHOT",
+  "androidChatGptHostMount": "RED_PREVIOUS_OWNER_SCREENSHOT_NOT_REPROVEN",
+  "npmBuildEmbeddedInSiteApp": false,
+  "sourceOnlyTestsMayNotUpgradeSite": true,
+  "noPrivatePluginIdentifiersInPublicReceipt": true,
+  "liveSiteMutation": false,
+  "crownStatus": "STOP"
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "luhmOs.fullChatGptPlugin200Pass.v1",
+  "status": "SUPERSEDED_BEFORE_CI_BY_CANON_4X4X4X4_HEX_AUDIT",
+  "legacyProposal": "Ten categories times twenty assertions was an arbitrary proposal, not the existing Canon coordinate system.",
+  "supersededBy": "doctrine/fullChatGptPluginHex256V1.json",
+  "tester": "tools/fullChatGptPluginHexAudit.py",
+  "actualAudit": "4 surfaces x (4 CAST stages x 4 interaction beats x 4 audit tiers) = 256 unique checked source assertions",
+  "auditIds": "0x00..0x3F per surface",
+  "base64TransportNotSecurity": true,
+  "sha256HexDigestIsNotAnAuditAxis": true,
+  "sourceOnly": true,
+  "crownStatus": "STOP"
+}

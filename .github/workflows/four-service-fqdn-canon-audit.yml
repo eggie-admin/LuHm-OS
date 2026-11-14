@@ -1,0 +1,56 @@
+name: LuHm Four-Service FQDN and Plugin Canon Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/fourServiceCompatibilityCanonV1.json'
+      - 'doctrine/networkSpineV1.json'
+      - 'doctrine/cloudflareLumOrchestrationV1.json'
+      - 'doctrine/companyWideOperationalQuarantineV1.json'
+      - 'tools/fourServiceCompatibilityAudit.py'
+      - 'tools/fqdnForwardReverseProbe.py'
+      - 'tests/testFourServiceCompatibility.py'
+      - 'plugins/luhm-os/skills/luhm-four-service-compatibility/SKILL.md'
+      - '.github/workflows/four-service-fqdn-canon-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  policyAndNamespace:
+    name: Four-service canonical roles and safety
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Audit source, FQDN identity, provider roles and sync boundaries
+        run: python3 tools/fourServiceCompatibilityAudit.py
+      - name: Negative controls for false runtime claims and unsafe rsync
+        run: python3 -m unittest discover -s tests -p 'testFourServiceCompatibility.py' -v
+      - name: Offline forward and reverse namespace inventory
+        run: python3 tools/fqdnForwardReverseProbe.py
+
+  readOnlyPublicDns:
+    name: Read-only FQDN DNS evidence (not TLS or host proof)
+    needs: policyAndNamespace
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Query public forward DNS / NS / SOA via DNS-over-HTTPS
+        run: |
+          python3 tools/fqdnForwardReverseProbe.py --probe --output "$RUNNER_TEMP/luhmFqdnObserved.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: luhm-fqdn-read-only-evidence
+          path: ${{ runner.temp }}/luhmFqdnObserved.json
+          retention-days: 14
+          if-no-files-found: error
