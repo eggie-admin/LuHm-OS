@@ -30,6 +30,7 @@ def rgb(value):
     return tuple(col)+ (1.0,)
 
 def stage(scene,bpy):
+    from mathutils import Vector
     bpy.ops.object.select_all(action="SELECT")
     bpy.ops.object.delete(use_global=False)
     bpy.ops.mesh.primitive_cube_add(location=(0,0,-0.1))
