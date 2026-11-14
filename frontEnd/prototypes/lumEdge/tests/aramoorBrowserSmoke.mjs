@@ -13,10 +13,27 @@ try {
   });
   const context=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:1});
   const page=await context.newPage();
-  const pageErrors=[];
+  const pageErrors=[],consoleErrors=[],failedRequests=[];
   page.on("pageerror",e=>pageErrors.push(String(e.message||e)));
+  page.on("console",m=>{if(m.type()==="error")consoleErrors.push(m.text());});
+  page.on("requestfailed",r=>failedRequests.push(r.url()+" "+r.failure()?.errorText));
   await page.goto("http://127.0.0.1:4174/aramoor.html",{waitUntil:"domcontentloaded",timeout:25000});
-  await page.waitForFunction(()=>globalThis.__aramoorProof?.ready===true,{timeout:30000});
+  try {
+    await page.waitForFunction(()=>globalThis.__aramoorProof?.ready===true,null,{timeout:22000});
+  } catch(error) {
+    const diagnostic=await page.evaluate(()=>({
+      proof:globalThis.__aramoorProof??null,
+      title:document.title,
+      status:document.querySelector('[data-testid="world-status"]')?.textContent??null,
+      readyState:document.readyState,
+      rootText:document.querySelector("#app")?.textContent?.slice(0,500)??null
+    }));
+    const details={diagnostic,pageErrors,consoleErrors,failedRequests};
+    console.error("ARAMOOR_BROWSER_RED_DIAGNOSTIC",JSON.stringify(details,null,2));
+    await writeFile(new URL("browser-debug.json",output),JSON.stringify(details,null,2)+"\\n");
+    await page.screenshot({path:new URL("aramoor-failed-render.png",output).pathname}).catch(()=>{});
+    throw error;
+  }
   await page.waitForFunction(()=>globalThis.__aramoorProof?.metrics()?.frames>8,{timeout:15000});
   const baseline=await page.evaluate(()=>globalThis.__aramoorProof.metrics());
   assert.equal(baseline.zoneCount,9);
