@@ -59,6 +59,13 @@
       postNative("world_requested");
     });
 
+    $cockpit.on("click", "[data-luhm-play-aramoor]", function () {
+      const accepted = postNative("aramoor_requested");
+      $cockpit.find("[data-luhm-play-feedback]").text(accepted
+        ? "Entering Godot Aramoor…"
+        : "Native Godot bridge unavailable. Open this inside the Samsung APK.");
+    });
+
     $cockpit.on("luhm:oni:summon", function (_event, detail) {
       const name = String((detail && detail.name) || "").trim();
       if (!name) return;
