@@ -19,6 +19,10 @@
     {
       "type": "worldRequested",
       "effect": "hide WebView overlay and emit world_requested to Godot"
+    },
+    {
+      "type": "aramoorRequested",
+      "effect": "hide WebView overlay, emit aramoor_requested to existing Godot Main adapter; private offline Aramoor world only; no shell/worker/deployment authority"
     }
   ],
   "godotToNative": [
@@ -48,7 +52,7 @@
     "shellAuthority": false,
     "crownAuthority": false
   },
-  "runtimeProof": "PENDING_CAST_BUILD_AND_SAMSUNG_DEVICE",
+  "runtimeProof": "SAMSUNG_COCKPIT_VISUAL_LAUNCH_OBSERVED_20261114_ARMOOR_NATIVE_HANDOFF_PENDING",
   "legacySource": "doctrine/ANDROID_WEB3_BRIDGE_V1.json",
   "crownStatus": "STOP"
 }
