@@ -8,6 +8,7 @@ on:
       - 'scripts/world/aramoorZoneInteractable.gd'
       - 'scripts/main.gd'
       - 'scripts/game/gameHud.gd'
+      - 'scripts/game/aramoorMainAdapter.gd'
       - 'tests/aramoorMainWalkaroundSmoke.gd'
       - 'scripts/game/worldFactory.gd'
       - 'scenes/AramoorWorldPreview.tscn'
