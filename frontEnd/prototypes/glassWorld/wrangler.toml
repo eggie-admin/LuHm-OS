@@ -1,0 +1,6 @@
+name = "luhm-lum-glass-world-candidate"
+compatibility_date = "2026-11-14"
+# Public-safe, serverless static files only. No private GLB, tokens, or live agent routes.
+[assets]
+directory = "./dist"
+not_found_handling = "404-page"
