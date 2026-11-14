@@ -1,0 +1,47 @@
+{
+  "schema": "luhmOs.machineSqlCronCandidate.v1",
+  "status": "BLOCKED_PROVIDER_WORKSPACE_SELECTION",
+  "source": "host/api/machineSqlRemote.py",
+  "migration": "host/api/typedPostgresReviewV1.sql",
+  "platform": "Render Cron",
+  "desiredName": "luhm-machine-sql-txrx",
+  "desiredSchedule": "*/30 * * * *",
+  "scheduleTimeZone": "UTC",
+  "desiredCommand": "python host/api/machineSqlRemote.py --mode txRx",
+  "runtime": "python",
+  "branch": "main",
+  "autoDeploy": false,
+  "desiredRegion": "ohio",
+  "plan": "UNSELECTED_NO_COST_APPROVED",
+  "runtimeDependencies": [
+    "psycopg3 - exact pinned version and hashes pending release packaging"
+  ],
+  "secretsRequired": [
+    "LUHM_DATABASE_URL (TLS verify-full, least-privilege Postgres role and trusted CA path)",
+    "LUHM_REMOTE_SQL_SYNC=scopedSourceTxRx"
+  ],
+  "remoteMigrationsApplied": false,
+  "remoteSchemaVerified": false,
+  "cloudConnectionVerified": false,
+  "createdInRender": false,
+  "cronLive": false,
+  "checks": [
+    "TLS host identity",
+    "data source exact SHA",
+    "16 typed event and metadata receipts",
+    "readback same transaction",
+    "no duplicate or corrupt rows",
+    "separate retained backup",
+    "observed cron run and zero unauthorized charges"
+  ],
+  "prohibitions": [
+    "no public SQL access",
+    "no schema auto-creation",
+    "no API key in repository",
+    "no firmware flashing",
+    "no self-issued green",
+    "no auto merge"
+  ],
+  "nextBlocker": "Professor must confirm Render workspace using connected UI; verify plan and existing DB, scoped credentials, and backup/migration before enabling",
+  "crownStatus": "STOP"
+}
