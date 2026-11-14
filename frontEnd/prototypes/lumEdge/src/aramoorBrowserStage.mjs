@@ -103,7 +103,8 @@ export function mountAramoorAtlas(canvas,world,{onPick=()=>{}}={}) {
   const renderRoot={current:null};
   const pos=(zone)=>new Vector3(zone.grid[0]*world.cellSize,0,zone.grid[1]*world.cellSize);
   function paint(name,hex,opt={}) {
-    const key=name+":"+hex+":"+JSON.stringify(opt);
+    const {bump, ...primitiveOptions}=opt;
+    const key=name+":"+hex+":"+JSON.stringify({...primitiveOptions,hasBump:Boolean(bump)});
     if(state.materialCache.has(key))return state.materialCache.get(key);
     const m=material(scene,name,hex,opt);
     state.materialCache.set(key,m);
