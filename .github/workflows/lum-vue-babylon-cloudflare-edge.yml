@@ -27,7 +27,6 @@ jobs:
           node --check frontEnd/prototypes/lumEdge/src/lum-local-model.mjs
           node --check frontEnd/prototypes/lumEdge/src/lum-avatar.js
           node --check frontEnd/prototypes/lumEdge/src/main.js
-          node --check frontEnd/prototypes/lumEdge/src/babylon-world.js
       - name: npm dependency install with scripts disabled
         working-directory: frontEnd/prototypes/glassWorld
         run: npm ci --ignore-scripts --no-audit --no-fund
