@@ -22,6 +22,18 @@ class MachineLayerSqlTest(unittest.TestCase):
         self.assertEqual(len(self.manifest["escalation"]["cells"]),16)
         self.assertEqual(len(mod.eventsFor(self.manifest)),16)
         self.assertEqual(self.manifest["product"],"LuHm-OS")
+    def test_unmerged_artifact_pointer_collision_remains_blocked(self):
+        c=self.manifest["database"]["schemaCollision"]
+        self.assertEqual(c["table"],"artifactPointer")
+        self.assertFalse(c["structurallyCompatible"])
+        self.assertTrue(c["remoteMigrationBlocked"])
+        bad=copy.deepcopy(self.manifest)
+        bad["database"]["schemaCollision"]["migrationPerformed"]=True
+        with tempfile.TemporaryDirectory() as folder:
+            file=Path(folder)/"migration.json"
+            file.write_text(__import__("json").dumps(bad))
+            with self.assertRaises(mod.MachineLayerError):
+                mod.loadManifest(file)
     def test_mirrors_existing_canon_grid(self):
         canon=__import__("json").loads((ROOT/"doctrine/machineCanonFourLoopV1.json").read_text())
         self.assertEqual([x["id"] for x in self.manifest["escalation"]["levels"]], canon["fourBeats"])
