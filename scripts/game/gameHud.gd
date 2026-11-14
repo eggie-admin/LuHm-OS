@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 signal world_requested
+signal aramoor_requested
+signal aramoor_tide_requested
 signal rehearsal_requested
 signal companion_studio_requested
 signal encore_requested
@@ -32,6 +34,7 @@ var _hint: Label
 var _world_buttons: Array[Button] = []
 var _talk: Button
 var _interact: Button
+var _aramoor_tide: Button
 var _interaction_tween: Tween
 var _audit_switch: CheckButton
 var _encore: Button
@@ -86,6 +89,14 @@ func _build_backend() -> void:
     enter.add_theme_font_size_override("font_size", 24)
     enter.pressed.connect(func(): world_requested.emit())
     _panel.add_child(enter)
+
+    var aramoor := Button.new()
+    aramoor.name = "ExploreAramoor"
+    aramoor.text = "EXPLORE ARAMOOR · GHOST TIDES"
+    aramoor.custom_minimum_size = Vector2(0, 76)
+    aramoor.add_theme_font_size_override("font_size", 21)
+    aramoor.pressed.connect(func(): aramoor_requested.emit())
+    _panel.add_child(aramoor)
 
     var rehearsal := Button.new()
     rehearsal.name = "GoddessRehearsal"
@@ -198,6 +209,13 @@ func _build_world_hud() -> void:
     _interact.focus_mode = Control.FOCUS_NONE
     _interact.pressed.connect(func(): interact_requested.emit())
     world_root.add_child(_interact)
+    _aramoor_tide = Button.new()
+    _aramoor_tide.name = "AramoorTideSwitch"
+    _aramoor_tide.text = "GHOST TIDE"
+    _aramoor_tide.visible = false
+    _aramoor_tide.focus_mode = Control.FOCUS_NONE
+    _aramoor_tide.pressed.connect(func(): aramoor_tide_requested.emit())
+    world_root.add_child(_aramoor_tide)
     _hint = _label("DRAG RIGHT\nCAMERA", 20)
     world_root.add_child(_hint)
 
@@ -316,11 +334,13 @@ func apply_layout(view_size: Vector2, safe: Rect2) -> void:
     _talk.size = Vector2(world_width * 1.25, 62)
     _interact.position = area.position + Vector2(world_width * 1.25 + 8.0, 146)
     _interact.size = Vector2(maxf(world_width * 1.4, 132.0), 62)
+    _aramoor_tide.position = Vector2(area.end.x - 176, area.position.y + 146)
+    _aramoor_tide.size = Vector2(176, 62)
     _hint.position = Vector2(area.end.x - 210, area.end.y - 96)
     _hint.size = Vector2(210, 88)
 
 func layout_controls() -> Array[Control]:
-    var result: Array[Control] = [_back, status_label, quest_label, dialogue_label, _hint, _talk, _interact]
+    var result: Array[Control] = [_back, status_label, quest_label, dialogue_label, _hint, _talk, _interact, _aramoor_tide]
     result.append_array(_world_buttons)
     for button in _pads:
         result.append(button)
@@ -329,6 +349,11 @@ func layout_controls() -> Array[Control]:
 func _set_touch_axis(axis: Vector2) -> void:
     _touch_axis = axis
     move_axis_changed.emit(axis)
+
+func set_aramoor_controls(enabled: bool) -> void:
+    if _aramoor_tide != null:
+        _aramoor_tide.visible = enabled
+        _aramoor_tide.disabled = not enabled
 
 func show_backend() -> void:
     release_touch()
