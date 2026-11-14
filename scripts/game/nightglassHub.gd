@@ -278,8 +278,9 @@ func _talk_to_vesper() -> void:
 
 func _show_line(lineId: String) -> void:
     for child in choicesRoot.get_children():
+        # Click handlers may still be emitting signals; defer destruction.
         choicesRoot.remove_child(child)
-        child.free()
+        child.queue_free()
     for row in manuscript.get("dialogue", []):
         if not row is Dictionary:
             continue
