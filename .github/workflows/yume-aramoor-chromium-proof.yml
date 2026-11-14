@@ -64,7 +64,15 @@ jobs:
             if curl -fsS http://127.0.0.1:4174/aramoor.html >/dev/null; then break; fi
             sleep 1
           done
-          node tests/aramoorBrowserSmoke.mjs
+          EXACT_SOURCE_SHA="$(git rev-parse HEAD)" node tests/aramoorBrowserSmoke.mjs
+          python3 - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          receipt=json.loads(Path("build/aramoor-browser/browser-proof.json").read_text())
+          expected=subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()
+          assert receipt["sourceSha"]==expected,(receipt["sourceSha"],expected)
+          print("GREEN_ARAMOOR_EXACT_SHA_RECEIPT",expected)
+          PY
           test -s build/aramoor-browser/browser-proof.json
           test -s build/aramoor-browser/aramoor-living-tide.png
           test -s build/aramoor-browser/aramoor-ghost-tide.png

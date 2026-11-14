@@ -53,9 +53,10 @@ try {
   await page.screenshot({path:new URL("aramoor-ghost-tide.png",output).pathname,animations:"disabled"});
   await page.getByTestId("world-reset").click();
   assert.equal(await page.locator('#region-list button[data-region="aramoorHarbor"]').getAttribute("aria-current"),"location");
+  if (process.env.GITHUB_ACTIONS) assert.match(process.env.EXACT_SOURCE_SHA??"",/^[a-f0-9]{40}$/,"Exact checkout source must be bound");
   const results={schema:"luhmOs.aramoorBrowserProof.v1",status:"CHROMIUM_WEBGL_SOURCE_PROOF",
     baseline,ghost,travel:"PASS",tideSwitch:"PASS",reset:"PASS",pageErrors,
-    sourceSha:process.env.GITHUB_SHA||"local",crown:"STOP",browserOnly:true,
+    sourceSha:process.env.EXACT_SOURCE_SHA||"local",crown:"STOP",browserOnly:true,
     publicDeployment:false,engineAuthority:"Godot remains separate"};
   for(const name of ["aramoor-living-tide.png","aramoor-ghost-tide.png"]){
     const bytes=await readFile(new URL(name,output));
