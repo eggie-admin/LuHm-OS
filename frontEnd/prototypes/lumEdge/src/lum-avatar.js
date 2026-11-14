@@ -18,8 +18,15 @@ export function createLocalLumAvatar(scene, camera) {
   async function load(file) {
     const receipt = await inspectLocalGlb(file);
     const job = ++epoch;
-    // The Babylon file: lane accepts a browser File, not a remote URL.
-    const container = await SceneLoader.LoadAssetContainerAsync("file:", file, scene, null, ".glb");
+    // A temporary blob URL is scoped to this browser and never uploaded.
+    // Explicit .glb extension avoids guessing from the random blob URL.
+    const blobUrl = URL.createObjectURL(file);
+    let container;
+    try {
+      container = await SceneLoader.LoadAssetContainerAsync("", blobUrl, scene, null, ".glb");
+    } finally {
+      URL.revokeObjectURL(blobUrl);
+    }
     if (job !== epoch) { container.dispose(); throw new Error("RED_STALE_GLB_LOAD"); }
     let pivot = null;
     try {
