@@ -1,0 +1,40 @@
+name: HTML OS Machine CAST 4x4 (Evidence Only)
+on:
+  pull_request:
+    paths:
+      - 'tools/htmlOsMachineCast4x4.py'
+      - 'tools/inChatHtmlCheck.py'
+      - 'tools/escalationKernelAudit.py'
+      - 'frontEnd/**'
+      - 'doctrine/currentSourceTruthV3.json'
+      - '.github/workflows/html-os-machine-cast-4x4.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '43 8 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: html-os-machine-cast-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  source-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Verify exact checkout
+        run: test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - name: Run machine-only 4x4 checks
+        run: python3 tools/htmlOsMachineCast4x4.py
+      - name: Save receipt on pass or failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: html-os-machine-cast-${{ github.sha }}
+          path: build/html-os-cast/receipt.json
+          retention-days: 14
+          if-no-files-found: warn
