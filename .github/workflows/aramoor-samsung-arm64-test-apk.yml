@@ -1,0 +1,240 @@
+name: Aramoor Samsung ARM64 Test APK · source-only private install candidate
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/aramoor-samsung-arm64-test-apk.yml'
+      - 'scripts/game/aramoorMainAdapter.gd'
+      - 'scripts/world/aramoorArchipelagoBuilder.gd'
+      - 'scripts/main.gd'
+      - 'game/world/aramoorArchipelagoV1.json'
+      - 'frontEnd/index.html'
+      - 'frontEnd/app.js'
+      - 'frontEnd/styles.css'
+      - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
+      - 'doctrine/androidWeb3BridgeV2.json'
+      - 'receipts/aramoorSamsungFieldObservation20261114.json'
+      - 'tools/aramoorSamsungPlayAudit.py'
+      - 'tools/androidWeb3CockpitAudit.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aramoor-test-apk-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  build-samsung-test-apk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact candidate source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+
+      - name: Fail-closed Canon, Godot, and private donor preflight
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          python3 tools/candidateGate.py
+          python3 tools/aramoorWorldAudit.py
+          python3 tools/godot4MilestoneReconciliationAudit.py
+          python3 tools/aramoorSamsungPlayAudit.py
+          python3 tools/androidWeb3CockpitAudit.py
+          python3 tools/fdroidTabletSourceAudit.py
+          test ! -e assets/lum/luhm.glb
+          test ! -e assets/lum/luhmRunning.glb
+          test -f scenes/Main.tscn
+          test -f scenes/AramoorWorldPreview.tscn
+          test "$(grep -c 'permissions/internet=false' export_presets.cfg)" = 1
+          git diff --check
+          echo 'ARAMOOR_TEST_APK_SOURCE_SAFE'
+
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android SDK 36
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" 'platform-tools' 'build-tools;36.1.0' 'platforms;android-36'
+          mkdir -p "$HOME/.config/godot"
+          cat > "$HOME/.config/godot/editor_settings-4.tres" <<SETTINGS
+          [gd_resource type="EditorSettings" format=3]
+          [resource]
+          export/android/android_sdk_path = "$ANDROID_HOME"
+          export/android/java_sdk_path = "$JAVA_HOME"
+          SETTINGS
+
+      - name: Build existing Android Web3 cockpit plugin
+        shell: bash
+        run: |
+          set -euo pipefail
+          GRADLE_ZIP="$RUNNER_TEMP/gradle-8.13-bin.zip"
+          curl -fL --retry 5 -o "$GRADLE_ZIP" \
+            https://services.gradle.org/distributions/gradle-8.13-bin.zip
+          echo '20f1b1176237254a6fc204d8434196fa11a4cfb387567519c61556e8710aed78  '"$GRADLE_ZIP" | sha256sum -c -
+          unzip -q "$GRADLE_ZIP" -d "$RUNNER_TEMP"
+          "$RUNNER_TEMP/gradle-8.13/bin/gradle" --no-daemon -p androidWeb3Plugin :plugin:assemble
+          test -s addons/AndroidWeb3Cockpit/bin/debug/AndroidWeb3Cockpit-debug.aar
+          test -s addons/AndroidWeb3Cockpit/bin/release/AndroidWeb3Cockpit-release.aar
+
+      - name: Install exact Godot 4.7.2 and official templates
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL --retry 5 -o /tmp/aramoor-godot.zip \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          curl -fL --retry 5 -o /tmp/aramoor-templates.tpz \
+            https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
+          echo 'cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  /tmp/aramoor-godot.zip' | sha256sum -c -
+          echo 'f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011  /tmp/aramoor-templates.tpz' | sha256sum -c -
+          unzip -q /tmp/aramoor-godot.zip -d /tmp/aramoor-godot
+          chmod +x /tmp/aramoor-godot/Godot_v4.7.2-stable_linux.x86_64
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable"
+          unzip -q /tmp/aramoor-templates.tpz -d /tmp/aramoor-templates
+          cp -a /tmp/aramoor-templates/templates/. "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+          echo 'GODOT=/tmp/aramoor-godot/Godot_v4.7.2-stable_linux.x86_64' >> "$GITHUB_ENV"
+
+      - name: Generate throwaway testing certificate, never owner release identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          KEYSTORE="$RUNNER_TEMP/aramoor-ephemeral-debug.keystore"
+          keytool -genkeypair -keystore "$KEYSTORE" -storepass android \
+            -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 \
+            -validity 1000 -dname 'CN=Aramoor local test,O=LuHm OS,C=US'
+          echo "GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$KEYSTORE" >> "$GITHUB_ENV"
+          echo 'GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey' >> "$GITHUB_ENV"
+          echo 'GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android' >> "$GITHUB_ENV"
+
+      - name: Isolate preview app identity from existing LuHm installs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path("export_presets.cfg")
+          s=p.read_text()
+          changes={
+            'package/unique_name="art.eggiebagelface.luhmos.testing"':
+              'package/unique_name="art.eggiebagelface.luhmos.aramoorplaytest"',
+            'package/name="LuHm OS Samsung Candidate"':
+              'package/name="Aramoor PLAY Test"',
+            'version/name="1.0.16-samsunglayout.1"':
+              'version/name="0.2.0-aramoor-play"',
+          }
+          for old,new in changes.items():
+              assert s.count(old)==1,("SOURCE_PRESET_DRIFT",old)
+              s=s.replace(old,new)
+          p.write_text(s)
+          PY
+          grep -q 'package/unique_name="art.eggiebagelface.luhmos.aramoorplaytest"' export_presets.cfg
+          test ! -e assets/lum/luhm.glb
+          test ! -e assets/lum/luhmRunning.glb
+
+      - name: Run actual canonical Godot game and Aramoor smoke tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT" --headless --editor --path . --quit > /tmp/aramoor-godot-import.log 2>&1
+          "$GODOT" --headless --path . --script res://tests/aramoorWorldSmoke.gd \
+            > /tmp/aramoor-world.log 2>&1 || { cat /tmp/aramoor-world.log; exit 1; }
+          "$GODOT" --headless --path . --script res://tests/aramoorMainWalkaroundSmoke.gd \
+            > /tmp/aramoor-main.log 2>&1 || { cat /tmp/aramoor-main.log; exit 1; }
+          grep -q 'ARAMOOR_WORLD_GODOT_SMOKE_GREEN' /tmp/aramoor-world.log
+          grep -q 'ARAMOOR_MAIN_WALKAROUND_SMOKE_GREEN' /tmp/aramoor-main.log
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:|ERROR:' /tmp/aramoor-main.log /tmp/aramoor-world.log; then
+            cat /tmp/aramoor-main.log
+            cat /tmp/aramoor-world.log
+            exit 1
+          fi
+          echo 'ARAMOOR_TEST_APK_GODOT_GAMEPLAY_GREEN'
+
+      - name: Export ARM64 installable Android test APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/aramoor-android
+          "$GODOT" --headless --path . --install-android-build-template \
+            --export-debug 'Android Proposed' build/aramoor-android/Aramoor-Samsung-arm64-test.apk
+          test -s build/aramoor-android/Aramoor-Samsung-arm64-test.apk
+
+      - name: Independently verify package, signing cert, ABI and digest
+        shell: bash
+        env:
+          EXACT_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          OUT=build/aramoor-android
+          APK="$OUT/Aramoor-Samsung-arm64-test.apk"
+          BT="$ANDROID_HOME/build-tools/36.1.0"
+          "$BT/aapt" dump badging "$APK" > "$OUT/badging.txt"
+          "$BT/apksigner" verify --verbose --print-certs "$APK" > "$OUT/signature.txt"
+          "$BT/zipalign" -c -P 16 -v 4 "$APK" > "$OUT/zipalign.txt"
+          sha256sum "$APK" > "$OUT/apk-sha256.txt"
+          grep -q "package: name='art.eggiebagelface.luhmos.aramoorplaytest'" "$OUT/badging.txt"
+          grep -q "targetSdkVersion:'36'" "$OUT/badging.txt"
+          grep -q "native-code: 'arm64-v8a'" "$OUT/badging.txt"
+          grep -q 'application-debuggable' "$OUT/badging.txt"
+          test "$(git rev-parse HEAD)" = "$EXACT_SOURCE_SHA"
+          python3 - <<'PY'
+          import hashlib,json,os,re,zipfile
+          from pathlib import Path
+          out=Path("build/aramoor-android")
+          apk=out/"Aramoor-Samsung-arm64-test.apk"
+          badging=(out/"badging.txt").read_text()
+          signature=(out/"signature.txt").read_text()
+          m=re.search(r"Signer #1 certificate SHA-256 digest: ([0-9a-fA-F]{64})",signature)
+          assert m,"APK_SIGNER_MISSING"
+          assert "uses-permission" not in badging,"UNEXPECTED_ANDROID_PERMISSION"
+          with zipfile.ZipFile(apk) as z:
+              assert z.testzip() is None,"APK_CORRUPT"
+              assert "AndroidManifest.xml" in z.namelist(),"ANDROID_MANIFEST_MISSING"
+              assert any(x.startswith("lib/arm64-v8a/") and x.endswith(".so") for x in z.namelist()),"NO_ARM64_LIB"
+          receipt={
+              "schema":"luhmOs.aramoorSamsungTestApk.v1",
+              "status":"DEBUG_SIGNED_APK_CANDIDATE_NOT_DEVICE_PROVEN",
+              "exactSourceSha":os.environ["EXACT_SOURCE_SHA"],
+              "canonicalBaseSha":"cd90b6963baa0e90289ca3228e5ab220cd419714",
+              "applicationId":"art.eggiebagelface.luhmos.aramoorplaytest",
+              "apkSha256":hashlib.sha256(apk.read_bytes()).hexdigest(),
+              "signerCertificateSha256":m.group(1).lower(),
+              "abi":"arm64-v8a",
+              "targetSdk":36,"debuggable":True,
+              "disposableSigner":True,"ownerReleaseSigner":False,
+              "preservesExistingLuHmInstall":True,
+              "previousPreviewPackageId":"art.eggiebagelface.luhmos.aramoorpreview",
+              "oldPreviewUnmodified":True,"inPlaceUpgradeToOldPreview":False,
+              "deviceInstallProven":False,"deviceTouchProven":False,
+              "privilegedSystemInstall":False,"privateDonorModelsIncluded":False,
+              "publicReleasePublished":False,"crown":"STOP"}
+          (out/"receipt.json").write_text(json.dumps(receipt,indent=2)+"\n")
+          print("ARAMOOR_SAMSUNG_DEBUG_SIGNED_APK_VERIFIED")
+          print(json.dumps(receipt,indent=2))
+          PY
+
+      - name: Retain limited-lifetime install artifact, never publish a release
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: aramoor-samsung-arm64-debug-install-candidate
+          path: build/aramoor-android/
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Destroy disposable testing certificate
+        if: always()
+        shell: bash
+        run: rm -f "$RUNNER_TEMP/aramoor-ephemeral-debug.keystore"

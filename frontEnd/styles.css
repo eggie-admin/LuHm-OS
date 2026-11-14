@@ -216,3 +216,40 @@ button { color: inherit; }
   .sceneStatus { left: 8px; bottom: 8px; }
 }
 .chatDock { padding-bottom: max(12px, env(safe-area-inset-bottom, 0px)); }
+
+/* Samsung-tested entrance: explicit local Godot game handoff, not a screenshot or iframe. */
+.worldLaunch {
+  position: absolute;
+  z-index: 5;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(460px, calc(100% - 24px));
+  text-align: center;
+  pointer-events: none;
+}
+.worldLaunchEyebrow { margin: 0 0 9px; font-size: 11px; letter-spacing: .18em; color: #efd1eb; font-weight: 700; }
+.playAramoorButton {
+  pointer-events: auto;
+  min-height: 58px;
+  width: min(320px, 100%);
+  padding: 12px 18px;
+  border: 1px solid #f2a2dc;
+  border-radius: 14px;
+  background: linear-gradient(115deg, #c72a7e, #7c39b8);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: .08em;
+  font-size: clamp(15px, 2.7vw, 21px);
+  box-shadow: 0 8px 35px #ff2c9160;
+  cursor: pointer;
+}
+.playAramoorButton:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+.playAramoorButton:active { transform: scale(.98); }
+.worldLaunchHint { margin: 11px 0 0; color: #dccdde; font-size: 12px; }
+.worldLaunchFeedback { min-height: 1.25em; margin: 6px 0 0; color: #ffe4a5; font-size: 12px; }
+@media (max-height: 540px) {
+  .worldLaunch { top: 48%; }
+  .playAramoorButton { min-height: 46px; font-size: 15px; padding: 7px 16px; }
+  .worldLaunchEyebrow, .worldLaunchHint { margin-block: 4px; }
+}

@@ -31,6 +31,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
         private const val MAX_BRIDGE_MESSAGE_CHARS = 512
 
         private val WORLD_REQUESTED = SignalInfo("world_requested")
+        private val ARAMOOR_REQUESTED = SignalInfo("aramoor_requested")
         private val ONI_REQUESTED = SignalInfo("oni_requested", String::class.java)
         private val COCKPIT_READY = SignalInfo("cockpit_ready", String::class.java)
         private val BRIDGE_ERROR = SignalInfo("bridge_error", String::class.java)
@@ -48,6 +49,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
 
     override fun getPluginSignals() = setOf(
         WORLD_REQUESTED,
+        ARAMOOR_REQUESTED,
         ONI_REQUESTED,
         COCKPIT_READY,
         BRIDGE_ERROR,
@@ -180,7 +182,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
             val payload = JSONObject(raw)
             val expectedKeys = when (payload.optString("type")) {
                 "oni_requested" -> setOf("type", "name")
-                "world_requested", "cockpit_ready" -> setOf("type")
+                "world_requested", "aramoor_requested", "cockpit_ready" -> setOf("type")
                 else -> {
                     emitSignal(BRIDGE_ERROR.name, "bridge_type_rejected")
                     return
@@ -194,6 +196,10 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                 "world_requested" -> {
                     hideCockpitInternal()
                     emitSignal(WORLD_REQUESTED.name)
+                }
+                "aramoor_requested" -> {
+                    hideCockpitInternal()
+                    emitSignal(ARAMOOR_REQUESTED.name)
                 }
                 "oni_requested" -> {
                     val name = payload.optString("name").trim()
