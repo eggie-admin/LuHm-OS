@@ -5,6 +5,7 @@ on:
     paths:
       - 'game/world/aramoorArchipelagoV1.json'
       - 'scripts/world/aramoorArchipelagoBuilder.gd'
+      - 'scripts/game/worldFactory.gd'
       - 'scenes/AramoorWorldPreview.tscn'
       - 'tests/aramoorWorldSmoke.gd'
       - 'tools/aramoorWorldAudit.py'

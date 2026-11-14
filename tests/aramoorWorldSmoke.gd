@@ -1,5 +1,6 @@
 extends SceneTree
 ## Godot source execution, not proof of final art, gameplay, WebGL or Samsung.
+const WorldFactoryScript := preload("res://scripts/game/worldFactory.gd")
 var errors: Array[String] = []
 
 func _initialize() -> void:
@@ -51,6 +52,15 @@ func _run() -> void:
     _check(second_seed.get("fingerprint") != ghost.get("fingerprint"), "new seed distinct decoration")
     _check(int(second_seed.get("shadowCasterCount", 1)) == 0, "default web profile no shadow cost")
     world.free()
+    var routed: Node3D = WorldFactoryScript.new().createWorld("aramoorArchipelago")
+    _check(routed != null, "worldFactory resolves Aramoor by world ID")
+    if routed != null:
+        root.add_child(routed)
+        var routed_report: Dictionary = routed.call("world_summary")
+        _check(int(routed_report.get("zoneCount", 0)) == 9, "worldFactory opens full generated region graph")
+        _check(routed.get_node_or_null("GeneratedWorld") != null, "worldFactory instantiates runtime scenery")
+        routed.free()
+    _check(WorldFactoryScript.new().createWorld("unrecognizedWorld") == null, "worldFactory rejects unknown destinations")
     if errors.is_empty():
         print("ARAMOOR_WORLD_GODOT_SMOKE_GREEN")
         quit(0)

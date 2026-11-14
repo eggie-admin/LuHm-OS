@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "game/world/aramoorArchipelagoV1.json"
 BUILDER = ROOT / "scripts/world/aramoorArchipelagoBuilder.gd"
 PREVIEW = ROOT / "scenes/AramoorWorldPreview.tscn"
+WORLD_FACTORY = ROOT / "scripts/game/worldFactory.gd"
 SMOKE = ROOT / "tests/aramoorWorldSmoke.gd"
 
 
@@ -126,6 +127,8 @@ def main() -> None:
     source = BUILDER.read_text(encoding="utf8")
     preview = PREVIEW.read_text(encoding="utf8")
     smoke = SMOKE.read_text(encoding="utf8")
+    factory = WORLD_FACTORY.read_text(encoding="utf8")
+    assert '"aramoorArchipelago"' in factory and "AramoorWorldScript.new()" in factory, "RED_WORLD_FACTORY_ROUTE"
     for token in ("extends Node3D", "set_tide", "set_seed", "world_summary",
                   "DirectionalLight3D.new()", "StaticBody3D.new()", "CanonArtSocket"):
         assert token in source, "RED_BUILDER_CONTRACT:" + token
@@ -133,6 +136,7 @@ def main() -> None:
         assert prohibited not in source, "RED_REMOTE_OR_MUTATION_PRIMITIVE:" + prohibited
     assert "AramoorWorldPreview" in preview and "aramoorArchipelagoBuilder.gd" in preview
     assert "ARAMOOR_WORLD_GODOT_SMOKE_GREEN" in smoke
+    assert "worldFactory resolves Aramoor by world ID" in smoke
     print("GREEN_ARAMOOR_SOURCE_AUDIT")
     print("NEGATIVE_CONTROLS=6")
     print("REGIONS=9 BRIDGES=12 TIDES=2")
