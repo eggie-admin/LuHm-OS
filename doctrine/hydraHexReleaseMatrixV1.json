@@ -1,0 +1,221 @@
+{
+  "schema": "luhmOs.hydraHexReleaseMatrix.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": {
+    "githubMerge": "EXACT_CI_AND_REVIEW",
+    "externalRelease": false,
+    "autoWorkerActivation": false,
+    "secretInjection": false,
+    "cloudflareDeploy": false,
+    "macSigning": false,
+    "androidStableSigning": false,
+    "googleAiExecution": false
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "scope": "Unified LuHm-OS four-package compatibility assessment, not automatic release",
+  "version": "0.1.0-proposed",
+  "priorLegacyRegressionChecks": 200,
+  "slots": {
+    "scale": [
+      256,
+      512,
+      1024
+    ],
+    "formula": "four families × selected distinct variants (1, 2, 4) × four lifecycle gates × sixteen evidence controls",
+    "hexRange": {
+      "256": "0x000..0x0ff",
+      "512": "0x000..0x1ff",
+      "1024": "0x000..0x3ff"
+    },
+    "notARunCount": true,
+    "noDuplicatedEvidencePromotion": true
+  },
+  "lifecycleGates": [
+    "source",
+    "build",
+    "verify",
+    "release"
+  ],
+  "evidenceControls": [
+    "exactSource",
+    "canonAuthority",
+    "workerQuarantine",
+    "packageInputFiles",
+    "artifactDescriptor",
+    "toolchainAvailability",
+    "dependencyLock",
+    "browserRuntime",
+    "typedSqlJsonManifest",
+    "googleCompatibility",
+    "storageBoundary",
+    "rightsAndLicenses",
+    "artifactDigest",
+    "installAndRollback",
+    "deviceOrHostSmoke",
+    "professorRelease"
+  ],
+  "families": [
+    {
+      "id": "deb",
+      "format": ".deb",
+      "type": "linuxBrowserCockpit",
+      "buildLane": "tools/buildHydraWebPackageCandidates.sh",
+      "source": [
+        "frontEnd/index.html",
+        "frontEnd/package.json",
+        "frontEnd/package-lock.json",
+        "frontEnd/tools/stage-jquery.mjs"
+      ],
+      "contracts": [
+        "doctrine/storageTopologyV1.json",
+        "doctrine/npmPluginApkDeliveryV1.json"
+      ],
+      "release": "NEEDS_DPKG_INSTALL_UPGRADE_SECURITY_SMOKE",
+      "profiles": [
+        {
+          "id": "debian13Amd64",
+          "system": "Debian 13 amd64"
+        },
+        {
+          "id": "ubuntu2404Amd64",
+          "system": "Ubuntu 24.04 LTS amd64"
+        },
+        {
+          "id": "debian13Arm64",
+          "system": "Debian 13 arm64"
+        },
+        {
+          "id": "ubuntu2604Amd64",
+          "system": "Ubuntu 26.04 LTS amd64"
+        }
+      ]
+    },
+    {
+      "id": "dmg",
+      "format": ".dmg",
+      "type": "macStaticPreviewDiskImageNotApp",
+      "buildLane": "tools/buildHydraMacDmgCandidate.sh",
+      "source": [
+        "frontEnd/index.html",
+        "frontEnd/package-lock.json",
+        "frontEnd/tools/stage-jquery.mjs"
+      ],
+      "contracts": [
+        "doctrine/storageTopologyV1.json",
+        "doctrine/stablePluginUpdateSpineV1.json"
+      ],
+      "release": "NEEDS_MACOS_HOST_APP_SIGNING_NOTARIZATION",
+      "profiles": [
+        {
+          "id": "macArm64Preview",
+          "system": "macOS arm64 static preview"
+        },
+        {
+          "id": "macX64Preview",
+          "system": "macOS x86_64 static preview"
+        },
+        {
+          "id": "macUniversalBeta",
+          "system": "macOS universal beta"
+        },
+        {
+          "id": "macUniversalStable",
+          "system": "macOS universal stable"
+        }
+      ]
+    },
+    {
+      "id": "apk",
+      "format": ".apk",
+      "type": "androidWeb3Cockpit",
+      "buildLane": ".github/workflows/android-testing-build.yml",
+      "source": [
+        "androidWeb3Plugin/build.gradle.kts",
+        "androidWeb3Plugin/plugin/build.gradle.kts",
+        "androidWeb3Plugin/plugin/src/main/AndroidManifest.xml"
+      ],
+      "contracts": [
+        "doctrine/androidDeliveryLanesV1.json",
+        "doctrine/fourTrackReleaseClosureV1.json"
+      ],
+      "release": "NEEDS_EXACT_BUILD_INSTALL_ADB_SIGNER_APK_PROOF",
+      "profiles": [
+        {
+          "id": "samsungDebugArm64",
+          "system": "Samsung Android arm64 debug"
+        },
+        {
+          "id": "genericAndroidDebug",
+          "system": "generic Android debug"
+        },
+        {
+          "id": "samsungBeta",
+          "system": "Samsung Android private beta"
+        },
+        {
+          "id": "googlePlayRelease",
+          "system": "Google Play stable AAB/APK"
+        }
+      ]
+    },
+    {
+      "id": "npm",
+      "format": ".tgz",
+      "type": "privateNpmPortableBrowserPreview",
+      "buildLane": "tools/buildHydraWebPackageCandidates.sh",
+      "source": [
+        "frontEnd/package.json",
+        "frontEnd/package-lock.json",
+        "frontEnd/index.html"
+      ],
+      "contracts": [
+        "doctrine/npmPluginApkDeliveryV1.json",
+        "doctrine/stablePluginUpdateSpineV1.json"
+      ],
+      "release": "NEEDS_CONSUMER_INSTALL_SANDBOX_AND_PUBLISH_APPROVAL",
+      "profiles": [
+        {
+          "id": "frontEndPreview",
+          "system": "npm frontEnd cockpit private tarball"
+        },
+        {
+          "id": "glassWorldPreview",
+          "system": "npm Vue Babylon Glass World candidate"
+        },
+        {
+          "id": "lumEdgePreview",
+          "system": "npm Lum Edge candidate (unmerged)"
+        },
+        {
+          "id": "portablePlugin",
+          "system": "npm portable plugin adapter, format distinction"
+        }
+      ]
+    }
+  ],
+  "storage": "doctrine/storageTopologyV1.json",
+  "providerAdapter": "doctrine/googleAiProxyDeploymentV1.json",
+  "guardRail": "doctrine/everlastingCovenantV1.json",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "quarantine": "doctrine/companyWideOperationalQuarantineV1.json",
+  "preservedExistingMachineAudit": "doctrine/machineCanonFourLoopV1.json",
+  "noFalseGreen": [
+    "sourceChecksDoNotProvePackages",
+    "packageArtifactDoesNotProveInstallation",
+    "dmgsAreNotNativeAppsUnlessVerified",
+    "androidAarIsNotAnApk",
+    "npmPackIsNotNpmPublish",
+    "githubArtifactIsNotDurableDriveStorage",
+    "providerDefinitionIsNotAuthenticatedProvider",
+    "crownStopIsNotReleasePermission"
+  ],
+  "escalation": {
+    "baseSlots": 256,
+    "extendedSlots": 512,
+    "finalSlots": 1024,
+    "advanceOnlyWithNewDistinctProfiles": true,
+    "unknownHolds": true,
+    "failedEvidenceStopsPromotion": true
+  },
+  "crownStatus": "STOP"
+}
