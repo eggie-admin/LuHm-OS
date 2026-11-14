@@ -1,0 +1,530 @@
+{
+  "schema": "luhmOs.canonControlRoomSnapshot.v1",
+  "snapshotAt": "2026-11-14",
+  "sourceRef": "main / inspected 2026-11-14",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "canonAuthorityPath": "doctrine/currentSourceTruthV3.json",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "displayProject": "LuHm-OS: Project Premonition",
+  "historicalAlias": "Project Hydra",
+  "naming": {
+    "machine": "camelHump",
+    "transport": "kebab-case",
+    "status": "DRAGONTAIL",
+    "doNotRewriteHistory": true
+  },
+  "statusMeanings": {
+    "implemented": "Relevant source/contract has been inspected; DOES NOT establish runtime proof.",
+    "tentative": "Candidate design, source bridge, or unverified integration.",
+    "missing": "No verified matching implementation in this inspection.",
+    "blocked": "Stopped by evidence, rights, security, authorization, or runtime gates."
+  },
+  "systems": [
+    {
+      "id": "godot4Prototype",
+      "title": "Godot 4 prototype",
+      "status": "implemented",
+      "summary": "Godot 4.7.2 scene spine, Detroit riverwalk, Lum beacon, touch D-pad, native scene boundary in repository.",
+      "evidence": "README.md",
+      "proof": "Desktop and physical-device gameplay proof not independently run for this snapshot."
+    },
+    {
+      "id": "frontEndCockpit",
+      "title": "Local HTML / WebView cockpit",
+      "status": "implemented",
+      "summary": "frontEnd/ has 70/30 scene/chat shell, navigation and explicit Godot system-layer handoff; WebView wrapper is not verified.",
+      "evidence": "frontEnd/README.md",
+      "proof": "Run local smoke and check packaged Android wrapper separately."
+    },
+    {
+      "id": "chatGptAppWidget",
+      "title": "ChatGPT app widget / Site bridge",
+      "status": "tentative",
+      "summary": "Read-only LuHm cockpit bridge is reachable; in-chat mounted app, host permissions and install proof are separate.",
+      "evidence": "doctrine/artistFirstArtToolCanonV1.json",
+      "proof": "Obtain exact ChatGPT host mount receipt without modifying existing app binding."
+    },
+    {
+      "id": "lum2dChat",
+      "title": "Live 2D chat overlay",
+      "status": "tentative",
+      "summary": "Front-end chat dock exists as source. Live model messaging and final 2D-over-3D compositing are unverified.",
+      "evidence": "frontEnd/index.html",
+      "proof": "Show real two-way host chat and overlay screenshot at pinned SHA."
+    },
+    {
+      "id": "lum3dAvatar",
+      "title": "Detailed 3D Lum avatar",
+      "status": "tentative",
+      "summary": "Renderer mount and character candidate/blockout references exist; a detailed rigged live avatar is not proven loaded.",
+      "evidence": "artAssets/README.md",
+      "proof": "Inspect approved local rig, GLB import, animation and FPS receipt."
+    },
+    {
+      "id": "xmbiNavigation",
+      "title": "XMBI up/down swipe navigation",
+      "status": "missing",
+      "summary": "User-requested pattern. This control-room UI prototypes vertical swipe, but Godot/WebView integration is not evidenced.",
+      "evidence": "frontEnd/README.md",
+      "proof": "Define typed gesture contract, map to views, verify touch/keyboard accessibility."
+    },
+    {
+      "id": "dndModule",
+      "title": "D&D module",
+      "status": "tentative",
+      "summary": "User-reported module; specific runtime path and compatibility proof not identified in this scoped snapshot.",
+      "evidence": "README.md",
+      "proof": "Locate exact module manifest, entry scene and smoke test."
+    },
+    {
+      "id": "barObjects",
+      "title": "Bar objects / Rebel scene",
+      "status": "tentative",
+      "summary": "Private Rebel bar-scene proof and GLB donor are inventoried, but sanitized Godot object instancing is not verified.",
+      "evidence": "artAssets/manifests/archiveInventory.json",
+      "proof": "Confirm owner-approved GLB import and one object placement."
+    },
+    {
+      "id": "bodySlideMorphs",
+      "title": "BodySlide-inspired morph integration",
+      "status": "tentative",
+      "summary": "Original candidate presets and engineering-source audit exist; native morph sliders and rig compatibility remain open.",
+      "evidence": "game/assets/GODDESS_MORPH_PRESETS_V1.json",
+      "proof": "Verify Godot 4 blend shapes and licensing before any code reuse."
+    },
+    {
+      "id": "eveBlenderAssets",
+      "title": "EVE Blender source assets",
+      "status": "blocked",
+      "summary": "Owner-controlled Drive holds donor/working assets; archive compatibility and redistribution rights require review.",
+      "evidence": "artAssets/README.md",
+      "proof": "Private intake + rights/provenance audit; no public upload."
+    },
+    {
+      "id": "llmosAgents",
+      "title": "LLMOS agent orchestra",
+      "status": "implemented",
+      "summary": "15-agent role registry, Lum coordinator and source routing contracts are present, not independently executing workers.",
+      "evidence": "doctrine/agentSystemDeploymentV1.json",
+      "proof": "Runtime invocation proof remains quarantined."
+    },
+    {
+      "id": "readOnlyMiniAgent",
+      "title": "Mini-agent second thread",
+      "status": "tentative",
+      "summary": "readOnlyMiniAgent is active-task monitoring semantics, not a hidden autonomous background thread.",
+      "evidence": "agents/goddessSharedSystemsPractice/SKILL.md",
+      "proof": "Implement explicit in-app pane with current-turn results, no fake workers."
+    },
+    {
+      "id": "pluginHardening",
+      "title": "Plugin hardening / release lanes",
+      "status": "tentative",
+      "summary": "Source package/release gates documented; beta, stable, installation and same-source host proof still need independent receipts.",
+      "evidence": "manual/pluginReleaseHub.md",
+      "proof": "Check tests, exact package checksum, host acceptance and rollback."
+    },
+    {
+      "id": "localInstall",
+      "title": "Lean local installation",
+      "status": "tentative",
+      "summary": "Source run instructions exist. One-command control-room static server can run locally without secrets or npm.",
+      "evidence": "frontEnd/README.md",
+      "proof": "Smoke Python static server on supported device; then wrapper handoff."
+    }
+  ],
+  "assets": [
+    {
+      "id": "starterArchive",
+      "name": "LuHmAssetStudioStarterV1",
+      "lane": "privateDrive",
+      "status": "tentative",
+      "rights": "privateOnly",
+      "next": "Revalidate exact file hash and private provenance",
+      "evidence": "artAssets/README.md",
+      "detail": "110 extracted files described in repo manifest"
+    },
+    {
+      "id": "eveBlenderMaster",
+      "name": "EVE Blender source / RAR5 + .blend",
+      "lane": "privateDrive",
+      "status": "blocked",
+      "rights": "rightsPending",
+      "next": "Owner-only rights + import review",
+      "evidence": "artAssets/manifests/archiveInventory.json"
+    },
+    {
+      "id": "rebelBarGlb",
+      "name": "Rebel bar scene GLB",
+      "lane": "privateDrive",
+      "status": "tentative",
+      "rights": "privateOnly",
+      "next": "Godot test import after owner approval",
+      "evidence": "artAssets/manifests/archiveInventory.json"
+    },
+    {
+      "id": "lumRigGlb",
+      "name": "Lum rigged GLB candidate",
+      "lane": "privateDrive",
+      "status": "tentative",
+      "rights": "privateOnly",
+      "next": "Rig/skin/animation render smoke",
+      "evidence": "artAssets/manifests/archiveInventory.json"
+    },
+    {
+      "id": "goddessMorphPresets",
+      "name": "Goddess morph presets v1",
+      "lane": "githubSource",
+      "status": "implemented",
+      "rights": "sourceCandidate",
+      "next": "Wire original morph sliders into Godot",
+      "evidence": "game/assets/GODDESS_MORPH_PRESETS_V1.json"
+    },
+    {
+      "id": "goddessBlockout",
+      "name": "Four-goddess proof scene",
+      "lane": "githubSource",
+      "status": "tentative",
+      "rights": "sourceCandidate",
+      "next": "Compare blockout vs approved private 3D models",
+      "evidence": "artAssets/README.md"
+    },
+    {
+      "id": "bodySlideSourceStudy",
+      "name": "BodySlide/Outfit Studio study record",
+      "lane": "githubSource",
+      "status": "implemented",
+      "rights": "licenseReview",
+      "next": "Keep derivatives original and review GPL obligations",
+      "evidence": "media/fallout-body-mutation-source-registry-v1.json"
+    }
+  ],
+  "agents": [
+    {
+      "id": "urdDoctorGoddess",
+      "role": "Evidence, diagnostic and rollback review",
+      "state": "sourceConfigured"
+    },
+    {
+      "id": "belldandySecretary",
+      "role": "Continuity, naming and receipt bookkeeping",
+      "state": "sourceConfigured"
+    },
+    {
+      "id": "skuldResearch",
+      "role": "Compatibility, provenance and external research",
+      "state": "sourceConfigured"
+    },
+    {
+      "id": "yume",
+      "role": "Art direction, Blender/FFmpeg and storyboard",
+      "state": "sourceConfigured"
+    },
+    {
+      "id": "oniTwins",
+      "role": "Cast/design family, individual names unresolved",
+      "state": "planned"
+    },
+    {
+      "id": "readOnlyMiniAgent",
+      "role": "Active-task second-pane monitoring semantics",
+      "state": "notAsyncRuntime"
+    },
+    {
+      "id": "mediaAssetFactory",
+      "role": "Asset generation / review registry",
+      "state": "sourceConfigured"
+    },
+    {
+      "id": "sumi",
+      "role": "Candidate media-review specialist",
+      "state": "sourceConfigured"
+    }
+  ],
+  "compliance": [
+    {
+      "id": "singleSourceAuthority",
+      "label": "Single source authority stays on GitHub",
+      "details": "currentSourceTruthV3 is displayed as authority; this site is a read-only derived snapshot.",
+      "evidence": "doctrine/currentSourceTruthV3.json"
+    },
+    {
+      "id": "camelHumpIdentities",
+      "label": "camelHump identifiers and historical aliases preserved",
+      "details": "No bulk renaming of projectHydra, projectPremonition, LuHm-OS or external protocol filenames.",
+      "evidence": "doctrine/namingNamespaceCanonV1.json"
+    },
+    {
+      "id": "crownPolicy",
+      "label": "No auto CAST, merge, deployment, signing or Crown",
+      "details": "Browser controls only edit local triage state; no privileged side effects.",
+      "evidence": "AGENTS.md"
+    },
+    {
+      "id": "sourceVsRuntime",
+      "label": "Source, CI, host and device receipts stay separate",
+      "details": "Status labels cannot turn source configuration into runtime GREEN.",
+      "evidence": "doctrine/soloStudioOperatingProfileV1.json"
+    },
+    {
+      "id": "artistFirst",
+      "label": "Original editable masters and human art direction respected",
+      "details": "AI assists; Professor retains creative and approval authority.",
+      "evidence": "doctrine/artistFirstArtToolCanonV1.json"
+    },
+    {
+      "id": "privateBinaryBoundary",
+      "label": "Private archives remain in owner-controlled Drive",
+      "details": "No archive bytes, private Drive IDs or signing material appear in this public site.",
+      "evidence": "doctrine/storageTopologyV1.json"
+    },
+    {
+      "id": "rightsGates",
+      "label": "EVE / BodySlide / donor rights independently cleared",
+      "details": "Private donor possession does not grant public redistribution.",
+      "evidence": "doctrine/assetEligibilityMatrixV1.json"
+    },
+    {
+      "id": "agentQuarantine",
+      "label": "No false autonomous agent execution claims",
+      "details": "Role names and chat roleplay cannot stand in for host invocation receipts.",
+      "evidence": "doctrine/goddessCabinetLiveChatV1.json"
+    },
+    {
+      "id": "webviewLeastPrivilege",
+      "label": "Static site has no shell or secret access",
+      "details": "Godot and native authority behind a typed bridge only.",
+      "evidence": "frontEnd/README.md"
+    },
+    {
+      "id": "xmbiAccessibility",
+      "label": "XMBI navigation has keyboard and touch paths",
+      "details": "Control-room supports touch/swipe and keyboard; integration into native shell remains separate.",
+      "evidence": "frontEnd/README.md"
+    },
+    {
+      "id": "pluginReleaseReceipts",
+      "label": "Plugin releases require checksums and acceptance",
+      "details": "GitHub archive is not an installed ChatGPT plugin.",
+      "evidence": "manual/pluginReleaseHub.md"
+    },
+    {
+      "id": "fallbackAndRollback",
+      "label": "Rollback and backup defined before mutations",
+      "details": "Small reversible commits on candidate branch, human review before merge.",
+      "evidence": "AGENTS.md"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "gapLumRig",
+      "systemId": "lum3dAvatar",
+      "status": "tentative",
+      "title": "Verified detailed Lum rig on target runtime",
+      "next": "Pin approved GLB source hash and record Godot 4 animation + FPS evidence",
+      "note": ""
+    },
+    {
+      "id": "gapXmbi",
+      "systemId": "xmbiNavigation",
+      "status": "missing",
+      "title": "XMBI gesture bridge to WebView/Godot",
+      "next": "Create typed swipe event map and touch test on SM-X400",
+      "note": ""
+    },
+    {
+      "id": "gapBar",
+      "systemId": "barObjects",
+      "status": "tentative",
+      "title": "D&D module + bar object scene proof",
+      "next": "Locate module source and instantiate an owner-approved bar object",
+      "note": ""
+    },
+    {
+      "id": "gapMorph",
+      "systemId": "bodySlideMorphs",
+      "status": "tentative",
+      "title": "BodySlide original morph pipeline",
+      "next": "Demonstrate blend shape slider with documented compatible license",
+      "note": ""
+    },
+    {
+      "id": "gapEve",
+      "systemId": "eveBlenderAssets",
+      "status": "blocked",
+      "title": "EVE Blender source rights/provenance",
+      "next": "Private archive intake and per-file redistribution decision",
+      "note": ""
+    },
+    {
+      "id": "gapWidget",
+      "systemId": "chatGptAppWidget",
+      "status": "tentative",
+      "title": "ChatGPT in-chat widget proof",
+      "next": "Verify host UI mount, correct app binding and tool permissions",
+      "note": ""
+    },
+    {
+      "id": "gapChat",
+      "systemId": "lum2dChat",
+      "status": "tentative",
+      "title": "Real 2D chat compositor over 3D Lum",
+      "next": "Validate actual ChatGPT messages while scene viewport remains interactive",
+      "note": ""
+    },
+    {
+      "id": "gapAgents",
+      "systemId": "readOnlyMiniAgent",
+      "status": "tentative",
+      "title": "Second-thread mini-agent visible provenance",
+      "next": "Display bounded monitoring receipts without implying hidden async workers",
+      "note": ""
+    },
+    {
+      "id": "gapRelease",
+      "systemId": "pluginHardening",
+      "status": "blocked",
+      "title": "Plugin Beta/Stable and device acceptance",
+      "next": "Check package hash, host install, Urd review, rollback and Professor approval",
+      "note": ""
+    }
+  ],
+  "auditStages": [
+    {
+      "id": "sanityCheck",
+      "task": "Resolve active source, scope, naming, ownership and baseline.",
+      "state": "notStarted"
+    },
+    {
+      "id": "audit",
+      "task": "Inventory implementation evidence and highlight contradictions.",
+      "state": "notStarted"
+    },
+    {
+      "id": "ingest",
+      "task": "Review authorized assets, hashes, licenses and private lanes.",
+      "state": "notStarted"
+    },
+    {
+      "id": "mutation",
+      "task": "Make one scoped reversible change on candidate branch.",
+      "state": "notStarted"
+    },
+    {
+      "id": "test",
+      "task": "Run exact source unit, browser, Godot and negative tests.",
+      "state": "notStarted"
+    },
+    {
+      "id": "apply",
+      "task": "Review patch, safety boundary and rollback on a PR.",
+      "state": "notStarted"
+    },
+    {
+      "id": "continue",
+      "task": "Update evidence pointers and triage next gap.",
+      "state": "notStarted"
+    },
+    {
+      "id": "deploy",
+      "task": "Keep STOP until explicit host/release approval and verified receipts.",
+      "state": "blocked"
+    }
+  ],
+  "deploy": [
+    {
+      "id": "source",
+      "title": "GitHub canonical source",
+      "status": "implemented",
+      "body": "Repository and inspected Canon contracts are present; site is candidate-only.",
+      "evidence": "README.md"
+    },
+    {
+      "id": "webUi",
+      "title": "Browser / mobile UI",
+      "status": "tentative",
+      "body": "This control-room source is new; runtime and cross-device smoke receipts not yet attached.",
+      "evidence": "frontEnd/README.md"
+    },
+    {
+      "id": "godotRuntime",
+      "title": "Godot scene / APK",
+      "status": "tentative",
+      "body": "Godot build workflows documented; no new CI or physical-device proof in this inspection.",
+      "evidence": "README.md"
+    },
+    {
+      "id": "chatGptPlugin",
+      "title": "ChatGPT plugin package",
+      "status": "blocked",
+      "body": "Protected release/host acceptance gates; published channel and installed host proof not established here.",
+      "evidence": "manual/pluginReleaseHub.md"
+    },
+    {
+      "id": "agentRuntime",
+      "title": "Independent LLM workers",
+      "status": "blocked",
+      "body": "Source-registered roles; autonomous agent deployment remains quarantined.",
+      "evidence": "doctrine/goddessCabinetLiveChatV1.json"
+    },
+    {
+      "id": "render",
+      "title": "Render hosting",
+      "status": "tentative",
+      "body": "Existing hosting only if an authorized preview needs it; this app does not call or deploy Render.",
+      "evidence": "doctrine/soloStudioOperatingProfileV1.json"
+    }
+  ],
+  "priorityActions": [
+    {
+      "title": "Pin the Canon checkpoint",
+      "detail": "Verify currentSourceTruthV3, naming law, GitHub baseline and current PR before changes."
+    },
+    {
+      "title": "Run dependency-free local preview",
+      "detail": "Serve this folder over HTTP; smoke touch/swipe, filter, checklist, export/import."
+    },
+    {
+      "title": "Integrate one real Godot boundary",
+      "detail": "Type a safe XMBI route event; prove scene/chat handoff before large-scale asset ingestion."
+    },
+    {
+      "title": "Audit protected assets privately",
+      "detail": "Resolve EVE/BodySlide rights, GLB rig suitability and bar scene import without publishing files."
+    },
+    {
+      "title": "Harden plugin separately",
+      "detail": "Hash package, CI negative controls, host mount, receipt and rollback; no automatic release."
+    }
+  ],
+  "installActions": [
+    {
+      "title": "Clone the existing repository; keep main untouched",
+      "detail": "git clone https://github.com/eggie-admin/LuHm-OS.git && cd LuHm-OS"
+    },
+    {
+      "title": "Check out this candidate PR branch",
+      "detail": "git fetch origin candidate/canon-control-room-20261114 && git switch candidate/canon-control-room-20261114"
+    },
+    {
+      "title": "Serve the Control Room without npm, SDK, keys or cloud",
+      "detail": "python3 -m http.server 8765 --directory sites/canon-control-room"
+    },
+    {
+      "title": "Open localhost:8765 and test interactions",
+      "detail": "Swipe the navigation rail, edit triage, refresh, export, re-import and compare evidence links."
+    },
+    {
+      "title": "Then smoke the existing front-end shell",
+      "detail": "python3 -m http.server 8766 --directory frontEnd; verify viewport mount, chat dock and backend dispatch."
+    },
+    {
+      "title": "Harden typed bridge and audit before packaging",
+      "detail": "Build only after targeted tests, source SHA, asset rights and human CAST approval."
+    },
+    {
+      "title": "Prove ChatGPT host installation separately",
+      "detail": "Keep Site/App binding intact; capture actual accepted package, host mount, mobile proof and rollback."
+    }
+  ]
+}
