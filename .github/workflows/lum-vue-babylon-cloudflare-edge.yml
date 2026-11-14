@@ -3,7 +3,7 @@ name: Lum Vue Babylon Cloudflare Edge Candidate
 on:
   pull_request:
     paths:
-      - 'frontEnd/prototypes/glassWorld/**'
+      - 'frontEnd/prototypes/lumEdge/**'
       - '.github/workflows/lum-vue-babylon-cloudflare-edge.yml'
   workflow_dispatch:
 
@@ -24,20 +24,13 @@ jobs:
       - name: Verify bounded source modules
         run: |
           set -euo pipefail
-          node --check frontEnd/prototypes/glassWorld/src/lum-local-model.mjs
-          node --check frontEnd/prototypes/glassWorld/src/lum-avatar.js
-          node --check frontEnd/prototypes/glassWorld/src/main.js
-          node --check frontEnd/prototypes/glassWorld/src/babylon-world.js
+          node --check frontEnd/prototypes/lumEdge/src/lum-local-model.mjs
+          node --check frontEnd/prototypes/lumEdge/src/lum-avatar.js
+          node --check frontEnd/prototypes/lumEdge/src/main.js
+          node --check frontEnd/prototypes/lumEdge/src/babylon-world.js
       - name: npm dependency install with scripts disabled
         working-directory: frontEnd/prototypes/glassWorld
-        run: npm install --ignore-scripts --no-audit --no-fund
-      - name: Upload npm-resolved lockfile candidate
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: lum-vue-babylon-resolved-npm-lockfile
-          path: frontEnd/prototypes/glassWorld/package-lock.json
-          if-no-files-found: error
-          retention-days: 7
+        run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Bounded unit checks and real Vite production build
         working-directory: frontEnd/prototypes/glassWorld
         run: npm run check
@@ -56,6 +49,6 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: lum-vue-babylon-static-edge-candidate
-          path: frontEnd/prototypes/glassWorld/dist/
+          path: frontEnd/prototypes/lumEdge/dist/
           if-no-files-found: error
           retention-days: 7
