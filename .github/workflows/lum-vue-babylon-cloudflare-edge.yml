@@ -28,13 +28,13 @@ jobs:
           node --check frontEnd/prototypes/lumEdge/src/lum-avatar.js
           node --check frontEnd/prototypes/lumEdge/src/main.js
       - name: npm dependency install with scripts disabled
-        working-directory: frontEnd/prototypes/glassWorld
+        working-directory: frontEnd/prototypes/lumEdge
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Bounded unit checks and real Vite production build
-        working-directory: frontEnd/prototypes/glassWorld
+        working-directory: frontEnd/prototypes/lumEdge
         run: npm run check
       - name: Verify Cloudflare output and no private art
-        working-directory: frontEnd/prototypes/glassWorld
+        working-directory: frontEnd/prototypes/lumEdge
         run: |
           set -euo pipefail
           test -f dist/index.html
