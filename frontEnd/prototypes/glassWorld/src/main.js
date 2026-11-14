@@ -8,9 +8,6 @@ const root = document.getElementById("glass-world");
 const active = ref(newScene());
 const selection = ref(null);
 const status = ref("Scene ready. No Godot avatar or production API is active.");
-const lumStatus = ref("Choose your own self-contained .glb on this device. Nothing is uploaded.");
-const lumLoading = ref(false);
-const lumRunning = ref(true);
 let world;
 function update(scene, kind, id = null) {
   active.value = scene;
@@ -39,28 +36,6 @@ const Inspector = {
     ]);
     return () => h("section", [
       h("h2","Vue 3 · Scene Inspector"),
-      h("h3","Lum · Midnight 1996 local 3D"),
-      h("p",{class:"small"},"Load your private Drive GLB after downloading it to this device. This browser reads it locally only."),
-      h("label",{class:"lum-file"} ,["Choose local GLB ", h("input",{
-        type:"file",accept:".glb,model/gltf-binary",disabled:lumLoading.value,
-        onChange:async event => {
-          const file=event.target.files?.[0];
-          if(!file)return;
-          lumLoading.value=true;
-          lumStatus.value="Validating local GLB...";
-          try {
-            const result=await world.loadLum(file);
-            lumRunning.value=true;
-            lumStatus.value="Loaded "+result.meshes+" mesh(es), "+result.animations+" clip(s). "+(result.activeClip || "No rig clip")+". Browser-local only.";
-          }catch(error){lumStatus.value="Load blocked: "+String(error?.message||"unknown error").slice(0,110);}
-          finally {lumLoading.value=false;event.target.value="";}
-        }
-      })]),
-      h("div",{class:"controls"},[
-        h("button",{disabled:lumLoading.value,onClick:()=>{lumRunning.value=true;if(!world.runLum(true))lumStatus.value="Load an animated GLB first.";}},"▶ Run"),
-        h("button",{disabled:lumLoading.value,onClick:()=>{lumRunning.value=false;if(!world.runLum(false))lumStatus.value="Load an animated GLB first.";}},"Ⅱ Pause")
-      ]),
-      h("p",{class:"small",role:"status","aria-live":"polite"},lumStatus.value),
       h("p",{ class:"small" },"Add and place real Babylon meshes. Avatar glass stays separate."),
       h("h3","Place objects"),
       h("div",{ class:"controls" }, ["box","sphere","cylinder","torus"].map(kind =>
