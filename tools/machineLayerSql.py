@@ -56,6 +56,9 @@ def loadManifest(path=MANIFEST):
     require({x["tier"] for x in cells} == {0, 1, 2, 3}, "tier gap")
     require({x["laneId"] for x in cells} == {x["id"] for x in lanes}, "lane gap")
     require(all(x["state"] != "FULL_GREEN" for x in cells), "unproved green")
+    conflict = data.get("database", {}).get("schemaCollision", {})
+    require(conflict.get("table") == "artifactPointer", "artifact-pointer collision must remain disclosed")
+    require(conflict.get("structurallyCompatible") is False and conflict.get("remoteMigrationBlocked") is True and conflict.get("migrationPerformed") is False, "unsafe SQL merge")
     require(data["database"]["remoteState"] == "BLOCKED_WORKSPACE_UNSELECTED", "remote proof not verified")
     return data
 
