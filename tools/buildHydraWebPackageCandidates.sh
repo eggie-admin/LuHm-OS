@@ -56,6 +56,10 @@ Description: LuHm-OS local static cockpit preview, source-only candidate
  local jQuery 3.7.1 license. It has no service, post-install hooks,
  independent AI runtime, remote agent execution or release authority.
 CONTROL
+# Debian package data/control dirs must be traversable in the archive.
+# Keep temporary workspace private, but package payload mode 0755/0644.
+find "$DEB_ROOT" -type d -exec chmod 0755 {} +
+find "$DEB_ROOT" -type f -exec chmod 0644 {} +
 dpkg-deb --root-owner-group --build "$DEB_ROOT" \
   "$OUTPUT/luhm-os-cockpit-preview_0.1.0~proposed1_all.deb" >/dev/null
 
