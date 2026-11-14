@@ -120,8 +120,8 @@ func get_interaction_points() -> Array[Area3D]:
 
 func get_zone_line(zone_id: String) -> String:
     for interaction in _interaction_points:
-        if interaction.zone_id == zone_id:
-            return interaction.get_story_line()
+        if str(interaction.get("zone_id")) == zone_id:
+            return str(interaction.call("get_story_line"))
     return ""
 
 func _make_atmosphere(stage: Node3D) -> void:
@@ -198,7 +198,7 @@ func _make_zone(stage: Node3D, zone: Dictionary, index: int) -> int:
     var interaction: Area3D = AramoorZoneScript.new()
     interaction.name = "StoryHotspot"
     interaction.position = Vector3(-2.2, 0.9, 1.1)
-    interaction.configure(id, str(zone.get("name", "")), str(zone.get("beat", "")))
+    interaction.call("configure", id, str(zone.get("name", "")), str(zone.get("beat", "")))
     island.add_child(interaction)
     _interaction_points.append(interaction)
     var encounter_socket := Marker3D.new()
