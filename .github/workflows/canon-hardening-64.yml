@@ -1,0 +1,99 @@
+name: LuHm Canon Hardening 0x00–0x3F
+on:
+  pull_request:
+    paths:
+      - 'doctrine/**'
+      - 'tools/hardSystemAudit200.py'
+      - 'tools/machineCanonFourLoop.py'
+      - 'tools/escalationKernelAudit.py'
+      - 'tools/apiSpineAudit.py'
+      - 'tools/companyWideQuarantineAudit.py'
+      - 'tools/storageTopologyAudit.py'
+      - 'tools/canonHardening64Audit.py'
+      - 'tests/testCanonHardening64Audit.py'
+      - 'manual/canonHardening64Runbook.md'
+      - '.github/workflows/canon-hardening-64.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  hard64:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Exact source checkout without persisted credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Bind immutable source and verify syntax
+        shell: bash
+        env:
+          LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+          python3 -m json.tool doctrine/canonHardening64V1.json >/dev/null
+          python3 -m py_compile tools/canonHardening64Audit.py tests/testCanonHardening64Audit.py
+      - name: Run 64 source checks and negative escalation controls
+        shell: bash
+        env:
+          LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests -p testCanonHardening64Audit.py -v
+          python3 tools/canonHardening64Audit.py --source-ref "$LUHM_SOURCE_REF" --output build/canon-hardening-64/receipt.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('build/canon-hardening-64/receipt.json').read_text())
+          assert r['checked']==r['passed']==64 and r['failed']==0
+          assert r['sourceStatus']=='PASS_64_SOURCE_CHECKS'
+          assert r['overallVerdict']=='AMBER_EXTERNAL_PROOF_REQUIRED'
+          assert r['crownStatus']=='STOP'
+          assert not any(r[x] for x in ('liveExternalProof','googleAiExecution','physicalDeviceProof','merge','deployment','agentActivation','spending','publication'))
+          PY
+      - name: Execute existing 200-pass system audit on exact SHA
+        shell: bash
+        env:
+          LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          python3 tools/hardSystemAudit200.py > build/canon-hardening-64/hard200.log
+          grep -q 'passes=200/200' build/canon-hardening-64/hard200.log
+          grep -q 'crown=STOP' build/canon-hardening-64/hard200.log
+      - name: Re-run existing 4x4 machine loop and negative tests
+        shell: bash
+        env:
+          LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests -p testMachineCanonFourLoop.py -v
+          python3 tools/machineCanonFourLoop.py --source-ref "$LUHM_SOURCE_REF" --output build/canon-hardening-64/machine4x4.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('build/canon-hardening-64/machine4x4.json').read_text())
+          assert r['checkedCells']==16 and r['sourceStatus']=='GREEN_SOURCE_CHECKS_ONLY'
+          assert r['crownStatus']=='STOP' and r['physicalDeviceProof'] is False
+          PY
+      - name: Focused API, escalation, quarantine and storage consistency
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/escalationKernelAudit.py > build/canon-hardening-64/escalation.log
+          python3 tools/apiSpineAudit.py > build/canon-hardening-64/api-spine.log
+          python3 tools/companyWideQuarantineAudit.py > build/canon-hardening-64/quarantine.log
+          python3 tools/storageTopologyAudit.py > build/canon-hardening-64/storage.log
+      - name: Preserve bounded, nonsecret evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: canon-hardening-64-exact-source
+          path: build/canon-hardening-64/
+          retention-days: 14
+          if-no-files-found: warn

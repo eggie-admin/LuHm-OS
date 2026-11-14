@@ -1,0 +1,718 @@
+{
+  "schema": "luhmOs.canonHardening64.v1",
+  "status": "SOURCE_CANDIDATE_ONLY",
+  "product": "LuHm-OS",
+  "taskId": "canonHardening64_20261104",
+  "scopeId": "wholeSystemSourceAuthorityAudit",
+  "authority": "Professor",
+  "boss": "lum",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "referenceMain": "69e8d2fc7df1288aaa1665efaea2bf2674056a1b",
+  "geometry": {
+    "domains": [
+      "governance",
+      "security",
+      "integration",
+      "delivery"
+    ],
+    "lanesPerDomain": 4,
+    "beats": [
+      "inventory",
+      "scope",
+      "verify",
+      "propose"
+    ],
+    "slots": 64,
+    "hexRange": "0x00..0x3f",
+    "meaning": "logicalSourceChecksNotBIOSRegisters"
+  },
+  "escalation": {
+    "startTier": 0,
+    "highestTier": 3,
+    "maxSameSourceRetries": 3,
+    "tiers": [
+      "deterministicDefault",
+      "coordinatedDiagnosis",
+      "specialistRepair",
+      "humanHold"
+    ],
+    "failureEscalatesWithinScope": true,
+    "unknownHolds": true,
+    "noAuthorityIncrease": true,
+    "passDeescalates": true,
+    "eachTickReverifies": true
+  },
+  "secondaryAudits": [
+    "tools/hardSystemAudit200.py",
+    "tools/machineCanonFourLoop.py",
+    "tools/escalationKernelAudit.py",
+    "tools/apiSpineAudit.py"
+  ],
+  "matrix": [
+    {
+      "cell": "0x00",
+      "domain": "governance",
+      "lane": 0,
+      "beat": "inventory",
+      "source": "doctrine/currentSourceTruthV3.json",
+      "jsonPath": "schema",
+      "operator": "eq",
+      "expected": "luhmOs.currentSourceTruth.v3"
+    },
+    {
+      "cell": "0x01",
+      "domain": "governance",
+      "lane": 0,
+      "beat": "scope",
+      "source": "doctrine/currentSourceTruthV3.json",
+      "jsonPath": "canonicalRepository",
+      "operator": "eq",
+      "expected": "eggie-admin/LuHm-OS"
+    },
+    {
+      "cell": "0x02",
+      "domain": "governance",
+      "lane": 0,
+      "beat": "verify",
+      "source": "doctrine/currentSourceTruthV3.json",
+      "jsonPath": "workingDoctrineLane.status",
+      "operator": "eq",
+      "expected": "PROPOSED_ONLY"
+    },
+    {
+      "cell": "0x03",
+      "domain": "governance",
+      "lane": 0,
+      "beat": "propose",
+      "source": "doctrine/currentSourceTruthV3.json",
+      "jsonPath": "promotion",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x04",
+      "domain": "governance",
+      "lane": 1,
+      "beat": "inventory",
+      "source": "doctrine/projectChatCanonV1.json",
+      "jsonPath": "boss",
+      "operator": "eq",
+      "expected": "lum"
+    },
+    {
+      "cell": "0x05",
+      "domain": "governance",
+      "lane": 1,
+      "beat": "scope",
+      "source": "doctrine/projectChatCanonV1.json",
+      "jsonPath": "sourceLaw",
+      "operator": "eq",
+      "expected": "AI proposes. Policy authorizes. CI proves. Human promotes."
+    },
+    {
+      "cell": "0x06",
+      "domain": "governance",
+      "lane": 1,
+      "beat": "verify",
+      "source": "doctrine/projectChatCanonV1.json",
+      "jsonPath": "schema",
+      "operator": "eq",
+      "expected": "luhmOs.projectChatCanon.v1"
+    },
+    {
+      "cell": "0x07",
+      "domain": "governance",
+      "lane": 1,
+      "beat": "propose",
+      "source": "doctrine/projectChatCanonV1.json",
+      "jsonPath": "crownStatus",
+      "operator": "eq",
+      "expected": "stop"
+    },
+    {
+      "cell": "0x08",
+      "domain": "governance",
+      "lane": 2,
+      "beat": "inventory",
+      "source": "doctrine/escalationKernelV1.json",
+      "jsonPath": "schema",
+      "operator": "eq",
+      "expected": "luhmOs.escalationKernel.v1"
+    },
+    {
+      "cell": "0x09",
+      "domain": "governance",
+      "lane": 2,
+      "beat": "scope",
+      "source": "doctrine/escalationKernelV1.json",
+      "jsonPath": "tierSemantics",
+      "operator": "length",
+      "expected": 4
+    },
+    {
+      "cell": "0x0a",
+      "domain": "governance",
+      "lane": 2,
+      "beat": "verify",
+      "source": "doctrine/escalationKernelV1.json",
+      "jsonPath": "commonLaws",
+      "operator": "contains",
+      "expected": "unknownRemainsUnknown"
+    },
+    {
+      "cell": "0x0b",
+      "domain": "governance",
+      "lane": 2,
+      "beat": "propose",
+      "source": "doctrine/escalationKernelV1.json",
+      "jsonPath": "crownStatus",
+      "operator": "eq",
+      "expected": "STOP"
+    },
+    {
+      "cell": "0x0c",
+      "domain": "governance",
+      "lane": 3,
+      "beat": "inventory",
+      "source": "doctrine/proposedWorkingLaneV1.json",
+      "jsonPath": "status",
+      "operator": "eq",
+      "expected": "PROPOSED_ONLY"
+    },
+    {
+      "cell": "0x0d",
+      "domain": "governance",
+      "lane": 3,
+      "beat": "scope",
+      "source": "doctrine/proposedWorkingLaneV1.json",
+      "jsonPath": "publicationAuthority",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x0e",
+      "domain": "governance",
+      "lane": 3,
+      "beat": "verify",
+      "source": "doctrine/proposedWorkingLaneV1.json",
+      "jsonPath": "releaseAuthority",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x0f",
+      "domain": "governance",
+      "lane": 3,
+      "beat": "propose",
+      "source": "doctrine/proposedWorkingLaneV1.json",
+      "jsonPath": "crownStatus",
+      "operator": "eq",
+      "expected": "STOP"
+    },
+    {
+      "cell": "0x10",
+      "domain": "security",
+      "lane": 0,
+      "beat": "inventory",
+      "source": "doctrine/companyWideOperationalQuarantineV1.json",
+      "jsonPath": "state",
+      "operator": "eq",
+      "expected": "QUARANTINED"
+    },
+    {
+      "cell": "0x11",
+      "domain": "security",
+      "lane": 0,
+      "beat": "scope",
+      "source": "doctrine/companyWideOperationalQuarantineV1.json",
+      "jsonPath": "registeredCount",
+      "operator": "eq",
+      "expected": 15
+    },
+    {
+      "cell": "0x12",
+      "domain": "security",
+      "lane": 0,
+      "beat": "verify",
+      "source": "doctrine/companyWideOperationalQuarantineV1.json",
+      "jsonPath": "activeTaskWorkersAllowed",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x13",
+      "domain": "security",
+      "lane": 0,
+      "beat": "propose",
+      "source": "doctrine/companyWideOperationalQuarantineV1.json",
+      "jsonPath": "crownStatus",
+      "operator": "eq",
+      "expected": "STOP"
+    },
+    {
+      "cell": "0x14",
+      "domain": "security",
+      "lane": 1,
+      "beat": "inventory",
+      "source": "doctrine/storageTopologyV1.json",
+      "jsonPath": "primeLaw",
+      "operator": "eq",
+      "expected": "databases point to files; databases do not become the file server"
+    },
+    {
+      "cell": "0x15",
+      "domain": "security",
+      "lane": 1,
+      "beat": "scope",
+      "source": "doctrine/storageTopologyV1.json",
+      "jsonPath": "roles.github.canonicalSourceAuthority",
+      "operator": "eq",
+      "expected": true
+    },
+    {
+      "cell": "0x16",
+      "domain": "security",
+      "lane": 1,
+      "beat": "verify",
+      "source": "doctrine/storageTopologyV1.json",
+      "jsonPath": "roles.googleDrive.canonicalBinaryStorage",
+      "operator": "eq",
+      "expected": true
+    },
+    {
+      "cell": "0x17",
+      "domain": "security",
+      "lane": 1,
+      "beat": "propose",
+      "source": "doctrine/storageTopologyV1.json",
+      "jsonPath": "rules.databaseMayStoreCanonicalBinary",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x18",
+      "domain": "security",
+      "lane": 2,
+      "beat": "inventory",
+      "source": "doctrine/typedFourLaneSqlV1.json",
+      "jsonPath": "lanes",
+      "operator": "length",
+      "expected": 4
+    },
+    {
+      "cell": "0x19",
+      "domain": "security",
+      "lane": 2,
+      "beat": "scope",
+      "source": "doctrine/typedFourLaneSqlV1.json",
+      "jsonPath": "admin.publicSqlRoute",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x1a",
+      "domain": "security",
+      "lane": 2,
+      "beat": "verify",
+      "source": "doctrine/typedFourLaneSqlV1.json",
+      "jsonPath": "runtimeDatabase",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x1b",
+      "domain": "security",
+      "lane": 2,
+      "beat": "propose",
+      "source": "doctrine/typedFourLaneSqlV1.json",
+      "jsonPath": "mobile.allowSecretsInBrowser",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x1c",
+      "domain": "security",
+      "lane": 3,
+      "beat": "inventory",
+      "source": "doctrine/cloudflareAirTrafficControllerV1.json",
+      "jsonPath": "provider",
+      "operator": "eq",
+      "expected": "cloudflare"
+    },
+    {
+      "cell": "0x1d",
+      "domain": "security",
+      "lane": 3,
+      "beat": "scope",
+      "source": "doctrine/cloudflareAirTrafficControllerV1.json",
+      "jsonPath": "authorityBoundary.aiProvider",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x1e",
+      "domain": "security",
+      "lane": 3,
+      "beat": "verify",
+      "source": "doctrine/cloudflareAirTrafficControllerV1.json",
+      "jsonPath": "lanes.publicChatPluginMcp.bootstrapRecord.proxied",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x1f",
+      "domain": "security",
+      "lane": 3,
+      "beat": "propose",
+      "source": "doctrine/cloudflareAirTrafficControllerV1.json",
+      "jsonPath": "authorityBoundary.crownAuthority",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x20",
+      "domain": "integration",
+      "lane": 0,
+      "beat": "inventory",
+      "source": "doctrine/apiSpineV1.json",
+      "jsonPath": "providers.googleAi.adapterId",
+      "operator": "eq",
+      "expected": "bigBrother"
+    },
+    {
+      "cell": "0x21",
+      "domain": "integration",
+      "lane": 0,
+      "beat": "scope",
+      "source": "doctrine/apiSpineV1.json",
+      "jsonPath": "secrets.sourceControl",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x22",
+      "domain": "integration",
+      "lane": 0,
+      "beat": "verify",
+      "source": "doctrine/apiSpineV1.json",
+      "jsonPath": "authorityBoundary.providerMayGrantCrown",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x23",
+      "domain": "integration",
+      "lane": 0,
+      "beat": "propose",
+      "source": "doctrine/apiSpineV1.json",
+      "jsonPath": "crownStatus",
+      "operator": "eq",
+      "expected": "STOP"
+    },
+    {
+      "cell": "0x24",
+      "domain": "integration",
+      "lane": 1,
+      "beat": "inventory",
+      "source": "doctrine/googleAiDeveloperEntitlementsV1.json",
+      "jsonPath": "entitlementAxes.consumerSubscription.grantsDeveloperApi",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x25",
+      "domain": "integration",
+      "lane": 1,
+      "beat": "scope",
+      "source": "doctrine/googleAiDeveloperEntitlementsV1.json",
+      "jsonPath": "entitlementAxes.developerApi.apiEnabledState",
+      "operator": "eq",
+      "expected": "UNKNOWN"
+    },
+    {
+      "cell": "0x26",
+      "domain": "integration",
+      "lane": 1,
+      "beat": "verify",
+      "source": "doctrine/googleAiDeveloperEntitlementsV1.json",
+      "jsonPath": "entitlementAxes.cloudBilling.paidCallsAllowed",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x27",
+      "domain": "integration",
+      "lane": 1,
+      "beat": "propose",
+      "source": "doctrine/googleAiDeveloperEntitlementsV1.json",
+      "jsonPath": "executionLaw.defaultAction",
+      "operator": "eq",
+      "expected": "DENY"
+    },
+    {
+      "cell": "0x28",
+      "domain": "integration",
+      "lane": 2,
+      "beat": "inventory",
+      "source": "doctrine/googleAiProxyDeploymentV1.json",
+      "jsonPath": "runtimeMode",
+      "operator": "eq",
+      "expected": "READ_ONLY_STATUS_ONLY"
+    },
+    {
+      "cell": "0x29",
+      "domain": "integration",
+      "lane": 2,
+      "beat": "scope",
+      "source": "doctrine/googleAiProxyDeploymentV1.json",
+      "jsonPath": "networkEgress",
+      "operator": "eq",
+      "expected": "DISABLED"
+    },
+    {
+      "cell": "0x2a",
+      "domain": "integration",
+      "lane": 2,
+      "beat": "verify",
+      "source": "doctrine/googleAiProxyDeploymentV1.json",
+      "jsonPath": "automaticProviderCalls",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x2b",
+      "domain": "integration",
+      "lane": 2,
+      "beat": "propose",
+      "source": "doctrine/googleAiProxyDeploymentV1.json",
+      "jsonPath": "noConsumerGeminiAutomation",
+      "operator": "eq",
+      "expected": true
+    },
+    {
+      "cell": "0x2c",
+      "domain": "integration",
+      "lane": 3,
+      "beat": "inventory",
+      "source": "doctrine/cloudflareLumOrchestrationV1.json",
+      "jsonPath": "aiOrchestration.activeWorkerCount",
+      "operator": "eq",
+      "expected": 0
+    },
+    {
+      "cell": "0x2d",
+      "domain": "integration",
+      "lane": 3,
+      "beat": "scope",
+      "source": "doctrine/cloudflareLumOrchestrationV1.json",
+      "jsonPath": "aiOrchestration.companyQuarantine",
+      "operator": "eq",
+      "expected": "QUARANTINED"
+    },
+    {
+      "cell": "0x2e",
+      "domain": "integration",
+      "lane": 3,
+      "beat": "verify",
+      "source": "doctrine/cloudflareLumOrchestrationV1.json",
+      "jsonPath": "writeControls.mayChangeCloudflareDns",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x2f",
+      "domain": "integration",
+      "lane": 3,
+      "beat": "propose",
+      "source": "doctrine/cloudflareLumOrchestrationV1.json",
+      "jsonPath": "statusSeal.crownStatus",
+      "operator": "eq",
+      "expected": "STOP"
+    },
+    {
+      "cell": "0x30",
+      "domain": "delivery",
+      "lane": 0,
+      "beat": "inventory",
+      "source": "doctrine/androidDeliveryLanesV1.json",
+      "jsonPath": "proof.physicalDeviceInstall",
+      "operator": "eq",
+      "expected": "PENDING"
+    },
+    {
+      "cell": "0x31",
+      "domain": "delivery",
+      "lane": 0,
+      "beat": "scope",
+      "source": "doctrine/androidDeliveryLanesV1.json",
+      "jsonPath": "invariants.sourceCiDoesNotProveInstalledApp",
+      "operator": "eq",
+      "expected": true
+    },
+    {
+      "cell": "0x32",
+      "domain": "delivery",
+      "lane": 0,
+      "beat": "verify",
+      "source": "doctrine/androidDeliveryLanesV1.json",
+      "jsonPath": "lanes.proposed.externalPublication",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x33",
+      "domain": "delivery",
+      "lane": 0,
+      "beat": "propose",
+      "source": "doctrine/androidDeliveryLanesV1.json",
+      "jsonPath": "proof.binaryManifestReleaseEligible",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x34",
+      "domain": "delivery",
+      "lane": 1,
+      "beat": "inventory",
+      "source": "doctrine/publicArtReleaseReadinessV1.json",
+      "jsonPath": "promotion",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x35",
+      "domain": "delivery",
+      "lane": 1,
+      "beat": "scope",
+      "source": "doctrine/publicArtReleaseReadinessV1.json",
+      "jsonPath": "publicationAuthority",
+      "operator": "eq",
+      "expected": false
+    },
+    {
+      "cell": "0x36",
+      "domain": "delivery",
+      "lane": 1,
+      "beat": "verify",
+      "source": "doctrine/publicArtReleaseReadinessV1.json",
+      "jsonPath": "releaseReadyRequires",
+      "operator": "contains",
+      "expected": "professor_approves_exact_publish_candidate"
+    },
+    {
+      "cell": "0x37",
+      "domain": "delivery",
+      "lane": 1,
+      "beat": "propose",
+      "source": "doctrine/publicArtReleaseReadinessV1.json",
+      "jsonPath": "crownStatus",
+      "operator": "eq",
+      "expected": "STOP"
+    },
+    {
+      "cell": "0x38",
+      "domain": "delivery",
+      "lane": 2,
+      "beat": "inventory",
+      "source": "doctrine/releaseBoundaryV2.json",
+      "jsonPath": "status",
+      "operator": "eq",
+      "expected": "PROPOSED_RELEASE_BOUNDARY"
+    },
+    {
+      "cell": "0x39",
+      "domain": "delivery",
+      "lane": 2,
+      "beat": "scope",
+      "source": "doctrine/releaseBoundaryV2.json",
+      "jsonPath": "deniedActions",
+      "operator": "contains",
+      "expected": "productionSigning"
+    },
+    {
+      "cell": "0x3a",
+      "domain": "delivery",
+      "lane": 2,
+      "beat": "verify",
+      "source": "doctrine/releaseBoundaryV2.json",
+      "jsonPath": "deniedActions",
+      "operator": "contains",
+      "expected": "silentPublicationWithoutProfessorApproval"
+    },
+    {
+      "cell": "0x3b",
+      "domain": "delivery",
+      "lane": 2,
+      "beat": "propose",
+      "source": "doctrine/releaseBoundaryV2.json",
+      "jsonPath": "crownStatus",
+      "operator": "eq",
+      "expected": "STOP"
+    },
+    {
+      "cell": "0x3c",
+      "domain": "delivery",
+      "lane": 3,
+      "beat": "inventory",
+      "source": "doctrine/fourTierOperatingModelV1.json",
+      "jsonPath": "tiers",
+      "operator": "length",
+      "expected": 4
+    },
+    {
+      "cell": "0x3d",
+      "domain": "delivery",
+      "lane": 3,
+      "beat": "scope",
+      "source": "doctrine/fourTierOperatingModelV1.json",
+      "jsonPath": "primeLaw",
+      "operator": "eq",
+      "expected": "oneAuthorityChainManyPresentationAndWorkLayers"
+    },
+    {
+      "cell": "0x3e",
+      "domain": "delivery",
+      "lane": 3,
+      "beat": "verify",
+      "source": "doctrine/fourTierOperatingModelV1.json",
+      "jsonPath": "crossTierLaw",
+      "operator": "contains",
+      "expected": "allConsequentialPromotionReturnsToProfessorCrown"
+    },
+    {
+      "cell": "0x3f",
+      "domain": "delivery",
+      "lane": 3,
+      "beat": "propose",
+      "source": "doctrine/fourTierOperatingModelV1.json",
+      "jsonPath": "crownStatus",
+      "operator": "eq",
+      "expected": "STOP"
+    }
+  ],
+  "gates": {
+    "oneMutableSourceLane": true,
+    "publicPrUntrusted": true,
+    "githubPermissions": "contents:read",
+    "cloudSecrets": false,
+    "providerApiCalls": false,
+    "paidCredits": false,
+    "productionSql": false,
+    "cloudflareMutation": false,
+    "liveDeviceProof": false,
+    "agentRelease": false,
+    "mainMerge": false,
+    "productionDeploy": false,
+    "publication": false,
+    "crown": "STOP"
+  },
+  "honesty": {
+    "sourceChecksAreNotLiveProof": true,
+    "ciGreenDoesNotLiftQuarantine": true,
+    "googleDeveloperEntitlement": "UNKNOWN",
+    "cloudflareWorkerBuild": "EXTERNAL_CHECK_SEPARATE",
+    "physicalDeviceProof": "UNVERIFIED",
+    "sourceOnlyResult": "AMBER_NOT_GLOBAL_GREEN"
+  },
+  "promotion": false
+}
