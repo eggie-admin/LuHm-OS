@@ -74,14 +74,15 @@ def main():
     world=json.loads(WORLD.read_text())
     truth=json.loads(CANON.read_text())
     required=dict(
-      main=['aramoor_requested.connect(_enter_aramoor_mode)','_toggle_aramoor_tide','aramoor:','switchWorld("aramoorArchipelago")'],
+      main=['aramoor_requested.connect(_enter_aramoor_mode)','_toggle_aramoor_tide','AramoorMainAdapterScript.new().open_world(self)','AramoorMainAdapterScript.new().inspect(self, event_name)'],
+      adapter=['"aramoorArchipelago"','"aramoor:"','return_to_first_night'],
       hud=['signal aramoor_requested','ExploreAramoor','AramoorTideSwitch','set_aramoor_controls'],
       world=['var player_spawn: Vector3','get_interaction_points()','AramoorZoneScript.new()','get_zone_line'],
       spot=['extends Area3D','get_event_name','get_prompt','get_story_line'],
       smoke=['ARAMOOR_MAIN_WALKAROUND_SMOKE_GREEN','First Night returns intact']
     )
     for path,tokens in (
-      (SCRIPT,required['main']),(HUD,required['hud']), (BUILDER,required['world']),
+      (SCRIPT,required['main']),(ROOT/"scripts/game/aramoorMainAdapter.gd",required['adapter']),(HUD,required['hud']), (BUILDER,required['world']),
       (HOTSPOT,required['spot']),(MAIN_TEST,required['smoke'])):
         content=path.read_text()
         for token in tokens:
