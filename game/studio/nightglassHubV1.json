@@ -1,0 +1,227 @@
+{
+  "schema": "luhmOs.creatorStudioWorld.v1",
+  "status": "PROPOSED_PRIVATE_SOURCE",
+  "product": "LuHm-OS",
+  "worldId": "nightglassCrossroads",
+  "displayName": "Nightglass Crossroads",
+  "title": "The Tide That Remembers",
+  "designPillars": [
+    "two-original-world-states",
+    "character-driven-dialogue",
+    "explorable-3d-hub",
+    "art-first-editable-source",
+    "procedural-licensed-safe-fallback"
+  ],
+  "assetPolicy": {
+    "thirdPartyDataAllowed": false,
+    "referenceGamesAreNotRuntimeDependencies": true,
+    "ownerArtRequiresRightsHashAndImportReceipt": true,
+    "unverifiedArtUsesProceduralGeometry": true,
+    "autoPublish": false
+  },
+  "scenes": [
+    {
+      "sceneId": "nightglassBarHub",
+      "displayName": "The Nightglass Bar",
+      "kind": "socialHub",
+      "palette": {
+        "sky": "10112c",
+        "floor": "30273b",
+        "light": "d18a67"
+      },
+      "spawnDialogueId": "lumWelcome",
+      "camera": [
+        0,
+        4,
+        10.5
+      ],
+      "destination": "echoShore"
+    },
+    {
+      "sceneId": "echoShore",
+      "displayName": "The Echo Shore",
+      "kind": "exploration",
+      "palette": {
+        "sky": "0b3042",
+        "floor": "356e74",
+        "light": "c1d4af"
+      },
+      "spawnDialogueId": "maraAtShore",
+      "camera": [
+        0,
+        5.1,
+        12
+      ],
+      "destination": "nightglassBarHub"
+    }
+  ],
+  "characters": [
+    {
+      "characterId": "lum",
+      "role": "hubKeeper",
+      "currentArt": "proceduralPlaceholder",
+      "approvedRig": false
+    },
+    {
+      "characterId": "vesperNocturne",
+      "role": "loreKeeper",
+      "currentArt": "proceduralPlaceholder",
+      "approvedRig": false
+    },
+    {
+      "characterId": "maraIronvale",
+      "role": "shoreGuide",
+      "currentArt": "proceduralPlaceholder",
+      "approvedRig": false
+    },
+    {
+      "characterId": "elyraRunebound",
+      "role": "runeScholar",
+      "currentArt": "proceduralPlaceholder",
+      "approvedRig": false
+    }
+  ],
+  "dialogue": [
+    {
+      "lineId": "lumWelcome",
+      "sceneId": "nightglassBarHub",
+      "speakerId": "lum",
+      "intentTag": "quest",
+      "text": "Welcome to the Nightglass, Professor. Two shores. One moon. Neither remembers the same yesterday.",
+      "choices": [
+        {
+          "choiceId": "askVesper",
+          "label": "Ask about the other shore",
+          "nextLineId": "vesperEcho"
+        },
+        {
+          "choiceId": "askMara",
+          "label": "Ask who keeps this place running",
+          "nextLineId": "maraBar"
+        },
+        {
+          "choiceId": "askElyra",
+          "label": "Ask what the sigils mean",
+          "nextLineId": "elyraRunes"
+        }
+      ]
+    },
+    {
+      "lineId": "vesperEcho",
+      "sceneId": "nightglassBarHub",
+      "speakerId": "vesperNocturne",
+      "intentTag": "route",
+      "text": "A visitor can cross the tide. A memory cannot. The salt leaves its handwriting on every doorway.",
+      "choices": [
+        {
+          "choiceId": "backLumFromVesper",
+          "label": "Back to Lum",
+          "nextLineId": "lumWelcome"
+        }
+      ]
+    },
+    {
+      "lineId": "maraBar",
+      "sceneId": "nightglassBarHub",
+      "speakerId": "maraIronvale",
+      "intentTag": "banter",
+      "text": "I run the lamps, the doors, and the coffee machine. The impossible part is getting the machine to apologize.",
+      "choices": [
+        {
+          "choiceId": "backLumFromMara",
+          "label": "Back to Lum",
+          "nextLineId": "lumWelcome"
+        }
+      ]
+    },
+    {
+      "lineId": "elyraRunes",
+      "sceneId": "nightglassBarHub",
+      "speakerId": "elyraRunebound",
+      "intentTag": "quest",
+      "text": "One rune marks where you stand. The other marks where the world thinks you ought to be.",
+      "choices": [
+        {
+          "choiceId": "backLumFromElyra",
+          "label": "Back to Lum",
+          "nextLineId": "lumWelcome"
+        }
+      ]
+    },
+    {
+      "lineId": "maraAtShore",
+      "sceneId": "echoShore",
+      "speakerId": "maraIronvale",
+      "intentTag": "quest",
+      "text": "Hear that? The surf rings twice. First for what happened, then for the history that never did.",
+      "choices": [
+        {
+          "choiceId": "shoreQuestion",
+          "label": "Search the tide-mark",
+          "nextLineId": "shoreRune"
+        },
+        {
+          "choiceId": "shoreListen",
+          "label": "Listen to the waves",
+          "nextLineId": "shoreWhisper"
+        }
+      ]
+    },
+    {
+      "lineId": "shoreRune",
+      "sceneId": "echoShore",
+      "speakerId": "elyraRunebound",
+      "intentTag": "ambient",
+      "text": "A broken sigil, still humming. We can sketch its shape in the studio without touching the ancient mechanism.",
+      "choices": [
+        {
+          "choiceId": "shoreBackFromRune",
+          "label": "Return to the tide",
+          "nextLineId": "maraAtShore"
+        }
+      ]
+    },
+    {
+      "lineId": "shoreWhisper",
+      "sceneId": "echoShore",
+      "speakerId": "lum",
+      "intentTag": "bond",
+      "text": "Funny. The ocean knows my voice. Don't tell the cathedral; it'll get jealous.",
+      "choices": [
+        {
+          "choiceId": "shoreBackFromWhisper",
+          "label": "Return to the tide",
+          "nextLineId": "maraAtShore"
+        }
+      ]
+    }
+  ],
+  "morphStudio": {
+    "source": "game/assets/GODDESS_MORPH_PRESETS_V1.json",
+    "controller": "scripts/game/characterMorphController.gd",
+    "assembler": "scripts/game/characterComponentAssembler.gd",
+    "previewLaw": "proceduralProxyOnlyUnlessRigImported",
+    "outfitConform": "NOT_IMPLEMENTED",
+    "importRights": "REQUIRES_REVIEW"
+  },
+  "orchestration": {
+    "productAuthority": "LuHm-OS",
+    "supervisor": "lum",
+    "suggestionRole": "yume",
+    "stateRole": "belldandySecretary",
+    "compatibilityRole": "skuldResearch",
+    "evidenceRole": "urdDoctorGoddess",
+    "liveWorkerState": "QUARANTINED",
+    "providerInvocation": "NOT_WIRED",
+    "aiSuggestionsAreEditableDrafts": true,
+    "sqlPromotionFromSuggestion": false
+  },
+  "release": {
+    "cast": "STOP",
+    "godotRuntime": "SOURCE_CANDIDATE_UNTESTED",
+    "androidInstalled": false,
+    "sqlServerOnline": false,
+    "contentDb": "LOCAL_ONLY",
+    "cloudLlm": "NOT_REQUIRED"
+  }
+}

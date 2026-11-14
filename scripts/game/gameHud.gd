@@ -3,6 +3,7 @@ extends CanvasLayer
 signal world_requested
 signal rehearsal_requested
 signal companion_studio_requested
+signal studio_hub_requested
 signal encore_requested
 signal backend_requested
 signal world_destination_requested(worldId: String)
@@ -101,6 +102,13 @@ func _build_backend() -> void:
     lab.custom_minimum_size = Vector2(0, 76)
     lab.pressed.connect(func(): companion_studio_requested.emit())
     _panel.add_child(lab)
+
+    var nightglass := Button.new()
+    nightglass.name = "NightglassStudioPreview"
+    nightglass.text = "NIGHTGLASS BAR · ORIGINAL WORLD PREVIEW"
+    nightglass.custom_minimum_size = Vector2(0, 76)
+    nightglass.pressed.connect(func(): studio_hub_requested.emit())
+    _panel.add_child(nightglass)
 
     _encore = Button.new()
     _encore.name = "NightShiftEncore"
