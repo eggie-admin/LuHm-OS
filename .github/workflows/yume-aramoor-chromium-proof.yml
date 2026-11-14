@@ -1,0 +1,80 @@
+name: Yume Aramoor Chromium 3D Visual Proof
+
+on:
+  pull_request:
+    paths:
+      - 'game/world/aramoorArchipelagoV1.json'
+      - 'frontEnd/prototypes/lumEdge/**'
+      - '.github/workflows/yume-aramoor-chromium-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-private-source-proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Bind source and ensure the attribution guard is present
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          python3 tools/aramoorWorldAudit.py
+          python3 -m json.tool game/world/aramoorArchipelagoV1.json >/dev/null
+          git diff --check
+      - name: Install pinned browser dependencies without lifecycle scripts
+        working-directory: frontEnd/prototypes/lumEdge
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Run deterministic source and Vite build
+        working-directory: frontEnd/prototypes/lumEdge
+        run: |
+          set -euo pipefail
+          npm run check
+          test -s dist/aramoor.html
+          test -s dist/index.html
+          test -s dist/_headers
+          if find dist -type f \( -iname '*.glb' -o -iname '*.blend' -o -iname '*.pck' -o -iname '*.apk' \) | grep -q .; then
+            echo 'RED_PRIVATE_BINARY_LEAK'
+            exit 1
+          fi
+      - name: Install pinned Chromium testing harness
+        working-directory: frontEnd/prototypes/lumEdge
+        run: |
+          set -euo pipefail
+          npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Render actual WebGL in Chromium and screenshot both tides
+        working-directory: frontEnd/prototypes/lumEdge
+        run: |
+          set -euo pipefail
+          npx vite preview --host 127.0.0.1 --port 4174 --strictPort >/tmp/aramoor-vite-preview.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4174/aramoor.html >/dev/null; then break; fi
+            sleep 1
+          done
+          node tests/aramoorBrowserSmoke.mjs
+          test -s build/aramoor-browser/browser-proof.json
+          test -s build/aramoor-browser/aramoor-living-tide.png
+          test -s build/aramoor-browser/aramoor-ghost-tide.png
+      - name: Retain private review proof, not a public release
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: yume-aramoor-chromium-private-review
+          path: |
+            frontEnd/prototypes/lumEdge/build/aramoor-browser/
+            /tmp/aramoor-vite-preview.log
+          if-no-files-found: warn
+          retention-days: 7

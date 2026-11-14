@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101223">
+<meta name="description" content="Private original Aramoor archipelago browser proof with Babylon WebGL and Vue.">
+<title>Ghost Girls of Aramoor · Twin Tides | LuHm-OS</title>
+<style>
+:root{color-scheme:dark;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:#090e1d;color:#f2eee8;font-synthesis:none}
+*{box-sizing:border-box} body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 10% 12%,#242e52 0,transparent 45%),radial-gradient(ellipse at 85% 5%,#3f204b 0,transparent 37%),#090e1d}
+button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid #ffd5a2;outline-offset:3px}
+.aramoor-app{max-width:1580px;margin:0 auto;padding:clamp(12px,3vw,35px);display:flex;flex-direction:column;gap:17px}
+.top-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:6px 8px}
+.branding h1{font-family:Georgia,"Times New Roman",serif;letter-spacing:.12em;font-size:clamp(20px,2.45vw,36px);font-weight:500;margin:6px 0 3px;color:#fff3e8;text-shadow:0 0 28px #dca7d077}
+.eyebrow{font:700 10px/1.3 ui-sans-serif,system-ui,sans-serif;letter-spacing:.24em;color:#dcaee5}
+.subtitle{font:italic 14px Georgia,serif;color:#bfb5cb;margin:0}
+.build-tag{border:1px solid #bcb0d655;border-radius:30px;padding:9px 14px;color:#a6dfdb;font:600 11px ui-monospace,monospace;letter-spacing:.05em;background:#131a31b5;white-space:nowrap}
+.hero{height:clamp(390px,52vw,650px);position:relative;overflow:hidden;border-radius:22px;border:1px solid #b7a2e65a;background:radial-gradient(ellipse at center,#303455 0,#13122b 60%,#0b1022 100%);box-shadow:inset 0 0 100px #5b438322,0 14px 65px #0008}
+.hero:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,#14122e22 0,transparent 25%,transparent 75%,#0d12229c 100%)}
+#aramoor-canvas{width:100%;height:100%;display:block;touch-action:none;outline:0}
+.stage-overline{position:absolute;z-index:3;top:21px;left:24px;display:flex;align-items:center;gap:9px;font:700 10px ui-monospace,monospace;letter-spacing:.18em;color:#f0e0c9;text-shadow:0 2px 5px #000}
+.live-dot{display:inline-block;width:7px;height:7px;background:#7effcf;border-radius:50%;box-shadow:0 0 14px #55ffdb}
+.stage-hint{position:absolute;bottom:21px;left:24px;z-index:3;letter-spacing:.16em;color:#eee4e0b4;font:600 10px ui-monospace,monospace;text-shadow:0 2px 7px #000}
+.tide-orb{position:absolute;top:9px;right:25px;pointer-events:none;z-index:3;color:#dac7ff9a;font:46px Georgia,serif}
+.lower{display:grid;grid-template-columns:minmax(250px,0.9fr) minmax(380px,1.7fr);gap:16px}
+.region-panel,.story-panel{background:linear-gradient(120deg,#1b2038f0,#151a30e8);border-radius:19px;border:1px solid #a391cb4a;padding:20px 23px;box-shadow:0 9px 35px #080c1b66}
+.section-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:15px}
+.section-head strong{color:#ead7d9;font:500 italic 14px Georgia,serif}
+.region-panel nav{display:grid;grid-template-columns:1fr;gap:4px}
+.region{width:100%;min-height:31px;display:grid;align-items:center;grid-template-columns:29px 1fr 19px;text-align:left;border:1px solid transparent;background:transparent;color:#aeb0c7;border-radius:7px;padding:3px 7px;font-size:12px;transition:background .12s,color .12s}
+.region:hover{background:#ffffff12;color:#fff}
+.region.current{background:#ad7be522;border-color:#bd9be08f;color:#ffe7da}
+.region.reachable:not(.current){color:#b6f0e5}
+.region-num{color:#c8a9d2;font:10px ui-monospace,monospace}.region-icon{text-align:right;color:#e8c19d}
+.story-panel{display:flex;flex-direction:column}
+.location-name{font:500 clamp(24px,2.5vw,35px) Georgia,serif;color:#fff0dc;margin:17px 0 5px}
+.story-text{font:italic 17px/1.55 Georgia,serif;color:#dfd6e2;max-width:61ch;margin:8px 0 15px}
+.role-caption{font:600 11px ui-monospace,monospace;letter-spacing:.07em;color:#adcbd2;margin:0}
+.status-line{border-top:1px solid #b1a4c533;padding-top:15px;margin-top:auto;font-size:12px;line-height:1.6;color:#e5bdc7;min-height:54px}
+.toolbelt{display:flex;flex-wrap:wrap;gap:9px}
+.toolbelt button{background:#262b43;border:1px solid #746789;color:#f0dee9;padding:10px 13px;border-radius:10px;font-weight:650;font-size:12px}
+.toolbelt button:hover{background:#36374f}
+.toolbelt button.button-primary{background:linear-gradient(110deg,#7b447c,#4b627f);border-color:#a68eb6}
+.toolbelt button:disabled{cursor:not-allowed;opacity:.5}
+.footnote{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:3px 8px;color:#9894b2;font:10px/1.5 ui-monospace,monospace;letter-spacing:.02em}
+.footnote span:last-child{max-width:490px;text-align:right}
+@media(max-width:850px){
+ .lower{grid-template-columns:1fr}.region-panel nav{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .region{grid-template-columns:22px 1fr 15px;font-size:11px;min-height:45px}
+ .hero{height:min(60vh,560px)}.top-bar{align-items:flex-start}
+ .build-tag{font-size:9px;white-space:normal}
+ .footnote span:last-child{text-align:left}
+}
+@media(max-width:560px){
+ .aramoor-app{padding:9px;gap:10px}
+ .branding h1{font-size:19px;letter-spacing:.04em}
+ .hero{height:50vh;min-height:310px;border-radius:13px}
+ .region-panel,.story-panel{padding:13px}
+ .region-panel nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .stage-hint{font-size:8px;left:13px;bottom:12px}
+ .stage-overline{top:12px;left:13px}
+ .tide-orb{font-size:32px;right:13px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition-duration:0.01ms!important;animation-duration:0.01ms!important}}
+</style>
+</head>
+<body>
+<div id="app"><p style="padding:40px;font-family:Georgia,serif;color:#e7d8ec">Awakening the Aramoor coastline… a WebGL browser is required.</p></div>
+<noscript>JavaScript is required for the private Aramoor interactive atlas.</noscript>
+<script type="module" src="./src/aramoorApp.js"></script>
+</body>
+</html>
