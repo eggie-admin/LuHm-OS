@@ -41,7 +41,7 @@ jobs:
           set -euo pipefail
           python3 tools/crownCathedralForkGate.py --output build/fork/ash-cathedral-fork.zip
           python3 tools/crownCathedralForkGate.py --verify build/fork/ash-cathedral-fork.zip
-          sha256sum -c build/fork/ash-cathedral-fork.zip.sha256
+          (cd build/fork && sha256sum -c ash-cathedral-fork.zip.sha256)
       - name: Upload source-only fork candidate
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
