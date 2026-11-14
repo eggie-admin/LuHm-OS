@@ -14,6 +14,16 @@
     "operationalContract": "doctrine/studioCompatibilityFastMeshV1.json"
   },
   "promotion": false,
+  "storageTopology": {
+    "contract": "doctrine/storageTopologyV1.json",
+    "sourceAuthority": "github",
+    "binaryMaster": "googleDrive",
+    "reviewStockroom": "chatGptLibrary",
+    "workingLayerNotCanonical": true,
+    "automaticDriveLibrarySync": false,
+    "status": "PROPOSED_RECONCILIATION_CANDIDATE",
+    "promotion": false
+  },
   "namingLaw": {
     "contract": "doctrine/namingNamespaceCanonV1.json",
     "camelHumpCompatibility": "doctrine/camelHumpDoctrineLawV1.json",

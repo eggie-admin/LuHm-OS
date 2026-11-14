@@ -27,6 +27,15 @@
       "releaseAndCiArtifacts": "ephemeralTransportOrBuildCacheOnly",
       "binaryArchiveAuthority": false
     },
+    "chatGptLibrary": {
+      "role": "workingStockroom",
+      "purpose": "reviewable art previews, document snapshots, temporary exports and working copies",
+      "canonicalSourceAuthority": false,
+      "canonicalBinaryStorage": false,
+      "promotionAuthority": false,
+      "driveMasterArchivePreserved": true,
+      "automaticDriveSynchronization": false
+    },
     "googleDrive": {
       "role": "fileServer",
       "purpose": "durable APKs, ZIPs, media, manuals, snapshots, recovery bundles, exports, large build artifacts",
@@ -67,6 +76,9 @@
     "githubReleaseIsDurableArchive": false,
     "ciArtifactMayBeBuildCache": true,
     "ciArtifactIsDurableArchive": false,
+    "libraryWorkingCopiesNotMasters": true,
+    "libraryNeverReplacesGitHubCanon": true,
+    "librarySyncMustBeExplicit": true,
     "driveCopyRequiredForDurableArtifact": true,
     "databaseMayStoreBinaryPointer": true,
     "databaseMayStoreCanonicalBinary": false,

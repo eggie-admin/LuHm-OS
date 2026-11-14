@@ -41,6 +41,43 @@ CREATE TABLE IF NOT EXISTS aiManifestStream(
   crownAuthority INTEGER NOT NULL DEFAULT 0 CHECK(crownAuthority=0)
 ) STRICT;
 CREATE INDEX IF NOT EXISTS manifestRoute ON aiManifestStream(providerId,capabilityId,eventId);
+
+-- Fail closed even when a caller bypasses tools/typedSqlStub.py.
+-- App-side validation is not a substitute for storage-boundary validation.
+CREATE TRIGGER IF NOT EXISTS aiManifestIdentityAuthorityInsert
+BEFORE INSERT ON aiManifestStream
+BEGIN
+  SELECT CASE WHEN
+      json_type(NEW.manifestJson, '$') IS NOT 'object'
+      OR json_extract(NEW.manifestJson, '$.schema') IS NOT 'luhmOs.aiTaskManifest.v2'
+      OR NEW.manifestSchema IS NOT 'luhmOs.aiTaskManifest.v2'
+      OR json_type(NEW.manifestJson, '$.authority') IS NOT 'object'
+      OR json_type(NEW.manifestJson, '$.authority.mutation') IS NOT 'false'
+      OR json_type(NEW.manifestJson, '$.authority.green') IS NOT 'false'
+      OR json_type(NEW.manifestJson, '$.authority.crown') IS NOT 'false'
+      OR json_extract(NEW.manifestJson, '$.taskId') IS NOT (
+        SELECT taskId FROM streamEvent WHERE eventId=NEW.eventId)
+      OR json_extract(NEW.manifestJson, '$.sourceRef') IS NOT (
+        SELECT sourceRef FROM streamEvent WHERE eventId=NEW.eventId)
+      OR json_extract(NEW.manifestJson, '$.scopeId') IS NOT (
+        SELECT scopeId FROM streamEvent WHERE eventId=NEW.eventId)
+      OR json_extract(NEW.manifestJson, '$.providerId') IS NOT NEW.providerId
+      OR json_extract(NEW.manifestJson, '$.capabilityId') IS NOT NEW.capabilityId
+    THEN RAISE(ABORT, 'manifest identity or authority mismatch')
+  END;
+END;
+-- Manifest event receipts are append-only, including the parent identity.
+CREATE TRIGGER IF NOT EXISTS aiManifestImmutableUpdate
+BEFORE UPDATE ON aiManifestStream
+BEGIN SELECT RAISE(ABORT, 'manifest receipt is append-only'); END;
+CREATE TRIGGER IF NOT EXISTS aiManifestImmutableDelete
+BEFORE DELETE ON aiManifestStream
+BEGIN SELECT RAISE(ABORT, 'manifest receipt cannot be deleted'); END;
+CREATE TRIGGER IF NOT EXISTS aiManifestParentIdentityImmutableUpdate
+BEFORE UPDATE OF taskId,sourceRef,scopeId ON streamEvent
+WHEN EXISTS (SELECT 1 FROM aiManifestStream WHERE eventId=OLD.eventId)
+BEGIN SELECT RAISE(ABORT, 'manifest parent identity is immutable'); END;
+
 CREATE TABLE IF NOT EXISTS artifactPointer(
   artifactId TEXT PRIMARY KEY,eventId TEXT NOT NULL REFERENCES streamEvent(eventId),
   fileName TEXT NOT NULL,sha256 TEXT NOT NULL CHECK(length(sha256)=64 AND sha256 NOT GLOB '*[^0-9a-f]*'),
