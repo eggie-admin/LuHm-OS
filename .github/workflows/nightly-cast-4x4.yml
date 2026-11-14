@@ -1,0 +1,70 @@
+name: Nightly CAST 4x4 Controller (evidence only)
+on:
+  schedule:
+    - cron: '37 7 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: nightly-cast-4x4
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - layer: machine
+            command: python3 tools/escalationKernelAudit.py
+          - layer: human-machine
+            command: python3 tools/architectureRhythmAudit.py
+          - layer: human-human
+            command: python3 tools/continuity-release-lifecycle-audit.py
+          - layer: automated-studio
+            command: python3 tools/gameplayVerticalSliceAudit.py
+    steps:
+      - name: Exact source checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Verify commit
+        env:
+          SOURCE_REF: ${{ github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$SOURCE_REF"
+      - name: Run bounded layer audit and write receipt
+        id: audit
+        shell: bash
+        env:
+          LAYER: ${{ matrix.layer }}
+          CHECK_COMMAND: ${{ matrix.command }}
+        run: |
+          mkdir -p build/cast-nightly
+          set +e
+          bash -eo pipefail -c "$CHECK_COMMAND" >build/cast-nightly/audit.log 2>&1
+          result=$?
+          set -e
+          cat build/cast-nightly/audit.log
+          RESULT="$result" python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          passed=int(os.environ["RESULT"])==0
+          record={"schema":"luhm.castNightly.v1","layer":os.environ["LAYER"],
+                  "sourceRef":os.environ["GITHUB_SHA"],"runId":os.environ["GITHUB_RUN_ID"],
+                  "auditCommand":os.environ["CHECK_COMMAND"],"auditPassed":passed,
+                  "exitCode":int(os.environ["RESULT"]),"castReady":False,
+                  "deploymentAuthorized":False,
+                  "nextAction":"review release gates" if passed else "repair and retest"}
+          Path("build/cast-nightly/receipt.json").write_text(json.dumps(record,indent=2)+"\n")
+          PY
+          exit "$result"
+      - name: Preserve receipt and logs on every result
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: cast-nightly-${{ matrix.layer }}-${{ github.sha }}
+          path: build/cast-nightly/
+          retention-days: 14
+          if-no-files-found: warn
