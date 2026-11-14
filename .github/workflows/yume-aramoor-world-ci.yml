@@ -13,6 +13,8 @@ on:
       - 'scenes/AramoorWorldPreview.tscn'
       - 'tests/aramoorWorldSmoke.gd'
       - 'tools/aramoorWorldAudit.py'
+      - 'tools/godot4MilestoneReconciliationAudit.py'
+      - 'doctrine/godot4MilestoneReconciliation20261114.json'
       - '.github/workflows/yume-aramoor-world-ci.yml'
   workflow_dispatch:
 
@@ -38,6 +40,7 @@ jobs:
           python3 -m json.tool game/world/aramoorArchipelagoV1.json >/dev/null
           python3 -m py_compile tools/aramoorWorldAudit.py
           python3 tools/aramoorWorldAudit.py
+          python3 tools/godot4MilestoneReconciliationAudit.py
       - name: Install pinned Godot 4.7.2 editor
         run: |
           set -euo pipefail
