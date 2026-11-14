@@ -1,0 +1,65 @@
+name: Yume Aramoor World Source and Godot Smoke
+
+on:
+  pull_request:
+    paths:
+      - 'game/world/aramoorArchipelagoV1.json'
+      - 'scripts/world/aramoorArchipelagoBuilder.gd'
+      - 'scenes/AramoorWorldPreview.tscn'
+      - 'tests/aramoorWorldSmoke.gd'
+      - 'tools/aramoorWorldAudit.py'
+      - '.github/workflows/yume-aramoor-world-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  private-world-proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Bind exact source and static negative controls
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$HEAD_SHA"
+          git diff --check
+          python3 -m json.tool game/world/aramoorArchipelagoV1.json >/dev/null
+          python3 -m py_compile tools/aramoorWorldAudit.py
+          python3 tools/aramoorWorldAudit.py
+      - name: Install pinned Godot 4.7.2 editor
+        run: |
+          set -euo pipefail
+          url="https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip"
+          expected="cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4"
+          curl --fail --location --retry 3 --output /tmp/godot.zip "$url"
+          actual="$(sha256sum /tmp/godot.zip | awk '{print $1}')"
+          test "$actual" = "$expected"
+          mkdir -p /tmp/aramoorGodot
+          unzip -q /tmp/godot.zip -d /tmp/aramoorGodot
+          chmod +x /tmp/aramoorGodot/Godot_v4.7.2-stable_linux.x86_64
+          /tmp/aramoorGodot/Godot_v4.7.2-stable_linux.x86_64 --version
+      - name: Execute Godot World and Echo-Tide regression
+        run: |
+          set -euo pipefail
+          /tmp/aramoorGodot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --editor --import --quit
+          /tmp/aramoorGodot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/aramoorWorldSmoke.gd > /tmp/aramoor-smoke.log 2>&1 || {
+            cat /tmp/aramoor-smoke.log; exit 1;
+          }
+          cat /tmp/aramoor-smoke.log
+          grep -q 'ARAMOOR_WORLD_GODOT_SMOKE_GREEN' /tmp/aramoor-smoke.log
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:|ERROR:' /tmp/aramoor-smoke.log; then
+            echo 'RED_GODOT_LOG_ERROR'
+            exit 1
+          fi
+      - name: Verify no public build or autonomous release
+        run: |
+          test ! -e build/aramoor-public.wasm
+          test ! -e build/aramoor-public.apk
+          echo 'ARAMOOR_PRIVATE_SOURCE_ONLY=PASS'
