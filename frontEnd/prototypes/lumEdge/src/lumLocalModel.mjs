@@ -29,11 +29,32 @@ export async function inspectLocalGlb(file) {
   }
   const unsupported = new Set(["KHR_draco_mesh_compression","EXT_meshopt_compression","KHR_texture_basisu"]);
   if ((metadata.extensionsRequired || []).some(ext => unsupported.has(ext))) reject("RED_GLB_UNSUPPORTED_CODEC");
+  const materials=metadata.materials ?? [], textures=metadata.textures ?? [];
+  if(!Array.isArray(materials) || materials.length>64 ||
+     !Array.isArray(textures) || textures.length>100) reject("RED_GLB_MATERIAL_COMPLEXITY");
+  for(const material of materials){
+    for(const slot of [material?.normalTexture,material?.occlusionTexture,
+      material?.pbrMetallicRoughness?.metallicRoughnessTexture,
+      material?.pbrMetallicRoughness?.baseColorTexture,material?.emissiveTexture]){
+      if(slot!==undefined && (!Number.isInteger(slot?.index) || slot.index<0 || slot.index>=textures.length))
+        reject("RED_GLB_TEXTURE_INDEX");
+    }
+  }
+  for(const texture of textures){
+    if(texture?.source!==undefined && (!Number.isInteger(texture.source) ||
+        texture.source<0 || texture.source >= (metadata.images?.length ?? 0)))
+      reject("RED_GLB_TEXTURE_IMAGE");
+  }
   return Object.freeze({
     fileName:file.name,
     meshes:metadata.meshes.length,
     nodes:metadata.nodes.length,
     animations:metadata.animations?.length ?? 0,
+    materials:materials.length,
+    textures:textures.length,
+    normalMaps:materials.filter(m=>m?.normalTexture!==undefined).length,
+    roughnessMaps:materials.filter(m=>m?.pbrMetallicRoughness?.metallicRoughnessTexture!==undefined).length,
+    surfaceProof:"METADATA_ONLY",
     animationNames:(metadata.animations || []).map((a,i) => String(a.name || ("Clip " + (i+1))).slice(0,80)),
     embeddedOnly:true
   });
