@@ -1,0 +1,46 @@
+{
+  "schema": "luhmOs.aramoorSamsungFieldObservation.v1",
+  "date": "2026-11-14",
+  "source": "userSuppliedScreenRecording",
+  "sourceFile": "Screen_Recording_20261114_184259_ChatGPT.mp4",
+  "sourceVideoSha256": "44008b39c24ec7bf6835f5b3bc3604adfdbcd5e548c4eda2a088c6ff265ba975",
+  "evidenceMethod": "visual sampling of supplied 263.95s Samsung screen recording; no ADB or application telemetry",
+  "exactBuildSourceSha": "99c20cfa995aaa7f4fb36ac23f36840011af877c",
+  "buildGithubActionsRun": "43653806713",
+  "apkSha256": "24a8aef2c2fe44767260d5ca8055e5cfcd2637799180fbe79e06e36d2a3f9a21",
+  "packageId": "art.eggiebagelface.luhmos.aramoorpreview",
+  "observations": [
+    {
+      "event": "Samsung downloads",
+      "state": "OBSERVED",
+      "detail": "Multiple Aramoor Samsung ARM64 test APK downloads visible"
+    },
+    {
+      "event": "Android installation prompt",
+      "state": "OBSERVED",
+      "detail": "Aramoor Walkaround Preview package is selected for install; Google Play Protect prompt visible"
+    },
+    {
+      "event": "Android installation success",
+      "state": "OBSERVED",
+      "detail": "System toast shows Aramoor Walkaround Preview was installed and launcher icon is visible"
+    },
+    {
+      "event": "Aramoor app launched to LuHm cockpit",
+      "state": "OBSERVED",
+      "detail": "Full-screen packaged LuHm OS WebView cockpit with Chat/Library/Memories/Factory; native world not visible"
+    }
+  ],
+  "limitations": [
+    "Recording does not expose the package signing certificate or installed APK checksum; video identity is visually consistent but not cryptographically attested",
+    "No on-device proof that Play Aramoor starts Godot 3D world",
+    "No traversal, collision, touch D-pad, frame rate, WebView version, graphics backend or persistence proof",
+    "No privileged/system app installation proof",
+    "No user footage or device identifiers are included in the repository"
+  ],
+  "derivedPriority": "Add direct prominent WebView Play Aramoor action and verify typed Godot handoff; update APK and request a separate gameplay recording",
+  "releaseAuthority": false,
+  "ownerSigningAuthority": false,
+  "crown": "STOP",
+  "status": "OBSERVED_INSTALL_AND_COCKPIT_ONLY"
+}
