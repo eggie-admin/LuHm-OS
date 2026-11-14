@@ -9,7 +9,7 @@ import {HemisphericLight} from "@babylonjs/core/Lights/hemisphericLight.js";
 import {PointLight} from "@babylonjs/core/Lights/pointLight.js";
 import {StandardMaterial} from "@babylonjs/core/Materials/standardMaterial.js";
 import {MeshBuilder} from "@babylonjs/core/Meshes/meshBuilder.js";
-import {createLocalLumAvatar} from "./lum-avatar.js";
+import {createLocalLumAvatar} from "./lumAvatar.js";
 
 function mountWorld(canvas) {
   const engine=new Engine(canvas,true,{stencil:false,preserveDrawingBuffer:false},false);
@@ -113,11 +113,11 @@ const App={
     const button=(label,click,active=false)=>h("button",{type:"button",disabled:loading.value||!world,onClick:click,"aria-pressed":String(active)},label);
     return ()=>h("main",{class:"shell"},[
       h("header",{class:"head"},[
-        h("div",[h("small","LUHM-OS · EDGE CANDIDATE"),h("h1","⚡ Lum: Midnight 1996"),h("p","Vue controls · Babylon world · local 3D models")]),
+        h("div",[h("small","LuHm-OS"),h("h1","LuHm-OS"),h("p","Your local 3D studio")]),
         h("span",{class:"status"},phase.value)]),
       h("section",{class:"world", "aria-label":"Lum's interactive 3D scene"},[
         h("canvas",{id:"lum-edge-canvas","aria-label":"Touch-rotatable Babylon WebGL Midnight Cathedral"}),
-        h("div",{class:"world-chip"},"CROWN STOP · PRIVATE MODEL STAYS ON DEVICE"),
+        h("div",{class:"world-chip"},"Private models stay on this device"),
         h("div",{class:"world-hint"},"Drag to rotate · pinch to zoom")]),
       h("section",{class:"controls","aria-label":"Scene controls"},[
         button("▶ Run",()=>{if(!world.run(true))status.value="Load an animated GLB to run.";else running.value=true;},running.value),

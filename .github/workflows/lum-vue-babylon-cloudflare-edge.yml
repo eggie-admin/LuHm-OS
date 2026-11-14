@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'frontEnd/prototypes/lumEdge/**'
+      - 'tools/localStudioHarness.py'
+      - 'tests/testLocalStudioHarness.py'
       - '.github/workflows/lum-vue-babylon-cloudflare-edge.yml'
   workflow_dispatch:
 
@@ -21,11 +23,13 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '22'
+      - name: Verify local harness boundaries
+        run: python3 -m unittest discover -s tests -p testLocalStudioHarness.py -v
       - name: Verify bounded source modules
         run: |
           set -euo pipefail
-          node --check frontEnd/prototypes/lumEdge/src/lum-local-model.mjs
-          node --check frontEnd/prototypes/lumEdge/src/lum-avatar.js
+          node --check frontEnd/prototypes/lumEdge/src/lumLocalModel.mjs
+          node --check frontEnd/prototypes/lumEdge/src/lumAvatar.js
           node --check frontEnd/prototypes/lumEdge/src/main.js
       - name: npm dependency install with scripts disabled
         working-directory: frontEnd/prototypes/lumEdge

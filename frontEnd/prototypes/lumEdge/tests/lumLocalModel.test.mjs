@@ -1,8 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { inspectLocalGlb, MAX_LUM_GLB_BYTES } from "../src/lum-local-model.mjs";
+import { inspectLocalGlb, maxLumGlbBytes } from "../src/lumLocalModel.mjs";
 
-function fakeGlb(json, name="Lum Midnight 1996.glb") {
+function fakeGlb(json, name="LuHm-OS.glb") {
   const raw = Buffer.from(JSON.stringify(json));
   const pad = (4 - raw.length % 4) % 4;
   const jsonChunk = Buffer.concat([raw,Buffer.alloc(pad,32)]);
@@ -34,7 +34,7 @@ test("non-GLB filename, corrupt magic and excessive file size are rejected",asyn
   await assert.rejects(inspectLocalGlb(fakeGlb(model,"malicious.gltf")),/RED_GLB_SIZE_OR_TYPE/);
   const wrong = fakeGlb(model);const b=Buffer.from(await wrong.arrayBuffer());b.write("BAD!",0);
   await assert.rejects(inspectLocalGlb(Object.assign(new Blob([b]),{name:"bad.glb"})),/RED_GLB_HEADER/);
-  const tooBig=Object.assign({name:"huge.glb",size:MAX_LUM_GLB_BYTES+1,slice:()=>{throw Error("should not read")}} ,{});
+  const tooBig=Object.assign({name:"huge.glb",size:maxLumGlbBytes+1,slice:()=>{throw Error("should not read")}} ,{});
   await assert.rejects(inspectLocalGlb(tooBig),/RED_GLB_SIZE_OR_TYPE/);
 });
 test("unsupported codec and high node count are rejected",async()=>{

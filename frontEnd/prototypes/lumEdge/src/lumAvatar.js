@@ -3,7 +3,7 @@ import { SceneLoader } from "@babylonjs/core/Loading/sceneLoader.js";
 import { TransformNode } from "@babylonjs/core/Meshes/transformNode.js";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector.js";
 import "@babylonjs/loaders/glTF/2.0";
-import { inspectLocalGlb } from "./lum-local-model.mjs";
+import { inspectLocalGlb } from "./lumLocalModel.mjs";
 
 export function createLocalLumAvatar(scene, camera) {
   let current = null, epoch = 0;

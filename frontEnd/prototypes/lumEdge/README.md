@@ -1,4 +1,4 @@
-# Lum Midnight 1996: Vue + Babylon + npm + Cloudflare
+# LuHm-OS: Vue + Babylon + npm + Cloudflare
 
 Isolated application to preserve the existing Glass World size and vendor budgets.
 

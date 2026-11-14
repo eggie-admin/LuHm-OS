@@ -1,0 +1,76 @@
+name: Canon SQL JSON Base64 Archive Transport Audit
+
+on:
+  pull_request:
+    paths:
+      - 'tools/canonCompatibilityTransportAudit.py'
+      - 'tools/typedSqlStub.py'
+      - 'tools/archiveIntake.py'
+      - 'host/api/typedLanesV1.sql'
+      - 'doctrine/aiTaskManifestV2.template.json'
+      - 'doctrine/aiManifestFormatV1.json'
+      - 'doctrine/typedFourLaneSqlV1.json'
+      - 'doctrine/apiSpineV1.json'
+      - 'doctrine/googleAiProxyDeploymentV1.json'
+      - 'doctrine/googleAiDeveloperEntitlementsV1.json'
+      - 'doctrine/storageTopologyV1.json'
+      - 'frontEnd/tools/stage-jquery.mjs'
+      - 'frontEnd/package.json'
+      - 'frontEnd/package-lock.json'
+      - '.github/workflows/canon-transport-sql-json-b64.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-only-transport:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Pin exact audited commit (not the synthetic PR merge ref)
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          git diff --check
+      - name: Validate and round-trip SQL JSON ZIP Base64 SHA256
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/canonCompatibilityTransportAudit.py tools/typedSqlStub.py tools/archiveIntake.py
+          python3 tools/canonCompatibilityTransportAudit.py --output build/canonCompatibilityTransport/receipt.json
+          python3 -m json.tool build/canonCompatibilityTransport/receipt.json > /dev/null
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: npm-locked jQuery minified distribution staging
+        working-directory: frontEnd
+        run: |
+          set -euo pipefail
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run stage:jquery
+          test -s vendor/jquery-3.7.1.min.js
+          test -s vendor/jquery-LICENSE.txt
+          cmp -s vendor/jquery-3.7.1.min.js node_modules/jquery/dist/jquery.min.js
+          cmp -s vendor/jquery-LICENSE.txt node_modules/jquery/LICENSE.txt
+          node --check vendor/jquery-3.7.1.min.js
+          sha256sum vendor/jquery-3.7.1.min.js > ../build/canonCompatibilityTransport/jquery-sha256.txt
+      - name: GitHub-source-only compatibility receipt
+        run: |
+          set -euo pipefail
+          test -f build/canonCompatibilityTransport/receipt.json
+          grep -q 'LOCAL_ROUNDTRIP_PASS_EXTERNAL_PROVIDER_BLOCKED' build/canonCompatibilityTransport/receipt.json
+          if grep -Eq '"googleAiCalled": true|"cloudTransferCompleted": true|"sevenZip7zSupported": true' build/canonCompatibilityTransport/receipt.json; then
+            echo 'RED_FALSE_RUNTIME_CLAIM'
+            exit 1
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: canon-sql-json-b64-transmit-receive-source-receipt
+          path: build/canonCompatibilityTransport/
+          if-no-files-found: error
+          retention-days: 7

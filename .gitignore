@@ -39,3 +39,7 @@ service-account*.json
 *.rar
 *.blend1
 *.blend2
+
+# Reproducible browser dependencies and compiled edge output
+node_modules/
+frontEnd/prototypes/lumEdge/dist/

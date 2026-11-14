@@ -1,9 +1,9 @@
 /* LuHm-OS local GLB intake: no fetch, no uploads, strict embedded-resource policy. */
-export const MAX_LUM_GLB_BYTES = 20 * 1024 * 1024;
+export const maxLumGlbBytes = 20 * 1024 * 1024;
 const reject = code => { throw new Error(code); };
 export async function inspectLocalGlb(file) {
   if (!file || typeof file.name !== "string" || !/\.glb$/i.test(file.name) ||
-      !Number.isSafeInteger(file.size) || file.size < 28 || file.size > MAX_LUM_GLB_BYTES ||
+      !Number.isSafeInteger(file.size) || file.size < 28 || file.size > maxLumGlbBytes ||
       typeof file.slice !== "function") reject("RED_GLB_SIZE_OR_TYPE");
   const head = new DataView(await file.slice(0, 20).arrayBuffer());
   if (head.getUint32(0, true) !== 0x46546c67 || head.getUint32(4, true) !== 2 ||
