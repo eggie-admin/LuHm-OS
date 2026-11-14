@@ -157,20 +157,78 @@ def count(db, data):
     result = db.execute("SELECT count(*) FROM streamEvent WHERE eventId IN ("+placeholders+") AND sourceRef=?", [*ids,data["baselineSourceRef"]]).fetchone()[0]
     return {"status":"LOCAL_ONLY","present":result,"expected":len(ids),"remoteConnection":False,"crown":"STOP"}
 
+def _sha256_file(path):
+    h=hashlib.sha256()
+    with open(path, "rb") as source:
+        for block in iter(lambda: source.read(1024*1024), b""):
+            h.update(block)
+    return h.hexdigest()
+
+def verifyBackup(snapshotPath, data, expectedDigest):
+    path=Path(snapshotPath)
+    require(path.is_file() and not path.is_symlink() and path.suffix in (".db",".sqlite"), "snapshot must be existing local SQLite file")
+    require(isinstance(expectedDigest,str) and re.fullmatch(r"[0-9a-f]{64}",expectedDigest), "exact backup digest required")
+    actual=_sha256_file(path)
+    require(hmac.compare_digest(actual,expectedDigest), "snapshot digest mismatch")
+    # SQLite read-only URI: never create an absent file or run DDL during restoration checks.
+    readonly=path.resolve().as_uri()+"?mode=ro"
+    with sqlite3.connect(readonly,uri=True,timeout=3.0) as check:
+        check.row_factory=sqlite3.Row
+        require(check.execute("PRAGMA integrity_check").fetchone()[0] == "ok", "SQLite integrity check failed")
+        require(len(check.execute("PRAGMA foreign_key_check").fetchall()) == 0, "SQLite foreign key check failed")
+        expected=eventsFor(data)
+        for event in expected:
+            columns=("eventId","taskId","sourceRef","scopeId","workerId","sequenceId","eighthNote")
+            row=check.execute("SELECT eventId,taskId,sourceRef,scopeId,workerId,sequenceId,eighthNote FROM streamEvent WHERE eventId=?", (event["eventId"],)).fetchone()
+            require(row is not None and all(row[k]==event[k] for k in columns), "backup event identity mismatch")
+            for field,value in event["texts"].items():
+                found=check.execute("SELECT textValue FROM textStream WHERE eventId=? AND fieldName=?", (event["eventId"],field)).fetchone()
+                require(found is not None and found[0]==value, "backup text mismatch")
+            for field,value in event["booleans"].items():
+                found=check.execute("SELECT booleanValue FROM booleanStream WHERE eventId=? AND fieldName=?", (event["eventId"],field)).fetchone()
+                require(found is not None and found[0]==(None if value is None else int(value)), "backup boolean mismatch")
+    return {"status":"LOCAL_BACKUP_VERIFIED","sha256":actual,"verifiedRows":len(expected),"productionRestorePerformed":False,"remoteConnection":False,"crown":"STOP"}
+
+def backupSnapshot(db, snapshotPath, data):
+    path=Path(snapshotPath)
+    require(path.suffix in (".db",".sqlite") and path.parent.is_dir() and not path.parent.is_symlink(), "existing local backup directory required")
+    require(not path.exists() and not path.is_symlink(), "never overwrite or follow a snapshot")
+    # Exclusive and private file creation: a snapshot does not replace live Canon.
+    descriptor=os.open(str(path),os.O_CREAT|os.O_EXCL|os.O_WRONLY,0o600)
+    os.close(descriptor)
+    try:
+        destination=sqlite3.connect(str(path),timeout=5.0)
+        try:
+            db.backup(destination)
+        finally:
+            destination.close()
+        result=verifyBackup(path,data,_sha256_file(path))
+        return {"status":"LOCAL_BACKUP_CREATED","sha256":result["sha256"],"verifiedRows":result["verifiedRows"],"productionRestorePerformed":False,"remoteConnection":False,"crown":"STOP"}
+    except Exception:
+        path.unlink(missing_ok=True)
+        raise
+
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command",choices=["validate","seed","status","tx","rx"])
+    parser.add_argument("command",choices=["validate","seed","status","tx","rx","backup","verifyBackup"])
     parser.add_argument("--db",default=":memory:")
     parser.add_argument("--input")
     parser.add_argument("--output")
+    parser.add_argument("--digest")
     args=parser.parse_args(argv)
     try:
         data=loadManifest()
         if args.command=="validate":
             result={"status":"SNAPSHOT_VALID","cells":16,"sourceRef":data["baselineSourceRef"],"remoteConnection":False,"crown":"STOP"}
+        elif args.command=="verifyBackup":
+            require(bool(args.input) and bool(args.digest), "--input and --digest required")
+            result=verifyBackup(args.input,data,args.digest)
         else:
             with openLocalDb(args.db) as db:
                 if args.command=="seed": result=seed(db,data)
+                elif args.command=="backup":
+                    require(args.db != ":memory:" and bool(args.output), "file-backed database and --output required")
+                    result=backupSnapshot(db,args.output,data)
                 elif args.command=="status":result=count(db,data)
                 elif args.command=="tx":
                     require(bool(args.output),"--output required")
