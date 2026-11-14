@@ -1,0 +1,49 @@
+{
+  "schema": "luhmOs.crownCathedralPublicFork.v1",
+  "status": "PROFESSOR_AUTHORIZED_SOURCE_CANDIDATE_PENDING_EXACT_HEAD_CI",
+  "authority": "Professor",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "sourceOfTruth": "doctrine/currentSourceTruthV3.json",
+  "scopedHumanIntent": {
+    "instructionDate": "2026-11-14",
+    "scope": "Reconcile, review and prepare forkable Ash Cathedral public-safe source",
+    "publicSourceCandidateAuthorized": true,
+    "publicPlaceholderGeometryAuthorized": true,
+    "privateArtRedistributionAuthorized": false,
+    "thirdPartyAssetRedistributionAuthorized": false,
+    "finalReleaseOrStableSigningAuthorized": false,
+    "gitHubOwnerIdentityIndependentlyVerified": false
+  },
+  "package": {
+    "exporter": "tools/crownCathedralForkGate.py",
+    "source": "plugins/luhm-os/skills/premonition-combat-studio/assets/godot",
+    "license": "GPL-3.0",
+    "allowedMedia": "proceduralGeometryOnly",
+    "protectedCharacterArtIncluded": false,
+    "signedApkIncluded": false,
+    "godotEditorTarget": "4.6",
+    "reviewBranch": "candidate/ash-cathedral-combat-20261107"
+  },
+  "reconciledDoctrines": [
+    "doctrine/assetEligibilityMatrixV1.json",
+    "doctrine/contentLaneDoctrineV1.json",
+    "doctrine/publicArtReleaseReadinessV1.json",
+    "doctrine/finalFormPublicReleaseGateV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/releaseBoundaryV2.json"
+  ],
+  "evidence": {
+    "exporterSelfTest": "PENDING_EXACT_HEAD_CI",
+    "sourceOnlyPackageVerification": "PENDING_EXACT_HEAD_CI",
+    "godotVisualAndPhysicalDeviceProof": "NOT_PROVEN",
+    "publicArtProvenance": "NOT_APPROVED_FOR_THIS_PACKAGE",
+    "cloudflareWorkersCheck": "FAILED_ON_PRIOR_CANDIDATE_HEAD",
+    "productionRelease": "NOT_AUTHORIZED"
+  },
+  "globalStatusUnchanged": "STOP",
+  "scopedSourceReviewCanBeGreenWithoutGlobalCrownGreen": true,
+  "globalCrownPromoted": false,
+  "publicArtPromoted": false,
+  "releasePublished": false,
+  "mergingRequiresGitHubBranchRulesAndRelevantGreenChecks": true
+}
