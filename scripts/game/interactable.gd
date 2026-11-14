@@ -7,6 +7,9 @@ var accent := Color("55dfff")
 var _visual_root: Node3D
 var _clock := 0.0
 var _home_y := 0.0
+const WISP_PULSES_TO_CLEAR := 3
+var _wisp_pulses := 0
+var _wisp_tween: Tween
 
 func configure(id_value: String, event_value: String, prompt_value: String, accent_value: Color) -> void:
     interaction_id = id_value
@@ -33,7 +36,29 @@ func get_event_name() -> String:
     return event_name
 
 func get_prompt() -> String:
+    if event_name == "clearStaticWisp" and _wisp_pulses > 0 and _wisp_pulses < WISP_PULSES_TO_CLEAR:
+        return "Pulse static-wisp %d/%d" % [_wisp_pulses + 1, WISP_PULSES_TO_CLEAR]
     return prompt
+
+func strike_wisp() -> Dictionary:
+    # Only this canonical creature receives damage; no generic event can bypass it.
+    if event_name != "clearStaticWisp" or _wisp_pulses >= WISP_PULSES_TO_CLEAR:
+        return {"accepted": false, "cleared": false, "remaining": 0}
+    _wisp_pulses += 1
+    if _visual_root != null:
+        if _wisp_tween != null and _wisp_tween.is_valid():
+            _wisp_tween.kill()
+        _visual_root.scale = Vector3.ONE
+        _wisp_tween = create_tween()
+        _wisp_tween.tween_property(_visual_root, "scale", Vector3.ONE * 1.30, 0.10)
+        _wisp_tween.tween_property(_visual_root, "scale", Vector3.ONE, 0.22)
+    var cleared := _wisp_pulses >= WISP_PULSES_TO_CLEAR
+    return {
+        "accepted": true,
+        "cleared": cleared,
+        "remaining": maxi(WISP_PULSES_TO_CLEAR - _wisp_pulses, 0),
+        "message": "Static-wisp destabilized. %d pulse%s remain." % [WISP_PULSES_TO_CLEAR - _wisp_pulses, "" if WISP_PULSES_TO_CLEAR - _wisp_pulses == 1 else "s"] if not cleared else "Static-wisp dispersed. The Cathedral is clear."
+    }
 
 func get_interaction_id() -> String:
     return interaction_id
@@ -104,6 +129,18 @@ func _build_static_wisp() -> void:
         orb.material_override = _emissive(accent, 4.8 - float(i) * 0.6)
         _visual_root.add_child(orb)
     _add_halo(0.38, 0.58, 0.15)
+    # Lightweight original gothic-industrial geometry, no external models or private art.
+    for i in range(2):
+        var orbit := MeshInstance3D.new()
+        orbit.name = "WispEnergyOrbit%d" % i
+        var orbit_mesh := TorusMesh.new()
+        orbit_mesh.inner_radius = 0.63 + float(i) * 0.16
+        orbit_mesh.outer_radius = 0.68 + float(i) * 0.16
+        orbit.mesh = orbit_mesh
+        orbit.position.y = 1.03
+        orbit.rotation_degrees = Vector3(70.0, float(i) * 90.0, 22.0 + float(i) * 68.0)
+        orbit.material_override = _emissive(accent.lightened(float(i) * 0.12), 2.6)
+        _visual_root.add_child(orbit)
 
 func _build_gate_or_objective_marker() -> void:
     var stem := MeshInstance3D.new()
