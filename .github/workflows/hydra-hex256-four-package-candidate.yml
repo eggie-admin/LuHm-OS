@@ -87,8 +87,9 @@ jobs:
           dpkg-deb --extract luhm-os-cockpit-preview_0.1.0~proposed1_all.deb "$RUNNER_TEMP/hydra-hex/deb-extract"
           grep -q "$(git -C "$GITHUB_WORKSPACE" rev-parse HEAD)" "$RUNNER_TEMP/hydra-hex/deb-extract/usr/share/luhm-os/cockpit/source-ref.txt"
           test -s "$RUNNER_TEMP/hydra-hex/deb-extract/usr/share/luhm-os/cockpit/vendor/jquery-LICENSE.txt"
-          tar -tzf luhm-os-cockpit-preview-0.0.0-proposed.1.tgz | grep -qx package/dist/index.html
-          tar -tzf luhm-os-cockpit-preview-0.0.0-proposed.1.tgz | grep -qx package/dist/vendor/jquery-LICENSE.txt
+          tar -tzf luhm-os-cockpit-preview-0.0.0-proposed.1.tgz > npm-inventory.txt
+          grep -qx package/dist/index.html npm-inventory.txt
+          grep -qx package/dist/vendor/jquery-LICENSE.txt npm-inventory.txt
           if find "$RUNNER_TEMP/hydra-hex" -type f \( -iname '*.glb' -o -iname '*.blend' -o -iname '*.pck' -o -iname '*.apk' \) | grep -q .; then
             echo RED_PRIVATE_OR_UNREVIEWED_BINARY_IN_PACKAGE
             exit 1
