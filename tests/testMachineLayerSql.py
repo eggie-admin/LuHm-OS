@@ -74,5 +74,33 @@ class MachineLayerSqlTest(unittest.TestCase):
             candidate=Path(folder)/"bad.json"
             candidate.write_text(__import__("json").dumps(bad))
             with self.assertRaises(mod.MachineLayerError): mod.loadManifest(candidate)
+    def test_backup_round_trip_and_no_overwrite(self):
+        with tempfile.TemporaryDirectory() as folder:
+            local=Path(folder)/"live.sqlite"
+            backup=Path(folder)/"backup.sqlite"
+            with mod.openLocalDb(str(local)) as db:
+                mod.seed(db,self.manifest)
+                result=mod.backupSnapshot(db,backup,self.manifest)
+            self.assertEqual(result["verifiedRows"],16)
+            self.assertEqual(mod.verifyBackup(backup,self.manifest,result["sha256"])["status"],"LOCAL_BACKUP_VERIFIED")
+            with mod.openLocalDb(str(local)) as db:
+                with self.assertRaises(mod.MachineLayerError): mod.backupSnapshot(db,backup,self.manifest)
+    def test_backup_wrong_digest_denied(self):
+        with tempfile.TemporaryDirectory() as folder:
+            local=Path(folder)/"live.sqlite"
+            backup=Path(folder)/"backup.sqlite"
+            with mod.openLocalDb(str(local)) as db:
+                mod.seed(db,self.manifest)
+                mod.backupSnapshot(db,backup,self.manifest)
+            with self.assertRaises(mod.MachineLayerError):
+                mod.verifyBackup(backup,self.manifest,"0"*64)
+    def test_backup_rejects_unseeded_db(self):
+        with tempfile.TemporaryDirectory() as folder:
+            local=Path(folder)/"empty.sqlite"
+            backup=Path(folder)/"backup.sqlite"
+            with mod.openLocalDb(str(local)) as db:
+                with self.assertRaises(mod.MachineLayerError):
+                    mod.backupSnapshot(db,backup,self.manifest)
+            self.assertFalse(backup.exists())
     def test_database_rejects_unsafe_path(self):
         with self.assertRaises(mod.MachineLayerError): mod.openLocalDb("/tmp/test-no-extension")
