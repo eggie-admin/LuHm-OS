@@ -1,0 +1,53 @@
+name: Crown Cathedral Fork Source Firewall
+
+on:
+  pull_request:
+    paths:
+      - 'FORKING.md'
+      - 'doctrine/crownCathedralPublicForkV1.json'
+      - 'tools/crownCathedralForkGate.py'
+      - 'plugins/luhm-os/skills/premonition-combat-studio/**'
+      - '.github/workflows/crown-cathedral-fork-firewall.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'FORKING.md'
+      - 'doctrine/crownCathedralPublicForkV1.json'
+      - 'tools/crownCathedralForkGate.py'
+      - 'plugins/luhm-os/skills/premonition-combat-studio/**'
+      - '.github/workflows/crown-cathedral-fork-firewall.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Validate contract and compile exporter
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/crownCathedralPublicForkV1.json >/dev/null
+          python3 -m py_compile tools/crownCathedralForkGate.py
+      - name: Negative controls for protected art
+        run: python3 tools/crownCathedralForkGate.py --self-test
+      - name: Package and independently verify exact source allowlist
+        run: |
+          set -euo pipefail
+          python3 tools/crownCathedralForkGate.py --output build/fork/ash-cathedral-fork.zip
+          python3 tools/crownCathedralForkGate.py --verify build/fork/ash-cathedral-fork.zip
+          (cd build/fork && sha256sum -c ash-cathedral-fork.zip.sha256)
+      - name: Upload source-only fork candidate
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: crown-cathedral-source-fork
+          path: |
+            build/fork/ash-cathedral-fork.zip
+            build/fork/ash-cathedral-fork.zip.sha256
+          if-no-files-found: error
+          retention-days: 7
