@@ -1,0 +1,253 @@
+{
+  "schema": "luhmOs.gameLayerBuildInventory.v1",
+  "status": "SOURCE_ONLY_RESEARCH_BUILD",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canon": {
+    "repository": "eggie-admin/LuHm-OS",
+    "workingBranch": "candidate/machine-sql-hex512-20261107",
+    "previousSnapshot": "snapshot/pre-final-mutation-20261107-5eb8388e",
+    "sourceRef": "CI_CHECKOUT_HEAD_REQUIRED",
+    "sqlAuthority": "sourceProjectionNotProduction",
+    "pluginBackend": "INSTALLED_SITE_READ_ONLY_NOT_EDITED",
+    "crown": "STOP"
+  },
+  "layerOrder": [
+    "sqlRegistry",
+    "npmLock",
+    "htmlAtelier",
+    "cssAtelier",
+    "jsAtelier",
+    "jqueryDock",
+    "castIntent",
+    "portablePlugin",
+    "godotProject",
+    "godotCompanionScene"
+  ],
+  "components": [
+    {
+      "id": "sqlRegistry",
+      "componentClass": "storage",
+      "path": "host/api/machineRegistrySqliteV1.sql",
+      "localSource": true
+    },
+    {
+      "id": "npmLock",
+      "componentClass": "package",
+      "path": "frontEnd/package-lock.json",
+      "localSource": true
+    },
+    {
+      "id": "jqueryDock",
+      "componentClass": "plugin",
+      "path": "frontEnd/jquery/luhm.cockpit.js",
+      "localSource": true
+    },
+    {
+      "id": "htmlAtelier",
+      "componentClass": "display",
+      "path": "frontEnd/prototypes/companionAtelier/index.html",
+      "localSource": true
+    },
+    {
+      "id": "cssAtelier",
+      "componentClass": "display",
+      "path": "frontEnd/prototypes/companionAtelier/style.css",
+      "localSource": true
+    },
+    {
+      "id": "jsAtelier",
+      "componentClass": "runtime",
+      "path": "frontEnd/prototypes/companionAtelier/app.mjs",
+      "localSource": true
+    },
+    {
+      "id": "relationshipCore",
+      "componentClass": "library",
+      "path": "frontEnd/prototypes/companionAtelier/relationshipCore.mjs",
+      "localSource": true
+    },
+    {
+      "id": "castIntent",
+      "componentClass": "api",
+      "path": "frontEnd/core/machineCastHexBridge.mjs",
+      "localSource": true
+    },
+    {
+      "id": "portablePlugin",
+      "componentClass": "plugin",
+      "path": "plugins/luhm-os/plugin.json",
+      "localSource": true
+    },
+    {
+      "id": "godotProject",
+      "componentClass": "runtime",
+      "path": "project.godot",
+      "localSource": true
+    },
+    {
+      "id": "godotCompanionScene",
+      "componentClass": "model",
+      "path": "scenes/CompanionModLab.tscn",
+      "localSource": true
+    },
+    {
+      "id": "godotCompanionScript",
+      "componentClass": "runtime",
+      "path": "scripts/game/companionModLab.gd",
+      "localSource": true
+    },
+    {
+      "id": "godotAffinity",
+      "componentClass": "library",
+      "path": "scripts/game/companionAffinityState.gd",
+      "localSource": true
+    },
+    {
+      "id": "originalProfiles",
+      "componentClass": "model",
+      "path": "game/demo/originalCompanionProfilesV1.json",
+      "localSource": true
+    },
+    {
+      "id": "relationshipRules",
+      "componentClass": "library",
+      "path": "game/demo/relationshipRulesV2.json",
+      "localSource": true
+    },
+    {
+      "id": "modReferenceShelf",
+      "componentClass": "media",
+      "path": "game/demo/modInspirationCatalogV1.json",
+      "localSource": true
+    },
+    {
+      "id": "layerConsoleHtml",
+      "componentClass": "display",
+      "path": "frontEnd/prototypes/gameLayerConsole/index.html",
+      "localSource": true
+    },
+    {
+      "id": "layerConsoleCss",
+      "componentClass": "display",
+      "path": "frontEnd/prototypes/gameLayerConsole/style.css",
+      "localSource": true
+    },
+    {
+      "id": "layerConsoleJs",
+      "componentClass": "runtime",
+      "path": "frontEnd/prototypes/gameLayerConsole/app.mjs",
+      "localSource": true
+    }
+  ],
+  "links": [
+    {
+      "from": "layerConsoleHtml",
+      "to": "layerConsoleCss",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "layerConsoleHtml",
+      "to": "layerConsoleJs",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "layerConsoleJs",
+      "to": "relationshipCore",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "layerConsoleJs",
+      "to": "originalProfiles",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "layerConsoleJs",
+      "to": "relationshipRules",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "layerConsoleJs",
+      "to": "modReferenceShelf",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "htmlAtelier",
+      "to": "cssAtelier",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "htmlAtelier",
+      "to": "jsAtelier",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "jsAtelier",
+      "to": "relationshipCore",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "godotCompanionScene",
+      "to": "godotCompanionScript",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "godotCompanionScript",
+      "to": "godotAffinity",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "godotCompanionScript",
+      "to": "originalProfiles",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "godotAffinity",
+      "to": "relationshipRules",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "portablePlugin",
+      "to": "castIntent",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "portablePlugin",
+      "to": "godotProject",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "jqueryDock",
+      "to": "npmLock",
+      "relation": "dependsOn"
+    },
+    {
+      "from": "layerConsoleJs",
+      "to": "castIntent",
+      "relation": "dependsOn"
+    }
+  ],
+  "originalCharactersSource": "game/demo/originalCompanionProfilesV1.json",
+  "relationshipRulesSource": "game/demo/relationshipRulesV2.json",
+  "modResearchSource": "game/demo/modInspirationCatalogV1.json",
+  "modResearchMode": "INDEX_AND_DESIGN_REFERENCE_ONLY_NO_BINARY_IMPORT",
+  "live2dCubismRuntimeInstalled": false,
+  "sourceOnlyHtmlPreview": "frontEnd/prototypes/gameLayerConsole/index.html",
+  "buildCommands": [
+    "python3 tools/gameLayerSqlFixture.py --self-test",
+    "python3 tools/gameLayerSqlFixture.py --source-ref '$EXACT_GIT_SHA'",
+    "node --test frontEnd/tests/gameLayerConsole.test.mjs"
+  ],
+  "rules": {
+    "singleExistingSqlSchema": true,
+    "sqlSyntheticFixtureOnly": true,
+    "productionSqlMutation": false,
+    "externalModsDownloaded": false,
+    "sourceFilesNeverExecutedBySql": true,
+    "privateKeysInSql": false,
+    "backendPluginEdited": false,
+    "automaticAgentActivation": false,
+    "mergeToMain": false,
+    "professorFinalApprovalRequired": true,
+    "astraHardeningNotExecuted": true
+  }
+}

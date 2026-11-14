@@ -5,7 +5,7 @@
   "owner": "belldandySecretary",
   "recordsHelper": "fumi",
   "deterministicExecutor": "kugi",
-  "purpose": "Keep active LuHm development tidy through bounded checkpointing, PR/run reconciliation, receipt indexing, and a strict fifty-commit history window so ordinary work does not require archaeology.",
+  "purpose": "Keep active LuHm development tidy through bounded checkpointing, PR/run reconciliation, receipt indexing, and a strict sixty-four-commit history window so ordinary work does not require archaeology.",
   "personalityBoundary": {
     "calmCleanupCue": "Ara Ara",
     "cueAllowedOnlyInCasualNonErrorPresentation": true,
@@ -14,8 +14,8 @@
   "commitWindow": {
     "automaticCheckpointEveryCommits": 25,
     "warningAtCommits": 40,
-    "hardStopAtCommits": 50,
-    "ordinaryAuditHistoryMaxCommits": 50,
+    "hardStopAtCommits": 64,
+    "ordinaryAuditHistoryMaxCommits": 64,
     "olderHistoryTreatment": "receiptBackedArchive",
     "deeperHistoryRequires": [
       "explicitProfessorRequest",

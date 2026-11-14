@@ -1,0 +1,140 @@
+{
+  "schema": "luhmOs.machineSqlHex512Escalation.v1",
+  "status": "REVIEW_ONLY_SQL_PROJECTION_NO_RUNTIME",
+  "product": "LuHm-OS",
+  "intendedAuthorityScope": "single queryable machine metadata and evidence registry after explicit promotion; NOT a new authority for GitHub source code or firmware",
+  "law": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "sourceCanon": {
+    "repository": "eggie-admin/LuHm-OS",
+    "branch": "main",
+    "sourceRef": "4b9714883c4903eb7e6947b70203377b422a7799",
+    "contract": "doctrine/currentSourceTruthV3.json"
+  },
+  "foundation": {
+    "cast": "doctrine/fnCastV1.yaml",
+    "escalation": "doctrine/escalationKernelV1.json",
+    "typedSql": "doctrine/typedFourLaneSqlV1.json",
+    "storage": "doctrine/storageTopologyV1.json",
+    "machine": "doctrine/unifiedMachineBaseV1.json"
+  },
+  "count": {
+    "surfaces": 8,
+    "castStages": 4,
+    "interactionBeats": 4,
+    "auditTiers": 4,
+    "total": 512,
+    "perSurface": 64
+  },
+  "surfaces": [
+    "identity",
+    "source",
+    "device",
+    "firmware",
+    "registry",
+    "machineApi",
+    "artifact",
+    "governance"
+  ],
+  "coordinates": {
+    "stages": [
+      "castTesting",
+      "castProposed",
+      "castBridge",
+      "cast"
+    ],
+    "beats": [
+      "hear",
+      "resolve",
+      "act",
+      "verify"
+    ],
+    "tiers": [
+      "technologyFastPath",
+      "forFuckSake",
+      "scorchedEarth",
+      "finalForm"
+    ],
+    "sourceOnlyLabels": "0x00..0x3F",
+    "notPhysicalAddresses": true
+  },
+  "tests": {
+    "runtime": "tools/machineSqlHex512Audit.py",
+    "sqliteDdl": "host/api/machineRegistrySqliteV1.sql",
+    "mariaDbReviewDdl": "host/api/machineRegistryMariaDbReviewV1.sql",
+    "syntheticFixtureOnly": true,
+    "negativeControls": true,
+    "notLiveSql": true,
+    "sqliteOnlyInMemory": true,
+    "coordinatesAreUniqueScenariosNotIndependentPenetrationTests": true
+  },
+  "phpMyAdmin": {
+    "role": "OPTIONAL_PRIVATE_DB_ADMIN_UI_NOT_SOURCE_AUTHORITY",
+    "installed": false,
+    "adminTransport": "privateAuthenticatedSocketOrProxyOnly",
+    "directPublicSqlPort": false,
+    "controlUserMayGrantCrown": false,
+    "features": [
+      "InnoDBRealForeignKeys",
+      "Designer",
+      "RelationView",
+      "ImportExport",
+      "SQLQueries",
+      "SchemaBrowsing"
+    ],
+    "dependencies": [
+      "PHP",
+      "databaseEngine"
+    ],
+    "separateConfigurationStorage": true,
+    "sqlEngine": "MariaDBOptional",
+    "existingRuntime": "SQLiteStdlibLocal"
+  },
+  "machinePrivacy": {
+    "collectImei": false,
+    "collectMac": false,
+    "collectDiskSerial": false,
+    "collectCredentials": false,
+    "collectFirmwareBytes": false,
+    "hostIdOnlyPseudonymous": true,
+    "fixtureSynthetic": true
+  },
+  "integrity": {
+    "sourceRef": "fullLowercaseHex40",
+    "sha256": "fullLowercaseHex64",
+    "base64": "wireEncodingOnlyNotAuthentication",
+    "pk": "stableScopedPseudonymousKey",
+    "relationship": "foreignKeys"
+  },
+  "storage": {
+    "gitHub": "sourceAndReceiptsCanonical",
+    "sql": "machineRegistryProjection",
+    "googleDrive": "durableBinaryMaster",
+    "chatGptLibrary": "semanticReviewNotSqlAuthority"
+  },
+  "escalation": {
+    "inspectionTarget": 512,
+    "authorityTierRange": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "noNewExecutionTier": true,
+    "failClosed": true,
+    "redBlocksPromotion": true
+  },
+  "runtimeProof": {
+    "mariaDbInstalledAndRunning": false,
+    "phpMyAdminInstalled": false,
+    "dbMigrationExecuted": false,
+    "deviceScanned": false,
+    "firmwareReadOrFlashed": false,
+    "productionSchemaChanged": false,
+    "chatGptPluginUpdated": false
+  },
+  "professorApprovalRequiredForSqlPromotion": true,
+  "agentQuarantine": true,
+  "productionMutation": false,
+  "autoDeploy": false,
+  "crownStatus": "STOP"
+}

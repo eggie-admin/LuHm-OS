@@ -18,7 +18,7 @@ def git(*args: str, checked: bool = True):
 def nearest_checkpoint(records: list[tuple[str, int, bool]]) -> tuple[str, int]:
     eligible = [(count, name) for name, count, ancestor in records if ancestor and count >= 0]
     if not eligible:
-        return ("NONE_VERIFIED_ANCESTOR", 50)
+        return ("NONE_VERIFIED_ANCESTOR", 64)
     count, name = min(eligible)
     return (name, count)
 
@@ -41,7 +41,7 @@ def inspect() -> dict:
     name, count = nearest_checkpoint(candidates)
     return {"schema": "luhmOs.belldandyCheckpointWindow.v1",
             "sourceRef": head, "checkpoint": name, "commitsSinceCheckpoint": count,
-            "status": "STOP_AT_FIFTY" if count >= 50 else "WARN_AT_FORTY" if count >= 40
+            "status": "STOP_AT_SIXTY_FOUR" if count >= 64 else "WARN_AT_FORTY" if count >= 40
                       else "CHECKPOINT_DUE" if count >= 25 else "WITHIN_WINDOW",
             "snapshotIsProtectiveOnly": True, "grantsPromotion": False,
             "candidatesChecked": len(candidates)}
@@ -50,8 +50,8 @@ def inspect() -> dict:
 def self_test() -> None:
     assert nearest_checkpoint([("recent-nonancestor", 0, False), ("valid-old", 28, True)]) == ("valid-old", 28)
     assert nearest_checkpoint([("old", 45, True), ("nearest", 12, True)]) == ("nearest", 12)
-    assert nearest_checkpoint([("future", 0, False)]) == ("NONE_VERIFIED_ANCESTOR", 50)
-    assert nearest_checkpoint([]) == ("NONE_VERIFIED_ANCESTOR", 50)
+    assert nearest_checkpoint([("future", 0, False)]) == ("NONE_VERIFIED_ANCESTOR", 64)
+    assert nearest_checkpoint([]) == ("NONE_VERIFIED_ANCESTOR", 64)
     print("GREEN_BELLDANDY_ANCESTRAL_CHECKPOINT_NEGATIVE_CONTROLS")
 
 

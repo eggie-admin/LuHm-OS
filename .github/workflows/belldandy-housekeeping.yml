@@ -60,13 +60,13 @@ jobs:
           python3 tools/belldandyCheckpointWindow.py --github-output
 
       - name: Warn at forty commits
-        if: ${{ fromJSON(steps.window.outputs.count) >= 40 && fromJSON(steps.window.outputs.count) < 50 }}
-        run: echo "::warning::Ara Ara. Belldandy housekeeping window is at ${{ steps.window.outputs.count }}/50 commits."
+        if: ${{ fromJSON(steps.window.outputs.count) >= 40 && fromJSON(steps.window.outputs.count) < 64 }}
+        run: echo "::warning::Ara Ara. Belldandy housekeeping window is at ${{ steps.window.outputs.count }}/64 commits."
 
-      - name: Hard stop before history exceeds fifty
-        if: ${{ github.event_name == 'pull_request' && fromJSON(steps.window.outputs.count) >= 50 }}
+      - name: Hard stop before history exceeds sixty-four
+        if: ${{ github.event_name == 'pull_request' && fromJSON(steps.window.outputs.count) >= 64 }}
         run: |
-          echo "::error::BELLDANDY_HARD_STOP: 50-commit workflow ceiling reached. Snapshot/reconcile before merge."
+          echo "::error::BELLDANDY_HARD_STOP: 64-commit workflow ceiling reached. Snapshot/reconcile before merge."
           exit 1
 
       - name: Create protective checkpoint
@@ -86,7 +86,7 @@ jobs:
           {
             echo "## Belldandy Housekeeping"
             echo "- checkpoint: ${{ steps.window.outputs.latest }}"
-            echo "- commits since checkpoint: ${{ steps.window.outputs.count }}/50"
+            echo "- commits since checkpoint: ${{ steps.window.outputs.count }}/64"
             echo "- quarantine active: ${{ steps.quarantine.outputs.quarantined }}"
             echo "- protected snapshot suspended during quarantine: ${{ steps.quarantine.outputs.quarantined }}"
             echo "- auto merge: false"

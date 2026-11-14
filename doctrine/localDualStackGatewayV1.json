@@ -1,0 +1,182 @@
+{
+  "schema": "luhmOs.localDualStackGateway.v1",
+  "status": "FINAL_MUTATION_SOURCE_CANDIDATE_ONLY",
+  "authority": "Professor",
+  "sourceCanon": {
+    "repository": "eggie-admin/LuHm-OS",
+    "mainAtSnapshot": "4b9714883c4903eb7e6947b70203377b422a7799",
+    "snapshotBranch": "snapshot/pre-final-mutation-20261107-5eb8388e",
+    "snapshotSourceRef": "5eb8388e7309cef4c90ff5fb8a854bbc11907acf",
+    "candidatePr": 537
+  },
+  "inherits": [
+    "doctrine/networkSpineV1.json",
+    "doctrine/cloudflareEdgeHardeningV1.json",
+    "doctrine/belldandyPkiCorporateSecretaryV1.json",
+    "doctrine/androidDeliveryLanesV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/typedFourLaneSqlV1.json",
+    "doctrine/machineCastHexBridgeV1.json"
+  ],
+  "intent": "One source, existing SQL metadata projection and reviewed adapters; no second OS kernel, no new DNS authority, no independent certificate service.",
+  "platformAdapters": {
+    "androidSamsung": {
+      "role": "Android OEM Samsung supported SDK app/WebView client",
+      "nativeBridge": "androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt",
+      "hardwareAuthority": "Samsung OEM and Android platform",
+      "bootloaderOrFirmwareMutation": false,
+      "useAndroidKeystoreForClientSecrets": true,
+      "persistedPrivateTlsKey": false,
+      "deviceProof": "PENDING"
+    },
+    "samsungDebian": {
+      "role": "optional unprivileged Termux/proot Debian development shell",
+      "isReplacementAndroidKernel": false,
+      "requiresRoot": false,
+      "publicTlsTerminationByDefault": false,
+      "dynamicDnsSchedulerByDefault": false,
+      "stableAlwaysOnHostPreferred": true,
+      "shizukuIsNotRootOrHostAuthority": true,
+      "deviceProof": "PENDING"
+    },
+    "ios": {
+      "role": "iOS native WKWebView or supported ChatGPT host thin client",
+      "nativeSourceAvailable": false,
+      "iOSKernelModification": false,
+      "useKeychainForClientTokens": true,
+      "backgroundDnsDaemon": false,
+      "appleSigningAndEntitlementsRequired": true,
+      "deviceProof": "PENDING"
+    },
+    "debianGateway": {
+      "role": "persistent independent Debian/Linux host with loopback HTTPS origin and cloudflared",
+      "actualHostVerified": false,
+      "osInstalledVerified": false,
+      "localHostnameKnown": false,
+      "systemdActivation": false,
+      "cloudflaredInstalledVerified": false
+    }
+  },
+  "dns": {
+    "zone": "eggiebagelface.art",
+    "existingMcp": {
+      "fqdn": "mcp.eggiebagelface.art",
+      "route": "DNS_ONLY_CNAME_TO_VERIFIED_RENDER",
+      "preserveCurrentTransport": true,
+      "proxyChange": false,
+      "noCacheAuthenticatedOrStreaming": true
+    },
+    "privatePortal": {
+      "fqdn": "system.eggiebagelface.art",
+      "preferredMode": "CLOUDFLARE_OUTBOUND_ONLY_TUNNEL",
+      "dnsRecordKind": "CNAME_TO_TUNNEL_ID_ONLY_AFTER_VERIFICATION",
+      "noAOrAaaaAtSameCnameOwner": true,
+      "cloudflareAccessOwnerMfa": true,
+      "originNetworkBinding": "loopback",
+      "noInboundRouterForwarding": true,
+      "installed": false
+    },
+    "optionalDirectIpv6": {
+      "state": "UNSELECTED_DISABLED",
+      "fqdn": null,
+      "recordKind": "AAAA",
+      "originPublicIpv6Observed": false,
+      "localCollectorRequired": true,
+      "onlyGloballyRoutableUnicast": true,
+      "refuseLinkLocalUniqueLocalLoopbackDocumentationAndMulticast": true,
+      "neverInferFromPhoneIp": true,
+      "publicExposureRequiresSeparateApproval": true,
+      "recordChangesDisabled": true,
+      "distinctFromTunnelCname": true
+    },
+    "optionalDirectIpv4": {
+      "state": "UNSELECTED_DISABLED",
+      "fqdn": null,
+      "recordKind": "A",
+      "originPublicIpv4Observed": false,
+      "noIpv4ToIpv6DnsRedirect": true,
+      "requireRealIpv4ServiceReachability": true,
+      "recordChangesDisabled": true
+    },
+    "publicIpv4AndIpv6ClientSupport": "CLOUDFLARE_EDGE_DUAL_STACK_TUNNEL_OR_APPROVED_PROXY_NOT_DNS_REDIRECT",
+    "cloudflareLiveZoneRead": false,
+    "dynamicUpdate": {
+      "proposedSourceTool": "tools/dynamicDnsDryRun.py",
+      "execution": "DRY_RUN_OFFLINE_ONLY",
+      "tokenCustody": "approvedHostSecretStoreIfEverEnabled",
+      "tokenInRepo": false,
+      "automatedProviderWrites": false,
+      "onlyAfterOwnedFqdnAndExactRecordIdAndSourceApproval": true,
+      "authoritativeDdnsProvider": "existingCloudflareZone",
+      "hostBackgroundService": "NOT_INSTALLED"
+    }
+  },
+  "tls": {
+    "cloudflareEdgePublicCaManaged": true,
+    "edgeModeWhenProxied": "FullStrict",
+    "tunnelOriginTls": "PUBLIC_CA_VALIDATED_HTTPS",
+    "tunnelOriginSniName": "system.eggiebagelface.art",
+    "cloudflaredNoTlsVerify": false,
+    "selfSignedAllowed": false,
+    "originCaAsPublicBrowserTrust": false,
+    "acmeRenewal": "DNS_01_WITH_LEAST_PRIVILEGE_SCOPED_TOKEN_IF_APPROVED",
+    "originKeyGeneratedOnApprovedHostOnly": true,
+    "noPrivateKeyInGitHub": true,
+    "noPrivateKeyInSql": true,
+    "noPrivateKeyInChatGpt": true,
+    "noPrivateKeyInAndroid": true,
+    "noPrivateKeyInCloudflareDns": true,
+    "publicKeySpkiFingerprintSha256CanBeRecorded": true,
+    "certificateChainHostnameAndRenewalProof": "PENDING",
+    "noHttpUntilTlsGreen": true,
+    "hstsPreload": "NO_AUTOMATIC_CHANGE"
+  },
+  "sqlCrypto": {
+    "existingSqlModel": "doctrine/typedFourLaneSqlV1.json",
+    "existingMachineRegistry": "host/api/machineRegistrySqliteV1.sql",
+    "onlyEventAndDigestMetadata": true,
+    "newDatabase": false,
+    "migrationPerformed": false,
+    "sqlNeverContainsPrivateKeys": true,
+    "recordPublicCertFingerprintsOnly": true,
+    "sqlEncryptionAtRest": "NOT_PROVEN_SQLITE_DOES_NOT_ENCRYPT_AUTOMATICALLY",
+    "sqlConnectivity": "LOOPBACK_OR_PRIVATE_UNIX_SOCKET_NO_PUBLIC_PORT",
+    "sqlWriteAuthorized": false,
+    "providerApiTokensInSql": false,
+    "signingKeysSeparateFromTlsKeys": true,
+    "cryptoNoAlgorithmFromHexShortCodes": true,
+    "hexIsEncodingNotEncryption": true
+  },
+  "liveGates": {
+    "cloudflareZoneWrite": false,
+    "dnsUpdated": false,
+    "privateKeyCreated": false,
+    "certificateIssued": false,
+    "sslModeChanged": false,
+    "tunnelInstalled": false,
+    "routerFirewallChanged": false,
+    "debianInstalled": false,
+    "iosBuilt": false,
+    "androidInstalled": false,
+    "localIpv6Verified": false,
+    "sqliteProductionTouched": false,
+    "pluginSiteEdited": false,
+    "agentQuarantineReleased": false,
+    "mergedMain": false,
+    "deployment": false,
+    "finalProfessorApproval": false,
+    "crown": "STOP"
+  },
+  "completionProofRequired": [
+    "approvedOriginHostnameAndPublicIpv6EvidenceOrTunnelIdentity",
+    "ownedCloudflareZoneAndActualDnsRecordReadback",
+    "publiclyTrustedEdgeAndOriginCertificateChainAndRenewalProof",
+    "outboundTunnelAndCloudflareAccessMfaProof",
+    "AndroidSamsungClientSmoke",
+    "iOSClientSmokeIfApplicable",
+    "DebianHostIdentity",
+    "SQLPrivateEndpointAndBackupRestoreReceipt",
+    "exactHeadCiGreen",
+    "explicitProfessorApproval"
+  ]
+}
