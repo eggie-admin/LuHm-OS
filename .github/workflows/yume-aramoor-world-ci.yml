@@ -5,10 +5,18 @@ on:
     paths:
       - 'game/world/aramoorArchipelagoV1.json'
       - 'scripts/world/aramoorArchipelagoBuilder.gd'
+      - 'scripts/world/aramoorZoneInteractable.gd'
+      - 'scripts/main.gd'
+      - 'scripts/game/gameHud.gd'
+      - 'scripts/game/aramoorMainAdapter.gd'
+      - 'scripts/game/cutsceneBridge.gd'
+      - 'tests/aramoorMainWalkaroundSmoke.gd'
       - 'scripts/game/worldFactory.gd'
       - 'scenes/AramoorWorldPreview.tscn'
       - 'tests/aramoorWorldSmoke.gd'
       - 'tools/aramoorWorldAudit.py'
+      - 'tools/godot4MilestoneReconciliationAudit.py'
+      - 'doctrine/godot4MilestoneReconciliation20261114.json'
       - '.github/workflows/yume-aramoor-world-ci.yml'
   workflow_dispatch:
 
@@ -34,6 +42,7 @@ jobs:
           python3 -m json.tool game/world/aramoorArchipelagoV1.json >/dev/null
           python3 -m py_compile tools/aramoorWorldAudit.py
           python3 tools/aramoorWorldAudit.py
+          python3 tools/godot4MilestoneReconciliationAudit.py
       - name: Install pinned Godot 4.7.2 editor
         run: |
           set -euo pipefail
@@ -55,6 +64,15 @@ jobs:
           }
           cat /tmp/aramoor-smoke.log
           grep -q 'ARAMOOR_WORLD_GODOT_SMOKE_GREEN' /tmp/aramoor-smoke.log
+          /tmp/aramoorGodot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/aramoorMainWalkaroundSmoke.gd > /tmp/aramoor-walkaround.log 2>&1 || {
+            cat /tmp/aramoor-walkaround.log; exit 1;
+          }
+          cat /tmp/aramoor-walkaround.log
+          grep -q 'ARAMOOR_MAIN_WALKAROUND_SMOKE_GREEN' /tmp/aramoor-walkaround.log
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:|ERROR:' /tmp/aramoor-walkaround.log; then
+            echo 'RED_ARAMOOR_MAIN_WALKAROUND'
+            exit 1
+          fi
           if grep -Eq 'SCRIPT ERROR:|Parse Error:|ERROR:' /tmp/aramoor-smoke.log; then
             echo 'RED_GODOT_LOG_ERROR'
             exit 1

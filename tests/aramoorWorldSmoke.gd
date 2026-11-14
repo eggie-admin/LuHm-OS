@@ -26,6 +26,12 @@ func _run() -> void:
     _check(int(first.get("zoneCount", 0)) == 9, "nine separate zones")
     _check(int(first.get("bridgeCount", 0)) == 12, "connected bridges")
     _check(int(first.get("artSocketCount", 0)) == 9, "canon art sockets preserved")
+    _check(int(first.get("storyInteractableCount", 0)) == 9, "nine original story hotspots")
+    _check((world.get("player_spawn") as Vector3).y > 1.0, "player spawn above collision floor")
+    _check((world.call("get_interaction_points") as Array).size() == 9, "Godot proximity interface connected")
+    var first_point: Area3D = (world.call("get_interaction_points") as Array)[0]
+    _check(str(first_point.call("get_event_name")).begins_with("aramoor:"), "story hotspot has canonical event")
+    _check(not str(world.call("get_zone_line", "aramoorHarbor")).is_empty(), "first module-inspired story beat readable")
     _check(first.get("renderProfile") == "compatibilityWebGL2Safe", "web safe renderer contract")
     _check(first.get("sourcePdfIngested") == false, "unread original module not falsely claimed")
     _check(first.get("canonPromoted") == false, "world cannot auto promote")

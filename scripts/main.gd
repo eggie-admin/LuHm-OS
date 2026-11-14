@@ -1,5 +1,6 @@
 extends Node3D
 const WorldFactoryScript := preload("res://scripts/game/worldFactory.gd")
+const AramoorMainAdapterScript := preload("res://scripts/game/aramoorMainAdapter.gd")
 const PlayerControllerScript := preload("res://scripts/game/playerController.gd")
 const GameHudScript := preload("res://scripts/game/gameHud.gd")
 const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
@@ -57,27 +58,24 @@ func _build_runtime() -> void:
     game_hud = GameHudScript.new()
     game_hud.name = "GameHud"
     add_child(game_hud)
-
     cutscene_director = CutsceneDirectorScript.new()
     cutscene_director.name = "CutsceneDirector"
     add_child(cutscene_director)
-
     cutscene_bridge = CutsceneBridgeScript.new()
     cutscene_bridge.name = "CutsceneBridge"
     add_child(cutscene_bridge)
     cutscene_bridge.configure(cutscene_director, player_controller, active_world, game_hud)
-
     character_roster = CharacterRosterScript.new()
     character_roster.name = "CharacterRoster"
     add_child(character_roster)
-
     quest_director = QuestDirectorScript.new()
     quest_director.name = "QuestDirector"
     add_child(quest_director)
 
-
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
+    game_hud.aramoor_requested.connect(_enter_aramoor_mode)
+    game_hud.aramoor_tide_requested.connect(_toggle_aramoor_tide)
     game_hud.rehearsal_requested.connect(_enter_goddess_rehearsal)
     game_hud.companion_studio_requested.connect(_enter_companion_lab)
     game_hud.encore_requested.connect(_start_next_encore)
@@ -86,26 +84,21 @@ func _wire_runtime() -> void:
     game_hud.lum_talk_requested.connect(_on_lum_talk_requested)
     game_hud.interact_requested.connect(_interact)
     game_hud.move_axis_changed.connect(player_controller.set_touch_axis)
-
     quest_director.quest_changed.connect(_on_quest_changed)
     quest_director.quest_completed.connect(_on_quest_completed)
     game_hud.set_fast_travel_enabled(false)
     if not quest_director.load_quest(FIRST_NIGHT_QUEST_PATH):
         game_hud.set_status("QUEST SOURCE · UNAVAILABLE")
-
 func _enter_goddess_rehearsal() -> void:
     # Optional launch of verified standalone scene; leave original First Night untouched.
     get_tree().change_scene_to_file("res://scenes/GoddessRehearsal.tscn")
-
 func _enter_companion_lab() -> void:
     get_tree().change_scene_to_file("res://scenes/CompanionModLab.tscn")
-
 func _on_lum_talk_requested() -> void:
     if game_hud == null or LUM_BANTER.is_empty():
         return
     game_hud.show_dialogue(str(LUM_BANTER[lum_banter_index % LUM_BANTER.size()]))
     lum_banter_index = (lum_banter_index + 1) % LUM_BANTER.size()
-
 func _wire_android_web3() -> void:
     if OS.get_name() != "Android":
         return
@@ -117,11 +110,9 @@ func _wire_android_web3() -> void:
     android_web3_plugin.connect("oni_requested", _on_android_oni_requested)
     android_web3_plugin.connect("cockpit_ready", _on_android_web3_ready)
     android_web3_plugin.connect("bridge_error", _on_android_web3_error)
-
 func _on_android_web3_ready(version: String) -> void:
     android_web3_version = version
     print("ANDROID_WEB3_COCKPIT_READY webview=", version)
-
 func _on_android_oni_requested(name: String) -> void:
     print("ANDROID_WEB3_ONI_REQUESTED name=", name)
     if android_web3_plugin != null:
@@ -133,7 +124,6 @@ func _on_android_oni_requested(name: String) -> void:
         player_controller.set_world_active(true)
     _spawn_oni_beacon(name)
     _update_interaction_target()
-
 func _spawn_oni_beacon(name: String) -> void:
     if active_world == null or player_controller == null:
         return
@@ -147,7 +137,6 @@ func _spawn_oni_beacon(name: String) -> void:
     active_world.add_child(beacon)
     beacon.global_position = player_controller.global_position + Vector3(1.4, 0.0, 0.0)
     active_oni_beacon = beacon
-
 func _spawn_oni_companion(name: String) -> void:
     if active_world == null or player_controller == null:
         return
@@ -170,7 +159,15 @@ func _on_oni_objective_reached(name: String) -> void:
 func _on_android_web3_error(reason: String) -> void:
     push_error("ANDROID_WEB3_COCKPIT_ERROR: " + reason)
 
+func _enter_aramoor_mode() -> void:
+    AramoorMainAdapterScript.new().open_world(self)
+
+func _toggle_aramoor_tide() -> void:
+    AramoorMainAdapterScript.new().toggle_tide(self)
+
 func enterWorldMode() -> void:
+    if active_world_id == "aramoorArchipelago":
+        AramoorMainAdapterScript.new().return_to_first_night(self)
     if android_web3_plugin != null:
         android_web3_plugin.hideCockpit()
     game_hud.show_world()
@@ -214,6 +211,7 @@ func switchWorld(world_id: String) -> bool:
     active_world = next_world
     neon_world = next_world if world_id == "neonRiverwalk" else null
     active_world_id = world_id
+    game_hud.set_aramoor_controls(world_id == "aramoorArchipelago")
     player_controller.global_position = active_world.player_spawn
     player_controller.spawn_point = active_world.player_spawn
     player_controller.velocity = Vector3.ZERO
@@ -225,7 +223,7 @@ func switchWorld(world_id: String) -> bool:
 func _update_interaction_target() -> void:
     if game_hud == null or player_controller == null or active_world == null:
         return
-    if not player_controller.world_active or quest_director == null or quest_director.is_complete():
+    if not player_controller.world_active or (active_world_id != "aramoorArchipelago" and (quest_director == null or quest_director.is_complete())):
         nearest_interactable = null
         game_hud.set_interaction_prompt("", false)
         _set_all_interaction_markers(false)
@@ -235,7 +233,7 @@ func _update_interaction_target() -> void:
         game_hud.set_interaction_prompt("", false)
         return
 
-    var expected_event: String = str(quest_director.current_event())
+    var expected_event: String = str(quest_director.current_event()) if quest_director != null else ""
     var closest: Area3D = null
     var closest_distance := INF
     var objective_target: Area3D = null
@@ -252,7 +250,7 @@ func _update_interaction_target() -> void:
         var event_name := str(node.call("get_event_name")) if node.has_method("get_event_name") else ""
         if event_name == expected_event:
             objective_target = node
-        var relevant: bool = event_name == expected_event or event_name.begins_with("travel:") or event_name.begins_with("oni:")
+        var relevant: bool = event_name == expected_event or event_name.begins_with("travel:") or event_name.begins_with("oni:") or (active_world_id == "aramoorArchipelago" and event_name.begins_with("aramoor:"))
         if node.has_method("set_active"):
             node.call("set_active", relevant)
         if not relevant:
@@ -284,6 +282,8 @@ func _interact() -> void:
     if nearest_interactable == null or quest_director == null:
         return
     var event_name := str(nearest_interactable.call("get_event_name"))
+    if AramoorMainAdapterScript.new().inspect(self, event_name):
+        return
     if event_name.begins_with("travel:"):
         var destination := event_name.trim_prefix("travel:")
         if switchWorld(destination):

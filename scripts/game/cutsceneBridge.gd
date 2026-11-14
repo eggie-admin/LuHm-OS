@@ -37,8 +37,11 @@ func restore_now() -> void:
     if hud != null:
         hud.clear_dialogue()
     if world != null:
-        world.restore_lum()
-        world.set_lum_expression("neutral", 0.0)
+        # Some procedural destinations have story sockets but no physical Lum rig yet.
+        if world.has_method("restore_lum"):
+            world.call("restore_lum")
+        if world.has_method("set_lum_expression"):
+            world.call("set_lum_expression", "neutral", 0.0)
     if player != null:
         player.restore_camera(0.0)
         player.set_controls_locked(false)

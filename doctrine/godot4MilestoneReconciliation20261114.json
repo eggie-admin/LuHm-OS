@@ -1,0 +1,228 @@
+{
+  "schema": "luhmOs.godot4MilestoneReconciliation.v1",
+  "sourceAnchor": "b8834eb3069cd97c767262a9b6b3405ecf68670d",
+  "authority": "Professor",
+  "reviewDate": "2026-11-14",
+  "status": "AMBER_RECONCILIATION_IN_PROGRESS",
+  "allMilestonesCompleted": false,
+  "purpose": "Evidence-bound inventory of current Godot 4 game, Aramoor D&D module adaptation, private art donors, scripts, rendering, and delivery. Historical receipts remain historical.",
+  "canonSources": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/gameplayVerticalSliceV1.json",
+    "doctrine/layeredStageCanonV1.json",
+    "doctrine/godot4AssetEstateV1.json",
+    "media/godot4-game-asset-estate.json",
+    "doctrine/yumeGoddess3dProductionV1.json"
+  ],
+  "legalSources": {
+    "aramoor": "JunkyardTornado: The Ghosts of Aramoor, CC BY-SA 4.0 for adapted adventure text",
+    "destinyChild": "THIRD_PARTY_PRIVATE_REFERENCE, no redistribution",
+    "mona": "STYLE_ONLY_NOT_MODEL_INGEST",
+    "moriohMoreo": "IDENTITY_AND_ARCHIVE_UNRESOLVED",
+    "eve": "RIGHTS_PENDING_PRIVATE_DONOR",
+    "animeCharacterIdentities": "SEPARATE_RIGHTS_REVIEW_FOR_PUBLIC_GAME"
+  },
+  "milestones": [
+    {
+      "id": "G01",
+      "name": "Godot4SourceSpine",
+      "status": "SOURCE_PRESENT",
+      "evidence": "project.godot",
+      "remainingGate": "Current 4.7 Compatibility game, existing main scene, Android and Web presets",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G02",
+      "name": "FirstNightGameplay",
+      "status": "SOURCE_CROWNED_RUNTIME_DEVICE_PENDING",
+      "evidence": "doctrine/gameplayVerticalSliceV1.json",
+      "remainingGate": "Do not replace First Night Circuit; Android completion and input unverified",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G03",
+      "name": "AramoorNineIslands",
+      "status": "GODOT_HEADLESS_SOURCE_PROVEN",
+      "evidence": "tests/aramoorWorldSmoke.gd",
+      "remainingGate": "Nine generated zones, twelve bridges, living/ghost tide geometry",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G04",
+      "name": "AramoorPlayerAndMenu",
+      "status": "CANDIDATE_HEADLESS_PROOF_PENDING",
+      "evidence": "tests/aramoorMainWalkaroundSmoke.gd",
+      "remainingGate": "Fix missing spawn, Main/HUD entry, story hotspots, tide/return test",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G05",
+      "name": "AramoorModuleProvenance",
+      "status": "PUBLISHER_LICENSE_VERIFIED",
+      "evidence": "scripts/adventures/ghostsOfAramoor/PROVENANCE.md",
+      "remainingGate": "JunkyardTornado CC BY-SA 4.0; derivative text ShareAlike",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G06",
+      "name": "AramoorExactModulePDF",
+      "status": "BLOCKED_PDF_NOT_INGESTED",
+      "evidence": "scripts/adventures/ghostsOfAramoor/sourceProof.json",
+      "remainingGate": "Cannot claim exact encounter, treasure or map transcription before reading PDF",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G07",
+      "name": "DestinyChildMonsterAssets",
+      "status": "QUARANTINED_PRIVATE_REFERENCE",
+      "evidence": "game/demo/destinyChildReferenceIntakeV1.json",
+      "remainingGate": "KR/JP/Global/PCK/mod folders indexed; no transfer, reuse rights or runtime approved",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G08",
+      "name": "MonaCharacterInfluence",
+      "status": "DESIGN_REFERENCE_ONLY",
+      "evidence": "game/canon/CHARACTER_CANON_V1.json",
+      "remainingGate": "Lum may have playful gacha hostess/guidance functions; no model/sprite/name trade dress copying",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G09",
+      "name": "GachaCompanionMechanics",
+      "status": "SOURCE_PRESENT_AS_ORIGINAL_RELATIONSHIPS",
+      "evidence": "scripts/game/companionAffinityState.gd",
+      "remainingGate": "Godot relationship engine exists; monster-collection loop not proven as playable",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G10",
+      "name": "MoriohMoreoChroniclesDonor",
+      "status": "NOT_LOCATED",
+      "evidence": "doctrine/layeredStageCanonV1.json",
+      "remainingGate": "Canon records moreoChronicleArchiveFound=false; title and binary unresolved",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G11",
+      "name": "EveBlenderDonors",
+      "status": "PRIVATE_DONOR_RIGHTS_AND_IMPORT_HOLD",
+      "evidence": "artAssets/manifests/archiveInventory.json",
+      "remainingGate": "EVE .blend / RAR and Rebel bar GLB are inventory only; original asset sharing and scripts require review",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G12",
+      "name": "LumRiggedBody",
+      "status": "HISTORICAL_GODOT_MORPH_TESTED_APPROVAL_PENDING",
+      "evidence": "doctrine/yumeGoddess3dProductionV1.json",
+      "remainingGate": "24 joints, three morphs in Phase2 proof; deformation, animation, rights and Professor visual review open",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G13",
+      "name": "ThreeGoddessBodies",
+      "status": "MISSING_RECONCILED_3D_BODIES",
+      "evidence": "media/goddess3d-production-matrix-v1.json",
+      "remainingGate": "Urd, Belldandy, Skuld lack approved 3D runtime rigs",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G14",
+      "name": "Live2dSpriteOver3d",
+      "status": "ADAPTER_SOURCE_ONLY",
+      "evidence": "frontEnd/prototypes/companionAtelier/live2dAdapter.mjs",
+      "remainingGate": "Seven visual planes defined; Cubism runtime and cleared model uninstalled",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G15",
+      "name": "BlenderPbrMaterialsAndShadows",
+      "status": "PIPELINE_SOURCE_ONLY",
+      "evidence": "doctrine/godot4AssetArchitectureDecisionV1.json",
+      "remainingGate": "GLB authoring/import workflow present; physical PBR/UV/normal maps unverified for selected assets",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G16",
+      "name": "WebglThreeDimensionalBrowser",
+      "status": "CHROMIUM_SOURCE_VISUAL_PROOF",
+      "evidence": "frontEnd/prototypes/lumEdge/aramoor.html",
+      "remainingGate": "Separate Babylon browser scene tested; NOT Godot web export",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G17",
+      "name": "GodotWebExportAndGameplay",
+      "status": "NO_CURRENT_ARAMOOR_EXPORT",
+      "evidence": "export_presets.cfg",
+      "remainingGate": "Compatibility WebGL2 only; actual Godot wasm/pck browser launch and input acceptance missing",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G18",
+      "name": "AndroidPlayableBuild",
+      "status": "DEVICE_PROOF_PENDING",
+      "evidence": "doctrine/milestoneTaskQueueV1.json",
+      "remainingGate": "Older test APK does not prove Aramoor or device movement",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G19",
+      "name": "CanonSourceAndAssetRights",
+      "status": "AMBER_AND_PRIVATE_HOLDS",
+      "evidence": "doctrine/currentSourceTruthV3.json",
+      "remainingGate": "All third-party and manga/anime references have independent reuse gates; publicAllowed=false",
+      "fullProductGreen": false
+    },
+    {
+      "id": "G20",
+      "name": "ProductionCrownAndCast",
+      "status": "STOP",
+      "evidence": "doctrine/everlastingCovenantV1.json",
+      "remainingGate": "Source CI does not authorize production deployment, signing, game publication, or autonomous workers",
+      "fullProductGreen": false
+    }
+  ],
+  "assetPromotionLaw": {
+    "rawDiscovery": "hash+archive+safety+license review",
+    "donorImport": "owner/rights verification+Godot 4.7 import runtime proof",
+    "publicPayload": "explicit clearance+Professor approval",
+    "forbidCopyFromPrivateRef": true,
+    "forbidMetadataAsRuntimeProof": true,
+    "forbidAutomaticWorker": true
+  },
+  "runtimeSeparation": {
+    "godot4": "single gameplay authority",
+    "blender": "heavy 3D authoring only",
+    "webgl": "Godot Compatibility WebGL2 distinct from Babylon concept viewer",
+    "cssLive2d": "independent overlay on seven-plane frontend, no inferred Cubism license",
+    "vulkan": "native-only renderer target where supported, not browser export"
+  },
+  "candidateScope": {
+    "id": "aramoorMainGodotWalkaroundSource",
+    "status": "TESTING_REQUIRED",
+    "changes": [
+      "playerSpawn",
+      "menuRoute",
+      "storyHotspots",
+      "tideToggle",
+      "firstNightReturn"
+    ],
+    "publication": false,
+    "castMeaning": "scope-specific source/test review only"
+  },
+  "stopConditions": [
+    "unknown proprietary asset redistribution rights",
+    "upstream PDF inaccessible for precise adaptation",
+    "missing three goddess production bodies",
+    "failure of exact-head Godot Main smoke",
+    "current Godot Web wasm/pck unproven",
+    "Samsung touch unproven",
+    "unverified full ChatGPT cockpit",
+    "global source truth remains AMBER"
+  ],
+  "crown": "STOP",
+  "automaticMerge": false,
+  "automaticPublication": false
+}
