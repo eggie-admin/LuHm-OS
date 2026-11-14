@@ -19,7 +19,8 @@ export const observedServices = Object.freeze([
  {id:"googleDrive",name:"Google Drive binaries",state:"SOURCE_OBSERVED",detail:"Inventory folders observed; bytes not bulk-ingested"},
  {id:"openAiPrimary",name:"OpenAI primary conversation",state:"CURRENT_CHAT",detail:"Human-facing task coordination only"},
  {id:"openAiMini",name:"OpenAI mini-agent second thread",state:"UNVERIFIED",detail:"Logical handoff contract; independent running thread not proven"},
- {id:"googleAi",name:"Google AI provider adapter",state:"BLOCKED",detail:"Current API entitlement, billing, IAM and smoke receipt missing"},
+ {id:"googleAiPro",name:"Google AI Pro consumer subscription",state:"HISTORICALLY_CONFIRMED",detail:"Google welcome email September 2, 2026; current subscription dashboard not directly checked"},
+ {id:"googleAi",name:"Google AI / Gemini Developer API",state:"BLOCKED",detail:"October 30 Gemini API suspended-tier notice; November 6 Google Cloud billing termination notice. No authenticated reinstatement, live quota or authorized API smoke receipt"},
  {id:"render",name:"Render services",state:"UNVERIFIED",detail:"Workspace selection and exact live receipts required"},
  {id:"chatGptWidget",name:"ChatGPT app widget host",state:"UNVERIFIED",detail:"Host mount and invocation proof required"},
  {id:"godot",name:"Godot 4 / Android runtime",state:"UNVERIFIED",detail:"Build and device proof separate from source files"},
@@ -54,6 +55,12 @@ export function createTaskEnvelope(input) {
  if(workers.some(w=>!canonicalRoster.includes(w))||workers.length>4||workers[0]!=="lum")throw new Error("Noncanonical agent route");
  return {
   schema:"luhmOs.aiTaskManifest.v2",taskId,scopeId,sourceRef,intent,
+  providerId:"openAi",capabilityId:"supervisedTaskRouting",inputRefs:[],
+  requiredOutputSchema:"luhmOs.aiTaskReview.v1",
+  budget:{maxRequests:1,maxParallel:1,maxPasses:1},
+  stopConditions:["scopeComplete","evidenceConflict","sourceMismatch","budgetExhausted","quarantineHeld"],
+  authority:{mutation:false,green:false,crown:false},
+  responseRequired:["providerId","taskId","sourceRef","scopeId","responseId","outputRefs","claims","timestamp"],
   lane,workerIds:workers,authorityClass:"PLAN_ONLY",
   status:"CANDIDATE_NOT_EXECUTED",crownStatus:"STOP",
   threads:{
@@ -61,7 +68,7 @@ export function createTaskEnvelope(input) {
    miniAgentEvidence:{provider:"openAi",status:"UNVERIFIED_NOT_RUNNING"}
   },
   maxParallelSupportWorkers:3,oneMutableSourceLane:true,
-  providerPolicy:{googleAi:"DENY_UNTIL_CURRENT_ENTITLEMENT_AND_SMOKE",fallback:"deterministicLocal"},
+  providerPolicy:{googleAi:"BLOCKED_AFTER_2026_11_06_BILLING_NOTICE_UNTIL_REINSTATEMENT_AND_SMOKE",googleAiPro:"HISTORICALLY_CONFIRMED_SUBSCRIPTION_ONLY",fallback:"deterministicLocal"},
   artifactPolicy:{binaryAuthority:"googleDrive",sourceAuthority:"github",publicApproved:false},
   workflowStages:[...workflowStages],
   requiredEvidence:["exactSourceRef","taskIdScopeIdMatch","licenseAndProvenance","deterministicTestReceipt"],
@@ -91,7 +98,7 @@ function downloadJson(data,name){
 }
 function initControlRoom(){
  const nav=[...document.querySelectorAll("[data-tab]")],panels=[...document.querySelectorAll("[data-panel]")];
- let current=0;let metadata=[],receiptReview=[],lastTask=null;
+ let current=0;let metadata=[],receiptReview=[],lastTask=null;let previewUrl=null;
  function show(index){
   current=(index+nav.length)%nav.length;
   nav.forEach((n,i)=>{const active=i===current;n.classList.toggle("active",active);n.setAttribute("aria-current",active?"page":"false");});
@@ -129,13 +136,22 @@ function initControlRoom(){
   const state=document.createElement("span");state.className="state warn";state.textContent=i<2?"SOURCE INSPECTED · NOT GREEN":"REQUIRES EXACT RECEIPT";
   el.append(name,state);$("stageList").append(el);
  });
- $("filePicker").addEventListener("change",e=>{
-  const files=[...e.target.files].slice(0,10000);
+ function intakeFiles(files){
+  files=[...files].slice(0,10000);
   metadata=files.map(f=>({name:f.webkitRelativePath||f.name,size:f.size,lane:classifyAssetFile(f.name),sha256:null,rightsState:"UNKNOWN",publicApproved:false,source:"localBrowserSelection",status:"METADATA_ONLY_NOT_INGESTED"}));
   const sum=assetSummary(files);
   safeText("assetCount",String(sum.count));safeText("assetSize",formattedBytes(sum.totalBytes));
   safeText("assetLanes",Object.entries(sum.counts).map(([k,n])=>k+": "+n).join(" · ")||"No files selected");
   safeText("assetNotice","Selected files stay on this device; only names, sizes and categories enter this temporary draft. Archives are not unpacked or installed.");
+ }
+ $("filePicker").addEventListener("change",e=>intakeFiles(e.target.files));
+ $("directoryPicker").addEventListener("change",e=>intakeFiles(e.target.files));
+ $("portraitPicker").addEventListener("change",e=>{
+  if(previewUrl){URL.revokeObjectURL(previewUrl);previewUrl=null;}
+  const file=e.target.files&&e.target.files[0];if(!file)return;
+  const allowed=["image/png","image/webp","image/jpeg","image/gif"];
+  if(!allowed.includes(file.type)||file.size>20*1024*1024){safeText("assetNotice","Local portrait rejected: unsupported image type or larger than 20 MiB.");return;}
+  previewUrl=URL.createObjectURL(file);const image=$("portraitPreview");image.src=previewUrl;image.hidden=false;
  });
  $("receiptPicker").addEventListener("change",async e=>{
   for(const file of [...e.target.files].slice(0,20)){
