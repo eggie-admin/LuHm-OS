@@ -55,7 +55,7 @@ def stage(scene,bpy):
     bpy.ops.object.camera_add(location=(0,8,5))
     cam=bpy.context.object
     cam.name="OriginalStudioCamera"
-    direction=(0,0,0)-cam.location
+    direction=Vector((0.0,0.0,0.0))-cam.location
     cam.rotation_euler=direction.to_track_quat("-Z","Y").to_euler()
     bpy.context.scene.camera=cam
     bpy.context.scene.render.resolution_x=1280
