@@ -108,6 +108,8 @@ jobs:
           PY
       - name: Full 200-check structural source audit
         shell: bash
+        env:
+          LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           set -euo pipefail
           python3 tools/hardSystemAudit200.py | tee "$RUNNER_TEMP/hard-system-200-source-audit.txt"
