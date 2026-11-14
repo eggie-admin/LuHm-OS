@@ -1,0 +1,52 @@
+name: Samsung Field Forge 4x4 Read-Only Audit
+on:
+  pull_request:
+    paths:
+      - 'tools/samsungFieldKit.py'
+      - 'tests/test_samsung_field_kit.py'
+      - 'manual/samsungFieldForge20261104.md'
+      - '.github/workflows/samsung-field-forge-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: samsung-field-forge-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  source-forge:
+    name: field-forge-shard-${{ matrix.shard }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        shard: [0, 1, 2, 3]
+    env:
+      LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Checkout exact candidate without credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify immutable source and diff
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$LUHM_SOURCE_REF"
+          git diff --check
+          python3 -m py_compile tools/samsungFieldKit.py
+      - name: Run ten safe field-kit regression controls
+        run: python3 -m unittest discover -s tests -p 'test_samsung_field_kit.py' -v
+      - name: Tetsu source forge, four independent serial 200-check passes
+        run: python3 tools/samsungFieldKit.py doctor --passes 4
+      - name: Read-only Edge Gallery Canon status
+        run: python3 tools/samsungFieldKit.py edge
+      - name: Confirm not an Android or provider execution gate
+        run: |
+          echo '4x4_SOURCE_ONLY'
+          echo 'NO_ANDROID_DEVICE_PROOF'
+          echo 'NO_OLLAMA_MODEL_EXECUTED'
+          echo 'NO_EDGE_GALLERY_BRIDGE_PROVEN'
+          echo 'NO_MERGE_NO_RELEASE_NO_SIGNING_NO_CROWN'
