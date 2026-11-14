@@ -56,9 +56,9 @@ def synchronize(conn, snapshot, mutate=False):
                     for k,v in event["booleans"].items():
                         cur.execute("INSERT INTO booleanStream(eventId,fieldName,booleanValue) VALUES(%s,%s,%s) ON CONFLICT(eventId,fieldName) DO NOTHING",
                                     (event["eventId"],k,v))
-                cur.execute("SELECT sourceRef,taskId,scopeId,sequenceId FROM streamEvent WHERE eventId=%s",(event["eventId"],))
+                cur.execute("SELECT sourceRef,taskId,scopeId,workerId,sequenceId,eighthNote FROM streamEvent WHERE eventId=%s",(event["eventId"],))
                 found=cur.fetchone()
-                require(found is not None and tuple(found)==(sourceRef,event["taskId"],event["scopeId"],event["sequenceId"]), "remote event mismatch")
+                require(found is not None and tuple(found)==(sourceRef,event["taskId"],event["scopeId"],event["workerId"],event["sequenceId"],event["eighthNote"]), "remote event mismatch")
                 for k,v in event["texts"].items():
                     cur.execute("SELECT textValue FROM textStream WHERE eventId=%s AND fieldName=%s",(event["eventId"],k))
                     value=cur.fetchone()
