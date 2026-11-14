@@ -71,7 +71,7 @@ func _run() -> void:
     if not _check(studio.get("activeSceneId") == "nightglassBarHub" and talkButton.visible, "return travel failed"):
         return
     var data = studio.get("manuscript")
-    if not _check(data is Dictionary and data.get("assetPolicy", {}).get("thirdPartyDataAllowed") is false, "third-party art gate invalid"):
+    if not _check(data is Dictionary and data.get("assetPolicy", {}).get("thirdPartyDataAllowed") == false, "third-party art gate invalid"):
         return
     if not _check(data.get("orchestration", {}).get("liveWorkerState") == "QUARANTINED" and data.get("release", {}).get("cast") == "STOP", "source rights/release gate invalid"):
         return
