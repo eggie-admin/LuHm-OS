@@ -5,6 +5,8 @@ on:
     paths:
       - "doctrine/storageTopologyV1.json"
       - "doctrine/SOURCE_OF_TRUTH.json"
+      - "doctrine/currentSourceTruthV3.json"
+      - "tests/testCanonStockroomNamingV1.py"
       - "doctrine/projectChatCanonV1.json"
       - "agents/**"
       - "plugins/luhm-os/skills/**"
@@ -24,3 +26,4 @@ jobs:
         with:
           python-version: "3.x"
       - run: python tools/storageTopologyAudit.py
+      - run: python -m unittest discover -s tests -p testCanonStockroomNamingV1.py -v

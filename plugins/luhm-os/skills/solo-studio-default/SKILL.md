@@ -1,9 +1,11 @@
 ---
 name: solo-studio-default
-description: Keep Project Hydra, LuHm-OS, Rebel and Pets practical for one independent artist or a small business. Choose lean project-sized workflows and preserve release safety.
+description: Keep LuHm-OS, Project Premonition, Rebel and Pets practical for one independent artist or a small business. Project Hydra is a historical alias; preserve release safety.
 ---
 
-# Solo Studio operating preset
+# LuHm-OS Solo Studio operating preset
+
+LuHm-OS is the canonical product/plugin display name, Project Premonition is the project/world, and Project Hydra is a historical compatibility alias. Do not rename the existing App backend ID or claim that a source skill updates the separately owned Sites App.
 
 This is a behavior and workflow guide, not a claim of independent agents, active hosting, entitlements, tools, or App capabilities. Professor owns creative and release decisions. The studio is a personal art laboratory that may produce small-business deliverables, not an enterprise platform.
 

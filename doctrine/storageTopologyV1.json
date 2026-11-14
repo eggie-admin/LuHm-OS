@@ -9,7 +9,10 @@
     "sourceDb": "/var/lib/luhm/sourceDb",
     "fileServer": "/srv/luhm",
     "runtimeMount": "/mnt/device",
-    "ephemeral": ["/var/cache/luhm", "/tmp/luhm"]
+    "ephemeral": [
+      "/var/cache/luhm",
+      "/tmp/luhm"
+    ]
   },
   "roles": {
     "openAi": {
@@ -40,6 +43,15 @@
       "durableBinaryStorage": false,
       "sourceAuthority": false,
       "promotionAuthority": false
+    },
+    "chatGptLibrary": {
+      "role": "workingReviewLayer",
+      "purpose": "private art, previews, reference snapshots and deliverable handoffs; preserves file identity and provenance",
+      "canonicalSourceAuthority": false,
+      "canonicalBinaryStorage": false,
+      "promotionAuthority": false,
+      "automaticallySynchronizedWithDrive": false,
+      "mayReplaceDriveMaster": false
     }
   },
   "artifactRecordRequired": [
@@ -72,7 +84,25 @@
     "databaseMayStoreCanonicalBinary": false,
     "privateDriveIdsStayOutOfPublicDoctrine": true,
     "artifactDigestRequired": true,
-    "unknownStorageLocationIsNotGreen": true
+    "unknownStorageLocationIsNotGreen": true,
+    "chatGptLibraryWorkingCopiesAllowed": true,
+    "chatGptLibraryMayReplaceDriveMaster": false,
+    "chatGptLibraryAutomaticSyncProven": false,
+    "chatGptLibraryIsCanon": false
   },
-  "crownStatus": "stop"
+  "crownStatus": "stop",
+  "workingCopyContinuity": {
+    "contractScope": "sourceRoleReconciliationOnly",
+    "existingLibraryFolders": [
+      "Brand and Canon",
+      "Art and Previews",
+      "Exports",
+      "godotAssets"
+    ],
+    "preserveExistingFileIds": true,
+    "preserveEditableOriginals": true,
+    "libraryFileEvidenceSeparateFromDriveMaster": true,
+    "noAutomaticCopyOrBackupClaims": true,
+    "sourceValidationIsNotRuntimeSync": true
+  }
 }

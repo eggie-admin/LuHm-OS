@@ -1,7 +1,7 @@
 {
   "schema": "luhmOs.currentSourceTruth.v3",
   "status": "AMBER_PROPOSED_SEAL_OF_TRUTH",
-  "product": "LuHm OS",
+  "product": "LuHm-OS",
   "canonicalRepository": "eggie-admin/LuHm-OS",
   "authority": "Professor",
   "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
@@ -1090,5 +1090,18 @@
     "agentRuntimeQuarantineUnchanged": true,
     "automaticFinalProductCrown": false,
     "installedTaskEnabled": "REQUIRES_OUT_OF_REPO_TASKS_CONFIGURATION"
+  },
+  "storageTopology": {
+    "contract": "doctrine/storageTopologyV1.json",
+    "sourceAuthority": "github",
+    "durableBinaryMaster": "googleDrive",
+    "chatGptLibraryRole": "workingReviewLayer",
+    "privateLibraryPreviewsNotMasterFiles": true,
+    "automaticDriveLibrarySyncProven": false,
+    "artifactHashAndOwnerRightsProofRequired": true,
+    "independentSourceAndRuntimeProofRequired": true,
+    "namingAuthority": "doctrine/brandCanonV1.json",
+    "status": "CANDIDATE_SOURCE_RECONCILIATION",
+    "promotion": false
   }
 }
