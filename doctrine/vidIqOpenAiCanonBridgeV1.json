@@ -1,0 +1,155 @@
+{
+  "schema": "luhmOs.vidIqOpenAiCanonBridge.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "taskId": "vidIqLongFormCanonBridge20261102",
+  "scopeId": "youtubeLongFormReadOnlyAndDrafts",
+  "sourceObservation": {
+    "mainSha": "8865dc9756ede173017b56b40a2eb0760649f0a0",
+    "observedDate": "2026-11-02",
+    "source": "GitHub connector",
+    "mainNotModified": true
+  },
+  "identities": {
+    "product": "LuHm-OS",
+    "project": "Project Premonition",
+    "projectLegacyAlias": "Project Hydra",
+    "publisher": "Eggie Bagelface",
+    "studio": "PIRATE DADDIES FILM",
+    "youtube": {
+      "channelId": "UCBx56jOoR5Md2dAQJk2BLDA",
+      "title": "Geoffrey Ward",
+      "handle": "@geoffreyward3606",
+      "primaryFormat": "long",
+      "identityConfirmedBy": "vidiq_user_channels",
+      "confirmedOn": "2026-11-02",
+      "brandingNote": "Observed connected channel label only; does not rename or grant public affiliation."
+    }
+  },
+  "observedSessionEvidence": {
+    "connectedVidIqYoutube": true,
+    "channelCounts": {
+      "subscribers": 0,
+      "views": 0,
+      "videos": 0
+    },
+    "analyticsWindow": {
+      "from": "2026-10-05",
+      "through": "2026-11-01",
+      "views": 0,
+      "engagedViews": 0,
+      "estimatedMinutesWatched": 0,
+      "subscribersGained": 0
+    },
+    "longFormUploadList": {
+      "count": 0,
+      "includesPrivacyStatuses": [
+        "public",
+        "unlisted",
+        "private"
+      ]
+    },
+    "connectedVidIqInstagramAccounts": 0,
+    "observationOnly": true,
+    "authenticatedAccountIdentifiersExcluded": true,
+    "existingLuHmReadOnlyCockpit": {
+      "connectedTool": "Project Hydra / luhm_open_cockpit",
+      "mcpBridgeReachable": true,
+      "readOnly": true,
+      "returnedSurface": "mcp-app",
+      "exactCurrentSourceHostAlignment": "UNVERIFIED",
+      "crossPluginVidIqAccess": false
+    }
+  },
+  "references": {
+    "canonicalSource": "eggie-admin/LuHm-OS",
+    "campaign": "doctrine/unifiedCampaignWorkbenchV1.json",
+    "artistPipeline": "doctrine/yumeCreativePipelineV1.json",
+    "contentLanes": "doctrine/contentLaneDoctrineV1.json",
+    "brand": "doctrine/organizationBrandRegistryV1.json",
+    "pluginDock": "doctrine/glassPluginDockV1.json",
+    "storage": "doctrine/storageTopologyV1.json",
+    "companyQuarantine": "doctrine/companyWideOperationalQuarantineV1.json",
+    "currentTruth": "doctrine/currentSourceTruthV3.json"
+  },
+  "route": {
+    "client": "ChatGPT connected vidIQ connector",
+    "existingDockModule": "social",
+    "youtubeDeskRole": "longerBuildProofDevlogAndDemo",
+    "conversationalCoordinator": "lum",
+    "humanDirector": "Professor",
+    "creativeRole": "yume",
+    "researchRole": "skuldResearch",
+    "evidenceRole": "urdDoctorGoddess",
+    "recordsRole": "belldandySecretary",
+    "roleLabelsOnly": true,
+    "independentAgentRuntime": false,
+    "crossPluginInvocationVerified": false,
+    "luHmMcpAppHostInstalledVerified": false,
+    "runtimeStatus": "NOT_PROVEN"
+  },
+  "supportedReadOnlyTasks": [
+    "verifyConnectedChannel",
+    "inspectOwnLongFormUploads",
+    "reviewOwnChannelAnalytics",
+    "researchDemandWhenCreditBudgetApproved",
+    "evaluateDraftTitlesAndThumbnailsWhenCreditBudgetApproved",
+    "draftScriptsAndStoryboards",
+    "produceEvidenceBoundLongFormContentPlans"
+  ],
+  "workflow": [
+    "resolveCurrentSourceAndQuarantine",
+    "confirmExactConnectedChannel",
+    "selectEvidenceBoundCreativeClaim",
+    "registerPrivateSourceAssetsAndRights",
+    "selectContentLane",
+    "draftScriptAndStoryboards",
+    "prepareLongFormVideoWithOwnedAssets",
+    "researchMetadataWithinApprovedCreditBudget",
+    "checkAccessibilityRightsContinuityAndSourceReceipts",
+    "obtainProfessorApprovalForExactVideoAndFinalValues",
+    "publishOnlyViaExplicitlyAuthorizedProviderAction",
+    "verifyPublishedResultAndRecordRedactedReceipt",
+    "measureOwnPerformanceWithoutClaimingUnobservedMetrics"
+  ],
+  "hardGates": {
+    "publishRequiresExactChannelVideoAndFinalValues": true,
+    "thumbnailChangeRequiresExactFinalImageApproval": true,
+    "commentReplyRequiresExactCommentAndReplyApproval": true,
+    "instagramPublishingIsSeparateAuthorization": true,
+    "noAutomaticPosting": true,
+    "noAutomaticCrossPosting": true,
+    "noAutomaticRepoMerge": true,
+    "noAutomaticAgentRelease": true,
+    "noPaidApiActivation": true,
+    "noBillableGenerationWithoutTaskSpecificBudget": true,
+    "noRawPersonalOrPrivateMediaInPublicGit": true,
+    "noPrivateDriveIdsOrTokensInPublicGit": true,
+    "noAssumedExternalMcpToolBridge": true,
+    "noUnlicensedOrPrivateOnlyArtInPublicOutputs": true,
+    "noSubstituteVidIqForVertexVeo": true,
+    "retainExistingBrandWithoutRenamingYoutubeChannel": true
+  },
+  "validation": {
+    "sourceContractTest": "python3 tools/vidIqCanonBridgeAudit.py",
+    "negativeControls": [
+      "differentChannel",
+      "automaticPublishing",
+      "falseHostProof",
+      "wrongPrimaryFormat",
+      "removedQuarantineGate"
+    ],
+    "requiresExactSourceCiToPromote": true,
+    "liveMobileWidgetProof": false,
+    "sourceCandidateIsNotDeployed": true
+  },
+  "approval": {
+    "sourceDraftAllowed": true,
+    "release": false,
+    "publicMarketing": false,
+    "productionWrite": false,
+    "crownStatus": "STOP"
+  },
+  "rollback": "Close the draft PR or revert its files; no connected accounts, public videos or production runtime are modified."
+}
