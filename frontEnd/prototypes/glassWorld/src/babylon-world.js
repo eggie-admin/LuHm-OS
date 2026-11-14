@@ -11,6 +11,7 @@ import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder.js";
 import { PointerEventTypes } from "@babylonjs/core/Events/pointerEvents.js";
 import { validateScene } from "./scene-state.mjs";
 import { buildCrownLayout } from "./crown-cathedral-layout.mjs";
+import { createLocalLumAvatar } from "./lum-avatar.js";
 
 export function startBabylonWorld(canvas, onSelected) {
   const engine = new Engine(canvas, true, { preserveDrawingBuffer: false, stencil: false });
@@ -22,6 +23,7 @@ export function startBabylonWorld(canvas, onSelected) {
   camera.lowerRadiusLimit = 3;
   camera.upperRadiusLimit = 24;
   camera.attachControl(canvas, true);
+  const lum = createLocalLumAvatar(scene, camera);
   new HemisphericLight("sky", new Vector3(0, 1, 0), scene).intensity = 0.8;
   const lamp = new PointLight("worklight", new Vector3(-4, 8, -5), scene);
   lamp.intensity = 65;
@@ -122,7 +124,10 @@ export function startBabylonWorld(canvas, onSelected) {
   return {
     applyScene,
     setEnvironment,
+    loadLum: file => lum.load(file),
+    runLum: enabled => lum.setRun(enabled),
     destroy() {
+      lum.destroy();
       clearEnvironment();
       engine.stopRenderLoop(render);
       window.removeEventListener("resize", resize);
