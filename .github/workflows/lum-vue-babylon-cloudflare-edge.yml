@@ -31,6 +31,13 @@ jobs:
       - name: npm dependency install with scripts disabled
         working-directory: frontEnd/prototypes/glassWorld
         run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Upload npm-resolved lockfile candidate
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lum-vue-babylon-resolved-npm-lockfile
+          path: frontEnd/prototypes/glassWorld/package-lock.json
+          if-no-files-found: error
+          retention-days: 7
       - name: Bounded unit checks and real Vite production build
         working-directory: frontEnd/prototypes/glassWorld
         run: npm run check
