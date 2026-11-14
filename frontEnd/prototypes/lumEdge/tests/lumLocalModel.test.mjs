@@ -41,3 +41,17 @@ test("unsupported codec and high node count are rejected",async()=>{
   await assert.rejects(inspectLocalGlb(fakeGlb({...model,extensionsRequired:["KHR_draco_mesh_compression"]})),/RED_GLB_UNSUPPORTED_CODEC/);
   await assert.rejects(inspectLocalGlb(fakeGlb({...model,nodes:Array.from({length:1001},()=>({}))})),/RED_GLB_COMPLEXITY/);
 });
+
+test("embedded normal and ORM maps are counted without claiming GPU visual proof",async()=>{
+  const source={...model,textures:[{source:0}],materials:[
+    {normalTexture:{index:0},pbrMetallicRoughness:{metallicRoughnessTexture:{index:0}}}
+  ]};
+  const r=await inspectLocalGlb(fakeGlb(source));
+  assert.equal(r.normalMaps,1);
+  assert.equal(r.roughnessMaps,1);
+  assert.equal(r.surfaceProof,"METADATA_ONLY");
+});
+test("out-of-range normal map texture references fail closed",async()=>{
+  await assert.rejects(inspectLocalGlb(fakeGlb({...model,materials:[{normalTexture:{index:99}}],textures:[{source:0}]})),/RED_GLB_TEXTURE_INDEX/);
+  await assert.rejects(inspectLocalGlb(fakeGlb({...model,materials:[{}],textures:[{source:99}]})),/RED_GLB_TEXTURE_IMAGE/);
+});
