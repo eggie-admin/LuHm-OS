@@ -15,6 +15,8 @@ The illustrated Crown Cathedral and Final Master editions from September 27, 202
 - [Belldandy's secretary desk](belldandySecretaryDesk.md): index names, revisions, receipts and handoffs in supervised chat.
 - [Manual audit and mutation](LUHM_OS_MUTATION_AUDIT_SEAL_WORKFLOW.md): how to modify documentation with evidence.
 
+For the **two-lane monitor + Lum pet/chat preview**, see [the one-agent media desk](one-agent-media-two-lane.md). It reconciles existing VLC and FFmpeg, optional Kodi/XBMC and Plex adapters, and the quarantined single-coordinator UI. Candidate only, not a live agent deployment.
+
 ## Read the relevant guide
 
 For a first build, use [debug first run](debug-first-run.md), then [Samsung public beta](samsung-lite-public-beta.md). For artistic direction see [artist-first workbench reconciliation](artist-first-workbench-reconciliation-20261015.md). For actual release blockers see the [final-form public release gate](../doctrine/finalFormPublicReleaseGateV1.json).

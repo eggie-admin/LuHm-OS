@@ -32,11 +32,36 @@ header{justify-content:space-between}header>div:nth-child(2){flex:1;min-width:0}
 @media(prefers-reduced-transparency:reduce){.glassDock{background:#172031;backdrop-filter:none;-webkit-backdrop-filter:none}}
 @media(max-width:300px){#roster,#lanes{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+/* Single coordinator, two visible lanes. No background workers. */
+.twoLaneMobile{display:grid;gap:8px}
+.twoLaneMobile section{padding:10px;border:1px solid #536484;border-radius:11px;background:#111c2b}
+.twoLaneMobile h2{margin:0;color:var(--cyan);font-size:13px}
+.twoLaneMobile .twoLaneLabel{color:#ffd36c;font-size:11px}
+.twoLanePetRow{display:flex;align-items:center;gap:10px;margin:8px 0}
+.twoLanePetIcon{display:grid;place-items:center;flex:none;width:52px;height:52px;border:1px solid #a27cdf;border-radius:14px;background:#281c3d;color:#adf1ff;font:bold 24px monospace}
+.twoLaneBubble{flex:1;min-height:54px;padding:9px;border:1px solid #527291;border-radius:10px 10px 10px 2px;background:#1b2c40;color:var(--ink);font-size:12px;overflow-wrap:anywhere}
+#twoLaneMobileChat{min-height:44px;padding:9px 12px;border:1px solid #5b8ca6;border-radius:8px;background:#234561;color:var(--ink);font:inherit}
+#twoLaneMobileChat:focus-visible{outline:2px solid #b9eeff;outline-offset:2px}
 </style>
 </head>
 <body>
 <main>
 <header><div class="pet" aria-hidden="true">👹</div><div><h1>LuHm OS · Mobile</h1><small>In-chat cockpit · testing source candidate</small></div><button id="glassToggle" type="button" aria-label="LuHm system settings" aria-controls="glassDock" aria-expanded="false">⚙</button></header>
+
+<div class="twoLaneMobile" id="twoLaneMobile" aria-label="Canon monitor and pet chat, two visual lanes">
+<section id="monitorThread" aria-labelledby="monitorTitle">
+<h2 id="monitorTitle">01 · Monitor / evidence</h2>
+<p class="twoLaneLabel" id="twoLaneMonitorState" role="status" aria-live="polite">VERIFY · awaiting tool response</p>
+<small id="twoLaneMonitorReceipt">No live polling. Read-only, evidence-backed status only.</small>
+</section>
+<section id="petChatThread" aria-labelledby="petChatTitle">
+<h2 id="petChatTitle">02 · Lum / pet chat</h2>
+<div class="twoLanePetRow"><div class="twoLanePetIcon" aria-label="Original Lum fallback glyph">L</div>
+<div class="twoLaneBubble" id="twoLaneBubble" role="status" aria-live="polite">Lum · IDLE · One supervised coordinator; zero active workers.</div></div>
+<button id="twoLaneMobileChat" type="button">Chat with Lum</button>
+</section>
+</div>
 <aside id="glassDock" class="glassDock" hidden aria-label="LuHm modular glass dock">
 <div class="glassTop"><h2>LuHm glass modules</h2><div class="glassActions"><button id="glassExpand" type="button" aria-label="Expand cockpit">⛶</button><button id="glassClose" type="button" aria-label="Close glass dock">×</button></div></div>
 <p class="muted">ChatGPT actions are user-clicked proposals. No media playback, publishing or worker execution is implied.</p>
@@ -70,12 +95,25 @@ const laneText={
 for(const btn of document.querySelectorAll("[data-lane]")){
  btn.addEventListener("click",()=>{document.querySelectorAll("[data-lane]").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));byId("laneDetail").textContent=laneText[btn.dataset.lane];});
 }
+
+function renderTwoLane(data){
+ const hold=data?.companyQuarantine?.state==="QUARANTINED";
+ const good=data?.schema==="luhmOs.mobileCockpitPayload.v1"&&data?.authority?.readOnly===true;
+ byId("twoLaneMonitorState").textContent=good?"OBSERVED · read-only MCP response":"VERIFY · no verified MCP response";
+ byId("twoLaneMonitorReceipt").textContent=good?
+  "Canon "+(data.sourceTruth||"UNKNOWN")+" · "+(data.sourceRef||"source UNKNOWN")+" · no independent CI or device proof":
+  "No trusted payload; monitor does not run in the background.";
+ byId("twoLaneBubble").textContent=good&&hold?
+  "Lum · IDLE · Canon checked. Workers remain quarantined, not executing.":
+  "Lum · VERIFY · No active agent has been established.";
+}
 function render(value){
  const d=value?.structuredContent||value?.result?.structuredContent||value;
  if(!d||d.schema!=="luhmOs.mobileCockpitPayload.v1"||d?.authority?.readOnly!==true||d?.authority?.mutationAuthority!==false||d?.authority?.promotionAuthority!==false){
-  byId("bridge").textContent="VERIFY · no valid mobile tool receipt";return;
+  renderTwoLane(null);byId("bridge").textContent="VERIFY · no valid mobile tool receipt";return;
  }
  current=d;
+ renderTwoLane(d);
  byId("bridge").textContent="MCP tool response received · mobile display acceptance pending";
  byId("source").textContent="Source: "+(d.sourceRef||"UNKNOWN");
  byId("truth").textContent="Canon: "+(d.sourceTruth||"UNKNOWN");
@@ -122,6 +160,15 @@ async function sendDockIntent(item){
   byId("glassStatus").textContent="Action sent into chat · execution requires evidence";
  }catch(_){byId("glassStatus").textContent="BLOCKED · chat handoff unavailable";}
 }
+byId("twoLaneMobileChat").addEventListener("click",async()=>{
+  byId("twoLaneBubble").textContent="Lum · REQUESTED · Asking the ChatGPT host; no agent started.";
+  const prompt="Lum, summarize current LuHm Canon monitoring, media (VLC, Kodi/XBMC, Plex), and pet-chat status. Read-only; no agent release.";
+  try{
+    if(window.openai?.sendFollowUpMessage)await window.openai.sendFollowUpMessage({prompt});
+    else if(window.parent!==window)await call("ui/message",{role:"user",content:[{type:"text",text:prompt}]});
+    else throw Error("ChatGPT host unavailable");
+  }catch(_){byId("twoLaneBubble").textContent="Lum · BLOCKED · Chat handoff unavailable, no worker started.";}
+});
 byId("glassToggle").addEventListener("click",()=>toggleGlass(byId("glassDock").hidden));
 byId("glassClose").addEventListener("click",()=>toggleGlass(false));
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!byId("glassDock").hidden)toggleGlass(false)});
