@@ -22,3 +22,9 @@ Open the local browser URL and choose a **self-contained .glb** from your device
 `wrangler.toml` configures `[assets]` from `./dist`; no server-side model runtime or API. Do **not** deploy without authenticated Cloudflare account, review, rollback receipt and Professor Crown.
 
 Cloudflare is a static delivery edge. Browser JavaScript/WebGL execution cannot bypass the ChatGPT iframe sandbox. Godot APK, native Samsung host, and OpenAI agent execution remain separate gates.
+
+## Yume source-only graphics hardening
+- WebGL2 defaults to a bounded 512px shadow map on coarse-pointer devices and 1024px on desktop, with a visible Shadows on/off control. The WebGL1 fallback remains unshadowed; this is not Vulkan.
+- Babylon's glTF 2.0 material importer may render embedded normal and metallic/roughness texture maps. The local intake now validates image/texture indexes and reports map slot counts only, not successful shading.
+- No private GLB/texture is uploaded or bundled. WebGL performance, GPU shadows and physical Samsung rendering remain unverified until device smoke.
+- Godot 4 native Vulkan and Godot WebGL2 Compatibility remain separate runtime adapters; no Godot export or Site plugin deployment is implied.
