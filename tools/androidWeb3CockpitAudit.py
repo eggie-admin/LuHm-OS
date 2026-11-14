@@ -173,8 +173,15 @@ require('implementation("org.godotengine:godot:4.7.2.stable")' in gradle_plugin,
         "Godot Android library pin drift")
 require('implementation("androidx.webkit:webkit:1.17.1")' in gradle_plugin,
         "AndroidX WebKit pin drift")
-require('assets.srcDir("../../frontEnd")' in gradle_plugin,
-        "frontEnd assets are not packaged into plugin")
+require('assets.srcDir(cockpitAssetsDirectory)' in gradle_plugin and
+        'val cockpitAssetPaths = listOf(' in gradle_plugin and
+        'tasks.registering(Sync::class)' in gradle_plugin and
+        'dependsOn(stageCockpitAssets)' in gradle_plugin and
+        'assets.srcDir("../../frontEnd")' not in gradle_plugin,
+        "only allowlisted local frontEnd assets may enter Android AAR")
+require("npm run stage:jquery" in android_workflow and
+        "npm ci --ignore-scripts --no-audit --no-fund" in android_workflow,
+        "pinned local jQuery staging missing from Android build")
 require("org.godotengine.plugin.v2." in manifest, "Godot v2 plugin metadata missing")
 require("AndroidWeb3CockpitPlugin" in manifest, "plugin init class missing from manifest")
 require("android.permission.INTERNET" not in manifest, "plugin manifest must not add INTERNET")

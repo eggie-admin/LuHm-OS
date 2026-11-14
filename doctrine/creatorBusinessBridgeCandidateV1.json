@@ -1,0 +1,197 @@
+{
+  "schema": "luhmOs.creatorBusinessBridgeCandidate.v1",
+  "status": "PROPOSED_SOURCE_REVIEW_ONLY",
+  "authority": "Professor",
+  "sourceBaseline": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d",
+  "purpose": "Route creator, studio, business, and platform work through one artist-first source identity without duplicating accounts, creating legal entities, spending, or claiming external entitlements.",
+  "precedence": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/organizationBrandRegistryV1.json",
+    "doctrine/unifiedCampaignWorkbenchV1.json",
+    "doctrine/soloStudioOperatingProfileV1.json",
+    "doctrine/driveAssetAlignmentV1.json"
+  ],
+  "identity": {
+    "publisher": "Eggie Bagelface",
+    "studio": "PIRATE DADDIES FILM",
+    "product": "LuHm-OS",
+    "developmentProject": "Project Premonition",
+    "legacyAlias": "Project Hydra",
+    "primaryActivity": "independent game creator and artist-led game/film studio",
+    "legalEntityVerified": false
+  },
+  "businessReference": {
+    "provider": "meta",
+    "primaryReference": "existing Instagram creator/business presence",
+    "verificationClaim": {
+      "state": "USER_REPORTED_NOT_PLATFORM_VERIFIED_IN_THIS_TASK",
+      "notBusinessEntityProof": true
+    },
+    "metaAccountsCenter": {
+      "state": "HISTORICAL_GMAIL_NOTICE_ONLY_NO_CURRENT_META_BUSINESS_SUITE_PROOF",
+      "notBusinessSuiteAuthorization": true
+    },
+    "businessPortfolioAdmin": {
+      "state": "UNKNOWN"
+    },
+    "metaVerifiedBadgeCurrent": {
+      "state": "UNKNOWN"
+    },
+    "permissions": {
+      "publishing": "PROVIDER_ACTIONS_LISTED_EXACT_POST_NOT_AUTHORIZED",
+      "insights": "PROFILE_FIELDS_READ_PROVEN_DETAILED_INSIGHTS_NOT_PROVEN",
+      "advertising": "NOT_GRANTED",
+      "billing": "NOT_GRANTED"
+    },
+    "applicationPolicy": "DO_NOT_CREATE_OR_APPLY_UNLESS_REQUIRED_FOR_AN_APPROVED_DELIVERABLE",
+    "reportingAdapter": {
+      "provider": "Windsor.ai",
+      "pluginInstalled": "CONFIRMED_2026_11_01",
+      "accountDataAccess": "CONFIRMED_LIVE_INSTAGRAM_PROFILE_READ_2026_11_01",
+      "businessSuiteAdmin": "NOT_PROVEN",
+      "allowedInitialMode": "READ_ONLY_AFTER_EXPLICIT_ACCOUNT_CONNECTION",
+      "automaticPosting": false,
+      "automaticAdSpend": false,
+      "connectedAccountHandle": "eggiebagelface",
+      "profileReadEvidenceClass": "PROVIDER_READ_NOT_BUSINESS_VERIFICATION",
+      "writeActionsAdvertised": true,
+      "writeExecuted": false
+    }
+  },
+  "google": {
+    "gmail": {
+      "state": "CONNECTED_READ_ONLY_OBSERVED",
+      "purpose": [
+        "inbox research",
+        "classification of business notices",
+        "developer support continuity",
+        "drafts for human review"
+      ],
+      "publicRepoStorage": "sanitized non-sensitive summaries only",
+      "rawMessageExportToPublicRepo": false,
+      "automaticSend": false,
+      "businessInboxWatch": {
+        "title": "LuHm Business Inbox Watch",
+        "state": "SCHEDULED_ENABLED_CONFIRMED_2026_11_01",
+        "recurrence": "DAILY_CONDITION_WATCH",
+        "scope": [
+          "new Meta/Instagram business notices",
+          "Google developer and Play status",
+          "Samsung developer replies"
+        ],
+        "notify": "material changes only",
+        "automaticSend": false,
+        "privacy": "no private message bodies or account IDs in public source"
+      }
+    },
+    "googleBusinessProfile": {
+      "state": "UNVERIFIED_NOT_REQUESTED",
+      "eligibilityRule": "Online-only artists/game studios are not eligible absent in-person customer contact; verify before any application."
+    },
+    "googlePlayConsole": {
+      "state": "DEVELOPER_ACCESS_AND_VERIFICATION_UNPROVEN",
+      "existingAccountFirst": true,
+      "developerIdentityGateIndependentFromInstagram": true,
+      "doNotApplyUnlessRequired": true
+    },
+    "googleAi": {
+      "billingEntitlement": "UNKNOWN_NO_SPEND"
+    }
+  },
+  "routing": {
+    "gmail": "connected inbox and human-approved draft layer",
+    "metaInstagram": "existing profile is marketing channel, provider authorization unproven",
+    "metaBusinessSuite": "connect only when required and explicit OAuth permissions granted",
+    "googleBusinessProfile": "skip unless eligible and necessary",
+    "github": "canonical source, sanitized receipts and CI",
+    "googleDrive": "private rights-controlled binary source vault",
+    "godot": "game runtime",
+    "blender": "editable 3D masters",
+    "ffmpeg": "video assemblies",
+    "npm": "source tooling and reproducible web build",
+    "webJquery": "nonprivileged UI only",
+    "windsorAi": "INSTAGRAM CONNECTED AND BASIC PROFILE READ PROVEN; no automatic publish or Meta Business admin proof"
+  },
+  "fourByFour": [
+    {
+      "lane": "identity",
+      "steps": [
+        "retain approved publisher+studio+product names",
+        "record user-attested profile reference without claiming official verification",
+        "confirm public identity surface only with approved evidence",
+        "no applications merely for naming"
+      ]
+    },
+    {
+      "lane": "creative",
+      "steps": [
+        "protect original editable masters",
+        "require provenance and content-lane labels",
+        "assemble Godot game demo plus FFmpeg devlog candidate",
+        "approve finished playable and media artifacts separately"
+      ]
+    },
+    {
+      "lane": "automation",
+      "steps": [
+        "read Gmail for relevant responses",
+        "prepare drafts and sanitized decision receipts",
+        "read connected insights only after permission",
+        "ask for human consent before sending/posting/billing"
+      ]
+    },
+    {
+      "lane": "release",
+      "steps": [
+        "check exact source/rights/runtime evidence",
+        "verify actual Play Console identity only if publish requested",
+        "stage reviewable candidate and test",
+        "Professor explicitly approves publication/signing/merge"
+      ]
+    }
+  ],
+  "proofLaw": {
+    "states": [
+      "USER_REPORTED",
+      "SOURCE_OBSERVED",
+      "PROVIDER_VERIFIED",
+      "RUNTIME_PROVEN",
+      "PROFESSOR_APPROVED"
+    ],
+    "noStatePromotionByEmailOnly": true,
+    "metaBadgeNotLegalEntityProof": true,
+    "providerConnectedNotWriteAuthorized": true,
+    "unverifiedIsNotGreen": true
+  },
+  "security": {
+    "dontStore": [
+      "OAuth tokens",
+      "Meta business IDs",
+      "Facebook/Instagram account IDs from private correspondence",
+      "Gmail message IDs",
+      "private Drive IDs",
+      "legal identity documents",
+      "2FA codes",
+      "payment identifiers"
+    ],
+    "permissions": "least privilege; read before write",
+    "newRecurringSpendUsd": 0,
+    "autoPublish": false,
+    "autoSend": false,
+    "autoMerge": false,
+    "autoSign": false,
+    "autoCast": false,
+    "agentWorkersRemainQuarantined": true,
+    "privateSourcesStayPrivate": true
+  },
+  "humanOnlyWhen": [
+    "OAuth consent and Meta business asset/role linking",
+    "identity or document verification explicitly required by platform",
+    "Play Console signup/identity/device verification when an actual Play listing is pursued",
+    "signing, paid spend, external posting, release or protected branch promotion"
+  ],
+  "nextStep": "User may connect a supported cross-channel analytics integration; then inspect live permissions and stage only permitted read-only proof. No production or account mutations.",
+  "storeServiceBoundary": "doctrine/metaSamsungStoreBridgeV1.json",
+  "storeServiceGate": "tools/metaSamsungStoreAudit.py (via existing F-Droid source audit)"
+}

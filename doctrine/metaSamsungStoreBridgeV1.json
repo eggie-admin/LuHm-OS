@@ -1,0 +1,144 @@
+{
+  "schema": "luhmOs.metaSamsungStoreBridge.v1",
+  "status": "PROPOSED_SOURCE_REVIEW_ONLY",
+  "authority": "Professor",
+  "sourceBaseline": "f0cb6ee54066b490c0e80efc2c96200fec76ee2d",
+  "precedence": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/creatorBusinessBridgeCandidateV1.json",
+    "doctrine/assetEligibilityMatrixV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json"
+  ],
+  "creator": {
+    "publisher": "Eggie Bagelface",
+    "studio": "PIRATE DADDIES FILM",
+    "product": "LuHm-OS",
+    "project": "Project Premonition",
+    "role": "independent game developer, artist and film/game studio",
+    "registeredLegalBusiness": "UNKNOWN",
+    "platformPartnerClaim": false
+  },
+  "providerEvidence": {
+    "instagram": {
+      "provider": "Windsor.ai",
+      "account": "eggiebagelface",
+      "accountConnection": "CONNECTED",
+      "privateUserProfileRead": "SUCCEEDED_2026_11_01",
+      "technicalReadCapability": "PROVEN_FOR_BASIC_PROFILE",
+      "providerListsWriteActions": true,
+      "writeExecuted": false,
+      "metaBusinessPortfolioAdmin": "UNKNOWN",
+      "currentMetaVerifiedBadge": "UNKNOWN",
+      "metaBusinessVerification": "UNKNOWN",
+      "officialPartnership": false
+    },
+    "metaPagesAdsThreads": {
+      "provider": "Windsor.ai",
+      "connection": "NOT_CONNECTED_AS_OBSERVED_2026_11_01",
+      "publishState": "NO_PERMISSION_CLAIM"
+    },
+    "samsung": {
+      "deviceTargets": [
+        "SM-X400",
+        "S24 FE"
+      ],
+      "physicalInstallProof": "PENDING",
+      "galaxySellerPortal": "UNKNOWN",
+      "commercialSellerStatus": "UNKNOWN",
+      "partnerStatus": "UNKNOWN"
+    },
+    "googlePlay": {
+      "consoleIdentityVerified": "UNKNOWN",
+      "developerAccount": "UNKNOWN",
+      "independentOfMetaStatus": true
+    }
+  },
+  "mediaTagging": {
+    "brandHashtags": [
+      "#LuHmOS",
+      "#ProjectPremonition",
+      "#EggieBagelface",
+      "#PirateDaddiesFilm"
+    ],
+    "subjectTags": [
+      "#IndieGameDev",
+      "#GameDevelopment",
+      "#GodotEngine",
+      "#Blender3D"
+    ],
+    "publicationRule": "Only use a tag when accurate for specific approved media; avoid third-party franchise tags, fake endorsements or automatic public posts.",
+    "profileCategory": "PLATFORM_SELECTION_AND_OWNER_APPROVAL_PENDING",
+    "instagramProfileChange": "NOT_REQUESTED_OR_EXECUTED",
+    "samsungBrandUse": "technicalCompatibilityOnlyNoOfficialEndorsement"
+  },
+  "distribution": {
+    "fdroid": {
+      "targetPackage": "art.eggiebagelface.luhmos.beta",
+      "storeCategory": "Games",
+      "licenseEvidence": "ROOT_LICENSE_GPL_V3_TEXT_OBSERVED",
+      "licenseExactIdentifier": "PENDING_SOURCE_HEADER_AND_DERIVATIVE_LICENSE_REVIEW",
+      "antiFeatureClassification": "NOT_YET_AUDITED_ON_REAL_APK",
+      "proprietarySdkPolicy": "NO_MANDATORY_META_GOOGLE_OR_SAMSUNG_SDK_IN_FLOSS_BUILD",
+      "onlineServicePolicy": "PLAYABLE_OFFLINE_NO_REQUIRED_PROPRIETARY_BACKEND",
+      "currentSourceCheck": {
+        "godotExport": "permissions/internet=false",
+        "androidPluginDeclaredDependencies": [
+          "org.godotengine:godot:4.7.2.stable",
+          "androidx.webkit:webkit:1.17.1"
+        ],
+        "negativeControlsRequired": true
+      },
+      "assetRights": "ALL_BUNDLED_GAME_ART_MUST_HAVE_REDISTRIBUTION_RECEIPTS",
+      "signer": "OWNER_HELD_PENDING",
+      "publicFdroid": "NOT_PUBLISHED"
+    },
+    "googlePlay": {
+      "lane": "OPTIONAL_SEPARATE_SUBMISSION",
+      "accountIdentity": "UNKNOWN",
+      "googleServices": "NOT_REQUIRED_BY_CORE",
+      "approvalBeforeSubmission": true
+    },
+    "galaxyStore": {
+      "lane": "OPTIONAL_SEPARATE_SUBMISSION",
+      "commercialSellerStatus": "UNKNOWN",
+      "sellerPortalStatus": "UNKNOWN",
+      "samsungSdk": "NOT_REQUIRED_BY_CORE",
+      "approvalBeforeSubmission": true
+    }
+  },
+  "security": {
+    "noBackgroundWorkers": true,
+    "noPublicTokenStorage": true,
+    "noMetaCredentialInApk": true,
+    "noProprietaryTrackingInFdroid": true,
+    "noPublicEndorsementClaim": true,
+    "noFakeAntiFeatureLabels": true,
+    "noAutoPost": true,
+    "noAutoSubmit": true,
+    "noAutoSign": true,
+    "noAutoMerge": true,
+    "noAutoDeploy": true,
+    "newSpendUsd": 0,
+    "manualRequired": [
+      "OAuth scope consent if unconnected",
+      "exact post approval",
+      "account/legal verification required by a chosen store",
+      "owner-held signing",
+      "release approval"
+    ]
+  },
+  "audit": {
+    "entry": "tools/metaSamsungStoreAudit.py",
+    "calledFrom": "tools/fdroidTabletSourceAudit.py",
+    "mode": "STATIC_SOURCE_ONLY",
+    "knownLimitations": [
+      "Does not inspect transitive dependency licenses",
+      "Does not inspect a built Android APK",
+      "Does not determine F-Droid main-repository acceptance or anti-feature classification",
+      "Does not prove Samsung seller or Meta Business Suite partner status"
+    ]
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. Deterministic evidence proves source-only claims. Professor promotes.",
+  "crownStatus": "STOP"
+}
