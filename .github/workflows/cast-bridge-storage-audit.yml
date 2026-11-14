@@ -1,0 +1,59 @@
+name: CAST Bridge Private Storage Source Audit
+
+on:
+  pull_request:
+    paths:
+      - 'tools/canonTransferIndex.py'
+      - 'tools/luhmCanonSync.sh'
+      - 'tests/testCanonTransferIndex.py'
+      - 'manual/castBridgeStorageSync.md'
+      - 'ops/canon-sync/**'
+      - 'doctrine/castBridgeStorageSyncV1.json'
+      - '.github/workflows/cast-bridge-storage-audit.yml'
+  workflow_dispatch:
+
+# Public repository: NEVER run a private self-hosted runner or secrets here.
+permissions:
+  contents: read
+
+jobs:
+  source-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - name: Checkout exact proposed source, without persistent Git credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify Python syntax, bash syntax, and unit tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/canonTransferIndex.py
+          bash -n tools/luhmCanonSync.sh
+          python3 -m unittest discover -s tests -p 'testCanonTransferIndex.py' -v
+      - name: Exercise rsync dry-run without secrets or transfer
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/luhm-source" "$RUNNER_TEMP/luhm-stage" "$RUNNER_TEMP/luhm-state"
+          printf 'local-fixture\n' > "$RUNNER_TEMP/luhm-source/fixture.txt"
+          export LUHM_INGRESS_DIR="$RUNNER_TEMP/luhm-source"
+          export LUHM_STAGING_DIR="$RUNNER_TEMP/luhm-stage"
+          export LUHM_STATE_DIR="$RUNNER_TEMP/luhm-state"
+          bash tools/luhmCanonSync.sh --dry-run
+          test ! -e "$RUNNER_TEMP/luhm-stage/data/fixture.txt"
+          test ! -n "${LUHM_SYNC_ARMED:-}"
+      - name: Contract remains advisory only
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('doctrine/castBridgeStorageSyncV1.json').read_text())
+          assert data['activation'] == 'NOT_ARMED'
+          assert data['github']['privateRunnerAllowed'] is False
+          assert data['transfer']['deleteAllowed'] is False
+          assert data['transfer']['overwriteRemoteAllowed'] is False
+          assert data['crown'] == 'STOP'
+          PY
