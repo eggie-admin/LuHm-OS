@@ -57,6 +57,15 @@ jobs:
           python3 tools/machineLayerSql.py tx --db "$tmpdir/local.sqlite" --output "$tmpdir/sync.json"
           python3 tools/machineLayerSql.py rx --db "$tmpdir/receiver.sqlite" --input "$tmpdir/sync.json"
           python3 tools/machineLayerSql.py status --db "$tmpdir/receiver.sqlite"
+          python3 tools/machineLayerSql.py backup --db "$tmpdir/local.sqlite" --output "$tmpdir/backup.sqlite" > "$tmpdir/backup-receipt.json"
+          backup_digest="$(python3 - "$tmpdir/backup-receipt.json" <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1]))
+          assert r['status']=='LOCAL_BACKUP_CREATED' and r['verifiedRows']==16
+          print(r['sha256'])
+          PY
+          )"
+          python3 tools/machineLayerSql.py verifyBackup --input "$tmpdir/backup.sqlite" --digest "$backup_digest"
       - name: Enforce no fake promotion
         run: |
           python3 - <<'PY'
