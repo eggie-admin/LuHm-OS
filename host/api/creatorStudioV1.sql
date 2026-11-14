@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS studioWorld(
  status TEXT NOT NULL CHECK(status IN ('draft','review','approvedSource')),
  sourceRef TEXT NOT NULL CHECK(length(sourceRef)=40 AND sourceRef NOT GLOB '*[^0-9a-f]*'),
  contentHash TEXT NOT NULL CHECK(length(contentHash)=64 AND contentHash NOT GLOB '*[^0-9a-f]*'),
+ worldJson TEXT NOT NULL CHECK(json_valid(worldJson)),
  updatedAt TEXT NOT NULL
 ) STRICT;
 CREATE TABLE IF NOT EXISTS studioScene(
