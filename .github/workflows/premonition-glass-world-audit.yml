@@ -5,6 +5,14 @@ on:
       - 'frontEnd/prototypes/glassWorld/**'
       - 'doctrine/babylonGlassWorldV1.json'
       - 'manual/babylon-glass-world.md'
+      - 'manual/kai9000-antenna-light.md'
+      - 'tools/kai9000Antenna.py'
+      - 'tests/testKai9000Antenna.py'
+      - 'tests/testLuhmAntenna.py'
+      - 'tests/godot/antenna_animation_test.gd'
+      - 'host/mcp/luhmAntenna.py'
+      - 'host/mcp/luhmHarnessServer.py'
+      - 'manual/antenna-animation-cockpit.md'
       - 'scenes/avatar-glass.tscn'
       - 'scripts/avatar-glass.gd'
       - '.github/workflows/premonition-glass-world-audit.yml'
@@ -28,6 +36,11 @@ jobs:
           node --check frontEnd/prototypes/glassWorld/src/scene-state.mjs
           node --check frontEnd/prototypes/glassWorld/src/main.js
           node --check frontEnd/prototypes/glassWorld/src/babylon-world.js
+      - name: Test read-only antenna capability bridge
+        run: |
+          python3 -m pip install -r host/mcp/requirements.txt
+          python3 -m unittest discover -s tests -p testKai9000Antenna.py -v
+          python3 -m unittest discover -s tests -p testLuhmAntenna.py -v
       - name: Verify Godot avatar-only source and transparency intent
         run: |
           python3 - <<'PY'
@@ -40,6 +53,22 @@ jobs:
           assert "new Engine(canvas" in Path("frontEnd/prototypes/glassWorld/src/babylon-world.js").read_text()
           print("GODOT_AVATAR_ONLY_SOURCE_CONTRACT_NO_NATIVE_RUNTIME_PROOF")
           PY
+      - name: Prove bounded Godot animation controls on a synthetic clip
+        run: |
+          curl -fL --retry 2 -o "$RUNNER_TEMP/godot-antenna.zip" https://github.com/godotengine/godot-builds/releases/download/4.5.1-stable/Godot_v4.5.1-stable_linux.x86_64.zip
+          printf '%s  %s\n' '02ec53d1cc7dbb9cc6355393c61b9ab43d1244751a124f10248a4802830788cd' "$RUNNER_TEMP/godot-antenna.zip" | sha256sum -c -
+          unzip -q "$RUNNER_TEMP/godot-antenna.zip" -d "$RUNNER_TEMP/godot-antenna-bin"
+          python3 - <<'PY'
+          import os
+          import shutil
+          from pathlib import Path
+          target = Path(os.environ["RUNNER_TEMP"]) / "luhm-animation-proof"
+          (target / "scripts").mkdir(parents=True)
+          (target / "project.godot").write_text('config_version=5\n[application]\nconfig/name="Antenna animation proof"\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
+          shutil.copyfile("scripts/avatar-glass.gd", target / "scripts/avatar-glass.gd")
+          shutil.copyfile("tests/godot/antenna_animation_test.gd", target / "animation_test.gd")
+          PY
+          "$RUNNER_TEMP/godot-antenna-bin/Godot_v4.5.1-stable_linux.x86_64" --headless --path "$RUNNER_TEMP/luhm-animation-proof" --script animation_test.gd
       - name: Pure scene/editor contract tests
         working-directory: frontEnd/prototypes/glassWorld
         run: |
@@ -50,6 +79,9 @@ jobs:
         run: |
           npm run build
           test -s dist/index.html
+          test -s dist/antenna.html
+          test -s dist/antennaWidget.html
+          test -s dist/luhm-antenna-contracts-0.1.0.tgz
           test "$(find dist/assets -name 'index-*.js' -printf '%s\n' | sort -nr | head -1)" -lt 1600000
           find dist -type f -printf '%P %s bytes\n'
           echo "SOURCE_ONLY_NO_SAMSUNG_NO_GODOT_RENDER_PROOF"

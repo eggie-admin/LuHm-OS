@@ -31,3 +31,36 @@ func setPose(poseId: String) -> bool:
         return false
     activeAvatar.call("setPose", poseId)
     return true
+
+func applyAnimationRequest(request: Dictionary) -> bool:
+    # Shared luhmOs.avatarAnimation.v1 contract; imported clips only, no scripts/URLs.
+    if request.size() != 4 or not request.has_all(["schema", "action", "clip", "time"]):
+        return false
+    if request.schema != "luhmOs.avatarAnimation.v1" or request.action not in ["play", "pause", "seek"]:
+        return false
+    if typeof(request.clip) != TYPE_STRING or request.clip.length() > 128:
+        return false
+    for index in request.clip.length():
+        if request.clip.unicode_at(index) < 32:
+            return false
+    if typeof(request.time) not in [TYPE_INT, TYPE_FLOAT]:
+        return false
+    var time: float = float(request.time)
+    if not is_finite(time) or time < 0.0 or time > 3600.0 or activeAvatar == null:
+        return false
+    var players: Array[Node] = activeAvatar.find_children("*", "AnimationPlayer", true, false)
+    if players.is_empty():
+        return false
+    var player: AnimationPlayer = players[0] as AnimationPlayer
+    if request.action == "play":
+        if request.clip.is_empty() or not player.has_animation(request.clip):
+            return false
+        player.play(request.clip)
+    elif request.action == "pause":
+        player.pause()
+    else:
+        if player.assigned_animation.is_empty() or not player.has_animation(player.assigned_animation):
+            return false
+        var duration: float = player.get_animation(player.assigned_animation).length
+        player.seek(clampf(time, 0.0, duration), true)
+    return true

@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "test": "node --test tests/*.test.mjs",
-    "build": "vite build",
+    "build": "vite build && node tools/package-antenna-contracts.mjs && node tools/build-antenna-widget.mjs",
     "check": "npm run test && npm run build"
   },
   "dependencies": {
@@ -17,5 +17,15 @@
   },
   "devDependencies": {
     "vite": "8.3.5"
-  }
+  },
+  "exports": {
+    "./antenna": "./src/antenna-policy.mjs",
+    "./animation": "./src/animation-contract.mjs",
+    "./widgetBridge": "./src/widget-bridge.mjs"
+  },
+  "files": [
+    "src/antenna-policy.mjs",
+    "src/animation-contract.mjs",
+    "src/widget-bridge.mjs"
+  ]
 }
