@@ -5,6 +5,10 @@ on:
     paths:
       - 'game/world/aramoorArchipelagoV1.json'
       - 'scripts/world/aramoorArchipelagoBuilder.gd'
+      - 'scripts/world/aramoorZoneInteractable.gd'
+      - 'scripts/main.gd'
+      - 'scripts/game/gameHud.gd'
+      - 'tests/aramoorMainWalkaroundSmoke.gd'
       - 'scripts/game/worldFactory.gd'
       - 'scenes/AramoorWorldPreview.tscn'
       - 'tests/aramoorWorldSmoke.gd'
@@ -55,6 +59,15 @@ jobs:
           }
           cat /tmp/aramoor-smoke.log
           grep -q 'ARAMOOR_WORLD_GODOT_SMOKE_GREEN' /tmp/aramoor-smoke.log
+          /tmp/aramoorGodot/Godot_v4.7.2-stable_linux.x86_64 --headless --path . --script res://tests/aramoorMainWalkaroundSmoke.gd > /tmp/aramoor-walkaround.log 2>&1 || {
+            cat /tmp/aramoor-walkaround.log; exit 1;
+          }
+          cat /tmp/aramoor-walkaround.log
+          grep -q 'ARAMOOR_MAIN_WALKAROUND_SMOKE_GREEN' /tmp/aramoor-walkaround.log
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:|ERROR:' /tmp/aramoor-walkaround.log; then
+            echo 'RED_ARAMOOR_MAIN_WALKAROUND'
+            exit 1
+          fi
           if grep -Eq 'SCRIPT ERROR:|Parse Error:|ERROR:' /tmp/aramoor-smoke.log; then
             echo 'RED_GODOT_LOG_ERROR'
             exit 1
