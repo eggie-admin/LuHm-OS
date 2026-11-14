@@ -1,0 +1,55 @@
+{
+  "schema": "luhmOs.googleAiEvidenceReview.v1",
+  "status": "CANDIDATE_OBSERVATION_NOT_PROVIDER_LIVE",
+  "observedDate": "2026-11-14",
+  "authority": "Professor",
+  "sourceAuthority": "eggie-admin/LuHm-OS",
+  "baselineSourceRef": "a6e3ce843d099361a8696eab68869dcf367c4f26",
+  "evidenceAxes": {
+    "consumerSubscription": {
+      "evidence": "Google account welcome message dated 2026-09-02 confirms activation of Google AI Pro and consumer storage/AI benefits",
+      "observedState": "HISTORICALLY_CONFIRMED",
+      "presentlyActive": "UNKNOWN_UNTIL_CURRENT_SUBSCRIPTION_DASHBOARD",
+      "grantsDeveloperApi": false
+    },
+    "developerEnrollment": {
+      "evidence": "2026-11-05 program support response supplied official enrollment links and stated support team does not handle that program",
+      "observedState": "GUIDANCE_RECEIVED_NOT_ENROLLMENT",
+      "grantsDeveloperApi": false
+    },
+    "geminiDeveloperApi": {
+      "evidence": "2026-10-30 Gemini API notice describes billing account adjusted to Suspended Service Tier",
+      "observedState": "SUSPENDED_SERVICE_TIER_NOTICE",
+      "liveApiWorking": "UNVERIFIED",
+      "paidCallsAllowed": false
+    },
+    "cloudBilling": {
+      "evidence": "Google Cloud billing notices dated 2026-10-26 (past-due), 2026-10-30 (suspension) and 2026-11-06 (termination)",
+      "observedState": "TERMINATION_NOTICE_2026_11_06",
+      "currentReinstatement": "UNKNOWN_UNTIL_AUTHENTICATED_BILLING_DASHBOARD",
+      "paidCallsAllowed": false
+    }
+  },
+  "evidenceHandling": {
+    "privateBillingIdsExcluded": true,
+    "privateEmailContentsExcluded": true,
+    "externalProviderIdentityNotVerifiedViaApi": true,
+    "exactAccountReinstatementRequiresFreshEvidence": true,
+    "publicRepoIsNotBillingLedger": true
+  },
+  "installationFallthrough": {
+    "allowPrivateGithubSourceWork": true,
+    "allowLocalGodotAndWebViewChecks": true,
+    "allowPrivateDriveAssetIndex": true,
+    "allowLocalDeterministicFallback": true,
+    "allowPaidGoogleProviderCalls": false,
+    "allowGeminiConsumerAutomation": false
+  },
+  "nextProof": {
+    "privateProvider": "Authenticated billing/project status and API quota from the account itself",
+    "technical": "Exact selected API, current region and quota, IAM, cost cap, authorized minimal smoke",
+    "source": "Incorporate sanitized result as a new scoped receipt without overwriting historical Canon"
+  },
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "crownStatus": "STOP"
+}
