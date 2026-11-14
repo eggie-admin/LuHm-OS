@@ -1,0 +1,91 @@
+{
+  "schema": "luhmOs.firefoxAntenna.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "product": "LuHm-OS: Project Premonition",
+  "purpose": "Read-only Debian X11 Firefox ESR local antenna; later separately approved patch staging.",
+  "target": {
+    "os": "Debian minimal",
+    "display": "X11",
+    "browser": "Firefox ESR desktop",
+    "kioskUrl": "http://127.0.0.1:8765/",
+    "extensionId": "luhm-antenna@eggiebagelface.art"
+  },
+  "shell": {
+    "budgetBytes": 100000000,
+    "measuredScope": "Firefox extension source files only",
+    "excludes": [
+      "Debian",
+      "X11",
+      "windowManager",
+      "FirefoxESR",
+      "PythonRuntime",
+      "GameAndMediaPacks"
+    ],
+    "sourcePaths": [
+      "manifest.json",
+      "popup.html",
+      "popup.css",
+      "popup.js"
+    ],
+    "completeHostSizeProven": false
+  },
+  "backend": {
+    "language": "Python3Stdlib",
+    "httpBind": "127.0.0.1",
+    "port": 8765,
+    "readOnlyMethods": [
+      "GET",
+      "HEAD"
+    ],
+    "noMutations": true,
+    "nonRoot": true,
+    "noNativeMessaging": true,
+    "noRemoteFetch": true
+  },
+  "firefox": {
+    "manifestVersion": 3,
+    "hostPermissions": [
+      "http://127.0.0.1:8765/*"
+    ],
+    "noContentScripts": true,
+    "noBackgroundWorker": true,
+    "addonSigningProven": false,
+    "regularBrowserPopup": true,
+    "kioskUsesSameUiAtLocalhost": true
+  },
+  "update": {
+    "phase": "ANTENNA_DISCOVERY_ONLY",
+    "state": "CHECK_ONLY_NO_INSTALL",
+    "predecessor": "doctrine/selfHostedRemoteUpdatesV1.json",
+    "futureStages": [
+      "catalogSignatureVerification",
+      "versionCompare",
+      "contentAddressedStage",
+      "digestVerification",
+      "atomicActivation",
+      "healthCheck",
+      "rollback"
+    ],
+    "autoInstall": false,
+    "downloads": false
+  },
+  "chatGpt": {
+    "existingPluginUnchanged": true,
+    "notOfficialOpenAiFirefoxBrowserExtension": true,
+    "noAccountSessionScraping": true,
+    "hostIntegrationUnverified": true
+  },
+  "security": {
+    "noSecretsInBrowser": true,
+    "noShellFromHtml": true,
+    "noRemoteScript": true,
+    "noRootEscalation": true,
+    "workerQuarantineUnchanged": true,
+    "crownStatus": "STOP"
+  },
+  "existingSamsungAntenna": "doctrine/samsungAntennaV1.json",
+  "runtimeProof": "UNVERIFIED",
+  "promotion": false,
+  "crownStatus": "STOP"
+}
