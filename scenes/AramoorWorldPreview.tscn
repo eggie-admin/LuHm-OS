@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/aramoorArchipelagoBuilder.gd" id="1_world"]
+
+[node name="AramoorWorldPreview" type="Node3D"]
+script = ExtResource("1_world")
+world_seed = 1711
+ghost_tide = false
+detail_tier = 1
+
+[node name="PreviewCamera" type="Camera3D" parent="."]
+position = Vector3(26, 68, 98)
+current = true
+fov = 55.0
+far = 250.0
