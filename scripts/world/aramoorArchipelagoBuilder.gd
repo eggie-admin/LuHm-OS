@@ -3,10 +3,13 @@ extends Node3D
 ## Godot 4 Compatibility/WebGL2 first; native Vulkan is a separate renderer profile.
 const MANIFEST_PATH := "res://game/world/aramoorArchipelagoV1.json"
 const GENERATED_NAME := "GeneratedWorld"
+const AramoorZoneScript := preload("res://scripts/world/aramoorZoneInteractable.gd")
 @export var world_seed: int = 1711
 @export var ghost_tide: bool = false
 @export_range(0, 2, 1) var detail_tier: int = 1
 
+var player_spawn: Vector3 = Vector3(-4.0, 1.7, 0.0)
+var _interaction_points: Array[Area3D] = []
 var _report: Dictionary = {"status": "NOT_GENERATED"}
 var _centers: Dictionary = {}
 var _materials: Dictionary = {}
@@ -24,6 +27,7 @@ func build_world() -> void:
         previous.free()
     _centers.clear()
     _materials.clear()
+    _interaction_points.clear()
     _report = {"status": "HOLD_INVALID_MANIFEST", "crown": "STOP"}
     if not FileAccess.file_exists(MANIFEST_PATH):
         return
@@ -88,6 +92,8 @@ func build_world() -> void:
         "bridgeCount": bridge_count,
         "decorationCount": prop_total,
         "artSocketCount": zones.size(),
+        "storyInteractableCount": _interaction_points.size(),
+        "playerSpawn": [player_spawn.x, player_spawn.y, player_spawn.z],
         "worldSeed": world_seed,
         "worldState": "ghostTide" if ghost_tide else "livingTide",
         "renderProfile": "compatibilityWebGL2Safe",
@@ -108,6 +114,15 @@ func set_seed(value: int) -> void:
 
 func world_summary() -> Dictionary:
     return _report.duplicate(true)
+
+func get_interaction_points() -> Array[Area3D]:
+    return _interaction_points.duplicate()
+
+func get_zone_line(zone_id: String) -> String:
+    for interaction in _interaction_points:
+        if interaction.zone_id == zone_id:
+            return interaction.get_story_line()
+    return ""
 
 func _make_atmosphere(stage: Node3D) -> void:
     var world_environment := WorldEnvironment.new()
@@ -180,6 +195,12 @@ func _make_zone(stage: Node3D, zone: Dictionary, index: int) -> int:
     npc_socket.name = "NpcSocket"
     npc_socket.position = Vector3(-2.2, 0.9, 1.1)
     island.add_child(npc_socket)
+    var interaction: Area3D = AramoorZoneScript.new()
+    interaction.name = "StoryHotspot"
+    interaction.position = Vector3(-2.2, 0.9, 1.1)
+    interaction.configure(id, str(zone.get("name", "")), str(zone.get("beat", "")))
+    island.add_child(interaction)
+    _interaction_points.append(interaction)
     var encounter_socket := Marker3D.new()
     encounter_socket.name = "EncounterSocket"
     encounter_socket.position = Vector3(2.4, 0.9, -1.2)
