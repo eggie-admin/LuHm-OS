@@ -6,14 +6,22 @@ import {ArcRotateCamera} from "@babylonjs/core/Cameras/arcRotateCamera.js";
 import {Vector3} from "@babylonjs/core/Maths/math.vector.js";
 import {Color3,Color4} from "@babylonjs/core/Maths/math.color.js";
 import {HemisphericLight} from "@babylonjs/core/Lights/hemisphericLight.js";
+import {DirectionalLight} from "@babylonjs/core/Lights/directionalLight.js";
+import {ShadowGenerator} from "@babylonjs/core/Lights/Shadows/shadowGenerator.js";
 import {PointLight} from "@babylonjs/core/Lights/pointLight.js";
 import {StandardMaterial} from "@babylonjs/core/Materials/standardMaterial.js";
 import {MeshBuilder} from "@babylonjs/core/Meshes/meshBuilder.js";
 import {createLocalLumAvatar} from "./lumAvatar.js";
+import {chooseRenderPolicy} from "./lumRenderPolicy.mjs";
 
 function mountWorld(canvas) {
   const engine=new Engine(canvas,true,{stencil:false,preserveDrawingBuffer:false},false);
-  engine.setHardwareScalingLevel(Math.max(1,Math.min(2,(window.devicePixelRatio||1)/1.3)));
+  const policy=chooseRenderPolicy({
+    webGlVersion:engine.webGLVersion,
+    coarsePointer:window.matchMedia?.("(pointer: coarse)").matches ?? false,
+    reducedMotion:window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false
+  });
+  engine.setHardwareScalingLevel(Math.max(1,Math.min(2,(window.devicePixelRatio||1)/policy.maxPixelRatio)));
   const scene=new Scene(engine);
   scene.clearColor=new Color4(.025,.014,.05,1);
   const camera=new ArcRotateCamera("Midnight Orbit",-Math.PI/2,Math.PI/2.4,6,new Vector3(0,1.4,0),scene);
@@ -34,6 +42,28 @@ function mountWorld(canvas) {
   const night=mat("arch-dark","#2d1d45");
   const teal=mat("arch-glass","#6bbacb",.28);
   const floor=MeshBuilder.CreateGround("midnight-floor",{width:22,height:22},scene);floor.material=stone;
+  let shadowGenerator=null,shadowsEnabled=false;
+  if(policy.shadowMapSize){
+    try{
+      const sun=new DirectionalLight("rts-shadow-key",new Vector3(-.35,-1,.45),scene);
+      sun.position.set(3,7,-4);sun.intensity=.7;
+      shadowGenerator=new ShadowGenerator(policy.shadowMapSize,sun);
+      shadowGenerator.bias=.002;
+      shadowsEnabled=policy.defaultShadows;
+    }catch{
+      shadowGenerator?.dispose();shadowGenerator=null;shadowsEnabled=false;
+    }
+  }
+  function refreshShadows(){
+    const map=shadowGenerator?.getShadowMap();
+    if(map){
+      map.renderList=shadowsEnabled ? scene.meshes.filter(mesh=>
+        mesh!==floor && mesh.getTotalVertices?.()>0 &&
+        !mesh.name.startsWith("sigil-") && !mesh.name.startsWith("portal-gem")
+      ) : [];
+    }
+    floor.receiveShadows=Boolean(map && shadowsEnabled);
+  }
   for(let i=-2;i<=2;i++){
     const x=i*1.45;
     for(const side of [-1,1]){
@@ -55,6 +85,7 @@ function mountWorld(canvas) {
     return ring;
   });
   const avatar=createLocalLumAvatar(scene,camera);
+  refreshShadows();
   let cast=0,orbit=false,stopped=false;
   const tick=()=>{
     if(document.hidden)return;
@@ -72,7 +103,12 @@ function mountWorld(canvas) {
   window.addEventListener("resize",resize);
   document.addEventListener("visibilitychange",resize);
   return {
-    async load(file){return avatar.load(file)},
+    async load(file){const receipt=await avatar.load(file);refreshShadows();return receipt},
+    graphics(){return Object.freeze({...policy,shadowAvailable:!!shadowGenerator,shadowsEnabled})},
+    setShadows(on){
+      if(!shadowGenerator)return false;
+      shadowsEnabled=Boolean(on);refreshShadows();return shadowsEnabled;
+    },
     run(on){return avatar.setRun(on)},
     orbit(on){orbit=!!on},
     cast(){cast=(cast+1)%4;return cast},
@@ -89,12 +125,14 @@ function mountWorld(canvas) {
 const App={
   setup(){
     const phase=ref("INITIALIZING"), status=ref("Starting the 3D scene."),sigils=ref(0);
-    const loading=ref(false),running=ref(true),orbit=ref(false);
+    const loading=ref(false),running=ref(true),orbit=ref(false),shadows=ref(false),shadowAvailable=ref(false);
     let world=null;
     onMounted(()=>{
       try {world=mountWorld(document.querySelector("#lum-edge-canvas"));
-        phase.value="WEBGL ACTIVE";
-        status.value="Touch-drag to orbit. Select a private Lum .glb file to render the actual character.";}
+        const gpu=world.graphics();
+        phase.value=gpu.renderer+" ACTIVE";
+        shadows.value=gpu.shadowsEnabled;shadowAvailable.value=gpu.shadowAvailable;
+        status.value="Touch-drag to orbit. "+(gpu.shadowAvailable?"Bounded real-time shadows available. ":"Low-cost unshadowed fallback. ")+"Select a private Lum .glb; normal/roughness maps require visual verification.";}
       catch(e){phase.value="WEBGL BLOCKED";status.value="Browser restricted WebGL: "+String(e?.message||e).slice(0,120);}
     });
     onUnmounted(()=>world?.dispose());
@@ -106,7 +144,7 @@ const App={
       try{
         const receipt=await world.load(file);
         running.value=!!receipt.rigAnimation;
-        status.value=receipt.meshes+" mesh(es), "+receipt.animations+" animations. "+(receipt.activeClip||"Static pose")+". Nothing uploaded.";
+        status.value=receipt.meshes+" mesh(es), "+receipt.animations+" animations, "+receipt.normalMaps+" normal-map slot(s), "+receipt.roughnessMaps+" roughness-map slot(s). "+(receipt.activeClip||"Static pose")+". Texture counts are metadata, not a visual proof. Nothing uploaded.";
       }catch(e){status.value="GLB blocked: "+String(e?.message||e).slice(0,120);}
       finally{loading.value=false;event.target.value="";}
     };
@@ -123,7 +161,12 @@ const App={
         button("▶ Run",()=>{if(!world.run(true))status.value="Load an animated GLB to run.";else running.value=true;},running.value),
         button("Ⅱ Pause",()=>{if(!world.run(false))status.value="Load an animated GLB first.";else running.value=false;},!running.value),
         button("⟳ Orbit",()=>{orbit.value=!orbit.value;world.orbit(orbit.value);},orbit.value),
-        button("✦ CAST",()=>{sigils.value=world.cast();status.value="Midnight sigil "+sigils.value+"/3. ⚡";})
+        button("✦ CAST",()=>{sigils.value=world.cast();status.value="Midnight sigil "+sigils.value+"/3. ⚡";}),
+        button("☾ Shadows",()=>{
+          if(!shadowAvailable.value){status.value="Shadows unavailable on this graphics path.";return;}
+          shadows.value=world.setShadows(!shadows.value);
+          status.value=shadows.value?"Real-time shadows on.":"Real-time shadows off, lower GPU load.";
+        },shadows.value)
       ]),
       h("label",{class:"upload"} ,[
         h("span",loading.value?"Loading private model...":"Load your Lum .glb from this device"),
