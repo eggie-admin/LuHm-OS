@@ -78,6 +78,8 @@ func _build_runtime() -> void:
 
 func _wire_runtime() -> void:
     game_hud.world_requested.connect(enterWorldMode)
+    game_hud.aramoor_requested.connect(_enter_aramoor_mode)
+    game_hud.aramoor_tide_requested.connect(_toggle_aramoor_tide)
     game_hud.rehearsal_requested.connect(_enter_goddess_rehearsal)
     game_hud.companion_studio_requested.connect(_enter_companion_lab)
     game_hud.encore_requested.connect(_start_next_encore)
@@ -170,7 +172,36 @@ func _on_oni_objective_reached(name: String) -> void:
 func _on_android_web3_error(reason: String) -> void:
     push_error("ANDROID_WEB3_COCKPIT_ERROR: " + reason)
 
+func _enter_aramoor_mode() -> void:
+    if android_web3_plugin != null:
+        android_web3_plugin.hideCockpit()
+    if not switchWorld("aramoorArchipelago"):
+        game_hud.set_status("ARAMOOR · WORLD SOURCE UNAVAILABLE")
+        return
+    game_hud.show_world()
+    player_controller.set_world_active(true)
+    game_hud.set_aramoor_controls(true)
+    game_hud.set_status("ARAMOOR · PRIVATE SOURCE PREVIEW")
+    game_hud.set_quest("GHOST GIRLS OF ARAMOOR", "Explore nine connected islands and inspect the ghost story beacons.", 1, 9)
+    game_hud.show_dialogue("Lum: Welcome to Aramoor. Follow the bridges, investigate beacons and try Ghost Tide. No monster assets have been imported.")
+
+func _toggle_aramoor_tide() -> void:
+    if active_world_id != "aramoorArchipelago" or active_world == null:
+        return
+    nearest_interactable = null
+    var ghost := not bool(active_world.get("ghost_tide"))
+    active_world.call("set_tide", ghost)
+    game_hud.show_dialogue("Ghost Tide. The coast remembers another time." if ghost else "Living Tide. The present returns.")
+    game_hud.set_status("ARAMOOR · GHOST TIDE" if ghost else "ARAMOOR · LIVING TIDE")
+    _update_interaction_target()
+
 func enterWorldMode() -> void:
+    if active_world_id == "aramoorArchipelago":
+        switchWorld("neonRiverwalk")
+        var progress: Dictionary = quest_director.snapshot()
+        var step: Dictionary = progress.get("currentStep", {})
+        var total := 5 if encore_count == 0 else 4
+        game_hud.set_quest("FIRST NIGHT CIRCUIT" if encore_count == 0 else "NIGHT SHIFT ENCORE", str(step.get("objective", "Continue the current quest.")), mini(int(progress.get("stepIndex", 0)) + 1, total), total)
     if android_web3_plugin != null:
         android_web3_plugin.hideCockpit()
     game_hud.show_world()
@@ -214,6 +245,7 @@ func switchWorld(world_id: String) -> bool:
     active_world = next_world
     neon_world = next_world if world_id == "neonRiverwalk" else null
     active_world_id = world_id
+    game_hud.set_aramoor_controls(world_id == "aramoorArchipelago")
     player_controller.global_position = active_world.player_spawn
     player_controller.spawn_point = active_world.player_spawn
     player_controller.velocity = Vector3.ZERO
@@ -225,7 +257,7 @@ func switchWorld(world_id: String) -> bool:
 func _update_interaction_target() -> void:
     if game_hud == null or player_controller == null or active_world == null:
         return
-    if not player_controller.world_active or quest_director == null or quest_director.is_complete():
+    if not player_controller.world_active or (active_world_id != "aramoorArchipelago" and (quest_director == null or quest_director.is_complete())):
         nearest_interactable = null
         game_hud.set_interaction_prompt("", false)
         _set_all_interaction_markers(false)
@@ -235,7 +267,7 @@ func _update_interaction_target() -> void:
         game_hud.set_interaction_prompt("", false)
         return
 
-    var expected_event: String = str(quest_director.current_event())
+    var expected_event: String = str(quest_director.current_event()) if quest_director != null else ""
     var closest: Area3D = null
     var closest_distance := INF
     var objective_target: Area3D = null
@@ -252,7 +284,7 @@ func _update_interaction_target() -> void:
         var event_name := str(node.call("get_event_name")) if node.has_method("get_event_name") else ""
         if event_name == expected_event:
             objective_target = node
-        var relevant: bool = event_name == expected_event or event_name.begins_with("travel:") or event_name.begins_with("oni:")
+        var relevant: bool = event_name == expected_event or event_name.begins_with("travel:") or event_name.begins_with("oni:") or (active_world_id == "aramoorArchipelago" and event_name.begins_with("aramoor:"))
         if node.has_method("set_active"):
             node.call("set_active", relevant)
         if not relevant:
@@ -284,6 +316,15 @@ func _interact() -> void:
     if nearest_interactable == null or quest_director == null:
         return
     var event_name := str(nearest_interactable.call("get_event_name"))
+    if event_name.begins_with("aramoor:") and active_world_id == "aramoorArchipelago":
+        var zone_id := event_name.trim_prefix("aramoor:")
+        var story_line := str(active_world.call("get_zone_line", zone_id))
+        if not story_line.is_empty():
+            game_hud.show_dialogue(story_line)
+            game_hud.set_status("ARAMOOR · EXPLORE " + zone_id.to_upper())
+            if player_controller.has_method("pulse_effect"):
+                player_controller.call("pulse_effect", Color("9adcf0"))
+        return
     if event_name.begins_with("travel:"):
         var destination := event_name.trim_prefix("travel:")
         if switchWorld(destination):
