@@ -21,6 +21,8 @@ on:
       - 'doctrine/hydraUbuntuApplianceV1.json'
       - 'tests/testHydraUbuntuAppliance.py'
       - 'manual/hydraUbuntuAppliance20261101.md'
+      - 'tools/canonCompatibilityTransportAudit.py'
+      - '.github/workflows/canon-transport-sql-json-b64.yml'
       - '.github/workflows/premonition-machine-wizard-audit.yml'
   workflow_dispatch:
 permissions:
@@ -85,6 +87,98 @@ jobs:
           python3 tools/machineCanonFourLoop.py \
             --source-ref "${{ github.event.pull_request.head.sha || github.sha }}" \
             --output "$RUNNER_TEMP/machine-canon-loop-receipt.json"
+      - name: Assert all sixteen hexadecimal source slots and separate external gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - "$RUNNER_TEMP/machine-canon-loop-receipt.json" <<'PY'
+          import json,sys
+          receipt=json.load(open(sys.argv[1],encoding="utf-8"))
+          assert receipt["sourceRef"] == __import__("subprocess").check_output(["git","rev-parse","HEAD"],text=True).strip()
+          assert receipt["totalCells"] == 16 and receipt["checkedCells"] == 16
+          assert receipt["sourceStable"] is True and receipt["sourceStatus"] == "GREEN_SOURCE_CHECKS_ONLY"
+          assert receipt["crownStatus"] == "STOP"
+          assert receipt["castAuthorized"] is False and receipt["productionMutationAuthorized"] is False
+          assert receipt["physicalDeviceProof"] is False
+          cells=[cell for row in receipt["lanes"] for cell in row["checks"]]
+          assert [x["cell"] for x in cells] == [f"0x{i:02x}" for i in range(16)]
+          assert all(x["status"] == "PASS" for x in cells)
+          print("HYDRA_HEX16=GREEN_SOURCE_ONLY_16_OF_16")
+          print("LIVE_AGENT=UNVERIFIED, SAMSUNG=UNVERIFIED, CROWN=STOP")
+          PY
+      - name: Full 200-check structural source audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/hardSystemAudit200.py | tee "$RUNNER_TEMP/hard-system-200-source-audit.txt"
+          grep -q '^passes=200/200
+        run: |
+          mkdir -p "$RUNNER_TEMP/machine-base"
+          for profile in linuxHeadless linuxStudio raspberryPiDesktop androidClient; do
+            python3 tools/unifiedMachineBaseAudit.py --profile "$profile" --source-ref "${{ github.event.pull_request.head.sha || github.sha }}" --output "$RUNNER_TEMP/machine-base/$profile.json"
+          done
+      - name: Upload Canon 4x4 machine checklist receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: machine-canon-4x4-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            ${{ runner.temp }}/machine-canon-loop-receipt.json
+            ${{ runner.temp }}/hard-system-200-source-audit.txt
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Upload machine-base source-only receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: machine-base-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/machine-base/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Emit runner-safe read-only sample
+        run: |
+          python3 tools/machineToHumanWizard.py --json > "$RUNNER_TEMP/wizard-receipt.json"
+          python3 - "$RUNNER_TEMP/wizard-receipt.json" <<'PY'
+          import json,sys
+          data=json.load(open(sys.argv[1],encoding="utf-8"))
+          assert data["diskWritesPerformed"] is False
+          assert data["physicalDeviceVerified"] is False
+          assert data["crownStatus"] == "STOP"
+          PY
+ "$RUNNER_TEMP/hard-system-200-source-audit.txt"
+          grep -q '^crown=STOP
+        run: |
+          mkdir -p "$RUNNER_TEMP/machine-base"
+          for profile in linuxHeadless linuxStudio raspberryPiDesktop androidClient; do
+            python3 tools/unifiedMachineBaseAudit.py --profile "$profile" --source-ref "${{ github.event.pull_request.head.sha || github.sha }}" --output "$RUNNER_TEMP/machine-base/$profile.json"
+          done
+      - name: Upload Canon 4x4 machine checklist receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: machine-canon-4x4-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/machine-canon-loop-receipt.json
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Upload machine-base source-only receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: machine-base-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/machine-base/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Emit runner-safe read-only sample
+        run: |
+          python3 tools/machineToHumanWizard.py --json > "$RUNNER_TEMP/wizard-receipt.json"
+          python3 - "$RUNNER_TEMP/wizard-receipt.json" <<'PY'
+          import json,sys
+          data=json.load(open(sys.argv[1],encoding="utf-8"))
+          assert data["diskWritesPerformed"] is False
+          assert data["physicalDeviceVerified"] is False
+          assert data["crownStatus"] == "STOP"
+          PY
+ "$RUNNER_TEMP/hard-system-200-source-audit.txt"
       - name: Collect four exact-source machine-profile receipts
         run: |
           mkdir -p "$RUNNER_TEMP/machine-base"
