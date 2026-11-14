@@ -1,0 +1,35 @@
+{
+  "schema": "luhmOs.pluginDefaultBoss20261114.v1",
+  "product": "LuHm-OS",
+  "sourceBranch": "candidate/machine-layer-sql-cast-20261114",
+  "entryIntent": "@LuHm-OS",
+  "canonicalBoss": "lum",
+  "toolRequested": "luhm_open_cockpit",
+  "actualHostInvocationState": "TOOL_CALLED_RETURNED_UNAVAILABLE",
+  "bridgeStatus": "REACHABLE_READ_ONLY",
+  "hostAutopopupGuaranteed": false,
+  "autoUpdateInstalledPlugin": false,
+  "autoDeployAgents": false,
+  "agentRuntime": "COMPANY_WIDE_QUARANTINE",
+  "defaultView": "canonControlRoomWhenAvailable",
+  "fallback": "readOnlySourceStatusAndExplicitUnavailability",
+  "capabilities": [
+    "sourceTruth",
+    "originalGodotStudio",
+    "storyboardDraft",
+    "characterMorphCandidate",
+    "dialogueEditorCandidate",
+    "sqlStatusReadOnly"
+  ],
+  "requiredRoutes": [
+    "professorIntent",
+    "lumSupervisor",
+    "sanityCheck",
+    "currentGitHubSourceRef",
+    "pluginHostToolAvailability",
+    "readOnlyCockpitOpen",
+    "optionalGamePreviewOnlyIfVerified"
+  ],
+  "authorityLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "crownStatus": "STOP"
+}
