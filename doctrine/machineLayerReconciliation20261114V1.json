@@ -332,7 +332,19 @@
     "remoteSyncLaw": "least privilege TLS transaction+verified read-back, no public SQL endpoint",
     "allowSeedingProposedData": true,
     "allowProductionDdl": false,
-    "credentialsInGitHub": false
+    "credentialsInGitHub": false,
+    "schemaCollision": {
+      "table": "artifactPointer",
+      "existing": "host/api/typedLanesV1.sql",
+      "unmergedCandidate": "PR #537 host/api/machineRegistrySqliteV1.sql",
+      "existingKey": "artifactId",
+      "proposedOtherKey": "artifactKey",
+      "structurallyCompatible": false,
+      "automaticDdlAllowed": false,
+      "remoteMigrationBlocked": true,
+      "preferredPlan": "Keep event artifactPointer as existing canonical table; stage machineArtifactPointer under distinct name in independently reviewed migration; require FK/row diff and rollback rehearsal before any remote DDL",
+      "migrationPerformed": false
+    }
   },
   "creative": {
     "godotMainScene": "res://scenes/Main.tscn",
