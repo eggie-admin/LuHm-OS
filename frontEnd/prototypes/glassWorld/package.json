@@ -3,20 +3,17 @@
   "private": true,
   "version": "0.1.0-candidate.0",
   "type": "module",
-  "description": "LuHm OS local-only Vue 3 Babylon GLB candidate for Cloudflare static edge, no native APK",
+  "description": "LuHm-OS Project Premonition isolated Babylon/Vue/jQuery world renderer proof",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "test": "node --test tests/*.test.mjs",
     "build": "vite build",
-    "check": "npm run test && npm run build",
-    "edge:preview": "vite preview --host 127.0.0.1",
-    "edge:deploy": "wrangler deploy"
+    "check": "npm run test && npm run build"
   },
   "dependencies": {
     "@babylonjs/core": "9.32.0",
     "jquery": "3.7.1",
-    "vue": "3.5.44",
-    "@babylonjs/loaders": "9.32.0"
+    "vue": "3.5.44"
   },
   "devDependencies": {
     "vite": "8.3.5"
