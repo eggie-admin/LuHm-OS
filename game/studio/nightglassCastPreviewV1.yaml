@@ -1,0 +1,20 @@
+# Source-only scoped CAST declaration, not a build trigger.
+schema: luhmOs.nightglassCastPreview.v1
+source:
+  canonicalMain: 59366bf8c77bbd2b1e98c141b303c1f649a1875f
+  donorPr: 556
+  donorHead: d3356433c38ed0ab45e6bb51a164e76b965a8938
+preview:
+  character: vesperNocturne
+  modes: [projected3d, cssGlassPortrait]
+  live2DCubismSdkInstalled: false
+  androidTouch: UNVERIFIED
+  chatGptMount: UNVERIFIED
+security:
+  autonomousAgents: false
+  publicDeployment: false
+  productionSigning: false
+  providerSecrets: false
+crown:
+  professorCast: SCOPED_PREVIEW_APPROVED
+  fullProductRelease: STOP
