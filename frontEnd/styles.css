@@ -288,3 +288,13 @@ button { color: inherit; }
 .canonGalleryCard.isExpanded img { max-height:none;cursor:zoom-out; }
 .canonGalleryFoot { color:#a9a0b3;font-size:12px;line-height:1.5;margin:22px 0; }
 @media (max-width:520px) { .canonGalleryHead { align-items:start; } .canonGalleryHead button { min-width:72px; } }
+
+/* One-tap Canon Gallery from the primary Samsung cockpit stage. */
+.openCanonFromStage {
+  pointer-events:auto; cursor:pointer; display:block; width:min(320px,100%);
+  min-height:42px; margin:12px auto 0; padding:8px 12px;
+  border-radius:10px;border:1px solid #d7aece;background:#211629db;
+  color:#ffe4f3;letter-spacing:.06em;font-size:13px;font-weight:700;
+}
+.openCanonFromStage:focus-visible { outline:3px solid var(--cyan);outline-offset:2px; }
+@media(max-height:540px) { .openCanonFromStage { min-height:34px;margin-top:5px;font-size:11px; } }
