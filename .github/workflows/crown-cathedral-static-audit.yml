@@ -1,0 +1,61 @@
+name: Crown Cathedral Signing and Email Source Audit
+
+on:
+  pull_request:
+    paths:
+      - 'doctrine/securityTrustFoundationV1.json'
+      - 'doctrine/crownCathedralMailRoutingV1.json'
+      - 'tools/ownerGpgBootstrap.sh'
+      - 'tools/cloudflareEmailRoutingApply.py'
+      - 'tools/securityTrustCertAudit.py'
+      - 'tests/testCrownCathedralSecurity.py'
+      - 'manual/crownCathedralSecurity.md'
+      - '.github/workflows/crown-cathedral-static-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: crown-cathedral-source-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  source-only-no-secret-actions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Exact source checkout without persisted GitHub credential
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Validate syntax, contract invariants and safe API behavior
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          bash -n tools/ownerGpgBootstrap.sh
+          python3 -m py_compile tools/cloudflareEmailRoutingApply.py tools/securityTrustCertAudit.py
+          python3 -m unittest tests/testCrownCathedralSecurity.py -v
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          trust = json.loads(Path("doctrine/securityTrustFoundationV1.json").read_text())
+          email = json.loads(Path("doctrine/crownCathedralMailRoutingV1.json").read_text())
+          assert trust["certificateLanes"]["cloudflareEdge"]["requiredIssuer"] == "LETS_ENCRYPT_ONLY"
+          assert trust["certificateLanes"]["cloudflareEdge"]["selfSignedOrOriginCa"] == "FORBIDDEN"
+          assert trust["fullCrown"].startswith("STOP")
+          assert not trust["externalProviderMutationPerformed"]
+          assert not email["externalMailRoutingActivation"]
+          assert not email["externalCertificateMutation"]
+          assert email["globalCrown"] == "STOP"
+          assert len({x["local"] for x in email["rules"]}) == len(email["rules"])
+          assert all("@" not in x["local"] for x in email["rules"])
+          print("CROWN_CATHEDRAL_SOURCE=GREEN")
+          print("PUBLIC_CERTIFICATE_ISSUANCE=UNVERIFIED")
+          print("CLOUDFLARE_EMAIL_ROUTING=UNVERIFIED")
+          print("OWNER_GPG_SIGNING=UNVERIFIED")
+          print("CROWN=STOP")
+          PY

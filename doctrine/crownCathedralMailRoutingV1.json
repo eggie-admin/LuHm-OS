@@ -1,0 +1,108 @@
+{
+  "schema": "luhmOs.crownCathedralMailRouting.v1",
+  "status": "PROFESSOR_APPROVED_SCOPED_IMPLEMENTATION_PENDING_PROVIDER_VERIFICATION",
+  "authority": "Professor",
+  "crownMilestone": "CROWN_CATHEDRAL",
+  "source": "eggie-admin/LuHm-OS",
+  "zone": "eggiebagelface.art",
+  "emailService": "Cloudflare Email Routing",
+  "destination": "OWNER_VERIFIED_GMAIL_DESTINATION_NOT_PUBLIC",
+  "rules": [
+    {
+      "local": "admin",
+      "purpose": "Ownership, official administration and identity verification",
+      "replyRoute": "GMAIL_LABEL_ADMIN"
+    },
+    {
+      "local": "web",
+      "purpose": "Website and web-app operations",
+      "replyRoute": "GMAIL_LABEL_WEB"
+    },
+    {
+      "local": "webmaster",
+      "purpose": "Webmaster operational standard contact",
+      "replyRoute": "GMAIL_LABEL_WEB"
+    },
+    {
+      "local": "postmaster",
+      "purpose": "Mail delivery and standards contact",
+      "replyRoute": "GMAIL_LABEL_MAIL"
+    },
+    {
+      "local": "hostmaster",
+      "purpose": "DNS/hostname authority contacts",
+      "replyRoute": "GMAIL_LABEL_INFRA"
+    },
+    {
+      "local": "security",
+      "purpose": "Vulnerability and sensitive security disclosures",
+      "replyRoute": "GMAIL_LABEL_SECURITY"
+    },
+    {
+      "local": "abuse",
+      "purpose": "Abuse notices and reports",
+      "replyRoute": "GMAIL_LABEL_SECURITY"
+    },
+    {
+      "local": "support",
+      "purpose": "Customer support inbox",
+      "replyRoute": "GMAIL_LABEL_SUPPORT"
+    },
+    {
+      "local": "certs",
+      "purpose": "Certificate automation failure/monitoring inbox; not ACME authorization",
+      "replyRoute": "GMAIL_LABEL_CERTS"
+    },
+    {
+      "local": "errors",
+      "purpose": "Website error reports; sanitize logs and alerts",
+      "replyRoute": "GMAIL_LABEL_ERRORS"
+    },
+    {
+      "local": "dmarc",
+      "purpose": "DMARC aggregate reports only when record/policy active and delivery supported",
+      "replyRoute": "GMAIL_LABEL_MAIL"
+    }
+  ],
+  "noPublicCatchAllByDefault": true,
+  "mailPolicies": {
+    "cloudflareRoutingInboundOnly": true,
+    "destinationVerificationRequired": true,
+    "mustInspectExistingMxSpfDkimDmarc": true,
+    "neverReplaceActiveMailProviderWithoutVerifiedMigration": true,
+    "separateOutboundProviderNeededForAlignedReplies": true,
+    "ownerGmailLabelsAndFilters": "USER_GOOGLE_ACCOUNT_CONFIGURATION_NOT_YET_APPLIED",
+    "dmarc": "START_MONITORING_WHEN_SPF_DKIM_CONFIRMED_THEN_GRADUATE_POLICY",
+    "neverPutActualDestinationEmailOrTokensInPublicRepo": true,
+    "inboundRouteApplyMode": "CREATE_MISSING_ONLY_REFUSE_TO_OVERWRITE_EXISTING",
+    "accountApiToken": "SCOPED_ZONE_EMAIL_ROUTING_RULES_WRITE_AND_READ_NOT_GLOBAL_API_KEY"
+  },
+  "tlsAndSigning": {
+    "certificatePreference": "LETS_ENCRYPT_ONLY_FOR_NEW_AND_REPLACED_PUBLIC_TLS_CERTIFICATES",
+    "selfSignedPublicTls": "FORBIDDEN",
+    "cloudflareOriginCa": "FORBIDDEN_BY_THIS_MILESTONE",
+    "cloudflareUniversalSslCaChoice": "NOT_OWNER_SELECTABLE",
+    "cloudflareAdvancedCertificateManager": "REQUIRED_IF_CLOUDFARE_ISSUER_PINNING_REQUIRED_SUBJECT_TO_COST_APPROVAL",
+    "renderManagedTlsIssuer": "VERIFY_ACTUAL_ISSUER_BEFORE_CLAIMING_LETS_ENCRYPT",
+    "acmeValidation": "DNS_01_OR_HTTP_01_NOT_EMAIL",
+    "letsEncryptExpirationEmails": "DISCONTINUED_2025_06_04",
+    "monitorNotifications": "EXTERNAL_INDEPENDENT_EXPIRY_WATCH_TO_CERTS_ALIAS",
+    "ownerGpgKey": "SEPARATE_FROM_TLS_AND_ANDROID_KEYS",
+    "revocationAndRenewalProof": "REQUIRED"
+  },
+  "evidence": {
+    "cloudflareProviderWrite": "NOT_AVAILABLE_IN_CURRENT_SESSION",
+    "gmailDestinationVerified": "NOT_VERIFIED",
+    "existingMxAndMailService": "NOT_VERIFIED",
+    "outboundAliasSendAs": "NOT_CONFIGURED",
+    "liveRoutes": "NOT_CONFIGURED_OR_VERIFIED",
+    "liveLetsEncryptIssuance": "UNVERIFIED",
+    "liveGpgGithubFingerprint": "UNVERIFIED",
+    "downstreamCorporateCrossBrandAlias": "EACH_DOMAIN_REQUIRES_SEPARATE_ZONE_AND_AUTHORIZED_MX_REVIEW"
+  },
+  "sourceConfigApproval": true,
+  "externalMailRoutingActivation": false,
+  "externalCertificateMutation": false,
+  "gate": "AMBER_UNTIL_PROVIDER_DNS_INBOUND_MAIL_AND_REAL_TLS_PROOF",
+  "globalCrown": "STOP"
+}
