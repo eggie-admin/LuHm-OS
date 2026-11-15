@@ -62,6 +62,21 @@
       "local": "dmarc",
       "purpose": "DMARC aggregate reports only when record/policy active and delivery supported",
       "replyRoute": "GMAIL_LABEL_MAIL"
+    },
+    {
+      "local": "studios",
+      "purpose": "Pirate Daddy Studios creative house inquiries",
+      "replyRoute": "GMAIL_LABEL_STUDIO_PIRATE_DADDY_STUDIOS"
+    },
+    {
+      "local": "film",
+      "purpose": "Pirate Daddy Film projects and screenings",
+      "replyRoute": "GMAIL_LABEL_STUDIO_PIRATE_DADDY_FILM"
+    },
+    {
+      "local": "art",
+      "purpose": "Eggie Bagelface personal art and illustration inquiries",
+      "replyRoute": "GMAIL_LABEL_STUDIO_EGGIE_BAGELFACE_ART"
     }
   ],
   "noPublicCatchAllByDefault": true,
@@ -71,7 +86,7 @@
     "mustInspectExistingMxSpfDkimDmarc": true,
     "neverReplaceActiveMailProviderWithoutVerifiedMigration": true,
     "separateOutboundProviderNeededForAlignedReplies": true,
-    "ownerGmailLabelsAndFilters": "USER_GOOGLE_ACCOUNT_CONFIGURATION_NOT_YET_APPLIED",
+    "ownerGmailLabelsAndFilters": "ELEVEN_LABELS_CREATED_AUTOMATIC_FILTERS_NOT_CONFIGURED",
     "dmarc": "START_MONITORING_WHEN_SPF_DKIM_CONFIRMED_THEN_GRADUATE_POLICY",
     "neverPutActualDestinationEmailOrTokensInPublicRepo": true,
     "inboundRouteApplyMode": "CREATE_MISSING_ONLY_REFUSE_TO_OVERWRITE_EXISTING",
