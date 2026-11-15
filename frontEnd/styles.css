@@ -253,3 +253,38 @@ button { color: inherit; }
   .playAramoorButton { min-height: 46px; font-size: 15px; padding: 7px 16px; }
   .worldLaunchEyebrow, .worldLaunchHint { margin-block: 4px; }
 }
+
+/* Private Canon art viewer. Designed for the Samsung tablet/DeX layout. */
+.canonGalleryLayer {
+  position:absolute; z-index:85; inset:var(--topPanelH) 0 0;
+  overflow:auto; overscroll-behavior:contain;
+  background:linear-gradient(135deg,#07080e,#1c101c 60%,#080f16);
+  padding:clamp(10px,2.5vw,28px);
+}
+.canonGalleryLayer[hidden] { display:none; }
+.canonGalleryShell { max-width:1360px; margin:auto; }
+.canonGalleryHead { display:flex;justify-content:space-between;align-items:start;gap:16px; }
+.canonGalleryHead h2 { font:500 clamp(26px,5vw,55px)/1.1 Georgia,serif; color:#ffe7d5; margin:5px 0; }
+.canonGalleryHead p { color:#c9b9ca;margin:6px 0; }
+.canonGalleryEyebrow { font-size:11px;letter-spacing:.16em;font-weight:700;color:#f6a1c1 !important; }
+.canonGalleryHead button,.canonGalleryActions button {
+  cursor:pointer; min-height:46px; border-radius:10px;
+  border:1px solid #a26990; background:#2d1830; padding:9px 14px;color:#fff;
+}
+.canonGalleryHead button:focus-visible,.canonGalleryActions button:focus-visible {
+  outline:3px solid var(--cyan);outline-offset:2px;
+}
+.canonGalleryActions { display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:20px 0 6px; }
+.canonGalleryActions [data-luhm-gallery-pick] { background:linear-gradient(120deg,#b62e75,#6a40a7);font-weight:750; }
+.canonGalleryActions input[type=file] { position:absolute;left:-9999px; width:1px;height:1px; }
+.canonGalleryStatus { color:#ffe0b2;min-height:22px; }
+.canonGalleryGrid { display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:18px;margin:18px 0 28px; }
+.canonGalleryCard { min-width:0;margin:0; padding:9px;background:#0c0c13;
+  border:1px solid #604156;border-radius:12px; }
+.canonGalleryCard img { display:block;width:100%;height:auto;max-height:75vh;object-fit:contain;cursor:zoom-in; }
+.canonGalleryCard img:focus-visible { outline:3px solid var(--cyan); }
+.canonGalleryCard figcaption { overflow-wrap:anywhere;padding:8px 2px 3px;color:#e7d4e7;font-size:13px; }
+.canonGalleryCard.isExpanded { grid-column:1/-1; }
+.canonGalleryCard.isExpanded img { max-height:none;cursor:zoom-out; }
+.canonGalleryFoot { color:#a9a0b3;font-size:12px;line-height:1.5;margin:22px 0; }
+@media (max-width:520px) { .canonGalleryHead { align-items:start; } .canonGalleryHead button { min-width:72px; } }
