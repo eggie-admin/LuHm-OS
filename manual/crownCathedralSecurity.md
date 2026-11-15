@@ -35,6 +35,9 @@ Create the following addresses, all forwarded to that verified Gmail destination
 | certs@eggiebagelface.art | our own TLS monitoring alerts | LuHm/Certificates |
 | errors@eggiebagelface.art | sanitized website/app error reports | LuHm/Errors |
 | dmarc@eggiebagelface.art | domain mail-authentication reports | LuHm/Mail |
+| studios@eggiebagelface.art | Pirate Daddy Studios inquiries | Studio/Pirate Daddy Studios |
+| film@eggiebagelface.art | Pirate Daddy Film projects | Studio/Pirate Daddy Film |
+| art@eggiebagelface.art | Eggie Bagelface art inquiries | Studio/Eggie Bagelface Art |
 
 **Do not enable catch-all** until mail-abuse/privacy implications are assessed. `noreply@` is not needed for inbound contact and should not pretend to be a support address.
 
