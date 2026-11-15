@@ -1,0 +1,108 @@
+{
+  "schema": "luhmOs.studioHousePublicPrivate.v1",
+  "status": "PROFESSOR_APPROVED_SOURCE_CONFIGURATION_ACTIVATION_PENDING",
+  "owner": "Professor",
+  "authority": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalDomain": "eggiebagelface.art",
+  "existingDomainPolicy": "PRESERVE_LIVE_DNS_UNTIL_VERIFIED_PUBLIC_HOST_AND_CERT",
+  "public": {
+    "websitePath": "studioPortal/index.html",
+    "underConstruction": true,
+    "contentOnly": "SELF_AUTHORED_TEXT_CSS_AND_VERIFIED_PUBLIC_ACCOUNT_LINKS",
+    "noProprietaryArtByDefault": true,
+    "externalPixelsOrAnalytics": false,
+    "contactNow": "eggiebagelface@gmail.com",
+    "candidateEmailAliases": [
+      "admin",
+      "web",
+      "support",
+      "security",
+      "certs"
+    ],
+    "aliasVerification": "CROWN_CATHEDRAL_CLOUDFLARE_ROUTING_NOT_LIVE_VERIFIED",
+    "instagramHandle": "eggiebagelface",
+    "instagramConnector": "Windsor.ai: READ_ACCESS_CONFIRMED_NO_PUBLICATION_DONE",
+    "deployment": {
+      "provider": "PENDING_HOST_CONFIRMATION",
+      "customDomainActive": false,
+      "dnsModified": false,
+      "liveHttpProof": false,
+      "tlsIssuerVerified": false
+    }
+  },
+  "brands": [
+    {
+      "id": "pirateDaddyStudios",
+      "publicDisplay": "Pirate Daddy Studios",
+      "role": "STUDIO_UMBRELLA_CANDIDATE",
+      "legalRegistrationVerified": false,
+      "githubOrganization": "UNVERIFIED_AS_SEPARATE_ENTITY",
+      "creativeLabelOnly": true
+    },
+    {
+      "id": "pirateDaddyFilm",
+      "publicDisplay": "Pirate Daddy Film",
+      "legacyNames": [
+        "Pirate Daddy's Film",
+        "PIRATE DADDIES FILM"
+      ],
+      "role": "FILM_LABEL",
+      "githubOrganization": "Pirate-Daddys-Film",
+      "sameLegalEntityAsStudios": "UNVERIFIED"
+    },
+    {
+      "id": "eggieBagelfaceArt",
+      "publicDisplay": "Eggie Bagelface Art",
+      "role": "PERSONAL_ART_PUBLISHER",
+      "instagram": "@eggiebagelface",
+      "githubPublisher": "eggie-admin",
+      "artworkLicenseRequired": true
+    }
+  ],
+  "private": {
+    "provider": "GOOGLE_DRIVE",
+    "releaseDeskCreated": true,
+    "releaseDeskVisibility": "OWNER_ONLY_VERIFIED_NOT_PUBLICLY_SHARED",
+    "approvalBoardCreated": true,
+    "productionSourcesRemainInExistingRoots": true,
+    "noPrivateDriveIdentifiersInPublicSite": true,
+    "approvalFlow": [
+      "Draft",
+      "In Review",
+      "Approved",
+      "Scheduled",
+      "Published"
+    ],
+    "approvalAuthority": "Professor",
+    "approvedRequires": [
+      "RIGHTS_VERIFIED",
+      "EXACT_ASSET_ID_AND_VERSION",
+      "PLATFORM",
+      "FINAL_CAPTION",
+      "APPROVAL_NAME_AND_DATE"
+    ],
+    "noAutoPublishBeforeApproval": true,
+    "publicationReceiptRequired": true
+  },
+  "integrations": {
+    "githubSourceOfTruth": "eggie-admin/LuHm-OS",
+    "existingGithubOrg": "Pirate-Daddys-Film",
+    "additionalStudioGithubOrg": "UNVERIFIED",
+    "metaBusinessSuiteRole": "NOT_VERIFIED",
+    "instagramWindsorAnalytics": "ACCOUNT_CONNECTED",
+    "instagramPublishScope": "WRITE_ACTION_VISIBLE_BUT_NO_ACTION_INVOKED",
+    "vidiqPublishing": "INSTAGRAM_NOT_CONNECTED",
+    "oauthTokenExport": false,
+    "cloudflareAccount": "NOT_CONNECTED",
+    "gmailDestination": "CONNECTED_GMAIL"
+  },
+  "release": {
+    "thisCommitScope": "PUBLIC_PLACEHOLDER_SITE_SOURCE_AND_PRIVATE_DRIVE_RELEASE_DESK",
+    "privateMediaPublication": false,
+    "metaPostPublication": false,
+    "websiteLiveAtCanonicalDomain": false,
+    "professorOverrideNeededForRealArtOrMetaPublication": true,
+    "automaticMediaPublications": false
+  },
+  "globalCrown": "STOP_FOR_MEDIA_AND_EXTERNAL_ACCOUNT_MUTATIONS"
+}
