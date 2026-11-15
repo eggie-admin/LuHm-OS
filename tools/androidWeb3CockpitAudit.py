@@ -157,7 +157,7 @@ for token in (
     require(token in kotlin, f"Android wrapper missing control: {token}")
 require('emitSignal(ARAMOOR_REQUESTED.name)' in kotlin and 'private val ARAMOOR_REQUESTED' in kotlin,
         "Aramoor dedicated Godot signal missing")
-require('"world_requested", "aramoor_requested", "cockpit_ready" -> setOf("type")' in kotlin,
+require('"world_requested", "aramoor_requested", "cockpit_ready", "local_art_pick_requested" -> setOf("type")' in kotlin,
         "Aramoor payload must remain exact no-argument type-only message")
 require('"local_art_pick_requested" -> {' in kotlin and
         'Intent.ACTION_OPEN_DOCUMENT' in kotlin and
