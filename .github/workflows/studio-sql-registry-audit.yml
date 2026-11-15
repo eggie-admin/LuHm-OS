@@ -1,0 +1,34 @@
+name: Final Boss Studio Registry · Private SQL Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/studioFinalBossControlV1.json'
+      - 'campaign/instagramReturn20261115Receipt.json'
+      - 'host/api/studioRegistrySqliteV1.sql'
+      - 'tools/buildStudioRegistrySqlite.py'
+      - 'tests/testStudioRegistrySqlite.py'
+      - '.github/workflows/studio-sql-registry-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sqlite-fail-closed:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact source and private registry constraints
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          python3 -m unittest tests/testStudioRegistrySqlite.py -v
+          echo "STUDIO_METADATA_SCHEMA=GREEN"
+          echo "PRODUCTION_SECRETS=NEVER_STORED"
+          echo "GOOGLE_API_CALLS=NOT_ATTEMPTED"
+          echo "FIRMWARE_UPDATE_SIGNING=NOT_ATTEMPTED"
+          echo "PRODUCTION_LANES=STILL_GATED"
