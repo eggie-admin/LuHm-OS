@@ -42,7 +42,7 @@ class RegistrySafety(unittest.TestCase):
                     conn.execute("INSERT INTO signing_enrollment VALUES (?,?,?,?,?,?,?)",(
                       "fakeApple","fake","verified",None,"notProvisioned",None,None))
                 with self.assertRaises(sqlite3.IntegrityError):
-                    conn.execute("INSERT INTO artifact_pointer VALUES (?,?,?,?,?,?,?)",(
+                    conn.execute("INSERT INTO artifact_pointer VALUES (?,?,?,?,?,?,?,?)",(
                       "secretLeak","eggieBagelfaceArt",None,None,"public","pending","pending","cathedralPublic"))
                 with self.assertRaises(sqlite3.IntegrityError):
                     conn.execute("INSERT INTO firmware_release VALUES (?,?,?,?,?,?,?,?,?)",(
