@@ -1,0 +1,89 @@
+{
+  "schema": "luhmOs.studioPublicPrivateSeparation.v1",
+  "status": "SOURCE_CANDIDATE",
+  "owner": "Professor",
+  "canonicalDomain": "eggiebagelface.art",
+  "legacyDomainPolicy": "PRESERVE_EXISTING_DNS_AND_EMAIL_NO_UNVERIFIED_CHANGES",
+  "instagram": {
+    "handle": "eggiebagelface",
+    "source": "Windsor.ai",
+    "connectedReadAccountId": "17841436295517239",
+    "permission": "READ_ANALYTICS_AND_EXISTING_POST_ACTIONS_POSSIBLE; NO_AUTOPUBLISH",
+    "metricool": "CONNECTED_SERVICE_BUT_METRICOOL_BRAND_HAS_NO_SOCIAL_ACCOUNT",
+    "publishing": "OWNER_APPROVAL_REQUIRED"
+  },
+  "brands": [
+    {
+      "key": "pirateDaddyStudios",
+      "display": "Pirate Daddy Studios",
+      "role": "Creative umbrella",
+      "legalEntityVerified": false,
+      "visibility": "PUBLIC_IDENTITY_PRIVATE_ASSETS",
+      "publication": "BLOCKED_UNTIL_REVIEW"
+    },
+    {
+      "key": "pirateDaddyFilm",
+      "display": "Pirate Daddy Film",
+      "legacyBrand": [
+        "PIRATE DADDIES FILM",
+        "Pirate Daddy's Film"
+      ],
+      "role": "Film/motion",
+      "legalEntityVerified": false,
+      "visibility": "PUBLIC_IDENTITY_PRIVATE_ASSETS",
+      "publication": "BLOCKED_UNTIL_REVIEW"
+    },
+    {
+      "key": "eggieBagelfaceArt",
+      "display": "Eggie Bagelface Art",
+      "role": "Personal art",
+      "legalEntityVerified": false,
+      "visibility": "PUBLIC_IDENTITY_PRIVATE_ASSETS",
+      "publication": "BLOCKED_UNTIL_REVIEW"
+    }
+  ],
+  "separation": {
+    "publicSource": "studioLanding/index.html",
+    "privateReviewRoot": "Google Drive owner-only folder 1XO743urP4YxU_HTvAiXiv_hdgF2W3SFH",
+    "privateSource": "Existing Drive Pirate Daddy Film social-media source preserved",
+    "neverLinkPrivateSourcesFromSite": true,
+    "noUnapprovedArtOnWebsite": true,
+    "noPrivateAssetSyncToGit": true
+  },
+  "releaseLaw": {
+    "statuses": [
+      "Draft",
+      "In Review",
+      "Changes Requested",
+      "Approved",
+      "Published",
+      "Blocked"
+    ],
+    "approvalAuthority": "Professor",
+    "scheduledDelivery": "OFF_UNTIL_SOCIAL_ACCOUNT_CONNECTION_AND_ITEM_APPROVAL",
+    "allMediaRightsConfirmedBeforeRelease": true
+  },
+  "web": {
+    "state": "SOURCE_READY_NOT_HOSTED",
+    "target": "https://eggiebagelface.art",
+    "hostSelection": "PENDING_CURRENT_DNS_ORIGIN_VERIFICATION",
+    "tls": "LETS_ENCRYPT_REQUIRED_PER_CROWN_CATHEDRAL",
+    "domainMail": "NOT_YET_VERIFIED",
+    "publicEmailFallback": "eggiebagelface@gmail.com"
+  },
+  "github": {
+    "canonicalRepo": "eggie-admin/LuHm-OS",
+    "organization": "Pirate-Daddys-Film",
+    "otherOrganization": "UNVERIFIED",
+    "sourceDoesNotRequireRepoMoves": true
+  },
+  "releaseAuthority": false,
+  "externalMutation": {
+    "instagramPost": false,
+    "instagramSchedule": false,
+    "cloudflareDns": false,
+    "cloudflareEmail": false,
+    "renderDeployment": false
+  },
+  "crown": "STOP_PENDING_PUBLIC_RUNTIME_AND_OWNER_APPROVAL"
+}
