@@ -10,6 +10,9 @@ on:
       - 'game/world/aramoorArchipelagoV1.json'
       - 'frontEnd/index.html'
       - 'frontEnd/app.js'
+      - 'frontEnd/canonGallery.js'
+      - 'doctrine/privateCanonArtFourPassIntake20261114.json'
+      - 'tools/privateCanonArtGalleryAudit.py'
       - 'frontEnd/styles.css'
       - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
       - 'doctrine/androidWeb3BridgeV2.json'
@@ -47,6 +50,8 @@ jobs:
           python3 tools/aramoorWorldAudit.py
           python3 tools/godot4MilestoneReconciliationAudit.py
           python3 tools/aramoorSamsungPlayAudit.py
+          python3 tools/privateCanonArtGalleryAudit.py
+          node --check frontEnd/canonGallery.js
           python3 tools/androidWeb3CockpitAudit.py
           python3 tools/fdroidTabletSourceAudit.py
           test ! -e assets/lum/luhm.glb
@@ -130,18 +135,18 @@ jobs:
           s=p.read_text()
           changes={
             'package/unique_name="art.eggiebagelface.luhmos.testing"':
-              'package/unique_name="art.eggiebagelface.luhmos.aramoorplaytest"',
+              'package/unique_name="art.eggiebagelface.luhmos.canongallery"',
             'package/name="LuHm OS Samsung Candidate"':
-              'package/name="Aramoor PLAY Test"',
+              'package/name="LuHm Canon Art Test"',
             'version/name="1.0.16-samsunglayout.1"':
-              'version/name="0.2.0-aramoor-play"',
+              'version/name="0.3.0-canon-art"',
           }
           for old,new in changes.items():
               assert s.count(old)==1,("SOURCE_PRESET_DRIFT",old)
               s=s.replace(old,new)
           p.write_text(s)
           PY
-          grep -q 'package/unique_name="art.eggiebagelface.luhmos.aramoorplaytest"' export_presets.cfg
+          grep -q 'package/unique_name="art.eggiebagelface.luhmos.canongallery"' export_presets.cfg
           test ! -e assets/lum/luhm.glb
           test ! -e assets/lum/luhmRunning.glb
 
@@ -185,11 +190,26 @@ jobs:
           "$BT/apksigner" verify --verbose --print-certs "$APK" > "$OUT/signature.txt"
           "$BT/zipalign" -c -P 16 -v 4 "$APK" > "$OUT/zipalign.txt"
           sha256sum "$APK" > "$OUT/apk-sha256.txt"
-          grep -q "package: name='art.eggiebagelface.luhmos.aramoorplaytest'" "$OUT/badging.txt"
+          grep -q "package: name='art.eggiebagelface.luhmos.canongallery'" "$OUT/badging.txt"
           grep -q "targetSdkVersion:'36'" "$OUT/badging.txt"
           grep -q "native-code: 'arm64-v8a'" "$OUT/badging.txt"
           grep -q 'application-debuggable' "$OUT/badging.txt"
           test "$(git rev-parse HEAD)" = "$EXACT_SOURCE_SHA"
+          python3 - <<'PY'
+          from zipfile import ZipFile
+          from pathlib import Path
+          apk=Path("build/aramoor-android/Aramoor-Samsung-arm64-test.apk")
+          with ZipFile(apk) as z:
+              html=z.read("assets/index.html")
+              gallery=z.read("assets/canonGallery.js")
+              css=z.read("assets/styles.css")
+              kotlin_bridge=z.namelist()
+              assert b'CANON ART' in html and b'data-luhm-canon-gallery' in html, "GALLERY_HTML_NOT_PACKAGED"
+              assert b'LuHmCanonGallery' in gallery and b'local_art_pick_requested' in gallery, "GALLERY_JS_NOT_PACKAGED"
+              assert b'.canonGalleryLayer' in css, "GALLERY_CSS_NOT_PACKAGED"
+              assert not any(p.startswith("assets/canon/") and p.endswith((".png",".jpg",".webp")) for p in kotlin_bridge), "PRIVATE_ART_EXFILTRATION"
+          print("CANON_GALLERY_PACKAGED_APK_GREEN")
+          PY
           python3 - <<'PY'
           import hashlib,json,os,re,zipfile
           from pathlib import Path
@@ -209,14 +229,14 @@ jobs:
               "status":"DEBUG_SIGNED_APK_CANDIDATE_NOT_DEVICE_PROVEN",
               "exactSourceSha":os.environ["EXACT_SOURCE_SHA"],
               "canonicalBaseSha":"cd90b6963baa0e90289ca3228e5ab220cd419714",
-              "applicationId":"art.eggiebagelface.luhmos.aramoorplaytest",
+              "applicationId":"art.eggiebagelface.luhmos.canongallery",
               "apkSha256":hashlib.sha256(apk.read_bytes()).hexdigest(),
               "signerCertificateSha256":m.group(1).lower(),
               "abi":"arm64-v8a",
               "targetSdk":36,"debuggable":True,
               "disposableSigner":True,"ownerReleaseSigner":False,
               "preservesExistingLuHmInstall":True,
-              "previousPreviewPackageId":"art.eggiebagelface.luhmos.aramoorpreview",
+              "previousPreviewPackageId":"art.eggiebagelface.luhmos.aramoorplaytest",
               "oldPreviewUnmodified":True,"inPlaceUpgradeToOldPreview":False,
               "deviceInstallProven":False,"deviceTouchProven":False,
               "privilegedSystemInstall":False,"privateDonorModelsIncluded":False,

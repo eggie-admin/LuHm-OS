@@ -14,7 +14,7 @@
       <div class="brand" aria-label="LuHm OS"><span class="brandMark" aria-hidden="true">◇</span><strong>LuHm OS</strong></div>
       <nav class="nav" aria-label="Front end navigation">
         <button class="navItem isActive" type="button" data-view="chat">Chat</button>
-        <button class="navItem" type="button" data-view="library">Library</button>
+        <button class="navItem" type="button" data-view="library" data-luhm-gallery-button>Canon Gallery</button>
         <button class="navItem" type="button" data-view="memories">Memories</button>
         <button class="navItem" type="button" data-luhm-factory-button>Factory</button>
       </nav>
@@ -33,6 +33,9 @@
           <span aria-hidden="true">▶</span> PLAY ARAMOOR
         </button>
         <p class="worldLaunchHint">Nine islands · Story beacons · Ghost Tide</p>
+        <button class="openCanonFromStage" type="button" data-luhm-gallery-button aria-label="Open private Canon art gallery">
+          ✦ CANON ART · CHARACTER LIBRARY
+        </button>
         <p class="worldLaunchFeedback" data-luhm-play-feedback role="status" aria-live="polite"></p>
       </div>
       <div class="sceneStatus" role="status" aria-live="polite"><span class="candidateDot" aria-hidden="true"></span><span>Lum: OpenAI agent · LuHm-OS HTML cockpit · runtime unverified</span></div>
@@ -73,8 +76,26 @@
       </div>
     </aside>
 
+    <aside class="canonGalleryLayer" hidden data-luhm-canon-gallery aria-label="Private Canon character gallery" role="dialog" aria-modal="true">
+      <div class="canonGalleryShell">
+        <header class="canonGalleryHead">
+          <div><p class="canonGalleryEyebrow">PRIVATE CANON STUDIO · LOCAL ONLY</p>
+            <h2>Character Gallery</h2><p>Goddesses · Professor · Lum · Concept boards</p></div>
+          <button type="button" data-luhm-gallery-close aria-label="Close Canon gallery">Close ✕</button>
+        </header>
+        <div class="canonGalleryActions">
+          <button type="button" data-luhm-gallery-pick>＋ Choose artwork from Samsung</button>
+          <input data-luhm-gallery-file type="file" accept="image/png,image/jpeg,image/webp" multiple aria-label="Select private art images">
+          <button type="button" data-luhm-gallery-clear>Clear session</button>
+        </div>
+        <p class="canonGalleryStatus" data-luhm-gallery-status role="status" aria-live="polite">No private art loaded. Choose your lineup posters from Files. Nothing is uploaded.</p>
+        <div class="canonGalleryGrid" data-luhm-gallery-grid aria-label="Selected character art"></div>
+        <p class="canonGalleryFoot">Original masters remain on your device. Temporary local preview only: not public-release approval, 3D assets or Live2D rigs.</p>
+      </div>
+    </aside>
+
     <div class="appMenu" hidden data-luhm-menu>
-      <button type="button" data-view="chat">Chat</button><button type="button" data-view="library">Library</button><button type="button" data-view="memories">Memories</button><button type="button" data-luhm-factory-button>Media Factory</button><hr><button type="button" data-luhm-backend-button>Godot World Layer</button>
+      <button type="button" data-view="chat">Chat</button><button type="button" data-view="library" data-luhm-gallery-button>Canon Gallery</button><button type="button" data-view="memories">Memories</button><button type="button" data-luhm-factory-button>Media Factory</button><hr><button type="button" data-luhm-backend-button>Godot World Layer</button>
     </div>
   </main>
 
@@ -83,6 +104,7 @@
   <script src="./jquery/luhm.parallax.js"></script>
   <script src="./jquery/luhm.cockpit.js"></script>
   <script src="./jquery/luhm.cast.js"></script>
+  <script src="./canonGallery.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>

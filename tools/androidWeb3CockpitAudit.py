@@ -157,8 +157,14 @@ for token in (
     require(token in kotlin, f"Android wrapper missing control: {token}")
 require('emitSignal(ARAMOOR_REQUESTED.name)' in kotlin and 'private val ARAMOOR_REQUESTED' in kotlin,
         "Aramoor dedicated Godot signal missing")
-require('"world_requested", "aramoor_requested", "cockpit_ready" -> setOf("type")' in kotlin,
+require('"world_requested", "aramoor_requested", "cockpit_ready", "local_art_pick_requested" -> setOf("type")' in kotlin,
         "Aramoor payload must remain exact no-argument type-only message")
+require('"local_art_pick_requested" -> {' in kotlin and
+        'Intent.ACTION_OPEN_DOCUMENT' in kotlin and
+        'uri.scheme != "content"' in kotlin and
+        'allowContentAccess = false' in kotlin and
+        'MAX_ART_BYTES = 16L * 1024 * 1024' in kotlin,
+        "private art picker must remain bounded and on-device")
 require("addJavascriptInterface" not in kotlin, "addJavascriptInterface is forbidden")
 require("loadUrl(START_URL)" in kotlin, "wrapper must load only the packaged start URL")
 require('return !allowed' in kotlin, "navigation must fail closed outside the local origin")
@@ -223,7 +229,7 @@ for key in ("arbitraryNavigation", "networkFallback", "addJavascriptInterface",
             "shellAuthority", "crownAuthority"):
     require(security.get(key) is False, f"bridge security {key} must remain false")
 allowed_js = [x.get("type") for x in bridge.get("javascriptToNative", [])]
-require(allowed_js == ["cockpitReady", "oniRequested", "worldRequested", "aramoorRequested"],
+require(allowed_js == ["cockpitReady", "oniRequested", "worldRequested", "aramoorRequested", "localArtPickRequested"],
         "JavaScript-to-native bridge types drifted")
 require("routing only" in bridge.get("javascriptToNative", [])[1].get("effect", ""),
         "Oni request bridge must remain routing-only")

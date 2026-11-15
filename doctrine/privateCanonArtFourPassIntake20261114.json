@@ -1,0 +1,150 @@
+{
+  "schema": "luhmOs.privateCanonArtFourPassIntake.v1",
+  "sourceAuthority": "Professor",
+  "sourceRefBeforeMutation": "a3995548a203a44434b23a340502b77ab2610377",
+  "date": "2026-11-14",
+  "status": "PRIVATE_ART_REFERENCE_BYTES_VERIFIED_RUNTIME_IMPORT_PENDING",
+  "loops": [
+    {
+      "id": 1,
+      "name": "DISCOVER",
+      "status": "GREEN_SCOPED_DISCOVERY",
+      "proof": "User artwork attachments, exact raw PNG hashes, known Canon art registry and Drive discovery"
+    },
+    {
+      "id": 2,
+      "name": "RECONCILE",
+      "status": "GREEN_PROTECTED_REFERENCE_LEDGER",
+      "proof": "Duplicate detection, per-asset hash, original master private, no public export"
+    },
+    {
+      "id": 3,
+      "name": "MOUNT",
+      "status": "SOURCE_READY_RUNTIME_PENDING",
+      "proof": "Samsung local file picker and gallery coded; CI and physical Samsung test required"
+    },
+    {
+      "id": 4,
+      "name": "CAST",
+      "status": "PENDING_EXACT_HEAD_APK_AND_ON_DEVICE_TEST",
+      "proof": "No static green can replace Android launch/touch/gallery proof"
+    }
+  ],
+  "assets": [
+    {
+      "assetId": "private.canon.goddessLineup.20261114",
+      "attachment": "325.png",
+      "sha256": "0763eb49a169a277115d8a6c467899446de93cadd59014410fb9b3817021d0",
+      "sizeBytes": 3598750,
+      "width": 1024,
+      "height": 1536,
+      "mime": "image/png",
+      "characters": [
+        "urd",
+        "belldandy",
+        "skuld"
+      ],
+      "role": "group lineup + expression panels + chibis",
+      "provenance": "User-supplied chat image. Creator and generation method not independently confirmed.",
+      "rights": "PRIVATE_REFERENCE_ONLY_FRANCHISE_NAME_DEPENDENCY_REVIEW",
+      "publicAllowed": false,
+      "autoRuntimeBundled": false
+    },
+    {
+      "assetId": "private.canon.professorLineup.20261114",
+      "attachment": "326.png",
+      "sha256": "fa99fa16b82266eab257968bc683ea5e5773bec175d79dd73ae1b40ee0a8f6de",
+      "sizeBytes": 3601470,
+      "width": 1312,
+      "height": 1199,
+      "mime": "image/png",
+      "characters": [
+        "professor"
+      ],
+      "role": "multiple modes and chibi character board",
+      "provenance": "User-supplied chat image. Creator, generation method, likeness/publicity approval unresolved.",
+      "rights": "PRIVATE_REFERENCE_ONLY_PERSONAL_LIKENESS",
+      "publicAllowed": false,
+      "autoRuntimeBundled": false
+    },
+    {
+      "assetId": "private.canon.goddessLineup.20261114.duplicate",
+      "attachment": "330.png",
+      "sha256": "0763eb49a169a277115d8a6c467899446de93cadd59014410fb9b3817021d0",
+      "sizeBytes": 3598750,
+      "width": 1024,
+      "height": 1536,
+      "mime": "image/png",
+      "duplicateOf": "private.canon.goddessLineup.20261114",
+      "publicAllowed": false,
+      "autoRuntimeBundled": false
+    }
+  ],
+  "sourceReconciliation": {
+    "existingLedger": "media/public-release-art-ledger.json",
+    "priorDriveCandidates": "LuHm_Goddess_Lineup_Urd_Belldandy_Skuld_v0.1.png and LuHm_Professor_Character_Lineup_v0.1.png",
+    "newAttachmentHashesMatchPriorDriveCandidates": false,
+    "priorDriveCandidatesState": "Historical distinct assets; do not overwrite",
+    "driveAssetFamiliesDiscovered": [
+      "Urd private mutation",
+      "Belldandy folder",
+      "Skuld folder",
+      "Yume visual Canon handoff",
+      "Character Bible",
+      "Portraits",
+      "Lum rigged biped private proof",
+      "Destiny Child private references",
+      "EVE private Blender donor"
+    ],
+    "driveBytesIngested": false,
+    "currentPublicRepoAssetBytesIncluded": false,
+    "rejectedAssumptions": [
+      "No automatic Yume generation worker activation",
+      "No Live2D runtime from a PNG",
+      "No 3D rig for Urd Belldandy Skuld",
+      "No distribution right implied by a user-provided image",
+      "No local PNG byte copy in public GitHub"
+    ]
+  },
+  "cabinetReviewSlots": [
+    {
+      "role": "Yume",
+      "task": "Sort art style and identity packets, preserve full originals",
+      "autonomousPingSent": false
+    },
+    {
+      "role": "Urd",
+      "task": "Adversarial rights/source contamination and accidental leak test",
+      "autonomousPingSent": false
+    },
+    {
+      "role": "Skuld",
+      "task": "Android file picker and Godot/WebView memory tests",
+      "autonomousPingSent": false
+    },
+    {
+      "role": "Belldandy",
+      "task": "Hash/duplicate/receipt continuity",
+      "autonomousPingSent": false
+    },
+    {
+      "role": "Sumi",
+      "task": "Creator rights/credits",
+      "autonomousPingSent": false
+    }
+  ],
+  "samplerVideo": {
+    "file": "Screen_Recording_20261114_190459_Aramoor PLAY Test.mp4",
+    "durationSeconds": 110.974122,
+    "observed": "PLAY ARAMOOR cockpit button visible; no independently verified 3D world after click",
+    "deviceGameplayProven": false
+  },
+  "failClosed": {
+    "publicPublication": false,
+    "productionSigning": false,
+    "privilegedSystemInstall": false,
+    "agentActivation": false,
+    "ownerReviewPending": true,
+    "finalCrown": "STOP"
+  }
+}

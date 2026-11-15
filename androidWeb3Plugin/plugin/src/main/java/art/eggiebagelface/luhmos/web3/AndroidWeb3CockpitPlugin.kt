@@ -1,6 +1,11 @@
 package art.eggiebagelface.luhmos.web3
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +25,7 @@ import org.godotengine.godot.plugin.GodotPlugin
 import org.godotengine.godot.plugin.SignalInfo
 import org.godotengine.godot.plugin.UsedByGodot
 import org.json.JSONObject
+import java.io.ByteArrayOutputStream
 import java.io.ByteArrayInputStream
 
 class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
@@ -29,6 +35,10 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
         private const val START_URL = "$LOCAL_ORIGIN$LOCAL_PREFIX" + "index.html"
         private const val BRIDGE_OBJECT = "LuHmNative"
         private const val MAX_BRIDGE_MESSAGE_CHARS = 512
+        private const val LOCAL_ART_PICK_REQUEST = 7417
+        private const val MAX_ART_BYTES = 16L * 1024 * 1024
+        private const val MAX_ART_PICKS = 8
+        private const val MAX_PREVIEW_EDGE = 1600
 
         private val WORLD_REQUESTED = SignalInfo("world_requested")
         private val ARAMOOR_REQUESTED = SignalInfo("aramoor_requested")
@@ -44,6 +54,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
 
     private var cockpitView: WebView? = null
     private var cockpitContainer: FrameLayout? = null
+    private var galleryPickerPending = false
 
     override fun getPluginName() = BuildConfig.GODOT_PLUGIN_NAME
 
@@ -88,6 +99,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
         }
         cockpitView = null
         cockpitContainer = null
+        galleryPickerPending = false
         super.onMainDestroy()
     }
 
@@ -182,7 +194,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
             val payload = JSONObject(raw)
             val expectedKeys = when (payload.optString("type")) {
                 "oni_requested" -> setOf("type", "name")
-                "world_requested", "aramoor_requested", "cockpit_ready" -> setOf("type")
+                "world_requested", "aramoor_requested", "cockpit_ready", "local_art_pick_requested" -> setOf("type")
                 else -> {
                     emitSignal(BRIDGE_ERROR.name, "bridge_type_rejected")
                     return
@@ -201,6 +213,9 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                     hideCockpitInternal()
                     emitSignal(ARAMOOR_REQUESTED.name)
                 }
+                "local_art_pick_requested" -> {
+                    openLocalArtPicker()
+                }
                 "oni_requested" -> {
                     val name = payload.optString("name").trim()
                     if (name !in CANONICAL_ONI) {
@@ -217,6 +232,111 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
             }
         } catch (_: Exception) {
             emitSignal(BRIDGE_ERROR.name, "bridge_payload_invalid")
+        }
+    }
+
+    // Private on-device picture selection. Never uploads files or enables WebView content URLs.
+    private fun openLocalArtPicker() {
+        runOnHostThread {
+            val host = activity ?: return@runOnHostThread
+            if (galleryPickerPending) return@runOnHostThread
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "image/*"
+                putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/png", "image/jpeg", "image/webp"))
+                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            try {
+                galleryPickerPending = true
+                host.startActivityForResult(intent, LOCAL_ART_PICK_REQUEST)
+            } catch (_: ActivityNotFoundException) {
+                galleryPickerPending = false
+                reportGalleryPickerError("picker_unavailable")
+            } catch (_: SecurityException) {
+                galleryPickerPending = false
+                reportGalleryPickerError("picker_unavailable")
+            }
+        }
+    }
+
+    override fun onMainActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onMainActivityResult(requestCode, resultCode, data)
+        if (requestCode != LOCAL_ART_PICK_REQUEST) return
+        galleryPickerPending = false
+        if (resultCode != Activity.RESULT_OK || data == null) return
+        val host = activity ?: return
+        val urls = mutableListOf<Uri>()
+        data.data?.let { urls.add(it) }
+        data.clipData?.let { clip ->
+            for (i in 0 until minOf(clip.itemCount, MAX_ART_PICKS)) {
+                urls.add(clip.getItemAt(i).uri)
+            }
+        }
+        urls.distinct().take(MAX_ART_PICKS).forEachIndexed { index, uri ->
+            try {
+                if (uri.scheme != "content") {
+                    reportGalleryPickerError("image_format_rejected")
+                    return@forEachIndexed
+                }
+                val type = host.contentResolver.getType(uri)
+                if (type !in setOf("image/png", "image/jpeg", "image/webp")) {
+                    reportGalleryPickerError("image_format_rejected")
+                    return@forEachIndexed
+                }
+                val knownSize = host.contentResolver.openAssetFileDescriptor(uri, "r")?.use { it.length } ?: -1L
+                if (knownSize > MAX_ART_BYTES) {
+                    reportGalleryPickerError("image_too_large")
+                    return@forEachIndexed
+                }
+                val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+                host.contentResolver.openInputStream(uri)?.use {
+                    BitmapFactory.decodeStream(it, null, bounds)
+                }
+                if (bounds.outWidth < 1 || bounds.outHeight < 1 ||
+                    bounds.outWidth > 12000 || bounds.outHeight > 12000) {
+                    reportGalleryPickerError("image_format_rejected")
+                    return@forEachIndexed
+                }
+                val opts = BitmapFactory.Options().apply {
+                    var factor = 1
+                    while (bounds.outWidth / factor > MAX_PREVIEW_EDGE ||
+                           bounds.outHeight / factor > MAX_PREVIEW_EDGE) {
+                        factor *= 2
+                    }
+                    inSampleSize = factor
+                }
+                val bitmap = host.contentResolver.openInputStream(uri)?.use {
+                    BitmapFactory.decodeStream(it, null, opts)
+                } ?: run {
+                    reportGalleryPickerError("image_unreadable")
+                    return@forEachIndexed
+                }
+                val buffer = ByteArrayOutputStream()
+                val encoded = bitmap.compress(Bitmap.CompressFormat.JPEG, 82, buffer)
+                bitmap.recycle()
+                if (!encoded || buffer.size() > 3 * 1024 * 1024) {
+                    reportGalleryPickerError("image_too_large")
+                    return@forEachIndexed
+                }
+                val dataUrl = "data:image/jpeg;base64," +
+                    Base64.encodeToString(buffer.toByteArray(), Base64.NO_WRAP)
+                val title = "Private Canon image " + (index + 1)
+                val js = "window.LuHmCanonGallery&&window.LuHmCanonGallery.addFromNative(" +
+                    JSONObject.quote(title) + "," + JSONObject.quote(dataUrl) + ")"
+                cockpitView?.evaluateJavascript(js, null)
+            } catch (_: Exception) {
+                reportGalleryPickerError("image_unreadable")
+            }
+        }
+    }
+
+    private fun reportGalleryPickerError(reason: String) {
+        runOnHostThread {
+            cockpitView?.evaluateJavascript(
+                "window.LuHmCanonGallery&&window.LuHmCanonGallery.nativeError(" +
+                    JSONObject.quote(reason) + ")", null
+            )
         }
     }
 
