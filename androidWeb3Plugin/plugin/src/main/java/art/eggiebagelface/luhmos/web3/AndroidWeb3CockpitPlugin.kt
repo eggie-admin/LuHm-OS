@@ -277,17 +277,17 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
             try {
                 if (uri.scheme != "content") {
                     reportGalleryPickerError("image_format_rejected")
-                    return@forEach
+                    return@forEachIndexed
                 }
                 val type = host.contentResolver.getType(uri)
                 if (type !in setOf("image/png", "image/jpeg", "image/webp")) {
                     reportGalleryPickerError("image_format_rejected")
-                    return@forEach
+                    return@forEachIndexed
                 }
                 val knownSize = host.contentResolver.openAssetFileDescriptor(uri, "r")?.use { it.length } ?: -1L
                 if (knownSize > MAX_ART_BYTES) {
                     reportGalleryPickerError("image_too_large")
-                    return@forEach
+                    return@forEachIndexed
                 }
                 val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
                 host.contentResolver.openInputStream(uri)?.use {
@@ -296,7 +296,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                 if (bounds.outWidth < 1 || bounds.outHeight < 1 ||
                     bounds.outWidth > 12000 || bounds.outHeight > 12000) {
                     reportGalleryPickerError("image_format_rejected")
-                    return@forEach
+                    return@forEachIndexed
                 }
                 val opts = BitmapFactory.Options().apply {
                     var factor = 1
@@ -310,14 +310,14 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                     BitmapFactory.decodeStream(it, null, opts)
                 } ?: run {
                     reportGalleryPickerError("image_unreadable")
-                    return@forEach
+                    return@forEachIndexed
                 }
                 val buffer = ByteArrayOutputStream()
                 val encoded = bitmap.compress(Bitmap.CompressFormat.JPEG, 82, buffer)
                 bitmap.recycle()
                 if (!encoded || buffer.size() > 3 * 1024 * 1024) {
                     reportGalleryPickerError("image_too_large")
-                    return@forEach
+                    return@forEachIndexed
                 }
                 val dataUrl = "data:image/jpeg;base64," +
                     Base64.encodeToString(buffer.toByteArray(), Base64.NO_WRAP)
