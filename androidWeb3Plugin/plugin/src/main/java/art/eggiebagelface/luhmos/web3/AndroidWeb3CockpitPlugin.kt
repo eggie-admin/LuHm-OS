@@ -273,7 +273,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                 urls.add(clip.getItemAt(i).uri)
             }
         }
-        urls.distinct().take(MAX_ART_PICKS).forEach { uri ->
+        urls.distinct().take(MAX_ART_PICKS).forEachIndexed { index, uri ->
             try {
                 if (uri.scheme != "content") {
                     reportGalleryPickerError("image_format_rejected")
@@ -321,7 +321,7 @@ class AndroidWeb3CockpitPlugin(godot: Godot) : GodotPlugin(godot) {
                 }
                 val dataUrl = "data:image/jpeg;base64," +
                     Base64.encodeToString(buffer.toByteArray(), Base64.NO_WRAP)
-                val title = uri.lastPathSegment?.takeLast(80) ?: "Private Canon image"
+                val title = "Private Canon image " + (index + 1)
                 val js = "window.LuHmCanonGallery&&window.LuHmCanonGallery.addFromNative(" +
                     JSONObject.quote(title) + "," + JSONObject.quote(dataUrl) + ")"
                 cockpitView?.evaluateJavascript(js, null)
