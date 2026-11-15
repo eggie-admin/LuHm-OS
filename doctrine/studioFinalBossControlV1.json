@@ -1,0 +1,156 @@
+{
+  "schema": "luhmOs.studioFinalBossControl.v1",
+  "asOf": "2026-11-15",
+  "authority": "Professor",
+  "sourceRepo": "eggie-admin/LuHm-OS",
+  "executionStatus": "PROPOSED_INTEGRATION_WITH_VERIFIED_INSTAGRAM_POST",
+  "publicDomain": "eggiebagelface.art",
+  "brands": [
+    {
+      "id": "eggieBagelfaceArt",
+      "name": "Eggie Bagelface Art",
+      "role": "artistAndPublisher",
+      "legalEntityProof": false,
+      "canonicalPublicHandle": "@eggiebagelface"
+    },
+    {
+      "id": "pirateDaddyStudios",
+      "name": "Pirate Daddy Studios",
+      "role": "studioUmbrella",
+      "legalEntityProof": false
+    },
+    {
+      "id": "pirateDaddyFilm",
+      "name": "Pirate Daddy Film",
+      "role": "filmImprint",
+      "legalEntityProof": false,
+      "legacyAliases": [
+        "PIRATE DADDIES FILM",
+        "Pirate Daddy's Film"
+      ]
+    }
+  ],
+  "verifiedSocial": {
+    "instagram": {
+      "handle": "eggiebagelface",
+      "accountId": "17841436295517239",
+      "connectedVia": "Windsor.ai",
+      "postId": "18149320816563627",
+      "permalink": "https://www.instagram.com/p/DfxLQKuDbOM/",
+      "publishedUtc": "2026-11-15T16:09:10Z",
+      "verifiedReadback": true
+    },
+    "facebook": {
+      "accountOwnerClaimed": true,
+      "businessPageLinked": false,
+      "businessManagerAccessVerified": false,
+      "postPermissionVerified": false
+    },
+    "metricool": {
+      "pluginConnected": true,
+      "brandSocialConnection": "ABSENT_AT_LAST_CHECK",
+      "approvalWorkflow": "NOT_ACTIVE"
+    }
+  },
+  "storage": {
+    "canonicalSource": "GitHub",
+    "durablePrivateFiles": "Owner-only Google Drive",
+    "database": "SQLite local snapshot first; PostgreSQL optional after authenticated workspace and backup",
+    "chatProject": "Instructions and source links only, not key vault",
+    "databaseHoldsBinary": false,
+    "databaseHoldsPrivateKeys": false
+  },
+  "releaseLanes": {
+    "privateMutation": {
+      "visibility": "private",
+      "source": "existing contentLaneDoctrineV1",
+      "publicArtifacts": false
+    },
+    "proposedInvite": {
+      "visibility": "inviteOnly",
+      "repoMustBePrivate": true,
+      "proof": "access policy must be verified before invitations"
+    },
+    "betaAfterDark": {
+      "visibility": "inviteOnly",
+      "publicForkableSourceOnlyAfterSanitization": true,
+      "neverPublicRawMedia": true
+    },
+    "cathedralPublic": {
+      "visibility": "public",
+      "requires": [
+        "rights",
+        "userApproval",
+        "tests",
+        "signingAttestation",
+        "specificReleaseReceipt"
+      ]
+    },
+    "ltsPublic": {
+      "visibility": "public",
+      "requires": [
+        "independentSecurityReview",
+        "reproducibleBuildEvidence",
+        "rollback",
+        "supportedUpdateMechanism",
+        "releaseKeyProof",
+        "sourceProvenance"
+      ]
+    }
+  },
+  "aiOrchestration": {
+    "boss": "lum",
+    "sourceOfTruth": "githubExactSha",
+    "routeOrder": [
+      "deterministicLocalOrCache",
+      "googleGeminiFlashLiteWhenAuthenticatedAndQuotaVerified",
+      "openAiOnlyWhenEntitledAndNecessary"
+    ],
+    "googleApiStatus": "UNVERIFIED_NO_KEY_OR_ACCOUNT_QUOTA",
+    "googleDriveTerabytesAreNotGeminiApiCredits": true,
+    "astraEntitlement": "UNVERIFIED",
+    "automaticExternalApiCalls": false,
+    "activeIndependentAgents": false,
+    "companyWideQuarantine": "PRESERVED",
+    "maxParallelWorkers": 3,
+    "costCeilingUsdPerTask": 0,
+    "noSilentPaidUpgrade": true
+  },
+  "identity": {
+    "githubGpg": "OWNER_SETUP_PENDING",
+    "androidSigning": "OWNER_CONTROLLED_NEVER_SQL",
+    "appleDeveloper": "UNVERIFIED_NOT_CROSS_SIGNED",
+    "googlePlay": "UNVERIFIED_NOT_CROSS_SIGNED",
+    "samsungKnox": "UNVERIFIED_NOT_CROSS_SIGNED",
+    "firmwareVendorKeys": "NEVER_EXPORTED_OR_RECREATED",
+    "tls": "LE_ONLY_MILESTONE_PUBLIC_PROOF_PENDING"
+  },
+  "credentials": {
+    "storeOnly": [
+      "publicFingerprints",
+      "publicCertChainReferences",
+      "kmsKeyIdentifiers",
+      "rotationDue",
+      "providerEnrollmentReceiptIds"
+    ],
+    "deny": [
+      "privateKeys",
+      "apiTokens",
+      "refreshTokens",
+      "passwords",
+      "oauthSecrets",
+      "recoveryCodes",
+      "keystores",
+      "unredactedLogs"
+    ],
+    "rotation": "short-lived scopes where supported; public certificates/provider-validity separated",
+    "ttl": "no indefinite bearer tokens; long-lived archival hashes allowed"
+  },
+  "mergePolicy": {
+    "proposalSourcesMayMergeAfterExactHeadCi": true,
+    "productionRelease": "SEPARATE_GATE",
+    "noSelfCrown": true,
+    "noPaidProviderOrHardwareRootWritesWithoutEvidence": true
+  },
+  "canon": "CROWN_STOP_FOR_FIRMWARE_KERNEL_PUBLIC_RELEASE"
+}
