@@ -1,0 +1,224 @@
+{
+  "schema": "luhmOs.machineEscalationFourByFour.v1",
+  "status": "SOURCE_CANDIDATE_AUDIT_ONLY",
+  "authority": "Professor",
+  "baseMain": "69e8d2fc7df1288aaa1665efaea2bf2674056a1b",
+  "target": "Project Premonition",
+  "historicalAlias": "Project Hydra",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canon": [
+    "doctrine/projectChatCanonV1.json",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/escalationKernelV1.json",
+    "doctrine/machineCanonFourLoopV1.json",
+    "doctrine/operationTitan7ChatTriggerV2.json",
+    "doctrine/operationTitan7ExecutionSchemaV1.json",
+    "doctrine/featureMutationPipelineV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json"
+  ],
+  "existingMachineAudit": {
+    "path": "tools/machineCanonFourLoop.py",
+    "originalBeats": [
+      "inventory",
+      "scope",
+      "verify",
+      "propose"
+    ],
+    "originalLanes": [
+      "machine",
+      "service",
+      "studio",
+      "interface"
+    ],
+    "cells": 16,
+    "reuseWithoutModification": true
+  },
+  "releaseMatrix": {
+    "rows": [
+      {
+        "id": "sanity",
+        "title": "Sanity → Audit",
+        "cells": [
+          {
+            "id": "pinSource",
+            "rule": "Exact git commit and clean checkout",
+            "kind": "SOURCE"
+          },
+          {
+            "id": "readCanon",
+            "rule": "Current doctrine, covenant and Premonition identity",
+            "kind": "SOURCE"
+          },
+          {
+            "id": "guardAuthority",
+            "rule": "Quarantine, zero self-promotion, sidecar boundary",
+            "kind": "SOURCE"
+          },
+          {
+            "id": "auditDepth",
+            "rule": "Five or twelve exact-source deterministic audit checks",
+            "kind": "SOURCE_AUDIT"
+          }
+        ]
+      },
+      {
+        "id": "propose",
+        "title": "Design → Propose",
+        "cells": [
+          {
+            "id": "smallestCause",
+            "rule": "One bounded cause, precise current blocker",
+            "kind": "EXTERNAL_REVIEW"
+          },
+          {
+            "id": "candidateDiff",
+            "rule": "Reversible candidate source patch on non-main branch",
+            "kind": "EXTERNAL_REVIEW"
+          },
+          {
+            "id": "rollbackPoint",
+            "rule": "Exact recovery snapshot, private backup where applicable",
+            "kind": "EXTERNAL_REVIEW"
+          },
+          {
+            "id": "prReview",
+            "rule": "Draft PR, explicit source/CI scope and human review",
+            "kind": "EXTERNAL_REVIEW"
+          }
+        ]
+      },
+      {
+        "id": "reconcile",
+        "title": "Test → Merge Reconciliation",
+        "cells": [
+          {
+            "id": "exactHeadCi",
+            "rule": "PR head plus required checks at same commit",
+            "kind": "EXTERNAL_REVIEW"
+          },
+          {
+            "id": "titanAdjudication",
+            "rule": "Titan tier only changes audit intensity, not approval",
+            "kind": "SOURCE"
+          },
+          {
+            "id": "noContradictions",
+            "rule": "Review old aliases, conflicting Canon and live/CI drift",
+            "kind": "EXTERNAL_REVIEW"
+          },
+          {
+            "id": "humanMerge",
+            "rule": "Protected main, exact reviewed diff and owner approval to merge",
+            "kind": "HUMAN_GATED"
+          }
+        ]
+      },
+      {
+        "id": "deploy",
+        "title": "CAST → Deploy → Verify",
+        "cells": [
+          {
+            "id": "castScope",
+            "rule": "Exact-task deployment authorization per existing CAST contract",
+            "kind": "HUMAN_GATED"
+          },
+          {
+            "id": "deployReceipt",
+            "rule": "Approved target+version+sha, with rollback, independent runtime receipt",
+            "kind": "EXTERNAL_RUNTIME"
+          },
+          {
+            "id": "negativeSmoke",
+            "rule": "Physical browser/device, Zero Trust, SQL and app-specific negative tests",
+            "kind": "EXTERNAL_RUNTIME"
+          },
+          {
+            "id": "professorCrown",
+            "rule": "Professor reviews same-source evidence and signs explicit promotion",
+            "kind": "HUMAN_GATED"
+          }
+        ]
+      }
+    ],
+    "columns": [
+      "identity",
+      "doctrine",
+      "evidence",
+      "gate"
+    ],
+    "cells": 16,
+    "progression": "failClosedNoAutomaticTransition"
+  },
+  "auditBundles": {
+    "five": {
+      "count": 5,
+      "meaning": "fast deterministic source audits, not agents"
+    },
+    "twelve": {
+      "count": 12,
+      "meaning": "extended deterministic source audits; includes same first five"
+    },
+    "selection": "EXPLICIT_DEPTH_NOT_AUTONOMOUS_ESCALATION"
+  },
+  "titan7": {
+    "source": "doctrine/operationTitan7ChatTriggerV2.json",
+    "function": "LuHmOS.fn.operationTitan",
+    "version": 7,
+    "tiers": {
+      "0": "technologyFastPath",
+      "1": "forFuckSake",
+      "2": "scorchedEarth",
+      "3": "finalForm"
+    },
+    "auditTargets": {
+      "1": 25,
+      "2": 50,
+      "3": "structural"
+    },
+    "noFleet": true,
+    "auditIntensityNotAuthority": true
+  },
+  "reaperStop": {
+    "phrase": "chop the head off the reaper",
+    "status": "PROPOSED_OPERATOR_ALIAS_NOT_EXISTING_CANON",
+    "meaning": "stop stale/failed candidate lane, preserve receipts, isolate rollback and open a bounded fix review",
+    "noKillProcess": true,
+    "noDeleteArtifacts": true,
+    "noProductionShutdown": true,
+    "noForcePush": true
+  },
+  "fineTuning": {
+    "modelWeightsChange": false,
+    "providerAgentActivation": false,
+    "automaticPromptLearning": false,
+    "meaning": "deterministic prompt/schema/adapter/config proposal → synthetic tests → evidence review → optional separately approved deployment"
+  },
+  "guardRail": [
+    "sanityCheck",
+    "audit",
+    "ingest",
+    "mutation",
+    "test",
+    "apply",
+    "continue",
+    "deploy"
+  ],
+  "approval": {
+    "gitHubMainMerge": false,
+    "productionDeploy": false,
+    "cloudflareMutation": false,
+    "sqlDDL": false,
+    "certIssue": false,
+    "modelExecution": false,
+    "autoBuild": false,
+    "cast": false,
+    "sign": false,
+    "publish": false,
+    "unquarantine": false,
+    "crown": false
+  },
+  "externalStatus": "UNVERIFIED_LIVE_HOST_AND_DEVICE",
+  "promotion": false,
+  "crownStatus": "STOP"
+}
