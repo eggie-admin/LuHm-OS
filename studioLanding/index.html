@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101019">
+  <meta name="description" content="Eggie Bagelface is building an independent art, film and creative technology studio. Meet Pirate Daddy Studios, Pirate Daddy Film, and Eggie Bagelface Art.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Eggie Bagelface | Creative Studio Under Construction">
+  <meta property="og:description" content="Art. Film. Strange little worlds. We're building something worth sharing.">
+  <title>Eggie Bagelface · Studio under construction</title>
+  <style>
+    :root{color-scheme:dark;--bg:#101019;--ink:#f5f0e9;--muted:#b9b4c7;--edge:#4c405d;--pink:#f3a0c3;--mint:#a4ead5;--gold:#f3cb91;--panel:#1d1a29}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(ellipse 55% 36% at 84% 5%,#3b264a 0%,transparent 82%),radial-gradient(ellipse 50% 32% at 0% 55%,#192d34 0%,transparent 80%),var(--bg);color:var(--ink);line-height:1.6}
+    a{color:inherit}
+    a:focus-visible{outline:3px solid var(--mint);outline-offset:5px}
+    .skip{position:absolute;left:-9999px;top:8px;background:#fff;color:#111;padding:8px}
+    .skip:focus{left:8px;z-index:5}
+    .wrap{width:min(1080px,calc(100% - 40px));margin:auto}
+    header{border-bottom:1px solid #ffffff20}
+    nav{display:flex;justify-content:space-between;align-items:center;gap:18px;min-height:86px}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:800;letter-spacing:.09em;font-size:.91rem}
+    .sigil{display:grid;place-items:center;width:44px;height:44px;border:1px solid #ffffff88;border-radius:12px;transform:rotate(-7deg);background:#ffffff0d;color:var(--pink);font-size:1.5rem}
+    .navlinks{display:flex;gap:18px;flex-wrap:wrap;font-size:.88rem;color:var(--muted)}
+    .navlinks a{text-decoration:none}
+    .navlinks a:hover{color:var(--ink)}
+    main{padding-bottom:45px}
+    .eyebrow{color:var(--mint);font-size:.79rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+    .hero{padding:104px 0 100px;position:relative;overflow:hidden}
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(230px,.7fr);gap:42px;align-items:center}
+    h1{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.06em;line-height:1.02;font-size:clamp(3.6rem,9vw,7.8rem);font-weight:500;margin:21px 0 28px}
+    h1 span{color:var(--pink);font-style:italic}
+    .intro{max-width:650px;font-size:clamp(1.03rem,2vw,1.24rem);color:#d3ceda}
+    .actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:31px}
+    .button{display:inline-flex;align-items:center;justify-content:center;border-radius:99px;padding:13px 20px;border:1px solid #ded0eb80;text-decoration:none;font-weight:700;font-size:.91rem;transition:transform .2s,background .2s}
+    .button:hover{transform:translateY(-2px);background:#ffffff17}
+    .button.primary{background:var(--pink);color:#211322;border-color:var(--pink)}
+    .seal{aspect-ratio:1;max-width:290px;display:grid;place-items:center;text-align:center;border:1px solid #d9b9d78c;border-radius:50%;position:relative;transform:rotate(9deg);padding:24px;box-shadow:0 0 0 12px #ffffff04,inset 0 0 70px #7b4c8622}
+    .seal:before{content:"";position:absolute;inset:12px;border:1px dashed #d9b9d750;border-radius:50%}
+    .seal .star{font-size:clamp(3.8rem,9vw,7rem);line-height:1;color:var(--gold)}
+    .seal small{display:block;text-transform:uppercase;letter-spacing:.19em;font-size:.7rem;color:var(--muted)}
+    .section-header{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+    h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.035em;font-weight:500;line-height:1.1;margin:12px 0}
+    .section-note{max-width:410px;color:var(--muted);margin:0}
+    section{padding:40px 0}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .card{min-height:315px;background:linear-gradient(154deg,#ffffff0e,#ffffff03 60%),var(--panel);border:1px solid var(--edge);border-radius:20px;padding:30px;display:flex;flex-direction:column}
+    .card:nth-child(1){border-top:3px solid var(--gold)}
+    .card:nth-child(2){border-top:3px solid var(--pink)}
+    .card:nth-child(3){border-top:3px solid var(--mint)}
+    .number{color:var(--muted);font-size:.85rem;letter-spacing:.15em}
+    h3{font-size:1.65rem;font-family:Georgia,"Times New Roman",serif;font-weight:500;line-height:1.2;margin:26px 0 12px}
+    .card p{color:var(--muted);margin:0 0 20px}
+    .status{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--mint);font-weight:800;margin-top:auto}
+    .notice{display:grid;grid-template-columns:1fr auto;align-items:center;gap:26px;background:linear-gradient(130deg,#2b2032,#182528);border:1px solid #ffffff25;padding:36px;border-radius:22px}
+    .notice h2{margin-top:2px}
+    .notice p{color:#c9c4d2;max-width:570px}
+    .notice strong{color:var(--gold)}
+    footer{border-top:1px solid #ffffff23;padding:30px 0 46px;color:var(--muted);font-size:.85rem}
+    footer .footerline{display:flex;justify-content:space-between;flex-wrap:wrap;gap:15px}
+    @media(max-width:740px){.hero{padding:72px 0}.hero-grid{grid-template-columns:1fr}.seal{max-width:190px;margin:12px auto 0}.cards{grid-template-columns:1fr}.card{min-height:250px}.notice{grid-template-columns:1fr}.navlinks{font-size:.8rem;gap:10px}nav{align-items:start;padding:18px 0;flex-direction:column}section{padding:25px 0}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header>
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="#top"><span class="sigil" aria-hidden="true">✦</span><span>EGGIE BAGELFACE</span></a>
+      <div class="navlinks"><a href="#studio">The studio</a><a href="#updates">Updates</a><a href="#contact">Contact</a></div>
+    </nav>
+  </header>
+  <main id="content">
+    <div id="top" class="hero wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Independent creative studio · In development</p>
+          <h1>Making art.<br><span>Making worlds.</span></h1>
+          <p class="intro">Welcome to the future home of Eggie Bagelface's art, film, and creative technology projects. We're building our studio, organizing the archives, and preparing the first public releases.</p>
+          <div class="actions">
+            <a class="button primary" href="https://www.instagram.com/eggiebagelface/" rel="noopener noreferrer">Follow the work on Instagram ↗</a>
+            <a class="button" href="#studio">Meet the studio</a>
+          </div>
+        </div>
+        <div class="seal" role="img" aria-label="Decorative star studio seal"><div><div class="star">✶</div><small>Art · Film · Worlds</small><small>Establishing the studio</small></div></div>
+      </div>
+    </div>
+    <section id="studio" class="wrap" aria-labelledby="studio-title">
+      <div class="section-header">
+        <div><p class="eyebrow">One creative home · Three distinct desks</p><h2 id="studio-title">The creative family</h2></div>
+        <p class="section-note">Each desk gets its own projects, approvals, and visual identity. Nothing leaves the studio until it's ready.</p>
+      </div>
+      <div class="cards">
+        <article class="card"><div class="number">01 / THE UMBRELLA</div><h3>Pirate Daddy Studios</h3><p>Our home for collaborative creative development, experimental worlds, and the studio we're building together.</p><div class="status">Studio formation in progress</div></article>
+        <article class="card"><div class="number">02 / FILM & MOTION</div><h3>Pirate Daddy Film</h3><p>Original short films, character-led stories, visual development, and the wonderful chaos of filmmaking.</p><div class="status">Projects in production</div></article>
+        <article class="card"><div class="number">03 / ORIGINAL ART</div><h3>Eggie Bagelface Art</h3><p>Personal artwork, illustration, characters, experiments, and the sketchbook worlds that started it all.</p><div class="status">Portfolio being assembled</div></article>
+      </div>
+    </section>
+    <section id="updates" class="wrap" aria-labelledby="updates-title">
+      <div class="notice">
+        <div><p class="eyebrow">Pardon our construction dust</p><h2 id="updates-title">The studio is under construction.</h2><p>We're building a proper home for our work. The full galleries, film pages, and project updates aren't open yet. For now, <strong>Instagram is the best place to follow along.</strong></p><p>No launch date is being promised until the work is ready.</p></div>
+        <a class="button" href="https://www.instagram.com/eggiebagelface/" rel="noopener noreferrer">Instagram ↗</a>
+      </div>
+    </section>
+    <section id="contact" class="wrap" aria-labelledby="contact-title">
+      <p class="eyebrow">Say hello</p>
+      <h2 id="contact-title">Find us in the meantime.</h2>
+      <p class="section-note">For art, film, or studio inquiries, contact <a href="mailto:eggiebagelface@gmail.com">eggiebagelface@gmail.com</a>. Custom-domain mailboxes will appear after delivery verification.</p>
+      <div class="actions"><a class="button" href="https://github.com/eggie-admin/LuHm-OS" rel="noopener noreferrer">Explore LuHm-OS on GitHub ↗</a></div>
+    </section>
+  </main>
+  <footer><div class="wrap footerline"><span>© <span id="year">2026</span> Eggie Bagelface · Independent creative work</span><span>eggiebagelface.art · Studio preview</span></div></footer>
+  <script>document.getElementById("year").textContent=String(new Date().getFullYear());</script>
+</body>
+</html>
