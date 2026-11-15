@@ -1,0 +1,35 @@
+name: Studio Front Door Canon Audit
+on:
+  pull_request:
+    paths:
+      - 'studioPortal/**'
+      - 'doctrine/studioHousePublicPrivateV1.json'
+      - 'tests/testStudioPortalV1.py'
+      - '.github/workflows/studio-front-door-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: studio-front-door-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+jobs:
+  public-private-source-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate without GitHub tokens
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact source and static site privacy
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          python3 -m unittest tests/testStudioPortalV1.py -v
+          echo "STUDIO_PUBLIC_SITE_SOURCE=GREEN"
+          echo "STUDIO_PRIVATE_MEDIA_PUBLICATION=STOP"
+          echo "META_SOCIAL_AUTOPUBLISH=STOP"
+          echo "CLOUDFLARE_DOMAIN_LIVE=UNVERIFIED"
