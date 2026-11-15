@@ -48,7 +48,34 @@
     "privateSource": "Existing Drive Pirate Daddy Film social-media source preserved",
     "neverLinkPrivateSourcesFromSite": true,
     "noUnapprovedArtOnWebsite": true,
-    "noPrivateAssetSyncToGit": true
+    "noPrivateAssetSyncToGit": true,
+    "privateApprovalBoard": {
+      "type": "GOOGLE_SHEETS_OWNER_ONLY",
+      "status": "CREATED_AND_VERIFIED_PRIVATE",
+      "workbookTitle": "Eggie Bagelface · PRIVATE Studio Post Approval Board",
+      "location": "Inside the owner-only Studio Release Desk / Operations and Approval Ledger",
+      "publicLinkForbidden": true,
+      "tabs": [
+        "Approval Queue",
+        "Brand Registry",
+        "Read Me",
+        "Private Folders"
+      ],
+      "starterReviewItems": 3,
+      "statusDropdowns": true,
+      "approvalRequires": [
+        "mediaRightsVerified",
+        "approvedByProfessor",
+        "approvedAt",
+        "exactReleaseAsset",
+        "finalCaption",
+        "platform",
+        "publishReceipt"
+      ],
+      "noAutomaticPost": true
+    },
+    "privateReleaseDeskFoldersVerified": true,
+    "privateApprovalSheetSharing": "OWNER_ONLY_NOT_SHARED"
   },
   "releaseLaw": {
     "statuses": [
@@ -61,7 +88,9 @@
     ],
     "approvalAuthority": "Professor",
     "scheduledDelivery": "OFF_UNTIL_SOCIAL_ACCOUNT_CONNECTION_AND_ITEM_APPROVAL",
-    "allMediaRightsConfirmedBeforeRelease": true
+    "allMediaRightsConfirmedBeforeRelease": true,
+    "ownerApprovalDashboard": "Google Sheets private release board; do not equate dropdown editing with native Meta approval",
+    "googleDriveWorkflow": "DRAFT_IN_REVIEW_APPROVED_PUBLISHED_RECEIPT"
   },
   "web": {
     "state": "SOURCE_READY_NOT_HOSTED",
@@ -75,7 +104,8 @@
     "canonicalRepo": "eggie-admin/LuHm-OS",
     "organization": "Pirate-Daddys-Film",
     "otherOrganization": "UNVERIFIED",
-    "sourceDoesNotRequireRepoMoves": true
+    "sourceDoesNotRequireRepoMoves": true,
+    "approvalLedgerSourceOfTruth": "OWNER_ONLY_DRIVE_NOT_A_PUBLIC_GITHUB_DATASTORE"
   },
   "releaseAuthority": false,
   "externalMutation": {
