@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100f18">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Eggie Bagelface is building an independent creative studio for original art, films, and strange little worlds. The studio is under construction.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Eggie Bagelface | Studio under construction">
+  <meta property="og:description" content="Original art. Independent films. Strange little worlds. Our studio front door is under construction.">
+  <meta property="og:url" content="https://eggiebagelface.art/">
+  <title>Eggie Bagelface · Independent Art &amp; Film Studio</title>
+  <style>
+    :root{color-scheme:dark;--ink:#f9f5ed;--sub:#bab6ca;--bg:#100f18;--panel:#1b1725;--line:#51475f;--pink:#f6a3ce;--gold:#f0d098;--mint:#a2e9d0}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(circle at 83% -2%,#533052 0,transparent 34%),radial-gradient(circle at -20% 70%,#173d3a 0,transparent 37%),var(--bg);line-height:1.55}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);background-size:44px 44px}
+    a{color:inherit;text-decoration:none}
+    a:focus-visible{outline:3px solid var(--mint);outline-offset:4px}
+    .wrap{width:min(1100px,calc(100% - 44px));margin:auto}
+    .top{border-bottom:1px solid #ffffff24;background:#0f0d168c;backdrop-filter:blur(14px)}
+    .top .wrap{min-height:83px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px;letter-spacing:.12em;font-size:.83rem;font-weight:900;text-transform:uppercase}
+    .stamp{display:grid;place-items:center;width:46px;height:46px;border:2px solid var(--pink);border-radius:14px;transform:rotate(-8deg);color:var(--pink);font-family:Georgia,serif;font-size:1.25rem;font-weight:900;letter-spacing:-.08em}
+    .stamp span{transform:rotate(8deg)}
+    nav{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(12px,3vw,30px);font-size:.9rem;font-weight:650}
+    nav a:hover,.foot a:hover,.meta-link:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px}
+    .hero{padding:clamp(75px,12vw,145px) 0 clamp(58px,9vw,104px)}
+    .eyebrow{display:inline-flex;gap:10px;align-items:center;padding:8px 13px;border:1px solid #f0d09880;border-radius:30px;color:var(--gold);font-size:.77rem;letter-spacing:.15em;text-transform:uppercase;font-weight:800;background:#f0d0980c}
+    .beacon{width:9px;height:9px;border-radius:100%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+    h1{max-width:990px;margin:24px 0 18px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(3.15rem,9vw,7.65rem);line-height:.99;font-weight:700;letter-spacing:-.055em}
+    h1 em{color:var(--pink);font-weight:400;font-style:italic}
+    .lead{max-width:650px;color:#d3cfdf;font-size:clamp(1.07rem,2vw,1.31rem);line-height:1.75}
+    .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 23px;border-radius:8px;font-weight:800;border:1px solid #d5c4d5;min-height:50px}
+    .btn-primary{color:#1b1220;background:var(--pink);border-color:var(--pink)}
+    .btn-primary:hover{background:#ffd4e9}
+    .btn-alt:hover{background:#ffffff12}
+    .hero-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:118px;margin-top:60px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;color:#dfc8de}
+    .hero-art p{position:relative;z-index:1;margin:0;padding:18px 12px;text-align:center;font-size:.78rem;letter-spacing:.27em;text-transform:uppercase;font-weight:750}
+    .hero-art:before,.hero-art:after{position:absolute;content:"";width:200px;height:200px;border:1px solid #f6a3ce44;border-radius:50%;transform:scaleX(1.7) rotate(30deg)}
+    .hero-art:before{left:5%}.hero-art:after{right:5%;border-color:#a2e9d044}
+    .section-head{padding:78px 0 14px}
+    .kicker{color:var(--mint);text-transform:uppercase;font-size:.75rem;letter-spacing:.2em;font-weight:800}
+    h2{margin:9px 0 15px;font:700 clamp(2rem,5vw,3.6rem)/1.11 Georgia,serif;letter-spacing:-.03em}
+    .section-head p{color:var(--sub);max-width:670px}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin:20px 0 100px}
+    .card{display:flex;flex-direction:column;min-height:310px;padding:27px;border:1px solid #ffffff2b;background:linear-gradient(140deg,#ffffff09,#ffffff03);border-radius:15px;box-shadow:0 20px 46px #05030915}
+    .card .num{color:var(--gold);font-size:.75rem;letter-spacing:.22em;font-weight:900}
+    .card h3{margin:30px 0 10px;font:700 clamp(1.7rem,3vw,2.25rem)/1.12 Georgia,serif}
+    .card p{color:#cbc5d5;flex:1}
+    .card .status{font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;color:var(--mint);font-weight:800;padding-top:18px}
+    .card.film{border-top:3px solid var(--pink)}
+    .card.studio{border-top:3px solid var(--gold)}
+    .card.art{border-top:3px solid var(--mint)}
+    .note{padding:33px 36px;margin-bottom:80px;border:1px solid #e0bdc161;border-radius:15px;background:#391f3952;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .note h2{font-size:clamp(1.6rem,3vw,2.4rem)}
+    .note p{max-width:630px;color:#d9d1e4;margin:0}
+    .contact{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+    .contact a{font-size:.97rem;overflow-wrap:anywhere}
+    .contact a:hover{text-decoration:underline}
+    .foot{border-top:1px solid #ffffff24;padding:32px 0 44px;color:#aeabba;font-size:.85rem}
+    .foot .wrap{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+    @media(max-width:760px){.grid{grid-template-columns:1fr;margin-bottom:60px}.card{min-height:230px}.card h3{margin-top:15px}.top .wrap{align-items:flex-start;padding:18px 0;flex-direction:column}.hero{padding:65px 0 25px}.note{padding:27px;align-items:flex-start;flex-direction:column}.hero-art{margin-top:43px}.section-head{padding-top:55px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="Eggie Bagelface, homepage"><span class="stamp" aria-hidden="true"><span>EB</span></span><span>EGGIE BAGELFACE<br>STUDIO HOUSE</span></a>
+      <nav aria-label="Main navigation"><a href="#brands">The studios</a><a href="#contact">Contact</a><a href="https://www.instagram.com/eggiebagelface/" rel="me noopener noreferrer">Instagram</a></nav>
+    </div>
+  </header>
+  <main id="top">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <span class="eyebrow"><span class="beacon" aria-hidden="true"></span>Studio under construction</span>
+      <h1 id="hero-title">The doors are opening.<br><em>The worlds are forming.</em></h1>
+      <p class="lead">We’re building a home for original art, independent film, and strange little worlds. The studio is under construction right now. New work will arrive when it’s ready to meet the light.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://www.instagram.com/eggiebagelface/" rel="noopener noreferrer">Follow the artist on Instagram</a>
+        <a class="btn btn-alt" href="#brands">Explore the studio names</a>
+      </div>
+      <div class="hero-art" aria-label="Original art, film and worldbuilding: in development"><p>Original art &nbsp; ✦ &nbsp; Independent film &nbsp; ✦ &nbsp; Unfinished galaxies</p></div>
+    </section>
+    <section class="wrap" id="brands" aria-labelledby="brands-title">
+      <div class="section-head">
+        <span class="kicker">One creative house · three distinct desks</span>
+        <h2 id="brands-title">Meet the studio family.</h2>
+        <p>These are our working creative labels. Public galleries, films, and project pages will appear here after the artwork and releases are approved.</p>
+      </div>
+      <div class="grid">
+        <article class="card studio"><span class="num">01 / THE CREATIVE HOUSE</span><h3>Pirate Daddy<br>Studios</h3><p>The umbrella for independent productions, experimental worlds, and the work happening behind the scenes.</p><span class="status">In development</span></article>
+        <article class="card film"><span class="num">02 / THE FILM DESK</span><h3>Pirate Daddy<br>Film</h3><p>Our film-making lane. Stories and moving pictures are taking shape, with finished releases to follow.</p><span class="status">In production</span></article>
+        <article class="card art"><span class="num">03 / THE ARTIST'S DESK</span><h3>Eggie<br>Bagelface Art</h3><p>Personal illustration, character work, little experiments, and the wonderfully odd corners of an artist’s imagination.</p><span class="status">Portfolio coming soon</span></article>
+      </div>
+    </section>
+    <section class="wrap" id="contact" aria-labelledby="contact-title">
+      <div class="note">
+        <div><span class="kicker">A work in progress, on purpose</span><h2 id="contact-title">Say hello through the studio door.</h2><p>Questions, creative conversations, and friendly introductions are welcome. We’ll put the public gallery and release schedule here when they’re ready.</p></div>
+        <div class="contact">
+          <a class="btn btn-primary" href="mailto:eggiebagelface@gmail.com?subject=Hello%20Eggie%20Bagelface%20Studio">Email the studio</a>
+          <a class="meta-link" href="https://www.instagram.com/eggiebagelface/" rel="noopener noreferrer">Instagram · @eggiebagelface</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="foot"><div class="wrap"><span>© 2026 Eggie Bagelface · Independent creative work</span><span>Built quietly. Shared deliberately. · eggiebagelface.art</span></div></footer>
+</body>
+</html>
