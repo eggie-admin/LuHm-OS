@@ -1,0 +1,37 @@
+name: Studio Front Door · Source and Privacy Audit
+
+on:
+  pull_request:
+    paths:
+      - "studioLanding/**"
+      - "doctrine/studioPublicPrivateReleaseV1.json"
+      - "tests/testStudioLandingPrivacy.py"
+      - ".github/workflows/studio-front-door-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  site-source-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Exact checkout without persisted credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Check source identity and public/private boundaries
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          python3 -m unittest tests/testStudioLandingPrivacy.py -v
+          echo "PUBLIC_SITE_SOURCE=GREEN"
+          echo "PRIVATE_DRIVE_FILES=NOT_EXPORTED"
+          echo "CLOUDFLARE_AND_RENDER_DEPLOYMENT=NOT_ATTEMPTED"
+          echo "INSTAGRAM_PUBLICATION=NOT_ATTEMPTED"
+          echo "PUBLIC_HOST=UNVERIFIED"
+          echo "CROWN=STOP"
