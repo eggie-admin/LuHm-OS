@@ -96,6 +96,13 @@
         "releaseKeyProof",
         "sourceProvenance"
       ]
+    },
+    "publicBeta": {
+      "visibility": "public",
+      "forkableSourceAllowed": true,
+      "distribution": "only after sanitized source, CI and device proof",
+      "reusablePartnerArtifacts": true,
+      "productionSigningProof": "PENDING"
     }
   },
   "aiOrchestration": {
@@ -114,7 +121,10 @@
     "companyWideQuarantine": "PRESERVED",
     "maxParallelWorkers": 3,
     "costCeilingUsdPerTask": 0,
-    "noSilentPaidUpgrade": true
+    "noSilentPaidUpgrade": true,
+    "googleAgentCandidate": "Google Antigravity Managed Agent via Gemini Interactions API; requires key, limit and scoped task budget",
+    "googleSubscriptionCreditStatus": "UNKNOWN_NOT_ASSUMED_FROM_GOOGLE_DRIVE_STORAGE",
+    "dataDisclosureLaw": "No unreleased copyrighted or private project media to provider without scoped consent"
   },
   "identity": {
     "githubGpg": "OWNER_SETUP_PENDING",
