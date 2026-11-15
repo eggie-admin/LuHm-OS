@@ -1,6 +1,6 @@
 {
   "schema": "luhmOs.securityTrustFoundation.v1",
-  "status": "PROPOSED_CANON_CANDIDATE",
+  "status": "PROFESSOR_APPROVED_SCOPED_CANON_CANDIDATE_PENDING_EXTERNAL_EVIDENCE",
   "authority": "Professor",
   "source": "eggie-admin/LuHm-OS",
   "sourceTruth": "doctrine/currentSourceTruthV3.json",
@@ -29,7 +29,8 @@
       "backup": "TWO_ENCRYPTED_OWNER_CONTROLLED_RECOVERY_COPIES_NOT_GITHUB",
       "keyFingerprint": "UNVERIFIED",
       "keyInstalledOnGitHub": "UNVERIFIED",
-      "expirationAndRotation": "TRACK_AND_RENEW_WITH_OWNER_APPROVAL_NOT_SILENTLY_REPLACE"
+      "expirationAndRotation": "TRACK_AND_RENEW_WITH_OWNER_APPROVAL_NOT_SILENTLY_REPLACE",
+      "certificateAuthority": "NOT_APPLICABLE_GPG_IS_NOT_TLS_X509"
     },
     "automatedGitHub": {
       "preferred": "GITHUB_APP_SHORT_LIVED_INSTALLATION_TOKEN",
@@ -53,33 +54,44 @@
   },
   "certificateLanes": {
     "cloudflareEdge": {
-      "provider": "Cloudflare Universal SSL managed certificate",
-      "approval": "Verify live zone and issuer, no issuer assumed",
-      "renew": "PROVIDER_MANAGED",
-      "proxiedMode": "FULL_STRICT_WITH_VALID_MATCHING_ORIGIN_CERT",
-      "privateKey": "PROVIDER_MANAGED_NOT_EXPORTED_TO_GITHUB",
-      "activeCertIdentity": "UNVERIFIED"
+      "provider": "Cloudflare",
+      "requiredIssuer": "LETS_ENCRYPT_ONLY",
+      "existingMode": "UNVERIFIED",
+      "universalSslCaSelection": "CLOUDFLARE_CHOOSES_CA_CANNOT_PIN_LETS_ENCRYPT",
+      "advancedCertificateManager": "CAN_SELECT_LETS_ENCRYPT_BUT_PAID_ADDON_REQUIRES_COST_APPROVAL",
+      "renew": "PROVIDER_MANAGED_AFTER_LE_CA_CONFIRMED",
+      "privateKey": "CLOUDFLARE_MANAGED_NEVER_GITHUB",
+      "selfSignedOrOriginCa": "FORBIDDEN",
+      "acceptance": "RED_UNLESS_ACTUAL_SERVING_CERT_LETS_ENCRYPT_AND_TRUSTED_CHAIN"
     },
     "renderMcp": {
       "provider": "Render Managed TLS",
       "origin": "luhm-os-harness-green.onrender.com",
-      "preferredCertificateIssuer": "LETS_ENCRYPT_OR_GOOGLE_TRUST_SERVICES_ACTUAL_ISSUER_MUST_BE_PROBED",
+      "preferredCertificateIssuer": "LETS_ENCRYPT_REQUIRED_FOR_MILESTONE_BUT_RENDER_ISSUER_MUST_BE_INDEPENDENTLY_VERIFIED_AND_MAY_DIFFER",
       "renew": "PROVIDER_MANAGED",
       "mcpAlias": "mcp.eggiebagelface.art_CANDIDATE_DNS_ONLY_UNTIL_RENDER_DOMAIN_AND_STREAMING_PROOF",
-      "prohibitCompetingCertbot": true
+      "prohibitCompetingCertbot": true,
+      "acceptance": "UNKNOWN_UNTIL_LIVE_CERT_CHAIN_PROBE"
     },
     "ownerNginx": {
       "state": "ONLY_WHEN_RELEVANT_OWNER_ORIGIN_CONFIRMED",
       "provider": "LETS_ENCRYPT_ACME_DNS01_ONLY_IF_SELF_HOSTED_CERT_NEEDED",
       "dnsCredential": "SCOPED_DNS_EDIT_TOKEN_ON_OWNER_HOST_SECRET_MANAGER",
       "renew": "CERTBOT_SYSTEMD_TIMER_AND_DRY_RUN_RECEIPT",
-      "doNotUse": "CLOUDFARE_ORIGIN_CA_FOR_DNS_ONLY_BROWSER_ACCESS"
+      "doNotUse": "NO_SELF_SIGNED_NO_CLOUDFLARE_ORIGIN_CA_NO_PRIVATE_CA_FOR_PUBLIC_TLS"
     },
     "androidReleaseAndFdroid": {
       "separateFromTlsAndGpg": true,
       "productionKeystore": "OWNER_HARDWARE_OR_ENCRYPTED_VAULT_ONLY",
       "fdroidRepoIndexSigner": "SEPARATE_KEY",
       "status": "NOT_AUTHORIZED_OR_ATTESTED_IN_THIS_MILESTONE"
+    },
+    "privateLanTls": {
+      "wildcardLanDomainAllowed": false,
+      "constraint": "PUBLIC_CA_WILL_NOT_ISSUE_CERTIFICATES_FOR_DOT_LAN",
+      "recommended": "USE_PRIVATE_DNS_HOSTNAME_UNDER_OWNED_EGGIEBAGELFACE_ART_WITH_DNS01_IF_TLS_REQUIRED",
+      "validation": "LETS_ENCRYPT_DNS01_WITH_CLOUDFLARE_SCOPED_DNS_TOKEN",
+      "noSelfSigned": true
     }
   },
   "oauthAndMcp": {
@@ -110,7 +122,13 @@
     "artifactRuntimeProof": "NOT_IMPLIED_BY_POLICY",
     "tlsReadOnlyMonitor": "tools/securityTrustCertAudit.py",
     "ownerGpgBootstrap": "tools/ownerGpgBootstrap.sh",
-    "oldSecretsNeedAuditBeforeRotation": true
+    "oldSecretsNeedAuditBeforeRotation": true,
+    "providerMailDestinationVerified": "UNVERIFIED",
+    "gmailLabelsCreated": "EIGHT_LABELS_VERIFIED_CONNECTED_GMAIL",
+    "liveCertIssuer": "UNVERIFIED",
+    "mailRoutingCanon": "doctrine/crownCathedralMailRoutingV1.json",
+    "liveMailAliasDelivery": "UNVERIFIED",
+    "ownerMailDestination": "NOT_PUBLISHED"
   },
   "safeActivationOrder": [
     "READ_CURRENT_CERTS_AND_ACCOUNT_IDENTITIES",
@@ -122,19 +140,29 @@
     "ENABLE_OWNED_NGINX_ACME_ONLY_IF_HOST_EXISTS",
     "REVIEW_OAUTH_MCP_AUTH_PER_ROUTE_WITH_HOST_PROOF",
     "BACKUP_SIGNING_KEY_IN_OWNER_VAULT_AND_CHECK_RESTORE",
-    " RECORD_NONSECRET_FINGERPRINTS_EXPIRATIONS_AND_ROTATION_RECEIPTS"
+    "RECORD_NONSECRET_FINGERPRINTS_EXPIRATIONS_AND_ROTATION_RECEIPTS",
+    "VERIFY_CLOUDFLARE_MAIL_DESTINATION_LINK",
+    "PRESERVE_EXISTING_MX_UNTIL_ROUTING_READINESS",
+    "ADD_ONLY_MISSING_MAIL_ALIAS_RULES_AND_DELIVERY_TEST",
+    "VERIFY_OUTBOUND_SPF_DKIM_DMARC_IF_PUBLIC_REPLY_FROM_BRAND_IS_USED",
+    "TEST_CERT_RENEWAL_MONITOR_RECEIVES_ALERTS"
   ],
   "forbidden": [
     "PRIVATE_KEYS_IN_GIT_OR_CHAT",
-    "ASSUME_LETS_ENCRYPT_SIGNED_ALL_CERTIFICATES",
     "MIX_TLS_GPG_ANDROID_SIGNERS",
     "COPY_CLOUDFLARE_ORIGIN_KEY_TO_GITHUB",
     "REPLACE_WORKING_DNS_BEFORE_DOMAIN_PROOF",
     "MOVE_CLOUDFLARE_PROXY_IN_FRONT_OF_MCP_WITHOUT_TRANSPORT_PROOF",
     "DISABLE_MCP_SECURITY_OR_AGENT_QUARANTINE",
-    "SELF_CROWN_FROM_SOURCE_CHECKS"
+    "SELF_CROWN_FROM_SOURCE_CHECKS",
+    "SELF_SIGNED_PUBLIC_OR_LAN_TLS_CERTIFICATES",
+    "CLOUDFLARE_ORIGIN_CA_FOR_THIS_MILESTONE",
+    "CLAIM_MANAGED_CLOUDFLARE_OR_RENDER_TLS_IS_LETS_ENCRYPT_WITHOUT_PROBE",
+    "ASSUME_LETS_ENCRYPT_SIGNED_ALL_CERTIFICATES"
   ],
   "sourcePolicyScope": "SCOPED_REVIEW_ONLY",
   "externalProviderMutationPerformed": false,
-  "fullCrown": "STOP"
+  "fullCrown": "STOP_UNTIL_LIVE_PROVIDER_CERT_AND_MAIL_TESTS",
+  "crownMilestone": "CROWN_CATHEDRAL",
+  "professorApproval": "GREEN_FOR_SOURCE_CONFIGURATION_AND_PROVIDER_SETUP_ONLY"
 }
