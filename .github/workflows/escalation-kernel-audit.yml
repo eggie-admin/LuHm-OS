@@ -21,6 +21,9 @@ on:
       - 'tests/testCastBridgeLoop.py'
       - 'tools/escalationKernel.py'
       - 'tools/escalationKernelAudit.py'
+      - 'tools/hex64Insanus2048Audit.py'
+      - 'tests/testHex64Insanus2048Audit.py'
+      - 'manual/hex64Insanus2048.md'
       - '.github/workflows/escalation-kernel-audit.yml'
   workflow_dispatch:
 
@@ -48,10 +51,17 @@ jobs:
         run: python3 -m unittest discover -s tests -p testCastBridgeLoop.py -v
       - name: Collect four-ladder exact-source evidence
         run: python3 tools/castBridgeLoop.py
+      - name: Test HEX-64 matrix and adversarial source gates
+        run: python3 -m unittest discover -s tests -p testHex64Insanus2048Audit.py -v
+      - name: Audit 2048 HEX-64 source-policy scenarios
+        run: python3 tools/hex64Insanus2048Audit.py
       - name: Preserve CAST evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: cast-bridge-loop-${{ github.event.pull_request.head.sha || github.sha }}
-          path: build/castBridgeLoop/state.json
+          path: |
+            build/castBridgeLoop/state.json
+            build/hex64Insanus2048/hex64-insanus2048.bin
+            build/hex64Insanus2048/hex64-insanus2048.json
           retention-days: 14
