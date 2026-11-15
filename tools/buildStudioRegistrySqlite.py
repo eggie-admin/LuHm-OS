@@ -50,7 +50,7 @@ def build(output:Path)->dict:
         for idx,(p,state) in enumerate([
           ("deterministicLocal","verified"),("googleGeminiFlashLite","unverified"),
           ("openAiPremium","unverified")]):
-            conn.execute("INSERT INTO provider_route VALUES (?,?,?,?,?,?)",(
+            conn.execute("INSERT INTO provider_route VALUES (?,?,?,?,?,?,?)",(
                 p,"inferenceOrLocal",state,"ownerEncryptedVault" if idx else "notProvisioned",
                 0,idx+1,"No external billable calls. Eligibility requires per-account receipt."))
         for vendor,purpose in [
