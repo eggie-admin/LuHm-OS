@@ -23,7 +23,7 @@ def audit(html=HTML,css=CSS,js=JS,kotlin=KOTLIN,godot=GODOT,bridge=BRIDGE,field=
     need('const accepted = postNative("aramoor_requested")' in js,"PLAY_TO_BRIDGE_CALL")
     need('"aramoor_requested" -> {' in kotlin and 'emitSignal(ARAMOOR_REQUESTED.name)' in kotlin,"NATIVE_TO_GODOT")
     need('private val ARAMOOR_REQUESTED = SignalInfo("aramoor_requested")' in kotlin,"NATIVE_SIGNAL")
-    need('"world_requested", "aramoor_requested", "cockpit_ready" -> setOf("type")' in kotlin,"EXACT_KEYS")
+    need('"world_requested", "aramoor_requested", "cockpit_ready", "local_art_pick_requested" -> setOf("type")' in kotlin,"EXACT_KEYS")
     need("payload.keys().asSequence().toSet() != expectedKeys" in kotlin,"NO_EXTRA_MESSAGE_KEYS")
     need('setOf(LOCAL_ORIGIN)' in kotlin and 'sourceOrigin.toString() != LOCAL_ORIGIN' in kotlin and 'isMainFrame' in kotlin,"NATIVE_ORIGIN")
     need('android_web3_plugin.connect("aramoor_requested", _enter_aramoor_mode)' in godot,"GODOT_WORLD_ROUTE")
@@ -47,7 +47,7 @@ def main():
        ("no_play",dict(html=HTML.replace("data-luhm-play-aramoor","data-luhm-play-dummy"))),
        ("no_bridge",dict(js=JS.replace('postNative("aramoor_requested")','postNative("world_requested")'))),
        ("no_native",dict(kotlin=KOTLIN.replace('emitSignal(ARAMOOR_REQUESTED.name)','emitSignal(WORLD_REQUESTED.name)'))),
-       ("extra_keys",dict(kotlin=KOTLIN.replace('"world_requested", "aramoor_requested", "cockpit_ready" -> setOf("type")','"world_requested", "aramoor_requested", "cockpit_ready" -> setOf("type", "payload")'))),
+       ("extra_keys",dict(kotlin=KOTLIN.replace('"world_requested", "aramoor_requested", "cockpit_ready", "local_art_pick_requested" -> setOf("type")','"world_requested", "aramoor_requested", "cockpit_ready" -> setOf("type", "payload")'))),
        ("no_godot",dict(godot=GODOT.replace('connect("aramoor_requested", _enter_aramoor_mode)','connect("aramoor_requested", enterWorldMode)'))),
        ("rights_escape",dict(bridge={**BRIDGE,"security":{**BRIDGE["security"],"shellAuthority":True}})),
        ("false_device",dict(field={**FIELD,"status":"DEVICE_GAMEPLAY_GREEN"})),
