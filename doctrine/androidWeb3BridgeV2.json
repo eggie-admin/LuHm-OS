@@ -23,6 +23,10 @@
     {
       "type": "aramoorRequested",
       "effect": "hide WebView overlay, emit aramoor_requested to existing Godot Main adapter; private offline Aramoor world only; no shell/worker/deployment authority"
+    },
+    {
+      "type": "localArtPickRequested",
+      "effect": "user-initiated Android ACTION_OPEN_DOCUMENT, MIME and byte/dimension validated, temporary JPEG preview delivered to local WebView memory, no uploads, no public art rights or shell authority"
     }
   ],
   "godotToNative": [
@@ -54,5 +58,15 @@
   },
   "runtimeProof": "SAMSUNG_COCKPIT_VISUAL_LAUNCH_OBSERVED_20261114_ARMOOR_NATIVE_HANDOFF_PENDING",
   "legacySource": "doctrine/ANDROID_WEB3_BRIDGE_V1.json",
-  "crownStatus": "STOP"
+  "crownStatus": "STOP",
+  "privateCanonGallery": {
+    "status": "PROPOSED_RUNTIME_DEVICE_PENDING",
+    "source": "frontEnd/canonGallery.js",
+    "externalNetwork": false,
+    "appStoragePersistence": false,
+    "usesExplicitUserDocumentPicker": true,
+    "unverifiedAndroidFilePick": true,
+    "privateArtBundledIntoPublicSource": false,
+    "artMasterDistortion": "preview only; original master stays on device"
+  }
 }
