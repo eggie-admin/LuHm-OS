@@ -30,7 +30,7 @@ def audit(html=HTML,css=CSS,js=JS,kotlin=KOTLIN,godot=GODOT,bridge=BRIDGE,field=
     need('AramoorMainAdapterScript.new().open_world(self)' in godot,"GODOT_DELEGATED_WORLD")
     need(len(godot.splitlines()) <= 350,"MAIN_LINE_BUDGET")
     types=[x.get("type") for x in bridge.get("javascriptToNative",[])]
-    need(types==["cockpitReady","oniRequested","worldRequested","aramoorRequested"],"CANON_BRIDGE_DRIFT")
+    need(types==["cockpitReady","oniRequested","worldRequested","aramoorRequested","localArtPickRequested"],"CANON_BRIDGE_DRIFT")
     secure=bridge.get("security",{})
     need(all(secure.get(x) is True for x in ("allowedMainFrameOnly","exactOriginOnly")),"ORIGIN_AUTHORITY")
     need(all(secure.get(x) is False for x in ("arbitraryNavigation","networkFallback","addJavascriptInterface","fileScheme","contentScheme","mixedContent","arbitraryCommands","shellAuthority","crownAuthority")),"UNSAFE_BRIDGE")
