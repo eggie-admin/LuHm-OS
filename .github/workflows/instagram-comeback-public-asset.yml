@@ -1,0 +1,28 @@
+name: Instagram Comeback Public Asset Audit
+on:
+  pull_request:
+    paths:
+      - 'campaign/instagramReturn20261115.md'
+      - 'studioLanding/media/eggie-studio-still-here-2026-11-15.jpg'
+      - 'tests/testInstagramReturn20261115.py'
+      - '.github/workflows/instagram-comeback-public-asset.yml'
+permissions:
+  contents: read
+jobs:
+  public-asset-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Inspect public JPEG and exact caption boundaries
+        env:
+          EXPECTED: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+          python3 -m unittest tests/testInstagramReturn20261115.py -v
+          echo "SOURCE_AND_MEDIA=GREEN"
+          echo "INSTAGRAM_PUBLICATION=REQUIRES_SEPARATE_PROVIDER_READBACK"
