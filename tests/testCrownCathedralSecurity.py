@@ -18,10 +18,12 @@ spec.loader.exec_module(mod)
 
 class RoutingSafetyTests(unittest.TestCase):
     def test_expected_address_inventory_is_unique(self):
-        self.assertEqual(len(set(mod.ALIASES)), 11)
+        self.assertEqual(len(set(mod.ALIASES)), 14)
         self.assertIn("postmaster", mod.ALIASES)
         self.assertIn("abuse", mod.ALIASES)
         self.assertIn("certs", mod.ALIASES)
+        for brand_alias in ("studios", "film", "art"):
+            self.assertIn(brand_alias, mod.ALIASES)
         self.assertNotIn("noreply", mod.ALIASES)
 
     def test_exact_matcher_only(self):

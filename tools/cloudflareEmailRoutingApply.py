@@ -18,6 +18,7 @@ ZONE_NAME = "eggiebagelface.art"
 ALIASES = (
     "admin", "web", "webmaster", "postmaster", "hostmaster",
     "security", "abuse", "support", "certs", "errors", "dmarc",
+    "studios", "film", "art",
 )
 
 
