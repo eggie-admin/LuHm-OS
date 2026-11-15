@@ -1,0 +1,43 @@
+name: Crown Cathedral Public TLS Watch
+
+on:
+  schedule:
+    # GitHub Actions scheduling is best effort; UTC.
+    - cron: '37 8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: crown-cathedral-public-tls-watch
+  cancel-in-progress: false
+
+jobs:
+  check-serving-lets-encrypt-chains:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout protected source without persisted credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Observe public TLS certificates only
+        run: |
+          set -euo pipefail
+          python3 tools/securityTrustCertAudit.py \
+            --host eggiebagelface.art \
+            --host luhm-os-harness-green.onrender.com \
+            --min-valid-days 14 --json \
+            > "$RUNNER_TEMP/crownCathedralTls.json"
+          echo "TLS_ISSUER_AND_TRUST_POLICY=SOURCE_PROBE_PASSED"
+          echo "ORIGIN_RENEWAL_AUTOMATION=NOT_PROVEN_BY_THIS_PROBE"
+          echo "PUBLICATION_CROWN=STOP"
+      - name: Store nonsecret TLS verification receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: crown-cathedral-public-tls-${{ github.run_id }}
+          path: ${{ runner.temp }}/crownCathedralTls.json
+          if-no-files-found: warn
+          retention-days: 30
