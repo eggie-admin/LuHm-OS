@@ -17,7 +17,7 @@ def build(output:Path)->dict:
     cfg=json.loads(CANON.read_text(encoding="utf-8"))
     pub=json.loads(RECEIPT.read_text(encoding="utf-8"))
     if cfg["publicDomain"]!="eggiebagelface.art":raise ValueError("wrong domain")
-    if pub["verification"]!="INDEPENDENT_WINDOR_READBACK_MEDIA_ID_CAPTION_AND_PERMALINK_MATCH":
+    if pub["verification"]!="INDEPENDENT_WINDSOR_READBACK_MEDIA_ID_CAPTION_AND_PERMALINK_MATCH":
         raise ValueError("publication verification missing")
     if pub["mediaId"]!=cfg["verifiedSocial"]["instagram"]["postId"]:
         raise ValueError("social receipt mismatch")
