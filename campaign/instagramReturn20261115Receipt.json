@@ -1,0 +1,19 @@
+{
+  "schema": "luhmOs.socialPublicationReceipt.v1",
+  "platform": "instagram",
+  "brand": "eggieBagelfaceArt",
+  "accountHandle": "eggiebagelface",
+  "mediaId": "18149320816563627",
+  "permalink": "https://www.instagram.com/p/DfxLQKuDbOM/",
+  "publishedAtUtc": "2026-11-15T16:09:10Z",
+  "publicTextSource": "campaign/instagramReturn20261115.md",
+  "publicImageSource": "studioLanding/media/eggie-studio-still-here-2026-11-15.jpg",
+  "sourceCommit": "403983ae980671679cb2abaed6041d0073b76bf4",
+  "provider": "Windsor.ai",
+  "providerPublishResult": "Published image post",
+  "verification": "INDEPENDENT_WINDOR_READBACK_MEDIA_ID_CAPTION_AND_PERMALINK_MATCH",
+  "otherPlatformPublish": false,
+  "rights": "original_generated_studio_status_poster_scoped_release",
+  "privateMasterReferencesIncluded": false,
+  "authority": "Professor"
+}
