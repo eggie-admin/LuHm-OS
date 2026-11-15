@@ -26,8 +26,9 @@ class RegistrySafety(unittest.TestCase):
     def test_sqlite_build_and_gate(self):
         with tempfile.TemporaryDirectory() as t:
             p=Path(t)/"privateStudio.sqlite3"
-            subprocess.run([sys.executable,str(SCRIPT),"--output",str(p)],
-                           check=True,capture_output=True,text=True)
+            out=subprocess.run([sys.executable,str(SCRIPT),"--output",str(p)],
+                           check=False,capture_output=True,text=True)
+            self.assertEqual(out.returncode,0,msg=out.stderr)
             self.assertTrue(p.exists())
             conn=sqlite3.connect(p)
             try:
