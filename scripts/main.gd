@@ -94,7 +94,6 @@ func _enter_goddess_rehearsal() -> void:
     # Optional launch of verified standalone scene; leave original First Night untouched.
     get_tree().change_scene_to_file("res://scenes/GoddessRehearsal.tscn")
 func _enter_nightglass_hub() -> void:
-    # Optional original scene; First Night remains the default.
     get_tree().change_scene_to_file("res://scenes/NightglassHub.tscn")
 
 func _enter_companion_lab() -> void:
