@@ -49,7 +49,7 @@ def profile_for(facts):
     name = facts["boardModel"].lower()
     if os_name == "Android":
         return {"samsung": "androidSamsung", "pixel": "androidPixel"}.get(facts["androidBrand"])
-    if "pico" in name and ("rp2040" in name or "rp2350" in name or "pico" in name):
+    if re.fullmatch(r"(?:raspberry pi )?pico(?: 2)? w(?: rev [0-9.]+)?", name):
         return "picoW"  # Pico family needs exact Pico/Pico 2 marking before firmware choice
     if "raspberry pi zero 2 w" in name:
         return "piZero2W"
