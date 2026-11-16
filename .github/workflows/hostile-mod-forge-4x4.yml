@@ -1,0 +1,31 @@
+name: LuHm Hostile Mod Forge 4x4 Offline Gate
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/hostileModForge4x4V1.json"
+      - "tools/hostileModForgeAudit.py"
+      - "tests/testHostileModForge.py"
+      - "manual/hostile-mod-forge-runbook.md"
+      - "host/mcp/luhmHostileModForgeTools.py"
+      - "host/mcp/luhmHarnessServer.py"
+      - ".github/workflows/hostile-mod-forge-4x4.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-admission:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Prove 4x4 env/USB/Bluetooth/mod/ROM rights boundary
+        run: |
+          python -m py_compile tools/hostileModForgeAudit.py
+          python tools/hostileModForgeAudit.py
+          python -m unittest discover -s tests -p 'testHostileModForge.py' -v

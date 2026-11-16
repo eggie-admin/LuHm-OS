@@ -1,0 +1,44 @@
+name: LuHm Hardware CAST Bridge Seal
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/hardwareCastSealV1.json"
+      - "tools/hardwareCastSeal.py"
+      - "tests/testHardwareCastSeal.py"
+      - "host/mcp/luhmHardwareCastSealTools.py"
+      - "host/mcp/luhmHarnessServer.py"
+      - "manual/hardware-cast-seal.md"
+      - ".github/workflows/hardware-cast-seal.yml"
+      - "doctrine/localOpenVmKernelProfileV1.json"
+      - "doctrine/machineFourArchitectureForgeV1.json"
+      - "doctrine/hostileModForge4x4V1.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hardware-source-seal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate source and read-only proposed MCP wrapper
+        run: |
+          python -m py_compile tools/hardwareCastSeal.py host/mcp/luhmHardwareCastSealTools.py
+      - name: Verify exact checked-out Git SHA before source receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          SOURCE_SHA="$(git rev-parse HEAD)"
+          test "$SOURCE_SHA" = "$GITHUB_SHA"
+          python tools/hardwareCastSeal.py --source-ref "$SOURCE_SHA"
+      - name: Run eight hostile composite hardware checks
+        run: |
+          python -m unittest discover -s tests -p 'testHardwareCastSeal.py' -v
+          python -m unittest discover -s tests -p 'testLocalOpenVmKernelGate.py' -v
+          python -m unittest discover -s tests -p 'testMachineFourArchitectureAudit.py' -v

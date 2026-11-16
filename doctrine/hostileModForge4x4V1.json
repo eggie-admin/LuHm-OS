@@ -1,0 +1,537 @@
+{
+  "schema": "luhmOs.hostileModForge4x4.v1",
+  "status": "PROPOSED_NO_DEVICE_OR_SOURCE_IMPORT",
+  "authority": "Professor",
+  "repository": "eggie-admin/LuHm-OS",
+  "approvedBrand": "LuHm-OS: Project Premonition",
+  "roots": [
+    "AGENTS.md",
+    "LICENSE",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/vendorReductionV1.json",
+    "doctrine/headlessUniversalVmMatrixV1.json",
+    "doctrine/premonitionCrossPlatformArtSplitV1.json",
+    "doctrine/leanVmForgeAlignmentV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/githubSqlSourceRegistryV1.json",
+    "doctrine/storageTopologyV1.json",
+    "doctrine/artistFirstArtToolCanonV1.json"
+  ],
+  "lanes": [
+    {
+      "id": "hostDisplay",
+      "scope": "OS host, headless renderer, Wayland vs optional Xwayland, no X11 root/admin dependency",
+      "test": "fixed env whitelist and no display server activation"
+    },
+    {
+      "id": "deviceDebug",
+      "scope": "USB VID/PID, Bluetooth services, permission, firmware/driver ownership, log redaction",
+      "test": "strict hex identifier parsing; no MAC or USB serial stored"
+    },
+    {
+      "id": "studioMods",
+      "scope": "Blender, GIMP, Godot, SDL, FFmpeg, ReShade filters, licensed community mod metadata",
+      "test": "source-only manifests and user-authorized read-only analysis"
+    },
+    {
+      "id": "rightsSource",
+      "scope": "Git exact refs, vendor license, CC asset attribution, PS1/PS2 ROM patch payload isolation",
+      "test": "component rights and diff-only homebrew patch manifests"
+    }
+  ],
+  "phases": [
+    {
+      "id": "R1",
+      "name": "sourceIdentity",
+      "proof": "exactGitSourceAndLicenseReview",
+      "mutation": false
+    },
+    {
+      "id": "R2",
+      "name": "adversarialInput",
+      "proof": "boundedTypedNamesAndNoExecution",
+      "mutation": false
+    },
+    {
+      "id": "R3",
+      "name": "ephemeralFixture",
+      "proof": "inMemorySyntheticOnlyNoLiveHardware",
+      "mutation": false
+    },
+    {
+      "id": "R4",
+      "name": "humanRelease",
+      "proof": "ownerReviewedRightsBackupDeviceAndPublication",
+      "mutation": false
+    }
+  ],
+  "cells": [
+    {
+      "lane": "hostDisplay",
+      "states": [
+        {
+          "id": "hostDisplay.R1",
+          "phase": "R1",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        },
+        {
+          "id": "hostDisplay.R2",
+          "phase": "R2",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        },
+        {
+          "id": "hostDisplay.R3",
+          "phase": "R3",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        },
+        {
+          "id": "hostDisplay.R4",
+          "phase": "R4",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        }
+      ]
+    },
+    {
+      "lane": "deviceDebug",
+      "states": [
+        {
+          "id": "deviceDebug.R1",
+          "phase": "R1",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        },
+        {
+          "id": "deviceDebug.R2",
+          "phase": "R2",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        },
+        {
+          "id": "deviceDebug.R3",
+          "phase": "R3",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        },
+        {
+          "id": "deviceDebug.R4",
+          "phase": "R4",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        }
+      ]
+    },
+    {
+      "lane": "studioMods",
+      "states": [
+        {
+          "id": "studioMods.R1",
+          "phase": "R1",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        },
+        {
+          "id": "studioMods.R2",
+          "phase": "R2",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        },
+        {
+          "id": "studioMods.R3",
+          "phase": "R3",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        },
+        {
+          "id": "studioMods.R4",
+          "phase": "R4",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        }
+      ]
+    },
+    {
+      "lane": "rightsSource",
+      "states": [
+        {
+          "id": "rightsSource.R1",
+          "phase": "R1",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        },
+        {
+          "id": "rightsSource.R2",
+          "phase": "R2",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        },
+        {
+          "id": "rightsSource.R3",
+          "phase": "R3",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        },
+        {
+          "id": "rightsSource.R4",
+          "phase": "R4",
+          "status": "SOURCE_CANDIDATE_NOT_HOST_PROVEN",
+          "proven": false,
+          "mutationAuthorized": false
+        }
+      ]
+    }
+  ],
+  "env": {
+    "scope": "privateHostProcessOnlyNoSecretsInGitOrLogs",
+    "permitted": {
+      "LUHM_STAGE": [
+        "development",
+        "proposed",
+        "testing"
+      ],
+      "LUHM_DISPLAY_BACKEND": [
+        "headless",
+        "wayland"
+      ],
+      "LUHM_RENDER_ENGINE": [
+        "godot",
+        "software"
+      ],
+      "LUHM_INPUT_MODE": [
+        "noDevice",
+        "userAuthorized"
+      ],
+      "LUHM_USB_ENABLED": [
+        "off",
+        "readOnly"
+      ],
+      "LUHM_BLUETOOTH_ENABLED": [
+        "off",
+        "readOnly"
+      ],
+      "LUHM_DEBUG_PROFILE": [
+        "off",
+        "redacted"
+      ],
+      "LUHM_VENDOR_MODE": [
+        "metadataOnly"
+      ]
+    },
+    "defaults": {
+      "LUHM_STAGE": "proposed",
+      "LUHM_DISPLAY_BACKEND": "headless",
+      "LUHM_RENDER_ENGINE": "software",
+      "LUHM_INPUT_MODE": "noDevice",
+      "LUHM_USB_ENABLED": "off",
+      "LUHM_BLUETOOTH_ENABLED": "off",
+      "LUHM_DEBUG_PROFILE": "off",
+      "LUHM_VENDOR_MODE": "metadataOnly"
+    },
+    "deniedNames": [
+      "DISPLAY",
+      "XAUTHORITY",
+      "LD_PRELOAD",
+      "LD_LIBRARY_PATH",
+      "PYTHONPATH",
+      "PATH",
+      "GIT_CONFIG_COUNT",
+      "GIT_SSH_COMMAND",
+      "HTTP_PROXY",
+      "HTTPS_PROXY",
+      "LUHM_API_KEY",
+      "LUHM_PRIVATE_TOKEN"
+    ],
+    "noEnvInjectionFromModManifest": true,
+    "noSecretsReturned": true,
+    "noShellFromEnvironment": true
+  },
+  "display": {
+    "mode": "NO_X11_DEPENDENCY",
+    "preferred": [
+      "headless",
+      "wayland"
+    ],
+    "xwaylandCompatibility": "SEPARATE_ISOLATED_GUEST_OPTION_AFTER_PROOF",
+    "mayStartXorg": false,
+    "mayConnectToDesktop": false,
+    "maySetDisplayEnv": false,
+    "mayModifyHostKernelOrGpu": false,
+    "noPrivilegedDisplaySocketFromWeb": true,
+    "westonHeadlessNotProven": true
+  },
+  "devices": {
+    "usb": {
+      "vendorId": "fourLowercaseHexDigits",
+      "productId": "fourLowercaseHexDigits",
+      "readOnlyByDefault": true,
+      "realDeviceIdentityProven": false,
+      "serialStorageForbidden": true,
+      "driverDetachForbidden": true,
+      "hotplugEnumerationRequiresOwnerApproval": true
+    },
+    "bluetooth": {
+      "serviceUuid": "canonical128bitLowercase",
+      "rawMacStorageForbidden": true,
+      "writePairOrBondForbidden": true,
+      "radioScanRequiresOwnerApproval": true,
+      "privateAudioMicPermissionRequired": true,
+      "androidRuntimePermissionProven": false
+    },
+    "debug": {
+      "onlyRedactedStructuredEvent": true,
+      "rawCommandExecution": false,
+      "exposeKernelLogs": false,
+      "traceExportRequiresOwnerReview": true,
+      "neverInPublicMcp": true
+    }
+  },
+  "modding": {
+    "design": "ORIGINAL_GOTHIC_CHARACTER_ACTION_AND_GALAXY_DATA_SIM_INTERPRETATION_NOT_SOURCE_COPY",
+    "inspiration": [
+      "layeredCostumeCharacterCreation",
+      "tacticalEncounterAndAnimationStates",
+      "factionAndEconomyDataDrivenRules"
+    ],
+    "noThirdPartyCharacterOrMusicOrLoreRedistribution": true,
+    "assetCategories": [
+      "originalSvg",
+      "originalBlend",
+      "reviewedGlb",
+      "shaderPreset",
+      "modMetadata",
+      "syntheticPatchManifest"
+    ],
+    "noArchiveExtractionByRegistry": true,
+    "noRemoteBinaryFetch": true,
+    "noAutoFork": true,
+    "noAutoPluginInstall": true,
+    "noGameExecutableInjection": true,
+    "noCheatInOnlineAnticheat": true,
+    "noCopyNexusAssetsToDistribution": true,
+    "noDirectSqlExternalPluginAccess": true,
+    "noBlenderOrGimpScriptsFromUntrustedMods": true,
+    "noRightsProofFromGitHubStarCount": true,
+    "noAbandonwareCopyrightException": true,
+    "noRomBiosOrDiscImagesInSourceOrReceipts": true,
+    "patchTypes": [
+      "IPS",
+      "BPS",
+      "PPF"
+    ],
+    "patchMode": "METADATA_ONLY_FOR_HOME_BREW_OR_RIGHTS_PROVEN_USER_SUPPLIED_TITLE",
+    "byteHexRole": "DETERMINISTIC_OFFSETS_AND_SHA256_NOT_LICENSE_OR_CRYPTO_SIGNATURE",
+    "patchContentCannotBeFetchedOrAppliedByRegistry": true
+  },
+  "licensing": {
+    "actualRoot": "GPL-3.0",
+    "targetIndependentOwnedModules": "Apache-2.0_REVIEW_ONLY",
+    "compatibleInterfaces": [
+      "MIT",
+      "BSD-2-Clause",
+      "BSD-3-Clause",
+      "Zlib",
+      "Apache-2.0"
+    ],
+    "contentCandidates": [
+      "CC0-1.0",
+      "CC-BY-4.0"
+    ],
+    "reviewedSeparately": [
+      "GPL-2.0-only",
+      "GPL-3.0-or-later",
+      "LGPL-2.1-or-later",
+      "CC-BY-SA-4.0"
+    ],
+    "rejectedForApacheOnlyDistribution": [
+      "CC-BY-NC",
+      "CC-BY-ND",
+      "CC-BY-NC-ND",
+      "proprietaryUnlicensed",
+      "unknown"
+    ],
+    "codeNeverAutoClassedAsCreativeCommons": true,
+    "CCByRequiresCreditLinkChanges": true,
+    "noBlanketRelicense": true,
+    "standaloneExternalToolsDoNotConvertOwnLicense": true,
+    "perComponentLicenseAndNoticeMandatory": true,
+    "useApache2ForNewOriginalSourceOnlyAfterOwnerRightsReview": true
+  },
+  "upstream": [
+    {
+      "id": "godot",
+      "repo": "godotengine/godot",
+      "license": "MIT",
+      "use": "existingGameEngine",
+      "admit": "SOURCE_REFERENCE_ONLY",
+      "url": "https://godotengine.org/license/"
+    },
+    {
+      "id": "sdl3",
+      "repo": "libsdl-org/SDL",
+      "license": "Zlib",
+      "use": "portableInputGamepadWindowLayerOptional",
+      "admit": "RESEARCH_NO_SECOND_RUNTIME",
+      "url": "https://www.libsdl.org/license.php"
+    },
+    {
+      "id": "blender",
+      "repo": "blender/blender",
+      "license": "GPL-2.0-or-later",
+      "use": "separateEditable3dMasterStudio",
+      "admit": "EXTERNAL_TOOL_NO_RELICENSE",
+      "url": "https://www.blender.org/about/license/"
+    },
+    {
+      "id": "gimp",
+      "repo": "GNOME/gimp",
+      "license": "GPL-3.0-or-later",
+      "use": "externalTextureAndPaintWorkflow",
+      "admit": "EXTERNAL_TOOL_NO_RELICENSE",
+      "url": "https://www.gimp.org/docs/userfaq.html"
+    },
+    {
+      "id": "ffmpeg",
+      "repo": "FFmpeg/FFmpeg",
+      "license": "LGPL-2.1-or-later_OR_GPL_BUILD_DEPENDENT",
+      "use": "separateVideoPipeline",
+      "admit": "CONFIG_AND_CODEC_RIGHTS_REVIEW",
+      "url": "https://ffmpeg.org/legal.html"
+    },
+    {
+      "id": "reshade",
+      "repo": "crosire/reshade",
+      "license": "BSD-3-Clause",
+      "use": "filterDesignReferenceStandaloneOnly",
+      "admit": "NO_DLL_INJECTION_IN_LUHM",
+      "url": "https://github.com/crosire/reshade"
+    },
+    {
+      "id": "bodySlide",
+      "repo": "ousnius/BodySlide-and-Outfit-Studio",
+      "license": "GPL-3.0-or-later",
+      "use": "outfitSliderAndBlendShapeWorkflowReference",
+      "admit": "REFERENCE_STANDALONE_MOD_ASSET_REVIEW",
+      "url": "https://github.com/ousnius/BodySlide-and-Outfit-Studio"
+    },
+    {
+      "id": "nexusMods",
+      "repo": null,
+      "license": "PER_FILE_RIGHTS_AND_SITE_TERMS",
+      "use": "humanReviewedModMetadata",
+      "admit": "NO_AUTO_SCRAPE_DOWNLOAD_OR_REHOST",
+      "url": "https://help.nexusmods.com/article/28-file-submission-guidelines"
+    },
+    {
+      "id": "bluez",
+      "repo": "bluez/bluez",
+      "license": "GPL_FAMILY_COMPONENT_REVIEW",
+      "use": "LinuxBluetoothDbusSeparateHost",
+      "admit": "OS_PROVIDER_OWNS_RADIO_FIRMWARE",
+      "url": "https://bluez.github.io/"
+    },
+    {
+      "id": "libusb",
+      "repo": "libusb/libusb",
+      "license": "LGPL-2.1-or-later",
+      "use": "authorizedLinuxUsbUserlandAdapter",
+      "admit": "NO_AUTOMATIC_KERNEL_DETACH",
+      "url": "https://github.com/libusb/libusb"
+    },
+    {
+      "id": "weston",
+      "repo": "wayland/weston",
+      "license": "PROJECT_COMPONENT_REVIEW",
+      "use": "headlessWaylandOptionalVm",
+      "admit": "RESEARCH_OPTIONAL_NOT_ACTIVE",
+      "url": "https://wayland.pages.freedesktop.org/weston/toc/running-weston.html"
+    },
+    {
+      "id": "gamescope",
+      "repo": "ValveSoftware/gamescope",
+      "license": "PROJECT_COMPONENT_REVIEW",
+      "use": "optionalVulkanCompositorDesign",
+      "admit": "RESEARCH_XWAYLAND_NOT_FALSELY_FORBIDDEN",
+      "url": "https://github.com/ValveSoftware/gamescope"
+    },
+    {
+      "id": "retroarch",
+      "repo": "libretro/RetroArch",
+      "license": "GPL-3.0",
+      "use": "externalLibretroFrontendResearch",
+      "admit": "EXTERNAL_ONLY_CORE_LICENSE_PER_COMPONENT",
+      "url": "https://retroarch.com/cores.html"
+    },
+    {
+      "id": "pcsx2",
+      "repo": "PCSX2/pcsx2",
+      "license": "GPL-3.0-or-later",
+      "use": "PS2ArchitectureAndPatchMetadata",
+      "admit": "NO_BIOS_DISC_IMAGES_OR_TITLE_ASSETS",
+      "url": "https://pcsx2.net/intellectualproperty/"
+    },
+    {
+      "id": "duckstation",
+      "repo": "stenzek/duckstation",
+      "license": "CC-BY-NC-ND_CUSTOM_RESTRICTIONS",
+      "use": "PS1CompatibilityResearch",
+      "admit": "NO_MODIFIED_PUBLIC_FORK_OR_CODE_REUSE",
+      "url": "https://github.com/stenzek/duckstation"
+    },
+    {
+      "id": "ccBy",
+      "repo": null,
+      "license": "CC-BY-4.0",
+      "use": "attributedOriginalArtAssetsOnly",
+      "admit": "OWNER_PROVENANCE_ART_APPROVAL",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "id": "cc0",
+      "repo": null,
+      "license": "CC0-1.0",
+      "use": "authenticPublicDomainDedicationOriginalAssets",
+      "admit": "PROVENANCE_AND_TRADEMARK_REVIEW",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    }
+  ],
+  "admission": {
+    "networkRequests": 0,
+    "hardwareDevicesConnected": 0,
+    "filesImported": 0,
+    "codeForksCreated": 0,
+    "liveAgentsStarted": 0,
+    "requireSourceCommitAndBinaryDigest": true,
+    "requireExactFileLicense": true,
+    "requireProvenanceAndAssetPermission": true,
+    "requireCodeReviewAndSandbox": true,
+    "requirePrivateHardwarePermission": true,
+    "requireOwnerBeforeRuntime": true,
+    "unknownLicense": "HOLD",
+    "unknownRights": "HOLD",
+    "runtimeUnproved": "HOLD",
+    "noAutoMerge": true,
+    "noAutoDeploy": true,
+    "noNewSpend": true,
+    "companyQuarantinePreserved": true,
+    "actualRuntimeProof": false
+  },
+  "crownStatus": "STOP"
+}

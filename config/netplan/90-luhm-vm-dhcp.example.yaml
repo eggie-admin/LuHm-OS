@@ -1,0 +1,15 @@
+# EXAMPLE ONLY. Not used by the existing Render service, Samsung app or
+# any cloud-init image. Never copy to /etc/netplan before a verified console,
+# exact NIC identity, observed DHCP behavior, snapshot and rollback plan.
+# The example's eth0 match is NOT universal. OCI/Google/Azure/AWS NIC names
+# can differ; cloud-init/provider policies may own the real Netplan.
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    luhmPrimary:
+      match:
+        name: eth0
+      dhcp4: true
+      dhcp6: false
+      optional: true

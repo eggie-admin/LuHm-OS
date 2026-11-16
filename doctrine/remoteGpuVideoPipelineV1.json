@@ -1,0 +1,177 @@
+{
+  "schema": "luhmOs.remoteGpuVideoPipeline.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "mission": "Remote AI full-motion video creation with bounded generation subshots, minute-scale review deliveries, exact-source receipts and safe resource admission.",
+  "anchorRefs": [
+    "AGENTS.md",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/yumeVideoAutomationBridgeV1.json",
+    "doctrine/lumTwoLaneFastApiOrchestrationV1.json",
+    "doctrine/cryptoBreathingEscalationV1.json",
+    "doctrine/storageTopologyV1.json",
+    "doctrine/headlessUniversalVmMatrixV1.json"
+  ],
+  "fourSecurityProfiles": [
+    {
+      "id": "localhost",
+      "level": 0,
+      "name": "Local offline simulation",
+      "transport": "inProcessOnly",
+      "identity": "localProcess",
+      "mutation": false,
+      "providerExecution": false
+    },
+    {
+      "id": "privateHost",
+      "level": 1,
+      "name": "Authenticated private host",
+      "transport": "localhostOrAuthenticatedPrivateTunnel",
+      "identity": "hostTokenAndExactTask",
+      "mutation": false,
+      "providerExecution": false
+    },
+    {
+      "id": "remoteGpu",
+      "level": 2,
+      "name": "Attested isolated GPU worker",
+      "transport": "mTLSBoundPrivateWorkerIngress",
+      "identity": "workloadIdentityGpuAttestationAndRBAC",
+      "mutation": false,
+      "providerExecution": false
+    },
+    {
+      "id": "enterprise",
+      "level": 3,
+      "name": "Multi-tenant zero-trust scheduling",
+      "transport": "mTLSShortLivedIdentityNoPublicGpuPort",
+      "identity": "tenantIsolationOPAQuotaKmsAudit",
+      "mutation": false,
+      "providerExecution": false
+    }
+  ],
+  "fourLanes": [
+    {
+      "id": "security",
+      "purpose": "identity, authenticated origin, least privilege, budget approval, key and tenant scope"
+    },
+    {
+      "id": "compute",
+      "purpose": "GPU model capability, measured free VRAM, reserved memory, backpressure, host and thermal capacity"
+    },
+    {
+      "id": "media",
+      "purpose": "model subshots, shot continuity, 60-second encoded review chunks, ffprobe, FFmpeg deterministic assembly"
+    },
+    {
+      "id": "evidence",
+      "purpose": "SQLite/MariaDB metadata receipts, chunk SHA256, encrypted snapshot, private binary pointers and owner promotion"
+    }
+  ],
+  "video": {
+    "deliverySeconds": 60,
+    "modelShotSecondsDefault": 6,
+    "sourceOfTruth": "existingYumeMediaCanon",
+    "modelVideoMaxSeconds": "UNVERIFIED_DEPENDS_ON_SELECTED_MODEL",
+    "fpsAllowed": [
+      24,
+      30,
+      60
+    ],
+    "widthMax": 3840,
+    "heightMax": 2160,
+    "allowedAspect": "boundedIntegerFrameSize",
+    "maxProjectSeconds": 3600,
+    "maxMinutesPerPlan": 60,
+    "maxSubshotsPerPlan": 600,
+    "audio": "separateRightsAndSyncReview",
+    "continuity": "referenceFrameShotMetadataAndOptionalOverlapRequireModelCompatibility",
+    "generatedVideoIsNotAutomaticallyPublicationApproved": true
+  },
+  "gpu": {
+    "telemetry": "trustedWorkerOnlyFutureIntegration",
+    "drivers": [
+      "nvidiaNVML",
+      "rocmSmi",
+      "intelLevelZero"
+    ],
+    "activeDrivers": [],
+    "vramMode": [
+      "conservative",
+      "balanced",
+      "maxApproved"
+    ],
+    "maxApprovedMemoryFraction": 0.9,
+    "minHostVramReserveMiB": 1024,
+    "minContainerHeadroomMiB": 512,
+    "maxGpuParallelPerDevice": 1,
+    "maxProjectConcurrentGpuJobs": 4,
+    "cudaMemoryAllocatorMetrics": [
+      "memoryAllocated",
+      "memoryReserved",
+      "maxMemoryReserved"
+    ],
+    "noUnverifiedHardwareAllocation": true,
+    "no100PercentVramAllocation": true,
+    "modelMemoryEstimateRequired": true,
+    "noAutoGpuInstanceCreation": true
+  },
+  "queue": {
+    "topology": "twoLogicalCanonLanesOneFutureSerializedHostScheduler",
+    "existingProviderWorker": "host/api/luhmVideoJobWorker.py",
+    "providerExecutionAlreadyProven": false,
+    "startStatus": "PLAN_ONLY",
+    "maxRetriesPerSubmittedShot": 0,
+    "uncertainResult": "UNKNOWN_OUTCOME_NO_AUTOMATIC_RESUBMIT",
+    "checkpointCadence": "afterEachModelShotAndMinuteDeliverable",
+    "resumeOnlyWithSourceAndVerifiedReceipt": true,
+    "idempotency": "taskId+sourceRef+scopeId+minuteIndex+shotIndex",
+    "perWorkerBudgetUsdDefault": 0,
+    "maxApprovedSpendUsdDefault": 0,
+    "paidGpuNeedsSeparateExplicitApproval": true,
+    "failClosedOnUnknownVram": true,
+    "maxParallelWithoutHardwareAttestation": 0
+  },
+  "delivery": {
+    "ffmpeg": "hostSideBinaryOnlyWithFixedArgumentVector",
+    "encodeCandidate": "H264AACMP4ProfileBounded",
+    "keyframeBoundariesAndPtsMustBeVerified": true,
+    "manifestDigest": "SHA256",
+    "encryptedSnapshotOptional": "AES256GCMHostOnly",
+    "privateStorage": "approvedExistingGoogleDriveAfterDigest",
+    "canPublishAutomatically": false
+  },
+  "enterprise": {
+    "recommendedSecurity": "NIST800207_OWASP_API_TOP10",
+    "allowListWorkerIds": true,
+    "authenticatedServiceIdentity": true,
+    "perTaskRbac": true,
+    "mTLSAndCertificateRotationRequiredForRemoteGPU": true,
+    "auditLogWithoutPromptsOrPrivateMedia": true,
+    "operationIdRequired": true,
+    "cancellationAndKillSwitch": true,
+    "rateLimits": true,
+    "encryptedAtRest": true,
+    "gpuCacheDataSeparation": true,
+    "rollbackAndCostCaps": true,
+    "neverTrustUserSuppliedFreeVramAsHardwareProof": true
+  },
+  "monitoring": {
+    "checkpoints": "per-subshot and per-minute evidence only; no hidden async workers",
+    "vramAlert": "stopNewAdmissionOnMissingOrStaleTelemetry",
+    "stuckJob": "stop with exact operation receipt, no auto paid retry",
+    "sourceMismatch": "HOLD",
+    "missingRights": "HOLD",
+    "ownerPromotion": "separateProfessorCrown",
+    "runtimeProof": false,
+    "deviceReceipt": false
+  },
+  "noDeployment": true,
+  "noGpuWorkersStarted": true,
+  "actualVideoGenerated": false,
+  "privateKeysInRepository": false,
+  "crownStatus": "STOP"
+}

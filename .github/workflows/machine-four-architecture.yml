@@ -1,0 +1,37 @@
+name: LuHm Machine Four Architecture Offline Gate
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/machineFourArchitectureForgeV1.json"
+      - "tools/machineFourArchitectureAudit.py"
+      - "tests/testMachineFourArchitectureAudit.py"
+      - "host/mcp/luhmMachineArchitectureTools.py"
+      - "host/mcp/luhmHarnessServer.py"
+      - "packages/luhm-canon-registry/**"
+      - "manual/machine-four-architecture-forge.md"
+      - ".github/workflows/machine-four-architecture.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  machine-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Offline ISA/memory/firmware/IPS source and synthetic fixtures
+        run: |
+          python -m py_compile tools/machineFourArchitectureAudit.py host/mcp/luhmMachineArchitectureTools.py
+          python tools/machineFourArchitectureAudit.py
+          python -m unittest discover -s tests -p 'testMachineFourArchitectureAudit.py' -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: npm fixed-width hex sorting and source registry
+        run: npm test --prefix packages/luhm-canon-registry

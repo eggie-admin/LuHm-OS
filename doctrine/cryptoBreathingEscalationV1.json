@@ -1,0 +1,133 @@
+{
+  "schema": "luhmOs.cryptoBreathingEscalation.v1",
+  "status": "PROPOSED_CANDIDATE_ONLY",
+  "authority": "Professor",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "sourceAnchors": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/everlastingCovenantV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/lumTwoLaneFastApiOrchestrationV1.json",
+    "doctrine/typedFourLaneSqlV1.json",
+    "doctrine/storageTopologyV1.json",
+    "doctrine/escalationKernelV1.json"
+  ],
+  "purpose": "Four bounded R1-R4 integrity, authenticity and encrypted-snapshot verification stages for LuHm machine and update candidate evidence, without agent or release authority.",
+  "bindings": {
+    "taskId": "boundedCamelHump",
+    "sourceRef": "exact40LowercaseGitSha",
+    "scopeId": "boundedCamelHump",
+    "artifactId": "boundedCamelHump",
+    "attemptBudget": 4
+  },
+  "stages": [
+    {
+      "id": "R1",
+      "tier": 0,
+      "check": "sha256ByteIntegrity",
+      "digest": "SHA-256",
+      "hexDigits": 64,
+      "requiredEvidence": [
+        "sameExactTaskScopeSource",
+        "byteLength",
+        "expectedDigestMatches"
+      ],
+      "onSuccess": "R2"
+    },
+    {
+      "id": "R2",
+      "tier": 1,
+      "check": "independentDigestAndSnapshot",
+      "digests": [
+        "SHA-512",
+        "SHA3-256"
+      ],
+      "hexDigits": [
+        128,
+        64
+      ],
+      "requiredEvidence": [
+        "R1",
+        "sha512Matches",
+        "sha3_256Matches",
+        "snapshotRef"
+      ],
+      "onSuccess": "R3"
+    },
+    {
+      "id": "R3",
+      "tier": 2,
+      "check": "authenticatedManifest",
+      "method": "HMAC-SHA256",
+      "requiredEvidence": [
+        "R2",
+        "hostManagedKeyPresent",
+        "constantTimeTagVerified"
+      ],
+      "onSuccess": "R4"
+    },
+    {
+      "id": "R4",
+      "tier": 3,
+      "check": "authenticatedEncryptedSnapshot",
+      "method": "AES-256-GCM",
+      "requiredEvidence": [
+        "R3",
+        "verifiedAEADDecryptAgainstExactArtifact",
+        "recoveryAndRollbackReceipt",
+        "exactSourceCIReceipt",
+        "humanPromotionAuthority"
+      ],
+      "onSuccess": "HOLD_FOR_PROFESSOR"
+    }
+  ],
+  "cryptoLaw": {
+    "hexadecimal": "representation of binary bytes, not encryption",
+    "base64": "transport encoding, not encryption",
+    "hash": "unkeyed digest cannot attest to publisher identity",
+    "sha512": "longer output does not automatically equal stronger encryption",
+    "sha3": "independent hash design, not an automatic security upgrade over SHA-2",
+    "auth": "HMAC verifies a shared-secret MAC; for third-party distribution prefer independently verified digital signatures",
+    "encryption": "AES-256-GCM with unique nonce and authenticated additional data, host-secret-managed key only",
+    "keyMaterialInGit": false,
+    "keyMaterialInClient": false,
+    "keyMaterialInSql": false,
+    "noFalseGreenFromDigest": true,
+    "legacySha1NewSignatureAllowed": false
+  },
+  "sql": {
+    "defaultEngine": "SQLiteStrictPrivateStub",
+    "optionalEngine": "MariaDB",
+    "role": "receipt indexes, digest metadata and logical snapshot pointers; never secrets or raw media",
+    "mariaDbDriver": "operatorConfiguredTLSAuthenticatedHostOnly",
+    "mariaDbMode": "OFF_BY_DEFAULT",
+    "autoCreateDatabase": false,
+    "sqlParametersRequired": true,
+    "dbMayDetermineReleaseAuthority": false,
+    "noPublicSqlAccess": true,
+    "snapshotBytesInDatabase": false
+  },
+  "breathing": {
+    "cadence": "one bounded checkpoint per R stage, not a background heartbeat",
+    "greenContinuation": "only explicit locallyVerified true with matching exact identity and prior receipt",
+    "yellow": "hold, no escalation",
+    "redOrUnknown": "stop",
+    "maxPasses": 4,
+    "restartOnSourceChange": "R1",
+    "noInfiniteLoop": true
+  },
+  "related": {
+    "orchestration": "host/api/luhmCanonOrchestration.py",
+    "crypto": "host/api/luhmCryptoBreathing.py",
+    "mariaDb": "host/api/luhmMariaDbReceipt.py",
+    "machine": "host/remote/luhmWmsVmManager.py",
+    "client": "existingChatGptMcpHost, not an on-device FastAPI or GDM host"
+  },
+  "liveAgentExecution": false,
+  "liveEncryptionKeysConfigured": false,
+  "liveMariaDbConnected": false,
+  "actualSnapshotStored": false,
+  "autoDeploy": false,
+  "autoCrown": false,
+  "crownStatus": "STOP"
+}

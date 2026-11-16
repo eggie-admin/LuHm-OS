@@ -1,0 +1,55 @@
+name: LuHm CAST Two Thread Source Gate
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/castTwoThreadBridgeV1.json"
+      - "doctrine/castIdentityHexRegistryV1.json"
+      - "host/api/luhmIdentityRegistry.py"
+      - "host/mcp/luhmIdentityRegistryTools.py"
+      - "packages/luhm-canon-registry/**"
+      - "tests/testCastIdentityRegistry.py"
+      - "manual/cast-naming-hex-spine-runbook.md"
+      - "host/api/luhmCastTwoThreadBridge.py"
+      - "host/api/luhmClientFastApi.py"
+      - "host/mcp/luhmCastTwoThreadTools.py"
+      - "host/mcp/luhmHarnessServer.py"
+      - "publicationSite/castBridgePreview.html"
+      - "tests/testCastTwoThreadBridge.py"
+      - "tests/testCastTwoThreadFastApi.py"
+      - "manual/cast-two-thread-bridge-runbook.md"
+      - ".github/workflows/cast-two-thread-source.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-simulated-cast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pinned in-memory FastAPI test dependencies
+        run: python -m pip install 'cryptography==46.0.4' 'fastapi==0.128.2' 'httpx==0.28.1'
+      - name: Compile CAST planner, private API and read-only MCP
+        run: python -m py_compile host/api/luhmCastTwoThreadBridge.py host/api/luhmClientFastApi.py host/mcp/luhmCastTwoThreadTools.py host/api/luhmIdentityRegistry.py host/mcp/luhmIdentityRegistryTools.py
+      - name: Audit exact two-thread and 4×4 receipt source contract
+        run: |
+          python host/api/luhmCastTwoThreadBridge.py
+          python -m unittest discover -s tests -p 'testCastTwoThreadBridge.py' -v
+      - name: Test Python identity and cross-language source Canon
+        run: python -m unittest discover -s tests -p 'testCastIdentityRegistry.py' -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test private dependency-free npm identity registry
+        run: |
+          npm test --prefix packages/luhm-canon-registry
+          node packages/luhm-canon-registry/bin/cli.mjs audit
+          node packages/luhm-canon-registry/bin/cli.mjs help bs
+      - name: Test private authenticated two-thread HTTP routes
+        run: python -m unittest discover -s tests -p 'testCastTwoThreadFastApi.py' -v

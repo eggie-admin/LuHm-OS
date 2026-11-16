@@ -1,0 +1,35 @@
+{
+  "name": "@luhm-os/canon-registry",
+  "version": "0.1.0-proposed.0",
+  "description": "LuHm-OS Project Premonition source-locked naming, 4x4 CAST identity and read-only help registry",
+  "private": true,
+  "type": "module",
+  "license": "SEE LICENSE IN ../../LICENSE",
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": "./src/index.mjs",
+    "./codec": "./src/codec.mjs",
+    "./machine": "./src/machine.mjs"
+  },
+  "bin": {
+    "luhm-registry": "./bin/cli.mjs"
+  },
+  "scripts": {
+    "check": "node --test tests/*.test.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "help": "node bin/cli.mjs help",
+    "audit": "node bin/cli.mjs audit"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "files": [
+    "src",
+    "bin",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

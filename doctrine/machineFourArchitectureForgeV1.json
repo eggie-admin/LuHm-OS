@@ -1,0 +1,584 @@
+{
+  "schema": "luhmOs.machineFourArchitectureForge.v1",
+  "status": "SOURCE_ONLY_NO_HARDWARE_OR_ROM_IMPORT",
+  "authority": "Professor",
+  "repo": "eggie-admin/LuHm-OS",
+  "identity": {
+    "product": "LuHm-OS",
+    "project": "Project Premonition",
+    "control": "lum",
+    "sourceRef": "EXACT_40_HEX_REQUIRED_AT_CALL"
+  },
+  "fourArchitectureFamilies": [
+    {
+      "id": "x86_64",
+      "label": "x86-64 | Intel AMD",
+      "bytes": "little",
+      "vendors": [
+        "Intel",
+        "AMD"
+      ],
+      "osTargets": [
+        "Linux x86_64",
+        "Windows x64",
+        "QEMU guest"
+      ],
+      "firmware": [
+        "UEFI EDK II",
+        "OVMF QEMU",
+        "coreboot candidate",
+        "Intel FSP restricted binary",
+        "AMD platform OEM firmware"
+      ],
+      "ai": [
+        "ONNX Runtime CPU",
+        "OpenVINO Intel candidate",
+        "ROCm supported AMD only"
+      ],
+      "status": "RESEARCH_ONLY"
+    },
+    {
+      "id": "aarch64",
+      "label": "Arm AArch64 | mobile edge server",
+      "bytes": "littleUsuallyVerify",
+      "vendors": [
+        "Arm",
+        "Samsung",
+        "Qualcomm",
+        "Apple",
+        "Ampere",
+        "NVIDIA",
+        "Broadcom"
+      ],
+      "osTargets": [
+        "Android arm64",
+        "Linux aarch64",
+        "iOS app sandbox",
+        "Raspberry Pi"
+      ],
+      "firmware": [
+        "Trusted Firmware-A depending on SoC",
+        "UEFI EDK II optional",
+        "OEM bootloader locked by device",
+        "device tree or ACPI per platform"
+      ],
+      "ai": [
+        "ONNX Runtime supported provider",
+        "Apple Core ML through signed iOS API",
+        "Android NNAPI vendor provider review",
+        "Vulkan compute if supported"
+      ],
+      "status": "RESEARCH_ONLY"
+    },
+    {
+      "id": "riscv64",
+      "label": "RISC-V RV64 application class",
+      "bytes": "littleBaseVerifyExtensions",
+      "vendors": [
+        "SiFive",
+        "StarFive",
+        "RISC-V ecosystem"
+      ],
+      "osTargets": [
+        "Linux riscv64",
+        "QEMU riscv64"
+      ],
+      "firmware": [
+        "OpenSBI reference",
+        "U-Boot optional",
+        "EDK II platform-specific",
+        "board ROM vendor owned"
+      ],
+      "ai": [
+        "CPU fallback",
+        "RISC-V vector extensions target-specific",
+        "ONNX Runtime only when build proven"
+      ],
+      "status": "RESEARCH_ONLY"
+    },
+    {
+      "id": "ppc64le",
+      "label": "POWER OpenPOWER little endian",
+      "bytes": "little",
+      "vendors": [
+        "IBM",
+        "OpenPOWER ecosystem"
+      ],
+      "osTargets": [
+        "Linux ppc64le",
+        "Power server/HPC"
+      ],
+      "firmware": [
+        "OpenPOWER Hostboot",
+        "OPAL skiboot",
+        "BMC and service processor vendor owned"
+      ],
+      "ai": [
+        "CPU runtime candidate",
+        "accelerator support must be evidenced per system",
+        "MPI external HPC stack optional"
+      ],
+      "status": "RESEARCH_ONLY"
+    }
+  ],
+  "fourMachineLayers": [
+    {
+      "id": "isaCpu",
+      "summary": "ISA/CPU, extension flags, microcode and privilege levels",
+      "sortOrdinal": 0,
+      "neverAssume": "ISA family does not certify actual CPU model"
+    },
+    {
+      "id": "firmwareBoot",
+      "summary": "UEFI/TF-A/OpenSBI/OPAL, BIOS, boot owner, verified update path",
+      "sortOrdinal": 1,
+      "neverAssume": "readable source does not authorize a firmware flash"
+    },
+    {
+      "id": "memoryIo",
+      "summary": "RAM bytes, NUMA/HBM/DDR/LPDDR, PCIe, USB, Bluetooth, coherency and bus IDs",
+      "sortOrdinal": 2,
+      "neverAssume": "memory model and little/big endianness cannot be silently converted"
+    },
+    {
+      "id": "acceleratorAi",
+      "summary": "GPU/NPU/TPU/FPGAs, vendor backends, available RAM/VRAM and CPU fallback",
+      "sortOrdinal": 3,
+      "neverAssume": "available runtime API is not GPU entitlement, acceleration or model proof"
+    }
+  ],
+  "matrix4x4": [
+    {
+      "architecture": "x86_64",
+      "cells": [
+        {
+          "id": "x86_64.isaCpu",
+          "layer": "isaCpu",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        },
+        {
+          "id": "x86_64.firmwareBoot",
+          "layer": "firmwareBoot",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        },
+        {
+          "id": "x86_64.memoryIo",
+          "layer": "memoryIo",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        },
+        {
+          "id": "x86_64.acceleratorAi",
+          "layer": "acceleratorAi",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        }
+      ]
+    },
+    {
+      "architecture": "aarch64",
+      "cells": [
+        {
+          "id": "aarch64.isaCpu",
+          "layer": "isaCpu",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        },
+        {
+          "id": "aarch64.firmwareBoot",
+          "layer": "firmwareBoot",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        },
+        {
+          "id": "aarch64.memoryIo",
+          "layer": "memoryIo",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        },
+        {
+          "id": "aarch64.acceleratorAi",
+          "layer": "acceleratorAi",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        }
+      ]
+    },
+    {
+      "architecture": "riscv64",
+      "cells": [
+        {
+          "id": "riscv64.isaCpu",
+          "layer": "isaCpu",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        },
+        {
+          "id": "riscv64.firmwareBoot",
+          "layer": "firmwareBoot",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        },
+        {
+          "id": "riscv64.memoryIo",
+          "layer": "memoryIo",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        },
+        {
+          "id": "riscv64.acceleratorAi",
+          "layer": "acceleratorAi",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        }
+      ]
+    },
+    {
+      "architecture": "ppc64le",
+      "cells": [
+        {
+          "id": "ppc64le.isaCpu",
+          "layer": "isaCpu",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        },
+        {
+          "id": "ppc64le.firmwareBoot",
+          "layer": "firmwareBoot",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        },
+        {
+          "id": "ppc64le.memoryIo",
+          "layer": "memoryIo",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        },
+        {
+          "id": "ppc64le.acceleratorAi",
+          "layer": "acceleratorAi",
+          "status": "CANDIDATE_NOT_REAL_DEVICE_PROOF",
+          "hardwareObserved": false,
+          "flashed": false,
+          "modelPerformanceMeasured": false,
+          "licenseCleared": false
+        }
+      ]
+    }
+  ],
+  "typedDataLanes": [
+    "numericStream",
+    "textStream",
+    "booleanStream",
+    "aiManifestStream"
+  ],
+  "canon": [
+    "AGENTS.md",
+    "LICENSE",
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/leanVmForgeAlignmentV1.json",
+    "doctrine/vendorReductionV1.json",
+    "doctrine/hostileModForge4x4V1.json",
+    "doctrine/castIdentityHexRegistryV1.json",
+    "doctrine/castTwoThreadBridgeV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/typedFourLaneSqlV1.json",
+    "host/api/typedLanesV1.sql"
+  ],
+  "sort": {
+    "purpose": "CANONICAL_ORDER_AND_EXPLICIT_EVIDENCE_WEIGHTS_NOT_CPU_BENCHMARK",
+    "machineLayerOrdinal": [
+      "isaCpu",
+      "firmwareBoot",
+      "memoryIo",
+      "acceleratorAi"
+    ],
+    "architectureOrdinal": [
+      "x86_64",
+      "aarch64",
+      "riscv64",
+      "ppc64le"
+    ],
+    "numericProofWeights": {
+      "verifiedCurrentExactSource": 16,
+      "licenseAndArtifactProven": 8,
+      "deviceMatchVerified": 4,
+      "runtimeReceiptVerified": 2,
+      "rollbackVerified": 1
+    },
+    "untrustedSelfClaimsAlwaysUnverified": true,
+    "scoreNotExecutionPermission": true,
+    "compareOnlySameBusAndWidth": true,
+    "numericHexSortNotNaiveVariableWidthLexicalSort": true,
+    "endianMustBeExplicit": true,
+    "memorySizesCanonicalDecimalByteIntegers": true,
+    "fixedHexNormalization": {
+      "usbVendorId": {
+        "digits": 4,
+        "bits": 16,
+        "byteOrder": "registryCanonicalBigEndianDigits"
+      },
+      "usbProductId": {
+        "digits": 4,
+        "bits": 16,
+        "byteOrder": "registryCanonicalBigEndianDigits"
+      },
+      "pciVendorId": {
+        "digits": 4,
+        "bits": 16,
+        "byteOrder": "registryCanonicalBigEndianDigits"
+      },
+      "pciDeviceId": {
+        "digits": 4,
+        "bits": 16,
+        "byteOrder": "registryCanonicalBigEndianDigits"
+      },
+      "cpuidLeaf": {
+        "digits": 8,
+        "bits": 32,
+        "byteOrder": "numericValueNotRawMemoryBytes"
+      },
+      "ipsOffset": {
+        "digits": 6,
+        "bits": 24,
+        "byteOrder": "IPS_BIG_ENDIAN_24BIT"
+      },
+      "uefiGuid": {
+        "digits": 32,
+        "bits": 128,
+        "byteOrder": "GUID_TEXT_FIELDS_HAVE_SPECIAL_WIRE_ORDER_VERIFY"
+      },
+      "sourceRef": {
+        "digits": 40,
+        "bits": 160,
+        "byteOrder": "GIT_SHA_1_IDENTITY_ONLY"
+      },
+      "artifactSha256": {
+        "digits": 64,
+        "bits": 256,
+        "byteOrder": "DIGEST_NOT_AUTHORITY"
+      }
+    }
+  },
+  "firmwareRules": {
+    "osDoesNotOwnMicrocodeOrSmmByDefault": true,
+    "uefiStandardNotFirmwarePermission": true,
+    "oemBiosSourceAndVendorBlobsSeparated": true,
+    "sourceAvailabilityNotModificationLicense": true,
+    "vendorModelAndBoardRevisionMatchRequired": true,
+    "secureBootAndTpmBoundariesPreserved": true,
+    "noRomOrOemBiosDownload": true,
+    "noFirmwareExtractionOrPatching": true,
+    "noFlash": true,
+    "noBootloaderUnlock": true,
+    "noSecureBootBypass": true,
+    "noMicrocodeMutation": true,
+    "realFwupdRequiresSignedVendorIdAndOwner": true,
+    "noImplicitOemUpdates": true
+  },
+  "patchLane": {
+    "formats": [
+      "IPS",
+      "BPS",
+      "PPF"
+    ],
+    "activeImplementation": "SYNTHETIC_IPS_INSPECT_ONLY",
+    "rightsStates": [
+      "homebrewOwned",
+      "expresslyLicensed"
+    ],
+    "maxInputBytes": 16384,
+    "maxRecords": 32,
+    "maxInspectRecordBytes": 4096,
+    "offsetWidthBits": 24,
+    "checksum": "SHA256_OF_PATCH_BYTES_NOT_TRUST_PROOF",
+    "noBiosOrProprietaryRomPayload": true,
+    "noRealPatchApplication": true,
+    "noRetailIsos": true,
+    "noAnticheatOrSignatureBypass": true,
+    "noAutoDownload": true,
+    "noRedistributionWithoutSourceRights": true
+  },
+  "aiIntegration": {
+    "default": "CPU_SOFTWARE_FALLBACK",
+    "providerSelection": "CAPABILITY_THEN_VETTED_PROVIDER",
+    "modelBinaryRequiresSeparateLicense": true,
+    "noCredentialOrHardwareProbe": true,
+    "noNpuGpuInferenceClaim": true,
+    "memoryBudgetRequiresPhysicalReceipt": true,
+    "supercomputerSupport": "FUTURE_PORTABILITY_TARGET_NOT_PROVEN",
+    "universalKernelClaim": false,
+    "perArchitectureCompiledBuildRequired": true,
+    "acceleratorComponentsNotBlanketApache2": true
+  },
+  "legal": {
+    "rootActual": "GPL-3.0",
+    "targetNewOriginal": "Apache-2.0_ONLY_AFTER_COPYRIGHT_AND_DEPENDENCY_REVIEW",
+    "creativeCommons": "MEDIA_ONLY_WITH_RIGHTS_PROOF",
+    "noDonorFirmwareRehost": true,
+    "licensesMustBeReviewedPerComponent": true,
+    "noAutoFork": true
+  },
+  "sourceReferences": [
+    {
+      "id": "uefi",
+      "url": "https://uefi.org/specs/UEFI/2.10_A/02_Overview.html",
+      "role": "bootServicesAndRuntimeInterfaces",
+      "license": "SPEC_TERMS_NOT_AUTOMATIC_CODE_LICENSE",
+      "action": "READ_ONLY"
+    },
+    {
+      "id": "edk2",
+      "url": "https://github.com/tianocore/edk2",
+      "role": "crossArchitectureUefiAndOvmf",
+      "license": "BSD-2-Clause-Patent_MAJORITY_WITH_EXCEPTIONS",
+      "action": "REFERENCE_OR_PINNED_COMPONENT_REVIEW"
+    },
+    {
+      "id": "coreboot",
+      "url": "https://doc.coreboot.org/",
+      "role": "openFirmwareArchitecturesAndVendorBinarySeparation",
+      "license": "GPL-2.0-ONLY_OR_COMPONENT_REVIEW",
+      "action": "DO_NOT_BLINDLY_IMPORT_BLOBS"
+    },
+    {
+      "id": "intelFsp",
+      "url": "https://www.intel.com/content/www/us/en/support/articles/000094560.html",
+      "role": "siliconInitializationBinaryInterface",
+      "license": "PROPRIETARY_BINARY_PACKAGE_VERIFY_EACH_SKU",
+      "action": "NO_FIRMWARE_MUTATION"
+    },
+    {
+      "id": "amdRocm",
+      "url": "https://rocm.docs.amd.com/en/latest/about/license.html",
+      "role": "acceleratorLicensesAndComponentMatrix",
+      "license": "PER_COMPONENT_MIT_APACHE_GPL_AND_OTHER",
+      "action": "METADATA_ONLY_NO_GPU_CLAIM"
+    },
+    {
+      "id": "armTfa",
+      "url": "https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/license.rst",
+      "role": "ArmSecureWorldBootReference",
+      "license": "BSD-3-Clause",
+      "action": "RESEARCH_NO_SAMSUNG_FLASH"
+    },
+    {
+      "id": "openSbi",
+      "url": "https://github.com/riscv-software-src/opensbi",
+      "role": "RiscvSupervisorBinaryInterfaceReference",
+      "license": "BSD-2-Clause_WITH_THIRD_PARTY_NOTICES",
+      "action": "RESEARCH_ONLY"
+    },
+    {
+      "id": "riscvIsa",
+      "url": "https://docs.riscv.org/",
+      "role": "riscvRatifiedArchitecturalExtensions",
+      "license": "SPEC_TERMS_SEPARATE_FROM_CODE",
+      "action": "READ_ONLY"
+    },
+    {
+      "id": "skiboot",
+      "url": "https://github.com/open-power/skiboot",
+      "role": "openPowerOpalRuntimeFirmware",
+      "license": "Apache-2.0_ROOT_CHECK_DEPENDENCIES",
+      "action": "RESEARCH_ONLY"
+    },
+    {
+      "id": "fwupd",
+      "url": "https://github.com/fwupd/fwupd/blob/main/SECURITY.md",
+      "role": "authenticatedFirmwarePackageAndVendorIdPolicy",
+      "license": "GPL_FAMILY_OR_PER_COMPONENT",
+      "action": "NO_LIVE_UPDATE"
+    },
+    {
+      "id": "lvfs",
+      "url": "https://lvfs.readthedocs.io/en/latest/security.html",
+      "role": "manufacturerIdentityMetadataAndSignedFirmware",
+      "license": "POLICY_NOT_GENERAL_BIOS_REHOST_GRANT",
+      "action": "METADATA_ONLY"
+    },
+    {
+      "id": "openvino",
+      "url": "https://github.com/openvinotoolkit/openvino",
+      "role": "intelInferenceProviderCandidate",
+      "license": "Apache-2.0_COMPONENT_REVIEW",
+      "action": "RUNTIME_PROOF_REQUIRED"
+    },
+    {
+      "id": "onnxRuntime",
+      "url": "https://github.com/microsoft/onnxruntime",
+      "role": "portableInferenceInterfacesAndProviders",
+      "license": "MIT_MAIN_WITH_COMPONENT_EXCEPTIONS",
+      "action": "PREFER_CPU_BASELINE"
+    },
+    {
+      "id": "qemu",
+      "url": "https://www.qemu.org/",
+      "role": "isolatedEmulationAndVirtualMachineTargets",
+      "license": "GPL_2_OR_LATER_PER_COMPONENT",
+      "action": "NO_ACTUAL_VM_CREATED"
+    }
+  ],
+  "release": {
+    "candidateOnly": true,
+    "existingMainUnmodified": true,
+    "noAgentActivation": true,
+    "noPaidCompute": true,
+    "noAutoMerge": true,
+    "noAutoDeploy": true,
+    "noPublicROMPatch": true,
+    "noRealHwAttached": true,
+    "productionBootProof": false,
+    "deviceFirmwareRightsProof": false,
+    "realAIInferenceProof": false,
+    "realHpcProof": false
+  },
+  "crownStatus": "STOP"
+}

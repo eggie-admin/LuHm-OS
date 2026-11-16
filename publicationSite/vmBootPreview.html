@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#17131f">
+<meta name="description" content="LuHm-OS brand seal and simulated in-app machine loader. Source-only; not a booted VM.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; frame-src https://luhm-os-godot-harness-green.onrender.com; connect-src 'none'; form-action 'none'; object-src 'none'; base-uri 'none'">
+<title>LuHm-OS | Machine Seal &amp; VM Preview</title>
+<style>
+:root{color-scheme:dark;--bg:#100e1a;--pane:#171622;--glass:#242035;--ink:#f7f4ff;--dim:#cdc8df;--ion:#7ce8ec;--violet:#9f7aea;--pink:#ff8aca}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 10% 15%,#37264d,transparent 45%),var(--bg);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
+main{max-width:1180px;margin:auto;padding:clamp(18px,4vw,44px)}a{color:var(--ion);text-decoration-thickness:1px}button{border:1px solid var(--ion);background:#1c313c;color:#e5ffff;padding:12px 17px;border-radius:9px;font:inherit;min-height:46px;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.head{display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}.eyebrow{font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ion);font-size:.77rem}.pill{border:1px solid #9c6f40;background:#34251e;color:#ffe6c3;border-radius:30px;padding:6px 13px;font-size:.8rem;font-weight:800}
+h1{font-size:clamp(2.4rem,6vw,4.8rem);line-height:1.04;letter-spacing:-.055em;margin:17px 0}h2{font-size:1.2rem;margin:0 0 12px}.lead{color:var(--dim);max-width:760px;font-size:1.12rem}
+.view{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:18px;margin-top:26px}
+.terminal,.cards{border:1px solid #5c4875;background:linear-gradient(145deg,#1e1c32,#13151f);border-radius:18px;padding:clamp(18px,3vw,26px);box-shadow:0 18px 55px #08070f}
+.brand{display:flex;align-items:center;gap:16px;padding-bottom:20px;border-bottom:1px solid #544663}.brand img{width:98px;height:98px;object-fit:cover;border-radius:12px;border:1px solid #7a61a0}.brand b{display:block;font-size:1.5rem;line-height:1.1}.brand small{display:block;color:var(--dim);margin-top:6px}
+.bootScreen{background:#080b16;border:1px solid #3a6070;min-height:252px;padding:17px;margin-top:20px;border-radius:11px;font:13px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace;overflow:auto}
+.line{white-space:pre-wrap;color:#b0c2cb}.line strong{color:var(--ion)}.bar{height:12px;margin:17px 0 9px;border-radius:22px;background:#303047;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--ion));transition:width .35s ease}.muted{color:var(--dim);font-size:.91rem}.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.stat{display:grid;grid-template-columns:1fr auto;gap:8px;padding:11px 0;border-bottom:1px solid #494057}.stat b{font-size:.85rem}.stat span{color:var(--ion);font-weight:700;font-size:.84rem}.stat .hold{color:#ffd69c}
+.matrix{margin-top:22px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.cell{background:#29223d;padding:10px 7px;text-align:center;border:1px solid #594674;border-radius:7px;color:#dad2ef;font:11px ui-monospace,monospace}.cell b{display:block;color:var(--ion);font-size:15px}
+footer{margin-top:24px;color:var(--dim);font-size:.92rem}
+#guestShell[hidden]{display:none}#guestShell{margin-top:22px}iframe{width:100%;height:420px;border:1px solid #526d84;border-radius:14px;background:#080b16}
+@media(max-width:800px){.view{grid-template-columns:1fr}.brand img{width:76px;height:76px}.matrix{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.fill{transition:none}}
+</style></head>
+<body><main>
+<div class="head"><span class="eyebrow">LuHm-OS · Project Premonition · Professor's studio</span><span class="pill">SOURCE-ONLY · NOT A VM BOOT</span></div>
+<h1>The Machine Seal</h1>
+<p class="lead">Four architecture lanes, one source of truth. The loader below is a <strong>local animation demonstrating the cockpit</strong>, not a hypervisor, kernel, Docker guest, or live deployment.</p>
+<div class="view">
+<section class="terminal" aria-label="LuHm simulated VM loader">
+<div class="brand"><img src="brandSealCandidate.svg" alt="Unreleased LuHm-OS architecture seal candidate" width="96" height="96"><div><b>LuHm-OS</b><small>Project Premonition · Candidate vector art</small><small>Published brand approval: HOLD</small></div></div>
+<div class="bootScreen" id="screen" role="log" aria-live="polite" aria-label="Simulated boot sequence">
+<div class="line"><strong>LUHM-OS :: PREMONITION</strong></div>
+<div class="line">BOOT SOURCE   [ PROPOSAL ONLY ]</div>
+<div class="line">HYPERVISOR    [ NOT CONNECTED ]</div>
+<div class="line">KERNEL        [ NOT BOOTED ]</div>
+<div class="line">STAGE         [ WAITING FOR HUMAN START ]</div>
+</div>
+<div class="bar" role="progressbar" id="progress" aria-label="Simulated loader progression" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="fill" id="fill"></div></div>
+<p class="muted" id="percent">0% simulated presentation</p>
+<div class="buttons">
+<button id="start" type="button">▶ Play boot preview</button>
+<button id="reset" type="button">↺ Reset</button>
+<button id="guest" type="button">▶ Open historical Godot web harness</button>
+</div>
+<p class="muted">Opening the Godot web harness is a user-initiated remote page load from a previously deployed Render web service. Its availability and compatibility must be verified in your browser; it is not the new proposal's VM.</p>
+</section>
+<section class="cards" aria-label="Proof and architecture status">
+<h2>Evidence status</h2>
+<div class="stat"><b>GitHub source</b><span>REQUIRES EXACT CI</span></div>
+<div class="stat"><b>Current LuHm plugin</b><span>READ-ONLY UI</span></div>
+<div class="stat"><b>Historical Godot host</b><span>RENDER WEB SERVICE</span></div>
+<div class="stat"><b>VM guest / kernel boot</b><span class="hold">NOT PROVEN</span></div>
+<div class="stat"><b>Samsung app install</b><span class="hold">NOT PROVEN</span></div>
+<div class="stat"><b>Art publication rights</b><span class="hold">HOLD</span></div>
+<h2 style="margin-top:24px">4×4 architecture seal</h2>
+<div class="matrix" aria-label="16 source-only verification cells">
+<div class="cell"><b>HEX</b>source</div><div class="cell"><b>HEX</b>test</div><div class="cell"><b>HEX</b>host?</div><div class="cell"><b>HEX</b>owner?</div>
+<div class="cell"><b>SVG</b>source</div><div class="cell"><b>SVG</b>test</div><div class="cell"><b>SVG</b>host?</div><div class="cell"><b>SVG</b>owner?</div>
+<div class="cell"><b>BRAND</b>source</div><div class="cell"><b>BRAND</b>test</div><div class="cell"><b>BRAND</b>host?</div><div class="cell"><b>BRAND</b>owner?</div>
+<div class="cell"><b>VM</b>source</div><div class="cell"><b>VM</b>test</div><div class="cell"><b>VM</b>host?</div><div class="cell"><b>VM</b>owner?</div>
+</div>
+</section></div>
+<section id="guestShell" hidden aria-label="Optional historical Godot player"><h2>Historical Godot web viewer · optional</h2><p class="muted">Only this previously documented, allowlisted host may load. If framing is refused, use the external link instead.</p><div id="embedHolder"></div><p><a href="https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html" target="_blank" rel="noopener noreferrer">Open historical Godot web harness in a separate browser tab ↗</a></p></section>
+<footer>Read-only preview. No real OS services, network probes, active background workers, shell access, system variables, production deployment, or secrets in this page. This is a draft feature, not a product release.</footer>
+</main>
+<script>
+"use strict";
+const steps=[
+"CANON :: Confirm four typed data lanes [ DEMO ONLY ]",
+"HEX   :: Normalize width + byte ordering [ DEMO ONLY ]",
+"VECTOR:: Review original bitmap run lengths [ DEMO ONLY ]",
+"BRAND :: Load unreleased LuHm vector candidate [ DEMO ONLY ]",
+"CAST  :: Professor ↔ Lum / Lum ↔ mesh [ DEMO ONLY ]",
+"VM    :: No hypervisor session or kernel receipt [ HOLD ]",
+"READY :: Preview complete. Boot proof still REQUIRED."
+];
+const screen=document.getElementById("screen"),bar=document.getElementById("progress"),fill=document.getElementById("fill"),pct=document.getElementById("percent");
+let handle=null,index=0;
+function render(){
+ let lines=['<div class="line"><strong>SIMULATED BOOT · NOT A VIRTUAL MACHINE</strong></div>'];
+ for(let i=0;i<index;i++){const el=document.createElement("div");el.className="line";el.textContent=steps[i];lines.push(el.outerHTML);}
+ screen.innerHTML=lines.join("");
+ const n=Math.round(index/steps.length*100);fill.style.width=n+"%";bar.setAttribute("aria-valuenow",String(n));
+ pct.textContent=n+"% simulated presentation · VM runtime HOLD";
+}
+function stop(){if(handle!==null){clearInterval(handle);handle=null;}}
+document.getElementById("start").addEventListener("click",()=>{
+ stop();index=0;render();
+ handle=setInterval(()=>{index=Math.min(index+1,steps.length);render();if(index===steps.length)stop();},580);
+});
+document.getElementById("reset").addEventListener("click",()=>{stop();index=0;render();});
+document.getElementById("guest").addEventListener("click",()=>{
+ const shell=document.getElementById("guestShell");shell.hidden=false;
+ const holder=document.getElementById("embedHolder");
+ if(!holder.firstElementChild){
+   const iframe=document.createElement("iframe");
+   iframe.title="Optional historic LuHm Godot web demo";
+   iframe.referrerPolicy="no-referrer";
+   iframe.setAttribute("sandbox","allow-scripts allow-pointer-lock");
+   iframe.src="https://luhm-os-godot-harness-green.onrender.com/harness/godot-export/index.html";
+   holder.append(iframe);
+ }
+ shell.scrollIntoView({behavior:"smooth",block:"start"});
+});
+render();
+</script>
+</body></html>

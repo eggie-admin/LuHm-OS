@@ -1,0 +1,38 @@
+name: LuHm Local Open Kernel VM Offline Gate
+
+on:
+  pull_request:
+    paths:
+      - "doctrine/localOpenVmKernelProfileV1.json"
+      - "tools/localOpenVmKernelGate.py"
+      - "tests/testLocalOpenVmKernelGate.py"
+      - "host/mcp/luhmLocalOpenVmKernelTools.py"
+      - "host/mcp/luhmHarnessServer.py"
+      - "manual/local-open-kernel-vm-runbook.md"
+      - ".github/workflows/local-open-vm-kernel.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  local-source-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile local kernel gate and MCP read-only adapter
+        run: |
+          python -m py_compile tools/localOpenVmKernelGate.py host/mcp/luhmLocalOpenVmKernelTools.py
+      - name: Audit offline-first default and run hostile negative tests
+        run: |
+          python tools/localOpenVmKernelGate.py audit
+          python -m unittest discover -s tests -p 'testLocalOpenVmKernelGate.py' -v
+      - name: Create proposed offline guest sizing plan without execution
+        run: |
+          python tools/localOpenVmKernelGate.py plan \
+            --source-ref f0cb6ee54066b490c0e80efc2c96200fec76ee2d \
+            --arch x86_64 --host-ram-mib 8192 --host-cpus 4 --kvm-claimed no
