@@ -19,6 +19,8 @@ var _selector_grid: GridContainer
 var _canon_roles: Dictionary = {}
 var _focus_markers: Array[Node3D] = []
 var _lum_rig_loaded := false
+var _spark_emitters: Array[CPUParticles3D] = []
+var _dance_until := 0.0
 
 func _ready() -> void:
     var file := FileAccess.open(CANON_PATH, FileAccess.READ)
@@ -121,6 +123,29 @@ func _build_actor(i: int) -> void:
     focus.rotation_degrees.z = 45.0
     focus.visible = false
     _focus_markers.append(focus)
+    # Private Proposed stage FX. Procedural particles do not ingest donor media.
+    var sparkles := CPUParticles3D.new()
+    sparkles.name = "ProposedSparkles"
+    sparkles.emitting = false
+    sparkles.one_shot = true
+    sparkles.amount = 48
+    sparkles.lifetime = 1.1
+    sparkles.explosiveness = 1.0
+    sparkles.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
+    sparkles.emission_sphere_radius = 0.30
+    sparkles.direction = Vector3.UP
+    sparkles.spread = 160.0
+    sparkles.gravity = Vector3(0, -0.8, 0)
+    sparkles.initial_velocity_min = 1.2
+    sparkles.initial_velocity_max = 2.8
+    sparkles.color = COLORS[i].lightened(0.35)
+    var spark_mesh := SphereMesh.new()
+    spark_mesh.radius = 0.030
+    spark_mesh.height = 0.060
+    sparkles.mesh = spark_mesh
+    sparkles.position = Vector3(0, 1.8, 0)
+    actor.add_child(sparkles)
+    _spark_emitters.append(sparkles)
     var pedestal := CylinderMesh.new()
     pedestal.top_radius = 0.65
     pedestal.bottom_radius = 0.7
@@ -222,6 +247,22 @@ func _build_hud() -> void:
         button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
         button.pressed.connect(func(): _select(index))
         row.add_child(button)
+    var playbar := HBoxContainer.new()
+    playbar.name = "ProposedPlayControls"
+    playbar.add_theme_constant_override("separation", 8)
+    column.add_child(playbar)
+    var controls := [
+        ["✨ SPARKS", Callable(self, "_cast_sparks")],
+        ["💃 DANCE", Callable(self, "_dance")],
+        ["💜 TALK", Callable(self, "_talk")]
+    ]
+    for entry in controls:
+        var action := Button.new()
+        action.text = str(entry[0])
+        action.custom_minimum_size = Vector2(100, 44)
+        action.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+        action.pressed.connect(entry[1])
+        playbar.add_child(action)
     var back := Button.new()
     back.text = "RETURN TO CATHEDRAL"
     back.custom_minimum_size = Vector2(0, 44)
@@ -229,6 +270,28 @@ func _build_hud() -> void:
     column.add_child(back)
     get_viewport().size_changed.connect(_refresh_hud_layout)
     _refresh_hud_layout()
+
+func _cast_sparks() -> void:
+    if active_index < 0 or active_index >= _spark_emitters.size():
+        return
+    var emitter := _spark_emitters[active_index]
+    if emitter != null and is_instance_valid(emitter):
+        emitter.restart()
+        emitter.emitting = true
+
+
+func _dance() -> void:
+    _dance_until = elapsed + 4.0
+    _cast_sparks()
+    if message != null:
+        message.text = "%s: Four beats, one ridiculous victory dance. The art can stay in Proposed. ♡" % IDS[active_index].capitalize()
+
+
+func _talk() -> void:
+    _cast_sparks()
+    if message != null:
+        message.text = LINES[active_index] + "\n3D rehearsal · original source · private Proposed"
+
 
 func _refresh_hud_layout() -> void:
     if _hud_column == null or _selector_grid == null:
@@ -247,12 +310,14 @@ func _select(i: int) -> void:
         if i != 0:
             art_state = "PROTOTYPE STAND-IN · MODEL PENDING"
         message.text = LINES[i] + "\n" + str(_canon_roles.get(IDS[i], "Goddess")) + " · " + art_state
+    _cast_sparks()
 
 func _process(delta: float) -> void:
     elapsed += delta
     for i in actor_roots.size():
-        actor_roots[i].position.y = sin(elapsed * 1.4 + i) * 0.045
-        actor_roots[i].rotation.y = sin(elapsed * 0.8 + i) * 0.12
+        var spotlight := i == active_index and elapsed < _dance_until
+        actor_roots[i].position.y = sin(elapsed * (5.2 if spotlight else 1.4) + i) * (0.16 if spotlight else 0.045)
+        actor_roots[i].rotation.y = sin(elapsed * (3.8 if spotlight else 0.8) + i) * (0.30 if spotlight else 0.12)
 
 func _tap_actor(screen_point: Vector2) -> void:
     var camera := get_viewport().get_camera_3d()
