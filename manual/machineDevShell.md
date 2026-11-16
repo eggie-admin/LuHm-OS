@@ -15,3 +15,7 @@ Commands: help, status (read-only hardware), tests, sql-snapshot /tmp/NEW_DIR (p
 Main workflow keylessly attests with GitHub OIDC/Sigstore short-lived certificate, then verifies its own provenance and uploads a seven-day artifact. PRs run unsigned tests only. A SHA checksum is not a signature. This is not an owner GPG signature, Android APK signing or physical Pi/Android proof.
 
 Owner GPG remains separate via tools/ownerGpgBootstrap.sh on trusted owner hardware. No self-signed TLS certificate, remote database, paid service, device flashing, signing key or agent activation is created. Root license remains GPLv3. Crown STOP.
+
+## Source-matched SQL seed bundled inside the attested archive
+
+The protected-main job also builds and validates `shell/canon-hex.db` and `shell/canon-hex.json` at the same exact source SHA, using the pre-existing `tools/canonHexLedger.py` (256/512/1024 assessed cells; 28 chained 64-slot windows). It confirms SQLite integrity, the receipt/file SHA-256 and source identity **before** attesting the complete tar.gz. These are sanitized **source-only metadata**, not live remote SQL or device execution. A new source commit invalidates old evidence, so generate a new private snapshot when moving HEAD. The included archive is an ephemeral GitHub download, not owner-only Drive durability or a released runtime database.

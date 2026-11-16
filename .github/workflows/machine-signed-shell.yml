@@ -42,6 +42,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ github.sha }}
+          fetch-depth: 64
           persist-credentials: false
       - name: Package exact-main shell and GPLv3 license
         id: bundle
@@ -58,6 +59,24 @@ jobs:
                     'repo':os.environ['GITHUB_REPOSITORY'],'crownStatus':'STOP',
                     'ownerGpgSignature':'UNVERIFIED','attestation':'REQUIRES_EXTERNAL_VERIFICATION'}
           (pathlib.Path(os.environ['OUT_DIR'])/'shell'/'manifest.json').write_text(json.dumps(manifest,sort_keys=True,indent=2)+'\n')
+          PY
+          python3 tools/canonHexLedger.py --source-ref "$GITHUB_SHA" --all-scales --db "$OUT_DIR/shell/canon-hex.db" --report "$OUT_DIR/shell/canon-hex.json"
+          python3 - <<'PY'
+          import hashlib,json,os,pathlib,sqlite3
+          folder=pathlib.Path(os.environ['OUT_DIR'])/'shell'
+          dbpath=folder/'canon-hex.db'
+          receipt=json.loads((folder/'canon-hex.json').read_text())
+          assert receipt['sourceRef']==os.environ['GITHUB_SHA']
+          assert receipt['checkpointCount']==28 and receipt['recordCounts']['hexSlot']==1792
+          assert receipt['crownStatus']=='STOP' and receipt['tlsChain']=='UNVERIFIED'
+          assert not receipt['agentExecution'] and not receipt['signingPerformed']
+          assert receipt['databaseSha256']==hashlib.sha256(dbpath.read_bytes()).hexdigest()
+          con=sqlite3.connect(dbpath)
+          assert con.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
+          assert con.execute('SELECT count(*) FROM streamEvent').fetchone()[0]>=1792
+          assert set(r[0] for r in con.execute('SELECT DISTINCT sourceRef FROM streamEvent'))=={os.environ['GITHUB_SHA']}
+          con.close()
+          print('GREEN_MACHINE_SQL_64_CHECKPOINT_SEED_EXACT_SOURCE')
           PY
           tar -C "$OUT_DIR" -czf "$OUT_DIR/luhm-machine-dev-shell-${GITHUB_SHA:0:12}.tar.gz" shell
           printf 'path=%s\n' "$OUT_DIR/luhm-machine-dev-shell-${GITHUB_SHA:0:12}.tar.gz" >> "$GITHUB_OUTPUT"

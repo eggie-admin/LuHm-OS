@@ -22,4 +22,8 @@ class MachineDevShellTests(unittest.TestCase):
         self.assertIn('gh attestation verify',w)
         self.assertIn('id-token: write',w)
         self.assertIn('persist-credentials: false',w)
+        self.assertIn('GREEN_MACHINE_SQL_64_CHECKPOINT_SEED_EXACT_SOURCE',w)
+        self.assertIn('fetch-depth: 64',w)
+        self.assertIn('canon-hex.db',w)
+        self.assertIn("receipt['sourceRef']==os.environ['GITHUB_SHA']",w)
 if __name__=='__main__':unittest.main()
