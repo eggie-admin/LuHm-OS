@@ -1,0 +1,30 @@
+{
+  "schema": "luhmOs.canonHexLedger.v1",
+  "status": "SOURCE_CANDIDATE_LOCAL_ONLY",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "authority": "Professor",
+  "canonicalSourceTruth": "doctrine/currentSourceTruthV3.json",
+  "typedSqlSchema": "host/api/typedLanesV1.sql",
+  "existingAssessor": "tools/hydraHexReleaseAudit.py",
+  "existingMachineFourByFour": "doctrine/machineCanonFourLoopV1.json",
+  "existingEscalation": "doctrine/operationTitan7ChatTriggerV2.json",
+  "namespaceLaw": "doctrine/namingNamespaceCanonV1.json",
+  "scales": [256, 512, 1024],
+  "checkpointSpan": 64,
+  "checkpointMeaning": "64 assessed evidence controls grouped and SHA256 chained, never 64 automatically passed tests",
+  "layers": [
+    "machineSqlDragonTail",
+    "repositoryKebabNamespace",
+    "vowelRippedStrictCamelHump",
+    "fullHumanCenteredCamelHump"
+  ],
+  "vendorLayer": "API capability adapter and transport subrole, not replacement Canon namespace",
+  "hashInventory": "strict known hash fields, exact 40/64 lowercase hex, source path and JSON pointer required",
+  "secretHandling": "never read PEM private-key bytes, tokens, credentials or secret values",
+  "tls": {"metadataIndexOnly": true, "liveChainProofRequired": true, "selfSignedLeafDefaultsTo": "UNVERIFIED", "issueCertificates": false, "signCertificates": false},
+  "license": {"observedRoot": "GPL-3.0", "desiredApache2CompatibilityReview": true, "automaticRelicensing": false},
+  "storage": {"database": "private-local-ephemeral", "databaseMayStoreBinary": false, "durableCopyRequiresVerifiedDrive": true},
+  "cache": {"dedupeBy": "sourceFile-jsonPointer-value", "checkpointHashChain": true, "invalidateOnShaChange": true, "pruneRawBinary": false},
+  "security": {"writePublicSql": false, "autoAgent": false, "autoCertSign": false, "autoMerge": false, "autoDeploy": false, "publicRelease": false},
+  "crownStatus": "STOP"
+}
