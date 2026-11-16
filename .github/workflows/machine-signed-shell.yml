@@ -1,0 +1,90 @@
+name: LuHm Signed Machine Development Shell
+on:
+  pull_request:
+    paths:
+      - 'machine-harness/luhm-dev-shell.sh'
+      - 'tests/testMachineDevShell.py'
+      - 'doctrine/machineDevShellV1.json'
+      - 'manual/machineDevShell.md'
+      - '.github/workflows/machine-signed-shell.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'machine-harness/luhm-dev-shell.sh'
+      - 'tests/testMachineDevShell.py'
+      - 'doctrine/machineDevShellV1.json'
+      - 'manual/machineDevShell.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Fail-closed shell and Canon SQL regression
+        run: python3 -m unittest -v tests.testMachineDevShell tests.testMachineHarnessSeal tests.testTypedSqlStub
+  attest-main:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: source-tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Package exact-main shell and GPLv3 license
+        id: bundle
+        env:
+          OUT_DIR: ${{ runner.temp }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$OUT_DIR/shell"
+          cp machine-harness/luhm-dev-shell.sh "$OUT_DIR/shell/luhm-dev-shell.sh"
+          cp LICENSE "$OUT_DIR/shell/LICENSE"
+          python3 - <<'PY'
+          import json,os,pathlib
+          manifest={'schema':'luhmOs.machineDevShellPackage.v1','sourceRef':os.environ['GITHUB_SHA'],
+                    'repo':os.environ['GITHUB_REPOSITORY'],'crownStatus':'STOP',
+                    'ownerGpgSignature':'UNVERIFIED','attestation':'REQUIRES_EXTERNAL_VERIFICATION'}
+          (pathlib.Path(os.environ['OUT_DIR'])/'shell'/'manifest.json').write_text(json.dumps(manifest,sort_keys=True,indent=2)+'\n')
+          PY
+          tar -C "$OUT_DIR" -czf "$OUT_DIR/luhm-machine-dev-shell-${GITHUB_SHA:0:12}.tar.gz" shell
+          printf 'path=%s\n' "$OUT_DIR/luhm-machine-dev-shell-${GITHUB_SHA:0:12}.tar.gz" >> "$GITHUB_OUTPUT"
+          sha256sum "$OUT_DIR/luhm-machine-dev-shell-${GITHUB_SHA:0:12}.tar.gz"
+      - name: GitHub OIDC Sigstore attestation
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: ${{ steps.bundle.outputs.path }}
+      - name: Verify artifact signature and source identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PACKAGE: ${{ steps.bundle.outputs.path }}
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            if gh attestation verify "$PACKAGE" --repo "$GITHUB_REPOSITORY" --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/machine-signed-shell.yml" --source-digest "$GITHUB_SHA"; then
+              echo GREEN_ATTESTED_EXACT_MAIN_SHELL
+              exit 0
+            fi
+            sleep 5
+          done
+          echo RED_SIGNING_OR_SOURCE_PROOF >&2
+          exit 1
+      - name: Upload short-lived attested development shell
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-machine-dev-shell-${{ github.sha }}
+          path: ${{ steps.bundle.outputs.path }}
+          retention-days: 7
+          if-no-files-found: error
