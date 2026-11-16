@@ -16,6 +16,10 @@ import re
 import sqlite3
 import subprocess
 import tempfile
+import sys
+
+# Direct CLI file invocation must resolve the repository's canonical tools package.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from tools.hydraHexReleaseAudit import assess, exact_git_sha
 from tools.typedSqlStub import addEvent, openStub, putBoolean, putManifest, putNumeric, putText
