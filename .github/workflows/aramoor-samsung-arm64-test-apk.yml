@@ -1,4 +1,4 @@
-name: Aramoor Samsung ARM64 Test APK · source-only private install candidate
+name: Premonition Neon Cathedral · tablet ARM64 debug-signed POC APK
 
 on:
   pull_request:
@@ -14,11 +14,23 @@ on:
       - 'doctrine/privateCanonArtFourPassIntake20261114.json'
       - 'tools/privateCanonArtGalleryAudit.py'
       - 'frontEnd/styles.css'
+      - 'frontEnd/premonition-hero.webp'
+      - 'tools/premonitionPocIcons.py'
+      - 'tests/testPremonitionTabletPoc.py'
       - 'androidWeb3Plugin/plugin/src/main/java/art/eggiebagelface/luhmos/web3/AndroidWeb3CockpitPlugin.kt'
       - 'doctrine/androidWeb3BridgeV2.json'
       - 'receipts/aramoorSamsungFieldObservation20261114.json'
       - 'tools/aramoorSamsungPlayAudit.py'
       - 'tools/androidWeb3CockpitAudit.py'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/aramoor-samsung-arm64-test-apk.yml'
+      - 'frontEnd/index.html'
+      - 'frontEnd/styles.css'
+      - 'frontEnd/premonition-hero.webp'
+      - 'tools/premonitionPocIcons.py'
+      - 'tests/testPremonitionTabletPoc.py'
   workflow_dispatch:
 
 permissions:
@@ -47,6 +59,7 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           python3 tools/candidateGate.py
+          python3 -m unittest -v tests.testPremonitionTabletPoc
           python3 tools/aramoorWorldAudit.py
           python3 tools/godot4MilestoneReconciliationAudit.py
           python3 tools/aramoorSamsungPlayAudit.py
@@ -135,21 +148,36 @@ jobs:
           s=p.read_text()
           changes={
             'package/unique_name="art.eggiebagelface.luhmos.testing"':
-              'package/unique_name="art.eggiebagelface.luhmos.canongallery"',
+              'package/unique_name="art.eggiebagelface.luhmos.premonitionpoc"',
             'package/name="LuHm OS Samsung Candidate"':
-              'package/name="LuHm Canon Art Test"',
+              'package/name="LuHm Premonition POC"',
             'version/name="1.0.16-samsunglayout.1"':
-              'version/name="0.3.0-canon-art"',
+              'version/name="0.4.0-premonition-poc"',
           }
           for old,new in changes.items():
               assert s.count(old)==1,("SOURCE_PRESET_DRIFT",old)
               s=s.replace(old,new)
           p.write_text(s)
           PY
-          grep -q 'package/unique_name="art.eggiebagelface.luhmos.canongallery"' export_presets.cfg
+          grep -q 'package/unique_name="art.eggiebagelface.luhmos.premonitionpoc"' export_presets.cfg
           test ! -e assets/lum/luhm.glb
           test ! -e assets/lum/luhmRunning.glb
 
+      - name: Generate original horned-L launcher icon
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/premonitionPocIcons.py --output build/aramoor-android/icons
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('export_presets.cfg')
+          s=p.read_text()
+          old='launcher_icons/main_192x192=""'
+          new='launcher_icons/main_192x192="res://build/aramoor-android/icons/launcher192.png"'
+          assert s.count(old)==1,'ICON_PRESET_DRIFT'
+          p.write_text(s.replace(old,new))
+          PY
+          test -s build/aramoor-android/icons/launcher192.png
       - name: Run actual canonical Godot game and Aramoor smoke tests
         shell: bash
         run: |
@@ -190,20 +218,29 @@ jobs:
           "$BT/apksigner" verify --verbose --print-certs "$APK" > "$OUT/signature.txt"
           "$BT/zipalign" -c -P 16 -v 4 "$APK" > "$OUT/zipalign.txt"
           sha256sum "$APK" > "$OUT/apk-sha256.txt"
-          grep -q "package: name='art.eggiebagelface.luhmos.canongallery'" "$OUT/badging.txt"
+          cp frontEnd/premonition-hero.webp "$OUT/premonition-hero.webp"
+          cp build/aramoor-android/icons/launcher192.png "$OUT/launcher-icon.png"
+          grep -q "package: name='art.eggiebagelface.luhmos.premonitionpoc'" "$OUT/badging.txt"
           grep -q "targetSdkVersion:'36'" "$OUT/badging.txt"
           grep -q "native-code: 'arm64-v8a'" "$OUT/badging.txt"
           grep -q 'application-debuggable' "$OUT/badging.txt"
           test "$(git rev-parse HEAD)" = "$EXACT_SOURCE_SHA"
           python3 - <<'PY'
+          import hashlib
           from zipfile import ZipFile
           from pathlib import Path
           apk=Path("build/aramoor-android/Aramoor-Samsung-arm64-test.apk")
           with ZipFile(apk) as z:
               html=z.read("assets/index.html")
               gallery=z.read("assets/canonGallery.js")
+              portrait=z.read("assets/premonition-hero.webp")
+              assert len(portrait)>=3500,"ORIGINAL_ART_NOT_PACKAGED"
+              assert hashlib.sha256(portrait).hexdigest()=="a8982f8f7d79a092735ba551be1d62c505bf31bc9967811dfd8ae2477bc522c0","ORIGINAL_ART_SHA_DRIFT"
               css=z.read("assets/styles.css")
               kotlin_bridge=z.namelist()
+              assert b'PROJECT <em>PREMONITION</em>' in html,"PREMONITION_BRANDING_NOT_PACKAGED"
+              assert b'premonitionHeroPortrait' in html,"PREMONITION_HERO_NOT_LINKED"
+              assert b'.premonitionHeroPortrait' in css,"PREMONITION_CSS_NOT_PACKAGED"
               assert b'CANON ART' in html and b'data-luhm-canon-gallery' in html, "GALLERY_HTML_NOT_PACKAGED"
               assert b'LuHmCanonGallery' in gallery and b'local_art_pick_requested' in gallery, "GALLERY_JS_NOT_PACKAGED"
               assert b'.canonGalleryLayer' in css, "GALLERY_CSS_NOT_PACKAGED"
@@ -229,7 +266,11 @@ jobs:
               "status":"DEBUG_SIGNED_APK_CANDIDATE_NOT_DEVICE_PROVEN",
               "exactSourceSha":os.environ["EXACT_SOURCE_SHA"],
               "canonicalBaseSha":"cd90b6963baa0e90289ca3228e5ab220cd419714",
-              "applicationId":"art.eggiebagelface.luhmos.canongallery",
+              "applicationId":"art.eggiebagelface.luhmos.premonitionpoc",
+              "artSha256":"a8982f8f7d79a092735ba551be1d62c505bf31bc9967811dfd8ae2477bc522c0",
+              "branding":"LuHm-OS · Project Premonition",
+              "originalPocArtwork":True,
+              "launcherIconGeneratedLocally":True,
               "apkSha256":hashlib.sha256(apk.read_bytes()).hexdigest(),
               "signerCertificateSha256":m.group(1).lower(),
               "abi":"arm64-v8a",
@@ -246,10 +287,10 @@ jobs:
           print(json.dumps(receipt,indent=2))
           PY
 
-      - name: Retain limited-lifetime install artifact, never publish a release
+      - name: Upload ARM64 debug-signed tablet POC artifact (not production release)
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: aramoor-samsung-arm64-debug-install-candidate
+          name: premonition-neon-cathedral-arm64-debug-install
           path: build/aramoor-android/
           if-no-files-found: error
           retention-days: 7
