@@ -1,0 +1,59 @@
+name: Canon HEX SQL 64-Checkpoint Source Audit
+on:
+  pull_request:
+    paths:
+      - 'tools/canonHexLedger.py'
+      - 'tests/testCanonHexLedger.py'
+      - 'doctrine/canonHexLedgerV1.json'
+      - 'manual/canonHexLedgerV1.md'
+      - '.github/workflows/canon-hex-ledger.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/canonHexLedger.py'
+      - 'tests/testCanonHexLedger.py'
+      - 'doctrine/canonHexLedgerV1.json'
+      - 'manual/canonHexLedgerV1.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: canon-hex-ledger-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  local-evidence-sql:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 64
+          persist-credentials: false
+      - name: Test field rejection and 64-slot chains
+        run: python3 -m unittest -v tests.testCanonHexLedger tests.testTypedSqlStub
+      - name: Source-pinned 256, 512 and 1024 assessments to private SQLite
+        run: |
+          python3 tools/canonHexLedger.py --db "$RUNNER_TEMP/canon-hex-ledger.db" --report "$RUNNER_TEMP/canon-hex-ledger.json" --all-scales --source-ref "$(git rev-parse HEAD)"
+          python3 - <<'PY'
+          import json,os,sqlite3
+          from pathlib import Path
+          root=Path(os.environ['RUNNER_TEMP'])
+          j=json.loads((root/'canon-hex-ledger.json').read_text())
+          db=sqlite3.connect(root/'canon-hex-ledger.db')
+          assert j['checkpointCount']==28
+          assert j['scales']==[256,512,1024]
+          assert db.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
+          assert db.execute("SELECT count(*) FROM textStream WHERE fieldName='recordKind' AND textValue='hexSlot'").fetchone()[0]==1792
+          assert j['crownStatus']=='STOP' and not j['agentExecution'] and not j['signingPerformed']
+          assert j['tlsChain']=='UNVERIFIED' and j['rootLicense']=='GPL-3.0'
+          print('SOURCE_SQL_64_CHECKPOINTS_PROVEN_NO_REMOTE_CROWN')
+          PY
+      - name: Temporary auditable SQL receipt (not durable storage)
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: canon-hex-ledger-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/canon-hex-ledger.db
+            ${{ runner.temp }}/canon-hex-ledger.json
+          retention-days: 7
+          if-no-files-found: error
