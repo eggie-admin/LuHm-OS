@@ -45,3 +45,14 @@ Continue the everlasting covenant states in order: sanityCheck, audit, ingest, m
 Rollback branch: snapshot/hydra-before-hex256-unified-packages-7c27ba88.
 
 Missing external receipts, rights review, Drive security, Google AI authentication, macOS signing, APK installation, private npm publication and physical-device tests remain independent AMBER/BLOCKED gates. CROWN STOP.
+
+## November 16 private beta acceptance after scoped source merges
+
+- Protected main at the start of this audit: `fe4cd2e423b84eb0f94606eaf604d8b4b0126530`. Signing hardening PR #572 and 4×4 escalation PR #573 are merged. No release-signed tablet APK or physical install follows automatically from these merges.
+- Trigger the existing HEX 256/512/1024 workflow as an exact-source evidence assessment, **not** 1,024 passing physical tests. Its release cells deliberately stay `BLOCKED_CROWN`, and its stage/build/verify slots without external proof stay AMBER.
+- The last separately verified installable APK remains the 83,586,114-byte debug-signed `art.eggiebagelface.luhmos.premonitionpoc` artifact from [run 43899856693](https://github.com/eggie-admin/LuHm-OS/actions/runs/43899856693), SHA-256 `5509f3619357c64c4c4c8d87df89b80d101485c3a0c6f4c089af890ecfc84b2d`. It is neither an owner-signed `.beta` build nor a proven upgrade path.
+- The current intended steady-use package is `art.eggiebagelface.luhmos.beta`. Its `androidBetaReleaseBaselineV1.json` is `UNVERIFIED`. A persistent owner-held signer, protected environment reviewer, real beta APK and Samsung same-signer install/update receipt are separate required evidence.
+- Repository branch names were enumerated at 811 total, including 344 candidate, 95 snapshot and 8 archive refs. Preserving potential unique commits and backups takes precedence over blind deletion; no claimed full-branch code audit or purge.
+- Commercial-character and third-party rig archives remain in private source vault review; Android import, animations and distribution rights are **not** certified by this source audit. No donor binaries are being added here.
+
+**Acceptance rule:** `GREEN_SOURCE` is only source consistency. `AMBER` requires a named external receipt, `RED` blocks relevant advancement, and release status is `CROWN_STOP` until the Professor can validate the exact signed package and physical tablet behavior.
