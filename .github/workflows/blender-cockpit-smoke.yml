@@ -1,0 +1,42 @@
+name: Blender Cockpit Runtime Smoke
+on:
+  pull_request:
+    paths:
+      - 'host/blender/**'
+      - '.devcontainer/**'
+      - 'scripts/professorGarageSmoke.sh'
+      - '.github/workflows/blender-cockpit-smoke.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  blender-runtime:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Install Blender runtime
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends blender
+      - name: Parse handoff and cockpit Python without executing asset export
+        run: python3 -m py_compile host/blender/blender-godot-handoff.py host/blender/luhm-cockpit.py host/blender/studio-hub.py
+      - name: Register panel and execute tool probe in real Blender
+        run: blender --background --factory-startup --python-exit-code 1 --python host/blender/luhm-cockpit.py -- --luhm-selftest
+
+  ubuntu-workstation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Build actual Ubuntu 26.04 workstation
+        run: docker build --build-arg TARGETARCH=amd64 -t luhm-workstation:test .devcontainer
+      - name: Verify installed toolchain and Blender inside workstation
+        run: |
+          docker run --rm --network none -v "$PWD:/workspace:ro" -w /workspace luhm-workstation:test bash scripts/professorGarageSmoke.sh
+          docker run --rm --network none -v "$PWD:/workspace:ro" -w /workspace luhm-workstation:test blender --background --factory-startup --python-exit-code 1 --python host/blender/luhm-cockpit.py -- --luhm-selftest
+      - name: Import Godot project in disposable workspace
+        run: |
+          docker run --rm --network none -v "$PWD:/source:ro" luhm-workstation:test bash -euc 'cp -a /source /tmp/luhm-project; cd /tmp/luhm-project; timeout 180 godot --headless --editor --import --path .'
