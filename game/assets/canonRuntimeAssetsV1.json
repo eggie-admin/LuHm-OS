@@ -1,0 +1,82 @@
+{
+  "schema": "luhmOs.canonRuntime3dAssetRegistry.v1",
+  "status": "CANDIDATE_SOURCE_ONLY",
+  "authority": "Professor",
+  "canonicalCharacterSource": "game/canon/CHARACTER_CANON_V1.json",
+  "canonicalGameAssets": "game/assets/ASSET_MANIFEST_V1.json",
+  "canonicalStory": "game/story/firstNightQuest.json",
+  "approvedAssetRoot": "res://assets/approved3d/",
+  "note": "No binary model is claimed approved by this source manifest. Private candidate models, source illustrations, and third-party references are excluded from public runtime.",
+  "allowedCharacterIds": [
+    "lum",
+    "urd",
+    "belldandy",
+    "skuld"
+  ],
+  "characters": {
+    "lum": {
+      "status": "candidateReview",
+      "path": "",
+      "sha256": "",
+      "license": "unreviewed",
+      "publicAllowed": false,
+      "importProven": false,
+      "approvedBy": "",
+      "fallback": "existingProceduralLum"
+    },
+    "urd": {
+      "status": "concept",
+      "path": "",
+      "sha256": "",
+      "license": "unreviewed",
+      "publicAllowed": false,
+      "importProven": false,
+      "approvedBy": "",
+      "fallback": "existingGoddessBlockout"
+    },
+    "belldandy": {
+      "status": "concept",
+      "path": "",
+      "sha256": "",
+      "license": "unreviewed",
+      "publicAllowed": false,
+      "importProven": false,
+      "approvedBy": "",
+      "fallback": "existingGoddessBlockout"
+    },
+    "skuld": {
+      "status": "concept",
+      "path": "",
+      "sha256": "",
+      "license": "unreviewed",
+      "publicAllowed": false,
+      "importProven": false,
+      "approvedBy": "",
+      "fallback": "existingGoddessBlockout"
+    }
+  },
+  "worlds": {
+    "neonRiverwalk": [],
+    "lumCoffeeHouse": [],
+    "cathedral": []
+  },
+  "ingestionRequirements": [
+    "privateSourceProvenance",
+    "approvedOriginalOrRedistributableLicense",
+    "professorIdentityReview",
+    "sha256Pin",
+    "godot47ImportSmoke",
+    "runtimeMotionAndInteractionSmoke",
+    "explicitPublicReleaseApproval"
+  ],
+  "policies": {
+    "modelNotInRepositoryMeansNotDeployed": true,
+    "registryEntryNotBinaryProof": true,
+    "publicExportOnlyApprovedAssets": true,
+    "proceduralFallbackAlwaysHonest": true,
+    "missingOrUnapprovedNeverAutoFetch": true,
+    "privateDriveLocatorForbidden": true,
+    "automaticPublicArtPromotion": false
+  },
+  "crownStatus": "STOP"
+}

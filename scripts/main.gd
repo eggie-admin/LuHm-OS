@@ -6,6 +6,7 @@ const GameHudScript := preload("res://scripts/game/gameHud.gd")
 const CutsceneDirectorScript := preload("res://scripts/cutsceneDirector.gd")
 const CutsceneBridgeScript := preload("res://scripts/game/cutsceneBridge.gd")
 const CharacterRosterScript := preload("res://scripts/game/characterRoster.gd")
+const CanonAssetRegistryScript := preload("res://scripts/game/canonAssetRegistry.gd")
 const QuestDirectorScript := preload("res://scripts/game/questDirector.gd")
 const NightShiftGeneratorScript := preload("res://scripts/game/nightShiftGenerator.gd")
 const OniSummonBeaconScript := preload("res://scripts/game/oniSummonBeacon.gd")
@@ -28,6 +29,7 @@ var game_hud: CanvasLayer
 var cutscene_director: Node
 var cutscene_bridge: Node
 var character_roster: Node
+var canon_asset_registry: Node
 var quest_director: Node
 var nearest_interactable: Area3D
 var intro_played := false
@@ -48,8 +50,13 @@ func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("ui_accept") and player_controller != null and player_controller.world_active:
         _interact()
 func _build_runtime() -> void:
+    canon_asset_registry = CanonAssetRegistryScript.new()
+    canon_asset_registry.name = "CanonAssetRegistry"
+    add_child(canon_asset_registry)
+
     neon_world = WorldFactoryScript.new().createWorld("neonRiverwalk")
     add_child(neon_world)
+    canon_asset_registry.mount_world_props("neonRiverwalk", neon_world)
     active_world = neon_world
     player_controller = PlayerControllerScript.new()
     player_controller.name = "PlayerController"
@@ -213,6 +220,8 @@ func switchWorld(world_id: String) -> bool:
         active_world.queue_free()
 
     add_child(next_world)
+    if canon_asset_registry != null:
+        canon_asset_registry.mount_world_props(world_id, next_world)
     active_world = next_world
     neon_world = next_world if world_id == "neonRiverwalk" else null
     active_world_id = world_id

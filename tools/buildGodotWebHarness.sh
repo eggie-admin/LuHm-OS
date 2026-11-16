@@ -29,6 +29,7 @@ cp -a /tmp/luhm-godot-web-tpl/templates/. "$TEMPLATE_DIR/"
 # Private donor inspection remains in isolated, review-only CI workflows.
 mkdir -p assets/lum
 python3 tools/godot-public-asset-firewall-audit.py
+python3 tools/canonAssetBuildAudit.py
 echo 'PUBLIC_GODOT_ASSETS=PROCEDURAL_FALLBACK_ONLY'
 
 PARSE_LOG=/tmp/luhm-godot-parse.log

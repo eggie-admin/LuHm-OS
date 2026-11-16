@@ -26,6 +26,13 @@ func _run() -> void:
     _check(hud != null, "GameHud exists")
     _check(game.get_node_or_null("CutsceneDirector") != null, "CutsceneDirector exists")
     _check(game.get_node_or_null("CutsceneBridge") != null, "CutsceneBridge exists")
+    var canon_registry: Node = game.get_node_or_null("CanonAssetRegistry")
+    _check(canon_registry != null, "canon 3D registry exists")
+    if canon_registry != null:
+        var blocked_lum: Dictionary = canon_registry.call("character_model_status", "lum")
+        _check(not bool(blocked_lum.get("ok", true)), "private Lum 3D candidate fails closed in public registry")
+        var first_receipt: Dictionary = canon_registry.call("get_last_receipt")
+        _check(String(first_receipt.get("status", "")) == "PROCEDURAL_FALLBACK", "unapproved 3D keeps current procedural world")
 
     if world != null:
         _check(world.get_node_or_null("WalkFloor") is StaticBody3D, "WalkFloor is collidable StaticBody3D")
