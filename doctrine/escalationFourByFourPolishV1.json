@@ -1,0 +1,153 @@
+{
+  "schema": "luhmOs.escalationFourByFourPolish.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "authority": "Professor",
+  "kernel": "doctrine/escalationKernelV1.json",
+  "interactionRhythm": "doctrine/fourBeatInteractionRhythmV1.json",
+  "founderLadder": "doctrine/founderEscalationLadderV1.json",
+  "separateOperatingLayers": "doctrine/fourTierOperatingModelV1.json",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "intent": "A minimal 4x4 evidence ledger for a single bounded task, not 16 workers or 16 independent permissions.",
+  "tiers": [
+    {
+      "tier": 0,
+      "id": "fastPath"
+    },
+    {
+      "tier": 1,
+      "id": "forFuckSake"
+    },
+    {
+      "tier": 2,
+      "id": "scorchedEarth"
+    },
+    {
+      "tier": 3,
+      "id": "finalForm"
+    }
+  ],
+  "beats": [
+    "hear",
+    "resolve",
+    "act",
+    "verify"
+  ],
+  "cells": [
+    {
+      "cell": "T0_HEAR",
+      "tier": 0,
+      "beat": "hear",
+      "receiptKind": "requestIntent"
+    },
+    {
+      "cell": "T0_RESOLVE",
+      "tier": 0,
+      "beat": "resolve",
+      "receiptKind": "exactTask"
+    },
+    {
+      "cell": "T0_ACT",
+      "tier": 0,
+      "beat": "act",
+      "receiptKind": "boundedAction"
+    },
+    {
+      "cell": "T0_VERIFY",
+      "tier": 0,
+      "beat": "verify",
+      "receiptKind": "sameGateTest"
+    },
+    {
+      "cell": "T1_HEAR",
+      "tier": 1,
+      "beat": "hear",
+      "receiptKind": "failureEvidence"
+    },
+    {
+      "cell": "T1_RESOLVE",
+      "tier": 1,
+      "beat": "resolve",
+      "receiptKind": "focusedRootCause"
+    },
+    {
+      "cell": "T1_ACT",
+      "tier": 1,
+      "beat": "act",
+      "receiptKind": "boundedRepair"
+    },
+    {
+      "cell": "T1_VERIFY",
+      "tier": 1,
+      "beat": "verify",
+      "receiptKind": "failedGateRerun"
+    },
+    {
+      "cell": "T2_HEAR",
+      "tier": 2,
+      "beat": "hear",
+      "receiptKind": "contradictionReceipt"
+    },
+    {
+      "cell": "T2_RESOLVE",
+      "tier": 2,
+      "beat": "resolve",
+      "receiptKind": "crossLayerDiagnosis"
+    },
+    {
+      "cell": "T2_ACT",
+      "tier": 2,
+      "beat": "act",
+      "receiptKind": "rollbackSafePatch"
+    },
+    {
+      "cell": "T2_VERIFY",
+      "tier": 2,
+      "beat": "verify",
+      "receiptKind": "crossLayerReproof"
+    },
+    {
+      "cell": "T3_HEAR",
+      "tier": 3,
+      "beat": "hear",
+      "receiptKind": "exactReleaseTarget"
+    },
+    {
+      "cell": "T3_RESOLVE",
+      "tier": 3,
+      "beat": "resolve",
+      "receiptKind": "authorityAndRollback"
+    },
+    {
+      "cell": "T3_ACT",
+      "tier": 3,
+      "beat": "act",
+      "receiptKind": "authorizedCandidateAction"
+    },
+    {
+      "cell": "T3_VERIFY",
+      "tier": 3,
+      "beat": "verify",
+      "receiptKind": "independentDeviceOrReleaseProof"
+    }
+  ],
+  "verifyRules": {
+    "green": "require same-source evidence; close or de-escalate",
+    "blocked": "require named blocker and evidence; rise at most one tier",
+    "red": "stop; retain last good artifact",
+    "unknown": "hold; no GREEN",
+    "conflict": "hold; reconcile contradictory evidence",
+    "working": "repeat current tier",
+    "scopeChange": "new source/scope requires fresh evidence"
+  },
+  "denied": [
+    "autoMerge",
+    "autoSign",
+    "autoPublish",
+    "autoDeploy",
+    "firmwareWrite",
+    "agentQuarantineLift",
+    "selfCrown"
+  ],
+  "publicAssetPolicy": "No private Drive file IDs, unreleased character binaries, third-party mods, keystore values, or confidential receipts.",
+  "crownStatus": "STOP"
+}
