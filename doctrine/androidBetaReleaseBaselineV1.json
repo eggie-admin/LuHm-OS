@@ -1,0 +1,12 @@
+{
+  "schema": "luhmOs.androidBetaReleaseBaseline.v1",
+  "status": "UNVERIFIED",
+  "applicationId": "art.eggiebagelface.luhmos.beta",
+  "initialReleaseApproved": false,
+  "previousVersionCode": null,
+  "previousSignerCertificateSha256": null,
+  "previousApkSha256": null,
+  "evidenceRef": null,
+  "crownStatus": "STOP",
+  "notes": "Owner must authenticate that no prior .beta was distributed, or bind the last distributed APK identity and version. Source-only placeholder never authorizes a release."
+}
