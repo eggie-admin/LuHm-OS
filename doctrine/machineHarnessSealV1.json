@@ -1,0 +1,34 @@
+{
+  "schema": "luhmOs.machineHarnessSeal.v1",
+  "status": "SOURCE_CANDIDATE_ONLY",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "sourceRefs": ["doctrine/unifiedMachineBaseV1.json", "doctrine/machineToHumanWizardV1.json", "doctrine/namingNamespaceCanonV1.json", "doctrine/typedFourLaneSqlV1.json"],
+  "name": "LuHm-OS · Project Premonition Machine Harness",
+  "legacyIdentity": "Project Hydra",
+  "phases": ["machine", "vendor", "services", "human"],
+  "profiles": {
+    "picoW": {"linux": false, "role": "microcontrollerSensorAdapter", "usbMode": "microcontrollerDeviceOrHostIfEngineered", "display": "GPIOorSPIWithProvedController", "storage": "noDirectSata"},
+    "piZeroW": {"linux": true, "role": "legacyMinimalBridge", "usbMode": "singlePortOtg", "display": "miniHdmi;CsiCameraOnly", "storage": "microsd;USBbridgeRequiresProof"},
+    "piZero2W": {"linux": true, "role": "recommendedCompactLinuxBridge", "usbMode": "singlePortOtg", "display": "miniHdmi;22PinCsiCameraOnly", "storage": "microsd;USBbridgeRequiresProof"},
+    "pi3ModelB": {"linux": true, "role": "developerUsbHost", "usbMode": "fourHostPortsNotUsbGadget", "display": "Hdmi;CsiCamera;DsiDisplay", "storage": "microsd;UsbBridgeReview"},
+    "androidSamsung": {"linux": false, "role": "signedAndroidClient", "usbMode": "vendorAndroidUsbTetherConditional", "display": "deviceNative", "storage": "AndroidScopedStorage"},
+    "androidPixel": {"linux": false, "role": "signedAndroidClient", "usbMode": "googleAndroidUsbTetherConditional", "display": "deviceNative", "storage": "AndroidScopedStorage"}
+  },
+  "unknownBoard": "HOLD_FOR_REAL_BOARD_MARKING_AND_RIBBON_CONTROLLER",
+  "transportPreference": ["usbCableWithProvenMode", "bluetoothAfterPairingAndThroughputProof", "privateWiFiFallback"],
+  "cableLaw": "Pi Zero USB OTG port is one role at a time: gadget networking or host peripherals. Never claim both simultaneously.",
+  "diskLaw": "Slimline SATA drive requires verified USB bridge/power. No GParted/partition/mount automation.",
+  "linuxLaw": "Raspberry Pi OS controls boot and firmware; GRUB and Netplan are not universal Pi startup dependencies.",
+  "vendorLaw": "Samsung and Pixel retain OEM boot, Android Verified Boot and GKI/vendor module boundaries. No universal firmware flash.",
+  "license": {
+    "repositoryObserved": "GPL-3.0",
+    "gparted": "GPL-2.0-or-later",
+    "xampp": "GPL-distributed collection according to Apache Friends",
+    "apache2WholeRepo": "UNVERIFIED_RELICENSING_NOT_PERFORMED"
+  },
+  "buildLayers": {"npm": "offDeviceBuilder", "gradle": "offDeviceAndroidBuilder", "flask": "optionalTinyLocalHttpCockpit", "bootstrap": "optionalReviewedLocalAssetNotYetBundled"},
+  "container": {"hostLoopbackOnly": true, "publicListen": false, "privileged": false, "hostDiskMounts": false, "deviceMappings": false, "containsFirmwareFlasher": false},
+  "authority": {"formatDisk": false, "changeGrub": false, "changeNetplan": false, "flashFirmware": false, "unlockBootloader": false, "signKeys": false, "changeDns": false, "exposeSql": false, "runAiAgents": false, "release": false},
+  "crownStatus": "STOP"
+}

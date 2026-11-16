@@ -1,0 +1,21 @@
+services:
+  machine-harness:
+    build:
+      context: ..
+      dockerfile: machine-harness/Dockerfile
+      args:
+        SOURCE_REF: ${LUHM_SOURCE_REF:?Provide exact git SHA}
+    image: luhm-os-machine-harness:local-candidate
+    restart: "no"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 64
+    mem_limit: 128m
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    ports:
+      - "127.0.0.1:8765:8765"
+    environment:
+      LUHM_SOURCE_REF: ${LUHM_SOURCE_REF:?Provide exact git SHA}
+      LUHM_BIND: "0.0.0.0"
