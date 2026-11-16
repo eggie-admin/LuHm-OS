@@ -298,3 +298,50 @@ button { color: inherit; }
 }
 .openCanonFromStage:focus-visible { outline:3px solid var(--cyan);outline-offset:2px; }
 @media(max-height:540px) { .openCanonFromStage { min-height:34px;margin-top:5px;font-size:11px; } }
+
+
+/* Original 2026 Premonition art proof. The Android AAR includes this local WebP,
+   never loading artwork from a remote host. Native "Play Aramoor" still works. */
+.lumViewport{position:relative;isolation:isolate}
+.premonitionArtStage{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.premonitionArtHalo{
+ position:absolute;width:70vmax;height:70vmax;right:-20%;top:-25%;
+ background:radial-gradient(circle,rgba(155,60,240,.34),rgba(14,9,32,.03) 60%,transparent 72%);
+ border:2px solid rgba(209,142,255,.26);border-radius:50%;
+ box-shadow:0 0 75px rgba(122,44,199,.22),inset 0 0 45px rgba(102,213,245,.1)
+}
+.premonitionArtHalo::after{
+ content:"";position:absolute;inset:16%;border:2px dotted rgba(214,166,255,.22);
+ border-radius:50%;transform:rotate(27deg)
+}
+.premonitionHeroPortrait{
+ position:absolute;right:1%;bottom:-20%;height:133%;width:auto;max-width:65%;
+ object-fit:cover;opacity:.9;filter:saturate(1.18) contrast(1.13) drop-shadow(0 0 28px rgba(185,75,255,.27));
+ -webkit-mask-image:linear-gradient(to bottom,transparent,black 13%,black 76%,transparent 99%);
+ mask-image:linear-gradient(to bottom,transparent,black 13%,black 76%,transparent 99%)
+}
+.premonitionProofMasthead{
+ position:absolute;z-index:2;left:clamp(14px,4vw,70px);top:10%;max-width:59%;
+ display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;
+ text-shadow:0 3px 15px #080512;pointer-events:none
+}
+.premonitionProofMasthead small{font-size:clamp(9px,1vw,13px);letter-spacing:.13em;color:#a6dfff;font-weight:700}
+.premonitionProofMasthead strong{font-size:clamp(25px,3.6vw,62px);line-height:1.05;color:#f7f4ff;font-weight:900}
+.premonitionProofMasthead em{display:block;color:#e6b8ff;font-style:normal;text-shadow:0 0 24px #7f39b3}
+.premonitionProofMasthead span{font-size:clamp(11px,1.4vw,19px);letter-spacing:.12em;color:#90ebff;font-weight:700}
+.viewportLabel{position:absolute;top:12px;right:12px;z-index:2;opacity:.7}
+.worldLaunch{left:29%;top:74%;width:min(450px,54%)}
+.playAramoorButton{box-shadow:0 0 38px rgba(196,85,255,.39),0 9px 30px rgba(0,0,0,.56)}
+@media(max-width:760px){
+ .premonitionProofMasthead{left:14px;top:8%;max-width:94%;gap:.28rem}
+ .premonitionProofMasthead strong{font-size:clamp(22px,6.2vw,42px)}
+ .premonitionHeroPortrait{height:103%;right:-15%;bottom:-10%;max-width:90%;opacity:.76}
+ .worldLaunch{left:50%;top:74%;width:calc(100% - 24px)}
+ .viewportLabel{top:auto;bottom:9px;right:10px;font-size:9px}
+}
+@media(max-height:540px){
+ .premonitionProofMasthead{top:4%}
+ .premonitionHeroPortrait{height:160%;bottom:-40%}
+}
+@media(prefers-reduced-motion:reduce){.premonitionArtStage *{animation:none!important}}
+
