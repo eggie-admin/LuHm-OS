@@ -25,3 +25,7 @@ Repository root currently states GPL version 3. Apache-2.0 components can genera
 - AMBER: actual TLS chain, authenticated private SQL persistence, runtime AI worker invocation, Android physical proof, vendor and licensing rights.
 - HARD_RED: confirmed security, integrity, source identity, authority or certificate trust failure. Never auto-prune, override or promote.
 - CROWN STOP: production signing/publication and Project Hydra closure remain human acceptance gates.
+
+## Headless human-centered JavaScript adapter
+
+The pure `frontEnd/core/canonHexLedger.mjs` reads sanitized HEX SQL report receipts, reuses existing Canon namespace names, groups GREEN/AMBER/RED/Crown counts, rejects stale source and broken checkpoint structure, and offers an eight-entry in-memory LRU keyed by exact source SHA and DB digest with explicit stale-source pruning. It does not access a vendor runtime, localStorage, remote SQL or keys. Without raw cells it cannot independently recalculate SHA256 chain contents; that remains the Python/CI verifier's job. This library is headless source, not an installed client or a new authority tier.

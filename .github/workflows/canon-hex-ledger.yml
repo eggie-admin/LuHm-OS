@@ -4,6 +4,8 @@ on:
     paths:
       - 'tools/canonHexLedger.py'
       - 'tests/testCanonHexLedger.py'
+      - 'frontEnd/core/canonHexLedger.mjs'
+      - 'frontEnd/tests/canonHexLedger.test.mjs'
       - 'doctrine/canonHexLedgerV1.json'
       - 'manual/canonHexLedgerV1.md'
       - '.github/workflows/canon-hex-ledger.yml'
@@ -12,6 +14,8 @@ on:
     paths:
       - 'tools/canonHexLedger.py'
       - 'tests/testCanonHexLedger.py'
+      - 'frontEnd/core/canonHexLedger.mjs'
+      - 'frontEnd/tests/canonHexLedger.test.mjs'
       - 'doctrine/canonHexLedgerV1.json'
       - 'manual/canonHexLedgerV1.md'
   workflow_dispatch:
@@ -32,6 +36,8 @@ jobs:
           persist-credentials: false
       - name: Test field rejection and 64-slot chains
         run: python3 -m unittest -v tests.testCanonHexLedger tests.testTypedSqlStub
+      - name: Headless vendor-free JavaScript receipts and cache
+        run: node --test frontEnd/tests/canonHexLedger.test.mjs frontEnd/tests/namespaceCanon.test.mjs
       - name: Source-pinned 256, 512 and 1024 assessments to private SQLite
         run: |
           python3 tools/canonHexLedger.py --db "$RUNNER_TEMP/canon-hex-ledger.db" --report "$RUNNER_TEMP/canon-hex-ledger.json" --all-scales --source-ref "$(git rev-parse HEAD)"
