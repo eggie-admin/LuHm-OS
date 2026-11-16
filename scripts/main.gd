@@ -78,6 +78,7 @@ func _wire_runtime() -> void:
     game_hud.aramoor_tide_requested.connect(_toggle_aramoor_tide)
     game_hud.rehearsal_requested.connect(_enter_goddess_rehearsal)
     game_hud.companion_studio_requested.connect(_enter_companion_lab)
+    game_hud.studio_hub_requested.connect(_enter_nightglass_hub)
     game_hud.encore_requested.connect(_start_next_encore)
     game_hud.backend_requested.connect(_enter_backend)
     game_hud.world_destination_requested.connect(switchWorld)
@@ -92,6 +93,9 @@ func _wire_runtime() -> void:
 func _enter_goddess_rehearsal() -> void:
     # Optional launch of verified standalone scene; leave original First Night untouched.
     get_tree().change_scene_to_file("res://scenes/GoddessRehearsal.tscn")
+func _enter_nightglass_hub() -> void:
+    get_tree().change_scene_to_file("res://scenes/NightglassHub.tscn")
+
 func _enter_companion_lab() -> void:
     get_tree().change_scene_to_file("res://scenes/CompanionModLab.tscn")
 func _on_lum_talk_requested() -> void:
