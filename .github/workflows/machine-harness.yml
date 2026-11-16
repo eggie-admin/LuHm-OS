@@ -1,0 +1,52 @@
+name: LuHm Machine Harness Source and OCI Candidate
+on:
+  pull_request:
+    paths:
+      - 'doctrine/machineHarnessSealV1.json'
+      - 'tools/machineHarnessSeal.py'
+      - 'tests/testMachineHarnessSeal.py'
+      - 'host/machineHarness/**'
+      - 'machine-harness/**'
+      - '.github/workflows/machine-harness.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'doctrine/machineHarnessSealV1.json'
+      - 'tools/machineHarnessSeal.py'
+      - 'tests/testMachineHarnessSeal.py'
+      - 'host/machineHarness/**'
+      - 'machine-harness/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-and-image:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Strict read-only hardware profile tests
+        run: python3 -m unittest -v tests.testMachineHarnessSeal tests.testMachineToHumanWizard
+      - name: Exact source, no direct host mutation
+        run: |
+          python3 - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          p=json.loads(Path('doctrine/machineHarnessSealV1.json').read_text())
+          assert p['crownStatus']=='STOP' and not any(p['authority'].values())
+          assert p['container']['hostDiskMounts'] is False
+          assert p['profiles']['picoW']['linux'] is False
+          assert p['profiles']['piZero2W']['linux'] is True
+          print('SOURCE_ONLY_MACHINE_PROFILE_GATE')
+          PY
+          python3 tools/machineHarnessSeal.py --source-ref "$(git rev-parse HEAD)"
+      - name: Build nonprivileged AMD64 development container (not publish)
+        run: |
+          docker build --build-arg SOURCE_REF="$(git rev-parse HEAD)" -f machine-harness/Dockerfile -t luhm-os-machine-harness:ci .
+          docker run --rm --network none --read-only --cap-drop ALL --security-opt no-new-privileges luhm-os-machine-harness:ci python -c "import flask; print('LOCAL_FLASK_IMAGE_SMOKE_ONLY')"
+          echo "ARM64_DEVICE_IMAGE_NOT_PROVEN"
+          echo "REMOTE_SQL_AGENTS_NOT_ENABLED"
+          echo "CROWN_STOP"
