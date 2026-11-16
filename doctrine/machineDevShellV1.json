@@ -1,0 +1,48 @@
+{
+  "schema": "luhmOs.machineDevShell.v1",
+  "status": "SOURCE_CANDIDATE_ONLY",
+  "authorityOwner": "Professor",
+  "canonical": "doctrine/machineHarnessSealV1.json",
+  "sourceTruth": "doctrine/currentSourceTruthV3.json",
+  "namespace": "doctrine/namingNamespaceCanonV1.json",
+  "sql": {
+    "schemaSource": "host/api/typedLanesV1.sql",
+    "importer": "tools/canonHexLedger.py",
+    "batchSpan": 64,
+    "scales": [
+      256,
+      512,
+      1024
+    ],
+    "remote": false,
+    "committedDb": false
+  },
+  "artifact": {
+    "name": "LuHm Machine Development Shell",
+    "script": "machine-harness/luhm-dev-shell.sh",
+    "verify": "GitHub CLI gh attestation verify; exact repository, signer workflow, source SHA",
+    "signing": "GitHub OIDC Sigstore short-lived certificate",
+    "ownerGpgStatus": "UNVERIFIED",
+    "mainBuildAttestationRequired": true,
+    "noSelfSignedCertificate": true
+  },
+  "safety": {
+    "rootForbidden": true,
+    "sourceMatchRequired": true,
+    "unknownHardwareStillAmber": true,
+    "networkChanges": false,
+    "firmwareChanges": false
+  },
+  "license": "GPL-3.0; no wholesale Apache-2.0 relicensing",
+  "authority": {
+    "sign": false,
+    "flash": false,
+    "format": false,
+    "changeBoot": false,
+    "exposeSql": false,
+    "runAgent": false,
+    "publicRelease": false,
+    "crown": false
+  },
+  "crownStatus": "STOP"
+}
