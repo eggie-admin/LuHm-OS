@@ -39,6 +39,7 @@
         "composerIcon": "./assets/logo.svg",
         "logo": "./assets/logo.svg",
         "defaultPrompt": [
+          "Open the LuHm-OS Canon cockpit with Lum as the sole boss and the current source-of-truth machine, SQL, Godot, Blender, and agent status. If the cockpit tool is unavailable, explain the exact live blocker without pretending an agent or updater started.",
           "Open LuHm Artist Studio in this chat and edit the Into the Warp storyboard shots with Yume while keeping the approved script locked.",
           "Use LuHm OS to open the Godot 4 Cathedral player in this chat.",
           "Use LuHm OS to inspect the current source truth and explain what is actually proven.",

@@ -1,0 +1,81 @@
+name: LuHm-OS Machine 4x4 SQL Source Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/machineLayerReconciliation20261114V1.json'
+      - 'doctrine/machineSqlCronCandidateV1.json'
+      - 'doctrine/luhmPluginDefaultBoss20261114V1.json'
+      - 'tools/machineLayerSql.py'
+      - 'tools/machineHardwareProbe.py'
+      - 'host/api/machineSqlRemote.py'
+      - 'host/blender/luHmShotStage.py'
+      - 'tests/testMachineLayerSql.py'
+      - 'tests/testMachineSqlRemote.py'
+      - 'tests/testMachineHardware.py'
+      - 'plugins/luhm-os/plugin.json'
+      - '.github/workflows/machine-layer-4x4-source-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sourceProof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Verify schemas and Python parse
+        run: |
+          set -euo pipefail
+          python3 -m json.tool doctrine/machineLayerReconciliation20261114V1.json >/dev/null
+          python3 -m json.tool doctrine/machineSqlCronCandidateV1.json >/dev/null
+          python3 -m json.tool doctrine/luhmPluginDefaultBoss20261114V1.json >/dev/null
+          python3 -m json.tool plugins/luhm-os/plugin.json >/dev/null
+          python3 -m py_compile tools/machineLayerSql.py tools/machineHardwareProbe.py host/api/machineSqlRemote.py host/blender/luHmShotStage.py
+      - name: Test 4x4 local SQL and denied remote configuration
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests -p 'testMachine*.py' -v
+          python3 tools/machineLayerSql.py validate
+          python3 tools/machineHardwareProbe.py > /tmp/machineToolDiscovery.json
+          python3 -m json.tool /tmp/machineToolDiscovery.json > /dev/null
+      - name: Prove local SQLite 16 row seed and TX/RX receipt
+        run: |
+          set -euo pipefail
+          tmpdir="$(mktemp -d)"
+          trap 'rm -rf "$tmpdir"' EXIT
+          python3 tools/machineLayerSql.py seed --db "$tmpdir/local.sqlite" > "$tmpdir/seed.json"
+          python3 tools/machineLayerSql.py status --db "$tmpdir/local.sqlite" > "$tmpdir/status.json"
+          python3 - "$tmpdir/status.json" <<'PY'
+          import json,sys
+          v=json.load(open(sys.argv[1]))
+          assert v['present']==16 and v['remoteConnection'] is False
+          print('LOCAL_16_TYPED_ROWS_VERIFIED_REMOTE_UNPROVEN')
+          PY
+          export LUHM_SQL_SYNC_KEY="ciOnlyEphemeralMachinePacketTestKey20261114"
+          python3 tools/machineLayerSql.py tx --db "$tmpdir/local.sqlite" --output "$tmpdir/sync.json"
+          python3 tools/machineLayerSql.py rx --db "$tmpdir/receiver.sqlite" --input "$tmpdir/sync.json"
+          python3 tools/machineLayerSql.py status --db "$tmpdir/receiver.sqlite"
+          python3 tools/machineLayerSql.py backup --db "$tmpdir/local.sqlite" --output "$tmpdir/backup.sqlite" > "$tmpdir/backup-receipt.json"
+          backup_digest="$(python3 - "$tmpdir/backup-receipt.json" <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1]))
+          assert r['status']=='LOCAL_BACKUP_CREATED' and r['verifiedRows']==16
+          print(r['sha256'])
+          PY
+          )"
+          python3 tools/machineLayerSql.py verifyBackup --input "$tmpdir/backup.sqlite" --digest "$backup_digest"
+      - name: Enforce no fake promotion
+        run: |
+          python3 - <<'PY'
+          import json
+          m=json.load(open('doctrine/machineLayerReconciliation20261114V1.json'))
+          c=json.load(open('doctrine/machineSqlCronCandidateV1.json'))
+          p=json.load(open('doctrine/luhmPluginDefaultBoss20261114V1.json'))
+          assert m['promotion'] is False and m['crownStatus']=='STOP'
+          assert m['identity']['agentWorkerExecution']=='QUARANTINED'
+          assert c['createdInRender'] is False and c['cronLive'] is False
+          assert p['hostAutopopupGuaranteed'] is False
+          print('MACHINE_SOURCE_PROOF_ONLY')
+          PY
