@@ -21,7 +21,7 @@
     "LUHM_FFMPEG_PUBLICATION": "STOP",
     "LUHM_PRIVATE_SERVICES": "MANUAL_ONLY"
   },
-  "postCreateCommand": "bash scripts/ai-ffmpeg-codespaces.sh setup && bash scripts/professorGarageSmoke.sh",
+  "postCreateCommand": "python3 tools/blendkitSetup.py install && bash scripts/ai-ffmpeg-codespaces.sh setup && bash scripts/professorGarageSmoke.sh",
   "postStartCommand": "bash scripts/ai-ffmpeg-codespaces.sh start",
   "forwardPorts": [
     8797
