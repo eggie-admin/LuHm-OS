@@ -1,0 +1,179 @@
+{
+  "schema": "luhmOs.intoTheWarpTwoWorldLore.v1",
+  "state": "PROFESSOR_DIRECTED_ALTERNATE_HISTORY_LORE",
+  "sourceMainBeforeMutation": "fae7166e80a5c3a5f906173ab1d713555111da7f",
+  "authoredAt": "2026-11-17",
+  "project": "intoTheWarp",
+  "continuityParent": "media/pirate-daddy-film/into-the-warp-armor-incident-canon-v1.json",
+  "originalApprovedScreenplay": {
+    "filename": "into-the-warp-approved-script.md",
+    "modify": false,
+    "separateComedicInsert": true
+  },
+  "fictionDisclaimer": {
+    "historicalClaims": "The Secret World of Warcraft Desert Shield staging, antiDaddy tech-founder mythology, and company ownership are intentional fictional alternate-history gags, not verified historical accounts.",
+    "separateFromRealTimeline": true,
+    "actualReleasesNotRetroactivelyChanged": true,
+    "earlyMmoMemory": "Ultima Online may be mentioned as early online-gaming nostalgia; no asserted contemporaneous retail World of Warcraft in 1990-1991.",
+    "worldOfWarcraftMilitaryAccess": "FICTIONAL_CLASSIFIED_EARLY_ACCESS_OR_WARP_ANOMALY",
+    "antiDaddyGoogleRole": "FICTIONAL_ALTERNATE_UNIVERSE_COMPANY_BOSS",
+    "attributionRule": "Use fictional narrator/parody framing; do not report Blizzard/Google claims as actual company history."
+  },
+  "universe": {
+    "layers": [
+      {
+        "id": "physicalWorld",
+        "kind": "alternateHistoryEarth",
+        "scope": "military service, steel mill, Demon Jazz, relationships, physical military gear, fictional tech empire"
+      },
+      {
+        "id": "toonWorld",
+        "kind": "fantasyComputerWorld",
+        "scope": "MMORPG toons, pirate Wolverine persona, epic loot, in-game theft, dramatic berserker rage"
+      }
+    ],
+    "correspondence": [
+      {
+        "physical": "bigDaddyMilitaryGear",
+        "toon": "pirateWolverineEpicArmor",
+        "rule": "different armor sets but intentional visual echoes; never confuse actual military equipment with the stolen digital loot"
+      },
+      {
+        "physical": "antiDaddyMilitaryFriendAndTechBoss",
+        "toon": "antiDaddyDigitalThiefAndSwordsman",
+        "rule": "one antagonist with parallel appearances"
+      },
+      {
+        "physical": "bigDaddyMrButtonsCallsign",
+        "toon": "mrButtonsPirateCatMascot",
+        "rule": "mascot and name honor an original military call sign; mascot does not replace the human protagonist"
+      }
+    ],
+    "crossoverDevice": "warpPortalWithParallelFlashbacks",
+    "identityLaw": "One underlying person per protagonist across eras and layers; costumes and toon styling may differ."
+  },
+  "history": [
+    {
+      "era": "desertShieldAndDesertStormAlternateHistory",
+      "setting": "militaryStationing",
+      "bigDaddy": "Uncle Eggie and future Anti-Daddy train and serve together; both wear military buzz cuts or shaved heads.",
+      "antiDaddy": "Shaved-head military version of the future long-haired villain.",
+      "gameMyth": "The unit tells of secret, impossible early access to the later-named World of Warcraft from Blizzard. Treat this as an alternate-history warp anomaly or unreliable barracks legend.",
+      "historicalVerification": "FICTIONAL_NOT_FACTUAL"
+    },
+    {
+      "era": "earlyOnlineGamingMemories",
+      "setting": "schoolAndLaterGamingMemories",
+      "details": "Ultima Online is an early online-gaming touchstone; exact personal timing remains user-narrated and need not be forced into the fictional military timeline."
+    },
+    {
+      "era": "ninetiesTechLegendAlternateHistory",
+      "setting": "grungeAndInternetMyth",
+      "antiDaddy": "Leaves the military; boasts he invented the Internet, claims to have created Google and eventually runs its fictional-world version.",
+      "historicalVerification": "PARODY_NOT_REAL_COMPANY_HISTORY"
+    },
+    {
+      "era": "laterMmoBetrayal",
+      "setting": "toonWorld",
+      "conflict": "Jealous Anti-Daddy accesses Big Daddy's MMO account in-story and transfers away Pirate Wolverine's epic armor just before he can show Alex.",
+      "techniques": "NO_REAL_ACCOUNT_INTRUSION_DETAILS"
+    },
+    {
+      "era": "presentRevengeComedy",
+      "setting": "demonJazzAndWarp",
+      "details": "Big Daddy straps on his preserved military equipment in the physical world, summons his pirate-toon berserker identity, and goes after his stolen game loot."
+    }
+  ],
+  "characters": {
+    "bigDaddy": {
+      "actualIdentityAliases": [
+        "Professor",
+        "Uncle Eggie",
+        "Big Daddy"
+      ],
+      "military": {
+        "era": "Desert Shield/Desert Storm in alternate-history",
+        "grooming": "shavedHeadOrMilitaryBuzzcut",
+        "callsign": "Mr. Buttons",
+        "preservation": "kept veteran armor, backpack, and equipment as story props",
+        "backpackPatch": {
+          "upper": "American flag / Desert Storm-inspired veteran patch",
+          "lower": "MR. BUTTONS"
+        },
+        "requireHistoricallyAccurateInsigniaForPublicUse": false
+      },
+      "physicalModes": {
+        "steelMillDay": "Industrial work jumper/coveralls, protective equipment, soot and sweat",
+        "demonJazzNight": "Bar-worker and stage-performer attire; he meets Lum working nights at Demon Jazz",
+        "tailoredSuit": "Silver-white curly hair, round glasses, short beard, vintage refined tailoring",
+        "redCollar": "Signature everyday red-collar styling",
+        "agingMetalheadGoth": "Mature industrial/metalhead goth style and boots",
+        "blackMilitaryBerserker": "Preserved modified military armor, straps, kit, backpack with Mr. Buttons callsign patch; pirate-cat mascot may ride the pack as character design"
+      },
+      "toonWorldMode": {
+        "id": "pirateWolverine",
+        "visual": "Scruffy original pirate berserker based on Big Daddy's younger non-gray-haired self, consistent identity but not grey hair",
+        "hairColor": "NOT_YET_PINNED_EXCEPT_NON_GRAY",
+        "action": "Becomes furious when epic armor is stolen before showing Alex",
+        "copyrightBoundary": "Original design only; no direct World of Warcraft, Wolverine, or Blizzard models/textures."
+      }
+    },
+    "antiDaddy": {
+      "militaryPast": {
+        "sameUnitAsBigDaddy": true,
+        "grooming": "shavedHeadOrMilitaryBuzzcut",
+        "narrative": "Former friend/rival"
+      },
+      "physicalAgePresentation": "approximately49YearsOld",
+      "currentHair": {
+        "color": "whiteGray",
+        "style": "longObsessivelyMaintainedPonytail",
+        "symbolism": "Vanity contrasted with their shaved-head service years"
+      },
+      "glasses": "largeAnimeGlassesWithDramaticLensFlashes",
+      "civilianGrunge": {
+        "redFlannel": true,
+        "ninetiesGrungeBandShirt": true,
+        "blackJeans": true,
+        "combatBoots": true,
+        "behavior": "Smug, self-promoting, socially inappropriate toward adult women; not minor-coded"
+      },
+      "suitedMode": "Suave corporate villain power suit; high-gloss tech-empire persona",
+      "corporateMyth": "Fictional alternate-universe founder and head of Google; self-proclaimed inventor of internet",
+      "toonWorldMode": "Original aloof long-haired fantasy swordsman contrast, Sephiroth archetype nod only",
+      "moralContrast": "Jealousy and showboating, especially when he takes Pirate Wolverine's armor before Alex sees it"
+    },
+    "alex": {
+      "identity": "anonymousAdultAnimeWitness",
+      "function": "Friend whose presence makes the epic-loot betrayal intolerably humiliating",
+      "visual": "faceless, comically disbelieving eyes"
+    },
+    "lum": {
+      "identity": "existingCanonOnly",
+      "meeting": "Meets Big Daddy while he works at Demon Jazz at night",
+      "assetPolicy": "Load current approved character sheet; never generate generic goddess face by default"
+    },
+    "mrButtons": {
+      "militaryIdentity": "Big Daddy's military callsign",
+      "fictionalMascot": "separate recognizable pirate-kitty backpack mascot used in modern staging",
+      "oneHumanIdentity": "Big Daddy"
+    }
+  },
+  "climax": {
+    "theft": "Anti-Daddy transferred Pirate Wolverine's in-game epic armor out of jealousy",
+    "audience": "Alex is present while Pirate Wolverine prepares to show off his loot",
+    "exactPunchline": "HOW DARE YOU DO THIS IN FRONT OF MY ALEX?!",
+    "sceneBridge": "physical military-gear strap-up / virtual berserker transformation",
+    "oldArmorVsEpicLoot": "Physical armor carried since military service; epic loot is a distinct game-world asset",
+    "outcome": "Comedy escalation into the confrontation, not proof or instruction to access accounts."
+  },
+  "production": {
+    "visualAnchor": "media/pirate-daddy-film/into-the-warp-armor-incident-canon-v1.json",
+    "named3dBodiesBuiltByThisRecord": false,
+    "publicRightToBlizzardGoogleAssets": false,
+    "publicReleaseApproved": false,
+    "scriptModified": false,
+    "loreProgress": "SOURCE_CANON_CANDIDATE",
+    "next": "Require era tag and world-layer tag on all character sheets/wardrobe/gear and shot records; prepare revised boards and GLB work only from cleared assets."
+  }
+}
