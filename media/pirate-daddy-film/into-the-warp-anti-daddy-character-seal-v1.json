@@ -1,0 +1,261 @@
+{
+  "schema": "luhmOs.antiDaddyCharacterSeal.v1",
+  "project": "intoTheWarp",
+  "characterId": "antiDaddy",
+  "state": "PROFESSOR_APPROVED_CHARACTER_DESIGN_DIRECTION",
+  "sealDate": "2026-11-17",
+  "authority": "Professor",
+  "approvalScope": {
+    "identityAndSilhouette": true,
+    "storyAndCombatDirection": true,
+    "neutralStudioInsteadOfCave": true,
+    "latestCaveFreeVisual": "generatedAndSubmittedForProfessorReview",
+    "actualFinal3dLikeness": false,
+    "professionalRigAndFacialDeformation": false,
+    "publication": false
+  },
+  "referenceArt": [
+    {
+      "type": "priorApprovedCharacterBible",
+      "file": "anti_daddy_villain_character_bible.png",
+      "sha256": "820142478ca9ad5e1d30bd8d412b0bf1f668318d9a1291d510d0c7ad007a0f8e",
+      "storage": "privateUserChatArtifact",
+      "publicAllowed": false
+    },
+    {
+      "type": "live2dConceptArtRigLayerGuide",
+      "file": "anti_daddy_live2d_rigging_production_sheet.png",
+      "sha256": "3c7d7ef71a255599542e0f17625c3783ff8d7f8bc72418eac1fd9558463d0418",
+      "notAnActualCubismModel": true,
+      "storage": "privateUserChatArtifact",
+      "publicAllowed": false
+    },
+    {
+      "type": "cinematic3dAppearanceIllustration",
+      "file": "anti_daddy_final_boss_showcase.png",
+      "sha256": "7c30cbd9c5ae7801880d393a24e64bf9f81b14ff2282302b8cb799b352628318",
+      "notActualMesh": true,
+      "storage": "privateUserChatArtifact",
+      "publicAllowed": false
+    },
+    {
+      "type": "neutralStudioRevisedCharacterSheet",
+      "file": "wide_highly_detailed_cinematic_character_design_s.png",
+      "sha256": "8c19b63e180dec2651a3a6dfa477952ee9dcc0bc7097c3897ba5d698706cc1a1",
+      "caveRemoved": true,
+      "storage": "privateUserChatArtifact",
+      "publicAllowed": false
+    }
+  ],
+  "body": {
+    "heightCm": 196,
+    "weightKgApprox": 104,
+    "physique": "Tall lean long-limbed muscle, power and precision through legs; not bulky",
+    "heritage": "half Asian American",
+    "fluentJapanese": true,
+    "face": "Original angular mature-handsome bishounen/vampiric expression; no exact real-musician likeness",
+    "hair": "whiteGrayLongPonytailExceptMilitaryBuzzCut",
+    "eyewear": "Oversized angular anime glasses with animated lens-flash",
+    "agePresentation": "lateForties"
+  },
+  "silhouette": {
+    "locked": [
+      "maturePrettyBoyOriginalFace",
+      "silverWhiteLongPonytail",
+      "geometricGlasses",
+      "redAndBlackClothing",
+      "imposingLongLegs",
+      "sleazySmirkVillainEnergy"
+    ],
+    "removed": [
+      "caveBackdrop",
+      "unrelatedDungeonCaveScene"
+    ],
+    "setting": "neutralStudioForTurnarounds; Demon Jazz and real-world city for narrative scenes"
+  },
+  "outfitModes": [
+    {
+      "id": "militaryShaved",
+      "world": "physicalWorld",
+      "era": "1990-91 alternate history",
+      "look": "Close-shaved recruit, original period-inspired uniform and military boots"
+    },
+    {
+      "id": "grungeCoder",
+      "world": "physicalWorld",
+      "era": "post-military",
+      "look": "Red flannel, fictitious original grunge tee print, black jeans, combat boots, dog tags"
+    },
+    {
+      "id": "corporateSuave",
+      "world": "physicalWorld",
+      "era": "present",
+      "look": "Luxury charcoal suit, oxblood accents, polished boots, watch, exceptional tailoring"
+    },
+    {
+      "id": "finalBossCombat",
+      "world": "physicalWorldAndWarp",
+      "era": "present",
+      "look": "Dark long tactical coat and light protective armor, red detail, long original sword and spear, kick-clearance tailoring"
+    },
+    {
+      "id": "toonWorldJrpg",
+      "world": "toonWorld",
+      "era": "warp-game",
+      "look": "Younger idealized JRPG-inspired bishounen prince, original gothic fantasy armor, silver hair"
+    }
+  ],
+  "weapons": {
+    "primary": {
+      "id": "theUnfather",
+      "description": "Original long sword referencing long-reach final-boss trope without copying proprietary franchise blade"
+    },
+    "secondary": {
+      "id": "distanceKeeper",
+      "description": "Long elegant polearm / spear for distance control"
+    }
+  },
+  "combat": {
+    "identity": "Long-reach sword/spear counterattacker; avoids grappling; legs dominate close-combat; counter then retreat",
+    "signatureKicks": [
+      "axeKick",
+      "highRoundhouse",
+      "crescentCounter",
+      "interceptingSideKick"
+    ],
+    "phases": [
+      "corporateSmirk",
+      "grungePrince",
+      "toonWorldPrince",
+      "finalSmugCounterlord"
+    ],
+    "animationTargets": [
+      "idleSmug",
+      "walk",
+      "run",
+      "axeKickLeft",
+      "sideKick",
+      "highRoundhouse",
+      "swordStance",
+      "swordSweep",
+      "spearThrust",
+      "glassesTaunt",
+      "stagger",
+      "defeat"
+    ]
+  },
+  "socialLore": {
+    "personality": "Fraternity-like arrogant, narcissistic, fame/wealth driven and inappropriate towards adult women; flaws played as villainous",
+    "bigDaddy": "Former military comrade whose epic digital armor he stole in alternate-history MMORPG",
+    "urd": "Sides with Eggy and sees through manipulation",
+    "belldandy": "Temporarily charmed; independently evaluates him",
+    "skuld": "Adult inventor goddess dazzled by his fictional technology status",
+    "lum": "Preserve established Professor-approved Lum identity; Big Daddy's chosen partner",
+    "alex": "Anonymous stunned adult witness to account-loot gag"
+  },
+  "fictionalTimeline": {
+    "source": "media/pirate-daddy-film/into-the-warp-two-world-lore-v1.json",
+    "classifiedWoWInDesertStorm": "FICTIONAL_ALTERNATE_HISTORY",
+    "internetInventorAndGoogleFounder": "FICTIONAL_PARODY_NOT_REAL_HISTORY"
+  },
+  "existingSourceRefs": [
+    "media/pirate-daddy-film/into-the-warp-two-world-lore-v1.json",
+    "media/pirate-daddy-film/into-the-warp-armor-incident-canon-v1.json",
+    "doctrine/characterCanonRegistryV1.json",
+    "doctrine/yumeGoddess3dProductionV1.json",
+    "manual/blendkitCodespacesInstall.md"
+  ],
+  "actual3dProof": {
+    "state": "ORIGINAL_PROCEDURAL_SKINNED_BLOCKOUT_USER_ARTIFACT",
+    "assetName": "antiDaddyRiggedBlockout_v1.glb",
+    "sha256": "9f5f6a26fb827933502953f6c4a2e49f4b06a681cb52845892a08584df4e7627",
+    "triangles": 13260,
+    "joints": 22,
+    "materialSlots": 16,
+    "animationClips": [
+      "idleSmug",
+      "axeKickLeft",
+      "glassesTaunt",
+      "swordStance"
+    ],
+    "glbParsedInPythonTrimesh": true,
+    "realGodot47ImportTested": false,
+    "actualBlendkitDonorAssetUsed": false,
+    "fullFacialVisemesBuilt": false,
+    "deformationSafeWeightPaint": false,
+    "userDownloadProduced": true,
+    "publiclyDistributedInGitHub": false,
+    "private3dMasterInDriveProven": false
+  },
+  "productionPipeline": [
+    {
+      "id": "sealIdentity",
+      "status": "DONE_CHARACTER_DIRECTION"
+    },
+    {
+      "id": "neutralConceptSheet",
+      "status": "DONE_VISUAL_RENDER_PENDING_FINAL_PIXEL_REVIEW"
+    },
+    {
+      "id": "originalRiggedBodyBlockout",
+      "status": "DONE_LOCAL_GLB_ONLY"
+    },
+    {
+      "id": "fitCinematicHeadAndFace",
+      "status": "TODO"
+    },
+    {
+      "id": "retopoAndPaintWeights",
+      "status": "TODO"
+    },
+    {
+      "id": "kitbashLicensedWardrobeAndPbrTextures",
+      "status": "TODO"
+    },
+    {
+      "id": "highQualityPonytailHeroAndRuntimeHair",
+      "status": "TODO"
+    },
+    {
+      "id": "faceVisemesAndExpressions",
+      "status": "TODO"
+    },
+    {
+      "id": "weaponsAndCombatAnimationPolish",
+      "status": "TODO"
+    },
+    {
+      "id": "godot47ActualImportAndRuntimeSmoke",
+      "status": "TODO"
+    },
+    {
+      "id": "professorFinalRigVisualApproval",
+      "status": "TODO"
+    },
+    {
+      "id": "privateMasterAssetSealAndExplicitRelease",
+      "status": "STOP"
+    }
+  ],
+  "nextMilestone": {
+    "id": "bigDaddy3dCharacterMaster",
+    "state": "QUEUED",
+    "goal": "Reuse canonical Big Daddy identity, keep physical preserved Desert Storm armor separate from Pirate Wolverine's digitally stolen epic armor, produce high-quality hero mesh, character sheets, editable materials, clothing and animation tests",
+    "requires": [
+      "approvedBigDaddyReferencePixels",
+      "reusableRigAndBodyDonorAudit",
+      "fiveOutfitAndTwoWorldContinuity",
+      "BlenderGodotPreview",
+      "privateMasterStorage"
+    ]
+  },
+  "constraints": {
+    "protectPrivateReferencePixels": true,
+    "sourceCodeAndManifestsOnlyOnPublicGithub": true,
+    "doNotCopyFranchiseMesh": true,
+    "publicRightsUnapproved": true,
+    "originalFilmScriptUnchanged": true,
+    "autonomousAgentsNotActivated": true
+  },
+  "statusSummary": "Canon design sealed, genuine skinned 3D blockout available; not a finished cinematic or fully deformation-tested hero model."
+}
