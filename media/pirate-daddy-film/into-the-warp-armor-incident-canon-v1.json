@@ -172,5 +172,16 @@
     "independentAgentsActivated": false,
     "crownScope": "thisVisualDesignOnly",
     "publicRelease": "STOP"
+  },
+  "twoWorldContinuity": {
+    "source": "media/pirate-daddy-film/into-the-warp-two-world-lore-v1.json",
+    "universeLayers": [
+      "physicalWorld",
+      "toonWorld"
+    ],
+    "historicalMode": "INTENTIONAL_ALTERNATE_HISTORY",
+    "physicalMilitaryArmorAndGameLootAreDistinct": true,
+    "originalStorySealed": true,
+    "characterEraAndWorldTagsRequiredForNextProductionAssets": true
   }
 }
