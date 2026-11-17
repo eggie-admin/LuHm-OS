@@ -1,0 +1,176 @@
+{
+  "schema": "luhmOs.intoTheWarpArmorIncidentCanon.v1",
+  "state": "PROFESSOR_APPROVED_SCOPED_VISUAL_DIRECTION",
+  "authority": "Professor",
+  "approvedAtLocalDate": "2026-11-17",
+  "scopeId": "intoTheWarpArmorIncident",
+  "sourceMainBeforeMutation": "d90d212caf4a5b052dd04be9589aaac363138e03",
+  "event": "Professor explicitly approved the generated Big Daddy armory illustration as Canon and directed default use of established Lum, Goddess, and Yume visual sources",
+  "originalFilmLock": {
+    "script": "into-the-warp-approved-script.md",
+    "sha256": "6f6054e86f6f6dd74ffc9355a34f86d2ff4c3822f1c8c4f2d20b8a701b38f9ef",
+    "modify": false,
+    "sceneType": "separateComedicInsert"
+  },
+  "approvedStill": {
+    "assetId": "intoTheWarp.bigDaddy.blackArmorArmoryKeyArt.20261117",
+    "fileName": "big_daddy_s_steampunk_armory_warroom.png",
+    "sha256": "87832ebb9285c88d593181d5f9be03cde1707fa997e835d6d15805bf09f59918",
+    "role": "approvedCompositionAndBigDaddyWardrobeReference",
+    "storageClass": "currentChatPrivateCandidateBytes",
+    "durablePrivateDriveCopyProven": false,
+    "publicAllowed": false,
+    "finalCharacterRigProven": false,
+    "allDepictedSupportingFacesApproved": false
+  },
+  "visualApproval": {
+    "protagonistId": "bigDaddy",
+    "namedCostumeVariant": "pirateWolverineBlackMilitaryBerserker",
+    "parentIdentityCanon": "LuHm Art Magic Character Bible v0.1",
+    "fixedTraits": [
+      "silverWhiteCurlyHair",
+      "roundWireFrameGlasses",
+      "shortSilverBeard",
+      "matureExpressiveFace",
+      "recognizableSameBigDaddyPersonAcrossModes"
+    ],
+    "costumeElements": [
+      "originalBlackMilitaryDieselpunkArmor",
+      "burnishedBrassAndSoot",
+      "embers",
+      "burgundyScarf",
+      "functionalStrapsAndHeavyGauntlets",
+      "reclaimedEpicArmorPlot"
+    ],
+    "mrButtons": "pirateCatMascotOnBackPack",
+    "world": "detroitDieselpunkCowboySteampunkBarLaboratoryArmory",
+    "emotionalBeat": "reclaimArmorAfterAntiDaddyStealsItInFrontOfAlex",
+    "originalFourProfessorModesRemainValid": true,
+    "existingBerserkerTailoredSuitModeNotReplaced": true,
+    "characterAndCostumeApprovalNot3dRigApproval": true
+  },
+  "defaultCanonResolution": {
+    "rule": "Load and inspect approved character references before new character generation, costume mutation, storyboard, 3D modeling or final render",
+    "appliesTo": [
+      "intoTheWarp",
+      "pirateDaddysFilm",
+      "luhmOsCharacterArtTasks"
+    ],
+    "precedence": [
+      "explicitProfessorScopedApproval",
+      "currentGithubCanonAndAssetLedger",
+      "professorApprovedVisualBibleAndReferenceSheets",
+      "reviewedCandidateArt",
+      "unapprovedGeneration"
+    ],
+    "requiredPreflight": [
+      "resolveCharacterId",
+      "resolveCurrentSourceRef",
+      "resolveCanonSheetOrAssetHash",
+      "inspectReferenceImage",
+      "declareFixedAndMutableTraits",
+      "bindIdentityBeforeGeneration",
+      "runVisualContinuityReview"
+    ],
+    "missingCanonSheetBehavior": "HOLD_NAMED_CHARACTER_OR_USE_EXPLICIT_ANONYMOUS_PLACEHOLDER",
+    "generatedFacesMayReplaceApprovedIdentity": false,
+    "genericSubstituteForCanonCharacter": false,
+    "staleOrQuarantinedReferenceMayBeAutoPromoted": false,
+    "generatedKeyArtMayBeTreatedAsRiggedModel": false
+  },
+  "characterBindings": {
+    "bigDaddy": {
+      "role": "protagonist",
+      "visualBible": "LuHm Art Magic Character Bible v0.1",
+      "referenceFile": "LuHm_Professor_Character_Lineup_v0.1.png",
+      "referenceHash": "e3ba82c19ee4635d594e454d46355556f6c7cf62b3a42c84ecc34b09f34422a3",
+      "secondaryReference": "Big Daddy character design sheet.png",
+      "identity": "originalProfessor"
+    },
+    "lum": {
+      "role": "onSceneCompanionAndCoordinator",
+      "canonPath": "game/canon/CHARACTER_CANON_V1.json#characters/lum",
+      "referenceFile": "Lum: Cyberpunk Oni Character Bible.png",
+      "referenceHash": "469305ab7f9710c2b7df81d9d8cfd9abd529b841f086df2d9b372ff71e3d6f87",
+      "fixed": [
+        "auburnUpdo",
+        "subtleOriginalOniHorns",
+        "blackAndTealExecutiveGoth"
+      ],
+      "referencePublicApproved": false
+    },
+    "urd": {
+      "role": "supportingGoddess",
+      "canonPath": "game/canon/CHARACTER_CANON_V1.json#characters/urd",
+      "referenceFile": "LuHm_Goddess_Lineup_Urd_Belldandy_Skuld_v0.1.png",
+      "referenceHash": "bfef62ec1981cca36a842937fd46464183bde53165fce5a6b558108a0e205607",
+      "fixed": [
+        "wineMagenta",
+        "techGoth",
+        "confidentAdultSilhouette"
+      ]
+    },
+    "belldandy": {
+      "role": "supportingGoddess",
+      "canonPath": "game/canon/CHARACTER_CANON_V1.json#characters/belldandy",
+      "referenceFile": "LuHm_Goddess_Lineup_Urd_Belldandy_Skuld_v0.1.png",
+      "referenceHash": "bfef62ec1981cca36a842937fd46464183bde53165fce5a6b558108a0e205607",
+      "fixed": [
+        "ivoryOxbloodAntiqueGold",
+        "warmGoth",
+        "cathedralGrace"
+      ]
+    },
+    "skuld": {
+      "role": "supportingGoddess",
+      "canonPath": "game/canon/CHARACTER_CANON_V1.json#characters/skuld",
+      "referenceFile": "LuHm_Goddess_Lineup_Urd_Belldandy_Skuld_v0.1.png",
+      "referenceHash": "bfef62ec1981cca36a842937fd46464183bde53165fce5a6b558108a0e205607",
+      "fixed": [
+        "adultTechEngineer",
+        "petite",
+        "blackIvoryChrome"
+      ]
+    },
+    "yume": {
+      "role": "canonicalArtDirectorNotAutomaticallyOnScreenCharacter",
+      "authorityPath": "doctrine/yumeArtDirectionCanonV1.json",
+      "approvedPersonifiedCharacterSheet": "NOT_VERIFIED",
+      "inventVisualIdentity": false
+    },
+    "alex": {
+      "role": "anonymousConfusedWitness",
+      "visual": "facelessAdultAnimeBackgroundStandIn",
+      "humanLikenessOrPortraitRequired": false
+    },
+    "antiDaddy": {
+      "role": "fictionalArmorThief",
+      "visual": "originalDistinctVillain",
+      "thirdPartyGameMeshAllowed": false
+    },
+    "mrButtons": {
+      "role": "pirateCatMascot",
+      "visual": "originalCatOnBigDaddyBackPack",
+      "distinctFromBigDaddyIdentity": true
+    }
+  },
+  "existingReferenceEvidence": {
+    "approvedBible": "LuHm Art Magic Character Bible v0.1",
+    "existingPublicSource": "media/public-release-art-ledger.json",
+    "priorPrivateReferenceIntake": "doctrine/privateCanonArtFourPassIntake20261114.json",
+    "newerGoddessGroupReferenceHash": "0763eb49a169a277115d8a6c467899446de93cadd59014410fb9b3817021d0",
+    "newerGoddessGroupDoesNotAutomaticallyReplaceApprovedLineup": true,
+    "originalArtBytesNotCopiedIntoPublicGitHub": true
+  },
+  "productionStatus": {
+    "approvedVisualDirection": true,
+    "actual3dBigDaddyRigProven": false,
+    "actual3dGoddessBodiesAllProven": false,
+    "completeAnimatedVideoProven": false,
+    "rightsAndDistributionCleared": false,
+    "automaticPublication": false,
+    "independentAgentsActivated": false,
+    "crownScope": "thisVisualDesignOnly",
+    "publicRelease": "STOP"
+  }
+}
