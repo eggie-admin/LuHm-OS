@@ -8,6 +8,12 @@ The proposed public routing/profile contract is `doctrine/soloStudioCastReleaseV
 
 `doctrine/yumeFastPathCanonV1.json` is the authoritative source-routing default for **private, zero-cost, reversible, rights-known creative drafts**. Use `tools/yumeFastPath.py` to choose the short Yume plan, or return to the full existing gate on unknown/unsafe work. It does not release the company-wide agent quarantine, grant Crown, or authorize public publication. Existing `doctrine/currentSourceTruthV3.json` promotion status remains unchanged.
 
+## Canon-first visual generation default
+
+For **all** LuHm-OS character art, films, posters, game renders and 3D scene requests, first resolve the existing Professor-approved character sheets, current `game/canon/CHARACTER_CANON_V1.json`, and `media/public-release-art-ledger.json`. The active Yume art skill `agents/yumeArtOni/SKILL.md` requires an inspected reference image (not just a filename) and a stable character identity packet before generation. If protected sheet bytes are unavailable, mark the limitation and do not replace named Canon faces with improvised lookalikes. Private storyboard placeholders may remain anonymous.
+
+For *Into the Warp: The Armor Incident*, use `media/pirate-daddy-film/into-the-warp-armor-incident-canon-v1.json` to resolve the Professor-approved Big Daddy black military berserker costume, Mr. Buttons' backpack, cast binding and storyboard continuity. This narrowly scoped costume approval **does not** promote new 3D models, goddess-face replacements, agent runtime, private-binary publication or changes to the sealed screenplay.
+
 ## Solo-studio default for routine tasks
 
 Read `doctrine/soloStudioOperatingProfileV1.json` for the proposed independent artist and small-business workflow. Prefer direct GitHub connector operations in the current chat, not Codex. For ordinary private/reversible creative work, use a small targeted review and smoke test rather than activating the full role roster or enterprise-style release process. This does not lift quarantine, rights restrictions, protected changes, or publication gates. The named cast is a logical role map unless actual running workers are independently evidenced.
