@@ -28,7 +28,7 @@ need(grid["0x3F"]==("quotedAmbient","confrontational","unresolved"),"upper bound
 need(len(set(grid.values()))==64,"no colliding descriptions")
 need([x["id"] for x in contract["axes"]["contexts"]]==["fictionalRoleplay","studioWork","realLife","quotedAmbient"],"context axis")
 need({x["id"] for x in names["agents"]}==set(control["agents"]),"15 named agents")
-need(len(names["agents"])==15==contract["boundaries"]["memberCountStill15"],"15 count")
+need(len(names["agents"])==15 and contract["boundaries"]["memberCountStill15"] is True,"15 count and roster immutability")
 need(len(crew["productionDivisions"])==2,"two human production divisions")
 need(crew["productionDivisions"]["videoGame"]["confirmedAliasMembership"]==["bigDaddy","almostDaddy"],"game roles")
 need(crew["productionDivisions"]["hollywoodFilm"]["memberAliases"]==["girlDaddy","doomDaddy","edmDaddy"],"film roles")
