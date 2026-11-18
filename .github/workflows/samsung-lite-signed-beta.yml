@@ -181,7 +181,7 @@ jobs:
             'package/unique_name="art.eggiebagelface.luhmos.testing"':
               'package/unique_name="art.eggiebagelface.luhmos.beta"',
             'package/name="LuHm OS Samsung Candidate"':
-              'package/name="LuHm OS Tablet Beta"',
+              'package/name="LuHm-OS Tablet Beta"',
             'version/code=116': 'version/code='+os.environ["BETA_VERSION_CODE"],
             'version/name="1.0.16-samsunglayout.1"':
               'version/name="0.1.0-beta.'+os.environ["GITHUB_RUN_NUMBER"]+'"',
