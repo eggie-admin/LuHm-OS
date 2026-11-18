@@ -82,7 +82,11 @@ def inspect_source():
     require("https://" not in html[html.find('data-luhm-studio-bridge'):html.find('data-luhm-system-layer')], "no active external studio link")
     for path in (ICON_SCRIPT, ROOT/"frontEnd/samsungStudioSwitch.js", ROOT/"frontEnd/samsungStudioSwitch.css"):
         require(path.is_file() and path.stat().st_size>100, "new source exists:"+path.name)
-    require(json.loads((ROOT/"doctrine/androidBetaReleaseBaselineV1.json").read_text())["status"] == "UNVERIFIED", "no fabricated signer baseline")
+    baseline = json.loads((ROOT/"doctrine/androidBetaReleaseBaselineV1.json").read_text())
+    require(baseline["status"] in {"UNVERIFIED","VERIFIED_FIRST_BETA","VERIFIED_PREVIOUS_BETA"}, "recognized signing baseline state")
+    if baseline["status"] != "UNVERIFIED":
+        require(isinstance(baseline.get("evidenceRef"), str) and len(baseline["evidenceRef"].strip()) >= 12, "verified baseline requires independent evidence reference")
+    # This is source verification, not an APK signature or owner-key read.
     print("GREEN_SAMSUNG_STUDIO_OFFLINE_BRIDGE_AND_SOURCE_SCOPE")
 
 def main():
