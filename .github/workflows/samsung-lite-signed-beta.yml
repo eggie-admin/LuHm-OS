@@ -192,6 +192,20 @@ jobs:
           preset.write_text(content,encoding="utf-8")
           print("BETA_APPLICATION_ID=art.eggiebagelface.luhmos.beta")
           PY
+      - name: Stage Canon launcher and adaptive icons into isolated beta preset
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/samsungCathedralIcons.py \
+            --output build/signed-beta/icons \
+            --preset export_presets.cfg
+          python3 tests/testSamsungCathedralStage.py --inspect-icon-output
+          test -s build/signed-beta/icons/iconReceipt.json
+          grep -q 'launcher_icons/main_192x192="res://build/signed-beta/icons/launcher192.png"' export_presets.cfg
+          grep -q 'launcher_icons/adaptive_foreground_432x432="res://build/signed-beta/icons/adaptiveForeground432.png"' export_presets.cfg
+          grep -q 'launcher_icons/adaptive_background_432x432="res://build/signed-beta/icons/adaptiveBackground432.png"' export_presets.cfg
+          grep -q 'launcher_icons/adaptive_monochrome_432x432="res://build/signed-beta/icons/adaptiveMonochrome432.png"' export_presets.cfg
+          echo 'CANON_LUHM_ANDROID_LAUNCHER_STAGED_SOURCE_ART_ONLY'
       - name: Import Godot
         run: '"$GODOT" --headless --editor --path . --quit'
       - name: Export ARM64 non-debug beta
