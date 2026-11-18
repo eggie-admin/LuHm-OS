@@ -9,7 +9,7 @@
   "operator": {
     "proposedDisplayAlias": "Girl Daddy",
     "proposedMachineAlias": "girlDaddy",
-    "proposedRole": "socialMediaCreativeLeadAndMocapCollaboration",
+    "proposedRole": "socialMediaCreativeLeadAndMocapCollaboration_HollywoodFilm",
     "nomination": "PROFESSOR_CONFIRMED_ALIAS_AND_ROLE",
     "collaboratorAcceptanceAndDisplayNameConsent": "NOT_VERIFIED",
     "accessStatus": "NOT_GRANTED_BY_REPO",
@@ -39,7 +39,13 @@
     "legalIdentityPubliclyMapped": false,
     "silentPartnerLegalEquityAssumed": false,
     "mocapStudioBooked": false,
-    "collaboratorOwnAccountAccessVerified": false
+    "collaboratorOwnAccountAccessVerified": false,
+    "productionDivision": "hollywoodFilm",
+    "teamSource": "doctrine/aliasOnlyProductionCreditsAndMocapV1.json#productionDivisions",
+    "colleagueAliases": [
+      "Doom Daddy",
+      "EDM Daddy"
+    ]
   },
   "concept": {
     "roleplayPersona": "girlDaddy",
@@ -133,14 +139,27 @@
     "loggedDataRestriction": "Only public-safe role aliases, non-sensitive editorial guidelines and sanitized source receipts in GitHub; personal collaboration terms remain private",
     "creditContract": "doctrine/aliasOnlyProductionCreditsAndMocapV1.json",
     "aliasOnlyPublicCredits": true,
-    "noMetadataFaceDisclosure": true
+    "noMetadataFaceDisclosure": true,
+    "coordinationContract": "doctrine/aliasOnlyProductionCreditsAndMocapV1.json",
+    "twoHumanDivisions": true,
+    "hollywoodCrewUsesAliasesOnly": true
   },
   "compatibility": {
     "japaneseNameLayer": "doctrine/japaneseNameTriggerLayerV1.json",
     "fictionalRoleplaySeparateFromPersonalLife": true,
     "notA16thAgent": true,
     "currentAgentSystemCount": 15,
-    "protagonistStoryAgeMustNotBeInferredFromProfessor": true
+    "protagonistStoryAgeMustNotBeInferredFromProfessor": true,
+    "gameDivisionLedBy": [
+      "bigDaddy",
+      "almostDaddy"
+    ],
+    "hollywoodDivisionAliases": [
+      "girlDaddy",
+      "doomDaddy",
+      "edmDaddy"
+    ],
+    "goddessAiCabinetIsNotHumanFilmCrew": true
   },
   "proof": {
     "sourceTest": "tests/testGirlDaddyEditorialCanon.py",
