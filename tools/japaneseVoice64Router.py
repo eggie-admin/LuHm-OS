@@ -113,7 +113,7 @@ def find_agent(text: str) -> tuple[str | None, str | None, str | None]:
     for agent in names:
         if not agent.get("honorificEligible",True):
             continue
-        if agent["id"] == "momo" and re.search(r"(?<!\\w)momo[\\s-]*taro(?!\\w)", text):
+        if agent["id"] == "momo" and re.search(r"(?<!\w)momo[\s-]*taro(?!\w)", text):
             continue  # Folklore Momotaro is not research helper Momo.
         for word in agent.get("romaji", []):
             if whole_phrase(text,word):
