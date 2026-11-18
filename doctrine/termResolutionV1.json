@@ -18,6 +18,39 @@
       "typedTextBehavior": "UNKNOWN_REQUIRES_CLARIFICATION",
       "mayCreateAgent": false,
       "source": "explicit Professor correction retained from chat"
+    },
+    "yumechan": {
+      "canonicalAgentId": "yume",
+      "displayName": "Yume-chan",
+      "acceptedInputModality": [
+        "voiceDictation",
+        "text"
+      ],
+      "typedTextBehavior": "EXPLICIT_NAMED_AGENT_ONLY",
+      "interpretation": "夢 (ゆめ) means dream; creative identity Yume-chan / Dream-chan, canonical art routing remains yumeArtOni",
+      "mayCreateAgent": false,
+      "mayActivateWorker": false,
+      "source": "Professor explicit 2026-11-18 voice/dictation correction"
+    },
+    "youmay": {
+      "canonicalAgentId": "yume",
+      "displayName": "Yume-chan",
+      "acceptedInputModality": [
+        "voiceDictation"
+      ],
+      "typedTextBehavior": "NEVER_REWRITE_GENERIC_PERMISSION",
+      "interpretation": "Speech recognizer may render proper name Yume as 'you may'; apply only in unmistakable goddess/art-agent enumerations or explicit Dream-chan/Yume-chan discussion",
+      "requiredContext": "project foreground speech AND named art agent or named goddess roster with high confidence",
+      "negativeExamples": [
+        "you may open the page",
+        "you may proceed",
+        "you may publish",
+        "you may merge",
+        "you may ask Skuld"
+      ],
+      "mayCreateAgent": false,
+      "mayActivateWorker": false,
+      "source": "Professor explicit 2026-11-18 voice/dictation correction"
     }
   },
   "groups": {
