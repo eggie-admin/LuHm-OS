@@ -306,21 +306,24 @@
       "intent": "JRPG/anime scripted world",
       "characterNamesArePresentation": true,
       "mayInferPersonalLifeFacts": false,
-      "mayAuthorizeWorkerExecution": false
+      "mayAuthorizeWorkerExecution": false,
+      "humanCrewIsNotCharacterRoster": true
     },
     "projectWork": {
       "intent": "Canon GitHub/Blender/Godot/film build",
       "mayResolveRoster": true,
       "requiresIndependentExplicitAuthorisedAction": true,
       "aliasesAloneDoNotCast": true,
-      "humanSocialCollaboratorReference": "doctrine/girlDaddySocialEditorialV1.json"
+      "humanSocialCollaboratorReference": "doctrine/girlDaddySocialEditorialV1.json",
+      "humanFilmCrewContract": "doctrine/aliasOnlyProductionCreditsAndMocapV1.json"
     },
     "personalLife": {
       "intent": "human relationships, wellbeing, private circumstances",
       "doNotTreatPersonaAsRealPerson": true,
       "doNotMinePrivatePersonalContextFromJapaneseName": true,
       "mayOfferRequestedAdvice": true,
-      "socialRoleplayCannotInferRealLifeStatus": true
+      "socialRoleplayCannotInferRealLifeStatus": true,
+      "mustNotInferRealIdentityFromAlias": true
     },
     "ambiguous": {
       "default": "UNKNOWN_VERIFY",
@@ -438,6 +441,26 @@
     "noOpenAiOrGoogleProviderAutoCalls": true,
     "noPublicArtifactPermission": true,
     "crown": "STOP",
-    "humanCollaboratorDataCannotEnterPublicCanon": true
+    "humanCollaboratorDataCannotEnterPublicCanon": true,
+    "noHumanContactIdentityInGitHub": true
+  },
+  "humanProductionDivisions": {
+    "source": "doctrine/aliasOnlyProductionCreditsAndMocapV1.json",
+    "counts": {
+      "divisions": 2
+    },
+    "videoGame": [
+      "bigDaddy",
+      "almostDaddy"
+    ],
+    "hollywoodFilm": [
+      "girlDaddy",
+      "doomDaddy",
+      "edmDaddy"
+    ],
+    "otherDadAliasAdmission": "Professor-confirmed production alias and real role only",
+    "scope": "HUMAN_PRODUCTION_CREDITS_NOT_AI_AGENT_ROUTING",
+    "privatePersonalIdentityMapping": false,
+    "doesNotChangeExisting2x4Architecture": true
   }
 }
