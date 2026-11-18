@@ -1,0 +1,241 @@
+{
+  "schema": "luhmOs.wormdogDesertWarPrologueCastSeal.v1",
+  "title": "Worm Dogs: Desert Shield / Desert Storm opening cast seal",
+  "project": "intoTheWarp",
+  "studio": "pirateDaddysFilm",
+  "sealDate": "2026-11-18",
+  "status": "PROFESSOR_SCOPED_NARRATIVE_CAST_CONTINUITY_SEALED_ON_DRAFT_BRANCH",
+  "sealAuthority": "Professor",
+  "sealScope": {
+    "included": [
+      "story cast identities",
+      "present-vs-past portrayals",
+      "scene appearance constraints",
+      "the soldier chorus as a human ensemble",
+      "canonical continuity handoff to existing film"
+    ],
+    "excluded": [
+      "final character faces",
+      "private art pixels",
+      "performer likeness permissions",
+      "3D rig approval",
+      "narration recording",
+      "licensed soundtrack",
+      "final animation",
+      "real-world veteran biography",
+      "public release",
+      "merge to protected main"
+    ],
+    "publicReleaseAuthority": false,
+    "exactLyricSyncApproved": false
+  },
+  "repository": "eggie-admin/LuHm-OS",
+  "lineage": {
+    "prologue": "media/pirate-daddy-film/wormdog-desert-shield-storm-prologue-canon-candidate-v1.json",
+    "filmTemplate": "media/pirate-daddy-film/templates/wormdog-verse-to-scene-template-v1.md",
+    "storyCanon": "media/pirate-daddy-film/into-the-warp-two-world-lore-v1.json",
+    "antiDaddyCanon": "media/pirate-daddy-film/into-the-warp-anti-daddy-character-seal-v1.json",
+    "armorIncidentCanon": "media/pirate-daddy-film/into-the-warp-armor-incident-canon-v1.json",
+    "originalScreenplay": "into-the-warp-approved-script.md",
+    "originalScreenplaySha256": "6f6054e86f6f6dd74ffc9355a34f86d2ff4c3822f1c8c4f2d20b8a701b38f9ef",
+    "originalScreenplayModified": false
+  },
+  "diegeticCast": [
+    {
+      "id": "bigDaddy",
+      "aliases": [
+        "Uncle Eggie",
+        "Big Daddy",
+        "Professor",
+        "Mr. Buttons (military callsign)"
+      ],
+      "role": "protagonist, fictional firsthand narrator, later Old Guard veteran",
+      "forms": [
+        {
+          "era": "1990Shield",
+          "world": "physicalWorld",
+          "visual": "young adult soldier, military buzz cut or shaved head, original period-inspired kit",
+          "scenes": [
+            "WD-01",
+            "WD-02"
+          ]
+        },
+        {
+          "era": "1991Storm",
+          "world": "physicalWorld",
+          "visual": "same adult face with service-era buzz cut, fatigued equipment, no invented medals or unit claims",
+          "scenes": [
+            "WD-03",
+            "WD-04",
+            "WD-05",
+            "WD-06"
+          ]
+        },
+        {
+          "era": "present",
+          "world": "physicalWorld",
+          "visual": "same canonical mature expressive face, silver-white curly hair, round glasses and short silver beard, physically preserved equipment",
+          "scenes": [
+            "WD-07"
+          ]
+        }
+      ],
+      "roleVoice": "subjective testimony; the 'everything you believe in is a lie' accusation belongs to the fictional narrator",
+      "notAllowed": [
+        "replacement generic knight face",
+        "separate Mr Buttons human actor",
+        "conflation of military armor and game loot",
+        "unverified real veteran record"
+      ]
+    },
+    {
+      "id": "antiDaddy",
+      "role": "former same-unit military comrade, later rival and fictional armor thief",
+      "forms": [
+        {
+          "era": "1990Shield",
+          "world": "physicalWorld",
+          "visual": "young soldier, buzz cut or shaved head; same unit as Big Daddy",
+          "scenes": [
+            "WD-01",
+            "WD-02"
+          ]
+        },
+        {
+          "era": "1991Storm",
+          "world": "physicalWorld",
+          "visual": "same war-era man; foregrounded intermittently through combat and memory",
+          "scenes": [
+            "WD-03",
+            "WD-06"
+          ]
+        },
+        {
+          "era": "present",
+          "world": "physicalWorld",
+          "visual": "tall lean mature antagonist, long silver-white ponytail, distinctive angular anime glasses; silhouette until cleared pixels",
+          "scenes": [
+            "WD-07"
+          ]
+        }
+      ],
+      "laterOptionalToonForm": "original gothic JRPG-inspired swordsman only in future toonWorld sequence, not a 1991 physical combatant",
+      "continuity": "do not show modern ponytail during Desert Shield/Storm; antiDaddy and bigDaddy each have one underlying human identity",
+      "faceReferences": "private approved antiDaddy character bible exists by hash only, not auto-render permission"
+    },
+    {
+      "id": "wormDogChorus",
+      "role": "anonymous adult human fellow soldiers and witness chorus",
+      "forms": [
+        {
+          "era": "1990-1991",
+          "world": "physicalWorld",
+          "visual": "original anonymous silhouettes/period-inspired service kit; no copied real photos or invented documented identity",
+          "scenes": [
+            "WD-00",
+            "WD-01",
+            "WD-03",
+            "WD-04"
+          ]
+        }
+      ],
+      "symbol": "worm dogs means dust-level military witnesses, not literal dogs and not a character/animal species",
+      "rights": "use cleared background extras or anonymous editable placeholders only"
+    },
+    {
+      "id": "broadcastMask",
+      "role": "faceless fictional 1990s TV presenter / polished war spectacle interface",
+      "forms": [
+        {
+          "era": "broadcastMemory",
+          "world": "physicalWorld",
+          "visual": "fictional non-identifiable news presenter, no copied network logo or Disney character design",
+          "scenes": [
+            "WD-00",
+            "WD-02",
+            "WD-06"
+          ]
+        }
+      ],
+      "metaphor": "government public-relations as a stylized cartoon spectacle, not a factual Disney-government relationship"
+    }
+  ],
+  "deferredCastAndContinuity": [
+    {
+      "id": "mrButtonsMascot",
+      "status": "OPTIONAL_PRESENT_DAY_ONLY",
+      "relation": "fictional pirate-cat mascot honoring Big Daddy military callsign, not the same being as young soldier",
+      "allowedScenes": [
+        "WD-07"
+      ],
+      "requiresApprovedArt": true
+    },
+    {
+      "id": "lum",
+      "status": "PRESERVE_EXISTING_CANON_NOT_REQUIRED_IN_WAR_PROLOGUE",
+      "relation": "adult chosen partner of Big Daddy, first met at Demon Jazz in later era",
+      "allowedScenes": [
+        "postPrologueOnly"
+      ],
+      "requiresApprovedArt": true
+    },
+    {
+      "id": "belldandy",
+      "status": "RESERVED_EXISTING_PILOT_SHOT_401",
+      "relation": "DADDY Codex narrator at the original shot 401 only; no dialogue moved into WD-00..07"
+    },
+    {
+      "id": "urd",
+      "status": "NOT_IN_PROLOGUE",
+      "relation": "original adult goddess canonical identity preserved for later pilot"
+    },
+    {
+      "id": "skuld",
+      "status": "NOT_IN_PROLOGUE",
+      "relation": "original adult goddess inventor, identity preserved for later pilot"
+    },
+    {
+      "id": "yume",
+      "status": "ART_DIRECTOR_ROLE_ONLY",
+      "relation": "no invented on-screen personified body or approved sheet"
+    },
+    {
+      "id": "alex",
+      "status": "LATER_TOON_WORLD_BETRAYAL_ONLY",
+      "relation": "anonymous adult witness when digital armor theft is revealed, not present in 1990-91 war"
+    }
+  ],
+  "geographyAndBelief": {
+    "places": [
+      "Saudi Arabia",
+      "Kuwait",
+      "Iraq",
+      "Israel",
+      "Jerusalem"
+    ],
+    "militaryTimeline": "Desert Shield before Storm; fictional war front, then nonlinear return to stationing",
+    "realHistoryQualifier": "Iraq occupied Kuwait; coalition forces deployed to Saudi Arabia with Saudi approval. Separate human narration and chronology from historical assertion.",
+    "beliefSymbols": "religious symbolism interrogates propaganda and politics; it does not condemn religious communities or equate the Holy Land with a Saudi camp."
+  },
+  "rightsAndProduction": {
+    "privateReferenceImagesLoadedForThisSeal": false,
+    "named3dFacesFinal": false,
+    "actualActorsCast": false,
+    "soundtrackLicensed": false,
+    "lyricTextStored": false,
+    "filmRendered": false,
+    "releaseApproved": false,
+    "godotProven": false,
+    "assetRule": "No artwork of named characters without checked matching approved private reference pixels"
+  },
+  "useRules": [
+    "castRoleLockedForThisPrologueOnly",
+    "preservePhysicalVsToonWorld",
+    "preserveYoungerVsPresentHairAndWardrobe",
+    "keepBelldandyCodexAt401",
+    "keepOriginalThreeMovementsSealed",
+    "oneNarratorFictionNotVerifiedVeteranAutobiography",
+    "ProfessorMustReviewLyricCutsAndAnyVisualRelease"
+  ],
+  "nextMutation": "Bind privately selected first-vocal line cues and exact audio timecodes to individual WD cards; no rewrite of original script."
+}

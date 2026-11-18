@@ -1,0 +1,172 @@
+{
+  "schema": "luhmOs.wormdogDesertWarPrologueCanonCandidate.v1",
+  "title": "Everything You Believe In Is a Lie",
+  "project": "intoTheWarp",
+  "productionLabel": "Pirate Daddy's Film / Project Premonition",
+  "status": "PROFESSOR_DIRECTED_SOURCE_ONLY_CANON_SNAPSHOT_REVIEW_CANDIDATE",
+  "asOfDate": "2026-11-18",
+  "authority": "Professor",
+  "basis": {
+    "repository": "eggie-admin/LuHm-OS",
+    "baseMainSha": "f2e4be2224dd706d93d2dc660f536431a7d04f34",
+    "parentLore": "media/pirate-daddy-film/into-the-warp-two-world-lore-v1.json",
+    "parentAntiDaddyDesign": "media/pirate-daddy-film/into-the-warp-anti-daddy-character-seal-v1.json",
+    "parentDirectorNotes": "media/pirate-daddy-film/into-the-warp-directors-notes-v3.md",
+    "existingApprovedScreenplay": "into-the-warp-approved-script.md",
+    "existingApprovedScreenplaySha256": "6f6054e86f6f6dd74ffc9355a34f86d2ff4c3822f1c8c4f2d20b8a701b38f9ef",
+    "existingApprovedScreenplayAltered": false
+  },
+  "direction": {
+    "centralDeclaration": "Everything you believe in is a lie.",
+    "narrator": "Big Daddy / Mr. Buttons, unreliable fictional eyewitness",
+    "framing": "The government is depicted as a Walt-Disney-like spectacle machine; soldiers are 'worm dogs' close to the sand who carry the complicated truth absent from the broadcast.",
+    "thematicQuestion": "Who gets to tell a war story, and what happens to comrades when the television version conflicts with what they remember?",
+    "preferredMood": "1990s triumphal TV packaging tears into exhausted trench-level testimony, then dark industrial/oni/JRPG alternate-history menace.",
+    "allegationBoundary": "'Desert Storm was a lie' and 'everything you were told was a lie' are fictional, first-person claims about propaganda and memory, not documentary conclusions or claims about actual Disney government control."
+  },
+  "historicalFiction": {
+    "worldLayer": "physicalWorld",
+    "fictionalCharacterService": {
+      "bigDaddy": {
+        "militaryEra": "1990-1991 alternate-history Desert Shield / Desert Storm",
+        "role": "young soldier later called Big Daddy",
+        "grooming": "buzzCutOrShavedHead",
+        "callsign": "Mr. Buttons",
+        "serviceWith": "antiDaddy",
+        "fictionalFrontlineCombatWitness": true
+      },
+      "antiDaddy": {
+        "militaryEra": "same fictional unit and campaign",
+        "grooming": "buzzCutOrShavedHead",
+        "relation": "comrade to rival",
+        "fictionalFrontlineCombatWitness": true
+      }
+    },
+    "realWorldAnchors": [
+      {
+        "date": "1990-08-02",
+        "event": "Iraq invaded and occupied Kuwait"
+      },
+      {
+        "date": "1990-08",
+        "event": "Coalition units deployed in Saudi Arabia for Desert Shield at Saudi invitation"
+      },
+      {
+        "date": "1991-01-17",
+        "event": "Desert Storm coalition air campaign began"
+      },
+      {
+        "date": "1991-02-24",
+        "event": "Coalition ground campaign began; rapidly concluded by February 28"
+      },
+      {
+        "date": "1991-01_to_1991-02",
+        "event": "Iraqi missile attacks reached Israel and Saudi Arabia"
+      }
+    ],
+    "terminologyBoundary": "In public-history captions, Saudi Arabia was the site of coalition deployment/stationing, not the Iraqi occupation. A fictional character can subjectively describe the prolonged foreign troop presence as an 'occupation' when the viewpoint is clearly labeled. Iraq occupied Kuwait.",
+    "sacredGeographyBoundary": "Israel, Jerusalem and the Holy Land may enter as map, missiles and comparative Abrahamic sacred symbolism. Do not imply these places are interchangeable with Saudi bases, or equate a religious population with military decisions; distinguish beliefs from propaganda exploiting them.",
+    "alternateHistoryBoundary": "Anything involving secret pre-release MMORPG access in 1990-1991, Anti-Daddy founding Google, or magical warped chronology remains explicit fictional alternate history."
+  },
+  "sceneSnapshot": [
+    {
+      "id": "WD-00",
+      "cue": "prelude / first atmosphere, no lyric line pinned",
+      "scene": "A lacquered 1990s television news pageant shows a clean, smiling victory story. Beneath its glossy screen, desert dust swirls and dead pixels form a worm.",
+      "camera": "push through CRT glass",
+      "purpose": "establish spectacle machine"
+    },
+    {
+      "id": "WD-01",
+      "cue": "first verse entrance, owner-selected first lyric pending",
+      "scene": "Desert Shield: young Big Daddy and Anti-Daddy prepare gear at a Saudi camp, heads shaved. Dog tags and Mr. Buttons callsign meet the lens. The smile on the TV does not match their faces.",
+      "camera": "eye-level two-shot drifting to close details",
+      "purpose": "introduce comrades and the propaganda/reality contrast"
+    },
+    {
+      "id": "WD-02",
+      "cue": "first intensification / verse turn, exact bar pending",
+      "scene": "News anchors call the war simple. A radio crackles. Big Daddy looks up; the camera cuts from their faces to the explosive night onset of Desert Storm.",
+      "camera": "hard match-cut from monitor white to desert night",
+      "purpose": "accelerate from waiting to violence"
+    },
+    {
+      "id": "WD-03",
+      "cue": "aggressive vocal section / next verse entrance pending",
+      "scene": "Fictional frontline combat montage: armor movement, dust, flares, harsh radios, silhouettes and terrified silence. The remembered war resists the packaged victory reel.",
+      "camera": "ground-level rapid fragments, not glorifying casualties",
+      "purpose": "the worm dogs begin to testify"
+    },
+    {
+      "id": "WD-04",
+      "cue": "lyrical pivot / bridge entrance pending",
+      "scene": "A nonlinear recoil from battle to prolonged stationing in Saudi Arabia: tents, heat, unanswered letters, tired soldiers, a surreal amusement-park marquee on the horizon.",
+      "camera": "slow lateral track and backward temporal dissolve",
+      "purpose": "interrogate what presence, protection and occupation mean to narrator"
+    },
+    {
+      "id": "WD-05",
+      "cue": "spiritual/geographic lyric entry pending",
+      "scene": "Period map isolates Saudi Arabia, Kuwait, Iraq, Israel and Jerusalem. Missile-warning broadcast for Israel collides with imagery of holy places and competing uses of sacred language.",
+      "camera": "map/archival-style projection rather than geographically impossible one-location montage",
+      "purpose": "show the gap between sacred belief and political messaging"
+    },
+    {
+      "id": "WD-06",
+      "cue": "refrain / strongest repeated phrase pending",
+      "scene": "The televised spectacle melts into static. Big Daddy faces lens: 'Everything you believe in is a lie.' An echo shows Anti-Daddy half obscured behind the same military frame.",
+      "camera": "direct-address locked close-up with double exposure",
+      "purpose": "declare protagonist's subjective rupture"
+    },
+    {
+      "id": "WD-07",
+      "cue": "outro / final vocal entry pending",
+      "scene": "Present-day military gear survives in a trunk, distinct from Pirate Wolverine's later stolen digital epic armor. Anti-Daddy's future long ponytail silhouette enters via a glitch. The next story is the betrayal.",
+      "camera": "match-cut metal buckle to virtual armor texture and cut black",
+      "purpose": "bridge war prologue to existing two-world lore"
+    }
+  ],
+  "lyricEditContract": {
+    "musicReference": "Grim Salvo - Walt Disney Wormdog",
+    "trackUse": "editorial reference only; no recording or synchronization rights established",
+    "approach": "Mark first vocal line/first word of each owner-chosen verse or refrain, but do not reproduce published lyrics in this Canon file.",
+    "lyricSlotsStatus": "UNMAPPED_AWAIT_OWNER_SELECTED_LINES_AND_TIMESTAMP_CONFIRMATION",
+    "songSectionsAndExactTimings": "UNVERIFIED_PENDING_EAR_SYNC",
+    "pacing": "restrained testimony -> rapid combat dissonance -> aftermath/faith montage -> accusatory refrain -> character rivalry",
+    "sourceLyricsIncluded": false
+  },
+  "continuityLocks": {
+    "originalThreeMovementScreenplayUntouched": true,
+    "newPrologueIsSeparateInsert": true,
+    "primaryBelldandyCodexReadStillShot401": true,
+    "shot200ContainsNoPrematureBelldandySpokenLore": true,
+    "shot500ReturnsToSameCodexNoNewLookup": true,
+    "sameBigDaddyIdentityAcrossAges": true,
+    "physicalVeteranArmorDistinctFromVirtualStolenEpicLoot": true,
+    "namedCharacterPixelReferencesRequiredBeforeRendering": true,
+    "publicMusicAndBrandRightsNotCleared": true,
+    "publicHistoryAndAlternateHistoryMustBeDistinguished": true
+  },
+  "sourceCitations": [
+    "https://www.usarcent.army.mil/About/History/Timeline/",
+    "https://www.history.navy.mil/our-collections/art/exhibits/conflicts-and-operations/the-gulf-war-1990-1991--operation-desert-shield--desert-storm-.html",
+    "https://history.defense.gov/Portals/70/Documents/annual_reports/1991_DoD_AR.pdf?ver=2014-06-24-151830-167.",
+    "https://www.history.navy.mil/about-us/leadership/director/directors-corner/h-grams/h-gram-059/h-059-1.html"
+  ],
+  "renderAndRelease": {
+    "assetCreation": "NOT_STARTED",
+    "audioUsePermission": "NOT_VERIFIED",
+    "deviceOrGodotRuntime": "NOT_TESTED",
+    "publication": false,
+    "existingCrownStatus": "STOP"
+  },
+  "nextSession": "Owner selects standout lyric-opening lines and approximate points; convert WD cue placeholders to frame-accurate shot cards without replacing sealed original screenplay.",
+  "continuityArtifacts": {
+    "castSeal": "media/pirate-daddy-film/wormdog-desert-war-prologue-cast-seal-v1.json",
+    "reusableVerseToSceneTemplate": "media/pirate-daddy-film/templates/wormdog-verse-to-scene-template-v1.md",
+    "castApprovalScope": "NARRATIVE_CAST_CONTINUITY_FOR_WORMDOG_PROLOGUE_ONLY",
+    "stage": "DRAFT_PR_589_NOT_MERGED_NOT_PUBLIC_RELEASE",
+    "exactLyricTimecodes": "PENDING_PROFESSOR_CUE_SELECTION",
+    "originalScreenplayUnchanged": true
+  }
+}
