@@ -16,6 +16,7 @@ import zlib
 ROOT = Path(__file__).resolve().parents[1]
 LOGO = ROOT / "publicationSite/logo.svg"
 PLUGIN_LOGO = ROOT / "plugins/luhm-os/assets/logo.svg"
+FRONTEND_LOGO = ROOT / "frontEnd/luhmLogo.svg"
 PALETTE = {
     "background": (23, 19, 31, 255),
     "violet": (159, 122, 234, 255),
@@ -35,6 +36,7 @@ def require(ok: bool, message: str) -> None:
 def check_logo() -> str:
     raw = LOGO.read_bytes()
     require(raw == PLUGIN_LOGO.read_bytes(), "public-site and plugin logo source mismatch")
+    require(raw == FRONTEND_LOGO.read_bytes(), "packaged Android logo differs from canonical logo")
     text = raw.decode("utf-8")
     for anchor in ('viewBox="0 0 512 512"', 'M126 112l64 70-42 36-70-38z',
                    'M146 150h72v188h152v72H146z',
