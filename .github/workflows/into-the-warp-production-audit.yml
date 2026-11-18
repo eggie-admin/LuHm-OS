@@ -7,6 +7,7 @@ on:
       - 'tests/test-into-the-warp-armor-canon.py'
       - 'tests/test-into-the-warp-two-world-lore.py'
       - 'tests/test-into-the-warp-anti-daddy-seal.py'
+      - 'tests/test-into-the-warp-anti-daddy-concept-to-mesh.py'
       - 'tests/test-into-the-warp-cast-receipt.py'
       - '.github/workflows/into-the-warp-production-audit.yml'
   workflow_dispatch:
@@ -27,6 +28,7 @@ jobs:
           python3 tests/test-into-the-warp-armor-canon.py
           python3 tests/test-into-the-warp-two-world-lore.py
           python3 tests/test-into-the-warp-anti-daddy-seal.py
+          python3 tests/test-into-the-warp-anti-daddy-concept-to-mesh.py
           python3 tests/test-into-the-warp-cast-receipt.py
           if test -f tests/test-pirate-production-continuity.py; then python3 tests/test-pirate-production-continuity.py; fi
       - name: Ensure no binary assets or private screen media entered public source
