@@ -65,6 +65,7 @@ def inspect_source():
     require("python3 tools/samsungCathedralIcons.py" in workflow, "stage execution")
     require("--export-release 'Android Proposed'" in workflow, "preserve real export")
     require("LUHM_BETA_SIGNING_P12_B64" in workflow, "owner signing not removed")
+    require('package/name="LuHm-OS Tablet Beta"' in workflow, "canonical Android beta launcher label")
     require("VERIFIED_FIRST_BETA" in (ROOT/"tools/provisionOwnerBetaSigner.sh").read_text(), "historic signer guard")
     require("SOURCE_OF_TRUTH" not in source or "sourceLogo" in source, "no synthesized secret")
     require("plugins/luhm-os/assets/logo.svg" in source, "mirrored artwork audit")
