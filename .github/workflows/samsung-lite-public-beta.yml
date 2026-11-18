@@ -24,6 +24,11 @@ on:
       - '.github/workflows/samsung-lite-public-beta.yml'
       - 'doctrine/samsungLitePublicBetaV1.json'
       - 'export_presets.cfg'
+      - 'tools/samsungCathedralIcons.py'
+      - 'tests/testSamsungCathedralStage.py'
+      - 'frontEnd/index.html'
+      - 'frontEnd/samsungStudioSwitch.js'
+      - 'frontEnd/samsungStudioSwitch.css'
   workflow_dispatch:
 
 permissions:
@@ -51,6 +56,8 @@ jobs:
           python3 tools/stageFdroidTabletBeta.py --self-test
           python3 tools/prepareFdroidRepoCandidate.py --self-test
           python3 tools/samsung-lite-beta.py
+          python3 tests/testSamsungCathedralStage.py
+          node --check frontEnd/samsungStudioSwitch.js
       - name: Playwright real-browser cockpit regression
         shell: bash
         run: |
