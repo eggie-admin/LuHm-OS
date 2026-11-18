@@ -1,0 +1,90 @@
+{
+  "schema": "luhmOs.wwwPublicFqdnActivation.v1",
+  "createdOn": "2026-11-18",
+  "authority": "Professor",
+  "status": "SOURCE_READY_PROVIDER_CONFIGURATION_PENDING",
+  "sourceOfTruth": "eggie-admin/LuHm-OS",
+  "requestedHost": "www.eggiebagelface.art",
+  "zoneApex": "eggiebagelface.art",
+  "primaryCanonicalHostCandidate": "www.eggiebagelface.art",
+  "existingRegistryPrimary": "eggiebagelface.art",
+  "targetPublicationOrigin": {
+    "provider": "Render",
+    "serviceId": "srv-dauan1mgekts73dm91c0",
+    "serviceName": "luhm-os-publication-site",
+    "currentUrl": "https://luhm-os-publication-site.onrender.com/",
+    "verifiedStatus": "EXISTING_PUBLIC_SITE_RESPONDS",
+    "publishPath": "publicationSite",
+    "currentlyDeployedBranch": "publication/plugin-full-green-20260930",
+    "autoDeploy": "off",
+    "observedContent": "Project Hydra vintage/public alpha",
+    "desiredBrandSource": "main:publicationSite/index.html (Project Premonition)",
+    "deploymentDrift": "LIVE_RENDER_STATIC_SITE_USES_OLDER_BRANCH",
+    "branchRepointApproved": false,
+    "noDeployTriggered": true
+  },
+  "proposedHosting": {
+    "firstAction": "Render: add www.eggiebagelface.art to existing publication static site custom domains (not the private LuHm Worker)",
+    "cloudflareDnsAfterRenderDomain": {
+      "name": "www",
+      "type": "CNAME",
+      "target": "luhm-os-publication-site.onrender.com",
+      "proxyStatus": "DNS_ONLY_FOR_INITIAL_DOMAIN_AND_TLS_VERIFICATION",
+      "onlyCreateIfAbsent": true,
+      "overwriteExistingRecord": false,
+      "manualOperatorAuthenticatedCloudflareRequired": true
+    },
+    "zoneApex": {
+      "host": "eggiebagelface.art",
+      "desiredEndState": "HTTPS_REDIRECT_TO_WWW_PRESERVING_PATH_AND_QUERY",
+      "firstStep": "Inventory existing apex A/AAAA/CNAME, MX, SPF, DKIM, DMARC, DS and CAA records; no destructive changes",
+      "renderBehavior": "Render automatically adds matching apex and redirects it to www when www is added as the custom domain, subject to both DNS records and valid certificates",
+      "cloudflareRuleFallback": "Explicit single HTTPS 301 apex-to-www redirect after verified proxied apex DNS; preserve query string and path; no duplicate redirect loop",
+      "status": "PENDING_EXISTING_ZONE_AND_ORIGIN_PROOF"
+    }
+  },
+  "protectedSeparation": {
+    "existingCloudflareWorker": "https://luhm-os.eggiebagelface.workers.dev/",
+    "workerAccessState": "CLOUDFLARE_ACCESS_EMAIL_CODE_GATE_OBSERVED",
+    "publicSiteMustNotInheritPrivateWorkerAccess": true,
+    "doNotAttachWwwToProtectedWorker": true,
+    "doNotDisableExistingAccess": true,
+    "reservedFqdns": [
+      "mcp.eggiebagelface.art",
+      "system.eggiebagelface.art",
+      "assets.eggiebagelface.art",
+      "art.eggiebagelface.art"
+    ],
+    "dnsMxTxtDsCaaUntouched": true,
+    "noTlsPrivateKeyInSource": true,
+    "noWildcardDnsOrSubdomainChanges": true
+  },
+  "tls": {
+    "desired": "Render-managed publicly trusted certificate for www and apex, independently checked SAN/hostname/issuer and expiry",
+    "initialCloudflareProxy": "DNS_ONLY",
+    "strictLetsEncryptIssuerCanon": "EXISTING_POLICY_REQUIRES_INDEPENDENT_ACTUAL_ISSUER_PROOF",
+    "noSelfSigned": true,
+    "noForceHstsPreload": true,
+    "noCertbotOnSamsung": true
+  },
+  "verification": {
+    "renderCustomDomainVerified": false,
+    "cloudflareDnsVerified": false,
+    "wwwHttpsVerified": false,
+    "apexRedirectVerified": false,
+    "preserveQueryAndPathVerified": false,
+    "privacyTermsSupportPagesVerified": false,
+    "privateAppAccessPreserved": false,
+    "emailRoutingPreserved": false,
+    "brandCurrentVersionAtWwwVerified": false,
+    "ownerDomainConfigApplied": false
+  },
+  "docs": [
+    "manual/wwwEggieBagelfaceDomainCutover20261118.md",
+    "doctrine/staticPublicEdgeV1.json",
+    "doctrine/cloudflareEdgeHardeningV1.json"
+  ],
+  "crownStatus": "STOP",
+  "publicReleasePromotion": false,
+  "providerChangesApplied": false
+}

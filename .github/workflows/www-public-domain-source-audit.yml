@@ -1,0 +1,32 @@
+name: WWW Eggie Bagelface public FQDN Canon source audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/wwwPublicFqdnActivationV1.json'
+      - 'manual/wwwEggieBagelfaceDomainCutover20261118.md'
+      - 'tools/wwwFqdnSourceAudit.py'
+      - '.github/workflows/www-public-domain-source-audit.yml'
+      - 'publicationSite/index.html'
+      - 'render.yaml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-fqdn:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Audit proposed WWW source and stop gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          python3 tools/wwwFqdnSourceAudit.py
+          python3 -m py_compile tools/wwwFqdnSourceAudit.py
+      - name: No provider mutations permitted
+        run: echo 'WWW_CANDIDATE_ONLY_NO_DNS_NO_RENDER_DOMAIN_NO_TLS_NO_WORKER_ACCESS_CHANGE'
