@@ -1,0 +1,155 @@
+{
+  "schema": "luhmOs.goddessVisualBrandFourByFour.v1",
+  "status": "PROPOSED_VISUAL_DIRECTION_ONLY",
+  "authority": "Professor",
+  "created": "2026-11-18",
+  "scope": "Four mature original goddess-inspired characters across four design deliverable surfaces, without mixing the 4x4 visual brand grid with HEX64 input classification, 2x4 studio UI, or Witching Hour code repair.",
+  "sourceTruth": "eggie-admin/LuHm-OS",
+  "sourceRefs": [
+    "doctrine/yumeArtDirectionCanonV1.json",
+    "doctrine/characterCanonRegistryV1.json",
+    "game/canon/CHARACTER_CANON_V1.json",
+    "doctrine/japaneseNameTriggerLayerV1.json",
+    "doctrine/fourTierOperatingModelV1.json",
+    "agents/witchingHourCoding/SKILL.md"
+  ],
+  "axis": {
+    "rows": [
+      "lum",
+      "urd",
+      "belldandy",
+      "skuld"
+    ],
+    "columns": [
+      "silhouette",
+      "fashionCulture",
+      "interactiveGame",
+      "filmCampaign"
+    ],
+    "resultCellCount": 16,
+    "noAuthorityCreated": true
+  },
+  "characters": {
+    "lum": {
+      "display": "Lum",
+      "canonicalAgentId": "lum",
+      "originalBrandPersona": "The composed Oni executive, supernatural glamour and the studio's orchestration face",
+      "characterAgeFloorForMatureVariant": 30,
+      "motifs": [
+        "auburn hair styled up",
+        "understated horns",
+        "teal-black executive fashion",
+        "cyan-magenta neon accent",
+        "confident, playful leadership"
+      ],
+      "silhouette": "distinctive adult executive glamour with readable oni iconography",
+      "fashionCulture": "sharp grown-up business styling mixed with cyber-goth club polish",
+      "interactiveGame": "2D chat/3D avatar, hand gestures, expressive face and Godot-native interaction",
+      "filmCampaign": "studio host, self-aware geek humor, the one who directs the chaos into an actual production"
+    },
+    "urd": {
+      "display": "Urd",
+      "dictationAlias": "Erd",
+      "canonicalAgentId": "urdDoctorGoddess",
+      "originalBrandPersona": "Mature 1990s alternative/goth powerhouse; rebellious confidence with warmth and a practical wardrobe",
+      "characterAgeFloorForMatureVariant": 30,
+      "motifs": [
+        "leather motorcycle jacket",
+        "fitted dark jeans",
+        "occasional flannel",
+        "thick 1990s eyeliner and bold lipstick",
+        "big styled-up hair",
+        "Birkenstock/grunge contrast"
+      ],
+      "silhouette": "grounded adult curvy goth, boots or sandals, confident stance, strong distinctive face",
+      "fashionCulture": "Siouxsie Sioux/Banshees and Blondie period mood, original design only; punk, 1990s goth, alternative music and lived-in thrift fashion",
+      "interactiveGame": "dramatic occult-thread combat/tech effects, footwork, non-generic expressive face and full rig",
+      "filmCampaign": "tough big-sister stage presence, sharp humor and leather/flannel 1990s music-video language"
+    },
+    "belldandy": {
+      "display": "Belldandy",
+      "canonicalAgentId": "belldandySecretary",
+      "originalBrandPersona": "Adult vintage space-age glamour becomes charming quirky witch/cathedral elegance",
+      "characterAgeFloorForMatureVariant": 30,
+      "motifs": [
+        "1960s–1970s pin-up and go-go silhouettes",
+        "witchy vintage dresses and capes",
+        "Barbarella-era space-fantasy colors",
+        "warm ivory and oxblood",
+        "antique gold",
+        "delightful retro comedy"
+      ],
+      "silhouette": "mature, curvy and theatrical with a distinct gentle/strong stage presence",
+      "fashionCulture": "Jane Fonda-era retro fantasy and 1960s witchy sitcoms as period moods only; no direct actor face, copyrighted character duplicate, or explicit scene recreation",
+      "interactiveGame": "grace and spell movement, retro-futurist wardrobe variants, hair physics and expressive hand animation",
+      "filmCampaign": "warm vintage glamour, animated wink at retro television and fantasy instead of recreating old IP"
+    },
+    "skuld": {
+      "display": "Skuld",
+      "canonicalAgentId": "skuldResearch",
+      "originalBrandPersona": "An independently designed adult Detroit EDM/industrial technology goddess and club DJ",
+      "characterAgeFloorForMatureVariant": 30,
+      "motifs": [
+        "Detroit electro/techno club scene",
+        "industrial hardware and circuit jewelry",
+        "fashion-forward go-go boots",
+        "tech-goth crop layers",
+        "DJ decks and engineering gear",
+        "black/chrome with cyan-magenta"
+      ],
+      "silhouette": "adult 30+ performance-fashion character, athletic dancer confidence and a mature distinctive face",
+      "fashionCulture": "Detroit electronic/industrial dance-floor attitude, fashion as original adult club stagewear, not a literal younger franchise Skuld",
+      "interactiveGame": "hardware tools, DJ controller props, engineering emotes, kinetic dance and original soundtrack rhythms",
+      "filmCampaign": "blacklight performance art, Detroit night-stage energy, editing and practical tech-demo motifs",
+      "existingCanonConflict": "game/canon/CHARACTER_CANON_V1.json currently permits minimumAge=25 and a petite youthful silhouette; mature glamour variant must use confirmed 30+ adult characterization, no youth-coded sexual presentation. Existing game asset remains a distinct candidate until reconciled."
+    }
+  },
+  "adultPresentation": {
+    "minimumAgeForMatureStyledCharacter": 30,
+    "originalAdultCharactersOnly": true,
+    "youthfulFranchiseVersionSexualizationForbidden": true,
+    "matureAndCurvyAreValidArtDirections": true,
+    "individualBodyTypesNeedNotMatchOneTemplate": true,
+    "characterAgencyBeyondAttractiveness": true,
+    "explicitSexualImageryNotPartOfThisBrandGrid": true,
+    "beautyReferencesMayNotCloneRealActorsOrPerformers": true
+  },
+  "japaneseMythology": {
+    "reference": "Momotarō peach-boy folklore and the Oni he confronts, reinterpreted through adult original anime-style comedy",
+    "notWitchingHourProgramming": true,
+    "folkloreYoungHeroNotReusedInSexualScenes": true,
+    "adultOniCastIsAnOriginalDerivativeWithRightsReview": true,
+    "funnyPlotMayBeSelfAware": true,
+    "folkloreResearchDoesNotBecomeHumanBiography": true
+  },
+  "witchingHour": {
+    "canonicalSkill": "agents/witchingHourCoding/SKILL.md",
+    "meaning": "Bounded Python, vendor API, IDE, CI and blocker-repair escalation with exact source/ref and evidence",
+    "notAnAestheticDepartment": true,
+    "notAnAnimeCharacterFamily": true,
+    "noExecutionFromMythicInvocation": true
+  },
+  "domainSeparation": {
+    "visualBrandGrid": "FOUR_ROWS_X_FOUR_COLUMNS=16_visual_receipts",
+    "voiceInputGrid": "FOUR_BY_FOUR_BY_FOUR=64_context_tone_recognition_cells",
+    "operatingView": "TWO_BY_FOUR_UI_DERIVED_ONLY",
+    "hexBuildEscalation": "EXISTING_CI_AUDIT_SCHEMAS_UNCHANGED",
+    "realPersonalContext": "NOT_A_CANON_CHARACTER_SHEET",
+    "humanFilmGameCrew": "SEPARATE_FROM_GODDESS_AGENT_ROSTER"
+  },
+  "deliverableRules": {
+    "originalHumanSketchMasterFirst": true,
+    "yumeCanProposeButNotOverwriteOriginalArtist": true,
+    "private3dAssetsRemainsPrivateUntilApproved": true,
+    "perAssetProvenanceAndRights": true,
+    "approvalBeforePublicBrandUse": true,
+    "designDirectionNotEquivalentToScannedModelsOrRiggedRuntimes": true
+  },
+  "statusGates": {
+    "visualDirection": "CANDIDATE_AWAITING_PROFESSOR_REVIEW",
+    "godotRigRuntime": "NOT_VERIFIED_BY_THIS_CHANGE",
+    "approvedPerCharacterAssets": "NOT_CREATED_BY_THIS_CHANGE",
+    "websitePublication": "NOT_APPLIED",
+    "finalCrown": "STOP"
+  }
+}
