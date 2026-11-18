@@ -1,0 +1,134 @@
+{
+  "schema": "luhmOs.intoTheWarpAntiDaddyConceptToMesh.v1",
+  "date": "2026-11-17",
+  "authority": "Professor",
+  "character": "antiDaddy",
+  "goal": "Reconcile concept-to-mesh (C-to-M) for three original low-poly skinned age/outfit variants; preserve source design, do not assert final Hollywood rig or deployed Godot chat player",
+  "designCanon": "media/pirate-daddy-film/into-the-warp-anti-daddy-character-seal-v1.json",
+  "storyCanon": "media/pirate-daddy-film/into-the-warp-two-world-lore-v1.json",
+  "originalApprovedPrototype": {
+    "fileName": "antiDaddyRiggedBlockout_v1.glb",
+    "sha256": "9f5f6a26fb827933502953f6c4a2e49f4b06a681cb52845892a08584df4e7627",
+    "provenance": "Existing original user-approved skinned GLB blockout from earlier design session, not a ripped franchise model",
+    "publicRelease": false
+  },
+  "variants": [
+    {
+      "ageEra": "20s",
+      "name": "antiDaddy20s_grungeCoder",
+      "fileName": "antiDaddy20s_grungeCoder.glb",
+      "sha256": "4302ae20e62b960868e522edd1e51e89d951c64b7e6fabca155b49befbf88f38",
+      "primitives": 20,
+      "approxFaces": 11860,
+      "faceMorph": "Softened narrowed cheeks/jaw; slight lifted young face; reshaped hair to shorter ponytail",
+      "outfit": "Grunge coder, faded red flannel, black jeans, original shirt insignia and dogtags"
+    },
+    {
+      "ageEra": "30s",
+      "name": "antiDaddy30s_corporateSuave",
+      "fileName": "antiDaddy30s_corporateSuave.glb",
+      "sha256": "f62bb996f9924f4eb325435c76b488399fe90e15b86a931bb22a87974f317038",
+      "primitives": 24,
+      "approxFaces": 12526,
+      "faceMorph": "Adult angular jaw/cheeks and medium salt-and-pepper ponytail",
+      "outfit": "Tailored charcoal corporate jacket, original lapel geometry, ivory shirt, oxblood tie, watch"
+    },
+    {
+      "ageEra": "40s",
+      "name": "antiDaddy40s_finalBoss",
+      "fileName": "antiDaddy40s_finalBoss.glb",
+      "sha256": "8ef68a9974453119dd452534e3d9578f8d17538821d6553e27860232f563e839",
+      "primitives": 33,
+      "approxFaces": 13384,
+      "faceMorph": "Mature cheek/jaw geometry, fine crow-foot lines, full silver-gray ponytail",
+      "outfit": "Black final-boss combat coat, shoulder plates, oxblood elements, original long weapons"
+    }
+  ],
+  "sharedVerifiedFacts": {
+    "format": "glTF 2.0 binary",
+    "jointCount": 22,
+    "animationClips": [
+      "idleSmug",
+      "axeKickLeft",
+      "glassesTaunt",
+      "swordStance"
+    ],
+    "realGeometryMutation": true,
+    "actualThirdPartySephirothMeshCopied": false,
+    "actualBlenderkitMarketplaceMeshDownloaded": false,
+    "observedPythonTrimeshParsingAllThree": true,
+    "shader": "Existing authored PBR factors with procedural geometric add-ons",
+    "terminalGodotRuntimeExecuted": false,
+    "renderedStillsFromActualTriangles": true
+  },
+  "candidateOutputs": [
+    {
+      "fileName": "antiDaddyThreeEras_ModelShowcase.png",
+      "sha256": "41fe5a6452243050df19baaf048bbed351010d68243e4ab5a7214126d43ac0b2",
+      "scope": "Original GLB triangle render; no additional image generation"
+    },
+    {
+      "fileName": "antiDaddyThreeEras_InteractiveGLB.html",
+      "sha256": "895b6c3fce6a35fbbed5fa7ea1e15bfd012292efcee5cb8631934ed13cb6366f",
+      "scope": "One-file offline model payload; online Three.js runtime; NOT Godot; browser runtime unverified"
+    },
+    {
+      "fileName": "antiDaddyGodot4ThreeEras_v1.zip",
+      "sha256": "3c43bc256d88604bd5d5bee55ad884fe04cac45a0a81020131f5e18a571d2d91",
+      "scope": "Native Godot 4.7 project source+3 GLBs, synchronized procedural run, era selection, turntable, four light looks; editor execution and Web export unverified"
+    },
+    {
+      "fileName": "antiDaddyThreeEras_CompleteTestKit.zip",
+      "sha256": "5cefa116c6d5f64f92cc5682497f994d1488e09e01c6775bf98e4ac36ded84f6",
+      "scope": "Private user-download ZIP containing current candidates; not committed into public GitHub"
+    }
+  ],
+  "assetResearch": [
+    {
+      "name": "Sephiroth low-poly by NiNoStyle Sketchfab",
+      "url": "https://sketchfab.com/3d-models/sephiroth-low-poly-model-d5f66e424c1d42f2883037e2bc87b0cc",
+      "rights": "Copyright character and possible creator rights; mood reference only, NO mesh copied"
+    },
+    {
+      "name": "Quaternius Universal Base Characters",
+      "url": "https://quaternius.com/packs/universalbasecharacters.html",
+      "rights": "Pack published CC0, candidate as future clean retargetable human donor; NOT imported in this build"
+    },
+    {
+      "name": "Quaternius Modular Outfits Fantasy",
+      "url": "https://quaternius.com/packs/modularcharacteroutfitsfantasy.html",
+      "rights": "Pack published CC0, candidate for independent future wardrobe donor; NOT imported"
+    },
+    {
+      "name": "Blendkit/BlenderKit",
+      "url": "https://www.blenderkit.com/",
+      "rights": "Official marketplace add-on installed/tested as tool in Codespaces CI; individual asset rights/account access need exact receipts; NONE imported in this build"
+    }
+  ],
+  "acceptanceGates": {
+    "conceptIdentity": "APPROVED_ART_DIRECTION_ONLY",
+    "threeDistinctAgeMeshes": "PROTOTYPE_BUILT_GLB_PARSER_PASS",
+    "originalLowPolyCostumes": "PROTOTYPE_BUILT",
+    "deformationWeightQuality": "NOT_STRESS_TESTED",
+    "facialExpressionsAndVisemes": "NOT_BUILT",
+    "professionalHairGroomPhysics": "NOT_BUILT",
+    "BlenderKitClothingApplied": "NOT_DONE",
+    "polishedTexturesAndNormalMaps": "NOT_DONE",
+    "ThreeJsViewer": "SOURCE_SYNTAX_PASS_BROWSER_UNVERIFIED",
+    "Godot4ImportRuntime": "UNVERIFIED",
+    "Godot4WebExport": "NOT_EXECUTED",
+    "ChatGPTSiteMcpWidgetRegistered": "NOT_DONE",
+    "professionalReleaseReady": "NO",
+    "publicDistribution": "STOP"
+  },
+  "nextActions": [
+    "Load donor meshes from vetted Quaternius or licensed Blendkit after rights review and local tool execution",
+    "Sculpt expressive age-specific heads and properly weight-painted clothing with BlenderKit/Blender",
+    "Test 22-bone rig and procedural running in actual Godot 4.7 editor",
+    "Export Godot 4 WebAssembly with official templates and check browser touch/lighting/playback",
+    "Publish only through separately approved private MCP Site UI registration and fresh in-chat owner acceptance"
+  ],
+  "sourceOnly": true,
+  "privateMeshesUploadedToPublicRepo": false,
+  "priorScreenplayModified": false
+}
