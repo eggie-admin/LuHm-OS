@@ -181,7 +181,7 @@ jobs:
             'package/unique_name="art.eggiebagelface.luhmos.testing"':
               'package/unique_name="art.eggiebagelface.luhmos.beta"',
             'package/name="LuHm OS Samsung Candidate"':
-              'package/name="LuHm OS Tablet Beta"',
+              'package/name="LuHm-OS Tablet Beta"',
             'version/code=116': 'version/code='+os.environ["BETA_VERSION_CODE"],
             'version/name="1.0.16-samsunglayout.1"':
               'version/name="0.1.0-beta.'+os.environ["GITHUB_RUN_NUMBER"]+'"',
@@ -192,6 +192,20 @@ jobs:
           preset.write_text(content,encoding="utf-8")
           print("BETA_APPLICATION_ID=art.eggiebagelface.luhmos.beta")
           PY
+      - name: Stage Canon launcher and adaptive icons into isolated beta preset
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/samsungCathedralIcons.py \
+            --output build/signed-beta/icons \
+            --preset export_presets.cfg
+          python3 tests/testSamsungCathedralStage.py --inspect-icon-output
+          test -s build/signed-beta/icons/iconReceipt.json
+          grep -q 'launcher_icons/main_192x192="res://build/signed-beta/icons/launcher192.png"' export_presets.cfg
+          grep -q 'launcher_icons/adaptive_foreground_432x432="res://build/signed-beta/icons/adaptiveForeground432.png"' export_presets.cfg
+          grep -q 'launcher_icons/adaptive_background_432x432="res://build/signed-beta/icons/adaptiveBackground432.png"' export_presets.cfg
+          grep -q 'launcher_icons/adaptive_monochrome_432x432="res://build/signed-beta/icons/adaptiveMonochrome432.png"' export_presets.cfg
+          echo 'CANON_LUHM_ANDROID_LAUNCHER_STAGED_SOURCE_ART_ONLY'
       - name: Import Godot
         run: '"$GODOT" --headless --editor --path . --quit'
       - name: Export ARM64 non-debug beta

@@ -4,19 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#100d17">
-  <title>LuHm OS Android Web3 Cockpit · Project Premonition POC</title>
+  <title>LuHm-OS | Samsung Studio · Project Premonition</title>
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./samsungStudioSwitch.css">
 </head>
 <body>
   <main class="cockpit" data-luhm-cockpit>
     <header class="topPanel" aria-label="LuHm OS desktop panel">
       <button class="appButton" type="button" aria-label="Open LuHm menu" data-luhm-menu-button><span aria-hidden="true">⠿</span></button>
-      <div class="brand" aria-label="LuHm OS"><span class="brandMark" aria-hidden="true">⬡</span><strong>LuHm-OS</strong></div>
+      <div class="brand" aria-label="LuHm OS"><img class="brandMark" src="./luhmLogo.svg" alt="" aria-hidden="true" decoding="async"><strong>LuHm-OS</strong></div>
       <nav class="nav" aria-label="Front end navigation">
         <button class="navItem isActive" type="button" data-view="chat">Chat</button>
         <button class="navItem" type="button" data-view="library" data-luhm-gallery-button>Canon Gallery</button>
         <button class="navItem" type="button" data-view="memories">Memories</button>
         <button class="navItem" type="button" data-luhm-factory-button>Factory</button>
+        <button class="navItem" type="button" data-luhm-studio-open>Studio</button>
       </nav>
       <div class="systemTray" aria-label="System indicators">
         <span title="local-first">⌂</span><span title="audio">◖))</span><time data-luhm-clock>--:--</time>
@@ -66,6 +68,36 @@
       </form>
     </section>
 
+    <aside class="studioBridgeLayer" hidden data-luhm-studio-bridge aria-label="Samsung and Blender Studio switch">
+      <div class="studioBridgeCard" role="dialog" aria-modal="true" aria-label="LuHm-OS studio roles">
+        <div class="studioBridgeHead">
+          <div><small>LuHm-OS · CROWN CATHEDRAL</small><h2>Samsung ↔ Blender Studio</h2></div>
+          <button type="button" data-luhm-studio-close aria-label="Close Studio switch">Close ✕</button>
+        </div>
+        <p>One Canon source, two execution roles. This switch changes only what is shown; it cannot run remote code or grant device privileges.</p>
+        <div class="studioBridgeTabs" role="group" aria-label="Choose studio role">
+          <button type="button" data-luhm-studio-mode="samsungCore" aria-pressed="true">📱 Samsung Core</button>
+          <button type="button" data-luhm-studio-mode="blenderGarage" aria-pressed="false">🛠 Blender Studio</button>
+        </div>
+        <section class="studioBridgeDetail" data-luhm-studio-detail="samsungCore" aria-label="Samsung Core mode">
+          <h3>Samsung Core · Godot 4 / WebView</h3>
+          <p>Local-first LuHm-OS cockpit, mobile touch controls, original project art, Godot world launch, and Canon asset previews.</p>
+          <ul><li>Candidate target: <strong>SM-X400 · Android 16 · ARM64</strong></li>
+          <li>Signed-beta build has a protected owner-key gate; APK/install are not proved here</li>
+          <li>Protected source files and signing keys never enter the browser surface</li></ul>
+        </section>
+        <section class="studioBridgeDetail" data-luhm-studio-detail="blenderGarage" hidden aria-label="Blender Studio mode">
+          <h3>Blender Studio · Ubuntu 26.04 / Blendkit</h3>
+          <p>Desktop/Codespaces authoring pipeline for original character meshes, wardrobe, rigging, PBR textures and animation, feeding Godot through reviewed GLB exports.</p>
+          <ul><li>BlenderKit add-on installer has passed disposable Codespaces CI; this tablet does not execute desktop Blender</li>
+          <li>Flow: <strong>private .blend → license/hash check → GLB → Godot import → APK candidate</strong></li>
+          <li>Remote workshop/session connectivity and transfers still require separate verification</li></ul>
+        </section>
+        <p class="studioBridgeStatus" data-luhm-studio-status role="status" aria-live="polite">Samsung Core selected</p>
+        <p class="studioBridgeCrown">Professor Crown: STOP for public release. A green source build is not a signed APK or a physical tablet install.</p>
+      </div>
+    </aside>
+
     <aside class="systemLayer" hidden data-luhm-system-layer aria-label="Backend system layer">
       <div class="systemLayerCard"><div><small>NATIVE / GODOT SYSTEM LAYER</small><h2>Godot World Boundary</h2><p>The WebView cockpit is the candidate primary shell. Godot remains the scene/game and native world layer behind a typed boundary. Android wrapper wiring is not simulated here.</p></div><button type="button" data-luhm-backend-close>Close</button></div>
     </aside>
@@ -107,7 +139,7 @@
     </aside>
 
     <div class="appMenu" hidden data-luhm-menu>
-      <button type="button" data-view="chat">Chat</button><button type="button" data-view="library" data-luhm-gallery-button>Canon Gallery</button><button type="button" data-view="memories">Memories</button><button type="button" data-luhm-factory-button>Media Factory</button><hr><button type="button" data-luhm-backend-button>Godot World Layer</button>
+      <button type="button" data-view="chat">Chat</button><button type="button" data-view="library" data-luhm-gallery-button>Canon Gallery</button><button type="button" data-view="memories">Memories</button><button type="button" data-luhm-factory-button>Media Factory</button><button type="button" data-luhm-studio-open>Samsung / Blender Studio</button><hr><button type="button" data-luhm-backend-button>Godot World Layer</button>
     </div>
   </main>
 
@@ -117,6 +149,7 @@
   <script src="./jquery/luhm.cockpit.js"></script>
   <script src="./jquery/luhm.cast.js"></script>
   <script src="./canonGallery.js"></script>
+  <script src="./samsungStudioSwitch.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>

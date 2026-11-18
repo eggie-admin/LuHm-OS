@@ -50,7 +50,7 @@ button { color: inherit; }
 .appButton:hover, .systemButton:hover, .navItem:hover { background: rgba(255,255,255,.08); }
 
 .brand { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-.brandMark { color: var(--pink); font-size: 23px; text-shadow: 0 0 14px rgba(255,44,145,.6); }
+.brandMark { display: block; flex: 0 0 28px; width: 28px; height: 28px; border-radius: 6px; object-fit: contain; box-shadow: 0 0 14px rgba(159,122,234,.42); }
 
 .nav { display: flex; align-items: center; gap: 4px; }
 .navItem { padding: 8px 12px; border-radius: 7px; color: var(--muted); }

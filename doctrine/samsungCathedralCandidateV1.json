@@ -1,0 +1,127 @@
+{
+  "schema": "luhmOs.samsungCathedralCandidateV1",
+  "date": "2026-11-17",
+  "sourceBeforeReview": "37dd44697c3e936aa2e1f4d40333d32ba3457d4f",
+  "status": "STAGED_SOURCE_CANDIDATE_NOT_PUBLIC_RELEASE",
+  "authority": "Professor",
+  "canonicalProduct": "LuHm-OS",
+  "publisher": "Eggie Bagelface",
+  "studioImprint": "PIRATE DADDIES FILM",
+  "world": "Project Premonition",
+  "historicalAlias": "Project Hydra",
+  "namingLaw": {
+    "caseSensitive": true,
+    "repo": "eggie-admin/LuHm-OS",
+    "appIdBeta": "art.eggiebagelface.luhmos.beta",
+    "existingTestingAppId": "art.eggiebagelface.luhmos.testing",
+    "replaceExistingSignedInstall": false
+  },
+  "mobileStudioSwitch": {
+    "source": "frontEnd/index.html",
+    "controller": "frontEnd/samsungStudioSwitch.js",
+    "styles": "frontEnd/samsungStudioSwitch.css",
+    "modes": [
+      "samsungCore",
+      "blenderGarage"
+    ],
+    "defaultMode": "samsungCore",
+    "behavior": "Local presentation switch inside packaged WebView only, no elevated filesystem/network/shell access",
+    "liveBlenderControl": false,
+    "physicalAndroidSwitchProof": false
+  },
+  "brandIcons": {
+    "sourceOfTruth": "publicationSite/logo.svg",
+    "mirror": "plugins/luhm-os/assets/logo.svg",
+    "generator": "tools/samsungCathedralIcons.py",
+    "output": [
+      "launcher192.png",
+      "adaptiveForeground432.png",
+      "adaptiveBackground432.png",
+      "adaptiveMonochrome432.png"
+    ],
+    "stagingLocation": "build/signed-beta/icons",
+    "buildProcess": "Generate in Actions runner and hook into an isolated export_presets.cfg prior to Godot release export",
+    "originalLogoApproval": "SOURCE_LOGO_ALREADY_PRESENT_ART_RIGHTS_FINAL_REVIEW_PENDING",
+    "apkResourceEmbeddingProof": "PENDING_SIGNED_BUILD",
+    "assetBytesPublicSource": false,
+    "sourceCodePublic": true
+  },
+  "deviceLane": {
+    "targetModel": "SM-X400",
+    "androidVersionTarget": "Android 16 / SDK 36",
+    "abi": "arm64-v8a",
+    "engine": "Godot 4.7.2",
+    "webview": "Android System WebView + local bundled HTML/jQuery + narrow typed Godot bridge",
+    "networkPermissionDefault": "OFF",
+    "noRootRequired": true,
+    "observedInstall": "NOT_PROVEN_FOR_NEW_SIGNED_BETA",
+    "observedTouch": "PENDING",
+    "testingPackageMustRemainSeparate": true
+  },
+  "authoringLane": {
+    "host": "GitHub Codespaces Ubuntu 26.04 LTS",
+    "blender": "BlenderKit/Blendkit pinned v3.21.5.261103",
+    "ciAddOnProof": "EXISTING_UPSTREAM_DISPOSABLE_IMAGE_PASS_PR_578",
+    "currentCodespaceOnDevice": "NOT_VERIFIED",
+    "assetHandoff": "protected .blend asset + per-asset rights/hash receipts → original GLB → Godot import/runtime test → candidate Android",
+    "directDesktopBlenderRunningInsideApk": false,
+    "automaticPrivate3dAssetSync": false,
+    "proprietaryGameRipsAllowed": false
+  },
+  "signingAndDistribution": {
+    "androidBeta": {
+      "workflow": ".github/workflows/samsung-lite-signed-beta.yml",
+      "protectedEnvironment": "luhm-beta-signing",
+      "currentBaseline": "doctrine/androidBetaReleaseBaselineV1.json:UNVERIFIED",
+      "signingKey": "OWNER_HELD_PKCS12_NOT_READ",
+      "certificateFingerprint": "NOT_PROVEN_CURRENT",
+      "sameSignerUpdate": "REQUIRED",
+      "signedReleaseArtifact": "NOT_BUILT_THIS_PASS",
+      "deviceInstall": "NOT_PROVEN",
+      "publicFdroidSignedIndex": "NOT_PUBLISHED",
+      "publicReleaseAllowed": false
+    },
+    "gpg": {
+      "purpose": "Owner Git commit or release-tag signatures",
+      "ownerFingerprint": "UNVERIFIED",
+      "ownerGpgVerifiedGitHub": "UNVERIFIED",
+      "githubApiWritesDoNotCountAsOwnerGpgSignature": true,
+      "notApkSigningKey": true
+    },
+    "tls": {
+      "purpose": "HTTPS endpoint certificate, managed separately from APK and GPG",
+      "renderExistingManagedHttps": "SERVICE_CONFIGURED_PREVIOUS_DEPLOYMENT_ONLY",
+      "actualLeafIssuer": "NOT_LIVE_VERIFIED",
+      "ownerLetsEncryptRequirement": "VERIFY_SERVING_CERT_BEFORE_GREEN",
+      "sslPrivateKeyInRepository": false,
+      "noKeyRotationWithoutOwnerReceipt": true
+    },
+    "crownStatus": "STOP"
+  },
+  "castLevels": {
+    "sourceValidate": "CI_PENDING",
+    "repositoryMerge": "PENDING_EXACT_HEAD_GREEN",
+    "signedBuild": "BLOCKED_UNTIL_OWNER_SIGNER_BASELINE_AND_PROTECTED_ENV",
+    "physicalDeviceAcceptance": "BLOCKED_UNTIL_REAL_APK_INSTALLED_AND_OBSERVED",
+    "publicDistribution": "STOP",
+    "finalCrown": "STOP"
+  },
+  "sourceChecks": [
+    "tests/testSamsungCathedralStage.py",
+    "tests/testSignedBetaWorkflow.py",
+    "tools/fdroidTabletSourceAudit.py",
+    "tools/crownCathedralBrandAudit.py"
+  ],
+  "security": {
+    "noSecretsInPublicRepo": true,
+    "noPublicPortForPrivateWorker": true,
+    "noArbitraryWebToShellBridge": true,
+    "noNewSigningKeysGenerated": true,
+    "neverTreatDebugSignerAsBetaSigner": true,
+    "noChangesToSamsungBootChain": true,
+    "noPrivateCanonArtShipped": true,
+    "noAutonomousAgentsReleased": true
+  },
+  "nextAfterSourceGreen": "Inspect real signed beta prerequisites through owner authenticated GitHub release environment, then run exact-head owner CAST workflow and independently check APK/version/keystore and actual SM-X400 installation.",
+  "noSelfCrown": true
+}
