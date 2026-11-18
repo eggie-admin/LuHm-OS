@@ -1,0 +1,159 @@
+{
+  "schema": "luhmOs.googleAiHexReadiness.v1",
+  "status": "PROPOSED_SOURCE_ONLY",
+  "product": "LuHm-OS",
+  "authority": "Professor",
+  "boss": "lum",
+  "taskId": "googleAiHexCanonReadiness20261104",
+  "scopeId": "googleAiCandidateReviewOnly",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "sourceAuthority": "github",
+  "providerId": "googleAi",
+  "adapterId": "bigBrother",
+  "fallback": "deterministicLocal",
+  "sixteenCells": "logicalHexLabelsNotHardwareOperations",
+  "laneOrder": [
+    "canon",
+    "entitlement",
+    "execution",
+    "promotion"
+  ],
+  "beatOrder": [
+    "inventory",
+    "scope",
+    "verify",
+    "propose"
+  ],
+  "cells": [
+    {
+      "cell": "0x00",
+      "lane": "canon",
+      "beat": "inventory",
+      "operation": "exactSource"
+    },
+    {
+      "cell": "0x01",
+      "lane": "canon",
+      "beat": "scope",
+      "operation": "canonicalAuthority"
+    },
+    {
+      "cell": "0x02",
+      "lane": "canon",
+      "beat": "verify",
+      "operation": "googleAdapterIdentity"
+    },
+    {
+      "cell": "0x03",
+      "lane": "canon",
+      "beat": "propose",
+      "operation": "companyHold"
+    },
+    {
+      "cell": "0x04",
+      "lane": "entitlement",
+      "beat": "inventory",
+      "operation": "consumerNotApi"
+    },
+    {
+      "cell": "0x05",
+      "lane": "entitlement",
+      "beat": "scope",
+      "operation": "developerProofUnknown"
+    },
+    {
+      "cell": "0x06",
+      "lane": "entitlement",
+      "beat": "verify",
+      "operation": "billingProofUnknown"
+    },
+    {
+      "cell": "0x07",
+      "lane": "entitlement",
+      "beat": "propose",
+      "operation": "noPaidCalls"
+    },
+    {
+      "cell": "0x08",
+      "lane": "execution",
+      "beat": "inventory",
+      "operation": "sanitizedReviewOnly"
+    },
+    {
+      "cell": "0x09",
+      "lane": "execution",
+      "beat": "scope",
+      "operation": "hostOnlySecrets"
+    },
+    {
+      "cell": "0x0a",
+      "lane": "execution",
+      "beat": "verify",
+      "operation": "proxyEgressDisabled"
+    },
+    {
+      "cell": "0x0b",
+      "lane": "execution",
+      "beat": "propose",
+      "operation": "noPrCloudCredentials"
+    },
+    {
+      "cell": "0x0c",
+      "lane": "promotion",
+      "beat": "inventory",
+      "operation": "localFallback"
+    },
+    {
+      "cell": "0x0d",
+      "lane": "promotion",
+      "beat": "scope",
+      "operation": "identityBoundReceipts"
+    },
+    {
+      "cell": "0x0e",
+      "lane": "promotion",
+      "beat": "verify",
+      "operation": "zeroActiveWorkers"
+    },
+    {
+      "cell": "0x0f",
+      "lane": "promotion",
+      "beat": "propose",
+      "operation": "crownStop"
+    }
+  ],
+  "sourceRefs": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/apiSpineV1.json",
+    "doctrine/googleAiDeveloperEntitlementsV1.json",
+    "doctrine/googleAiProxyDeploymentV1.json",
+    "doctrine/lumOrchestraHardeningV1.json",
+    "doctrine/studioCompatibilityFastMeshV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json",
+    "doctrine/machineCanonFourLoopV1.json"
+  ],
+  "guarantees": {
+    "readOnly": true,
+    "localDeterministic": true,
+    "providerCall": false,
+    "credentialRead": false,
+    "cloudflareMutation": false,
+    "gitHubOidc": false,
+    "productionDeploy": false,
+    "mainMerge": false,
+    "agentUnquarantine": false,
+    "spend": false,
+    "autoCrown": false
+  },
+  "requiredExternalProof": [
+    "matchingGoogleDeveloperProjectAndApi",
+    "currentFreeTierOrBillingAndProfessorBudgetApproval",
+    "modelAndQuotaReceipt",
+    "leastPrivilegeHostAuthentication",
+    "sanitizedInputPermission",
+    "freshAuthenticatedSmokeOutsidePublicPullRequestCi"
+  ],
+  "resultMeaning": "All sixteen source checks passing is AMBER readiness, never API/Google IAM/billing proof.",
+  "promotion": false,
+  "crownStatus": "STOP"
+}

@@ -1,0 +1,54 @@
+name: Google AI Hex Canon Readiness (source only)
+on:
+  pull_request:
+    paths:
+      - 'doctrine/googleAiHexReadinessV1.json'
+      - 'tools/googleAiHexReadinessAudit.py'
+      - 'tests/testGoogleAiHexReadinessAudit.py'
+      - '.github/workflows/google-ai-hex-canon-audit.yml'
+      - 'doctrine/googleAiDeveloperEntitlementsV1.json'
+      - 'doctrine/googleAiProxyDeploymentV1.json'
+      - 'doctrine/apiSpineV1.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offlineReadiness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify immutable source and Python syntax
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          python3 -m py_compile tools/googleAiHexReadinessAudit.py tests/testGoogleAiHexReadinessAudit.py
+          python3 -m json.tool doctrine/googleAiHexReadinessV1.json >/dev/null
+      - name: Negative controls and sixteen source cells
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          python3 -m unittest discover -s tests -p 'testGoogleAiHexReadinessAudit.py' -v
+          python3 tools/googleAiHexReadinessAudit.py --source-ref "$EXPECTED_SHA" --output build/google-ai-hex/readiness.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('build/google-ai-hex/readiness.json').read_text())
+          assert r['status'] == 'AMBER_PROVIDER_PROOF_REQUIRED'
+          assert r['checkedCells'] == r['passedCells'] == 16
+          assert not any(r[k] for k in ('providerApiInvoked', 'canSpend', 'canMerge', 'canDeploy'))
+          assert r['crownStatus'] == 'STOP'
+          print('GOOGLE_AI_HEX_SOURCE_ONLY=PASS; LIVE_PROVIDER=UNVERIFIED')
+          PY
+      - name: Upload nonsecret source receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: google-ai-hex-canon-source-readiness
+          path: build/google-ai-hex/
+          if-no-files-found: warn
+          retention-days: 7
