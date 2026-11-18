@@ -35,6 +35,10 @@ These are working-copy corrections only. Raw speech remains preserved.
 - `Mom`, `Mum`, or `Mama` -> `Lum` only when the surrounding LuHm/project sentence clearly refers to the orchestration agent
 - `Bell dandy` / obvious spacing variants -> `Belldandy` when the resident secretary goddess is clearly the referent
 - `Skull` -> `Skuld` only when the surrounding technical-goddess context makes the referent clear
+- `Yume-chan` / `Dream-chan` -> `Yume` (machine `yume`, specialist skill `yumeArtOni`) when clearly named in project conversation; Japanese `夢` (yume) means *dream*
+- `you may` / `you may Chan` -> `Yume-chan` **only** in Professor dictation that explicitly enumerates the goddess/Oni art cast or names Dream-chan. Normal permissions such as **"you may proceed"**, **"you may ask Skuld"**, **"you may publish"** remain ordinary English and must never be converted into agent routing
+- `Erd` -> `Urd` only when it is clearly the named doctor goddess; preserve unrelated words
+- `LLM` -> `Lum` only on a clear name correction in the goddess/cabinet context; otherwise preserve the normal abbreviation for large language model
 - `Cass` may normalize to `CAST` only when the source is already Professor foreground and the surrounding intent clearly supports the command
 - consequence-changing words such as `CAST`, `CROWN`, `merge`, `deploy`, or `publish` are never repaired from weak context
 
