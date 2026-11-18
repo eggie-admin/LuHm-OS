@@ -1,0 +1,76 @@
+{
+  "schema": "luhmOs.lumOsLayeredOrchestration.v1",
+  "status": "PROPOSED_CANDIDATE_ONLY",
+  "authority": "Professor",
+  "purpose": "Proposed layered model: SQL/file canon, terminal/vendor layer, lumos JS library layer, hex-chunk degradation, and Lum front-end over a Google AI workhorse. Source design only; no live wiring.",
+  "layers": [
+    {
+      "layer": 0,
+      "id": "machineCanon",
+      "scope": ["sqlCanon", "fileCanon", "storageTopologyV1"],
+      "law": "databases point to files; Google Drive is the durable binary file server"
+    },
+    {
+      "layer": 1,
+      "id": "terminalVendor",
+      "scope": ["commandLine", "minimalLinuxBuilds", "apkBuilds", "vendorTooling"],
+      "law": "vendor output is untrusted until audited; no secrets in build artifacts"
+    },
+    {
+      "layer": 2,
+      "id": "lumosLibrary",
+      "scope": ["javascriptLibrary", "classSystemBindings", "arrays", "variables"],
+      "parity": {
+        "targets": ["python", "npm", "go"],
+        "status": "UNKNOWN_UNTIL_PARITY_AUDIT",
+        "law": "one deterministic behavior contract; each language proves it with the same test vectors"
+      },
+      "degradation": "classes degrade to arrays and variables, then to hexadecimal"
+    }
+  ],
+  "hexChunkEscalation": {
+    "chunkBits": 64,
+    "encoding": "hexadecimalUppercaseFixedWidth16",
+    "passesThroughDoctrineGuardrails": true,
+    "failClosedOn": ["RED", "UNKNOWN", "sourceIdentityMismatch", "chunkLengthMismatch", "hashMismatch"],
+    "newSourceIdentityRestartsAt": "sanityCheck"
+  },
+  "escalationLanes": {
+    "order": ["sanityCheck", "audit", "sensitiveDataCheck", "testingLane", "proposedLane", "amberMilestone", "greenMilestone", "finalForm"],
+    "sensitiveDataFound": "stopAndQuarantine",
+    "privateLanes": ["testingLane", "proposedLane"],
+    "loopModes": ["continueChecks", "noChecks", "reEscalate"],
+    "loopRule": "any loop must name its exit condition and re-enter at sanityCheck on source identity change",
+    "deploy": "proposedCandidateOnly; no live GitHub forge build, merge, publication, signing or Crown"
+  },
+  "orchestration": {
+    "frontEnd": {
+      "agent": "lum",
+      "provider": "openAi",
+      "role": "conversational boss and task router",
+      "providerReceipt": "PENDING_PROVIDER_SIDE_RECEIPT"
+    },
+    "workhorse": {
+      "provider": "googleAi",
+      "route": "doctrine/googleAiDeveloperEntitlementsV1.json",
+      "role": "heavy review, generation and analysis proposals",
+      "apiInvocationDefault": "DENY",
+      "consumerPlanGrantsApiAccess": false,
+      "entitlement": "UNKNOWN_UNTIL_PROVIDER_RECEIPT",
+      "executionOutsideUntrustedPullRequestCi": true
+    },
+    "roster": "doctrine/agentSystemDeploymentV1.json",
+    "rosterSize": 15,
+    "agentsAreRegisteredRolesNotWorkers": true,
+    "maxParallelSupportWorkers": 3,
+    "oneMutableSourceLane": true,
+    "workhorseMayNotSelfPromote": true
+  },
+  "nightlyBuildBot": {
+    "status": "PROPOSED_NOT_ENABLED",
+    "requires": ["professorApproval", "providerReceipts", "urdEvidence", "rollbackPlan"],
+    "mayNot": ["merge", "publish", "sign", "deploy", "crown", "spendWithoutApproval"]
+  },
+  "quarantine": "company-wide and Belldandy holds remain effective",
+  "crownStatus": "STOP"
+}
