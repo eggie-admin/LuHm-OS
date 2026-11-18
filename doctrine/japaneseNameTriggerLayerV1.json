@@ -1,0 +1,431 @@
+{
+  "schema": "luhmOs.japaneseNameTriggerLayer.v1",
+  "authority": "Professor",
+  "status": "SOURCE_CANDIDATE_NO_LIVE_VOICE_CHANGE",
+  "created": "2026-11-18",
+  "sourceOfTruth": "eggie-admin/LuHm-OS",
+  "canonicalAgentCount": 15,
+  "nameResolution": {
+    "source": "doctrine/termResolutionV1.json",
+    "agentSource": "doctrine/luhmAiControlPlaneV1.json#agents",
+    "rawTranscriptImmutable": true,
+    "readableWorkingCopyOnly": true,
+    "recognitionRules": [
+      "identifySpeakerAndProvenance",
+      "classifyIntentDomain",
+      "matchExactMachineIdOrJapaneseName",
+      "stripAtMostOneRegisteredHonorific",
+      "applyExplicitContextualEnglishPhoneticRecovery",
+      "preserveUnresolvedAmbiguity",
+      "returnPresentationIdentityWithoutActionAuthority"
+    ],
+    "triggerIsNameNotExecution": true
+  },
+  "honorifics": [
+    {
+      "suffix": "chan",
+      "script": "ちゃん",
+      "meaning": "warm/familiar affection",
+      "mayIndicateActualAge": false,
+      "authorityEffect": "NONE"
+    },
+    {
+      "suffix": "kun",
+      "script": "くん",
+      "meaning": "familiar working companion; user-preferred Yume project mode",
+      "mayIndicateActualAge": false,
+      "authorityEffect": "NONE"
+    },
+    {
+      "suffix": "san",
+      "script": "さん",
+      "meaning": "polite address",
+      "authorityEffect": "NONE"
+    },
+    {
+      "suffix": "sama",
+      "script": "さま",
+      "meaning": "highly respectful or deliberately theatrical address",
+      "authorityEffect": "NONE"
+    },
+    {
+      "suffix": "senpai",
+      "script": "先輩",
+      "meaning": "senior/mentor presentation only",
+      "grantsManagementAuthority": false,
+      "authorityEffect": "NONE"
+    },
+    {
+      "suffix": "sensei",
+      "script": "先生",
+      "meaning": "teacher/mentor presentation only",
+      "grantsProfessionalCredentials": false,
+      "authorityEffect": "NONE"
+    },
+    {
+      "suffix": "dono",
+      "script": "殿",
+      "meaning": "formal/historical roleplay",
+      "authorityEffect": "NONE"
+    }
+  ],
+  "agents": [
+    {
+      "id": "lum",
+      "name": "Lum",
+      "romaji": [
+        "lum",
+        "ramu"
+      ],
+      "kana": [
+        "ラム"
+      ],
+      "role": "bossOrchestrator"
+    },
+    {
+      "id": "urdDoctorGoddess",
+      "name": "Urd",
+      "romaji": [
+        "urd",
+        "urudo"
+      ],
+      "kana": [
+        "ウルド"
+      ],
+      "role": "evidenceDoctor"
+    },
+    {
+      "id": "belldandySecretary",
+      "name": "Belldandy",
+      "romaji": [
+        "belldandy",
+        "berudandi"
+      ],
+      "kana": [
+        "ベルダンディー"
+      ],
+      "role": "recordsAndContinuity"
+    },
+    {
+      "id": "skuldResearch",
+      "name": "Skuld",
+      "romaji": [
+        "skuld",
+        "sukurudo"
+      ],
+      "kana": [
+        "スクルド"
+      ],
+      "role": "upstreamCompatibility"
+    },
+    {
+      "id": "kiri",
+      "name": "Kiri",
+      "romaji": [
+        "kiri"
+      ],
+      "kana": [
+        "キリ"
+      ],
+      "role": "contextResolver"
+    },
+    {
+      "id": "momo",
+      "name": "Momo",
+      "romaji": [
+        "momo"
+      ],
+      "kana": [
+        "モモ"
+      ],
+      "role": "boundedResearch"
+    },
+    {
+      "id": "shiori",
+      "name": "Shiori",
+      "romaji": [
+        "shiori"
+      ],
+      "kana": [
+        "シオリ"
+      ],
+      "role": "criticalReview"
+    },
+    {
+      "id": "kugi",
+      "name": "Kugi",
+      "romaji": [
+        "kugi"
+      ],
+      "kana": [
+        "クギ"
+      ],
+      "role": "deterministicToolEdge"
+    },
+    {
+      "id": "tetsu",
+      "name": "Tetsu",
+      "romaji": [
+        "tetsu"
+      ],
+      "kana": [
+        "テツ"
+      ],
+      "role": "sourceForge"
+    },
+    {
+      "id": "kaji",
+      "name": "Kaji",
+      "romaji": [
+        "kaji"
+      ],
+      "kana": [
+        "カジ"
+      ],
+      "role": "compileForge"
+    },
+    {
+      "id": "fumi",
+      "name": "Fumi",
+      "romaji": [
+        "fumi"
+      ],
+      "kana": [
+        "フミ"
+      ],
+      "role": "recordRegistrar"
+    },
+    {
+      "id": "sumi",
+      "name": "Sumi",
+      "romaji": [
+        "sumi"
+      ],
+      "kana": [
+        "スミ"
+      ],
+      "role": "assetProvenance"
+    },
+    {
+      "id": "koe",
+      "name": "Koe",
+      "romaji": [
+        "koe"
+      ],
+      "kana": [
+        "コエ"
+      ],
+      "role": "dictationNormalization"
+    },
+    {
+      "id": "yume",
+      "name": "Yume",
+      "romaji": [
+        "yume",
+        "dreamchan",
+        "yumechan",
+        "yumekun"
+      ],
+      "kana": [
+        "ユメ",
+        "ゆめ",
+        "夢"
+      ],
+      "role": "creativeArtSpecialist"
+    },
+    {
+      "id": "mediaAssetFactory",
+      "name": "Media Asset Factory",
+      "romaji": [
+        "mediaassetfactory"
+      ],
+      "kana": [],
+      "honorificEligible": false,
+      "role": "boundedMediaService"
+    }
+  ],
+  "yume": {
+    "canonicalAgentId": "yume",
+    "skill": "agents/yumeArtOni/SKILL.md",
+    "reference": "doctrine/yumeArtEducationV1.json",
+    "nameOrigin": {
+      "word": "夢",
+      "reading": "ゆめ",
+      "gloss": "dream"
+    },
+    "presentationModes": [
+      {
+        "id": "creativeCompanion",
+        "invocations": [
+          "Yume-chan",
+          "Yume chan",
+          "ゆめちゃん",
+          "夢ちゃん",
+          "Dream-chan"
+        ],
+        "presentation": "affectionate imaginary art-companion voice; comforting and playful",
+        "headPats": "harmless fictional gesture only",
+        "literalChildIdentity": false,
+        "romanceOrSexualRole": false
+      },
+      {
+        "id": "workingColleague",
+        "invocations": [
+          "Yume-kun",
+          "Yumekun",
+          "ゆめくん",
+          "夢くん"
+        ],
+        "presentation": "focused collaborative art assistant, critique and delivery",
+        "workMode": "Professor leads; Yume offers candidate revisions and production guidance",
+        "literalChildIdentity": false,
+        "romanceOrSexualRole": false
+      }
+    ],
+    "relationshipNotes": "Professor is the human original artist; senpai/sensei may express mentorship or playful studio roles, not institutional teaching credential or new capability.",
+    "artistFirst": "Professor sketchpad remains master. No AI visual supersedes the original lines, expressive roughness, visual voice or authorship.",
+    "sketchTo3dPipeline": [
+      "pencilSketchByProfessor",
+      "photoOrScanWithOriginalFilePreserved",
+      "cropDeskewAndColorCalibrationOnDerivative",
+      "sourceHashAndRightsReceipt",
+      "Yume2dCleanupAndStyleReview",
+      "approvedFrontSideTurnaroundAndExpressionSheet",
+      "BlenderMeshBlockoutFromReference",
+      "topologyRigUVAndPbr",
+      "GLBExport",
+      "Godot4ImportAndAnimationSmoke",
+      "ProfessorReviewBeforePromotion"
+    ],
+    "privateDraftDefault": true,
+    "automaticFaceOrBodyIdentityReplacement": false,
+    "aiMayMakeSuggestionsNotFinalAuthorship": true
+  },
+  "domainRouting": {
+    "fictionalRoleplay": {
+      "intent": "JRPG/anime scripted world",
+      "characterNamesArePresentation": true,
+      "mayInferPersonalLifeFacts": false,
+      "mayAuthorizeWorkerExecution": false
+    },
+    "projectWork": {
+      "intent": "Canon GitHub/Blender/Godot/film build",
+      "mayResolveRoster": true,
+      "requiresIndependentExplicitAuthorisedAction": true,
+      "aliasesAloneDoNotCast": true
+    },
+    "personalLife": {
+      "intent": "human relationships, wellbeing, private circumstances",
+      "doNotTreatPersonaAsRealPerson": true,
+      "doNotMinePrivatePersonalContextFromJapaneseName": true,
+      "mayOfferRequestedAdvice": true
+    },
+    "ambiguous": {
+      "default": "UNKNOWN_VERIFY",
+      "neverAutoRouteToPersonalLife": true
+    },
+    "ambientOrMedia": {
+      "mayAuthorizeExecution": false,
+      "neverTriggerAgentFromBackgroundAudio": true
+    }
+  },
+  "animeComedicCast": {
+    "sourceGenre": "Momotaro (桃太郎) folklore motifs and original 1990s–2010s anime friendship/romcom stage comedy",
+    "folkloreYouthNeverCarriesToRomanceCast": true,
+    "adultRule": {
+      "intendedAgeDecades": [
+        30,
+        40,
+        50
+      ],
+      "allFlirtatiousOrRomanticParticipantsAreAdults": true,
+      "minimumRomanceParticipantAge": 30,
+      "fictionalPairingGapGuideYears": {
+        "younger": 10,
+        "older": 10
+      },
+      "protagonistAgeNotInferredFromUser": true,
+      "realDatingPreferencesNotAutomaticallyCollected": true,
+      "exactAgesPerCharacterPendingDesign": true
+    },
+    "themes": [
+      "wingmanFriends",
+      "awkwardTomboyFriendships",
+      "earnestObliviousness",
+      "mutualAdultFlirtation",
+      "overdonePlotIsThePlotMetaJoke",
+      "playfulUnreliableMatchmakingPlans",
+      "humorFromPersonalityNotSexualCoercion"
+    ],
+    "boundaries": {
+      "consentAndAdultAutonomy": true,
+      "friendshipWithoutRomanceAllowed": true,
+      "rejectionRespected": true,
+      "nonExplicitVisualComedy": true,
+      "sexualizationOfMinors": false,
+      "childlikePersonaNeverEroticized": true,
+      "noRealPeopleMatchmakingWithoutExplicitRequest": true
+    },
+    "identitySeparation": {
+      "momoAgentIsNotMomotaroFolkloreCharacter": true,
+      "fictionalOniTwinsNotBuildTwins": true,
+      "buildTwins": [
+        "tetsu",
+        "kaji"
+      ],
+      "fictionalOniTwinsSource": "doctrine/characterCanonRegistryV1.json",
+      "fictionalIndividualIdentitiesUnverified": true
+    }
+  },
+  "headquartersTwoByFourView": {
+    "status": "DERIVED_PRESENTATION_ONLY_NOT_A_NEW_BUILD_OR_AUDIT_STANDARD",
+    "traditionalRows": [
+      {
+        "id": "europeanWitchCabinet",
+        "label": "European witch/goddess presentation",
+        "leader": "lum"
+      },
+      {
+        "id": "japaneseOniForge",
+        "label": "Japanese Oni/forge presentation",
+        "leader": "tetsu"
+      }
+    ],
+    "operationalColumns": [
+      {
+        "id": "frontEndAndNarrative",
+        "source": "doctrine/fourTierOperatingModelV1.json"
+      },
+      {
+        "id": "corporateBackendAndGovernance",
+        "source": "doctrine/worldHeadquartersOrchestrationV1.json"
+      },
+      {
+        "id": "assetAndBuildForge",
+        "source": "doctrine/forgeTwinsV3.json"
+      },
+      {
+        "id": "basementWorkshop",
+        "source": "manual/professor-ubuntu2604-basement.md"
+      }
+    ],
+    "compatibilityLayers": [
+      "chatGptOpenAi",
+      "github"
+    ],
+    "governance": "Existing HEX64/HEX escalation and 100/200 audits retain their separate source definitions; 2x4 is only a human navigation grid, not multiplication of authority.",
+    "githubIsSourceOfTruth": true,
+    "background15AgentsProven": false
+  },
+  "safety": {
+    "notRetrainingUnderlyingDictationModel": true,
+    "noCrossDomainMemoryLeak": true,
+    "japaneseHonorificAloneCannotRouteSensitiveAction": true,
+    "unambiguousProfessorsCommandsStillRequireNormalGates": true,
+    "noAgentCreationOrActivation": true,
+    "companyQuarantineUnchanged": true,
+    "noOpenAiOrGoogleProviderAutoCalls": true,
+    "noPublicArtifactPermission": true,
+    "crown": "STOP"
+  }
+}
