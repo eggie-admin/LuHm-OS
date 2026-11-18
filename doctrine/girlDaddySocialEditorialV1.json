@@ -1,0 +1,141 @@
+{
+  "schema": "luhmOs.girlDaddySocialEditorial.v1",
+  "authority": "Professor",
+  "status": "CANDIDATE_CONTENT_POLICY_NO_EXTERNAL_ACCOUNT_AUTHORITY",
+  "created": "2026-11-18",
+  "brandSource": "doctrine/brandCanonV1.json",
+  "contentLaneSource": "doctrine/contentLaneDoctrineV1.json",
+  "publishingSource": "doctrine/studioPublicPrivateReleaseV1.json",
+  "operator": {
+    "proposedDisplayAlias": "Girl Daddy",
+    "proposedMachineAlias": "girlDaddy",
+    "proposedRole": "socialMediaCreativeLead",
+    "nomination": "PROFESSOR_NOMINATED",
+    "collaboratorAcceptanceAndDisplayNameConsent": "NOT_VERIFIED",
+    "accessStatus": "NOT_GRANTED_BY_REPO",
+    "taskScope": [
+      "campaignIdeation",
+      "captionAndEditorialReview",
+      "adultAudiencePerspective",
+      "characterComedyTasteCheck",
+      "socialCalendarPlanning",
+      "creativeContributorFeedback"
+    ],
+    "authorityExcluded": [
+      "readPrivateUserMemories",
+      "publishOrScheduleWithoutSeparateOwnerApproval",
+      "modifyCredentialsOrBrandAccounts",
+      "accessThirdPartyHealthOrPersonalRecords",
+      "approveOwnRightsOrPublicRelease"
+    ],
+    "realIdentityInPublicSource": false,
+    "privateHistoryAndHealthDetailsInPublicSource": false,
+    "collaboratorCompensationAndLegalRights": "UNSPECIFIED"
+  },
+  "concept": {
+    "roleplayPersona": "girlDaddy",
+    "fictionalPersonaIsNotAccountPermission": true,
+    "identityBridgeRequiresIndividualConsent": true,
+    "characterMode": "adultEnsembleWingmanComedy",
+    "boundaries": "Fictional matchmaking scenes do not imply real-world relationship status, preferences, introductions, consent or obligations"
+  },
+  "audience": {
+    "goal": "Welcome women and men who like funny character-led geek/goth/JRPG art rather than building a boys-only in-joke feed",
+    "inclusion": [
+      "womenHaveAgencyAndTheirOwnFunnyGoals",
+      "friendshipAndFoundFamilyMatterAsMuchAsRomance",
+      "charactersMayBeBeautifulWithoutBeingReducedToBodyFeatures",
+      "flirtingIsMutualAndCanBeDeclined",
+      "differentGenderIdentitiesAndOrientationsAreNotAssumedFromAppearance",
+      "consultActualAudienceFeedbackWithoutTreatingOnePersonAsSpokespersonForEveryWoman"
+    ],
+    "exclusions": [
+      "humiliationBasedOnAppearance",
+      "coerciveMatchmaking",
+      "persistentJokesAfterClearDisinterest",
+      "juvenileCodedEroticization",
+      "realPersonLookalikeSexualJokesWithoutPermission",
+      "unverifiedMentalHealthLabelsInPublicContent"
+    ]
+  },
+  "ageRules": {
+    "fictionAges": "Adult original characters, generally in their 30s, 40s and 50s",
+    "romanceOrSuggestiveCharactersMinimumYears": 30,
+    "highSchoolMemoriesNeverSpecifyOrImplyFlirtationWithMinors": true,
+    "childlikeLanguageOrHonorificDoesNotChangeAdultIdentity": true,
+    "audienceAgeIsNotAutomaticallyInferred": true
+  },
+  "humorBalance": {
+    "rule": "The plot serves story, characters and emotional stakes; occasional adult-only 'the plot is the plot' innuendo is seasoning, not the entire menu.",
+    "recurringBodyJokesMayNotDominate": true,
+    "publicCathedral": {
+      "sourceLane": "cathedralPublic",
+      "sexualizedCharacterPresentation": "NOT_ALLOWED",
+      "bodyFocusedSexJokeCapPerPost": 0,
+      "permitted": "Playful non-sexual puns, cheeky misunderstandings, action-comedy and original JRPG innuendo only if broadly family-safe and not sexualized",
+      "reviewerMustCheck": "No body-shaming, voyeurism, harassment, unwanted sexual attention or youth-coded sexual content"
+    },
+    "inviteOnlyBeta": {
+      "sourceLane": "betaAfterDark",
+      "guideline": "One mild body/figure innuendo at most in any three distinct campaign posts, and no more than one such gag inside any single reviewed post; never a quota to fulfill",
+      "maximumShareOfPostsWithBodyGags": {
+        "numerator": 1,
+        "denominator": 3
+      },
+      "neverIncentivizeSexualContent": true,
+      "requireCharacterPayoffNotBodyObjectification": true,
+      "strongerJokesRequireExplicitPlatformPolicyAndOwnerApproval": true
+    },
+    "privateDrafts": {
+      "sourceLane": "privateMutation",
+      "principle": "Adult experiment possible within applicable law and safety rules, but no automatic promotion to public or beta"
+    }
+  },
+  "workflow": {
+    "participants": {
+      "professor": "finalHumanEditorAndAccountOwner",
+      "girlDaddy": "nominatedContentAndAudienceCreativeLead",
+      "yume": "artDirectionAndVisualContinuity",
+      "lum": "supervisedPlanningAndRouting",
+      "belldandy": "privateApprovalReceiptsAndScheduleCoordination",
+      "sumi": "sourceRightsAndAssetCredit",
+      "urd": "contentAndSecurityRiskReview"
+    },
+    "reviewStages": [
+      "draft",
+      "editorialToneAndAudienceReview",
+      "rightsAndConsentCheck",
+      "visualCanonReview",
+      "platformSpecificFormatReview",
+      "ownerReviewOnExactAssetAndCaption",
+      "scheduleOrPublishWithAuthorizedPlatformCredential",
+      "livePostAndReceipt"
+    ],
+    "publicationRequires": [
+      "verifiedCollaboratorAccessOutsideRepoIfDelegated",
+      "approvedExactPostAndRights",
+      "explicitProfessorApprovalOrSeparatelyGrantedPlatformScopedRights",
+      "platformPolicyCompliance",
+      "postReadbackReceipt"
+    ],
+    "noAutoPost": true,
+    "noExternalAccountRoleChange": true,
+    "privateApprovalBoard": "doctrine/studioPublicPrivateReleaseV1.json#separation.privateApprovalBoard",
+    "loggedDataRestriction": "Only public-safe role aliases, non-sensitive editorial guidelines and sanitized source receipts in GitHub; personal collaboration terms remain private"
+  },
+  "compatibility": {
+    "japaneseNameLayer": "doctrine/japaneseNameTriggerLayerV1.json",
+    "fictionalRoleplaySeparateFromPersonalLife": true,
+    "notA16thAgent": true,
+    "currentAgentSystemCount": 15,
+    "protagonistStoryAgeMustNotBeInferredFromProfessor": true
+  },
+  "proof": {
+    "sourceTest": "tests/testGirlDaddyEditorialCanon.py",
+    "scheduledPostsMade": false,
+    "accountPermissionsGranted": false,
+    "humanCollaboratorAgreementVerified": false,
+    "socialCreativeLeadActive": false,
+    "finalCrown": "STOP"
+  }
+}
