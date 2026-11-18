@@ -1,0 +1,244 @@
+{
+  "schema": "luhmOs.aliasOnlyProductionCreditsAndMocap.v1",
+  "sourceAuthority": "Professor",
+  "status": "PRODUCTION_ROLE_CANDIDATE_PRIVACY_BOUND",
+  "date": "2026-11-18",
+  "projects": [
+    "LuHm-OS",
+    "Project Premonition",
+    "PIRATE DADDIES FILM"
+  ],
+  "purpose": "Public alias-only production credits with two operational divisions, distinct from goddess/AI lore, bounded Godot-to-Unreal cutscene and motion-capture handoffs, and no public real-life identity mapping.",
+  "aliasRoster": [
+    {
+      "alias": "Big Daddy",
+      "id": "bigDaddy",
+      "roles": [
+        "director",
+        "creativeOwner",
+        "originalSketchArtist",
+        "videoGameLead"
+      ],
+      "division": "videoGame",
+      "creditLine": "Director & Game Creator: Big Daddy",
+      "status": "PROFESSOR_CONFIRMED_ROLE",
+      "publicCreditAllowed": "SUBJECT_TO_PER_OUTPUT_ART_AND_RELEASE_REVIEW"
+    },
+    {
+      "alias": "Almost Daddy",
+      "id": "almostDaddy",
+      "roles": [
+        "3dGameArtistCandidate",
+        "modelingAndRiggingCollaborator"
+      ],
+      "division": "videoGame",
+      "creditLine": "3D & Game Art: Almost Daddy",
+      "status": "POTENTIAL_COLLABORATOR_CONTACT_PENDING",
+      "publicCreditAllowed": "ONLY_AFTER_ACTUAL_CONTRIBUTION_AND_ALIAS_CONFIRMATION"
+    },
+    {
+      "alias": "Girl Daddy",
+      "id": "girlDaddy",
+      "roles": [
+        "socialMediaCreativeLead",
+        "editorialAudienceReview",
+        "motionCaptureCollaboratorCandidate"
+      ],
+      "division": "hollywoodFilm",
+      "creditLine": "Social Media & Motion Capture: Girl Daddy",
+      "status": "PROFESSOR_CONFIRMED_ALIAS_AND_PROPOSED_ROLES",
+      "publicCreditAllowed": "SUBJECT_TO_COLLABORATOR_ALIAS_CONSENT_AND_PER_OUTPUT_REVIEW",
+      "realWorldIdentityLinkStored": false,
+      "appearanceRecorded": false
+    },
+    {
+      "alias": "Doom Daddy",
+      "id": "doomDaddy",
+      "roles": [
+        "filmProductionCollaborator",
+        "creativeRoleToScope"
+      ],
+      "division": "hollywoodFilm",
+      "creditLine": "Doom Daddy",
+      "status": "PROFESSOR_CONFIRMED_DIVISION_ROLE_SCOPE_PENDING",
+      "publicCreditAllowed": "ONLY_AFTER_ACTUAL_CONTRIBUTION_AND_ALIAS_CONFIRMATION"
+    },
+    {
+      "alias": "EDM Daddy",
+      "id": "edmDaddy",
+      "roles": [
+        "hollywoodFilmCreativeCollaborator",
+        "musicOrEdmContributionUnverified"
+      ],
+      "division": "hollywoodFilm",
+      "creditLine": "EDM Daddy",
+      "status": "PROFESSOR_CONFIRMED_DIVISION_ROLE_SCOPE_PENDING",
+      "publicCreditAllowed": "ONLY_AFTER_ACTUAL_CONTRIBUTION_AND_ALIAS_CONFIRMATION"
+    }
+  ],
+  "privacy": {
+    "publicRepoStoresOnlyProductionAliases": true,
+    "legalNamesOrPrivateIdentityMappingsForbidden": true,
+    "publicDescriptionsExcludeHealthAndMedicalHistory": true,
+    "appearanceAndYouthAnecdotesNotStored": true,
+    "privateMessagesAndEmailNotStored": true,
+    "privateRelationshipDetailsNotStored": true,
+    "collaboratorConsentRecordedPrivately": true,
+    "realIdentityAccessNeedToKnow": true,
+    "aliasDoesNotProveLegalOwnershipOrEquity": true,
+    "silentPartnerIsInformalUserDescriptionNotLegalEntityFinding": true,
+    "metadataAndExifScrubBeforePublicMocap": true,
+    "publicProfilesRequireExplicitApproval": true,
+    "anyAliasToRealPersonMappingKeptOutsidePublicRepository": true
+  },
+  "credits": {
+    "defaultForEligibleStudioProductions": [
+      "Big Daddy: Director",
+      "Video Game: Big Daddy + Almost Daddy (actual-contribution gates)",
+      "Hollywood / Film: Girl Daddy + Doom Daddy + EDM Daddy (actual-contribution gates)"
+    ],
+    "creditLedgerSource": "doctrine/artistCreditLedgerV1.json",
+    "creditOnExactAssetNotAutomaticPublication": true,
+    "noFabricatedContribution": true,
+    "creditRolesMustReflectActualWork": true,
+    "nominatedRolesMayRemainPending": true,
+    "platformLengthAdaptive": "Short-form caption can reference the private approved complete credits link or end card, but must not expose identity or imply completed work.",
+    "authorization": "Professor retains editorial and release authority, with collaborator-specific approval of public alias and any likeness"
+  },
+  "mocap": {
+    "studioContact": "NOT_CONTACTED_BY_THIS_CHANGE",
+    "collaborators": [
+      "girlDaddy",
+      "doomDaddy",
+      "edmDaddy"
+    ],
+    "studioAgreement": "UNVERIFIED",
+    "facilityBooking": "NOT_BOOKED",
+    "actualMotionCaptureRecorded": false,
+    "pipeline": [
+      "approvedGameCutSystemSpecSharedAcrossTwoDivisions",
+      "functionalGodot4CutsceneTimelineAndShotPlayback",
+      "capturePlanWithConsentAndProps",
+      "studioFacilityContactAndScope",
+      "authorizedVideoOrSkeletonMocapCapture",
+      "privateRawVideoAndAudioWithConsent",
+      "BlenderRetargetAndAnimationCleanup",
+      "versionedSkeletonRigAndAnimationReceipts",
+      "Godot4GLBImportAndCutsceneSmoke",
+      "UnrealEngineFBXRetargetAndSequencerProof",
+      "ProfessorVisualApprovalBeforeRelease"
+    ],
+    "unreal": {
+      "status": "DOWNSTREAM_INTEROPERABILITY_TARGET",
+      "doesNotReplaceGodot4Canon": true,
+      "minimumProof": [
+        "specificUnrealEngineVersionAndProjectSelected",
+        "FBXAnimationImportOrSupportedRetargetPipelineProven",
+        "skeletonBoneMapCompatibilityChecked",
+        "SequencerShotPlaybackSmoke",
+        "artifactHashAndLicenseReceipt"
+      ],
+      "noUnrealPlayableProofYet": true,
+      "noUnrealProjectGeneratedYet": true
+    },
+    "rawMediaPolicy": "Private licensed or consensual recordings; release only approved derivatives with protected personal identifiers removed.",
+    "collaboratorsRepresentAvailabilityNotConfirmedPerformances": true
+  },
+  "roleSeparation": {
+    "doomDaddyAndMetalContributorSamePerson": "UNKNOWN_DO_NOT_INFER",
+    "fictionalOniTwinsVsTetsuKaji": "SEPARATE",
+    "yumeArtAgentVsHumanCollaborators": "SEPARATE",
+    "personalBiographyVsFictionalPersona": "SEPARATE",
+    "socialAccountPermissionsByCreditAlias": false,
+    "proposedSocialLeadIsNot15thOr16thAiWorker": true,
+    "edmDaddyAndMetalContributorSamePerson": "UNKNOWN_DO_NOT_INFER",
+    "edmDaddyAndDoomDaddySamePerson": "UNKNOWN_DO_NOT_INFER",
+    "goddessesAndOnisAreNotHumanProductionCrew": true,
+    "japaneseHonorificNamesDoNotImplyHumanCrewIdentity": true
+  },
+  "existingSources": [
+    "doctrine/girlDaddySocialEditorialV1.json",
+    "doctrine/japaneseNameTriggerLayerV1.json",
+    "doctrine/studioPublicPrivateReleaseV1.json",
+    "doctrine/characterCanonRegistryV1.json",
+    "doctrine/artistCreditLedgerV1.json",
+    "doctrine/yumeArtEducationV1.json",
+    "doctrine/worldHeadquartersOrchestrationV1.json",
+    "doctrine/agentSystemDeploymentV1.json"
+  ],
+  "technicalGates": {
+    "realOperatingStudioAgreement": false,
+    "socialAccountRoleGranted": false,
+    "privateActorReleaseSigned": false,
+    "motionCaptureStudioEngaged": false,
+    "testedCutsceneSystem": false,
+    "unreal5OrUnrealVersionRuntimeProven": false,
+    "publicCreditsPublished": false,
+    "creativeRolesUserSpecified": true,
+    "noSecretsOrPersonalNameInSource": true,
+    "publicPromotion": false,
+    "crownStatus": "STOP",
+    "divisionAssignmentsProfessorConfirmed": true,
+    "actualMocapStudioBooked": false
+  },
+  "productionDivisions": {
+    "videoGame": {
+      "id": "videoGame",
+      "displayName": "Video Game",
+      "lead": "bigDaddy",
+      "confirmedAliasMembership": [
+        "bigDaddy",
+        "almostDaddy"
+      ],
+      "goals": [
+        "gamePlayAndArtDirection",
+        "originalSketchTo3dWorkflow",
+        "Godot4PrototypeAndCutsceneSystem",
+        "reviewedRigAndCharacterAssets",
+        "plannedUnrealCutsceneInteroperability"
+      ],
+      "status": "PROFESSOR_DEFINED_CREW_NOT_A_FULLY_STAFFED_GAME_STUDIO"
+    },
+    "hollywoodFilm": {
+      "id": "hollywoodFilm",
+      "displayName": "Hollywood / Film",
+      "lead": "girlDaddy",
+      "memberAliases": [
+        "girlDaddy",
+        "doomDaddy",
+        "edmDaddy"
+      ],
+      "inviteOtherDaddies": true,
+      "memberAddition": "ONLY_AFTER_PROFESSOR_NAMED_ALIAS_AND_CONFIRMED_SCOPE",
+      "goals": [
+        "filmVideoProduction",
+        "socialMediaCampaigns",
+        "musicAndCreativeDirection",
+        "motionCapturePlanning",
+        "cutscenePerformanceAndCompositing"
+      ],
+      "status": "PROFESSOR_DEFINED_CREW_NOT_A_BOOKED_OR_ACTIVE_EXTERNAL_STUDIO"
+    }
+  },
+  "creditRosterRules": {
+    "exactDivisionRequired": true,
+    "companyDirectorAcrossProjects": "Big Daddy remains overarching Director; the video game division is his day-to-day build lane",
+    "eligibleDivisionMembersOnly": true,
+    "newDaddiesMayBeInvitedAfterExplicitScope": true,
+    "ensureNoAliasCollision": true,
+    "publicAliasRequiresContributorConsent": true,
+    "noRealNamesInPublicGitHub": true,
+    "creditsOnlyForWorkActuallyContributed": true,
+    "studioTitlesDoNotGrantCodeOrAccountPermissions": true,
+    "noSocialOrProductionAutoPublication": true
+  },
+  "unassignedPrivateCollaborators": {
+    "description": "Other spoken personal contacts and music collaborators stay outside the public alias roster pending explicit alias mapping; never infer an alias from a personal first name.",
+    "potentiallyRelatedPublicAliases": [
+      "Doom Daddy",
+      "EDM Daddy"
+    ],
+    "samePersonInferencesForbidden": true,
+    "candidateEntriesNotCreditedWithoutConfirmedAlias": true
+  }
+}

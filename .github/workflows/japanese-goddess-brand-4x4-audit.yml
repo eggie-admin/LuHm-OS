@@ -1,0 +1,45 @@
+name: Japanese Name and Goddess 4x4 Brand Canon Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/voiceAmbientIntentV1.json'
+      - 'doctrine/japaneseNameTriggerLayerV1.json'
+      - 'doctrine/japaneseVoice64MatrixV1.json'
+      - 'doctrine/goddessVisualBrandFourByFourV1.json'
+      - 'doctrine/aliasOnlyProductionCreditsAndMocapV1.json'
+      - 'doctrine/girlDaddySocialEditorialV1.json'
+      - 'agents/koeDictationOni/SKILL.md'
+      - 'tools/japaneseVoice64Router.py'
+      - 'tests/testJapaneseVoice64Matrix.py'
+      - 'tests/testGoddessVisualBrandFourByFour.py'
+      - '.github/workflows/japanese-goddess-brand-4x4-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  canon-source-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact reviewed source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Assert current SHA
+        shell: bash
+        env:
+          EXACT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXACT_SHA"
+          git diff --check
+      - name: Audit visual branding and voice isolation
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/japaneseVoice64Router.py tests/testJapaneseVoice64Matrix.py tests/testGoddessVisualBrandFourByFour.py
+          python3 tests/testGoddessVisualBrandFourByFour.py
+          python3 tests/testJapaneseVoice64Matrix.py
+          python3 tools/voiceAmbientIntentAudit.py
+      - name: Clarify evidence boundary
+        run: echo 'SOURCE_CANDIDATE_ONLY_NO_LIVE_SPEECH_MODEL_NO_CHARACTER_MESH_NO_AGENT_ACTIVATION_NO_CROWN'

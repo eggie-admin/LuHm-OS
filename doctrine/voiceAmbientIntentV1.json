@@ -44,18 +44,6 @@
       "Cass": "CAST"
     },
     "projectContextAliases": {
-      "Mom": {
-        "canonical": "Lum",
-        "condition": "LuHm project context and orchestration-agent referent is clear"
-      },
-      "Mum": {
-        "canonical": "Lum",
-        "condition": "LuHm project context and orchestration-agent referent is clear"
-      },
-      "Mama": {
-        "canonical": "Lum",
-        "condition": "LuHm project context and orchestration-agent referent is clear"
-      },
       "Bell dandy": {
         "canonical": "Belldandy",
         "condition": "resident secretary goddess referent is clear"
@@ -100,7 +88,13 @@
     "helpContract": "doctrine/commandHelpV1.json",
     "unknownOrAmbiguousAlias": "VERIFY",
     "aliasMayChangeAuthority": false,
-    "speechCorrectionLaw": "Contextual proper-name repair only. Never treat 'you may' as art-agent routing in an imperative/permission phrase, and never equate ordinary LLM acronym with Lum outside an explicit corrected name."
+    "speechCorrectionLaw": "Contextual proper-name repair only. Never treat 'you may' as art-agent routing in an imperative/permission phrase, and never equate ordinary LLM acronym with Lum outside an explicit corrected name. Family relationship terms Mom, Mum and Mama MUST remain literal and must never route to Lum or another goddess.",
+    "disallowedGoddessAliases": [
+      "Mom",
+      "Mum",
+      "Mama"
+    ],
+    "disallowedAliasesReason": "No goddess is called Mom, Mum or Mama by default; real family references remain literal. Project alias correction requires explicit Professor confirmation, not a guessed familial title."
   },
   "output": {
     "required": [

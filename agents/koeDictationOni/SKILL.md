@@ -32,7 +32,7 @@ Koe is LuHm's bounded voice/dictation scribe inside Belldandy's secretary lane. 
 
 These are working-copy corrections only. Raw speech remains preserved.
 
-- `Mom`, `Mum`, or `Mama` -> `Lum` only when the surrounding LuHm/project sentence clearly refers to the orchestration agent
+- `Mom`, `Mum`, and `Mama` are **not** goddess aliases; never automatically change family references or parental terms to `Lum`. The Professor corrected that prior mapping. Explicit `Lum` remains the orchestration name.
 - `Bell dandy` / obvious spacing variants -> `Belldandy` when the resident secretary goddess is clearly the referent
 - `Skull` -> `Skuld` only when the surrounding technical-goddess context makes the referent clear
 - `Yume-chan` / `Dream-chan` -> `Yume` (machine `yume`, specialist skill `yumeArtOni`) when clearly named in project conversation; Japanese `夢` (yume) means *dream*

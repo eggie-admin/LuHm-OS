@@ -38,7 +38,8 @@ need(recovery.get("helpMustResolveEveryRegisteredAlias") is True,"alias help rec
 need(help_doc.get("behavior",{}).get("helpMayMutate") is False,"help authority leak")
 
 aliases=voice.get("voiceAliases",{}).get("projectContextAliases",{})
-need(aliases.get("Mom",{}).get("canonical")=="Lum","Mom->Lum project alias missing")
+need(all(x not in aliases for x in ("Mom","Mum","Mama")),"real family terms must not resolve to the Lum agent")
+need(voice.get("voiceAliases",{}).get("disallowedGoddessAliases")==["Mom","Mum","Mama"],"Professor-corrected familial alias exclusion missing")
 need(aliases.get("Bell dandy",{}).get("canonical")=="Belldandy","Belldandy dictation alias missing")
 need(aliases.get("Skull",{}).get("canonical")=="Skuld","Skuld dictation alias missing")
 

@@ -40,6 +40,9 @@ need(impl.get("dualPhysicalMicCaptureRequiresDeviceProof") is True, "dual-mic pr
 # Spoken proper names are not commands or global search/replace rules.
 aliases = voice.get("voiceAliases", {}).get("projectContextAliases", {})
 terms = load("doctrine/termResolutionV1.json").get("aliases", {})
+need(all(k not in aliases for k in ("Mom","Mum","Mama")), "invented familial goddess alias survived")
+need(voice.get("voiceAliases", {}).get("disallowedGoddessAliases") == ["Mom","Mum","Mama"], "human family words not guarded")
+need("not" in koe.split("Mom")[1].split("\n")[0], "Koe still maps mother/family terms")
 need(aliases.get("Yume-chan", {}).get("canonicalAgentId") == "yume", "Yume-chan identity drift")
 need(aliases.get("You may", {}).get("canonicalAgentId") == "yume", "dictated Yume identity drift")
 need(aliases.get("You may", {}).get("literalPermissionPhraseBehavior") == "PRESERVE", "plain English permission corruptible")
