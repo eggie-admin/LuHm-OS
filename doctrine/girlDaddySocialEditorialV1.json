@@ -9,8 +9,8 @@
   "operator": {
     "proposedDisplayAlias": "Girl Daddy",
     "proposedMachineAlias": "girlDaddy",
-    "proposedRole": "socialMediaCreativeLead",
-    "nomination": "PROFESSOR_NOMINATED",
+    "proposedRole": "socialMediaCreativeLeadAndMocapCollaboration",
+    "nomination": "PROFESSOR_CONFIRMED_ALIAS_AND_ROLE",
     "collaboratorAcceptanceAndDisplayNameConsent": "NOT_VERIFIED",
     "accessStatus": "NOT_GRANTED_BY_REPO",
     "taskScope": [
@@ -19,7 +19,10 @@
       "adultAudiencePerspective",
       "characterComedyTasteCheck",
       "socialCalendarPlanning",
-      "creativeContributorFeedback"
+      "creativeContributorFeedback",
+      "motionCapturePlanning",
+      "onCameraOrMotionCapturePerformanceOnlyWithConsent",
+      "productionCreditsReview"
     ],
     "authorityExcluded": [
       "readPrivateUserMemories",
@@ -30,7 +33,13 @@
     ],
     "realIdentityInPublicSource": false,
     "privateHistoryAndHealthDetailsInPublicSource": false,
-    "collaboratorCompensationAndLegalRights": "UNSPECIFIED"
+    "collaboratorCompensationAndLegalRights": "UNSPECIFIED",
+    "creditedAs": "Girl Daddy",
+    "creditScope": "All eligible associated studio work, reflecting actual contribution and collaborator-approved alias; per-output Professor public-release approval stays required",
+    "legalIdentityPubliclyMapped": false,
+    "silentPartnerLegalEquityAssumed": false,
+    "mocapStudioBooked": false,
+    "collaboratorOwnAccountAccessVerified": false
   },
   "concept": {
     "roleplayPersona": "girlDaddy",
@@ -94,7 +103,7 @@
   "workflow": {
     "participants": {
       "professor": "finalHumanEditorAndAccountOwner",
-      "girlDaddy": "nominatedContentAndAudienceCreativeLead",
+      "girlDaddy": "ProfessorsNamedSocialEditorialAndMotionCaptureCreativeCollaborator_UnderAliasOnly",
       "yume": "artDirectionAndVisualContinuity",
       "lum": "supervisedPlanningAndRouting",
       "belldandy": "privateApprovalReceiptsAndScheduleCoordination",
@@ -121,7 +130,10 @@
     "noAutoPost": true,
     "noExternalAccountRoleChange": true,
     "privateApprovalBoard": "doctrine/studioPublicPrivateReleaseV1.json#separation.privateApprovalBoard",
-    "loggedDataRestriction": "Only public-safe role aliases, non-sensitive editorial guidelines and sanitized source receipts in GitHub; personal collaboration terms remain private"
+    "loggedDataRestriction": "Only public-safe role aliases, non-sensitive editorial guidelines and sanitized source receipts in GitHub; personal collaboration terms remain private",
+    "creditContract": "doctrine/aliasOnlyProductionCreditsAndMocapV1.json",
+    "aliasOnlyPublicCredits": true,
+    "noMetadataFaceDisclosure": true
   },
   "compatibility": {
     "japaneseNameLayer": "doctrine/japaneseNameTriggerLayerV1.json",
@@ -136,6 +148,8 @@
     "accountPermissionsGranted": false,
     "humanCollaboratorAgreementVerified": false,
     "socialCreativeLeadActive": false,
-    "finalCrown": "STOP"
+    "finalCrown": "STOP",
+    "collaboratorAliasReportedByProfessor": true,
+    "actualPublicCreditApplied": false
   }
 }
