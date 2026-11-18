@@ -1,0 +1,165 @@
+{
+  "schema": "luhmOs.aliasOnlyProductionCreditsAndMocap.v1",
+  "sourceAuthority": "Professor",
+  "status": "PRODUCTION_ROLE_CANDIDATE_PRIVACY_BOUND",
+  "date": "2026-11-18",
+  "projects": [
+    "LuHm-OS",
+    "Project Premonition",
+    "PIRATE DADDIES FILM"
+  ],
+  "purpose": "Public alias-based credits and supervised media-production collaborators; real-world identities and protected source material never enter public repo.",
+  "aliasRoster": [
+    {
+      "alias": "Big Daddy",
+      "id": "bigDaddy",
+      "roles": [
+        "director",
+        "humanCreativeAuthority",
+        "ownerSketchpadArtist"
+      ],
+      "creditLine": "Directed by Big Daddy",
+      "status": "PROFESSOR_CONFIRMED_ROLE",
+      "publicCreditAllowed": "SUBJECT_TO_PER_OUTPUT_ART_AND_RELEASE_REVIEW"
+    },
+    {
+      "alias": "Girl Daddy",
+      "id": "girlDaddy",
+      "roles": [
+        "socialMediaCreativeLead",
+        "editorialAudienceReview",
+        "motionCaptureCollaboratorCandidate"
+      ],
+      "creditLine": "Social Media & Creative Collaboration: Girl Daddy",
+      "status": "PROFESSOR_REPORTED_COLLABORATION",
+      "publicCreditAllowed": "SUBJECT_TO_COLLABORATOR_ALIAS_CONSENT_AND_PER_OUTPUT_REVIEW",
+      "realWorldIdentityLinkStored": false,
+      "appearanceRecorded": false
+    },
+    {
+      "alias": "Doom Daddy",
+      "id": "doomDaddy",
+      "roles": [
+        "productionCollaboratorToScope"
+      ],
+      "creditLine": "Doom Daddy",
+      "status": "ROLE_SCOPE_NOT_YET_VERIFIED",
+      "publicCreditAllowed": "ONLY_AFTER_ACTUAL_CONTRIBUTION_AND_ALIAS_CONFIRMATION"
+    },
+    {
+      "alias": "Almost Daddy",
+      "id": "almostDaddy",
+      "roles": [
+        "candidate3dProductionCollaborator"
+      ],
+      "creditLine": "3D Artist: Almost Daddy",
+      "status": "POTENTIAL_COLLABORATOR_CONTACT_PENDING",
+      "publicCreditAllowed": "ONLY_AFTER_ACTUAL_CONTRIBUTION_AND_ALIAS_CONFIRMATION"
+    },
+    {
+      "alias": "Metal Contributor",
+      "id": "metalContributorUnassigned",
+      "roles": [
+        "musicMetalCreativeContribution"
+      ],
+      "creditLine": "Metal Contributions: [approved credit alias]",
+      "status": "REAL_PERSON_ALIAS_UNRESOLVED",
+      "publicCreditAllowed": "NO_PERSONAL_NAME_OR_INFERRED_ALIAS"
+    }
+  ],
+  "privacy": {
+    "publicRepoStoresOnlyProductionAliases": true,
+    "legalNamesOrPrivateIdentityMappingsForbidden": true,
+    "publicDescriptionsExcludeHealthAndMedicalHistory": true,
+    "appearanceAndYouthAnecdotesNotStored": true,
+    "privateMessagesAndEmailNotStored": true,
+    "privateRelationshipDetailsNotStored": true,
+    "collaboratorConsentRecordedPrivately": true,
+    "realIdentityAccessNeedToKnow": true,
+    "aliasDoesNotProveLegalOwnershipOrEquity": true,
+    "silentPartnerIsInformalUserDescriptionNotLegalEntityFinding": true,
+    "metadataAndExifScrubBeforePublicMocap": true,
+    "publicProfilesRequireExplicitApproval": true,
+    "anyAliasToRealPersonMappingKeptOutsidePublicRepository": true
+  },
+  "credits": {
+    "defaultForEligibleStudioProductions": [
+      "Big Daddy: Director",
+      "Girl Daddy: Social Media and Creative Collaboration"
+    ],
+    "creditLedgerSource": "doctrine/artistCreditLedgerV1.json",
+    "creditOnExactAssetNotAutomaticPublication": true,
+    "noFabricatedContribution": true,
+    "creditRolesMustReflectActualWork": true,
+    "nominatedRolesMayRemainPending": true,
+    "platformLengthAdaptive": "Short-form caption can reference the private approved complete credits link or end card, but must not expose identity or imply completed work.",
+    "authorization": "Professor retains editorial and release authority, with collaborator-specific approval of public alias and any likeness"
+  },
+  "mocap": {
+    "studioContact": "NOT_CONTACTED_BY_THIS_CHANGE",
+    "collaborators": [
+      "girlDaddy"
+    ],
+    "studioAgreement": "UNVERIFIED",
+    "facilityBooking": "NOT_BOOKED",
+    "actualMotionCaptureRecorded": false,
+    "pipeline": [
+      "approvedGameCutSystemSpec",
+      "functionalGodot4CutsceneTimelineAndShotPlayback",
+      "capturePlanWithConsentAndProps",
+      "studioFacilityContactAndScope",
+      "authorizedVideoOrSkeletonMocapCapture",
+      "privateRawVideoAndAudioWithConsent",
+      "BlenderRetargetAndAnimationCleanup",
+      "versionedSkeletonRigAndAnimationReceipts",
+      "Godot4GLBImportAndCutsceneSmoke",
+      "UnrealEngineFBXRetargetAndSequencerProof",
+      "ProfessorVisualApprovalBeforeRelease"
+    ],
+    "unreal": {
+      "status": "DOWNSTREAM_INTEROPERABILITY_TARGET",
+      "doesNotReplaceGodot4Canon": true,
+      "minimumProof": [
+        "specificUnrealEngineVersionAndProjectSelected",
+        "FBXAnimationImportOrSupportedRetargetPipelineProven",
+        "skeletonBoneMapCompatibilityChecked",
+        "SequencerShotPlaybackSmoke",
+        "artifactHashAndLicenseReceipt"
+      ],
+      "noUnrealPlayableProofYet": true,
+      "noUnrealProjectGeneratedYet": true
+    },
+    "rawMediaPolicy": "Private licensed or consensual recordings; release only approved derivatives with protected personal identifiers removed."
+  },
+  "roleSeparation": {
+    "doomDaddyAndMetalContributorSamePerson": "UNKNOWN_DO_NOT_INFER",
+    "fictionalOniTwinsVsTetsuKaji": "SEPARATE",
+    "yumeArtAgentVsHumanCollaborators": "SEPARATE",
+    "personalBiographyVsFictionalPersona": "SEPARATE",
+    "socialAccountPermissionsByCreditAlias": false,
+    "proposedSocialLeadIsNot15thOr16thAiWorker": true
+  },
+  "existingSources": [
+    "doctrine/girlDaddySocialEditorialV1.json",
+    "doctrine/japaneseNameTriggerLayerV1.json",
+    "doctrine/studioPublicPrivateReleaseV1.json",
+    "doctrine/characterCanonRegistryV1.json",
+    "doctrine/artistCreditLedgerV1.json",
+    "doctrine/yumeArtEducationV1.json",
+    "doctrine/worldHeadquartersOrchestrationV1.json",
+    "doctrine/agentSystemDeploymentV1.json"
+  ],
+  "technicalGates": {
+    "realOperatingStudioAgreement": false,
+    "socialAccountRoleGranted": false,
+    "privateActorReleaseSigned": false,
+    "motionCaptureStudioEngaged": false,
+    "testedCutsceneSystem": false,
+    "unreal5OrUnrealVersionRuntimeProven": false,
+    "publicCreditsPublished": false,
+    "creativeRolesUserSpecified": true,
+    "noSecretsOrPersonalNameInSource": true,
+    "publicPromotion": false,
+    "crownStatus": "STOP"
+  }
+}
