@@ -29,6 +29,8 @@ on:
       - 'frontEnd/index.html'
       - 'frontEnd/samsungStudioSwitch.js'
       - 'frontEnd/samsungStudioSwitch.css'
+      - 'frontEnd/luhmLogo.svg'
+      - 'frontEnd/styles.css'
   workflow_dispatch:
 
 permissions:
