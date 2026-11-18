@@ -73,6 +73,8 @@ def inspect_source():
     require('data-luhm-studio-mode="blenderGarage"' in html, "Blender mode present")
     require("samsungStudioSwitch.css" in html and "samsungStudioSwitch.js" in html, "UI assets loaded")
     require("LuHm-OS | Samsung Studio" in html, "identity case")
+    require('src="./luhmLogo.svg"' in html, "packaged canonical launcher mark")
+    require((ROOT/"frontEnd/luhmLogo.svg").read_bytes() == (ROOT/"publicationSite/logo.svg").read_bytes(), "logo source mirror")
     require("Crown: STOP" in html or "Crown: STOP".lower() in html.lower(), "Crown status visible")
     require("window.LuHmNative" not in js and "fetch(" not in js and "XMLHttpRequest" not in js, "no privileged web runner")
     require("data-luhm-studio-mode" in js and 'aria-pressed' in js and 'event.key==="Escape"' in js, "accessible role switch")
