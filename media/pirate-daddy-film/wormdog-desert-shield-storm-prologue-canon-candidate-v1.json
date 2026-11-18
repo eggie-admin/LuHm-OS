@@ -160,5 +160,13 @@
     "publication": false,
     "existingCrownStatus": "STOP"
   },
-  "nextSession": "Owner selects standout lyric-opening lines and approximate points; convert WD cue placeholders to frame-accurate shot cards without replacing sealed original screenplay."
+  "nextSession": "Owner selects standout lyric-opening lines and approximate points; convert WD cue placeholders to frame-accurate shot cards without replacing sealed original screenplay.",
+  "continuityArtifacts": {
+    "castSeal": "media/pirate-daddy-film/wormdog-desert-war-prologue-cast-seal-v1.json",
+    "reusableVerseToSceneTemplate": "media/pirate-daddy-film/templates/wormdog-verse-to-scene-template-v1.md",
+    "castApprovalScope": "NARRATIVE_CAST_CONTINUITY_FOR_WORMDOG_PROLOGUE_ONLY",
+    "stage": "DRAFT_PR_589_NOT_MERGED_NOT_PUBLIC_RELEASE",
+    "exactLyricTimecodes": "PENDING_PROFESSOR_CUE_SELECTION",
+    "originalScreenplayUnchanged": true
+  }
 }
