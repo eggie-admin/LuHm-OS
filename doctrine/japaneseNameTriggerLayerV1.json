@@ -442,7 +442,8 @@
     "noPublicArtifactPermission": true,
     "crown": "STOP",
     "humanCollaboratorDataCannotEnterPublicCanon": true,
-    "noHumanContactIdentityInGitHub": true
+    "noHumanContactIdentityInGitHub": true,
+    "familialAliasesDoNotAutoRouteToLum": true
   },
   "humanProductionDivisions": {
     "source": "doctrine/aliasOnlyProductionCreditsAndMocapV1.json",
@@ -462,5 +463,14 @@
     "scope": "HUMAN_PRODUCTION_CREDITS_NOT_AI_AGENT_ROUTING",
     "privatePersonalIdentityMapping": false,
     "doesNotChangeExisting2x4Architecture": true
+  },
+  "visualBrandFourByFour": {
+    "source": "doctrine/goddessVisualBrandFourByFourV1.json",
+    "meaning": "Four original mature goddess visual brands x four production asset surfaces; distinct from hex64 voice matrix, 2x4 operating UI, 100/200 audits and programming Witching Hour.",
+    "witchingHourSkill": "agents/witchingHourCoding/SKILL.md",
+    "witchingHourOnlyProgramming": true,
+    "japaneseMythology": "Momotaro Oni folklore and original adult anime comedy; not a programming escalation trigger",
+    "realPersonalContextSeparate": true,
+    "inventedMamaAliasForbidden": true
   }
 }
