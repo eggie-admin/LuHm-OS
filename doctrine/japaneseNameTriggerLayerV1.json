@@ -312,13 +312,15 @@
       "intent": "Canon GitHub/Blender/Godot/film build",
       "mayResolveRoster": true,
       "requiresIndependentExplicitAuthorisedAction": true,
-      "aliasesAloneDoNotCast": true
+      "aliasesAloneDoNotCast": true,
+      "humanSocialCollaboratorReference": "doctrine/girlDaddySocialEditorialV1.json"
     },
     "personalLife": {
       "intent": "human relationships, wellbeing, private circumstances",
       "doNotTreatPersonaAsRealPerson": true,
       "doNotMinePrivatePersonalContextFromJapaneseName": true,
-      "mayOfferRequestedAdvice": true
+      "mayOfferRequestedAdvice": true,
+      "socialRoleplayCannotInferRealLifeStatus": true
     },
     "ambiguous": {
       "default": "UNKNOWN_VERIFY",
@@ -375,6 +377,15 @@
       ],
       "fictionalOniTwinsSource": "doctrine/characterCanonRegistryV1.json",
       "fictionalIndividualIdentitiesUnverified": true
+    },
+    "socialMediaEditorial": "doctrine/girlDaddySocialEditorialV1.json",
+    "wingmanCollaborator": {
+      "alias": "girlDaddy",
+      "role": "nominatedSocialCreativeLead",
+      "individualHumanIdentity": "PRIVATE_AND_CONSENT_GATED",
+      "fictionalPersonaNeverImpliesRealAccountPermissions": true,
+      "realLifeMedicalDetailsExcluded": true,
+      "adultInclusiveComedy": true
     }
   },
   "headquartersTwoByFourView": {
@@ -426,6 +437,7 @@
     "companyQuarantineUnchanged": true,
     "noOpenAiOrGoogleProviderAutoCalls": true,
     "noPublicArtifactPermission": true,
-    "crown": "STOP"
+    "crown": "STOP",
+    "humanCollaboratorDataCannotEnterPublicCanon": true
   }
 }
