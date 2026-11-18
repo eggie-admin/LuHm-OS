@@ -1,0 +1,19 @@
+/* LuHm-OS Samsung Core / Blender Studio source-only cockpit selector */
+.studioBridgeLayer{position:absolute;inset:var(--topPanelH) 0 0;z-index:72;display:grid;place-items:center;padding:16px;background:rgba(8,7,14,.85);backdrop-filter:blur(12px)}
+.studioBridgeLayer[hidden],.studioBridgeCard [hidden]{display:none!important}
+.studioBridgeCard{width:min(670px,96vw);max-height:calc(100dvh - var(--topPanelH) - 26px);overflow-y:auto;background:linear-gradient(152deg,#1c1726,#0d0c15);border:1px solid #9f7aea8a;border-radius:18px;padding:20px;color:#f7f4ff;box-shadow:0 24px 65px #0009}
+.studioBridgeHead{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.studioBridgeHead small{color:#b5b0ca;font-weight:700;letter-spacing:.14em}
+.studioBridgeHead h2{font-size:clamp(1.25rem,3vw,1.8rem);margin:6px 0 8px}
+.studioBridgeHead button,.studioBridgeTabs button{border:1px solid #9f7aea9c;border-radius:10px;padding:12px;background:#211c2b;color:#f7f4ff;min-height:44px;cursor:pointer}
+.studioBridgeTabs{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}
+.studioBridgeTabs button[aria-pressed=true]{background:#4b3477;border-color:#d2b9ff}
+.studioBridgeCard p{line-height:1.5;color:#cfc9dd}
+.studioBridgeDetail{border:1px solid #4b415d;border-radius:12px;padding:14px;background:#15121c}
+.studioBridgeDetail h3{margin:0 0 7px;font-size:1.06rem;color:#d7c3ff}
+.studioBridgeDetail strong{color:#f7f4ff}
+.studioBridgeDetail ul{padding-left:20px;line-height:1.7;color:#cfc9dd}
+.studioBridgeStatus{font-size:.82rem;color:#d4c0fc}
+.studioBridgeCrown{border-top:1px solid #4b415d;margin-top:12px;padding-top:12px;font-size:.81rem;color:#e6c88c}
+@media(max-width:760px){.topPanel .nav [data-luhm-studio-open]{display:none}.studioBridgeCard{padding:12px}.studioBridgeLayer{padding:8px}}
+@media(prefers-reduced-motion:reduce){.studioBridgeLayer{backdrop-filter:none}}
