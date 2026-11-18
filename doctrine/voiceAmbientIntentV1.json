@@ -63,12 +63,44 @@
       "Skull": {
         "canonical": "Skuld",
         "condition": "technical/research goddess referent is clear"
+      },
+      "Yume-chan": {
+        "canonical": "Yume",
+        "canonicalAgentId": "yume",
+        "condition": "Yume/Dream-chan is explicitly named as artistic specialist in Professor foreground or typed project context",
+        "mayExpandAuthority": false
+      },
+      "You may": {
+        "canonical": "Yume",
+        "canonicalAgentId": "yume",
+        "condition": "Professor voice transcription; unmistakable reference to named art specialist in a goddess/Oni enumeration or Dream-chan discussion. Never normalize a permission sentence such as 'you may proceed'.",
+        "literalPermissionPhraseBehavior": "PRESERVE",
+        "mayExpandAuthority": false
+      },
+      "You may Chan": {
+        "canonical": "Yume",
+        "canonicalAgentId": "yume",
+        "condition": "Explicit dream-name/persona correction in Professor project speech, not a command",
+        "mayExpandAuthority": false
+      },
+      "Erd": {
+        "canonical": "Urd",
+        "canonicalAgentId": "urdDoctorGoddess",
+        "condition": "Goddess cabinet/name enumeration only, not random unrelated word",
+        "mayExpandAuthority": false
+      },
+      "LLM": {
+        "canonical": "Lum",
+        "canonicalAgentId": "lum",
+        "condition": "Only if Professor explicitly corrects an LLM dictation to the Lum goddess's proper name in current project context; otherwise preserve genuine acronym LLM (large language model)",
+        "mayExpandAuthority": false
       }
     },
     "namingContract": "doctrine/namingNamespaceCanonV1.json",
     "helpContract": "doctrine/commandHelpV1.json",
     "unknownOrAmbiguousAlias": "VERIFY",
-    "aliasMayChangeAuthority": false
+    "aliasMayChangeAuthority": false,
+    "speechCorrectionLaw": "Contextual proper-name repair only. Never treat 'you may' as art-agent routing in an imperative/permission phrase, and never equate ordinary LLM acronym with Lum outside an explicit corrected name."
   },
   "output": {
     "required": [
