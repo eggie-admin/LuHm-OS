@@ -1,0 +1,59 @@
+name: Reaper CC asset intake (source-only)
+on:
+  push:
+    branches:
+      - candidate/reaper-film-yume-20261120
+    paths:
+      - '.github/workflows/reaper-cc-asset-intake.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fetch-licensed-media:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Download and verify public CC footage
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p intake
+          python3 - <<'PY'
+          import hashlib, json, os, urllib.request
+          from pathlib import Path
+          media = [{
+            "asset_id":"SMOKE01",
+            "filename":"Smoke_001.webm",
+            "url":"https://upload.wikimedia.org/wikipedia/commons/2/2a/Smoke_001.webm",
+            "source":"https://commons.wikimedia.org/wiki/File:Smoke_001.webm",
+            "creator":"Amuzujoe",
+            "license":"CC BY-SA 4.0",
+            "license_url":"https://creativecommons.org/licenses/by-sa/4.0/"
+          }]
+          receipts=[]
+          for entry in media:
+            req=urllib.request.Request(entry["url"],headers={"User-Agent":"PirateDaddyFilmAssetIntake/0.1 (public CC archival transfer; github.com/eggie-admin/LuHm-OS)"})
+            dest=Path("intake")/entry["filename"]
+            with urllib.request.urlopen(req,timeout=60) as src, dest.open("wb") as out:
+              ct=src.headers.get("Content-Type","")
+              if "video" not in ct and "octet-stream" not in ct: raise ValueError(f"unexpected content type {ct}")
+              digest=hashlib.sha256()
+              n=0
+              while block:=src.read(2**20):
+                n+=len(block)
+                if n>40_000_000: raise ValueError("asset too large for this test")
+                out.write(block); digest.update(block)
+            if n<10000: raise ValueError("download appears truncated")
+            with dest.open("rb") as f:
+              if f.read(4)!=bytes.fromhex("1a45dfa3"): raise ValueError("not a WebM container")
+            receipts.append({**entry,"sha256":digest.hexdigest(),"bytes":n,"status":"DOWNLOADED_GITHUB_ARTIFACT"})
+          Path("intake/RIGHTS_AND_HASHES.json").write_text(json.dumps(receipts,indent=2)+"\n",encoding="utf-8")
+          PY
+          ls -lh intake
+      - name: Package verified media bytes for Google Drive transfer
+        uses: actions/upload-artifact@v4
+        with:
+          name: reaper-cc-smoke01-verified
+          path: intake/
+          retention-days: 1
+          if-no-files-found: error
