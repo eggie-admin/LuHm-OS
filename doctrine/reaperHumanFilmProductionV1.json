@@ -1,0 +1,82 @@
+{
+  "schema": "luhmOs.reaperHumanFilmProduction.v1",
+  "state": "SOURCE_ONLY_CANDIDATE",
+  "ownerAuthority": "Professor",
+  "title": "The Reaper Is My Only G",
+  "productionLabel": "Pirate Daddy Film",
+  "toolingLabel": "Pirate Daddy Studios",
+  "sourceTemplate": "media/pirate-daddy-film/episode-template.json",
+  "leadOrchestrator": "lum",
+  "creativeRole": "yumeArtOni",
+  "reviewRole": "urdDoctorGoddess",
+  "technicalEscalationRole": "skuldResearch",
+  "releaseLedgerRole": "belldandySecretary",
+  "performers": "humanOriginalFootage",
+  "aiGeneratedHumanPerformances": false,
+  "palette": [
+    "#0B0B0D",
+    "#EAE5DA",
+    "#A34424",
+    "#DAB94B",
+    "#3E92A5",
+    "#688D53",
+    "#8F2330"
+  ],
+  "frame": {
+    "primary": "1080x1920",
+    "orientation": "portrait",
+    "sourceFrameRate": "retainOriginal",
+    "socialAudio": "stereo"
+  },
+  "sceneSlots": [
+    "100-warningTitle",
+    "200-humanHook",
+    "300-wardrobe",
+    "401-detroitExteriors",
+    "402-socialIsolation",
+    "403-emotionalMontage",
+    "500-humanResolutionAndResources"
+  ],
+  "sourceStorage": {
+    "gitHub": "sanitizedScriptsShotCardsSchemasAndTests",
+    "googleDriveShared": "referencesAndApprovedPublicSafeGraphicsOnly",
+    "googleDrivePrivate": "cameraOriginalsMedicalContextPrivateMastersAndFinishedNonpublicExports",
+    "binaryHashing": "sha256BeforeBackupAndUse"
+  },
+  "licensePolicy": {
+    "allowedCandidates": [
+      "CC0",
+      "CC_BY",
+      "CC_BY_SA",
+      "PUBLIC_DOMAIN"
+    ],
+    "provenancePerFileRequired": true,
+    "creditsOnlyFromActuallyUsedAssets": true,
+    "shareAlikeReviewRequired": true,
+    "thirdPartySongLibraryLicenseIsPerPlatform": true,
+    "nonmonetizedIsNotLicense": true
+  },
+  "technicalWork": {
+    "audio": "dialogueAmbienceSfxSeparateUntilFinalMix",
+    "video": "nonDestructiveLocalEditThenReviewedFFmpegEncode",
+    "twoD": "humanMadeTitlesAndGraphicOverlays",
+    "threeD": "optionalFutureEngineShotsNotNeededForCurrentLiveAction",
+    "remoteGPU": "noProvisionByDefault"
+  },
+  "safety": {
+    "creativePurpose": "suicideAwareness",
+    "graphicMethodDepiction": false,
+    "realFirearmRequired": false,
+    "closingSupport": "US 988 / 1-800-273-8255",
+    "humanEditorialApproval": true
+  },
+  "gates": {
+    "automaticAgentActivation": false,
+    "automaticPublicUpload": false,
+    "automaticMerge": false,
+    "automaticPublishing": false,
+    "unverifiedProviderOrLicensedAssetsFailClosed": true,
+    "crownStatus": "STOP"
+  },
+  "documentation": "media/pirate-daddy-film/reaper-is-my-only-g/README.md"
+}
