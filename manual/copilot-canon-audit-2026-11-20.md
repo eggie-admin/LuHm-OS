@@ -9,6 +9,23 @@
 
 For the requested source-file comparison, the current PR branch lacks the new `doctrine/fourPillarProviderAlignmentV1.json`; other named files compared cleanly to the fetched main commit. `doctrine/currentSourceTruthV3.json:74-83` now points at this source-policy candidate, explicitly preserves `f2e4be...` as its snapshot ref, and keeps provider activation false and Crown STOP. The new file's `sourceAnchor.beforeRef` is historical `f2e4be...`; this is distinct from its merged/current source identity at `2a9cd0c...`.
 
+### Additional CI evidence — distinct pre-merge source identity
+
+GitHub Actions run [44831158832](https://github.com/eggie-admin/LuHm-OS/actions/runs/44831158832), job [136616148341](https://github.com/eggie-admin/LuHm-OS/actions/runs/44831158832/job/136616148341), completed **SUCCESS** on PR #595 head `09cb3838cc8149759617103123a614d5354e734a`, before merge. The job log confirms checkout and `LUHM_SOURCE_REF` both bound to that SHA, and printed:
+
+```text
+cellCount=1024
+GREEN_SOURCE=208
+AMBER_EXTERNAL_RECEIPT_REQUIRED=544
+AMBER_REVIEW_REQUIRED=16
+AMBER_SOURCE_GAP=0
+BLOCKED_CROWN=256
+range=0x000..0x3ff
+HEX_1024_ASSESSED_SOURCE_ONLY=PASS blockedRelease=256
+```
+
+The same job records 256- and 512-slot assessments, scoped negative/stop tests, and generation of unsigned `.deb` and private npm `.tgz` **candidate packages**. This is a real successful CI assessment/build at `09cb...`; it is not evidence that 1024 independent tests passed, that the files were installed or verified on a host/device, or that release was authorized. The uploaded artifact `hydra-hex256-deb-npm-candidates-and-1024-matrix` was temporary (artifact ID `14676690253`, SHA-256 `6d517098864f7086018cc9ee05bfaa32bd077c04ce8d38c8deb5ff895b794e67`, scheduled expiry 2026-11-27). Do not carry this pre-merge CI result across the source identity: the exact-main `2a9cd0c...` counts and harmless-dummy negative controls above were rerun separately in the isolated worktree; they are **local checks**, not a GitHub Actions run on the merged SHA.
+
 Professor's request makes GitHub Copilot the default coding-review partner for this review. That is a review-routing preference, not an independent LuHm worker, a Google/OpenAI/Cloudflare execution receipt, or authority to mutate or promote. PR #595 adds `doctrine/fourPillarProviderAlignmentV1.json`; it explicitly retains the Python MCP/Render host, GitHub source authority, capability-first routing, and company quarantine (`doctrine/fourPillarProviderAlignmentV1.json:16-31,55-69,183-186`). Copilot is an optional GitHub capability with execution receipt unknown and read-only role (`doctrine/fourPillarProviderAlignmentV1.json:55-69`). `AGENTS.md:27-39` and `.github/copilot-instructions.md:21-31` preserve the guard rail and source/SQLite proof boundaries; neither authorizes agent or provider execution.
 
 ### Findings and severity
