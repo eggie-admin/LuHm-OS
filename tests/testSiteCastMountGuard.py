@@ -64,5 +64,49 @@ class SiteCastMountGuardTests(unittest.TestCase):
         self.assertEqual(result["chatGptInlineMounted"], "UNVERIFIED")
 
 
+    def test_malformed_root_captures_return_red_not_exceptions(self):
+        for tools, resource in ((None, None), ([], {}), ({}, []),
+                                ("invalid", "invalid")):
+            with self.subTest(tools=type(tools).__name__,
+                              resource=type(resource).__name__):
+                result = validate(tools, resource)
+                self.assertEqual(result["sourceAndServerContract"], "FAIL")
+                self.assertEqual(result["chatGptInlineMounted"], "UNVERIFIED")
+                self.assertEqual(result["crown"], "STOP")
+
+    def test_matching_tool_cannot_launder_malformed_siblings(self):
+        tools, resource = fixture()
+        tools["tools"].append("invalid")
+        self.assertIn("SITE_TOOLS_LIST_MALFORMED_ENTRY",
+                      validate(tools, resource)["problems"])
+        tools, resource = fixture()
+        resource["contents"].append(17)
+        self.assertIn("SITE_RESOURCE_READ_MALFORMED_ENTRY",
+                      validate(tools, resource)["problems"])
+
+    def test_malformed_tool_metadata_cannot_launder_valid_fallback(self):
+        for metadata, expected in (
+            (["invalid"], "SITE_TOOL_META_MALFORMED"),
+            ({"ui": "invalid", "openai/outputTemplate": MOBILE_URI},
+             "SITE_TOOL_UI_META_MALFORMED"),
+        ):
+            with self.subTest(metadata=metadata):
+                tools, resource = fixture()
+                tools["tools"][0]["_meta"] = metadata
+                self.assertIn(expected, validate(tools, resource)["problems"])
+
+    def test_malformed_resource_metadata_fails_closed(self):
+        for metadata, expected in (
+            (["invalid"], "SITE_RESOURCE_META_MALFORMED"),
+            ({"ui": "invalid"}, "SITE_RESOURCE_UI_META_MALFORMED"),
+        ):
+            with self.subTest(metadata=metadata):
+                tools, resource = fixture()
+                resource["contents"][0]["_meta"] = metadata
+                result = validate(tools, resource)
+                self.assertIn(expected, result["problems"])
+                self.assertEqual(result["sourceAndServerContract"], "FAIL")
+
+
 if __name__ == "__main__":
     unittest.main()
