@@ -1,0 +1,62 @@
+name: OpenAI Canon Escalation and Staged Snapshot Audit
+on:
+  pull_request:
+    paths:
+      - 'doctrine/openAiCanonEscalationSnapshotV1.json'
+      - 'tools/openAiCanonEscalationAudit.py'
+      - 'tests/testOpenAiCanonEscalationAudit.py'
+      - 'manual/openAiCanonEscalation20261104.md'
+      - '.github/workflows/openai-canon-escalation-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  source-evidence-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact candidate without persisted credentials
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Assert exact SHA
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Verify negative control tests
+        run: python3 -m unittest discover -s tests -p testOpenAiCanonEscalationAudit.py -v
+      - name: Snapshot/Canon evidence report
+        run: python3 tools/openAiCanonEscalationAudit.py --output build/openAiCanonEscalation/evidence.json
+      - name: 200-pass hard source audit
+        env:
+          LUHM_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: python3 tools/hardSystemAudit200.py
+      - name: Titan7 final form source audit
+        run: python3 tools/operationTitan7FinalFormAudit.py
+      - name: Current agent quarantine skill/source audit
+        run: python3 tools/agentSystemDeploymentAudit.py
+      - name: Plugin publication source audit
+        run: python3 tools/pluginPublicationAudit.py
+      - name: Honest current source truth audit
+        run: python3 tools/fullSourceTruthAudit.py --output build/openAiCanonEscalation/full-source-truth.json
+      - name: Upload read-only nonsecret receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: luhm-openai-canon-escalation-snapshot-evidence
+          path: |
+            build/openAiCanonEscalation/
+            build/operation-titan7-final-form/
+            build/plugin-publication/source-readiness.json
+          if-no-files-found: warn
+          retention-days: 7
+      - name: No authority beyond read-only source audit
+        if: always()
+        run: |
+          echo "No OpenAI internal audit, live UI proof, paid inference or provider worker claim"
+          echo "No SQL DDL, build, deploy, auto repair, merge, publish, sign, release agent or Crown"
+          echo "GitHub snapshot refs do not equal private backup or restore proof"
