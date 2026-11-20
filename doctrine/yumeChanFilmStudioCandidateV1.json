@@ -1,0 +1,80 @@
+{
+  "schema": "luhmOs.yumeChanFilmStudioCandidate.v1",
+  "status": "PRIVATE_SKILLS_PLUGIN_UPDATED_STATIC_POC_ONLY",
+  "date": "2026-11-20",
+  "authority": {
+    "automaticMerge": false,
+    "automaticBuild": false,
+    "automaticPostToInstagram": false,
+    "automaticCloudflareDns": false,
+    "automaticRelease": false,
+    "automaticCrown": false
+  },
+  "boss": "lum",
+  "plugin": {
+    "existingName": "pirate-daddy-yume-film",
+    "displayName": "Yume-chan • Film Studio",
+    "version": "0.3.0",
+    "privateAccountRelease": "UPDATED_AND_READ_BACK",
+    "preservedExistingSkills": [
+      "yume-film-director",
+      "titan-film-desk"
+    ],
+    "newSkill": "yume-chan-pocket-editor",
+    "staticAssetDir": "assets/yume-chan-pocket-studio",
+    "hosting": "NONE",
+    "cameraOnSamsung": "NOT_PHYSICALLY_TESTED",
+    "noBackendMcpToolsCreated": true
+  },
+  "staticProof": {
+    "navigation": "XMB-inspired mobile tabs",
+    "html5": true,
+    "jqueryBundledVersion": "3.6.1",
+    "localCamera": "MediaRecorder only on supported secure origins",
+    "localFileImport": true,
+    "videoScrub": true,
+    "inOutMarks": true,
+    "edlSchema": "pirateDaddyFilm.edl.v1",
+    "effects": [
+      "none",
+      "stressShake",
+      "hardMono"
+    ],
+    "localVideoUploads": false,
+    "cloudflareStaticSiteDeployment": "NOT_PERFORMED",
+    "githubSourceDeployment": "NOT_PERFORMED",
+    "editedMp4Render": "NOT_IMPLEMENTED_IN_STATIC_DEMO",
+    "browserTests": "NODE_JS_SYNTAX_AND_STATIC_STRUCTURE_ONLY"
+  },
+  "backend": {
+    "relatedCandidatePr": 594,
+    "project": "Reaper Is My Only G",
+    "pythonServer": "host/titan-film-desk/titan_film.py",
+    "repositoryHeadStatus": "DRAFT_NOT_IN_MAIN",
+    "copilotSecurityHighIssues": [
+      "Untrusted-media FFmpeg protocol allowlist missing",
+      "Bearer token printed to logs"
+    ],
+    "mergeGate": "STOP_UNTIL_PATCH_REVIEW_EXACT_CI_AND_PRIVATE_RUNTIME_PROOF"
+  },
+  "storage": {
+    "phoneOriginals": "USER_OWNED_LOCAL_AND_PRIVATE_DRIVE",
+    "sql": "METADATA_ONLY",
+    "github": "SOURCE_AND_SANITIZED_RECEIPTS_ONLY",
+    "cloudflare": "STATIC_WEB_ASSETS_ONLY",
+    "uploadPrivateVideoToCloud": false
+  },
+  "rolePolicy": {
+    "yumeCanonicalId": "yume",
+    "lumBoss": true,
+    "urdSecurity": true,
+    "skuldCopilotReview": true,
+    "belldandyReceipts": true,
+    "companyQuarantine": "QUARANTINED"
+  },
+  "sourceProof": {
+    "sourceAnchor": "2a9cd0c9d544c156655213bad0736caa204cd226",
+    "recoverySnapshotBranch": "snapshot/pre-llama3-yume-chan-20261120-2a9cd0c9"
+  },
+  "crownStatus": "STOP"
+}

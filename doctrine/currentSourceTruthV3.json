@@ -82,6 +82,20 @@
     "automaticMergeOrDeployment": false,
     "crownStatus": "STOP"
   },
+  "pluginProofOfConcept20261120": {
+    "llama3Contract": "doctrine/llama3PluginCandidateV1.json",
+    "yumeChanContract": "doctrine/yumeChanFilmStudioCandidateV1.json",
+    "tutorial": "manual/llama3YumeChanPocketFilm20261120.md",
+    "sourceBeforeChange": "2a9cd0c9d544c156655213bad0736caa204cd226",
+    "snapshotBranch": "snapshot/pre-llama3-yume-chan-20261120-2a9cd0c9",
+    "privatePluginReleasesSaved": true,
+    "runtimeModelExecutionProven": false,
+    "cameraDeviceProven": false,
+    "cloudflareSiteDeployed": false,
+    "status": "PRIVATE_PLUGIN_PACKAGES_SAVED_SOURCE_ONLY_CANDIDATE",
+    "promotion": false,
+    "crownStatus": "STOP"
+  },
   "providerLayer": {
     "bigBrotherCovenant": "doctrine/bigBrotherCovenantV1.json",
     "providerEconomy": "doctrine/providerEconomyV1.json",
