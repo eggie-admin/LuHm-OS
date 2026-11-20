@@ -1,0 +1,12 @@
+.titan-private-cache/
+*.sqlite3
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.zip
+*.log
+__pycache__/
+.env
+.env.*
+!*.example
