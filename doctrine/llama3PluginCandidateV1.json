@@ -1,0 +1,63 @@
+{
+  "schema": "luhmOs.llama3PluginCandidate.v1",
+  "status": "PRIVATE_SKILLS_PLUGIN_INSTALLED_NO_INFERENCE_RUNTIME_PROOF",
+  "date": "2026-11-20",
+  "authority": "Professor",
+  "product": "LuHm OS",
+  "boss": "lum",
+  "plugin": {
+    "portableName": "llama3-luhm-canon",
+    "version": "0.1.0",
+    "privateAccountRelease": "SAVED_AND_READ_BACK",
+    "capability": "modelSetupAndLocalInferenceProof",
+    "hosting": "NONE",
+    "ownApiServer": false,
+    "modelWeightsIncluded": false,
+    "localProbeIncluded": true,
+    "liveModelRunning": false
+  },
+  "canonicalReferences": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/fourPillarProviderAlignmentV1.json",
+    "doctrine/python3ControlPlaneLawV1.json",
+    "doctrine/luhmAiControlPlaneV1.json",
+    "doctrine/apiSpineV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json"
+  ],
+  "modelPolicy": {
+    "modelFamily": "Meta Llama 3 candidate",
+    "actualModelVariant": "UNSELECTED",
+    "modelWeights": "NOT_DOWNLOADED",
+    "modelLicense": "MUST_VERIFY_EXACT_REVISION_AND_ALLOWED_USE",
+    "hardware": "UNPROVEN",
+    "inferenceAdapter": "optional owner-invoked loopback-only Python stdlib probe",
+    "samsungEdgeGallery": "NO_DEVICE_RECEIPT",
+    "huggingFaceAuthentication": "NOT_MODEL_LICENSE_OR_RUNTIME_PROOF",
+    "cloudflareWorkersAi": "SEPARATE_OPTIONAL_INFERENCE_CANDIDATE"
+  },
+  "rolePolicy": {
+    "noFifthBoss": true,
+    "capabilityFirstProviderSecond": true,
+    "existingFourPillarVendorRolesPreserved": true,
+    "registeredAgents": 15,
+    "companyExecutionQuarantine": "QUARANTINED",
+    "noUnboundedAgentRelay": true
+  },
+  "security": {
+    "publicRepoSecrets": false,
+    "publicMedia": false,
+    "autoInstallWeights": false,
+    "autoProviderCalls": false,
+    "autoSpending": false,
+    "autoDeploy": false,
+    "autoMerge": false,
+    "autoCrown": false
+  },
+  "sourceProof": {
+    "sourceAnchor": "2a9cd0c9d544c156655213bad0736caa204cd226",
+    "recoverySnapshotBranch": "snapshot/pre-llama3-yume-chan-20261120-2a9cd0c9",
+    "githubSourceOnly": true,
+    "privatePluginSaveNotHostInference": true
+  },
+  "crownStatus": "STOP"
+}
