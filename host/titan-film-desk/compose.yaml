@@ -1,0 +1,20 @@
+name: operation-titan7-film-desk
+services:
+  private-film-desk:
+    build: .
+    image: operation-titan7-film-desk:local
+    restart: "no"
+    environment:
+      TITAN_TOKEN: "${TITAN_TOKEN:?Set a strong local token in your environment first}"
+      TITAN_MEDIA_ROOT: /data
+    ports:
+      - "127.0.0.1:8786:8786"
+    volumes:
+      - "${TITAN_PRIVATE_CACHE:-./.titan-private-cache}:/data"
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8786/healthz',timeout=4)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    security_opt:
+      - no-new-privileges:true
