@@ -26,7 +26,7 @@ jobs:
           for m in re.finditer(r'<article class="card"(?P<inner>.*?)</article>',doc,re.S):
               s=m.group('inner');i=re.search(r'data-id="(arc_\d+)"',s);t=re.search(r'data-title="([^"]+)"',s);v=re.search(r'<video[^>]*src="([^"]+)"',s)
               if i and t and v: catalog[i.group(1)]={'title':html.unescape(t.group(1)),'url':v.group(1)}
-          ids=["arc_00569","arc_00950","arc_01267","arc_01313","arc_01398","arc_01407","arc_01556","arc_01588","arc_01663","arc_01800","arc_01874"]
+          ids=["arc_01874"]
           outdir=Path('intake');outdir.mkdir(exist_ok=True)
           receipts=[];total=0
           for i in ids:
@@ -34,14 +34,14 @@ jobs:
                   receipts.append({'id':i,'status':'SKIPPED_NOT_IN_ARCHIVE'});continue
               item=catalog[i];filename=f'{i}_{re.sub(r"[^A-Za-z0-9]+","_",item["title"])[:50]}.mp4'
               record={'id':i,'title':item['title'],'source':'https://footorage.com/footage/','url':item['url'],'license':'CC0 asserted by Footorage','license_url':'https://footorage.com/faq/','filename':filename}
-              if total>350_000_000:
+              if total>240_000_000:
                   receipts.append({**record,'status':'SKIPPED_BATCH_LIMIT'});continue
               try:
                   with urlopen(Request(item['url'],headers={'User-Agent':'Mozilla/5.0 (PirateDaddyFilm public CC0 footage archival workflow)'}),timeout=90) as response, (outdir/filename).open('wb') as dest:
                       digest=hashlib.sha256();size=0
                       while chunk:=response.read(1024*1024):
                           size+=len(chunk)
-                          if size>90_000_000 or total+size>290_000_000: raise ValueError('batch or per clip size limit')
+                          if size>230_000_000 or total+size>2230_000_000: raise ValueError('batch or per clip size limit')
                           digest.update(chunk);dest.write(chunk)
                   with (outdir/filename).open('rb') as f:header=f.read(12)
                   if size<12000 or header[4:8]!=b'ftyp':raise ValueError('non-MP4 or truncated bytes')
@@ -62,7 +62,7 @@ jobs:
       - name: Upload approved-source stock batch for private film catalog
         uses: actions/upload-artifact@v4
         with:
-          name: reaper-cc0-footorage-batch-remaining11
+          name: reaper-cc0-footorage-machine-aisle
           path: intake/
           retention-days: 1
           if-no-files-found: error
