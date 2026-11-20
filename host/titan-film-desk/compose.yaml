@@ -10,7 +10,7 @@ services:
     ports:
       - "127.0.0.1:8786:8786"
     volumes:
-      - "${TITAN_PRIVATE_CACHE:-./.titan-private-cache}:/data"
+      - titan-private-cache:/data
     healthcheck:
       test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8786/healthz',timeout=4)"]
       interval: 30s
@@ -18,3 +18,5 @@ services:
       retries: 3
     security_opt:
       - no-new-privileges:true
+volumes:
+  titan-private-cache:

@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Check runtime
         run: |
           python3 --version
@@ -60,3 +60,6 @@ jobs:
           docker build -t titan-film-desk:test host/titan-film-desk
           docker run --rm titan-film-desk:test python3 titan_film.py --help
           docker run --rm --entrypoint id titan-film-desk:test -u
+          docker volume create titan-film-desk-proof
+          docker run --rm --mount source=titan-film-desk-proof,target=/data titan-film-desk:test python3 titan_film.py --root /data list
+          docker volume rm titan-film-desk-proof

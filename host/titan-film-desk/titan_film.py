@@ -7,6 +7,7 @@ Files on Drive are authoritative; cached imports are only working copies.
 from __future__ import annotations
 
 import argparse
+from contextlib import contextmanager
 import hashlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
@@ -25,9 +26,19 @@ from urllib.parse import unquote, urlparse
 HERE = Path(__file__).resolve().parent
 FORMATS = {'.mp4', '.mov', '.mkv', '.webm', '.m4v', '.avi'}
 MAX_UPLOAD_BYTES = 500_000_000
+MAX_TOTAL_MEDIA_BYTES = 2_000_000_000
+MAX_GENERATED_FILE_BYTES = 256_000_000
 SCHEMA = 'pirateDaddyFilm.edl.v1'
 MEDIA_ID = re.compile(r'^[a-f0-9]{24}$')
 ALLOWED_EFFECTS = {'none', 'stressShake', 'hardMono'}
+
+
+class ProcessingBusyError(RuntimeError):
+    pass
+
+
+def input_args(path: Path, protocols: str = 'file,pipe') -> tuple[str, ...]:
+    return ('-protocol_whitelist', protocols, '-i', str(path))
 
 
 def digest_file(path: Path) -> str:
@@ -43,8 +54,8 @@ def run(*cmd: str, timeout: int = 240) -> subprocess.CompletedProcess:
 
 
 def probe(path: Path) -> dict:
-    data = json.loads(run('ffprobe', '-v', 'error', '-show_format', '-show_streams',
-                          '-of', 'json', str(path)).stdout)
+    data = json.loads(run('ffprobe', '-protocol_whitelist', 'file,pipe', '-v', 'error',
+                          '-show_format', '-show_streams', '-of', 'json', '-i', str(path)).stdout)
     video = next((s for s in data.get('streams', []) if s.get('codec_type') == 'video'), None)
     if not video:
         raise ValueError('No video stream found; media rejected')
@@ -63,6 +74,7 @@ class Studio:
         for folder in ('imports', 'cache', 'exports'):
             (self.root / folder).mkdir(exist_ok=True, mode=0o700)
         self.db = self.root / 'titan.sqlite3'
+        self.processing_lock = threading.BoundedSemaphore(1)
         with self.connection() as conn:
             conn.executescript('''
               CREATE TABLE IF NOT EXISTS media_assets (
@@ -82,6 +94,24 @@ class Studio:
     def connection(self):
         return sqlite3.connect(self.db, timeout=30)
 
+    def storage_bytes(self) -> int:
+        return sum(path.stat().st_size for folder in ('imports', 'cache', 'exports')
+                   for path in (self.root / folder).rglob('*')
+                   if not path.is_symlink() and path.is_file())
+
+    def ensure_storage_capacity(self, additional_bytes: int = 0):
+        if additional_bytes < 0 or self.storage_bytes() + additional_bytes > MAX_TOTAL_MEDIA_BYTES:
+            raise ValueError('Total working media/cache storage limit reached')
+
+    @contextmanager
+    def processing_job(self):
+        if not self.processing_lock.acquire(blocking=False):
+            raise ProcessingBusyError('Media processing is busy; retry when the current job completes')
+        try:
+            yield
+        finally:
+            self.processing_lock.release()
+
     def ingest(self, source: Path, name: str | None = None) -> dict:
         source = source.expanduser().resolve(strict=True)
         if not source.is_file():
@@ -93,10 +123,12 @@ class Studio:
         size = source.stat().st_size
         if not 0 < size <= MAX_UPLOAD_BYTES:
             raise ValueError('File exceeds the bounded single-file intake limit')
-        facts = probe(source)
         digest = digest_file(source)
         media_id = digest[:24]
         dest = self.root / 'imports' / (media_id + ext)
+        if not dest.exists():
+            self.ensure_storage_capacity(size)
+        facts = probe(source)
         if not dest.exists():
             with tempfile.NamedTemporaryFile(dir=dest.parent, delete=False) as tmp:
                 temp_path = Path(tmp.name)
@@ -137,23 +169,27 @@ class Studio:
 
     def proxy(self, media_id: str, seconds: int = 300) -> dict:
         src, duration = self.media(media_id)
+        self.ensure_storage_capacity(MAX_GENERATED_FILE_BYTES)
         target = self.root / 'cache' / media_id
         target.mkdir(exist_ok=True)
         preview = target / 'proxy.mp4'
         sheet = target / 'contact.png'
         with tempfile.TemporaryDirectory(dir=target) as scratch:
             p = Path(scratch) / 'proxy.mp4'
-            run('ffmpeg', '-nostdin', '-hide_banner', '-loglevel', 'error', '-y', '-i', str(src),
+            run('ffmpeg', '-nostdin', '-hide_banner', '-loglevel', 'error', '-y',
+                *input_args(src),
                 '-t', str(min(seconds, 300)), '-vf', 'scale=480:-2,fps=24', '-an',
                 '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '29', '-pix_fmt', 'yuv420p',
-                '-movflags', '+faststart', str(p), timeout=600)
+                '-movflags', '+faststart', '-fs', str(MAX_GENERATED_FILE_BYTES), str(p), timeout=600)
             if not probe(p)['durationSeconds']:
                 raise ValueError('Empty proxy')
             os.replace(p, preview)
         frame_count = max(1, min(20, math.ceil(min(duration, seconds) / 8)))
-        run('ffmpeg', '-nostdin', '-hide_banner', '-loglevel', 'error', '-y', '-i', str(preview),
+        self.ensure_storage_capacity(MAX_GENERATED_FILE_BYTES)
+        run('ffmpeg', '-nostdin', '-hide_banner', '-loglevel', 'error', '-y',
+            *input_args(preview),
             '-vf', f'select=not(mod(n\\,192)),scale=160:90,tile=layout=5x4:nb_frames={frame_count}:padding=3:margin=3', '-frames:v', '1',
-            str(sheet), timeout=120)
+            '-fs', str(MAX_GENERATED_FILE_BYTES), str(sheet), timeout=120)
         return {'mediaId': media_id, 'proxySha256': digest_file(preview),
                 'contactSha256': digest_file(sheet), 'secondsCached': min(duration, seconds),
                 'status': 'PROXY_READY_PRIVATE'}
@@ -191,6 +227,7 @@ class Studio:
             scratch = Path(scratch)
             segments = []
             for idx, (src, start, length, effect) in enumerate(normalized):
+                self.ensure_storage_capacity(MAX_GENERATED_FILE_BYTES)
                 segment = scratch / f'part_{idx:02d}.mp4'
                 vf = ('scale=540:960:force_original_aspect_ratio=decrease,'
                       'pad=540:960:(ow-iw)/2:(oh-ih)/2:color=black')
@@ -200,16 +237,19 @@ class Studio:
                     vf += ',hue=s=0,eq=contrast=1.28:brightness=-0.03'
                 vf += ',fps=24'
                 run('ffmpeg', '-nostdin', '-hide_banner', '-loglevel', 'error', '-y',
-                    '-ss', f'{start:.6f}', '-i', str(src), '-t', f'{length:.6f}',
+                    '-ss', f'{start:.6f}', *input_args(src), '-t', f'{length:.6f}',
                     '-vf', vf,
                     '-an', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '27',
-                    '-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(segment), timeout=300)
+                    '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
+                    '-fs', str(MAX_GENERATED_FILE_BYTES), str(segment), timeout=300)
                 segments.append(segment)
             concat = scratch / 'concat.txt'
             concat.write_text(''.join(f"file 'part_{i:02d}.mp4'\n" for i in range(len(segments))), encoding='utf-8')
+            self.ensure_storage_capacity(MAX_GENERATED_FILE_BYTES)
             candidate = scratch / 'preview.mp4'
             run('ffmpeg', '-nostdin', '-hide_banner', '-loglevel', 'error', '-y', '-f', 'concat',
-                '-safe', '0', '-i', str(concat), '-c', 'copy', '-movflags', '+faststart', str(candidate))
+                '-safe', '0', *input_args(concat, 'concat,file,pipe'), '-c', 'copy',
+                '-movflags', '+faststart', '-fs', str(MAX_GENERATED_FILE_BYTES), str(candidate))
             details = probe(candidate)
             if not (details['width'] == 540 and details['height'] == 960):
                 raise ValueError('Output frame mismatch')
@@ -304,6 +344,15 @@ def make_handler(studio: Studio, token: str):
 
         def do_POST(self):
             if not self.authorized():
+                self.send_json(401, {'error': 'Unauthorized'}); return
+            try:
+                with studio.processing_job():
+                    self.handle_post()
+            except ProcessingBusyError:
+                self.send_json(503, {'error': 'Media processing is busy; retry later'})
+
+        def handle_post(self):
+            if not self.authorized():
                 self.send_json(401, {'error': 'Bearer token required'}); return
             path = urlparse(self.path).path
             try:
@@ -315,6 +364,7 @@ def make_handler(studio: Studio, token: str):
                     suffix = Path(name).suffix.lower()
                     if suffix not in FORMATS:
                         raise ValueError('Unsupported input extension')
+                    studio.ensure_storage_capacity(size)
                     with tempfile.NamedTemporaryFile(dir=studio.root / 'imports', suffix=suffix, delete=False) as temp:
                         temp_path = Path(temp.name)
                         remaining = size
@@ -362,8 +412,9 @@ def main():
     else:
         if args.bind not in ('127.0.0.1', '::1', '0.0.0.0'):
             parser.error('Explicit network binding required')
-        token = os.getenv('TITAN_TOKEN') or secrets.token_urlsafe(28)
-        print('TITAN_TOKEN=' + token, flush=True)
+        token = os.getenv('TITAN_TOKEN', '')
+        if len(token) < 24:
+            parser.error('TITAN_TOKEN must be configured with at least 24 characters')
         print('Listening on http://' + args.bind + ':' + str(args.port) + ' (API requires token)', flush=True)
         ThreadingHTTPServer((args.bind, args.port), make_handler(st, token)).serve_forever()
         return

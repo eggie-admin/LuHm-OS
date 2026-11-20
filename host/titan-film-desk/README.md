@@ -19,10 +19,11 @@ Do not replace the existing `.devcontainer/` image. In the on-demand Codespace t
 
 ```bash
 cd host/titan-film-desk
+export TITAN_TOKEN="$(python3 -c 'import secrets; print(secrets.token_urlsafe(32))')"
 python3 titan_film.py serve --port 8786
 ```
 
-Open port **8786 as PRIVATE only** in the Codespaces Ports tab. In the first terminal output, copy the newly generated bearer token into the HTML form and then clear the terminal if it will be shared. Do **not** publish the port or paste the token into GitHub or chat.
+The worker requires a `TITAN_TOKEN` of at least 24 characters and never prints it. Keep the environment private; enter the token in the editor form. Open port **8786 as PRIVATE only** in the Codespaces Ports tab. Do **not** publish the port or paste the token into GitHub or chat.
 
 For a local test without exposing a port:
 
@@ -41,7 +42,7 @@ export TITAN_TOKEN="$(python3 -c 'import secrets; print(secrets.token_urlsafe(32
 docker compose up --build
 ```
 
-`compose.yaml` binds to localhost only. No Docker, Render or Cloudflare service is actually created simply by committing this source. `TITAN_PRIVATE_CACHE` can point to an authorized private folder to preserve temporary work between container rebuilds. Never commit it.
+`compose.yaml` binds to localhost only and uses a Docker-managed volume so UID 10001 can write without running as root. No Docker, Render or Cloudflare service is actually created simply by committing this source. If replacing the named volume with a host bind mount, create an authorized private folder and grant it to UID 10001 first; otherwise the non-root container cannot write there.
 
 ## User-facing file destinations
 
@@ -54,7 +55,7 @@ There is **no automatic deletion of originals**, no remote source pull without a
 
 ## Known limits
 
-- First release accepts a 500 MB video per upload. Proxies cache the first 300 seconds; long recordings need segmenting or an on-demand follow-up.
+- Each upload is limited to 500 MB; combined working media, cache and exports are limited to 2 GB. Media processing is serialized and each generated file is capped at 256 MB. Proxies cache the first 300 seconds; long recordings need segmenting or an on-demand follow-up.
 - Rendering is a **silent** rough cut. Multitrack audio, captions, precise timeline XML for a particular NLE, multi-segment long-form proxies and camera timecode reconciliation remain separate tasks.
 - Client frame steps are approximate, not frame-perfect. Export and decode verification belongs to FFmpeg.
 - Real Cloudflare Access, Codespaces Android rendering, Apache reverse proxy, Samsung APK, Pi deployment and MariaDB connections are **not yet tested**.
