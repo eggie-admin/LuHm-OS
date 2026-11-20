@@ -180,6 +180,28 @@ class FilmDeskTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.studio.render(edl)
 
+    def test_authenticated_upload_probes_extensionless_temporary_file(self):
+        token = 'private-test-token-with-at-least-24-chars'
+        server = ThreadingHTTPServer(('127.0.0.1', 0), titan_film.make_handler(self.studio, token))
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            request = urllib.request.Request(
+                f'http://127.0.0.1:{server.server_port}/api/ingest',
+                data=self.src.read_bytes(),
+                headers={'Authorization': 'Bearer ' + token, 'X-Filename': 'clip.mp4',
+                         'Content-Type': 'application/octet-stream'})
+            with urllib.request.urlopen(request) as response:
+                result = json.load(response)
+            self.assertEqual(result['status'], 'CACHED_LOCAL_WORKING_COPY')
+            self.assertEqual(len(self.studio.list_assets()), 1)
+            self.assertEqual([path.suffix for path in (self.studio.root / 'imports').iterdir()],
+                             ['.mp4'])
+        finally:
+            server.shutdown()
+            thread.join()
+            server.server_close()
+
     def assert_protocol_allowlist(self, commands, allowed):
         self.assertTrue(commands)
         for command in commands:

@@ -365,7 +365,7 @@ def make_handler(studio: Studio, token: str):
                     if suffix not in FORMATS:
                         raise ValueError('Unsupported input extension')
                     studio.ensure_storage_capacity(size)
-                    with tempfile.NamedTemporaryFile(dir=studio.root / 'imports', suffix=suffix, delete=False) as temp:
+                    with tempfile.NamedTemporaryFile(dir=studio.root / 'imports', delete=False) as temp:
                         temp_path = Path(temp.name)
                         remaining = size
                         while remaining:
