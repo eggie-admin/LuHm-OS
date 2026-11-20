@@ -1,0 +1,187 @@
+{
+  "schema": "luhmOs.fourPillarProviderAlignment.v1",
+  "status": "SOURCE_POLICY_PROPOSED_RUNTIME_UNVERIFIED",
+  "date": "2026-11-20",
+  "authority": "Professor",
+  "boss": "lum",
+  "sourceLaw": "AI proposes. Policy authorizes. CI proves. Human promotes.",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "sourceAnchor": {
+    "beforeRef": "f2e4be2224dd706d93d2dc660f536431a7d04f34",
+    "snapshotBranch": "snapshot/pre-four-pillar-canon-20261120-f2e4be22",
+    "snapshotScope": "githubCanonicalSourceOnly",
+    "otherReposDriveAndDeviceIncluded": false,
+    "snapshotIsNotLiveDeploymentProof": true
+  },
+  "intent": "Four provider/vendor specialties as human-friendly defaults, not four sovereign AI agents and not a replacement for capability-first routing.",
+  "invariants": {
+    "keepExistingLuHmApiSpine": true,
+    "keepExistingPythonMcpAndRenderHost": true,
+    "sourceAuthority": "github",
+    "professorFinalApproval": true,
+    "noAgentSelfApproval": true,
+    "companyOperationalQuarantine": "QUARANTINED",
+    "noNewAiToAiRelayLoop": true,
+    "capabilityFirstProviderSecond": true,
+    "deterministicEvidenceBeforeModelCalls": true,
+    "roleDoesNotEqualRemoteExecution": true,
+    "noSecretInPhoneBrowserGitOrBuild": true,
+    "vendorEntitlementOrCostNotAssumed": true,
+    "neverBlindlyRelayCompletePromptsBetweenProviders": true,
+    "noAutomaticMergeBuildCastDeploySignPublishOrCrown": true
+  },
+  "fourPillars": {
+    "urdGoogleAi": {
+      "canonicalAgentId": "urdDoctorGoddess",
+      "displayName": "Urd · The Doctor",
+      "preferredProviderId": "googleAi",
+      "providerAlias": "bigBrother",
+      "focus": [
+        "systemDiagnosis",
+        "technicalSupport",
+        "securityReview",
+        "compatibilityAnalysis",
+        "independentEvidenceTriage"
+      ],
+      "roleAuthority": "READ_ONLY",
+      "providerCallState": "BLOCKED_PENDING_AUTHENTICATED_DEVELOPER_API_AND_BUDGET_PROOF",
+      "independence": "Urd adjudicates evidence independently; Google suggestions remain untrusted advisory, never a medical diagnostic license or an automatic verdict.",
+      "contractRefs": [
+        "doctrine/urdClinicalSecurityPracticeV1.json",
+        "doctrine/urdEvidenceAdjudicationV1.json",
+        "doctrine/googleAiProxyDeploymentV1.json"
+      ]
+    },
+    "skuldGitHub": {
+      "canonicalAgentId": "skuldResearch",
+      "displayName": "Skuld · The Engineer",
+      "preferredProviderId": "github",
+      "optionalAssistant": "githubCopilot",
+      "focus": [
+        "repositoryInspection",
+        "codeCompatibility",
+        "technicalResearch",
+        "changeProposal",
+        "pullRequestAndCiEvidence"
+      ],
+      "roleAuthority": "READ_ONLY",
+      "providerCallState": "CONNECTED_GITHUB_REPO_READ_CONFIRMED_IN_CHAT_COPILOT_EXECUTION_NOT_ASSUMED",
+      "independence": "Skuld can challenge Copilot or CI claims; read access does not authorize source mutation or merge.",
+      "contractRefs": [
+        "agents/skuldResearchOni/SKILL.md",
+        "doctrine/studioCompatibilityFastMeshV1.json"
+      ]
+    },
+    "yumeOpenAi": {
+      "canonicalAgentId": "yume",
+      "displayName": "Yume · The Artist",
+      "preferredProviderId": "openAi",
+      "legacyImageAlias": "DALL-E",
+      "imageCapability": "openAiSupportedImageGenerationModelSelectedAtExecution",
+      "focus": [
+        "conceptArt",
+        "characterDesign",
+        "storyboards",
+        "creativeDrafts",
+        "imageGeneration",
+        "artDirection"
+      ],
+      "roleAuthority": "PLAN_ONLY",
+      "providerCallState": "OPENAI_CHAT_CONNECTED_API_IMAGE_EXECUTION_AND_COST_NOT_VERIFIED",
+      "rightsBoundary": "Private original masters stay owner-controlled; generated candidates require rights, provenance and Professor review before publication.",
+      "contractRefs": [
+        "agents/yumeArtOni/SKILL.md",
+        "doctrine/yumeCreativePipelineV1.json"
+      ]
+    },
+    "lumCloudflare": {
+      "canonicalAgentId": "lum",
+      "displayName": "Lum · The Commander",
+      "providerRole": "cloudflare",
+      "focus": [
+        "trafficPerimeter",
+        "optionalAiGatewayRouting",
+        "optionalWorkersAiInference"
+      ],
+      "roleAuthority": "PLAN_ONLY",
+      "runtimeIdentity": "Lum remains the single conversational boss and policy router; Cloudflare is an optional network/runtime provider, not Lum's identity or a new Crown authority.",
+      "cloudflareNetworkRole": "DNS and approved proxy or tunnel, current Render TLS MCP path retained",
+      "workersAiState": "OPTIONAL_CANDIDATE_NO_DEPLOYMENT_OR_MODEL_RECEIPT",
+      "aiGatewayState": "OPTIONAL_CANDIDATE_NO_AUTHENTICATED_RUNTIME_RECEIPT",
+      "providerCallState": "CLOUDFLARE_NETWORK_SOURCE_CONFIGURED_AI_EXECUTION_UNVERIFIED",
+      "contractRefs": [
+        "doctrine/cloudflareAirTrafficControllerV1.json",
+        "doctrine/apiSpineV1.json"
+      ]
+    }
+  },
+  "supportingServices": {
+    "belldandySecretary": {
+      "agentId": "belldandySecretary",
+      "role": "vendorNeutralCanonAndEvidenceContinuity",
+      "noNewAiProvider": true
+    },
+    "huggingFace": {
+      "role": "optionalLicensedModelCatalogAndSpecialistTrainer",
+      "connectorAuthenticationObserved": true,
+      "fullTokenPermissionsNotProven": true,
+      "noAutomaticModelExecution": true
+    },
+    "render": {
+      "role": "existingPythonMcpAndWebHosting",
+      "replaceOnlyAfterExactNewRuntimeProof": true,
+      "notAnAiProvider": true
+    },
+    "edgeGalleryLiteRt": {
+      "role": "optionalLocalAndroidInferenceAndReadOnlyMcpClient",
+      "androidDeviceIntegration": "UNVERIFIED"
+    },
+    "otherPlugins": {
+      "role": "convenientLeastPrivilegeAdapters",
+      "neverSourceOfTruth": true
+    }
+  },
+  "routingExamples": [
+    {
+      "intent": "Android crashes",
+      "owner": "urdDoctorGoddess",
+      "preferred": "googleAi",
+      "handoff": "skuldResearch may inspect exact GitHub source only through Lum",
+      "automaticExternalCall": false
+    },
+    {
+      "intent": "Review a code change",
+      "owner": "skuldResearch",
+      "preferred": "github",
+      "handoff": "Urd independently validates evidence if needed",
+      "automaticExternalCall": false
+    },
+    {
+      "intent": "Design original character art",
+      "owner": "yume",
+      "preferred": "openAi",
+      "handoff": "Professor reviews and approves",
+      "automaticExternalCall": false
+    },
+    {
+      "intent": "Route a request",
+      "owner": "lum",
+      "preferred": "deterministicLocal",
+      "handoff": "Cloudflare AI Gateway or Workers AI only after separate proof",
+      "automaticExternalCall": false
+    }
+  ],
+  "readinessGates": [
+    "GitHub main and snapshot anchored",
+    "source-only contract tests",
+    "Google developer API account/billing/permission proof",
+    "OpenAI image/API account/billing proof",
+    "Cloudflare Workers AI or AI Gateway account/binding proof",
+    "Render existing MCP remains functional",
+    "Samsung/Edge Gallery physical receipt only if activated"
+  ],
+  "runtimeActivation": false,
+  "sourceOnlyChanges": true,
+  "crownStatus": "STOP",
+  "promotionAuthority": "Professor"
+}
