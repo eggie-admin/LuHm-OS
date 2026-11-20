@@ -13,23 +13,44 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
-      - name: Find CC0 alternative archive source after Commons rate limit
+      - name: Download CC0 footage from alternate source and validate MP4 bytes
         shell: bash
         run: |
           set -euo pipefail
+          mkdir -p intake
           python3 - <<'PY'
-          from urllib.request import Request,urlopen
-          import re
-          url="https://footorage.com/footage/"
-          try:
-            req=Request(url,headers={"User-Agent":"Mozilla/5.0 (compatible; CC0 public film research)"})
-            with urlopen(req,timeout=30) as response:
-              html=response.read(4_000_000).decode("utf-8","replace")
-              print("FOOTORAGE",response.status,len(html),response.headers.get("Content-Type"))
-            for term in ["Smoke Drifting Past","Steel Mill Workers","\.mp4","footage-card","cdn.footorage.com","Download MP4"]:
-              matches=list(re.finditer(term,html,re.I))
-              print("MATCH",term,len(matches))
-              for m in matches[:2]:print("NEARBY",re.sub(r"\s+"," ",html[max(0,m.start()-230):m.end()+230])[:500])
-          except Exception as error:
-            print("FOOTORAGE PROBE ERROR",type(error).__name__,str(error)[:300])
+          import hashlib,json,urllib.request
+          from pathlib import Path
+          clips=[
+            {"asset_id":"FOOTORAGE_SMOKE53","title":"Smoke Drifting Past a Branch and Twig","id":"arc_00053","source":"https://footorage.com/footage/","license":"CC0 1.0","license_url":"https://footorage.com/faq/"},
+            {"asset_id":"FOOTORAGE_STEEL56","title":"Steel Mill Workers and Conveyor Belt","id":"arc_00056","source":"https://footorage.com/footage/","license":"CC0 1.0","license_url":"https://footorage.com/faq/"}
+          ]
+          output=[]
+          for clip in clips:
+            url=f"https://cdn.footorage.com/{clip['id']}_720p.mp4"
+            filename=f"{clip['asset_id']}.mp4"
+            dest=Path("intake")/filename
+            request=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0 (compatible; PirateDaddyFilmFreeAssetIntake/1.0)"})
+            with urllib.request.urlopen(request,timeout=90) as response, dest.open("wb") as out:
+              digest=hashlib.sha256(); size=0
+              while chunk:=response.read(1024*1024):
+                size+=len(chunk)
+                if size>120_000_000: raise ValueError("over per-clip bounded limit")
+                digest.update(chunk);out.write(chunk)
+            with dest.open("rb") as f:
+              header=f.read(12)
+            if size<15000 or header[4:8]!=b"ftyp": raise ValueError(f"{filename}: not an MP4, bytes={size} header={header!r}")
+            item={**clip,"url":url,"filename":filename,"bytes":size,"sha256":digest.hexdigest(),"status":"VERIFIED_MP4_IN_GITHUB_ARTIFACT"}
+            output.append(item)
+            print("VERIFIED",filename,size,digest.hexdigest())
+          Path("intake/RIGHTS_AND_HASHES.json").write_text(json.dumps(output,indent=2)+"\n")
           PY
+          if command -v ffprobe >/dev/null 2>&1; then for f in intake/*.mp4; do ffprobe -v error -show_entries format=duration -of default=nw=1 "$f"; done; fi
+          ls -lh intake
+      - name: Package CC0 archive media with credit and hash receipts
+        uses: actions/upload-artifact@v4
+        with:
+          name: reaper-cc0-footorage-test
+          path: intake/
+          retention-days: 1
+          if-no-files-found: error
