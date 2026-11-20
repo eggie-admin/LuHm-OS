@@ -82,6 +82,7 @@ def audit(rootPath):
         need(canonDoc["donorHistoryAutoMerge"] is False and canonDoc["githubRepositoryIsDnsNameserver"] is False and canonDoc["dnsDoesNotServeRepositorySource"] is True, "GitHub/repo authority confused with DNS")
         need(chainDoc["runtimeState"] == "UNVERIFIED" and chainDoc["liveMutation"] is False, "identity spine claimed live authority")
         policyDoc = spineDoc["reverseProxy"]
+        need(policyDoc.get("preferredHostProxy") == "nginx", "preferred proxy drift: NGINX is canonical, Apache is not active")
         for nameValue in ("allowForwardProxy", "trustClientForwardedHeaders", "serveRepositoryRoot", "exposeShellOrSqlAdmin", "symlinksGrantAccess"):
             need(policyDoc[nameValue] is False, "unsafe proxy policy: " + nameValue)
         need(policyDoc["unknownHostAction"] == "reject", "unknown hostname allowed")
