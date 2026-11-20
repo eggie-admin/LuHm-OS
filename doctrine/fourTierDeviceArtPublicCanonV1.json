@@ -1,0 +1,211 @@
+{
+  "schema": "luhmOs.fourTierDeviceArtPublicCanon.v1",
+  "status": "SOURCE_CANDIDATE_NOT_BUILT_OR_PUBLISHED",
+  "authority": "Professor",
+  "baseline": "69e8d2fc7df1288aaa1665efaea2bf2674056a1b",
+  "distinctFrom": "doctrine/fourTierOperatingModelV1.json",
+  "doctrine": [
+    "doctrine/currentSourceTruthV3.json",
+    "doctrine/projectChatCanonV1.json",
+    "doctrine/brandCanonV1.json",
+    "doctrine/characterCanonRegistryV1.json",
+    "game/canon/CHARACTER_CANON_V1.json",
+    "doctrine/organizationBrandRegistryV1.json",
+    "doctrine/assetEligibilityMatrixV1.json",
+    "media/public-release-art-ledger.json"
+  ],
+  "crossPlatformProduct": "LuHm-OS",
+  "world": "Project Premonition",
+  "legacyWorldAlias": "Project Hydra",
+  "stages": [
+    {
+      "id": "designToTesting",
+      "label": "Design → Testing",
+      "evidence": [
+        "asset ID and art canon source",
+        "device app prototype spec",
+        "source/static and negative tests"
+      ],
+      "promotion": false
+    },
+    {
+      "id": "propose",
+      "label": "Propose",
+      "evidence": [
+        "exact-source candidate and rollback",
+        "threat model and platform permission minimization",
+        "Professor scope review"
+      ],
+      "promotion": false
+    },
+    {
+      "id": "data",
+      "label": "Data",
+      "evidence": [
+        "device-side logs and hardware/test proof",
+        "asset hash plus creator license and consent",
+        "real app/package/build/runtime status"
+      ],
+      "promotion": false
+    },
+    {
+      "id": "final",
+      "label": "Final",
+      "evidence": [
+        "approved release hash, signer and platform acceptance",
+        "per-asset rights and Professor public approval",
+        "separate Crown release receipt"
+      ],
+      "promotion": "HUMAN_ONLY"
+    }
+  ],
+  "platforms": {
+    "samsungAndroid": {
+      "current": "EXISTING_READ_ONLY_COMPANION_PLUGIN_AND_ANDROID_WEB3_SOURCE",
+      "pluginPath": "plugins/luhm-android-beta/plugin.json",
+      "appCode": "androidWeb3Plugin/",
+      "antenna": "DEVICE_LOCAL_ONLY_PERMISSION_GATED",
+      "mustProve": [
+        "signed physical Samsung install and update",
+        "minimum Android permissions, no root needed for public tester",
+        "antenna with scoped opt-in and device SDK identity",
+        "real foreground lifecycle",
+        "touch and secure secrets"
+      ],
+      "status": "AMBER_DEVICE_AND_SIGNING"
+    },
+    "iphoneIos": {
+      "current": "NO_VERIFIED_NATIVE_IOS_APP_IN_PRIMARY_REPO",
+      "candidate": "native Godot or native secure web shell with separately verified plugin integration",
+      "hostBuild": "MACOS_XCODE_REQUIRED_FOR_GODOT_IOS_EXPORT",
+      "mustProve": [
+        "Apple Developer identity and original assets rights",
+        "macOS Xcode build and valid signing",
+        "TestFlight/device UI",
+        "native-permission prompts",
+        "compatible iOS launch and offline/error handling"
+      ],
+      "status": "NOT_IMPLEMENTED"
+    },
+    "raspberryPiLinux": {
+      "current": "LINUX_HEADLESS_CONTRACT_SOURCE_ONLY",
+      "candidate": "ARM64 distro-supported Python/Godot client plus optional kiosk",
+      "netplan": "ONLY_ON_UBUNTU_IMAGE_WHERE_NETPLAN_IS_THE_ACTIVE_NETWORK_MANAGER",
+      "x11": "OPTIONAL_NOT_REQUIRED_FOR_HEADLESS; Xvfb test only",
+      "mustProve": [
+        "exact Pi model, distro, kernel and arm64",
+        "physical boot, network and service receipt",
+        "no public MariaDB/SSH/GUI",
+        "Wayland/X11 compatibility only if kiosk required",
+        "rollback network config"
+      ],
+      "status": "NOT_DEVICE_PROVEN"
+    },
+    "windowsWsl": {
+      "current": "NO_VERIFIED_WSL_PRODUCT_CLIENT",
+      "candidate": "WSL2 dev/integration lane, native Windows app requires independent packaging",
+      "mustProve": [
+        "Windows version and WSL2 mode",
+        "WSL DNS, localhost and Windows firewall isolation",
+        "no mirrored-LAN exposure by default",
+        "no credential bridging or broad filesystem writes",
+        "Godot Web/Windows UI test"
+      ],
+      "status": "NOT_IMPLEMENTED"
+    },
+    "basementPrivateStudio": {
+      "current": "CODESPACES_WORKSHOP_SOURCE_NOT_LIVE_BASEMENT_HOST",
+      "contract": "manual/professor-ubuntu2604-basement.md",
+      "githubHandoff": "GITHUB_HOSTED_PUBLIC_SOURCE_CI_TO_PRIVATE_OWNER_APPROVED_BUILD_LANE",
+      "mustProve": [
+        "physical host ownership and backup",
+        "GitHub short-lived scoped auth/approved workflow source",
+        "private network and outbound-only connectivity",
+        "isolated ephemeral worker on private repo or local pull, no public PR execution",
+        "no SQL network listener, encrypted originals and restore test"
+      ],
+      "status": "NOT_PROVEN"
+    }
+  },
+  "crossDeviceArchitecture": {
+    "publicRepoRunnerPolicy": "NEVER_ATTACH_PERSISTENT_SELF_HOSTED_RUNNER_TO_PUBLIC_PR_WORKFLOWS",
+    "artifactFlow": "GitHub exact-source checks → reviewed manifest/hash → approved private build checkout → local validation → optional human-approved release",
+    "backend": "HTTPS/OIDC OR SHORT_LIVED_SCOPED_MACHINE_TOKENS",
+    "sql": "PRIVATE_AND_BACKEND_ONLY",
+    "permissions": "DENY_BY_DEFAULT",
+    "noPortForwarding": true,
+    "noAutomaticCloudDeployment": true,
+    "noAutomaticNewAppAccounts": true
+  },
+  "godotWeb": {
+    "engine": "Godot 4 compatibility renderer",
+    "browser": "WebAssembly + WebGL2",
+    "source": "project.godot",
+    "webExport": "host/harness/godot-export/",
+    "sourceChecks": [
+      "project.godot",
+      "tools/buildGodotWebHarness.sh",
+      "tools/godotEmbedReadinessAudit.py"
+    ],
+    "externalGates": [
+      "exact-engine export and file hashes",
+      "approved rights-cleared staged assets",
+      "CSP/WASM MIME & HTTPS",
+      "Firefox Android/iOS Safari browser proof",
+      "no remote video/WebGL equivalence claim"
+    ],
+    "remoteExecutionTruth": "WebGL executes in client browser; server hosts exported files; remote rendering/video-stream separate design",
+    "runtimeWebgl": "UNVERIFIED_THIS_AUDIT"
+  },
+  "artCanon": {
+    "authoritativeFiles": [
+      "game/canon/CHARACTER_CANON_V1.json",
+      "doctrine/characterCanonRegistryV1.json",
+      "doctrine/yumeArtDirectionCanonV1.json",
+      "media/public-release-art-ledger.json"
+    ],
+    "privateBible": "LuHm Art Magic Character Bible v0.1 — Professor-approved for roleplay/pets/visual cards only, not public release",
+    "characters": [
+      "lum",
+      "urd",
+      "belldandy",
+      "skuld"
+    ],
+    "underlyingThirdPartyCharacterRights": "NEEDS_INDEPENDENT_RIGHTS_OR_REDESIGN_REVIEW; NAMES_AND_ANIME_SOURCE_NOT_OWNED_BY_LUHM_BY_DEFAULT",
+    "privateUrdPack": "PRIVATE_ONLY_UNAPPROVED_NOT_PUBLIC_RELEASE",
+    "perAssetChain": [
+      "creator and copyright provenance",
+      "original master SHA256 and private pointer",
+      "derivative attribution/license/consent",
+      "canon validation and technical export",
+      "Professor specific asset approval",
+      "public-safe derivative SHA and distribution receipt"
+    ],
+    "generatedDraftPublicAllowed": false,
+    "defaultPublicAllowed": false,
+    "noBulkMasterUpload": true,
+    "sourceControlLicenseNotAutomaticallyArtLicense": true,
+    "copyrightRegistrationStatus": "NO_EVIDENCE_OF_FILING_OR_REGISTRATION",
+    "trademarkRegistrationStatus": "NO_EVIDENCE_OF_FILING_OR_REGISTRATION",
+    "protectiveSteps": [
+      "keep raw masters private with provenance",
+      "copyright registration candidate docket for original human authorship",
+      "USPTO clearance for wordmarks/logos before application",
+      "don't claim trademark rights merely from GitHub/domain registration",
+      "explicit AI contribution ledger and third-party rights review"
+    ]
+  },
+  "brands": {
+    "publisher": "Eggie Bagelface",
+    "product": "LuHm-OS",
+    "studio": "PIRATE DADDIES FILM",
+    "world": "Project Premonition",
+    "historicalAliasesPreserved": true,
+    "registeredMarkClaim": false
+  },
+  "publicInventory": "doctrine/publicSurfaceInventory20261104.json",
+  "crownStatus": "STOP",
+  "promotion": false,
+  "publicationAuthority": false,
+  "signingAuthority": false
+}
