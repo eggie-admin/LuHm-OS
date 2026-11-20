@@ -1,0 +1,62 @@
+name: Titan7 Film Desk scoped proof
+on:
+  push:
+    branches:
+      - candidate/operation-titan7-film-desk-20261120
+    paths:
+      - "host/titan-film-desk/**"
+      - "doctrine/titan7FilmDeskCandidateV1.json"
+      - ".github/workflows/titan7-film-desk-proof.yml"
+  pull_request:
+    paths:
+      - "host/titan-film-desk/**"
+      - "doctrine/titan7FilmDeskCandidateV1.json"
+      - ".github/workflows/titan7-film-desk-proof.yml"
+permissions:
+  contents: read
+jobs:
+  python-ffmpeg-web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check runtime
+        run: |
+          python3 --version
+          ffmpeg -version | head -1
+          ffprobe -version | head -1
+          node --version
+      - name: Python test and FFmpeg proof
+        run: |
+          python3 -m py_compile host/titan-film-desk/titan_film.py
+          python3 -m unittest discover -s host/titan-film-desk/tests -v
+      - name: Extract and parse browser JS
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          s=Path("host/titan-film-desk/web/index.html").read_text()
+          assert "<script>" in s and "</script>" in s
+          Path("/tmp/titan-film-js-check.js").write_text(s.split("<script>",1)[1].split("</script>",1)[0])
+          PY
+          node --check /tmp/titan-film-js-check.js
+      - name: Scope and Canon guard
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("doctrine/titan7FilmDeskCandidateV1.json")
+          c=json.loads(p.read_text())
+          assert c["release"]["crownStatus"]=="STOP"
+          assert c["runtime"]["existingRenderMcpUntouched"]
+          assert c["namespace"]["machineSqlDragonTail"]=="REAPER_FILM_DESK"
+          assert not c["storage"]["masterDeletionAutomatic"]
+          assert not c["storage"]["mediaBinaryInPublicGitHub"]
+          assert c["creativeProject"]=="Reaper Is My Only G"
+          print("Titan7 candidate source guard PASS")
+          PY
+          python3 tools/namingNamespaceAudit.py
+      - name: Docker build with nonroot entry
+        run: |
+          docker build -t titan-film-desk:test host/titan-film-desk
+          docker run --rm titan-film-desk:test python3 titan_film.py --help
+          docker run --rm --entrypoint id titan-film-desk:test -u
