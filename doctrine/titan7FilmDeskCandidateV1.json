@@ -1,0 +1,80 @@
+{
+  "schema": "luhmOs.operationTitan7FilmDeskCandidate.v1",
+  "status": "SOURCE_ONLY_CANDIDATE",
+  "ownerAuthority": "Professor",
+  "canonicalFunction": "LuHmOS.fn.operationTitan",
+  "buildVersion": 7,
+  "creativeProject": "Reaper Is My Only G",
+  "filmOrganization": "Pirate Daddy Film",
+  "technicalOrganization": "Pirate Daddy Studios",
+  "canonicalRepository": "eggie-admin/LuHm-OS",
+  "existingCanonRefs": [
+    "doctrine/operationTitan7ChatTriggerV2.json",
+    "doctrine/operationTitan7ExecutionSchemaV1.json",
+    "doctrine/namingNamespaceCanonV1.json",
+    "doctrine/artistFirstProductionWorkflowV1.json",
+    "doctrine/storageTopologyV1.json",
+    "doctrine/companyWideOperationalQuarantineV1.json"
+  ],
+  "namespace": {
+    "machineSqlDragonTail": "REAPER_FILM_DESK",
+    "repositoryKebabNamespace": "operation-titan7-film-desk",
+    "vowelRippedStrictCamelHump": "rprFlmDsk",
+    "fullHumanCenteredCamelHump": "reaperFilmDesk",
+    "reverseLabelIdentity": "art.eggiebagelface.LuHmOS.reaperFilmDesk",
+    "reverseLabelIsDnsOrPtrRecord": false,
+    "sqlDatabaseLogicalName": "reaperFilmDesk",
+    "sqlTablePrefix": "titan_",
+    "legacySqlNamesPreserved": true
+  },
+  "storage": {
+    "originalMediaAuthority": "ownerOnlyGoogleDrive",
+    "cacheAuthority": false,
+    "temporaryCache": "privateCodespacesOrLocalDisk",
+    "sqliteMetadataOnly": true,
+    "mariaDbFutureOptional": true,
+    "mediaBinaryInDatabase": false,
+    "mediaBinaryInPublicGitHub": false,
+    "masterDeletionAutomatic": false
+  },
+  "roles": {
+    "orchestrator": "lum",
+    "editorAndArtLead": "yumeArtOni",
+    "evidenceAudit": "urdDoctorGoddess",
+    "technicalBlocker": "skuldResearch",
+    "releaseLedger": "belldandySecretary"
+  },
+  "runtime": {
+    "localFirst": true,
+    "githubCodespace": "ON_DEMAND_ONLY",
+    "apacheHttpd": "OPTIONAL_LOCAL_PROXY_EXAMPLE",
+    "phpCms": "OPTIONAL_ISOLATED_FUTURE_MODULE",
+    "cloudflareRoutingChanges": false,
+    "existingRenderMcpUntouched": true,
+    "androidApkProof": "NOT_TESTED",
+    "raspberryPiHeadlessProof": "NOT_TESTED",
+    "vulkanDependency": false,
+    "geminiReview": "NOT_INVOKED",
+    "copilotReview": "REQUEST_ONLY_UNTIL_ACTUAL_REVIEW"
+  },
+  "capabilities": {
+    "videoUploadCopy": true,
+    "sha256Ingest": true,
+    "videoProxyAndContactSheet": true,
+    "scrubAndMark": true,
+    "humanSelectedEdl": true,
+    "silentPortraitRoughCut": true,
+    "stressShake": true,
+    "hardMonochrome": true,
+    "nativeKeyframeExport": false,
+    "musicLicenseCheck": "PER_DESTINATION",
+    "automaticPublicPost": false
+  },
+  "release": {
+    "agentRuntimeActivation": false,
+    "mergeAutomatic": false,
+    "publicDeployAutomatic": false,
+    "ownerFinalEditorialReview": true,
+    "crownStatus": "STOP"
+  }
+}
