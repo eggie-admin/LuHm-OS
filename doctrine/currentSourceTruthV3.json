@@ -71,6 +71,17 @@
     ],
     "urdEvidenceAdjudication": "doctrine/urdEvidenceAdjudicationV1.json"
   },
+  "fourPillarProviderAlignment": {
+    "contract": "doctrine/fourPillarProviderAlignmentV1.json",
+    "status": "SOURCE_POLICY_PROPOSED_RUNTIME_UNVERIFIED",
+    "snapshotBranch": "snapshot/pre-four-pillar-canon-20261120-f2e4be22",
+    "snapshotSourceRef": "f2e4be2224dd706d93d2dc660f536431a7d04f34",
+    "lumRemainsSingleBoss": true,
+    "preserveCompanyQuarantine": true,
+    "providerActivation": false,
+    "automaticMergeOrDeployment": false,
+    "crownStatus": "STOP"
+  },
   "providerLayer": {
     "bigBrotherCovenant": "doctrine/bigBrotherCovenantV1.json",
     "providerEconomy": "doctrine/providerEconomyV1.json",
