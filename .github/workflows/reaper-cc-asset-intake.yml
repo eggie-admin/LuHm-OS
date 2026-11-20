@@ -1,56 +1,45 @@
 name: Reaper CC asset intake (source-only)
 on:
   push:
-    branches:
-      - candidate/reaper-film-yume-20261120
-    paths:
-      - '.github/workflows/reaper-cc-asset-intake.yml'
+    branches: [candidate/reaper-film-yume-20261120]
+    paths: ['.github/workflows/reaper-cc-asset-intake.yml']
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  fetch-licensed-media:
+  cc0-source-catalog:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 10
     steps:
-      - name: Download CC0 footage from alternate source and validate MP4 bytes
+      - name: Extract CC0 footage index from archive
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p intake
           python3 - <<'PY'
-          import hashlib,json,urllib.request
+          from urllib.request import Request,urlopen
           from pathlib import Path
-          clips=[
-            {"asset_id":"FOOTORAGE_SMOKE53","title":"Smoke Drifting Past a Branch and Twig","id":"arc_00053","source":"https://footorage.com/footage/","license":"CC0 1.0","license_url":"https://footorage.com/faq/"},
-            {"asset_id":"FOOTORAGE_STEEL56","title":"Steel Mill Workers and Conveyor Belt","id":"arc_00056","source":"https://footorage.com/footage/","license":"CC0 1.0","license_url":"https://footorage.com/faq/"}
-          ]
-          output=[]
-          for clip in clips:
-            url=f"https://cdn.footorage.com/{clip['id']}_720p.mp4"
-            filename=f"{clip['asset_id']}.mp4"
-            dest=Path("intake")/filename
-            request=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0 (compatible; PirateDaddyFilmFreeAssetIntake/1.0)"})
-            with urllib.request.urlopen(request,timeout=90) as response, dest.open("wb") as out:
-              digest=hashlib.sha256(); size=0
-              while chunk:=response.read(1024*1024):
-                size+=len(chunk)
-                if size>120_000_000: raise ValueError("over per-clip bounded limit")
-                digest.update(chunk);out.write(chunk)
-            with dest.open("rb") as f:
-              header=f.read(12)
-            if size<15000 or header[4:8]!=b"ftyp": raise ValueError(f"{filename}: not an MP4, bytes={size} header={header!r}")
-            item={**clip,"url":url,"filename":filename,"bytes":size,"sha256":digest.hexdigest(),"status":"VERIFIED_MP4_IN_GITHUB_ARTIFACT"}
-            output.append(item)
-            print("VERIFIED",filename,size,digest.hexdigest())
-          Path("intake/RIGHTS_AND_HASHES.json").write_text(json.dumps(output,indent=2)+"\n")
+          import html,json,re
+          url='https://footorage.com/footage/'
+          with urlopen(Request(url,headers={"User-Agent":"Mozilla/5.0 (compatible; film asset indexing)"}),timeout=45) as response:
+            data=response.read(5_000_000).decode('utf-8','replace')
+          items=[]
+          for match in re.finditer(r'<article class="card"(?P<inner>.*?)</article>',data,re.S):
+            s=match.group('inner')
+            idm=re.search(r'data-id="(arc_\d+)"',s)
+            title=re.search(r'data-title="([^"]+)"',s)
+            vid=re.search(r'<video[^>]*src="([^"]+)"',s)
+            if idm and title and vid:
+              items.append({"id":idm.group(1),"title":html.unescape(title.group(1)),"url":vid.group(1),"license":"CC0 1.0 claimed by https://footorage.com/faq/"})
+          assert len(items)>1000,len(items)
+          Path('intake/FOOTORAGE_INDEX.json').write_text(json.dumps(items,indent=2)+"\n",encoding='utf-8')
+          terms=['fire','flame','smoke','rain','fog','cemetery','grave','steel','factory','mill','industrial','bridge','river','bank','office','hospital','bully','fight','crowd','city street','street','train','skyscraper','police','night','funeral','electric','power','automobile']
+          hits=[x for x in items if any(w in x['title'].lower() for w in terms)]
+          print("INDEX",len(items),"MATCHES",len(hits))
+          for x in hits[:100]:print(x['id'],x['title'])
           PY
-          if command -v ffprobe >/dev/null 2>&1; then for f in intake/*.mp4; do ffprobe -v error -show_entries format=duration -of default=nw=1 "$f"; done; fi
-          ls -lh intake
-      - name: Package CC0 archive media with credit and hash receipts
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: reaper-cc0-footorage-test
-          path: intake/
+          name: reaper-cc0-footorage-index
+          path: intake/FOOTORAGE_INDEX.json
           retention-days: 1
-          if-no-files-found: error
