@@ -1,0 +1,68 @@
+name: Reaper CC asset intake (source-only)
+on:
+  push:
+    branches: [candidate/reaper-film-yume-20261120]
+    paths: ['.github/workflows/reaper-cc-asset-intake.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cc0-stock-download-batch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Download verified CC0 historical footage with per-file receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from urllib.request import Request,urlopen
+          from urllib.error import HTTPError,URLError
+          from pathlib import Path
+          import hashlib,html,json,re,time
+          root='https://footorage.com/footage/'
+          doc=urlopen(Request(root,headers={'User-Agent':'Mozilla/5.0 (PirateDaddyFilm CC0 inventory)'}),timeout=45).read(5_000_000).decode('utf-8','replace')
+          catalog={}
+          for m in re.finditer(r'<article class="card"(?P<inner>.*?)</article>',doc,re.S):
+              s=m.group('inner');i=re.search(r'data-id="(arc_\d+)"',s);t=re.search(r'data-title="([^"]+)"',s);v=re.search(r'<video[^>]*src="([^"]+)"',s)
+              if i and t and v: catalog[i.group(1)]={'title':html.unescape(t.group(1)),'url':v.group(1)}
+          ids=["arc_01874"]
+          outdir=Path('intake');outdir.mkdir(exist_ok=True)
+          receipts=[];total=0
+          for i in ids:
+              if i not in catalog:
+                  receipts.append({'id':i,'status':'SKIPPED_NOT_IN_ARCHIVE'});continue
+              item=catalog[i];filename=f'{i}_{re.sub(r"[^A-Za-z0-9]+","_",item["title"])[:50]}.mp4'
+              record={'id':i,'title':item['title'],'source':'https://footorage.com/footage/','url':item['url'],'license':'CC0 asserted by Footorage','license_url':'https://footorage.com/faq/','filename':filename}
+              if total>240_000_000:
+                  receipts.append({**record,'status':'SKIPPED_BATCH_LIMIT'});continue
+              try:
+                  with urlopen(Request(item['url'],headers={'User-Agent':'Mozilla/5.0 (PirateDaddyFilm public CC0 footage archival workflow)'}),timeout=90) as response, (outdir/filename).open('wb') as dest:
+                      digest=hashlib.sha256();size=0
+                      while chunk:=response.read(1024*1024):
+                          size+=len(chunk)
+                          if size>230_000_000 or total+size>2230_000_000: raise ValueError('batch or per clip size limit')
+                          digest.update(chunk);dest.write(chunk)
+                  with (outdir/filename).open('rb') as f:header=f.read(12)
+                  if size<12000 or header[4:8]!=b'ftyp':raise ValueError('non-MP4 or truncated bytes')
+                  total+=size
+                  receipts.append({**record,'status':'VERIFIED_MP4_IN_GITHUB_ARTIFACT','bytes':size,'sha256':digest.hexdigest()})
+                  print('OK',i,size,item['title'])
+              except (HTTPError,URLError,ValueError,TimeoutError,Exception) as e:
+                  (outdir/filename).unlink(missing_ok=True)
+                  receipts.append({**record,'status':'SKIPPED_DOWNLOAD_ERROR','reason':type(e).__name__+': '+str(e)[:180]})
+                  print('SKIP',i,type(e).__name__,str(e)[:120])
+          Path('intake/RIGHTS_AND_HASHES_B.json').write_text(json.dumps(receipts,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+          successful=[r for r in receipts if r['status']=='VERIFIED_MP4_IN_GITHUB_ARTIFACT']
+          assert successful,'No valid clips downloaded'
+          print('SUMMARY',len(successful),'of',len(receipts),'files',total,'bytes')
+          
+          PY
+          ls -lah intake/
+      - name: Upload approved-source stock batch for private film catalog
+        uses: actions/upload-artifact@v4
+        with:
+          name: reaper-cc0-footorage-machine-aisle
+          path: intake/
+          retention-days: 1
+          if-no-files-found: error
