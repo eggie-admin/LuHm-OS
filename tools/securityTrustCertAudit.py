@@ -4,15 +4,45 @@
 Uses the operating system trusted CA store, HTTPS SNI, and hostname checking.
 Fails for invalid, expired, self-signed, non-Let's-Encrypt or too-short-lived
 certificates. Only public certificate metadata is written to stdout.
+
+PATCH (2026-11-25, staged for Crown — not yet in repo):
+Reachability failures (DNS failure, connect timeout, connection refused,
+host/network unreachable) are reported with the distinct status UNREACHABLE
+and do NOT fail the run: a host whose origin is intentionally not deployed
+yet is a known infrastructure state, not a certificate trust failure.
+Certificate trust failures on a reachable host (invalid chain, hostname
+mismatch, expired, self-signed, non-Let's-Encrypt issuer, validity below
+threshold) still report RED and fail the run. UNREACHABLE is never GREEN.
 """
 from __future__ import annotations
 import argparse
 import datetime as dt
+import errno
 import hashlib
 import json
 import socket
 import ssl
 import sys
+
+REACHABILITY_ERRNOS = {
+    errno.ETIMEDOUT,
+    errno.ECONNREFUSED,
+    errno.EHOSTUNREACH,
+    errno.ENETUNREACH,
+    errno.EHOSTDOWN,
+}
+
+
+def is_reachability_error(exc: BaseException) -> bool:
+    """True when the failure happened before any TLS trust decision."""
+    if isinstance(exc, ssl.SSLError):
+        return False  # a TLS-layer failure is a trust failure, conservatively
+    if isinstance(exc, (socket.gaierror, ConnectionRefusedError,
+                        TimeoutError, socket.timeout)):
+        return True
+    if isinstance(exc, OSError) and exc.errno in REACHABILITY_ERRNOS:
+        return True
+    return False
 
 
 def probe(host: str, min_valid_days: int, timeout: float) -> dict:
@@ -74,16 +104,24 @@ def main() -> int:
         p.error("min-valid-days must be nonnegative; timeout positive")
     results = []
     failed = False
+    unreachable = False
     for host in dict.fromkeys(opts.host):
         try:
             value = probe(host, opts.min_valid_days, opts.timeout)
         except (OSError, ssl.SSLError, ValueError, KeyError) as exc:
-            value = {"hostname": host, "status": "RED", "error": str(exc)}
-            failed = True
+            if not isinstance(exc, ValueError) and is_reachability_error(exc):
+                value = {"hostname": host, "status": "UNREACHABLE",
+                         "error": str(exc)}
+                unreachable = True
+            else:
+                value = {"hostname": host, "status": "RED", "error": str(exc)}
+                failed = True
         results.append(value)
     if opts.json:
         print(json.dumps({"schema": "luhmOs.publicTlsTrustReceipt.v1",
-                          "results": results, "allGreen": not failed}, indent=2))
+                          "results": results,
+                          "allGreen": not failed and not unreachable,
+                          "anyUnreachable": unreachable}, indent=2))
     else:
         for item in results:
             print(item["hostname"], item["status"],
